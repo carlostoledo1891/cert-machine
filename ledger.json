@@ -1,0 +1,568 @@
+{
+ "generatedAt": null,
+ "families": [
+  {
+   "name": "chowla-cosine",
+   "statement": "a finite integer set whose certified Chowla merit c = -min f_A / sqrt|A| falls below 1",
+   "counts": {
+    "generated": 400000,
+    "screened": 1579,
+    "duplicates": 0,
+    "certified": 600,
+    "hits": 587,
+    "rejects": 13,
+    "refused": 0
+   },
+   "ms": 149284,
+   "truncated": true
+  },
+  {
+   "name": "newman-minmod",
+   "statement": "an n-term Newman polynomial whose certified min|f| on |z|=1 exceeds every value achievable with fewer terms",
+   "counts": {
+    "generated": 400000,
+    "screened": 7,
+    "duplicates": 3,
+    "certified": 4,
+    "hits": 4,
+    "rejects": 0,
+    "refused": 0
+   },
+   "ms": 59942,
+   "truncated": false
+  }
+ ],
+ "conjectures": [
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,4,6,7,8]",
+   "text": "certified Chowla merit c <= 0.6498628271515711 for the 6-element set [1,2,4,6,7,8]",
+   "enclosure": [
+    0.6498628271515705,
+    0.6498628271515711
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 6,
+    "A": [
+     1,
+     2,
+     4,
+     6,
+     7,
+     8
+    ],
+    "degree": 8,
+    "cEnclosure": [
+     0.6498628271515705,
+     0.6498628271515711
+    ]
+   },
+   "closedForm": {
+    "tested": 1071,
+    "refuted": 1071,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,5,6,7,8]",
+   "text": "certified Chowla merit c <= 0.7156588796059644 for the 7-element set [1,2,3,5,6,7,8]",
+   "enclosure": [
+    0.7156588796059639,
+    0.7156588796059644
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 7,
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8
+    ],
+    "degree": 8,
+    "cEnclosure": [
+     0.7156588796059639,
+     0.7156588796059644
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,5,7,8,9,10]",
+   "text": "certified Chowla merit c <= 0.7159675818506821 for the 8-element set [1,2,3,5,7,8,9,10]",
+   "enclosure": [
+    0.7159675818506815,
+    0.7159675818506821
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 8,
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     7,
+     8,
+     9,
+     10
+    ],
+    "degree": 10,
+    "cEnclosure": [
+     0.7159675818506815,
+     0.7159675818506821
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,4,6,8,9,10]",
+   "text": "certified Chowla merit c <= 0.7251273020447072 for the 7-element set [1,2,4,6,8,9,10]",
+   "enclosure": [
+    0.7251273020447067,
+    0.7251273020447072
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 7,
+    "A": [
+     1,
+     2,
+     4,
+     6,
+     8,
+     9,
+     10
+    ],
+    "degree": 10,
+    "cEnclosure": [
+     0.7251273020447067,
+     0.7251273020447072
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,4,5,6,9,10]",
+   "text": "certified Chowla merit c <= 0.7422227192150118 for the 6-element set [1,4,5,6,9,10]",
+   "enclosure": [
+    0.7422227192150113,
+    0.7422227192150118
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 6,
+    "A": [
+     1,
+     4,
+     5,
+     6,
+     9,
+     10
+    ],
+    "degree": 10,
+    "cEnclosure": [
+     0.7422227192150113,
+     0.7422227192150118
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,4,6,7,8,9,10]",
+   "text": "certified Chowla merit c <= 0.7647828198105501 for the 9-element set [1,2,3,4,6,7,8,9,10]",
+   "enclosure": [
+    0.7647828198105494,
+    0.7647828198105501
+   ],
+   "width": 6.661338147750939e-16,
+   "extra": {
+    "n": 9,
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "degree": 10,
+    "cEnclosure": [
+     0.7647828198105494,
+     0.7647828198105501
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,7,8,9,10,11]",
+   "text": "certified Chowla merit c <= 0.7803133529849864 for the 8-element set [1,2,3,7,8,9,10,11]",
+   "enclosure": [
+    0.7803133529849857,
+    0.7803133529849864
+   ],
+   "width": 6.661338147750939e-16,
+   "extra": {
+    "n": 8,
+    "A": [
+     1,
+     2,
+     3,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "degree": 11,
+    "cEnclosure": [
+     0.7803133529849857,
+     0.7803133529849864
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,4,8,9,10,11,12,13]",
+   "text": "certified Chowla merit c <= 0.7850279374764773 for the 10-element set [1,2,3,4,8,9,10,11,12,13]",
+   "enclosure": [
+    0.7850279374764767,
+    0.7850279374764773
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 10,
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13
+    ],
+    "degree": 13,
+    "cEnclosure": [
+     0.7850279374764767,
+     0.7850279374764773
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,8,9,10,11,12]",
+   "text": "certified Chowla merit c <= 0.7916876362618034 for the 8-element set [1,2,3,8,9,10,11,12]",
+   "enclosure": [
+    0.7916876362618027,
+    0.7916876362618034
+   ],
+   "width": 6.661338147750939e-16,
+   "extra": {
+    "n": 8,
+    "A": [
+     1,
+     2,
+     3,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "degree": 12,
+    "cEnclosure": [
+     0.7916876362618027,
+     0.7916876362618034
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,4,5,6]",
+   "text": "certified Chowla merit c <= 0.7922422302930477 for the 6-element set [1,2,3,4,5,6]",
+   "enclosure": [
+    0.7922422302930472,
+    0.7922422302930477
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 6,
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "degree": 6,
+    "cEnclosure": [
+     0.7922422302930472,
+     0.7922422302930477
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,4,6,7]",
+   "text": "certified Chowla merit c <= 0.7935407944630679 for the 6-element set [1,2,3,4,6,7]",
+   "enclosure": [
+    0.7935407944630674,
+    0.7935407944630679
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 6,
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7
+    ],
+    "degree": 7,
+    "cEnclosure": [
+     0.7935407944630674,
+     0.7935407944630679
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,6,7,8,9,10]",
+   "text": "certified Chowla merit c <= 0.7955120344248635 for the 8-element set [1,2,3,6,7,8,9,10]",
+   "enclosure": [
+    0.795512034424863,
+    0.7955120344248635
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 8,
+    "A": [
+     1,
+     2,
+     3,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "degree": 10,
+    "cEnclosure": [
+     0.795512034424863,
+     0.7955120344248635
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "newman-minmod",
+   "key": "[0,1,2,3,4,7,8,10,12]",
+   "text": "min|f| >= 1.3623731781333241 for the 9-term set [0,2,4,5,8,9,10,11,12], exceeding 1.3111013028723257",
+   "enclosure": [
+    1.3623731781333241,
+    1.3623731781333246
+   ],
+   "width": 4.440892098500626e-16,
+   "extra": {
+    "n": 9,
+    "A": [
+     0,
+     2,
+     4,
+     5,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "degree": 12,
+    "modSq": [
+     1.8560606764970946,
+     1.8560606764970948
+    ],
+    "barSq": 1.7189866263935099
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "newman-minmod",
+   "key": "[0,1,2,4,5,9,11,17]",
+   "text": "min|f| >= 1.2549331390311127 for the 8-term set [0,6,8,12,13,15,16,17], exceeding 1.1018829384861857",
+   "enclosure": [
+    1.2549331390311127,
+    1.2549331390311134
+   ],
+   "width": 6.661338147750939e-16,
+   "extra": {
+    "n": 8,
+    "A": [
+     0,
+     6,
+     8,
+     12,
+     13,
+     15,
+     16,
+     17
+    ],
+    "degree": 17,
+    "modSq": [
+     1.5748571834384826,
+     1.5748571834384832
+    ],
+    "barSq": 1.2141460101269514
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "newman-minmod",
+   "key": "[0,1,2,6,11,14]",
+   "text": "min|f| >= 1.0130074540165868 for the 6-term set [0,3,8,12,13,14], exceeding 1",
+   "enclosure": [
+    1.0130074540165868,
+    1.0130074540165874
+   ],
+   "width": 6.661338147750939e-16,
+   "extra": {
+    "n": 6,
+    "A": [
+     0,
+     3,
+     8,
+     12,
+     13,
+     14
+    ],
+    "degree": 14,
+    "modSq": [
+     1.0261841018931677,
+     1.0261841018931679
+    ],
+    "barSq": 1
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "newman-minmod",
+   "key": "[0,1,4,5,10,12]",
+   "text": "min|f| >= 1.0092308306986966 for the 6-term set [0,2,7,8,11,12], exceeding 1",
+   "enclosure": [
+    1.0092308306986966,
+    1.009230830698697
+   ],
+   "width": 4.440892098500626e-16,
+   "extra": {
+    "n": 6,
+    "A": [
+     0,
+     2,
+     7,
+     8,
+     11,
+     12
+    ],
+    "degree": 12,
+    "modSq": [
+     1.0185468696327815,
+     1.0185468696327817
+    ],
+    "barSq": 1
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  }
+ ],
+ "relations": [],
+ "totals": {
+  "generated": 800000,
+  "certified": 604,
+  "conjectures": 16,
+  "closedFormTested": 17151,
+  "closedFormRefuted": 17151,
+  "closedFormCandidates": 0
+ }
+}

@@ -54,7 +54,7 @@
   "patches": [
     {
       "file": "instruments/trigmin/certify-min.js",
-      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) — the marker IS the package root, and no file counts hops.",
+      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) \u2014 the marker IS the package root, and no file counts hops.",
       "replace": [
         [
           "const IV = require(path.join(__dirname, '..', '..', '..', 'core', 'interval', 'interval.js'));",
@@ -68,7 +68,7 @@
     },
     {
       "file": "instruments/trigmin/cheb.js",
-      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) — the marker IS the package root, and no file counts hops.",
+      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) \u2014 the marker IS the package root, and no file counts hops.",
       "replace": [
         [
           "const IV = require(path.join(__dirname, '..', '..', '..', 'core', 'interval', 'interval.js'));",
@@ -87,6 +87,16 @@
         [
           "const IV = require('../../../core/interval/interval.js'); */",
           "const IV = require('#instruments/interval/interval.js'); */"
+        ]
+      ]
+    },
+    {
+      "file": "machine/funnel/funnel.js",
+      "why": "The completeness certificate was gated on gen.name === 'enum' rather than on the four conditions it actually rests on. A generator that exhausted its declared box, audited every reject, and produced no REFUSED and no schema-invalid candidate earned the certificate and was refused it for having a different name. Removing the name test leaves the four real conditions untouched \u2014 this deletes a refusal, it does not add a check.",
+      "replace": [
+        [
+          "if (gen.name === 'enum' && generatorDone && rejectAuditRate >= 1 && counts.schemaInvalid === 0 && counts.certified.REFUSED === 0 && wantN === rejects.length) {",
+          "if (generatorDone && rejectAuditRate >= 1 && counts.schemaInvalid === 0 && counts.certified.REFUSED === 0 && wantN === rejects.length) {"
         ]
       ]
     }

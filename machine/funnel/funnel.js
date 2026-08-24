@@ -903,7 +903,7 @@ async function runFunnel(instanceDir, opts) {
 
   const boxDesc = describeBox(target, gen.name, counts.generated, generatorDone);
   let exhaustionCertificate = null;
-  if (gen.name === 'enum' && generatorDone && rejectAuditRate >= 1 && counts.schemaInvalid === 0 && counts.certified.REFUSED === 0 && wantN === rejects.length) {
+  if (generatorDone && rejectAuditRate >= 1 && counts.schemaInvalid === 0 && counts.certified.REFUSED === 0 && wantN === rejects.length) {
     /* the whole declared box was enumerated AND every screen-reject was
        certified in the audit — every candidate in the box carries a verdict,
        so completeness of the hit census is earned, not asserted */

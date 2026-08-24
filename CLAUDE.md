@@ -1,108 +1,54 @@
-# CLAUDE.md — cert-machine
+# cert-machine — the conjecture engine
 
-Read `CHARTER.md` first: one page, and it is the only doctrine here.
-`PLAN.md` is the build plan and the ideas behind it.
+Generate mathematical objects at scale, screen in float, **certify the survivors exactly**,
+and hunt closed forms for what survives. The Ramanujan-Machine shape with the part they
+disclaim: their hits are truncated-decimal collisions plus a probability argument; ours are
+interval enclosures and exact rational decisions. A REFUTED here is proved.
 
-**This repo has no gates.** Nothing blocks. If you are looking for permission, there isn't
-any — read `CHARTER.md` §"The distinction" so you know which disciplines are load-bearing
-(they are instruments, and turning one off is a recorded choice, not a forbidden one).
-
----
-
-## THE ONE RULE — `sin-mfg` is read-only, permanently
-
-**Owner ruling, 2026-08-24.** `/Users/carlostoledo/Documents/sin-mfg` is the source lab.
-
-> **Read any file there, at any time, for insights, answers, numbers, research,
-> literature, learnings, engine, instruments — anything. NEVER edit a file. NEVER change
-> the tree.**
-
-Reading needs no permission and no announcement. Grep it, mine its `brain/`, `ledger/`,
-`missions/` and `research/probes/`, follow its records, take its measured numbers.
-
-**Never:** edit, create, delete, move, `git add`/`commit`/`checkout`/`stash`, or change
-that tree in any way — including a fix you are sure is right. **If you find an error there,
-report it; do not repair it.**
-
-Why the asymmetry is not fussiness: it is a live lab whose evidence pins files by **path and
-sha256**. A run record names a kernel by path and hash, so editing or moving a pinned file
-makes the pin resolve to nothing, fails the rung predicate, and **demotes a certified
-claim** — and the record cannot be re-stamped to match without falsifying what the run was
-performed against. A one-line edit does invisible, expensive damage. The owner also runs
-sessions in that tree concurrently.
-
-**How to take something:** copy outward through `LIFT.json`, which records the source path
-and the source sha256 at lift time in `PROVENANCE.json`; `make drift` re-hashes both ends
-and names what moved. Never symlink into the source, never write back. When a lifted file
-needs changing, patch the **copy** and declare the patch in `LIFT.json` so it can never be
-mistaken for drift.
-
-This is the only rule in this repository that refuses anything, and it refuses in one
-direction only: **outward is free, inward is closed.**
-
----
+```
+make engine    generate → screen → certify; writes ledger.json
+make control   rebuild control.html from the ledger
+make test      every battery
+make drift     re-hash the lift against the source lab
+```
 
 ## Layout
 
 ```
-machine/      the engine
-  funnel/     generate -> validate -> score -> screen -> certify -> chained record -> board
-              funnel.js (runner) · governor.js (budgets, the forced enum baseline)
-              stats.js (provenance-at-write) · generators/{enum,evolve,searcher,llm}.js
-              selftest/battery.js — 14 items, 19 red controls. THE gate on the machine itself
-              skeleton/ — copy this to start a hunt
-  detach/     long runs that survive the harness: nohup + checkpoint + resume + watch
-instruments/  the certifiers, one per normal form, each with its own battery
-  interval/   eqcert — certificate (falsifier-required) · interval · rational · radii ·
-              sequence · transcendental
-  trigmin/    certified global min of an integer-coefficient cosine polynomial
-              (Chebyshev -> BigInt Sturm -> interval Newton -> exact Taylor enclosures)
-  sos/        exact rational sum-of-squares certificates (stdlib fractions only)
-atlas/        object family -> normal form -> which instrument certifies it -> what a HIT means
-corpus/       harvested external claims waiting to be adjudicated
-hunts/<slug>/ one campaign each: program.md · statement.json · target.js · battery.js ·
-              run.js · experiments/ · best.json
-  newman-mu/  Newman polynomials on the unit circle: certified min-modulus
-              landscape by term count. Instrument: instruments/trigmin
-board/        the cross-hunt leaderboard and the status ledger over external conjectures
-notes/        append-only records. A record is never edited to match what happened next
-tools/        lift.js — the copy-out + drift reporter
+machine/engine.js     the loop: enumerate, screen, certify, dedup, closed-form hunt
+machine/funnel/       the campaign runner (chained records, forced dumb baseline)
+machine/detach/       long runs that survive the harness
+families/             one file per object family — six functions each
+instruments/          the certifiers
+  interval/           eqcert: intervals, exact rationals, falsifier-required certificates
+  trigmin/            certified minima of integer cosine polynomials + the Newman envelope
+  sos/                exact rational sum-of-squares
+design/               tokens, components, template — every page is generated
+tools/                run-engine · build-control · test-engine · lift
 ```
 
-## Running
+## Adding a family
 
-```bash
-make selftest                  every battery, plus a list of what it does NOT cover
-make hunts                     every hunt's battery (gates the hunt, not the campaign)
-make fast                      the inner loop
-make drift                     compare the lift against sin-mfg; reports, never blocks
-make new-hunt SLUG=<name>      scaffold a hunt from the skeleton
+One file in `families/`, six functions, no registration:
 
-node machine/funnel/funnel.js hunts/<slug> --seed s1 --generator enum|evolve|searcher
-node machine/funnel/funnel.js hunts/<slug> --exhaust
-node hunts/<slug>/run.js <phase>              a hunt's own pre-authorised budgets
-
-# a long campaign that must survive this harness
-node machine/detach/detach.js start <name> --dir hunts/<slug> -- node /abs/path/run.js complete
-node machine/detach/detach.js watch <name> --dir hunts/<slug>
+```js
+name, statement                 what a hit asserts, in words
+enumerate(i) -> object | null   deterministic and indexed
+value(obj)   -> number          fast float
+interesting(obj, v) -> bool     cheap screen — may only PRUNE, never admit
+certify(obj) -> { verdict, enclosure, text, extra }    the only authority
+key(obj)     -> string          canonical identity for dedup
 ```
 
-Zero dependencies: Node (>=18) and system `python3`. No npm install, no venv.
+`tools/run-engine.js` picks up every `.js` in `families/` automatically.
 
-## Two things that will bite you if you don't know them
+## The one rule
 
-1. **`admitHit()` is the only writer of `best.json`,** and it re-verifies the certificate
-   through `recheckCertificate` before admitting. A score never admits anything. If you
-   write a target with no `recheckCertificate`, a sabotaged certifier is undetectable — the
-   machine will say so at start.
-2. **Every non-enum generator triggers an equal-budget enum baseline automatically,** in the
-   same session, and both land in `session-<seed>.json`. There is no opt-out flag. This is
-   the discipline that produced the parent lab's most useful measurement — dumb enumeration
-   out-hit the live LLM 37:24 at equal budget — and it is the reason to trust any claim that
-   an engine is working.
+`/Users/carlostoledo/Documents/sin-mfg` is **read-only, permanently.** Read anything —
+numbers, literature, instruments, records. Never edit a file, never change the tree; if you
+find an error there, report it rather than repair it. That lab pins evidence by path and
+sha256, so an edit makes a pin resolve to nothing and demotes a certified claim.
 
-## The source lab
-
-`/Users/carlostoledo/Documents/sin-mfg` — **read-only from here, permanently.** Read
-anything; copy through `LIFT.json` so it is recorded; never write. `PROVENANCE.json` says
-what came from where and whether it was patched on the way in.
+Copies come out through `LIFT.json`, which records each source path and its sha256 in
+`PROVENANCE.json`; `make drift` re-hashes both ends. Patches to lifted files are declared in
+`LIFT.json` so they can never be mistaken for drift.
