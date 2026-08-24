@@ -25,16 +25,18 @@
    TWO BARS ARE REPORTED, and the difference between them is a defect of this
    hunt made concrete:
 
-     bar_static  — the envelope as target.js computes it, from the fixed anchor
-                   list. For n = 18 that is Boyd's 9-term value, 1.856060676.
-     bar_learned — the same envelope with this lab's own certified values
-                   folded in. For n = 18 that is the 17-term champion,
-                   1.999803577.
+     bar         — the envelope as target.js computes it: ANCHORS plus ADOPTED,
+                   frozen at load.
+     bar_board   — what the envelope WOULD be if the board were absorbed
+                   automatically.
 
-   `target.js` uses the static one and cannot learn, which is why the census's
-   own n=18 row went stale the moment its n=17 row landed. Reporting both is
-   not diplomacy; it is the only honest way to state a result while the
-   envelope that judges it is known to be wrong.
+   These were 1.856060676 and 1.999803577 apart when this file was written, and
+   the gap was the defect: target.js could not learn, so its n=18 bar was Boyd's
+   9-term value while this lab held a certified 1.41414 at 17 terms. The owner
+   ruled on 2026-08-24 — the envelope learns by explicit adoption and freezes for
+   the run — and the 17-term object was adopted, so the two now AGREE. Both are
+   still printed, because two numbers that agree are evidence and one number is
+   an assertion.
 
    usage: node hunts/newman-mu/extend-census.js [window]   (default 40) */
 'use strict';
@@ -54,8 +56,9 @@ function canon(A) {
   return d > 1 ? t.map(a => a / d) : t;
 }
 
-/* the envelope with our own certified values folded in — what bar(n) WOULD be
-   if target.js could learn */
+/* what the bar WOULD be if the board were absorbed automatically. Kept as a
+   second opinion now that target.js learns by adoption: when the two agree the
+   envelope is current, and when they diverge somebody owes an adoption. */
 function learnedBarSq(n, board) {
   let best = T.barSq(n);
   for (const e of board) {
@@ -107,11 +110,12 @@ for (const entry of board.slice().sort((a, b) => b.certificate.n - a.certificate
   console.log('  best min|f|                     [' + best.c.modulus[0] + ', ' + best.c.modulus[1] + ']');
   console.log('  attained by adding              e = ' + best.added);
   console.log('  set                             [' + best.B.join(',') + ']');
-  console.log('  vs bar_static(' + n1 + ')  = ' + Math.sqrt(barS).toFixed(12) + '   ' +
+  console.log('  vs bar(' + n1 + ')        = ' + Math.sqrt(barS).toFixed(12) + '   ' +
     (best.c.modSq[0] > barS ? '*** ABOVE ***' : 'below by ' + (Math.sqrt(barS) - best.c.modulus[0]).toExponential(4)));
-  console.log('  vs bar_learned(' + n1 + ') = ' + Math.sqrt(barL).toFixed(12) + '   ' +
+  console.log('  vs bar_board(' + n1 + ')  = ' + Math.sqrt(barL).toFixed(12) + '   ' +
     (best.c.modSq[0] > barL ? '*** ABOVE ***' : 'below by ' + (Math.sqrt(barL) - best.c.modulus[0]).toExponential(4)));
-  console.log('  extensions clearing them        ' + hitsStatic + ' static, ' + hitsLearned + ' learned, of ' + count);
+  console.log('  extensions clearing them        ' + hitsStatic + ' (envelope), ' + hitsLearned + ' (board-implied), of ' + count);
+  if (barS === barL) console.log('  the two bars AGREE — the envelope is current (adoption is up to date)');
   console.log('');
 }
 
@@ -120,18 +124,19 @@ fs.writeFileSync(path.join(__dirname, 'results-extensions.json'), JSON.stringify
   box: 'for each board entry A, every integer e in [-' + W + ', 2*span(A)+' + W + '] not in A, '
      + 'canonicalised by translation and gcd; duplicates collapsed, so counts are DISTINCT OBJECTS',
   complete: true,
-  note: 'Two bars are reported. bar_static is target.js\'s fixed-anchor envelope; bar_learned folds in '
-      + 'this lab\'s own certified values. target.js uses the static one and cannot learn — an OPEN defect. '
+  note: 'Two bars are reported. barSq is target.js\'s envelope (ANCHORS + ADOPTED, frozen at load); '
+      + 'barBoardSq is what it would be if the board were absorbed automatically. They AGREE when adoption '
+      + 'is current, and two numbers that agree are evidence where one is an assertion. '
       + 'No literature gate has run on anything here.',
   windows: W,
   entries: results.map(r => ({
     fromSet: r.from, fromTerms: r.fromN, n: r.n,
     distinctExtensionsCertified: r.count, refused: r.refused,
-    barStaticSq: r.barS, barLearnedSq: r.barL,
+    barSq: r.barS, barBoardSq: r.barL, barsAgree: r.barS === r.barL,
     bestSet: r.best.B, addedExponent: r.best.added,
     bestModSq: r.best.c.modSq, bestModulus: r.best.c.modulus,
-    clearsStatic: r.best.c.modSq[0] > r.barS, clearsLearned: r.best.c.modSq[0] > r.barL,
-    hitsStatic: r.hitsStatic, hitsLearned: r.hitsLearned
+    clears: r.best.c.modSq[0] > r.barS, clearsBoardImplied: r.best.c.modSq[0] > r.barL,
+    hits: r.hitsStatic, hitsBoardImplied: r.hitsLearned
   }))
 }, null, 1) + '\n');
 
@@ -140,11 +145,11 @@ const anyStatic = results.some(r => r.hitsStatic > 0);
 const anyLearned = results.some(r => r.hitsLearned > 0);
 for (const r of results) {
   console.log('  ' + String(r.fromN) + ' -> ' + r.n + ' terms: ' + String(r.count).padStart(4) + ' extensions · '
-    + r.hitsStatic + ' clear the static bar · ' + r.hitsLearned + ' clear the learned bar');
+    + r.hitsStatic + ' clear the envelope bar · ' + r.hitsLearned + ' clear the board-implied bar');
 }
 console.log('');
 if (!anyStatic && !anyLearned) {
-  console.log('  NO one-exponent extension of any board entry clears either bar. Complete over the');
+  console.log('  NO one-exponent extension of any board entry clears its bar. Complete over the');
   console.log('  declared window — a certified negative, not a failed search.');
 } else {
   console.log('  An extension clears a bar. It is a certified enclosure and nothing more:');

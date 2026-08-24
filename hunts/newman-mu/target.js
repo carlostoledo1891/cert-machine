@@ -25,15 +25,22 @@
    a number across a file boundary, so nothing here can go stale against the
    instrument that produced it.
 
-   WHERE THE FRONTIER IS. Certified anchors exist at n = 3,4,5,6,7,8,9 and 19.
-   For 10 <= n <= 18 the envelope sits at Boyd's 9-term 1.36237..., and NOTHING
-   is certified at those n by anyone we have found. A HIT at n in [10,18] is
-   therefore the first n-term Newman polynomial with fewer than 19 terms to beat
-   the 9-term champion — and it is a step on the only interesting road here,
-   which is the least n with mu(n) >= 2. Hare-Jankauskas reached it at n = 19
-   (their degree-38 witness, certified in the lab records); anything smaller
-   would improve a certified record. That event has its own TRIPWIRE below and
-   is never called a result by this file.
+   WHERE THE FRONTIER IS. Literature/lab anchors exist at n = 3,4,5,6,7,8,9 and
+   19; this lab has since certified and ADOPTED one at n = 17, so the envelope
+   now reads bar(10..17) = Boyd's 1.36237 and bar(18..19) = 1.41414. NOTHING is
+   certified at n = 10..16 or n = 18 by anyone, us included. A HIT there is an
+   n-term Newman polynomial with fewer than 19 terms beating everything smaller
+   — a step on the only interesting road here, which is the least n with
+   mu(n) >= 2. Hare-Jankauskas reached that at n = 19 (their degree-38 witness,
+   certified in the lab records); anything smaller would improve a certified
+   record. That event has its own TRIPWIRE below and is never called a result by
+   this file.
+
+   Measured 2026-08-24, so the shape of the frontier is on the page rather than
+   in somebody's head: at n = 18 all three approaches available came back empty
+   — the complete census of all 19 single-deletions of the witness, the complete
+   census of all 140 one-exponent extensions of the n=17 champion, and 3529
+   distinct local probes. The n=17 object is isolated in both directions.
 
    WHAT THIS FILE MAY NOT DO. It mints nothing, sends nothing, and names nothing
    "ours". The literature read that produced the anchors is in program.md and it
@@ -58,12 +65,52 @@ const ANCHORS = [
                                                     src: 'Hare-Jankauskas arXiv:1910.13994 Eq. (2.1); certified in sin-mfg mercer-program Rung 4' },
 ];
 
-/* value(n) = certified LOWER bound on M for that anchor — computed once. */
+/* ADOPTED — objects THIS LAB certified and has explicitly promoted to anchor
+   standing. Owner ruling 2026-08-24, and the reasoning is worth keeping because
+   the alternatives are both wrong:
+
+     A static envelope is FALSE. It said bar(18) = Boyd's 9-term 1.36237 while
+     this lab held a certified 1.41414 at 17 terms, flattering every n=18 result
+     by 5.2e-2. An envelope that disagrees with the board is not conservative,
+     it is incorrect.
+
+     An envelope that AUTO-ABSORBS the board is worse. The bar would move as a
+     campaign filled the board, so a candidate's verdict would depend on when it
+     was proposed; a kill-and-resume would no longer replay byte-identical; and
+     one bad admission would raise the bar permanently with nobody deciding it.
+
+   So adoption is a DECLARED ACT with provenance, and the envelope is FROZEN at
+   module load for the whole run. Adding a row here is one line and needs no
+   permission — but it is a line somebody wrote, in a diff, with the run and the
+   certificate that produced it named. `envelopeAudit()` below reports the moment
+   the board holds something this list does not, so staleness is loud and
+   immediate rather than discovered by a census three campaigns later. */
+const ADOPTED = [
+  {
+    n: 17,
+    A: [0, 4, 6, 7, 8, 10, 11, 12, 15, 17, 24, 25, 26, 29, 32, 35, 38],
+    from: 'hj-subsets-1',
+    certRef: '2d24b35cbd401781a7a7673a17460c42a99b9574a56908afbf398f5cf676a12f',
+    why: 'Hare-Jankauskas Eq. (2.1) minus {16,22}. Certified min|f| >= 1.4141441147942588; '
+       + 'the complete census of all 171 distinct 17-term subsets found it the only one clearing '
+       + 'bar(17), and a 3-path independent recompute passed at admission. Adopted 2026-08-24 so '
+       + 'that bar(18) and above reflect what this lab actually knows.'
+  }
+];
+
+/* value(n) = certified LOWER bound on M for each envelope member — COMPUTED,
+   never transcribed (C50), and computed once so the envelope cannot drift
+   during a run. An adopted object at n raises the bar only for n' > n, so
+   nothing here is self-referential: an adopted 17-term object never changes
+   its own verdict. */
 const ANCHOR_VALUE = new Map();
-for (const a of ANCHORS) {
-  const c = N.certifyNewman(a.A, { bar: 0 });
-  ANCHOR_VALUE.set(a.n, c.modSq[0]);            /* min|f|^2, certified lower bound */
+function addToEnvelope(n, A) {
+  const c = N.certifyNewman(A, { bar: 0 });
+  const prev = ANCHOR_VALUE.get(n);
+  if (prev === undefined || c.modSq[0] > prev) ANCHOR_VALUE.set(n, c.modSq[0]);
 }
+for (const a of ANCHORS) addToEnvelope(a.n, a.A);
+for (const a of ADOPTED) addToEnvelope(a.n, a.A);
 
 /* bar(n)^2 = the best certified min|f|^2 achievable with FEWER than n terms.
    Below the smallest anchor the envelope is 0 — nothing is achievable with two
@@ -72,6 +119,35 @@ function barSq(n) {
   let best = 0;
   for (const [k, v] of ANCHOR_VALUE) if (k < n && v > best) best = v;
   return best;
+}
+
+/* THE STALENESS REPORT. Reads the board and names every term count where this
+   search has certified something the envelope does not know about. It refuses
+   nothing — the envelope is deliberately not self-updating — but an unadopted
+   excess can never again sit unnoticed, which is the whole failure this
+   mechanism was built after. Returns [] when the envelope is current. */
+function envelopeAudit(boardEntries) {
+  const out = [];
+  for (const e of (boardEntries || [])) {
+    const c = e && e.certificate;
+    if (!c || typeof c.n !== 'number' || !Array.isArray(c.modSq)) continue;
+    /* An object at n with value v changes the envelope exactly when it would
+       raise the FIRST bar it can touch, bar(n+1) = max over k <= n. Asking it
+       that way rather than "is there an anchor at n" is the difference between
+       a report and a false alarm: the first version flagged every entry at a
+       term count that happened to have no anchor, however weak — RED (g)'s
+       control caught it by planting a value far BELOW the envelope and watching
+       it get named anyway. A staleness report that cries wolf is a staleness
+       report nobody reads. */
+    if (c.modSq[0] > barSq(c.n + 1)) {
+      out.push({
+        n: c.n, A: c.A, modSq: c.modSq,
+        envelopeHas: barSq(c.n + 1),
+        raisesBarFor: 'n > ' + c.n
+      });
+    }
+  }
+  return out;
 }
 
 /* THE TRIPWIRE. min|f| >= 2 with fewer than 19 terms would improve a certified
@@ -298,6 +374,6 @@ module.exports = {
   plantedHits, knownBad, scaleInflate,
   canonicalKey, regionOf, regionCap: 8,
   /* exported for the hunt battery, not part of the funnel contract */
-  ANCHORS, ANCHOR_VALUE, barSq, canonicalSet, gapsToSet, setToGaps, reverseSet,
+  ANCHORS, ADOPTED, ANCHOR_VALUE, barSq, envelopeAudit, canonicalSet, gapsToSet, setToGaps, reverseSet,
   TRIPWIRE_MODSQ, TRIPWIRE_MAX_N
 };

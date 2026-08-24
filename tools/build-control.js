@@ -415,6 +415,47 @@ if (H.ext) {
   }));
 }
 
+/* ---- §4c the envelope ---- */
+{
+  const T = require(path.join(ROOT, 'hunts/newman-mu/target.js'));
+  const board = (H.board.entries || []);
+  const stale = T.envelopeAudit(board);
+  const rows = [];
+  for (const n of [6, 7, 8, 9, 10, 17, 18, 19, 20]) {
+    const src = T.ADOPTED.find(a => a.n < n && T.barSq(n) === T.ANCHOR_VALUE.get(a.n));
+    rows.push([
+      { raw: C.esc('bar(' + n + ')') },
+      { raw: C.m(fmt(Math.sqrt(T.barSq(n)), 15)) },
+      { raw: src ? C.tag('adopted here', 'cert') : C.tag('literature / lab', 'dep') }
+    ]);
+  }
+  B.push(C.section({
+    lab: '§4c · the envelope',
+    title: 'What a hit has to beat, and who decided it',
+    wide: true,
+    bodyRaw: '<div class="col">'
+      + C.pRaw('A HIT must exceed everything achievable with <em>fewer</em> terms. That envelope has two '
+        + 'parts: <b>anchors</b> from the literature and the source lab, and <b>adopted</b> objects this '
+        + 'lab certified and then promoted in a dated edit naming the run and certificate. Both are stored '
+        + 'as witness exponent sets and re-certified at load, so no value is ever transcribed.')
+      + C.pRaw('<strong>The envelope is frozen at load and never absorbs the board automatically.</strong> '
+        + 'If it did, the bar would move as a campaign filled the board — a candidate\'s verdict would '
+        + 'depend on when it was proposed, and a kill-and-resume would stop replaying byte-identical.')
+      + '</div>'
+      + C.table({ cols: [{ h: 'bar' }, { h: 'certified min|f| to beat', cls: 'v' }, { h: 'source' }], rows })
+      + '<div class="col">'
+      + (stale.length === 0
+          ? C.note({ lab: 'Staleness audit', bodyRaw: C.pRaw('<b>Clean.</b> ' + C.m('envelopeAudit()')
+              + ' finds no term count where the board holds a certified value the envelope does not know. '
+              + 'It refuses nothing — it reports — but an unadopted excess can never again sit unnoticed.') })
+          : C.note({ lab: 'Staleness audit — ' + stale.length + ' unadopted excess', bodyRaw: stale.map(x =>
+              C.pRaw('n = ' + x.n + ': the board holds ' + C.m(fmt(Math.sqrt(x.modSq[0]), 12))
+                + ' and the envelope has ' + C.m(fmt(Math.sqrt(x.envelopeHas), 12)) + ' — raises the bar for '
+                + C.m(x.raisesBarFor) + ' once adopted.')).join('') }))
+      + '</div>'
+  }));
+}
+
 /* ---- §5 the machine ---- */
 {
   const rows = batteryResults.map(b => [
@@ -467,9 +508,16 @@ if (H.ext) {
       + 'and returns null on genuine failure rather than the identity. Re-run as n18-local-2: 58.8% '
       + 'distinct, 3 529 real probes against 2 883 — and the negative held, which is why it was worth '
       + 'fixing before reporting.' },
-    { b: 'The envelope cannot learn — OPEN.', text: 'bar(n) is computed from a static anchor list, so a '
-      + 'newly certified value does not raise the bar for larger n. The census made its own earlier row '
-      + 'stale and nothing noticed. Adopting a new anchor is a decision, not a patch.' },
+    { b: 'The envelope could not learn — RULED AND CLOSED.', text: 'It said bar(18) = Boyd\'s 1.36237 '
+      + 'while this lab held a certified 1.41414 at 17 terms, flattering every n=18 result by 5.2e-2. '
+      + 'Ruled 2026-08-24: the envelope learns by EXPLICIT adoption and freezes at load. Auto-absorbing '
+      + 'the board would have been worse — the bar would move mid-campaign, verdicts would depend on when '
+      + 'a candidate was proposed, and a kill-and-resume would stop replaying byte-identical. The 17-term '
+      + 'object is adopted; envelopeAudit() now reports any unadopted excess without refusing anything.' },
+    { b: 'envelopeAudit cried wolf — FIXED by its own red control.', text: 'The first version flagged any '
+      + 'board entry at a term count with no anchor, however weak. RED (g) planted a value far BELOW the '
+      + 'envelope and watched it get named anyway. The predicate now asks whether the value exceeds '
+      + 'bar(n+1), the first bar it could touch.' },
     { b: 'The machine gates completeness on a NAME — OPEN, owner\'s call.', text: 'A run that exhausted its '
       + 'box, audited every reject and produced no REFUSED still got the downgrade, because funnel.js tests '
       + 'gen.name === "enum" rather than the property. Not patched: renaming our generator would game the '

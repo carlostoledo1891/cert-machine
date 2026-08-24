@@ -1,48 +1,48 @@
 {
- "name": "newman-mu",
- "statement": "For a Newman polynomial f(z) = sum_{a in A} z^a with A a set of n non-negative integers (coefficients 0/1), let M(A) = min over |z|=1 of |f(z)|. A HIT is an n-term A whose certified lower bound on M(A)^2 strictly exceeds bar(n)^2, where bar(n) is the largest certified M over all anchors with FEWER than n terms — i.e. a Newman polynomial that beats everything achievable with fewer terms. The certificate is an exact enclosure of the global minimum of |f|^2 = n + 2*sum_{i<j} cos((a_j-a_i)theta), reduced to a global minimum of an integer-coefficient polynomial on [-1,1] via cos(d*theta) = T_d(cos theta) and certified by Sturm isolation plus interval-Newton refinement with exact rational value enclosures (instruments/trigmin). bar(n) is COMPUTED from pinned witness exponent sets at load time, never transcribed. A separate TRIPWIRE flags any certified M >= 2 carried by at most 18 terms, which would improve the certified record that the least n with mu(n) >= 2 is at most 19; a tripwire is a flag for the owner and is never a result.",
- "candidateSchema": {
-  "type": "object",
-  "required": [
-   "g"
-  ],
-  "properties": {
-   "g": {
-    "type": "array",
-    "minItems": 5,
-    "maxItems": 18,
-    "items": {
-     "type": "integer",
-     "minimum": 1,
-     "maximum": 64
+  "name": "newman-mu",
+  "statement": "For a Newman polynomial f(z) = sum_{a in A} z^a with A a set of n non-negative integers (coefficients 0/1), let M(A) = min over |z|=1 of |f(z)|. A HIT is an n-term A whose certified lower bound on M(A)^2 strictly exceeds bar(n)^2, where bar(n) is the largest certified M over every envelope member with FEWER than n terms — i.e. a Newman polynomial that beats everything achievable with fewer terms. THE ENVELOPE has two parts, both stored as witness exponent sets and both re-certified at load so no value is ever transcribed (C50): ANCHORS, taken from the literature and the sin-mfg lab records, and ADOPTED, objects this lab certified and then explicitly promoted in a dated edit naming the run and certificate that produced them. The envelope is FROZEN at module load, so a candidate verdict never depends on when it was proposed and a kill-and-resume replays byte-identical; it never absorbs the board automatically. envelopeAudit() reports, without refusing anything, every term count where the board holds a certified value the envelope does not, so an unadopted excess cannot sit unnoticed. The certificate is an exact enclosure of the global minimum of |f|^2 = n + 2*sum_{i<j} cos((a_j-a_i)theta), reduced via cos(d*theta) = T_d(cos theta) to a global minimum of an integer-coefficient polynomial on [-1,1] and certified by Sturm isolation plus interval-Newton refinement with exact rational value enclosures (instruments/trigmin). A separate TRIPWIRE flags any certified M >= 2 carried by at most 18 terms, which would improve the certified record that the least n with mu(n) >= 2 is at most 19; a tripwire is a flag for the owner and is never a result.",
+  "candidateSchema": {
+    "type": "object",
+    "required": [
+      "g"
+    ],
+    "properties": {
+      "g": {
+        "type": "array",
+        "minItems": 5,
+        "maxItems": 18,
+        "items": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        }
+      }
     }
-   }
+  },
+  "enumSpec": {
+    "type": "intGrid",
+    "name": "g",
+    "ranges": [
+      [
+        1,
+        8
+      ],
+      [
+        1,
+        8
+      ],
+      [
+        1,
+        8
+      ],
+      [
+        1,
+        8
+      ],
+      [
+        1,
+        8
+      ]
+    ]
   }
- },
- "enumSpec": {
-  "type": "intGrid",
-  "name": "g",
-  "ranges": [
-   [
-    1,
-    8
-   ],
-   [
-    1,
-    8
-   ],
-   [
-    1,
-    8
-   ],
-   [
-    1,
-    8
-   ],
-   [
-    1,
-    8
-   ]
-  ]
- }
 }

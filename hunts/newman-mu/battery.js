@@ -225,5 +225,45 @@ console.log('--- 6. generator anchors must not drift from the target -----------
 }
 
 console.log('');
+console.log('--- 7. the envelope: adoption, freezing, and staleness ---------------');
+{
+  /* the envelope must be the union of ANCHORS and ADOPTED, and an adopted
+     object must never change its OWN verdict */
+  const a17 = T.ADOPTED.find(a => a.n === 17);
+  ok(!!a17, 'an n=17 object is adopted into the envelope');
+  if (a17) {
+    const v = T.certify({ g: T.setToGaps(a17.A) });
+    ok(v.verdict === 'HIT', 'the adopted object is STILL a HIT at its own term count — adoption at n raises the bar only for n > n, so nothing is self-referential');
+    ok(Math.abs(Math.sqrt(v.certificate.barSq) - 1.362373178133324) < 1e-15,
+      'bar(17) is unchanged by adopting an n=17 object (' + Math.sqrt(v.certificate.barSq).toFixed(12) + ')');
+    ok(Math.abs(Math.sqrt(T.barSq(18)) - 1.4141441147942588) < 1e-15,
+      'bar(18) DID rise to the adopted value ' + Math.sqrt(T.barSq(18)).toFixed(13) + ' — the envelope learned');
+    ok(T.barSq(18) > 1.8560606764970946,
+      'and it is strictly above the old static bar, so no n=18 result can be flattered by 5.2e-2 again');
+  }
+  /* every planted hit must survive the raised envelope — a bar that breaks the
+     recall control is a bar that stops any run from starting */
+  let allHit = true;
+  for (const ph of T.plantedHits) if (T.certify(ph.candidate).verdict !== 'HIT') allHit = false;
+  ok(allHit, 'all ' + T.plantedHits.length + ' planted hits still certify HIT under the raised envelope');
+}
+{
+  /* the staleness report must be quiet when the envelope is current... */
+  const board = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'best.json'), 'utf8')).entries || [];
+  ok(T.envelopeAudit(board).length === 0, 'envelopeAudit is silent against the live board — the envelope is current');
+  ok(T.envelopeAudit([]).length === 0, 'and silent on an empty board');
+
+  /* ...and LOUD when it is not. RED (g): a fabricated board entry above the
+     envelope must be named, because an unadopted excess sitting unnoticed is
+     the exact failure this mechanism was built after. */
+  const fake = [{ certificate: { n: 12, A: [0, 1], modSq: [3.5, 3.5] } }];
+  const found = T.envelopeAudit(fake);
+  ok(found.length === 1 && found[0].n === 12,
+    'RED (g): a board entry exceeding the envelope at n=12 is REPORTED by name (raises the bar for ' + (found[0] || {}).raisesBarFor + ')');
+  const below = [{ certificate: { n: 12, A: [0, 1], modSq: [0.5, 0.5] } }];
+  ok(T.envelopeAudit(below).length === 0, 'RED (g) control: an entry BELOW the envelope is not reported');
+}
+
+console.log('');
 console.log('battery: ' + pass + ' pass, ' + fail + ' fail');
 if (fail) process.exit(1);

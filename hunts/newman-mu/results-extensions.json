@@ -2,7 +2,7 @@
  "kind": "certified-extension-census",
  "box": "for each board entry A, every integer e in [-40, 2*span(A)+40] not in A, canonicalised by translation and gcd; duplicates collapsed, so counts are DISTINCT OBJECTS",
  "complete": true,
- "note": "Two bars are reported. bar_static is target.js's fixed-anchor envelope; bar_learned folds in this lab's own certified values. target.js uses the static one and cannot learn — an OPEN defect. No literature gate has run on anything here.",
+ "note": "Two bars are reported. barSq is target.js's envelope (ANCHORS + ADOPTED, frozen at load); barBoardSq is what it would be if the board were absorbed automatically. They AGREE when adoption is current, and two numbers that agree are evidence where one is an assertion. No literature gate has run on anything here.",
  "windows": 40,
  "entries": [
   {
@@ -29,8 +29,9 @@
    "n": 18,
    "distinctExtensionsCertified": 140,
    "refused": 0,
-   "barStaticSq": 1.8560606764970946,
-   "barLearnedSq": 1.9998035774072382,
+   "barSq": 1.9998035774072382,
+   "barBoardSq": 1.9998035774072382,
+   "barsAgree": true,
    "bestSet": [
     0,
     4,
@@ -60,10 +61,10 @@
     1.3355036631922872,
     1.3355036631922876
    ],
-   "clearsStatic": false,
-   "clearsLearned": false,
-   "hitsStatic": 0,
-   "hitsLearned": 0
+   "clears": false,
+   "clearsBoardImplied": false,
+   "hits": 0,
+   "hitsBoardImplied": 0
   },
   {
    "fromSet": [
@@ -78,8 +79,9 @@
    "n": 7,
    "distinctExtensionsCertified": 123,
    "refused": 0,
-   "barStaticSq": 1.1348340298500457,
-   "barLearnedSq": 1.1348340298500457,
+   "barSq": 1.1348340298500457,
+   "barBoardSq": 1.1348340298500457,
+   "barsAgree": true,
    "bestSet": [
     0,
     6,
@@ -98,10 +100,10 @@
     0.8740996416573854,
     0.8740996416573857
    ],
-   "clearsStatic": false,
-   "clearsLearned": false,
-   "hitsStatic": 0,
-   "hitsLearned": 0
+   "clears": false,
+   "clearsBoardImplied": false,
+   "hits": 0,
+   "hitsBoardImplied": 0
   },
   {
    "fromSet": [
@@ -116,8 +118,9 @@
    "n": 7,
    "distinctExtensionsCertified": 103,
    "refused": 0,
-   "barStaticSq": 1.1348340298500457,
-   "barLearnedSq": 1.1348340298500457,
+   "barSq": 1.1348340298500457,
+   "barBoardSq": 1.1348340298500457,
+   "barsAgree": true,
    "bestSet": [
     0,
     3,
@@ -136,10 +139,10 @@
     0.8219712941960763,
     0.8219712941960765
    ],
-   "clearsStatic": false,
-   "clearsLearned": false,
-   "hitsStatic": 0,
-   "hitsLearned": 0
+   "clears": false,
+   "clearsBoardImplied": false,
+   "hits": 0,
+   "hitsBoardImplied": 0
   },
   {
    "fromSet": [
@@ -154,8 +157,9 @@
    "n": 7,
    "distinctExtensionsCertified": 99,
    "refused": 0,
-   "barStaticSq": 1.1348340298500457,
-   "barLearnedSq": 1.1348340298500457,
+   "barSq": 1.1348340298500457,
+   "barBoardSq": 1.1348340298500457,
+   "barsAgree": true,
    "bestSet": [
     0,
     1,
@@ -174,10 +178,10 @@
     0.7834721278012047,
     0.783472127801205
    ],
-   "clearsStatic": false,
-   "clearsLearned": false,
-   "hitsStatic": 0,
-   "hitsLearned": 0
+   "clears": false,
+   "clearsBoardImplied": false,
+   "hits": 0,
+   "hitsBoardImplied": 0
   }
  ]
 }
