@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>cert-machine · control centre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(18px,4vw,40px) 96px}
+.col{max-width:64ch;margin:0 auto}
+.wide{max-width:900px;margin:0 auto}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{border:1px solid var(--rule);border-radius:4px;margin:40px 0 0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;
+  background:var(--rule);overflow:hidden}
+.stat{background:var(--surface);padding:22px 24px;display:flex;flex-direction:column;gap:7px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px;max-width:70ch}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · control centre · generated</div>
+  <h1>What the lab knows</h1>
+  <p class="deck">Every number on this page was read off a record on disk when the page was built, and every battery it reports green was executed during that build. Nothing here is typed in by hand, which is the only reason it can be read at a glance.</p>
+</header>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">batteries green</div><div class="v held">11 / 11</div><div class="n">Run during this build, not remembered. Includes 19 red controls that must fire.</div></div>
+    <div class="stat"><div class="k">candidates evaluated</div><div class="v">78,786</div><div class="n">Main runs only — the forced equal-budget baselines are excluded and counted separately. 5,035 further subsets certified outside the funnel, in the census.</div></div>
+    <div class="stat"><div class="k">best certified object</div><div class="v sm">min|f| &ge; 1.414144114794</div><div class="n">17 terms, degree 38 — clears the fewer-terms envelope.</div></div>
+    <div class="stat"><div class="k">source-lab drift</div><div class="v sm held">39 unchanged</div><div class="n">sin-mfg is read-only. Every lifted file re-hashed at both ends.</div></div>
+  </div>
+</div>
+
+<p class="scope">Local working document, not a publication. Nothing here has been through a literature gate, no claim has been minted, and nothing has been sent anywhere. Enclosures are proofs-of-object pending independent verification; the checks and the code share an author, so they rule out slips rather than a shared misconception.</p>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§1 · the board</div>
+    <h2>Objects that cleared their bar</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>region</th><th>exponent set</th><th>certified min|f| ≥</th><th>bar it cleared</th><th>standing</th></tr></thead><tbody><tr><td>17 terms</td><td class="v"><span class="m">[0,4,6,7,8,10,11,12,15,17,24,25,26,29,32,35,38]</span></td><td class="v"><span class="m">1.414144114794259</span></td><td class="v"><span class="m">1.362373178133</span></td><td><span class="tag cert">certified</span> <br>deg 38 · seed hj-subsets-1</td></tr><tr><td>6 terms</td><td class="v"><span class="m">[0,6,9,10,17,24]</span></td><td class="v"><span class="m">1.065285891134415</span></td><td class="v"><span class="m">1.000000000000</span></td><td><span class="tag cert">certified</span> <br>deg 24 · seed enum-box8-complete</td></tr><tr><td>6 terms</td><td class="v"><span class="m">[0,3,8,12,13,14]</span></td><td class="v"><span class="m">1.013007454016587</span></td><td class="v"><span class="m">1.000000000000</span></td><td><span class="tag cert">certified</span> <br>deg 14 · seed enum-box8-complete</td></tr><tr><td>6 terms</td><td class="v"><span class="m">[0,1,4,5,10,12]</span></td><td class="v"><span class="m">1.009230830698697</span></td><td class="v"><span class="m">1.000000000000</span></td><td><span class="tag cert">certified</span> <br>deg 12 · seed enum-box8-complete</td></tr></tbody></table></div></div><div class="col"><p>A board entry is an object this search certified AND that survived an independent recompute at admission — the certificate is re-derived by a different path before it is allowed in. The bar is the <em>monotone envelope</em>: the best certified value reachable with strictly fewer terms.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the landscape</div>
+    <h2>Where the certified values are, and where nothing is</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+    <svg viewBox="0 0 900 300" role="img" aria-label="Certified minimum modulus by term count, n from 3 to 19. Grey bars are values known from the literature or the source lab at n = 3,4,5,6,7,8,9 and 19. A plum bar at n = 17 is this lab&#39;s certified object at 1.414. Term counts 10 to 16 and 18 are marked open — nothing is certified there.">
+    <line x1="74" y1="254.0" x2="880" y2="254.0" stroke="var(--rule-soft)" stroke-width="1"/>
+    <text x="64" y="258.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="74" y1="201.3" x2="880" y2="201.3" stroke="var(--rule-soft)" stroke-width="1"/>
+    <text x="64" y="205.3" text-anchor="end" class="t-ax">0.5</text>
+    <line x1="74" y1="148.5" x2="880" y2="148.5" stroke="var(--rule-soft)" stroke-width="1"/>
+    <text x="64" y="152.5" text-anchor="end" class="t-ax">1</text>
+    <line x1="74" y1="95.8" x2="880" y2="95.8" stroke="var(--rule-soft)" stroke-width="1"/>
+    <text x="64" y="99.8" text-anchor="end" class="t-ax">1.5</text>
+    <line x1="74" y1="43.1" x2="880" y2="43.1" stroke="var(--rule-soft)" stroke-width="1"/>
+    <text x="64" y="47.1" text-anchor="end" class="t-ax">2</text>
+    <text x="74" y="14" class="t-note">certified min|f|</text>
+    <rect x="87.7" y="190.0" width="20.0" height="64.0" rx="2" fill="var(--mark)"/>
+    <text x="97.7" y="272" text-anchor="middle" class="t-ax">3</text>
+    <rect x="135.1" y="174.7" width="20.0" height="79.3" rx="2" fill="var(--mark)"/>
+    <text x="145.1" y="272" text-anchor="middle" class="t-ax">4</text>
+    <rect x="182.5" y="148.5" width="20.0" height="105.5" rx="2" fill="var(--mark)"/>
+    <text x="192.5" y="272" text-anchor="middle" class="t-ax">5</text>
+    <rect x="229.9" y="141.7" width="20.0" height="112.3" rx="2" fill="var(--mark)"/>
+    <rect x="229.9" y="141.7" width="20.0" height="112.3" rx="2" fill="var(--sig)"/>
+    <text x="239.9" y="272" text-anchor="middle" class="t-ax">6</text>
+    <rect x="277.4" y="137.8" width="20.0" height="116.2" rx="2" fill="var(--mark)"/>
+    <text x="287.4" y="272" text-anchor="middle" class="t-ax">7</text>
+    <rect x="324.8" y="115.7" width="20.0" height="138.3" rx="2" fill="var(--mark)"/>
+    <text x="334.8" y="272" text-anchor="middle" class="t-ax">8</text>
+    <rect x="372.2" y="110.3" width="20.0" height="143.7" rx="2" fill="var(--mark)"/>
+    <text x="382.2" y="272" text-anchor="middle" class="t-ax">9</text>
+    <text x="429.6" y="272" text-anchor="middle" class="t-ax">10</text>
+    <text x="429.6" y="288" text-anchor="middle" class="t-note">open</text>
+    <text x="477.0" y="272" text-anchor="middle" class="t-ax">11</text>
+    <text x="477.0" y="288" text-anchor="middle" class="t-note">open</text>
+    <text x="524.4" y="272" text-anchor="middle" class="t-ax">12</text>
+    <text x="524.4" y="288" text-anchor="middle" class="t-note">open</text>
+    <text x="571.8" y="272" text-anchor="middle" class="t-ax">13</text>
+    <text x="571.8" y="288" text-anchor="middle" class="t-note">open</text>
+    <text x="619.2" y="272" text-anchor="middle" class="t-ax">14</text>
+    <text x="619.2" y="288" text-anchor="middle" class="t-note">open</text>
+    <text x="666.6" y="272" text-anchor="middle" class="t-ax">15</text>
+    <text x="666.6" y="288" text-anchor="middle" class="t-note">open</text>
+    <text x="714.1" y="272" text-anchor="middle" class="t-ax">16</text>
+    <text x="714.1" y="288" text-anchor="middle" class="t-note">open</text>
+    <rect x="751.5" y="104.9" width="20.0" height="149.1" rx="2" fill="var(--sig)"/>
+    <text x="761.5" y="272" text-anchor="middle" class="t-ax">17</text>
+    <text x="808.9" y="272" text-anchor="middle" class="t-ax">18</text>
+    <text x="808.9" y="288" text-anchor="middle" class="t-note">open</text>
+    <rect x="846.3" y="41.2" width="20.0" height="212.8" rx="2" fill="var(--mark)"/>
+    <text x="856.3" y="272" text-anchor="middle" class="t-ax">19</text>
+    <line x1="74" y1="254" x2="880" y2="254" stroke="var(--rule)" stroke-width="1"/>
+    </svg>
+    <rect x="74" y="285" width="10" height="3" fill="var(--mark)"/>
+    <text x="90" y="292" class="t-note">known before this lab</text>
+    <rect x="304" y="285" width="10" height="3" fill="var(--sig)"/>
+    <text x="320" y="292" class="t-note">certified here</text>
+  </div>
+  <figcaption>Certified min|f| for n-term Newman polynomials. The band 10 ≤ n ≤ 18 is the frontier: nothing is certified there by anyone located, and Hare–Jankauskas exhausted only degree ≤ 40, so an 18-term polynomial of degree 45 or more is outside every search performed.</figcaption>
+</figure></div><div class="col"><p class="pull">The gap between <b>n = 9</b> and <b>n = 19</b> is the whole hunt.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§3 · campaigns</div>
+    <h2>Every run, and what the machine let it claim</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>seed</th><th>generator</th><th>candidates</th><th>certified hits / admitted</th><th>reject audit</th><th>record shape</th></tr></thead><tbody><tr><td class="v"><span class="m">enum-box8-complete</span></td><td>?</td><td class="v"><span class="m">?</span></td><td class="v"><span class="m">?</span></td><td class="v">—</td><td><span class="tag dep">best-known downgrade</span></td></tr><tr><td class="v"><span class="m">enum-box8-v2</span></td><td>enum</td><td class="v"><span class="m">32,768</span></td><td class="v"><span class="m">6 / 3</span></td><td class="v"><span class="m">655 / 32,762  FN 0</span></td><td><span class="tag dep">best-known downgrade</span></td></tr><tr><td class="v"><span class="m">enum-box8</span></td><td>enum</td><td class="v"><span class="m">32,768</span></td><td class="v"><span class="m">6 / 6</span></td><td class="v"><span class="m">655 / 32,762  FN 0</span></td><td><span class="tag dep">best-known downgrade</span></td></tr><tr><td class="v"><span class="m">hj-subsets-1</span></td><td>hj-subsets</td><td class="v"><span class="m">190</span></td><td class="v"><span class="m">1 / 1</span></td><td class="v"><span class="m">189 / 189  FN 0</span></td><td><span class="tag dep">best-known downgrade</span></td></tr><tr><td class="v"><span class="m">n18-local-1</span></td><td>n18-local</td><td class="v"><span class="m">6,000</span></td><td class="v"><span class="m">0 / 0</span></td><td class="v"><span class="m">120 / 6,000  FN 0</span></td><td><span class="tag dep">best-known downgrade</span></td></tr><tr><td class="v"><span class="m">terms-frontier-1</span></td><td>terms</td><td class="v"><span class="m">3,000</span></td><td class="v"><span class="m">152 / 0</span></td><td class="v"><span class="m">85 / 2,848  FN 0</span></td><td><span class="tag dep">best-known downgrade</span></td></tr><tr><td class="v"><span class="m">terms-frontier-2</span></td><td>terms</td><td class="v"><span class="m">4,000</span></td><td class="v"><span class="m">0 / 0</span></td><td class="v"><span class="m">80 / 4,000  FN 0</span></td><td><span class="tag dep">best-known downgrade</span></td></tr><tr><td class="v"><span class="m">terms-smoke</span></td><td>terms</td><td class="v"><span class="m">60</span></td><td class="v"><span class="m">3 / 0</span></td><td class="v"><span class="m">2 / 57  FN 0</span></td><td><span class="tag dep">best-known downgrade</span></td></tr></tbody></table></div></div><div class="col"><p>Two counters, never one: <b>certified hits</b> is order-independent, <b>admitted</b> counts what was new to the board. They differ when a search re-finds an object it already has — which is exactly what happened on <span class="m">terms-frontier-1</span>, where 152 hits produced 0 admissions.</p><div class="note">
+  <span class="lab">Why one run carries a completeness certificate and the others do not</span>
+<p>The machine grants one only when the whole declared box was enumerated, every screen-reject was certified rather than sampled, nothing came back REFUSED, and no candidate was schema-invalid. <span class="m">enum-box8-complete</span> met all four — 32 762 of 32 762 rejects certified, 0 false negatives. The others sampled, so they get the honest downgrade.</p>
+</div></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§4 · the census</div>
+    <h2>Every subset of the 19-term witness, certified</h2>
+  </div>
+<div class="col"><p>The only known Newman polynomial with min|f| ≥ 2 has 19 terms. There are only C(19,k) subsets of each size, so "can fewer terms do it" stops being a search and becomes a census. Complete over the declared box, <span class="m">0</span> REFUSED.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>size</th><th>subsets certified</th><th>best min|f| ≥</th><th>exponents removed</th><th>verdict</th></tr></thead><tbody><tr><td>n = 18</td><td class="v"><span class="m">19</span></td><td class="v"><span class="m">1.359653840579</span></td><td class="v"><span class="m">{35}</span></td><td><span class="tag dep">none clear</span></td></tr><tr><td>n = 17</td><td class="v"><span class="m">171</span></td><td class="v"><span class="m">1.414144114794</span></td><td class="v"><span class="m">{16,22}</span></td><td><span class="tag cert">1 clears</span></td></tr><tr><td>n = 16</td><td class="v"><span class="m">969</span></td><td class="v"><span class="m">1.285189793468</span></td><td class="v"><span class="m">{0,6,7}</span></td><td><span class="tag dep">none clear</span></td></tr><tr><td>n = 15</td><td class="v"><span class="m">3,876</span></td><td class="v"><span class="m">1.194581439302</span></td><td class="v"><span class="m">{12,16,26,29}</span></td><td><span class="tag dep">none clear</span></td></tr></tbody></table></div></div><div class="col"><p><strong>It is not monotone.</strong> Dropping two exponents beats dropping one — putting either 16 or 22 back <em>lowers</em> the minimum. That is the observation the frontier turns on.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§5 · the machine</div>
+    <h2>What is installed, and whether it runs</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>battery</th><th>what it covers</th><th>this build</th></tr></thead><tbody><tr><td>funnel machine</td><td>14 items · 19 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>detach</td><td>11 checks</td><td><span class="tag held">green</span></td></tr><tr><td>interval · eqcert</td><td>certificate contract</td><td><span class="tag held">green</span></td></tr><tr><td>interval · arithmetic</td><td>16 000 ops vs exact rationals</td><td><span class="tag held">green</span></td></tr><tr><td>interval · transcendental</td><td>sound exp/log/sin/cos</td><td><span class="tag held">green</span></td></tr><tr><td>interval · enclosure</td><td></td><td><span class="tag held">green</span></td></tr><tr><td>trigmin certifier</td><td>47 checks · 2 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>hunt · newman-mu</td><td>red controls (a)–(f)</td><td><span class="tag held">green</span></td></tr><tr><td>sos · global bound</td><td>stdlib fractions only</td><td><span class="tag held">green</span></td></tr><tr><td>sos · lyapunov</td><td>stdlib fractions only</td><td><span class="tag held">green</span></td></tr><tr><td>sos · re-verify AI result</td><td>stdlib fractions only</td><td><span class="tag held">green</span></td></tr></tbody></table></div></div><div class="col"><p>Lift: <span class="m">39 files</span> copied out of the source lab, <span class="m">3 patched</span> on the way in, each patch declared in <span class="m">LIFT.json</span>. Drift right now: <span class="m">39 unchanged · 0 source moved · 0 local edited · 0 source gone</span>.</p><div class="note">
+  <span class="lab">The one rule</span>
+<p><strong>/Users/carlostoledo/Documents/sin-mfg is read-only, permanently.</strong> Read anything — insights, numbers, literature, instruments. Never edit a file, never change the tree, and if you find an error there, report it rather than repair it: that lab pins evidence by path and sha256, so an edit makes a pin resolve to nothing and demotes a certified claim. Outward is free; inward is closed.</p>
+</div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · defects</div>
+    <h2>What went wrong, including in this page&#39;s own tooling</h2>
+  </div>
+<ul class="plain"><li><b>Board key undeclared — FIXED.</b> The first campaign boarded six entries for three objects; reversal A → max(A)−A is the same object. The facility existed and was not declared. The pre-fix board was archived, not deleted.</li><li><b>A ratchet with no pawl — FIXED.</b> The term-varying generator could only ever reach n=7, because extending needs a boarded champion at n−1 and none could be boarded. 3 000 candidates, 152 hits, 0 admissions.</li><li><b>Boundary clamp made mutation a no-op — FIXED.</b> Perturbing a gap of 1 downward clamped back to 1, so 23 of 1 500 proposals returned an unmutated literature anchor. Caught by a new check on its first run.</li><li><b>The slide move is 45% inert — OPEN.</b> In the n=18 local search, 1 215 of 2 693 slide proposals returned their input unchanged, and only 48% of the 6 000 candidates were distinct. The negative result stands but rests on ~2 883 real probes, not 6 000.</li><li><b>The envelope cannot learn — OPEN.</b> bar(n) is computed from a static anchor list, so a newly certified value does not raise the bar for larger n. The census made its own earlier row stale and nothing noticed. Adopting a new anchor is a decision, not a patch.</li><li><b>The machine gates completeness on a NAME — OPEN, owner&#39;s call.</b> A run that exhausted its box, audited every reject and produced no REFUSED still got the downgrade, because funnel.js tests gen.name === &quot;enum&quot; rather than the property. Not patched: renaming our generator would game the check, and changing claim semantics mid-campaign should not happen silently.</li></ul><p class="pull">A check nobody has seen go red is <b>decoration</b>.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§7 · limits</div>
+    <h2>What none of this establishes</h2>
+  </div>
+<ul class="plain"><li><b>No claim is minted.</b> No literature gate has run on any object here. The 17-term result is a two-exponent deletion from a published witness — a trivial derivation from someone else&#39;s object.</li><li><b>Novelty is unknown, not established.</b> Boyd tabulated by degree; term-indexed μ(n) for 10 ≤ n ≤ 18 was not located. A failed search is not a negative result.</li><li><b>The min|f| ≥ 2 record is untouched.</b> It stands at 19 terms. The best certified value here is 1.414, and min|f|² = 1.99980 sits 2.0e−4 below 2 — near, not equal.</li><li><b>Not independently verified.</b> The checks and the code share an author. Cross-checks against the source lab agree byte-for-byte, but that lab and this one share an operator.</li><li><b>The n = 18 negative is local.</b> 6 000 moves around the census near-miss found nothing better, but they were 48% distinct and confined to one neighbourhood. It is a local optimum, not a proof.</li></ul>
+</section>
+
+<footer class="col">
+<p>Generated by tools/build-control.js from records on disk. Rebuild: make control.</p>
+<p>git 3d21a58 · 1 commit · 10 uncommitted paths · 62.0 MB of chained records · 27 min of watched detached compute</p>
+<p>Written record: 2026-08-24-newman-mu.md · 2026-08-24-standup.md</p>
+<p style="margin-top:20px;color:var(--ink-2)">Carlos Toledo · cert-machine · the novelty-driven half. Instruments lifted from sin-mfg, which is read-only from here. Corrections are recorded with their date, never quietly fixed.</p>
+</footer>
+
+</div>
+</html>

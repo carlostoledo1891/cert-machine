@@ -8,7 +8,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help selftest fast drift lift new-hunt hunts clean
+.PHONY: help selftest fast drift lift new-hunt hunts control page clean
 
 help:
 	@echo "cert-machine"
@@ -16,6 +16,8 @@ help:
 	@echo "  make selftest    every battery in the tree, and a list of what it does NOT cover"
 	@echo "  make fast        the inner loop: funnel machine + interval only"
 	@echo "  make hunts       every hunt battery under hunts/*/battery.js"
+	@echo "  make control     rebuild control.html from the records (runs every battery)"
+	@echo "  make page        gate the generated page: determinism, derivation, design invariants"
 	@echo "  make drift       re-hash the lift against sin-mfg and name what moved (reports, never blocks)"
 	@echo "  make lift        re-copy from sin-mfg per LIFT.json (source is never written to)"
 	@echo "  make new-hunt SLUG=<name>   start a hunt from the funnel skeleton"
@@ -56,9 +58,17 @@ selftest:
 	@echo "    green battery says nothing about what a campaign found."
 	@echo "  · the lift itself — run 'make drift' to compare against sin-mfg."
 	@echo "  · instruments/sos runs on stdlib fractions only; no numeric solver is exercised."
+	@echo "  · the generated page — 'make page' gates control.html; this runner does not"
+	@echo "    rebuild it, so a stale control.html passes here and fails there."
 
 hunts:
 	@$(NODE) tools/run-hunt-batteries.js
+
+control:
+	@$(NODE) tools/build-control.js
+
+page:
+	@$(NODE) tools/test-control.js
 
 drift:
 	@$(NODE) tools/lift.js --check
