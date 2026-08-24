@@ -1,0 +1,183 @@
+{
+ "kind": "certified-extension-census",
+ "box": "for each board entry A, every integer e in [-40, 2*span(A)+40] not in A, canonicalised by translation and gcd; duplicates collapsed, so counts are DISTINCT OBJECTS",
+ "complete": true,
+ "note": "Two bars are reported. bar_static is target.js's fixed-anchor envelope; bar_learned folds in this lab's own certified values. target.js uses the static one and cannot learn — an OPEN defect. No literature gate has run on anything here.",
+ "windows": 40,
+ "entries": [
+  {
+   "fromSet": [
+    0,
+    4,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    15,
+    17,
+    24,
+    25,
+    26,
+    29,
+    32,
+    35,
+    38
+   ],
+   "fromTerms": 17,
+   "n": 18,
+   "distinctExtensionsCertified": 140,
+   "refused": 0,
+   "barStaticSq": 1.8560606764970946,
+   "barLearnedSq": 1.9998035774072382,
+   "bestSet": [
+    0,
+    4,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    15,
+    17,
+    22,
+    24,
+    25,
+    26,
+    29,
+    32,
+    35,
+    38
+   ],
+   "addedExponent": 22,
+   "bestModSq": [
+    1.7835700344000187,
+    1.783570034400019
+   ],
+   "bestModulus": [
+    1.3355036631922872,
+    1.3355036631922876
+   ],
+   "clearsStatic": false,
+   "clearsLearned": false,
+   "hitsStatic": 0,
+   "hitsLearned": 0
+  },
+  {
+   "fromSet": [
+    0,
+    6,
+    9,
+    10,
+    17,
+    24
+   ],
+   "fromTerms": 6,
+   "n": 7,
+   "distinctExtensionsCertified": 123,
+   "refused": 0,
+   "barStaticSq": 1.1348340298500457,
+   "barLearnedSq": 1.1348340298500457,
+   "bestSet": [
+    0,
+    6,
+    9,
+    10,
+    12,
+    17,
+    24
+   ],
+   "addedExponent": 12,
+   "bestModSq": [
+    0.7640501835455699,
+    0.76405018354557
+   ],
+   "bestModulus": [
+    0.8740996416573854,
+    0.8740996416573857
+   ],
+   "clearsStatic": false,
+   "clearsLearned": false,
+   "hitsStatic": 0,
+   "hitsLearned": 0
+  },
+  {
+   "fromSet": [
+    0,
+    3,
+    8,
+    12,
+    13,
+    14
+   ],
+   "fromTerms": 6,
+   "n": 7,
+   "distinctExtensionsCertified": 103,
+   "refused": 0,
+   "barStaticSq": 1.1348340298500457,
+   "barLearnedSq": 1.1348340298500457,
+   "bestSet": [
+    0,
+    3,
+    6,
+    11,
+    15,
+    16,
+    17
+   ],
+   "addedExponent": -3,
+   "bestModSq": [
+    0.6756368084823727,
+    0.6756368084823728
+   ],
+   "bestModulus": [
+    0.8219712941960763,
+    0.8219712941960765
+   ],
+   "clearsStatic": false,
+   "clearsLearned": false,
+   "hitsStatic": 0,
+   "hitsLearned": 0
+  },
+  {
+   "fromSet": [
+    0,
+    1,
+    4,
+    5,
+    10,
+    12
+   ],
+   "fromTerms": 6,
+   "n": 7,
+   "distinctExtensionsCertified": 99,
+   "refused": 0,
+   "barStaticSq": 1.1348340298500457,
+   "barLearnedSq": 1.1348340298500457,
+   "bestSet": [
+    0,
+    1,
+    4,
+    5,
+    10,
+    12,
+    17
+   ],
+   "addedExponent": 17,
+   "bestModSq": [
+    0.6138285750413474,
+    0.6138285750413475
+   ],
+   "bestModulus": [
+    0.7834721278012047,
+    0.783472127801205
+   ],
+   "clearsStatic": false,
+   "clearsLearned": false,
+   "hitsStatic": 0,
+   "hitsLearned": 0
+  }
+ ]
+}

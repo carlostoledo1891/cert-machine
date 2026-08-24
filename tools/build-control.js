@@ -158,7 +158,8 @@ function readHunts() {
       }
     }
     const census = exists(base + '/results-subsets-hj.json') ? rj(base + '/results-subsets-hj.json') : null;
-    return { slug, board, statement, runs, ops, census };
+    const ext = exists(base + '/results-extensions.json') ? rj(base + '/results-extensions.json') : null;
+    return { slug, board, statement, runs, ops, census, ext };
   });
 }
 const hunts = readHunts();
@@ -369,6 +370,51 @@ if (H.census) {
   }));
 }
 
+/* ---- §4b the extension census: the question a subset census cannot ask ---- */
+if (H.ext) {
+  const rows = H.ext.entries.map(e => [
+    { raw: C.esc(e.fromTerms + ' → ' + e.n) },
+    { raw: C.m('[' + e.fromSet.join(',') + ']') },
+    { raw: C.m(commas(e.distinctExtensionsCertified)) },
+    { raw: C.m(fmt(e.bestModulus[0], 12)) + '<br>' + C.esc('adding e = ' + e.addedExponent) },
+    { raw: (e.clearsStatic || e.clearsLearned) ? C.tag('clears', 'cert') : C.tag('none clear', 'dep') }
+  ]);
+  const top = H.ext.entries[0];
+  B.push(C.section({
+    lab: '§4b · the extension census',
+    title: 'The question a subset census structurally cannot ask',
+    wide: true,
+    bodyRaw: '<div class="col">'
+      + C.pRaw('Every object the subset census examined was a <em>subset</em> of the 19-term witness. '
+        + 'An 18-term set built by <strong>adding</strong> an exponent to our 17-term champion is not a '
+        + 'subset of it at all — the added exponent can be any integer — so it lies entirely outside that box. '
+        + 'This census covers it: for each board entry, every integer in a declared window, canonicalised, '
+        + 'duplicates collapsed.')
+      + '</div>'
+      + C.table({
+          cols: [{ h: 'terms' }, { h: 'extended from', cls: 'v' }, { h: 'distinct extensions', cls: 'v' },
+                 { h: 'best min|f| ≥', cls: 'v' }, { h: 'verdict' }],
+          rows
+        })
+      + '<div class="col">'
+      + C.pRaw('<strong>Nothing clears.</strong> Complete over the declared window — a certified negative, '
+        + 'not a failed search. The best extension of the 17-term champion is reached by putting '
+        + C.m('22') + ' back, which lands at ' + C.m(fmt(top.bestModulus[0], 12)) + ' — below even the '
+        + 'static bar. Combined with the subset census the picture is that the 17-term object is '
+        + '<em>isolated</em>: you cannot reach 18 terms by deleting from the witness, and you cannot reach '
+        + 'it by adding to the champion.')
+      + C.note({
+          lab: 'Two bars, because one of them is known to be wrong',
+          bodyRaw: C.pRaw('<b>bar_static</b> is the envelope as ' + C.m('target.js') + ' computes it, from a '
+            + 'fixed anchor list — for n = 18 that is Boyd\'s 9-term value. <b>bar_learned</b> folds in this '
+            + 'lab\'s own certified values, which for n = 18 means the 17-term champion. The target uses the '
+            + 'static one and cannot learn; reporting both is the only honest way to state a result while '
+            + 'the envelope judging it is a known open defect (§6).')
+        })
+      + '</div>'
+  }));
+}
+
 /* ---- §5 the machine ---- */
 {
   const rows = batteryResults.map(b => [
@@ -416,9 +462,11 @@ if (H.census) {
     { b: 'Boundary clamp made mutation a no-op — FIXED.', text: 'Perturbing a gap of 1 downward clamped '
       + 'back to 1, so 23 of 1 500 proposals returned an unmutated literature anchor. Caught by a new '
       + 'check on its first run.' },
-    { b: 'The slide move is 45% inert — OPEN.', text: 'In the n=18 local search, 1 215 of 2 693 slide '
-      + 'proposals returned their input unchanged, and only 48% of the 6 000 candidates were distinct. '
-      + 'The negative result stands but rests on ~2 883 real probes, not 6 000.' },
+    { b: 'The slide move was 45% inert — FIXED, and the result re-run.', text: 'It returned its input '
+      + 'whenever the moved exponent collided, so run n18-local-1 was only 48.0% distinct. It now retries '
+      + 'and returns null on genuine failure rather than the identity. Re-run as n18-local-2: 58.8% '
+      + 'distinct, 3 529 real probes against 2 883 — and the negative held, which is why it was worth '
+      + 'fixing before reporting.' },
     { b: 'The envelope cannot learn — OPEN.', text: 'bar(n) is computed from a static anchor list, so a '
       + 'newly certified value does not raise the bar for larger n. The census made its own earlier row '
       + 'stale and nothing noticed. Adopting a new anchor is a decision, not a patch.' },

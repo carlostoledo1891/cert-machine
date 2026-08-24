@@ -70,18 +70,47 @@ function normalise(A) {
   return t;
 }
 
-function slide(A, rng, howMany) {
-  var reps = howMany || 1;
-  for (var r = 0; r < reps; r++) {
+/* Move one exponent and KEEP TRYING until it actually moves.
+
+   The first version tried once and silently kept its input when the moved
+   exponent collided with an existing one or the result failed validation.
+   Measured on run n18-local-1: 1215 of 2693 slide proposals (45.1%) returned
+   their input, and only 48.0% of the whole 6000-candidate campaign was
+   distinct — so a negative result reported as "6000 moves found nothing" was
+   really about 2883 probes. Same defect family as the boundary clamp in
+   gen-terms.js: a move that can silently be the identity.
+
+   Now it retries with a fresh index and step, and reports failure honestly by
+   returning null rather than by returning its input. */
+function slideOnce(A, rng) {
+  for (var t = 0; t < 32; t++) {
     var v = A.slice();
     var i = 1 + Math.floor(rng() * (v.length - 1));      /* never move the 0 */
     var step = (rng() < 0.5 ? -1 : 1) * (1 + Math.floor(rng() * 3));
     v[i] = v[i] + step;
-    if (v[i] < 1) v[i] = 1;
+    if (v[i] < 1) continue;
     var n = normalise(v);
-    if (n.length === TERMS && ok(n)) A = n;
+    if (n.length !== TERMS || !ok(n)) continue;
+    if (sameSet(n, A)) continue;                          /* the identity is not a move */
+    return n;
   }
-  return A;
+  return null;
+}
+
+function sameSet(a, b) {
+  if (a.length !== b.length) return false;
+  for (var i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+  return true;
+}
+
+function slide(A, rng, howMany) {
+  var reps = howMany || 1;
+  var cur = A;
+  for (var r = 0; r < reps; r++) {
+    var n = slideOnce(cur, rng);
+    if (n) cur = n;
+  }
+  return cur;
 }
 
 function swap(A, rng) {
@@ -90,14 +119,14 @@ function swap(A, rng) {
   var span = v[v.length - 1];
   var used = {};
   for (var k = 0; k < v.length; k++) used[v[k]] = 1;
-  for (var tries = 0; tries < 24; tries++) {
+  for (var tries = 0; tries < 48; tries++) {
     var cand = 1 + Math.floor(rng() * (span + 6));
     if (used[cand]) continue;
     var w = v.slice(); w[i] = cand;
     var n = normalise(w);
-    if (n.length === TERMS && ok(n)) return n;
+    if (n.length === TERMS && ok(n) && !sameSet(n, A)) return n;
   }
-  return A;
+  return A;                       /* genuinely stuck; the caller's fallback fires */
 }
 
 module.exports = {
