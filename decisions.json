@@ -1,0 +1,76 @@
+{
+  "_note": "Open decisions, rendered as §0 of control.html. Edit this file, run `make control`. A decision leaves by being moved to `closed` with its ruling and date — never by deletion, so the reasoning survives the choice (C35).",
+  "open": [
+    {
+      "id": "D1",
+      "title": "The machine's completeness gate keys on a NAME, not a property",
+      "weight": "small change, real consequence",
+      "what": "funnel.js grants an exhaustionCertificate only when gen.name === 'enum'. Our hj-subsets run exhausted its box, certified every one of its 189 rejects, returned zero REFUSED and zero schema-invalid — and still got the 'best known to this search' downgrade, because it is not literally called enum. A check refusing a FACT about a run on the basis of an identity.",
+      "options": [
+        { "k": "Patch the property", "v": "Test the four conditions the certificate actually rests on, not the generator's name. One line in a lifted file; declared in LIFT.json so `make drift` names it forever. The hj-subsets campaign would then need a re-run to emit the certificate it earned (~20 s).", "rec": true },
+        { "k": "Leave it", "v": "Exhaustive non-enum generators keep taking the downgrade, and we assert completeness in prose instead — which is exactly the weaker thing the machine exists to prevent." },
+        { "k": "Rename our generator to 'enum'", "v": "Gaming the check rather than fixing it. Rejected, and recorded as rejected so it is not proposed again." }
+      ]
+    },
+    {
+      "id": "D2",
+      "title": "Where the hunt points next",
+      "weight": "sets the next few days",
+      "what": "n = 18 is closed from three directions — complete subset census, complete extension census, and 3529 distinct local probes, none clearing the bar. The instrument is idle and the frontier has to be chosen deliberately, which is this lab's whole thesis.",
+      "options": [
+        { "k": "n = 10..16, the empty band", "v": "Nothing is certified there by anyone, us included. The bar is Boyd's 1.36237 and hits are plausible. Produces the certified term-indexed landscape table that exists nowhere. Cheap, high yield, low drama.", "rec": true },
+        { "k": "Certify HJ's exclusion of degree <= 40", "v": "Their 94.6-hour double-precision filter is uncertified by them and by us. This is the RECORD-with-completeness shape the scouts said nobody publishes for non-SAT numerical exhaustion. Expensive — needs a real pruning design before any compute." },
+        { "k": "Push at min|f| >= 2 below 19 terms", "v": "The actual record. Best we hold is 1.41414 against 2.0 needed; blind search reached 1.07. Low odds without a structural idea." },
+        { "k": "Open Hunt A — the scorekeeper", "v": "The status ledger over public unadjudicated conjecture piles (Ramanujan Machine, AlphaEvolve, OEIS). Untouched since the plan. Mints from day one and builds corpus/ and board/." }
+      ]
+    },
+    {
+      "id": "D3",
+      "title": "Run a literature gate on the 17-term object",
+      "weight": "cheap, and it decides whether any of this is worth anything",
+      "what": "mu(17) >= 1.4141441147942588 is certified. Whether it is NEW is unknown — Boyd tabulated by degree, and term-indexed mu(n) for 10 <= n <= 18 was not located, which is a failed search rather than a negative. Nothing here has been through a gate.",
+      "options": [
+        { "k": "Read now, before more compute", "v": "Aim before fire, applied to our own result. If the value is in print the hunt's framing changes immediately; if it is not, the n=10..16 band becomes considerably more interesting. Needs network access this session does not have.", "rec": true },
+        { "k": "Defer until a bigger result", "v": "Risks the chowla failure mode the source lab paid for: a day of high-quality rediscovery, learned at promotion." }
+      ]
+    },
+    {
+      "id": "D4",
+      "title": "The aim/ and novelty/ stages are still unbuilt",
+      "weight": "this is the project's actual thesis",
+      "what": "PLAN.md §4.1 and §4.2 — targeting as a measurable machine stage, and occupancy as a continuous score at admission instead of a veto at promotion — are the two genuinely novel contributions and neither exists. Four campaigns have been steered by hand-written generators instead.",
+      "options": [
+        { "k": "Build aim/ next, against the campaigns already run", "v": "There are now five campaigns with recorded outcomes to measure a targeting engine against. Building it earlier would have had no baseline; building it now does.", "rec": true },
+        { "k": "Keep hunting, build it when a hunt demands it", "v": "Defensible — the hunts are producing — but it is how a thesis quietly becomes a side project." }
+      ]
+    },
+    {
+      "id": "D5",
+      "title": "Does anything leave the repository",
+      "weight": "irreversible, so it is the one thing that still blocks",
+      "what": "Nothing has been sent anywhere. The 17-term object plus the two complete censuses are the shape of a research note like erdos-290. Publication cannot be recalled, which is why the charter makes sending the one remaining lock.",
+      "options": [
+        { "k": "Nothing leaves yet", "v": "Correct until D3 answers. A note whose novelty claim is unchecked is the failure mode the source lab has paid for repeatedly.", "rec": true },
+        { "k": "Draft a note now, hold it unpublished", "v": "The drafting itself forces the scope lines to be written down, and the draft can sit unsent." }
+      ]
+    },
+    {
+      "id": "D6",
+      "title": "62 MB of chained records are in git, and growing",
+      "weight": "housekeeping, decide before it is a migration",
+      "what": "The campaign jsonl files are committed. They are evidence, and they are also regenerable — the machine guarantees byte-identical replay from the same seed and harness sha.",
+      "options": [
+        { "k": "Keep committing them", "v": "Evidence in version control is the safer error, and 62 MB is nothing locally.", "rec": true },
+        { "k": "Gitignore run-*.jsonl, keep summaries", "v": "Leans on replay. Costs ~20 minutes to reconstruct a campaign and loses the tamper-evident chain as a historical object." }
+      ]
+    }
+  ],
+  "closed": [
+    {
+      "id": "D0",
+      "title": "How the envelope learns",
+      "ruled": "2026-08-24",
+      "ruling": "It learns by EXPLICIT adoption and freezes at module load. Static was false — it flattered every n=18 result by 5.2e-2 against a bar we ourselves had beaten. Auto-absorbing the board was worse: the bar would move mid-campaign, verdicts would depend on when a candidate was proposed, and kill-and-resume would stop replaying byte-identical. The 17-term object was adopted; envelopeAudit() reports any unadopted excess without refusing anything."
+    }
+  ]
+}

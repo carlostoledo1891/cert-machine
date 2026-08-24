@@ -61,6 +61,7 @@ function commas(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
 /* ---------------------------------------------------------------- gather -- */
 
 const prov = rj('PROVENANCE.json');
+const decisions = exists('decisions.json') ? rj('decisions.json') : { open: [], closed: [] };
 const lift = rj('LIFT.json');
 
 /* -- batteries, run for real -- */
@@ -215,6 +216,30 @@ B.push(C.scope(
   + 'pending independent verification; the checks and the code share an author, so they rule out '
   + 'slips rather than a shared misconception.'
 ));
+
+/* ---- §0 waiting on the owner ---- */
+if (decisions.open && decisions.open.length) {
+  const items = decisions.open.map(d => {
+    const opts = d.options.map(o =>
+      '<li>' + (o.rec ? C.tag('recommended', 'cert') + ' ' : '') + '<b>' + C.esc(o.k) + '</b> — ' + C.esc(o.v) + '</li>'
+    ).join('');
+    return '<li>'
+      + '<b>' + C.esc(d.id + ' · ' + d.title) + '</b>'
+      + ' <span class="m" style="color:var(--ink-3)">' + C.esc(d.weight) + '</span><br>'
+      + C.esc(d.what)
+      + '<ul style="margin:12px 0 0;padding-left:20px;font-size:15.5px">' + opts + '</ul>'
+      + '</li>';
+  }).join('');
+  const closed = (decisions.closed || []).map(d =>
+    C.pRaw('<b>' + C.esc(d.id + ' · ' + d.title) + '</b> — ruled ' + C.esc(d.ruled) + '. ' + C.esc(d.ruling))
+  ).join('');
+  B.push(C.section({
+    lab: '§0 · waiting on you',
+    title: decisions.open.length + ' decisions, and what each one costs',
+    bodyRaw: '<ul class="plain">' + items + '</ul>'
+      + (closed ? C.note({ lab: 'Already ruled — kept, not deleted', bodyRaw: closed }) : '')
+  }));
+}
 
 /* ---- §1 the board ---- */
 {
