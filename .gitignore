@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+
+# operational, not records
+hunts/*/experiments/checkpoint-*.json
+hunts/*/detach-*.log
+hunts/*/*.lock
+hunts/*/detach-*.lock.json

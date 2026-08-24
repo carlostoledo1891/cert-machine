@@ -1,0 +1,94 @@
+{
+  "source_root": "/Users/carlostoledo/Documents/sin-mfg",
+  "policy": "READ-ONLY. The lift copies OUT of sin-mfg and never writes back. `make drift` re-hashes both ends and names what moved.",
+  "items": [
+    {
+      "src": "research/_engine/funnel",
+      "dst": "machine/funnel",
+      "note": "the certified funnel machine: runner, governor, stats, generators, selftest, skeleton",
+      "exclude": []
+    },
+    {
+      "src": "research/_engine/detach",
+      "dst": "machine/detach",
+      "note": "nohup + checkpoint + resume + watch; extracted from four hand-rolled copies after a harness kill",
+      "exclude": []
+    },
+    {
+      "src": "core/interval",
+      "dst": "instruments/interval",
+      "note": "eqcert: certificate (falsifier-required) - interval - rational - radii - sequence - transcendental",
+      "exclude": [
+        "tests/test-single-source.js"
+      ],
+      "exclude_why": "a whole-tree copy police. It exists to protect a monorepo export seam that this repo does not have, and it cannot pass here by construction."
+    },
+    {
+      "src": "research/probes/chowla-cosine/certify-min.js",
+      "dst": "instruments/trigmin/certify-min.js",
+      "note": "certified global minimum of an integer-coefficient cosine polynomial: Chebyshev reduction, BigInt Sturm isolation, interval-Newton refinement, exact Taylor value enclosures"
+    },
+    {
+      "src": "research/probes/chowla-cosine/cheb.js",
+      "dst": "instruments/trigmin/cheb.js"
+    },
+    {
+      "src": "research/probes/chowla-cosine/battery.js",
+      "dst": "instruments/trigmin/battery.js",
+      "note": "47 checks, 2 red controls"
+    },
+    {
+      "src": "research/probes/cheap-cert-families/sos_verify.py",
+      "dst": "instruments/sos/sos_verify.py",
+      "note": "exact rational sum-of-squares: a tight global lower bound, checker driven red on a corrupted certificate"
+    },
+    {
+      "src": "research/probes/cheap-cert-families/lyapunov_cert.py",
+      "dst": "instruments/sos/lyapunov_cert.py"
+    },
+    {
+      "src": "research/probes/cheap-cert-families/reverify_ai_lyapunov.py",
+      "dst": "instruments/sos/reverify_ai_lyapunov.py"
+    }
+  ],
+  "patches": [
+    {
+      "file": "instruments/trigmin/certify-min.js",
+      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) — the marker IS the package root, and no file counts hops.",
+      "replace": [
+        [
+          "const IV = require(path.join(__dirname, '..', '..', '..', 'core', 'interval', 'interval.js'));",
+          "const IV = require('#instruments/interval/interval.js');"
+        ],
+        [
+          "const Q = require(path.join(__dirname, '..', '..', '..', 'core', 'interval', 'rational.js'));",
+          "const Q = require('#instruments/interval/rational.js');"
+        ]
+      ]
+    },
+    {
+      "file": "instruments/trigmin/cheb.js",
+      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) — the marker IS the package root, and no file counts hops.",
+      "replace": [
+        [
+          "const IV = require(path.join(__dirname, '..', '..', '..', 'core', 'interval', 'interval.js'));",
+          "const IV = require('#instruments/interval/interval.js');"
+        ],
+        [
+          "const Q = require(path.join(__dirname, '..', '..', '..', 'core', 'interval', 'rational.js'));",
+          "const Q = require('#instruments/interval/rational.js');"
+        ]
+      ]
+    },
+    {
+      "file": "machine/funnel/skeleton/target.js",
+      "why": "the skeleton's commented example import named the monorepo layout",
+      "replace": [
+        [
+          "const IV = require('../../../core/interval/interval.js'); */",
+          "const IV = require('#instruments/interval/interval.js'); */"
+        ]
+      ]
+    }
+  ]
+}

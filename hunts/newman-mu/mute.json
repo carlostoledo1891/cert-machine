@@ -1,0 +1,72 @@
+{
+  "kind": "mute-archive",
+  "instance": "newman-mu",
+  "note": "board entries displaced or superseded, kept revivable (Graffiti's mute file): nothing admitted is ever silently deleted.",
+  "entries": [
+    {
+      "reason": "superseded-by-better-instance",
+      "key": "[0,1,2,6,11,14]",
+      "supersededAtOrdinal": 10433,
+      "supersededByRunSeed": "enum-box8-complete",
+      "entry": {
+        "key": "[0,1,2,6,11,14]",
+        "region": "n=6",
+        "candidate": {
+          "g": [
+            1,
+            1,
+            4,
+            5,
+            3
+          ]
+        },
+        "score": 0.02619289316435469,
+        "certificate": {
+          "A": [
+            0,
+            1,
+            2,
+            6,
+            11,
+            14
+          ],
+          "n": 6,
+          "gcd": 1,
+          "degree": 14,
+          "distinctDifferences": 13,
+          "pairs": 15,
+          "modSq": [
+            1.0261841018931677,
+            1.0261841018931679
+          ],
+          "modulus": [
+            1.0130074540165868,
+            1.0130074540165874
+          ],
+          "barSq": 1,
+          "barSource": "monotone envelope of certified anchors with fewer than 6 terms",
+          "above": true,
+          "argEnclosures": [
+            {
+              "kind": "critical",
+              "y": [
+                0.7222427289590313,
+                0.7222427289598562
+              ],
+              "value": [
+                1.0261841018931677,
+                1.0261841018931679
+              ]
+            }
+          ],
+          "method": "autocorrelation -> weighted chebyshev -> chebyshev reduction → sturm isolation (grid+sturm-total) → interval-newton/bisection refinement → exact taylor value enclosures, outward-rounded",
+          "tripwire": false
+        },
+        "certRef": "78bb95bf6e1d986ce1c2ea3c969b746ef3a70826dd19138b2a4e398f5da5ddb7",
+        "runSeed": "enum-box8-complete",
+        "ordinal": 227,
+        "via": "main-loop"
+      }
+    }
+  ]
+}

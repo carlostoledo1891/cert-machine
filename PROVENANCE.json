@@ -1,0 +1,285 @@
+{
+ "source_root": "/Users/carlostoledo/Documents/sin-mfg",
+ "lifted_at_utc": "2026-08-24T19:35:04.533Z",
+ "policy": "READ-ONLY. The lift copies OUT of sin-mfg and never writes back. `make drift` re-hashes both ends and names what moved.",
+ "counts": {
+  "files": 39,
+  "patched": 3,
+  "missing_in_source": 0
+ },
+ "files": [
+  {
+   "src": "research/_engine/funnel/README.md",
+   "dst": "machine/funnel/README.md",
+   "src_sha256": "886496a0737e87d8501cc159fc5b34cb4cfd3d359da166a0d4568a66fff6e6fb",
+   "patched": false,
+   "local_sha256": "886496a0737e87d8501cc159fc5b34cb4cfd3d359da166a0d4568a66fff6e6fb"
+  },
+  {
+   "src": "research/_engine/funnel/funnel.js",
+   "dst": "machine/funnel/funnel.js",
+   "src_sha256": "dbec91954adbbff460b7bc29b7585891370cd0865d862323820e3452f98dc36e",
+   "patched": false,
+   "local_sha256": "dbec91954adbbff460b7bc29b7585891370cd0865d862323820e3452f98dc36e"
+  },
+  {
+   "src": "research/_engine/funnel/generators/enum.js",
+   "dst": "machine/funnel/generators/enum.js",
+   "src_sha256": "87ba7c3bace6898ff34a8368fba51923acf454dc10c10b6784ba648698cfff91",
+   "patched": false,
+   "local_sha256": "87ba7c3bace6898ff34a8368fba51923acf454dc10c10b6784ba648698cfff91"
+  },
+  {
+   "src": "research/_engine/funnel/generators/evolve.js",
+   "dst": "machine/funnel/generators/evolve.js",
+   "src_sha256": "cccbce91dd4eb064f6b6c4762017e53a4440db3f9eaff5fa424ba6d105ccc1a5",
+   "patched": false,
+   "local_sha256": "cccbce91dd4eb064f6b6c4762017e53a4440db3f9eaff5fa424ba6d105ccc1a5"
+  },
+  {
+   "src": "research/_engine/funnel/generators/llm.js",
+   "dst": "machine/funnel/generators/llm.js",
+   "src_sha256": "6f90791833d139adcefba2c782daa017abd49467430ddc206057923a3e470ebb",
+   "patched": false,
+   "local_sha256": "6f90791833d139adcefba2c782daa017abd49467430ddc206057923a3e470ebb"
+  },
+  {
+   "src": "research/_engine/funnel/generators/searcher.js",
+   "dst": "machine/funnel/generators/searcher.js",
+   "src_sha256": "8ab087a4ced142f85ca86b7135fefc71b854aadd1efca4ee837d8a025514f8c5",
+   "patched": false,
+   "local_sha256": "8ab087a4ced142f85ca86b7135fefc71b854aadd1efca4ee837d8a025514f8c5"
+  },
+  {
+   "src": "research/_engine/funnel/governor.js",
+   "dst": "machine/funnel/governor.js",
+   "src_sha256": "5f9118f31eb191ccb51bf3bc3ffceb5418ba46f0a5f2744acdf64c2631e8e42a",
+   "patched": false,
+   "local_sha256": "5f9118f31eb191ccb51bf3bc3ffceb5418ba46f0a5f2744acdf64c2631e8e42a"
+  },
+  {
+   "src": "research/_engine/funnel/selftest/battery.js",
+   "dst": "machine/funnel/selftest/battery.js",
+   "src_sha256": "8fa831901f4f4794e1e8757220b1083f8df573ff6823d4765ad0e3e7198b25b1",
+   "patched": false,
+   "local_sha256": "8fa831901f4f4794e1e8757220b1083f8df573ff6823d4765ad0e3e7198b25b1"
+  },
+  {
+   "src": "research/_engine/funnel/selftest/generators/evil-fs.js",
+   "dst": "machine/funnel/selftest/generators/evil-fs.js",
+   "src_sha256": "589e24c2c537c85e1d962a4f912a95d2b28236c21e3d5b2dce31a08c15af521c",
+   "patched": false,
+   "local_sha256": "589e24c2c537c85e1d962a4f912a95d2b28236c21e3d5b2dce31a08c15af521c"
+  },
+  {
+   "src": "research/_engine/funnel/selftest/targets/cascade-bad.js",
+   "dst": "machine/funnel/selftest/targets/cascade-bad.js",
+   "src_sha256": "8abfcc8fb2d4217ae1cb6376c53ce0727fa9ae006151f9e8122e971df75e383f",
+   "patched": false,
+   "local_sha256": "8abfcc8fb2d4217ae1cb6376c53ce0727fa9ae006151f9e8122e971df75e383f"
+  },
+  {
+   "src": "research/_engine/funnel/selftest/targets/cascade.js",
+   "dst": "machine/funnel/selftest/targets/cascade.js",
+   "src_sha256": "b8e06d49b5fc29a589d17ab76adec9ce9f3c53b5fdc8e0335e22ee1b1b234268",
+   "patched": false,
+   "local_sha256": "b8e06d49b5fc29a589d17ab76adec9ce9f3c53b5fdc8e0335e22ee1b1b234268"
+  },
+  {
+   "src": "research/_engine/funnel/selftest/targets/gamed-score.js",
+   "dst": "machine/funnel/selftest/targets/gamed-score.js",
+   "src_sha256": "02b9647f01e8d52d5a0753ad2ea7028c1ac109b503e44c3fc30d65209eb6c5ec",
+   "patched": false,
+   "local_sha256": "02b9647f01e8d52d5a0753ad2ea7028c1ac109b503e44c3fc30d65209eb6c5ec"
+  },
+  {
+   "src": "research/_engine/funnel/selftest/targets/leaky-screen.js",
+   "dst": "machine/funnel/selftest/targets/leaky-screen.js",
+   "src_sha256": "05c0f3144f0cfcf112d2bb465622356e3c0c1ad75d30118a3e41757f38ae11e2",
+   "patched": false,
+   "local_sha256": "05c0f3144f0cfcf112d2bb465622356e3c0c1ad75d30118a3e41757f38ae11e2"
+  },
+  {
+   "src": "research/_engine/funnel/selftest/targets/miscalibrated-screen.js",
+   "dst": "machine/funnel/selftest/targets/miscalibrated-screen.js",
+   "src_sha256": "995a16721f5202395ba7345dcadf36cae7ef2a023b441e50d37e3518f3a75513",
+   "patched": false,
+   "local_sha256": "995a16721f5202395ba7345dcadf36cae7ef2a023b441e50d37e3518f3a75513"
+  },
+  {
+   "src": "research/_engine/funnel/selftest/targets/sabotaged-certify.js",
+   "dst": "machine/funnel/selftest/targets/sabotaged-certify.js",
+   "src_sha256": "7f0bbc503694b4009d9fe3eead8f82a1a18bea1404d1ab137fa4b6500c159e97",
+   "patched": false,
+   "local_sha256": "7f0bbc503694b4009d9fe3eead8f82a1a18bea1404d1ab137fa4b6500c159e97"
+  },
+  {
+   "src": "research/_engine/funnel/selftest/targets/synthetic.js",
+   "dst": "machine/funnel/selftest/targets/synthetic.js",
+   "src_sha256": "204d80f78a478c6f92342c0a57a829629fd83011944d36b5de569a2634f19a47",
+   "patched": false,
+   "local_sha256": "204d80f78a478c6f92342c0a57a829629fd83011944d36b5de569a2634f19a47"
+  },
+  {
+   "src": "research/_engine/funnel/skeleton/program.md",
+   "dst": "machine/funnel/skeleton/program.md",
+   "src_sha256": "1fab0367d551bebd9ee2acb32aa69ac103dc26a76db6b12d22dc5265c8ab3552",
+   "patched": false,
+   "local_sha256": "1fab0367d551bebd9ee2acb32aa69ac103dc26a76db6b12d22dc5265c8ab3552"
+  },
+  {
+   "src": "research/_engine/funnel/skeleton/target.js",
+   "dst": "machine/funnel/skeleton/target.js",
+   "src_sha256": "9a74ed6a5808bb9cebe05366a38ff97724ce71b5ef1f1f791010f252aeed28bd",
+   "patched": true,
+   "local_sha256": "20e0b80f5653ed70313cddaf768c0ace69229565700f216272c27fde0ee4509f"
+  },
+  {
+   "src": "research/_engine/funnel/stats.js",
+   "dst": "machine/funnel/stats.js",
+   "src_sha256": "6fec9a10aaa4ecf067066a563f49db26cacb95c04f0e1a0486b6bb7cb49cfb95",
+   "patched": false,
+   "local_sha256": "6fec9a10aaa4ecf067066a563f49db26cacb95c04f0e1a0486b6bb7cb49cfb95"
+  },
+  {
+   "src": "research/_engine/detach/detach.js",
+   "dst": "machine/detach/detach.js",
+   "src_sha256": "ee7120f6d20635a6c8e1e6e712ad509025c8cdcfb5e94289389de5fb3e5a8d77",
+   "patched": false,
+   "local_sha256": "ee7120f6d20635a6c8e1e6e712ad509025c8cdcfb5e94289389de5fb3e5a8d77"
+  },
+  {
+   "src": "research/_engine/detach/selftest.js",
+   "dst": "machine/detach/selftest.js",
+   "src_sha256": "f6498bbeed8f1413837df0607f93aaaa7b49e0543b1adf262607f4f5d66cd1fe",
+   "patched": false,
+   "local_sha256": "f6498bbeed8f1413837df0607f93aaaa7b49e0543b1adf262607f4f5d66cd1fe"
+  },
+  {
+   "src": "core/interval/certificate.js",
+   "dst": "instruments/interval/certificate.js",
+   "src_sha256": "494232ca25dc10a6fd0d602e26aeb8069da89161b206814524c644f6ae6b41f4",
+   "patched": false,
+   "local_sha256": "494232ca25dc10a6fd0d602e26aeb8069da89161b206814524c644f6ae6b41f4"
+  },
+  {
+   "src": "core/interval/index.js",
+   "dst": "instruments/interval/index.js",
+   "src_sha256": "c2c2a96cc4fe6ca2271b93ed78bc313f83b3c7daf881589bad2f3f572fe08456",
+   "patched": false,
+   "local_sha256": "c2c2a96cc4fe6ca2271b93ed78bc313f83b3c7daf881589bad2f3f572fe08456"
+  },
+  {
+   "src": "core/interval/interval.js",
+   "dst": "instruments/interval/interval.js",
+   "src_sha256": "59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5",
+   "patched": false,
+   "local_sha256": "59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5"
+  },
+  {
+   "src": "core/interval/radii.js",
+   "dst": "instruments/interval/radii.js",
+   "src_sha256": "38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b",
+   "patched": false,
+   "local_sha256": "38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b"
+  },
+  {
+   "src": "core/interval/rational.js",
+   "dst": "instruments/interval/rational.js",
+   "src_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b",
+   "patched": false,
+   "local_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b"
+  },
+  {
+   "src": "core/interval/sequence.js",
+   "dst": "instruments/interval/sequence.js",
+   "src_sha256": "327a289daaa62515b2bea45d25218fa98e65cb4f53071dd26c05b25107b2b62b",
+   "patched": false,
+   "local_sha256": "327a289daaa62515b2bea45d25218fa98e65cb4f53071dd26c05b25107b2b62b"
+  },
+  {
+   "src": "core/interval/tests/probe-transcendental.js",
+   "dst": "instruments/interval/tests/probe-transcendental.js",
+   "src_sha256": "be52d9b15fb5f2022a1783a99f85c97d4e367554fd3656ca91d8ac01a82c74f3",
+   "patched": false,
+   "local_sha256": "be52d9b15fb5f2022a1783a99f85c97d4e367554fd3656ca91d8ac01a82c74f3"
+  },
+  {
+   "src": "core/interval/tests/test-eqcert.js",
+   "dst": "instruments/interval/tests/test-eqcert.js",
+   "src_sha256": "aea1ef4c45907600043b5c0cf8422166ad75341319b5920a1f31621acf58bfe8",
+   "patched": false,
+   "local_sha256": "aea1ef4c45907600043b5c0cf8422166ad75341319b5920a1f31621acf58bfe8"
+  },
+  {
+   "src": "core/interval/tests/test-interval.js",
+   "dst": "instruments/interval/tests/test-interval.js",
+   "src_sha256": "016331cb82c112c435071155d041482c0719c3e916c7a23a765c7954c56d9b98",
+   "patched": false,
+   "local_sha256": "016331cb82c112c435071155d041482c0719c3e916c7a23a765c7954c56d9b98"
+  },
+  {
+   "src": "core/interval/tests/test-transcendental-enclosure.js",
+   "dst": "instruments/interval/tests/test-transcendental-enclosure.js",
+   "src_sha256": "e68bb5b087300bd955ea77fdaa62174dfe0220e5c5f06e2860daa93efd1b463e",
+   "patched": false,
+   "local_sha256": "e68bb5b087300bd955ea77fdaa62174dfe0220e5c5f06e2860daa93efd1b463e"
+  },
+  {
+   "src": "core/interval/tests/test-transcendental.js",
+   "dst": "instruments/interval/tests/test-transcendental.js",
+   "src_sha256": "5f3a99770b5c08ed1e3491c3389397add14d9c70ae18fe992bdfcf182339ac00",
+   "patched": false,
+   "local_sha256": "5f3a99770b5c08ed1e3491c3389397add14d9c70ae18fe992bdfcf182339ac00"
+  },
+  {
+   "src": "core/interval/transcendental.js",
+   "dst": "instruments/interval/transcendental.js",
+   "src_sha256": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53",
+   "patched": false,
+   "local_sha256": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53"
+  },
+  {
+   "src": "research/probes/chowla-cosine/certify-min.js",
+   "dst": "instruments/trigmin/certify-min.js",
+   "src_sha256": "dc94416c6e62b785719787fed3c721edcaffdb33114c6e2f534745ef794dce5b",
+   "patched": true,
+   "local_sha256": "33d337f99469016a8b30af825ea99714db10c04dd97951fafd5aa83a1719e905"
+  },
+  {
+   "src": "research/probes/chowla-cosine/cheb.js",
+   "dst": "instruments/trigmin/cheb.js",
+   "src_sha256": "017491791fc1c75ee97e26b2b273d8981751c13ba2f543182ad279139c78c76c",
+   "patched": true,
+   "local_sha256": "42823483b32c87c93829ca997fade6bfd65d13f7f14156b97a899be14c6f3610"
+  },
+  {
+   "src": "research/probes/chowla-cosine/battery.js",
+   "dst": "instruments/trigmin/battery.js",
+   "src_sha256": "1977dd55232fdfd67238c6f37ca44de0a7ddd5d91579540fb7d92e4859a3db4e",
+   "patched": false,
+   "local_sha256": "1977dd55232fdfd67238c6f37ca44de0a7ddd5d91579540fb7d92e4859a3db4e"
+  },
+  {
+   "src": "research/probes/cheap-cert-families/sos_verify.py",
+   "dst": "instruments/sos/sos_verify.py",
+   "src_sha256": "24dac8d075520776b38265d86249e87838cd0fe85926b62cd76c6024d838ef47",
+   "patched": false,
+   "local_sha256": "24dac8d075520776b38265d86249e87838cd0fe85926b62cd76c6024d838ef47"
+  },
+  {
+   "src": "research/probes/cheap-cert-families/lyapunov_cert.py",
+   "dst": "instruments/sos/lyapunov_cert.py",
+   "src_sha256": "ad80fe3ce8736c6b57130e2046fd662d3dd223706787314f7bddf4ed80c2d700",
+   "patched": false,
+   "local_sha256": "ad80fe3ce8736c6b57130e2046fd662d3dd223706787314f7bddf4ed80c2d700"
+  },
+  {
+   "src": "research/probes/cheap-cert-families/reverify_ai_lyapunov.py",
+   "dst": "instruments/sos/reverify_ai_lyapunov.py",
+   "src_sha256": "67b9d24063ab7deca6d3ae40115135d8b6fca076083be6f82eee8681203d12d7",
+   "patched": false,
+   "local_sha256": "67b9d24063ab7deca6d3ae40115135d8b6fca076083be6f82eee8681203d12d7"
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "cert-machine",
+  "private": true,
+  "type": "commonjs",
+  "description": "A novelty-driven certification lab. No npm dependencies, by design.",
+  "imports": {
+    "#instruments/*": "./instruments/*",
+    "#machine/*": "./machine/*",
+    "#lib/*": "./lib/*"
+  }
+}
