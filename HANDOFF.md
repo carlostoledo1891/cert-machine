@@ -48,6 +48,17 @@ make drift     re-hash the lift against the source lab
  0.3017  certified lower bound on h_top(Henon, 1.4, 0.3) — 340 disjoint h-sets, 4,140
          covering relations (durations 1..6, composed to the uniform F^11 as BINARY
          relations), exact spectral bound; census ceiling ln(1696)/16 = 0.4648
+      9  certified mu(n) rows (certs/mu-table.json, battery-gated): the box30 Newman
+         min-modulus table n = 9..17, EVERY set exhausted (752M total, conservation
+         per row), champions certified, orbits classified. n=9 VALIDATES against the
+         sin-mfg record (six survivors, published witness at 1.3623731781333241 to
+         the last digit); n = 10..17 are rows NOBODY has ever run — mu(10) >= 1.3236,
+         mu(11) >= 1.5346, mu(12) >= 1.5536, mu(13) >= 1.8999, mu(14) >= 1.7241,
+         mu(15) >= 1.6647, mu(16) >= 1.7214, mu(17) >= 1.6761 (n=17: the FIRST
+         demonstration at the first term count with no printed mu > 1 anywhere).
+         TERMS convention; box maxima, not values — the dips at high n are the
+         box crowding (16 of 30 slots filled at n=17), bigger boxes are the next rung.
+         PLUS the equality theorem M(0,1,2,6,9) = 1 EXACTLY (deflation + Sturm).
       4  erdos852 records: BOTH uncertified GPT constants on Erdős #852 replaced by
          certified enclosures — c0 to 61 digits (root of I0=1, existence AND uniqueness),
          C* to width 3.2e-16 (1.86M-prime product, tail proved) — and the PUBLISHED
@@ -62,7 +73,7 @@ make drift     re-hash the lift against the source lab
          CLICK — the site needs a login; nothing auto-sends.
 ```
 
-Batteries 21/21 on the page (22 rows in `make test`). Engine gate 31/31.
+Batteries 22/22 on the page (23 rows in `make test`). Engine gate 31/31.
 New this round: instruments/bigfloat/ — dyadic big-float interval arithmetic
 (BigInt mantissa · 2^e, directed rounding, arbitrary precision; pi/ln2/e
 certified to 50 literature digits, mutation-tested rounding) — the layer
@@ -416,7 +427,36 @@ READ-ONLY, lift numbers by transcription + pin, never by edit):
    at all; (c) A078515 extension (27 terms, primes to ~2e11, Alexeev
    invited) is a separate detach-runner compute job. Occupancy lesson
    applied: page + thread + /proof-claims all fetched; 0 claims there.
-2. **The Mercer/Newman mu-lambda continuation.** sin-mfg holds certified
+2. **The Mercer/Newman mu-lambda continuation — COMPUTE SIDE OPENED
+   (2026-08-25).** Built in-tree: instruments/trigmin/sweep.js — the
+   exhaustive box cascade (stage-W integer kills at roots of unity — 4|f|^2
+   is an INTEGER at m=2,3,4,6; dyadic exact kill via a Chebyshev VALUE
+   recurrence, no polynomial assembled; full certification of survivors;
+   conservation identity that THROWS; orbit classification with
+   primitive-first tie-break — every sin-mfg lesson encoded). CALIBRATED
+   cross-lab: Goddard's 1992 box re-closed in 0.7 s with the source lab's
+   exact counts (142,506 / 104,468 W-kills / 2 survivors / same champion
+   floor), and the mu(9) box30 six-survivor two-orbit structure reproduced,
+   published witness at 1.3623731781333241 to the last digit — 16x faster
+   than the source run. Battery sweep-battery.js 20+/0 incl. a 100%
+   kill audit and 7 reds. NEW THEOREM: **M(0,1,2,6,9) = 1 EXACTLY**
+   (certifyMinEqualsOne: |f|^2 − 1 = (y+1)·H, H(−1)=92 > 0, Sturm counts 0
+   roots — the equality tie no enclosure can decide, from Mercer's own
+   witness; the vein's "exact M(0,1,2,6,9)=1" item, done). The mu(10..17)
+   box30 ladder is RUNNING (tools/run-mu-table.js → certs/mu-table.json,
+   battery-gated rows). THE LADDER LANDED: certs/mu-table.json holds
+   n = 9..17 box30, 752M sets exhausted, all champions battery-re-certified
+   byte-identically and ADOPTED into the envelope (dated edit); mu(10..17)
+   are the first rows anyone holds; n=9 validates cross-lab. Two design
+   upgrades earned mid-run: a DYNAMIC rising bar (a weak seed cost days
+   under the fixed bar when the n=11 insertion-seed certified at 0.925 —
+   with the ratchet it costs minutes; kills against an earlier lower bar
+   stay valid a fortiori) and hill-climb seeding. Still queued: Mercer §6
+   at m=7,8 (needs reading his §5 constraints from the paper — sin-mfg
+   holds the PDF), lambda continuation, BIGGER BOXES (maxA > 30 — the
+   high-n dips are box crowding, and maxA=40 at n=10..12 is hours not
+   days), Boyd 1986 (operator borrow) before any novelty prose.
+   Original note: sin-mfg holds certified
    mu(6..9) — mu(9) floor 1.3781877 STRICTLY BEATS Boyd's published
    witness 1.3623731 (certified floor above certified ceiling) — and a
    lambda(4..12) table with NO published rows past n=6. Never run: mu(10..16);
