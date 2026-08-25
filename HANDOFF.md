@@ -16,24 +16,31 @@ make drift     re-hash the lift against the source lab
 ## State, measured at handoff
 
 ```
-819,097  objects generated across 9 families
- 15,609  certified exactly
-54.6M    closed forms tested · 54,617,565 refuted · 0 surviving
+819,095  objects generated across 9 families
+ 16,886  certified exactly
+54.6M    closed forms: 54,625,624 tested = 54,624,725 refuted (double)
+         + 21 refuted (exact BigInt) + 877 form-on-record + 0 open + 1 surviving
+         — the decomposition closes, and the engine REFUSES a ledger where it does not
     228  existence-AND-uniqueness theorems (Krawczyk)
     452  COMPLETENESS theorems (census: Hénon 328/328 + Holmes cubic 124/124, 0 refusals)
-      6  dimensions in which the Jacobian conjecture is certified FALSE (keller-audit, n=3..8)
-      3  NEW counterexamples GENERATED here (tangent-sweep, geometric degree 4/5/6, rational witnesses)
-      1  HESSIAN conjecture counterexample audited (Meng–Yang HC5: det Hess ≡ 128, 5 variables)
-      5  Gallagher-family members audited from the seed (det ≡ 1, fiber degrees 3..6, + the distinct member)
-      6  fibers recounted BLIND (multistart + Krawczyk boxes; Alpöge's 3 preimages rediscovered unaided)
-      5  Ramanujan Machine conjectures SURVIVE a rigorous audit (4 zeta(3) minus-CFs recorded, pending)
+  1,579  chowla screen survivors EXHAUSTED (1,508 certified below 1 — the family is terminal)
+     11  keller corpus certificates: Alpöge n=3 + ONE padded row stating the stabilization,
+         3 tangent-sweep instances, Meng–Yang HC5, Gallagher d=2..5 + the distinct member —
+         every det a symbolic identity over Q, sources hash-pinned, ALL 11 re-verified by a
+         standalone stdlib-Python checker in 0.2 s
+      7  fibers cells HIT blind, incl. alpoge-own-target: target (0,1,0) chosen from a fixed
+         enumeration, never published anywhere, 3 preimages certified — witnesses AND target self-chosen
+     10  Ramanujan Machine conjectures SURVIVE an UNCONDITIONAL audit — the e sheet, the pi
+         sheet, and the COMPLETE zeta(3) sheet, including BOTH rows the Machine marks
+         "new and unproven" (enclosure widths 2.2e-16 and 8.9e-16)
 ```
 
-Batteries 13/13 on the page (14 in `make test`). Engine gate 31/31. Census
-battery 26/26 (two maps, 5 red controls), keller battery 26/26 (7 red
-controls; the generator reproduces Alpöge polynomial-for-polynomial, and the
-doubling identity det Hess(y·F) = −(det J F)² = −4 makes the Alpöge and
-Meng–Yang corpus entries certify each other). Drift: 38 unchanged, 1 local edited (a declared patch).
+Batteries 15/15 on the page (17 in `make test`). Engine gate 31/31. Census
+battery 26/26 (two maps, 5 red controls), keller battery 32/32 (incl. pin
+drift + forged-pin reds), cf battery 17/17 (7 red controls; Apéry's proved
+identity is the calibration; a wrong form, a forged band, an
+invariance-violating band and a sign violation all fire). Drift: 38
+unchanged, 1 local edited (a declared patch).
 
 The census instrument is now SPEC-GENERAL: any second-order polynomial
 recurrence plugs in with seven functions (step, two partials, in float and
@@ -63,13 +70,13 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | family | output | result so far |
 |---|---|---|
 | `newman-minmod` | min\|f\| on \|z\|=1 for 0/1 polynomials | 4 certified; one adopted into the envelope (17-term, min\|f\| ≥ 1.4141441147942588) |
-| `chowla-cosine` | Chowla merit c = −min f_A/√\|A\| | 295 certified below 1 |
-| `oeis-closedform` | audits 14,593 published OEIS constants | 54.6M forms refuted, **0 discoveries** — every survivor's full record fetched and its form found on record, a verdict the engine now reaches itself |
+| `chowla-cosine` | Chowla merit c = −min f_A/√\|A\| | **EXHAUSTED**: all 1,579 screen survivors certified, 1,508 below 1 — the family's terminal state (R6) |
+| `oeis-closedform` | audits 14,593 published OEIS constants | 54.6M forms refuted, **0 discoveries** — and the counts now decompose to zero on the page (R1) |
 | `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
-| `keller-audit` | Jacobian + Hessian counterexamples decided — and GENERATED | 15/15: Alpöge n=3..8; 3 generated from our own curves; Meng–Yang HC5; Gallagher's family d=2..5 + distinct member, reconstructed from the seeds — every det a symbolic identity, every witness exact rational |
-| `keller-fibers` | fiber counts certified BLIND — no witnesses consumed | 6/8 HITs: Alpöge's 3 preimages rediscovered unaided; gallagher-d2/d3 at full tangency degree; 2 cells honestly REJECT/REFUSED (witnesses at \|z\|~200, beyond blind reach) |
-| `ramanujan-audit` | the Ramanujan Machine's conjectures, decided | 5/5 positive-CF conjectures survive an UNCONDITIONAL interval audit (tail seeded by proof); the engine's own vocabulary then rediscovers (1/4)·π as the unique surviving form over the Brouncker enclosure |
-| `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); p=12 = 248 points/19 orbits in 52 s |
+| `keller-audit` | Jacobian + Hessian counterexamples decided — and GENERATED | 11/11: Alpöge n=3 + one padded row stating the stabilization (R2); 3 NEW CURVES through the PUBLISHED tangent-sweep mechanism (labeled as such, R4); Meng–Yang HC5; Gallagher d=2..5 + distinct member — every det a symbolic identity, sources hash-pinned (R3), all detached + independently re-verified (R7) |
+| `keller-fibers` | fiber counts certified BLIND — no witnesses consumed | 7/9 HITs: Alpöge's 3 preimages rediscovered unaided; alpoge-own-target proves the same with a SELF-CHOSEN target (0,1,0) — 3 preimages, full geometric degree; 2 cells honestly REJECT/REFUSED (witnesses at \|z\|~200, beyond blind reach) |
+| `ramanujan-audit` | the Ramanujan Machine's conjectures, decided | 10/10 SURVIVE unconditionally: 5 positive-CF (e, pi sheets) + the COMPLETE zeta(3) sheet — 4 minus-CFs decided by the tail-band evaluator incl. BOTH "new and unproven" rows, plus the sheet's positive row the first transcription missed |
+| `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); one-off records through p=15 (1082 points), p=16 running |
 | `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
 
 The census (`instruments/census/henon-census.js`) is the completeness record
@@ -81,38 +88,39 @@ It can refuse; it can never return a wrong count. Two bugs were found exactly
 the way the method predicts: by a red control (the fat-record stall at a=0.96,
 p=4 — caught by the shift classification, not by reading code).
 
-## Review fixes (an outside reader's pass, 2026-08-25 — verified, accepted)
+## Review fixes (an outside reader's pass, 2026-08-25) — ALL SEVEN EXECUTED
 
-- **R1 · the 898.** tested − refuted − surviving = 898 on the page; verified:
-  exactly the OEIS family's double-precision survivors, later decided by the
-  exact BigInt test (21) or the form-on-record check — never folded into a
-  displayed tally. Decompose the counts on the page so the subtraction a
-  reviewer will do comes out to zero.
-- **R2 · stabilization padding.** Alpöge rows n=4..8 are one theorem by
-  identity-padding; a knowledgeable reader sees six rows as padding. Collapse
-  to n=3 plus ONE padded row with the stabilization stated.
-- **R3 · hash-pinned transcriptions.** The keller corpus is transcribed from
-  a tweet, a Zenodo PDF, an arXiv page, MathWorld. The certificate should be
-  over a byte sequence, not "the map in that paper": corpus/sources/ now
-  holds the PDFs with sha256 (gallagher2026.pdf 1782eefa…, e-sheet
-  ebbf12b7…, pi-sheet 48b35cb0…, zeta3 6429e280…); wire the hashes + the
-  transcribed formula strings into each family entry's extra.
-- **R4 · say what the sweeps are.** sweep-d3/4/5 are NEW CURVES through the
-  PUBLISHED tangent-sweep mechanism — new instances, not a new mechanism,
-  and not coordinate-equivalence-checked against Gallagher's members. The
-  table must say exactly that. Also: the fibers cell for Alpöge aims at the
-  PUBLISHED collision image — add a cell with a target WE choose, so the
-  "no witnesses consumed" claim is airtight.
-- **R5 · label the llm-harness battery** as dry-run plumbing with a fake
-  proposer — no model has run; the green tick must not be readable as an
-  LLM result.
-- **R6 · chowla's terminal state.** The one family still at "cap reached";
-  a detach run with CERT_CAP high enough to exhaust the screen's survivors.
-- **R7 · package the keller verification.** Standalone stdlib-fractions
-  verifier (det identity + rational collisions need nothing but Fraction)
-  over the hash-pinned sources, plus the certificate as a detached file —
-  the outside-checkable artifact. Where and whether to post it is the
-  operator's call, not the machine's.
+- **R1 · DONE.** The ledger carries the full closed-form decomposition
+  (refuted-double / refuted-exact-BigInt / form-on-record / open /
+  surviving), the page prints it, and run-engine REFUSES to write a ledger
+  whose subtraction does not close to zero. Measured: 898 = 21 + 877 + 0.
+- **R2 · DONE.** DIMS = [3, 8]: the n=3 mathematics plus one padded row
+  whose certificate text states the stabilization in so many words; the
+  battery pins that exactly two Alpöge rows enumerate.
+- **R3 · DONE.** corpus/sources/PINS.json + instruments/pin.js: pinned
+  entries re-hash their source PDF at certify time, carry
+  {file, sha256} + the transcribed formula strings in extra, and REFUSE on
+  drift. Red controls: forged pin table, unpinned source. Instrument yield,
+  immediately: re-reading rm_zeta3.pdf against its pin exposed that the
+  first transcription MISSED the sheet's second row (5/(2ζ(3)), a positive
+  CF hiding in the minus table) — now audited with the rest.
+- **R4 · DONE.** Sweep rows are labeled "new curve through the published
+  mechanism, not coordinate-equivalence-checked against Gallagher" in
+  source, text, and extra.mechanism. keller-fibers gained
+  alpoge-own-target: target (0,1,0), fourth in a fixed enumeration of plain
+  rational points, no published image consumed — 3 preimages certified
+  blind, the map's full geometric degree.
+- **R5 · DONE.** The battery row reads "llm harness — plumbing only, NO
+  model has run", with the fake-proposer dry-run named in the note.
+- **R6 · DONE.** CERT_CAP=1600 run: all 1,579 chowla screen survivors
+  certified (1,508 HIT). The family table now says "exhausted" — terminal.
+- **R7 · DONE.** certs/keller-certificate.json (11 certificates: every
+  polynomial as explicit monomials with exact rational coefficients) +
+  tools/verify_keller.py — Python stdlib only, zero code shared with the
+  engine; re-derives the Jacobian, expands det symbolically, evaluates
+  collisions, re-hashes pins, and must refute a forged coefficient before
+  exiting green. Full corpus verifies in 0.2 s. Wired into make test and
+  the page. Whether to post it anywhere remains the operator's call.
 
 ## Next steps, in order
 
@@ -178,24 +186,25 @@ p=4 — caught by the shift classification, not by reading code).
    the OPEN plane case certified exclusions: "no collision in this family,
    proved" (Moh already gives degree ≤ 100, so plane statements are
    exclusion-only until the ansatz outgrows it).
-5. **Ramanujan Machine audit: v1 BUILT (ramanujan-audit).** instruments/cf/
-   evaluates positive polynomial CFs backward with a PROVED tail seed
-   (t in (0, a/b]) and outward rounding — an unconditional enclosure, no
-   convergence theorem consumed; widths bottom out at ~8e-16. The e and pi
-   sheets audit clean (5/5 survive; Brouncker calibrates; every
-   normalization float-guarded against transcription error). REMAINING, and
-   it is the flagship: the zeta(3) minus-CF table, including TWO rows the
-   Machine marks "new and unproven" — needs a verified tail-lemma evaluator
-   (per-family tail interval T(n) = [alpha n^3, beta n^3], inclusion proved
-   by shift-and-check-coefficients polynomial positivity, which
-   instruments/keller/ arithmetic already supports). Also v2: high-precision
-   exact-rational constant enclosures (Machin pi, sum 1/k!) to push slack
-   below double precision. Original note: Certify or refute
-   them exactly — continued-fraction values against interval enclosures, the
-   contrast this project was built around, demonstrated on the other side's
-   own corpus. Unlike OEIS this is NOT a curated-corpus trap: their claims are
-   conjectures by construction, so refutations are discoveries. High headline
-   value per unit work; "this decides, that guesses" writes itself.
+5. **Ramanujan Machine audit: COMPLETE (ramanujan-audit + instruments/cf/).**
+   The flagship landed. instruments/cf/minus.js decides the zeta(3)
+   minus-CF table: per-family tail bands [L(n), U(n)] proved by
+   shift-and-check coefficient positivity (terminal containment + band
+   invariance, exactly the HANDOFF plan, with polynomial bands where cubic
+   ones cannot work), convergence proved INSIDE the certificate (monotone
+   convergents, bounded below — no external theorem), and zeta(3) bracketed
+   EXACTLY from its defining series (BigInt partial sum + convexity tail
+   bracket, width 9.7e-17 at K=6000, 7 ms; final comparisons all in exact
+   rationals). All 10 rows of the corpus SURVIVE, including both
+   "new and unproven" rows at widths 2.2e-16 / 8.9e-16. Instructive
+   subtlety, worth keeping: rm-z3-inv's tail recursion has s_n = n^3 as an
+   EXACT spurious solution (CF value 0, adjacent to the true branch — the
+   double root of c^2−2c+1); its band must exclude it (L = n^3+2n^2 is
+   sharp) and that CF genuinely converges slowly — depth 1e7 gives an
+   honest 2e-14, while the fast rows hit machine precision by depth 80.
+   REMAINING if wanted: more Machine sheets (zeta(2), Catalan, ln 2) are
+   one transcription + one constant-bracket each; the minus evaluator and
+   the exact-bracket pattern generalize as-is.
 6. **An LLM-conjecture campaign through `tools/llm-harness.py`.** Model
    proposes, engine certifies, ledger records the per-family truth rate of
    proposals that survived a float screen — an eval whose ground truth is a
@@ -206,11 +215,14 @@ p=4 — caught by the shift classification, not by reading code).
    Diophantine family where certify is an exact rational witness) doubles as
    the stress test of whether the interface generalises or has quietly shaped
    itself around the first five.
-7. **Portable certificates.** Nothing in the ledger is checkable by a stranger
-   yet. A standalone stdlib verifier for one certificate class (the census
-   boxes are the best candidate: finitely many intervals plus one contraction
-   inequality each), or a Lean export — and the 54.6M proved negatives as a
-   labeled dataset. The detach battery is the seed.
+7. **Portable certificates: the keller class is DONE (R7).**
+   certs/keller-certificate.json + tools/verify_keller.py is the pattern:
+   detach the claim as explicit exact data, re-verify with stdlib only, red
+   control inside the verifier. NEXT candidates: the census boxes (finitely
+   many intervals plus one contraction inequality each — the natural second
+   class), the minus-CF tail bands (the certificate is four polynomial
+   positivity facts + one backward iteration, ideal for a tiny checker), or
+   a Lean export — and the 54.6M proved negatives as a labeled dataset.
 8. **More Krawczyk families.** Any parameterised nonlinear system: steady
    states of reaction-diffusion, roots of polynomial systems.
 9. **Do NOT go back to closed-form hunting over curated corpora.** OEIS was the

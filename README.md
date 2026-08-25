@@ -47,11 +47,12 @@ scale without supervision.
 
 A family plugs into the engine by supplying six functions —
 `enumerate`, `value`, `interesting`, `certify`, `key`, `statement` — and
-inherits the loop, the scaling, and the deduplication. Five families are currently
-attached (Chowla cosine sets, Hénon periodic-point census, Hénon orbit boxes, Newman
-polynomial minimum modulus, OEIS constants with candidate closed forms). None of
-them is the point. The point is that a sixth can be attached without touching the
-certification discipline.
+inherits the loop, the scaling, and the deduplication. Nine families are currently
+attached (Chowla cosine sets, Hénon and Holmes periodic-point censuses, Hénon orbit
+boxes, Newman polynomial minimum modulus, OEIS constants with candidate closed
+forms, Jacobian/Hessian counterexample audits and blind fiber counts, and the
+Ramanujan Machine's own conjecture sheets). None of them is the point. The point is
+that a tenth can be attached without touching the certification discipline.
 
 ## What a certificate is
 
@@ -179,5 +180,16 @@ reader in under a minute, which is exactly the review this page invites.
   escape, not a discovery"), and a survivor whose record has not been fetched
   is an open candidate, never a hit. The battery pins A019762 as a permanent
   regression control.
-- **Open.** No certificate is yet exportable to an independent checker. The
-  `detach` battery is the seed of one.
+- **Fixed.** The page's closed-form tallies did not visibly decompose: tested −
+  refuted − surviving left 898 unexplained (they were double-precision survivors
+  later decided by an exact BigInt pass or by the OEIS record check, never folded
+  into a displayed count). The ledger now carries the full decomposition, the
+  page prints it, and the engine refuses to write a ledger whose subtraction does
+  not close to zero.
+- **Fixed** (was Open: no certificate exportable to an independent checker). The
+  keller certificates now detach: `certs/keller-certificate.json` holds every
+  polynomial as explicit monomials with exact rational coefficients, and
+  `tools/verify_keller.py` — Python stdlib only, no code shared with the engine —
+  re-derives the Jacobian, expands the determinant symbolically, evaluates the
+  collisions, re-hashes the pinned sources, and must also refute a deliberately
+  forged coefficient before it will exit green.

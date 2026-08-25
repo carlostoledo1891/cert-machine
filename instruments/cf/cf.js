@@ -23,8 +23,8 @@
    against a rigorous bracket, so a closed form OUTSIDE the enclosure is
    REFUTED — proved, not unlikely — and one inside SURVIVES with its slack
    reported. Minus-CFs (a_n < 0, the zeta(3) family) need verified tail
-   lemmas and are refused here; that is the recorded next step, not a silent
-   gap.
+   lemmas and are refused HERE; they are decided by minus.js, whose tail
+   bands are proved per-family by shift-and-check coefficient positivity.
 
    MIT licensed. Part of cert-machine. */
 'use strict';

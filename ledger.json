@@ -8,13 +8,13 @@
     "generated": 400000,
     "screened": 1579,
     "duplicates": 0,
-    "certified": 300,
-    "hits": 295,
-    "rejects": 5,
+    "certified": 1579,
+    "hits": 1508,
+    "rejects": 71,
     "refused": 0
    },
-   "ms": 144559,
-   "truncated": true,
+   "ms": 186938,
+   "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
   },
@@ -30,7 +30,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 25832,
+   "ms": 25909,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -47,7 +47,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 547,
+   "ms": 546,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -64,7 +64,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 13889,
+   "ms": 13958,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -73,15 +73,15 @@
    "name": "keller-audit",
    "statement": "an explicit polynomial map C^n -> C^n whose Jacobian determinant is proved constant by symbolic expansion over exact rationals, with certified distinct rational points sharing one image — the Jacobian conjecture refuted in dimension n, decided here and not trusted",
    "counts": {
-    "generated": 15,
-    "screened": 15,
+    "generated": 11,
+    "screened": 11,
     "duplicates": 0,
-    "certified": 15,
-    "hits": 15,
+    "certified": 11,
+    "hits": 11,
     "rejects": 0,
     "refused": 0
    },
-   "ms": 64,
+   "ms": 69,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -90,15 +90,15 @@
    "name": "keller-fibers",
    "statement": "a Keller map and a rational target with AT LEAST k certified preimages — pairwise-disjoint Krawczyk boxes found by blind multistart Newton on the exact map; k >= 2 re-proves non-injectivity with no witnesses consumed",
    "counts": {
-    "generated": 8,
-    "screened": 8,
+    "generated": 9,
+    "screened": 9,
     "duplicates": 0,
-    "certified": 8,
-    "hits": 6,
+    "certified": 9,
+    "hits": 7,
     "rejects": 1,
     "refused": 1
    },
-   "ms": 7865,
+   "ms": 8301,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -115,7 +115,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 63146,
+   "ms": 62424,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -132,24 +132,27 @@
     "rejects": 14593,
     "refused": 0
    },
-   "ms": 5132,
+   "ms": 4746,
    "truncated": false,
    "corpusRefutations": 54606108,
-   "corpusTested": 54607006
+   "corpusTested": 54607006,
+   "corpusRefutedExact": 21,
+   "corpusFormOnRecord": 877,
+   "corpusOpen": 0
   },
   {
    "name": "ramanujan-audit",
    "statement": "a published Ramanujan Machine conjecture re-evaluated as a rigorous enclosure and decided against the claimed closed form — survival certified to the enclosure width, refutation proved (and, for their corpus, a discovery)",
    "counts": {
-    "generated": 9,
-    "screened": 9,
+    "generated": 10,
+    "screened": 10,
     "duplicates": 0,
-    "certified": 9,
-    "hits": 5,
+    "certified": 10,
+    "hits": 10,
     "rejects": 0,
-    "refused": 4
+    "refused": 0
    },
-   "ms": 7,
+   "ms": 2864,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -286,6 +289,72 @@
   },
   {
    "family": "chowla-cosine",
+   "key": "[1,2,3,5,6,8,9,10,11]",
+   "text": "certified Chowla merit c <= 0.7259873111972207 for the 9-element set [1,2,3,5,6,8,9,10,11]",
+   "enclosure": [
+    0.7259873111972202,
+    0.7259873111972207
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 9,
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     8,
+     9,
+     10,
+     11
+    ],
+    "degree": 11,
+    "cEnclosure": [
+     0.7259873111972202,
+     0.7259873111972207
+    ]
+   },
+   "closedForm": {
+    "tested": 719,
+    "refuted": 719,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,3,4,5,6,9,10]",
+   "text": "certified Chowla merit c <= 0.742177616900114 for the 7-element set [1,3,4,5,6,9,10]",
+   "enclosure": [
+    0.7421776169001134,
+    0.742177616900114
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 7,
+    "A": [
+     1,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10
+    ],
+    "degree": 10,
+    "cEnclosure": [
+     0.7421776169001134,
+     0.742177616900114
+    ]
+   },
+   "closedForm": {
+    "tested": 720,
+    "refuted": 720,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
    "key": "[1,4,5,6,9,10]",
    "text": "certified Chowla merit c <= 0.7422227192150118 for the 6-element set [1,4,5,6,9,10]",
    "enclosure": [
@@ -317,30 +386,29 @@
   },
   {
    "family": "chowla-cosine",
-   "key": "[1,2,3,4,6,7,8,9,10]",
-   "text": "certified Chowla merit c <= 0.7647828198105501 for the 9-element set [1,2,3,4,6,7,8,9,10]",
+   "key": "[1,2,4,5,6,9,10,11]",
+   "text": "certified Chowla merit c <= 0.7508101717481561 for the 8-element set [1,2,4,5,6,9,10,11]",
    "enclosure": [
-    0.7647828198105494,
-    0.7647828198105501
+    0.7508101717481555,
+    0.7508101717481561
    ],
    "width": 6.661338147750939e-16,
    "extra": {
-    "n": 9,
+    "n": 8,
     "A": [
      1,
      2,
-     3,
      4,
+     5,
      6,
-     7,
-     8,
      9,
-     10
+     10,
+     11
     ],
-    "degree": 10,
+    "degree": 11,
     "cEnclosure": [
-     0.7647828198105494,
-     0.7647828198105501
+     0.7508101717481555,
+     0.7508101717481561
     ]
    },
    "closedForm": {
@@ -351,52 +419,21 @@
   },
   {
    "family": "chowla-cosine",
-   "key": "[1,2,3,7,8,9,10,11]",
-   "text": "certified Chowla merit c <= 0.7803133529849864 for the 8-element set [1,2,3,7,8,9,10,11]",
+   "key": "[1,2,3,4,6,8,9,10,11,12]",
+   "text": "certified Chowla merit c <= 0.7594443738919295 for the 10-element set [1,2,3,4,6,8,9,10,11,12]",
    "enclosure": [
-    0.7803133529849857,
-    0.7803133529849864
+    0.759444373891929,
+    0.7594443738919295
    ],
-   "width": 6.661338147750939e-16,
+   "width": 5.551115123125783e-16,
    "extra": {
-    "n": 8,
+    "n": 10,
     "A": [
      1,
      2,
      3,
-     7,
-     8,
-     9,
-     10,
-     11
-    ],
-    "degree": 11,
-    "cEnclosure": [
-     0.7803133529849857,
-     0.7803133529849864
-    ]
-   },
-   "closedForm": {
-    "tested": 721,
-    "refuted": 721,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "chowla-cosine",
-   "key": "[1,2,3,8,9,10,11,12]",
-   "text": "certified Chowla merit c <= 0.7916876362618034 for the 8-element set [1,2,3,8,9,10,11,12]",
-   "enclosure": [
-    0.7916876362618027,
-    0.7916876362618034
-   ],
-   "width": 6.661338147750939e-16,
-   "extra": {
-    "n": 8,
-    "A": [
-     1,
-     2,
-     3,
+     4,
+     6,
      8,
      9,
      10,
@@ -405,136 +442,109 @@
     ],
     "degree": 12,
     "cEnclosure": [
-     0.7916876362618027,
-     0.7916876362618034
+     0.759444373891929,
+     0.7594443738919295
     ]
    },
    "closedForm": {
-    "tested": 721,
-    "refuted": 721,
+    "tested": 719,
+    "refuted": 719,
     "candidates": 0
    }
   },
   {
    "family": "chowla-cosine",
-   "key": "[1,2,3,4,5,6]",
-   "text": "certified Chowla merit c <= 0.7922422302930477 for the 6-element set [1,2,3,4,5,6]",
+   "key": "[1,2,3,5,8,10,11,12,13]",
+   "text": "certified Chowla merit c <= 0.7599428051340827 for the 9-element set [1,2,3,5,8,10,11,12,13]",
    "enclosure": [
-    0.7922422302930472,
-    0.7922422302930477
-   ],
-   "width": 5.551115123125783e-16,
-   "extra": {
-    "n": 6,
-    "A": [
-     1,
-     2,
-     3,
-     4,
-     5,
-     6
-    ],
-    "degree": 6,
-    "cEnclosure": [
-     0.7922422302930472,
-     0.7922422302930477
-    ]
-   },
-   "closedForm": {
-    "tested": 721,
-    "refuted": 721,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "chowla-cosine",
-   "key": "[1,2,3,4,6,7]",
-   "text": "certified Chowla merit c <= 0.7935407944630679 for the 6-element set [1,2,3,4,6,7]",
-   "enclosure": [
-    0.7935407944630674,
-    0.7935407944630679
-   ],
-   "width": 5.551115123125783e-16,
-   "extra": {
-    "n": 6,
-    "A": [
-     1,
-     2,
-     3,
-     4,
-     6,
-     7
-    ],
-    "degree": 7,
-    "cEnclosure": [
-     0.7935407944630674,
-     0.7935407944630679
-    ]
-   },
-   "closedForm": {
-    "tested": 721,
-    "refuted": 721,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "chowla-cosine",
-   "key": "[1,2,3,6,7,8,9,10]",
-   "text": "certified Chowla merit c <= 0.7955120344248635 for the 8-element set [1,2,3,6,7,8,9,10]",
-   "enclosure": [
-    0.795512034424863,
-    0.7955120344248635
-   ],
-   "width": 5.551115123125783e-16,
-   "extra": {
-    "n": 8,
-    "A": [
-     1,
-     2,
-     3,
-     6,
-     7,
-     8,
-     9,
-     10
-    ],
-    "degree": 10,
-    "cEnclosure": [
-     0.795512034424863,
-     0.7955120344248635
-    ]
-   },
-   "closedForm": {
-    "tested": 720,
-    "refuted": 720,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "chowla-cosine",
-   "key": "[1,2,3,6,8,9,10,11]",
-   "text": "certified Chowla merit c <= 0.8011054987660968 for the 8-element set [1,2,3,6,8,9,10,11]",
-   "enclosure": [
-    0.8011054987660962,
-    0.8011054987660968
+    0.7599428051340821,
+    0.7599428051340827
    ],
    "width": 6.661338147750939e-16,
    "extra": {
-    "n": 8,
+    "n": 9,
     "A": [
      1,
      2,
      3,
-     6,
+     5,
      8,
-     9,
+     10,
+     11,
+     12,
+     13
+    ],
+    "degree": 13,
+    "cEnclosure": [
+     0.7599428051340821,
+     0.7599428051340827
+    ]
+   },
+   "closedForm": {
+    "tested": 719,
+    "refuted": 719,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,4,8,10,11,12,13,14]",
+   "text": "certified Chowla merit c <= 0.7636174164521902 for the 10-element set [1,2,3,4,8,10,11,12,13,14]",
+   "enclosure": [
+    0.7636174164521896,
+    0.7636174164521902
+   ],
+   "width": 5.551115123125783e-16,
+   "extra": {
+    "n": 10,
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     8,
+     10,
+     11,
+     12,
+     13,
+     14
+    ],
+    "degree": 14,
+    "cEnclosure": [
+     0.7636174164521896,
+     0.7636174164521902
+    ]
+   },
+   "closedForm": {
+    "tested": 719,
+    "refuted": 719,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,3,4,7,8,10,11]",
+   "text": "certified Chowla merit c <= 0.7636986073348424 for the 7-element set [1,3,4,7,8,10,11]",
+   "enclosure": [
+    0.7636986073348415,
+    0.7636986073348424
+   ],
+   "width": 8.881784197001252e-16,
+   "extra": {
+    "n": 7,
+    "A": [
+     1,
+     3,
+     4,
+     7,
+     8,
      10,
      11
     ],
     "degree": 11,
     "cEnclosure": [
-     0.8011054987660962,
-     0.8011054987660968
+     0.7636986073348415,
+     0.7636986073348424
     ]
    },
    "closedForm": {
@@ -10061,7 +10071,8 @@
      "det J_F = 128 as a polynomial identity (5x5 symbolic determinant over Q)",
      "2 collision points evaluated exactly, all equal to the claimed image",
      "points pairwise distinct"
-    ]
+    ],
+    "transcription": "Psi = A^2 + 13A + 2B (42 monomials, total degree 14) with A, B from the Schur descent of phi = y.F in x3; det Hess Psi = 128; grad Psi identifies (1,-3/2,0,0,0) and (-1,3/2,0,0,0)"
    },
    "closedForm": {
     "tested": 0,
@@ -10088,6 +10099,11 @@
      "2 collision points evaluated exactly, all equal to the claimed image",
      "points pairwise distinct"
     ],
+    "transcription": "seed gauge p(0)=0, p(1)=-c, INT_0^1 p = 0; q from c q' = w p'; kappa = p'(1)/c; a = -(1+kappa)/(2+kappa); gamma = 1 + a xy + b x^2 z; F = (alpha/x^2, beta/x, x gamma); det J = bc; family seed p_d = 2w - 3w^2 + w(1-w)(w^{d-2} - 6/(d(d+1))), c = 1",
+    "sourcePin": {
+     "file": "gallagher2026.pdf",
+     "sha256": "1782eefa569a094b52f90b18967fb28d8f6ebd3781026f1c3aa46b3cd67a79c1"
+    },
     "sweep": {
      "d": 2,
      "geometricDegree": 3,
@@ -10130,6 +10146,11 @@
      "2 collision points evaluated exactly, all equal to the claimed image",
      "points pairwise distinct"
     ],
+    "transcription": "seed gauge p(0)=0, p(1)=-c, INT_0^1 p = 0; q from c q' = w p'; kappa = p'(1)/c; a = -(1+kappa)/(2+kappa); gamma = 1 + a xy + b x^2 z; F = (alpha/x^2, beta/x, x gamma); det J = bc; family seed p_d = 2w - 3w^2 + w(1-w)(w^{d-2} - 6/(d(d+1))), c = 1",
+    "sourcePin": {
+     "file": "gallagher2026.pdf",
+     "sha256": "1782eefa569a094b52f90b18967fb28d8f6ebd3781026f1c3aa46b3cd67a79c1"
+    },
     "sweep": {
      "d": 3,
      "geometricDegree": 4,
@@ -10173,6 +10194,11 @@
      "2 collision points evaluated exactly, all equal to the claimed image",
      "points pairwise distinct"
     ],
+    "transcription": "seed gauge p(0)=0, p(1)=-c, INT_0^1 p = 0; q from c q' = w p'; kappa = p'(1)/c; a = -(1+kappa)/(2+kappa); gamma = 1 + a xy + b x^2 z; F = (alpha/x^2, beta/x, x gamma); det J = bc; family seed p_d = 2w - 3w^2 + w(1-w)(w^{d-2} - 6/(d(d+1))), c = 1",
+    "sourcePin": {
+     "file": "gallagher2026.pdf",
+     "sha256": "1782eefa569a094b52f90b18967fb28d8f6ebd3781026f1c3aa46b3cd67a79c1"
+    },
     "sweep": {
      "d": 4,
      "geometricDegree": 5,
@@ -10217,6 +10243,11 @@
      "2 collision points evaluated exactly, all equal to the claimed image",
      "points pairwise distinct"
     ],
+    "transcription": "seed gauge p(0)=0, p(1)=-c, INT_0^1 p = 0; q from c q' = w p'; kappa = p'(1)/c; a = -(1+kappa)/(2+kappa); gamma = 1 + a xy + b x^2 z; F = (alpha/x^2, beta/x, x gamma); det J = bc; family seed p_d = 2w - 3w^2 + w(1-w)(w^{d-2} - 6/(d(d+1))), c = 1",
+    "sourcePin": {
+     "file": "gallagher2026.pdf",
+     "sha256": "1782eefa569a094b52f90b18967fb28d8f6ebd3781026f1c3aa46b3cd67a79c1"
+    },
     "sweep": {
      "d": 5,
      "geometricDegree": 6,
@@ -10262,6 +10293,11 @@
      "2 collision points evaluated exactly, all equal to the claimed image",
      "points pairwise distinct"
     ],
+    "transcription": "the paper's genuinely distinct member: p = w - 2w^3, b = -1, giving a = -4/3 and det J = -1",
+    "sourcePin": {
+     "file": "gallagher2026.pdf",
+     "sha256": "1782eefa569a094b52f90b18967fb28d8f6ebd3781026f1c3aa46b3cd67a79c1"
+    },
     "sweep": {
      "d": 3,
      "geometricDegree": 4,
@@ -10304,111 +10340,8 @@
      "det J_F = -2 as a polynomial identity (3x3 symbolic determinant over Q)",
      "3 collision points evaluated exactly, all equal to the claimed image",
      "points pairwise distinct"
-    ]
-   },
-   "closedForm": {
-    "tested": 0,
-    "refuted": 0,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "keller-audit",
-   "key": "Alpöge 2026-07-19|4",
-   "text": "the Jacobian conjecture is FALSE in dimension 4: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
-   "enclosure": [
-    -2,
-    -2
-   ],
-   "width": 0,
-   "extra": {
-    "n": 4,
-    "source": "Alpöge 2026-07-19",
-    "det": "-2",
-    "points": 3,
-    "checks": [
-     "det J_F = -2 as a polynomial identity (4x4 symbolic determinant over Q)",
-     "3 collision points evaluated exactly, all equal to the claimed image",
-     "points pairwise distinct"
-    ]
-   },
-   "closedForm": {
-    "tested": 0,
-    "refuted": 0,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "keller-audit",
-   "key": "Alpöge 2026-07-19|5",
-   "text": "the Jacobian conjecture is FALSE in dimension 5: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
-   "enclosure": [
-    -2,
-    -2
-   ],
-   "width": 0,
-   "extra": {
-    "n": 5,
-    "source": "Alpöge 2026-07-19",
-    "det": "-2",
-    "points": 3,
-    "checks": [
-     "det J_F = -2 as a polynomial identity (5x5 symbolic determinant over Q)",
-     "3 collision points evaluated exactly, all equal to the claimed image",
-     "points pairwise distinct"
-    ]
-   },
-   "closedForm": {
-    "tested": 0,
-    "refuted": 0,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "keller-audit",
-   "key": "Alpöge 2026-07-19|6",
-   "text": "the Jacobian conjecture is FALSE in dimension 6: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
-   "enclosure": [
-    -2,
-    -2
-   ],
-   "width": 0,
-   "extra": {
-    "n": 6,
-    "source": "Alpöge 2026-07-19",
-    "det": "-2",
-    "points": 3,
-    "checks": [
-     "det J_F = -2 as a polynomial identity (6x6 symbolic determinant over Q)",
-     "3 collision points evaluated exactly, all equal to the claimed image",
-     "points pairwise distinct"
-    ]
-   },
-   "closedForm": {
-    "tested": 0,
-    "refuted": 0,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "keller-audit",
-   "key": "Alpöge 2026-07-19|7",
-   "text": "the Jacobian conjecture is FALSE in dimension 7: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
-   "enclosure": [
-    -2,
-    -2
-   ],
-   "width": 0,
-   "extra": {
-    "n": 7,
-    "source": "Alpöge 2026-07-19",
-    "det": "-2",
-    "points": 3,
-    "checks": [
-     "det J_F = -2 as a polynomial identity (7x7 symbolic determinant over Q)",
-     "3 collision points evaluated exactly, all equal to the claimed image",
-     "points pairwise distinct"
-    ]
+    ],
+    "transcription": "P = (1+xy)^3 z + y^2(1+xy)(4+3xy); Q = y + 3x(1+xy)^2 z + 3xy^2(4+3xy); R = 2x - 3x^2y - x^3z; det J = -2; witnesses (0,0,-1/4), (1,-3/2,13/2), (-1,3/2,13/2) -> (-1/4,0,0)"
    },
    "closedForm": {
     "tested": 0,
@@ -10419,7 +10352,7 @@
   {
    "family": "keller-audit",
    "key": "Alpöge 2026-07-19|8",
-   "text": "the Jacobian conjecture is FALSE in dimension 8: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
+   "text": "the STABILIZATION, stated once: adjoining identity coordinates carries the n=3 counterexample to every dimension n >= 3 with det J and the witnesses unchanged — audited here at n=8 as the one padded representative (det J = -2 through the 8x8 symbolic determinant, 3 collisions re-evaluated); identity padding, not new mathematics",
    "enclosure": [
     -2,
     -2
@@ -10434,7 +10367,144 @@
      "det J_F = -2 as a polynomial identity (8x8 symbolic determinant over Q)",
      "3 collision points evaluated exactly, all equal to the claimed image",
      "points pairwise distinct"
-    ]
+    ],
+    "padded": "identity coordinates adjoined to the n=3 object; one representative row standing for all n >= 4",
+    "transcription": "P = (1+xy)^3 z + y^2(1+xy)(4+3xy); Q = y + 3x(1+xy)^2 z + 3xy^2(4+3xy); R = 2x - 3x^2y - x^3z; det J = -2; witnesses (0,0,-1/4), (1,-3/2,13/2), (-1,3/2,13/2) -> (-1/4,0,0)"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "tangent-sweep d=3 (new curve through the published mechanism)|3",
+   "text": "a NEW instance through the PUBLISHED tangent-sweep mechanism: our own degree-3 curve (coefficients [6, -6, 1]) gives geometric degree 4, det J = -2 proved as a polynomial identity, 2 distinct rational points sharing one image — a new curve, not a new mechanism, and not coordinate-equivalence-checked against Gallagher's members; generated AND decided in exact arithmetic",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 3,
+    "source": "tangent-sweep d=3 (new curve through the published mechanism), generated+certified here",
+    "det": "-2",
+    "points": 2,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (3x3 symbolic determinant over Q)",
+     "2 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ],
+    "mechanism": "published tangent-sweep (Speyer 2026-07-23, Gao arXiv:2608.00222); new curve, not a new mechanism; coordinate-equivalence vs Gallagher unchecked",
+    "sweep": {
+     "d": 3,
+     "geometricDegree": 4,
+     "p": [
+      "6",
+      "-6",
+      "1"
+     ],
+     "a": "-4",
+     "g0": "2",
+     "b": "-1",
+     "det": "-2",
+     "secant": [
+      "1",
+      "-1"
+     ]
+    }
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "tangent-sweep d=4 (new curve through the published mechanism)|3",
+   "text": "a NEW instance through the PUBLISHED tangent-sweep mechanism: our own degree-4 curve (coefficients [52/5, -51/5, 0, 1]) gives geometric degree 5, det J = -2 proved as a polynomial identity, 2 distinct rational points sharing one image — a new curve, not a new mechanism, and not coordinate-equivalence-checked against Gallagher's members; generated AND decided in exact arithmetic",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 3,
+    "source": "tangent-sweep d=4 (new curve through the published mechanism), generated+certified here",
+    "det": "-2",
+    "points": 2,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (3x3 symbolic determinant over Q)",
+     "2 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ],
+    "mechanism": "published tangent-sweep (Speyer 2026-07-23, Gao arXiv:2608.00222); new curve, not a new mechanism; coordinate-equivalence vs Gallagher unchecked",
+    "sweep": {
+     "d": 4,
+     "geometricDegree": 5,
+     "p": [
+      "52/5",
+      "-51/5",
+      "0",
+      "1"
+     ],
+     "a": "-9/7",
+     "g0": "2",
+     "b": "-1",
+     "det": "-2",
+     "secant": [
+      "1",
+      "-1"
+     ]
+    }
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "tangent-sweep d=5 (new curve through the published mechanism)|3",
+   "text": "a NEW instance through the PUBLISHED tangent-sweep mechanism: our own degree-5 curve (coefficients [20, -19, 0, 0, 1]) gives geometric degree 6, det J = -2 proved as a polynomial identity, 2 distinct rational points sharing one image — a new curve, not a new mechanism, and not coordinate-equivalence-checked against Gallagher's members; generated AND decided in exact arithmetic",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 3,
+    "source": "tangent-sweep d=5 (new curve through the published mechanism), generated+certified here",
+    "det": "-2",
+    "points": 2,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (3x3 symbolic determinant over Q)",
+     "2 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ],
+    "mechanism": "published tangent-sweep (Speyer 2026-07-23, Gao arXiv:2608.00222); new curve, not a new mechanism; coordinate-equivalence vs Gallagher unchecked",
+    "sweep": {
+     "d": 5,
+     "geometricDegree": 6,
+     "p": [
+      "20",
+      "-19",
+      "0",
+      "0",
+      "1"
+     ],
+     "a": "-13/7",
+     "g0": "2",
+     "b": "-1",
+     "det": "-2",
+     "secant": [
+      "1",
+      "-1"
+     ]
+    }
    },
    "closedForm": {
     "tested": 0,
@@ -10483,6 +10553,59 @@
        6.500000000000172
       ],
       "maxRad": 4.922284801978094e-12
+     }
+    ],
+    "starts": 400,
+    "note": "a LOWER bound: each box certified by Krawczyk strict interior containment on the exact map; boxes pairwise disjoint, so the preimages are provably distinct"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-fibers",
+   "key": "fiber|alpoge-own-target",
+   "text": "alpoge-own-target: AT LEAST 3 preimages of one rational point, each in a certified Krawczyk box, boxes pairwise disjoint — non-injectivity re-proved BLIND, no witnesses consumed — and the TARGET is self-chosen too, not a published image",
+   "enclosure": [
+    3,
+    3
+   ],
+   "width": 0,
+   "extra": {
+    "tag": "alpoge-own-target",
+    "target": [
+     "0",
+     "1",
+     "0"
+    ],
+    "selection": "self-chosen target: fixed enumeration (0,0,0),(1,1,1),(1,0,0),(0,1,0),...; first with certified blind count >= 2 — no published image consumed",
+    "preimages": 3,
+    "boxes": [
+     {
+      "center": [
+       1.1741740054747885e-28,
+       1,
+       -4
+      ],
+      "maxRad": 2.353672812205332e-14
+     },
+     {
+      "center": [
+       -1.9999999999999605,
+       1.0000000000000167,
+       2.000000000000074
+      ],
+      "maxRad": 4.458211577684779e-12
+     },
+     {
+      "center": [
+       2.0000000000000053,
+       -0.4999999999999976,
+       1.249999999999992
+      ],
+      "maxRad": 5.176969963827105e-13
      }
     ],
     "starts": 400,
@@ -10873,6 +10996,90 @@
   },
   {
    "family": "ramanujan-audit",
+   "key": "rm-z3-apery",
+   "text": "rm-z3-apery: 6/zeta(3) lies inside a rigorous minus-CF enclosure of width 1.78e-15 — the conjecture SURVIVES an UNCONDITIONAL audit: tail band [L(n), U(n)] proved by shift-and-check coefficient positivity, convergence proved inside the certificate (monotone, bounded), zeta(3) bracketed exactly from its defining series; equality remains open, as it must",
+   "enclosure": [
+    4.991444235484244,
+    4.991444235484246
+   ],
+   "width": 1.7763568394002505e-15,
+   "extra": {
+    "id": "rm-z3-apery",
+    "source": "rm_zeta3.pdf",
+    "sourcePin": {
+     "file": "rm_zeta3.pdf",
+     "sha256": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
+    },
+    "status": "known (Apery)",
+    "transcription": "6/zeta(3) = 5 - 1/(117 - 64/(535 - ...)) ; a_n = (2n+1)(17n(n+1)+5), b_n = -n^6",
+    "form": "6/zeta(3)",
+    "width": 1.7763568394002505e-15,
+    "depth": 60,
+    "band": {
+     "N0": 52,
+     "L": "0,0,0,33",
+     "U": "0,0,0,35",
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 52",
+      "(T) b(n) − L(n) >= 0 for all n >= 52 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 52 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 52 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 52 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "zeta3": {
+     "lo": 1.2020569031595942,
+     "hi": 1.2020569031595945,
+     "width": 9.648277418878796e-17,
+     "K": 6000
+    },
+    "method": "minus-CF backward interval evaluation from a PROVED tail band; exact-rational final comparison; no convergence theorem consumed"
+   },
+   "closedForm": {
+    "tested": 705,
+    "refuted": 705,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-z3-pos",
+   "text": "rm-z3-pos: 5/(2 zeta(3)) lies inside a rigorous enclosure of width 8.88e-16 — the conjecture SURVIVES an unconditional audit (positive-CF tail seeded by proof; zeta(3) bracketed exactly from its defining series; the sheet row the first transcription MISSED, restored by re-reading the pinned bytes); equality remains open, as it must",
+   "enclosure": [
+    2.079768431451768,
+    2.079768431451769
+   ],
+   "width": 8.881784197001252e-16,
+   "extra": {
+    "id": "rm-z3-pos",
+    "source": "rm_zeta3.pdf",
+    "sourcePin": {
+     "file": "rm_zeta3.pdf",
+     "sha256": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
+    },
+    "status": "known",
+    "transcription": "5/(2 zeta(3)) = 2 + 2*1^5*1/(2+1*3*7 + 2*2^5*3/(2+1*4*10 + ...)) ; a_n = 2+n(2+n)(4+3n), b_n = 4n^6-2n^5",
+    "normalized": "same (already positive: numerators 4n^6-2n^5 > 0, denominators 2+n(2+n)(4+3n) > 0)",
+    "form": "5/(2 zeta(3))",
+    "width": 8.881784197001252e-16,
+    "depth": 120,
+    "zeta3": {
+     "lo": 1.2020569031595942,
+     "hi": 1.2020569031595945,
+     "width": 9.648277418878796e-17,
+     "K": 6000
+    },
+    "method": "positive-CF backward interval evaluation (tail in (0, a/b] proved) + exact-rational zeta(3) bracket comparison"
+   },
+   "closedForm": {
+    "tested": 721,
+    "refuted": 721,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
    "key": "rm-e-c",
    "text": "rm-e-c: e - 1 lies inside a rigorous enclosure of width 8.88e-16 — the conjecture SURVIVES an unconditional interval audit (tail seeded by proof, not assumption); equality remains open, as it must",
    "enclosure": [
@@ -10883,12 +11090,160 @@
    "extra": {
     "id": "rm-e-c",
     "source": "results_e_4614_070418.pdf",
-    "original": "e + -1 = 1 + 2/(2 + 3/(3 + 4/(4 + 5/(5+...))))",
+    "sourcePin": {
+     "file": "results_e_4614_070418.pdf",
+     "sha256": "ebbf12b7839844da87a20420583c1eed353d3c6438af53a213e86b3985d60295"
+    },
+    "transcription": "e + -1 = 1 + 2/(2 + 3/(3 + 4/(4 + 5/(5+...))))",
     "normalized": "same (already positive)",
     "form": "e - 1",
     "width": 8.881784197001252e-16,
     "depth": 4000,
     "method": "positive-CF backward interval evaluation; tail in (0, a/b] proved; outward rounding throughout"
+   },
+   "closedForm": {
+    "tested": 719,
+    "refuted": 719,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-z3-new2",
+   "text": "rm-z3-new2 — a row the Machine marks NEW AND UNPROVEN — 12/(7 zeta(3)) lies inside a rigorous minus-CF enclosure of width 8.88e-16 — the conjecture SURVIVES an UNCONDITIONAL audit: tail band [L(n), U(n)] proved by shift-and-check coefficient positivity, convergence proved inside the certificate (monotone, bounded), zeta(3) bracketed exactly from its defining series; equality remains open, as it must",
+   "enclosure": [
+    1.4261269244240695,
+    1.4261269244240704
+   ],
+   "width": 8.881784197001252e-16,
+   "extra": {
+    "id": "rm-z3-new2",
+    "source": "rm_zeta3.pdf",
+    "sourcePin": {
+     "file": "rm_zeta3.pdf",
+     "sha256": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
+    },
+    "status": "NEW AND UNPROVEN",
+    "transcription": "12/(7 zeta(3)) = 2 - 16/(36 - 1024/(160 - ...)) ; a_n = (2n+1)(5n(n+1)+2), b_n = -16n^6",
+    "form": "12/(7 zeta(3))",
+    "width": 8.881784197001252e-16,
+    "depth": 80,
+    "band": {
+     "N0": 16,
+     "L": "0,0,0,3",
+     "U": "0,0,0,11",
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 16",
+      "(T) b(n) − L(n) >= 0 for all n >= 16 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 16 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 16 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 16 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "zeta3": {
+     "lo": 1.2020569031595942,
+     "hi": 1.2020569031595945,
+     "width": 9.648277418878796e-17,
+     "K": 6000
+    },
+    "method": "minus-CF backward interval evaluation from a PROVED tail band; exact-rational final comparison; no convergence theorem consumed"
+   },
+   "closedForm": {
+    "tested": 715,
+    "refuted": 715,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-z3-new1",
+   "text": "rm-z3-new1 — a row the Machine marks NEW AND UNPROVEN — 8/(7 zeta(3)) lies inside a rigorous minus-CF enclosure of width 2.22e-16 — the conjecture SURVIVES an UNCONDITIONAL audit: tail band [L(n), U(n)] proved by shift-and-check coefficient positivity, convergence proved inside the certificate (monotone, bounded), zeta(3) bracketed exactly from its defining series; equality remains open, as it must",
+   "enclosure": [
+    0.9507512829493798,
+    0.95075128294938
+   ],
+   "width": 2.220446049250313e-16,
+   "extra": {
+    "id": "rm-z3-new1",
+    "source": "rm_zeta3.pdf",
+    "sourcePin": {
+     "file": "rm_zeta3.pdf",
+     "sha256": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
+    },
+    "status": "NEW AND UNPROVEN",
+    "transcription": "8/(7 zeta(3)) = 1 - 1/(21 - 64/(95 - ...)) ; a_n = (2n+1)(3n(n+1)+1), b_n = -n^6",
+    "form": "8/(7 zeta(3))",
+    "width": 2.220446049250313e-16,
+    "depth": 60,
+    "band": {
+     "N0": 10,
+     "L": "0,0,0,5",
+     "U": "0,0,0,7",
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 10",
+      "(T) b(n) − L(n) >= 0 for all n >= 10 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 10 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 10 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 10 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "zeta3": {
+     "lo": 1.2020569031595942,
+     "hi": 1.2020569031595945,
+     "width": 9.648277418878796e-17,
+     "K": 6000
+    },
+    "method": "minus-CF backward interval evaluation from a PROVED tail band; exact-rational final comparison; no convergence theorem consumed"
+   },
+   "closedForm": {
+    "tested": 718,
+    "refuted": 718,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-z3-inv",
+   "text": "rm-z3-inv: 1/zeta(3) lies inside a rigorous minus-CF enclosure of width 2.01e-14 — the conjecture SURVIVES an UNCONDITIONAL audit: tail band [L(n), U(n)] proved by shift-and-check coefficient positivity, convergence proved inside the certificate (monotone, bounded), zeta(3) bracketed exactly from its defining series; equality remains open, as it must",
+   "enclosure": [
+    0.8319073725806988,
+    0.8319073725807189
+   ],
+   "width": 2.0095036745715333e-14,
+   "extra": {
+    "id": "rm-z3-inv",
+    "source": "rm_zeta3.pdf",
+    "sourcePin": {
+     "file": "rm_zeta3.pdf",
+     "sha256": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
+    },
+    "status": "known",
+    "transcription": "1/zeta(3) = 1 - 1^6/(1^3+2^3 - 2^6/(2^3+3^3 - ...)) ; a_n = n^3+(n+1)^3, b_n = -n^6",
+    "form": "1/zeta(3)",
+    "width": 2.0095036745715333e-14,
+    "depth": 10000000,
+    "band": {
+     "N0": 1,
+     "L": "0,0,2,1",
+     "U": "1,3,3,2",
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "zeta3": {
+     "lo": 1.2020569031595942,
+     "hi": 1.2020569031595945,
+     "width": 9.648277418878796e-17,
+     "K": 6000
+    },
+    "method": "minus-CF backward interval evaluation from a PROVED tail band; exact-rational final comparison; no convergence theorem consumed"
    },
    "closedForm": {
     "tested": 719,
@@ -10908,7 +11263,11 @@
    "extra": {
     "id": "rm-pi-a",
     "source": "results_pi_0101_060418.pdf",
-    "original": "pi/(-4) = 1/(-1 + 1/(-3 + 4/(-5 + 9/(-7 + 16/(-9+...)))))",
+    "sourcePin": {
+     "file": "results_pi_0101_060418.pdf",
+     "sha256": "48b35cb010dc58f51f558e559300b9df2de01fb2d8869c306c8b60a3732b462a"
+    },
+    "transcription": "pi/(-4) = 1/(-1 + 1/(-3 + 4/(-5 + 9/(-7 + 16/(-9+...)))))",
     "normalized": "pi/4 = 1/(1 + 1/(3 + 4/(5 + 9/(7 + 16/(9+...)))))  [Brouncker]",
     "form": "pi/4",
     "width": 7.771561172376096e-16,
@@ -10933,7 +11292,11 @@
    "extra": {
     "id": "rm-e-a",
     "source": "results_e_4614_070418.pdf",
-    "original": "e/(-2) + 1 = 1/(-2 + 4/(-4 + 8/(-6 + 12/(-8 + 16/(-10+...)))))",
+    "sourcePin": {
+     "file": "results_e_4614_070418.pdf",
+     "sha256": "ebbf12b7839844da87a20420583c1eed353d3c6438af53a213e86b3985d60295"
+    },
+    "transcription": "e/(-2) + 1 = 1/(-2 + 4/(-4 + 8/(-6 + 12/(-8 + 16/(-10+...)))))",
     "normalized": "e/2 - 1 = 1/(2 + 4/(4 + 8/(6 + 12/(8 + 16/(10+...)))))",
     "form": "e/2 - 1",
     "width": 3.885780586188048e-16,
@@ -10958,7 +11321,11 @@
    "extra": {
     "id": "rm-e-b",
     "source": "results_e_4614_070418.pdf",
-    "original": "e/(-2) + 1 = 1/(-2 + 3/(-3 + 4/(-4 + 5/(-5 + 6/(-6+...)))))",
+    "sourcePin": {
+     "file": "results_e_4614_070418.pdf",
+     "sha256": "ebbf12b7839844da87a20420583c1eed353d3c6438af53a213e86b3985d60295"
+    },
+    "transcription": "e/(-2) + 1 = 1/(-2 + 3/(-3 + 4/(-4 + 5/(-5 + 6/(-6+...)))))",
     "normalized": "e/2 - 1 = 1/(2 + 3/(3 + 4/(4 + 5/(5 + 6/(6+...)))))",
     "form": "e/2 - 1",
     "width": 3.885780586188048e-16,
@@ -10983,7 +11350,11 @@
    "extra": {
     "id": "rm-pi-b",
     "source": "results_pi_0101_060418.pdf",
-    "original": "(1/2)(pi/(-2) + 1) = 1/(-3 + 3/(-5 + 8/(-7 + 15/(-9 + 24/(-11+...)))))",
+    "sourcePin": {
+     "file": "results_pi_0101_060418.pdf",
+     "sha256": "48b35cb010dc58f51f558e559300b9df2de01fb2d8869c306c8b60a3732b462a"
+    },
+    "transcription": "(1/2)(pi/(-2) + 1) = 1/(-3 + 3/(-5 + 8/(-7 + 15/(-9 + 24/(-11+...)))))",
     "normalized": "pi/4 - 1/2 = 1/(3 + 3/(5 + 8/(7 + 15/(9 + 24/(11+...)))))",
     "form": "pi/4 - 1/2",
     "width": 3.885780586188048e-16,
@@ -11012,11 +11383,14 @@
   }
  ],
  "totals": {
-  "generated": 819097,
-  "certified": 15609,
-  "conjectures": 75,
-  "closedFormTested": 54622054,
-  "closedFormRefuted": 54621155,
+  "generated": 819095,
+  "certified": 16886,
+  "conjectures": 80,
+  "closedFormTested": 54625624,
+  "closedFormRefuted": 54624725,
+  "closedFormRefutedExact": 21,
+  "closedFormOnRecord": 877,
+  "closedFormOpen": 0,
   "closedFormCandidates": 1
  }
 }

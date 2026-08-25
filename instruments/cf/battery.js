@@ -42,30 +42,86 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
 
 /* ---- every corpus normalization float-checks against its claimed value ---- */
 {
+  const z3 = 1.2020569031595943;
   const target = { 'rm-e-a': Math.E / 2 - 1, 'rm-e-b': Math.E / 2 - 1, 'rm-e-c': Math.E - 1,
-    'rm-pi-a': Math.PI / 4, 'rm-pi-b': Math.PI / 4 - 0.5 };
+    'rm-pi-a': Math.PI / 4, 'rm-pi-b': Math.PI / 4 - 0.5,
+    'rm-z3-pos': 5 / (2 * z3),
+    'rm-z3-inv': 1 / z3, 'rm-z3-apery': 6 / z3, 'rm-z3-new1': 8 / (7 * z3), 'rm-z3-new2': 12 / (7 * z3) };
   let checked = 0, bad = 0;
   for (let i = 0; ; i++) {
     const o = FAM.enumerate(i); if (!o) break;
-    if (o.minusCF) continue;
     checked++;
-    if (Math.abs(FAM.value(o) - target[o.id]) > 1e-12) { bad++; console.log('  normalization off: ' + o.id); }
+    const tol = o.minusCF ? 1e-5 : 1e-12;      /* rm-z3-inv converges slowly; the float screen is a sanity check */
+    if (Math.abs(FAM.value(o) - target[o.id]) > tol) { bad++; console.log('  normalization off: ' + o.id); }
   }
-  ok(checked === 5 && bad === 0, 'all ' + checked + ' sign-normalizations agree with their claimed values in float (transcription guard)');
+  ok(checked === 10 && bad === 0, 'all ' + checked + ' transcriptions (incl. the whole zeta(3) sheet) agree with their claimed values in float (transcription guard)');
 }
 
-/* ---- the family end-to-end: every positive entry survives, minus-CFs refuse ---- */
+/* ---- the minus-CF tail-band evaluator (instruments/cf/minus.js) ---- */
 {
-  let hits = 0, refused = 0, rejects = 0;
+  const M = require('#instruments/cf/minus.js');
+  const Q = require('#instruments/interval/rational.js');
+  const P = M._poly.pOfInts;
+  const APERY = { spec: { b0: 5, aPoly: [0, 0, 0, 0, 0, 0, 1], bPoly: [5, 27, 51, 34] },
+    cert: { N0: 52, L: P([0, 0, 0, 33]), U: P([0, 0, 0, 35]), depth: 60 } };
+  const NEW1 = { spec: { b0: 1, aPoly: [0, 0, 0, 0, 0, 0, 1], bPoly: [1, 5, 9, 6] },
+    cert: { N0: 10, L: P([0, 0, 0, 5]), U: P([0, 0, 0, 7]), depth: 60 } };
+
+  /* calibration: zeta(3) bracketed from the defining series must contain the
+     19-digit literature value — and brackets at different K must overlap,
+     since they enclose the same number */
+  const z = M.zeta3Bracket(6000);
+  const lit = [12020569031595942854n, 10n ** 19n];
+  const inB = z.lo[0] * lit[1] <= lit[0] * z.lo[1] && lit[0] * z.hi[1] <= z.hi[0] * lit[1];
+  ok(inB && z.width < 1e-16, 'zeta(3) bracket (defining series + convexity tail, width ' + z.width.toExponential(2) + ') contains the 19-digit literature value');
+  const z2 = M.zeta3Bracket(2000);
+  ok(z2.lo[0] * z.hi[1] <= z.hi[0] * z2.lo[1] && z.lo[0] * z2.hi[1] <= z2.hi[0] * z.lo[1],
+    'brackets at K=2000 and K=6000 overlap — they enclose one number');
+
+  /* calibration: Apery's THEOREM. 6/zeta(3) = the CF is proved mathematics;
+     refuting it would mean the evaluator is broken. */
+  const ap = M.decideMinus(APERY.spec, Q.R(6n), APERY.cert);
+  ok(ap.verdict === 'SURVIVES' && ap.cfWidth < 1e-14,
+    'CALIBRATION: Apery\'s proved identity 6/zeta(3) SURVIVES (width ' + (ap.cfWidth || 0).toExponential(2) + ')');
+
+  /* RED: the refutation can fire — a wrong form is REFUTED exactly */
+  const wrong = M.decideMinus(NEW1.spec, Q.R(1n), NEW1.cert);
+  ok(wrong.verdict === 'REFUTED', 'RED: the false form 1/zeta(3) against the new1 CF is REFUTED exactly');
+
+  /* RED: a band that excludes the tail must be refused by terminal containment */
+  const badBand = M.checkTailCert(APERY.spec, { N0: 52, L: P([0, 0, 0, 40]), U: P([0, 0, 0, 45]) });
+  ok(!badBand.ok && /\(T\)/.test(badBand.why), 'RED: a forged band L=40n^3 fails terminal containment and is REFUSED');
+
+  /* RED: a band violating invariance-from-below is refused (terminal holds) */
+  const badInv = M.checkTailCert(APERY.spec, { N0: 52, L: P([0, 0, 0, 34]), U: P([0, 0, 0, 35]) });
+  ok(!badInv.ok && /\(I−\)|invariance from below/.test(badInv.why), 'RED: L=34n^3 passes terminal but fails band invariance — REFUSED');
+
+  /* RED: a nonpositive partial numerator is refused at the certificate level */
+  const badA = M.checkTailCert({ b0: 1, aPoly: [0, 0, 0, 0, 0, 0, -1], bPoly: [5, 27, 51, 34] }, APERY.cert);
+  ok(!badA.ok && /a\(n\)/.test(badA.why), 'RED: a(n) <= 0 is REFUSED — the minus-CF hypotheses are checked, not assumed');
+
+  /* the spurious solution: for rm-z3-inv, s_n = n^3 solves the tail recursion
+     exactly and yields CF value 0 — the band must EXCLUDE it, or the
+     enclosure would span [0, 1/zeta(3)] and decide nothing */
+  const INV = { spec: { b0: 1, aPoly: [0, 0, 0, 0, 0, 0, 1], bPoly: [1, 3, 3, 2] },
+    cert: { N0: 1, L: P([0, 0, 2, 1]), U: P([1, 3, 3, 2]), depth: 200000 } };
+  const inv = M.decideMinus(INV.spec, Q.R(1n), INV.cert);
+  ok(inv.verdict === 'SURVIVES' && inv.cf[0] > 0.8 && inv.cfWidth < 1e-10,
+    'rm-z3-inv: the band L = n^3+2n^2 excludes the spurious exact solution s_n = n^3 (CF value 0) — enclosure locks onto 1/zeta(3)');
+}
+
+/* ---- the family end-to-end: EVERY row of the corpus now survives ---- */
+{
+  let hits = 0, refused = 0, rejects = 0, flagship = 0;
   for (let i = 0; ; i++) {
     const o = FAM.enumerate(i); if (!o) break;
     const c = FAM.certify(o);
-    if (c.verdict === 'HIT') hits++;
+    if (c.verdict === 'HIT') { hits++; if (/NEW AND UNPROVEN/.test(c.text)) flagship++; }
     else if (c.verdict === 'REFUSED') refused++;
     else rejects++;
   }
-  ok(hits === 5 && rejects === 0, 'all 5 positive-CF conjectures SURVIVE their audit (' + hits + ' hits, ' + rejects + ' refutations)');
-  ok(refused === 4, 'the 4 zeta(3) minus-CFs are honestly REFUSED pending the tail-lemma evaluator (' + refused + ')');
+  ok(hits === 10 && rejects === 0 && refused === 0, 'all 10 conjectures — the e sheet, the pi sheet, and the COMPLETE zeta(3) sheet — SURVIVE their audits (' + hits + ' hits)');
+  ok(flagship === 2, 'both rows the Machine marks NEW AND UNPROVEN are decided and say so in their certificates (' + flagship + ')');
 }
 
 console.log('');
