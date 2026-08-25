@@ -16,16 +16,28 @@ make drift     re-hash the lift against the source lab
 ## State, measured at handoff
 
 ```
-818,947  objects generated across 6 families
- 15,459  certified exactly
+819,071  objects generated across 7 families
+ 15,583  certified exactly
 54.6M    closed forms tested · 54,617,565 refuted · 0 surviving
     228  existence-AND-uniqueness theorems (Krawczyk)
-    328  COMPLETENESS theorems (branch-and-bound census, 328/328 cells, 0 refusals)
+    452  COMPLETENESS theorems (census: Hénon 328/328 + Holmes cubic 124/124, 0 refusals)
       6  dimensions in which the Jacobian conjecture is certified FALSE (keller-audit, n=3..8)
 ```
 
-Batteries 13/13. Engine gate 31/31. Census battery 18/18, keller battery 10/10,
-each with 3 red controls. Drift: 38 unchanged, 1 local edited (a declared patch).
+Batteries 13/13 on the page (14 in `make test`). Engine gate 31/31. Census
+battery 26/26 (two maps, 5 red controls), keller battery 10/10 (3 red
+controls). Drift: 38 unchanged, 1 local edited (a declared patch).
+
+The census instrument is now SPEC-GENERAL: any second-order polynomial
+recurrence plugs in with seven functions (step, two partials, in float and
+intervals, plus its own certified a priori bound) and inherits the whole
+argument. The refactor was proved byte-identical on Hénon before the second
+map went in. The second map immediately found the instrument's third real
+bug: the Holmes cubic has a fixed point AT x=0, which is the exact midpoint
+of the symmetric root box — a zero ON a bisection line can never satisfy
+strict interior containment, and the census dove to its depth cap around it.
+The root box is now asymmetric by M/1024 (2049 odd => no dyadic subdivision
+endpoint ever equals 0). Found by running, not by reading.
 
 An outside review caught two defects in under a minute; both are fixed and
 gated. (1) The closed-form vocabularies emitted unreduced spellings —
@@ -39,7 +51,7 @@ form on record is REJECT and an unfetched survivor is an open candidate, never
 a hit. OEIS hits went 38 → 0: the engine itself now concludes what the
 hand-check knew. A019762 is pinned in the battery as a regression control.
 
-## The six families
+## The seven families
 
 | family | output | result so far |
 |---|---|---|
@@ -49,6 +61,7 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
 | `keller-audit` | Jacobian-conjecture counterexamples decided, not trusted | 6/6: det J ≡ −2 proved symbolically over Q + 3 exact collisions, for n = 3..8 |
 | `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); p=12 = 248 points/19 orbits in 52 s |
+| `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
 
 The census (`instruments/census/henon-census.js`) is the completeness record
 the field survey said nobody publishes for non-SAT numerics: a certified a
@@ -69,10 +82,11 @@ p=4 — caught by the shift classification, not by reading code).
    p=15..16 need the detach runner (cost ~3.5-6× per period step; the wall is
    the anisotropic tube near the strongly unstable fixed point). Each new p
    at a=1.4 is a publishable exact count.
-2. **A second map for the census.** The argument only needs a quadratic a
-   priori bound and a polynomial recurrence — Ikeda needs interval sin/cos
-   (transcendental.js is sound), the cubic Hénon and the standard-map family
-   are direct ports. One instrument, one new family file each.
+2. **A second map for the census: DONE (Holmes cubic).** The instrument is
+   spec-general now; a third map is one spec + one family file + battery
+   lines. Ikeda needs interval sin/cos (transcendental.js is sound). Holmes
+   p>=5 at d=2.77 costs ~90 s/cell (tube expansion ~9/step and ~3x the orbit
+   count) — those are one-off records like Hénon p=13..16, not grid cells.
 3. **`keller-audit`: BUILT — extend the corpus.** The family ships (6/6 HITs,
    n=3..8; instruments/keller/ does symbolic determinants over exact
    rationals; battery 10/10 with 3 red controls). What remains is corpus:

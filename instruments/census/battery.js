@@ -11,7 +11,7 @@
    the independent recheck. A control that cannot fire is decoration. */
 'use strict';
 
-const { census, recheckCensus } = require('#instruments/census/henon-census.js');
+const { census, recheckCensus, censusSpec, recheckSpec } = require('#instruments/census/henon-census.js');
 const IV = require('#instruments/interval/interval.js');
 
 let pass = 0, fail = 0;
@@ -105,6 +105,56 @@ let c2 = null;
   const caught = recheckCensus(a, b, 1, sab);
   ok(!caught.ok && caught.unmatched > 0, 'RED: the sabotaged census is refused by the recheck ('
     + caught.unmatched + ' unmatched)');
+}
+
+/* ---- the second map: Holmes cubic, x_{n+1} = d x - x^3 + b x_{n-1} ----
+   The instrument is spec-general; this proves the generality is real and not
+   Hénon-shaped by accident. Fixed points have closed forms — 0 and, past the
+   pitchfork at d+b = 1, ±sqrt(d+b-1) — and the map is odd, so every record's
+   negation must also be a record. */
+{
+  const { holmesSpec } = require('#families/holmes-census.js');
+  const d = 2.77, bb = 0.2, spec = holmesSpec(d, bb);
+
+  const c1 = censusSpec(spec, 1);
+  ok(c1.ok && c1.points === 3, 'holmes p=1: EXACTLY 3 fixed points at d=2.77 (' + (c1.ok ? c1.points : '-') + ')');
+  const r = Math.sqrt(d + bb - 1);
+  let matched = 0, straddle = 0;
+  if (c1.ok) for (const root of [0, r, -r]) {
+    const rec = c1.records.find(x => Math.abs(x.z[0] - root) < 1e-9);
+    if (!rec) continue;
+    matched++;
+    /* the cubic x^3 - (d+b-1)x must straddle 0 over the certified box */
+    const S0 = rec.S[0];
+    const q = IV.sub(IV.pow(S0, 3), IV.mul(IV.iv(d + bb - 1), S0));
+    if (q[0] <= 0 && q[1] >= 0) straddle++;
+  }
+  ok(matched === 3, 'all three closed-form fixed points (0, ±sqrt(d+b-1)) matched to records (' + matched + '/3)');
+  ok(straddle === 3, 'the fixed-point cubic straddles 0 over each certified box (' + straddle + '/3)');
+
+  /* below the pitchfork only x = 0 remains */
+  const cLow = censusSpec(holmesSpec(0.7, bb), 1);
+  ok(cLow.ok && cLow.points === 1, 'below the pitchfork (d+b<1): EXACTLY 1 fixed point (' + (cLow.ok ? cLow.points : '-') + ')');
+
+  /* odd symmetry: the negation of every certified point is a certified point */
+  const c3 = censusSpec(spec, 3);
+  let sym = c3.ok;
+  if (c3.ok) for (const rec of c3.records) {
+    if (!c3.records.some(o => rec.z.every((x, i) => Math.abs(x + o.z[i]) < 1e-9))) sym = false;
+  }
+  ok(sym && c3.ok && c3.points === 15, 'p=3: 15 points, and the census respects the map\'s oddness — every record\'s negation is a record');
+
+  /* RED: the sabotaged bound cuts off the outer fixed points; the recheck fires */
+  const sab = censusSpec(spec, 1, { sabotage: 'shrinkBound' });
+  ok(sab.ok && sab.points === 1, 'sabotage bit: the shrunken bound leaves only x=0 (' + (sab.ok ? sab.points : sab.why) + ' of 3)');
+  const caught = recheckSpec(spec, 1, sab);
+  ok(!caught.ok && caught.unmatched > 0, 'RED: the sabotaged holmes census is refused by the recheck (' + caught.unmatched + ' unmatched)');
+
+  /* RED: a deleted record is caught */
+  const forged = JSON.parse(JSON.stringify(c1));
+  forged.records = forged.records.slice(1);
+  const caught2 = recheckSpec(spec, 1, forged);
+  ok(!caught2.ok && caught2.unmatched > 0, 'RED: a holmes census with one record DELETED is refused (' + caught2.unmatched + ' unmatched)');
 }
 
 console.log('');

@@ -34,7 +34,7 @@ const BATTERIES = [
   ['interval · arithmetic', ['instruments/interval/tests/test-interval.js'], '16 000 ops vs exact rationals'],
   ['interval · transcendental', ['instruments/interval/tests/test-transcendental.js'], 'sound exp/log/sin/cos'],
   ['trigmin certifier', ['instruments/trigmin/battery.js'], '47 checks · 2 red controls'],
-  ['henon census', ['instruments/census/battery.js'], 'closed-form calibration · 3 red controls'],
+  ['census (henon + holmes)', ['instruments/census/battery.js'], 'closed-form calibration, two maps · 5 red controls'],
   ['keller audit', ['instruments/keller/battery.js'], 'symbolic det over Q · 3 red controls'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
@@ -85,9 +85,9 @@ B.push(C.scope('Local working document. Nothing here has been through a literatu
   const sum = (k) => F.reduce((t, f) => t + f.counts[k], 0);
   const screened = sum('screened'), hits = sum('hits'), rejects = sum('rejects'), refused = sum('refused');
 
-  const famY = [16, 78, 140, 202, 264, 326];
-  const famNodes = F.slice(0, 6).map((f, i) => ({
-    x: 14, y: famY[i], w: 180, h: 44, role: 'dep',
+  const famY = [8, 62, 116, 170, 224, 278, 332];
+  const famNodes = F.slice(0, 7).map((f, i) => ({
+    x: 14, y: famY[i], w: 180, h: 40, role: 'dep',
     k: f.name.toUpperCase(), v: commas(f.counts.generated) + ' generated',
     t: 'family · ' + f.name,
     d: f.statement + ' One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.'
@@ -144,7 +144,7 @@ B.push(C.scope('Local working document. Nothing here has been through a literatu
   ], instr);
 
   const edges = [
-    ...famY.map((y, i) => ({ d: 'M194 ' + (y + 22) + ' C224 ' + (y + 22) + ' 218 ' + (171 + i * 7) + ' 246 ' + (171 + i * 7) })),
+    ...famY.map((y, i) => ({ d: 'M194 ' + (y + 20) + ' C224 ' + (y + 20) + ' 218 ' + (167 + i * 7) + ' 246 ' + (167 + i * 7) })),
     { d: 'M388 188 L434 188' },
     { d: 'M576 188 L622 188', lab: 'dedup by key', lx: 599, ly: 232 },
     { d: 'M764 178 C800 160 806 132 828 116' },

@@ -42,7 +42,7 @@ for (const fam of FAMILIES) {
     return fam.name === 'chowla-cosine' ? av - bv : bv - av;      /* small c wins, large min|f| wins */
   }).slice(0, 12);
 
-  const valueShaped = !/henon|keller/.test(fam.name);
+  const valueShaped = !/henon|keller|holmes/.test(fam.name);
   for (const h of ranked) {
     const rel = valueShaped ? relations(h.enclosure, { maxDen: 24 }) : { candidates: [], tested: 0, refuted: 0 };
     relTested += rel.tested; relRefuted += rel.refuted;
