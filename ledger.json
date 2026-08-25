@@ -8,13 +8,15 @@
     "generated": 400000,
     "screened": 1579,
     "duplicates": 0,
-    "certified": 600,
-    "hits": 587,
-    "rejects": 13,
+    "certified": 300,
+    "hits": 295,
+    "rejects": 5,
     "refused": 0
    },
-   "ms": 149284,
-   "truncated": true
+   "ms": 143970,
+   "truncated": true,
+   "corpusRefutations": 0,
+   "corpusTested": 0
   },
   {
    "name": "newman-minmod",
@@ -28,8 +30,27 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 59942,
-   "truncated": false
+   "ms": 67735,
+   "truncated": false,
+   "corpusRefutations": 0,
+   "corpusTested": 0
+  },
+  {
+   "name": "oeis-closedform",
+   "statement": "a published constant whose OEIS name states no closed form, but for which a small closed form survives every published digit while all others are refuted",
+   "counts": {
+    "generated": 187,
+    "screened": 178,
+    "duplicates": 0,
+    "certified": 178,
+    "hits": 0,
+    "rejects": 178,
+    "refused": 0
+   },
+   "ms": 18,
+   "truncated": false,
+   "corpusRefutations": 192480,
+   "corpusTested": 192849
   }
  ],
  "conjectures": [
@@ -261,41 +282,6 @@
   },
   {
    "family": "chowla-cosine",
-   "key": "[1,2,3,4,8,9,10,11,12,13]",
-   "text": "certified Chowla merit c <= 0.7850279374764773 for the 10-element set [1,2,3,4,8,9,10,11,12,13]",
-   "enclosure": [
-    0.7850279374764767,
-    0.7850279374764773
-   ],
-   "width": 5.551115123125783e-16,
-   "extra": {
-    "n": 10,
-    "A": [
-     1,
-     2,
-     3,
-     4,
-     8,
-     9,
-     10,
-     11,
-     12,
-     13
-    ],
-    "degree": 13,
-    "cEnclosure": [
-     0.7850279374764767,
-     0.7850279374764773
-    ]
-   },
-   "closedForm": {
-    "tested": 1072,
-    "refuted": 1072,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "chowla-cosine",
    "key": "[1,2,3,8,9,10,11,12]",
    "text": "certified Chowla merit c <= 0.7916876362618034 for the 8-element set [1,2,3,8,9,10,11,12]",
    "enclosure": [
@@ -414,6 +400,39 @@
     "cEnclosure": [
      0.795512034424863,
      0.7955120344248635
+    ]
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "chowla-cosine",
+   "key": "[1,2,3,6,8,9,10,11]",
+   "text": "certified Chowla merit c <= 0.8011054987660968 for the 8-element set [1,2,3,6,8,9,10,11]",
+   "enclosure": [
+    0.8011054987660962,
+    0.8011054987660968
+   ],
+   "width": 6.661338147750939e-16,
+   "extra": {
+    "n": 8,
+    "A": [
+     1,
+     2,
+     3,
+     6,
+     8,
+     9,
+     10,
+     11
+    ],
+    "degree": 11,
+    "cEnclosure": [
+     0.8011054987660962,
+     0.8011054987660968
     ]
    },
    "closedForm": {
@@ -558,11 +577,11 @@
  ],
  "relations": [],
  "totals": {
-  "generated": 800000,
-  "certified": 604,
+  "generated": 800187,
+  "certified": 482,
   "conjectures": 16,
-  "closedFormTested": 17151,
-  "closedFormRefuted": 17151,
+  "closedFormTested": 210000,
+  "closedFormRefuted": 209631,
   "closedFormCandidates": 0
  }
 }

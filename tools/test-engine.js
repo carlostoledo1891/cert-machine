@@ -57,6 +57,36 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
   const r2 = run(COS, { limit: 3000, maxCertify: 8 });
   ok(JSON.stringify(r.hits.map(h => h.key)) === JSON.stringify(r2.hits.map(h => h.key)), 'two runs at the same limit give identical hits — the enumeration is deterministic');
 }
+/* CALIBRATION against ground truth. This is not decoration: its first run
+   caught the engine REFUTING sqrt(2) as a closed form for the decimal expansion
+   of sqrt(2), because the enclosure was built narrower than a double can
+   represent and excluded the true value. A refutation engine that can refute a
+   truth is worse than no engine. Zero false refutations is the bar. */
+{
+  const OE = require(path.join(ROOT, 'families/oeis-closedform.js'));
+  const truth = [['A000796','pi'],['A001113','e'],['A002193','sqrt2'],['A001622','phi'],
+                 ['A002162','ln2'],['A002194','sqrt3'],['A003881','pi'],['A019692','pi']];
+  const byId = {};
+  for (let i = 0; ; i++) { const e = OE.enumerate(i); if (!e) break;
+    if (!OE.interesting(e)) continue; const c = OE.certify(e);
+    if (c.extra && c.extra.survivors) byId[c.extra.id] = c.extra.survivors.map(s => s.label); }
+  let falseRefutations = 0, checked = 0;
+  for (const [id, form] of truth) {
+    if (!byId[id]) continue;
+    checked++;
+    if (!byId[id].some(l => l.includes(form))) falseRefutations++;
+  }
+  ok(checked >= 6, 'calibration reached ' + checked + ' ground-truth constants in the corpus');
+  ok(falseRefutations === 0, 'ZERO false refutations: every constant whose closed form we know keeps it (' + falseRefutations + ' failures)');
+
+  /* RED: the check must be able to fail — a deliberately over-narrow enclosure
+     must refute a truth, which is exactly the bug it was written for. */
+  const { relations } = require(path.join(ROOT, 'machine/engine.js'));
+  const thin = relations([Math.SQRT2 * (1 + 1e-15), Math.SQRT2 * (1 + 1.1e-15)], { maxDen: 8 });
+  const kept = thin.candidates.some(c => c.label.includes('sqrt'));
+  ok(!kept && thin.refuted > 0, 'RED: an enclosure shifted off sqrt(2) refutes it — the calibration can fail');
+}
+
 console.log('');
 console.log('engine battery: ' + pass + ' pass, ' + fail + ' fail');
 if (fail) process.exit(1);

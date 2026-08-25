@@ -16,7 +16,10 @@ let totalGen = 0, totalCert = 0, relTested = 0, relRefuted = 0;
 
 for (const fam of FAMILIES) {
   process.stdout.write('  ' + fam.name.padEnd(18));
-  const r = run(fam, { limit: LIMIT, maxCertify: Number(process.env.CERT_CAP || 300) });
+  const corpusBound = fam.name.startsWith('oeis');
+  const r = run(fam, corpusBound
+    ? { limit: 100000, maxCertify: 100000 }        /* audit the whole corpus, not a sample */
+    : { limit: LIMIT, maxCertify: Number(process.env.CERT_CAP || 300) });
   totalGen += r.counts.generated; totalCert += r.counts.certified;
   console.log('generated ' + String(r.counts.generated).padStart(7)
     + '  screened ' + String(r.counts.screened).padStart(6)
@@ -25,7 +28,13 @@ for (const fam of FAMILIES) {
     + '  ' + (r.ms / 1000).toFixed(1) + ' s'
     + (r.truncated ? '  [certify cap reached]' : ''));
 
-  ledger.families.push({ name: r.family, statement: r.statement, counts: r.counts, ms: r.ms, truncated: r.truncated });
+  let famTested = 0, famRefuted = 0;
+  for (const rec of r.hits.concat(r.rejects.map(x => ({ extra: x.extra })))) {
+    if (rec && rec.extra && rec.extra.tested) { famTested += rec.extra.tested; famRefuted += rec.extra.refuted; }
+  }
+  ledger.families.push({ name: r.family, statement: r.statement, counts: r.counts, ms: r.ms,
+    truncated: r.truncated, corpusRefutations: famRefuted, corpusTested: famTested });
+  relTested += famTested; relRefuted += famRefuted;
 
   /* keep the strongest hits per family, and hunt closed forms for each */
   const ranked = r.hits.slice().sort((a, b) => {

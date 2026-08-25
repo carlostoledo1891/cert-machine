@@ -57,7 +57,7 @@ function run(family, opts) {
 
     if (c.verdict === 'HIT') hits.push({ key: k, obj, ...c });
     else if (c.verdict === 'REFUSED') refused.push({ key: k, why: c.why || 'instrument refused' });
-    else rejects.push({ key: k, enclosure: c.enclosure });
+    else rejects.push({ key: k, enclosure: c.enclosure, extra: c.extra });
 
     if (onProgress && certified % 50 === 0) onProgress({ generated, screened, certified, hits: hits.length });
   }
