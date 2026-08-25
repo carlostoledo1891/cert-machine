@@ -226,7 +226,26 @@ p=4 — caught by the shift classification, not by reading code).
    Diophantine family where certify is an exact rational witness) doubles as
    the stress test of whether the interface generalises or has quietly shaped
    itself around the first five.
-7. **Portable certificates: the keller class is DONE (R7).**
+7. **A fast-matmul audit family (`strassen-audit`).** Fast matrix
+   multiplication algorithms ARE certify-shaped objects: "4x4 in 48
+   multiplications" (AlphaEvolve 2025) is a rank-48 decomposition of the
+   <4,4,4> tensor — finitely many exact coefficients whose triple-product
+   sum must equal the matmul tensor IDENTICALLY, over a stated ring. That
+   is the keller-audit shape wholesale: transcribe the published zoo
+   (Strassen 7 for 2x2 — the calibration with the textbook answer;
+   Laderman 23 for 3x3; Smirnov's catalog; AlphaTensor's mod-2 rank-47;
+   AlphaEvolve's 48), pin the sources, certify each as an exact
+   multilinear identity (the keller polynomial arithmetic already
+   suffices), red control: one perturbed coefficient must break it. The
+   certificates detach even more cleanly than keller (sums of triple
+   products of small rationals — a tiny stdlib verifier). And it is the
+   NATURAL corpus for item 6's LLM campaign: "propose a rank-<=49
+   decomposition of <4,4,4>; the engine certifies" is the one game where
+   model-proposes-verifier-decides already produced a famous discovery, so
+   the eval has a literature baseline. (What this is NOT: matmul speed is
+   not one of OUR bottlenecks — census box counts and BigInt expansion
+   are; the value is the corpus, not the kernel.)
+8. **Portable certificates: the keller class is DONE (R7).**
    certs/keller-certificate.json + tools/verify_keller.py is the pattern:
    detach the claim as explicit exact data, re-verify with stdlib only, red
    control inside the verifier. NEXT candidates: the census boxes (finitely
@@ -234,13 +253,56 @@ p=4 — caught by the shift classification, not by reading code).
    class), the minus-CF tail bands (the certificate is four polynomial
    positivity facts + one backward iteration, ideal for a tiny checker), or
    a Lean export — and the 54.6M proved negatives as a labeled dataset.
-8. **More Krawczyk families.** Any parameterised nonlinear system: steady
+9. **More Krawczyk families.** Any parameterised nonlinear system: steady
    states of reaction-diffusion, roots of polynomial systems.
-9. **Do NOT go back to closed-form hunting over curated corpora.** OEIS was the
+10. **Do NOT go back to closed-form hunting over curated corpora.** OEIS was the
    right calibration target and the wrong discovery target, and the reason is
    structural and predictable in advance. (The keller and Ramanujan-Machine
    corpora are not this: their claims are new or conjectural, and decidable by
    our instruments.)
+
+## The report shelf (gems verified against the records, 2026-08-25)
+
+Five things already in the records that could stand as research-style
+reports; the first two are hidden gems — results the machine holds that
+nobody has written down. Ranked by readiness x novelty:
+
+1. **The impostor catalog.** The 21 exact-BigInt refutations are a dataset
+   of proved near-misses — exactly the objects digit-matching methodology
+   would publish as conjectures. Verified from the records: A266296 ("a
+   number close to 24, related to the Ramanujan constant") agrees with 24
+   for ~100 digits, refuted exactly at 105; A271880 agrees with 1/5 for 63
+   digits, six spellings refuted at 105; A226120 impersonates 1 for ~100
+   digits; plus A181284, A359187. Report: "digit agreement to depth d is
+   not evidence — five published constants with exact proofs of
+   inequality." Everything in hand; needs an extraction script and prose.
+2. **Certified entropy from the census.** The certified cycle counts encode
+   topological entropy: ln(N_p)/p for p = 12..16 reads 0.4595, 0.4643,
+   0.4624, 0.4658, 0.4648 — oscillating into the literature value
+   h ~ 0.4651 for classical Hénon (Galias's rigorous bounds ~0.4645), with
+   the known parity dip at p=14 appearing for free. Missing for a THEOREM:
+   covering relations between the certified boxes -> semi-conjugacy to a
+   subshift -> h >= ln(N)/p certified. One instrument; the boxes it needs
+   are already in the census records.
+3. **The zeta(3) audit report.** Complete and self-contained: tail bands by
+   shift-and-check positivity, convergence proved inside the certificate,
+   the 9.7e-17 elementary zeta(3) bracket, both "new and unproven" rows
+   surviving unconditionally — plus a lemma of independent value: minus-CF
+   tail recursions can carry EXACT algebraic spurious solutions
+   (s_n = n^3 -> CF value 0), which is why naive interval iteration fails
+   and bands must exclude the spurious branch. "This decides, that
+   guesses," on their own corpus, outside-checkable.
+4. **The keller moduli question.** sweep.js parametrizes counterexamples by
+   the free coefficients c_3..c_d — an unexplored moduli space, and the
+   R4 label ("coordinate-equivalence unchecked") is itself the open
+   question: how many inequivalent counterexamples per geometric degree?
+   Needs an equivalence-testing instrument + a coefficient sweep. The
+   literature is weeks old; nobody holds this.
+5. **The bug catalog.** Six real bugs, all found by controls or
+   calibration, none by reading code — sqrt(2) refuted as its own closed
+   form, the bisection-line zero, the fat-record stall, undamped-Newton
+   blindness, unreduced-fraction inflation, the missed sheet row caught by
+   byte pins. An experience report where every claim is `make test`.
 
 ## The rule for changing front
 
