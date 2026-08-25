@@ -33,10 +33,18 @@
    depths k and k+1, the terminal drops (b_k − a_{k+1}/b_{k+1} < b_k), and
    increasing maps propagate the drop, so x_k is strictly decreasing in k;
    it is bounded below by the enclosure's lower end; hence it converges, and
-   its limit lies in the closed enclosure. (Positivity of every intermediate
-   s_n^(k) — needed for "increasing" — is certified by the bands for
-   n >= N0 and by the interval iteration keeping a positive lower bound for
-   the head levels n < N0; the evaluator REFUSES if it does not.)
+   its limit lies in the closed enclosure. (What "increasing" needs is not
+   positivity but a FIXED SIGN: f_n'(t) = a_{n+1}/t^2 > 0 for every t != 0,
+   so each map is increasing on either half-line. The bands certify
+   positivity for n >= N0; for the finitely many head levels n < N0 the
+   interval iteration certifies SIGN-DEFINITENESS — some sheets' heads are
+   genuinely negative (Catalan's 2/(2G-1) = 1 - 4/y has y < 0), and that
+   is fine; an interval CONTAINING 0 is refused, because there the true
+   recursion could divide by zero and no finite enclosure exists.
+   Sign-definite-negative heads admitted 2026-08-25 for the Catalan sheet;
+   the zeta(3) corpus is all-positive and unaffected, and the battery
+   pins both: a negative-head row evaluates, a zero-straddling head
+   refuses.)
 
    ZETA(3) ITSELF, with no consumed theorem: from the defining series
    sum 1/k^3, summed EXACTLY over BigInt to K terms. The tail is bracketed
@@ -172,10 +180,10 @@ function encloseMinus(spec, cert, N) {
   const Lv = Q.toDouble(pEvalQ(cert.L, N + 1)), Uv = Q.toDouble(pEvalQ(cert.U, N + 1));
   let S = [IV.nextDown(Lv), IV.nextUp(Uv)];
   for (let n = N; n >= 1; n--) {
-    if (S[0] <= 0) return { ok: false, why: 'tail interval lost positivity at level ' + (n + 1) + ' — head positivity uncertified, REFUSING' };
+    if (S[0] <= 0 && S[1] >= 0) return { ok: false, why: 'tail interval contains 0 at level ' + (n + 1) + ' — sign-definiteness uncertified, REFUSING' };
     S = IV.sub(coeff(bInt, n), IV.div(coeff(aInt, n + 1), S));
   }
-  if (S[0] <= 0) return { ok: false, why: 'tail interval lost positivity at level 1' };
+  if (S[0] <= 0 && S[1] >= 0) return { ok: false, why: 'tail interval contains 0 at level 1 — REFUSING' };
   const enc = IV.sub(coeff(bInt, 0), IV.div(coeff(aInt, 1), S));
   return {
     ok: true, enclosure: enc, width: enc[1] - enc[0], N, checks: tc.checks,

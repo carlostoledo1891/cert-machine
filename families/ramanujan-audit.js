@@ -137,12 +137,179 @@ const CORPUS = [
 
 const N = 4000;               /* backward evaluation depth; width bottoms out at ~1e-15 long before this */
 
+/* ==== the 2020-2022 sheets: Catalan G (23 rows), pi^2 (12), ln 2 (1) ======
+   Transcribed 2026-08-25 from the pinned PDFs rm_catalan.pdf, rm_zeta2.pdf,
+   rm_other.pdf (each re-hashed at certify time). Claimed forms are Möbius
+   in ONE constant, (p + qK)/(s + tK), decided exactly by
+   instruments/cf/forms.js against certified constant brackets from
+   instruments/bigfloat/constants.js (pi^2 and acosh(2) at 2e-47, ln 2 at
+   7e-49, Catalan's G from its defining series with a PROVED convexity tail
+   at 1.2e-18). Every minus row carries a proved tail band with U(n) = b(n)
+   — terminal containment and (I+) are then identities — and a searched
+   quadratic L(n), both re-proved by shift-and-check at certify time.
+
+   kind 'headshift': three pi^2 rows have a(1) < 0 (e.g. 16/(4+pi^2) =
+   1 - (-1)/(7 - 8/(...))), outside the minus-CF hypotheses. Exact algebra
+   moves the head aside: with x = b0 + c/y, c = -a(1) > 0, the shifted
+   spec for y satisfies the hypotheses and the claimed form transforms to
+   another Möbius (forms.headShiftMobius); deciding y decides x.
+
+   kind 'pos': two pi^2 rows are positive CFs, evaluated by cf.js.
+
+   SIGN-DEFINITE NEGATIVE HEADS: six Catalan rows have genuinely negative
+   head tails (2/(2G-1) = 1 - 4/y forces y < 0). The minus evaluator now
+   certifies sign-definiteness instead of positivity at head levels —
+   see the argument note in minus.js; the battery pins both directions. */
+const S2 = (id, source, status, K, form, b0, a, b, band, kind) =>
+  ({ sheet: 2, id, source, status, K, form, b0, a, b, band, kind });
+const CAT = (id, form, b0, b, a, band) => S2(id, 'rm_catalan.pdf', 'NEW AND UNPROVEN', 'G', form, b0, a, b, band);
+const Z2 = (id, status, form, b0, b, a, band, kind) => S2(id, 'rm_zeta2.pdf', status, 'pi2', form, b0, a, b, band, kind);
+
+const SHEET2 = [
+  /* Catalan: the known two-constant row, then the 22 new ones */
+  S2('rm-cat-known', 'rm_catalan.pdf', 'known', 'catalanE', { p: 6, t: 1 },
+    2, [0, -2, 12, -24, 16], [2, 7, 10], { N0: 1, L: [5, -12, 8], depth: 60 }),
+  CAT('rm-cat-01', { p: 1, t: 2 },          1, [1, 3, 3],   [0, 0, 0, 0, 2],    { N0: 1, L: [0, -1, 2], depth: 60 }),
+  CAT('rm-cat-02', { p: 2, s: -1, t: 2 },   1, [1, 3, 3],   [0, 0, 0, 2, 2],    { N0: 3, L: [-9, 0, 2], depth: 240 }),
+  CAT('rm-cat-03', { p: 24, s: -11, t: 18 },1, [1, 3, 3],   [0, 0, 0, 4, 2],    { N0: 12, L: [-12, -5, 2], depth: 240 }),
+  CAT('rm-cat-04', { p: 720, s: -299, t: 450 }, 1, [1, 3, 3], [0, 0, 0, 6, 2],  { N0: 20, L: [-12, -9, 2], depth: 240 }),
+  CAT('rm-cat-05', { p: 2, s: -1, t: 2 },   3, [3, 7, 3],   [0, 0, 0, 4, 2],    { N0: 1, L: [6, -3, 2], depth: 60 }),
+  CAT('rm-cat-06', { p: 4, s: 1, t: 2 },    3, [3, 7, 3],   [0, 0, 4, 6, 2],    { N0: 1, L: [-2, 1, 2], depth: 60 }),
+  CAT('rm-cat-07', { p: 16, s: -1, t: 6 },  3, [3, 7, 3],   [0, 0, 8, 8, 2],    { N0: 4, L: [-11, 2, 2], depth: 240 }),
+  CAT('rm-cat-08', { p: 288, s: -31, t: 90 }, 3, [3, 7, 3], [0, 0, 12, 10, 2],  { N0: 14, L: [-12, -4, 2], depth: 240 }),
+  CAT('rm-cat-09', { p: 1, s: 2, t: -2 },   7, [7, 9, 3],   [0, 2, 6, 6, 2],    { N0: 1, L: [9, -4, 2], depth: 60 }),
+  CAT('rm-cat-10', { p: 24, s: -11, t: 18 },5, [5, 11, 3],  [0, 0, 0, 8, 2],    { N0: 1, L: [7, -4, 2], depth: 60 }),
+  CAT('rm-cat-11', { p: 16, s: -1, t: 6 },  5, [5, 11, 3],  [0, 0, 8, 10, 2],   { N0: 1, L: [6, -1, 2], depth: 60 }),
+  CAT('rm-cat-12', { p: 64, s: 13, t: 18 }, 5, [5, 11, 3],  [0, 0, 16, 12, 2],  { N0: 1, L: [-2, 3, 2], depth: 60 }),
+  CAT('rm-cat-13', { p: 4, s: -5, t: 6 },   9, [9, 11, 3],  [0, 0, 8, 8, 2],    { N0: 1, L: [8, -4, 2], depth: 60 }),
+  CAT('rm-cat-14', { p: 8, s: 3, t: -2 },   9, [9, 11, 3],  [0, 8, 16, 10, 2],  { N0: 1, L: [6, -1, 2], depth: 60 }),
+  CAT('rm-cat-15', { p: 32, s: 5, t: 2 },   9, [9, 11, 3],  [0, 16, 24, 12, 2], { N0: 1, L: [2, 3, 2], depth: 60 }),
+  CAT('rm-cat-16', { p: 192, s: 13, t: 18 },9, [9, 11, 3],  [0, 24, 32, 14, 2], { N0: 7, L: [-12, 3, 2], depth: 240 }),
+  CAT('rm-cat-17', { p: 6, s: 17, t: -18 }, 13, [13, 13, 3],[0, 6, 14, 10, 2],  { N0: 1, L: [9, -4, 2], depth: 60 }),
+  CAT('rm-cat-18', { p: 48, s: -79, t: 90 },15, [15, 15, 3],[0, 0, 16, 12, 2],  { N0: 1, L: [8, -4, 2], depth: 60 }),
+  CAT('rm-cat-19', { p: 32, s: 19, t: -18 },15, [15, 15, 3],[0, 16, 28, 14, 2], { N0: 1, L: [10, -3, 2], depth: 60 }),
+  CAT('rm-cat-20', { p: 128, s: 17, t: -6 },15, [15, 15, 3],[0, 32, 40, 16, 2], { N0: 1, L: [6, 1, 2], depth: 60 }),
+  CAT('rm-cat-21', { p: 8, s: -49, t: 54 }, 19, [19, 15, 3],[0, 16, 24, 12, 2], { N0: 1, L: [10, -4, 2], depth: 60 }),
+  CAT('rm-cat-22', { p: 12, s: 83, t: -90 },23, [23, 17, 3],[0, 18, 30, 14, 2], { N0: 1, L: [10, -4, 2], depth: 60 }),
+  /* pi^2 */
+  Z2('rm-z2-known', 'known', { p: 30, t: 1 }, 3, [3, 11, 11], [0, 0, 0, 0, 1], null, 'pos'),
+  Z2('rm-z2-proven1', 'new and PROVEN (Kadyrov-Orynbassar arXiv:2103.03554)', { p: 8, t: 1 },
+    1, [1, 3, 3], [0, 0, 0, -1, 2], { N0: 1, L: [2, -3, 2], depth: 60 }),
+  Z2('rm-z2-new1', 'NEW AND UNPROVEN', { p: 16, s: 4, t: 1 }, 1, [1, 3, 3], [0, 0, 0, -3, 2],
+    { N0: 1, L: [6, -4, 2], depth: 60 }, 'headshift'),
+  Z2('rm-z2-new2', 'NEW AND UNPROVEN', { p: 24, t: 1 }, 2, [2, 7, 7], [0, 0, 0, 0, 8], null, 'pos'),
+  Z2('rm-z2-proven2', 'new and PROVEN (Kadyrov-Orynbassar arXiv:2103.03554)', { p: 18, t: 1 },
+    2, [2, 6, 5], [0, 0, 0, -2, 4], { N0: 1, L: [5, -8, 4], depth: 60 }),
+  Z2('rm-z2-new3', 'NEW AND UNPROVEN', { p: 16, s: -4, t: 1 }, 3, [3, 7, 3], [0, 0, -2, 3, 2], { N0: 1, L: [5, -4, 2], depth: 60 }),
+  Z2('rm-z2-new4', 'NEW AND UNPROVEN', { p: 32, t: 1 }, 3, [3, 7, 3], [0, 0, -6, 1, 2],
+    { N0: 1, L: [6, -4, 2], depth: 60 }, 'headshift'),
+  Z2('rm-z2-new5', 'NEW AND UNPROVEN', { p: 16, s: -8, t: 1 }, 9, [9, 11, 3], [0, -4, 4, 7, 2], { N0: 1, L: [5, -4, 2], depth: 60 }),
+  Z2('rm-z2-new6', 'NEW AND UNPROVEN', { p: 16, s: 12, t: -1 }, 9, [9, 11, 3], [0, 4, 12, 9, 2], { N0: 1, L: [8, -3, 2], depth: 60 }),
+  Z2('rm-z2-new7', 'NEW AND UNPROVEN', { p: 32, s: 32, t: -3 }, 15, [15, 15, 3], [0, 8, 22, 13, 2], { N0: 1, L: [8, -3, 2], depth: 60 }),
+  Z2('rm-z2-new8', 'NEW AND UNPROVEN', { p: 16, q: 3, s: 16, t: -1 }, 7, [7, 9, 3], [-3, -7, -3, 3, 2],
+    { N0: 1, L: [7, -4, 2], depth: 60 }, 'headshift'),
+  Z2('rm-z2-new9', 'NEW AND UNPROVEN', { p: 18, s: -8, t: 1 }, 10, [10, 14, 5], [0, 0, 0, 6, 4], { N0: 1, L: [5, -8, 4], depth: 60 }),
+  /* ln 2 */
+  S2('rm-ln2', 'rm_other.pdf', 'NEW AND UNPROVEN', 'ln2', { p: 1, s: 1, t: -1 },
+    4, [0, 0, 2, 4, 2], [4, 7, 3], { N0: 1, L: [6, -3, 2], depth: 60 })
+];
+
+const KSYM = { pi2: 'pi^2', G: 'G', ln2: 'log(2)', catalanE: '(8G - pi*acosh(2))' };
+function fmtForm(f, K) {
+  const sym = KSYM[K];
+  const lin = (c0, c1) => {
+    const parts = [];
+    if (c1) parts.push((c1 === 1 ? '' : c1 === -1 ? '-' : c1) + sym);
+    if (c0) parts.push((c0 > 0 && parts.length ? '+ ' : '') + c0);
+    return parts.join(' ') || '0';
+  };
+  const num = lin(f.p || 0, f.q || 0), den = lin(f.s || 0, f.t || 0);
+  return ((f.q || 0) !== 0 ? '(' + num + ')' : num) + '/(' + den + ')';
+}
+
+const evalIntPoly = (c, n) => { let s = 0; for (let i = c.length - 1; i >= 0; i--) s = s * n + c[i]; return s; };
+const shiftInt = (arr) => MINUS._poly.pShift(MINUS._poly.pOfInts(arr), 1).map(q => {
+  if (q.d !== 1n) throw new Error('shifted polynomial not integer');
+  return Number(q.n);
+});
+
+function sheet2Value(o) {
+  const pos = o.kind === 'pos';
+  let t = evalIntPoly(o.b, 501);
+  for (let n = 500; n >= 1; n--) t = pos ? evalIntPoly(o.b, n) + evalIntPoly(o.a, n + 1) / t
+                                         : evalIntPoly(o.b, n) - evalIntPoly(o.a, n + 1) / t;
+  return pos ? o.b0 + evalIntPoly(o.a, 1) / t : o.b0 - evalIntPoly(o.a, 1) / t;
+}
+
+function certifySheet2(o, sourcePin) {
+  const FORMS = require('#instruments/cf/forms.js');
+  const CONSTS = require('#instruments/bigfloat/constants.js');
+  const P = MINUS._poly;
+  const KB = CONSTS.bracket(o.K, 192);
+  const K = { lo: KB.lo, hi: KB.hi };
+  const formText = fmtForm(o.form, o.K);
+  const flagship = /NEW AND UNPROVEN/.test(o.status || '');
+
+  let enc, width, method, checks = null, decidedForm = o.form, decidedAgainst = 'x';
+  if (o.kind === 'pos') {
+    const e = enclose({ b0: o.b0, a: (n) => evalIntPoly(o.a, n), b: (n) => evalIntPoly(o.b, n) }, N);
+    if (!e.ok) return { verdict: 'REFUSED', why: o.id + ': ' + e.why };
+    enc = e.enclosure; width = e.width;
+    method = 'positive-CF backward interval evaluation (tail in (0, a/b] proved)';
+  } else if (o.kind === 'headshift') {
+    const a1 = evalIntPoly(o.a, 1);
+    if (a1 >= 0) return { verdict: 'REFUSED', why: o.id + ': headshift row but a(1) >= 0' };
+    const as = shiftInt(o.a), bs = shiftInt(o.b);
+    const spec = { b0: bs[0], aPoly: as, bPoly: bs };
+    const cert = { N0: o.band.N0, L: P.pOfInts(o.band.L), U: P.pOfInts(bs) };
+    const e = MINUS.encloseMinus(spec, cert, o.band.depth);
+    if (!e.ok) return { verdict: 'REFUSED', why: o.id + ': ' + e.why };
+    enc = e.enclosure; width = e.width; checks = e.checks;
+    decidedForm = FORMS.headShiftMobius(o.form, o.b0, -a1);
+    decidedAgainst = 'y (x = ' + o.b0 + ' + ' + (-a1) + '/y — a(1) < 0 moved aside by exact algebra; deciding y decides x)';
+    method = 'head-shifted minus-CF: shifted spec satisfies a(n) > 0, tail band proved, claimed form transformed exactly';
+  } else {
+    const spec = { b0: o.b0, aPoly: o.a, bPoly: o.b };
+    const cert = { N0: o.band.N0, L: P.pOfInts(o.band.L), U: P.pOfInts(o.b) };
+    const e = MINUS.encloseMinus(spec, cert, o.band.depth);
+    if (!e.ok) return { verdict: 'REFUSED', why: o.id + ': ' + e.why };
+    enc = e.enclosure; width = e.width; checks = e.checks;
+    method = 'minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)';
+  }
+
+  const d = FORMS.decideForm(enc, decidedForm, K);
+  if (d.verdict === 'REFUSED') return { verdict: 'REFUSED', why: o.id + ': ' + d.why };
+  const extra = {
+    id: o.id, source: o.source, sourcePin, status: o.status,
+    form: formText, K: o.K, Kwidth: KB.width, cf: enc, width,
+    band: o.band ? { N0: o.band.N0, L: o.band.L.join(','), U: 'b(n)', depth: o.band.depth, inequalities: checks } : null,
+    decidedAgainst, method,
+    constant: o.K === 'G' ? 'Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)' :
+      o.K === 'catalanE' ? '8G - pi*acosh(2), each factor a certified bracket' :
+      o.K === 'pi2' ? 'pi^2 from the Machin enclosure, squared' : 'ln 2 from the atanh series'
+  };
+  if (d.disjoint) {
+    return { verdict: 'REJECT', enclosure: [enc[0], enc[1]],
+      text: 'DISCOVERY-CLASS REFUTATION: ' + o.id + ' — the claimed form ' + formText
+        + ' lies provably OUTSIDE the rigorous CF enclosure. The Machine\'s conjecture is FALSE.',
+      extra };
+  }
+  return { verdict: 'HIT', enclosure: [enc[0], enc[1]],
+    text: o.id + (flagship ? ' — a row the Machine marks NEW AND UNPROVEN — ' : ': ') + formText
+      + ' lies inside a rigorous enclosure of width ' + width.toExponential(2)
+      + ' — the conjecture SURVIVES an UNCONDITIONAL audit (' + method + '; constant bracket width '
+      + KB.width.toExponential(1) + '; final comparison in exact rationals); equality remains open, as it must',
+    extra };
+}
+
 module.exports = {
   name: 'ramanujan-audit',
   statement: 'a published Ramanujan Machine conjecture re-evaluated as a rigorous enclosure and decided against the claimed closed form — survival certified to the enclosure width, refutation proved (and, for their corpus, a discovery)',
-  enumerate: (i) => (i < CORPUS.length ? CORPUS[i] : null),
+  enumerate: (i) => (i < CORPUS.length ? CORPUS[i]
+    : i < CORPUS.length + SHEET2.length ? SHEET2[i - CORPUS.length] : null),
   /* float forward evaluation — the screen's sanity number, never a verdict */
   value(o) {
+    if (o.sheet === 2) return sheet2Value(o);
     if (o.minusCF) {
       const ev = (c, n) => { let s = 0; for (let i = c.length - 1; i >= 0; i--) s = s * n + c[i]; return s; };
       let t = ev(o.spec.bPoly, 400);
@@ -161,6 +328,7 @@ module.exports = {
     const pv = PIN.verify(o.source);
     if (!pv.ok) return { verdict: 'REFUSED', why: 'source pin failed for ' + o.source + ': ' + pv.why };
     const sourcePin = { file: pv.file, sha256: pv.sha256 };
+    if (o.sheet === 2) return certifySheet2(o, sourcePin);
     if (o.minusCF) {
       const d = MINUS.decideMinus(o.spec, Q.R(o.r[0], o.r[1]), bandCert(o.band));
       if (d.verdict === 'REFUSED') return { verdict: 'REFUSED', why: o.id + ': ' + d.why };

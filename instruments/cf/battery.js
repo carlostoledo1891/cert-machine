@@ -50,6 +50,7 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
   let checked = 0, bad = 0;
   for (let i = 0; ; i++) {
     const o = FAM.enumerate(i); if (!o) break;
+    if (o.sheet === 2) continue;      /* sheet-2 rows carry their own Möbius float guard below */
     checked++;
     const tol = o.minusCF ? 1e-5 : 1e-12;      /* rm-z3-inv converges slowly; the float screen is a sanity check */
     if (Math.abs(FAM.value(o) - target[o.id]) > tol) { bad++; console.log('  normalization off: ' + o.id); }
@@ -110,18 +111,76 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
     'rm-z3-inv: the band L = n^3+2n^2 excludes the spurious exact solution s_n = n^3 (CF value 0) — enclosure locks onto 1/zeta(3)');
 }
 
-/* ---- the family end-to-end: EVERY row of the corpus now survives ---- */
+/* ---- the sheet-2 machinery: constants, forms, sign-definite heads ---- */
 {
-  let hits = 0, refused = 0, rejects = 0, flagship = 0;
+  const C = require('#instruments/bigfloat/constants.js');
+  const BF = require('#instruments/bigfloat/bigfloat.js');
+  const FORMS = require('#instruments/cf/forms.js');
+  const P = require('#instruments/cf/minus.js')._poly;
+  const M = require('#instruments/cf/minus.js');
+
+  /* Catalan's G: convexity proved, bracket contains the literature digits,
+     brackets at two N overlap (one number) */
+  const conv = C.proveConvexity();
+  ok(conv.ok && conv.poly.join(',') === '184,288,96',
+    'G tail convexity is a PROVED polynomial identity: second difference expands to 96k^2+288k+184, all coefficients positive');
+  const g1 = C.catalanG(160, 2000).enclosure, g2 = C.bracket('G', 160).iv;
+  const lit = (iv, s) => { const m = /^(\d+)\.(\d+)$/.exec(s), num = BigInt(m[1] + m[2]), den = 10n ** BigInt(m[2].length);
+    return BF.cmpRat(iv.lo, num, den) >= 0 && BF.cmpRat(iv.hi, num + 1n, den) <= 0; };
+  ok(lit(g2, '0.91596559417721901'),
+    'G (defining series + convexity tail, width ' + BF.widthNumber(g2).toExponential(1) + ') certifies 17 literature digits');
+  ok(!BF.disjoint(g1, g2), 'G brackets at N=2000 and N=600000 intersect — one number, two truncations');
+
+  /* RED: a Möbius form whose denominator interval contains 0 is REFUSED */
+  const fakeK = { lo: [-1n, 1n], hi: [1n, 1n] };
+  const mb = FORMS.mobiusBracket({ p: 1, s: 0, t: 1 }, fakeK);
+  ok(!mb.ok && /contains 0/.test(mb.why), 'RED: a form denominator interval containing 0 is REFUSED — no verdict from a possibly-singular form');
+
+  /* RED: a head tail interval straddling 0 refuses; sign-definite NEGATIVE heads evaluate */
+  const straddle = M.encloseMinus({ b0: -2, aPoly: [0, 0, 0, 0, 2], bPoly: [-2, 3, 3] },
+    { N0: 3, L: P.pOfInts([0, -1, 2]), U: P.pOfInts([-2, 3, 3]) }, 3);
+  ok(!straddle.ok && /contains 0/.test(straddle.why),
+    'RED: a head tail interval CONTAINING 0 is REFUSED — sign-definiteness is checked, not assumed');
+  const negHead = FAM.certify(FAM.enumerate(11));  /* rm-cat-02: y < 0 at the head */
+  ok(negHead.verdict === 'HIT' && /SURVIVES/.test(negHead.text),
+    'a genuinely NEGATIVE-head row (rm-cat-02: 2/(2G-1) = 1 - 4/y, y < 0) evaluates — increasing maps need a fixed sign, not positivity');
+}
+
+/* ---- the family end-to-end: EVERY row of all six sheets ---- */
+{
+  const KF = { pi2: Math.PI * Math.PI, G: 0.915965594177219, ln2: Math.LN2,
+    catalanE: 8 * 0.915965594177219 - Math.PI * Math.acosh(2) };
+  let hits = 0, refused = 0, rejects = 0, flagship = 0, s2checked = 0, s2bad = 0;
+  const byId = {};
   for (let i = 0; ; i++) {
     const o = FAM.enumerate(i); if (!o) break;
     const c = FAM.certify(o);
+    byId[o.id] = c;
     if (c.verdict === 'HIT') { hits++; if (/NEW AND UNPROVEN/.test(c.text)) flagship++; }
     else if (c.verdict === 'REFUSED') refused++;
     else rejects++;
+    if (o.sheet === 2) {           /* transcription guard: float CF vs float form */
+      s2checked++;
+      const K = KF[o.K];
+      const target = ((o.form.p || 0) + (o.form.q || 0) * K) / ((o.form.s || 0) + (o.form.t || 0) * K);
+      if (Math.abs(FAM.value(o) - target) > 1e-9) { s2bad++; console.log('  sheet2 normalization off: ' + o.id); }
+    }
   }
-  ok(hits === 10 && rejects === 0 && refused === 0, 'all 10 conjectures — the e sheet, the pi sheet, and the COMPLETE zeta(3) sheet — SURVIVE their audits (' + hits + ' hits)');
-  ok(flagship === 2, 'both rows the Machine marks NEW AND UNPROVEN are decided and say so in their certificates (' + flagship + ')');
+  ok(hits === 46 && rejects === 0 && refused === 0,
+    'all 46 conjectures — the e, pi, zeta(3), CATALAN, pi^2 and ln 2 sheets, COMPLETE — SURVIVE their audits (' + hits + ' hits)');
+  ok(flagship === 34, 'all 34 rows the Machine marks NEW AND UNPROVEN are decided and say so (' + flagship + ')');
+  ok(s2checked === 36 && s2bad === 0, 'all 36 sheet-2 transcriptions agree with their claimed Möbius values in float (transcription guard)');
+  ok(byId['rm-z2-proven1'].verdict === 'HIT' && byId['rm-z2-proven2'].verdict === 'HIT',
+    'CALIBRATION: both PROVEN pi^2 rows (Kadyrov-Orynbassar) SURVIVE — refuting proved mathematics would mean a broken evaluator');
+  ok(byId['rm-z2-known'].verdict === 'HIT' && byId['rm-cat-known'].verdict === 'HIT',
+    'CALIBRATION: both KNOWN rows survive, incl. the two-constant form 6/(8G - pi*acosh 2)');
+
+  /* RED: a forged Möbius form against a real enclosure is REFUTED exactly */
+  const FORMS = require('#instruments/cf/forms.js');
+  const C = require('#instruments/bigfloat/constants.js');
+  const KB = C.bracket('G', 192);
+  const d = FORMS.decideForm(byId['rm-cat-01'].enclosure, { p: 3, s: 0, t: 5 }, { lo: KB.lo, hi: KB.hi });
+  ok(d.disjoint === true, 'RED: the forged form 3/(5G) against rm-cat-01\'s enclosure is REFUTED exactly — the sheet-2 audit can fire');
 }
 
 console.log('');

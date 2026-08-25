@@ -36,7 +36,7 @@ const BATTERIES = [
   ['trigmin certifier', ['instruments/trigmin/battery.js'], '47 checks · 2 red controls'],
   ['census (henon + holmes)', ['instruments/census/battery.js'], 'closed-form calibration, two maps · 5 red controls'],
   ['keller audit + sweep', ['instruments/keller/battery.js'], 'symbolic det over Q, generator calibrated on Alpöge · 4 red controls'],
-  ['cf audit', ['instruments/cf/battery.js'], 'positive + minus CF enclosures vs the Ramanujan Machine · 7 red controls'],
+  ['cf audit', ['instruments/cf/battery.js'], 'all six Ramanujan Machine sheets (46 rows: e, pi, zeta(3), Catalan, pi^2, ln 2) · 10 red controls'],
   ['entropy covering', ['instruments/entropy/battery.js'], 'certified h_top lower bounds; ln 2 calibration at the full horseshoe · 4 red controls'],
   ['strassen audit', ['instruments/strassen/battery.js'], 'fast-matmul tensor identities over Q and F2; Strassen 1969 calibrates · 3 red controls'],
   ['bigfloat layer', ['instruments/bigfloat/battery.js'], 'directed-rounding big-float intervals; pi/ln2/e to 50 literature digits · 5 red controls'],

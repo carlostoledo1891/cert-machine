@@ -16,14 +16,14 @@ make drift     re-hash the lift against the source lab
 ## State, measured at handoff
 
 ```
-819,109  objects generated across 11 families
- 16,900  certified exactly
-54.6M    closed forms: 54,633,977 tested = 54,633,060 refuted (double)
-         + 21 refuted (exact BigInt) + 877 form-on-record + 0 open + 19 surviving
+819,145  objects generated across 11 families
+ 16,936  certified exactly
+54.6M    closed forms: 54,635,424 tested = 54,634,508 refuted (double)
+         + 21 refuted (exact BigInt) + 877 form-on-record + 0 open + 18 surviving
          — the decomposition closes, and the engine REFUSES a ledger where it does not
-         (the 19 survivors: rm-pi-a's proved pi/4 + 18 trivial strassen self-matches —
-         an integer rank enclosure [47,47] "survives" 47/1 and sqrt(2209), as it must;
-         both erdos852 enclosures refuted every vocabulary form)
+         (the 18 survivors: trivial strassen self-matches — an integer rank enclosure
+         [47,47] "survives" 47/1 and sqrt(2209), as it must; every erdos852 and
+         ramanujan enclosure refuted or outranked its vocabulary forms)
     228  existence-AND-uniqueness theorems (Krawczyk)
     452  COMPLETENESS theorems (census: Hénon 328/328 + Holmes cubic 124/124, 0 refusals)
   1,579  chowla screen survivors EXHAUSTED (1,508 certified below 1 — the family is terminal)
@@ -33,9 +33,14 @@ make drift     re-hash the lift against the source lab
          standalone stdlib-Python checker in 0.2 s
       7  fibers cells HIT blind, incl. alpoge-own-target: target (0,1,0) chosen from a fixed
          enumeration, never published anywhere, 3 preimages certified — witnesses AND target self-chosen
-     10  Ramanujan Machine conjectures SURVIVE an UNCONDITIONAL audit — the e sheet, the pi
-         sheet, and the COMPLETE zeta(3) sheet, including BOTH rows the Machine marks
-         "new and unproven" (enclosure widths 2.2e-16 and 8.9e-16)
+     46  Ramanujan Machine conjectures SURVIVE an UNCONDITIONAL audit — SIX complete
+         sheets: e, pi, zeta(3), CATALAN (23 rows), pi^2 (12), ln 2 (1) — including
+         ALL 34 rows the Machine marks "new and unproven"; Catalan's G certified from
+         its defining series with a PROVED convexity tail (96k^2+288k+184 >= 0, exact),
+         pi^2/acosh(2)/ln2 brackets at 1e-47; Möbius forms (p+qK)/(s+tK) decided in
+         exact rationals; three head-negative rows via an exact head-shift transform;
+         six sign-definite-NEGATIVE-head rows admitted by a gated minus.js extension
+         (fixed sign, not positivity, is what increasing maps need)
       9  fast matrix-multiplication algorithms VERIFIED as exact tensor identities
          (strassen-audit): Strassen 1969 calibrates; Strassen⊗Strassen rank-49 generated
          and re-decided; AlphaTensor's rank-47 4x4 VERIFIED over F2 and REFUTED over Q —
@@ -66,8 +71,8 @@ exact rationals explode through a million-factor product. Built for
 erdos852, generic by construction; the Mercer/Newman continuation and any
 future constant-certification run on it as-is.
 Census battery 26/26 (two maps, 5 red controls), keller battery 32/32
-(incl. pin drift + forged-pin reds), cf battery 17/17 (7 red controls;
-Apéry's proved identity is the calibration), entropy battery 11/11 (ln 2
+(incl. pin drift + forged-pin reds), cf battery 27/27 (10 red controls;
+Apéry + the two PROVEN pi^2 rows are the calibrations), entropy battery 11/11 (ln 2
 calibration at the full horseshoe; 4 red controls; the detached
 certificate re-proved in full every run). Reports shipped (make reports):
 reports/impostors.html, reports/zeta3-audit.html, reports/entropy.html —
@@ -112,7 +117,7 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
 | `keller-audit` | Jacobian + Hessian counterexamples decided — and GENERATED | 11/11: Alpöge n=3 + one padded row stating the stabilization (R2); 3 NEW CURVES through the PUBLISHED tangent-sweep mechanism (labeled as such, R4); Meng–Yang HC5; Gallagher d=2..5 + distinct member — every det a symbolic identity, sources hash-pinned (R3), all detached + independently re-verified (R7) |
 | `keller-fibers` | fiber counts certified BLIND — no witnesses consumed | 7/9 HITs: Alpöge's 3 preimages rediscovered unaided; alpoge-own-target proves the same with a SELF-CHOSEN target (0,1,0) — 3 preimages, full geometric degree; 2 cells honestly REJECT/REFUSED (witnesses at \|z\|~200, beyond blind reach) |
-| `ramanujan-audit` | the Ramanujan Machine's conjectures, decided | 10/10 SURVIVE unconditionally: 5 positive-CF (e, pi sheets) + the COMPLETE zeta(3) sheet — 4 minus-CFs decided by the tail-band evaluator incl. BOTH "new and unproven" rows, plus the sheet's positive row the first transcription missed |
+| `ramanujan-audit` | the Ramanujan Machine's conjectures, decided | 46/46 SURVIVE unconditionally across SIX complete sheets (e, pi, zeta(3), Catalan, pi^2, ln 2) incl. ALL 34 "new and unproven" rows; calibrated on Apéry + both PROVEN pi^2 rows (Kadyrov–Orynbassar) + both known rows (incl. the two-constant 6/(8G−π·acosh 2)); G from its defining series with a proved convexity tail; REMAINING: the mixed-zeta-orders sheet (5 rows, all with the (c−1)² double-root pathology — rm-z3-inv-grade band craft each) |
 | `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); one-off records through p=16 (1696 points, 1.42G boxes, recheck-clean) |
 | `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
 | `strassen-audit` | fast matmul algorithms decided as exact tensor identities | 9 HIT / 1 REJECT: Strassen-7 (calibration), Strassen⊗Strassen 49 (generated), AlphaTensor r/f2 selections from the pinned npz — incl. rank-47 4x4 over F2 with its over-Q REFUTATION recorded; naive rank-8 certified correct, certified NOT fast |
@@ -252,9 +257,19 @@ p=4 — caught by the shift classification, not by reading code).
    double root of c^2−2c+1); its band must exclude it (L = n^3+2n^2 is
    sharp) and that CF genuinely converges slowly — depth 1e7 gives an
    honest 2e-14, while the fast rows hit machine precision by depth 80.
-   REMAINING if wanted: more Machine sheets (zeta(2), Catalan, ln 2) are
-   one transcription + one constant-bracket each; the minus evaluator and
-   the exact-bracket pattern generalize as-is.
+   DONE 2026-08-25: the Catalan (23 rows), pi^2 (12) and ln 2 (1) sheets,
+   COMPLETE — all 46 corpus rows survive; pinned rm_catalan.pdf /
+   rm_zeta2.pdf / rm_other.pdf; new machinery: instruments/cf/forms.js
+   (exact Möbius decision + head-shift transform),
+   instruments/bigfloat/constants.js (G via proved-convexity tail, pi^2,
+   acosh 2, ln 2), sign-definite-negative heads in minus.js (gated by 2
+   new reds). REMAINING, the last sheet:
+   results_different_zeta_orders.pdf (fetched, NOT yet pinned/transcribed)
+   — 5 unproven rows mixing zeta(2..5,7), every one with a_lead=2,
+   b_lead=1 => (c−1)^2 DOUBLE ROOT: each band needs rm-z3-inv-grade craft
+   (sharp sub-leading exclusion, depth ~1e7, honest slow convergence), and
+   zeta(4)=pi^4/90 / zeta(5) / zeta(7) brackets from defining series
+   (easy, zeta3Bracket's pattern).
 6. **An LLM-conjecture campaign through `tools/llm-harness.py`.** Model
    proposes, engine certifies, ledger records the per-family truth rate of
    proposals that survived a float screen — an eval whose ground truth is a
@@ -411,6 +426,10 @@ READ-ONLY, lift numbers by transcription + pin, never by edit):
    trigmin/newman instruments are the same shape — they were lifted FROM
    there. Report-grade material already in hand. Blocking novelty check:
    Boyd 1986 (LMS LNS 109) is unread — archive.org diophantineanaly0000aust.
+   PROBED 2026-08-25: the item is access-restricted (lending only; the OCR
+   text 401s). Unblocking needs the OPERATOR's archive.org borrow (1-hour
+   loan reads fine) or a library copy. The COMPUTE side (mu(10..16), n=17,
+   lambda) is not gated — only novelty prose is.
    (research/probes/mercer-program/.)
 3. **Erdős #290 continuation.** The 4k(k+1) square-discriminant law is
    proved + blind-confirmed at k=6 (disc(f_168), 45,336 digits, perfect

@@ -13,7 +13,7 @@
     "rejects": 71,
     "refused": 0
    },
-   "ms": 206405,
+   "ms": 178234,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -30,7 +30,7 @@
     "rejects": 1,
     "refused": 0
    },
-   "ms": 5788,
+   "ms": 4848,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -47,7 +47,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 29366,
+   "ms": 24497,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -64,7 +64,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 602,
+   "ms": 547,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -81,7 +81,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 16135,
+   "ms": 13126,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -98,7 +98,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 76,
+   "ms": 61,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -115,7 +115,7 @@
     "rejects": 1,
     "refused": 1
    },
-   "ms": 9485,
+   "ms": 7862,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -132,7 +132,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 70763,
+   "ms": 59151,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -149,7 +149,7 @@
     "rejects": 14593,
     "refused": 0
    },
-   "ms": 5416,
+   "ms": 4537,
    "truncated": false,
    "corpusRefutations": 54606108,
    "corpusTested": 54607006,
@@ -161,15 +161,15 @@
    "name": "ramanujan-audit",
    "statement": "a published Ramanujan Machine conjecture re-evaluated as a rigorous enclosure and decided against the claimed closed form — survival certified to the enclosure width, refutation proved (and, for their corpus, a discovery)",
    "counts": {
-    "generated": 10,
-    "screened": 10,
+    "generated": 46,
+    "screened": 46,
     "duplicates": 0,
-    "certified": 10,
-    "hits": 10,
+    "certified": 46,
+    "hits": 46,
     "rejects": 0,
     "refused": 0
    },
-   "ms": 3273,
+   "ms": 3478,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -186,7 +186,7 @@
     "rejects": 1,
     "refused": 0
    },
-   "ms": 28,
+   "ms": 21,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -11165,238 +11165,34 @@
   },
   {
    "family": "ramanujan-audit",
-   "key": "rm-z3-apery",
-   "text": "rm-z3-apery: 6/zeta(3) lies inside a rigorous minus-CF enclosure of width 1.78e-15 — the conjecture SURVIVES an UNCONDITIONAL audit: tail band [L(n), U(n)] proved by shift-and-check coefficient positivity, convergence proved inside the certificate (monotone, bounded), zeta(3) bracketed exactly from its defining series; equality remains open, as it must",
+   "key": "rm-cat-22",
+   "text": "rm-cat-22 — a row the Machine marks NEW AND UNPROVEN — 12/(-90G + 83) lies inside a rigorous enclosure of width 7.11e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities); constant bracket width 1.2e-18; final comparison in exact rationals); equality remains open, as it must",
    "enclosure": [
-    4.991444235484244,
-    4.991444235484246
+    21.310733573145463,
+    21.31073357314547
    ],
-   "width": 1.7763568394002505e-15,
+   "width": 7.105427357601002e-15,
    "extra": {
-    "id": "rm-z3-apery",
-    "source": "rm_zeta3.pdf",
+    "id": "rm-cat-22",
+    "source": "rm_catalan.pdf",
     "sourcePin": {
-     "file": "rm_zeta3.pdf",
-     "sha256": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
-    },
-    "status": "known (Apery)",
-    "transcription": "6/zeta(3) = 5 - 1/(117 - 64/(535 - ...)) ; a_n = (2n+1)(17n(n+1)+5), b_n = -n^6",
-    "form": "6/zeta(3)",
-    "width": 1.7763568394002505e-15,
-    "depth": 60,
-    "band": {
-     "N0": 52,
-     "L": "0,0,0,33",
-     "U": "0,0,0,35",
-     "inequalities": [
-      "a(n) > 0 for all n >= 1",
-      "L(n) > 0 for all n >= 52",
-      "(T) b(n) − L(n) >= 0 for all n >= 52 (shift-and-check coefficient positivity)",
-      "(T) U(n) − b(n) >= 0 for all n >= 52 (shift-and-check coefficient positivity)",
-      "(I−) band invariance from below for all n >= 52 (shift-and-check coefficient positivity)",
-      "(I+) band invariance from above for all n >= 52 (shift-and-check coefficient positivity)"
-     ]
-    },
-    "zeta3": {
-     "lo": 1.2020569031595942,
-     "hi": 1.2020569031595945,
-     "width": 9.648277418878796e-17,
-     "K": 6000
-    },
-    "method": "minus-CF backward interval evaluation from a PROVED tail band; exact-rational final comparison; no convergence theorem consumed"
-   },
-   "closedForm": {
-    "tested": 705,
-    "refuted": 705,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "ramanujan-audit",
-   "key": "rm-z3-pos",
-   "text": "rm-z3-pos: 5/(2 zeta(3)) lies inside a rigorous enclosure of width 8.88e-16 — the conjecture SURVIVES an unconditional audit (positive-CF tail seeded by proof; zeta(3) bracketed exactly from its defining series; the sheet row the first transcription MISSED, restored by re-reading the pinned bytes); equality remains open, as it must",
-   "enclosure": [
-    2.079768431451768,
-    2.079768431451769
-   ],
-   "width": 8.881784197001252e-16,
-   "extra": {
-    "id": "rm-z3-pos",
-    "source": "rm_zeta3.pdf",
-    "sourcePin": {
-     "file": "rm_zeta3.pdf",
-     "sha256": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
-    },
-    "status": "known",
-    "transcription": "5/(2 zeta(3)) = 2 + 2*1^5*1/(2+1*3*7 + 2*2^5*3/(2+1*4*10 + ...)) ; a_n = 2+n(2+n)(4+3n), b_n = 4n^6-2n^5",
-    "normalized": "same (already positive: numerators 4n^6-2n^5 > 0, denominators 2+n(2+n)(4+3n) > 0)",
-    "form": "5/(2 zeta(3))",
-    "width": 8.881784197001252e-16,
-    "depth": 120,
-    "zeta3": {
-     "lo": 1.2020569031595942,
-     "hi": 1.2020569031595945,
-     "width": 9.648277418878796e-17,
-     "K": 6000
-    },
-    "method": "positive-CF backward interval evaluation (tail in (0, a/b] proved) + exact-rational zeta(3) bracket comparison"
-   },
-   "closedForm": {
-    "tested": 721,
-    "refuted": 721,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "ramanujan-audit",
-   "key": "rm-e-c",
-   "text": "rm-e-c: e - 1 lies inside a rigorous enclosure of width 8.88e-16 — the conjecture SURVIVES an unconditional interval audit (tail seeded by proof, not assumption); equality remains open, as it must",
-   "enclosure": [
-    1.7182818284590449,
-    1.7182818284590458
-   ],
-   "width": 8.881784197001252e-16,
-   "extra": {
-    "id": "rm-e-c",
-    "source": "results_e_4614_070418.pdf",
-    "sourcePin": {
-     "file": "results_e_4614_070418.pdf",
-     "sha256": "ebbf12b7839844da87a20420583c1eed353d3c6438af53a213e86b3985d60295"
-    },
-    "transcription": "e + -1 = 1 + 2/(2 + 3/(3 + 4/(4 + 5/(5+...))))",
-    "normalized": "same (already positive)",
-    "form": "e - 1",
-    "width": 8.881784197001252e-16,
-    "depth": 4000,
-    "method": "positive-CF backward interval evaluation; tail in (0, a/b] proved; outward rounding throughout"
-   },
-   "closedForm": {
-    "tested": 719,
-    "refuted": 719,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "ramanujan-audit",
-   "key": "rm-z3-new2",
-   "text": "rm-z3-new2 — a row the Machine marks NEW AND UNPROVEN — 12/(7 zeta(3)) lies inside a rigorous minus-CF enclosure of width 8.88e-16 — the conjecture SURVIVES an UNCONDITIONAL audit: tail band [L(n), U(n)] proved by shift-and-check coefficient positivity, convergence proved inside the certificate (monotone, bounded), zeta(3) bracketed exactly from its defining series; equality remains open, as it must",
-   "enclosure": [
-    1.4261269244240695,
-    1.4261269244240704
-   ],
-   "width": 8.881784197001252e-16,
-   "extra": {
-    "id": "rm-z3-new2",
-    "source": "rm_zeta3.pdf",
-    "sourcePin": {
-     "file": "rm_zeta3.pdf",
-     "sha256": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
+     "file": "rm_catalan.pdf",
+     "sha256": "8267938820519d4b1cce607ca9408b891388d30d917547fcc9d4571418a9219a"
     },
     "status": "NEW AND UNPROVEN",
-    "transcription": "12/(7 zeta(3)) = 2 - 16/(36 - 1024/(160 - ...)) ; a_n = (2n+1)(5n(n+1)+2), b_n = -16n^6",
-    "form": "12/(7 zeta(3))",
-    "width": 8.881784197001252e-16,
-    "depth": 80,
-    "band": {
-     "N0": 16,
-     "L": "0,0,0,3",
-     "U": "0,0,0,11",
-     "inequalities": [
-      "a(n) > 0 for all n >= 1",
-      "L(n) > 0 for all n >= 16",
-      "(T) b(n) − L(n) >= 0 for all n >= 16 (shift-and-check coefficient positivity)",
-      "(T) U(n) − b(n) >= 0 for all n >= 16 (shift-and-check coefficient positivity)",
-      "(I−) band invariance from below for all n >= 16 (shift-and-check coefficient positivity)",
-      "(I+) band invariance from above for all n >= 16 (shift-and-check coefficient positivity)"
-     ]
-    },
-    "zeta3": {
-     "lo": 1.2020569031595942,
-     "hi": 1.2020569031595945,
-     "width": 9.648277418878796e-17,
-     "K": 6000
-    },
-    "method": "minus-CF backward interval evaluation from a PROVED tail band; exact-rational final comparison; no convergence theorem consumed"
-   },
-   "closedForm": {
-    "tested": 715,
-    "refuted": 715,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "ramanujan-audit",
-   "key": "rm-z3-new1",
-   "text": "rm-z3-new1 — a row the Machine marks NEW AND UNPROVEN — 8/(7 zeta(3)) lies inside a rigorous minus-CF enclosure of width 2.22e-16 — the conjecture SURVIVES an UNCONDITIONAL audit: tail band [L(n), U(n)] proved by shift-and-check coefficient positivity, convergence proved inside the certificate (monotone, bounded), zeta(3) bracketed exactly from its defining series; equality remains open, as it must",
-   "enclosure": [
-    0.9507512829493798,
-    0.95075128294938
-   ],
-   "width": 2.220446049250313e-16,
-   "extra": {
-    "id": "rm-z3-new1",
-    "source": "rm_zeta3.pdf",
-    "sourcePin": {
-     "file": "rm_zeta3.pdf",
-     "sha256": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
-    },
-    "status": "NEW AND UNPROVEN",
-    "transcription": "8/(7 zeta(3)) = 1 - 1/(21 - 64/(95 - ...)) ; a_n = (2n+1)(3n(n+1)+1), b_n = -n^6",
-    "form": "8/(7 zeta(3))",
-    "width": 2.220446049250313e-16,
-    "depth": 60,
-    "band": {
-     "N0": 10,
-     "L": "0,0,0,5",
-     "U": "0,0,0,7",
-     "inequalities": [
-      "a(n) > 0 for all n >= 1",
-      "L(n) > 0 for all n >= 10",
-      "(T) b(n) − L(n) >= 0 for all n >= 10 (shift-and-check coefficient positivity)",
-      "(T) U(n) − b(n) >= 0 for all n >= 10 (shift-and-check coefficient positivity)",
-      "(I−) band invariance from below for all n >= 10 (shift-and-check coefficient positivity)",
-      "(I+) band invariance from above for all n >= 10 (shift-and-check coefficient positivity)"
-     ]
-    },
-    "zeta3": {
-     "lo": 1.2020569031595942,
-     "hi": 1.2020569031595945,
-     "width": 9.648277418878796e-17,
-     "K": 6000
-    },
-    "method": "minus-CF backward interval evaluation from a PROVED tail band; exact-rational final comparison; no convergence theorem consumed"
-   },
-   "closedForm": {
-    "tested": 718,
-    "refuted": 718,
-    "candidates": 0
-   }
-  },
-  {
-   "family": "ramanujan-audit",
-   "key": "rm-z3-inv",
-   "text": "rm-z3-inv: 1/zeta(3) lies inside a rigorous minus-CF enclosure of width 2.01e-14 — the conjecture SURVIVES an UNCONDITIONAL audit: tail band [L(n), U(n)] proved by shift-and-check coefficient positivity, convergence proved inside the certificate (monotone, bounded), zeta(3) bracketed exactly from its defining series; equality remains open, as it must",
-   "enclosure": [
-    0.8319073725806988,
-    0.8319073725807189
-   ],
-   "width": 2.0095036745715333e-14,
-   "extra": {
-    "id": "rm-z3-inv",
-    "source": "rm_zeta3.pdf",
-    "sourcePin": {
-     "file": "rm_zeta3.pdf",
-     "sha256": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
-    },
-    "status": "known",
-    "transcription": "1/zeta(3) = 1 - 1^6/(1^3+2^3 - 2^6/(2^3+3^3 - ...)) ; a_n = n^3+(n+1)^3, b_n = -n^6",
-    "form": "1/zeta(3)",
-    "width": 2.0095036745715333e-14,
-    "depth": 10000000,
+    "form": "12/(-90G + 83)",
+    "K": "G",
+    "Kwidth": 1.157401620391268e-18,
+    "cf": [
+     21.310733573145463,
+     21.31073357314547
+    ],
+    "width": 7.105427357601002e-15,
     "band": {
      "N0": 1,
-     "L": "0,0,2,1",
-     "U": "1,3,3,2",
+     "L": "10,-4,2",
+     "U": "b(n)",
+     "depth": 60,
      "inequalities": [
       "a(n) > 0 for all n >= 1",
       "L(n) > 0 for all n >= 1",
@@ -11406,13 +11202,9 @@
       "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
      ]
     },
-    "zeta3": {
-     "lo": 1.2020569031595942,
-     "hi": 1.2020569031595945,
-     "width": 9.648277418878796e-17,
-     "K": 6000
-    },
-    "method": "minus-CF backward interval evaluation from a PROVED tail band; exact-rational final comparison; no convergence theorem consumed"
+    "decidedAgainst": "x",
+    "method": "minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)",
+    "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
    },
    "closedForm": {
     "tested": 719,
@@ -11422,117 +11214,540 @@
   },
   {
    "family": "ramanujan-audit",
-   "key": "rm-pi-a",
-   "text": "rm-pi-a: pi/4 lies inside a rigorous enclosure of width 7.77e-16 — the conjecture SURVIVES an unconditional interval audit (tail seeded by proof, not assumption); equality remains open, as it must",
+   "key": "rm-z2-new8",
+   "text": "rm-z2-new8 — a row the Machine marks NEW AND UNPROVEN — (3pi^2 + 16)/(-pi^2 + 16) lies inside a rigorous enclosure of width 1.07e-14 — the conjecture SURVIVES an UNCONDITIONAL audit (head-shifted minus-CF: shifted spec satisfies a(n) > 0, tail band proved, claimed form transformed exactly; constant bracket width 5.1e-57; final comparison in exact rationals); equality remains open, as it must",
    "enclosure": [
-    0.785398163397448,
-    0.7853981633974487
+    18.19078790743853,
+    18.19078790743854
    ],
-   "width": 7.771561172376096e-16,
+   "width": 1.0658141036401503e-14,
    "extra": {
-    "id": "rm-pi-a",
-    "source": "results_pi_0101_060418.pdf",
+    "id": "rm-z2-new8",
+    "source": "rm_zeta2.pdf",
     "sourcePin": {
-     "file": "results_pi_0101_060418.pdf",
-     "sha256": "48b35cb010dc58f51f558e559300b9df2de01fb2d8869c306c8b60a3732b462a"
+     "file": "rm_zeta2.pdf",
+     "sha256": "9d7154cdf28052fd21b5bfe153b45cb95cfcbce78aac64d8707d659e970956e2"
     },
-    "transcription": "pi/(-4) = 1/(-1 + 1/(-3 + 4/(-5 + 9/(-7 + 16/(-9+...)))))",
-    "normalized": "pi/4 = 1/(1 + 1/(3 + 4/(5 + 9/(7 + 16/(9+...)))))  [Brouncker]",
-    "form": "pi/4",
-    "width": 7.771561172376096e-16,
-    "depth": 4000,
-    "method": "positive-CF backward interval evaluation; tail in (0, a/b] proved; outward rounding throughout"
+    "status": "NEW AND UNPROVEN",
+    "form": "(3pi^2 + 16)/(-pi^2 + 16)",
+    "K": "pi2",
+    "Kwidth": 5.0978941156238473e-57,
+    "cf": [
+     18.19078790743853,
+     18.19078790743854
+    ],
+    "width": 1.0658141036401503e-14,
+    "band": {
+     "N0": 1,
+     "L": "7,-4,2",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "y (x = 7 + 8/y — a(1) < 0 moved aside by exact algebra; deciding y decides x)",
+    "method": "head-shifted minus-CF: shifted spec satisfies a(n) > 0, tail band proved, claimed form transformed exactly",
+    "constant": "pi^2 from the Machin enclosure, squared"
+   },
+   "closedForm": {
+    "tested": 719,
+    "refuted": 719,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-cat-21",
+   "text": "rm-cat-21 — a row the Machine marks NEW AND UNPROVEN — 8/(54G -49) lies inside a rigorous enclosure of width 7.11e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities); constant bracket width 1.2e-18; final comparison in exact rationals); equality remains open, as it must",
+   "enclosure": [
+    17.31069350703237,
+    17.310693507032376
+   ],
+   "width": 7.105427357601002e-15,
+   "extra": {
+    "id": "rm-cat-21",
+    "source": "rm_catalan.pdf",
+    "sourcePin": {
+     "file": "rm_catalan.pdf",
+     "sha256": "8267938820519d4b1cce607ca9408b891388d30d917547fcc9d4571418a9219a"
+    },
+    "status": "NEW AND UNPROVEN",
+    "form": "8/(54G -49)",
+    "K": "G",
+    "Kwidth": 1.157401620391268e-18,
+    "cf": [
+     17.31069350703237,
+     17.310693507032376
+    ],
+    "width": 7.105427357601002e-15,
+    "band": {
+     "N0": 1,
+     "L": "10,-4,2",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "x",
+    "method": "minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)",
+    "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
    },
    "closedForm": {
     "tested": 720,
+    "refuted": 720,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-cat-18",
+   "text": "rm-cat-18 — a row the Machine marks NEW AND UNPROVEN — 48/(90G -79) lies inside a rigorous enclosure of width 3.55e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities); constant bracket width 1.2e-18; final comparison in exact rationals); equality remains open, as it must",
+   "enclosure": [
+    13.96605995364367,
+    13.966059953643674
+   ],
+   "width": 3.552713678800501e-15,
+   "extra": {
+    "id": "rm-cat-18",
+    "source": "rm_catalan.pdf",
+    "sourcePin": {
+     "file": "rm_catalan.pdf",
+     "sha256": "8267938820519d4b1cce607ca9408b891388d30d917547fcc9d4571418a9219a"
+    },
+    "status": "NEW AND UNPROVEN",
+    "form": "48/(90G -79)",
+    "K": "G",
+    "Kwidth": 1.157401620391268e-18,
+    "cf": [
+     13.96605995364367,
+     13.966059953643674
+    ],
+    "width": 3.552713678800501e-15,
+    "band": {
+     "N0": 1,
+     "L": "8,-4,2",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "x",
+    "method": "minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)",
+    "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
+   },
+   "closedForm": {
+    "tested": 715,
+    "refuted": 715,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-z2-new7",
+   "text": "rm-z2-new7 — a row the Machine marks NEW AND UNPROVEN — 32/(-3pi^2 + 32) lies inside a rigorous enclosure of width 3.55e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities); constant bracket width 5.1e-57; final comparison in exact rationals); equality remains open, as it must",
+   "enclosure": [
+    13.38247603396562,
+    13.382476033965624
+   ],
+   "width": 3.552713678800501e-15,
+   "extra": {
+    "id": "rm-z2-new7",
+    "source": "rm_zeta2.pdf",
+    "sourcePin": {
+     "file": "rm_zeta2.pdf",
+     "sha256": "9d7154cdf28052fd21b5bfe153b45cb95cfcbce78aac64d8707d659e970956e2"
+    },
+    "status": "NEW AND UNPROVEN",
+    "form": "32/(-3pi^2 + 32)",
+    "K": "pi2",
+    "Kwidth": 5.0978941156238473e-57,
+    "cf": [
+     13.38247603396562,
+     13.382476033965624
+    ],
+    "width": 3.552713678800501e-15,
+    "band": {
+     "N0": 1,
+     "L": "8,-3,2",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "x",
+    "method": "minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)",
+    "constant": "pi^2 from the Machin enclosure, squared"
+   },
+   "closedForm": {
+    "tested": 719,
     "refuted": 719,
-    "candidates": 1
-   }
-  },
-  {
-   "family": "ramanujan-audit",
-   "key": "rm-e-a",
-   "text": "rm-e-a: e/2 - 1 lies inside a rigorous enclosure of width 3.89e-16 — the conjecture SURVIVES an unconditional interval audit (tail seeded by proof, not assumption); equality remains open, as it must",
-   "enclosure": [
-    0.35914091422952243,
-    0.3591409142295228
-   ],
-   "width": 3.885780586188048e-16,
-   "extra": {
-    "id": "rm-e-a",
-    "source": "results_e_4614_070418.pdf",
-    "sourcePin": {
-     "file": "results_e_4614_070418.pdf",
-     "sha256": "ebbf12b7839844da87a20420583c1eed353d3c6438af53a213e86b3985d60295"
-    },
-    "transcription": "e/(-2) + 1 = 1/(-2 + 4/(-4 + 8/(-6 + 12/(-8 + 16/(-10+...)))))",
-    "normalized": "e/2 - 1 = 1/(2 + 4/(4 + 8/(6 + 12/(8 + 16/(10+...)))))",
-    "form": "e/2 - 1",
-    "width": 3.885780586188048e-16,
-    "depth": 4000,
-    "method": "positive-CF backward interval evaluation; tail in (0, a/b] proved; outward rounding throughout"
-   },
-   "closedForm": {
-    "tested": 717,
-    "refuted": 717,
     "candidates": 0
    }
   },
   {
    "family": "ramanujan-audit",
-   "key": "rm-e-b",
-   "text": "rm-e-b: e/2 - 1 lies inside a rigorous enclosure of width 3.89e-16 — the conjecture SURVIVES an unconditional interval audit (tail seeded by proof, not assumption); equality remains open, as it must",
+   "key": "rm-cat-19",
+   "text": "rm-cat-19 — a row the Machine marks NEW AND UNPROVEN — 32/(-18G + 19) lies inside a rigorous enclosure of width 5.33e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities); constant bracket width 1.2e-18; final comparison in exact rationals); equality remains open, as it must",
    "enclosure": [
-    0.35914091422952243,
-    0.3591409142295228
+    12.735713658945658,
+    12.735713658945663
    ],
-   "width": 3.885780586188048e-16,
+   "width": 5.329070518200751e-15,
    "extra": {
-    "id": "rm-e-b",
-    "source": "results_e_4614_070418.pdf",
+    "id": "rm-cat-19",
+    "source": "rm_catalan.pdf",
     "sourcePin": {
-     "file": "results_e_4614_070418.pdf",
-     "sha256": "ebbf12b7839844da87a20420583c1eed353d3c6438af53a213e86b3985d60295"
+     "file": "rm_catalan.pdf",
+     "sha256": "8267938820519d4b1cce607ca9408b891388d30d917547fcc9d4571418a9219a"
     },
-    "transcription": "e/(-2) + 1 = 1/(-2 + 3/(-3 + 4/(-4 + 5/(-5 + 6/(-6+...)))))",
-    "normalized": "e/2 - 1 = 1/(2 + 3/(3 + 4/(4 + 5/(5 + 6/(6+...)))))",
-    "form": "e/2 - 1",
-    "width": 3.885780586188048e-16,
-    "depth": 4000,
-    "method": "positive-CF backward interval evaluation; tail in (0, a/b] proved; outward rounding throughout"
+    "status": "NEW AND UNPROVEN",
+    "form": "32/(-18G + 19)",
+    "K": "G",
+    "Kwidth": 1.157401620391268e-18,
+    "cf": [
+     12.735713658945658,
+     12.735713658945663
+    ],
+    "width": 5.329070518200751e-15,
+    "band": {
+     "N0": 1,
+     "L": "10,-3,2",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "x",
+    "method": "minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)",
+    "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
    },
    "closedForm": {
-    "tested": 717,
-    "refuted": 717,
+    "tested": 719,
+    "refuted": 719,
     "candidates": 0
    }
   },
   {
    "family": "ramanujan-audit",
-   "key": "rm-pi-b",
-   "text": "rm-pi-b: pi/4 - 1/2 lies inside a rigorous enclosure of width 3.89e-16 — the conjecture SURVIVES an unconditional interval audit (tail seeded by proof, not assumption); equality remains open, as it must",
+   "key": "rm-z2-new4",
+   "text": "rm-z2-new4 — a row the Machine marks NEW AND UNPROVEN — 32/(pi^2) lies inside a rigorous enclosure of width 7.11e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (head-shifted minus-CF: shifted spec satisfies a(n) > 0, tail band proved, claimed form transformed exactly; constant bracket width 5.1e-57; final comparison in exact rationals); equality remains open, as it must",
    "enclosure": [
-    0.2853981633974481,
-    0.2853981633974485
+    12.382476033965618,
+    12.382476033965625
    ],
-   "width": 3.885780586188048e-16,
+   "width": 7.105427357601002e-15,
    "extra": {
-    "id": "rm-pi-b",
-    "source": "results_pi_0101_060418.pdf",
+    "id": "rm-z2-new4",
+    "source": "rm_zeta2.pdf",
     "sourcePin": {
-     "file": "results_pi_0101_060418.pdf",
-     "sha256": "48b35cb010dc58f51f558e559300b9df2de01fb2d8869c306c8b60a3732b462a"
+     "file": "rm_zeta2.pdf",
+     "sha256": "9d7154cdf28052fd21b5bfe153b45cb95cfcbce78aac64d8707d659e970956e2"
     },
-    "transcription": "(1/2)(pi/(-2) + 1) = 1/(-3 + 3/(-5 + 8/(-7 + 15/(-9 + 24/(-11+...)))))",
-    "normalized": "pi/4 - 1/2 = 1/(3 + 3/(5 + 8/(7 + 15/(9 + 24/(11+...)))))",
-    "form": "pi/4 - 1/2",
-    "width": 3.885780586188048e-16,
-    "depth": 4000,
-    "method": "positive-CF backward interval evaluation; tail in (0, a/b] proved; outward rounding throughout"
+    "status": "NEW AND UNPROVEN",
+    "form": "32/(pi^2)",
+    "K": "pi2",
+    "Kwidth": 5.0978941156238473e-57,
+    "cf": [
+     12.382476033965618,
+     12.382476033965625
+    ],
+    "width": 7.105427357601002e-15,
+    "band": {
+     "N0": 1,
+     "L": "6,-4,2",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "y (x = 3 + 3/y — a(1) < 0 moved aside by exact algebra; deciding y decides x)",
+    "method": "head-shifted minus-CF: shifted spec satisfies a(n) > 0, tail band proved, claimed form transformed exactly",
+    "constant": "pi^2 from the Machin enclosure, squared"
    },
    "closedForm": {
-    "tested": 718,
-    "refuted": 718,
+    "tested": 720,
+    "refuted": 720,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-cat-17",
+   "text": "rm-cat-17 — a row the Machine marks NEW AND UNPROVEN — 6/(-18G + 17) lies inside a rigorous enclosure of width 5.33e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities); constant bracket width 1.2e-18; final comparison in exact rationals); equality remains open, as it must",
+   "enclosure": [
+    11.704592362597806,
+    11.704592362597811
+   ],
+   "width": 5.329070518200751e-15,
+   "extra": {
+    "id": "rm-cat-17",
+    "source": "rm_catalan.pdf",
+    "sourcePin": {
+     "file": "rm_catalan.pdf",
+     "sha256": "8267938820519d4b1cce607ca9408b891388d30d917547fcc9d4571418a9219a"
+    },
+    "status": "NEW AND UNPROVEN",
+    "form": "6/(-18G + 17)",
+    "K": "G",
+    "Kwidth": 1.157401620391268e-18,
+    "cf": [
+     11.704592362597806,
+     11.704592362597811
+    ],
+    "width": 5.329070518200751e-15,
+    "band": {
+     "N0": 1,
+     "L": "9,-4,2",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "x",
+    "method": "minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)",
+    "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
+   },
+   "closedForm": {
+    "tested": 705,
+    "refuted": 705,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-cat-20",
+   "text": "rm-cat-20 — a row the Machine marks NEW AND UNPROVEN — 128/(-6G + 17) lies inside a rigorous enclosure of width 7.11e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities); constant bracket width 1.2e-18; final comparison in exact rationals); equality remains open, as it must",
+   "enclosure": [
+    11.126365014737708,
+    11.126365014737715
+   ],
+   "width": 7.105427357601002e-15,
+   "extra": {
+    "id": "rm-cat-20",
+    "source": "rm_catalan.pdf",
+    "sourcePin": {
+     "file": "rm_catalan.pdf",
+     "sha256": "8267938820519d4b1cce607ca9408b891388d30d917547fcc9d4571418a9219a"
+    },
+    "status": "NEW AND UNPROVEN",
+    "form": "128/(-6G + 17)",
+    "K": "G",
+    "Kwidth": 1.157401620391268e-18,
+    "cf": [
+     11.126365014737708,
+     11.126365014737715
+    ],
+    "width": 7.105427357601002e-15,
+    "band": {
+     "N0": 1,
+     "L": "6,1,2",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "x",
+    "method": "minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)",
+    "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
+   },
+   "closedForm": {
+    "tested": 720,
+    "refuted": 720,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-z2-new9",
+   "text": "rm-z2-new9 — a row the Machine marks NEW AND UNPROVEN — 18/(pi^2 -8) lies inside a rigorous enclosure of width 3.55e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities); constant bracket width 5.1e-57; final comparison in exact rationals); equality remains open, as it must",
+   "enclosure": [
+    9.62770519234549,
+    9.627705192345493
+   ],
+   "width": 3.552713678800501e-15,
+   "extra": {
+    "id": "rm-z2-new9",
+    "source": "rm_zeta2.pdf",
+    "sourcePin": {
+     "file": "rm_zeta2.pdf",
+     "sha256": "9d7154cdf28052fd21b5bfe153b45cb95cfcbce78aac64d8707d659e970956e2"
+    },
+    "status": "NEW AND UNPROVEN",
+    "form": "18/(pi^2 -8)",
+    "K": "pi2",
+    "Kwidth": 5.0978941156238473e-57,
+    "cf": [
+     9.62770519234549,
+     9.627705192345493
+    ],
+    "width": 3.552713678800501e-15,
+    "band": {
+     "N0": 1,
+     "L": "5,-8,4",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "x",
+    "method": "minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)",
+    "constant": "pi^2 from the Machin enclosure, squared"
+   },
+   "closedForm": {
+    "tested": 719,
+    "refuted": 719,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-z2-new5",
+   "text": "rm-z2-new5 — a row the Machine marks NEW AND UNPROVEN — 16/(pi^2 -8) lies inside a rigorous enclosure of width 7.11e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities); constant bracket width 5.1e-57; final comparison in exact rationals); equality remains open, as it must",
+   "enclosure": [
+    8.557960170973766,
+    8.557960170973773
+   ],
+   "width": 7.105427357601002e-15,
+   "extra": {
+    "id": "rm-z2-new5",
+    "source": "rm_zeta2.pdf",
+    "sourcePin": {
+     "file": "rm_zeta2.pdf",
+     "sha256": "9d7154cdf28052fd21b5bfe153b45cb95cfcbce78aac64d8707d659e970956e2"
+    },
+    "status": "NEW AND UNPROVEN",
+    "form": "16/(pi^2 -8)",
+    "K": "pi2",
+    "Kwidth": 5.0978941156238473e-57,
+    "cf": [
+     8.557960170973766,
+     8.557960170973773
+    ],
+    "width": 7.105427357601002e-15,
+    "band": {
+     "N0": 1,
+     "L": "5,-4,2",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "x",
+    "method": "minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)",
+    "constant": "pi^2 from the Machin enclosure, squared"
+   },
+   "closedForm": {
+    "tested": 720,
+    "refuted": 720,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "ramanujan-audit",
+   "key": "rm-cat-13",
+   "text": "rm-cat-13 — a row the Machine marks NEW AND UNPROVEN — 4/(6G -5) lies inside a rigorous enclosure of width 5.33e-15 — the conjecture SURVIVES an UNCONDITIONAL audit (minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities); constant bracket width 1.2e-18; final comparison in exact rationals); equality remains open, as it must",
+   "enclosure": [
+    8.067873973897157,
+    8.067873973897163
+   ],
+   "width": 5.329070518200751e-15,
+   "extra": {
+    "id": "rm-cat-13",
+    "source": "rm_catalan.pdf",
+    "sourcePin": {
+     "file": "rm_catalan.pdf",
+     "sha256": "8267938820519d4b1cce607ca9408b891388d30d917547fcc9d4571418a9219a"
+    },
+    "status": "NEW AND UNPROVEN",
+    "form": "4/(6G -5)",
+    "K": "G",
+    "Kwidth": 1.157401620391268e-18,
+    "cf": [
+     8.067873973897157,
+     8.067873973897163
+    ],
+    "width": 5.329070518200751e-15,
+    "band": {
+     "N0": 1,
+     "L": "8,-4,2",
+     "U": "b(n)",
+     "depth": 60,
+     "inequalities": [
+      "a(n) > 0 for all n >= 1",
+      "L(n) > 0 for all n >= 1",
+      "(T) b(n) − L(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(T) U(n) − b(n) >= 0 for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I−) band invariance from below for all n >= 1 (shift-and-check coefficient positivity)",
+      "(I+) band invariance from above for all n >= 1 (shift-and-check coefficient positivity)"
+     ]
+    },
+    "decidedAgainst": "x",
+    "method": "minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)",
+    "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
+   },
+   "closedForm": {
+    "tested": 721,
+    "refuted": 721,
     "candidates": 0
    }
   },
@@ -11839,18 +12054,6 @@
  ],
  "relations": [
   {
-   "family": "ramanujan-audit",
-   "key": "rm-pi-a",
-   "enclosure": [
-    0.785398163397448,
-    0.7853981633974487
-   ],
-   "label": "(1/4)·pi",
-   "value": 0.7853981633974483,
-   "verdict": "CANDIDATE",
-   "slack": 7.771561172376096e-16
-  },
-  {
    "family": "strassen-audit",
    "key": "mm|alphatensor-f2-5x5x5",
    "enclosure": [
@@ -12068,14 +12271,14 @@
   }
  ],
  "totals": {
-  "generated": 819109,
-  "certified": 16900,
-  "conjectures": 92,
-  "closedFormTested": 54633977,
-  "closedFormRefuted": 54633060,
+  "generated": 819145,
+  "certified": 16936,
+  "conjectures": 94,
+  "closedFormTested": 54635424,
+  "closedFormRefuted": 54634508,
   "closedFormRefutedExact": 21,
   "closedFormOnRecord": 877,
   "closedFormOpen": 0,
-  "closedFormCandidates": 19
+  "closedFormCandidates": 18
  }
 }

@@ -157,4 +157,13 @@ function li2Small(X, P) {
   return mul(widen(sum, tail, Pw), IONE, P);
 }
 
-module.exports = { pi, ln2, exp, log, logPoint, li2Small, atanRecip, mag2, widen, absHi };
+/* sqrt on a positive interval, via exp(log(x)/2) — sound (composition of
+   sound enclosures), a touch wider than a dedicated Newton sqrt would be,
+   and wide enough for every current consumer (acosh(2) = log(2 + sqrt 3)). */
+function sqrt(X, P) {
+  B.checkI(X);
+  if (X.lo.m <= 0n) throw new Error('bigfloat.sqrt: need positive interval');
+  return exp(div(log(X, P + 8), fromInt(2), P + 8), P);
+}
+
+module.exports = { pi, ln2, exp, log, logPoint, li2Small, atanRecip, sqrt, mag2, widen, absHi };
