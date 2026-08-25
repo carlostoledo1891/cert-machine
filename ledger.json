@@ -13,7 +13,7 @@
     "rejects": 5,
     "refused": 0
    },
-   "ms": 142402,
+   "ms": 142464,
    "truncated": true,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -30,7 +30,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 25824,
+   "ms": 25538,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -47,7 +47,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 544,
+   "ms": 535,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -64,7 +64,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 13752,
+   "ms": 13634,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -73,15 +73,15 @@
    "name": "keller-audit",
    "statement": "an explicit polynomial map C^n -> C^n whose Jacobian determinant is proved constant by symbolic expansion over exact rationals, with certified distinct rational points sharing one image — the Jacobian conjecture refuted in dimension n, decided here and not trusted",
    "counts": {
-    "generated": 6,
-    "screened": 6,
+    "generated": 9,
+    "screened": 9,
     "duplicates": 0,
-    "certified": 6,
-    "hits": 6,
+    "certified": 9,
+    "hits": 9,
     "rejects": 0,
     "refused": 0
    },
-   "ms": 4,
+   "ms": 27,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -98,7 +98,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 61287,
+   "ms": 61243,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -115,7 +115,7 @@
     "rejects": 14593,
     "refused": 0
    },
-   "ms": 4926,
+   "ms": 4632,
    "truncated": false,
    "corpusRefutations": 54606108,
    "corpusTested": 54607006
@@ -10011,7 +10011,7 @@
   },
   {
    "family": "keller-audit",
-   "key": "alpoge|3",
+   "key": "Alpöge 2026-07-19|3",
    "text": "the Jacobian conjecture is FALSE in dimension 3: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
    "enclosure": [
     -2,
@@ -10037,7 +10037,7 @@
   },
   {
    "family": "keller-audit",
-   "key": "alpoge|4",
+   "key": "Alpöge 2026-07-19|4",
    "text": "the Jacobian conjecture is FALSE in dimension 4: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
    "enclosure": [
     -2,
@@ -10063,7 +10063,7 @@
   },
   {
    "family": "keller-audit",
-   "key": "alpoge|5",
+   "key": "Alpöge 2026-07-19|5",
    "text": "the Jacobian conjecture is FALSE in dimension 5: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
    "enclosure": [
     -2,
@@ -10089,7 +10089,7 @@
   },
   {
    "family": "keller-audit",
-   "key": "alpoge|6",
+   "key": "Alpöge 2026-07-19|6",
    "text": "the Jacobian conjecture is FALSE in dimension 6: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
    "enclosure": [
     -2,
@@ -10115,7 +10115,7 @@
   },
   {
    "family": "keller-audit",
-   "key": "alpoge|7",
+   "key": "Alpöge 2026-07-19|7",
    "text": "the Jacobian conjecture is FALSE in dimension 7: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
    "enclosure": [
     -2,
@@ -10141,7 +10141,7 @@
   },
   {
    "family": "keller-audit",
-   "key": "alpoge|8",
+   "key": "Alpöge 2026-07-19|8",
    "text": "the Jacobian conjecture is FALSE in dimension 8: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
    "enclosure": [
     -2,
@@ -10158,6 +10158,138 @@
      "3 collision points evaluated exactly, all equal to the claimed image",
      "points pairwise distinct"
     ]
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "tangent-sweep d=3|3",
+   "text": "a NEW certified counterexample to the Jacobian conjecture, generated here by the tangent-sweep: geometric degree 4 (curve p(w) with coefficients [6, -6, 1]), det J = -2 proved as a polynomial identity, 2 distinct rational points sharing one image — generated AND decided in exact arithmetic",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 3,
+    "source": "tangent-sweep d=3, generated+certified here",
+    "det": "-2",
+    "points": 2,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (3x3 symbolic determinant over Q)",
+     "2 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ],
+    "sweep": {
+     "d": 3,
+     "geometricDegree": 4,
+     "p": [
+      "6",
+      "-6",
+      "1"
+     ],
+     "a": "-4",
+     "g0": "2",
+     "b": "-1",
+     "det": "-2",
+     "secant": [
+      "1",
+      "-1"
+     ]
+    }
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "tangent-sweep d=4|3",
+   "text": "a NEW certified counterexample to the Jacobian conjecture, generated here by the tangent-sweep: geometric degree 5 (curve p(w) with coefficients [52/5, -51/5, 0, 1]), det J = -2 proved as a polynomial identity, 2 distinct rational points sharing one image — generated AND decided in exact arithmetic",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 3,
+    "source": "tangent-sweep d=4, generated+certified here",
+    "det": "-2",
+    "points": 2,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (3x3 symbolic determinant over Q)",
+     "2 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ],
+    "sweep": {
+     "d": 4,
+     "geometricDegree": 5,
+     "p": [
+      "52/5",
+      "-51/5",
+      "0",
+      "1"
+     ],
+     "a": "-9/7",
+     "g0": "2",
+     "b": "-1",
+     "det": "-2",
+     "secant": [
+      "1",
+      "-1"
+     ]
+    }
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "tangent-sweep d=5|3",
+   "text": "a NEW certified counterexample to the Jacobian conjecture, generated here by the tangent-sweep: geometric degree 6 (curve p(w) with coefficients [20, -19, 0, 0, 1]), det J = -2 proved as a polynomial identity, 2 distinct rational points sharing one image — generated AND decided in exact arithmetic",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 3,
+    "source": "tangent-sweep d=5, generated+certified here",
+    "det": "-2",
+    "points": 2,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (3x3 symbolic determinant over Q)",
+     "2 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ],
+    "sweep": {
+     "d": 5,
+     "geometricDegree": 6,
+     "p": [
+      "20",
+      "-19",
+      "0",
+      "0",
+      "1"
+     ],
+     "a": "-13/7",
+     "g0": "2",
+     "b": "-1",
+     "det": "-2",
+     "secant": [
+      "1",
+      "-1"
+     ]
+    }
    },
    "closedForm": {
     "tested": 0,
@@ -10301,9 +10433,9 @@
  ],
  "relations": [],
  "totals": {
-  "generated": 819071,
-  "certified": 15583,
-  "conjectures": 58,
+  "generated": 819074,
+  "certified": 15586,
+  "conjectures": 61,
   "closedFormTested": 54618463,
   "closedFormRefuted": 54617565,
   "closedFormCandidates": 0

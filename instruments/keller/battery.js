@@ -91,6 +91,35 @@ let claim3 = null;
     'two audits of the honest claim are identical');
 }
 
+/* ---- the generator: tangent-sweep counterexamples of our own ---- */
+{
+  const SW = require('#instruments/keller/sweep.js');
+  const pEq = (A, B) => {
+    if (A.size !== B.size) return false;
+    for (const [k, v] of A) { const w = B.get(k); if (!w || Q.cmp(v, w) !== 0) return false; }
+    return true;
+  };
+
+  /* calibration: at d=2 the generator must reproduce Alpöge's map EXACTLY */
+  const g2 = SW.generate(2);
+  ok(g2.ok && g2.claim.F.every((f, i) => pEq(f, claim3.F[i])),
+    'CALIBRATION: the generator at d=2 reproduces Alpöge\'s map polynomial-for-polynomial (curve [' + (g2.ok ? g2.meta.p.join(', ') : '-') + '])');
+
+  /* new certified counterexamples, generated here */
+  for (const d of [3, 4, 5]) {
+    const g = SW.generate(d);
+    const a = g.ok ? K.audit(g.claim) : null;
+    ok(g.ok && a.verdict === 'VERIFIED' && Q.cmp(a.det, Q.R(-2n)) === 0,
+      'd=' + d + ': a NEW counterexample of geometric degree ' + (d + 1)
+      + ' — det J = -2 identically, 2 rational collision points, generated AND certified');
+  }
+
+  /* RED: a curve that violates the twist equations must be refused, not shipped */
+  const sab = SW.generate(3, { sabotage: 'breakCurve' });
+  ok(!sab.ok, 'RED: a curve with one coefficient off by 1e-6 is REFUSED by the generator ('
+    + (sab.ok ? 'SHIPPED — broken' : sab.why.slice(0, 48) + '…') + ')');
+}
+
 console.log('');
 console.log('keller battery: ' + pass + ' pass, ' + fail + ' fail');
 if (fail) process.exit(1);

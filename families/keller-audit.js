@@ -25,8 +25,17 @@
 
 const K = require('#instruments/keller/keller.js');
 const Q = require('#instruments/interval/rational.js');
+const SW = require('#instruments/keller/sweep.js');
 
 const DIMS = [3, 4, 5, 6, 7, 8];
+
+/* beyond the audit: counterexamples GENERATED here by the tangent-sweep
+   (instruments/keller/sweep.js) from curves of our own choosing — each an
+   explicit map of geometric degree d+1 with det J == -2 proved symbolically
+   and two exact rational collision witnesses. The d=2 output reproduces
+   Alpöge's map exactly (the generator's calibration, checked in the battery);
+   d >= 3 are new certified objects, not transcribed from anywhere. */
+const SWEEP_DEGREES = [3, 4, 5];
 
 /* the Alpöge map in dimension n (identity-padded), built from exact ops */
 function alpoge(n) {
@@ -62,14 +71,22 @@ module.exports = {
   name: 'keller-audit',
   statement: 'an explicit polynomial map C^n -> C^n whose Jacobian determinant is proved constant by symbolic expansion over exact rationals, with certified distinct rational points sharing one image — the Jacobian conjecture refuted in dimension n, decided here and not trusted',
   enumerate(i) {
-    if (i >= DIMS.length) return null;
-    const n = DIMS[i];
-    return { n, source: 'Alpöge 2026-07-19', claim: alpoge(n) };
+    if (i < DIMS.length) {
+      const n = DIMS[i];
+      return { n, source: 'Alpöge 2026-07-19', claim: alpoge(n) };
+    }
+    const j = i - DIMS.length;
+    if (j >= SWEEP_DEGREES.length) return null;
+    const d = SWEEP_DEGREES[j];
+    const g = SW.generate(d);
+    if (!g.ok) return { n: 3, source: 'tangent-sweep d=' + d + ' (generator refused: ' + g.why + ')', claim: null };
+    return { n: 3, source: 'tangent-sweep d=' + d + ', generated+certified here', claim: g.claim, meta: g.meta };
   },
   /* float screen: the determinant sampled at ONE float point. May only prune —
      a map whose sampled det is far from the claim is not worth the symbolic
      expansion; nothing about a passing sample is believed. */
   value(o) {
+    if (!o.claim) return 0;              /* generator refusal — surfaces as REFUSED in certify */
     const pt = Array.from({ length: o.n }, (_, i) => 0.31 + 0.17 * i);
     const J = K.jacobian(o.claim.F, o.n).map(row => row.map(p => K.pevalFloat(p, pt)));
     const det = (function d(M) {
@@ -87,18 +104,26 @@ module.exports = {
   interesting(o, v) {
     return isFinite(v) && v < 1e-6;
   },
-  key: (o) => 'alpoge|' + o.n,
+  key: (o) => o.source.split(',')[0] + '|' + o.n,
   certify(o) {
+    if (!o.claim) return { verdict: 'REFUSED', why: o.source };
     const a = K.audit(o.claim);
     if (a.verdict === 'VERIFIED') {
       const d = Q.toDouble(a.det);
+      const generated = !!o.meta;
       return {
         verdict: 'HIT',
         enclosure: [d, d],                    /* the certified constant, exact */
-        text: 'the Jacobian conjecture is FALSE in dimension ' + o.n + ': an explicit polynomial map with '
-          + 'det J = ' + Q.toString(a.det) + ' proved as a polynomial identity, and ' + a.points
-          + ' distinct rational points sharing one image, all decided in exact arithmetic (' + o.source + ', audited here)',
-        extra: { n: o.n, source: o.source, det: Q.toString(a.det), points: a.points, checks: a.checks }
+        text: generated
+          ? 'a NEW certified counterexample to the Jacobian conjecture, generated here by the tangent-sweep: '
+            + 'geometric degree ' + o.meta.geometricDegree + ' (curve p(w) with coefficients [' + o.meta.p.join(', ') + ']), '
+            + 'det J = ' + Q.toString(a.det) + ' proved as a polynomial identity, ' + a.points
+            + ' distinct rational points sharing one image — generated AND decided in exact arithmetic'
+          : 'the Jacobian conjecture is FALSE in dimension ' + o.n + ': an explicit polynomial map with '
+            + 'det J = ' + Q.toString(a.det) + ' proved as a polynomial identity, and ' + a.points
+            + ' distinct rational points sharing one image, all decided in exact arithmetic (' + o.source + ', audited here)',
+        extra: { n: o.n, source: o.source, det: Q.toString(a.det), points: a.points, checks: a.checks,
+                 ...(o.meta ? { sweep: o.meta } : {}) }
       };
     }
     if (a.verdict === 'REFUTED') {

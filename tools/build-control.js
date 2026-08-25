@@ -35,7 +35,7 @@ const BATTERIES = [
   ['interval · transcendental', ['instruments/interval/tests/test-transcendental.js'], 'sound exp/log/sin/cos'],
   ['trigmin certifier', ['instruments/trigmin/battery.js'], '47 checks · 2 red controls'],
   ['census (henon + holmes)', ['instruments/census/battery.js'], 'closed-form calibration, two maps · 5 red controls'],
-  ['keller audit', ['instruments/keller/battery.js'], 'symbolic det over Q · 3 red controls'],
+  ['keller audit + sweep', ['instruments/keller/battery.js'], 'symbolic det over Q, generator calibrated on Alpöge · 4 red controls'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [
