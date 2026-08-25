@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The impostor catalog · cert-machine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(18px,4vw,40px) 96px}
+.col{max-width:64ch;margin:0 auto}
+.wide{max-width:900px;margin:0 auto}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{border:1px solid var(--rule);border-radius:4px;margin:40px 0 0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;
+  background:var(--rule);overflow:hidden}
+.stat{background:var(--surface);padding:22px 24px;display:flex;flex-direction:column;gap:7px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px;max-width:70ch}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · generated from the records</div>
+  <h1>The impostor catalog</h1>
+  <p class="deck">Published constants that agree with simple closed forms for 16 to 62 significant digits — and exact proofs that every one of them is lying. Digit agreement to any depth is not evidence, and this page is the demonstration: each of these impersonations would pass any decimal screen ever used to announce a discovery.</p>
+</header>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">constants</div><div class="v">5</div><div class="n">Published OEIS decimal expansions, audited among 14593 — the only survivors of a 17-digit double screen.</div></div>
+    <div class="stat"><div class="k">impersonations refuted</div><div class="v held">21</div><div class="n">Every spelling decided by one BigInt integer comparison at the full published digit length.</div></div>
+    <div class="stat"><div class="k">deepest agreement</div><div class="v">62 digits</div><div class="n">Before the first disagreeing digit. A 20-digit match is called a discovery elsewhere.</div></div>
+    <div class="stat"><div class="k">false refutations</div><div class="v held">0</div><div class="n">The same instrument keeps every true closed form in the corpus — gated by the engine battery, every build.</div></div>
+  </div>
+</div>
+
+<p class="scope">Local working document. Verdicts are conditional on the OEIS published digit streams being correct — a refutation here reads &quot;not equal, given those digits&quot;. Nothing has been sent anywhere.</p>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the method</div>
+    <h2>One integer comparison, no floating point</h2>
+  </div>
+<div class="col"><p>The engine's double-precision screen tests each constant against <span class="m">~14,000</span> closed-form spellings at 17 significant digits. For 5 constants, at least one rational value survived that screen — the constant and the form genuinely share 17 leading digits. Those survivors are re-decided at the FULL published precision, exactly:</p><div class="eq">the form p/q is consistent with the digits  ⇔  D·Q ≤ P·10^(k−1) &lt; (D+1)·Q</div><p>where <span class="m">D</span> is the published digit stream read as a k-digit integer and <span class="m">P/Q</span> is the form's mantissa scaled to [1, 10). Everything in that line is a BigInt; the verdict is an integer comparison. No float participates, so there is no precision to argue about: the form either fits inside the digit interval or it provably does not.</p><p>The instrument is calibrated in the other direction on every build: constants whose closed form IS the truth (sqrt 2, pi, e, phi, ln 2 …) must keep their forms — zero false refutations is a gate in <span class="m">tools/test-engine.js</span>, and it once caught this engine refuting sqrt(2) as the closed form of the decimal expansion of sqrt(2).</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the catalog</div>
+    <h2>Who they impersonate, and for how long</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>entry</th><th>what OEIS says it is</th><th>impersonates</th><th>as spelled by the vocabulary</th><th>digits agree / published</th><th>verdict</th></tr></thead><tbody><tr><td><span class="m">A271880</span></td><td>Decimal expansion of the probability that a random real n…</td><td class="v"><span class="m">2</span></td><td>2/1  sqrt(4/1)  cbrt(8/1)  sqrt2^(2/1)</td><td class="v"><span class="m">62 / 105</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A271880</span></td><td>Decimal expansion of the probability that a random real n…</td><td class="v"><span class="m">20</span></td><td>20/1</td><td class="v"><span class="m">62 / 105</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A271880</span></td><td>Decimal expansion of the probability that a random real n…</td><td class="v"><span class="m">1/5</span></td><td>1/5</td><td class="v"><span class="m">62 / 105</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A181284</span></td><td>Decimal expansion of sqrt(9/121 * 100^m + (112 - 44*m)/12…</td><td class="v"><span class="m">3/11</span></td><td>3/11</td><td class="v"><span class="m">58 / 105</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A181284</span></td><td>Decimal expansion of sqrt(9/121 * 100^m + (112 - 44*m)/12…</td><td class="v"><span class="m">30/11</span></td><td>30/11</td><td class="v"><span class="m">58 / 105</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A359187</span></td><td>Decimal expansion of the real part of (-sqrt(2))^^9, wher…</td><td class="v"><span class="m">1</span></td><td>1/1  sqrt(1/1)  cbrt(1/1)</td><td class="v"><span class="m">44 / 87</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A359187</span></td><td>Decimal expansion of the real part of (-sqrt(2))^^9, wher…</td><td class="v"><span class="m">10</span></td><td>10/1</td><td class="v"><span class="m">44 / 87</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A359187</span></td><td>Decimal expansion of the real part of (-sqrt(2))^^9, wher…</td><td class="v"><span class="m">1/10</span></td><td>1/10</td><td class="v"><span class="m">44 / 87</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A226120</span></td><td>Decimal expansion of Sum_{n&gt;=1} n^3/(exp(2*Pi*n/7)-1).</td><td class="v"><span class="m">1</span></td><td>1/1  sqrt(1/1)  cbrt(1/1)</td><td class="v"><span class="m">16 / 100</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A226120</span></td><td>Decimal expansion of Sum_{n&gt;=1} n^3/(exp(2*Pi*n/7)-1).</td><td class="v"><span class="m">10</span></td><td>10/1</td><td class="v"><span class="m">16 / 100</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A226120</span></td><td>Decimal expansion of Sum_{n&gt;=1} n^3/(exp(2*Pi*n/7)-1).</td><td class="v"><span class="m">1/10</span></td><td>1/10</td><td class="v"><span class="m">16 / 100</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A266296</span></td><td>Decimal expansion of a number close to 24, related to the…</td><td class="v"><span class="m">24</span></td><td>24/1</td><td class="v"><span class="m">16 / 105</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A266296</span></td><td>Decimal expansion of a number close to 24, related to the…</td><td class="v"><span class="m">12/5</span></td><td>12/5</td><td class="v"><span class="m">16 / 105</span></td><td><span class="tag held">refuted exactly</span></td></tr><tr><td><span class="m">A266296</span></td><td>Decimal expansion of a number close to 24, related to the…</td><td class="v"><span class="m">6/25</span></td><td>6/25</td><td class="v"><span class="m">16 / 105</span></td><td><span class="tag held">refuted exactly</span></td></tr></tbody></table></div></div><div class="col"><p>Multiple spellings of one value (sqrt(4/1), cbrt(8/1), sqrt2^(2/1) are all 2) are listed together and counted separately — the vocabulary generates forms, and every generated form that fit at 17 digits was individually put to the exact test.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · why this matters</div>
+    <h2>The collision-probability argument, run in reverse</h2>
+  </div>
+<div class="col"><p>Digit-matching pipelines — the Ramanujan Machine's published methodology among them — declare a hit when a computed value agrees with a closed form to some tens of digits, and argue from collision probability that the match is almost certainly an identity. This catalog is the reverse experiment on the same kind of data: here are constants that sustain the match to <span class="m">62</span> digits and are provably NOT the number they resemble.</p><p><span class="m">A271880</span> — the probability that a random real is "evil" — agrees with <span class="m">1/5</span> for <span class="m">62</span> digits before diverging; OEIS records the difference separately (A271881, about 2.17e-64). Any screen shallower than 64 digits calls this 1/5.</p><p><span class="m">A266296</span> is literally named "a number close to 24, related to the Ramanujan constant" — the near-integer phenomenon that made e^(pi sqrt 163) famous, caught here impersonating <span class="m">24</span> for <span class="m">16</span> digits and refuted at <span class="m">105</span>.</p><p>The point is not that these five are surprising — OEIS contributors know them. The point is that a probability argument cannot tell these five from a real identity, and an exact decision can. A pipeline whose screening step can mint false positives is indistinguishable from one that cannot; the cure is a certificate, and each row of this catalog carries one: a single integer inequality anyone can recheck.</p></div>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-impostors.js — every number recomputed from the corpus at build time; the build fails if the records change.</p><p>git b6cc061 · cert-machine · Carlos Toledo</p></footer>
+
+</div>
+</html>

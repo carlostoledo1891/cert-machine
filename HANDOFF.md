@@ -267,15 +267,17 @@ Five things already in the records that could stand as research-style
 reports; the first two are hidden gems — results the machine holds that
 nobody has written down. Ranked by readiness x novelty:
 
-1. **The impostor catalog.** The 21 exact-BigInt refutations are a dataset
-   of proved near-misses — exactly the objects digit-matching methodology
-   would publish as conjectures. Verified from the records: A266296 ("a
-   number close to 24, related to the Ramanujan constant") agrees with 24
-   for ~100 digits, refuted exactly at 105; A271880 agrees with 1/5 for 63
-   digits, six spellings refuted at 105; A226120 impersonates 1 for ~100
-   digits; plus A181284, A359187. Report: "digit agreement to depth d is
-   not evidence — five published constants with exact proofs of
-   inequality." Everything in hand; needs an extraction script and prose.
+1. **The impostor catalog — SHIPPED (reports/impostors.html).** The 21
+   exact-BigInt refutations as a report; every number recomputed from the
+   corpus at build time (tools/build-report-impostors.js, which refuses to
+   build if the records change). Measured agreement depths, in the exact
+   relative sense (largest d with gap <= value·10^-d — a mantissa-prefix
+   count lies for values like 0.199…9 vs 1/5): A271880 impersonates 1/5
+   for 62 significant digits (six spellings refuted at 105 published
+   digits); A181284 -> 3/11 for 58; A359187 -> 1 for 44; A226120 -> 1 and
+   A266296 ("close to 24, related to the Ramanujan constant") -> 24 for 16
+   each. Range 16–62: from "barely past double precision" to "passes any
+   screen ever used to announce a discovery".
 2. **Certified entropy from the census.** The certified cycle counts encode
    topological entropy: ln(N_p)/p for p = 12..16 reads 0.4595, 0.4643,
    0.4624, 0.4658, 0.4648 — oscillating into the literature value
