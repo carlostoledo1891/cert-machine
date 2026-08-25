@@ -76,7 +76,7 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | `keller-audit` | Jacobian + Hessian counterexamples decided — and GENERATED | 11/11: Alpöge n=3 + one padded row stating the stabilization (R2); 3 NEW CURVES through the PUBLISHED tangent-sweep mechanism (labeled as such, R4); Meng–Yang HC5; Gallagher d=2..5 + distinct member — every det a symbolic identity, sources hash-pinned (R3), all detached + independently re-verified (R7) |
 | `keller-fibers` | fiber counts certified BLIND — no witnesses consumed | 7/9 HITs: Alpöge's 3 preimages rediscovered unaided; alpoge-own-target proves the same with a SELF-CHOSEN target (0,1,0) — 3 preimages, full geometric degree; 2 cells honestly REJECT/REFUSED (witnesses at \|z\|~200, beyond blind reach) |
 | `ramanujan-audit` | the Ramanujan Machine's conjectures, decided | 10/10 SURVIVE unconditionally: 5 positive-CF (e, pi sheets) + the COMPLETE zeta(3) sheet — 4 minus-CFs decided by the tail-band evaluator incl. BOTH "new and unproven" rows, plus the sheet's positive row the first transcription missed |
-| `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); one-off records through p=15 (1082 points), p=16 running |
+| `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); one-off records through p=16 (1696 points, 1.42G boxes, recheck-clean) |
 | `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
 
 The census (`instruments/census/henon-census.js`) is the completeness record
@@ -124,13 +124,16 @@ p=4 — caught by the shift classification, not by reading code).
 
 ## Next steps, in order
 
-1. **Higher periods at the classical parameters.** DONE through p=15, all
-   matching Galias, all recheck-clean. p=13: 418 points, 32 orbits (3 min).
-   p=14: 648 points, 44 orbits, plus the p=7 census independently re-derived
-   (125M boxes, 18 min). p=15: EXACTLY 1082 points — 2 fixed, 72 orbits of
-   minimal period 15 — 393M boxes in 43 min. p=16 is running in the
-   background (census-high-periods.json; expect ~1.2G boxes, a few hours).
-   Beyond p=16: the detach runner or a smarter box metric.
+1. **Higher periods at the classical parameters.** DONE through p=16, all
+   recheck-clean (p=13/14/15 match Galias). p=13: 418 points, 32 orbits
+   (3 min). p=14: 648 points, 44 orbits, plus the p=7 census independently
+   re-derived (125M boxes, 18 min). p=15: EXACTLY 1082 points — 2 fixed, 72
+   orbits of minimal period 15 — 393M boxes in 43 min. p=16: EXACTLY 1696
+   points — 2 fixed, 1 two-cycle, 1 four-cycle, 7 eight-cycles (the p=8
+   census's own count reappearing, as it must), 102 sixteen-cycles — 1.42G
+   boxes in 3.0 h, recheck 79 converged / 0 unmatched
+   (census-high-periods.json). Beyond p=16: the detach runner or a smarter
+   box metric.
 2. **A second map for the census: DONE (Holmes cubic).** The instrument is
    spec-general now; a third map is one spec + one family file + battery
    lines. Ikeda needs interval sin/cos (transcendental.js is sound). Holmes
