@@ -16,6 +16,7 @@ help:
 
 engine:
 	@$(NODE) tools/run-engine.js $${LIMIT:-400000}
+	@$(NODE) tools/export-keller-certificate.js
 
 control:
 	@$(NODE) tools/build-control.js
@@ -32,6 +33,7 @@ test:
 	@printf "%-30s " "cf audit"; $(NODE) instruments/cf/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@for f in sos_verify lyapunov_cert reverify_ai_lyapunov; do \
 	  printf "%-30s " "sos/$$f"; $(PY) instruments/sos/$$f.py >/dev/null 2>&1 && echo PASS || echo FAIL; done
+	@printf "%-30s " "keller stdlib verifier"; $(PY) tools/verify_keller.py certs/keller-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "llm harness (dry)"; $(PY) tools/llm-harness.py --dry-run --n 20 --ledger /dev/null >/dev/null 2>&1 && echo PASS || echo FAIL
 
 drift:

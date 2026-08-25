@@ -31,6 +31,16 @@ function cells() {
   const out = [];
   const alp = AUD.enumerate(0);
   out.push({ tag: 'alpoge', F: alp.claim.F, w: alp.claim.image, expectAtLeast: 3 });
+  /* R4: the cell above aims at the PUBLISHED collision image, so a skeptic
+     can say the target was handed to us even if the witnesses were not.
+     This cell's target is OURS: plain rational points tried in a fixed
+     enumeration — (0,0,0), (1,1,1), (1,0,0), (0,1,0), ... — none of them a
+     published image or a constructed collision; (0,1,0) is the first whose
+     blind count certifies >= 2 (it certifies 3, the full geometric degree).
+     The certificate is target-independent — recording the selection rule
+     just keeps the choice honest. */
+  out.push({ tag: 'alpoge-own-target', F: alp.claim.F, w: [Q.ZERO, Q.R(1n), Q.ZERO], expectAtLeast: 2,
+    selection: 'self-chosen target: fixed enumeration (0,0,0),(1,1,1),(1,0,0),(0,1,0),...; first with certified blind count >= 2 — no published image consumed' });
   for (const d of [3, 4, 5]) {
     const g = SW.generate(d);
     if (g.ok) out.push({ tag: 'sweep-d' + d, F: g.claim.F, w: g.claim.image, expectAtLeast: 2 });
@@ -71,9 +81,11 @@ module.exports = {
       enclosure: [f.preimages, f.preimages],
       text: o.tag + ': AT LEAST ' + f.preimages + ' preimages of one rational point, each in a certified '
         + 'Krawczyk box, boxes pairwise disjoint — non-injectivity re-proved BLIND, no witnesses consumed'
-        + (f.preimages > o.expectAtLeast ? ' (MORE than the ' + o.expectAtLeast + ' constructed witnesses)' : ''),
+        + (o.selection ? ' — and the TARGET is self-chosen too, not a published image'
+          : (f.preimages > o.expectAtLeast ? ' (MORE than the ' + o.expectAtLeast + ' constructed witnesses)' : '')),
       extra: {
         tag: o.tag, target: o.w.map(Q.toString),
+        ...(o.selection ? { selection: o.selection } : {}),
         preimages: f.preimages,
         boxes: f.boxes.map(b => ({ center: b.center, maxRad: b.maxRad })),
         starts: f.starts,

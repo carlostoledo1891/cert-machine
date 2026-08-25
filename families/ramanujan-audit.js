@@ -11,10 +11,12 @@
    nothing here is curated truth: this is the right kind of audit target.)
 
    THE CORPUS, transcribed 2026-08-25 from the Machine's published result
-   sheets (ramanujanmachine.com/results/):
+   sheets (ramanujanmachine.com/results/), each held in corpus/sources/ with
+   its sha256 in PINS.json and re-hashed at certify time — the certificate
+   is over a byte sequence, not "the row in that sheet" (review R3):
      results_e_4614_070418.pdf   — e conjectures
      results_pi_0101_060418.pdf  — pi conjectures
-     zeta3.pdf                   — zeta(3) table, incl. TWO marked
+     rm_zeta3.pdf                — zeta(3) table, incl. TWO marked
                                    "new and unproven"
    Sign-normalized where needed: negating every b_n of a CF negates its
    value, so all-negative-denominator sheets are stored in positive form
@@ -26,6 +28,7 @@
 'use strict';
 
 const { enclose, decide } = require('#instruments/cf/cf.js');
+const PIN = require('#instruments/pin.js');
 
 const CORPUS = [
   {
@@ -65,22 +68,22 @@ const CORPUS = [
   },
   /* ---- the zeta(3) table: minus-CFs, the recorded next target ---- */
   {
-    id: 'rm-z3-inv', source: 'zeta3.pdf', status: 'known',
+    id: 'rm-z3-inv', source: 'rm_zeta3.pdf', status: 'known',
     original: '1/zeta(3) = 1 - 1^6/(1^3+2^3 - 2^6/(2^3+3^3 - ...)) ; a_n = n^3+(n+1)^3, b_n = -n^6',
     minusCF: true
   },
   {
-    id: 'rm-z3-apery', source: 'zeta3.pdf', status: 'known (Apery)',
+    id: 'rm-z3-apery', source: 'rm_zeta3.pdf', status: 'known (Apery)',
     original: '6/zeta(3) = 5 - 1/(117 - 64/(535 - ...)) ; a_n = (2n+1)(17n(n+1)+5), b_n = -n^6',
     minusCF: true
   },
   {
-    id: 'rm-z3-new1', source: 'zeta3.pdf', status: 'NEW AND UNPROVEN',
+    id: 'rm-z3-new1', source: 'rm_zeta3.pdf', status: 'NEW AND UNPROVEN',
     original: '8/(7 zeta(3)) = 1 - 1/(21 - 64/(95 - ...)) ; a_n = (2n+1)(3n(n+1)+1), b_n = -n^6',
     minusCF: true
   },
   {
-    id: 'rm-z3-new2', source: 'zeta3.pdf', status: 'NEW AND UNPROVEN',
+    id: 'rm-z3-new2', source: 'rm_zeta3.pdf', status: 'NEW AND UNPROVEN',
     original: '12/(7 zeta(3)) = 2 - 16/(36 - 1024/(160 - ...)) ; a_n = (2n+1)(5n(n+1)+2), b_n = -16n^6',
     minusCF: true
   }
@@ -102,6 +105,11 @@ module.exports = {
   interesting() { return true; },
   key: (o) => o.id,
   certify(o) {
+    /* the transcription certifies against the pinned bytes of the sheet it
+       was read from; a drifted source refuses everything downstream */
+    const pv = PIN.verify(o.source);
+    if (!pv.ok) return { verdict: 'REFUSED', why: 'source pin failed for ' + o.source + ': ' + pv.why };
+    const sourcePin = { file: pv.file, sha256: pv.sha256 };
     if (o.minusCF) {
       return { verdict: 'REFUSED',
         why: o.id + ' (' + (o.status || '') + '): minus-CF — negative partial numerators; the positive-tail enclosure does not apply. Needs the verified tail-lemma evaluator (recorded next step). Original: ' + o.original };
@@ -111,7 +119,7 @@ module.exports = {
       return { verdict: 'REJECT', enclosure: [d.cf[0], d.cf[1]],
         text: 'DISCOVERY-CLASS REFUTATION: ' + o.id + ' — the claimed form ' + o.form.text
           + ' lies provably OUTSIDE the rigorous CF enclosure. The Machine\'s conjecture is FALSE. Original: ' + o.original,
-        extra: { id: o.id, source: o.source, cf: d.cf, form: d.form } };
+        extra: { id: o.id, source: o.source, sourcePin, transcription: o.original, cf: d.cf, form: d.form } };
     }
     if (d.verdict !== 'SURVIVES') return { verdict: 'REFUSED', why: d.why };
     return {
@@ -121,8 +129,8 @@ module.exports = {
         + ' — the conjecture SURVIVES an unconditional interval audit (tail seeded by proof, not assumption); '
         + 'equality remains open, as it must',
       extra: {
-        id: o.id, source: o.source,
-        original: o.original, normalized: o.normalized,
+        id: o.id, source: o.source, sourcePin,
+        transcription: o.original, normalized: o.normalized,
         form: o.form.text, width: d.width, depth: N,
         method: 'positive-CF backward interval evaluation; tail in (0, a/b] proved; outward rounding throughout'
       }

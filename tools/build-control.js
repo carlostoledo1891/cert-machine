@@ -40,11 +40,13 @@ const BATTERIES = [
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [
+  ['keller · standalone re-verifier', ['tools/verify_keller.py', 'certs/keller-certificate.json', '--sources', 'corpus/sources'],
+    'the detached certificate re-audited from scratch — stdlib fractions, no code from this repo; red control must fire'],
   ['sos · global bound', ['instruments/sos/sos_verify.py'], 'stdlib fractions only'],
   ['sos · lyapunov', ['instruments/sos/lyapunov_cert.py'], 'stdlib fractions only'],
   ['sos · re-verify AI result', ['instruments/sos/reverify_ai_lyapunov.py'], 'stdlib fractions only'],
-  ['llm harness (dry run)', ['tools/llm-harness.py', '--dry-run', '--n', '20', '--ledger', '/dev/null'],
-    'model proposes, engine decides · aborts if a red control certifies']
+  ['llm harness — plumbing only, NO model has run', ['tools/llm-harness.py', '--dry-run', '--n', '20', '--ledger', '/dev/null'],
+    'dry run with a FAKE proposer: gates the pipeline, not an LLM result · aborts if a red control certifies']
 ];
 function bat(argv, py) {
   if (!runBatteries) return null;
@@ -68,10 +70,22 @@ B.push(C.header({
     + 'record when this page was built, and every battery it reports green was executed during that build.'
 }));
 
+/* R1: the page must decompose what it counts, so the subtraction a reviewer
+   will do — tested − refuted − surviving — comes out to zero in front of
+   them. Refuted = double-precision enclosure + the exact BigInt pass; the
+   remainder is forms already on the OEIS record, honest open candidates,
+   and the survivors. run-engine.js refuses to write a ledger where this
+   does not close. */
+const refutedAll = (T.closedFormRefuted || 0) + (T.closedFormRefutedExact || 0);
+const decompose = commas(T.closedFormTested || 0) + ' tested = ' + commas(T.closedFormRefuted || 0)
+  + ' refuted in double + ' + commas(T.closedFormRefutedExact || 0) + ' refuted exactly in BigInt + '
+  + commas(T.closedFormOnRecord || 0) + ' with the form already on the OEIS record + '
+  + commas(T.closedFormOpen || 0) + ' open + ' + commas(T.closedFormCandidates || 0) + ' surviving.';
+
 B.push(C.stats([
   { k: 'objects generated', v: commas(T.generated || 0), n: 'Across ' + ledger.families.length + ' families, one engine.' },
   { k: 'certified exactly', v: commas(T.certified || 0), role: 'held', n: 'Interval enclosures and exact rational decisions — no digit matching.' },
-  { k: 'closed forms refuted', v: commas(T.closedFormRefuted || 0), n: commas(T.closedFormCandidates || 0) + ' survive. A refutation here is proved, not unlikely.' },
+  { k: 'closed forms refuted', v: commas(refutedAll), n: decompose + ' A refutation here is proved, not unlikely.' },
   { k: 'batteries green', v: green + ' / ' + ran, role: 'held', n: 'Executed during this build; every red control must fire.' }
 ]));
 
@@ -236,6 +250,10 @@ if (ledger.conjectures.length) {
           + ' were refuted exactly</strong> — the value provably lies outside. Zero survivors means these objects '
           + 'have no small closed form of the shapes searched: a proved negative, not a failed search.')
       }) + '</div>')
+      + '<div class="col">' + C.pRaw('The count decomposes with nothing folded in: ' + C.m(decompose)
+        + ' Forms the 17-digit double screen could not separate were re-decided at the full published digit '
+        + 'length in BigInt; forms OEIS already states are the record check working, not discoveries; the '
+        + 'subtraction closes to zero and the engine refuses to write a ledger where it does not.') + '</div>'
   }));
 }
 

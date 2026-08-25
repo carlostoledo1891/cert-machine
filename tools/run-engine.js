@@ -13,6 +13,11 @@ const FAMILIES = fs.readdirSync(path.join(ROOT, 'families'))
 
 const ledger = { generatedAt: null, families: [], conjectures: [], relations: [] };
 let totalGen = 0, totalCert = 0, relTested = 0, relRefuted = 0;
+/* the R1 decomposition: tested − refuted must equal what the page can point
+   at, term by term. Forms the double screen could not refute are decided by
+   the exact BigInt pass, by the form-on-record check, or stay open — counted
+   here so the subtraction a reviewer will do comes out to zero. */
+let relRefutedExact = 0, relOnRecord = 0, relOpen = 0;
 
 for (const fam of FAMILIES) {
   process.stdout.write('  ' + fam.name.padEnd(18));
@@ -28,13 +33,25 @@ for (const fam of FAMILIES) {
     + '  ' + (r.ms / 1000).toFixed(1) + ' s'
     + (r.truncated ? '  [certify cap reached]' : ''));
 
-  let famTested = 0, famRefuted = 0;
+  let famTested = 0, famRefuted = 0, famExact = 0, famOnRecord = 0, famOpen = 0;
   for (const rec of r.hits.concat(r.rejects.map(x => ({ extra: x.extra })))) {
-    if (rec && rec.extra && rec.extra.tested) { famTested += rec.extra.tested; famRefuted += rec.extra.refuted; }
+    const ex = rec && rec.extra;
+    if (!ex || !ex.tested) continue;
+    famTested += ex.tested; famRefuted += ex.refuted;
+    if (ex.exactRefuted) famExact += ex.exactRefuted.length;
+    const s = ex.survivorsAfterExact || 0;
+    if (s > 0) {
+      /* survived double AND exact: decided by the record, or honestly open */
+      if (ex.nameStatesForm || ex.formOnRecord === true) famOnRecord += s;
+      else famOpen += s;
+    }
   }
   ledger.families.push({ name: r.family, statement: r.statement, counts: r.counts, ms: r.ms,
-    truncated: r.truncated, corpusRefutations: famRefuted, corpusTested: famTested });
+    truncated: r.truncated, corpusRefutations: famRefuted, corpusTested: famTested,
+    ...(famExact + famOnRecord + famOpen > 0
+      ? { corpusRefutedExact: famExact, corpusFormOnRecord: famOnRecord, corpusOpen: famOpen } : {}) });
   relTested += famTested; relRefuted += famRefuted;
+  relRefutedExact += famExact; relOnRecord += famOnRecord; relOpen += famOpen;
 
   /* keep the strongest hits per family, and hunt closed forms for each */
   const ranked = r.hits.slice().sort((a, b) => {
@@ -57,9 +74,19 @@ for (const fam of FAMILIES) {
 }
 
 ledger.totals = { generated: totalGen, certified: totalCert, conjectures: ledger.conjectures.length,
-  closedFormTested: relTested, closedFormRefuted: relRefuted, closedFormCandidates: ledger.relations.length };
+  closedFormTested: relTested, closedFormRefuted: relRefuted,
+  closedFormRefutedExact: relRefutedExact, closedFormOnRecord: relOnRecord, closedFormOpen: relOpen,
+  closedFormCandidates: ledger.relations.length };
+/* the subtraction a reviewer will do, done here first: the decomposition must
+   close EXACTLY or the ledger does not ship */
+const gap = relTested - relRefuted - relRefutedExact - relOnRecord - relOpen - ledger.relations.length;
+if (gap !== 0) {
+  console.error('LEDGER REFUSED: closed-form decomposition does not close (gap ' + gap + ')');
+  process.exit(1);
+}
 fs.writeFileSync(path.join(ROOT, 'ledger.json'), JSON.stringify(ledger, null, 1) + '\n');
 console.log('');
 console.log('  ledger.json: ' + totalGen + ' generated, ' + totalCert + ' certified, ' + ledger.conjectures.length + ' conjectures');
-console.log('  closed forms: ' + relTested + ' relations tested, ' + relRefuted + ' REFUTED exactly by enclosure, '
-  + ledger.relations.length + ' surviving candidates');
+console.log('  closed forms: ' + relTested + ' tested = ' + relRefuted + ' refuted (double) + ' + relRefutedExact
+  + ' refuted (exact BigInt) + ' + relOnRecord + ' form-on-record + ' + relOpen + ' open + '
+  + ledger.relations.length + ' surviving candidates — the decomposition closes');

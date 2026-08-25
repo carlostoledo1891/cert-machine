@@ -39,18 +39,26 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     'x^2 map: det J = 2x is refuted as nonconstant (' + a.why.slice(0, 46) + '…)');
 }
 
-/* ---- the Alpöge counterexample, dimensions 3 and 5 ---- */
+/* ---- the Alpöge counterexample: n=3, plus the ONE padded representative ----
+   The family carries exactly two Alpöge rows now (outside review R2): the
+   n=3 mathematics and n=8 as the stated stabilization — five identical
+   padded rows were collapsed into that one. */
 let claim3 = null;
 {
-  for (const i of [0, 2]) {                                 /* n = 3 and n = 5 */
+  for (const i of [0, 1]) {                                 /* n = 3 and n = 8 (padded) */
     const o = FAM.enumerate(i);
     if (i === 0) claim3 = o.claim;
     const v = FAM.value(o);
     ok(FAM.interesting(o, v), 'n=' + o.n + ': float screen passes (sampled |det+2| = ' + v.toExponential(1) + ')');
     const c = FAM.certify(o);
     ok(c.verdict === 'HIT' && c.enclosure[0] === -2 && c.enclosure[1] === -2,
-      'n=' + o.n + ': VERIFIED — det J = -2 identically, 3 exact collisions; the Jacobian conjecture is false in dimension ' + o.n);
+      'n=' + o.n + (o.padded ? ' (the padded representative)' : '') + ': VERIFIED — det J = -2 identically, 3 exact collisions; the Jacobian conjecture is false in dimension ' + o.n);
+    if (o.padded) ok(/STABILIZATION/.test(c.text) && !!c.extra.padded,
+      'the padded row SAYS it is padding — stabilization stated in the certificate text, not hidden');
   }
+  const third = FAM.enumerate(2);
+  ok(!third || !/Alpöge/.test(third.source),
+    'exactly TWO Alpöge rows enumerate — the five identity-padding rows are collapsed (R2)');
 }
 
 /* ---- RED: one perturbed coefficient must break the determinant identity ---- */
@@ -172,6 +180,22 @@ let claim3 = null;
     'the distinct member (w-2w^3): a = -4/3 matches the paper, det J = -1, collisions certified');
   const sab = SW.fromSeed({ pCoeffs: SW.gallagherSeed(3), sabotage: 'breakSeed' });
   ok(!sab.ok, 'RED: a seed violating p(1) = -c is REFUSED (' + sab.why + ')');
+}
+
+/* ---- source pins: the certificate is over a byte sequence (R3) ---- */
+{
+  const PIN = require('#instruments/pin.js');
+  const gal = (() => { for (let i = 0; ; i++) { const e = FAM.enumerate(i); if (!e) return null; if (e.pin) return e; } })();
+  ok(!!gal, 'a pinned entry enumerates (Gallagher, corpus/sources/gallagher2026.pdf)');
+  const c = FAM.certify(gal);
+  ok(c.verdict === 'HIT' && c.extra.sourcePin && c.extra.sourcePin.sha256 === PIN.PINS['gallagher2026.pdf']
+    && typeof c.extra.transcription === 'string' && c.extra.transcription.length > 0,
+    'the certificate carries the source sha256 (re-hashed, not copied) AND the transcribed formula string');
+  /* RED: a forged pin table must refuse — the drift path can actually fire */
+  const forged = PIN.verify('gallagher2026.pdf', { pins: { 'gallagher2026.pdf': '0'.repeat(64) } });
+  ok(!forged.ok && /mismatch/.test(forged.why), 'RED: a drifted source (forged pin) is REFUSED with a sha256 mismatch');
+  const unpinned = PIN.verify('no-such-source.pdf');
+  ok(!unpinned.ok, 'RED: a source with no recorded pin is REFUSED, not waved through');
 }
 
 /* ---- the fiber hunter: non-injectivity found blind ---- */

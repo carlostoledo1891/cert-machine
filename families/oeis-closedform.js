@@ -283,6 +283,11 @@ module.exports = {
         digitsUsed: Math.min(e.digits.length, DIGITS),
         tested, refuted,
         exactRefuted, exactDigits: e.digits.length,
+        /* the count that closes the page's subtraction (review R1): every
+           form the double-precision test could NOT refute, after the exact
+           BigInt pass, ends up here — decided by the record check or left
+           an open candidate, but never folded into `refuted` */
+        survivorsAfterExact: stillPossible.length,
         survivors: stillPossible.slice(0, 6).map(s => ({ label: s.label, value: s.value })),
         assumption: 'mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed'
       }
