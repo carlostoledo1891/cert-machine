@@ -27,6 +27,7 @@ test:
 	@for t in test-eqcert test-interval test-transcendental test-transcendental-enclosure; do \
 	  printf "%-30s " "interval/$$t"; $(NODE) instruments/interval/tests/$$t.js >/dev/null 2>&1 && echo PASS || echo FAIL; done
 	@printf "%-30s " "trigmin certifier"; $(NODE) instruments/trigmin/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "henon census"; $(NODE) instruments/census/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@for f in sos_verify lyapunov_cert reverify_ai_lyapunov; do \
 	  printf "%-30s " "sos/$$f"; $(PY) instruments/sos/$$f.py >/dev/null 2>&1 && echo PASS || echo FAIL; done
 

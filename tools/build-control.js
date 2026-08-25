@@ -34,6 +34,7 @@ const BATTERIES = [
   ['interval · arithmetic', ['instruments/interval/tests/test-interval.js'], '16 000 ops vs exact rationals'],
   ['interval · transcendental', ['instruments/interval/tests/test-transcendental.js'], 'sound exp/log/sin/cos'],
   ['trigmin certifier', ['instruments/trigmin/battery.js'], '47 checks · 2 red controls'],
+  ['henon census', ['instruments/census/battery.js'], 'closed-form calibration · 3 red controls'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [['sos · global bound', 'instruments/sos/sos_verify.py'], ['sos · lyapunov', 'instruments/sos/lyapunov_cert.py'], ['sos · re-verify AI result', 'instruments/sos/reverify_ai_lyapunov.py']];

@@ -16,16 +16,17 @@ make drift     re-hash the lift against the source lab
 ## State, measured at handoff
 
 ```
-818,613  objects generated across 4 families
- 15,125  certified exactly
+818,941  objects generated across 5 families
+ 15,453  certified exactly
 77.6M    closed forms tested · 77,662,725 refuted · 7 surviving
     228  existence-AND-uniqueness theorems (Krawczyk)
+    328  COMPLETENESS theorems (branch-and-bound census, 328/328 cells, 0 refusals)
 ```
 
-Batteries 10/10. Engine gate 20/20 with 8 red controls. `control.html` builds
-byte-identical twice. Drift: 38 unchanged, 1 local edited (a declared patch).
+Batteries 11/11. Engine gate 28/28. Census battery 18/18 with 3 red controls.
+Drift: 38 unchanged, 1 local edited (a declared patch).
 
-## The four families
+## The five families
 
 | family | output | result so far |
 |---|---|---|
@@ -33,19 +34,31 @@ byte-identical twice. Drift: 38 unchanged, 1 local edited (a declared patch).
 | `chowla-cosine` | Chowla merit c = −min f_A/√\|A\| | 295 certified below 1 |
 | `oeis-closedform` | audits 14,593 published OEIS constants | 77.6M forms refuted, **0 discoveries** — the corpus is curated, every survivor already had its form on record |
 | `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
+| `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); p=12 = 248 points/19 orbits in 52 s |
+
+The census (`instruments/census/henon-census.js`) is the completeness record
+the field survey said nobody publishes for non-SAT numerics: a certified a
+priori bound confines every periodic point, interval tube iteration excludes,
+Krawczyk-as-contraction resolves each remainder to exactly one point, and
+minimal periods are decided by certified shift-links — never by tolerance.
+It can refuse; it can never return a wrong count. Two bugs were found exactly
+the way the method predicts: by a red control (the fat-record stall at a=0.96,
+p=4 — caught by the shift classification, not by reading code).
 
 ## Next steps, in order
 
-1. **Interval branch-and-bound for `henon-orbits`.** Today's orbit counts are
-   LOWER BOUNDS — Newton found what twelve deterministic starts reached, and the
-   family says so in its own REJECT text. Exhausting the phase space by interval
-   exclusion turns "we certified 5 period-8 orbits" into "there are exactly N,
-   certified". That is the RECORD-with-completeness shape that nobody publishes
-   for non-SAT numerics, and it is the single highest-value build available.
-2. **More Krawczyk families.** The instrument is general: any parameterised
-   nonlinear system. Steady states of reaction-diffusion, roots of polynomial
-   systems, periodic orbits of other maps. Each is one file.
-3. **Do NOT go back to closed-form hunting over curated corpora.** OEIS was the
+1. **Higher periods at the classical parameters.** p=12 certifies in 52 s with
+   the Krawczyk-contraction pruning; the wall is the anisotropic tube near the
+   strongly unstable fixed point (cost ~4× per period step). p=13..16 likely
+   need either the detach runner or a smarter box metric. Each new p at
+   a=1.4 is a publishable exact count.
+2. **A second map for the census.** The argument only needs a quadratic a
+   priori bound and a polynomial recurrence — Ikeda needs interval sin/cos
+   (transcendental.js is sound), the cubic Hénon and the standard-map family
+   are direct ports. One instrument, one new family file each.
+3. **More Krawczyk families.** Any parameterised nonlinear system: steady
+   states of reaction-diffusion, roots of polynomial systems.
+4. **Do NOT go back to closed-form hunting over curated corpora.** OEIS was the
    right calibration target and the wrong discovery target, and the reason is
    structural and predictable in advance.
 

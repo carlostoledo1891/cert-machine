@@ -152,6 +152,43 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     'a certified box has POSITIVE radius — strict interior containment, not a point claim');
 }
 
+/* The census family: completeness must agree with everything else we certify.
+   The orbit family's counts are lower bounds by construction; every orbit it
+   certified must reappear as a census record, and the census must never emit
+   a wrong count under a starved budget — it refuses instead. */
+{
+  const CEN = require(path.join(ROOT, 'families/henon-census.js'));
+  const HEN = require(path.join(ROOT, 'families/henon-orbits.js'));
+  const { census } = require(path.join(ROOT, 'instruments/census/henon-census.js'));
+  const a = 1.4, b = 0.3;
+
+  const c1 = CEN.certify({ a, b, p: 1 });
+  ok(c1.verdict === 'HIT' && c1.enclosure[0] === 2 && c1.enclosure[1] === 2,
+    'census family: EXACTLY 2 fixed points at a=1.4, enclosure [2,2]');
+
+  const starved = CEN.certify({ a, b, p: 8, _opts: { maxBoxes: 50 } });
+  ok(starved.verdict === 'REFUSED',
+    'census family: a starved box budget REFUSES — it can never return a wrong count');
+
+  /* cross-instrument: every period-7 orbit Krawczyk certified from float
+     starts must be one of the census's records, and the census count (4
+     orbits, matching Galias) must dominate the orbit family's lower bound */
+  const c7 = census(a, b, 7);
+  const found = new Set();
+  for (let i = 0; ; i++) {
+    const o = HEN.enumerate(i); if (!o) break;
+    if (o.a !== a || o.p !== 7) continue;
+    if (!HEN.interesting(o, HEN.value(o))) continue;
+    const c = HEN.certify(o);
+    if (c.verdict !== 'HIT') continue;
+    found.add(HEN.key(o));
+    const matched = c7.ok && c7.records.some(r => c.extra.orbit.every((x, n) => Math.abs(x - r.z[n]) < 1e-8));
+    ok(matched, 'orbit-family period-7 hit is a census record (' + HEN.key(o).slice(0, 24) + '…)');
+  }
+  ok(c7.ok && c7.byMinimalPeriod['7'] === 4 && found.size <= 4,
+    'census p=7: EXACTLY 4 orbits (Galias count); the orbit family reached ' + found.size + ' — a lower bound, as documented');
+}
+
 console.log('');
 console.log('engine battery: ' + pass + ' pass, ' + fail + ' fail');
 if (fail) process.exit(1);
