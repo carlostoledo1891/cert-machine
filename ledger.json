@@ -13,7 +13,7 @@
     "rejects": 5,
     "refused": 0
    },
-   "ms": 142464,
+   "ms": 141806,
    "truncated": true,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -30,7 +30,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 25538,
+   "ms": 25417,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -47,7 +47,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 535,
+   "ms": 537,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -64,7 +64,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 13634,
+   "ms": 13705,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -73,15 +73,15 @@
    "name": "keller-audit",
    "statement": "an explicit polynomial map C^n -> C^n whose Jacobian determinant is proved constant by symbolic expansion over exact rationals, with certified distinct rational points sharing one image — the Jacobian conjecture refuted in dimension n, decided here and not trusted",
    "counts": {
-    "generated": 9,
-    "screened": 9,
+    "generated": 10,
+    "screened": 10,
     "duplicates": 0,
-    "certified": 9,
-    "hits": 9,
+    "certified": 10,
+    "hits": 10,
     "rejects": 0,
     "refused": 0
    },
-   "ms": 27,
+   "ms": 40,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -98,7 +98,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 61243,
+   "ms": 61799,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -115,7 +115,7 @@
     "rejects": 14593,
     "refused": 0
    },
-   "ms": 4632,
+   "ms": 4747,
    "truncated": false,
    "corpusRefutations": 54606108,
    "corpusTested": 54607006
@@ -10011,6 +10011,32 @@
   },
   {
    "family": "keller-audit",
+   "key": "Meng–Yang arXiv:2607.22198|5",
+   "text": "the HESSIAN conjecture is FALSE in 5 variables: an explicit degree-14 integer polynomial whose Hessian determinant is 128 as a polynomial identity while its gradient identifies 2 distinct rational points, all decided in exact arithmetic (Meng–Yang arXiv:2607.22198, audited here)",
+   "enclosure": [
+    128,
+    128
+   ],
+   "width": 0,
+   "extra": {
+    "n": 5,
+    "source": "Meng–Yang arXiv:2607.22198",
+    "det": "128",
+    "points": 2,
+    "checks": [
+     "det J_F = 128 as a polynomial identity (5x5 symbolic determinant over Q)",
+     "2 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ]
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
    "key": "Alpöge 2026-07-19|3",
    "text": "the Jacobian conjecture is FALSE in dimension 3: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
    "enclosure": [
@@ -10433,9 +10459,9 @@
  ],
  "relations": [],
  "totals": {
-  "generated": 819074,
-  "certified": 15586,
-  "conjectures": 61,
+  "generated": 819075,
+  "certified": 15587,
+  "conjectures": 62,
   "closedFormTested": 54618463,
   "closedFormRefuted": 54617565,
   "closedFormCandidates": 0

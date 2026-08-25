@@ -37,6 +37,44 @@ const DIMS = [3, 4, 5, 6, 7, 8];
    d >= 3 are new certified objects, not transcribed from anywhere. */
 const SWEEP_DEGREES = [3, 4, 5];
 
+/* Meng–Yang (arXiv:2607.22198): the HESSIAN conjecture is false in five
+   variables. Psi = A^2 + 13A + 2B has 42 monomials, total degree 14, and
+   det Hess Psi == 128 identically, while grad Psi identifies
+   (1,-3/2,0,0,0) and (-1,3/2,0,0,0). The gradient map IS the object our
+   audit decides — a Hessian counterexample is a Keller-map counterexample
+   whose map happens to be a gradient. Obtained upstream from the
+   six-variable doubling phi = y·F of Alpöge's map (det Hess phi == -4 =
+   -(det J F)^2, an identity the battery checks) by Schur descent in x3. */
+function mengYang() {
+  const n = 5;
+  const [x1, x2, y1, y2, y3] = [0, 1, 2, 3, 4].map(i => K.pvar(i, n));
+  const one = K.pconst(Q.R(1n), n);
+  const c = (k) => K.pconst(Q.R(BigInt(k)), n);
+  const u = K.padd(one, K.pmul(x1, x2));
+  const u2 = K.pmul(u, u), u3 = K.pmul(u2, u);
+  const T = K.padd(c(4), K.pscale(K.pmul(x1, x2), Q.R(3n)));
+  const A = K.padd(K.pmul(y1, u3),
+    K.pscale(K.pmul(K.pmul(x1, y2), u2), Q.R(3n)),
+    K.pscale(K.pmul(K.pmul(K.pmul(x1, x1), x1), y3), Q.R(-1n)));
+  const x2sq = K.pmul(x2, x2);
+  const B = K.padd(
+    K.pmul(K.pmul(K.pmul(y1, x2sq), u), T),
+    K.pmul(y2, K.padd(x2, K.pscale(K.pmul(K.pmul(x1, x2sq), T), Q.R(3n)))),
+    K.pmul(y3, K.padd(K.pscale(x1, Q.R(2n)), K.pscale(K.pmul(K.pmul(x1, x1), x2), Q.R(-3n)))));
+  const Psi = K.padd(K.pmul(A, A), K.pscale(A, Q.R(13n)), K.pscale(B, Q.R(2n)));
+  const grad = [0, 1, 2, 3, 4].map(i => K.pdiff(Psi, i));
+  const Pp = [Q.R(1n), Q.R(-3n, 2n), Q.ZERO, Q.ZERO, Q.ZERO];
+  const Pm = [Q.R(-1n), Q.R(3n, 2n), Q.ZERO, Q.ZERO, Q.ZERO];
+  return {
+    Psi,
+    claim: {
+      F: grad, det: Q.R(128n),
+      collisions: [Pp, Pm],
+      image: [Q.ZERO, Q.ZERO, Q.R(-1n, 2n), Q.ZERO, Q.ZERO]
+    }
+  };
+}
+
 /* the Alpöge map in dimension n (identity-padded), built from exact ops */
 function alpoge(n) {
   const x = K.pvar(0, n), y = K.pvar(1, n), z = K.pvar(2, n);
@@ -76,11 +114,16 @@ module.exports = {
       return { n, source: 'Alpöge 2026-07-19', claim: alpoge(n) };
     }
     const j = i - DIMS.length;
-    if (j >= SWEEP_DEGREES.length) return null;
-    const d = SWEEP_DEGREES[j];
-    const g = SW.generate(d);
-    if (!g.ok) return { n: 3, source: 'tangent-sweep d=' + d + ' (generator refused: ' + g.why + ')', claim: null };
-    return { n: 3, source: 'tangent-sweep d=' + d + ', generated+certified here', claim: g.claim, meta: g.meta };
+    if (j < SWEEP_DEGREES.length) {
+      const d = SWEEP_DEGREES[j];
+      const g = SW.generate(d);
+      if (!g.ok) return { n: 3, source: 'tangent-sweep d=' + d + ' (generator refused: ' + g.why + ')', claim: null };
+      return { n: 3, source: 'tangent-sweep d=' + d + ', generated+certified here', claim: g.claim, meta: g.meta };
+    }
+    if (j === SWEEP_DEGREES.length) {
+      return { n: 5, source: 'Meng–Yang arXiv:2607.22198', hessian: true, claim: mengYang().claim };
+    }
+    return null;
   },
   /* float screen: the determinant sampled at ONE float point. May only prune —
      a map whose sampled det is far from the claim is not worth the symbolic
@@ -114,7 +157,11 @@ module.exports = {
       return {
         verdict: 'HIT',
         enclosure: [d, d],                    /* the certified constant, exact */
-        text: generated
+        text: o.hessian
+          ? 'the HESSIAN conjecture is FALSE in ' + o.n + ' variables: an explicit degree-14 integer polynomial whose '
+            + 'Hessian determinant is ' + Q.toString(a.det) + ' as a polynomial identity while its gradient identifies '
+            + a.points + ' distinct rational points, all decided in exact arithmetic (' + o.source + ', audited here)'
+          : generated
           ? 'a NEW certified counterexample to the Jacobian conjecture, generated here by the tangent-sweep: '
             + 'geometric degree ' + o.meta.geometricDegree + ' (curve p(w) with coefficients [' + o.meta.p.join(', ') + ']), '
             + 'det J = ' + Q.toString(a.det) + ' proved as a polynomial identity, ' + a.points

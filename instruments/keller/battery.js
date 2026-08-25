@@ -120,6 +120,45 @@ let claim3 = null;
     + (sab.ok ? 'SHIPPED — broken' : sab.why.slice(0, 48) + '…') + ')');
 }
 
+/* ---- Meng–Yang: the Hessian conjecture, decided in five variables ---- */
+{
+  const o = (() => { for (let i = 0; ; i++) { const e = FAM.enumerate(i); if (!e) return null; if (e.hessian) return e; } })();
+  ok(!!o, 'the Meng–Yang entry enumerates');
+  const a = K.audit(o.claim);
+  ok(a.verdict === 'VERIFIED' && Q.cmp(a.det, Q.R(128n)) === 0,
+    'HC5: det Hess Psi = 128 as a polynomial identity, gradient collision at (±1, ∓3/2, 0,0,0) — the Hessian conjecture is false in 5 variables');
+
+  /* the doubling identity that ties the corpus together:
+     phi = y·F for Alpöge's F has det Hess phi == -(det J F)^2 = -4 */
+  const n6 = 6;
+  const F3 = (() => {   /* Alpöge's map re-read from the family, lifted to 6 vars */
+    const o3 = FAM.enumerate(0);
+    const lift = (p) => { const out = new Map();
+      for (const [k, v] of p) out.set(k + ',0,0,0', v); return out; };
+    return o3.claim.F.map(lift);
+  })();
+  let phi = K.pzero();
+  for (let i = 0; i < 3; i++) phi = K.padd(phi, K.pmul(K.pvar(3 + i, n6), F3[i]));
+  const grad6 = Array.from({ length: n6 }, (_, i) => K.pdiff(phi, i));
+  const H6 = grad6.map(g => Array.from({ length: n6 }, (_, j) => K.pdiff(g, j)));
+  const D6 = K.pdet(H6);
+  ok(K.pIsConst(D6) && Q.cmp(K.pConstVal(D6), Q.R(-4n)) === 0,
+    'the six-variable doubling phi = y·F has det Hess = -4 = -(det J F)^2 — the two corpus entries certify each other');
+
+  /* RED: a degree-2 perturbation of Psi makes the Hessian determinant nonconstant */
+  const forged = { ...o.claim };
+  const Psi2 = (() => {   /* rebuild Psi from the claim is not possible; perturb H via F directly */
+    const F = o.claim.F.map(p => new Map(p));
+    /* add eps*x1 to dPsi/dx1 — as if Psi gained (eps/2) x1^2 */
+    const k0 = '1,0,0,0,0';
+    F[0].set(k0, Q.add(F[0].get(k0) || Q.ZERO, Q.R(1n, 1000000n)));
+    return F;
+  })();
+  const a2 = K.audit({ ...forged, F: Psi2 });
+  ok(a2.verdict === 'REFUTED', 'RED: Psi perturbed by (1e-6/2)x1^2 is REFUTED — the Hessian determinant stops being 128 ('
+    + a2.why.slice(0, 40) + '…)');
+}
+
 console.log('');
 console.log('keller battery: ' + pass + ' pass, ' + fail + ' fail');
 if (fail) process.exit(1);
