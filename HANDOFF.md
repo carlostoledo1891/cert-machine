@@ -48,10 +48,16 @@ make drift     re-hash the lift against the source lab
          C* to width 3.2e-16 (1.86M-prime product, tail proved) — and the PUBLISHED
          C* = 0.0752403861777 REFUTED at its 12th significant digit: it is the naive
          IEEE-754 double product, digit for digit (87% of factors round to 1.0 and
-         vanish); true value 0.07524038617830924...
+         vanish); true value 0.07524038617830924... The correction PACKAGE is built
+         (R7 class): certs/erdos852-certificate.json + tools/verify_erdos852.py
+         (stdlib; the refutation re-proved in exact ints with NO tail bound — the
+         partial product to 4e5 is a strict lower bound already above the claim;
+         the c0 window re-decided at 130 digits; 4 reds; 0.7 s) + the paste-ready
+         thread comment at outreach/erdos852-comment.md. POSTING IS THE OPERATOR'S
+         CLICK — the site needs a login; nothing auto-sends.
 ```
 
-Batteries 20/20 on the page (21 rows in `make test`). Engine gate 31/31.
+Batteries 21/21 on the page (22 rows in `make test`). Engine gate 31/31.
 New this round: instruments/bigfloat/ — dyadic big-float interval arithmetic
 (BigInt mantissa · 2^e, directed rounding, arbitrary precision; pi/ln2/e
 certified to 50 literature digits, mutation-tested rounding) — the layer
@@ -382,13 +388,19 @@ READ-ONLY, lift numbers by transcription + pin, never by edit):
    digit — a certified refutation of a live-thread constant with the
    generating bug identified (naive double product; factors 1 + 1/(p-1)^3
    round to 1.0 for p > ~2e5) and reproduced digit-for-digit in the
-   battery. Sources pinned (erdos852_page/thread.html). REMAINING:
-   whether to post the correction to the thread is the operator's call —
-   the certificate text is written so the numbers can be quoted directly;
-   a report page (the mechanism is the story: "the constant IS the float
-   bug") would be the natural third impostor-catalog sibling. Note
-   occupancy lesson from the scout applies: page + thread + /proof-claims
-   all fetched; /proof-claims holds 0 claims.
+   battery. Sources pinned (erdos852_page/thread.html). The report shipped
+   (reports/erdos852.html) and the CORRECTION PACKAGE is built and gated:
+   detached certificate (certs/erdos852-certificate.json) + stdlib verifier
+   (tools/verify_erdos852.py) + paste-ready comment
+   (outreach/erdos852-comment.md — every number in it re-verified: the 2^53
+   threshold is p-1 >= 208064, the missing mass measures 9.1e-13, the
+   snippet runs verbatim). REMAINING, all operator-gated: (a) post the
+   comment — login click, nothing auto-sends; (b) OEIS: NEITHER constant
+   has an A-number (corpus grep: 0 matches) — two submittable sequences,
+   but OEIS forbids AI-generated submissions, so operator-authored or not
+   at all; (c) A078515 extension (27 terms, primes to ~2e11, Alexeev
+   invited) is a separate detach-runner compute job. Occupancy lesson
+   applied: page + thread + /proof-claims all fetched; 0 claims there.
 2. **The Mercer/Newman mu-lambda continuation.** sin-mfg holds certified
    mu(6..9) — mu(9) floor 1.3781877 STRICTLY BEATS Boyd's published
    witness 1.3623731 (certified floor above certified ceiling) — and a

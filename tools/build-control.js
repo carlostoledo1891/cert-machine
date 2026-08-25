@@ -48,6 +48,8 @@ const PY = [
     'the detached certificate re-audited from scratch — stdlib fractions, no code from this repo; red control must fire'],
   ['strassen · standalone re-verifier', ['tools/verify_strassen.py', 'certs/strassen-certificate.json', '--sources', 'corpus/sources'],
     'every matmul identity re-derived in stdlib Python ints; pins re-hashed; red control must fire'],
+  ['erdos852 · standalone re-verifier', ['tools/verify_erdos852.py', 'certs/erdos852-certificate.json', '--sources', 'corpus/sources'],
+    'the C* refutation re-proved in exact stdlib ints (no tail, no rounding); the c0 window re-decided at 130 digits; 4 red controls must fire'],
   ['sos · global bound', ['instruments/sos/sos_verify.py'], 'stdlib fractions only'],
   ['sos · lyapunov', ['instruments/sos/lyapunov_cert.py'], 'stdlib fractions only'],
   ['sos · re-verify AI result', ['instruments/sos/reverify_ai_lyapunov.py'], 'stdlib fractions only'],

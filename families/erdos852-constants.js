@@ -177,7 +177,7 @@ module.exports = {
           + '(under truncation AND rounding readings): the certified value is C* = ' + digits + '... . MECHANISM, reproduced in the battery: '
           + 'the published digits are exactly what a naive IEEE-754 double product emits — 1 + 1/(p-1)^3 < 1 + 2^-53 rounds to 1.0 for every '
           + 'p > ~208000, so ~87% of the factors silently vanish and the product truncates itself at p ~ 2e5 no matter how far the loop runs. '
-          + 'The missing tail is ~9.5e-13 of product mass. A float artifact published as a constant, caught by directed rounding.',
+          + 'The missing tail is ~9.1e-13 of product mass. A float artifact published as a constant, caught by directed rounding.',
         extra: { ...base, claim: o.claim, decision: d,
           naiveFloatReproduction: 'naive double product over the same primes = 0.07524038617774187 = the published value to all its digits' }
       };

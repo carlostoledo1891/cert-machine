@@ -125,7 +125,7 @@ O.push(C.scope('Local working document. The certified enclosures are theorems (e
         + ' rounds to exactly ' + C.m('1.0') + ' as soon as ' + C.m('1/(p−1)³ < 2⁻⁵³') + ' — that is, for every '
         + 'prime p beyond ≈ 208,000. A naive float loop over any prime limit therefore computes the product '
         + 'only to p ≈ 2·10⁵ and silently discards everything after; the discarded mass is '
-        + C.m('Σ_{p>2·10⁵} 1/(p−1)³ ≈ 9.5·10⁻¹³') + ' of log-product — which is precisely the size of the error '
+        + C.m('Σ_{p>208064} 1/(p−1)³ ≈ 9.1·10⁻¹³') + ' of log-product — which is precisely the size of the error '
         + 'in the published digits. Re-measured live during this build, over the odd primes to 2·10⁶:')
       + C.table({
         cols: [{ h: 'computation' }, { h: 'result', cls: 'v' }, { h: 'status' }],

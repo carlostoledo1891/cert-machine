@@ -18,6 +18,7 @@ engine:
 	@$(NODE) tools/run-engine.js $${LIMIT:-400000}
 	@$(NODE) tools/export-keller-certificate.js
 	@$(NODE) tools/export-strassen-certificate.js
+	@$(NODE) tools/export-erdos852-certificate.js
 
 control:
 	@$(NODE) tools/build-control.js
@@ -40,6 +41,7 @@ test:
 	  printf "%-30s " "sos/$$f"; $(PY) instruments/sos/$$f.py >/dev/null 2>&1 && echo PASS || echo FAIL; done
 	@printf "%-30s " "keller stdlib verifier"; $(PY) tools/verify_keller.py certs/keller-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "strassen stdlib verifier"; $(PY) tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "erdos852 stdlib verifier"; $(PY) tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "llm harness (dry)"; $(PY) tools/llm-harness.py --dry-run --n 20 --ledger /dev/null >/dev/null 2>&1 && echo PASS || echo FAIL
 
 drift:
