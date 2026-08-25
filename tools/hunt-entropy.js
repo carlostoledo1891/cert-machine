@@ -104,27 +104,28 @@ function candidates(boxes, rho, steps) {
   return out;
 }
 
-/* ---- the hunt: several scales, best certified bound wins ------------------ */
+/* ---- the hunt: mixed edge durations, composed to a common power ----------- */
 let best = null;
 const pts = orbitPoints(400000);
+const DUR = [1, 2, 3, 4, 5, 6];
 for (const cfg of [
-  { delta: 0.05, uHalf: 0.5, sHalf: 0.06, steps: 4 },
-  { delta: 0.045, uHalf: 0.5, sHalf: 0.07, steps: 4 },
-  { delta: 0.04, uHalf: 0.5, sHalf: 0.07, steps: 4 },
-  { delta: 0.04, uHalf: 0.5, sHalf: 0.07, steps: 5 },
-  { delta: 0.035, uHalf: 0.5, sHalf: 0.08, steps: 5 },
-  { delta: 0.05, uHalf: 0.6, sHalf: 0.06, steps: 4 },
-  { delta: 0.045, uHalf: 0.6, sHalf: 0.07, steps: 5 }
+  { delta: 0.045, uHalf: 0.5, sHalf: 0.07 },
+  { delta: 0.035, uHalf: 0.5, sHalf: 0.08 },
+  { delta: 0.035, uHalf: 0.5, sHalf: 0.12 },
+  { delta: 0.03, uHalf: 0.5, sHalf: 0.12 },
+  { delta: 0.03, uHalf: 0.5, sHalf: 0.16 },
+  { delta: 0.025, uHalf: 0.5, sHalf: 0.14 }
 ]) {
   const t0 = Date.now();
   const raw = buildBoxes(pts, cfg.delta, cfg.uHalf * cfg.delta, cfg.sHalf * cfg.delta);
   const boxes = disjointSubset(raw);
-  const cand = candidates(boxes, 1.6 * cfg.delta, cfg.steps);
-  const g = E.certifyGraph(map, boxes, cand, { cells: 8000, maxM: 64, steps: cfg.steps });
-  const line = 'delta=' + cfg.delta + ' k=' + cfg.steps + ': ' + boxes.length + ' boxes, ' + cand.length + ' candidates';
+  const cand = [];
+  for (const k of DUR) for (const [i, j] of candidates(boxes, 1.6 * cfg.delta, k)) cand.push([i, j, k]);
+  const g = E.certifyGraphMixed(map, boxes, cand, { cells: 8000, Kmax: 40 });
+  const line = 'delta=' + cfg.delta + ': ' + boxes.length + ' boxes, ' + cand.length + ' candidates (k=1..6)';
   if (!g.ok) { console.log(line + ' — graph refused: ' + g.why); continue; }
   console.log(line + ', ' + g.certified.length + ' certified, h >= ' + g.hLB.toFixed(6)
-    + ' (m=' + g.powerM + ', core ' + (g.core ? g.core.length : 0) + ' boxes, ' + ((Date.now() - t0) / 1000).toFixed(1) + ' s)');
+    + ' (composed to F^' + g.K + ', core ' + (g.core || 0) + ' boxes, ' + ((Date.now() - t0) / 1000).toFixed(1) + ' s)');
   if (!best || g.hLB > best.hLB) best = { cfg, boxes, g, hLB: g.hLB };
 }
 
@@ -136,15 +137,15 @@ if (!best || best.hLB <= 0) {
 const cert = {
   what: 'Certified lower bound for the topological entropy of the Hénon map x\' = 1 − a x² + b y, y\' = x '
     + '(parameters are the exact doubles nearest the stated values). The h-sets are pairwise disjoint '
-    + 'parallelograms; each edge is a covering relation for F itself, verified as strict interval inequalities '
-    + 'with outward rounding; the spectral bound is exact (BigInt row sums). Consumes one external theorem: '
-    + 'covering relations imply semi-conjugacy to the subshift (Zgliczynski–Gidea).',
+    + 'parallelograms; each edge [i, j, k] is a covering relation for F^k, verified as strict interval '
+    + 'inequalities with outward rounding; relations compose to a common power F^K and the duration-K paths '
+    + 'are counted exactly (integer arithmetic, overflow-guarded), so h_top >= ln(path count bound)/K. '
+    + 'Consumes one external theorem: covering relations imply semi-conjugacy (Zgliczynski-Gidea).',
   a, b,
   hLB: best.hLB,
-  steps: best.cfg.steps,
-  powerM: best.g.powerM,
+  composedTo: best.g.K,
   boxes: best.boxes,
-  edges: best.g.certified,
+  edges: best.g.certified,            /* [i, j, duration] */
   config: best.cfg,
   huntedBy: 'tools/hunt-entropy.js'
 };

@@ -62,18 +62,35 @@ const Nm = { c: [-x0, 0], A: [[w, -kap], [0, H]] };
   ok(none.logLB === 0, 'spectral: an acyclic graph gives 0 — no strongly connected core, no bound');
 }
 
+/* ---- RED, semantic: mixed durations must not manufacture entropy ----
+   The a=6 horseshoe has entropy EXACTLY ln 2 (two symbols, full shift).
+   Offering the mixed-duration machinery both the duration-1 AND the
+   duration-2 relations must still bound by ln 2: counting duration-2
+   relations as extra symbols alongside duration-1 ones once inflated a
+   bound past the true entropy (0.61 > 0.465 on the classical map), because
+   a duration-2 relation constrains nothing at its intermediate time. This
+   control pins the fix: binary uniform composition, never path counts. */
+{
+  const cand = [];
+  for (let i = 0; i < 2; i++) for (let j = 0; j < 2; j++) { cand.push([i, j, 1]); cand.push([i, j, 2]); }
+  const g = E.certifyGraphMixed(map6, [Np, Nm], cand, { cells: 60000, Kmax: 12 });
+  ok(g.ok && g.certified.length >= 4 && g.hLB <= Math.log(2) + 1e-9 && g.hLB > Math.log(2) - 1e-9,
+    'RED (semantic): with duration-1 AND duration-2 relations on the exact-ln2 horseshoe, the bound is ln 2, not more ('
+    + (g.ok ? g.hLB.toFixed(9) + ', ' + g.certified.length + ' relations' : g.why) + ')');
+}
+
 /* ---- the detached certificate, re-verified from scratch ---- */
 {
   const p = path.resolve(__dirname, '..', '..', 'certs', 'entropy-henon.json');
   const cert = JSON.parse(fs.readFileSync(p, 'utf8'));
   const mapC = E.henonSpec(cert.a, cert.b);
-  const g = E.certifyGraph(mapC, cert.boxes, cert.edges, { cells: 8000, maxM: 64, steps: cert.steps });
+  const g = E.certifyGraphMixed(mapC, cert.boxes, cert.edges, { cells: 8000, Kmax: 40 });
   ok(g.ok, 'certificate: ' + cert.boxes.length + ' h-sets re-proved pairwise disjoint');
   ok(g.ok && g.certified.length === cert.edges.length,
     'certificate: every recorded covering relation re-certifies (' + (g.ok ? g.certified.length : 0) + '/' + cert.edges.length + ')');
   ok(g.ok && g.hLB >= cert.hLB - 1e-12,
     'certificate: the recomputed bound stands — h_top(' + cert.a + ', ' + cert.b + ') >= ' + cert.hLB.toFixed(6)
-    + ' (recomputed ' + (g.ok ? g.hLB.toFixed(6) : '-') + ', every edge for the single iterate F^' + cert.steps + ')');
+    + ' (recomputed ' + (g.ok ? g.hLB.toFixed(6) : '-') + ', binary relations composed to the uniform F^' + cert.composedTo + ')');
 }
 
 console.log('');

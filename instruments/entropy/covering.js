@@ -106,9 +106,18 @@ function checkS(map, N1, inv2, c2, budget, steps) {
     if (++cells > budget.cells) return { ok: false, why: 's-lid condition: cell budget exhausted', cells };
     const [u, s] = stack.pop();
     const g = gEval(map, N1, inv2, c2, u, s, steps);
-    const sFree = (g[1][0] > -1 && g[1][1] < 1) || g[1][1] < -1 || g[1][0] > 1;
+    /* the image must avoid the FULL slabs {|u| <= 1, |s| >= 1}, not merely
+       the lid segments: an image part hovering above the target interior
+       (s > 1 with u inside) lets a "finger" poke into the target and
+       retract, and the degree argument dies. Allowing it once certified a
+       2-box golden-mean graph under F at the classical parameters — a
+       bound converging to ln phi = 0.4812, above the literature value
+       0.4651: an impossible number, hence a bug, found by running. A cell
+       is clear only strictly inside the s-slab, or entirely past the
+       target in u. */
+    const sInside = g[1][0] > -1 && g[1][1] < 1;
     const uOutside = g[0][1] < -1 || g[0][0] > 1;
-    if (sFree || uOutside) continue;
+    if (sInside || uOutside) continue;
     const du = u[1] - u[0], ds = s[1] - s[0];
     if (du < budget.minWidth && ds < budget.minWidth)
       return { ok: false, why: 's-lid condition fails near t=(' + u[0].toFixed(4) + ',' + s[0].toFixed(4) + '): g_u = [' + g[0][0].toFixed(3) + ',' + g[0][1].toFixed(3) + '], g_s = [' + g[1][0].toFixed(3) + ',' + g[1][1].toFixed(3) + ']', cells };
@@ -268,4 +277,115 @@ function certifyGraph(map, hsets, candidateEdges, opts) {
   };
 }
 
-module.exports = { henonSpec, covers, disjoint, certifyGraph, logSpectralLB, invIV, sccs };
+/* ---- mixed edge durations, composed to a UNIFORM power --------------------
+   Covering relations COMPOSE: a certified F^k1 relation i→j and a certified
+   F^k2 relation j→l give a certified F^(k1+k2) relation i→l. So edges with
+   per-edge durations yield, for any K, an F^K covering graph
+
+       B_K[i][j] = 1  iff  some duration-exactly-K composition i→j exists,
+
+   BINARY — one relation per ordered pair, never a path count. The count
+   version is a TRAP this instrument walked into and now gates against: a
+   duration-2 edge constrains nothing at its intermediate time, so two
+   "distinct" mixed-duration paths can realize the SAME orbit, and counting
+   them separately once produced h ≥ 0.61 for a map whose true entropy is
+   ≈ 0.465 — a certified impossibility. Uniform duration restores the
+   argument: distinct B_K-itineraries differ at some common multiple of K,
+   where they occupy disjoint h-sets, hence distinct orbits, and
+
+       h_top(F) = h_top(F^K)/K ≥ ln sp(B_K)/K
+
+   with sp bounded exactly as everywhere else (min positive row sum of
+   powers, integer arithmetic, overflow-guarded, iteratively trimmed —
+   sp(M) ≥ min row sum for any nonnegative M since M·1 ≥ c·1 iterates).
+   The battery pins the failure that motivated this: on the a=6 horseshoe,
+   whose entropy is exactly ln 2, mixed durations must bound by ln 2. */
+function composedUniformLB(Aks, n, Kmax, maxM) {
+  const LIMIT = 2 ** 49;
+  const durations = Object.keys(Aks).map(Number).sort((a, b) => a - b);
+  if (!durations.length) return { logLB: 0, K: 0 };
+  const I = Array.from({ length: n }, (_, i) => Array.from({ length: n }, (_, j) => (i === j ? 1 : 0)));
+  const B = [I];
+  let best = { logLB: 0, K: 0 };
+  for (let K = 1; K <= Kmax; K++) {
+    const M = Array.from({ length: n }, () => new Array(n).fill(0));
+    for (const k of durations) {
+      if (k > K) break;
+      const A = Aks[k], P = B[K - k];
+      for (let i = 0; i < n; i++) {
+        const Ai = A[i], Mi = M[i];
+        for (let l = 0; l < n; l++) {
+          if (!Ai[l]) continue;
+          const Pl = P[l];
+          for (let j = 0; j < n; j++) if (Pl[j]) Mi[j] = 1;
+        }
+      }
+    }
+    B.push(M);
+    /* trim to rows/cols that keep positive row sums, then power up */
+    let keep = Array.from({ length: n }, (_, i) => i);
+    for (;;) {
+      const next = keep.filter(i => keep.some(j => M[i][j] > 0) && keep.some(j => M[j][i] > 0));
+      if (next.length === keep.length) break;
+      keep = next;
+      if (!keep.length) break;
+    }
+    if (!keep.length) continue;
+    const kn = keep.length;
+    let P = keep.map(i => keep.map(j => M[i][j]));
+    const step = P.map(r => r.slice());
+    for (let m = 1; m <= (maxM || 8); m++) {
+      let minRS = Infinity;
+      for (let i = 0; i < kn; i++) {
+        let rs = 0;
+        for (let j = 0; j < kn; j++) rs += P[i][j];
+        minRS = Math.min(minRS, rs);
+      }
+      if (minRS > 0 && minRS < LIMIT) {
+        const lb = Math.log(minRS) / (m * K);
+        if (lb > best.logLB) best = { logLB: lb, K, m, core: kn };
+      }
+      if (m === (maxM || 8)) break;
+      const N = Array.from({ length: kn }, () => new Array(kn).fill(0));
+      let overflow = false;
+      for (let i = 0; i < kn && !overflow; i++) for (let l = 0; l < kn; l++) {
+        if (!P[i][l]) continue;
+        for (let j = 0; j < kn; j++) {
+          N[i][j] += P[i][l] * step[l][j];
+          if (N[i][j] > LIMIT) { overflow = true; break; }
+        }
+      }
+      if (overflow) break;
+      P = N;
+    }
+  }
+  return best;
+}
+
+/* certifyGraphMixed(map, hsets, candidates [ [i,j,k], ... ]) — per-edge
+   durations; every edge re-derived, disjointness proved, then the composed
+   path bound. */
+function certifyGraphMixed(map, hsets, candidates, opts) {
+  for (let i = 0; i < hsets.length; i++) for (let j = i + 1; j < hsets.length; j++) {
+    if (!disjoint(hsets[i], hsets[j]))
+      return { ok: false, why: 'h-sets ' + i + ' and ' + j + ' not provably disjoint' };
+  }
+  const Aks = {}, certified = [];
+  for (const [i, j, k] of candidates) {
+    const c = covers(map, hsets[i], hsets[j], { ...(opts || {}), steps: k });
+    if (!c.ok) continue;
+    if (!Aks[k]) Aks[k] = Array.from({ length: hsets.length }, () => new Array(hsets.length).fill(0));
+    Aks[k][i][j] = 1;
+    certified.push([i, j, k]);
+  }
+  const sb = composedUniformLB(Aks, hsets.length, (opts && opts.Kmax) || 24, (opts && opts.maxM) || 8);
+  return {
+    ok: true, certified, hLB: sb.logLB, K: sb.K, core: sb.core,
+    text: 'h_top >= ' + sb.logLB.toFixed(6) + ' — ' + certified.length + ' covering relations (durations '
+      + Object.keys(Aks).join(',') + ') over ' + hsets.length + ' pairwise-disjoint h-sets, composed to the '
+      + 'UNIFORM iterate F^' + sb.K + ' as binary relations (one per pair, no path multiplicities) and bounded '
+      + 'exactly at power m=' + sb.m
+  };
+}
+
+module.exports = { henonSpec, covers, disjoint, certifyGraph, certifyGraphMixed, composedUniformLB, logSpectralLB, invIV, sccs };

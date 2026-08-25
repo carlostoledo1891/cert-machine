@@ -13,7 +13,7 @@
     "rejects": 71,
     "refused": 0
    },
-   "ms": 179000,
+   "ms": 185018,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -30,7 +30,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 24582,
+   "ms": 26067,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -47,7 +47,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 515,
+   "ms": 547,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -64,7 +64,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 13165,
+   "ms": 13849,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -81,7 +81,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 67,
+   "ms": 66,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -98,7 +98,7 @@
     "rejects": 1,
     "refused": 1
    },
-   "ms": 7895,
+   "ms": 8317,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -115,7 +115,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 62867,
+   "ms": 60851,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -132,7 +132,7 @@
     "rejects": 14593,
     "refused": 0
    },
-   "ms": 4696,
+   "ms": 4979,
    "truncated": false,
    "corpusRefutations": 54606108,
    "corpusTested": 54607006,
@@ -152,7 +152,24 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 2779,
+   "ms": 2781,
+   "truncated": false,
+   "corpusRefutations": 0,
+   "corpusTested": 0
+  },
+  {
+   "name": "strassen-audit",
+   "statement": "a claimed fast matrix-multiplication algorithm — a rank-r decomposition of the (n,m,p) tensor — whose defining identity (nm·mp·np exact equations) is VERIFIED over the claimed ring with r strictly below the naive nmp; the C-layout convention is detected and recorded, never assumed",
+   "counts": {
+    "generated": 10,
+    "screened": 10,
+    "duplicates": 0,
+    "certified": 10,
+    "hits": 9,
+    "rejects": 1,
+    "refused": 0
+   },
+   "ms": 23,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -11378,6 +11395,306 @@
     "refuted": 718,
     "candidates": 0
    }
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-f2-5x5x5",
+   "text": "alphatensor-f2-5x5x5: 5x5 times 5x5 in 96 multiplications VERIFIED over F2 — all 15625 tensor-identity equations hold exactly (layout CA); rank 96 < 125 naive; REFUTED over Q — the algorithm genuinely requires characteristic 2",
+   "enclosure": [
+    96,
+    96
+   ],
+   "width": 0,
+   "extra": {
+    "id": "alphatensor-f2-5x5x5",
+    "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 5,5,5 of alphatensor_f2.npz",
+    "dims": [
+     5,
+     5,
+     5
+    ],
+    "rank": 96,
+    "naive": 125,
+    "ring": "F2",
+    "layout": "CA",
+    "equations": 15625,
+    "overQ": "REFUTED over Q — the algorithm genuinely requires characteristic 2",
+    "transcription": "npz member \"5,5,5.npy\" of alphatensor_f2.npz (sha256 70f09f349d8d2874…), factors (3, 25, 96) converted by tools/convert_alphatensor.py",
+    "sourcePin": {
+     "file": "alphatensor_f2.npz",
+     "sha256": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da"
+    }
+   },
+   "closedForm": {
+    "tested": 690,
+    "refuted": 688,
+    "candidates": 2
+   }
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-4x5x5",
+   "text": "alphatensor-q-4x5x5: 4x5 times 5x5 in 76 multiplications VERIFIED over Q — all 10000 tensor-identity equations hold exactly (layout CA); rank 76 < 100 naive",
+   "enclosure": [
+    76,
+    76
+   ],
+   "width": 0,
+   "extra": {
+    "id": "alphatensor-q-4x5x5",
+    "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 4,5,5 of alphatensor_r.npz",
+    "dims": [
+     4,
+     5,
+     5
+    ],
+    "rank": 76,
+    "naive": 100,
+    "ring": "Q",
+    "layout": "CA",
+    "equations": 10000,
+    "transcription": "npz member \"4,5,5.npy\" of alphatensor_r.npz (sha256 4d59571a2537a947…), factors (3, 20, 76) converted by tools/convert_alphatensor.py",
+    "sourcePin": {
+     "file": "alphatensor_r.npz",
+     "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33"
+    }
+   },
+   "closedForm": {
+    "tested": 690,
+    "refuted": 688,
+    "candidates": 2
+   }
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|strassen-squared-4x4x4",
+   "text": "strassen-squared-4x4x4: 4x4 times 4x4 in 49 multiplications VERIFIED over Q — all 4096 tensor-identity equations hold exactly (layout AC); rank 49 < 64 naive — generated AND decided here",
+   "enclosure": [
+    49,
+    49
+   ],
+   "width": 0,
+   "extra": {
+    "id": "strassen-squared-4x4x4",
+    "source": "generated here: Strassen ⊗ Strassen by exact Kronecker composition, re-decided from scratch",
+    "dims": [
+     4,
+     4,
+     4
+    ],
+    "rank": 49,
+    "naive": 64,
+    "ring": "Q",
+    "layout": "AC",
+    "equations": 4096,
+    "note": "the rank-49 recursive baseline that 47 (AlphaTensor, mod 2) and 48 (AlphaEvolve) beat"
+   },
+   "closedForm": {
+    "tested": 690,
+    "refuted": 688,
+    "candidates": 2
+   }
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-4x4x4",
+   "text": "alphatensor-q-4x4x4: 4x4 times 4x4 in 49 multiplications VERIFIED over Q — all 4096 tensor-identity equations hold exactly (layout CA); rank 49 < 64 naive",
+   "enclosure": [
+    49,
+    49
+   ],
+   "width": 0,
+   "extra": {
+    "id": "alphatensor-q-4x4x4",
+    "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 4,4,4 of alphatensor_r.npz",
+    "dims": [
+     4,
+     4,
+     4
+    ],
+    "rank": 49,
+    "naive": 64,
+    "ring": "Q",
+    "layout": "CA",
+    "equations": 4096,
+    "transcription": "npz member \"4,4,4.npy\" of alphatensor_r.npz (sha256 4d59571a2537a947…), factors (3, 16, 49) converted by tools/convert_alphatensor.py",
+    "sourcePin": {
+     "file": "alphatensor_r.npz",
+     "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33"
+    }
+   },
+   "closedForm": {
+    "tested": 690,
+    "refuted": 688,
+    "candidates": 2
+   }
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-3x4x5",
+   "text": "alphatensor-q-3x4x5: 3x4 times 4x5 in 47 multiplications VERIFIED over Q — all 3600 tensor-identity equations hold exactly (layout CA); rank 47 < 60 naive",
+   "enclosure": [
+    47,
+    47
+   ],
+   "width": 0,
+   "extra": {
+    "id": "alphatensor-q-3x4x5",
+    "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 3,4,5 of alphatensor_r.npz",
+    "dims": [
+     3,
+     4,
+     5
+    ],
+    "rank": 47,
+    "naive": 60,
+    "ring": "Q",
+    "layout": "CA",
+    "equations": 3600,
+    "transcription": "npz member \"3,4,5.npy\" of alphatensor_r.npz (sha256 4d59571a2537a947…), factors (3, 12, 47) converted by tools/convert_alphatensor.py",
+    "sourcePin": {
+     "file": "alphatensor_r.npz",
+     "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33"
+    }
+   },
+   "closedForm": {
+    "tested": 690,
+    "refuted": 688,
+    "candidates": 2
+   }
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-f2-4x4x4",
+   "text": "alphatensor-f2-4x4x4: 4x4 times 4x4 in 47 multiplications VERIFIED over F2 — all 4096 tensor-identity equations hold exactly (layout CA); rank 47 < 64 naive; REFUTED over Q — the algorithm genuinely requires characteristic 2",
+   "enclosure": [
+    47,
+    47
+   ],
+   "width": 0,
+   "extra": {
+    "id": "alphatensor-f2-4x4x4",
+    "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 4,4,4 of alphatensor_f2.npz",
+    "dims": [
+     4,
+     4,
+     4
+    ],
+    "rank": 47,
+    "naive": 64,
+    "ring": "F2",
+    "layout": "CA",
+    "equations": 4096,
+    "overQ": "REFUTED over Q — the algorithm genuinely requires characteristic 2",
+    "transcription": "npz member \"4,4,4.npy\" of alphatensor_f2.npz (sha256 70f09f349d8d2874…), factors (3, 16, 47) converted by tools/convert_alphatensor.py",
+    "sourcePin": {
+     "file": "alphatensor_f2.npz",
+     "sha256": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da"
+    }
+   },
+   "closedForm": {
+    "tested": 690,
+    "refuted": 688,
+    "candidates": 2
+   }
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-3x3x3",
+   "text": "alphatensor-q-3x3x3: 3x3 times 3x3 in 23 multiplications VERIFIED over Q — all 729 tensor-identity equations hold exactly (layout CA); rank 23 < 27 naive",
+   "enclosure": [
+    23,
+    23
+   ],
+   "width": 0,
+   "extra": {
+    "id": "alphatensor-q-3x3x3",
+    "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 3,3,3 of alphatensor_r.npz",
+    "dims": [
+     3,
+     3,
+     3
+    ],
+    "rank": 23,
+    "naive": 27,
+    "ring": "Q",
+    "layout": "CA",
+    "equations": 729,
+    "transcription": "npz member \"3,3,3.npy\" of alphatensor_r.npz (sha256 4d59571a2537a947…), factors (3, 9, 23) converted by tools/convert_alphatensor.py",
+    "sourcePin": {
+     "file": "alphatensor_r.npz",
+     "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33"
+    }
+   },
+   "closedForm": {
+    "tested": 690,
+    "refuted": 688,
+    "candidates": 2
+   }
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|strassen-1969",
+   "text": "strassen-1969: 2x2 times 2x2 in 7 multiplications VERIFIED over Q — all 64 tensor-identity equations hold exactly (layout AC); rank 7 < 8 naive",
+   "enclosure": [
+    7,
+    7
+   ],
+   "width": 0,
+   "extra": {
+    "id": "strassen-1969",
+    "source": "Strassen, Numer. Math. 13 (1969) — the textbook transcription; the audit is the check",
+    "dims": [
+     2,
+     2,
+     2
+    ],
+    "rank": 7,
+    "naive": 8,
+    "ring": "Q",
+    "layout": "AC",
+    "equations": 64,
+    "note": "calibration: the oldest fast algorithm, rank 7 < 8"
+   },
+   "closedForm": {
+    "tested": 690,
+    "refuted": 688,
+    "candidates": 2
+   }
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-2x2x2",
+   "text": "alphatensor-q-2x2x2: 2x2 times 2x2 in 7 multiplications VERIFIED over Q — all 64 tensor-identity equations hold exactly (layout CA); rank 7 < 8 naive",
+   "enclosure": [
+    7,
+    7
+   ],
+   "width": 0,
+   "extra": {
+    "id": "alphatensor-q-2x2x2",
+    "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 2,2,2 of alphatensor_r.npz",
+    "dims": [
+     2,
+     2,
+     2
+    ],
+    "rank": 7,
+    "naive": 8,
+    "ring": "Q",
+    "layout": "CA",
+    "equations": 64,
+    "transcription": "npz member \"2,2,2.npy\" of alphatensor_r.npz (sha256 4d59571a2537a947…), factors (3, 4, 7) converted by tools/convert_alphatensor.py",
+    "sourcePin": {
+     "file": "alphatensor_r.npz",
+     "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33"
+    }
+   },
+   "closedForm": {
+    "tested": 690,
+    "refuted": 688,
+    "candidates": 2
+   }
   }
  ],
  "relations": [
@@ -11392,17 +11709,233 @@
    "value": 0.7853981633974483,
    "verdict": "CANDIDATE",
    "slack": 7.771561172376096e-16
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-f2-5x5x5",
+   "enclosure": [
+    96,
+    96
+   ],
+   "label": "96/1",
+   "value": 96,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-f2-5x5x5",
+   "enclosure": [
+    96,
+    96
+   ],
+   "label": "sqrt(9216/1)",
+   "value": 96,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-4x5x5",
+   "enclosure": [
+    76,
+    76
+   ],
+   "label": "76/1",
+   "value": 76,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-4x5x5",
+   "enclosure": [
+    76,
+    76
+   ],
+   "label": "sqrt(5776/1)",
+   "value": 76,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|strassen-squared-4x4x4",
+   "enclosure": [
+    49,
+    49
+   ],
+   "label": "49/1",
+   "value": 49,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|strassen-squared-4x4x4",
+   "enclosure": [
+    49,
+    49
+   ],
+   "label": "sqrt(2401/1)",
+   "value": 49,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-4x4x4",
+   "enclosure": [
+    49,
+    49
+   ],
+   "label": "49/1",
+   "value": 49,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-4x4x4",
+   "enclosure": [
+    49,
+    49
+   ],
+   "label": "sqrt(2401/1)",
+   "value": 49,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-3x4x5",
+   "enclosure": [
+    47,
+    47
+   ],
+   "label": "47/1",
+   "value": 47,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-3x4x5",
+   "enclosure": [
+    47,
+    47
+   ],
+   "label": "sqrt(2209/1)",
+   "value": 47,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-f2-4x4x4",
+   "enclosure": [
+    47,
+    47
+   ],
+   "label": "47/1",
+   "value": 47,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-f2-4x4x4",
+   "enclosure": [
+    47,
+    47
+   ],
+   "label": "sqrt(2209/1)",
+   "value": 47,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-3x3x3",
+   "enclosure": [
+    23,
+    23
+   ],
+   "label": "23/1",
+   "value": 23,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-3x3x3",
+   "enclosure": [
+    23,
+    23
+   ],
+   "label": "sqrt(529/1)",
+   "value": 23,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|strassen-1969",
+   "enclosure": [
+    7,
+    7
+   ],
+   "label": "7/1",
+   "value": 7,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|strassen-1969",
+   "enclosure": [
+    7,
+    7
+   ],
+   "label": "sqrt(49/1)",
+   "value": 7,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-2x2x2",
+   "enclosure": [
+    7,
+    7
+   ],
+   "label": "7/1",
+   "value": 7,
+   "verdict": "CANDIDATE",
+   "slack": 0
+  },
+  {
+   "family": "strassen-audit",
+   "key": "mm|alphatensor-q-2x2x2",
+   "enclosure": [
+    7,
+    7
+   ],
+   "label": "sqrt(49/1)",
+   "value": 7,
+   "verdict": "CANDIDATE",
+   "slack": 0
   }
  ],
  "totals": {
-  "generated": 819095,
-  "certified": 16886,
-  "conjectures": 80,
-  "closedFormTested": 54625624,
-  "closedFormRefuted": 54624725,
+  "generated": 819105,
+  "certified": 16896,
+  "conjectures": 89,
+  "closedFormTested": 54631834,
+  "closedFormRefuted": 54630917,
   "closedFormRefutedExact": 21,
   "closedFormOnRecord": 877,
   "closedFormOpen": 0,
-  "closedFormCandidates": 1
+  "closedFormCandidates": 19
  }
 }

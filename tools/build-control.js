@@ -38,11 +38,14 @@ const BATTERIES = [
   ['keller audit + sweep', ['instruments/keller/battery.js'], 'symbolic det over Q, generator calibrated on Alpöge · 4 red controls'],
   ['cf audit', ['instruments/cf/battery.js'], 'positive + minus CF enclosures vs the Ramanujan Machine · 7 red controls'],
   ['entropy covering', ['instruments/entropy/battery.js'], 'certified h_top lower bounds; ln 2 calibration at the full horseshoe · 4 red controls'],
+  ['strassen audit', ['instruments/strassen/battery.js'], 'fast-matmul tensor identities over Q and F2; Strassen 1969 calibrates · 3 red controls'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [
   ['keller · standalone re-verifier', ['tools/verify_keller.py', 'certs/keller-certificate.json', '--sources', 'corpus/sources'],
     'the detached certificate re-audited from scratch — stdlib fractions, no code from this repo; red control must fire'],
+  ['strassen · standalone re-verifier', ['tools/verify_strassen.py', 'certs/strassen-certificate.json', '--sources', 'corpus/sources'],
+    'every matmul identity re-derived in stdlib Python ints; pins re-hashed; red control must fire'],
   ['sos · global bound', ['instruments/sos/sos_verify.py'], 'stdlib fractions only'],
   ['sos · lyapunov', ['instruments/sos/lyapunov_cert.py'], 'stdlib fractions only'],
   ['sos · re-verify AI result', ['instruments/sos/reverify_ai_lyapunov.py'], 'stdlib fractions only'],

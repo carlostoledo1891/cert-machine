@@ -16,8 +16,8 @@ make drift     re-hash the lift against the source lab
 ## State, measured at handoff
 
 ```
-819,095  objects generated across 9 families
- 16,886  certified exactly
+819,105  objects generated across 10 families
+ 16,896  certified exactly
 54.6M    closed forms: 54,625,624 tested = 54,624,725 refuted (double)
          + 21 refuted (exact BigInt) + 877 form-on-record + 0 open + 1 surviving
          — the decomposition closes, and the engine REFUSES a ledger where it does not
@@ -33,9 +33,16 @@ make drift     re-hash the lift against the source lab
      10  Ramanujan Machine conjectures SURVIVE an UNCONDITIONAL audit — the e sheet, the pi
          sheet, and the COMPLETE zeta(3) sheet, including BOTH rows the Machine marks
          "new and unproven" (enclosure widths 2.2e-16 and 8.9e-16)
+      9  fast matrix-multiplication algorithms VERIFIED as exact tensor identities
+         (strassen-audit): Strassen 1969 calibrates; Strassen⊗Strassen rank-49 generated
+         and re-decided; AlphaTensor's rank-47 4x4 VERIFIED over F2 and REFUTED over Q —
+         the speedup provably needs characteristic 2; naive rank-8 honestly REJECTED
+ 0.3017  certified lower bound on h_top(Henon, 1.4, 0.3) — 340 disjoint h-sets, 4,140
+         covering relations (durations 1..6, composed to the uniform F^11 as BINARY
+         relations), exact spectral bound; census ceiling ln(1696)/16 = 0.4648
 ```
 
-Batteries 16/16 on the page (17 rows in `make test`). Engine gate 31/31.
+Batteries 18/18 on the page (19 rows in `make test`). Engine gate 31/31.
 Census battery 26/26 (two maps, 5 red controls), keller battery 32/32
 (incl. pin drift + forged-pin reds), cf battery 17/17 (7 red controls;
 Apéry's proved identity is the calibration), entropy battery 11/11 (ln 2
@@ -83,6 +90,7 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | `ramanujan-audit` | the Ramanujan Machine's conjectures, decided | 10/10 SURVIVE unconditionally: 5 positive-CF (e, pi sheets) + the COMPLETE zeta(3) sheet — 4 minus-CFs decided by the tail-band evaluator incl. BOTH "new and unproven" rows, plus the sheet's positive row the first transcription missed |
 | `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); one-off records through p=16 (1696 points, 1.42G boxes, recheck-clean) |
 | `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
+| `strassen-audit` | fast matmul algorithms decided as exact tensor identities | 9 HIT / 1 REJECT: Strassen-7 (calibration), Strassen⊗Strassen 49 (generated), AlphaTensor r/f2 selections from the pinned npz — incl. rank-47 4x4 over F2 with its over-Q REFUTATION recorded; naive rank-8 certified correct, certified NOT fast |
 
 The census (`instruments/census/henon-census.js`) is the completeness record
 the field survey said nobody publishes for non-SAT numerics: a certified a
@@ -231,7 +239,18 @@ p=4 — caught by the shift classification, not by reading code).
    Diophantine family where certify is an exact rational witness) doubles as
    the stress test of whether the interface generalises or has quietly shaped
    itself around the first five.
-7. **A fast-matmul audit family (`strassen-audit`).** Fast matrix
+7. **A fast-matmul audit family (`strassen-audit`) — SHIPPED.** The family,
+   instrument (instruments/strassen/tensor.js: exact tensor-identity audit
+   over Q and F2, layout detected never assumed, exact-double fast path
+   cross-checked against BigInt), battery (23/23: Strassen-7 calibration,
+   composition reproduces rank-49, three reds), pinned AlphaTensor npz
+   sources + stdlib converter with a shimmed unpickler, detached
+   certificate (certs/strassen-certificate.json) and stdlib verifier
+   (tools/verify_strassen.py, 0.2 s, prints its own sha256). Flagship
+   decided both ways: rank-47 4x4 VERIFIED over F2, REFUTED over Q.
+   REMAINING: AlphaEvolve's 48 (fetch + pin its factor list when a
+   canonical byte source is located), more npz keys, and the LLM campaign
+   (item 6) now has its natural corpus. Original note: Fast matrix
    multiplication algorithms ARE certify-shaped objects: "4x4 in 48
    multiplications" (AlphaEvolve 2025) is a rank-48 decomposition of the
    <4,4,4> tensor — finitely many exact coefficients whose triple-product
@@ -285,23 +304,29 @@ nobody has written down. Ranked by readiness x novelty:
    screen ever used to announce a discovery".
 2. **Certified entropy — INSTRUMENT BUILT, BOUND CERTIFIED, REPORT SHIPPED
    (instruments/entropy/ + certs/entropy-henon.json + reports/entropy.html).**
-   h_top(Hénon, 1.4, 0.3) >= 0.356403, a theorem: 228 pairwise-disjoint
-   h-set parallelograms, 916 covering relations for the single iterate F^4
+   h_top(Hénon, 1.4, 0.3) >= 0.301680, a theorem: 340 pairwise-disjoint
+   h-set parallelograms, 4,140 covering relations at durations k = 1..6
    (strict interval inequalities, adaptive bisection, outward rounding),
-   exact BigInt spectral bound ln sp(T)/4; one consumed external theorem
+   COMPOSED to the uniform iterate F^11 as BINARY relations and bounded by
+   an exact integer spectral argument; one consumed external theorem
    (Zgliczynski–Gidea covering relations -> subshift semi-conjugacy), used
-   the way Krawczyk's is. Calibrated where the answer is known: in the
-   Devaney–Nitecki regime (a=6) the instrument certifies the FULL 2-shift,
-   h >= ln 2 exactly. Four red controls; the battery re-proves the entire
-   detached certificate every run (11/11). The census ceiling is
-   ln(N_16)/16 = 0.4648 (literature h ~ 0.4651) — today's bound is 76% of
-   it. The gap is graph structure, not rigor: uniform box sizes and one
-   global iterate. NEXT: per-edge durations with Bowen-weighted spectral
-   bounds, boxes sized to local expansion. A bug worth remembering was
-   found by running: the first covering condition demanded the whole image
-   inside the target's s-strip — a long horseshoe leg legitimately
-   overshoots in u, and the correct condition only forbids touching the
-   s-lids; symptom was edges certifying but never a cycle.
+   the way Krawczyk's is. Calibrated where the answer is known: at a=6 the
+   instrument certifies the FULL 2-shift, h >= ln 2 exactly. The battery
+   (12/12) re-proves the whole detached certificate every run. THE TWO
+   SOUNDNESS BUGS, both caught by impossible numbers, both now gated:
+   (1) counting mixed-duration paths as distinct itineraries gave
+   h >= 0.61 > true 0.465 — a duration-2 relation constrains nothing at
+   its intermediate time, so paths with different visit-time sets can
+   realize the SAME orbit; fix: binary uniform composition, plus a
+   semantic red control (the exact-ln2 horseshoe must stay at ln 2 under
+   mixed durations). (2) A lids-only image condition certified a
+   golden-mean 2-box graph under F converging to ln phi = 0.4812 > 0.465 —
+   an image part hovering in the slab above the target interior lets a
+   finger poke in and retract; fix: forbid the full slabs {|u|<=1,
+   |s|>=1}. An interim commit recorded 0.356403 under the lids-only
+   condition; that number was TAINTED and is superseded — the sound bound
+   is 0.301680, 65% of the census ceiling 0.4648. NEXT for the gap: boxes
+   sized to local expansion, more durations, denser cores.
 3. **The zeta(3) audit report — SHIPPED (reports/zeta3-audit.html).**
    Verdicts re-certified, the source re-hashed, the Apery certificate
    checks printed verbatim, and the spurious-solution lemma re-proved as an
@@ -317,6 +342,81 @@ nobody has written down. Ranked by readiness x novelty:
    form, the bisection-line zero, the fat-record stall, undamped-Newton
    blindness, unreduced-fraction inflation, the missed sheet row caught by
    byte pins. An experience report where every claim is `make test`.
+
+## The sin-mfg vein (mined 2026-08-25 — read-only dig; ideas, not process)
+
+Four parallel agents read the whole lab. The gold, ranked by fit to this
+engine (full specs live at the quoted sin-mfg paths; that tree is
+READ-ONLY, lift numbers by transcription + pin, never by edit):
+
+1. **erdos852-constants — never opened by anyone.** Two GPT-produced,
+   uncertified constants hold up Erdős #852's conjectured asymptotic:
+   c0 = 1.32322827686… (root of I0(c)=1, dilog integrand) and
+   C* = 0.0752403861… (Euler product; needs a certified tail bound). Clean
+   enclosure targets for our exact-bracket pattern; days of work; the
+   certification side is empty. (sin-mfg research/probes/PROBES.md queue;
+   SCOUT_2026-08-18_ERDOS.md.)
+2. **The Mercer/Newman mu-lambda continuation.** sin-mfg holds certified
+   mu(6..9) — mu(9) floor 1.3781877 STRICTLY BEATS Boyd's published
+   witness 1.3623731 (certified floor above certified ceiling) — and a
+   lambda(4..12) table with NO published rows past n=6. Never run: mu(10..16);
+   n=17 (first term-count with no printed mu>1 anywhere); exact
+   M(0,1,2,6,9)=1; Mercer §6 at m=7,8 (each improves mu(5) <= 1+pi/m, a
+   40-year lineage); Mercer §5's unexecuted lambda(4) proof strategy. Our
+   trigmin/newman instruments are the same shape — they were lifted FROM
+   there. Report-grade material already in hand. Blocking novelty check:
+   Boyd 1986 (LMS LNS 109) is unread — archive.org diophantineanaly0000aust.
+   (research/probes/mercer-program/.)
+3. **Erdős #290 continuation.** The 4k(k+1) square-discriminant law is
+   proved + blind-confirmed at k=6 (disc(f_168), 45,336 digits, perfect
+   square by CRT). Honest boundary: the GROUP at d=168 undetermined; sweep
+   past l=60 shrinks the c-enclosure by exactly 1/(2l(2l+1)) per degree.
+   OEIS submission for 1/(1+c) = 0.546229310400104587… posted 2026-08-04,
+   unanswered. (research/challenges/erdos290/.)
+4. **Erdős #979 decade 15 — the background treadmill.** Two independent
+   exhaustive engines, checkpoints at done:true nextLo=1e14; ~55 h
+   detachable compute, zero build cost, P(a(6) hit) ~0.10-0.15. Perfect
+   detach-runner fodder under ANY front. (research/probes/erdos979-a385316/.)
+5. **AI-claims audit targets with full specs, never built:**
+   kuperberg-six-unit-cylinders (2,954,984 exact rational cases,
+   deterministic verifier, peer review pending); levit-mandrescu
+   nonunimodal independence polynomial (degree-2037 BigInt, exact valley
+   a1094 > a1095 < a1096, whiskering identities listed); erdos-684 (re-check
+   a refuted Lemma 18 in exact binomial arithmetic). Each is one family
+   file here. (research/challenges/SCOUT_2026-08-04_CLAIM6.md.)
+6. **The Apéry/Sturm irrationality-race decider — spec'd, never built.**
+   Input: an Apéry-like recurrence (integer char poly + denominator-growth
+   exponent); decide the irrationality inequality by certified real-root
+   isolation. Green control: zeta(3)/Apéry must PROVE. Red control:
+   zeta(5)/Zudilin (mu^3+2368mu^2-752mu-16) must REFUSE — zeta(5) is open,
+   so an instrument that proves it is broken. Natural sequel to our
+   ramanujan-audit; the two bibliographic requisites (the inequality
+   stated correctly; the exponent per recurrence) must be read out of the
+   literature, not remembered. (research/challenges/apery-obstruction.html.)
+7. **Chowla structured arm + a conjecture-mining observation.** Their
+   certified flat ratios mu_lo(n)/sqrt(n) in [0.4165, 0.4635] across
+   n=5..19 from two unrelated regimes point at alpha = 1/2 on Boyd's named
+   open conjecture (no alpha is conjectured anywhere in print). Caveat
+   recorded: box maxima are lower bounds; flatness could be search-effort.
+   Also: Shvets arXiv:2604.06239 PROVES the Machine's Z2 = 12/(7 zeta(3))
+   — our rm-z3-new2 row's identity — cite it in the zeta3 report's next
+   revision. And their scout found NO record of any RM conjecture ever
+   refuted; a status registry is an unoccupied niche.
+8. **Blocked but named:** Erdős #513 upper bound (ANY rigorous c > 0 in
+   B <= 2/pi − c is the first movement since 1964) — blocked on the
+   paywalled Clunie–Hayman 1964; do not start without the paper.
+
+Instrument-design lessons paid for there, worth adopting: stage-W exact
+kills at roots of unity (integer arithmetic killed 73-99% of boxes before
+any float); cascade economics (their certify was 1018x the kill stage —
+design kill tiers first); a conservation identity per shard AND globally;
+the inf/sup direction traps (a bar taken from the wrong endpoint silently
+killed a true champion); dilation/reversal orbits classified before
+tie-breaking (a string sort once nearly published a dilated copy as a
+discovery); publish brackets, never values, for anything known only
+between two evaluated points; round lower bounds DOWN; and wire every
+outside cross-check into CI or it rots (their eqcert-crossval emitted 671
+claims that were never validated — the check existed and was never run).
 
 ## The rule for changing front
 

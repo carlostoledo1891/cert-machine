@@ -27,7 +27,7 @@ const die = (m) => { console.error('ENTROPY REPORT REFUSED: ' + m); process.exit
 /* ---- re-verify the certificate, in full ----------------------------------- */
 const cert = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'entropy-henon.json'), 'utf8'));
 const map = E.henonSpec(cert.a, cert.b);
-const g = E.certifyGraph(map, cert.boxes, cert.edges, { cells: 8000, maxM: 64, steps: cert.steps });
+const g = E.certifyGraphMixed(map, cert.boxes, cert.edges, { cells: 8000, Kmax: 40 });
 if (!g.ok || g.certified.length !== cert.edges.length || g.hLB < cert.hLB - 1e-12)
   die('the detached certificate did not re-verify: ' + (g.ok ? g.certified.length + '/' + cert.edges.length + ' edges, h ' + g.hLB : g.why));
 
@@ -59,7 +59,7 @@ B.push(C.header({
 }));
 
 B.push(C.stats([
-  { k: 'certified lower bound', v: cert.hLB.toFixed(4), role: 'held', n: 'h_top ≥ ln sp(T)/' + cert.steps + ' from ' + cert.edges.length + ' covering relations over ' + cert.boxes.length + ' disjoint h-sets, re-proved this build.' },
+  { k: 'certified lower bound', v: cert.hLB.toFixed(4), role: 'held', n: 'h_top ≥ ln sp(B_K)/' + cert.composedTo + ' from ' + cert.edges.length + ' covering relations over ' + cert.boxes.length + ' disjoint h-sets, re-proved this build.' },
   { k: 'the census ceiling', v: ceiling.toFixed(4), n: 'max ln(N_p)/p over the certified counts — the rate the literature pins at ≈ 0.4651.' },
   { k: 'calibration', v: 'ln 2 exact', role: 'held', n: 'Deep in the Devaney–Nitecki regime (a = 6) the instrument certifies the full 2-shift.' },
   { k: 'red controls', v: '4', n: 'No-stretch, lid violation, wrong target, overlapping h-sets — each must refuse, every build.' }
@@ -76,16 +76,22 @@ B.push(C.scope('Local working document. The bound is a theorem modulo one consum
     bodyRaw: '<div class="col">'
       + C.pRaw('There are ' + C.m(String(cert.boxes.length)) + ' parallelograms (h-sets) in the plane, proved '
         + 'pairwise disjoint by separating axes with outward rounding. For ' + C.m(String(cert.edges.length))
-        + ' ordered pairs, the iterate ' + C.m('F^' + cert.steps) + ' provably STRETCHES the first parallelogram '
-        + 'across the second: the two exit edges land strictly beyond the target on opposite sides, and the '
-        + 'image never touches the target\'s side lids — finitely many strict interval inequalities, checked by '
-        + 'adaptive bisection. Covering relations along a graph semi-conjugate the invariant set onto the '
-        + 'subshift, so')
-      + C.eq(C.esc('h_top(F) = h_top(F^' + cert.steps + ')/' + cert.steps + ' ≥ ln sp(T)/' + cert.steps + ' ≥ ' + cert.hLB.toFixed(6)))
-      + C.pRaw('where the spectral bound is EXACT: sp(T) ≥ (min row sum of T^m)^(1/m) on the strongly connected '
-        + 'core, computed in BigInt at m = ' + cert.powerM + ' — an integer root, not a float eigenvalue. '
-        + 'The certifier can refuse an edge (and did, for most candidates); it cannot certify a false one. '
-        + 'Dropping edges only ever lowers the bound, which is the safe direction.')
+        + ' ordered pairs and durations k = 1..6, the iterate ' + C.m('F^k') + ' provably STRETCHES the first '
+        + 'parallelogram across the second: the two exit edges land strictly beyond the target on opposite '
+        + 'sides, and the image avoids the target\'s side SLABS — finitely many strict interval inequalities, '
+        + 'checked by adaptive bisection. Relations COMPOSE, so all durations reduce to one uniform iterate: '
+        + C.m('B_K[i][j] = 1') + ' iff some duration-exactly-K composition exists (binary — one relation per '
+        + 'pair, never a path count), and')
+      + C.eq(C.esc('h_top(F) = h_top(F^' + cert.composedTo + ')/' + cert.composedTo + ' ≥ ln sp(B_' + cert.composedTo + ')/' + cert.composedTo + ' ≥ ' + cert.hLB.toFixed(6)))
+      + C.pRaw('with the spectral bound exact (min positive row sum of powers, integer arithmetic, '
+        + 'overflow-guarded, iteratively trimmed). The certifier can refuse an edge — and did, for most '
+        + 'candidates; it cannot certify a false one. Dropping edges only ever lowers the bound, which is the '
+        + 'safe direction. TWO soundness bugs were found by impossible numbers, and each now has a red '
+        + 'control: counting mixed-duration paths as distinct itineraries once yielded h ≥ 0.61 on a map whose '
+        + 'true entropy is ≈ 0.465 (a duration-2 relation constrains nothing at its intermediate time), and a '
+        + 'lids-only image condition once certified a golden-mean graph converging to ln φ = 0.4812 — also '
+        + 'past the truth. The battery now demands the exact-ln 2 horseshoe stays at ln 2 under mixed '
+        + 'durations, and the slab condition replaced the lid condition.')
       + C.pRaw('The float layer that PROPOSED the boxes — a long orbit, binned; tangents by local PCA; stable '
         + 'directions by backward-Jacobian iteration — is believed about nothing: every box and every edge is '
         + 're-derived from the interval conditions alone, and the battery re-proves the whole certificate '
@@ -142,4 +148,4 @@ fs.writeFileSync(path.join(ROOT, 'reports', 'entropy.html'),
 
 console.log('reports/entropy.html written');
 console.log('  h_top(' + cert.a + ', ' + cert.b + ') >= ' + cert.hLB.toFixed(6) + ' re-proved ('
-  + cert.edges.length + ' edges, ' + cert.boxes.length + ' h-sets, F^' + cert.steps + ') · ceiling ' + ceiling.toFixed(4));
+  + cert.edges.length + ' edges, ' + cert.boxes.length + ' h-sets, composed to F^' + cert.composedTo + ') · ceiling ' + ceiling.toFixed(4));
