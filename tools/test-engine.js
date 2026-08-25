@@ -64,8 +64,13 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
    truth is worse than no engine. Zero false refutations is the bar. */
 {
   const OE = require(path.join(ROOT, 'families/oeis-closedform.js'));
-  const truth = [['A000796','pi'],['A001113','e'],['A002193','sqrt2'],['A001622','phi'],
-                 ['A002162','ln2'],['A002194','sqrt3'],['A003881','pi'],['A019692','pi']];
+  /* expected form as a REGEX, not a substring: the vocabulary can spell the same
+     number more than one way (sqrt2 and sqrt(2/1) are the same form), and a
+     substring test went stale the moment the vocabulary widened — reporting a
+     false refutation that was really a stale expectation. */
+  const truth = [['A000796',/pi/],['A001113',/(^|[^a-z])e[\^)]/],['A002193',/sqrt\(2\/1\)|sqrt2/],
+                 ['A001622',/phi|sqrt5/],['A002162',/ln2/],['A002194',/sqrt\(3\/1\)|sqrt3/],
+                 ['A003881',/pi/],['A019692',/pi/]];
   const byId = {};
   for (let i = 0; ; i++) { const e = OE.enumerate(i); if (!e) break;
     if (!OE.interesting(e)) continue; const c = OE.certify(e);
@@ -74,7 +79,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
   for (const [id, form] of truth) {
     if (!byId[id]) continue;
     checked++;
-    if (!byId[id].some(l => l.includes(form))) falseRefutations++;
+    if (!byId[id].some(l => form.test(l))) falseRefutations++;
   }
   ok(checked >= 6, 'calibration reached ' + checked + ' ground-truth constants in the corpus');
   ok(falseRefutations === 0, 'ZERO false refutations: every constant whose closed form we know keeps it (' + falseRefutations + ' failures)');

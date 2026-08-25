@@ -1,0 +1,485 @@
+[
+ {
+  "id": "A001113",
+  "name": "Decimal expansion of e.",
+  "offset": 1,
+  "survivors": [
+   "(1/1)e",
+   "e^(1/1)",
+   "(2/2)e",
+   "e^(2/2)",
+   "(3/3)e",
+   "e^(3/3)"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "e = Sum_{k >= 0} 1/k! = lim_{x -> 0} (1+x)^(1/x). | e is the unique positive root of the equation Integral_{u = 1..x} du/u = 1. | exp(1) = ((16/31)*(1 + Sum_{n>"
+ },
+ {
+  "id": "A019762",
+  "name": "Decimal expansion of 2*e.",
+  "offset": 1,
+  "survivors": [
+   "(2/1)e",
+   "(4/2)e",
+   "(6/3)e",
+   "(8/4)e",
+   "(1/5)e"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals Sum_{n>=1} n^2/n!. - _Arkadiusz Wesolowski_, Mar 11 2013 | From _Richard R. Forberg_, Dec 23 2014: (Start) | Equals lim_{x->1} (x*e^x - e)/(x-1). | Equal"
+ },
+ {
+  "id": "A019973",
+  "name": "Decimal expansion of tangent of 75 degrees.",
+  "offset": 1,
+  "survivors": [
+   "(2+1sqrt3)/1",
+   "(4+2sqrt3)/2",
+   "(6+3sqrt3)/3"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 2 + sqrt(3) = 2+A002194 = cotangent of 15 degrees. - _Rick L. Shepherd_, Jul 04 2004 | Equals exp(arccosh(2)). - _Amiram Eldar_, Aug 07 2023 | c^n = A001"
+ },
+ {
+  "id": "A104954",
+  "name": "Decimal expansion of the area of the regular triangle with circumradius 1.",
+  "offset": 1,
+  "survivors": [
+   "sqrt(27/16)",
+   "(0+3sqrt3)/4",
+   "(3/4)sqrt3",
+   "(6/8)sqrt3"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 3*sqrt(3)/4. | Equals (1/2)*A104956. | Equals 2F1(1/6,1/3 ; 1/2 ; 25/27). [Zucker] - _R. J. Mathar_, Jun 24 2024"
+ },
+ {
+  "id": "A104956",
+  "name": "Decimal expansion of the area of the regular hexagon with circumradius 1.",
+  "offset": 1,
+  "survivors": [
+   "sqrt(27/4)",
+   "(0+3sqrt3)/2",
+   "(0+6sqrt3)/4",
+   "(3/2)sqrt3",
+   "(6/4)sqrt3"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals (3*sqrt(3))/2, that is, 2*A104954. | Equals Product_{k>=3} (((k - 1)^2*(k + 2))/((k + 1)^2*(k - 2)))^(k/2). - _Antonio Graciá Llorente_, Oct 13 2024 | Eq"
+ },
+ {
+  "id": "A155739",
+  "name": "Decimal expansion of the Euler-Mascheroni constant divided by 2.",
+  "offset": 0,
+  "survivors": [
+   "(5/1)euler",
+   "(1/2)euler",
+   "(2/4)euler",
+   "(3/6)euler",
+   "(4/8)euler"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals A001620/2 = (1 + A147533)/4. | Equals Sum_{k,m>=1} k*(zeta(k+m)-1)/(k+m)^2 (Furdui, 2011). - _Amiram Eldar_, Jun 09 2022 | Equals Integral_{x>=0} (cos(x^"
+ },
+ {
+  "id": "A155969",
+  "name": "Decimal expansion of the square of the Euler-Mascheroni constant.",
+  "offset": 0,
+  "survivors": [
+   "euler^(2/1)",
+   "euler^(4/2)",
+   "euler^(6/3)",
+   "euler^(8/4)"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals A001620^2."
+ },
+ {
+  "id": "A178809",
+  "name": "Decimal expansion of the area of the regular 12-gon (dodecagon) of edge length 1.",
+  "offset": 2,
+  "survivors": [
+   "(6+3sqrt3)/1"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 6+3*sqrt(3). | Equals 1 + A176532 = 6 + A010482. - _R. J. Mathar_, Jun 25 2010 | Minimal polynomial: x^2 - 12*x + 9. - _Amiram Eldar_, May 15 2026"
+ },
+ {
+  "id": "A179587",
+  "name": "Decimal expansion of the volume of square cupola with edge length 1.",
+  "offset": 1,
+  "survivors": [
+   "(3+2sqrt2)/3",
+   "(6+4sqrt2)/6"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals (3 + 2*sqrt(2))/3. | Equals 1 + 2*A131594. - _L. Edson Jeffery_, Nov 12 2014 | Minimal polynomial: 9*x^2 - 18*x + 1. - _Amiram Eldar_, May 12 2026"
+ },
+ {
+  "id": "A179590",
+  "name": "Decimal expansion of the volume of pentagonal cupola with edge length 1.",
+  "offset": 1,
+  "survivors": [
+   "(5+4sqrt5)/6"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals (5+4*sqrt(5))/6. | Minimal polynomial: 36*x^2 - 60*x - 55. - _Amiram Eldar_, May 12 2026"
+ },
+ {
+  "id": "A180317",
+  "name": "Decimal expansion of the torsional rigidity constant for an equilateral triangular shaft.",
+  "offset": 0,
+  "survivors": [
+   "(0+5sqrt3)/4",
+   "(5/4)sqrt3",
+   "(1/8)sqrt3"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals sqrt(3)/80."
+ },
+ {
+  "id": "A196533",
+  "name": "Decimal expansion of 15*e.",
+  "offset": 2,
+  "survivors": [
+   "(3/2)e",
+   "(6/4)e"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals sum(j>=1, j^3/(j-1)! ). | Equals 10 * sum(n>=1, A000217(n)/n! ). - _Richard R. Forberg_, Jul 14 2013"
+ },
+ {
+  "id": "A201488",
+  "name": "Decimal expansion of maximal success probability of the CHSH game.",
+  "offset": 0,
+  "survivors": [
+   "(2+1sqrt2)/4"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals cos^2(Pi/8) = (1 + 1/sqrt(2))/2. | Equals (theta_3(0, q^2)/theta_3(0, q))^2 where q = 1/e^Pi. - _Michael Somos_, Dec 02 2022 | Conjecture: Equals Sum_{k>"
+ },
+ {
+  "id": "A239798",
+  "name": "Decimal expansion of the midsphere radius in a regular dodecahedron with unit edges.",
+  "offset": 1,
+  "survivors": [
+   "(3+1sqrt5)/4"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals phi^2/2, phi being the golden ratio (A001622). | Equals (3+sqrt(5))/4. | Equals lim_{n->oo} A000045(n)/A066983(n). - _Dimitri Papadopoulos_, Nov 23 2023 "
+ },
+ {
+  "id": "A245198",
+  "name": "Decimal expansion of the Landau-Kolmogorov constant C(3,1) for derivatives in the case L_infinity(-infinity, infinity).",
+  "offset": 1,
+  "survivors": [
+   "cbrt(9/8)",
+   "cbrt(18/16)"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "C(n,k) = a(n-k)*a(n)^(-1+k/n), where a(n) = (4/Pi)*sum_{j=0..infinity}((-1)^j/(2j+1))^(n+1) or a(n) = 4*Pi^n*f(n+1), f(n) being the n-th Favard constant A050970"
+ },
+ {
+  "id": "A257872",
+  "name": "Decimal expansion of the Madelung type constant C(4|1) (negated).",
+  "offset": 1,
+  "survivors": [
+   "(8/1)ln2",
+   "(4/5)ln2"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "-8*log(2). | 4*log(2)/5 = 8*log(2)/10 = Sum_{k>=1} F(k)^2/(k * 3^k), where F(k) is the k-th Fibonacci number (A000045). - _Amiram Eldar_, Aug 09 2020"
+ },
+ {
+  "id": "A271880",
+  "name": "Decimal expansion of the probability that a random real number is evil.",
+  "offset": 0,
+  "survivors": [
+   "2/1",
+   "20/1",
+   "4/2",
+   "6/3",
+   "8/4",
+   "1/5"
+  ],
+  "hasFormulaField": true,
+  "statesForm": false,
+  "formula": "Equals A100061(666)/A100062(666)."
+ },
+ {
+  "id": "A296184",
+  "name": "Decimal expansion of 2 + phi, with the golden section phi from A001622.",
+  "offset": 1,
+  "survivors": [
+   "(5+1sqrt5)/2",
+   "sqrt5*phi",
+   "phi*sqrt5"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 2 + A001622 = 1 + A104457 = 3 + A094214. | From _Christian Katzmann_, Mar 19 2018: (Start) | Equals Sum_{n>=0} (15*(2*n)!+40*n!^2)/(2*n!^2*3^(2*n+2)). | "
+ },
+ {
+  "id": "A319034",
+  "name": "Decimal expansion of the height that minimizes the total surface area of the four triangular faces of a square pyramid of unit volume.",
+  "offset": 1,
+  "survivors": [
+   "cbrt(3/2)",
+   "cbrt(6/4)",
+   "cbrt(9/6)",
+   "cbrt(12/8)",
+   "cbrt(15/10)",
+   "cbrt(18/12)"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals (3/2)^(1/3) = (1/2)*A010584. | Equals A002581/A002580. - _Michel Marcus_, Oct 23 2018"
+ },
+ {
+  "id": "A374948",
+  "name": "Decimal expansion of the Euclidean length of the minimum Steiner tree joining all the vertices of a unit cube.",
+  "offset": 1,
+  "survivors": [
+   "(1+3sqrt3)/1",
+   "(2+6sqrt3)/2"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 3*sqrt(3) + 1. | Equals A010482(n) for any n >= 2 and a(1) = A010482(1) + 1. | Minimal polynomial: x^2 - 2*x - 26. - _Amiram Eldar_, Jun 15 2026"
+ },
+ {
+  "id": "A375193",
+  "name": "Decimal expansion of the apothem (inradius) of a regular 12-gon with unit side length.",
+  "offset": 1,
+  "survivors": [
+   "(2+1sqrt3)/2",
+   "(4+2sqrt3)/4",
+   "(6+3sqrt3)/6"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals cot(Pi/12)/2 = (2 + sqrt(3))/2 = A019973/2. | Equals 1/(2*tan(Pi/12)) = 1/(2*A019913). | Equals A188887*cos(Pi/12) = A188887*A019884. | Equals A188887 - "
+ },
+ {
+  "id": "A377274",
+  "name": "Decimal expansion of the surface area of a truncated tetrahedron with unit edge length.",
+  "offset": 2,
+  "survivors": [
+   "(7/1)sqrt3"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 7*sqrt(3) = 7*A002194."
+ },
+ {
+  "id": "A377276",
+  "name": "Decimal expansion of the circumradius of a truncated tetrahedron with unit edge length.",
+  "offset": 1,
+  "survivors": [
+   "sqrt(11/8)",
+   "sqrt(22/16)"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals sqrt(22)/4 = A010478/4."
+ },
+ {
+  "id": "A377341",
+  "name": "Decimal expansion of the surface area of a truncated octahedron with unit edge length.",
+  "offset": 2,
+  "survivors": [
+   "(3+6sqrt3)/5"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 6 + 12*sqrt(3) = 6 + 12*A002194. | Minimal polynomial: x^2 - 12*x - 396. - _Amiram Eldar_, Jun 10 2026"
+ },
+ {
+  "id": "A377342",
+  "name": "Decimal expansion of the volume of a truncated octahedron with unit edge length.",
+  "offset": 2,
+  "survivors": [
+   "(0+4sqrt2)/5",
+   "sqrt2^(7/1)",
+   "(8/1)sqrt2",
+   "(4/5)sqrt2"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 8*sqrt(2) = 8*A002193 = 4*A010466 = 2*A010487. | Equals Integral_{t=0..2*Pi} sqrt((1 + abs(sin(t)))^2 + cos(t)^2) (see Spezia link). - _Stefano Spezia_, "
+ },
+ {
+  "id": "A377602",
+  "name": "Decimal expansion of the surface area of a snub cube (snub cuboctahedron) with unit edge length.",
+  "offset": 2,
+  "survivors": [
+   "(3+4sqrt3)/5"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 6 + 8*sqrt(3) =  6 + 8*A002194 = 6 + A200243. | Minimal polynomial: x^2 - 12*x - 156. - _Amiram Eldar_, May 18 2026"
+ },
+ {
+  "id": "A377697",
+  "name": "Decimal expansion of the midradius of a truncated dodecahedron with unit edge length.",
+  "offset": 1,
+  "survivors": [
+   "(5+3sqrt5)/4"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals (5 + 3*sqrt(5))/4 = (5 + A010499)/4. | Equals A205769 - 1/2. | Minimal polynomial: 4*x^2 - 10*x - 5. - _Amiram Eldar_, Jun 10 2026"
+ },
+ {
+  "id": "A378352",
+  "name": "Decimal expansion of the volume of a (small) triakis octahedron with unit shorter edge length.",
+  "offset": 1,
+  "survivors": [
+   "(3+2sqrt2)/2",
+   "(6+4sqrt2)/4"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals sqrt(2) + 3/2 = A002193  + 3/2. | Equals A156035/2. - _Hugo Pfoertner_, Nov 24 2024 | Minimal polynomial: 4*x^2 - 12*x + 1. - _Amiram Eldar_, Jun 09 2026"
+ },
+ {
+  "id": "A378393",
+  "name": "Decimal expansion of the midradius of a deltoidal icositetrahedron with unit shorter edge length.",
+  "offset": 1,
+  "survivors": [
+   "(2+3sqrt2)/4"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals (2 + 3*sqrt(2))/4 = (2 + A010474)/4. | Minimal polynomial: 8*x^2 - 8*x - 7. - _Amiram Eldar_, May 14 2026"
+ },
+ {
+  "id": "A378976",
+  "name": "Decimal expansion of the midradius of a triakis icosahedron with unit shorter edge length.",
+  "offset": 1,
+  "survivors": [
+   "(5+4sqrt5)/1"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 1/2 + 2/sqrt(5) = 1/2 + 2/A002163. | Equals (A249600 + 13)/10 = (A010532 + 5)/10. | Minimal polynomial: 20*x^2 - 20*x - 11. - _Amiram Eldar_, Jun 09 2026"
+ },
+ {
+  "id": "A384141",
+  "name": "Decimal expansion of the surface area of an elongated pentagonal bipyramid with unit edge.",
+  "offset": 1,
+  "survivors": [
+   "(2+1sqrt3)/4"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 5*(2 + sqrt(3))/2 = 5*(2 + A002194)/2. | Equals the largest root of 4*x^2 - 40*x + 25. | Equals 10*A019884^2. - _R. J. Mathar_, Sep 05 2025"
+ },
+ {
+  "id": "A384287",
+  "name": "Decimal expansion of the volume of a square orthobicupola with unit edge.",
+  "offset": 1,
+  "survivors": [
+   "(6+4sqrt2)/3"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 2 + (4/3)*sqrt(2) = 2 + (4/3)*A002193 = 2 + A010487/3. | Equals the largest root of 9*x^2 - 36*x + 4."
+ },
+ {
+  "id": "A384624",
+  "name": "Decimal expansion of the volume of a pentagonal orthobicupola with unit edge.",
+  "offset": 1,
+  "survivors": [
+   "(5+4sqrt5)/3"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals (5 + 4*sqrt(5))/3 = (5 + A010532)/3. | Equals the largest root of 9*x^2 - 30*x - 55."
+ },
+ {
+  "id": "A385257",
+  "name": "Decimal expansion of the surface area of a gyroelongated triangular bicupola with unit edge.",
+  "offset": 2,
+  "survivors": [
+   "(6+5sqrt3)/1"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 6 + 5*sqrt(3) = 6 + 5*A002194 = 6 + 10*A010527. | Equals the largest root of x^2 - 12*x - 39."
+ },
+ {
+  "id": "A385259",
+  "name": "Decimal expansion of the surface area of a gyroelongated square bicupola with unit edge.",
+  "offset": 2,
+  "survivors": [
+   "(5+3sqrt3)/5"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 10 + 6*sqrt(3) = 10 + 6*A002194. | Equals the largest root of x^2 - 20*x - 8."
+ },
+ {
+  "id": "A385857",
+  "name": "Decimal expansion of the volume of a metabidiminished icosahedron with unit edge.",
+  "offset": 1,
+  "survivors": [
+   "(5+2sqrt5)/6"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals (5 + 2*sqrt(5))/6 = (5 + A010476)/6. | Equals A102208 - 2*A179552. | Equals the largest root of 36*x^2 - 60*x + 5."
+ },
+ {
+  "id": "A391952",
+  "name": "Decimal expansion of the surface area of an Escher's solid with unit shorter edge length.",
+  "offset": 2,
+  "survivors": [
+   "(8/5)sqrt2"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals 16*sqrt(2) = 16*A002193 = sqrt(512)."
+ },
+ {
+  "id": "A394662",
+  "name": "Decimal expansion of the constant characterizing the complexity of the special number field sieve (SNFS) factoring algorithm.",
+  "offset": 1,
+  "survivors": [
+   "cbrt(32/9)"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals (32/9)^(1/3)."
+ },
+ {
+  "id": "A395728",
+  "name": "Decimal expansion of the ratio of the maximum area to the mean area of the orthogonal projection of a regular dodecahedron.",
+  "offset": 1,
+  "survivors": [
+   "(1+1sqrt5)/3",
+   "(2+2sqrt5)/6",
+   "(2/3)phi",
+   "(4/6)phi"
+  ],
+  "hasFormulaField": true,
+  "statesForm": true,
+  "formula": "Equals (sqrt(5) + 1)/3. | Equals (2/3) * phi, where phi is the golden ratio (A001622). | Equals 2 * A134943. | Equals 4 * A134946. | Equals A134945 / 3. | Equal"
+ }
+]

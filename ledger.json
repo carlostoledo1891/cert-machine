@@ -13,7 +13,7 @@
     "rejects": 5,
     "refused": 0
    },
-   "ms": 143970,
+   "ms": 141232,
    "truncated": true,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -30,27 +30,27 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 67735,
+   "ms": 60062,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
   },
   {
    "name": "oeis-closedform",
-   "statement": "a published constant whose OEIS name states no closed form, but for which a small closed form survives every published digit while all others are refuted",
+   "statement": "a published OEIS constant whose name states no closed form, but whose digits are consistent with a small closed form while every other form in the vocabulary is refuted",
    "counts": {
-    "generated": 187,
-    "screened": 178,
+    "generated": 14677,
+    "screened": 14593,
     "duplicates": 0,
-    "certified": 178,
-    "hits": 0,
-    "rejects": 178,
+    "certified": 14593,
+    "hits": 38,
+    "rejects": 14555,
     "refused": 0
    },
-   "ms": 18,
+   "ms": 5846,
    "truncated": false,
-   "corpusRefutations": 192480,
-   "corpusTested": 192849
+   "corpusRefutations": 77632717,
+   "corpusTested": 77634760
   }
  ],
  "conjectures": [
@@ -573,15 +573,540 @@
     "refuted": 1072,
     "candidates": 0
    }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A384141",
+   "text": "A384141 — \"Decimal expansion of the surface area of an elongated pentagonal\" states no closed form, yet its digits match (2+1sqrt3)/4 up to a power of ten; 5319 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    9.330127018922186,
+    9.3301270189222
+   ],
+   "width": 1.4210854715202004e-14,
+   "extra": {
+    "id": "A384141",
+    "name": "Decimal expansion of the surface area of an elongated pentagonal bipyramid with unit edge.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5319,
+    "exactRefuted": [],
+    "exactDigits": 90,
+    "survivors": [
+     {
+      "label": "(2+1sqrt3)/4",
+      "value": 0.9330127018922193
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A201488",
+   "text": "A201488 — \"Decimal expansion of maximal success probability of the CHSH gam\" states no closed form, yet its digits match (2+1sqrt2)/4 up to a power of ten; 5319 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    8.53553390593273,
+    8.535533905932745
+   ],
+   "width": 1.4210854715202004e-14,
+   "extra": {
+    "id": "A201488",
+    "name": "Decimal expansion of maximal success probability of the CHSH game.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5319,
+    "exactRefuted": [],
+    "exactDigits": 87,
+    "survivors": [
+     {
+      "label": "(2+1sqrt2)/4",
+      "value": 0.8535533905932737
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A374948",
+   "text": "A374948 — \"Decimal expansion of the Euclidean length of the minimum Steiner\" states no closed form, yet its digits match (1+3sqrt3)/1 / (2+6sqrt3)/2 up to a power of ten; 5318 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    6.1961524227066285,
+    6.196152422706636
+   ],
+   "width": 7.105427357601002e-15,
+   "extra": {
+    "id": "A374948",
+    "name": "Decimal expansion of the Euclidean length of the minimum Steiner tree joining all the vertices of a unit cube.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5318,
+    "exactRefuted": [],
+    "exactDigits": 87,
+    "survivors": [
+     {
+      "label": "(1+3sqrt3)/1",
+      "value": 6.196152422706632
+     },
+     {
+      "label": "(2+6sqrt3)/2",
+      "value": 6.196152422706632
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A257872",
+   "text": "A257872 — \"Decimal expansion of the Madelung type constant C(4|1) (negated)\" states no closed form, yet its digits match (8/1)ln2 / (4/5)ln2 up to a power of ten; 5318 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    5.545177444479559,
+    5.545177444479566
+   ],
+   "width": 7.105427357601002e-15,
+   "extra": {
+    "id": "A257872",
+    "name": "Decimal expansion of the Madelung type constant C(4|1) (negated).",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5318,
+    "exactRefuted": [],
+    "exactDigits": 103,
+    "survivors": [
+     {
+      "label": "(8/1)ln2",
+      "value": 5.545177444479562
+     },
+     {
+      "label": "(4/5)ln2",
+      "value": 0.5545177444479562
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1071,
+    "candidates": 1
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A019762",
+   "text": "A019762 — \"Decimal expansion of 2*e.\" states no closed form, yet its digits match (2/1)e / (4/2)e / (6/3)e up to a power of ten; 5315 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    5.436563656918087,
+    5.436563656918094
+   ],
+   "width": 7.105427357601002e-15,
+   "extra": {
+    "id": "A019762",
+    "name": "Decimal expansion of 2*e.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5315,
+    "exactRefuted": [],
+    "exactDigits": 105,
+    "survivors": [
+     {
+      "label": "(2/1)e",
+      "value": 5.43656365691809
+     },
+     {
+      "label": "(4/2)e",
+      "value": 5.43656365691809
+     },
+     {
+      "label": "(6/3)e",
+      "value": 5.43656365691809
+     },
+     {
+      "label": "(8/4)e",
+      "value": 5.43656365691809
+     },
+     {
+      "label": "(1/5)e",
+      "value": 0.5436563656918091
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1068,
+    "candidates": 4
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A384624",
+   "text": "A384624 — \"Decimal expansion of the volume of a pentagonal orthobicupola wi\" states no closed form, yet its digits match (5+4sqrt5)/3 up to a power of ten; 5319 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    4.648090636666383,
+    4.64809063666639
+   ],
+   "width": 7.105427357601002e-15,
+   "extra": {
+    "id": "A384624",
+    "name": "Decimal expansion of the volume of a pentagonal orthobicupola with unit edge.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5319,
+    "exactRefuted": [],
+    "exactDigits": 90,
+    "survivors": [
+     {
+      "label": "(5+4sqrt5)/3",
+      "value": 4.648090636666386
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A196533",
+   "text": "A196533 — \"Decimal expansion of 15*e.\" states no closed form, yet its digits match (3/2)e / (6/4)e up to a power of ten; 5318 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    4.077422742688564,
+    4.077422742688571
+   ],
+   "width": 7.105427357601002e-15,
+   "extra": {
+    "id": "A196533",
+    "name": "Decimal expansion of 15*e.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5318,
+    "exactRefuted": [],
+    "exactDigits": 99,
+    "survivors": [
+     {
+      "label": "(3/2)e",
+      "value": 4.077422742688568
+     },
+     {
+      "label": "(6/4)e",
+      "value": 4.077422742688568
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1070,
+    "candidates": 2
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A384287",
+   "text": "A384287 — \"Decimal expansion of the volume of a square orthobicupola with u\" states no closed form, yet its digits match (6+4sqrt2)/3 up to a power of ten; 5319 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    3.8856180831641245,
+    3.885618083164128
+   ],
+   "width": 3.552713678800501e-15,
+   "extra": {
+    "id": "A384287",
+    "name": "Decimal expansion of the volume of a square orthobicupola with unit edge.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5319,
+    "exactRefuted": [],
+    "exactDigits": 90,
+    "survivors": [
+     {
+      "label": "(6+4sqrt2)/3",
+      "value": 3.8856180831641267
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A019973",
+   "text": "A019973 — \"Decimal expansion of tangent of 75 degrees.\" states no closed form, yet its digits match (2+1sqrt3)/1 / (4+2sqrt3)/2 / (6+3sqrt3)/3 up to a power of ten; 5317 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    3.732050807568875,
+    3.7320508075688785
+   ],
+   "width": 3.552713678800501e-15,
+   "extra": {
+    "id": "A019973",
+    "name": "Decimal expansion of tangent of 75 degrees.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5317,
+    "exactRefuted": [],
+    "exactDigits": 99,
+    "survivors": [
+     {
+      "label": "(2+1sqrt3)/1",
+      "value": 3.732050807568877
+     },
+     {
+      "label": "(4+2sqrt3)/2",
+      "value": 3.732050807568877
+     },
+     {
+      "label": "(6+3sqrt3)/3",
+      "value": 3.732050807568877
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A296184",
+   "text": "A296184 — \"Decimal expansion of 2 + phi, with the golden section phi from A\" states no closed form, yet its digits match (5+1sqrt5)/2 / sqrt5*phi / phi*sqrt5 up to a power of ten; 5317 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    3.6180339887498927,
+    3.6180339887498962
+   ],
+   "width": 3.552713678800501e-15,
+   "extra": {
+    "id": "A296184",
+    "name": "Decimal expansion of 2 + phi, with the golden section phi from A001622.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5317,
+    "exactRefuted": [],
+    "exactDigits": 77,
+    "survivors": [
+     {
+      "label": "(5+1sqrt5)/2",
+      "value": 3.618033988749895
+     },
+     {
+      "label": "sqrt5*phi",
+      "value": 3.6180339887498953
+     },
+     {
+      "label": "phi*sqrt5",
+      "value": 3.6180339887498953
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A155969",
+   "text": "A155969 — \"Decimal expansion of the square of the Euler-Mascheroni constant\" states no closed form, yet its digits match euler^(2/1) / euler^(4/2) / euler^(6/3) up to a power of ten; 5316 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    3.331779238077185,
+    3.3317792380771887
+   ],
+   "width": 3.552713678800501e-15,
+   "extra": {
+    "id": "A155969",
+    "name": "Decimal expansion of the square of the Euler-Mascheroni constant.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5316,
+    "exactRefuted": [],
+    "exactDigits": 105,
+    "survivors": [
+     {
+      "label": "euler^(2/1)",
+      "value": 0.33317792380771866
+     },
+     {
+      "label": "euler^(4/2)",
+      "value": 0.33317792380771866
+     },
+     {
+      "label": "euler^(6/3)",
+      "value": 0.33317792380771866
+     },
+     {
+      "label": "euler^(8/4)",
+      "value": 0.33317792380771866
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A377697",
+   "text": "A377697 — \"Decimal expansion of the midradius of a truncated dodecahedron w\" states no closed form, yet its digits match (5+3sqrt5)/4 up to a power of ten; 5319 other forms refuted in double, 0 more refuted EXACTLY",
+   "enclosure": [
+    2.9270509831248406,
+    2.927050983124844
+   ],
+   "width": 3.552713678800501e-15,
+   "extra": {
+    "id": "A377697",
+    "name": "Decimal expansion of the midradius of a truncated dodecahedron with unit edge length.",
+    "nameStatesForm": false,
+    "digitsUsed": 17,
+    "tested": 5320,
+    "refuted": 5319,
+    "exactRefuted": [],
+    "exactDigits": 90,
+    "survivors": [
+     {
+      "label": "(5+3sqrt5)/4",
+      "value": 2.9270509831248424
+     }
+    ],
+    "assumption": "mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed"
+   },
+   "closedForm": {
+    "tested": 1072,
+    "refuted": 1072,
+    "candidates": 0
+   }
   }
  ],
- "relations": [],
+ "relations": [
+  {
+   "family": "oeis-closedform",
+   "key": "A257872",
+   "enclosure": [
+    5.545177444479559,
+    5.545177444479566
+   ],
+   "label": "(8/1)·ln2",
+   "value": 5.545177444479562,
+   "verdict": "CANDIDATE",
+   "slack": 7.105427357601002e-15
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A019762",
+   "enclosure": [
+    5.436563656918087,
+    5.436563656918094
+   ],
+   "label": "(2/1)·e",
+   "value": 5.43656365691809,
+   "verdict": "CANDIDATE",
+   "slack": 7.105427357601002e-15
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A019762",
+   "enclosure": [
+    5.436563656918087,
+    5.436563656918094
+   ],
+   "label": "(4/2)·e",
+   "value": 5.43656365691809,
+   "verdict": "CANDIDATE",
+   "slack": 7.105427357601002e-15
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A019762",
+   "enclosure": [
+    5.436563656918087,
+    5.436563656918094
+   ],
+   "label": "(6/3)·e",
+   "value": 5.43656365691809,
+   "verdict": "CANDIDATE",
+   "slack": 7.105427357601002e-15
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A019762",
+   "enclosure": [
+    5.436563656918087,
+    5.436563656918094
+   ],
+   "label": "(8/4)·e",
+   "value": 5.43656365691809,
+   "verdict": "CANDIDATE",
+   "slack": 7.105427357601002e-15
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A196533",
+   "enclosure": [
+    4.077422742688564,
+    4.077422742688571
+   ],
+   "label": "(3/2)·e",
+   "value": 4.077422742688568,
+   "verdict": "CANDIDATE",
+   "slack": 7.105427357601002e-15
+  },
+  {
+   "family": "oeis-closedform",
+   "key": "A196533",
+   "enclosure": [
+    4.077422742688564,
+    4.077422742688571
+   ],
+   "label": "(6/4)·e",
+   "value": 4.077422742688568,
+   "verdict": "CANDIDATE",
+   "slack": 7.105427357601002e-15
+  }
+ ],
  "totals": {
-  "generated": 800187,
-  "certified": 482,
-  "conjectures": 16,
-  "closedFormTested": 210000,
-  "closedFormRefuted": 209631,
-  "closedFormCandidates": 0
+  "generated": 814677,
+  "certified": 14897,
+  "conjectures": 28,
+  "closedFormTested": 77664775,
+  "closedFormRefuted": 77662725,
+  "closedFormCandidates": 7
  }
 }
