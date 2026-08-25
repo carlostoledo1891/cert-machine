@@ -138,7 +138,7 @@ blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
 blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
   font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
 
-.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
 table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
 th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
   color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
@@ -164,6 +164,34 @@ footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
 footer p{margin:0 0 12px}
 footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
 @media (prefers-reduced-motion:no-preference){
   h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
   .deck{animation-delay:.05s}.stats{animation-delay:.1s}
@@ -184,7 +212,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="stat"><div class="k">objects generated</div><div class="v">818,941</div><div class="n">Across 5 families, one engine.</div></div>
     <div class="stat"><div class="k">certified exactly</div><div class="v held">15,453</div><div class="n">Interval enclosures and exact rational decisions — no digit matching.</div></div>
     <div class="stat"><div class="k">closed forms refuted</div><div class="v">77,662,725</div><div class="n">7 survive. A refutation here is proved, not unlikely.</div></div>
-    <div class="stat"><div class="k">batteries green</div><div class="v held">11 / 11</div><div class="n">Executed during this build. 19 red controls must fire.</div></div>
+    <div class="stat"><div class="k">batteries green</div><div class="v held">11 / 11</div><div class="n">Executed during this build; every red control must fire.</div></div>
   </div>
 </div>
 
@@ -192,7 +220,192 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§1 · the families</div>
+    <div class="lab">§1 · the machine</div>
+    <h2>How a conjecture becomes a certificate</h2>
+  </div>
+<div class="wide"><figure class="mach">
+  <div class="figbox">
+    <div class="mach-ro"><div class="k" data-ro-k>the machine</div><div class="d" data-ro-d>Generate at scale, screen in float, certify the survivors exactly. Select any node for what it does — every count is read off ledger.json at build time.</div></div>
+    <svg viewBox="0 0 980 528" role="img" aria-label="Schematic of the conjecture engine: five families feed enumerate, screen and certify; the instruments decide; only certificates reach the ledger, which feeds the closed-form hunt and this page.">
+      <defs><marker id="mfa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>
+      <path class="ed" d="M194 62 C224 62 218 174 246 174" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M194 62 C224 62 218 174 246 174"/>
+      <path class="ed" d="M194 124 C224 124 218 181 246 181" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M194 124 C224 124 218 181 246 181"/>
+      <path class="ed" d="M194 186 C224 186 218 188 246 188" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M194 186 C224 186 218 188 246 188"/>
+      <path class="ed" d="M194 248 C224 248 218 195 246 195" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M194 248 C224 248 218 195 246 195"/>
+      <path class="ed" d="M194 310 C224 310 218 202 246 202" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M194 310 C224 310 218 202 246 202"/>
+      <path class="ed" d="M388 188 L434 188" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M388 188 L434 188"/>
+      <path class="ed" d="M576 188 L622 188" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M576 188 L622 188"/>
+      <path class="ed" d="M764 178 C800 160 806 132 828 116" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M764 178 C800 160 806 132 828 116"/>
+      <path class="ed" d="M764 188 L828 188" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M764 188 L828 188"/>
+      <path class="ed" d="M764 198 C800 216 806 244 828 262" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M764 198 C800 216 806 244 828 262"/>
+      <path class="ed" d="M966 114 C976 118 976 128 976 140 L976 388 C976 396 970 400 962 400 L768 400" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M966 114 C976 118 976 128 976 140 L976 388 C976 396 970 400 962 400 L768 400"/>
+      <path class="ed" d="M624 400 L586 400" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M624 400 L586 400"/>
+      <path class="ed" d="M420 386 C404 380 398 376 384 372" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M420 386 C404 380 398 376 384 372"/>
+      <path class="ed" d="M420 414 C404 420 398 426 384 432" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M420 414 C404 420 398 426 384 432"/>
+      <path class="ed" d="M694 428 L694 468" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M694 428 L694 468"/>
+      <path class="ed" d="M323 300 C345 254 600 248 650 220" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M323 300 C345 254 600 248 650 220"/>
+      <path class="ed" d="M489 300 C509 258 640 246 679 220" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M489 300 C509 258 640 246 679 220"/>
+      <path class="ed" d="M655 300 C668 262 696 240 707 220" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M655 300 C668 262 696 240 707 220"/>
+      <path class="ed" d="M821 300 C800 262 758 240 737 220" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M821 300 C800 262 758 240 737 220"/>
+      <path class="ed" d="M104 372 C150 344 200 328 244 321" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M104 372 C150 344 200 328 244 321"/>
+      <g class="nd" tabindex="0" role="button" aria-label="family · chowla-cosine" data-t="family · chowla-cosine" data-d="a finite integer set whose certified Chowla merit c = -min f_A / sqrt|A| falls below 1 One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
+        <rect class="nd-box" x="14" y="40" width="180" height="44" rx="5"/>
+        <rect class="acc-dep" x="14" y="40" width="3" height="44" rx="1.5"/>
+        <text class="nd-k" x="28" y="58">CHOWLA-COSINE</text>
+        <text class="nd-v" x="28" y="73">400,000 generated</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="family · henon-census" data-t="family · henon-census" data-d="a parameter pair (a,b) and period p for which the number of period-p points of the Hénon map is determined EXACTLY: every fixed point of H^p enclosed in a certified uniqueness box, the rest of the plane excluded by interval arithmetic One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
+        <rect class="nd-box" x="14" y="102" width="180" height="44" rx="5"/>
+        <rect class="acc-dep" x="14" y="102" width="3" height="44" rx="1.5"/>
+        <text class="nd-k" x="28" y="120">HENON-CENSUS</text>
+        <text class="nd-v" x="28" y="135">328 generated</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="family · henon-orbits" data-t="family · henon-orbits" data-d="a parameter pair (a,b) and an explicit box in which the Hénon map provably has a periodic orbit of period p, and exactly one One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
+        <rect class="nd-box" x="14" y="164" width="180" height="44" rx="5"/>
+        <rect class="acc-dep" x="14" y="164" width="3" height="44" rx="1.5"/>
+        <text class="nd-k" x="28" y="182">HENON-ORBITS</text>
+        <text class="nd-v" x="28" y="197">3,936 generated</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="family · newman-minmod" data-t="family · newman-minmod" data-d="an n-term Newman polynomial whose certified min|f| on |z|=1 exceeds every value achievable with fewer terms One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
+        <rect class="nd-box" x="14" y="226" width="180" height="44" rx="5"/>
+        <rect class="acc-dep" x="14" y="226" width="3" height="44" rx="1.5"/>
+        <text class="nd-k" x="28" y="244">NEWMAN-MINMOD</text>
+        <text class="nd-v" x="28" y="259">400,000 generated</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="family · oeis-closedform" data-t="family · oeis-closedform" data-d="a published OEIS constant whose name states no closed form, but whose digits are consistent with a small closed form while every other form in the vocabulary is refuted One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
+        <rect class="nd-box" x="14" y="288" width="180" height="44" rx="5"/>
+        <rect class="acc-dep" x="14" y="288" width="3" height="44" rx="1.5"/>
+        <text class="nd-k" x="28" y="306">OEIS-CLOSEDFORM</text>
+        <text class="nd-v" x="28" y="321">14,677 generated</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="enumerate — deterministic and indexed" data-t="enumerate — deterministic and indexed" data-d="Every family enumerates by integer index, deterministically: a run of any size resumes and reproduces, and two runs at the same limit produce identical hits. 818,941 objects this build.">
+        <rect class="nd-box" x="248" y="160" width="140" height="56" rx="5"/>
+        <rect class="acc-sig" x="248" y="160" width="3" height="56" rx="1.5"/>
+        <text class="nd-k" x="262" y="178">ENUMERATE</text>
+        <text class="nd-v" x="262" y="205">818,941 objects</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="screen — float, and it may only prune" data-t="screen — float, and it may only prune" data-d="A fast float estimate decides only what is WORTH certifying. The screen may prune, never admit: nothing it passes is believed, and everything it passes goes to the certifier. Duplicates fold by canonical key on the way.">
+        <rect class="nd-box" x="436" y="160" width="140" height="56" rx="5"/>
+        <rect class="acc-sig" x="436" y="160" width="3" height="56" rx="1.5"/>
+        <text class="nd-k" x="450" y="178">SCREEN · FLOAT</text>
+        <text class="nd-v" x="450" y="205">17,530 pass</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="certify — the only authority" data-t="certify — the only authority" data-d="The instruments decide: interval enclosures, exact rational arithmetic, strict interior containment for uniqueness. The engine never decides mathematics — it counts, dedupes, and hands the certifier what survived. 15,453 decisions this build.">
+        <rect class="nd-box" x="624" y="160" width="140" height="56" rx="5"/>
+        <rect class="acc-sig" x="624" y="160" width="3" height="56" rx="1.5"/>
+        <text class="nd-k" x="638" y="178">CERTIFY · EXACT</text>
+        <text class="nd-v" x="638" y="205">15,453 decided</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="HIT — a certificate exists" data-t="HIT — a certificate exists" data-d="A HIT ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness box, plus the falsifier the certificate must survive. 893 this build.">
+        <rect class="nd-box" x="830" y="92" width="136" height="44" rx="5"/>
+        <rect class="acc-held" x="830" y="92" width="3" height="44" rx="1.5"/>
+        <text class="nd-k" x="844" y="110">HIT · CERTIFIED</text>
+        <text class="nd-v" x="844" y="125">893</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="REJECT — proved uninteresting" data-t="REJECT — proved uninteresting" data-d="The certifier examined the candidate and proved it below the bar. A REJECT here is a theorem about the object, not a failed search. 14,560 this build.">
+        <rect class="nd-box" x="830" y="166" width="136" height="44" rx="5"/>
+        <rect class="acc-sig" x="830" y="166" width="3" height="44" rx="1.5"/>
+        <text class="nd-k" x="844" y="184">REJECT · PROVED</text>
+        <text class="nd-v" x="844" y="199">14,560</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="REFUSED — absence of proof" data-t="REFUSED — absence of proof" data-d="The instrument declined to decide — a singular preconditioner, an exhausted budget, a containment that would not close. Absence of proof is never evidence of absence, and a refusal is never converted into a verdict. 0 this build.">
+        <rect class="nd-box" x="830" y="240" width="136" height="44" rx="5"/>
+        <rect class="acc-warn" x="830" y="240" width="3" height="44" rx="1.5"/>
+        <text class="nd-k" x="844" y="258">REFUSED · HONEST</text>
+        <text class="nd-v" x="844" y="273">0</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="the ledger" data-t="the ledger" data-d="Everything the engine produced, as records on disk: 52 conjectures kept with their enclosures and certificates. Every number on this page is read off the ledger at build time; nothing is typed in.">
+        <rect class="nd-box" x="624" y="372" width="140" height="56" rx="5"/>
+        <rect class="acc-sig" x="624" y="372" width="3" height="56" rx="1.5"/>
+        <text class="nd-k" x="638" y="390">LEDGER</text>
+        <text class="nd-v" x="638" y="417">ledger.json</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="the closed-form hunt" data-t="the closed-form hunt" data-d="Every certified enclosure is interrogated for small closed forms — rationals, square roots, multiples and powers of the standard constants. The enclosure decides: outside means refuted exactly, inside means a surviving candidate. Nothing is accepted on digits agreeing.">
+        <rect class="nd-box" x="420" y="372" width="160" height="56" rx="5"/>
+        <rect class="acc-sig" x="420" y="372" width="3" height="56" rx="1.5"/>
+        <text class="nd-k" x="434" y="390">CLOSED-FORM HUNT</text>
+        <text class="nd-v" x="434" y="417">77,664,775 tested</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="refuted exactly" data-t="refuted exactly" data-d="77,662,725 candidate closed forms proved wrong: the value provably lies outside a certified enclosure. The Ramanujan Machine matches truncated decimals and argues from collision probability; this decides.">
+        <rect class="nd-box" x="200" y="352" width="180" height="40" rx="5"/>
+        <rect class="acc-held" x="200" y="352" width="3" height="40" rx="1.5"/>
+        <text class="nd-k" x="214" y="370">REFUTED EXACTLY</text>
+        <text class="nd-v" x="214" y="381">77,662,725</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="the survivors" data-t="the survivors" data-d="7 forms remain inside their enclosures — candidates, not results. They stay open until a tighter enclosure refutes them or an exact argument confirms them.">
+        <rect class="nd-box" x="200" y="412" width="180" height="40" rx="5"/>
+        <rect class="acc-warn" x="200" y="412" width="3" height="40" rx="1.5"/>
+        <text class="nd-k" x="214" y="430">SURVIVORS · OPEN</text>
+        <text class="nd-v" x="214" y="441">7 candidates</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="the gates — batteries and red controls" data-t="the gates — batteries and red controls" data-d="Every battery is executed during this build, never remembered: 11/11 green. Red controls are deliberate forgeries the instruments must catch — a control that cannot fire is decoration. Every real bug this project has found was found by a control, none by reading code.">
+        <rect class="nd-box" x="14" y="372" width="180" height="44" rx="5"/>
+        <rect class="acc-held" x="14" y="372" width="3" height="44" rx="1.5"/>
+        <text class="nd-k" x="28" y="390">THE GATES</text>
+        <text class="nd-v" x="28" y="405">11/11 batteries</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="this page" data-t="this page" data-d="Generated by tools/build-control.js from the ledger and the batteries. Editing it by hand is a change to nothing — the next build overwrites it, which is the point.">
+        <rect class="nd-box" x="624" y="472" width="140" height="40" rx="5"/>
+        <rect class="acc-dep" x="624" y="472" width="3" height="40" rx="1.5"/>
+        <text class="nd-k" x="638" y="490">THIS PAGE</text>
+        <text class="nd-v" x="638" y="501">index.html</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="instrument · interval / Krawczyk" data-t="instrument · interval / Krawczyk" data-d="Outward-rounded interval arithmetic checked against exact BigInt rationals, and the Krawczyk operator with STRICT interior containment — existence and uniqueness, or nothing. The census turns its certificates into completeness theorems: exactly N periodic points, the rest of the plane excluded.">
+        <rect class="nd-box" x="248" y="300" width="150" height="40" rx="5"/>
+        <rect class="acc-dep" x="248" y="300" width="3" height="40" rx="1.5"/>
+        <text class="nd-k" x="262" y="318">INTERVAL · KRAWCZYK</text>
+        <text class="nd-v" x="262" y="329">outward-rounded</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="instrument · trigmin" data-t="instrument · trigmin" data-d="Certified global minima of integer cosine polynomials: Chebyshev reduction, BigInt Sturm isolation, interval-Newton refinement. Feeds the Newman envelope — the bar a hit has to beat.">
+        <rect class="nd-box" x="414" y="300" width="150" height="40" rx="5"/>
+        <rect class="acc-dep" x="414" y="300" width="3" height="40" rx="1.5"/>
+        <text class="nd-k" x="428" y="318">TRIGMIN</text>
+        <text class="nd-v" x="428" y="329">certified minima</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="instrument · census" data-t="instrument · census" data-d="Interval branch-and-bound over the phase plane: a certified a priori bound confines every periodic point, tube iteration excludes, Krawczyk-as-contraction resolves each remainder to exactly one point. It can refuse; it can never return a wrong count.">
+        <rect class="nd-box" x="580" y="300" width="150" height="40" rx="5"/>
+        <rect class="acc-dep" x="580" y="300" width="3" height="40" rx="1.5"/>
+        <text class="nd-k" x="594" y="318">CENSUS</text>
+        <text class="nd-v" x="594" y="329">exact counts</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="instrument · sum-of-squares" data-t="instrument · sum-of-squares" data-d="Exact rational sum-of-squares decompositions — a tight global lower bound whose checker goes red on a corrupted certificate. Python, stdlib fractions only.">
+        <rect class="nd-box" x="746" y="300" width="150" height="40" rx="5"/>
+        <rect class="acc-dep" x="746" y="300" width="3" height="40" rx="1.5"/>
+        <text class="nd-k" x="760" y="318">SOS · RATIONAL</text>
+        <text class="nd-v" x="760" y="329">lower bounds</text>
+      </g>
+      <text class="ed-lab" x="599" y="232" text-anchor="middle">dedup by key</text>
+      <text class="ed-lab" x="968" y="300" text-anchor="end">only certificates</text>
+    </svg>
+  </div>
+  <figcaption>The loop this repository runs. Families supply objects and mathematics; the engine supplies scale and bookkeeping; the instruments alone decide. REJECT and REFUSED are terminal by design — only a certificate reaches the ledger, the gates run on every build, and this page is rebuilt from the ledger alone.</figcaption>
+</figure></div>
+<script>(function(){var f=document.querySelector("figure.mach");if(!f)return;var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}f.querySelectorAll("g.nd").forEach(function(g){g.addEventListener("click",function(){on(g)});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});});})();</script>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the families</div>
     <h2>What the engine is enumerating</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th>family</th><th>what a hit asserts</th><th>generated</th><th>screened</th><th>certified → hit</th><th>stop</th></tr></thead><tbody><tr><td><span class="m">chowla-cosine</span></td><td>a finite integer set whose certified Chowla merit c = -min f_A / sqrt|A| falls below 1</td><td class="v"><span class="m">400,000</span></td><td class="v"><span class="m">1,579</span></td><td class="v"><span class="m">300 → 295</span></td><td><span class="tag open">cap reached</span></td></tr><tr><td><span class="m">henon-census</span></td><td>a parameter pair (a,b) and period p for which the number of period-p points of the Hénon map is determined EXACTLY: every fixed point of H^p enclosed in a certified uniqueness box, the rest of the plane excluded by interval arithmetic</td><td class="v"><span class="m">328</span></td><td class="v"><span class="m">328</span></td><td class="v"><span class="m">328 → 328</span></td><td><span class="tag dep">exhausted</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td>a parameter pair (a,b) and an explicit box in which the Hénon map provably has a periodic orbit of period p, and exactly one</td><td class="v"><span class="m">3,936</span></td><td class="v"><span class="m">1,023</span></td><td class="v"><span class="m">228 → 228</span></td><td><span class="tag dep">exhausted</span></td></tr><tr><td><span class="m">newman-minmod</span></td><td>an n-term Newman polynomial whose certified min|f| on |z|=1 exceeds every value achievable with fewer terms</td><td class="v"><span class="m">400,000</span></td><td class="v"><span class="m">7</span></td><td class="v"><span class="m">4 → 4</span></td><td><span class="tag dep">exhausted</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td>a published OEIS constant whose name states no closed form, but whose digits are consistent with a small closed form while every other form in the vocabulary is refuted</td><td class="v"><span class="m">14,677</span></td><td class="v"><span class="m">14,593</span></td><td class="v"><span class="m">14593 → 38</span></td><td><span class="tag dep">exhausted</span></td></tr></tbody></table></div></div><div class="col"><p>The screen is float and may only ever <em>prune</em>; nothing is admitted without an exact certificate. A family plugs in by supplying six functions — enumerate, value, interesting, certify, key, statement — and inherits the loop, the scale and the dedup.</p></div>
@@ -200,7 +413,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§2 · certified conjectures</div>
+    <div class="lab">§3 · certified conjectures</div>
     <h2>The objects that survived</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th>family</th><th>object</th><th>certified enclosure</th><th>width</th><th>closed forms refuted</th></tr></thead><tbody><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,4,6,7,8]</span></td><td class="v"><span class="m">[0.649862827152, 0.649862827152]</span></td><td class="v"><span class="m">5.55e-16</span></td><td class="v"><span class="m">1071 / 1071</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,3,5,6,7,8]</span></td><td class="v"><span class="m">[0.715658879606, 0.715658879606]</span></td><td class="v"><span class="m">5.55e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,3,5,7,8,9,10]</span></td><td class="v"><span class="m">[0.715967581851, 0.715967581851]</span></td><td class="v"><span class="m">5.55e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,4,6,8,9,10]</span></td><td class="v"><span class="m">[0.725127302045, 0.725127302045]</span></td><td class="v"><span class="m">5.55e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,4,5,6,9,10]</span></td><td class="v"><span class="m">[0.742222719215, 0.742222719215]</span></td><td class="v"><span class="m">5.55e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,3,4,6,7,8,9,10]</span></td><td class="v"><span class="m">[0.764782819811, 0.764782819811]</span></td><td class="v"><span class="m">6.66e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,3,7,8,9,10,11]</span></td><td class="v"><span class="m">[0.780313352985, 0.780313352985]</span></td><td class="v"><span class="m">6.66e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,3,8,9,10,11,12]</span></td><td class="v"><span class="m">[0.791687636262, 0.791687636262]</span></td><td class="v"><span class="m">6.66e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,3,4,5,6]</span></td><td class="v"><span class="m">[0.792242230293, 0.792242230293]</span></td><td class="v"><span class="m">5.55e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,3,4,6,7]</span></td><td class="v"><span class="m">[0.793540794463, 0.793540794463]</span></td><td class="v"><span class="m">5.55e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,3,6,7,8,9,10]</span></td><td class="v"><span class="m">[0.795512034425, 0.795512034425]</span></td><td class="v"><span class="m">5.55e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">chowla-cosine</span></td><td class="v"><span class="m">[1,2,3,6,8,9,10,11]</span></td><td class="v"><span class="m">[0.801105498766, 0.801105498766]</span></td><td class="v"><span class="m">6.66e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.4|0.3|8]</span></td><td class="v"><span class="m">[64.000000000000, 64.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.34|0.3|8]</span></td><td class="v"><span class="m">[48.000000000000, 48.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.36|0.3|8]</span></td><td class="v"><span class="m">[48.000000000000, 48.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.38|0.3|8]</span></td><td class="v"><span class="m">[48.000000000000, 48.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.14|0.3|8]</span></td><td class="v"><span class="m">[32.000000000000, 32.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.16|0.3|8]</span></td><td class="v"><span class="m">[32.000000000000, 32.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.18|0.3|8]</span></td><td class="v"><span class="m">[32.000000000000, 32.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.2|0.3|8]</span></td><td class="v"><span class="m">[32.000000000000, 32.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.22|0.3|8]</span></td><td class="v"><span class="m">[32.000000000000, 32.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.24|0.3|8]</span></td><td class="v"><span class="m">[32.000000000000, 32.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.26|0.3|8]</span></td><td class="v"><span class="m">[32.000000000000, 32.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-census</span></td><td class="v"><span class="m">[1.28|0.3|8]</span></td><td class="v"><span class="m">[32.000000000000, 32.000000000000]</span></td><td class="v"><span class="m">0.00e+0</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.6|0.3|1|0.833333333]</span></td><td class="v"><span class="m">[0.833333333333, 0.833333333333]</span></td><td class="v"><span class="m">2.01e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.62|0.3|1|0.825297414]</span></td><td class="v"><span class="m">[0.825297414485, 0.825297414485]</span></td><td class="v"><span class="m">2.01e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.64|0.3|1|0.817519468]</span></td><td class="v"><span class="m">[0.817519468482, 0.817519468482]</span></td><td class="v"><span class="m">2.01e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.66|0.3|1|0.809985304]</span></td><td class="v"><span class="m">[0.809985304012, 0.809985304012]</span></td><td class="v"><span class="m">2.01e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.68|0.3|1|0.802681828]</span></td><td class="v"><span class="m">[0.802681828468, 0.802681828468]</span></td><td class="v"><span class="m">2.01e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.7|0.3|1|0.795596939]</span></td><td class="v"><span class="m">[0.795596939087, 0.795596939087]</span></td><td class="v"><span class="m">2.01e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.72|0.3|1|0.788719427]</span></td><td class="v"><span class="m">[0.788719427131, 0.788719427131]</span></td><td class="v"><span class="m">2.01e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.74|0.3|1|0.782038893]</span></td><td class="v"><span class="m">[0.782038893311, 0.782038893311]</span></td><td class="v"><span class="m">2.01e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.76|0.3|1|0.775545673]</span></td><td class="v"><span class="m">[0.775545672898, 0.775545672899]</span></td><td class="v"><span class="m">2.02e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.78|0.3|1|0.769230769]</span></td><td class="v"><span class="m">[0.769230769231, 0.769230769231]</span></td><td class="v"><span class="m">2.01e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.8|0.3|1|0.763085795]</span></td><td class="v"><span class="m">[0.763085794519, 0.763085794519]</span></td><td class="v"><span class="m">2.02e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">henon-orbits</span></td><td class="v"><span class="m">[0.82|0.3|1|0.757102917]</span></td><td class="v"><span class="m">[0.757102917009, 0.757102917009]</span></td><td class="v"><span class="m">2.01e-13</span></td><td class="v"><span class="m">0 / 0</span></td></tr><tr><td><span class="m">newman-minmod</span></td><td class="v"><span class="m">[0,2,4,5,8,9,10,11,12]</span></td><td class="v"><span class="m">[1.362373178133, 1.362373178133]</span></td><td class="v"><span class="m">4.44e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">newman-minmod</span></td><td class="v"><span class="m">[0,6,8,12,13,15,16,17]</span></td><td class="v"><span class="m">[1.254933139031, 1.254933139031]</span></td><td class="v"><span class="m">6.66e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">newman-minmod</span></td><td class="v"><span class="m">[0,3,8,12,13,14]</span></td><td class="v"><span class="m">[1.013007454017, 1.013007454017]</span></td><td class="v"><span class="m">6.66e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">newman-minmod</span></td><td class="v"><span class="m">[0,2,7,8,11,12]</span></td><td class="v"><span class="m">[1.009230830699, 1.009230830699]</span></td><td class="v"><span class="m">4.44e-16</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A384141]</span></td><td class="v"><span class="m">[9.330127018922, 9.330127018922]</span></td><td class="v"><span class="m">1.42e-14</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A201488]</span></td><td class="v"><span class="m">[8.535533905933, 8.535533905933]</span></td><td class="v"><span class="m">1.42e-14</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A374948]</span></td><td class="v"><span class="m">[6.196152422707, 6.196152422707]</span></td><td class="v"><span class="m">7.11e-15</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A257872]</span></td><td class="v"><span class="m">[5.545177444480, 5.545177444480]</span></td><td class="v"><span class="m">7.11e-15</span></td><td class="v"><span class="m">1071 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A019762]</span></td><td class="v"><span class="m">[5.436563656918, 5.436563656918]</span></td><td class="v"><span class="m">7.11e-15</span></td><td class="v"><span class="m">1068 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A384624]</span></td><td class="v"><span class="m">[4.648090636666, 4.648090636666]</span></td><td class="v"><span class="m">7.11e-15</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A196533]</span></td><td class="v"><span class="m">[4.077422742689, 4.077422742689]</span></td><td class="v"><span class="m">7.11e-15</span></td><td class="v"><span class="m">1070 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A384287]</span></td><td class="v"><span class="m">[3.885618083164, 3.885618083164]</span></td><td class="v"><span class="m">3.55e-15</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A019973]</span></td><td class="v"><span class="m">[3.732050807569, 3.732050807569]</span></td><td class="v"><span class="m">3.55e-15</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A296184]</span></td><td class="v"><span class="m">[3.618033988750, 3.618033988750]</span></td><td class="v"><span class="m">3.55e-15</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A155969]</span></td><td class="v"><span class="m">[3.331779238077, 3.331779238077]</span></td><td class="v"><span class="m">3.55e-15</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr><tr><td><span class="m">oeis-closedform</span></td><td class="v"><span class="m">[A377697]</span></td><td class="v"><span class="m">[2.927050983125, 2.927050983125]</span></td><td class="v"><span class="m">3.55e-15</span></td><td class="v"><span class="m">1072 / 1072</span></td></tr></tbody></table></div></div><div class="col"><p>Each row is an exact enclosure, not a measurement. The last column is the engine asking whether the value has a small closed form: every candidate lying outside the enclosure is <strong>refuted exactly</strong>. The Ramanujan Machine matches truncated decimals and argues from collision probability; this decides.</p></div>
@@ -208,7 +421,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§3 · closed forms</div>
+    <div class="lab">§4 · closed forms</div>
     <h2>What survived the enclosure test</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th>form</th><th>value</th><th>inside this enclosure</th><th></th></tr></thead><tbody><tr><td><span class="m">(8/1)·ln2</span></td><td class="v"><span class="m">5.545177444480</span></td><td class="v"><span class="m">[5.545177444480, 5.545177444480]</span></td><td><span class="tag cert">candidate</span></td></tr><tr><td><span class="m">(2/1)·e</span></td><td class="v"><span class="m">5.436563656918</span></td><td class="v"><span class="m">[5.436563656918, 5.436563656918]</span></td><td><span class="tag cert">candidate</span></td></tr><tr><td><span class="m">(4/2)·e</span></td><td class="v"><span class="m">5.436563656918</span></td><td class="v"><span class="m">[5.436563656918, 5.436563656918]</span></td><td><span class="tag cert">candidate</span></td></tr><tr><td><span class="m">(6/3)·e</span></td><td class="v"><span class="m">5.436563656918</span></td><td class="v"><span class="m">[5.436563656918, 5.436563656918]</span></td><td><span class="tag cert">candidate</span></td></tr><tr><td><span class="m">(8/4)·e</span></td><td class="v"><span class="m">5.436563656918</span></td><td class="v"><span class="m">[5.436563656918, 5.436563656918]</span></td><td><span class="tag cert">candidate</span></td></tr><tr><td><span class="m">(3/2)·e</span></td><td class="v"><span class="m">4.077422742689</span></td><td class="v"><span class="m">[4.077422742689, 4.077422742689]</span></td><td><span class="tag cert">candidate</span></td></tr><tr><td><span class="m">(6/4)·e</span></td><td class="v"><span class="m">4.077422742689</span></td><td class="v"><span class="m">[4.077422742689, 4.077422742689]</span></td><td><span class="tag cert">candidate</span></td></tr></tbody></table></div></div>
@@ -216,7 +429,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§4 · the envelope</div>
+    <div class="lab">§5 · the envelope</div>
     <h2>What a Newman hit has to beat</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th>bar</th><th>certified min|f| to beat</th><th>source</th></tr></thead><tbody><tr><td>bar(6)</td><td class="v"><span class="m">1.000000000000000</span></td><td><span class="tag dep">literature / lab</span></td></tr><tr><td>bar(7)</td><td class="v"><span class="m">1.065285891134415</span></td><td><span class="tag dep">literature / lab</span></td></tr><tr><td>bar(8)</td><td class="v"><span class="m">1.101882938486186</span></td><td><span class="tag dep">literature / lab</span></td></tr><tr><td>bar(9)</td><td class="v"><span class="m">1.311101302872326</span></td><td><span class="tag dep">literature / lab</span></td></tr><tr><td>bar(10)</td><td class="v"><span class="m">1.362373178133324</span></td><td><span class="tag dep">literature / lab</span></td></tr><tr><td>bar(17)</td><td class="v"><span class="m">1.362373178133324</span></td><td><span class="tag dep">literature / lab</span></td></tr><tr><td>bar(18)</td><td class="v"><span class="m">1.414144114794259</span></td><td><span class="tag cert">adopted here</span></td></tr><tr><td>bar(19)</td><td class="v"><span class="m">1.414144114794259</span></td><td><span class="tag cert">adopted here</span></td></tr><tr><td>bar(20)</td><td class="v"><span class="m">2.018174563075912</span></td><td><span class="tag dep">literature / lab</span></td></tr></tbody></table></div></div><div class="col"><p>Anchors from the literature and the source lab, plus objects this lab certified and then adopted. Both stored as witness sets and re-certified at load, so no value is transcribed. <strong>Frozen at load</strong> — the bar never moves under a running campaign, or a candidate's verdict would depend on when it was proposed.</p><p>Staleness audit: <b>clean</b> — nothing certified sits above the envelope unadopted.</p></div>
@@ -224,13 +437,13 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§5 · the instruments</div>
+    <div class="lab">§6 · the instruments</div>
     <h2>What certifies, and whether it runs</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th>battery</th><th>covers</th><th>this build</th></tr></thead><tbody><tr><td>funnel machine</td><td>14 items · 19 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>detach</td><td>11 checks</td><td><span class="tag held">green</span></td></tr><tr><td>interval · eqcert</td><td>falsifier-required certificates</td><td><span class="tag held">green</span></td></tr><tr><td>interval · arithmetic</td><td>16 000 ops vs exact rationals</td><td><span class="tag held">green</span></td></tr><tr><td>interval · transcendental</td><td>sound exp/log/sin/cos</td><td><span class="tag held">green</span></td></tr><tr><td>trigmin certifier</td><td>47 checks · 2 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>henon census</td><td>closed-form calibration · 3 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>engine + families</td><td>red controls on screen and certifier</td><td><span class="tag held">green</span></td></tr><tr><td>sos · global bound</td><td>stdlib fractions only</td><td><span class="tag held">green</span></td></tr><tr><td>sos · lyapunov</td><td>stdlib fractions only</td><td><span class="tag held">green</span></td></tr><tr><td>sos · re-verify AI result</td><td>stdlib fractions only</td><td><span class="tag held">green</span></td></tr></tbody></table></div></div><div class="col"><p>Lifted from the source lab: <span class="m">39 files</span>, <span class="m">3 patched</span> on the way in, each patch declared. Drift now: <span class="m">38 unchanged · 0 source moved · 1 local edited · 0 source gone</span>. <strong>/Users/carlostoledo/Documents/sin-mfg is read-only, permanently</strong> — read anything, never write, and report an error there rather than repair it.</p></div>
 </section>
 
-<footer class="col"><p>Generated by tools/build-control.js. Rebuild: make engine &amp;&amp; make control.</p><p>git 1002bad · 10 commits</p><p style="margin-top:20px;color:var(--ink-2)">Carlos Toledo · cert-machine</p></footer>
+<footer class="col"><p>Generated by tools/build-control.js. Rebuild: make engine &amp;&amp; make control.</p><p>git 393e3cc · 11 commits</p><p style="margin-top:20px;color:var(--ink-2)">Carlos Toledo · cert-machine</p></footer>
 
 </div>
 </html>

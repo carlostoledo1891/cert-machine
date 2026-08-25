@@ -1,7 +1,7 @@
 # design/ — the one place a page comes from
 
 **Every HTML file in this repository is generated.** Nothing is hand-written, nothing is
-hand-edited, and `control.html` carries no exception. Editing a generated page is a change
+hand-edited, and `index.html` carries no exception. Editing a generated page is a change
 that survives until the next build and then silently vanishes — which is worse than not
 making it, because for a while it looked done.
 
@@ -12,7 +12,7 @@ design/
   template.js     the page shell: <head>, the stylesheet, <body>
   DESIGN.md       this file — what exists and how to add to it
 tools/
-  build-control.js  reads records → calls components → writes control.html
+  build-control.js  reads records → calls components → writes index.html
   test-control.js   the gate: determinism, derivation, and the design invariants
 ```
 
@@ -117,6 +117,7 @@ contains a number**. A builder passes data; the component decides markup.
 | `m(s)` | string | inline monospace — every number, path, id, hash |
 | `tag(text,kind)` | `kind ∈ held·cert·open·dep` | a status chip |
 | `categoryChart({cats,...})` | | value-per-named-bucket figure |
+| `flow({w,h,alt,readout,nodes,edges,caption})` | `nodes:[{x,y,w,h,role,k,v,t,d}]`, `edges:[{d,lab,flow}]` | the interactive machine schematic: nodes as focusable buttons, animated flow along edges, a readout narrating the active node. Ships the design system's ONE inline script; with scripts off the default narration stands and hover still highlights |
 | `numberLine({...})`, `band`, `vmark`, `label`, `legend` | | figure atoms |
 
 ### Escaping

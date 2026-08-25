@@ -221,10 +221,71 @@ function legend({ items, x, y, gap }) {
   return out.join('\n');
 }
 
+/* ------------------------------------------------------------ the machine -
+   An interactive schematic: nodes, the edges records flow along, and a
+   readout that narrates whichever node the reader activates. The builder
+   passes PURE DATA — geometry, labels, descriptions — and this component
+   decides every byte of markup, like everything else in this file.
+
+   nodes: [{id, x, y, w, h, role: 'sig'|'held'|'warn'|'dep', k, v, t, d}]
+     k/v render inside the node; t/d feed the readout on click (t short, d prose).
+   edges: [{d: svg path, flow: false to disable the animated overlay,
+            lab, lx, ly, anchor: optional tiny label}]
+   readout: {k, d} — the default narration, and the no-script fallback.
+
+   The script is the ONE scripted element the design system ships: activation
+   swaps the readout text, nothing more. Scripts off: hover still highlights,
+   the default narration stands, the caption still explains. */
+function flow({ w, h, alt, readout, nodes, edges, caption }) {
+  const parts = [];
+  parts.push('    <svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + escAttr(alt) + '">');
+  parts.push('      <defs><marker id="mfa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">'
+    + '<path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>');
+  for (const e of edges) {
+    parts.push('      <path class="ed" d="' + escAttr(e.d) + '" marker-end="url(#mfa)"/>');
+    if (e.flow !== false) parts.push('      <path class="ed-f" d="' + escAttr(e.d) + '"/>');
+  }
+  for (const n of nodes) {
+    parts.push('      <g class="nd" tabindex="0" role="button" aria-label="' + escAttr(n.t) + '"'
+      + ' data-t="' + escAttr(n.t) + '" data-d="' + escAttr(n.d) + '">');
+    parts.push('        <rect class="nd-box" x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="5"/>');
+    const acc = ['sig', 'held', 'warn', 'dep'].indexOf(n.role) >= 0 ? n.role : 'dep';
+    parts.push('        <rect class="acc-' + acc + '" x="' + n.x + '" y="' + n.y + '" width="3" height="' + n.h + '" rx="1.5"/>');
+    parts.push('        <text class="nd-k" x="' + (n.x + 14) + '" y="' + (n.y + 18) + '">' + esc(n.k) + '</text>');
+    if (n.v) parts.push('        <text class="nd-v" x="' + (n.x + 14) + '" y="' + (n.y + n.h - 11) + '">' + esc(n.v) + '</text>');
+    parts.push('      </g>');
+  }
+  /* labels after nodes, so a label near a box is never buried under it */
+  for (const e of edges) {
+    if (e.lab) parts.push('      <text class="ed-lab" x="' + e.lx + '" y="' + e.ly + '"'
+      + (e.anchor ? ' text-anchor="' + escAttr(e.anchor) + '"' : ' text-anchor="middle"') + '>' + esc(e.lab) + '</text>');
+  }
+  parts.push('    </svg>');
+
+  const script = [
+    '<script>(function(){',
+    'var f=document.querySelector("figure.mach");if(!f)return;',
+    'var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");',
+    'function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");',
+    'g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}',
+    'f.querySelectorAll("g.nd").forEach(function(g){',
+    'g.addEventListener("click",function(){on(g)});',
+    'g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});',
+    '});})();</scr' + 'ipt>'
+  ].join('');
+
+  return '<div class="wide"><figure class="mach">\n  <div class="figbox">\n'
+    + '    <div class="mach-ro"><div class="k" data-ro-k>' + esc(readout.k) + '</div>'
+    + '<div class="d" data-ro-d>' + esc(readout.d) + '</div></div>\n'
+    + parts.join('\n') + '\n  </div>\n'
+    + (caption ? '  <figcaption>' + esc(caption) + '</figcaption>\n' : '')
+    + '</figure></div>\n' + script;
+}
+
 module.exports = {
   esc, escAttr, m, tag, TAG_KINDS, categoryChart, legend,
   header, stats, scope, section, p, pRaw, pull, eq, note, quote,
-  table, plainList, figure,
+  table, plainList, figure, flow,
   svgOpen, svgClose, numberLine, band, vmark, label,
   tokens: T
 };

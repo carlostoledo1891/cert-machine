@@ -8,7 +8,7 @@ Interval enclosures and exact rational decisions — a REFUTED here is proved.
 
 ```
 make engine    generate → screen → certify; writes ledger.json   (~4 min)
-make control   rebuild control.html from the ledger              (~40 s, runs batteries)
+make control   rebuild index.html from the ledger                (~40 s, runs batteries)
 make test      every battery
 make drift     re-hash the lift against the source lab
 ```

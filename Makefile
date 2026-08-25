@@ -8,7 +8,7 @@ help:
 	@echo "cert-machine — the conjecture engine"
 	@echo ""
 	@echo "  make engine   generate, screen, certify; writes ledger.json"
-	@echo "  make control  rebuild control.html from the ledger (runs the batteries)"
+	@echo "  make control  rebuild index.html from the ledger (runs the batteries)"
 	@echo "  make test     every battery: instruments, engine, funnel"
 	@echo "  make drift    re-hash the lift against the source lab"
 	@echo ""
@@ -38,4 +38,4 @@ lift:
 	@$(NODE) tools/lift.js
 
 clean:
-	@rm -f control.html ledger.json
+	@rm -f index.html ledger.json

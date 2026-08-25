@@ -5,10 +5,13 @@
    render({title, headRaw, bodyRaw, footRaw}) -> a complete standalone document.
 
    SELF-CONTAINED BY CONSTRUCTION. The CSS is inlined, the figures are inline
-   SVG, and there is no script. The only network reference is the Google Fonts
-   stylesheet, and every face has a real fallback stack in tokens.TYPE, so the
-   page is fully legible offline — which matters here, because these pages are
-   read locally and the machine that generates them has no network guarantee.
+   SVG, and the only script is the few lines components.flow() ships for its
+   readout — with scripts off the schematic keeps its default narration and
+   nothing else on the page changes. The only network reference is the Google
+   Fonts stylesheet, and every face has a real fallback stack in tokens.TYPE,
+   so the page is fully legible offline — which matters here, because these
+   pages are read locally and the machine that generates them has no network
+   guarantee.
 
    The stylesheet below is the ONLY place a selector is written. A component in
    components.js emits a class; this file says what that class looks like. If a
@@ -97,7 +100,7 @@ blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
 blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
   font-family:${TYPE.mono};color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
 
-.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
 table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
 th{font-family:${TYPE.mono};font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
   color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
@@ -122,6 +125,34 @@ footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
   color:var(--ink-3);font-size:14px;line-height:1.65;font-family:${TYPE.mono}}
 footer p{margin:0 0 12px}
 footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:${TYPE.mono};font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
 
 @media (prefers-reduced-motion:no-preference){
   h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}

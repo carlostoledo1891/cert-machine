@@ -7,7 +7,7 @@ interval enclosures and exact rational decisions. A REFUTED here is proved.
 
 ```
 make engine    generate → screen → certify; writes ledger.json
-make control   rebuild control.html from the ledger
+make control   rebuild index.html from the ledger
 make test      every battery
 make drift     re-hash the lift against the source lab
 ```
