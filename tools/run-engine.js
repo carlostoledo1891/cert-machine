@@ -16,7 +16,7 @@ let totalGen = 0, totalCert = 0, relTested = 0, relRefuted = 0;
 
 for (const fam of FAMILIES) {
   process.stdout.write('  ' + fam.name.padEnd(18));
-  const corpusBound = fam.name.startsWith('oeis');
+  const corpusBound = fam.name.startsWith('oeis') || fam.name.startsWith('henon');
   const r = run(fam, corpusBound
     ? { limit: 100000, maxCertify: 100000 }        /* audit the whole corpus, not a sample */
     : { limit: LIMIT, maxCertify: Number(process.env.CERT_CAP || 300) });
@@ -42,8 +42,9 @@ for (const fam of FAMILIES) {
     return fam.name === 'chowla-cosine' ? av - bv : bv - av;      /* small c wins, large min|f| wins */
   }).slice(0, 12);
 
+  const valueShaped = !/henon/.test(fam.name);
   for (const h of ranked) {
-    const rel = relations(h.enclosure, { maxDen: 24 });
+    const rel = valueShaped ? relations(h.enclosure, { maxDen: 24 }) : { candidates: [], tested: 0, refuted: 0 };
     relTested += rel.tested; relRefuted += rel.refuted;
     ledger.conjectures.push({
       family: r.family, key: h.key, text: h.text,

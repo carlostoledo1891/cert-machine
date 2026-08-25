@@ -92,6 +92,66 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
   ok(!kept && thin.refuted > 0, 'RED: an enclosure shifted off sqrt(2) refutes it — the calibration can fail');
 }
 
+/* Krawczyk: calibrate against the ONE case with a closed form, and prove the
+   certifier can refuse. The Henon map's fixed points solve a quadratic, so the
+   certified box must contain the exact root — if it does not, the whole family
+   is producing confident nonsense. */
+{
+  const HEN = require(path.join(ROOT, 'families/henon-orbits.js'));
+  const a = 1.4, b = 0.3, disc = Math.sqrt((1 - b) * (1 - b) + 4 * a);
+  const exact = [((b - 1) + disc) / (2 * a), ((b - 1) - disc) / (2 * a)];
+
+  const certs = [];
+  for (let i = 0; ; i++) {
+    const o = HEN.enumerate(i); if (!o) break;
+    if (!HEN.interesting(o, HEN.value(o))) continue;
+    if (o.a !== a || o.p !== 1) continue;
+    const c = HEN.certify(o);
+    if (c.verdict === 'HIT') certs.push(c.extra);
+  }
+  ok(certs.length >= 2, 'both Henon fixed points at a=1.4 certify (' + certs.length + ' found)');
+  let contained = 0;
+  for (const root of exact) {
+    const m = certs.find(c => Math.abs(c.orbit[0] - root) < 1e-9);
+    if (m && root >= m.box[0][0] && root <= m.box[0][1]) contained++;
+  }
+  ok(contained === exact.length, 'every certified box CONTAINS the closed-form root it claims (' + contained + '/' + exact.length + ')');
+
+  /* RED: the certifier must refuse where NO solution exists.
+
+     Displacing a start point is not that test — Krawczyk certifies "a unique
+     root lies in this box", so a displaced start that still reaches the same
+     root is correct behaviour, and the first version of this control failed for
+     that reason. The decisive case is a parameter where the equation has no
+     real solution at all: the Henon fixed points solve
+     a x^2 + (1-b) x - 1 = 0, whose discriminant (1-b)^2 + 4a is negative for
+     a < -(1-b)^2/4 = -0.1225 at b = 0.3. At a = -0.5 there is nothing to find,
+     and a certifier that finds something there is broken. */
+  const good = certs[0];
+  let falseCert = 0, tried = 0;
+  for (let sd = 0; sd < 8; sd++) {
+    const o = { a: -0.5, b, p: 1, s: sd, v: [-1.5 + 0.4 * sd] };
+    tried++;
+    if (HEN.certify(o).verdict === 'HIT') falseCert++;
+  }
+  ok(falseCert === 0, 'RED: at a=-0.5 the fixed-point equation has negative discriminant and NOTHING certifies (' + falseCert + '/' + tried + ' false certificates)');
+
+  /* and the control on the control: the same starts at a real parameter DO certify,
+     so the refusal above is about the mathematics and not about the starts. */
+  let realCert = 0;
+  for (let sd = 0; sd < 8; sd++) {
+    const o = { a: 1.4, b, p: 1, s: sd, v: [-1.5 + 0.4 * sd] };
+    if (HEN.certify(o).verdict === 'HIT') realCert++;
+  }
+  ok(realCert > 0, 'RED control: the same start vectors at a=1.4 DO certify (' + realCert + '/8) — the refusal is mathematical, not procedural');
+
+  /* RED: uniqueness is strict-interior, not containment. A zero-radius box
+     cannot satisfy strict interior containment. */
+  const degenerate = HEN.certify({ a, b, p: 1, s: 0, v: [good.orbit[0]] });
+  ok(degenerate.verdict === 'HIT' && degenerate.extra.maxRad > 0,
+    'a certified box has POSITIVE radius — strict interior containment, not a point claim');
+}
+
 console.log('');
 console.log('engine battery: ' + pass + ' pass, ' + fail + ' fail');
 if (fail) process.exit(1);

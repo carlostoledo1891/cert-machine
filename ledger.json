@@ -13,8 +13,25 @@
     "rejects": 5,
     "refused": 0
    },
-   "ms": 141232,
+   "ms": 143847,
    "truncated": true,
+   "corpusRefutations": 0,
+   "corpusTested": 0
+  },
+  {
+   "name": "henon-orbits",
+   "statement": "a parameter pair (a,b) and an explicit box in which the Hénon map provably has a periodic orbit of period p, and exactly one",
+   "counts": {
+    "generated": 3936,
+    "screened": 1023,
+    "duplicates": 795,
+    "certified": 228,
+    "hits": 228,
+    "rejects": 0,
+    "refused": 0
+   },
+   "ms": 558,
+   "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
   },
@@ -30,7 +47,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 60062,
+   "ms": 60969,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -47,7 +64,7 @@
     "rejects": 14555,
     "refused": 0
    },
-   "ms": 5846,
+   "ms": 5605,
    "truncated": false,
    "corpusRefutations": 77632717,
    "corpusTested": 77634760
@@ -438,6 +455,390 @@
    "closedForm": {
     "tested": 1072,
     "refuted": 1072,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.6|0.3|1|0.833333333",
+   "text": "the Hénon map with a=0.6, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.8333333333332327,
+    0.8333333333334338
+   ],
+   "width": 2.0117241206207837e-13,
+   "extra": {
+    "a": 0.6,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.8333333333332327,
+      0.8333333333334338
+     ]
+    ],
+    "orbit": [
+     0.8333333333333333
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.62|0.3|1|0.825297414",
+   "text": "the Hénon map with a=0.62, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.8252974144849063,
+    0.8252974144851075
+   ],
+   "width": 2.0117241206207837e-13,
+   "extra": {
+    "a": 0.62,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.8252974144849063,
+      0.8252974144851075
+     ]
+    ],
+    "orbit": [
+     0.8252974144850069
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.64|0.3|1|0.817519468",
+   "text": "the Hénon map with a=0.64, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.8175194684821635,
+    0.8175194684823647
+   ],
+   "width": 2.0117241206207837e-13,
+   "extra": {
+    "a": 0.64,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.8175194684821635,
+      0.8175194684823647
+     ]
+    ],
+    "orbit": [
+     0.8175194684822641
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.66|0.3|1|0.809985304",
+   "text": "the Hénon map with a=0.66, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.8099853040115761,
+    0.8099853040117775
+   ],
+   "width": 2.013944566670034e-13,
+   "extra": {
+    "a": 0.66,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.8099853040115761,
+      0.8099853040117775
+     ]
+    ],
+    "orbit": [
+     0.8099853040116768
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.68|0.3|1|0.802681828",
+   "text": "the Hénon map with a=0.68, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.8026818284682021,
+    0.8026818284684033
+   ],
+   "width": 2.0117241206207837e-13,
+   "extra": {
+    "a": 0.68,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.8026818284682021,
+      0.8026818284684033
+     ]
+    ],
+    "orbit": [
+     0.8026818284683027
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.7|0.3|1|0.795596939",
+   "text": "the Hénon map with a=0.7, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.7955969390868318,
+    0.795596939087033
+   ],
+   "width": 2.0117241206207837e-13,
+   "extra": {
+    "a": 0.7,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.7955969390868318,
+      0.795596939087033
+     ]
+    ],
+    "orbit": [
+     0.7955969390869324
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.72|0.3|1|0.788719427",
+   "text": "the Hénon map with a=0.72, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.7887194271308591,
+    0.7887194271310602
+   ],
+   "width": 2.0117241206207837e-13,
+   "extra": {
+    "a": 0.72,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.7887194271308591,
+      0.7887194271310602
+     ]
+    ],
+    "orbit": [
+     0.7887194271309597
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.74|0.3|1|0.782038893",
+   "text": "the Hénon map with a=0.74, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.7820388933111634,
+    0.7820388933113648
+   ],
+   "width": 2.013944566670034e-13,
+   "extra": {
+    "a": 0.74,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.7820388933111634,
+      0.7820388933113648
+     ]
+    ],
+    "orbit": [
+     0.7820388933112641
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.76|0.3|1|0.775545673",
+   "text": "the Hénon map with a=0.76, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.7755456728983161,
+    0.7755456728985177
+   ],
+   "width": 2.0161650127192843e-13,
+   "extra": {
+    "a": 0.76,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.7755456728983161,
+      0.7755456728985177
+     ]
+    ],
+    "orbit": [
+     0.7755456728984169
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.78|0.3|1|0.769230769",
+   "text": "the Hénon map with a=0.78, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.7692307692306687,
+    0.7692307692308699
+   ],
+   "width": 2.0117241206207837e-13,
+   "extra": {
+    "a": 0.78,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.7692307692306687,
+      0.7692307692308699
+     ]
+    ],
+    "orbit": [
+     0.7692307692307693
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.8|0.3|1|0.763085795",
+   "text": "the Hénon map with a=0.8, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.7630857945185582,
+    0.7630857945187598
+   ],
+   "width": 2.0161650127192843e-13,
+   "extra": {
+    "a": 0.8,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.7630857945185582,
+      0.7630857945187598
+     ]
+    ],
+    "orbit": [
+     0.763085794518659
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "henon-orbits",
+   "key": "0.82|0.3|1|0.757102917",
+   "text": "the Hénon map with a=0.82, b=0.3 has a period-1 orbit in an explicit box of radius 4.441e-16, and exactly one there (Krawczyk, strict interior containment)",
+   "enclosure": [
+    0.7571029170088993,
+    0.7571029170091007
+   ],
+   "width": 2.013944566670034e-13,
+   "extra": {
+    "a": 0.82,
+    "b": 0.3,
+    "p": 1,
+    "maxRad": 4.440892098500626e-16,
+    "rounds": 1,
+    "box": [
+     [
+      0.7571029170088993,
+      0.7571029170091007
+     ]
+    ],
+    "orbit": [
+     0.757102917009
+    ],
+    "uniqueness": "unique in the stated box; K(X) strictly inside X"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
     "candidates": 0
    }
   },
@@ -1102,9 +1503,9 @@
   }
  ],
  "totals": {
-  "generated": 814677,
-  "certified": 14897,
-  "conjectures": 28,
+  "generated": 818613,
+  "certified": 15125,
+  "conjectures": 40,
   "closedFormTested": 77664775,
   "closedFormRefuted": 77662725,
   "closedFormCandidates": 7
