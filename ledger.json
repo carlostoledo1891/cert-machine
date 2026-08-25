@@ -13,7 +13,7 @@
     "rejects": 5,
     "refused": 0
    },
-   "ms": 142438,
+   "ms": 145137,
    "truncated": true,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -30,7 +30,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 25621,
+   "ms": 26446,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -47,7 +47,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 533,
+   "ms": 554,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -64,7 +64,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 13732,
+   "ms": 14122,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -81,7 +81,24 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 63,
+   "ms": 66,
+   "truncated": false,
+   "corpusRefutations": 0,
+   "corpusTested": 0
+  },
+  {
+   "name": "keller-fibers",
+   "statement": "a Keller map and a rational target with AT LEAST k certified preimages — pairwise-disjoint Krawczyk boxes found by blind multistart Newton on the exact map; k >= 2 re-proves non-injectivity with no witnesses consumed",
+   "counts": {
+    "generated": 8,
+    "screened": 8,
+    "duplicates": 0,
+    "certified": 8,
+    "hits": 6,
+    "rejects": 1,
+    "refused": 1
+   },
+   "ms": 7947,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -98,7 +115,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 61083,
+   "ms": 326813,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -115,7 +132,7 @@
     "rejects": 14593,
     "refused": 0
    },
-   "ms": 5001,
+   "ms": 4981,
    "truncated": false,
    "corpusRefutations": 54606108,
    "corpusTested": 54607006
@@ -10409,6 +10426,302 @@
    }
   },
   {
+   "family": "keller-fibers",
+   "key": "fiber|alpoge",
+   "text": "alpoge: AT LEAST 3 preimages of one rational point, each in a certified Krawczyk box, boxes pairwise disjoint — non-injectivity re-proved BLIND, no witnesses consumed",
+   "enclosure": [
+    3,
+    3
+   ],
+   "width": 0,
+   "extra": {
+    "tag": "alpoge",
+    "target": [
+     "-1/4",
+     "0",
+     "0"
+    ],
+    "preimages": 3,
+    "boxes": [
+     {
+      "center": [
+       0,
+       0,
+       -0.25
+      ],
+      "maxRad": 6.245004513516506e-16
+     },
+     {
+      "center": [
+       1.000000000000008,
+       -1.499999999999991,
+       6.499999999999904
+      ],
+      "maxRad": 5.985434370359144e-12
+     },
+     {
+      "center": [
+       -0.9999999999999867,
+       1.5000000000000198,
+       6.500000000000172
+      ],
+      "maxRad": 4.922284801978094e-12
+     }
+    ],
+    "starts": 400,
+    "note": "a LOWER bound: each box certified by Krawczyk strict interior containment on the exact map; boxes pairwise disjoint, so the preimages are provably distinct"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-fibers",
+   "key": "fiber|sweep-d3",
+   "text": "sweep-d3: AT LEAST 3 preimages of one rational point, each in a certified Krawczyk box, boxes pairwise disjoint — non-injectivity re-proved BLIND, no witnesses consumed (MORE than the 2 constructed witnesses)",
+   "enclosure": [
+    3,
+    3
+   ],
+   "width": 0,
+   "extra": {
+    "tag": "sweep-d3",
+    "target": [
+     "-13/8",
+     "-2",
+     "1"
+    ],
+    "preimages": 3,
+    "boxes": [
+     {
+      "center": [
+       0.5573425710731287,
+       0.47372055837117394,
+       -2.7374211765446588
+      ],
+      "maxRad": 4.135580766728708e-14
+     },
+     {
+      "center": [
+       0.1818181818181894,
+       -6.499999999999764,
+       37.1250000000043
+      ],
+      "maxRad": 4.666880215609126e-10
+     },
+     {
+      "center": [
+       -0.6666666666667148,
+       2.499999999999925,
+       22.874999999997083
+      ],
+      "maxRad": 9.066329909046544e-10
+     }
+    ],
+    "starts": 400,
+    "note": "a LOWER bound: each box certified by Krawczyk strict interior containment on the exact map; boxes pairwise disjoint, so the preimages are provably distinct"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-fibers",
+   "key": "fiber|gallagher-d2",
+   "text": "gallagher-d2: AT LEAST 3 preimages of one rational point, each in a certified Krawczyk box, boxes pairwise disjoint — non-injectivity re-proved BLIND, no witnesses consumed (MORE than the 2 constructed witnesses)",
+   "enclosure": [
+    3,
+    3
+   ],
+   "width": 0,
+   "extra": {
+    "tag": "gallagher-d2",
+    "target": [
+     "-4",
+     "-4",
+     "1"
+    ],
+    "preimages": 3,
+    "boxes": [
+     {
+      "center": [
+       0.25000000000000033,
+       -1.9999999999999951,
+       35.99999999999984
+      ],
+      "maxRad": 3.6980196682634414e-11
+     },
+     {
+      "center": [
+       0.08333333333333207,
+       -14.000000000000199,
+       1332.0000000000668
+      ],
+      "maxRad": 1.881505795608973e-8
+     },
+     {
+      "center": [
+       -0.3333333333333299,
+       4.000000000000024,
+       -54.00000000000132
+      ],
+      "maxRad": 1.85810478114945e-10
+     }
+    ],
+    "starts": 400,
+    "note": "a LOWER bound: each box certified by Krawczyk strict interior containment on the exact map; boxes pairwise disjoint, so the preimages are provably distinct"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-fibers",
+   "key": "fiber|gallagher-d3",
+   "text": "gallagher-d3: AT LEAST 3 preimages of one rational point, each in a certified Krawczyk box, boxes pairwise disjoint — non-injectivity re-proved BLIND, no witnesses consumed (MORE than the 2 constructed witnesses)",
+   "enclosure": [
+    3,
+    3
+   ],
+   "width": 0,
+   "extra": {
+    "tag": "gallagher-d3",
+    "target": [
+     "-1/2",
+     "-1/2",
+     "1"
+    ],
+    "preimages": 3,
+    "boxes": [
+     {
+      "center": [
+       2.000000000000037,
+       0.5000000000000072,
+       0.22500000000000087
+      ],
+      "maxRad": 2.3494539647117563e-12
+     },
+     {
+      "center": [
+       0.6666666666666574,
+       -2.5000000000000315,
+       -4.12500000000006
+      ],
+      "maxRad": 8.047340571692985e-12
+     },
+     {
+      "center": [
+       -2.4880338717105457,
+       1.1339745962157135,
+       -0.8645505110227977
+      ],
+      "maxRad": 2.6109447937017194e-10
+     }
+    ],
+    "starts": 400,
+    "note": "a LOWER bound: each box certified by Krawczyk strict interior containment on the exact map; boxes pairwise disjoint, so the preimages are provably distinct"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-fibers",
+   "key": "fiber|sweep-d4",
+   "text": "sweep-d4: AT LEAST 2 preimages of one rational point, each in a certified Krawczyk box, boxes pairwise disjoint — non-injectivity re-proved BLIND, no witnesses consumed",
+   "enclosure": [
+    2,
+    2
+   ],
+   "width": 0,
+   "extra": {
+    "tag": "sweep-d4",
+    "target": [
+     "-13/5",
+     "-16/5",
+     "1"
+    ],
+    "preimages": 2,
+    "boxes": [
+     {
+      "center": [
+       0.12195121951234507,
+       -9.199999999989164,
+       -319.89371428424465
+      ],
+      "maxRad": 1.3610585369860928e-7
+     },
+     {
+      "center": [
+       -0.4545454545450397,
+       3.2000000000011286,
+       29.379428571486848
+      ],
+      "maxRad": 9.989451044134512e-9
+     }
+    ],
+    "starts": 400,
+    "note": "a LOWER bound: each box certified by Krawczyk strict interior containment on the exact map; boxes pairwise disjoint, so the preimages are provably distinct"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-fibers",
+   "key": "fiber|gallagher-distinct",
+   "text": "gallagher-distinct: AT LEAST 2 preimages of one rational point, each in a certified Krawczyk box, boxes pairwise disjoint — non-injectivity re-proved BLIND, no witnesses consumed",
+   "enclosure": [
+    2,
+    2
+   ],
+   "width": 0,
+   "extra": {
+    "tag": "gallagher-distinct",
+    "target": [
+     "0",
+     "0",
+     "1"
+    ],
+    "preimages": 2,
+    "boxes": [
+     {
+      "center": [
+       0.9999999999999991,
+       9.840239828604324e-19,
+       1.2202851812047697e-15
+      ],
+      "maxRad": 1.5543122344752192e-15
+     },
+     {
+      "center": [
+       -0.9999999999999982,
+       1.4981173174207385e-15,
+       2.000000000000011
+      ],
+      "maxRad": 1.124322857037896e-12
+     }
+    ],
+    "starts": 400,
+    "note": "a LOWER bound: each box certified by Krawczyk strict interior containment on the exact map; boxes pairwise disjoint, so the preimages are provably distinct"
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
    "family": "newman-minmod",
    "key": "[0,1,2,3,4,7,8,10,12]",
    "text": "min|f| >= 1.3623731781333241 for the 9-term set [0,2,4,5,8,9,10,11,12], exceeding 1.3111013028723257",
@@ -10544,9 +10857,9 @@
  ],
  "relations": [],
  "totals": {
-  "generated": 819080,
-  "certified": 15592,
-  "conjectures": 64,
+  "generated": 819088,
+  "certified": 15600,
+  "conjectures": 70,
   "closedFormTested": 54618463,
   "closedFormRefuted": 54617565,
   "closedFormCandidates": 0

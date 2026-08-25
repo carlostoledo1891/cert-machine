@@ -85,9 +85,14 @@ B.push(C.scope('Local working document. Nothing here has been through a literatu
   const sum = (k) => F.reduce((t, f) => t + f.counts[k], 0);
   const screened = sum('screened'), hits = sum('hits'), rejects = sum('rejects'), refused = sum('refused');
 
-  const famY = [8, 62, 116, 170, 224, 278, 332];
-  const famNodes = F.slice(0, 7).map((f, i) => ({
-    x: 14, y: famY[i], w: 180, h: 40, role: 'dep',
+  /* the family column sizes itself: a new family must never fall off the
+     drawing again (the 6th and 7th both did, silently, until looked at) */
+  const famH = 40;
+  const famStep = F.length > 1 ? Math.min(62, Math.floor(320 / (F.length - 1))) : 0;
+  const famTop = Math.max(8, Math.round(188 - ((F.length - 1) * famStep + famH) / 2));
+  const famY = F.map((_, i) => famTop + i * famStep);
+  const famNodes = F.map((f, i) => ({
+    x: 14, y: famY[i], w: 180, h: famH, role: 'dep',
     k: f.name.toUpperCase(), v: commas(f.counts.generated) + ' generated',
     t: 'family · ' + f.name,
     d: f.statement + ' One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.'

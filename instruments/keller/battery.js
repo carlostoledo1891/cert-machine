@@ -174,6 +174,30 @@ let claim3 = null;
   ok(!sab.ok, 'RED: a seed violating p(1) = -c is REFUSED (' + sab.why + ')');
 }
 
+/* ---- the fiber hunter: non-injectivity found blind ---- */
+{
+  const { certifiedFiber } = require('#instruments/keller/fibers.js');
+  const alp = FAM.enumerate(0);
+
+  /* blind rediscovery: all three known preimages of (-1/4,0,0), no witnesses given */
+  const f = certifiedFiber(alp.claim.F, alp.claim.image);
+  ok(f.preimages === 3, 'BLIND: the hunter certifies 3 preimages of Alpöge\'s collision point without being told any (' + f.preimages + ')');
+  let contained = 0;
+  for (const wpt of alp.claim.collisions) {
+    const wf = wpt.map(Q.toDouble);
+    if (f.boxes.some(b => wf.every((x, i) => b.box[i][0] <= x && x <= b.box[i][1]))) contained++;
+  }
+  ok(contained === 3, 'each known rational witness lies INSIDE one of the certified boxes (' + contained + '/3)');
+
+  /* negative control: an automorphism's fiber is a single certified point */
+  const n = 3;
+  const auto = [K.padd(K.pvar(0, n), K.ppow(K.pvar(1, n), 2, n)),
+                K.padd(K.pvar(1, n), K.ppow(K.pvar(2, n), 3, n)),
+                K.pvar(2, n)];
+  const fa = certifiedFiber(auto, [Q.R(2n), Q.R(1n), Q.R(1n)]);
+  ok(fa.preimages === 1, 'RED control: a triangular automorphism certifies EXACTLY 1 preimage — 400 starts converge to one box, dedup holds (' + fa.preimages + ')');
+}
+
 console.log('');
 console.log('keller battery: ' + pass + ' pass, ' + fail + ' fail');
 if (fail) process.exit(1);

@@ -16,8 +16,8 @@ make drift     re-hash the lift against the source lab
 ## State, measured at handoff
 
 ```
-819,071  objects generated across 7 families
- 15,583  certified exactly
+819,088  objects generated across 8 families
+ 15,600  certified exactly
 54.6M    closed forms tested · 54,617,565 refuted · 0 surviving
     228  existence-AND-uniqueness theorems (Krawczyk)
     452  COMPLETENESS theorems (census: Hénon 328/328 + Holmes cubic 124/124, 0 refusals)
@@ -25,10 +25,11 @@ make drift     re-hash the lift against the source lab
       3  NEW counterexamples GENERATED here (tangent-sweep, geometric degree 4/5/6, rational witnesses)
       1  HESSIAN conjecture counterexample audited (Meng–Yang HC5: det Hess ≡ 128, 5 variables)
       5  Gallagher-family members audited from the seed (det ≡ 1, fiber degrees 3..6, + the distinct member)
+      6  fibers recounted BLIND (multistart + Krawczyk boxes; Alpöge's 3 preimages rediscovered unaided)
 ```
 
 Batteries 13/13 on the page (14 in `make test`). Engine gate 31/31. Census
-battery 26/26 (two maps, 5 red controls), keller battery 23/23 (6 red
+battery 26/26 (two maps, 5 red controls), keller battery 26/26 (7 red
 controls; the generator reproduces Alpöge polynomial-for-polynomial, and the
 doubling identity det Hess(y·F) = −(det J F)² = −4 makes the Alpöge and
 Meng–Yang corpus entries certify each other). Drift: 38 unchanged, 1 local edited (a declared patch).
@@ -65,6 +66,7 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | `oeis-closedform` | audits 14,593 published OEIS constants | 54.6M forms refuted, **0 discoveries** — every survivor's full record fetched and its form found on record, a verdict the engine now reaches itself |
 | `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
 | `keller-audit` | Jacobian + Hessian counterexamples decided — and GENERATED | 15/15: Alpöge n=3..8; 3 generated from our own curves; Meng–Yang HC5; Gallagher's family d=2..5 + distinct member, reconstructed from the seeds — every det a symbolic identity, every witness exact rational |
+| `keller-fibers` | fiber counts certified BLIND — no witnesses consumed | 6/8 HITs: Alpöge's 3 preimages rediscovered unaided; gallagher-d2/d3 at full tangency degree; 2 cells honestly REJECT/REFUSED (witnesses at \|z\|~200, beyond blind reach) |
 | `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); p=12 = 248 points/19 orbits in 52 s |
 | `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
 
@@ -121,7 +123,15 @@ p=4 — caught by the shift classification, not by reading code).
    certified or refuted exactly; red control: one perturbed coefficient must
    break the identity. A calibration corpus whose ground truth is five weeks
    old — the exact opposite of OEIS staleness.
-4. **`keller-search`: collision hunting in Keller-map ansätze.** The Alpöge
+4. **keller-search: the fiber hunter is BUILT (keller-fibers).**
+   instruments/keller/fibers.js: damped multistart Newton over a scale
+   ladder, every candidate certified in a Krawczyk box on the EXACT map
+   (interval-enclosed rational coefficients), dedup by certified box
+   disjointness — "AT LEAST k preimages, provably distinct", k >= 2
+   re-proving non-injectivity blind. Remaining from the original plan:
+   ansatz-grammar enumeration (z-affine coefficient grids through the exact
+   Keller filter) for the minimal-degree question, and the plane-case
+   exclusions. Original note: The Alpöge
    map is z-AFFINE with coefficients in {±1..±4} — inside an enumerable
    grammar. enumerate: structured ansätze F = A(x,y)·z + B(x,y); screen:
    exact Keller filter (det J ≡ const, symbolic over Q — the instrument seed
