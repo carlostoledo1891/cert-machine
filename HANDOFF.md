@@ -16,8 +16,8 @@ make drift     re-hash the lift against the source lab
 ## State, measured at handoff
 
 ```
-819,088  objects generated across 8 families
- 15,600  certified exactly
+819,097  objects generated across 9 families
+ 15,609  certified exactly
 54.6M    closed forms tested · 54,617,565 refuted · 0 surviving
     228  existence-AND-uniqueness theorems (Krawczyk)
     452  COMPLETENESS theorems (census: Hénon 328/328 + Holmes cubic 124/124, 0 refusals)
@@ -26,6 +26,7 @@ make drift     re-hash the lift against the source lab
       1  HESSIAN conjecture counterexample audited (Meng–Yang HC5: det Hess ≡ 128, 5 variables)
       5  Gallagher-family members audited from the seed (det ≡ 1, fiber degrees 3..6, + the distinct member)
       6  fibers recounted BLIND (multistart + Krawczyk boxes; Alpöge's 3 preimages rediscovered unaided)
+      5  Ramanujan Machine conjectures SURVIVE a rigorous audit (4 zeta(3) minus-CFs recorded, pending)
 ```
 
 Batteries 13/13 on the page (14 in `make test`). Engine gate 31/31. Census
@@ -67,6 +68,7 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
 | `keller-audit` | Jacobian + Hessian counterexamples decided — and GENERATED | 15/15: Alpöge n=3..8; 3 generated from our own curves; Meng–Yang HC5; Gallagher's family d=2..5 + distinct member, reconstructed from the seeds — every det a symbolic identity, every witness exact rational |
 | `keller-fibers` | fiber counts certified BLIND — no witnesses consumed | 6/8 HITs: Alpöge's 3 preimages rediscovered unaided; gallagher-d2/d3 at full tangency degree; 2 cells honestly REJECT/REFUSED (witnesses at \|z\|~200, beyond blind reach) |
+| `ramanujan-audit` | the Ramanujan Machine's conjectures, decided | 5/5 positive-CF conjectures survive an UNCONDITIONAL interval audit (tail seeded by proof); the engine's own vocabulary then rediscovers (1/4)·π as the unique surviving form over the Brouncker enclosure |
 | `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); p=12 = 248 points/19 orbits in 52 s |
 | `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
 
@@ -143,7 +145,19 @@ p=4 — caught by the shift classification, not by reading code).
    the OPEN plane case certified exclusions: "no collision in this family,
    proved" (Moh already gives degree ≤ 100, so plane statements are
    exclusion-only until the ansatz outgrows it).
-5. **Audit the Ramanujan Machine's published conjectures.** Certify or refute
+5. **Ramanujan Machine audit: v1 BUILT (ramanujan-audit).** instruments/cf/
+   evaluates positive polynomial CFs backward with a PROVED tail seed
+   (t in (0, a/b]) and outward rounding — an unconditional enclosure, no
+   convergence theorem consumed; widths bottom out at ~8e-16. The e and pi
+   sheets audit clean (5/5 survive; Brouncker calibrates; every
+   normalization float-guarded against transcription error). REMAINING, and
+   it is the flagship: the zeta(3) minus-CF table, including TWO rows the
+   Machine marks "new and unproven" — needs a verified tail-lemma evaluator
+   (per-family tail interval T(n) = [alpha n^3, beta n^3], inclusion proved
+   by shift-and-check-coefficients polynomial positivity, which
+   instruments/keller/ arithmetic already supports). Also v2: high-precision
+   exact-rational constant enclosures (Machin pi, sum 1/k!) to push slack
+   below double precision. Original note: Certify or refute
    them exactly — continued-fraction values against interval enclosures, the
    contrast this project was built around, demonstrated on the other side's
    own corpus. Unlike OEIS this is NOT a curated-corpus trap: their claims are

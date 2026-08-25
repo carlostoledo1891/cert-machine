@@ -36,6 +36,7 @@ const BATTERIES = [
   ['trigmin certifier', ['instruments/trigmin/battery.js'], '47 checks · 2 red controls'],
   ['census (henon + holmes)', ['instruments/census/battery.js'], 'closed-form calibration, two maps · 5 red controls'],
   ['keller audit + sweep', ['instruments/keller/battery.js'], 'symbolic det over Q, generator calibrated on Alpöge · 4 red controls'],
+  ['cf audit', ['instruments/cf/battery.js'], 'rigorous CF enclosures vs the Ramanujan Machine · 3 red controls'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [
