@@ -61,12 +61,14 @@ p=4 — caught by the shift classification, not by reading code).
 
 ## Next steps, in order
 
-1. **Higher periods at the classical parameters.** DONE through p=13: exactly
-   418 period-13 points — 2 fixed, EXACTLY 32 orbits of minimal period 13
-   (matches Galias) — in 3 min, recheck clean. p=14 takes ~15 min in-session;
-   p=15..16 need the detach runner (cost ~4× per period step; the wall is the
-   anisotropic tube near the strongly unstable fixed point). Each new p at
-   a=1.4 is a publishable exact count.
+1. **Higher periods at the classical parameters.** DONE through p=14. p=13:
+   exactly 418 points — 2 fixed, EXACTLY 32 orbits of minimal period 13 — in
+   3 min. p=14: exactly 648 points — 2 fixed, one 2-cycle, 4 period-7 orbits
+   (independently re-deriving the p=7 census), EXACTLY 44 orbits of minimal
+   period 14 — 125M boxes in 18 min. Both match Galias, both recheck clean.
+   p=15..16 need the detach runner (cost ~3.5-6× per period step; the wall is
+   the anisotropic tube near the strongly unstable fixed point). Each new p
+   at a=1.4 is a publishable exact count.
 2. **A second map for the census.** The argument only needs a quadratic a
    priori bound and a polynomial recurrence — Ikeda needs interval sin/cos
    (transcendental.js is sound), the cubic Hénon and the standard-map family
