@@ -18,13 +18,25 @@ make drift     re-hash the lift against the source lab
 ```
 818,941  objects generated across 5 families
  15,453  certified exactly
-77.6M    closed forms tested · 77,662,725 refuted · 7 surviving
+54.6M    closed forms tested · 54,617,565 refuted · 0 surviving
     228  existence-AND-uniqueness theorems (Krawczyk)
     328  COMPLETENESS theorems (branch-and-bound census, 328/328 cells, 0 refusals)
 ```
 
-Batteries 11/11. Engine gate 28/28. Census battery 18/18 with 3 red controls.
-Drift: 38 unchanged, 1 local edited (a declared patch).
+Batteries 12/12 (llm harness added). Engine gate 31/31. Census battery 18/18
+with 3 red controls. Drift: 38 unchanged, 1 local edited (a declared patch).
+
+An outside review caught two defects in under a minute; both are fixed and
+gated. (1) The closed-form vocabularies emitted unreduced spellings —
+(2/1)·e and (4/2)·e counted as two forms — so refutation counts were inflated
+~30% and one surviving value showed as four candidates; every vocabulary is now
+reduced-only, which DEFLATED the headline from 77.6M to 54.6M. (2) The OEIS
+family read only the entry NAME and certified "Decimal expansion of 2*e" as a
+discovery; corpus/survivors-confirmed.json (full records, fetched by
+tools/confirm-survivors.js) now feeds back into certify, so a survivor with a
+form on record is REJECT and an unfetched survivor is an open candidate, never
+a hit. OEIS hits went 38 → 0: the engine itself now concludes what the
+hand-check knew. A019762 is pinned in the battery as a regression control.
 
 ## The five families
 
@@ -32,7 +44,7 @@ Drift: 38 unchanged, 1 local edited (a declared patch).
 |---|---|---|
 | `newman-minmod` | min\|f\| on \|z\|=1 for 0/1 polynomials | 4 certified; one adopted into the envelope (17-term, min\|f\| ≥ 1.4141441147942588) |
 | `chowla-cosine` | Chowla merit c = −min f_A/√\|A\| | 295 certified below 1 |
-| `oeis-closedform` | audits 14,593 published OEIS constants | 77.6M forms refuted, **0 discoveries** — the corpus is curated, every survivor already had its form on record |
+| `oeis-closedform` | audits 14,593 published OEIS constants | 54.6M forms refuted, **0 discoveries** — every survivor's full record fetched and its form found on record, a verdict the engine now reaches itself |
 | `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
 | `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); p=12 = 248 points/19 orbits in 52 s |
 
@@ -82,12 +94,34 @@ p=4 — caught by the shift classification, not by reading code).
    the OPEN plane case certified exclusions: "no collision in this family,
    proved" (Moh already gives degree ≤ 100, so plane statements are
    exclusion-only until the ansatz outgrows it).
-5. **More Krawczyk families.** Any parameterised nonlinear system: steady
+5. **Audit the Ramanujan Machine's published conjectures.** Certify or refute
+   them exactly — continued-fraction values against interval enclosures, the
+   contrast this project was built around, demonstrated on the other side's
+   own corpus. Unlike OEIS this is NOT a curated-corpus trap: their claims are
+   conjectures by construction, so refutations are discoveries. High headline
+   value per unit work; "this decides, that guesses" writes itself.
+6. **An LLM-conjecture campaign through `tools/llm-harness.py`.** Model
+   proposes, engine certifies, ledger records the per-family truth rate of
+   proposals that survived a float screen — an eval whose ground truth is a
+   proof. The harness ships with an Egyptian-fraction demo and red controls
+   that abort the run if a false proposal ever certifies; the real campaign
+   needs one of our families ported behind its six-method interface. Porting
+   an UNFAMILIAR family at the same time (Littlewood/Barker polynomials, or a
+   Diophantine family where certify is an exact rational witness) doubles as
+   the stress test of whether the interface generalises or has quietly shaped
+   itself around the first five.
+7. **Portable certificates.** Nothing in the ledger is checkable by a stranger
+   yet. A standalone stdlib verifier for one certificate class (the census
+   boxes are the best candidate: finitely many intervals plus one contraction
+   inequality each), or a Lean export — and the 54.6M proved negatives as a
+   labeled dataset. The detach battery is the seed.
+8. **More Krawczyk families.** Any parameterised nonlinear system: steady
    states of reaction-diffusion, roots of polynomial systems.
-6. **Do NOT go back to closed-form hunting over curated corpora.** OEIS was the
+9. **Do NOT go back to closed-form hunting over curated corpora.** OEIS was the
    right calibration target and the wrong discovery target, and the reason is
-   structural and predictable in advance. (The keller corpus is not this:
-   its claims are new, explicit, and decidable by our instruments.)
+   structural and predictable in advance. (The keller and Ramanujan-Machine
+   corpora are not this: their claims are new or conjectural, and decidable by
+   our instruments.)
 
 ## The rule for changing front
 

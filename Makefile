@@ -30,6 +30,7 @@ test:
 	@printf "%-30s " "henon census"; $(NODE) instruments/census/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@for f in sos_verify lyapunov_cert reverify_ai_lyapunov; do \
 	  printf "%-30s " "sos/$$f"; $(PY) instruments/sos/$$f.py >/dev/null 2>&1 && echo PASS || echo FAIL; done
+	@printf "%-30s " "llm harness (dry)"; $(PY) tools/llm-harness.py --dry-run --n 20 --ledger /dev/null >/dev/null 2>&1 && echo PASS || echo FAIL
 
 drift:
 	@$(NODE) tools/lift.js --check

@@ -34,6 +34,23 @@ const IV = require('#instruments/interval/interval.js');
 
 const CORPUS = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'corpus', 'oeis-constants.json'), 'utf8')).entries;
 
+/* The bulk corpus carries only id + name + digits; OEIS states closed forms in
+   FORMULA and COMMENT fields the bulk file does not have. tools/confirm-survivors.js
+   fetches the FULL record for every survivor and writes the result here. A HIT
+   is only a HIT if the full record was checked and states no form — before this
+   file fed back in, the family certified "Decimal expansion of 2*e" as a
+   discovery because the name-only regex missed the asterisk. The engine now
+   decides what a hand-run script once concluded. */
+const CONFIRMED = (() => {
+  const m = new Map();
+  try {
+    for (const o of JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'corpus', 'survivors-confirmed.json'), 'utf8'))) {
+      if (o.fetch !== 'FAILED') m.set(o.id, !!o.statesForm);
+    }
+  } catch (e) { /* no confirmation data — every survivor stays unconfirmed */ }
+  return m;
+})();
+
 const DIGITS = 17;
 function padOut(lo, hi) {
   let a = lo, b = hi;
@@ -70,32 +87,49 @@ const K = {
 };
 const KN = Object.keys(K);
 
+/* REDUCED SPELLINGS ONLY. The first version emitted (2/1)e, (4/2)e, (6/3)e and
+   (8/4)e as four forms, (2+1sqrt3)/1 and (4+2sqrt3)/2 as two: the refuted
+   count was inflated by duplicates, and one surviving value could show up as
+   four candidates. Skipping gcd > 1 loses no value — the reduced spelling is
+   always emitted at the smaller parameters — it only stops the same number
+   being counted twice. (Cross-shape aliases — sqrt5*phi spelling the same
+   value as (5+1sqrt5)/2 — can still coincide in a survivor list; they are
+   different FORMS with one value, and survivors are labels, not counts.) */
+function gcd2(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { const t = a % b; a = b; b = t; } return a; }
+
 function forms(emit) {
   /* rationals p/q */
-  for (let q = 1; q <= 32; q++) for (let p = 1; p <= 32; p++) emit(p + '/' + q, p / q);
+  for (let q = 1; q <= 32; q++) for (let p = 1; p <= 32; p++) {
+    if (gcd2(p, q) !== 1) continue;
+    emit(p + '/' + q, p / q);
+  }
   /* square and cube roots of small rationals — degree-2 and -3 algebraics */
   for (let q = 1; q <= 16; q++) for (let p = 1; p <= 32; p++) {
+    if (gcd2(p, q) !== 1) continue;
     emit('sqrt(' + p + '/' + q + ')', Math.sqrt(p / q));
     emit('cbrt(' + p + '/' + q + ')', Math.cbrt(p / q));
   }
-  /* (a + b*sqrt(d))/c — the quadratic irrationals */
+  /* (a + b*sqrt(d))/c — the quadratic irrationals, gcd(a,b,c) = 1 */
   for (const d of [2, 3, 5, 6, 7, 10, 13]) for (let a = 0; a <= 6; a++)
-    for (let b = 1; b <= 6; b++) for (let c = 1; c <= 6; c++)
+    for (let b = 1; b <= 6; b++) for (let c = 1; c <= 6; c++) {
+      if (gcd2(gcd2(a, b), c) !== 1) continue;
       emit('(' + a + '+' + b + 'sqrt' + d + ')/' + c, (a + b * Math.sqrt(d)) / c);
+    }
   /* rational multiples and rational powers of each named constant */
   for (const n of KN) for (let q = 1; q <= 8; q++) for (let p = 1; p <= 8; p++) {
+    if (gcd2(p, q) !== 1) continue;
     emit('(' + p + '/' + q + ')' + n, (p / q) * K[n]);
     emit(n + '^(' + p + '/' + q + ')', Math.pow(K[n], p / q));
   }
-  /* products and quotients of two named constants */
+  /* products of two named constants (unordered — a*b IS b*a) and quotients (ordered) */
   for (let i = 0; i < KN.length; i++) for (let j = 0; j < KN.length; j++) {
     if (i === j) continue;
-    emit(KN[i] + '*' + KN[j], K[KN[i]] * K[KN[j]]);
+    if (i < j) emit(KN[i] + '*' + KN[j], K[KN[i]] * K[KN[j]]);
     emit(KN[i] + '/' + KN[j], K[KN[i]] / K[KN[j]]);
   }
   /* log and exp of small rationals */
   for (let q = 1; q <= 8; q++) for (let p = 1; p <= 16; p++) {
-    if (p === q) continue;
+    if (p === q || gcd2(p, q) !== 1) continue;
     emit('log(' + p + '/' + q + ')', Math.log(p / q));
     emit('exp(' + p + '/' + q + ')', Math.exp(p / q));
   }
@@ -181,7 +215,7 @@ const NOT_A_CONSTANT = /all \d's sequence|constant sequence|characteristic funct
 
 module.exports = {
   name: 'oeis-closedform',
-  statement: 'a published OEIS constant whose name states no closed form, but whose digits are consistent with a small closed form while every other form in the vocabulary is refuted',
+  statement: 'a published OEIS constant whose record — name AND fetched formula/comment fields — states no closed form, while its digits are consistent with a small closed form and every other form in the vocabulary is refuted',
   vocabulary: VOCAB,
   enumerate: (i) => (i < CORPUS.length ? CORPUS[i] : null),
   value: (e) => { const m = mantissaOf(e); return m ? m[0] : NaN; },
@@ -203,8 +237,12 @@ module.exports = {
 
     /* Does the entry's own name already give the form? Conservative in the one
        direction that matters: it must not call something unnamed when the name
-       names it. */
-    const named = /=|sqrt|log|exp|Pi\b|pi\b|zeta|Gamma|gamma|\^|\/|root|sum|product|integral|Li_|e\^|constant of|number$/i
+       names it. The first version missed "2*e" (an asterisk), "2 + phi",
+       "square of the Euler-Mascheroni constant" and "tangent of 75 degrees" —
+       all four certified as HITs the confirmation fetch then disproved. The
+       regex is widened for those shapes AND no longer trusted alone: see the
+       CONFIRMED check below. */
+    const named = /=|sqrt|log|exp|Pi\b|pi\b|phi\b|golden|zeta|Gamma|gamma|\^|\/|root|sum|product|integral|Li_|e\^|constant of|number$|\d\s*\*|\*\s*\d|square of|cube of|tangent|sine|cosine|\btan\b|\bsin\b|\bcos\b|degrees/i
       .test(e.name.replace(/^Decimal expansion of\s*/i, ''));
 
     /* Every rational survivor gets re-decided EXACTLY at the full published
@@ -219,17 +257,29 @@ module.exports = {
       if (poss === false) exactRefuted.push(s.label); else stillPossible.push(s);
     }
 
-    const hit = !named && stillPossible.length > 0;
+    /* Three ways to not be a discovery: the name states the form, the full
+       OEIS record states it (fetched and cached by tools/confirm-survivors.js),
+       or nothing survived. A survivor whose full record has NOT been fetched is
+       an OPEN CANDIDATE, not a hit — absence of a check is not absence of a form. */
+    const onRecord = CONFIRMED.get(e.id) === true;
+    const recordChecked = CONFIRMED.has(e.id);
+    const hit = !named && !onRecord && recordChecked && stillPossible.length > 0;
     return {
       verdict: hit ? 'HIT' : 'REJECT',
       enclosure: encl,
       text: hit
-        ? e.id + ' — "' + e.name.slice(0, 64) + '" states no closed form, yet its digits match '
+        ? e.id + ' — "' + e.name.slice(0, 64) + '" states no closed form anywhere in its record, yet its digits match '
           + stillPossible.slice(0, 3).map(s => s.label).join(' / ') + ' up to a power of ten; '
           + refuted + ' other forms refuted in double, ' + exactRefuted.length + ' more refuted EXACTLY'
-        : e.id + ': ' + refuted + ' of ' + tested + ' forms refuted, ' + survivors.length + ' surviving',
+        : stillPossible.length > 0 && (named || onRecord)
+          ? e.id + ': digits match ' + stillPossible[0].label + ' — and the OEIS record already states the form ('
+            + (named ? 'in the name' : 'in a formula/comment field') + '); a screen escape, not a discovery'
+        : stillPossible.length > 0
+          ? e.id + ': digits match ' + stillPossible[0].label + ' but the full record has not been fetched — open candidate, not a hit'
+          : e.id + ': ' + refuted + ' of ' + tested + ' forms refuted, ' + survivors.length + ' surviving',
       extra: {
         id: e.id, name: e.name, nameStatesForm: named,
+        formOnRecord: recordChecked ? onRecord : null,
         digitsUsed: Math.min(e.digits.length, DIGITS),
         tested, refuted,
         exactRefuted, exactDigits: e.digits.length,

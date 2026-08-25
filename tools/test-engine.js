@@ -90,6 +90,35 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
   const thin = relations([Math.SQRT2 * (1 + 1e-15), Math.SQRT2 * (1 + 1.1e-15)], { maxDen: 8 });
   const kept = thin.candidates.some(c => c.label.includes('sqrt'));
   ok(!kept && thin.refuted > 0, 'RED: an enclosure shifted off sqrt(2) refutes it — the calibration can fail');
+
+  /* the vocabulary counts each VALUE once: an enclosure around 2e must yield
+     exactly one ·e candidate, not (2/1)(4/2)(6/3)(8/4) — the duplicate
+     inflation a reviewer caught in under a minute */
+  const twoE = relations([2 * Math.E - 1e-9, 2 * Math.E + 1e-9], { maxDen: 8 });
+  const eForms = twoE.candidates.filter(c => c.label.endsWith('·e'));
+  ok(eForms.length === 1 && eForms[0].label === '(2/1)·e',
+    'reduced fractions only: 2e survives as ONE candidate, not four (' + eForms.map(c => c.label).join(', ') + ')');
+
+  /* A019762 is literally NAMED "Decimal expansion of 2*e" and was once
+     certified as a discovery because the name regex missed the asterisk. It
+     must never be a HIT again, and no HIT may carry a form already on record. */
+  const a19762 = OE.certify(CORPUS_BY_ID('A019762'));
+  ok(a19762 && a19762.verdict === 'REJECT',
+    'A019762 ("2*e" in the name) is REJECT — a screen escape, not a discovery');
+  let badHits = 0, hitCount = 0;
+  for (let i = 0; ; i++) {
+    const e = OE.enumerate(i); if (!e) break;
+    if (!OE.interesting(e)) continue;
+    const c = OE.certify(e);
+    if (c.verdict !== 'HIT') continue;
+    hitCount++;
+    if (c.extra.nameStatesForm || c.extra.formOnRecord !== false) badHits++;
+  }
+  ok(badHits === 0, 'every OEIS HIT has its FULL record fetched and silent (' + hitCount + ' hits, ' + badHits + ' with a form on record)');
+
+  function CORPUS_BY_ID(id) {
+    for (let i = 0; ; i++) { const e = OE.enumerate(i); if (!e) return null; if (e.id === id) return e; }
+  }
 }
 
 /* Krawczyk: calibrate against the ONE case with a closed form, and prove the

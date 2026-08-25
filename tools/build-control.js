@@ -37,15 +37,20 @@ const BATTERIES = [
   ['henon census', ['instruments/census/battery.js'], 'closed-form calibration · 3 red controls'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
-const PY = [['sos · global bound', 'instruments/sos/sos_verify.py'], ['sos · lyapunov', 'instruments/sos/lyapunov_cert.py'], ['sos · re-verify AI result', 'instruments/sos/reverify_ai_lyapunov.py']];
+const PY = [
+  ['sos · global bound', ['instruments/sos/sos_verify.py'], 'stdlib fractions only'],
+  ['sos · lyapunov', ['instruments/sos/lyapunov_cert.py'], 'stdlib fractions only'],
+  ['sos · re-verify AI result', ['instruments/sos/reverify_ai_lyapunov.py'], 'stdlib fractions only'],
+  ['llm harness (dry run)', ['tools/llm-harness.py', '--dry-run', '--n', '20', '--ledger', '/dev/null'],
+    'model proposes, engine decides · aborts if a red control certifies']
+];
 function bat(argv, py) {
   if (!runBatteries) return null;
-  const r = py ? cp.spawnSync('python3', [argv], { cwd: ROOT, stdio: 'ignore' })
-    : cp.spawnSync(process.execPath, argv, { cwd: ROOT, stdio: 'ignore' });
+  const r = cp.spawnSync(py ? 'python3' : process.execPath, argv, { cwd: ROOT, stdio: 'ignore' });
   return r.status === 0;
 }
 const bats = BATTERIES.map(([n, c, note]) => ({ n, note, ok: bat(c, false) }))
-  .concat(PY.map(([n, c]) => ({ n, note: 'stdlib fractions only', ok: bat(c, true) })));
+  .concat(PY.map(([n, c, note]) => ({ n, note, ok: bat(c, true) })));
 const green = bats.filter(b => b.ok === true).length, ran = bats.filter(b => b.ok !== null).length;
 
 let drift = 'not run';

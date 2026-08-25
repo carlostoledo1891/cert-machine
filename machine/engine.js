@@ -94,7 +94,16 @@ const CONSTANTS = {
 /* Hunt small closed forms for a certified enclosure. Every test is decided by
    the enclosure: if the candidate value lies outside [lo,hi] the relation is
    REFUTED exactly; if inside, it is a CANDIDATE whose residual width is
-   reported. Nothing is accepted on digits agreeing. */
+   reported. Nothing is accepted on digits agreeing.
+
+   REDUCED FRACTIONS ONLY. The first version tested (2/1)·e, (4/2)·e, (6/3)·e
+   and (8/4)·e as four forms: the refuted count was inflated by duplicates and a
+   single surviving value showed up as four candidates. Skipping gcd(p,q) > 1
+   loses nothing — if p = round(mid·q) has gcd g > 1, then p/g = round(mid·q/g)
+   (|mid·q/g − p/g| ≤ 1/(2g) ≤ 1/2), so the reduced spelling is already tested
+   at the smaller denominator. */
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { const t = a % b; a = b; b = t; } return a; }
+
 function relations(enclosure, opts) {
   const o = opts || {};
   const maxDen = o.maxDen || 24;
@@ -113,19 +122,20 @@ function relations(enclosure, opts) {
   /* rational p/q */
   for (let q = 1; q <= maxDen; q++) {
     const p = Math.round(mid * q);
-    if (p === 0) continue;
+    if (p === 0 || gcd(p, q) !== 1) continue;
     test(p + '/' + q, p / q);
   }
   /* sqrt of a rational */
   for (let q = 1; q <= maxDen; q++) {
     const p = Math.round(mid * mid * q);
-    if (p <= 0) continue;
+    if (p <= 0 || gcd(p, q) !== 1) continue;
     test('sqrt(' + p + '/' + q + ')', Math.sqrt(p / q));
   }
   /* small multiples and roots of the constants */
   for (const [name, ce] of Object.entries(CONSTANTS)) {
     const c = (ce[0] + ce[1]) / 2;
     for (let q = 1; q <= 8; q++) for (let p = 1; p <= 8; p++) {
+      if (gcd(p, q) !== 1) continue;
       test('(' + p + '/' + q + ')·' + name, (p / q) * c);
       test(name + '^(' + p + '/' + q + ')', Math.pow(c, p / q));
     }
