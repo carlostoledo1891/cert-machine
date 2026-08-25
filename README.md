@@ -71,6 +71,39 @@ a fixed vocabulary is evaluated exactly, and every one lying outside the enclosu
 is refuted. Whatever survives is a candidate, explicitly labelled as such. The
 engine does not claim a closed form. It claims that the alternatives are gone.
 
+## What the machine can decide — and what it cannot
+
+"Certify conjectures or prove they fail" is close, but it promises too much in
+one direction and undersells in the other. The machine cannot certify a
+conjecture in general — a conjecture is a universal statement over an
+unbounded domain, and no amount of exact arithmetic exhausts an unbounded
+domain. What it decides is anything that **reduces to finitely many exact
+arithmetic facts**. That gives exactly three theorem shapes:
+
+- **Existence, by certificate.** Here is the object, with an enclosure, an
+  exact identity, or a uniqueness box. One certified object is a theorem.
+- **Falsity, by exact refutation.** The claimed value lies outside a rigorous
+  enclosure; the claimed identity fails at a rational point; the claimed
+  determinant has a nonconstant monomial. A refutation here is proved.
+- **Universal statements, by exhaustion — only when the quantifier fits in a
+  box.** A compact region exhausted by interval exclusion ("the Hénon map has
+  EXACTLY 64 period-8 points, and nothing else anywhere in the plane"), or a
+  finite corpus exhausted by enumeration. The census results are genuine
+  ∀-theorems; their quantifier was first confined by a certified a priori
+  bound.
+
+A conjecture proper enters the machine through one of three doors: as a
+**candidate counterexample** (one certified object kills a universal claim —
+the Jacobian conjecture, open since 1939, died of a single map whose audit
+takes seconds here); as a **compact restriction** the machine can exhaust; or
+as a **family of instances** to sweep, where each instance is decided and the
+conjecture itself merely accumulates evidence it can never convert to proof.
+It never leaves the machine as "proved" unless its quantifier was bounded.
+
+And there is a third verdict beside certified and refuted: **REFUSED** —
+the instrument declined to decide. Absence of proof is never converted into
+either answer, which is what makes the other two verdicts worth having.
+
 ## Red controls
 
 Every battery in the build carries *red controls*: inputs that must fail. A trig

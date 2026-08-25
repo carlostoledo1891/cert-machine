@@ -13,7 +13,7 @@
     "rejects": 5,
     "refused": 0
    },
-   "ms": 139215,
+   "ms": 140859,
    "truncated": true,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -30,7 +30,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 24616,
+   "ms": 24861,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -47,7 +47,24 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 520,
+   "ms": 522,
+   "truncated": false,
+   "corpusRefutations": 0,
+   "corpusTested": 0
+  },
+  {
+   "name": "keller-audit",
+   "statement": "an explicit polynomial map C^n -> C^n whose Jacobian determinant is proved constant by symbolic expansion over exact rationals, with certified distinct rational points sharing one image — the Jacobian conjecture refuted in dimension n, decided here and not trusted",
+   "counts": {
+    "generated": 6,
+    "screened": 6,
+    "duplicates": 0,
+    "certified": 6,
+    "hits": 6,
+    "rejects": 0,
+    "refused": 0
+   },
+   "ms": 4,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -64,7 +81,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 59605,
+   "ms": 60019,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -81,7 +98,7 @@
     "rejects": 14593,
     "refused": 0
    },
-   "ms": 4605,
+   "ms": 4915,
    "truncated": false,
    "corpusRefutations": 54606108,
    "corpusTested": 54607006
@@ -5888,6 +5905,162 @@
    }
   },
   {
+   "family": "keller-audit",
+   "key": "alpoge|3",
+   "text": "the Jacobian conjecture is FALSE in dimension 3: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 3,
+    "source": "Alpöge 2026-07-19",
+    "det": "-2",
+    "points": 3,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (3x3 symbolic determinant over Q)",
+     "3 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ]
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "alpoge|4",
+   "text": "the Jacobian conjecture is FALSE in dimension 4: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 4,
+    "source": "Alpöge 2026-07-19",
+    "det": "-2",
+    "points": 3,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (4x4 symbolic determinant over Q)",
+     "3 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ]
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "alpoge|5",
+   "text": "the Jacobian conjecture is FALSE in dimension 5: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 5,
+    "source": "Alpöge 2026-07-19",
+    "det": "-2",
+    "points": 3,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (5x5 symbolic determinant over Q)",
+     "3 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ]
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "alpoge|6",
+   "text": "the Jacobian conjecture is FALSE in dimension 6: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 6,
+    "source": "Alpöge 2026-07-19",
+    "det": "-2",
+    "points": 3,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (6x6 symbolic determinant over Q)",
+     "3 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ]
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "alpoge|7",
+   "text": "the Jacobian conjecture is FALSE in dimension 7: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 7,
+    "source": "Alpöge 2026-07-19",
+    "det": "-2",
+    "points": 3,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (7x7 symbolic determinant over Q)",
+     "3 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ]
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "keller-audit",
+   "key": "alpoge|8",
+   "text": "the Jacobian conjecture is FALSE in dimension 8: an explicit polynomial map with det J = -2 proved as a polynomial identity, and 3 distinct rational points sharing one image, all decided in exact arithmetic (Alpöge 2026-07-19, audited here)",
+   "enclosure": [
+    -2,
+    -2
+   ],
+   "width": 0,
+   "extra": {
+    "n": 8,
+    "source": "Alpöge 2026-07-19",
+    "det": "-2",
+    "points": 3,
+    "checks": [
+     "det J_F = -2 as a polynomial identity (8x8 symbolic determinant over Q)",
+     "3 collision points evaluated exactly, all equal to the claimed image",
+     "points pairwise distinct"
+    ]
+   },
+   "closedForm": {
+    "tested": 0,
+    "refuted": 0,
+    "candidates": 0
+   }
+  },
+  {
    "family": "newman-minmod",
    "key": "[0,1,2,3,4,7,8,10,12]",
    "text": "min|f| >= 1.3623731781333241 for the 9-term set [0,2,4,5,8,9,10,11,12], exceeding 1.3111013028723257",
@@ -6023,9 +6196,9 @@
  ],
  "relations": [],
  "totals": {
-  "generated": 818941,
-  "certified": 15453,
-  "conjectures": 40,
+  "generated": 818947,
+  "certified": 15459,
+  "conjectures": 46,
   "closedFormTested": 54618463,
   "closedFormRefuted": 54617565,
   "closedFormCandidates": 0

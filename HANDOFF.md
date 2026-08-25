@@ -16,15 +16,16 @@ make drift     re-hash the lift against the source lab
 ## State, measured at handoff
 
 ```
-818,941  objects generated across 5 families
- 15,453  certified exactly
+818,947  objects generated across 6 families
+ 15,459  certified exactly
 54.6M    closed forms tested · 54,617,565 refuted · 0 surviving
     228  existence-AND-uniqueness theorems (Krawczyk)
     328  COMPLETENESS theorems (branch-and-bound census, 328/328 cells, 0 refusals)
+      6  dimensions in which the Jacobian conjecture is certified FALSE (keller-audit, n=3..8)
 ```
 
-Batteries 12/12 (llm harness added). Engine gate 31/31. Census battery 18/18
-with 3 red controls. Drift: 38 unchanged, 1 local edited (a declared patch).
+Batteries 13/13. Engine gate 31/31. Census battery 18/18, keller battery 10/10,
+each with 3 red controls. Drift: 38 unchanged, 1 local edited (a declared patch).
 
 An outside review caught two defects in under a minute; both are fixed and
 gated. (1) The closed-form vocabularies emitted unreduced spellings —
@@ -38,7 +39,7 @@ form on record is REJECT and an unfetched survivor is an open candidate, never
 a hit. OEIS hits went 38 → 0: the engine itself now concludes what the
 hand-check knew. A019762 is pinned in the battery as a regression control.
 
-## The five families
+## The six families
 
 | family | output | result so far |
 |---|---|---|
@@ -46,6 +47,7 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | `chowla-cosine` | Chowla merit c = −min f_A/√\|A\| | 295 certified below 1 |
 | `oeis-closedform` | audits 14,593 published OEIS constants | 54.6M forms refuted, **0 discoveries** — every survivor's full record fetched and its form found on record, a verdict the engine now reaches itself |
 | `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
+| `keller-audit` | Jacobian-conjecture counterexamples decided, not trusted | 6/6: det J ≡ −2 proved symbolically over Q + 3 exact collisions, for n = 3..8 |
 | `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); p=12 = 248 points/19 orbits in 52 s |
 
 The census (`instruments/census/henon-census.js`) is the completeness record
@@ -59,16 +61,23 @@ p=4 — caught by the shift classification, not by reading code).
 
 ## Next steps, in order
 
-1. **Higher periods at the classical parameters.** p=12 certifies in 52 s with
-   the Krawczyk-contraction pruning; the wall is the anisotropic tube near the
-   strongly unstable fixed point (cost ~4× per period step). p=13..16 likely
-   need either the detach runner or a smarter box metric. Each new p at
+1. **Higher periods at the classical parameters.** DONE through p=13: exactly
+   418 period-13 points — 2 fixed, EXACTLY 32 orbits of minimal period 13
+   (matches Galias) — in 3 min, recheck clean. p=14 takes ~15 min in-session;
+   p=15..16 need the detach runner (cost ~4× per period step; the wall is the
+   anisotropic tube near the strongly unstable fixed point). Each new p at
    a=1.4 is a publishable exact count.
 2. **A second map for the census.** The argument only needs a quadratic a
    priori bound and a polynomial recurrence — Ikeda needs interval sin/cos
    (transcendental.js is sound), the cubic Hénon and the standard-map family
    are direct ports. One instrument, one new family file each.
-3. **`keller-audit`: certify the Jacobian-conjecture counterexamples.** On
+3. **`keller-audit`: BUILT — extend the corpus.** The family ships (6/6 HITs,
+   n=3..8; instruments/keller/ does symbolic determinants over exact
+   rationals; battery 10/10 with 3 red controls). What remains is corpus:
+   Gallagher's infinite family (arXiv:2608.00222 has the construction),
+   Meng–Yang's five-variable Hessian counterexample, Zhang's derived
+   consequences — each one more explicit claim decided rather than trusted.
+   Original note: On
    2026-07-19 Alpöge refuted the Jacobian conjecture in dimension 3 (found
    with Claude; Gallagher's infinite family 07-20, Speyer's tangent-sweep
    geometry 07-23, Gao's arXiv:2608.00222 survey; n=2 REMAINS OPEN). Verified

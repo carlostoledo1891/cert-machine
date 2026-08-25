@@ -35,6 +35,7 @@ const BATTERIES = [
   ['interval · transcendental', ['instruments/interval/tests/test-transcendental.js'], 'sound exp/log/sin/cos'],
   ['trigmin certifier', ['instruments/trigmin/battery.js'], '47 checks · 2 red controls'],
   ['henon census', ['instruments/census/battery.js'], 'closed-form calibration · 3 red controls'],
+  ['keller audit', ['instruments/keller/battery.js'], 'symbolic det over Q · 3 red controls'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [
@@ -84,8 +85,8 @@ B.push(C.scope('Local working document. Nothing here has been through a literatu
   const sum = (k) => F.reduce((t, f) => t + f.counts[k], 0);
   const screened = sum('screened'), hits = sum('hits'), rejects = sum('rejects'), refused = sum('refused');
 
-  const famY = [40, 102, 164, 226, 288];
-  const famNodes = F.slice(0, 5).map((f, i) => ({
+  const famY = [16, 78, 140, 202, 264, 326];
+  const famNodes = F.slice(0, 6).map((f, i) => ({
     x: 14, y: famY[i], w: 180, h: 44, role: 'dep',
     k: f.name.toUpperCase(), v: commas(f.counts.generated) + ' generated',
     t: 'family · ' + f.name,
@@ -134,7 +135,7 @@ B.push(C.scope('Local working document. Nothing here has been through a literatu
     { x: 200, y: 412, w: 180, h: 40, role: 'warn', k: 'SURVIVORS · OPEN', v: commas(T.closedFormCandidates || 0) + ' candidates',
       t: 'the survivors',
       d: commas(T.closedFormCandidates || 0) + ' forms remain inside their enclosures — candidates, not results. They stay open until a tighter enclosure refutes them or an exact argument confirms them.' },
-    { x: 14, y: 372, w: 180, h: 44, role: 'held', k: 'THE GATES', v: green + '/' + ran + ' batteries',
+    { x: 14, y: 386, w: 180, h: 44, role: 'held', k: 'THE GATES', v: green + '/' + ran + ' batteries',
       t: 'the gates — batteries and red controls',
       d: 'Every battery is executed during this build, never remembered: ' + green + '/' + ran + ' green. Red controls are deliberate forgeries the instruments must catch — a control that cannot fire is decoration. Every real bug this project has found was found by a control, none by reading code.' },
     { x: 624, y: 472, w: 140, h: 40, role: 'dep', k: 'THIS PAGE', v: 'index.html',
@@ -143,7 +144,7 @@ B.push(C.scope('Local working document. Nothing here has been through a literatu
   ], instr);
 
   const edges = [
-    ...famY.map((y, i) => ({ d: 'M194 ' + (y + 22) + ' C224 ' + (y + 22) + ' 218 ' + (174 + i * 7) + ' 246 ' + (174 + i * 7) })),
+    ...famY.map((y, i) => ({ d: 'M194 ' + (y + 22) + ' C224 ' + (y + 22) + ' 218 ' + (171 + i * 7) + ' 246 ' + (171 + i * 7) })),
     { d: 'M388 188 L434 188' },
     { d: 'M576 188 L622 188', lab: 'dedup by key', lx: 599, ly: 232 },
     { d: 'M764 178 C800 160 806 132 828 116' },
@@ -158,7 +159,7 @@ B.push(C.scope('Local working document. Nothing here has been through a literatu
     { d: 'M489 300 C509 258 640 246 679 220' },
     { d: 'M655 300 C668 262 696 240 707 220' },
     { d: 'M821 300 C800 262 758 240 737 220' },
-    { d: 'M104 372 C150 344 200 328 244 321' }
+    { d: 'M104 386 C150 352 200 330 244 321' }
   ];
 
   B.push(C.section({
