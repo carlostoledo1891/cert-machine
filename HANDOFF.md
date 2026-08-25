@@ -81,6 +81,39 @@ It can refuse; it can never return a wrong count. Two bugs were found exactly
 the way the method predicts: by a red control (the fat-record stall at a=0.96,
 p=4 — caught by the shift classification, not by reading code).
 
+## Review fixes (an outside reader's pass, 2026-08-25 — verified, accepted)
+
+- **R1 · the 898.** tested − refuted − surviving = 898 on the page; verified:
+  exactly the OEIS family's double-precision survivors, later decided by the
+  exact BigInt test (21) or the form-on-record check — never folded into a
+  displayed tally. Decompose the counts on the page so the subtraction a
+  reviewer will do comes out to zero.
+- **R2 · stabilization padding.** Alpöge rows n=4..8 are one theorem by
+  identity-padding; a knowledgeable reader sees six rows as padding. Collapse
+  to n=3 plus ONE padded row with the stabilization stated.
+- **R3 · hash-pinned transcriptions.** The keller corpus is transcribed from
+  a tweet, a Zenodo PDF, an arXiv page, MathWorld. The certificate should be
+  over a byte sequence, not "the map in that paper": corpus/sources/ now
+  holds the PDFs with sha256 (gallagher2026.pdf 1782eefa…, e-sheet
+  ebbf12b7…, pi-sheet 48b35cb0…, zeta3 6429e280…); wire the hashes + the
+  transcribed formula strings into each family entry's extra.
+- **R4 · say what the sweeps are.** sweep-d3/4/5 are NEW CURVES through the
+  PUBLISHED tangent-sweep mechanism — new instances, not a new mechanism,
+  and not coordinate-equivalence-checked against Gallagher's members. The
+  table must say exactly that. Also: the fibers cell for Alpöge aims at the
+  PUBLISHED collision image — add a cell with a target WE choose, so the
+  "no witnesses consumed" claim is airtight.
+- **R5 · label the llm-harness battery** as dry-run plumbing with a fake
+  proposer — no model has run; the green tick must not be readable as an
+  LLM result.
+- **R6 · chowla's terminal state.** The one family still at "cap reached";
+  a detach run with CERT_CAP high enough to exhaust the screen's survivors.
+- **R7 · package the keller verification.** Standalone stdlib-fractions
+  verifier (det identity + rational collisions need nothing but Fraction)
+  over the hash-pinned sources, plus the certificate as a detached file —
+  the outside-checkable artifact. Where and whether to post it is the
+  operator's call, not the machine's.
+
 ## Next steps, in order
 
 1. **Higher periods at the classical parameters.** DONE through p=15, all
