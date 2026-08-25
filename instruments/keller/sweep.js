@@ -158,4 +158,120 @@ function generate(d, opts) {
   return { ok: false, why: 'no secant in the search list produced a certified collision pair' };
 }
 
-module.exports = { generate, curve, lift };
+/* ---------------------------------------------------------------------------
+   GALLAGHER'S NORMALIZATION (Zenodo 10.5281/zenodo.21479195, 2026-07-20).
+   Same mechanism, different gauge: a seed p with p(0) = 0, p(1) = -c and
+   INT_0^1 p = 0; q from c q' = w p'; kappa = p'(1)/c != -2 and
+   a = -(1+kappa)/(2+kappa); gamma = 1 + a·xy + b·x^2 z, u = 1 + xy, w = u·gamma;
+   F = (alpha/x^2, beta/x, x·gamma) with beta = c + p(w)/gamma,
+   alpha = u + q(w)/gamma^2, and det J F = b·c. Fiber degree = deg p + 1 via
+   the inverse equation R(w) = wP - cQ, R = INT_0^w p — which is LINEAR in
+   the target data, so two chosen rational roots w1, w2 determine a rational
+   target hit twice, exactly as in generate(). Every seed condition, every
+   division, the determinant and the collisions are verified here; a seed
+   that fails any condition is refused. */
+function fromSeed(opts) {
+  const d = opts.pCoeffs.length;                     /* pCoeffs = [c_1..c_d] */
+  const c = opts.c || Q.R(1n);
+  const b = opts.b || Q.R(1n);
+  const cf = [Q.ZERO].concat(opts.pCoeffs);          /* cf[k] = coefficient of w^k */
+  if (Q.isZero(c) || Q.isZero(b)) return { ok: false, why: 'b and c must be nonzero' };
+  if (opts.sabotage === 'breakSeed') cf[d] = Q.add(cf[d], Q.R(1n, 1000000n));   /* RED-control hook */
+
+  /* the three seed conditions, verified exactly */
+  let p1 = Q.ZERO, int01 = Q.ZERO, pp1 = Q.ZERO;
+  for (let k = 1; k <= d; k++) {
+    p1 = Q.add(p1, cf[k]);
+    int01 = Q.add(int01, Q.div(cf[k], Q.R(BigInt(k + 1))));
+    pp1 = Q.add(pp1, Q.mul(cf[k], Q.R(BigInt(k))));
+  }
+  if (Q.cmp(p1, Q.neg(c)) !== 0) return { ok: false, why: 'seed violates p(1) = -c' };
+  if (!Q.isZero(int01)) return { ok: false, why: 'seed violates INT_0^1 p = 0' };
+  const kappa = Q.div(pp1, c);
+  const den = Q.add(kappa, Q.R(2n));
+  if (Q.isZero(den)) return { ok: false, why: 'kappa = -2: the twist coefficient is undefined' };
+  const a = Q.neg(Q.div(Q.add(kappa, Q.R(1n)), den));
+
+  /* the lift, with gamma_0 = 1: beta = c + sum c_k gamma^{k-1} u^k,
+     alpha = u + sum (k c_k)/(c(k+1)) gamma^{k-1} u^{k+1} */
+  const n = 3;
+  const x = K.pvar(0, n), y = K.pvar(1, n), z = K.pvar(2, n);
+  const xy = K.pmul(x, y);
+  const u = K.padd(K.pconst(Q.R(1n), n), xy);
+  const gam = K.padd(K.pconst(Q.R(1n), n), K.pscale(xy, a), K.pscale(K.pmul(K.pmul(x, x), z), b));
+  const gp = [K.pconst(Q.R(1n), n)]; for (let k = 1; k <= d; k++) gp.push(K.pmul(gp[k - 1], gam));
+  const up = [K.pconst(Q.R(1n), n)]; for (let k = 1; k <= d + 1; k++) up.push(K.pmul(up[k - 1], u));
+  let beta = K.pconst(c, n), alpha = u;
+  for (let k = 1; k <= d; k++) {
+    beta = K.padd(beta, K.pscale(K.pmul(gp[k - 1], up[k]), cf[k]));
+    alpha = K.padd(alpha, K.pscale(K.pmul(gp[k - 1], up[k + 1]), Q.div(Q.mul(cf[k], Q.R(BigInt(k))), Q.mul(c, Q.R(BigInt(k + 1))))));
+  }
+  const divX = (p, e) => {
+    const out = new Map();
+    for (const [key, v] of p) {
+      const ex = key.split(',').map(Number);
+      if (ex[0] < e) return null;
+      ex[0] -= e;
+      out.set(ex.join(','), v);
+    }
+    return out;
+  };
+  const f2 = divX(beta, 1), f1 = divX(alpha, 2);
+  if (!f1 || !f2) return { ok: false, why: 'a divisibility condition failed — the seed does not satisfy the construction' };
+  const F = [f1, f2, K.pmul(gam, x)];
+
+  const D = K.pdet(K.jacobian(F, 3));
+  if (!K.pIsConst(D)) return { ok: false, why: 'det J is not constant for this seed' };
+  const dv = K.pConstVal(D);
+  if (Q.cmp(dv, Q.mul(b, c)) !== 0) return { ok: false, why: 'det J = ' + Q.toString(dv) + ' != bc' };
+
+  /* rational collisions from the inverse equation R(w) = wP - cQ:
+     two rational roots w1, w2 fix P and cQ linearly */
+  const evalPw = (w) => { let s = Q.ZERO, wp = Q.R(1n);
+    for (let k = 1; k <= d; k++) { wp = Q.mul(wp, w); s = Q.add(s, Q.mul(cf[k], wp)); } return s; };
+  const evalR = (w) => { let s = Q.ZERO, wp = w;
+    for (let k = 1; k <= d; k++) { wp = Q.mul(wp, w); s = Q.add(s, Q.div(Q.mul(cf[k], wp), Q.R(BigInt(k + 1)))); } return s; };
+  const PAIRS = [[Q.R(1n), Q.R(-1n)], [Q.R(1n), Q.R(2n)], [Q.R(1n), Q.R(-2n)], [Q.R(2n), Q.R(-1n)], [Q.R(1n, 2n), Q.R(-1n)]];
+  const t = Q.R(1n);                                 /* C, the shared third coordinate */
+  for (const [w1, w2] of PAIRS) {
+    const P = Q.div(Q.sub(evalR(w1), evalR(w2)), Q.sub(w1, w2));
+    const pts = [];
+    for (const w of [w1, w2]) {
+      const g = Q.div(Q.sub(P, evalPw(w)), c);
+      if (Q.isZero(g)) { pts.length = 0; break; }
+      const ui = Q.div(w, g);
+      const xi = Q.div(t, g);
+      const yi = Q.div(Q.sub(ui, Q.R(1n)), xi);
+      const zi = Q.div(Q.sub(Q.sub(g, Q.R(1n)), Q.mul(a, Q.sub(ui, Q.R(1n)))), Q.mul(b, Q.mul(xi, xi)));
+      pts.push([xi, yi, zi]);
+    }
+    if (pts.length !== 2) continue;
+    const image = F.map(f => K.peval(f, pts[0]));
+    const claim = { F, det: dv, collisions: pts, image };
+    if (K.audit(claim).verdict === 'VERIFIED') {
+      return { ok: true, claim, meta: { d, geometricDegree: d + 1, p: cf.slice(1).map(Q.toString),
+        a: Q.toString(a), b: Q.toString(b), c: Q.toString(c), det: Q.toString(dv),
+        secant: [Q.toString(w1), Q.toString(w2)] } };
+    }
+  }
+  return { ok: false, why: 'no secant produced a certified collision pair' };
+}
+
+/* Gallagher's seed family: p_d = 2w - 3w^2 + w(1-w)(w^{d-2} - k), k = 6/(d(d+1)),
+   c = 1 — every generic fiber degree d+1 >= 3, det J == b (b = 1 in the paper) */
+function gallagherSeed(d) {
+  const k = Q.R(6n, BigInt(d * (d + 1)));
+  const cf = new Array(d + 1).fill(Q.ZERO);          /* cf[j] = coeff of w^j */
+  cf[1] = Q.add(cf[1], Q.R(2n));
+  cf[2] = Q.add(cf[2], Q.R(-3n));
+  if (d >= 3) {
+    /* w(1-w)(w^{d-2} - k) = w^{d-1} - w^d - k w + k w^2 */
+    cf[d - 1] = Q.add(cf[d - 1], Q.R(1n));
+    cf[d] = Q.add(cf[d], Q.R(-1n));
+    cf[1] = Q.sub(cf[1], k);
+    cf[2] = Q.add(cf[2], k);
+  }
+  return cf.slice(1);
+}
+
+module.exports = { generate, curve, lift, fromSeed, gallagherSeed };

@@ -159,6 +159,21 @@ let claim3 = null;
     + a2.why.slice(0, 40) + '…)');
 }
 
+/* ---- Gallagher's family: reconstructed from the seed and decided ---- */
+{
+  const SW = require('#instruments/keller/sweep.js');
+  for (const d of [2, 4]) {
+    const g = SW.fromSeed({ pCoeffs: SW.gallagherSeed(d) });
+    ok(g.ok && Q.cmp(g.claim.det, Q.R(1n)) === 0,
+      'Gallagher d=' + d + ': det J = 1 identically, fiber degree ' + (d + 1) + ', 2 rational collision witnesses — decided, not trusted');
+  }
+  const dm = SW.fromSeed({ pCoeffs: [Q.R(1n), Q.ZERO, Q.R(-2n)], b: Q.R(-1n) });
+  ok(dm.ok && dm.meta.a === '-4/3' && Q.cmp(dm.claim.det, Q.R(-1n)) === 0,
+    'the distinct member (w-2w^3): a = -4/3 matches the paper, det J = -1, collisions certified');
+  const sab = SW.fromSeed({ pCoeffs: SW.gallagherSeed(3), sabotage: 'breakSeed' });
+  ok(!sab.ok, 'RED: a seed violating p(1) = -c is REFUSED (' + sab.why + ')');
+}
+
 console.log('');
 console.log('keller battery: ' + pass + ' pass, ' + fail + ' fail');
 if (fail) process.exit(1);

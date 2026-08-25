@@ -123,6 +123,22 @@ module.exports = {
     if (j === SWEEP_DEGREES.length) {
       return { n: 5, source: 'Meng–Yang arXiv:2607.22198', hessian: true, claim: mengYang().claim };
     }
+    /* Gallagher's family (Zenodo 10.5281/zenodo.21479195): seeds p_d give
+       det J == 1 with generic fiber degree d+1 — every degree >= 3 occurs —
+       plus the paper's "genuinely distinct" member p = w - 2w^3, b = -1. */
+    const k = j - SWEEP_DEGREES.length - 1;
+    const GAL = [2, 3, 4, 5];
+    if (k < GAL.length) {
+      const d = GAL[k];
+      const g = SW.fromSeed({ pCoeffs: SW.gallagherSeed(d) });
+      if (!g.ok) return { n: 3, source: 'Gallagher seed d=' + d + ' (refused: ' + g.why + ')', claim: null };
+      return { n: 3, source: 'Gallagher zenodo.21479195 d=' + d + ', fiber degree ' + (d + 1), claim: g.claim, meta: g.meta, published: true };
+    }
+    if (k === GAL.length) {
+      const g = SW.fromSeed({ pCoeffs: [Q.R(1n), Q.ZERO, Q.R(-2n)], b: Q.R(-1n) });
+      if (!g.ok) return { n: 3, source: 'Gallagher distinct member (refused: ' + g.why + ')', claim: null };
+      return { n: 3, source: 'Gallagher zenodo.21479195 distinct member (w-2w^3), not coordinate-equivalent to Alpöge', claim: g.claim, meta: g.meta, published: true };
+    }
     return null;
   },
   /* float screen: the determinant sampled at ONE float point. May only prune —
@@ -153,7 +169,7 @@ module.exports = {
     const a = K.audit(o.claim);
     if (a.verdict === 'VERIFIED') {
       const d = Q.toDouble(a.det);
-      const generated = !!o.meta;
+      const generated = !!o.meta && !o.published;
       return {
         verdict: 'HIT',
         enclosure: [d, d],                    /* the certified constant, exact */
@@ -161,6 +177,10 @@ module.exports = {
           ? 'the HESSIAN conjecture is FALSE in ' + o.n + ' variables: an explicit degree-14 integer polynomial whose '
             + 'Hessian determinant is ' + Q.toString(a.det) + ' as a polynomial identity while its gradient identifies '
             + a.points + ' distinct rational points, all decided in exact arithmetic (' + o.source + ', audited here)'
+          : o.published && o.meta
+          ? 'the Jacobian conjecture is FALSE in dimension 3: ' + o.source.split(',')[0] + ' reconstructed from its seed — '
+            + 'det J = ' + Q.toString(a.det) + ' proved as a polynomial identity, generic fiber degree ' + o.meta.geometricDegree
+            + ', ' + a.points + ' distinct rational points sharing one image, every claim decided in exact arithmetic'
           : generated
           ? 'a NEW certified counterexample to the Jacobian conjecture, generated here by the tangent-sweep: '
             + 'geometric degree ' + o.meta.geometricDegree + ' (curve p(w) with coefficients [' + o.meta.p.join(', ') + ']), '

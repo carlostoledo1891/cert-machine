@@ -24,10 +24,11 @@ make drift     re-hash the lift against the source lab
       6  dimensions in which the Jacobian conjecture is certified FALSE (keller-audit, n=3..8)
       3  NEW counterexamples GENERATED here (tangent-sweep, geometric degree 4/5/6, rational witnesses)
       1  HESSIAN conjecture counterexample audited (Meng–Yang HC5: det Hess ≡ 128, 5 variables)
+      5  Gallagher-family members audited from the seed (det ≡ 1, fiber degrees 3..6, + the distinct member)
 ```
 
 Batteries 13/13 on the page (14 in `make test`). Engine gate 31/31. Census
-battery 26/26 (two maps, 5 red controls), keller battery 19/19 (5 red
+battery 26/26 (two maps, 5 red controls), keller battery 23/23 (6 red
 controls; the generator reproduces Alpöge polynomial-for-polynomial, and the
 doubling identity det Hess(y·F) = −(det J F)² = −4 makes the Alpöge and
 Meng–Yang corpus entries certify each other). Drift: 38 unchanged, 1 local edited (a declared patch).
@@ -63,7 +64,7 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | `chowla-cosine` | Chowla merit c = −min f_A/√\|A\| | 295 certified below 1 |
 | `oeis-closedform` | audits 14,593 published OEIS constants | 54.6M forms refuted, **0 discoveries** — every survivor's full record fetched and its form found on record, a verdict the engine now reaches itself |
 | `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
-| `keller-audit` | Jacobian + Hessian counterexamples decided — and GENERATED | 10/10: Alpöge audited for n=3..8; 3 counterexamples of degree 4/5/6 generated from our own curves; Meng–Yang's HC5 (det Hess ≡ 128, degree-14, 5 variables) audited — every det a symbolic identity, every witness exact |
+| `keller-audit` | Jacobian + Hessian counterexamples decided — and GENERATED | 15/15: Alpöge n=3..8; 3 generated from our own curves; Meng–Yang HC5; Gallagher's family d=2..5 + distinct member, reconstructed from the seeds — every det a symbolic identity, every witness exact rational |
 | `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); p=12 = 248 points/19 orbits in 52 s |
 | `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
 
@@ -99,9 +100,13 @@ p=4 — caught by the shift classification, not by reading code).
    and free-coefficient sweeps are one enumerate() away. Meng–Yang's HC5 is
    audited (det Hess Psi ≡ 128 symbolically; gradient collision at
    (±1, ∓3/2, 0,0,0); the doubling identity det Hess(y·F) = −4 checked in
-   the battery). Remaining: Gallagher's family — the formulas live in a
-   Zenodo record (10.5281/zenodo.21479195), not in Gao's survey or the blog;
-   fetch the Zenodo artifact. Zhang's consequences paper.
+   the battery). Gallagher's family is audited too: the Zenodo preprint's
+   seed gauge (p(0)=0, p(1)=−c, ∫₀¹p=0; det J ≡ bc; fiber degree deg p + 1)
+   is implemented as fromSeed() with every seed condition verified and
+   rational collisions from the linear inverse equation R(w) = wP − cQ;
+   d=2..5 and the distinct member (a = −4/3, matching the paper) VERIFIED.
+   The published corpus is essentially complete — Zhang's paper derives
+   consequences, not new explicit maps.
    Original note: On
    2026-07-19 Alpöge refuted the Jacobian conjecture in dimension 3 (found
    with Claude; Gallagher's infinite family 07-20, Speyer's tangent-sweep
