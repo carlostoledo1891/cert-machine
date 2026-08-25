@@ -13,7 +13,24 @@
     "rejects": 71,
     "refused": 0
    },
-   "ms": 185018,
+   "ms": 206405,
+   "truncated": false,
+   "corpusRefutations": 0,
+   "corpusTested": 0
+  },
+  {
+   "name": "erdos852-constants",
+   "statement": "a constant holding up the conjectured asymptotic h(x) ~ c0 log x on Erdős #852, replaced by a certified interval enclosure — and its published decimal decided exactly against that enclosure",
+   "counts": {
+    "generated": 4,
+    "screened": 4,
+    "duplicates": 0,
+    "certified": 4,
+    "hits": 3,
+    "rejects": 1,
+    "refused": 0
+   },
+   "ms": 5788,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -30,7 +47,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 26067,
+   "ms": 29366,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -47,7 +64,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 547,
+   "ms": 602,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -64,7 +81,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 13849,
+   "ms": 16135,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -81,7 +98,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 66,
+   "ms": 76,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -98,7 +115,7 @@
     "rejects": 1,
     "refused": 1
    },
-   "ms": 8317,
+   "ms": 9485,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -115,7 +132,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 60851,
+   "ms": 70763,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -132,7 +149,7 @@
     "rejects": 14593,
     "refused": 0
    },
-   "ms": 4979,
+   "ms": 5416,
    "truncated": false,
    "corpusRefutations": 54606108,
    "corpusTested": 54607006,
@@ -152,7 +169,7 @@
     "rejects": 0,
     "refused": 0
    },
-   "ms": 2781,
+   "ms": 3273,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -169,7 +186,7 @@
     "rejects": 1,
     "refused": 0
    },
-   "ms": 23,
+   "ms": 28,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -567,6 +584,129 @@
    "closedForm": {
     "tested": 719,
     "refuted": 719,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "erdos852-constants",
+   "key": "erdos852-c0-enclosure",
+   "text": "THEOREM: c0 = 1.3232282768639494690289693932974634613586535126004759968489856... — the unique positive root of I0(c) = 1, enclosed to width 7.78e-62 (200 certified bisections at 320-bit directed rounding). The first certified enclosure of this constant; the thread holds only an unverified decimal.",
+   "enclosure": [
+    1.3232282768639494,
+    1.3232282768639496
+   ],
+   "width": 2.220446049250313e-16,
+   "extra": {
+    "constant": "c0: the unique positive root of I0(c) = 1, I0(c) = c + c log((e^{2c}-1)/(2c)) + (1/2) Li2(1 - e^{2c})",
+    "enclosureDecimal": [
+     "1.32322827686394946902896939329746346135865351260047599684898560",
+     "1.32322827686394946902896939329746346135865351260047599684898568"
+    ],
+    "certifiedDigits": "1.3232282768639494690289693932974634613586535126004759968489856",
+    "width": 7.778769097326427e-62,
+    "precisionBits": 320,
+    "bisections": 200,
+    "method": "certified bisection: I0(lo) < 1 < I0(hi) as strict bigfloat-interval inequalities at every step; dilog through the inversion identity Li2(-x) = -pi^2/6 - (1/2)log^2 x - Li2(-1/x) (Lewin 1.12) onto the small disk; every series truncated with an explicit remainder bound",
+    "uniqueness": "I0'(c) = log((e^{2c}-1)/(2c)) (elementary calculus, float-checked in the battery); e^{2c} > 1 + 2c certified on the bracket as a strict interval inequality, so I0 is strictly increasing and the root is unique on (0, inf)",
+    "attribution": "value published by DavidTurturean (via GPT-5.5 Pro), erdosproblems.com #852 thread, 2026-04-24; role: h(x) ~ c0 log x",
+    "sourcePin": {
+     "files": [
+      "erdos852_thread.html",
+      "erdos852_page.html"
+     ],
+     "sha256": {
+      "erdos852_thread.html": "ad5968022abd22ed0e1176b081a5ca87059739e3e4571997b820a4e4b12726e6",
+      "erdos852_page.html": "a32562ab8f2444520775020d92c5673fbe1ed5410539129b1088b87431920a89"
+     }
+    }
+   },
+   "closedForm": {
+    "tested": 720,
+    "refuted": 720,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "erdos852-constants",
+   "key": "erdos852-c0-digits",
+   "text": "AUDIT: the published c0 = 1.32322827686395... is VERIFIED AS A ROUNDING to 14 places — but its trailing ellipsis is wrong: the certified expansion continues 1.3232282768639494..., i.e. ...9469, not ...95. A half-ulp presentation slip on an otherwise correct constant, invisible to any float check.",
+   "enclosure": [
+    1.3232282768639494,
+    1.3232282768639496
+   ],
+   "width": 2.220446049250313e-16,
+   "extra": {
+    "constant": "c0: the unique positive root of I0(c) = 1, I0(c) = c + c log((e^{2c}-1)/(2c)) + (1/2) Li2(1 - e^{2c})",
+    "enclosureDecimal": [
+     "1.32322827686394946902896939329746346135865351260047599684898560",
+     "1.32322827686394946902896939329746346135865351260047599684898568"
+    ],
+    "certifiedDigits": "1.3232282768639494690289693932974634613586535126004759968489856",
+    "width": 7.778769097326427e-62,
+    "precisionBits": 320,
+    "bisections": 200,
+    "method": "certified bisection: I0(lo) < 1 < I0(hi) as strict bigfloat-interval inequalities at every step; dilog through the inversion identity Li2(-x) = -pi^2/6 - (1/2)log^2 x - Li2(-1/x) (Lewin 1.12) onto the small disk; every series truncated with an explicit remainder bound",
+    "uniqueness": "I0'(c) = log((e^{2c}-1)/(2c)) (elementary calculus, float-checked in the battery); e^{2c} > 1 + 2c certified on the bracket as a strict interval inequality, so I0 is strictly increasing and the root is unique on (0, inf)",
+    "attribution": "value published by DavidTurturean (via GPT-5.5 Pro), erdosproblems.com #852 thread, 2026-04-24; role: h(x) ~ c0 log x",
+    "sourcePin": {
+     "files": [
+      "erdos852_thread.html",
+      "erdos852_page.html"
+     ],
+     "sha256": {
+      "erdos852_thread.html": "ad5968022abd22ed0e1176b081a5ca87059739e3e4571997b820a4e4b12726e6",
+      "erdos852_page.html": "a32562ab8f2444520775020d92c5673fbe1ed5410539129b1088b87431920a89"
+     }
+    },
+    "claim": "1.32322827686395",
+    "decision": {
+     "verdict": "VERIFIED_ROUNDED",
+     "digits": 14
+    }
+   },
+   "closedForm": {
+    "tested": 720,
+    "refuted": 720,
+    "candidates": 0
+   }
+  },
+  {
+   "family": "erdos852-constants",
+   "key": "erdos852-cstar-enclosure",
+   "text": "THEOREM: C* = 0.075240386178309... — enclosed to width 3.20e-16 (1857858 odd primes to 30000000, tail proved). The first certified enclosure of this constant.",
+   "enclosure": [
+    0.07524038617830923,
+    0.07524038617830957
+   ],
+   "width": 3.3306690738754696e-16,
+   "extra": {
+    "constant": "C* = (1/2)(prod_{p>=3}(1 + 1/(p-1)^3) - 1), the odd-prime singular-series pressure constant (J(c) = C* c^2 + O(c^3))",
+    "enclosureDecimal": [
+     "0.0752403861783092455893",
+     "0.0752403861783095651674"
+    ],
+    "certifiedDigits": "0.075240386178309",
+    "width": 3.1957801362648363e-16,
+    "primes": 1857858,
+    "limit": 30000000,
+    "precisionBits": 192,
+    "tailBound": "sum_{p>30000000} 1/(p-1)^3 <= sum_{m>=30000000} 1/m^3 <= 1/(2(30000000-1)^2) = 5.556e-16; product tail in [1, 1+S+S^2] via prod(1+a) <= e^S",
+    "method": "directed-rounding bigfloat partial product over 1857858 odd primes, exact-rational factor per prime, certified tail multiplier",
+    "attribution": "value published by DavidTurturean (via GPT-5.5 Pro), erdosproblems.com #852 thread, 2026-04-24",
+    "sourcePin": {
+     "files": [
+      "erdos852_thread.html",
+      "erdos852_page.html"
+     ],
+     "sha256": {
+      "erdos852_thread.html": "ad5968022abd22ed0e1176b081a5ca87059739e3e4571997b820a4e4b12726e6",
+      "erdos852_page.html": "a32562ab8f2444520775020d92c5673fbe1ed5410539129b1088b87431920a89"
+     }
+    }
+   },
+   "closedForm": {
+    "tested": 703,
+    "refuted": 703,
     "candidates": 0
    }
   },
@@ -11928,11 +12068,11 @@
   }
  ],
  "totals": {
-  "generated": 819105,
-  "certified": 16896,
-  "conjectures": 89,
-  "closedFormTested": 54631834,
-  "closedFormRefuted": 54630917,
+  "generated": 819109,
+  "certified": 16900,
+  "conjectures": 92,
+  "closedFormTested": 54633977,
+  "closedFormRefuted": 54633060,
   "closedFormRefutedExact": 21,
   "closedFormOnRecord": 877,
   "closedFormOpen": 0,

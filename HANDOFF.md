@@ -16,11 +16,14 @@ make drift     re-hash the lift against the source lab
 ## State, measured at handoff
 
 ```
-819,105  objects generated across 10 families
- 16,896  certified exactly
-54.6M    closed forms: 54,625,624 tested = 54,624,725 refuted (double)
-         + 21 refuted (exact BigInt) + 877 form-on-record + 0 open + 1 surviving
+819,109  objects generated across 11 families
+ 16,900  certified exactly
+54.6M    closed forms: 54,633,977 tested = 54,633,060 refuted (double)
+         + 21 refuted (exact BigInt) + 877 form-on-record + 0 open + 19 surviving
          — the decomposition closes, and the engine REFUSES a ledger where it does not
+         (the 19 survivors: rm-pi-a's proved pi/4 + 18 trivial strassen self-matches —
+         an integer rank enclosure [47,47] "survives" 47/1 and sqrt(2209), as it must;
+         both erdos852 enclosures refuted every vocabulary form)
     228  existence-AND-uniqueness theorems (Krawczyk)
     452  COMPLETENESS theorems (census: Hénon 328/328 + Holmes cubic 124/124, 0 refusals)
   1,579  chowla screen survivors EXHAUSTED (1,508 certified below 1 — the family is terminal)
@@ -40,9 +43,22 @@ make drift     re-hash the lift against the source lab
  0.3017  certified lower bound on h_top(Henon, 1.4, 0.3) — 340 disjoint h-sets, 4,140
          covering relations (durations 1..6, composed to the uniform F^11 as BINARY
          relations), exact spectral bound; census ceiling ln(1696)/16 = 0.4648
+      4  erdos852 records: BOTH uncertified GPT constants on Erdős #852 replaced by
+         certified enclosures — c0 to 61 digits (root of I0=1, existence AND uniqueness),
+         C* to width 3.2e-16 (1.86M-prime product, tail proved) — and the PUBLISHED
+         C* = 0.0752403861777 REFUTED at its 12th significant digit: it is the naive
+         IEEE-754 double product, digit for digit (87% of factors round to 1.0 and
+         vanish); true value 0.07524038617830924...
 ```
 
-Batteries 18/18 on the page (19 rows in `make test`). Engine gate 31/31.
+Batteries 20/20 on the page (21 rows in `make test`). Engine gate 31/31.
+New this round: instruments/bigfloat/ — dyadic big-float interval arithmetic
+(BigInt mantissa · 2^e, directed rounding, arbitrary precision; pi/ln2/e
+certified to 50 literature digits, mutation-tested rounding) — the layer
+doubles and exact rationals could not cover: doubles stop at ~14 digits,
+exact rationals explode through a million-factor product. Built for
+erdos852, generic by construction; the Mercer/Newman continuation and any
+future constant-certification run on it as-is.
 Census battery 26/26 (two maps, 5 red controls), keller battery 32/32
 (incl. pin drift + forged-pin reds), cf battery 17/17 (7 red controls;
 Apéry's proved identity is the calibration), entropy battery 11/11 (ln 2
@@ -50,9 +66,12 @@ calibration at the full horseshoe; 4 red controls; the detached
 certificate re-proved in full every run). Reports shipped (make reports):
 reports/impostors.html, reports/zeta3-audit.html, reports/entropy.html —
 every number recomputed from records at build time, every build
-self-refusing on drift. h_top(Hénon 1.4, 0.3) >= 0.356403 is a certified
-theorem (certs/entropy-henon.json). Drift: 38 unchanged, 1 local edited (a
-declared patch).
+self-refusing on drift, now joined by reports/erdos852.html.
+h_top(Hénon 1.4, 0.3) >= 0.301680 is a certified theorem
+(certs/entropy-henon.json, hLB = 0.3016800418811779 — an earlier revision
+of this paragraph said 0.356403, the TAINTED lids-only number the shelf
+item below refutes; the certificate file itself always held the sound
+bound). Drift: 38 unchanged, 1 local edited (a declared patch).
 
 The census instrument is now SPEC-GENERAL: any second-order polynomial
 recurrence plugs in with seven functions (step, two partials, in float and
@@ -77,7 +96,7 @@ form on record is REJECT and an unfetched survivor is an open candidate, never
 a hit. OEIS hits went 38 → 0: the engine itself now concludes what the
 hand-check knew. A019762 is pinned in the battery as a regression control.
 
-## The seven families
+## The eleven families
 
 | family | output | result so far |
 |---|---|---|
@@ -91,6 +110,7 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); one-off records through p=16 (1696 points, 1.42G boxes, recheck-clean) |
 | `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
 | `strassen-audit` | fast matmul algorithms decided as exact tensor identities | 9 HIT / 1 REJECT: Strassen-7 (calibration), Strassen⊗Strassen 49 (generated), AlphaTensor r/f2 selections from the pinned npz — incl. rank-47 4x4 over F2 with its over-Q REFUTATION recorded; naive rank-8 certified correct, certified NOT fast |
+| `erdos852-constants` | the two GPT constants on Erdős #852, certified + their published digits audited | 3 HIT / 1 REJECT: c0 enclosed to 61 digits (unique root of I0=1; dilog via Lewin inversion; monotonicity certified); C* enclosed to 3.2e-16 (Euler product, 1.86M primes, tail proved; pi^2/8 calibration); published c0 survives AS A ROUNDING (its "..." is a half-ulp slip); published C* REFUTED at digit 12 — it is the naive double product, mechanism reproduced in the battery every run |
 
 The census (`instruments/census/henon-census.js`) is the completeness record
 the field survey said nobody publishes for non-SAT numerics: a certified a
@@ -291,6 +311,13 @@ Five things already in the records that could stand as research-style
 reports; the first two are hidden gems — results the machine holds that
 nobody has written down. Ranked by readiness x novelty:
 
+0. **The erdos852 refutation — SHIPPED (reports/erdos852.html).** "The
+   constant that was a rounding error": both #852 constants certified, the
+   published C* refuted at digit 12 and shown to BE the naive IEEE-754
+   product (87% of factors round to 1.0 and vanish; the naive value
+   reproduces the published digits exactly, re-run live at build time).
+   The build refuses if any verdict, digit, or the mechanism moves.
+
 1. **The impostor catalog — SHIPPED (reports/impostors.html).** The 21
    exact-BigInt refutations as a report; every number recomputed from the
    corpus at build time (tools/build-report-impostors.js, which refuses to
@@ -349,13 +376,19 @@ Four parallel agents read the whole lab. The gold, ranked by fit to this
 engine (full specs live at the quoted sin-mfg paths; that tree is
 READ-ONLY, lift numbers by transcription + pin, never by edit):
 
-1. **erdos852-constants — never opened by anyone.** Two GPT-produced,
-   uncertified constants hold up Erdős #852's conjectured asymptotic:
-   c0 = 1.32322827686… (root of I0(c)=1, dilog integrand) and
-   C* = 0.0752403861… (Euler product; needs a certified tail bound). Clean
-   enclosure targets for our exact-bracket pattern; days of work; the
-   certification side is empty. (sin-mfg research/probes/PROBES.md queue;
-   SCOUT_2026-08-18_ERDOS.md.)
+1. **erdos852-constants — MINED (2026-08-25), and it paid.** Both constants
+   certified (instruments/erdos852/ + families/erdos852-constants.js), and
+   the C* audit found the published value WRONG at its 12th significant
+   digit — a certified refutation of a live-thread constant with the
+   generating bug identified (naive double product; factors 1 + 1/(p-1)^3
+   round to 1.0 for p > ~2e5) and reproduced digit-for-digit in the
+   battery. Sources pinned (erdos852_page/thread.html). REMAINING:
+   whether to post the correction to the thread is the operator's call —
+   the certificate text is written so the numbers can be quoted directly;
+   a report page (the mechanism is the story: "the constant IS the float
+   bug") would be the natural third impostor-catalog sibling. Note
+   occupancy lesson from the scout applies: page + thread + /proof-claims
+   all fetched; /proof-claims holds 0 claims.
 2. **The Mercer/Newman mu-lambda continuation.** sin-mfg holds certified
    mu(6..9) — mu(9) floor 1.3781877 STRICTLY BEATS Boyd's published
    witness 1.3623731 (certified floor above certified ceiling) — and a
