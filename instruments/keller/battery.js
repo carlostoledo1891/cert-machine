@@ -185,12 +185,20 @@ let claim3 = null;
 /* ---- source pins: the certificate is over a byte sequence (R3) ---- */
 {
   const PIN = require('#instruments/pin.js');
-  const gal = (() => { for (let i = 0; ; i++) { const e = FAM.enumerate(i); if (!e) return null; if (e.pin) return e; } })();
-  ok(!!gal, 'a pinned entry enumerates (Gallagher, corpus/sources/gallagher2026.pdf)');
-  const c = FAM.certify(gal);
-  ok(c.verdict === 'HIT' && c.extra.sourcePin && c.extra.sourcePin.sha256 === PIN.PINS['gallagher2026.pdf']
-    && typeof c.extra.transcription === 'string' && c.extra.transcription.length > 0,
-    'the certificate carries the source sha256 (re-hashed, not copied) AND the transcribed formula string');
+  let pinned = 0, unpinnedTranscribed = 0, badPin = 0;
+  for (let i = 0; ; i++) {
+    const e = FAM.enumerate(i); if (!e) break;
+    if (!e.pin) { if (e.transcription) unpinnedTranscribed++; continue; }
+    pinned++;
+    const c = FAM.certify(e);
+    if (!(c.verdict === 'HIT' && c.extra.sourcePin && c.extra.sourcePin.sha256 === PIN.PINS[e.pin]
+      && typeof c.extra.transcription === 'string' && c.extra.transcription.length > 0)) badPin++;
+  }
+  ok(pinned === 8 && badPin === 0,
+    'every transcribed entry certifies against held bytes: 2 Alpöge + Meng–Yang (mengyang2026.pdf, whose eq. (1)-(2) '
+    + 'print the Alpöge map) + 5 Gallagher (gallagher2026.pdf) — ' + pinned + ' pinned, ' + badPin + ' mismatched');
+  ok(unpinnedTranscribed === 0,
+    'NO transcription is left without a byte pin (' + unpinnedTranscribed + ' unpinned) — only generated objects carry none');
   /* RED: a forged pin table must refuse — the drift path can actually fire */
   const forged = PIN.verify('gallagher2026.pdf', { pins: { 'gallagher2026.pdf': '0'.repeat(64) } });
   ok(!forged.ok && /mismatch/.test(forged.why), 'RED: a drifted source (forged pin) is REFUSED with a sha256 mismatch');

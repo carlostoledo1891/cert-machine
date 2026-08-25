@@ -176,8 +176,12 @@ def main():
     if '--sources' in args:
         sources_dir = args[args.index('--sources') + 1]
 
-    with open(cert_path) as f:
-        cert = json.load(f)
+    # name the exact bytes this verification is about: two transcripts that
+    # print the same hash provably checked the same certificate
+    with open(cert_path, 'rb') as f:
+        raw = f.read()
+    print('certificate %s  sha256 %s' % (cert_path, hashlib.sha256(raw).hexdigest()))
+    cert = json.loads(raw)
 
     failures = 0
     checked = 0

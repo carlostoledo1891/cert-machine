@@ -1,9 +1,10 @@
 {
  "what": "Detached certificates for Jacobian/Hessian-conjecture counterexamples. Each entry claims: (1) det of the Jacobian of F is identically the stated constant — a polynomial identity over Q; (2) the listed rational points all map to the listed image under F, exactly; (3) the points are pairwise distinct. Together: F is a Keller map that is not injective, so the Jacobian conjecture is false in that dimension (for hessian entries, F = grad Psi and the Hessian conjecture is false). Verify with tools/verify_keller.py — Python stdlib only, no code from this repo.",
  "polynomialFormat": "each polynomial is a list of monomials [e_1, ..., e_n, coeff] — exponents of x_1..x_n, then the exact rational coefficient as a string",
- "generatedBy": "tools/export-keller-certificate.js @ git 1fc093b",
+ "generatedBy": "tools/export-keller-certificate.js @ git 0380af8",
  "sourcePins": {
   "gallagher2026.pdf": "1782eefa569a094b52f90b18967fb28d8f6ebd3781026f1c3aa46b3cd67a79c1",
+  "mengyang2026.pdf": "090c1735997c598f14741fb8083666b3043cf62bc59da303494166bb5e9c18f5",
   "results_e_4614_070418.pdf": "ebbf12b7839844da87a20420583c1eed353d3c6438af53a213e86b3985d60295",
   "results_pi_0101_060418.pdf": "48b35cb010dc58f51f558e559300b9df2de01fb2d8869c306c8b60a3732b462a",
   "rm_zeta3.pdf": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079"
@@ -141,7 +142,11 @@
     "0",
     "0"
    ],
-   "transcription": "P = (1+xy)^3 z + y^2(1+xy)(4+3xy); Q = y + 3x(1+xy)^2 z + 3xy^2(4+3xy); R = 2x - 3x^2y - x^3z; det J = -2; witnesses (0,0,-1/4), (1,-3/2,13/2), (-1,3/2,13/2) -> (-1/4,0,0)"
+   "transcription": "P = (1+xy)^3 z + y^2(1+xy)(4+3xy); Q = y + 3x(1+xy)^2 z + 3xy^2(4+3xy); R = 2x - 3x^2y - x^3z; det J = -2; witnesses (0,0,-1/4), (1,-3/2,13/2), (-1,3/2,13/2) -> (-1/4,0,0)",
+   "sourcePin": {
+    "file": "mengyang2026.pdf",
+    "sha256": "090c1735997c598f14741fb8083666b3043cf62bc59da303494166bb5e9c18f5"
+   }
   },
   {
    "id": "keller-1",
@@ -441,7 +446,11 @@
     "0",
     "0"
    ],
-   "transcription": "P = (1+xy)^3 z + y^2(1+xy)(4+3xy); Q = y + 3x(1+xy)^2 z + 3xy^2(4+3xy); R = 2x - 3x^2y - x^3z; det J = -2; witnesses (0,0,-1/4), (1,-3/2,13/2), (-1,3/2,13/2) -> (-1/4,0,0)"
+   "transcription": "P = (1+xy)^3 z + y^2(1+xy)(4+3xy); Q = y + 3x(1+xy)^2 z + 3xy^2(4+3xy); R = 2x - 3x^2y - x^3z; det J = -2; witnesses (0,0,-1/4), (1,-3/2,13/2), (-1,3/2,13/2) -> (-1/4,0,0)",
+   "sourcePin": {
+    "file": "mengyang2026.pdf",
+    "sha256": "090c1735997c598f14741fb8083666b3043cf62bc59da303494166bb5e9c18f5"
+   }
   },
   {
    "id": "keller-2",
@@ -2679,7 +2688,11 @@
     "0",
     "0"
    ],
-   "transcription": "Psi = A^2 + 13A + 2B (42 monomials, total degree 14) with A, B from the Schur descent of phi = y.F in x3; det Hess Psi = 128; grad Psi identifies (1,-3/2,0,0,0) and (-1,3/2,0,0,0)"
+   "transcription": "Psi = A^2 + 13A + 2B (42 monomials, total degree 14) with A, B from the Schur descent of phi = y.F in x3; det Hess Psi = 128; grad Psi identifies (1,-3/2,0,0,0) and (-1,3/2,0,0,0)",
+   "sourcePin": {
+    "file": "mengyang2026.pdf",
+    "sha256": "090c1735997c598f14741fb8083666b3043cf62bc59da303494166bb5e9c18f5"
+   }
   },
   {
    "id": "keller-6",

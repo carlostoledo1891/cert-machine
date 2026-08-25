@@ -97,13 +97,21 @@ p=4 — caught by the shift classification, not by reading code).
 - **R2 · DONE.** DIMS = [3, 8]: the n=3 mathematics plus one padded row
   whose certificate text states the stabilization in so many words; the
   battery pins that exactly two Alpöge rows enumerate.
-- **R3 · DONE.** corpus/sources/PINS.json + instruments/pin.js: pinned
-  entries re-hash their source PDF at certify time, carry
-  {file, sha256} + the transcribed formula strings in extra, and REFUSE on
-  drift. Red controls: forged pin table, unpinned source. Instrument yield,
-  immediately: re-reading rm_zeta3.pdf against its pin exposed that the
-  first transcription MISSED the sheet's second row (5/(2ζ(3)), a positive
-  CF hiding in the minus table) — now audited with the rest.
+- **R3 · DONE, then completed.** corpus/sources/PINS.json +
+  instruments/pin.js: pinned entries re-hash their source PDF at certify
+  time, carry {file, sha256} + the transcribed formula strings in extra,
+  and REFUSE on drift. Red controls: forged pin table, unpinned source.
+  Instrument yield, immediately: re-reading rm_zeta3.pdf against its pin
+  exposed that the first transcription MISSED the sheet's second row
+  (5/(2ζ(3)), a positive CF hiding in the minus table) — now audited with
+  the rest. Coverage is now TOTAL: mengyang2026.pdf (arXiv:2607.22198v2,
+  fetched and pinned) prints the Alpöge map and witnesses as its eq.
+  (1)-(2), so the Alpöge rows — whose origin is a tweet with no canonical
+  bytes — pin those bytes too; every transcribed entry in the corpus
+  certifies against a held byte sequence, and the battery asserts zero
+  transcriptions are unpinned. verify_keller.py also prints the sha256 of
+  the certificate file it verified, so two transcripts naming the same
+  hash provably checked the same bytes.
 - **R4 · DONE.** Sweep rows are labeled "new curve through the published
   mechanism, not coordinate-equivalence-checked against Gallagher" in
   source, text, and extra.mechanism. keller-fibers gained

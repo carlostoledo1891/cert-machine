@@ -39,10 +39,13 @@ const DIMS = [3, 8];
 
 /* what was transcribed, wired into the certificate (outside review R3):
    the exact formula strings the family was built from, next to the byte
-   pin of the source where one is held. Alpöge's map arrived as a tweet
-   (2026-07-19) and Meng–Yang as an arXiv page — no canonical byte
-   sequence is held for those; the compensation is that both were verified
-   here by two independent exact routes before this family existed. */
+   pin of the source. Alpöge's map arrived as a tweet (2026-07-19) with no
+   canonical bytes of its own, but Meng–Yang's preprint (arXiv:2607.22198v2,
+   corpus/sources/mengyang2026.pdf, held and pinned) prints the full map
+   and all three witnesses as its eq. (1)-(2) — so the Alpöge rows pin
+   those bytes too, and every entry in this corpus now certifies against a
+   held byte sequence. Both maps were additionally verified here by two
+   independent exact routes before this family existed. */
 const TRANSCRIBED = {
   alpoge: 'P = (1+xy)^3 z + y^2(1+xy)(4+3xy); Q = y + 3x(1+xy)^2 z + 3xy^2(4+3xy); R = 2x - 3x^2y - x^3z; '
     + 'det J = -2; witnesses (0,0,-1/4), (1,-3/2,13/2), (-1,3/2,13/2) -> (-1/4,0,0)',
@@ -136,7 +139,8 @@ module.exports = {
   enumerate(i) {
     if (i < DIMS.length) {
       const n = DIMS[i];
-      return { n, source: 'Alpöge 2026-07-19', claim: alpoge(n), padded: n > 3, transcription: TRANSCRIBED.alpoge };
+      return { n, source: 'Alpöge 2026-07-19', claim: alpoge(n), padded: n > 3, transcription: TRANSCRIBED.alpoge,
+        pin: 'mengyang2026.pdf' };    /* the announcement was a tweet; the held bytes are Meng–Yang's eq. (1)-(2) */
     }
     const j = i - DIMS.length;
     if (j < SWEEP_DEGREES.length) {
@@ -150,7 +154,8 @@ module.exports = {
       return { n: 3, source: 'tangent-sweep d=' + d + ' (new curve through the published mechanism), generated+certified here', claim: g.claim, meta: g.meta };
     }
     if (j === SWEEP_DEGREES.length) {
-      return { n: 5, source: 'Meng–Yang arXiv:2607.22198', hessian: true, claim: mengYang().claim, transcription: TRANSCRIBED.mengYang };
+      return { n: 5, source: 'Meng–Yang arXiv:2607.22198', hessian: true, claim: mengYang().claim, transcription: TRANSCRIBED.mengYang,
+        pin: 'mengyang2026.pdf' };
     }
     /* Gallagher's family (Zenodo 10.5281/zenodo.21479195): seeds p_d give
        det J == 1 with generic fiber degree d+1 — every degree >= 3 occurs —
