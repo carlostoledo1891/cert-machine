@@ -37,6 +37,7 @@ const BATTERIES = [
   ['census (henon + holmes)', ['instruments/census/battery.js'], 'closed-form calibration, two maps · 5 red controls'],
   ['keller audit + sweep', ['instruments/keller/battery.js'], 'symbolic det over Q, generator calibrated on Alpöge · 4 red controls'],
   ['cf audit', ['instruments/cf/battery.js'], 'positive + minus CF enclosures vs the Ramanujan Machine · 7 red controls'],
+  ['entropy covering', ['instruments/entropy/battery.js'], 'certified h_top lower bounds; ln 2 calibration at the full horseshoe · 4 red controls'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [

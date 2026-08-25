@@ -35,12 +35,17 @@ make drift     re-hash the lift against the source lab
          "new and unproven" (enclosure widths 2.2e-16 and 8.9e-16)
 ```
 
-Batteries 15/15 on the page (17 in `make test`). Engine gate 31/31. Census
-battery 26/26 (two maps, 5 red controls), keller battery 32/32 (incl. pin
-drift + forged-pin reds), cf battery 17/17 (7 red controls; Apéry's proved
-identity is the calibration; a wrong form, a forged band, an
-invariance-violating band and a sign violation all fire). Drift: 38
-unchanged, 1 local edited (a declared patch).
+Batteries 16/16 on the page (17 rows in `make test`). Engine gate 31/31.
+Census battery 26/26 (two maps, 5 red controls), keller battery 32/32
+(incl. pin drift + forged-pin reds), cf battery 17/17 (7 red controls;
+Apéry's proved identity is the calibration), entropy battery 11/11 (ln 2
+calibration at the full horseshoe; 4 red controls; the detached
+certificate re-proved in full every run). Reports shipped (make reports):
+reports/impostors.html, reports/zeta3-audit.html, reports/entropy.html —
+every number recomputed from records at build time, every build
+self-refusing on drift. h_top(Hénon 1.4, 0.3) >= 0.356403 is a certified
+theorem (certs/entropy-henon.json). Drift: 38 unchanged, 1 local edited (a
+declared patch).
 
 The census instrument is now SPEC-GENERAL: any second-order polynomial
 recurrence plugs in with seven functions (step, two partials, in float and
@@ -278,22 +283,29 @@ nobody has written down. Ranked by readiness x novelty:
    A266296 ("close to 24, related to the Ramanujan constant") -> 24 for 16
    each. Range 16–62: from "barely past double precision" to "passes any
    screen ever used to announce a discovery".
-2. **Certified entropy from the census.** The certified cycle counts encode
-   topological entropy: ln(N_p)/p for p = 12..16 reads 0.4595, 0.4643,
-   0.4624, 0.4658, 0.4648 — oscillating into the literature value
-   h ~ 0.4651 for classical Hénon (Galias's rigorous bounds ~0.4645), with
-   the known parity dip at p=14 appearing for free. Missing for a THEOREM:
-   covering relations between the certified boxes -> semi-conjugacy to a
-   subshift -> h >= ln(N)/p certified. One instrument; the boxes it needs
-   are already in the census records.
-3. **The zeta(3) audit report.** Complete and self-contained: tail bands by
-   shift-and-check positivity, convergence proved inside the certificate,
-   the 9.7e-17 elementary zeta(3) bracket, both "new and unproven" rows
-   surviving unconditionally — plus a lemma of independent value: minus-CF
-   tail recursions can carry EXACT algebraic spurious solutions
-   (s_n = n^3 -> CF value 0), which is why naive interval iteration fails
-   and bands must exclude the spurious branch. "This decides, that
-   guesses," on their own corpus, outside-checkable.
+2. **Certified entropy — INSTRUMENT BUILT, BOUND CERTIFIED, REPORT SHIPPED
+   (instruments/entropy/ + certs/entropy-henon.json + reports/entropy.html).**
+   h_top(Hénon, 1.4, 0.3) >= 0.356403, a theorem: 228 pairwise-disjoint
+   h-set parallelograms, 916 covering relations for the single iterate F^4
+   (strict interval inequalities, adaptive bisection, outward rounding),
+   exact BigInt spectral bound ln sp(T)/4; one consumed external theorem
+   (Zgliczynski–Gidea covering relations -> subshift semi-conjugacy), used
+   the way Krawczyk's is. Calibrated where the answer is known: in the
+   Devaney–Nitecki regime (a=6) the instrument certifies the FULL 2-shift,
+   h >= ln 2 exactly. Four red controls; the battery re-proves the entire
+   detached certificate every run (11/11). The census ceiling is
+   ln(N_16)/16 = 0.4648 (literature h ~ 0.4651) — today's bound is 76% of
+   it. The gap is graph structure, not rigor: uniform box sizes and one
+   global iterate. NEXT: per-edge durations with Bowen-weighted spectral
+   bounds, boxes sized to local expansion. A bug worth remembering was
+   found by running: the first covering condition demanded the whole image
+   inside the target's s-strip — a long horseshoe leg legitimately
+   overshoots in u, and the correct condition only forbids touching the
+   s-lids; symptom was edges certifying but never a cycle.
+3. **The zeta(3) audit report — SHIPPED (reports/zeta3-audit.html).**
+   Verdicts re-certified, the source re-hashed, the Apery certificate
+   checks printed verbatim, and the spurious-solution lemma re-proved as an
+   exact polynomial identity at build time; the build fails otherwise.
 4. **The keller moduli question.** sweep.js parametrizes counterexamples by
    the free coefficients c_3..c_d — an unexplored moduli space, and the
    R4 label ("coordinate-equivalence unchecked") is itself the open

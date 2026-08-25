@@ -1,0 +1,145 @@
+#!/usr/bin/env node
+/* build-report-entropy.js — generate reports/entropy.html: a certified lower
+   bound for the topological entropy of the Hénon map, and the census cycle
+   counts it is chasing.
+
+   Everything is recomputed or re-read from records at build time: the
+   detached certificate is re-verified edge by edge (the same full re-proof
+   the battery runs), the calibration horseshoe is re-certified at ln 2, and
+   the growth-rate table is read off census-high-periods.json — certified
+   completeness records, not samples. Any failure aborts the build.
+
+   usage: node tools/build-report-entropy.js */
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const cp = require('child_process');
+
+const ROOT = path.resolve(__dirname, '..');
+const C = require(path.join(ROOT, 'design', 'components.js'));
+const TPL = require(path.join(ROOT, 'design', 'template.js'));
+const E = require(path.join(ROOT, 'instruments', 'entropy', 'covering.js'));
+
+const sh = (c) => { try { return cp.execSync(c, { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch (e) { return null; } };
+const die = (m) => { console.error('ENTROPY REPORT REFUSED: ' + m); process.exit(1); };
+
+/* ---- re-verify the certificate, in full ----------------------------------- */
+const cert = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'entropy-henon.json'), 'utf8'));
+const map = E.henonSpec(cert.a, cert.b);
+const g = E.certifyGraph(map, cert.boxes, cert.edges, { cells: 8000, maxM: 64, steps: cert.steps });
+if (!g.ok || g.certified.length !== cert.edges.length || g.hLB < cert.hLB - 1e-12)
+  die('the detached certificate did not re-verify: ' + (g.ok ? g.certified.length + '/' + cert.edges.length + ' edges, h ' + g.hLB : g.why));
+
+/* the calibration, re-run */
+const map6 = E.henonSpec(6, 0.3);
+const H = 0.6, w = 0.17, x0 = 0.38, kap = 0.3 * H / (12 * x0);
+const cal = E.certifyGraph(map6,
+  [{ c: [x0, 0], A: [[w, kap], [0, H]] }, { c: [-x0, 0], A: [[w, -kap], [0, H]] }],
+  [[0, 0], [0, 1], [1, 0], [1, 1]], { cells: 60000 });
+if (!cal.ok || Math.abs(cal.hLB - Math.log(2)) > 1e-12) die('calibration horseshoe failed');
+
+/* ---- the census growth table, read off the certified records -------------- */
+const census = JSON.parse(fs.readFileSync(path.join(ROOT, 'census-high-periods.json'), 'utf8'))
+  .filter(r => r.ok).map(r => ({ p: r.p, points: r.points, rate: Math.log(r.points) / r.p }));
+if (!census.length) die('no census records');
+const ceiling = Math.max(...census.map(r => r.rate));
+
+/* ---- the page ------------------------------------------------------------- */
+const B = [];
+
+B.push(C.header({
+  eyebrow: 'cert-machine · report · generated from the records',
+  title: 'Entropy, with a certificate',
+  deck: 'The census counts periodic points and proves completeness; those counts encode the growth rate that '
+    + 'IS topological entropy. This page turns boxes into the invariant: a certified lower bound '
+    + 'h ≥ ' + cert.hLB.toFixed(4) + ' for the Hénon map at the classical parameters — every covering relation '
+    + 'a strict interval inequality, the spectral bound exact, the whole certificate re-proved while this page '
+    + 'was built — and the certified cycle counts that name the ceiling it is climbing toward.'
+}));
+
+B.push(C.stats([
+  { k: 'certified lower bound', v: cert.hLB.toFixed(4), role: 'held', n: 'h_top ≥ ln sp(T)/' + cert.steps + ' from ' + cert.edges.length + ' covering relations over ' + cert.boxes.length + ' disjoint h-sets, re-proved this build.' },
+  { k: 'the census ceiling', v: ceiling.toFixed(4), n: 'max ln(N_p)/p over the certified counts — the rate the literature pins at ≈ 0.4651.' },
+  { k: 'calibration', v: 'ln 2 exact', role: 'held', n: 'Deep in the Devaney–Nitecki regime (a = 6) the instrument certifies the full 2-shift.' },
+  { k: 'red controls', v: '4', n: 'No-stretch, lid violation, wrong target, overlapping h-sets — each must refuse, every build.' }
+]));
+
+B.push(C.scope('Local working document. The bound is a theorem modulo one consumed external result '
+  + '(covering relations imply semi-conjugacy to the subshift — Zgliczyński–Gidea), used the way Krawczyk\'s '
+  + 'theorem is consumed elsewhere in this lab. Parameters are the exact doubles nearest 1.4 and 0.3, the same '
+  + 'objects the census certifies.'));
+
+{
+  B.push(C.section({
+    lab: '§1 · the theorem', title: 'What is certified, exactly',
+    bodyRaw: '<div class="col">'
+      + C.pRaw('There are ' + C.m(String(cert.boxes.length)) + ' parallelograms (h-sets) in the plane, proved '
+        + 'pairwise disjoint by separating axes with outward rounding. For ' + C.m(String(cert.edges.length))
+        + ' ordered pairs, the iterate ' + C.m('F^' + cert.steps) + ' provably STRETCHES the first parallelogram '
+        + 'across the second: the two exit edges land strictly beyond the target on opposite sides, and the '
+        + 'image never touches the target\'s side lids — finitely many strict interval inequalities, checked by '
+        + 'adaptive bisection. Covering relations along a graph semi-conjugate the invariant set onto the '
+        + 'subshift, so')
+      + C.eq(C.esc('h_top(F) = h_top(F^' + cert.steps + ')/' + cert.steps + ' ≥ ln sp(T)/' + cert.steps + ' ≥ ' + cert.hLB.toFixed(6)))
+      + C.pRaw('where the spectral bound is EXACT: sp(T) ≥ (min row sum of T^m)^(1/m) on the strongly connected '
+        + 'core, computed in BigInt at m = ' + cert.powerM + ' — an integer root, not a float eigenvalue. '
+        + 'The certifier can refuse an edge (and did, for most candidates); it cannot certify a false one. '
+        + 'Dropping edges only ever lowers the bound, which is the safe direction.')
+      + C.pRaw('The float layer that PROPOSED the boxes — a long orbit, binned; tangents by local PCA; stable '
+        + 'directions by backward-Jacobian iteration — is believed about nothing: every box and every edge is '
+        + 're-derived from the interval conditions alone, and the battery re-proves the whole certificate '
+        + '(' + C.m(cert.edges.length + '/' + cert.edges.length) + ' edges) on every build.')
+      + '</div>'
+  }));
+}
+
+{
+  const rows = census.map(r => [
+    { raw: C.m('p = ' + r.p) },
+    { raw: C.m(String(r.points)) },
+    { raw: C.m(r.rate.toFixed(4)) },
+    { raw: C.esc('completeness: EXACTLY this many, plane exhausted') }
+  ]);
+  B.push(C.section({
+    lab: '§2 · the ceiling', title: 'What the census already knows', wide: true,
+    bodyRaw: C.table({
+      cols: [{ h: 'period' }, { h: 'points, certified exact', cls: 'v' }, { h: 'ln(N_p)/p', cls: 'v' }, { h: 'status' }],
+      rows
+    })
+      + '<div class="col">' + C.pRaw('The growth rate of certified cycle counts climbs to '
+        + C.m(ceiling.toFixed(4)) + ' by p = 16 — squarely at the literature value h ≈ 0.4651 for these '
+        + 'parameters. But counts alone are NOT a lower bound for entropy (that implication runs the other way); '
+        + 'the covering graph is what converts counted orbits into certified entropy, and today it certifies '
+        + C.m(cert.hLB.toFixed(4)) + ' — ' + C.m(Math.round(100 * cert.hLB / ceiling) + '%') + ' of the ceiling. '
+        + 'The gap is structure the current graph does not resolve: uniform box sizes and a single global '
+        + 'iterate. Per-edge durations with Bowen-weighted spectral bounds, and boxes sized to local expansion, '
+        + 'are the recorded next step.') + '</div>'
+  }));
+}
+
+{
+  B.push(C.section({
+    lab: '§3 · check it', title: 'What a skeptic runs',
+    bodyRaw: '<div class="col">'
+      + C.pRaw(C.m('make test') + ' re-proves everything: the ln 2 calibration at the full horseshoe, four red '
+        + 'controls (a covering that does not hold must refuse three different ways; overlapping h-sets must '
+        + 'refuse the graph), exactness of the spectral bound on hand matrices, and the detached certificate '
+        + C.m('certs/entropy-henon.json') + ' — every h-set re-proved disjoint, every covering relation '
+        + 're-derived, the bound recomputed. The certificate itself is finite data: parallelogram matrices, an '
+        + 'edge list, one integer matrix power.')
+      + '</div>'
+  }));
+}
+
+const foot = '<footer class="col">'
+  + '<p>' + C.esc('Generated by tools/build-report-entropy.js — the certificate re-verified and the calibration re-run during this build; the build fails otherwise.') + '</p>'
+  + '<p>' + C.esc('git ' + (sh('git rev-parse --short HEAD') || '—') + ' · cert-machine · Carlos Toledo') + '</p>'
+  + '</footer>';
+
+fs.writeFileSync(path.join(ROOT, 'reports', 'entropy.html'),
+  TPL.render({ title: 'Entropy, with a certificate · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot }));
+
+console.log('reports/entropy.html written');
+console.log('  h_top(' + cert.a + ', ' + cert.b + ') >= ' + cert.hLB.toFixed(6) + ' re-proved ('
+  + cert.edges.length + ' edges, ' + cert.boxes.length + ' h-sets, F^' + cert.steps + ') · ceiling ' + ceiling.toFixed(4));
