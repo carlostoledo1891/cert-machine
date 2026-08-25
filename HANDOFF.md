@@ -56,11 +56,38 @@ p=4 — caught by the shift classification, not by reading code).
    priori bound and a polynomial recurrence — Ikeda needs interval sin/cos
    (transcendental.js is sound), the cubic Hénon and the standard-map family
    are direct ports. One instrument, one new family file each.
-3. **More Krawczyk families.** Any parameterised nonlinear system: steady
+3. **`keller-audit`: certify the Jacobian-conjecture counterexamples.** On
+   2026-07-19 Alpöge refuted the Jacobian conjecture in dimension 3 (found
+   with Claude; Gallagher's infinite family 07-20, Speyer's tangent-sweep
+   geometry 07-23, Gao's arXiv:2608.00222 survey; n=2 REMAINS OPEN). Verified
+   in-session by two independent exact routes: for
+   P=(1+xy)³z+y²(1+xy)(4+3xy), Q=y+3x(1+xy)²z+3xy²(4+3xy), R=2x−3x²y−x³z,
+   det J ≡ −2 is a POLYNOMIAL IDENTITY over Q (symbolic, every monomial
+   cancels; hand partials cross-checked by exact Lagrange interpolation), and
+   (0,0,−1/4), (1,−3/2,13/2), (−1,3/2,13/2) all map to (−1/4,0,0) exactly.
+   Build the family: a corpus of the published explicit maps (Alpöge,
+   Gallagher, Meng–Yang's Hessian counterexample, Zhang's consequences), each
+   certified or refuted exactly; red control: one perturbed coefficient must
+   break the identity. A calibration corpus whose ground truth is five weeks
+   old — the exact opposite of OEIS staleness.
+4. **`keller-search`: collision hunting in Keller-map ansätze.** The Alpöge
+   map is z-AFFINE with coefficients in {±1..±4} — inside an enumerable
+   grammar. enumerate: structured ansätze F = A(x,y)·z + B(x,y); screen:
+   exact Keller filter (det J ≡ const, symbolic over Q — the instrument seed
+   already exists from the audit) then float Newton on F(u)−F(v)=0; certify:
+   exact rational collision or a Krawczyk box. Discovery targets, honestly
+   ranked: minimal-degree counterexample (the literature is weeks old; likely
+   open), counterexamples outside the tangent-sweep class, geometric-degree
+   censuses ("EXACTLY d preimages, certified" — the census shape), and for
+   the OPEN plane case certified exclusions: "no collision in this family,
+   proved" (Moh already gives degree ≤ 100, so plane statements are
+   exclusion-only until the ansatz outgrows it).
+5. **More Krawczyk families.** Any parameterised nonlinear system: steady
    states of reaction-diffusion, roots of polynomial systems.
-4. **Do NOT go back to closed-form hunting over curated corpora.** OEIS was the
+6. **Do NOT go back to closed-form hunting over curated corpora.** OEIS was the
    right calibration target and the wrong discovery target, and the reason is
-   structural and predictable in advance.
+   structural and predictable in advance. (The keller corpus is not this:
+   its claims are new, explicit, and decidable by our instruments.)
 
 ## The rule for changing front
 
