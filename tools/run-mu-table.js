@@ -14,8 +14,14 @@
    more than 40 survivors the sweep is re-run once with its own champion
    as the seed, and the record says so.
 
-   usage: node tools/run-mu-table.js [nLo] [nHi]   (default 9 17)
-   writes certs/mu-table.json (merging over existing rows) */
+   usage: node tools/run-mu-table.js [nLo] [nHi] [maxA]   (default 9 17 30)
+   writes certs/mu-table.json (box 30) or certs/mu-table-<maxA>.json,
+   merging over existing rows. For maxA > 30 the seed for each n is the
+   BOX-30 champion of the same n when certs/mu-table.json holds it — a
+   certified witness already inside the larger box, so the bar starts at
+   the box-30 floor and the record decides whether the wider box beats it
+   (the Goddard box-extension precedent: 30 -> 40 -> 55, champion
+   unchanged). */
 'use strict';
 
 const fs = require('fs');
@@ -25,9 +31,10 @@ const ROOT = path.resolve(__dirname, '..');
 const S = require(path.join(ROOT, 'instruments', 'trigmin', 'sweep.js'));
 const N = require(path.join(ROOT, 'instruments', 'trigmin', 'newman.js'));
 
-const MAXA = 30;
 const nLo = Number(process.argv[2] || 9), nHi = Number(process.argv[3] || 17);
-const OUT = path.join(ROOT, 'certs', 'mu-table.json');
+const MAXA = Number(process.argv[4] || 30);
+const OUT = path.join(ROOT, 'certs', MAXA === 30 ? 'mu-table.json' : 'mu-table-' + MAXA + '.json');
+const BOX30 = path.join(ROOT, 'certs', 'mu-table.json');
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 
 /* the mu(9) box-30 champion (validated against the sin-mfg record) anchors
@@ -60,6 +67,11 @@ function hillClimb(A0) {
   return { A, v };
 }
 function seedFor(n) {
+  /* wider boxes seed from the box-30 champion at the same n */
+  if (MAXA > 30 && fs.existsSync(BOX30)) {
+    const t30 = JSON.parse(fs.readFileSync(BOX30, 'utf8'));
+    if (t30.rows[n]) return t30.rows[n].champion.A;
+  }
   if (n === 9) return PUBLISHED_MU9;
   const starts = [];
   /* previous champion + best single insertion */
@@ -104,6 +116,12 @@ for (let n = nLo; n <= nHi; n++) {
   }
   rec.reseeded = reseeded;
   rec.generatedBy = 'tools/run-mu-table.js @ git ' + git;
+  /* concurrent-safe: re-read and merge just before writing, so parallel
+     single-row runs against the same file cannot clobber each other's rows */
+  if (fs.existsSync(OUT)) {
+    const fresh = JSON.parse(fs.readFileSync(OUT, 'utf8'));
+    for (const k of Object.keys(fresh.rows)) if (!(k in table.rows)) table.rows[k] = fresh.rows[k];
+  }
   table.rows[n] = rec;
   prevChampion = rec.champion.A;
   console.log('  champion [' + rec.champion.A.join(',') + ']  min|f| >= ' + rec.champion.modulus[0]
@@ -111,4 +129,4 @@ for (let n = nLo; n <= nHi; n++) {
     + '  (' + rec.conservation + ')');
   fs.writeFileSync(OUT, JSON.stringify(table, null, 1) + '\n');   /* checkpoint per row */
 }
-console.log('certs/mu-table.json written (rows ' + Object.keys(table.rows).join(',') + ')');
+console.log(path.basename(OUT) + ' written (rows ' + Object.keys(table.rows).join(',') + ')');

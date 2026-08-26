@@ -73,7 +73,7 @@ make drift     re-hash the lift against the source lab
          CLICK — the site needs a login; nothing auto-sends.
 ```
 
-Batteries 22/22 on the page (23 rows in `make test`). Engine gate 31/31.
+Batteries 23/23 on the page (24 rows in `make test`). Engine gate 31/31.
 New this round: instruments/bigfloat/ — dyadic big-float interval arithmetic
 (BigInt mantissa · 2^e, directed rounding, arbitrary precision; pi/ln2/e
 certified to 50 literature digits, mutation-tested rounding) — the layer
@@ -456,11 +456,34 @@ READ-ONLY, lift numbers by transcription + pin, never by edit):
    upgrades earned mid-run: a DYNAMIC rising bar (a weak seed cost days
    under the fixed bar when the n=11 insertion-seed certified at 0.925 —
    with the ratchet it costs minutes; kills against an earlier lower bar
-   stay valid a fortiori) and hill-climb seeding. Still queued: Mercer §6
-   at m=7,8 (needs reading his §5 constraints from the paper — sin-mfg
-   holds the PDF), lambda continuation, BIGGER BOXES (maxA > 30 — the
-   high-n dips are box crowding, and maxA=40 at n=10..12 is hours not
-   days), Boyd 1986 (operator borrow) before any novelty prose.
+   stay valid a fortiori) and hill-climb seeding.
+   BIGGER BOXES LANDED (2026-08-26, certs/mu-table-40.json, battery-gated):
+   mu(10) box40 champion {0,1,4,7,8,13,22,24,32,34} floor 1.420064490311554
+   (box30 gave 1.3236 — the ceiling 30->40 raised the certified bound past
+   even mu(9)'s 1.3782, killing the "dip" reading at n=10); mu(11) box40
+   {0,2,4,12,19,20,24,25,27,30,33} floor 1.546098106216827 (box30 1.5346).
+   273M + 848M sets exhausted, 2 survivors each, orbits unique. mu(12)@40
+   (2.31G sets) was IN FLIGHT at handoff — if its row is absent from
+   mu-table-40.json, re-run: node tools/run-mu-table.js 12 12 40
+   (merge-safe; seeds from the box30 champion).
+   THE LAMBDA HALF LANDED (2026-08-26, instruments/trigmin/lambda.js +
+   lambda-battery.js 18/0 + certs/lambda-table.json, 18 rows):
+   ALL NINE source-lab rows REPRODUCED exactly — n=4 box20 down to the
+   per-stage split (W=2818, the sin-mfg measured count) and the 12dp
+   values; proved closed forms computed never remembered (9/8 exact,
+   (17+7*sqrt7)/27 via certified sqrt); the wrong-endpoint bar refused BY
+   NAME and its disaster demonstrated. NEW rows nobody holds:
+   lambda(13) <= 2.31823265015213  {1,2,3,4,5,6,7,9,10,11,12,13,16}
+   lambda(14) <= 2.366350427056568 {1,2,3,4,5,6,8,9,10,12,13,14,15,18}
+   lambda(15) <= 2.4189121268958322 {1,2,3,4,6,7,8,9,10,11,12,14,18,20,21}
+   lambda(16) <= 2.454832753027949 {1,2,3,4,5,6,7,8,10,11,13,14,15,16,17,21}
+   lambda(17) <= 2.5648971205451674 {1..15,19,22}
+   (all M<=25, exhaustive, near-interval structure continuing); DEEPENED
+   n=9..12 to M=30 (86M-set boxes): every M=25 optimiser CONFIRMED — the
+   source lab's shallow-box values are now certified at depth 30.
+   Still queued: Mercer §6 at m=7,8 (needs reading his §5 constraints from
+   the paper — sin-mfg holds the PDF), lambda 13..17 deepening to M=30,
+   mu box50+, Boyd 1986 (ILL/purchase) before any novelty prose.
    Original note: sin-mfg holds certified
    mu(6..9) — mu(9) floor 1.3781877 STRICTLY BEATS Boyd's published
    witness 1.3623731 (certified floor above certified ceiling) — and a

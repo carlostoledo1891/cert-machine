@@ -115,7 +115,8 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
 {
   const fs = require('fs');
   const path = require('path');
-  const OUT = path.join(__dirname, '..', '..', 'certs', 'mu-table.json');
+  for (const fname of ['mu-table.json', 'mu-table-40.json']) {
+  const OUT = path.join(__dirname, '..', '..', 'certs', fname);
   if (fs.existsSync(OUT)) {
     const t = JSON.parse(fs.readFileSync(OUT, 'utf8'));
     const ns = Object.keys(t.rows).map(Number).sort((a, b) => a - b);
@@ -130,10 +131,10 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
       const P = S._orbit.primitiveOf(r.champion.A);
       for (const s of r.survivors) if (r.maximumOrbit.uniqueUpToDilationAndReversal && !S._orbit.inOrbit(s.A, P, r.maxA)) badOrbit++;
     }
-    ok(recert === ns.length, 'mu-table: every stored champion (n = ' + ns.join(',') + ') re-certifies BYTE-IDENTICALLY from its exponents');
-    ok(badConservation === 0, 'mu-table: every row\'s conservation identity re-parses and sums to its box cardinality');
-    ok(badOrbit === 0, 'mu-table: every orbit-uniqueness claim re-verifies against its survivors');
-    if (t.rows[9]) {
+    ok(recert === ns.length, fname + ': every stored champion (n = ' + ns.join(',') + ') re-certifies BYTE-IDENTICALLY from its exponents');
+    ok(badConservation === 0, fname + ': every row\'s conservation identity re-parses and sums to its box cardinality');
+    ok(badOrbit === 0, fname + ': every orbit-uniqueness claim re-verifies against its survivors');
+    if (fname === 'mu-table.json' && t.rows[9]) {
       const r9 = t.rows[9];
       const pub = r9.survivors.find(s => JSON.stringify(s.A) === '[0,1,2,3,4,7,8,10,12]');
       ok(!!pub && pub.modulus[0] === 1.3623731781333241,
@@ -142,7 +143,8 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
         'mu-table: the n=9 box champion strictly beats the published witness (certified floor above certified ceiling)');
     }
   } else {
-    console.log('SKIP  certs/mu-table.json not present yet (ladder still running)');
+    console.log('SKIP  certs/' + fname + ' not present yet');
+  }
   }
 }
 
