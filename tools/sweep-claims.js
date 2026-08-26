@@ -14,7 +14,10 @@
      2. erdosproblems #852 thread — the posted C* correction sits in the
         moderation queue; the standing instruction is to snapshot the
         thread as evidence bytes when it becomes public.
-     3. arXiv — recent entries mentioning the Ramanujan Machine (new
+     3. erdosproblems #510 page — the lambda-table comment was posted by
+        the operator 2026-08-26 and sits in moderation; same standing
+        instruction (shout + snapshot) when the table appears.
+     4. arXiv — recent entries mentioning the Ramanujan Machine (new
         proofs of audited rows, or new sheets' papers).
 
    State: corpus/claims-seen.json (what previous sweeps saw). First run
@@ -70,7 +73,21 @@ const finding = (m) => { findings++; console.log('!! ' + m); };
   }
 }
 
-/* 3 · arXiv — Ramanujan Machine mentions */
+/* 3 · the #510 moderation queue (comment posted 2026-08-26) */
+{
+  const html = fetchText('https://www.erdosproblems.com/510?cb=' + Math.floor(Math.random() * 1e9));
+  if (!html) say('erdos510: fetch failed (transient)');
+  else {
+    /* the table's n=13 bound is the signature: 12 ceiled decimals, stated
+       nowhere else on the internet unless our comment (or a copy) is live */
+    const visible = /2\.318232650153/.test(html);
+    if (visible) finding('erdos510: THE LAMBDA TABLE IS PUBLIC — snapshot the page as evidence bytes beside outreach/erdos510-comment.md NOW');
+    else say('erdos510: comment not visible yet, still in the moderation queue');
+    state.erdos510Visible = visible;
+  }
+}
+
+/* 4 · arXiv — Ramanujan Machine mentions */
 {
   const xml = fetchText('http://export.arxiv.org/api/query?search_query=all:%22Ramanujan+Machine%22&sortBy=submittedDate&sortOrder=descending&max_results=15');
   if (!xml) say('arxiv: fetch failed (transient)');

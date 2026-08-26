@@ -176,6 +176,12 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px;m
   padding:20px 22px;margin:22px 0;text-align:center;
   font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
 
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
 .note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
   padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
 .note .lab{display:block;margin-bottom:8px;color:var(--sig)}
@@ -300,7 +306,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="wide"><figure class="mach">
   <div class="figbox">
     <div class="mach-ro"><div class="k" data-ro-k>the machine</div><div class="d" data-ro-d>Generate at scale, screen in float, certify the survivors exactly. Select any node for what it does — every count is read off ledger.json at build time.</div></div>
-    <svg viewBox="0 0 980 528" role="img" aria-label="Schematic of the conjecture engine: the families feed enumerate, screen and certify; the instruments decide; only certificates reach the ledger, which feeds the closed-form hunt and the pages.">
+    <svg viewBox="0 0 980 520" role="img" aria-label="Schematic of the conjecture engine: the families feed enumerate, screen and certify; the instruments decide; only certificates reach the ledger, which feeds the closed-form hunt and the pages.">
       <defs><marker id="mfa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>
       <path class="ed" d="M194 28 C224 28 218 167 246 167" marker-end="url(#mfa)"/>
       <path class="ed-f" d="M194 28 C224 28 218 167 246 167"/>
@@ -480,13 +486,13 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
         <text class="nd-k" x="214" y="430">SURVIVORS · OPEN</text>
         <text class="nd-v" x="214" y="441">18 candidates</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="the gates — batteries and red controls" data-t="the gates — batteries and red controls" data-d="Every battery is executed on every control-page build, never remembered — the live count is on the control page. Red controls are deliberate forgeries the instruments must catch; a control that cannot fire is decoration. Every real bug this project has found was found by a control, none by reading code.">
+      <g class="nd" tabindex="0" role="button" aria-label="the gates — batteries and red controls" data-t="the gates — batteries and red controls" data-d="Every battery is executed at every control build, never remembered: 24/24 green at this ledger&#39;s build. Red controls are deliberate forgeries the instruments must catch — a control that cannot fire is decoration. Every real bug this project has found was found by a control, none by reading code.">
         <rect class="nd-box" x="14" y="386" width="180" height="44" rx="5"/>
         <rect class="acc-held" x="14" y="386" width="3" height="44" rx="1.5"/>
         <text class="nd-k" x="28" y="404">THE GATES</text>
-        <text class="nd-v" x="28" y="419">red controls</text>
+        <text class="nd-v" x="28" y="419">24/24 batteries</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="the control page" data-t="the control page" data-d="The live dashboard this schematic summarizes: every family, every battery executed at build time, the full ledger decomposition, drift status. Generated from the ledger alone — editing it by hand is a change to nothing.">
+      <g class="nd" tabindex="0" role="button" aria-label="the control page" data-t="the control page" data-d="The live dashboard this schematic feeds: every family, every battery, the full ledger decomposition, drift status. Generated from the ledger alone — editing it by hand is a change to nothing; the next build overwrites it, which is the point.">
         <rect class="nd-box" x="624" y="472" width="140" height="40" rx="5"/>
         <rect class="acc-dep" x="624" y="472" width="3" height="40" rx="1.5"/>
         <text class="nd-k" x="638" y="490">THE CONTROL PAGE</text>
@@ -522,7 +528,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
   <figcaption>The loop this repository runs. Families supply objects and mathematics; the engine supplies scale and bookkeeping; the instruments alone decide. REJECT and REFUSED are terminal by design — only a certificate reaches the ledger, the gates run on every build, and every page is rebuilt from the ledger alone.</figcaption>
 </figure></div>
-<script>(function(){var f=document.querySelector("figure.mach");if(!f)return;var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}f.querySelectorAll("g.nd").forEach(function(g){g.addEventListener("click",function(){on(g)});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});});})();</script><div class="col"><p>The <a href="machine/">control page</a> is this drawing, live: every family, every battery executed at build time (never remembered), the full ledger decomposition, drift status.</p></div>
+<script>(function(){var f=document.querySelector("figure.mach");if(!f)return;var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}f.querySelectorAll("g.nd").forEach(function(g){g.addEventListener("click",function(){on(g)});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});});})();</script><div class="col after-fig"><p>The <a href="machine/">control page</a> is this drawing, live: every family, every battery executed at its build (never remembered), the full ledger decomposition, drift status.</p></div>
 </section>
 
 <section class="">
@@ -535,7 +541,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <a class="card" href="reports/rm-audit.html"><span class="card-k">audit · standing registry</span><span class="card-t">The Ramanujan Machine, audited</span><span class="card-d">Every row of all seven published result sheets decided by rigorous enclosures and exact rational comparisons — the whole registry re-certified at every build.</span><span class="card-n">52 rows · 51 survive · 1 printed row refuted</span></a>
 <a class="card" href="reports/mercer-program.html"><span class="card-k">program · certified landscape</span><span class="card-t">The Mercer program</span><span class="card-d">Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.</span><span class="card-n">mu(5) ≤ 1 + π/20 · re-certified every build</span></a>
 <a class="card" href="reports/erdos290.html"><span class="card-k">erdős #290 · theorem</span><span class="card-t">Erdős #290: the 4k(k+1) theorem</span><span class="card-d">The square-discriminant law proved and re-proved as exact integer identities during the build, the enclosure sweep deepened past the cited page, the exceptional degree closed.</span><span class="card-n">planted falsifiers must fire at build</span></a>
-<a class="card" href="reports/impostors.html"><span class="card-k">proved negatives</span><span class="card-t">The impostor catalog</span><span class="card-d">Published constants that agree with simple closed forms for dozens of significant digits — and exact proofs that every one of them is lying. Digit agreement is not evidence.</span><span class="card-n">exact BigInt refutations at full published precision</span></a></div></div><div class="col" style="margin-top:26px"><p><a href="reports/">All 12 reports →</a> — every number on every page is recomputed from the certificates and records at build time, and a build that drifts refuses to ship.</p></div>
+<a class="card" href="reports/impostors.html"><span class="card-k">proved negatives</span><span class="card-t">The impostor catalog</span><span class="card-d">Published constants that agree with simple closed forms for dozens of significant digits — and exact proofs that every one of them is lying. Digit agreement is not evidence.</span><span class="card-n">exact BigInt refutations at full published precision</span></a></div></div><div class="col after-fig"><p><a href="reports/">All 12 reports →</a> — every number on every page is recomputed from the certificates and records at build time, and a build that drifts refuses to ship.</p></div>
 </section>
 
 <section class="col">
@@ -544,9 +550,9 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>Check a result yourself, in ten seconds</h2>
   </div>
 <p>Every headline claim detaches into a certificate — a JSON file of exact numbers — plus a verifier in plain Python: standard library only, nothing to install, zero code shared with the engine. Each verifier re-derives the mathematics from the certificate alone, re-hashes the pinned sources, must refute a deliberately forged value before it will exit green, and prints the sha256 of the certificate it checked.</p>
-<div class="wide"><pre style="font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.7;padding:14px 18px;border:1px solid var(--rule);border-radius:6px;overflow-x:auto;margin:0">python3 verify/verify_erdos852.py certs/erdos852-certificate.json
+<pre class="code">python3 verify/verify_erdos852.py certs/erdos852-certificate.json
 python3 verify/verify_keller.py   certs/keller-certificate.json
-python3 verify/verify_strassen.py certs/strassen-certificate.json</pre></div>
+python3 verify/verify_strassen.py certs/strassen-certificate.json</pre>
 <div class="note">
   <span class="lab">sources</span>
 <p>Run from a clone of <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a> (add <span class="m">--sources corpus/sources</span> to re-hash the pinned source bytes too), or download the certificate and verifier right here — the proof travels without the machine.</p>
@@ -571,7 +577,7 @@ python3 verify/verify_strassen.py certs/strassen-certificate.json</pre></div>
 <p>The trust base, honestly: V8 BigInt and IEEE-754 correct rounding; a handful of named external theorems consumed and cross-checked, not machine-proved; one machine, one operator. This meets the working standard of the computer-assisted-proof tradition — Tucker&#39;s Lorenz, Galias&#39;s Hénon censuses, whose published counts the census here reproduces independently — one rung below the formal-proof standard.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git 0a6e871 from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<footer class="col"><p>Generated by tools/build-site.js @ git 7ef340d from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
 
 </div>
 </html>

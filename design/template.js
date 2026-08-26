@@ -137,6 +137,12 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px;m
   padding:20px 22px;margin:22px 0;text-align:center;
   font-family:${TYPE.mono};font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
 
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:${TYPE.mono};font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
 .note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
   padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
 .note .lab{display:block;margin-bottom:8px;color:var(--sig)}

@@ -465,24 +465,63 @@ def main():
     ap.add_argument("--tag", default="v1", help="campaign tag recorded per row (prompt/version)")
     ap.add_argument("--max-tokens", type=int, default=200,
                     help="reply cap; matmul's upper rungs need thousands")
+    ap.add_argument("--proposals", default=None,
+                    help="grade a JSONL of externally generated proposals instead of calling any "
+                         "API: each line {\"target\": ..., \"proposal\": \"...\"}. Same screen, "
+                         "same certifier, same red controls — the outsider submission path.")
+    ap.add_argument("--model-label", default=None,
+                    help="attribution recorded as the ledger's model field (required with --proposals)")
     args = ap.parse_args()
 
     fam = FAMILIES[args.family]()
-    targets = list(fam.enumerate(args.n, args.seed))
+    if args.proposals:
+        # The submission path: proposals were generated elsewhere (any model, any
+        # provider); this machine only GRADES. Targets must come from the family's
+        # own enumeration — the published ladder — so a submission cannot smuggle
+        # in an easier task and wear the ladder's name.
+        if not args.model_label:
+            sys.exit("--proposals requires --model-label (the board needs attribution)")
+        universe: dict = {}
+        for t in fam.enumerate(max(args.n, 64), args.seed):
+            universe.setdefault(str(t), t)
+        work = []
+        with open(args.proposals) as fh:
+            for line in fh:
+                if not line.strip():
+                    continue
+                e = json.loads(line)
+                tk = e.get("target")
+                if isinstance(tk, list):
+                    tk = str(tuple(tk))
+                tk = str(tk)
+                if tk not in universe:
+                    sys.exit(f"target {tk!r} is not in the family's enumeration — "
+                             f"submissions are graded on the published ladder only")
+                work.append((universe[tk], str(e.get("proposal", e.get("proposal_raw", "")))))
+        targets = [t for t, _ in work]
+    else:
+        work = None
+        targets = list(fam.enumerate(args.n, args.seed))
     run_red_controls(fam, targets)
 
-    propose = fake_proposer(fam, args.seed) if args.dry_run else anthropic_proposer(args.model, args.max_tokens)
+    model_name = args.model_label if args.proposals else (args.model or "fake")
+    propose = (None if args.proposals
+               else fake_proposer(fam, args.seed) if args.dry_run
+               else anthropic_proposer(args.model, args.max_tokens))
     tally = {"malformed": 0, "rejected": 0, "refuted": 0, "certified": 0, "undecided": 0}
     seen = set()
 
     with open(args.ledger, "a") as ledger:
-        for t in targets:
+        for t, pre in (work if work is not None else ((t, None) for t in targets)):
             t0 = time.time()
-            try:
-                raw = propose(fam.prompt(t))
-            except RuntimeError as e:
-                print(f"SKIPPED (api): {t} — {e}", file=sys.stderr)
-                continue                              # an API failure is not a model outcome
+            if pre is not None:
+                raw = pre
+            else:
+                try:
+                    raw = propose(fam.prompt(t))
+                except RuntimeError as e:
+                    print(f"SKIPPED (api): {t} — {e}", file=sys.stderr)
+                    continue                          # an API failure is not a model outcome
             obj = fam.parse(raw)
             outcome, v = decide(fam, obj, t)
             k = fam.key(obj) if obj is not None else None
@@ -491,14 +530,14 @@ def main():
                     continue                 # dedup, inherited from the engine
                 seen.add(k)
             tally[outcome] += 1
-            row = Row(fam.name, args.model or "fake", args.tag, str(t), raw.strip(), repr(obj) if obj is not None else None, outcome,
+            row = Row(fam.name, model_name, args.tag, str(t), raw.strip(), repr(obj) if obj is not None else None, outcome,
                       fam.statement(obj, t) if obj is not None else None,
                       v.witness if v else None, v.certificate if v else None, k, round(time.time() - t0, 3))
             ledger.write(json.dumps(asdict(row)) + "\n")
 
     n = sum(tally.values())
     print(json.dumps({
-        "family": fam.name, "model": args.model or "fake", "proposals": n, **tally,
+        "family": fam.name, "model": model_name, "proposals": n, **tally,
         "certified_rate": round(tally["certified"] / n, 3) if n else None,
         # The number a paper would quote: of well-formed proposals that looked right to a float
         # screen, how many were actually true?

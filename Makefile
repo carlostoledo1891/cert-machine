@@ -24,7 +24,7 @@ engine:
 control:
 	@$(NODE) tools/build-control.js
 
-site:
+site: control
 	@$(NODE) tools/build-site.js
 
 test:

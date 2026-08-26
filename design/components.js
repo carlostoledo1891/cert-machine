@@ -112,6 +112,10 @@ const pull = (raw) => '<p class="pull">' + raw + '</p>';
 
 const eq = (raw) => '<div class="eq">' + raw + '</div>';
 
+/* A command / code block: recessed like .eq but left-aligned and small —
+   shell lines, file snippets. Text only; everything is escaped. */
+const code = (text) => '<pre class="code">' + esc(text) + '</pre>';
+
 function note({ lab, bodyRaw }) {
   return '<div class="note">\n'
     + (lab ? '  <span class="lab">' + esc(lab) + '</span>\n' : '')
@@ -325,7 +329,7 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
 
 module.exports = {
   esc, escAttr, m, tag, TAG_KINDS, categoryChart, legend,
-  nav, header, stats, scope, section, p, pRaw, pull, eq, note, quote,
+  nav, header, stats, scope, section, p, pRaw, pull, eq, code, note, quote,
   table, plainList, cards, figure, flow,
   svgOpen, svgClose, numberLine, band, vmark, label,
   tokens: T

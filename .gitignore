@@ -11,3 +11,6 @@ hunts/*/*.lock
 hunts/*/detach-*.lock.json
 .vercel
 .env*
+
+# lean toolchain build state (the .lean sources and lakefile are records; this is not)
+lean/**/.lake/

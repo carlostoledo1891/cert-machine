@@ -111,8 +111,13 @@ B.push(C.scope('Local working document. Nothing here has been through a literatu
   const { machineFlow } = require(path.join(__dirname, 'machine-figure.js'));
   B.push(C.section({
     lab: '§1 · the machine', title: 'How a conjecture becomes a certificate', wide: true,
-    bodyRaw: machineFlow(ledger, { gates: { green, ran }, self: 'control' })
+    bodyRaw: machineFlow(ledger, { gates: { green, ran } })
   }));
+  /* the record the landing reads, so the drawing is IDENTICAL on both pages:
+     the battery count on the landing is this build's measurement, not a memory.
+     A --no-batteries build measured nothing and writes nothing. */
+  if (runBatteries) fs.writeFileSync(path.join(ROOT, 'batteries.json'),
+    JSON.stringify({ green, ran, git: sh('git rev-parse --short HEAD') || 'unknown' }) + '\n');
 }
 
 if (ledger.families.length) {

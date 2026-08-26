@@ -123,6 +123,49 @@ O.push(C.section({
       + 'produce numbers under a broken grader.') + '</div>'
 }));
 
+/* ---- §2b · the ladder, per rung ------------------------------------------
+   Aggregated (model, tag, target) — where capability cliffs live: a model
+   can be perfect on the format rung and empty on Laderman, and the
+   aggregate hides it. Real models only; the calibration baseline's per-rung
+   spread is noise by construction. */
+const byRung = new Map();
+for (const r of rows) {
+  if (r.family !== 'matmul' || (r.model || 'fake') === 'fake') continue;
+  const k = r.model + ' ' + (r.tag || 'v1') + ' ' + r.target;
+  if (!byRung.has(k)) byRung.set(k, { model: r.model, tag: r.tag || 'v1', target: r.target, n: 0, malformed: 0, rejected: 0, refuted: 0, certified: 0, undecided: 0 });
+  const a = byRung.get(k);
+  a.n++; a[r.outcome] = (a[r.outcome] || 0) + 1;
+}
+const rungTuple = (t) => String(t).replace(/[()\s]/g, '').split(',').map(Number);
+const rungLabel = (t) => { const [n, m, p, R] = rungTuple(t); return '<' + n + ',' + m + ',' + p + '> r' + R; };
+const rungRows = [...byRung.values()].sort((x, y) => {
+  if (x.model !== y.model) return x.model < y.model ? -1 : 1;
+  if (x.tag !== y.tag) return x.tag < y.tag ? 1 : -1;           /* v2 before v1, like the board */
+  const a = rungTuple(x.target), b = rungTuple(y.target);
+  for (let i = 0; i < 4; i++) if (a[i] !== b[i]) return a[i] - b[i];
+  return 0;
+});
+if (rungRows.length) {
+  O.push(C.section({
+    lab: '§2b · the ladder, per rung', title: 'Where the cliffs are', wide: true,
+    bodyRaw: C.table({
+      cols: [{ h: 'model' }, { h: 'prompt' }, { h: 'rung' }, { h: 'proposals', cls: 'n' }, { h: 'certified', cls: 'n' }, { h: 'refuted', cls: 'n' }, { h: 'rejected', cls: 'n' }, { h: 'malformed', cls: 'n' }, { h: 'certified rate', cls: 'n' }],
+      rows: rungRows.map((a) => [
+        { raw: '<span class="m">' + C.esc(a.model) + '</span>' },
+        { raw: '<span class="m">' + C.esc(a.tag) + '</span>' },
+        { raw: '<span class="m">' + C.esc(rungLabel(a.target)) + '</span>' },
+        String(a.n), String(a.certified), String(a.refuted), String(a.rejected), String(a.malformed),
+        pct(a.n ? a.certified / a.n : null)
+      ])
+    })
+      + '<div class="col">' + C.pRaw('The aggregate board hides the shape of failure; this table is where it lives. '
+        + 'The rungs are ordered easy to hard within each campaign: '
+        + '<span class="m">&lt;2,2,2&gt; r7</span> is Strassen 1969, <span class="m">r8</span> is the naive format rung, '
+        + '<span class="m">&lt;2,2,3&gt; r11</span> and <span class="m">&lt;3,3,3&gt; r23</span> (Laderman) test whether '
+        + 'recall survives precision. Every count is read off the append-only ledger at build time.') + '</div>'
+  }));
+}
+
 O.push(C.section({
   lab: '§3 · the task, precisely', title: 'What the model is asked, and what the grader checks',
   bodyRaw: '<div class="col">'
@@ -134,6 +177,28 @@ O.push(C.section({
       + 'PRUNE; nothing it passes is believed. Rung one (rank 8 = naive) tests format-following; rank 7 is '
       + 'Strassen 1969; the upper rungs test whether recall survives precision. Achievable ranks only — every '
       + 'rung has a witness on record.')
+    + '</div>'
+}));
+
+O.push(C.section({
+  lab: '§4 · submit a model', title: 'Put anything on this board',
+  bodyRaw: '<div class="col">'
+    + C.pRaw('The eval is open-scaffold: the task is defined by the GRADER, not by a prompt. Use any model, any '
+      + 'provider, any agentic scaffold, any thinking budget — the certificate does not care how the witness was '
+      + 'found, and the <span class="m">tag</span> field records what you used.')
+    + C.pRaw('<strong>Anthropic models</strong> run directly: <span class="m">ANTHROPIC_API_KEY=… python3 '
+      + 'tools/llm-harness.py --family matmul --model &lt;id&gt; --n 40 --tag &lt;yours&gt; --ledger '
+      + 'certs/matmul-eval-ledger.jsonl</span>.')
+    + C.pRaw('<strong>Anything else</strong> goes through the submission path: generate proposals however you '
+      + 'like, write one JSON line per attempt — <span class="m">{"target": "(2, 2, 2, 7)", "proposal": '
+      + '"&lt;the model\'s raw reply&gt;"}</span> — and grade the file with <span class="m">python3 '
+      + 'tools/llm-harness.py --family matmul --proposals yours.jsonl --model-label &lt;name&gt; --tag &lt;yours&gt; '
+      + '--ledger …</span>. Same float screen, same exact certifier, same red controls, run before any grading; '
+      + 'a target outside the published ladder is refused, so a submission cannot smuggle in an easier task.')
+    + C.pRaw('To land on the public board, open a pull request carrying the PROPOSALS file, not graded rows — '
+      + 'grading is deterministic, so rerunning it here reproduces your outcomes bit for bit, and the board '
+      + 'never has to trust a submitted verdict. The one thing a submission is trusted about is its own '
+      + 'attribution: the model name and the scaffold the tag describes.')
     + '</div>'
 }));
 

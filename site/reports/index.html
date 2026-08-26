@@ -176,6 +176,12 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px;m
   padding:20px 22px;margin:22px 0;text-align:center;
   font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
 
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
 .note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
   padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
 .note .lab{display:block;margin-bottom:8px;color:var(--sig)}
@@ -271,7 +277,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   <p class="deck">Research notes ordered by weight, not date. Every page re-proves itself: its numbers are recomputed from the certificates and records at build time, its planted falsifiers must fire, and a build that drifts refuses to ship.</p>
 </header>
 
-<div class="wide"><div class="cards"><a class="card" href="matmul-eval.html"><span class="card-k">the eval · live board</span><span class="card-t">The matmul eval: ground truth is a proof</span><span class="card-d">Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric — a proof either exists or it does not.</span><span class="card-n">first board live · zero subtly-wrong survivors</span></a>
+<section><div class="wide"><div class="cards"><a class="card" href="matmul-eval.html"><span class="card-k">the eval · live board</span><span class="card-t">The matmul eval: ground truth is a proof</span><span class="card-d">Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric — a proof either exists or it does not.</span><span class="card-n">first board live · zero subtly-wrong survivors</span></a>
 <a class="card" href="erdos852.html"><span class="card-k">audit · refutation</span><span class="card-t">The constant that was a rounding error</span><span class="card-d">A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction.</span><span class="card-n">refuted at digit 12 · correction certified</span></a>
 <a class="card" href="rm-audit.html"><span class="card-k">audit · standing registry</span><span class="card-t">The Ramanujan Machine, audited</span><span class="card-d">Every row of all seven published result sheets decided by rigorous enclosures and exact rational comparisons — the whole registry re-certified at every build.</span><span class="card-n">52 rows · 51 survive · 1 printed row refuted</span></a>
 <a class="card" href="mercer-program.html"><span class="card-k">program · certified landscape</span><span class="card-t">The Mercer program</span><span class="card-d">Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.</span><span class="card-n">mu(5) ≤ 1 + π/20 · re-certified every build</span></a>
@@ -282,9 +288,9 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <a class="card" href="verify-lemniscate.html"><span class="card-k">erdős #1038 · verification</span><span class="card-t">Erdős #1038: thirty decimals verified</span><span class="card-d">The computational fragment of the Darvas–Peng–Tao manuscript re-verified by an independent route — Krawczyk rather than bisection — with the 30th digit read correctly.</span><span class="card-n">filed on the claiming authors’ repository</span></a>
 <a class="card" href="alien-science.html"><span class="card-k">eval note · alignment sandbox</span><span class="card-t">Alien science needs a disposition</span><span class="card-d">An evaluation note on Anthropic’s automated-alignment sandbox: its authors name evaluation as the binding constraint, and this is what certified evaluation looks like.</span><span class="card-n">posted to the inviting repository</span></a>
 <a class="card" href="mfg-congest.html"><span class="card-k">validated numerics</span><span class="card-t">A congestion mean-field game, enclosed</span><span class="card-d">An equilibrium of a mean-field game with congestion enclosed by validated numerics: an exact solution within an explicit radius, locally unique in the full sequence space.</span><span class="card-n">embedded verifier re-run at build</span></a>
-<a class="card" href="wardrop-repro.html"><span class="card-k">certified reproduction</span><span class="card-t">Wardrop, certified: exact, enclosed, refused</span><span class="card-d">The multi-population Wardrop equilibria of a published paper reproduced with certificates — exact where possible, enclosed where not, and refused where honesty demands it.</span><span class="card-n">embedded verifier re-run at build</span></a></div></div>
+<a class="card" href="wardrop-repro.html"><span class="card-k">certified reproduction</span><span class="card-t">Wardrop, certified: exact, enclosed, refused</span><span class="card-d">The multi-population Wardrop equilibria of a published paper reproduced with certificates — exact where possible, enclosed where not, and refused where honesty demands it.</span><span class="card-n">embedded verifier re-run at build</span></a></div></div></section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git 0a6e871. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<footer class="col"><p>Generated by tools/build-site.js @ git 7ef340d. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
 
 </div>
 </html>

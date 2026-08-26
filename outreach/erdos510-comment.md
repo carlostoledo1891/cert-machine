@@ -1,4 +1,12 @@
-# erdos510 comment — PREPARED (S1d), NOT posted
+# erdos510 comment — POSTED by the operator, 2026-08-26; awaiting moderation
+
+STATUS (2026-08-26, operator's word): the comment below was posted to the
+#510 page and sits in the site's moderation queue. Do not cite it as public
+until a fetch of the page shows it; the sweep (tools/sweep-claims.js) now
+watches this thread and shouts when the table appears. When it does,
+snapshot the page as evidence bytes beside this note.
+
+Original prep note follows.
 
 Operator posts; nothing in this repo auto-sends. Target:
 https://www.erdosproblems.com/510 (Chowla's cosine problem; comments on the

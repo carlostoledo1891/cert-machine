@@ -109,6 +109,7 @@ contains a number**. A builder passes data; the component decides markup.
 | `scope(text)` | string | the rule under the hero: what this document is and is not |
 | `section({lab,title,bodyRaw,wide})` | | a numbered section. `wide` puts the body in the 900px track |
 | `p` / `pRaw` / `pull` / `eq` | | prose, prose-with-markup, a pull quote, a display equation |
+| `code(text)` | string | a command / code block: recessed like `.eq`, left-aligned, 13px mono. Never an inline-styled `<pre>` |
 | `note({lab,bodyRaw})` | | the recessed aside — caveats, scope lines, "why this is not what it looks like" |
 | `quote({text,cite})` | | a source, quoted, with its citation |
 | `table({cols,rows})` | `cols:[{h,cls}]`, cells are strings or `{raw}` | the ledger form. `cls: 'v'` for mono values, `'k'` for a display-face key, `'n'` for a right-aligned number |
