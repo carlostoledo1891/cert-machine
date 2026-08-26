@@ -76,7 +76,7 @@ const B = [];
 
 B.push(C.header({
   eyebrow: 'cert-machine · generated from ledger.json',
-  title: 'The conjecture engine',
+  title: 'The machine, live',
   deck: 'Generate at scale, screen in float, certify the survivors exactly. Every number below was read off a '
     + 'record when this page was built, and every battery it reports green was executed during that build.'
 }));
@@ -316,7 +316,7 @@ const foot = '<footer class="col">'
   + '</footer>';
 
 fs.writeFileSync(path.join(ROOT, 'index.html'),
-  TPL.render({ title: 'cert-machine · the conjecture engine', bodyRaw: B.join('\n\n'), footRaw: foot }));
+  TPL.render({ title: 'cert-machine · the machine, live', bodyRaw: B.join('\n\n'), footRaw: foot }));
 
 console.log('index.html written');
 console.log('  generated ' + commas(T.generated || 0) + ' · certified ' + commas(T.certified || 0)
