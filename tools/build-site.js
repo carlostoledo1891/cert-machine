@@ -184,6 +184,11 @@ fs.copyFileSync(path.join(ROOT, 'LICENSE'), path.join(SITE, 'LICENSE'));
 const LEGACY = path.join(ROOT, 'legacy');
 if (fs.existsSync(LEGACY)) fs.cpSync(LEGACY, SITE, { recursive: true, force: true });
 
+/* refuse Finder/iCloud conflict junk ("name 2.ext") — ~/Documents is cloud-synced
+   and rapid rebuilds can race the sync into duplicate entries */
+for (const e of fs.readdirSync(SITE, { recursive: true })) {
+  if (/\s\d+(\.[A-Za-z0-9]+)?$/.test(String(e))) fail('sync-conflict junk in site/: "' + e + '" — delete it and rebuild');
+}
 const count = (d) => fs.readdirSync(d, { recursive: true }).length;
 console.log('site/ written: landing + machine/ + ' + reportFiles.length + ' reports + '
   + certFiles.length + ' certificates + verifiers (' + count(SITE) + ' entries) @ git ' + git);

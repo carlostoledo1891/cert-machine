@@ -85,6 +85,20 @@ S2. THE TWO AUDIT STORIES —
         operator's word: a short note to the RM group (their Challenge
         asks for verified code), carrying the independent-rerun
         invitation.
+S2.5b INCIDENT AND STANDING RULES (2026-08-27). A whole-directory lift of
+    the mfg-congest and wardrop-repro units published 18 PROPRIETARY-marked
+    solver files + internal docs (~127 files) to the public repo and site
+    for ~1-2 h. REMEDIATED same day: purged, LIFT.json rewritten to
+    explicit per-file items, git history REWRITTEN and force-pushed, site
+    redeployed, all 404s verified; sent pages stayed live throughout.
+    RULES, permanent: (1) public lifts are FILE-LEVEL and eligible only if
+    present in the published mfg-lab repo tree — the source lab's own
+    allowlist made real; check BEFORE lifting. (2) Operator ruling: NEVER
+    copy styles from sin-mfg — rebuilds and new pages use cert-machine's
+    design system only; byte-preserved legacy citation pages excepted.
+    (3) mfg-congest + wardrop-repro engine rebuilds (pending) may re-run
+    only PUBLIC components (the pages embed their stdlib verifiers; the
+    kernels are class-B private and stay out).
 S2.5 LEGACY OUTREACH SURFACES (operator ruling 2026-08-27: this is the
     focus before the eval).
     STAGE 1 — DONE: the three SENT outreach targets (Erdos #290 report,
