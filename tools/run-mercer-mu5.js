@@ -48,11 +48,11 @@ for (let m = 5; m <= maxM; m++) {
   if (cal && !cal.matches) throw new Error('CALIBRATION FAILED at m = ' + m + ' — do not trust either side; investigate');
   if (cal) r.calibration = cal;
   record.rows[m] = r;
+  fs.writeFileSync(OUT, JSON.stringify(record, null, 1) + '\n');   /* each rung lands as it closes */
   console.log('m=' + m + '  ' + r.verdict + '  bound 1+pi/' + m + ' = ' + r.bar.onePlusFloat.toFixed(9)
     + '  rows ' + r.conservation.rows + '  tuples ' + r.conservation.distinctTuples
     + '  discarded ' + r.conservation.discarded + (cal ? '  CALIBRATION ' + (cal.matches ? 'OK' : 'FAILED') : '')
     + '  ' + (r.elapsedMs / 1000).toFixed(1) + 's');
 }
 
-fs.writeFileSync(OUT, JSON.stringify(record, null, 1) + '\n');
 console.log('certs/mercer-mu5.json written (m = 5..' + maxM + ')');

@@ -59,6 +59,19 @@ make drift     re-hash the lift against the source lab
          TERMS convention; box maxima, not values — the dips at high n are the
          box crowding (16 of 30 slots filled at n=17), bigger boxes are the next rung.
          PLUS the equality theorem M(0,1,2,6,9) = 1 EXACTLY (deflation + Sturm).
+     12  mu(5) ladder rungs (certs/mercer-mu5.json, battery-gated): Mercer's §6
+         program certified at GENERAL m — mu(5) <= 1 + pi/m for m = 5..16, ending
+         at mu(5) <= 1 + pi/16 = 1.19635 (1029 exceptional tuples at m=16, every
+         case closed by ONE exact rational evaluation of |f|^2 against the exact
+         bar (1+piLo/m)^2). m=5,6 CALIBRATE (Mercer's Tables 5/6/7 reproduced
+         exactly; the source lab's m=6 record matched row for row); m=7..16 are
+         rungs nobody holds. Component (i) — the reduction — is consumed from
+         the paper (Lemma 6.2; general-m statement p. 16), like Krawczyk.
+         Lineage: CFF 1983 mu(3) -> Goddard 1992 mu(4) -> Mercer 2019 sketch ->
+         here. From m=10 the list contains (3,7,8,9), the REVERSAL of Mercer's
+         own witness (min EXACTLY 1, our Sturm theorem) — it closes with
+         g(-1) = 1 <= bar at every m, as it must. Higher rungs are one command:
+         node tools/run-mercer-mu5.js <maxM> (each rung lands incrementally).
       4  erdos852 records: BOTH uncertified GPT constants on Erdős #852 replaced by
          certified enclosures — c0 to 61 digits (root of I0=1, existence AND uniqueness),
          C* to width 3.2e-16 (1.86M-prime product, tail proved) — and the PUBLISHED
@@ -73,7 +86,7 @@ make drift     re-hash the lift against the source lab
          CLICK — the site needs a login; nothing auto-sends.
 ```
 
-Batteries 23/23 on the page (24 rows in `make test`). Engine gate 31/31.
+Batteries 24/24 on the page (25 rows in `make test`). Engine gate 31/31.
 New this round: instruments/bigfloat/ — dyadic big-float interval arithmetic
 (BigInt mantissa · 2^e, directed rounding, arbitrary precision; pi/ln2/e
 certified to 50 literature digits, mutation-tested rounding) — the layer
@@ -484,9 +497,13 @@ READ-ONLY, lift numbers by transcription + pin, never by edit):
    (all M<=25, exhaustive, near-interval structure continuing); DEEPENED
    n=9..12 to M=30 (86M-set boxes): every M=25 optimiser CONFIRMED — the
    source lab's shallow-box values are now certified at depth 30.
-   Still queued: Mercer §6 at m=7,8 (needs reading his §5 constraints from
-   the paper — sin-mfg holds the PDF), lambda 13..17 deepening to M=30,
-   mu box50+, Boyd 1986 (ILL/purchase) before any novelty prose.
+   MERCER §6: DONE AND EXCEEDED (2026-08-26) — not just m=7,8 but the whole
+   ladder to m=16, certified (instruments/trigmin/mercer6.js + 28/28 battery;
+   see the mu(5)-ladder block above); a detached run extending to m=20 was
+   launched the same day. lambda 13..17 deepening to M=30: RUNNING detached
+   (five parallel rows, sidecar files + merge phase in run-lambda-table.js).
+   Still queued: mu box50+ (wants worker sharding), Boyd 1986 (ILL/purchase)
+   before any novelty prose.
    Original note: sin-mfg holds certified
    mu(6..9) — mu(9) floor 1.3781877 STRICTLY BEATS Boyd's published
    witness 1.3623731 (certified floor above certified ceiling) — and a
