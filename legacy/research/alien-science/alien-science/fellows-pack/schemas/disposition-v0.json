@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sin-mfg.local/schemas/disposition-v0.json",
+  "title": "disposition-v0",
+  "description": "PATH 09 disposition lane beside PGR. A verdict is not a score: CERTIFIED requires a named kernel and teeth; OUT-OF-SCOPE is success when the claim is not formalisable. Mutants must never be CERTIFIED — that is the load-bearing gate (test-disposition.js).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "claim", "witness", "verdict", "ground_truth_role"],
+  "properties": {
+    "schema": {
+      "const": "disposition/v0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement"],
+      "properties": {
+        "statement": { "type": "string", "minLength": 1 },
+        "formalism": { "type": "string" },
+        "scope": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    },
+    "witness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "exact-residual",
+            "interval-enclosure",
+            "mutation-pair",
+            "kill-control-pair",
+            "hack-pattern",
+            "none"
+          ]
+        },
+        "payload": {},
+        "kernel": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["CERTIFIED", "REFUSED", "HACK-SUSPECT", "OUT-OF-SCOPE"]
+    },
+    "hack_class": {
+      "type": ["string", "null"],
+      "enum": [
+        null,
+        "seed-cherry-pick",
+        "label-exfil",
+        "teacher-bypass",
+        "eval-oracle-bypass",
+        "horizon-short",
+        "other"
+      ]
+    },
+    "refuse_reason": {
+      "type": ["string", "null"]
+    },
+    "ground_truth_role": {
+      "type": "string",
+      "enum": ["clean", "mutant", "unknown"],
+      "description": "Exam / gate role. If mutant, verdict MUST NOT be CERTIFIED."
+    },
+    "pgr": {
+      "type": ["number", "null"],
+      "description": "Reported or remeasured PGR; null when not applicable. Never invent."
+    },
+    "pgr_provenance": {
+      "type": ["string", "null"]
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "verdict": { "const": "HACK-SUSPECT" } },
+        "required": ["verdict"]
+      },
+      "then": {
+        "properties": {
+          "hack_class": {
+            "type": "string",
+            "not": { "type": "null" }
+          }
+        },
+        "required": ["hack_class"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "verdict": { "const": "REFUSED" } },
+        "required": ["verdict"]
+      },
+      "then": {
+        "properties": {
+          "refuse_reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": ["refuse_reason"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "ground_truth_role": { "const": "mutant" } },
+        "required": ["ground_truth_role"]
+      },
+      "then": {
+        "not": {
+          "properties": { "verdict": { "const": "CERTIFIED" } }
+        }
+      }
+    }
+  ]
+}

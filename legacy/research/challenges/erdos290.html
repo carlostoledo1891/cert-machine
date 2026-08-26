@@ -1,0 +1,2981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- ==== ENCLOSURE FONTS · GENERATED FROM research/_engine/design/ · DO NOT EDIT HERE ==== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=optional">
+<!-- ==== END ENCLOSURE FONTS ==== -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erdős #290: for even d, disc(f_d) is a square exactly at d = 4k(k+1) — proved</title>
+<meta name="robots" content="index,follow">
+<!-- index,follow since 2026-08-03: this URL is pasted into two non-editable venues
+     (the erdosproblems comment and the proof-claim form), and a permanently cited,
+     deliberately unindexable page is a link-rot bomb. Before that flip, the only
+     search-visible statement of this result was the site listing's one-line summary. -->
+<!-- Promoted out of the explore notebook 2026-08-03 on the owner's publish decision.
+     Design seeded from the site token set, adapted, not reinvented. -->
+<style>
+/* ==== ENCLOSURE DESIGN SYSTEM · GENERATED FROM research/_engine/design/ · DO NOT EDIT HERE ==== */
+/* Enclosure design system. Source, with the reasoning: research/_engine/design/ */
+:root{
+color-scheme: light dark;
+--paper:#EDEBEE;
+--surface:#FBFAFB;
+--sunk:#F3F1F4;
+--ink:#16121A;
+--ink-2:#544C5B;
+--ink-3:#6B6174;
+--rule:#D2CBD6;
+--rule-soft:#E3DEE7;
+--sig:#6B2D5C;
+--sig-2:#9A4E86;
+--sig-3:#C79CB8;
+--sig-soft:#F2E4EE;
+--sig-bg:var(--sig-soft);
+--mark:#C9C0CE;
+--neutral-mark:var(--mark);
+--alert:#9C3820;
+--held:#2C6142;
+--held-soft:#DEEBE3;
+--ok:var(--held);
+--ok-soft:var(--held-soft);
+--part:#7E5A0E;      --part-soft:#F1E7CE;
+--ref:#4A4356;       --ref-soft:#E4E0EA;
+--conj:#3E4B8C;      --conj-soft:#DFE3F5;
+--open:var(--alert); --open-soft:#F5DFD8;
+--live:var(--sig);   --live-soft:var(--sig-soft);
+--card:var(--surface);
+--ink-soft:var(--ink-2);
+--grid:var(--rule);
+--fp:var(--sig-2);
+--fp-deep:var(--sig);
+--accent:var(--sig-2);
+--accent-deep:var(--sig);
+--hjb:var(--alert);
+--bad:var(--alert);
+--warn:var(--ink-2);
+--amber:var(--sig-2);
+--good:var(--ok);
+--radius:4px;
+--radius-sm:2px;
+--page-top:40px;
+--nav-h:52px;
+--read-max:900px;
+--prose-max:38rem;
+--wide-max:920px;
+--page-max:1080px;
+--card-gap:14px;
+--nav-max:1120px;
+--section-top:46px;
+--card-pad:18px;
+--modbar-h:48px;
+--good-soft:var(--held-soft);
+--warn-soft:#EDEAF0;
+}
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]){
+--paper:#0F0C12;
+--surface:#181420;
+--sunk:#130F18;
+--ink:#EDE8F0;
+--ink-2:#A79DAF;
+--ink-3:#8E8397;
+--rule:#2E2637;
+--rule-soft:#231C2B;
+--sig:#D897C4;
+--sig-2:#B36F9E;
+--sig-3:#7E4E6D;
+--sig-soft:#2C1B27;
+--mark:#332B3C;
+--alert:#E58868;
+--held:#79C79B;
+--held-soft:#16281E;
+--part:#D8AE55;      --part-soft:#2C2410;
+--ref:#A79DB4;       --ref-soft:#221D2A;
+--conj:#9AA5E4;      --conj-soft:#1A1C33;
+--open-soft:#2E1811;
+--good-soft:var(--held-soft);
+--warn-soft:#231C2B;
+}
+}
+:root[data-theme="dark"]{
+--paper:#0F0C12;
+--surface:#181420;
+--sunk:#130F18;
+--ink:#EDE8F0;
+--ink-2:#A79DAF;
+--ink-3:#8E8397;
+--rule:#2E2637;
+--rule-soft:#231C2B;
+--sig:#D897C4;
+--sig-2:#B36F9E;
+--sig-3:#7E4E6D;
+--sig-soft:#2C1B27;
+--mark:#332B3C;
+--alert:#E58868;
+--held:#79C79B;
+--held-soft:#16281E;
+--part:#D8AE55;    --part-soft:#2C2410;
+--ref:#A79DB4;     --ref-soft:#221D2A;
+--conj:#9AA5E4;    --conj-soft:#1A1C33;
+--open-soft:#2E1811;
+--good-soft:var(--held-soft);
+--warn-soft:#231C2B;
+}
+@font-face{
+font-family:"Fraunces metric fallback";
+src: local("Georgia"), local("Times New Roman");
+font-weight: 100 649;
+size-adjust: 88%;
+line-gap-override: 0%;
+}
+@font-face{
+font-family:"Fraunces metric fallback";
+src: local("Georgia"), local("Times New Roman");
+font-weight: 650 900;
+size-adjust: 92%;
+line-gap-override: 0%;
+}
+:root{
+--ui: "Fraunces", "Fraunces metric fallback", Georgia, "Times New Roman", serif;
+--body: "Spectral", Georgia, "Iowan Old Style", "Palatino Linotype", Charter, serif;
+--data: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+--text-display: clamp(44px, 8.2vw, 80px);
+--text-h1: clamp(40px, 7.4vw, 74px);
+--text-h2: clamp(25px, 3.3vw, 34px);
+--text-h3: 19.5px;
+--text-deck: clamp(19px, 2.2vw, 22px);
+--text-body: 18px;
+--text-small: 15.5px;
+--text-label: 11px;
+--text-num: clamp(52px, 10vw, 96px);
+--text-lede: var(--text-deck);
+--text-tiny: 11px;
+--text-micro: 8px;
+}
+body{
+font-family: var(--body);
+font-size: var(--text-body);
+line-height: 1.66;
+-webkit-font-smoothing: antialiased;
+text-rendering: optimizeLegibility;
+}
+h1,h2,h3,.num,.btn,td.k{ font-family: var(--ui); }
+.eyebrow,.lab,th{
+font-family: var(--data);
+font-size: var(--text-label);
+line-height: 1.45;
+letter-spacing:.15em;
+text-transform: uppercase;
+}
+.eyebrow{ color: var(--sig); }
+.lab{ color: var(--ink-3); }
+th{ letter-spacing:.11em; }
+h1{ font-size: var(--text-h1); line-height:1.0; letter-spacing:-.018em; font-weight:700; margin:16px 0 0; text-wrap:balance; }
+h2{ font-size: var(--text-h2); line-height:1.14; letter-spacing:-.018em; font-weight:700; margin:0 0 8px; text-wrap:balance; }
+h3{ font-size: var(--text-h3); line-height:1.3; letter-spacing:-.014em; font-weight:600; margin:0 0 6px; }
+.deck{ font-size: var(--text-deck); line-height:1.5; color:var(--ink-2); font-weight:300; margin:24px 0 0; }
+p{ margin:0 0 18px; }
+strong,b{ font-weight:600; color:var(--ink); }
+em,i{ font-style:italic; }
+.num,.n,td.n,th.n,.vl,.ci,.mono,.m,code,pre{ font-family: var(--data); font-variant-numeric: tabular-nums; }
+.m{ font-size:.88em; }
+*{ box-sizing:border-box; }
+body{ margin:0; background:var(--paper); color:var(--ink); }
+[data-ds] .page{ max-width:var(--page-max); margin:0 auto; padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px) 96px; }
+[data-ds] a{ color:var(--sig); text-decoration:none; border-bottom:1px solid var(--sig-3); }
+[data-ds] a:hover{ border-bottom-color:var(--sig); }
+[data-ds] a:focus-visible{ outline:2px solid var(--sig); outline-offset:3px; border-radius:var(--radius-sm); }
+[data-ds] section{ margin:clamp(52px,8vw,88px) 0 0; }
+[data-ds] .sec-head{ display:flex; flex-direction:column; gap:10px; margin-bottom:26px; }
+[data-ds] .sec-head .lab{ color:var(--sig); }
+[data-ds] hr.div{ border:0; height:1px; background:var(--rule); margin:0; }
+[data-ds] .finding{
+background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius);
+margin:44px 0 0; padding:clamp(24px,4vw,40px);
+display:grid; grid-template-columns:minmax(0,auto) minmax(0,1fr);
+gap:clamp(20px,4vw,44px); align-items:center;
+}
+@media(max-width:720px){ [data-ds] .finding{ grid-template-columns:1fr; } }
+[data-ds] .num{ font-size:var(--text-num); line-height:.86; font-weight:800; letter-spacing:-.05em;
+color:var(--sig); white-space:nowrap; }
+[data-ds] .num small{ display:block; font-size:15px; letter-spacing:.1em; text-transform:uppercase;
+color:var(--ink-3); font-family:var(--data); font-weight:400; margin-top:14px; }
+[data-ds] .num .sep{ color:var(--ink-3); font-weight:500; }
+[data-ds] .finding p{ font-size:20px; line-height:1.42; margin:0; color:var(--ink); }
+[data-ds] .finding .ci{ margin-top:14px; font-size:13px; color:var(--ink-2); line-height:1.6; }
+[data-ds] .scope{ margin:26px auto 0; max-width:var(--prose-max); border-left:2px solid var(--sig);
+padding:2px 0 2px 18px; color:var(--ink-2); font-size:var(--text-small); line-height:1.5; }
+[data-ds] .tw{ overflow-x:auto; margin:0 0 8px; border:1px solid var(--rule); border-radius:var(--radius); background:var(--surface); }
+[data-ds] table{ border-collapse:collapse; width:100%; min-width:540px; font-size:15px; }
+[data-ds] th{ font-size:var(--text-label); letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3);
+font-weight:500; text-align:left; padding:13px 16px; border-bottom:1px solid var(--rule);
+font-family:var(--data); white-space:nowrap; }
+[data-ds] td{ padding:13px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top; color:var(--ink-2); }
+[data-ds] tr:last-child td{ border-bottom:0; }
+[data-ds] td.k{ color:var(--ink); font-weight:600; white-space:nowrap; }
+[data-ds] td.n, [data-ds] th.n{ text-align:right; white-space:nowrap; color:var(--ink); }
+[data-ds] td.mono{ font-size:13px; color:var(--ink); }
+[data-ds] tr.hit td.n.hit{ color:var(--sig); font-weight:500; }
+[data-ds] caption{ caption-side:bottom; text-align:left; padding:14px 16px 2px; color:var(--ink-3);
+font-size:14.5px; line-height:1.5; }
+[data-ds] figure{ margin:0; }
+[data-ds] .figbox{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius);
+padding:clamp(18px,3vw,30px); overflow-x:auto; }
+[data-ds] .figbox svg{ display:block; width:100%; height:auto; color:var(--ink-2); }
+[data-ds] figcaption{ color:var(--ink-2); font-size:var(--text-small); line-height:1.5; margin-top:14px; max-width:35em; }
+[data-ds] .legend{ display:flex; flex-wrap:wrap; gap:6px 22px; margin:18px 0 0; font-size:14px;
+color:var(--ink-2); font-family:var(--data); }
+[data-ds] .legend span{ display:inline-flex; align-items:center; gap:8px; }
+[data-ds] .sw{ width:12px; height:12px; border-radius:var(--radius-sm); flex:none; }
+[data-ds] .figbox svg text{ font-family:var(--data); }
+[data-ds] .ax, [data-ds] .bn{ font-size:12px; fill:var(--ink-3); }
+[data-ds] .bl{ font-size:13.5px; fill:var(--ink); font-family:var(--ui); }
+[data-ds] .vl{ font-size:13px; fill:var(--ink); }
+[data-ds] .kv{ font-size:13px; fill:var(--sig); font-weight:500; }
+[data-ds] .hv{ font-size:13px; fill:var(--held); font-weight:500; }
+[data-ds] .pull{ font-family:var(--ui); font-weight:700; font-size:clamp(22px,3.2vw,29px); line-height:1.18;
+letter-spacing:-.02em; color:var(--ink); margin:34px 0; text-wrap:balance; }
+[data-ds] .pull b{ color:var(--sig); font-weight:700; }
+[data-ds] .note{ background:var(--sunk); border:1px solid var(--rule-soft); border-radius:var(--radius);
+padding:20px 22px; margin:26px 0; font-size:var(--text-small); line-height:1.55; color:var(--ink-2); }
+[data-ds] .note .lab{ display:block; margin-bottom:8px; color:var(--sig); }
+[data-ds] .note p:last-child{ margin-bottom:0; }
+[data-ds] .note[data-kind="correction"]{ border-left:2px solid var(--sig); }
+[data-ds] .note[data-kind="refusal"]{ border-left:2px solid var(--alert); }
+[data-ds] .note[data-kind="refusal"] .lab{ color:var(--alert); }
+[data-ds] blockquote{ margin:22px 0; padding:0 0 0 20px; border-left:2px solid var(--sig-3);
+font-size:18px; line-height:1.5; color:var(--ink); font-style:italic; }
+[data-ds] blockquote cite{ display:block; margin-top:10px; font-style:normal; font-size:12.5px;
+font-family:var(--data); color:var(--ink-3); letter-spacing:.02em; line-height:1.5; }
+[data-ds] ol.steps{ list-style:none; counter-reset:s; padding:0; margin-top:0; margin-bottom:0; display:flex; flex-direction:column; gap:2px; }
+[data-ds] ol.steps li{ counter-increment:s; display:grid; grid-template-columns:38px 1fr; gap:16px;
+padding:18px 0; border-top:1px solid var(--rule-soft); }
+[data-ds] ol.steps li:first-child{ border-top:0; }
+[data-ds] ol.steps li::before{ content:"D" counter(s); font-family:var(--data); font-size:12px; font-weight:500;
+color:var(--sig); letter-spacing:.06em; padding-top:4px; }
+[data-ds] ol.steps.plain li::before{ content:counter(s); color:var(--ink-3); }
+[data-ds] ol.steps p{ margin:0; font-size:16.5px; line-height:1.55; color:var(--ink-2); }
+[data-ds] ol.steps h3{ margin-bottom:4px; }
+[data-ds] pre{ background:var(--sunk); border:1px solid var(--rule-soft); border-radius:var(--radius);
+padding:18px 20px; overflow-x:auto; margin:22px 0; font-size:13.5px; line-height:1.7; color:var(--ink); }
+[data-ds] pre .c{ color:var(--sig); }
+[data-ds] code{ font-size:.94em; color:var(--ink); }
+[data-ds] ul.limits{ list-style:none; padding:0; margin-top:0; margin-bottom:0; display:flex; flex-direction:column; }
+[data-ds] ul.limits li{ padding:16px 0; border-top:1px solid var(--rule-soft); font-size:16.5px;
+line-height:1.55; color:var(--ink-2); }
+[data-ds] ul.limits li:first-child{ border-top:0; }
+[data-ds] ul.limits b{ color:var(--ink); }
+[data-ds] .readouts{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:var(--card-gap); margin:22px 0; }
+[data-ds] .ro .k{ font-family:var(--data); font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); }
+[data-ds] .ro .v{ font-family:var(--data); font-size:17px; line-height:1.35; color:var(--ink); position:relative; padding-left:14px; }
+[data-ds] .ro .v.small{ font-size:13.5px; }
+[data-ds] .ro .v::before{ content:''; position:absolute; left:0; top:.52em; width:7px; height:7px;
+border-radius:50%; border:1px solid var(--rule); background:transparent; }
+[data-ds] .ro .v.ok::before{ background:var(--ok); border-color:var(--ok); }
+[data-ds] .ro .v.bad::before{ background:var(--alert); border-color:var(--alert); }
+[data-ds] .status{ min-height:2.9em; font-family:var(--data); font-size:13.5px; color:var(--ink-2); }
+@media (prefers-reduced-motion:no-preference){
+[data-ds] .finding, [data-ds] h1, [data-ds] .deck{ animation:rise .55s cubic-bezier(.2,.7,.3,1) both; }
+[data-ds] .deck{ animation-delay:.05s; } [data-ds] .finding{ animation-delay:.1s; }
+}
+@keyframes rise{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:none; } }
+[data-ds] .stats{
+margin:40px 0 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:var(--radius);
+overflow:hidden;
+}
+[data-ds] .stat{ background:var(--surface); padding:22px 24px; display:flex; flex-direction:column; gap:7px; }
+[data-ds] .stat .k{ font-family:var(--data); font-size:10.5px; letter-spacing:.13em;
+text-transform:uppercase; color:var(--ink-3); }
+[data-ds] .stat .v{ font-family:var(--ui); font-weight:700; font-size:27px; line-height:1.05;
+color:var(--sig); letter-spacing:-.02em; }
+[data-ds] .stat .v.sm{ font-family:var(--data); font-size:15px; font-weight:500; letter-spacing:-.02em;
+line-height:1.45; white-space:nowrap; word-break:normal; }
+[data-ds] .stat .n{ font-family:var(--body); font-variant-numeric:normal;
+font-size:14.5px; line-height:1.4; color:var(--ink-2); }
+[data-ds] .eq{
+background:var(--sunk); border:1px solid var(--rule-soft); border-radius:var(--radius);
+padding:20px 22px; margin:22px 0; text-align:center;
+font-family:var(--data); font-size:16px; line-height:1.8; color:var(--ink); overflow-x:auto;
+}
+[data-ds] .tag{
+display:inline-block; font-family:var(--data); font-size:10px; letter-spacing:.1em;
+text-transform:uppercase; padding:3px 8px; border-radius:var(--radius-sm); white-space:nowrap;
+}
+[data-ds] .tag.proved{ background:var(--held-soft); color:var(--held); }
+[data-ds] .tag.cert{ background:var(--sig-soft); color:var(--sig); }
+[data-ds] .tag.dep{ background:var(--sunk); color:var(--ink-3); border:1px solid var(--rule); }
+[data-ds] .v-ok, [data-ds] .v-part, [data-ds] .v-ref,
+[data-ds] .v-conj, [data-ds] .v-open, [data-ds] .v-live{
+display:inline-flex; align-items:center; gap:6px; font-family:var(--data);
+font-size:10px; font-weight:500; letter-spacing:.11em; text-transform:uppercase;
+padding:4px 9px; border-radius:var(--radius-sm); white-space:nowrap; line-height:1.3;
+}
+[data-ds] .v-ok::before, [data-ds] .v-part::before, [data-ds] .v-ref::before,
+[data-ds] .v-conj::before, [data-ds] .v-open::before, [data-ds] .v-live::before{
+content:""; width:6px; height:6px; border-radius:50%; flex:none; background:currentColor;
+}
+[data-ds] .v-ok{   background:var(--ok-soft);   color:var(--ok); }
+[data-ds] .v-part{ background:var(--part-soft); color:var(--part); }
+[data-ds] .v-ref{  background:var(--ref-soft);  color:var(--ref); }
+[data-ds] .v-conj{ background:var(--conj-soft); color:var(--conj); }
+[data-ds] .v-open{ background:var(--open-soft); color:var(--open); }
+[data-ds] .v-live{ background:var(--live-soft); color:var(--live); }
+[data-ds] .grid{ display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule);
+border-radius:var(--radius); overflow:hidden; }
+[data-ds] .g2{ grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+[data-ds] .g3{ grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); }
+[data-ds] .card{ background:var(--surface); padding:24px 26px; display:flex; flex-direction:column; gap:10px; }
+[data-ds] .card .lab{ color:var(--sig); }
+[data-ds] .card h3{ margin:0; }
+[data-ds] .card p{ margin:0; font-size:var(--text-small); line-height:1.5; color:var(--ink-2); }
+[data-ds] .card .meta{ font-family:var(--data); font-size:11px; color:var(--ink-3);
+letter-spacing:.04em; margin-top:auto; padding-top:6px; }
+[data-ds] .rows{ border:1px solid var(--rule); border-radius:var(--radius); background:var(--surface); overflow:hidden; }
+[data-ds] .row{ display:grid; grid-template-columns:1fr auto; gap:8px 22px; padding:22px 26px;
+border-top:1px solid var(--rule-soft); align-items:start; }
+[data-ds] .row:first-child{ border-top:0; }
+[data-ds] .row .t{ font-family:var(--ui); font-weight:600; font-size:17px; line-height:1.32;
+letter-spacing:-.012em; color:var(--ink); }
+[data-ds] .row .t a{ color:var(--ink); border-bottom:0; }
+[data-ds] .row .t a:hover{ color:var(--sig); }
+[data-ds] .row .s{ font-size:15px; line-height:1.55; color:var(--ink-2); grid-column:1/-1;
+margin-top:-2px; max-width:41em; }
+[data-ds] .row .m2{ font-family:var(--data); font-size:11px; color:var(--ink-3);
+grid-column:1/-1; letter-spacing:.03em; }
+[data-ds] .row .vv{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+[data-ds] .filters{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+[data-ds] .fb{ font-family:var(--data); font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+padding:7px 13px; border-radius:var(--radius-sm); border:1px solid var(--rule);
+background:var(--surface); color:var(--ink-2); cursor:pointer; line-height:1.3; }
+[data-ds] .fb:hover{ border-color:var(--ink-3); }
+[data-ds] .fb[aria-pressed="true"]{ background:var(--ink); color:var(--surface); border-color:var(--ink); }
+[data-ds] .fb:focus-visible{ outline:2px solid var(--sig); outline-offset:2px; }
+[data-ds] .rule-box{ border:1px solid var(--sig); border-radius:var(--radius); background:var(--surface);
+padding:clamp(24px,4vw,38px); margin:36px 0 0; text-align:center; }
+[data-ds] .rule-box .big{ font-family:var(--ui); font-weight:700; font-size:clamp(24px,4vw,40px);
+line-height:1.1; letter-spacing:-.024em; color:var(--ink); text-wrap:balance; }
+[data-ds] .rule-box .sub{ color:var(--ink-2); font-size:16px; margin:14px auto 0; max-width:28em; line-height:1.5; }
+[data-ds] ol.st{ list-style:none; counter-reset:s; padding:0; margin-top:0; margin-bottom:0; }
+[data-ds] ol.st li{ counter-increment:s; display:grid; grid-template-columns:34px 1fr; gap:16px;
+padding:19px 0; border-top:1px solid var(--rule-soft); }
+[data-ds] ol.st li:first-child{ border-top:0; }
+[data-ds] ol.st li::before{ content:counter(s); font-family:var(--data); font-size:12px;
+font-weight:500; color:var(--sig); padding-top:5px; }
+[data-ds] ol.st p{ margin:0; font-size:16px; line-height:1.55; color:var(--ink-2); }
+[data-ds] ol.st h3{ margin-bottom:6px; }
+[data-ds] ul.plain{ list-style:none; padding:0; margin-top:0; margin-bottom:0; }
+[data-ds] ul.plain li{ padding:16px 0; border-top:1px solid var(--rule-soft); font-size:16.5px;
+line-height:1.55; color:var(--ink-2); }
+[data-ds] ul.plain li:first-child{ border-top:0; }
+[data-ds] ul.plain b{ color:var(--ink); font-weight:600; }
+[data-ds] .press{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:22px 0 0; }
+[data-ds] .btn{
+font-family:var(--data); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+padding:9px 15px; border-radius:var(--radius-sm); border:1px solid var(--sig);
+background:var(--sig); color:var(--surface); cursor:pointer; line-height:1.3;
+}
+[data-ds] .btn:hover{ background:var(--sig-2); border-color:var(--sig-2); }
+[data-ds] .btn:focus-visible{ outline:2px solid var(--sig); outline-offset:2px; }
+[data-ds] .btn[disabled]{ background:var(--sunk); border-color:var(--rule); color:var(--ink-3); cursor:default; }
+[data-ds] .btn.break{ background:transparent; border-color:var(--alert); color:var(--alert); }
+[data-ds] .btn.break:hover{ background:var(--open-soft); border-color:var(--alert); }
+[data-ds] .btn.ghost{ background:transparent; border-color:var(--rule); color:var(--ink-2); }
+[data-ds] .btn.ghost:hover{ background:var(--sunk); border-color:var(--ink-3); }
+[data-ds] .verdict{
+font-family:var(--data); font-size:13.5px; line-height:1.5; color:var(--ink-2);
+min-height:3.2em; margin:14px 0 0; padding-left:16px; position:relative;
+border-left:2px solid var(--rule);
+}
+[data-ds] .verdict::before{
+content:""; position:absolute; left:-5px; top:.42em; width:8px; height:8px; border-radius:50%;
+background:var(--rule);
+}
+[data-ds] .verdict b{ font-family:var(--data); font-weight:500; letter-spacing:.08em; }
+[data-ds] .verdict[data-state="ok"]{  border-left-color:var(--held); color:var(--ink); }
+[data-ds] .verdict[data-state="ok"]::before{ background:var(--held); }
+[data-ds] .verdict[data-state="ok"] b{ color:var(--held); }
+[data-ds] .verdict[data-state="bad"]{ border-left-color:var(--alert); color:var(--ink); }
+[data-ds] .verdict[data-state="bad"]::before{ background:var(--alert); }
+[data-ds] .verdict[data-state="bad"] b{ color:var(--alert); }
+[data-ds] .press-note{ font-size:14px; line-height:1.5; color:var(--ink-3); margin:10px 0 0; max-width:35em; }
+[data-ds] .col{ max-width:var(--prose-max); margin-left:auto; margin-right:auto; }
+[data-ds] .wide{ max-width:var(--wide-max); margin-left:auto; margin-right:auto; }
+.topbar{
+position:fixed; inset:0 0 auto 0; z-index:50; height:var(--nav-h);
+background:color-mix(in srgb, var(--paper) 82%, transparent);
+backdrop-filter:saturate(180%) blur(12px);
+-webkit-backdrop-filter:saturate(180%) blur(12px);
+border-bottom:1px solid var(--rule-soft);
+}
+.topbar .topbar-in{
+max-width:var(--page-max); margin:0 auto; height:100%;
+padding:0 clamp(18px,4vw,40px);
+display:flex; align-items:center; gap:18px;
+}
+.topbar .brand{
+text-decoration:none;
+font-family:var(--ui); font-weight:700; font-size:14.5px; letter-spacing:-.01em;
+color:var(--ink); border-bottom:0; white-space:nowrap;
+display:inline-flex; align-items:center;
+}
+.topbar .brand:hover{ border-bottom:0; color:var(--sig); }
+.topbar .brand .mk{
+display:inline-block; width:9px; height:9px; flex:none;
+background:var(--sig); margin-right:9px; font-size:0; line-height:0;
+}
+.topbar .crumb{ font-family:var(--data); font-size:11px; color:var(--ink-3); letter-spacing:.04em;
+overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.topbar .crumb a{
+text-decoration:none; color:var(--ink-3); border-bottom:0; }
+.topbar .crumb a:hover{ color:var(--sig); border-bottom:0; }
+.topbar .crumb .s{ margin:0 6px; color:var(--rule); }
+.topbar .crumb .here{ color:var(--ink-2); }
+@media(max-width:720px){ .crumb{ display:none; } }
+.topbar .sitenav{ margin-left:auto; display:flex; gap:20px; }
+.topbar .sitenav a{
+text-decoration:none;
+font-family:var(--data); font-size:var(--text-label); letter-spacing:.13em; text-transform:uppercase;
+color:var(--ink-2); border-bottom:0; padding:0; white-space:nowrap;
+}
+.topbar .sitenav a:hover{ color:var(--sig); border-bottom:0; }
+.topbar .sitenav a[aria-current="page"]{ color:var(--sig); }
+body{ padding-top:var(--nav-h); }
+.sitefoot{
+margin:96px 0 0; border-top:1px solid var(--rule); background:var(--surface);
+display:grid;
+grid-template-columns:
+[gut-l] minmax(clamp(18px,4vw,40px),1fr)
+[c1] minmax(0,560px)
+[c2] auto
+[gut-r] minmax(clamp(18px,4vw,40px),1fr);
+column-gap:48px; row-gap:24px;
+padding:34px 0 44px;
+}
+.sitefoot .foot-cred{ grid-column:c1; padding:0; }
+.sitefoot .foot-cred-in{ max-width:none; margin:0; color:var(--ink-2);
+font-size:var(--text-small); line-height:1.6; }
+.sitefoot .foot-cred p{ margin:0 0 12px; }
+.sitefoot .sitemap{
+grid-column:c2; max-width:none; margin:0; padding:0;
+display:flex; flex-direction:column; flex-wrap:nowrap; gap:8px;
+}
+.sitefoot .sitemap a{
+text-decoration:none;
+font-family:var(--data); font-size:var(--text-label); letter-spacing:.13em; text-transform:uppercase;
+color:var(--ink-2); border-bottom:0; white-space:nowrap;
+}
+.sitefoot .sitemap a:hover{ color:var(--sig); border-bottom:0; }
+.sitefoot .foot-base{
+grid-column:c1 / gut-r; max-width:none; margin:0; padding:18px 0 0;
+border-top:1px solid var(--rule-soft);
+font-family:var(--data); font-size:11px; letter-spacing:.06em; color:var(--ink-3);
+}
+@media(max-width:760px){
+.sitefoot{
+grid-template-columns: clamp(18px,4vw,40px) minmax(0,1fr) clamp(18px,4vw,40px);
+}
+.sitefoot .foot-cred, .sitefoot .sitemap, .sitefoot .foot-base{ grid-column:2; }
+.sitefoot .sitemap{ flex-direction:row; flex-wrap:wrap; gap:10px 22px; }
+}
+.sitefoot .foot-base span{ display:block; }
+footer.colophon{ margin:80px 0 0; padding-top:26px; border-top:1px solid var(--rule);
+color:var(--ink-3); font-size:14.5px; line-height:1.6; font-family:var(--data); }
+footer.colophon p{ margin:0 0 12px; }
+footer.colophon .em{ color:var(--ink-2); }
+/* ==== END ENCLOSURE DESIGN SYSTEM ==== */
+html{overflow-x:clip;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+:root{
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:var(--text-body);
+  line-height:1.65;-webkit-font-smoothing:antialiased;padding-top:var(--nav-h)}
+a{color:var(--fp-deep)}
+@media(max-width:640px){ }
+@media(max-width:760px){
+}
+footer{margin-top:56px;border-top:1px solid var(--grid);background:var(--card)}
+footer .wrap{padding:24px 20px 32px}
+.cred{font-size:13px;line-height:1.64;color:var(--ink-soft);max-width:100%}
+.cred b{color:var(--ink);font-weight:600}
+/* ── END SHARED SITE CHROME ──────────────────────────────────────────────── */
+.wrap{max-width:var(--read-max);width:100%;margin:0 auto;padding:var(--page-top) 20px 60px}
+code,.mono{font-family:var(--data);font-size:.92em;font-variant-numeric:tabular-nums}
+code{background:color-mix(in srgb,var(--grid) 45%,transparent);padding:1px 5px;border-radius:var(--radius-sm)}
+
+.pagestate{border:1px solid var(--good);border-left:3px solid var(--good);border-radius:var(--radius);
+  background:var(--good-soft);padding:12px 16px;font-size:13px;color:var(--ink-soft);margin-bottom:26px}
+.pagestate b{color:var(--ink)}
+
+.eyebrow{font-family:var(--data);font-size:var(--text-tiny);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--ui);font-weight:600;font-size:var(--text-h1);letter-spacing:-.025em;
+  line-height:1.12;margin:10px 0 14px;text-wrap:balance}
+.lede{color:var(--ink-soft);font-size:var(--text-lede);line-height:1.62;max-width:35em;text-wrap:pretty}
+.lede b{color:var(--ink);font-weight:600}
+
+h2{font-family:var(--ui);font-size:var(--text-h2);font-weight:600;letter-spacing:-.016em;margin:38px 0 10px;
+  padding-top:22px;border-top:1px solid var(--grid);text-wrap:balance}
+p{margin-bottom:11px;max-width:38em}
+p b{color:var(--ink)}
+
+.strip{margin-top:26px;background:var(--card);border:1px solid var(--grid);border-radius:var(--radius);
+  padding:19px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06)}
+.strip .cap{font-family:var(--data);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);margin-bottom:15px}
+.readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:15px 22px}
+.ro{min-width:0}
+/* Keys are NOT uppercased on this page — a deliberate deviation from the house chrome.
+   text-transform:uppercase turned δ(f₈) into Δ(f₈), and on a page about discriminants
+   Δ(f) IS standard notation for the discriminant: one CSS rule was rewriting the
+   mathematics into a different (and false) claim. Case is load-bearing here. */
+.ro .k{font-family:var(--data);font-size:9.5px;letter-spacing:.13em;
+  color:var(--ink-soft);margin-bottom:3px}
+.ro .v{font-family:var(--data);font-size:11.5px;line-height:1.5;letter-spacing:-.005em;color:var(--ink);
+  position:relative;padding-left:14px;overflow-wrap:anywhere;hyphens:none}
+  /* a bracketed interval must never orphan its closing bracket onto a line of its own:
+     the pair reads as one value, so it wraps as one or not at all. */
+  .ro .v .nb{white-space:nowrap}
+.ro .v::before{content:'';position:absolute;left:0;top:.45em;width:7px;height:7px;
+  border:1px solid var(--grid);background:transparent}
+.ro .v.ok::before{background:var(--good);border-color:var(--good)}
+.strip .note{font-size:12.5px;line-height:1.65;color:var(--ink-soft);margin-top:15px;
+  padding-top:14px;border-top:1px solid var(--grid)}
+.strip .note b{color:var(--ink)}
+
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:13.5px;margin:8px 0 4px}
+td,th{padding:9px 12px 9px 0;border-bottom:1px solid var(--grid);vertical-align:top;line-height:1.5;text-align:left}
+th{font-family:var(--data);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+td.mono{font-family:var(--data);font-size:12.5px}
+
+.caveat{border-left:2px solid var(--warn);padding:4px 0 4px 17px;margin:14px 0}
+.caveat p{font-size:14px;color:var(--ink-soft)}
+.good-line{color:var(--good);font-weight:600}
+
+  .fig{margin:22px 0 0;background:var(--card);border:1px solid var(--grid);border-radius:var(--radius);
+    padding:18px 20px 16px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06)}
+  .figtop{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px 20px;margin-bottom:14px}
+  /* dimensional stability: the stage strings run 13–43 chars and the auto-sweep runs on
+     every load — without a reserved two-line box the longest label wraps and pushes the
+     SVG down mid-animation, the exact failure the design system forbids */
+  .figtop .ro .v{min-height:3em}
+  #nsvg{width:100%;height:300px;display:block;overflow:visible}
+  #ngrid line{stroke:var(--grid);stroke-width:1}
+  #ngrid text{fill:var(--ink-soft);font-family:var(--data);font-size:10px}
+  #npaper{fill:var(--ink-soft);opacity:.10}
+  #nband{fill:var(--fp);opacity:.22}
+  #nhi,#nlo{fill:none;stroke:var(--fp-deep);stroke-width:2}
+  #ncond{stroke:var(--hjb);stroke-width:2;stroke-dasharray:5 4}
+  #nscrub{stroke:var(--ink-soft);stroke-width:1}
+  #ndhi,#ndlo{fill:var(--fp-deep);stroke:var(--card);stroke-width:2}
+  #nlab text{fill:var(--ink-soft);font-family:var(--data);font-size:10px}
+  /* Media-player layout. The button sits in the chart's own left gutter, under the y-axis
+     labels, and the scrub track spans EXACTLY the plot area: thumb centre at value 0 lands on
+     x(0) = 58/720 and at value 57 on x(57) = 712/720, so the handle sits under the data point
+     it is moving. The ±7px terms are half the thumb, which every engine insets the track by. */
+  .figctl{display:grid;grid-template-columns:calc(8.0556% - 7px) 1fr;align-items:center;
+    margin:12px 0 2px;padding-right:calc(1.1111% - 7px)}
+  .figbtn{justify-self:start;width:34px;height:30px;padding:0;display:flex;align-items:center;
+    justify-content:center;font-size:11px;line-height:1;border:1px solid var(--grid);
+    border-radius:6px;background:var(--card);color:var(--ink-soft);cursor:pointer}
+  .figbtn:hover{border-color:var(--accent);color:var(--ink)}
+  .figbtn[disabled]{color:var(--grid);cursor:default}
+  /* the track is drawn by hand rather than left to accent-color, which renders it 4–8px thick
+     and heavier than any line in the figure it belongs to */
+  #nrange{-webkit-appearance:none;appearance:none;width:100%;min-width:0;height:14px;margin:0;
+    background:transparent;cursor:pointer}
+  #nrange::-webkit-slider-runnable-track{height:2px;border-radius:1px;background:var(--grid)}
+  #nrange::-moz-range-track{height:2px;border-radius:1px;background:var(--grid)}
+  #nrange::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;
+    margin-top:-6px;border-radius:50%;background:var(--fp-deep);border:2px solid var(--card);
+    box-shadow:0 1px 2px rgba(16,24,40,.28)}
+  #nrange::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--fp-deep);
+    border:2px solid var(--card);box-shadow:0 1px 2px rgba(16,24,40,.28)}
+  #nrange:focus-visible{outline:2px solid var(--fp-deep);outline-offset:3px}
+  @media(max-width:640px){ .figctl{grid-template-columns:auto 1fr;gap:12px;padding-right:0} }
+  .figlg{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--data);font-size:var(--text-tiny);
+    color:var(--ink-soft);margin-top:4px}
+  .figlg .sw{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+  .figlg .sw.band{background:var(--fp);opacity:.55;border:1px solid var(--fp-deep)}
+  .figlg .sw.pap{background:var(--ink-soft);opacity:.28}
+  .figlg .sw.cnd{background:none;border-top:2px dashed var(--hjb);height:0;border-radius:0;margin-bottom:3px}
+  figcaption{font-size:var(--text-small);line-height:1.6;color:var(--ink-soft);margin-top:12px;
+    padding-top:11px;border-top:1px solid var(--grid)}
+  figcaption b{color:var(--ink)}
+  .dl{display:flex;flex-wrap:wrap;gap:8px 10px;margin:12px 0 6px}
+  .dl a{font-family:var(--data);font-size:12px;padding:6px 11px;border:1px solid var(--grid);
+    border-radius:6px;color:var(--fp-deep);text-decoration:none;background:var(--card)}
+  .dl a:hover{border-color:var(--fp-deep);background:var(--paper)}
+  .dl a.all{border-color:var(--fp-deep);color:var(--card);background:var(--fp-deep)}
+  .dl a.all:hover{background:var(--ink);border-color:var(--ink)}
+  .foot{margin-top:44px;padding-top:16px;border-top:1px solid var(--grid);
+  font-family:var(--data);font-size:11px;color:var(--ink-soft)}
+</style>
+<!-- Vercel Web Analytics. Cookieless page counts, no cross-site tracking, no personal
+     data. Declared here rather than injected at build time BECAUSE the export gate
+     asserts "every copy is byte-identical to its source" — an export that differs from
+     what is committed is exactly the drift that gate exists to catch, so the tag lives in
+     the source or it does not exist.
+     DELIBERATELY ABSENT from research/mfg-congest/mfg-congest.html and
+     research/wardrop-repro/wardrop-repro.html: DEPLOY_ENCLOSURE.md records that those two travel
+     as EMAIL ATTACHMENTS, "self-contained single files, open offline — verified: no
+     external fetches". A paper that phones home when a referee opens it offline costs
+     more trust than a pageview is worth, and mfg-congest additionally carries an
+     IP-reviewed sha256 that expires on any edit (C33). -->
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Carlos Toledo"><span class="mk">&#8718;</span>Carlos&nbsp;Toledo</a>
+    <nav class="sitenav" aria-label="Primary">
+      <a href="/reports">Reports</a>
+      <a href="/stack">Stack</a>
+      <a href="/errata">Errata</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="pagestate"><b>Research note &mdash; not peer-reviewed.</b> Every number here is
+    produced by a program in this directory that you can download and run with no dependencies, and
+    every check has been shown to <b>fail on a deliberately broken copy</b> of the code and pass on
+    the real one (all green 2026-08-03; re-verified end-to-end 2026-08-11; the interactive layer
+    below was added 2026-08-12 with its own battery). <b>AI disclosure:</b> this computation was carried out
+    with AI assistance (Claude Fable&nbsp;5, Claude Opus&nbsp;5). The programs were written and run
+    under my direction, I have checked every claim on this page myself, and every number is
+    reproducible by running them. No third party has re-run the programs yet, so the checks and
+    the code share an author &mdash; they rule out slips, not a shared misconception.</div>
+
+  <div class="eyebrow">Erdős problem #290 &middot; challenges &middot; 2026-08-03</div>
+  <h1>For even d, disc(f<sub>d</sub>) is a square exactly at d&nbsp;=&nbsp;4k(k+1) &mdash; and here is the proof</h1>
+  <p class="lede" data-verdict="ok live">van Doorn's bound on Erd&#337;s&nbsp;#290 &mdash;
+    0.54&nbsp;&lt;&nbsp;liminf&nbsp;(b(a)&minus;a)/log&nbsp;a&nbsp;&lt;&nbsp;0.61, where b(a) is the
+    first b&nbsp;&gt;&nbsp;a at which adding 1/b <i>shrinks</i> the denominator of
+    1/a&nbsp;+&nbsp;&hellip;&nbsp;+&nbsp;1/b &mdash; rests on one constant c, assembled from the
+    Galois groups of the polynomials
+    f<sub>d</sub>(x)&nbsp;=&nbsp;&Sigma;<sub>i=0..d</sub>&Pi;<sub>j&ne;i</sub>(x&minus;j), the
+    derivative of &Pi;<sub>j=0..d</sub>(x&minus;j). At three
+    degrees, d&nbsp;=&nbsp;8,&nbsp;24,&nbsp;48, that group is not the expected one. The paper's
+    Lemma&nbsp;32 records exactly that &mdash; &ldquo;G<sub>d</sub> is isomorphic to
+    S<sub>l</sub><sup>+</sup> for all even d&nbsp;&le;&nbsp;60, except for d&nbsp;=&nbsp;8,&nbsp;24,&nbsp;48&rdquo;
+    &mdash; and gives no positive identification, bounding the missing terms by
+    &delta;&nbsp;&le;&nbsp;1 instead. On the problem page van Doorn later called the needed group
+    data an open request. <b>I pin all three exactly &mdash; then find two the
+    paper never reached, d&nbsp;=&nbsp;80 and d&nbsp;=&nbsp;120.</b> Those five are precisely
+    4k(k+1), k&nbsp;&le;&nbsp;5 &mdash; which I first wrote down as a conjecture, tested blind at
+    k&nbsp;=&nbsp;6, and then <b>proved</b>:
+    disc(f<sub>d</sub>)&nbsp;=&nbsp;(d+1)(2<sup>l</sup>&middot;l!&middot;disc&nbsp;h)&sup2;, so the
+    discriminant is square exactly when d+1 is, and for even d that means d&nbsp;=&nbsp;4k(k+1) &mdash;
+    which no other degree can satisfy, for any k. Along the way c is enclosed in [0.8291,&nbsp;0.8332] &mdash; a seventh of the
+    paper's width, every bound an exact fraction.</p>
+
+  <p><b>In plain terms.</b> An Erd&#337;s problem about adding fractions &mdash; how far past 1/a
+    you must go before adding one more unit fraction makes the running total's denominator
+    <i>shrink</i> &mdash; comes down to one constant, and the best published bound for that
+    constant leaned on three polynomial symmetry groups the paper could not identify. This page
+    identifies all three exactly, finds two more beyond the paper's range, and proves the law
+    behind all five: for even degree the exceptions are d&nbsp;=&nbsp;4k(k+1), and nothing else.
+    None of it asks for trust &mdash; every number is recomputed by small programs you can
+    download below, and the central identity re-proves itself live in this page, with buttons
+    that break it.</p>
+
+  <div class="strip">
+    <div class="cap">Certified readouts &middot; exact rational arithmetic &middot; <code>node kernel.js</code> &middot; <code>node tail-sweep.js</code> &middot; <code>node pattern-check.js</code> &mdash; minutes, not hours</div>
+    <div class="readouts">
+      <div class="ro"><div class="k">c, certified enclosure</div>
+        <div class="v ok"><span class="nb">[0.829113767875,&nbsp;0.833228924528]</span></div></div>
+      <div class="ro"><div class="k">liminf bracket (Thm 8)</div>
+        <div class="v ok"><span class="nb">[0.545485611000,&nbsp;0.603053548708]</span></div></div>
+      <div class="ro"><div class="k">new exceptional degrees</div>
+        <div class="v ok">d = 80 and d = 120</div></div>
+      <div class="ro"><div class="k">even d: disc square iff d = 4k(k+1) &mdash; proved</div>
+        <div class="v ok">disc(f&#8321;&#8326;&#8328;) square &mdash; 45,336 digits</div></div>
+      <div class="ro"><div class="k">&delta;(f&#8328;) &middot; &delta;(f&#8322;&#8324;) &middot; &delta;(f&#8324;&#8328;)</div>
+        <div class="v ok">all three certified exactly</div></div>
+      <div class="ro"><div class="k">1/(1+c), conditional</div>
+        <div class="v"><span class="nb">0.5462293104001045874&hellip;</span></div></div>
+      <div class="ro"><div class="k">planted bugs caught</div>
+        <div class="v">12 of 12 &mdash; plus 2 directional controls</div></div>
+    </div>
+    <div class="note"><b>Paper consistency:</b> the enclosure lands strictly inside the paper's
+      stated 0.82&nbsp;&lt;&nbsp;c&nbsp;&lt;&nbsp;0.85 and reproduces its &ldquo;second sum
+      &asymp;&nbsp;0.1281&rdquo; exactly (0.128138628&hellip;). It is <b>seven times narrower</b>:
+      width 0.004115 against the paper's 0.03. And it is <i>pure tail</i>, literally &mdash; with
+      all three exceptional densities pinned exactly and the sweep closed through
+      l&nbsp;=&nbsp;60, every finite piece of c is an exact rational, the only uncertainty left
+      anywhere is &delta;&nbsp;&isin;&nbsp;[0,1] for l&nbsp;&ge;&nbsp;61, and the width equals
+      that tail's weight exactly (the weight telescopes:
+      &Sigma;<sub>l&gt;60</sub>&nbsp;1/(2l(2l+1))&nbsp;=&nbsp;(1&nbsp;&minus;&nbsp;log&nbsp;2)&nbsp;&minus;&nbsp;&Sigma;<sub>l&le;60</sub>).
+      The derived brackets are computed from the <b>exact rational endpoints</b>, which
+      <code>kernel.js</code> prints beside the decimals &mdash; re-deriving them from the 12-digit
+      decimals shown here can differ in the last digit, so check against the fractions.</div>
+  </div>
+
+
+  <h2>Watch the interval close</h2>
+  <p>The contribution is not one number, it is a <b>mechanism</b>: every density pinned exactly
+    removes an interval of uncertainty from c. Drag the handle to add what this project certified,
+    one degree at a time. Nothing here is illustrative &mdash; each bracket is recomputed by the
+    same exact-rational arithmetic as the result, by <code>narrowing.js</code>, which also asserts
+    that knowing more never widens a bracket.</p>
+
+  <figure class="fig">
+    <div class="figtop">
+      <div class="ro"><div class="k">Certified bracket for c</div>
+        <div class="v ok" id="nbr">[0.821285809, 0.845396078]</div></div>
+      <div class="ro"><div class="k">Width</div><div class="v" id="nwd">0.024110270</div></div>
+      <div class="ro"><div class="k">What is pinned</div><div class="v" id="nst">nothing yet &mdash; the state of the art</div></div>
+    </div>
+    <svg id="nsvg" viewBox="0 0 720 300" preserveAspectRatio="none" role="img"
+         aria-label="The certified bracket for c narrowing as each Frobenius density is pinned exactly.">
+      <g id="ngrid"></g>
+      <rect id="npaper" x="0" y="0" width="0" height="0"></rect>
+      <path id="nband" d=""></path>
+      <path id="nhi" d=""></path>
+      <path id="nlo" d=""></path>
+      <line id="ncond" x1="0" x2="720" y1="0" y2="0"></line>
+      <line id="nscrub" x1="0" x2="0" y1="14" y2="262"></line>
+      <circle id="ndhi" r="4"></circle><circle id="ndlo" r="4"></circle>
+      <g id="nlab"></g>
+    </svg>
+    <div class="figctl">
+      <button id="nplay" type="button" class="figbtn" title="Replay"
+              aria-label="Replay the narrowing">&#9654;</button>
+      <input id="nrange" type="range" min="0" max="57" value="0" step="1"
+             aria-label="How many densities are pinned exactly">
+    </div>
+    <div class="figlg">
+      <span><i class="sw band"></i>certified bracket &mdash; c is provably inside</span>
+      <span><i class="sw pap"></i>the published bound, 0.82&ndash;0.85</span>
+      <span><i class="sw cnd"></i>conditional value c*</span>
+    </div>
+    <figcaption>Left edge: what was known before this work &mdash; the three exceptional degrees
+      d&nbsp;=&nbsp;8,&nbsp;24,&nbsp;48 unresolved and nothing at all past d&nbsp;=&nbsp;60. Right
+      edge: every density through d&nbsp;=&nbsp;120 pinned exactly. The width falls from 0.0241 to
+      <b>0.0041</b>. The band never moves away from the conditional value &mdash; a soundness check
+      the page runs on every scripted load, not a claim. (Scripts off? The figure stays empty and
+      this caption is the only witness; the brackets themselves are in
+      <span class="mono">narrowing.json</span> below.)</figcaption>
+  </figure>
+
+  <h2>What was actually asked for</h2>
+  <p>On the problem page, <b>van Doorn himself</b> set out the open task, in November 2025:
+    &ldquo;one can define a constant c (which turns out to depend on the properties of Galois
+    groups of certain polynomials) for which we have 0.82&nbsp;&lt;&nbsp;c&nbsp;&lt;&nbsp;0.85 and
+    1/(1+c)&nbsp;&le;&nbsp;liminf&nbsp;&le;&nbsp;1/(2c). <b>The lower bound is likely the correct
+    value here, and the decimal expansion of this value would be a worthwhile addition to the
+    OEIS. In order to calculate it, one needs specific information on certain (large) Galois
+    groups, which someone well-versed in using Sage or Magma can perhaps take a stab at.</b>&rdquo;
+    Terence Tao replied the next morning suggesting it be raised as a help-wanted issue &mdash;
+    which is where the request now sits.</p>
+  <p>So the object wanted is <b>1/(1+c)</b>, and the blocker is <b>the Galois groups</b>. This note
+    supplies the groups and therefore the expansion:</p>
+  <div class="tw"><table>
+    <tr><th>Quantity</th><th>Value</th><th>Standing</th></tr>
+    <tr><td>1/(1+c), certified</td><td class="mono">[0.545485611000, 0.546712849449]</td>
+      <td>Width 1.2e&minus;3. Takes the paper&rsquo;s Magma group identifications for even
+        d&nbsp;&le;&nbsp;60 as given (see &ldquo;What this is not&rdquo;); beyond that, no
+        assumption.</td></tr>
+    <tr><td>1/(1+c), conditional</td><td class="mono">0.546229310400104587412660585438363&hellip;</td>
+      <td>Under the tail assumption stated below &mdash; verified at every degree where the group
+        has been determined, now through d&nbsp;=&nbsp;120.</td></tr>
+  </table></div>
+  <p>Neither Sage nor Magma was used. Everything below runs in plain Node.js over exact rationals,
+    which is the reason the determination could be pushed past the d&nbsp;&le;&nbsp;60 range where
+    the paper&rsquo;s own computations stopped &mdash; and it means the next person to extend it
+    does not need a licence.</p>
+
+  <h2>Five exceptional degrees, then a prediction made before it was tested</h2>
+  <p>With the sweep closed through d&nbsp;=&nbsp;120, the exceptional degrees &mdash; where
+    Gal(f<sub>d</sub>) is the index-2 subgroup rather than the full hyperoctahedral group;
+    equivalently, by theorem in one direction and computation in the other, where
+    disc(f<sub>d</sub>) is a perfect square &mdash; are exactly
+    {8,&nbsp;24,&nbsp;48,&nbsp;80,&nbsp;120}. These are precisely
+    <b>d&nbsp;=&nbsp;4k(k+1), k&nbsp;=&nbsp;1&hellip;5</b>. (A reader searching the paper for
+    &ldquo;120&rdquo; will find one in its &sect;4.2 &mdash; that is a different d, the exponent in
+    &Sigma;r<sub>i</sub>/i<sup>d</sup>, not the degree of f<sub>d</sub>. The paper does not mention
+    either of these degrees in the Galois sense.)</p>
+  <p>So I wrote the prediction down before computing anything: if the pattern is real,
+    disc(f<sub>168</sub>) must be a perfect square, and disc(f<sub>d</sub>) for every other even d
+    between 122 and 170 must not.
+    <b>Both halves came back right.</b> disc(f<sub>168</sub>) &mdash; 45,336 digits, computed exactly
+    by CRT &mdash; is a perfect square; all 24 even non-members in that range are certified nonsquare
+    by an explicit quadratic non-residue witness, with control anchors in both directions at
+    d&nbsp;=&nbsp;118 and d&nbsp;=&nbsp;120. (Squareness is what the pattern predicts and what was
+    tested; whether the group actually <i>drops</i> at d&nbsp;=&nbsp;168 &mdash; whether it is
+    exceptional &mdash; is the separate per-degree question, open past d&nbsp;=&nbsp;120.)</p>
+  <h2>It is not a pattern. It is a theorem, and the proof is five lines</h2>
+  <p>Six members and 24 controls is evidence, not proof &mdash; this page said exactly that, and
+    added that a proof &ldquo;would presumably go through the resultant structure of
+    f<sub>d</sub>(x&nbsp;+&nbsp;d/2)&nbsp;=&nbsp;h(x&sup2;)&rdquo;. That was the right guess, and it
+    was one afternoon away. <b>For even d&nbsp;=&nbsp;2l:</b></p>
+  <p class="mono" style="overflow-wrap:anywhere">disc(f<sub>d</sub>)&nbsp;=&nbsp;(d&nbsp;+&nbsp;1)&nbsp;&middot;&nbsp;(2<sup>l</sup>&nbsp;&middot;&nbsp;l!&nbsp;&middot;&nbsp;disc(h))&sup2;</p>
+  <p>Two facts give it. First,
+    h(0)&nbsp;=&nbsp;f<sub>d</sub>(l)&nbsp;=&nbsp;&Pi;<sub>j&ne;l</sub>(l&minus;j)&nbsp;=&nbsp;(&minus;1)<sup>l</sup>(l!)&sup2;,
+    because every summand of f<sub>d</sub>(l) except i&nbsp;=&nbsp;l carries the factor (l&minus;l).
+    Second, for <i>any</i> h of degree l with leading coefficient a,
+    disc(h(x&sup2;))&nbsp;=&nbsp;(&minus;1)<sup>l</sup>2<sup>2l</sup>&middot;a&middot;h(0)&middot;disc(h)&sup2;.
+    <b>This second ingredient is not new.</b> For <i>monic</i> f of degree m with constant term
+    c&#8320; and n&nbsp;=&nbsp;mk,
+    Disc(f(x<sup>k</sup>))&nbsp;=&nbsp;(&minus;1)<sup>n(n&minus;m)/2</sup>&middot;k<sup>n</sup>&middot;c&#8320;<sup>k&minus;1</sup>&middot;Disc(f)<sup>k</sup>
+    &mdash; Altmann, Awtrey, Cryan, Shannon &amp; Touchette, <i>J. Algebra Appl.</i> 19 (2020)
+    2050014, Thm&nbsp;2.4; restated as Chen&ndash;Chin&ndash;Tan, arXiv:2210.10257, Prop.&nbsp;2.8.
+    At k&nbsp;=&nbsp;2, m&nbsp;=&nbsp;l it is the identity above &mdash; <b>for monic h</b>. Here
+    h is <i>not</i> monic: a&nbsp;=&nbsp;lead(h)&nbsp;=&nbsp;lead(f<sub>d</sub>)&nbsp;=&nbsp;d&nbsp;+&nbsp;1,
+    because f<sub>d</sub> is the derivative of a monic polynomial of degree d&nbsp;+&nbsp;1, and the
+    non-monic version follows from disc(c&middot;q)&nbsp;=&nbsp;c<sup>2&nbsp;deg&nbsp;q&minus;2</sup>disc(q).
+    That factor is the entire point: applied in its published monic form the square criterion
+    would read (&minus;1)<sup>l</sup>h(0)&nbsp;=&nbsp;(l!)&sup2; &mdash; <i>always</i> a square &mdash;
+    and it is precisely the leading coefficient d+1 that makes the condition non-trivial. What is
+    specific to f<sub>d</sub> is the pair h(0)&nbsp;=&nbsp;(&minus;1)<sup>l</sup>(l!)&sup2; and
+    lead(h)&nbsp;=&nbsp;d+1.
+    Since disc(f<sub>d</sub>)&nbsp;=&nbsp;disc(f<sub>d</sub>(x+l))&nbsp;=&nbsp;disc(h(x&sup2;)),
+    substituting the first into the second gives the identity.</p>
+  <p>The bracketed factor is a perfect square and disc(h)&nbsp;&ne;&nbsp;0 (not an assumption:
+    P&nbsp;=&nbsp;&Pi;(x&minus;j) has d+1 distinct real roots, so by Rolle f<sub>d</sub> has d
+    distinct real roots, so h is separable), so <b>disc(f<sub>d</sub>)
+    is a perfect square if and only if d&nbsp;+&nbsp;1 is</b>. For even d that forces
+    d&nbsp;+&nbsp;1&nbsp;=&nbsp;(2k+1)&sup2;, i.e. <b>d&nbsp;=&nbsp;4k(k+1)</b> &mdash; for every k, not
+    merely across the range that has been computed. For even d, the degrees with square
+    discriminant are
+    8,&nbsp;24,&nbsp;48,&nbsp;80,&nbsp;120,&nbsp;168,&nbsp;224,&nbsp;288,&nbsp;&hellip; and no other
+    &mdash; so no other degree can drop into the even-weight subgroup E. (Odd d are out of the
+    question for a different reason &mdash; d/2 is a rational root, &delta;&nbsp;=&nbsp;1 &mdash;
+    and the even-only theorem does not constrain their discriminants: disc(f&#8321;)&nbsp;=&nbsp;1
+    is a square.)</p>
+  <p><b>Necessary, and &mdash; so far &mdash; sufficient.</b> A square discriminant is what lets
+    Gal(f<sub>d</sub>) sit in the even-weight subgroup E; the theorem says only these degrees have
+    one, for every k. Whether the group actually drops there is a separate, per-degree question,
+    answered yes at every one computed (d&nbsp;=&nbsp;8,&nbsp;24,&nbsp;48,&nbsp;80,&nbsp;120) and
+    open beyond d&nbsp;=&nbsp;120. And one scope line, stated so the title cannot be read as more
+    than it is: <b>&ldquo;exceptional&rdquo; here means the drop into E</b>. A drop to a proper
+    subgroup <i>not</i> contained in A<sub>2l</sub> would evade the discriminant entirely and is
+    not excluded by this identity &mdash; at every degree where the group has been determined
+    (every even d&nbsp;&le;&nbsp;120), no such drop occurs and every exceptional degree is exactly
+    the E-drop, but past d&nbsp;=&nbsp;120 that is verification, not theorem. So the theorem is an
+    upper bound on the degrees that can drop into E; the exceptional set equals
+    {d&nbsp;=&nbsp;4k(k+1)&nbsp;:&nbsp;d&nbsp;&le;&nbsp;120} as far as it has been computed.</p>
+  <p>The parity restriction turns out to need no apology either. For <i>odd</i> d the centre d/2 is
+    a rational root of f<sub>d</sub>, so &delta;&nbsp;=&nbsp;1 and the degree never enters the
+    question at all. That is also where the log&nbsp;2 in the enclosure comes from:
+    &Sigma;<sub>d odd</sub>&nbsp;1/(d(d+1))&nbsp;=&nbsp;log&nbsp;2, about 83% of c, known exactly.</p>
+  <p><span class="mono">theorem.js</span> checks every line of this as an exact integer identity
+    at every even d&nbsp;&le;&nbsp;80, and carries three falsifiers that must break it &mdash; one of
+    them the off-by-one definition of f<sub>d</sub> (index from 1 rather than 0), a real mistake
+    that briefly reached a draft of the submission text and is now a tested property rather than
+    a convention nobody checks.</p>
+  <div class="caveat"><p><b>What the theorem does not do.</b> It settles which degrees have square
+    discriminant, hence which Gal(f<sub>d</sub>) <i>can</i> sit in the even-weight subgroup. It does
+    not determine the group there &mdash; that is the per-degree work above, done one degree at a
+    time &mdash; and it says nothing about a drop that avoids A<sub>2l</sub> altogether, which no
+    computed degree exhibits but no identity here forbids.</p></div>
+
+  <h2>A search for irreducibility became a detector for the exceptional degrees</h2>
+  <p>I was not looking for the exceptional degrees. I was checking that f<sub>d</sub> is
+    irreducible over &#x211A; &mdash; routine housekeeping &mdash; by finding, for each d, one prime
+    at which f<sub>d</sub> stays irreducible mod p. A single such prime is a complete certificate.
+    The search succeeded at every even d&nbsp;&le;&nbsp;60 but three: <b>d&nbsp;=&nbsp;8,&nbsp;24
+    and&nbsp;48</b>. Those are exactly the three degrees where van Doorn's Magma runs found the
+    unexpected Galois group. Two computations with no shared step &mdash; Rabin's test over
+    &#x1D53D;<sub>p</sub> here, Magma group identification there &mdash; returned the same three
+    numbers. (One caveat carried everywhere it applies: the two computations have different
+    authors, but the checks on <i>this</i> side share one &mdash; so this is corroboration
+    across methods, and only van Doorn's half is independent of me.)</p>
+  <p><b>And the coincidence is structural, not luck.</b> A witness prime exists only if the Galois
+    group contains a full 2l-cycle. The hyperoctahedral group S<sub>l</sub><sup>+</sup> has one; its
+    index-2 subgroup does not. So the irreducibility search <i>had</i> to fail exactly where the
+    group is exceptional. What began as a prerequisite turned out to be a <b>cheap detector</b> for
+    the exceptional degrees &mdash; corroboration from an unrelated computation, though not the
+    machinery the sweep itself uses: past d&nbsp;=&nbsp;60 the classification runs on the exact CRT
+    discriminant and the five-candidate elimination, not on Rabin witnesses. (Irreducibility at those three degrees is certified another way, by subset-sum
+    exclusion over the observed factorization patterns: no proper factor degree is consistent with
+    every pattern, so f<sub>d</sub> is irreducible there too.)</p>
+
+  <h2>What is certified, and on what it is conditional</h2>
+  <p>The enclosure decomposes c into four pieces, each with its own evidence class:</p>
+  <div class="tw"><table>
+    <tr><th>Piece</th><th>Value</th><th>Evidence</th></tr>
+    <tr><td>Odd d (&delta;&nbsp;=&nbsp;1, paper Lemma 37 — a proved identity)</td>
+      <td class="mono">log 2, enclosed to 15 digits</td>
+      <td>Certified here: rational bounds via 2&nbsp;atanh(1/3) with a geometric tail bound.</td></tr>
+    <tr><td>Even d&nbsp;=&nbsp;2l, l&nbsp;&le;&nbsp;30, l&nbsp;&notin;&nbsp;{4,12,24}</td>
+      <td class="mono">0.128138628094938 (exact)</td>
+      <td>Exact rational (Lemma 40 derangement formula), <b>conditional on the paper's Galois
+        facts</b> (Gal&nbsp;&cong;&nbsp;S<sub>l</sub><sup>+</sup>, author: Magma). Irreducibility
+        half independently certified here (see below).</td></tr>
+    <tr><td>Exception d&nbsp;=&nbsp;8</td>
+      <td class="mono">&delta;(f&#8328;) = 25/64 = 75/192, exact</td>
+      <td><b>Certified by elimination</b> (galois8.js): Dedekind cycle types over 1997
+        good primes + square discriminant (&rArr;&nbsp;G&nbsp;&sube;&nbsp;A&#8328;) + transitivity
+        leave exactly <b>one</b> of the 1659 subgroups of S&#8324;<sup>+</sup> standing —
+        order&nbsp;192, index&nbsp;2. Its non-derangement proportion is 75/192. The hyperoctahedral
+        formula would give 151/384; the exception costs exactly one non-derangement in 384.</td></tr>
+    <tr><td>Exceptions d&nbsp;=&nbsp;24,&nbsp;48</td>
+      <td class="mono">&delta;(f&#8322;&#8324;) = 35090142217/89181388800<br>
+        &delta;(f&#8324;&#8328;) = 12719809044827249231493399463/<wbr>32327319418426498303918080000</td>
+      <td><b>Certified by structural elimination</b> (galois-exceptions.js): S&#8321;&#8322;<sup>+</sup>
+        cannot be enumerated, so structure replaces enumeration. The kernel
+        K&nbsp;=&nbsp;G&nbsp;&cap;&nbsp;C&#8322;<sup>l</sup> is normalised by G, hence a
+        &pi;(G)-submodule &mdash; one of four (0, ⟨diag⟩, even-weight, full), since the
+        A<sub>l</sub>-submodule lattice of &#x1D53D;&#8322;<sup>l</sup> coincides with the
+        S<sub>l</sub> one &mdash; <b>and the two small ones are excluded by a certified kernel
+        element of even weight strictly between 0 and l</b> (weights {2,4,6,8,10} at l=12,
+        {2,&hellip;,22} at l=24, each an lcm-power of an observed Frobenius), which forces
+        K&nbsp;&supe;&nbsp;the even-weight submodule. &pi;&nbsp;&supe;&nbsp;A<sub>l</sub> comes from
+        a Jordan certificate with its hypotheses in order: h is irreducible (so &pi; is
+        transitive); an observed Frobenius element has a <i>power</i> that is a genuine prime
+        p-cycle with l/2&nbsp;&lt;&nbsp;p&nbsp;&le;&nbsp;l&minus;3 &mdash; the lower bound doing
+        double duty, forcing primitivity <i>and</i> making that power a single cycle (at l=12 the
+        witness at p=23 has h-type 1+1+3+7, whose lcm-power is a 7-cycle; at l=24, a 13-cycle at
+        p=29) &mdash; and Jordan then gives &pi;&nbsp;&supe;&nbsp;A<sub>l</sub>. With
+        cycle-sign&nbsp;=&nbsp;weight-parity this collapses everything to <b>five explicit
+        groups</b> &mdash; S<sub>l</sub><sup>+</sup> itself, C&#8322;<sup>l</sup>&#8906;A<sub>l</sub>,
+        and the three even-weight-kernel groups ES0, ESs, EA0 &mdash; a list that is complete
+        because K&nbsp;&isin;&nbsp;{even-weight, full}, &pi;&nbsp;&isin;&nbsp;{A<sub>l</sub>, S<sub>l</sub>},
+        and the weight-parity character has two lifts on S<sub>l</sub>, one on A<sub>l</sub>.
+        disc(f), computed <i>exactly</i> by CRT (508 and 2580
+        digits), is a <b>perfect square</b> in both cases &mdash; killing every candidate with an
+        odd-weight element; disc(h) is not &mdash; killing &pi;&nbsp;=&nbsp;A<sub>l</sub>. One
+        survivor each: the index-2 group ES0, &delta;&nbsp;=&nbsp;&delta;<sub>hyp</sub>&nbsp;&minus;&nbsp;1/(2<sup>l</sup>l!)
+        &mdash; and the shorter counting route closes the same door:
+        |G|&nbsp;=&nbsp;|K|&middot;|&pi;(G)|&nbsp;&ge;&nbsp;2<sup>l&minus;1</sup>&middot;l!&nbsp;=&nbsp;|E|
+        with G&nbsp;&sube;&nbsp;E forces G&nbsp;=&nbsp;E. The pipeline
+        cross-validates against the d=8 enumeration at l=4.</td></tr>
+    <tr><td>Tail l&nbsp;=&nbsp;31&hellip;60</td>
+      <td class="mono">all 30 &delta; certified exactly</td>
+      <td><b>Tail sweep, 30/30 closed</b> (tail-sweep.js, ~10&nbsp;min): the five-candidate squeeze
+        run at every even d&nbsp;=&nbsp;62&hellip;120. 28 degrees are full hyperoctahedral; two are
+        the index-2 group — <b>d&nbsp;=&nbsp;80 and d&nbsp;=&nbsp;120, new exceptional degrees
+        beyond the paper's d&nbsp;&le;&nbsp;60 Magma range</b>.</td></tr>
+    <tr><td>Tail l&nbsp;&gt;&nbsp;60</td>
+      <td class="mono">&delta; &isin; [0, 1]; weight = 0.0041152 &mdash; the whole remaining width</td>
+      <td>Certified, and <b>exact by telescoping</b>:
+        &Sigma;<sub>l&gt;60</sub>&nbsp;1/(2l(2l+1))&nbsp;=&nbsp;(1&nbsp;&minus;&nbsp;log&nbsp;2)&nbsp;&minus;&nbsp;&Sigma;<sub>l&le;60</sub>,
+        outward-rounded through the log&nbsp;2 enclosure &mdash; no partial sum, no remainder
+        estimate.</td></tr>
+  </table></div>
+
+  <h2>The conditional value, and exactly what it assumes</h2>
+  <p>Under one labeled assumption — <b>for every even d&nbsp;&ge;&nbsp;122, Gal(f<sub>d</sub>)
+    is either S<sub>l</sub><sup>+</sup> or its index-2 subgroup</b>, which is true at every degree
+    where the group has been determined (every even d&nbsp;&le;&nbsp;120 now is: hyperoctahedral
+    except at {8,&nbsp;24,&nbsp;48,&nbsp;80,&nbsp;120}) — the tail telescopes into
+    &delta;<sub>&infin;</sub>&middot;(an exact alternating partial sum&nbsp;&minus;&nbsp;log&nbsp;2)
+    with &delta;<sub>&infin;</sub>&nbsp;=&nbsp;1&nbsp;&minus;&nbsp;e<sup>&minus;1/2</sup> standing
+    in for &delta;<sub>hyp</sub>(l) at the cost of two error terms the kernel carries explicitly
+    &mdash; the index-2 allowance 1/(2<sup>l</sup>l!) and the alternating-series deviation
+    1/(2<sup>l+1</sup>(l+1)!), both below 10<sup>&minus;100</sup> at l&nbsp;=&nbsp;61 &mdash;
+    every piece enclosed in exact rationals, and c is pinned to 33 digits. Two things about the
+    assumption, stated so it does not read as a formality: it <b>subsumes the irreducibility of
+    f<sub>d</sub> for every even d&nbsp;&ge;&nbsp;122</b> (both allowed groups are transitive),
+    which is certified here only through d&nbsp;=&nbsp;120; and the 33 digits rest on it plus the
+    three exceptional densities alone — the sweep's contribution is to the <i>unconditional</i>
+    bracket and to the assumption's evidence base, thirty more degrees where it holds.</p>
+  <div class="caveat"><p>The direction of that identity matters, and this page had it backwards
+    until 2026-08-03 &mdash; which put a wrong constant here from the sixth decimal.
+    &Sigma;<sub>l&gt;N</sub>&nbsp;1/(2l(2l+1)) equals
+    &Sigma;<sub>m&le;2N+1</sub>(&minus;1)<sup>m+1</sup>/m&nbsp;&minus;&nbsp;log&nbsp;2, <i>not</i>
+    log&nbsp;2&nbsp;&minus;&nbsp;&Sigma;<sub>m&le;2N</sub>. The one-line check: since
+    1/(2l(2l+1))&nbsp;=&nbsp;1/(2l)&nbsp;&minus;&nbsp;1/(2l+1), the whole sum telescopes to
+    1&nbsp;&minus;&nbsp;log&nbsp;2&nbsp;=&nbsp;0.3069, never to log&nbsp;2. It is recorded in the
+    <a href="/errata">errata log</a>.</p></div>
+  <p class="mono" style="overflow-wrap:anywhere">c*&nbsp;=&nbsp;0.8307329558487356638503727480334797&hellip;
+    (&plusmn;&nbsp;1 in the 34th place)</p>
+  <p>The unconditional certified statement stays the bracket above; the conditional value is
+    reported <i>as</i> conditional, never blended into it — the kernel checks that
+    c*&nbsp;&isin;&nbsp;[c<sub>lo</sub>,&nbsp;c<sub>hi</sub>] on every run.</p>
+  <p><b>How many digits survive if the assumption fails.</b> The assumption enters only at even
+    d&nbsp;&ge;&nbsp;122, where degree d carries weight 1/(d(d+1)) and &delta; can move by at most
+    max(&delta;<sub>&infin;</sub>,&nbsp;1&minus;&delta;<sub>&infin;</sub>)&nbsp;&lt;&nbsp;0.607.
+    So if it first fails at degree d&#8320;, <b>c</b> moves by at most
+    0.607/(d&#8320;(d&#8320;+1)) &mdash; and 1/(1+c), which shrinks moves by the factor
+    1/(1+c)&sup2;&nbsp;&asymp;&nbsp;0.298, by at most 0.182/(d&#8320;(d&#8320;+1)). The surviving
+    digits are then a matter of <i>decimal boundaries</i>, not magnitudes, so they are computed
+    by interval containment of the perturbed enclosure &mdash; <code>kernel.js</code> prints and
+    asserts them: a single failure at d&#8320;&nbsp;=&nbsp;122 leaves
+    <span class="mono">0.5462</span> of 1/(1+c*) intact (four digits); at d&#8320;&nbsp;=&nbsp;500,
+    <span class="mono">0.54622</span> (five); at d&#8320;&nbsp;=&nbsp;1000,
+    <span class="mono">0.546229</span> (six). All 33 digits need the assumption at every even
+    degree. Failure on a positive-density set of degrees falls all
+    the way back to the unconditional bracket, which pins two digits. That is why the OEIS
+    proposal writes the assumption into the definition: a future failure at some d&#8320; amends
+    the entry by raising d&#8320;, instead of retracting it.</p>
+
+  <h2>A defect a falsifier caught before anything shipped</h2>
+  <div class="caveat">
+    <p>The first draft bounded the tail remainder by &Sigma;<sub>l&gt;N</sub>&nbsp;1/(4l(l+1))
+      = 1/(4(N+1)). That <b>under-bounds</b>: 4l(l+1)&nbsp;&gt;&nbsp;2l(2l+1), so the comparison
+      runs the wrong way. Falsifier X2 — then &ldquo;a lazier partial sum must give a <i>wider</i>
+      enclosure, never a tighter one&rdquo; — went red on the draft and the bound was corrected to
+      the telescoping 1/(4N) before any number left the kernel. The partial-sum-plus-remainder
+      route has since been retired entirely (the tail weight is now the exact telescoped closed
+      form, which is also 7.5&times;10<sup>&minus;9</sup> tighter), and X2 now plants the
+      historical tail-identity error — log&nbsp;2 where 1&nbsp;&minus;&nbsp;log&nbsp;2 belongs —
+      which must break paper-consistency. The defect and its catch stay
+      recorded in the kernel source, per house rule: a bound a falsifier cannot reject is not a
+      bound.</p>
+  </div>
+
+  <h2>What this is not</h2>
+  <p><b>Not an unconditional enclosure.</b> The even-part values inherit the paper's Magma
+    Galois-group identifications for even d&nbsp;&le;&nbsp;60; I certified the irreducibility half
+    independently but not the group half. <b>Not the liminf itself.</b> Theorem&nbsp;8 brackets the
+    liminf between 1/(1+c) and 1/(2c); the constant's exact value stays open.
+    <b>Not independently verified.</b> The checks and the code share an author, so they rule out
+    slips but not a shared misconception. An independent recomputation of &delta;(f&#8328;)&nbsp;=&nbsp;25/64
+    in Sage or Magma would take an afternoon, and it is the thing this note most wants.</p>
+
+  <h2>Where the enclosure can still tighten, in order of value</h2>
+  <p>The tail sweep through l&nbsp;=&nbsp;60 is done (30/30). The one remaining lever is more of
+    the same — extend the sweep past l&nbsp;=&nbsp;60, each degree shrinking the width by exactly
+    its weight 1/(2l(2l+1)) at growing compute cost (d&nbsp;=&nbsp;120 took the longest single run).
+    Unconditional digits of c beyond what sweeping can reach require a theorem about all large l,
+    not a computation — stated here so the limit of the method is on the page, not discovered by
+    a referee. (The 4k(k+1) law is settled by the theorem above, so no further degree is needed
+    to test it — d&nbsp;=&nbsp;224 would only extend the group determination.)</p>
+
+  <h2>Run it yourself</h2>
+  <p>Plain Node.js. No dependencies, no Sage, no Magma. Put all eleven files in one directory and
+    run any of the programs; each prints its own checks and exits non-zero if one fails.
+    <span class="mono">theorem.js</span> is the proof of the square-discriminant law and runs in
+    about fifteen seconds;
+    <span class="mono">kernel.js</span> is the enclosure, about twenty;
+    <span class="mono">tail-sweep.js</span> is the long one at roughly ten minutes.</p>
+  <div class="dl">
+    <a class="all" href="/research/challenges/erdos290/erdos290-programs.zip" download>&#8595;&ensp;all eleven, .zip</a>
+    <a href="/research/challenges/erdos290/theorem.js" download>theorem.js</a>
+    <a href="/research/challenges/erdos290/theorem-live.js" download>theorem-live.js</a>
+    <a href="/research/challenges/erdos290/kernel.js" download>kernel.js</a>
+    <a href="/research/challenges/erdos290/galois8.js" download>galois8.js</a>
+    <a href="/research/challenges/erdos290/galois-exceptions.js" download>galois-exceptions.js</a>
+    <a href="/research/challenges/erdos290/tail-sweep.js" download>tail-sweep.js</a>
+    <a href="/research/challenges/erdos290/pattern-check.js" download>pattern-check.js</a>
+    <a href="/research/challenges/erdos290/narrowing.js" download>narrowing.js</a>
+    <a href="/research/challenges/erdos290/rational.js" download>rational.js</a>
+    <a href="/research/challenges/erdos290/tail-deltas.json" download>tail-deltas.json</a>
+    <a href="/research/challenges/erdos290/narrowing.json" download>narrowing.json</a>
+  </div>
+  <p>The last three are the shared pieces: <span class="mono">rational.js</span> is the exact
+    BigInt rational arithmetic, vendored so that the no-dependencies promise is literally true;
+    <span class="mono">tail-deltas.json</span> holds the swept densities &mdash; which
+    <span class="mono">kernel.js</span> re-derives from each entry&rsquo;s declared group, and
+    gates by the square-discriminant theorem, rather
+    than trusting the file it just read; and <span class="mono">narrowing.json</span> is the
+    figure&rsquo;s data, <i>written</i> by <span class="mono">narrowing.js</span> and shipped so
+    the figure is inspectable without a run &mdash; narrowing.js also
+    cross-checks every number this page hardcodes (the conditional constant, the 58-point data
+    array, the axis labels) against the generated copies when it runs beside the page.</p>
+
+  <p><b>Skeptical? Check this first:</b> run <span class="mono">node theorem.js</span> &mdash;
+    about fifteen seconds, plain Node &mdash; then press &ldquo;break it:
+    (d+1)&nbsp;&#8614;&nbsp;(d+2)&rdquo; in the live proof panel above and read why the page went
+    red: a check you cannot make fail proves nothing.</p>
+
+  <div class="foot">research/challenges/erdos290 &middot; theorem.js (the 4k(k+1) law) + kernel.js (enclosure) +
+    galois8.js (&delta;(f&#8328;) by enumeration) &middot; galois-exceptions.js (&delta;(f&#8322;&#8324;),
+    &delta;(f&#8324;&#8328;) by structural elimination) &middot; tail-sweep.js (l&nbsp;=&nbsp;31&hellip;60)
+    &middot; pattern-check.js (the k&nbsp;=&nbsp;6 test) &middot; all green 2026-08-03, 12 planted bugs caught; re-verified 2026-08-11; interactive layer + its battery 2026-08-12 &middot; source: W. van Doorn, arXiv:2411.03073v2 &middot;
+    composition discriminant: A. Altmann, C. Awtrey, S. Cryan, K. Shannon, M. Touchette,
+    <i>Galois groups of doubly even octic polynomials</i>, J. Algebra Appl. 19 (2020) 2050014,
+    Thm 2.4; restated as M. H. W. Chen, A. Y. M. Chin, T. S. Tan, arXiv:2210.10257, Prop. 2.8
+    &middot; degree pattern 8, 24, 48, &hellip; = 4k(k+1): OEIS A033996 (no Galois connection
+    noted there) &middot;
+    problem: Erd&#337;s &amp; Graham, <i>Old and new problems and results in combinatorial number
+    theory</i> (1980), p. 34 &middot; site: T. F. Bloom, Erd&#337;s Problem #290,
+    erdosproblems.com/290, accessed 2026-08-03 &middot; help-wanted issue:
+    github.com/teorth/erdosproblems#164 &middot; <b>this note claims no solution to the problem
+    itself</b> &mdash; the asymptotics of b(a) remain open &middot; <b>ledger disclosure, added
+    2026-08-20:</b> no certificate record in the ledger rests on this page, and the claim record
+    for its theorem was being minted as this line was written, at
+    status <i>conjectured</i> when read. <b>That rung and this page&rsquo;s title do not disagree:</b>
+    the ledger rung describes the machine-checked box (even <i>d</i> in [2,80], swept exhaustively),
+    while the general-<i>d</i> law is proved by the human argument in the preprint beside this page
+    &mdash; which is exactly why the record carries no <code>evidence.proof</code> and takes no
+    rung-5 sign-off, that being the owner&rsquo;s to give and not an agent&rsquo;s. The record&rsquo;s identifier is deliberately not printed
+    here: ledger claim, run and attack ids name records that never ship, so naming one on a public
+    page would point a reader at something they cannot open &mdash; an appeal to an authority the
+    reader is not allowed to check, which this repository's identifier policy forbids outright. <b>The ledger&rsquo;s own state is the authority</b> on
+    whether that record stands and at what rung; this line is a dated observation, not a
+    substitute for it</div>
+</div>
+
+<footer class="sitefoot">
+  <div class="foot-cred">
+    <div class="foot-cred-in">
+      <p><b>Carlos Toledo</b> · computer-assisted proof and validated numerics.
+        These notes are self-published and not peer-reviewed. Every number is produced by a
+        program published beside it, and every check has been shown to fail on a deliberately
+        broken copy of that program.</p>
+      <p><b>Corrections are wanted, and they are published.</b> Errors found in this work —
+        including by its author — are recorded with their date and their correction in the
+        <a href="/errata">errata log</a>, never quietly fixed.</p>
+    </div>
+  </div>
+  <nav class="sitemap" aria-label="Site map">
+    <a href="/reports">Reports</a>
+    <a href="/stack">Stack</a>
+    <a href="/errata">Errata</a>
+    <a href="/about">About</a>
+    <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>
+  </nav>
+  <div class="foot-base">carlos@carlostoledo.co · Brazil, 2026 · text CC‑BY 4.0,
+        programs MIT</div>
+</footer>
+
+<script>
+'use strict';
+(function(){
+  var D = [[0,0.821285808654,0.845396078373],[4,0.826711155877,0.836932536707],[5,0.826711155877,0.836932536707],[6,0.826711155877,0.836932536707],[7,0.826711155877,0.836932536707],[8,0.826711155877,0.836932536707],[9,0.826711155877,0.836932536707],[10,0.826711155877,0.836932536707],[11,0.826711155877,0.836932536707],[12,0.82736693811,0.835921652274],[13,0.82736693811,0.835921652274],[14,0.82736693811,0.835921652274],[15,0.82736693811,0.835921652274],[16,0.82736693811,0.835921652274],[17,0.82736693811,0.835921652274],[18,0.82736693811,0.835921652274],[19,0.82736693811,0.835921652274],[20,0.82736693811,0.835921652274],[21,0.82736693811,0.835921652274],[22,0.82736693811,0.835921652274],[23,0.82736693811,0.835921652274],[24,0.827534229497,0.835663773592],[25,0.827534229497,0.835663773592],[26,0.827534229497,0.835663773592],[27,0.827534229497,0.835663773592],[28,0.827534229497,0.835663773592],[29,0.827534229497,0.835663773592],[30,0.827534229497,0.835663773592],[31,0.827634964095,0.835508491805],[32,0.827729548071,0.835362691166],[33,0.827818528021,0.835225529099],[34,0.827902387642,0.83509625999],[35,0.827981556523,0.834974221628],[36,0.828056417509,0.834858823861],[37,0.828127312885,0.834749539058],[38,0.828194549615,0.834645894037],[39,0.828258403776,0.834547463226],[40,0.828319124353,0.834453862815],[41,0.828376936481,0.834364745763],[42,0.828432044231,0.834279797491],[43,0.828484633023,0.83419873218],[44,0.828534871703,0.834121289552],[45,0.828582914357,0.834047232085],[46,0.828628901891,0.833976342573],[47,0.828672963408,0.833908422007],[48,0.828715217417,0.8338432877],[49,0.828755772905,0.833780771656],[50,0.828794730265,0.833720719116],[51,0.828832182135,0.833662987281],[52,0.828868214126,0.83360744418],[53,0.82890290548,0.833553967663],[54,0.828936329651,0.833502444501],[55,0.828968554822,0.83345276959],[56,0.828999644372,0.833404845233],[57,0.829029657289,0.8333585805],[58,0.829058648546,0.833313890648],[59,0.829086669436,0.833270696612],[60,0.829113767875,0.833228924528]];
+  /* Corrected 2026-08-03. This held 0.8307363430661834 — the RETRACTED value, from the false
+     tail identity — for hours after the 34-digit string had been corrected everywhere else,
+     because the sweep matched the full-precision decimal and this is a truncated copy of it.
+     It drives the figure's dashed conditional line AND the on-load soundness check, and BOTH
+     stayed green on the wrong value, since 0.83073 sits inside [0.82911, 0.83323] either way.
+     The assertion below is the one with teeth: this literal must agree with narrowing.json,
+     which is generated, so a future correction that misses this line goes red instead of
+     drawing a wrong line in a figure nobody re-reads. Since 2026-08-03 narrowing.js checks
+     the D array and the LBL axis labels the same way, so no hand-copied number in this
+     figure is uncovered. */
+  var COND = 0.8307329558487356, PAP = [0.82, 0.85];
+  var W = 720, H = 300, L = 58, Rr = 8, T = 14, B = 38;
+  var yMin = 0.8175, yMax = 0.8525;
+  var $ = function(id){ return document.getElementById(id); };
+  var svg = $('nsvg'); if (!svg) return;
+  var x = function(i){ return L + (W - L - Rr) * (i / (D.length - 1)); };
+  var y = function(v){ return T + (H - T - B) * (1 - (v - yMin) / (yMax - yMin)); };
+  var NS = 'http://www.w3.org/2000/svg';
+
+  /* grid + y labels */
+  var g = $('ngrid'), ticks = [0.820, 0.825, 0.830, 0.835, 0.840, 0.845, 0.850];
+  ticks.forEach(function(t){
+    var ln = document.createElementNS(NS,'line');
+    ln.setAttribute('x1', L); ln.setAttribute('x2', W - Rr);
+    ln.setAttribute('y1', y(t)); ln.setAttribute('y2', y(t)); g.appendChild(ln);
+    var tx = document.createElementNS(NS,'text');
+    tx.setAttribute('x', 0); tx.setAttribute('y', y(t) + 3.5);
+    tx.textContent = t.toFixed(3); g.appendChild(tx);
+  });
+  /* x labels: degree d = 2K. Indices are DATA positions and are cross-checked by
+     narrowing.js: each 'd=N' entry must sit at the index whose row IS degree N. Three of
+     the five pointed at the wrong degree (off by 2, 2 and 14) until 2026-08-03 — the STAGE
+     map below keys on K and was right, so two annotations on one figure disagreed. */
+  var LBL = [[0,'before'],[9,'d=24'],[21,'d=48'],[45,'d=96'],[57,'d=120']];
+  var lab = $('nlab');
+  LBL.forEach(function(p){
+    var tx = document.createElementNS(NS,'text');
+    tx.setAttribute('x', x(p[0])); tx.setAttribute('y', H - 18);
+    tx.setAttribute('text-anchor', p[0] === 0 ? 'start' : (p[0] === 57 ? 'end' : 'middle'));
+    tx.textContent = p[1]; lab.appendChild(tx);
+  });
+  var xt = document.createElementNS(NS,'text');
+  xt.setAttribute('x', (L + W) / 2); xt.setAttribute('y', H - 3);
+  xt.setAttribute('text-anchor','middle');
+  xt.textContent = 'densities pinned exactly, through degree d';
+  lab.appendChild(xt);
+
+  $('npaper').setAttribute('x', L);
+  $('npaper').setAttribute('y', y(PAP[1]));
+  $('npaper').setAttribute('width', W - Rr - L);
+  $('npaper').setAttribute('height', y(PAP[0]) - y(PAP[1]));
+  $('ncond').setAttribute('x1', L); $('ncond').setAttribute('x2', W - Rr);
+  $('ncond').setAttribute('y1', y(COND)); $('ncond').setAttribute('y2', y(COND));
+
+  var hi = '', lo = '';
+  D.forEach(function(p,i){
+    hi += (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(p[2]).toFixed(1);
+    lo += (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(p[1]).toFixed(1);
+  });
+  $('nhi').setAttribute('d', hi); $('nlo').setAttribute('d', lo);
+  var back = D.map(function(p,i){ return 'L' + x(i).toFixed(1) + ' ' + y(p[1]).toFixed(1); })
+              .reverse().join('');
+  $('nband').setAttribute('d', hi + back + 'Z');
+
+  var STAGE = { 0:'nothing yet — the state of the art', 4:'δ(f₈) = 25/64', 12:'δ(f₂₄), exactly',
+                24:'δ(f₄₈), exactly', 31:'the tail sweep begins', 40:'d = 80 — a NEW exceptional degree',
+                60:'d = 120 — the second new exceptional degree' };
+  /* the stage is a FUNCTION of the index (largest STAGE key ≤ K), not a running
+     accumulator — the accumulator desynchronised on any non-sequential jump: clicking the
+     track at 8% showed the d=120 label beside the d=8 bracket, two visual channels making
+     contradictory claims. Only the auto-sweep, which visits every index in order, hid it. */
+  var SKEYS = Object.keys(STAGE).map(Number).sort(function(a,b){ return a - b; });
+  function stageFor(K){ var s = STAGE[SKEYS[0]];
+    for (var j = 0; j < SKEYS.length; j++) if (SKEYS[j] <= K) s = STAGE[SKEYS[j]];
+    return s; }
+  function fmt(v){ return v.toFixed(9); }
+  function draw(i){
+    var p = D[i];
+    $('nbr').textContent = '[' + fmt(p[1]) + ', ' + fmt(p[2]) + ']';
+    $('nwd').textContent = fmt(p[2] - p[1]);
+    $('nst').innerHTML = stageFor(p[0]);
+    var xi = x(i);
+    $('nscrub').setAttribute('x1', xi); $('nscrub').setAttribute('x2', xi);
+    $('ndhi').setAttribute('cx', xi); $('ndhi').setAttribute('cy', y(p[2]));
+    $('ndlo').setAttribute('cx', xi); $('ndlo').setAttribute('cy', y(p[1]));
+    /* soundness, checked on every frame rather than asserted in prose */
+    var ok = p[1] <= COND && COND <= p[2];
+    $('nbr').className = ok ? 'v ok' : 'v';
+  }
+  var range = $('nrange'), play = $('nplay'), timer = null;
+  range.addEventListener('input', function(){ stop(); draw(+range.value); });
+  draw(0);
+
+  function stop(){ if (timer) { clearTimeout(timer); timer = null; }
+    if (play) { play.disabled = false; play.textContent = '\u25B6'; play.title = 'Replay'; } }
+
+  /* The sweep is deliberately unhurried, and it SLOWS as it goes: the last few degrees are
+     where the band stops moving and the reader is meant to notice that, so the step time
+     ramps from 90 ms to 260 ms rather than running flat. */
+  function sweep(){
+    stop();
+    var i = 0;
+    range.value = 0; draw(0);
+    if (play) { play.disabled = true; play.textContent = '\u23F8'; play.title = 'Running'; }
+    function step(){
+      i += 1;
+      if (i > 57) { stop(); return; }
+      range.value = i; draw(i);
+      timer = setTimeout(step, 90 + 170 * (i / 57));
+    }
+    timer = setTimeout(step, 260);
+  }
+  if (play) play.addEventListener('click', sweep);
+  /* one pass on load so the mechanism is visible without touching anything — but never
+     against a reader who has asked for less motion; they get the finished state instead. */
+  if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) sweep();
+  else { range.value = 57; draw(57); }
+})();
+</script>
+
+<!-- ── R3 interactive layer (2026-08-12): the proof is pressable. Everything below is
+     progressive enhancement — with JS off the page above is untouched. Interaction changes
+     colour and text only, never a dimension (design-system rule); every verdict box reserves
+     its height. The kernel bytes between the anchors are GENERATED by build-page.js and
+     byte-gated by tests/test-page.js; the UI glue in the second block is hand-written and
+     extracted/checked by the same battery. ── -->
+<style>
+.tlpanel{margin:18px 0;padding:14px 16px;background:var(--card);border:1px solid var(--grid);border-radius:var(--radius)}
+.tlhead{font-family:var(--ui);font-weight:600;font-size:13px;margin-bottom:8px}
+.tlline{display:flex;gap:8px;align-items:baseline;font-family:var(--data);font-size:12px;min-height:1.7em}
+.tlled{flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--grid);position:relative;top:1px}
+.tlled.ok{background:var(--good)} .tlled.bad{background:var(--bad)}
+.tlrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.tlbtn{font-family:var(--data);font-size:11.5px;letter-spacing:.03em;padding:6px 10px;border:1px solid var(--grid);border-radius:var(--radius-sm);background:var(--card);color:var(--ink);cursor:pointer}
+.tlbtn:hover{background:var(--warn-soft);border-color:var(--ink-soft)}
+.tlbtn.mut:hover{background:#F6E7E5;border-color:var(--bad);color:var(--bad)}
+.tlverdict{font-family:var(--data);font-size:12px;min-height:3.4em;margin-top:8px;color:var(--ink-soft);overflow-wrap:anywhere}
+.tlverdict.bad{color:var(--bad)} .tlverdict.ok{color:var(--good)}
+.tlchips{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.tlchip{font-family:var(--data);font-size:10.5px;padding:2px 6px;border-radius:var(--radius-sm);border:1px solid var(--grid);color:var(--ink-soft);background:var(--card)}
+.tlchip.mem{background:var(--good-soft);border-color:var(--good);color:var(--good);font-weight:600}
+.tlchip.open{background:var(--warn-soft);border:1px dashed var(--ink);color:var(--ink);font-weight:600}
+.tlfoil{max-width:var(--read-max);margin:14px auto 0;padding:10px 14px;border-left:3px solid var(--fp-deep);background:var(--warn-soft);font-size:13px;color:var(--ink);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.tlrange{width:100%;max-width:340px;accent-color:var(--fp-deep)}
+.tlnote{font-size:var(--text-small);color:var(--ink-soft);margin-top:6px}
+.tldeg{font-family:var(--data);font-size:12px;font-weight:600}
+</style>
+<script>
+'use strict';
+/* module table + basename-resolving require shim; the kernels land between the anchors.
+   'fs' serves exactly the data files spliced into __ERDOS_DATA and throws a faithful ENOENT
+   otherwise — kernel.js tolerates ONLY that code (absent file = no tail claims), so the shim
+   must speak it rather than throw something the kernel would rightly refuse to swallow. */
+var __ERDOS_MODULES = {};
+var __ERDOS_DATA = {};
+function __def(name, fn) {
+  var module = { exports: {} };
+  fn(module, module.exports, function (req) {
+    var base = String(req).split('/').pop();
+    if (base === 'path') return { join: function () { return arguments[arguments.length - 1]; } };
+    if (base === 'fs') return { readFileSync: function (p) {
+      var b = String(p).split('/').pop();
+      if (b in __ERDOS_DATA) return __ERDOS_DATA[b];
+      var e = new Error('ENOENT: ' + b); e.code = 'ENOENT'; throw e;
+    } };
+    if (!(base in __ERDOS_MODULES)) throw new Error('unresolved require: ' + req);
+    return __ERDOS_MODULES[base];
+  }, '');
+  __ERDOS_MODULES[name] = module.exports;
+}
+function __data(name, text) { __ERDOS_DATA[name] = text; }
+/*@@ERDOS_KERNELS_BEGIN@@*/
+/* ==== BEGIN VERBATIM tail-deltas.json ==== */
+__data('tail-deltas.json', "{\n \"generated\": \"2026-08-03\",\n \"method\": \"galois-exceptions.js five-candidate squeeze, earlyExit nPrimes=400\",\n \"certified\": 30,\n \"open\": [],\n \"deltas\": {\n  \"31\": {\n   \"name\": \"B\",\n   \"n\": \"6948043543097149844816749926849618189128699\",\n   \"d\": \"17658411549989416133671730836395786240000000\"\n  },\n  \"32\": {\n   \"name\": \"B\",\n   \"n\": \"3066722667298052345298427553919831476580943\",\n   \"d\": \"7794057511719466431413729472616071168000000\"\n  },\n  \"33\": {\n   \"name\": \"B\",\n   \"n\": \"29348535926042360944505951691012787230879624511\",\n   \"d\": \"74589130387155293748629391052935801077760000000\"\n  },\n  \"34\": {\n   \"name\": \"B\",\n   \"n\": \"105036865419520028643494984999414185878937603513\",\n   \"d\": \"266950571911924209205620978505243919646720000000\"\n  },\n  \"35\": {\n   \"name\": \"B\",\n   \"n\": \"10746079308304741391988333080709297478383616359407\",\n   \"d\": \"27311096972527630634113530877844185625395200000000\"\n  },\n  \"36\": {\n   \"name\": \"B\",\n   \"n\": \"10058330232573237942901079763543902439767064912404951\",\n   \"d\": \"25563186766285862273530264901662157745369907200000000\"\n  },\n  \"37\": {\n   \"name\": \"B\",\n   \"n\": \"5954531497683356862197439220017990244342102428143731\",\n   \"d\": \"15133406565641230465929916821783997385258985062400000\"\n  },\n  \"38\": {\n   \"name\": \"B\",\n   \"n\": \"56568049227991890190875672590170907321249973067365444499\",\n   \"d\": \"143767362373591689426334209806947975159960358092800000000\"\n  },\n  \"39\": {\n   \"name\": \"B\",\n   \"n\": \"259547519987256907934606027178431221826911641132617921819\",\n   \"d\": \"659638486184714810309062844996584827204523995955200000000\"\n  },\n  \"40\": {\n   \"name\": \"ES0\",\n   \"n\": \"1508481312746450405090017935737890861899999281796411853307\",\n   \"d\": \"3833796329962445051368912261518612670932276215808000000000\"\n  },\n  \"41\": {\n   \"name\": \"B\",\n   \"n\": \"28944739428978890372867264150938649858137186219109550641254799\",\n   \"d\": \"73562883979319395645666688474019139929848516028923904000000000\"\n  },\n  \"42\": {\n   \"name\": \"B\",\n   \"n\": \"486271622406845358264170037735769317616704728481040450773080623\",\n   \"d\": \"1235856450852565846847200366363521550821455069285921587200000000\"\n  },\n  \"43\": {\n   \"name\": \"B\",\n   \"n\": \"209096797634943504053593116226380806575183033246847393832424667891\",\n   \"d\": \"531418273866603314144296157536314266853225679792946282496000000000\"\n  },\n  \"44\": {\n   \"name\": \"B\",\n   \"n\": \"968448325888159387195589169890605840979795101353819508276493198653\",\n   \"d\": \"2461305689487425876036740098062929235951782095883119624192000000000\"\n  },\n  \"45\": {\n   \"name\": \"B\",\n   \"n\": \"1656046637268752552104457480512935988075449623315031359152803369696631\",\n   \"d\": \"4208832729023498248022825567687608993477547383960134557368320000000000\"\n  },\n  \"46\": {\n   \"name\": \"B\",\n   \"n\": \"152356290628725234793610088207190110902941365344982885042057910012090051\",\n   \"d\": \"387212611070161838818099952227260027399934359324332379277885440000000000\"\n  },\n  \"47\": {\n   \"name\": \"B\",\n   \"n\": \"2864298263820034414119869658295174084975297668485678238790688708227292959\",\n   \"d\": \"7279597088119042569780279101872488515118765955297448730424246272000000000\"\n  },\n  \"48\": {\n   \"name\": \"B\",\n   \"n\": \"105758705125662809136733648921667966214472529297932734970733121534546201563\",\n   \"d\": \"268785123253626187191887228376830345173615973734059645431049093120000000000\"\n  },\n  \"49\": {\n   \"name\": \"B\",\n   \"n\": \"134736590330094418840198668726204988957238002325566304352713996835011860791263\",\n   \"d\": \"342432247025119762482464328952081859751186750537191988279156544634880000000000\"\n  },\n  \"50\": {\n   \"name\": \"B\",\n   \"n\": \"13473659033009441884019866872620498895723800232556630435271399683501186079126299\",\n   \"d\": \"34243224702511976248246432895208185975118675053719198827915654463488000000000000\"\n  },\n  \"51\": {\n   \"name\": \"B\",\n   \"n\": \"1374313221366963072170026421007290887363827623720776304397682767717120980070882499\",\n   \"d\": \"3492808919656221577321136155311234969462104855479358280447396755275776000000000000\"\n  },\n  \"52\": {\n   \"name\": \"B\",\n   \"n\": \"28585715004432831901136549556951650457167614573392147131471801568516116385474355979\",\n   \"d\": \"72650425528849408808279632030473687364811780993970652233305852509736140800000000000\"\n  },\n  \"53\": {\n   \"name\": \"B\",\n   \"n\": \"797390997492073731979072171851809196963096617047254630509476570069133772857968877309\",\n   \"d\": \"2026564501594220350967800261902687068597381259305497141244847464745271296000000000000\"\n  },\n  \"54\": {\n   \"name\": \"B\",\n   \"n\": \"1636246326853735298021056096639912472168274258180966501805445921781862501904552136238067\",\n   \"d\": \"4158510357271340160185926137424313864761826344094880133834426997657296699392000000000000\"\n  },\n  \"55\": {\n   \"name\": \"B\",\n   \"n\": \"4185746417532811227495724898381171440430469032555960818572070962697787795569784534562497\",\n   \"d\": \"10638049751159242270243066863178477328460485996521786388878766738193084579840000000000000\"\n  },\n  \"56\": {\n   \"name\": \"B\",\n   \"n\": \"1185797338049295227742318300623748332771361109458206311896652573903090942556710724614881503\",\n   \"d\": \"3013696917740171221970035883121620400815629444661701367578831800655170313912320000000000000\"\n  },\n  \"57\": {\n   \"name\": \"B\",\n   \"n\": \"459615048227906830272922573321764853782179566026000766491142537644838049334981076860728070563\",\n   \"d\": \"1168108925316090365635585908297940067356137972750875450073555205933944013672415232000000000000\"\n  },\n  \"58\": {\n   \"name\": \"B\",\n   \"n\": \"266576727972185961558295092526623615193664148295080444564862671834006068614289024579222280926539\",\n   \"d\": \"677503176683332412068639826812805239066560024195507761042662019441687527930000834560000000000000\"\n  },\n  \"59\": {\n   \"name\": \"B\",\n   \"n\": \"31456053900717943463878820918141586592852369498819492458653795276412716096486104900348229149331603\",\n   \"d\": \"79945374848633224624099499563911018209854082855069915803034118294119128295740098478080000000000000\"\n  },\n  \"60\": {\n   \"name\": \"ES0\",\n   \"n\": \"31989207356662315386995411103194833823239697795409653347783520620080728233714682949506673711184681\",\n   \"d\": \"81300381201999889448236779217536628687987202903460931325119442333002503351600100147200000000000000\"\n  }\n }\n}");
+/* ==== END VERBATIM tail-deltas.json ==== */
+/* ==== BEGIN VERBATIM rational.js ==== */
+__def('rational.js', function (module, exports, require, __dirname) {
+/* rational.js — exact arithmetic over BigInt fractions.
+
+   Why this exists next to interval arithmetic rather than instead of it: the
+   two answer different questions, and choosing the wrong one silently weakens
+   a certificate.
+
+     · INTERVAL arithmetic bounds a quantity you cannot compute exactly. It is
+       the right tool when the problem is genuinely nonlinear (a Krawczyk
+       enclosure, a radii polynomial).
+     · EXACT arithmetic DECIDES. It is the right tool when the data is rational
+       and the question is a sign — and it is the ONLY tool when the answer is
+       a tie, because no interval method can ever decide whether a quantity is
+       exactly zero.
+
+   That distinction was learned, not designed. Certifying a multi-population
+   Wardrop equilibrium, an unused edge turned out to carry a slack of exactly
+   zero — an unused route exactly as short as the used ones. Interval
+   arithmetic returned −1.6e−12 and could not conclude; exact rational
+   arithmetic settled it immediately. Weak complementarity is invisible to
+   floating point and to intervals alike.
+
+   Every finite double is exactly m·2^e, so `fromDouble` is lossless and the
+   bridge between the two worlds is exact in that direction.
+
+   MIT licensed. Part of eqcert. */
+'use strict';
+
+function gcd(a, b) { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { const t = a % b; a = b; b = t; } return a; }
+
+/* canonical: denominator > 0, reduced */
+function R(n, d) {
+  n = BigInt(n); d = d === undefined ? 1n : BigInt(d);
+  if (d === 0n) throw new Error('rational: zero denominator');
+  if (d < 0n) { n = -n; d = -d; }
+  const g = gcd(n, d) || 1n;
+  return { n: n / g, d: d / g };
+}
+const ZERO = R(0n), ONE = R(1n);
+
+/* every finite double is exactly m·2^e — this conversion loses nothing */
+function fromDouble(x) {
+  if (!Number.isFinite(x)) throw new Error('rational: non-finite double');
+  let e = 0n, y = x;
+  while (!Number.isInteger(y)) { y *= 2; e += 1n; if (e > 1200n) throw new Error('rational: conversion did not terminate'); }
+  return R(BigInt(y), 1n << e);
+}
+
+const add = (a, b) => R(a.n * b.d + b.n * a.d, a.d * b.d);
+const sub = (a, b) => R(a.n * b.d - b.n * a.d, a.d * b.d);
+const mul = (a, b) => R(a.n * b.n, a.d * b.d);
+const div = (a, b) => { if (b.n === 0n) throw new Error('rational: division by zero'); return R(a.n * b.d, a.d * b.n); };
+const neg = a => R(-a.n, a.d);
+const sign = a => (a.n < 0n ? -1 : a.n > 0n ? 1 : 0);
+const cmp = (a, b) => { const l = a.n * b.d, r = b.n * a.d; return l < r ? -1 : l > r ? 1 : 0; };
+const isZero = a => a.n === 0n;
+const abs = a => (a.n < 0n ? neg(a) : a);
+
+/* a double that is >= (resp <=) the exact value — for reporting only.
+   Number(n)/Number(d) overflows on large heights, so scale first. */
+function toDouble(a) {
+  const q = Number(a.n) / Number(a.d);
+  if (Number.isFinite(q)) return q;
+  const shift = BigInt(Math.max(0, a.d.toString(2).length - 1000));
+  return Number(a.n >> shift) / Number(a.d >> shift);
+}
+const toString = a => (a.d === 1n ? a.n.toString() : a.n + '/' + a.d);
+
+/* is the exact value inside the closed float interval [lo, hi]? */
+const inClosed = (a, lo, hi) => cmp(fromDouble(lo), a) <= 0 && cmp(a, fromDouble(hi)) <= 0;
+
+/* ---- exact dense linear algebra (Gaussian elimination, no pivoting error) ----
+   Returns null iff the matrix is EXACTLY singular — which is information, not
+   a failure: a singular exact system is a proof of degeneracy, whereas a small
+   float determinant is only a suspicion. */
+function solve(A, b, n) {
+  A = A.map(r => r.slice()); b = b.slice();
+  for (let k = 0; k < n; k++) {
+    let p = -1;
+    for (let r = k; r < n; r++) if (sign(A[r][k]) !== 0) { p = r; break; }
+    if (p < 0) return null;
+    if (p !== k) { const t = A[k]; A[k] = A[p]; A[p] = t; const tb = b[k]; b[k] = b[p]; b[p] = tb; }
+    for (let r = k + 1; r < n; r++) {
+      if (sign(A[r][k]) === 0) continue;
+      const f = div(A[r][k], A[k][k]);
+      for (let c = k; c < n; c++) A[r][c] = sub(A[r][c], mul(f, A[k][c]));
+      b[r] = sub(b[r], mul(f, b[k]));
+    }
+  }
+  const x = new Array(n).fill(ZERO);
+  for (let k = n - 1; k >= 0; k--) {
+    let s = b[k];
+    for (let c = k + 1; c < n; c++) s = sub(s, mul(A[k][c], x[c]));
+    x[k] = div(s, A[k][k]);
+  }
+  return x;
+}
+
+/* residual of A x − b, exactly. Zero here is a proof, not a tolerance. */
+function residual(A, x, b, n) {
+  const out = new Array(n);
+  for (let i = 0; i < n; i++) {
+    let s = ZERO;
+    for (let j = 0; j < n; j++) if (sign(A[i][j]) !== 0) s = add(s, mul(A[i][j], x[j]));
+    out[i] = sub(s, b[i]);
+  }
+  return out;
+}
+const allZero = v => v.every(isZero);
+
+module.exports = {
+  R, ZERO, ONE, fromDouble, toDouble, toString,
+  add, sub, mul, div, neg, abs, sign, cmp, isZero, inClosed,
+  solve, residual, allZero, gcd
+};
+
+});
+/* ==== END VERBATIM rational.js ==== */
+/* ==== BEGIN VERBATIM galois-exceptions.js ==== */
+__def('galois-exceptions.js', function (module, exports, require, __dirname) {
+/* galois-exceptions.js — certify δ(f_24) and δ(f_48) for the erdos290 enclosure.
+ *
+ * S_12^+ and S_24^+ are far too large to enumerate subgroups (galois8.js's route), so
+ * this kernel uses structure instead of enumeration:
+ *
+ *   G = Gal(f_{2l}) ⊆ S_l^+ = C_2^l ⋊ S_l   (paper Lemma 39: f(x + l) = h(x^2), h deg l)
+ *
+ *   (K)  K = G ∩ C_2^l is an S_l-submodule of F_2^l. The only submodules are
+ *        0, ⟨diag⟩, even-weight, full. A certified kernel vector of even weight 0<w<l
+ *        forces K ⊇ even-weight (A_l-orbit of one such vector spans it); odd w forces full.
+ *   (π)  π(G) = Gal(h) ≤ S_l. h irreducible ⇒ transitive; an observed h-type containing a
+ *        PRIME part p exactly once, l/2 < p ≤ l−3, whose lcm-power is therefore a genuine
+ *        p-cycle (2p > l forces multiplicity 1 and forbids any other part being a multiple
+ *        of p — asserted, not assumed), gives primitivity + Jordan ⇒ π ⊇ A_l.
+ *        disc(h) square ⇔ π ⊆ A_l.
+ *   (±)  A cycle of a signed permutation is negative iff the sign-vector weight on it is
+ *        odd, so wt(v) ≡ #negative cycles (mod 2), and the parity of (v,σ) as a
+ *        permutation of the 2l roots is (−1)^{#neg}. Hence G ⊆ A_{2l} ⇔ disc(f) square
+ *        ⇔ every element of G has even weight.
+ *
+ * With K ⊇ even and π ⊇ A_l certified, exactly FIVE candidate groups remain:
+ *        B    = C_2^l ⋊ S_l (all of S_l^+)
+ *        FA   = C_2^l ⋊ A_l
+ *        ES0  = {(v,σ): wt v ≡ 0,       σ ∈ S_l}
+ *        ESs  = {(v,σ): wt v ≡ sgn σ,   σ ∈ S_l}
+ *        EA0  = {(v,σ): wt v ≡ 0,       σ ∈ A_l}
+ * The list is COMPLETE, and here is the count: K ∈ {even-weight, full} (the kernel vector
+ * killed 0 and ⟨diag⟩); π(G) ∈ {A_l, S_l} (π ⊇ A_l). K full lifts uniquely (B, FA). K =
+ * even-weight leaves a coset choice per σ, i.e. a homomorphism π(G) → C_2 picking the
+ * weight parity: on S_l the choices are trivial (ES0) or sgn (ESs); on A_l sgn is trivial,
+ * so only EA0. That is 2 + 2 + 1 = 5. main() asserts the list has exactly these names.
+ * Each has an exact δ (non-derangement density) computed here over the partition classes
+ * of S_l with exact class sizes. Squeeze: disc(f) square kills every candidate containing
+ * an odd-weight element (B, FA, ESs); disc(h) nonsquare kills π = A_l (FA, EA0).
+ * Every observed signed type must be a member of the surviving candidate — checked.
+ *
+ * Dedekind data: for each good prime p (p ∤ disc f · disc h), the DDF degree pattern of
+ * f mod p is the point cycle type and of h mod p the projected type; the negative-cycle
+ * counts are the unique solution of  n_m = 2·pos_m + neg_{m/2},  pos_k + neg_k = a_k.
+ *
+ * CROSS-VALIDATION FALSIFIER: the same pipeline at l = 4 must reproduce galois8.js's
+ * independently-enumerated answer δ(f_8) = 150/384 and select ES0.
+ *
+ * Discriminants are computed EXACTLY by CRT over word-size primes with a Hadamard bound
+ * on the Sylvester determinant, then integer-sqrt-tested.
+ */
+'use strict';
+const path = require('path');
+/* rational.js is VENDORED into this directory on purpose: the page promises a stranger can
+   download these ten files and run them with no dependencies, and that promise was false
+   while this line climbed three levels into eqcert/. The vendored copy is byte-identical to
+   core/interval/rational.js and is checked as a declared fork by tools/check-duplication.js. */
+const Q = require(path.join(__dirname, 'rational.js'));
+const R = Q.R, add = Q.add, sub = Q.sub, mul = Q.mul, div = Q.div, cmp = Q.cmp;
+const ZERO = R(0n, 1n), ONE = R(1n, 1n);
+
+/* ---------- exact integer polynomials ---------- */
+function fdCoeffs(d) {
+  let P = [1n];
+  for (let j = 0; j <= d; j++) {
+    const nx = new Array(P.length + 1).fill(0n);
+    for (let k = 0; k < P.length; k++) { nx[k + 1] += P[k]; nx[k] -= BigInt(j) * P[k]; }
+    P = nx;
+  }
+  const f = new Array(d + 1).fill(0n);
+  for (let i = 0; i <= d; i++) {
+    const q = new Array(d + 1).fill(0n); let carry = 0n;
+    for (let k = d + 1; k >= 1; k--) { carry = P[k] + BigInt(i) * carry; q[k - 1] = carry; }
+    for (let k = 0; k <= d; k++) f[k] += q[k];
+  }
+  return f;
+}
+function shift(coeffs, a) { /* g(x) = f(x + a), a BigInt — Horner in poly form: g := g·(x+a) + c_k */
+  const n = coeffs.length - 1;
+  let acc = [0n];
+  for (let k = n; k >= 0; k--) {
+    const nx = new Array(acc.length + 1).fill(0n);
+    for (let j = 0; j < acc.length; j++) { nx[j + 1] += acc[j]; nx[j] += a * acc[j]; }
+    nx[0] += coeffs[k];
+    acc = nx.slice(0, n + 1);
+  }
+  return acc;
+}
+function pairPoly(f, l) { /* f(x + l) = h(x^2): return h (degree l), assert odd coeffs vanish */
+  const g = shift(f, BigInt(l));
+  for (let j = 1; j < g.length; j += 2)
+    if (g[j] !== 0n) throw new Error('shifted f_' + (2 * l) + ' is not even at x^' + j);
+  const h = [];
+  for (let j = 0; j < g.length; j += 2) h.push(g[j]);
+  return h;
+}
+
+/* ---------- F_p arithmetic on Numbers (p^2 * deg < 2^53 — asserted) ---------- */
+function primesUpto(count) { const ps = []; for (let n = 2; ps.length < count; n++) { let ok = true;
+  for (const q of ps) { if (q * q > n) break; if (n % q === 0) { ok = false; break; } } if (ok) ps.push(n); } return ps; }
+const nmod = (a, p) => { const r = a % p; return r < 0 ? r + p : r; };
+function npowmod(b, e, p) { let r = 1; b = nmod(b, p); while (e > 0) { if (e & 1) r = r * b % p; b = b * b % p; e = Math.floor(e / 2); } return r; }
+const ninv = (x, p) => npowmod(x, p - 2, p);
+const ndeg = (u) => { let d = u.length - 1; while (d > 0 && u[d] === 0) d--; return (d === 0 && u[0] === 0) ? -1 : d; };
+const ntrim = (u) => { const d = ndeg(u); return d < 0 ? [0] : u.slice(0, d + 1); };
+function nmul(a, b, p) { const out = new Array(a.length + b.length - 1).fill(0);
+  for (let i = 0; i < a.length; i++) { const ai = a[i]; if (!ai) continue;
+    for (let j = 0; j < b.length; j++) out[i + j] = (out[i + j] + ai * b[j]) % p; }
+  return ntrim(out); }
+function ndivmod(a, b, p) { a = a.slice(); const db = ndeg(b), lb = ninv(b[db], p);
+  let da = ndeg(a); const q = new Array(Math.max(1, da - db + 1)).fill(0);
+  while (da >= db && da >= 0) { const c = a[da] * lb % p; q[da - db] = c;
+    for (let j = 0; j <= db; j++) a[da - db + j] = nmod(a[da - db + j] - c * b[j], p);
+    da = ndeg(a); }
+  return { q: ntrim(q), r: ntrim(a) }; }
+function ngcd(a, b, p) { a = ntrim(a); b = ntrim(b);
+  while (ndeg(b) >= 0) { const r = ndivmod(a, b, p).r; a = b; b = r; }
+  const d = ndeg(a); if (d < 0) return [0];
+  const li = ninv(a[d], p); return a.map(c => c * li % p); }
+function npolypow(base, e, f, p) { let acc = [1]; base = ndivmod(base, f, p).r;
+  while (e > 0) { if (e & 1) acc = ndivmod(nmul(acc, base, p), f, p).r;
+    base = ndivmod(nmul(base, base, p), f, p).r; e = Math.floor(e / 2); }
+  return acc; }
+/* DDF degree pattern; f must be squarefree mod p (caller guarantees p ∤ disc) */
+function ddfPattern(coeffsBig, p) {
+  const n = coeffsBig.length - 1, li = ninv(Number(coeffsBig[n] % BigInt(p)), p);
+  let f = coeffsBig.map(c => nmod(Number(c % BigInt(p)), p) * li % p);
+  f = ntrim(f);
+  const type = [];
+  let xq = [0, 1].slice(); /* x^{p^i} mod f, maintained incrementally */
+  xq = ndivmod(xq, f, p).r;
+  let i = 0;
+  while (ndeg(f) > 0) {
+    i += 1;
+    xq = npolypow(xq, p, f, p);               /* (x^{p^{i-1}})^p = x^{p^i} mod f */
+    const g = xq.slice(); while (g.length < 2) g.push(0); g[1] = nmod(g[1] - 1, p);
+    const dpoly = ngcd(ntrim(g), f, p);
+    const dd = ndeg(dpoly);
+    if (dd > 0) {
+      for (let k = 0; k < dd / i; k++) type.push(i);
+      f = ndivmod(f, dpoly, p).q;
+      xq = ndivmod(xq, f, p).r;
+    }
+    if (i > ndeg(f)) { if (ndeg(f) > 0) type.push(ndeg(f)); break; }
+  }
+  return type.sort((x, y) => x - y);
+}
+/* resultant(f, f') mod p → disc mod p (for CRT); Euclidean algorithm over F_p */
+/* Two DIFFERENT failure modes, two DIFFERENT sentinels — they used to share `null`, and the
+ * CRT caller folded both into residue 0, so a prime dividing the leading coefficient injected
+ * a wrong residue instead of being skipped (unreachable for f_d, whose lc = d+1 is far below
+ * the 2^20 prime floor, but discExact is exported and must not lie on other inputs):
+ *   undefined  →  p | lc(f): this prime carries NO residue; the caller must skip it entirely.
+ *   0          →  p | disc(f): a true residue of 0; the caller folds it into the CRT.       */
+function discModP(coeffsBig, p) {
+  const n = coeffsBig.length - 1;
+  let a = ntrim(coeffsBig.map(c => nmod(Number(c % BigInt(p)), p)));
+  if (ndeg(a) < n) return undefined; /* lc vanishes: SKIP this prime (no residue) */
+  const fp = []; for (let i = 1; i <= n; i++) fp.push(i % p * a[i] % p);
+  let b = ntrim(fp);
+  let res = 1;
+  while (true) {
+    const da = ndeg(a), db = ndeg(b);
+    if (db < 0) return 0;                      /* f' ≡ 0 mod p ⇒ p | disc: residue 0 */
+    if (db === 0) { res = res * npowmod(b[0], da, p) % p; break; }
+    const r = ndivmod(a, b, p).r;
+    const dr = ndeg(r);
+    if (dr < 0) return 0;                      /* p | resultant */
+    res = res * ((da * db) % 2 === 1 ? p - 1 : 1) % p;
+    res = res * npowmod(b[db], da - dr, p) % p;
+    a = b; b = r;
+  }
+  /* disc = (-1)^{n(n-1)/2} res / lc */
+  const s = (n * (n - 1) / 2) % 2 === 1 ? p - 1 : 1;
+  return s * res % p * ninv(ntrim(coeffsBig.map(c => nmod(Number(c % BigInt(p)), p)))[n], p) % p;
+}
+/* exact discriminant via CRT + Hadamard bound */
+function discExact(coeffsBig) {
+  const n = coeffsBig.length - 1, m = 2 * n - 1;
+  /* Hadamard bound on |Res(f,f')|: product of row 2-norms of Sylvester matrix */
+  const rows = [];
+  const fp = []; for (let i = 1; i <= n; i++) fp.push(BigInt(i) * coeffsBig[i]);
+  for (let r = 0; r < n - 1; r++) rows.push(coeffsBig);
+  for (let r = 0; r < n; r++) rows.push(fp);
+  let bound = 1n;
+  for (const row of rows) {
+    let s = 0n; for (const c of row) s += c * c;
+    if (s === 0n) continue;
+    bound *= (bisqrtFloor(s) + 1n);
+  }
+  bound = 2n * bound + 1n;
+  /* CRT over primes ~ 2^20 (p^2 * m < 2^53 safe). Primes are drawn until the product of the
+   * primes that ACTUALLY CONTRIBUTED exceeds the bound — a prime dividing lc(f) contributes
+   * no residue (discModP returns undefined) and is skipped without advancing M, so it can
+   * never poison the reconstruction. */
+  let x = 0n, M = 1n;
+  for (let cand = 1048583; M < bound; cand += 2) {
+    let isP = true; for (let q = 3; q * q <= cand; q += 2) if (cand % q === 0) { isP = false; break; }
+    if (!isP) continue;
+    const dp = discModP(coeffsBig, cand);
+    if (dp === undefined) continue;            /* p | lc: no residue from this prime */
+    const rp = BigInt(dp);
+    /* CRT combine x mod M with rp mod p */
+    const pb = BigInt(cand);
+    const Minv = (() => { let r = 1n, e = pb - 2n, b = M % pb;
+      while (e > 0n) { if (e & 1n) r = r * b % pb; b = b * b % pb; e >>= 1n; } return r; })();
+    const t = ((rp - x % pb + pb) % pb) * Minv % pb;
+    x = x + M * t; M *= pb;
+  }
+  if (x * 2n > M) x -= M; /* symmetric lift */
+  return x;
+}
+/* Floor integer sqrt, TERMINATING form. The previous loop here — iterate until a fixed
+ * point — enters the 2-cycle q → q+1 → q whenever v is one less than a perfect square
+ * (e.g. v = 8: 2,3,2,3,…) and spins forever; found 2026-08-03 by an audit whose own
+ * scripts hung on disc((x−1)²). Newton from a seed ≥ √v decreases strictly until it
+ * first fails to decrease, at which point x = ⌊√v⌋; that is the guard used here and in
+ * theorem.js's isSquare, and it cannot cycle. */
+function bisqrtFloor(v) {
+  let x = 1n << BigInt(Math.ceil(v.toString(2).length / 2)); /* seed ≥ √v */
+  for (;;) { const y = (x + v / x) >> 1n; if (y >= x) break; x = y; }
+  while (x * x > v) x -= 1n;
+  return x;
+}
+function isqrtCheck(v) { if (v < 0n) return false; if (v === 0n) return true;
+  const x = bisqrtFloor(v); return x * x === v; }
+
+/* ---------- partitions of l with exact class data ---------- */
+function partitions(l) {
+  const out = [];
+  const rec = (rem, maxPart, parts) => {
+    if (rem === 0) { out.push(parts.slice()); return; }
+    for (let k = Math.min(rem, maxPart); k >= 1; k--) { parts.push(k); rec(rem - k, k, parts); parts.pop(); }
+  };
+  rec(l, l, []);
+  return out.map(parts => {
+    const mult = {}; for (const m of parts) mult[m] = (mult[m] || 0) + 1;
+    let denom = 1n;
+    for (const [m, a] of Object.entries(mult)) {
+      let f = 1n; for (let i = 2; i <= a; i++) f *= BigInt(i);
+      denom *= (BigInt(m) ** BigInt(a)) * f;
+    }
+    let lfact = 1n; for (let i = 2; i <= l; i++) lfact *= BigInt(i);
+    const size = lfact / denom;
+    const fix = mult[1] || 0;
+    const even = (l - parts.length) % 2 === 0;   /* sgn = (−1)^{l − #parts} */
+    return { parts, size, fix, even };
+  });
+}
+
+/* δ of the five candidates, exact. P(no fixed root | σ with f fixed pts) = 2^{−f},
+ * EXCEPT σ = id in the even-weight-kernel candidates, where it is 2^{−(l−1)} (l even). */
+function candidateDeltas(l) {
+  const P = partitions(l);
+  let lfact = 1n; for (let i = 2; i <= l; i++) lfact *= BigInt(i);
+  const half = lfact / 2n;
+  const mk = (restrictEven, idBoost) => {
+    /* σ = id is the ONLY element where the even-weight subgroup differs from the full group.
+       For f < l fixed points the l − f free coordinates mean exactly half the qualifying
+       vectors have even weight, so P(no fixed root | σ) = 2^{−f} in both groups (see the ESs
+       note below). At σ = id there are no free coordinates: the single qualifying vector is
+       all-ones, of weight l, which lies in the even-weight subgroup iff l is EVEN. So
+         P(no fixed root | id) = 1/2^{l−1}  for even l,   and  0  for odd l.
+       This branch used to THROW on odd l rather than return the 0 — a guard placed inside
+       eager candidate construction, so it fired for every odd l whatever survived, and
+       tail-sweep.js then marked all 15 odd degrees open. The shipped code could not
+       regenerate the tail-deltas.json shipped beside it. Computing the right value is
+       strictly better than refusing to compute: the guard's own comment already knew it. */
+    let noFix = ZERO, total = ZERO;
+    for (const c of P) {
+      if (restrictEven && !c.even) continue;
+      const w = R(c.size, 1n);
+      total = add(total, w);
+      const isId = c.fix === l;
+      const pn = isId && idBoost
+        ? (l % 2 === 0 ? R(1n, 2n ** BigInt(l - 1)) : ZERO)
+        : R(1n, 2n ** BigInt(c.fix));
+      noFix = add(noFix, mul(w, pn));
+    }
+    return sub(ONE, div(noFix, total));
+  };
+  /* ESs (wt ≡ sgn σ): for σ = id (even), coset is wt≡0 — same boost as ES0. For σ odd with
+     f = 0 fixed points nothing changes; general P(nofix|σ) = 2^{−f} regardless of coset when
+     l − f ≥ 1, and f = l only at id. So ESs δ equals ES0 δ. */
+  return {
+    B: mk(false, false),
+    FA: mk(true, false),
+    ES0: mk(false, true),
+    ESs: mk(false, true),
+    EA0: mk(true, true),
+  };
+}
+
+/* ---------- signed-type solver:  point type n_m + projected type a_k → neg_k ---------- */
+function solveSigned(pointType, projType, l) {
+  /* n_m = 2·pos_m + neg_{m/2};  pos_k + neg_k = a_k.  Descending k: pos_{2k} is already
+   * known when k is processed (2k > k), and pos_m = 0 for m > l. Unique if consistent. */
+  const n = {}, a = {};
+  for (const m of pointType) n[m] = (n[m] || 0) + 1;
+  for (const k of projType) a[k] = (a[k] || 0) + 1;
+  const pos = {}, neg = {};
+  for (let k = l; k >= 1; k--) {
+    const pos2k = 2 * k <= l ? (pos[2 * k] || 0) : 0;
+    neg[k] = (n[2 * k] || 0) - 2 * pos2k;
+    pos[k] = (a[k] || 0) - neg[k];
+    if (neg[k] < 0 || pos[k] < 0) return null;
+  }
+  for (let m = 1; m <= 2 * l; m++) {
+    const expect = 2 * (m <= l ? pos[m] || 0 : 0) + (m % 2 === 0 ? (neg[m / 2] || 0) : 0);
+    if ((n[m] || 0) !== expect) return null;
+  }
+  return { pos, neg };
+}
+
+/* ---------- per-degree pipeline ---------- */
+function analyze(d, opts) {
+  const o = Object.assign({ nPrimes: 900, mutateDisc: false }, opts);
+  const l = d / 2;
+  const t0 = Date.now();
+  console.log('== d = ' + d + ' (l = ' + l + ') ==');
+  const f = fdCoeffs(d);
+  const h = pairPoly(f, l);
+  console.log('  pair polynomial h degree ' + (h.length - 1) + ' computed; odd coefficients vanish (Lemma 39 structure confirmed)');
+
+  let discF = discExact(f); if (o.mutateDisc) discF += 1n;
+  const discH = discExact(h);
+  const fSquare = isqrtCheck(discF), hSquare = isqrtCheck(discH);
+  console.log('  disc(f) exact: ' + discF.toString().length + ' digits, perfect square: ' + fSquare);
+  console.log('  disc(h) exact: ' + discH.toString().length + ' digits, perfect square: ' + hSquare);
+
+  /* Dedekind sweep */
+  const PR = primesUpto(o.nPrimes);
+  const fTypes = new Map(), hTypes = new Map(), signedSeen = new Map();
+  const witnesses = [];       /* certified (σ-parity, #neg-parity) pairs for membership filters */
+  let good = 0, negParityOdd = 0;
+  const kernelWeights = new Set();
+  let jordanPrime = null;
+  /* l = 4 ONLY. Jordan's window l/2 < p ≤ l−3 is (2,1] — EMPTY — so d = 8 had no structural
+     route to π ⊇ A_4 and imported it from galois8.js's enumeration via externalPiCert. That
+     made the enumeration an INPUT to this pipeline while the write-up called it an independent
+     second computation: the two are not independent if one feeds the other. They are now.
+     A transitive subgroup of S_4 has order divisible by 4; containing a 3-cycle makes it
+     divisible by 12; the only such subgroups are A_4 and S_4, so π ⊇ A_4. disc(h) nonsquare
+     then gives π = S_4, exactly as Jordan+disc does at every larger l. */
+  let threeCycle = null;
+  const jordanRange = []; for (let p2 = 2; p2 <= l - 3; p2++) { let isP = p2 > 1;
+    for (let q = 2; q * q <= p2; q++) if (p2 % q === 0) { isP = false; break; }
+    if (isP && p2 > l / 2) jordanRange.push(p2); }
+  for (const pn of PR) {
+    const p = BigInt(pn);
+    if (discF % p === 0n || discH % p === 0n) continue;
+    if (f[f.length - 1] % p === 0n || h[h.length - 1] % p === 0n) continue;
+    if (pn * pn * (d + 1) > 2 ** 52) break;
+    const tf = ddfPattern(f, pn), th = ddfPattern(h, pn);
+    good++;
+    fTypes.set(tf.join('+'), (fTypes.get(tf.join('+')) || 0) + 1);
+    hTypes.set(th.join('+'), (hTypes.get(th.join('+')) || 0) + 1);
+    for (const jp of jordanRange) if (th.includes(jp)) jordanPrime = jordanPrime || { p: pn, cycle: jp, parts: th.slice() };
+    if (l === 4 && th.includes(3)) threeCycle = threeCycle || { p: pn, type: th.join('+') };
+    const sol = solveSigned(tf, th, l);
+    if (!sol) { console.log('  WARN inconsistent signed solve at p=' + pn); continue; }
+    let negTotal = 0; for (const k in sol.neg) negTotal += sol.neg[k];
+    if (negTotal % 2 === 1) negParityOdd++;
+    signedSeen.set(tf.join('+') + '|' + th.join('+'), sol);
+    const sigmaOdd = (l - th.length) % 2 === 1;   /* sgn σ = (−1)^{l − #parts} */
+    witnesses.push({ sigmaOdd, negOdd: negTotal % 2 === 1 });
+    /* power-trick kernel vector weight */
+    let ord = 1; for (const k of new Set(th)) ord = lcm(ord, k);
+    let w = 0; for (const k in sol.neg) if (sol.neg[k] > 0 && (ord / k) % 2 === 1) w += k * sol.neg[k];
+    if (w > 0 && w < l) kernelWeights.add(w);
+    /* early exit once every certificate ingredient is in hand */
+    if (o.earlyExit && good >= 80 && (jordanPrime || threeCycle) &&
+        [...kernelWeights].some(x => x % 2 === 0) &&
+        possibleFactorDegreesEmpty(fTypes, d) && possibleFactorDegreesEmpty(hTypes, l)) break;
+  }
+  console.log('  good primes: ' + good + ' · distinct f-types: ' + fTypes.size + ' · h-types: ' + hTypes.size);
+
+  /* certificates */
+  const certs = [];
+  const fIrr = possibleFactorDegreesEmpty(fTypes, d);
+  const hIrr = possibleFactorDegreesEmpty(hTypes, l);
+  certs.push(['f irreducible over Q (pattern exclusion)', fIrr]);
+  certs.push(['h irreducible over Q (pattern exclusion) ⇒ π transitive', hIrr]);
+  if (l === 4) {
+    certs.push(['small-l: observed 3-cycle in h at p=' + (threeCycle ? threeCycle.p : 'NONE') +
+      ' (type ' + (threeCycle ? threeCycle.type : '—') + ') + transitive ⇒ π ⊇ A_4 ' +
+      '(Jordan window is empty at l=4)', threeCycle !== null]);
+    /* An `externalPiCert` branch lived here — a hardcoded `true` importing galois8.js's
+       enumeration. It was dead at l = 4 (this branch wins) and WRONG anywhere else, and a
+       check that cannot go red is not a check. The 3-cycle argument above replaced it. */
+  } else {
+    /* The selected element need not BE a p-cycle — at l = 12 the first hit is p = 23 with
+       h-type 1+1+3+7. Its lcm-power IS a genuine p-cycle, but only because the part p has
+       multiplicity 1 and no other part is a multiple of p; both are forced by 2p > l, and
+       both are ASSERTED here rather than relied on, so widening the window to plain
+       p ≤ l−3 would go red instead of silently breaking two steps at once. */
+    let powerOk = false;
+    if (jordanPrime) {
+      const mult = jordanPrime.parts.filter(k => k === jordanPrime.cycle).length;
+      const others = jordanPrime.parts.filter(k => k !== jordanPrime.cycle);
+      powerOk = mult === 1 && others.every(k => k % jordanPrime.cycle !== 0);
+    }
+    certs.push(['Jordan: observed h-type ' + (jordanPrime ? jordanPrime.parts.join('+') + ' at p=' + jordanPrime.p +
+      ' has a power that is a genuine ' + jordanPrime.cycle + '-cycle (part multiplicity 1, no other part divisible by ' +
+      jordanPrime.cycle + ')' : 'NONE') +
+      ', prime cycle length in (l/2, l−3] ⇒ primitive, Jordan ⇒ π ⊇ A_' + l,
+      jordanPrime !== null && powerOk]);
+  }
+  const evenKernel = [...kernelWeights].some(w => w % 2 === 0);
+  const oddKernel = [...kernelWeights].some(w => w % 2 === 1);
+  certs.push(['kernel: certified vector weights {' + [...kernelWeights].sort((a, b) => a - b).join(',') + '} (0<w<l) ⇒ K ⊇ even-weight (an odd w forces K = C_2^l outright)', evenKernel || oddKernel]);
+  const allNegEven = negParityOdd === 0;
+  certs.push(['disc(f) square ⇔ all observed #neg even — consistency', fSquare === allNegEven]);
+
+  /* squeeze over the five candidates */
+  const deltas = candidateDeltas(l);
+  const alive = [];
+  for (const [name, delta] of Object.entries(deltas)) {
+    const hasOddWt = (name === 'B' || name === 'FA' || name === 'ESs'); /* contains odd-weight elements */
+    const piA = (name === 'FA' || name === 'EA0');
+    if (fSquare && hasOddWt) continue;          /* G ⊆ A_{2l} excludes odd weight */
+    if (!fSquare && !hasOddWt) continue;
+    if (hSquare !== piA) continue;              /* disc(h) square ⇔ π ⊆ A_l */
+    if (oddKernel && (name === 'ES0' || name === 'ESs' || name === 'EA0')) continue; /* K full excludes even-kernel candidates */
+    /* membership: every certified observed element must belong to the candidate */
+    const member = (wtn) => {
+      if (piA && wtn.sigmaOdd) return false;
+      if (name === 'ES0' && wtn.negOdd) return false;
+      if (name === 'ESs' && wtn.negOdd !== wtn.sigmaOdd) return false;
+      if (name === 'EA0' && wtn.negOdd) return false;
+      return true;
+    };
+    if (!witnesses.every(member)) continue;
+    alive.push({ name, delta });
+  }
+  console.log('  surviving candidates: ' + alive.map(a => a.name).join(', '));
+  for (const a of alive) console.log('    δ(' + a.name + ') = ' + Q.toString(a.delta) + ' ≈ ' + Q.toDouble(a.delta).toFixed(9));
+
+  const ok = certs.every(c => c[1]);
+  for (const [msg, val] of certs) console.log((val ? '  ok   ' : '  FAIL ') + msg);
+  console.log('  ' + (Date.now() - t0) + ' ms');
+  return { l, alive, certsOk: ok, fSquare, hSquare, deltas };
+
+  function lcm(a, b) { const g = (x, y) => y ? g(y, x % y) : x; return a / g(a, b) * b; }
+}
+function possibleFactorDegreesEmpty(typeMap, degree) {
+  let possible = new Set(); for (let k = 1; k < degree; k++) possible.add(k);
+  for (const t of typeMap.keys()) {
+    const parts = t.split('+').map(Number);
+    const sums = new Set([0]);
+    for (const part of parts) for (const s of [...sums]) sums.add(s + part);
+    possible = new Set([...possible].filter(k => sums.has(k)));
+  }
+  return possible.size === 0;
+}
+
+/* pairPoly and shift are exported for theorem.js, which proves the 4k(k+1) law from the
+   identity disc(f_d) = (d+1)·(2^l·l!·disc h)^2 and needs the same h this file builds. One
+   definition of h, used by both — a second copy is how the two would drift apart. */
+module.exports = { analyze, fdCoeffs, discModP, discExact, isqrtCheck, npowmod, nmod,
+                   pairPoly, shift };
+
+/* ---------- main ---------- */
+function main() {
+  let fails = 0;
+  const check = (name, ok) => { console.log((ok ? 'ok   ' : 'FAIL ') + name); if (!ok) fails++; };
+
+  /* the candidate deltas themselves, against hand-verifiable closed forms. These drive the
+     0.1281 even block, all 30 tail values, and every exceptional density — and until
+     2026-08-03 no direct value was asserted anywhere, only consistency between candidates.
+     l=4: δ_hyp = 151/384 (Lemma 40), δ_E = 75/192 (galois8.js enumerates the same numbers
+     independently). l=3 is the ODD-l branch — the correction term flips sign: 19/48 → 5/12
+     — and odd l IS exercised by the sweep at l = 31, 33, …, 59, so it gets its own anchor. */
+  const cd4 = candidateDeltas(4), cd3 = candidateDeltas(3);
+  check('candidate list is exactly {B, EA0, ES0, ESs, FA} — a silently dropped candidate goes red',
+    JSON.stringify(Object.keys(cd4).sort()) === '["B","EA0","ES0","ESs","FA"]');
+  check('δ_hyp(4) = 151/384 (Lemma 40 closed form, even-l branch)', cmp(cd4.B, R(151n, 384n)) === 0);
+  check('δ_ES0(4) = 75/192 = 25/64 (the value galois8.js enumerates independently)',
+    cmp(cd4.ES0, R(75n, 192n)) === 0);
+  check('δ_ES0(3) = 5/12 (odd-l branch: 19/48 RISES to 5/12 — the sign flip is real)',
+    cmp(cd3.ES0, R(5n, 12n)) === 0 && cmp(cd3.B, R(19n, 48n)) === 0);
+
+  /* cross-validation at l = 4 against galois8.js's enumeration */
+  const v8 = analyze(8, { nPrimes: 600 });
+  check('CROSS-VALIDATION d=8: unique survivor', v8.alive.length === 1);
+  check('CROSS-VALIDATION d=8: survivor is ES0 with δ = 150/384 = 25/64 (matches galois8.js 75/192)',
+    v8.alive.length === 1 && v8.alive[0].name === 'ES0' && cmp(v8.alive[0].delta, R(75n, 192n)) === 0);
+
+  const v24 = analyze(24, { nPrimes: 900 });
+  check('d=24: all certificates green', v24.certsOk);
+  check('d=24: unique survivor, and it is ES0 — the name is the claim, so the name is asserted',
+    v24.alive.length === 1 && v24.alive[0].name === 'ES0');
+
+  const v48 = analyze(48, { nPrimes: 900 });
+  check('d=48: all certificates green', v48.certsOk);
+  check('d=48: unique survivor, and it is ES0',
+    v48.alive.length === 1 && v48.alive[0].name === 'ES0');
+
+  if (v24.alive.length === 1 && v48.alive.length === 1) {
+    console.log('\n==> CERTIFIED  δ(f_24) = ' + Q.toString(v24.alive[0].delta) + '  (' + v24.alive[0].name + ')');
+    console.log('==> CERTIFIED  δ(f_48) = ' + Q.toString(v48.alive[0].delta) + '  (' + v48.alive[0].name + ')');
+    /* the index-2 prediction δ = δ_hyp − 1/(2^l l!) is the mechanism the posts and the page
+       state, so a mismatch is a FAILURE with an exit code, not a console note (it was a
+       console.log until 2026-08-03 — a mismatch would have shipped green). */
+    for (const [lbl, v] of [['24', v24], ['48', v48]]) {
+      const l = v.l;
+      let s = ZERO, fact = 1n;
+      for (let i = 0; i <= l; i++) { if (i > 0) fact *= BigInt(i);
+        const t = R(1n, (2n ** BigInt(i)) * fact);
+        s = (i % 2 === 0) ? add(s, t) : sub(s, t); }
+      const hyp = sub(ONE, s);
+      let lf = 1n; for (let i = 2; i <= l; i++) lf *= BigInt(i);
+      const pred = sub(hyp, R(1n, (2n ** BigInt(l)) * lf));
+      check('index-2 prediction d=' + lbl + ': certified δ equals δ_hyp − 1/(2^l l!) exactly',
+        cmp(pred, v.alive[0].delta) === 0);
+    }
+  }
+
+  /* falsifier: mutated disc(f)+1 must break the squeeze or the consistency gate */
+  const vm = analyze(8, { nPrimes: 300, mutateDisc: true });
+  check('FALSIFIER (disc(f)+1): certificates or squeeze must break',
+    !(vm.certsOk && vm.alive.length === 1 && vm.alive[0].name === 'ES0'));
+
+  console.log(fails === 0 ? 'ALL PASS' : fails + ' CHECK(S) FAILED');
+  process.exit(fails === 0 ? 0 : 1);
+}
+if (require.main === module) main();
+
+});
+/* ==== END VERBATIM galois-exceptions.js ==== */
+/* ==== BEGIN VERBATIM theorem-live.js ==== */
+__def('theorem-live.js', function (module, exports, require, __dirname) {
+/* theorem-live.js — the interactive half of theorem.js: the five proof lines and the three
+ * falsifiers of the 4k(k+1) law, packaged as PURE FUNCTIONS so one implementation serves two
+ * runtimes. In Node it requires galois-exceptions.js beside it; in the browser it receives the
+ * SAME bytes of galois-exceptions.js, spliced verbatim into the page by build-page.js and
+ * exposed as a module table — there is no second implementation of any arithmetic anywhere
+ * (C50; the page battery asserts the spliced bytes equal this tree's bytes).
+ *
+ * The mathematics is theorem.js's, line for line — see its header for the proof and the
+ * published theorem it rests on (Altmann et al. 2020, Thm 2.4; Chen–Chin–Tan arXiv:2210.10257,
+ * Prop. 2.8). theorem.js stays the SCRIPT (it runs the exhaustive even-d ≤ 80 sweep and is
+ * pinned by the preprint's deposit manifest); this module is the per-degree interactive form.
+ * The small helpers (isSquare, fact, compose, fdCoeffsOffByOne) are carried from theorem.js;
+ * the identity expressions are the same exact-integer identities at one degree d.
+ *
+ * Timing, measured 2026-08-12 (Node, M2): the full five-line check at d = 40 costs ~95 ms +
+ * one extra discExact for line (2)'s composition — the page's d-slider cap of EVEN d ≤ 40
+ * keeps every press under ~1 s with margin. All arithmetic is BigInt; no floats exist here.
+ */
+'use strict';
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) {
+    const path = require('path');
+    module.exports = factory(require(path.join(__dirname, 'galois-exceptions.js')));
+  } else {
+    root.THEOREM_LIVE = factory(root.__ERDOS_MODULES['galois-exceptions.js']);
+  }
+}(typeof self !== 'undefined' ? self : this, function (G) {
+  const { fdCoeffs, discExact, pairPoly } = G;
+
+  function isSquare(n) {
+    if (n < 0n) return false;
+    if (n < 2n) return true;
+    let x = n, y = (x + 1n) / 2n;
+    while (y < x) { x = y; y = (x + n / x) / 2n; }
+    return x * x === n;
+  }
+  function fact(n) { let f = 1n; for (let i = 2n; i <= BigInt(n); i++) f *= i; return f; }
+  function compose(h) {                        /* h(x^2) */
+    const out = new Array(2 * (h.length - 1) + 1).fill(0n);
+    for (let i = 0; i < h.length; i++) out[2 * i] = h[i];
+    return out;
+  }
+  /* f_d with the index running from 1 — the WRONG polynomial, kept as a pressable mistake
+     (falsifier F3), exactly as theorem.js keeps it as a tested control. */
+  function fdCoeffsOffByOne(d) {
+    let P = [1n];
+    for (let j = 1; j <= d; j++) {
+      const nx = new Array(P.length + 1).fill(0n);
+      for (let k = 0; k < P.length; k++) { nx[k + 1] += P[k]; nx[k] -= BigInt(j) * P[k]; }
+      P = nx;
+    }
+    const out = new Array(d).fill(0n);
+    for (let i = 1; i <= d; i++) {
+      const q = new Array(d).fill(0n); let carry = 0n;
+      for (let k = d; k >= 1; k--) { q[k - 1] = P[k] + carry; carry = BigInt(i) * q[k - 1]; }
+      for (let k = 0; k < d; k++) out[k] += q[k];
+    }
+    return out;
+  }
+
+  /* The five lines of the proof at ONE even degree d, each an exact integer identity.
+     Returns [{ id, name, ok, detail }] in proof order. Throws only on odd/invalid d. */
+  function checkLines(d) {
+    if (d % 2 !== 0 || d < 2) throw new Error('checkLines: even d >= 2 required');
+    const l = d / 2;
+    const f = fdCoeffs(d);
+    const h = pairPoly(f, l);
+    const df = discExact(f), dh = discExact(h);
+    const sign = (l % 2 === 0 ? 1n : -1n);
+
+    const h0want = sign * fact(l) * fact(l);
+    const line1 = h[0] === h0want;
+
+    const lhs2 = discExact(compose(h));
+    const rhs2 = sign * (2n ** BigInt(2 * l)) * h[l] * h[0] * dh * dh;
+    const line2 = lhs2 === rhs2 && h[l] === BigInt(d + 1);
+
+    const rhs3 = BigInt(d + 1) * ((2n ** BigInt(l)) * fact(l) * dh) ** 2n;
+    const line3 = df === rhs3;
+
+    const sd1 = isSquare(BigInt(d + 1)), sdf = isSquare(df);
+    const line4 = dh !== 0n && sd1 === sdf;
+
+    const r = intSqrt(BigInt(d + 1));
+    const isLaw = sd1 && r % 2n === 1n;
+    const k = isLaw ? (r - 1n) / 2n : null;
+    const line5 = sd1 ? (isLaw && BigInt(d) === 4n * k * (k + 1n)) : true;
+
+    return [
+      { id: 'L1', name: 'h(0) = (−1)^l (l!)²', ok: line1,
+        detail: 'h(0) has ' + String(h[0]).length + ' digits' },
+      { id: 'L2', name: 'disc(h(x²)) = (−1)^l 2^{2l} lead(h) h(0) disc(h)², lead(h) = d+1',
+        ok: line2, detail: 'both sides recomputed exactly' },
+      { id: 'L3', name: 'disc(f_d) = (d+1)(2^l · l! · disc h)²', ok: line3,
+        detail: 'disc(f_d) has ' + String(df).length + ' digits' },
+      { id: 'L4', name: 'disc(h) ≠ 0 and: disc(f_d) square ⇔ d+1 square', ok: line4,
+        detail: 'd+1 ' + (sd1 ? 'IS' : 'is NOT') + ' a square; disc(f_d) ' + (sdf ? 'IS' : 'is NOT') },
+      { id: 'L5', name: sd1 ? ('d+1 = ' + r + '² so d = 4k(k+1) with k = ' + k) : 'd+1 not square: degree excluded',
+        ok: line5, detail: sd1 ? 'the law’s member at k = ' + k : 'no drop possible at d = ' + d },
+    ];
+  }
+
+  function intSqrt(n) {
+    if (n < 2n) return n;
+    let x = n, y = (x + 1n) / 2n;
+    while (y < x) { x = y; y = (x + n / x) / 2n; }
+    return x;
+  }
+
+  /* The three falsifiers of theorem.js at one degree: each mutation must BREAK its line.
+     Returns { which, broken, diedAt, explain } — broken === true is the healthy outcome. */
+  function falsify(d, which) {
+    if (d % 2 !== 0 || d < 2) throw new Error('falsify: even d >= 2 required');
+    const l = d / 2;
+    const f = fdCoeffs(d);
+    const h = pairPoly(f, l);
+    const df = discExact(f), dh = discExact(h);
+    if (which === 'F1') {
+      const holds = df === BigInt(d + 1) * ((2n ** BigInt(l)) * fact(l) * (dh + 1n)) ** 2n;
+      return { which, broken: !holds, diedAt: 'line (3)',
+        explain: 'disc h ↦ disc h + 1: the exact identity misses on the spot — one unit in a ' +
+                 String(df).length + '-digit integer is not survivable' };
+    }
+    if (which === 'F2') {
+      const holds = df === BigInt(d + 2) * ((2n ** BigInt(l)) * fact(l) * dh) ** 2n;
+      return { which, broken: !holds, diedAt: 'line (3)',
+        explain: '(d+1) ↦ (d+2): the leading-coefficient factor is load-bearing, not decoration' };
+    }
+    if (which === 'F3') {
+      const w = fdCoeffsOffByOne(8);
+      let evenOk = false;
+      try { pairPoly(w, 4); evenOk = true; } catch (e) { evenOk = false; }
+      const broken = (w.length - 1 === 7) && !evenOk && !isSquare(discExact(w));
+      return { which, broken, diedAt: 'the setup itself',
+        explain: 'index from 1: degree drops to 7, f(x+4) is not even, disc(f) is not square — ' +
+                 'the mistake that was briefly in a submission text, kept pressable. This control ' +
+                 'runs at d = 8, the degree theorem.js pins — the slider does not govern it' };
+    }
+    throw new Error('falsify: unknown falsifier ' + which);
+  }
+
+  /* The exceptional-degrees table: even d ≤ dMax, the 4k(k+1) membership test evaluated
+     exactly (isSquare(d+1) + odd root), no discriminants — instant at dMax = 120. */
+  function lawTable(dMax) {
+    const rows = [];
+    for (let d = 2; d <= dMax; d += 2) {
+      const r = intSqrt(BigInt(d + 1));
+      const member = r * r === BigInt(d + 1) && r % 2n === 1n;
+      rows.push({ d, member, k: member ? Number((r - 1n) / 2n) : null });
+    }
+    return rows;
+  }
+
+  /* ---- the narrowing figure's two live checks, as pure functions over the page's own
+     committed D literal (rows [K, lo, hi]) and COND — the same assertions narrowing.js makes
+     at generation time, now runnable on a button press. No arithmetic beyond comparisons:
+     the rows are certified data, the checks are their claimed properties. */
+  function bracketChecks(rows, cond) {
+    let widen = null, escape = null;
+    for (let i = 0; i < rows.length; i++) {
+      const w = rows[i][2] - rows[i][1];
+      if (i > 0 && w > rows[i - 1][2] - rows[i - 1][1] + 1e-15) { widen = i; break; }
+    }
+    for (let i = 0; i < rows.length; i++) {
+      if (!(rows[i][1] <= cond && cond <= rows[i][2])) { escape = i; break; }
+    }
+    return {
+      monotone: { ok: widen === null,
+        detail: widen === null ? 'width never increases across ' + rows.length + ' brackets'
+                               : 'bracket ' + widen + ' is WIDER than its predecessor' },
+      containment: { ok: escape === null,
+        detail: escape === null ? 'every bracket contains the conditional value'
+                                : 'bracket ' + escape + ' [' + rows[escape][1] + ', ' + rows[escape][2] +
+                                  '] does NOT contain ' + cond },
+    };
+  }
+
+  /* One perturbed copy: row idx's upper end raised by 2^-exp — a bracket that quietly
+     WIDENED by one part in 2^exp. Containment cannot see a lie this small (the margins are
+     ~10^-3); the monotone check can, because consecutive certified widths are frequently
+     EQUAL, so any positive widening breaks "knowing more never widens". That asymmetry —
+     which check catches the small lie — is itself worth showing on the page. */
+  function perturbRow(rows, idx, exp) {
+    const out = rows.map(r => r.slice());
+    out[idx][2] = out[idx][2] + Math.pow(2, -exp);
+    return out;
+  }
+
+  return { checkLines, falsify, lawTable, bracketChecks, perturbRow,
+           isSquare, fact, compose, fdCoeffsOffByOne };
+}));
+
+});
+/* ==== END VERBATIM theorem-live.js ==== */
+/* ==== BEGIN VERBATIM kernel.js ==== */
+__def('kernel.js', function (module, exports, require, __dirname) {
+/* erdos290/kernel.js — certified enclosure of the constant c in van Doorn,
+ * "On the non-monotonicity of the denominator of generalized harmonic sums"
+ * (arXiv:2411.03073v2), Theorem 8 / Lemma 32, feeding Erdős problem #290
+ * (github.com/teorth/erdosproblems issue #164).
+ *
+ *   c = Σ_{d≥1} δ(f_d) / (d(d+1)),   f_d(x) = Σ_{i=0}^d Π_{j≠i} (x−j)
+ *
+ * Structure of the enclosure (every piece exact rational, no floats in the bound):
+ *   odd d:        δ(f_d) = 1 (paper Lemma 37, a proved identity: (2x−d) | f_d)
+ *                 → the odd part is exactly Σ 1/((2l−1)2l) = log 2, enclosed here by
+ *                   rational bounds from log 2 = 2 atanh(1/3) with a geometric tail bound,
+ *                   and ANCHORED against a direct partial sum of the series itself plus
+ *                   the hand-checkable telescoping identity O + T = Σ 1/(d(d+1)) = 1.
+ *   even d=2l, l ≤ 30, l ∉ {4,12,24}:
+ *                 δ(f_{2l}) = 1 − Σ_{i=0}^l (−1)^i/(2^i i!)   (paper Lemmas 38–40),
+ *                 CONDITIONAL on the paper's computational facts: f_d irreducible and
+ *                 Gal(f_d) ≅ S_l^+ (author: PARI + Magma). This file independently
+ *                 re-certifies the IRREDUCIBILITY half for even d ≤ 60 via Rabin's
+ *                 test over F_p (a mod-p irreducibility witness is a proof of
+ *                 irreducibility over Q). The Galois-group half is NOT re-certified
+ *                 here and stays attributed to the paper.
+ *   even d ∈ {8,24,48}:
+ *                 all three δ pinned EXACTLY — galois8.js (d=8, subgroup enumeration) and
+ *                 galois-exceptions.js (d=24,48, five-candidate squeeze). The literals are
+ *                 re-validated here against the index-2 closed form δ_hyp(l) − 1/(2^l l!)
+ *                 on every run, so a mistranscribed digit refuses instead of certifying.
+ *   tail l = 31…60:
+ *                 exact δ read from tail-deltas.json (tail-sweep.js), each entry re-derived
+ *                 from its declared group's closed form, and every ES0 entry gated by the
+ *                 theorem: an index-2 group at a degree where d+1 is not a perfect square
+ *                 contradicts theorem.js and REFUSES. A validation failure throws — it does
+ *                 not silently widen. Absent file = no claims (δ stays [0,1]).
+ *   tail l > 60:  δ ∈ [0, 1]; the weight Σ_{l>60} 1/(2l(2l+1)) is EXACT by telescoping
+ *                 (Σ_{l≥1} = 1 − log 2), not a partial sum plus remainder — the earlier
+ *                 5000-term partial gave away 7.5e-9 of the upper endpoint for nothing.
+ *
+ * OUTPUT: certified rational bounds c_lo < c < c_hi — printed BOTH as 12-digit outward
+ * decimals and as the exact fractions they round from — and the derived Theorem-8
+ * brackets 1/(1+c) and 1/(2c).
+ *
+ * Falsifiers at the bottom: each must go red under its planted mutation.
+ */
+'use strict';
+const path = require('path');
+/* rational.js is VENDORED into this directory on purpose: the page promises a stranger can
+   download these ten files and run them with no dependencies, and that promise was false
+   while this line climbed three levels into eqcert/. The vendored copy is byte-identical to
+   core/interval/rational.js and is checked as a declared fork by tools/check-duplication.js. */
+const Q = require(path.join(__dirname, 'rational.js'));
+
+const R = Q.R, add = Q.add, sub = Q.sub, mul = Q.mul, div = Q.div, cmp = Q.cmp;
+const ZERO = R(0n, 1n), ONE = R(1n, 1n);
+
+/* ---------- decimal printing: floor/ceil of a rational to k digits ---------- */
+function decimals(a, k, mode /* 'floor' | 'ceil' */) {
+  const neg = a.n < 0n; if (neg) a = Q.neg(a);
+  const scale = 10n ** BigInt(k);
+  let num = a.n * scale, q = num / a.d, r = num % a.d;
+  if (mode === 'ceil' && r !== 0n) q += 1n;
+  if (neg) q = -q; // (not used for our positive constants)
+  const s = q.toString().padStart(k + 1, '0');
+  return s.slice(0, -k) + '.' + s.slice(-k);
+}
+
+/* ---------- rational enclosure of log 2 = 2 atanh(1/3) ---------- */
+/* 2 atanh(1/3) = 2 Σ_{k≥0} (1/(2k+1)) 3^{-(2k+1)}; positive terms, tail after
+ * n terms bounded by first omitted term × Σ 9^{-j} = t_n × 9/8. */
+function log2Enclosure(nTerms) {
+  let s = ZERO;
+  for (let k = 0; k < nTerms; k++) {
+    const m = 2 * k + 1;
+    s = add(s, R(2n, BigInt(m) * 3n ** BigInt(m)));
+  }
+  const m = 2 * nTerms + 1;
+  const tail = mul(R(2n, BigInt(m) * 3n ** BigInt(m)), R(9n, 8n));
+  return { lo: s, hi: add(s, tail) };
+}
+
+/* ---------- δ(f_{2l}) under Gal ≅ S_l^+ : 1 − Σ_{i=0}^l (−1)^i/(2^i i!) ---------- */
+function deltaHyperoct(l) {
+  let s = ZERO, fact = 1n;
+  for (let i = 0; i <= l; i++) {
+    if (i > 0) fact *= BigInt(i);
+    const term = R(1n, (2n ** BigInt(i)) * fact);
+    s = (i % 2 === 0) ? add(s, term) : sub(s, term);
+  }
+  return sub(ONE, s);
+}
+/* index-2 (even-weight) group: δ = δ_hyp(l) − 1/(2^l l!) for even l */
+function deltaIndex2(l) {
+  let lf = 1n; for (let i = 2; i <= l; i++) lf *= BigInt(i);
+  return sub(deltaHyperoct(l), R(1n, (2n ** BigInt(l)) * lf));
+}
+
+/* The three exceptional densities, certified by galois8.js (l=4, enumeration) and
+ * galois-exceptions.js (l=12,24, structural elimination). ONE copy at module scope — these
+ * literals used to exist twice in this file and once more in narrowing.js, with nothing
+ * tying any copy to the programs that certify them: a 27% error planted in δ(f_24) ran to
+ * ALL PASS on 2026-08-03. main() now asserts each equals deltaIndex2(l) exactly, which is
+ * the closed form both certifying programs derive, so that mutation goes red. */
+const EXACT_DELTAS = [
+  [4, R(75n, 192n)],
+  [12, R(35090142217n, 89181388800n)],
+  [24, R(12719809044827249231493399463n, 32327319418426498303918080000n)],
+];
+
+/* ---------- f_d integer coefficients (ascending) ---------- */
+function fdCoeffs(d) {
+  /* P(x) = Π_{j=0}^d (x−j); f_d = Σ_i P/(x−i) via synthetic division. */
+  let P = [1n];
+  for (let j = 0; j <= d; j++) {
+    const nx = new Array(P.length + 1).fill(0n);
+    for (let k = 0; k < P.length; k++) { nx[k + 1] += P[k]; nx[k] -= BigInt(j) * P[k]; }
+    P = nx;
+  }
+  const f = new Array(d + 1).fill(0n);
+  for (let i = 0; i <= d; i++) {
+    /* synthetic division of P by (x − i), quotient degree d */
+    const q = new Array(d + 1).fill(0n);
+    let carry = 0n;
+    for (let k = d + 1; k >= 1; k--) { carry = P[k] + BigInt(i) * carry; q[k - 1] = carry; }
+    for (let k = 0; k <= d; k++) f[k] += q[k];
+  }
+  return f;
+}
+
+/* ---------- polynomial arithmetic over F_p (BigInt, dense, ascending) ---------- */
+function pmod(a, p) { const r = a % p; return r < 0n ? r + p : r; }
+function polyMulMod(a, b, f, p) {
+  const n = f.length - 1, out = new Array(a.length + b.length - 1).fill(0n);
+  for (let i = 0; i < a.length; i++) { if (a[i] === 0n) continue;
+    for (let j = 0; j < b.length; j++) out[i + j] = (out[i + j] + a[i] * b[j]) % p; }
+  /* reduce mod f (monic-normalize f first outside) */
+  for (let k = out.length - 1; k >= n; k--) { const c = out[k]; if (c === 0n) continue;
+    for (let j = 0; j <= n; j++) out[k - n + j] = pmod(out[k - n + j] - c * f[j], p);
+    out[k] = 0n; }
+  if (out.length > n) out.length = n;
+  while (out.length < n) out.push(0n);          /* pad — a truncate-only here left undefined holes */
+  while (out.length > 1 && out[out.length - 1] === 0n) out.pop();
+  return out;
+}
+function powXMod(e, f, p) { /* x^e mod (f, p) */
+  let base = [0n, 1n], acc = [1n];
+  while (e > 0n) { if (e & 1n) acc = polyMulMod(acc, base, f, p);
+    base = polyMulMod(base, base, f, p); e >>= 1n; }
+  return acc;
+}
+function polyGcdMod(a, b, p) {
+  const inv = (x) => { /* Fermat */ let r = 1n, e = p - 2n, base = pmod(x, p);
+    while (e > 0n) { if (e & 1n) r = r * base % p; base = base * base % p; e >>= 1n; } return r; };
+  a = a.slice(); b = b.slice();
+  const deg = (u) => { let d = u.length - 1; while (d > 0 && u[d] === 0n) d--; return u[d] === 0n && d === 0 ? -1 : d; };
+  while (deg(b) >= 0) {
+    let da = deg(a), db = deg(b);
+    if (da < db) { const t = a; a = b; b = t; da = deg(a); db = deg(b); continue; }
+    const lc = inv(b[db]);
+    while (da >= db) {
+      const c = a[da] * lc % p;
+      for (let j = 0; j <= db; j++) a[da - db + j] = pmod(a[da - db + j] - c * b[j], p);
+      while (da > 0 && a[da] === 0n) da--;
+      if (a[da] === 0n && da === 0) { da = -1; break; }
+    }
+    const t = a; a = b; b = t;
+  }
+  return a;
+}
+const primeFactors = (n) => { const out = []; for (let q = 2; q * q <= n; q++) { if (n % q === 0) { out.push(q); while (n % q === 0) n /= q; } } if (n > 1) out.push(n); return out; };
+
+/* Rabin: f (degree n, monic over F_p) irreducible over F_p iff x^{p^n} ≡ x mod f
+ * and gcd(x^{p^{n/q}} − x, f) = 1 for every prime q | n. Irreducible mod p (with
+ * p ∤ lc·disc handled implicitly: any p where the test PASSES is a valid witness,
+ * since the test itself works in F_p[x]/(f) with f monic-normalized). */
+function irreducibleModP(coeffs, p) {
+  const n = coeffs.length - 1;
+  const lcInv = (() => { let r = 1n, e = p - 2n, b = pmod(coeffs[n], p);
+    if (b === 0n) return null;
+    while (e > 0n) { if (e & 1n) r = r * b % p; b = b * b % p; e >>= 1n; } return r; })();
+  if (lcInv === null) return false;
+  const f = coeffs.map(c => pmod(c, p) * lcInv % p);
+  const xpn = powXMod(p ** BigInt(n), f, p);
+  const xMinus = xpn.slice(); xMinus[1] = pmod((xMinus[1] ?? 0n) - 1n, p);
+  if (xMinus.some(c => c !== 0n)) return false;
+  for (const q of primeFactors(n)) {
+    const e = p ** BigInt(n / q);
+    const g = powXMod(e, f, p).slice(); g[1] = pmod((g[1] ?? 0n) - 1n, p);
+    const gc = polyGcdMod(g.length ? g : [0n], f, p);
+    const dg = (() => { let d = gc.length - 1; while (d > 0 && gc[d] === 0n) d--; return d; })();
+    if (dg > 0) return false;
+  }
+  return true;
+}
+const PRIMES = (() => { const ps = []; for (let n = 2; ps.length < 400; n++) { let ok = true;
+  for (const q of ps) { if (q * q > n) break; if (n % q === 0) { ok = false; break; } } if (ok) ps.push(n); } return ps; })();
+function irreducibilityWitness(d) {
+  const coeffs = fdCoeffs(d);
+  for (const p of PRIMES) if (irreducibleModP(coeffs, BigInt(p))) return p;
+  return null;
+}
+
+/* ---------- assemble the enclosure ---------- */
+function enclosure(opts) {
+  const o = Object.assign({ logTerms: 40, mutateDelta: false, mutateTailIdentity: false }, opts);
+  const L = log2Enclosure(o.logTerms);
+
+  const EXC = new Set([4, 12, 24]);            /* paper: Gal ≇ S_l^+ at d = 8, 24, 48 */
+  let evenVerified = ZERO;
+  for (let l = 1; l <= 30; l++) {
+    if (EXC.has(l)) continue;
+    let dl = deltaHyperoct(l);
+    if (o.mutateDelta) dl = sub(ONE, dl);       /* planted mutation for the falsifier */
+    evenVerified = add(evenVerified, div(dl, R(BigInt(2 * l) * BigInt(2 * l + 1), 1n)));
+  }
+
+  /* ALL THREE exceptions are pinned exactly (galois8.js for d=8 by subgroup enumeration;
+   * galois-exceptions.js for d=24, 48 by the five-candidate squeeze — disc(f) a perfect
+   * square ⇒ G ⊆ A_{2l} + kernel/Jordan certificates ⇒ the index-2 group ES0). The module-
+   * level EXACT_DELTAS literals are asserted against deltaIndex2(l) in main(). */
+  let excSum = ZERO;
+  for (const [l, d0] of EXACT_DELTAS) {
+    const dl = o.mutateDelta ? sub(ONE, d0) : d0;
+    excSum = add(excSum, div(dl, R(BigInt(2 * l) * BigInt(2 * l + 1), 1n)));
+  }
+  const excLo = excSum, excHi = excSum;
+
+  /* tail l ≥ 31: δ ∈ [0, 1] EXCEPT where tail-sweep.js certified an exact value
+   * (tail-deltas.json, produced by the five-candidate squeeze; absent file = no claims).
+   * ONLY a missing file is tolerated: a file that exists but fails validation THROWS.
+   * The previous bare catch swallowed validation failures too, so a tampered entry
+   * silently widened the interval while the header promised it would be refused. */
+  let tailCert = new Map();
+  let tdRaw = null;
+  try { tdRaw = require('fs').readFileSync(require('path').join(__dirname, 'tail-deltas.json'), 'utf8'); }
+  catch (e) { if (e.code !== 'ENOENT') throw e; /* absent file: every tail δ stays [0,1] */ }
+  if (tdRaw !== null) {
+    const td = JSON.parse(tdRaw);           /* corrupt JSON throws — refusal, not widening */
+    /* VALIDATE, never trust: the dominant improvement in the headline enclosure comes from
+       this file, so each stored δ is re-checked against the closed form its own `name` claims
+       — δ_hyp(l) for the full hyperoctahedral group B, δ_hyp(l) − 1/(2^l l!) for the index-2
+       group ES0. A hand-edited or stale entry is refused rather than silently certified.
+       And the THEOREM gates the names: ES0 ⊆ A_{2l} needs disc(f_d) square, which needs
+       d+1 = 2l+1 a perfect square (theorem.js) — an ES0 entry anywhere else is refused. */
+    for (const [ls, v] of Object.entries(td.deltas)) {
+      const l = Number(ls), got = R(BigInt(v.n), BigInt(v.d));
+      if (v.name !== 'B' && v.name !== 'ES0')
+        throw new Error('tail-deltas.json: unknown group name ' + v.name + ' at l=' + l);
+      if (v.name === 'ES0') {
+        const s = 2 * l + 1, r = Math.round(Math.sqrt(s));
+        if (r * r !== s)
+          throw new Error('tail-deltas.json: ES0 declared at l=' + l + ' but d+1=' + s +
+            ' is not a perfect square — contradicts the 4k(k+1) theorem');
+      }
+      const want = v.name === 'ES0' ? deltaIndex2(l) : deltaHyperoct(l);
+      if (cmp(got, want) !== 0)
+        throw new Error('tail-deltas.json: δ at l=' + l + ' does not match its declared group ' + v.name);
+      tailCert.set(l, got);
+    }
+  }
+  let tailLo = ZERO, tailHi = ZERO;
+  for (let l = 31; l <= 60; l++) {
+    const w = R(1n, BigInt(2 * l) * BigInt(2 * l + 1));
+    if (tailCert.has(l)) { const dl = tailCert.get(l);
+      tailLo = add(tailLo, mul(dl, w)); tailHi = add(tailHi, mul(dl, w)); }
+    else tailHi = add(tailHi, w);
+  }
+  /* beyond the sweep, l > 60: δ ∈ [0, 1], and the weight is EXACT by telescoping:
+   *   Σ_{l≥1} 1/(2l(2l+1)) = Σ_{l≥1} (1/(2l) − 1/(2l+1)) = 1 − log 2,
+   * so Σ_{l>60} = (1 − log 2) − Σ_{l=1..60}, outward-rounded through the log 2 enclosure.
+   * Until 2026-08-03 this was a 5000-term partial sum plus the remainder bound 1/(4N) —
+   * valid, but 7.5e-9 looser than the identity, and the prose claim "the remaining width
+   * is entirely the tail" was off by exactly that slack. Now it is the tail, exactly.
+   * (The superseded remainder ALSO had a caught defect worth keeping on record: the first
+   * draft bounded it by 1/(4(N+1)), which UNDER-bounds since 4l(l+1) > 2l(2l+1); falsifier
+   * X2 caught it before anything shipped. X2 now plants the historical tail-identity bug —
+   * log 2 where 1 − log 2 belongs — which this closed form makes plantable.) */
+  let partial60 = ZERO;
+  for (let l = 1; l <= 60; l++) partial60 = add(partial60, R(1n, BigInt(2 * l) * BigInt(2 * l + 1)));
+  const beyondHi = o.mutateTailIdentity
+    ? sub(L.hi, partial60)                 /* planted bug: the retracted identity's direction */
+    : sub(sub(ONE, L.lo), partial60);      /* (1 − log2_lo) − partial: a certified UPPER bound */
+  tailHi = add(tailHi, beyondHi);
+
+  const cLo = add(add(add(L.lo, evenVerified), excLo), tailLo);
+  const cHi = add(add(add(L.hi, evenVerified), excHi), tailHi);
+
+  /* Theorem-8 brackets: liminf ∈ [1/(1+c), 1/(2c)] ⇒ certified outer bracket */
+  const liminfLo = div(ONE, add(ONE, cHi));     /* lower bound needs c_hi */
+  const liminfHi = div(ONE, mul(R(2n, 1n), cLo)); /* upper bound needs c_lo */
+
+  return { L, evenVerified, excLo, excHi, tailLo, tailHi, cLo, cHi, liminfLo, liminfHi };
+}
+
+/* ---------- conditional high-precision value c* ----------
+ * ASSUMPTION (labeled, not asserted): for every even d = 2l ≥ 62, Gal(f_d) is either
+ * S_l^+ or its index-2 subgroup ES0 — i.e. δ_l ∈ [δ_hyp(l) − 1/(2^l l!), δ_hyp(l)].
+ * This holds at EVERY degree where the group is certified (all even d ≤ 60: hyperoctahedral
+ * off the exceptional set by the paper's Magma runs, ES0 at d = 8, 24, 48 by our kernels).
+ * Under it, c* is enclosed to ~30 digits:
+ *   c* = Σ_{l≤N} exact  +  Σ_{l>N} δ_l/(2l(2l+1)),
+ *   Σ_{l>N} 1/(2l(2l+1)) = Σ_{m=1}^{2N+1} (−1)^{m+1}/m − log 2   (exact + log2 enclosure),
+ *   δ_l ∈ [δ_∞ − dev − allow, δ_∞ + dev],  δ_∞ = 1 − e^{−1/2} (alternating series brackets),
+ *   dev = 1/(2^{N+2}(N+2)!) (δ_hyp deviation) and allow = 1/(2^{N+1}(N+1)!) (index-2
+ *   allowance) — both evaluated at l = N+1, where they are largest; both ~1e-241 at N=120. */
+function conditionalCStar(N, logTerms) {
+  const L = log2Enclosure(logTerms);
+  /* finite part: odd contributions are inside log2; here sum the EVEN l ≤ N exactly.
+     The exceptional densities come from the single module-level EXACT_DELTAS — this
+     function carried its own copy of the three literals until 2026-08-03, which is one
+     more place a transcription slip could hide. One constant, one home. */
+  const excMap = new Map(EXACT_DELTAS);
+  let finLo = ZERO, finHi = ZERO;
+  for (let l = 1; l <= N; l++) {
+    let s = ZERO, fc = 1n;
+    for (let i = 0; i <= l; i++) { if (i > 0) fc *= BigInt(i);
+      const t = R(1n, (2n ** BigInt(i)) * fc);
+      s = (i % 2 === 0) ? add(s, t) : sub(s, t); }
+    const hyp = sub(ONE, s);
+    let lf = 1n; for (let i = 2; i <= l; i++) lf *= BigInt(i);
+    const allowance = R(1n, (2n ** BigInt(l)) * lf);
+    const w = R(1n, BigInt(2 * l) * BigInt(2 * l + 1));
+    let dLo, dHi;
+    if (excMap.has(l)) { dLo = dHi = excMap.get(l); }
+    else if (2 * l <= 60) { dLo = dHi = hyp; }               /* paper-certified hyperoctahedral */
+    else { dLo = sub(hyp, allowance); dHi = hyp; }           /* the labeled assumption */
+    finLo = add(finLo, mul(dLo, w)); finHi = add(finHi, mul(dHi, w));
+  }
+  /* Tail weight T = Σ_{l>N} 1/(2l(2l+1)). Since 1/(2l(2l+1)) = 1/(2l) − 1/(2l+1), the tail is
+     the alternating harmonic remainder STARTING AT THE EVEN TERM 1/(2N+2):
+       T = 1/(2N+2) − 1/(2N+3) + …  =  Σ_{m=1}^{2N+1} (−1)^{m+1}/m  −  log 2.
+     This read `log2 − Σ_{m=1}^{2N}` until 2026-08-03, which is a different quantity —
+     1/(2N+1) − T, the remainder starting at the ODD term. It was wrong by 8.6e−6 at N = 120
+     and, being N-dependent, made the "30-digit" value drift with the cutoff: N = 120 and
+     N = 200 returned disjoint enclosures of the same constant. It survived because the only
+     check on c* was that it lies inside [0.82911, 0.83323], which both values do. A check
+     that cannot go red is not a check; the cutoff-agreement assertion below is the real one.
+     Sanity anchor, checkable by hand: at N = 0 the identity must give 1 − log 2, not log 2. */
+  let alt = ZERO;
+  for (let m = 1; m <= 2 * N + 1; m++) { const t = R(1n, BigInt(m));
+    alt = (m % 2 === 1) ? add(alt, t) : sub(alt, t); }
+  const TLo = sub(alt, L.hi), THi = sub(alt, L.lo);
+  /* δ_∞ = 1 − e^{−1/2}; alternating series partial sums bracket e^{−1/2} */
+  let fc2 = 1n, lastTerm = ONE, s2 = ZERO;
+  for (let i = 0; i <= 60; i++) { if (i > 0) fc2 *= BigInt(i);
+    const t = R(1n, (2n ** BigInt(i)) * fc2);
+    s2 = (i % 2 === 0) ? add(s2, t) : sub(s2, t); lastTerm = t; }
+  const eLo = sub(s2, lastTerm), eHi = add(s2, lastTerm);
+  const dInfLo = sub(ONE, eHi), dInfHi = sub(ONE, eLo);
+  /* δ_l enclosure for l > N. Two distinct error terms, and they are NOT interchangeable:
+     the ASSUMPTION allows δ_l as low as δ_hyp(l) − 1/(2^l l!) (index-2 allowance, largest
+     at l = N+1), and δ_hyp(l) itself sits within 1/(2^{l+1}(l+1)!) of δ_∞ (alternating
+     series, next term). The lower bound needs BOTH subtracted; the upper needs only the
+     deviation added. The header used to name both while the code applied one — a 1e-241
+     nothing at N = 120, but a stated bound and an implemented bound must be the same bound. */
+  let nf = 1n; for (let i = 2; i <= N + 1; i++) nf *= BigInt(i);
+  const aN1 = R(1n, (2n ** BigInt(N + 1)) * nf);                     /* index-2 allowance at l = N+1 */
+  const devN1 = R(1n, (2n ** BigInt(N + 2)) * nf * BigInt(N + 2));   /* δ_hyp deviation at l = N+1 */
+  const tailLo = mul(sub(dInfLo, add(aN1, devN1)), TLo), tailHi = mul(add(dInfHi, devN1), THi);
+  /* tailWeight is exposed so the identity can be anchored on its own, independently of the
+     δ enclosure it later gets multiplied by — see the T(0) = 1 − log 2 check in main(). */
+  return { lo: add(add(L.lo, finLo), tailLo), hi: add(add(L.hi, finHi), tailHi),
+           tailWeight: { lo: TLo, hi: THi } };
+}
+
+/* ---------- main ---------- */
+function main() {
+  const t0 = Date.now();
+  let fails = 0;
+  const check = (name, ok) => { console.log((ok ? '  ok   ' : '  FAIL ') + name); if (!ok) fails++; };
+
+  const E = enclosure({});
+
+  /* Section 1 — the certified enclosure. Every component is captured as its PRINTED STRING
+     first, and the same string is printed and later parsed back for the column-sum check —
+     because the printed column is what a sceptical reader adds up. (Once, the tail lower
+     bound was hardcoded to 0 in the print while the internal identity held: the column
+     visibly failed to sum, ~1.58e-3, and no internal check could see it. The check below
+     operates on these strings, so re-planting that defect goes red.) */
+  const P = {
+    logLo: decimals(E.L.lo, 15, 'floor'), logHi: decimals(E.L.hi, 15, 'ceil'),
+    even: decimals(E.evenVerified, 15, 'floor'),
+    excLo: decimals(E.excLo, 15, 'floor'), excHi: decimals(E.excHi, 15, 'ceil'),
+    tailLo: decimals(E.tailLo, 15, 'floor'), tailHi: decimals(E.tailHi, 15, 'ceil'),
+    cLo: decimals(E.cLo, 12, 'floor'), cHi: decimals(E.cHi, 12, 'ceil'),
+  };
+  console.log('erdos290 kernel — certified enclosure of c (arXiv:2411.03073 Lemma 32)');
+  console.log('  log 2       ∈ [' + P.logLo + ', ' + P.logHi + ']');
+  console.log('  even l≤30   =  ' + P.even + '  (exact rational, conditional on paper Galois facts)');
+  console.log('  exceptions  ∈ [' + P.excLo + ', ' + P.excHi + ']  (d = 8, 24, 48)');
+  console.log('  tail l≥31   ∈ [' + P.tailLo + ', ' + P.tailHi + ']');
+  console.log('  c           ∈ [' + P.cLo + ', ' + P.cHi + ']');
+  /* the exact fractions the decimals round from, so a reader can re-derive every derived
+     bracket without guessing the hidden digits (the 12-digit floor of c_lo does NOT
+     reproduce the ceil of 1/(2c) — the exact endpoint does) */
+  console.log('  c_lo exact  =  ' + Q.toString(E.cLo));
+  console.log('  c_hi exact  =  ' + Q.toString(E.cHi));
+  console.log('  liminf bracket (Thm 8):  [' + decimals(E.liminfLo, 12, 'floor') + ', ' + decimals(E.liminfHi, 12, 'ceil') + ']');
+
+  /* Section 1b — conditional high-precision c* (labeled assumption, see function header) */
+  const CS = conditionalCStar(120, 80);
+  console.log('  c* CONDITIONAL ∈ [' + decimals(CS.lo, 34, 'floor') + ',');
+  console.log('                    ' + decimals(CS.hi, 34, 'ceil') + ']');
+  /* Every decimal that appears in a post is PRINTED HERE, floor/ceil explicit, so it is
+     transcribed from output rather than recomputed by hand. The upper endpoint of 1/(1+c)
+     was hand-rounded INWARD (…448 for …4480174…) in an earlier draft, which quietly
+     contradicted the same paragraph's claim that no floating point enters any inequality. */
+  console.log('  --- derived, for transcription ---');
+  console.log('  1/(1+c)  ∈ [' + decimals(div(ONE, add(ONE, E.cHi)), 12, 'floor') + ', '
+                                + decimals(div(ONE, add(ONE, E.cLo)), 12, 'ceil') + ']');
+  console.log('  1/(2c)   ∈ [' + decimals(div(ONE, mul(R(2n, 1n), E.cHi)), 12, 'floor') + ', '
+                                + decimals(div(ONE, mul(R(2n, 1n), E.cLo)), 12, 'ceil') + ']');
+  console.log('  1/(1+c*) ∈ [' + decimals(div(ONE, add(ONE, CS.hi)), 33, 'floor') + ',');
+  console.log('              ' + decimals(div(ONE, add(ONE, CS.lo)), 33, 'ceil') + ']  CONDITIONAL');
+  /* THE COLUMN CHECK, on the printed strings. Its predecessor compared the internal
+     rationals to themselves re-associated — exact addition is associative, so it could not
+     go red on ANY input, including the printed-ZERO regression it cited as its reason to
+     exist. Parsing the strings back closes that: the floor/ceil components each sit within
+     1e-15 of their rational, the 12-digit c endpoints within 1e-12, so the parsed column
+     must agree with the parsed c to 2e-12 — and a suppressed component misses by ~1.6e-3. */
+  const parseDec = (s) => { const [ip, fp] = s.split('.'); return R(BigInt(ip + fp), 10n ** BigInt(fp.length)); };
+  const ulp12 = R(2n, 10n ** 12n);
+  const colLo = add(add(parseDec(P.logLo), parseDec(P.even)), add(parseDec(P.excLo), parseDec(P.tailLo)));
+  const colHi = add(add(parseDec(P.logHi), parseDec(P.even)), add(parseDec(P.excHi), parseDec(P.tailHi)));
+  check('the PRINTED column sums to the PRINTED c at display precision (strings parsed back)',
+    cmp(Q.abs(sub(colLo, parseDec(P.cLo))), ulp12) < 0 &&
+    cmp(Q.abs(sub(colHi, parseDec(P.cHi))), ulp12) < 0);
+  /* the three exceptional literals vs the closed form both certifying programs derive —
+     a single mistranscribed digit in EXACT_DELTAS ran to ALL PASS before this line */
+  check('EXACT_DELTAS equal the index-2 closed form δ_hyp(l) − 1/(2^l l!) at l = 4, 12, 24',
+    EXACT_DELTAS.every(([l, v]) => cmp(v, deltaIndex2(l)) === 0));
+  check('conditional c* lies inside the unconditional certified bracket',
+    cmp(E.cLo, CS.lo) <= 0 && cmp(CS.hi, E.cHi) <= 0);
+  /* THE CHECK WITH TEETH. The bracket assertion above passes for the right value and for the
+     wrong one alike — 0.8307 sits well inside [0.82911, 0.83323] either way — which is why a
+     tail identity that was wrong by 8.6e-6 shipped under a green certificate. c* does not
+     depend on the cutoff N, so two different cutoffs must produce INTERSECTING enclosures.
+     The pre-2026-08-03 code returns disjoint intervals here and this check goes red. */
+  const CS2 = conditionalCStar(200, 80);
+  check('c* is cutoff-independent: N = 120 and N = 200 enclosures intersect',
+    cmp(CS.lo, CS2.hi) <= 0 && cmp(CS2.lo, CS.hi) <= 0);
+  /* and the hand-checkable anchor for the identity itself. At N = 0 the tail weight is the
+     WHOLE sum Σ_{l≥1} 1/(2l(2l+1)), which telescopes (1/(2l) − 1/(2l+1)) to 1 − log 2 =
+     0.30685…, NOT log 2 = 0.69315…. The bound is hardcoded on purpose: comparing against the
+     kernel's own log2 enclosure would test the two against each other rather than against the
+     mathematics, and the old code would have passed such a test. This is the cheapest check
+     in the file and it alone rejects the pre-2026-08-03 identity. */
+  const T0 = conditionalCStar(0, 80).tailWeight;
+  check('tail identity anchor: T(0) = Σ_{l≥1} 1/(2l(2l+1)) ∈ [0.30685, 0.30686] (= 1 − log 2)',
+    cmp(T0.lo, R(30685n, 100000n)) > 0 && cmp(T0.hi, R(30686n, 100000n)) < 0);
+
+  /* Sensitivity of the conditional value, by INTERVAL CONTAINMENT — never by log10 of the
+     move. If the tail assumption first fails at even d0, δ_{d0} ∈ [0,1] instead of the
+     assumed sliver near δ_hyp ≈ δ∞: c falls by at most δ∞·w or rises by at most (1−δ∞)·w,
+     w = 1/(d0(d0+1)), and the surviving digits of 1/(1+c*) are the longest common decimal
+     prefix of the PERTURBED ENCLOSURE. A prose draft derived these counts from the move's
+     magnitude alone and published seven digits at d0 = 1000; the true count is six — the
+     value sits 1.04e-8 above the 0.5462293 boundary, closer than the move. Decimal
+     boundaries do not care about magnitudes, so the counts are computed and asserted here
+     and the prose transcribes them. */
+  let fcS = 1n, ltS = ONE, sS = ZERO;                      /* δ∞ = 1 − e^{−1/2}, bracketed */
+  for (let i = 0; i <= 40; i++) { if (i > 0) fcS *= BigInt(i);
+    const t = R(1n, (2n ** BigInt(i)) * fcS); sS = (i % 2 === 0) ? add(sS, t) : sub(sS, t); ltS = t; }
+  const dInfS = { lo: sub(ONE, add(sS, ltS)), hi: sub(ONE, sub(sS, ltS)) };
+  const prefixDigits = (lo, hi) => { let k = 0;
+    while (k < 33) { const sc = 10n ** BigInt(k + 1);
+      if ((lo.n * sc) / lo.d !== (hi.n * sc) / hi.d) break; k++; } return k; };
+  const surviving = (d0) => {
+    const w = R(1n, BigInt(d0) * BigInt(d0 + 1));
+    const cLo2 = sub(CS.lo, mul(dInfS.hi, w));            /* δ_{d0} drops all the way to 0 */
+    const cHi2 = add(CS.hi, mul(sub(ONE, dInfS.lo), w));  /* δ_{d0} rises all the way to 1 */
+    return prefixDigits(div(ONE, add(ONE, cHi2)), div(ONE, add(ONE, cLo2)));
+  };
+  const s122 = surviving(122), s500 = surviving(500), s1000 = surviving(1000);
+  console.log('  sensitivity: digits of 1/(1+c*) surviving a first assumption failure at d0 = 122/500/1000 → '
+    + s122 + '/' + s500 + '/' + s1000);
+  check('sensitivity prefixes as published: 4 at d0 = 122, 5 at d0 = 500, 6 at d0 = 1000',
+    s122 === 4 && s500 === 5 && s1000 === 6);
+
+  /* The odd half of c — Σ_{d odd} 1/(d(d+1)) = log 2, ~83% of the constant — anchored on
+     its OWN series, independently of the atanh machinery that encloses it. This was the
+     one large component with no program behind it: every text asserts the identity, the
+     kernel silently substitutes 2·atanh(1/3), and nothing tied the two together — the
+     exact species of gap the retracted tail identity exploited on the even side.
+       O(N) = Σ_{l≤N} 1/((2l−1)2l), remainder < Σ_{m≥2N+1} 1/(m(m+1)) = 1/(2N+1);
+       T(N) = Σ_{l≤N} 1/(2l(2l+1)), remainder < 1/(4N);
+       O + T = Σ_{d≥1} 1/(d(d+1)) = 1 EXACTLY — both telescope; checkable by hand. */
+  const NODD = 2000;
+  let Oser = ZERO, Tser = ZERO;
+  for (let l = 1; l <= NODD; l++) {
+    Oser = add(Oser, R(1n, BigInt(2 * l - 1) * BigInt(2 * l)));
+    Tser = add(Tser, R(1n, BigInt(2 * l) * BigInt(2 * l + 1)));
+  }
+  const OserHi = add(Oser, R(1n, BigInt(2 * NODD + 1)));
+  const TserHi = add(Tser, R(1n, 4n * BigInt(NODD)));
+  check('odd-part anchor: the atanh log 2 enclosure sits inside the direct series bracket [O(2000), O(2000)+1/4001]',
+    cmp(Oser, E.L.lo) <= 0 && cmp(E.L.hi, OserHi) <= 0);
+  check('hand-checkable anchor: O + T encloses exactly 1 (Σ_{d≥1} 1/(d(d+1)) telescopes to 1)',
+    cmp(add(Oser, Tser), ONE) < 0 && cmp(add(OserHi, TserHi), ONE) > 0);
+
+  /* Section 2 — consistency with the paper's stated figures */
+  check('paper Lemma 32: c > 0.82', cmp(E.cLo, R(82n, 100n)) > 0);
+  check('paper Lemma 32: c < 0.85', cmp(E.cHi, R(85n, 100n)) < 0);
+  check('paper: second sum ≈ 0.1281 (|Σ_even − 0.1281| < 2e-3)',
+    cmp(Q.abs(sub(E.evenVerified, R(1281n, 10000n))), R(2n, 1000n)) < 0);
+  check('paper Thm 8: bracket inside (0.54, 0.61)',
+    cmp(E.liminfLo, R(54n, 100n)) > 0 && cmp(E.liminfHi, R(61n, 100n)) < 0);
+  check('enclosure sane: c_lo < c_hi', cmp(E.cLo, E.cHi) < 0);
+
+  /* Section 3 — independent irreducibility certificates, even d ≤ 60.
+   * A single prime p with f_d irreducible mod p proves irreducibility over Q. */
+  const noWitness = [];
+  const witnesses = [];
+  for (let d = 2; d <= 60; d += 2) {
+    const p = irreducibilityWitness(d);
+    witnesses.push(d + ':' + (p === null ? 'NONE' : p));
+    if (p === null) noWitness.push(d);
+  }
+  console.log('  irreducibility witnesses (d:p) — ' + witnesses.join(' '));
+  /* A mod-p witness exists only if Gal(f_d) contains a 2l-cycle. S_l^+ has one, the
+   * paper's exceptional groups at d = 8, 24, 48 evidently do not — so the witness
+   * search failing at EXACTLY {8,24,48} independently corroborates the paper's
+   * exceptional set from a different computation (400 primes, Rabin over F_p),
+   * while certifying irreducibility over Q for every other even d ≤ 60. */
+  check('mod-p witness certifies irreducibility for even d ≤ 60 outside {8,24,48}, and the witnessless set is EXACTLY {8,24,48}',
+    JSON.stringify(noWitness) === JSON.stringify([8, 24, 48]));
+
+  /* Section 4 — falsifiers. Each planted mutation must make a check go red. */
+  const M = enclosure({ mutateDelta: true });
+  check('FALSIFIER X1 (δ ↦ 1−δ): paper-consistency must break',
+    !(cmp(M.cLo, R(82n, 100n)) > 0 && cmp(M.cHi, R(85n, 100n)) < 0));
+  /* X2 plants the RETRACTED tail identity — log 2 where 1 − log 2 belongs, the exact error
+     that put a wrong constant on a live page — into the unconditional tail weight. Its
+     previous form ("lazy partial must widen") tested the remainder bound the telescoping
+     closed form retired. */
+  const T = enclosure({ mutateTailIdentity: true });
+  check('FALSIFIER X2 (tail telescoped to log 2 instead of 1 − log 2 — the identity that shipped wrong once): paper-consistency must break',
+    !(cmp(T.cLo, R(82n, 100n)) > 0 && cmp(T.cHi, R(85n, 100n)) < 0));
+  /* X3 exercises the machinery it names. Its previous form built a perturbed polynomial
+     and never passed it to anything — patching irreducibleModP to `return true` left it
+     green. Now the test must REJECT a reducible polynomial (x·f_6) at the very prime that
+     certifies f_6, and must still accept f_6 there. */
+  const p6 = irreducibilityWitness(6);
+  check('FALSIFIER X3 (Rabin/DDF has teeth): x·f_6 is REJECTED at f_6\'s own witness prime, f_6 is accepted',
+    p6 !== null &&
+    irreducibleModP([0n].concat(fdCoeffs(6)), BigInt(p6)) === false &&
+    irreducibleModP(fdCoeffs(6), BigInt(p6)) === true);
+
+  console.log((Date.now() - t0) + ' ms · ' + (fails === 0
+    ? 'ALL PASS — c and the Theorem-8 bracket are certified as printed; even-part conditional on the paper\'s Galois facts, irreducibility independently certified for even d ≤ 60.'
+    : fails + ' CHECK(S) FAILED — nothing above may be quoted.'));
+  process.exit(fails === 0 ? 0 : 1);
+}
+
+/* Exported so narrowing.js derives its conditional constant from THIS code path instead of
+   hand-maintaining a third copy of the number, and so a referee can require() the pieces.
+   The require.main guard keeps the import from running the full battery. */
+module.exports = { enclosure, conditionalCStar, deltaHyperoct, deltaIndex2, EXACT_DELTAS, decimals };
+if (require.main === module) main();
+
+});
+/* ==== END VERBATIM kernel.js ==== */
+/*@@ERDOS_KERNELS_END@@*/
+</script>
+<script>
+'use strict';
+(function () {
+  var T = __ERDOS_MODULES && __ERDOS_MODULES['theorem-live.js'];
+  if (!T) return;
+  var $make = function (tag, cls, text) {
+    var el = document.createElement(tag);
+    if (cls) el.className = cls;
+    if (text) el.textContent = text;
+    return el;
+  };
+  var h2s = Array.prototype.slice.call(document.querySelectorAll('h2'));
+  var findH2 = function (prefix) {
+    for (var i = 0; i < h2s.length; i++) if (h2s[i].textContent.indexOf(prefix) === 0) return h2s[i];
+    return null;
+  };
+
+  /* ── the page's own committed figure literals, re-read from its script text — ONE copy ── */
+  var D = null, COND = null;
+  Array.prototype.slice.call(document.querySelectorAll('script')).some(function (s) {
+    var t = s.textContent || '';
+    var mD = t.match(/var D = (\[\[[\s\S]*?\]\]);/), mC = t.match(/var COND = ([0-9.]+)/);
+    if (mD && mC) { D = new Function('return ' + mD[1])(); COND = Number(mC[1]); return true; }
+    return false;
+  });
+
+  /* ── 1 · the five proof lines, live, with the falsifiers as buttons ── */
+  var thmH2 = findH2('It is not a pattern');
+  if (thmH2) {
+    var anchor = thmH2; /* insert after the identity line (p.mono) that follows this h2 */
+    for (var n = thmH2.nextElementSibling; n; n = n.nextElementSibling) {
+      if (n.tagName === 'H2') break;
+      if (n.classList && n.classList.contains('mono')) { anchor = n; break; }
+    }
+    var panel = $make('div', 'tlpanel');
+    var head = $make('div', 'tlhead');
+    head.appendChild(document.createTextNode('Check every line at degree d = '));
+    var degOut = $make('span', 'tldeg', '24'); head.appendChild(degOut);
+    panel.appendChild(head);
+    var slider = document.createElement('input');
+    slider.type = 'range'; slider.min = '2'; slider.max = '40'; slider.step = '2';
+    slider.value = '24'; slider.className = 'tlrange';
+    slider.setAttribute('aria-label', 'even degree d for the live proof check');
+    panel.appendChild(slider);
+    var lines = $make('div');
+    panel.appendChild(lines);
+    var row = $make('div', 'tlrow');
+    var verdict = $make('div', 'tlverdict',
+      'Every line recomputed as an exact BigInt identity in your browser — the same arithmetic ' +
+      'theorem.js runs, spliced verbatim. Mutations below MUST go red; that is what a falsifier is.');
+    [['F1', 'disc h ↦ disc h + 1'], ['F2', '(d+1) ↦ (d+2)'], ['F3', 'index f_d from 1 (at d = 8)']]
+      .forEach(function (f) {
+        var b = $make('button', 'tlbtn mut', 'break it: ' + f[1]);
+        b.addEventListener('click', function () {
+          var r = T.falsify(Number(slider.value), f[0]);
+          verdict.className = 'tlverdict ' + (r.broken ? 'bad' : 'ok');
+          verdict.textContent = r.broken
+            ? f[0] + ' pressed — the identity BREAKS at ' + r.diedAt + '. ' + r.explain +
+              '. The page is red because the mathematics noticed, not because a style changed.'
+            : f[0] + ' DID NOT break the identity — that would be a defect in the falsifier ' +
+              'itself; this text going green is the bug report.';
+        });
+        row.appendChild(b);
+      });
+    var restore = $make('button', 'tlbtn', 'run the five lines clean');
+    row.appendChild(restore);
+    panel.appendChild(row);
+    panel.appendChild(verdict);
+    panel.appendChild($make('div', 'tlnote',
+      'Even d ≤ 40: a press answers in well under a second (measured ~0.1 s at d = 40); the ' +
+      'exhaustive sweep to d = 80 stays in theorem.js, downloadable below.'));
+    var render = function () {
+      var d = Number(slider.value);
+      degOut.textContent = String(d);
+      lines.textContent = '';
+      var all = true;
+      T.checkLines(d).forEach(function (L) {
+        if (!L.ok) all = false;
+        var ln = $make('div', 'tlline');
+        ln.appendChild($make('span', 'tlled' + (L.ok ? ' ok' : ' bad')));
+        ln.appendChild($make('span', null, L.name + ' — ' + L.detail));
+        lines.appendChild(ln);
+      });
+      return all; /* the verdict strings below are DERIVED from this, never asserted blind */
+    };
+    slider.addEventListener('change', function () {
+      var ok = render();
+      verdict.className = 'tlverdict' + (ok ? '' : ' bad');
+      verdict.textContent = ok
+        ? 'recomputed clean at d = ' + slider.value + ' — the five identities were checked just now and hold.'
+        : 'a line FAILED at d = ' + slider.value + ' with no mutation pressed — that is a defect in this page or its kernels; the LEDs above name the line.';
+    });
+    restore.addEventListener('click', function () {
+      var ok = render();
+      verdict.className = 'tlverdict ' + (ok ? 'ok' : 'bad');
+      verdict.textContent = ok
+        ? 'clean re-run at d = ' + slider.value + ': all five lines checked and holding.'
+        : 'clean re-run FAILED at d = ' + slider.value + ' — a defect in this page or its kernels; the LEDs name the line.';
+    });
+    render();
+    anchor.parentNode.insertBefore(panel, anchor.nextSibling);
+  }
+
+  /* ── 2 · the 4k(k+1) membership table to d = 168, the honest boundary marked ── */
+  var lawH2 = findH2('Five exceptional degrees');
+  if (lawH2) {
+    var lp = $make('div', 'tlpanel');
+    lp.appendChild($make('div', 'tlhead', 'Every even degree to 168, the law evaluated exactly'));
+    var chips = $make('div', 'tlchips');
+    T.lawTable(168).forEach(function (r) {
+      var c = $make('span', 'tlchip' + (r.member ? (r.d === 168 ? ' open' : ' mem') : ''), String(r.d));
+      if (r.member) c.title = 'd = 4·' + r.k + '·' + (r.k + 1) + (r.d === 168 ? ' — square by the law; whether the group DROPS here is open past 120' : '');
+      chips.appendChild(c);
+    });
+    lp.appendChild(chips);
+    lp.appendChild($make('div', 'tlnote',
+      'Green: d+1 is an odd square, so d = 4k(k+1) — the only degrees the theorem lets drop. ' +
+      'The dashed chip at 168: the law admits it (k = 6) and the group question there is ' +
+      'honestly open — squareness was predicted and verified; the drop itself is not settled.'));
+    var lastP = lawH2;
+    for (var m = lawH2.nextElementSibling; m && m.tagName !== 'H2'; m = m.nextElementSibling) lastP = m;
+    lastP.parentNode.insertBefore(lp, lastP.nextSibling);
+  }
+
+  /* ── 3 · the narrowing figure's two checks, pressable, with the 2^-40 lie ── */
+  var svg = document.getElementById('nsvg');
+  if (svg && D && COND !== null) {
+    var fig = svg.closest('figure') || svg.parentNode;
+    var bp = $make('div', 'tlpanel');
+    bp.appendChild($make('div', 'tlhead', 'The figure’s own checks, run here and now'));
+    var bLines = $make('div'); bp.appendChild(bLines);
+    var bRow = $make('div', 'tlrow');
+    var bVerdict = $make('div', 'tlverdict',
+      'These are the two assertions narrowing.js makes when it generates this data. Press the ' +
+      'mutation to plant a bracket that quietly widened by 2⁻⁴⁰.');
+    var drawChecks = function (rows, label) {
+      bLines.textContent = '';
+      var c = T.bracketChecks(rows, COND);
+      [['knowing more never widens the bracket', c.monotone],
+       ['every bracket contains the conditional value', c.containment]].forEach(function (pair) {
+        var ln = $make('div', 'tlline');
+        ln.appendChild($make('span', 'tlled' + (pair[1].ok ? ' ok' : ' bad')));
+        ln.appendChild($make('span', null, pair[0] + ' — ' + pair[1].detail + (label ? '  (' + label + ')' : '')));
+        bLines.appendChild(ln);
+      });
+      return c;
+    };
+    var mut = $make('button', 'tlbtn mut', 'break it: widen one bracket by 2⁻⁴⁰');
+    mut.addEventListener('click', function () {
+      var c = drawChecks(T.perturbRow(D, 5, 40), 'mutated copy');
+      bVerdict.className = 'tlverdict ' + (!c.monotone.ok ? 'bad' : 'ok');
+      bVerdict.textContent = !c.monotone.ok
+        ? 'The band above has not moved — a lie of 2⁻⁴⁰ is about eight orders of magnitude below ' +
+          'what this plot can draw — but the monotonicity check caught it, because consecutive ' +
+          'certified widths are often EQUAL and any widening above the 10⁻¹⁵ comparison slack ' +
+          'breaks that. Containment stays green: its margins are ~10⁻³, so it can never see a lie ' +
+          'this small. Which check catches which lie is the point.'
+        : 'The mutation failed to break monotonicity — that is a defect report about this page.';
+    });
+    var clean = $make('button', 'tlbtn', 'restore the certified data');
+    clean.addEventListener('click', function () {
+      drawChecks(D, null);
+      bVerdict.className = 'tlverdict ok';
+      bVerdict.textContent = 'certified data restored — both checks green again.';
+    });
+    bRow.appendChild(mut); bRow.appendChild(clean);
+    bp.appendChild(bRow); bp.appendChild(bVerdict);
+    drawChecks(D, null);
+    fig.parentNode.insertBefore(bp, fig.nextSibling);
+  }
+
+  /* ── 3b · the defect record, replayed live: the kernel with the bug plantable ── */
+  var defH2 = findH2('A defect a falsifier caught');
+  var K = __ERDOS_MODULES['kernel.js'];
+  if (defH2 && K) {
+    var dAnchor = defH2;
+    for (var q = defH2.nextElementSibling; q && q.tagName !== 'H2'; q = q.nextElementSibling) dAnchor = q;
+    var dp = $make('div', 'tlpanel');
+    dp.appendChild($make('div', 'tlhead', 'Replay it: the same kernel, the bug plantable'));
+    var dLines = $make('div'); dp.appendChild(dLines);
+    var dRow = $make('div', 'tlrow');
+    var dVerdict = $make('div', 'tlverdict',
+      'kernel.js runs here, spliced verbatim — the certified bracket above was recomputed in ' +
+      'your browser just now, in milliseconds. The two mutations are the kernel’s own ' +
+      'falsifier plants.');
+    var CLEAN = null;
+    var showEnc = function (opts, label) {
+      var e = K.enclosure(opts || {});
+      var lo = K.decimals(e.cLo, 12, 'floor'), hi = K.decimals(e.cHi, 12, 'ceil');
+      var w = Number(hi) - Number(lo); /* display/comparison only; the bounds are exact */
+      /* the LED is COMPUTED — red iff the bracket differs from the certified run, never a
+         function of which button was pressed (a mutation that silently failed must show ok) */
+      var differs = CLEAN !== null && (lo !== CLEAN.lo || hi !== CLEAN.hi);
+      dLines.textContent = '';
+      var l1 = $make('div', 'tlline');
+      l1.appendChild($make('span', 'tlled' + (differs ? ' bad' : ' ok')));
+      l1.appendChild($make('span', null, 'enclosure ' + (label || 'certified') + ':  [' + lo +
+        ', ' + hi + ']   width ≈ ' + w.toPrecision(3)));
+      dLines.appendChild(l1);
+      if (CLEAN === null) CLEAN = { lo: lo, hi: hi, w: w };
+      return { lo: lo, hi: hi, w: w, differs: differs };
+    };
+    var bX1 = $make('button', 'tlbtn mut', 'break it: every δ ↦ 1−δ');
+    bX1.addEventListener('click', function () {
+      var r = showEnc({ mutateDelta: true }, 'X1 planted');
+      dVerdict.className = 'tlverdict ' + (r.differs ? 'bad' : 'ok');
+      dVerdict.textContent = r.differs
+        ? 'X1: every certified density complemented. The bracket MOVES (its width barely ' +
+          'changes — the δ-weights relocate the interval rather than widen it): the certified ' +
+          'numbers depend on every δ, which is exactly what a falsifier exists to show.'
+        : 'X1 did NOT change the bracket — a defect report about this page: the mutation is ' +
+          'not reaching the kernel.';
+    });
+    var bX2 = $make('button', 'tlbtn mut', 'break it: plant the log 2 tail (the historical bug)');
+    bX2.addEventListener('click', function () {
+      var r = showEnc({ mutateTailIdentity: true }, 'X2 planted');
+      var ratio = CLEAN && CLEAN.w > 0 ? Math.round(r.w / CLEAN.w) : null;
+      dVerdict.className = 'tlverdict ' + (r.differs ? 'bad' : 'ok');
+      dVerdict.textContent = r.differs
+        ? 'X2: log 2 written where 1 − log 2 belongs — the defect the text above records. The ' +
+          'upper end blows out to ' + r.hi + ' and the width goes up ×' + ratio + ' (computed ' +
+          'against the certified run just now, not remembered). The trap: the wrong bracket ' +
+          'still CONTAINS the true value, so a containment check alone acquits it. What indicts ' +
+          'it is the hand-checkable anchor — Σ 1/(2l(2l+1)) telescopes to 1 − log 2 ≈ 0.3069, ' +
+          'and the bug replaces that with log 2 ≈ 0.6931 — plus the width regression you are ' +
+          'looking at. Checks earn their keep unevenly; this page keeps the one that caught it.'
+        : 'X2 did NOT change the bracket — a defect report about this page: the mutation is ' +
+          'not reaching the kernel.';
+    });
+    var bClean = $make('button', 'tlbtn', 'restore the certified kernel');
+    bClean.addEventListener('click', function () {
+      var r = showEnc(null, null);
+      dVerdict.className = 'tlverdict ' + (r.differs ? 'bad' : 'ok');
+      dVerdict.textContent = r.differs
+        ? 'the clean run no longer matches its first result — a defect report about this page.'
+        : 'certified run restored: the bracket above is the page’s own headline, recomputed.';
+    });
+    dRow.appendChild(bX1); dRow.appendChild(bX2); dRow.appendChild(bClean);
+    dp.appendChild(dRow); dp.appendChild(dVerdict);
+    showEnc(null, null);
+    dAnchor.parentNode.insertBefore(dp, dAnchor.nextSibling);
+  }
+
+  /* ── 4 · the foil strip: the AMR articulation sentence, over both artifacts ── */
+  var firstH2 = h2s[0];
+  if (firstH2) {
+    var foil = $make('div', 'tlfoil');
+    foil.appendChild($make('b', null, 'This theorem exists twice. '));
+    foil.appendChild(document.createTextNode(
+      'Once as a 20-page linear preprint (prepared for submission; the programs it pins are '));
+    var a = document.createElement('a');
+    a.href = '/research/challenges/erdos290/erdos290-programs.zip'; a.setAttribute('download', '');
+    a.textContent = 'downloadable below';
+    foil.appendChild(a);
+    foil.appendChild(document.createTextNode(
+      '), and once as this page — which does the one thing the paper cannot: it lets you try to ' +
+      'break the proof. Six falsifier buttons mutate its central identities and checks live; ' +
+      'press one and the check re-runs, and the page goes red honestly. A proof you can attempt ' +
+      'to break, and fail to, is a different epistemic object from a proof you can only read.'));
+    firstH2.parentNode.insertBefore(foil, firstH2);
+  }
+})();
+</script>
+</body>
+</html>

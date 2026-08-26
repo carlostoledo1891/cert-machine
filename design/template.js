@@ -55,10 +55,10 @@ section{margin:${SCALE.section} 0 0}
 .sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
 .sec-head .lab{color:var(--sig)}
 
-.stats{border:1px solid var(--rule);border-radius:4px;margin:40px 0 0;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;
-  background:var(--rule);overflow:hidden}
-.stat{background:var(--surface);padding:22px 24px;display:flex;flex-direction:column;gap:7px}
+.stats{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:7px;
+  flex:1 1 240px;min-width:200px}
 .stat .k{font-family:${TYPE.mono};font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
 .stat .v{font-family:${TYPE.display};font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
 .stat .v.sm{font-size:14px;font-family:${TYPE.mono};font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}

@@ -1,0 +1,39 @@
+{
+  "schema": "dual-eval/v0",
+  "idea": "CCS + Evolution Strategy Refinement (0.93 chat; swap-consistency core)",
+  "candidate_key": "CCS + ES held-out",
+  "cost_refuse": {
+    "re_hillclimb_usd": 18000,
+    "re_hillclimb_per_aar_hour_usd": 22,
+    "status": "REFUSED",
+    "why": "Phase 2 exit: document coupling and dual lanes; do not re-spend Anthropic's run."
+  },
+  "lanes": {
+    "pgr": {
+      "mode": "reported",
+      "success": true,
+      "remeasured": false,
+      "chat_pgr": 0.93,
+      "heldout_math_pgr": null,
+      "heldout_code_pgr": null,
+      "heldout_note": "fig. 8's held-out figures (math 0.94 / code 0.47) belong to CCS + Self-Distill, a different idea; the source reports no held-out numbers for CCS + Evolution Strategy Refinement. An earlier fixture version mis-attributed them here \u2014 corrected 2026-08-04.",
+      "provenance": "Anthropic Alignment Science Blog, April 2026 (page prints month only; first Wayback capture 2026-04-14) \u2014 reported, not re-run here.",
+      "isolation_required_to_remeasure": "Docker Mode B or RunPod Mode C \u2014 see MODE_B_RUNBOOK.md",
+      "note": "Not a live eval. Tag every public use as Anthropic-reported."
+    },
+    "disposition": {
+      "verdict": "CERTIFIED",
+      "refuse_reason": null,
+      "hack_class": null,
+      "witness_kind": "exact-residual",
+      "max_residual": "0",
+      "scope": "finite sample; algebraic projector only \u2014 not a PGR claim"
+    }
+  },
+  "disagreement": {
+    "kind": "agree_with_teeth",
+    "headline": "high PGR + CERTIFIED fragment",
+    "note": "Constructive twin \u2014 both lanes green; disposition scope is the fragment only"
+  },
+  "sandbox": "MODE_B_RUNBOOK.md"
+}

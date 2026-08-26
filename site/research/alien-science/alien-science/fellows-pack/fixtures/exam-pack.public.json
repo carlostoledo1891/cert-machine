@@ -1,0 +1,671 @@
+{
+  "schema": "disposition-exam-pack/v0",
+  "harvested_by": "public-safe synthetic (no ledger ids)",
+  "min_pairs": 10,
+  "counts": {
+    "pairs": 10,
+    "from_mutation_last_red": 0,
+    "from_kill_control": 0
+  },
+  "note": "Public exam pack: swap-consistency clean CERTIFIED / mutant REFUSED only. No ledger identifiers.",
+  "pairs": [
+    {
+      "id": "EXAM-SWAP-00",
+      "source": "swap-consistency-synthetic",
+      "clean": {
+        "schema": "disposition/v0",
+        "verdict": "CERTIFIED",
+        "hack_class": null,
+        "refuse_reason": null,
+        "ground_truth_role": "clean",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 5,
+            "eps": "0",
+            "max_residual": "0",
+            "residuals": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "pre-update residual; projector is identity on exact-consistent pairs",
+        "id": "EXAM-SWAP-00-clean"
+      },
+      "mutant": {
+        "schema": "disposition/v0",
+        "verdict": "REFUSED",
+        "hack_class": null,
+        "refuse_reason": "max residual 1/5 exceeds ε=0",
+        "ground_truth_role": "mutant",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 5,
+            "eps": "0",
+            "max_residual": "1/5",
+            "residuals": [
+              "1/5",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "honest stall — sample is not swap-consistent under stated ε",
+        "id": "EXAM-SWAP-00-mutant"
+      }
+    },
+    {
+      "id": "EXAM-SWAP-01",
+      "source": "swap-consistency-synthetic",
+      "clean": {
+        "schema": "disposition/v0",
+        "verdict": "CERTIFIED",
+        "hack_class": null,
+        "refuse_reason": null,
+        "ground_truth_role": "clean",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 6,
+            "eps": "0",
+            "max_residual": "0",
+            "residuals": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "pre-update residual; projector is identity on exact-consistent pairs",
+        "id": "EXAM-SWAP-01-clean"
+      },
+      "mutant": {
+        "schema": "disposition/v0",
+        "verdict": "REFUSED",
+        "hack_class": null,
+        "refuse_reason": "max residual 1/5 exceeds ε=0",
+        "ground_truth_role": "mutant",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 6,
+            "eps": "0",
+            "max_residual": "1/5",
+            "residuals": [
+              "1/5",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "honest stall — sample is not swap-consistent under stated ε",
+        "id": "EXAM-SWAP-01-mutant"
+      }
+    },
+    {
+      "id": "EXAM-SWAP-02",
+      "source": "swap-consistency-synthetic",
+      "clean": {
+        "schema": "disposition/v0",
+        "verdict": "CERTIFIED",
+        "hack_class": null,
+        "refuse_reason": null,
+        "ground_truth_role": "clean",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 7,
+            "eps": "0",
+            "max_residual": "0",
+            "residuals": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "pre-update residual; projector is identity on exact-consistent pairs",
+        "id": "EXAM-SWAP-02-clean"
+      },
+      "mutant": {
+        "schema": "disposition/v0",
+        "verdict": "REFUSED",
+        "hack_class": null,
+        "refuse_reason": "max residual 1/5 exceeds ε=0",
+        "ground_truth_role": "mutant",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 7,
+            "eps": "0",
+            "max_residual": "1/5",
+            "residuals": [
+              "1/5",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "honest stall — sample is not swap-consistent under stated ε",
+        "id": "EXAM-SWAP-02-mutant"
+      }
+    },
+    {
+      "id": "EXAM-SWAP-03",
+      "source": "swap-consistency-synthetic",
+      "clean": {
+        "schema": "disposition/v0",
+        "verdict": "CERTIFIED",
+        "hack_class": null,
+        "refuse_reason": null,
+        "ground_truth_role": "clean",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 5,
+            "eps": "0",
+            "max_residual": "0",
+            "residuals": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "pre-update residual; projector is identity on exact-consistent pairs",
+        "id": "EXAM-SWAP-03-clean"
+      },
+      "mutant": {
+        "schema": "disposition/v0",
+        "verdict": "REFUSED",
+        "hack_class": null,
+        "refuse_reason": "max residual 1/5 exceeds ε=0",
+        "ground_truth_role": "mutant",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 5,
+            "eps": "0",
+            "max_residual": "1/5",
+            "residuals": [
+              "1/5",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "honest stall — sample is not swap-consistent under stated ε",
+        "id": "EXAM-SWAP-03-mutant"
+      }
+    },
+    {
+      "id": "EXAM-SWAP-04",
+      "source": "swap-consistency-synthetic",
+      "clean": {
+        "schema": "disposition/v0",
+        "verdict": "CERTIFIED",
+        "hack_class": null,
+        "refuse_reason": null,
+        "ground_truth_role": "clean",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 6,
+            "eps": "0",
+            "max_residual": "0",
+            "residuals": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "pre-update residual; projector is identity on exact-consistent pairs",
+        "id": "EXAM-SWAP-04-clean"
+      },
+      "mutant": {
+        "schema": "disposition/v0",
+        "verdict": "REFUSED",
+        "hack_class": null,
+        "refuse_reason": "max residual 1/5 exceeds ε=0",
+        "ground_truth_role": "mutant",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 6,
+            "eps": "0",
+            "max_residual": "1/5",
+            "residuals": [
+              "1/5",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "honest stall — sample is not swap-consistent under stated ε",
+        "id": "EXAM-SWAP-04-mutant"
+      }
+    },
+    {
+      "id": "EXAM-SWAP-05",
+      "source": "swap-consistency-synthetic",
+      "clean": {
+        "schema": "disposition/v0",
+        "verdict": "CERTIFIED",
+        "hack_class": null,
+        "refuse_reason": null,
+        "ground_truth_role": "clean",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 7,
+            "eps": "0",
+            "max_residual": "0",
+            "residuals": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "pre-update residual; projector is identity on exact-consistent pairs",
+        "id": "EXAM-SWAP-05-clean"
+      },
+      "mutant": {
+        "schema": "disposition/v0",
+        "verdict": "REFUSED",
+        "hack_class": null,
+        "refuse_reason": "max residual 1/5 exceeds ε=0",
+        "ground_truth_role": "mutant",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 7,
+            "eps": "0",
+            "max_residual": "1/5",
+            "residuals": [
+              "1/5",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "honest stall — sample is not swap-consistent under stated ε",
+        "id": "EXAM-SWAP-05-mutant"
+      }
+    },
+    {
+      "id": "EXAM-SWAP-06",
+      "source": "swap-consistency-synthetic",
+      "clean": {
+        "schema": "disposition/v0",
+        "verdict": "CERTIFIED",
+        "hack_class": null,
+        "refuse_reason": null,
+        "ground_truth_role": "clean",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 5,
+            "eps": "0",
+            "max_residual": "0",
+            "residuals": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "pre-update residual; projector is identity on exact-consistent pairs",
+        "id": "EXAM-SWAP-06-clean"
+      },
+      "mutant": {
+        "schema": "disposition/v0",
+        "verdict": "REFUSED",
+        "hack_class": null,
+        "refuse_reason": "max residual 1/5 exceeds ε=0",
+        "ground_truth_role": "mutant",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 5,
+            "eps": "0",
+            "max_residual": "1/5",
+            "residuals": [
+              "1/5",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "honest stall — sample is not swap-consistent under stated ε",
+        "id": "EXAM-SWAP-06-mutant"
+      }
+    },
+    {
+      "id": "EXAM-SWAP-07",
+      "source": "swap-consistency-synthetic",
+      "clean": {
+        "schema": "disposition/v0",
+        "verdict": "CERTIFIED",
+        "hack_class": null,
+        "refuse_reason": null,
+        "ground_truth_role": "clean",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 6,
+            "eps": "0",
+            "max_residual": "0",
+            "residuals": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "pre-update residual; projector is identity on exact-consistent pairs",
+        "id": "EXAM-SWAP-07-clean"
+      },
+      "mutant": {
+        "schema": "disposition/v0",
+        "verdict": "REFUSED",
+        "hack_class": null,
+        "refuse_reason": "max residual 1/5 exceeds ε=0",
+        "ground_truth_role": "mutant",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 6,
+            "eps": "0",
+            "max_residual": "1/5",
+            "residuals": [
+              "1/5",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "honest stall — sample is not swap-consistent under stated ε",
+        "id": "EXAM-SWAP-07-mutant"
+      }
+    },
+    {
+      "id": "EXAM-SWAP-08",
+      "source": "swap-consistency-synthetic",
+      "clean": {
+        "schema": "disposition/v0",
+        "verdict": "CERTIFIED",
+        "hack_class": null,
+        "refuse_reason": null,
+        "ground_truth_role": "clean",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 7,
+            "eps": "0",
+            "max_residual": "0",
+            "residuals": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "pre-update residual; projector is identity on exact-consistent pairs",
+        "id": "EXAM-SWAP-08-clean"
+      },
+      "mutant": {
+        "schema": "disposition/v0",
+        "verdict": "REFUSED",
+        "hack_class": null,
+        "refuse_reason": "max residual 1/5 exceeds ε=0",
+        "ground_truth_role": "mutant",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 7,
+            "eps": "0",
+            "max_residual": "1/5",
+            "residuals": [
+              "1/5",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "honest stall — sample is not swap-consistent under stated ε",
+        "id": "EXAM-SWAP-08-mutant"
+      }
+    },
+    {
+      "id": "EXAM-SWAP-09",
+      "source": "swap-consistency-synthetic",
+      "clean": {
+        "schema": "disposition/v0",
+        "verdict": "CERTIFIED",
+        "hack_class": null,
+        "refuse_reason": null,
+        "ground_truth_role": "clean",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 5,
+            "eps": "0",
+            "max_residual": "0",
+            "residuals": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "pre-update residual; projector is identity on exact-consistent pairs",
+        "id": "EXAM-SWAP-09-clean"
+      },
+      "mutant": {
+        "schema": "disposition/v0",
+        "verdict": "REFUSED",
+        "hack_class": null,
+        "refuse_reason": "max residual 1/5 exceeds ε=0",
+        "ground_truth_role": "mutant",
+        "claim": {
+          "statement": "swap-consistency residual |p_orig-(1-p_swap)| ≤ ε on the stated finite sample",
+          "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+          "scope": "finite sample; algebraic projector only — not a PGR claim"
+        },
+        "witness": {
+          "kind": "exact-residual",
+          "kernel": "swap-consistency.js",
+          "payload": {
+            "n": 5,
+            "eps": "0",
+            "max_residual": "1/5",
+            "residuals": [
+              "1/5",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        },
+        "notes": "honest stall — sample is not swap-consistent under stated ε",
+        "id": "EXAM-SWAP-09-mutant"
+      }
+    }
+  ]
+}

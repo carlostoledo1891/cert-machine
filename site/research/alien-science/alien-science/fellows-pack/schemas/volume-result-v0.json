@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sin-mfg.local/schemas/volume-result-v0.json",
+  "title": "volume-result-v0",
+  "description": "One JSONL line from a PATH 09 volume dual-lane run.",
+  "type": "object",
+  "required": ["schema", "i", "id", "disposition"],
+  "properties": {
+    "schema": { "const": "volume-result/v0" },
+    "i": { "type": "integer", "minimum": 0 },
+    "id": { "type": "string" },
+    "disposition": {
+      "type": "object",
+      "required": ["verdict"],
+      "properties": {
+        "verdict": {
+          "type": "string",
+          "enum": ["CERTIFIED", "REFUSED", "HACK-SUSPECT", "OUT-OF-SCOPE"]
+        },
+        "max_residual": { "type": ["string", "null"] },
+        "refuse_reason": { "type": ["string", "null"] }
+      }
+    },
+    "pgr": { "type": "object" },
+    "disagreement": { "type": "object" }
+  }
+}

@@ -1,9 +1,9 @@
 {
  "source_root": "/Users/carlostoledo/Documents/sin-mfg",
- "lifted_at_utc": "2026-08-26T16:29:29.320Z",
+ "lifted_at_utc": "2026-08-26T17:45:12.993Z",
  "policy": "READ-ONLY. The lift copies OUT of sin-mfg and never writes back. `make drift` re-hashes both ends and names what moved.",
  "counts": {
-  "files": 41,
+  "files": 125,
   "patched": 4,
   "missing_in_source": 0
  },
@@ -294,6 +294,594 @@
    "src_sha256": "b9149428727853d4dc0d97c10304f9f75610d18f13c7f687628c25a4824398ef",
    "patched": false,
    "local_sha256": "b9149428727853d4dc0d97c10304f9f75610d18f13c7f687628c25a4824398ef"
+  },
+  {
+   "src": "research/challenges/erdos290.html",
+   "dst": "legacy/research/challenges/erdos290.html",
+   "src_sha256": "5a974e1499d81467b55f5ac1b8a80f5708e5f4e3ea57d20f8578f811049f4de6",
+   "patched": false,
+   "local_sha256": "5a974e1499d81467b55f5ac1b8a80f5708e5f4e3ea57d20f8578f811049f4de6"
+  },
+  {
+   "src": "research/challenges/erdos290/POST.md",
+   "dst": "legacy/research/challenges/erdos290/POST.md",
+   "src_sha256": "25dd5a42ee1d1b364e08b2bfcc036efaebe99ce0b720e8fad8dc8a5dd4e9f5f0",
+   "patched": false,
+   "local_sha256": "25dd5a42ee1d1b364e08b2bfcc036efaebe99ce0b720e8fad8dc8a5dd4e9f5f0"
+  },
+  {
+   "src": "research/challenges/erdos290/PREPRINT_PLAN.md",
+   "dst": "legacy/research/challenges/erdos290/PREPRINT_PLAN.md",
+   "src_sha256": "0a80362ae4700a194226ded91167792469554681231f6f16b77db5e7f18550a3",
+   "patched": false,
+   "local_sha256": "0a80362ae4700a194226ded91167792469554681231f6f16b77db5e7f18550a3"
+  },
+  {
+   "src": "research/challenges/erdos290/R3_PROTOTYPE_PLAN.md",
+   "dst": "legacy/research/challenges/erdos290/R3_PROTOTYPE_PLAN.md",
+   "src_sha256": "7400dcc431160ee2757ca5128fdda91360c2a0cdb6e0f88bfdc767d22fc74f89",
+   "patched": false,
+   "local_sha256": "7400dcc431160ee2757ca5128fdda91360c2a0cdb6e0f88bfdc767d22fc74f89"
+  },
+  {
+   "src": "research/challenges/erdos290/R3_VIDEO.md",
+   "dst": "legacy/research/challenges/erdos290/R3_VIDEO.md",
+   "src_sha256": "fff95816dbe15c839946b5b48e110a70708ab2a003def3bfb65849e6323d8f20",
+   "patched": false,
+   "local_sha256": "fff95816dbe15c839946b5b48e110a70708ab2a003def3bfb65849e6323d8f20"
+  },
+  {
+   "src": "research/challenges/erdos290/SHIP",
+   "dst": "legacy/research/challenges/erdos290/SHIP",
+   "src_sha256": "80e0cdaabc2bd7027546416df416ff35fb21746b344f2f57c013321e7076166d",
+   "patched": false,
+   "local_sha256": "80e0cdaabc2bd7027546416df416ff35fb21746b344f2f57c013321e7076166d"
+  },
+  {
+   "src": "research/challenges/erdos290/SUBMISSION.md",
+   "dst": "legacy/research/challenges/erdos290/SUBMISSION.md",
+   "src_sha256": "453db1eac1219b91eb41e3e4738e148a6be95004a969794ef2bc17e399f14d7e",
+   "patched": false,
+   "local_sha256": "453db1eac1219b91eb41e3e4738e148a6be95004a969794ef2bc17e399f14d7e"
+  },
+  {
+   "src": "research/challenges/erdos290/VERIFICATION_2026-08-11.md",
+   "dst": "legacy/research/challenges/erdos290/VERIFICATION_2026-08-11.md",
+   "src_sha256": "891f4dec7dd57f85e6c967c365aec064bcee3b08ea6f6d5cf406c5c477d287a0",
+   "patched": false,
+   "local_sha256": "891f4dec7dd57f85e6c967c365aec064bcee3b08ea6f6d5cf406c5c477d287a0"
+  },
+  {
+   "src": "research/challenges/erdos290/build-page.js",
+   "dst": "legacy/research/challenges/erdos290/build-page.js",
+   "src_sha256": "ad03179ec75a2e1e5f988861adfeeb28955d5b6635417bff997ad994726b9c7f",
+   "patched": false,
+   "local_sha256": "ad03179ec75a2e1e5f988861adfeeb28955d5b6635417bff997ad994726b9c7f"
+  },
+  {
+   "src": "research/challenges/erdos290/galois-exceptions.js",
+   "dst": "legacy/research/challenges/erdos290/galois-exceptions.js",
+   "src_sha256": "f3b9436c42955cb5684ddb0015bfae17f54e950544231b1006c38ca490eaf12f",
+   "patched": false,
+   "local_sha256": "f3b9436c42955cb5684ddb0015bfae17f54e950544231b1006c38ca490eaf12f"
+  },
+  {
+   "src": "research/challenges/erdos290/galois8.js",
+   "dst": "legacy/research/challenges/erdos290/galois8.js",
+   "src_sha256": "494de9f69ce2907d35449a809b46b44f3086ce465212bea9a570f78ccf6e77b2",
+   "patched": false,
+   "local_sha256": "494de9f69ce2907d35449a809b46b44f3086ce465212bea9a570f78ccf6e77b2"
+  },
+  {
+   "src": "research/challenges/erdos290/kernel.js",
+   "dst": "legacy/research/challenges/erdos290/kernel.js",
+   "src_sha256": "864c784e33d3f106ad74703b65d5f88290a903400a9a95ee460216a03baf198b",
+   "patched": false,
+   "local_sha256": "864c784e33d3f106ad74703b65d5f88290a903400a9a95ee460216a03baf198b"
+  },
+  {
+   "src": "research/challenges/erdos290/narrowing.js",
+   "dst": "legacy/research/challenges/erdos290/narrowing.js",
+   "src_sha256": "7dca6ffa0b6d9df56f974348c3200cff8e655fd751908918d5d5cef386b23992",
+   "patched": false,
+   "local_sha256": "7dca6ffa0b6d9df56f974348c3200cff8e655fd751908918d5d5cef386b23992"
+  },
+  {
+   "src": "research/challenges/erdos290/narrowing.json",
+   "dst": "legacy/research/challenges/erdos290/narrowing.json",
+   "src_sha256": "6c9254ab8b1ad3cceb74b6457e74133572e74cff331183063de2cc26642d7bb4",
+   "patched": false,
+   "local_sha256": "6c9254ab8b1ad3cceb74b6457e74133572e74cff331183063de2cc26642d7bb4"
+  },
+  {
+   "src": "research/challenges/erdos290/page-splice-pins.json",
+   "dst": "legacy/research/challenges/erdos290/page-splice-pins.json",
+   "src_sha256": "55e057b70383fcea60265723cea3b5bfca7d04451b014f295c34c47f0d129b68",
+   "patched": false,
+   "local_sha256": "55e057b70383fcea60265723cea3b5bfca7d04451b014f295c34c47f0d129b68"
+  },
+  {
+   "src": "research/challenges/erdos290/pattern-check.js",
+   "dst": "legacy/research/challenges/erdos290/pattern-check.js",
+   "src_sha256": "fd5086f3f1162e54f2f1b4ef963db8d15e8db1f5e5a6dce501ed9ebfa2cc6653",
+   "patched": false,
+   "local_sha256": "fd5086f3f1162e54f2f1b4ef963db8d15e8db1f5e5a6dce501ed9ebfa2cc6653"
+  },
+  {
+   "src": "research/challenges/erdos290/preprint/.gitignore",
+   "dst": "legacy/research/challenges/erdos290/preprint/.gitignore",
+   "src_sha256": "d2d953317b6f5827f5ccf1eeb2768b3f5326c09ad3fa4d477e5391f3645fa317",
+   "patched": false,
+   "local_sha256": "d2d953317b6f5827f5ccf1eeb2768b3f5326c09ad3fa4d477e5391f3645fa317"
+  },
+  {
+   "src": "research/challenges/erdos290/preprint/REVIEW_2026-08-11.md",
+   "dst": "legacy/research/challenges/erdos290/preprint/REVIEW_2026-08-11.md",
+   "src_sha256": "406a1cf244fbe9baeec09f46205b51fa1693f611e3b9da0a0c09dcbcaf906296",
+   "patched": false,
+   "local_sha256": "406a1cf244fbe9baeec09f46205b51fa1693f611e3b9da0a0c09dcbcaf906296"
+  },
+  {
+   "src": "research/challenges/erdos290/preprint/main.aux",
+   "dst": "legacy/research/challenges/erdos290/preprint/main.aux",
+   "src_sha256": "6670185db5e8c2eb80179e49af1bf7f6889b1e78361529d4ba5d5e708ee80fa9",
+   "patched": false,
+   "local_sha256": "6670185db5e8c2eb80179e49af1bf7f6889b1e78361529d4ba5d5e708ee80fa9"
+  },
+  {
+   "src": "research/challenges/erdos290/preprint/main.bbl",
+   "dst": "legacy/research/challenges/erdos290/preprint/main.bbl",
+   "src_sha256": "d356370c54b5b4b3a8bff15449724d13480184e9d350959ec8bb234ee32dc447",
+   "patched": false,
+   "local_sha256": "d356370c54b5b4b3a8bff15449724d13480184e9d350959ec8bb234ee32dc447"
+  },
+  {
+   "src": "research/challenges/erdos290/preprint/main.out",
+   "dst": "legacy/research/challenges/erdos290/preprint/main.out",
+   "src_sha256": "bcd41a6f8e59d9bf7db7ae802352dcb0cec84b3223ed4164c0f762b7955b041b",
+   "patched": false,
+   "local_sha256": "bcd41a6f8e59d9bf7db7ae802352dcb0cec84b3223ed4164c0f762b7955b041b"
+  },
+  {
+   "src": "research/challenges/erdos290/preprint/main.pdf",
+   "dst": "legacy/research/challenges/erdos290/preprint/main.pdf",
+   "src_sha256": "e2bd08ab701bd5c8c65478425352eceb1ca64b92bf9c79916b8357cf5dc6fd3b",
+   "patched": false,
+   "local_sha256": "e2bd08ab701bd5c8c65478425352eceb1ca64b92bf9c79916b8357cf5dc6fd3b"
+  },
+  {
+   "src": "research/challenges/erdos290/preprint/main.tex",
+   "dst": "legacy/research/challenges/erdos290/preprint/main.tex",
+   "src_sha256": "087a6aaba1861cd5b099d109204ece99ee0adcaaf02a4fb4781ab51e70639620",
+   "patched": false,
+   "local_sha256": "087a6aaba1861cd5b099d109204ece99ee0adcaaf02a4fb4781ab51e70639620"
+  },
+  {
+   "src": "research/challenges/erdos290/preprint/main.toc",
+   "dst": "legacy/research/challenges/erdos290/preprint/main.toc",
+   "src_sha256": "45adfb5bf45b1ee2014b4ff601110372be160168eb5aa268903eb1b48bff4b67",
+   "patched": false,
+   "local_sha256": "45adfb5bf45b1ee2014b4ff601110372be160168eb5aa268903eb1b48bff4b67"
+  },
+  {
+   "src": "research/challenges/erdos290/preprint/refs.bib",
+   "dst": "legacy/research/challenges/erdos290/preprint/refs.bib",
+   "src_sha256": "7bde97cb42337d2abd17a70dae50376c3b1ad446962591b7163162e3bee62ae8",
+   "patched": false,
+   "local_sha256": "7bde97cb42337d2abd17a70dae50376c3b1ad446962591b7163162e3bee62ae8"
+  },
+  {
+   "src": "research/challenges/erdos290/rational.js",
+   "dst": "legacy/research/challenges/erdos290/rational.js",
+   "src_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b",
+   "patched": false,
+   "local_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b"
+  },
+  {
+   "src": "research/challenges/erdos290/release.json",
+   "dst": "legacy/research/challenges/erdos290/release.json",
+   "src_sha256": "8cf001cdcbf29292c176f60aca014b5bc1ad7cc5d2d688ab6c9d94b1e8189e91",
+   "patched": false,
+   "local_sha256": "8cf001cdcbf29292c176f60aca014b5bc1ad7cc5d2d688ab6c9d94b1e8189e91"
+  },
+  {
+   "src": "research/challenges/erdos290/tail-deltas.json",
+   "dst": "legacy/research/challenges/erdos290/tail-deltas.json",
+   "src_sha256": "338b2a3a98f25c6783940cefe5c9afb5011991e2eb79e0cbb475505bb60bfe16",
+   "patched": false,
+   "local_sha256": "338b2a3a98f25c6783940cefe5c9afb5011991e2eb79e0cbb475505bb60bfe16"
+  },
+  {
+   "src": "research/challenges/erdos290/tail-sweep.js",
+   "dst": "legacy/research/challenges/erdos290/tail-sweep.js",
+   "src_sha256": "0bb6b422c311a04fbae7be7a95a0de18159dbd4c48fe4044be95ebf65807f1c3",
+   "patched": false,
+   "local_sha256": "0bb6b422c311a04fbae7be7a95a0de18159dbd4c48fe4044be95ebf65807f1c3"
+  },
+  {
+   "src": "research/challenges/erdos290/tests/test-page.js",
+   "dst": "legacy/research/challenges/erdos290/tests/test-page.js",
+   "src_sha256": "88dc3808cdcdab7f9c204f8c6c5054faa901a2b5a5d59a1b78d68c9d93550f33",
+   "patched": false,
+   "local_sha256": "88dc3808cdcdab7f9c204f8c6c5054faa901a2b5a5d59a1b78d68c9d93550f33"
+  },
+  {
+   "src": "research/challenges/erdos290/theorem-live.js",
+   "dst": "legacy/research/challenges/erdos290/theorem-live.js",
+   "src_sha256": "92a127556b3d19adc03bca71da0955e96446a2434f2ac056e1aa6bfba4a34cc4",
+   "patched": false,
+   "local_sha256": "92a127556b3d19adc03bca71da0955e96446a2434f2ac056e1aa6bfba4a34cc4"
+  },
+  {
+   "src": "research/challenges/erdos290/theorem.js",
+   "dst": "legacy/research/challenges/erdos290/theorem.js",
+   "src_sha256": "48d0ca495024720aa3ca85b065791ea083f19f407ae23865325568a12bfde77f",
+   "patched": false,
+   "local_sha256": "48d0ca495024720aa3ca85b065791ea083f19f407ae23865325568a12bfde77f"
+  },
+  {
+   "src": "research/challenges/erdos290/zenodo/DESCRIPTION.txt",
+   "dst": "legacy/research/challenges/erdos290/zenodo/DESCRIPTION.txt",
+   "src_sha256": "e2c28e6f45b5acfd23e9338bfc749015bd2d18bff096abf2a14626cd928b3009",
+   "patched": false,
+   "local_sha256": "e2c28e6f45b5acfd23e9338bfc749015bd2d18bff096abf2a14626cd928b3009"
+  },
+  {
+   "src": "research/challenges/erdos290/zenodo/LICENSE.txt",
+   "dst": "legacy/research/challenges/erdos290/zenodo/LICENSE.txt",
+   "src_sha256": "46b3d9a98b364d28c24eae25a8428dffd86490ac1b547aeebdeae129912133df",
+   "patched": false,
+   "local_sha256": "46b3d9a98b364d28c24eae25a8428dffd86490ac1b547aeebdeae129912133df"
+  },
+  {
+   "src": "research/challenges/erdos290/zenodo/MANIFEST.txt",
+   "dst": "legacy/research/challenges/erdos290/zenodo/MANIFEST.txt",
+   "src_sha256": "c4083e81de306a30603a25ba63f79de61890f345caa446d39e4ca8d531ea7121",
+   "patched": false,
+   "local_sha256": "c4083e81de306a30603a25ba63f79de61890f345caa446d39e4ca8d531ea7121"
+  },
+  {
+   "src": "research/challenges/erdos290/zenodo/METADATA.md",
+   "dst": "legacy/research/challenges/erdos290/zenodo/METADATA.md",
+   "src_sha256": "2cec18e3c7f9f5b07c123c6ff6fd9874243398e8803f38c570a873349a197fda",
+   "patched": false,
+   "local_sha256": "2cec18e3c7f9f5b07c123c6ff6fd9874243398e8803f38c570a873349a197fda"
+  },
+  {
+   "src": "research/challenges/erdos290/zenodo/README.txt",
+   "dst": "legacy/research/challenges/erdos290/zenodo/README.txt",
+   "src_sha256": "af51b6ed45f3a550160fde577bcb6db5bd0df1222e50b10d3541100b08abf324",
+   "patched": false,
+   "local_sha256": "af51b6ed45f3a550160fde577bcb6db5bd0df1222e50b10d3541100b08abf324"
+  },
+  {
+   "src": "research/challenges/erdos290/zenodo/STEPS.md",
+   "dst": "legacy/research/challenges/erdos290/zenodo/STEPS.md",
+   "src_sha256": "24d30fde77947a81e87f37e7b4cd23fe6fac4181fb5795b3e46f8934ded0e39d",
+   "patched": false,
+   "local_sha256": "24d30fde77947a81e87f37e7b4cd23fe6fac4181fb5795b3e46f8934ded0e39d"
+  },
+  {
+   "src": "research/challenges/erdos290/zenodo/UPLOAD_FILES.md",
+   "dst": "legacy/research/challenges/erdos290/zenodo/UPLOAD_FILES.md",
+   "src_sha256": "a47c45cd1104ecd864f1beb5a06975752eaed573458c8dea50b2eda1d7da467a",
+   "patched": false,
+   "local_sha256": "a47c45cd1104ecd864f1beb5a06975752eaed573458c8dea50b2eda1d7da467a"
+  },
+  {
+   "src": "research/challenges/erdos290/zenodo/doi-swap.py",
+   "dst": "legacy/research/challenges/erdos290/zenodo/doi-swap.py",
+   "src_sha256": "52b1076ec32abcad3b76040dbcccf8218a4755a41a6e1b6863908d917a236a3d",
+   "patched": false,
+   "local_sha256": "52b1076ec32abcad3b76040dbcccf8218a4755a41a6e1b6863908d917a236a3d"
+  },
+  {
+   "src": "research/challenges/verify-lemniscate.html",
+   "dst": "legacy/research/challenges/verify-lemniscate.html",
+   "src_sha256": "3e28ef1642a2b5c62dadefe10083e16864171e2de7c5953f70b6044ef8ec1cf8",
+   "patched": false,
+   "local_sha256": "3e28ef1642a2b5c62dadefe10083e16864171e2de7c5953f70b6044ef8ec1cf8"
+  },
+  {
+   "src": "research/challenges/lane/SHIP",
+   "dst": "legacy/research/challenges/lane/SHIP",
+   "src_sha256": "b4b9fcac37bc1ac6079ab5c021426c51adc0142d8a604c34bc142d515faa84f8",
+   "patched": false,
+   "local_sha256": "b4b9fcac37bc1ac6079ab5c021426c51adc0142d8a604c34bc142d515faa84f8"
+  },
+  {
+   "src": "research/challenges/lane/laneb-korenblum/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-korenblum/verify.js",
+   "src_sha256": "e6c33affe6bcb93b2e08b9a1bc82cbc6d98f2e04b4f9eee7abf32e9f17bd3ef5",
+   "patched": false,
+   "local_sha256": "e6c33affe6bcb93b2e08b9a1bc82cbc6d98f2e04b4f9eee7abf32e9f17bd3ef5"
+  },
+  {
+   "src": "research/challenges/lane/laneb-lemniscate/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-lemniscate/verify.js",
+   "src_sha256": "8a969d8c88f6af0de01c5dc96b828a4fa5f5e0f81433c1a7fe6969edeb4cb700",
+   "patched": false,
+   "local_sha256": "8a969d8c88f6af0de01c5dc96b828a4fa5f5e0f81433c1a7fe6969edeb4cb700"
+  },
+  {
+   "src": "research/challenges/lane/laneb-mathieu/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-mathieu/verify.js",
+   "src_sha256": "d3071ccc810aeb490185c6880c60610f8018f81a0fa504cd9f0285bc25e1432f",
+   "patched": false,
+   "local_sha256": "d3071ccc810aeb490185c6880c60610f8018f81a0fa504cd9f0285bc25e1432f"
+  },
+  {
+   "src": "research/challenges/lane/laneb-maxwell/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-maxwell/verify.js",
+   "src_sha256": "b8a8b2147ed5894a90b8ef1cde910c1044b6dc738f6eb78c47c2a01a5d82077c",
+   "patched": false,
+   "local_sha256": "b8a8b2147ed5894a90b8ef1cde910c1044b6dc738f6eb78c47c2a01a5d82077c"
+  },
+  {
+   "src": "research/challenges/lane/laneb-poisson/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-poisson/verify.js",
+   "src_sha256": "484c6dc9465d453d7d6afefff555b01b26c9cc0175b0086f9359928764d8ad3c",
+   "patched": false,
+   "local_sha256": "484c6dc9465d453d7d6afefff555b01b26c9cc0175b0086f9359928764d8ad3c"
+  },
+  {
+   "src": "research/challenges/lane/laneb-ranteng/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-ranteng/verify.js",
+   "src_sha256": "b94cf3628a6ae18ea1ab0110b54ac25cbfd11e18ce7f5dde8a29b7f07ab71adb",
+   "patched": false,
+   "local_sha256": "b94cf3628a6ae18ea1ab0110b54ac25cbfd11e18ce7f5dde8a29b7f07ab71adb"
+  },
+  {
+   "src": "research/challenges/lane/uam-corridor/verify.js",
+   "dst": "legacy/research/challenges/lane/uam-corridor/verify.js",
+   "src_sha256": "4e28ee389db8647d62733d3703554ab67cb7ad3f21233d5e8c987142b27f7550",
+   "patched": false,
+   "local_sha256": "4e28ee389db8647d62733d3703554ab67cb7ad3f21233d5e8c987142b27f7550"
+  },
+  {
+   "src": "research/alien-science/alien-science.html",
+   "dst": "legacy/research/alien-science/alien-science.html",
+   "src_sha256": "a920ee71b9777ded3edb0473c47a68fa9edb524d30515441c5b85e2d7ec859c3",
+   "patched": false,
+   "local_sha256": "a920ee71b9777ded3edb0473c47a68fa9edb524d30515441c5b85e2d7ec859c3"
+  },
+  {
+   "src": "research/alien-science/alien-science/MODE_B_RUNBOOK.md",
+   "dst": "legacy/research/alien-science/alien-science/MODE_B_RUNBOOK.md",
+   "src_sha256": "dcc6d8b2425accdfa8e235e84e7dbe6890c64494182d48656b1344fe0d959512",
+   "patched": false,
+   "local_sha256": "dcc6d8b2425accdfa8e235e84e7dbe6890c64494182d48656b1344fe0d959512"
+  },
+  {
+   "src": "research/alien-science/alien-science/README.md",
+   "dst": "legacy/research/alien-science/alien-science/README.md",
+   "src_sha256": "7f054419a2637701f072d835b159b70a8796df8257211b555af290cfd48d2b26",
+   "patched": false,
+   "local_sha256": "7f054419a2637701f072d835b159b70a8796df8257211b555af290cfd48d2b26"
+  },
+  {
+   "src": "research/alien-science/alien-science/SHIP",
+   "dst": "legacy/research/alien-science/alien-science/SHIP",
+   "src_sha256": "280f1956fb93562b69fd1be663c82c7afd786af36831dd7eaa32e10bdcd9b007",
+   "patched": false,
+   "local_sha256": "280f1956fb93562b69fd1be663c82c7afd786af36831dd7eaa32e10bdcd9b007"
+  },
+  {
+   "src": "research/alien-science/alien-science/WORKSHOP.md",
+   "dst": "legacy/research/alien-science/alien-science/WORKSHOP.md",
+   "src_sha256": "e5f56a90da89474d41bead4a9d6a5bb7451f48aa092b41277008d4cfdcadc8dc",
+   "patched": false,
+   "local_sha256": "e5f56a90da89474d41bead4a9d6a5bb7451f48aa092b41277008d4cfdcadc8dc"
+  },
+  {
+   "src": "research/alien-science/alien-science/disposition-stub.js",
+   "dst": "legacy/research/alien-science/alien-science/disposition-stub.js",
+   "src_sha256": "2b16b911e1e699b3de49203d726e1aeb767b09ff76c69d57ec6d74675c05d1ea",
+   "patched": false,
+   "local_sha256": "2b16b911e1e699b3de49203d726e1aeb767b09ff76c69d57ec6d74675c05d1ea"
+  },
+  {
+   "src": "research/alien-science/alien-science/disposition-v0.json",
+   "dst": "legacy/research/alien-science/alien-science/disposition-v0.json",
+   "src_sha256": "7c902f031ea7ffd15f9e119cf7d8b2d0350bfa43b733a23bd16c436b91fe601a",
+   "patched": false,
+   "local_sha256": "7c902f031ea7ffd15f9e119cf7d8b2d0350bfa43b733a23bd16c436b91fe601a"
+  },
+  {
+   "src": "research/alien-science/alien-science/dual-client.js",
+   "dst": "legacy/research/alien-science/alien-science/dual-client.js",
+   "src_sha256": "24266d19ae4575b6a82259aa6587a45b3dc82b082ed603c4a746507355cad4de",
+   "patched": false,
+   "local_sha256": "24266d19ae4575b6a82259aa6587a45b3dc82b082ed603c4a746507355cad4de"
+  },
+  {
+   "src": "research/alien-science/alien-science/em-channel.js",
+   "dst": "legacy/research/alien-science/alien-science/em-channel.js",
+   "src_sha256": "ffe5ff25179a97716e3b8d622541ba85d9897ea0bfe6e023ef0f22fca649da77",
+   "patched": false,
+   "local_sha256": "ffe5ff25179a97716e3b8d622541ba85d9897ea0bfe6e023ef0f22fca649da77"
+  },
+  {
+   "src": "research/alien-science/alien-science/em-disagree-story.json",
+   "dst": "legacy/research/alien-science/alien-science/em-disagree-story.json",
+   "src_sha256": "00f775427f95bfd183df28dcdad557f6891eef5c698914e3529ee54274c70d09",
+   "patched": false,
+   "local_sha256": "00f775427f95bfd183df28dcdad557f6891eef5c698914e3529ee54274c70d09"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/MANIFEST.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/MANIFEST.json",
+   "src_sha256": "2d5e9b872679e21a3d2d11a41399c946a39ac3cd3ff651f3c076a088ff59cf8d",
+   "patched": false,
+   "local_sha256": "2d5e9b872679e21a3d2d11a41399c946a39ac3cd3ff651f3c076a088ff59cf8d"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/README.md",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/README.md",
+   "src_sha256": "ba9f132d04603fdcea100040b9339e7050b19daec1ed60d3eb0182195bd617a1",
+   "patched": false,
+   "local_sha256": "ba9f132d04603fdcea100040b9339e7050b19daec1ed60d3eb0182195bd617a1"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/expected_outputs.md",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/expected_outputs.md",
+   "src_sha256": "ee015d7b5ef55090926ce4a88bd2c5e4e1236a0240ef9f032e88cbfcd8d73dd4",
+   "patched": false,
+   "local_sha256": "ee015d7b5ef55090926ce4a88bd2c5e4e1236a0240ef9f032e88cbfcd8d73dd4"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/fixtures/exam-pack.public.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/fixtures/exam-pack.public.json",
+   "src_sha256": "dd75f26dfb288ff90e806327a01fc4a96d2c743d9481e88c4ab8836f3f882507",
+   "patched": false,
+   "local_sha256": "dd75f26dfb288ff90e806327a01fc4a96d2c743d9481e88c4ab8836f3f882507"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/fixtures/heldout-ccs-es.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/fixtures/heldout-ccs-es.json",
+   "src_sha256": "859b2f168a9a62ac078e3f92d8e6d8db8e7d92569c9ea1a7fc75225261f066bc",
+   "patched": false,
+   "local_sha256": "859b2f168a9a62ac078e3f92d8e6d8db8e7d92569c9ea1a7fc75225261f066bc"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/fixtures/plant_mutant_batch.jsonl",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/fixtures/plant_mutant_batch.jsonl",
+   "src_sha256": "9873ca06f94bc0b1590ef6821426d7555e28957446c5e3eed83fafedaf34b506",
+   "patched": false,
+   "local_sha256": "9873ca06f94bc0b1590ef6821426d7555e28957446c5e3eed83fafedaf34b506"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/fixtures/volume_batch_100.jsonl",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/fixtures/volume_batch_100.jsonl",
+   "src_sha256": "f351375b30bb70608a3efb1258cc8ce30fc5eed5347ceca918e4363da345276a",
+   "patched": false,
+   "local_sha256": "f351375b30bb70608a3efb1258cc8ce30fc5eed5347ceca918e4363da345276a"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.json",
+   "src_sha256": "72aa0977f3a23a0a37aeb9df0e627ebcd46ed60c570de73f1524b12fd73eb960",
+   "patched": false,
+   "local_sha256": "72aa0977f3a23a0a37aeb9df0e627ebcd46ed60c570de73f1524b12fd73eb960"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.mutant.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.mutant.json",
+   "src_sha256": "a8d5d85c2311ce6ae24642c506df89cc33dd82f8b5d4e4edb2474a9ebe877a1c",
+   "patched": false,
+   "local_sha256": "a8d5d85c2311ce6ae24642c506df89cc33dd82f8b5d4e4edb2474a9ebe877a1c"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.python.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.python.json",
+   "src_sha256": "4584045de1b83929244e215f0ba9c8e657342930d04ef6ea61b73f104f231b34",
+   "patched": false,
+   "local_sha256": "4584045de1b83929244e215f0ba9c8e657342930d04ef6ea61b73f104f231b34"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/golden/plant_mutant.refused.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/golden/plant_mutant.refused.json",
+   "src_sha256": "d51585bd9cb2cb053e62d59ffc26f678ab0be22e81349df33192bd3e4c191255",
+   "patched": false,
+   "local_sha256": "d51585bd9cb2cb053e62d59ffc26f678ab0be22e81349df33192bd3e4c191255"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/golden/volume_batch_100.summary.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/golden/volume_batch_100.summary.json",
+   "src_sha256": "31c8e8d0115837a2e6cd69be95a1615e58fbb02a000d7b9cfca4a08d4b2de490",
+   "patched": false,
+   "local_sha256": "31c8e8d0115837a2e6cd69be95a1615e58fbb02a000d7b9cfca4a08d4b2de490"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/kernels/disposition_validate.py",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/kernels/disposition_validate.py",
+   "src_sha256": "c4e572e21a9d9ae3339132dcae29aaf64faa3aa8af6ffa8e7e35eadaa36c3de6",
+   "patched": false,
+   "local_sha256": "c4e572e21a9d9ae3339132dcae29aaf64faa3aa8af6ffa8e7e35eadaa36c3de6"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/kernels/swap_consistency.js",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/kernels/swap_consistency.js",
+   "src_sha256": "33b6ede079c99e0466579cd40cfdeb4ce73c20fc8584894e19ae6578a8e2b873",
+   "patched": false,
+   "local_sha256": "33b6ede079c99e0466579cd40cfdeb4ce73c20fc8584894e19ae6578a8e2b873"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/kernels/swap_consistency.py",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/kernels/swap_consistency.py",
+   "src_sha256": "2d52cc27ccc39982520684d30605fabe4d167842ca322bdbdab75788e964fa7c",
+   "patched": false,
+   "local_sha256": "2d52cc27ccc39982520684d30605fabe4d167842ca322bdbdab75788e964fa7c"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/schemas/disposition-v0.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/schemas/disposition-v0.json",
+   "src_sha256": "7c902f031ea7ffd15f9e119cf7d8b2d0350bfa43b733a23bd16c436b91fe601a",
+   "patched": false,
+   "local_sha256": "7c902f031ea7ffd15f9e119cf7d8b2d0350bfa43b733a23bd16c436b91fe601a"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/schemas/dual-eval-v0.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/schemas/dual-eval-v0.json",
+   "src_sha256": "665fba10176296cb91532b87f93d73e8739a48f5de086daabbe2c931d733e2fe",
+   "patched": false,
+   "local_sha256": "665fba10176296cb91532b87f93d73e8739a48f5de086daabbe2c931d733e2fe"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/schemas/volume-result-v0.json",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/schemas/volume-result-v0.json",
+   "src_sha256": "d4d98514d85ae2ca2f509cb1bbdd4277e2105a74cde23c912bbd2a83a50d808b",
+   "patched": false,
+   "local_sha256": "d4d98514d85ae2ca2f509cb1bbdd4277e2105a74cde23c912bbd2a83a50d808b"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/tools/dual_client.py",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/tools/dual_client.py",
+   "src_sha256": "89b099cd9234deeb121caaff9e6cae75b0cea19d77e0db55d26bfd2df43be91c",
+   "patched": false,
+   "local_sha256": "89b099cd9234deeb121caaff9e6cae75b0cea19d77e0db55d26bfd2df43be91c"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/tools/volume_runner.js",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/tools/volume_runner.js",
+   "src_sha256": "f6cfdc229fd39c2a586005a928d98e51f5304edfca50c8b5a594e1440f4b6a62",
+   "patched": false,
+   "local_sha256": "f6cfdc229fd39c2a586005a928d98e51f5304edfca50c8b5a594e1440f4b6a62"
+  },
+  {
+   "src": "research/alien-science/alien-science/fellows-pack/tools/volume_runner.py",
+   "dst": "legacy/research/alien-science/alien-science/fellows-pack/tools/volume_runner.py",
+   "src_sha256": "3297d6df8a8594715afbac52e8a49a5f3bde49f3cbf63bf98d81eb6bdd024683",
+   "patched": false,
+   "local_sha256": "3297d6df8a8594715afbac52e8a49a5f3bde49f3cbf63bf98d81eb6bdd024683"
+  },
+  {
+   "src": "research/alien-science/alien-science/hack-detectors.js",
+   "dst": "legacy/research/alien-science/alien-science/hack-detectors.js",
+   "src_sha256": "068a40c25cb5a4762a1adeadf7c6675d12015e5706b3978a6c8c35dd9d48b378",
+   "patched": false,
+   "local_sha256": "068a40c25cb5a4762a1adeadf7c6675d12015e5706b3978a6c8c35dd9d48b378"
+  },
+  {
+   "src": "research/alien-science/alien-science/heldout-story.json",
+   "dst": "legacy/research/alien-science/alien-science/heldout-story.json",
+   "src_sha256": "2929e99ee4e353ef680b3bd106bb66524b4a6f6a9737324d58303839eebef133",
+   "patched": false,
+   "local_sha256": "2929e99ee4e353ef680b3bd106bb66524b4a6f6a9737324d58303839eebef133"
+  },
+  {
+   "src": "research/alien-science/alien-science/swap-consistency.js",
+   "dst": "legacy/research/alien-science/alien-science/swap-consistency.js",
+   "src_sha256": "d020854f412eb15dcfcc1a55f9e8c34785fd1e65d4a1fea94e15b3baceddcaa9",
+   "patched": false,
+   "local_sha256": "d020854f412eb15dcfcc1a55f9e8c34785fd1e65d4a1fea94e15b3baceddcaa9"
+  },
+  {
+   "src": "research/alien-science/alien-science/volume-runner.js",
+   "dst": "legacy/research/alien-science/alien-science/volume-runner.js",
+   "src_sha256": "a8fe82f803dbc377181cb05c51f44ae16b10c7e153de0dc4300d07d6eb04d3f5",
+   "patched": false,
+   "local_sha256": "a8fe82f803dbc377181cb05c51f44ae16b10c7e153de0dc4300d07d6eb04d3f5"
   }
  ]
 }

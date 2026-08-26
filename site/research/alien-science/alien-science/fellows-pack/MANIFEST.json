@@ -1,0 +1,109 @@
+{
+  "schema": "fellows-pack-manifest/v0",
+  "pack": "alien-science/fellows-pack",
+  "updated": "2026-08-04",
+  "cost_refuse_usd": 18000,
+  "note": "JS kernels under kernels/ and tools/volume_runner.js are pointers (single-source). Re-hash after deliberate fixture/kernel edits. Re-hashed 2026-08-04: heldout fixture correction wave (heldout_* removed from fixture; goldens regenerated; Node mutant + Python twin goldens added).",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "8686cafa433c797f232baa4fcb86209231401eb88a0600df738aa3965ccfcac6",
+      "role": "docs"
+    },
+    {
+      "path": "expected_outputs.md",
+      "sha256": "ee015d7b5ef55090926ce4a88bd2c5e4e1236a0240ef9f032e88cbfcd8d73dd4",
+      "role": "docs"
+    },
+    {
+      "path": "fixtures/exam-pack.sample.json",
+      "sha256": "1c07deb6a3becb8b65a8dbe40466641821b115b6ec34d9010c6ddf077bf7c162",
+      "role": "fixture"
+    },
+    {
+      "path": "fixtures/heldout-ccs-es.json",
+      "sha256": "859b2f168a9a62ac078e3f92d8e6d8db8e7d92569c9ea1a7fc75225261f066bc",
+      "role": "fixture"
+    },
+    {
+      "path": "fixtures/plant_mutant_batch.jsonl",
+      "sha256": "9873ca06f94bc0b1590ef6821426d7555e28957446c5e3eed83fafedaf34b506",
+      "role": "fixture"
+    },
+    {
+      "path": "fixtures/volume_batch_100.jsonl",
+      "sha256": "f351375b30bb70608a3efb1258cc8ce30fc5eed5347ceca918e4363da345276a",
+      "role": "fixture"
+    },
+    {
+      "path": "golden/dual_client_heldout.json",
+      "sha256": "72aa0977f3a23a0a37aeb9df0e627ebcd46ed60c570de73f1524b12fd73eb960",
+      "role": "golden"
+    },
+    {
+      "path": "golden/dual_client_heldout.mutant.json",
+      "sha256": "a8d5d85c2311ce6ae24642c506df89cc33dd82f8b5d4e4edb2474a9ebe877a1c",
+      "role": "golden"
+    },
+    {
+      "path": "golden/dual_client_heldout.python.json",
+      "sha256": "4584045de1b83929244e215f0ba9c8e657342930d04ef6ea61b73f104f231b34",
+      "role": "golden"
+    },
+    {
+      "path": "golden/plant_mutant.refused.json",
+      "sha256": "d51585bd9cb2cb053e62d59ffc26f678ab0be22e81349df33192bd3e4c191255",
+      "role": "golden"
+    },
+    {
+      "path": "golden/volume_batch_100.summary.json",
+      "sha256": "31c8e8d0115837a2e6cd69be95a1615e58fbb02a000d7b9cfca4a08d4b2de490",
+      "role": "golden"
+    },
+    {
+      "path": "kernels/disposition_validate.py",
+      "sha256": "c4e572e21a9d9ae3339132dcae29aaf64faa3aa8af6ffa8e7e35eadaa36c3de6",
+      "role": "kernel"
+    },
+    {
+      "path": "kernels/swap_consistency.js",
+      "sha256": "33b6ede079c99e0466579cd40cfdeb4ce73c20fc8584894e19ae6578a8e2b873",
+      "role": "kernel"
+    },
+    {
+      "path": "kernels/swap_consistency.py",
+      "sha256": "2d52cc27ccc39982520684d30605fabe4d167842ca322bdbdab75788e964fa7c",
+      "role": "kernel"
+    },
+    {
+      "path": "schemas/disposition-v0.json",
+      "sha256": "7c902f031ea7ffd15f9e119cf7d8b2d0350bfa43b733a23bd16c436b91fe601a",
+      "role": "schema"
+    },
+    {
+      "path": "schemas/dual-eval-v0.json",
+      "sha256": "665fba10176296cb91532b87f93d73e8739a48f5de086daabbe2c931d733e2fe",
+      "role": "schema"
+    },
+    {
+      "path": "schemas/volume-result-v0.json",
+      "sha256": "d4d98514d85ae2ca2f509cb1bbdd4277e2105a74cde23c912bbd2a83a50d808b",
+      "role": "schema"
+    },
+    {
+      "path": "tools/dual_client.py",
+      "sha256": "89b099cd9234deeb121caaff9e6cae75b0cea19d77e0db55d26bfd2df43be91c",
+      "role": "tool"
+    },
+    {
+      "path": "tools/volume_runner.js",
+      "sha256": "f6cfdc229fd39c2a586005a928d98e51f5304edfca50c8b5a594e1440f4b6a62",
+      "role": "tool"
+    },
+    {
+      "path": "tools/volume_runner.py",
+      "sha256": "3297d6df8a8594715afbac52e8a49a5f3bde49f3cbf63bf98d81eb6bdd024683",
+      "role": "tool"
+    }
+  ]
+}

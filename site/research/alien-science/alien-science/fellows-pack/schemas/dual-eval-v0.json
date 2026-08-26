@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sin-mfg.local/schemas/dual-eval-v0.json",
+  "title": "dual-eval-v0",
+  "description": "PATH 09 dual-client output: PGR lane × disposition lane + disagreement.",
+  "type": "object",
+  "required": ["schema", "lanes", "disagreement", "cost_refuse"],
+  "properties": {
+    "schema": { "const": "dual-eval/v0" },
+    "idea": { "type": "string" },
+    "candidate_key": { "type": "string" },
+    "cost_refuse": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "const": "REFUSED" },
+        "re_hillclimb_usd": { "type": "number" },
+        "why": { "type": "string" }
+      }
+    },
+    "lanes": {
+      "type": "object",
+      "required": ["pgr", "disposition"],
+      "properties": {
+        "pgr": { "type": "object" },
+        "disposition": { "type": "object" }
+      }
+    },
+    "disagreement": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["agree_with_teeth", "disagree", "scope", "other"]
+        },
+        "headline": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "sandbox": { "type": "string" }
+  }
+}

@@ -1,4 +1,17 @@
 {
   "framework": null,
-  "outputDirectory": "site"
+  "outputDirectory": "site",
+  "rewrites": [
+    { "source": "/research/challenges/erdos290", "destination": "/research/challenges/erdos290.html" },
+    { "source": "/research/challenges/verify-lemniscate", "destination": "/research/challenges/verify-lemniscate.html" },
+    { "source": "/research/alien-science/alien-science", "destination": "/research/alien-science/alien-science.html" }
+  ],
+  "redirects": [
+    { "source": "/technical-reports/erdos290", "destination": "/research/challenges/erdos290", "statusCode": 301 },
+    { "source": "/technical-reports/erdos290/:path*", "destination": "/research/challenges/erdos290/:path*", "statusCode": 301 },
+    { "source": "/technical-reports/verify-lemniscate", "destination": "/research/challenges/verify-lemniscate", "statusCode": 301 },
+    { "source": "/reports/verify-lemniscate", "destination": "/research/challenges/verify-lemniscate", "statusCode": 301 },
+    { "source": "/technical-reports/alien-science", "destination": "/research/alien-science/alien-science", "statusCode": 301 },
+    { "source": "/technical-reports/alien-science/:path*", "destination": "/research/alien-science/alien-science/:path*", "statusCode": 301 }
+  ]
 }

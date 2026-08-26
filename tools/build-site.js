@@ -175,6 +175,14 @@ for (const f of fs.readdirSync(path.join(ROOT, 'tools'))) {
 }
 fs.copyFileSync(path.join(ROOT, 'LICENSE'), path.join(SITE, 'LICENSE'));
 
+/* legacy outreach surfaces: pages and artifact bundles whose URLs were sent
+   from the old lab (LIFT.json items under legacy/ — byte-identical, pinned).
+   They serve at their ORIGINAL paths; vercel.json carries the 301s for the
+   retired path spellings. Cited bytes are never rebuilt in place — an engine
+   rebuild gets a NEW page and a 301, never an edit here. */
+const LEGACY = path.join(ROOT, 'legacy');
+if (fs.existsSync(LEGACY)) fs.cpSync(LEGACY, SITE, { recursive: true, force: true });
+
 const count = (d) => fs.readdirSync(d, { recursive: true }).length;
 console.log('site/ written: landing + machine/ + ' + reportFiles.length + ' reports + '
   + certFiles.length + ' certificates + verifiers (' + count(SITE) + ' entries) @ git ' + git);

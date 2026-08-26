@@ -1,0 +1,36 @@
+{
+  "schema": "heldout-story/v0",
+  "id": "heldout-ccs-es",
+  "updated": "2026-08-04",
+  "idea": "CCS + Evolution Strategy Refinement (0.93 chat; swap-consistency core)",
+  "candidate_key": "CCS + ES held-out",
+  "lanes": {
+    "pgr": {
+      "chat_reported": 0.93,
+      "heldout_note": "fig. 8's held-out figures (math 0.94 / code 0.47) belong to CCS + Self-Distill, a different idea; the source reports no held-out numbers for CCS + Evolution Strategy Refinement. An earlier fixture version mis-attributed them here — corrected 2026-08-04.",
+      "sonnet_production_transfer": "within noise (+0.5 pt) — blog attributes this to the EM transfer attempt; no held-out migration row is claimed for CCS+ES (see heldout_note)",
+      "provenance": "Anthropic Alignment Science Blog, April 2026 (page prints month only; first Wayback capture 2026-04-14) — reported, not re-run here.",
+      "remeasured": false,
+      "isolation_required_to_remeasure": "Docker Mode B or RunPod Mode C — see MODE_B_RUNBOOK.md"
+    },
+    "disposition": {
+      "verdict": "CERTIFIED",
+      "scope": "swap-consistency algebraic fragment only",
+      "formalism": "p_sc=(p_orig+(1-p_swap))/2",
+      "battery": "make check-alien-science (monorepo) / fellows-pack golden (public)",
+      "kernel": "swap-consistency.js",
+      "notes": "Pre-update residual 0 on finite rational sample. Does not certify chat/math/code PGR."
+    }
+  },
+  "disagreement": {
+    "kind": "agree_with_teeth",
+    "summary": "High reported chat PGR (0.93) beside a CERTIFIED formal fragment — constructive twin. Held-out transfer (math 0.94 / code 0.47) is CCS + Self-Distill's story and is deliberately not claimed here.",
+    "attention": "The interesting future disagreement is high PGR + REFUSED/HACK-SUSPECT on a formalisable slice. This row is the green twin that proves the dual table can also agree."
+  },
+  "cost_refuse": {
+    "re_hillclimb_usd": 18000,
+    "re_hillclimb_per_aar_hour_usd": 22,
+    "status": "REFUSED",
+    "why": "Phase 2 exit: document coupling and dual lanes; do not re-spend Anthropic's run."
+  }
+}

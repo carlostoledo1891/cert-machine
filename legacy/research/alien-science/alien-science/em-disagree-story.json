@@ -1,0 +1,31 @@
+{
+  "schema": "em-disagree-story/v0",
+  "updated": "2026-07-31",
+  "note": "Attention object: Anthropic-reported EM Posterior PGR × REFUSED planted Bayes-channel mutant. Fragment only — not a claim their EM loop is wrong; the mutant soft labels fail the algebraic Bayes step under the stated channel.",
+  "idea": "EM Posterior",
+  "lanes": {
+    "pgr": {
+      "mode": "reported",
+      "chat_reported": 0.78,
+      "remeasured": false,
+      "provenance": "Anthropic Alignment Science Blog, April 2026 (page prints month only; first Wayback capture 2026-04-14) — reported, not re-run",
+      "isolation_required_to_remeasure": ["DOCKER_LOCAL_MODE", "RunPod"]
+    },
+    "disposition": {
+      "verdict": "REFUSED",
+      "kernel": "em-channel.js",
+      "plant_mutant": true,
+      "ground_truth_role": "mutant",
+      "scope": "algebraic Bayes step under binary channel × prior — not their full EM / finetune"
+    }
+  },
+  "disagreement": {
+    "kind": "disagree",
+    "headline": "high reported PGR + REFUSED fragment",
+    "note": "Metric green (as reported) × disposition teeth on a planted channel-Bayes mutant."
+  },
+  "cost_refuse": {
+    "status": "REFUSED",
+    "re_hillclimb_usd": 18000
+  }
+}
