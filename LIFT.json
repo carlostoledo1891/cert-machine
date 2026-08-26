@@ -49,12 +49,22 @@
     {
       "src": "research/probes/cheap-cert-families/reverify_ai_lyapunov.py",
       "dst": "instruments/sos/reverify_ai_lyapunov.py"
+    },
+    {
+      "src": "research/probes/mercer-program/fetch_mercer2019_integers.pdf",
+      "dst": "corpus/sources/mercer2019_integers.pdf",
+      "note": "Mercer, INTEGERS 19 (2019) #A4 (open access) — the pinned source of the mu(5)-ladder table transcriptions; mercer6.js re-hashes it at battery time"
+    },
+    {
+      "src": "research/probes/mercer-program/results/mu5-pi6.json",
+      "dst": "corpus/sources/mu5-pi6-sourcelab.json",
+      "note": "the source lab's m=6 record — mercer6-battery.js holds our m=6 run to it row for row (the cross-lab green), now against lifted bytes so the public tree runs with sin-mfg absent"
     }
   ],
   "patches": [
     {
       "file": "instruments/trigmin/certify-min.js",
-      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) \u2014 the marker IS the package root, and no file counts hops.",
+      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) — the marker IS the package root, and no file counts hops.",
       "replace": [
         [
           "const IV = require(path.join(__dirname, '..', '..', '..', 'core', 'interval', 'interval.js'));",
@@ -68,7 +78,7 @@
     },
     {
       "file": "instruments/trigmin/cheb.js",
-      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) \u2014 the marker IS the package root, and no file counts hops.",
+      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) — the marker IS the package root, and no file counts hops.",
       "replace": [
         [
           "const IV = require(path.join(__dirname, '..', '..', '..', 'core', 'interval', 'interval.js'));",
@@ -92,7 +102,7 @@
     },
     {
       "file": "machine/funnel/funnel.js",
-      "why": "The completeness certificate was gated on gen.name === 'enum' rather than on the four conditions it actually rests on. A generator that exhausted its declared box, audited every reject, and produced no REFUSED and no schema-invalid candidate earned the certificate and was refused it for having a different name. Removing the name test leaves the four real conditions untouched \u2014 this deletes a refusal, it does not add a check.",
+      "why": "The completeness certificate was gated on gen.name === 'enum' rather than on the four conditions it actually rests on. A generator that exhausted its declared box, audited every reject, and produced no REFUSED and no schema-invalid candidate earned the certificate and was refused it for having a different name. Removing the name test leaves the four real conditions untouched — this deletes a refusal, it does not add a check.",
       "replace": [
         [
           "if (gen.name === 'enum' && generatorDone && rejectAuditRate >= 1 && counts.schemaInvalid === 0 && counts.certified.REFUSED === 0 && wantN === rejects.length) {",

@@ -303,7 +303,7 @@ if (ledger.conjectures.length) {
     bodyRaw: C.table({ cols: [{ h: 'battery' }, { h: 'covers' }, { h: 'this build' }], rows })
       + '<div class="col">' + C.pRaw('Lifted from the source lab: ' + C.m(prov.counts.files + ' files') + ', '
         + C.m(prov.counts.patched + ' patched') + ' on the way in, each patch declared. Drift now: ' + C.m(drift) + '. '
-        + '<strong>' + C.esc(rj('LIFT.json').source_root) + ' is read-only, permanently</strong> — read anything, '
+        + '<strong>The source lab (' + C.esc(require('path').basename(rj('LIFT.json').source_root)) + ') is read-only, permanently</strong> — read anything, '
         + 'never write, and report an error there rather than repair it.') + '</div>'
   }));
 }

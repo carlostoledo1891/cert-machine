@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Entropy, with a certificate · cert-machine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(18px,4vw,40px) 96px}
+.col{max-width:64ch;margin:0 auto}
+.wide{max-width:900px;margin:0 auto}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{border:1px solid var(--rule);border-radius:4px;margin:40px 0 0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;
+  background:var(--rule);overflow:hidden}
+.stat{background:var(--surface);padding:22px 24px;display:flex;flex-direction:column;gap:7px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px;max-width:70ch}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · generated from the records</div>
+  <h1>Entropy, with a certificate</h1>
+  <p class="deck">The census counts periodic points and proves completeness; those counts encode the growth rate that IS topological entropy. This page turns boxes into the invariant: a certified lower bound h ≥ 0.3017 for the Hénon map at the classical parameters — every covering relation a strict interval inequality, the spectral bound exact, the whole certificate re-proved while this page was built — and the certified cycle counts that name the ceiling it is climbing toward.</p>
+</header>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">certified lower bound</div><div class="v held">0.3017</div><div class="n">h_top ≥ ln sp(B_K)/11 from 4140 covering relations over 340 disjoint h-sets, re-proved this build.</div></div>
+    <div class="stat"><div class="k">the census ceiling</div><div class="v">0.4658</div><div class="n">max ln(N_p)/p over the certified counts — the rate the literature pins at ≈ 0.4651.</div></div>
+    <div class="stat"><div class="k">calibration</div><div class="v held">ln 2 exact</div><div class="n">Deep in the Devaney–Nitecki regime (a = 6) the instrument certifies the full 2-shift.</div></div>
+    <div class="stat"><div class="k">red controls</div><div class="v">4</div><div class="n">No-stretch, lid violation, wrong target, overlapping h-sets — each must refuse, every build.</div></div>
+  </div>
+</div>
+
+<p class="scope">Local working document. The bound is a theorem modulo one consumed external result (covering relations imply semi-conjugacy to the subshift — Zgliczyński–Gidea), used the way Krawczyk&#39;s theorem is consumed elsewhere in this lab. Parameters are the exact doubles nearest 1.4 and 0.3, the same objects the census certifies.</p>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the theorem</div>
+    <h2>What is certified, exactly</h2>
+  </div>
+<div class="col"><p>There are <span class="m">340</span> parallelograms (h-sets) in the plane, proved pairwise disjoint by separating axes with outward rounding. For <span class="m">4140</span> ordered pairs and durations k = 1..6, the iterate <span class="m">F^k</span> provably STRETCHES the first parallelogram across the second: the two exit edges land strictly beyond the target on opposite sides, and the image avoids the target's side SLABS — finitely many strict interval inequalities, checked by adaptive bisection. Relations COMPOSE, so all durations reduce to one uniform iterate: <span class="m">B_K[i][j] = 1</span> iff some duration-exactly-K composition exists (binary — one relation per pair, never a path count), and</p><div class="eq">h_top(F) = h_top(F^11)/11 ≥ ln sp(B_11)/11 ≥ 0.301680</div><p>with the spectral bound exact (min positive row sum of powers, integer arithmetic, overflow-guarded, iteratively trimmed). The certifier can refuse an edge — and did, for most candidates; it cannot certify a false one. Dropping edges only ever lowers the bound, which is the safe direction. TWO soundness bugs were found by impossible numbers, and each now has a red control: counting mixed-duration paths as distinct itineraries once yielded h ≥ 0.61 on a map whose true entropy is ≈ 0.465 (a duration-2 relation constrains nothing at its intermediate time), and a lids-only image condition once certified a golden-mean graph converging to ln φ = 0.4812 — also past the truth. The battery now demands the exact-ln 2 horseshoe stays at ln 2 under mixed durations, and the slab condition replaced the lid condition.</p><p>The float layer that PROPOSED the boxes — a long orbit, binned; tangents by local PCA; stable directions by backward-Jacobian iteration — is believed about nothing: every box and every edge is re-derived from the interval conditions alone, and the battery re-proves the whole certificate (<span class="m">4140/4140</span> edges) on every build.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the ceiling</div>
+    <h2>What the census already knows</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>period</th><th>points, certified exact</th><th>ln(N_p)/p</th><th>status</th></tr></thead><tbody><tr><td><span class="m">p = 13</span></td><td class="v"><span class="m">418</span></td><td class="v"><span class="m">0.4643</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr><tr><td><span class="m">p = 14</span></td><td class="v"><span class="m">648</span></td><td class="v"><span class="m">0.4624</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr><tr><td><span class="m">p = 15</span></td><td class="v"><span class="m">1082</span></td><td class="v"><span class="m">0.4658</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr><tr><td><span class="m">p = 16</span></td><td class="v"><span class="m">1696</span></td><td class="v"><span class="m">0.4648</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr></tbody></table></div></div><div class="col"><p>The growth rate of certified cycle counts climbs to <span class="m">0.4658</span> by p = 16 — squarely at the literature value h ≈ 0.4651 for these parameters. But counts alone are NOT a lower bound for entropy (that implication runs the other way); the covering graph is what converts counted orbits into certified entropy, and today it certifies <span class="m">0.3017</span> — <span class="m">65%</span> of the ceiling. The gap is structure the current graph does not resolve: uniform box sizes and a single global iterate. Per-edge durations with Bowen-weighted spectral bounds, and boxes sized to local expansion, are the recorded next step.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · check it</div>
+    <h2>What a skeptic runs</h2>
+  </div>
+<div class="col"><p><span class="m">make test</span> re-proves everything: the ln 2 calibration at the full horseshoe, four red controls (a covering that does not hold must refuse three different ways; overlapping h-sets must refuse the graph), exactness of the spectral bound on hand matrices, and the detached certificate <span class="m">certs/entropy-henon.json</span> — every h-set re-proved disjoint, every covering relation re-derived, the bound recomputed. The certificate itself is finite data: parallelogram matrices, an edge list, one integer matrix power.</p></div>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-entropy.js — the certificate re-verified and the calibration re-run during this build; the build fails otherwise.</p><p>git 9b75b62 · cert-machine · Carlos Toledo</p></footer>
+
+</div>
+</html>

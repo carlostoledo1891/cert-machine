@@ -312,9 +312,11 @@ const PRINTED_TABLE6 = [
 ];
 const PRINTED_TABLE7 = [[1, 3, 5, 6], [1, 2, 3, 4], [2, 3, 4, 5], [1, 2, 4, 5], [1, 3, 4, 5], [1, 7, 9, 10]];
 
-/* the pinned source of the transcriptions above (sin-mfg is READ-ONLY) */
+/* the pinned source of the transcriptions above — lifted bytes (LIFT.json:
+   research/probes/mercer-program/fetch_mercer2019_integers.pdf), held
+   repo-relative so no machine path ever enters a certificate */
 const SOURCE_PDF = {
-  file: '/Users/carlostoledo/Documents/sin-mfg/research/probes/mercer-program/fetch_mercer2019_integers.pdf',
+  file: 'corpus/sources/mercer2019_integers.pdf',
   sha256: '1f648ff3aff79991fdf57213a0a0a270b83db64eefe1f4477739cb9ea7f10749'
 };
 

@@ -1,0 +1,6114 @@
+{
+ "what": "the certified lambda(n) table: exhaustive box sweeps, optimiser certified. lambda(n) is an INFIMUM — every row is a certified UPPER bound on lambda(n) plus completeness over its named box, never a value; rows at different n order NOTHING (a box gives no lower bound).",
+ "rows": {
+  "4@20": {
+   "what": "exhaustive lambda sweep: every 4-subset of 1..20 decided exactly against the bar",
+   "n": 4,
+   "M": 20,
+   "totalSets": 4845,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "minEnclosure": [
+     -1.5195578816428483,
+     -1.519557881642848
+    ]
+   },
+   "bar": {
+    "num": "-6843480309534633",
+    "den": "4503599627370496",
+    "asDouble": -1.5195578816428486
+   },
+   "killedAtRootsOfUnity": 2818,
+   "killedDyadic": 2022,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "minEnclosure": [
+      -1.5195578816428483,
+      -1.519557881642848
+     ],
+     "lambda": [
+      1.519557881642848,
+      1.5195578816428483
+     ],
+     "degree": 4,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      4,
+      6,
+      8
+     ],
+     "minEnclosure": [
+      -1.5195578816428483,
+      -1.519557881642848
+     ],
+     "lambda": [
+      1.519557881642848,
+      1.5195578816428483
+     ],
+     "degree": 8,
+     "gcd": 2
+    },
+    {
+     "A": [
+      3,
+      6,
+      9,
+      12
+     ],
+     "minEnclosure": [
+      -1.5195578816428483,
+      -1.519557881642848
+     ],
+     "lambda": [
+      1.519557881642848,
+      1.5195578816428483
+     ],
+     "degree": 12,
+     "gcd": 3
+    },
+    {
+     "A": [
+      4,
+      8,
+      12,
+      16
+     ],
+     "minEnclosure": [
+      -1.5195578816428483,
+      -1.519557881642848
+     ],
+     "lambda": [
+      1.519557881642848,
+      1.5195578816428483
+     ],
+     "degree": 16,
+     "gcd": 4
+    },
+    {
+     "A": [
+      5,
+      10,
+      15,
+      20
+     ],
+     "minEnclosure": [
+      -1.5195578816428483,
+      -1.519557881642848
+     ],
+     "lambda": [
+      1.519557881642848,
+      1.5195578816428483
+     ],
+     "degree": 20,
+     "gcd": 5
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "minEnclosure": [
+     -1.5195578816428483,
+     -1.519557881642848
+    ],
+    "lambda": [
+     1.519557881642848,
+     1.5195578816428483
+    ],
+    "degree": 4,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "2818+2022+0+5 = 4845",
+   "elapsedMs": 114,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "sourceLab": {
+    "A": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "lambda12dp": 1.519557881643
+   },
+   "reproduces": true
+  },
+  "5@60": {
+   "what": "exhaustive lambda sweep: every 5-subset of 1..60 decided exactly against the bar",
+   "n": 5,
+   "M": 60,
+   "totalSets": 5461512,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     4,
+     5,
+     6
+    ],
+    "minEnclosure": [
+     -1.6274606644665797,
+     -1.6274606644665794
+    ]
+   },
+   "bar": {
+    "num": "-7329431242051829",
+    "den": "4503599627370496",
+    "asDouble": -1.6274606644665799
+   },
+   "killedAtRootsOfUnity": 2824536,
+   "killedDyadic": 2636966,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      4,
+      5,
+      6
+     ],
+     "minEnclosure": [
+      -1.6274606644665797,
+      -1.6274606644665794
+     ],
+     "lambda": [
+      1.6274606644665794,
+      1.6274606644665797
+     ],
+     "degree": 6,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      4,
+      8,
+      10,
+      12
+     ],
+     "minEnclosure": [
+      -1.6274606644665797,
+      -1.6274606644665794
+     ],
+     "lambda": [
+      1.6274606644665794,
+      1.6274606644665797
+     ],
+     "degree": 12,
+     "gcd": 2
+    },
+    {
+     "A": [
+      3,
+      6,
+      12,
+      15,
+      18
+     ],
+     "minEnclosure": [
+      -1.6274606644665797,
+      -1.6274606644665794
+     ],
+     "lambda": [
+      1.6274606644665794,
+      1.6274606644665797
+     ],
+     "degree": 18,
+     "gcd": 3
+    },
+    {
+     "A": [
+      4,
+      8,
+      16,
+      20,
+      24
+     ],
+     "minEnclosure": [
+      -1.6274606644665797,
+      -1.6274606644665794
+     ],
+     "lambda": [
+      1.6274606644665794,
+      1.6274606644665797
+     ],
+     "degree": 24,
+     "gcd": 4
+    },
+    {
+     "A": [
+      5,
+      10,
+      20,
+      25,
+      30
+     ],
+     "minEnclosure": [
+      -1.6274606644665797,
+      -1.6274606644665794
+     ],
+     "lambda": [
+      1.6274606644665794,
+      1.6274606644665797
+     ],
+     "degree": 30,
+     "gcd": 5
+    },
+    {
+     "A": [
+      6,
+      12,
+      24,
+      30,
+      36
+     ],
+     "minEnclosure": [
+      -1.6274606644665797,
+      -1.6274606644665794
+     ],
+     "lambda": [
+      1.6274606644665794,
+      1.6274606644665797
+     ],
+     "degree": 36,
+     "gcd": 6
+    },
+    {
+     "A": [
+      7,
+      14,
+      28,
+      35,
+      42
+     ],
+     "minEnclosure": [
+      -1.6274606644665797,
+      -1.6274606644665794
+     ],
+     "lambda": [
+      1.6274606644665794,
+      1.6274606644665797
+     ],
+     "degree": 42,
+     "gcd": 7
+    },
+    {
+     "A": [
+      8,
+      16,
+      32,
+      40,
+      48
+     ],
+     "minEnclosure": [
+      -1.6274606644665797,
+      -1.6274606644665794
+     ],
+     "lambda": [
+      1.6274606644665794,
+      1.6274606644665797
+     ],
+     "degree": 48,
+     "gcd": 8
+    },
+    {
+     "A": [
+      9,
+      18,
+      36,
+      45,
+      54
+     ],
+     "minEnclosure": [
+      -1.6274606644665797,
+      -1.6274606644665794
+     ],
+     "lambda": [
+      1.6274606644665794,
+      1.6274606644665797
+     ],
+     "degree": 54,
+     "gcd": 9
+    },
+    {
+     "A": [
+      10,
+      20,
+      40,
+      50,
+      60
+     ],
+     "minEnclosure": [
+      -1.6274606644665797,
+      -1.6274606644665794
+     ],
+     "lambda": [
+      1.6274606644665794,
+      1.6274606644665797
+     ],
+     "degree": 60,
+     "gcd": 10
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     4,
+     5,
+     6
+    ],
+    "minEnclosure": [
+     -1.6274606644665797,
+     -1.6274606644665794
+    ],
+    "lambda": [
+     1.6274606644665794,
+     1.6274606644665797
+    ],
+    "degree": 6,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     4,
+     5,
+     6
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "2824536+2636966+0+10 = 5461512",
+   "elapsedMs": 63934,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "sourceLab": {
+    "A": [
+     1,
+     2,
+     4,
+     5,
+     6
+    ],
+    "lambda12dp": 1.627460664467
+   },
+   "reproduces": true
+  },
+  "6@50": {
+   "what": "exhaustive lambda sweep: every 6-subset of 1..50 decided exactly against the bar",
+   "n": 6,
+   "M": 50,
+   "totalSets": 15890700,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     4,
+     6,
+     7,
+     8
+    ],
+    "minEnclosure": [
+     -1.59183232932385,
+     -1.5918323293238499
+    ]
+   },
+   "bar": {
+    "num": "-7168975485179201",
+    "den": "4503599627370496",
+    "asDouble": -1.5918323293238503
+   },
+   "killedAtRootsOfUnity": 9121197,
+   "killedDyadic": 6769497,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      4,
+      6,
+      7,
+      8
+     ],
+     "minEnclosure": [
+      -1.59183232932385,
+      -1.5918323293238499
+     ],
+     "lambda": [
+      1.5918323293238499,
+      1.59183232932385
+     ],
+     "degree": 8,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      4,
+      8,
+      12,
+      14,
+      16
+     ],
+     "minEnclosure": [
+      -1.59183232932385,
+      -1.5918323293238499
+     ],
+     "lambda": [
+      1.5918323293238499,
+      1.59183232932385
+     ],
+     "degree": 16,
+     "gcd": 2
+    },
+    {
+     "A": [
+      3,
+      6,
+      12,
+      18,
+      21,
+      24
+     ],
+     "minEnclosure": [
+      -1.59183232932385,
+      -1.5918323293238499
+     ],
+     "lambda": [
+      1.5918323293238499,
+      1.59183232932385
+     ],
+     "degree": 24,
+     "gcd": 3
+    },
+    {
+     "A": [
+      4,
+      8,
+      16,
+      24,
+      28,
+      32
+     ],
+     "minEnclosure": [
+      -1.59183232932385,
+      -1.5918323293238499
+     ],
+     "lambda": [
+      1.5918323293238499,
+      1.59183232932385
+     ],
+     "degree": 32,
+     "gcd": 4
+    },
+    {
+     "A": [
+      5,
+      10,
+      20,
+      30,
+      35,
+      40
+     ],
+     "minEnclosure": [
+      -1.59183232932385,
+      -1.5918323293238499
+     ],
+     "lambda": [
+      1.5918323293238499,
+      1.59183232932385
+     ],
+     "degree": 40,
+     "gcd": 5
+    },
+    {
+     "A": [
+      6,
+      12,
+      24,
+      36,
+      42,
+      48
+     ],
+     "minEnclosure": [
+      -1.59183232932385,
+      -1.5918323293238499
+     ],
+     "lambda": [
+      1.5918323293238499,
+      1.59183232932385
+     ],
+     "degree": 48,
+     "gcd": 6
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     4,
+     6,
+     7,
+     8
+    ],
+    "minEnclosure": [
+     -1.59183232932385,
+     -1.5918323293238499
+    ],
+    "lambda": [
+     1.5918323293238499,
+     1.59183232932385
+    ],
+    "degree": 8,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     4,
+     6,
+     7,
+     8
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "9121197+6769497+0+6 = 15890700",
+   "elapsedMs": 140070,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "sourceLab": {
+    "A": [
+     1,
+     2,
+     4,
+     6,
+     7,
+     8
+    ],
+    "lambda12dp": 1.591832329324
+   },
+   "reproduces": true
+  },
+  "7@30": {
+   "what": "exhaustive lambda sweep: every 7-subset of 1..30 decided exactly against the bar",
+   "n": 7,
+   "M": 30,
+   "totalSets": 2035800,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8
+    ],
+    "minEnclosure": [
+     -1.8934554189924957,
+     -1.8934554189924955
+    ]
+   },
+   "bar": {
+    "num": "-8527365119417251",
+    "den": "4503599627370496",
+    "asDouble": -1.893455418992496
+   },
+   "killedAtRootsOfUnity": 1235525,
+   "killedDyadic": 800272,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8
+     ],
+     "minEnclosure": [
+      -1.8934554189924957,
+      -1.8934554189924955
+     ],
+     "lambda": [
+      1.8934554189924955,
+      1.8934554189924957
+     ],
+     "degree": 8,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      4,
+      6,
+      10,
+      12,
+      14,
+      16
+     ],
+     "minEnclosure": [
+      -1.8934554189924957,
+      -1.8934554189924955
+     ],
+     "lambda": [
+      1.8934554189924955,
+      1.8934554189924957
+     ],
+     "degree": 16,
+     "gcd": 2
+    },
+    {
+     "A": [
+      3,
+      6,
+      9,
+      15,
+      18,
+      21,
+      24
+     ],
+     "minEnclosure": [
+      -1.8934554189924957,
+      -1.8934554189924955
+     ],
+     "lambda": [
+      1.8934554189924955,
+      1.8934554189924957
+     ],
+     "degree": 24,
+     "gcd": 3
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8
+    ],
+    "minEnclosure": [
+     -1.8934554189924957,
+     -1.8934554189924955
+    ],
+    "lambda": [
+     1.8934554189924955,
+     1.8934554189924957
+    ],
+    "degree": 8,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "1235525+800272+0+3 = 2035800",
+   "elapsedMs": 11280,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "sourceLab": {
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8
+    ],
+    "lambda12dp": 1.893455418992
+   },
+   "reproduces": true
+  },
+  "8@30": {
+   "what": "exhaustive lambda sweep: every 8-subset of 1..30 decided exactly against the bar",
+   "n": 8,
+   "M": 30,
+   "totalSets": 5852925,
+   "K": 1024,
+   "seed": {
+    "A": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     8,
+     10,
+     12
+    ],
+    "minEnclosure": [
+     -1.956787693632823,
+     -1.9567876936328228
+    ]
+   },
+   "bar": {
+    "num": "-8812588327887955",
+    "den": "4503599627370496",
+    "asDouble": -1.9567876936328232
+   },
+   "killedAtRootsOfUnity": 3879980,
+   "killedDyadic": 1972943,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      10,
+      12
+     ],
+     "minEnclosure": [
+      -1.956787693632823,
+      -1.9567876936328228
+     ],
+     "lambda": [
+      1.9567876936328228,
+      1.956787693632823
+     ],
+     "degree": 12,
+     "gcd": 1
+    },
+    {
+     "A": [
+      4,
+      6,
+      8,
+      10,
+      14,
+      16,
+      20,
+      24
+     ],
+     "minEnclosure": [
+      -1.956787693632823,
+      -1.9567876936328228
+     ],
+     "lambda": [
+      1.9567876936328228,
+      1.956787693632823
+     ],
+     "degree": 24,
+     "gcd": 2
+    }
+   ],
+   "optimiser": {
+    "A": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     8,
+     10,
+     12
+    ],
+    "minEnclosure": [
+     -1.956787693632823,
+     -1.9567876936328228
+    ],
+    "lambda": [
+     1.9567876936328228,
+     1.956787693632823
+    ],
+    "degree": 12,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     8,
+     10,
+     12
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "3879980+1972943+0+2 = 5852925",
+   "elapsedMs": 31090,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "sourceLab": {
+    "A": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     8,
+     10,
+     12
+    ],
+    "lambda12dp": 1.956787693633
+   },
+   "reproduces": true
+  },
+  "9@25": {
+   "what": "exhaustive lambda sweep: every 9-subset of 1..25 decided exactly against the bar",
+   "n": 9,
+   "M": 25,
+   "totalSets": 2042975,
+   "K": 1024,
+   "seed": {
+    "A": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     9,
+     10,
+     12,
+     14
+    ],
+    "minEnclosure": [
+     -2.0692825870916436,
+     -2.069282587091643
+    ]
+   },
+   "bar": {
+    "num": "-1164902536018773",
+    "den": "562949953421312",
+    "asDouble": -2.069282587091644
+   },
+   "killedAtRootsOfUnity": 891819,
+   "killedDyadic": 1151155,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      12,
+      14
+     ],
+     "minEnclosure": [
+      -2.0692825870916436,
+      -2.069282587091643
+     ],
+     "lambda": [
+      2.069282587091643,
+      2.0692825870916436
+     ],
+     "degree": 14,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     9,
+     10,
+     12,
+     14
+    ],
+    "minEnclosure": [
+     -2.0692825870916436,
+     -2.069282587091643
+    ],
+    "lambda": [
+     2.069282587091643,
+     2.0692825870916436
+    ],
+    "degree": 14,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     9,
+     10,
+     12,
+     14
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "891819+1151155+0+1 = 2042975",
+   "elapsedMs": 19118,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "sourceLab": {
+    "A": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     9,
+     10,
+     12,
+     14
+    ],
+    "lambda12dp": 2.069282587092
+   },
+   "reproduces": true
+  },
+  "10@25": {
+   "what": "exhaustive lambda sweep: every 10-subset of 1..25 decided exactly against the bar",
+   "n": 10,
+   "M": 25,
+   "totalSets": 3268760,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13
+    ],
+    "minEnclosure": [
+     -2.057447274608302,
+     -2.0574472746083017
+    ]
+   },
+   "bar": {
+    "num": "-4632959389630197",
+    "den": "2251799813685248",
+    "asDouble": -2.0574472746083026
+   },
+   "killedAtRootsOfUnity": 1044042,
+   "killedDyadic": 2224717,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      13
+     ],
+     "minEnclosure": [
+      -2.057447274608302,
+      -2.0574472746083017
+     ],
+     "lambda": [
+      2.0574472746083017,
+      2.057447274608302
+     ],
+     "degree": 13,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13
+    ],
+    "minEnclosure": [
+     -2.057447274608302,
+     -2.0574472746083017
+    ],
+    "lambda": [
+     2.0574472746083017,
+     2.057447274608302
+    ],
+    "degree": 13,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "1044042+2224717+0+1 = 3268760",
+   "elapsedMs": 40324,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "sourceLab": {
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13
+    ],
+    "lambda12dp": 2.057447274608
+   },
+   "reproduces": true
+  },
+  "11@25": {
+   "what": "exhaustive lambda sweep: every 11-subset of 1..25 decided exactly against the bar",
+   "n": 11,
+   "M": 25,
+   "totalSets": 4457400,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     11,
+     14
+    ],
+    "minEnclosure": [
+     -2.1023812792428878,
+     -2.102381279242887
+    ]
+   },
+   "bar": {
+    "num": "-4734141772894489",
+    "den": "2251799813685248",
+    "asDouble": -2.102381279242888
+   },
+   "killedAtRootsOfUnity": 2248250,
+   "killedDyadic": 2209149,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      14
+     ],
+     "minEnclosure": [
+      -2.1023812792428878,
+      -2.102381279242887
+     ],
+     "lambda": [
+      2.102381279242887,
+      2.1023812792428878
+     ],
+     "degree": 14,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     11,
+     14
+    ],
+    "minEnclosure": [
+     -2.1023812792428878,
+     -2.102381279242887
+    ],
+    "lambda": [
+     2.102381279242887,
+     2.1023812792428878
+    ],
+    "degree": 14,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     11,
+     14
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "2248250+2209149+0+1 = 4457400",
+   "elapsedMs": 43362,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "sourceLab": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     11,
+     14
+    ],
+    "lambda12dp": 2.102381279243
+   },
+   "reproduces": true
+  },
+  "12@25": {
+   "what": "exhaustive lambda sweep: every 12-subset of 1..25 decided exactly against the bar",
+   "n": 12,
+   "M": 25,
+   "totalSets": 5200300,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     15
+    ],
+    "minEnclosure": [
+     -2.213895922405542,
+     -2.2138959224055417
+    ]
+   },
+   "bar": {
+    "num": "-4985250425591331",
+    "den": "2251799813685248",
+    "asDouble": -2.2138959224055426
+   },
+   "killedAtRootsOfUnity": 1978040,
+   "killedDyadic": 3222259,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      15
+     ],
+     "minEnclosure": [
+      -2.213895922405542,
+      -2.2138959224055417
+     ],
+     "lambda": [
+      2.2138959224055417,
+      2.213895922405542
+     ],
+     "degree": 15,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     15
+    ],
+    "minEnclosure": [
+     -2.213895922405542,
+     -2.2138959224055417
+    ],
+    "lambda": [
+     2.2138959224055417,
+     2.213895922405542
+    ],
+    "degree": 15,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     15
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "1978040+3222259+0+1 = 5200300",
+   "elapsedMs": 67948,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "sourceLab": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     15
+    ],
+    "lambda12dp": 2.213895922406
+   },
+   "reproduces": true
+  },
+  "13@25": {
+   "what": "exhaustive lambda sweep: every 13-subset of 1..25 decided exactly against the bar",
+   "n": 13,
+   "M": 25,
+   "totalSets": 5200300,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     14,
+     15,
+     18,
+     24
+    ],
+    "minEnclosure": [
+     -2.475298258730443,
+     -2.4752982587304424
+    ]
+   },
+   "bar": {
+    "num": "-5573876157824631",
+    "den": "2251799813685248",
+    "asDouble": -2.4752982587304433
+   },
+   "killedAtRootsOfUnity": 2265248,
+   "killedDyadic": 2935033,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      16
+     ],
+     "minEnclosure": [
+      -2.470843875645988,
+      -2.4708438756459876
+     ],
+     "lambda": [
+      2.4708438756459876,
+      2.470843875645988
+     ],
+     "degree": 16,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      14,
+      15
+     ],
+     "minEnclosure": [
+      -2.419782099322485,
+      -2.4197820993224846
+     ],
+     "lambda": [
+      2.4197820993224846,
+      2.419782099322485
+     ],
+     "degree": 15,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16
+     ],
+     "minEnclosure": [
+      -2.31823265015213,
+      -2.3182326501521295
+     ],
+     "lambda": [
+      2.3182326501521295,
+      2.31823265015213
+     ],
+     "degree": 16,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      19
+     ],
+     "minEnclosure": [
+      -2.4494014993897246,
+      -2.449401499389724
+     ],
+     "lambda": [
+      2.449401499389724,
+      2.4494014993897246
+     ],
+     "degree": 19,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      17
+     ],
+     "minEnclosure": [
+      -2.338432863510829,
+      -2.3384328635108287
+     ],
+     "lambda": [
+      2.3384328635108287,
+      2.338432863510829
+     ],
+     "degree": 17,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      19
+     ],
+     "minEnclosure": [
+      -2.3451443983321987,
+      -2.3451443983321982
+     ],
+     "lambda": [
+      2.3451443983321982,
+      2.3451443983321987
+     ],
+     "degree": 19,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      18
+     ],
+     "minEnclosure": [
+      -2.3509694695257757,
+      -2.3509694695257752
+     ],
+     "lambda": [
+      2.3509694695257752,
+      2.3509694695257757
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      10,
+      11,
+      14,
+      16,
+      17,
+      18
+     ],
+     "minEnclosure": [
+      -2.343783094550967,
+      -2.3437830945509663
+     ],
+     "lambda": [
+      2.3437830945509663,
+      2.343783094550967
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      10,
+      12,
+      13,
+      14,
+      15,
+      20
+     ],
+     "minEnclosure": [
+      -2.409497323003131,
+      -2.40949732300313
+     ],
+     "lambda": [
+      2.40949732300313,
+      2.409497323003131
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      16,
+      18
+     ],
+     "minEnclosure": [
+      -2.4437256968789325,
+      -2.443725696878932
+     ],
+     "lambda": [
+      2.443725696878932,
+      2.4437256968789325
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      12,
+      13,
+      14,
+      16,
+      18
+     ],
+     "minEnclosure": [
+      -2.356156135537297,
+      -2.3561561355372964
+     ],
+     "lambda": [
+      2.3561561355372964,
+      2.356156135537297
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      12,
+      13,
+      16,
+      17,
+      18
+     ],
+     "minEnclosure": [
+      -2.4537750661717617,
+      -2.4537750661717608
+     ],
+     "lambda": [
+      2.4537750661717608,
+      2.4537750661717617
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13,
+      14,
+      15,
+      16,
+      20
+     ],
+     "minEnclosure": [
+      -2.4283068504012295,
+      -2.428306850401229
+     ],
+     "lambda": [
+      2.428306850401229,
+      2.4283068504012295
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      19,
+      20
+     ],
+     "minEnclosure": [
+      -2.3275453894684923,
+      -2.327545389468492
+     ],
+     "lambda": [
+      2.327545389468492,
+      2.3275453894684923
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      17,
+      18,
+      19
+     ],
+     "minEnclosure": [
+      -2.4743817272251865,
+      -2.474381727225186
+     ],
+     "lambda": [
+      2.474381727225186,
+      2.4743817272251865
+     ],
+     "degree": 19,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      13,
+      14,
+      15,
+      18
+     ],
+     "minEnclosure": [
+      -2.465176210093433,
+      -2.4651762100934325
+     ],
+     "lambda": [
+      2.4651762100934325,
+      2.465176210093433
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      13,
+      14,
+      18,
+      19
+     ],
+     "minEnclosure": [
+      -2.369530541893403,
+      -2.3695305418934027
+     ],
+     "lambda": [
+      2.3695305418934027,
+      2.369530541893403
+     ],
+     "degree": 19,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      15,
+      18,
+      24
+     ],
+     "minEnclosure": [
+      -2.475298258730443,
+      -2.4752982587304424
+     ],
+     "lambda": [
+      2.4752982587304424,
+      2.475298258730443
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      13,
+      14,
+      16,
+      18,
+      23
+     ],
+     "minEnclosure": [
+      -2.4707120454170592,
+      -2.470712045417059
+     ],
+     "lambda": [
+      2.470712045417059,
+      2.4707120454170592
+     ],
+     "degree": 23,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     16
+    ],
+    "minEnclosure": [
+     -2.31823265015213,
+     -2.3182326501521295
+    ],
+    "lambda": [
+     2.3182326501521295,
+     2.31823265015213
+    ],
+    "degree": 16,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     16
+    ],
+    "uniqueUpToDilation": false,
+    "outsiders": [
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      16
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      14,
+      15
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      19
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      17
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      19
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      18
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      10,
+      11,
+      14,
+      16,
+      17,
+      18
+     ],
+     [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      10,
+      12,
+      13,
+      14,
+      15,
+      20
+     ],
+     [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      16,
+      18
+     ],
+     [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      12,
+      13,
+      14,
+      16,
+      18
+     ],
+     [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      12,
+      13,
+      16,
+      17,
+      18
+     ],
+     [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13,
+      14,
+      15,
+      16,
+      20
+     ],
+     [
+      1,
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      19,
+      20
+     ],
+     [
+      1,
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      17,
+      18,
+      19
+     ],
+     [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      13,
+      14,
+      15,
+      18
+     ],
+     [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      13,
+      14,
+      18,
+      19
+     ],
+     [
+      1,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      15,
+      18,
+      24
+     ],
+     [
+      2,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      13,
+      14,
+      16,
+      18,
+      23
+     ]
+    ]
+   },
+   "conservation": "2265248+2935033+0+19 = 5200300",
+   "elapsedMs": 67271,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123"
+  },
+  "14@25": {
+   "what": "exhaustive lambda sweep: every 14-subset of 1..25 decided exactly against the bar",
+   "n": 14,
+   "M": 25,
+   "totalSets": 4457400,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     12,
+     13,
+     14,
+     15,
+     18
+    ],
+    "minEnclosure": [
+     -2.366350427056568,
+     -2.3663504270565676
+    ]
+   },
+   "bar": {
+    "num": "-1332136862689997",
+    "den": "562949953421312",
+    "asDouble": -2.3663504270565685
+   },
+   "killedAtRootsOfUnity": 1886436,
+   "killedDyadic": 2570963,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      18
+     ],
+     "minEnclosure": [
+      -2.366350427056568,
+      -2.3663504270565676
+     ],
+     "lambda": [
+      2.3663504270565676,
+      2.366350427056568
+     ],
+     "degree": 18,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     12,
+     13,
+     14,
+     15,
+     18
+    ],
+    "minEnclosure": [
+     -2.366350427056568,
+     -2.3663504270565676
+    ],
+    "lambda": [
+     2.3663504270565676,
+     2.366350427056568
+    ],
+    "degree": 18,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     12,
+     13,
+     14,
+     15,
+     18
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "1886436+2570963+0+1 = 4457400",
+   "elapsedMs": 62210,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "reseeded": true,
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123"
+  },
+  "15@25": {
+   "what": "exhaustive lambda sweep: every 15-subset of 1..25 decided exactly against the bar",
+   "n": 15,
+   "M": 25,
+   "totalSets": 3268760,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     8,
+     9,
+     10,
+     12,
+     13,
+     14,
+     15,
+     17,
+     18,
+     22
+    ],
+    "minEnclosure": [
+     -2.6607664266930064,
+     -2.660766426693006
+    ]
+   },
+   "bar": {
+    "num": "-1497878335971819",
+    "den": "562949953421312",
+    "asDouble": -2.660766426693007
+   },
+   "killedAtRootsOfUnity": 1456850,
+   "killedDyadic": 1811864,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16,
+      18
+     ],
+     "minEnclosure": [
+      -2.545342314630037,
+      -2.5453423146300365
+     ],
+     "lambda": [
+      2.5453423146300365,
+      2.545342314630037
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      22
+     ],
+     "minEnclosure": [
+      -2.618053378196374,
+      -2.6180533781963735
+     ],
+     "lambda": [
+      2.6180533781963735,
+      2.618053378196374
+     ],
+     "degree": 22,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      15,
+      16,
+      18
+     ],
+     "minEnclosure": [
+      -2.6414275735395467,
+      -2.6414275735395463
+     ],
+     "lambda": [
+      2.6414275735395463,
+      2.6414275735395467
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      16,
+      18,
+      21
+     ],
+     "minEnclosure": [
+      -2.6469570017248243,
+      -2.646957001724824
+     ],
+     "lambda": [
+      2.646957001724824,
+      2.6469570017248243
+     ],
+     "degree": 21,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      15,
+      16,
+      18
+     ],
+     "minEnclosure": [
+      -2.583373316332989,
+      -2.5833733163329886
+     ],
+     "lambda": [
+      2.5833733163329886,
+      2.583373316332989
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      16,
+      20
+     ],
+     "minEnclosure": [
+      -2.652734529200238,
+      -2.6527345292002376
+     ],
+     "lambda": [
+      2.6527345292002376,
+      2.652734529200238
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      12,
+      13,
+      14,
+      17,
+      18,
+      20
+     ],
+     "minEnclosure": [
+      -2.5156905652696104,
+      -2.51569056526961
+     ],
+     "lambda": [
+      2.51569056526961,
+      2.5156905652696104
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      25
+     ],
+     "minEnclosure": [
+      -2.568276302015099,
+      -2.5682763020150987
+     ],
+     "lambda": [
+      2.5682763020150987,
+      2.568276302015099
+     ],
+     "degree": 25,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      15,
+      16,
+      22
+     ],
+     "minEnclosure": [
+      -2.5427579319680755,
+      -2.542757931968075
+     ],
+     "lambda": [
+      2.542757931968075,
+      2.5427579319680755
+     ],
+     "degree": 22,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      20
+     ],
+     "minEnclosure": [
+      -2.6422894799292926,
+      -2.642289479929292
+     ],
+     "lambda": [
+      2.642289479929292,
+      2.6422894799292926
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      19
+     ],
+     "minEnclosure": [
+      -2.5390678544923513,
+      -2.539067854492351
+     ],
+     "lambda": [
+      2.539067854492351,
+      2.5390678544923513
+     ],
+     "degree": 19,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      12,
+      13,
+      14,
+      16,
+      17,
+      18
+     ],
+     "minEnclosure": [
+      -2.5724739633777944,
+      -2.572473963377794
+     ],
+     "lambda": [
+      2.572473963377794,
+      2.5724739633777944
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      22
+     ],
+     "minEnclosure": [
+      -2.5188164281996412,
+      -2.518816428199641
+     ],
+     "lambda": [
+      2.518816428199641,
+      2.5188164281996412
+     ],
+     "degree": 22,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      19
+     ],
+     "minEnclosure": [
+      -2.6486363637680403,
+      -2.64863636376804
+     ],
+     "lambda": [
+      2.64863636376804,
+      2.6486363637680403
+     ],
+     "degree": 19,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      11,
+      12,
+      14,
+      15,
+      16,
+      17,
+      20
+     ],
+     "minEnclosure": [
+      -2.616194454209106,
+      -2.6161944542091056
+     ],
+     "lambda": [
+      2.6161944542091056,
+      2.616194454209106
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      21
+     ],
+     "minEnclosure": [
+      -2.625067292465821,
+      -2.6250672924658205
+     ],
+     "lambda": [
+      2.6250672924658205,
+      2.625067292465821
+     ],
+     "degree": 21,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      15,
+      16,
+      18,
+      19
+     ],
+     "minEnclosure": [
+      -2.6080268833752402,
+      -2.60802688337524
+     ],
+     "lambda": [
+      2.60802688337524,
+      2.6080268833752402
+     ],
+     "degree": 19,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      11,
+      12,
+      13,
+      15,
+      16,
+      18,
+      19,
+      20
+     ],
+     "minEnclosure": [
+      -2.6271922885138177,
+      -2.6271922885138173
+     ],
+     "lambda": [
+      2.6271922885138173,
+      2.6271922885138177
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      18,
+      23
+     ],
+     "minEnclosure": [
+      -2.5388463447996887,
+      -2.5388463447996883
+     ],
+     "lambda": [
+      2.5388463447996883,
+      2.5388463447996887
+     ],
+     "degree": 23,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      22
+     ],
+     "minEnclosure": [
+      -2.6607664266930064,
+      -2.660766426693006
+     ],
+     "lambda": [
+      2.660766426693006,
+      2.6607664266930064
+     ],
+     "degree": 22,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      18,
+      20,
+      21
+     ],
+     "minEnclosure": [
+      -2.4189121268958322,
+      -2.418912126895832
+     ],
+     "lambda": [
+      2.418912126895832,
+      2.4189121268958322
+     ],
+     "degree": 21,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      16,
+      17,
+      18,
+      20
+     ],
+     "minEnclosure": [
+      -2.5389558381312547,
+      -2.5389558381312543
+     ],
+     "lambda": [
+      2.5389558381312543,
+      2.5389558381312547
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      17,
+      23
+     ],
+     "minEnclosure": [
+      -2.572673199610921,
+      -2.5726731996109207
+     ],
+     "lambda": [
+      2.5726731996109207,
+      2.572673199610921
+     ],
+     "degree": 23,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      15,
+      18,
+      24
+     ],
+     "minEnclosure": [
+      -2.6598382453633937,
+      -2.659838245363393
+     ],
+     "lambda": [
+      2.659838245363393,
+      2.6598382453633937
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      17,
+      19,
+      20
+     ],
+     "minEnclosure": [
+      -2.4627945664813757,
+      -2.4627945664813753
+     ],
+     "lambda": [
+      2.4627945664813753,
+      2.4627945664813757
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      15,
+      17,
+      18,
+      20
+     ],
+     "minEnclosure": [
+      -2.5319182446943787,
+      -2.531918244694378
+     ],
+     "lambda": [
+      2.531918244694378,
+      2.5319182446943787
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      8,
+      9,
+      11,
+      14,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25
+     ],
+     "minEnclosure": [
+      -2.536492728664625,
+      -2.5364927286646246
+     ],
+     "lambda": [
+      2.5364927286646246,
+      2.536492728664625
+     ],
+     "degree": 25,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      19,
+      20,
+      22
+     ],
+     "minEnclosure": [
+      -2.5582769142165134,
+      -2.558276914216513
+     ],
+     "lambda": [
+      2.558276914216513,
+      2.5582769142165134
+     ],
+     "degree": 22,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      22,
+      25
+     ],
+     "minEnclosure": [
+      -2.5300067947508325,
+      -2.530006794750832
+     ],
+     "lambda": [
+      2.530006794750832,
+      2.5300067947508325
+     ],
+     "degree": 25,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      3,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      21,
+      22,
+      24
+     ],
+     "minEnclosure": [
+      -2.6048558248030025,
+      -2.604855824803002
+     ],
+     "lambda": [
+      2.604855824803002,
+      2.6048558248030025
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      16,
+      20,
+      21,
+      22
+     ],
+     "minEnclosure": [
+      -2.591768560652968,
+      -2.5917685606529677
+     ],
+     "lambda": [
+      2.5917685606529677,
+      2.591768560652968
+     ],
+     "degree": 22,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      15,
+      16,
+      17,
+      22,
+      24
+     ],
+     "minEnclosure": [
+      -2.6295220560832333,
+      -2.629522056083233
+     ],
+     "lambda": [
+      2.629522056083233,
+      2.6295220560832333
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      2,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      15,
+      16,
+      17,
+      22,
+      24
+     ],
+     "minEnclosure": [
+      -2.5475594559570793,
+      -2.547559455957079
+     ],
+     "lambda": [
+      2.547559455957079,
+      2.5475594559570793
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16,
+      19,
+      20
+     ],
+     "minEnclosure": [
+      -2.641636506557462,
+      -2.6416365065574614
+     ],
+     "lambda": [
+      2.6416365065574614,
+      2.641636506557462
+     ],
+     "degree": 20,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      14,
+      15,
+      16,
+      20,
+      21
+     ],
+     "minEnclosure": [
+      -2.643395120576706,
+      -2.6433951205767054
+     ],
+     "lambda": [
+      2.6433951205767054,
+      2.643395120576706
+     ],
+     "degree": 21,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      12,
+      13,
+      16,
+      17,
+      18,
+      21,
+      22
+     ],
+     "minEnclosure": [
+      -2.6403407668015326,
+      -2.640340766801532
+     ],
+     "lambda": [
+      2.640340766801532,
+      2.6403407668015326
+     ],
+     "degree": 22,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      5,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      19,
+      20,
+      23,
+      24
+     ],
+     "minEnclosure": [
+      -2.5850662446655037,
+      -2.5850662446655033
+     ],
+     "lambda": [
+      2.5850662446655033,
+      2.5850662446655037
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      13,
+      14,
+      15,
+      16,
+      19,
+      22,
+      23
+     ],
+     "minEnclosure": [
+      -2.6595133016048655,
+      -2.659513301604865
+     ],
+     "lambda": [
+      2.659513301604865,
+      2.6595133016048655
+     ],
+     "degree": 23,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      16,
+      18,
+      24
+     ],
+     "minEnclosure": [
+      -2.5708788743734994,
+      -2.570878874373499
+     ],
+     "lambda": [
+      2.570878874373499,
+      2.5708788743734994
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      14,
+      15,
+      17,
+      20,
+      24
+     ],
+     "minEnclosure": [
+      -2.5927214601658872,
+      -2.592721460165887
+     ],
+     "lambda": [
+      2.592721460165887,
+      2.5927214601658872
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      15,
+      17,
+      20,
+      24
+     ],
+     "minEnclosure": [
+      -2.617685975475107,
+      -2.6176859754751067
+     ],
+     "lambda": [
+      2.6176859754751067,
+      2.617685975475107
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      14,
+      16,
+      17,
+      19,
+      23
+     ],
+     "minEnclosure": [
+      -2.6372774004936175,
+      -2.637277400493617
+     ],
+     "lambda": [
+      2.637277400493617,
+      2.6372774004936175
+     ],
+     "degree": 23,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      16,
+      18,
+      20,
+      21,
+      24
+     ],
+     "minEnclosure": [
+      -2.591199528721677,
+      -2.5911995287216767
+     ],
+     "lambda": [
+      2.5911995287216767,
+      2.591199528721677
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      17,
+      21,
+      24
+     ],
+     "minEnclosure": [
+      -2.642889076253282,
+      -2.6428890762532813
+     ],
+     "lambda": [
+      2.6428890762532813,
+      2.642889076253282
+     ],
+     "degree": 24,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      14,
+      15,
+      16,
+      18,
+      22,
+      25
+     ],
+     "minEnclosure": [
+      -2.5894913608659467,
+      -2.5894913608659462
+     ],
+     "lambda": [
+      2.5894913608659462,
+      2.5894913608659467
+     ],
+     "degree": 25,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      3,
+      4,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      19,
+      23,
+      25
+     ],
+     "minEnclosure": [
+      -2.63821560906305,
+      -2.6382156090630495
+     ],
+     "lambda": [
+      2.6382156090630495,
+      2.63821560906305
+     ],
+     "degree": 25,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     14,
+     18,
+     20,
+     21
+    ],
+    "minEnclosure": [
+     -2.4189121268958322,
+     -2.418912126895832
+    ],
+    "lambda": [
+     2.418912126895832,
+     2.4189121268958322
+    ],
+    "degree": 21,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     14,
+     18,
+     20,
+     21
+    ],
+    "uniqueUpToDilation": false,
+    "outsiders": [
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16,
+      18
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      22
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      15,
+      16,
+      18
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      16,
+      18,
+      21
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      15,
+      16,
+      18
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      16,
+      20
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      12,
+      13,
+      14,
+      17,
+      18,
+      20
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      25
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      15,
+      16,
+      22
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      20
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      19
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      12,
+      13,
+      14,
+      16,
+      17,
+      18
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      22
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      19
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      11,
+      12,
+      14,
+      15,
+      16,
+      17,
+      20
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      21
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      15,
+      16,
+      18,
+      19
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      11,
+      12,
+      13,
+      15,
+      16,
+      18,
+      19,
+      20
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      18,
+      23
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      22
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      16,
+      17,
+      18,
+      20
+     ],
+     [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      17,
+      23
+     ],
+     [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      15,
+      18,
+      24
+     ],
+     [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      17,
+      19,
+      20
+     ],
+     [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      15,
+      17,
+      18,
+      20
+     ],
+     [
+      1,
+      2,
+      3,
+      5,
+      6,
+      8,
+      9,
+      11,
+      14,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25
+     ],
+     [
+      1,
+      2,
+      3,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      19,
+      20,
+      22
+     ],
+     [
+      1,
+      2,
+      3,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      22,
+      25
+     ],
+     [
+      1,
+      2,
+      3,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      21,
+      22,
+      24
+     ],
+     [
+      1,
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      16,
+      20,
+      21,
+      22
+     ],
+     [
+      1,
+      2,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      15,
+      16,
+      17,
+      22,
+      24
+     ],
+     [
+      1,
+      2,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      14,
+      15,
+      16,
+      17,
+      22,
+      24
+     ],
+     [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16,
+      19,
+      20
+     ],
+     [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      14,
+      15,
+      16,
+      20,
+      21
+     ],
+     [
+      1,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      12,
+      13,
+      16,
+      17,
+      18,
+      21,
+      22
+     ],
+     [
+      1,
+      3,
+      4,
+      5,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      19,
+      20,
+      23,
+      24
+     ],
+     [
+      1,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      13,
+      14,
+      15,
+      16,
+      19,
+      22,
+      23
+     ],
+     [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      16,
+      18,
+      24
+     ],
+     [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      14,
+      15,
+      17,
+      20,
+      24
+     ],
+     [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      15,
+      17,
+      20,
+      24
+     ],
+     [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      14,
+      16,
+      17,
+      19,
+      23
+     ],
+     [
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      16,
+      18,
+      20,
+      21,
+      24
+     ],
+     [
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      17,
+      21,
+      24
+     ],
+     [
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      14,
+      15,
+      16,
+      18,
+      22,
+      25
+     ],
+     [
+      2,
+      3,
+      4,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      19,
+      23,
+      25
+     ]
+    ]
+   },
+   "conservation": "1456850+1811864+0+46 = 3268760",
+   "elapsedMs": 48699,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123"
+  },
+  "16@25": {
+   "what": "exhaustive lambda sweep: every 16-subset of 1..25 decided exactly against the bar",
+   "n": 16,
+   "M": 25,
+   "totalSets": 2042975,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13,
+     14,
+     15,
+     16,
+     17,
+     21
+    ],
+    "minEnclosure": [
+     -2.454832753027949,
+     -2.4548327530279486
+    ]
+   },
+   "bar": {
+    "num": "-5527791935896781",
+    "den": "2251799813685248",
+    "asDouble": -2.4548327530279495
+   },
+   "killedAtRootsOfUnity": 671170,
+   "killedDyadic": 1371804,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      17,
+      21
+     ],
+     "minEnclosure": [
+      -2.454832753027949,
+      -2.4548327530279486
+     ],
+     "lambda": [
+      2.4548327530279486,
+      2.454832753027949
+     ],
+     "degree": 21,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13,
+     14,
+     15,
+     16,
+     17,
+     21
+    ],
+    "minEnclosure": [
+     -2.454832753027949,
+     -2.4548327530279486
+    ],
+    "lambda": [
+     2.4548327530279486,
+     2.454832753027949
+    ],
+    "degree": 21,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13,
+     14,
+     15,
+     16,
+     17,
+     21
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "671170+1371804+0+1 = 2042975",
+   "elapsedMs": 37361,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "reseeded": true,
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123"
+  },
+  "17@25": {
+   "what": "exhaustive lambda sweep: every 17-subset of 1..25 decided exactly against the bar",
+   "n": 17,
+   "M": 25,
+   "totalSets": 1081575,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     19,
+     22
+    ],
+    "minEnclosure": [
+     -2.5648971205451674,
+     -2.564897120545167
+    ]
+   },
+   "bar": {
+    "num": "-2887817429082719",
+    "den": "1125899906842624",
+    "asDouble": -2.564897120545168
+   },
+   "killedAtRootsOfUnity": 393306,
+   "killedDyadic": 688268,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      19,
+      22
+     ],
+     "minEnclosure": [
+      -2.5648971205451674,
+      -2.564897120545167
+     ],
+     "lambda": [
+      2.564897120545167,
+      2.5648971205451674
+     ],
+     "degree": 22,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     19,
+     22
+    ],
+    "minEnclosure": [
+     -2.5648971205451674,
+     -2.564897120545167
+    ],
+    "lambda": [
+     2.564897120545167,
+     2.5648971205451674
+    ],
+    "degree": 22,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     19,
+     22
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "393306+688268+0+1 = 1081575",
+   "elapsedMs": 19700,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "reseeded": true,
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123"
+  },
+  "9@30": {
+   "what": "exhaustive lambda sweep: every 9-subset of 1..30 decided exactly against the bar",
+   "n": 9,
+   "M": 30,
+   "totalSets": 14307150,
+   "K": 1024,
+   "seed": {
+    "A": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     9,
+     10,
+     12,
+     14
+    ],
+    "minEnclosure": [
+     -2.0692825870916436,
+     -2.069282587091643
+    ]
+   },
+   "bar": {
+    "num": "-1164902536018773",
+    "den": "562949953421312",
+    "asDouble": -2.069282587091644
+   },
+   "killedAtRootsOfUnity": 6528495,
+   "killedDyadic": 7778653,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      12,
+      14
+     ],
+     "minEnclosure": [
+      -2.0692825870916436,
+      -2.069282587091643
+     ],
+     "lambda": [
+      2.069282587091643,
+      2.0692825870916436
+     ],
+     "degree": 14,
+     "gcd": 1
+    },
+    {
+     "A": [
+      4,
+      6,
+      8,
+      10,
+      14,
+      18,
+      20,
+      24,
+      28
+     ],
+     "minEnclosure": [
+      -2.0692825870916436,
+      -2.069282587091643
+     ],
+     "lambda": [
+      2.069282587091643,
+      2.0692825870916436
+     ],
+     "degree": 28,
+     "gcd": 2
+    }
+   ],
+   "optimiser": {
+    "A": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     9,
+     10,
+     12,
+     14
+    ],
+    "minEnclosure": [
+     -2.0692825870916436,
+     -2.069282587091643
+    ],
+    "lambda": [
+     2.069282587091643,
+     2.0692825870916436
+    ],
+    "degree": 14,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     9,
+     10,
+     12,
+     14
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "6528495+7778653+0+2 = 14307150",
+   "elapsedMs": 135624,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "10@30": {
+   "what": "exhaustive lambda sweep: every 10-subset of 1..30 decided exactly against the bar",
+   "n": 10,
+   "M": 30,
+   "totalSets": 30045015,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13
+    ],
+    "minEnclosure": [
+     -2.057447274608302,
+     -2.0574472746083017
+    ]
+   },
+   "bar": {
+    "num": "-4632959389630197",
+    "den": "2251799813685248",
+    "asDouble": -2.0574472746083026
+   },
+   "killedAtRootsOfUnity": 10949111,
+   "killedDyadic": 19095902,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      13
+     ],
+     "minEnclosure": [
+      -2.057447274608302,
+      -2.0574472746083017
+     ],
+     "lambda": [
+      2.0574472746083017,
+      2.057447274608302
+     ],
+     "degree": 13,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      4,
+      6,
+      10,
+      12,
+      14,
+      16,
+      20,
+      22,
+      26
+     ],
+     "minEnclosure": [
+      -2.057447274608302,
+      -2.0574472746083017
+     ],
+     "lambda": [
+      2.0574472746083017,
+      2.057447274608302
+     ],
+     "degree": 26,
+     "gcd": 2
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13
+    ],
+    "minEnclosure": [
+     -2.057447274608302,
+     -2.0574472746083017
+    ],
+    "lambda": [
+     2.0574472746083017,
+     2.057447274608302
+    ],
+    "degree": 13,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "10949111+19095902+0+2 = 30045015",
+   "elapsedMs": 367904,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "11@30": {
+   "what": "exhaustive lambda sweep: every 11-subset of 1..30 decided exactly against the bar",
+   "n": 11,
+   "M": 30,
+   "totalSets": 54627300,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     11,
+     14
+    ],
+    "minEnclosure": [
+     -2.1023812792428878,
+     -2.102381279242887
+    ]
+   },
+   "bar": {
+    "num": "-4734141772894489",
+    "den": "2251799813685248",
+    "asDouble": -2.102381279242888
+   },
+   "killedAtRootsOfUnity": 28805715,
+   "killedDyadic": 25821583,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      14
+     ],
+     "minEnclosure": [
+      -2.1023812792428878,
+      -2.102381279242887
+     ],
+     "lambda": [
+      2.102381279242887,
+      2.1023812792428878
+     ],
+     "degree": 14,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      16,
+      18,
+      20,
+      22,
+      28
+     ],
+     "minEnclosure": [
+      -2.1023812792428878,
+      -2.102381279242887
+     ],
+     "lambda": [
+      2.102381279242887,
+      2.1023812792428878
+     ],
+     "degree": 28,
+     "gcd": 2
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     11,
+     14
+    ],
+    "minEnclosure": [
+     -2.1023812792428878,
+     -2.102381279242887
+    ],
+    "lambda": [
+     2.102381279242887,
+     2.1023812792428878
+    ],
+    "degree": 14,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     11,
+     14
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "28805715+25821583+0+2 = 54627300",
+   "elapsedMs": 2781024,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "12@30": {
+   "what": "exhaustive lambda sweep: every 12-subset of 1..30 decided exactly against the bar",
+   "n": 12,
+   "M": 30,
+   "totalSets": 86493225,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     15
+    ],
+    "minEnclosure": [
+     -2.213895922405542,
+     -2.2138959224055417
+    ]
+   },
+   "bar": {
+    "num": "-4985250425591331",
+    "den": "2251799813685248",
+    "asDouble": -2.2138959224055426
+   },
+   "killedAtRootsOfUnity": 37489770,
+   "killedDyadic": 49003453,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      15
+     ],
+     "minEnclosure": [
+      -2.213895922405542,
+      -2.2138959224055417
+     ],
+     "lambda": [
+      2.2138959224055417,
+      2.213895922405542
+     ],
+     "degree": 15,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      30
+     ],
+     "minEnclosure": [
+      -2.213895922405542,
+      -2.2138959224055417
+     ],
+     "lambda": [
+      2.2138959224055417,
+      2.213895922405542
+     ],
+     "degree": 30,
+     "gcd": 2
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     15
+    ],
+    "minEnclosure": [
+     -2.213895922405542,
+     -2.2138959224055417
+    ],
+    "lambda": [
+     2.2138959224055417,
+     2.213895922405542
+    ],
+    "degree": 15,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     15
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "37489770+49003453+0+2 = 86493225",
+   "elapsedMs": 5965701,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "13@30": {
+   "what": "exhaustive lambda sweep: every 13-subset of 1..30 decided exactly against the bar",
+   "n": 13,
+   "M": 30,
+   "totalSets": 119759850,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     16
+    ],
+    "minEnclosure": [
+     -2.31823265015213,
+     -2.3182326501521295
+    ]
+   },
+   "bar": {
+    "num": "-2610097924845813",
+    "den": "1125899906842624",
+    "asDouble": -2.3182326501521304
+   },
+   "killedAtRootsOfUnity": 57130311,
+   "killedDyadic": 62629538,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16
+     ],
+     "minEnclosure": [
+      -2.31823265015213,
+      -2.3182326501521295
+     ],
+     "lambda": [
+      2.3182326501521295,
+      2.31823265015213
+     ],
+     "degree": 16,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     16
+    ],
+    "minEnclosure": [
+     -2.31823265015213,
+     -2.3182326501521295
+    ],
+    "lambda": [
+     2.3182326501521295,
+     2.31823265015213
+    ],
+    "degree": 16,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     16
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "57130311+62629538+0+1 = 119759850",
+   "elapsedMs": 1770999,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 79fe722",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "14@30": {
+   "what": "exhaustive lambda sweep: every 14-subset of 1..30 decided exactly against the bar",
+   "n": 14,
+   "M": 30,
+   "totalSets": 145422675,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     12,
+     13,
+     14,
+     15,
+     18
+    ],
+    "minEnclosure": [
+     -2.366350427056568,
+     -2.3663504270565676
+    ]
+   },
+   "bar": {
+    "num": "-1332136862689997",
+    "den": "562949953421312",
+    "asDouble": -2.3663504270565685
+   },
+   "killedAtRootsOfUnity": 69856870,
+   "killedDyadic": 75565801,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      18
+     ],
+     "minEnclosure": [
+      -2.366350427056568,
+      -2.3663504270565676
+     ],
+     "lambda": [
+      2.3663504270565676,
+      2.366350427056568
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      5,
+      9,
+      10,
+      12,
+      13,
+      14,
+      17,
+      22,
+      23,
+      26,
+      27
+     ],
+     "minEnclosure": [
+      -2.320690691854875,
+      -2.3206906918548746
+     ],
+     "lambda": [
+      2.3206906918548746,
+      2.320690691854875
+     ],
+     "degree": 27,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      7,
+      9,
+      10,
+      13,
+      14,
+      16,
+      17,
+      23,
+      26,
+      27,
+      30
+     ],
+     "minEnclosure": [
+      -2.346443799411675,
+      -2.3464437994116745
+     ],
+     "lambda": [
+      2.3464437994116745,
+      2.346443799411675
+     ],
+     "degree": 30,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      11,
+      13,
+      15,
+      18,
+      19,
+      21,
+      24,
+      26
+     ],
+     "minEnclosure": [
+      -2.3463858970254177,
+      -2.346385897025417
+     ],
+     "lambda": [
+      2.346385897025417,
+      2.3463858970254177
+     ],
+     "degree": 26,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     3,
+     4,
+     5,
+     9,
+     10,
+     12,
+     13,
+     14,
+     17,
+     22,
+     23,
+     26,
+     27
+    ],
+    "minEnclosure": [
+     -2.320690691854875,
+     -2.3206906918548746
+    ],
+    "lambda": [
+     2.3206906918548746,
+     2.320690691854875
+    ],
+    "degree": 27,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     3,
+     4,
+     5,
+     9,
+     10,
+     12,
+     13,
+     14,
+     17,
+     22,
+     23,
+     26,
+     27
+    ],
+    "uniqueUpToDilation": false,
+    "outsiders": [
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      18
+     ],
+     [
+      1,
+      3,
+      4,
+      7,
+      9,
+      10,
+      13,
+      14,
+      16,
+      17,
+      23,
+      26,
+      27,
+      30
+     ],
+     [
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      11,
+      13,
+      15,
+      18,
+      19,
+      21,
+      24,
+      26
+     ]
+    ]
+   },
+   "conservation": "69856870+75565801+0+4 = 145422675",
+   "elapsedMs": 2252820,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 79fe722",
+   "vsShallower": "the wider box found a better set — upper bound improved"
+  },
+  "15@30": {
+   "what": "exhaustive lambda sweep: every 15-subset of 1..30 decided exactly against the bar",
+   "n": 15,
+   "M": 30,
+   "totalSets": 155117520,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     14,
+     18,
+     20,
+     21
+    ],
+    "minEnclosure": [
+     -2.4189121268958322,
+     -2.418912126895832
+    ]
+   },
+   "bar": {
+    "num": "-5446905876665023",
+    "den": "2251799813685248",
+    "asDouble": -2.4189121268958327
+   },
+   "killedAtRootsOfUnity": 81380217,
+   "killedDyadic": 73737302,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      18,
+      20,
+      21
+     ],
+     "minEnclosure": [
+      -2.4189121268958322,
+      -2.418912126895832
+     ],
+     "lambda": [
+      2.418912126895832,
+      2.4189121268958322
+     ],
+     "degree": 21,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     14,
+     18,
+     20,
+     21
+    ],
+    "minEnclosure": [
+     -2.4189121268958322,
+     -2.418912126895832
+    ],
+    "lambda": [
+     2.418912126895832,
+     2.4189121268958322
+    ],
+    "degree": 21,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     14,
+     18,
+     20,
+     21
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "81380217+73737302+0+1 = 155117520",
+   "elapsedMs": 2317880,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 79fe722",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "16@30": {
+   "what": "exhaustive lambda sweep: every 16-subset of 1..30 decided exactly against the bar",
+   "n": 16,
+   "M": 30,
+   "totalSets": 145422675,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13,
+     14,
+     15,
+     16,
+     17,
+     21
+    ],
+    "minEnclosure": [
+     -2.454832753027949,
+     -2.4548327530279486
+    ]
+   },
+   "bar": {
+    "num": "-5527791935896781",
+    "den": "2251799813685248",
+    "asDouble": -2.4548327530279495
+   },
+   "killedAtRootsOfUnity": 61555095,
+   "killedDyadic": 83867579,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      17,
+      21
+     ],
+     "minEnclosure": [
+      -2.454832753027949,
+      -2.4548327530279486
+     ],
+     "lambda": [
+      2.4548327530279486,
+      2.454832753027949
+     ],
+     "degree": 21,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13,
+     14,
+     15,
+     16,
+     17,
+     21
+    ],
+    "minEnclosure": [
+     -2.454832753027949,
+     -2.4548327530279486
+    ],
+    "lambda": [
+     2.4548327530279486,
+     2.454832753027949
+    ],
+    "degree": 21,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13,
+     14,
+     15,
+     16,
+     17,
+     21
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "61555095+83867579+0+1 = 145422675",
+   "elapsedMs": 2679854,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 79fe722",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "17@30": {
+   "what": "exhaustive lambda sweep: every 17-subset of 1..30 decided exactly against the bar",
+   "n": 17,
+   "M": 30,
+   "totalSets": 119759850,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     19,
+     22
+    ],
+    "minEnclosure": [
+     -2.5648971205451674,
+     -2.564897120545167
+    ]
+   },
+   "bar": {
+    "num": "-2887817429082719",
+    "den": "1125899906842624",
+    "asDouble": -2.564897120545168
+   },
+   "killedAtRootsOfUnity": 51455580,
+   "killedDyadic": 68304269,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      19,
+      22
+     ],
+     "minEnclosure": [
+      -2.5648971205451674,
+      -2.564897120545167
+     ],
+     "lambda": [
+      2.564897120545167,
+      2.5648971205451674
+     ],
+     "degree": 22,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     19,
+     22
+    ],
+    "minEnclosure": [
+     -2.5648971205451674,
+     -2.564897120545167
+    ],
+    "lambda": [
+     2.564897120545167,
+     2.5648971205451674
+    ],
+    "degree": 22,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     19,
+     22
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "51455580+68304269+0+1 = 119759850",
+   "elapsedMs": 2389509,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 79fe722",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  }
+ }
+}

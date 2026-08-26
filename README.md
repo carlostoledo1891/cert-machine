@@ -1,13 +1,64 @@
 # The conjecture engine: a certification discipline for generated mathematics
 
-*Carlos Toledo · cert-machine*
+*Carlos Toledo · cert-machine · [carlostoledo.co](https://carlostoledo.co)*
+
+> I build verification layers under which AI-scale mathematical search
+> produces only certified output — and I audit published AI-generated
+> mathematics.
 
 ```
 make engine    generate → screen → certify; writes ledger.json
 make control   rebuild index.html from the ledger (runs every battery)
 make test      every battery
+make site      assemble the public site bundle (site/)
 make drift     re-hash the lifted instruments against the source lab
 ```
+
+## Check a result yourself, in ten seconds
+
+Every headline claim detaches into a certificate — a JSON file of exact
+numbers — plus a verifier in plain Python: standard library only, nothing to
+install, zero code shared with the engine that produced the claim.
+
+```
+python3 tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources
+python3 tools/verify_keller.py   certs/keller-certificate.json   --sources corpus/sources
+python3 tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources
+```
+
+Each one re-derives the mathematics from the certificate alone, re-hashes the
+pinned sources it cites, must refute a deliberately forged value before it
+will exit green, and prints the sha256 of the certificate it checked. All
+three finish in about a second.
+
+## What the machine holds
+
+Three lanes almost nobody publishes in:
+
+- **Proved negatives at scale.** 54.6 million candidate closed forms tested
+  against certified enclosures; every refutation is a proof, and zero
+  discoveries are claimed. Twenty-one published OEIS constants are refuted as
+  impostors in exact BigInt arithmetic at their full published precision —
+  one impersonates 1/5 for 62 significant digits before the exact arithmetic
+  separates them.
+- **Completeness certificates for non-SAT numerics.** Not "we found 1,696
+  period-16 points of the Hénon map" but "there are EXACTLY 1,696, and
+  nothing else anywhere in the plane" — 452 census theorems across two maps,
+  each an exhaustion with a certified a priori bound, plus a certified lower
+  bound on topological entropy.
+- **Certified audits of published AI-generated mathematics.** The
+  GPT-published constant on Erdős #852, refuted at its 12th significant digit
+  and shown to *be* the naive IEEE-754 float product, digit for digit — with
+  the corrected value certified to width 3.2e-16. All 52 rows of the
+  Ramanujan Machine's seven result sheets decided: 51 survive an
+  unconditional audit, and one printed row is refuted exactly (a sign slip in
+  the published constant), its correction certified on the same enclosure.
+
+Plus the extremal tables: the first certified mu(n) rows for n = 10..17, an
+18-row lambda table with five first-ever entries, mu(5) ≤ 1 + π/20 certified
+on a lineage that runs Campbell–Ferguson–Forcade 1983 → Goddard 1992 →
+Mercer 2019 → here, and M(0,1,2,6,9) = 1 **exactly**, by Sturm — an equality
+no floating-point enclosure could ever decide.
 
 ## The problem
 
@@ -47,12 +98,14 @@ scale without supervision.
 
 A family plugs into the engine by supplying six functions —
 `enumerate`, `value`, `interesting`, `certify`, `key`, `statement` — and
-inherits the loop, the scaling, and the deduplication. Nine families are currently
-attached (Chowla cosine sets, Hénon and Holmes periodic-point censuses, Hénon orbit
-boxes, Newman polynomial minimum modulus, OEIS constants with candidate closed
-forms, Jacobian/Hessian counterexample audits and blind fiber counts, and the
-Ramanujan Machine's own conjecture sheets). None of them is the point. The point is
-that a tenth can be attached without touching the certification discipline.
+inherits the loop, the scaling, and the deduplication. Eleven families are
+currently attached (Chowla cosine sets, Hénon and Holmes periodic-point
+censuses, Hénon orbit boxes, Newman polynomial minimum modulus, OEIS constants
+with candidate closed forms, Jacobian/Hessian counterexample audits and blind
+fiber counts, the Ramanujan Machine's own conjecture sheets, fast
+matrix-multiplication algorithms as exact tensor identities, and the two
+GPT-published constants on Erdős #852). None of them is the point. The point is
+that a twelfth can be attached without touching the certification discipline.
 
 ## What a certificate is
 
@@ -142,6 +195,22 @@ many are unchanged, how many have moved or vanished at the source, and which wer
 patched on the way in, with each patch declared. The control page (`index.html`)
 is itself generated from the ledger by the same build that executed the batteries,
 so a number on the page and the run that produced it cannot drift apart.
+
+## The trust base, honestly
+
+The exact layer rests on V8's BigInt and on IEEE-754 correct rounding — a
+reasonable base, but a single runtime. Three claim classes detach to
+zero-shared-code stdlib-Python verifiers; the census boxes, the entropy
+covering relations, and the continued-fraction enclosures do not yet. A
+handful of named external theorems are consumed rather than machine-proved
+(Zgliczyński–Gidea covering relations, Lewin's dilogarithm inversion,
+Mercer's Lemma 6.2, Euler's ζ(2) and ζ(4)) — each is used the way Krawczyk's
+theorem is used in validated numerics, and each is named in the certificate
+that consumes it. And it is one machine and one operator. Net: this meets the
+working standard of the computer-assisted-proof tradition (Tucker's Lorenz,
+Galias's Hénon censuses — whose published counts the census here reproduces
+independently), one rung below the formal-proof standard. A Lean export of
+one certificate class is the named next step.
 
 ## What this is not
 

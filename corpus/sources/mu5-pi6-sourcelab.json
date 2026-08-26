@@ -1,0 +1,328 @@
+{
+  "kind": "certified-case-check-record",
+  "convention": "mu indexed by NUMBER OF TERMS (Mercer/Goddard), not degree",
+  "statement": "Both computer-aided components of Mercer's sketch that mu(5) <= 1 + pi/6 (INTEGERS 19 (2019) #A20, Section 6 pp. 19-20) now hold by exact arithmetic. (ii) His Table 6 — \"a finite search (aided by computer)\" for the eligible (r,s,u,v) among fractions in (0,1) with denominator < 6 under r+s=t, u+v=w, r<u, s<v, r(1+v)=u(1+s) with t,w denominator-bounded — was re-run in exact rational arithmetic over the full finite domain: exactly his six printed quadruples survive, no seventh. (iii) His Table 7 case checks — for each derived primitive 4-tuple (a,b,c,d), |1+z^a+z^b+z^c+z^d| <= 1+pi/6 at SOME |z|=1 — are certified by one exact evaluation each at z = -1: every tuple has two or three odd exponents, so |f(-1)|^2 = 1 exactly, and 1 <= (1+piLo/6)^2 with piLo a dyadic rational strictly below pi (certified enclosure), giving min|f| <= 1 <= 1+piLo/6 < 1+pi/6 with no rounding anywhere. What this record does NOT certify: component (i), Mercer's prose assembly for m=6 — see sketchAnatomy.",
+  "sketchAnatomy": {
+    "mIndependentSteps": "proven in his completed pi/5 section (pp. 13-18) with derivations that never reference the denominator bound: the six gcd equations rd=b-a, sd=c-b, td=c-a, uc=b-a, vc=d-b, wc=d-a; the constraints r+s=t, u+v=w, u>r, v>s, r(1+v)=u(1+s); and the at-most-one-primitive-multiple lemma (row reduction, p. 17). He states the m-generalization explicitly on p. 16: \"this remains true if we change our goal ... to showing mu(5) <= 1+pi/m ... fractions between 0 and 1 whose denominators are less than m\".",
+    "computerAidedComponents": {
+      "table6Search": "CERTIFIED — re-derived in exact rational arithmetic over the complete finite domain; set-equal to his printed table, both directions",
+      "table7CaseChecks": "CERTIFIED — six exact point evaluations, each landing at z = -1 with |f(-1)|^2 = 1 exactly, compared exactly against (1+piLo/6)^2"
+    },
+    "remaining": "component (i) is prose Mercer explicitly labels an outline (\"We will give a rough outline\", p. 19); a certificate cannot rule prose. The honest sentence is: mu(5) <= 1 + pi/6 holds with every computer-aided step of Mercer's outline certified exact — not \"theorem, unconditionally\". Whether the outline's assembly is complete is a mathematical judgment for a referee, and the m-independent steps it leans on are proven in his own pi/5 section."
+  },
+  "bar": {
+    "piLoExact": "884279719003555/281474976710656",
+    "piEnclosure": [
+      3.141592653589793,
+      3.1415926535897936
+    ],
+    "onePlusPiLoOver6": "2573129579267491/1688849860263936",
+    "barExact": "6620995831701295249504129435081/2852213850513516153367582212096",
+    "barFloat": 2.3213532290046355,
+    "provenance": "core/interval/transcendental.js PI (Machin arctan enclosure, outward-rounded); piLo = exact dyadic of PI[0] < pi strictly (pi irrational)"
+  },
+  "table6": {
+    "found": [
+      "1/5 1/5 1/4 1/2",
+      "1/5 2/5 1/4 3/4",
+      "1/4 1/4 1/3 2/3",
+      "1/3 1/3 2/5 3/5",
+      "2/5 1/5 1/2 1/2",
+      "3/5 1/5 2/3 1/3"
+    ],
+    "matchesPrinted": true
+  },
+  "cases": [
+    {
+      "row": {
+        "r": "1/3",
+        "s": "1/3",
+        "u": "2/5",
+        "v": "3/5"
+      },
+      "fracs": [
+        "1/6",
+        "1/2",
+        "5/6",
+        "1"
+      ],
+      "tuple": [
+        1,
+        3,
+        5,
+        6
+      ],
+      "caseCheck": {
+        "ok": true,
+        "at": {
+          "y": "-1",
+          "label": "y=-1 (z=-1)"
+        },
+        "gExact": "1",
+        "gAtNeg1Exact": "1"
+      },
+      "minEnclosure": {
+        "g": [
+          -7.76255507487555e-18,
+          3.822678501676336e-22
+        ],
+        "modulus": [
+          0,
+          1.9551671288348565e-11
+        ]
+      },
+      "crossCheck": {
+        "ok": true,
+        "sampledGMin": 6.537197450029453e-10,
+        "K": 200000
+      }
+    },
+    {
+      "row": {
+        "r": "1/4",
+        "s": "1/4",
+        "u": "1/3",
+        "v": "2/3"
+      },
+      "fracs": [
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "tuple": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "caseCheck": {
+        "ok": true,
+        "at": {
+          "y": "-1",
+          "label": "y=-1 (z=-1)"
+        },
+        "gExact": "1",
+        "gAtNeg1Exact": "1"
+      },
+      "minEnclosure": {
+        "g": [
+          -1.5397067145083465e-26,
+          1.606022177801467e-29
+        ],
+        "modulus": [
+          0,
+          4.007520652225597e-15
+        ]
+      },
+      "crossCheck": {
+        "ok": true,
+        "sampledGMin": 2.220446049250313e-16,
+        "K": 200000
+      }
+    },
+    {
+      "row": {
+        "r": "1/5",
+        "s": "1/5",
+        "u": "1/4",
+        "v": "1/2"
+      },
+      "fracs": [
+        "2/5",
+        "3/5",
+        "4/5",
+        "1"
+      ],
+      "tuple": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "caseCheck": {
+        "ok": true,
+        "at": {
+          "y": "-1",
+          "label": "y=-1 (z=-1)"
+        },
+        "gExact": "1",
+        "gAtNeg1Exact": "1"
+      },
+      "minEnclosure": {
+        "g": [
+          0.1360692973743835,
+          0.13606929737438359
+        ],
+        "modulus": [
+          0.3688757207710796,
+          0.3688757207710797
+        ]
+      },
+      "crossCheck": {
+        "ok": true,
+        "sampledGMin": 0.1360692975574851,
+        "K": 200000
+      }
+    },
+    {
+      "row": {
+        "r": "1/5",
+        "s": "2/5",
+        "u": "1/4",
+        "v": "3/4"
+      },
+      "fracs": [
+        "1/5",
+        "2/5",
+        "4/5",
+        "1"
+      ],
+      "tuple": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "caseCheck": {
+        "ok": true,
+        "at": {
+          "y": "-1",
+          "label": "y=-1 (z=-1)"
+        },
+        "gExact": "1",
+        "gAtNeg1Exact": "1"
+      },
+      "minEnclosure": {
+        "g": [
+          0.19301202176912924,
+          0.19301202176912927
+        ],
+        "modulus": [
+          0.4393313348363957,
+          0.43933133483639575
+        ]
+      },
+      "crossCheck": {
+        "ok": true,
+        "sampledGMin": 0.19301202305517018,
+        "K": 200000
+      }
+    },
+    {
+      "row": {
+        "r": "2/5",
+        "s": "1/5",
+        "u": "1/2",
+        "v": "1/2"
+      },
+      "fracs": [
+        "1/5",
+        "3/5",
+        "4/5",
+        "1"
+      ],
+      "tuple": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "caseCheck": {
+        "ok": true,
+        "at": {
+          "y": "-1",
+          "label": "y=-1 (z=-1)"
+        },
+        "gExact": "1",
+        "gAtNeg1Exact": "1"
+      },
+      "minEnclosure": {
+        "g": [
+          0.19301202176912924,
+          0.19301202176912927
+        ],
+        "modulus": [
+          0.4393313348363957,
+          0.43933133483639575
+        ]
+      },
+      "crossCheck": {
+        "ok": true,
+        "sampledGMin": 0.1930120230551705,
+        "K": 200000
+      }
+    },
+    {
+      "row": {
+        "r": "3/5",
+        "s": "1/5",
+        "u": "2/3",
+        "v": "1/3"
+      },
+      "fracs": [
+        "1/10",
+        "7/10",
+        "9/10",
+        "1"
+      ],
+      "tuple": [
+        1,
+        7,
+        9,
+        10
+      ],
+      "caseCheck": {
+        "ok": true,
+        "at": {
+          "y": "-1",
+          "label": "y=-1 (z=-1)"
+        },
+        "gExact": "1",
+        "gAtNeg1Exact": "1"
+      },
+      "minEnclosure": {
+        "g": [
+          0.032219090073830794,
+          0.0322190900738308
+        ],
+        "modulus": [
+          0.17949676897880584,
+          0.17949676897880587
+        ]
+      },
+      "crossCheck": {
+        "ok": true,
+        "sampledGMin": 0.03221909052006855,
+        "K": 200000
+      }
+    }
+  ],
+  "conservation": {
+    "total": 6,
+    "certified": 6,
+    "refused": 0
+  },
+  "measuredBonusFacts": [
+    "(1,3,5,6) and (1,2,3,4) certify min|f| <= 2e-11: both polynomials vanish on the unit circle ((1,2,3,4) at the nontrivial 5th roots of unity — the same zeros that closed Mercer's pi/5 proof)",
+    "(1,2,4,5) and (1,3,4,5) are a reversal pair: identical difference multisets, byte-identical certified enclosures — the same phenomenon as the Rung-2 champion/mirror pair",
+    "all six minima sit FAR below the bar: certified min|f| enclosures range 0 to 0.4394, against 1+pi/6 = 1.5236 — the case checks hold with room to spare"
+  ],
+  "instrument": {
+    "research/probes/mercer-program/mu5-pi6.js": "9c0abc9a9d995974721fe1fc7ffe9d90eb0485c03f4b143e485c6f9997a3d5fa",
+    "research/probes/mercer-program/battery-mu5.js": "0478017dfa4851bf87802b4e295a6d8bd8d6f0a9b33b048fa478e16a01d3dc3c",
+    "research/probes/mercer-program/mu.js": "67b3545a2a6c1f8c5d72885bea81f80884a92e404771a78cef975bd0f43dbaeb",
+    "research/probes/chowla-cosine/certify-min.js": "dc94416c6e62b785719787fed3c721edcaffdb33114c6e2f534745ef794dce5b",
+    "research/probes/chowla-cosine/cheb.js": "017491791fc1c75ee97e26b2b273d8981751c13ba2f543182ad279139c78c76c",
+    "core/interval/transcendental.js": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53",
+    "core/interval/rational.js": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b",
+    "core/interval/interval.js": "59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5"
+  },
+  "provenance": {
+    "source": "Mercer, INTEGERS 19 (2019) #A20, Section 6 — Tables 6-7 on p. 20, the pi/5 proof and the m-generalization sentence on pp. 15-18, the pi/6 sketch constraints on p. 19. Snapshot fetch_mercer2019_integers.pdf beside this probe, pages read first-party as page images in the session that wrote this record (C4).",
+    "sourceSha256": "1f648ff3aff79991fdf57213a0a0a270b83db64eefe1f4477739cb9ea7f10749",
+    "piEnclosure": "core/interval/transcendental.js PI — Machin arctan enclosure, outward-rounded, battery-held by core/interval/tests/test-transcendental.js (T9)",
+    "priorRungs": "results/goddard-witness.json (Rung 1) and results/mu6-box30.json (Rung 2) — the exact-point primitive this record reuses is Rung 2's kill stage, run for the opposite purpose",
+    "boydStatus": "unrelated to this record: the mu(5) bracket is Mercer's; Boyd 1986 gates only the mu(6) mint prose"
+  }
+}

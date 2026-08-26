@@ -29,14 +29,16 @@ const Q = require('#instruments/interval/rational.js');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const CERT = path.join(ROOT, 'certs', 'mercer-mu5.json');
-const SOURCE_LAB_RECORD = '/Users/carlostoledo/Documents/sin-mfg/research/probes/mercer-program/results/mu5-pi6.json';
+/* the source lab's m=6 record, LIFTED bytes (LIFT.json/PROVENANCE.json hold
+   the provenance) — the cross-lab green runs with the source lab absent */
+const SOURCE_LAB_RECORD = path.join(ROOT, 'corpus', 'sources', 'mu5-pi6-sourcelab.json');
 
 let pass = 0, fail = 0;
 const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail++; console.log('FAIL  ' + m); } };
 
 /* ---- the pinned source: re-hash the PDF the printed tables were read from ---- */
 {
-  const bytes = fs.readFileSync(M.SOURCE_PDF.file);
+  const bytes = fs.readFileSync(path.join(ROOT, M.SOURCE_PDF.file));
   const h = crypto.createHash('sha256').update(bytes).digest('hex');
   ok(h === M.SOURCE_PDF.sha256, 'PIN: Mercer 2019 PDF re-hashes to its pin (' + h.slice(0, 12) + '...)');
 }

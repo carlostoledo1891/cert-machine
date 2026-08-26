@@ -1,0 +1,404 @@
+{
+ "what": "the certified mu(n) table over the box {0} u (n-1 exponents <= 40): exhaustive exact verdicts, champion certified. TERMS convention. A box maximum is a certified LOWER bound on mu(n) plus completeness over the named box — not a value for mu(n).",
+ "rows": {
+  "10": {
+   "what": "exhaustive Newman min-modulus sweep: every 10-term set {0} u (subset of 1..40) decided exactly against the bar",
+   "n": 10,
+   "maxA": 40,
+   "totalSets": 273438880,
+   "K": 1024,
+   "seed": {
+    "A": [
+     0,
+     1,
+     4,
+     8,
+     9,
+     10,
+     14,
+     20,
+     23,
+     25
+    ],
+    "modSq": [
+     1.7519364236524408,
+     1.751936423652441
+    ]
+   },
+   "barSq": {
+    "num": "4540941576411349",
+    "den": "2251799813685248",
+    "asDouble": 2.0165831566438137
+   },
+   "killedAtRootsOfUnity": 190476350,
+   "killedDyadic": 82962527,
+   "certifiedBelow": 1,
+   "survivors": [
+    {
+     "A": [
+      0,
+      1,
+      4,
+      7,
+      8,
+      13,
+      22,
+      24,
+      32,
+      34
+     ],
+     "modSq": [
+      2.016583156643814,
+      2.0165831566438146
+     ],
+     "modulus": [
+      1.420064490311554,
+      1.4200644903115545
+     ],
+     "degree": 34,
+     "gcd": 1
+    },
+    {
+     "A": [
+      0,
+      2,
+      10,
+      12,
+      21,
+      26,
+      27,
+      30,
+      33,
+      34
+     ],
+     "modSq": [
+      2.016583156643814,
+      2.0165831566438146
+     ],
+     "modulus": [
+      1.420064490311554,
+      1.4200644903115545
+     ],
+     "degree": 34,
+     "gcd": 1
+    }
+   ],
+   "champion": {
+    "A": [
+     0,
+     1,
+     4,
+     7,
+     8,
+     13,
+     22,
+     24,
+     32,
+     34
+    ],
+    "modSq": [
+     2.016583156643814,
+     2.0165831566438146
+    ],
+    "modulus": [
+     1.420064490311554,
+     1.4200644903115545
+    ],
+    "degree": 34,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     0,
+     1,
+     4,
+     7,
+     8,
+     13,
+     22,
+     24,
+     32,
+     34
+    ],
+    "uniqueUpToDilationAndReversal": true,
+    "outsiders": []
+   },
+   "conservation": "190476350+82962527+1+2 = 273438880",
+   "elapsedMs": 8180656,
+   "convention": "TERMS (n = |A|); a box maximum is a certified LOWER bound on mu(n) plus the statement that nothing in the box does better — it is not a value for mu(n)",
+   "reseeded": false,
+   "generatedBy": "tools/run-mu-table.js @ git 2d3a123"
+  },
+  "11": {
+   "what": "exhaustive Newman min-modulus sweep: every 11-term set {0} u (subset of 1..40) decided exactly against the bar",
+   "n": 11,
+   "maxA": 40,
+   "totalSets": 847660528,
+   "K": 1024,
+   "seed": {
+    "A": [
+     0,
+     1,
+     2,
+     7,
+     8,
+     10,
+     12,
+     21,
+     24,
+     25,
+     28
+    ],
+    "modSq": [
+     2.3550530250753834,
+     2.355053025075384
+    ]
+   },
+   "barSq": {
+    "num": "5382745856073229",
+    "den": "2251799813685248",
+    "asDouble": 2.390419354047259
+   },
+   "killedAtRootsOfUnity": 656891911,
+   "killedDyadic": 190768614,
+   "certifiedBelow": 1,
+   "survivors": [
+    {
+     "A": [
+      0,
+      2,
+      4,
+      12,
+      19,
+      20,
+      24,
+      25,
+      27,
+      30,
+      33
+     ],
+     "modSq": [
+      2.3904193540472596,
+      2.39041935404726
+     ],
+     "modulus": [
+      1.546098106216827,
+      1.5460981062168275
+     ],
+     "degree": 33,
+     "gcd": 1
+    },
+    {
+     "A": [
+      0,
+      3,
+      6,
+      8,
+      9,
+      13,
+      14,
+      21,
+      29,
+      31,
+      33
+     ],
+     "modSq": [
+      2.3904193540472596,
+      2.39041935404726
+     ],
+     "modulus": [
+      1.546098106216827,
+      1.5460981062168275
+     ],
+     "degree": 33,
+     "gcd": 1
+    }
+   ],
+   "champion": {
+    "A": [
+     0,
+     2,
+     4,
+     12,
+     19,
+     20,
+     24,
+     25,
+     27,
+     30,
+     33
+    ],
+    "modSq": [
+     2.3904193540472596,
+     2.39041935404726
+    ],
+    "modulus": [
+     1.546098106216827,
+     1.5460981062168275
+    ],
+    "degree": 33,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     0,
+     2,
+     4,
+     12,
+     19,
+     20,
+     24,
+     25,
+     27,
+     30,
+     33
+    ],
+    "uniqueUpToDilationAndReversal": true,
+    "outsiders": []
+   },
+   "conservation": "656891911+190768614+1+2 = 847660528",
+   "elapsedMs": 12704772,
+   "convention": "TERMS (n = |A|); a box maximum is a certified LOWER bound on mu(n) plus the statement that nothing in the box does better — it is not a value for mu(n)",
+   "reseeded": false,
+   "generatedBy": "tools/run-mu-table.js @ git 2d3a123"
+  },
+  "12": {
+   "what": "exhaustive Newman min-modulus sweep: every 12-term set {0} u (subset of 1..40) decided exactly against the bar",
+   "n": 12,
+   "maxA": 40,
+   "totalSets": 2311801440,
+   "K": 1024,
+   "seed": {
+    "A": [
+     0,
+     1,
+     2,
+     9,
+     12,
+     13,
+     14,
+     16,
+     18,
+     19,
+     22,
+     24
+    ],
+    "modSq": [
+     2.4136985553114556,
+     2.413698555311456
+    ]
+   },
+   "barSq": {
+    "num": "6423520975299817",
+    "den": "2251799813685248",
+    "asDouble": 2.8526163543761993
+   },
+   "killedAtRootsOfUnity": 1556168889,
+   "killedDyadic": 755632547,
+   "certifiedBelow": 2,
+   "survivors": [
+    {
+     "A": [
+      0,
+      1,
+      11,
+      12,
+      16,
+      18,
+      19,
+      21,
+      24,
+      25,
+      27,
+      33
+     ],
+     "modSq": [
+      2.8526163543761998,
+      2.8526163543762
+     ],
+     "modulus": [
+      1.6889690211416546,
+      1.6889690211416553
+     ],
+     "degree": 33,
+     "gcd": 1
+    },
+    {
+     "A": [
+      0,
+      6,
+      8,
+      9,
+      12,
+      14,
+      15,
+      17,
+      21,
+      22,
+      32,
+      33
+     ],
+     "modSq": [
+      2.8526163543761998,
+      2.8526163543762
+     ],
+     "modulus": [
+      1.6889690211416546,
+      1.6889690211416553
+     ],
+     "degree": 33,
+     "gcd": 1
+    }
+   ],
+   "champion": {
+    "A": [
+     0,
+     1,
+     11,
+     12,
+     16,
+     18,
+     19,
+     21,
+     24,
+     25,
+     27,
+     33
+    ],
+    "modSq": [
+     2.8526163543761998,
+     2.8526163543762
+    ],
+    "modulus": [
+     1.6889690211416546,
+     1.6889690211416553
+    ],
+    "degree": 33,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     0,
+     1,
+     11,
+     12,
+     16,
+     18,
+     19,
+     21,
+     24,
+     25,
+     27,
+     33
+    ],
+    "uniqueUpToDilationAndReversal": true,
+    "outsiders": []
+   },
+   "conservation": "1556168889+755632547+2+2 = 2311801440",
+   "elapsedMs": 28741374,
+   "convention": "TERMS (n = |A|); a box maximum is a certified LOWER bound on mu(n) plus the statement that nothing in the box does better — it is not a value for mu(n)",
+   "reseeded": false,
+   "generatedBy": "tools/run-mu-table.js @ git 2d3a123"
+  }
+ }
+}

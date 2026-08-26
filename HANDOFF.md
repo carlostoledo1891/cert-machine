@@ -34,8 +34,13 @@ to control page / reports / certificates / GitHub, and the ten-second
 "rerun this yourself" block); the control page sits one click below. Code
 = the FULL repo, public on GitHub, after the self-containment pass.
 NOTHING from sin-mfg's ceremony layer comes along — no CI pipelines, no
-timestamping, no publication-approval flows, no governance files; outward
-actions stay exactly one operator click, as today.
+timestamping, no publication-approval flows, no governance files. OUTWARD
+ACTIONS (operator ruling, 2026-08-27, replacing "one operator click"): they
+happen on the operator's WORD — an explicit instruction to the agent to
+publish, push, deploy, post, or send is equivalent to the operator's own
+click, and the agent executes it wherever credentials allow. Nothing outward
+is ever SELF-initiated; the gate is the operator's instruction, not the
+operator's hands.
 
 The shipping queue (S1 is the next session; OP = operator's click):
 
@@ -58,12 +63,15 @@ S1. PUBLISH PREP.
         style: the certified lambda table (source-lab rows reproduced, the
         new n=13..17 rows, the M=30 deepenings incl. the lambda(14)
         improvement), infimum caveats intact, verification recipe inline.
-    OP at end of S1: create + push the public GitHub repo; import it as a
-    NEW Vercel project (no build command — the pages are committed,
-    built locally under the drift-refusal discipline; .vercelignore
-    keeps heavy non-site files out of the deployment) and transfer
-    carlostoledo.co to it from the sin-mfg project; post the #510
-    comment.
+    At end of S1, on the operator's word (agent-executable where noted):
+    create + push the public GitHub repo (gh is authenticated as
+    carlostoledo1891 — the agent does this on instruction); import it as
+    a NEW Vercel project (no build command — the pages are committed,
+    built locally under the drift-refusal discipline; .vercelignore keeps
+    heavy non-site files out of the deployment) and transfer
+    carlostoledo.co to it from the sin-mfg project (operator's dashboard,
+    or the agent once a Vercel CLI login exists); post the #510 comment
+    (operator's login on erdosproblems).
 S2. THE TWO AUDIT STORIES.
     (a) reports/erdos852.html expanded into the failure-taxonomy research
         note ("a model published a float artifact as a constant; only
