@@ -32,6 +32,7 @@ test:
 	@printf "%-30s " "trigmin certifier"; $(NODE) instruments/trigmin/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "newman box sweep"; $(NODE) instruments/trigmin/sweep-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lambda sweep"; $(NODE) instruments/trigmin/lambda-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "mercer mu5 ladder"; $(NODE) instruments/trigmin/mercer6-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "henon census"; $(NODE) instruments/census/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "keller audit"; $(NODE) instruments/keller/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "cf audit"; $(NODE) instruments/cf/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL

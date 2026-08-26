@@ -130,4 +130,32 @@ if (phase === 'deepen' || phase === 'all') {
   }
 }
 
+/* deepenN (e.g. "deepen13"): ONE row n@30, written to a per-row sidecar so five
+   detached processes can run in parallel with ZERO writers on the shared table;
+   "merge" folds the sidecars in serially afterwards. */
+const single = /^deepen(\d+)$/.exec(phase);
+if (single) {
+  const n = Number(single[1]);
+  const base = table.rows[n + '@25'];
+  if (!base) { console.error('deepen' + n + ': no ' + n + '@25 row to seed from'); process.exit(1); }
+  const rec = runBox(n, 30, base.optimiser.A, 'deepened box (the M=25 row was itself the first table past n=12)');
+  rec.vsShallower = JSON.stringify(base.optimiser.A) === JSON.stringify(rec.optimiser.A)
+    ? 'M=25 optimiser CONFIRMED as the M=30 optimiser'
+    : 'the wider box found a better set — upper bound improved';
+  console.log('  ' + rec.vsShallower);
+  const sidecar = path.join(ROOT, 'certs', 'lambda-row-' + n + '-M30.json');
+  fs.writeFileSync(sidecar, JSON.stringify({ key: n + '@30', rec }, null, 1) + '\n');
+  console.log('sidecar ' + path.relative(ROOT, sidecar) + ' written — merge with: node tools/run-lambda-table.js merge');
+  process.exit(0);
+}
+
+if (phase === 'merge') {
+  const dir = path.join(ROOT, 'certs');
+  for (const f of fs.readdirSync(dir).filter((f) => /^lambda-row-.*\.json$/.test(f)).sort()) {
+    const { key, rec } = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+    save(key, rec);
+    console.log('merged ' + key + ' from ' + f);
+  }
+}
+
 console.log('certs/lambda-table.json written (rows ' + Object.keys(table.rows).sort().join(', ') + ')');

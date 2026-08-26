@@ -36,6 +36,7 @@ const BATTERIES = [
   ['trigmin certifier', ['instruments/trigmin/battery.js'], '47 checks · 2 red controls'],
   ['newman box sweep', ['instruments/trigmin/sweep-battery.js'], 'Goddard\'s 1992 box re-closed every run, cross-lab counts pinned; 100% kill audit · 7 red controls'],
   ['lambda sweep', ['instruments/trigmin/lambda-battery.js'], 'Mercer\'s proved closed forms computed, never remembered; the wrong-endpoint bar refused by name and shown fatal · 4 red controls'],
+  ['mercer mu5 ladder', ['instruments/trigmin/mercer6-battery.js'], 'mu(5) <= 1 + pi/m certified m = 5..16; Mercer\'s Tables 5-7 reproduced, the source-lab m=6 record matched, every case point re-proved · 5 red controls'],
   ['census (henon + holmes)', ['instruments/census/battery.js'], 'closed-form calibration, two maps · 5 red controls'],
   ['keller audit + sweep', ['instruments/keller/battery.js'], 'symbolic det over Q, generator calibrated on Alpöge · 4 red controls'],
   ['cf audit', ['instruments/cf/battery.js'], 'all six Ramanujan Machine sheets (46 rows: e, pi, zeta(3), Catalan, pi^2, ln 2) · 10 red controls'],
