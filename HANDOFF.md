@@ -56,9 +56,9 @@ S1. PUBLISH PREP — DONE (e34c5b3). Self-contained: sin-mfg deps lifted via
     Vercel import needs zero manual settings, no cloud build); the
     paste-ready #510 comment (outreach/erdos510-comment.md — the lambda
     table with bounds CEILED at 12 decimals via exact rationals).
-GO-LIVE — WAITING ON THE OPERATOR'S WORD:
-    (1) "create and push the repo": agent-executable now (gh is
-        authenticated as carlostoledo1891);
+GO-LIVE — (1) DONE on the operator's word (2026-08-27): the repo is
+    PUBLIC at github.com/carlostoledo1891/cert-machine (MIT detected;
+    main pushed; default-publish rule now LIVE). Remaining:
     (2) Vercel: import the repo as a NEW project, transfer carlostoledo.co
         from the sin-mfg project (operator dashboard; agent-executable
         once a Vercel CLI login exists);
@@ -67,7 +67,7 @@ GO-LIVE — WAITING ON THE OPERATOR'S WORD:
     From the moment (1) exists, the default-publish rule is live: every
     green session ends by rebuilding the site and pushing.
 S2. THE TWO AUDIT STORIES —
-    (a) NEXT UP: reports/erdos852.html expanded into the failure-taxonomy
+    (a) DONE (75c85e5): reports/erdos852.html expanded into the failure-taxonomy
         research note for a lab-evals reader ("a model published a float
         artifact as a constant, to thirteen digits of false confidence;
         only exact arithmetic caught it"), with the RM row-3 sign slip as
