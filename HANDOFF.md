@@ -42,59 +42,67 @@ click, and the agent executes it wherever credentials allow. Nothing outward
 is ever SELF-initiated; the gate is the operator's instruction, not the
 operator's hands.
 
-The shipping queue (S1 is the next session; OP = operator's click):
+The shipping queue, WITH STATUS (updated 2026-08-27; the eval promotion
+from the flow-vs-stock ruling is folded in — this list IS the order):
 
-S1. PUBLISH PREP.
-    (a) Self-containment: the public tree must run with sin-mfg ABSENT.
-        Two known live deps to lift via LIFT.json: the Mercer PDF pin in
-        instruments/trigmin/mercer6.js (INTEGERS is open access) and the
-        source-lab mu5-pi6.json record that mercer6-battery.js reads for
-        its cross-lab green. Then sweep for other absolute paths, secrets,
-        and MIT header coverage. Lifted bytes only — no new machinery.
-    (b) The public README: positioning sentence first; the three lanes,
-        one number each; the ten-second stdlib-verifier block; the honest
-        trust-base paragraph (V8 BigInt + IEEE-754 base, consumed theorems
-        named, one machine/one operator — a rung below formal proof).
-    (c) make site: assemble the static bundle for carlostoledo.co
-        (landing + index.html + reports/ + certs/ + stdlib verifiers) from
-        design/ tokens, with the report discipline inherited — numbers
-        recomputed at build, build refuses on drift.
-    (d) The #510 comment, paste-ready in the outreach/erdos852-comment.md
-        style: the certified lambda table (source-lab rows reproduced, the
-        new n=13..17 rows, the M=30 deepenings incl. the lambda(14)
-        improvement), infimum caveats intact, verification recipe inline.
-    At end of S1, on the operator's word (agent-executable where noted):
-    create + push the public GitHub repo (gh is authenticated as
-    carlostoledo1891 — the agent does this on instruction); import it as
-    a NEW Vercel project (no build command — the pages are committed,
-    built locally under the drift-refusal discipline; .vercelignore keeps
-    heavy non-site files out of the deployment) and transfer
-    carlostoledo.co to it from the sin-mfg project (operator's dashboard,
-    or the agent once a Vercel CLI login exists); post the #510 comment
-    (operator's login on erdosproblems).
-S2. THE TWO AUDIT STORIES.
-    (a) reports/erdos852.html expanded into the failure-taxonomy research
-        note ("a model published a float artifact as a constant; only
-        exact arithmetic caught it"), written for a lab-evals reader.
-    (b) NEW: the RM audit page — all 52 rows with verdicts, the row-3
-        refutation + certified correction front and center; doubles as
-        the RM conjecture status registry (no RM conjecture had ever been
-        refuted before; this table holds the first). Optional paste-ready
-        draft for OP: a note to the RM group, whose Challenge asks for
-        exactly this kind of verified code.
-S3. THE MERCER PROGRAM REPORT — cross-lab replication, the mu/lambda
-    tables, M(0,1,2,6,9) = 1, and the m = 5..20 bracket ladder on a
-    40-year lineage. "First CERTIFICATE / named box" framing throughout;
-    Boyd 1986 (still unread; OP: ILL) gates only "first witness" prose.
-S4. THE METHODS NOTE — the bug catalog (~9 real bugs, every one caught by
-    a control or calibration, none by reading code), red controls,
-    conservation identities, screens-never-admit; MATH-AI-workshop shaped.
-S5. THE LEAN BRIDGE — the C* refutation exported as ONE Lean-checked
+S1. PUBLISH PREP — DONE (e34c5b3). Self-contained: sin-mfg deps lifted via
+    LIFT.json (41 files, drift 41/41 clean; no machine path in any
+    certificate — certs/mercer-mu5.json regenerated m=5..20); LICENSE +
+    package metadata; public README (positioning sentence, three lanes,
+    ten-second verifier block — all three commands tested verbatim — and
+    the honest trust base); make site (landing + control page + 4 reports
+    + 8 certificates + verifiers; every landing number recomputed at
+    build, build refuses on drift); vercel.json + .vercelignore (the
+    Vercel import needs zero manual settings, no cloud build); the
+    paste-ready #510 comment (outreach/erdos510-comment.md — the lambda
+    table with bounds CEILED at 12 decimals via exact rationals).
+GO-LIVE — WAITING ON THE OPERATOR'S WORD:
+    (1) "create and push the repo": agent-executable now (gh is
+        authenticated as carlostoledo1891);
+    (2) Vercel: import the repo as a NEW project, transfer carlostoledo.co
+        from the sin-mfg project (operator dashboard; agent-executable
+        once a Vercel CLI login exists);
+    (3) post the #510 comment (operator's erdosproblems login; after (1),
+        since the comment cites the certificate URL).
+    From the moment (1) exists, the default-publish rule is live: every
+    green session ends by rebuilding the site and pushing.
+S2. THE TWO AUDIT STORIES —
+    (a) NEXT UP: reports/erdos852.html expanded into the failure-taxonomy
+        research note for a lab-evals reader ("a model published a float
+        artifact as a constant, to thirteen digits of false confidence;
+        only exact arithmetic caught it"), with the RM row-3 sign slip as
+        the second specimen of the class.
+    (b) DONE (abf6be0): reports/rm-audit.html — the certified status
+        registry: all 52 rows re-certified at build, 51 SURVIVE, the
+        row-3 refutation + certified correction front and center, build
+        refuses on any deviation. Optional after go-live, on the
+        operator's word: a short note to the RM group (their Challenge
+        asks for verified code), carrying the independent-rerun
+        invitation.
+S3. THE EVAL (promoted) — model-proposes-engine-certifies over the
+    strassen corpus: per-model certified truth rates, false positives
+    provably false; shipped as corpus + stdlib graders + a small
+    leaderboard page. The one artifact whose value curve has no operator
+    in the denominator; the direct frontier-lab bridge.
+S4. THE NEW-CLAIMS SWEEP — a per-session fetch/diff tool over the claim
+    surfaces (RM results pages, erdosproblems proof-claims, arXiv
+    constants) feeding the registry. A tool run each session, NOT a cron;
+    scheduling is a later operator opt-in.
+S5. THE MERCER PROGRAM REPORT — writing slot: the mu/lambda tables, the
+    m = 5..20 bracket ladder, M(0,1,2,6,9) = 1, cross-lab replication to
+    the kill-split digit. "First CERTIFICATE / named box" framing; Boyd
+    1986 (unread; ILL) gates "first witness" prose only.
+S6. THE METHODS NOTE — the bug catalog (~9 real bugs, every one caught by
+    a control, calibration, or impossible number — none by reading code),
+    red controls, conservation identities, screens-never-admit;
+    MATH-AI-workshop shaped; carries the co-sign invitation (He-Tang,
+    mzn are the natural first contacts). Framing per the replicability
+    read: the moat is the discipline and the dated public record, never
+    the code — others replicating it after publication is the GOOD
+    outcome.
+S7. THE LEAN BRIDGE — the C* refutation exported as ONE Lean-checked
     integer inequality; the standing answer to the bespoke-JS-stack
     objection.
-S6. THE LLM CAMPAIGN — model-proposes-engine-certifies over the strassen
-    corpus; per-model certified truth rates, false positives provably
-    false; the direct frontier-lab bridge.
 
 ADOPTED FROM THE FLOW-VS-STOCK BRAINSTORM (operator, 2026-08-27) — convert
 operator capability (a flow) into artifacts that hold value unattended (stock):
@@ -104,11 +112,9 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
      rebuilding the site and pushing — the operator vetoes after, not before.
      Third-party surfaces (forums, email, OEIS, notes to authors) move only
      on the operator's explicit word, never agent-initiated.
-  3. QUEUE REORDER: the eval (was S6) moves to directly after S2 — it is the
-     one artifact whose value curve has no operator in the denominator
-     (proof-graded ground truth; labs run it, value compounds unattended).
-     The Mercer report, methods note, and Lean bridge become writing slots
-     interleaved around it.
+  3. QUEUE REORDER: the eval moves to directly after S2 (now reflected in
+     the queue above as S3; the reports and the Lean bridge are writing
+     slots interleaved around it).
   4. The audit function becomes standing: the engine already re-audits the
      whole RM corpus every run; add a NEW-CLAIMS sweep (RM results pages,
      erdosproblems proof-claims, arXiv constants) run per session — a fetch
