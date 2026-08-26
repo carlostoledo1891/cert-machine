@@ -165,7 +165,10 @@ S4. THE NEW-CLAIMS SWEEP — DONE (2026-08-27): tools/sweep-claims.js.
     row updates its registry status). Diff state: corpus/claims-seen.json.
     A REPORT, not a gate — exit 0 always; acting is a session decision.
     No cron unless the operator later opts in.
-S5. THE MERCER PROGRAM REPORT — writing slot: the mu/lambda tables, the
+S5. THE MERCER PROGRAM REPORT — DONE (2026-08-27): reports/mercer-program.html
+    (build-report-mercer.js re-certifies all 12 mu champions, re-proves the
+    Sturm equality, re-checks the 16 ladder rungs at every build; 5.09G sets
+    accounted; Boyd framing discipline in its own section). ORIGINAL NOTE: the mu/lambda tables, the
     m = 5..20 bracket ladder, M(0,1,2,6,9) = 1, cross-lab replication to
     the kill-split digit. "First CERTIFICATE / named box" framing; Boyd
     1986 (unread; ILL) gates "first witness" prose only.

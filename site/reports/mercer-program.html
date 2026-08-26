@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Mercer program · cert-machine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 28px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:400;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sig);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;padding:6px 14px;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+[id]{scroll-margin-top:76px}
+.col{max-width:64ch;margin-left:auto;margin-right:auto}
+.wide{max-width:900px;margin-left:auto;margin-right:auto}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:7px;
+  flex:1 1 240px;min-width:200px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px;max-width:70ch}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<nav class="topnav"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><div class="navlinks"><a href="/#reports">Reports</a><a href="/machine/">Machine</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine">GitHub</a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · every champion re-certified at build</div>
+  <h1>The Mercer program: mu, lambda, and a 40-year bracket</h1>
+  <p class="deck">Chowla asked how negative a sum of n cosines must dip; Newman asked how large the minimum modulus of an n-term 0/1 polynomial can stay. This program certifies both landscapes with exact arithmetic: exhaustive box sweeps for the extremal tables (every set decided, a conservation identity per box), an equality no enclosure could ever decide, and a bracket on mu(5) pushed fourteen rungs past the literature — on the lineage Campbell–Ferguson–Forcade 1983 → Goddard 1992 → Mercer 2019 → here.</p>
+</header>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">sets decided exactly</div><div class="v held">5,090,150,225</div><div class="n">across every mu and lambda box; each box carries a conservation identity that must close</div></div>
+    <div class="stat"><div class="k">mu rows certified</div><div class="v held">12</div><div class="n">n = 9..17 at box 30, n = 10..12 at box 40 — all 12 champions re-certified during THIS build</div></div>
+    <div class="stat"><div class="k">lambda rows</div><div class="v held">14</div><div class="n">n = 4..17; nine reproduce the source lab (n=4 to the per-stage kill split), five are new, all deepened to M = 30</div></div>
+    <div class="stat"><div class="k">mu(5) bracket</div><div class="v sm held">1 ≤ mu(5) ≤ 1 + π/20</div><div class="n">1.157080 — 16 certified rungs, 11,718 exceptional tuples closed by exact points</div></div>
+    <div class="stat"><div class="k">one exact equality</div><div class="v sm held">M(0,1,2,6,9) = 1</div><div class="n">re-proved this build by deflation + Sturm — a tie no interval enclosure can decide</div></div>
+    <div class="stat"><div class="k">framing</div><div class="v warn">CERTIFICATES</div><div class="n">first certificates over NAMED boxes — never &quot;first witness&quot;: Boyd 1986 remains unread, and prose stays inside what is proved</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the program</div>
+    <h2>Two extremal landscapes, one discipline</h2>
+  </div>
+<div class="col"><p>For a set A of n positive integers, write f_A(θ) = Σ cos(aθ) and λ(n) for the smallest possible dip −min f_A over all n-sets (Chowla's cosine problem asks if λ(N) ≫ √N). For nonnegative exponents, write M(A) = min |Σ z^a| on the unit circle and mu(n) = sup M over n-term sets (Newman polynomials; mu is indexed by TERMS throughout). Both are extremal quantities over infinite families, so no finite computation evaluates them — what a machine CAN hold is exact: exhaustive sweeps over named boxes {exponents ≤ M}, every set decided by integer kills at roots of unity, exact dyadic Chebyshev kills, and full certification of survivors, with a per-box conservation identity that throws if a single set goes unaccounted. A mu row is a certified BOX MAXIMUM — a lower bound for the box, and the dips at high n are box crowding, not mathematics (box 30 → 40 raised mu(12)'s floor by +0.135). A lambda row is a certified upper bound on an infimum. Neither is ever printed as "the value".</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the mu table</div>
+    <h2>Certified floors, n = 9..17 — and what wider boxes taught</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>n</th><th>box</th><th>certified floor (rounds DOWN)</th><th>champion A</th><th>sets decided</th></tr></thead><tbody><tr><td>9</td><td>≤ 30</td><td class="v"><span class="m">mu(9) ≥ 1.378187726393</span></td><td><span class="m">{0,1,2,3,9,12,19,23,27}</span></td><td>5,852,925</td></tr><tr><td>10</td><td>≤ 30</td><td class="v"><span class="m">mu(10) ≥ 1.323607352522</span></td><td><span class="m">{0,1,4,8,9,10,14,20,23,25}</span></td><td>14,307,150</td></tr><tr><td>11</td><td>≤ 30</td><td class="v"><span class="m">mu(11) ≥ 1.534618201728</span></td><td><span class="m">{0,1,2,7,8,10,12,21,24,25,28}</span></td><td>30,045,015</td></tr><tr><td>12</td><td>≤ 30</td><td class="v"><span class="m">mu(12) ≥ 1.553608237398</span></td><td><span class="m">{0,1,2,9,12,13,14,16,18,19,22,24}</span></td><td>54,627,300</td></tr><tr><td>13</td><td>≤ 30</td><td class="v"><span class="m">mu(13) ≥ 1.899892237678</span></td><td><span class="m">{0,1,2,4,6,7,8,13,16,17,20,25,28}</span></td><td>86,493,225</td></tr><tr><td>14</td><td>≤ 30</td><td class="v"><span class="m">mu(14) ≥ 1.724078989317</span></td><td><span class="m">{0,2,3,4,5,7,10,12,13,14,16,20,21,25}</span></td><td>119,759,850</td></tr><tr><td>15</td><td>≤ 30</td><td class="v"><span class="m">mu(15) ≥ 1.664681927869</span></td><td><span class="m">{0,1,2,3,4,5,9,10,14,17,20,22,24,26,28}</span></td><td>145,422,675</td></tr><tr><td>16</td><td>≤ 30</td><td class="v"><span class="m">mu(16) ≥ 1.721441131519</span></td><td><span class="m">{0,1,2,3,5,6,7,8,11,14,15,16,18,23,25,27}</span></td><td>155,117,520</td></tr><tr><td>17</td><td>≤ 30</td><td class="v"><span class="m">mu(17) ≥ 1.676123906933</span></td><td><span class="m">{0,1,2,3,8,11,13,14,16,17,18,20,22,23,26,27,30}</span></td><td>145,422,675</td></tr><tr><td>10</td><td>≤ 40</td><td class="v"><span class="m">mu(10) ≥ 1.420064490311</span></td><td><span class="m">{0,1,4,7,8,13,22,24,32,34}</span></td><td>273,438,880</td></tr><tr><td>11</td><td>≤ 40</td><td class="v"><span class="m">mu(11) ≥ 1.546098106216</span></td><td><span class="m">{0,2,4,12,19,20,24,25,27,30,33}</span></td><td>847,660,528</td></tr><tr><td>12</td><td>≤ 40</td><td class="v"><span class="m">mu(12) ≥ 1.688969021141</span></td><td><span class="m">{0,1,11,12,16,18,19,21,24,25,27,33}</span></td><td>2,311,801,440</td></tr></tbody></table></div></div><div class="col"><p>n = 9 validates cross-lab: the six-survivor, two-orbit structure of the source lab's record reproduces with the published witness floor to the last digit. n = 10..17 are rows no table anywhere holds. The box-extension lesson is three for three: at n ≥ 10 the box-30 maxima were crowding artifacts, and box 40 lifted every floor it touched — mu(10) past even mu(9)'s, killing the "dip" reading. Every champion above was re-certified during this build; a champion that fails to reproduce its floor refuses the page.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§3 · the lambda table</div>
+    <h2>n = 4..17, deepened to M = 30</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>n</th><th>λ(n) ≤ (rounds UP)</th><th>witness A</th><th>box M</th></tr></thead><tbody><tr><td>4</td><td class="v"><span class="m">1.519557881643</span></td><td><span class="m">{1,2,3,4}</span></td><td>20</td></tr><tr><td>5</td><td class="v"><span class="m">1.627460664467</span></td><td><span class="m">{1,2,4,5,6}</span></td><td>60</td></tr><tr><td>6</td><td class="v"><span class="m">1.591832329324</span></td><td><span class="m">{1,2,4,6,7,8}</span></td><td>50</td></tr><tr><td>7</td><td class="v"><span class="m">1.893455418993</span></td><td><span class="m">{1,2,3,5,6,7,8}</span></td><td>30</td></tr><tr><td>8</td><td class="v"><span class="m">1.956787693633</span></td><td><span class="m">{2,3,4,5,7,8,10,12}</span></td><td>30</td></tr><tr><td>9</td><td class="v"><span class="m">2.069282587092</span></td><td><span class="m">{2,3,4,5,7,9,10,12,14}</span></td><td>30</td></tr><tr><td>10</td><td class="v"><span class="m">2.057447274609</span></td><td><span class="m">{1,2,3,5,6,7,8,10,11,13}</span></td><td>30</td></tr><tr><td>11</td><td class="v"><span class="m">2.102381279243</span></td><td><span class="m">{1,2,3,4,5,6,8,9,10,11,14}</span></td><td>30</td></tr><tr><td>12</td><td class="v"><span class="m">2.213895922406</span></td><td><span class="m">{1,2,3,4,5,6,7,8,9,10,11,15}</span></td><td>30</td></tr><tr><td>13</td><td class="v"><span class="m">2.318232650153</span></td><td><span class="m">{1,2,3,4,5,6,7,9,10,11,12,13,16}</span></td><td>30</td></tr><tr><td>14</td><td class="v"><span class="m">2.320690691855</span></td><td><span class="m">{1,3,4,5,9,10,12,13,14,17,22,23,26,27}</span></td><td>30</td></tr><tr><td>15</td><td class="v"><span class="m">2.418912126896</span></td><td><span class="m">{1,2,3,4,6,7,8,9,10,11,12,14,18,20,21}</span></td><td>30</td></tr><tr><td>16</td><td class="v"><span class="m">2.454832753028</span></td><td><span class="m">{1,2,3,4,5,6,7,8,10,11,13,14,15,16,17,21}</span></td><td>30</td></tr><tr><td>17</td><td class="v"><span class="m">2.564897120546</span></td><td><span class="m">{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,22}</span></td><td>30</td></tr></tbody></table></div></div><div class="col"><p>The nine source-lab rows reproduce exactly — n = 4 down to the per-stage kill split (2818 + 2022 + 0 + 5), with proved closed forms COMPUTED, never remembered (λ(2) = 9/8 exact; λ(3) = (17+7√7)/27 via certified square root). Rows n = 13..17 extend past any published table we know. The M = 30 deepening confirmed thirteen of fourteen optimisers and IMPROVED λ(14): the wider box found {1,3,4,5,9,10,12,13,14,17,22,23,26,27} — reaching exponent 27, structurally unlike the near-interval shallow-box optimiser. A caution priced into every row: these are upper bounds on an infimum, exact only within their named boxes, and rows at different n order nothing.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the bracket</div>
+    <h2>mu(5) ≤ 1 + π/20, sixteen certified rungs</h2>
+  </div>
+<div class="col"><p>Mercer proved mu(5) ≤ 1 + π/5 and SKETCHED 1 + π/6, reducing the hard cases to a finite search over fractions with bounded denominators plus per-tuple checks — "a finite search (aided by computer)" and "one can verify". This lab certified both computer-aided components at GENERAL m: the search runs in exact rationals (m = 5 reproduces his Table 5's unique quadruple; m = 6 his Tables 6 and 7, and the source lab's record row for row), and every exceptional tuple is closed by ONE exact rational evaluation of |f|² against the exact bar (1 + πLo/m)². The ladder now runs m = 5..20 — 11,718 tuples across 16 rungs, every one certified — ending at mu(5) ≤ 1.157080. With §5's witness this brackets 1 ≤ mu(5) ≤ 1 + π/20. Component (i), the reduction, is consumed from Mercer 2019 (his Lemma 6.2; general m stated on his p. 16) the way Krawczyk's theorem is consumed in validated numerics — named in the certificate, checked at its calibrations.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · the equality</div>
+    <h2>M(0,1,2,6,9) = 1 — exactly, by Sturm</h2>
+  </div>
+<div class="col"><p>Mercer observed M(0,1,2,6,9) = 1 and suspected mu(5) = 1. An enclosure can never decide that tie — the minimum SITS on the bar. The certificate that can: |f|² − 1 factors as (y+1)·H(y) exactly (y = cos θ), H(−1) = 92 > 0, and a Sturm chain counts ZERO roots of H in [−1, 1] — so the minimum is EXACTLY 1, attained at z = −1 and nowhere else. Re-proved during this build in under a millisecond. The same tuple reappears in §4's ladder from m = 10 as the reversal (3,7,8,9), and its case closes with g(−1) = 1 ≤ bar at every rung — the two results agreeing is not a coincidence; it is the same exact arithmetic.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · honesty</div>
+    <h2>What &quot;first certificate&quot; claims, and what it does not</h2>
+  </div>
+<div class="col"><p>Boyd's 1986 survey of large Newman polynomials (LMS Lecture Notes 109) is not yet read first-party in this lab — the volume is access-restricted and an ILL request is the operator's open action. Until those bytes are read, no sentence here claims a "first witness" or priority over the printed record: every row is a FIRST CERTIFICATE — an exhaustion over a named box with a conservation identity, re-checkable by the repository's batteries on every run — which is a claim about the certificate, not about history. Three secondary sources support the framing without the paper; the paper decides nothing computational either way. Where this program's own instruments found their bugs, controls found them: the wrong-endpoint bar refused BY NAME, the fabricated-decimal battery catch, the dilated-champion tie-break — none by reading code.</p></div>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-mercer.js @ git 1eb9d91 — 12 mu champions re-certified, the equality theorem re-proved (deflation + Sturm), the ladder re-checked rung by rung, the lambda record read from its battery-gated certificate. The build refuses on any deviation. Certificates: certs/mu-table.json, certs/mu-table-40.json, certs/lambda-table.json, certs/mercer-mu5.json.</p><p>cert-machine · Carlos Toledo</p></footer>
+
+</div>
+</html>

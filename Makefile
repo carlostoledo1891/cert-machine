@@ -72,3 +72,4 @@ reports:
 	@$(NODE) tools/build-report-wardrop.js
 	@$(NODE) tools/build-report-alien-science.js
 	@$(NODE) tools/build-report-eval.js
+	@$(NODE) tools/build-report-mercer.js
