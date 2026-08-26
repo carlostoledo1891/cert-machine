@@ -68,12 +68,12 @@ B.push(C.header({
 }));
 
 B.push(C.stats([
-  { k: 'closed forms refuted', v: fmt(T.closedFormRefuted + T.closedFormRefutedExact), n: 'every one exact; zero discoveries claimed' },
+  { k: 'closed forms refuted', v: fmt(T.closedFormRefuted + T.closedFormRefutedExact), role: 'held', n: 'every one exact; zero discoveries claimed' },
   { k: 'certified objects', v: fmt(T.certified), n: 'of ' + fmt(T.generated) + ' generated across 11 families' },
-  { k: 'period-16 Hénon points', v: 'EXACTLY ' + fmt(census16.points), n: fmt(census16.boxes) + ' boxes exhausted, recheck clean' },
-  { k: 'mu(5) bracket', v: '≤ 1 + π/' + topM, n: '= ' + (1 + Math.PI / topM).toFixed(6) + ' — certified on a 1983→1992→2019→here lineage' },
+  { k: 'period-16 Hénon points', v: 'EXACTLY ' + fmt(census16.points), role: 'held', n: fmt(census16.boxes) + ' boxes exhausted, recheck clean' },
+  { k: 'mu(5) bracket', v: '≤ 1 + π/' + topM, role: 'held', n: '= ' + (1 + Math.PI / topM).toFixed(6) + ' — certified on a 1983→1992→2019→here lineage' },
   { k: 'Ramanujan Machine rows', v: rm.counts.certified + ' decided', n: rm.counts.hits + ' survive · 1 printed row refuted, correction certified' },
-  { k: 'published claims refuted', v: '2', n: 'Erdős #852 C* at digit 12 · one RM printed row — both with certified corrections' }
+  { k: 'published claims refuted', v: '2', role: 'warn', n: 'Erdős #852 C* at digit 12 · one RM printed row — both with certified corrections' }
 ]));
 
 B.push(C.section({
@@ -121,6 +121,7 @@ const certFiles = fs.readdirSync(path.join(ROOT, 'certs')).filter((f) => f.endsW
 B.push(C.section({
   lab: 'go deeper', title: 'The machine, the reports, the certificates',
   bodyRaw: [
+    '<div id="reports"></div>',
     C.pRaw('<a href="machine/">The control page</a> — the live dashboard: every family, every battery executed at build '
       + '(never remembered), the ledger decomposition, drift status.'),
     C.pRaw('Reports (every number recomputed from the records at build; a build that drifts refuses): ' + reportLinks.join(' · ')),

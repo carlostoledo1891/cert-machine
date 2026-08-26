@@ -70,7 +70,24 @@
 html{color-scheme:light dark}
 body{margin:0;background:var(--paper);color:var(--ink);
   font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
-.page{max-width:1060px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(18px,4vw,40px) 96px}
+.page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{max-width:900px;margin:0 auto;padding:0 24px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:15.5px;letter-spacing:-.01em;
+  color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;padding:6px 14px;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+[id]{scroll-margin-top:76px}
 .col{max-width:64ch;margin:0 auto}
 .wide{max-width:900px;margin:0 auto}
 
@@ -200,6 +217,8 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 </style>
 
+<nav class="topnav"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><div class="navlinks"><a href="/#reports">Reports</a><a href="/machine/">Machine</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine">GitHub</a></div></div></nav>
+
 <div class="page">
 
 <header class="col">
@@ -210,12 +229,12 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">closed forms refuted</div><div class="v">54,634,513</div><div class="n">every one exact; zero discoveries claimed</div></div>
+    <div class="stat"><div class="k">closed forms refuted</div><div class="v held">54,634,513</div><div class="n">every one exact; zero discoveries claimed</div></div>
     <div class="stat"><div class="k">certified objects</div><div class="v">16,942</div><div class="n">of 819,151 generated across 11 families</div></div>
-    <div class="stat"><div class="k">period-16 Hénon points</div><div class="v">EXACTLY 1,696</div><div class="n">1,419,655,025 boxes exhausted, recheck clean</div></div>
-    <div class="stat"><div class="k">mu(5) bracket</div><div class="v">≤ 1 + π/20</div><div class="n">= 1.157080 — certified on a 1983→1992→2019→here lineage</div></div>
+    <div class="stat"><div class="k">period-16 Hénon points</div><div class="v held">EXACTLY 1,696</div><div class="n">1,419,655,025 boxes exhausted, recheck clean</div></div>
+    <div class="stat"><div class="k">mu(5) bracket</div><div class="v held">≤ 1 + π/20</div><div class="n">= 1.157080 — certified on a 1983→1992→2019→here lineage</div></div>
     <div class="stat"><div class="k">Ramanujan Machine rows</div><div class="v">52 decided</div><div class="n">51 survive · 1 printed row refuted, correction certified</div></div>
-    <div class="stat"><div class="k">published claims refuted</div><div class="v">2</div><div class="n">Erdős #852 C* at digit 12 · one RM printed row — both with certified corrections</div></div>
+    <div class="stat"><div class="k">published claims refuted</div><div class="v warn">2</div><div class="n">Erdős #852 C* at digit 12 · one RM printed row — both with certified corrections</div></div>
   </div>
 </div>
 
@@ -249,9 +268,10 @@ python3 verify/verify_strassen.py certs/strassen-certificate.json</pre></div>
     <div class="lab">go deeper</div>
     <h2>The machine, the reports, the certificates</h2>
   </div>
+<div id="reports"></div>
 <p><a href="machine/">The control page</a> — the live dashboard: every family, every battery executed at build (never remembered), the ledger decomposition, drift status.</p>
-<p>Reports (every number recomputed from the records at build; a build that drifts refuses): <a href="reports/entropy.html">Entropy, with a certificate · cert-machine</a> · <a href="reports/erdos852.html">The constant that was a rounding error · cert-machine</a> · <a href="reports/impostors.html">The impostor catalog · cert-machine</a> · <a href="reports/rm-audit.html">The Ramanujan Machine, audited</a> · <a href="reports/zeta3-audit.html">The ζ(3) sheet, decided · cert-machine</a></p>
-<p>Detached certificates: <a href="certs/entropy-henon.json"><span class="m">entropy-henon.json</span></a> · <a href="certs/erdos852-certificate.json"><span class="m">erdos852-certificate.json</span></a> · <a href="certs/keller-certificate.json"><span class="m">keller-certificate.json</span></a> · <a href="certs/lambda-table.json"><span class="m">lambda-table.json</span></a> · <a href="certs/mercer-mu5.json"><span class="m">mercer-mu5.json</span></a> · <a href="certs/mu-table-40.json"><span class="m">mu-table-40.json</span></a> · <a href="certs/mu-table.json"><span class="m">mu-table.json</span></a> · <a href="certs/strassen-certificate.json"><span class="m">strassen-certificate.json</span></a></p>
+<p>Reports (every number recomputed from the records at build; a build that drifts refuses): <a href="reports/entropy.html">Entropy, with a certificate · cert-machine</a> · <a href="reports/erdos290.html">Erdős #290: the 4k(k+1) theorem · cert-machine</a> · <a href="reports/erdos852.html">The constant that was a rounding error · cert-machine</a> · <a href="reports/impostors.html">The impostor catalog · cert-machine</a> · <a href="reports/rm-audit.html">The Ramanujan Machine, audited</a> · <a href="reports/verify-lemniscate.html">Erdős #1038: thirty decimals verified · cert-machine</a> · <a href="reports/zeta3-audit.html">The ζ(3) sheet, decided · cert-machine</a></p>
+<p>Detached certificates: <a href="certs/entropy-henon.json"><span class="m">entropy-henon.json</span></a> · <a href="certs/erdos290-tail-ext.json"><span class="m">erdos290-tail-ext.json</span></a> · <a href="certs/erdos852-certificate.json"><span class="m">erdos852-certificate.json</span></a> · <a href="certs/keller-certificate.json"><span class="m">keller-certificate.json</span></a> · <a href="certs/lambda-table.json"><span class="m">lambda-table.json</span></a> · <a href="certs/mercer-mu5.json"><span class="m">mercer-mu5.json</span></a> · <a href="certs/mu-table-40.json"><span class="m">mu-table-40.json</span></a> · <a href="certs/mu-table.json"><span class="m">mu-table.json</span></a> · <a href="certs/strassen-certificate.json"><span class="m">strassen-certificate.json</span></a></p>
 <p>Code, corpus, and full provenance: <a href="https://github.com/carlostoledo1891/cert-machine">github.com/carlostoledo1891/cert-machine</a> — MIT, no dependencies. Instruments lifted from a private source lab are hash-pinned in PROVENANCE.json; patches are declared so they can never be mistaken for drift.</p>
 </section>
 
@@ -265,7 +285,7 @@ python3 verify/verify_strassen.py certs/strassen-certificate.json</pre></div>
 <p>The trust base, honestly: V8 BigInt and IEEE-754 correct rounding; a handful of named external theorems consumed and cross-checked, not machine-proved; one machine, one operator. This meets the working standard of the computer-assisted-proof tradition — Tucker&#39;s Lorenz, Galias&#39;s Hénon censuses, whose published counts the census here reproduces independently — one rung below the formal-proof standard.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git caced14 from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<footer class="col"><p>Generated by tools/build-site.js @ git 8f54fb2 from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
 
 </div>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Entropy, with a certificate · cert-machine</title>
+<title>Erdős #1038: thirty decimals verified · cert-machine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -222,47 +222,55 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · report · generated from the records</div>
-  <h1>Entropy, with a certificate</h1>
-  <p class="deck">The census counts periodic points and proves completeness; those counts encode the growth rate that IS topological entropy. This page turns boxes into the invariant: a certified lower bound h ≥ 0.3017 for the Hénon map at the classical parameters — every covering relation a strict interval inequality, the spectral bound exact, the whole certificate re-proved while this page was built — and the certified cycle counts that name the ceiling it is climbing toward.</p>
+  <div class="eyebrow">cert-machine · report · the verifier re-runs during every build</div>
+  <h1>Erdős #1038: thirty decimals, and the last one is a rounding</h1>
+  <p class="deck">The July 2026 Darvas–Peng–Tao manuscript solving Erdős–Herzog–Piranian (1958) defines its extremal constant D from the unique zero of a 3-dimensional nonlinear system. This page re-verifies the computational fragment in independent arithmetic — existence AND local uniqueness of the zero by the interval Krawczyk operator, a refinement to width &lt; 10⁻⁴⁰, and a digit-for-digit audit of every decimal expansion the manuscript prints. All of it re-ran during this build: 26 checks green, 4 mutation controls rejected, verdict CONFIRMED.</p>
 </header>
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">certified lower bound</div><div class="v held">0.3017</div><div class="n">h_top ≥ ln sp(B_K)/11 from 4140 covering relations over 340 disjoint h-sets, re-proved this build.</div></div>
-    <div class="stat"><div class="k">the census ceiling</div><div class="v">0.4658</div><div class="n">max ln(N_p)/p over the certified counts — the rate the literature pins at ≈ 0.4651.</div></div>
-    <div class="stat"><div class="k">calibration</div><div class="v held">ln 2 exact</div><div class="n">Deep in the Devaney–Nitecki regime (a = 6) the instrument certifies the full 2-shift.</div></div>
-    <div class="stat"><div class="k">red controls</div><div class="v">4</div><div class="n">No-stretch, lid violation, wrong target, overlapping h-sets — each must refuse, every build.</div></div>
+    <div class="stat"><div class="k">checks, this build</div><div class="v held">26 / 26</div><div class="n">the cited page&#39;s own verifier, re-run at build time; the build refuses on any failure</div></div>
+    <div class="stat"><div class="k">mutation controls</div><div class="v held">4 rejected</div><div class="n">digit tamper, sign flip, box shift, constant perturbation — each must fail, and did</div></div>
+    <div class="stat"><div class="k">zero enclosure</div><div class="v">&lt; 10⁻⁴⁰</div><div class="n">Krawczyk existence + uniqueness, then fixed-point BigInt interval refinement</div></div>
+    <div class="stat"><div class="k">claimed decimals</div><div class="v held">ALL CORRECT</div><div class="n">D to 30 decimals, α, and the full p.24 constant block — digit for digit</div></div>
+    <div class="stat"><div class="k">the 30th decimal</div><div class="v warn">a ROUNDING</div><div class="n">the expansion continues …6351247…, so the printed …635125 is a correct half-up rounding, not an expansion prefix</div></div>
+    <div class="stat"><div class="k">replication</div><div class="v">CROSS-TREE</div><div class="n">their verifier, this repository&#39;s interval instruments — staged at build, same verdict</div></div>
   </div>
 </div>
 
-<p class="scope">Local working document. The bound is a theorem modulo one consumed external result (covering relations imply semi-conjugacy to the subshift — Zgliczyński–Gidea), used the way Krawczyk&#39;s theorem is consumed elsewhere in this lab. Parameters are the exact doubles nearest 1.4 and 0.3, the same objects the census certifies.</p>
-
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§1 · the theorem</div>
-    <h2>What is certified, exactly</h2>
+    <div class="lab">§1 · the two findings</div>
+    <h2>What the digit machinery decided</h2>
   </div>
-<div class="col"><p>There are <span class="m">340</span> parallelograms (h-sets) in the plane, proved pairwise disjoint by separating axes with outward rounding. For <span class="m">4140</span> ordered pairs and durations k = 1..6, the iterate <span class="m">F^k</span> provably STRETCHES the first parallelogram across the second: the two exit edges land strictly beyond the target on opposite sides, and the image avoids the target's side SLABS — finitely many strict interval inequalities, checked by adaptive bisection. Relations COMPOSE, so all durations reduce to one uniform iterate: <span class="m">B_K[i][j] = 1</span> iff some duration-exactly-K composition exists (binary — one relation per pair, never a path count), and</p><div class="eq">h_top(F) = h_top(F^11)/11 ≥ ln sp(B_11)/11 ≥ 0.301680</div><p>with the spectral bound exact (min positive row sum of powers, integer arithmetic, overflow-guarded, iteratively trimmed). The certifier can refuse an edge — and did, for most candidates; it cannot certify a false one. Dropping edges only ever lowers the bound, which is the safe direction. TWO soundness bugs were found by impossible numbers, and each now has a red control: counting mixed-duration paths as distinct itineraries once yielded h ≥ 0.61 on a map whose true entropy is ≈ 0.465 (a duration-2 relation constrains nothing at its intermediate time), and a lids-only image condition once certified a golden-mean graph converging to ln φ = 0.4812 — also past the truth. The battery now demands the exact-ln 2 horseshoe stays at ln 2 under mixed durations, and the slab condition replaced the lid condition.</p><p>The float layer that PROPOSED the boxes — a long orbit, binned; tangents by local PCA; stable directions by backward-Jacobian iteration — is believed about nothing: every box and every edge is re-derived from the interval conditions alone, and the battery re-proves the whole certificate (<span class="m">4140/4140</span> edges) on every build.</p></div>
-</section>
-
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">§2 · the ceiling</div>
-    <h2>What the census already knows</h2>
-  </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>period</th><th>points, certified exact</th><th>ln(N_p)/p</th><th>status</th></tr></thead><tbody><tr><td><span class="m">p = 13</span></td><td class="v"><span class="m">418</span></td><td class="v"><span class="m">0.4643</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr><tr><td><span class="m">p = 14</span></td><td class="v"><span class="m">648</span></td><td class="v"><span class="m">0.4624</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr><tr><td><span class="m">p = 15</span></td><td class="v"><span class="m">1082</span></td><td class="v"><span class="m">0.4658</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr><tr><td><span class="m">p = 16</span></td><td class="v"><span class="m">1696</span></td><td class="v"><span class="m">0.4648</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr></tbody></table></div></div><div class="col"><p>The growth rate of certified cycle counts climbs to <span class="m">0.4658</span> by p = 16 — squarely at the literature value h ≈ 0.4651 for these parameters. But counts alone are NOT a lower bound for entropy (that implication runs the other way); the covering graph is what converts counted orbits into certified entropy, and today it certifies <span class="m">0.3017</span> — <span class="m">65%</span> of the ceiling. The gap is structure the current graph does not resolve: uniform box sizes and a single global iterate. Per-edge durations with Bowen-weighted spectral bounds, and boxes sized to local expansion, are the recorded next step.</p></div>
+<div class="col"><p>1 — Every constant the manuscript prints checks out. The p.24 block — q*, u*, v*, p*, α, r*, z*, and D to 18–19 decimals — matches the certified enclosures as exact truncations. The extremal value is real, unique in its box, and printed correctly.</p><p>2 — The headline D on p.2, printed to 30 decimals ending “…635125…”, is not an expansion prefix: the true expansion continues …635124<b>7</b>861…, so the 30th decimal of the expansion is 4, not 5. The printed value is a correct half-up ROUNDING, accurate to under 5·10⁻³¹ — but a trailing ellipsis conventionally promises an expansion. Not an error in the mathematics; a presentation defect only certified digit arithmetic can even see. (The same half-ulp class appears in the <a href="erdos852.html">Erdős #852 audit</a> — it is the benign end of the failure taxonomy named there.)</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§3 · check it</div>
-    <h2>What a skeptic runs</h2>
+    <div class="lab">§2 · the method</div>
+    <h2>Their definition, our arithmetic, nothing of theirs executed</h2>
   </div>
-<div class="col"><p><span class="m">make test</span> re-proves everything: the ln 2 calibration at the full horseshoe, four red controls (a covering that does not hold must refuse three different ways; overlapping h-sets must refuse the graph), exactness of the spectral bound on hand matrices, and the detached certificate <span class="m">certs/entropy-henon.json</span> — every h-set re-proved disjoint, every covering relation re-derived, the bound recomputed. The certificate itself is finite data: parallelogram matrices, an edge list, one integer matrix power.</p></div>
+<div class="col"><p>The verifier re-derives everything from the manuscript's Appendix A definitions alone: consistency of the displayed derivatives with automatic differentiation; the certified face inequalities on the box B*; existence and LOCAL UNIQUENESS of the zero by the interval Krawczyk operator (a genuinely different route than the manuscript's scalar intermediate-value argument — Lemma A.1 confirmed both ways); containment of B* in the uniqueness box, so the manuscript's triple and ours are the SAME zero; and a BigInt fixed-point refinement to width < 10⁻⁴⁰ with directed rounding and explicit series tails. The authors' python-flint/Arb scripts were read for scope only — no line of theirs runs here, and no numeric value of theirs enters except the CLAIMED decimals under audit.</p><p>New in this rebuild: the verifier now runs against THIS repository's interval instruments (instruments/interval/, the lifted eqcert toolkit) staged at the core/interval path it searches for — a second implementation substrate reaching the identical verdict, re-established on every build.</p></div>
 </section>
 
-<footer class="col"><p>Generated by tools/build-report-entropy.js — the certificate re-verified and the calibration re-run during this build; the build fails otherwise.</p><p>git 8f54fb2 · cert-machine · Carlos Toledo</p></footer>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · scope</div>
+    <h2>What was NOT audited, stated so it cannot be assumed</h2>
+  </div>
+<div class="col"><p>That D is the INFIMUM — the entire proof of the paper's Theorem 1.1 (normal form, forcing lemma, dual measure construction, endpoint certificate, sharpness) — was not audited: this page verifies the DEFINITION of D and its claimed digits, not its extremality. Also unchecked: the manuscript's other Arb and SymPy certificates (read for scope only), the authors' own κ sign-change proof of Lemma A.1 (the Krawczyk route replaces it; the lemma itself is confirmed), and the AI-use chronology. A verification note that does not draw this line invites the reader to assume more than was checked.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · provenance</div>
+    <h2>The cited page, byte-preserved</h2>
+  </div>
+<div class="col"><p>This page supersedes the one cited in the Erdős #1038 GitHub issue (Pengbinghui/pipeline-math#5, 2026-08-05); that page is preserved byte-identically at <a href="/research/challenges/verify-lemniscate.html"><span class="m">/research/challenges/verify-lemniscate.html</span></a> (the citation path 301s here), and the verifier itself at <a href="/research/challenges/lane/laneb-lemniscate/verify.js"><span class="m">lane/laneb-lemniscate/verify.js</span></a> — hash-pinned through this repository's lift provenance. Re-run it from <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>: <span class="m">node tools/build-report-lemniscate.js</span> rebuilds this page and refuses unless the verifier is green.</p></div>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-lemniscate.js @ git 8f54fb2 — the cited verifier re-run against this repository&#39;s interval instruments during the build; 26 checks, 4 mutation controls, verdict CONFIRMED, or no page.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

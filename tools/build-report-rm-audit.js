@@ -84,9 +84,9 @@ B.push(C.header({
 
 B.push(C.stats([
   { k: 'rows decided', v: '52', n: 'all seven published sheets, complete' },
-  { k: 'survive', v: '51', n: 'consistency certified to stated width; equality open, as it must be' },
-  { k: 'refuted', v: '1', n: 'the mixed-zeta sheet\'s row 3 as printed — correction certified' },
-  { k: 'new and unproven', v: '39', n: 'every row the Machine marks unproven, decided' },
+  { k: 'survive', v: '51', role: 'held', n: 'consistency certified to stated width; equality open, as it must be' },
+  { k: 'refuted', v: '1', role: 'warn', n: 'the mixed-zeta sheet\'s row 3 as printed — correction certified' },
+  { k: 'new and unproven', v: '39', role: 'held', n: 'every row the Machine marks unproven, decided' },
   { k: 'widest enclosure', v: fmtW(maxWidth), n: 'largest width across the 51 surviving rows' },
   { k: 'sources', v: '7 PDFs', n: 'hash-pinned; re-hashed at every certify — a drifted source refuses everything' }
 ]));

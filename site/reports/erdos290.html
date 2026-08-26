@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Entropy, with a certificate · cert-machine</title>
+<title>Erdős #290: the 4k(k+1) theorem · cert-machine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -222,47 +222,63 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · report · generated from the records</div>
-  <h1>Entropy, with a certificate</h1>
-  <p class="deck">The census counts periodic points and proves completeness; those counts encode the growth rate that IS topological entropy. This page turns boxes into the invariant: a certified lower bound h ≥ 0.3017 for the Hénon map at the classical parameters — every covering relation a strict interval inequality, the spectral bound exact, the whole certificate re-proved while this page was built — and the certified cycle counts that name the ceiling it is climbing toward.</p>
+  <div class="eyebrow">cert-machine · report · every number recomputed at build</div>
+  <h1>Erdős #290: a five-line theorem, and an interval that keeps closing</h1>
+  <p class="deck">For even d, the discriminant of f_d = (∏(x−j))′ is a perfect square exactly at d = 4k(k+1) — proved, and re-proved as exact integer identities during this build with its planted falsifiers required to fire. Around it: a certified bracket for the constant c in the #290 density sum, assembled in exact rationals from pinned Galois densities — reproduced here byte-for-byte from the cited page&#39;s own programs, then TIGHTENED by running the same lifted instrument past the old horizon.</p>
 </header>
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">certified lower bound</div><div class="v held">0.3017</div><div class="n">h_top ≥ ln sp(B_K)/11 from 4140 covering relations over 340 disjoint h-sets, re-proved this build.</div></div>
-    <div class="stat"><div class="k">the census ceiling</div><div class="v">0.4658</div><div class="n">max ln(N_p)/p over the certified counts — the rate the literature pins at ≈ 0.4651.</div></div>
-    <div class="stat"><div class="k">calibration</div><div class="v held">ln 2 exact</div><div class="n">Deep in the Devaney–Nitecki regime (a = 6) the instrument certifies the full 2-shift.</div></div>
-    <div class="stat"><div class="k">red controls</div><div class="v">4</div><div class="n">No-stretch, lid violation, wrong target, overlapping h-sets — each must refuse, every build.</div></div>
+    <div class="stat"><div class="k">the 4k(k+1) law</div><div class="v held">RE-PROVED</div><div class="n">exact integer identities; 3 planted falsifiers fired during this build</div></div>
+    <div class="stat"><div class="k">cited bracket (K=60)</div><div class="v sm">[0.829113768, 0.833228925]</div><div class="n">reproduced byte-identically from the lifted narrowing pipeline</div></div>
+    <div class="stat"><div class="k">this build&#39;s bracket</div><div class="v sm held">[0.829380843, 0.832817229]</div><div class="n">width 3.44e-3 — 16% tighter; densities pinned through l = 72</div></div>
+    <div class="stat"><div class="k">degrees pinned</div><div class="v">l ≤ 72</div><div class="n">12 new degrees closed by the five-candidate squeeze (l = 61..72), none left open</div></div>
+    <div class="stat"><div class="k">conditional c*</div><div class="v sm">0.83073295584873…</div><div class="n">34 certified digits under ONE labeled group-theory assumption — re-derived this build</div></div>
+    <div class="stat"><div class="k">1/(1+c*)</div><div class="v sm">0.54622931040010…</div><div class="n">the OEIS-shaped constant, exact rational division of the conditional enclosure</div></div>
   </div>
 </div>
-
-<p class="scope">Local working document. The bound is a theorem modulo one consumed external result (covering relations imply semi-conjugacy to the subshift — Zgliczyński–Gidea), used the way Krawczyk&#39;s theorem is consumed elsewhere in this lab. Parameters are the exact doubles nearest 1.4 and 0.3, the same objects the census certifies.</p>
 
 <section class="col">
   <div class="sec-head">
     <div class="lab">§1 · the theorem</div>
-    <h2>What is certified, exactly</h2>
+    <h2>disc(f_d) is a square exactly at d = 4k(k+1)</h2>
   </div>
-<div class="col"><p>There are <span class="m">340</span> parallelograms (h-sets) in the plane, proved pairwise disjoint by separating axes with outward rounding. For <span class="m">4140</span> ordered pairs and durations k = 1..6, the iterate <span class="m">F^k</span> provably STRETCHES the first parallelogram across the second: the two exit edges land strictly beyond the target on opposite sides, and the image avoids the target's side SLABS — finitely many strict interval inequalities, checked by adaptive bisection. Relations COMPOSE, so all durations reduce to one uniform iterate: <span class="m">B_K[i][j] = 1</span> iff some duration-exactly-K composition exists (binary — one relation per pair, never a path count), and</p><div class="eq">h_top(F) = h_top(F^11)/11 ≥ ln sp(B_11)/11 ≥ 0.301680</div><p>with the spectral bound exact (min positive row sum of powers, integer arithmetic, overflow-guarded, iteratively trimmed). The certifier can refuse an edge — and did, for most candidates; it cannot certify a false one. Dropping edges only ever lowers the bound, which is the safe direction. TWO soundness bugs were found by impossible numbers, and each now has a red control: counting mixed-duration paths as distinct itineraries once yielded h ≥ 0.61 on a map whose true entropy is ≈ 0.465 (a duration-2 relation constrains nothing at its intermediate time), and a lids-only image condition once certified a golden-mean graph converging to ln φ = 0.4812 — also past the truth. The battery now demands the exact-ln 2 horseshoe stays at ln 2 under mixed durations, and the slab condition replaced the lid condition.</p><p>The float layer that PROPOSED the boxes — a long orbit, binned; tangents by local PCA; stable directions by backward-Jacobian iteration — is believed about nothing: every box and every edge is re-derived from the interval conditions alone, and the battery re-proves the whole certificate (<span class="m">4140/4140</span> edges) on every build.</p></div>
-</section>
-
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">§2 · the ceiling</div>
-    <h2>What the census already knows</h2>
-  </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>period</th><th>points, certified exact</th><th>ln(N_p)/p</th><th>status</th></tr></thead><tbody><tr><td><span class="m">p = 13</span></td><td class="v"><span class="m">418</span></td><td class="v"><span class="m">0.4643</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr><tr><td><span class="m">p = 14</span></td><td class="v"><span class="m">648</span></td><td class="v"><span class="m">0.4624</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr><tr><td><span class="m">p = 15</span></td><td class="v"><span class="m">1082</span></td><td class="v"><span class="m">0.4658</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr><tr><td><span class="m">p = 16</span></td><td class="v"><span class="m">1696</span></td><td class="v"><span class="m">0.4648</span></td><td>completeness: EXACTLY this many, plane exhausted</td></tr></tbody></table></div></div><div class="col"><p>The growth rate of certified cycle counts climbs to <span class="m">0.4658</span> by p = 16 — squarely at the literature value h ≈ 0.4651 for these parameters. But counts alone are NOT a lower bound for entropy (that implication runs the other way); the covering graph is what converts counted orbits into certified entropy, and today it certifies <span class="m">0.3017</span> — <span class="m">65%</span> of the ceiling. The gap is structure the current graph does not resolve: uniform box sizes and a single global iterate. Per-edge durations with Bowen-weighted spectral bounds, and boxes sized to local expansion, are the recorded next step.</p></div>
+<div class="col"><p>Take P(x) = ∏_{j=0}^{d}(x−j) and f_d = P′, degree d. For EVEN d = 2l, recentring at d/2 makes f_d even: f_d(x + l) = h(x²) for a degree-l polynomial h. Four exact facts finish it: h(0) = (−1)^l (l!)²; the published composition law disc(h(x²)) = (−1)^l 2^{2l} · lead(h) · h(0) · disc(h)² (Altmann–Awtrey–Cryan–Shannon–Touchette 2020, non-monic factor restored); lead(f_d) = d+1; and disc(h) ≠ 0 by Rolle. Substituting:</p><div class="eq">disc(f_d) = (d+1) · ( 2^l · l! · disc(h) )²</div><p>so disc(f_d) is a perfect square exactly when d+1 is — that is, exactly at d = 4k(k+1). (Odd d are out of scope and need to be: there d/2 is a rational root, δ = 1, and that is where the log 2 that carries ~83% of c comes from.) The build re-checks every line as an exact integer identity and requires the planted falsifiers — an index-from-1 misdefinition, a dropped non-monic factor — to FAIL. Until 2026-08-03 the source lab stated this law as a conjecture with 24 controls; it is a theorem.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§3 · check it</div>
-    <h2>What a skeptic runs</h2>
+    <div class="lab">§2 · the enclosure</div>
+    <h2>What the bracket for c is made of</h2>
   </div>
-<div class="col"><p><span class="m">make test</span> re-proves everything: the ln 2 calibration at the full horseshoe, four red controls (a covering that does not hold must refuse three different ways; overlapping h-sets must refuse the graph), exactness of the spectral bound on hand matrices, and the detached certificate <span class="m">certs/entropy-henon.json</span> — every h-set re-proved disjoint, every covering relation re-derived, the bound recomputed. The certificate itself is finite data: parallelogram matrices, an edge list, one integer matrix power.</p></div>
+<div class="col"><p>c = Σ_d δ(f_d)/(d(d+1)), where δ(f_d) is the density of primes p for which f_d has a root mod p. Odd d contribute exactly log 2 (proved). Each even d = 2l contributes δ · 1/(2l(2l+1)) with δ pinned EXACTLY where the Galois group is determined — hyperoctahedral at all even d ≤ 120 except {8, 24, 48, 80, 120}, each settled individually — and the honest interval [0,1] everywhere else. Nothing is estimated: every pinned δ is an exact rational, every unpinned δ costs the full width of its weight, and the bracket can therefore only shrink as knowledge grows (the build asserts the recorded narrowing is monotone).</p><p>This build first REPRODUCES the cited page's pipeline byte-for-byte: the lifted narrowing program is re-run and must emit the identical record (it did: same bytes, sha-checked), landing on the cited [0.829113767875, 0.833228924528] at knowledge horizon l = 60.</p></div>
 </section>
 
-<footer class="col"><p>Generated by tools/build-report-entropy.js — the certificate re-verified and the calibration re-run during this build; the build fails otherwise.</p><p>git 8f54fb2 · cert-machine · Carlos Toledo</p></footer>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · the continuation</div>
+    <h2>Past the horizon: l = 61..72, same instrument, tighter interval</h2>
+  </div>
+<div class="col"><p>The entire remaining width at l = 60 is the unpinned tail Σ_{l>60} 1/(2l(2l+1)). This repository ran the cited page's own five-candidate squeeze — the lifted galois-exceptions.js, byte-identical, nPrimes = 400, early exit — over l = 61..72. 12 degrees closed to a unique certified survivor — none refused. Result:</p><div class="eq">c ∈ [0.829380843497, 0.832817229037]   (width 3.436e-3, 16% tighter than the cited page)</div><p>Each closed degree also extends the evidence base of §4's assumption: every one is a new even degree at which the group is verified to be one of the two allowed candidates. The extension record is <a href="/certs/erdos290-tail-ext.json"><span class="m">certs/erdos290-tail-ext.json</span></a>; a degree absent from it contributed nothing but honest width.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the conditional value</div>
+    <h2>c to 34 digits — under one labeled assumption</h2>
+  </div>
+<div class="col"><p>Under one assumption — for every even d ≥ 122, Gal(f_d) is either S_l⁺ or its index-2 subgroup, which is true at every degree where the group has been determined — the tail telescopes with two explicitly-carried error terms (the index-2 allowance 1/(2^l l!) and the alternating-series deviation, both below 10⁻¹⁰⁰ at l = 61), and c is pinned to 34 digits, re-derived during this build:</p><div class="eq"><span class="m">c* ∈ [0.8307329558487356638503727480334797, 0.8307329558487356638503727480334798]</span></div><p>The derived constant 1/(1+c*) = 0.546229310400104587… (exact rational division of the enclosure) is the OEIS-shaped output. The assumption subsumes irreducibility of f_d for even d ≥ 122; it is certified only through the pinned horizon, and the unconditional statement remains the bracket of §3 — the two are never conflated.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · provenance</div>
+    <h2>The cited page, byte-preserved — and how to re-run all of it</h2>
+  </div>
+<div class="col"><p>This page supersedes the one cited in the erdosproblems #290 comment (posted 2026-08-04); that page and its programs are preserved BYTE-IDENTICALLY, hash-pinned through this repository's lift provenance, at <a href="/research/challenges/erdos290.html"><span class="m">/research/challenges/erdos290.html</span></a> (the retired citation path 301s here). Its ten self-contained programs — the theorem checker with its planted falsifiers, the narrowing pipeline, the five-candidate squeeze, the vendored exact-rational arithmetic — still serve beside it and are exactly what this build re-ran. To repeat it yourself: <span class="m">node theorem.js</span> (the proof, ~14 s), <span class="m">node narrowing.js</span> (the bracket), <span class="m">node tools/run-erdos290-tail-ext.js</span> (the continuation) from <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>.</p></div>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-erdos290.js @ git 8f54fb2 — the theorem re-proved (falsifiers required to fire), the narrowing record reproduced byte-identically, the bracket re-assembled in exact rationals and calibrated against the record, the conditional enclosure re-derived. The build refuses if any of it moves.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

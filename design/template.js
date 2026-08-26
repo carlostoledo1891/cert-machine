@@ -31,7 +31,24 @@ ${T.rootCss()}
 html{color-scheme:light dark}
 body{margin:0;background:var(--paper);color:var(--ink);
   font-family:${TYPE.body};font-size:${SCALE.body};line-height:1.66;-webkit-font-smoothing:antialiased}
-.page{max-width:${MEASURE.page};margin:0 auto;padding:${SCALE.pagePadY} ${SCALE.pagePadX} 96px}
+.page{max-width:${MEASURE.page};margin:0 auto;padding:calc(${SCALE.pagePadY} + 52px) ${SCALE.pagePadX} 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{max-width:${MEASURE.wide};margin:0 auto;padding:0 24px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:${TYPE.display};font-weight:700;font-size:15.5px;letter-spacing:-.01em;
+  color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:${TYPE.mono};font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;padding:6px 14px;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+[id]{scroll-margin-top:76px}
 .col{max-width:${MEASURE.prose};margin:0 auto}
 .wide{max-width:${MEASURE.wide};margin:0 auto}
 
@@ -163,11 +180,17 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 }
 
 function render({ title, bodyRaw, footRaw }) {
+  const CO = require('./components.js');
+  const NAV = CO.nav({
+    brand: 'Carlos Toledo', brandHref: '/',
+    links: [{ t: 'Reports', href: '/#reports' }, { t: 'Machine', href: '/machine/' }],
+    github: 'https://github.com/carlostoledo1891/cert-machine'
+  });
   return `<!doctype html>
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${require('./components.js').esc(title)}</title>
+<title>${CO.esc(title)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${T.GOOGLE_FONTS}">
@@ -176,6 +199,8 @@ function render({ title, bodyRaw, footRaw }) {
 <style>
 ${css()}
 </style>
+
+${NAV}
 
 <div class="page">
 

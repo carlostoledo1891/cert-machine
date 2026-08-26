@@ -42,6 +42,17 @@ function tag(text, kind) {
 /* ---------------------------------------------------------------- blocks - */
 
 /* The page header: eyebrow, title, deck. */
+/* The fixed top bar. Emitted by the template on every page — a builder never
+   calls it directly, so navigation cannot drift between pages. */
+function nav({ brand, brandHref, links, github }) {
+  return '<nav class="topnav"><div class="topnav-in">'
+    + '<a class="brand" href="' + escAttr(brandHref || '/') + '">' + esc(brand) + '</a>'
+    + '<div class="navlinks">'
+    + (links || []).map((l) => '<a href="' + escAttr(l.href) + '">' + esc(l.t) + '</a>').join('')
+    + (github ? '<a class="ghbtn" href="' + escAttr(github) + '">GitHub</a>' : '')
+    + '</div></div></nav>';
+}
+
 function header({ eyebrow, title, deck }) {
   return '<header class="col">\n'
     + (eyebrow ? '  <div class="eyebrow">' + esc(eyebrow) + '</div>\n' : '')
@@ -284,7 +295,7 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
 
 module.exports = {
   esc, escAttr, m, tag, TAG_KINDS, categoryChart, legend,
-  header, stats, scope, section, p, pRaw, pull, eq, note, quote,
+  nav, header, stats, scope, section, p, pRaw, pull, eq, note, quote,
   table, plainList, figure, flow,
   svgOpen, svgClose, numberLine, band, vmark, label,
   tokens: T

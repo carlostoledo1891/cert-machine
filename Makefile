@@ -66,3 +66,5 @@ reports:
 	@$(NODE) tools/build-report-entropy.js
 	@$(NODE) tools/build-report-erdos852.js
 	@$(NODE) tools/build-report-rm-audit.js
+	@$(NODE) tools/build-report-erdos290.js
+	@$(NODE) tools/build-report-lemniscate.js
