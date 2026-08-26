@@ -111,10 +111,9 @@ O.push(C.section({
   lab: '§4 · provenance', title: 'The cited page, byte-preserved',
   bodyRaw: '<div class="col">'
     + C.pRaw('This page supersedes the one cited in the Erdős #1038 GitHub issue (Pengbinghui/pipeline-math#5, '
-      + '2026-08-05); that page is preserved byte-identically at '
-      + '<a href="/research/challenges/verify-lemniscate.html"><span class="m">/research/challenges/verify-lemniscate.html</span></a> '
-      + '(the citation path 301s here), and the verifier itself at '
-      + '<a href="/research/challenges/lane/laneb-lemniscate/verify.js"><span class="m">lane/laneb-lemniscate/verify.js</span></a> '
+      + '2026-08-05); that page is preserved byte-identically in '
+      + '<a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/verify-lemniscate.html">the repository</a> '
+      + '(the citation path 301s here), beside <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/lane/laneb-lemniscate/verify.js">the verifier itself</a> '
       + '— hash-pinned through this repository\'s lift provenance. Re-run it from '
       + '<a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>: '
       + '<span class="m">node tools/build-report-lemniscate.js</span> rebuilds this page and refuses unless '

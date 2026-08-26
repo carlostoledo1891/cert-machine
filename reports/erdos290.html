@@ -231,8 +231,8 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   <div class="stats">
     <div class="stat"><div class="k">the 4k(k+1) law</div><div class="v held">RE-PROVED</div><div class="n">exact integer identities; 3 planted falsifiers fired during this build</div></div>
     <div class="stat"><div class="k">cited bracket (K=60)</div><div class="v sm">[0.829113768, 0.833228925]</div><div class="n">reproduced byte-identically from the lifted narrowing pipeline</div></div>
-    <div class="stat"><div class="k">this build&#39;s bracket</div><div class="v sm held">[0.829585825, 0.832501252]</div><div class="n">width 2.92e-3 — 29% tighter; densities pinned through l = 85</div></div>
-    <div class="stat"><div class="k">degrees pinned</div><div class="v">l ≤ 85</div><div class="n">25 new degrees closed by the five-candidate squeeze (l = 61..85), none left open</div></div>
+    <div class="stat"><div class="k">this build&#39;s bracket</div><div class="v sm held">[0.829599048, 0.832480868]</div><div class="n">width 2.88e-3 — 30% tighter; densities pinned through l = 86</div></div>
+    <div class="stat"><div class="k">degrees pinned</div><div class="v">l ≤ 86</div><div class="n">26 new degrees closed by the five-candidate squeeze (l = 61..86), none left open</div></div>
     <div class="stat"><div class="k">conditional c*</div><div class="v sm">0.83073295584873…</div><div class="n">34 certified digits under ONE labeled group-theory assumption — re-derived this build</div></div>
     <div class="stat"><div class="k">1/(1+c*)</div><div class="v sm">0.54622931040010…</div><div class="n">the OEIS-shaped constant, exact rational division of the conditional enclosure</div></div>
   </div>
@@ -257,9 +257,9 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <section class="col">
   <div class="sec-head">
     <div class="lab">§3 · the continuation</div>
-    <h2>Past the horizon: l = 61..85, same instrument, tighter interval</h2>
+    <h2>Past the horizon: l = 61..86, same instrument, tighter interval</h2>
   </div>
-<div class="col"><p>The entire remaining width at l = 60 is the unpinned tail Σ_{l>60} 1/(2l(2l+1)). This repository ran the cited page's own five-candidate squeeze — the lifted galois-exceptions.js, byte-identical, nPrimes = 400, early exit — over l = 61..85. 25 degrees closed to a unique certified survivor — none refused. Result:</p><div class="eq">c ∈ [0.829585824665, 0.832501251781]   (width 2.915e-3, 29% tighter than the cited page)</div><p>Each closed degree also extends the evidence base of §4's assumption: every one is a new even degree at which the group is verified to be one of the two allowed candidates. The extension record is <a href="/certs/erdos290-tail-ext.json"><span class="m">certs/erdos290-tail-ext.json</span></a>; a degree absent from it contributed nothing but honest width.</p></div>
+<div class="col"><p>The entire remaining width at l = 60 is the unpinned tail Σ_{l>60} 1/(2l(2l+1)). This repository ran the cited page's own five-candidate squeeze — the lifted galois-exceptions.js, byte-identical, nPrimes = 400, early exit — over l = 61..86. 26 degrees closed to a unique certified survivor — none refused. Result:</p><div class="eq">c ∈ [0.829599047858, 0.832480868306]   (width 2.882e-3, 30% tighter than the cited page)</div><p>Each closed degree also extends the evidence base of §4's assumption: every one is a new even degree at which the group is verified to be one of the two allowed candidates. The extension record is <a href="/certs/erdos290-tail-ext.json"><span class="m">certs/erdos290-tail-ext.json</span></a>; a degree absent from it contributed nothing but honest width.</p></div>
 </section>
 
 <section class="col">
@@ -275,10 +275,10 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="lab">§5 · provenance</div>
     <h2>The cited page, byte-preserved — and how to re-run all of it</h2>
   </div>
-<div class="col"><p>This page supersedes the one cited in the erdosproblems #290 comment (posted 2026-08-04); that page and its programs are preserved BYTE-IDENTICALLY, hash-pinned through this repository's lift provenance, at <a href="/research/challenges/erdos290.html"><span class="m">/research/challenges/erdos290.html</span></a> (the retired citation path 301s here). Its ten self-contained programs — the theorem checker with its planted falsifiers, the narrowing pipeline, the five-candidate squeeze, the vendored exact-rational arithmetic — still serve beside it and are exactly what this build re-ran. To repeat it yourself: <span class="m">node theorem.js</span> (the proof, ~14 s), <span class="m">node narrowing.js</span> (the bracket), <span class="m">node tools/run-erdos290-tail-ext.js</span> (the continuation) from <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>.</p></div>
+<div class="col"><p>This page supersedes the one cited in the erdosproblems #290 comment (posted 2026-08-04); that page and its programs are preserved BYTE-IDENTICALLY, hash-pinned through this repository's lift provenance, in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/erdos290.html">the repository</a> (the citation paths 301 here). Its self-contained programs — the theorem checker with its planted falsifiers, the narrowing pipeline, the five-candidate squeeze, the vendored exact-rational arithmetic — live beside it in the repository and are exactly what this build re-ran. To repeat it yourself: <span class="m">node theorem.js</span> (the proof, ~14 s), <span class="m">node narrowing.js</span> (the bracket), <span class="m">node tools/run-erdos290-tail-ext.js</span> (the continuation) from <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>.</p></div>
 </section>
 
-<footer class="col"><p>Generated by tools/build-report-erdos290.js @ git b042810 — the theorem re-proved (falsifiers required to fire), the narrowing record reproduced byte-identically, the bracket re-assembled in exact rationals and calibrated against the record, the conditional enclosure re-derived. The build refuses if any of it moves.</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-erdos290.js @ git 264c871 — the theorem re-proved (falsifiers required to fire), the narrowing record reproduced byte-identically, the bracket re-assembled in exact rationals and calibrated against the record, the conditional enclosure re-derived. The build refuses if any of it moves.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

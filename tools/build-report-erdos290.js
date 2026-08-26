@@ -17,8 +17,8 @@
      - the conditional 34-digit enclosure is re-derived from kernel.js and
        compared against the record.
 
-   The cited page itself stays served, pristine, at
-   /research/challenges/erdos290.html; the extensionless path 301s here.
+   The cited page is byte-preserved in legacy/ (repository provenance);
+   every historical citation path 301s here.
 
    usage: node tools/build-report-erdos290.js */
 'use strict';
@@ -221,10 +221,9 @@ O.push(C.section({
   bodyRaw: '<div class="col">'
     + C.pRaw('This page supersedes the one cited in the erdosproblems #290 comment (posted 2026-08-04); that page '
       + 'and its programs are preserved BYTE-IDENTICALLY, hash-pinned through this repository\'s lift provenance, '
-      + 'at <a href="/research/challenges/erdos290.html"><span class="m">/research/challenges/erdos290.html</span></a> '
-      + '(the retired citation path 301s here). Its ten self-contained programs — the theorem checker with its '
+      + 'in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/erdos290.html">the repository</a> (the citation paths 301 here). Its self-contained programs — the theorem checker with its '
       + 'planted falsifiers, the narrowing pipeline, the five-candidate squeeze, the vendored exact-rational '
-      + 'arithmetic — still serve beside it and are exactly what this build re-ran. To repeat it yourself: '
+      + 'arithmetic — live beside it in the repository and are exactly what this build re-ran. To repeat it yourself: '
       + '<span class="m">node theorem.js</span> (the proof, ~14 s), <span class="m">node narrowing.js</span> '
       + '(the bracket), <span class="m">node tools/run-erdos290-tail-ext.js</span> (the continuation) from '
       + '<a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>.')

@@ -1,15 +1,14 @@
 {
   "framework": null,
   "outputDirectory": "site",
-  "rewrites": [
-    {
-      "source": "/research/alien-science/alien-science",
-      "destination": "/research/alien-science/alien-science.html"
-    }
-  ],
   "redirects": [
     {
       "source": "/research/mfg-congest/mfg-congest",
+      "destination": "/reports/mfg-congest.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/mfg-congest/mfg-congest.html",
       "destination": "/reports/mfg-congest.html",
       "statusCode": 301
     },
@@ -19,7 +18,42 @@
       "statusCode": 301
     },
     {
+      "source": "/research/wardrop-repro/wardrop-repro.html",
+      "destination": "/reports/wardrop-repro.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/alien-science/alien-science",
+      "destination": "/reports/alien-science.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/alien-science/alien-science.html",
+      "destination": "/reports/alien-science.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/technical-reports/alien-science",
+      "destination": "/reports/alien-science.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/technical-reports/alien-science/:path*",
+      "destination": "/research/alien-science/alien-science/:path*",
+      "statusCode": 301
+    },
+    {
       "source": "/research/challenges/erdos290",
+      "destination": "/reports/erdos290.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/challenges/erdos290.html",
+      "destination": "/reports/erdos290.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/technical-reports/erdos290",
       "destination": "/reports/erdos290.html",
       "statusCode": 301
     },
@@ -29,13 +63,8 @@
       "statusCode": 301
     },
     {
-      "source": "/technical-reports/erdos290",
-      "destination": "/reports/erdos290.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/technical-reports/erdos290/:path*",
-      "destination": "/research/challenges/erdos290/:path*",
+      "source": "/research/challenges/verify-lemniscate.html",
+      "destination": "/reports/verify-lemniscate.html",
       "statusCode": 301
     },
     {
@@ -46,16 +75,6 @@
     {
       "source": "/reports/verify-lemniscate",
       "destination": "/reports/verify-lemniscate.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/technical-reports/alien-science",
-      "destination": "/research/alien-science/alien-science",
-      "statusCode": 301
-    },
-    {
-      "source": "/technical-reports/alien-science/:path*",
-      "destination": "/research/alien-science/alien-science/:path*",
       "statusCode": 301
     }
   ]
