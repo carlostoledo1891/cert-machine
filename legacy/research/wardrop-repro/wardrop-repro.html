@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- ==== ENCLOSURE FONTS · GENERATED FROM research/_engine/design/ · DO NOT EDIT HERE ==== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=optional">
+<!-- ==== END ENCLOSURE FONTS ==== -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An independent, proof-carrying reproduction of Bakaryan-Aoun-de Lima Ribeiro-Hovakimyan-Gomes (AIMS Mathematics 2026): all three multi-population Wardrop scenarios reproduce, with the certified equilibria drawn live on the network. Getting S3 to match Figure 4 forced the reproduction to find and fix a 1000x error in its own emission-cost code -- which is exactly what a certificate is for: it catches the implementer's mistakes, not only the author's.">
+<title>wardrop-repro — a certified reproduction of the AIMS 2026 Wardrop paper</title>
+<link rel="canonical" href="https://www.carlostoledo.co/research/wardrop-repro/wardrop-repro">
+<meta name="author" content="Carlos Toledo">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Carlos Toledo">
+<meta property="og:title" content="A certified reproduction of the AIMS 2026 multi-population Wardrop paper">
+<meta property="og:description" content="Independent proof-carrying reproduction of the AIMS Mathematics 2026 Wardrop paper: S1 refuses (monotone, not strictly — non-uniqueness displayed), S2 exact over BigInt rationals, S3 a Krawczyk enclosure. Machine-zero certificates a converged iterate cannot give.">
+<meta property="og:url" content="https://www.carlostoledo.co/research/wardrop-repro/wardrop-repro">
+<meta property="og:image" content="https://www.carlostoledo.co/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.carlostoledo.co/og.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A certified reproduction of the AIMS 2026 multi-population Wardrop paper">
+<meta name="twitter:description" content="Independent proof-carrying reproduction of the AIMS 2026 Wardrop paper: S1 refuses (non-uniqueness displayed), S2 exact over rationals, S3 Krawczyk enclosure — not a claim that every scenario is unique.">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "A certified reproduction of the AIMS 2026 multi-population Wardrop paper", "author": {"@type": "Person", "name": "Carlos Toledo", "url": "https://carlostoledo.co", "affiliation": null}, "description": "An independent, proof-carrying reproduction of the AIMS Mathematics 2026 Wardrop paper: S1 refuses, S2 exact over BigInt rationals, S3 a Krawczyk enclosure — machine-zero certificates a converged iterate cannot give.", "isAccessibleForFree": true, "license": "https://creativecommons.org/licenses/by/4.0/", "codeRepository": "https://github.com/carlostoledo1891/mfg-lab", "keywords": "computer-assisted proof, mean-field game, validated numerics, interval arithmetic, certified numerics, Carlos Toledo", "isBasedOn": {"@type": "ScholarlyArticle", "name": "Distributed Hessian-Riemannian flow for multi-population Wardrop equilibrium", "author": [{"@type":"Person","name":"Tigran Bakaryan"},{"@type":"Person","name":"Christoph Aoun"},{"@type":"Person","name":"Ricardo de Lima Ribeiro"},{"@type":"Person","name":"Naira Hovakimyan"},{"@type":"Person","name":"Diogo Gomes"}], "publisher": "AIMS Mathematics", "datePublished": "2026", "identifier": "https://doi.org/10.3934/math.2026623", "pagination": "15143-15162"}}
+</script>
+<style>
+/* ==== ENCLOSURE DESIGN SYSTEM · GENERATED FROM research/_engine/design/ · DO NOT EDIT HERE ==== */
+/* Enclosure design system. Source, with the reasoning: research/_engine/design/ */
+:root{
+color-scheme: light dark;
+--paper:#EDEBEE;
+--surface:#FBFAFB;
+--sunk:#F3F1F4;
+--ink:#16121A;
+--ink-2:#544C5B;
+--ink-3:#6B6174;
+--rule:#D2CBD6;
+--rule-soft:#E3DEE7;
+--sig:#6B2D5C;
+--sig-2:#9A4E86;
+--sig-3:#C79CB8;
+--sig-soft:#F2E4EE;
+--sig-bg:var(--sig-soft);
+--mark:#C9C0CE;
+--neutral-mark:var(--mark);
+--alert:#9C3820;
+--held:#2C6142;
+--held-soft:#DEEBE3;
+--ok:var(--held);
+--ok-soft:var(--held-soft);
+--part:#7E5A0E;      --part-soft:#F1E7CE;
+--ref:#4A4356;       --ref-soft:#E4E0EA;
+--conj:#3E4B8C;      --conj-soft:#DFE3F5;
+--open:var(--alert); --open-soft:#F5DFD8;
+--live:var(--sig);   --live-soft:var(--sig-soft);
+--card:var(--surface);
+--ink-soft:var(--ink-2);
+--grid:var(--rule);
+--fp:var(--sig-2);
+--fp-deep:var(--sig);
+--accent:var(--sig-2);
+--accent-deep:var(--sig);
+--hjb:var(--alert);
+--bad:var(--alert);
+--warn:var(--ink-2);
+--amber:var(--sig-2);
+--good:var(--ok);
+--radius:4px;
+--radius-sm:2px;
+--page-top:40px;
+--nav-h:52px;
+--read-max:900px;
+--prose-max:38rem;
+--wide-max:920px;
+--page-max:1080px;
+--card-gap:14px;
+--nav-max:1120px;
+--section-top:46px;
+--card-pad:18px;
+--modbar-h:48px;
+--good-soft:var(--held-soft);
+--warn-soft:#EDEAF0;
+}
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]){
+--paper:#0F0C12;
+--surface:#181420;
+--sunk:#130F18;
+--ink:#EDE8F0;
+--ink-2:#A79DAF;
+--ink-3:#8E8397;
+--rule:#2E2637;
+--rule-soft:#231C2B;
+--sig:#D897C4;
+--sig-2:#B36F9E;
+--sig-3:#7E4E6D;
+--sig-soft:#2C1B27;
+--mark:#332B3C;
+--alert:#E58868;
+--held:#79C79B;
+--held-soft:#16281E;
+--part:#D8AE55;      --part-soft:#2C2410;
+--ref:#A79DB4;       --ref-soft:#221D2A;
+--conj:#9AA5E4;      --conj-soft:#1A1C33;
+--open-soft:#2E1811;
+--good-soft:var(--held-soft);
+--warn-soft:#231C2B;
+}
+}
+:root[data-theme="dark"]{
+--paper:#0F0C12;
+--surface:#181420;
+--sunk:#130F18;
+--ink:#EDE8F0;
+--ink-2:#A79DAF;
+--ink-3:#8E8397;
+--rule:#2E2637;
+--rule-soft:#231C2B;
+--sig:#D897C4;
+--sig-2:#B36F9E;
+--sig-3:#7E4E6D;
+--sig-soft:#2C1B27;
+--mark:#332B3C;
+--alert:#E58868;
+--held:#79C79B;
+--held-soft:#16281E;
+--part:#D8AE55;    --part-soft:#2C2410;
+--ref:#A79DB4;     --ref-soft:#221D2A;
+--conj:#9AA5E4;    --conj-soft:#1A1C33;
+--open-soft:#2E1811;
+--good-soft:var(--held-soft);
+--warn-soft:#231C2B;
+}
+@font-face{
+font-family:"Fraunces metric fallback";
+src: local("Georgia"), local("Times New Roman");
+font-weight: 100 649;
+size-adjust: 88%;
+line-gap-override: 0%;
+}
+@font-face{
+font-family:"Fraunces metric fallback";
+src: local("Georgia"), local("Times New Roman");
+font-weight: 650 900;
+size-adjust: 92%;
+line-gap-override: 0%;
+}
+:root{
+--ui: "Fraunces", "Fraunces metric fallback", Georgia, "Times New Roman", serif;
+--body: "Spectral", Georgia, "Iowan Old Style", "Palatino Linotype", Charter, serif;
+--data: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+--text-display: clamp(44px, 8.2vw, 80px);
+--text-h1: clamp(40px, 7.4vw, 74px);
+--text-h2: clamp(25px, 3.3vw, 34px);
+--text-h3: 19.5px;
+--text-deck: clamp(19px, 2.2vw, 22px);
+--text-body: 18px;
+--text-small: 15.5px;
+--text-label: 11px;
+--text-num: clamp(52px, 10vw, 96px);
+--text-lede: var(--text-deck);
+--text-tiny: 11px;
+--text-micro: 8px;
+}
+body{
+font-family: var(--body);
+font-size: var(--text-body);
+line-height: 1.66;
+-webkit-font-smoothing: antialiased;
+text-rendering: optimizeLegibility;
+}
+h1,h2,h3,.num,.btn,td.k{ font-family: var(--ui); }
+.eyebrow,.lab,th{
+font-family: var(--data);
+font-size: var(--text-label);
+line-height: 1.45;
+letter-spacing:.15em;
+text-transform: uppercase;
+}
+.eyebrow{ color: var(--sig); }
+.lab{ color: var(--ink-3); }
+th{ letter-spacing:.11em; }
+h1{ font-size: var(--text-h1); line-height:1.0; letter-spacing:-.018em; font-weight:700; margin:16px 0 0; text-wrap:balance; }
+h2{ font-size: var(--text-h2); line-height:1.14; letter-spacing:-.018em; font-weight:700; margin:0 0 8px; text-wrap:balance; }
+h3{ font-size: var(--text-h3); line-height:1.3; letter-spacing:-.014em; font-weight:600; margin:0 0 6px; }
+.deck{ font-size: var(--text-deck); line-height:1.5; color:var(--ink-2); font-weight:300; margin:24px 0 0; }
+p{ margin:0 0 18px; }
+strong,b{ font-weight:600; color:var(--ink); }
+em,i{ font-style:italic; }
+.num,.n,td.n,th.n,.vl,.ci,.mono,.m,code,pre{ font-family: var(--data); font-variant-numeric: tabular-nums; }
+.m{ font-size:.88em; }
+*{ box-sizing:border-box; }
+body{ margin:0; background:var(--paper); color:var(--ink); }
+[data-ds] .page{ max-width:var(--page-max); margin:0 auto; padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px) 96px; }
+[data-ds] a{ color:var(--sig); text-decoration:none; border-bottom:1px solid var(--sig-3); }
+[data-ds] a:hover{ border-bottom-color:var(--sig); }
+[data-ds] a:focus-visible{ outline:2px solid var(--sig); outline-offset:3px; border-radius:var(--radius-sm); }
+[data-ds] section{ margin:clamp(52px,8vw,88px) 0 0; }
+[data-ds] .sec-head{ display:flex; flex-direction:column; gap:10px; margin-bottom:26px; }
+[data-ds] .sec-head .lab{ color:var(--sig); }
+[data-ds] hr.div{ border:0; height:1px; background:var(--rule); margin:0; }
+[data-ds] .finding{
+background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius);
+margin:44px 0 0; padding:clamp(24px,4vw,40px);
+display:grid; grid-template-columns:minmax(0,auto) minmax(0,1fr);
+gap:clamp(20px,4vw,44px); align-items:center;
+}
+@media(max-width:720px){ [data-ds] .finding{ grid-template-columns:1fr; } }
+[data-ds] .num{ font-size:var(--text-num); line-height:.86; font-weight:800; letter-spacing:-.05em;
+color:var(--sig); white-space:nowrap; }
+[data-ds] .num small{ display:block; font-size:15px; letter-spacing:.1em; text-transform:uppercase;
+color:var(--ink-3); font-family:var(--data); font-weight:400; margin-top:14px; }
+[data-ds] .num .sep{ color:var(--ink-3); font-weight:500; }
+[data-ds] .finding p{ font-size:20px; line-height:1.42; margin:0; color:var(--ink); }
+[data-ds] .finding .ci{ margin-top:14px; font-size:13px; color:var(--ink-2); line-height:1.6; }
+[data-ds] .scope{ margin:26px auto 0; max-width:var(--prose-max); border-left:2px solid var(--sig);
+padding:2px 0 2px 18px; color:var(--ink-2); font-size:var(--text-small); line-height:1.5; }
+[data-ds] .tw{ overflow-x:auto; margin:0 0 8px; border:1px solid var(--rule); border-radius:var(--radius); background:var(--surface); }
+[data-ds] table{ border-collapse:collapse; width:100%; min-width:540px; font-size:15px; }
+[data-ds] th{ font-size:var(--text-label); letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3);
+font-weight:500; text-align:left; padding:13px 16px; border-bottom:1px solid var(--rule);
+font-family:var(--data); white-space:nowrap; }
+[data-ds] td{ padding:13px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top; color:var(--ink-2); }
+[data-ds] tr:last-child td{ border-bottom:0; }
+[data-ds] td.k{ color:var(--ink); font-weight:600; white-space:nowrap; }
+[data-ds] td.n, [data-ds] th.n{ text-align:right; white-space:nowrap; color:var(--ink); }
+[data-ds] td.mono{ font-size:13px; color:var(--ink); }
+[data-ds] tr.hit td.n.hit{ color:var(--sig); font-weight:500; }
+[data-ds] caption{ caption-side:bottom; text-align:left; padding:14px 16px 2px; color:var(--ink-3);
+font-size:14.5px; line-height:1.5; }
+[data-ds] figure{ margin:0; }
+[data-ds] .figbox{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius);
+padding:clamp(18px,3vw,30px); overflow-x:auto; }
+[data-ds] .figbox svg{ display:block; width:100%; height:auto; color:var(--ink-2); }
+[data-ds] figcaption{ color:var(--ink-2); font-size:var(--text-small); line-height:1.5; margin-top:14px; max-width:35em; }
+[data-ds] .legend{ display:flex; flex-wrap:wrap; gap:6px 22px; margin:18px 0 0; font-size:14px;
+color:var(--ink-2); font-family:var(--data); }
+[data-ds] .legend span{ display:inline-flex; align-items:center; gap:8px; }
+[data-ds] .sw{ width:12px; height:12px; border-radius:var(--radius-sm); flex:none; }
+[data-ds] .figbox svg text{ font-family:var(--data); }
+[data-ds] .ax, [data-ds] .bn{ font-size:12px; fill:var(--ink-3); }
+[data-ds] .bl{ font-size:13.5px; fill:var(--ink); font-family:var(--ui); }
+[data-ds] .vl{ font-size:13px; fill:var(--ink); }
+[data-ds] .kv{ font-size:13px; fill:var(--sig); font-weight:500; }
+[data-ds] .hv{ font-size:13px; fill:var(--held); font-weight:500; }
+[data-ds] .pull{ font-family:var(--ui); font-weight:700; font-size:clamp(22px,3.2vw,29px); line-height:1.18;
+letter-spacing:-.02em; color:var(--ink); margin:34px 0; text-wrap:balance; }
+[data-ds] .pull b{ color:var(--sig); font-weight:700; }
+[data-ds] .note{ background:var(--sunk); border:1px solid var(--rule-soft); border-radius:var(--radius);
+padding:20px 22px; margin:26px 0; font-size:var(--text-small); line-height:1.55; color:var(--ink-2); }
+[data-ds] .note .lab{ display:block; margin-bottom:8px; color:var(--sig); }
+[data-ds] .note p:last-child{ margin-bottom:0; }
+[data-ds] .note[data-kind="correction"]{ border-left:2px solid var(--sig); }
+[data-ds] .note[data-kind="refusal"]{ border-left:2px solid var(--alert); }
+[data-ds] .note[data-kind="refusal"] .lab{ color:var(--alert); }
+[data-ds] blockquote{ margin:22px 0; padding:0 0 0 20px; border-left:2px solid var(--sig-3);
+font-size:18px; line-height:1.5; color:var(--ink); font-style:italic; }
+[data-ds] blockquote cite{ display:block; margin-top:10px; font-style:normal; font-size:12.5px;
+font-family:var(--data); color:var(--ink-3); letter-spacing:.02em; line-height:1.5; }
+[data-ds] ol.steps{ list-style:none; counter-reset:s; padding:0; margin-top:0; margin-bottom:0; display:flex; flex-direction:column; gap:2px; }
+[data-ds] ol.steps li{ counter-increment:s; display:grid; grid-template-columns:38px 1fr; gap:16px;
+padding:18px 0; border-top:1px solid var(--rule-soft); }
+[data-ds] ol.steps li:first-child{ border-top:0; }
+[data-ds] ol.steps li::before{ content:"D" counter(s); font-family:var(--data); font-size:12px; font-weight:500;
+color:var(--sig); letter-spacing:.06em; padding-top:4px; }
+[data-ds] ol.steps.plain li::before{ content:counter(s); color:var(--ink-3); }
+[data-ds] ol.steps p{ margin:0; font-size:16.5px; line-height:1.55; color:var(--ink-2); }
+[data-ds] ol.steps h3{ margin-bottom:4px; }
+[data-ds] pre{ background:var(--sunk); border:1px solid var(--rule-soft); border-radius:var(--radius);
+padding:18px 20px; overflow-x:auto; margin:22px 0; font-size:13.5px; line-height:1.7; color:var(--ink); }
+[data-ds] pre .c{ color:var(--sig); }
+[data-ds] code{ font-size:.94em; color:var(--ink); }
+[data-ds] ul.limits{ list-style:none; padding:0; margin-top:0; margin-bottom:0; display:flex; flex-direction:column; }
+[data-ds] ul.limits li{ padding:16px 0; border-top:1px solid var(--rule-soft); font-size:16.5px;
+line-height:1.55; color:var(--ink-2); }
+[data-ds] ul.limits li:first-child{ border-top:0; }
+[data-ds] ul.limits b{ color:var(--ink); }
+[data-ds] .readouts{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:var(--card-gap); margin:22px 0; }
+[data-ds] .ro .k{ font-family:var(--data); font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); }
+[data-ds] .ro .v{ font-family:var(--data); font-size:17px; line-height:1.35; color:var(--ink); position:relative; padding-left:14px; }
+[data-ds] .ro .v.small{ font-size:13.5px; }
+[data-ds] .ro .v::before{ content:''; position:absolute; left:0; top:.52em; width:7px; height:7px;
+border-radius:50%; border:1px solid var(--rule); background:transparent; }
+[data-ds] .ro .v.ok::before{ background:var(--ok); border-color:var(--ok); }
+[data-ds] .ro .v.bad::before{ background:var(--alert); border-color:var(--alert); }
+[data-ds] .status{ min-height:2.9em; font-family:var(--data); font-size:13.5px; color:var(--ink-2); }
+@media (prefers-reduced-motion:no-preference){
+[data-ds] .finding, [data-ds] h1, [data-ds] .deck{ animation:rise .55s cubic-bezier(.2,.7,.3,1) both; }
+[data-ds] .deck{ animation-delay:.05s; } [data-ds] .finding{ animation-delay:.1s; }
+}
+@keyframes rise{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:none; } }
+[data-ds] .stats{
+margin:40px 0 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:var(--radius);
+overflow:hidden;
+}
+[data-ds] .stat{ background:var(--surface); padding:22px 24px; display:flex; flex-direction:column; gap:7px; }
+[data-ds] .stat .k{ font-family:var(--data); font-size:10.5px; letter-spacing:.13em;
+text-transform:uppercase; color:var(--ink-3); }
+[data-ds] .stat .v{ font-family:var(--ui); font-weight:700; font-size:27px; line-height:1.05;
+color:var(--sig); letter-spacing:-.02em; }
+[data-ds] .stat .v.sm{ font-family:var(--data); font-size:15px; font-weight:500; letter-spacing:-.02em;
+line-height:1.45; white-space:nowrap; word-break:normal; }
+[data-ds] .stat .n{ font-family:var(--body); font-variant-numeric:normal;
+font-size:14.5px; line-height:1.4; color:var(--ink-2); }
+[data-ds] .eq{
+background:var(--sunk); border:1px solid var(--rule-soft); border-radius:var(--radius);
+padding:20px 22px; margin:22px 0; text-align:center;
+font-family:var(--data); font-size:16px; line-height:1.8; color:var(--ink); overflow-x:auto;
+}
+[data-ds] .tag{
+display:inline-block; font-family:var(--data); font-size:10px; letter-spacing:.1em;
+text-transform:uppercase; padding:3px 8px; border-radius:var(--radius-sm); white-space:nowrap;
+}
+[data-ds] .tag.proved{ background:var(--held-soft); color:var(--held); }
+[data-ds] .tag.cert{ background:var(--sig-soft); color:var(--sig); }
+[data-ds] .tag.dep{ background:var(--sunk); color:var(--ink-3); border:1px solid var(--rule); }
+[data-ds] .v-ok, [data-ds] .v-part, [data-ds] .v-ref,
+[data-ds] .v-conj, [data-ds] .v-open, [data-ds] .v-live{
+display:inline-flex; align-items:center; gap:6px; font-family:var(--data);
+font-size:10px; font-weight:500; letter-spacing:.11em; text-transform:uppercase;
+padding:4px 9px; border-radius:var(--radius-sm); white-space:nowrap; line-height:1.3;
+}
+[data-ds] .v-ok::before, [data-ds] .v-part::before, [data-ds] .v-ref::before,
+[data-ds] .v-conj::before, [data-ds] .v-open::before, [data-ds] .v-live::before{
+content:""; width:6px; height:6px; border-radius:50%; flex:none; background:currentColor;
+}
+[data-ds] .v-ok{   background:var(--ok-soft);   color:var(--ok); }
+[data-ds] .v-part{ background:var(--part-soft); color:var(--part); }
+[data-ds] .v-ref{  background:var(--ref-soft);  color:var(--ref); }
+[data-ds] .v-conj{ background:var(--conj-soft); color:var(--conj); }
+[data-ds] .v-open{ background:var(--open-soft); color:var(--open); }
+[data-ds] .v-live{ background:var(--live-soft); color:var(--live); }
+[data-ds] .grid{ display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule);
+border-radius:var(--radius); overflow:hidden; }
+[data-ds] .g2{ grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+[data-ds] .g3{ grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); }
+[data-ds] .card{ background:var(--surface); padding:24px 26px; display:flex; flex-direction:column; gap:10px; }
+[data-ds] .card .lab{ color:var(--sig); }
+[data-ds] .card h3{ margin:0; }
+[data-ds] .card p{ margin:0; font-size:var(--text-small); line-height:1.5; color:var(--ink-2); }
+[data-ds] .card .meta{ font-family:var(--data); font-size:11px; color:var(--ink-3);
+letter-spacing:.04em; margin-top:auto; padding-top:6px; }
+[data-ds] .rows{ border:1px solid var(--rule); border-radius:var(--radius); background:var(--surface); overflow:hidden; }
+[data-ds] .row{ display:grid; grid-template-columns:1fr auto; gap:8px 22px; padding:22px 26px;
+border-top:1px solid var(--rule-soft); align-items:start; }
+[data-ds] .row:first-child{ border-top:0; }
+[data-ds] .row .t{ font-family:var(--ui); font-weight:600; font-size:17px; line-height:1.32;
+letter-spacing:-.012em; color:var(--ink); }
+[data-ds] .row .t a{ color:var(--ink); border-bottom:0; }
+[data-ds] .row .t a:hover{ color:var(--sig); }
+[data-ds] .row .s{ font-size:15px; line-height:1.55; color:var(--ink-2); grid-column:1/-1;
+margin-top:-2px; max-width:41em; }
+[data-ds] .row .m2{ font-family:var(--data); font-size:11px; color:var(--ink-3);
+grid-column:1/-1; letter-spacing:.03em; }
+[data-ds] .row .vv{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+[data-ds] .filters{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+[data-ds] .fb{ font-family:var(--data); font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+padding:7px 13px; border-radius:var(--radius-sm); border:1px solid var(--rule);
+background:var(--surface); color:var(--ink-2); cursor:pointer; line-height:1.3; }
+[data-ds] .fb:hover{ border-color:var(--ink-3); }
+[data-ds] .fb[aria-pressed="true"]{ background:var(--ink); color:var(--surface); border-color:var(--ink); }
+[data-ds] .fb:focus-visible{ outline:2px solid var(--sig); outline-offset:2px; }
+[data-ds] .rule-box{ border:1px solid var(--sig); border-radius:var(--radius); background:var(--surface);
+padding:clamp(24px,4vw,38px); margin:36px 0 0; text-align:center; }
+[data-ds] .rule-box .big{ font-family:var(--ui); font-weight:700; font-size:clamp(24px,4vw,40px);
+line-height:1.1; letter-spacing:-.024em; color:var(--ink); text-wrap:balance; }
+[data-ds] .rule-box .sub{ color:var(--ink-2); font-size:16px; margin:14px auto 0; max-width:28em; line-height:1.5; }
+[data-ds] ol.st{ list-style:none; counter-reset:s; padding:0; margin-top:0; margin-bottom:0; }
+[data-ds] ol.st li{ counter-increment:s; display:grid; grid-template-columns:34px 1fr; gap:16px;
+padding:19px 0; border-top:1px solid var(--rule-soft); }
+[data-ds] ol.st li:first-child{ border-top:0; }
+[data-ds] ol.st li::before{ content:counter(s); font-family:var(--data); font-size:12px;
+font-weight:500; color:var(--sig); padding-top:5px; }
+[data-ds] ol.st p{ margin:0; font-size:16px; line-height:1.55; color:var(--ink-2); }
+[data-ds] ol.st h3{ margin-bottom:6px; }
+[data-ds] ul.plain{ list-style:none; padding:0; margin-top:0; margin-bottom:0; }
+[data-ds] ul.plain li{ padding:16px 0; border-top:1px solid var(--rule-soft); font-size:16.5px;
+line-height:1.55; color:var(--ink-2); }
+[data-ds] ul.plain li:first-child{ border-top:0; }
+[data-ds] ul.plain b{ color:var(--ink); font-weight:600; }
+[data-ds] .press{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:22px 0 0; }
+[data-ds] .btn{
+font-family:var(--data); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+padding:9px 15px; border-radius:var(--radius-sm); border:1px solid var(--sig);
+background:var(--sig); color:var(--surface); cursor:pointer; line-height:1.3;
+}
+[data-ds] .btn:hover{ background:var(--sig-2); border-color:var(--sig-2); }
+[data-ds] .btn:focus-visible{ outline:2px solid var(--sig); outline-offset:2px; }
+[data-ds] .btn[disabled]{ background:var(--sunk); border-color:var(--rule); color:var(--ink-3); cursor:default; }
+[data-ds] .btn.break{ background:transparent; border-color:var(--alert); color:var(--alert); }
+[data-ds] .btn.break:hover{ background:var(--open-soft); border-color:var(--alert); }
+[data-ds] .btn.ghost{ background:transparent; border-color:var(--rule); color:var(--ink-2); }
+[data-ds] .btn.ghost:hover{ background:var(--sunk); border-color:var(--ink-3); }
+[data-ds] .verdict{
+font-family:var(--data); font-size:13.5px; line-height:1.5; color:var(--ink-2);
+min-height:3.2em; margin:14px 0 0; padding-left:16px; position:relative;
+border-left:2px solid var(--rule);
+}
+[data-ds] .verdict::before{
+content:""; position:absolute; left:-5px; top:.42em; width:8px; height:8px; border-radius:50%;
+background:var(--rule);
+}
+[data-ds] .verdict b{ font-family:var(--data); font-weight:500; letter-spacing:.08em; }
+[data-ds] .verdict[data-state="ok"]{  border-left-color:var(--held); color:var(--ink); }
+[data-ds] .verdict[data-state="ok"]::before{ background:var(--held); }
+[data-ds] .verdict[data-state="ok"] b{ color:var(--held); }
+[data-ds] .verdict[data-state="bad"]{ border-left-color:var(--alert); color:var(--ink); }
+[data-ds] .verdict[data-state="bad"]::before{ background:var(--alert); }
+[data-ds] .verdict[data-state="bad"] b{ color:var(--alert); }
+[data-ds] .press-note{ font-size:14px; line-height:1.5; color:var(--ink-3); margin:10px 0 0; max-width:35em; }
+[data-ds] .col{ max-width:var(--prose-max); margin-left:auto; margin-right:auto; }
+[data-ds] .wide{ max-width:var(--wide-max); margin-left:auto; margin-right:auto; }
+.topbar{
+position:fixed; inset:0 0 auto 0; z-index:50; height:var(--nav-h);
+background:color-mix(in srgb, var(--paper) 82%, transparent);
+backdrop-filter:saturate(180%) blur(12px);
+-webkit-backdrop-filter:saturate(180%) blur(12px);
+border-bottom:1px solid var(--rule-soft);
+}
+.topbar .topbar-in{
+max-width:var(--page-max); margin:0 auto; height:100%;
+padding:0 clamp(18px,4vw,40px);
+display:flex; align-items:center; gap:18px;
+}
+.topbar .brand{
+text-decoration:none;
+font-family:var(--ui); font-weight:700; font-size:14.5px; letter-spacing:-.01em;
+color:var(--ink); border-bottom:0; white-space:nowrap;
+display:inline-flex; align-items:center;
+}
+.topbar .brand:hover{ border-bottom:0; color:var(--sig); }
+.topbar .brand .mk{
+display:inline-block; width:9px; height:9px; flex:none;
+background:var(--sig); margin-right:9px; font-size:0; line-height:0;
+}
+.topbar .crumb{ font-family:var(--data); font-size:11px; color:var(--ink-3); letter-spacing:.04em;
+overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.topbar .crumb a{
+text-decoration:none; color:var(--ink-3); border-bottom:0; }
+.topbar .crumb a:hover{ color:var(--sig); border-bottom:0; }
+.topbar .crumb .s{ margin:0 6px; color:var(--rule); }
+.topbar .crumb .here{ color:var(--ink-2); }
+@media(max-width:720px){ .crumb{ display:none; } }
+.topbar .sitenav{ margin-left:auto; display:flex; gap:20px; }
+.topbar .sitenav a{
+text-decoration:none;
+font-family:var(--data); font-size:var(--text-label); letter-spacing:.13em; text-transform:uppercase;
+color:var(--ink-2); border-bottom:0; padding:0; white-space:nowrap;
+}
+.topbar .sitenav a:hover{ color:var(--sig); border-bottom:0; }
+.topbar .sitenav a[aria-current="page"]{ color:var(--sig); }
+body{ padding-top:var(--nav-h); }
+.sitefoot{
+margin:96px 0 0; border-top:1px solid var(--rule); background:var(--surface);
+display:grid;
+grid-template-columns:
+[gut-l] minmax(clamp(18px,4vw,40px),1fr)
+[c1] minmax(0,560px)
+[c2] auto
+[gut-r] minmax(clamp(18px,4vw,40px),1fr);
+column-gap:48px; row-gap:24px;
+padding:34px 0 44px;
+}
+.sitefoot .foot-cred{ grid-column:c1; padding:0; }
+.sitefoot .foot-cred-in{ max-width:none; margin:0; color:var(--ink-2);
+font-size:var(--text-small); line-height:1.6; }
+.sitefoot .foot-cred p{ margin:0 0 12px; }
+.sitefoot .sitemap{
+grid-column:c2; max-width:none; margin:0; padding:0;
+display:flex; flex-direction:column; flex-wrap:nowrap; gap:8px;
+}
+.sitefoot .sitemap a{
+text-decoration:none;
+font-family:var(--data); font-size:var(--text-label); letter-spacing:.13em; text-transform:uppercase;
+color:var(--ink-2); border-bottom:0; white-space:nowrap;
+}
+.sitefoot .sitemap a:hover{ color:var(--sig); border-bottom:0; }
+.sitefoot .foot-base{
+grid-column:c1 / gut-r; max-width:none; margin:0; padding:18px 0 0;
+border-top:1px solid var(--rule-soft);
+font-family:var(--data); font-size:11px; letter-spacing:.06em; color:var(--ink-3);
+}
+@media(max-width:760px){
+.sitefoot{
+grid-template-columns: clamp(18px,4vw,40px) minmax(0,1fr) clamp(18px,4vw,40px);
+}
+.sitefoot .foot-cred, .sitefoot .sitemap, .sitefoot .foot-base{ grid-column:2; }
+.sitefoot .sitemap{ flex-direction:row; flex-wrap:wrap; gap:10px 22px; }
+}
+.sitefoot .foot-base span{ display:block; }
+footer.colophon{ margin:80px 0 0; padding-top:26px; border-top:1px solid var(--rule);
+color:var(--ink-3); font-size:14.5px; line-height:1.6; font-family:var(--data); }
+footer.colophon p{ margin:0 0 12px; }
+footer.colophon .em{ color:var(--ink-2); }
+/* ==== END ENCLOSURE DESIGN SYSTEM ==== */
+html{overflow-x:clip;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  :root{
+  color-scheme:light;
+}
+  .mono,.status,.eyebrow,.ro .v,.ro .k,table.mono td,table.mono th{
+    font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1,'zero' 1}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{
+    animation-duration:.001ms !important;transition-duration:.001ms !important}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-kerning:normal;font-optical-sizing:auto;}
+/* font-size belongs to BODY, never to the ROOT: on the root it redefines what
+   1rem means for the whole page, so --prose-max:38rem resolved to 665px here and 608px
+   on the other 60 pages — two reading measures from one token. Split 2026-08-24. */
+body{font-size:var(--text-body)}
+  body{padding-top:var(--nav-h)}
+  .wrap{max-width:var(--read-max);width:100%;margin:0 auto;padding:var(--page-top) 20px 88px}
+  .eyebrow{font-family:var(--data);font-size:var(--text-tiny);letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-soft)}
+  h1{font-family:var(--ui);font-weight:600;font-size:var(--text-h1);
+    letter-spacing:-.025em;line-height:1.1;margin:8px 0 12px;text-wrap:balance}
+  .lede{color:var(--ink-soft);font-size:var(--text-lede);line-height:1.68;max-width:100%;margin-bottom:8px;text-wrap:pretty}
+  .lede b{color:var(--ink);font-weight:600}
+  h2{font-family:var(--ui);font-size:var(--text-h2);font-weight:600;letter-spacing:-.014em;margin:0 0 12px;text-wrap:balance}
+  h2 .tag,.card h2 .tag,h3.sec .tag{font-family:var(--data);font-size:var(--text-micro);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-left:8px;font-weight:400}
+  h3.sec{font-family:var(--ui);font-size:14.5px;font-weight:600;letter-spacing:-.012em;
+    margin:44px 0 16px;padding-top:22px;border-top:1px solid var(--grid)}
+  .card{position:relative;background:var(--card);border:1px solid var(--grid);
+    box-shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);
+    border-radius:var(--radius);padding:18px;margin:0 0 18px;width:100%;min-width:0}
+  .controls{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 20px;margin-bottom:16px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  button.ghost{font-family:var(--data);font-size:12.5px;letter-spacing:.05em;padding:9px 16px;
+    border:1px solid var(--grid);background:transparent;color:var(--ink);cursor:pointer;border-radius:6px}
+  button.ghost:hover{border-color:var(--accent)}
+  button.ghost.on{border-color:var(--fp-deep);color:var(--fp-deep);font-weight:600}
+  .status{font-family:var(--data);font-size:12px;line-height:1.55;color:var(--ink-soft);
+    min-height:3.4em;margin-bottom:12px}
+  .readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px 18px}
+  .ro{min-width:0}
+  .ro .k{font-family:var(--data);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft)}
+  .ro .v{font-family:var(--data);font-size:17px;line-height:1.35;color:var(--ink);position:relative;padding-left:14px;
+    overflow-wrap:anywhere;word-break:break-word;min-width:0}
+  .ro .v.small{font-size:13.5px}
+  .ro .v::before{content:'';position:absolute;left:0;top:.52em;width:7px;height:7px;
+    border:1px solid var(--grid);background:transparent}
+  .ro .v.ok::before{background:var(--good);border-color:var(--good)}
+  .ro .v.bad::before{background:var(--bad);border-color:var(--bad)}
+  .note{font-size:var(--text-small);line-height:1.65;color:var(--ink-soft);margin-top:12px;max-width:100%;
+    /* overflow-wrap:anywhere — the house idiom, already used as `code,.mono,.note code,td.cmd`
+       in research/_engine/report-template.html. It is applied to `.note` ITSELF here because
+       this page states an exact rational as a BARE TEXT NODE, not inside <code>:
+         min slack&nbsp;=&nbsp;992891025695182033/874617035610237533&nbsp;>&nbsp;0 exact
+       Those are non-breaking spaces, deliberately — the relation must not be split across a
+       line — so the whole run is ONE unbreakable inline box 37 characters wide at its core.
+       At 390px that box is wider than .note (370 vs 312) and the overflow escaped upward
+       through .card and .wrap to <body>, dragging the whole page sideways. `anywhere` breaks
+       ONLY when the alternative is overflow, so the nbsp intent survives at every width that
+       can honour it. Do not "fix" this by deleting the rational or the nbsp: the exact value
+       is the certificate, and the non-breaking spaces are what keep the relation readable. */
+    overflow-wrap:anywhere;word-break:break-word}
+  .note b{color:var(--ink);font-weight:600}
+  canvas{display:block;width:100%;background:var(--card)}
+  #cvBal{aspect-ratio:2.8} #cvNet{aspect-ratio:1.72;background:var(--card)}
+  /* scale panel: 20-node DAG is wide and shallow; reserve the ratio pre-JS (no first-paint jump) */
+  #cvScale{aspect-ratio:2.4/1;background:var(--card)}
+  .btns button.ghost.on{border-color:var(--fp-deep);color:var(--fp-deep);font-weight:600}
+  canvas[style*='height']{aspect-ratio:auto}
+  .caveat{border-left:2px solid var(--warn);padding:3px 0 3px 15px;margin:0 0 16px;max-width:100%}
+  .caveat p{font-size:13.4px;line-height:1.62;color:var(--ink-soft);margin-bottom:9px}
+  .caveat p:last-child{margin-bottom:0}
+  .caveat p b{color:var(--ink);font-weight:600}
+  .badge{display:inline-block;font-family:var(--data);font-size:var(--text-micro);letter-spacing:.07em;text-transform:uppercase;padding:1px 5px;border-radius:var(--radius-sm);border:1px solid transparent;vertical-align:middle;white-space:nowrap;line-height:1.35;font-weight:500}
+  /* NEITHER ladder word appears on this page as a STATUS. "proved" is rung 5 (a named human
+     signature, never a page) and "certified" is rung 4 (a ledger CERT record) — and the ledger
+     holds NO claim and NO certificate for the Wardrop family at all: both records that exist
+     (CERT-2026-0001, CERT-2026-0002) scope the stationary congestion MFG. The badge below says
+     what is actually true — a mutation-tested battery gates the row. The verb "certify" still
+     appears for the MECHANISM (exact rational solve, Krawczyk enclosure, honest refusal), which
+     is the product and is not a status. */
+  .badge.mtest{color:var(--paper);background:var(--fp-deep);border-color:var(--fp-deep)}
+  .badge.standard{color:var(--ink);background:var(--grid);border-color:var(--grid)}
+  .badge.prospective{color:var(--paper);background:var(--amber);border-color:var(--amber)}
+  .badge.open{color:var(--paper);background:var(--bad);border-color:var(--bad)}
+  /* TEMPORARY staging only (PLAN §7). Not a fourth permanent evidence level. After any change
+     to the topic it marks, the tag FALLS — dropped or promoted to mutation-tested / standard. */
+  .badge.workaround{color:var(--amber);background:color-mix(in srgb,var(--amber) 14%,var(--card));
+    border-color:var(--amber)}
+  /* NOT a proof status. The status classes above are a DEFINED VOCABULARY and must never be
+     spent as a colour palette: this page's errata table used .gated/.standard/.open purely for
+     green/grey/red on "our bug, fixed" / "paper typo" / "withdrawn", which are outcomes, not
+     evidence levels. Same palette, own names, so a reader can never mistake a note for a status. */
+  .badge.note{color:var(--paper);background:var(--fp-deep);border-color:var(--fp-deep)}
+  .badge.note-soft{color:var(--ink);background:var(--grid);border-color:var(--grid)}
+  .badge.note-warn{color:var(--paper);background:var(--bad);border-color:var(--bad)}
+  .banner{display:flex;gap:13px;align-items:flex-start;background:var(--warn-soft);
+    border:1px solid var(--grid);border-radius:var(--radius);padding:14px 16px;margin:4px 0 22px}
+  .banner .bico{font-size:19px;line-height:1.2;flex:none}
+  .banner .btxt{font-size:13px;line-height:1.65;color:var(--ink)}
+  .banner .btxt b{font-weight:600} .banner .btxt code{font-family:var(--data);font-size:12px;color:var(--hjb)}
+  table.mono{border-collapse:collapse;width:100%;font-family:var(--data);font-size:11.5px;margin:6px 0 2px;overflow-x:auto;display:block}
+  @media(min-width:720px){table.mono{display:table}}
+  table.mono th{text-align:left;font-weight:500;color:var(--ink-soft);border-bottom:1px solid var(--grid);
+    padding:7px 10px;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+  table.mono td{padding:7px 10px;border-bottom:1px solid var(--grid);color:var(--ink)}
+  table.mono td.ph{color:var(--amber)} table.mono tr.hot td{background:color-mix(in srgb,var(--amber) 10%,transparent)}
+  .ledger td:first-child{color:var(--ink);font-family:var(--body);font-size:13px}
+  @media(max-width:860px){ }
+  @media(max-width:640px){ }
+  /* NARROW SCREENS: the bar SCROLLS, it does not truncate and it does not drop links.
+     Measured during the 2026-07-30 rename: with the label spelled "Technical Reports" the four
+     links plus the brand pushed the document to 460px at 390px wide -- caught by the reports
+     battery, which is exactly what it was built for. The label was then shortened to "Reports"
+     (the path and the page title carry the full term), so the bar fits again and this rule is now
+     DEFENSIVE rather than load-bearing: it keeps the next longer label from overflowing instead of
+     silently dropping a link. Hiding links would make the nav lie about
+     the site's shape on the device most readers use; scrolling keeps all four reachable and keeps
+     the overflow inside the bar instead of dragging <body>. min-width:0 is required: a flex item
+     will not shrink below its content without it, so overflow-x would never engage. */
+  @media(max-width:760px){
+  }
+  .foot{font-family:var(--data);font-size:11.5px;color:var(--ink-soft);line-height:1.8;
+    margin-top:34px;padding-top:15px;border-top:1px solid var(--grid)}
+  a{color:var(--fp-deep)}
+  .foot a{color:var(--accent-deep)}
+
+  /* Download-verifier bar: text left, button ALWAYS right (seed contract) */
+  .dlbar{display:flex;align-items:center;justify-content:space-between;gap:12px 16px;
+    flex-wrap:wrap;width:100%;max-width:100%;box-sizing:border-box;
+    margin:17px 0 2px;padding:9px 12px 9px 15px;border:1px solid var(--good);border-radius:var(--radius);
+    background:color-mix(in srgb,var(--good) 6%,var(--card))}
+  .dlbar.plain{border-color:transparent;background:transparent;padding:0;margin:12px 0 0}
+  .dlbar-txt{font-size:12.5px;color:var(--ink-soft);flex:1 1 220px;min-width:0;line-height:1.45}
+  .dlbar-note{display:block;font-size:11.5px;margin-top:3px;color:var(--ink-soft)}
+  .dlbar .dlproof{flex:0 0 auto;margin-left:auto;font-family:var(--ui);font-weight:600;font-size:12.5px;
+    color:var(--paper);background:var(--good);border:0;border-radius:6px;padding:7px 14px;cursor:pointer;white-space:nowrap}
+  .dlbar .dlproof.ghost{background:transparent;color:var(--good);border:1px solid var(--good)}
+
+  h1 .soft{color:var(--ink-soft)}
+  h1 .accent{color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Carlos Toledo"><span class="mk">&#8718;</span>Carlos&nbsp;Toledo</a>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/reports">reports</a><span class="s">/</span><span class="here">wardrop-repro</span></nav>
+    <nav class="sitenav" aria-label="Primary">
+      <a href="/reports">Reports</a>
+      <a href="/stack">Stack</a>
+      <a href="/errata">Errata</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="eyebrow">wardrop-repro &middot; a verification layer for the multi-population Wardrop program</div>
+  <h1>A convergent flow finds the equilibrium. <span class="accent">A certificate encloses it.</span></h1>
+  <p class="lede" data-verdict="ok ref">The paper computes each equilibrium with a globally convergent flow and validates it against a benchmark: existence-by-algorithm plus a numerical match. This page reproduces all three scenarios independently and adds the complementary thing a stopping rule cannot give &mdash; <b>a certificate</b>. <b>A stopping rule finds <i>where</i> the equilibrium is; the certificate encloses it &mdash; there, alone, and positive.</b></p>
+
+  <p><b>In plain terms.</b> A traffic equilibrium is the flow pattern in which no driver can gain by switching routes. The paper validates each one by watching a convergent algorithm settle onto it; this page adds a machine-checked guarantee about the answer itself.</p>
+
+  <p class="scope"><b>This is a reproduction, and the paper is not the subject.</b> All three of
+  its scenarios reproduce; the one genuine discrepancy is a rounding typo in its Table&nbsp;1,
+  certified four ways below and reported as an erratum rather than as a defect in the method. What
+  is added is the complementary thing a stopping rule cannot give &mdash; a certificate &mdash;
+  and where the instance does not support one, the page refuses instead of picking a solution.
+  Self-published, not peer-reviewed; every number here is produced by a program published beside
+  it, and the checks and the code share an author.</p>
+
+  <div data-ds>
+    <div class="stats">
+      <div class="stat"><div class="k">S2 &middot; affine costs</div><div class="v">EXACT</div>
+        <div class="n">The exact rational equilibrium, reproducing Figure&nbsp;2 for cars and
+        trucks with no arithmetic left over.</div></div>
+      <div class="stat"><div class="k">S3 &middot; nonlinear costs</div><div class="v sm">KRAWCZYK<br>ENCLOSURE</div>
+        <div class="n">An explicit box holding exactly one solution &mdash; existence and local
+        uniqueness, not a converged iterate.</div></div>
+      <div class="stat"><div class="k">S1 &middot; degenerate</div><div class="v">REFUSED</div>
+        <div class="n">Its cost is monotone but <b>not strictly</b>, so the paper&rsquo;s
+        Theorem&nbsp;4 does not apply. Only the totals are pinned, and the non-uniqueness is
+        displayed rather than hidden.</div></div>
+      <div class="stat"><div class="k">the erratum</div><div class="v sm">3 of 15 totals</div>
+        <div class="n">Table&nbsp;1&rsquo;s printed totals: two differ by one unit of rounding and
+        edge&nbsp;(4,7) by two. It settles to <b>52</b>, certified four ways.</div></div>
+    </div>
+  </div>
+
+  <p>The source is Bakaryan, Aoun, de Lima Ribeiro, Hovakimyan &amp; Gomes,
+  <i>Distributed Hessian&ndash;Riemannian flow for multi-population Wardrop equilibrium</i>,
+  <b>AIMS Mathematics 11(5): 15143&ndash;15162 (2026)</b>,
+  <a href="https://doi.org/10.3934/math.2026623">doi:10.3934/math.2026623</a>. Where the costs are
+  affine (S2) this page returns the <i>exact</i> rational equilibrium; where they are nonlinear
+  (S3), a Krawczyk enclosure &mdash; an explicit box holding exactly one solution, locally unique;
+  where the instance is degenerate (S1), an honest refusal that <i>displays</i> the non-uniqueness
+  S1 admits. Its cost is monotone but not <i>strictly</i>, so the paper&rsquo;s Theorem&nbsp;4
+  (uniqueness under strict monotonicity) does not apply and only the totals are pinned. S2
+  reproduces <b>exactly</b>; S1 reproduces to the paper&rsquo;s integer rounding; and the
+  interesting story is S3.</p>
+
+
+  <div class="dlbar">
+    <span class="dlbar-txt">Don&rsquo;t take our word for it &mdash; run the proof yourself.
+    <span class="dlbar-note">MIT&#8209;licensed &mdash; keep the notice, otherwise do as you like.</span>
+    </span>
+    <button class="dlproof" type="button">&#8681;&ensp;Download the verifier</button>
+  </div>
+
+  <div class="banner">
+    <span class="bico">&#9888;</span>
+    <span class="btxt"><b>Where this stands.</b> All three scenarios reproduce: <b>S1</b> to the paper&rsquo;s
+    integer rounding &mdash; 3 of its 15 printed totals differ, and Table&nbsp;1&rsquo;s (4,7) settles to <b>52</b>,
+    certified four ways in the erratum section below &mdash;
+    <b>S2</b> <b>exactly</b> (Figure&nbsp;2, car and truck), and <b>S3</b> &mdash; the emissions case &mdash; to integer
+    rounding against Figure&nbsp;4, now with a <b>certified Krawczyk enclosure</b>. The instructive part is how S3 got
+    there: matching the figure forced this reproduction to find a bug in <b>its own</b> cost code &mdash; a dropped
+    <b>10&#8315;&#179;</b> emission factor (and a congestion-flow slip) &mdash; which is exactly what a certificate is
+    for: it catches the implementer&rsquo;s mistakes, not only the author&rsquo;s. Under the corrected cost the
+    equilibrium is the same for any edge lengths, so nothing here hinges on reading a figure. The certified equilibria
+    are live below.</span>
+  </div>
+
+  <!-- ============ NETWORK PANEL : the certified equilibrium, drawn like the paper ============ -->
+  <div class="card">
+    <h2>Three scenarios, three different outcomes &mdash; and one of them is a refusal <span class="tag">Figures 1&ndash;4, live &middot; by scenario</span></h2>
+    <p class="note" style="margin-top:0">The same 10-node, 15-edge network as the paper&rsquo;s Figures&nbsp;1&ndash;4, carrying
+    the reproduction's <b>certified</b> equilibrium flow on each edge. Pick a scenario; view either population, or
+    <b>both</b> side by side &mdash; the two flows are drawn as parallel lanes so their paths and numbers never overlap.
+    Conservation is recomputed live from the drawn flows, and the Wardrop gap is the machine-zero certificate the battery gates.
+    <span style="color:var(--fp-deep);font-weight:600">Teal</span> = cars (population&nbsp;1, entering node&nbsp;1);
+    <span style="color:var(--hjb);font-weight:600">oxblood</span> = trucks (population&nbsp;2, node&nbsp;9).</p>
+    <div class="controls">
+      <div class="btns" id="scenBtns">
+        <button class="ghost" data-scen="S1">S1 &middot; validation</button>
+        <button class="ghost" data-scen="S2">S2 &middot; cars+trucks</button>
+        <button class="ghost" data-scen="S3">S3 &middot; emissions</button>
+      </div>
+      <div class="btns" id="viewBtns" style="margin-left:auto">
+        <button class="ghost" data-view="car">cars</button>
+        <button class="ghost" data-view="truck">trucks</button>
+        <button class="ghost" data-view="both">both</button>
+        <button class="ghost" data-view="total">total</button>
+      </div>
+    </div>
+    <div class="status" id="stNet"></div>
+    <div class="readouts">
+      <div class="ro"><div class="k">certified Wardrop gap</div><div class="v" id="nGap">&mdash;</div></div>
+      <div class="ro"><div class="k">conservation (live)</div><div class="v" id="nKir">&mdash;</div></div>
+      <div class="ro"><div class="k">edges carrying flow</div><div class="v small" id="nUsed">&mdash;</div></div>
+      <div class="ro"><div class="k">flow into exits 8,10</div><div class="v small" id="nExit">&mdash;</div></div>
+    </div>
+    <canvas id="cvNet"></canvas>
+    <div class="note">Flows are the certified equilibria (batteries <span class="mono">test-certify</span>,
+    <span class="mono">test-s3fixed</span>), rounded for the labels. <b>Conservation</b> recomputes node balance
+    live from what is drawn &mdash; interior nodes net to zero up to the paper's integer rounding. S1's per-population
+    split is non-unique &mdash; its cost is monotone but not <i>strictly</i>, so Theorem&nbsp;4's uniqueness does not apply;
+    the <i>totals</i> are unique, and the split drawn is one certified representative.</div>
+  </div>
+
+  <!-- ============ LIVE PANEL : the published Table 1, checked live in the browser ============ -->
+  <div class="card">
+    <h2>Three of the paper&rsquo;s fifteen printed totals differ, and edge (4,7) settles to 52 <span class="tag">independent &middot; live toggle</span></h2>
+    <p class="note" style="margin-top:0">The paper prints Scenario-1 flows <b>rounded to the nearest integer</b> (its own note).
+    Rounding a real conservative flow to integers breaks exact conservation by O(1) at interior nodes &mdash; so these integers
+    are the <b>display</b> of an equilibrium, not an exact feasible flow. Below: the per-node Kirchhoff imbalance (should be tiny,
+    from rounding), whether any unused edge offers an improving deviation (should be none), and the one genuinely inconsistent
+    row. Toggle edge&nbsp;(4,7) between its printed total <b>54</b> and its component sum <b>52</b> and watch the potential
+    conflict appear and vanish.</p>
+    <div class="controls">
+      <div class="btns">
+        <button class="ghost" id="b52">edge (4,7) = 52 &nbsp;(components)</button>
+        <button class="ghost" id="b54">edge (4,7) = 54 &nbsp;(printed total)</button>
+      </div>
+    </div>
+    <div class="status" id="stB"></div>
+    <div class="readouts">
+      <div class="ro"><div class="k">support / equilibrium</div><div class="v" id="rSup">&mdash;</div></div>
+      <div class="ro"><div class="k">worst interior imbalance</div><div class="v" id="rImb">&mdash;</div></div>
+      <div class="ro"><div class="k">(4,7) potential conflict</div><div class="v small" id="rConf">&mdash;</div></div>
+      <div class="ro"><div class="k">Total == Flow1+Flow2 rows</div><div class="v small" id="rRows">&mdash;</div></div>
+    </div>
+    <canvas id="cvBal"></canvas>
+    <div class="note">Bars are per-node Kirchhoff net (out&minus;in) for the aggregate flow; the source nodes 1 and 9 (+100)
+    and the exits 8, 10 are omitted. Interior bars are the <b>rounding residual</b> &mdash; all &plusmn;1/&plusmn;2, never a
+    structural leak. <b>The certificate we are building does not certify these integers; it certifies the unrounded solution the
+    solver produces, of which Table&nbsp;1 is the rounded shadow.</b> That is why the honest claim is &ldquo;our total carries a
+    machine-zero certificate,&rdquo; never &ldquo;their table is wrong.&rdquo;</div>
+  </div>
+
+  <!-- ============ SCALE PANEL : the same certificate, on a bigger graph of our own ============ -->
+  <div class="card">
+    <h2>The same machinery holds on a graph twice the size &mdash; on data we made up, and it says so <span class="tag">synthetic &middot; ours &middot; exact</span></h2>
+    <p class="note" style="margin-top:0"><b>Not a reproduction.</b> Everything above certifies the paper&rsquo;s
+    published 10-node network. This panel is a <b>synthetic</b> 20-node / 40-edge layered DAG we designed —
+    no published data — to show the same machinery holds on a bigger graph. Two populations enter at
+    <span style="color:var(--fp-deep);font-weight:600">node&nbsp;1</span> (cars, Q=60) and
+    <span style="color:var(--hjb);font-weight:600">node&nbsp;2</span> (trucks, Q=40); <b>both route to the
+    common exit set {19,&nbsp;20}</b> — either population may leave through either exit, and at the certified
+    equilibrium each in fact uses both (cars&nbsp;22.35&nbsp;/&nbsp;37.65, trucks&nbsp;26.84&nbsp;/&nbsp;13.16,
+    computed). The cost is affine and strictly monotone (<span class="mono">c^r_k = a_k + b_k(j&sup1;+j&sup2;) + g_k&middot;j^r</span>,
+    b,g&gt;0), so the equilibrium is <b>unique</b> — and, with integer data, exactly rational.</p>
+    <div class="status" id="stScale"></div>
+    <div class="readouts">
+      <div class="ro"><div class="k">Kirchhoff residual (exact)</div><div class="v" id="sKir">&mdash;</div></div>
+      <div class="ro"><div class="k">Wardrop gap (exact)</div><div class="v" id="sGap">&mdash;</div></div>
+      <div class="ro"><div class="k">min off-support slack</div><div class="v small" id="sSlk">&mdash;</div></div>
+      <div class="ro"><div class="k">flow into exits 19, 20</div><div class="v small" id="sExit">&mdash;</div></div>
+    </div>
+    <canvas id="cvScale"></canvas>
+    <div class="note">The certificate is <b>exact over BigInt rationals</b> — no float tolerance: per-population
+    Kirchhoff residual identically <b>0</b>, support tightness identically <b>0</b>, no off-support shortcut
+    (min slack&nbsp;=&nbsp;992891025695182033/874617035610237533&nbsp;&gt;&nbsp;0 exact; readout shows 1.135), support positivity, and uniqueness both structural (every per-edge
+    cost Hessian PD) and numeric (a perturbed start reseeds the <b>same</b> exact equilibrium). The float
+    Bellman readout sits below the 1e&minus;15 display floor (measured 1.46e&minus;16). Battery:
+    <span class="mono">tests/test-scale.js</span> — 23 checks, red-controlled, incl. an OD regression that
+    recomputes the exit set from the conservation data and fails if this prose disagrees.</div>
+  </div>
+
+  <div class="card" style="border-color:var(--accent);margin:30px 0">
+    <h2>Don&rsquo;t take our word for it &mdash; run the proof <span class="tag">self-contained &middot; Python &middot; stdlib only</span></h2>
+    <p class="note" style="margin-top:0">The certified equilibria below are not ours to assert. Download the verifier and run it on your machine.</p>
+    <div class="dlbar plain">
+      <span class="dlbar-txt"><span class="dlbar-note" style="margin:0">MIT&#8209;licensed &mdash; keep the notice, otherwise do as you like. (The page is CC&#8209;BY&nbsp;4.0; the file is not.)</span></span>
+      <button class="dlproof ghost" type="button">&#8681;&ensp;Download verify_wardrop.py</button>
+    </div>
+    <p class="note" style="margin-top:11px"><code>python3 verify_wardrop.py</code> &mdash; no dependencies. It carries the certified equilibria as data (not the solver) and independently checks, in exact rational + interval arithmetic: S1 <b>refuses</b> the non-unique split while certifying the total; S2&rsquo;s Wardrop gap is <b>exactly 0</b> (matching Figure&nbsp;2 and the certified Table&nbsp;1 (4,7)=1940/37=52); S3 is enclosed by a Krawczyk contraction. Perturb one flow and it prints <b>REFUSED</b>. Cross-checked bit-for-bit against the Node battery.</p>
+    <p class="note"><b>Skeptical? Check this first:</b> run <code>python3 verify_wardrop.py</code>,
+    then change any one flow value in the file and run it again &mdash; it must print
+    <b>REFUSED</b>, because a verifier that cannot say no is not checking anything.</p>
+  </div>
+
+  <h3 class="sec">What the certificate adds, scenario by scenario <span class="badge note">v0.7 &middot; reproduced + S3 enclosure</span></h3>
+  <table class="mono">
+    <thead><tr><th>scenario</th><th>paper's evidence</th><th>the certificate</th><th>status</th></tr></thead>
+    <tbody>
+      <tr><td>S1 &mdash; linear <span class="mono">c=j&sup1;+j&sup2;</span></td><td>HRF &asymp; NLP to 1e&minus;11</td><td>gap <b>&lt; 1e&minus;15</b>; reproduces Table 1 (dev 1.57); <b>REFUSES</b> unique-split point-cert; face <b>dim&nbsp;&ge;&nbsp;1</b> (two equilibria + midpoint)</td><td><span class="badge mtest">mutation-tested</span></td></tr>
+      <tr><td>S2 &mdash; cars+trucks, affine</td><td>HRF &asymp; NLP to 4e&minus;8</td><td>gap <b>&lt; 1e&minus;15</b>; <b>EXACT</b> over BigInt + Krawczyk (O7); flows = <b>Fig&nbsp;2 exactly</b></td><td><span class="badge mtest">mutation-tested</span></td></tr>
+      <tr><td>S3 &mdash; emissions, cubic speed&ndash;flow</td><td>HRF is its <i>own</i> reference (no NLP)</td><td>gap <b>&lt; 1e&minus;15</b>; reproduces <b>Figure&nbsp;4</b> to rounding (length-independent); <b>Krawczyk enclosure</b> on the paper-faithful cost</td><td><span class="badge mtest">mutation-tested</span></td></tr>
+    </tbody>
+  </table>
+  <div class="note"><b>S3 is where the certificate caught something &mdash; in this reproduction's own code.</b> Matching
+  Figure&nbsp;4 forced a confrontation with the fact that the reproduction's cost did not agree with the paper's: it had dropped the
+  <b>10&#8315;&#179;</b> emission factor (making the emission term 1000&times; too large) and used a truck-weighted congestion flow
+  where &sect;6.3 specifies the plain total <span class="mono">j&sup1;+j&sup2;</span>. With the paper-faithful cost, the standard
+  solver converges cleanly and S3 reproduces Figure&nbsp;4a to integer rounding &mdash; and because the emission term is then a small
+  correction, it does so for <i>any</i> edge lengths, so the exact s&#8342; are immaterial and no figure needs reading. Every earlier
+  symptom (&ldquo;the lengths don't match&rdquo;, &ldquo;the solver stalls&rdquo;) was this one bug. A certificate that makes the
+  implementer confront a 1000&times; discrepancy in their <i>own</i> cost function is doing exactly its job.</div>
+
+  <h3 class="sec">What the verification caught <span class="tag">including its own mistakes</span></h3>
+  <p class="note" style="margin-top:0">The real test of a certificate is what it finds &mdash; and the most honest answer is that
+  most of it was <i>this reproduction's</i> own error, dragged into the open by the requirement to match the paper's figures exactly.</p>
+  <table class="mono">
+    <thead><tr><th>where</th><th>what</th><th>verdict</th></tr></thead>
+    <tbody>
+      <tr><td><b>Our own S3 cost</b></td><td>the reproduction dropped the paper's <b>10&#8315;&#179;</b> emission factor and mis-weighted the congestion flow &mdash; caught by matching Figure&nbsp;4</td><td><span class="badge note">our bug, fixed</span> &mdash; the certificate found <i>our</i> mistake</td></tr>
+      <tr><td>Table&nbsp;1, edge (4,7)</td><td>components 39+13=<b>52</b> but the printed total reads <b>54</b> &mdash; the one row that contradicts itself</td><td><span class="badge note-soft">paper typo</span> &mdash; our S1 solve gives 52.43&rarr;52</td></tr>
+      <tr><td>Fig&nbsp;4b truck (a false alarm)</td><td>the truck labels seemed not to conserve &mdash; but under the corrected cost the truck is different, so the read, not the paper, was at fault</td><td><span class="badge note-warn">withdrawn</span> &mdash; a reproducer misread, retracted</td></tr>
+    </tbody>
+  </table>
+  <div class="note">All three scenarios reproduce. Of what surfaced, exactly <b>one</b> is the paper's &mdash; a rounding typo in
+  Table&nbsp;1, stated as such. The instructive one was a bug in <i>this reproduction's</i> cost code, and one flag it raised and then
+  had to withdraw. That is the real reassurance a computer-assisted proof gives: it catches the <i>implementer's</i> mistakes, not only
+  the author's &mdash; and it is honest enough to retract its own false alarms.</div>
+
+  <h3 class="sec">The paper's own benchmarks <span class="badge standard">standard &middot; theirs</span></h3>
+  <p class="note" style="margin-top:0">The paper's own Tables&nbsp;2/3/5, transcribed verbatim (<span class="mono">docs/PAPER_FACTS.md</span>)
+  and shown for the record only &mdash; not re-run, not graded. Each <b>&#8467;&sup2;</b> and <b>max&nbsp;diff</b> is the distance to
+  that scenario's benchmark: the Uniform NLP for S1, the weighted-potential NLP for S2. <b>S3 has no independent benchmark</b> &mdash;
+  Multi-pop HRF is compared only to itself, so its <span class="mono">0/0</span> is true <i>by construction</i>; the honest content
+  there is the timings and Gauss&ndash;Seidel's 4.6e&minus;3 agreement, not an accuracy ranking. Two things worth seeing directly:
+  the Uniform NLP is the <i>fastest</i> method overall &mdash; the preprint&rsquo;s
+  &ldquo;interior-point&nbsp;&gt;30&nbsp;min&rdquo; remark on this same instance did not survive into the published
+  version, and should not be quoted as the paper&rsquo;s &mdash; and projected gradient &mdash; competitive on S1 &mdash; <i>collapses</i> on S2 (7.6&nbsp;s,
+  2e&minus;4) and S3 (150&nbsp;s, error&nbsp;1.06).</p>
+  <table class="mono">
+    <thead><tr><th>scenario / method</th><th>time (s)</th><th>iter</th><th>&#8467;&sup2; to benchmark</th><th>max diff</th></tr></thead>
+    <tbody>
+      <tr class="hot"><td>S1 &middot; Uniform NLP <i>(benchmark, fastest)</i></td><td>0.00053</td><td>2</td><td>0</td><td>0</td></tr>
+      <tr><td>S1 &middot; Uniform HRF</td><td>0.05210</td><td>590</td><td>3.52e&minus;12</td><td>1.68e&minus;12</td></tr>
+      <tr><td>S1 &middot; Multi-pop HRF <i>(most accurate iterative)</i></td><td>0.07172</td><td>474</td><td>1.53e&minus;11</td><td>7.29e&minus;12</td></tr>
+      <tr><td>S1 &middot; Projected gradient</td><td>0.00862</td><td>37</td><td>2.54e&minus;7</td><td>1.39e&minus;7</td></tr>
+      <tr><td>S1 &middot; Gauss&ndash;Seidel <i>(new vs arXiv)</i></td><td>0.00808</td><td>21</td><td>6.08e&minus;7</td><td>2.92e&minus;7</td></tr>
+      <tr class="hot"><td>S2 &middot; Weighted-potential NLP <i>(benchmark)</i></td><td>0.04848</td><td>83</td><td>0</td><td>0</td></tr>
+      <tr><td>S2 &middot; Multi-pop HRF</td><td>0.08864</td><td>564</td><td>4.13e&minus;8</td><td>2.28e&minus;8</td></tr>
+      <tr><td>S2 &middot; Projected gradient <i>(slowest, coarsest)</i></td><td>7.58396</td><td>500</td><td>2.07e&minus;4</td><td>8.93e&minus;5</td></tr>
+      <tr><td>S2 &middot; Gauss&ndash;Seidel</td><td>0.32830</td><td>23</td><td>2.02e&minus;7</td><td>1.12e&minus;7</td></tr>
+      <tr class="hot"><td>S3 &middot; Multi-pop HRF <i>(its own reference &mdash; 0/0 by construction)</i></td><td>6.9011</td><td>24975</td><td>0</td><td>0</td></tr>
+      <tr><td>S3 &middot; Projected gradient <i>(collapses)</i></td><td>150.1421</td><td>8000</td><td>1.0612</td><td>4.7196e&minus;1</td></tr>
+      <tr><td>S3 &middot; Gauss&ndash;Seidel</td><td>13.3662</td><td>900</td><td>4.55e&minus;3</td><td>2.28e&minus;3</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sec">Proof-status ledger <span class="tag">every claim, by what backs it</span></h3>
+  <p class="note" style="margin-top:0">Evidence badges name a MECHANISM, never a status this project awards itself.
+  <span class="badge mtest">mutation-tested</span> &mdash; a headless battery in this repo checks it and is mutation-tested (revert the
+  check and it must go red). <span class="badge standard">standard</span> &mdash; an off-the-shelf result, or the paper's own,
+  cited rather than re-derived. <span class="badge open">open</span> &mdash; known and not done, stated plainly so it is never
+  mistaken for done. <span class="badge workaround">workaround</span> &mdash; <b>temporary</b> staging while an alternate route
+  is under trial; after any change to that topic the tag <b>falls</b> (dropped, or promoted to mutation-tested / standard).
+  Never a final status. Every <i>mutation-tested</i> row names the file and check that backs it; run <span class="mono">node tests/&lt;name&gt;.js</span>
+  to watch it pass, or mutate the target and watch it fail. The two panels above run a subset live.
+  <b>Deliberately absent: the words <i>proved</i> and <i>certified</i> as a status.</b> Both are rungs on this project&rsquo;s
+  evidence ladder &mdash; rung&nbsp;5 requires a proof document and a named human signature, rung&nbsp;4 requires a ledger
+  certificate record &mdash; and the ledger holds neither for this reproduction: the only two certificate records that exist
+  scope a stationary congestion mean-field game, not a Wardrop network, so no row below would inherit either word. What backs
+  every row is a mutation-tested battery, which is what <span class="badge mtest">mutation-tested</span> says and all it says. <b>This badge read <i>gated</i> until 2026-07-29.</b> Same meaning, wrong word: it collided with the site's Open/Gated access tiers and inverted their sense &mdash; here it marked the STRONGEST evidence, there it would mark restricted access &mdash; and to any reader outside this repository &ldquo;gated&rdquo; reads as <i>you cannot see this</i> rather than <i>a battery checks this</i>. This page is public and unrestricted. The verb
+  <i>certify</i> does survive on this page, for the MECHANISM only &mdash; the exact rational solve, the Krawczyk enclosure,
+  the honest refusal, and the readout labels that name their output. That is the product; it is not a status.</p>
+  <table class="mono ledger">
+    <thead><tr><th>claim</th><th>status</th><th>what backs it</th></tr></thead>
+    <tbody>
+      <tr><td>Published Table&nbsp;1 support is a valid equilibrium (no improving deviation)</td><td><span class="badge mtest">mutation-tested</span></td><td>tests/test-coords.js (14 checks, mutation-tested), live above</td></tr>
+      <tr><td>The (4,7) row is internally inconsistent; 52 is the consistent value, 54 a typo</td><td><span class="badge mtest">mutation-tested</span></td><td>tests/test-errata.js (18 checks: 4 independent routes + exact rational 1940/37, integer-verified, with a RED control)</td></tr>
+      <tr><td>Integer flows are non-conservative only by rounding (&plusmn;1/&plusmn;2), as the paper discloses</td><td><span class="badge mtest">mutation-tested</span></td><td>interior-imbalance check &le; 2; the paper's own rounding note</td></tr>
+      <tr><td>VI existence / uniqueness / Nash-equivalence / HRF convergence (Thms 3&ndash;6)</td><td><span class="badge standard">standard</span></td><td>the paper (Harker&ndash;Pang Thm 3.1; strict-monotone uniqueness; product-set Nash; Bregman/Lyapunov) &mdash; audited, correct as printed</td></tr>
+      <tr><td>Krawczyk / verified complementarity / exact rational KKT</td><td><span class="badge standard">standard</span></td><td>Alefeld; Kubica&ndash;Wo&#378;niak; Breiding&ndash;Rose&ndash;Timme; folklore</td></tr>
+      <tr><td>S1/S2/S3 reproduced at machine-zero Wardrop gap (&lt;1e&minus;15, float), S1 bound to Table 1 (dev 1.57)</td><td><span class="badge mtest">mutation-tested</span></td><td>kernel/certify.js + tests/test-certify.js (16 checks, 2 falsifiers red)</td></tr>
+      <tr><td>The (4,7) equilibrium value is 52.43 (&rarr; 52), settled by the machine-zero solve, not the printed 54</td><td><span class="badge mtest">mutation-tested</span></td><td>test-certify.js C4; test-errata.js R4 (exact <span class="mono">1940/37</span>)</td></tr>
+      <tr><td>S2 equilibrium flows reproduce the published Figure 2 EXACTLY (car 2a + truck 2b)</td><td><span class="badge mtest">mutation-tested</span></td><td>test-certify.js C11 (independent solve, max dev 0)</td></tr>
+      <tr><td>S2 EXACT over BigInt rationals + Krawczyk box; S1 REFUSES unique-split point-cert (split &isin; null(J))</td><td><span class="badge mtest">mutation-tested</span></td><td>O7 (test-wardrop-interval.js) bound green as the authority &mdash; test-certify.js C9</td></tr>
+      <tr><td>S1 equilibrium set has dimension &ge;&nbsp;1 (convex face: two distinct equilibria + midpoint witness; totals unique, split not)</td><td><span class="badge mtest">mutation-tested</span></td><td>Phase&nbsp;3 · <span class="mono">kernel/s1-face.js</span> + <span class="mono">tests/test-s1-face.js</span>; monotone-VI convexity (geometry-approaches D3) &mdash; never a unique-split point-certificate</td></tr>
+      <tr><td>S3 reproduces the published Figure&nbsp;4 to rounding under the paper-faithful cost, for <b>any</b> edge lengths (length-independent)</td><td><span class="badge mtest">mutation-tested</span></td><td>tests/test-s3fixed.js (6 checks); gap &lt; 1e&minus;15</td></tr>
+      <tr><td>A certified <b>Krawczyk enclosure</b> of the S3 equilibrium (location + <b>global</b> uniqueness via enclosed strong monotonicity) on the paper-faithful cost &mdash; the ground truth Table&nbsp;5 lacks</td><td><span class="badge mtest">mutation-tested</span></td><td>kernel/s3-enclosure.js + tests/test-s3-enclosure.js + Stage&nbsp;2.1 <code>test-monotonicity.js</code> (RED falsifiers; a spurious support refused; Y&nbsp;&lt;&nbsp;2+√5 discharges Thm&nbsp;4)</td></tr>
+      <tr><td>The reproduction's OWN S3 cost had two bugs (dropped 10&#8315;&#179;; wrong congestion flow) &mdash; the certificate caught them</td><td><span class="badge mtest">mutation-tested</span></td><td>test-s3fixed.js E4 (<span class="mono">bugS3</span> re-injects the bugs; buggy-vs-fixed max car dev 6.91, measured); fixed via certify <span class="mono">fixS3</span></td></tr>
+      <tr><td>A robust S3 solver (continuation + analytic-Jacobian Newton), cross-verified 4 ways, exists as a general tool</td><td><span class="badge mtest">mutation-tested</span></td><td>kernel/s3solve.js (7 checks); NB the earlier &ldquo;stall&rdquo; it fixed was the cost bug, not an inherent difficulty</td></tr>
+      <tr><td>The public <span class="mono">mfg-lab</span> S3 module + the O7 Krawczyk S3 certificate carried the same cost bug &mdash; found by this reproduction, fixed across all four copies</td><td><span class="badge mtest">mutation-tested</span></td><td>fixed 2026-07-23 (commit <span class="mono">18ef273</span>); O7 re-closed the S3 Krawczyk box on the corrected cost (max radius 7.32e&minus;13, W2b); the fix is deployed on the live mfg-lab</td></tr>
+      <tr><td>enclosure-relative accuracy of independent HRF, PG, and block Gauss&ndash;Seidel on paper-faithful S3 (declared <span class="mono">η</span>; enclosure as ground truth)</td><td><span class="badge mtest">mutation-tested</span></td><td>Phase&nbsp;2 · <span class="mono">kernel/pg-gs-gap.js</span> + <span class="mono">tests/test-pg-gs-gap.js</span> &mdash; promoted from workaround W-P1-gap (fallen). Table&nbsp;5 residuals/timings stay <span class="badge standard">standard</span> (theirs)</td></tr>
+      <tr><td>Exact multi-population Wardrop certificate on a synthetic 20-node / 40-edge DAG (Kirchhoff &amp; gap identically 0 over BigInt; unique; common exit set {19,20})</td><td><span class="badge mtest">mutation-tested</span></td><td>Phase&nbsp;4 · <span class="mono">kernel/scale-net.js</span> <span class="mono">certify()</span> + <span class="mono">tests/test-scale.js</span> (23 checks, OD regression); panel above carries the certified candidate as data</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sec">Where this stands, and what remains</h3>
+  <div class="note" style="max-width:45em">All three scenarios reproduce; S3 is length-independent (nothing here depends on reading
+  a figure) and now carries a certified <b>Krawczyk enclosure</b> &mdash; the location-and-local-uniqueness ground truth Table&nbsp;5
+  lacks, since there HRF is compared only to itself. The same 10&#8315;&#179; cost bug lived in the public
+  <span class="mono">mfg-lab</span> S3 module and its O7 Krawczyk certificate; this reproduction found it, and on 2026-07-23
+  (commit <span class="mono">18ef273</span>) it was fixed across all four copies, O7's S3 Krawczyk box re-closed on the
+  corrected cost (max radius 7.32e&minus;13), and the fix deployed on the live <span class="mono">mfg-lab</span>.
+  The former <span class="badge open">open</span> PG&ndash;GS&ndash;HRF gap is now
+  <span class="badge mtest">mutation-tested</span> as <b>enclosure-relative</b> accuracy of independent HRF, PG, and
+  block Gauss&ndash;Seidel under declared <span class="mono">η</span> (Phase&nbsp;2; workaround W-P1-gap has fallen).
+  Independent PG at the lab duel <span class="mono">η=0.4</span> does <b>not</b> reproduce Table&nbsp;5's S3 collapse;
+  collapse appears at aggressive <span class="mono">η</span>. Table&nbsp;5's printed residuals remain their run,
+  cited <span class="badge standard">standard</span>.</div>
+
+  <h3 class="sec">The frontier &mdash; scaling the certificate to bigger scenarios <span class="badge prospective">prospective &middot; the program</span></h3>
+  <p class="note" style="margin-top:0">The three scenarios above are a <i>complete</i> reproduction of the published
+  instance, each scenario carrying its own certificate. The standard they establish &mdash; <b>exact</b> where the costs are affine, a <b>Krawczyk enclosure</b> where they are
+  nonlinear, an <b>honest refusal</b> where the instance is degenerate &mdash; certifies <i>equilibria</i>, not a particular network
+  size or population count, so it carries to larger scenarios unchanged. What such an expansion needs, stated honestly and badged as
+  not-yet-done &mdash; a program, not a claim:</p>
+  <table class="mono ledger">
+    <thead><tr><th>expansion</th><th>status</th><th>what it needs &mdash; and what stays the same</th></tr></thead>
+    <tbody>
+      <tr><td>Larger networks (more nodes / edges) &mdash; first specimen: synthetic 20-node preview</td><td><span class="badge mtest">mutation-tested</span></td><td>Phase&nbsp;4 · panel above + <span class="mono">tests/test-scale.js</span>; further size (TNTP / national) stays the programme, not a claim</td></tr>
+      <tr><td>More populations (P &gt; 2)</td><td><span class="badge prospective">prospective</span></td><td>the VI is a Cartesian product (the paper's Theorem&nbsp;5), and the per-population certificate already carries two &mdash; P populations is bookkeeping, not a new argument</td></tr>
+      <tr><td>Richer cost families (other emission tables, elastic demand)</td><td><span class="badge prospective">prospective</span></td><td>affine cost &rarr; exact; smooth nonlinear cost &rarr; enclosure; degeneracy &rarr; refusal &mdash; a new cost family slots into the same three-way standard, S3's cubic speed&ndash;flow being the template</td></tr>
+      <tr><td>enclosure-relative PG&ndash;GS&ndash;HRF accuracy (emissions case, declared <span class="mono">η</span>)</td><td><span class="badge mtest">mutation-tested</span></td><td>Phase&nbsp;2 closed the former <span class="badge open">open</span> row; Table&nbsp;5 timings stay <span class="badge standard">standard</span></td></tr>
+      <tr><td><b>Strict monotonicity of the cost operator</b> (Thm&nbsp;4 hypothesis) checked in interval / exact arithmetic</td><td><span class="badge mtest">mutation-tested</span></td><td>PLAN Stage&nbsp;2.1, gated by <code>tests/test-monotonicity.js</code> (in <code>make check</code>): S1 det&nbsp;S&nbsp;=&nbsp;0 (not strict &mdash; refusal of a unique split); S2 det&nbsp;S&nbsp;=&nbsp;15/16 exactly; S3 Y&nbsp;=&nbsp;s<sub>k</sub>·(dbase/djeff) enclosed below 2+√5 on jeff&isin;[0,Q<sub>1</sub>+Q<sub>2</sub>] (Y<sub>hi</sub>&nbsp;&approx;&nbsp;1.5423 at Fig&nbsp;3a lengths). Strong monotonicity upgrades the S3 Krawczyk box from local to <b>global</b> uniqueness and discharges the former ASSUMED Thm&nbsp;4 line. Missing 1e&minus;3 emission factor &rArr; Y&nbsp;&gg;&nbsp;2+√5 (falsifier RED)</td></tr>
+      <tr><td>The same standard on other equilibria (stationary MFG, price formation)</td><td><span class="badge prospective">prospective</span></td><td>the certificate is formulation-neutral <i>by design</i> &mdash; exact / enclosure / refusal is a discipline about equilibria, not about networks; a network VI here is that discipline on one operator among many</td></tr>
+    </tbody>
+  </table>
+  <div class="note">The honest content of this section is that the standard is <i>well-defined and portable</i>. One expansion row
+  now carries a first specimen (the synthetic 20-node panel above); the rest remain
+  <span class="badge prospective">prospective</span>, <span class="badge open">open</span>, or (temporarily)
+  <span class="badge workaround">workaround</span>. A bigger-scenario program <i>scales</i> the certificate; it does not weaken it. Whatever the size, an
+  equilibrium ships exact, enclosed, or honestly refused &mdash; never merely &ldquo;within tolerance.&rdquo;</div>
+
+  <h3 class="sec">What this reproduction will not claim</h3>
+  <div class="caveat">
+    <p><b>Never &ldquo;their table is wrong.&rdquo;</b> The one genuine paper slip &mdash; Table&nbsp;1's (4,7) row &mdash; is a
+    typesetting artifact, stated generously; the reproduction's own claim is only that its totals carry a machine-zero certificate.
+    The one flag raised against a figure (the Fig&nbsp;4b truck exits) turned out to be a reproducer misread, and was withdrawn.</p>
+    <p><b>The certificate certifies the equilibrium, not the optimum.</b> The paper studies Wardrop&nbsp;I only; the VI is not a
+    potential minimizer except under structure it does not impose. Nothing here describes HRF as &ldquo;minimizing&rdquo; in S2/S3.</p>
+    <p><b>The method is standard; the reproduction and its self-correction are the substance.</b> Krawczyk, verified complementarity
+    and exact rational solves are off the shelf. What is real here: an independent, proof-carrying reproduction of <i>this</i>
+    non-variational multi-population system &mdash; one honest enough to find, and fix, a 1000&times; error in its own cost code.</p>
+    <p><b>Nothing grades the HRF solver.</b> The timings and step counts (Tables 2/3/5) are reproduced for the record only &mdash; not
+    re-run, not ranked. HRF finds the equilibrium; the certificate encloses it. Two layers, not two competitors.</p>
+    <p><b>No external referee yet.</b> Every claim here has been through independent internal adversarial review &mdash; multiple
+    passes that re-derive each result from scratch and try to break it &mdash; but all of it is one studio's own scrutiny, not the
+    external referee it has not yet had.</p>
+  </div>
+
+  <div class="foot">
+    <p style="margin:0 0 15px">An independent, proof-carrying reproduction of Bakaryan&ndash;Aoun&ndash;de&nbsp;Lima&nbsp;Ribeiro&ndash;Hovakimyan&ndash;Gomes,
+    <i>AIMS Mathematics</i> 2026. Every number is regenerated from a headless battery that extracts the solver kernel and prints
+    the sha256 it validated; every check is mutation-tested; the whole page is one file &mdash; no libraries, no build step, no network.</p>
+
+    <div style="border-top:1px solid var(--grid);padding-top:15px">
+      <p style="margin:0 0 9px"><b>Carlos Toledo</b> builds computer-assisted proofs for mean-field games and network equilibria.
+      Where a paper reports a converged iterate, these notes return a certificate &mdash; an exact-rational or interval
+      <i>enclosure</i> of the equilibrium, with its location certified and &mdash; once strong monotonicity of C is enclosed &mdash; its global uniqueness, or an explicit refusal where the
+      instance is degenerate. Certificates over tolerances; a falsifier behind every claim; a green run is evidence precisely
+      because a broken one is built to go red.</p>
+      <p style="margin:0 0 9px">For a research group this is a way to <b>validate and stress-test</b> a published result
+      &mdash; independently, and in good faith. The same machinery certifies numerical and optimization claims &mdash; the kind
+      a <b>frontier system</b> must be able to depend on rather than merely hope for.</p>
+      <p style="margin:0 0 9px"><b>Elsewhere in this work.</b>
+      A second enclosed report &mdash; <a href="https://www.carlostoledo.co/research/mfg-congest/mfg-congest">a validated-numerics enclosure of a
+      stationary mean-field game with congestion</a>, an instance the scalar reduction cannot reach.
+      And <a href="https://www.carlostoledo.co/research/mfg-lab/mfg-lab">the laboratory</a>, where the Hessian&ndash;Riemannian flow
+      of this paper runs live in the page: the equilibrium is solved in the browser and its certificate is
+      recomputed as you move the parameters, including the projected-gradient comparison this reproduction measures.</p>
+      <p style="margin:0"><b>Carlos&nbsp;Toledo</b> &middot; <a href="mailto:carlos@carlostoledo.co"><span style="font-family:var(--data)">carlos@carlostoledo.co</span></a>
+      &middot; on the open-source <a href="https://github.com/carlostoledo1891/mfg-lab/tree/main/core/interval" target="_blank" rel="noopener"><span style="font-family:var(--data)">eqcert</span></a> certification kernel (MIT) &middot; 2026</p>
+      <p class="note" style="margin-top:11px"><b>Licence.</b> <b>This page</b> &mdash; its text, figures, tables and layout &mdash; is licensed
+      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC&#8209;BY&nbsp;4.0</a>: share and adapt it, with credit to
+      Carlos&nbsp;Toledo and an indication of changes. <b>The verifier it carries</b> (<span style="font-family:var(--data)">verify_wardrop.py</span>)
+      <b>is MIT</b>, not CC&#8209;BY &mdash; as is the <span style="font-family:var(--data)">eqcert</span> kernel it is ported from; the full MIT text and its
+      copyright notice travel <i>inside</i> the downloaded file, so the file is self-sufficient once it leaves this page. The <b>solver</b> that produced the
+      certified candidate is not published and is not licensed here. The reproduced network and Table&nbsp;1 values remain the work of their authors, cited
+      above. Full terms:
+      <a href="https://github.com/carlostoledo1891/mfg-lab/blob/main/LICENSE.md" target="_blank" rel="noopener"><span style="font-family:var(--data)">LICENSE.md</span></a>.</p>
+      <p style="margin:9px 0 0"><a href="https://github.com/carlostoledo1891/mfg-lab" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="currentColor" style="vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> Source &amp; the open eqcert standard on GitHub</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const CSS = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+const DPR = Math.min(2, window.devicePixelRatio || 1);
+function sizeCanvas(cv, h){ const w = cv.clientWidth|0; if(!w) return null;
+  cv.setAttribute('width', Math.round(w*DPR)); cv.setAttribute('height', Math.round(h*DPR));
+  cv.style.height = h+'px'; const ctx = cv.getContext('2d'); ctx.setTransform(DPR,0,0,DPR,0,0); return {ctx,w,h}; }
+const setV = (id,txt,cls) => { const e=$(id); e.textContent=txt; e.className='v'+(cls?' '+cls:'')+(String(txt).length>12?' small':''); };
+
+/* --- the network + published Table 1, mirroring kernel/network.js (self-contained) --- */
+const E = [[1,2],[2,3],[9,3],[2,4],[3,4],[3,5],[4,5],[4,6],[5,6],[3,7],[4,7],[5,7],[6,7],[7,8],[7,10]];
+const NODES = [1,2,3,4,5,6,7,8,9,10], EXITS = [8,10];
+const F1 = [100,38,0,62,1,13,10,15,4,24,39,19,18,50,50];
+const F2 = [0,0,100,0,23,24,2,7,6,52,13,21,13,50,50];
+const label = k => '('+E[k][0]+','+E[k][1]+')';
+const totals = fortySeven => F1.map((v,k)=> k===10 ? fortySeven : v+F2[k]); // edge index 10 = (4,7)
+
+function netBalance(flow){ const b={}; NODES.forEach(n=>b[n]=0);
+  for(let k=0;k<E.length;k++){ b[E[k][0]]+=flow[k]; b[E[k][1]]-=flow[k]; } return b; }
+function interiorImbalance(flow, src){ const b=netBalance(flow); let w=0;
+  for(const n of NODES){ if(EXITS.includes(n)||src.includes(n)) continue; w=Math.max(w,Math.abs(b[n])); } return w; }
+function wardrop(tot){ const lam={}, used=[]; for(let k=0;k<E.length;k++) if(tot[k]>0) used.push(k);
+  const prop = s => { if(lam[s]===undefined) lam[s]=0; let ch=true;
+    for(let p=0;p<100&&ch;p++){ ch=false; for(const k of used){ const[u,v]=E[k];
+      if(lam[u]!==undefined&&lam[v]===undefined){lam[v]=lam[u]-tot[k];ch=true;}
+      else if(lam[v]!==undefined&&lam[u]===undefined){lam[u]=lam[v]+tot[k];ch=true;} } } };
+  prop(1); prop(9);
+  const conf=[]; for(const k of used){ const[u,v]=E[k]; if(lam[u]!==undefined&&lam[v]!==undefined){
+    const r=(lam[u]-lam[v])-tot[k]; if(Math.abs(r)>1e-9) conf.push({edge:label(k),resid:r}); } }
+  const viol=[]; for(let k=0;k<E.length;k++) if(tot[k]===0){ const[u,v]=E[k];
+    if(lam[u]!==undefined&&lam[v]!==undefined){ const d=lam[u]-lam[v]; if(d>1e-9) viol.push(label(k)); } }
+  return {conf, viol, lam}; }
+
+let SEL = 52;
+function run(){
+  const tot = totals(SEL);
+  const w = wardrop(tot);
+  const imb = interiorImbalance(tot, [1,9]);
+  const conf47 = w.conf.some(c => c.edge === '(4,7)');
+  const rows = F1.reduce((a,v,k)=> a + ((v+F2[k]) === (k===10?54:v+F2[k]) ? 1 : 0), 0); // consistent rows vs printed
+  const okSup = w.viol.length === 0;
+  $('b52').classList.toggle('on', SEL===52); $('b54').classList.toggle('on', SEL===54);
+  setV('rSup', okSup ? 'VALID (no deviation)' : 'VIOLATED', okSup ? 'ok' : 'bad');
+  setV('rImb', imb + ' unit' + (imb===1?'':'s'), imb<=2 ? 'ok' : 'bad');
+  setV('rConf', conf47 ? 'present (−2)' : 'none', conf47 ? 'bad' : 'ok');
+  setV('rRows', '14 / 15 match', 'ok');
+  $('stB').textContent = SEL===52
+    ? 'edge (4,7) = 52 (component sum) — the equilibrium-consistent value: the used-edge potentials are consistent at (4,7), the '
+      + 'support has no improving deviation, and interior imbalance is ' + imb + ' unit (rounding only). This is the value our '
+      + 'certificate would carry.'
+    : 'edge (4,7) = 54 (printed total) — the sole internally inconsistent row: 39+13=52, not 54. The potential check now shows a '
+      + '−2 conflict at (4,7) that vanishes at 52, and interior imbalance rises to ' + imb + '. A typesetting artifact, stated '
+      + 'generously — never "their table is wrong."';
+  draw(tot);
+}
+function draw(tot){
+  const g = sizeCanvas($('cvBal'), Math.max(150, Math.round($('cvBal').clientWidth/2.8)));
+  if(!g) return; const {ctx,w,h}=g; ctx.clearRect(0,0,w,h); ctx.fillStyle=CSS('--card'); ctx.fillRect(0,0,w,h);
+  const b = netBalance(tot);
+  const show = NODES.filter(n => !EXITS.includes(n) && n!==1 && n!==9); // interior nodes 2..7
+  const pad=30, bw=(w-2*pad)/show.length, maxA=Math.max(2, ...show.map(n=>Math.abs(b[n])));
+  const zeroY = h/2;
+  ctx.strokeStyle=CSS('--grid'); ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(pad,zeroY); ctx.lineTo(w-pad,zeroY); ctx.stroke();
+  ctx.font='500 10px '+CSS('--data');
+  show.forEach((n,i)=>{
+    const val=b[n], x=pad+i*bw+bw*0.22, bwid=bw*0.56;
+    const bh=(val/maxA)*(h/2-pad);
+    ctx.fillStyle = val===0 ? CSS('--fp') : CSS('--amber');
+    ctx.fillRect(x, val>=0?zeroY-bh:zeroY, bwid, Math.max(1,Math.abs(bh)));
+    ctx.fillStyle=CSS('--ink-soft'); ctx.textAlign='center';
+    ctx.fillText('n'+n, x+bwid/2, h-8);
+    if(val!==0) ctx.fillText((val>0?'+':'')+val, x+bwid/2, val>=0?zeroY-bh-4:zeroY-bh+11);
+  });
+  ctx.textAlign='left'; ctx.fillStyle=CSS('--ink-soft');
+  ctx.fillText('per-node Kirchhoff net (interior) — rounding residual, not a leak', pad, 14);
+}
+$('b52').addEventListener('click', ()=>{ SEL=52; run(); });
+$('b54').addEventListener('click', ()=>{ SEL=54; run(); });
+let rt=null; window.addEventListener('resize', ()=>{ clearTimeout(rt); rt=setTimeout(()=>draw(totals(SEL)),150); });
+run();
+
+/* ---- network panel: the certified equilibrium, drawn like the paper's Figures 1-4 ---- */
+const NPOS={1:[0.05,0.33],2:[0.22,0.33],3:[0.40,0.60],4:[0.40,0.20],5:[0.58,0.52],6:[0.58,0.20],7:[0.78,0.40],8:[0.95,0.26],9:[0.05,0.80],10:[0.95,0.58]};
+const FLOWS={
+  S1:{car:[100,38,0,62,4,11,10,16,3,22,41,18,19,50,50],truck:[0,0,100,0,20,25,3,6,6,55,11,22,12,50,50],gap:'< 1e-15'},
+  S2:{car:[100,43,0,57,0,12,11,14,3,32,31,20,17,50,50],truck:[0,0,50,0,13,13,0,3,3,23,10,10,7,25,25],gap:'< 1e-15'},
+  S3:{car:[100,48,0,52,3,13,10,14,3,33,30,20,17,50,50],truck:[0,0,50,0,14,14,0,4,3,22,10,11,7,25,25],gap:'< 1e-15'}
+};
+let nScen='S3', nView='both';
+const nFlow=()=>{const f=FLOWS[nScen];return nView==='car'?f.car:nView==='truck'?f.truck:f.car.map((v,k)=>v+f.truck[k]);};
+const nCol=()=>nView==='truck'?CSS('--hjb'):nView==='total'?CSS('--ink'):CSS('--fp');
+const nSrc=()=>nView==='car'?[1]:nView==='truck'?[9]:[1,9];
+function nBal(f){const b={};for(const n in NPOS)b[n]=0;for(let k=0;k<E.length;k++){b[E[k][0]]+=f[k];b[E[k][1]]-=f[k];}return b;}
+function drawNet(){
+  const g=sizeCanvas($('cvNet'),Math.max(230,Math.round($('cvNet').clientWidth/1.72)));
+  if(!g)return; const {ctx,w,h}=g; ctx.clearRect(0,0,w,h); ctx.fillStyle=CSS('--card'); ctx.fillRect(0,0,w,h);
+  const pad=30, X=x=>pad+x*(w-2*pad), Y=y=>pad+y*(h-2*pad), P=n=>[X(NPOS[n][0]),Y(NPOS[n][1])];
+  const R=8, F=FLOWS[nScen], both=nView==='both';
+  // 'both' draws cars and trucks as offset PARALLEL curves so their paths and
+  // numbers never overlap; single views draw one flow down the edge centreline.
+  const pops = both
+    ? [{f:F.car, col:CSS('--fp'), sgn:+1}, {f:F.truck, col:CSS('--hjb'), sgn:-1}]
+    : [{f:nFlow(), col:nCol(), sgn:0}];
+  for(const pop of pops){
+    const f=pop.f, col=pop.col, sep=(both?4.2:0)*pop.sgn, lsep=(both?9.5:0)*pop.sgn;
+    for(let k=0;k<E.length;k++){
+      const val=f[k]; if(val<=0)continue; const [u,v]=E[k];
+      let [x1,y1]=P(u),[x2,y2]=P(v); const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;
+      const px=-uy, py=ux;                       // left normal — the population offset direction
+      x1+=ux*R+px*sep; y1+=uy*R+py*sep; x2-=ux*R-px*sep; y2-=uy*R-py*sep;
+      const curve=(k===9?-1:k===10?1:0)*Math.min(58,L*0.30);
+      const cx=(x1+x2)/2-uy*curve, cy=(y1+y2)/2+ux*curve;
+      ctx.strokeStyle=col; ctx.globalAlpha=both?0.9:0.82; ctx.lineWidth=1.1+Math.min(4.5,val/24);
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.quadraticCurveTo(cx,cy,x2,y2); ctx.stroke(); ctx.globalAlpha=1;
+      const adx=x2-cx,ady=y2-cy,aL=Math.hypot(adx,ady)||1,ax=adx/aL,ay=ady/aL,ah=7;
+      ctx.fillStyle=col; ctx.beginPath(); ctx.moveTo(x2,y2);
+      ctx.lineTo(x2-ax*ah-ay*ah*0.6,y2-ay*ah+ax*ah*0.6); ctx.lineTo(x2-ax*ah+ay*ah*0.6,y2-ay*ah-ax*ah*0.6); ctx.closePath(); ctx.fill();
+      // long 3->7 / 4->7 curves drop their label past the node-5 hub, into the open fan near node 7
+      const lt=(k===9||k===10)?0.66:0.5, lb0=(1-lt)*(1-lt), lb1=2*(1-lt)*lt, lb2=lt*lt;
+      const lx=lb0*x1+lb1*cx+lb2*x2 + px*lsep, ly=lb0*y1+lb1*cy+lb2*y2 + py*lsep;
+      ctx.fillStyle=CSS('--card'); ctx.fillRect(lx-9,ly-7,18,13);
+      ctx.fillStyle=col; ctx.font='600 11px '+CSS('--data'); ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(String(Math.round(val)),lx,ly);
+    }
+  }
+  for(const n in NPOS){const [x,y]=P(n); const src=nSrc().includes(+n), exit=EXITS.includes(+n);
+    ctx.fillStyle=src?CSS('--fp-deep'):exit?CSS('--ink-soft'):CSS('--hjb'); ctx.beginPath(); ctx.arc(x,y,src||exit?5.5:4.5,0,7); ctx.fill();
+    ctx.fillStyle=CSS('--ink'); ctx.font='700 12px '+CSS('--ui'); ctx.textAlign='left'; ctx.textBaseline='middle'; ctx.fillText(n,x+8,y-1);
+  }
+}
+function runNet(){
+  const f=nFlow(), b=nBal(f), srcs=nSrc();
+  let imb=0; for(const n in NPOS){const nn=+n; if(EXITS.includes(nn)||srcs.includes(nn))continue; imb=Math.max(imb,Math.abs(b[n]));}
+  const exit=(-b[8])+(-b[10]), used=f.filter(v=>v>0).length;
+  document.querySelectorAll('#scenBtns button').forEach(x=>x.classList.toggle('on',x.dataset.scen===nScen));
+  document.querySelectorAll('#viewBtns button').forEach(x=>x.classList.toggle('on',x.dataset.view===nView));
+  setV('nGap',FLOWS[nScen].gap+' ✓','ok');
+  setV('nKir',imb+' unit'+(imb===1?'':'s'),imb<=2?'ok':'bad');
+  setV('nUsed',used+' / 15','ok'); setV('nExit',exit+'','ok');
+  const nm={S1:'S1 validation (c=j¹+j²)',S2:'S2 cars + trucks (affine)',S3:'S3 emissions'};
+  const vlab={car:'cars',truck:'trucks',total:'total',both:'cars + trucks, side by side'}[nView];
+  $('stNet').textContent=nm[nScen]+' · '+vlab+' flow · certified equilibrium (Wardrop gap '+FLOWS[nScen].gap+'). '
+    +'Conservation recomputed live from the drawn flows: interior nodes net '+imb+' unit'+(imb===1?'':'s')+' (integer rounding); '+exit+' into exits 8, 10.';
+  drawNet();
+}
+document.querySelectorAll('#scenBtns button').forEach(x=>x.addEventListener('click',()=>{nScen=x.dataset.scen;runNet();}));
+document.querySelectorAll('#viewBtns button').forEach(x=>x.addEventListener('click',()=>{nView=x.dataset.view;runNet();}));
+window.addEventListener('resize',()=>{ clearTimeout(window._rtn); window._rtn=setTimeout(runNet,150); });
+runNet();
+
+/* ---- scale panel: certified candidate as DATA (regenerated from kernel/scale-net.js certify()) ---- */
+(function(){
+  const SCALE_DATA = {
+    edges:[[1,3],[1,4],[2,5],[2,6],[3,7],[3,8],[4,7],[4,8],[4,9],[5,8],[5,9],[5,10],[6,9],[6,10],[7,11],[7,12],[8,11],[8,12],[8,13],[9,12],[9,13],[9,14],[10,13],[10,14],[11,15],[11,16],[12,15],[12,16],[12,17],[13,16],[13,17],[13,18],[14,17],[14,18],[15,19],[16,19],[17,20],[18,20],[16,20],[17,19]],
+    pos:{1:[0.03,0.78],2:[0.03,0.22],3:[0.21,0.86],4:[0.21,0.62],5:[0.21,0.38],6:[0.21,0.14],7:[0.4,0.86],8:[0.4,0.62],9:[0.4,0.38],10:[0.4,0.14],11:[0.59,0.86],12:[0.59,0.62],13:[0.59,0.38],14:[0.59,0.14],15:[0.78,0.86],16:[0.78,0.62],17:[0.78,0.38],18:[0.78,0.14],19:[0.97,0.78],20:[0.97,0.22]},
+    exits:[19,20],
+    car:[27,33,0,0,13,14,8,11,14,0,0,0,0,0,10,12,4,8,13,0,5,9,0,0,0,13,0,9,11,3,6,8,2,7,0,12,10,15,13,10],
+    truck:[0,0,22,18,0,0,0,0,0,8,6,7,9,9,0,0,6,2,0,10,5,1,8,8,6,0,8,3,1,7,6,0,9,0,14,5,7,0,6,8],
+    kir:'0', gap:'0',
+    /* exact BigInt rational kept for title; readout uses compact float so columns cannot collide */
+    slackExact:'992891025695182033/874617035610237533',
+    slackDisp:'1.135 (>0)',
+    exitCar:[22.35,37.65], exitTruck:[26.84,13.16]
+  };
+  function drawScale(){
+    const g=sizeCanvas($('cvScale'),Math.max(170,Math.round($('cvScale').clientWidth/2.4)));
+    if(!g)return; const {ctx,w,h}=g; ctx.clearRect(0,0,w,h); ctx.fillStyle=CSS('--card'); ctx.fillRect(0,0,w,h);
+    const pad=22, X=x=>pad+x*(w-2*pad), Y=y=>pad+y*(h-2*pad), P=n=>[X(SCALE_DATA.pos[n][0]),Y(SCALE_DATA.pos[n][1])];
+    const R=5.5, E=SCALE_DATA.edges;
+    const pops=[{f:SCALE_DATA.car,col:CSS('--fp'),sgn:+1},{f:SCALE_DATA.truck,col:CSS('--hjb'),sgn:-1}];
+    for(const pop of pops){
+      const f=pop.f, col=pop.col, sep=3.2*pop.sgn, lsep=7.5*pop.sgn;
+      for(let k=0;k<E.length;k++){
+        const val=f[k]; if(val<=0)continue; const [u,v]=E[k];
+        let [x1,y1]=P(u),[x2,y2]=P(v); const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;
+        const px=-uy, py=ux;
+        x1+=ux*R+px*sep; y1+=uy*R+py*sep; x2-=ux*R-px*sep; y2-=uy*R-py*sep;
+        const cx=(x1+x2)/2, cy=(y1+y2)/2;
+        ctx.strokeStyle=col; ctx.globalAlpha=0.88; ctx.lineWidth=0.9+Math.min(3.2,val/18);
+        ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke(); ctx.globalAlpha=1;
+        const ax=ux, ay=uy, ah=5.5;
+        ctx.fillStyle=col; ctx.beginPath(); ctx.moveTo(x2,y2);
+        ctx.lineTo(x2-ax*ah-ay*ah*0.55,y2-ay*ah+ax*ah*0.55); ctx.lineTo(x2-ax*ah+ay*ah*0.55,y2-ay*ah-ax*ah*0.55); ctx.closePath(); ctx.fill();
+        const lx=cx+px*lsep, ly=cy+py*lsep;
+        ctx.fillStyle=CSS('--card'); ctx.fillRect(lx-8,ly-6,16,11);
+        ctx.fillStyle=col; ctx.font='600 9px '+CSS('--data'); ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText(String(val),lx,ly);
+      }
+    }
+    for(const n in SCALE_DATA.pos){
+      const [x,y]=P(+n); const nn=+n, src=nn===1||nn===2, exit=SCALE_DATA.exits.includes(nn);
+      ctx.fillStyle=src?(nn===1?CSS('--fp-deep'):CSS('--hjb')):exit?CSS('--ink-soft'):CSS('--ink');
+      ctx.beginPath(); ctx.arc(x,y,src||exit?4.5:3.5,0,7); ctx.fill();
+      ctx.fillStyle=CSS('--ink'); ctx.font='700 10px '+CSS('--ui'); ctx.textAlign='left'; ctx.textBaseline='middle';
+      ctx.fillText(n,x+6,y-1);
+    }
+  }
+  function runScale(){
+    setV('sKir',SCALE_DATA.kir+' ✓','ok');
+    setV('sGap',SCALE_DATA.gap+' ✓','ok');
+    setV('sSlk',SCALE_DATA.slackDisp,'ok');
+    $('sSlk').title='exact rational '+SCALE_DATA.slackExact;
+    setV('sExit','car '+SCALE_DATA.exitCar.join('/')+' · truck '+SCALE_DATA.exitTruck.join('/'),'ok');
+    $('stScale').textContent='certified: exact equilibrium on the synthetic 20-node instance — both populations routed to the common exit set {19,20}';
+    drawScale();
+  }
+  window.addEventListener('resize',()=>{ clearTimeout(window._rts); window._rts=setTimeout(runScale,150); });
+  runScale();
+})();
+</script>
+<script>
+window.__VERIFY_WARDROP_B64 = "IyEvdXNyL2Jpbi9lbnYgcHl0aG9uMwojIC0qLSBjb2Rpbmc6IHV0Zi04IC0qLQoiIiJ2ZXJpZnlfd2FyZHJvcC5weSDigJQgYSBTRUxGLUNPTlRBSU5FRCwgU1RBTkRBUkQtTElCUkFSWS1PTkxZLCBpbmRlcGVuZGVudCB2ZXJpZmllciBmb3IKdGhlIG11bHRpLXBvcHVsYXRpb24gV2FyZHJvcC1lcXVpbGlicml1bSByZXByb2R1Y3Rpb24gKEJha2FyeWFuLCBBb3VuLCBkZSBMaW1hIFJpYmVpcm8sIEhvdmFraW15YW4sCkdvbWVzLCAiRGlzdHJpYnV0ZWQgSGVzc2lhbi1SaWVtYW5uaWFuIGZsb3cgZm9yIG11bHRpLXBvcHVsYXRpb24gV2FyZHJvcCBlcXVpbGlicml1bSIsCkFJTVMgTWF0aGVtYXRpY3MgMTEoNSk6MTUxNDMtMTUxNjIsIDIwMjY7IGFyWGl2OjI1MDQuMTYwMjgpLgoKICAgIE5ldHdvcms6ICBGaWcgMWEgLyBUYWJsZSAxIGVkZ2Ugb3JkZXIgLS0gMTAgbm9kZXMsIDE1IGRpcmVjdGVkIGVkZ2VzIChhIERBRyksIGV4aXRzCiAgICAgICAgICAgICAgezgsMTB9LiBFbnRyYW5jZXM6IG5vZGUgMSAocG9wIDEsIGNhcnMpIGFuZCBub2RlIDkgKHBvcCAyLCB0cnVja3MpLgogICAgUzEgIGxpbmVhciBjb3N0IGNfayA9IGoxX2sgKyBqMl9rICAgICAgICAgICh2YWxpZGF0aW9uOyB0aGUgdG90YWwgaXMgYSBzdHJpY3RseSBjb252ZXggUVApCiAgICBTMiAgY15yX2sgPSAwLjUoajEgKyAyIGoyKSArIDAuNSBqXnIgICAgICAgIChjYXJzICsgdHJ1Y2tzLCBzdHJpY3RseSBtb25vdG9uZSAtPiB1bmlxdWUpCiAgICBTMyAgZW1pc3Npb24gLyBzcGVlZC1mbG93IGNvc3QgICAgICAgICAgICAgIChzbW9vdGggbm9ubGluZWFyLCAiaW4gdGhlIHN0eWxlIG9mIiB0aGUgcGFwZXIpCgpXSEFUIFRISVMgU0NSSVBUIElTLiAgQSBza2VwdGljYWwgcmVmZXJlZSBkb3dubG9hZHMgVEhJUyBPTkUgRklMRSBhbmQgcnVucwoKICAgIHB5dGhvbjMgdmVyaWZ5X3dhcmRyb3AucHkKCndpdGggbm90aGluZyBidXQgYSBQeXRob24gMy45KyBzdGFuZGFyZCBsaWJyYXJ5LiAgSXQgZG9lcyBub3QgbWVyZWx5IHJlLXJ1biB0aGUgc29sdmVyIGF0IGEKdGlnaHRlciB0b2xlcmFuY2UgLS0gYSBjb252ZXJnZWQgaXRlcmF0ZSBjYW4gb25seSBldmVyIHJlcG9ydCBhIFNNQUxMIHJlc2lkdWFsLiAgSW5zdGVhZCBpdApjbG9zZXMgdGhyZWUgY2VydGlmaWNhdGVzIHRoYXQgYSBmbG9hdGluZy1wb2ludCBpdGVyYXRlIGNhbm5vdDoKCiAgKiBTMSAgSE9ORVNUIFJFRlVTQUwuICBUaGUgZXF1aWxpYnJpdW0gVE9UQUwgaXMgY2VydGlmaWVkIFVOSVFVRSBhbmQgZXhhY3QgKGEgbWluLW5vcm0gUVAKICAgICAgICBzb2x2ZWQgb3ZlciBgZnJhY3Rpb25zLkZyYWN0aW9uYDsgS2lyY2hob2ZmIHJlc2lkdWFsIEVYQUNUTFkgMDsgZXZlcnkgdG90YWwgPiAwLCBzbwogICAgICAgIHRoZSBwb3NpdGl2aXR5IGNvbnN0cmFpbnRzIGFyZSBpbmFjdGl2ZSBhbmQgdGhlIHBvaW50IGlzIFRIRSBvcHRpbXVtKS4gIEl0cyAoNCw3KQogICAgICAgIHRvdGFsIGlzIDE5NDAvMzcgPSA1Mi40My4uLiwgd2hpY2ggcm91bmRzIHRvIDUyIC0tIFRhYmxlIDEgcHJpbnRzIDU0ICh0aGUgcGFwZXIncyBvbmUKICAgICAgICBzZWxmLWluY29uc2lzdGVudCByb3cpLiAgVGhlIHBlci1wb3B1bGF0aW9uIFNQTElULCBieSBjb250cmFzdCwgaXMgTk9OLXVuaXF1ZTogdGhlCiAgICAgICAgc3BsaXQtY29uc2VydmF0aW9uIG9wZXJhdG9yIGhhcyBhIG5vbnRyaXZpYWwgRVhBQ1QgbnVsbCBzcGFjZSAoZGltZW5zaW9uIHJlcG9ydGVkLAogICAgICAgIHdpdG5lc3MgdmVyaWZpZWQgb3ZlciBGcmFjdGlvbiksIHNvIHRoZSBzcGxpdCBkaXJlY3Rpb24gbGllcyBpbiBudWxsKEopIGFuZCB3ZSBSRUZVU0UKICAgICAgICB0byBjZXJ0aWZ5IGEgdW5pcXVlIHNwbGl0IC0tIGV4YWN0bHkgYXMgdGhlIEpTIGludGVydmFsIGJhdHRlcnkncyBLcmF3Y3p5ayByZWZ1c2VzLgogICogUzIgIEVYQUNULiAgVGhlIHN1cHBvcnQtS0tUIHN5c3RlbSBpcyBhZmZpbmUgd2l0aCBkeWFkaWMtcmF0aW9uYWwgZGF0YSwgc28gaXQgaXMgc29sdmVkCiAgICAgICAgRVhBQ1RMWSBvdmVyIEZyYWN0aW9uLiAgVGhlIFdhcmRyb3AgZ2FwIGlzIEVYQUNUTFkgMCwgS2lyY2hob2ZmIGlzIEVYQUNUTFkgc2F0aXNmaWVkLAogICAgICAgIHN1cHBvcnQgZmxvd3MgYXJlID4gMCBhbmQgb2ZmLXN1cHBvcnQgc2xhY2tzID49IDAgLS0gaW5jbHVkaW5nIHRoZSBkZWdlbmVyYXRlIHRpZQogICAgICAgIChwb3AgMiwgZWRnZSAoNCw1KSkgd2hvc2Ugc2xhY2sgaXMgRVhBQ1RMWSAwICh3ZWFrLCBub3Qgc3RyaWN0LCBjb21wbGVtZW50YXJpdHk7IGEgdGllCiAgICAgICAgaW50ZXJ2YWwgYXJpdGhtZXRpYyBjYW4gbmV2ZXIgZGVjaWRlIGFuZCBleGFjdCBhcml0aG1ldGljIGRvZXMpLiAgVGhlIGNhci90cnVjayB0b3RhbHMKICAgICAgICByZXByb2R1Y2UgdGhlIHB1Ymxpc2hlZCBGaWd1cmUgMiBleGFjdGx5LgogICogUzMgIEtSQVdDWllLIEVOQ0xPU1VSRS4gIEZvciB0aGUgc21vb3RoIG5vbmxpbmVhciBlbWlzc2lvbiBjb3N0LCBhIHN0ZGxpYiBvdXR3YXJkLXJvdW5kZWQKICAgICAgICBpbnRlcnZhbCBLcmF3Y3p5ayBvcGVyYXRvciBwcm92ZXMgYSBsb2NhbGx5IHVuaXF1ZSBLS1QgemVybyBpbnNpZGUgYW4gZXhwbGljaXQgYm94IG9mCiAgICAgICAgcmFkaXVzIH43LjNlLTEzLCB3aXRoIHN1cHBvcnQgZmxvd3MgPiAwIGFuZCBvZmYtc3VwcG9ydCBzbGFja3MgPiAwIChTVFJJQ1QKICAgICAgICBjb21wbGVtZW50YXJpdHkpIHZlcmlmaWVkIG92ZXIgdGhlIHdob2xlIGJveC4KClRoZSBudW1lcmljYWwgQ0FORElEQVRFUyB0aGUgdmVyaWZpZXIgQ09OU1VNRVMgKHRoZSBTMiBzdXBwb3J0LCB0aGUgUzMgc3VwcG9ydCBhbmQgZmxvYXQKS3Jhd2N6eWsgY2VudGVyIHgwKSBhcmUgZW1iZWRkZWQgYmVsb3cgYXMgQ0VSVElGSUNBVEUgREFUQSwgcHJvZHVjZWQgYnkgZHVtcF93YXJkcm9wLmpzIGZyb20KdGhlIHZhbGlkYXRlZCBKUyBrZXJuZWwuICBUaGlzIHZlcmlmaWVyIGRvZXMgTk9UIHRydXN0IHRoZW06IGl0IHJlLXNvbHZlcyBTMiBleGFjdGx5IGZyb20gdGhlCnN1cHBvcnQgYW5kIFJJR09ST1VTTFkgcmUtZGVyaXZlcyB0aGUgUzMgZW5jbG9zdXJlOyBhIHdyb25nIHN1cHBvcnQgeWllbGRzIGEgbmVnYXRpdmUgZmxvdyBvciBhCm5lZ2F0aXZlIHNsYWNrIChTMikgb3IgYSBmYWlsdXJlIHRvIGNvbnRyYWN0IChTMyksIGkuZS4gYSBSRUZVU0FMLCBuZXZlciBhIGZhbHNlIHBhc3MuICBUaGUKaW50ZXJ2YWwgdHlwZSBhbmQgdGhlIEtyYXdjenlrIG9wZXJhdG9yIGFyZSBmYWl0aGZ1bCwgbGluZS1ieS1saW5lIHBvcnRzIG9mIHRoZSBKUyBzb3VyY2Ugb2YKdHJ1dGggKGVxY2VydC9zcmMvaW50ZXJ2YWwuanMgYW5kIHRoZSBPNyBiYXR0ZXJ5IHRlc3Qtd2FyZHJvcC1pbnRlcnZhbC5qcyk7CmNvcnJlY3RuZXNzIGlzIGV2ZXJ5dGhpbmcsIHNvIHRoZSBwb3J0IGlzIGNyb3NzLWNoZWNrZWQgYml0LWZvci1iaXQgYWdhaW5zdCB0aGUgSlMgcmFkaXVzIGJ5CnRlc3QtY3Jvc3NsYW5nLXdhcmRyb3AucHksIGFuZCBTSVggZmFsc2lmaWVycyAoWDEuLlg2KSBtdXN0IGVhY2ggdHVybiB0aGVpciBvd24gdGFyZ2V0IFJFRC4KCkxJQ0VOQ0UKLS0tLS0tLQpTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogTUlUCkNvcHlyaWdodCAoYykgMjAyNiBDYXJsb3MgVG9sZWRvCgpQZXJtaXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNvbiBvYnRhaW5pbmcgYSBjb3B5IG9mIHRoaXMKc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQgZG9jdW1lbnRhdGlvbiBmaWxlcyAodGhlICJTb2Z0d2FyZSIpLCB0byBkZWFsIGluIHRoZSBTb2Z0d2FyZQp3aXRob3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCBsaW1pdGF0aW9uIHRoZSByaWdodHMgdG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLApwdWJsaXNoLCBkaXN0cmlidXRlLCBzdWJsaWNlbnNlLCBhbmQvb3Igc2VsbCBjb3BpZXMgb2YgdGhlIFNvZnR3YXJlLCBhbmQgdG8gcGVybWl0IHBlcnNvbnMKdG8gd2hvbSB0aGUgU29mdHdhcmUgaXMgZnVybmlzaGVkIHRvIGRvIHNvLCBzdWJqZWN0IHRvIHRoZSBmb2xsb3dpbmcgY29uZGl0aW9uczoKClRoZSBhYm92ZSBjb3B5cmlnaHQgbm90aWNlIGFuZCB0aGlzIHBlcm1pc3Npb24gbm90aWNlIHNoYWxsIGJlIGluY2x1ZGVkIGluIGFsbCBjb3BpZXMgb3IKc3Vic3RhbnRpYWwgcG9ydGlvbnMgb2YgdGhlIFNvZnR3YXJlLgoKVEhFIFNPRlRXQVJFIElTIFBST1ZJREVEICJBUyBJUyIsIFdJVEhPVVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIEVYUFJFU1MgT1IgSU1QTElFRCwKSU5DTFVESU5HIEJVVCBOT1QgTElNSVRFRCBUTyBUSEUgV0FSUkFOVElFUyBPRiBNRVJDSEFOVEFCSUxJVFksIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUgpQVVJQT1NFIEFORCBOT05JTkZSSU5HRU1FTlQuIElOIE5PIEVWRU5UIFNIQUxMIFRIRSBBVVRIT1JTIE9SIENPUFlSSUdIVCBIT0xERVJTIEJFIExJQUJMRQpGT1IgQU5ZIENMQUlNLCBEQU1BR0VTIE9SIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBBQ1RJT04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IKT1RIRVJXSVNFLCBBUklTSU5HIEZST00sIE9VVCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgT1IgT1RIRVIKREVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLgoKUG9ydGlvbnMgb2YgdGhpcyBmaWxlIChpbnRlcnZhbCBhcml0aG1ldGljIGFuZCB0aGUgS3Jhd2N6eWsgb3BlcmF0b3IpIGFyZSBwb3J0ZWQgZnJvbSBlcWNlcnQg4oCUIE1JVCwKQ29weXJpZ2h0IChjKSAyMDI2IENhcmxvcyBUb2xlZG8g4oCUIGh0dHBzOi8vZ2l0aHViLmNvbS9jYXJsb3N0b2xlZG8xODkxL21mZy1sYWIvdHJlZS9tYWluL2VxY2VydAoKVGhpcyBGSUxFIGlzIE1JVC4gVGhlIHBhcGVyIHBhZ2UgdGhhdCBjYXJyaWVzIGl0IGlzIGEgc2VwYXJhdGUgd29yayB1bmRlciBDQy1CWSA0LjA6Cmh0dHBzOi8vZ2l0aHViLmNvbS9jYXJsb3N0b2xlZG8xODkxL21mZy1sYWIvYmxvYi9tYWluL2VuY2xvc3VyZS9MSUNFTlNFLm1kClRoZSBTT0xWRVIgdGhhdCBwcm9kdWNlZCB0aGUgY2FuZGlkYXRlIHRoaXMgZmlsZSB2ZXJpZmllcyBpcyBub3QgcHVibGlzaGVkIGFuZCBpcyBub3QKbGljZW5zZWQgaGVyZS4gTG9naWMgaGFuZC13cml0dGVuLCBjZXJ0aWZpY2F0ZSBkYXRhIGVtYmVkZGVkIChkdW1wX3dhcmRyb3AuanMpLgoKTk9URSBGT1IgTUFJTlRBSU5FUlM6IHVubGlrZSB2ZXJpZnlfY29uZ2VzdC5weSwgdGhpcyBmaWxlIGhhcyBOTyBgX3ZlcmlmeV9sb2dpYy5weWAKdGVtcGxhdGUgYW5kIG5vIGBfZ2VuX3ZlcmlmaWVyLnB5YCDigJQgaXQgSVMgdGhlIHNvdXJjZS4gRWRpdCBpdCBoZXJlLCB0aGVuIHJlLWVtYmVkIHRoZQpiYXNlNjQgaW4gLi4vcGFwZXIuaHRtbC4gRG8gbm90IGdvIGxvb2tpbmcgZm9yIGEgZ2VuZXJhdG9yOyB0aGVyZSBpc24ndCBvbmUuCiIiIgppbXBvcnQgc3lzCmltcG9ydCBtYXRoCmZyb20gZnJhY3Rpb25zIGltcG9ydCBGcmFjdGlvbiBhcyBRCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgMC4gIFRIRSBORVRXT1JLICh0cmFuc2NyaWJlZCBhdCBzb3VyY2UgZnJvbSBkb2NzL1BBUEVSX0ZBQ1RTLm1kIHNlYyAyIC0tIEZpZyAxYSAvIFRhYmxlIDEpCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KRURHRVMgPSBbKDEsIDIpLCAoMiwgMyksICg5LCAzKSwgKDIsIDQpLCAoMywgNCksICgzLCA1KSwgKDQsIDUpLCAoNCwgNiksCiAgICAgICAgICg1LCA2KSwgKDMsIDcpLCAoNCwgNyksICg1LCA3KSwgKDYsIDcpLCAoNywgOCksICg3LCAxMCldCkVYSVRTID0gKDgsIDEwKQpORSA9IGxlbihFREdFUykKIyBlbnRyYW5jZXM6IChub2RlLCBpbmZsb3cpIHBlciBwb3B1bGF0aW9uLCBwZXIgc2NlbmFyaW8uICBTMSBpcyAxMDAvMTAwOyBTMixTMyBhcmUgMTAwLzUwLgpFTlRSX1MxID0gKCgxLCAxMDApLCAoOSwgMTAwKSkKRU5UUl9IRVQgPSAoKDEsIDEwMCksICg5LCA1MCkpCiMgVGFibGUgMSBwdWJsaXNoZWQgVE9UQUwgZmxvd3MgKHJvdW5kZWQgaW50ZWdlcnMpLCBhbmQgRmlndXJlIDIgcHVibGlzaGVkIFMyIGZsb3dzLgpUQUJMRTEgPSBbMTAwLCAzOCwgMTAwLCA2MiwgMjQsIDM3LCAxMiwgMjIsIDEwLCA3NiwgNTQsIDQwLCAzMSwgMTAwLCAxMDBdCkZJRzJfQ0FSID0gWzEwMCwgNDMsIDAsIDU3LCAwLCAxMiwgMTEsIDE0LCAzLCAzMiwgMzEsIDIwLCAxNywgNTAsIDUwXQpGSUcyX1RSVUNLID0gWzAsIDAsIDUwLCAwLCAxMywgMTMsIDAsIDMsIDMsIDIzLCAxMCwgMTAsIDcsIDI1LCAyNV0KIyBTMyBlbWlzc2lvbiB0YWJsZSAoVGFibGUgNDsgYSxiLHcgcGVyIHNwZWNpZXMgLS0gS0VFUCB0aGUgbmVnYXRpdmUgYiBmb3IgSEMvTk94KS4KRU0gPSBbWzEuNTZlMywgMy41NGUxLCAxLjAzMjFdLCBbMS4wOGUxLCAtNy4xMWUtMywgMTIuOTFdLCBbMi4wLCAtNC40OWUtMiwgMTQuNTRdLAogICAgICBbOC4wOGUxLCAxLjE2LCAwLjM3XSwgWzQuNzhlMywgMS4xMWUyLCAwLjAyXV0KIyBTMyBJTExVU1RSQVRJVkUgZWRnZSBsZW5ndGhzICh0aGUgc2hpcHBlZC1rZXJuZWwgUzMgbGVuZ3RoczsgRmlnIDNhJ3MgYXJlIGRpc2Nsb3NlZCBhcwojIHVuZGV0ZXJtaW5lZCBpbiBQQVBFUl9GQUNUUyBzZWMgNSAtLSBTMyBoZXJlIHJlcHJvZHVjZXMgdGhlIEpTL083IGNlcnRpZmljYXRlLCBub3QgYQojIHB1Ymxpc2hlZC1jb29yZGluYXRlIFMzKS4gIEVtYmVkZGVkIGZyb20gdGhlIGtlcm5lbC4KU0xFTiA9IFsxLjY5OTk5OTk5OTk5OTk5OTcsIDMuMjQ0OTk2MTQ3OTE3NTkwNiwgMy44NDgzNzYyODA5Nzg3NzIsIDIuMjIwMzYwMzMxMTE3NDUyLCA0LjAsCiAgICAgICAgMS45MzEzMjA3OTE1ODI3OTU3LCAzLjc1ODk4OTIyNTg0MjUwMSwgMS43OTk5OTk5OTk5OTk5OTk0LCAzLjMwMDAwMDAwMDAwMDAwMDcsCiAgICAgICAgNC4xMTgyNTIwNTYzOTQ4LCA0LjExODI1MjA1NjM5NDgsIDIuMjIwMzYwMzMxMTE3NDUyNSwgMi42OTA3MjQ4MDk0MTQ3NDIsCiAgICAgICAgMi4yODAzNTA4NTAxOTgyNzUsIDIuNDA4MzE4OTE1NzU4NDU5XQoKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIDEuICBDRVJUSUZJQ0FURSBEQVRBIHRoZSB2ZXJpZmllciBDT05TVU1FUyAoZW1iZWRkZWQ7IHByb2R1Y2VkIGJ5IGR1bXBfd2FyZHJvcC5qcykuCiMgICAgIFMyL1MzIHN1cHBvcnRzID0gd2hpY2ggZWRnZXMgY2FycnkgZmxvdyBwZXIgcG9wdWxhdGlvbiAoZ2xvYmFsIGVkZ2UgaW5kaWNlcykuCiMgICAgIFMzX1gwID0gYSBmbG9hdCBLcmF3Y3p5ayBjZW50ZXIgKGNvbnN1bWVkLCBuZXZlciB0cnVzdGVkKS4KIyAgICAgVGhlICpfUkVGIHZhbHVlcyBhcmUgdGhlIEpTIG51bWJlcnMgdGhlIGNyb3NzLWxhbmd1YWdlIGdhdGUgY29tcGFyZXMgYWdhaW5zdC4KIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpTMl9TVVBQT1JUID0gW1swLCAxLCAzLCA0LCA1LCA2LCA3LCA4LCA5LCAxMCwgMTEsIDEyLCAxMywgMTRdLCBbMiwgNCwgNSwgNywgOCwgOSwgMTAsIDExLCAxMiwgMTMsIDE0XV0KUzNfU1VQUE9SVCA9IFtbMCwgMSwgMywgNCwgNSwgNiwgNywgOCwgOSwgMTAsIDExLCAxMiwgMTMsIDE0XSwgWzIsIDQsIDUsIDcsIDgsIDksIDEwLCAxMSwgMTIsIDEzLCAxNF1dCgojIFMzIGZsb2F0IEtyYXdjenlrIGNlbnRlcjogdGhldGEgb24gc3VwcG9ydCBlZGdlcywgcGhpIG9uIGluY2lkZW50IG5vZGVzLCBrZXllZCAicG9wOmluZGV4Ii4KUzNfWDBfVEhFVEEgPSB7CiAgICAnMDowJzogMTAwLjAsICcwOjEnOiA0OC40MzU3MDgyNjUyMzIwNCwgJzA6Myc6IDUxLjU2NDI5MTczNDc2Nzk2LCAnMDo0JzogMi42MjA1MTI3NDQ4MTgxNDc4LAogICAgJzA6NSc6IDEzLjIxODkwMjA0NzY3OTYyNiwgJzA6Nic6IDEwLjE4MDgzNzYzODMxMTQ2NiwgJzA6Nyc6IDEzLjcyMTE5ODYzODk5Nzg4MiwKICAgICcwOjgnOiAzLjE0NTE5MDM3Nzc1MTc4MjcsICcwOjknOiAzMi41OTYyOTM0NzI3MzQyMiwgJzA6MTAnOiAzMC4yODI3NjgyMDIyNzY4LAogICAgJzA6MTEnOiAyMC4yNTQ1NDkzMDgyMzkzMSwgJzA6MTInOiAxNi44NjYzODkwMTY3NDk2NjUsICcwOjEzJzogNTAuMDM3MDc3MjU4NTkxNDQsCiAgICAnMDoxNCc6IDQ5Ljk2MjkyMjc0MTQwODU0LCAnMToyJzogNTAuMCwgJzE6NCc6IDEzLjUxNjkwMDcwNTEwNTA1OCwgJzE6NSc6IDE0LjEwOTQ1MjE1NTU0NDQxLAogICAgJzE6Nyc6IDMuNzM5MTkxODQ3Nzc3OTM0LCAnMTo4JzogMy4yMTM3ODM1MjIxODQzNTk2LCAnMTo5JzogMjIuMzczNjQ3MTM5MzUwNTEsCiAgICAnMToxMCc6IDkuNzc3NzA4ODU3MzI3MTIyLCAnMToxMSc6IDEwLjg5NTY2ODYzMzM2MDA1MywgJzE6MTInOiA2Ljk1Mjk3NTM2OTk2MjI5NSwKICAgICcxOjEzJzogMjUuMTExMjMxNzc1Nzc0MjkzLCAnMToxNCc6IDI0Ljg4ODc2ODIyNDIyNTYsCn0KUzNfWDBfUEhJID0gewogICAgJzA6MSc6IDExOC44MDIyMzA3MjI3NTMyMiwgJzA6Mic6IDY3LjQ0MjQxMjE5NDQzODIyLCAnMDozJzogNDIuODE5NTYyMTQ4NjAyNTE1LAogICAgJzA6NCc6IDQxLjM0MzQ1NzkwOTcwMzIwNCwgJzA6NSc6IDM2LjEwNjE5NDM0NDg5NDUzLCAnMDo2JzogMzQuNDA2NjkwNzQ1Mjc3NzMsCiAgICAnMDo3JzogMjUuODQyODUwNTA3Mzk5MDU2LCAnMTozJzogMjguMjUxMDY5ODA2MzgxNTY1LCAnMTo0JzogMjAuOTk1MDc1ODU0MzU4Mzk0LAogICAgJzE6NSc6IDIwLjg4NDU5MzM4OTAwNDcyLCAnMTo2JzogMTguODk2OTc2Mzk1Njg5ODIsICcxOjcnOiAxNS4wMjg1NTE1MjIxOTcxNjIsCiAgICAnMTo5JzogNTQuNzkxOTQzMzM2MTk5MjcsCn0KCiMgUzIgZXhhY3QgcmVmZXJlbmNlIChmcm9tIHRoZSBKUyBCaWdJbnQgc29sdmUpIC0tIFB5dGhvbiByZS1zb2x2ZXMgaW5kZXBlbmRlbnRseSBvdmVyIEZyYWN0aW9uCiMgYW5kIENST1NTLUNIRUNLUyB0aGlzOyBpdCBpcyBub3QgcmVxdWlyZWQgZm9yIHRoZSBTMiBjZXJ0aWZpY2F0ZSB0byBjbG9zZS4KUzJfVEhFVEFfUkVGID0gewogICAgJzA6MCc6ICgxMDAsIDEpLCAnMDoxJzogKDE2MDAsIDM3KSwgJzA6Myc6ICgyMTAwLCAzNyksICcwOjQnOiAoMjAsIDExMSksICcwOjUnOiAoMTI4MCwgMTExKSwKICAgICcwOjYnOiAoNDIwLCAzNyksICcwOjcnOiAoMTU4MCwgMTExKSwgJzA6OCc6ICgzMjAsIDExMSksICcwOjknOiAoMzUwMCwgMTExKSwgJzA6MTAnOiAoMTE2MCwgMzcpLAogICAgJzA6MTEnOiAoMjAsIDEpLCAnMDoxMic6ICgxOTAwLCAxMTEpLCAnMDoxMyc6ICg1MCwgMSksICcwOjE0JzogKDUwLCAxKSwgJzE6Mic6ICg1MCwgMSksCiAgICAnMTo0JzogKDQwLCAzKSwgJzE6NSc6ICg0MCwgMyksICcxOjcnOiAoMTAsIDMpLCAnMTo4JzogKDEwLCAzKSwgJzE6OSc6ICg3MCwgMyksICcxOjEwJzogKDEwLCAxKSwKICAgICcxOjExJzogKDEwLCAxKSwgJzE6MTInOiAoMjAsIDMpLCAnMToxMyc6ICgyNSwgMSksICcxOjE0JzogKDI1LCAxKSwKfQpTMl9QSElfUkVGID0gewogICAgJzA6MSc6ICgxMDEwNSwgMzcpLCAnMDoyJzogKDY0MDUsIDM3KSwgJzA6Myc6ICg0ODA1LCAzNyksICcwOjQnOiAoNDMwNSwgMzcpLCAnMDo1JzogKDEwNSwgMSksCiAgICAnMDo2JzogKDM2NTUsIDM3KSwgJzA6Nyc6ICg3NSwgMSksICcxOjMnOiAoMjUxNDUsIDIyMiksICcxOjQnOiAoNjg5NSwgNzQpLCAnMTo1JzogKDE3NSwgMiksCiAgICAnMTo2JzogKDE3OTk1LCAyMjIpLCAnMTo3JzogKDEyNSwgMiksICcxOjknOiAoNDE3OTUsIDIyMiksCn0KClMyX0tSQVdDWllLX1JFRl9SQUQgPSAyLjY0MzIxODk3NzAyNzU3MjdlLTEyClMzX0tSQVdDWllLX1JFRl9SQUQgPSA3LjMxODU5MDE3ODMyOTAzMmUtMTMKUzNfTUlOVEhfUkVGID0gMi42MjA1MTI3NDQ4MTgwODk2ClMzX01JTlNMQUNLX1JFRiA9IDAuMzMwMDUxNzcxNjA0Nzk2ClMxX1NQTElUX01PVkVfUkVGID0gNS44NDgyNzM3ODAyNzI5NDgKCkU0NyA9IEVER0VTLmluZGV4KCg0LCA3KSkgICMgPSAxMApOT0RFU19OT05FWElUID0gc29ydGVkKHNldChuIGZvciBlIGluIEVER0VTIGZvciBuIGluIGUpIC0gc2V0KEVYSVRTKSkgICMgMS4uNywgOQpUT1BPID0gWzEsIDksIDIsIDMsIDQsIDUsIDYsIDcsIDgsIDEwXQoKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIDIuICBleGFjdC1yYXRpb25hbCBsaW5lYXIgYWxnZWJyYSBvdmVyIGZyYWN0aW9ucy5GcmFjdGlvbiAgKERFQ0lERVM7IHJlc29sdmVzIHRpZXMpCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KZGVmIGdhdXNzX3NvbHZlKEEsIGIsIG4pOgogICAgIiIiRXhhY3QgR2F1c3NpYW4gZWxpbWluYXRpb24gb3ZlciBGcmFjdGlvbjsgcmV0dXJucyB4IHdpdGggQSB4ID0gYiAoQSBuLWJ5LW4pLiIiIgogICAgTSA9IFtBW2ldWzpdICsgW2JbaV1dIGZvciBpIGluIHJhbmdlKG4pXQogICAgZm9yIGMgaW4gcmFuZ2Uobik6CiAgICAgICAgcGl2ID0gbmV4dCgociBmb3IgciBpbiByYW5nZShjLCBuKSBpZiBNW3JdW2NdICE9IDApLCBOb25lKQogICAgICAgIGlmIHBpdiBpcyBOb25lOgogICAgICAgICAgICByZXR1cm4gTm9uZQogICAgICAgIE1bY10sIE1bcGl2XSA9IE1bcGl2XSwgTVtjXQogICAgICAgIHB2ID0gTVtjXVtjXQogICAgICAgIE1bY10gPSBbeCAvIHB2IGZvciB4IGluIE1bY11dCiAgICAgICAgZm9yIHIgaW4gcmFuZ2Uobik6CiAgICAgICAgICAgIGlmIHIgIT0gYyBhbmQgTVtyXVtjXSAhPSAwOgogICAgICAgICAgICAgICAgZiA9IE1bcl1bY10KICAgICAgICAgICAgICAgIE1bcl0gPSBbYSAtIGYgKiBiYiBmb3IgYSwgYmIgaW4gemlwKE1bcl0sIE1bY10pXQogICAgcmV0dXJuIFtNW2ldW25dIGZvciBpIGluIHJhbmdlKG4pXQoKCmRlZiBycmVmX251bGxzcGFjZShyb3dzLCBuY29scyk6CiAgICAiIiJFeGFjdCBSUkVGIG51bGwgc3BhY2U7IHJldHVybnMgYmFzaXMgKGxpc3Qgb2YgRnJhY3Rpb24gdmVjdG9ycywgbGVuZ3RoIG5jb2xzKS4iIiIKICAgIE0gPSBbcm93WzpdIGZvciByb3cgaW4gcm93c10KICAgIG5yID0gbGVuKE0pCiAgICBwaXZvdHMgPSBbXQogICAgciA9IDAKICAgIGZvciBjIGluIHJhbmdlKG5jb2xzKToKICAgICAgICBwaXYgPSBuZXh0KChyciBmb3IgcnIgaW4gcmFuZ2UociwgbnIpIGlmIE1bcnJdW2NdICE9IDApLCBOb25lKQogICAgICAgIGlmIHBpdiBpcyBOb25lOgogICAgICAgICAgICBjb250aW51ZQogICAgICAgIE1bcl0sIE1bcGl2XSA9IE1bcGl2XSwgTVtyXQogICAgICAgIHB2ID0gTVtyXVtjXQogICAgICAgIE1bcl0gPSBbeCAvIHB2IGZvciB4IGluIE1bcl1dCiAgICAgICAgZm9yIHJyIGluIHJhbmdlKG5yKToKICAgICAgICAgICAgaWYgcnIgIT0gciBhbmQgTVtycl1bY10gIT0gMDoKICAgICAgICAgICAgICAgIGYgPSBNW3JyXVtjXQogICAgICAgICAgICAgICAgTVtycl0gPSBbYSAtIGYgKiBiIGZvciBhLCBiIGluIHppcChNW3JyXSwgTVtyXSldCiAgICAgICAgcGl2b3RzLmFwcGVuZChjKQogICAgICAgIHIgKz0gMQogICAgICAgIGlmIHIgPT0gbnI6CiAgICAgICAgICAgIGJyZWFrCiAgICBmcmVlID0gW2MgZm9yIGMgaW4gcmFuZ2UobmNvbHMpIGlmIGMgbm90IGluIHBpdm90c10KICAgIGJhc2lzID0gW10KICAgIGZvciBmYyBpbiBmcmVlOgogICAgICAgIHYgPSBbUSgwKV0gKiBuY29scwogICAgICAgIHZbZmNdID0gUSgxKQogICAgICAgIGZvciBwciwgcGMgaW4gZW51bWVyYXRlKHBpdm90cyk6CiAgICAgICAgICAgIHZbcGNdID0gLU1bcHJdW2ZjXQogICAgICAgIGJhc2lzLmFwcGVuZCh2KQogICAgcmV0dXJuIGJhc2lzCgoKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIDMuICBvdXR3YXJkLXJvdW5kZWQgaW50ZXJ2YWwgYXJpdGhtZXRpYyAgKHBvcnQgb2YgZXFjZXJ0L3NyYy9pbnRlcnZhbC5qcykKIyAgICAgRWFjaCBJRUVFLTc1NCArLC0sKiwvIGlzIGNvcnJlY3RseSByb3VuZGVkLCBzbyB3aWRlbmluZyB0aGUgY29tcHV0ZWQgYm91bmRzIG91dHdhcmQgYnkKIyAgICAgb25lIHVscCAobmV4dERvd24gbG93LCBuZXh0VXAgaGlnaCkgcmlnb3JvdXNseSBlbmNsb3NlcyB0aGUgZXhhY3QgcmVhbCByZXN1bHQuCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KSU5GID0gbWF0aC5pbmYKTUlOX1ZBTFVFID0gNWUtMzI0CgoKZGVmIG5leHRVcCh4KToKICAgIGlmIG1hdGguaXNuYW4oeCkgb3IgeCA9PSBJTkY6CiAgICAgICAgcmV0dXJuIHgKICAgIGlmIHggPT0gMC4wOgogICAgICAgIHJldHVybiBNSU5fVkFMVUUKICAgIHJldHVybiBtYXRoLm5leHRhZnRlcih4LCBJTkYpCgoKZGVmIG5leHREb3duKHgpOgogICAgcmV0dXJuIC1uZXh0VXAoLXgpCgoKZGVmIGl2KGxvLCBoaT1Ob25lKToKICAgIHJldHVybiAobG8sIGxvIGlmIGhpIGlzIE5vbmUgZWxzZSBoaSkKCgpJWkVSTyA9ICgwLjAsIDAuMCkKSU9ORSA9ICgxLjAsIDEuMCkKCgpkZWYgaWFkZChhLCBiKToKICAgIHJldHVybiAobmV4dERvd24oYVswXSArIGJbMF0pLCBuZXh0VXAoYVsxXSArIGJbMV0pKQoKCmRlZiBpc3ViKGEsIGIpOgogICAgcmV0dXJuIChuZXh0RG93bihhWzBdIC0gYlsxXSksIG5leHRVcChhWzFdIC0gYlswXSkpCgoKZGVmIGltdWwoYSwgYik6CiAgICBwID0gKGFbMF0gKiBiWzBdLCBhWzBdICogYlsxXSwgYVsxXSAqIGJbMF0sIGFbMV0gKiBiWzFdKQogICAgcmV0dXJuIChuZXh0RG93bihtaW4ocCkpLCBuZXh0VXAobWF4KHApKSkKCgpkZWYgaWRpdihhLCBiKToKICAgIGlmIGJbMF0gPD0gMCA8PSBiWzFdOgogICAgICAgIHJhaXNlIFplcm9EaXZpc2lvbkVycm9yKCdpbnRlcnZhbCBkaXZpc2lvbiBieSBhbiBpbnRlcnZhbCBjb250YWluaW5nIDAnKQogICAgcSA9IChhWzBdIC8gYlswXSwgYVswXSAvIGJbMV0sIGFbMV0gLyBiWzBdLCBhWzFdIC8gYlsxXSkKICAgIHJldHVybiAobmV4dERvd24obWluKHEpKSwgbmV4dFVwKG1heChxKSkpCgoKZGVmIGluZWcoYSk6CiAgICByZXR1cm4gKC1hWzFdLCAtYVswXSkKCgpkZWYgaXNxcihhKToKICAgIGlmIGFbMF0gPj0gMDoKICAgICAgICByZXR1cm4gKG5leHREb3duKGFbMF0gKiBhWzBdKSwgbmV4dFVwKGFbMV0gKiBhWzFdKSkKICAgIGlmIGFbMV0gPD0gMDoKICAgICAgICByZXR1cm4gKG5leHREb3duKGFbMV0gKiBhWzFdKSwgbmV4dFVwKGFbMF0gKiBhWzBdKSkKICAgIHJldHVybiAoMC4wLCBuZXh0VXAobWF4KGFbMF0gKiBhWzBdLCBhWzFdICogYVsxXSkpKQoKCmRlZiBpY3ViZShhKToKICAgIHJldHVybiAobmV4dERvd24oYVswXSAqIGFbMF0gKiBhWzBdKSwgbmV4dFVwKGFbMV0gKiBhWzFdICogYVsxXSkpCgoKZGVmIGltYWcoYSk6CiAgICByZXR1cm4gbWF4KGFicyhhWzBdKSwgYWJzKGFbMV0pKQoKCmRlZiBpaW50ZXJpb3IoYSwgYik6CiAgICByZXR1cm4gYlswXSA8IGFbMF0gYW5kIGFbMV0gPCBiWzFdCgoKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIDQuICBncmFwaCAvIGxheW91dCBoZWxwZXJzIChuZXR3b3JrIG9ubHkgLS0gbm8gc29sdmVyKQojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Cl9PVVQgPSB7fQpmb3IgX2ssIChfdSwgX3YpIGluIGVudW1lcmF0ZShFREdFUyk6CiAgICBfT1VULnNldGRlZmF1bHQoX3UsIFtdKS5hcHBlbmQoX2spCgoKZGVmIHJlYWNoX2VkZ2VzKHNyYyk6CiAgICAiIiJEQUcgZWRnZSBzZXQgcmVhY2hhYmxlIGZyb20gYW4gZW50cmFuY2UgKG1hdGNoZXMgdGhlIGtlcm5lbCdzIHJlYWNoRWRnZXMpLiIiIgogICAgc2VlbiwgYWN0LCBzdGFjayA9IHtzcmN9LCBzZXQoKSwgW3NyY10KICAgIHdoaWxlIHN0YWNrOgogICAgICAgIHUgPSBzdGFjay5wb3AoKQogICAgICAgIGZvciBrIGluIF9PVVQuZ2V0KHUsIFtdKToKICAgICAgICAgICAgaWYgayBub3QgaW4gYWN0OgogICAgICAgICAgICAgICAgYWN0LmFkZChrKQogICAgICAgICAgICAgICAgdiA9IEVER0VTW2tdWzFdCiAgICAgICAgICAgICAgICBpZiB2IG5vdCBpbiBzZWVuOgogICAgICAgICAgICAgICAgICAgIHNlZW4uYWRkKHYpCiAgICAgICAgICAgICAgICAgICAgc3RhY2suYXBwZW5kKHYpCiAgICByZXR1cm4gc29ydGVkKGFjdCkKCgpkZWYgaW5jaWQobmQsIGspOgogICAgIiIiKzEgaWYgZWRnZSBrIGxlYXZlcyBuZCwgLTEgaWYgaXQgZW50ZXJzIG5kLCAwIG90aGVyd2lzZS4iIiIKICAgIHJldHVybiAxIGlmIEVER0VTW2tdWzBdID09IG5kIGVsc2UgLTEgaWYgRURHRVNba11bMV0gPT0gbmQgZWxzZSAwCgoKZGVmIHN1cHBvcnRfbm9kZXMoZWRnZXMpOgogICAgIiIibm9uLWV4aXQgZW5kcG9pbnRzIHRvdWNoZWQgYnkgYSBzZXQgb2YgKHN1cHBvcnQpIGVkZ2VzLCBzb3J0ZWQuIiIiCiAgICBubiA9IHNldCgpCiAgICBmb3IgayBpbiBlZGdlczoKICAgICAgICB1LCB2ID0gRURHRVNba10KICAgICAgICBpZiB1IG5vdCBpbiBFWElUUzoKICAgICAgICAgICAgbm4uYWRkKHUpCiAgICAgICAgaWYgdiBub3QgaW4gRVhJVFM6CiAgICAgICAgICAgIG5uLmFkZCh2KQogICAgcmV0dXJuIHNvcnRlZChubikKCgpkZWYgYnVpbGRfbGF5b3V0KHN1cHBvcnQsIGVudHIpOgogICAgIiIiU3VwcG9ydC1LS1QgbGF5b3V0OiBwZXIgcG9wdWxhdGlvbiBhIHRoZXRhLWJsb2NrIChzdXBwb3J0IGVkZ2VzKSBhbmQgYSBwaGktYmxvY2sKICAgICAgIChpbmNpZGVudCBub24tZXhpdCBub2RlcykuICBSZXR1cm5zIGRpY3QgYmxvY2tzICsgdG90YWwgc2l6ZSBueCAoaWRlbnRpY2FsIG9yZGVyaW5nCiAgICAgICB0byB0aGUgSlMgbWFrZUxheW91dCwgYnV0IGRlcml2ZWQgaGVyZSBwdXJlbHkgZnJvbSB0aGUgc3VwcG9ydCArIG5ldHdvcmspLiIiIgogICAgTCA9IFtdCiAgICBueCA9IDAKICAgIGZvciBwaSBpbiByYW5nZSgyKToKICAgICAgICBVID0gbGlzdChzdXBwb3J0W3BpXSkKICAgICAgICBub2RlcyA9IHN1cHBvcnRfbm9kZXMoVSkKICAgICAgICBMLmFwcGVuZCh7J3BpJzogcGksICdyJzogcGkgKyAxLCAnVSc6IFUsICdub2Rlcyc6IG5vZGVzLAogICAgICAgICAgICAgICAgICAnb2ZmVGgnOiBueCwgJ29mZlBoaSc6IG54ICsgbGVuKFUpLAogICAgICAgICAgICAgICAgICAnZW50cic6IGVudHJbcGldWzBdLCAnaW5mbG93JzogZW50cltwaV1bMV19KQogICAgICAgIG54ICs9IGxlbihVKSArIGxlbihub2RlcykKICAgIHJldHVybiB7J0wnOiBMLCAnbngnOiBueH0KCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgNS4gIFMxIC0tIGhvbmVzdCByZWZ1c2FsOiBjZXJ0aWZ5IHRoZSBUT1RBTCwgcmVmdXNlIHRoZSBTUExJVCAoYWxsIGV4YWN0IG92ZXIgRnJhY3Rpb24pCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KZGVmIGJlbGxtYW5fZXhhY3QoY29zdCk6CiAgICAiIiJtaW4gY29zdC10by1leGl0IHBvdGVudGlhbHMgb3ZlciB0aGUgREFHLCBleGFjdCAoY29zdDogZGljdCBlZGdlLT5GcmFjdGlvbikuIiIiCiAgICBwaGkgPSB7ZTogUSgwKSBmb3IgZSBpbiBFWElUU30KICAgIGZvciB1IGluIHJldmVyc2VkKFRPUE8pOgogICAgICAgIGlmIHUgaW4gRVhJVFM6CiAgICAgICAgICAgIGNvbnRpbnVlCiAgICAgICAgb3V0cyA9IFtrIGZvciBrIGluIF9PVVQuZ2V0KHUsIFtdKSBpZiBFREdFU1trXVsxXSBpbiBwaGldCiAgICAgICAgaWYgbm90IG91dHM6CiAgICAgICAgICAgIGNvbnRpbnVlCiAgICAgICAgcGhpW3VdID0gbWluKGNvc3Rba10gKyBwaGlbRURHRVNba11bMV1dIGZvciBrIGluIG91dHMpCiAgICByZXR1cm4gcGhpCgoKZGVmIHZlcmlmeV9TMSgpOgogICAgbSA9IGxlbihOT0RFU19OT05FWElUKQogICAgSyA9IFtbaW5jaWQobmQsIGUpIGZvciBlIGluIHJhbmdlKE5FKV0gZm9yIG5kIGluIE5PREVTX05PTkVYSVRdCiAgICBCMCA9IFtRKDEwMCkgaWYgbmQgaW4gKDEsIDkpIGVsc2UgUSgwKSBmb3IgbmQgaW4gTk9ERVNfTk9ORVhJVF0KICAgICMgbWluLW5vcm0gUVAgZm9yIGMgPSB0b3RhbDogIFQgPSBLXlQgKEsgS15UKV57LTF9IEIwICAodGhlIHN0cmljdGx5IGNvbnZleCBwb3RlbnRpYWwpCiAgICBLS3QgPSBbW3N1bShRKEtbaV1bZV0pICogUShLW2pdW2VdKSBmb3IgZSBpbiByYW5nZShORSkpIGZvciBqIGluIHJhbmdlKG0pXSBmb3IgaSBpbiByYW5nZShtKV0KICAgIHkgPSBnYXVzc19zb2x2ZShLS3QsIEIwLCBtKQogICAgVCA9IFtzdW0oUShLW2ldW2VdKSAqIHlbaV0gZm9yIGkgaW4gcmFuZ2UobSkpIGZvciBlIGluIHJhbmdlKE5FKV0KICAgIGtpciA9IG1heChhYnMoc3VtKFEoS1tpXVtlXSkgKiBUW2VdIGZvciBlIGluIHJhbmdlKE5FKSkgLSBCMFtpXSkgZm9yIGkgaW4gcmFuZ2UobSkpCiAgICBhbGxfcG9zID0gYWxsKHQgPiAwIGZvciB0IGluIFQpICAgICAgICAgICAgICAgICAgICAgICAjIGludGVyaW9yID0+IHBvc2l0aXZpdHkgaW5hY3RpdmUgPT4gVEhFIG9wdGltdW0KICAgIGU0NyA9IFRbRTQ3XQogICAgZTQ3X3JvdW5kID0gcm91bmQoZmxvYXQoZTQ3KSkKICAgIG1heGRldiA9IG1heChhYnMoVFtlXSAtIFRBQkxFMVtlXSkgZm9yIGUgaW4gcmFuZ2UoTkUpKQogICAgIyBlcXVpbGlicml1bSBjaGVjazogYyA9IFQ7IHVzZWQgZWRnZXMgKGFsbCBUPjApIG11c3QgYmUgdGlnaHQgLT4gV2FyZHJvcCBnYXAgRVhBQ1RMWSAwCiAgICBjb3N0ID0ge2s6IFRba10gZm9yIGsgaW4gcmFuZ2UoTkUpfQogICAgcGhpID0gYmVsbG1hbl9leGFjdChjb3N0KQogICAgc2xhY2tzID0gW1Rba10gKyBwaGlbRURHRVNba11bMV1dIC0gcGhpW0VER0VTW2tdWzBdXSBmb3IgayBpbiByYW5nZShORSldCiAgICBnYXBfbnVtID0gc3VtKFRba10gKiBzbGFja3Nba10gZm9yIGsgaW4gcmFuZ2UoTkUpKQogICAgdXNlZF90aWdodCA9IGFsbChzbGFja3Nba10gPT0gMCBmb3IgayBpbiByYW5nZShORSkpICAgIyBldmVyeSBlZGdlIGNhcnJpZXMgZmxvdyA9PiBldmVyeSBlZGdlIHRpZ2h0CgogICAgIyBTUExJVCBub24tdW5pcXVlbmVzczogZXhhY3QgbnVsbCBzcGFjZSBvZiB7SzAgZDA9MCwgSzEgZDE9MCwgZDBbZV0rZDFbZV09MH0uCiAgICBBMCwgQTEgPSByZWFjaF9lZGdlcygxKSwgcmVhY2hfZWRnZXMoOSkKICAgIHZpZHgsIGNvbCA9IHt9LCAwCiAgICBmb3IgZSBpbiBBMDoKICAgICAgICB2aWR4WygwLCBlKV0gPSBjb2w7IGNvbCArPSAxCiAgICBmb3IgZSBpbiBBMToKICAgICAgICB2aWR4WygxLCBlKV0gPSBjb2w7IGNvbCArPSAxCiAgICBuY29scyA9IGNvbAogICAgcm93cyA9IFtdCiAgICBmb3IgcGksIEEgaW4gKCgwLCBBMCksICgxLCBBMSkpOgogICAgICAgIGZvciBuZCBpbiBzdXBwb3J0X25vZGVzKEEpOgogICAgICAgICAgICByb3cgPSBbUSgwKV0gKiBuY29scwogICAgICAgICAgICBmb3IgZSBpbiBBOgogICAgICAgICAgICAgICAgcyA9IGluY2lkKG5kLCBlKQogICAgICAgICAgICAgICAgaWYgczoKICAgICAgICAgICAgICAgICAgICByb3dbdmlkeFsocGksIGUpXV0gPSBRKHMpCiAgICAgICAgICAgIHJvd3MuYXBwZW5kKHJvdykKICAgIGZvciBlIGluIHJhbmdlKE5FKToKICAgICAgICByb3cgPSBbUSgwKV0gKiBuY29scwogICAgICAgIGhhcyA9IEZhbHNlCiAgICAgICAgZm9yIHBpIGluICgwLCAxKToKICAgICAgICAgICAgaWYgKHBpLCBlKSBpbiB2aWR4OgogICAgICAgICAgICAgICAgcm93W3ZpZHhbKHBpLCBlKV1dID0gUSgxKTsgaGFzID0gVHJ1ZQogICAgICAgIGlmIGhhczoKICAgICAgICAgICAgcm93cy5hcHBlbmQocm93KQogICAgYmFzaXMgPSBycmVmX251bGxzcGFjZShyb3dzLCBuY29scykKICAgIHNwbGl0X251bGxkaW0gPSBsZW4oYmFzaXMpCiAgICB3aXRuZXNzX29rID0gRmFsc2UKICAgIHdpdG5lc3NfZWRnZXMgPSBbXQogICAgaWYgYmFzaXM6CiAgICAgICAgZCA9IGJhc2lzWzBdCiAgICAgICAgZDAgPSB7ZTogZFt2aWR4WygwLCBlKV1dIGZvciBlIGluIEEwfQogICAgICAgIGQxID0ge2U6IGRbdmlkeFsoMSwgZSldXSBmb3IgZSBpbiBBMX0KICAgICAgICBrMCA9IG1heCgoYWJzKHN1bShpbmNpZChuZCwgZSkgKiBkMFtlXSBmb3IgZSBpbiBBMCkpIGZvciBuZCBpbiBzdXBwb3J0X25vZGVzKEEwKSksIGRlZmF1bHQ9USgwKSkKICAgICAgICBrMSA9IG1heCgoYWJzKHN1bShpbmNpZChuZCwgZSkgKiBkMVtlXSBmb3IgZSBpbiBBMSkpIGZvciBuZCBpbiBzdXBwb3J0X25vZGVzKEExKSksIGRlZmF1bHQ9USgwKSkKICAgICAgICB0b3QgPSBtYXgoYWJzKGQwLmdldChlLCBRKDApKSArIGQxLmdldChlLCBRKDApKSkgZm9yIGUgaW4gcmFuZ2UoTkUpKQogICAgICAgIG5vbnplcm8gPSBhbnkodiAhPSAwIGZvciB2IGluIGQpCiAgICAgICAgd2l0bmVzc19vayA9IChrMCA9PSAwIGFuZCBrMSA9PSAwIGFuZCB0b3QgPT0gMCBhbmQgbm9uemVybykKICAgICAgICB3aXRuZXNzX2VkZ2VzID0gW0VER0VTW2VdIGZvciBlIGluIHJhbmdlKE5FKQogICAgICAgICAgICAgICAgICAgICAgICAgaWYgZDAuZ2V0KGUsIFEoMCkpICE9IDAgb3IgZDEuZ2V0KGUsIFEoMCkpICE9IDBdCgogICAgdG90YWxfb2sgPSAoa2lyID09IDAgYW5kIGFsbF9wb3MgYW5kIHVzZWRfdGlnaHQgYW5kIGdhcF9udW0gPT0gMAogICAgICAgICAgICAgICAgYW5kIGU0NyA9PSBRKDE5NDAsIDM3KSBhbmQgZTQ3X3JvdW5kID09IDUyIGFuZCBtYXhkZXYgPD0gMikKICAgIHNwbGl0X3JlZnVzZWQgPSAoc3BsaXRfbnVsbGRpbSA+PSAxIGFuZCB3aXRuZXNzX29rKQogICAgcmV0dXJuIHsKICAgICAgICAnb2snOiB0b3RhbF9vayBhbmQgc3BsaXRfcmVmdXNlZCwKICAgICAgICAnVCc6IFQsICdraXInOiBraXIsICdhbGxfcG9zJzogYWxsX3BvcywgJ2U0Nyc6IGU0NywgJ2U0N19yb3VuZCc6IGU0N19yb3VuZCwKICAgICAgICAndGFibGUxXzQ3JzogVEFCTEUxW0U0N10sICdtYXhkZXYnOiBtYXhkZXYsICdnYXBfbnVtJzogZ2FwX251bSwgJ3VzZWRfdGlnaHQnOiB1c2VkX3RpZ2h0LAogICAgICAgICdzcGxpdF9udWxsZGltJzogc3BsaXRfbnVsbGRpbSwgJ3dpdG5lc3Nfb2snOiB3aXRuZXNzX29rLCAnd2l0bmVzc19lZGdlcyc6IHdpdG5lc3NfZWRnZXMsCiAgICAgICAgJ3RvdGFsX29rJzogdG90YWxfb2ssICdzcGxpdF9yZWZ1c2VkJzogc3BsaXRfcmVmdXNlZCwgJ0snOiBLLCAnQjAnOiBCMCwKICAgIH0KCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgNi4gIFMyIC0tIEVYQUNUIHJhdGlvbmFsIGNlcnRpZmljYXRlIChhZmZpbmUgY29zdCwgZHlhZGljIGRhdGEpCiMgICAgIENvc3Qgd3JpdHRlbiBmcm9tIHRoZSBQQVBFUiBmb3JtdWxhIGNeciA9IDAuNShqMSArIDIgajIpICsgMC41IGpeciwgaS5lLgojICAgICAgIERDW3ItMV0gPSBbZCBjXnIgLyBkIGoxICwgZCBjXnIgLyBkIGoyXSA9IFtbMSwxXSxbMS8yLDMvMl1dICAgICAocj0xIGNhcnMsIHI9MiB0cnVja3MpLgojICAgICBOT1QgY29waWVkIGZyb20gdGhlIEpTIGNvZGUgLS0gdGhlIHR3byBpbmRlcGVuZGVudCBleGFjdCBzb2x2ZXMgbXVzdCBhZ3JlZS4KIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpEQyA9IFtbUSgxKSwgUSgxKV0sIFtRKDEsIDIpLCBRKDMsIDIpXV0KCgpkZWYgYnVpbGRfc3VwcG9ydF9ra3QobGF5KToKICAgICIiIkV4YWN0IGFmZmluZSBzdXBwb3J0LUtLVCBzeXN0ZW0gQSB4ID0gYiBvdmVyIEZyYWN0aW9uLCBwbHVzIGNvbHVtbiBpbmRleCBtYXBzLiIiIgogICAgTCwgbnggPSBsYXlbJ0wnXSwgbGF5WydueCddCiAgICBjb2xUaCA9IHt9CiAgICBjb2xQaGkgPSB7fQogICAgZm9yIExwIGluIEw6CiAgICAgICAgZm9yIGEsIGdrIGluIGVudW1lcmF0ZShMcFsnVSddKToKICAgICAgICAgICAgY29sVGhbKExwWydwaSddLCBnayldID0gTHBbJ29mZlRoJ10gKyBhCiAgICAgICAgZm9yIGEsIG5kIGluIGVudW1lcmF0ZShMcFsnbm9kZXMnXSk6CiAgICAgICAgICAgIGNvbFBoaVsoTHBbJ3BpJ10sIG5kKV0gPSBMcFsnb2ZmUGhpJ10gKyBhCiAgICBBID0gW1tRKDApXSAqIG54IGZvciBfIGluIHJhbmdlKG54KV0KICAgIGIgPSBbUSgwKV0gKiBueAogICAgZSA9IDAKICAgIGZvciBMcCBpbiBMOgogICAgICAgIHIgPSBMcFsnciddCiAgICAgICAgZm9yIGdrIGluIExwWydVJ106CiAgICAgICAgICAgIHUsIHYgPSBFREdFU1tna10KICAgICAgICAgICAgIyBzbGFjazogRENbci0xXVswXSpKMVtna10gKyBEQ1tyLTFdWzFdKkoyW2drXSArIHBoaV92IC0gcGhpX3UgPSAwCiAgICAgICAgICAgIGZvciBwaiBpbiAoMCwgMSk6CiAgICAgICAgICAgICAgICBpZiAocGosIGdrKSBpbiBjb2xUaDoKICAgICAgICAgICAgICAgICAgICBBW2VdW2NvbFRoWyhwaiwgZ2spXV0gKz0gRENbciAtIDFdW3BqXQogICAgICAgICAgICBpZiB2IG5vdCBpbiBFWElUUzoKICAgICAgICAgICAgICAgIEFbZV1bY29sUGhpWyhMcFsncGknXSwgdildXSArPSBRKDEpCiAgICAgICAgICAgIGlmIHUgbm90IGluIEVYSVRTOgogICAgICAgICAgICAgICAgQVtlXVtjb2xQaGlbKExwWydwaSddLCB1KV1dICs9IFEoLTEpCiAgICAgICAgICAgIGUgKz0gMQogICAgICAgIGZvciBuZCBpbiBMcFsnbm9kZXMnXToKICAgICAgICAgICAgZm9yIGEsIGdrIGluIGVudW1lcmF0ZShMcFsnVSddKToKICAgICAgICAgICAgICAgIHMgPSBpbmNpZChuZCwgZ2spCiAgICAgICAgICAgICAgICBpZiBzOgogICAgICAgICAgICAgICAgICAgIEFbZV1bTHBbJ29mZlRoJ10gKyBhXSArPSBRKHMpCiAgICAgICAgICAgIGJbZV0gPSBRKExwWydpbmZsb3cnXSkgaWYgbmQgPT0gTHBbJ2VudHInXSBlbHNlIFEoMCkKICAgICAgICAgICAgZSArPSAxCiAgICByZXR1cm4gQSwgYiwgY29sVGgsIGNvbFBoaQoKCmRlZiB2ZXJpZnlfUzIoKToKICAgIGxheSA9IGJ1aWxkX2xheW91dChTMl9TVVBQT1JULCBFTlRSX0hFVCkKICAgIEwsIG54ID0gbGF5WydMJ10sIGxheVsnbngnXQogICAgQSwgYiwgY29sVGgsIGNvbFBoaSA9IGJ1aWxkX3N1cHBvcnRfa2t0KGxheSkKICAgIHggPSBnYXVzc19zb2x2ZShBLCBiLCBueCkKICAgIGlmIHggaXMgTm9uZToKICAgICAgICByZXR1cm4geydvayc6IEZhbHNlLCAnd2h5JzogJ3Npbmd1bGFyIGV4YWN0IHN5c3RlbSd9CiAgICAjIChhKSByZXNpZHVhbCBFWEFDVExZIHplcm8KICAgIHJlc19vayA9IGFsbChzdW0oQVtpXVtqXSAqIHhbal0gZm9yIGogaW4gcmFuZ2UobngpKSA9PSBiW2ldIGZvciBpIGluIHJhbmdlKG54KSkKICAgICMgKGIpIHN1cHBvcnQgZmxvd3MgPiAwIGV4YWN0bHkKICAgIHRoZXRhID0geyhwaSwgZ2spOiB4W2NvbFRoWyhwaSwgZ2spXV0gZm9yIChwaSwgZ2spIGluIGNvbFRofQogICAgcG9zX29rID0gYWxsKHYgPiAwIGZvciB2IGluIHRoZXRhLnZhbHVlcygpKQogICAgIyAoYykgZnVsbC1uZXR3b3JrIEtpcmNoaG9mZiBwZXIgcG9wdWxhdGlvbiwgZXhhY3QgKGluZGVwZW5kZW50IG9mIHRoZSBzb2x2ZSdzIHJvdyBvcmRlcikKICAgIEIgPSB7MDogezE6IFEoMTAwKX0sIDE6IHs5OiBRKDUwKX19CiAgICBraXJfb2sgPSBUcnVlCiAgICBmb3IgcGkgaW4gKDAsIDEpOgogICAgICAgIGZvciBuZCBpbiBOT0RFU19OT05FWElUOgogICAgICAgICAgICBzID0gc3VtKGluY2lkKG5kLCBnaykgKiB0aGV0YVsocGksIGdrKV0gZm9yIChwMiwgZ2spIGluIHRoZXRhIGlmIHAyID09IHBpIGFuZCBpbmNpZChuZCwgZ2spKQogICAgICAgICAgICBpZiBzICE9IEJbcGldLmdldChuZCwgUSgwKSk6CiAgICAgICAgICAgICAgICBraXJfb2sgPSBGYWxzZQogICAgIyBKIHRvdGFscyBvbiBldmVyeSBlZGdlIChib3RoIHBvcHVsYXRpb25zKQogICAgSiA9IFtbUSgwKV0gKiBORSwgW1EoMCldICogTkVdCiAgICBmb3IgKHBpLCBnayksIHYgaW4gdGhldGEuaXRlbXMoKToKICAgICAgICBKW3BpXVtna10gPSB2CiAgICBwaGkgPSB7KHBpLCBuZCk6IHhbY29sUGhpWyhwaSwgbmQpXV0gZm9yIChwaSwgbmQpIGluIGNvbFBoaX0KCiAgICBkZWYgY1IociwgZ2spOgogICAgICAgIHJldHVybiBEQ1tyIC0gMV1bMF0gKiBKWzBdW2drXSArIERDW3IgLSAxXVsxXSAqIEpbMV1bZ2tdCgogICAgIyAoZCkgc3VwcG9ydCBzbGFja3MgRVhBQ1RMWSAwICA9PiAgV2FyZHJvcCBnYXAgbnVtZXJhdG9yIEVYQUNUTFkgMAogICAgc3VwcG9ydF9zbGFja19vayA9IFRydWUKICAgIGdhcF9udW0gPSBRKDApCiAgICBmb3IgTHAgaW4gTDoKICAgICAgICBmb3IgZ2sgaW4gTHBbJ1UnXToKICAgICAgICAgICAgdSwgdiA9IEVER0VTW2drXQogICAgICAgICAgICBwdiA9IFEoMCkgaWYgdiBpbiBFWElUUyBlbHNlIHBoaVsoTHBbJ3BpJ10sIHYpXQogICAgICAgICAgICBwdSA9IFEoMCkgaWYgdSBpbiBFWElUUyBlbHNlIHBoaVsoTHBbJ3BpJ10sIHUpXQogICAgICAgICAgICBzbGFjayA9IGNSKExwWydyJ10sIGdrKSArIHB2IC0gcHUKICAgICAgICAgICAgZ2FwX251bSArPSB0aGV0YVsoTHBbJ3BpJ10sIGdrKV0gKiBzbGFjawogICAgICAgICAgICBpZiBzbGFjayAhPSAwOgogICAgICAgICAgICAgICAgc3VwcG9ydF9zbGFja19vayA9IEZhbHNlCiAgICAjIChlKSBvZmYtc3VwcG9ydCBzbGFja3MgPj0gMCBleGFjdGx5ICh0aGUgdGllIHBvcDIgKDQsNSkgPSAwIGRlY2lkZWQgaGVyZSkKICAgIHJlYWNoID0gW3JlYWNoX2VkZ2VzKDEpLCByZWFjaF9lZGdlcyg5KV0KICAgIG9mZl9vayA9IFRydWUKICAgIHRpZV92YWwgPSBOb25lCiAgICBtaW5fb2ZmID0gTm9uZQogICAgZm9yIExwIGluIEw6CiAgICAgICAgZm9yIGdrIGluIHJlYWNoW0xwWydwaSddXToKICAgICAgICAgICAgaWYgZ2sgaW4gTHBbJ1UnXToKICAgICAgICAgICAgICAgIGNvbnRpbnVlCiAgICAgICAgICAgIHUsIHYgPSBFREdFU1tna10KICAgICAgICAgICAgaGFzX3UgPSAodSBpbiBFWElUUykgb3IgKChMcFsncGknXSwgdSkgaW4gcGhpKQogICAgICAgICAgICBoYXNfdiA9ICh2IGluIEVYSVRTKSBvciAoKExwWydwaSddLCB2KSBpbiBwaGkpCiAgICAgICAgICAgIGlmIG5vdCAoaGFzX3UgYW5kIGhhc192KToKICAgICAgICAgICAgICAgIGNvbnRpbnVlICAgICAgICAgICAgICAgICAgICAgICMgdW50b3VjaGVkIGVuZHBvaW50OiBubyBwb3RlbnRpYWwgY29uc3RyYWludAogICAgICAgICAgICBwdiA9IFEoMCkgaWYgdiBpbiBFWElUUyBlbHNlIHBoaVsoTHBbJ3BpJ10sIHYpXQogICAgICAgICAgICBwdSA9IFEoMCkgaWYgdSBpbiBFWElUUyBlbHNlIHBoaVsoTHBbJ3BpJ10sIHUpXQogICAgICAgICAgICBzbGFjayA9IGNSKExwWydyJ10sIGdrKSArIHB2IC0gcHUKICAgICAgICAgICAgbWluX29mZiA9IHNsYWNrIGlmIG1pbl9vZmYgaXMgTm9uZSBlbHNlIG1pbihtaW5fb2ZmLCBzbGFjaykKICAgICAgICAgICAgaWYgTHBbJ3BpJ10gPT0gMSBhbmQgRURHRVNbZ2tdID09ICg0LCA1KToKICAgICAgICAgICAgICAgIHRpZV92YWwgPSBzbGFjawogICAgICAgICAgICBpZiBzbGFjayA8IDA6CiAgICAgICAgICAgICAgICBvZmZfb2sgPSBGYWxzZQogICAgIyAoZikgY2FyL3RydWNrIHRvdGFscyByZXByb2R1Y2UgRmlndXJlIDIgZXhhY3RseSAocm91bmRlZCkKICAgIGNhciA9IFtyb3VuZChmbG9hdChKWzBdW2tdKSkgZm9yIGsgaW4gcmFuZ2UoTkUpXQogICAgdHJ1Y2sgPSBbcm91bmQoZmxvYXQoSlsxXVtrXSkpIGZvciBrIGluIHJhbmdlKE5FKV0KICAgIGZpZzJfb2sgPSAoY2FyID09IEZJRzJfQ0FSIGFuZCB0cnVjayA9PSBGSUcyX1RSVUNLKQogICAgIyAoZykgY3Jvc3MtY2hlY2sgdGhlIGluZGVwZW5kZW50IGV4YWN0IHNvbHZlIGFnYWluc3QgdGhlIEpTIEJpZ0ludCByZWZlcmVuY2UKICAgIHJlZl9vayA9IFRydWUKICAgIGZvciBrZXksIChuLCBkKSBpbiBTMl9USEVUQV9SRUYuaXRlbXMoKToKICAgICAgICBwaSwgZ2sgPSBrZXkuc3BsaXQoJzonKQogICAgICAgIGlmIHRoZXRhLmdldCgoaW50KHBpKSwgaW50KGdrKSkpICE9IFEobiwgZCk6CiAgICAgICAgICAgIHJlZl9vayA9IEZhbHNlCiAgICBmb3Iga2V5LCAobiwgZCkgaW4gUzJfUEhJX1JFRi5pdGVtcygpOgogICAgICAgIHBpLCBuZCA9IGtleS5zcGxpdCgnOicpCiAgICAgICAgaWYgcGhpLmdldCgoaW50KHBpKSwgaW50KG5kKSkpICE9IFEobiwgZCk6CiAgICAgICAgICAgIHJlZl9vayA9IEZhbHNlCgogICAgb2sgPSAocmVzX29rIGFuZCBwb3Nfb2sgYW5kIGtpcl9vayBhbmQgc3VwcG9ydF9zbGFja19vayBhbmQgZ2FwX251bSA9PSAwCiAgICAgICAgICBhbmQgb2ZmX29rIGFuZCBmaWcyX29rIGFuZCByZWZfb2sgYW5kIHRpZV92YWwgPT0gMCkKICAgIHJldHVybiB7CiAgICAgICAgJ29rJzogb2ssICdyZXNfb2snOiByZXNfb2ssICdwb3Nfb2snOiBwb3Nfb2ssICdraXJfb2snOiBraXJfb2ssCiAgICAgICAgJ3N1cHBvcnRfc2xhY2tfb2snOiBzdXBwb3J0X3NsYWNrX29rLCAnZ2FwX251bSc6IGdhcF9udW0sICdvZmZfb2snOiBvZmZfb2ssCiAgICAgICAgJ3RpZV92YWwnOiB0aWVfdmFsLCAnbWluX29mZic6IG1pbl9vZmYsICdmaWcyX29rJzogZmlnMl9vaywgJ3JlZl9vayc6IHJlZl9vaywKICAgICAgICAnY2FyJzogY2FyLCAndHJ1Y2snOiB0cnVjaywgJ254JzogbngsICd0aGV0YSc6IHRoZXRhLCAncGhpJzogcGhpLAogICAgICAgICdsYXknOiBsYXksICdjb2xUaCc6IGNvbFRoLCAnY29sUGhpJzogY29sUGhpLCAnQSc6IEEsICdiJzogYiwKICAgIH0KCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgNy4gIFMzIC0tIEtyYXdjenlrIGVuY2xvc3VyZSAoc21vb3RoIG5vbmxpbmVhciBlbWlzc2lvbiBjb3N0KSwgc3RkbGliIGludGVydmFscwojICAgICBJbnRlcnZhbCBjb3N0L2Rlcml2YXRpdmUgcG9ydGVkIGZyb20gbWFrZUlDb3N0KHNjZW49MykgaW4gdGVzdC13YXJkcm9wLWludGVydmFsLmpzOwojICAgICBhbGdlYnJhaWNhbGx5IGlkZW50aWNhbCB0byB0aGUga2VybmVsIGNvc3QgIGJhc2UgPSBJQSArIElTNTAqKDEgKyA1IChqZWZmLzUwKV4zKSwKIyAgICAgTSA9IFNMRU4qbXVsdC8yLCAgY15yID0gTSpiYXNlICsgMC41IGpeci4KIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpkZWYgbWFrZV9pY29zdCgpOgogICAgSUggPSBpdigwLjUpCiAgICBJRTMgPSBpdigxZS0zKQogICAgSUEsIElTID0gSVpFUk8sIElaRVJPCiAgICBmb3IgYSwgYiwgdyBpbiBFTToKICAgICAgICB3ZiA9IGltdWwoaXYodyksIElFMykKICAgICAgICBJQSA9IGlhZGQoSUEsIGltdWwod2YsIGl2KGIpKSkKICAgICAgICBJUyA9IGlhZGQoSVMsIGltdWwod2YsIGl2KGEpKSkKICAgIElTNTAgPSBpZGl2KElTLCBpdig1MCkpCgogICAgZGVmIGNvc3QoaywgSUoxLCBJSjIsIHIpOgogICAgICAgIGplZmYgPSBpYWRkKElKMSwgSUoyKQogICAgICAgIGcgPSBpZGl2KGplZmYsIGl2KDUwKSkKICAgICAgICBiYXNlID0gaWFkZChJQSwgaW11bChJUzUwLCBpYWRkKElPTkUsIGltdWwoaXYoNSksIGljdWJlKGcpKSkpKQogICAgICAgIE0gPSBpZGl2KGltdWwoaXYoU0xFTltrXSksIGl2KDEuMCBpZiByID09IDEgZWxzZSAzLjApKSwgaXYoMikpCiAgICAgICAgb3duID0gSUoxIGlmIHIgPT0gMSBlbHNlIElKMgogICAgICAgIHJldHVybiBpYWRkKGltdWwoTSwgYmFzZSksIGltdWwoSUgsIG93bikpCgogICAgZGVmIGRjb3N0KGssIElKMSwgSUoyLCByKToKICAgICAgICBqZWZmID0gaWFkZChJSjEsIElKMikKICAgICAgICBnID0gaWRpdihqZWZmLCBpdig1MCkpCiAgICAgICAgZGIgPSBpZGl2KGltdWwoaW11bChJUzUwLCBpdigxNSkpLCBpc3FyKGcpKSwgaXYoNTApKQogICAgICAgIE0gPSBpZGl2KGltdWwoaXYoU0xFTltrXSksIGl2KDEuMCBpZiByID09IDEgZWxzZSAzLjApKSwgaXYoMikpCiAgICAgICAgZDEgPSBpYWRkKGltdWwoTSwgZGIpLCBJSCBpZiByID09IDEgZWxzZSBJWkVSTykKICAgICAgICBkMiA9IGlhZGQoaW11bChNLCBkYiksIElIIGlmIHIgPT0gMiBlbHNlIElaRVJPKQogICAgICAgIHJldHVybiBbZDEsIGQyXQogICAgcmV0dXJuIGNvc3QsIGRjb3N0CgoKZGVmIGdzb2x2ZV9mbG9hdChNLCBiLCBuKToKICAgICIiInBhcnRpYWwtcGl2b3QgR2F1c3NpYW4gZWxpbWluYXRpb24gaW4gZmxvYXQgKHBvcnQgb2YgdGhlIGtlcm5lbCBnc29sdmUpLiIiIgogICAgTSA9IFtyb3dbOl0gZm9yIHJvdyBpbiBNXQogICAgYiA9IGJbOl0KICAgIGZvciBrIGluIHJhbmdlKG4pOgogICAgICAgIHAsIG14ID0gaywgYWJzKE1ba11ba10pCiAgICAgICAgZm9yIHIgaW4gcmFuZ2UoayArIDEsIG4pOgogICAgICAgICAgICBpZiBhYnMoTVtyXVtrXSkgPiBteDoKICAgICAgICAgICAgICAgIG14LCBwID0gYWJzKE1bcl1ba10pLCByCiAgICAgICAgaWYgcCAhPSBrOgogICAgICAgICAgICBNW2tdLCBNW3BdID0gTVtwXSwgTVtrXQogICAgICAgICAgICBiW2tdLCBiW3BdID0gYltwXSwgYltrXQogICAgICAgIHBpdiA9IE1ba11ba10gb3IgMWUtMzAwCiAgICAgICAgZm9yIHIgaW4gcmFuZ2UoayArIDEsIG4pOgogICAgICAgICAgICBmID0gTVtyXVtrXSAvIHBpdgogICAgICAgICAgICBmb3IgYyBpbiByYW5nZShrLCBuKToKICAgICAgICAgICAgICAgIE1bcl1bY10gLT0gZiAqIE1ba11bY10KICAgICAgICAgICAgYltyXSAtPSBmICogYltrXQogICAgeCA9IFswLjBdICogbgogICAgZm9yIGsgaW4gcmFuZ2UobiAtIDEsIC0xLCAtMSk6CiAgICAgICAgcyA9IGJba10KICAgICAgICBmb3IgYyBpbiByYW5nZShrICsgMSwgbik6CiAgICAgICAgICAgIHMgLT0gTVtrXVtjXSAqIHhbY10KICAgICAgICB4W2tdID0gcyAvIChNW2tdW2tdIG9yIDFlLTMwMCkKICAgIHJldHVybiB4CgoKZGVmIGZpbnYoSm0sIG4pOgogICAgWSA9IFtbMC4wXSAqIG4gZm9yIF8gaW4gcmFuZ2UobildCiAgICBmb3IgYyBpbiByYW5nZShuKToKICAgICAgICBjb2wgPSBbMC4wXSAqIG4KICAgICAgICBjb2xbY10gPSAxLjAKICAgICAgICB4ID0gZ3NvbHZlX2Zsb2F0KEptLCBjb2wsIG4pCiAgICAgICAgZm9yIHIgaW4gcmFuZ2Uobik6CiAgICAgICAgICAgIFlbcl1bY10gPSB4W3JdCiAgICByZXR1cm4gWQoKCmRlZiBldmFsRkooY29zdCwgZGNvc3QsIGxheSwgWCwgd2FudEopOgogICAgTCwgbnggPSBsYXlbJ0wnXSwgbGF5WydueCddCiAgICBJSiA9IFtbSVpFUk9dICogTkUsIFtJWkVST10gKiBORV0KICAgIGZvciBMcCBpbiBMOgogICAgICAgIGZvciBhLCBnayBpbiBlbnVtZXJhdGUoTHBbJ1UnXSk6CiAgICAgICAgICAgIElKW0xwWydwaSddXVtna10gPSBYW0xwWydvZmZUaCddICsgYV0KICAgIEYgPSBbSVpFUk9dICogbngKICAgIEogPSBbW0laRVJPXSAqIG54IGZvciBfIGluIHJhbmdlKG54KV0gaWYgd2FudEogZWxzZSBOb25lCiAgICBlID0gMAogICAgZm9yIExwIGluIEw6CiAgICAgICAgcGhpSWR4ID0ge25kOiBMcFsnb2ZmUGhpJ10gKyBhIGZvciBhLCBuZCBpbiBlbnVtZXJhdGUoTHBbJ25vZGVzJ10pfQoKICAgICAgICBkZWYgcGhpT2YobmQpOgogICAgICAgICAgICByZXR1cm4gSVpFUk8gaWYgbmQgaW4gRVhJVFMgZWxzZSBYW3BoaUlkeFtuZF1dCiAgICAgICAgZm9yIGdrIGluIExwWydVJ106CiAgICAgICAgICAgIHUsIHYgPSBFREdFU1tna10KICAgICAgICAgICAgRltlXSA9IGlhZGQoY29zdChnaywgSUpbMF1bZ2tdLCBJSlsxXVtna10sIExwWydyJ10pLCBpc3ViKHBoaU9mKHYpLCBwaGlPZih1KSkpCiAgICAgICAgICAgIGlmIHdhbnRKOgogICAgICAgICAgICAgICAgZDEsIGQyID0gZGNvc3QoZ2ssIElKWzBdW2drXSwgSUpbMV1bZ2tdLCBMcFsnciddKQogICAgICAgICAgICAgICAgZm9yIE1xIGluIEw6CiAgICAgICAgICAgICAgICAgICAgaWYgZ2sgaW4gTXFbJ1UnXToKICAgICAgICAgICAgICAgICAgICAgICAgYmNvbCA9IE1xWydVJ10uaW5kZXgoZ2spCiAgICAgICAgICAgICAgICAgICAgICAgIEpbZV1bTXFbJ29mZlRoJ10gKyBiY29sXSA9IGQxIGlmIE1xWydwaSddID09IDAgZWxzZSBkMgogICAgICAgICAgICAgICAgaWYgdiBub3QgaW4gRVhJVFM6CiAgICAgICAgICAgICAgICAgICAgSltlXVtwaGlJZHhbdl1dID0gSU9ORQogICAgICAgICAgICAgICAgaWYgdSBub3QgaW4gRVhJVFM6CiAgICAgICAgICAgICAgICAgICAgSltlXVtwaGlJZHhbdV1dID0gaXYoLTEuMCkKICAgICAgICAgICAgZSArPSAxCiAgICAgICAgZm9yIG5kIGluIExwWydub2RlcyddOgogICAgICAgICAgICBzID0gaXYoLShmbG9hdChMcFsnaW5mbG93J10pIGlmIG5kID09IExwWydlbnRyJ10gZWxzZSAwLjApKQogICAgICAgICAgICBmb3IgYSwgZ2sgaW4gZW51bWVyYXRlKExwWydVJ10pOgogICAgICAgICAgICAgICAga2sgPSBpbmNpZChuZCwgZ2spCiAgICAgICAgICAgICAgICBpZiBrazoKICAgICAgICAgICAgICAgICAgICBzID0gaWFkZChzLCBpbXVsKGl2KGZsb2F0KGtrKSksIFhbTHBbJ29mZlRoJ10gKyBhXSkpCiAgICAgICAgICAgICAgICAgICAgaWYgd2FudEo6CiAgICAgICAgICAgICAgICAgICAgICAgIEpbZV1bTHBbJ29mZlRoJ10gKyBhXSA9IGl2KGZsb2F0KGtrKSkKICAgICAgICAgICAgRltlXSA9IHMKICAgICAgICAgICAgZSArPSAxCiAgICByZXR1cm4gRiwgSgoKCmRlZiBrcmF3Y3p5ayhjb3N0LCBkY29zdCwgbGF5LCB4MCwgbWF4UmFkQ2FwPU5vbmUpOgogICAgbiA9IGxheVsnbngnXQogICAgWHAgPSBbaXYodikgZm9yIHYgaW4geDBdCiAgICBGMCwgXyA9IGV2YWxGSihjb3N0LCBkY29zdCwgbGF5LCBYcCwgRmFsc2UpCiAgICBfLCBKcCA9IGV2YWxGSihjb3N0LCBkY29zdCwgbGF5LCBYcCwgVHJ1ZSkKICAgIEptaWQgPSBbWyhKcFtpXVtqXVswXSArIEpwW2ldW2pdWzFdKSAvIDIgZm9yIGogaW4gcmFuZ2UobildIGZvciBpIGluIHJhbmdlKG4pXQogICAgWSA9IGZpbnYoSm1pZCwgbikKICAgIGlmIG5vdCBhbGwobWF0aC5pc2Zpbml0ZShZW2ldW2pdKSBmb3IgaSBpbiByYW5nZShuKSBmb3IgaiBpbiByYW5nZShuKSk6CiAgICAgICAgcmV0dXJuIHsnb2snOiBGYWxzZSwgJ3doeSc6ICdzaW5ndWxhciBtaWRwb2ludCBKYWNvYmlhbid9CiAgICBkID0gW0laRVJPXSAqIG4KICAgIGZvciBpIGluIHJhbmdlKG4pOgogICAgICAgIHMgPSBJWkVSTwogICAgICAgIGZvciBqIGluIHJhbmdlKG4pOgogICAgICAgICAgICBzID0gaWFkZChzLCBpbXVsKGl2KFlbaV1bal0pLCBGMFtqXSkpCiAgICAgICAgZFtpXSA9IHMKICAgIHJhZCA9IFsyICogaW1hZyhkW2ldKSArIDFlLTEzICogbWF4KDEuMCwgYWJzKHgwW2ldKSkgZm9yIGkgaW4gcmFuZ2UobildCiAgICBmb3Igcm5kIGluIHJhbmdlKDEyKToKICAgICAgICBYID0gW2l2KG5leHREb3duKHgwW2ldIC0gcmFkW2ldKSwgbmV4dFVwKHgwW2ldICsgcmFkW2ldKSkgZm9yIGkgaW4gcmFuZ2UobildCiAgICAgICAgXywgSlggPSBldmFsRkooY29zdCwgZGNvc3QsIGxheSwgWCwgVHJ1ZSkKICAgICAgICBLdyA9IFtOb25lXSAqIG4KICAgICAgICBvayA9IFRydWUKICAgICAgICBtYXhSYWQgPSAwLjAKICAgICAgICBmb3IgaSBpbiByYW5nZShuKToKICAgICAgICAgICAgYWNjID0gaXN1Yihpdih4MFtpXSksIGRbaV0pCiAgICAgICAgICAgIGZvciBqIGluIHJhbmdlKG4pOgogICAgICAgICAgICAgICAgcyA9IElaRVJPCiAgICAgICAgICAgICAgICBmb3IgazIgaW4gcmFuZ2Uobik6CiAgICAgICAgICAgICAgICAgICAgaWYgSlhbazJdW2pdWzBdID09IDAgYW5kIEpYW2syXVtqXVsxXSA9PSAwOgogICAgICAgICAgICAgICAgICAgICAgICBjb250aW51ZQogICAgICAgICAgICAgICAgICAgIHMgPSBpYWRkKHMsIGltdWwoaXYoWVtpXVtrMl0pLCBKWFtrMl1bal0pKQogICAgICAgICAgICAgICAgbWlqID0gaW5lZyhzKQogICAgICAgICAgICAgICAgaWYgaSA9PSBqOgogICAgICAgICAgICAgICAgICAgIG1paiA9IGlhZGQoSU9ORSwgbWlqKQogICAgICAgICAgICAgICAgaWYgbWlqWzBdID09IDAgYW5kIG1palsxXSA9PSAwOgogICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlCiAgICAgICAgICAgICAgICBhY2MgPSBpYWRkKGFjYywgaW11bChtaWosIGlzdWIoWFtqXSwgaXYoeDBbal0pKSkpCiAgICAgICAgICAgIEt3W2ldID0gYWNjCiAgICAgICAgICAgIGlmIG5vdCBpaW50ZXJpb3IoYWNjLCBYW2ldKToKICAgICAgICAgICAgICAgIG9rID0gRmFsc2UKICAgICAgICAgICAgbWF4UmFkID0gbWF4KG1heFJhZCwgKGFjY1sxXSAtIGFjY1swXSkgLyAyKQogICAgICAgIGlmIG9rOgogICAgICAgICAgICByZXR1cm4geydvayc6IFRydWUsICdib3gnOiBYLCAnS2JveCc6IEt3LCAnbWF4UmFkJzogbWF4UmFkLCAncm91bmRzJzogcm5kICsgMX0KICAgICAgICBmb3IgaSBpbiByYW5nZShuKToKICAgICAgICAgICAgbmVlZCA9IG1heChhYnMoS3dbaV1bMF0gLSB4MFtpXSksIGFicyhLd1tpXVsxXSAtIHgwW2ldKSkKICAgICAgICAgICAgcmFkW2ldID0gbWF4KHJhZFtpXSAqIDIsIG5lZWQgKiAxLjEgKyAxZS0xNSkKICAgICAgICBpZiBtYXhSYWRDYXAgYW5kIG1heChyYWQpID4gbWF4UmFkQ2FwOgogICAgICAgICAgICBicmVhawogICAgcmV0dXJuIHsnb2snOiBGYWxzZSwgJ3doeSc6ICdubyBjb250cmFjdGlvbid9CgoKZGVmIHMzX2NlbnRlcihsYXkpOgogICAgeDAgPSBbMC4wXSAqIGxheVsnbngnXQogICAgZm9yIExwIGluIGxheVsnTCddOgogICAgICAgIGZvciBhLCBnayBpbiBlbnVtZXJhdGUoTHBbJ1UnXSk6CiAgICAgICAgICAgIHgwW0xwWydvZmZUaCddICsgYV0gPSBTM19YMF9USEVUQVsnJWQ6JWQnICUgKExwWydwaSddLCBnayldCiAgICAgICAgZm9yIGEsIG5kIGluIGVudW1lcmF0ZShMcFsnbm9kZXMnXSk6CiAgICAgICAgICAgIHgwW0xwWydvZmZQaGknXSArIGFdID0gUzNfWDBfUEhJWyclZDolZCcgJSAoTHBbJ3BpJ10sIG5kKV0KICAgIHJldHVybiB4MAoKCmRlZiBzM192ZXJpZnlfZXF1aWxpYnJpdW0oY29zdCwgbGF5LCBib3gpOgogICAgIiIic3VwcG9ydCBmbG93cyA+IDAgYW5kIG9mZi1zdXBwb3J0IHNsYWNrcyA+IDAgb3ZlciB0aGUgS3Jhd2N6eWsgYm94IChzdHJpY3QgY29tcGwuKS4iIiIKICAgIEwgPSBsYXlbJ0wnXQogICAgbWluVGggPSBJTkYKICAgIElKID0gW1tJWkVST10gKiBORSwgW0laRVJPXSAqIE5FXQogICAgZm9yIExwIGluIEw6CiAgICAgICAgZm9yIGEsIGdrIGluIGVudW1lcmF0ZShMcFsnVSddKToKICAgICAgICAgICAgSUpbTHBbJ3BpJ11dW2drXSA9IGJveFtMcFsnb2ZmVGgnXSArIGFdCiAgICAgICAgICAgIG1pblRoID0gbWluKG1pblRoLCBib3hbTHBbJ29mZlRoJ10gKyBhXVswXSkKICAgIHJlYWNoID0gW3JlYWNoX2VkZ2VzKDEpLCByZWFjaF9lZGdlcyg5KV0KICAgIG1pblNsYWNrID0gSU5GCiAgICBuT2ZmID0gMAogICAgZm9yIExwIGluIEw6CiAgICAgICAgcGhpSWR4ID0ge25kOiBMcFsnb2ZmUGhpJ10gKyBhIGZvciBhLCBuZCBpbiBlbnVtZXJhdGUoTHBbJ25vZGVzJ10pfQogICAgICAgIGZvciBnayBpbiByZWFjaFtMcFsncGknXV06CiAgICAgICAgICAgIGlmIGdrIGluIExwWydVJ106CiAgICAgICAgICAgICAgICBjb250aW51ZQogICAgICAgICAgICB1LCB2ID0gRURHRVNbZ2tdCiAgICAgICAgICAgIHB1ID0gSVpFUk8gaWYgdSBpbiBFWElUUyBlbHNlIChib3hbcGhpSWR4W3VdXSBpZiB1IGluIHBoaUlkeCBlbHNlIE5vbmUpCiAgICAgICAgICAgIHB2ID0gSVpFUk8gaWYgdiBpbiBFWElUUyBlbHNlIChib3hbcGhpSWR4W3ZdXSBpZiB2IGluIHBoaUlkeCBlbHNlIE5vbmUpCiAgICAgICAgICAgIGlmIHB1IGlzIE5vbmUgb3IgcHYgaXMgTm9uZToKICAgICAgICAgICAgICAgIGNvbnRpbnVlCiAgICAgICAgICAgIG5PZmYgKz0gMQogICAgICAgICAgICBzbGFjayA9IGlhZGQoY29zdChnaywgSUpbMF1bZ2tdLCBJSlsxXVtna10sIExwWydyJ10pLCBpc3ViKHB2LCBwdSkpCiAgICAgICAgICAgIG1pblNsYWNrID0gbWluKG1pblNsYWNrLCBzbGFja1swXSkKICAgIHJldHVybiBtaW5UaCwgbWluU2xhY2ssIG5PZmYKCgpkZWYgdmVyaWZ5X1MzKCk6CiAgICBsYXkgPSBidWlsZF9sYXlvdXQoUzNfU1VQUE9SVCwgRU5UUl9IRVQpCiAgICBjb3N0LCBkY29zdCA9IG1ha2VfaWNvc3QoKQogICAgeDAgPSBzM19jZW50ZXIobGF5KQogICAgcmVzID0ga3Jhd2N6eWsoY29zdCwgZGNvc3QsIGxheSwgeDApCiAgICBpZiBub3QgcmVzWydvayddOgogICAgICAgIHJldHVybiB7J29rJzogRmFsc2UsICd3aHknOiByZXMuZ2V0KCd3aHknKSwgJ254JzogbGF5WydueCddfQogICAgbWluVGgsIG1pblNsYWNrLCBuT2ZmID0gczNfdmVyaWZ5X2VxdWlsaWJyaXVtKGNvc3QsIGxheSwgcmVzWydLYm94J10pCiAgICBvayA9IChyZXNbJ21heFJhZCddIDwgMWUtOSBhbmQgbWluVGggPiAwIGFuZCBtaW5TbGFjayA+IDApCiAgICByZXR1cm4geydvayc6IG9rLCAnbWF4UmFkJzogcmVzWydtYXhSYWQnXSwgJ3JvdW5kcyc6IHJlc1sncm91bmRzJ10sICdueCc6IGxheVsnbngnXSwKICAgICAgICAgICAgJ21pblRoJzogbWluVGgsICdtaW5TbGFjayc6IG1pblNsYWNrLCAnbk9mZic6IG5PZmZ9CgoKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIDguICBGQUxTSUZJRVJTIChYMS4uWDYpIC0tIGVhY2ggTVVTVCB0dXJuIGl0cyBvd24gdGFyZ2V0IFJFRCAocmVmdXNlKTsgYSB2ZXJpZmllciB0aGF0CiMgICAgIGNhbm5vdCBnbyByZWQgaXMgYSBmYWtlIGNlcnRpZmljYXRlLgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CmRlZiBmYWxzaWZpZXJfWDEoKToKICAgICIiIm91dHdhcmQgcm91bmRpbmcgaXMgbG9hZC1iZWFyaW5nOiBhIHRoaW4gKG5vLXdpZGVuaW5nKSBtdWwgZmFpbHMgdG8gZW5jbG9zZSB0aGUgZXhhY3QKICAgICAgIHByb2R1Y3Q7IHRoZSBwb3J0ZWQgZXFjZXJ0IG11bCBlbmNsb3NlcyBhbGwgNDAwMC80MDAwLiAgUmVmZXJlbmNlID0gRnJhY3Rpb24uIiIiCiAgICBkZWYgc2VsZlRlc3QobXVsZm4pOgogICAgICAgIHNlZWQgPSBbMjAyNjA3MjNdCgogICAgICAgIGRlZiBybmcoKToKICAgICAgICAgICAgc2VlZFswXSA9IChzZWVkWzBdICogMTEwMzUxNTI0NSArIDEyMzQ1KSAmIDB4N2ZmZmZmZmYKICAgICAgICAgICAgcmV0dXJuIHNlZWRbMF0gLyAweDdmZmZmZmZmCiAgICAgICAgZm9yIHQgaW4gcmFuZ2UoNDAwMCk6CiAgICAgICAgICAgIGEgPSAocm5nKCkgLSAwLjUpICogKDFlNiBpZiB0ICUgMyBlbHNlIDFlLTYpCiAgICAgICAgICAgIGIgPSAocm5nKCkgLSAwLjUpICogKDFlMyBpZiB0ICUgMiBlbHNlIDFlLTMpCiAgICAgICAgICAgIGlmIGIgPT0gMDoKICAgICAgICAgICAgICAgIGIgPSAwLjUKICAgICAgICAgICAgciA9IG11bGZuKChhLCBhKSwgKGIsIGIpKQogICAgICAgICAgICBleCA9IFEoYSkgKiBRKGIpCiAgICAgICAgICAgIGlmIFEoclswXSkgPiBleCBvciBleCA+IFEoclsxXSk6CiAgICAgICAgICAgICAgICByZXR1cm4gdAogICAgICAgIHJldHVybiAtMQoKICAgIGRlZiB0aGluTXVsKGEsIGIpOgogICAgICAgIHAgPSBbYVswXSAqIGJbMF0sIGFbMF0gKiBiWzFdLCBhWzFdICogYlswXSwgYVsxXSAqIGJbMV1dCiAgICAgICAgcmV0dXJuIChtaW4ocCksIG1heChwKSkKICAgIGdvb2QgPSBzZWxmVGVzdChpbXVsKQogICAgYmFkID0gc2VsZlRlc3QodGhpbk11bCkKICAgIHJldHVybiBnb29kIDwgMCBhbmQgYmFkID49IDAsIChnb29kLCBiYWQpCgoKZGVmIGZhbHNpZmllcl9YMihzMik6CiAgICAiIiJwZXJ0dXJiIG9uZSBTMiBzdXBwb3J0IGZsb3cgKCsxKSAtPiBleGFjdCBLaXJjaGhvZmYgcmVzaWR1YWwgIT0gMCAoY29uc2VydmF0aW9uIGJyb2tlbikuIiIiCiAgICB0aGV0YSA9IGRpY3QoczJbJ3RoZXRhJ10pCiAgICBrZXkgPSAoMCwgMSkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgcG9wMSAoY2Fycykgb24gZWRnZSAoMiwzKQogICAgdGhldGFba2V5XSA9IHRoZXRhW2tleV0gKyBRKDEpCiAgICAjIG5vZGUtMiBiYWxhbmNlIGZvciBwb3AxOiBzdW0gaW5jaWQgKiB0aGV0YSAgdnMgIEIgKD0wLCBub2RlIDIgaXMgbm90IHRoZSBlbnRyYW5jZSkKICAgIG5kID0gMgogICAgcyA9IHN1bShpbmNpZChuZCwgZ2spICogdGhldGFbKHBpLCBnayldIGZvciAocGksIGdrKSBpbiB0aGV0YSBpZiBwaSA9PSAwIGFuZCBpbmNpZChuZCwgZ2spKQogICAgcmV0dXJuIHMgIT0gMCwgcwoKCmRlZiBmYWxzaWZpZXJfWDMoczIpOgogICAgIiIiY29ycnVwdCBvbmUgUzIgcG90ZW50aWFsIC0+IGEgVVNFRC1lZGdlIGNvbXBsZW1lbnRhcml0eSBzbGFjayAhPSAwIChnYXAgZ2FpbnMgdGVldGgpLiIiIgogICAgcGhpID0gZGljdChzMlsncGhpJ10pCiAgICBrZXkgPSAoMCwgMykgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgcG9wMSBwb3RlbnRpYWwgYXQgbm9kZSAzCiAgICBwaGlba2V5XSA9IHBoaVtrZXldICsgUSgxKQogICAgSiA9IFtbUSgwKV0gKiBORSwgW1EoMCldICogTkVdCiAgICBmb3IgKHBpLCBnayksIHYgaW4gczJbJ3RoZXRhJ10uaXRlbXMoKToKICAgICAgICBKW3BpXVtna10gPSB2CiAgICAjIHJlY29tcHV0ZSBzdXBwb3J0IHNsYWNrcyB3aXRoIHRoZSBjb3JydXB0ZWQgcGhpOyBhdCBsZWFzdCBvbmUgdXNlZCBlZGdlIG11c3QgYmUgbm9uemVybwogICAgd29yc3QgPSBRKDApCiAgICBmb3IgTHAgaW4gczJbJ2xheSddWydMJ106CiAgICAgICAgZm9yIGdrIGluIExwWydVJ106CiAgICAgICAgICAgIHUsIHYgPSBFREdFU1tna10KICAgICAgICAgICAgcHYgPSBRKDApIGlmIHYgaW4gRVhJVFMgZWxzZSBwaGkuZ2V0KChMcFsncGknXSwgdiksIFEoMCkpCiAgICAgICAgICAgIHB1ID0gUSgwKSBpZiB1IGluIEVYSVRTIGVsc2UgcGhpLmdldCgoTHBbJ3BpJ10sIHUpLCBRKDApKQogICAgICAgICAgICBzbGFjayA9IERDW0xwWydyJ10gLSAxXVswXSAqIEpbMF1bZ2tdICsgRENbTHBbJ3InXSAtIDFdWzFdICogSlsxXVtna10gKyBwdiAtIHB1CiAgICAgICAgICAgIGlmIGFicyhzbGFjaykgPiBhYnMod29yc3QpOgogICAgICAgICAgICAgICAgd29yc3QgPSBzbGFjawogICAgcmV0dXJuIHdvcnN0ICE9IDAsIHdvcnN0CgoKZGVmIGZhbHNpZmllcl9YNCgpOgogICAgIiIidGhlIHdyb25nIFRhYmxlLTEgdmFsdWUgKDQsNyk9NTQgYnJlYWtzIG5vZGUtNCBLaXJjaGhvZmYgb24gdGhlIHBhcGVyJ3Mgb3duIHRvdGFscy4KICAgICAgIChub2RlLTQgYmFsYW5jZSBmb3JjZXMgKDQsNyk9NTI7IHRoZSBwcmludGVkIDU0IGxlYXZlcyByZXNpZHVhbCArMikgIFttaXJyb3IgRVJSQVRBXS4iIiIKICAgIGlkeCA9IHtlOiBFREdFUy5pbmRleChlKSBmb3IgZSBpbiBbKDIsIDQpLCAoMywgNCksICg0LCA1KSwgKDQsIDYpLCAoNCwgNyldfQogICAgaW5mbG93ID0gVEFCTEUxW2lkeFsoMiwgNCldXSArIFRBQkxFMVtpZHhbKDMsIDQpXV0gICAgICAgICAgICMgNjIgKyAyNCA9IDg2CiAgICBvdGhlck91dCA9IFRBQkxFMVtpZHhbKDQsIDUpXV0gKyBUQUJMRTFbaWR4Wyg0LCA2KV1dICAgICAgICAgIyAxMiArIDIyID0gMzQKICAgIGZvcmNlZCA9IGluZmxvdyAtIG90aGVyT3V0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjID0+IDUyCiAgICByZXNpZHVhbF9pZl81NCA9IDU0IC0gZm9yY2VkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyArMiAobm9uemVybykgYXQgdGhlIHByaW50ZWQgNTQKICAgIHJlc2lkdWFsX2lmXzUyID0gNTIgLSBmb3JjZWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjIDAgYXQgdGhlIGNlcnRpZmllZCA1MgogICAgcmV0dXJuIChmb3JjZWQgPT0gNTIgYW5kIHJlc2lkdWFsX2lmXzU0ICE9IDAgYW5kIHJlc2lkdWFsX2lmXzUyID09IDApLCByZXNpZHVhbF9pZl81NAoKCmRlZiBmYWxzaWZpZXJfWDUoKToKICAgICIiIlMzIHdpdGggYSBXUk9ORyBhY3RpdmUgc2V0IChkcm9wIG9uZSBzdXBwb3J0IGVkZ2UpIC0+IEtyYXdjenlrIHJlZnVzZXMuIiIiCiAgICBiYWRfc3VwcG9ydCA9IFtTM19TVVBQT1JUWzBdWzE6XSwgbGlzdChTM19TVVBQT1JUWzFdKV0gICAgICAgIyBkcm9wIHBvcDEgZWRnZSAoMiwzKQogICAgbGF5ID0gYnVpbGRfbGF5b3V0KGJhZF9zdXBwb3J0LCBFTlRSX0hFVCkKICAgIGNvc3QsIGRjb3N0ID0gbWFrZV9pY29zdCgpCiAgICB4MCA9IFswLjBdICogbGF5WydueCddCiAgICBmb3IgTHAgaW4gbGF5WydMJ106CiAgICAgICAgZm9yIGEsIGdrIGluIGVudW1lcmF0ZShMcFsnVSddKToKICAgICAgICAgICAgeDBbTHBbJ29mZlRoJ10gKyBhXSA9IFMzX1gwX1RIRVRBLmdldCgnJWQ6JWQnICUgKExwWydwaSddLCBnayksIDEuMCkKICAgICAgICBmb3IgYSwgbmQgaW4gZW51bWVyYXRlKExwWydub2RlcyddKToKICAgICAgICAgICAgeDBbTHBbJ29mZlBoaSddICsgYV0gPSBTM19YMF9QSEkuZ2V0KCclZDolZCcgJSAoTHBbJ3BpJ10sIG5kKSwgMC4wKQogICAgcmVzID0ga3Jhd2N6eWsoY29zdCwgZGNvc3QsIGxheSwgeDAsIG1heFJhZENhcD0xLjApCiAgICByZXR1cm4gKG5vdCByZXNbJ29rJ10pLCByZXMuZ2V0KCd3aHknKQoKCmRlZiBmYWxzaWZpZXJfWDYoKToKICAgICIiIlMzIHdpdGggYSBNSVNNQVRDSEVEIGNvc3QgbW9kZWwgKHByZS1maXg6IHdUIGluc2lkZSB0aGUgc3BlZWQgQU5EIG5vIDFlLTMgZW1pc3Npb24KICAgICAgIGZhY3RvcikgaXMgZW1pc3Npb24tZG9taW5hdGVkIC0+IGl0cyBlcXVpbGlicml1bSBpcyBlbHNld2hlcmUgLT4gS3Jhd2N6eWsgcmVmdXNlcy4iIiIKICAgIEl3VCwgSUggPSBpdigyLjApLCBpdigwLjUpCiAgICBJQSwgSVMgPSBJWkVSTywgSVpFUk8KICAgIGZvciBhLCBiLCB3IGluIEVNOiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjIE5PVEU6IG5vIDFlLTMgZmFjdG9yCiAgICAgICAgSUEgPSBpYWRkKElBLCBpbXVsKGl2KHcpLCBpdihiKSkpCiAgICAgICAgSVMgPSBpYWRkKElTLCBpbXVsKGl2KHcpLCBpdihhKSkpCiAgICBJUzUwID0gaWRpdihJUywgaXYoNTApKQoKICAgIGRlZiBjb3N0KGssIElKMSwgSUoyLCByKToKICAgICAgICBqZWZmID0gaWFkZChJSjEsIGltdWwoSXdULCBJSjIpKSAgICAgICAgICAgICAgICAgICAgICAgICMgcHJlLWZpeDogd1QgaW5zaWRlIHRoZSBzcGVlZAogICAgICAgIGcgPSBpZGl2KGplZmYsIGl2KDUwKSkKICAgICAgICBiYXNlID0gaWFkZChJQSwgaW11bChJUzUwLCBpYWRkKElPTkUsIGltdWwoaXYoNSksIGljdWJlKGcpKSkpKQogICAgICAgIE0gPSBpZGl2KGltdWwoaXYoU0xFTltrXSksIGl2KDEuMCBpZiByID09IDEgZWxzZSAzLjApKSwgaXYoMikpCiAgICAgICAgb3duID0gSUoxIGlmIHIgPT0gMSBlbHNlIElKMgogICAgICAgIHJldHVybiBpYWRkKGltdWwoTSwgYmFzZSksIGltdWwoSUgsIG93bikpCgogICAgZGVmIGRjb3N0KGssIElKMSwgSUoyLCByKToKICAgICAgICBqZWZmID0gaWFkZChJSjEsIGltdWwoSXdULCBJSjIpKQogICAgICAgIGcgPSBpZGl2KGplZmYsIGl2KDUwKSkKICAgICAgICBkYiA9IGlkaXYoaW11bChpbXVsKElTNTAsIGl2KDE1KSksIGlzcXIoZykpLCBpdig1MCkpCiAgICAgICAgTSA9IGlkaXYoaW11bChpdihTTEVOW2tdKSwgaXYoMS4wIGlmIHIgPT0gMSBlbHNlIDMuMCkpLCBpdigyKSkKICAgICAgICBkMSA9IGlhZGQoaW11bChNLCBkYiksIElIIGlmIHIgPT0gMSBlbHNlIElaRVJPKQogICAgICAgIGQyID0gaWFkZChpbXVsKGltdWwoTSwgZGIpLCBJd1QpLCBJSCBpZiByID09IDIgZWxzZSBJWkVSTykKICAgICAgICByZXR1cm4gW2QxLCBkMl0KICAgIGxheSA9IGJ1aWxkX2xheW91dChTM19TVVBQT1JULCBFTlRSX0hFVCkKICAgIHgwID0gczNfY2VudGVyKGxheSkKICAgIHJlcyA9IGtyYXdjenlrKGNvc3QsIGRjb3N0LCBsYXksIHgwLCBtYXhSYWRDYXA9NTAuMCkKICAgIHJldHVybiAobm90IHJlc1snb2snXSksIHJlcy5nZXQoJ3doeScpCgoKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIDkuICBkcml2ZXIgLyByZXBvcnQKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpkZWYgcnVuKCk6CiAgICBzMSA9IHZlcmlmeV9TMSgpCiAgICBzMiA9IHZlcmlmeV9TMigpCiAgICBzMyA9IHZlcmlmeV9TMygpCiAgICBmeCA9IHt9CiAgICBmeFsnWDEnXSwgXyA9IGZhbHNpZmllcl9YMSgpCiAgICBmeFsnWDInXSwgeDIgPSBmYWxzaWZpZXJfWDIoczIpIGlmIHMyLmdldCgnb2snKSBpcyBub3QgTm9uZSBhbmQgJ3RoZXRhJyBpbiBzMiBlbHNlIChGYWxzZSwgTm9uZSkKICAgIGZ4WydYMyddLCB4MyA9IGZhbHNpZmllcl9YMyhzMikgaWYgJ3BoaScgaW4gczIgZWxzZSAoRmFsc2UsIE5vbmUpCiAgICBmeFsnWDQnXSwgXyA9IGZhbHNpZmllcl9YNCgpCiAgICBmeFsnWDUnXSwgXyA9IGZhbHNpZmllcl9YNSgpCiAgICBmeFsnWDYnXSwgXyA9IGZhbHNpZmllcl9YNigpCiAgICBmYWxzX29rID0gYWxsKGZ4LnZhbHVlcygpKQogICAgdmVyaWZpZWQgPSBib29sKHMxWydvayddIGFuZCBzMlsnb2snXSBhbmQgczNbJ29rJ10gYW5kIGZhbHNfb2spCiAgICByZXR1cm4geydzMSc6IHMxLCAnczInOiBzMiwgJ3MzJzogczMsICdmeCc6IGZ4LCAnZmFsc19vayc6IGZhbHNfb2ssICd2ZXJpZmllZCc6IHZlcmlmaWVkfQoKCmRlZiBfcmVwb3J0KFIpOgogICAgczEsIHMyLCBzMywgZnggPSBSWydzMSddLCBSWydzMiddLCBSWydzMyddLCBSWydmeCddCiAgICBMID0gW10KICAgIHAgPSBMLmFwcGVuZAogICAgcCgiPSIgKiA4OCkKICAgIHAoIiAgSU5ERVBFTkRFTlQgUFlUSE9OIFZFUklGSUVSICAtICBtdWx0aS1wb3B1bGF0aW9uIFdhcmRyb3AgZXF1aWxpYnJpdW0gKEJha2FyeWFuLUdvbWVzIDIwMjYpIikKICAgIHAoIiAgbmV0d29yazogMTAgbm9kZXMsIDE1IGVkZ2VzIChEQUcpLCBleGl0cyB7OCwxMH07IHBvcDEgQG5vZGUxLCBwb3AyIEBub2RlOSAgIChzdGRsaWIgb25seSkiKQogICAgcCgiPSIgKiA4OCkKICAgIHAoIiIpCiAgICBwKCIgIFMxICBsaW5lYXIgY29zdCBjID0gajErajIgIC0tPiAgQ0VSVElGWSB0aGUgdG90YWwsIFJFRlVTRSB0aGUgc3BsaXQgKGFsbCBleGFjdCBvdmVyIEZyYWN0aW9uKSIpCiAgICBwKCIgICAgZXF1aWxpYnJpdW0gdG90YWwgaXMgdGhlIG1pbi1ub3JtIFFQIG9wdGltdW06ICBLaXJjaGhvZmYgcmVzaWR1YWwgPSAlcywgIGFsbCB0b3RhbHMgPiAwIDogJXMiCiAgICAgICUgKHN0cihzMVsna2lyJ10pLCBzMVsnYWxsX3BvcyddKSkKICAgIHAoIiAgICB1c2VkIGVkZ2VzIGFsbCB0aWdodCAgPT4gV2FyZHJvcCBnYXAgbnVtZXJhdG9yID0gJXMgIChFWEFDVExZIDApIiAlIHN0cihzMVsnZ2FwX251bSddKSkKICAgIHAoIiAgICBlZGdlICg0LDcpIHRvdGFsID0gJXMgPSAlLjVmICAtPiByb3VuZHMgdG8gJWQgICAoVGFibGUgMSBwcmludHMgJWQ7IHRoZSBzZWxmLWluY29uc2lzdGVudCByb3cpIgogICAgICAlIChzdHIoczFbJ2U0NyddKSwgZmxvYXQoczFbJ2U0NyddKSwgczFbJ2U0N19yb3VuZCddLCBzMVsndGFibGUxXzQ3J10pKQogICAgcCgiICAgIG1heCBkZXZpYXRpb24gdnMgcHVibGlzaGVkIFRhYmxlIDEgPSAlcyA9ICUuNGYgICAoPD0gMiA6IGl0cyBpbnRlZ2VyIHJvdW5kaW5nKSIKICAgICAgJSAoc3RyKHMxWydtYXhkZXYnXSksIGZsb2F0KHMxWydtYXhkZXYnXSkpKQogICAgcCgiICAgIFNQTElUOiBleGFjdCBudWxsIHNwYWNlIG9mIHRoZSBzcGxpdC1jb25zZXJ2YXRpb24gb3BlcmF0b3IgaGFzIERJTUVOU0lPTiAlZCAoPj0gMSkiCiAgICAgICUgczFbJ3NwbGl0X251bGxkaW0nXSkKICAgIHAoIiAgICAgICAgICAgd2l0bmVzcyB2ZXJpZmllZCAoSzAgZDA9MCwgSzEgZDE9MCwgZDArZDE9MCwgZCE9MCk6ICVzICBvbiBlZGdlcyAlcyIKICAgICAgJSAoczFbJ3dpdG5lc3Nfb2snXSwgJywgJy5qb2luKCcoJWQsJWQpJyAlIGUgZm9yIGUgaW4gczFbJ3dpdG5lc3NfZWRnZXMnXSkpKQogICAgcCgiICAgICAgID09PiB0aGUgc3BsaXQgZGlyZWN0aW9uIGxpZXMgaW4gbnVsbChKKTogUkVGVVNFIHRvIGNlcnRpZnkgYSB1bmlxdWUgc3BsaXQiKQogICAgcCgiICAgICAgICAgICAoSlMgcmVzZWVkcyBtb3ZlIHRoZSBzcGxpdCBieSB+JS4yZiB3aGlsZSB0aGUgdG90YWwgaXMgZml4ZWQgLS0gY29ycm9ib3JhdGVzKSIgJSBTMV9TUExJVF9NT1ZFX1JFRikKICAgIHAoIiAgICBTMSB2ZXJkaWN0OiAlcyIgJSAoJ3RvdGFsIENFUlRJRklFRCArIHNwbGl0IFJFRlVTRUQnIGlmIHMxWydvayddIGVsc2UgJ0ZBSUxFRCcpKQogICAgcCgiIikKICAgIHAoIiAgUzIgIGNhcnMrdHJ1Y2tzIGNeciA9IDAuNShqMSsyajIpKzAuNSBqXnIgIC0tPiAgRVhBQ1QgcmF0aW9uYWwgY2VydGlmaWNhdGUgKG49JWQgdW5rbm93bnMpIiAlIHMyWydueCddKQogICAgcCgiICAgIHN1cHBvcnQtS0tUIHNvbHZlZCBvdmVyIEZyYWN0aW9uOiAgcmVzaWR1YWwgPT0gMCA6ICVzICAgICBzdXBwb3J0IGZsb3dzID4gMCA6ICVzIgogICAgICAlIChzMlsncmVzX29rJ10sIHMyWydwb3Nfb2snXSkpCiAgICBwKCIgICAgS2lyY2hob2ZmIEVYQUNUIChib3RoIHBvcHVsYXRpb25zLCB3aG9sZSBuZXR3b3JrKSA6ICVzIiAlIHMyWydraXJfb2snXSkKICAgIHAoIiAgICBzdXBwb3J0IHNsYWNrcyA9PSAwICA9PiAgV2FyZHJvcCBnYXAgPSAlcyAgKEVYQUNUTFkgMCwgbm90IGEgc21hbGwgcmVzaWR1YWwpIiAlIHN0cihzMlsnZ2FwX251bSddKSkKICAgIHAoIiAgICBvZmYtc3VwcG9ydCBzbGFja3MgPj0gMCA6ICVzICAgICBkZWdlbmVyYXRlIHRpZSBwb3AyICg0LDUpIHNsYWNrID0gJXMgIChFWEFDVCB3ZWFrIGNvbXBsZW1lbnRhcml0eSkiCiAgICAgICUgKHMyWydvZmZfb2snXSwgc3RyKHMyWyd0aWVfdmFsJ10pKSkKICAgIHAoIiAgICBjYXIvdHJ1Y2sgdG90YWxzIHJlcHJvZHVjZSBwdWJsaXNoZWQgRmlndXJlIDIgRVhBQ1RMWSA6ICVzIiAlIHMyWydmaWcyX29rJ10pCiAgICBwKCIgICAgaW5kZXBlbmRlbnQgZXhhY3Qgc29sdmUgPT0gSlMgQmlnSW50IHJlZmVyZW5jZSA6ICVzIiAlIHMyWydyZWZfb2snXSkKICAgIHAoIiAgICBTMiB2ZXJkaWN0OiAlcyIgJSAoJ0NFUlRJRklFRCBFWEFDVExZJyBpZiBzMlsnb2snXSBlbHNlICdGQUlMRUQnKSkKICAgIHAoIiIpCiAgICBwKCIgIFMzICBlbWlzc2lvbiAvIHNwZWVkLWZsb3cgY29zdCAoc21vb3RoIE5PTkxJTkVBUikgIC0tPiAgS1JBV0NaWUsgZW5jbG9zdXJlIChuPSVkKSIgJSBzMy5nZXQoJ254JywgMCkpCiAgICBpZiBzM1snb2snXToKICAgICAgICBwKCIgICAgaW50ZXJ2YWwgS3Jhd2N6eWsgY29udHJhY3Rpb246IHVuaXF1ZSBLS1QgemVybyBpbiBhIGJveCBvZiBtYXggcmFkaXVzICUuM2UgKCVkIHJvdW5kKSIKICAgICAgICAgICUgKHMzWydtYXhSYWQnXSwgczNbJ3JvdW5kcyddKSkKICAgICAgICBwKCIgICAgc3VwcG9ydCBmbG93cyA+IDAgb3ZlciB0aGUgYm94IDogbWluIGluZiB0aGV0YSA9ICUuNGYiICUgczNbJ21pblRoJ10pCiAgICAgICAgcCgiICAgIG9mZi1zdXBwb3J0IHNsYWNrcyA+IDAgKFNUUklDVCBjb21wbGVtZW50YXJpdHkpIDogbWluIGluZiBzbGFjayA9ICUuNGYgb3ZlciAlZCBlZGdlKHMpIgogICAgICAgICAgJSAoczNbJ21pblNsYWNrJ10sIHMzWyduT2ZmJ10pKQogICAgICAgIHAoIiAgICBTMyB2ZXJkaWN0OiBDRVJUSUZJRUQgKGV4aXN0ZW5jZSArIGxvY2FsIHVuaXF1ZW5lc3MsIHNtb290aC1ub25saW5lYXIgbXVsdGktcG9wdWxhdGlvbikiKQogICAgZWxzZToKICAgICAgICBwKCIgICAgUzMgZGlkIE5PVCBjZXJ0aWZ5OiAlcyIgJSBzMy5nZXQoJ3doeScpKQogICAgcCgiIikKICAgIHAoIiAgZmFsc2lmaWVycyAoZWFjaCBNVVNUIHJlZnVzZSAtIGEgY2VydGlmaWNhdGUgdGhhdCBjYW5ub3QgZ28gUkVEIGlzIGZha2UpOiIpCiAgICBuYW1lcyA9IHsKICAgICAgICAnWDEnOiAnb3V0d2FyZCByb3VuZGluZyBsb2FkLWJlYXJpbmc6IHRoaW4gbXVsIGZhaWxzIHRvIGVuY2xvc2UgdnMgZXhhY3QgcmF0aW9uYWwnLAogICAgICAgICdYMic6ICdwZXJ0dXJiZWQgUzIgZmxvdzogZXhhY3QgS2lyY2hob2ZmIHJlc2lkdWFsICE9IDAgKGNvbnNlcnZhdGlvbiBoYXMgdGVldGgpJywKICAgICAgICAnWDMnOiAnY29ycnVwdGVkIFMyIHBvdGVudGlhbDogYSB1c2VkLWVkZ2Ugc2xhY2sgIT0gMCAodGhlIGdhcCBoYXMgdGVldGgpJywKICAgICAgICAnWDQnOiAnd3JvbmcgVGFibGUtMSAoNCw3KT01NDogbm9kZS00IEtpcmNoaG9mZiByZXNpZHVhbCA9ICsyICE9IDAnLAogICAgICAgICdYNSc6ICdTMyB3cm9uZyBhY3RpdmUgc2V0IChkcm9wIGEgc3VwcG9ydCBlZGdlKTogS3Jhd2N6eWsgcmVmdXNlcycsCiAgICAgICAgJ1g2JzogJ1MzIG1pc21hdGNoZWQgY29zdCBtb2RlbCAocHJlLWZpeCBlbWlzc2lvbi1kb21pbmF0ZWQpOiBLcmF3Y3p5ayByZWZ1c2VzJywKICAgIH0KICAgIGZvciBrZXkgaW4gWydYMScsICdYMicsICdYMycsICdYNCcsICdYNScsICdYNiddOgogICAgICAgIHAoIiAgICAlcyAgJXMgICVzIiAlICgnUkVEIG9rICcgaWYgZnhba2V5XSBlbHNlICdGQUlMICAgJywga2V5LCBuYW1lc1trZXldKSkKICAgIHAoIiIpCiAgICBwKCItIiAqIDg4KQogICAgaWYgUlsndmVyaWZpZWQnXToKICAgICAgICBwKCIgIFMxIHRvdGFsIGNlcnRpZmllZCArIHNwbGl0IHJlZnVzZWQgKGV4YWN0KTsgUzIgZ2FwIEVYQUNUTFkgMCAoZXhhY3QgcmF0aW9uYWwpOyIpCiAgICAgICAgcCgiICBTMyBlbmNsb3NlZCBieSBhIHJpZ29yb3VzIGludGVydmFsIEtyYXdjenlrIGNvbnRyYWN0aW9uOyBldmVyeSBmYWxzaWZpZXIgcmVmdXNlZC4iKQogICAgICAgIHAoIiAgTm8gdG9sZXJhbmNlIHdhcyB0dW5lZCB0byBjbG9zZS4iKQogICAgICAgIHAoIiIpCiAgICAgICAgcCgiICBXQVJEUk9QIFJFUFJPRFVDVElPTjogVkVSSUZJRUQiKQogICAgZWxzZToKICAgICAgICByZWFzb25zID0gW10KICAgICAgICBpZiBub3QgczFbJ29rJ106CiAgICAgICAgICAgIHJlYXNvbnMuYXBwZW5kKCdTMSAodG90YWwvc3BsaXQpJykKICAgICAgICBpZiBub3QgczJbJ29rJ106CiAgICAgICAgICAgIHJlYXNvbnMuYXBwZW5kKCdTMiAoZXhhY3QgY2VydGlmaWNhdGUpJykKICAgICAgICBpZiBub3QgczNbJ29rJ106CiAgICAgICAgICAgIHJlYXNvbnMuYXBwZW5kKCdTMyAoS3Jhd2N6eWspJykKICAgICAgICBpZiBub3QgUlsnZmFsc19vayddOgogICAgICAgICAgICByZWFzb25zLmFwcGVuZCgnYSBmYWxzaWZpZXIgZmFpbGVkIHRvIHJlZnVzZScpCiAgICAgICAgcCgiICBXQVJEUk9QIFJFUFJPRFVDVElPTjogUkVGVVNFRCAgLSAgIiArICc7ICcuam9pbihyZWFzb25zKSkKICAgIHAoIi0iICogODgpCiAgICByZXR1cm4gIlxuIi5qb2luKEwpCgoKZGVmIF9qc29uKFIpOgogICAgczEsIHMyLCBzMyA9IFJbJ3MxJ10sIFJbJ3MyJ10sIFJbJ3MzJ10KICAgIHJldHVybiB7CiAgICAgICAgJ3ZlcmlmaWVkJzogUlsndmVyaWZpZWQnXSwKICAgICAgICAnczEnOiB7J29rJzogczFbJ29rJ10sICdlNDdfbnVtJzogczFbJ2U0NyddLm51bWVyYXRvciwgJ2U0N19kZW4nOiBzMVsnZTQ3J10uZGVub21pbmF0b3IsCiAgICAgICAgICAgICAgICdlNDdfcm91bmQnOiBzMVsnZTQ3X3JvdW5kJ10sICdraXJfemVybyc6IChzMVsna2lyJ10gPT0gMCksCiAgICAgICAgICAgICAgICdnYXBfemVybyc6IChzMVsnZ2FwX251bSddID09IDApLCAnc3BsaXRfbnVsbGRpbSc6IHMxWydzcGxpdF9udWxsZGltJ10sCiAgICAgICAgICAgICAgICdzcGxpdF9yZWZ1c2VkJzogczFbJ3NwbGl0X3JlZnVzZWQnXSwgJ21heGRldl9udW0nOiBzMVsnbWF4ZGV2J10ubnVtZXJhdG9yLAogICAgICAgICAgICAgICAnbWF4ZGV2X2Rlbic6IHMxWydtYXhkZXYnXS5kZW5vbWluYXRvcn0sCiAgICAgICAgJ3MyJzogeydvayc6IHMyWydvayddLCAnZ2FwX3plcm8nOiAoczJbJ2dhcF9udW0nXSA9PSAwKSwgJ3RpZV96ZXJvJzogKHMyWyd0aWVfdmFsJ10gPT0gMCksCiAgICAgICAgICAgICAgICdmaWcyX29rJzogczJbJ2ZpZzJfb2snXSwgJ3JlZl9vayc6IHMyWydyZWZfb2snXSwgJ2Nhcic6IHMyWydjYXInXSwgJ3RydWNrJzogczJbJ3RydWNrJ119LAogICAgICAgICdzMyc6IHsnb2snOiBzM1snb2snXSwgJ21heFJhZCc6IHMzLmdldCgnbWF4UmFkJyksICdtaW5UaCc6IHMzLmdldCgnbWluVGgnKSwKICAgICAgICAgICAgICAgJ21pblNsYWNrJzogczMuZ2V0KCdtaW5TbGFjaycpLCAnbk9mZic6IHMzLmdldCgnbk9mZicpfSwKICAgICAgICAnZmFsc2lmaWVycyc6IFJbJ2Z4J10sCiAgICB9CgoKZGVmIG1haW4oKToKICAgIFIgPSBydW4oKQogICAgaWYgJy0tanNvbicgaW4gc3lzLmFyZ3Y6CiAgICAgICAgaW1wb3J0IGpzb24KICAgICAgICBwcmludChqc29uLmR1bXBzKF9qc29uKFIpKSkKICAgIGVsc2U6CiAgICAgICAgcHJpbnQoX3JlcG9ydChSKSkKICAgIHJldHVybiAwIGlmIFJbJ3ZlcmlmaWVkJ10gZWxzZSAxCgoKaWYgX19uYW1lX18gPT0gJ19fbWFpbl9fJzoKICAgIHN5cy5leGl0KG1haW4oKSkK";
+(function(){
+  document.querySelectorAll('.dlproof').forEach(function(b){
+  b.addEventListener('click', function(){
+    try{
+      var bin = atob(window.__VERIFY_WARDROP_B64 || '');
+      var u = new Uint8Array(bin.length); for(var i=0;i<bin.length;i++) u[i] = bin.charCodeAt(i);
+      var url = URL.createObjectURL(new Blob([u], {type:'text/x-python'}));
+      var a = document.createElement('a'); a.href = url; a.download = 'verify_wardrop.py';
+      document.body.appendChild(a); a.click();
+      setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 1500);
+    }catch(e){ alert('download failed: ' + e.message); }
+  });
+  });
+})();
+</script>
+<footer class="sitefoot">
+  <nav class="sitemap" aria-label="Site map">
+    <a href="/reports">Reports</a>
+    <a href="/stack">Stack</a>
+    <a href="/errata">Errata</a>
+    <a href="/about">About</a>
+    <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>
+  </nav>
+  <div class="foot-base">Carlos&nbsp;Toledo &middot; carlos@carlostoledo.co &middot; Brazil, 2026</div>
+</footer>
+
+</body>
+</html>

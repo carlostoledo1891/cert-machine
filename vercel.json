@@ -2,16 +2,59 @@
   "framework": null,
   "outputDirectory": "site",
   "rewrites": [
-    { "source": "/research/alien-science/alien-science", "destination": "/research/alien-science/alien-science.html" }
+    {
+      "source": "/research/alien-science/alien-science",
+      "destination": "/research/alien-science/alien-science.html"
+    },
+    {
+      "source": "/research/mfg-congest/mfg-congest",
+      "destination": "/research/mfg-congest/mfg-congest.html"
+    },
+    {
+      "source": "/research/wardrop-repro/wardrop-repro",
+      "destination": "/research/wardrop-repro/wardrop-repro.html"
+    }
   ],
   "redirects": [
-    { "source": "/research/challenges/erdos290", "destination": "/reports/erdos290.html", "statusCode": 301 },
-    { "source": "/research/challenges/verify-lemniscate", "destination": "/reports/verify-lemniscate.html", "statusCode": 301 },
-    { "source": "/technical-reports/erdos290", "destination": "/reports/erdos290.html", "statusCode": 301 },
-    { "source": "/technical-reports/erdos290/:path*", "destination": "/research/challenges/erdos290/:path*", "statusCode": 301 },
-    { "source": "/technical-reports/verify-lemniscate", "destination": "/reports/verify-lemniscate.html", "statusCode": 301 },
-    { "source": "/reports/verify-lemniscate", "destination": "/reports/verify-lemniscate.html", "statusCode": 301 },
-    { "source": "/technical-reports/alien-science", "destination": "/research/alien-science/alien-science", "statusCode": 301 },
-    { "source": "/technical-reports/alien-science/:path*", "destination": "/research/alien-science/alien-science/:path*", "statusCode": 301 }
+    {
+      "source": "/research/challenges/erdos290",
+      "destination": "/reports/erdos290.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/challenges/verify-lemniscate",
+      "destination": "/reports/verify-lemniscate.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/technical-reports/erdos290",
+      "destination": "/reports/erdos290.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/technical-reports/erdos290/:path*",
+      "destination": "/research/challenges/erdos290/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/technical-reports/verify-lemniscate",
+      "destination": "/reports/verify-lemniscate.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/reports/verify-lemniscate",
+      "destination": "/reports/verify-lemniscate.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/technical-reports/alien-science",
+      "destination": "/research/alien-science/alien-science",
+      "statusCode": 301
+    },
+    {
+      "source": "/technical-reports/alien-science/:path*",
+      "destination": "/research/alien-science/alien-science/:path*",
+      "statusCode": 301
+    }
   ]
 }
