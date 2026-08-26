@@ -136,7 +136,22 @@ S2.5 LEGACY OUTREACH SURFACES (operator ruling 2026-08-27: this is the
     deepening), then flip their legacy paths to 301s onto the new pages.
     The alien-science bundle stays FROZEN (cited evidence bytes in a
     safety-research issue) unless the operator rules otherwise.
-S3. THE EVAL (promoted) — model-proposes-engine-certifies over the
+S3. THE EVAL — BUILT AND LIVE (2026-08-27). tools/llm-harness.py gains
+    the matmul family (rank-R decompositions of <n,m,p> over Q; stdlib
+    Fraction grading of the full tensor identity — always decidable, false
+    positives provably false; prune-only float screen; per-proposal
+    accounting, dedup off for evals). Red controls per run incl. the
+    SUB-FLOAT forgery (coefficient off by 1e-9, invisible to the screen,
+    REFUTED exactly); any control certifying aborts the campaign. Ladder:
+    <2,2,2> r8, r7 (Strassen), <2,2,3> r11, <3,3,3> r23 (Laderman) —
+    achievable ranks only. Leaderboard: reports/matmul-eval.html
+    (build-report-eval.js re-runs the calibration as its gate; ledger
+    certs/matmul-eval-ledger.jsonl, append-only; page states NO MODEL HAS
+    RUN yet — the fake baseline is labeled). FIRST CAMPAIGN is one
+    operator command with their key:
+    ANTHROPIC_API_KEY=... python3 tools/llm-harness.py --family matmul
+    --model <id> --n 40 --ledger certs/matmul-eval-ledger.jsonl
+    ORIGINAL NOTE: model-proposes-engine-certifies over the
     strassen corpus: per-model certified truth rates, false positives
     provably false; shipped as corpus + stdlib graders + a small
     leaderboard page. The one artifact whose value curve has no operator

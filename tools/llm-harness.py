@@ -167,7 +167,187 @@ class EgyptianFamily(Family):
         return tuple(out)
 
 
-FAMILIES = {"egyptian": EgyptianFamily}
+
+
+# --------------------------------------------------------------------------
+# 2b. The matmul family: propose a rank-<=R decomposition of the <n,m,p>
+#     matmul tensor over Q. Grading is a certificate: the proposal either IS
+#     an exact tensor identity over Fractions or it is not. False positives
+#     are provably false — the property FrontierMath-style human grading
+#     cannot offer. Convention (stated in every prompt, graded exactly):
+#         C[i][k] = sum_r w[r][i*p+k] * (sum_{i',j'} u[r][i'*m+j'] A[i'][j'])
+#                                     * (sum_{j'',k''} v[r][j''*p+k''] B[j''][k''])
+#     equivalently, for all index pairs:
+#         sum_r u[r][a*m+b] v[r][c*p+d] w[r][e*p+f] == 1 iff (b==c, e==a, f==d) else 0
+# --------------------------------------------------------------------------
+
+STRASSEN7 = {
+    "u": [[1,0,0,1],[0,0,1,1],[1,0,0,0],[0,0,0,1],[1,1,0,0],[-1,0,1,0],[0,1,0,-1]],
+    "v": [[1,0,0,1],[1,0,0,0],[0,1,0,-1],[-1,0,1,0],[0,0,0,1],[1,1,0,0],[0,0,1,1]],
+    "w": [[1,0,0,1],[0,0,1,-1],[0,1,0,1],[1,0,1,0],[-1,1,0,0],[0,0,0,1],[1,0,0,0]],
+}
+
+
+def naive_decomposition(n, m, p):
+    """Rank n*m*p: one product per (i,j,k). Always correct — the easy rung."""
+    u, v, w = [], [], []
+    for i in range(n):
+        for j in range(m):
+            for k in range(p):
+                uu = [0] * (n * m); uu[i * m + j] = 1
+                vv = [0] * (m * p); vv[j * p + k] = 1
+                ww = [0] * (n * p); ww[i * p + k] = 1
+                u.append(uu); v.append(vv); w.append(ww)
+    return {"u": u, "v": v, "w": w}
+
+
+class MatmulFamily(Family):
+    name = "matmul"
+    dedup = False   # an EVAL counts every proposal; dedup is for discovery corpora
+
+    # (n, m, p, R): achievable targets only; the ladder runs recall -> hard recall
+    LADDER = [(2, 2, 2, 8), (2, 2, 2, 7), (2, 2, 3, 11), (3, 3, 3, 23)]
+
+    def enumerate(self, n, seed):
+        rng = random.Random(seed)
+        ladder = list(self.LADDER)
+        for i in range(n):
+            yield ladder[i % len(ladder)] if rng.random() < 2 else ladder[rng.randrange(len(ladder))]
+
+    def prompt(self, target):
+        n, m, p, R = target
+        return (
+            f"Give a rank-{R} (or lower) decomposition of the {n}x{m} by {m}x{p} matrix "
+            f"multiplication tensor over the rationals.\n"
+            f"Convention: A is {n}x{m} (row-major vector a of length {n*m}), B is {m}x{p} "
+            f"(row-major b, length {m*p}), C = A*B is {n}x{p} (row-major c, length {n*p}). "
+            f"Your decomposition is three lists u, v, w of R rows each: u rows have length {n*m}, "
+            f"v rows length {m*p}, w rows length {n*p}, and it must satisfy, for ALL A and B:\n"
+            f"  C[i][k] = sum_r w[r][i*{p}+k] * (sum_ij u[r][i'*{m}+j'] * A[i'][j']) "
+            f"* (sum_jk v[r][j''*{p}+k''] * B[j''][k''])\n"
+            f"Entries may be integers or exact fractions written as strings like \"1/2\".\n"
+            f'Reply with ONLY a JSON object {{"u": [...], "v": [...], "w": [...]}}. No prose.'
+        )
+
+    @staticmethod
+    def _frac(x):
+        if isinstance(x, bool):
+            raise ValueError
+        if isinstance(x, int):
+            return Fraction(x)
+        if isinstance(x, str):
+            return Fraction(x)
+        raise ValueError
+
+    def parse(self, reply):
+        m = re.search(r"\{.*\}", reply, re.S)
+        if not m:
+            return None
+        try:
+            d = json.loads(m.group(0))
+            u = [[self._frac(x) for x in row] for row in d["u"]]
+            v = [[self._frac(x) for x in row] for row in d["v"]]
+            w = [[self._frac(x) for x in row] for row in d["w"]]
+        except Exception:
+            return None
+        if not (u and v and w) or not (len(u) == len(v) == len(w)):
+            return None
+        return (tuple(tuple(r) for r in u), tuple(tuple(r) for r in v), tuple(tuple(r) for r in w))
+
+    def value(self, obj):
+        return float(len(obj[0]))                     # rank; only feeds the screen
+
+    def interesting(self, obj, target):
+        # prune-only: shapes, rank bound, and ONE float spot-test on random matrices.
+        n, m, p, R = target
+        u, v, w = obj
+        if len(u) > R:
+            return False
+        if any(len(r) != n * m for r in u) or any(len(r) != m * p for r in v) or any(len(r) != n * p for r in w):
+            return False
+        rng = random.Random(1234)
+        A = [[rng.uniform(-1, 1) for _ in range(m)] for _ in range(n)]
+        B = [[rng.uniform(-1, 1) for _ in range(p)] for _ in range(m)]
+        C = [[sum(A[i][j] * B[j][k] for j in range(m)) for k in range(p)] for i in range(n)]
+        for i in range(n):
+            for k in range(p):
+                got = sum(float(w[r][i * p + k])
+                          * sum(float(u[r][a]) * A[a // m][a % m] for a in range(n * m))
+                          * sum(float(v[r][b]) * B[b // p][b % p] for b in range(m * p))
+                          for r in range(len(u)))
+                if abs(got - C[i][k]) > 1e-6:
+                    return False
+        return True
+
+    def certify(self, obj, target):
+        # THE decision: the full tensor identity over Fractions. Always decidable.
+        n, m, p, R = target
+        u, v, w = obj
+        ok = len(u) <= R
+        bad = None
+        for a in range(n):
+            for b in range(m):
+                for c in range(m):
+                    for d in range(p):
+                        for e in range(n):
+                            for f in range(p):
+                                s = sum(u[r][a * m + b] * v[r][c * p + d] * w[r][e * p + f]
+                                        for r in range(len(u)))
+                                want = Fraction(1 if (b == c and e == a and f == d) else 0)
+                                if s != want:
+                                    ok = False
+                                    if bad is None:
+                                        bad = (a, b, c, d, e, f, str(s), str(want))
+        return Verdict(
+            holds=ok,
+            witness=("exact tensor identity holds; rank " + str(len(u)) + " <= " + str(R)) if ok
+            else ("identity fails at " + repr(bad) if bad else "rank " + str(len(u)) + " > " + str(R)),
+            certificate={"dims": [n, m, p], "rank": len(u), "target_rank": R,
+                         "first_violation": bad},
+        )
+
+    def statement(self, obj, target):
+        n, m, p, R = target
+        return f"a rank-{len(obj[0])} decomposition of <{n},{m},{p}> (target <= {R})"
+
+    def red_controls(self, target):
+        n, m, p, R = target
+        out = []
+        if (n, m, p) == (2, 2, 2):
+            wrong = {k: [list(r) for r in v] for k, v in STRASSEN7.items()}
+            wrong["w"][0][0] = 2                      # one coefficient off: screen may prune it
+            out.append(self.parse(json.dumps(wrong)))
+            subtle = {k: [list(r) for r in v] for k, v in STRASSEN7.items()}
+            subtle["w"][0][0] = "1000000001/1000000000"   # +1e-9: BELOW the float screen's
+            out.append(self.parse(json.dumps(subtle)))    # tolerance — must be REFUTED exactly
+        nv = naive_decomposition(n, m, p)
+        if len(nv["u"]) - 1 <= R:                     # dropped last product, rank fits: must be REFUTED
+            dropped = {k: v[:-1] for k, v in nv.items()}
+            out.append(self.parse(json.dumps(dropped)))
+        return [o for o in out if o is not None]
+
+    # deterministic stand-in for --dry-run
+    def fake(self, prompt, rng):
+        m = re.search(r"rank-(\d+) \(or lower\) decomposition of the (\d+)x(\d+) by \d+x(\d+)", prompt)
+        R, n, mm, p = (int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4)))
+        roll = rng.random()
+        if roll < 0.10:
+            return "I believe Strassen solved this in 1969."          # malformed
+        if (n, mm, p, R) == (2, 2, 2, 7):
+            if roll < 0.45:
+                return json.dumps(STRASSEN7)                           # correct
+            wrong = {k: [list(r) for r in v] for k, v in STRASSEN7.items()}
+            wrong["v"][3][0] = 1                                       # subtly wrong
+            return json.dumps(wrong)
+        nv = naive_decomposition(n, mm, p)
+        if len(nv["u"]) <= R:
+            return json.dumps(nv)                                      # correct (easy rung)
+        if roll < 0.55:
+            return json.dumps({k: v[: R] for k, v in nv.items()})      # truncated: wrong
+        return json.dumps(nv)                                          # over-rank: rejected
+
+
+FAMILIES = {"egyptian": EgyptianFamily, "matmul": MatmulFamily}
 
 
 # --------------------------------------------------------------------------
@@ -198,6 +378,8 @@ def anthropic_proposer(model: str, max_tokens: int = 200) -> Proposer:
 def fake_proposer(family: Family, seed: int = 0, error_rate: float = 0.4) -> Proposer:
     """Deterministic stand-in: right most of the time, wrong in ways a float screen might miss."""
     rng = random.Random(seed)
+    if hasattr(family, "fake"):
+        return lambda prompt: family.fake(prompt, rng)
 
     def call(prompt: str) -> str:
         m = re.search(r"Write (\d+)/(\d+)", prompt)
@@ -223,6 +405,7 @@ def fake_proposer(family: Family, seed: int = 0, error_rate: float = 0.4) -> Pro
 @dataclass
 class Row:
     family: str
+    model: str
     target: str
     proposal_raw: str
     obj: Optional[str]
@@ -284,11 +467,12 @@ def main():
             obj = fam.parse(raw)
             outcome, v = decide(fam, obj, t)
             k = fam.key(obj) if obj is not None else None
-            if k in seen:
-                continue                     # dedup, inherited from the engine
-            seen.add(k)
+            if getattr(fam, "dedup", True):
+                if k in seen:
+                    continue                 # dedup, inherited from the engine
+                seen.add(k)
             tally[outcome] += 1
-            row = Row(fam.name, str(t), raw.strip(), repr(obj) if obj is not None else None, outcome,
+            row = Row(fam.name, args.model or "fake", str(t), raw.strip(), repr(obj) if obj is not None else None, outcome,
                       fam.statement(obj, t) if obj is not None else None,
                       v.witness if v else None, v.certificate if v else None, k, round(time.time() - t0, 3))
             ledger.write(json.dumps(asdict(row)) + "\n")
