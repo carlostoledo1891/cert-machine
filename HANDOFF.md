@@ -156,10 +156,15 @@ S3. THE EVAL — BUILT AND LIVE (2026-08-27). tools/llm-harness.py gains
     provably false; shipped as corpus + stdlib graders + a small
     leaderboard page. The one artifact whose value curve has no operator
     in the denominator; the direct frontier-lab bridge.
-S4. THE NEW-CLAIMS SWEEP — a per-session fetch/diff tool over the claim
-    surfaces (RM results pages, erdosproblems proof-claims, arXiv
-    constants) feeding the registry. A tool run each session, NOT a cron;
-    scheduling is a later operator opt-in.
+S4. THE NEW-CLAIMS SWEEP — DONE (2026-08-27): tools/sweep-claims.js.
+    Run `node tools/sweep-claims.js` at SESSION START. Surfaces: the RM
+    results page (a new sheet = new registry corpus), the erdosproblems
+    #852 thread (the standing moderation check is now automated — it
+    shouts when the correction digits appear and the snapshot instruction
+    fires), and arXiv "Ramanujan Machine" mentions (a proof of an audited
+    row updates its registry status). Diff state: corpus/claims-seen.json.
+    A REPORT, not a gate — exit 0 always; acting is a session decision.
+    No cron unless the operator later opts in.
 S5. THE MERCER PROGRAM REPORT — writing slot: the mu/lambda tables, the
     m = 5..20 bracket ladder, M(0,1,2,6,9) = 1, cross-lab replication to
     the kill-split digit. "First CERTIFICATE / named box" framing; Boyd

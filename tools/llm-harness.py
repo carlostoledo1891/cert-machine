@@ -450,13 +450,15 @@ def main():
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--ledger", default="harness-ledger.jsonl")
+    ap.add_argument("--max-tokens", type=int, default=200,
+                    help="reply cap; matmul's upper rungs need thousands")
     args = ap.parse_args()
 
     fam = FAMILIES[args.family]()
     targets = list(fam.enumerate(args.n, args.seed))
     run_red_controls(fam, targets)
 
-    propose = fake_proposer(fam, args.seed) if args.dry_run else anthropic_proposer(args.model)
+    propose = fake_proposer(fam, args.seed) if args.dry_run else anthropic_proposer(args.model, args.max_tokens)
     tally = {"malformed": 0, "rejected": 0, "refuted": 0, "certified": 0, "undecided": 0}
     seen = set()
 
