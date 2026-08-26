@@ -197,7 +197,11 @@ O.push(C.section({
     + C.pRaw('Each closed degree also extends the evidence base of §4\'s assumption: every one is a new even '
       + 'degree at which the group is verified to be one of the two allowed candidates. The extension record '
       + 'is <a href="/certs/erdos290-tail-ext.json"><span class="m">certs/erdos290-tail-ext.json</span></a>; '
-      + 'a degree absent from it contributed nothing but honest width.')
+      + 'a degree absent from it contributed nothing but honest width.'
+      + (EXT.deltas && EXT.deltas[84] ? ' One closure deserves its own sentence: d = 168 is an EXCEPTIONAL degree '
+        + '(4k(k+1) at k = 6, square discriminant by the theorem above), and the cited page explicitly left its '
+        + 'Galois group undetermined — the squeeze has now closed it (survivor ' + EXT.deltas[84].name + '), '
+        + 'pinning the last exceptional density in range.' : ''))
     + '</div>'
 }));
 
