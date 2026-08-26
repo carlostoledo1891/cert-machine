@@ -13,6 +13,82 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
+## The direction (operator ruling, 2026-08-26): SHIP
+
+The verification layer this machine occupies — proved negatives at scale,
+exhaustion certificates, certified audits of published AI-generated math —
+is uncrowded for months, not years (the Ramanujan Machine's own Challenge
+now asks for verified code; practitioners are arriving thread by thread).
+The machine holds ~25 first-ever certified rows, TWO refutations of
+published claims (erdos852's C*; the RM mixed-zeta row 3), and cross-lab
+replications to the kill-split digit — and almost none of it is visible
+off this disk. THE BOTTLENECK IS PUBLICATION, NOT INSTRUMENTS. Everything
+ladders to one sentence: "I build verification layers under which AI-scale
+mathematical search produces only certified output — and I audit published
+AI-generated mathematics."
+
+Public touchpoint (operator rulings, 2026-08-26): cert-machine replaces
+sin-mfg on carlostoledo.co. Front door = a THIN LANDING PAGE (the
+positioning sentence, the three lanes with one flagship number each, links
+to control page / reports / certificates / GitHub, and the ten-second
+"rerun this yourself" block); the control page sits one click below. Code
+= the FULL repo, public on GitHub, after the self-containment pass.
+NOTHING from sin-mfg's ceremony layer comes along — no CI pipelines, no
+timestamping, no publication-approval flows, no governance files; outward
+actions stay exactly one operator click, as today.
+
+The shipping queue (S1 is the next session; OP = operator's click):
+
+S1. PUBLISH PREP.
+    (a) Self-containment: the public tree must run with sin-mfg ABSENT.
+        Two known live deps to lift via LIFT.json: the Mercer PDF pin in
+        instruments/trigmin/mercer6.js (INTEGERS is open access) and the
+        source-lab mu5-pi6.json record that mercer6-battery.js reads for
+        its cross-lab green. Then sweep for other absolute paths, secrets,
+        and MIT header coverage. Lifted bytes only — no new machinery.
+    (b) The public README: positioning sentence first; the three lanes,
+        one number each; the ten-second stdlib-verifier block; the honest
+        trust-base paragraph (V8 BigInt + IEEE-754 base, consumed theorems
+        named, one machine/one operator — a rung below formal proof).
+    (c) make site: assemble the static bundle for carlostoledo.co
+        (landing + index.html + reports/ + certs/ + stdlib verifiers) from
+        design/ tokens, with the report discipline inherited — numbers
+        recomputed at build, build refuses on drift.
+    (d) The #510 comment, paste-ready in the outreach/erdos852-comment.md
+        style: the certified lambda table (source-lab rows reproduced, the
+        new n=13..17 rows, the M=30 deepenings incl. the lambda(14)
+        improvement), infimum caveats intact, verification recipe inline.
+    OP at end of S1: create + push the GitHub repo; deploy the site
+    (Hostinger); post the #510 comment.
+S2. THE TWO AUDIT STORIES.
+    (a) reports/erdos852.html expanded into the failure-taxonomy research
+        note ("a model published a float artifact as a constant; only
+        exact arithmetic caught it"), written for a lab-evals reader.
+    (b) NEW: the RM audit page — all 52 rows with verdicts, the row-3
+        refutation + certified correction front and center; doubles as
+        the RM conjecture status registry (no RM conjecture had ever been
+        refuted before; this table holds the first). Optional paste-ready
+        draft for OP: a note to the RM group, whose Challenge asks for
+        exactly this kind of verified code.
+S3. THE MERCER PROGRAM REPORT — cross-lab replication, the mu/lambda
+    tables, M(0,1,2,6,9) = 1, and the m = 5..20 bracket ladder on a
+    40-year lineage. "First CERTIFICATE / named box" framing throughout;
+    Boyd 1986 (still unread; OP: ILL) gates only "first witness" prose.
+S4. THE METHODS NOTE — the bug catalog (~9 real bugs, every one caught by
+    a control or calibration, none by reading code), red controls,
+    conservation identities, screens-never-admit; MATH-AI-workshop shaped.
+S5. THE LEAN BRIDGE — the C* refutation exported as ONE Lean-checked
+    integer inequality; the standing answer to the bespoke-JS-stack
+    objection.
+S6. THE LLM CAMPAIGN — model-proposes-engine-certifies over the strassen
+    corpus; per-model certified truth rates, false positives provably
+    false; the direct frontier-lab bridge.
+
+STANDING RULE while S1-S2 are unshipped: no new instruments, no new
+families; new math only where a report needs a missing number. The build
+menus further down are PARKED, not deleted — their technical context
+stays correct and current.
+
 ## State, measured at handoff
 
 ```
@@ -590,9 +666,11 @@ claims that were never validated — the check existed and was never run).
 
 ## The rule for changing front
 
-A front is worth another run while the marginal run still moves one of two
-numbers: **discovery yield** (new certified objects nobody holds) or **instrument
-yield** (bugs found, capability gained). The OEIS run scored 0 discovery and high
+A front is worth another run while the marginal run still moves one of three
+numbers: **discovery yield** (new certified objects nobody holds), **instrument
+yield** (bugs found, capability gained), or **audience yield** (a certified
+artifact placed in front of the right reader — added by the 2026-08-26 SHIP
+ruling, and DOMINANT until S1-S2 ship). The OEIS run scored 0 discovery and high
 instrument — three real bugs, including the engine refuting √2 as a closed form
 for the decimal expansion of √2. The *next* OEIS run would have scored zero on
 both. Estimate both before the run, from the structure of the corpus.
