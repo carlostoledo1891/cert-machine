@@ -50,7 +50,7 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
   let checked = 0, bad = 0;
   for (let i = 0; ; i++) {
     const o = FAM.enumerate(i); if (!o) break;
-    if (o.sheet === 2) continue;      /* sheet-2 rows carry their own Möbius float guard below */
+    if (o.sheet) continue;            /* sheet-2/3 rows carry their own float guards below */
     checked++;
     const tol = o.minusCF ? 1e-5 : 1e-12;      /* rm-z3-inv converges slowly; the float screen is a sanity check */
     if (Math.abs(FAM.value(o) - target[o.id]) > tol) { bad++; console.log('  normalization off: ' + o.id); }
@@ -146,6 +146,82 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
     'a genuinely NEGATIVE-head row (rm-cat-02: 2/(2G-1) = 1 - 4/y, y < 0) evaluates — increasing maps need a fixed sign, not positivity');
 }
 
+/* ---- sheet 3: the mixed-zeta-orders machinery ---- */
+{
+  const M = require('#instruments/cf/minus.js');
+  const P = M._poly.pOfInts;
+  const { fCmp } = M._frac;
+
+  /* zetaBracket generalizes zeta3Bracket: at s = 3 they are the SAME rationals */
+  const a = M.zeta3Bracket(6000), b = M.zetaBracket(3, 6000);
+  ok(fCmp(a.lo, b.lo) === 0 && fCmp(a.hi, b.hi) === 0,
+    'zetaBracket(3, K) IS zeta3Bracket(K), endpoint for endpoint — one argument, generalized');
+
+  /* two INDEPENDENT routes to zeta(2), zeta(4): defining series vs pi (Machin);
+     each series bracket must contain the pi-route bracket */
+  const BF = require('#instruments/bigfloat/bigfloat.js');
+  const F = require('#instruments/bigfloat/functions.js');
+  const pi = F.pi(192);
+  const toF = (v) => (v.e >= 0 ? [v.m << BigInt(v.e), 1n] : [v.m, 1n << BigInt(-v.e)]);
+  const routes = [
+    [2, BF.div(BF.mul(pi, pi, 192), BF.fromInt(6), 192)],
+    [4, BF.div(BF.mul(BF.mul(pi, pi, 192), BF.mul(pi, pi, 192), 192), BF.fromInt(90), 192)]
+  ];
+  for (const [s, iv] of routes) {
+    const z = M.zetaBracket(s, 4000);
+    ok(fCmp(z.lo, toF(iv.lo)) <= 0 && fCmp(toF(iv.hi), z.hi) <= 0,
+      'zeta(' + s + '): the defining-series bracket contains the independent pi-route bracket (Euler cross-check, two derivations, one number)');
+  }
+
+  /* zeta(5), zeta(7): the bracket (width << 1e-16) lies INSIDE the 1-ulp cell
+     of the truncated 17-digit literature value — which PROVES those digits */
+  const lits = [[5, 10369277551433699n], [7, 10083492773819228n]];
+  for (const [s, digits] of lits) {
+    const z = M.zetaBracket(s, 2000), den = 10n ** 16n;
+    const inCell = digits * z.lo[1] <= z.lo[0] * den && z.hi[0] * den <= (digits + 1n) * z.hi[1];
+    ok(inCell && z.width < 1e-20,
+      'zeta(' + s + ') bracket (width ' + z.width.toExponential(1) + ') sits inside the 17-digit literature value\'s decimal cell — the digits are re-proved');
+  }
+
+  /* RED: the SPURIOUS branch of the (c-1)^2 double root is refused. Row 1's
+     sub-leading quadratic is (alpha-4)(alpha+1); the band at alpha = -1 would
+     enclose the wrong solution and (I−) refuses it by name. */
+  const spec1 = { b0: 3, aPoly: [0, 0, 0, 0, 0, 0, 0, 0, 1], bPoly: [3, 8, 10, 4, 2] };
+  const spur = M.checkTailCert(spec1, { N0: 2, L: P([0, 0, 0, -1, 1]), U: P([3, 8, 10, 4, 2]) });
+  ok(!spur.ok && /invariance from below/.test(spur.why),
+    'RED: the spurious-branch band L = n^4 - n^3 fails (I−) and is REFUSED — the double root cannot be enclosed from the wrong side');
+
+  /* RED: the expectation guard fires — a row expecting REJECT whose form is
+     TRUE refuses loudly instead of recording either verdict */
+  let s3rows = [];
+  for (let i = 0; ; i++) { const o = FAM.enumerate(i); if (!o) break; if (o.sheet === 3) s3rows.push(o); }
+  const corrected = s3rows.find(o => o.id === 'rm-zo-z5z3b-corrected');
+  const guard = FAM.certify({ ...corrected, expect: 'REJECT' });
+  ok(guard.verdict === 'REFUSED' && /expected a refutation/.test(guard.why),
+    'RED: a row expecting REJECT whose form intersects the enclosure is REFUSED by name, never recorded');
+
+  /* every sheet-3 transcription float-checks against its claimed value
+     (literature zeta doubles; worst sensitivity ~464x on rm-zo-z5z3c) */
+  const Z = { 2: 1.6449340668482264, 3: 1.2020569031595943, 4: 1.0823232337111382, 5: 1.0369277551433699, 7: 1.0083492773819228 };
+  let s3checked = 0, s3bad = 0;
+  for (const o of s3rows) {
+    if (o.id === 'rm-zo-z5z3b-printed') continue;      /* false as printed — the refutation below is its check */
+    s3checked++;
+    let D = o.form.c0;
+    for (const [c, s] of o.form.terms) D += c * Z[s];
+    if (Math.abs(FAM.value(o) - o.form.p / D) > 1e-9) { s3bad++; console.log('  sheet3 normalization off: ' + o.id); }
+  }
+  ok(s3checked === 5 && s3bad === 0, 'all 5 live sheet-3 transcriptions agree with their claimed values in float (transcription guard)');
+
+  /* the printed row 3 and its correction share ONE CF; the audit decides both */
+  const printed = FAM.certify(s3rows.find(o => o.id === 'rm-zo-z5z3b-printed'));
+  const corr = FAM.certify(corrected);
+  ok(printed.verdict === 'REJECT' && /sign slip/.test(printed.text) && /a_1 = 275/.test(printed.text),
+    'the sheet\'s row 3 AS PRINTED is REJECTED with the mechanism named: a sign slip in the constant (and the display\'s a_1 = 275 vs the polynomial\'s 75)');
+  ok(corr.verdict === 'HIT' && printed.enclosure[0] === corr.enclosure[0] && printed.enclosure[1] === corr.enclosure[1],
+    'the SIGN-CORRECTED identity 2/(2 zeta(5) - 2 zeta(3) + 1) SURVIVES on the SAME enclosure — one CF, two claims, both decided');
+}
+
 /* ---- the family end-to-end: EVERY row of all six sheets ---- */
 {
   const KF = { pi2: Math.PI * Math.PI, G: 0.915965594177219, ln2: Math.LN2,
@@ -166,9 +242,11 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
       if (Math.abs(FAM.value(o) - target) > 1e-9) { s2bad++; console.log('  sheet2 normalization off: ' + o.id); }
     }
   }
-  ok(hits === 46 && rejects === 0 && refused === 0,
-    'all 46 conjectures — the e, pi, zeta(3), CATALAN, pi^2 and ln 2 sheets, COMPLETE — SURVIVE their audits (' + hits + ' hits)');
-  ok(flagship === 34, 'all 34 rows the Machine marks NEW AND UNPROVEN are decided and say so (' + flagship + ')');
+  ok(hits === 51 && refused === 0,
+    'all seven sheets COMPLETE — e, pi, zeta(3), Catalan, pi^2, ln 2, mixed-zeta-orders — ' + hits + ' conjectures SURVIVE their audits');
+  ok(rejects === 1 && byId['rm-zo-z5z3b-printed'] && byId['rm-zo-z5z3b-printed'].verdict === 'REJECT',
+    'EXACTLY ONE refutation in the whole corpus: the mixed-zeta sheet\'s row 3 as printed — the first certified refutation of a printed Ramanujan Machine row');
+  ok(flagship === 39, 'all 34 + 5 rows the Machine marks NEW AND UNPROVEN are decided and say so (' + flagship + ')');
   ok(s2checked === 36 && s2bad === 0, 'all 36 sheet-2 transcriptions agree with their claimed Möbius values in float (transcription guard)');
   ok(byId['rm-z2-proven1'].verdict === 'HIT' && byId['rm-z2-proven2'].verdict === 'HIT',
     'CALIBRATION: both PROVEN pi^2 rows (Kadyrov-Orynbassar) SURVIVE — refuting proved mathematics would mean a broken evaluator');

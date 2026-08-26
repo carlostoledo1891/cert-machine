@@ -214,6 +214,134 @@ const SHEET2 = [
     4, [0, 0, 2, 4, 2], [4, 7, 3], { N0: 1, L: [6, -3, 2], depth: 60 })
 ];
 
+/* ==== sheet 3: the mixed-zeta-orders table (July 2022) =====================
+   Transcribed 2026-08-26 from the pinned rm_zeta_orders.pdf — five rows, all
+   "new and unproven", all minus-CFs with a_n = -n^{2k} (RM sign convention;
+   stored here as positive minus-CF numerators n^{2k}) and deg b = k. Every
+   row has the (c-1)^2 DOUBLE ROOT (b ~ 2n^k, a ~ n^{2k}), the rm-z3-inv
+   pathology: the tail ansatz s_n = n^k + alpha n^{k-1} + ... leaves alpha
+   undetermined at first order and a QUADRATIC at second order — for these
+   rows alpha^2 - (k-1) alpha + (C(k,2) - b_{k-2}) = 0 factors over Z, giving
+   a true branch alpha+ and a spurious branch alpha-:
+       row 1: (4, -1) | rows 2, 3: (6, -2) | row 4: (8, -4) | row 5: (8, -2).
+   The proved band is SHARP from below at the true branch: L = n^k +
+   alpha+ n^{k-1}, U = b(n), N0 = 1 — shift-and-check passes for all five.
+
+   THE SHEET'S ROW 3 IS FALSE AS PRINTED. Its printed LHS 2/(2z(5)-2z(3)-1)
+   is ~ -1.5035, but the CF defined by the row's own polynomials converges to
+   ~ 2.98623 = 2/(2z(5)-2z(3)+1): a sign slip in the printed constant term.
+   (The printed convergent display also shows a_1 = 275 where the row's own
+   a_n polynomial gives 75, and reuses n^8 numerators on rows whose b_n is
+   -n^10/-n^14 — the polynomial column is the object; the display is not.)
+   Both directions are recorded: the row AS PRINTED (expected REJECT — a
+   certified refutation of a printed Ramanujan Machine row) and the CORRECTED
+   identity (expected HIT).
+
+   Constants: zeta(3) from its defining series (zeta3Bracket, K = 6000);
+   zeta(5), zeta(7) from the SAME convexity-tail argument generalized
+   (zetaBracket, K = 2000; widths 3.3e-21 / 1.1e-27); zeta(2) = pi^2/6 and
+   zeta(4) = pi^4/90 via the certified bigfloat Machin enclosure — Euler's
+   proved identities, consumed the way acosh(2) is in sheet 2, and the
+   battery holds the series route and the pi route in mutual containment. */
+const S3 = (id, status, form, b0, b, k, alphaPlus, expect) => ({
+  sheet: 3, id, source: 'rm_zeta_orders.pdf', status, form, b0, b, k, alphaPlus, expect,
+  band: { N0: 1, depth: 200000 }
+});
+/* form: value = p / (sum of c*zeta(s) + c0); terms = [[c, s], ...] */
+const SHEET3 = [
+  S3('rm-zo-z4z2', 'NEW AND UNPROVEN', { p: -1, terms: [[1, 4], [4, 2]], c0: -8, text: '-1/(zeta(4) + 4 zeta(2) - 8)' },
+    3, [3, 8, 10, 4, 2], 4, 4),
+  S3('rm-zo-z5z3a', 'NEW AND UNPROVEN', { p: 2, terms: [[2, 5], [6, 3]], c0: -9, text: '2/(2 zeta(5) + 6 zeta(3) - 9)' },
+    7, [7, 23, 28, 22, 5, 2], 5, 6),
+  S3('rm-zo-z5z3b-printed', 'NEW AND UNPROVEN — AS PRINTED', { p: 2, terms: [[2, 5], [-2, 3]], c0: -1, text: '2/(2 zeta(5) - 2 zeta(3) - 1)  [as printed]' },
+    3, [3, 15, 28, 22, 5, 2], 5, 6, 'REJECT'),
+  S3('rm-zo-z5z3b-corrected', 'NEW AND UNPROVEN — SIGN-CORRECTED', { p: 2, terms: [[2, 5], [-2, 3]], c0: 1, text: '2/(2 zeta(5) - 2 zeta(3) + 1)  [corrected: printed -1 is a sign slip]' },
+    3, [3, 15, 28, 22, 5, 2], 5, 6),
+  S3('rm-zo-z5z3c', 'NEW AND UNPROVEN', { p: 64, terms: [[64, 5], [176, 3]], c0: -273, text: '64/(64 zeta(5) + 176 zeta(3) - 273)' },
+    13, [13, 45, 58, 42, 5, 2], 5, 8),
+  S3('rm-zo-z7z3', 'NEW AND UNPROVEN', { p: 1, terms: [[1, 7], [-4, 3]], c0: 4, text: '1/(zeta(7) - 4 zeta(3) + 4)' },
+    5, [5, 31, 77, 99, 75, 37, 7, 2], 7, 8)
+];
+
+/* exact rational bracket of one zeta value, by source */
+function zetaValueBracket(s) {
+  if (s === 3) { const z = MINUS.zeta3Bracket(6000); return { lo: z.lo, hi: z.hi, how: 'defining series, K=6000, convexity tail' }; }
+  if (s === 5 || s === 7) { const z = MINUS.zetaBracket(s, 2000); return { lo: z.lo, hi: z.hi, how: 'defining series, K=2000, convexity tail' }; }
+  if (s === 2 || s === 4) {
+    const B = require('#instruments/bigfloat/bigfloat.js');
+    const F = require('#instruments/bigfloat/functions.js');
+    const pi = F.pi(192);
+    const iv = s === 2 ? B.div(B.mul(pi, pi, 192), B.fromInt(6), 192)
+      : B.div(B.mul(B.mul(pi, pi, 192), B.mul(pi, pi, 192), 192), B.fromInt(90), 192);
+    const toF = (v) => (v.e >= 0 ? [v.m << BigInt(v.e), 1n] : [v.m, 1n << BigInt(-v.e)]);
+    return { lo: toF(iv.lo), hi: toF(iv.hi), how: 'pi^' + s + '/' + (s === 2 ? 6 : 90) + ' from the certified Machin enclosure (Euler, proved)' };
+  }
+  throw new Error('zetaValueBracket: unsupported s = ' + s);
+}
+
+function certifySheet3(o, sourcePin) {
+  const FR = MINUS._frac;
+  const P = MINUS._poly;
+  /* the CF enclosure: sharp lower band at the true branch, U(n) = b(n) */
+  const aPoly = new Array(2 * o.k + 1).fill(0); aPoly[2 * o.k] = 1;
+  const L = new Array(o.k + 1).fill(0); L[o.k] = 1; L[o.k - 1] = o.alphaPlus;
+  const spec = { b0: o.b0, aPoly, bPoly: o.b };
+  const cert = { N0: o.band.N0, L: P.pOfInts(L), U: P.pOfInts(o.b) };
+  const e = MINUS.encloseMinus(spec, cert, o.band.depth);
+  if (!e.ok) return { verdict: 'REFUSED', why: o.id + ': ' + e.why };
+
+  /* the claimed value, bracketed in exact rationals: p / (sum c*zeta(s) + c0) */
+  let Dlo = [BigInt(o.form.c0), 1n], Dhi = [BigInt(o.form.c0), 1n];
+  const constants = [];
+  for (const [c, s] of o.form.terms) {
+    const z = zetaValueBracket(s);
+    constants.push({ s, how: z.how, width: FR.fToDouble(FR.fSub(z.hi, z.lo)) });
+    const C = [BigInt(c), 1n];
+    if (c >= 0) { Dlo = FR.fAdd(Dlo, [C[0] * z.lo[0], z.lo[1]]); Dhi = FR.fAdd(Dhi, [C[0] * z.hi[0], z.hi[1]]); }
+    else { Dlo = FR.fAdd(Dlo, [C[0] * z.hi[0], z.hi[1]]); Dhi = FR.fAdd(Dhi, [C[0] * z.lo[0], z.lo[1]]); }
+  }
+  const sgn = (x) => (x[0] < 0n ? -1 : x[0] > 0n ? 1 : 0);
+  if (sgn(Dlo) * sgn(Dhi) <= 0) return { verdict: 'REFUSED', why: o.id + ': denominator bracket straddles 0 — no finite form value certifiable' };
+  const p = BigInt(o.form.p);
+  /* p/D over a sign-definite D: endpoints are p/Dhi and p/Dlo, ordered by sign */
+  const inv = (x) => [x[0] < 0n ? -x[1] : x[1], x[0] < 0n ? -x[0] : x[0]];   /* 1/x with positive denominator */
+  const cands = [[p * inv(Dlo)[0], inv(Dlo)[1]], [p * inv(Dhi)[0], inv(Dhi)[1]]];
+  const formLo = FR.fCmp(cands[0], cands[1]) <= 0 ? cands[0] : cands[1];
+  const formHi = FR.fCmp(cands[0], cands[1]) <= 0 ? cands[1] : cands[0];
+
+  const cfLoQ = Q.fromDouble(e.enclosure[0]), cfHiQ = Q.fromDouble(e.enclosure[1]);
+  const disjoint = FR.fCmp([cfHiQ.n, cfHiQ.d], formLo) < 0 || FR.fCmp(formHi, [cfLoQ.n, cfLoQ.d]) < 0;
+  const formWidth = FR.fToDouble(FR.fSub(formHi, formLo));
+  const flagship = /NEW AND UNPROVEN/.test(o.status || '');
+  const extra = {
+    id: o.id, source: o.source, sourcePin, status: o.status,
+    form: o.form.text, cf: e.enclosure, width: e.width, formWidth,
+    band: { N0: o.band.N0, L: L.join(','), U: 'b(n)', depth: o.band.depth, inequalities: e.checks },
+    doubleRoot: 'b ~ 2n^' + o.k + ', a ~ n^' + (2 * o.k) + ' => (c-1)^2; sub-leading quadratic factors over Z, true branch alpha+ = ' + o.alphaPlus,
+    constants,
+    method: 'minus-CF backward interval evaluation from a PROVED sharp tail band; claimed value bracketed in exact rationals from certified zeta brackets; final comparison exact'
+  };
+  if (disjoint) {
+    return { verdict: 'REJECT', enclosure: [e.enclosure[0], e.enclosure[1]],
+      text: 'CERTIFIED REFUTATION of a printed Ramanujan Machine row: ' + o.id + ' — the printed form ' + o.form.text
+        + ' lies provably OUTSIDE the rigorous minus-CF enclosure [' + e.enclosure[0] + ', ' + e.enclosure[1] + ']. '
+        + (o.id === 'rm-zo-z5z3b-printed'
+          ? 'Mechanism identified: a sign slip in the printed constant term — the CF defined by the row\'s own polynomials equals 2/(2 zeta(5) - 2 zeta(3) + 1), certified as rm-zo-z5z3b-corrected; the printed convergent display (a_1 = 275) also contradicts the row\'s own a_n polynomial (a_1 = 75).'
+          : 'The Machine\'s printed identity is false.'),
+      extra };
+  }
+  if (o.expect === 'REJECT') {
+    return { verdict: 'REFUSED', why: o.id + ': expected a refutation but the form bracket intersects the enclosure — transcription or expectation is wrong; investigate before recording anything' };
+  }
+  return { verdict: 'HIT', enclosure: [e.enclosure[0], e.enclosure[1]],
+    text: o.id + (flagship ? ' — a row the Machine marks NEW AND UNPROVEN — ' : ': ') + o.form.text
+      + ' lies inside a rigorous minus-CF enclosure of width ' + e.width.toExponential(2)
+      + ' (form bracket width ' + formWidth.toExponential(2) + ') — the conjecture SURVIVES an UNCONDITIONAL audit: '
+      + 'sharp tail band at the true (c-1)^2 branch proved by shift-and-check, convergence proved inside the certificate, '
+      + 'zeta values bracketed exactly; final comparison in exact rationals; equality remains open, as it must',
+    extra };
+}
+
 const KSYM = { pi2: 'pi^2', G: 'G', ln2: 'log(2)', catalanE: '(8G - pi*acosh(2))' };
 function fmtForm(f, K) {
   const sym = KSYM[K];
@@ -306,9 +434,15 @@ module.exports = {
   name: 'ramanujan-audit',
   statement: 'a published Ramanujan Machine conjecture re-evaluated as a rigorous enclosure and decided against the claimed closed form — survival certified to the enclosure width, refutation proved (and, for their corpus, a discovery)',
   enumerate: (i) => (i < CORPUS.length ? CORPUS[i]
-    : i < CORPUS.length + SHEET2.length ? SHEET2[i - CORPUS.length] : null),
+    : i < CORPUS.length + SHEET2.length ? SHEET2[i - CORPUS.length]
+    : i < CORPUS.length + SHEET2.length + SHEET3.length ? SHEET3[i - CORPUS.length - SHEET2.length] : null),
   /* float forward evaluation — the screen's sanity number, never a verdict */
   value(o) {
+    if (o.sheet === 3) {
+      let t = evalIntPoly(o.b, 2001);
+      for (let n = 2000; n >= 1; n--) t = evalIntPoly(o.b, n) - Math.pow(n + 1, 2 * o.k) / t;
+      return o.b0 - 1 / t;
+    }
     if (o.sheet === 2) return sheet2Value(o);
     if (o.minusCF) {
       const ev = (c, n) => { let s = 0; for (let i = c.length - 1; i >= 0; i--) s = s * n + c[i]; return s; };
@@ -328,6 +462,7 @@ module.exports = {
     const pv = PIN.verify(o.source);
     if (!pv.ok) return { verdict: 'REFUSED', why: 'source pin failed for ' + o.source + ': ' + pv.why };
     const sourcePin = { file: pv.file, sha256: pv.sha256 };
+    if (o.sheet === 3) return certifySheet3(o, sourcePin);
     if (o.sheet === 2) return certifySheet2(o, sourcePin);
     if (o.minusCF) {
       const d = MINUS.decideMinus(o.spec, Q.R(o.r[0], o.r[1]), bandCert(o.band));

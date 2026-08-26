@@ -5356,6 +5356,759 @@
    "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
    "generatedBy": "tools/run-lambda-table.js @ git 2d3a123",
    "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "13@30": {
+   "what": "exhaustive lambda sweep: every 13-subset of 1..30 decided exactly against the bar",
+   "n": 13,
+   "M": 30,
+   "totalSets": 119759850,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     16
+    ],
+    "minEnclosure": [
+     -2.31823265015213,
+     -2.3182326501521295
+    ]
+   },
+   "bar": {
+    "num": "-2610097924845813",
+    "den": "1125899906842624",
+    "asDouble": -2.3182326501521304
+   },
+   "killedAtRootsOfUnity": 57130311,
+   "killedDyadic": 62629538,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16
+     ],
+     "minEnclosure": [
+      -2.31823265015213,
+      -2.3182326501521295
+     ],
+     "lambda": [
+      2.3182326501521295,
+      2.31823265015213
+     ],
+     "degree": 16,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     16
+    ],
+    "minEnclosure": [
+     -2.31823265015213,
+     -2.3182326501521295
+    ],
+    "lambda": [
+     2.3182326501521295,
+     2.31823265015213
+    ],
+    "degree": 16,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     16
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "57130311+62629538+0+1 = 119759850",
+   "elapsedMs": 1770999,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 79fe722",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "14@30": {
+   "what": "exhaustive lambda sweep: every 14-subset of 1..30 decided exactly against the bar",
+   "n": 14,
+   "M": 30,
+   "totalSets": 145422675,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     12,
+     13,
+     14,
+     15,
+     18
+    ],
+    "minEnclosure": [
+     -2.366350427056568,
+     -2.3663504270565676
+    ]
+   },
+   "bar": {
+    "num": "-1332136862689997",
+    "den": "562949953421312",
+    "asDouble": -2.3663504270565685
+   },
+   "killedAtRootsOfUnity": 69856870,
+   "killedDyadic": 75565801,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      18
+     ],
+     "minEnclosure": [
+      -2.366350427056568,
+      -2.3663504270565676
+     ],
+     "lambda": [
+      2.3663504270565676,
+      2.366350427056568
+     ],
+     "degree": 18,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      5,
+      9,
+      10,
+      12,
+      13,
+      14,
+      17,
+      22,
+      23,
+      26,
+      27
+     ],
+     "minEnclosure": [
+      -2.320690691854875,
+      -2.3206906918548746
+     ],
+     "lambda": [
+      2.3206906918548746,
+      2.320690691854875
+     ],
+     "degree": 27,
+     "gcd": 1
+    },
+    {
+     "A": [
+      1,
+      3,
+      4,
+      7,
+      9,
+      10,
+      13,
+      14,
+      16,
+      17,
+      23,
+      26,
+      27,
+      30
+     ],
+     "minEnclosure": [
+      -2.346443799411675,
+      -2.3464437994116745
+     ],
+     "lambda": [
+      2.3464437994116745,
+      2.346443799411675
+     ],
+     "degree": 30,
+     "gcd": 1
+    },
+    {
+     "A": [
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      11,
+      13,
+      15,
+      18,
+      19,
+      21,
+      24,
+      26
+     ],
+     "minEnclosure": [
+      -2.3463858970254177,
+      -2.346385897025417
+     ],
+     "lambda": [
+      2.346385897025417,
+      2.3463858970254177
+     ],
+     "degree": 26,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     3,
+     4,
+     5,
+     9,
+     10,
+     12,
+     13,
+     14,
+     17,
+     22,
+     23,
+     26,
+     27
+    ],
+    "minEnclosure": [
+     -2.320690691854875,
+     -2.3206906918548746
+    ],
+    "lambda": [
+     2.3206906918548746,
+     2.320690691854875
+    ],
+    "degree": 27,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     3,
+     4,
+     5,
+     9,
+     10,
+     12,
+     13,
+     14,
+     17,
+     22,
+     23,
+     26,
+     27
+    ],
+    "uniqueUpToDilation": false,
+    "outsiders": [
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      18
+     ],
+     [
+      1,
+      3,
+      4,
+      7,
+      9,
+      10,
+      13,
+      14,
+      16,
+      17,
+      23,
+      26,
+      27,
+      30
+     ],
+     [
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      11,
+      13,
+      15,
+      18,
+      19,
+      21,
+      24,
+      26
+     ]
+    ]
+   },
+   "conservation": "69856870+75565801+0+4 = 145422675",
+   "elapsedMs": 2252820,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 79fe722",
+   "vsShallower": "the wider box found a better set — upper bound improved"
+  },
+  "15@30": {
+   "what": "exhaustive lambda sweep: every 15-subset of 1..30 decided exactly against the bar",
+   "n": 15,
+   "M": 30,
+   "totalSets": 155117520,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     14,
+     18,
+     20,
+     21
+    ],
+    "minEnclosure": [
+     -2.4189121268958322,
+     -2.418912126895832
+    ]
+   },
+   "bar": {
+    "num": "-5446905876665023",
+    "den": "2251799813685248",
+    "asDouble": -2.4189121268958327
+   },
+   "killedAtRootsOfUnity": 81380217,
+   "killedDyadic": 73737302,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      18,
+      20,
+      21
+     ],
+     "minEnclosure": [
+      -2.4189121268958322,
+      -2.418912126895832
+     ],
+     "lambda": [
+      2.418912126895832,
+      2.4189121268958322
+     ],
+     "degree": 21,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     14,
+     18,
+     20,
+     21
+    ],
+    "minEnclosure": [
+     -2.4189121268958322,
+     -2.418912126895832
+    ],
+    "lambda": [
+     2.418912126895832,
+     2.4189121268958322
+    ],
+    "degree": 21,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     14,
+     18,
+     20,
+     21
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "81380217+73737302+0+1 = 155117520",
+   "elapsedMs": 2317880,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 79fe722",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "16@30": {
+   "what": "exhaustive lambda sweep: every 16-subset of 1..30 decided exactly against the bar",
+   "n": 16,
+   "M": 30,
+   "totalSets": 145422675,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13,
+     14,
+     15,
+     16,
+     17,
+     21
+    ],
+    "minEnclosure": [
+     -2.454832753027949,
+     -2.4548327530279486
+    ]
+   },
+   "bar": {
+    "num": "-5527791935896781",
+    "den": "2251799813685248",
+    "asDouble": -2.4548327530279495
+   },
+   "killedAtRootsOfUnity": 61555095,
+   "killedDyadic": 83867579,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      17,
+      21
+     ],
+     "minEnclosure": [
+      -2.454832753027949,
+      -2.4548327530279486
+     ],
+     "lambda": [
+      2.4548327530279486,
+      2.454832753027949
+     ],
+     "degree": 21,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13,
+     14,
+     15,
+     16,
+     17,
+     21
+    ],
+    "minEnclosure": [
+     -2.454832753027949,
+     -2.4548327530279486
+    ],
+    "lambda": [
+     2.4548327530279486,
+     2.454832753027949
+    ],
+    "degree": 21,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     13,
+     14,
+     15,
+     16,
+     17,
+     21
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "61555095+83867579+0+1 = 145422675",
+   "elapsedMs": 2679854,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 79fe722",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
+  },
+  "17@30": {
+   "what": "exhaustive lambda sweep: every 17-subset of 1..30 decided exactly against the bar",
+   "n": 17,
+   "M": 30,
+   "totalSets": 119759850,
+   "K": 1024,
+   "seed": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     19,
+     22
+    ],
+    "minEnclosure": [
+     -2.5648971205451674,
+     -2.564897120545167
+    ]
+   },
+   "bar": {
+    "num": "-2887817429082719",
+    "den": "1125899906842624",
+    "asDouble": -2.564897120545168
+   },
+   "killedAtRootsOfUnity": 51455580,
+   "killedDyadic": 68304269,
+   "certifiedBelow": 0,
+   "survivors": [
+    {
+     "A": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      19,
+      22
+     ],
+     "minEnclosure": [
+      -2.5648971205451674,
+      -2.564897120545167
+     ],
+     "lambda": [
+      2.564897120545167,
+      2.5648971205451674
+     ],
+     "degree": 22,
+     "gcd": 1
+    }
+   ],
+   "optimiser": {
+    "A": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     19,
+     22
+    ],
+    "minEnclosure": [
+     -2.5648971205451674,
+     -2.564897120545167
+    ],
+    "lambda": [
+     2.564897120545167,
+     2.5648971205451674
+    ],
+    "degree": 22,
+    "gcd": 1
+   },
+   "maximumOrbit": {
+    "primitive": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     19,
+     22
+    ],
+    "uniqueUpToDilation": true,
+    "outsiders": []
+   },
+   "conservation": "51455580+68304269+0+1 = 119759850",
+   "elapsedMs": 2389509,
+   "caveat": "lambda(n) is an INFIMUM: this record is a certified UPPER bound on lambda(n) plus the statement that nothing inside the box does better. A box gives NO lower bound, so records at different n order NOTHING.",
+   "generatedBy": "tools/run-lambda-table.js @ git 79fe722",
+   "vsShallower": "M=25 optimiser CONFIRMED as the M=30 optimiser"
   }
  }
 }

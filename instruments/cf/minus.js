@@ -232,6 +232,37 @@ function zeta3Bracket(K) {
   return r;
 }
 
+/* ---- zeta(s), s >= 2, by the SAME convexity-tail argument ------------------
+   x^-s is convex, so 1/k^s <= INT_{k-1/2}^{k+1/2} x^-s dx and
+       tail <= INT_{K+1/2}^inf x^-s dx = 2^{s-1} / ((s-1)(2K+1)^{s-1}).
+   The midpoint-rule error on each cell is at most max f''/24 =
+   s(s+1)(k-1/2)^{-s-2}/24, and summing against INT_{K-1/2}^inf x^{-s-2} dx:
+       tail >= upper − s·2^{s-2} / (3(2K-1)^{s+1}).
+   At s = 3 this IS zeta3Bracket, term for term — the battery pins the two
+   equal as exact rationals, and pins zeta(2), zeta(4) against the
+   INDEPENDENT bigfloat pi route (Machin) as containment. */
+function sumInvPowers(lo, hi, s) {
+  if (lo === hi) { let d = 1n; const k = BigInt(lo); for (let i = 0; i < s; i++) d *= k; return [1n, d]; }
+  const mid = (lo + hi) >> 1;
+  return fAdd(sumInvPowers(lo, mid, s), sumInvPowers(mid + 1, hi, s));
+}
+const zsCache = new Map();
+function zetaBracket(s, K) {
+  if (!(Number.isInteger(s) && s >= 2)) throw new Error('zetaBracket: s must be an integer >= 2');
+  const key = s + '@' + K;
+  if (zsCache.has(key)) return zsCache.get(key);
+  const S = sumInvPowers(1, K, s);
+  const pow = (b, e) => { let r = 1n; for (let i = 0; i < e; i++) r *= b; return r; };
+  const twoK1 = BigInt(2 * K + 1), twoKm1 = BigInt(2 * K - 1);
+  const tailHi = [pow(2n, s - 1), BigInt(s - 1) * pow(twoK1, s - 1)];
+  const err = [BigInt(s) * pow(2n, s - 2), 3n * pow(twoKm1, s + 1)];
+  const hi = fAdd(S, tailHi);
+  const lo = fSub(hi, err);
+  const r = { s, lo, hi, width: fToDouble(err), K };
+  zsCache.set(key, r);
+  return r;
+}
+
 /* ---- the decision --------------------------------------------------------- */
 /* decideZeta3Form(enclosure, r, K) — is the exact bracket of r/zeta(3)
    disjoint from a rigorous CF enclosure [lo, hi] (doubles)? The comparison
@@ -268,5 +299,6 @@ function decideMinus(spec, r, cert, opts) {
       + ' — consistency certified to that slack, equality not proved' };
 }
 
-module.exports = { checkTailCert, encloseMinus, zeta3Bracket, decideMinus, decideZeta3Form,
-  _poly: { pAdd, pSub, pMul, pShift, pEvalQ, pOfInts, nonnegFor } };
+module.exports = { checkTailCert, encloseMinus, zeta3Bracket, zetaBracket, decideMinus, decideZeta3Form,
+  _poly: { pAdd, pSub, pMul, pShift, pEvalQ, pOfInts, nonnegFor },
+  _frac: { fAdd, fSub, fCmp, fToDouble } };
