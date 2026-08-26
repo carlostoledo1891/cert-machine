@@ -59,9 +59,15 @@ S1. PUBLISH PREP — DONE (e34c5b3). Self-contained: sin-mfg deps lifted via
 GO-LIVE — (1) DONE on the operator's word (2026-08-27): the repo is
     PUBLIC at github.com/carlostoledo1891/cert-machine (MIT detected;
     main pushed; default-publish rule now LIVE). Remaining:
-    (2) Vercel: import the repo as a NEW project, transfer carlostoledo.co
-        from the sin-mfg project (operator dashboard; agent-executable
-        once a Vercel CLI login exists);
+    (2) DONE (2026-08-27, agent-executed after device-code auth): Vercel
+        project cert-machine created and linked, site/ deployed to
+        production, carlostoledo.co + www force-moved from mfg-lab —
+        THE DOMAIN IS LIVE, all routes verified 200 (landing, /machine/,
+        reports, certs, verifiers). Web Analytics: snippet on every
+        generated page via design/template.js; the project has a
+        provisioned analytics id but enabling it is DASHBOARD-ONLY
+        (one toggle: project -> Analytics -> Enable) — no public API;
+        works instantly once toggled, no redeploy needed;
     (3) post the #510 comment (operator's erdosproblems login; after (1),
         since the comment cites the certificate URL).
     From the moment (1) exists, the default-publish rule is live: every
