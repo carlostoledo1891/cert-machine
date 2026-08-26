@@ -33,14 +33,23 @@ make drift     re-hash the lift against the source lab
          standalone stdlib-Python checker in 0.2 s
       7  fibers cells HIT blind, incl. alpoge-own-target: target (0,1,0) chosen from a fixed
          enumeration, never published anywhere, 3 preimages certified — witnesses AND target self-chosen
-     46  Ramanujan Machine conjectures SURVIVE an UNCONDITIONAL audit — SIX complete
-         sheets: e, pi, zeta(3), CATALAN (23 rows), pi^2 (12), ln 2 (1) — including
-         ALL 34 rows the Machine marks "new and unproven"; Catalan's G certified from
-         its defining series with a PROVED convexity tail (96k^2+288k+184 >= 0, exact),
-         pi^2/acosh(2)/ln2 brackets at 1e-47; Möbius forms (p+qK)/(s+tK) decided in
-         exact rationals; three head-negative rows via an exact head-shift transform;
+     51  Ramanujan Machine conjectures SURVIVE an UNCONDITIONAL audit — ALL SEVEN
+         sheets COMPLETE: e, pi, zeta(3), CATALAN (23 rows), pi^2 (12), ln 2 (1),
+         mixed-zeta-orders (2026-08-26, 5 rows + 1 corrected row) — including ALL
+         39 rows the Machine marks "new and unproven"; PLUS the FIRST certified
+         REFUTATION of a printed RM row: the mixed-zeta sheet's row 3 as printed,
+         2/(2ζ(5)−2ζ(3)−1), is FALSE (~−1.5035 vs the CF's 2.98623) — a sign slip;
+         the +1 correction SURVIVES on the SAME enclosure, mechanism named in the
+         certificate (the display's a_1 = 275 also contradicts its own polynomial's
+         75). Catalan's G certified from its defining series with a PROVED convexity
+         tail (96k^2+288k+184 >= 0, exact), pi^2/acosh(2)/ln2 brackets at 1e-47;
+         zetaBracket(s, K) at any s >= 2 (ζ(5)/ζ(7) at 3.3e-21/1.1e-27, the ζ(2)/
+         ζ(4) series vs π routes held in mutual containment); Möbius forms
+         (p+qK)/(s+tK) and two-constant linear-zeta forms decided in exact
+         rationals; three head-negative rows via an exact head-shift transform;
          six sign-definite-NEGATIVE-head rows admitted by a gated minus.js extension
-         (fixed sign, not positivity, is what increasing maps need)
+         (fixed sign, not positivity, is what increasing maps need); the five
+         double-root rows all take the SHARP band L = n^k + α₊n^{k−1} at N0 = 1
       9  fast matrix-multiplication algorithms VERIFIED as exact tensor identities
          (strassen-audit): Strassen 1969 calibrates; Strassen⊗Strassen rank-49 generated
          and re-decided; AlphaTensor's rank-47 4x4 VERIFIED over F2 and REFUTED over Q —
@@ -59,11 +68,12 @@ make drift     re-hash the lift against the source lab
          TERMS convention; box maxima, not values — the dips at high n are the
          box crowding (16 of 30 slots filled at n=17), bigger boxes are the next rung.
          PLUS the equality theorem M(0,1,2,6,9) = 1 EXACTLY (deflation + Sturm).
-     12  mu(5) ladder rungs (certs/mercer-mu5.json, battery-gated): Mercer's §6
-         program certified at GENERAL m — mu(5) <= 1 + pi/m for m = 5..16, ending
-         at mu(5) <= 1 + pi/16 = 1.19635 (1029 exceptional tuples at m=16, every
+     16  mu(5) ladder rungs (certs/mercer-mu5.json, battery-gated): Mercer's §6
+         program certified at GENERAL m — mu(5) <= 1 + pi/m for m = 5..20, ending
+         at mu(5) <= 1 + pi/20 = 1.15708 (3038 exceptional tuples at m=20, every
          case closed by ONE exact rational evaluation of |f|^2 against the exact
-         bar (1+piLo/m)^2). m=5,6 CALIBRATE (Mercer's Tables 5/6/7 reproduced
+         bar (1+piLo/m)^2; 9,700+ case points across the ladder, each re-proved
+         by the battery in exact rationals every run). m=5,6 CALIBRATE (Mercer's Tables 5/6/7 reproduced
          exactly; the source lab's m=6 record matched row for row); m=7..16 are
          rungs nobody holds. Component (i) — the reduction — is consumed from
          the paper (Lemma 6.2; general-m statement p. 16), like Krawczyk.
@@ -141,7 +151,7 @@ hand-check knew. A019762 is pinned in the battery as a regression control.
 | `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
 | `keller-audit` | Jacobian + Hessian counterexamples decided — and GENERATED | 11/11: Alpöge n=3 + one padded row stating the stabilization (R2); 3 NEW CURVES through the PUBLISHED tangent-sweep mechanism (labeled as such, R4); Meng–Yang HC5; Gallagher d=2..5 + distinct member — every det a symbolic identity, sources hash-pinned (R3), all detached + independently re-verified (R7) |
 | `keller-fibers` | fiber counts certified BLIND — no witnesses consumed | 7/9 HITs: Alpöge's 3 preimages rediscovered unaided; alpoge-own-target proves the same with a SELF-CHOSEN target (0,1,0) — 3 preimages, full geometric degree; 2 cells honestly REJECT/REFUSED (witnesses at \|z\|~200, beyond blind reach) |
-| `ramanujan-audit` | the Ramanujan Machine's conjectures, decided | 46/46 SURVIVE unconditionally across SIX complete sheets (e, pi, zeta(3), Catalan, pi^2, ln 2) incl. ALL 34 "new and unproven" rows; calibrated on Apéry + both PROVEN pi^2 rows (Kadyrov–Orynbassar) + both known rows (incl. the two-constant 6/(8G−π·acosh 2)); G from its defining series with a proved convexity tail; REMAINING: the mixed-zeta-orders sheet (5 rows, all with the (c−1)² double-root pathology — rm-z3-inv-grade band craft each) |
+| `ramanujan-audit` | the Ramanujan Machine's conjectures, decided | ALL SEVEN sheets COMPLETE (52 rows): 51 SURVIVE + the FIRST certified refutation of a printed RM row — the mixed-zeta sheet's row 3 as printed (2/(2ζ5−2ζ3−1)) is FALSE, a sign slip; the corrected +1 identity SURVIVES on the same enclosure. The five double-root rows all take the SHARP band L = n^k + α₊n^{k−1} at N0=1 (the sub-leading quadratic factors over Z); zetaBracket(s,K) generalizes the series bracket to any s ≥ 2 (ζ(2)/ζ(4) cross-checked against the independent π route) |
 | `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); one-off records through p=16 (1696 points, 1.42G boxes, recheck-clean) |
 | `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
 | `strassen-audit` | fast matmul algorithms decided as exact tensor identities | 9 HIT / 1 REJECT: Strassen-7 (calibration), Strassen⊗Strassen 49 (generated), AlphaTensor r/f2 selections from the pinned npz — incl. rank-47 4x4 over F2 with its over-Q REFUTATION recorded; naive rank-8 certified correct, certified NOT fast |
@@ -287,13 +297,13 @@ p=4 — caught by the shift classification, not by reading code).
    (exact Möbius decision + head-shift transform),
    instruments/bigfloat/constants.js (G via proved-convexity tail, pi^2,
    acosh 2, ln 2), sign-definite-negative heads in minus.js (gated by 2
-   new reds). REMAINING, the last sheet:
-   results_different_zeta_orders.pdf (fetched, NOT yet pinned/transcribed)
-   — 5 unproven rows mixing zeta(2..5,7), every one with a_lead=2,
-   b_lead=1 => (c−1)^2 DOUBLE ROOT: each band needs rm-z3-inv-grade craft
-   (sharp sub-leading exclusion, depth ~1e7, honest slow convergence), and
-   zeta(4)=pi^4/90 / zeta(5) / zeta(7) brackets from defining series
-   (easy, zeta3Bracket's pattern).
+   new reds). THE LAST SHEET LANDED 2026-08-26 (rm_zeta_orders.pdf, pinned):
+   all 5 double-root rows decided — the feared rm-z3-inv-grade craft turned
+   out CLEAN (the sub-leading quadratic factors over Z for every row; sharp
+   L = n^k + α₊n^{k−1} at N0 = 1; convergence FAST, branch gap >= 5 vs
+   rm-z3-inv's 2) — 4 survive, row 3 as printed REFUTED (sign slip,
+   correction certified). The corpus is 52 rows, seven sheets, complete.
+   zetaBracket(s, K) shipped in minus.js.
 6. **An LLM-conjecture campaign through `tools/llm-harness.py`.** Model
    proposes, engine certifies, ledger records the per-family truth rate of
    proposals that survived a float screen — an eval whose ground truth is a
@@ -490,18 +500,20 @@ READ-ONLY, lift numbers by transcription + pin, never by edit):
    (17+7*sqrt7)/27 via certified sqrt); the wrong-endpoint bar refused BY
    NAME and its disaster demonstrated. NEW rows nobody holds:
    lambda(13) <= 2.31823265015213  {1,2,3,4,5,6,7,9,10,11,12,13,16}
-   lambda(14) <= 2.366350427056568 {1,2,3,4,5,6,8,9,10,12,13,14,15,18}
+   lambda(14) <= 2.320690691854875 {1,3,4,5,9,10,12,13,14,17,22,23,26,27} (M=30)
    lambda(15) <= 2.4189121268958322 {1,2,3,4,6,7,8,9,10,11,12,14,18,20,21}
    lambda(16) <= 2.454832753027949 {1,2,3,4,5,6,7,8,10,11,13,14,15,16,17,21}
    lambda(17) <= 2.5648971205451674 {1..15,19,22}
-   (all M<=25, exhaustive, near-interval structure continuing); DEEPENED
-   n=9..12 to M=30 (86M-set boxes): every M=25 optimiser CONFIRMED — the
-   source lab's shallow-box values are now certified at depth 30.
+   DEEPENED n=9..17 to M=30 (2026-08-26 finished the 13..17 half: 685M
+   sets in five parallel detached runs, sidecar + merge phases in
+   run-lambda-table.js): n = 9..13 and 15..17 CONFIRM their M=25
+   optimisers; lambda(14) IMPROVED from 2.366350427056568 to the value
+   above — its M=30 optimiser reaches exponent 27, entirely outside the
+   M=25 box, killing the "near-interval structure continues" reading at
+   n=14. The n<=13/15..17 values are certified at depth 30.
    MERCER §6: DONE AND EXCEEDED (2026-08-26) — not just m=7,8 but the whole
-   ladder to m=16, certified (instruments/trigmin/mercer6.js + 28/28 battery;
-   see the mu(5)-ladder block above); a detached run extending to m=20 was
-   launched the same day. lambda 13..17 deepening to M=30: RUNNING detached
-   (five parallel rows, sidecar files + merge phase in run-lambda-table.js).
+   ladder to m=20, certified (instruments/trigmin/mercer6.js + 32/32 battery;
+   see the mu(5)-ladder block above).
    Still queued: mu box50+ (wants worker sharding), Boyd 1986 (ILL/purchase)
    before any novelty prose.
    Original note: sin-mfg holds certified
