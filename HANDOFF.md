@@ -461,11 +461,14 @@ READ-ONLY, lift numbers by transcription + pin, never by edit):
    mu(10) box40 champion {0,1,4,7,8,13,22,24,32,34} floor 1.420064490311554
    (box30 gave 1.3236 — the ceiling 30->40 raised the certified bound past
    even mu(9)'s 1.3782, killing the "dip" reading at n=10); mu(11) box40
-   {0,2,4,12,19,20,24,25,27,30,33} floor 1.546098106216827 (box30 1.5346).
-   273M + 848M sets exhausted, 2 survivors each, orbits unique. mu(12)@40
-   (2.31G sets) was IN FLIGHT at handoff — if its row is absent from
-   mu-table-40.json, re-run: node tools/run-mu-table.js 12 12 40
-   (merge-safe; seeds from the box30 champion).
+   {0,2,4,12,19,20,24,25,27,30,33} floor 1.546098106216827 (box30 1.5346);
+   mu(12) box40 champion {0,1,11,12,16,18,19,21,24,25,27,33} floor
+   1.6889690211416546 (box30 1.5536 — the biggest box-extension gain yet,
+   +0.135). 273M + 848M + 2.31G sets exhausted — 3.43 BILLION verdicts in
+   the three wider boxes — 2 survivors each, orbits unique, every champion
+   battery-re-certified byte-identically. The box30->40 lesson, three for
+   three: at n >= 10 the box30 maxima were CROWDING artifacts; ceilings
+   matter, and box50 at n=10..12 (C(50,k): 2.5G..27G) is the next rung.
    THE LAMBDA HALF LANDED (2026-08-26, instruments/trigmin/lambda.js +
    lambda-battery.js 18/0 + certs/lambda-table.json, 18 rows):
    ALL NINE source-lab rows REPRODUCED exactly — n=4 box20 down to the
