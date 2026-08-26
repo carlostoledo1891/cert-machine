@@ -37,10 +37,10 @@ body{margin:0;background:var(--paper);color:var(--ink);
   background:color-mix(in srgb, var(--paper) 72%, transparent);
   -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
   border-bottom:1px solid var(--rule)}
-.topnav-in{max-width:${MEASURE.wide};margin:0 auto;padding:0 24px;height:52px;
+.topnav-in{padding:0 28px;height:52px;
   display:flex;align-items:center;justify-content:space-between;gap:18px}
-.topnav .brand{font-family:${TYPE.display};font-weight:700;font-size:15.5px;letter-spacing:-.01em;
-  color:var(--ink);text-decoration:none;border:none}
+.topnav .brand{font-family:${TYPE.mono};font-weight:400;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sig);text-decoration:none;border:none}
 .navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
 .navlinks a{font-family:${TYPE.mono};font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--ink-2);text-decoration:none;border:none}
