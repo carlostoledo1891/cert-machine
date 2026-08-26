@@ -420,13 +420,18 @@ READ-ONLY, lift numbers by transcription + pin, never by edit):
    (tools/verify_erdos852.py) + paste-ready comment
    (outreach/erdos852-comment.md — every number in it re-verified: the 2^53
    threshold is p-1 >= 208064, the missing mass measures 9.1e-13, the
-   snippet runs verbatim). REMAINING, all operator-gated: (a) post the
-   comment — login click, nothing auto-sends; (b) OEIS: NEITHER constant
-   has an A-number (corpus grep: 0 matches) — two submittable sequences,
-   but OEIS forbids AI-generated submissions, so operator-authored or not
-   at all; (c) A078515 extension (27 terms, primes to ~2e11, Alexeev
-   invited) is a separate detach-runner compute job. Occupancy lesson
-   applied: page + thread + /proof-claims all fetched; 0 claims there.
+   snippet runs verbatim). STATUS 2026-08-25 (operator rulings): (a) the
+   comment is POSTED and sits in the site's MODERATOR-APPROVAL queue
+   (operator-confirmed; two cache-busted public fetches still show 7
+   comments, consistent with that) — do not cite it as public until a
+   fetch of the thread shows it, then snapshot the thread as evidence
+   (the dated note in outreach/erdos852-comment.md is the record); (b) OEIS:
+   ON HOLD by operator ruling — neither constant has an A-number (corpus
+   grep: 0 matches), two submittable sequences whenever the hold lifts,
+   operator-authored only (OEIS forbids AI-generated submissions);
+   (c) A078515 extension (27 terms, primes to ~2e11, Alexeev invited)
+   remains a separate detach-runner compute job. Occupancy lesson applied:
+   page + thread + /proof-claims all fetched; 0 claims there.
 2. **The Mercer/Newman mu-lambda continuation — COMPUTE SIDE OPENED
    (2026-08-25).** Built in-tree: instruments/trigmin/sweep.js — the
    exhaustive box cascade (stage-W integer kills at roots of unity — 4|f|^2
@@ -467,9 +472,15 @@ READ-ONLY, lift numbers by transcription + pin, never by edit):
    there. Report-grade material already in hand. Blocking novelty check:
    Boyd 1986 (LMS LNS 109) is unread — archive.org diophantineanaly0000aust.
    PROBED 2026-08-25: the item is access-restricted (lending only; the OCR
-   text 401s). Unblocking needs the OPERATOR's archive.org borrow (1-hour
-   loan reads fine) or a library copy. The COMPUTE side (mu(10..16), n=17,
-   lambda) is not gated — only novelty prose is.
+   text 401s). OPERATOR RULING same day: the archive.org borrow is NOT
+   available to them. Remaining routes, from the sin-mfg hunt's own
+   ranking: interlibrary loan, a library copy, or Cambridge purchase
+   (explicitly the LAST resort). Until one lands, every mu-table sentence
+   stays at the referee-grade framing already in use — "first CERTIFICATE",
+   exhaustion over a named box, never "first witness" — which three
+   secondary sources (zbMATH review + HJ §8.1 + Goddard p. 319) support
+   without the paper. The COMPUTE side was never gated and is now DONE
+   through n=17 (certs/mu-table.json); lambda continuation also ungated.
    (research/probes/mercer-program/.)
 3. **Erdős #290 continuation.** The 4k(k+1) square-discriminant law is
    proved + blind-confirmed at k=6 (disc(f_168), 45,336 digits, perfect

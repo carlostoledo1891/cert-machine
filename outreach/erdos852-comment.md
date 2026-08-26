@@ -1,4 +1,12 @@
-# erdos852 thread comment — PREPARED, NOT POSTED
+# erdos852 thread comment — PREPARED; operator reports POSTED 2026-08-25
+
+STATUS NOTE (2026-08-25, appended — the header above it is history, not
+state): POSTED by the operator; the site holds new comments for
+MODERATOR APPROVAL (operator-confirmed), which is why two cache-busted
+public fetches the same day still show 7 comments and none of the
+correction's digits. Do not cite the correction as public until a fetch
+of the thread shows it; when it lands, snapshot the thread as evidence
+bytes beside the original pin.
 
 Operator posts; nothing in this repo auto-sends. Target:
 https://www.erdosproblems.com/forum/discuss/852 (login required).
