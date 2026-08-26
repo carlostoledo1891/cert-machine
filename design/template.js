@@ -49,8 +49,8 @@ body{margin:0;background:var(--paper);color:var(--ink);
   color:var(--ink);background:var(--surface)}
 .navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
 [id]{scroll-margin-top:76px}
-.col{max-width:${MEASURE.prose};margin:0 auto}
-.wide{max-width:${MEASURE.wide};margin:0 auto}
+.col{max-width:${MEASURE.prose};margin-left:auto;margin-right:auto}
+.wide{max-width:${MEASURE.wide};margin-left:auto;margin-right:auto}
 
 h1,h2,h3{font-family:${TYPE.display};font-weight:700;letter-spacing:-.018em;text-wrap:balance}
 h1{font-size:${SCALE.h1};line-height:1.0;margin:16px 0 0}
