@@ -42,14 +42,30 @@ function tag(text, kind) {
 /* ---------------------------------------------------------------- blocks - */
 
 /* The page header: eyebrow, title, deck. */
+/* The GitHub mark, inline. aria-hidden — the link that carries it holds the
+   accessible name, so the icon never speaks twice. */
+const GH_ICON = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor">'
+  + '<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49'
+  + '-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66'
+  + '.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82'
+  + '.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95'
+  + '.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>';
+
 /* The fixed top bar. Emitted by the template on every page — a builder never
-   calls it directly, so navigation cannot drift between pages. */
+   calls it directly, so navigation cannot drift between pages.
+   On narrow viewports the links fold into a drawer driven by a checkbox and
+   a label — CSS state, no script, so the design system still ships exactly
+   one scripted element (the flow readout). The GitHub link is the mark alone
+   on desktop; the drawer shows its text label beside it. */
 function nav({ brand, brandHref, links, github }) {
-  return '<nav class="topnav"><div class="topnav-in">'
+  return '<nav class="topnav">'
+    + '<input type="checkbox" id="navdrawer" class="nav-ck">'
+    + '<div class="topnav-in">'
     + '<a class="brand" href="' + escAttr(brandHref || '/') + '">' + esc(brand) + '</a>'
+    + '<label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label>'
     + '<div class="navlinks">'
     + (links || []).map((l) => '<a href="' + escAttr(l.href) + '">' + esc(l.t) + '</a>').join('')
-    + (github ? '<a class="ghbtn" href="' + escAttr(github) + '">GitHub</a>' : '')
+    + (github ? '<a class="ghbtn" href="' + escAttr(github) + '" aria-label="GitHub">' + GH_ICON + '<span class="gh-t">GitHub</span></a>' : '')
     + '</div></div></nav>';
 }
 
@@ -119,6 +135,20 @@ function table({ cols, rows }) {
     }).join('') + '</tr>'
   ).join('') + '</tbody>';
   return '<div class="wide"><div class="tw"><table>' + head + body + '</table></div></div>';
+}
+
+/* A grid of link cards — the whole card is the anchor. Two columns on a
+   desk, one on a phone; the template owns the breakpoint.
+   items: [{href, k: mono kicker, title, desc, n: mono footer line}] */
+function cards(items) {
+  return '<div class="wide"><div class="cards">' + items.map(it =>
+    '<a class="card" href="' + escAttr(it.href) + '">'
+    + (it.k ? '<span class="card-k">' + esc(it.k) + '</span>' : '')
+    + '<span class="card-t">' + esc(it.title) + '</span>'
+    + (it.desc ? '<span class="card-d">' + esc(it.desc) + '</span>' : '')
+    + (it.n ? '<span class="card-n">' + esc(it.n) + '</span>' : '')
+    + '</a>'
+  ).join('\n') + '</div></div>';
 }
 
 /* An unadorned list where each item is a claim: {b: lead, text: rest}. */
@@ -296,7 +326,7 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
 module.exports = {
   esc, escAttr, m, tag, TAG_KINDS, categoryChart, legend,
   nav, header, stats, scope, section, p, pRaw, pull, eq, note, quote,
-  table, plainList, figure, flow,
+  table, plainList, cards, figure, flow,
   svgOpen, svgClose, numberLine, band, vmark, label,
   tokens: T
 };

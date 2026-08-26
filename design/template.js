@@ -45,9 +45,39 @@ body{margin:0;background:var(--paper);color:var(--ink);
 .navlinks a{font-family:${TYPE.mono};font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--ink-2);text-decoration:none;border:none}
 .navlinks a:hover{color:var(--sig)}
-.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;padding:6px 14px;
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
   color:var(--ink);background:var(--surface)}
 .navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:4px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--sig);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:52px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
 [id]{scroll-margin-top:76px}
 .col{max-width:${MEASURE.prose};margin-left:auto;margin-right:auto}
 .wide{max-width:${MEASURE.wide};margin-left:auto;margin-right:auto}
@@ -133,6 +163,20 @@ td.n{font-family:${TYPE.mono};font-size:12.5px;color:var(--ink-2);white-space:no
 .tag.open{background:var(--warn-soft);color:var(--warn)}
 .tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
 
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:22px 24px;
+  color:inherit;text-decoration:none;transition:border-color .15s ease}
+a.card:hover{border:1px solid var(--sig)}
+a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+.card-k{font-family:${TYPE.mono};font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
+.card-t{font-family:${TYPE.display};font-weight:700;font-size:19.5px;line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
+.card-n{margin-top:auto;padding-top:6px;font-family:${TYPE.mono};font-size:11px;
+  letter-spacing:.05em;color:var(--ink-3)}
+
 ul.plain{list-style:none;padding:0;margin:0}
 ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
 ul.plain li:first-child{border-top:0}
@@ -183,7 +227,7 @@ function render({ title, bodyRaw, footRaw }) {
   const CO = require('./components.js');
   const NAV = CO.nav({
     brand: 'Carlos Toledo', brandHref: '/',
-    links: [{ t: 'Reports', href: '/#reports' }, { t: 'Machine', href: '/machine/' }],
+    links: [{ t: 'Reports', href: '/reports/' }, { t: 'Machine', href: '/machine/' }, { t: 'About', href: '/about/' }],
     github: 'https://github.com/carlostoledo1891/cert-machine'
   });
   return `<!doctype html>

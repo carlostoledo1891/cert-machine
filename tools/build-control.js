@@ -104,107 +104,14 @@ B.push(C.scope('Local working document. Nothing here has been through a literatu
   + 'minted, and nothing has been sent anywhere. Enclosures are proofs-of-object pending independent verification.'));
 
 /* ---- §1 · the machine, drawn from the ledger -------------------------------
-   Geometry and prose live here in the builder; the flow component owns the
-   markup. Every count on a node is read off ledger.json at build time. */
+   The drawing itself lives in tools/machine-figure.js, shared with the
+   landing so the two can never drift apart. Every count is read off
+   ledger.json at build time. */
 {
-  const F = ledger.families;
-  const sum = (k) => F.reduce((t, f) => t + f.counts[k], 0);
-  const screened = sum('screened'), hits = sum('hits'), rejects = sum('rejects'), refused = sum('refused');
-
-  /* the family column sizes itself: a new family must never fall off the
-     drawing again (the 6th and 7th both did, silently, until looked at) */
-  const famH = 40;
-  const famStep = F.length > 1 ? Math.min(62, Math.floor(320 / (F.length - 1))) : 0;
-  const famTop = Math.max(8, Math.round(188 - ((F.length - 1) * famStep + famH) / 2));
-  const famY = F.map((_, i) => famTop + i * famStep);
-  const famNodes = F.map((f, i) => ({
-    x: 14, y: famY[i], w: 180, h: famH, role: 'dep',
-    k: f.name.toUpperCase(), v: commas(f.counts.generated) + ' generated',
-    t: 'family · ' + f.name,
-    d: f.statement + ' One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.'
-  }));
-
-  const instr = [
-    { x: 248, k: 'INTERVAL · KRAWCZYK', v: 'outward-rounded', t: 'instrument · interval / Krawczyk',
-      d: 'Outward-rounded interval arithmetic checked against exact BigInt rationals, and the Krawczyk operator with STRICT interior containment — existence and uniqueness, or nothing. The census turns its certificates into completeness theorems: exactly N periodic points, the rest of the plane excluded.' },
-    { x: 414, k: 'TRIGMIN', v: 'certified minima', t: 'instrument · trigmin',
-      d: 'Certified global minima of integer cosine polynomials: Chebyshev reduction, BigInt Sturm isolation, interval-Newton refinement. Feeds the Newman envelope — the bar a hit has to beat.' },
-    { x: 580, k: 'CENSUS', v: 'exact counts', t: 'instrument · census',
-      d: 'Interval branch-and-bound over the phase plane: a certified a priori bound confines every periodic point, tube iteration excludes, Krawczyk-as-contraction resolves each remainder to exactly one point. It can refuse; it can never return a wrong count.' },
-    { x: 746, k: 'SOS · RATIONAL', v: 'lower bounds', t: 'instrument · sum-of-squares',
-      d: 'Exact rational sum-of-squares decompositions — a tight global lower bound whose checker goes red on a corrupted certificate. Python, stdlib fractions only.' }
-  ].map(n => ({ ...n, y: 300, w: 150, h: 40, role: 'dep' }));
-
-  const nodes = famNodes.concat([
-    { x: 248, y: 160, w: 140, h: 56, role: 'sig', k: 'ENUMERATE', v: commas(T.generated || 0) + ' objects',
-      t: 'enumerate — deterministic and indexed',
-      d: 'Every family enumerates by integer index, deterministically: a run of any size resumes and reproduces, and two runs at the same limit produce identical hits. ' + commas(T.generated || 0) + ' objects this build.' },
-    { x: 436, y: 160, w: 140, h: 56, role: 'sig', k: 'SCREEN · FLOAT', v: commas(screened) + ' pass',
-      t: 'screen — float, and it may only prune',
-      d: 'A fast float estimate decides only what is WORTH certifying. The screen may prune, never admit: nothing it passes is believed, and everything it passes goes to the certifier. Duplicates fold by canonical key on the way.' },
-    { x: 624, y: 160, w: 140, h: 56, role: 'sig', k: 'CERTIFY · EXACT', v: commas(T.certified || 0) + ' decided',
-      t: 'certify — the only authority',
-      d: 'The instruments decide: interval enclosures, exact rational arithmetic, strict interior containment for uniqueness. The engine never decides mathematics — it counts, dedupes, and hands the certifier what survived. ' + commas(T.certified || 0) + ' decisions this build.' },
-    { x: 830, y: 92, w: 136, h: 44, role: 'held', k: 'HIT · CERTIFIED', v: commas(hits),
-      t: 'HIT — a certificate exists',
-      d: 'A HIT ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness box, plus the falsifier the certificate must survive. ' + commas(hits) + ' this build.' },
-    { x: 830, y: 166, w: 136, h: 44, role: 'sig', k: 'REJECT · PROVED', v: commas(rejects),
-      t: 'REJECT — proved uninteresting',
-      d: 'The certifier examined the candidate and proved it below the bar. A REJECT here is a theorem about the object, not a failed search. ' + commas(rejects) + ' this build.' },
-    { x: 830, y: 240, w: 136, h: 44, role: 'warn', k: 'REFUSED · HONEST', v: commas(refused),
-      t: 'REFUSED — absence of proof',
-      d: 'The instrument declined to decide — a singular preconditioner, an exhausted budget, a containment that would not close. Absence of proof is never evidence of absence, and a refusal is never converted into a verdict. ' + commas(refused) + ' this build.' },
-    { x: 624, y: 372, w: 140, h: 56, role: 'sig', k: 'LEDGER', v: 'ledger.json',
-      t: 'the ledger',
-      d: 'Everything the engine produced, as records on disk: ' + commas((ledger.conjectures || []).length) + ' conjectures kept with their enclosures and certificates. Every number on this page is read off the ledger at build time; nothing is typed in.' },
-    { x: 420, y: 372, w: 160, h: 56, role: 'sig', k: 'CLOSED-FORM HUNT', v: commas(T.closedFormTested || 0) + ' tested',
-      t: 'the closed-form hunt',
-      d: 'Every certified enclosure is interrogated for small closed forms — rationals, square roots, multiples and powers of the standard constants. The enclosure decides: outside means refuted exactly, inside means a surviving candidate. Nothing is accepted on digits agreeing.' },
-    { x: 200, y: 352, w: 180, h: 40, role: 'held', k: 'REFUTED EXACTLY', v: commas(T.closedFormRefuted || 0),
-      t: 'refuted exactly',
-      d: commas(T.closedFormRefuted || 0) + ' candidate closed forms proved wrong: the value provably lies outside a certified enclosure. The Ramanujan Machine matches truncated decimals and argues from collision probability; this decides.' },
-    { x: 200, y: 412, w: 180, h: 40, role: 'warn', k: 'SURVIVORS · OPEN', v: commas(T.closedFormCandidates || 0) + ' candidates',
-      t: 'the survivors',
-      d: commas(T.closedFormCandidates || 0) + ' forms remain inside their enclosures — candidates, not results. They stay open until a tighter enclosure refutes them or an exact argument confirms them.' },
-    { x: 14, y: 386, w: 180, h: 44, role: 'held', k: 'THE GATES', v: green + '/' + ran + ' batteries',
-      t: 'the gates — batteries and red controls',
-      d: 'Every battery is executed during this build, never remembered: ' + green + '/' + ran + ' green. Red controls are deliberate forgeries the instruments must catch — a control that cannot fire is decoration. Every real bug this project has found was found by a control, none by reading code.' },
-    { x: 624, y: 472, w: 140, h: 40, role: 'dep', k: 'THIS PAGE', v: 'index.html',
-      t: 'this page',
-      d: 'Generated by tools/build-control.js from the ledger and the batteries. Editing it by hand is a change to nothing — the next build overwrites it, which is the point.' }
-  ], instr);
-
-  const edges = [
-    ...famY.map((y, i) => ({ d: 'M194 ' + (y + 20) + ' C224 ' + (y + 20) + ' 218 ' + (167 + i * 7) + ' 246 ' + (167 + i * 7) })),
-    { d: 'M388 188 L434 188' },
-    { d: 'M576 188 L622 188', lab: 'dedup by key', lx: 599, ly: 232 },
-    { d: 'M764 178 C800 160 806 132 828 116' },
-    { d: 'M764 188 L828 188' },
-    { d: 'M764 198 C800 216 806 244 828 262' },
-    { d: 'M966 114 C976 118 976 128 976 140 L976 388 C976 396 970 400 962 400 L768 400', lab: 'only certificates', lx: 968, ly: 300, anchor: 'end' },
-    { d: 'M624 400 L586 400' },
-    { d: 'M420 386 C404 380 398 376 384 372' },
-    { d: 'M420 414 C404 420 398 426 384 432' },
-    { d: 'M694 428 L694 468' },
-    { d: 'M323 300 C345 254 600 248 650 220' },
-    { d: 'M489 300 C509 258 640 246 679 220' },
-    { d: 'M655 300 C668 262 696 240 707 220' },
-    { d: 'M821 300 C800 262 758 240 737 220' },
-    { d: 'M104 386 C150 352 200 330 244 321' }
-  ];
-
+  const { machineFlow } = require(path.join(__dirname, 'machine-figure.js'));
   B.push(C.section({
     lab: '§1 · the machine', title: 'How a conjecture becomes a certificate', wide: true,
-    bodyRaw: C.flow({
-      w: 980, h: 528,
-      alt: 'Schematic of the conjecture engine: five families feed enumerate, screen and certify; the instruments decide; only certificates reach the ledger, which feeds the closed-form hunt and this page.',
-      readout: {
-        k: 'the machine',
-        d: 'Generate at scale, screen in float, certify the survivors exactly. Select any node for what it does — every count is read off ledger.json at build time.'
-      },
-      nodes, edges,
-      caption: 'The loop this repository runs. Families supply objects and mathematics; the engine supplies scale and bookkeeping; the instruments alone decide. REJECT and REFUSED are terminal by design — only a certificate reaches the ledger, the gates run on every build, and this page is rebuilt from the ledger alone.'
-    })
+    bodyRaw: machineFlow(ledger, { gates: { green, ran }, self: 'control' })
   }));
 }
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Wardrop, certified: exact, enclosed, refused · cert-machine</title>
+<title>About · Carlos Toledo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -266,63 +266,68 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · report · the page re-proves itself at every build</div>
-  <h1>A convergent flow finds the equilibrium. A certificate encloses it.</h1>
-  <p class="deck">A certified reproduction of the multi-population Wardrop equilibria in Bakaryan, Aoun, de Lima Ribeiro, Hovakimyan &amp; Gomes (AIMS Mathematics 11(5), 2026, doi:10.3934/math.2026623). The paper validates each equilibrium by watching a globally convergent flow settle; this reproduction adds the complementary thing a stopping rule cannot give — a certificate that the answer is there, alone, and positive — and where the instance does not support one, it REFUSES instead of picking a solution. The verifier is embedded in the published page; it was extracted and re-run during this build.</p>
+  <div class="eyebrow">Carlos Toledo · about</div>
+  <h1>Not correct. Checkable.</h1>
+  <p class="deck">You can disagree with a result on this site by running something — and the disagreement is then about the mathematics, rather than about which of us is more credible.</p>
 </header>
 
-<div class="wide">
-  <div class="stats">
-    <div class="stat"><div class="k">S2 · affine costs</div><div class="v held">EXACT</div><div class="n">the exact rational equilibrium, 38 unknowns; Wardrop gap EXACTLY 0 — not a small residual</div></div>
-    <div class="stat"><div class="k">S3 · nonlinear costs</div><div class="v held">KRAWCZYK</div><div class="n">exactly one KKT zero in a box of radius 7.319e-13 — existence AND local uniqueness</div></div>
-    <div class="stat"><div class="k">S1 · degenerate</div><div class="v warn">REFUSED</div><div class="n">cost monotone but not strictly: the split has a 6-dimensional exact null space; only the totals are pinned, and the non-uniqueness is displayed</div></div>
-    <div class="stat"><div class="k">the erratum</div><div class="v warn">(4,7) = 52</div><div class="n">Table 1 prints 54; the exact total is 1940/37 = 52.432…, certified four independent ways — 3 of 15 printed totals differ by rounding</div></div>
-    <div class="stat"><div class="k">verifier</div><div class="v">stdlib · 44 KB</div><div class="n">embedded in the published page; extracted and re-run at build; sha256 5d5fca032ff5…</div></div>
-    <div class="stat"><div class="k">reflexive catch</div><div class="v">1 bug, OWN code</div><div class="n">certifying against the paper&#39;s Figure 4 exposed a dropped 10⁻³ emission factor in the reproduction&#39;s own cost code — certificates catch the implementer&#39;s mistakes too</div></div>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">the job</div>
+    <h2>Narrow, and not solving</h2>
   </div>
+<p>Take a numerical claim someone already believes — from a language model, from a published paper, or from my own draft — and either produce an interval that provably contains the true answer, together with the program that produced it, or report that the method did not reach one and stop there.</p>
+<p>Much of the recent work is verification of machine-generated mathematics: AI-claimed results re-checked in independent arithmetic, each check first shown to fail on a deliberately broken copy of itself. The tools are interval arithmetic with outward rounding, exact rational arithmetic — BigInt on one side, standard-library fractions on the other — Sturm chains, and contraction arguments of the Krawczyk kind.</p>
+<p>I work alone, from Brazil.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">the standard</div>
+    <h2>Three things every page here owes you</h2>
+  </div>
+<ul class="plain"><li><b>The program, not a description of it.</b> Every page is generated from the records it cites, and the repository — engine, instruments, certificates, corpus — is public under MIT with no dependencies. The detached verifiers run in the Python standard library: the next person to extend one needs neither my permission nor my machine.</li><li><b>Proof that the check can fail.</b> A check that has never gone red is decorative — consistent with the code being right, and equally consistent with the check testing nothing. So every battery carries red controls, deliberate forgeries that must be caught, and every instrument is calibrated against a case with a known answer before it decides anything new.</li><li><b>The errors, dated, in public.</b> Refuted claims are published with their generating mechanism named, and the machine’s own defects are recorded the same way. Every real bug this project has found was caught by a control, a calibration, or an impossible number — none by reading code.</li></ul><div class="note">
+  <span class="lab">what that does and does not buy</span>
+<p>None of it makes the work correct. It makes it <em>checkable</em>, which is a weaker property and a more useful one.</p>
 </div>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§1 · what a certificate adds</div>
-    <h2>Existence-by-algorithm is not enclosure</h2>
-  </div>
-<div class="col"><p>A traffic equilibrium is the flow pattern in which no driver gains by switching routes. The paper computes each one with a globally convergent Hessian–Riemannian flow and validates it numerically — existence by algorithm plus a benchmark match. A stopping rule tells you WHERE the equilibrium is; it cannot tell you that what it converged to is the only solution nearby, or that the residual being small means the answer is right. The certificate is the complementary object: where the costs are affine, an EXACT rational equilibrium with the Wardrop gap identically zero; where they are smooth and nonlinear, a Krawczyk box holding exactly one solution; where the instance is degenerate, an honest refusal that exhibits the degeneracy instead of hiding it.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§2 · three scenarios, three outcomes</div>
-    <h2>Exact, enclosed, refused — each for a proved reason</h2>
+    <div class="lab">outside the building</div>
+    <h2>Where the work has gone, and what has come back</h2>
   </div>
-<div class="col"><p>S2 (cars + trucks, affine costs): the equilibrium is solved over exact rationals — 38 unknowns, support slacks identically zero, so the Wardrop gap is EXACTLY 0 and the paper's Figure 2 reproduces with no arithmetic left over. S3 (emission cost, smooth nonlinear): an interval Krawczyk contraction proves a unique KKT zero in an explicit box of radius 7.319e-13 — the paper's convergent iterate is now the provably unique equilibrium of its neighbourhood. S1 (degenerate linear cost): the cost is monotone but NOT strictly, the paper's uniqueness theorem does not apply, and the reproduction proves why no split certificate can exist — the split-conservation operator has an exact null space of dimension six. The totals are certified; the split is refused; refusal is the correct verdict, not a failure to reach one.</p></div>
+<p>Everything here is self-published and self-checked, so the honest question is what happens when it leaves. The record, with the status words meant exactly:</p>
+<ul class="plain"><li><b>Submitted, awaiting moderation.</b> A correction to a GPT-published constant on Erdős #852 — refuted at its 12th significant digit, certified replacement attached — posted to the problem’s discussion thread on erdosproblems.com.</li><li><b>Filed, 5 August 2026 — no reply yet.</b> An independent confirmation of the computational appendix of a claimed proof of Erdős #1038, filed as an issue on the claiming authors’ own repository: all 30 printed decimals verified by a different route — Krawczyk rather than bisection.</li><li><b>Posted, 4 August 2026 — no reply yet.</b> An evaluation note on Anthropic’s public automated-alignment sandbox, posted as an issue on the repository whose authors invited stress-testing.</li><li><b>Submitted, awaiting moderation.</b> A note on Erdős #290 to erdosproblems.com; the constant’s decimal expansion is also an OEIS submission, posted 4 August 2026, unanswered.</li></ul>
+<p><strong>Filed is not accepted; posted is not replied.</strong> No result on this site has yet been reproduced by anyone else, and none has been peer-reviewed. That is the plain state of it, and it is why the pages ship their own falsifiers rather than asking for trust.</p>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§3 · the erratum</div>
-    <h2>Three printed totals, one self-inconsistent row</h2>
+    <div class="lab">absent by choice</div>
+    <h2>What this page does not contain</h2>
   </div>
-<div class="col"><p>Binding the certified S1 equilibrium to the paper's Table 1: twelve of fifteen printed totals match exactly after integer rounding; two differ by one unit of rounding; and edge (4,7) differs by two — the exact total is 1940/37 = 52.432…, which rounds to 52 where the table prints 54. The value is certified four independent ways in the reproduction, and it is reported as what it is: a rounding typo in a table, an erratum for the authors' benefit — not a defect in their method, whose scenarios all reproduce. This is the audit lane's contract: corrections carry certificates, and the correction and the confirmation come from the same arithmetic.</p></div>
+<p>No employment history, no degrees, no years-of-experience figure, no self-rated skills. Each of those is a claim a reader would have to take on trust, and putting them beside claims that can be re-run devalues the second kind. If a process needs a conventional CV, ask and you will get one.</p>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§4 · the reflexive catch</div>
-    <h2>The certificate caught its own author first</h2>
+    <div class="lab">method</div>
+    <h2>How these pages are made, since it bears on how fast they appear</h2>
   </div>
-<div class="col"><p>Reproducing the paper's Figure 4 forced this reproduction to find a bug in its OWN cost code — a dropped 10⁻³ emission factor and a congestion-flow slip. That is the strongest argument for certificates in reproduction work: they catch the implementer's mistakes, not only the author's. Under the corrected cost the certified equilibrium is invariant to the edge-length reading, so nothing hinges on measuring a figure. (This episode sits in the benign corner of the <a href="erdos852.html">failure taxonomy</a> this site maintains — caught before publication, by exactly the machinery built to catch it.)</p></div>
+<p>The mathematics, the design of every check, and the decision about what may be claimed are mine. The writing and much of the implementation are done with AI assistance, under the discipline this site describes: a screen may only prune, a gate counts only once it has been shown to go red on a broken copy, and every page recomputes its numbers from the records at build time — a build that drifts refuses to ship. The output rate is a consequence of that arrangement, and saying so seems better than letting a reader wonder.</p>
+<p>The code and the checks on it share one author, so they rule out slips but not a shared misconception. An independent recomputation of any result here — in whatever you already trust — is the thing this site most wants, and a refutation gets published like any other result, with the name of whoever found it if they want it there.</p>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§5 · check it</div>
-    <h2>The proof travels inside the page</h2>
+    <div class="lab">contact</div>
+    <h2>One address, for everything</h2>
   </div>
-<div class="col"><p>The <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/wardrop-repro/wardrop-repro.html">published page</a> (byte-preserved in the repository, exactly as sent) embeds its complete verifier — plain Python, standard library only, MIT. This build extracted those bytes (<span class="m">sha256 5d5fca032ff5dbb7…</span>), ran them, and required VERIFIED plus every scenario verdict and the erratum value above; any drift refuses the page. Do the same: <a href="verify_wardrop.py">download the extracted verifier</a> and run <span class="m">python3 verify_wardrop.py</span> — under a second, exact Fractions end to end.</p></div>
+<p><a href="mailto:carlos@carlostoledo.co"><span class="m">carlos@carlostoledo.co</span></a> — corrections, questions about a step, collaboration. A message that names the page and the one step it doubts can be answered properly; a general introduction usually cannot.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-report-wardrop.js @ git 0a6e871 — the embedded verifier extracted from the published bytes and re-run during this build (VERIFIED, or no page). The page as sent is byte-preserved in the repository (legacy/research/wardrop-repro/).</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Carlos Toledo · computer-assisted proof and validated numerics. These notes are self-published and not peer-reviewed. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
 
 </div>
 </html>

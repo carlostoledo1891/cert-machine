@@ -113,12 +113,18 @@ contains a number**. A builder passes data; the component decides markup.
 | `quote({text,cite})` | | a source, quoted, with its citation |
 | `table({cols,rows})` | `cols:[{h,cls}]`, cells are strings or `{raw}` | the ledger form. `cls: 'v'` for mono values, `'k'` for a display-face key, `'n'` for a right-aligned number |
 | `plainList(items)` | `[{b,text}]` or `{raw}` | claim lists — a lead in bold, then the qualification |
+| `cards(items)` | `[{href,k,title,desc,n}]` | a grid of link cards, the whole card the anchor: two columns on a desk, one on a phone. The report index and the landing's report list |
 | `figure({svgRaw,caption})` | | wraps a figure. **`alt` on the svg is required** |
 | `m(s)` | string | inline monospace — every number, path, id, hash |
 | `tag(text,kind)` | `kind ∈ held·cert·open·dep` | a status chip |
 | `categoryChart({cats,...})` | | value-per-named-bucket figure |
 | `flow({w,h,alt,readout,nodes,edges,caption})` | `nodes:[{x,y,w,h,role,k,v,t,d}]`, `edges:[{d,lab,flow}]` | the interactive machine schematic: nodes as focusable buttons, animated flow along edges, a readout narrating the active node. Ships the design system's ONE inline script; with scripts off the default narration stands and hover still highlights |
 | `numberLine({...})`, `band`, `vmark`, `label`, `legend` | | figure atoms |
+
+The top bar (`nav`) is emitted by the template on every page, never by a builder. Its
+GitHub link is the mark alone on desktop with an `aria-label`; on narrow viewports the
+links fold into a drawer driven by a checkbox and its label — CSS state, no script, so
+the system still ships exactly one scripted element (the flow readout).
 
 ### Escaping
 

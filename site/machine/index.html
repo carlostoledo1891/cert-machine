@@ -84,9 +84,39 @@ body{margin:0;background:var(--paper);color:var(--ink);
 .navlinks a{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--ink-2);text-decoration:none;border:none}
 .navlinks a:hover{color:var(--sig)}
-.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;padding:6px 14px;
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
   color:var(--ink);background:var(--surface)}
 .navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:4px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--sig);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:52px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
 [id]{scroll-margin-top:76px}
 .col{max-width:64ch;margin-left:auto;margin-right:auto}
 .wide{max-width:900px;margin-left:auto;margin-right:auto}
@@ -172,6 +202,20 @@ td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;fon
 .tag.open{background:var(--warn-soft);color:var(--warn)}
 .tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
 
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:22px 24px;
+  color:inherit;text-decoration:none;transition:border-color .15s ease}
+a.card:hover{border:1px solid var(--sig)}
+a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+.card-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
+.card-t{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:19.5px;line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
+.card-n{margin-top:auto;padding-top:6px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  letter-spacing:.05em;color:var(--ink-3)}
+
 ul.plain{list-style:none;padding:0;margin:0}
 ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
 ul.plain li:first-child{border-top:0}
@@ -217,7 +261,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 </style>
 
-<nav class="topnav"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><div class="navlinks"><a href="/#reports">Reports</a><a href="/machine/">Machine</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine">GitHub</a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
@@ -246,7 +290,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="wide"><figure class="mach">
   <div class="figbox">
     <div class="mach-ro"><div class="k" data-ro-k>the machine</div><div class="d" data-ro-d>Generate at scale, screen in float, certify the survivors exactly. Select any node for what it does — every count is read off ledger.json at build time.</div></div>
-    <svg viewBox="0 0 980 528" role="img" aria-label="Schematic of the conjecture engine: five families feed enumerate, screen and certify; the instruments decide; only certificates reach the ledger, which feeds the closed-form hunt and this page.">
+    <svg viewBox="0 0 980 528" role="img" aria-label="Schematic of the conjecture engine: the families feed enumerate, screen and certify; the instruments decide; only certificates reach the ledger, which feeds the closed-form hunt and the pages.">
       <defs><marker id="mfa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>
       <path class="ed" d="M194 28 C224 28 218 167 246 167" marker-end="url(#mfa)"/>
       <path class="ed-f" d="M194 28 C224 28 218 167 246 167"/>
@@ -402,7 +446,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
         <text class="nd-k" x="844" y="258">REFUSED · HONEST</text>
         <text class="nd-v" x="844" y="273">1</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="the ledger" data-t="the ledger" data-d="Everything the engine produced, as records on disk: 94 conjectures kept with their enclosures and certificates. Every number on this page is read off the ledger at build time; nothing is typed in.">
+      <g class="nd" tabindex="0" role="button" aria-label="the ledger" data-t="the ledger" data-d="Everything the engine produced, as records on disk: 94 conjectures kept with their enclosures and certificates. Every number in this drawing is read off the ledger at build time; nothing is typed in.">
         <rect class="nd-box" x="624" y="372" width="140" height="56" rx="5"/>
         <rect class="acc-sig" x="624" y="372" width="3" height="56" rx="1.5"/>
         <text class="nd-k" x="638" y="390">LEDGER</text>
@@ -466,7 +510,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
       <text class="ed-lab" x="968" y="300" text-anchor="end">only certificates</text>
     </svg>
   </div>
-  <figcaption>The loop this repository runs. Families supply objects and mathematics; the engine supplies scale and bookkeeping; the instruments alone decide. REJECT and REFUSED are terminal by design — only a certificate reaches the ledger, the gates run on every build, and this page is rebuilt from the ledger alone.</figcaption>
+  <figcaption>The loop this repository runs. Families supply objects and mathematics; the engine supplies scale and bookkeeping; the instruments alone decide. REJECT and REFUSED are terminal by design — only a certificate reaches the ledger, the gates run on every build, and every page is rebuilt from the ledger alone.</figcaption>
 </figure></div>
 <script>(function(){var f=document.querySelector("figure.mach");if(!f)return;var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}f.querySelectorAll("g.nd").forEach(function(g){g.addEventListener("click",function(){on(g)});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});});})();</script>
 </section>
@@ -511,7 +555,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="wide"><div class="tw"><table><thead><tr><th>battery</th><th>covers</th><th>this build</th></tr></thead><tbody><tr><td>funnel machine</td><td>14 items · 19 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>detach</td><td>11 checks</td><td><span class="tag held">green</span></td></tr><tr><td>interval · eqcert</td><td>falsifier-required certificates</td><td><span class="tag held">green</span></td></tr><tr><td>interval · arithmetic</td><td>16 000 ops vs exact rationals</td><td><span class="tag held">green</span></td></tr><tr><td>interval · transcendental</td><td>sound exp/log/sin/cos</td><td><span class="tag held">green</span></td></tr><tr><td>trigmin certifier</td><td>47 checks · 2 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>newman box sweep</td><td>Goddard&#39;s 1992 box re-closed every run, cross-lab counts pinned; 100% kill audit · 7 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>lambda sweep</td><td>Mercer&#39;s proved closed forms computed, never remembered; the wrong-endpoint bar refused by name and shown fatal · 4 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>mercer mu5 ladder</td><td>mu(5) &lt;= 1 + pi/m certified m = 5..20; Mercer&#39;s Tables 5-7 reproduced, the source-lab m=6 record matched, every case point re-proved · 5 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>census (henon + holmes)</td><td>closed-form calibration, two maps · 5 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>keller audit + sweep</td><td>symbolic det over Q, generator calibrated on Alpöge · 4 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>cf audit</td><td>all six Ramanujan Machine sheets (46 rows: e, pi, zeta(3), Catalan, pi^2, ln 2) · 10 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>entropy covering</td><td>certified h_top lower bounds; ln 2 calibration at the full horseshoe · 4 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>strassen audit</td><td>fast-matmul tensor identities over Q and F2; Strassen 1969 calibrates · 3 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>bigfloat layer</td><td>directed-rounding big-float intervals; pi/ln2/e to 50 literature digits · 5 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>erdos852 constants</td><td>certified c0 and C* enclosures; pi^2/8 product calibration · 5 red controls</td><td><span class="tag held">green</span></td></tr><tr><td>engine + families</td><td>red controls on screen and certifier</td><td><span class="tag held">green</span></td></tr><tr><td>keller · standalone re-verifier</td><td>the detached certificate re-audited from scratch — stdlib fractions, no code from this repo; red control must fire</td><td><span class="tag held">green</span></td></tr><tr><td>strassen · standalone re-verifier</td><td>every matmul identity re-derived in stdlib Python ints; pins re-hashed; red control must fire</td><td><span class="tag held">green</span></td></tr><tr><td>erdos852 · standalone re-verifier</td><td>the C* refutation re-proved in exact stdlib ints (no tail, no rounding); the c0 window re-decided at 130 digits; 4 red controls must fire</td><td><span class="tag held">green</span></td></tr><tr><td>sos · global bound</td><td>stdlib fractions only</td><td><span class="tag held">green</span></td></tr><tr><td>sos · lyapunov</td><td>stdlib fractions only</td><td><span class="tag held">green</span></td></tr><tr><td>sos · re-verify AI result</td><td>stdlib fractions only</td><td><span class="tag held">green</span></td></tr><tr><td>llm harness — plumbing only, NO model has run</td><td>dry run with a FAKE proposer: gates the pipeline, not an LLM result · aborts if a red control certifies</td><td><span class="tag held">green</span></td></tr></tbody></table></div></div><div class="col"><p>Lifted from the source lab: <span class="m">99 files</span>, <span class="m">4 patched</span> on the way in, each patch declared. Drift now: <span class="m">99 unchanged · 0 source moved · 0 local edited · 0 source gone</span>. <strong>The source lab (sin-mfg) is read-only, permanently</strong> — read anything, never write, and report an error there rather than repair it.</p></div>
 </section>
 
-<footer class="col"><p>Generated by tools/build-control.js. Rebuild: make engine &amp;&amp; make control.</p><p>git 1eb9d91 · 69 commits</p><p style="margin-top:20px;color:var(--ink-2)">Carlos Toledo · cert-machine</p></footer>
+<footer class="col"><p>Generated by tools/build-control.js. Rebuild: make engine &amp;&amp; make control.</p><p>git 0a6e871 · 72 commits</p><p style="margin-top:20px;color:var(--ink-2)">Carlos Toledo · cert-machine</p></footer>
 
 </div>
 </html>
