@@ -58,8 +58,12 @@ S1. PUBLISH PREP.
         style: the certified lambda table (source-lab rows reproduced, the
         new n=13..17 rows, the M=30 deepenings incl. the lambda(14)
         improvement), infimum caveats intact, verification recipe inline.
-    OP at end of S1: create + push the GitHub repo; deploy the site
-    (Hostinger); post the #510 comment.
+    OP at end of S1: create + push the public GitHub repo; import it as a
+    NEW Vercel project (no build command — the pages are committed,
+    built locally under the drift-refusal discipline; .vercelignore
+    keeps heavy non-site files out of the deployment) and transfer
+    carlostoledo.co to it from the sin-mfg project; post the #510
+    comment.
 S2. THE TWO AUDIT STORIES.
     (a) reports/erdos852.html expanded into the failure-taxonomy research
         note ("a model published a float artifact as a constant; only
