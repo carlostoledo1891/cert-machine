@@ -85,6 +85,27 @@ S2. THE TWO AUDIT STORIES —
         operator's word: a short note to the RM group (their Challenge
         asks for verified code), carrying the independent-rerun
         invitation.
+S2.5 LEGACY OUTREACH SURFACES (operator ruling 2026-08-27: this is the
+    focus before the eval).
+    STAGE 1 — DONE: the three SENT outreach targets (Erdos #290 report,
+    Erdos #1038 verify-lemniscate, the Anthropic sandbox alien-science
+    bundle) had gone DEAD — the old mfg-lab project 308s its whole host
+    to carlostoledo.co, which now serves cert-machine, so every shared
+    URL 404ed. Restored: lifted byte-identical from sin-mfg via
+    LIFT.json (125 files, drift clean) into legacy/, served at ORIGINAL
+    paths; vercel.json carries extensionless rewrites + 301s for retired
+    spellings (/technical-reports/*, /reports/verify-lemniscate). All
+    seven sent URLs verified 200 end-to-end through the old host; the
+    four cited artifacts hash-identical to the sin-mfg source.
+    CONSEQUENCE, PERMANENT: the mfg-lab Vercel project must NEVER be
+    deleted — its .vercel.app host is in three sent messages and only
+    resolves by redirecting into carlostoledo.co.
+    STAGE 2 — NEXT: rebuild erdos290 and verify-lemniscate as
+    cert-machine engine reports (numbers reviewed and re-certified by
+    our instruments, improved where cheap — e.g. the #290 l-sweep
+    deepening), then flip their legacy paths to 301s onto the new pages.
+    The alien-science bundle stays FROZEN (cited evidence bytes in a
+    safety-research issue) unless the operator rules otherwise.
 S3. THE EVAL (promoted) — model-proposes-engine-certifies over the
     strassen corpus: per-model certified truth rates, false positives
     provably false; shipped as corpus + stdlib graders + a small
