@@ -262,3 +262,12 @@ reader in under a minute, which is exactly the review this page invites.
   re-derives the Jacobian, expands the determinant symbolically, evaluates the
   collisions, re-hashes the pinned sources, and must also refute a deliberately
   forged coefficient before it will exit green.
+
+## License
+
+MIT (see `LICENSE`) — code, certificates, reports, and generated pages alike;
+rerun, reuse, republish, with attribution. One carve-out: `corpus/sources/`
+holds third-party published documents (result sheets, papers, datasets)
+pinned by sha256 for audit provenance. They are redistributed here as
+fetched, remain under their authors' copyrights, and are not covered by this
+repository's license.

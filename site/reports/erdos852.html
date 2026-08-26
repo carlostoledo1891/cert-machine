@@ -204,7 +204,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <header class="col">
   <div class="eyebrow">cert-machine · report · generated from the records</div>
   <h1>The constant that was a rounding error</h1>
-  <p class="deck">Erdős problem #852 asks how long a run of consecutive prime gaps can stay pairwise distinct. Its discussion thread conjectures h(x) ~ c0 · log x, held up by two constants produced by GPT models and published as bare decimals. This page replaces both with certified interval enclosures. One survives — as a rounding. The other is refuted at its 12th significant digit, and the wrong digits are not near the truth by accident: they are EXACTLY what an IEEE-754 double-precision product emits, because 87% of its factors round to 1.0 and silently vanish. The published constant is the bug, printed.</p>
+  <p class="deck">Erdős problem #852 asks how long a run of consecutive prime gaps can stay pairwise distinct. Its discussion thread conjectures h(x) ~ c0 · log x, held up by two constants produced by GPT models and published as bare decimals. This page replaces both with certified interval enclosures. One survives — as a rounding. The other is refuted at its 12th significant digit, and the wrong digits are not near the truth by accident: they are EXACTLY what an IEEE-754 double-precision product emits, because 87% of its factors round to 1.0 and silently vanish. The published constant is the bug, printed — the type specimen of a failure taxonomy this page names in §5, with a second specimen from the Ramanujan Machine&#39;s own sheets and a note in §6 for people who build evaluations on mathematical ground truth.</p>
 </header>
 
 <div class="wide">
@@ -252,13 +252,29 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§5 · check it</div>
+    <div class="lab">§5 · the taxonomy</div>
+    <h2>Three ways published machine mathematics goes wrong</h2>
+  </div>
+<div class="col"><p>C* is not an anecdote; it is the TYPE SPECIMEN of a failure class, and this machine's records now hold three distinct classes, each certified, each with the detector that catches it. They are worth naming because the usual defenses — rerun it, cross-check digits, add compute — catch none of them.</p><div class="wide"><div class="tw"><table><thead><tr><th>class</th><th>specimen</th><th>why digit-checking cannot catch it</th><th>what caught it</th></tr></thead><tbody><tr><td>1 · The artifact published as truth. The computation is silently wrong; its output is stable.</td><td>C* (this page): 87% of factors round to 1.0; 13 digits printed, 11 real</td><td>Every naive rerun reproduces the SAME wrong digits — two independent float implementations agree with each other, not with the truth. More compute changes nothing: the loop already ignores every prime past 2·10⁵, so raising the limit reads as convergence.</td><td>An exact arbiter: a certified enclosure the published value provably lies outside.</td></tr><tr><td>2 · The true computation under a false printed claim. The numerics were right; the published identity is not what they computed.</td><td>Ramanujan Machine, mixed-zeta sheet row 3: printed 2/(2ζ(5)−2ζ(3)−1) ≈ -1.5035; the row&#39;s own polynomials converge to 2.98622586… = 2/(2ζ(5)−2ζ(3)+1) — a sign slip</td><td>The mismatch is between a formula and a table, not between two numbers — there is no second number to check digits against. The sheet&#39;s displayed convergent (a₁ = 275 vs the polynomial&#39;s 75) was itself wrong.</td><td>Deciding the printed identity against a certified CF enclosure: disjoint, REFUTED — and the corrected identity certified on the SAME enclosure, so the mechanism is proved, not guessed.</td></tr><tr><td>3 · The coincidence that survives every screen. Nothing computed wrong; the world just contains near-misses deeper than any float.</td><td>The impostor catalog: a published OEIS constant impersonates 1/5 for 62 significant digits</td><td>62 digits of agreement passes any decimal screen ever used to announce a discovery. Probability arguments certify confidence, not truth.</td><td>Exact BigInt refutation at full published precision — the only test with a zero false-accept rate.</td></tr></tbody></table></div></div><p>Class 2 is re-certified live during this build (the printed row must come out REJECT with the sign-slip mechanism, the correction HIT, or this page refuses to render); the full 52-row registry is <a href="rm-audit.html">the companion report</a>. Class 3 has its own <a href="impostors.html">catalog</a>. What the three classes share: the failure is invisible from inside floating point, stable under repetition, and wears the costume of precision.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · for evaluation builders</div>
+    <h2>If your job is grading model mathematics</h2>
+  </div>
+<div class="col"><p>The C* episode is what the default researcher-plus-model workflow produces: a competent person, a frontier model, a serious venue, a constant stated to 13 digits with no error bound — wrong at digit 12 in a way no rerun would reveal. Three consequences for anyone building evaluations or verifiable-reward environments on mathematical ground truth:</p><ul class="plain"><li><b>Digit-matching ground truth inherits the failure class of whatever computed it.</b> If the reference value came from a float pipeline, class 1 lives inside your answer key, and a model that reproduces the artifact grades as correct. The reference must carry its own certificate, not just its digits.</li><li><b>Human graders cannot check this class either.</b> No reviewer eyeballs a 1.9-million-factor product or a depth-200,000 continued fraction. The C* error sat on a public thread; the RM sign slip sat on a published sheet for years. Machine-checkable certificates are not a luxury tier above human grading — for this content they are the only grading that terminates.</li><li><b>A verifier is only trustworthy if it can be shown failing.</b> Every instrument here ships red controls — forged inputs that MUST be rejected — and calibrations against known answers that must pass before any novel claim is decided. An answer key that has never rejected a plausible forgery has an unknown false-accept rate; so does an eval.</li></ul><p>The constructive direction: ground truth as certificates (exact rationals, directed-rounding enclosures, detached verifiers in stdlib Python with zero code shared with the generator) makes "the model was right" a theorem rather than a grade — false positives provably false. This repository's audit corpus and instruments are built as exactly that substrate.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§7 · check it</div>
     <h2>What a skeptic runs</h2>
   </div>
 <div class="col"><p><span class="m">make test</span> re-runs all of it: the bigfloat layer against exact rationals on random operands with π, ln 2 and e certified to 50 literature digits (14 checks, 5 red controls), and the erdos852 battery (22 checks, 5 red controls) — the π²/8 calibration with its mutation red, the derivative identity, the dilog inversion against direct quadrature, the bracket re-certification, the forged-pin refusal, and the naive-float reproduction of the published digits, live, every run. This page itself refuses to build if any verdict, digit, or the mechanism reproduction moves.</p></div>
 </section>
 
-<footer class="col"><p>Generated by tools/build-report-erdos852.js — all four certificates re-derived, the naive float product re-run, sources re-hashed at build time; the build fails if any of it does not hold.</p><p>git 9b75b62 · cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-erdos852.js — all four certificates re-derived, the naive float product re-run, sources re-hashed at build time; the build fails if any of it does not hold.</p><p>git 7797593 · cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>
