@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>None by reading code · cert-machine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 28px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:400;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sig);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:4px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--sig);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:52px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:76px}
+.col{max-width:64ch;margin-left:auto;margin-right:auto}
+.wide{max-width:900px;margin-left:auto;margin-right:auto}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:7px;
+  flex:1 1 240px;min-width:200px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px;max-width:70ch}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:22px 24px;
+  color:inherit;text-decoration:none;transition:border-color .15s ease}
+a.card:hover{border:1px solid var(--sig)}
+a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+.card-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
+.card-t{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:19.5px;line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
+.card-n{margin-top:auto;padding-top:6px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  letter-spacing:.05em;color:var(--ink-3)}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · methods note</div>
+  <h1>None by reading code</h1>
+  <p class="deck">Every real bug this project has found — 10 of them, cataloged below — was caught by a red control, a calibration, an impossible number, or a byte pin. Not one was found by reading the code. This note is the discipline stated as engineering, with the receipts: every regression named here is held by a battery that executed during this build, and the build refuses if any goes red.</p>
+</header>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">bugs cataloged</div><div class="v">10</div><div class="n">real defects with named catches and living gates</div></div>
+    <div class="stat"><div class="k">found by reading code</div><div class="v held">0</div><div class="n">the null result the whole method predicts</div></div>
+    <div class="stat"><div class="k">impossible numbers</div><div class="v">3</div><div class="n">bounds provably above ceilings, values refuting themselves</div></div>
+    <div class="stat"><div class="k">calibrations</div><div class="v">2</div><div class="n">known answers the instrument had to reproduce first</div></div>
+    <div class="stat"><div class="k">gates run for this page</div><div class="v held">6 green</div><div class="n">executed during this build; a red refuses the page</div></div>
+    <div class="stat"><div class="k">the class, in the wild</div><div class="v warn">2 refutations</div><div class="n">a published constant that was a float artifact; a printed sign slip — same failure class, audited</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the discipline</div>
+    <h2>Five rules, stated as engineering</h2>
+  </div>
+<div class="col"><ul class="plain"><li><b>Screens may prune, never admit.</b> Floating point decides only what is WORTH certifying. Nothing a screen passes is believed; every admission is an exact certificate — interval enclosures with outward rounding, BigInt rationals, Sturm chains. An instrument that cannot decide refuses rather than guesses.</li><li><b>Calibrate before you claim.</b> Every instrument first reproduces a case with a known answer — closed-form fixed points, a published table, a textbook algorithm. 2 of the 10 bugs below were caught at exactly this step.</li><li><b>Every battery carries red controls.</b> Deliberate forgeries that must FAIL: a perturbed coefficient, a forged pin, a wrong-endpoint bar. A check that has never gone red is decoration — it is consistent with the code being right and equally consistent with the check testing nothing.</li><li><b>Conservation identities that throw.</b> Every exhaustion accounts for every case — per shard and globally — and the run refuses to write a record with a hole in it. The one headline this project ever had to deflate (by 30%) is now structurally impossible to inflate: the subtraction must close to zero.</li><li><b>Pin the bytes.</b> Every transcribed claim certifies against a held byte sequence (path + sha256), re-hashed at certify time. One bug below — a silently missing row of a published sheet — was caught by nothing else.</li></ul><p>The consequence worth a note rather than a slogan: under these rules, bugs are found by RUNNING the machine, and the finding mechanism is itself checkable. What follows is every real bug this project has found, with what caught it.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the catalog</div>
+    <h2>10 bugs, 6 catch mechanisms</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>#</th><th>the bug</th><th>where</th><th>caught by</th></tr></thead><tbody><tr><td class="n">1</td><td><a href="#bug-1">The engine refuted √2 as a closed form of √2</a></td><td><span class="m">oeis-closedform</span></td><td><span class="tag open">impossible number</span></td></tr><tr><td class="n">2</td><td><a href="#bug-2">“Decimal expansion of 2e” certified as a discovery</a></td><td><span class="m">oeis-closedform</span></td><td><span class="tag held">outside read</span></td></tr><tr><td class="n">3</td><td><a href="#bug-3">Unreduced fractions inflated the refutation count ~30%</a></td><td><span class="m">closed-form vocabularies</span></td><td><span class="tag held">outside read → conservation identity</span></td></tr><tr><td class="n">4</td><td><a href="#bug-4">The bisection-line zero</a></td><td><span class="m">holmes-census</span></td><td><span class="tag held">calibration</span></td></tr><tr><td class="n">5</td><td><a href="#bug-5">The fat-record stall</a></td><td><span class="m">henon-census</span></td><td><span class="tag held">control</span></td></tr><tr><td class="n">6</td><td><a href="#bug-6">Undamped-Newton blindness</a></td><td><span class="m">keller-fibers</span></td><td><span class="tag held">calibration</span></td></tr><tr><td class="n">7</td><td><a href="#bug-7">The missed sheet row</a></td><td><span class="m">ramanujan-audit</span></td><td><span class="tag cert">byte pin</span></td></tr><tr><td class="n">8</td><td><a href="#bug-8">Mixed-duration itineraries: h ≥ 0.61, above the ceiling</a></td><td><span class="m">entropy</span></td><td><span class="tag open">impossible number</span></td></tr><tr><td class="n">9</td><td><a href="#bug-9">The lids-only image condition: ln φ from two boxes</a></td><td><span class="m">entropy</span></td><td><span class="tag open">impossible number</span></td></tr><tr><td class="n">10</td><td><a href="#bug-10">The wrong-endpoint bar</a></td><td><span class="m">trigmin sweeps (lesson encoded from the source lab)</span></td><td><span class="tag held">control</span></td></tr></tbody></table></div></div><div class="col"><div id="bug-1"></div><h3>1 · The engine refuted √2 as a closed form of √2</h3><p>An OEIS audit run reported the closed form √2 REFUTED against the certified enclosure of… the decimal expansion of √2. A refutation of a value against itself is not a subtle wrongness; it is an impossibility, and it surfaced a normalization defect in the closed-form vocabulary.</p><p><strong>The gate now standing:</strong> the engine battery (closed-form calibration rows).</p>
+<div id="bug-2"></div><h3>2 · “Decimal expansion of 2e” certified as a discovery</h3><p>The family read only the OEIS entry NAME, so a constant whose own record states its closed form was announced as a surviving discovery. The claim was impossible on its face to any reader of the record. The fix made the engine conclude what the hand-check knew: full records are fetched and fed back into certify, a survivor with a form on record is REJECT, and OEIS “hits” went 38 → 0.</p><p><strong>The gate now standing:</strong> A019762 pinned in the battery as a regression control.</p>
+<div id="bug-3"></div><h3>3 · Unreduced fractions inflated the refutation count ~30%</h3><p>The vocabularies emitted unreduced spellings — (2/1)·e and (4/2)·e counted as two refuted forms — and one surviving value showed as four candidates: an impossible multiplicity an outside reviewer saw in under a minute. The headline DEFLATED from 77.6M to 54.6M (history, quoted). The durable fix is structural: the ledger now carries the full decomposition and the engine refuses to write one whose subtraction does not close.</p><p><strong>The gate now standing:</strong> run-engine refuses a non-closing ledger; recomputed above: 54,635,408 tested decomposes exactly.</p>
+<div id="bug-4"></div><h3>4 · The bisection-line zero</h3><p>The Holmes cubic has a fixed point AT x = 0 — the exact midpoint of the symmetric root box. A zero lying ON a bisection line can never satisfy strict interior containment, so the census dove to its depth cap around a point it could never resolve. Caught the day the instrument was calibrated against the map&#39;s closed-form fixed points ±√(d+b−1). Fix: the root box is asymmetric by M/1024, and 2049 is odd, so no dyadic subdivision endpoint ever equals 0.</p><p><strong>The gate now standing:</strong> census battery: closed-form calibration on both maps.</p>
+<div id="bug-5"></div><h3>5 · The fat-record stall</h3><p>At a = 0.96, p = 4 a stalled cell produced a fat record. The defect was caught by the shift classification — the census decides minimal periods by certified shift-links, and the classification refused to cohere — not by anyone reading the search loop.</p><p><strong>The gate now standing:</strong> census battery red controls.</p>
+<div id="bug-6"></div><h3>6 · Undamped-Newton blindness</h3><p>Plain Newton from the multistart grid could not reach the published preimages of the Alpöge map; the hunter reported fewer fibers than the record it was calibrated against. Damped steps over a scale ladder found them, and every candidate is certified in a Krawczyk box on the exact map — the calibration target (3 preimages, rediscovered blind) is what exposed the blindness.</p><p><strong>The gate now standing:</strong> keller battery; the fiber counts are re-certified.</p>
+<div id="bug-7"></div><h3>7 · The missed sheet row</h3><p>The first transcription of the Ramanujan Machine ζ(3) sheet MISSED its second row — 5/(2ζ(3)), a positive continued fraction hiding in the minus table. It surfaced only because the pin instrument (R3) forces every transcription to re-hash and be re-read against held source bytes; the re-read against rm_zeta3.pdf exposed the gap, and the row is now audited with the rest.</p><p><strong>The gate now standing:</strong> pins re-hashed at certify time; forged-pin red control.</p>
+<div id="bug-8"></div><h3>8 · Mixed-duration itineraries: h ≥ 0.61, above the ceiling</h3><p>Counting mixed-duration covering-relation paths as distinct itineraries produced h ≥ 0.61 (history, quoted) — above 0.4648, the exact census ceiling ln(1696)/16 recomputed from the period-16 record during this build. A duration-2 relation constrains nothing at its intermediate time, so different visit-time sets can realize the SAME orbit. Fix: compose to a uniform power as BINARY relations; a semantic red control now demands the exact-ln 2 horseshoe stay at ln 2 = 0.6931 under mixed durations.</p><p><strong>The gate now standing:</strong> entropy battery, semantic ln 2 red.</p>
+<div id="bug-9"></div><h3>9 · The lids-only image condition: ln φ from two boxes</h3><p>A lids-only image condition certified a golden-mean 2-box graph converging to ln φ = 0.4812 — again above the census ceiling. An image part hovering in the slab above the target&#39;s interior lets a finger poke in and retract. An interim commit recorded 0.356403 under this condition (history; TAINTED and superseded). Fix: forbid the full slabs; the sound theorem is h ≥ 0.301680, re-read from the certificate during this build.</p><p><strong>The gate now standing:</strong> entropy battery re-proves the detached certificate in full.</p>
+<div id="bug-10"></div><h3>10 · The wrong-endpoint bar</h3><p>A certification bar taken from the wrong endpoint of an enclosure silently kills true champions — the source lab paid for this lesson in a lost run. Here it is not prose: the lambda battery constructs the wrong-endpoint bar, REFUSES it by name, and demonstrates the disaster it would cause, every run.</p><p><strong>The gate now standing:</strong> lambda battery: the wrong-endpoint red control.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · the near-misses</div>
+    <h2>Where the method forced trouble into the open early</h2>
+  </div>
+<div class="col"><p>Two entries deserve a place beside the bugs because they never became bugs — the discipline surfaced them before a wrong number existed.</p><p><strong>The exact spurious branch.</strong> One Ramanujan Machine continued fraction (the ζ(3) inverse row) has sₙ = n³ as an EXACT spurious solution of its tail recursion, adjacent to the true branch — the double root of c² − 2c + 1. A tail band proved by shift-and-check positivity must EXCLUDE it (L = n³ + 2n² is sharp), and that CF genuinely converges slowly. Digit-matching at any fixed depth cannot see this; a band that must be PROVED cannot avoid it. The spurious-solution lemma is re-proved as an exact polynomial identity by the cf battery, which ran for this page.</p><p><strong>The crowding artifact.</strong> The first Newman min-modulus table read as if the maxima dipped at n = 10. Box maxima are lower bounds; the “dip” was the box crowding, and widening the box raised every floor and killed the reading — three rungs for three. The published convention now says brackets over named boxes, never “the value”, so the artifact class cannot recur in prose.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the same class, in the wild</div>
+    <h2>Why this is also an audit instrument</h2>
+  </div>
+<div class="col"><p>The bugs above are the failure class of numerical mathematics done without exact gates — and that class publishes. The GPT-produced constant on Erdős #852 was the naive IEEE-754 double product of its own defining formula, published to thirteen digits of false confidence and <a href="erdos852.html">refuted here at digit 12</a>, mechanism reproduced digit for digit. A printed row of the Ramanujan Machine's mixed-zeta sheet carries a sign slip; <a href="rm-audit.html">the audit</a> refuted the row as printed and certified its correction on the same enclosure. The discipline that catches your own bugs and the instrument that audits published claims are the same object.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · the invitation</div>
+    <h2>Replication is the good outcome</h2>
+  </div>
+<div class="col"><p>The moat here is not the code — it is the discipline and the dated public record, and others replicating both after publication is the outcome this note exists to cause. Every claim above is a battery in a public MIT repository with no dependencies; every battery carries forgeries that must fail; the headline results detach into certificates a standard-library Python script re-verifies in seconds.</p><p>If you run rigorous numerics and want to co-sign, refute, or extend any of this — an independent rerun in whatever you already trust is the most valuable thing you can send: <a href="mailto:carlos@carlostoledo.co"><span class="m">carlos@carlostoledo.co</span></a>. A refutation gets published like any other result, with your name on it if you want it there.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§6 · the gates, this build</div>
+    <h2>What ran to let this page exist</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>battery</th><th>what it holds for this catalog</th></tr></thead><tbody><tr><td><span class="m">census (henon + holmes)</span></td><td>holds the bisection-line fix and the shift classification</td></tr><tr><td><span class="m">entropy covering</span></td><td>holds the semantic ln 2 red and the slab condition</td></tr><tr><td><span class="m">lambda sweep</span></td><td>refuses the wrong-endpoint bar by name</td></tr><tr><td><span class="m">cf audit</span></td><td>re-proves the spurious-solution lemma</td></tr><tr><td><span class="m">keller audit + fibers</span></td><td>holds the pin-drift and forged-pin reds</td></tr><tr><td><span class="m">engine + families</span></td><td>pins A019762 and the decomposition closure</td></tr></tbody></table></div></div><div class="col"><p>All 6 executed by tools/build-report-methods.js during this build; any red refuses the page. Recomputed from records on the way: the closed-form decomposition closes (<span class="m">54,635,408 tested</span>), the census ceiling <span class="m">ln(1696)/16 = 0.4648</span>, the entropy bound <span class="m">h ≥ 0.301680</span> read from its certificate and confirmed below the ceiling. Wrong historical numbers quoted above (0.61, 0.4812, 0.356403, 77.6M) are quoted AS history — the point of the catalog is that the machine refuses to reproduce them.</p></div>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-methods.js @ git 649e8ef — 6 batteries executed during this build (page refuses on any red). Repository: github.com/carlostoledo1891/cert-machine (MIT).</p><p>cert-machine · Carlos Toledo</p></footer>
+
+</div>
+</html>

@@ -16,7 +16,11 @@ const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
-const { analyze } = require(path.join(ROOT, 'legacy', 'research', 'challenges', 'erdos290', 'galois-exceptions.js'));
+/* the LEAN fork: byte-identical to the lifted instrument except the
+   closed-form candidateDeltas (sha-pinned splice; battery-gated by
+   tools/erdos290-lean-battery.js) — the p(l)-partition array that OOMed
+   l = 87 twice is gone, so the finale l = 87..90 fits the heap. */
+const { analyze } = require(path.join(ROOT, 'tools', 'galois-exceptions-lean.js'));
 
 const OUT = path.join(ROOT, 'certs', 'erdos290-tail-ext.json');
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
