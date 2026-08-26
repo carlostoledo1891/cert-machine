@@ -171,6 +171,7 @@ function render({ title, bodyRaw, footRaw }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${T.GOOGLE_FONTS}">
+<script defer src="/_vercel/insights/script.js"></script>
 
 <style>
 ${css()}
