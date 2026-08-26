@@ -136,7 +136,19 @@ S2.5 LEGACY OUTREACH SURFACES (operator ruling 2026-08-27: this is the
     deepening), then flip their legacy paths to 301s onto the new pages.
     The alien-science bundle stays FROZEN (cited evidence bytes in a
     safety-research issue) unless the operator rules otherwise.
-S3. THE EVAL — BUILT AND LIVE (2026-08-27). tools/llm-harness.py gains
+S3. THE EVAL — LIVE WITH ITS FIRST BOARD (2026-08-27). 202 ledger rows,
+    five campaigns (prompt v1 + clarified v2, tags in every row):
+    claude-opus-5 v2 17/24 certified (71%) · claude-sonnet-5 v2 28/40
+    (70%; v1 25/34) · claude-haiku-4.5 0/80 across both prompts — a
+    measured capability cliff. THE FINDING: zero REFUTED rows among real
+    models — every well-formed proposal surviving the float screen was
+    EXACTLY right (survivor truth 100%); frontier failures are malformed/
+    rejected (Laderman-rung emptiness under thinking budgets), never
+    subtly wrong. Harness: API retry+skip (errors are not model
+    outcomes), v2 prompt with worked example, per-campaign tags, budget
+    caps. Spend: well under the operator's $24. OPERATOR REMINDER: the
+    API key was pasted in chat on 2026-08-27 — ROTATE IT.
+    ORIGINAL BUILD NOTE (2026-08-27): tools/llm-harness.py gains
     the matmul family (rank-R decompositions of <n,m,p> over Q; stdlib
     Fraction grading of the full tensor identity — always decidable, false
     positives provably false; prune-only float screen; per-proposal
