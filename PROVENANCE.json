@@ -1,9 +1,9 @@
 {
  "source_root": "/Users/carlostoledo/Documents/sin-mfg",
- "lifted_at_utc": "2026-08-26T18:58:37.977Z",
+ "lifted_at_utc": "2026-08-26T19:02:43.606Z",
  "policy": "READ-ONLY. The lift copies OUT of sin-mfg and never writes back. `make drift` re-hashes both ends and names what moved.",
  "counts": {
-  "files": 226,
+  "files": 99,
   "patched": 4,
   "missing_in_source": 0
  },
@@ -296,349 +296,6 @@
    "local_sha256": "b9149428727853d4dc0d97c10304f9f75610d18f13c7f687628c25a4824398ef"
   },
   {
-   "src": "research/challenges/erdos290.html",
-   "dst": "legacy/research/challenges/erdos290.html",
-   "src_sha256": "5a974e1499d81467b55f5ac1b8a80f5708e5f4e3ea57d20f8578f811049f4de6",
-   "patched": false,
-   "local_sha256": "5a974e1499d81467b55f5ac1b8a80f5708e5f4e3ea57d20f8578f811049f4de6"
-  },
-  {
-   "src": "research/challenges/erdos290/POST.md",
-   "dst": "legacy/research/challenges/erdos290/POST.md",
-   "src_sha256": "25dd5a42ee1d1b364e08b2bfcc036efaebe99ce0b720e8fad8dc8a5dd4e9f5f0",
-   "patched": false,
-   "local_sha256": "25dd5a42ee1d1b364e08b2bfcc036efaebe99ce0b720e8fad8dc8a5dd4e9f5f0"
-  },
-  {
-   "src": "research/challenges/erdos290/PREPRINT_PLAN.md",
-   "dst": "legacy/research/challenges/erdos290/PREPRINT_PLAN.md",
-   "src_sha256": "0a80362ae4700a194226ded91167792469554681231f6f16b77db5e7f18550a3",
-   "patched": false,
-   "local_sha256": "0a80362ae4700a194226ded91167792469554681231f6f16b77db5e7f18550a3"
-  },
-  {
-   "src": "research/challenges/erdos290/R3_PROTOTYPE_PLAN.md",
-   "dst": "legacy/research/challenges/erdos290/R3_PROTOTYPE_PLAN.md",
-   "src_sha256": "7400dcc431160ee2757ca5128fdda91360c2a0cdb6e0f88bfdc767d22fc74f89",
-   "patched": false,
-   "local_sha256": "7400dcc431160ee2757ca5128fdda91360c2a0cdb6e0f88bfdc767d22fc74f89"
-  },
-  {
-   "src": "research/challenges/erdos290/R3_VIDEO.md",
-   "dst": "legacy/research/challenges/erdos290/R3_VIDEO.md",
-   "src_sha256": "fff95816dbe15c839946b5b48e110a70708ab2a003def3bfb65849e6323d8f20",
-   "patched": false,
-   "local_sha256": "fff95816dbe15c839946b5b48e110a70708ab2a003def3bfb65849e6323d8f20"
-  },
-  {
-   "src": "research/challenges/erdos290/SHIP",
-   "dst": "legacy/research/challenges/erdos290/SHIP",
-   "src_sha256": "80e0cdaabc2bd7027546416df416ff35fb21746b344f2f57c013321e7076166d",
-   "patched": false,
-   "local_sha256": "80e0cdaabc2bd7027546416df416ff35fb21746b344f2f57c013321e7076166d"
-  },
-  {
-   "src": "research/challenges/erdos290/SUBMISSION.md",
-   "dst": "legacy/research/challenges/erdos290/SUBMISSION.md",
-   "src_sha256": "453db1eac1219b91eb41e3e4738e148a6be95004a969794ef2bc17e399f14d7e",
-   "patched": false,
-   "local_sha256": "453db1eac1219b91eb41e3e4738e148a6be95004a969794ef2bc17e399f14d7e"
-  },
-  {
-   "src": "research/challenges/erdos290/VERIFICATION_2026-08-11.md",
-   "dst": "legacy/research/challenges/erdos290/VERIFICATION_2026-08-11.md",
-   "src_sha256": "891f4dec7dd57f85e6c967c365aec064bcee3b08ea6f6d5cf406c5c477d287a0",
-   "patched": false,
-   "local_sha256": "891f4dec7dd57f85e6c967c365aec064bcee3b08ea6f6d5cf406c5c477d287a0"
-  },
-  {
-   "src": "research/challenges/erdos290/build-page.js",
-   "dst": "legacy/research/challenges/erdos290/build-page.js",
-   "src_sha256": "ad03179ec75a2e1e5f988861adfeeb28955d5b6635417bff997ad994726b9c7f",
-   "patched": false,
-   "local_sha256": "ad03179ec75a2e1e5f988861adfeeb28955d5b6635417bff997ad994726b9c7f"
-  },
-  {
-   "src": "research/challenges/erdos290/galois-exceptions.js",
-   "dst": "legacy/research/challenges/erdos290/galois-exceptions.js",
-   "src_sha256": "f3b9436c42955cb5684ddb0015bfae17f54e950544231b1006c38ca490eaf12f",
-   "patched": false,
-   "local_sha256": "f3b9436c42955cb5684ddb0015bfae17f54e950544231b1006c38ca490eaf12f"
-  },
-  {
-   "src": "research/challenges/erdos290/galois8.js",
-   "dst": "legacy/research/challenges/erdos290/galois8.js",
-   "src_sha256": "494de9f69ce2907d35449a809b46b44f3086ce465212bea9a570f78ccf6e77b2",
-   "patched": false,
-   "local_sha256": "494de9f69ce2907d35449a809b46b44f3086ce465212bea9a570f78ccf6e77b2"
-  },
-  {
-   "src": "research/challenges/erdos290/kernel.js",
-   "dst": "legacy/research/challenges/erdos290/kernel.js",
-   "src_sha256": "864c784e33d3f106ad74703b65d5f88290a903400a9a95ee460216a03baf198b",
-   "patched": false,
-   "local_sha256": "864c784e33d3f106ad74703b65d5f88290a903400a9a95ee460216a03baf198b"
-  },
-  {
-   "src": "research/challenges/erdos290/narrowing.js",
-   "dst": "legacy/research/challenges/erdos290/narrowing.js",
-   "src_sha256": "7dca6ffa0b6d9df56f974348c3200cff8e655fd751908918d5d5cef386b23992",
-   "patched": false,
-   "local_sha256": "7dca6ffa0b6d9df56f974348c3200cff8e655fd751908918d5d5cef386b23992"
-  },
-  {
-   "src": "research/challenges/erdos290/narrowing.json",
-   "dst": "legacy/research/challenges/erdos290/narrowing.json",
-   "src_sha256": "6c9254ab8b1ad3cceb74b6457e74133572e74cff331183063de2cc26642d7bb4",
-   "patched": false,
-   "local_sha256": "6c9254ab8b1ad3cceb74b6457e74133572e74cff331183063de2cc26642d7bb4"
-  },
-  {
-   "src": "research/challenges/erdos290/page-splice-pins.json",
-   "dst": "legacy/research/challenges/erdos290/page-splice-pins.json",
-   "src_sha256": "55e057b70383fcea60265723cea3b5bfca7d04451b014f295c34c47f0d129b68",
-   "patched": false,
-   "local_sha256": "55e057b70383fcea60265723cea3b5bfca7d04451b014f295c34c47f0d129b68"
-  },
-  {
-   "src": "research/challenges/erdos290/pattern-check.js",
-   "dst": "legacy/research/challenges/erdos290/pattern-check.js",
-   "src_sha256": "fd5086f3f1162e54f2f1b4ef963db8d15e8db1f5e5a6dce501ed9ebfa2cc6653",
-   "patched": false,
-   "local_sha256": "fd5086f3f1162e54f2f1b4ef963db8d15e8db1f5e5a6dce501ed9ebfa2cc6653"
-  },
-  {
-   "src": "research/challenges/erdos290/preprint/.gitignore",
-   "dst": "legacy/research/challenges/erdos290/preprint/.gitignore",
-   "src_sha256": "d2d953317b6f5827f5ccf1eeb2768b3f5326c09ad3fa4d477e5391f3645fa317",
-   "patched": false,
-   "local_sha256": "d2d953317b6f5827f5ccf1eeb2768b3f5326c09ad3fa4d477e5391f3645fa317"
-  },
-  {
-   "src": "research/challenges/erdos290/preprint/REVIEW_2026-08-11.md",
-   "dst": "legacy/research/challenges/erdos290/preprint/REVIEW_2026-08-11.md",
-   "src_sha256": "406a1cf244fbe9baeec09f46205b51fa1693f611e3b9da0a0c09dcbcaf906296",
-   "patched": false,
-   "local_sha256": "406a1cf244fbe9baeec09f46205b51fa1693f611e3b9da0a0c09dcbcaf906296"
-  },
-  {
-   "src": "research/challenges/erdos290/preprint/main.aux",
-   "dst": "legacy/research/challenges/erdos290/preprint/main.aux",
-   "src_sha256": "6670185db5e8c2eb80179e49af1bf7f6889b1e78361529d4ba5d5e708ee80fa9",
-   "patched": false,
-   "local_sha256": "6670185db5e8c2eb80179e49af1bf7f6889b1e78361529d4ba5d5e708ee80fa9"
-  },
-  {
-   "src": "research/challenges/erdos290/preprint/main.bbl",
-   "dst": "legacy/research/challenges/erdos290/preprint/main.bbl",
-   "src_sha256": "d356370c54b5b4b3a8bff15449724d13480184e9d350959ec8bb234ee32dc447",
-   "patched": false,
-   "local_sha256": "d356370c54b5b4b3a8bff15449724d13480184e9d350959ec8bb234ee32dc447"
-  },
-  {
-   "src": "research/challenges/erdos290/preprint/main.out",
-   "dst": "legacy/research/challenges/erdos290/preprint/main.out",
-   "src_sha256": "bcd41a6f8e59d9bf7db7ae802352dcb0cec84b3223ed4164c0f762b7955b041b",
-   "patched": false,
-   "local_sha256": "bcd41a6f8e59d9bf7db7ae802352dcb0cec84b3223ed4164c0f762b7955b041b"
-  },
-  {
-   "src": "research/challenges/erdos290/preprint/main.pdf",
-   "dst": "legacy/research/challenges/erdos290/preprint/main.pdf",
-   "src_sha256": "e2bd08ab701bd5c8c65478425352eceb1ca64b92bf9c79916b8357cf5dc6fd3b",
-   "patched": false,
-   "local_sha256": "e2bd08ab701bd5c8c65478425352eceb1ca64b92bf9c79916b8357cf5dc6fd3b"
-  },
-  {
-   "src": "research/challenges/erdos290/preprint/main.tex",
-   "dst": "legacy/research/challenges/erdos290/preprint/main.tex",
-   "src_sha256": "087a6aaba1861cd5b099d109204ece99ee0adcaaf02a4fb4781ab51e70639620",
-   "patched": false,
-   "local_sha256": "087a6aaba1861cd5b099d109204ece99ee0adcaaf02a4fb4781ab51e70639620"
-  },
-  {
-   "src": "research/challenges/erdos290/preprint/main.toc",
-   "dst": "legacy/research/challenges/erdos290/preprint/main.toc",
-   "src_sha256": "45adfb5bf45b1ee2014b4ff601110372be160168eb5aa268903eb1b48bff4b67",
-   "patched": false,
-   "local_sha256": "45adfb5bf45b1ee2014b4ff601110372be160168eb5aa268903eb1b48bff4b67"
-  },
-  {
-   "src": "research/challenges/erdos290/preprint/refs.bib",
-   "dst": "legacy/research/challenges/erdos290/preprint/refs.bib",
-   "src_sha256": "7bde97cb42337d2abd17a70dae50376c3b1ad446962591b7163162e3bee62ae8",
-   "patched": false,
-   "local_sha256": "7bde97cb42337d2abd17a70dae50376c3b1ad446962591b7163162e3bee62ae8"
-  },
-  {
-   "src": "research/challenges/erdos290/rational.js",
-   "dst": "legacy/research/challenges/erdos290/rational.js",
-   "src_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b",
-   "patched": false,
-   "local_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b"
-  },
-  {
-   "src": "research/challenges/erdos290/release.json",
-   "dst": "legacy/research/challenges/erdos290/release.json",
-   "src_sha256": "8cf001cdcbf29292c176f60aca014b5bc1ad7cc5d2d688ab6c9d94b1e8189e91",
-   "patched": false,
-   "local_sha256": "8cf001cdcbf29292c176f60aca014b5bc1ad7cc5d2d688ab6c9d94b1e8189e91"
-  },
-  {
-   "src": "research/challenges/erdos290/tail-deltas.json",
-   "dst": "legacy/research/challenges/erdos290/tail-deltas.json",
-   "src_sha256": "338b2a3a98f25c6783940cefe5c9afb5011991e2eb79e0cbb475505bb60bfe16",
-   "patched": false,
-   "local_sha256": "338b2a3a98f25c6783940cefe5c9afb5011991e2eb79e0cbb475505bb60bfe16"
-  },
-  {
-   "src": "research/challenges/erdos290/tail-sweep.js",
-   "dst": "legacy/research/challenges/erdos290/tail-sweep.js",
-   "src_sha256": "0bb6b422c311a04fbae7be7a95a0de18159dbd4c48fe4044be95ebf65807f1c3",
-   "patched": false,
-   "local_sha256": "0bb6b422c311a04fbae7be7a95a0de18159dbd4c48fe4044be95ebf65807f1c3"
-  },
-  {
-   "src": "research/challenges/erdos290/tests/test-page.js",
-   "dst": "legacy/research/challenges/erdos290/tests/test-page.js",
-   "src_sha256": "88dc3808cdcdab7f9c204f8c6c5054faa901a2b5a5d59a1b78d68c9d93550f33",
-   "patched": false,
-   "local_sha256": "88dc3808cdcdab7f9c204f8c6c5054faa901a2b5a5d59a1b78d68c9d93550f33"
-  },
-  {
-   "src": "research/challenges/erdos290/theorem-live.js",
-   "dst": "legacy/research/challenges/erdos290/theorem-live.js",
-   "src_sha256": "92a127556b3d19adc03bca71da0955e96446a2434f2ac056e1aa6bfba4a34cc4",
-   "patched": false,
-   "local_sha256": "92a127556b3d19adc03bca71da0955e96446a2434f2ac056e1aa6bfba4a34cc4"
-  },
-  {
-   "src": "research/challenges/erdos290/theorem.js",
-   "dst": "legacy/research/challenges/erdos290/theorem.js",
-   "src_sha256": "48d0ca495024720aa3ca85b065791ea083f19f407ae23865325568a12bfde77f",
-   "patched": false,
-   "local_sha256": "48d0ca495024720aa3ca85b065791ea083f19f407ae23865325568a12bfde77f"
-  },
-  {
-   "src": "research/challenges/erdos290/zenodo/DESCRIPTION.txt",
-   "dst": "legacy/research/challenges/erdos290/zenodo/DESCRIPTION.txt",
-   "src_sha256": "e2c28e6f45b5acfd23e9338bfc749015bd2d18bff096abf2a14626cd928b3009",
-   "patched": false,
-   "local_sha256": "e2c28e6f45b5acfd23e9338bfc749015bd2d18bff096abf2a14626cd928b3009"
-  },
-  {
-   "src": "research/challenges/erdos290/zenodo/LICENSE.txt",
-   "dst": "legacy/research/challenges/erdos290/zenodo/LICENSE.txt",
-   "src_sha256": "46b3d9a98b364d28c24eae25a8428dffd86490ac1b547aeebdeae129912133df",
-   "patched": false,
-   "local_sha256": "46b3d9a98b364d28c24eae25a8428dffd86490ac1b547aeebdeae129912133df"
-  },
-  {
-   "src": "research/challenges/erdos290/zenodo/MANIFEST.txt",
-   "dst": "legacy/research/challenges/erdos290/zenodo/MANIFEST.txt",
-   "src_sha256": "c4083e81de306a30603a25ba63f79de61890f345caa446d39e4ca8d531ea7121",
-   "patched": false,
-   "local_sha256": "c4083e81de306a30603a25ba63f79de61890f345caa446d39e4ca8d531ea7121"
-  },
-  {
-   "src": "research/challenges/erdos290/zenodo/METADATA.md",
-   "dst": "legacy/research/challenges/erdos290/zenodo/METADATA.md",
-   "src_sha256": "2cec18e3c7f9f5b07c123c6ff6fd9874243398e8803f38c570a873349a197fda",
-   "patched": false,
-   "local_sha256": "2cec18e3c7f9f5b07c123c6ff6fd9874243398e8803f38c570a873349a197fda"
-  },
-  {
-   "src": "research/challenges/erdos290/zenodo/README.txt",
-   "dst": "legacy/research/challenges/erdos290/zenodo/README.txt",
-   "src_sha256": "af51b6ed45f3a550160fde577bcb6db5bd0df1222e50b10d3541100b08abf324",
-   "patched": false,
-   "local_sha256": "af51b6ed45f3a550160fde577bcb6db5bd0df1222e50b10d3541100b08abf324"
-  },
-  {
-   "src": "research/challenges/erdos290/zenodo/STEPS.md",
-   "dst": "legacy/research/challenges/erdos290/zenodo/STEPS.md",
-   "src_sha256": "24d30fde77947a81e87f37e7b4cd23fe6fac4181fb5795b3e46f8934ded0e39d",
-   "patched": false,
-   "local_sha256": "24d30fde77947a81e87f37e7b4cd23fe6fac4181fb5795b3e46f8934ded0e39d"
-  },
-  {
-   "src": "research/challenges/erdos290/zenodo/UPLOAD_FILES.md",
-   "dst": "legacy/research/challenges/erdos290/zenodo/UPLOAD_FILES.md",
-   "src_sha256": "a47c45cd1104ecd864f1beb5a06975752eaed573458c8dea50b2eda1d7da467a",
-   "patched": false,
-   "local_sha256": "a47c45cd1104ecd864f1beb5a06975752eaed573458c8dea50b2eda1d7da467a"
-  },
-  {
-   "src": "research/challenges/erdos290/zenodo/doi-swap.py",
-   "dst": "legacy/research/challenges/erdos290/zenodo/doi-swap.py",
-   "src_sha256": "52b1076ec32abcad3b76040dbcccf8218a4755a41a6e1b6863908d917a236a3d",
-   "patched": false,
-   "local_sha256": "52b1076ec32abcad3b76040dbcccf8218a4755a41a6e1b6863908d917a236a3d"
-  },
-  {
-   "src": "research/challenges/verify-lemniscate.html",
-   "dst": "legacy/research/challenges/verify-lemniscate.html",
-   "src_sha256": "3e28ef1642a2b5c62dadefe10083e16864171e2de7c5953f70b6044ef8ec1cf8",
-   "patched": false,
-   "local_sha256": "3e28ef1642a2b5c62dadefe10083e16864171e2de7c5953f70b6044ef8ec1cf8"
-  },
-  {
-   "src": "research/challenges/lane/SHIP",
-   "dst": "legacy/research/challenges/lane/SHIP",
-   "src_sha256": "b4b9fcac37bc1ac6079ab5c021426c51adc0142d8a604c34bc142d515faa84f8",
-   "patched": false,
-   "local_sha256": "b4b9fcac37bc1ac6079ab5c021426c51adc0142d8a604c34bc142d515faa84f8"
-  },
-  {
-   "src": "research/challenges/lane/laneb-korenblum/verify.js",
-   "dst": "legacy/research/challenges/lane/laneb-korenblum/verify.js",
-   "src_sha256": "e6c33affe6bcb93b2e08b9a1bc82cbc6d98f2e04b4f9eee7abf32e9f17bd3ef5",
-   "patched": false,
-   "local_sha256": "e6c33affe6bcb93b2e08b9a1bc82cbc6d98f2e04b4f9eee7abf32e9f17bd3ef5"
-  },
-  {
-   "src": "research/challenges/lane/laneb-lemniscate/verify.js",
-   "dst": "legacy/research/challenges/lane/laneb-lemniscate/verify.js",
-   "src_sha256": "8a969d8c88f6af0de01c5dc96b828a4fa5f5e0f81433c1a7fe6969edeb4cb700",
-   "patched": false,
-   "local_sha256": "8a969d8c88f6af0de01c5dc96b828a4fa5f5e0f81433c1a7fe6969edeb4cb700"
-  },
-  {
-   "src": "research/challenges/lane/laneb-mathieu/verify.js",
-   "dst": "legacy/research/challenges/lane/laneb-mathieu/verify.js",
-   "src_sha256": "d3071ccc810aeb490185c6880c60610f8018f81a0fa504cd9f0285bc25e1432f",
-   "patched": false,
-   "local_sha256": "d3071ccc810aeb490185c6880c60610f8018f81a0fa504cd9f0285bc25e1432f"
-  },
-  {
-   "src": "research/challenges/lane/laneb-maxwell/verify.js",
-   "dst": "legacy/research/challenges/lane/laneb-maxwell/verify.js",
-   "src_sha256": "b8a8b2147ed5894a90b8ef1cde910c1044b6dc738f6eb78c47c2a01a5d82077c",
-   "patched": false,
-   "local_sha256": "b8a8b2147ed5894a90b8ef1cde910c1044b6dc738f6eb78c47c2a01a5d82077c"
-  },
-  {
-   "src": "research/challenges/lane/laneb-poisson/verify.js",
-   "dst": "legacy/research/challenges/lane/laneb-poisson/verify.js",
-   "src_sha256": "484c6dc9465d453d7d6afefff555b01b26c9cc0175b0086f9359928764d8ad3c",
-   "patched": false,
-   "local_sha256": "484c6dc9465d453d7d6afefff555b01b26c9cc0175b0086f9359928764d8ad3c"
-  },
-  {
-   "src": "research/challenges/lane/laneb-ranteng/verify.js",
-   "dst": "legacy/research/challenges/lane/laneb-ranteng/verify.js",
-   "src_sha256": "b94cf3628a6ae18ea1ab0110b54ac25cbfd11e18ce7f5dde8a29b7f07ab71adb",
-   "patched": false,
-   "local_sha256": "b94cf3628a6ae18ea1ab0110b54ac25cbfd11e18ce7f5dde8a29b7f07ab71adb"
-  },
-  {
-   "src": "research/challenges/lane/uam-corridor/verify.js",
-   "dst": "legacy/research/challenges/lane/uam-corridor/verify.js",
-   "src_sha256": "4e28ee389db8647d62733d3703554ab67cb7ad3f21233d5e8c987142b27f7550",
-   "patched": false,
-   "local_sha256": "4e28ee389db8647d62733d3703554ab67cb7ad3f21233d5e8c987142b27f7550"
-  },
-  {
    "src": "research/alien-science/alien-science.html",
    "dst": "legacy/research/alien-science/alien-science.html",
    "src_sha256": "a920ee71b9777ded3edb0473c47a68fa9edb524d30515441c5b85e2d7ec859c3",
@@ -658,13 +315,6 @@
    "src_sha256": "7f054419a2637701f072d835b159b70a8796df8257211b555af290cfd48d2b26",
    "patched": false,
    "local_sha256": "7f054419a2637701f072d835b159b70a8796df8257211b555af290cfd48d2b26"
-  },
-  {
-   "src": "research/alien-science/alien-science/SHIP",
-   "dst": "legacy/research/alien-science/alien-science/SHIP",
-   "src_sha256": "280f1956fb93562b69fd1be663c82c7afd786af36831dd7eaa32e10bdcd9b007",
-   "patched": false,
-   "local_sha256": "280f1956fb93562b69fd1be663c82c7afd786af36831dd7eaa32e10bdcd9b007"
   },
   {
    "src": "research/alien-science/alien-science/WORKSHOP.md",
@@ -884,242 +534,158 @@
    "local_sha256": "a8fe82f803dbc377181cb05c51f44ae16b10c7e153de0dc4300d07d6eb04d3f5"
   },
   {
-   "src": "research/mfg-congest/PAPER.md",
-   "dst": "legacy/research/mfg-congest/PAPER.md",
-   "src_sha256": "1c3556ecc49c6776172ab2fdab037ebff3afd87cca1ce951992e867d4f6872d1",
+   "src": "research/challenges/erdos290.html",
+   "dst": "legacy/research/challenges/erdos290.html",
+   "src_sha256": "5a974e1499d81467b55f5ac1b8a80f5708e5f4e3ea57d20f8578f811049f4de6",
    "patched": false,
-   "local_sha256": "1c3556ecc49c6776172ab2fdab037ebff3afd87cca1ce951992e867d4f6872d1"
+   "local_sha256": "5a974e1499d81467b55f5ac1b8a80f5708e5f4e3ea57d20f8578f811049f4de6"
   },
   {
-   "src": "research/mfg-congest/PLAN.md",
-   "dst": "legacy/research/mfg-congest/PLAN.md",
-   "src_sha256": "9ff83ac4ef0484b59a60cc54c829b287f7532b903db8dad067f6802b3629c1a0",
+   "src": "research/challenges/erdos290/build-page.js",
+   "dst": "legacy/research/challenges/erdos290/build-page.js",
+   "src_sha256": "ad03179ec75a2e1e5f988861adfeeb28955d5b6635417bff997ad994726b9c7f",
    "patched": false,
-   "local_sha256": "9ff83ac4ef0484b59a60cc54c829b287f7532b903db8dad067f6802b3629c1a0"
+   "local_sha256": "ad03179ec75a2e1e5f988861adfeeb28955d5b6635417bff997ad994726b9c7f"
   },
   {
-   "src": "research/mfg-congest/README.md",
-   "dst": "legacy/research/mfg-congest/README.md",
-   "src_sha256": "56f4873633fa5bfd991192359aebb1dc90ca9f4f55767cd7e63d8b257c6e427a",
+   "src": "research/challenges/erdos290/galois-exceptions.js",
+   "dst": "legacy/research/challenges/erdos290/galois-exceptions.js",
+   "src_sha256": "f3b9436c42955cb5684ddb0015bfae17f54e950544231b1006c38ca490eaf12f",
    "patched": false,
-   "local_sha256": "56f4873633fa5bfd991192359aebb1dc90ca9f4f55767cd7e63d8b257c6e427a"
+   "local_sha256": "f3b9436c42955cb5684ddb0015bfae17f54e950544231b1006c38ca490eaf12f"
   },
   {
-   "src": "research/mfg-congest/congestion-oscillation.html",
-   "dst": "legacy/research/mfg-congest/congestion-oscillation.html",
-   "src_sha256": "936e6c95f96e8aceffaefebf1037ee18e9503183bc9e7e2ff07f56247974f2fa",
+   "src": "research/challenges/erdos290/galois8.js",
+   "dst": "legacy/research/challenges/erdos290/galois8.js",
+   "src_sha256": "494de9f69ce2907d35449a809b46b44f3086ce465212bea9a570f78ccf6e77b2",
    "patched": false,
-   "local_sha256": "936e6c95f96e8aceffaefebf1037ee18e9503183bc9e7e2ff07f56247974f2fa"
+   "local_sha256": "494de9f69ce2907d35449a809b46b44f3086ce465212bea9a570f78ccf6e77b2"
   },
   {
-   "src": "research/mfg-congest/docs/BRAIN.md",
-   "dst": "legacy/research/mfg-congest/docs/BRAIN.md",
-   "src_sha256": "3d7489e87ef03bd809739fc924a7d54a03408a8a217503d941f94bae6c23142a",
+   "src": "research/challenges/erdos290/kernel.js",
+   "dst": "legacy/research/challenges/erdos290/kernel.js",
+   "src_sha256": "864c784e33d3f106ad74703b65d5f88290a903400a9a95ee460216a03baf198b",
    "patched": false,
-   "local_sha256": "3d7489e87ef03bd809739fc924a7d54a03408a8a217503d941f94bae6c23142a"
+   "local_sha256": "864c784e33d3f106ad74703b65d5f88290a903400a9a95ee460216a03baf198b"
   },
   {
-   "src": "research/mfg-congest/docs/FB_CONTINUATION.md",
-   "dst": "legacy/research/mfg-congest/docs/FB_CONTINUATION.md",
-   "src_sha256": "8e109c2fb1acc061acd8e74d7fbf73aecab46bee7b06c9a081134e7bd11198b5",
+   "src": "research/challenges/erdos290/narrowing.js",
+   "dst": "legacy/research/challenges/erdos290/narrowing.js",
+   "src_sha256": "7dca6ffa0b6d9df56f974348c3200cff8e655fd751908918d5d5cef386b23992",
    "patched": false,
-   "local_sha256": "8e109c2fb1acc061acd8e74d7fbf73aecab46bee7b06c9a081134e7bd11198b5"
+   "local_sha256": "7dca6ffa0b6d9df56f974348c3200cff8e655fd751908918d5d5cef386b23992"
   },
   {
-   "src": "research/mfg-congest/docs/FINDINGS_LIT.md",
-   "dst": "legacy/research/mfg-congest/docs/FINDINGS_LIT.md",
-   "src_sha256": "09b9f469482fd1bb0446abfeba3c93b27c3828f1973e1e05284872017f04308b",
+   "src": "research/challenges/erdos290/narrowing.json",
+   "dst": "legacy/research/challenges/erdos290/narrowing.json",
+   "src_sha256": "6c9254ab8b1ad3cceb74b6457e74133572e74cff331183063de2cc26642d7bb4",
    "patched": false,
-   "local_sha256": "09b9f469482fd1bb0446abfeba3c93b27c3828f1973e1e05284872017f04308b"
+   "local_sha256": "6c9254ab8b1ad3cceb74b6457e74133572e74cff331183063de2cc26642d7bb4"
   },
   {
-   "src": "research/mfg-congest/docs/FINDINGS_LIT_PARAMETRIC.md",
-   "dst": "legacy/research/mfg-congest/docs/FINDINGS_LIT_PARAMETRIC.md",
-   "src_sha256": "29678bb252eafc081e9fad0425b617161d517372e7bc1e5db52d225611ca743c",
+   "src": "research/challenges/erdos290/pattern-check.js",
+   "dst": "legacy/research/challenges/erdos290/pattern-check.js",
+   "src_sha256": "fd5086f3f1162e54f2f1b4ef963db8d15e8db1f5e5a6dce501ed9ebfa2cc6653",
    "patched": false,
-   "local_sha256": "29678bb252eafc081e9fad0425b617161d517372e7bc1e5db52d225611ca743c"
+   "local_sha256": "fd5086f3f1162e54f2f1b4ef963db8d15e8db1f5e5a6dce501ed9ebfa2cc6653"
   },
   {
-   "src": "research/mfg-congest/docs/IP_REVIEW.md",
-   "dst": "legacy/research/mfg-congest/docs/IP_REVIEW.md",
-   "src_sha256": "0ac1f0ab744f0344064b7b57abcbb34f675379cdfe3a425e26e7fdbc1f52058e",
+   "src": "research/challenges/erdos290/rational.js",
+   "dst": "legacy/research/challenges/erdos290/rational.js",
+   "src_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b",
    "patched": false,
-   "local_sha256": "0ac1f0ab744f0344064b7b57abcbb34f675379cdfe3a425e26e7fdbc1f52058e"
+   "local_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b"
   },
   {
-   "src": "research/mfg-congest/docs/REFUSAL_FRONTIER.md",
-   "dst": "legacy/research/mfg-congest/docs/REFUSAL_FRONTIER.md",
-   "src_sha256": "0af42be5d7b4c5c6f4a3950996ca2996330b57acdb44bef6598f62258c97a49c",
+   "src": "research/challenges/erdos290/tail-deltas.json",
+   "dst": "legacy/research/challenges/erdos290/tail-deltas.json",
+   "src_sha256": "338b2a3a98f25c6783940cefe5c9afb5011991e2eb79e0cbb475505bb60bfe16",
    "patched": false,
-   "local_sha256": "0af42be5d7b4c5c6f4a3950996ca2996330b57acdb44bef6598f62258c97a49c"
+   "local_sha256": "338b2a3a98f25c6783940cefe5c9afb5011991e2eb79e0cbb475505bb60bfe16"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/README.md",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/README.md",
-   "src_sha256": "c192c2e2e6ec11cb9cf8eae733a8905aed9306dc168f0e5298a141c91ddb1ebc",
+   "src": "research/challenges/erdos290/tail-sweep.js",
+   "dst": "legacy/research/challenges/erdos290/tail-sweep.js",
+   "src_sha256": "0bb6b422c311a04fbae7be7a95a0de18159dbd4c48fe4044be95ebf65807f1c3",
    "patched": false,
-   "local_sha256": "c192c2e2e6ec11cb9cf8eae733a8905aed9306dc168f0e5298a141c91ddb1ebc"
+   "local_sha256": "0bb6b422c311a04fbae7be7a95a0de18159dbd4c48fe4044be95ebf65807f1c3"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/arec-2026-08-21.log",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/arec-2026-08-21.log",
-   "src_sha256": "b48094ddfea349475ddef6d002754f5134ab3a1c025e534b66e6b62570bf8be2",
+   "src": "research/challenges/erdos290/tests/test-page.js",
+   "dst": "legacy/research/challenges/erdos290/tests/test-page.js",
+   "src_sha256": "88dc3808cdcdab7f9c204f8c6c5054faa901a2b5a5d59a1b78d68c9d93550f33",
    "patched": false,
-   "local_sha256": "b48094ddfea349475ddef6d002754f5134ab3a1c025e534b66e6b62570bf8be2"
+   "local_sha256": "88dc3808cdcdab7f9c204f8c6c5054faa901a2b5a5d59a1b78d68c9d93550f33"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/arec.js",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/arec.js",
-   "src_sha256": "0a119cdb93336fa152db4e8efaf0f4b6aac0acdd7ca37d9b68fa7a2db8ca541a",
+   "src": "research/challenges/erdos290/theorem-live.js",
+   "dst": "legacy/research/challenges/erdos290/theorem-live.js",
+   "src_sha256": "92a127556b3d19adc03bca71da0955e96446a2434f2ac056e1aa6bfba4a34cc4",
    "patched": false,
-   "local_sha256": "0a119cdb93336fa152db4e8efaf0f4b6aac0acdd7ca37d9b68fa7a2db8ca541a"
+   "local_sha256": "92a127556b3d19adc03bca71da0955e96446a2434f2ac056e1aa6bfba4a34cc4"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/arec.json",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/arec.json",
-   "src_sha256": "3a44eba4dff6e91389904eb56348c170c90a25c7a72e33f8920aeadc5f632fd9",
+   "src": "research/challenges/erdos290/theorem.js",
+   "dst": "legacy/research/challenges/erdos290/theorem.js",
+   "src_sha256": "48d0ca495024720aa3ca85b065791ea083f19f407ae23865325568a12bfde77f",
    "patched": false,
-   "local_sha256": "3a44eba4dff6e91389904eb56348c170c90a25c7a72e33f8920aeadc5f632fd9"
+   "local_sha256": "48d0ca495024720aa3ca85b065791ea083f19f407ae23865325568a12bfde77f"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/arec.log",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/arec.log",
-   "src_sha256": "d25fa8bb268030754aa7222a395499d42c5af8fcd4c6584f828c3873a658569c",
+   "src": "research/challenges/lane/laneb-korenblum/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-korenblum/verify.js",
+   "src_sha256": "e6c33affe6bcb93b2e08b9a1bc82cbc6d98f2e04b4f9eee7abf32e9f17bd3ef5",
    "patched": false,
-   "local_sha256": "d25fa8bb268030754aa7222a395499d42c5af8fcd4c6584f828c3873a658569c"
+   "local_sha256": "e6c33affe6bcb93b2e08b9a1bc82cbc6d98f2e04b4f9eee7abf32e9f17bd3ef5"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/controls.js",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/controls.js",
-   "src_sha256": "5ea79db7da13c76e2f93e70eab3bfa3ba7dff7c92e68c10597fbe789d08e13f1",
+   "src": "research/challenges/lane/laneb-lemniscate/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-lemniscate/verify.js",
+   "src_sha256": "8a969d8c88f6af0de01c5dc96b828a4fa5f5e0f81433c1a7fe6969edeb4cb700",
    "patched": false,
-   "local_sha256": "5ea79db7da13c76e2f93e70eab3bfa3ba7dff7c92e68c10597fbe789d08e13f1"
+   "local_sha256": "8a969d8c88f6af0de01c5dc96b828a4fa5f5e0f81433c1a7fe6969edeb4cb700"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/controls.log",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/controls.log",
-   "src_sha256": "eb1acdc5ea2129ef6c733594087e8586420308138855a0880e24318f4391d1df",
+   "src": "research/challenges/lane/laneb-mathieu/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-mathieu/verify.js",
+   "src_sha256": "d3071ccc810aeb490185c6880c60610f8018f81a0fa504cd9f0285bc25e1432f",
    "patched": false,
-   "local_sha256": "eb1acdc5ea2129ef6c733594087e8586420308138855a0880e24318f4391d1df"
+   "local_sha256": "d3071ccc810aeb490185c6880c60610f8018f81a0fa504cd9f0285bc25e1432f"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/explore.js",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/explore.js",
-   "src_sha256": "a9667d4bf45c3f3ea4177339af2e81e6823d32ff6d1310305d37ee19539a1b0a",
+   "src": "research/challenges/lane/laneb-maxwell/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-maxwell/verify.js",
+   "src_sha256": "b8a8b2147ed5894a90b8ef1cde910c1044b6dc738f6eb78c47c2a01a5d82077c",
    "patched": false,
-   "local_sha256": "a9667d4bf45c3f3ea4177339af2e81e6823d32ff6d1310305d37ee19539a1b0a"
+   "local_sha256": "b8a8b2147ed5894a90b8ef1cde910c1044b6dc738f6eb78c47c2a01a5d82077c"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/frontier.js",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/frontier.js",
-   "src_sha256": "6db269fc66badeee65db04f42a2289ddb9d58e63e5a55b2f4aae0f64cde2163f",
+   "src": "research/challenges/lane/laneb-poisson/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-poisson/verify.js",
+   "src_sha256": "484c6dc9465d453d7d6afefff555b01b26c9cc0175b0086f9359928764d8ad3c",
    "patched": false,
-   "local_sha256": "6db269fc66badeee65db04f42a2289ddb9d58e63e5a55b2f4aae0f64cde2163f"
+   "local_sha256": "484c6dc9465d453d7d6afefff555b01b26c9cc0175b0086f9359928764d8ad3c"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/kc.log",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/kc.log",
-   "src_sha256": "d0737a9ed58ce390667a7414dd998952feb714bc8a8e60e5193c18781b7ef121",
+   "src": "research/challenges/lane/laneb-ranteng/verify.js",
+   "dst": "legacy/research/challenges/lane/laneb-ranteng/verify.js",
+   "src_sha256": "b94cf3628a6ae18ea1ab0110b54ac25cbfd11e18ce7f5dde8a29b7f07ab71adb",
    "patched": false,
-   "local_sha256": "d0737a9ed58ce390667a7414dd998952feb714bc8a8e60e5193c18781b7ef121"
+   "local_sha256": "b94cf3628a6ae18ea1ab0110b54ac25cbfd11e18ce7f5dde8a29b7f07ab71adb"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/killcontrol.js",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/killcontrol.js",
-   "src_sha256": "df7adafaa2a56929eb4795a14f3f334cc3670bf116f14b121434dba6e4944b76",
+   "src": "research/challenges/lane/uam-corridor/verify.js",
+   "dst": "legacy/research/challenges/lane/uam-corridor/verify.js",
+   "src_sha256": "4e28ee389db8647d62733d3703554ab67cb7ad3f21233d5e8c987142b27f7550",
    "patched": false,
-   "local_sha256": "df7adafaa2a56929eb4795a14f3f334cc3670bf116f14b121434dba6e4944b76"
+   "local_sha256": "4e28ee389db8647d62733d3703554ab67cb7ad3f21233d5e8c987142b27f7550"
   },
   {
-   "src": "research/mfg-congest/docs/refusal-frontier/ladder.js",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/ladder.js",
-   "src_sha256": "4486eb2a0a2df3204635f46bd624a1ad130c0f699704674d5528bd7d67e3029d",
+   "src": "research/challenges/verify-lemniscate.html",
+   "dst": "legacy/research/challenges/verify-lemniscate.html",
+   "src_sha256": "3e28ef1642a2b5c62dadefe10083e16864171e2de7c5953f70b6044ef8ec1cf8",
    "patched": false,
-   "local_sha256": "4486eb2a0a2df3204635f46bd624a1ad130c0f699704674d5528bd7d67e3029d"
-  },
-  {
-   "src": "research/mfg-congest/docs/refusal-frontier/refine-N.js",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/refine-N.js",
-   "src_sha256": "d1608a8d9dc471adf17f1db39f5a651000c4bbd89289e2a7285986f440fa73ba",
-   "patched": false,
-   "local_sha256": "d1608a8d9dc471adf17f1db39f5a651000c4bbd89289e2a7285986f440fa73ba"
-  },
-  {
-   "src": "research/mfg-congest/docs/refusal-frontier/refine-N.json",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/refine-N.json",
-   "src_sha256": "b667e2b8690c5cad5e60a6e62fc7da09f22074f66e4e1cbc5552dbb593444357",
-   "patched": false,
-   "local_sha256": "b667e2b8690c5cad5e60a6e62fc7da09f22074f66e4e1cbc5552dbb593444357"
-  },
-  {
-   "src": "research/mfg-congest/docs/refusal-frontier/refine-N.log",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/refine-N.log",
-   "src_sha256": "d3b05179d7c2e43c3078e71545db25d7a279c79e4d228d75bbab6f5a3cd4ebb3",
-   "patched": false,
-   "local_sha256": "d3b05179d7c2e43c3078e71545db25d7a279c79e4d228d75bbab6f5a3cd4ebb3"
-  },
-  {
-   "src": "research/mfg-congest/docs/refusal-frontier/sigma-N14.json",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/sigma-N14.json",
-   "src_sha256": "e2c676c1599afc3b234c0f00f51f01eeb55a77818843705934e30eeb45379a36",
-   "patched": false,
-   "local_sha256": "e2c676c1599afc3b234c0f00f51f01eeb55a77818843705934e30eeb45379a36"
-  },
-  {
-   "src": "research/mfg-congest/docs/refusal-frontier/sweep-sigma-N14.log",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/sweep-sigma-N14.log",
-   "src_sha256": "2f46ba7545c5228a866d04b4599942787e2c1510c0731d658e7d5aa7539e09bb",
-   "patched": false,
-   "local_sha256": "2f46ba7545c5228a866d04b4599942787e2c1510c0731d658e7d5aa7539e09bb"
-  },
-  {
-   "src": "research/mfg-congest/docs/refusal-frontier/sweep-sigma.js",
-   "dst": "legacy/research/mfg-congest/docs/refusal-frontier/sweep-sigma.js",
-   "src_sha256": "af13ebddc5276ddbceeb2171de138f2672dfa2b2f8842c729aac81c5f2c44f02",
-   "patched": false,
-   "local_sha256": "af13ebddc5276ddbceeb2171de138f2672dfa2b2f8842c729aac81c5f2c44f02"
-  },
-  {
-   "src": "research/mfg-congest/kernel/README.md",
-   "dst": "legacy/research/mfg-congest/kernel/README.md",
-   "src_sha256": "cd5cb7be68c1b49b1306645213a503bc8d1a085f07f3ca14be7109f66ed308ec",
-   "patched": false,
-   "local_sha256": "cd5cb7be68c1b49b1306645213a503bc8d1a085f07f3ca14be7109f66ed308ec"
-  },
-  {
-   "src": "research/mfg-congest/kernel/candidate-congest.js",
-   "dst": "legacy/research/mfg-congest/kernel/candidate-congest.js",
-   "src_sha256": "6cce378d2479d60562663933392078f2535ecdd507c6a45d2f99acf119743759",
-   "patched": false,
-   "local_sha256": "6cce378d2479d60562663933392078f2535ecdd507c6a45d2f99acf119743759"
-  },
-  {
-   "src": "research/mfg-congest/kernel/candidate.js",
-   "dst": "legacy/research/mfg-congest/kernel/candidate.js",
-   "src_sha256": "4925bbbba64ca6b4a92ca524a53adcc9a8e6acda0734f1fbad06124d5fdb449c",
-   "patched": false,
-   "local_sha256": "4925bbbba64ca6b4a92ca524a53adcc9a8e6acda0734f1fbad06124d5fdb449c"
-  },
-  {
-   "src": "research/mfg-congest/kernel/model.js",
-   "dst": "legacy/research/mfg-congest/kernel/model.js",
-   "src_sha256": "72b080299024b1d4640b560f08e6c191ddaa4d0fc958ba8ff681a7286f98eda6",
-   "patched": false,
-   "local_sha256": "72b080299024b1d4640b560f08e6c191ddaa4d0fc958ba8ff681a7286f98eda6"
-  },
-  {
-   "src": "research/mfg-congest/kernel/validate-congest.js",
-   "dst": "legacy/research/mfg-congest/kernel/validate-congest.js",
-   "src_sha256": "bd047de801595f55ea8f04a17af0862ed75103782f011061d5e024a70693bdfc",
-   "patched": false,
-   "local_sha256": "bd047de801595f55ea8f04a17af0862ed75103782f011061d5e024a70693bdfc"
-  },
-  {
-   "src": "research/mfg-congest/kernel/validate.js",
-   "dst": "legacy/research/mfg-congest/kernel/validate.js",
-   "src_sha256": "04ccaae458c6f5851dac6da9bd61b9c70e669aca0cfd2ea82300e510c1900984",
-   "patched": false,
-   "local_sha256": "04ccaae458c6f5851dac6da9bd61b9c70e669aca0cfd2ea82300e510c1900984"
+   "local_sha256": "3e28ef1642a2b5c62dadefe10083e16864171e2de7c5953f70b6044ef8ec1cf8"
   },
   {
    "src": "research/mfg-congest/mfg-congest.html",
@@ -1129,466 +695,11 @@
    "local_sha256": "08c8fa1a1e77c0b947e630732be2b75e6aca0f5cb2cfb6a30186ab83022468ae"
   },
   {
-   "src": "research/mfg-congest/parametric-monotonicity.html",
-   "dst": "legacy/research/mfg-congest/parametric-monotonicity.html",
-   "src_sha256": "913e5dc416fd55f5ce752afa31728c980008e0562e645fbf0c932fb38bff9ef3",
-   "patched": false,
-   "local_sha256": "913e5dc416fd55f5ce752afa31728c980008e0562e645fbf0c932fb38bff9ef3"
-  },
-  {
-   "src": "research/mfg-congest/python/_cert.json",
-   "dst": "legacy/research/mfg-congest/python/_cert.json",
-   "src_sha256": "9473cf33c3551ebbb80944801106e8ae2115b5fb3c9e1571e265fb6756b36ca5",
-   "patched": false,
-   "local_sha256": "9473cf33c3551ebbb80944801106e8ae2115b5fb3c9e1571e265fb6756b36ca5"
-  },
-  {
-   "src": "research/mfg-congest/python/_gen_verifier.py",
-   "dst": "legacy/research/mfg-congest/python/_gen_verifier.py",
-   "src_sha256": "c1fbbbb06140766c95789ce026438bcb81fcfaccaa9e4c3fed135b4b297268d6",
-   "patched": false,
-   "local_sha256": "c1fbbbb06140766c95789ce026438bcb81fcfaccaa9e4c3fed135b4b297268d6"
-  },
-  {
-   "src": "research/mfg-congest/python/_verify_logic.py",
-   "dst": "legacy/research/mfg-congest/python/_verify_logic.py",
-   "src_sha256": "f06d87c8af62a18defb0baa013ccf4c88aafe570bb5d712384924bb5cf6a4965",
-   "patched": false,
-   "local_sha256": "f06d87c8af62a18defb0baa013ccf4c88aafe570bb5d712384924bb5cf6a4965"
-  },
-  {
-   "src": "research/mfg-congest/python/dump_cert.js",
-   "dst": "legacy/research/mfg-congest/python/dump_cert.js",
-   "src_sha256": "b2f4660e65da3a9c964c6725432282b36b885742191d0fc0c3ab862bdc830896",
-   "patched": false,
-   "local_sha256": "b2f4660e65da3a9c964c6725432282b36b885742191d0fc0c3ab862bdc830896"
-  },
-  {
-   "src": "research/mfg-congest/python/test-crosslang-congest.py",
-   "dst": "legacy/research/mfg-congest/python/test-crosslang-congest.py",
-   "src_sha256": "a7cf981c79be5f5c0a2eb325e22172f23bc0ea40a9b86a14b80370dd51c47a9c",
-   "patched": false,
-   "local_sha256": "a7cf981c79be5f5c0a2eb325e22172f23bc0ea40a9b86a14b80370dd51c47a9c"
-  },
-  {
-   "src": "research/mfg-congest/python/test-embedded-verifier.py",
-   "dst": "legacy/research/mfg-congest/python/test-embedded-verifier.py",
-   "src_sha256": "5c1b30cc5a2fce19c358aa8b5549d1251f36023c278fd89da68d1c91fb68cbf6",
-   "patched": false,
-   "local_sha256": "5c1b30cc5a2fce19c358aa8b5549d1251f36023c278fd89da68d1c91fb68cbf6"
-  },
-  {
-   "src": "research/mfg-congest/python/verify_congest.py",
-   "dst": "legacy/research/mfg-congest/python/verify_congest.py",
-   "src_sha256": "7c5356222d6289be31e948a192d6f06ff4c0e557cc8c474306aa19cb3cd3927b",
-   "patched": false,
-   "local_sha256": "7c5356222d6289be31e948a192d6f06ff4c0e557cc8c474306aa19cb3cd3927b"
-  },
-  {
-   "src": "research/mfg-congest/release.json",
-   "dst": "legacy/research/mfg-congest/release.json",
-   "src_sha256": "33f60350dcc064e4e667e2d96754b4bac0dfef248793621656645940f24d41e5",
-   "patched": false,
-   "local_sha256": "33f60350dcc064e4e667e2d96754b4bac0dfef248793621656645940f24d41e5"
-  },
-  {
-   "src": "research/mfg-congest/tests/README.md",
-   "dst": "legacy/research/mfg-congest/tests/README.md",
-   "src_sha256": "344b19c912a69ea3067086cf7ce9594a87f5602d7470255469c89bd7e0fd5935",
-   "patched": false,
-   "local_sha256": "344b19c912a69ea3067086cf7ce9594a87f5602d7470255469c89bd7e0fd5935"
-  },
-  {
-   "src": "research/mfg-congest/tests/gate-discounted.js",
-   "dst": "legacy/research/mfg-congest/tests/gate-discounted.js",
-   "src_sha256": "1a150a51cbacb913555cffa90be7b5b1a60a1f328b3325e790007f89b1ba13ab",
-   "patched": false,
-   "local_sha256": "1a150a51cbacb913555cffa90be7b5b1a60a1f328b3325e790007f89b1ba13ab"
-  },
-  {
-   "src": "research/mfg-congest/tests/run-all.sh",
-   "dst": "legacy/research/mfg-congest/tests/run-all.sh",
-   "src_sha256": "94e3d7aa975b7d9c513b0195a8b8e0f080f11a8074852891d3216b7a742eda4e",
-   "patched": false,
-   "local_sha256": "94e3d7aa975b7d9c513b0195a8b8e0f080f11a8074852891d3216b7a742eda4e"
-  },
-  {
-   "src": "research/mfg-congest/tests/test-identity.js",
-   "dst": "legacy/research/mfg-congest/tests/test-identity.js",
-   "src_sha256": "9eb581fd55a6bd51e4e7cab180e14c4cc727f3a280982141685a79c8d71bf7d8",
-   "patched": false,
-   "local_sha256": "9eb581fd55a6bd51e4e7cab180e14c4cc727f3a280982141685a79c8d71bf7d8"
-  },
-  {
-   "src": "research/mfg-congest/tests/test-reduction.js",
-   "dst": "legacy/research/mfg-congest/tests/test-reduction.js",
-   "src_sha256": "1979c911eb96724b9c4f825d2767a88a410653bedf09925e6350426d9a2110de",
-   "patched": false,
-   "local_sha256": "1979c911eb96724b9c4f825d2767a88a410653bedf09925e6350426d9a2110de"
-  },
-  {
-   "src": "research/mfg-congest/tests/test-validate-congest.js",
-   "dst": "legacy/research/mfg-congest/tests/test-validate-congest.js",
-   "src_sha256": "110453e2c8e022379c12db91502dbc1e26581edabfcc8ddd843d006d585861f1",
-   "patched": false,
-   "local_sha256": "110453e2c8e022379c12db91502dbc1e26581edabfcc8ddd843d006d585861f1"
-  },
-  {
-   "src": "research/mfg-congest/tests/test-validate.js",
-   "dst": "legacy/research/mfg-congest/tests/test-validate.js",
-   "src_sha256": "f6efa91c3e1ff0b5aaa95aab05c2d7c339f87d28b00eaeb2e9b4838c83c17634",
-   "patched": false,
-   "local_sha256": "f6efa91c3e1ff0b5aaa95aab05c2d7c339f87d28b00eaeb2e9b4838c83c17634"
-  },
-  {
-   "src": "research/mfg-congest/tests/wiring.js",
-   "dst": "legacy/research/mfg-congest/tests/wiring.js",
-   "src_sha256": "8a00ecebdce7bb466466c11b5adec0cef4133d2544828081f92cb79ee71ed622",
-   "patched": false,
-   "local_sha256": "8a00ecebdce7bb466466c11b5adec0cef4133d2544828081f92cb79ee71ed622"
-  },
-  {
-   "src": "research/mfg-congest/tex/README.md",
-   "dst": "legacy/research/mfg-congest/tex/README.md",
-   "src_sha256": "cb4e22af8369d38d1e617f4086182878ae558fa43f302cc8d612f461542dd2be",
-   "patched": false,
-   "local_sha256": "cb4e22af8369d38d1e617f4086182878ae558fa43f302cc8d612f461542dd2be"
-  },
-  {
-   "src": "research/mfg-congest/tex/mfg-congest.log",
-   "dst": "legacy/research/mfg-congest/tex/mfg-congest.log",
-   "src_sha256": "c50f49d871bdea94738c1b201b5c32606b07d241fe532e0dc2e1c1a8de39623c",
-   "patched": false,
-   "local_sha256": "c50f49d871bdea94738c1b201b5c32606b07d241fe532e0dc2e1c1a8de39623c"
-  },
-  {
-   "src": "research/mfg-congest/tex/mfg-congest.pdf",
-   "dst": "legacy/research/mfg-congest/tex/mfg-congest.pdf",
-   "src_sha256": "2a4ac75a5eb3b3ec194ba249f4aa707d777a35145a2a6a8c7b7a228630001050",
-   "patched": false,
-   "local_sha256": "2a4ac75a5eb3b3ec194ba249f4aa707d777a35145a2a6a8c7b7a228630001050"
-  },
-  {
-   "src": "research/mfg-congest/tex/mfg-congest.tex",
-   "dst": "legacy/research/mfg-congest/tex/mfg-congest.tex",
-   "src_sha256": "c0c709adf0eff79a5e50f4201aa5aa2809fea21859817257ec00028fd5a10fbb",
-   "patched": false,
-   "local_sha256": "c0c709adf0eff79a5e50f4201aa5aa2809fea21859817257ec00028fd5a10fbb"
-  },
-  {
-   "src": "research/mfg-congest/tier-b-radius.html",
-   "dst": "legacy/research/mfg-congest/tier-b-radius.html",
-   "src_sha256": "560023c36e95eff6acc609ac8874fba52f1151c18874027361812279579cf78a",
-   "patched": false,
-   "local_sha256": "560023c36e95eff6acc609ac8874fba52f1151c18874027361812279579cf78a"
-  },
-  {
-   "src": "research/wardrop-repro/PLAN.md",
-   "dst": "legacy/research/wardrop-repro/PLAN.md",
-   "src_sha256": "6c4a38dd62e559342ccce27d6a1acfc95cbe1bac2fa497a3f470518ed4fd9b6a",
-   "patched": false,
-   "local_sha256": "6c4a38dd62e559342ccce27d6a1acfc95cbe1bac2fa497a3f470518ed4fd9b6a"
-  },
-  {
-   "src": "research/wardrop-repro/README.md",
-   "dst": "legacy/research/wardrop-repro/README.md",
-   "src_sha256": "ebefd39495a01a2b300b1db7842db5ca1e9b00342cc4f5499cb9cb2caf332144",
-   "patched": false,
-   "local_sha256": "ebefd39495a01a2b300b1db7842db5ca1e9b00342cc4f5499cb9cb2caf332144"
-  },
-  {
-   "src": "research/wardrop-repro/docs/ADVERSARIAL_REVIEW.md",
-   "dst": "legacy/research/wardrop-repro/docs/ADVERSARIAL_REVIEW.md",
-   "src_sha256": "10a4888177d3fcb86167e7e4bd036a7f37cdcb07ad13dad74835a3b281fce701",
-   "patched": false,
-   "local_sha256": "10a4888177d3fcb86167e7e4bd036a7f37cdcb07ad13dad74835a3b281fce701"
-  },
-  {
-   "src": "research/wardrop-repro/docs/BRAIN.md",
-   "dst": "legacy/research/wardrop-repro/docs/BRAIN.md",
-   "src_sha256": "3b1f8cb10ab660a7d30cdcb26d2f777f2fcaa919066e1ef6e3ac90e224964ef7",
-   "patched": false,
-   "local_sha256": "3b1f8cb10ab660a7d30cdcb26d2f777f2fcaa919066e1ef6e3ac90e224964ef7"
-  },
-  {
-   "src": "research/wardrop-repro/docs/ERRATA.md",
-   "dst": "legacy/research/wardrop-repro/docs/ERRATA.md",
-   "src_sha256": "695a6c401f458b7834e7e820e6c222bf559ecc2063a081c2e65f2907ac3ffcfc",
-   "patched": false,
-   "local_sha256": "695a6c401f458b7834e7e820e6c222bf559ecc2063a081c2e65f2907ac3ffcfc"
-  },
-  {
-   "src": "research/wardrop-repro/docs/FINDINGS_LIT.md",
-   "dst": "legacy/research/wardrop-repro/docs/FINDINGS_LIT.md",
-   "src_sha256": "8ddf1bc6572829194ab845fbbe7731267c0475c3bca0b1c7b849804d85a3fac4",
-   "patched": false,
-   "local_sha256": "8ddf1bc6572829194ab845fbbe7731267c0475c3bca0b1c7b849804d85a3fac4"
-  },
-  {
-   "src": "research/wardrop-repro/docs/IP_REVIEW.md",
-   "dst": "legacy/research/wardrop-repro/docs/IP_REVIEW.md",
-   "src_sha256": "23f9471cb39c018a18ad2de959fc6797cd5a1b1e39e73022c447451154d8aac1",
-   "patched": false,
-   "local_sha256": "23f9471cb39c018a18ad2de959fc6797cd5a1b1e39e73022c447451154d8aac1"
-  },
-  {
-   "src": "research/wardrop-repro/docs/LEDGER_CENSUS.md",
-   "dst": "legacy/research/wardrop-repro/docs/LEDGER_CENSUS.md",
-   "src_sha256": "ba74a02d8d5942fda48aed534e7ae6608516edeff74184d560ec186128ab8d1d",
-   "patched": false,
-   "local_sha256": "ba74a02d8d5942fda48aed534e7ae6608516edeff74184d560ec186128ab8d1d"
-  },
-  {
-   "src": "research/wardrop-repro/docs/OUTREACH.md",
-   "dst": "legacy/research/wardrop-repro/docs/OUTREACH.md",
-   "src_sha256": "8d76d3cd313b76e6d6715310f78c81bf69ce9633392ca952046da95259c488ae",
-   "patched": false,
-   "local_sha256": "8d76d3cd313b76e6d6715310f78c81bf69ce9633392ca952046da95259c488ae"
-  },
-  {
-   "src": "research/wardrop-repro/docs/OUTREACH_SEND.md",
-   "dst": "legacy/research/wardrop-repro/docs/OUTREACH_SEND.md",
-   "src_sha256": "bc167b5984e977a189a7cce03c39ba50ed7901d2253b86856587bfefb77595f6",
-   "patched": false,
-   "local_sha256": "bc167b5984e977a189a7cce03c39ba50ed7901d2253b86856587bfefb77595f6"
-  },
-  {
-   "src": "research/wardrop-repro/docs/PAPER_FACTS.md",
-   "dst": "legacy/research/wardrop-repro/docs/PAPER_FACTS.md",
-   "src_sha256": "df255e82ee9e85d3484203f3e59a313af0cc2c51b64ff51f08639b9aabcafe86",
-   "patched": false,
-   "local_sha256": "df255e82ee9e85d3484203f3e59a313af0cc2c51b64ff51f08639b9aabcafe86"
-  },
-  {
-   "src": "research/wardrop-repro/docs/SCALE_PANEL_DRAFT.md",
-   "dst": "legacy/research/wardrop-repro/docs/SCALE_PANEL_DRAFT.md",
-   "src_sha256": "8a6400a00581c95e2bbb01d7d4d0512da9e342521efb8d401008138ecc1f736d",
-   "patched": false,
-   "local_sha256": "8a6400a00581c95e2bbb01d7d4d0512da9e342521efb8d401008138ecc1f736d"
-  },
-  {
-   "src": "research/wardrop-repro/hrf-flow.html",
-   "dst": "legacy/research/wardrop-repro/hrf-flow.html",
-   "src_sha256": "4e435f2d63b4753a0c3e743bcf75fd2503e54a2012ab15d58804d88906dd3d72",
-   "patched": false,
-   "local_sha256": "4e435f2d63b4753a0c3e743bcf75fd2503e54a2012ab15d58804d88906dd3d72"
-  },
-  {
-   "src": "research/wardrop-repro/kernel/README.md",
-   "dst": "legacy/research/wardrop-repro/kernel/README.md",
-   "src_sha256": "b492daa1fb198a0cb4a0b88578133231bdb5ccc169823352876a7e10a5e727e1",
-   "patched": false,
-   "local_sha256": "b492daa1fb198a0cb4a0b88578133231bdb5ccc169823352876a7e10a5e727e1"
-  },
-  {
-   "src": "research/wardrop-repro/kernel/certify.js",
-   "dst": "legacy/research/wardrop-repro/kernel/certify.js",
-   "src_sha256": "d6be6356186ba8e0ebda77d4a47a4bdc30df12cd6fc9716d28eb4ec10c38eeeb",
-   "patched": false,
-   "local_sha256": "d6be6356186ba8e0ebda77d4a47a4bdc30df12cd6fc9716d28eb4ec10c38eeeb"
-  },
-  {
-   "src": "research/wardrop-repro/kernel/monotonicity.js",
-   "dst": "legacy/research/wardrop-repro/kernel/monotonicity.js",
-   "src_sha256": "c058528ef6ddfa7681ee794f522a1adfde83b6515ad72702b423e194951ebcab",
-   "patched": false,
-   "local_sha256": "c058528ef6ddfa7681ee794f522a1adfde83b6515ad72702b423e194951ebcab"
-  },
-  {
-   "src": "research/wardrop-repro/kernel/network.js",
-   "dst": "legacy/research/wardrop-repro/kernel/network.js",
-   "src_sha256": "6e46ffd097c5227185799b94a4ba6d1d91fe4deb98942767f3b9d94851ce105d",
-   "patched": false,
-   "local_sha256": "6e46ffd097c5227185799b94a4ba6d1d91fe4deb98942767f3b9d94851ce105d"
-  },
-  {
-   "src": "research/wardrop-repro/kernel/pg-gs-gap.js",
-   "dst": "legacy/research/wardrop-repro/kernel/pg-gs-gap.js",
-   "src_sha256": "d877801ff00debc08b176eb4b1d9aff365832b006a7d3938bdf2a425109b6e67",
-   "patched": false,
-   "local_sha256": "d877801ff00debc08b176eb4b1d9aff365832b006a7d3938bdf2a425109b6e67"
-  },
-  {
-   "src": "research/wardrop-repro/kernel/s1-face.js",
-   "dst": "legacy/research/wardrop-repro/kernel/s1-face.js",
-   "src_sha256": "c72220707bc122f0dae607793fea173941567a724b2d27e6733a41157e491b36",
-   "patched": false,
-   "local_sha256": "c72220707bc122f0dae607793fea173941567a724b2d27e6733a41157e491b36"
-  },
-  {
-   "src": "research/wardrop-repro/kernel/s3-enclosure.js",
-   "dst": "legacy/research/wardrop-repro/kernel/s3-enclosure.js",
-   "src_sha256": "6561a4344d332b4a72e29bca88901e63d49aa9e2b9834f1e79e0fe184c36ed62",
-   "patched": false,
-   "local_sha256": "6561a4344d332b4a72e29bca88901e63d49aa9e2b9834f1e79e0fe184c36ed62"
-  },
-  {
-   "src": "research/wardrop-repro/kernel/s3solve.js",
-   "dst": "legacy/research/wardrop-repro/kernel/s3solve.js",
-   "src_sha256": "2ede8c3fa1f45241e3ba3ea4f74e21a6c8d953b01b606f003fc59aacfd67d15b",
-   "patched": false,
-   "local_sha256": "2ede8c3fa1f45241e3ba3ea4f74e21a6c8d953b01b606f003fc59aacfd67d15b"
-  },
-  {
-   "src": "research/wardrop-repro/kernel/scale-net.js",
-   "dst": "legacy/research/wardrop-repro/kernel/scale-net.js",
-   "src_sha256": "b5790474818f135c0e360719a9efe84cf63ae5b979602c6510873bbe7ac9d78a",
-   "patched": false,
-   "local_sha256": "b5790474818f135c0e360719a9efe84cf63ae5b979602c6510873bbe7ac9d78a"
-  },
-  {
-   "src": "research/wardrop-repro/kernel/wardrop-float.js",
-   "dst": "legacy/research/wardrop-repro/kernel/wardrop-float.js",
-   "src_sha256": "cd84f5de0a7fb6a2456152b22c46f216d547a751e2bc1e08c1c68e60fb199e84",
-   "patched": false,
-   "local_sha256": "cd84f5de0a7fb6a2456152b22c46f216d547a751e2bc1e08c1c68e60fb199e84"
-  },
-  {
-   "src": "research/wardrop-repro/python/dump_wardrop.js",
-   "dst": "legacy/research/wardrop-repro/python/dump_wardrop.js",
-   "src_sha256": "6e519b1b0e8cf91022b84d5a2d5670b28bc5a8c1f7054949634c3db0c6764790",
-   "patched": false,
-   "local_sha256": "6e519b1b0e8cf91022b84d5a2d5670b28bc5a8c1f7054949634c3db0c6764790"
-  },
-  {
-   "src": "research/wardrop-repro/python/test-crosslang-wardrop.py",
-   "dst": "legacy/research/wardrop-repro/python/test-crosslang-wardrop.py",
-   "src_sha256": "f04c1a34a337f8afa4e0822a8165bdedc29bdd9aff0b25fa3dbe091069066d50",
-   "patched": false,
-   "local_sha256": "f04c1a34a337f8afa4e0822a8165bdedc29bdd9aff0b25fa3dbe091069066d50"
-  },
-  {
-   "src": "research/wardrop-repro/python/verify_wardrop.py",
-   "dst": "legacy/research/wardrop-repro/python/verify_wardrop.py",
-   "src_sha256": "414da99020062b495bdec1413dda933ea31ae03f3e11ea71308f4d6e1b2fe969",
-   "patched": false,
-   "local_sha256": "414da99020062b495bdec1413dda933ea31ae03f3e11ea71308f4d6e1b2fe969"
-  },
-  {
-   "src": "research/wardrop-repro/release.json",
-   "dst": "legacy/research/wardrop-repro/release.json",
-   "src_sha256": "836129a7a1aa4e5332552274fe1b213121153e19c77d9299a67e1e427bc69941",
-   "patched": false,
-   "local_sha256": "836129a7a1aa4e5332552274fe1b213121153e19c77d9299a67e1e427bc69941"
-  },
-  {
-   "src": "research/wardrop-repro/tests/README.md",
-   "dst": "legacy/research/wardrop-repro/tests/README.md",
-   "src_sha256": "2cb1a4129563afc4d043ab983f415071d0b19b40a2b5b25ee584ac8aeae86a59",
-   "patched": false,
-   "local_sha256": "2cb1a4129563afc4d043ab983f415071d0b19b40a2b5b25ee584ac8aeae86a59"
-  },
-  {
-   "src": "research/wardrop-repro/tests/run-all.sh",
-   "dst": "legacy/research/wardrop-repro/tests/run-all.sh",
-   "src_sha256": "eb486b8cd5f9b3d45f0e564e1d3771dd88339c12ea9901c09fd88de02ad75026",
-   "patched": false,
-   "local_sha256": "eb486b8cd5f9b3d45f0e564e1d3771dd88339c12ea9901c09fd88de02ad75026"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-certify.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-certify.js",
-   "src_sha256": "9b46adfe9ba5707c1a24be1ab427debce2b745ff662aac864b3507e91ad083c2",
-   "patched": false,
-   "local_sha256": "9b46adfe9ba5707c1a24be1ab427debce2b745ff662aac864b3507e91ad083c2"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-coords.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-coords.js",
-   "src_sha256": "a9979d2356705acb38945ebcb965d3ec86684d154aa31e42dfa70184d75c06bd",
-   "patched": false,
-   "local_sha256": "a9979d2356705acb38945ebcb965d3ec86684d154aa31e42dfa70184d75c06bd"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-errata.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-errata.js",
-   "src_sha256": "8f2f5de6a6ef6877e3474ea55063c765b1f8deea6bec4f63c4d35ae2e546f04d",
-   "patched": false,
-   "local_sha256": "8f2f5de6a6ef6877e3474ea55063c765b1f8deea6bec4f63c4d35ae2e546f04d"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-harvest-diff.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-harvest-diff.js",
-   "src_sha256": "83b383bc8f18b312ed807336c97781f9990eec6fcee1d65b97d33448e5ef9fc7",
-   "patched": false,
-   "local_sha256": "83b383bc8f18b312ed807336c97781f9990eec6fcee1d65b97d33448e5ef9fc7"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-monotonicity.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-monotonicity.js",
-   "src_sha256": "8ddf1f985659f0a499322ca68cec67b759b2f912aa7a82927370b73f910f709b",
-   "patched": false,
-   "local_sha256": "8ddf1f985659f0a499322ca68cec67b759b2f912aa7a82927370b73f910f709b"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-pg-gs-gap.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-pg-gs-gap.js",
-   "src_sha256": "6c398baaa1c994fbd7579dbc7c7be1e387a60df7039756722f4dae0bcbd51840",
-   "patched": false,
-   "local_sha256": "6c398baaa1c994fbd7579dbc7c7be1e387a60df7039756722f4dae0bcbd51840"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-s1-face.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-s1-face.js",
-   "src_sha256": "2ce13caa7cec9afbd6faa7877e1e2d73789376162145a778531ab0977ec6681f",
-   "patched": false,
-   "local_sha256": "2ce13caa7cec9afbd6faa7877e1e2d73789376162145a778531ab0977ec6681f"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-s3-enclosure.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-s3-enclosure.js",
-   "src_sha256": "b4bf0be9c44d47c6f36306e12587bac933d529be8d33887e603b05d97f1aa23d",
-   "patched": false,
-   "local_sha256": "b4bf0be9c44d47c6f36306e12587bac933d529be8d33887e603b05d97f1aa23d"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-s3fixed.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-s3fixed.js",
-   "src_sha256": "df1c4525063093db0ecaaca68a4153bd07649364aa53e15711b088221b491526",
-   "patched": false,
-   "local_sha256": "df1c4525063093db0ecaaca68a4153bd07649364aa53e15711b088221b491526"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-s3solve.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-s3solve.js",
-   "src_sha256": "f7c428b31da4ee1d5883fc385f9505a6effbd08747883c5df24c9c6d0a2a2005",
-   "patched": false,
-   "local_sha256": "f7c428b31da4ee1d5883fc385f9505a6effbd08747883c5df24c9c6d0a2a2005"
-  },
-  {
-   "src": "research/wardrop-repro/tests/test-scale.js",
-   "dst": "legacy/research/wardrop-repro/tests/test-scale.js",
-   "src_sha256": "04f3351b982a7554042b04e20e0b7aa7cdcd32846af2f032d169b5cc839a694c",
-   "patched": false,
-   "local_sha256": "04f3351b982a7554042b04e20e0b7aa7cdcd32846af2f032d169b5cc839a694c"
-  },
-  {
-   "src": "research/wardrop-repro/tests/wiring.js",
-   "dst": "legacy/research/wardrop-repro/tests/wiring.js",
-   "src_sha256": "f245a34a9218746d57051cb422897408119bca0cff872422fefad7ec4ae7f00a",
-   "patched": false,
-   "local_sha256": "f245a34a9218746d57051cb422897408119bca0cff872422fefad7ec4ae7f00a"
-  },
-  {
-   "src": "research/wardrop-repro/tools/verify-published-tables.js",
-   "dst": "legacy/research/wardrop-repro/tools/verify-published-tables.js",
-   "src_sha256": "276dfd67217b12b22a5e0d078f465f9fd658ad543f3acc2c3167c87094382e2c",
-   "patched": false,
-   "local_sha256": "276dfd67217b12b22a5e0d078f465f9fd658ad543f3acc2c3167c87094382e2c"
-  },
-  {
    "src": "research/wardrop-repro/wardrop-repro.html",
    "dst": "legacy/research/wardrop-repro/wardrop-repro.html",
    "src_sha256": "a24afabfd2c450974618e0af74dbf3368a745a329f8ba94caed5814e4496dc8c",
    "patched": false,
    "local_sha256": "a24afabfd2c450974618e0af74dbf3368a745a329f8ba94caed5814e4496dc8c"
-  },
-  {
-   "src": "research/ai-verify/python/test-odd-block.py",
-   "dst": "legacy/research/ai-verify/python/test-odd-block.py",
-   "src_sha256": "085b599076a3c85d322e2d9a3154e7aadc25fa01ede3bbccec2974fe19c33d73",
-   "patched": false,
-   "local_sha256": "085b599076a3c85d322e2d9a3154e7aadc25fa01ede3bbccec2974fe19c33d73"
   }
  ]
 }

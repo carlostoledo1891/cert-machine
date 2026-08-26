@@ -53,63 +53,308 @@
     {
       "src": "research/probes/mercer-program/fetch_mercer2019_integers.pdf",
       "dst": "corpus/sources/mercer2019_integers.pdf",
-      "note": "Mercer, INTEGERS 19 (2019) #A4 (open access) — the pinned source of the mu(5)-ladder table transcriptions; mercer6.js re-hashes it at battery time"
+      "note": "Mercer, INTEGERS 19 (2019) #A4 (open access) \u2014 the pinned source of the mu(5)-ladder table transcriptions; mercer6.js re-hashes it at battery time"
     },
     {
       "src": "research/probes/mercer-program/results/mu5-pi6.json",
       "dst": "corpus/sources/mu5-pi6-sourcelab.json",
-      "note": "the source lab's m=6 record — mercer6-battery.js holds our m=6 run to it row for row (the cross-lab green), now against lifted bytes so the public tree runs with sin-mfg absent"
-    },
-    {
-      "src": "research/challenges/erdos290.html",
-      "dst": "legacy/research/challenges/erdos290.html",
-      "note": "LEGACY OUTREACH SURFACE: the Erdos #290 technical report cited (as /technical-reports/erdos290) in the erdosproblems comment posted 2026-08-04; served verbatim until the engine rebuild replaces it behind a 301"
-    },
-    {
-      "src": "research/challenges/erdos290",
-      "dst": "legacy/research/challenges/erdos290",
-      "note": "the erdos290 page asset directory (programs, kernels, narrowing records) linked from the page"
-    },
-    {
-      "src": "research/challenges/verify-lemniscate.html",
-      "dst": "legacy/research/challenges/verify-lemniscate.html",
-      "note": "LEGACY OUTREACH SURFACE: cited in the Erdos #1038 GitHub issue (Pengbinghui/pipeline-math#5, 2026-08-05)"
-    },
-    {
-      "src": "research/challenges/lane",
-      "dst": "legacy/research/challenges/lane",
-      "note": "the lemniscate verification lane assets (verify.js and siblings) linked from the page"
+      "note": "the source lab's m=6 record \u2014 mercer6-battery.js holds our m=6 run to it row for row (the cross-lab green), now against lifted bytes so the public tree runs with sin-mfg absent"
     },
     {
       "src": "research/alien-science/alien-science.html",
       "dst": "legacy/research/alien-science/alien-science.html",
-      "note": "LEGACY OUTREACH SURFACE: cited in the Anthropic automated-alignment sandbox issue (safety-research/automated-w2s-research#2, 2026-08-04)"
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
     },
     {
-      "src": "research/alien-science/alien-science",
-      "dst": "legacy/research/alien-science/alien-science",
-      "note": "the alien-science artifact bundle (swap-consistency.js, hack-detectors.js, disposition-v0.json, README.md and siblings) — six of its URLs are in the sent issue; FROZEN bytes"
+      "src": "research/alien-science/alien-science/MODE_B_RUNBOOK.md",
+      "dst": "legacy/research/alien-science/alien-science/MODE_B_RUNBOOK.md",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
     },
     {
-      "src": "research/mfg-congest",
-      "dst": "legacy/research/mfg-congest",
-      "note": "LEGACY OUTREACH SURFACE: mfg-congest — a computer-assisted proof of a congestion mean-field game, sent to external readers at /research/mfg-congest/mfg-congest; full unit (page + kernel + tests + python + 9-gate battery run-all.sh)"
+      "src": "research/alien-science/alien-science/README.md",
+      "dst": "legacy/research/alien-science/alien-science/README.md",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
     },
     {
-      "src": "research/wardrop-repro",
-      "dst": "legacy/research/wardrop-repro",
-      "note": "LEGACY OUTREACH SURFACE: wardrop-repro — certified reproduction of the AIMS 2026 Wardrop paper, sent to external readers at /research/wardrop-repro/wardrop-repro; full unit"
+      "src": "research/alien-science/alien-science/WORKSHOP.md",
+      "dst": "legacy/research/alien-science/alien-science/WORKSHOP.md",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
     },
     {
-      "src": "research/ai-verify/python/test-odd-block.py",
-      "dst": "legacy/research/ai-verify/python/test-odd-block.py",
-      "note": "the one cross-unit file the mfg-congest battery gate 6 loads (odd-block stage 2.2)"
+      "src": "research/alien-science/alien-science/disposition-stub.js",
+      "dst": "legacy/research/alien-science/alien-science/disposition-stub.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/disposition-v0.json",
+      "dst": "legacy/research/alien-science/alien-science/disposition-v0.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/dual-client.js",
+      "dst": "legacy/research/alien-science/alien-science/dual-client.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/em-channel.js",
+      "dst": "legacy/research/alien-science/alien-science/em-channel.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/em-disagree-story.json",
+      "dst": "legacy/research/alien-science/alien-science/em-disagree-story.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/MANIFEST.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/MANIFEST.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/README.md",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/README.md",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/expected_outputs.md",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/expected_outputs.md",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/fixtures/exam-pack.public.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/fixtures/exam-pack.public.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/fixtures/heldout-ccs-es.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/fixtures/heldout-ccs-es.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/fixtures/plant_mutant_batch.jsonl",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/fixtures/plant_mutant_batch.jsonl",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/fixtures/volume_batch_100.jsonl",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/fixtures/volume_batch_100.jsonl",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.mutant.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.mutant.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.python.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/golden/dual_client_heldout.python.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/golden/plant_mutant.refused.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/golden/plant_mutant.refused.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/golden/volume_batch_100.summary.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/golden/volume_batch_100.summary.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/kernels/disposition_validate.py",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/kernels/disposition_validate.py",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/kernels/swap_consistency.js",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/kernels/swap_consistency.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/kernels/swap_consistency.py",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/kernels/swap_consistency.py",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/schemas/disposition-v0.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/schemas/disposition-v0.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/schemas/dual-eval-v0.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/schemas/dual-eval-v0.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/schemas/volume-result-v0.json",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/schemas/volume-result-v0.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/tools/dual_client.py",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/tools/dual_client.py",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/tools/volume_runner.js",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/tools/volume_runner.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/fellows-pack/tools/volume_runner.py",
+      "dst": "legacy/research/alien-science/alien-science/fellows-pack/tools/volume_runner.py",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/hack-detectors.js",
+      "dst": "legacy/research/alien-science/alien-science/hack-detectors.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/heldout-story.json",
+      "dst": "legacy/research/alien-science/alien-science/heldout-story.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/swap-consistency.js",
+      "dst": "legacy/research/alien-science/alien-science/swap-consistency.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/alien-science/alien-science/volume-runner.js",
+      "dst": "legacy/research/alien-science/alien-science/volume-runner.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290.html",
+      "dst": "legacy/research/challenges/erdos290.html",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/build-page.js",
+      "dst": "legacy/research/challenges/erdos290/build-page.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/galois-exceptions.js",
+      "dst": "legacy/research/challenges/erdos290/galois-exceptions.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/galois8.js",
+      "dst": "legacy/research/challenges/erdos290/galois8.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/kernel.js",
+      "dst": "legacy/research/challenges/erdos290/kernel.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/narrowing.js",
+      "dst": "legacy/research/challenges/erdos290/narrowing.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/narrowing.json",
+      "dst": "legacy/research/challenges/erdos290/narrowing.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/pattern-check.js",
+      "dst": "legacy/research/challenges/erdos290/pattern-check.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/rational.js",
+      "dst": "legacy/research/challenges/erdos290/rational.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/tail-deltas.json",
+      "dst": "legacy/research/challenges/erdos290/tail-deltas.json",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/tail-sweep.js",
+      "dst": "legacy/research/challenges/erdos290/tail-sweep.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/tests/test-page.js",
+      "dst": "legacy/research/challenges/erdos290/tests/test-page.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/theorem-live.js",
+      "dst": "legacy/research/challenges/erdos290/theorem-live.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/erdos290/theorem.js",
+      "dst": "legacy/research/challenges/erdos290/theorem.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/lane/laneb-korenblum/verify.js",
+      "dst": "legacy/research/challenges/lane/laneb-korenblum/verify.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/lane/laneb-lemniscate/verify.js",
+      "dst": "legacy/research/challenges/lane/laneb-lemniscate/verify.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/lane/laneb-mathieu/verify.js",
+      "dst": "legacy/research/challenges/lane/laneb-mathieu/verify.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/lane/laneb-maxwell/verify.js",
+      "dst": "legacy/research/challenges/lane/laneb-maxwell/verify.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/lane/laneb-poisson/verify.js",
+      "dst": "legacy/research/challenges/lane/laneb-poisson/verify.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/lane/laneb-ranteng/verify.js",
+      "dst": "legacy/research/challenges/lane/laneb-ranteng/verify.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/lane/uam-corridor/verify.js",
+      "dst": "legacy/research/challenges/lane/uam-corridor/verify.js",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/challenges/verify-lemniscate.html",
+      "dst": "legacy/research/challenges/verify-lemniscate.html",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/mfg-congest/mfg-congest.html",
+      "dst": "legacy/research/mfg-congest/mfg-congest.html",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/wardrop-repro/wardrop-repro.html",
+      "dst": "legacy/research/wardrop-repro/wardrop-repro.html",
+      "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
     }
   ],
   "patches": [
     {
       "file": "instruments/trigmin/certify-min.js",
-      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) — the marker IS the package root, and no file counts hops.",
+      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) \u2014 the marker IS the package root, and no file counts hops.",
       "replace": [
         [
           "const IV = require(path.join(__dirname, '..', '..', '..', 'core', 'interval', 'interval.js'));",
@@ -123,7 +368,7 @@
     },
     {
       "file": "instruments/trigmin/cheb.js",
-      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) — the marker IS the package root, and no file counts hops.",
+      "why": "repoint the cross-tree climb. C52 (resolve by marker, not by depth) says a path found by counting ../ breaks silently the next time either end moves, so this resolves through package.json subpath imports (#instruments/*) \u2014 the marker IS the package root, and no file counts hops.",
       "replace": [
         [
           "const IV = require(path.join(__dirname, '..', '..', '..', 'core', 'interval', 'interval.js'));",
@@ -147,7 +392,7 @@
     },
     {
       "file": "machine/funnel/funnel.js",
-      "why": "The completeness certificate was gated on gen.name === 'enum' rather than on the four conditions it actually rests on. A generator that exhausted its declared box, audited every reject, and produced no REFUSED and no schema-invalid candidate earned the certificate and was refused it for having a different name. Removing the name test leaves the four real conditions untouched — this deletes a refusal, it does not add a check.",
+      "why": "The completeness certificate was gated on gen.name === 'enum' rather than on the four conditions it actually rests on. A generator that exhausted its declared box, audited every reject, and produced no REFUSED and no schema-invalid candidate earned the certificate and was refused it for having a different name. Removing the name test leaves the four real conditions untouched \u2014 this deletes a refusal, it does not add a check.",
       "replace": [
         [
           "if (gen.name === 'enum' && generatorDone && rejectAuditRate >= 1 && counts.schemaInvalid === 0 && counts.certified.REFUSED === 0 && wantN === rejects.length) {",
