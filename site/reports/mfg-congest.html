@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>cert-machine · the conjecture engine</title>
+<title>A congestion mean-field game, enclosed · cert-machine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -222,70 +222,55 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">Carlos Toledo · cert-machine</div>
-  <h1>The conjecture engine</h1>
-  <p class="deck">Verification layers under which AI-scale mathematical search produces only certified output — and certified audits of published AI-generated mathematics. Screens may prune; only exact arithmetic admits. A REFUTED here is proved.</p>
+  <div class="eyebrow">cert-machine · report · the page re-proves itself at every build</div>
+  <h1>A congestion mean-field game, enclosed</h1>
+  <p class="deck">To our knowledge the first validated-numerics enclosure of an equilibrium for a mean-field game with congestion: from a numerical candidate, an EXACT solution within an explicit radius, locally unique in the full sequence-space ball, with strictly positive density — every inequality in outward-rounded interval arithmetic. The proof travels inside the page: its stdlib-Python verifier was extracted from the published bytes and re-run during this build, and this report refuses to render unless it says VERIFIED.</p>
 </header>
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">closed forms refuted</div><div class="v held">54,634,513</div><div class="n">every one exact; zero discoveries claimed</div></div>
-    <div class="stat"><div class="k">certified objects</div><div class="v">16,942</div><div class="n">of 819,151 generated across 11 families</div></div>
-    <div class="stat"><div class="k">period-16 Hénon points</div><div class="v held">EXACTLY 1,696</div><div class="n">1,419,655,025 boxes exhausted, recheck clean</div></div>
-    <div class="stat"><div class="k">mu(5) bracket</div><div class="v held">≤ 1 + π/20</div><div class="n">= 1.157080 — certified on a 1983→1992→2019→here lineage</div></div>
-    <div class="stat"><div class="k">Ramanujan Machine rows</div><div class="v">52 decided</div><div class="n">51 survive · 1 printed row refuted, correction certified</div></div>
-    <div class="stat"><div class="k">published claims refuted</div><div class="v warn">2</div><div class="n">Erdős #852 C* at digit 12 · one RM printed row — both with certified corrections</div></div>
+    <div class="stat"><div class="k">existence radius</div><div class="v held">r ≈ 7.75e−15</div><div class="n">an exact solution lies within 7.754374e-15 of the candidate — re-proved this build</div></div>
+    <div class="stat"><div class="k">contraction</div><div class="v held">Z₁ = 0.5268</div><div class="n">&lt; 1 on even AND odd blocks (full-ball local uniqueness, Stage 2.2)</div></div>
+    <div class="stat"><div class="k">density floor</div><div class="v held">min m ≥ 0.9737</div><div class="n">strict positivity over the whole validation ball — load-bearing, not assumed</div></div>
+    <div class="stat"><div class="k">verifier</div><div class="v">stdlib · 142 KB</div><div class="n">embedded in the published page; extracted and re-run at build; sha256 7c5356222d62…</div></div>
+    <div class="stat"><div class="k">falsifiers</div><div class="v warn">MUST REFUSE</div><div class="n">a certificate that cannot go red is fake — each planted break is required to fail inside the verifier</div></div>
+    <div class="stat"><div class="k">why it matters</div><div class="v">NO REDUCTION</div><div class="n">the congestion Hamiltonian ½(u′)²/mᵃ admits no Hopf–Cole reduction — this cannot be called &quot;Gross–Pitaevskii in disguise&quot;</div></div>
   </div>
 </div>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">the three lanes</div>
-    <h2>What almost nobody else publishes</h2>
+    <div class="lab">§1 · the claim</div>
+    <h2>What is enclosed, and why congestion is the interesting case</h2>
   </div>
-<p>Proved negatives at scale. 54,635,408 candidate closed forms tested against certified enclosures; 54,634,513 refuted, each refutation a proof. Twenty-one published OEIS constants fall in exact BigInt arithmetic at their full published precision — one impersonates 1/5 for 62 significant digits before the exact arithmetic separates them.</p>
-<p>Completeness certificates for non-SAT numerics. Not &quot;we found 1,696 period-16 points of the Hénon map&quot; but &quot;there are EXACTLY 1,696, and nothing else anywhere in the plane&quot; — 452 census theorems across two maps, each an exhaustion from a certified a priori bound, plus a certified lower bound on topological entropy.</p>
-<p>Certified audits of published AI-generated mathematics. The GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — corrected value certified to width 3.2e-16. All 52 rows of the Ramanujan Machine&#39;s seven result sheets decided: 51 survive an unconditional audit; one printed row is refuted exactly (a sign slip in the published constant), its correction certified on the same enclosure.</p>
+<div class="col"><p>The system is the discounted Gomes–Mitake congestion mean-field game on the torus: a Hamilton–Jacobi–Bellman equation coupled to a Fokker–Planck equation, with congestion cost ½(u′)²/m<sup>1/2</sup> — the crowd slows you down where it is dense. An earlier certificate in this lineage enclosed a QUADRATIC-Hamiltonian game, which Hopf–Cole-reduces to a Gross–Pitaevskii ground state — a referee can call that "GP in disguise". The congestion game has no such reduction; enclosing it certifies genuinely coupled mean-field structure. The half-integer power is handled by adjoining s = m<sup>1/2</sup> and w = m<sup>−1/2</sup> through polynomial constraints (s∗s = m, s∗w = 1), so the whole certificate rests on a uniform positive density bound — which is itself certified, not assumed.</p><p>The enclosure is NOT a finite truncation with unquantified projection error. Unknowns live in the weighted sequence Banach algebra ℓ¹<sub>ν</sub> with ν = 1.05 > 1: the defect bound Y₀ is exact by band-limitation, the contraction bound Z₁ carries a closed-form analytic tail over the infinitely many modes beyond the inverted block, and the geometric weight decay forces the enclosed zero to be a REAL-ANALYTIC function — a classical solution of the PDE, not a Galerkin approximation.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">rerun a proof</div>
-    <h2>Check a result yourself, in ten seconds</h2>
+    <div class="lab">§2 · the mechanism</div>
+    <h2>One polynomial decides it</h2>
   </div>
-<p>Every headline claim detaches into a certificate — a JSON file of exact numbers — plus a verifier in plain Python: standard library only, nothing to install, zero code shared with the engine. Each verifier re-derives the mathematics from the certificate alone, re-hashes the pinned sources, must refute a deliberately forged value before it will exit green, and prints the sha256 of the certificate it checked.</p>
-<div class="wide"><pre style="font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.7;padding:14px 18px;border:1px solid var(--line);border-radius:6px;overflow-x:auto;margin:0">python3 verify/verify_erdos852.py certs/erdos852-certificate.json
-python3 verify/verify_keller.py   certs/keller-certificate.json
-python3 verify/verify_strassen.py certs/strassen-certificate.json</pre></div>
-<div class="note">
-  <span class="lab">sources</span>
-<p>Run from a clone of <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a> (add <span class="m">--sources corpus/sources</span> to re-hash the pinned source bytes too), or download the certificate and verifier right here — the proof travels without the machine.</p>
-</div>
+<div class="col"><div class="eq">p(r) = ½ Z₂ r² − (1 − Z₁) r + Y₀</div><p>Where p dips strictly below zero, the Newton-like map is a contraction on the ball of radius r and has EXACTLY ONE fixed point there — an exact solution, with existence and local uniqueness in the same breath. The verdict is gated on the whole argument, never on a small residual: a tiny defect Y₀ suggests a solution is near and proves nothing; what proves it is Z₁ < 1 together with a radius where p is strictly negative. Local uniqueness holds in the FULL even ⊕ odd ball (the operator is parity block-diagonal at this instance; one extra odd-block bound closes with Z₁ = max(Z₁ᵉ, Z₁ᵒ) = 0.5268), and the admissible uniqueness window extends twelve orders of magnitude beyond the existence radius.</p><p>Two failure modes are honest outcomes, not bugs: Z₁ ≥ 1 (the approximate inverse is not one) and a non-positive discriminant (the defect is too large). The instrument refuses rather than guesses — the same contract every certifier in this machine signs.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">go deeper</div>
-    <h2>The machine, the reports, the certificates</h2>
+    <div class="lab">§3 · the honest boundary</div>
+    <h2>The congestion wall</h2>
   </div>
-<div id="reports"></div>
-<p><a href="machine/">The control page</a> — the live dashboard: every family, every battery executed at build (never remembered), the ledger decomposition, drift status.</p>
-<p>Reports (every number recomputed from the records at build; a build that drifts refuses): <a href="reports/entropy.html">Entropy, with a certificate · cert-machine</a> · <a href="reports/erdos290.html">Erdős #290: the 4k(k+1) theorem · cert-machine</a> · <a href="reports/erdos852.html">The constant that was a rounding error · cert-machine</a> · <a href="reports/impostors.html">The impostor catalog · cert-machine</a> · <a href="reports/mfg-congest.html">A congestion mean-field game, enclosed · cert-machine</a> · <a href="reports/rm-audit.html">The Ramanujan Machine, audited</a> · <a href="reports/verify-lemniscate.html">Erdős #1038: thirty decimals verified · cert-machine</a> · <a href="reports/wardrop-repro.html">Wardrop, certified: exact, enclosed, refused · cert-machine</a> · <a href="reports/zeta3-audit.html">The ζ(3) sheet, decided · cert-machine</a></p>
-<p>Detached certificates: <a href="certs/entropy-henon.json"><span class="m">entropy-henon.json</span></a> · <a href="certs/erdos290-tail-ext.json"><span class="m">erdos290-tail-ext.json</span></a> · <a href="certs/erdos852-certificate.json"><span class="m">erdos852-certificate.json</span></a> · <a href="certs/keller-certificate.json"><span class="m">keller-certificate.json</span></a> · <a href="certs/lambda-table.json"><span class="m">lambda-table.json</span></a> · <a href="certs/mercer-mu5.json"><span class="m">mercer-mu5.json</span></a> · <a href="certs/mu-table-40.json"><span class="m">mu-table-40.json</span></a> · <a href="certs/mu-table.json"><span class="m">mu-table.json</span></a> · <a href="certs/strassen-certificate.json"><span class="m">strassen-certificate.json</span></a></p>
-<p>Code, corpus, and full provenance: <a href="https://github.com/carlostoledo1891/cert-machine">github.com/carlostoledo1891/cert-machine</a> — MIT, no dependencies. Instruments lifted from a private source lab are hash-pinned in PROVENANCE.json; patches are declared so they can never be mistaken for drift.</p>
+<div class="col"><p>The proof closes in the moderate regime and REFUSES as the density concentrates: as the crowd piles up, the certificate's contraction bound crosses 1 and the instrument declines to certify. Where it refuses is reported as data, not hidden — the full refusal frontier over the (σ, a) parameter plane is named future work, and nothing outside the certified ball is claimed. A validated-numerics result that cannot show you where it stops working is not showing you where it works, either.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">the discipline</div>
-    <h2>Why believe any of it</h2>
+    <div class="lab">§4 · check it</div>
+    <h2>The proof travels inside the page</h2>
   </div>
-<p>One load-bearing invariant: nothing floating-point can ever admit a claim. Screens only prune; every admission passes exact arithmetic (BigInt rationals, directed dyadic rounding, Sturm chains); an instrument that cannot decide REFUSES rather than guesses; every exhaustion carries a conservation identity that throws rather than return a record with a hole in it.</p>
-<p>Every battery carries red controls — forged inputs that must FAIL — and every instrument is calibrated against a case with a known answer before it runs on anything new. Every real bug this project has found was caught by a control, a calibration, or an impossible number; none by reading code.</p>
-<p>The trust base, honestly: V8 BigInt and IEEE-754 correct rounding; a handful of named external theorems consumed and cross-checked, not machine-proved; one machine, one operator. This meets the working standard of the computer-assisted-proof tradition — Tucker&#39;s Lorenz, Galias&#39;s Hénon censuses, whose published counts the census here reproduces independently — one rung below the formal-proof standard.</p>
+<div class="col"><p>The <a href="/research/mfg-congest/mfg-congest.html">published page</a> (byte-preserved, exactly as sent to its readers) embeds its complete verifier — plain Python, standard library only, MIT — as a download. This build extracted those bytes, hashed them (<span class="m">7c5356222d6289be…</span>), ran the verifier, and required VERIFIED plus the exact radius, contraction and density values above; any drift refuses the page. You can do the same: download the verifier from the original page and run <span class="m">python3 verify_congest.py</span> — about four seconds, and its planted falsifiers must refuse before it exits green.</p></div>
 </section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git 3252384 from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-mfg-congest.js @ git 3252384 — the embedded verifier extracted from the published bytes and re-run during this build (VERIFIED, or no page). The original page as sent is byte-preserved at /research/mfg-congest/mfg-congest.html.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

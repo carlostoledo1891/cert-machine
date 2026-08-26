@@ -5,17 +5,19 @@
     {
       "source": "/research/alien-science/alien-science",
       "destination": "/research/alien-science/alien-science.html"
-    },
-    {
-      "source": "/research/mfg-congest/mfg-congest",
-      "destination": "/research/mfg-congest/mfg-congest.html"
-    },
-    {
-      "source": "/research/wardrop-repro/wardrop-repro",
-      "destination": "/research/wardrop-repro/wardrop-repro.html"
     }
   ],
   "redirects": [
+    {
+      "source": "/research/mfg-congest/mfg-congest",
+      "destination": "/reports/mfg-congest.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/wardrop-repro/wardrop-repro",
+      "destination": "/reports/wardrop-repro.html",
+      "statusCode": 301
+    },
     {
       "source": "/research/challenges/erdos290",
       "destination": "/reports/erdos290.html",

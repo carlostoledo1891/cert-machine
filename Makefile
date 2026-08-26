@@ -68,3 +68,5 @@ reports:
 	@$(NODE) tools/build-report-rm-audit.js
 	@$(NODE) tools/build-report-erdos290.js
 	@$(NODE) tools/build-report-lemniscate.js
+	@$(NODE) tools/build-report-mfg-congest.js
+	@$(NODE) tools/build-report-wardrop.js
