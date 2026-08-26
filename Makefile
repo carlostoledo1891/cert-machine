@@ -65,3 +65,4 @@ reports:
 	@$(NODE) tools/build-report-zeta3.js
 	@$(NODE) tools/build-report-entropy.js
 	@$(NODE) tools/build-report-erdos852.js
+	@$(NODE) tools/build-report-rm-audit.js

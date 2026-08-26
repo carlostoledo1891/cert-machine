@@ -96,6 +96,32 @@ S6. THE LLM CAMPAIGN — model-proposes-engine-certifies over the strassen
     corpus; per-model certified truth rates, false positives provably
     false; the direct frontier-lab bridge.
 
+ADOPTED FROM THE FLOW-VS-STOCK BRAINSTORM (operator, 2026-08-27) — convert
+operator capability (a flow) into artifacts that hold value unattended (stock):
+  1. DONE is redefined: not "battery green" (internal done) but "has a public
+     URL and someone else could rerun it". A result without a URL is not done.
+  2. Owned surfaces (repo, site) default-publish: a green session ENDS by
+     rebuilding the site and pushing — the operator vetoes after, not before.
+     Third-party surfaces (forums, email, OEIS, notes to authors) move only
+     on the operator's explicit word, never agent-initiated.
+  3. QUEUE REORDER: the eval (was S6) moves to directly after S2 — it is the
+     one artifact whose value curve has no operator in the denominator
+     (proof-graded ground truth; labs run it, value compounds unattended).
+     The Mercer report, methods note, and Lean bridge become writing slots
+     interleaved around it.
+  4. The audit function becomes standing: the engine already re-audits the
+     whole RM corpus every run; add a NEW-CLAIMS sweep (RM results pages,
+     erdosproblems proof-claims, arXiv constants) run per session — a fetch
+     tool, not a cron; scheduling is a later operator opt-in.
+  5. Attach one human: the #510 comment, the RM correction note, and the
+     methods paper each explicitly INVITE an independent rerun / co-sign
+     (the thread practitioners already doing rigorous numerics — He-Tang,
+     mzn — are the natural first contacts).
+  Positioning shift that follows: not "watch me operate" but "I built the
+  verification infrastructure — the eval labs run, the registry that
+  updates, the certificates anyone checks in ten seconds." Operator
+  capability stays visible as provenance, not as the product.
+
 STANDING RULE while S1-S2 are unshipped: no new instruments, no new
 families; new math only where a report needs a missing number. The build
 menus further down are PARKED, not deleted — their technical context
