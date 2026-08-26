@@ -47,8 +47,9 @@ const rows = fs.existsSync(LEDGER)
 const byModel = new Map();
 for (const r of rows) {
   if (r.family !== 'matmul') continue;
-  const k = r.model || 'fake';
-  if (!byModel.has(k)) byModel.set(k, { model: k, n: 0, malformed: 0, rejected: 0, refuted: 0, certified: 0, undecided: 0 });
+  const tag = r.tag || 'v1';
+  const k = (r.model || 'fake') + ' · ' + tag;
+  if (!byModel.has(k)) byModel.set(k, { model: r.model || 'fake', tag, n: 0, malformed: 0, rejected: 0, refuted: 0, certified: 0, undecided: 0 });
   const a = byModel.get(k);
   a.n++; a[r.outcome] = (a[r.outcome] || 0) + 1;
 }
@@ -57,7 +58,7 @@ const agg = [...byModel.values()].map((a) => ({
   certRate: a.n ? a.certified / a.n : 0,
   survivorTruth: (a.certified + a.refuted + a.undecided) ? a.certified / (a.certified + a.refuted + a.undecided) : null
 }));
-const models = agg.filter((a) => a.model !== 'fake').sort((x, y) => y.certRate - x.certRate);
+const models = agg.filter((a) => a.model !== 'fake').sort((x, y) => x.tag === y.tag ? y.certRate - x.certRate : (x.tag < y.tag ? 1 : -1));
 const fake = agg.find((a) => a.model === 'fake');
 const pct = (x) => x === null ? '—' : (100 * x).toFixed(0) + '%';
 
@@ -101,9 +102,10 @@ O.push(C.section({
     + '</div>'
 }));
 
-const cols = [{ h: 'model' }, { h: 'proposals' }, { h: 'certified' }, { h: 'refuted' }, { h: 'rejected' }, { h: 'malformed' }, { h: 'certified rate' }, { h: 'survivor truth' }];
+const cols = [{ h: 'model' }, { h: 'prompt' }, { h: 'proposals' }, { h: 'certified' }, { h: 'refuted' }, { h: 'rejected' }, { h: 'malformed' }, { h: 'certified rate' }, { h: 'survivor truth' }];
 const mkRow = (a, tagKind) => [
   { raw: '<span class="m">' + C.esc(a.model) + '</span>' + (tagKind ? ' ' + C.tag('calibration baseline', tagKind) : '') },
+  { raw: '<span class="m">' + C.esc(a.tag || 'v1') + '</span>' },
   String(a.n), String(a.certified), String(a.refuted), String(a.rejected), String(a.malformed), pct(a.certRate), pct(a.survivorTruth)
 ];
 O.push(C.section({

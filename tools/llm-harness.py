@@ -218,15 +218,19 @@ class MatmulFamily(Family):
         n, m, p, R = target
         return (
             f"Give a rank-{R} (or lower) decomposition of the {n}x{m} by {m}x{p} matrix "
-            f"multiplication tensor over the rationals.\n"
-            f"Convention: A is {n}x{m} (row-major vector a of length {n*m}), B is {m}x{p} "
-            f"(row-major b, length {m*p}), C = A*B is {n}x{p} (row-major c, length {n*p}). "
-            f"Your decomposition is three lists u, v, w of R rows each: u rows have length {n*m}, "
-            f"v rows length {m*p}, w rows length {n*p}, and it must satisfy, for ALL A and B:\n"
-            f"  C[i][k] = sum_r w[r][i*{p}+k] * (sum_ij u[r][i'*{m}+j'] * A[i'][j']) "
-            f"* (sum_jk v[r][j''*{p}+k''] * B[j''][k''])\n"
-            f"Entries may be integers or exact fractions written as strings like \"1/2\".\n"
-            f'Reply with ONLY a JSON object {{"u": [...], "v": [...], "w": [...]}}. No prose.'
+            f"multiplication tensor over the rationals.\n\n"
+            f"CONVENTION. A is {n}x{m}, vectorized row-major as a[0..{n*m-1}] with a[r*{m}+c] = A[r][c]. "
+            f"B is {m}x{p}, vectorized row-major as b[0..{m*p-1}] with b[r*{p}+c] = B[r][c]. "
+            f"C = A*B is {n}x{p}. Your answer is three lists u, v, w, each with R rows: "
+            f"u rows have length {n*m}, v rows length {m*p}, w rows length {n*p}. "
+            f"It must satisfy, for ALL matrices A and B and all i in 0..{n-1}, k in 0..{p-1}:\n"
+            f"  C[i][k] = sum over r of  w[r][i*{p}+k] * (dot(u[r], a)) * (dot(v[r], b))\n\n"
+            f"WORKED EXAMPLE at the smaller size 1x2 times 2x1 (rank 2, naive): "
+            f'{{"u": [[1,0],[0,1]], "v": [[1,0],[0,1]], "w": [[1],[1]]}} — '
+            f"here C[0][0] = 1*(A[0][0])*(B[0][0]) + 1*(A[0][1])*(B[1][0]), which is correct.\n\n"
+            f"Entries may be integers or exact fractions written as strings like \"1/2\". "
+            f'Reply with ONLY the JSON object {{"u": [...], "v": [...], "w": [...]}} — '
+            f"no prose, no markdown code fences."
         )
 
     @staticmethod
@@ -369,9 +373,16 @@ def anthropic_proposer(model: str, max_tokens: int = 200) -> Proposer:
             "https://api.anthropic.com/v1/messages", data=body,
             headers={"content-type": "application/json", "x-api-key": key,
                      "anthropic-version": "2023-06-01"})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            data = json.load(r)
-        return "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text")
+        last = None
+        for attempt in range(5):                      # transient network/API errors: retry,
+            try:                                      # never record them as model outcomes
+                with urllib.request.urlopen(req, timeout=120) as r:
+                    data = json.load(r)
+                return "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text")
+            except Exception as e:                    # noqa: BLE001
+                last = e
+                time.sleep(2 ** attempt)
+        raise RuntimeError(f"API failed after 5 attempts: {last}")
     return call
 
 
@@ -406,6 +417,7 @@ def fake_proposer(family: Family, seed: int = 0, error_rate: float = 0.4) -> Pro
 class Row:
     family: str
     model: str
+    tag: str
     target: str
     proposal_raw: str
     obj: Optional[str]
@@ -450,6 +462,7 @@ def main():
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--ledger", default="harness-ledger.jsonl")
+    ap.add_argument("--tag", default="v1", help="campaign tag recorded per row (prompt/version)")
     ap.add_argument("--max-tokens", type=int, default=200,
                     help="reply cap; matmul's upper rungs need thousands")
     args = ap.parse_args()
@@ -465,7 +478,11 @@ def main():
     with open(args.ledger, "a") as ledger:
         for t in targets:
             t0 = time.time()
-            raw = propose(fam.prompt(t))
+            try:
+                raw = propose(fam.prompt(t))
+            except RuntimeError as e:
+                print(f"SKIPPED (api): {t} — {e}", file=sys.stderr)
+                continue                              # an API failure is not a model outcome
             obj = fam.parse(raw)
             outcome, v = decide(fam, obj, t)
             k = fam.key(obj) if obj is not None else None
@@ -474,7 +491,7 @@ def main():
                     continue                 # dedup, inherited from the engine
                 seen.add(k)
             tally[outcome] += 1
-            row = Row(fam.name, args.model or "fake", str(t), raw.strip(), repr(obj) if obj is not None else None, outcome,
+            row = Row(fam.name, args.model or "fake", args.tag, str(t), raw.strip(), repr(obj) if obj is not None else None, outcome,
                       fam.statement(obj, t) if obj is not None else None,
                       v.witness if v else None, v.certificate if v else None, k, round(time.time() - t0, 3))
             ledger.write(json.dumps(asdict(row)) + "\n")
