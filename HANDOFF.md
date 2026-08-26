@@ -85,6 +85,22 @@ S2. THE TWO AUDIT STORIES —
         operator's word: a short note to the RM group (their Challenge
         asks for verified code), carrying the independent-rerun
         invitation.
+S2.5c HOUSEKEEPING RULINGS (operator, 2026-08-27), permanent:
+    - Every PAGE lives under /reports (plus the landing and /machine/).
+      No parallel page structures; historical URLs survive as 301s into
+      /reports (vercel.json holds 15, incl. .html spellings). /research/
+      on the site carries ONLY raw artifact FILES individually cited in
+      outreach (the alien-science bundle) — files, not pages.
+    - All five sent pages are REBUILT in cert-machine's design system
+      (reports/: erdos290, verify-lemniscate, mfg-congest, wardrop-repro,
+      alien-science), each gated on re-running its own public verifier at
+      build (embedded-verifier extraction for mfg/wardrop — the extracted
+      .py ships beside the page; the fellows-pack kernel for alien).
+      Byte-preserved originals live in legacy/ as repo provenance only.
+    - build-site is an INCREMENTAL SYNC: writes only changed bytes, prunes
+      only what should not exist, never rm-and-recreate (cloud-synced
+      ~/Documents has nothing to fight); sync-conflict junk is auto-pruned
+      silently. FIX CAUSES, DO NOT ADD GATES (operator instruction).
 S2.5b INCIDENT AND STANDING RULES (2026-08-27). A whole-directory lift of
     the mfg-congest and wardrop-repro units published 18 PROPRIETARY-marked
     solver files + internal docs (~127 files) to the public repo and site
