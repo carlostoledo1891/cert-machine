@@ -299,6 +299,11 @@ O.push(C.scope('Local working document. The certified enclosures are theorems (e
           + 'every other defect — a composite, a duplicate, an even entry, an inflated claim — makes the build '
           + 'fail, which is exactly what <span class="m">lean/erdos852/check.sh</span> demonstrates: three '
           + 'deliberately forged variants must be REJECTED by the kernel before the green build counts.')
+        + C.pRaw('Status, dated (2026-08-26): the calibration rung (primes to 10,000 against a weaker claim) '
+          + 'builds green and all three forged variants are rejected by the kernel; the full-scale run — 33,859 '
+          + 'primes through one kernel — is hours of compute and was still evaluating when this page was built. '
+          + 'This sentence is removed by the build that follows its first green completion; until then the '
+          + 'full-scale claim is the artifact\'s design, not yet its demonstrated state.')
         + C.pRaw('What stays outside Lean, stated plainly: the one-paragraph argument that a partial product of '
           + 'factors &gt; 1 over a subset of the primes lower-bounds the full convergent product, and the '
           + 'transcription of the published constant. The kernel replaces this project\'s BigInt arithmetic, '
