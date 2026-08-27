@@ -307,3 +307,26 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
 - [ ] Throughout: honest-boundary discipline unchanged — inferred labels
       stated, fuel rates flagged, previews labeled; the math never
       leaves, it just stops being the headline
+
+## Phase 6.7 — PLAN tab elevated (operator direction 2026-08-27: the tab
+## is GOLD — valuable; standard palette kept)
+- [x] PLAN map mode: replay flights/ambient HIDDEN; the whole corridor
+      NETWORK drawn translucent; hover brightens a route; click selects
+      it (map or selects); the chosen pair at full opacity + width
+- [x] DISPATCH: eligible (GO) aircraft get a DISPATCH button — the
+      aircraft flies the route live on the map (chevron + ring, pinned
+      to its route + direction) on the replay clock
+- [x] LIVE MISSION card: journey bar (origin/dest codes), Garmin-style
+      data blocks (SPD/ALT/BATT/MARGIN/DIST/ETA/L-D/PWR), EN ROUTE /
+      RESERVE BREACH PROJECTED / LANDED annunciators, ABORT/CLEAR,
+      missions-completed counter
+- [x] THE SPEED-RANGE TRADEOFF, plausibly: energy vs speed acts through
+      the L/D(V) line anchored on the CITED Uber Elevate points (L/D 17
+      @ 241 km/h, 13 @ 322); fly faster -> L/D falls -> more kW AND more
+      energy per km -> projected margin shrinks; push too hard and the
+      HUD flips to RESERVE BREACH PROJECTED ("slow down to restore
+      margin") — the physics as a game mechanic, honestly labeled:
+      mid-box simulation; the certified verdict stays the annunciator
+- [x] Mission pins its route+direction at dispatch (select changes
+      cannot teleport it); reversed routes fly reversed with flipped
+      heading

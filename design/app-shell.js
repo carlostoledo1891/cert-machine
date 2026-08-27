@@ -112,6 +112,26 @@ a{color:inherit}
 .as-batt .fill{position:absolute;inset:2px;border-radius:2px;background:var(--v-cert);
   transform-origin:left;transition:transform .3s,background .3s}
 .as-routebadge{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;color:var(--ink-3)}
+
+/* ---- live mission ---- */
+.as-dispatch{font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.12em;
+  color:var(--sig);border:1px solid var(--sig);background:var(--sig-soft);border-radius:6px;
+  padding:5px 12px;cursor:pointer;transition:all .15s}
+.as-dispatch:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.as-dispatch[disabled]{opacity:.35;cursor:not-allowed;transform:none}
+.as-datablocks{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+.as-db{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:8px;padding:7px 9px}
+.as-db span{display:block;font-family:var(--f-mono);font-size:8.5px;letter-spacing:.14em;
+  color:var(--ink-3);text-transform:uppercase}
+.as-db b{font-family:var(--f-mono);font-weight:600;font-size:15px;color:var(--ink);white-space:nowrap}
+.as-db.live b{color:var(--sig)}
+.as-journey{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-weight:600;
+  font-size:12px;margin:6px 0 2px}
+.as-journey .bar{flex:1;height:5px;border-radius:3px;background:var(--sunk);overflow:hidden;
+  border:1px solid var(--rule-soft)}
+.as-journey .bar i{display:block;height:100%;background:var(--sig);border-radius:3px;
+  transition:width .3s linear}
+.as-missions{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;color:var(--sig)}
 .as-card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
   padding:14px 16px;box-shadow:var(--shadow)}
 .as-h{font-family:var(--f-mono);font-weight:600;font-size:10px;letter-spacing:.16em;

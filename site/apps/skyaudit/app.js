@@ -19,7 +19,7 @@ function cssRgb(name) {
 let COL = {};
 function loadColors() {
   COL = { C: cssRgb('--v-cert'), R: cssRgb('--v-refu'), F: cssRgb('--v-refd'),
-    sig: cssRgb('--sig'), ink: cssRgb('--ink'), dim: cssRgb('--v-refd') };
+    sig: cssRgb('--sig'), ink: cssRgb('--ink'), dim: cssRgb('--v-refd'), gold: cssRgb('--warn') };
 }
 loadColors();
 const lerp = (a, b, t) => a.map((x, i) => Math.round(x + (b[i] - x) * t));
@@ -145,14 +145,15 @@ function layers() {
     if (p) heads.push({ f, p });
   }
   const L = [];
-  if (AMBIENT) {
+  const planMode = S.tab === 'plan';
+  if (!planMode && AMBIENT) {
     L.push(new deck.TripsLayer({ id: 'ambient', data: AMBIENT.tracks,
       getPath: (tr) => tr.map((e) => [e[2], e[1]]),
       getTimestamps: (tr) => tr.map((e) => e[0]),
       currentTime: S.t, trailLength: 150, fadeTrail: true,
       widthMinPixels: 1, getColor: [...COL.dim, 70], opacity: 0.5, pickable: false }));
   }
-  L.push(
+  if (!planMode) L.push(
     new deck.TripsLayer({ id: 'trips', data: b.flights,
       getPath: (f) => f.track.map((e) => [e[2], e[1]]),
       getTimestamps: (f) => f.track.map((e) => e[0]),
@@ -183,14 +184,42 @@ function layers() {
       getPosition: (d) => [d.lon, d.lat], getText: (d) => d.id,
       getSize: 11, getColor: [...COL.sig, 235], getPixelOffset: [0, -14],
       fontFamily: 'IBM Plex Mono, monospace', characterSet: 'auto', pickable: false }));
-    const route = planRoute();
-    if (route) {
-      L.push(new deck.PathLayer({ id: 'plan-route', data: [route],
-        getPath: (r) => r.coords, getColor: [...COL.sig, 235],
-        widthMinPixels: 3.5, capRounded: true, jointRounded: true }));
+    const selRoute = planRoute();
+    if (planMode) {
+      /* the corridor network: every route translucent; hover brightens;
+         the selected pair at full opacity — click a route to pick it */
+      const selKeyR = selRoute ? selRoute.from + '|' + selRoute.to : null;
+      L.push(new deck.PathLayer({ id: 'plan-network', data: PL.routes,
+        getPath: (r) => r.coords,
+        getColor: (r) => {
+          const k = r.from + '|' + r.to;
+          return k === selKeyR ? [...COL.sig, 245] : k === S.hovRoute ? [...COL.sig, 175] : [...COL.sig, 70];
+        },
+        getWidth: (r) => (r.from + '|' + r.to === selKeyR ? 4.5 : 2.2),
+        widthUnits: 'pixels', widthMinPixels: 2, capRounded: true, jointRounded: true,
+        pickable: true,
+        onHover: (i) => { S.hovRoute = i.object ? i.object.from + '|' + i.object.to : null; },
+        updateTriggers: { getColor: [selKeyR, S.hovRoute], getWidth: [selKeyR] } }));
+    } else if (selRoute) {
+      L.push(new deck.PathLayer({ id: 'plan-route', data: [selRoute],
+        getPath: (r) => r.coords, getColor: [...COL.sig, 200],
+        widthMinPixels: 3, capRounded: true, jointRounded: true }));
+    }
+    /* the dispatched aircraft, live on its pinned route */
+    if (S.msn && S.msn.route) {
+      const total = routeCum(S.msn.route)[routeCum(S.msn.route).length - 1];
+      const p = posAlongRoute(S.msn.route, S.msn.reversed ? total - S.msn.km : S.msn.km);
+      const dir = S.msn.reversed ? { ...p, brg: p.brg + 180 } : p;
+      L.push(new deck.ScatterplotLayer({ id: 'msn-ring', data: [dir],
+        getPosition: (d) => [d.lon, d.lat], radiusMinPixels: 12,
+        stroked: true, filled: false, getLineColor: [...COL.sig, 190], lineWidthMinPixels: 2 }));
+      L.push(new deck.IconLayer({ id: 'msn-ac', data: [dir],
+        iconAtlas: CHEV_URL, iconMapping: CHEV_MAP, getIcon: () => 'chev',
+        getPosition: (d) => [d.lon, d.lat], getAngle: (d) => -d.brg,
+        getColor: [...COL.sig, 255], getSize: 24, sizeMinPixels: 18 }));
     }
   }
-  if (S.sel) {
+  if (!planMode && S.sel) {
     L.push(new deck.PathLayer({ id: 'selpath', data: [S.sel],
       getPath: (f) => f.track.map((e) => [e[2], e[1]]),
       getColor: [...COL.sig, 210], widthMinPixels: 1.4 }));
@@ -209,7 +238,13 @@ function layers() {
 }
 function onMapClick(e) {
   const pick = overlay.pickObject && overlay.pickObject({ x: e.point.x, y: e.point.y, radius: 6 });
-  if (pick && pick.object) { S.sel = pick.object.f || pick.object; renderPanel(); pushUrl(); }
+  if (!pick || !pick.object) return;
+  if (S.tab === 'plan' && pick.object.from && pick.object.to) {
+    $('pl-from').value = pick.object.from; $('pl-to').value = pick.object.to;
+    renderPlan();
+    return;
+  }
+  if (pick.object.f || pick.object.verdicts) { S.sel = pick.object.f || pick.object; renderPanel(); pushUrl(); }
 }
 
 /* ---------------------------- loop ---------------------------- */
@@ -230,6 +265,7 @@ function frame(now) {
     }
     if (now - lastUrl > 800) { pushUrl(); lastUrl = now; }
     altCursor();
+    msnStep();
   }
   requestAnimationFrame(frame);
 }
@@ -279,6 +315,134 @@ $('speed').onclick = (e) => { if (e.target.dataset.v) { S.speed = +e.target.data
 $('mode').onclick = (e) => { if (e.target.dataset.v) { S.mode = e.target.dataset.v; segSync($('mode'), S.mode); renderCounts(); } };
 new MutationObserver(loadColors).observe(document.documentElement, { attributes: true });
 
+/* ---------------------------- the live mission (sim, gold) ------- */
+/* A SIMULATION from mid-box parameters and the cited L/D–speed line
+   (Uber Elevate 2016: L/D 17 @ 241 km/h, 13 @ 322). The certified
+   verdict for the route is the annunciator; this is the physics made
+   flyable. Faster = worse L/D = more power AND more energy per km.     */
+const SIMP = CFG.sim;
+const G0 = 9.80665;
+function ldOf(v) { return Math.max(10, Math.min(20, v <= 241 ? 17 : v >= 322 ? 13 : 17 + (v - 241) / 81 * -4)); }
+function pCruiseKw(sp, v) { return sp.m * G0 * (v / 3.6) / (ldOf(v) * SIMP.etaC) / 1000; }
+function pHoverKw(sp) { return sp.m * G0 / SIMP.etaH * Math.sqrt(sp.delta / (2 * SIMP.rho)) / 1000; }
+function reserveKwh(sp, v) {
+  const rule = S.key.split('|')[1];
+  return rule === 'faa-sfar-vfr' ? 1200 / 3600 * pCruiseKw(sp, v) / SIMP.etaB
+    : 300 / 3600 * pHoverKw(sp) / SIMP.etaB;
+}
+function routeCum(r) {
+  if (!r._cum) {
+    const c = [0];
+    for (let i = 1; i < r.coords.length; i++) {
+      const [lo1, la1] = r.coords[i - 1], [lo2, la2] = r.coords[i];
+      const dx = (lo2 - lo1) * 111.32 * Math.cos(la1 * Math.PI / 180), dy = (la2 - la1) * 111.13;
+      c.push(c[i - 1] + Math.sqrt(dx * dx + dy * dy));
+    }
+    r._cum = c;
+  }
+  return r._cum;
+}
+function posAlongRoute(r, km) {
+  const cum = routeCum(r), total = cum[cum.length - 1];
+  const d = Math.max(0, Math.min(total, km));
+  let i = 1; while (i < cum.length - 1 && cum[i] < d) i++;
+  const u = (d - cum[i - 1]) / Math.max(1e-9, cum[i] - cum[i - 1]);
+  const [lo1, la1] = r.coords[i - 1], [lo2, la2] = r.coords[i];
+  const brg = Math.atan2((lo2 - lo1) * Math.cos(la1 * Math.PI / 180), la2 - la1) * 180 / Math.PI;
+  return { lon: lo1 + (lo2 - lo1) * u, lat: la1 + (la2 - la1) * u, brg, total };
+}
+
+function dispatch(specId) {
+  const r = planRoute(); if (!r) return;
+  const sp = SIMP.specs[specId];
+  S.msn = { spec: specId, from: $('pl-from').value, to: $('pl-to').value,
+    route: r, reversed: $('pl-from').value !== r.from,
+    v: Math.round((sp.vBox[0] + sp.vBox[1]) / 2), km: 0, used: 0, alt: 0,
+    startT: S.t, lastT: S.t, done: false, breach: false };
+  $('mission-card').style.display = '';
+  renderMission(true);
+  $('mission-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+window._dispatch = dispatch;
+
+function msnStep() {
+  const m = S.msn; if (!m || m.done) return;
+  const r = m.route;
+  const sp = SIMP.specs[m.spec];
+  let dt = S.t - m.lastT; m.lastT = S.t;
+  if (dt <= 0 || dt > 600) return;
+  const total = routeCum(r)[routeCum(r).length - 1];
+  const elapsed = S.t - m.startT;
+  const hover = elapsed < 30 || m.km >= total;         /* takeoff / landing hover */
+  if (hover) {
+    m.used += pHoverKw(sp) * dt / 3600 / SIMP.etaB;
+    if (elapsed >= 30 && m.km >= total && elapsed > 60) { m.done = true; S.msnCount = (S.msnCount || 0) + 1; }
+    m.alt = m.km >= total ? Math.max(0, m.alt - 500 * dt / 60) : Math.min(300, elapsed * 10);
+  } else {
+    m.km += m.v * dt / 3600;
+    m.used += pCruiseKw(sp, m.v) * dt / 3600 / SIMP.etaB;
+    const toGo = Math.max(0, total - m.km);
+    m.alt = Math.min(1150, m.alt + 800 * dt / 60, Math.max(120, toGo / 2 * 3800));
+  }
+  renderMission(false);
+}
+
+function renderMission(full) {
+  const m = S.msn, host = $('mission'); if (!m || !host) return;
+  const r = m.route;
+  const sp = SIMP.specs[m.spec];
+  const total = routeCum(r)[routeCum(r).length - 1];
+  const usable = sp.kwh * SIMP.usableFrac;
+  const res = reserveKwh(sp, m.v);
+  const toGo = Math.max(0, total - m.km);
+  const projected = usable - m.used - toGo / m.v * pCruiseKw(sp, m.v) / SIMP.etaB - res;
+  m.breach = projected < 0;
+  const batt = Math.max(0, 100 * (1 - m.used / usable));
+  const eta = Math.ceil(toGo / m.v * 60 + (m.done ? 0 : 1));
+  const pct = Math.min(100, m.km / total * 100);
+  if (full) {
+    host.innerHTML = `
+    <div class="as-journey"><span>${m.from}</span><div class="bar"><i id="ms-bar"></i></div><span>${m.to}</span></div>
+    <div class="as-datablocks">
+      <div class="as-db live"><span>SPD km/h</span><b id="ms-spd"></b></div>
+      <div class="as-db"><span>ALT ft</span><b id="ms-alt"></b></div>
+      <div class="as-db"><span>BATT %</span><b id="ms-batt"></b></div>
+      <div class="as-db"><span>MARGIN kWh</span><b id="ms-mgn"></b></div>
+      <div class="as-db"><span>DIST to go</span><b id="ms-togo"></b></div>
+      <div class="as-db"><span>ETA min</span><b id="ms-eta"></b></div>
+      <div class="as-db"><span>L/D now</span><b id="ms-ld"></b></div>
+      <div class="as-db"><span>PWR kW</span><b id="ms-pwr"></b></div>
+    </div>
+    <div class="as-h" style="margin-top:4px">Speed — faster burns more per km (L/D falls)</div>
+    <input type="range" class="as-scrub" id="ms-v" min="${sp.vBox[0]}" max="${sp.vBox[1]}" step="1" value="${m.v}" style="width:100%">
+    <div id="ms-status" style="margin-top:8px"></div>
+    <div class="as-fine" style="margin-top:8px">Simulation from mid-box parameters + the cited
+    L/D–speed line (${SIMP.ld.cite}); reserve held per the selected rule. The certified verdict
+    for this route is the annunciator above — this panel is the physics, made flyable.</div>`;
+    $('ms-v').oninput = (e) => { S.msn.v = +e.target.value; renderMission(false); };
+  }
+  $('ms-bar').style.width = pct.toFixed(1) + '%';
+  $('ms-spd').textContent = m.v;
+  $('ms-alt').textContent = Math.round(m.alt);
+  $('ms-batt').textContent = batt.toFixed(0);
+  $('ms-mgn').textContent = projected.toFixed(1);
+  $('ms-mgn').style.color = m.breach ? 'var(--v-refu)' : 'var(--ink)';
+  $('ms-togo').textContent = toGo.toFixed(1) + ' km';
+  $('ms-eta').textContent = m.done ? '—' : eta;
+  $('ms-ld').textContent = ldOf(m.v).toFixed(1);
+  $('ms-pwr').textContent = Math.round(pCruiseKw(sp, m.v));
+  $('ms-status').innerHTML = m.done
+    ? `<span class="as-ann go">LANDED</span> <span class="as-encvals">final margin ${(usable - m.used - res).toFixed(1)} kWh (sim)</span>
+       <button class="as-btn" style="margin-left:8px" onclick="window._endMsn()">CLEAR</button>
+       <div class="as-missions" style="margin-top:6px">MISSIONS COMPLETED THIS SESSION: ${S.msnCount || 0}</div>`
+    : m.breach
+      ? `<span class="as-ann no">RESERVE BREACH PROJECTED</span> <span class="as-encvals">slow down to restore margin</span>
+         <button class="as-btn" style="margin-left:8px" onclick="window._endMsn()">ABORT</button>`
+      : `<span class="as-ann go">EN ROUTE</span>
+         <button class="as-btn" style="margin-left:8px" onclick="window._endMsn()">ABORT</button>`;
+}
+window._endMsn = () => { S.msn = null; $('mission-card').style.display = 'none'; };
+
 /* ---------------------------- the flight planner ----------------- */
 function planRoute() {
   const PL = CFG.planner;
@@ -307,9 +471,12 @@ function renderPlan() {
     const ann = v.v === 'C' ? '<span class="as-ann go">GO</span>'
       : v.v === 'R' ? '<span class="as-ann no">NO-GO</span>'
       : '<span class="as-ann na">NEEDS DATA</span>';
+    const btn = v.v === 'C'
+      ? `<button class="as-dispatch" onclick="window._dispatch('${sp}')">DISPATCH ▸</button>` : '';
     return `<div class="as-frow"><span><span class="name">${NAMES[sp]}</span>
       <span class="sub">${v.t_min[0]}–${v.t_min[1]} min flight · charge after ≈${v.charge_after_min} min${
-        typeof v.m === 'number' ? ' · margin ' + v.m + ' kWh proved' : ''}</span></span>${ann}</div>`;
+        typeof v.m === 'number' ? ' · margin ' + v.m + ' kWh proved' : ''}</span></span>
+      <span style="display:flex;gap:6px;align-items:center">${btn}${ann}</span></div>`;
   }).join('')}
   <div class="as-fine" style="margin-top:8px">Energy GO/NO-GO under the ${RULES[rule]} rule (switch
   aircraft·rule in FLEET) — a mathematically certified enclosure per aircraft, precomputed and

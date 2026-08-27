@@ -152,7 +152,20 @@ const html = renderApp({
   configJson: JSON.stringify({ style: '/apps/skyaudit/style.json',
     bundle: '/apps/skyaudit/data/nyc.replay.json', tiles: tilesPins.served_from,
     ambient: '/apps/skyaudit/data/nyc.ambient.json', designer: optimize.designer,
-    planner: { heliports: planner.heliports, routes: planner.routes, bands: planner.bandsLegend } }),
+    planner: { heliports: planner.heliports, routes: planner.routes, bands: planner.bandsLegend },
+    sim: (() => {   /* mid-box parameters for the LIVE MISSION simulation (labeled sim, not certificate) */
+      const phys = JSON.parse(fs.readFileSync(path.join(APP, 'scenario/physics/kasliwal-2019.json'), 'utf8'));
+      const mid = (b) => (b[0] + b[1]) / 2;
+      const specs = {};
+      for (const id of ['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100']) {
+        const s = JSON.parse(fs.readFileSync(path.join(APP, 'scenario/specs', id + '.json'), 'utf8'));
+        specs[id] = { m: mid(s.boxes.m_kg.v), kwh: mid(s.boxes.battery_kwh.v),
+          vBox: s.boxes.v_cruise_kmh.v, delta: mid(s.boxes.delta_nm2.v),
+          chargeMin: s.boxes.charge_minutes_full.v[1] };
+      }
+      return { specs, etaC: 0.765, etaH: 0.63, etaB: 0.9, usableFrac: 0.8, rho: 1.225,
+        ld: { anchors: [[241, 17], [322, 13]], cite: 'Uber Elevate 2016: L/D 17 @ 150 mph, 13 @ 200 mph' } };
+    })() }),
   scripts: ['vendor/maplibre-gl.js', 'vendor/deck.min.js', 'vendor/pmtiles.js', 'app.js'],
   leftHtml: `
   <section class="as-card">
@@ -293,6 +306,10 @@ const html = renderApp({
     </div>
     <div id="pl-out"></div>
     <div class="as-fine" style="margin-top:10px">${planner.honesty}</div>
+  </section>
+  <section class="as-card" id="mission-card" style="display:none">
+    <div class="as-h">Live mission</div>
+    <div id="mission"></div>
   </section>
   </div>`,
 
