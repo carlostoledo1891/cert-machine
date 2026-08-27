@@ -50,6 +50,14 @@ const CORPUS = (() => {
           + '…), factors (3, ' + e.dims[0] * e.dims[1] + ', ' + e.rank + ') converted by tools/convert_alphatensor.py' });
     }
   } catch (e) { /* corpus not converted — the built-in entries still audit */ }
+  try {
+    const C = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'corpus', 'alphaevolve-corpus.json'), 'utf8'));
+    for (const e of C.entries) {
+      out.push({ id: e.id,
+        claim: { dims: e.dims, rank: e.rank, U: e.U, V: e.V, W: e.W, ring: 'Zi', scale: e.scale },
+        source: e.source, pin: e.pinKey, transcription: e.transcription, note: e.note });
+    }
+  } catch (e) { /* corpus not converted — the built-in entries still audit */ }
   return out;
 })();
 
@@ -63,6 +71,38 @@ module.exports = {
     const { dims, U, V, W } = o.claim;
     const [n, m, p] = dims;
     const r = T.rankOf(U);
+    if (o.claim.ring === 'Zi') {
+      /* the same deterministic sample, in Gaussian arithmetic: the algorithm
+         must produce scale*direct with zero imaginary part */
+      const scale = o.claim.scale || 1;
+      const A = Array.from({ length: n * m }, (_, i) => ((i * 7 + 3) % 10) - 4);
+      const B = Array.from({ length: m * p }, (_, i) => ((i * 5 + 1) % 9) - 4);
+      const L = [], Rr = [];
+      for (let t = 0; t < r; t++) {
+        let lre = 0, lim = 0, rre = 0, rim = 0;
+        for (let i = 0; i < n * m; i++) { lre += U[i][t][0] * A[i]; lim += U[i][t][1] * A[i]; }
+        for (let j = 0; j < m * p; j++) { rre += V[j][t][0] * B[j]; rim += V[j][t][1] * B[j]; }
+        L.push([lre, lim]); Rr.push([rre, rim]);
+      }
+      let worst = 0;
+      for (let a = 0; a < n; a++) for (let c = 0; c < p; c++) {
+        let direct = 0;
+        for (let b = 0; b < m; b++) direct += A[a * m + b] * B[b * p + c];
+        let bestErr = Infinity;
+        for (const k of [a * p + c, c * n + a]) {
+          let gre = 0, gim = 0;
+          for (let t = 0; t < r; t++) {
+            const pre = L[t][0] * Rr[t][0] - L[t][1] * Rr[t][1];
+            const pim = L[t][0] * Rr[t][1] + L[t][1] * Rr[t][0];
+            gre += W[k][t][0] * pre - W[k][t][1] * pim;
+            gim += W[k][t][0] * pim + W[k][t][1] * pre;
+          }
+          bestErr = Math.min(bestErr, Math.max(Math.abs(gre - scale * direct), Math.abs(gim)));
+        }
+        worst = Math.max(worst, bestErr);
+      }
+      return worst;
+    }
     const mod = o.claim.ring === 'F2' ? 2 : 0;
     const A = Array.from({ length: n * m }, (_, i) => ((i * 7 + 3) % 10) - 4);
     const B = Array.from({ length: m * p }, (_, i) => ((i * 5 + 1) % 9) - 4);
@@ -98,7 +138,7 @@ module.exports = {
       if (!pv.ok) return { verdict: 'REFUSED', why: 'source pin failed for ' + o.pin + ': ' + pv.why };
       sourcePin = { file: pv.file, sha256: pv.sha256 };
     }
-    const a = T.audit(o.claim);
+    const a = o.claim.ring === 'Zi' ? T.auditZi(o.claim) : T.audit(o.claim);
     if (a.verdict === 'REFUTED') {
       return { verdict: 'REJECT', enclosure: [0, 0],
         text: 'DISCOVERY-CLASS REFUTATION: ' + o.id + ' does NOT multiply matrices — ' + a.why,
@@ -124,12 +164,14 @@ module.exports = {
       verdict: 'HIT',
       enclosure: [a.rank, a.rank],
       text: o.id + ': ' + n + 'x' + m + ' times ' + m + 'x' + p + ' in ' + a.rank + ' multiplications VERIFIED over '
-        + (o.claim.ring || 'Q') + ' — all ' + a.equations + ' tensor-identity equations hold exactly (layout ' + a.layout
+        + (o.claim.ring === 'Zi' ? 'Z[i] (doubled half-Gaussian factors; identity = ' + a.scale + '*T, denominators cleared)' : (o.claim.ring || 'Q'))
+        + ' — all ' + a.equations + ' tensor-identity equations hold exactly (layout ' + a.layout
         + '); rank ' + a.rank + ' < ' + a.naive + ' naive'
         + (overQ ? '; ' + overQ : '')
         + (o.generated ? ' — generated AND decided here' : ''),
       extra: { id: o.id, source: o.source, dims: o.claim.dims, rank: a.rank, naive: a.naive,
         ring: o.claim.ring || 'Q', layout: a.layout, equations: a.equations,
+        ...(o.claim.ring === 'Zi' ? { scale: a.scale } : {}),
         ...(overQ ? { overQ } : {}),
         ...(o.transcription ? { transcription: o.transcription } : {}),
         ...(sourcePin ? { sourcePin } : {}),

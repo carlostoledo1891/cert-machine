@@ -72,6 +72,35 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
   }
 }
 
+/* ---- the Gaussian ring: AlphaEvolve's 48, decided ---- */
+{
+  const s7 = T.strassen();
+  const lift = { dims: s7.dims, rank: 7, ring: 'Zi', scale: 1,
+    U: s7.U.map(r => r.map(x => [x, 0])), V: s7.V.map(r => r.map(x => [x, 0])), W: s7.W.map(r => r.map(x => [x, 0])) };
+  const lz = T.auditZi(lift);
+  ok(lz.verdict === 'VERIFIED' && lz.layout === 'AC',
+    'CALIBRATION: Strassen 1969 lifted to Z[i] (im = 0, scale 1) verifies with the same layout');
+
+  const ae = (() => { for (let i = 0; ; i++) { const e = FAM.enumerate(i); if (!e) return null; if (e.id === 'alphaevolve-48-4x4x4') return e; } })();
+  ok(!!ae, 'the AlphaEvolve rank-48 4x4x4 enumerates from the pinned notebook corpus');
+  if (ae) {
+    const az = T.auditZi(ae.claim);
+    ok(az.verdict === 'VERIFIED' && az.rank === 48 && az.scale === 8,
+      'FLAGSHIP 2: 4x4 in 48 multiplications VERIFIED over Z[i] — sum (2u)(2v)(2w) = 8*T, all ' + (az.equations || 0) + ' equations exact (layout ' + az.layout + ')');
+    const big = T.auditZiBig(ae.claim);
+    ok(big.verdict === 'VERIFIED' && big.layout === az.layout,
+      'the exact-double Gaussian path agrees with a full BigInt audit');
+    const forged = { ...ae.claim, W: ae.claim.W.map((row, i) => (i === 5 ? row.map((x, t) => (t === 7 ? [x[0] + 1, x[1]] : x)) : row)) };
+    const rz = T.auditZi(forged);
+    ok(rz.verdict === 'REFUTED', 'RED: one Gaussian component off by 1 is REFUTED (' + (rz.why || '').slice(0, 40) + '…)');
+    const forgedIm = { ...ae.claim, W: ae.claim.W.map((row, i) => (i === 3 ? row.map((x, t) => (t === 2 ? [x[0], x[1] + 1] : x)) : row)) };
+    ok(T.auditZi(forgedIm).verdict === 'REFUTED', 'RED: an imaginary component off by 1 is REFUTED — the im = 0 constraint is live');
+    const c = FAM.certify(ae);
+    ok(c.verdict === 'HIT' && c.extra.scale === 8 && c.extra.sourcePin,
+      'the certificate states the doubled-scale identity and carries the notebook pin (' + (c.extra.sourcePin ? c.extra.sourcePin.sha256.slice(0, 8) + '…' : '-') + ')');
+  }
+}
+
 /* ---- the family end-to-end ---- */
 {
   let hits = 0, rejects = 0, refused = 0, laderman = false;
@@ -85,8 +114,8 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     else refused++;
     if (o.id === 'alphatensor-q-3x3x3' && c.verdict === 'HIT' && c.extra.rank === 23) laderman = true;
   }
-  ok(hits === 9 && rejects === 1 && refused === 0,
-    'corpus decided: 9 fast algorithms HIT, the naive rank-8 honestly REJECTED as correct-but-not-fast (' + hits + '/' + rejects + '/' + refused + ')');
+  ok(hits === 10 && rejects === 1 && refused === 0,
+    'corpus decided: 10 fast algorithms HIT (AlphaEvolve 48 now among them), the naive rank-8 honestly REJECTED (' + hits + '/' + rejects + '/' + refused + ')');
   ok(laderman, 'the rank-23 3x3x3 verifies — Laderman\'s 1976 rank, here via AlphaTensor\'s factors');
 }
 

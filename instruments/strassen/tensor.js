@@ -181,4 +181,84 @@ function strassen() {
   };
 }
 
-module.exports = { audit, auditBig, naive, compose, strassen, rankOf, target };
+/* ---- Gaussian-integer audits ---------------------------------------------
+   ring 'Zi': every factor entry is an integer pair [re, im], and the claim
+   may carry an integer scale s >= 1 — the identity decided is
+       sum_t U[ab][t]*V[b'c][t]*W[k][t] = s * [b=b'] * [k=index]
+   with imaginary part exactly 0. This is the natural home of AlphaEvolve's
+   rank-48 <4,4,4> "over 0.5*C": its half-Gaussian factors, doubled, are
+   Z[i] matrices and the claim is sum (2u)(2v)(2w) = 8*T. */
+function auditZi(claim) {
+  const { dims, U, V, W } = claim;
+  const scale = claim.scale || 1;
+  const [n, m, p] = dims;
+  const r = rankOf(U);
+  if (claim.rank !== undefined && claim.rank !== r)
+    return { verdict: 'REFUTED', why: 'claimed rank ' + claim.rank + ' but the factors have ' + r + ' columns' };
+  if (U.length !== n * m || V.length !== m * p || W.length !== n * p)
+    return { verdict: 'REFUTED', why: 'factor shapes do not match dims <' + dims + '>' };
+  const intPair = (x) => Array.isArray(x) && x.length === 2 && Number.isInteger(x[0]) && Number.isInteger(x[1]);
+  if (!Number.isInteger(scale) || scale < 1)
+    return { verdict: 'REFUTED', why: 'scale must be a positive integer' };
+  if (![...U, ...V, ...W].every(row => row.length === r && row.every(intPair)))
+    return { verdict: 'REFUTED', why: 'factors are not [re,im] Gaussian-integer matrices of uniform rank' };
+  let mx = 0;
+  for (const M of [U, V, W]) for (const row of M) for (const [a, b] of row) mx = Math.max(mx, Math.abs(a), Math.abs(b));
+  if (r * 4 * Math.max(1, mx) ** 3 + scale >= EXACT)
+    return { verdict: 'REFUSED', why: 'Gaussian coefficient bound too large for exact double summation' };
+  for (const layout of ['AC', 'CA']) {
+    let bad = null;
+    for (let ab = 0; ab < n * m && !bad; ab++) {
+      for (let bc = 0; bc < m * p && !bad; bc++) {
+        const uv = new Array(r);
+        for (let t = 0; t < r; t++) {
+          const ua = U[ab][t], va = V[bc][t];
+          uv[t] = [ua[0] * va[0] - ua[1] * va[1], ua[0] * va[1] + ua[1] * va[0]];
+        }
+        for (let k = 0; k < n * p; k++) {
+          let sre = 0, sim = 0;
+          const Wk = W[k];
+          for (let t = 0; t < r; t++) {
+            const w = Wk[t], u = uv[t];
+            sre += u[0] * w[0] - u[1] * w[1];
+            sim += u[0] * w[1] + u[1] * w[0];
+          }
+          const want = scale * target(dims, layout, ab, bc, k);
+          if (sre !== want || sim !== 0) {
+            bad = 'equation (ab=' + ab + ', bc=' + bc + ', k=' + k + '): sum ' + sre + (sim < 0 ? '' : '+') + sim + 'i, target ' + want;
+            break;
+          }
+        }
+      }
+    }
+    if (!bad) return { verdict: 'VERIFIED', layout, rank: r, ring: 'Zi', scale,
+      equations: n * m * m * p * n * p, naive: n * m * p };
+    if (layout === 'CA') return { verdict: 'REFUTED', why: 'identity fails under BOTH C-layouts; last failure: ' + bad };
+  }
+}
+
+/* the same audit entirely in BigInt — the battery's cross-check */
+function auditZiBig(claim) {
+  const { dims, U, V, W } = claim;
+  const scale = BigInt(claim.scale || 1);
+  const [n, m, p] = dims;
+  const r = rankOf(U);
+  for (const layout of ['AC', 'CA']) {
+    let ok = true;
+    for (let ab = 0; ab < n * m && ok; ab++) for (let bc = 0; bc < m * p && ok; bc++) for (let k = 0; k < n * p && ok; k++) {
+      let sre = 0n, sim = 0n;
+      for (let t = 0; t < r; t++) {
+        const [a, b] = U[ab][t].map(BigInt), [c, d] = V[bc][t].map(BigInt), [e, f] = W[k][t].map(BigInt);
+        const gre = a * c - b * d, gim = a * d + b * c;
+        sre += gre * e - gim * f;
+        sim += gre * f + gim * e;
+      }
+      const want = scale * BigInt(target(dims, layout, ab, bc, k));
+      if (sre !== want || sim !== 0n) ok = false;
+    }
+    if (ok) return { verdict: 'VERIFIED', layout };
+  }
+  return { verdict: 'REFUTED' };
+}
+
+module.exports = { audit, auditBig, auditZi, auditZiBig, naive, compose, strassen, rankOf, target };

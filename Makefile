@@ -16,7 +16,9 @@ help:
 	@echo "  LIMIT=800000 CERT_CAP=600 make engine   to run wider"
 
 engine:
-	@$(NODE) tools/run-engine.js $${LIMIT:-400000}
+	@# CERT_CAP defaults to 1600: below that, a default run silently regresses
+	@# the chowla R6 exhaustion (all 1,579 screen survivors certified — terminal)
+	@CERT_CAP=$${CERT_CAP:-1600} $(NODE) tools/run-engine.js $${LIMIT:-400000}
 	@$(NODE) tools/export-keller-certificate.js
 	@$(NODE) tools/export-strassen-certificate.js
 	@$(NODE) tools/export-erdos852-certificate.js

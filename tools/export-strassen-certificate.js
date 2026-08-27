@@ -26,6 +26,7 @@ for (let i = 0; ; i++) {
     id: o.id, source: o.source,
     dims: o.claim.dims, rank: c.extra.rank, naive: c.extra.naive,
     ring: c.extra.ring, layout: c.extra.layout,
+    scale: c.extra.scale || undefined,
     statement: c.text,
     U: o.claim.U, V: o.claim.V, W: o.claim.W,
     overQ: c.extra.overQ || undefined,
@@ -42,7 +43,8 @@ const out = {
     + 'Verify with tools/verify_strassen.py — Python stdlib only, no code from this repo.',
   layoutNote: 'layout AC: k = a*p + c; layout CA: k = c*n + a.',
   generatedBy: 'tools/export-strassen-certificate.js @ git ' + (sh('git rev-parse --short HEAD') || 'unknown'),
-  sourcePins: { 'alphatensor_r.npz': PIN.PINS['alphatensor_r.npz'], 'alphatensor_f2.npz': PIN.PINS['alphatensor_f2.npz'] },
+  sourcePins: { 'alphatensor_r.npz': PIN.PINS['alphatensor_r.npz'], 'alphatensor_f2.npz': PIN.PINS['alphatensor_f2.npz'],
+    'alphaevolve_mathematical_results.ipynb': PIN.PINS['alphaevolve_mathematical_results.ipynb'] },
   entries
 };
 

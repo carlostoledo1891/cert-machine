@@ -271,6 +271,41 @@ O.push(C.scope('Local working document. The certified enclosures are theorems (e
         + 'This page itself refuses to build if any verdict, digit, or the mechanism reproduction moves.')
       + '</div>'
   }));
+
+  /* §8 — the Lean bridge. The page asserts the artifact exists and states
+     what the kernel checks; the build itself is minutes of kernel time and
+     runs via lean/erdos852/check.sh, not here. */
+  {
+    const fs2 = require('fs');
+    const leanDir = path.join(ROOT, 'lean', 'erdos852');
+    const basic = path.join(leanDir, 'Erdos852', 'Basic.lean');
+    const refut = path.join(leanDir, 'Erdos852', 'Refutation.lean');
+    if (!fs2.existsSync(basic) || !fs2.existsSync(refut)) die('the Lean bridge files are missing');
+    const refutSrc = fs2.readFileSync(refut, 'utf8');
+    if (!/cstar_refuted/.test(refutSrc) || !/752403861778/.test(refutSrc)) die('Refutation.lean does not state the claim-window inequality');
+    O.push(C.section({
+      lab: '§8 · the lean bridge', title: 'The refutation, checked by a kernel that is not ours',
+      bodyRaw: '<div class="col">'
+        + C.pRaw('Everything above runs on this project\'s own stack — and a fair objection is that the stack '
+          + 'and the claims share an author. So the refutation also ships as a <strong>Lean 4 artifact</strong> '
+          + '(<span class="m">lean/erdos852/</span> in the repository): the odd primes up to 400,000 as data, a '
+          + 'ten-line trial-division certifier with a machine-checked correctness theorem against Mathlib\'s '
+          + '<span class="m">Nat.Prime</span>, and the ONE integer inequality — the exact partial product N/D '
+          + 'over those primes satisfies 5·(N−D)·10¹² &gt; 752403861778·D, i.e. (N/D−1)/2 already exceeds the '
+          + 'upper edge of the published claim\'s window. Every ingredient is re-proved by the Lean kernel: '
+          + 'primality of all 33,859 listed primes, strict ascent (no prime counted twice), oddness, and the '
+          + 'inequality itself.')
+        + C.pRaw('The prime list needs no trust at all: an omitted prime only WEAKENS the lower bound, and '
+          + 'every other defect — a composite, a duplicate, an even entry, an inflated claim — makes the build '
+          + 'fail, which is exactly what <span class="m">lean/erdos852/check.sh</span> demonstrates: three '
+          + 'deliberately forged variants must be REJECTED by the kernel before the green build counts.')
+        + C.pRaw('What stays outside Lean, stated plainly: the one-paragraph argument that a partial product of '
+          + 'factors &gt; 1 over a subset of the primes lower-bounds the full convergent product, and the '
+          + 'transcription of the published constant. The kernel replaces this project\'s BigInt arithmetic, '
+          + 'not the definition of C*.')
+        + '</div>'
+    }));
+  }
 }
 
 const foot = '<footer class="col">'

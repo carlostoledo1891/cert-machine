@@ -28,6 +28,8 @@ import os
 
 
 def audit(entry):
+    if entry['ring'] == 'Zi':
+        return audit_zi(entry)
     n, m, p = entry['dims']
     U, V, W = entry['U'], entry['V'], entry['W']
     r = entry['rank']
@@ -52,6 +54,37 @@ def audit(entry):
         return False, 'rank %d is not below naive %d' % (r, n * m * p)
     return True, '%dx%d times %dx%d in %d multiplications over %s (layout %s): all %d equations hold' % (
         n, m, m, p, r, entry['ring'], layout, (n * m) * (m * p) * (n * p))
+
+
+def audit_zi(entry):
+    """Gaussian-integer entries [re, im]; identity sum u*v*w = scale*target,
+    imaginary part exactly 0 (AlphaEvolve's doubled half-Gaussian claim)."""
+    n, m, p = entry['dims']
+    U, V, W = entry['U'], entry['V'], entry['W']
+    r = entry['rank']
+    scale = entry.get('scale', 1)
+    layout = entry['layout']
+    if len(U) != n * m or len(V) != m * p or len(W) != n * p:
+        return False, 'factor shapes do not match dims'
+    if any(len(row) != r for row in U + V + W):
+        return False, 'rank claim does not match factor columns'
+    for ab in range(n * m):
+        a, b = divmod(ab, m)
+        for bc in range(m * p):
+            b2, c = divmod(bc, p)
+            uv = [(U[ab][t][0] * V[bc][t][0] - U[ab][t][1] * V[bc][t][1],
+                   U[ab][t][0] * V[bc][t][1] + U[ab][t][1] * V[bc][t][0]) for t in range(r)]
+            kk = (a * p + c) if layout == 'AC' else (c * n + a)
+            for k in range(n * p):
+                sre = sum(uv[t][0] * W[k][t][0] - uv[t][1] * W[k][t][1] for t in range(r))
+                sim = sum(uv[t][0] * W[k][t][1] + uv[t][1] * W[k][t][0] for t in range(r))
+                want = scale * (1 if (b == b2 and k == kk) else 0)
+                if sre != want or sim != 0:
+                    return False, 'equation (ab=%d, bc=%d, k=%d): sum %d%+di, target %d' % (ab, bc, k, sre, sim, want)
+    if r >= n * m * p:
+        return False, 'rank %d is not below naive %d' % (r, n * m * p)
+    return True, '%dx%d times %dx%d in %d multiplications over Z[i] (scale %d, layout %s): all %d equations hold' % (
+        n, m, m, p, r, scale, layout, (n * m) * (m * p) * (n * p))
 
 
 def main():
@@ -86,7 +119,10 @@ def main():
                 failures += 1
 
     red = json.loads(json.dumps(cert['entries'][0]))
-    red['W'][0][0] += 1
+    if isinstance(red['W'][0][0], list):
+        red['W'][0][0][0] += 1
+    else:
+        red['W'][0][0] += 1
     okr, _ = audit(red)
     print('%s  RED control: one coefficient forged by +1 %s' % (
         'PASS' if not okr else 'FAIL', 'is refuted' if not okr else 'PASSED — verifier broken'))

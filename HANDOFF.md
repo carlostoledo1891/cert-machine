@@ -68,8 +68,10 @@ GO-LIVE — (1) DONE on the operator's word (2026-08-27): the repo is
         provisioned analytics id but enabling it is DASHBOARD-ONLY
         (one toggle: project -> Analytics -> Enable) — no public API;
         works instantly once toggled, no redeploy needed;
-    (3) post the #510 comment (operator's erdosproblems login; after (1),
-        since the comment cites the certificate URL).
+    (3) DONE (2026-08-26, operator's click): the #510 lambda-table comment
+        is POSTED and sits in the moderation queue; the sweep now watches
+        the page (signature digits) and shouts + instructs a snapshot when
+        it appears. Status note in outreach/erdos510-comment.md.
     From the moment (1) exists, the default-publish rule is live: every
     green session ends by rebuilding the site and pushing.
 S2. THE TWO AUDIT STORIES —
@@ -173,7 +175,9 @@ S4. THE NEW-CLAIMS SWEEP — DONE (2026-08-27): tools/sweep-claims.js.
     results page (a new sheet = new registry corpus), the erdosproblems
     #852 thread (the standing moderation check is now automated — it
     shouts when the correction digits appear and the snapshot instruction
-    fires), and arXiv "Ramanujan Machine" mentions (a proof of an audited
+    fires), the #510 page (added 2026-08-26: the posted lambda-table
+    comment's signature digits; shout + snapshot when public), and arXiv
+    "Ramanujan Machine" mentions (a proof of an audited
     row updates its registry status). Diff state: corpus/claims-seen.json.
     A REPORT, not a gate — exit 0 always; acting is a session decision.
     No cron unless the operator later opts in.
@@ -184,17 +188,36 @@ S5. THE MERCER PROGRAM REPORT — DONE (2026-08-27): reports/mercer-program.html
     m = 5..20 bracket ladder, M(0,1,2,6,9) = 1, cross-lab replication to
     the kill-split digit. "First CERTIFICATE / named box" framing; Boyd
     1986 (unread; ILL) gates "first witness" prose only.
-S6. THE METHODS NOTE — the bug catalog (~9 real bugs, every one caught by
-    a control, calibration, or impossible number — none by reading code),
-    red controls, conservation identities, screens-never-admit;
-    MATH-AI-workshop shaped; carries the co-sign invitation (He-Tang,
-    mzn are the natural first contacts). Framing per the replicability
-    read: the moat is the discipline and the dated public record, never
-    the code — others replicating it after publication is the GOOD
-    outcome.
-S7. THE LEAN BRIDGE — the C* refutation exported as ONE Lean-checked
-    integer inequality; the standing answer to the bespoke-JS-stack
-    objection.
+S6. THE METHODS NOTE — DONE (2026-08-26): reports/methods-note.html
+    ("None by reading code"; tools/build-report-methods.js). The bug
+    catalog: 10 real bugs, each with the instrument that caught it
+    (impossible number / calibration / control / byte pin / outside read
+    — 0 by reading code), the five rules as engineering, two near-misses,
+    the same-class-in-the-wild section, and the OPEN co-sign invitation
+    (generic on the page; DIRECTED notes to He-Tang / mzn remain
+    operator's-word outreach, undrafted). SIX batteries execute as the
+    page's own gate; recomputable numbers recomputed, history quoted AS
+    history. Ranked #2 on the shelf.
+S7. THE LEAN BRIDGE — BUILT 2026-08-26 (calibration rung green, reds
+    fire; the full-scale kernel run's final batch was in flight at
+    handoff — check lean/erdos852). Lean 4.33 + Mathlib project at
+    lean/erdos852. Design: a ten-line trial-division isPrime with a
+    machine-checked correctness THEOREM against Mathlib's Nat.Prime
+    (Basic.lean), so the kernel evaluates the fast function and the
+    33,859-prime list needs ZERO generator trust — an omission only
+    weakens the bound, every other defect fails the build (primality,
+    strict ascent → Pairwise distinctness, oddness all kernel-checked).
+    The theorem: cstar_refuted, 5(N−D)·10^12 > 752403861778·D, by
+    `decide +kernel` with maxHeartbeats 0 (the default heartbeat cap was
+    the first full-scale failure; 16 parallel mathlib workers then
+    swap-thrashed the 16GB machine — build chunks in batches of 3).
+    Generator: tools/gen-lean-erdos852.py (reads the certificate;
+    weight-balanced chunk modules). Reds: lean/erdos852/check.sh — three
+    forged variants (composite / order / claim) the kernel must REJECT.
+    reports/erdos852.html §8 states the bridge and its honest boundary
+    (the subset-product monotonicity paragraph and the transcription of
+    the published constant stay outside Lean). lean/**/.lake gitignored;
+    rerun: install elan, `lake exe cache get`, bash lean/erdos852/check.sh.
 
 ADOPTED FROM THE FLOW-VS-STOCK BRAINSTORM (operator, 2026-08-27) — convert
 operator capability (a flow) into artifacts that hold value unattended (stock):
@@ -219,6 +242,65 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   verification infrastructure — the eval labs run, the registry that
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-26 (operator greenlit A-F in one word each), beyond the
+S6/S7 entries above:
+  - SITE: /reports/ index (importance-ordered cards; build refuses if the
+    shelf and disk disagree), /about/ (content adapted from the sin-mfg
+    about, cert-machine styles only), GitHub ICON nav, pure-CSS mobile
+    drawer, landing reorganized (lanes → machine → report cards → rerun →
+    certificates table → discipline). THE MACHINE DRAWING IS ONE DRAWING
+    (operator instruction): tools/machine-figure.js, batteries.json
+    written by the control build feeds the landing, `make site` depends
+    on `make control`, both pages byte-identical. code() component
+    replaced an inline-styled <pre> whose quoted font stack truncated the
+    style attribute (the "python text too big" bug). Root index.html IS
+    the control page artifact (operator asked; not junk — do not delete).
+  - EVAL (D, key-free half): per-rung breakdown table (§2b "Where the
+    cliffs are") + the OPEN SUBMISSION PATH — llm-harness --proposals
+    FILE --model-label NAME grades external JSONL through the same
+    screen/certifier/red controls, ladder-only targets, attribution
+    required; §4 recipe on the page (PR carries the proposals file, not
+    graded rows — grading is deterministic). STILL KEY-GATED: more
+    models / bigger n, the impossible-rank honesty probe. ROTATE THE KEY.
+  - E DONE (mechanism): the l=87 OOM was candidateDeltas materializing
+    p(87)=38.9M partition objects (p(86)=34.3M fit — matches both OOMs).
+    tools/galois-exceptions-lean.js: sha-pinned source-transform fork
+    (refuses if the lift moves; only candidateDeltas replaced) with
+    closed-form class sums from the cycle-index EGF — Σ sgn·u^fix =
+    (u−1)^l + l(u−1)^{l−1}; Σ u^fix = l!Σ(−1)^j 2^{j-l}... /j!; even
+    subgroup = (all+signed)/2, S_0/S_1 degenerate case handled.
+    Battery (make test row erdos290-lean): closed==enumerated l≤12
+    exactly, δ(ES0)(4)=150/384 pinned, broken-EGF red, fork==lifted at
+    analyze(8), mutateDisc red. run-erdos290-tail-ext.js now uses the
+    fork; the FINALE LANDED same session: l = 87..90 ALL CLOSED (30
+    degrees closed, 0 open through l <= 90; l=90 took 186 s in the fork),
+    reports/erdos290.html rebuilt — bracket now 33% tighter than the
+    cited page. E is COMPLETE; the extension's next wall is compute time,
+    not memory. ALSO: a default `make engine` run silently regressed the
+    chowla R6 exhaustion (CERT_CAP default < 1600) — cause fixed, the
+    Makefile engine target now defaults CERT_CAP=1600.
+  - F/strassen DONE: AlphaEvolve's rank-48 <4,4,4> CERTIFIED over Z[i] —
+    canonical bytes located (commit-pinned DeepMind notebook, pinned in
+    PINS.json + corpus/sources/), tools/convert_alphaevolve.js (doubles
+    the half-Gaussian factors; audits BEFORE writing), auditZi/auditZiBig
+    in instruments/strassen/tensor.js (scale-s identity Σuvw = s·T, im
+    part must vanish), family row alphaevolve-48-4x4x4 (HIT: 4096
+    equations exact, layout CA, scale 8), battery 31/31 incl. two Zi reds
+    + Strassen-lifted-to-Zi calibration, stdlib verifier extended
+    (audit_zi), certificate re-exported (10 entries). Related-but-
+    distinct: arXiv 2506.13242's non-complex 48 — a later corpus row.
+  - F/apery: requisites READ and PINNED (notes/apery-sturm-decider.md;
+    three PDFs in corpus/sources/, hashes verified locally). Criterion
+    log α > β (vdP p.199); ζ(3) instance ln(17+12√2)=3.5255>3 (the
+    remembered 3.489 was WRONG); ζ(5) red: μ³+2368μ²−752μ−16 CONFIRMED
+    verbatim, decay governed by μ₂ (not μ₁, not 1/μ₃), β=5, fails by
+    3.914; the PNT-free rational bar (Dₙ<3ⁿ: 17−12√2 < 1/27 exactly) is
+    the Sturm-friendly form to decide. INSTRUMENT NOT YET BUILT.
+  - F/mu box50: still parked — wants worker_threads sharding in
+    run-mu-table.js + days of detached compute; nothing started.
+  - notes/alphaevolve-48.md holds the pin story; UI verified via CDP
+    probe + emulated-mobile screenshots (drawer, X-morph, no overflow).
 
 STANDING RULE while S1-S2 are unshipped: no new instruments, no new
 families; new math only where a report needs a missing number. The build

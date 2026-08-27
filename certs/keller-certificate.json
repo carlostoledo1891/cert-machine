@@ -1,19 +1,21 @@
 {
  "what": "Detached certificates for Jacobian/Hessian-conjecture counterexamples. Each entry claims: (1) det of the Jacobian of F is identically the stated constant — a polynomial identity over Q; (2) the listed rational points all map to the listed image under F, exactly; (3) the points are pairwise distinct. Together: F is a Keller map that is not injective, so the Jacobian conjecture is false in that dimension (for hessian entries, F = grad Psi and the Hessian conjecture is false). Verify with tools/verify_keller.py — Python stdlib only, no code from this repo.",
  "polynomialFormat": "each polynomial is a list of monomials [e_1, ..., e_n, coeff] — exponents of x_1..x_n, then the exact rational coefficient as a string",
- "generatedBy": "tools/export-keller-certificate.js @ git 8a31d01",
+ "generatedBy": "tools/export-keller-certificate.js @ git 04d4b7c",
  "sourcePins": {
+  "alphaevolve_mathematical_results.ipynb": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
   "alphatensor_f2.npz": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da",
   "alphatensor_r.npz": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
   "erdos852_page.html": "a32562ab8f2444520775020d92c5673fbe1ed5410539129b1088b87431920a89",
   "erdos852_thread.html": "ad5968022abd22ed0e1176b081a5ca87059739e3e4571997b820a4e4b12726e6",
   "gallagher2026.pdf": "1782eefa569a094b52f90b18967fb28d8f6ebd3781026f1c3aa46b3cd67a79c1",
   "mengyang2026.pdf": "090c1735997c598f14741fb8083666b3043cf62bc59da303494166bb5e9c18f5",
+  "mercer2019_integers.pdf": "1f648ff3aff79991fdf57213a0a0a270b83db64eefe1f4477739cb9ea7f10749",
   "results_e_4614_070418.pdf": "ebbf12b7839844da87a20420583c1eed353d3c6438af53a213e86b3985d60295",
+  "results_pi_0101_060418.pdf": "48b35cb010dc58f51f558e559300b9df2de01fb2d8869c306c8b60a3732b462a",
   "rm_catalan.pdf": "8267938820519d4b1cce607ca9408b891388d30d917547fcc9d4571418a9219a",
   "rm_other.pdf": "479ce83bc248a0292d380fa9d2af4ed643d8f1e5faf22dc84f61660013704603",
   "rm_zeta2.pdf": "9d7154cdf28052fd21b5bfe153b45cb95cfcbce78aac64d8707d659e970956e2",
-  "results_pi_0101_060418.pdf": "48b35cb010dc58f51f558e559300b9df2de01fb2d8869c306c8b60a3732b462a",
   "rm_zeta3.pdf": "6429e280dad89fd39b1423a9c3b2702fa72bc02131ec4c498e898a77ce928079",
   "rm_zeta_orders.pdf": "c7eaafbad08058ffb9686f74f07b3352256091110bf1a176e1295ca18e27cdc3"
  },
