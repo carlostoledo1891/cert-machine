@@ -398,8 +398,26 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       row; comparison re-derived at every note build. Battery 29/29
       (N339LL regression + self-compare calibration); app stays pinned
       to the day of record
-- AFTER the four: SP CITY PACK (the EmbraerX artifact) — spec sharpened
-  2026-08-27 from the program-office brainstorm (what survives, recorded):
+- [x] SP CITY PACK SHIPPED 2026-08-27 (operator's word "proceed on your
+  defined order") — /apps/skyaudit/sp/, all spec items delivered:
+  ANAC RULE PACK (anac-rbac91-vfr.json; RBAC 91.151(b) quoted verbatim
+  from ANAC's pinned full text rbac91-emd00.pdf + EMD 07 currency cover;
+  arithmetic identity with the FAA tier stated + battery-checked);
+  SP decides under [anac, easa] — CITY_RULES single-sourced in corpus.js,
+  all five consumers swapped. THE HEADLINE: SP day of record 59/148
+  E-FLYABLE (40%) under ANAC — Embraer's home market beats NYC's 26%
+  (short urban hops). SP TILES (27.4 MB z14, same planet date, pinned +
+  raw-served @398e022; TILES-PINS multi-city). CITY PACK
+  scenario/cities/sp.json: nodes MEASURED from 4 days' flight-endpoint
+  clusters (Helicidade 45, Campo de Marte 38; district-named where
+  facility unverifiable), REH river-corridor graph (Tietê + Pinheiros).
+  PLANNER live (Beta GO on short corridors). EVE FLIP THRESHOLD leads
+  the SP audit card, computed from the gated record ("at X kWh published
+  half the day turns green — the public UNDECIDABLE is the door").
+  BYO-BOX RUNBOOK in APP.md. build.js = per-city gate loop (gates 2–8
+  ×2 cities) + two emissions + city switcher; app.js config-driven
+  (rules/center/bounds). Battery 33/33; make test 30/30.
+  ORIGINAL SPEC (kept for provenance):
   * Lead framing: EVE-100 over the SP day (4 SP days already certified);
     NYC stays flagship BY MEASUREMENT — SP is added, not repointed
   * ANAC RULE PACK is the real gap (Phase 2 "ANAC pending" since day

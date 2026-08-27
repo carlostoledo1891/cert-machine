@@ -28,7 +28,7 @@ const corpus = loadHeli(city, dayDir);
 
 const phys = M.loadPhysics('kasliwal-2019');
 const specs = ['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100'].map(M.loadSpec);
-const rules = ['faa-sfar-vfr', 'easa-final-reserve'].map(M.loadRule);
+const rules = require('./corpus.js').CITY_RULES[city].map(M.loadRule);   /* per-city jurisdiction, one definition */
 
 const out = fs.createWriteStream(path.join(dataDir, city + '.certs.jsonl'));
 const summary = { city, dayDir, rawLines: corpus.rawLines, uniqueAircraft: corpus.unique,

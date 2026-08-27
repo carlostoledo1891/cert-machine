@@ -147,3 +147,29 @@ texts: see RESEARCH.md.
 
 Later, same engine: a second city, a live layer, and the LRCAP sibling (the
 Brazil grid map with certified auction arithmetic).
+
+## Bring your own box (the private decided version)
+
+The public app decides from PUBLIC numbers, and where those cannot decide it
+says NEEDS DATA — that refusal is the door. Behind the door: the instrument
+takes ANY spec box. If you hold real numbers (an OEM pack under NDA, a
+certification-basis dataset), the same certified verdicts run privately in
+minutes, unchanged code:
+
+```
+1. Copy scenario/specs/beta-alia.json to scenario/specs/<your-id>.json and
+   replace the boxes with your numbers (keep the quality flags honest —
+   'M' measured, 'T' trade-attributed, 'E' estimate, 'A' assumption).
+   Wider boxes are always sound; the verdicts only sharpen as they tighten.
+2. Add <your-id> to the spec list in audit/certify-day.js (one line).
+3. node audit/certify-day.js nyc     (or sp — decided under ANAC)
+4. python3 audit/verify_skyaudit.py  re-proves every row in exact stdlib
+   fractions, zero dependencies — hand the ledger and this verifier to any
+   skeptic.
+```
+
+Every verdict is CERTIFIED / REFUTED-with-exact-witness / REFUSED over your
+boxes — the universal (certification-basis) reading, not the existential
+(marketing) one. Nothing about your numbers leaves your machine: the
+pipeline is local, the code is MIT, and the certificates carry only what
+your spec file states.

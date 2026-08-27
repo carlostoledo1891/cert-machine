@@ -60,4 +60,16 @@ function loadHeli(city, dayDir) {
   return { aircraft: [...best.values()], rawLines: lines, unique: best.size };
 }
 
-module.exports = { loadHeli, isHeliStrict, HELI_TYPES };
+/* the per-city rule sets — ONE definition, all consumers (doctrine).
+   Each city decides under ITS jurisdiction's reserve rule first (the
+   primary rule carries the headline numbers) plus the EASA necessary
+   condition. ANAC RBAC 91.151(b) is arithmetically identical to the
+   FAA 20-minute helicopter tier — separately cited from ANAC's own
+   pinned text, because the jurisdiction is the point. */
+const CITY_RULES = {
+  nyc: ['faa-sfar-vfr', 'easa-final-reserve'],
+  sp: ['anac-rbac91-vfr', 'easa-final-reserve'],
+};
+const primaryRule = (city) => CITY_RULES[city][0];
+
+module.exports = { loadHeli, isHeliStrict, HELI_TYPES, CITY_RULES, primaryRule };

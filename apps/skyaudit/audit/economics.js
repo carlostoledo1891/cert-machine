@@ -33,7 +33,7 @@ function loadRows(city, dayDir) {
 function run(city, dayDir) {
   dayDir = dayDir || 'day-2026-08-26';
   /* one row per flight: the beta-alia|faa slice covers every flight once */
-  const rows = loadRows(city, dayDir).filter((r) => r.spec === 'beta-alia' && r.rule === 'faa-sfar-vfr');
+  const rows = loadRows(city, dayDir).filter((r) => r.spec === 'beta-alia' && r.rule === require('./corpus.js').primaryRule(city));
   let liters = [0, 0], eKwh = [0, 0], eLiters = [0, 0];
   const byType = {};
   let eFlights = 0, defaultTyped = 0;
@@ -56,7 +56,7 @@ function run(city, dayDir) {
     city, dayDir, flights: rows.length, defaultTyped,
     what: 'THE ELECTRIC BILL — fuel from class burn boxes (q:E, stated), electric from the CERTIFIED enclosures',
     fuel: { liters: liters.map(Math.round), usd: usd.map(Math.round), co2_tonnes: co2t.map((x) => +x.toFixed(1)), topTypes },
-    electric_subset: { flights: eFlights, spec: 'beta-alia|faa-sfar-vfr',
+    electric_subset: { flights: eFlights, spec: 'beta-alia|' + require('./corpus.js').primaryRule(city),
       kwh: eKwh.map(Math.round), usd: eUsd.map(Math.round),
       same_flights_fuel: { liters: eLiters.map(Math.round),
         usd: mul(eLiters, RATES.jet_a.usd_per_liter).map(Math.round),

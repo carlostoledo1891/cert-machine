@@ -307,7 +307,9 @@ B.push(C.section({
       + 'and Eve publish too little to certify a single fleet. The optimizer prices the levers — battery '
       + 'floors, charge times, the reserve rule itself — with a proof on both sides of every threshold.'),
     C.pRaw('<a href="apps/skyaudit/">Open SkyAudit →</a> — the replay, the certificate panel, the fleet '
-      + 'frontier and the what-if sliders, live. Every number gate-checked at build; data © adsb.lol (ODbL).')
+      + 'frontier and the what-if sliders, live. Every number gate-checked at build; data © adsb.lol (ODbL). '
+      + 'Also live: <a href="apps/skyaudit/sp/">the São Paulo pack</a> — the world\'s busiest urban helicopter '
+      + 'market, decided under Brazil\'s own reserve rule (ANAC RBAC 91.151(b), pinned).')
   ].join('')
 }));
 

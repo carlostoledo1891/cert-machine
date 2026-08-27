@@ -22,7 +22,7 @@
 const fs = require('fs');
 const path = require('path');
 const M = require('../audit/mission.js');
-const { loadHeli, isHeliStrict } = require('../audit/corpus.js');
+const { loadHeli, isHeliStrict, primaryRule } = require('../audit/corpus.js');
 const { segmentTrace } = require('../audit/flights.js');
 const refly = require('./refly.js');
 
@@ -100,7 +100,7 @@ function chargeCurve(city, dayDir, specId) {
   const raw = fs.existsSync(p) ? fs.readFileSync(p, 'utf8')
     : zlib.gunzipSync(fs.readFileSync(p + '.gz')).toString('utf8');
   const rowsAll = raw.split('\n').filter((l) => l.trim()).map((l) => JSON.parse(l))
-    .filter((r) => r.spec === specId && r.rule === 'faa-sfar-vfr');
+    .filter((r) => r.spec === specId && r.rule === primaryRule(city));
   if (!rowsAll.some((r) => r.verdict === 'CERTIFIED')) return { specId, curve: [], note: 'no certifiable legs' };
   const curve = [];
   let prev = null;
@@ -117,8 +117,7 @@ function chargeCurve(city, dayDir, specId) {
     note: 'fleetMin per charge-to-full minutes; each point proved by pigeonhole (lower) + verified schedule (upper), pool model' };
 }
 
-function reservePrice(flights, phys) {
-  const rule = M.loadRule('faa-sfar-vfr');
+function reservePrice(flights, phys, rule) {
   const out = {};
   for (const id of SPEC_IDS) {
     const spec = M.loadSpec(id);
@@ -216,14 +215,14 @@ function designerGrids(flights, phys, rule, city, dayDir) {
 function run(city, dayDir) {
   dayDir = dayDir || 'day-2026-08-26';
   const phys = M.loadPhysics('kasliwal-2019');
-  const rule = M.loadRule('faa-sfar-vfr');
+  const rule = M.loadRule(primaryRule(city));   /* the city's jurisdiction rule */
   const flights = dayFlights(city, dayDir);
   return {
     city, dayDir, flights: flights.length,
     what: 'certified thresholds: every number here is proved on BOTH sides of the flip',
     battery_floor: batteryFloors(flights, phys, rule),
     charge_lever: chargeCurve(city, dayDir, 'beta-alia'),
-    reserve_price: reservePrice(flights, phys),
+    reserve_price: reservePrice(flights, phys, rule),
     range_claims: rangeClaims(phys, rule),
     designer: designerGrids(flights, phys, rule, city, dayDir),
   };

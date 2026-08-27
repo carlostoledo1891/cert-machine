@@ -186,7 +186,9 @@ B.push(C.section({
       + 'ledger is nearly all NEEDS DATA: the audit measures ignorance rather than papering over it. Two reserve '
       + 'rules run side by side: the FAA powered-lift SFAR\'s 20-minute VFR tier, and EASA\'s 5-minute final '
       + 'reserve — the latter honestly labeled a NECESSARY condition only, since the full EASA energy-management '
-      + 'package is not reducible to one number.')
+      + 'package is not reducible to one number. The São Paulo city pack decides under Brazil\'s own rule '
+      + 'instead: ANAC RBAC 91.151(b) — 20 minutes at normal cruise consumption, quoted from ANAC\'s pinned '
+      + 'text — arithmetically the FAA tier, separately cited, because the jurisdiction is the point.')
   ].join('\n')
 }));
 

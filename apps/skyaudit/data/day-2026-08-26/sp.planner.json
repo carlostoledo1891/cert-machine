@@ -1,0 +1,2875 @@
+{
+ "city": "sp",
+ "dayDir": "day-2026-08-26",
+ "heliports": {
+  "SDHE": {
+   "name": "Helicidade (Marginal Pinheiros)",
+   "lat": -23.5471,
+   "lon": -46.7374,
+   "note": "busiest measured node: 45 flight endpoints across the four pinned days"
+  },
+  "SBMT": {
+   "name": "Campo de Marte",
+   "lat": -23.5121,
+   "lon": -46.6382,
+   "note": "São Paulo's helicopter hub; 38 measured endpoints; ANAC vertiport-sandbox site"
+  },
+  "ITA": {
+   "name": "Itaim Bibi rooftops (measured cluster)",
+   "lat": -23.5857,
+   "lon": -46.6738,
+   "note": "financial-district building pads; node named by district, not facility"
+  },
+  "ALP": {
+   "name": "Alphaville / Tamboré (Barueri)",
+   "lat": -23.5022,
+   "lon": -46.851,
+   "note": "measured cluster"
+  },
+  "OSA": {
+   "name": "Osasco norte (measured cluster)",
+   "lat": -23.4796,
+   "lon": -46.7803,
+   "note": "node named by district, not facility"
+  },
+  "SBSP": {
+   "name": "Congonhas Airport",
+   "lat": -23.6273,
+   "lon": -46.6566,
+   "note": "airport anchor for shuttle counterfactuals"
+  },
+  "SBGR": {
+   "name": "Guarulhos Airport",
+   "lat": -23.4356,
+   "lon": -46.4731,
+   "note": "airport anchor; Eve/Revo airport-shuttle use case targets this corridor"
+  }
+ },
+ "bandsLegend": {
+  "tiete": "Marginal Tietê corridor - the REH east-west spine over the Tietê river (DECEA-published helicopter route structure; PRENOR/DCA 351-7 pinned in sources)",
+  "pinheiros": "Marginal Pinheiros corridor - the REH north-south spine over the Pinheiros river",
+  "transition": "off-river transition - ATC/CGNA coordination as required"
+ },
+ "honesty": "nodes are measured flight-endpoint clusters from the committed corpora (counts stated); the graph is a hand-simplified rendering of the published REH river-corridor structure; distances are corridor path lengths over this graph; the energy verdicts on planned routes are the same certified interval decisions as everywhere else in the app, under ANAC RBAC 91.151(b) - GO/NO-GO here means the ENERGY question only, decided as a mathematically certified enclosure; it is not an operational clearance.",
+ "routes": [
+  {
+   "from": "SDHE",
+   "to": "SBMT",
+   "km": 29.7,
+   "coords": [
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.7,
+     -23.513
+    ],
+    [
+     -46.66,
+     -23.515
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.6382,
+     -23.5121
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros",
+    "tiete"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -53.1,
+      "b": 105
+     },
+     "t_min": [
+      6,
+      7
+     ],
+     "charge_after_min": 37
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -43.6,
+      "b": 98.8
+     },
+     "t_min": [
+      6,
+      7
+     ],
+     "charge_after_min": 37
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -76.3,
+      "b": 59.7
+     },
+     "t_min": [
+      7,
+      8
+     ],
+     "charge_after_min": 26
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -87.8,
+      "b": 52.3
+     },
+     "t_min": [
+      7,
+      8
+     ],
+     "charge_after_min": 26
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 14.1,
+     "t_min": [
+      6,
+      8
+     ],
+     "charge_after_min": 22
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 39.4,
+     "t_min": [
+      6,
+      8
+     ],
+     "charge_after_min": 22
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -94.6,
+      "b": 98.2
+     },
+     "t_min": [
+      7,
+      12
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -92.5,
+      "b": 88.1
+     },
+     "t_min": [
+      7,
+      12
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "SDHE",
+   "to": "ITA",
+   "km": 9.2,
+   "coords": [
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.722,
+     -23.57
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.6738,
+     -23.5857
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -34.4,
+      "b": 112.4
+     },
+     "t_min": [
+      2,
+      2
+     ],
+     "charge_after_min": 26
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -24.9,
+      "b": 106.2
+     },
+     "t_min": [
+      2,
+      2
+     ],
+     "charge_after_min": 26
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -51.5,
+      "b": 69.9
+     },
+     "t_min": [
+      2,
+      3
+     ],
+     "charge_after_min": 18
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -63,
+      "b": 62.5
+     },
+     "t_min": [
+      2,
+      3
+     ],
+     "charge_after_min": 18
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 38.8,
+     "t_min": [
+      2,
+      2
+     ],
+     "charge_after_min": 14
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 64.2,
+     "t_min": [
+      2,
+      2
+     ],
+     "charge_after_min": 14
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -69.7,
+      "b": 106.2
+     },
+     "t_min": [
+      2,
+      4
+     ],
+     "charge_after_min": 42
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -67.6,
+      "b": 96.1
+     },
+     "t_min": [
+      2,
+      4
+     ],
+     "charge_after_min": 42
+    }
+   }
+  },
+  {
+   "from": "SDHE",
+   "to": "ALP",
+   "km": 15.6,
+   "coords": [
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.851,
+     -23.5022
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -40.2,
+      "b": 110.1
+     },
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 29
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -30.7,
+      "b": 103.9
+     },
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 29
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -59.2,
+      "b": 66.8
+     },
+     "t_min": [
+      4,
+      4
+     ],
+     "charge_after_min": 20
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -70.7,
+      "b": 59.4
+     },
+     "t_min": [
+      4,
+      4
+     ],
+     "charge_after_min": 20
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 31.2,
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 17
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 56.5,
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 17
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -77.4,
+      "b": 103.7
+     },
+     "t_min": [
+      4,
+      6
+     ],
+     "charge_after_min": 49
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -75.3,
+      "b": 93.6
+     },
+     "t_min": [
+      4,
+      6
+     ],
+     "charge_after_min": 49
+    }
+   }
+  },
+  {
+   "from": "SDHE",
+   "to": "OSA",
+   "km": 14.2,
+   "coords": [
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.7803,
+     -23.4796
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -38.9,
+      "b": 110.6
+     },
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 29
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -29.4,
+      "b": 104.4
+     },
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 29
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -57.6,
+      "b": 67.4
+     },
+     "t_min": [
+      4,
+      4
+     ],
+     "charge_after_min": 20
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -69.1,
+      "b": 60
+     },
+     "t_min": [
+      4,
+      4
+     ],
+     "charge_after_min": 20
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 32.8,
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 16
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 58.2,
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 16
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -75.7,
+      "b": 104.2
+     },
+     "t_min": [
+      4,
+      6
+     ],
+     "charge_after_min": 47
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -73.7,
+      "b": 94.1
+     },
+     "t_min": [
+      4,
+      6
+     ],
+     "charge_after_min": 47
+    }
+   }
+  },
+  {
+   "from": "SDHE",
+   "to": "SBSP",
+   "km": 12.9,
+   "coords": [
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.722,
+     -23.57
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.702,
+     -23.61
+    ],
+    [
+     -46.6566,
+     -23.6273
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -37.7,
+      "b": 111.1
+     },
+     "t_min": [
+      2,
+      3
+     ],
+     "charge_after_min": 28
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -28.2,
+      "b": 104.9
+     },
+     "t_min": [
+      2,
+      3
+     ],
+     "charge_after_min": 28
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -55.9,
+      "b": 68.1
+     },
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 19
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -67.4,
+      "b": 60.7
+     },
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 19
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 34.4,
+     "t_min": [
+      3,
+      3
+     ],
+     "charge_after_min": 16
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 59.8,
+     "t_min": [
+      3,
+      3
+     ],
+     "charge_after_min": 16
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -74.1,
+      "b": 104.8
+     },
+     "t_min": [
+      3,
+      5
+     ],
+     "charge_after_min": 46
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -72,
+      "b": 94.7
+     },
+     "t_min": [
+      3,
+      5
+     ],
+     "charge_after_min": 46
+    }
+   }
+  },
+  {
+   "from": "SDHE",
+   "to": "SBGR",
+   "km": 39.3,
+   "coords": [
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.7,
+     -23.513
+    ],
+    [
+     -46.66,
+     -23.515
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.49,
+     -23.5165
+    ],
+    [
+     -46.4731,
+     -23.4356
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros",
+    "tiete"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -61.9,
+      "b": 101.5
+     },
+     "t_min": [
+      7,
+      10
+     ],
+     "charge_after_min": 43
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -52.4,
+      "b": 95.3
+     },
+     "t_min": [
+      7,
+      10
+     ],
+     "charge_after_min": 43
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -87.8,
+      "b": 54.9
+     },
+     "t_min": [
+      10,
+      11
+     ],
+     "charge_after_min": 30
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -99.3,
+      "b": 47.5
+     },
+     "t_min": [
+      10,
+      11
+     ],
+     "charge_after_min": 30
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 2.5,
+     "t_min": [
+      8,
+      11
+     ],
+     "charge_after_min": 26
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 27.9,
+     "t_min": [
+      8,
+      11
+     ],
+     "charge_after_min": 26
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -106.3,
+      "b": 94.4
+     },
+     "t_min": [
+      10,
+      16
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -104.2,
+      "b": 84.3
+     },
+     "t_min": [
+      10,
+      16
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "SBMT",
+   "to": "ITA",
+   "km": 39,
+   "coords": [
+    [
+     -46.6382,
+     -23.5121
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.66,
+     -23.515
+    ],
+    [
+     -46.7,
+     -23.513
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.722,
+     -23.57
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.6738,
+     -23.5857
+    ]
+   ],
+   "bands": [
+    "transition",
+    "tiete",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -61.6,
+      "b": 101.6
+     },
+     "t_min": [
+      7,
+      10
+     ],
+     "charge_after_min": 42
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -52.1,
+      "b": 95.4
+     },
+     "t_min": [
+      7,
+      10
+     ],
+     "charge_after_min": 42
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -87.4,
+      "b": 55.1
+     },
+     "t_min": [
+      10,
+      11
+     ],
+     "charge_after_min": 30
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -98.9,
+      "b": 47.7
+     },
+     "t_min": [
+      10,
+      11
+     ],
+     "charge_after_min": 30
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 2.9,
+     "t_min": [
+      8,
+      11
+     ],
+     "charge_after_min": 26
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 28.3,
+     "t_min": [
+      8,
+      11
+     ],
+     "charge_after_min": 26
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -105.9,
+      "b": 94.6
+     },
+     "t_min": [
+      10,
+      16
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -103.8,
+      "b": 84.5
+     },
+     "t_min": [
+      10,
+      16
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "SBMT",
+   "to": "ALP",
+   "km": 36.5,
+   "coords": [
+    [
+     -46.6382,
+     -23.5121
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.66,
+     -23.515
+    ],
+    [
+     -46.7,
+     -23.513
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.851,
+     -23.5022
+    ]
+   ],
+   "bands": [
+    "transition",
+    "tiete"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -59.3,
+      "b": 102.5
+     },
+     "t_min": [
+      7,
+      9
+     ],
+     "charge_after_min": 41
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -49.8,
+      "b": 96.3
+     },
+     "t_min": [
+      7,
+      9
+     ],
+     "charge_after_min": 41
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -84.5,
+      "b": 56.3
+     },
+     "t_min": [
+      9,
+      10
+     ],
+     "charge_after_min": 29
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -96,
+      "b": 48.9
+     },
+     "t_min": [
+      9,
+      10
+     ],
+     "charge_after_min": 29
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 5.8,
+     "t_min": [
+      8,
+      10
+     ],
+     "charge_after_min": 25
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 31.2,
+     "t_min": [
+      8,
+      10
+     ],
+     "charge_after_min": 25
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -102.9,
+      "b": 95.5
+     },
+     "t_min": [
+      9,
+      15
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -100.8,
+      "b": 85.4
+     },
+     "t_min": [
+      9,
+      15
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "SBMT",
+   "to": "OSA",
+   "km": 35.2,
+   "coords": [
+    [
+     -46.6382,
+     -23.5121
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.66,
+     -23.515
+    ],
+    [
+     -46.7,
+     -23.513
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.7803,
+     -23.4796
+    ]
+   ],
+   "bands": [
+    "transition",
+    "tiete"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -58.1,
+      "b": 103
+     },
+     "t_min": [
+      7,
+      9
+     ],
+     "charge_after_min": 40
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -48.6,
+      "b": 96.8
+     },
+     "t_min": [
+      7,
+      9
+     ],
+     "charge_after_min": 40
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -82.9,
+      "b": 57
+     },
+     "t_min": [
+      9,
+      10
+     ],
+     "charge_after_min": 28
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -94.4,
+      "b": 49.6
+     },
+     "t_min": [
+      9,
+      10
+     ],
+     "charge_after_min": 28
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 7.5,
+     "t_min": [
+      7,
+      10
+     ],
+     "charge_after_min": 24
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 32.8,
+     "t_min": [
+      7,
+      10
+     ],
+     "charge_after_min": 24
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -101.3,
+      "b": 96.1
+     },
+     "t_min": [
+      9,
+      14
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -99.2,
+      "b": 85.9
+     },
+     "t_min": [
+      9,
+      14
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "SBMT",
+   "to": "SBSP",
+   "km": 42.6,
+   "coords": [
+    [
+     -46.6382,
+     -23.5121
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.66,
+     -23.515
+    ],
+    [
+     -46.7,
+     -23.513
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.722,
+     -23.57
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.702,
+     -23.61
+    ],
+    [
+     -46.6566,
+     -23.6273
+    ]
+   ],
+   "bands": [
+    "transition",
+    "tiete",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -64.9,
+      "b": 100.3
+     },
+     "t_min": [
+      8,
+      11
+     ],
+     "charge_after_min": 45
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -55.4,
+      "b": 94.1
+     },
+     "t_min": [
+      8,
+      11
+     ],
+     "charge_after_min": 45
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -91.9,
+      "b": 53.3
+     },
+     "t_min": [
+      11,
+      12
+     ],
+     "charge_after_min": 30
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -103.4,
+      "b": 45.9
+     },
+     "t_min": [
+      11,
+      12
+     ],
+     "charge_after_min": 30
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -1.5,
+      "b": 214.1
+     },
+     "t_min": [
+      9,
+      12
+     ],
+     "charge_after_min": 27
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 23.9,
+     "t_min": [
+      9,
+      12
+     ],
+     "charge_after_min": 27
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -110.3,
+      "b": 93.2
+     },
+     "t_min": [
+      11,
+      17
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -108.2,
+      "b": 83
+     },
+     "t_min": [
+      11,
+      17
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "SBMT",
+   "to": "SBGR",
+   "km": 24.3,
+   "coords": [
+    [
+     -46.6382,
+     -23.5121
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.49,
+     -23.5165
+    ],
+    [
+     -46.4731,
+     -23.4356
+    ]
+   ],
+   "bands": [
+    "transition",
+    "tiete"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -48.2,
+      "b": 106.9
+     },
+     "t_min": [
+      5,
+      6
+     ],
+     "charge_after_min": 34
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -38.7,
+      "b": 100.7
+     },
+     "t_min": [
+      5,
+      6
+     ],
+     "charge_after_min": 34
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -69.7,
+      "b": 62.4
+     },
+     "t_min": [
+      6,
+      7
+     ],
+     "charge_after_min": 24
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -81.2,
+      "b": 55
+     },
+     "t_min": [
+      6,
+      7
+     ],
+     "charge_after_min": 24
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 20.6,
+     "t_min": [
+      5,
+      7
+     ],
+     "charge_after_min": 20
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 46,
+     "t_min": [
+      5,
+      7
+     ],
+     "charge_after_min": 20
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -88,
+      "b": 100.3
+     },
+     "t_min": [
+      6,
+      10
+     ],
+     "charge_after_min": 58
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -85.9,
+      "b": 90.2
+     },
+     "t_min": [
+      6,
+      10
+     ],
+     "charge_after_min": 58
+    }
+   }
+  },
+  {
+   "from": "ITA",
+   "to": "ALP",
+   "km": 24.8,
+   "coords": [
+    [
+     -46.6738,
+     -23.5857
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.722,
+     -23.57
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.851,
+     -23.5022
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -48.6,
+      "b": 106.8
+     },
+     "t_min": [
+      5,
+      6
+     ],
+     "charge_after_min": 35
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -39.1,
+      "b": 100.5
+     },
+     "t_min": [
+      5,
+      6
+     ],
+     "charge_after_min": 35
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -70.3,
+      "b": 62.2
+     },
+     "t_min": [
+      6,
+      7
+     ],
+     "charge_after_min": 24
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -81.8,
+      "b": 54.7
+     },
+     "t_min": [
+      6,
+      7
+     ],
+     "charge_after_min": 24
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 20,
+     "t_min": [
+      5,
+      7
+     ],
+     "charge_after_min": 20
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 45.4,
+     "t_min": [
+      5,
+      7
+     ],
+     "charge_after_min": 20
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -88.6,
+      "b": 100.1
+     },
+     "t_min": [
+      6,
+      10
+     ],
+     "charge_after_min": 59
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -86.5,
+      "b": 90
+     },
+     "t_min": [
+      6,
+      10
+     ],
+     "charge_after_min": 59
+    }
+   }
+  },
+  {
+   "from": "ITA",
+   "to": "OSA",
+   "km": 23.5,
+   "coords": [
+    [
+     -46.6738,
+     -23.5857
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.722,
+     -23.57
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.7803,
+     -23.4796
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -47.4,
+      "b": 107.2
+     },
+     "t_min": [
+      4,
+      6
+     ],
+     "charge_after_min": 34
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -37.9,
+      "b": 101
+     },
+     "t_min": [
+      4,
+      6
+     ],
+     "charge_after_min": 34
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -68.7,
+      "b": 62.8
+     },
+     "t_min": [
+      6,
+      6
+     ],
+     "charge_after_min": 23
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -80.2,
+      "b": 55.4
+     },
+     "t_min": [
+      6,
+      6
+     ],
+     "charge_after_min": 23
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 21.6,
+     "t_min": [
+      5,
+      6
+     ],
+     "charge_after_min": 20
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 47,
+     "t_min": [
+      5,
+      6
+     ],
+     "charge_after_min": 20
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -87,
+      "b": 100.6
+     },
+     "t_min": [
+      6,
+      9
+     ],
+     "charge_after_min": 57
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -84.9,
+      "b": 90.5
+     },
+     "t_min": [
+      6,
+      9
+     ],
+     "charge_after_min": 57
+    }
+   }
+  },
+  {
+   "from": "ITA",
+   "to": "SBSP",
+   "km": 11.1,
+   "coords": [
+    [
+     -46.6738,
+     -23.5857
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.702,
+     -23.61
+    ],
+    [
+     -46.6566,
+     -23.6273
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -36.1,
+      "b": 111.7
+     },
+     "t_min": [
+      2,
+      3
+     ],
+     "charge_after_min": 27
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -26.6,
+      "b": 105.5
+     },
+     "t_min": [
+      2,
+      3
+     ],
+     "charge_after_min": 27
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -53.8,
+      "b": 69
+     },
+     "t_min": [
+      3,
+      3
+     ],
+     "charge_after_min": 18
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -65.3,
+      "b": 61.6
+     },
+     "t_min": [
+      3,
+      3
+     ],
+     "charge_after_min": 18
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 36.6,
+     "t_min": [
+      2,
+      3
+     ],
+     "charge_after_min": 15
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 61.9,
+     "t_min": [
+      2,
+      3
+     ],
+     "charge_after_min": 15
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -71.9,
+      "b": 105.5
+     },
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 44
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -69.8,
+      "b": 95.4
+     },
+     "t_min": [
+      3,
+      4
+     ],
+     "charge_after_min": 44
+    }
+   }
+  },
+  {
+   "from": "ITA",
+   "to": "SBGR",
+   "km": 48.6,
+   "coords": [
+    [
+     -46.6738,
+     -23.5857
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.722,
+     -23.57
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.7,
+     -23.513
+    ],
+    [
+     -46.66,
+     -23.515
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.49,
+     -23.5165
+    ],
+    [
+     -46.4731,
+     -23.4356
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros",
+    "tiete"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -70.3,
+      "b": 98.2
+     },
+     "t_min": [
+      9,
+      12
+     ],
+     "charge_after_min": 48
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -60.8,
+      "b": 91.9
+     },
+     "t_min": [
+      9,
+      12
+     ],
+     "charge_after_min": 48
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -99,
+      "b": 50.3
+     },
+     "t_min": [
+      12,
+      13
+     ],
+     "charge_after_min": 30
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -110.5,
+      "b": 42.9
+     },
+     "t_min": [
+      12,
+      13
+     ],
+     "charge_after_min": 30
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -8.7,
+      "b": 211.3
+     },
+     "t_min": [
+      10,
+      13
+     ],
+     "charge_after_min": 30
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 16.7,
+     "t_min": [
+      10,
+      13
+     ],
+     "charge_after_min": 30
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -117.5,
+      "b": 90.8
+     },
+     "t_min": [
+      12,
+      19
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -115.4,
+      "b": 80.7
+     },
+     "t_min": [
+      12,
+      19
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "ALP",
+   "to": "OSA",
+   "km": 9.2,
+   "coords": [
+    [
+     -46.851,
+     -23.5022
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.7803,
+     -23.4796
+    ]
+   ],
+   "bands": [
+    "transition"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -34.3,
+      "b": 112.4
+     },
+     "t_min": [
+      2,
+      2
+     ],
+     "charge_after_min": 26
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -24.8,
+      "b": 106.2
+     },
+     "t_min": [
+      2,
+      2
+     ],
+     "charge_after_min": 26
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -51.5,
+      "b": 70
+     },
+     "t_min": [
+      2,
+      3
+     ],
+     "charge_after_min": 18
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -63,
+      "b": 62.5
+     },
+     "t_min": [
+      2,
+      3
+     ],
+     "charge_after_min": 18
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 38.9,
+     "t_min": [
+      2,
+      2
+     ],
+     "charge_after_min": 14
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 64.2,
+     "t_min": [
+      2,
+      2
+     ],
+     "charge_after_min": 14
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -69.6,
+      "b": 106.2
+     },
+     "t_min": [
+      2,
+      4
+     ],
+     "charge_after_min": 42
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -67.5,
+      "b": 96.1
+     },
+     "t_min": [
+      2,
+      4
+     ],
+     "charge_after_min": 42
+    }
+   }
+  },
+  {
+   "from": "ALP",
+   "to": "SBSP",
+   "km": 28.5,
+   "coords": [
+    [
+     -46.851,
+     -23.5022
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.722,
+     -23.57
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.702,
+     -23.61
+    ],
+    [
+     -46.6566,
+     -23.6273
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -52,
+      "b": 105.4
+     },
+     "t_min": [
+      5,
+      7
+     ],
+     "charge_after_min": 37
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -42.5,
+      "b": 99.2
+     },
+     "t_min": [
+      5,
+      7
+     ],
+     "charge_after_min": 37
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -74.8,
+      "b": 60.3
+     },
+     "t_min": [
+      7,
+      8
+     ],
+     "charge_after_min": 25
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -86.3,
+      "b": 52.9
+     },
+     "t_min": [
+      7,
+      8
+     ],
+     "charge_after_min": 25
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 15.6,
+     "t_min": [
+      6,
+      8
+     ],
+     "charge_after_min": 22
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 40.9,
+     "t_min": [
+      6,
+      8
+     ],
+     "charge_after_min": 22
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -93.1,
+      "b": 98.7
+     },
+     "t_min": [
+      7,
+      11
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -91,
+      "b": 88.6
+     },
+     "t_min": [
+      7,
+      11
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "ALP",
+   "to": "SBGR",
+   "km": 46.1,
+   "coords": [
+    [
+     -46.851,
+     -23.5022
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.7,
+     -23.513
+    ],
+    [
+     -46.66,
+     -23.515
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.49,
+     -23.5165
+    ],
+    [
+     -46.4731,
+     -23.4356
+    ]
+   ],
+   "bands": [
+    "transition",
+    "tiete"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -68.1,
+      "b": 99
+     },
+     "t_min": [
+      9,
+      11
+     ],
+     "charge_after_min": 46
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -58.6,
+      "b": 92.8
+     },
+     "t_min": [
+      9,
+      11
+     ],
+     "charge_after_min": 46
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -96.1,
+      "b": 51.5
+     },
+     "t_min": [
+      11,
+      13
+     ],
+     "charge_after_min": 30
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -107.6,
+      "b": 44.1
+     },
+     "t_min": [
+      11,
+      13
+     ],
+     "charge_after_min": 30
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -5.7,
+      "b": 212.5
+     },
+     "t_min": [
+      10,
+      12
+     ],
+     "charge_after_min": 29
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 19.6,
+     "t_min": [
+      10,
+      12
+     ],
+     "charge_after_min": 29
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -114.6,
+      "b": 91.8
+     },
+     "t_min": [
+      11,
+      18
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -112.5,
+      "b": 81.7
+     },
+     "t_min": [
+      11,
+      18
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "OSA",
+   "to": "SBSP",
+   "km": 27.1,
+   "coords": [
+    [
+     -46.7803,
+     -23.4796
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.722,
+     -23.57
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.702,
+     -23.61
+    ],
+    [
+     -46.6566,
+     -23.6273
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -50.7,
+      "b": 105.9
+     },
+     "t_min": [
+      5,
+      7
+     ],
+     "charge_after_min": 36
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -41.2,
+      "b": 99.7
+     },
+     "t_min": [
+      5,
+      7
+     ],
+     "charge_after_min": 36
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -73.1,
+      "b": 61
+     },
+     "t_min": [
+      7,
+      8
+     ],
+     "charge_after_min": 25
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -84.6,
+      "b": 53.6
+     },
+     "t_min": [
+      7,
+      8
+     ],
+     "charge_after_min": 25
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "C",
+     "m": 17.2,
+     "t_min": [
+      6,
+      7
+     ],
+     "charge_after_min": 21
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 42.6,
+     "t_min": [
+      6,
+      7
+     ],
+     "charge_after_min": 21
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -91.4,
+      "b": 99.2
+     },
+     "t_min": [
+      7,
+      11
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -89.4,
+      "b": 89.1
+     },
+     "t_min": [
+      7,
+      11
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "OSA",
+   "to": "SBGR",
+   "km": 44.8,
+   "coords": [
+    [
+     -46.7803,
+     -23.4796
+    ],
+    [
+     -46.8,
+     -23.51
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.7,
+     -23.513
+    ],
+    [
+     -46.66,
+     -23.515
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.49,
+     -23.5165
+    ],
+    [
+     -46.4731,
+     -23.4356
+    ]
+   ],
+   "bands": [
+    "transition",
+    "tiete"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -66.9,
+      "b": 99.5
+     },
+     "t_min": [
+      8,
+      11
+     ],
+     "charge_after_min": 46
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -57.4,
+      "b": 93.3
+     },
+     "t_min": [
+      8,
+      11
+     ],
+     "charge_after_min": 46
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -94.4,
+      "b": 52.2
+     },
+     "t_min": [
+      11,
+      12
+     ],
+     "charge_after_min": 30
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -106,
+      "b": 44.8
+     },
+     "t_min": [
+      11,
+      12
+     ],
+     "charge_after_min": 30
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -4.1,
+      "b": 213.1
+     },
+     "t_min": [
+      9,
+      12
+     ],
+     "charge_after_min": 28
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 21.3,
+     "t_min": [
+      9,
+      12
+     ],
+     "charge_after_min": 28
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -112.9,
+      "b": 92.3
+     },
+     "t_min": [
+      11,
+      18
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -110.8,
+      "b": 82.2
+     },
+     "t_min": [
+      11,
+      18
+     ],
+     "charge_after_min": 60
+    }
+   }
+  },
+  {
+   "from": "SBSP",
+   "to": "SBGR",
+   "km": 52.2,
+   "coords": [
+    [
+     -46.6566,
+     -23.6273
+    ],
+    [
+     -46.702,
+     -23.61
+    ],
+    [
+     -46.71,
+     -23.59
+    ],
+    [
+     -46.722,
+     -23.57
+    ],
+    [
+     -46.7374,
+     -23.5471
+    ],
+    [
+     -46.75,
+     -23.527
+    ],
+    [
+     -46.742,
+     -23.5125
+    ],
+    [
+     -46.7,
+     -23.513
+    ],
+    [
+     -46.66,
+     -23.515
+    ],
+    [
+     -46.566,
+     -23.5085
+    ],
+    [
+     -46.49,
+     -23.5165
+    ],
+    [
+     -46.4731,
+     -23.4356
+    ]
+   ],
+   "bands": [
+    "transition",
+    "pinheiros",
+    "tiete"
+   ],
+   "verdicts": {
+    "joby-s4|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -73.7,
+      "b": 96.8
+     },
+     "t_min": [
+      10,
+      13
+     ],
+     "charge_after_min": 50
+    },
+    "joby-s4|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -64.2,
+      "b": 90.6
+     },
+     "t_min": [
+      10,
+      13
+     ],
+     "charge_after_min": 50
+    },
+    "archer-midnight|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -103.4,
+      "b": 48.5
+     },
+     "t_min": [
+      13,
+      14
+     ],
+     "charge_after_min": 30
+    },
+    "archer-midnight|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -114.9,
+      "b": 41.1
+     },
+     "t_min": [
+      13,
+      14
+     ],
+     "charge_after_min": 30
+    },
+    "beta-alia|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -13.1,
+      "b": 209.6
+     },
+     "t_min": [
+      11,
+      14
+     ],
+     "charge_after_min": 31
+    },
+    "beta-alia|easa-final-reserve": {
+     "v": "C",
+     "m": 12.3,
+     "t_min": [
+      11,
+      14
+     ],
+     "charge_after_min": 31
+    },
+    "eve-100|anac-rbac91-vfr": {
+     "v": "F",
+     "m": {
+      "w": -122,
+      "b": 89.4
+     },
+     "t_min": [
+      13,
+      21
+     ],
+     "charge_after_min": 60
+    },
+    "eve-100|easa-final-reserve": {
+     "v": "F",
+     "m": {
+      "w": -119.9,
+      "b": 79.3
+     },
+     "t_min": [
+      13,
+      21
+     ],
+     "charge_after_min": 60
+    }
+   }
+  }
+ ]
+}

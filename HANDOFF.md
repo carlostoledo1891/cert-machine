@@ -87,9 +87,13 @@ holds under v2. Ledger disclosure for 8D recorded in TODO (flights
 forecast methodology-independent; the v1-calibrated eflyable commit
 will bust against the v2 outcome — scored, kept, cause stated). HELD for joint decision: the conservatism
 refinements (reserve-speed box / MTOW / disk loading — changes every
-published number; do once as methodology v2). THEN: SP city-pack page
-(EmbraerX artifact; data fully processed, needs SP tiles + switcher +
-city pack). PARKED: synthetic demand packs; outreach (word only).
+published number; do once as methodology v2). SP CITY PACK SHIPPED
+2026-08-27 (full detail TODO.md): /apps/skyaudit/sp/ decided under
+ANAC RBAC 91.151(b) (pinned, quoted verbatim) — SP day of record
+59/148 E-FLYABLE (40%) vs NYC 26%; measured heliport nodes
+(Helicidade/Campo de Marte), REH corridor planner, Eve flip
+threshold leads the card, BYO-box runbook in APP.md; per-city gate
+loop, battery 33/33. PARKED: synthetic demand packs; outreach (word only).
 Spec: APP.md · plan: TODO.md · sourced research: RESEARCH.md (sections
 1-5).
 

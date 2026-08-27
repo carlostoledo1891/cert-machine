@@ -1,10 +1,23 @@
 {
-  "file": "nyc.pmtiles",
-  "sha256": "cc4afcfd9449b291e14a9b01c1065c732290f1cba7b31e38119a7df3b511a367",
-  "bytes": 36913073,
-  "source": "https://build.protomaps.com/20260826.pmtiles (same date as the traffic day)",
-  "regenerate": "pmtiles extract https://build.protomaps.com/20260826.pmtiles nyc.pmtiles --bbox=-74.35,40.50,-73.65,40.95 --maxzoom=14  (go-pmtiles v1.31.2)",
+  "what": "pinned basemap tiles, one extract per city pack — both from the SAME planet build date as the traffic days",
   "license": "basemap data (c) OpenStreetMap contributors (ODbL), tiles by Protomaps",
-  "note": "committed to the public repo (GitHub raw serves Range+CORS; Vercel CLI silently dropped the 36.9 MB upload); served immutably by commit SHA; the build gate re-hashes the local file against sha256 above",
-  "served_from": "https://raw.githubusercontent.com/carlostoledo1891/cert-machine/450d2e96e1ccb0c2f49b7eab3e5e3fae23e3035a/apps/skyaudit/data/tiles/nyc.pmtiles"
+  "note": "committed to the public repo (GitHub raw serves Range+CORS; Vercel CLI silently dropped the 36.9 MB upload) and served immutably by commit SHA; the build gate re-hashes each local file against its sha256",
+  "cities": {
+    "nyc": {
+      "file": "nyc.pmtiles",
+      "sha256": "cc4afcfd9449b291e14a9b01c1065c732290f1cba7b31e38119a7df3b511a367",
+      "bytes": 36913073,
+      "source": "https://build.protomaps.com/20260826.pmtiles",
+      "regenerate": "pmtiles extract https://build.protomaps.com/20260826.pmtiles nyc.pmtiles --bbox=-74.35,40.50,-73.65,40.95 --maxzoom=14  (go-pmtiles v1.31.2)",
+      "served_from": "https://raw.githubusercontent.com/carlostoledo1891/cert-machine/450d2e96e1ccb0c2f49b7eab3e5e3fae23e3035a/apps/skyaudit/data/tiles/nyc.pmtiles"
+    },
+    "sp": {
+      "file": "sp.pmtiles",
+      "sha256": "d20c373f72d7f475daa21938d58d62e5982d327e89bad7a4f505d002d063a353",
+      "bytes": 27419543,
+      "source": "https://build.protomaps.com/20260826.pmtiles",
+      "regenerate": "pmtiles extract https://build.protomaps.com/20260826.pmtiles sp.pmtiles --bbox=-46.95,-23.75,-46.3,-23.3 --maxzoom=14  (go-pmtiles v1.31.2)",
+      "served_from": "https://raw.githubusercontent.com/carlostoledo1891/cert-machine/398e022d9e58ff1529ca5268a5a7960750f41a82/apps/skyaudit/data/tiles/sp.pmtiles"
+    }
+  }
 }

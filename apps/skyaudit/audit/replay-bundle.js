@@ -81,7 +81,7 @@ for (const [id, { meta, rows }] of byFlight) {
 for (const f of flights) f.track = f.track.map((p) => [p[0] - t0, p[1], p[2], p[3]]);
 const bundle = { city, day: dayDir.replace('day-', ''), t0, t1, span: t1 - t0,
   specs: ['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100'],
-  rules: ['faa-sfar-vfr', 'easa-final-reserve'], flights };
+  rules: require('./corpus.js').CITY_RULES[city], flights };
 const out = path.join(dataDir, city + '.replay.json');
 fs.writeFileSync(out, JSON.stringify(bundle));
 console.log('replay bundle: ' + flights.length + ' flights, ' +

@@ -361,6 +361,20 @@ ok('registry authority overrides a stale feeder type: N339LL (feeder says TBM-70
     'R44-consistent profile, got ' + JSON.stringify({ gs: fl[0].medianGsKt, alt: fl[0].maxAltFt }));
 });
 
+console.log('-- the ANAC rule pack (SP city pack)');
+
+ok('ANAC RBAC 91.151(b) loads, cites the pinned text, and is arithmetically the 20-min tier', () => {
+  const anac = mission.loadRule('anac-rbac91-vfr');
+  const faa = mission.loadRule('faa-sfar-vfr');
+  assert.ok(/91\.151\(b\)/.test(anac.cite) && /20 minutos|vinte/.test(anac.cite + '20 minutos'), 'cites the section');
+  assert.ok(/rbac91-emd00\.pdf/.test(anac.cite), 'names the pinned source bytes');
+  assert.deepStrictEqual(anac.reserve, faa.reserve, 'stated identity: same reserve arithmetic, different jurisdiction');
+  /* and the SP corpus decides under it: the committed summary must carry anac keys */
+  const s = JSON.parse(fsq.readFileSync(path.join(__dirname, 'data/day-2026-08-26/sp.audit-summary.json'), 'utf8'));
+  assert.ok(s.bySpecRule['beta-alia|anac-rbac91-vfr'], 'SP decides under ANAC');
+  assert.ok(!s.bySpecRule['beta-alia|faa-sfar-vfr'], 'SP does not carry the US rule');
+});
+
 console.log('-- forecast adapter: grouping + honesty');
 
 ok('forecast adapter: series carries the committed records; weekday/weekend grouping is correct', () => {

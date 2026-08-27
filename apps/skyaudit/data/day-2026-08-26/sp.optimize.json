@@ -1,0 +1,1108 @@
+{
+  "city": "sp",
+  "dayDir": "day-2026-08-26",
+  "flights": 148,
+  "what": "certified thresholds: every number here is proved on BOTH sides of the flip",
+  "battery_floor": {
+    "joby-s4": {
+      "published_box_kwh": [
+        130,
+        180
+      ],
+      "published_q": "E",
+      "targets": {
+        "0.5": {
+          "kwh": 229,
+          "covered": "74/148",
+          "one_less": "228 kWh covers only 70/148"
+        },
+        "0.8": {
+          "kwh": 299,
+          "covered": "119/148",
+          "one_less": "298 kWh covers only 117/148"
+        },
+        "0.95": {
+          "kwh": 388,
+          "covered": "141/148",
+          "one_less": "387 kWh covers only 140/148"
+        }
+      }
+    },
+    "archer-midnight": {
+      "published_box_kwh": [
+        120,
+        142
+      ],
+      "published_q": "E",
+      "targets": {
+        "0.5": {
+          "kwh": 258,
+          "covered": "74/148",
+          "one_less": "257 kWh covers only 70/148"
+        },
+        "0.8": {
+          "kwh": 351,
+          "covered": "119/148",
+          "one_less": "350 kWh covers only 117/148"
+        },
+        "0.95": {
+          "kwh": 469,
+          "covered": "141/148",
+          "one_less": "468 kWh covers only 140/148"
+        }
+      }
+    },
+    "beta-alia": {
+      "published_box_kwh": [
+        250,
+        325
+      ],
+      "published_q": "E",
+      "targets": {
+        "0.5": {
+          "kwh": 268,
+          "covered": "74/148",
+          "one_less": "267 kWh covers only 70/148"
+        },
+        "0.8": {
+          "kwh": 361,
+          "covered": "119/148",
+          "one_less": "360 kWh covers only 118/148"
+        },
+        "0.95": {
+          "kwh": 478,
+          "covered": "141/148",
+          "one_less": "477 kWh covers only 140/148"
+        }
+      }
+    },
+    "eve-100": {
+      "published_box_kwh": [
+        90,
+        160
+      ],
+      "published_q": "A",
+      "targets": {
+        "0.5": {
+          "kwh": 253,
+          "covered": "74/148",
+          "one_less": "252 kWh covers only 70/148"
+        },
+        "0.8": {
+          "kwh": 347,
+          "covered": "119/148",
+          "one_less": "346 kWh covers only 118/148"
+        },
+        "0.95": {
+          "kwh": 465,
+          "covered": "141/148",
+          "one_less": "464 kWh covers only 140/148"
+        }
+      }
+    }
+  },
+  "charge_lever": {
+    "specId": "beta-alia",
+    "published_charge_box_min": [
+      35,
+      60
+    ],
+    "curve": [
+      {
+        "from_minutes": 0,
+        "fleetMin": 5,
+        "witnessLocal": "15:13:22 BRT"
+      },
+      {
+        "from_minutes": 6,
+        "fleetMin": 6,
+        "witnessLocal": "15:15:35 BRT"
+      },
+      {
+        "from_minutes": 22,
+        "fleetMin": 7,
+        "witnessLocal": "15:19:05 BRT"
+      },
+      {
+        "from_minutes": 30,
+        "fleetMin": 8,
+        "witnessLocal": "15:20:45 BRT"
+      }
+    ],
+    "note": "fleetMin per charge-to-full minutes; each point proved by pigeonhole (lower) + verified schedule (upper), pool model"
+  },
+  "reserve_price": {
+    "legs_total": 148,
+    "by_reserve_minutes": {
+      "joby-s4": {
+        "5": 64,
+        "10": 30,
+        "15": 0,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      },
+      "archer-midnight": {
+        "5": 31,
+        "10": 0,
+        "15": 0,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      },
+      "beta-alia": {
+        "5": 117,
+        "10": 107,
+        "15": 84,
+        "20": 59,
+        "25": 28,
+        "30": 0
+      },
+      "eve-100": {
+        "5": 9,
+        "10": 0,
+        "15": 0,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      }
+    },
+    "note": "CERTIFIED legs at reserve = N minutes at cruise power (FAA VFR shape); exact counts, monotone nonincreasing in N"
+  },
+  "range_claims": {
+    "rows": [
+      {
+        "spec": "joby-s4",
+        "claim": "100 mi range including energy reserves (evtol.news attributing Joby)",
+        "dist_km": 161,
+        "kind": "existential",
+        "reserve": "faa-20-min at cruise power",
+        "verdict": "CONSISTENT",
+        "instrument_verdict": "REFUSED",
+        "margins_kwh": {
+          "worst": -208.04234994356722,
+          "best": 70.75330357162414
+        },
+        "note": "CONSISTENT = some point of the published+assumed boxes achieves the claim; REFUTED = no point does"
+      },
+      {
+        "spec": "archer-midnight",
+        "claim": "up to 100 mi (Archer PR)",
+        "dist_km": 161,
+        "kind": "existential",
+        "reserve": "none",
+        "verdict": "CONSISTENT",
+        "instrument_verdict": "REFUSED",
+        "margins_kwh": {
+          "worst": -150.4654010465857,
+          "best": 37.17192187080842
+        },
+        "note": "CONSISTENT = some point of the published+assumed boxes achieves the claim; REFUTED = no point does"
+      },
+      {
+        "spec": "archer-midnight",
+        "claim": "guaranteed minimum 60 mi in the worst case condition (evtol.news attributing Archer)",
+        "dist_km": 96.6,
+        "kind": "universal",
+        "reserve": "none",
+        "verdict": "REFUSED",
+        "instrument_verdict": "REFUSED",
+        "margins_kwh": {
+          "worst": -70.4921479163068,
+          "best": 67.01232238178491
+        },
+        "note": "universal guarantee: tested at the WORST corner of the boxes"
+      },
+      {
+        "spec": "eve-100",
+        "claim": "designed for 100 km range (Eve institutional presentation, May 2026)",
+        "dist_km": 100,
+        "kind": "existential",
+        "reserve": "none",
+        "verdict": "CONSISTENT",
+        "instrument_verdict": "REFUSED",
+        "margins_kwh": {
+          "worst": -148.94299624003136,
+          "best": 104.8817895699498
+        },
+        "note": "CONSISTENT = some point of the published+assumed boxes achieves the claim; REFUTED = no point does"
+      },
+      {
+        "spec": "beta-alia",
+        "verdict": "NO CLAIM",
+        "note": "no published VTOL-variant range claim to audit (336 nm demonstrated is the CTOL variant)"
+      }
+    ],
+    "caveat": "claims are audited against the aircraft's OWN public numbers plus the literature physics boxes; a REFUTED here means the claim and the public numbers cannot both be right as boxed - assumption-grade boxes (q flags) are stated in the spec packs"
+  },
+  "designer": {
+    "flights": 148,
+    "battery": {
+      "joby-s4": [
+        [
+          60,
+          0
+        ],
+        [
+          80,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          140,
+          0
+        ],
+        [
+          160,
+          0
+        ],
+        [
+          180,
+          22
+        ],
+        [
+          200,
+          41
+        ],
+        [
+          220,
+          62
+        ],
+        [
+          240,
+          81
+        ],
+        [
+          260,
+          102
+        ],
+        [
+          280,
+          115
+        ],
+        [
+          300,
+          119
+        ],
+        [
+          320,
+          123
+        ],
+        [
+          340,
+          126
+        ],
+        [
+          360,
+          132
+        ],
+        [
+          380,
+          140
+        ],
+        [
+          400,
+          142
+        ],
+        [
+          420,
+          144
+        ],
+        [
+          440,
+          144
+        ],
+        [
+          460,
+          146
+        ],
+        [
+          480,
+          146
+        ],
+        [
+          500,
+          146
+        ],
+        [
+          520,
+          146
+        ],
+        [
+          540,
+          146
+        ],
+        [
+          560,
+          146
+        ],
+        [
+          580,
+          146
+        ],
+        [
+          600,
+          148
+        ],
+        [
+          620,
+          148
+        ],
+        [
+          640,
+          148
+        ],
+        [
+          660,
+          148
+        ],
+        [
+          680,
+          148
+        ],
+        [
+          700,
+          148
+        ]
+      ],
+      "archer-midnight": [
+        [
+          60,
+          0
+        ],
+        [
+          80,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          140,
+          0
+        ],
+        [
+          160,
+          0
+        ],
+        [
+          180,
+          0
+        ],
+        [
+          200,
+          25
+        ],
+        [
+          220,
+          39
+        ],
+        [
+          240,
+          59
+        ],
+        [
+          260,
+          74
+        ],
+        [
+          280,
+          86
+        ],
+        [
+          300,
+          102
+        ],
+        [
+          320,
+          112
+        ],
+        [
+          340,
+          116
+        ],
+        [
+          360,
+          120
+        ],
+        [
+          380,
+          123
+        ],
+        [
+          400,
+          126
+        ],
+        [
+          420,
+          131
+        ],
+        [
+          440,
+          136
+        ],
+        [
+          460,
+          140
+        ],
+        [
+          480,
+          142
+        ],
+        [
+          500,
+          143
+        ],
+        [
+          520,
+          144
+        ],
+        [
+          540,
+          144
+        ],
+        [
+          560,
+          146
+        ],
+        [
+          580,
+          146
+        ],
+        [
+          600,
+          146
+        ],
+        [
+          620,
+          146
+        ],
+        [
+          640,
+          146
+        ],
+        [
+          660,
+          146
+        ],
+        [
+          680,
+          146
+        ],
+        [
+          700,
+          146
+        ]
+      ],
+      "beta-alia": [
+        [
+          60,
+          0
+        ],
+        [
+          80,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          140,
+          0
+        ],
+        [
+          160,
+          0
+        ],
+        [
+          180,
+          0
+        ],
+        [
+          200,
+          14
+        ],
+        [
+          220,
+          31
+        ],
+        [
+          240,
+          53
+        ],
+        [
+          260,
+          64
+        ],
+        [
+          280,
+          79
+        ],
+        [
+          300,
+          95
+        ],
+        [
+          320,
+          107
+        ],
+        [
+          340,
+          116
+        ],
+        [
+          360,
+          118
+        ],
+        [
+          380,
+          122
+        ],
+        [
+          400,
+          124
+        ],
+        [
+          420,
+          129
+        ],
+        [
+          440,
+          132
+        ],
+        [
+          460,
+          139
+        ],
+        [
+          480,
+          141
+        ],
+        [
+          500,
+          142
+        ],
+        [
+          520,
+          144
+        ],
+        [
+          540,
+          144
+        ],
+        [
+          560,
+          146
+        ],
+        [
+          580,
+          146
+        ],
+        [
+          600,
+          146
+        ],
+        [
+          620,
+          146
+        ],
+        [
+          640,
+          146
+        ],
+        [
+          660,
+          146
+        ],
+        [
+          680,
+          146
+        ],
+        [
+          700,
+          146
+        ]
+      ],
+      "eve-100": [
+        [
+          60,
+          0
+        ],
+        [
+          80,
+          0
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          140,
+          0
+        ],
+        [
+          160,
+          0
+        ],
+        [
+          180,
+          5
+        ],
+        [
+          200,
+          28
+        ],
+        [
+          220,
+          49
+        ],
+        [
+          240,
+          62
+        ],
+        [
+          260,
+          76
+        ],
+        [
+          280,
+          90
+        ],
+        [
+          300,
+          106
+        ],
+        [
+          320,
+          115
+        ],
+        [
+          340,
+          117
+        ],
+        [
+          360,
+          120
+        ],
+        [
+          380,
+          123
+        ],
+        [
+          400,
+          126
+        ],
+        [
+          420,
+          132
+        ],
+        [
+          440,
+          138
+        ],
+        [
+          460,
+          140
+        ],
+        [
+          480,
+          142
+        ],
+        [
+          500,
+          143
+        ],
+        [
+          520,
+          144
+        ],
+        [
+          540,
+          144
+        ],
+        [
+          560,
+          146
+        ],
+        [
+          580,
+          146
+        ],
+        [
+          600,
+          146
+        ],
+        [
+          620,
+          146
+        ],
+        [
+          640,
+          146
+        ],
+        [
+          660,
+          146
+        ],
+        [
+          680,
+          146
+        ],
+        [
+          700,
+          146
+        ]
+      ]
+    },
+    "reserve": {
+      "joby-s4": [
+        [
+          0,
+          93
+        ],
+        [
+          3,
+          76
+        ],
+        [
+          6,
+          59
+        ],
+        [
+          9,
+          35
+        ],
+        [
+          12,
+          19
+        ],
+        [
+          15,
+          0
+        ],
+        [
+          18,
+          0
+        ],
+        [
+          21,
+          0
+        ],
+        [
+          24,
+          0
+        ],
+        [
+          27,
+          0
+        ],
+        [
+          30,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          36,
+          0
+        ],
+        [
+          39,
+          0
+        ],
+        [
+          42,
+          0
+        ],
+        [
+          45,
+          0
+        ]
+      ],
+      "archer-midnight": [
+        [
+          0,
+          59
+        ],
+        [
+          3,
+          45
+        ],
+        [
+          6,
+          28
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          15,
+          0
+        ],
+        [
+          18,
+          0
+        ],
+        [
+          21,
+          0
+        ],
+        [
+          24,
+          0
+        ],
+        [
+          27,
+          0
+        ],
+        [
+          30,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          36,
+          0
+        ],
+        [
+          39,
+          0
+        ],
+        [
+          42,
+          0
+        ],
+        [
+          45,
+          0
+        ]
+      ],
+      "beta-alia": [
+        [
+          0,
+          123
+        ],
+        [
+          3,
+          120
+        ],
+        [
+          6,
+          116
+        ],
+        [
+          9,
+          111
+        ],
+        [
+          12,
+          98
+        ],
+        [
+          15,
+          84
+        ],
+        [
+          18,
+          69
+        ],
+        [
+          21,
+          56
+        ],
+        [
+          24,
+          31
+        ],
+        [
+          27,
+          17
+        ],
+        [
+          30,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          36,
+          0
+        ],
+        [
+          39,
+          0
+        ],
+        [
+          42,
+          0
+        ],
+        [
+          45,
+          0
+        ]
+      ],
+      "eve-100": [
+        [
+          0,
+          35
+        ],
+        [
+          3,
+          24
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          9,
+          0
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          15,
+          0
+        ],
+        [
+          18,
+          0
+        ],
+        [
+          21,
+          0
+        ],
+        [
+          24,
+          0
+        ],
+        [
+          27,
+          0
+        ],
+        [
+          30,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          36,
+          0
+        ],
+        [
+          39,
+          0
+        ],
+        [
+          42,
+          0
+        ],
+        [
+          45,
+          0
+        ]
+      ]
+    },
+    "charge_fleet_by_minute": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ]
+  }
+}

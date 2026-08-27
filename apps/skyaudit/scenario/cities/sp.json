@@ -1,0 +1,36 @@
+{
+  "id": "sp",
+  "what": "São Paulo city pack: heliport nodes MEASURED from the pinned days' own flight endpoints (600 m clustering across all four committed days; counts recorded per node), named where the facility is unambiguous and by district where it is not + a SIMPLIFIED corridor waypoint graph following the published REH structure (Rotas Especiais de Helicópteros, DECEA) along the Marginal Tietê and Marginal Pinheiros rivers. A PLANNING AID for the audit's counterfactual missions - never navigation, never airspace authority.",
+  "heliports": {
+    "SDHE": { "name": "Helicidade (Marginal Pinheiros)", "lat": -23.5471, "lon": -46.7374, "note": "busiest measured node: 45 flight endpoints across the four pinned days" },
+    "SBMT": { "name": "Campo de Marte", "lat": -23.5121, "lon": -46.6382, "note": "São Paulo's helicopter hub; 38 measured endpoints; ANAC vertiport-sandbox site" },
+    "ITA": { "name": "Itaim Bibi rooftops (measured cluster)", "lat": -23.5857, "lon": -46.6738, "note": "financial-district building pads; node named by district, not facility" },
+    "ALP": { "name": "Alphaville / Tamboré (Barueri)", "lat": -23.5022, "lon": -46.8510, "note": "measured cluster" },
+    "OSA": { "name": "Osasco norte (measured cluster)", "lat": -23.4796, "lon": -46.7803, "note": "node named by district, not facility" },
+    "SBSP": { "name": "Congonhas Airport", "lat": -23.6273, "lon": -46.6566, "note": "airport anchor for shuttle counterfactuals" },
+    "SBGR": { "name": "Guarulhos Airport", "lat": -23.4356, "lon": -46.4731, "note": "airport anchor; Eve/Revo airport-shuttle use case targets this corridor" }
+  },
+  "waypoints": {
+    "T1": { "lat": -23.5165, "lon": -46.49 }, "T2": { "lat": -23.5085, "lon": -46.566 },
+    "T3": { "lat": -23.515, "lon": -46.66 }, "T4": { "lat": -23.513, "lon": -46.7 },
+    "T5": { "lat": -23.5125, "lon": -46.742 },
+    "P1": { "lat": -23.527, "lon": -46.75 }, "P2": { "lat": -23.5471, "lon": -46.7374 },
+    "P3": { "lat": -23.57, "lon": -46.722 }, "P4": { "lat": -23.59, "lon": -46.71 },
+    "P5": { "lat": -23.61, "lon": -46.702 }, "P6": { "lat": -23.635, "lon": -46.702 },
+    "W1": { "lat": -23.51, "lon": -46.8 }
+  },
+  "bands": {
+    "tiete": "Marginal Tietê corridor - the REH east-west spine over the Tietê river (DECEA-published helicopter route structure; PRENOR/DCA 351-7 pinned in sources)",
+    "pinheiros": "Marginal Pinheiros corridor - the REH north-south spine over the Pinheiros river",
+    "transition": "off-river transition - ATC/CGNA coordination as required"
+  },
+  "edges": [
+    ["SBGR", "T1", "transition"], ["T1", "T2", "tiete"], ["T2", "T3", "tiete"],
+    ["T3", "T4", "tiete"], ["T4", "T5", "tiete"], ["SBMT", "T2", "transition"],
+    ["T5", "P1", "pinheiros"], ["P1", "P2", "pinheiros"], ["P2", "P3", "pinheiros"],
+    ["P3", "P4", "pinheiros"], ["P4", "P5", "pinheiros"], ["P5", "P6", "pinheiros"],
+    ["SDHE", "P2", "transition"], ["ITA", "P4", "transition"], ["SBSP", "P5", "transition"],
+    ["T5", "W1", "transition"], ["W1", "ALP", "transition"], ["OSA", "W1", "transition"]
+  ],
+  "honesty": "nodes are measured flight-endpoint clusters from the committed corpora (counts stated); the graph is a hand-simplified rendering of the published REH river-corridor structure; distances are corridor path lengths over this graph; the energy verdicts on planned routes are the same certified interval decisions as everywhere else in the app, under ANAC RBAC 91.151(b)"
+}

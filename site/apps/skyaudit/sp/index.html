@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SkyAudit São Paulo — the largest urban helicopter market, decided under ANAC rules</title>
+<meta name="description" content="Real ADS-B helicopter traffic over São Paulo (2026-08-26), replayed — every flight audited against published eVTOL specs under ANAC RBAC 91.151(b), with mathematically certified enclosures.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../vendor/maplibre-gl.css">
+<style>:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+:root{--v-cert:#2C6142;--v-refu:#C64B42;--v-refd:#8F8798;--v-cert-soft:#DEEBE3;--v-refu-soft:#F4DEDC;--v-refd-soft:#E8E5EC;--shadow:0 10px 30px rgba(22,18,26,.14);--f-sans:'Inter',system-ui,-apple-system,sans-serif;--f-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--v-cert:#79C79B;--v-refu:#E06B62;--v-refd:#8E8499;--v-cert-soft:#16281E;--v-refu-soft:#2E1917;--v-refd-soft:#211C29;--shadow:0 12px 34px rgba(0,0,0,.5)}}
+:root[data-theme="dark"]{--v-cert:#79C79B;--v-refu:#E06B62;--v-refd:#8E8499;--v-cert-soft:#16281E;--v-refu-soft:#2E1917;--v-refd-soft:#211C29;--shadow:0 12px 34px rgba(0,0,0,.5)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink)}
+body{font-family:var(--f-sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.as-map{position:fixed;inset:0}
+.as-map canvas{outline:none}
+
+/* ---- top bar ---- */
+.as-top{position:fixed;top:0;left:0;right:0;height:56px;z-index:30;display:flex;align-items:center;
+  gap:14px;padding:0 20px;background:var(--paper);border-bottom:1px solid var(--rule)}
+.as-top .brand{font-family:var(--f-mono);font-weight:600;font-size:11px;letter-spacing:.14em;
+  color:var(--ink);text-decoration:none;white-space:nowrap}
+.as-top .sep{width:1px;height:20px;background:var(--rule)}
+.as-top .appname{font-family:var(--f-sans);font-weight:600;font-size:14px;letter-spacing:.01em;color:var(--ink)}
+.as-top .meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.as-top .spacer{flex:1}
+.as-top a.navx{color:var(--ink-2);text-decoration:none;font-family:var(--f-mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;padding:6px 2px;transition:color .12s}
+.as-top a.navx:hover{color:var(--sig)}
+
+/* ---- panels: right = tabbed workspace; left = the selected flight ---- */
+.as-panel{position:fixed;top:68px;right:12px;bottom:92px;width:404px;z-index:20;overflow-y:auto;
+  display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
+.as-left{position:fixed;top:68px;left:12px;bottom:92px;width:372px;z-index:21;overflow-y:auto;
+  display:none;flex-direction:column;gap:10px;scrollbar-width:thin}
+.as-left.open{display:flex}
+.as-left.min{bottom:auto}
+.as-left.min .as-card > *:not(.as-lhead){display:none}
+.as-lhead{display:flex;align-items:center;gap:8px;margin:-2px 0 8px}
+.as-left.min .as-lhead{margin:0}
+.as-lhead .t{font-family:var(--f-mono);font-weight:600;font-size:12px;letter-spacing:.06em;flex:1}
+.as-lhead button{width:24px;height:24px;border-radius:6px;border:1px solid var(--rule);
+  background:var(--sunk);color:var(--ink-2);cursor:pointer;font-size:12px;line-height:1;padding:0}
+.as-lhead button:hover{border-color:var(--sig);color:var(--sig)}
+
+/* ---- tab bar (right panel) ---- */
+.as-tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:4px;box-shadow:var(--shadow);flex:none}
+.as-tabs button{flex:1;border:0;background:transparent;font-family:var(--f-mono);font-weight:600;
+  font-size:11px;letter-spacing:.12em;color:var(--ink-3);padding:8px 0;border-radius:9px;
+  cursor:pointer;transition:all .15s}
+.as-tabs button:hover{color:var(--sig)}
+.as-tabs button[data-on="1"]{background:var(--sig-soft);color:var(--sig)}
+.as-tabbody{display:none;flex-direction:column;gap:10px}
+.as-tabbody.on{display:flex}
+
+/* ---- annunciators (cockpit lozenge: binary states) ---- */
+.as-ann{display:inline-flex;align-items:center;justify-content:center;min-width:64px;
+  font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.14em;
+  padding:5px 10px;border-radius:6px;border:1px solid}
+.as-ann.go{color:var(--v-cert);border-color:var(--v-cert);background:var(--v-cert-soft)}
+.as-ann.no{color:var(--v-refu);border-color:var(--v-refu);background:var(--v-refu-soft)}
+.as-ann.na{color:var(--v-refd);border-color:var(--v-refd);background:var(--v-refd-soft)}
+
+/* ---- arc gauge ---- */
+.as-gauge{display:block;margin:0 auto}
+.as-gauge .bg{stroke:var(--sunk);stroke-width:9;fill:none}
+.as-gauge .fg{stroke:var(--v-cert);stroke-width:9;fill:none;stroke-linecap:round;
+  transition:stroke-dashoffset .45s cubic-bezier(.4,0,.2,1)}
+.as-gauge text{font-family:var(--f-mono);fill:var(--ink)}
+.as-gaugelbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;color:var(--ink-3);
+  text-transform:uppercase;text-align:center;margin-top:2px}
+
+/* ---- fleet silhouettes ---- */
+.as-fleet{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:30px}
+.as-fleet svg{width:30px;height:30px;transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.as-fleet svg.on{color:var(--sig)}
+.as-fleet svg.off{color:var(--rule);transform:scale(.82)}
+
+/* ---- battery pictogram ---- */
+.as-batt{display:flex;align-items:center;gap:10px}
+.as-batt .shell{position:relative;width:64px;height:26px;border:2px solid var(--rule);
+  border-radius:5px;flex:none}
+.as-batt .shell:after{content:'';position:absolute;right:-6px;top:7px;width:4px;height:8px;
+  background:var(--rule);border-radius:0 2px 2px 0}
+.as-batt .fill{position:absolute;inset:2px;border-radius:2px;background:var(--v-cert);
+  transform-origin:left;transition:transform .3s,background .3s}
+.as-routebadge{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;color:var(--ink-3)}
+
+/* ---- live mission ---- */
+.as-dispatch{font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.12em;
+  color:var(--sig);border:1px solid var(--sig);background:var(--sig-soft);border-radius:6px;
+  padding:5px 12px;cursor:pointer;transition:all .15s}
+.as-dispatch:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.as-dispatch[disabled]{opacity:.35;cursor:not-allowed;transform:none}
+.as-datablocks{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+.as-db{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:8px;padding:7px 9px}
+.as-db span{display:block;font-family:var(--f-mono);font-size:8.5px;letter-spacing:.14em;
+  color:var(--ink-3);text-transform:uppercase}
+.as-db b{font-family:var(--f-mono);font-weight:600;font-size:15px;color:var(--ink);white-space:nowrap}
+.as-db.live b{color:var(--sig)}
+.as-journey{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-weight:600;
+  font-size:12px;margin:6px 0 2px}
+.as-journey .bar{flex:1;height:5px;border-radius:3px;background:var(--sunk);overflow:hidden;
+  border:1px solid var(--rule-soft)}
+.as-journey .bar i{display:block;height:100%;background:var(--sig);border-radius:3px;
+  transition:width .3s linear}
+.as-missions{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;color:var(--sig)}
+.as-card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+  padding:14px 16px;box-shadow:var(--shadow)}
+.as-h{font-family:var(--f-mono);font-weight:600;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 10px}
+.as-note{font-size:12px;color:var(--ink-2);line-height:1.55}
+.as-note b{color:var(--ink);font-weight:600}
+.as-fine{font-size:11px;color:var(--ink-3);line-height:1.5}
+details.as-more summary{cursor:pointer;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:10px}
+details.as-more summary:hover{color:var(--sig)}
+details.as-more[open] summary{margin-bottom:6px}
+
+/* ---- the aircraft x rule matrix ---- */
+.as-mx{display:grid;grid-template-columns:1fr auto auto;gap:7px 8px;align-items:center}
+.as-mx .name{font-weight:500;font-size:12.5px;color:var(--ink)}
+.as-cell{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;padding:5px 10px;
+  border-radius:7px;border:1px solid var(--rule);background:var(--sunk);color:var(--ink-2);
+  cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:6px}
+.as-cell:hover{border-color:var(--sig-2);color:var(--sig)}
+.as-cell[data-on="1"]{border-color:var(--sig);background:var(--sig-soft);color:var(--sig);font-weight:600}
+.as-dot{width:7px;height:7px;border-radius:50%;flex:none}
+
+.as-score{grid-column:1/-1;font-family:var(--f-mono);font-weight:600;font-size:22px;color:var(--ink);
+  padding-bottom:2px}
+.as-score span{font-family:var(--f-sans);font-weight:400;font-size:11.5px;color:var(--ink-3);margin-left:6px}
+/* ---- stat tiles ---- */
+.as-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.as-stat{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:9px;
+  padding:9px 11px;border-left-width:3px}
+.as-stat b{display:block;font-family:var(--f-mono);font-weight:600;font-size:20px;line-height:1.1;color:var(--ink)}
+.as-stat span{font-family:var(--f-mono);font-size:9px;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase}
+.as-stat.c{border-left-color:var(--v-cert)} .as-stat.r{border-left-color:var(--v-refu)} .as-stat.f{border-left-color:var(--v-refd)}
+
+/* ---- frontier rows ---- */
+.as-frow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:7px 0;
+  border-top:1px solid var(--rule-soft)}
+.as-frow:first-of-type{border-top:0;padding-top:0}
+.as-frow .name{font-weight:500;font-size:12.5px}
+.as-frow .val{font-family:var(--f-mono);font-weight:600;font-size:13px;white-space:nowrap}
+.as-frow .val.zero{color:var(--ink-3);font-weight:400}
+.as-frow .sub{display:block;font-size:10.5px;color:var(--ink-3);margin-top:1px}
+
+/* ---- selected flight ---- */
+.as-kv{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:12px;color:var(--ink-3)}
+.as-kv b{color:var(--ink);font-weight:600;font-family:var(--f-mono);font-size:12px}
+.as-verdict{border-left:3px solid var(--rule);background:var(--sunk);border-radius:9px;
+  padding:10px 13px;margin:12px 0 10px}
+.as-verdict .w{font-family:var(--f-mono);font-weight:700;font-size:14px;letter-spacing:.08em}
+.as-verdict .e{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.5}
+.as-verdict.C{border-left-color:var(--v-cert);background:var(--v-cert-soft)} .as-verdict.C .w{color:var(--v-cert)}
+.as-verdict.R{border-left-color:var(--v-refu);background:var(--v-refu-soft)} .as-verdict.R .w{color:var(--v-refu)}
+.as-verdict.F{border-left-color:var(--v-refd);background:var(--v-refd-soft)} .as-verdict.F .w{color:var(--v-refd)}
+
+/* ---- enclosure viz ---- */
+.as-enc{margin:10px 0 4px}
+.as-encrow{display:grid;grid-template-columns:64px 1fr;gap:8px;align-items:center;margin:5px 0}
+.as-encrow .lbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;text-align:right}
+.as-encrow .track{position:relative;height:12px;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:6px}
+.as-encrow .band{position:absolute;top:1px;bottom:1px;border-radius:5px;min-width:4px}
+.as-encrow .band.u{background:var(--v-cert)} .as-encrow .band.d{background:var(--v-refu)}
+.as-encscale{display:grid;grid-template-columns:64px 1fr;gap:8px;font-family:var(--f-mono);font-size:9.5px;color:var(--ink-3)}
+.as-encscale div{display:flex;justify-content:space-between}
+.as-encvals{font-family:var(--f-mono);font-size:10.5px;color:var(--ink-2);margin-top:6px;line-height:1.6}
+
+/* ---- buttons + segmented ---- */
+button{font-family:inherit}
+.as-btn{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;background:var(--sunk);
+  color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:7px 12px;cursor:pointer;transition:all .12s}
+.as-btn:hover{border-color:var(--sig);color:var(--sig)}
+.as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
+select.as-sel{font-family:var(--f-mono);font-size:11px;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:8px;padding:6px 8px;color-scheme:light dark;max-width:100%}
+select.as-sel:hover{border-color:var(--sig)}
+.as-seg{display:inline-flex;background:var(--sunk);border:1px solid var(--rule);border-radius:9px;padding:2px;gap:2px}
+.as-seg button{border:0;background:transparent;font-family:var(--f-mono);font-size:10.5px;
+  letter-spacing:.04em;color:var(--ink-2);padding:5px 10px;border-radius:7px;cursor:pointer;transition:all .12s}
+.as-seg button:hover{color:var(--sig)}
+.as-seg button[data-on="1"]{background:var(--sig-soft);color:var(--sig);font-weight:600}
+
+/* ---- dock ---- */
+.as-dock{position:fixed;left:0;right:0;bottom:0;height:76px;z-index:30;display:flex;align-items:center;
+  gap:16px;padding:0 20px;background:var(--paper);border-top:1px solid var(--rule)}
+.as-play{width:42px;height:42px;flex:none;border-radius:50%;border:1px solid var(--rule);
+  background:var(--sunk);color:var(--ink);font-size:13px;cursor:pointer;transition:all .12s;
+  display:flex;align-items:center;justify-content:center}
+.as-play:hover{border-color:var(--sig);color:var(--sig)}
+.as-clock{font-family:var(--f-mono);font-weight:600;font-size:14px;color:var(--ink);min-width:96px;text-align:center}
+.as-dock .attr{margin-left:auto;font-size:9.5px;color:var(--ink-3);text-align:right;line-height:1.4;max-width:220px}
+.as-dock .attr a{color:var(--ink-3)}
+
+/* ---- the scrubber ---- */
+input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance:none;height:26px;background:transparent;cursor:pointer}
+.as-scrub::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:var(--rule)}
+.as-scrub::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+  background:var(--sig);margin-top:-5px;border:2px solid var(--paper);box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.as-scrub::-moz-range-track{height:4px;border-radius:2px;background:var(--rule)}
+.as-scrub::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--sig);border:2px solid var(--paper)}
+
+.maplibregl-ctrl-attrib{font-size:10px}
+.as-panel::-webkit-scrollbar{width:6px}
+.as-panel::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+
+@media (max-width:720px){
+  .as-top{height:48px;padding:0 12px;gap:10px}
+  .as-top .appname{font-size:12.5px}
+  .as-top .meta,.as-top .navx{display:none}
+  .as-panel{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:44dvh;gap:8px}
+  .as-left{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:52dvh;z-index:24}
+  .as-card{padding:12px 13px;border-radius:11px}
+  .as-dock{gap:9px;padding:0 10px;height:64px}
+  .as-play{width:36px;height:36px}
+  .as-clock{min-width:78px;font-size:12.5px}
+  .as-dock .attr{display:none}
+  #speed{display:none}
+  .as-seg button{padding:5px 8px;font-size:10px}
+}</style>
+<script>/* ?theme=light|dark stamps the explicit theme state; absent = system */
+(function(){var t=new URLSearchParams(location.search).get('theme');
+if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</script>
+</head><body>
+<div id="map" class="as-map" aria-label="replay map of São Paulo helicopter traffic with certified verdicts"></div>
+<header class="as-top">
+  <a class="brand" href="/">CERT-MACHINE</a>
+  <span class="sep"></span>
+  <span class="appname">SkyAudit</span>
+  <span class="meta">SÃO PAULO · 2026-08-26 · PINNED DAY</span>
+  <span class="spacer"></span>
+  <a class="navx" href="/apps/skyaudit/">New York</a>
+  <a class="navx" href="/reports/">reports</a>
+  <a class="navx" href="https://github.com/carlostoledo1891/cert-machine">github</a>
+</header>
+<aside class="as-left" id="leftpanel">
+    <section class="as-card">
+      <div class="as-lhead"><span class="t">SELECTED FLIGHT</span>
+        <button id="lp-min" title="minimize">–</button>
+        <button id="lp-close" title="deselect">×</button></div>
+      <div id="flight"></div>
+    </section></aside>
+<aside class="as-panel" id="panel">
+    <nav class="as-tabs" id="tabs">
+      <button data-tab="day" data-on="1">DAY</button>
+      <button data-tab="fleet">FLEET</button>
+      <button data-tab="plan">PLAN</button>
+    </nav>
+    <div class="as-tabbody on" data-body="day">
+    <section class="as-card">
+      <div class="as-h">The audit</div>
+      <div class="as-note">One real day over São Paulo — the world's busiest urban helicopter market —
+    <b>61 aircraft, 148 flights,
+    10,391 km flown</b> — ADS-B, hash-pinned. Each
+    flight is re-flown on paper by an eVTOL and decided by interval arithmetic <b>under Brazil's own
+    reserve rule, ANAC RBAC 91.151(b)</b>. This is Embraer's home market: Eve's launch operator Revo
+    holds a binding SP order (10 firm + 40 options, June 2025), and ANAC's vertiport sandbox runs at
+    Campo de Marte — the busiest measured node on this map after Helicidade. Eve publishes the least
+    of the four audited aircraft, so its column reads NEEDS DATA — and the flip threshold is computed,
+    not rhetorical: <b>at 253 kWh of published
+    nameplate, half this day's flights become provable for the EVE-100</b> (proved on both sides of
+    the flip, like every threshold here). The public UNDECIDABLE is the door.
+    <b>Click any aircraft — its certificate opens on the left.</b></div>
+      <details class="as-more"><summary>Honest boundaries</summary>
+      <div class="as-fine">The corpus is what the receiver network saw; coverage gaps and truncated
+      tracks are flagged per flight. The audit is counterfactual arithmetic over stated boxes
+      (quality-flagged in the repo; Eve publishes least, so Eve needs data most). ANAC = RBAC 91.151(b), the 20-min VFR helicopter reserve, quoted from ANAC's own pinned text (arithmetically identical to the FAA tier — the jurisdiction is the point); EASA = the 5-min final reserve, a NECESSARY condition only.
+      Ambient layer = all other traffic, decor only. Data © <a href="https://adsb.lol">adsb.lol</a>
+      contributors (ODbL). Rerun everything:
+      <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/skyaudit">apps/skyaudit</a>.
+      Methodology, sources and boundaries, citable: <a href="/reports/skyaudit.html">the companion note</a>.</div>
+      </details>
+    </section>
+    <section class="as-card">
+      <div class="as-h">This day, under the selection</div>
+      <div id="counts" class="as-stats"></div>
+    </section>
+    <section class="as-card">
+      <div class="as-h">The day</div>
+      <svg viewBox="0 0 100 15" preserveAspectRatio="none" style="width:100%;height:38px;display:block;margin-bottom:2px">
+        <rect x="0.0" y="13.4" width="3.3" height="0.6"
+            fill="var(--rule)"/><rect x="4.2" y="13.4" width="3.3" height="0.6"
+            fill="var(--rule)"/><rect x="8.3" y="13.4" width="3.3" height="0.6"
+            fill="var(--rule)"/><rect x="12.5" y="13.4" width="3.3" height="0.6"
+            fill="var(--rule)"/><rect x="16.7" y="13.4" width="3.3" height="0.6"
+            fill="var(--rule)"/><rect x="20.9" y="12.9" width="3.3" height="1.1"
+            fill="var(--rule)"/><rect x="25.0" y="12.9" width="3.3" height="1.1"
+            fill="var(--rule)"/><rect x="29.2" y="11.2" width="3.3" height="2.8"
+            fill="var(--rule)"/><rect x="33.4" y="6.7" width="3.3" height="7.3"
+            fill="var(--rule)"/><rect x="37.5" y="3.3" width="3.3" height="10.7"
+            fill="var(--rule)"/><rect x="41.7" y="5.0" width="3.3" height="9.0"
+            fill="var(--rule)"/><rect x="45.9" y="3.8" width="3.3" height="10.2"
+            fill="var(--rule)"/><rect x="50.0" y="7.2" width="3.3" height="6.8"
+            fill="var(--rule)"/><rect x="54.2" y="8.3" width="3.3" height="5.7"
+            fill="var(--rule)"/><rect x="58.4" y="6.1" width="3.3" height="7.9"
+            fill="var(--rule)"/><rect x="62.5" y="1.0" width="3.3" height="13.0"
+            fill="var(--sig)"/><rect x="66.7" y="5.0" width="3.3" height="9.0"
+            fill="var(--rule)"/><rect x="70.9" y="7.2" width="3.3" height="6.8"
+            fill="var(--rule)"/><rect x="75.1" y="3.8" width="3.3" height="10.2"
+            fill="var(--rule)"/><rect x="79.2" y="8.3" width="3.3" height="5.7"
+            fill="var(--rule)"/><rect x="83.4" y="10.6" width="3.3" height="3.4"
+            fill="var(--rule)"/><rect x="87.6" y="13.4" width="3.3" height="0.6"
+            fill="var(--rule)"/><rect x="91.7" y="13.4" width="3.3" height="0.6"
+            fill="var(--rule)"/><rect x="95.9" y="13.4" width="3.3" height="0.6"
+            fill="var(--rule)"/>
+      </svg>
+      <div class="as-fine" style="margin-bottom:10px">flights in the air by hour · peak at 15:00 local</div>
+      <div class="as-frow"><span><span class="name">Hardest-working aircraft</span>
+        <span class="sub">🥇 PS-ATN — ROTORFLY TÁXI AÉREO E SERVIÇOS AÉREOS ESPECIALIZADOS LTDA (EC45) 7 legs · 2.7 h · 🥈 PP-SGL — GILBERTO SCHINCARIOL JÚNIOR (EC30) 7 legs · 1.4 h · 🥉 PS-DBB — IMPLY PARTICIPAÇÕES SOCIETÁRIAS LTDA (R44) 7 legs · 0.8 h</span>
+        <span class="sub" style="color:var(--ink-3)">names: FAA registry (registered to — not necessarily who operates) / ANAC RAB (operador); both pinned</span></span></div>
+      <div class="as-frow"><span><span class="name">Records</span>
+        <span class="sub">longest 346 km (PS-WMS, LUGANO WMS PARTICIPACOES LTDA) ·
+        99 min airborne (PS-WMS, tour loop) ·
+        highest 8000 ft (untyped) ·
+        fastest 153 kt median (B429)</span></span></div>
+      <div class="as-frow"><span><span class="name">What was flying <span style="color:var(--ink-3);font-weight:400">(inferred)</span></span>
+        <span class="sub">charter/other 82 · tour loop 35 · shuttle hop 30 · patrol/military 1</span></span></div>
+      <div class="as-frow"><span><span class="name">Measured outliers</span>
+        <span class="sub">widest orbit: PP-CPD (B429) flew
+        25.2× its direct distance · longest hoverer: PS-GER
+        under 10 kt for 67% of a 14-min flight</span></span></div>
+    </section>
+    <section class="as-card">
+      <div class="as-h">The electric bill</div>
+      <div class="as-note">This day's helicopters burned <b>10,264–16,297 L
+      of Jet-A</b> — $13,343–$34,224,
+      25.7–41.6 tonnes of CO₂.</div>
+      <div class="as-note" style="margin-top:8px">The 59 provably-electric flights:
+      <b>$135–$1011 of electricity</b> vs
+      <b>$1,571–$4,315
+      of fuel for the same flights</b> — the cost intervals don't overlap: the electric worst case beats the fuel best case. 3–5.2 t CO₂ avoided.</div>
+      <div class="as-fine" style="margin-top:8px">Fuel from per-type class burn boxes (stated estimates);
+      electricity from the certified energy enclosures — decided, not projected.</div>
+    </section>
+    </div>
+    <div class="as-tabbody" data-body="fleet">
+    <section class="as-card">
+      <div class="as-h">Aircraft × rule</div>
+      <div id="keys" class="as-mx"></div>
+    </section>
+    <section class="as-card">
+      <div class="as-h">Fleet designer — every position is a proof</div>
+      <div id="dz-gauge-wrap" style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
+        <div>
+          <svg class="as-gauge" id="dz-gauge" width="110" height="66" viewBox="0 0 110 66">
+            <path class="bg" d="M 10 60 A 45 45 0 0 1 100 60"/>
+            <path class="fg" id="dz-arc" d="M 10 60 A 45 45 0 0 1 100 60" stroke-dasharray="141.4" stroke-dashoffset="141.4"/>
+            <text id="dz-pct" x="55" y="52" text-anchor="middle" font-size="20" font-weight="600">–</text>
+          </svg>
+          <div class="as-gaugelbl">day provable</div>
+        </div>
+        <div style="flex:1">
+          <div class="as-batt"><div class="shell"><div class="fill" id="dz-bfill"></div></div>
+            <span class="as-encvals" id="dz-b-out"></span></div>
+          <input type="range" class="as-scrub" id="dz-b" min="60" max="700" step="20" value="320" style="width:100%">
+        </div>
+      </div>
+      <div class="as-h">If the reserve rule were…</div>
+      <input type="range" class="as-scrub" id="dz-r" min="0" max="45" step="3" value="20" style="width:100%">
+      <div class="as-encvals" id="dz-r-out"></div>
+      <div class="as-h" style="margin-top:12px">If charging took… <span id="dz-c-lbl"></span></div>
+      <input type="range" class="as-scrub" id="dz-c" min="0" max="60" step="1" value="45" style="width:100%">
+      <div class="as-fleet" id="dz-fleet"></div>
+      <div class="as-encvals" id="dz-c-out"></div>
+      <div class="as-fine" style="margin-top:8px">Battery and reserve apply to the aircraft selected
+      above; charging applies to the Beta ALIA fleet re-flying its provable day. Each slider position
+      looks up a precomputed, gate-checked certified point.</div>
+    </section>
+    <section class="as-card">
+      <div class="as-h">Re-fly the day — fleet frontier</div>
+      <div class="as-frow"><span><span class="name">Beta ALIA</span>
+         <span class="sub">59 provable legs · witness 15:20:45 BRT · pool model, ANAC 20-min</span></span>
+         <span class="val">exactly 8 aircraft</span></div><div class="as-frow"><span><span class="name">Joby S4</span>
+         <span class="sub">zero provable legs under ANAC 20-min</span></span>
+         <span class="val zero">no certifiable fleet</span></div><div class="as-frow"><span><span class="name">Archer Midnight</span>
+         <span class="sub">zero provable legs under ANAC 20-min</span></span>
+         <span class="val zero">no certifiable fleet</span></div><div class="as-frow"><span><span class="name">Eve EVE-100</span>
+         <span class="sub">zero provable legs under ANAC 20-min</span></span>
+         <span class="val zero">no certifiable fleet</span></div>
+    </section>
+    <section class="as-card">
+      <div class="as-h">Range claims, audited</div>
+      <div class="as-fine" style="margin-bottom:8px">A range claim is EXISTENTIAL — CONSISTENT means
+      some point of the maker's own public+assumed boxes achieves it. A worst-case guarantee is
+      UNIVERSAL and gets the worst corner.</div>
+      <div class="as-frow"><span><span class="name">Joby S4</span>
+          <span class="sub">100 mi range including energy reserves (evtol.news attributing Joby)</span></span>
+          <span class="val" style="color:var(--v-cert)">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Archer Midnight</span>
+          <span class="sub">up to 100 mi (Archer PR)</span></span>
+          <span class="val" style="color:var(--v-cert)">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Archer Midnight</span>
+          <span class="sub">guaranteed minimum 60 mi in the worst case condition (evtol.news attributing Archer)</span></span>
+          <span class="val" style="color:var(--v-refd)">UNDECIDABLE</span></div><div class="as-frow"><span><span class="name">Eve EVE-100</span>
+          <span class="sub">designed for 100 km range (Eve institutional presentation, May 2026)</span></span>
+          <span class="val" style="color:var(--v-cert)">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Beta ALIA</span>
+          <span class="sub">no published VTOL-variant range claim to audit (336 nm demonstrated is the CTOL variant)</span></span>
+          <span class="val" style="color:var(--v-refd)">NO CLAIM</span></div>
+    </section>
+    </div>
+    <div class="as-tabbody" data-body="plan">
+    <section class="as-card">
+      <div class="as-h">Flight planner — a plan that comes with a proof</div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+        <select class="as-sel" id="pl-from" style="flex:1"><option value="SDHE">Helicidade (Marginal Pinheiros)</option><option value="SBMT">Campo de Marte</option><option value="ITA">Itaim Bibi rooftops (measured cluster)</option><option value="ALP">Alphaville / Tamboré (Barueri)</option><option value="OSA">Osasco norte (measured cluster)</option><option value="SBSP">Congonhas Airport</option><option value="SBGR">Guarulhos Airport</option></select>
+        <button class="as-btn" id="pl-swap" title="swap">⇄</button>
+        <select class="as-sel" id="pl-to" style="flex:1"><option value="SDHE" >Helicidade (Marginal Pinheiros)</option><option value="SBMT" >Campo de Marte</option><option value="ITA" >Itaim Bibi rooftops (measured cluster)</option><option value="ALP" selected>Alphaville / Tamboré (Barueri)</option><option value="OSA" >Osasco norte (measured cluster)</option><option value="SBSP" >Congonhas Airport</option><option value="SBGR" >Guarulhos Airport</option></select>
+      </div>
+      <div id="pl-out"></div>
+      <div class="as-fine" style="margin-top:10px">nodes are measured flight-endpoint clusters from the committed corpora (counts stated); the graph is a hand-simplified rendering of the published REH river-corridor structure; distances are corridor path lengths over this graph; the energy verdicts on planned routes are the same certified interval decisions as everywhere else in the app, under ANAC RBAC 91.151(b) - GO/NO-GO here means the ENERGY question only, decided as a mathematically certified enclosure; it is not an operational clearance.</div>
+    </section>
+    <section class="as-card" id="mission-card" style="display:none">
+      <div class="as-h">Live mission</div>
+      <div id="mission"></div>
+    </section>
+    </div></aside>
+<footer class="as-dock" id="dock">
+    <button class="as-play" id="play" aria-label="play/pause">❚❚</button>
+    <input type="range" class="as-scrub" id="scrub" min="0" max="86400" step="1" value="0" aria-label="time of day">
+    <span class="as-clock" id="clock">—</span>
+    <span class="as-seg" id="speed" role="group" aria-label="replay speed">
+      <button data-v="1">1×</button><button data-v="10">10×</button><button data-v="60" data-on="1">60×</button>
+      <button data-v="120">120×</button><button data-v="300">300×</button>
+    </span>
+    <span class="as-seg" id="mode" role="group" aria-label="trail colors">
+      <button data-v="v" data-on="1">VERDICT</button><button data-v="a">ALTITUDE</button>
+    </span>
+    <span class="attr">© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> · Protomaps ·
+    data © <a href="https://adsb.lol">adsb.lol</a> (ODbL)</span></footer>
+<script>window.SKYAUDIT = {"style":"/apps/skyaudit/sp/style.json","bundle":"/apps/skyaudit/sp/data/sp.replay.json","tiles":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/398e022d9e58ff1529ca5268a5a7960750f41a82/apps/skyaudit/data/tiles/sp.pmtiles","ambient":"/apps/skyaudit/sp/data/sp.ambient.json","designer":{"flights":148,"battery":{"joby-s4":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,22],[200,41],[220,62],[240,81],[260,102],[280,115],[300,119],[320,123],[340,126],[360,132],[380,140],[400,142],[420,144],[440,144],[460,146],[480,146],[500,146],[520,146],[540,146],[560,146],[580,146],[600,148],[620,148],[640,148],[660,148],[680,148],[700,148]],"archer-midnight":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,0],[200,25],[220,39],[240,59],[260,74],[280,86],[300,102],[320,112],[340,116],[360,120],[380,123],[400,126],[420,131],[440,136],[460,140],[480,142],[500,143],[520,144],[540,144],[560,146],[580,146],[600,146],[620,146],[640,146],[660,146],[680,146],[700,146]],"beta-alia":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,0],[200,14],[220,31],[240,53],[260,64],[280,79],[300,95],[320,107],[340,116],[360,118],[380,122],[400,124],[420,129],[440,132],[460,139],[480,141],[500,142],[520,144],[540,144],[560,146],[580,146],[600,146],[620,146],[640,146],[660,146],[680,146],[700,146]],"eve-100":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,5],[200,28],[220,49],[240,62],[260,76],[280,90],[300,106],[320,115],[340,117],[360,120],[380,123],[400,126],[420,132],[440,138],[460,140],[480,142],[500,143],[520,144],[540,144],[560,146],[580,146],[600,146],[620,146],[640,146],[660,146],[680,146],[700,146]]},"reserve":{"joby-s4":[[0,93],[3,76],[6,59],[9,35],[12,19],[15,0],[18,0],[21,0],[24,0],[27,0],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]],"archer-midnight":[[0,59],[3,45],[6,28],[9,6],[12,0],[15,0],[18,0],[21,0],[24,0],[27,0],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]],"beta-alia":[[0,123],[3,120],[6,116],[9,111],[12,98],[15,84],[18,69],[21,56],[24,31],[27,17],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]],"eve-100":[[0,35],[3,24],[6,0],[9,0],[12,0],[15,0],[18,0],[21,0],[24,0],[27,0],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]]},"charge_fleet_by_minute":[5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]},"primaryRule":"anac-rbac91-vfr","center":[-46.66,-23.56],"zoom":10.9,"bounds":[[-47.35,-24.15],[-45.9,-22.9]],"planner":{"heliports":{"SDHE":{"name":"Helicidade (Marginal Pinheiros)","lat":-23.5471,"lon":-46.7374,"note":"busiest measured node: 45 flight endpoints across the four pinned days"},"SBMT":{"name":"Campo de Marte","lat":-23.5121,"lon":-46.6382,"note":"São Paulo's helicopter hub; 38 measured endpoints; ANAC vertiport-sandbox site"},"ITA":{"name":"Itaim Bibi rooftops (measured cluster)","lat":-23.5857,"lon":-46.6738,"note":"financial-district building pads; node named by district, not facility"},"ALP":{"name":"Alphaville / Tamboré (Barueri)","lat":-23.5022,"lon":-46.851,"note":"measured cluster"},"OSA":{"name":"Osasco norte (measured cluster)","lat":-23.4796,"lon":-46.7803,"note":"node named by district, not facility"},"SBSP":{"name":"Congonhas Airport","lat":-23.6273,"lon":-46.6566,"note":"airport anchor for shuttle counterfactuals"},"SBGR":{"name":"Guarulhos Airport","lat":-23.4356,"lon":-46.4731,"note":"airport anchor; Eve/Revo airport-shuttle use case targets this corridor"}},"routes":[{"from":"SDHE","to":"SBMT","km":29.7,"coords":[[-46.7374,-23.5471],[-46.7374,-23.5471],[-46.75,-23.527],[-46.742,-23.5125],[-46.7,-23.513],[-46.66,-23.515],[-46.566,-23.5085],[-46.6382,-23.5121]],"bands":["transition","pinheiros","tiete"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-53.1,"b":105},"t_min":[6,7],"charge_after_min":37},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-43.6,"b":98.8},"t_min":[6,7],"charge_after_min":37},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-76.3,"b":59.7},"t_min":[7,8],"charge_after_min":26},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-87.8,"b":52.3},"t_min":[7,8],"charge_after_min":26},"beta-alia|anac-rbac91-vfr":{"v":"C","m":14.1,"t_min":[6,8],"charge_after_min":22},"beta-alia|easa-final-reserve":{"v":"C","m":39.4,"t_min":[6,8],"charge_after_min":22},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-94.6,"b":98.2},"t_min":[7,12],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-92.5,"b":88.1},"t_min":[7,12],"charge_after_min":60}}},{"from":"SDHE","to":"ITA","km":9.2,"coords":[[-46.7374,-23.5471],[-46.7374,-23.5471],[-46.722,-23.57],[-46.71,-23.59],[-46.6738,-23.5857]],"bands":["transition","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-34.4,"b":112.4},"t_min":[2,2],"charge_after_min":26},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-24.9,"b":106.2},"t_min":[2,2],"charge_after_min":26},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-51.5,"b":69.9},"t_min":[2,3],"charge_after_min":18},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-63,"b":62.5},"t_min":[2,3],"charge_after_min":18},"beta-alia|anac-rbac91-vfr":{"v":"C","m":38.8,"t_min":[2,2],"charge_after_min":14},"beta-alia|easa-final-reserve":{"v":"C","m":64.2,"t_min":[2,2],"charge_after_min":14},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-69.7,"b":106.2},"t_min":[2,4],"charge_after_min":42},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-67.6,"b":96.1},"t_min":[2,4],"charge_after_min":42}}},{"from":"SDHE","to":"ALP","km":15.6,"coords":[[-46.7374,-23.5471],[-46.7374,-23.5471],[-46.75,-23.527],[-46.742,-23.5125],[-46.8,-23.51],[-46.851,-23.5022]],"bands":["transition","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-40.2,"b":110.1},"t_min":[3,4],"charge_after_min":29},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-30.7,"b":103.9},"t_min":[3,4],"charge_after_min":29},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-59.2,"b":66.8},"t_min":[4,4],"charge_after_min":20},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-70.7,"b":59.4},"t_min":[4,4],"charge_after_min":20},"beta-alia|anac-rbac91-vfr":{"v":"C","m":31.2,"t_min":[3,4],"charge_after_min":17},"beta-alia|easa-final-reserve":{"v":"C","m":56.5,"t_min":[3,4],"charge_after_min":17},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-77.4,"b":103.7},"t_min":[4,6],"charge_after_min":49},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-75.3,"b":93.6},"t_min":[4,6],"charge_after_min":49}}},{"from":"SDHE","to":"OSA","km":14.2,"coords":[[-46.7374,-23.5471],[-46.7374,-23.5471],[-46.75,-23.527],[-46.742,-23.5125],[-46.8,-23.51],[-46.7803,-23.4796]],"bands":["transition","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-38.9,"b":110.6},"t_min":[3,4],"charge_after_min":29},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-29.4,"b":104.4},"t_min":[3,4],"charge_after_min":29},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-57.6,"b":67.4},"t_min":[4,4],"charge_after_min":20},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-69.1,"b":60},"t_min":[4,4],"charge_after_min":20},"beta-alia|anac-rbac91-vfr":{"v":"C","m":32.8,"t_min":[3,4],"charge_after_min":16},"beta-alia|easa-final-reserve":{"v":"C","m":58.2,"t_min":[3,4],"charge_after_min":16},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-75.7,"b":104.2},"t_min":[4,6],"charge_after_min":47},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-73.7,"b":94.1},"t_min":[4,6],"charge_after_min":47}}},{"from":"SDHE","to":"SBSP","km":12.9,"coords":[[-46.7374,-23.5471],[-46.7374,-23.5471],[-46.722,-23.57],[-46.71,-23.59],[-46.702,-23.61],[-46.6566,-23.6273]],"bands":["transition","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-37.7,"b":111.1},"t_min":[2,3],"charge_after_min":28},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-28.2,"b":104.9},"t_min":[2,3],"charge_after_min":28},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-55.9,"b":68.1},"t_min":[3,4],"charge_after_min":19},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-67.4,"b":60.7},"t_min":[3,4],"charge_after_min":19},"beta-alia|anac-rbac91-vfr":{"v":"C","m":34.4,"t_min":[3,3],"charge_after_min":16},"beta-alia|easa-final-reserve":{"v":"C","m":59.8,"t_min":[3,3],"charge_after_min":16},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-74.1,"b":104.8},"t_min":[3,5],"charge_after_min":46},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-72,"b":94.7},"t_min":[3,5],"charge_after_min":46}}},{"from":"SDHE","to":"SBGR","km":39.3,"coords":[[-46.7374,-23.5471],[-46.7374,-23.5471],[-46.75,-23.527],[-46.742,-23.5125],[-46.7,-23.513],[-46.66,-23.515],[-46.566,-23.5085],[-46.49,-23.5165],[-46.4731,-23.4356]],"bands":["transition","pinheiros","tiete"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-61.9,"b":101.5},"t_min":[7,10],"charge_after_min":43},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-52.4,"b":95.3},"t_min":[7,10],"charge_after_min":43},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-87.8,"b":54.9},"t_min":[10,11],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-99.3,"b":47.5},"t_min":[10,11],"charge_after_min":30},"beta-alia|anac-rbac91-vfr":{"v":"C","m":2.5,"t_min":[8,11],"charge_after_min":26},"beta-alia|easa-final-reserve":{"v":"C","m":27.9,"t_min":[8,11],"charge_after_min":26},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-106.3,"b":94.4},"t_min":[10,16],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-104.2,"b":84.3},"t_min":[10,16],"charge_after_min":60}}},{"from":"SBMT","to":"ITA","km":39,"coords":[[-46.6382,-23.5121],[-46.566,-23.5085],[-46.66,-23.515],[-46.7,-23.513],[-46.742,-23.5125],[-46.75,-23.527],[-46.7374,-23.5471],[-46.722,-23.57],[-46.71,-23.59],[-46.6738,-23.5857]],"bands":["transition","tiete","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-61.6,"b":101.6},"t_min":[7,10],"charge_after_min":42},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-52.1,"b":95.4},"t_min":[7,10],"charge_after_min":42},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-87.4,"b":55.1},"t_min":[10,11],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-98.9,"b":47.7},"t_min":[10,11],"charge_after_min":30},"beta-alia|anac-rbac91-vfr":{"v":"C","m":2.9,"t_min":[8,11],"charge_after_min":26},"beta-alia|easa-final-reserve":{"v":"C","m":28.3,"t_min":[8,11],"charge_after_min":26},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-105.9,"b":94.6},"t_min":[10,16],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-103.8,"b":84.5},"t_min":[10,16],"charge_after_min":60}}},{"from":"SBMT","to":"ALP","km":36.5,"coords":[[-46.6382,-23.5121],[-46.566,-23.5085],[-46.66,-23.515],[-46.7,-23.513],[-46.742,-23.5125],[-46.8,-23.51],[-46.851,-23.5022]],"bands":["transition","tiete"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-59.3,"b":102.5},"t_min":[7,9],"charge_after_min":41},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-49.8,"b":96.3},"t_min":[7,9],"charge_after_min":41},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-84.5,"b":56.3},"t_min":[9,10],"charge_after_min":29},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-96,"b":48.9},"t_min":[9,10],"charge_after_min":29},"beta-alia|anac-rbac91-vfr":{"v":"C","m":5.8,"t_min":[8,10],"charge_after_min":25},"beta-alia|easa-final-reserve":{"v":"C","m":31.2,"t_min":[8,10],"charge_after_min":25},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-102.9,"b":95.5},"t_min":[9,15],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-100.8,"b":85.4},"t_min":[9,15],"charge_after_min":60}}},{"from":"SBMT","to":"OSA","km":35.2,"coords":[[-46.6382,-23.5121],[-46.566,-23.5085],[-46.66,-23.515],[-46.7,-23.513],[-46.742,-23.5125],[-46.8,-23.51],[-46.7803,-23.4796]],"bands":["transition","tiete"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-58.1,"b":103},"t_min":[7,9],"charge_after_min":40},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-48.6,"b":96.8},"t_min":[7,9],"charge_after_min":40},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-82.9,"b":57},"t_min":[9,10],"charge_after_min":28},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-94.4,"b":49.6},"t_min":[9,10],"charge_after_min":28},"beta-alia|anac-rbac91-vfr":{"v":"C","m":7.5,"t_min":[7,10],"charge_after_min":24},"beta-alia|easa-final-reserve":{"v":"C","m":32.8,"t_min":[7,10],"charge_after_min":24},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-101.3,"b":96.1},"t_min":[9,14],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-99.2,"b":85.9},"t_min":[9,14],"charge_after_min":60}}},{"from":"SBMT","to":"SBSP","km":42.6,"coords":[[-46.6382,-23.5121],[-46.566,-23.5085],[-46.66,-23.515],[-46.7,-23.513],[-46.742,-23.5125],[-46.75,-23.527],[-46.7374,-23.5471],[-46.722,-23.57],[-46.71,-23.59],[-46.702,-23.61],[-46.6566,-23.6273]],"bands":["transition","tiete","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-64.9,"b":100.3},"t_min":[8,11],"charge_after_min":45},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-55.4,"b":94.1},"t_min":[8,11],"charge_after_min":45},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-91.9,"b":53.3},"t_min":[11,12],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-103.4,"b":45.9},"t_min":[11,12],"charge_after_min":30},"beta-alia|anac-rbac91-vfr":{"v":"F","m":{"w":-1.5,"b":214.1},"t_min":[9,12],"charge_after_min":27},"beta-alia|easa-final-reserve":{"v":"C","m":23.9,"t_min":[9,12],"charge_after_min":27},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-110.3,"b":93.2},"t_min":[11,17],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-108.2,"b":83},"t_min":[11,17],"charge_after_min":60}}},{"from":"SBMT","to":"SBGR","km":24.3,"coords":[[-46.6382,-23.5121],[-46.566,-23.5085],[-46.49,-23.5165],[-46.4731,-23.4356]],"bands":["transition","tiete"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-48.2,"b":106.9},"t_min":[5,6],"charge_after_min":34},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-38.7,"b":100.7},"t_min":[5,6],"charge_after_min":34},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-69.7,"b":62.4},"t_min":[6,7],"charge_after_min":24},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-81.2,"b":55},"t_min":[6,7],"charge_after_min":24},"beta-alia|anac-rbac91-vfr":{"v":"C","m":20.6,"t_min":[5,7],"charge_after_min":20},"beta-alia|easa-final-reserve":{"v":"C","m":46,"t_min":[5,7],"charge_after_min":20},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-88,"b":100.3},"t_min":[6,10],"charge_after_min":58},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-85.9,"b":90.2},"t_min":[6,10],"charge_after_min":58}}},{"from":"ITA","to":"ALP","km":24.8,"coords":[[-46.6738,-23.5857],[-46.71,-23.59],[-46.722,-23.57],[-46.7374,-23.5471],[-46.75,-23.527],[-46.742,-23.5125],[-46.8,-23.51],[-46.851,-23.5022]],"bands":["transition","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-48.6,"b":106.8},"t_min":[5,6],"charge_after_min":35},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-39.1,"b":100.5},"t_min":[5,6],"charge_after_min":35},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-70.3,"b":62.2},"t_min":[6,7],"charge_after_min":24},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-81.8,"b":54.7},"t_min":[6,7],"charge_after_min":24},"beta-alia|anac-rbac91-vfr":{"v":"C","m":20,"t_min":[5,7],"charge_after_min":20},"beta-alia|easa-final-reserve":{"v":"C","m":45.4,"t_min":[5,7],"charge_after_min":20},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-88.6,"b":100.1},"t_min":[6,10],"charge_after_min":59},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-86.5,"b":90},"t_min":[6,10],"charge_after_min":59}}},{"from":"ITA","to":"OSA","km":23.5,"coords":[[-46.6738,-23.5857],[-46.71,-23.59],[-46.722,-23.57],[-46.7374,-23.5471],[-46.75,-23.527],[-46.742,-23.5125],[-46.8,-23.51],[-46.7803,-23.4796]],"bands":["transition","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-47.4,"b":107.2},"t_min":[4,6],"charge_after_min":34},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-37.9,"b":101},"t_min":[4,6],"charge_after_min":34},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-68.7,"b":62.8},"t_min":[6,6],"charge_after_min":23},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-80.2,"b":55.4},"t_min":[6,6],"charge_after_min":23},"beta-alia|anac-rbac91-vfr":{"v":"C","m":21.6,"t_min":[5,6],"charge_after_min":20},"beta-alia|easa-final-reserve":{"v":"C","m":47,"t_min":[5,6],"charge_after_min":20},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-87,"b":100.6},"t_min":[6,9],"charge_after_min":57},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-84.9,"b":90.5},"t_min":[6,9],"charge_after_min":57}}},{"from":"ITA","to":"SBSP","km":11.1,"coords":[[-46.6738,-23.5857],[-46.71,-23.59],[-46.702,-23.61],[-46.6566,-23.6273]],"bands":["transition","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-36.1,"b":111.7},"t_min":[2,3],"charge_after_min":27},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-26.6,"b":105.5},"t_min":[2,3],"charge_after_min":27},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-53.8,"b":69},"t_min":[3,3],"charge_after_min":18},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-65.3,"b":61.6},"t_min":[3,3],"charge_after_min":18},"beta-alia|anac-rbac91-vfr":{"v":"C","m":36.6,"t_min":[2,3],"charge_after_min":15},"beta-alia|easa-final-reserve":{"v":"C","m":61.9,"t_min":[2,3],"charge_after_min":15},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-71.9,"b":105.5},"t_min":[3,4],"charge_after_min":44},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-69.8,"b":95.4},"t_min":[3,4],"charge_after_min":44}}},{"from":"ITA","to":"SBGR","km":48.6,"coords":[[-46.6738,-23.5857],[-46.71,-23.59],[-46.722,-23.57],[-46.7374,-23.5471],[-46.75,-23.527],[-46.742,-23.5125],[-46.7,-23.513],[-46.66,-23.515],[-46.566,-23.5085],[-46.49,-23.5165],[-46.4731,-23.4356]],"bands":["transition","pinheiros","tiete"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-70.3,"b":98.2},"t_min":[9,12],"charge_after_min":48},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-60.8,"b":91.9},"t_min":[9,12],"charge_after_min":48},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-99,"b":50.3},"t_min":[12,13],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-110.5,"b":42.9},"t_min":[12,13],"charge_after_min":30},"beta-alia|anac-rbac91-vfr":{"v":"F","m":{"w":-8.7,"b":211.3},"t_min":[10,13],"charge_after_min":30},"beta-alia|easa-final-reserve":{"v":"C","m":16.7,"t_min":[10,13],"charge_after_min":30},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-117.5,"b":90.8},"t_min":[12,19],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-115.4,"b":80.7},"t_min":[12,19],"charge_after_min":60}}},{"from":"ALP","to":"OSA","km":9.2,"coords":[[-46.851,-23.5022],[-46.8,-23.51],[-46.7803,-23.4796]],"bands":["transition"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-34.3,"b":112.4},"t_min":[2,2],"charge_after_min":26},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-24.8,"b":106.2},"t_min":[2,2],"charge_after_min":26},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-51.5,"b":70},"t_min":[2,3],"charge_after_min":18},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-63,"b":62.5},"t_min":[2,3],"charge_after_min":18},"beta-alia|anac-rbac91-vfr":{"v":"C","m":38.9,"t_min":[2,2],"charge_after_min":14},"beta-alia|easa-final-reserve":{"v":"C","m":64.2,"t_min":[2,2],"charge_after_min":14},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-69.6,"b":106.2},"t_min":[2,4],"charge_after_min":42},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-67.5,"b":96.1},"t_min":[2,4],"charge_after_min":42}}},{"from":"ALP","to":"SBSP","km":28.5,"coords":[[-46.851,-23.5022],[-46.8,-23.51],[-46.742,-23.5125],[-46.75,-23.527],[-46.7374,-23.5471],[-46.722,-23.57],[-46.71,-23.59],[-46.702,-23.61],[-46.6566,-23.6273]],"bands":["transition","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-52,"b":105.4},"t_min":[5,7],"charge_after_min":37},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-42.5,"b":99.2},"t_min":[5,7],"charge_after_min":37},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-74.8,"b":60.3},"t_min":[7,8],"charge_after_min":25},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-86.3,"b":52.9},"t_min":[7,8],"charge_after_min":25},"beta-alia|anac-rbac91-vfr":{"v":"C","m":15.6,"t_min":[6,8],"charge_after_min":22},"beta-alia|easa-final-reserve":{"v":"C","m":40.9,"t_min":[6,8],"charge_after_min":22},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-93.1,"b":98.7},"t_min":[7,11],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-91,"b":88.6},"t_min":[7,11],"charge_after_min":60}}},{"from":"ALP","to":"SBGR","km":46.1,"coords":[[-46.851,-23.5022],[-46.8,-23.51],[-46.742,-23.5125],[-46.7,-23.513],[-46.66,-23.515],[-46.566,-23.5085],[-46.49,-23.5165],[-46.4731,-23.4356]],"bands":["transition","tiete"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-68.1,"b":99},"t_min":[9,11],"charge_after_min":46},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-58.6,"b":92.8},"t_min":[9,11],"charge_after_min":46},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-96.1,"b":51.5},"t_min":[11,13],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-107.6,"b":44.1},"t_min":[11,13],"charge_after_min":30},"beta-alia|anac-rbac91-vfr":{"v":"F","m":{"w":-5.7,"b":212.5},"t_min":[10,12],"charge_after_min":29},"beta-alia|easa-final-reserve":{"v":"C","m":19.6,"t_min":[10,12],"charge_after_min":29},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-114.6,"b":91.8},"t_min":[11,18],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-112.5,"b":81.7},"t_min":[11,18],"charge_after_min":60}}},{"from":"OSA","to":"SBSP","km":27.1,"coords":[[-46.7803,-23.4796],[-46.8,-23.51],[-46.742,-23.5125],[-46.75,-23.527],[-46.7374,-23.5471],[-46.722,-23.57],[-46.71,-23.59],[-46.702,-23.61],[-46.6566,-23.6273]],"bands":["transition","pinheiros"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-50.7,"b":105.9},"t_min":[5,7],"charge_after_min":36},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-41.2,"b":99.7},"t_min":[5,7],"charge_after_min":36},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-73.1,"b":61},"t_min":[7,8],"charge_after_min":25},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-84.6,"b":53.6},"t_min":[7,8],"charge_after_min":25},"beta-alia|anac-rbac91-vfr":{"v":"C","m":17.2,"t_min":[6,7],"charge_after_min":21},"beta-alia|easa-final-reserve":{"v":"C","m":42.6,"t_min":[6,7],"charge_after_min":21},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-91.4,"b":99.2},"t_min":[7,11],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-89.4,"b":89.1},"t_min":[7,11],"charge_after_min":60}}},{"from":"OSA","to":"SBGR","km":44.8,"coords":[[-46.7803,-23.4796],[-46.8,-23.51],[-46.742,-23.5125],[-46.7,-23.513],[-46.66,-23.515],[-46.566,-23.5085],[-46.49,-23.5165],[-46.4731,-23.4356]],"bands":["transition","tiete"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-66.9,"b":99.5},"t_min":[8,11],"charge_after_min":46},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-57.4,"b":93.3},"t_min":[8,11],"charge_after_min":46},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-94.4,"b":52.2},"t_min":[11,12],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-106,"b":44.8},"t_min":[11,12],"charge_after_min":30},"beta-alia|anac-rbac91-vfr":{"v":"F","m":{"w":-4.1,"b":213.1},"t_min":[9,12],"charge_after_min":28},"beta-alia|easa-final-reserve":{"v":"C","m":21.3,"t_min":[9,12],"charge_after_min":28},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-112.9,"b":92.3},"t_min":[11,18],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-110.8,"b":82.2},"t_min":[11,18],"charge_after_min":60}}},{"from":"SBSP","to":"SBGR","km":52.2,"coords":[[-46.6566,-23.6273],[-46.702,-23.61],[-46.71,-23.59],[-46.722,-23.57],[-46.7374,-23.5471],[-46.75,-23.527],[-46.742,-23.5125],[-46.7,-23.513],[-46.66,-23.515],[-46.566,-23.5085],[-46.49,-23.5165],[-46.4731,-23.4356]],"bands":["transition","pinheiros","tiete"],"verdicts":{"joby-s4|anac-rbac91-vfr":{"v":"F","m":{"w":-73.7,"b":96.8},"t_min":[10,13],"charge_after_min":50},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-64.2,"b":90.6},"t_min":[10,13],"charge_after_min":50},"archer-midnight|anac-rbac91-vfr":{"v":"F","m":{"w":-103.4,"b":48.5},"t_min":[13,14],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-114.9,"b":41.1},"t_min":[13,14],"charge_after_min":30},"beta-alia|anac-rbac91-vfr":{"v":"F","m":{"w":-13.1,"b":209.6},"t_min":[11,14],"charge_after_min":31},"beta-alia|easa-final-reserve":{"v":"C","m":12.3,"t_min":[11,14],"charge_after_min":31},"eve-100|anac-rbac91-vfr":{"v":"F","m":{"w":-122,"b":89.4},"t_min":[13,21],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-119.9,"b":79.3},"t_min":[13,21],"charge_after_min":60}}}],"bands":{"tiete":"Marginal Tietê corridor - the REH east-west spine over the Tietê river (DECEA-published helicopter route structure; PRENOR/DCA 351-7 pinned in sources)","pinheiros":"Marginal Pinheiros corridor - the REH north-south spine over the Pinheiros river","transition":"off-river transition - ATC/CGNA coordination as required"}},"sim":{"specs":{"joby-s4":{"m":2222,"kwh":155,"vBox":[241,322],"delta":700,"chargeMin":60},"archer-midnight":{"m":2993,"kwh":131,"vBox":[217,241],"delta":600,"chargeMin":30},"beta-alia":{"m":2902.5,"kwh":287.5,"vBox":[222,283],"delta":375,"chargeMin":60},"eve-100":{"m":2700,"kwh":125,"vBox":[150,241],"delta":450,"chargeMin":60}},"etaC":0.765,"etaH":0.63,"etaB":0.9,"usableFrac":0.8,"rho":1.225,"ld":{"anchors":[[241,17],[322,13]],"cite":"Uber Elevate 2016: L/D 17 @ 150 mph, 13 @ 200 mph"}}};</script>
+<script src="../vendor/maplibre-gl.js"></script>
+<script src="../vendor/deck.min.js"></script>
+<script src="../vendor/pmtiles.js"></script>
+<script src="../app.js"></script>
+</body></html>

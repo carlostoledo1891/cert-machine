@@ -58,7 +58,7 @@ function run(cityId, dayDir) {
   const city = loadCity(cityId);
   const phys = M.loadPhysics('kasliwal-2019');
   const specs = ['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100'].map(M.loadSpec);
-  const rules = ['faa-sfar-vfr', 'easa-final-reserve'].map(M.loadRule);
+  const rules = require('../audit/corpus.js').CITY_RULES[cityId].map(M.loadRule);
   const H = Object.keys(city.heliports);
   const routes = [];
   for (let i = 0; i < H.length; i++) for (let j = i + 1; j < H.length; j++) {
@@ -94,6 +94,6 @@ if (require.main === module) {
   fs.writeFileSync(out, JSON.stringify(res, null, 1));
   for (const r of res.routes) {
     console.log(r.from + '→' + r.to, String(r.km).padStart(5), 'km ',
-      Object.entries(r.verdicts).filter(([k]) => k.endsWith('faa-sfar-vfr')).map(([k, v]) => k.split('|')[0].split('-')[0] + ':' + v.v).join(' '));
+      Object.entries(r.verdicts).filter(([k]) => k.endsWith(require('../audit/corpus.js').primaryRule(process.argv[2] || 'nyc'))).map(([k, v]) => k.split('|')[0].split('-')[0] + ':' + v.v).join(' '));
   }
 }

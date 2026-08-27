@@ -1,0 +1,92 @@
+{
+  "city": "sp",
+  "dayDir": "day-2026-08-26",
+  "flights": 148,
+  "defaultTyped": 23,
+  "what": "THE ELECTRIC BILL — fuel from class burn boxes (q:E, stated), electric from the CERTIFIED enclosures",
+  "fuel": {
+    "liters": [
+      10264,
+      16297
+    ],
+    "usd": [
+      13343,
+      34224
+    ],
+    "co2_tonnes": [
+      25.7,
+      41.6
+    ],
+    "topTypes": [
+      {
+        "type": "A7-UNTYPED",
+        "liters": [
+          845,
+          4226
+        ]
+      },
+      {
+        "type": "B429",
+        "liters": [
+          2743,
+          3566
+        ]
+      },
+      {
+        "type": "EC45",
+        "liters": [
+          1785,
+          2272
+        ]
+      },
+      {
+        "type": "AS50",
+        "liters": [
+          1353,
+          1691
+        ]
+      },
+      {
+        "type": "EC55",
+        "liters": [
+          941,
+          1176
+        ]
+      },
+      {
+        "type": "A169",
+        "liters": [
+          748,
+          935
+        ]
+      }
+    ]
+  },
+  "electric_subset": {
+    "flights": 59,
+    "spec": "beta-alia|anac-rbac91-vfr",
+    "kwh": [
+      962,
+      3369
+    ],
+    "usd": [
+      135,
+      1011
+    ],
+    "same_flights_fuel": {
+      "liters": [
+        1208,
+        2055
+      ],
+      "usd": [
+        1571,
+        4315
+      ],
+      "co2_tonnes": [
+        3,
+        5.2
+      ]
+    },
+    "note": "energy is the certified used-enclosure sum of the E-FLYABLE flights — decided, not projected; same_flights_fuel is the apples-to-apples fuel bill of those SAME flights"
+  }
+}

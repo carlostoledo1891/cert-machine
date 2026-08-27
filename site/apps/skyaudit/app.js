@@ -29,11 +29,11 @@ function altColor(alt) {
 }
 
 /* ---------------------------- state ---------------------------- */
-const S = { t: 0, speed: 60, playing: true, key: 'beta-alia|faa-sfar-vfr',
+const S = { t: 0, speed: 60, playing: true, key: 'beta-alia|' + (CFG.primaryRule || 'faa-sfar-vfr'),
   mode: 'v', sel: null, follow: false, trail: 240, bundle: null };
 const NAMES = { 'joby-s4': 'Joby S4', 'archer-midnight': 'Archer Midnight',
   'beta-alia': 'Beta ALIA', 'eve-100': 'Eve EVE-100' };
-const RULES = { 'faa-sfar-vfr': 'FAA 20-min', 'easa-final-reserve': 'EASA 5-min' };
+const RULES = { 'faa-sfar-vfr': 'FAA 20-min', 'easa-final-reserve': 'EASA 5-min', 'anac-rbac91-vfr': 'ANAC 20-min' };
 /* product labels on the surface; the rigorous terms live in the
    certificate detail layer, one click down */
 const VNAME = { C: 'E-FLYABLE', R: 'BEYOND RANGE', F: 'NEEDS DATA' };
@@ -73,9 +73,9 @@ async function pickStyle() {
 let map;
 pickStyle().then((styleUrl) => {
   map = new maplibregl.Map({
-    container: 'map', style: styleUrl, center: [-73.995, 40.72], zoom: 11.4,
+    container: 'map', style: styleUrl, center: CFG.center || [-73.995, 40.72], zoom: CFG.zoom || 11.4,
     pitch: 52, bearing: -14, minZoom: 8.2, maxZoom: 16.8,
-    maxBounds: [[-74.75, 40.25], [-73.25, 41.15]], attributionControl: { compact: true },
+    maxBounds: CFG.bounds || [[-74.75, 40.25], [-73.25, 41.15]], attributionControl: { compact: true },
   });
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-left');
   map.on('load', addBuildings);
@@ -327,7 +327,7 @@ function pCruiseKw(sp, v) { return sp.m * G0 * (v / 3.6) / (ldOf(v) * SIMP.etaC)
 function pHoverKw(sp) { return sp.m * G0 / SIMP.etaH * Math.sqrt(sp.delta / (2 * SIMP.rho)) / 1000; }
 function reserveKwh(sp, v) {
   const rule = S.key.split('|')[1];
-  return rule === 'faa-sfar-vfr' ? 1200 / 3600 * pCruiseKw(sp, v) / SIMP.etaB
+  return /faa-sfar-vfr|anac-rbac91-vfr/.test(rule) ? 1200 / 3600 * pCruiseKw(sp, v) / SIMP.etaB
     : 300 / 3600 * pHoverKw(sp) / SIMP.etaB;
 }
 function routeCum(r) {
@@ -653,7 +653,7 @@ function renderPanel() {
   </details>
   <div class="as-h" style="margin-top:14px">Reserve what-if</div>
   <input type="range" id="rsv" class="as-scrub" min="5" max="45" step="1" style="width:100%"
-    value="${S.key.endsWith('faa-sfar-vfr') ? 20 : 5}" aria-label="reserve minutes">
+    value="${/faa-sfar-vfr|anac-rbac91-vfr/.test(S.key) ? 20 : 5}" aria-label="reserve minutes">
   <div class="as-encvals" id="rsvout"></div>
   <div class="as-fine" style="margin-top:2px">Preview: scales this flight's recorded reserve
   enclosure linearly in time. Committed verdicts are gate-checked at the published rules;
@@ -668,7 +668,7 @@ function renderPanel() {
     const k = e.target.closest && e.target.closest('.as-cell');
     if (k) selKey(k.dataset.k);
   };
-  const baseMin = S.key.endsWith('faa-sfar-vfr') ? 20 : 5;
+  const baseMin = /faa-sfar-vfr|anac-rbac91-vfr/.test(S.key) ? 20 : 5;
   const rsvUpdate = () => {
     const t = +$('rsv').value, k = t / baseMin;
     const worst = enc.u[0] - enc.e[1] - enc.r[1] * k;
