@@ -44,9 +44,12 @@ battery 27/27 incl. reds; build gate 10); (3) DONE 2026-08-27 — COMPANION NOTE
 (reports/skyaudit.html via tools/build-report-skyaudit.js: app battery
 re-run + 3,056 rows recounted + cross-record consistency as its build
 gates, every number from gated records; linked both ways; shelf group
-'applied' first card); (4) SECOND PINNED DAY — day-stability
-(weekend or winter day; pipeline is mechanical: download/extract/
-certify/compare). HELD for joint decision: the conservatism
+'applied' first card); (4) DONE 2026-08-27 — SECOND PINNED DAY
+SHIPPED (Sunday 2026-08-23 pinned/certified/re-flown/compared;
+STRUCTURE HOLDS — only Beta provable on both days, magnitude moves:
+E-FLYABLE 7.4% vs 12%, fleet exactly 2 vs 5, stated honestly in note
+§7; registry extracts cover the union of days; N339LL stale-feeder-
+type catch; battery 29/29). ALL FOUR FOUNDATIONS DONE. HELD for joint decision: the conservatism
 refinements (reserve-speed box / MTOW / disk loading — changes every
 published number; do once as methodology v2). THEN: SP city-pack page
 (EmbraerX artifact; data fully processed, needs SP tiles + switcher +

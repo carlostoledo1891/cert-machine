@@ -1,20 +1,31 @@
 {
- "what": "SkyAudit registry extract — only corpus-joined rows, only used fields",
+ "what": "SkyAudit registry extract — only corpus-joined rows, only used fields; covers the UNION of all committed days",
  "city": "nyc",
- "dayDir": "day-2026-08-26",
+ "days": [
+  "day-2026-08-26",
+  "day-2026-08-23"
+ ],
  "sources": {
   "faa": "FAA Releasable Aircraft Database (public domain)",
   "rab": "ANAC RAB dados_aeronaves.csv (open data)"
  },
  "rab_updated": "2026-08-27",
  "counts": {
-  "corpus": 82,
-  "matched": 73,
-  "unmatched": 9
+  "corpus": 95,
+  "matched": 82,
+  "unmatched": 13
  },
  "unmatched": [
   {
+   "icao": "400294",
+   "reg": "VP-CZS"
+  },
+  {
    "icao": "a091fc",
+   "reg": null
+  },
+  {
+   "icao": "a0fdf8",
    "reg": null
   },
   {
@@ -38,6 +49,10 @@
    "reg": "20-21147"
   },
   {
+   "icao": "ae6a8a",
+   "reg": "20-21156"
+  },
+  {
    "icao": "afa827",
    "reg": "18-20990"
   },
@@ -48,9 +63,23 @@
   {
    "icao": "c00ff2",
    "reg": "C-FGAZ"
+  },
+  {
+   "icao": "c05ab2",
+   "reg": "C-GIIZ"
   }
  ],
  "faa": {
+  "N1004T": {
+   "reg": "N1004T",
+   "icaoHex": "a007aa",
+   "registeredTo": "I1 AVIATION LLC",
+   "nameKind": "registrant",
+   "mfr": "ROBINSON HELICOPTER COMPANY",
+   "model": "R44 II",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
   "N1103S": {
    "reg": "N1103S",
    "icaoHex": "a02f05",
@@ -161,6 +190,16 @@
    "typeAcft": "6",
    "rotorcraft": true
   },
+  "N278FX": {
+   "reg": "N278FX",
+   "icaoHex": "a2c4c7",
+   "registeredTo": "FLEXJET VERTICAL LIFT LLC",
+   "nameKind": "registrant",
+   "mfr": "KEYSTONE HELICOPTER",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
   "N27M": {
    "reg": "N27M",
    "icaoHex": "a2a536",
@@ -250,6 +289,16 @@
    "model": "BD-500-1A11",
    "typeAcft": "5",
    "rotorcraft": false
+  },
+  "N339LL": {
+   "reg": "N339LL",
+   "icaoHex": "a3b843",
+   "registeredTo": "THRO FLIGHT INC",
+   "nameKind": "registrant",
+   "mfr": "ROBINSON HELICOPTER COMPANY",
+   "model": "R44 II",
+   "typeAcft": "6",
+   "rotorcraft": true
   },
   "N34HF": {
    "reg": "N34HF",
@@ -351,6 +400,16 @@
    "typeAcft": "6",
    "rotorcraft": true
   },
+  "N407NY": {
+   "reg": "N407NY",
+   "icaoHex": "a4c7e5",
+   "registeredTo": "NEW YORK CITY POLICE AVIATION UNIT",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
   "N408GG": {
    "reg": "N408GG",
    "icaoHex": "a4caf6",
@@ -358,6 +417,16 @@
    "nameKind": "registrant",
    "mfr": "BELL HELICOPTER TEXTRON CANADA",
    "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N410CK": {
+   "reg": "N410CK",
+   "icaoHex": "a4d45c",
+   "registeredTo": "CHARM CITY AVIATION LLC",
+   "nameKind": "registrant",
+   "mfr": "EUROCOPTER",
+   "model": "AS 350 B2",
    "typeAcft": "6",
    "rotorcraft": true
   },
@@ -431,6 +500,16 @@
    "typeAcft": "6",
    "rotorcraft": true
   },
+  "N551HY": {
+   "reg": "N551HY",
+   "icaoHex": "a703e8",
+   "registeredTo": "MR AVIATION LLC",
+   "nameKind": "registrant",
+   "mfr": "LEONARDO SPA",
+   "model": "AW139",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
   "N555ZA": {
    "reg": "N555ZA",
    "icaoHex": "a7143e",
@@ -448,6 +527,16 @@
    "nameKind": "registrant",
    "mfr": "SIKORSKY",
    "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N615BD": {
+   "reg": "N615BD",
+   "icaoHex": "a8016e",
+   "registeredTo": "DECKOFF STEPHEN H",
+   "nameKind": "registrant",
+   "mfr": "AIRBUS HELICOPTERS DEUTSCHLAND",
+   "model": "EC135 P2+",
    "typeAcft": "6",
    "rotorcraft": true
   },
@@ -741,6 +830,16 @@
    "typeAcft": "6",
    "rotorcraft": true
   },
+  "N93DR": {
+   "reg": "N93DR",
+   "icaoHex": "ace3ab",
+   "registeredTo": "N111VG LLC",
+   "nameKind": "registrant",
+   "mfr": "ROBINSON HELICOPTER COMPANY",
+   "model": "R44 II",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
   "N945RF": {
    "reg": "N945RF",
    "icaoHex": "ad2138",
@@ -768,6 +867,16 @@
    "nameKind": "registrant",
    "mfr": "SIKORSKY",
    "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N98EG": {
+   "reg": "N98EG",
+   "icaoHex": "ada936",
+   "registeredTo": "HFS HELI V LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
    "typeAcft": "6",
    "rotorcraft": true
   },

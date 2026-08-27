@@ -366,9 +366,25 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       none typed. Linked both ways (app "Honest boundaries" → note;
       note § 7 → app). Shelf: group 'applied', first card; Makefile
       reports += builder
-- [ ] 7.4 SECOND PINNED DAY — day-stability: a contrasting day (weekend
-      or winter), download/extract/certify/compare against 2026-08-26;
-      report deltas honestly
+- [x] 7.4 SECOND PINNED DAY SHIPPED — Sunday 2026-08-23 (same week/
+      season/receivers as the Wednesday of record: day-of-week is the
+      isolated variable). Pinned (data/day-2026-08-23/PINS.json, 3
+      release assets sha256'd; heli corpora + cert ledgers committed
+      .gz), certified + re-flown both cities, compared
+      (audit/compare-days.js -> nyc.compare.json). THE MEASUREMENT:
+      structure HOLDS (only Beta provable; Joby/Archer/Eve zero on both
+      days; Archer refutation pattern + Eve NEEDS-DATA wall repeat);
+      magnitude moves (Sunday 51 aircraft/175 flights/1,400 rows vs
+      82/382/3,056; E-FLYABLE 13 = 7.4% vs 46 = 12%; fleet exactly 2
+      vs exactly 5) — the 12% is a property of the Wednesday, stated
+      so. BONUS: registry authority caught a stale feeder type on the
+      contrast day — N339LL "TBM-700" is an FAA R44 II, admitted, its
+      measured day (87 kt median, 1,175 ft) agrees with the FAA.
+      Registry extracts now cover the UNION of committed days (gate 10
+      + battery updated). Note §7 day-stability + stat tile + sources
+      row; comparison re-derived at every note build. Battery 29/29
+      (N339LL regression + self-compare calibration); app stays pinned
+      to the day of record
 - AFTER the four: SP city-pack page (the EmbraerX artifact). HELD for the
   operator: methodology v2 (the conservatism refinements — Phase 2 box).
   PARKED: synthetic demand packs. Outreach on the operator's word only.

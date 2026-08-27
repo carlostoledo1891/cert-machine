@@ -67,16 +67,30 @@ for (const [k, v] of Object.entries(S.bySpecRule)) {
   }
 }
 
+/* ---- the contrast day (7.4 day-stability) --------------------------------- */
+const DAY2 = path.join(APP, 'data', 'day-2026-08-23');
+const S2 = J(path.join(DAY2, 'nyc.audit-summary.json'));
+const cmp = J(path.join(DAY2, 'nyc.compare.json'));
+const day2Pins = J(path.join(DAY2, 'PINS.json'));
+
+/* gate 2b: re-derive the comparison and recount the contrast-day ledger */
+const rederived = require(path.join(APP, 'audit', 'compare-days.js')).derive('nyc', 'day-2026-08-26', 'day-2026-08-23');
+if (JSON.stringify(rederived) !== JSON.stringify(cmp)) die('the day comparison no longer re-derives from the committed summaries');
+const certs2 = zlib.gunzipSync(fs.readFileSync(path.join(DAY2, 'nyc.certs.jsonl.gz'))).toString('utf8');
+const rows2 = certs2.split('\n').filter((l) => l.trim()).length;
+if (rows2 !== S2.rows || rows2 !== cmp.summary.rows.contrast) die('contrast-day ledger recount ' + rows2 + ' != summary ' + S2.rows);
+
 /* ---- gate 3: cross-record consistency ------------------------------------- */
 const BETA = 'beta-alia|faa-sfar-vfr';
 const eflyable = S.bySpecRule[BETA].CERTIFIED;
 if (econ.electric_subset.flights !== eflyable) die('economics electric subset != certified count');
 if (refly.keys[BETA].certifiedLegs !== eflyable) die('refly certified legs != certified count');
 if (opt.reserve_price.by_reserve_minutes['beta-alia']['20'] !== eflyable) die('reserve price at 20 min != certified count');
+const { unionKeys } = require(path.join(APP, 'audit', 'registry.js'));
 for (const [city, ex] of [['nyc', regNyc], ['sp', regSp]]) {
   if (ex.counts.matched + ex.counts.unmatched !== ex.counts.corpus) die('registry closure broken for ' + city);
+  if (ex.counts.corpus !== unionKeys(city).size) die('registry extract ' + city + ' no longer covers the union of committed days');
 }
-if (regNyc.counts.corpus !== S.uniqueAircraft) die('registry corpus count != audit unique aircraft');
 
 /* ---- derived, from records only ------------------------------------------- */
 const pct = Math.round(eflyable / S.flights * 100);
@@ -121,7 +135,8 @@ B.push(C.tldr({
     + 'a straddle — NEEDS DATA, never averaged. An independent stdlib-Python verifier re-proves the ledger with '
     + 'zero dependencies.',
   checkRaw: C.m('node apps/skyaudit/build.js') + ' from a clone — 10 gates, battery ' + nChecks + ' checks; '
-    + 'this page recounted all ' + fmt(S.rows) + ' certificate rows from the ledger at its own build.'
+    + 'this page recounted all ' + fmt(S.rows + S2.rows) + ' certificate rows (both pinned days) from the '
+    + 'ledgers at its own build.'
 }));
 
 B.push(C.stats([
@@ -130,6 +145,7 @@ B.push(C.stats([
   { k: 'minimum fleet, proved', v: 'exactly ' + refly.keys[BETA].fleetMin + ' aircraft', role: 'held', n: refly.keys[BETA].fleetMin - 1 + ' REFUTED by pigeonhole at a witnessed instant (09:58:33 ET, the morning rush); ' + refly.keys[BETA].fleetMin + ' CERTIFIED by an exactly-verified schedule' },
   { k: 'the opacity finding', v: 'Joby · Archer · Eve: 0 provable', role: 'warn', n: 'NEEDS DATA dominates their ledgers — the audit measures what public specs cannot decide, and says so instead of guessing' },
   { k: 'authoritative identity', v: regNyc.counts.matched + '/' + regNyc.counts.corpus + ' + ' + regSp.counts.matched + '/' + regSp.counts.corpus + ' joined', role: 'held', n: 'FAA Releasable Aircraft DB + ANAC RAB, sha-pinned; registry-first typing changed corpus membership NOWHERE — the numbers stand on authority, unmatched aircraft listed one by one' },
+  { k: 'day-stability, measured', v: cmp.eflyable.pct.record + '% vs ' + cmp.eflyable.pct.contrast + '%', role: 'held', n: 'a contrasting Sunday (' + fmt(cmp.summary.flights.contrast) + ' flights) holds the STRUCTURE — only Beta provable, the others zero on both days — while the provable share moves with the day; §7 states the deltas' },
   { k: 'what this is not', v: 'no airworthiness claim', role: 'warn', n: '"certified" is a mathematical statement about published boxes and exact arithmetic — never a regulatory status, an endorsement, or a judgment of any operator\'s mission' }
 ]));
 
@@ -235,8 +251,8 @@ B.push(C.section({
       + 'reserve), mission mass is the MTOW box (max-load strictness), and disk loading is a class box where '
       + 'published geometry could tighten it per aircraft. Relaxing any of these changes every published number, '
       + 'so they will move only together, as an explicit methodology v2 — not one at a time between builds.'),
-    C.p('One Wednesday is one Wednesday: day-to-day stability is the next measurement (a contrasting second '
-      + 'pinned day), not an assumption. The corpus is what the receiver network saw — coverage gaps are flagged '
+    C.p('One Wednesday is one Wednesday — which is why §7 measures a second, contrasting day instead of assuming '
+      + 'stability. The corpus is what the receiver network saw — coverage gaps are flagged '
       + 'per flight, never interpolated. Operation-type labels in the app (tour loop, patrol, shuttle) are '
       + 'heuristics, labeled INFERRED, and judge nobody\'s mission. Names come from the registries and mean what '
       + 'the registries mean: the FAA publishes the REGISTRANT ("registered to" — often an LLC, not necessarily '
@@ -246,12 +262,41 @@ B.push(C.section({
 }));
 
 B.push(C.section({
-  lab: '§7 · sources and rerun', title: 'Every dataset pinned, every gate rerunnable', wide: true,
+  lab: '§7 · day-stability', title: 'The same audit, a contrasting Sunday', wide: true,
+  bodyRaw: C.table({
+    cols: [{ h: '' }, { h: 'Wednesday 2026-08-26 (record)', cls: 'n' }, { h: 'Sunday 2026-08-23 (contrast)', cls: 'n' }],
+    rows: [
+      ['unique aircraft (audited)', fmt(cmp.summary.uniqueAircraft.record) + ' (' + fmt(cmp.summary.audited.record) + ')', fmt(cmp.summary.uniqueAircraft.contrast) + ' (' + fmt(cmp.summary.audited.contrast) + ')'],
+      ['flights · certificate rows', fmt(cmp.summary.flights.record) + ' · ' + fmt(cmp.summary.rows.record), fmt(cmp.summary.flights.contrast) + ' · ' + fmt(cmp.summary.rows.contrast)],
+      ['km flown (audited paths)', fmt(cmp.summary.totalPathKm.record), fmt(cmp.summary.totalPathKm.contrast)],
+      ['E-FLYABLE (Beta ALIA, FAA 20-min)', cmp.eflyable.record + ' (' + cmp.eflyable.pct.record + '%)', cmp.eflyable.contrast + ' (' + cmp.eflyable.pct.contrast + '%)'],
+      ['minimum fleet, proved both directions', 'exactly ' + cmp.fleet.fleetMin.record, 'exactly ' + cmp.fleet.fleetMin.contrast],
+      ['Joby / Archer / Eve provable flights', '0 / 0 / 0', '0 / 0 / 0'],
+    ]
+  })
+    + '<div class="col">' + C.pRaw('The contrast day was chosen to isolate one variable: a Sunday in the SAME '
+      + 'week, season and receiver network as the Wednesday of record. What holds across both days is the '
+      + 'STRUCTURE: only Beta\'s published numbers prove anything; Joby, Archer and Eve decide zero flights on '
+      + 'either day; Archer\'s refutation pattern and Eve\'s NEEDS-DATA wall repeat. What moves with the day is '
+      + 'the magnitude: Sunday flies less than half the Wednesday (' + fmt(cmp.summary.flights.contrast) + ' vs '
+      + fmt(cmp.summary.flights.record) + ' flights) and its provable share is ' + cmp.eflyable.pct.contrast
+      + '% against ' + cmp.eflyable.pct.record + '% — the 12% headline is a property of the pinned Wednesday, '
+      + 'not a universal constant, and this page will not pretend otherwise. The comparison is derived only from '
+      + 'the two committed summaries and re-derived at every build. A bonus finding from the contrast day: the '
+      + 'feed\'s type database called N339LL a SOCATA TBM-700 turboprop; the FAA registry says Robinson R44 II — '
+      + 'and its measured day (median 87 kt, ceiling 1,175 ft) agrees with the registry, so the authoritative '
+      + 'filter admitted a real helicopter the feeder typing would have dropped.') + '</div>'
+}));
+
+B.push(C.section({
+  lab: '§8 · sources and rerun', title: 'Every dataset pinned, every gate rerunnable', wide: true,
   bodyRaw: C.table({
     cols: [{ h: 'dataset' }, { h: 'license' }, { h: 'pinned' }, { h: 'sha256 (prefix)' }],
     rows: [
       ['adsb.lol globe history 2026-08-26 (4 release assets)', 'ODbL-1.0', 'day-2026-08-26/PINS.json',
         dayPins.assets_sha256['v2026.08.26-planes-readsb-prod-0.tar.aa'].slice(0, 12) + '… (+3)'],
+      ['adsb.lol globe history 2026-08-23 — the contrast day (3 assets)', 'ODbL-1.0', 'day-2026-08-23/PINS.json',
+        day2Pins.assets_sha256['v2026.08.23-planes-readsb-prod-0.tar.aa'].slice(0, 12) + '… (+2)'],
       ['FAA Releasable Aircraft Database', 'public domain', 'registry/REGISTRY-PINS.json · acquired ' + regPins.raw['ReleasableAircraft.zip'].acquired,
         regPins.raw['ReleasableAircraft.zip'].sha256.slice(0, 12) + '…'],
       ['ANAC RAB dados_aeronaves.csv', 'ANAC dados abertos', 'registry/REGISTRY-PINS.json · dataset ' + regPins.raw['dados_aeronaves.csv'].dataset_date,
@@ -269,8 +314,9 @@ B.push(C.section({
 }));
 
 const foot = '<footer class="col"><p>Generated by tools/build-report-skyaudit.js @ git ' + git + '. Gates at this '
-  + 'build: the app battery (' + nChecks + ' checks, red controls fired), all ' + fmt(S.rows) + ' certificate rows '
-  + 'recounted from the ledger, verdict tallies re-derived, cross-record consistency (economics = refly = '
+  + 'build: the app battery (' + nChecks + ' checks, red controls fired), all ' + fmt(S.rows) + ' + ' + fmt(S2.rows)
+  + ' certificate rows recounted from both days\' ledgers, verdict tallies re-derived, the day-stability '
+  + 'comparison re-derived from the committed summaries, cross-record consistency (economics = refly = '
   + 'reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any '
   + 'deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></footer>';
 

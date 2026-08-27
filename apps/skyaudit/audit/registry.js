@@ -35,6 +35,7 @@ const PINS_PATH = path.join(DIR, 'REGISTRY-PINS.json');
 const sha256 = (buf) => crypto.createHash('sha256').update(buf).digest('hex');
 
 /* ---- corpus keys: every (icao, reg) in a city's committed heli corpus ---- */
+const DAYS = ['day-2026-08-26', 'day-2026-08-23'];   /* every committed day — extracts cover their UNION */
 function corpusKeys(city, dayDir) {
   const p = path.join(DATA, dayDir || 'day-2026-08-26', city + '.heli.jsonl');
   const raw = fs.existsSync(p) ? fs.readFileSync(p, 'utf8')
@@ -44,6 +45,17 @@ function corpusKeys(city, dayDir) {
     if (!line.trim()) continue;
     const o = JSON.parse(line);
     if (!keys.has(o.icao) || (keys.get(o.icao) == null && o.r)) keys.set(o.icao, o.r || null);
+  }
+  return keys;
+}
+function unionKeys(city) {
+  const keys = new Map();
+  for (const d of DAYS) {
+    if (!fs.existsSync(path.join(DATA, d, city + '.heli.jsonl'))
+      && !fs.existsSync(path.join(DATA, d, city + '.heli.jsonl.gz'))) continue;
+    for (const [icao, reg] of corpusKeys(city, d)) {
+      if (!keys.has(icao) || (keys.get(icao) == null && reg)) keys.set(icao, reg);
+    }
   }
   return keys;
 }
@@ -134,7 +146,7 @@ function build(dayDir) {
   const pins = fs.existsSync(PINS_PATH) ? JSON.parse(fs.readFileSync(PINS_PATH, 'utf8')) : {};
   const out = {};
   for (const city of cities) {
-    const keys = corpusKeys(city, dayDir);
+    const keys = unionKeys(city);
     const faa = buildFaa(keys);
     const { rows: rab, updated } = buildRab(keys);
     /* coverage closure: every corpus aircraft is matched or listed unmatched */
@@ -145,8 +157,8 @@ function build(dayDir) {
     }
     unmatched.sort((a, b) => a.icao.localeCompare(b.icao));
     const extract = {
-      what: 'SkyAudit registry extract — only corpus-joined rows, only used fields',
-      city, dayDir: dayDir || 'day-2026-08-26',
+      what: 'SkyAudit registry extract — only corpus-joined rows, only used fields; covers the UNION of all committed days',
+      city, days: DAYS,
       sources: { faa: 'FAA Releasable Aircraft Database (public domain)', rab: 'ANAC RAB dados_aeronaves.csv (open data)' },
       rab_updated: updated,
       counts: { corpus: keys.size, matched: matched.size, unmatched: unmatched.length },
@@ -208,7 +220,7 @@ function loadRegistry(opts) {
   return reg;
 }
 
-module.exports = { build, loadRegistry, corpusKeys };
+module.exports = { build, loadRegistry, corpusKeys, unionKeys, DAYS };
 
 if (require.main === module) {
   const cmd = process.argv[2];

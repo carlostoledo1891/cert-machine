@@ -291,11 +291,11 @@ ok('ANAC calibration: PP-BBI — Bell 429, class H2T, operador Banco Bradesco', 
   assert.ok(hit.operadores[0].includes('BRADESCO'));
 });
 
-ok('coverage closure: matched + unmatched == corpus, both cities, recounted live', () => {
+ok('coverage closure: matched + unmatched == the union corpus of all committed days, both cities', () => {
   for (const city of ['nyc', 'sp']) {
     const ex = JSON.parse(fsq.readFileSync(path.join(__dirname, 'data/registry/' + city + '.registry.json'), 'utf8'));
-    const keys = registry.corpusKeys(city);
-    assert.strictEqual(ex.counts.corpus, keys.size, city + ' corpus count');
+    const keys = registry.unionKeys(city);
+    assert.strictEqual(ex.counts.corpus, keys.size, city + ' union corpus count');
     assert.strictEqual(ex.counts.matched + ex.counts.unmatched, ex.counts.corpus, city + ' closure');
     assert.strictEqual(ex.unmatched.length, ex.counts.unmatched, city + ' unmatched list length');
   }
@@ -329,6 +329,34 @@ ok('RED: the filter CONSUMES the registry — a forged registry flips membership
   /* and the real registry restores the truth */
   assert.strictEqual(corpus.isHeliStrict(a320), false);
   assert.strictEqual(corpus.isHeliStrict(b407), true);
+});
+
+ok('registry authority overrides a stale feeder type: N339LL (feeder says TBM-700) is an FAA R44 II, admitted', () => {
+  const r = registry.loadRegistry();
+  const hit = r.lookup({ icao: 'a3b843', r: 'N339LL' });
+  assert.ok(hit && hit.rotorcraft === true && /R44/.test(hit.model), 'FAA must say R44: ' + JSON.stringify(hit));
+  /* the contrast-day corpus carries the stale type; the filter must admit on authority */
+  const obj = corpus.loadHeli('nyc', 'day-2026-08-23').aircraft.find((a) => a.icao === 'a3b843');
+  assert.ok(obj && obj.t === 'TBM7', 'the stale feeder type is the fixture');
+  assert.strictEqual(corpus.isHeliStrict(obj), true);
+  /* and its measured day is type-consistent with an R44, not a 250-kt turboprop */
+  const fl = require('./audit/flights.js').segmentTrace(obj);
+  assert.ok(fl.length >= 1 && fl[0].medianGsKt < 115 && fl[0].maxAltFt < 3000,
+    'R44-consistent profile, got ' + JSON.stringify({ gs: fl[0].medianGsKt, alt: fl[0].maxAltFt }));
+});
+
+console.log('-- day-stability: the comparison derivation');
+
+ok('compare-days calibration: a day against itself has zero deltas everywhere', () => {
+  const cmp = require('./audit/compare-days.js').derive('nyc', 'day-2026-08-26', 'day-2026-08-26');
+  for (const v of Object.values(cmp.summary)) assert.strictEqual(v.record, v.contrast);
+  for (const k of Object.keys(cmp.bySpecRule)) {
+    for (const verdict of ['CERTIFIED', 'REFUTED', 'REFUSED']) {
+      assert.strictEqual(cmp.bySpecRule[k][verdict].record, cmp.bySpecRule[k][verdict].contrast);
+    }
+  }
+  assert.strictEqual(cmp.eflyable.record, cmp.eflyable.contrast);
+  assert.strictEqual(cmp.fleet.fleetMin.record, cmp.fleet.fleetMin.contrast);
 });
 
 console.log('battery green: ' + n + '/' + n + ' checks');

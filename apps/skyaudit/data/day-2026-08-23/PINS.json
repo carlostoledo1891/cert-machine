@@ -1,0 +1,32 @@
+{
+  "what": "SkyAudit CONTRAST day (day-stability, Phase 7.4): adsb.lol globe_history 2026-08-23 (Sunday), acquired 2026-08-27 — the weekend contrast to the Wednesday of record, same season and receiver network so day-of-week is the isolated variable",
+  "source": {
+    "project": "adsb.lol open data",
+    "docs": "https://www.adsb.lol/docs/open-data/historical/",
+    "license": "ODbL-1.0 (see ../LICENSE-DATA)",
+    "releases": [
+      "https://github.com/adsblol/globe_history_2026/releases/tag/v2026.08.23-planes-readsb-prod-0",
+      "https://github.com/adsblol/globe_history_2026/releases/tag/v2026.08.23-planes-readsb-mlatonly-0"
+    ]
+  },
+  "assets_sha256": {
+    "v2026.08.23-planes-readsb-prod-0.tar.aa": "2a5ee98bd91a68bbf1141b9576add7df04685081ccb8e159381ca4ba253d6550",
+    "v2026.08.23-planes-readsb-prod-0.tar.ab": "06ef5f8745546ec6b38d08d7109415284acef958d3b955600224bcf8aa19e86e",
+    "v2026.08.23-planes-readsb-mlatonly-0.tar": "176fc6e77d68db91a139ee1b39f10f40f9d3b39613247065206f38a35de9a270"
+  },
+  "extraction": {
+    "tool": "apps/skyaudit/audit/extract.js",
+    "input": "cat prod-0.tar.aa prod-0.tar.ab mlatonly-0.tar | node extract.js <outdir>",
+    "bboxes": "identical to day-2026-08-26 (the day of record)",
+    "traceFiles": 115854,
+    "parseErrors": 0
+  },
+  "subsets_sha256": {
+    "nyc.heli.jsonl": "bfa4cf6a9cbe49851b3bada076a5a28c2f5374fe92a8ee9ba5504390d1bc2abb",
+    "sp.heli.jsonl": "935fcfc55fe0bf6857f63020ec9a1fb4eb3358b3d03ec886f8f2e45fab977cae",
+    "nyc.heli.jsonl.gz": "1d1c52ec36669328b3bb38bef7ff9874869737357497b67098d18312e15daebe",
+    "sp.heli.jsonl.gz": "5288a007b4560b3e48b65fee54437df30eb47be55bdffc68c36e1fbde72a8894"
+  },
+  "committed": "*.heli.jsonl.gz (gunzip and compare against the raw sha256 above); *.full.jsonl stays local, regenerable byte-for-byte from the pinned assets",
+  "role": "day-stability contrast ONLY — the app stays pinned to day-2026-08-26; this day's records feed audit/compare-days.js and the companion note's day-stability section"
+}

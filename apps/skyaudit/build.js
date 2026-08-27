@@ -108,9 +108,9 @@ const registry = require('./audit/registry.js');
 try { registry.loadRegistry(); } catch (e) { die(e.message); }
 for (const city of ['nyc', 'sp']) {
   const ex = JSON.parse(fs.readFileSync(path.join(APP, 'data/registry', city + '.registry.json'), 'utf8'));
-  const keys = registry.corpusKeys(city);
+  const keys = registry.unionKeys(city);          /* every committed day */
   if (ex.counts.corpus !== keys.size || ex.counts.matched + ex.counts.unmatched !== ex.counts.corpus) {
-    die('registry extract ' + city + ' no longer covers the corpus (corpus ' + keys.size + ', extract says ' + JSON.stringify(ex.counts) + ')');
+    die('registry extract ' + city + ' no longer covers the corpus (union ' + keys.size + ', extract says ' + JSON.stringify(ex.counts) + ')');
   }
 }
 
