@@ -1,10 +1,50 @@
 {
-  "id": "beta-alia", "name": "Beta ALIA VTOL (A250)", "config": "4 lift rotors + 1 pusher, 5 seats",
+  "id": "beta-alia",
+  "name": "Beta ALIA VTOL (A250)",
+  "config": "4 lift rotors + 1 pusher, 5 seats",
   "boxes": {
-    "m_kg": { "v": [2800, 3175], "q": "T", "note": "MTOW 7,000 lb (evtol.news attributing Beta)" },
-    "battery_kwh": { "v": [250, 325], "q": "E", "note": "~325 kWh single trade source (airport-technology); not on beta.team" },
-    "v_cruise_kmh": { "v": [222, 283], "q": "M/E", "note": "153 kt max (beta.team); cruise assumed >= 120 kt" },
-    "delta_nm2": { "v": [250, 500], "q": "A", "note": "unpublished; large lift rotors, lift+cruise class - lower disk loading" }
+    "m_kg": {
+      "v": [
+        2800,
+        3175
+      ],
+      "q": "T",
+      "note": "MTOW 7,000 lb (evtol.news attributing Beta)"
+    },
+    "battery_kwh": {
+      "v": [
+        250,
+        325
+      ],
+      "q": "E",
+      "note": "~325 kWh single trade source (airport-technology); not on beta.team"
+    },
+    "v_cruise_kmh": {
+      "v": [
+        222,
+        283
+      ],
+      "q": "M/E",
+      "note": "153 kt max (beta.team); cruise assumed >= 120 kt"
+    },
+    "delta_nm2": {
+      "v": [
+        250,
+        500
+      ],
+      "q": "A",
+      "note": "unpublished; large lift rotors, lift+cruise class - lower disk loading"
+    },
+    "charge_minutes_full": {
+      "v": [
+        35,
+        60
+      ],
+      "q": "M/E",
+      "note": "beta.team: 35-min optimized charge; widened for full-depth"
+    }
   },
-  "claims": { "note": "336 nm max range demonstrated is the CTOL variant; VTOL-variant range effectively unpublished (RESEARCH 3e)" }
+  "claims": {
+    "note": "336 nm max range demonstrated is the CTOL variant; VTOL-variant range effectively unpublished (RESEARCH 3e)"
+  }
 }

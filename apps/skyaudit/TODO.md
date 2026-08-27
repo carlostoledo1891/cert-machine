@@ -86,21 +86,30 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       certificates in exact rationals, zero dependencies
 
 ## Phase 3 — the simulated fleet
-- [ ] Sim engine (`sim/engine.js`): deterministic tick loop, pinned-seed
-      PRNG only, dispatch, charge model (charge-rate boxes), disturbance
-      schedule (wind/temperature box widenings) from the scenario file
-- [ ] City packs (`scenario/cities/*.json`): heliports/vertiports,
-      corridor geometry (SFRA / REH), demand: (a) synthetic schedule,
-      (b) RE-FLY mode — the real day's flights as dispatch requests
-- [ ] Per-tick remaining-mission certificates; badge-flip events derived
-      from enclosure-vs-floor crossings, each with its failing corner
-- [ ] Turnaround certificates: charge-rate box × schedule gap → vertiport
-      feasibility
-- [ ] Fleet-size frontier: binary search N where the day flips REFUTED →
-      CERTIFIED per spec; the headline number
-- [ ] Sim battery: two runs → identical timeline hash; a disturbance that
-      MUST flip a badge, flips it (red); energy conservation per aircraft
-      per tick in exact arithmetic
+- [x] RE-FLY THE DAY SHIPPED (`sim/refly.js`) — better than the binary
+      search: the pool model (fixed departures, charge occupancy from
+      worst-corner depth × the spec's charge_minutes_full box) makes
+      minimum fleet EXACT via interval coloring. Both directions proved:
+      N−1 REFUTED by pigeonhole at a witnessed instant; N CERTIFIED by
+      the greedy schedule, verified exactly. Zero randomness; timeline
+      sha256 in the record. RESULTS (FAA 20-min): NYC — Beta ALIA's 46
+      provable legs need EXACTLY 5 aircraft (witness 09:58:33 ET, the
+      morning rush; EASA-nec: 110 legs, 12 aircraft, witness 18:22 ET);
+      Joby/Archer/Eve: zero provable legs — no fleet certifiable from
+      public numbers. SP — Beta 50 legs, exactly 8 (witness 15:20 BRT).
+      Non-certified demand reported as outside-the-envelope, never
+      dropped. Panel carries the frontier; build gate 4 re-derives it and
+      REFUSES on drift (restoring the record so a drift refuses EVERY
+      run — gate-weakness found and fixed for gates 2+4)
+- [x] Turnaround folded into the charge-occupancy model (charge boxes
+      added to all four spec packs, quality-flagged)
+- [x] Sim battery (16/16 total): known-answer frontier, RED charge-time
+      must flip 2→1, RED double-booked schedule must fail verification,
+      outside-envelope accounting, two-run determinism hash
+- [ ] Live sim mode on the map (aircraft badges, the flip moment,
+      what-if sliders with the in-browser certifier) — the Phase 4b UI
+- [ ] Synthetic demand packs + vertiport geometry (heliport nodes,
+      SFRA/REH corridors) — later scenario packs
 
 ## Phase 4 — the experience (the app shell)
 - [x] `design/app-shell.js` SHIPPED: the second design-system view —

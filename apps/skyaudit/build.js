@@ -29,6 +29,7 @@ run('node', ['audit/certify-day.js', CITY]);
 const after = JSON.parse(fs.readFileSync(path.join(dataDir, CITY + '.audit-summary.json'), 'utf8'));
 if (JSON.stringify(before.bySpecRule) !== JSON.stringify(after.bySpecRule) ||
     before.flights !== after.flights || before.uniqueAircraft !== after.uniqueAircraft) {
+  fs.writeFileSync(path.join(dataDir, CITY + '.audit-summary.json'), JSON.stringify(before, null, 2));
   die('re-certification deviates from the committed summary — investigate before shipping');
 }
 
@@ -40,7 +41,18 @@ if (bundle.flights.length !== after.flights) {
   die('bundle carries ' + bundle.flights.length + ' flights, audit certified ' + after.flights);
 }
 
-/* gate 4 — the tiles are the pinned bytes */
+/* gate 4 — re-fly the day; the fleet frontier must match the record */
+console.log('gate: refly frontier');
+const reflyPath = path.join(dataDir, CITY + '.refly.json');
+const reflyBefore = fs.existsSync(reflyPath) ? JSON.parse(fs.readFileSync(reflyPath, 'utf8')) : null;
+run('node', ['sim/refly.js', CITY]);
+const refly = JSON.parse(fs.readFileSync(reflyPath, 'utf8'));
+if (reflyBefore && JSON.stringify(reflyBefore.keys) !== JSON.stringify(refly.keys)) {
+  fs.writeFileSync(reflyPath, JSON.stringify(reflyBefore, null, 2));   /* keep the record — a drift must refuse EVERY run */
+  die('re-fly frontier deviates from the committed record');
+}
+
+/* gate 5 — the tiles are the pinned bytes */
 const tilesPins = JSON.parse(fs.readFileSync(path.join(APP, 'data/tiles/TILES-PINS.json'), 'utf8'));
 const tilesPath = path.join(APP, 'data/tiles', tilesPins.file);
 const sha = require('crypto').createHash('sha256').update(fs.readFileSync(tilesPath)).digest('hex');
@@ -85,6 +97,13 @@ const html = renderApp({
   from interval arithmetic — <b>mathematically certified enclosures</b>, no Monte Carlo,
   no airworthiness meaning. REFUSED is a first-class outcome: it measures what the
   manufacturer has not published.</div>
+  <div class="as-h">re-fly the day — the fleet frontier</div>
+  <div class="as-note">${['beta-alia', 'joby-s4', 'archer-midnight', 'eve-100'].map((s) => {
+    const k = refly.keys[s + '|faa-sfar-vfr'] || { certifiedLegs: 0, fleetMin: 0 };
+    return k.certifiedLegs
+      ? `<b>${s.replace('-', ' ')}</b>: ${k.certifiedLegs} provable legs need <b>exactly ${k.fleetMin} aircraft</b> — ${k.fleetMin - 1} REFUTED by pigeonhole at ${k.witnessLocal}, ${k.fleetMin} CERTIFIED by the verified schedule (pool model, FAA 20-min)`
+      : `<b>${s.replace('-', ' ')}</b>: zero provable legs under FAA 20-min — no fleet can be certified from its public numbers`;
+  }).join('<br>')}</div>
   <div class="as-h">aircraft · rule</div><div id="keys"></div>
   <div class="as-h">this day, under the selection</div><div id="counts"></div>
   <div class="as-h">selected flight</div><div id="flight"></div>

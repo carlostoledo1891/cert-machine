@@ -1,10 +1,50 @@
 {
-  "id": "archer-midnight", "name": "Archer Midnight", "config": "12 props (6 tilt + 6 fixed), 4 pax + pilot",
+  "id": "archer-midnight",
+  "name": "Archer Midnight",
+  "config": "12 props (6 tilt + 6 fixed), 4 pax + pilot",
   "boxes": {
-    "m_kg": { "v": [2900, 3175], "q": "T", "note": "MTOW 7,000 lb (evtol.news attributing Archer); box floor allows partial load" },
-    "battery_kwh": { "v": [120, 142], "q": "E", "note": "~142 kWh press/analyst only; 6 independent packs is Archer-attributed" },
-    "v_cruise_kmh": { "v": [217, 241], "q": "M", "note": "150 mph cruise (Archer PR); demonstrated >126 mph over 55 mi" },
-    "delta_nm2": { "v": [400, 800], "q": "A", "note": "unpublished; lift+tilt class assumption" }
+    "m_kg": {
+      "v": [
+        2900,
+        3175
+      ],
+      "q": "T",
+      "note": "MTOW 7,000 lb (evtol.news attributing Archer); box floor allows partial load"
+    },
+    "battery_kwh": {
+      "v": [
+        120,
+        142
+      ],
+      "q": "E",
+      "note": "~142 kWh press/analyst only; 6 independent packs is Archer-attributed"
+    },
+    "v_cruise_kmh": {
+      "v": [
+        217,
+        241
+      ],
+      "q": "M",
+      "note": "150 mph cruise (Archer PR); demonstrated >126 mph over 55 mi"
+    },
+    "delta_nm2": {
+      "v": [
+        400,
+        800
+      ],
+      "q": "A",
+      "note": "unpublished; lift+tilt class assumption"
+    },
+    "charge_minutes_full": {
+      "v": [
+        10,
+        30
+      ],
+      "q": "M/E",
+      "note": "Archer PR: ~10-min charge between 20-mi trips; widened for full-depth"
+    }
   },
-  "claims": { "design_mission": "back-to-back ~20-mi trips, ~10-min charge between (Archer PR); 'up to 100 mi'; 60-mi worst-case guarantee (evtol.news)" }
+  "claims": {
+    "design_mission": "back-to-back ~20-mi trips, ~10-min charge between (Archer PR); 'up to 100 mi'; 60-mi worst-case guarantee (evtol.news)"
+  }
 }

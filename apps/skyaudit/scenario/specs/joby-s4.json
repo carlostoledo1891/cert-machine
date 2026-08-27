@@ -1,11 +1,53 @@
 {
-  "id": "joby-s4", "name": "Joby S4", "config": "6 tilt-props, 4 pax + pilot",
+  "id": "joby-s4",
+  "name": "Joby S4",
+  "config": "6 tilt-props, 4 pax + pilot",
   "quality_key": "M=manufacturer, T=trade attributing manufacturer, E=estimate, A=assumption (unpublished)",
   "boxes": {
-    "m_kg": { "v": [2177, 2404], "q": "T", "note": "MTOW 4,800-5,300 lb (The Air Current, production-prototype debut); audit flies at max-weight box - strictest reading" },
-    "battery_kwh": { "v": [130, 180], "q": "E", "note": "NEVER published; trade estimates. Pack 235 Wh/kg is Joby-attributed" },
-    "v_cruise_kmh": { "v": [241, 322], "q": "M/E", "note": "200 mph top speed is Joby's site; cruise assumed >= 150 mph" },
-    "delta_nm2": { "v": [500, 900], "q": "A", "note": "disk loading unpublished; vectored-thrust class assumption" }
+    "m_kg": {
+      "v": [
+        2177,
+        2404
+      ],
+      "q": "T",
+      "note": "MTOW 4,800-5,300 lb (The Air Current, production-prototype debut); audit flies at max-weight box - strictest reading"
+    },
+    "battery_kwh": {
+      "v": [
+        130,
+        180
+      ],
+      "q": "E",
+      "note": "NEVER published; trade estimates. Pack 235 Wh/kg is Joby-attributed"
+    },
+    "v_cruise_kmh": {
+      "v": [
+        241,
+        322
+      ],
+      "q": "M/E",
+      "note": "200 mph top speed is Joby's site; cruise assumed >= 150 mph"
+    },
+    "delta_nm2": {
+      "v": [
+        500,
+        900
+      ],
+      "q": "A",
+      "note": "disk loading unpublished; vectored-thrust class assumption"
+    },
+    "charge_minutes_full": {
+      "v": [
+        30,
+        60
+      ],
+      "q": "A",
+      "note": "charge-to-full minutes, unpublished; class assumption"
+    }
   },
-  "claims": { "range_mi_incl_reserves": 100, "q": "T", "cite": "evtol.news attributing Joby" }
+  "claims": {
+    "range_mi_incl_reserves": 100,
+    "q": "T",
+    "cite": "evtol.news attributing Joby"
+  }
 }

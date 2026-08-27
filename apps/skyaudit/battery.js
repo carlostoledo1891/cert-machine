@@ -145,4 +145,48 @@ ok('every spec/rule pack loads and has well-formed boxes', () => {
   }
 });
 
+console.log('-- sim/refly: the fleet frontier (pool model)');
+
+const refly = require('./sim/refly.js');
+const SPEC1 = { boxes: { charge_minutes_full: { v: [10, 10] } } };   /* 600 s charge */
+const mkRow = (id, t, dur, verdict) => ({ id, verdict, flight: { tStart: t, durationS: dur },
+  used_kwh: [50, 100], usable_kwh: [100, 120] });                     /* depth 1 -> full charge */
+
+ok('known answer: two abutting legs + charge need 2 aircraft; a later leg reuses one', () => {
+  const rows = [mkRow('A', 0, 600, 'CERTIFIED'), mkRow('B', 600, 600, 'CERTIFIED'),
+    mkRow('C', 5000, 600, 'CERTIFIED')];
+  const r = refly.reflyKey(rows, SPEC1);
+  assert.strictEqual(r.fleetMin, 2);
+  assert.strictEqual(r.certifiedLegs, 3);
+});
+
+ok('RED: removing charge time must flip the frontier 2 -> 1', () => {
+  const rows = [mkRow('A', 0, 600, 'CERTIFIED'), mkRow('B', 600, 600, 'CERTIFIED')];
+  const withCharge = refly.reflyKey(rows, SPEC1);
+  const noCharge = refly.reflyKey(rows, { boxes: { charge_minutes_full: { v: [0, 0] } } });
+  assert.strictEqual(withCharge.fleetMin, 2);
+  assert.strictEqual(noCharge.fleetMin, 1);
+});
+
+ok('RED: a double-booked schedule fails exact verification', () => {
+  const legs = [{ id: 'A', s: 0, e: 1200 }, { id: 'B', s: 600, e: 1800 }];
+  const bad = [{ id: 'A', aircraft: 0, s: 0, e: 1200 }, { id: 'B', aircraft: 0, s: 600, e: 1800 }];
+  assert.strictEqual(refly.verifySchedule(legs, bad), false);
+});
+
+ok('non-certified legs are counted outside the envelope, never served', () => {
+  const rows = [mkRow('A', 0, 600, 'CERTIFIED'), mkRow('B', 0, 600, 'REFUTED'),
+    mkRow('C', 0, 600, 'REFUSED')];
+  const r = refly.reflyKey(rows, SPEC1);
+  assert.strictEqual(r.certifiedLegs, 1);
+  assert.deepStrictEqual(r.outside, { REFUTED: 1, REFUSED: 1 });
+});
+
+ok('determinism: two runs, identical timeline hash', () => {
+  const rows = Array.from({ length: 40 }, (_, i) => mkRow('L' + i, i * 300, 500, 'CERTIFIED'));
+  const a = refly.reflyKey(rows, SPEC1), b = refly.reflyKey(rows, SPEC1);
+  assert.strictEqual(a.timelineHash, b.timelineHash);
+  assert.ok(/^[0-9a-f]{64}$/.test(a.timelineHash));
+});
+
 console.log('battery green: ' + n + '/' + n + ' checks');
