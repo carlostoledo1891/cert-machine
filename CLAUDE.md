@@ -71,6 +71,41 @@ Copies come out through `LIFT.json`, which records each source path and its sha2
   development; when a check refuses a direction rather than measuring a fact, remove it.
   Periodically review and delete unnecessary gates, files and dead code.
 
+## The app doctrine (permanent, learned building SkyAudit, operator-approved 2026-08-27)
+
+- Apps are the machine's highest-yield artifact form: the DECIDABLE-CLAIMS
+  OBSERVATORY template = pinned real-world data × published claims/rules as
+  boxes × an exact instrument × a product face. The city/market is the
+  swappable pack; the template is the asset.
+- LESS MATH, MORE PRODUCT: product words on the surface (E-FLYABLE-style);
+  the rigorous verdict + enclosure + witness one click down in a "why you
+  can trust this" layer. Rigor wins by being invisible load-bearing
+  structure, never the headline.
+- The three-valued verdict is the product; NEEDS DATA is its sharpest edge —
+  it MEASURES claim-maker opacity. Publish the exact threshold that would
+  flip a verdict ("at X kWh you turn green"): the app is an incentive
+  machine for disclosure.
+- Gamification is welcome and must stay honest: simulations labeled as
+  simulations, game mechanics only through cited physics anchors, the
+  certified verdict always visible as the authority. Severity is never
+  color alone (Garmin grammar); annunciators for binary states, plain-word
+  tri-states.
+- Every displayed number comes from a gated record; gates restore-the-
+  record-on-refuse so drift refuses EVERY run. Any filter or definition
+  used by two consumers lives in ONE module — a rule defined twice WILL
+  diverge (the corpus.js lesson). Counting rule: dedupe and deflate to
+  truth before anything is stated publicly.
+- Data discipline: license separation (code MIT; corpora under their own
+  license file beside them), sha256-pin every dataset including basemap
+  tiles; big binaries serve from the public repo's raw URL pinned by commit
+  SHA (Vercel's CLI silently drops large files); every regulated domain has
+  hazard words — find them before writing page copy (aviation's
+  "certified" pattern).
+- UI verification: real-wait CDP screenshots (virtual-time budgets race
+  cold CDNs and lie); headless Chrome clamps windows to >=500px — use
+  device-metrics emulation for mobile truth; local dev servers must
+  support Range requests.
+
 ## The backlog
 
 The task menu lives at the TOP of `HANDOFF.md` (**TASKS BACKLOG**) and is kept current at

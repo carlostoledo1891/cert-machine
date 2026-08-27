@@ -66,6 +66,8 @@ AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
     ROM as sequel; NASA TRAST is the live hook). Its own session.
  3. PERFECT-FORESIGHT REVENUE AUDITOR — exact LP-duality ceiling on
     public prices; makes vendor "% of perfect" claims decidable.
+    ABSORBED BY GRIDPROOF (the observatory shelf below) — build it as
+    that app's instrument, not standalone.
  4. UAM CAPACITY-CLAIM AUDIT (exact-rational recert of a published
     vertiport/corridor bound) · STORAGE-NASH CERTIFICATE (first
     machine-checkable equilibrium certificate in that literature).
@@ -81,6 +83,28 @@ AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
  9. RM Catalan widths toward 1e-30 · tangent-sweep orbit-invariant column.
  10. OP-2 EXPLORATION (Γ-convergence of the exact discrete KKT — the
     stock-constraint phase's math follow-on).
+
+NEXT OBSERVATORIES (ranked, template-ready — the app-doctrine shelf,
+from the SkyAudit retrospective 2026-08-27; each = the decidable-claims
+observatory template on a new market, built on the operator's word):
+ O1. GRIDPROOF — every ERCOT grid battery graded against the exact LP
+     perfect-foresight ceiling (dual certificate: the theorem IS the
+     product; ERCOT 5-min prices + EIA battery registry, public).
+     Absorbs item 3. Deepest instrument moat.
+ O2. HARBORPROOF — NOAA public-domain coastal AIS + the admiralty cube
+     law: real-voyage fuel/CO2/slow-steaming enclosures decided per
+     ship; IMO CII arithmetic (a published formula) per class. The
+     SkyAudit pipeline ports nearly line-for-line; industry 100x.
+ O3. RANGEPROOF — EPA test-car road-load coefficients (public domain):
+     every EV on sale vs the user's real commute across a temperature
+     box; winter range decided, not anecdoted. Mass-market; NEEDS
+     DATA as a consumer-facing manufacturer-transparency index.
+ O4. ORBITPROOF — FCC 5-year deorbit rule vs TLE decay enclosures
+     (boxed ballistic coefficient + solar activity -> reentry
+     interval; REFUSED-straddles-the-deadline is itself the story).
+     Most photogenic; flagship-math candidate.
+ O5. ROOFPROOF — NREL irradiance + USGS LIDAR vs installer
+     solar-yield claims, roof by roof; consumer protection, map-native.
 
 DRAFTED OR READY, SENDING ON THE OPERATOR'S WORD:
  11. KAUST LETTER — READY TO SEND: evidence surface rebuilt and live
