@@ -13,42 +13,53 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## OPEN TASKS at handoff (2026-08-27) — the next session's menu
+## OPEN TASKS at handoff (updated 2026-08-27 late) — the next session's menu
 
-Everything from the A–F greenlight is SHIPPED: site + two UI passes, the
-methods note, the Lean bridge DEMONSTRATED at full scale (check.sh 4/4),
-the erdos290 finale (l ≤ 90 closed), AlphaEvolve rank-48 certified over
-Z[i], the eval submission path, keyless OAuth auth (verified end-to-end;
-campaigns need only the operator's word on spend). make test 26/26;
-HEAD deployed and live. What remains, by who acts:
+SHIPPED since the morning list: the review-fix pass (counts deflated to
+truth, §4 survivors zeroed), the NARRATIVE TRANSFORMATION (AI-verification
+portfolio + the verified-reward/RLVR framing, tl;dr blocks on every
+report), and the FOUR-ITEM REPORT CHASE — reports/alphaevolve.html,
+reports/answer-key.html, reports/verifier-loop.html, and EVAL V2 (honesty
+probe DONE with findings; disguised anti-recall rung DONE; open r22 rung
+DONE; budget-artifact fix in the harness). Vercel Web Analytics: ENABLED
+by the operator 2026-08-27 (the dashboard toggle — collecting from the
+already-deployed snippet). make test 26/26; HEAD deployed and live.
+What remains, by who acts:
 
 AGENT-EXECUTABLE ON THE OPERATOR'S WORD (spend/scope):
- 1. EVAL: more models / bigger n (claude-opus-5, claude-sonnet-5 rows;
-    ~$1–3 per 40-proposal campaign; keyless auth is live).
- 2. EVAL: the impossible-rank honesty probe — rank-6 <2,2,2> (Winograd:
-    provably impossible); who attempts vs. who refuses. Cheap, publishable.
- 3. APERY/STURM DECIDER: build the instrument — requisites pinned in
+ 1. EVAL: bigger n on the v3 rungs + any new model rows (keyless auth
+    live; thinking rungs cost 10-30k output tokens/proposal — see the
+    budget notes in the 2026-08-27 LATEST session entry). Also open: a
+    true feedback-CONVERSION loop trajectory needs an intermediate-
+    capability model; Laderman/r22 loops need >24k budgets.
+ 2. APERY/STURM DECIDER: build the instrument — requisites pinned in
     notes/apery-sturm-decider.md (PNT-free rational bar 17−12√2 < 1/27;
     green zeta(3) must PROVE, red zeta(5) must REFUSE). A session's work.
- 4. MU BOX50: stage 1 worker_threads sharding (~3.68x measured potential),
+ 3. MU BOX50: stage 1 worker_threads sharding (~3.68x measured potential),
     stage 2 box50 n=10..12 (2.5G–27G sets, days-scale detached).
- 5. STRASSEN CORPUS: the arXiv 2506.13242 NON-complex rank-48 row (second
-    modern row; distinct from AlphaEvolve's — see notes/alphaevolve-48.md).
+ 4. STRASSEN CORPUS: the arXiv 2506.13242 NON-complex rank-48 row (second
+    modern row; distinct from AlphaEvolve's — see notes/alphaevolve-48.md;
+    natural home now: a row on reports/alphaevolve.html).
+ 5. RM survivor widths: push the Catalan rows past 1e-12 toward 1e-30
+    (reviewer follow-up; bigfloat layer exists). Tangent-sweep
+    orbit-invariant column (fiber-degree check) likewise parked.
 
 DRAFTING MINE, SENDING OPERATOR'S WORD:
  6. Directed co-sign notes (He-Tang, mzn) carrying the methods note.
- 7. RM-group note (their Challenge asks for verified code). Optional.
+ 7. RM-group note (their Challenge asks for verified code) — now with the
+    registry AND the corrected counts framing. Optional.
+ 8. ONE EXTERNAL RERUN: recruit a named outside person to run the three
+    verifiers (the reviewer's single highest-leverage ask; the disclaimer
+    slot for recording it exists on the control page).
 
 WAITING ON THE WORLD (the sweep watches; shout + snapshot when public):
- 8. #852 correction — in moderation.   9. #510 lambda table — in
-    moderation.   10. OEIS submission — unanswered.
+ 9. #852 correction — in moderation.   10. #510 lambda table — in
+    moderation.   11. OEIS submission — unanswered.
 
 OPERATOR CLICKS ONLY:
- 11. Vercel Web Analytics toggle (project → Analytics → Enable).
  12. GitHub support ticket to gc the purged IP blobs (optional).
  13. Boyd 1986 via ILL (gates "first witness" prose on the Mercer page only).
-
-Suggested first: 1+2 (one eval session), then 3.
+ DONE 2026-08-27: Vercel Web Analytics toggle — enabled by the operator.
 
 ## The direction (operator ruling, 2026-08-26): SHIP
 
@@ -101,10 +112,8 @@ GO-LIVE — (1) DONE on the operator's word (2026-08-27): the repo is
         production, carlostoledo.co + www force-moved from mfg-lab —
         THE DOMAIN IS LIVE, all routes verified 200 (landing, /machine/,
         reports, certs, verifiers). Web Analytics: snippet on every
-        generated page via design/template.js; the project has a
-        provisioned analytics id but enabling it is DASHBOARD-ONLY
-        (one toggle: project -> Analytics -> Enable) — no public API;
-        works instantly once toggled, no redeploy needed;
+        generated page via design/template.js; ENABLED by the operator's
+        dashboard toggle 2026-08-27 — collecting live, no redeploy needed;
     (3) DONE (2026-08-26, operator's click): the #510 lambda-table comment
         is POSTED and sits in the moderation queue; the sweep now watches
         the page (signature digits) and shouts + instructs a snapshot when
