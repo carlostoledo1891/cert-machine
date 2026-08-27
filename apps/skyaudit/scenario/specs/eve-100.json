@@ -1,0 +1,11 @@
+{
+  "id": "eve-100", "name": "Eve EVE-100", "config": "lift + cruise: 8 lift rotors + pusher, 4 pax at EIS",
+  "honesty": "Eve publishes the LEAST of the set: no MTOW, no battery, no cruise speed. Wide assumption boxes are the honest state of public knowledge - REFUSED verdicts here MEASURE that, they are not a defect.",
+  "boxes": {
+    "m_kg": { "v": [2200, 3200], "q": "A", "note": "MTOW unpublished ('1 ton' is stale V3-concept data); UAM-class assumption box" },
+    "battery_kwh": { "v": [90, 160], "q": "A", "note": "unpublished; class assumption" },
+    "v_cruise_kmh": { "v": [150, 241], "q": "E", "note": "unpublished; evtol.news 150 mph flagged estimate, trade ~200 km/h - bracket both" },
+    "delta_nm2": { "v": [300, 600], "q": "A", "note": "unpublished; 8 dedicated lift rotors - mid disk loading" }
+  },
+  "claims": { "range_km_design": 100, "q": "M", "cite": "Eve institutional presentation May 2026: 'Designed for 100 km (60 mile) range, addresses 99% of UAM missions'" }
+}

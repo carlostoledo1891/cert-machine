@@ -25,9 +25,11 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
 - [x] PINS.json + LICENSE-DATA (ODbL) + data/.gitignore: committed corpora
       are *.heli.jsonl.gz (NYC 4.7 MB, SP 0.8 MB); raw hashes pinned for
       gunzip-verification; *.full.jsonl local, regenerable
-- [ ] Heli-filter refinement: drop miscoded-A7 fixed-wing types (A320,
-      BCS3, PA27 seen) — heli = type in set, or A7 with no contradicting
-      fixed-wing type (quirk recorded in PINS.json)
+- [x] Heli-filter refinement: certify-day.js excludes typed non-rotorcraft
+      even when A7-miscoded (3 excluded in NYC: A320, BCS3, PA27)
+- [ ] Certified segmentation vs hand-verification: spot-verify ~5 real
+      flights by inspection (currently builder-verified via synthetic
+      calibration only)
 - [ ] Helicopter ID: traces' own `t` + `category A7`; enrichment joins —
       ANAC RAB `dados_aeronaves.csv` (SP; open data, pin sha + date) and
       the FAA Releasable Aircraft Database (NYC; public domain, pin) —
@@ -45,34 +47,40 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       scratchpad extracts are ephemeral
 
 ## Phase 2 — the audit bridge (flight → certificate)
-- [ ] Spec packs (`scenario/specs/*.json`): per aircraft, the parameter
-      boxes with per-number source + quality flag (RESEARCH §3b/§3e);
-      battery kWh ALWAYS an interval; the assumption ledger rendered
-      on-page from the pack itself — no prose drift
-- [ ] Rule packs (`scenario/rules/*.json`): FAA SFAR shape (20/30/45 with
-      the vertical-landing-capability condition explicit), EASA shape
-      (mission plan + 5-min final reserve), ANAC = "pending, FAA-
-      harmonizing" placeholder; each with the rule citation verbatim
-- [ ] Physics pack: Kasliwal-form hover/climb/cruise power over boxes
-      (δ, L/D, η intervals) — as a scenario input, cited, swappable
-- [ ] Mission mapper (`audit/mission.js`): flight metrics → evtol-
-      instrument mission (hover legs, climb, cruise at measured distance;
-      speed re-based to the spec's cruise box, NOT the helicopter's) —
-      the counterfactual stated precisely
-- [ ] Instrument extension (only if needed): mission-from-route
-      constructor in `instruments/evtol/`; keep the 4 reds, add: sub-box
-      forgery red (1e-9 coefficient slip must be caught), degenerate-
-      flight red (zero-distance mission must REFUSE, not certify)
-- [ ] Certify the day: flight × spec × rule → `certs/skyaudit-<city>-
-      <date>.jsonl`; three-valued counts computed exactly
+- [x] Certified segmentation (`audit/flights.js`): monotonic-time contract
+      (scrambled trace THROWS), 900 s gap split, 60 s ground-contact rule,
+      honesty flags (truncatedStart/End, gaps); battery-calibrated
+- [x] Spec packs (4, quality-flagged per number; Eve = all-assumption,
+      stated as measured ignorance) · rule packs (FAA SFAR 20-min tier,
+      EASA 5-min final reserve as NECESSARY CONDITION; ANAC pending) ·
+      physics pack (Kasliwal 2019 boxes + distance pads as stated
+      assumptions)
+- [x] Power model (`audit/power.js`): monotone-corner box evaluation,
+      outward-padded; battery reproduces the paper's worked examples
+- [x] Mission mapper (`audit/mission.js`): the counterfactual precisely
+      stated; eVTOL flies its own speed box over the observed distance box
+- [x] Battery (`battery.js`, 11/11): segmentation calibration + 3 reds,
+      power calibration, dyadic hand-computed CERTIFIED/REFUTED/REFUSED
+      through the real instrument, Eve-REFUSES honesty check
+- [x] THE DAY IS CERTIFIED (`audit/certify-day.js`): NYC 140 aircraft →
+      494 flights → 3,952 rows; SP 78 → 155 → 1,240 rows. Headline: Beta
+      ALIA 105 flights CERTIFIED under FAA-20 (189 under EASA-nec) — the
+      only aircraft whose public numbers can PROVE missions; Archer 129
+      flights REFUTED under FAA-20 (exact witnesses; its design mission
+      is 20-mi hops, NYC tour/charter days exceed it); Joby ~everything
+      REFUSED (public numbers cannot decide); Eve 484/494 REFUSED
+      (publishes least). The REFUSED mass is the finding: it measures
+      both public-spec opacity AND the FAA-reserve conservatism the
+      industry itself protested (Beta's own docket comment)
+- [ ] Known-conservatism refinements (recorded, not yet applied): reserve
+      power at "normal cruising speed" currently uses the full cruise-v
+      box (hi end inflates reserve); mission mass = MTOW box (max-load
+      strictness); per-aircraft disk loading from published geometry
+      where obtainable
 - [ ] The range-claim audit (bonus row): each manufacturer's published
-      range claim vs its own physics box — CONSISTENT / REFUTED /
-      REFUSED; "the claims themselves are auditable objects"
+      range claim vs its own physics box — CONSISTENT / REFUTED / REFUSED
 - [ ] Stdlib spot-checker (`audit/verify_skyaudit.py`): re-proves sampled
       certificates in exact rationals, zero dependencies
-- [ ] Calibration: one hand-built mission with a closed-form answer
-      (dyadic numbers, the evtol-battery pattern) must certify exactly;
-      the known-answer red can fire
 
 ## Phase 3 — the simulated fleet
 - [ ] Sim engine (`sim/engine.js`): deterministic tick loop, pinned-seed

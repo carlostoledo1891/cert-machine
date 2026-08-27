@@ -1,0 +1,24 @@
+{
+  "id": "kasliwal-2019",
+  "what": "Literature-standard eVTOL energy model parameters, carried as boxes",
+  "cite": "Kasliwal et al., 'Role of flying cars in sustainable mobility', Nature Communications 10:1555 (2019), Methods + Table 1; open access",
+  "url": "https://www.nature.com/articles/s41467-019-09426-0",
+  "boxes": {
+    "ld": { "v": [13, 20], "note": "cruise L/D, Table 1 base 17 [13-20]" },
+    "eta_c": { "v": [0.70, 0.80], "note": "cruise chain, base 0.765 = 0.90 powertrain x 0.85 propulsive" },
+    "eta_h": { "v": [0.55, 0.70], "note": "hover chain, base 0.63 = 0.90 x 0.70" },
+    "rho": { "v": [1.20, 1.25], "note": "near-sea-level air density kg/m^3 (NYC/SP missions fly low)" },
+    "usable_frac": { "v": [0.75, 0.85], "note": "usable share of nameplate, paper caps at 80% for cycle life" },
+    "eta_batt": { "v": [0.85, 0.93], "note": "terminal/charge-discharge efficiency, paper 0.90" },
+    "hover_budget_s": { "v": [60, 120], "note": "total hover across takeoff+landing; paper 2x30 s, widened for urban ops" }
+  },
+  "mission_distance_pads": {
+    "lo_frac": 0.97, "hi_frac": 1.08,
+    "note": "STATED ASSUMPTION: sampled ADS-B path undercounts true path (cut turns) - hi pad +8%; GPS jitter can overcount - lo pad -3%; lo additionally floored at the great-circle distance"
+  },
+  "calibration": {
+    "hover_example_kw": 250.6, "hover_at": { "m_kg": 1187.5, "delta_nm2": 450, "eta_h": 0.63, "rho": 1.22 },
+    "cruise_example_kw": 59.7, "cruise_at": { "m_kg": 1187.5, "v_ms": 66.7, "ld": 17, "eta_c": 0.765 },
+    "note": "the paper's own worked examples; the battery proves both fall inside our degenerate-box evaluation"
+  }
+}
