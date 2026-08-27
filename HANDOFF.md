@@ -296,9 +296,12 @@ S6/S7 entries above:
     screen/certifier/red controls, ladder-only targets, attribution
     required; §4 recipe on the page (PR carries the proposals file, not
     graded rows — grading is deterministic). STILL KEY-GATED: more
-    models / bigger n, the impossible-rank honesty probe — unblocked as
-    soon as the operator drops a fresh key at ~/.secrets/anthropic-key
-    (the leaked key is deleted; see the S3 key-rotation note above).
+    models / bigger n, the impossible-rank honesty probe — UNBLOCKED
+    2026-08-27: keyless auth via `ant auth login` OAuth profile is live
+    and VERIFIED end-to-end (models endpoint 200; a real 1-proposal
+    haiku micro-run through the harness's Bearer path). No static key
+    exists anywhere. Campaigns now run on the operator's word alone
+    (spend is the only gate).
   - E DONE (mechanism): the l=87 OOM was candidateDeltas materializing
     p(87)=38.9M partition objects (p(86)=34.3M fit — matches both OOMs).
     tools/galois-exceptions-lean.js: sha-pinned source-transform fork
