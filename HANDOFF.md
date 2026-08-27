@@ -49,7 +49,25 @@ SHIPPED (Sunday 2026-08-23 pinned/certified/re-flown/compared;
 STRUCTURE HOLDS — only Beta provable on both days, magnitude moves:
 E-FLYABLE 7.4% vs 12%, fleet exactly 2 vs 5, stated honestly in note
 §7; registry extracts cover the union of days; N339LL stale-feeder-
-type catch; battery 29/29). ALL FOUR FOUNDATIONS DONE. HELD for joint decision: the conservatism
+type catch; battery 29/29). ALL FOUR FOUNDATIONS DONE.
+THE PREDICTION PROGRAM OPENED (operator's word 2026-08-27, "start
+A+B and follow on" — full plan in TODO.md Phase 8): principle =
+never certify the future, certify the prediction system (coverage
+theorems, exact scoring, tamper-evident ledger, machine-checkable
+temporal hygiene). SHIPPED: (A) audit/ingest-day.js — one-command
+day ingest; days 08-24 + 08-25 ingested green, corpus is a 4-DAY
+SERIES with weekdays clustering tight (397/51 · 377/50 · 382/46 =
+12.0–13.3% E-FLYABLE) vs the Sunday population (175/13, 7.4%);
+(B) instruments/forecast/ — domain-agnostic conformal intervals
+(coverage = exact rank-lemma counting theorem, REFUSES unprovable
+claims) + append-only commit/score ledger (Winkler score exact in
+rationals, strictly proper; REFUSES backdating/tamper/premature/
+rescore; 5 checks + 4 reds; make test 30 rows). FIRST FORECASTS
+COMMITTED (certs/skyaudit-forecast-ledger.jsonl): Fri 2026-08-28
+NYC flights [377,397] + E-FLYABLE [46,51], proved coverage 2/4,
+sha-pinned before the day. NEXT: 8C SkyForecast surface · 8D score
+08-28 when its release lands · 8E the Forecast Gym (contamination-
+impossible forecasting eval — the frontier-lab bridge). HELD for joint decision: the conservatism
 refinements (reserve-speed box / MTOW / disk loading — changes every
 published number; do once as methodology v2). THEN: SP city-pack page
 (EmbraerX artifact; data fully processed, needs SP tiles + switcher +

@@ -35,7 +35,9 @@ const PINS_PATH = path.join(DIR, 'REGISTRY-PINS.json');
 const sha256 = (buf) => crypto.createHash('sha256').update(buf).digest('hex');
 
 /* ---- corpus keys: every (icao, reg) in a city's committed heli corpus ---- */
-const DAYS = ['day-2026-08-26', 'day-2026-08-23'];   /* every committed day — extracts cover their UNION */
+/* every committed day, discovered from disk — extracts cover their UNION;
+   daily ingest (ingest-day.js) adds a dir and rebuilds the extracts */
+const DAYS = fs.readdirSync(DATA).filter((d) => /^day-\d{4}-\d{2}-\d{2}$/.test(d)).sort();
 function corpusKeys(city, dayDir) {
   const p = path.join(DATA, dayDir || 'day-2026-08-26', city + '.heli.jsonl');
   const raw = fs.existsSync(p) ? fs.readFileSync(p, 'utf8')

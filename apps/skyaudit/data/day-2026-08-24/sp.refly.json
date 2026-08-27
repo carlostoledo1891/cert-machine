@@ -1,0 +1,85 @@
+{
+  "city": "sp",
+  "dayDir": "day-2026-08-24",
+  "model": "pool (fixed departures, no repositioning) — fleetMin is exact IN THIS MODEL; the REFUTED direction needs no model beyond the interval definitions",
+  "keys": {
+    "joby-s4|faa-sfar-vfr": {
+      "certifiedLegs": 0,
+      "outside": {
+        "REFUTED": 2,
+        "REFUSED": 140
+      },
+      "fleetMin": 0
+    },
+    "joby-s4|easa-final-reserve": {
+      "certifiedLegs": 0,
+      "outside": {
+        "REFUTED": 2,
+        "REFUSED": 140
+      },
+      "fleetMin": 0
+    },
+    "archer-midnight|faa-sfar-vfr": {
+      "certifiedLegs": 0,
+      "outside": {
+        "REFUTED": 20,
+        "REFUSED": 122
+      },
+      "fleetMin": 0
+    },
+    "archer-midnight|easa-final-reserve": {
+      "certifiedLegs": 0,
+      "outside": {
+        "REFUTED": 28,
+        "REFUSED": 114
+      },
+      "fleetMin": 0
+    },
+    "beta-alia|faa-sfar-vfr": {
+      "certifiedLegs": 40,
+      "outside": {
+        "REFUTED": 1,
+        "REFUSED": 101
+      },
+      "fleetMin": 6,
+      "witnessInstant": 1787587917.51,
+      "witnessLocal": "13:11:57 BRT",
+      "statement": {
+        "refuted": "5 aircraft REFUTED by pigeonhole at the witness instant",
+        "certified": "6 aircraft CERTIFIED by the verified greedy schedule (pool model)"
+      },
+      "timelineHash": "0ff3531dd62f6d7440c4dadd7801d983aeae0cd48b54a06a3f3dedaa615b1214"
+    },
+    "beta-alia|easa-final-reserve": {
+      "certifiedLegs": 58,
+      "outside": {
+        "REFUTED": 1,
+        "REFUSED": 83
+      },
+      "fleetMin": 7,
+      "witnessInstant": 1787569147.11,
+      "witnessLocal": "07:59:07 BRT",
+      "statement": {
+        "refuted": "6 aircraft REFUTED by pigeonhole at the witness instant",
+        "certified": "7 aircraft CERTIFIED by the verified greedy schedule (pool model)"
+      },
+      "timelineHash": "b8b96f6a910c4f3029ae5d2bb93ea853316ae0afae65a59eb54f3226d28fb1f6"
+    },
+    "eve-100|faa-sfar-vfr": {
+      "certifiedLegs": 0,
+      "outside": {
+        "REFUTED": 2,
+        "REFUSED": 140
+      },
+      "fleetMin": 0
+    },
+    "eve-100|easa-final-reserve": {
+      "certifiedLegs": 0,
+      "outside": {
+        "REFUTED": 2,
+        "REFUSED": 140
+      },
+      "fleetMin": 0
+    }
+  }
+}

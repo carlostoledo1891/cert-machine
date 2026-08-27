@@ -345,6 +345,29 @@ ok('registry authority overrides a stale feeder type: N339LL (feeder says TBM-70
     'R44-consistent profile, got ' + JSON.stringify({ gs: fl[0].medianGsKt, alt: fl[0].maxAltFt }));
 });
 
+console.log('-- forecast adapter: grouping + honesty');
+
+ok('forecast adapter: series carries the committed records; weekday/weekend grouping is correct', () => {
+  const F = require('./audit/forecast.js');
+  const s = F.series();
+  const rec = s.find((x) => x.date === '2026-08-26');
+  const sun = s.find((x) => x.date === '2026-08-23');
+  assert.ok(rec && rec.flights === 382 && rec.eflyable === 46, 'day of record in series');
+  assert.ok(sun && sun.flights === 175 && sun.eflyable === 13, 'contrast Sunday in series');
+  const wkend = F.calibration('2026-08-30');            /* a Sunday target */
+  assert.strictEqual(wkend.kind, 'weekend');
+  assert.ok(wkend.group.every((g) => ['2026-08-23'].includes(g.date) || [0, 6].includes(new Date(g.date + 'T12:00:00Z').getUTCDay())));
+  const wkday = F.calibration('2026-08-28');            /* a Friday target */
+  assert.strictEqual(wkday.kind, 'weekday');
+  assert.ok(wkday.group.every((g) => ![0, 6].includes(new Date(g.date + 'T12:00:00Z').getUTCDay())), 'no weekend leaks into the weekday group');
+});
+
+ok('forecast honesty: a one-day group can prove NO coverage — the instrument REFUSES', () => {
+  const { interval } = require('../../instruments/forecast/conformal.js');
+  const c = interval([175], 2, 2 + 1 - 1);              /* n=1: even alpha=1 is out of range */
+  assert.strictEqual(c.verdict, 'REFUSED');
+});
+
 console.log('-- day-stability: the comparison derivation');
 
 ok('compare-days calibration: a day against itself has zero deltas everywhere', () => {

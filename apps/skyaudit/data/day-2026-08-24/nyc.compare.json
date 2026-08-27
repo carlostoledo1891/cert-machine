@@ -1,0 +1,160 @@
+{
+ "what": "day-stability comparison — derived only from the two committed audit summaries (+ refly records); rerun: node apps/skyaudit/audit/compare-days.js",
+ "city": "nyc",
+ "record": "day-2026-08-26",
+ "contrast": "day-2026-08-24",
+ "summary": {
+  "uniqueAircraft": {
+   "record": 82,
+   "contrast": 73
+  },
+  "audited": {
+   "record": 79,
+   "contrast": 71
+  },
+  "flights": {
+   "record": 382,
+   "contrast": 397
+  },
+  "rows": {
+   "record": 3056,
+   "contrast": 3176
+  },
+  "totalPathKm": {
+   "record": 47028,
+   "contrast": 49698
+  }
+ },
+ "bySpecRule": {
+  "archer-midnight|easa-final-reserve": {
+   "CERTIFIED": {
+    "record": 0,
+    "contrast": 0
+   },
+   "REFUTED": {
+    "record": 137,
+    "contrast": 107
+   },
+   "REFUSED": {
+    "record": 245,
+    "contrast": 290
+   }
+  },
+  "archer-midnight|faa-sfar-vfr": {
+   "CERTIFIED": {
+    "record": 0,
+    "contrast": 0
+   },
+   "REFUTED": {
+    "record": 120,
+    "contrast": 99
+   },
+   "REFUSED": {
+    "record": 262,
+    "contrast": 298
+   }
+  },
+  "beta-alia|easa-final-reserve": {
+   "CERTIFIED": {
+    "record": 110,
+    "contrast": 139
+   },
+   "REFUTED": {
+    "record": 2,
+    "contrast": 7
+   },
+   "REFUSED": {
+    "record": 270,
+    "contrast": 251
+   }
+  },
+  "beta-alia|faa-sfar-vfr": {
+   "CERTIFIED": {
+    "record": 46,
+    "contrast": 51
+   },
+   "REFUTED": {
+    "record": 2,
+    "contrast": 7
+   },
+   "REFUSED": {
+    "record": 334,
+    "contrast": 339
+   }
+  },
+  "eve-100|easa-final-reserve": {
+   "CERTIFIED": {
+    "record": 0,
+    "contrast": 0
+   },
+   "REFUTED": {
+    "record": 9,
+    "contrast": 12
+   },
+   "REFUSED": {
+    "record": 373,
+    "contrast": 385
+   }
+  },
+  "eve-100|faa-sfar-vfr": {
+   "CERTIFIED": {
+    "record": 0,
+    "contrast": 0
+   },
+   "REFUTED": {
+    "record": 6,
+    "contrast": 10
+   },
+   "REFUSED": {
+    "record": 376,
+    "contrast": 387
+   }
+  },
+  "joby-s4|easa-final-reserve": {
+   "CERTIFIED": {
+    "record": 0,
+    "contrast": 0
+   },
+   "REFUTED": {
+    "record": 16,
+    "contrast": 18
+   },
+   "REFUSED": {
+    "record": 366,
+    "contrast": 379
+   }
+  },
+  "joby-s4|faa-sfar-vfr": {
+   "CERTIFIED": {
+    "record": 0,
+    "contrast": 0
+   },
+   "REFUTED": {
+    "record": 12,
+    "contrast": 12
+   },
+   "REFUSED": {
+    "record": 370,
+    "contrast": 385
+   }
+  }
+ },
+ "eflyable": {
+  "record": 46,
+  "contrast": 51,
+  "pct": {
+   "record": 12,
+   "contrast": 12.8
+  }
+ },
+ "fleet": {
+  "fleetMin": {
+   "record": 5,
+   "contrast": 6
+  },
+  "certifiedLegs": {
+   "record": 46,
+   "contrast": 51
+  }
+ }
+}

@@ -388,3 +388,42 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
 - AFTER the four: SP city-pack page (the EmbraerX artifact). HELD for the
   operator: methodology v2 (the conservatism refinements — Phase 2 box).
   PARKED: synthetic demand packs. Outreach on the operator's word only.
+
+## Phase 8 — THE PREDICTION PROGRAM (operator's word 2026-08-27: "start
+## A + B and follow on"; principle: never certify the future — certify
+## the prediction system's properties: coverage theorems, exact scoring,
+## tamper-evident ledger, machine-checkable temporal hygiene)
+- [x] 8A DAILY INGEST SHIPPED — audit/ingest-day.js: one idempotent
+      command per day (download → sha → extract → pin → registry-union
+      rebuild → certify → re-fly → compare → raws deleted, pins kept).
+      Registry DAYS now discovered from disk. Days 2026-08-24 (Mon) and
+      2026-08-25 (Tue) INGESTED GREEN: corpus is a 4-day series. THE
+      SERIES FINDING: weekdays cluster tight — 397/51, 377/50, 382/46
+      flights/E-FLYABLE (12.0–13.3%) — weekend is a different population
+      (175/13, 7.4%); the weekday/weekend grouping is now measured, not
+      assumed
+- [x] 8B FORECAST INSTRUMENT SHIPPED — instruments/forecast/ (domain-
+      agnostic, adapters plug in): conformal.js (interval + coverage as
+      an exact rank-lemma counting theorem; REFUSES unprovable claims;
+      hypothesis printed into every certificate) + ledger.js (append-
+      only commit-before/score-after; Winkler interval score — strictly
+      proper, honesty is the optimal policy — in exact rationals;
+      REFUSES backdating/tampering/premature/rescoring). Battery 5
+      checks + 4 reds; make test row; control-page battery row.
+      Adapter: audit/forecast.js (weekday/weekend grouping, commit/
+      score/record CLI; app battery 31/31). FIRST FORECASTS ON THE
+      LEDGER (certs/skyaudit-forecast-ledger.jsonl): Friday 2026-08-28
+      NYC flights [377,397] + E-FLYABLE [46,51], proved coverage 2/4
+      each (grows with the corpus), sha-pinned, calibration days named
+- [ ] 8C SKYFORECAST — the self-scoring public surface: tomorrow's
+      interval on the app/site, scored nightly by gate, lifetime exact
+      coverage counter; needs the corpus a bit thicker (each ingested
+      day tightens alpha: n days -> provable miss-rate 2/(n+1))
+- [ ] 8D SCORE THE STANDING FORECASTS — when adsb.lol publishes
+      2026-08-28: node audit/ingest-day.js 2026-08-28 && node
+      audit/forecast.js score 2026-08-28 (the ledger's first outcomes)
+- [ ] 8E THE FORECAST GYM (frontier-lab bridge, its own session):
+      pinned context/outcome splits with proof-of-temporal-hygiene,
+      exact proper-score reward, conformal baseline as the floor,
+      reds (leaked-future context REFUSED) — "the first forecasting
+      eval where contamination is impossible by construction"
