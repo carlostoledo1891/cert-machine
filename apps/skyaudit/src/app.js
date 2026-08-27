@@ -106,6 +106,10 @@ function addBuildings() {
 /* ---------------------------- data ---------------------------- */
 fetch(CFG.bundle).then((r) => r.json()).then((b) => {
   S.bundle = b;
+  /* URL state is untrusted: a key carried from the other city's page must
+     not poison this bundle's lookups — validate and reset to the default */
+  const validKeys = new Set(b.specs.flatMap((sp) => b.rules.map((r2) => sp + '|' + r2)));
+  if (!validKeys.has(S.key)) S.key = 'beta-alia|' + (CFG.primaryRule || b.rules[0]);
   const tDefault = Math.max(0, Math.min(b.span, (Math.floor(b.t0 / 86400) * 86400 + 14 * 3600) - b.t0));
   S.t = qs.get('t') !== null ? Math.max(0, Math.min(b.span, +qs.get('t'))) : tDefault;
   if (qs.get('f')) S.sel = b.flights.find((f) => f.id === qs.get('f')) || null;
@@ -271,7 +275,8 @@ function frame(now) {
 }
 function clockText() {
   return new Date((S.bundle.t0 + S.t) * 1000)
-    .toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour12: false }) + ' ET';
+    .toLocaleTimeString('en-US', { timeZone: CFG.tz || 'America/New_York', hour12: false })
+    + ' ' + (CFG.tzLabel || 'ET');
 }
 function pushUrl() {
   const u = new URLSearchParams({ t: S.t.toFixed(0), s: String(S.speed), k: S.key, m: S.mode, tab: S.tab });
@@ -626,6 +631,11 @@ function renderPanel() {
   if (!S.sel) { leftOpen(false); host.innerHTML = ''; return; }
   leftOpen(true);
   const f = S.sel, v = f.verdicts[S.key], enc = f.enc[S.key];
+  if (!v || !enc) {
+    host.innerHTML = '<div class="as-fine">this flight carries no certificate for the selected ' +
+      'aircraft x rule — pick a cell in the FLEET tab</div>';
+    return;
+  }
   const cov = f.trunc[0] || f.trunc[1]
     ? 'truncated at ' + (f.trunc[0] ? 'start' : '') + (f.trunc[0] && f.trunc[1] ? ' + ' : '') + (f.trunc[1] ? 'end' : '')
     : 'ground-to-ground';

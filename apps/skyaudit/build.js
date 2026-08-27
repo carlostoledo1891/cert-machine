@@ -107,6 +107,7 @@ const CITY_TEXT = {
     meta: 'NYC · 2026-08-26 · PINNED DAY',
     mapAria: 'replay map of New York helicopter traffic with certified verdicts',
     center: [-73.995, 40.72], zoom: 11.4, bounds: [[-74.75, 40.25], [-73.25, 41.15]],
+    tz: 'America/New_York', tzLabel: 'ET',
     switcher: { href: '/apps/skyaudit/sp/', label: 'São Paulo' },
     auditNote: (a) => `One real day of New York helicopter traffic — <b>${a.uniqueAircraft}
     aircraft, ${a.flights} flights, ${a.flightStats.totalPathKm.toLocaleString('en-US')} km
@@ -123,6 +124,7 @@ const CITY_TEXT = {
     meta: 'SÃO PAULO · 2026-08-26 · PINNED DAY',
     mapAria: 'replay map of São Paulo helicopter traffic with certified verdicts',
     center: [-46.66, -23.56], zoom: 10.9, bounds: [[-47.35, -24.15], [-45.9, -22.9]],
+    tz: 'America/Sao_Paulo', tzLabel: 'BRT',
     switcher: { href: '/apps/skyaudit/', label: 'New York' },
     auditNote: (a, r) => `One real day over São Paulo — the world's busiest urban helicopter market —
     <b>${a.uniqueAircraft} aircraft, ${a.flights} flights,
@@ -201,7 +203,7 @@ for (const city of ['nyc', 'sp']) {
     configJson: JSON.stringify({ style: urlBase + 'style.json',
       bundle: urlBase + 'data/' + city + '.replay.json', tiles: pin.served_from,
       ambient: urlBase + 'data/' + city + '.ambient.json', designer: optimize.designer,
-      primaryRule: PR, center: T.center, zoom: T.zoom, bounds: T.bounds,
+      primaryRule: PR, center: T.center, zoom: T.zoom, bounds: T.bounds, tz: T.tz, tzLabel: T.tzLabel,
       planner: { heliports: planner.heliports, routes: planner.routes, bands: planner.bandsLegend },
       sim: (() => {   /* mid-box parameters for the LIVE MISSION simulation (labeled sim, not certificate) */
         const mid = (b) => (b[0] + b[1]) / 2;
