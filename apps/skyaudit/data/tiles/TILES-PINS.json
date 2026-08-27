@@ -1,0 +1,9 @@
+{
+  "file": "nyc.pmtiles",
+  "sha256": "cc4afcfd9449b291e14a9b01c1065c732290f1cba7b31e38119a7df3b511a367",
+  "bytes": 36913073,
+  "source": "https://build.protomaps.com/20260826.pmtiles (same date as the traffic day)",
+  "regenerate": "pmtiles extract https://build.protomaps.com/20260826.pmtiles nyc.pmtiles --bbox=-74.35,40.50,-73.65,40.95 --maxzoom=14  (go-pmtiles v1.31.2)",
+  "license": "basemap data (c) OpenStreetMap contributors (ODbL), tiles by Protomaps",
+  "note": "not committed to git (36.9 MB); the build gate re-hashes it against this pin"
+}

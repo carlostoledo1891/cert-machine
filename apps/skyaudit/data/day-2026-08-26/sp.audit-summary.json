@@ -1,55 +1,57 @@
 {
   "city": "sp",
   "dayDir": "day-2026-08-26",
-  "aircraft": 78,
+  "rawLines": 78,
+  "uniqueAircraft": 61,
+  "aircraft": 61,
   "excludedMiscodedA7": 0,
-  "flights": 155,
-  "rows": 1240,
+  "flights": 148,
+  "rows": 1184,
   "bySpecRule": {
     "joby-s4|faa-sfar-vfr": {
       "CERTIFIED": 0,
       "REFUTED": 0,
-      "REFUSED": 155
+      "REFUSED": 148
     },
     "joby-s4|easa-final-reserve": {
       "CERTIFIED": 0,
       "REFUTED": 0,
-      "REFUSED": 155
+      "REFUSED": 148
     },
     "archer-midnight|faa-sfar-vfr": {
       "CERTIFIED": 0,
       "REFUTED": 16,
-      "REFUSED": 139
+      "REFUSED": 132
     },
     "archer-midnight|easa-final-reserve": {
       "CERTIFIED": 0,
       "REFUTED": 22,
-      "REFUSED": 133
+      "REFUSED": 126
     },
     "beta-alia|faa-sfar-vfr": {
-      "CERTIFIED": 55,
+      "CERTIFIED": 50,
       "REFUTED": 0,
-      "REFUSED": 100
+      "REFUSED": 98
     },
     "beta-alia|easa-final-reserve": {
-      "CERTIFIED": 72,
+      "CERTIFIED": 66,
       "REFUTED": 0,
-      "REFUSED": 83
+      "REFUSED": 82
     },
     "eve-100|faa-sfar-vfr": {
       "CERTIFIED": 0,
       "REFUTED": 0,
-      "REFUSED": 155
+      "REFUSED": 148
     },
     "eve-100|easa-final-reserve": {
       "CERTIFIED": 0,
       "REFUTED": 0,
-      "REFUSED": 155
+      "REFUSED": 148
     }
   },
   "flightStats": {
-    "totalPathKm": 10536,
-    "totalAirborneMin": 3471,
-    "truncated": 151
+    "totalPathKm": 10391,
+    "totalAirborneMin": 3436,
+    "truncated": 144
   }
 }

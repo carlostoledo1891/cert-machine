@@ -20,8 +20,9 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ACTIVE NOW (operator-directed 2026-08-27): SKYAUDIT — apps/skyaudit, the
 first app: real urban helicopter traffic (CITY DECIDED by measurement:
-NYC flagship — 143 helis/382 flights vs SP 78/132 on the pinned day
-2026-08-26; SP = pack #2) replayed Flightradar24-style and audited flight-by-flight
+NYC flagship — 82 unique helis/382 flights vs SP 61/148 on the pinned day
+2026-08-26, counts corrected for prod+MLAT dedupe; SP = pack #2)
+replayed Flightradar24-style and audited flight-by-flight
 against eVTOL specs + reserve rules via instruments/evtol, PLUS a
 deterministic simulated fleet (scenario packs, live certificates, re-fly-
 the-day fusion, fleet-size frontier). Full-viewport app-shell view (new

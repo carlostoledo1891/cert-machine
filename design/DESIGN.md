@@ -172,3 +172,16 @@ wrong three pages later; a component with no row gets reinvented by the next bui
 
 The red controls inject a hand-typed number, a clock, a stray hex and a stripped `aria-label`
 and confirm each is detected. A check nobody has seen go red is decoration.
+
+## The app shell (second view, 2026-08-27)
+
+`design/app-shell.js` renders the design system's SECOND page view: a
+full-viewport application surface (100% × 100dvh) for `apps/` — fixed top
+bar, lateral panel, bottom dock, no prose column. Same tokens, same type
+stack, same three-state theme rule as `template.js`. It adds three app
+tokens — `--v-cert` / `--v-refu` / `--v-refd` (the three-valued verdict
+colors) — defined in both palettes inside the shell's own root block with
+the standard dark guards; clients that need them in WebGL read the computed
+custom properties at runtime, never literals. Components: `.as-top`,
+`.as-panel`, `.as-dock`, `.as-chip`, `.as-btn`, `.as-bar`, `.as-kv`,
+`.as-note`, `.as-h`. First consumer: apps/skyaudit.

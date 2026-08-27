@@ -29,29 +29,27 @@ function isHeliStrict(obj) {
   return true;   /* untyped rows reached the corpus via category A7 */
 }
 
+const { loadHeli } = require('./corpus.js');
+
 const city = process.argv[2];
 if (!city) { console.error('usage: node certify-day.js <city> [dayDir]'); process.exit(2); }
 const dayDir = process.argv[3] || 'day-2026-08-26';
 const dataDir = path.join(__dirname, '../data', dayDir);
-let raw;
-const rawPath = path.join(dataDir, city + '.heli.jsonl');
-if (fs.existsSync(rawPath)) raw = fs.readFileSync(rawPath, 'utf8');
-else raw = zlib.gunzipSync(fs.readFileSync(rawPath + '.gz')).toString('utf8');
+const corpus = loadHeli(city, dayDir);
 
 const phys = M.loadPhysics('kasliwal-2019');
 const specs = ['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100'].map(M.loadSpec);
 const rules = ['faa-sfar-vfr', 'easa-final-reserve'].map(M.loadRule);
 
 const out = fs.createWriteStream(path.join(dataDir, city + '.certs.jsonl'));
-const summary = { city, dayDir, aircraft: 0, excludedMiscodedA7: 0, flights: 0, rows: 0,
+const summary = { city, dayDir, rawLines: corpus.rawLines, uniqueAircraft: corpus.unique,
+  aircraft: 0, excludedMiscodedA7: 0, flights: 0, rows: 0,
   bySpecRule: {}, flightStats: { totalPathKm: 0, totalAirborneMin: 0, truncated: 0 } };
 for (const s of specs) for (const r of rules) {
   summary.bySpecRule[s.id + '|' + r.id] = { CERTIFIED: 0, REFUTED: 0, REFUSED: 0 };
 }
 
-for (const line of raw.split('\n')) {
-  if (!line.trim()) continue;
-  const obj = JSON.parse(line);
+for (const obj of corpus.aircraft) {
   if (!isHeliStrict(obj)) { summary.excludedMiscodedA7++; continue; }
   summary.aircraft++;
   let flights;

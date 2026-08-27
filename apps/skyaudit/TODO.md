@@ -62,16 +62,19 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
 - [x] Battery (`battery.js`, 11/11): segmentation calibration + 3 reds,
       power calibration, dyadic hand-computed CERTIFIED/REFUTED/REFUSED
       through the real instrument, Eve-REFUSES honesty check
-- [x] THE DAY IS CERTIFIED (`audit/certify-day.js`): NYC 140 aircraft →
-      494 flights → 3,952 rows; SP 78 → 155 → 1,240 rows. Headline: Beta
-      ALIA 105 flights CERTIFIED under FAA-20 (189 under EASA-nec) — the
-      only aircraft whose public numbers can PROVE missions; Archer 129
-      flights REFUTED under FAA-20 (exact witnesses; its design mission
-      is 20-mi hops, NYC tour/charter days exceed it); Joby ~everything
-      REFUSED (public numbers cannot decide); Eve 484/494 REFUSED
-      (publishes least). The REFUSED mass is the finding: it measures
-      both public-spec opacity AND the FAA-reserve conservatism the
-      industry itself protested (Beta's own docket comment)
+- [x] THE DAY IS CERTIFIED (`audit/certify-day.js`), counts CORRECTED
+      after prod+MLAT dedupe (audit/corpus.js — richest trace per icao;
+      the first-pass 143/494 numbers counted corpus lines): NYC 82 unique
+      (79 audited) → 382 flights → 3,056 rows; SP 61 → 148 → 1,184 rows.
+      Headline: Beta ALIA 46 flights CERTIFIED under FAA-20 (110 under
+      EASA-nec) — the only aircraft whose public numbers can PROVE
+      missions; Archer 120 flights REFUTED under FAA-20 (exact witnesses;
+      its design mission is 20-mi hops, NYC tour/charter days exceed it);
+      Joby 0 certified (12 REFUTED, rest REFUSED — public numbers cannot
+      decide); Eve 376/382 REFUSED (publishes least). The REFUSED mass is
+      the finding: it measures both public-spec opacity AND the
+      FAA-reserve conservatism the industry itself protested (Beta's own
+      docket comment)
 - [ ] Known-conservatism refinements (recorded, not yet applied): reserve
       power at "normal cruising speed" currently uses the full cruise-v
       box (hi end inflates reserve); mission mass = MTOW box (max-load
@@ -100,24 +103,33 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       per tick in exact arithmetic
 
 ## Phase 4 — the experience (the app shell)
-- [ ] `design/app-shell.js`: the new full-viewport view — 100% width ×
-      100vh, lateral panels, bottom scrubber dock; same tokens/components;
-      DESIGN.md row (operator definition 2026-08-27)
-- [ ] Basemap: pmtiles city extract (SP city z0–15 ≈ 91 MB fits Vercel
-      Hobby; check NYC size; merge z0–5 world underlay ~17 MB), Protomaps
-      "black" flavor, OpenFreeMap dark as runtime fallback; attribution
-      (OSM + adsb.lol) in the shell footer
-- [ ] Replay client (`src/`): MapLibre v6 + deck.gl v9 MapboxOverlay
-      interleaved; TripsLayer comet trails (timestamps normalized to a
-      day baseline — 32-bit float gotcha); trail/badge color = VERDICT
-      channel, altitude coloring as toggle; 3D building extrusions
-- [ ] Scrubber (FR24 pattern): drag, zoomable window, 1x–300x; URL-
-      addressable state (?t=…&speed=…&flight=…) — every moment shareable
-- [ ] Certificate panel (lateral): route metrics, segment boxes, enclosure
-      vs reserve floor drawn, verdict, falsifying corner for REFUTED,
-      "rerun this" block (certificate JSON + stdlib command)
-- [ ] Click-to-follow + full-day track (ADSBx pattern); flight altitude
-      graph synced to scrubber
+- [x] `design/app-shell.js` SHIPPED: the second design-system view —
+      full-viewport, top bar, lateral panel, bottom dock, app verdict
+      tokens (--v-cert/--v-refu/--v-refd) in both palettes with the
+      three-state guard pattern; DESIGN.md section pending
+- [x] Basemap: NYC z14 pmtiles extract 36.9 MB (z15 was 114.6 MB — over
+      Vercel Hobby's 100 MB), pinned in data/tiles/TILES-PINS.json,
+      SAME planet build date as the traffic day (20260826); Protomaps
+      "black" flavor style.json generated via @protomaps/basemaps 5.7.2;
+      vendor libs pinned (maplibre-gl 5.24.0, deck.gl 9.3.10, pmtiles
+      4.5.0 — VENDOR-PINS.json); attribution in the dock
+- [x] Replay client (`src/app.js`): TripsLayer comet trails over the
+      day-relative clock, verdict color channel (token-sourced at
+      runtime) + altitude toggle, heads layer, pick-to-select,
+      3D building extrusions (PMSP heights)
+- [x] Scrubber: drag + speed 1–300x + ET clock + URL-addressable state
+      (?t&s&k&m&f); zoomable time window and per-flight altitude graph
+      still open
+- [x] Certificate panel: flight metrics + truncation honesty, verdict +
+      explanation, usable-vs-demanded interval bars (the refutation is
+      VISIBLE — disjoint bands), exact witness string, all-8 verdict
+      chips, follow/deselect; "rerun this" JSON download still open
+- [x] VERIFIED by headless screenshots (1440×900): map+trails+panel
+      render; found+fixed en route: python http.server serves no Range
+      (dev server serve.mjs in scratchpad; Vercel verified 206 by the
+      research agent)
+- [ ] Click-to-follow verified live; full-day altitude graph (ADSBx
+      pattern) still open
 - [ ] Sim mode UI: live badges, vertiport panels, the flip moment;
       what-if sliders (payload, temperature, rule, fleet size) driving
       the IN-BROWSER certifier (ship instruments/evtol to the page)

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SkyAudit — one real day over New York, every flight decided</title>
+<meta name="description" content="Real ADS-B helicopter traffic over NYC (2026-08-26), replayed — every flight audited against published eVTOL specs and energy-reserve rules with mathematically certified enclosures.">
+https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<style>:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+:root{--v-cert:#2C6142;--v-refu:#C64B42;--v-refd:#8F8798}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--v-cert:#79C79B;--v-refu:#E06B62;--v-refd:#6E6678}}
+:root[data-theme="dark"]{--v-cert:#79C79B;--v-refu:#E06B62;--v-refd:#6E6678}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink)}
+body{font-family:"Spectral",Georgia,serif;font-size:14px}
+.as-map{position:fixed;inset:0}
+.as-top{position:fixed;top:0;left:0;right:0;height:48px;z-index:30;display:flex;align-items:center;
+  gap:18px;padding:0 16px;background:var(--paper);border-bottom:1px solid var(--rule)}
+.as-top .brand{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;white-space:nowrap}
+.as-top .appname{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--sig)}
+.as-top .spacer{flex:1}
+.as-top a{color:var(--ink-2);text-decoration:none;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase}
+.as-top a:hover{color:var(--sig)}
+.as-panel{position:fixed;top:58px;right:10px;bottom:86px;width:372px;z-index:20;overflow-y:auto;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:14px 16px}
+.as-panel.closed{display:none}
+.as-dock{position:fixed;left:0;right:0;bottom:0;height:72px;z-index:30;display:flex;align-items:center;
+  gap:14px;padding:0 16px;background:var(--paper);border-top:1px solid var(--rule)}
+.as-dock .attr{margin-left:auto;font-size:10px;color:var(--ink-3);text-align:right;line-height:1.35}
+.as-dock .attr a{color:var(--ink-3)}
+.as-h{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin:14px 0 6px}
+.as-h:first-child{margin-top:0}
+button.as-btn{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.08em;background:var(--sunk);
+  color:var(--ink);border:1px solid var(--rule);border-radius:7px;padding:6px 10px;cursor:pointer}
+button.as-btn:hover{border-color:var(--sig);color:var(--sig)}
+button.as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
+.as-chip{display:inline-flex;align-items:center;gap:6px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;
+  border:1px solid var(--rule);border-radius:999px;padding:3px 9px;cursor:pointer;color:var(--ink-2)}
+.as-chip[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
+.as-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+input[type=range].as-scrub{flex:1;accent-color:var(--sig);height:26px}
+select.as-sel{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:7px;padding:5px 6px}
+.as-clock{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--ink);min-width:88px}
+.as-kv{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:12.5px;color:var(--ink-2)}
+.as-kv b{color:var(--ink);font-weight:600}
+.as-note{font-size:11.5px;color:var(--ink-3);line-height:1.45}
+.as-bar{position:relative;height:18px;background:var(--sunk);border:1px solid var(--rule-soft);
+  border-radius:5px;overflow:hidden;margin:4px 0}
+.as-bar .seg{position:absolute;top:0;bottom:0}
+.maplibregl-ctrl-attrib{font-size:10px}
+@media (max-width:720px){
+  .as-panel{left:8px;right:8px;top:auto;bottom:86px;width:auto;max-height:42dvh}
+  .as-top .navx{display:none}
+}</style>
+</head><body>
+<div id="map" class="as-map" aria-label="replay map of New York helicopter traffic with certified verdicts"></div>
+<header class="as-top">
+  <a class="brand" href="/">CERT-MACHINE</a>
+  <span class="appname">SKYAUDIT · NYC · 2026-08-26</span>
+  <span class="spacer"></span>
+  <a class="navx" href="/reports/">reports</a>
+  <a class="navx" href="https://github.com/carlostoledo1891/cert-machine">github</a>
+</header>
+<aside class="as-panel" id="panel">
+  <div class="as-h">the audit</div>
+  <div class="as-note">One real day of New York helicopter traffic (82 unique aircraft,
+  382 flights, ADS-B, hash-pinned). Each flight is re-flown on paper by an eVTOL:
+  its published numbers as honest parameter boxes, a reserve rule, and a three-valued verdict
+  from interval arithmetic — <b>mathematically certified enclosures</b>, no Monte Carlo,
+  no airworthiness meaning. REFUSED is a first-class outcome: it measures what the
+  manufacturer has not published.</div>
+  <div class="as-h">aircraft · rule</div><div id="keys"></div>
+  <div class="as-h">this day, under the selection</div><div id="counts"></div>
+  <div class="as-h">selected flight</div><div id="flight"></div>
+  <details style="margin-top:12px"><summary class="as-h" style="cursor:pointer">honest boundaries</summary>
+  <div class="as-note">The corpus is what the receiver network saw — equipage in NYC is mandated
+  (14 CFR 91.225 inside the Mode C veil) but coverage gaps and truncated tracks are flagged per
+  flight. The audit is counterfactual arithmetic over stated boxes (specs quality-flagged in the
+  repo; Eve publishes least, so Eve REFUSES most). FAA rule = the 20-min VFR helicopter tier;
+  EASA rule = the 5-min final reserve as a NECESSARY condition only. Data © adsb.lol contributors
+  (ODbL). Rerun everything: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/skyaudit">apps/skyaudit</a>.</div>
+  </details></aside>
+<footer class="as-dock" id="dock">
+  <button class="as-btn" id="play">❚❚</button>
+  <input type="range" class="as-scrub" id="scrub" min="0" max="86400" step="1" value="0" aria-label="time of day">
+  <span class="as-clock" id="clock">—</span>
+  <select class="as-sel" id="speed" aria-label="replay speed">
+    <option value="1">1×</option><option value="10">10×</option><option value="60" selected>60×</option>
+    <option value="120">120×</option><option value="300">300×</option>
+  </select>
+  <button class="as-btn" id="mode">color: verdict</button>
+  <span class="attr">© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> · Protomaps ·
+  data © <a href="https://adsb.lol">adsb.lol</a> (ODbL)</span></footer>
+<script>window.SKYAUDIT = {"style":"/apps/skyaudit/style.json","bundle":"/apps/skyaudit/data/nyc.replay.json"};</script>
+<script src="vendor/maplibre-gl.js"></script>
+<script src="vendor/deck.min.js"></script>
+<script src="vendor/pmtiles.js"></script>
+<script src="app.js"></script>
+</body></html>

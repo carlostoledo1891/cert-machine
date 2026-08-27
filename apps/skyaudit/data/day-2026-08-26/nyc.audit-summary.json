@@ -1,55 +1,57 @@
 {
   "city": "nyc",
   "dayDir": "day-2026-08-26",
-  "aircraft": 140,
+  "rawLines": 143,
+  "uniqueAircraft": 82,
+  "aircraft": 79,
   "excludedMiscodedA7": 3,
-  "flights": 494,
-  "rows": 3952,
+  "flights": 382,
+  "rows": 3056,
   "bySpecRule": {
     "joby-s4|faa-sfar-vfr": {
       "CERTIFIED": 0,
-      "REFUTED": 13,
-      "REFUSED": 481
+      "REFUTED": 12,
+      "REFUSED": 370
     },
     "joby-s4|easa-final-reserve": {
       "CERTIFIED": 0,
-      "REFUTED": 17,
-      "REFUSED": 477
+      "REFUTED": 16,
+      "REFUSED": 366
     },
     "archer-midnight|faa-sfar-vfr": {
       "CERTIFIED": 0,
-      "REFUTED": 129,
-      "REFUSED": 365
+      "REFUTED": 120,
+      "REFUSED": 262
     },
     "archer-midnight|easa-final-reserve": {
       "CERTIFIED": 0,
-      "REFUTED": 149,
-      "REFUSED": 345
+      "REFUTED": 137,
+      "REFUSED": 245
     },
     "beta-alia|faa-sfar-vfr": {
-      "CERTIFIED": 105,
+      "CERTIFIED": 46,
       "REFUTED": 2,
-      "REFUSED": 387
+      "REFUSED": 334
     },
     "beta-alia|easa-final-reserve": {
-      "CERTIFIED": 189,
+      "CERTIFIED": 110,
       "REFUTED": 2,
-      "REFUSED": 303
+      "REFUSED": 270
     },
     "eve-100|faa-sfar-vfr": {
       "CERTIFIED": 0,
-      "REFUTED": 7,
-      "REFUSED": 487
+      "REFUTED": 6,
+      "REFUSED": 376
     },
     "eve-100|easa-final-reserve": {
       "CERTIFIED": 0,
-      "REFUTED": 10,
-      "REFUSED": 484
+      "REFUTED": 9,
+      "REFUSED": 373
     }
   },
   "flightStats": {
-    "totalPathKm": 53024,
-    "totalAirborneMin": 17347,
-    "truncated": 440
+    "totalPathKm": 47028,
+    "totalAirborneMin": 15616,
+    "truncated": 328
   }
 }

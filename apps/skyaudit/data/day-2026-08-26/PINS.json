@@ -19,8 +19,18 @@
     "tool": "apps/skyaudit/audit/extract.js",
     "input": "cat prod-0.tar.aa prod-0.tar.ab prod-0.tar.ac mlatonly-0.tar | node extract.js <outdir>",
     "bboxes": {
-      "nyc": { "latMin": 40.50, "latMax": 40.95, "lonMin": -74.35, "lonMax": -73.65 },
-      "sp": { "latMin": -23.75, "latMax": -23.30, "lonMin": -46.95, "lonMax": -46.30 }
+      "nyc": {
+        "latMin": 40.5,
+        "latMax": 40.95,
+        "lonMin": -74.35,
+        "lonMax": -73.65
+      },
+      "sp": {
+        "latMin": -23.75,
+        "latMax": -23.3,
+        "lonMin": -46.95,
+        "lonMax": -46.3
+      }
     },
     "traceFiles": 125746,
     "parseErrors": 0
@@ -33,15 +43,27 @@
   },
   "committed": "*.heli.jsonl.gz (gunzip and compare against the raw sha256 above); *.full.jsonl stays local, regenerable byte-for-byte from the pinned assets",
   "city_decision": {
-    "ruling": "NYC is the flagship city pack; SP ships as pack #2 (measured, not preferred — operator rule 2026-08-27)",
+    "ruling": "NYC is the flagship city pack; SP ships as pack #2 (measured, not preferred \u2014 operator rule 2026-08-27)",
     "measured_by": "apps/skyaudit/audit/measure.js (flight proxies: >=180 s segments split at >15 min gaps, airborne, touching bbox)",
     "numbers": {
-      "nyc": { "helicopters": 143, "flight_proxies": 382, "airborne_min": 17879, "trace_points": 203667 },
-      "sp": { "helicopters": 78, "flight_proxies": 132, "airborne_min": 3406, "trace_points": 33270 }
+      "nyc": {
+        "unique_aircraft": 82,
+        "audited": 79,
+        "flights_certified_segmentation": 382,
+        "trace_points": 203667
+      },
+      "sp": {
+        "unique_aircraft": 61,
+        "audited": 61,
+        "flights_certified_segmentation": 148,
+        "trace_points": 33270
+      },
+      "note": "CORRECTED 2026-08-27: the first-pass counts (143/78 'helicopters', measure.js) counted corpus LINES - an aircraft in both the prod and mlatonly tars appears twice (61 NYC / 17 SP dup icaos, the MLAT copy a tiny subset trace). Public counts use UNIQUE aircraft; auditing dedupes via audit/corpus.js (keep richest trace). The city decision is unchanged on the corrected numbers."
     }
   },
   "known_data_quirks": [
-    "a few fixed-wing types carry a miscoded A7 emitter category (A320, BCS3, PA27 seen in NYC) — the certified segmentation must filter heli = (type in HELI_TYPES) or (A7 and no contradicting fixed-wing type)",
-    "flight-proxy airborne minutes include segment portions outside the bbox (offshore S92/S76 legs) — measurement heuristic only, superseded by the certified segmentation"
+    "a few fixed-wing types carry a miscoded A7 emitter category (A320, BCS3, PA27 seen in NYC) \u2014 the certified segmentation must filter heli = (type in HELI_TYPES) or (A7 and no contradicting fixed-wing type)",
+    "flight-proxy airborne minutes include segment portions outside the bbox (offshore S92/S76 legs) \u2014 measurement heuristic only, superseded by the certified segmentation",
+    "prod + mlatonly tars overlap: same icao can appear in both; the committed corpus keeps the raw two-line honesty, audit/corpus.js dedupes (richest trace wins)"
   ]
 }
