@@ -297,6 +297,58 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
 
+SESSION 2026-08-27 LATEST (the report chase — all four queue items, on the
+operator's word "proceed all four"):
+  1. reports/alphaevolve.html SHIPPED (build-report-alphaevolve.js): the
+     whole strassen corpus re-certified at build (11 rows; AlphaEvolve-48
+     over Z[i] scale-8/4096-equations gated, the rank-47 over-Q refutation
+     gated, commit-pin sha gated). 2. reports/answer-key.html SHIPPED
+     (build-report-answer-key.js): three specimens RE-PROVED at build
+     (naive-product reproduction + exact refutation; deepest impostor depth
+     re-derived in BigInt = 62, A271880 — cross-gated with the impostors
+     page; RM printed/corrected pair re-certified) + the eval as the
+     keyless design.
+  3. EVAL V2 SHIPPED. Harness: ladder + probe (2,2,2,6) impossible
+     (Winograd 1971, consumed+named; decline option {"impossible":true} on
+     EVERY rung so refusal is never a tell), disguised tensor
+     ('tensor','d7',7) — the <2,2,2> tensor under a pinned monomial
+     transform, prompt never says matmul; green control = transformed
+     Strassen MUST certify, red = sign-flip must not — and the OPEN
+     (3,3,3,22) discovery rung (labeled; certified row would be new math;
+     page renders it in bold, never a score). New outcome 'declined';
+     run_green_controls beside red. MEASUREMENT-ARTIFACT FIX (cause, not
+     gate): thinking models can exhaust max_tokens with EMPTY text — was
+     being recorded as 'malformed'; harness now reads stop_reason and
+     SKIPS budget-cut unparseable replies like API errors. 102 artifact
+     rows (never committed) were dropped and every v3 campaign re-run
+     under sane budgets. FINDINGS (certs/matmul-eval-ledger.jsonl, tag
+     v3): probe — opus 6/10 declined, sonnet 5/10, HAIKU 0/10 (attempts
+     the impossible every time it parses); over-refusal control clean
+     (opus 7/10, sonnet 10/10 certified on r7, 0 declines). Disguised —
+     opus 6/6 CERTIFIED @16k budget, sonnet 3/3 graded @32k (exhausts
+     16k thinking every attempt), haiku 0/10: the disguise converts free
+     recall into 10k-30k tokens of real derivation — the cost asymmetry
+     IS the anti-recall measurement (stated on the page §2d). Open r22 —
+     opus 6/6 declined, sonnet 5/5 graded declined. Still zero REFUTED
+     and zero false certifications ever.
+  4. reports/verifier-loop.html SHIPPED (build-report-loop.js) + harness
+     --loop/--trajectories/--loop-ledger: feedback is TEMPLATE-LOCKED to
+     the grader's own mechanism (parse complaint / screen class / the
+     certificate's first_violation index + exact discrepancy) and the
+     build REFUSES a ledger whose feedback deviates (anti-coaching gate).
+     certs/matmul-loop-ledger.jsonl: 27 rounds, 6 trajectories — haiku
+     r7 3x8 rounds NEVER converts (below-bar model not rescued), opus r7
+     3/3 first-shot certified; Laderman loops budget-exhausted even @24k
+     (skipped, unrecorded, honest). Headline: the channel is honest in
+     both directions — cannot coach, cannot be sweet-talked.
+  Wiring: C.tldr on all three new pages; site shelf AI group = 10 pages
+  (alphaevolve #2, verifier-loop #4, answer-key #6); certs table +
+  matmul-loop-ledger.jsonl; Makefile reports += 3 builders.
+  OPEN AFTER THIS: an intermediate-capability model for a true feedback
+  CONVERSION trajectory (none of ours is one nudge from the bar); r22/
+  Laderman loops need >24k budgets if ever re-run; spend not precisely
+  measurable keylessly (~100 graded calls + ~60 skips/retries).
+
 SESSION 2026-08-27 LATER (narrative transformation — operator ruling after
 the "is my portfolio sexy" brainstorm; report chase NOT started, next on
 the operator's word):

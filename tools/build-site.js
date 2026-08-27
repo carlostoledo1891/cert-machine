@@ -152,10 +152,22 @@ const REPORTS = [
     title: 'The matmul eval: ground truth is a proof',
     desc: 'Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.',
     n: fmt(evalReal.length) + ' proposals graded · zero subtly-wrong survivors' },
+  { g: 'ai', f: 'alphaevolve.html', k: 'audit · AI-discovered algorithms',
+    title: 'The AI-discovered algorithms, certified',
+    desc: 'AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.',
+    n: '11 algorithms re-decided each build' },
   { g: 'ai', f: 'erdos852.html', k: 'audit · refutation',
     title: 'The constant that was a rounding error',
     desc: 'A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.',
     n: 'refuted at digit 12 · correction certified' },
+  { g: 'ai', f: 'verifier-loop.html', k: 'verified reward · demo',
+    title: 'The verifier in the loop',
+    desc: 'The reward channel in closed loop: a model proposes, the grader answers every failure with its own refutation mechanism — the exact violated equation, nothing more — and the model retries. Every trajectory rendered from the append-only ledger.',
+    n: 'feedback template-locked · zero coaching' },
+  { g: 'ai', f: 'answer-key.html', k: 'note · for eval builders',
+    title: 'When the answer key is wrong',
+    desc: 'Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.',
+    n: 'every specimen re-proved at build' },
   { g: 'ai', f: 'methods-note.html', k: 'methods note',
     title: 'None by reading code',
     desc: 'Every real bug this machine has found — ten, cataloged — was caught by a red control, a calibration, an impossible number, or a byte pin. How to build verifiers that catch their own defects, stated as engineering.',
@@ -225,7 +237,8 @@ const CERTS = [
   ['lambda-table.json', 'The lambda table: the source lab’s rows reproduced exactly, plus rows nobody else holds, certified at the stated depth.', null],
   ['entropy-henon.json', 'The certified entropy lower bound for the classical Hénon map: h-sets, covering relations, and the exact spectral argument.', null],
   ['erdos290-tail-ext.json', 'The Erdős #290 sweep extension: degrees closed beyond the cited page, the constant’s enclosure tightened degree by degree.', null],
-  ['matmul-eval-ledger.jsonl', 'The matmul eval’s append-only ledger — every campaign row, every verdict, every tag; the leaderboard is built from this file.', null]
+  ['matmul-eval-ledger.jsonl', 'The matmul eval’s append-only ledger — every campaign row, every verdict, every tag; the leaderboard is built from this file.', null],
+  ['matmul-loop-ledger.jsonl', 'The verifier-in-the-loop ledger — every trajectory round with its verdict and the exact feedback sent; the loop report is built from this file.', null]
 ];
 {
   const onDisk = fs.readdirSync(path.join(ROOT, 'certs')).filter((f) => f.endsWith('.json') || f.endsWith('.jsonl')).sort();

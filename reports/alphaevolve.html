@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The AI-discovered algorithms, certified</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 28px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:400;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sig);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:4px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--sig);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:52px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:76px}
+.col{max-width:64ch;margin-left:auto;margin-right:auto}
+.wide{max-width:900px;margin-left:auto;margin-right:auto}
+/* A wide element (table, card grid, figure) emitted inside a prose column
+   breaks out to the page-wide track: .col and .page are both centered, so
+   centering on the viewport IS centering on the page. Width never exceeds
+   the viewport minus the page padding, so the body never scrolls sideways —
+   anything wider (a table) scrolls inside its own .tw container. */
+.col .wide{position:relative;left:50%;transform:translateX(-50%);
+  width:min(900px,calc(100vw - 2*clamp(18px,4vw,40px)))}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:7px;
+  flex:1 1 240px;min-width:200px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:22px 24px;
+  color:inherit;text-decoration:none;transition:border-color .15s ease}
+a.card:hover{border:1px solid var(--sig)}
+a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+.card-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
+.card-t{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:19.5px;line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
+.card-n{margin-top:auto;padding-top:6px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  letter-spacing:.05em;color:var(--ink-3)}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · certified audit · re-decided at every build</div>
+  <h1>The AI-discovered algorithms, certified</h1>
+  <p class="deck">The two most famous AI-discovered mathematical objects — AlphaTensor&#39;s rank-47 4×4 matrix-multiplication algorithm (Nature, 2022) and AlphaEvolve&#39;s rank-48 (2025) — audited as exact tensor identities from pinned first-party bytes. AlphaEvolve&#39;s 48: CERTIFIED over Z[i], all 4,096 defining equations exact. AlphaTensor&#39;s 47: VERIFIED over F2, and the SAME factors REFUTED over Q — the speedup provably requires characteristic 2. Every verdict on this page was re-derived during the build that produced it.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> AlphaEvolve's rank-48 ⟨4,4,4⟩ decomposition is exactly correct over Z[i] — certified, not spot-checked — and AlphaTensor's rank-47 is decided BOTH ways: verified over F2, refuted over Q. The first beats Strassen-squared's 49 with complex coefficients; the second beats it only in characteristic 2, and that restriction is now a theorem about the artifact, not a caveat in a paper.</li><li><b>The mechanism.</b> A fast-matmul algorithm IS a finite exact object: three factor matrices whose defining tensor identity either holds over the claimed ring or provably does not. The audit checks every equation in exact arithmetic against commit-pinned source bytes (the DeepMind notebook is mutable at main — it has been rewritten; the pin is by commit and sha256).</li><li><b>Check it.</b> <span class="m">python3 verify/verify_strassen.py certs/strassen-certificate.json</span> — stdlib Python, seconds, refutes a forged coefficient before it exits green.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">AlphaEvolve ⟨4,4,4⟩</div><div class="v held">rank 48 · CERTIFIED</div><div class="n">over Z[i]: all 4,096 tensor equations exact, imaginary parts vanish, scale-8 identity after clearing half-Gaussian denominators</div></div>
+    <div class="stat"><div class="k">AlphaTensor ⟨4,4,4⟩</div><div class="v warn">47 over F2 · REFUTED over Q</div><div class="n">the same factors, both rings, one build — the speedup provably needs characteristic 2</div></div>
+    <div class="stat"><div class="k">the baseline they beat</div><div class="v">rank 49</div><div class="n">Strassen ⊗ Strassen, generated here by exact Kronecker composition and re-decided from scratch</div></div>
+    <div class="stat"><div class="k">algorithms verified</div><div class="v held">10</div><div class="n">46466 tensor-identity equations held exactly across the corpus this build</div></div>
+    <div class="stat"><div class="k">honest rejects</div><div class="v">1</div><div class="n">the naive rank-8 certifies as CORRECT and is REJECTED: correct is not fast</div></div>
+    <div class="stat"><div class="k">sources</div><div class="v">commit-pinned</div><div class="n">sha256-pinned npz + notebook bytes, re-hashed at every certify — a drifted source refuses everything</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · why this is decidable</div>
+    <h2>An AI discovery that happens to be a finite exact object</h2>
+  </div>
+<p>&quot;4×4 matrices in 48 multiplications&quot; is not an empirical claim about software — it is a rank-48 decomposition of the ⟨4,4,4⟩ matmul tensor: three factor matrices U, V, W whose defining identity, 4,096 equations each an exact sum of 48 products, either holds over the stated ring or provably does not. That makes the most famous AI-discovered mathematics of 2022 and 2025 exactly the shape this machine certifies: transcribe the published artifact from pinned bytes, check every equation in exact arithmetic, and record the verdict with the hash of what was checked.</p>
+<p>The C-index layout (row-major or transposed) is a publishing convention that differs between sources; the audit DETECTS it and the certificate states it — nothing about the identity is assumed. And the rank bar is enforced: the naive rank-8 algorithm certifies as correct and is REJECTED, because a hit here asserts rank strictly below naive. Correct is not fast.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · alphaevolve</div>
+    <h2>Rank 48, over the Gaussian integers, from mutable bytes — pinned</h2>
+  </div>
+<p>The only first-party byte source for AlphaEvolve&#39;s decomposition is a Jupyter notebook in a DeepMind repository whose main branch is MUTABLE — it has been rewritten seven times since May 2025. The audit therefore pins by commit: the notebook is held at sha256 2cce2543e48c89aa…, re-hashed at every certify, and the arXiv paper (2506.13131) carries no ancillary files — it is the citation, not the source. A &quot;certified&quot; claim about bytes that can silently change is not a certificate; the pin is what makes the verdict durable.</p>
+<p>The ring matters. Every published entry lies in ½·Z[i] — coefficients from {0, ±½, ±½i, ±½±½i} — which is exact in float32, so the byte-level parse loses nothing. Clearing denominators gives factors 2U, 2V, 2W over the Gaussian integers, and the certified claim is the scale-8 identity: Σᵣ (2uᵣ)⊗(2vᵣ)⊗(2wᵣ) = 8·T⟨4,4,4⟩, all 4096 equations exact, every imaginary part vanishing identically. Verdict, re-derived this build: CERTIFIED, rank 48 &lt; 49.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · alphatensor</div>
+    <h2>Rank 47, decided both ways — the characteristic-2 theorem</h2>
+  </div>
+<p>AlphaTensor&#39;s headline rank-47 ⟨4,4,4⟩ algorithm works modulo 2 — the Nature paper says so. This audit converts the caveat into a decided pair: the SAME pinned factors are audited over F2 (VERIFIED, all equations exact) and over Q (REFUTED — the identity fails at a named index). The speedup over Strassen-squared&#39;s 49 provably does not survive lifting to characteristic 0. That is a theorem about the published artifact, produced mechanically, and it is the kind of statement a rerun or a benchmark cannot make: running the algorithm on test matrices over Z would just quietly give wrong answers that round-trip mod 2.</p>
+<p>Seven further AlphaTensor factorizations from the pinned npz — ⟨2,2,2⟩ through ⟨5,5,5⟩, over Q and over F2 — verify exactly and appear in the registry below with their equation counts.</p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§4 · the registry</div>
+    <h2>Every algorithm in the corpus, re-decided this build</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>algorithm</th><th>dims</th><th>rank</th><th>ring</th><th>equations</th><th>verdict</th></tr></thead><tbody><tr><td><span class="m">strassen-1969</span></td><td><span class="m">2×2×2</span></td><td class="n">7</td><td>Q</td><td class="n">64</td><td>VERIFIED</td></tr><tr><td><span class="m">strassen-squared-4x4x4</span></td><td><span class="m">4×4×4</span></td><td class="n">49</td><td>Q</td><td class="n">4096</td><td>VERIFIED</td></tr><tr><td><span class="m">naive-2x2x2</span></td><td>—</td><td class="n">8</td><td>Q</td><td class="n">—</td><td><span class="tag open">REJECT — correct, not fast</span></td></tr><tr><td><span class="m">alphatensor-q-2x2x2</span></td><td><span class="m">2×2×2</span></td><td class="n">7</td><td>Q</td><td class="n">64</td><td>VERIFIED</td></tr><tr><td><span class="m">alphatensor-q-3x3x3</span></td><td><span class="m">3×3×3</span></td><td class="n">23</td><td>Q</td><td class="n">729</td><td>VERIFIED</td></tr><tr><td><span class="m">alphatensor-q-4x4x4</span></td><td><span class="m">4×4×4</span></td><td class="n">49</td><td>Q</td><td class="n">4096</td><td>VERIFIED</td></tr><tr><td><span class="m">alphatensor-q-3x4x5</span></td><td><span class="m">3×4×5</span></td><td class="n">47</td><td>Q</td><td class="n">3600</td><td>VERIFIED</td></tr><tr><td><span class="m">alphatensor-q-4x5x5</span></td><td><span class="m">4×5×5</span></td><td class="n">76</td><td>Q</td><td class="n">10000</td><td>VERIFIED</td></tr><tr><td><span class="m">alphatensor-f2-4x4x4</span></td><td><span class="m">4×4×4</span></td><td class="n">47</td><td>F2</td><td class="n">4096</td><td>VERIFIED <strong>· REFUTED over Q</strong></td></tr><tr><td><span class="m">alphatensor-f2-5x5x5</span></td><td><span class="m">5×5×5</span></td><td class="n">96</td><td>F2</td><td class="n">15625</td><td>VERIFIED <strong>· REFUTED over Q</strong></td></tr><tr><td><span class="m">alphaevolve-48-4x4x4</span></td><td><span class="m">4×4×4</span></td><td class="n">48</td><td>Zi</td><td class="n">4096</td><td>VERIFIED</td></tr></tbody></table></div></div><div class="col"><p>Strassen 1969 is the calibration — the oldest fast algorithm, transcribed from the textbook and re-decided before anything modern is trusted. The battery behind this page carries red controls (perturbed coefficients that must break the identity, forged pins that must refuse) and the whole corpus detaches to <span class="m">certs/strassen-certificate.json</span> + a stdlib verifier with zero shared code. A REFUTED row here would be a discovery: a published algorithm that does not multiply matrices.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · why it matters</div>
+    <h2>Auditing AI discoveries is mechanical — once the bytes are pinned</h2>
+  </div>
+<p>Both artifacts were produced by systems whose outputs cannot be trusted by construction and were verified by their authors&#39; own pipelines. This page is the independent layer: different code, exact arithmetic, pinned bytes, red controls, and a verifier a stranger can run in seconds without this machine. The marginal cost of certifying the next published decomposition is minutes — which is the argument of this whole site, applied to the most cited AI-mathematics artifacts there are.</p>
+<p>The same corpus is the ladder for the live eval: models are asked to EXHIBIT decompositions and the same instrument grades them — see the matmul eval, where ground truth is a proof because these identities are always decidable.</p>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-alphaevolve.js @ git 6e2f211. All 11 corpus rows were re-certified during this build — every tensor identity re-checked equation by equation in exact arithmetic, every source pin re-hashed — and the build refuses on any deviation. Certificates: certs/strassen-certificate.json · verifier: verify/verify_strassen.py.</p></footer>
+
+</div>
+</html>

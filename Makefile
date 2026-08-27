@@ -77,3 +77,6 @@ reports:
 	@$(NODE) tools/build-report-eval.js
 	@$(NODE) tools/build-report-mercer.js
 	@$(NODE) tools/build-report-methods.js
+	@$(NODE) tools/build-report-alphaevolve.js
+	@$(NODE) tools/build-report-answer-key.js
+	@$(NODE) tools/build-report-loop.js
