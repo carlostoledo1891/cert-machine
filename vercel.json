@@ -3,6 +3,61 @@
   "outputDirectory": "site",
   "redirects": [
     {
+      "source": "/research/mfg-lab/mfg-lab",
+      "destination": "/reports/mfg-lab.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/mfg-lab/mfg-lab.html",
+      "destination": "/reports/mfg-lab.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/mfg-cap/mfg-cap",
+      "destination": "/reports/mfg-cap.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/mfg-cap/mfg-cap.html",
+      "destination": "/reports/mfg-cap.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/mfg-cap/cap-for-mfg",
+      "destination": "/reports/mfg-cap.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/mfg-cap/cap-for-mfg.html",
+      "destination": "/reports/mfg-cap.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/stock-constraint/stock-constraint",
+      "destination": "/reports/water-value.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/stock-constraint/stock-constraint.html",
+      "destination": "/reports/water-value.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/stock-constraint/water-value",
+      "destination": "/reports/water-value.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/stock-constraint/water-value.html",
+      "destination": "/reports/water-value.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/stock-constraint/:path*",
+      "destination": "/reports/water-value.html",
+      "statusCode": 301
+    },
+    {
       "source": "/research/mfg-congest/mfg-congest",
       "destination": "/reports/mfg-congest.html",
       "statusCode": 301

@@ -189,6 +189,14 @@ const REPORTS = [
     desc: 'The Ramanujan Machine’s complete zeta(3) result sheet re-decided with certificates: proved tail bands, convergence inside the certificate, exact rational comparisons.',
     n: 'the spurious-solution lemma re-proved at build' },
   /* group 'ground': the instruments, proven on hard classical ground */
+  { g: 'ground', f: 'mfg-cap.html', k: 'certified theorem · multiplicity',
+    title: 'Two solutions, provably',
+    desc: 'Certified multiplicity for a non-monotone mean-field game: two equilibria enclosed in disjoint interval-arithmetic balls at one parameter set, in the regime where uniqueness theory is silent — and a proof that REFUSES at the bifurcation.',
+    n: 'the unit’s battery + six falsifiers re-run at build' },
+  { g: 'ground', f: 'mfg-lab.html', k: 'certified reproduction · registry',
+    title: 'The MFG laboratory, certified',
+    desc: 'The single-file MFG laboratory’s certified claims: a published Wardrop table reproduced within its own rounding AND proved (Krawczyk box, exact rational solve), the discrete adjoint identity, and the non-unique split behind unique totals.',
+    n: 'four of the lab’s own batteries re-run at build' },
   { g: 'ground', f: 'water-value.html', k: 'energy · certified theorem',
     title: 'The water value, certified',
     desc: 'The shadow price of stored water in a hydro-dominated grid is a martingale between stock-binding events — proved by LP duality on scenario trees, with the solver extracted from the published artifact’s own bytes and 120 random trees re-certified at every build.',
@@ -486,18 +494,12 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
   const abs = path.join(ALIEN, String(e));
   if (fs.statSync(abs).isFile()) put('research/alien-science/alien-science/' + String(e).split(path.sep).join('/'), fs.readFileSync(abs));
 }
-/* the stock-constraint public set + the outreach evidence surfaces: raw
-   citation FILES under /research/ (the alien-science pattern — byte-preserved
-   files, never restyled pages; extended to the KAUST-letter evidence and the
-   water-value report's source unit, 2026-08-27). Every file here was lifted
-   file-level from the source lab under the published-mfg-lab-tree allowlist. */
-for (const unit of ['research/stock-constraint', 'research/mfg-lab', 'research/mfg-cap']) {
-  const base = path.join(ROOT, 'legacy', unit);
-  for (const e of fs.readdirSync(base, { recursive: true })) {
-    const abs = path.join(base, String(e));
-    if (fs.statSync(abs).isFile()) put(unit + '/' + String(e).split(path.sep).join('/'), fs.readFileSync(abs));
-  }
-}
+/* OPERATOR RULING (2026-08-27, correcting this build's first attempt): the
+   lifted sin-mfg units are GATE SOURCES in legacy/ and are NEVER served —
+   foreign-designed pages do not ship on this site. Each unit is rebuilt as a
+   report in this design system, and the old /research/ paths 301 onto the
+   rebuilds (vercel.json). The one exception stays the alien-science bundle
+   above: raw files individually cited in ALREADY-SENT outreach. */
 
 fs.mkdirSync(SITE, { recursive: true });
 let wrote = 0, pruned = 0, kept = 0;

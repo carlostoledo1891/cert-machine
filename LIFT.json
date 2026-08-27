@@ -414,6 +414,92 @@
       "src": "research/mfg-cap/cap-for-mfg.html",
       "dst": "legacy/research/mfg-cap/cap-for-mfg.html",
       "note": "OUTREACH EVIDENCE SURFACE \u2014 the companion CAP-for-MFG page; byte-preserved"
+    },
+    {
+      "src": "core/mfg",
+      "dst": "legacy/core/mfg",
+      "note": "GATE SOURCE \u2014 the MFG kernels (mfg1d, validate) the lifted unit batteries resolve by upward search; public in the mfg-lab tree; NEVER served, build-gate data only",
+      "exclude": []
+    },
+    {
+      "src": "core/interval/index.js",
+      "dst": "legacy/core/interval/index.js",
+      "note": "GATE SOURCE \u2014 the eqcert index the lifted unit batteries resolve by upward search; byte-identical sibling of instruments/interval"
+    },
+    {
+      "src": "core/interval/interval.js",
+      "dst": "legacy/core/interval/interval.js",
+      "note": "GATE SOURCE \u2014 upward-search sibling of instruments/interval/interval.js"
+    },
+    {
+      "src": "core/interval/rational.js",
+      "dst": "legacy/core/interval/rational.js",
+      "note": "GATE SOURCE \u2014 upward-search sibling of instruments/interval/rational.js"
+    },
+    {
+      "src": "core/interval/radii.js",
+      "dst": "legacy/core/interval/radii.js",
+      "note": "GATE SOURCE \u2014 upward-search sibling of instruments/interval/radii.js"
+    },
+    {
+      "src": "core/interval/sequence.js",
+      "dst": "legacy/core/interval/sequence.js",
+      "note": "GATE SOURCE \u2014 upward-search sibling of instruments/interval/sequence.js"
+    },
+    {
+      "src": "core/interval/certificate.js",
+      "dst": "legacy/core/interval/certificate.js",
+      "note": "GATE SOURCE \u2014 upward-search sibling of instruments/interval/certificate.js"
+    },
+    {
+      "src": "core/interval/transcendental.js",
+      "dst": "legacy/core/interval/transcendental.js",
+      "note": "GATE SOURCE \u2014 upward-search sibling of instruments/interval/transcendental.js"
+    },
+    {
+      "src": "research/mfg-cap/tests/test-cap.js",
+      "dst": "legacy/research/mfg-cap/tests/test-cap.js",
+      "note": "MFG-CAP GATE \u2014 the unit's kernel battery; re-run as the build gate of reports/mfg-cap.html"
+    },
+    {
+      "src": "research/mfg-lab/tests/lab-fixtures.js",
+      "dst": "legacy/research/mfg-lab/tests/lab-fixtures.js",
+      "note": "MFG-LAB GATE \u2014 shared fixtures for the lab batteries"
+    },
+    {
+      "src": "research/mfg-lab/tests/smoke.js",
+      "dst": "legacy/research/mfg-lab/tests/smoke.js",
+      "note": "MFG-LAB GATE \u2014 build gate of reports/mfg-lab.html"
+    },
+    {
+      "src": "research/mfg-lab/tests/test-index.js",
+      "dst": "legacy/research/mfg-lab/tests/test-index.js",
+      "note": "MFG-LAB GATE \u2014 build gate of reports/mfg-lab.html"
+    },
+    {
+      "src": "research/mfg-lab/tests/test-invariant.js",
+      "dst": "legacy/research/mfg-lab/tests/test-invariant.js",
+      "note": "MFG-LAB GATE \u2014 build gate of reports/mfg-lab.html"
+    },
+    {
+      "src": "research/mfg-lab/tests/test-transpose.js",
+      "dst": "legacy/research/mfg-lab/tests/test-transpose.js",
+      "note": "MFG-LAB GATE \u2014 build gate of reports/mfg-lab.html"
+    },
+    {
+      "src": "research/mfg-lab/tests/test-wardrop.js",
+      "dst": "legacy/research/mfg-lab/tests/test-wardrop.js",
+      "note": "MFG-LAB GATE \u2014 build gate of reports/mfg-lab.html"
+    },
+    {
+      "src": "research/mfg-lab/tests/test-wardrop-diff.js",
+      "dst": "legacy/research/mfg-lab/tests/test-wardrop-diff.js",
+      "note": "MFG-LAB GATE \u2014 build gate of reports/mfg-lab.html"
+    },
+    {
+      "src": "research/mfg-lab/tests/test-wardrop-interval.js",
+      "dst": "legacy/research/mfg-lab/tests/test-wardrop-interval.js",
+      "note": "MFG-LAB GATE \u2014 build gate of reports/mfg-lab.html"
     }
   ],
   "patches": [

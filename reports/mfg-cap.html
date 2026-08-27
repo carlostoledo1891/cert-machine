@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Reports · cert-machine</title>
+<title>Certified multiplicity for a non-monotone MFG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -282,45 +282,54 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · reports</div>
-  <h1>The reports</h1>
-  <p class="deck">Research notes ordered by weight, not date. Every page re-proves itself: its numbers are recomputed from the certificates and records at build time, its planted falsifiers must fire, and a build that drifts refuses to ship.</p>
+  <div class="eyebrow">cert-machine · certified theorem · re-proved at every build</div>
+  <h1>Two solutions, provably: certified multiplicity for a non-monotone MFG</h1>
+  <p class="deck">Where the coupling of a mean-field game turns anti-monotone — agents HERDING instead of avoiding each other — Lasry–Lions uniqueness theory goes silent. This page holds a theorem in that silence: for the quadratic system on the torus with F(m) = c·m at c = −12, two solutions are enclosed in DISJOINT certified balls at the same parameters — a proof that at least two distinct equilibria exist, produced by interval arithmetic and re-proved during the build of this page by the unit&#39;s own battery.</p>
 </header>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">the shelf</div>
-    <h2>AI verification</h2>
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> At one parameter set in the anti-monotone regime, two mean-field equilibria are enclosed in disjoint balls — centres 10.787 apart against a combined radius of 4.72e-13 — with both densities certified positive. Disjoint enclosures at identical parameters are a multiplicity theorem, not a numerical observation; and at the bifurcation point itself the proof REFUSES, as it must.</li><li><b>The mechanism.</b> Krawczyk/radii-polynomial contraction in outward-rounded interval arithmetic, checked by three independent witnesses (the HJB pointwise, the Fokker–Planck pointwise, and a Gibbs identity the solver never uses); the constant state's linearization loses invertibility at c* = -9.8696 = −σ²(2π)² — predicted from the symbol, then measured.</li><li><b>Check it.</b> <span class="m">node legacy/research/mfg-cap/tests/test-cap.js</span> from a clone — 17 checks, six falsifiers that must each turn a target red.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">the multiplicity</div><div class="v held">DISJOINT × 2</div><div class="n">c = −12: separation 10.787 vs r1+r2 = 4.72e-13 — two certified solutions at one parameter set, densities positive</div></div>
+    <div class="stat"><div class="k">the bifurcation</div><div class="v">c* = -9.8696</div><div class="n">−σ²(2π)² predicted from the symbol, then measured: the determinant changes sign across it</div></div>
+    <div class="stat"><div class="k">at c* itself</div><div class="v warn">REFUSED</div><div class="n">no enclosure can exist at the bifurcation — a verifier that certified there would be broken, and the battery checks that it refuses</div></div>
+    <div class="stat"><div class="k">the monotone control</div><div class="v held">5.77e-15</div><div class="n">worst enclosure radius across five Lasry–Lions parameter sets (worst Z1 0.0644) — the classical regime certifies routinely</div></div>
+    <div class="stat"><div class="k">falsifiers</div><div class="v held">6/6 fired</div><div class="n">every planted forgery turned its target red this build — including a perturbed candidate that must be refused</div></div>
+    <div class="stat"><div class="k">battery</div><div class="v held">17 checks</div><div class="n">the unit&#39;s own gate, lifted file-level from the published tree and re-run as this page&#39;s build gate</div></div>
   </div>
-<div class="wide"><div class="cards"><a class="card" href="matmul-eval.html"><span class="card-k">the eval · live board</span><span class="card-t">The matmul eval: ground truth is a proof</span><span class="card-d">Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.</span><span class="card-n">268 proposals graded · zero subtly-wrong survivors</span></a>
-<a class="card" href="alphaevolve.html"><span class="card-k">audit · AI-discovered algorithms</span><span class="card-t">The AI-discovered algorithms, certified</span><span class="card-d">AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.</span><span class="card-n">11 algorithms re-decided each build</span></a>
-<a class="card" href="erdos852.html"><span class="card-k">audit · refutation</span><span class="card-t">The constant that was a rounding error</span><span class="card-d">A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.</span><span class="card-n">refuted at digit 12 · correction certified</span></a>
-<a class="card" href="verifier-loop.html"><span class="card-k">verified reward · demo</span><span class="card-t">The verifier in the loop</span><span class="card-d">The reward channel in closed loop: a model proposes, the grader answers every failure with its own refutation mechanism — the exact violated equation, nothing more — and the model retries. Every trajectory rendered from the append-only ledger.</span><span class="card-n">feedback template-locked · zero coaching</span></a>
-<a class="card" href="answer-key.html"><span class="card-k">note · for eval builders</span><span class="card-t">When the answer key is wrong</span><span class="card-d">Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.</span><span class="card-n">every specimen re-proved at build</span></a>
-<a class="card" href="methods-note.html"><span class="card-k">methods note</span><span class="card-t">None by reading code</span><span class="card-d">Every real bug this machine has found — ten, cataloged — was caught by a red control, a calibration, an impossible number, or a byte pin. How to build verifiers that catch their own defects, stated as engineering.</span><span class="card-n">every regression re-held by a battery at build</span></a>
-<a class="card" href="rm-audit.html"><span class="card-k">audit · standing registry</span><span class="card-t">The Ramanujan Machine, audited</span><span class="card-d">Every row of all seven published result sheets decided by rigorous enclosures and exact rational comparisons — the whole registry re-certified at every build.</span><span class="card-n">51 printed rows · 50 survive · 1 refuted, correction certified</span></a>
-<a class="card" href="impostors.html"><span class="card-k">proved negatives</span><span class="card-t">The impostor catalog</span><span class="card-d">Published constants that agree with simple closed forms for dozens of significant digits — and exact proofs that every one of them is lying. Digit agreement is not evidence: the answer-key-contamination parable.</span><span class="card-n">exact BigInt refutations at full published precision</span></a>
-<a class="card" href="alien-science.html"><span class="card-k">eval note · alignment sandbox</span><span class="card-t">Alien science needs a disposition</span><span class="card-d">An evaluation note on Anthropic’s automated-alignment sandbox: its authors name evaluation as the binding constraint, and this is what certified evaluation looks like.</span><span class="card-n">posted to the inviting repository</span></a>
-<a class="card" href="zeta3-audit.html"><span class="card-k">audit · ζ(3) sheet</span><span class="card-t">The ζ(3) sheet, decided</span><span class="card-d">The Ramanujan Machine’s complete zeta(3) result sheet re-decided with certificates: proved tail bands, convergence inside the certificate, exact rational comparisons.</span><span class="card-n">the spurious-solution lemma re-proved at build</span></a></div></div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the object</div>
+    <h2>Where uniqueness theory goes silent</h2>
+  </div>
+<p>For the stationary quadratic MFG on the torus with coupling F(m) = c·m, positive c is crowd-aversion and the Lasry–Lions monotonicity argument gives uniqueness. Negative c is HERDING — agents drawn to density — and the theory makes no claim. That silence is exactly where computer-assisted proof earns its keep: past the symbol&#39;s critical value c* = −σ²(2π)², a non-constant branch leaves the constant state, and whether the two coexist as genuine solutions is a question numerics alone can only suggest.</p>
+<p>The certificate answers it. Each candidate is wrapped in a contraction argument (Krawczyk / radii polynomial) in outward-rounded interval arithmetic: an explicit ball, exactly one true solution inside it, the ergodic constant enclosed, the density certified positive. Two such balls, at the same parameters, provably disjoint — centres 10.787 apart, radii summing to 4.72e-13 — is a multiplicity theorem about the SYSTEM, not a statement about a solver.</p>
 </section>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">the proving ground</div>
-    <h2>The instruments, proven on hard classical ground</h2>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · the discipline</div>
+    <h2>Three witnesses, one refusal, six falsifiers</h2>
   </div>
-<div class="wide"><div class="cards"><a class="card" href="mfg-cap.html"><span class="card-k">certified theorem · multiplicity</span><span class="card-t">Two solutions, provably</span><span class="card-d">Certified multiplicity for a non-monotone mean-field game: two equilibria enclosed in disjoint interval-arithmetic balls at one parameter set, in the regime where uniqueness theory is silent — and a proof that REFUSES at the bifurcation.</span><span class="card-n">the unit’s battery + six falsifiers re-run at build</span></a>
-<a class="card" href="mfg-lab.html"><span class="card-k">certified reproduction · registry</span><span class="card-t">The MFG laboratory, certified</span><span class="card-d">The single-file MFG laboratory’s certified claims: a published Wardrop table reproduced within its own rounding AND proved (Krawczyk box, exact rational solve), the discrete adjoint identity, and the non-unique split behind unique totals.</span><span class="card-n">four of the lab’s own batteries re-run at build</span></a>
-<a class="card" href="water-value.html"><span class="card-k">energy · certified theorem</span><span class="card-t">The water value, certified</span><span class="card-d">The shadow price of stored water in a hydro-dominated grid is a martingale between stock-binding events — proved by LP duality on scenario trees, with the solver extracted from the published artifact’s own bytes and 120 random trees re-certified at every build.</span><span class="card-n">duality gap ~1e-14 · continuum limit honestly OPEN</span></a>
-<a class="card" href="mercer-program.html"><span class="card-k">program · certified landscape</span><span class="card-t">The Mercer program</span><span class="card-d">Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.</span><span class="card-n">mu(5) ≤ 1 + π/20 · re-certified every build</span></a>
-<a class="card" href="erdos290.html"><span class="card-k">erdős #290 · theorem</span><span class="card-t">Erdős #290: the 4k(k+1) theorem</span><span class="card-d">The square-discriminant law proved and re-proved as exact integer identities during the build, the enclosure sweep deepened past the cited page, the exceptional degree closed.</span><span class="card-n">planted falsifiers must fire at build</span></a>
-<a class="card" href="entropy.html"><span class="card-k">certified invariant</span><span class="card-t">Entropy, with a certificate</span><span class="card-d">A certified lower bound on the topological entropy of the classical Hénon map — covering relations composed to an exact integer spectral argument, calibrated at the full horseshoe.</span><span class="card-n">h_top ≥ 0.3017, a theorem</span></a>
-<a class="card" href="verify-lemniscate.html"><span class="card-k">erdős #1038 · verification</span><span class="card-t">Erdős #1038: thirty decimals verified</span><span class="card-d">The computational fragment of the Darvas–Peng–Tao manuscript re-verified by an independent route — Krawczyk rather than bisection — with the 30th digit read correctly.</span><span class="card-n">filed on the claiming authors’ repository</span></a>
-<a class="card" href="mfg-congest.html"><span class="card-k">validated numerics</span><span class="card-t">A congestion mean-field game, enclosed</span><span class="card-d">An equilibrium of a mean-field game with congestion enclosed by validated numerics: an exact solution within an explicit radius, locally unique in the full sequence space.</span><span class="card-n">embedded verifier re-run at build</span></a>
-<a class="card" href="wardrop-repro.html"><span class="card-k">certified reproduction</span><span class="card-t">Wardrop, certified: exact, enclosed, refused</span><span class="card-d">The multi-population Wardrop equilibria of a published paper reproduced with certificates — exact where possible, enclosed where not, and refused where honesty demands it.</span><span class="card-n">embedded verifier re-run at build</span></a></div></div><div class="col after-fig"><p>These are where the verifiers earned calibration before deciding anything a model produced: censuses reproducing Galias's published counts, boxes re-closing Goddard's, ladders anchored on Apéry. The audits above stand on this ground.</p></div>
+<p>The battery this page just re-ran checks the solution three independent ways: the HJB equation pointwise on a fine grid, the Fokker–Planck equation pointwise, and the Gibbs identity m = e^{−u/σ}/Z — which the solver never uses, so it cannot be satisfied by construction. The reduced Hopf–Cole equation is compared against the literature&#39;s stated form (the sign-flipped variant fails by O(1)), and the certified Z1 bound is required to dominate a direct sampled estimate — the bound is never allowed to be optimistic.</p>
+<p>At the bifurcation point the linearization is singular, no contraction can close, and the proof REFUSES — the battery asserts the refusal, because a verifier that certified there would be broken. And every build fires six falsifiers: forged candidates, disabled terms, wrong-parameter validations — each must turn its target red before the page ships. This build: 6 of 6.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git 3089996. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · provenance</div>
+    <h2>Where this comes from, and where the original lives</h2>
+  </div>
+<p>The unit was lifted FILE-LEVEL from the source lab&#39;s published tree (the eligibility criterion for everything public here), and this page is a rebuild in this site&#39;s own design system — the original interactive artifact, with the same kernel embedded in its bytes, lives in the public repository (research/mfg-cap in the mfg-lab tree, MIT). The mathematics sits in the mean-field-games literature of the KAUST group and the Lasry–Lions/Cirant multiplicity line; the radii-polynomial framework is van den Berg–Lessard, unchanged. The certification layer, and any error in it, is ours.</p>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-mfg-cap.js @ git 3089996. The unit's battery re-ran as this page's gate (17 checks, 6/6 falsifiers fired) and every number above was parsed from that run — the build refuses on any deviation. Source: legacy/research/mfg-cap/ in this repository; original artifact: research/mfg-cap in the public mfg-lab tree.</p></footer>
 
 </div>
 </html>
