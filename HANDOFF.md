@@ -148,8 +148,12 @@ S3. THE EVAL — LIVE WITH ITS FIRST BOARD (2026-08-27). 202 ledger rows,
     rejected (Laderman-rung emptiness under thinking budgets), never
     subtly wrong. Harness: API retry+skip (errors are not model
     outcomes), v2 prompt with worked example, per-campaign tags, budget
-    caps. Spend: well under the operator's $24. OPERATOR REMINDER: the
-    API key was pasted in chat on 2026-08-27 — ROTATE IT.
+    caps. Spend: well under the operator's $24. KEY ROTATION: the pasted
+    key was DELETED by the operator 2026-08-27 (leak closed). Future
+    campaigns: operator drops a fresh Console key at
+    ~/.secrets/anthropic-key (chmod 600) and runs are invoked as
+    ANTHROPIC_API_KEY=$(cat ~/.secrets/anthropic-key) — the key never
+    enters a transcript again.
     ORIGINAL BUILD NOTE (2026-08-27): tools/llm-harness.py gains
     the matmul family (rank-R decompositions of <n,m,p> over Q; stdlib
     Fraction grading of the full tensor identity — always decidable, false
@@ -292,7 +296,9 @@ S6/S7 entries above:
     screen/certifier/red controls, ladder-only targets, attribution
     required; §4 recipe on the page (PR carries the proposals file, not
     graded rows — grading is deterministic). STILL KEY-GATED: more
-    models / bigger n, the impossible-rank honesty probe. ROTATE THE KEY.
+    models / bigger n, the impossible-rank honesty probe — unblocked as
+    soon as the operator drops a fresh key at ~/.secrets/anthropic-key
+    (the leaked key is deleted; see the S3 key-rotation note above).
   - E DONE (mechanism): the l=87 OOM was candidateDeltas materializing
     p(87)=38.9M partition objects (p(86)=34.3M fit — matches both OOMs).
     tools/galois-exceptions-lean.js: sha-pinned source-transform fork
