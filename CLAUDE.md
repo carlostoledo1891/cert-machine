@@ -76,7 +76,10 @@ Copies come out through `LIFT.json`, which records each source path and its sha2
 - Apps are the machine's highest-yield artifact form: the DECIDABLE-CLAIMS
   OBSERVATORY template = pinned real-world data × published claims/rules as
   boxes × an exact instrument × a product face. The city/market is the
-  swappable pack; the template is the asset.
+  swappable pack; the template is the asset. The killer-app test (added
+  2026-08-27): all four ingredients PLUS someone with money who is legally
+  required to produce a defensible number under the rule — a contested
+  rule without a compelled buyer is a demo, not a market.
 - LESS MATH, MORE PRODUCT: product words on the surface (E-FLYABLE-style);
   the rigorous verdict + enclosure + witness one click down in a "why you
   can trust this" layer. Rigor wins by being invisible load-bearing
@@ -105,6 +108,15 @@ Copies come out through `LIFT.json`, which records each source path and its sha2
   cold CDNs and lie); headless Chrome clamps windows to >=500px — use
   device-metrics emulation for mobile truth; local dev servers must
   support Range requests.
+- PREDICTION enters as a PROPOSER, never an authority (2026-08-27): a
+  forecaster emits calibrated BOXES (never points); the certifier decides
+  universally over the forecast envelope; every scenario is a pinned
+  artifact (model version, inputs, sha) named in the certificate; the
+  forecaster is graded by the machine against realized days and one that
+  misses its certified coverage stops being ADMITTED until recalibrated
+  (prune-only, applied to scenario proposers). In every UI, predicted and
+  decided NEVER share a color or a typography — the moment a reader
+  cannot tell which is which, the audit posture is gone.
 
 ## The backlog
 

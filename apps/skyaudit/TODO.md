@@ -417,6 +417,12 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
   * Cheap now, any session: a BRING-YOUR-OWN-BOX runbook — the
     instrument already takes any spec JSON; document the private
     decided-version path (the public UNDECIDABLE is the door)
+  * BUYER CORRECTION (2026-08-27 brainstorm, survives): the customer
+    is THE MONEY, not the OEM — lessors/airlines/banks holding
+    conditional eVTOL orders have no independent way to answer "does
+    this aircraft close this network under a plausible reserve rule";
+    BYO-box under NDA = a certified feasibility opinion (the old
+    demo-studio thesis, built). Commercial moves on the word only
   * Posture paragraph on the page: independent/exact/refusal-first vs
     richer internal models; existential = marketing claim, universal =
     certification basis
@@ -449,10 +455,25 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       LEDGER (certs/skyaudit-forecast-ledger.jsonl): Friday 2026-08-28
       NYC flights [377,397] + E-FLYABLE [46,51], proved coverage 2/4
       each (grows with the corpus), sha-pinned, calibration days named
-- [ ] 8C SKYFORECAST — the self-scoring public surface: tomorrow's
-      interval on the app/site, scored nightly by gate, lifetime exact
-      coverage counter; needs the corpus a bit thicker (each ingested
-      day tightens alpha: n days -> provable miss-rate 2/(n+1))
+- [ ] 8C SKYFORECAST — the self-scoring public surface, SPEC UPGRADED
+      2026-08-27 (the prediction-architecture brainstorm; the doctrine
+      rule "prediction enters as a proposer" now binds):
+      * not just an interval display — the certifier CONSUMES the
+        forecast box: "under EVERY scenario in the forecast envelope,
+        N aircraft suffice" — a certified universal over predicted
+        uncertainty (refly/optimize run over the forecast box), a
+        sentence Monte Carlo cannot produce
+      * every scenario a pinned artifact: model/calibration inputs +
+        sha named in the certificate ("certified, given scenario
+        3f2a…"); without the pin it is projection wearing our words
+      * the forecaster graded + GATED by the machine: lifetime exact
+        coverage as a certified running stat on the page; a forecaster
+        below its certified coverage stops being admitted until
+        recalibrated (prune-only for proposers)
+      * UI: predicted and decided NEVER share color or typography
+      * still wants a thicker corpus (n days -> provable miss-rate
+        2/(n+1)); the conformal instrument already emits calibrated
+        boxes — we are ahead of the "no point-forecast retrofits" rule
 - [ ] 8D SCORE THE STANDING FORECASTS — when adsb.lol publishes
       2026-08-28: node audit/ingest-day.js 2026-08-28 && node
       audit/forecast.js score 2026-08-28 (the ledger's first outcomes).

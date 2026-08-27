@@ -114,6 +114,22 @@ AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
     thinking rungs cost 10-30k output tokens/proposal); a true
     feedback-conversion loop needs an intermediate-capability model;
     Laderman/r22 loops need >24k budgets.
+ 5b. THE ORACLE PACKAGING (from the number-one-bet brainstorm
+    2026-08-27; v2 eval already shipped the disguise/probe/open rungs
+    the text asked for — what survives is packaging): (a) the CLAIM
+    LIBRARY — certify({task, ring, witness}) -> CERTIFIED(certificate)
+    / REFUTED(mechanism) / REFUSED(reason); zero deps, red controls at
+    import, JSON claim+certificate schema, PLUS the tool-definition
+    shape a model calls mid-generation (how it sits in a training
+    loop); (b) PASTE-A-DECOMPOSITION on the matmul board — client-side
+    exact-rational certification (our verifiers are stdlib; no server
+    needed on the static site); (c) the arXiv PAPER draft (invariant,
+    red-control discipline, closed-loop curve, #852 taxonomy, honest
+    scope) — drafting agent-side, SUBMISSION on the word; (d) outside
+    reruns target raised 1 -> 3 (item 13). PROPOSAL FOR THE OPERATOR,
+    not acted on: a dedicated oracle landing path (board + paste box +
+    package + paper as its own front door) — conflicts with standing
+    landing rulings, so it is yours to adjudicate.
  6. APERY/STURM DECIDER (notes/apery-sturm-decider.md; green zeta(3)
     must PROVE, red zeta(5) must REFUSE). A session's work.
  7. MU BOX50 (worker_threads sharding ~3.68x, then n=10..12 detached).
@@ -130,10 +146,24 @@ observatory template on a new market, built on the operator's word):
      perfect-foresight ceiling (dual certificate: the theorem IS the
      product; ERCOT 5-min prices + EIA battery registry, public).
      Absorbs item 3. Deepest instrument moat.
- O2. HARBORPROOF — NOAA public-domain coastal AIS + the admiralty cube
-     law: real-voyage fuel/CO2/slow-steaming enclosures decided per
-     ship; IMO CII arithmetic (a published formula) per class. The
-     SkyAudit pipeline ports nearly line-for-line; industry 100x.
+ O2. HARBORPROOF — UPGRADED 2026-08-27 (the killer-app test applied):
+     AIS replay against the BINDING rules — FuelEU Maritime GHG-
+     intensity thresholds (penalties + pooling), EU ETS on shipping,
+     IMO CII bands — "this vessel's real trading pattern, re-sailed on
+     paper under FuelEU 2030, decided: compliant by this margin or
+     non-compliant unless X" — proof on both sides of a threshold WITH
+     A FINE ATTACHED; shipowners/charterers/Poseidon-Principles banks
+     are compelled buyers who today pay for ESTIMATES. Candidate
+     assets: methanol/ammonia/batteries/wind-assist/slow-steaming
+     boxes; admiralty cube law + IMO's own published formulas. SCOUT
+     FIRST: (a) re-verify regulation thresholds/timelines at source
+     (they move), (b) THE DATA GAP — NOAA public-domain AIS is US
+     coastal; FuelEU bites on EU voyages — establish an open EU-water
+     AIS source before declaring the pick. Class societies (DNV/LR/
+     ABS) framed as licensees, not competitors (word-gated commercial).
+     Test sentence, kept verbatim: "Replay a real year of your
+     operations under the rule that's coming, and get a verdict with a
+     proof, not a forecast."
  O3. RANGEPROOF — EPA test-car road-load coefficients (public domain):
      every EV on sale vs the user's real commute across a temperature
      box; winter range decided, not anecdoted. Mass-market; NEEDS
@@ -152,8 +182,11 @@ DRAFTED OR READY, SENDING ON THE OPERATOR'S WORD:
      tree/main/research/mfg-cap). Needs your 3 sentences, recipient
      choice, and rewording of "live in the browser".
  12. Co-sign notes (He-Tang, mzn) · RM-group note (optional).
- 13. ONE EXTERNAL RERUN recruitment (highest-leverage credibility move;
-     the recording slot exists on the control page).
+ 13. EXTERNAL RERUN recruitment — target raised to THREE on record
+     (2026-08-27 brainstorm; highest-leverage credibility move; the
+     recording slot exists on the control page). "One machine, one
+     operator" is the sentence standing between the oracle and being
+     taken seriously.
  14. LRCAP GUARD-RAIL DECISION: forfeit December consciously, or set a
      send date (the sin-mfg outreach drafts await only the send).
  15. EMBRAERX ARTIFACT PLAY — now unlocked: instance-level UAM artifact
