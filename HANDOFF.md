@@ -39,7 +39,12 @@ pinned by commit SHA after Vercel silently dropped the 36.9MB upload),
 landing section, NYC facts verified (RESEARCH §4: Joby-Blade closed and
 flying; Joby flew JFK-Manhattan eVTOL demos Apr 2026 from our
 heliports), sources pinned (10 PDFs sha256), spot-verified segmentation,
-battery 21/21, make test 29/29. AWAITING OPERATOR REVIEW; parked:
+battery 21/21, make test 29/29. PHASE 6 PLANNED (operator, 2026-08-27:
+"less math, more product"): the product reframe — E-FLYABLE language +
+scores, THE ELECTRIC BILL (fuel/$ /CO2 vs certified electric per real
+flight), day stories + ops outliers, interactive fleet designer,
+ambient all-traffic layer, then the flight planner (proof-backed
+plans). Ranked 6.1-6.6 in apps/skyaudit/TODO.md. Parked:
 known-conservatism refinements (recorded in TODO), SP city-pack page,
 synthetic demand/vertiport packs, outreach (word). Real urban
 helicopter traffic audited flight-by-flight

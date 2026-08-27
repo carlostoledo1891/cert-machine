@@ -229,3 +229,41 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
 - Live layer (adsb.lol live API atop the same client) · third city ·
   the LRCAP sibling app (Brazil grid map + certified auction arithmetic) ·
   scenario-pack editor (the commercial "computational notary" kernel)
+
+## Phase 6 — THE PRODUCT REFRAME (operator direction 2026-08-27: "less
+## math, more product" — verdicts become the trust layer, answers become
+## the interface). Ranked build order agreed in session:
+
+- [ ] 6.1 LANGUAGE + SCORES: surface labels become E-FLYABLE ✓ / BEYOND
+      RANGE ✗ / NEEDS DATA ? (CERTIFIED/REFUTED/REFUSED + witnesses move
+      to the certificate detail layer, one click down); counts become
+      scores ("this day is 12% provably electric"); headline stat band
+      gains product numbers (53,024 km flown = 1.3x around the Earth)
+- [ ] 6.2 THE ELECTRIC BILL: per-type helicopter fuel-burn rates
+      (published, quality-flagged, pinned) x flight durations -> today's
+      Jet-A liters, $ and tonnes CO2; the provably-electric subset's MWh
+      and $ from the certified enclosures; rollups per flight / route /
+      operator. The first per-real-flight DECISION of the UAM industry's
+      own economics pitch. New scenario pack: fuel-rates.json
+- [ ] 6.3 THE DAY (stories + outliers): rush-hour narrative (the 09:58 /
+      18:22 witness instants), busiest-aircraft leaderboard, records of
+      the day (longest/fastest/highest), inferred operation types
+      (tour loop / patrol / medevac / offshore — labeled INFERRED);
+      "running clean vs outliers" ops view: detour factor (flown/direct),
+      altitude vs SFRA bands, turnaround dwell — measurements, never
+      judgments of the operator's mission
+- [ ] 6.4 FLEET DESIGNER (interactive): the certified curves (fleet vs
+      charge time, coverage vs battery kWh, coverage vs reserve minutes)
+      become live sliders — every slider position backed by a
+      precomputed gated point; feels like a simulator, is a proof table
+- [ ] 6.5 AMBIENT TRAFFIC: dim all-traffic layer under the helicopters
+      (nyc.full.jsonl has 4,444 aircraft incl. every JFK/LGA/EWR
+      airliner; downsample hard) — the living-city wow
+- [ ] 6.6 FLIGHT PLANNER (its own sub-phase, after 6.1-6.5): click two
+      heliports -> corridor-legal route (SFRA altitude bands as data),
+      energy plan with enclosure, GO/NO-GO per aircraft, charge plan —
+      "a flight plan that comes with a proof"; needs corridor geometry
+      + heliport nodes as scenario packs (feeds the sim fleet later)
+- [ ] Throughout: honest-boundary discipline unchanged — inferred labels
+      stated, fuel rates flagged, previews labeled; the math never
+      leaves, it just stops being the headline
