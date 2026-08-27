@@ -18,43 +18,34 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-ACTIVE NOW (operator-directed 2026-08-27): SKYAUDIT — apps/skyaudit.
-V1 IS LIVE: https://carlostoledo.co/apps/skyaudit/ (deployed under the
-default-publish rule; make test 29/29 incl. the app battery 16/16 and
-the stdlib re-proof of 830 rows). The pinned NYC day (82 unique helis,
-382 flights, 3,056 certificate rows) replayed Flightradar24-style with
-verdict-colored trails; certificate panel with exact witnesses; THE
-FLEET FRONTIER: Beta ALIA's 46 provable legs need EXACTLY 5 aircraft
-(4 REFUTED by pigeonhole at 09:58:33 ET, 5 CERTIFIED by verified
-schedule); Joby/Archer/Eve: zero provable legs under FAA-20. SP = city
-pack #2 (61/148, certified+refly done, not yet a page). V1 COMPLETE
-(2026-08-27): all open items closed — THE OPTIMIZER (certified
-thresholds: battery floors 301/323/355/386 kWh for half the day vs
-estimates; charge lever 5->4->3 aircraft at <=48/<=23 min; reserve
-price 194/171/110/46/8/0 legs at 5..30 min), range-claim audit
-(Archer's 60-mi guarantee UNDECIDABLE from public numbers), reserve
-what-if slider, altitude sparkline + worst-corner exhaustion marker,
-UI v2 (Inter+Plex Mono, cards/matrix/stat tiles), tiles fix (repo-raw
-pinned by commit SHA after Vercel silently dropped the 36.9MB upload),
-landing section, NYC facts verified (RESEARCH §4: Joby-Blade closed and
-flying; Joby flew JFK-Manhattan eVTOL demos Apr 2026 from our
-heliports), sources pinned (10 PDFs sha256), spot-verified segmentation,
-battery 21/21, make test 29/29. PHASE 6 PLANNED (operator, 2026-08-27:
-"less math, more product"): the product reframe — E-FLYABLE language +
-scores, THE ELECTRIC BILL (fuel/$ /CO2 vs certified electric per real
-flight), day stories + ops outliers, interactive fleet designer,
-ambient all-traffic layer, then the flight planner (proof-backed
-plans). Ranked 6.1-6.6 in apps/skyaudit/TODO.md. Parked:
-known-conservatism refinements (recorded in TODO), SP city-pack page,
-synthetic demand/vertiport packs, outreach (word). Real urban
-helicopter traffic audited flight-by-flight
-against eVTOL specs + reserve rules via instruments/evtol, PLUS a
-deterministic simulated fleet (scenario packs, live certificates, re-fly-
-the-day fusion, fleet-size frontier). Full-viewport app-shell view (new
-design-system template variant). Spec: apps/skyaudit/APP.md; plan:
-apps/skyaudit/TODO.md; sourced research: apps/skyaudit/RESEARCH.md
-(visual stack + data source DECIDED; NYC fact-check in flight). Absorbs
-backlog items 4 (UAM audit) and 15 (EmbraerX play → city pack #2).
+ACTIVE NOW (operator-directed): SKYAUDIT — apps/skyaudit, LIVE at
+https://carlostoledo.co/apps/skyaudit/ (landing links it). State at
+handoff 2026-08-27 late: the full product exists — three tabs
+(DAY: score/stories/electric-bill · FLEET: matrix/gamified designer/
+frontier/range-claims · PLAN: corridor-network view + certified flight
+planner + DISPATCH live missions with the L/D speed-range tradeoff),
+left-panel selected flight, E-FLYABLE product language over the
+certified trust layer, ambient traffic, oriented chevrons. 9 build
+gates, battery 21/21, make test 29/29, all records committed. Numbers
+of record (NYC pinned day 2026-08-26): 82 aircraft / 382 flights /
+3,056 certificate rows; Beta ALIA 46 E-FLYABLE (12%), needs EXACTLY 5
+aircraft (pool model); Joby/Archer/Eve zero provable; battery floors
+301/323/355/386 kWh; charge lever 5->4->3 at <=48/<=23 min; reserve
+price 194/171/110/46/8/0; electric bill $100-901 vs $1,647-3,580
+disjoint. AGREED NEXT (operator, this order): (1) TODO hygiene — close
+stale duplicate boxes; (2) REGISTRY JOINS — FAA Releasable Aircraft DB
+(NYC, public domain) + ANAC RAB (SP): authoritative types + OPERATOR
+NAMES into stories/filter, pinned; (3) /reports COMPANION NOTE — the
+citable methodology page in the house template, gates re-run at build,
+linked both ways with the app; (4) SECOND PINNED DAY — day-stability
+(weekend or winter day; pipeline is mechanical: download/extract/
+certify/compare). HELD for joint decision: the conservatism
+refinements (reserve-speed box / MTOW / disk loading — changes every
+published number; do once as methodology v2). THEN: SP city-pack page
+(EmbraerX artifact; data fully processed, needs SP tiles + switcher +
+city pack). PARKED: synthetic demand packs; outreach (word only).
+Spec: APP.md · plan: TODO.md · sourced research: RESEARCH.md (sections
+1-5).
 
 AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
  1. LRCAP CERTIFIED AUCTION ARITHMETIC — PERISHABLE. Fetch ANEEL CP
