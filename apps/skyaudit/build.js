@@ -85,7 +85,18 @@ if (stBefore && JSON.stringify(stBefore) !== JSON.stringify(stories)) {
   die('day stories deviate from the committed record');
 }
 
-/* gate 8 — the tiles are the pinned bytes */
+/* gate 8 — the flight planner must match the record */
+console.log('gate: planner');
+const plPath = path.join(dataDir, CITY + '.planner.json');
+const plBefore = fs.existsSync(plPath) ? JSON.parse(fs.readFileSync(plPath, 'utf8')) : null;
+run('node', ['sim/planner.js', CITY]);
+const planner = JSON.parse(fs.readFileSync(plPath, 'utf8'));
+if (plBefore && JSON.stringify(plBefore) !== JSON.stringify(planner)) {
+  fs.writeFileSync(plPath, JSON.stringify(plBefore, null, 1));
+  die('the flight planner deviates from the committed record');
+}
+
+/* gate 9 — the tiles are the pinned bytes */
 const tilesPins = JSON.parse(fs.readFileSync(path.join(APP, 'data/tiles/TILES-PINS.json'), 'utf8'));
 const tilesPath = path.join(APP, 'data/tiles', tilesPins.file);
 const sha = require('crypto').createHash('sha256').update(fs.readFileSync(tilesPath)).digest('hex');
@@ -140,33 +151,41 @@ const html = renderApp({
   styles: ['vendor/maplibre-gl.css'],
   configJson: JSON.stringify({ style: '/apps/skyaudit/style.json',
     bundle: '/apps/skyaudit/data/nyc.replay.json', tiles: tilesPins.served_from,
-    ambient: '/apps/skyaudit/data/nyc.ambient.json', designer: optimize.designer }),
+    ambient: '/apps/skyaudit/data/nyc.ambient.json', designer: optimize.designer,
+    planner: { heliports: planner.heliports, routes: planner.routes, bands: planner.bandsLegend } }),
   scripts: ['vendor/maplibre-gl.js', 'vendor/deck.min.js', 'vendor/pmtiles.js', 'app.js'],
+  leftHtml: `
+  <section class="as-card">
+    <div class="as-lhead"><span class="t">SELECTED FLIGHT</span>
+      <button id="lp-min" title="minimize">–</button>
+      <button id="lp-close" title="deselect">×</button></div>
+    <div id="flight"></div>
+  </section>`,
   panelHtml: `
+  <nav class="as-tabs" id="tabs">
+    <button data-tab="day" data-on="1">DAY</button>
+    <button data-tab="fleet">FLEET</button>
+    <button data-tab="plan">PLAN</button>
+  </nav>
+  <div class="as-tabbody on" data-body="day">
   <section class="as-card">
     <div class="as-h">The audit</div>
     <div class="as-note">One real day of New York helicopter traffic — <b>${after.uniqueAircraft}
     aircraft, ${after.flights} flights, ${after.flightStats.totalPathKm.toLocaleString('en-US')} km
     flown (${(after.flightStats.totalPathKm / 40075).toFixed(1)}× around the Earth)</b> — ADS-B,
-    hash-pinned. Each flight is re-flown on paper
-    by an eVTOL: published numbers as honest parameter boxes, a reserve rule, and a three-valued
-    verdict from interval arithmetic. <b>Mathematically certified enclosures</b> — no Monte
-    Carlo, no airworthiness meaning. REFUSED is a first-class outcome: it measures what the
-    manufacturer has not published. This is the exact traffic the industry intends to replace:
-    Joby owns Blade's NYC helicopter routes (acquired Aug 2025, flying today), and flew its
-    first JFK–Manhattan eVTOL demos from these same heliports in April 2026.</div>
+    hash-pinned. Each flight is re-flown on paper by an eVTOL and decided by interval arithmetic.
+    This is the exact traffic the industry intends to replace: Joby owns Blade\'s NYC helicopter
+    routes (acquired Aug 2025, flying today), and flew its first JFK–Manhattan eVTOL demos from
+    these same heliports in April 2026. <b>Click any aircraft — its certificate opens on the left.</b></div>
     <details class="as-more"><summary>Honest boundaries</summary>
     <div class="as-fine">The corpus is what the receiver network saw; coverage gaps and truncated
     tracks are flagged per flight. The audit is counterfactual arithmetic over stated boxes
-    (quality-flagged in the repo; Eve publishes least, so Eve REFUSES most). FAA = the 20-min VFR
-    helicopter tier; EASA = the 5-min final reserve, a NECESSARY condition only. Data ©
-    <a href="https://adsb.lol">adsb.lol</a> contributors (ODbL). Rerun everything:
+    (quality-flagged in the repo; Eve publishes least, so Eve needs data most). FAA = the 20-min VFR
+    helicopter tier; EASA = the 5-min final reserve, a NECESSARY condition only. Ambient layer =
+    all other traffic, decor only. Data © <a href="https://adsb.lol">adsb.lol</a> contributors
+    (ODbL). Rerun everything:
     <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/skyaudit">apps/skyaudit</a>.</div>
     </details>
-  </section>
-  <section class="as-card">
-    <div class="as-h">Aircraft × rule</div>
-    <div id="keys" class="as-mx"></div>
   </section>
   <section class="as-card">
     <div class="as-h">This day, under the selection</div>
@@ -184,7 +203,7 @@ const html = renderApp({
     </svg>
     <div class="as-fine" style="margin-bottom:10px">flights in the air by hour · peak at ${stories.peak_hour_local}:00 local</div>
     <div class="as-frow"><span><span class="name">Hardest-working aircraft</span>
-      <span class="sub">${stories.leaderboard.slice(0, 3).map((a) => `${a.reg} (${a.type}) ${a.legs} legs · ${Math.round(a.airborneMin / 60 * 10) / 10} h`).join(' · ')}</span></span></div>
+      <span class="sub">${stories.leaderboard.slice(0, 3).map((a, i) => `${['🥇', '🥈', '🥉'][i] || ''} ${a.reg} (${a.type}) ${a.legs} legs · ${Math.round(a.airborneMin / 60 * 10) / 10} h`).join(' · ')}</span></span></div>
     <div class="as-frow"><span><span class="name">Records</span>
       <span class="sub">longest ${stories.records.longest_km.value} (${stories.records.longest_km.reg}) ·
       ${stories.records.longest_min.value} airborne (${stories.records.longest_min.reg}, ${stories.records.longest_min.ops}) ·
@@ -199,7 +218,7 @@ const html = renderApp({
   </section>
   <section class="as-card">
     <div class="as-h">The electric bill</div>
-    <div class="as-note">This day's helicopters burned <b>${economics.fuel.liters[0].toLocaleString('en-US')}–${economics.fuel.liters[1].toLocaleString('en-US')} L
+    <div class="as-note">This day\'s helicopters burned <b>${economics.fuel.liters[0].toLocaleString('en-US')}–${economics.fuel.liters[1].toLocaleString('en-US')} L
     of Jet-A</b> — $${economics.fuel.usd[0].toLocaleString('en-US')}–$${economics.fuel.usd[1].toLocaleString('en-US')},
     ${economics.fuel.co2_tonnes[0]}–${economics.fuel.co2_tonnes[1]} tonnes of CO₂.</div>
     <div class="as-note" style="margin-top:8px">The ${economics.electric_subset.flights} provably-electric flights:
@@ -208,59 +227,52 @@ const html = renderApp({
     of fuel for the same flights</b>${economics.electric_subset.usd[1] < economics.electric_subset.same_flights_fuel.usd[0]
       ? ' — the cost intervals don\'t overlap: the electric worst case beats the fuel best case'
       : ''}. ${economics.electric_subset.same_flights_fuel.co2_tonnes[0]}–${economics.electric_subset.same_flights_fuel.co2_tonnes[1]} t CO₂ avoided.</div>
-    <div class="as-fine" style="margin-top:8px">Fuel from per-type class burn boxes (stated estimates,
-    scenario/fuel-rates.json); electricity from the CERTIFIED energy enclosures — decided, not projected.</div>
+    <div class="as-fine" style="margin-top:8px">Fuel from per-type class burn boxes (stated estimates);
+    electricity from the certified energy enclosures — decided, not projected.</div>
+  </section>
+  </div>
+  <div class="as-tabbody" data-body="fleet">
+  <section class="as-card">
+    <div class="as-h">Aircraft × rule</div>
+    <div id="keys" class="as-mx"></div>
+  </section>
+  <section class="as-card">
+    <div class="as-h">Fleet designer — every position is a proof</div>
+    <div id="dz-gauge-wrap" style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
+      <div>
+        <svg class="as-gauge" id="dz-gauge" width="110" height="66" viewBox="0 0 110 66">
+          <path class="bg" d="M 10 60 A 45 45 0 0 1 100 60"/>
+          <path class="fg" id="dz-arc" d="M 10 60 A 45 45 0 0 1 100 60" stroke-dasharray="141.4" stroke-dashoffset="141.4"/>
+          <text id="dz-pct" x="55" y="52" text-anchor="middle" font-size="20" font-weight="600">–</text>
+        </svg>
+        <div class="as-gaugelbl">day provable</div>
+      </div>
+      <div style="flex:1">
+        <div class="as-batt"><div class="shell"><div class="fill" id="dz-bfill"></div></div>
+          <span class="as-encvals" id="dz-b-out"></span></div>
+        <input type="range" class="as-scrub" id="dz-b" min="60" max="700" step="20" value="320" style="width:100%">
+      </div>
+    </div>
+    <div class="as-h">If the reserve rule were…</div>
+    <input type="range" class="as-scrub" id="dz-r" min="0" max="45" step="3" value="20" style="width:100%">
+    <div class="as-encvals" id="dz-r-out"></div>
+    <div class="as-h" style="margin-top:12px">If charging took… <span id="dz-c-lbl"></span></div>
+    <input type="range" class="as-scrub" id="dz-c" min="0" max="60" step="1" value="45" style="width:100%">
+    <div class="as-fleet" id="dz-fleet"></div>
+    <div class="as-encvals" id="dz-c-out"></div>
+    <div class="as-fine" style="margin-top:8px">Battery and reserve apply to the aircraft selected
+    above; charging applies to the Beta ALIA fleet re-flying its provable day. Each slider position
+    looks up a precomputed, gate-checked certified point.</div>
   </section>
   <section class="as-card">
     <div class="as-h">Re-fly the day — fleet frontier</div>
     ${frontierRows}
   </section>
   <section class="as-card">
-    <div class="as-h">What would it take? — certified thresholds</div>
-    <div class="as-fine" style="margin-bottom:10px">The optimizer: bisect a lever until the
-    verdict flips, and prove BOTH sides — one unit less fails (recounted), at the threshold
-    it holds. Levers over the same pinned day, FAA 20-min shape.</div>
-    ${['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100'].map((s) => {
-      const b = optimize.battery_floor[s], t = b.targets;
-      const fmt = (x) => (x.kwh === null ? '—' : x.kwh + ' kWh');
-      return `<div class="as-frow"><span><span class="name">${NAMES[s]} — battery floor</span>
-        <span class="sub">published ${b.published_box_kwh[0]}–${b.published_box_kwh[1]} kWh (${b.published_q})</span></span>
-        <span class="val">½ day: ${fmt(t[0.5])} · 80%: ${fmt(t[0.8])}</span></div>`;
-    }).join('')}
-    <div class="as-frow"><span><span class="name">Beta ALIA — the charge lever</span>
-      <span class="sub">${optimize.charge_lever.curve.map((c, i, a) => {
-        const to = a[i + 1] ? a[i + 1].from_minutes - 1 : 60;
-        return (c.from_minutes === 0 ? '≤' + to : c.from_minutes + '–' + to) + ' min → ' + c.fleetMin;
-      }).join(' · ')} aircraft — faster chargers are provably worth ${
-        optimize.charge_lever.curve[optimize.charge_lever.curve.length - 1].fleetMin -
-        optimize.charge_lever.curve[0].fleetMin} aircraft</span></span>
-      <span class="val">5 → ${optimize.charge_lever.curve[0].fleetMin}</span></div>
-    <div class="as-frow"><span><span class="name">The reserve rule, priced</span>
-      <span class="sub">Beta ALIA provable legs at 5/10/15/20/25/30-min reserve:
-      ${[5, 10, 15, 20, 25, 30].map((m) => optimize.reserve_price.by_reserve_minutes['beta-alia'][m]).join(' · ')}
-      — at 30 minutes, nothing on this day is provable</span></span>
-      <span class="val">${optimize.reserve_price.by_reserve_minutes['beta-alia'][5]} → 0</span></div>
-  </section>
-  <section class="as-card">
-    <div class="as-h">Fleet designer — drag a lever; every position is a proof</div>
-    <div class="as-fine" style="margin-bottom:10px">Each slider position looks up a precomputed,
-    gate-checked certified point — it feels like a simulator and is a proof table. Battery and
-    reserve apply to the aircraft selected above; charging applies to the Beta ALIA fleet.</div>
-    <div class="as-h">If the battery were…</div>
-    <input type="range" class="as-scrub" id="dz-b" min="60" max="700" step="20" value="320" style="width:100%">
-    <div class="as-encvals" id="dz-b-out"></div>
-    <div class="as-h" style="margin-top:12px">If the reserve rule were…</div>
-    <input type="range" class="as-scrub" id="dz-r" min="0" max="45" step="3" value="20" style="width:100%">
-    <div class="as-encvals" id="dz-r-out"></div>
-    <div class="as-h" style="margin-top:12px">If charging took…</div>
-    <input type="range" class="as-scrub" id="dz-c" min="0" max="60" step="1" value="45" style="width:100%">
-    <div class="as-encvals" id="dz-c-out"></div>
-  </section>
-  <section class="as-card">
     <div class="as-h">Range claims, audited</div>
     <div class="as-fine" style="margin-bottom:8px">A range claim is EXISTENTIAL — CONSISTENT means
-    some point of the maker's own public+assumed boxes achieves it; REFUTED means none does.
-    A worst-case guarantee is UNIVERSAL and gets the worst corner.</div>
+    some point of the maker\'s own public+assumed boxes achieves it. A worst-case guarantee is
+    UNIVERSAL and gets the worst corner.</div>
     ${optimize.range_claims.rows.map((r) => {
       const col = { CONSISTENT: '--v-cert', CERTIFIED: '--v-cert', REFUTED: '--v-refu',
         REFUSED: '--v-refd', 'NO CLAIM': '--v-refd' }[r.verdict] || '--v-refd';
@@ -269,14 +281,21 @@ const html = renderApp({
         <span class="sub">${r.claim || r.note}</span></span>
         <span class="val" style="color:var(${col})">${label}</span></div>`;
     }).join('')}
-    <div class="as-fine" style="margin-top:8px">Archer's 60-mi worst-case guarantee is the one
-    UNIVERSAL claim — and it is undecidable from public numbers (margins straddle zero): a
-    guarantee the public cannot check.</div>
   </section>
+  </div>
+  <div class="as-tabbody" data-body="plan">
   <section class="as-card">
-    <div class="as-h">Selected flight</div>
-    <div id="flight"></div>
-  </section>`,
+    <div class="as-h">Flight planner — a plan that comes with a proof</div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+      <select class="as-sel" id="pl-from" style="flex:1">${Object.entries(planner.heliports).map(([k, h]) => `<option value="${k}">${h.name}</option>`).join('')}</select>
+      <button class="as-btn" id="pl-swap" title="swap">⇄</button>
+      <select class="as-sel" id="pl-to" style="flex:1">${Object.entries(planner.heliports).map(([k, h], i) => `<option value="${k}" ${i === 3 ? 'selected' : ''}>${h.name}</option>`).join('')}</select>
+    </div>
+    <div id="pl-out"></div>
+    <div class="as-fine" style="margin-top:10px">${planner.honesty}</div>
+  </section>
+  </div>`,
+
   dockHtml: `
   <button class="as-play" id="play" aria-label="play/pause">❚❚</button>
   <input type="range" class="as-scrub" id="scrub" min="0" max="86400" step="1" value="0" aria-label="time of day">

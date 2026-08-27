@@ -1,0 +1,40 @@
+{
+  "id": "nyc",
+  "what": "NYC city pack: heliport nodes (all verified ACTIVE, RESEARCH.md section 4) + a SIMPLIFIED corridor waypoint graph following the published Hudson/East River SFRA structure (14 CFR Part 93 Subpart W). A PLANNING AID for the audit's counterfactual missions - never navigation, never airspace authority.",
+  "heliports": {
+    "JRB": { "name": "Downtown Skyport (Wall St)", "lat": 40.7013, "lon": -74.009, "note": "Skyports/Groupe ADP operator; eVTOL electrification in progress" },
+    "JRA": { "name": "West 30th St", "lat": 40.7546, "lon": -74.0071, "note": "active; pads temporarily on a barge (Penn tunnel works)" },
+    "E34": { "name": "East 34th St", "lat": 40.7426, "lon": -73.9718, "note": "VertiPorts by Atlantic, preparing for eVTOLs" },
+    "JFK": { "name": "JFK Airport", "lat": 40.6413, "lon": -73.7781, "note": "Joby flew JFK-Manhattan eVTOL demos from here, Apr 2026" },
+    "LGA": { "name": "LaGuardia Airport", "lat": 40.7772, "lon": -73.8726 },
+    "EWR": { "name": "Newark Airport", "lat": 40.6895, "lon": -74.1745 },
+    "TEB": { "name": "Teterboro Airport", "lat": 40.8501, "lon": -74.0608 }
+  },
+  "waypoints": {
+    "H1": { "lat": 40.677, "lon": -74.043 }, "H2": { "lat": 40.699, "lon": -74.02 },
+    "H3": { "lat": 40.72, "lon": -74.013 }, "H4": { "lat": 40.7546, "lon": -74.008 },
+    "H5": { "lat": 40.79, "lon": -73.987 }, "H6": { "lat": 40.828, "lon": -73.96 },
+    "H7": { "lat": 40.852, "lon": -73.947 },
+    "E1": { "lat": 40.7, "lon": -74.004 }, "E2": { "lat": 40.708, "lon": -73.978 },
+    "E3": { "lat": 40.7426, "lon": -73.971 }, "E4": { "lat": 40.762, "lon": -73.955 },
+    "E5": { "lat": 40.775, "lon": -73.938 },
+    "J1": { "lat": 40.664, "lon": -73.94 }, "J2": { "lat": 40.62, "lon": -73.87 },
+    "W1": { "lat": 40.669, "lon": -74.115 }
+  },
+  "bands": {
+    "hudson": "Hudson River Exclusion - transient 1,000 to <1,300 ft MSL, local ops <1,000 ft, 140 KIAS max, CTAF 123.05",
+    "east": "East River Exclusion - below 1,500 ft MSL (helicopters), 140 KIAS max, CTAF 123.075",
+    "transition": "harbor / shoreline transition - ATC coordination as required"
+  },
+  "edges": [
+    ["H1", "H2", "hudson"], ["H2", "H3", "hudson"], ["H3", "H4", "hudson"], ["H4", "H5", "hudson"],
+    ["H5", "H6", "hudson"], ["H6", "H7", "hudson"], ["H7", "TEB", "transition"],
+    ["JRA", "H4", "transition"],
+    ["H2", "E1", "transition"], ["JRB", "E1", "transition"], ["JRB", "H2", "transition"],
+    ["E1", "E2", "east"], ["E2", "E3", "east"], ["E3", "E4", "east"], ["E4", "E5", "east"],
+    ["E5", "LGA", "transition"], ["E34", "E3", "transition"],
+    ["E2", "J1", "transition"], ["J1", "J2", "transition"], ["J2", "JFK", "transition"],
+    ["H1", "W1", "transition"], ["W1", "EWR", "transition"]
+  ],
+  "honesty": "the graph is a hand-simplified rendering of the published corridor structure; distances are corridor path lengths over this graph; the energy verdicts on planned routes are the same certified interval decisions as everywhere else in the app"
+}

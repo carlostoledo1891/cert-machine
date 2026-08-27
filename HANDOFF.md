@@ -29,7 +29,7 @@ FLEET FRONTIER: Beta ALIA's 46 provable legs need EXACTLY 5 aircraft
 schedule); Joby/Archer/Eve: zero provable legs under FAA-20. SP = city
 pack #2 (61/148, certified+refly done, not yet a page). V1 COMPLETE
 (2026-08-27): all open items closed — THE OPTIMIZER (certified
-thresholds: battery floors 306/329/362/394 kWh for half the day vs
+thresholds: battery floors 301/323/355/386 kWh for half the day vs
 estimates; charge lever 5->4->3 aircraft at <=48/<=23 min; reserve
 price 194/171/110/46/8/0 legs at 5..30 min), range-claim audit
 (Archer's 60-mi guarantee UNDECIDABLE from public numbers), reserve

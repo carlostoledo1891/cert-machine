@@ -1,7 +1,7 @@
 {
   "city": "nyc",
   "dayDir": "day-2026-08-26",
-  "flights": 394,
+  "flights": 382,
   "what": "certified thresholds: every number here is proved on BOTH sides of the flip",
   "battery_floor": {
     "joby-s4": {
@@ -12,19 +12,19 @@
       "published_q": "E",
       "targets": {
         "0.5": {
-          "kwh": 306,
-          "covered": "197/394",
-          "one_less": "305 kWh covers only 196/394"
+          "kwh": 301,
+          "covered": "194/382",
+          "one_less": "300 kWh covers only 190/382"
         },
         "0.8": {
-          "kwh": 480,
-          "covered": "316/394",
-          "one_less": "479 kWh covers only 315/394"
+          "kwh": 471,
+          "covered": "306/382",
+          "one_less": "470 kWh covers only 305/382"
         },
         "0.95": {
-          "kwh": 811,
-          "covered": "375/394",
-          "one_less": "810 kWh covers only 374/394"
+          "kwh": 730,
+          "covered": "363/382",
+          "one_less": "729 kWh covers only 362/382"
         }
       }
     },
@@ -36,19 +36,19 @@
       "published_q": "E",
       "targets": {
         "0.5": {
-          "kwh": 329,
-          "covered": "197/394",
-          "one_less": "328 kWh covers only 196/394"
+          "kwh": 323,
+          "covered": "192/382",
+          "one_less": "322 kWh covers only 189/382"
         },
         "0.8": {
-          "kwh": 520,
-          "covered": "316/394",
-          "one_less": "519 kWh covers only 315/394"
+          "kwh": 510,
+          "covered": "306/382",
+          "one_less": "509 kWh covers only 305/382"
         },
         "0.95": {
-          "kwh": 884,
-          "covered": "375/394",
-          "one_less": "883 kWh covers only 374/394"
+          "kwh": 794,
+          "covered": "363/382",
+          "one_less": "793 kWh covers only 362/382"
         }
       }
     },
@@ -60,19 +60,19 @@
       "published_q": "E",
       "targets": {
         "0.5": {
-          "kwh": 362,
-          "covered": "197/394",
-          "one_less": "361 kWh covers only 196/394"
+          "kwh": 355,
+          "covered": "192/382",
+          "one_less": "354 kWh covers only 189/382"
         },
         "0.8": {
-          "kwh": 581,
-          "covered": "316/394",
-          "one_less": "580 kWh covers only 315/394"
+          "kwh": 570,
+          "covered": "306/382",
+          "one_less": "569 kWh covers only 305/382"
         },
         "0.95": {
-          "kwh": null,
-          "note": "not reachable below 900 kWh",
-          "coverage_at_900": "367/394"
+          "kwh": 895,
+          "covered": "363/382",
+          "one_less": "894 kWh covers only 362/382"
         }
       }
     },
@@ -84,19 +84,19 @@
       "published_q": "A",
       "targets": {
         "0.5": {
-          "kwh": 394,
-          "covered": "197/394",
-          "one_less": "393 kWh covers only 196/394"
+          "kwh": 386,
+          "covered": "192/382",
+          "one_less": "385 kWh covers only 190/382"
         },
         "0.8": {
-          "kwh": 673,
-          "covered": "316/394",
-          "one_less": "672 kWh covers only 315/394"
+          "kwh": 658,
+          "covered": "306/382",
+          "one_less": "657 kWh covers only 305/382"
         },
         "0.95": {
           "kwh": null,
           "note": "not reachable below 900 kWh",
-          "coverage_at_900": "349/394"
+          "coverage_at_900": "347/382"
         }
       }
     }
@@ -127,7 +127,7 @@
     "note": "fleetMin per charge-to-full minutes; each point proved by pigeonhole (lower) + verified schedule (upper), pool model"
   },
   "reserve_price": {
-    "legs_total": 394,
+    "legs_total": 382,
     "by_reserve_minutes": {
       "joby-s4": {
         "5": 54,
@@ -231,7 +231,7 @@
     "caveat": "claims are audited against the aircraft's OWN public numbers plus the literature physics boxes; a REFUTED here means the claim and the public numbers cannot both be right as boxed - assumption-grade boxes (q flags) are stated in the spec packs"
   },
   "designer": {
-    "flights": 394,
+    "flights": 382,
     "battery": {
       "joby-s4": [
         [
@@ -288,83 +288,83 @@
         ],
         [
           320,
-          207
+          206
         ],
         [
           340,
-          217
+          216
         ],
         [
           360,
-          231
+          230
         ],
         [
           380,
-          237
+          236
         ],
         [
           400,
-          248
+          247
         ],
         [
           420,
-          263
+          262
         ],
         [
           440,
-          275
+          274
         ],
         [
           460,
-          298
+          297
         ],
         [
           480,
-          316
+          315
         ],
         [
           500,
-          329
+          328
         ],
         [
           520,
-          337
+          336
         ],
         [
           540,
-          341
+          339
         ],
         [
           560,
-          341
+          339
         ],
         [
           580,
-          343
+          341
         ],
         [
           600,
-          346
+          344
         ],
         [
           620,
-          348
+          346
         ],
         [
           640,
-          351
+          349
         ],
         [
           660,
-          354
+          352
         ],
         [
           680,
-          360
+          357
         ],
         [
           700,
-          361
+          358
         ]
       ],
       "archer-midnight": [
@@ -426,79 +426,79 @@
         ],
         [
           340,
-          204
+          203
         ],
         [
           360,
-          213
+          212
         ],
         [
           380,
-          224
+          223
         ],
         [
           400,
-          233
+          232
         ],
         [
           420,
-          246
+          245
         ],
         [
           440,
-          254
+          253
         ],
         [
           460,
-          265
+          264
         ],
         [
           480,
-          277
+          276
         ],
         [
           500,
-          298
+          297
         ],
         [
           520,
-          316
+          315
         ],
         [
           540,
-          328
+          327
         ],
         [
           560,
-          335
+          334
         ],
         [
           580,
-          339
+          338
         ],
         [
           600,
-          341
+          339
         ],
         [
           620,
-          343
+          341
         ],
         [
           640,
-          343
+          341
         ],
         [
           660,
-          347
+          345
         ],
         [
           680,
-          350
+          348
         ],
         [
           700,
-          352
+          350
         ]
       ],
       "beta-alia": [
@@ -568,71 +568,71 @@
         ],
         [
           380,
-          207
+          206
         ],
         [
           400,
-          214
+          213
         ],
         [
           420,
-          224
+          223
         ],
         [
           440,
-          233
+          232
         ],
         [
           460,
-          243
+          242
         ],
         [
           480,
-          248
+          247
         ],
         [
           500,
-          260
+          259
         ],
         [
           520,
-          269
+          268
         ],
         [
           540,
-          281
+          280
         ],
         [
           560,
-          298
+          297
         ],
         [
           580,
-          315
+          314
         ],
         [
           600,
-          327
+          326
         ],
         [
           620,
-          330
+          329
         ],
         [
           640,
-          337
+          336
         ],
         [
           660,
-          341
+          339
         ],
         [
           680,
-          341
+          339
         ],
         [
           700,
-          343
+          341
         ]
       ],
       "eve-100": [
@@ -710,63 +710,63 @@
         ],
         [
           420,
-          208
+          207
         ],
         [
           440,
-          213
+          212
         ],
         [
           460,
-          220
+          219
         ],
         [
           480,
-          231
+          230
         ],
         [
           500,
-          233
+          232
         ],
         [
           520,
-          243
+          242
         ],
         [
           540,
-          246
+          245
         ],
         [
           560,
-          256
+          255
         ],
         [
           580,
-          264
+          263
         ],
         [
           600,
-          270
+          269
         ],
         [
           620,
-          281
+          280
         ],
         [
           640,
-          297
+          296
         ],
         [
           660,
-          307
+          306
         ],
         [
           680,
-          320
+          319
         ],
         [
           700,
-          328
+          327
         ]
       ]
     },
@@ -906,7 +906,7 @@
       "beta-alia": [
         [
           0,
-          209
+          208
         ],
         [
           3,

@@ -22,7 +22,7 @@
 const fs = require('fs');
 const path = require('path');
 const M = require('../audit/mission.js');
-const { loadHeli } = require('../audit/corpus.js');
+const { loadHeli, isHeliStrict } = require('../audit/corpus.js');
 const { segmentTrace } = require('../audit/flights.js');
 const refly = require('./refly.js');
 
@@ -31,6 +31,7 @@ const SPEC_IDS = ['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100'];
 function dayFlights(city, dayDir) {
   const flights = [];
   for (const obj of loadHeli(city, dayDir).aircraft) {
+    if (!isHeliStrict(obj)) continue;               /* one filter, all consumers */
     let fl; try { fl = segmentTrace(obj); } catch (e) { continue; }
     for (const f of fl) flights.push(f);
   }

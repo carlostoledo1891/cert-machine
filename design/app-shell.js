@@ -54,9 +54,64 @@ a{color:inherit}
   letter-spacing:.12em;text-transform:uppercase;padding:6px 2px;transition:color .12s}
 .as-top a.navx:hover{color:var(--sig)}
 
-/* ---- panel: a column of cards ---- */
+/* ---- panels: right = tabbed workspace; left = the selected flight ---- */
 .as-panel{position:fixed;top:68px;right:12px;bottom:92px;width:404px;z-index:20;overflow-y:auto;
   display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
+.as-left{position:fixed;top:68px;left:12px;bottom:92px;width:372px;z-index:21;overflow-y:auto;
+  display:none;flex-direction:column;gap:10px;scrollbar-width:thin}
+.as-left.open{display:flex}
+.as-left.min{bottom:auto}
+.as-left.min .as-card > *:not(.as-lhead){display:none}
+.as-lhead{display:flex;align-items:center;gap:8px;margin:-2px 0 8px}
+.as-left.min .as-lhead{margin:0}
+.as-lhead .t{font-family:var(--f-mono);font-weight:600;font-size:12px;letter-spacing:.06em;flex:1}
+.as-lhead button{width:24px;height:24px;border-radius:6px;border:1px solid var(--rule);
+  background:var(--sunk);color:var(--ink-2);cursor:pointer;font-size:12px;line-height:1;padding:0}
+.as-lhead button:hover{border-color:var(--sig);color:var(--sig)}
+
+/* ---- tab bar (right panel) ---- */
+.as-tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:4px;box-shadow:var(--shadow);flex:none}
+.as-tabs button{flex:1;border:0;background:transparent;font-family:var(--f-mono);font-weight:600;
+  font-size:11px;letter-spacing:.12em;color:var(--ink-3);padding:8px 0;border-radius:9px;
+  cursor:pointer;transition:all .15s}
+.as-tabs button:hover{color:var(--sig)}
+.as-tabs button[data-on="1"]{background:var(--sig-soft);color:var(--sig)}
+.as-tabbody{display:none;flex-direction:column;gap:10px}
+.as-tabbody.on{display:flex}
+
+/* ---- annunciators (cockpit lozenge: binary states) ---- */
+.as-ann{display:inline-flex;align-items:center;justify-content:center;min-width:64px;
+  font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.14em;
+  padding:5px 10px;border-radius:6px;border:1px solid}
+.as-ann.go{color:var(--v-cert);border-color:var(--v-cert);background:var(--v-cert-soft)}
+.as-ann.no{color:var(--v-refu);border-color:var(--v-refu);background:var(--v-refu-soft)}
+.as-ann.na{color:var(--v-refd);border-color:var(--v-refd);background:var(--v-refd-soft)}
+
+/* ---- arc gauge ---- */
+.as-gauge{display:block;margin:0 auto}
+.as-gauge .bg{stroke:var(--sunk);stroke-width:9;fill:none}
+.as-gauge .fg{stroke:var(--v-cert);stroke-width:9;fill:none;stroke-linecap:round;
+  transition:stroke-dashoffset .45s cubic-bezier(.4,0,.2,1)}
+.as-gauge text{font-family:var(--f-mono);fill:var(--ink)}
+.as-gaugelbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;color:var(--ink-3);
+  text-transform:uppercase;text-align:center;margin-top:2px}
+
+/* ---- fleet silhouettes ---- */
+.as-fleet{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:30px}
+.as-fleet svg{width:30px;height:30px;transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.as-fleet svg.on{color:var(--sig)}
+.as-fleet svg.off{color:var(--rule);transform:scale(.82)}
+
+/* ---- battery pictogram ---- */
+.as-batt{display:flex;align-items:center;gap:10px}
+.as-batt .shell{position:relative;width:64px;height:26px;border:2px solid var(--rule);
+  border-radius:5px;flex:none}
+.as-batt .shell:after{content:'';position:absolute;right:-6px;top:7px;width:4px;height:8px;
+  background:var(--rule);border-radius:0 2px 2px 0}
+.as-batt .fill{position:absolute;inset:2px;border-radius:2px;background:var(--v-cert);
+  transform-origin:left;transition:transform .3s,background .3s}
+.as-routebadge{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;color:var(--ink-3)}
 .as-card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
   padding:14px 16px;box-shadow:var(--shadow)}
 .as-h{font-family:var(--f-mono);font-weight:600;font-size:10px;letter-spacing:.16em;
@@ -127,6 +182,9 @@ button{font-family:inherit}
   color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:7px 12px;cursor:pointer;transition:all .12s}
 .as-btn:hover{border-color:var(--sig);color:var(--sig)}
 .as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
+select.as-sel{font-family:var(--f-mono);font-size:11px;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:8px;padding:6px 8px;color-scheme:light dark;max-width:100%}
+select.as-sel:hover{border-color:var(--sig)}
 .as-seg{display:inline-flex;background:var(--sunk);border:1px solid var(--rule);border-radius:9px;padding:2px;gap:2px}
 .as-seg button{border:0;background:transparent;font-family:var(--f-mono);font-size:10.5px;
   letter-spacing:.04em;color:var(--ink-2);padding:5px 10px;border-radius:7px;cursor:pointer;transition:all .12s}
@@ -161,6 +219,7 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
   .as-top .appname{font-size:12.5px}
   .as-top .meta,.as-top .navx{display:none}
   .as-panel{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:44dvh;gap:8px}
+  .as-left{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:52dvh;z-index:24}
   .as-card{padding:12px 13px;border-radius:11px}
   .as-dock{gap:9px;padding:0 10px;height:64px}
   .as-play{width:36px;height:36px}
@@ -195,6 +254,7 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
   <span class="spacer"></span>
   ${(o.navLinks || []).map((l) => `<a class="navx" href="${l.href}">${l.label}</a>`).join('\n  ')}
 </header>
+<aside class="as-left" id="leftpanel">${o.leftHtml || ''}</aside>
 <aside class="as-panel" id="panel">${o.panelHtml || ''}</aside>
 <footer class="as-dock" id="dock">${o.dockHtml || ''}</footer>
 ${cfg}

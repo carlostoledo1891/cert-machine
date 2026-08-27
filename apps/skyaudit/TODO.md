@@ -124,8 +124,9 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       2026-08-27 "show how the system could be optimized"): certified
       thresholds proved on BOTH sides of every flip, 0.4 s over the day.
       (1) BATTERY FLOORS: nameplate kWh for 50/80/95% coverage — Joby
-      needs 306 kWh for HALF the day (trade estimate 130-180); Archer
-      329 (vs ~142); Beta 362 (vs 250-325, the only one close); Eve 394.
+      needs 301 kWh for HALF the day (trade estimate 130-180); Archer
+      323 (vs ~142); Beta 355 (vs 250-325, the only one close); Eve 386
+      (counts corrected after the strict-filter fix reached optimize).
       (2) CHARGE LEVER: Beta fleet 5 aircraft at 49+ min charge, 4 at
       24-48, 3 at <=23 — faster chargers provably worth two aircraft.
       (3) RESERVE PRICE: Beta provable legs at 5/10/15/20/25/30 min =
@@ -282,11 +283,27 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       local full.jsonl is absent (decor never gates). ORIGINAL: dim all-traffic layer under the helicopters
       (nyc.full.jsonl has 4,444 aircraft incl. every JFK/LGA/EWR
       airliner; downsample hard) — the living-city wow
-- [ ] 6.6 FLIGHT PLANNER (its own sub-phase, after 6.1-6.5): click two
-      heliports -> corridor-legal route (SFRA altitude bands as data),
-      energy plan with enclosure, GO/NO-GO per aircraft, charge plan —
-      "a flight plan that comes with a proof"; needs corridor geometry
-      + heliport nodes as scenario packs (feeds the sim fleet later)
+- [x] 6.6 DONE + THE UX OVERHAUL (operator direction: tabs, left panel,
+      gamification, Garmin benchmark):
+      * FLIGHT PLANNER shipped: scenario/cities/nyc.json (7 verified-active
+        heliports + hand-simplified SFRA corridor graph, honesty stated),
+        sim/planner.js (Dijkstra + all 21 pairs x 8 verdicts precomputed,
+        gate 8); PLAN tab: origin/dest selects + swap, magenta route on
+        the map, GO/NO-GO/NEEDS-DATA annunciator lozenges per aircraft,
+        time + charge-after + proved margin, band notes. JRB->JFK 24.4 km:
+        Beta GO (12.4 kWh proved), everyone else NEEDS DATA
+      * THREE TABS (DAY / FLEET / PLAN) on the right; SELECTED FLIGHT
+        moved to a LEFT panel with minimize/close (FR24 pattern)
+      * GAMIFIED designer: arc gauge (banded color), battery pictogram
+        fill, eVTOL fleet silhouettes lighting up, medal leaderboard;
+        aircraft heads became heading-oriented chevrons; heliport nodes +
+        labels always on the map
+      * Flight-ops UI research (RESEARCH section 5): Garmin/ForeFlight/
+        FR24/Skydio patterns mapped and applied; color grammar kept
+        token-pure
+      * Found+fixed: optimize.dayFlights missed the strict rotorcraft
+        filter (394 vs 382) — filter now single-sourced in corpus.js;
+        floors corrected to 301/323/355/386
 - [ ] Throughout: honest-boundary discipline unchanged — inferred labels
       stated, fuel rates flagged, previews labeled; the math never
       leaves, it just stops being the headline

@@ -43,10 +43,18 @@ const VEXPL = {
   R: 'This flight provably exceeds what the aircraft\'s public numbers allow — even under the most favorable reading, the battery comes up short.',
   F: 'The public numbers are too incomplete to decide this flight — the manufacturer hasn\'t published enough to prove it either way.' };
 
+S.tab = 'day'; S.lpMin = false; S.plan = null;
 const qs = new URLSearchParams(location.search);
 if (qs.get('k')) S.key = qs.get('k');
 if (qs.get('m')) S.mode = qs.get('m');
 if (qs.get('s')) S.speed = +qs.get('s') || 60;
+if (qs.get('tab')) S.tab = qs.get('tab');
+if (qs.get('pf') && qs.get('pt')) S.plan = [qs.get('pf'), qs.get('pt')];
+
+/* aircraft chevron icon (mask -> tintable by verdict color) */
+const CHEV_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M32 6 L52 54 L32 42 L12 54 Z" fill="white"/></svg>';
+const CHEV_URL = 'data:image/svg+xml;base64,' + btoa(CHEV_SVG);
+const CHEV_MAP = { chev: { x: 0, y: 0, width: 64, height: 64, mask: true } };
 
 /* ---------------------------- map (with basemap fallback) ------- */
 const protocol = new pmtiles.Protocol();
@@ -103,6 +111,8 @@ fetch(CFG.bundle).then((r) => r.json()).then((b) => {
   if (qs.get('f')) S.sel = b.flights.find((f) => f.id === qs.get('f')) || null;
   $('scrub').max = String(Math.ceil(b.span));
   syncDock(); buildMatrix(); renderCounts(); renderPanel(); dzRender();
+  setTab(S.tab);
+  if (S.plan && $('pl-from')) { $('pl-from').value = S.plan[0]; $('pl-to').value = S.plan[1]; renderPlan(); }
   tick0 = performance.now();
   requestAnimationFrame(frame);
 });
@@ -119,8 +129,9 @@ function posAt(track, t) {
   let lo = 0, hi = track.length - 1;
   while (hi - lo > 1) { const m = (lo + hi) >> 1; (track[m][0] <= t ? lo = m : hi = m); }
   const a = track[lo], b2 = track[hi], u = (t - a[0]) / Math.max(1e-9, b2[0] - a[0]);
+  const brg = Math.atan2((b2[2] - a[2]) * Math.cos(a[1] * Math.PI / 180), b2[1] - a[1]) * 180 / Math.PI;
   return { lon: a[2] + (b2[2] - a[2]) * u, lat: a[1] + (b2[1] - a[1]) * u,
-    alt: a[3] + (b2[3] - a[3]) * u };
+    alt: a[3] + (b2[3] - a[3]) * u, brg };
 }
 
 /* ---------------------------- deck ---------------------------- */
@@ -152,12 +163,33 @@ function layers() {
         : COL[f.verdicts[S.key]] || COL.F),
       opacity: 0.9, pickable: true,
       updateTriggers: { getColor: [S.key, S.mode] } }),
-    new deck.ScatterplotLayer({ id: 'heads', data: heads,
+    new deck.IconLayer({ id: 'heads', data: heads,
+      iconAtlas: CHEV_URL, iconMapping: CHEV_MAP, getIcon: () => 'chev',
       getPosition: (d) => [d.p.lon, d.p.lat],
-      getFillColor: (d) => (S.mode === 'a' ? altColor(d.p.alt) : COL[d.f.verdicts[S.key]] || COL.F),
-      radiusMinPixels: 4, radiusMaxPixels: 7, pickable: true,
-      updateTriggers: { getFillColor: [S.key, S.mode] } }),
+      getAngle: (d) => -d.p.brg,
+      getColor: (d) => (S.mode === 'a' ? altColor(d.p.alt) : COL[d.f.verdicts[S.key]] || COL.F),
+      getSize: 15, sizeMinPixels: 11, sizeMaxPixels: 20, pickable: true,
+      updateTriggers: { getColor: [S.key, S.mode] } }),
   );
+  /* heliport nodes + the planned route */
+  const PL = CFG.planner;
+  if (PL) {
+    const hp = Object.entries(PL.heliports).map(([id, h]) => ({ id, ...h }));
+    L.push(new deck.ScatterplotLayer({ id: 'heliports', data: hp,
+      getPosition: (d) => [d.lon, d.lat], radiusMinPixels: 4, radiusMaxPixels: 6,
+      stroked: true, filled: true, getFillColor: [...COL.sig, 60],
+      getLineColor: [...COL.sig, 220], lineWidthMinPixels: 1.5, pickable: false }));
+    L.push(new deck.TextLayer({ id: 'heliport-lbl', data: hp,
+      getPosition: (d) => [d.lon, d.lat], getText: (d) => d.id,
+      getSize: 11, getColor: [...COL.sig, 235], getPixelOffset: [0, -14],
+      fontFamily: 'IBM Plex Mono, monospace', characterSet: 'auto', pickable: false }));
+    const route = planRoute();
+    if (route) {
+      L.push(new deck.PathLayer({ id: 'plan-route', data: [route],
+        getPath: (r) => r.coords, getColor: [...COL.sig, 235],
+        widthMinPixels: 3.5, capRounded: true, jointRounded: true }));
+    }
+  }
   if (S.sel) {
     L.push(new deck.PathLayer({ id: 'selpath', data: [S.sel],
       getPath: (f) => f.track.map((e) => [e[2], e[1]]),
@@ -206,10 +238,31 @@ function clockText() {
     .toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour12: false }) + ' ET';
 }
 function pushUrl() {
-  const u = new URLSearchParams({ t: S.t.toFixed(0), s: String(S.speed), k: S.key, m: S.mode });
+  const u = new URLSearchParams({ t: S.t.toFixed(0), s: String(S.speed), k: S.key, m: S.mode, tab: S.tab });
   if (S.sel) u.set('f', S.sel.id);
+  if (S.plan) { u.set('pf', S.plan[0]); u.set('pt', S.plan[1]); }
   if (qs.get('theme')) u.set('theme', qs.get('theme'));
   history.replaceState(null, '', '?' + u.toString());
+}
+
+/* ---------------------------- tabs + left panel ------------------ */
+function setTab(t) {
+  S.tab = t;
+  for (const b of $('tabs').querySelectorAll('button')) b.dataset.on = b.dataset.tab === t ? '1' : '0';
+  for (const d of document.querySelectorAll('.as-tabbody')) d.classList.toggle('on', d.dataset.body === t);
+  pushUrl();
+}
+$('tabs').onclick = (e) => {
+  if (e.target.dataset.tab) {
+    setTab(e.target.dataset.tab);
+    if (e.target.dataset.tab === 'plan' && !S.plan) renderPlan();   /* open with a live example */
+  }
+};
+$('lp-min').onclick = () => { S.lpMin = !S.lpMin; $('leftpanel').classList.toggle('min', S.lpMin); };
+$('lp-close').onclick = () => { S.sel = null; S.follow = false; renderPanel(); pushUrl(); };
+function leftOpen(open) {
+  $('leftpanel').classList.toggle('open', open);
+  if (open && S.lpMin) { S.lpMin = false; $('leftpanel').classList.remove('min'); }
 }
 
 /* ---------------------------- dock ---------------------------- */
@@ -226,6 +279,44 @@ $('speed').onclick = (e) => { if (e.target.dataset.v) { S.speed = +e.target.data
 $('mode').onclick = (e) => { if (e.target.dataset.v) { S.mode = e.target.dataset.v; segSync($('mode'), S.mode); renderCounts(); } };
 new MutationObserver(loadColors).observe(document.documentElement, { attributes: true });
 
+/* ---------------------------- the flight planner ----------------- */
+function planRoute() {
+  const PL = CFG.planner;
+  if (!PL || !S.plan) return null;
+  const [a, b] = S.plan;
+  return PL.routes.find((r) => (r.from === a && r.to === b) || (r.from === b && r.to === a)) || null;
+}
+function renderPlan() {
+  const PL = CFG.planner, host = $('pl-out');
+  if (!PL || !host) return;
+  const a = $('pl-from').value, b = $('pl-to').value;
+  if (a === b) { S.plan = null; host.innerHTML = '<div class="as-fine">Pick two different heliports.</div>'; return; }
+  S.plan = [a, b];
+  const r = planRoute();
+  if (!r) { host.innerHTML = '<div class="as-fine">No corridor route in the graph for this pair.</div>'; return; }
+  const rule = S.key.split('|')[1];
+  const rows = S.bundle ? S.bundle.specs : ['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100'];
+  host.innerHTML = `
+  <div class="as-kv" style="margin-bottom:10px">
+    <span>route</span><b>${PL.heliports[a].name} → ${PL.heliports[b].name}</b>
+    <span>distance</span><b>${r.km} km along the corridors</b>
+    <span>airspace</span><b>${r.bands.map((k) => (PL.bands[k] || k).split(' - ')[0]).join(' · ')}</b>
+  </div>
+  ${rows.map((sp) => {
+    const v = r.verdicts[sp + '|' + rule];
+    const ann = v.v === 'C' ? '<span class="as-ann go">GO</span>'
+      : v.v === 'R' ? '<span class="as-ann no">NO-GO</span>'
+      : '<span class="as-ann na">NEEDS DATA</span>';
+    return `<div class="as-frow"><span><span class="name">${NAMES[sp]}</span>
+      <span class="sub">${v.t_min[0]}–${v.t_min[1]} min flight · charge after ≈${v.charge_after_min} min${
+        typeof v.m === 'number' ? ' · margin ' + v.m + ' kWh proved' : ''}</span></span>${ann}</div>`;
+  }).join('')}
+  <div class="as-fine" style="margin-top:8px">Energy GO/NO-GO under the ${RULES[rule]} rule (switch
+  aircraft·rule in FLEET) — a mathematically certified enclosure per aircraft, precomputed and
+  gate-checked. Bands: ${r.bands.map((k) => PL.bands[k] || k).join(' · ')}</div>`;
+  pushUrl();
+}
+
 /* ---------------------------- fleet designer -------------------- */
 const DZ = CFG.designer;
 function dzSpec() { return S.key.split('|')[0]; }
@@ -234,20 +325,45 @@ function dzLookup(grid, x) {
   for (const p of grid) if (Math.abs(p[0] - x) < Math.abs(best[0] - x)) best = p;
   return best;
 }
+const EVTOL_SIL = `<svg viewBox="0 0 24 24"><g fill="currentColor">
+  <circle cx="5" cy="5" r="3" opacity=".55"/><circle cx="19" cy="5" r="3" opacity=".55"/>
+  <circle cx="5" cy="19" r="3" opacity=".55"/><circle cx="19" cy="19" r="3" opacity=".55"/>
+  <rect x="10.3" y="4" width="3.4" height="16" rx="1.7"/>
+  <rect x="3.5" y="10.4" width="17" height="3.2" rx="1.6"/></g></svg>`;
+const ARC_LEN = 141.4;
 function dzRender() {
   if (!DZ) return;
   const total = DZ.flights, sp = dzSpec();
   const b = dzLookup(DZ.battery[sp], +$('dz-b').value);
-  $('dz-b-out').innerHTML = `${NAMES[sp]} at <b>${b[0]} kWh</b> nameplate → <b>${b[1]}/${total}</b> flights e-flyable (${Math.round(b[1] / total * 100)}%)`;
+  const pct = Math.round(b[1] / total * 100);
+  const arc = $('dz-arc');
+  arc.style.strokeDashoffset = (ARC_LEN * (1 - b[1] / total)).toFixed(1);
+  arc.style.stroke = pct < 20 ? 'var(--v-refu)' : pct < 50 ? 'var(--warn)' : 'var(--v-cert)';
+  $('dz-pct').textContent = pct + '%';
+  const fill = $('dz-bfill');
+  fill.style.transform = 'scaleX(' + (b[0] / 700).toFixed(3) + ')';
+  fill.style.background = pct < 20 ? 'var(--v-refu)' : pct < 50 ? 'var(--warn)' : 'var(--v-cert)';
+  $('dz-b-out').innerHTML = `<b>${NAMES[sp]}</b> at <b>${b[0]} kWh</b> → <b>${b[1]}/${total}</b> flights provable`;
   const r = dzLookup(DZ.reserve[sp], +$('dz-r').value);
-  $('dz-r-out').innerHTML = `${NAMES[sp]} under a <b>${r[0]}-minute</b> reserve → <b>${r[1]}/${total}</b> flights e-flyable (${Math.round(r[1] / total * 100)}%)`;
+  $('dz-r-out').innerHTML = `${NAMES[sp]} under a <b>${r[0]}-minute</b> reserve → <b>${r[1]}/${total}</b> flights provable (${Math.round(r[1] / total * 100)}%)`;
   const m = Math.max(0, Math.min(60, Math.round(+$('dz-c').value)));
   const fleet = DZ.charge_fleet_by_minute[m];
-  $('dz-c-out').innerHTML = `charge-to-full in <b>${m} min</b> → Beta ALIA serves its provable day with <b>${fleet} aircraft</b>`;
+  const maxFleet = Math.max(...DZ.charge_fleet_by_minute);
+  $('dz-c-lbl').textContent = m + ' min';
+  $('dz-fleet').innerHTML = Array.from({ length: maxFleet }, (_, i) =>
+    EVTOL_SIL.replace('<svg ', `<svg class="${i < fleet ? 'on' : 'off'}" `)).join('');
+  $('dz-c-out').innerHTML = `Beta ALIA re-flies its provable day with <b>${fleet} aircraft</b>` +
+    (fleet < maxFleet ? ` — <b>${maxFleet - fleet} fewer</b> than at slow charge` : '');
 }
 for (const id of ['dz-b', 'dz-r', 'dz-c']) {
   const el = $(id); if (el) el.oninput = dzRender;
 }
+for (const id of ['pl-from', 'pl-to']) {
+  const el = $(id); if (el) el.onchange = renderPlan;
+}
+if ($('pl-swap')) $('pl-swap').onclick = () => {
+  const a = $('pl-from').value; $('pl-from').value = $('pl-to').value; $('pl-to').value = a; renderPlan();
+};
 
 /* ---------------------------- panel components ------------------ */
 /* altitude sparkline (viewBox 100x26; cursor moved each frame) */
@@ -340,11 +456,8 @@ function encHtml(enc) {
 
 function renderPanel() {
   const b = S.bundle, host = $('flight'); if (!b) return;
-  if (!S.sel) {
-    host.innerHTML = `<div class="as-fine">Click any aircraft — trail or dot — for its certificate.
-    Trail colors are VERDICTS under the selected aircraft + rule, never telemetry.</div>`;
-    return;
-  }
+  if (!S.sel) { leftOpen(false); host.innerHTML = ''; return; }
+  leftOpen(true);
   const f = S.sel, v = f.verdicts[S.key], enc = f.enc[S.key];
   const cov = f.trunc[0] || f.trunc[1]
     ? 'truncated at ' + (f.trunc[0] ? 'start' : '') + (f.trunc[0] && f.trunc[1] ? ' + ' : '') + (f.trunc[1] ? 'end' : '')

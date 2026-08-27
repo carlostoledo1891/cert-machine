@@ -278,3 +278,18 @@ quotes it (the corpus/sources pattern).
   lists JFK, LGA, EWR — the whole NYC Mode C veil (and the SFRA corridors
   inside it) requires ADS-B Out since 2020-01-01.
   https://www.law.cornell.edu/cfr/text/14/91.225
+
+## 5. Flight-ops UI research — APPLIED (2026-08-27, agent-verified sources)
+
+Benchmarks studied: Garmin G1000/G3000 (annunciators, AFCS color grammar,
+tape gauges, data blocks, softkeys), ForeFlight (FPL strip, profile view,
+W&B envelope verdicts), FR24/tar1090 (selection panel, altitude trails,
+oriented type silhouettes), Skydio/DJI/OCC dashboards (three-word health
+chips, count-up urgency, OTP donut). Key mappings applied to SkyAudit:
+annunciator lozenges = the planner's GO/NO-GO/NEEDS DATA; Garmin magenta
+(active GPS route) = our --sig plum route + selected flight; Skydio's
+plain-word tri-state = E-FLYABLE/BEYOND RANGE/NEEDS DATA; FR24 left
+selection panel = the SELECTED FLIGHT card; heading-oriented chevrons =
+the heads layer; arc gauge + battery pictogram + fleet silhouettes = the
+designer. Garmin discipline kept: severity is never color alone; state
+words are caps mono; the map is the app, chrome floats over it.

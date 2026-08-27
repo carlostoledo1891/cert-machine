@@ -86,9 +86,64 @@ a{color:inherit}
   letter-spacing:.12em;text-transform:uppercase;padding:6px 2px;transition:color .12s}
 .as-top a.navx:hover{color:var(--sig)}
 
-/* ---- panel: a column of cards ---- */
+/* ---- panels: right = tabbed workspace; left = the selected flight ---- */
 .as-panel{position:fixed;top:68px;right:12px;bottom:92px;width:404px;z-index:20;overflow-y:auto;
   display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
+.as-left{position:fixed;top:68px;left:12px;bottom:92px;width:372px;z-index:21;overflow-y:auto;
+  display:none;flex-direction:column;gap:10px;scrollbar-width:thin}
+.as-left.open{display:flex}
+.as-left.min{bottom:auto}
+.as-left.min .as-card > *:not(.as-lhead){display:none}
+.as-lhead{display:flex;align-items:center;gap:8px;margin:-2px 0 8px}
+.as-left.min .as-lhead{margin:0}
+.as-lhead .t{font-family:var(--f-mono);font-weight:600;font-size:12px;letter-spacing:.06em;flex:1}
+.as-lhead button{width:24px;height:24px;border-radius:6px;border:1px solid var(--rule);
+  background:var(--sunk);color:var(--ink-2);cursor:pointer;font-size:12px;line-height:1;padding:0}
+.as-lhead button:hover{border-color:var(--sig);color:var(--sig)}
+
+/* ---- tab bar (right panel) ---- */
+.as-tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:4px;box-shadow:var(--shadow);flex:none}
+.as-tabs button{flex:1;border:0;background:transparent;font-family:var(--f-mono);font-weight:600;
+  font-size:11px;letter-spacing:.12em;color:var(--ink-3);padding:8px 0;border-radius:9px;
+  cursor:pointer;transition:all .15s}
+.as-tabs button:hover{color:var(--sig)}
+.as-tabs button[data-on="1"]{background:var(--sig-soft);color:var(--sig)}
+.as-tabbody{display:none;flex-direction:column;gap:10px}
+.as-tabbody.on{display:flex}
+
+/* ---- annunciators (cockpit lozenge: binary states) ---- */
+.as-ann{display:inline-flex;align-items:center;justify-content:center;min-width:64px;
+  font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.14em;
+  padding:5px 10px;border-radius:6px;border:1px solid}
+.as-ann.go{color:var(--v-cert);border-color:var(--v-cert);background:var(--v-cert-soft)}
+.as-ann.no{color:var(--v-refu);border-color:var(--v-refu);background:var(--v-refu-soft)}
+.as-ann.na{color:var(--v-refd);border-color:var(--v-refd);background:var(--v-refd-soft)}
+
+/* ---- arc gauge ---- */
+.as-gauge{display:block;margin:0 auto}
+.as-gauge .bg{stroke:var(--sunk);stroke-width:9;fill:none}
+.as-gauge .fg{stroke:var(--v-cert);stroke-width:9;fill:none;stroke-linecap:round;
+  transition:stroke-dashoffset .45s cubic-bezier(.4,0,.2,1)}
+.as-gauge text{font-family:var(--f-mono);fill:var(--ink)}
+.as-gaugelbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;color:var(--ink-3);
+  text-transform:uppercase;text-align:center;margin-top:2px}
+
+/* ---- fleet silhouettes ---- */
+.as-fleet{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:30px}
+.as-fleet svg{width:30px;height:30px;transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.as-fleet svg.on{color:var(--sig)}
+.as-fleet svg.off{color:var(--rule);transform:scale(.82)}
+
+/* ---- battery pictogram ---- */
+.as-batt{display:flex;align-items:center;gap:10px}
+.as-batt .shell{position:relative;width:64px;height:26px;border:2px solid var(--rule);
+  border-radius:5px;flex:none}
+.as-batt .shell:after{content:'';position:absolute;right:-6px;top:7px;width:4px;height:8px;
+  background:var(--rule);border-radius:0 2px 2px 0}
+.as-batt .fill{position:absolute;inset:2px;border-radius:2px;background:var(--v-cert);
+  transform-origin:left;transition:transform .3s,background .3s}
+.as-routebadge{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;color:var(--ink-3)}
 .as-card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
   padding:14px 16px;box-shadow:var(--shadow)}
 .as-h{font-family:var(--f-mono);font-weight:600;font-size:10px;letter-spacing:.16em;
@@ -159,6 +214,9 @@ button{font-family:inherit}
   color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:7px 12px;cursor:pointer;transition:all .12s}
 .as-btn:hover{border-color:var(--sig);color:var(--sig)}
 .as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
+select.as-sel{font-family:var(--f-mono);font-size:11px;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:8px;padding:6px 8px;color-scheme:light dark;max-width:100%}
+select.as-sel:hover{border-color:var(--sig)}
 .as-seg{display:inline-flex;background:var(--sunk);border:1px solid var(--rule);border-radius:9px;padding:2px;gap:2px}
 .as-seg button{border:0;background:transparent;font-family:var(--f-mono);font-size:10.5px;
   letter-spacing:.04em;color:var(--ink-2);padding:5px 10px;border-radius:7px;cursor:pointer;transition:all .12s}
@@ -193,6 +251,7 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
   .as-top .appname{font-size:12.5px}
   .as-top .meta,.as-top .navx{display:none}
   .as-panel{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:44dvh;gap:8px}
+  .as-left{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:52dvh;z-index:24}
   .as-card{padding:12px 13px;border-radius:11px}
   .as-dock{gap:9px;padding:0 10px;height:64px}
   .as-play{width:36px;height:36px}
@@ -215,31 +274,38 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
   <a class="navx" href="/reports/">reports</a>
   <a class="navx" href="https://github.com/carlostoledo1891/cert-machine">github</a>
 </header>
+<aside class="as-left" id="leftpanel">
+  <section class="as-card">
+    <div class="as-lhead"><span class="t">SELECTED FLIGHT</span>
+      <button id="lp-min" title="minimize">–</button>
+      <button id="lp-close" title="deselect">×</button></div>
+    <div id="flight"></div>
+  </section></aside>
 <aside class="as-panel" id="panel">
+  <nav class="as-tabs" id="tabs">
+    <button data-tab="day" data-on="1">DAY</button>
+    <button data-tab="fleet">FLEET</button>
+    <button data-tab="plan">PLAN</button>
+  </nav>
+  <div class="as-tabbody on" data-body="day">
   <section class="as-card">
     <div class="as-h">The audit</div>
     <div class="as-note">One real day of New York helicopter traffic — <b>82
     aircraft, 382 flights, 47,028 km
     flown (1.2× around the Earth)</b> — ADS-B,
-    hash-pinned. Each flight is re-flown on paper
-    by an eVTOL: published numbers as honest parameter boxes, a reserve rule, and a three-valued
-    verdict from interval arithmetic. <b>Mathematically certified enclosures</b> — no Monte
-    Carlo, no airworthiness meaning. REFUSED is a first-class outcome: it measures what the
-    manufacturer has not published. This is the exact traffic the industry intends to replace:
-    Joby owns Blade's NYC helicopter routes (acquired Aug 2025, flying today), and flew its
-    first JFK–Manhattan eVTOL demos from these same heliports in April 2026.</div>
+    hash-pinned. Each flight is re-flown on paper by an eVTOL and decided by interval arithmetic.
+    This is the exact traffic the industry intends to replace: Joby owns Blade's NYC helicopter
+    routes (acquired Aug 2025, flying today), and flew its first JFK–Manhattan eVTOL demos from
+    these same heliports in April 2026. <b>Click any aircraft — its certificate opens on the left.</b></div>
     <details class="as-more"><summary>Honest boundaries</summary>
     <div class="as-fine">The corpus is what the receiver network saw; coverage gaps and truncated
     tracks are flagged per flight. The audit is counterfactual arithmetic over stated boxes
-    (quality-flagged in the repo; Eve publishes least, so Eve REFUSES most). FAA = the 20-min VFR
-    helicopter tier; EASA = the 5-min final reserve, a NECESSARY condition only. Data ©
-    <a href="https://adsb.lol">adsb.lol</a> contributors (ODbL). Rerun everything:
+    (quality-flagged in the repo; Eve publishes least, so Eve needs data most). FAA = the 20-min VFR
+    helicopter tier; EASA = the 5-min final reserve, a NECESSARY condition only. Ambient layer =
+    all other traffic, decor only. Data © <a href="https://adsb.lol">adsb.lol</a> contributors
+    (ODbL). Rerun everything:
     <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/skyaudit">apps/skyaudit</a>.</div>
     </details>
-  </section>
-  <section class="as-card">
-    <div class="as-h">Aircraft × rule</div>
-    <div id="keys" class="as-mx"></div>
   </section>
   <section class="as-card">
     <div class="as-h">This day, under the selection</div>
@@ -276,7 +342,7 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
     </svg>
     <div class="as-fine" style="margin-bottom:10px">flights in the air by hour · peak at 17:00 local</div>
     <div class="as-frow"><span><span class="name">Hardest-working aircraft</span>
-      <span class="sub">N408GG (B407) 18 legs · 6.5 h · N62ZA (B407) 13 legs · 5.1 h · N777ZA (B407) 13 legs · 4.5 h</span></span></div>
+      <span class="sub">🥇 N408GG (B407) 18 legs · 6.5 h · 🥈 N62ZA (B407) 13 legs · 5.1 h · 🥉 N777ZA (B407) 13 legs · 4.5 h</span></span></div>
     <div class="as-frow"><span><span class="name">Records</span>
       <span class="sub">longest 720 km (N406TD) ·
       342 min airborne (N866M, tour loop) ·
@@ -298,8 +364,42 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
     <b>$100–$901 of electricity</b> vs
     <b>$1,647–$3,580
     of fuel for the same flights</b> — the cost intervals don't overlap: the electric worst case beats the fuel best case. 3.2–4.3 t CO₂ avoided.</div>
-    <div class="as-fine" style="margin-top:8px">Fuel from per-type class burn boxes (stated estimates,
-    scenario/fuel-rates.json); electricity from the CERTIFIED energy enclosures — decided, not projected.</div>
+    <div class="as-fine" style="margin-top:8px">Fuel from per-type class burn boxes (stated estimates);
+    electricity from the certified energy enclosures — decided, not projected.</div>
+  </section>
+  </div>
+  <div class="as-tabbody" data-body="fleet">
+  <section class="as-card">
+    <div class="as-h">Aircraft × rule</div>
+    <div id="keys" class="as-mx"></div>
+  </section>
+  <section class="as-card">
+    <div class="as-h">Fleet designer — every position is a proof</div>
+    <div id="dz-gauge-wrap" style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
+      <div>
+        <svg class="as-gauge" id="dz-gauge" width="110" height="66" viewBox="0 0 110 66">
+          <path class="bg" d="M 10 60 A 45 45 0 0 1 100 60"/>
+          <path class="fg" id="dz-arc" d="M 10 60 A 45 45 0 0 1 100 60" stroke-dasharray="141.4" stroke-dashoffset="141.4"/>
+          <text id="dz-pct" x="55" y="52" text-anchor="middle" font-size="20" font-weight="600">–</text>
+        </svg>
+        <div class="as-gaugelbl">day provable</div>
+      </div>
+      <div style="flex:1">
+        <div class="as-batt"><div class="shell"><div class="fill" id="dz-bfill"></div></div>
+          <span class="as-encvals" id="dz-b-out"></span></div>
+        <input type="range" class="as-scrub" id="dz-b" min="60" max="700" step="20" value="320" style="width:100%">
+      </div>
+    </div>
+    <div class="as-h">If the reserve rule were…</div>
+    <input type="range" class="as-scrub" id="dz-r" min="0" max="45" step="3" value="20" style="width:100%">
+    <div class="as-encvals" id="dz-r-out"></div>
+    <div class="as-h" style="margin-top:12px">If charging took… <span id="dz-c-lbl"></span></div>
+    <input type="range" class="as-scrub" id="dz-c" min="0" max="60" step="1" value="45" style="width:100%">
+    <div class="as-fleet" id="dz-fleet"></div>
+    <div class="as-encvals" id="dz-c-out"></div>
+    <div class="as-fine" style="margin-top:8px">Battery and reserve apply to the aircraft selected
+    above; charging applies to the Beta ALIA fleet re-flying its provable day. Each slider position
+    looks up a precomputed, gate-checked certified point.</div>
   </section>
   <section class="as-card">
     <div class="as-h">Re-fly the day — fleet frontier</div>
@@ -314,48 +414,10 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
        <span class="val zero">no certifiable fleet</span></div>
   </section>
   <section class="as-card">
-    <div class="as-h">What would it take? — certified thresholds</div>
-    <div class="as-fine" style="margin-bottom:10px">The optimizer: bisect a lever until the
-    verdict flips, and prove BOTH sides — one unit less fails (recounted), at the threshold
-    it holds. Levers over the same pinned day, FAA 20-min shape.</div>
-    <div class="as-frow"><span><span class="name">Joby S4 — battery floor</span>
-        <span class="sub">published 130–180 kWh (E)</span></span>
-        <span class="val">½ day: 306 kWh · 80%: 480 kWh</span></div><div class="as-frow"><span><span class="name">Archer Midnight — battery floor</span>
-        <span class="sub">published 120–142 kWh (E)</span></span>
-        <span class="val">½ day: 329 kWh · 80%: 520 kWh</span></div><div class="as-frow"><span><span class="name">Beta ALIA — battery floor</span>
-        <span class="sub">published 250–325 kWh (E)</span></span>
-        <span class="val">½ day: 362 kWh · 80%: 581 kWh</span></div><div class="as-frow"><span><span class="name">Eve EVE-100 — battery floor</span>
-        <span class="sub">published 90–160 kWh (A)</span></span>
-        <span class="val">½ day: 394 kWh · 80%: 673 kWh</span></div>
-    <div class="as-frow"><span><span class="name">Beta ALIA — the charge lever</span>
-      <span class="sub">≤23 min → 3 · 24–48 min → 4 · 49–60 min → 5 aircraft — faster chargers are provably worth 2 aircraft</span></span>
-      <span class="val">5 → 3</span></div>
-    <div class="as-frow"><span><span class="name">The reserve rule, priced</span>
-      <span class="sub">Beta ALIA provable legs at 5/10/15/20/25/30-min reserve:
-      194 · 171 · 110 · 46 · 8 · 0
-      — at 30 minutes, nothing on this day is provable</span></span>
-      <span class="val">194 → 0</span></div>
-  </section>
-  <section class="as-card">
-    <div class="as-h">Fleet designer — drag a lever; every position is a proof</div>
-    <div class="as-fine" style="margin-bottom:10px">Each slider position looks up a precomputed,
-    gate-checked certified point — it feels like a simulator and is a proof table. Battery and
-    reserve apply to the aircraft selected above; charging applies to the Beta ALIA fleet.</div>
-    <div class="as-h">If the battery were…</div>
-    <input type="range" class="as-scrub" id="dz-b" min="60" max="700" step="20" value="320" style="width:100%">
-    <div class="as-encvals" id="dz-b-out"></div>
-    <div class="as-h" style="margin-top:12px">If the reserve rule were…</div>
-    <input type="range" class="as-scrub" id="dz-r" min="0" max="45" step="3" value="20" style="width:100%">
-    <div class="as-encvals" id="dz-r-out"></div>
-    <div class="as-h" style="margin-top:12px">If charging took…</div>
-    <input type="range" class="as-scrub" id="dz-c" min="0" max="60" step="1" value="45" style="width:100%">
-    <div class="as-encvals" id="dz-c-out"></div>
-  </section>
-  <section class="as-card">
     <div class="as-h">Range claims, audited</div>
     <div class="as-fine" style="margin-bottom:8px">A range claim is EXISTENTIAL — CONSISTENT means
-    some point of the maker's own public+assumed boxes achieves it; REFUTED means none does.
-    A worst-case guarantee is UNIVERSAL and gets the worst corner.</div>
+    some point of the maker's own public+assumed boxes achieves it. A worst-case guarantee is
+    UNIVERSAL and gets the worst corner.</div>
     <div class="as-frow"><span><span class="name">Joby S4</span>
         <span class="sub">100 mi range including energy reserves (evtol.news attributing Joby)</span></span>
         <span class="val" style="color:var(--v-cert)">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Archer Midnight</span>
@@ -367,14 +429,20 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
         <span class="val" style="color:var(--v-cert)">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Beta ALIA</span>
         <span class="sub">no published VTOL-variant range claim to audit (336 nm demonstrated is the CTOL variant)</span></span>
         <span class="val" style="color:var(--v-refd)">NO CLAIM</span></div>
-    <div class="as-fine" style="margin-top:8px">Archer's 60-mi worst-case guarantee is the one
-    UNIVERSAL claim — and it is undecidable from public numbers (margins straddle zero): a
-    guarantee the public cannot check.</div>
   </section>
+  </div>
+  <div class="as-tabbody" data-body="plan">
   <section class="as-card">
-    <div class="as-h">Selected flight</div>
-    <div id="flight"></div>
-  </section></aside>
+    <div class="as-h">Flight planner — a plan that comes with a proof</div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+      <select class="as-sel" id="pl-from" style="flex:1"><option value="JRB">Downtown Skyport (Wall St)</option><option value="JRA">West 30th St</option><option value="E34">East 34th St</option><option value="JFK">JFK Airport</option><option value="LGA">LaGuardia Airport</option><option value="EWR">Newark Airport</option><option value="TEB">Teterboro Airport</option></select>
+      <button class="as-btn" id="pl-swap" title="swap">⇄</button>
+      <select class="as-sel" id="pl-to" style="flex:1"><option value="JRB" >Downtown Skyport (Wall St)</option><option value="JRA" >West 30th St</option><option value="E34" >East 34th St</option><option value="JFK" selected>JFK Airport</option><option value="LGA" >LaGuardia Airport</option><option value="EWR" >Newark Airport</option><option value="TEB" >Teterboro Airport</option></select>
+    </div>
+    <div id="pl-out"></div>
+    <div class="as-fine" style="margin-top:10px">the graph is a hand-simplified rendering of the published corridor structure; distances are corridor path lengths over this graph; the energy verdicts on planned routes are the same certified interval decisions as everywhere else in the app - GO/NO-GO here means the ENERGY question only, decided as a mathematically certified enclosure; it is not an operational clearance.</div>
+  </section>
+  </div></aside>
 <footer class="as-dock" id="dock">
   <button class="as-play" id="play" aria-label="play/pause">❚❚</button>
   <input type="range" class="as-scrub" id="scrub" min="0" max="86400" step="1" value="0" aria-label="time of day">
@@ -388,7 +456,7 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
   </span>
   <span class="attr">© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> · Protomaps ·
   data © <a href="https://adsb.lol">adsb.lol</a> (ODbL)</span></footer>
-<script>window.SKYAUDIT = {"style":"/apps/skyaudit/style.json","bundle":"/apps/skyaudit/data/nyc.replay.json","tiles":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/450d2e96e1ccb0c2f49b7eab3e5e3fae23e3035a/apps/skyaudit/data/tiles/nyc.pmtiles","ambient":"/apps/skyaudit/data/nyc.ambient.json","designer":{"flights":394,"battery":{"joby-s4":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,4],[200,24],[220,52],[240,105],[260,133],[280,174],[300,190],[320,207],[340,217],[360,231],[380,237],[400,248],[420,263],[440,275],[460,298],[480,316],[500,329],[520,337],[540,341],[560,341],[580,343],[600,346],[620,348],[640,351],[660,354],[680,360],[700,361]],"archer-midnight":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,0],[200,8],[220,30],[240,67],[260,109],[280,137],[300,174],[320,189],[340,204],[360,213],[380,224],[400,233],[420,246],[440,254],[460,265],[480,277],[500,298],[520,316],[540,328],[560,335],[580,339],[600,341],[620,343],[640,343],[660,347],[680,350],[700,352]],"beta-alia":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,0],[200,2],[220,14],[240,34],[260,68],[280,105],[300,126],[320,170],[340,183],[360,196],[380,207],[400,214],[420,224],[440,233],[460,243],[480,248],[500,260],[520,269],[540,281],[560,298],[580,315],[600,327],[620,330],[640,337],[660,341],[680,341],[700,343]],"eve-100":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,0],[200,6],[220,14],[240,34],[260,57],[280,101],[300,112],[320,131],[340,168],[360,179],[380,186],[400,197],[420,208],[440,213],[460,220],[480,231],[500,233],[520,243],[540,246],[560,256],[580,264],[600,270],[620,281],[640,297],[660,307],[680,320],[700,328]]},"reserve":{"joby-s4":[[0,112],[3,101],[6,43],[9,14],[12,3],[15,0],[18,0],[21,0],[24,0],[27,0],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]],"archer-midnight":[[0,64],[3,34],[6,12],[9,1],[12,0],[15,0],[18,0],[21,0],[24,0],[27,0],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]],"beta-alia":[[0,209],[3,200],[6,184],[9,174],[12,138],[15,110],[18,86],[21,37],[24,14],[27,3],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]],"eve-100":[[0,12],[3,4],[6,0],[9,0],[12,0],[15,0],[18,0],[21,0],[24,0],[27,0],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]]},"charge_fleet_by_minute":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5]}};</script>
+<script>window.SKYAUDIT = {"style":"/apps/skyaudit/style.json","bundle":"/apps/skyaudit/data/nyc.replay.json","tiles":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/450d2e96e1ccb0c2f49b7eab3e5e3fae23e3035a/apps/skyaudit/data/tiles/nyc.pmtiles","ambient":"/apps/skyaudit/data/nyc.ambient.json","designer":{"flights":382,"battery":{"joby-s4":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,4],[200,24],[220,52],[240,105],[260,133],[280,174],[300,190],[320,206],[340,216],[360,230],[380,236],[400,247],[420,262],[440,274],[460,297],[480,315],[500,328],[520,336],[540,339],[560,339],[580,341],[600,344],[620,346],[640,349],[660,352],[680,357],[700,358]],"archer-midnight":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,0],[200,8],[220,30],[240,67],[260,109],[280,137],[300,174],[320,189],[340,203],[360,212],[380,223],[400,232],[420,245],[440,253],[460,264],[480,276],[500,297],[520,315],[540,327],[560,334],[580,338],[600,339],[620,341],[640,341],[660,345],[680,348],[700,350]],"beta-alia":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,0],[200,2],[220,14],[240,34],[260,68],[280,105],[300,126],[320,170],[340,183],[360,196],[380,206],[400,213],[420,223],[440,232],[460,242],[480,247],[500,259],[520,268],[540,280],[560,297],[580,314],[600,326],[620,329],[640,336],[660,339],[680,339],[700,341]],"eve-100":[[60,0],[80,0],[100,0],[120,0],[140,0],[160,0],[180,0],[200,6],[220,14],[240,34],[260,57],[280,101],[300,112],[320,131],[340,168],[360,179],[380,186],[400,197],[420,207],[440,212],[460,219],[480,230],[500,232],[520,242],[540,245],[560,255],[580,263],[600,269],[620,280],[640,296],[660,306],[680,319],[700,327]]},"reserve":{"joby-s4":[[0,112],[3,101],[6,43],[9,14],[12,3],[15,0],[18,0],[21,0],[24,0],[27,0],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]],"archer-midnight":[[0,64],[3,34],[6,12],[9,1],[12,0],[15,0],[18,0],[21,0],[24,0],[27,0],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]],"beta-alia":[[0,208],[3,200],[6,184],[9,174],[12,138],[15,110],[18,86],[21,37],[24,14],[27,3],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]],"eve-100":[[0,12],[3,4],[6,0],[9,0],[12,0],[15,0],[18,0],[21,0],[24,0],[27,0],[30,0],[33,0],[36,0],[39,0],[42,0],[45,0]]},"charge_fleet_by_minute":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5]},"planner":{"heliports":{"JRB":{"name":"Downtown Skyport (Wall St)","lat":40.7013,"lon":-74.009,"note":"Skyports/Groupe ADP operator; eVTOL electrification in progress"},"JRA":{"name":"West 30th St","lat":40.7546,"lon":-74.0071,"note":"active; pads temporarily on a barge (Penn tunnel works)"},"E34":{"name":"East 34th St","lat":40.7426,"lon":-73.9718,"note":"VertiPorts by Atlantic, preparing for eVTOLs"},"JFK":{"name":"JFK Airport","lat":40.6413,"lon":-73.7781,"note":"Joby flew JFK-Manhattan eVTOL demos from here, Apr 2026"},"LGA":{"name":"LaGuardia Airport","lat":40.7772,"lon":-73.8726},"EWR":{"name":"Newark Airport","lat":40.6895,"lon":-74.1745},"TEB":{"name":"Teterboro Airport","lat":40.8501,"lon":-74.0608}},"routes":[{"from":"JRB","to":"JRA","km":7.3,"coords":[[-74.009,40.7013],[-74.02,40.699],[-74.013,40.72],[-74.008,40.7546],[-74.0071,40.7546]],"bands":["transition","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-34.9,"b":111.1},"t_min":[1,2],"charge_after_min":26},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-25.4,"b":104.5},"t_min":[1,2],"charge_after_min":26},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-50.2,"b":69.7},"t_min":[2,2],"charge_after_min":17},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-61.7,"b":62},"t_min":[2,2],"charge_after_min":17},"beta-alia|faa-sfar-vfr":{"v":"C","m":38.7,"t_min":[2,2],"charge_after_min":14},"beta-alia|easa-final-reserve":{"v":"C","m":64.1,"t_min":[2,2],"charge_after_min":14},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-72.7,"b":108},"t_min":[2,3],"charge_after_min":45},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-70.6,"b":97.9},"t_min":[2,3],"charge_after_min":45}}},{"from":"JRB","to":"E34","km":6.8,"coords":[[-74.009,40.7013],[-74.004,40.7],[-73.978,40.708],[-73.971,40.7426],[-73.9718,40.7426]],"bands":["transition","east"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-34.2,"b":111.3},"t_min":[1,2],"charge_after_min":26},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-24.7,"b":104.7},"t_min":[1,2],"charge_after_min":26},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-49.4,"b":69.9},"t_min":[2,2],"charge_after_min":17},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-60.9,"b":62.3},"t_min":[2,2],"charge_after_min":17},"beta-alia|faa-sfar-vfr":{"v":"C","m":39.6,"t_min":[1,2],"charge_after_min":14},"beta-alia|easa-final-reserve":{"v":"C","m":64.9,"t_min":[1,2],"charge_after_min":14},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-71.7,"b":108.2},"t_min":[2,3],"charge_after_min":44},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-69.6,"b":98},"t_min":[2,3],"charge_after_min":44}}},{"from":"JRB","to":"JFK","km":24.4,"coords":[[-74.009,40.7013],[-74.004,40.7],[-73.978,40.708],[-73.94,40.664],[-73.87,40.62],[-73.7781,40.6413]],"bands":["transition","east"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-55.8,"b":106.2},"t_min":[5,6],"charge_after_min":39},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-46.3,"b":99.6},"t_min":[5,6],"charge_after_min":39},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-73.1,"b":61.8},"t_min":[6,7],"charge_after_min":25},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-84.6,"b":54.1},"t_min":[6,7],"charge_after_min":25},"beta-alia|faa-sfar-vfr":{"v":"C","m":12.4,"t_min":[5,7],"charge_after_min":23},"beta-alia|easa-final-reserve":{"v":"C","m":37.7,"t_min":[5,7],"charge_after_min":23},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-106.2,"b":103.9},"t_min":[6,10],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-104.1,"b":93.8},"t_min":[6,10],"charge_after_min":60}}},{"from":"JRB","to":"LGA","km":16.8,"coords":[[-74.009,40.7013],[-74.004,40.7],[-73.978,40.708],[-73.971,40.7426],[-73.955,40.762],[-73.938,40.775],[-73.8726,40.7772]],"bands":["transition","east"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-46.4,"b":108.4},"t_min":[3,4],"charge_after_min":33},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-36.9,"b":101.8},"t_min":[3,4],"charge_after_min":33},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-62.9,"b":65.3},"t_min":[4,5],"charge_after_min":22},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-74.4,"b":57.7},"t_min":[4,5],"charge_after_min":22},"beta-alia|faa-sfar-vfr":{"v":"C","m":24.1,"t_min":[4,5],"charge_after_min":19},"beta-alia|easa-final-reserve":{"v":"C","m":49.5,"t_min":[4,5],"charge_after_min":19},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-91.3,"b":105.7},"t_min":[4,7],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-89.2,"b":95.6},"t_min":[4,7],"charge_after_min":60}}},{"from":"JRB","to":"EWR","km":15.7,"coords":[[-74.009,40.7013],[-74.02,40.699],[-74.043,40.677],[-74.115,40.669],[-74.1745,40.6895]],"bands":["transition","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-45.1,"b":108.7},"t_min":[3,4],"charge_after_min":32},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-35.6,"b":102.1},"t_min":[3,4],"charge_after_min":32},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-61.5,"b":65.8},"t_min":[4,4],"charge_after_min":21},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-73,"b":58.1},"t_min":[4,4],"charge_after_min":21},"beta-alia|faa-sfar-vfr":{"v":"C","m":25.8,"t_min":[3,4],"charge_after_min":19},"beta-alia|easa-final-reserve":{"v":"C","m":51.1,"t_min":[3,4],"charge_after_min":19},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-89.2,"b":106},"t_min":[4,6],"charge_after_min":59},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-87.1,"b":95.9},"t_min":[4,6],"charge_after_min":59}}},{"from":"JRB","to":"TEB","km":28.8,"coords":[[-74.009,40.7013],[-74.02,40.699],[-74.013,40.72],[-74.008,40.7546],[-73.987,40.79],[-73.96,40.828],[-73.947,40.852],[-74.0608,40.8501]],"bands":["transition","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-61.1,"b":104.9},"t_min":[5,7],"charge_after_min":42},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-51.6,"b":98.3},"t_min":[5,7],"charge_after_min":42},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-79,"b":59.7},"t_min":[7,8],"charge_after_min":27},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-90.5,"b":52.1},"t_min":[7,8],"charge_after_min":27},"beta-alia|faa-sfar-vfr":{"v":"C","m":5.6,"t_min":[6,8],"charge_after_min":25},"beta-alia|easa-final-reserve":{"v":"C","m":31,"t_min":[6,8],"charge_after_min":25},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-114.8,"b":102.8},"t_min":[7,12],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-112.7,"b":92.7},"t_min":[7,12],"charge_after_min":60}}},{"from":"JRA","to":"E34","km":14,"coords":[[-74.0071,40.7546],[-74.008,40.7546],[-74.013,40.72],[-74.02,40.699],[-74.004,40.7],[-73.978,40.708],[-73.971,40.7426],[-73.9718,40.7426]],"bands":["transition","hudson","east"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-43.1,"b":109.2},"t_min":[3,3],"charge_after_min":31},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-33.6,"b":102.6},"t_min":[3,3],"charge_after_min":31},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-59.2,"b":66.6},"t_min":[3,4],"charge_after_min":20},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-70.7,"b":58.9},"t_min":[3,4],"charge_after_min":20},"beta-alia|faa-sfar-vfr":{"v":"C","m":28.4,"t_min":[3,4],"charge_after_min":18},"beta-alia|easa-final-reserve":{"v":"C","m":53.7,"t_min":[3,4],"charge_after_min":18},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-85.9,"b":106.4},"t_min":[3,6],"charge_after_min":56},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-83.8,"b":96.3},"t_min":[3,6],"charge_after_min":56}}},{"from":"JRA","to":"JFK","km":31.7,"coords":[[-74.0071,40.7546],[-74.008,40.7546],[-74.013,40.72],[-74.02,40.699],[-74.004,40.7],[-73.978,40.708],[-73.94,40.664],[-73.87,40.62],[-73.7781,40.6413]],"bands":["transition","hudson","east"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-64.6,"b":104.1},"t_min":[6,8],"charge_after_min":44},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-55.2,"b":97.4},"t_min":[6,8],"charge_after_min":44},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-82.9,"b":58.4},"t_min":[8,9],"charge_after_min":28},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-94.4,"b":50.7},"t_min":[8,9],"charge_after_min":28},"beta-alia|faa-sfar-vfr":{"v":"C","m":1.2,"t_min":[7,9],"charge_after_min":26},"beta-alia|easa-final-reserve":{"v":"C","m":26.5,"t_min":[7,9],"charge_after_min":26},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-120.4,"b":102.1},"t_min":[8,13],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-118.3,"b":92},"t_min":[8,13],"charge_after_min":60}}},{"from":"JRA","to":"LGA","km":24.1,"coords":[[-74.0071,40.7546],[-74.008,40.7546],[-74.013,40.72],[-74.02,40.699],[-74.004,40.7],[-73.978,40.708],[-73.971,40.7426],[-73.955,40.762],[-73.938,40.775],[-73.8726,40.7772]],"bands":["transition","hudson","east"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-55.3,"b":106.3},"t_min":[4,6],"charge_after_min":39},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-45.8,"b":99.7},"t_min":[4,6],"charge_after_min":39},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-72.6,"b":61.9},"t_min":[6,7],"charge_after_min":25},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-84.1,"b":54.3},"t_min":[6,7],"charge_after_min":25},"beta-alia|faa-sfar-vfr":{"v":"C","m":12.9,"t_min":[5,7],"charge_after_min":23},"beta-alia|easa-final-reserve":{"v":"C","m":38.3,"t_min":[5,7],"charge_after_min":23},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-105.5,"b":104},"t_min":[6,10],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-103.4,"b":93.8},"t_min":[6,10],"charge_after_min":60}}},{"from":"JRA","to":"EWR","km":21.1,"coords":[[-74.0071,40.7546],[-74.008,40.7546],[-74.013,40.72],[-74.02,40.699],[-74.043,40.677],[-74.115,40.669],[-74.1745,40.6895]],"bands":["transition","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-51.7,"b":107.1},"t_min":[4,5],"charge_after_min":36},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-42.2,"b":100.5},"t_min":[4,5],"charge_after_min":36},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-68.7,"b":63.3},"t_min":[5,6],"charge_after_min":23},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-80.2,"b":55.6},"t_min":[5,6],"charge_after_min":23},"beta-alia|faa-sfar-vfr":{"v":"C","m":17.5,"t_min":[4,6],"charge_after_min":21},"beta-alia|easa-final-reserve":{"v":"C","m":42.8,"t_min":[4,6],"charge_after_min":21},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-99.7,"b":104.7},"t_min":[5,8],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-97.6,"b":94.6},"t_min":[5,8],"charge_after_min":60}}},{"from":"JRA","to":"TEB","km":21.6,"coords":[[-74.0071,40.7546],[-74.008,40.7546],[-73.987,40.79],[-73.96,40.828],[-73.947,40.852],[-74.0608,40.8501]],"bands":["transition","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-52.4,"b":107},"t_min":[4,5],"charge_after_min":37},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-42.9,"b":100.4},"t_min":[4,5],"charge_after_min":37},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-69.4,"b":63.1},"t_min":[5,6],"charge_after_min":24},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-80.9,"b":55.4},"t_min":[5,6],"charge_after_min":24},"beta-alia|faa-sfar-vfr":{"v":"C","m":16.7,"t_min":[5,6],"charge_after_min":21},"beta-alia|easa-final-reserve":{"v":"C","m":42,"t_min":[5,6],"charge_after_min":21},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-100.7,"b":104.5},"t_min":[5,9],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-98.7,"b":94.4},"t_min":[5,9],"charge_after_min":60}}},{"from":"E34","to":"JFK","km":25.6,"coords":[[-73.9718,40.7426],[-73.971,40.7426],[-73.978,40.708],[-73.94,40.664],[-73.87,40.62],[-73.7781,40.6413]],"bands":["transition","east"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-57.2,"b":105.9},"t_min":[5,6],"charge_after_min":40},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-47.7,"b":99.2},"t_min":[5,6],"charge_after_min":40},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-74.7,"b":61.2},"t_min":[6,7],"charge_after_min":25},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-86.2,"b":53.6},"t_min":[6,7],"charge_after_min":25},"beta-alia|faa-sfar-vfr":{"v":"C","m":10.6,"t_min":[5,7],"charge_after_min":23},"beta-alia|easa-final-reserve":{"v":"C","m":36,"t_min":[5,7],"charge_after_min":23},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-108.4,"b":103.6},"t_min":[6,10],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-106.4,"b":93.5},"t_min":[6,10],"charge_after_min":60}}},{"from":"E34","to":"LGA","km":10.2,"coords":[[-73.9718,40.7426],[-73.971,40.7426],[-73.955,40.762],[-73.938,40.775],[-73.8726,40.7772]],"bands":["transition","east"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-38.3,"b":110.3},"t_min":[2,3],"charge_after_min":28},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-28.8,"b":103.7},"t_min":[2,3],"charge_after_min":28},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-54,"b":68.4},"t_min":[3,3],"charge_after_min":19},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-65.5,"b":60.7},"t_min":[3,3],"charge_after_min":19},"beta-alia|faa-sfar-vfr":{"v":"C","m":34.3,"t_min":[2,3],"charge_after_min":16},"beta-alia|easa-final-reserve":{"v":"C","m":59.7,"t_min":[2,3],"charge_after_min":16},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-78.3,"b":107.3},"t_min":[3,4],"charge_after_min":50},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-76.2,"b":97.2},"t_min":[3,4],"charge_after_min":50}}},{"from":"E34","to":"EWR","km":22.4,"coords":[[-73.9718,40.7426],[-73.971,40.7426],[-73.978,40.708],[-74.004,40.7],[-74.02,40.699],[-74.043,40.677],[-74.115,40.669],[-74.1745,40.6895]],"bands":["transition","east","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-53.3,"b":106.8},"t_min":[4,6],"charge_after_min":37},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-43.9,"b":100.1},"t_min":[4,6],"charge_after_min":37},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-70.5,"b":62.7},"t_min":[6,6],"charge_after_min":24},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-82,"b":55},"t_min":[6,6],"charge_after_min":24},"beta-alia|faa-sfar-vfr":{"v":"C","m":15.4,"t_min":[5,6],"charge_after_min":22},"beta-alia|easa-final-reserve":{"v":"C","m":40.8,"t_min":[5,6],"charge_after_min":22},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-102.3,"b":104.4},"t_min":[6,9],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-100.2,"b":94.2},"t_min":[6,9],"charge_after_min":60}}},{"from":"E34","to":"TEB","km":35.5,"coords":[[-73.9718,40.7426],[-73.971,40.7426],[-73.978,40.708],[-74.004,40.7],[-74.02,40.699],[-74.013,40.72],[-74.008,40.7546],[-73.987,40.79],[-73.96,40.828],[-73.947,40.852],[-74.0608,40.8501]],"bands":["transition","east","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-69.3,"b":103},"t_min":[7,9],"charge_after_min":47},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-59.8,"b":96.3},"t_min":[7,9],"charge_after_min":47},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-88,"b":56.6},"t_min":[9,10],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-99.5,"b":49},"t_min":[9,10],"charge_after_min":30},"beta-alia|faa-sfar-vfr":{"v":"F","m":{"w":-4.7,"b":217.4},"t_min":[8,10],"charge_after_min":28},"beta-alia|easa-final-reserve":{"v":"C","m":20.7,"t_min":[8,10],"charge_after_min":28},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-127.9,"b":101.2},"t_min":[9,14],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-125.8,"b":91.1},"t_min":[9,14],"charge_after_min":60}}},{"from":"JFK","to":"LGA","km":35.6,"coords":[[-73.7781,40.6413],[-73.87,40.62],[-73.94,40.664],[-73.978,40.708],[-73.971,40.7426],[-73.955,40.762],[-73.938,40.775],[-73.8726,40.7772]],"bands":["transition","east"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-69.4,"b":103},"t_min":[7,9],"charge_after_min":47},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-59.9,"b":96.3},"t_min":[7,9],"charge_after_min":47},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-88.1,"b":56.6},"t_min":[9,10],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-99.6,"b":48.9},"t_min":[9,10],"charge_after_min":30},"beta-alia|faa-sfar-vfr":{"v":"F","m":{"w":-4.8,"b":217.4},"t_min":[8,10],"charge_after_min":28},"beta-alia|easa-final-reserve":{"v":"C","m":20.5,"t_min":[8,10],"charge_after_min":28},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-128,"b":101.2},"t_min":[9,14],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-126,"b":91},"t_min":[9,14],"charge_after_min":60}}},{"from":"JFK","to":"EWR","km":40.1,"coords":[[-73.7781,40.6413],[-73.87,40.62],[-73.94,40.664],[-73.978,40.708],[-74.004,40.7],[-74.02,40.699],[-74.043,40.677],[-74.115,40.669],[-74.1745,40.6895]],"bands":["transition","east","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-74.9,"b":101.6},"t_min":[7,10],"charge_after_min":51},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-65.4,"b":95},"t_min":[7,10],"charge_after_min":51},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-94.2,"b":54.5},"t_min":[10,11],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-105.7,"b":46.8},"t_min":[10,11],"charge_after_min":30},"beta-alia|faa-sfar-vfr":{"v":"F","m":{"w":-11.8,"b":215.6},"t_min":[9,11],"charge_after_min":31},"beta-alia|easa-final-reserve":{"v":"C","m":13.6,"t_min":[9,11],"charge_after_min":31},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-136.9,"b":100.1},"t_min":[10,16],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-134.8,"b":89.9},"t_min":[10,16],"charge_after_min":60}}},{"from":"JFK","to":"TEB","km":53.2,"coords":[[-73.7781,40.6413],[-73.87,40.62],[-73.94,40.664],[-73.978,40.708],[-74.004,40.7],[-74.02,40.699],[-74.013,40.72],[-74.008,40.7546],[-73.987,40.79],[-73.96,40.828],[-73.947,40.852],[-74.0608,40.8501]],"bands":["transition","east","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-90.9,"b":97.9},"t_min":[10,13],"charge_after_min":60},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-81.4,"b":91.2},"t_min":[10,13],"charge_after_min":60},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-111.7,"b":48.4},"t_min":[13,15],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-123.2,"b":40.8},"t_min":[13,15],"charge_after_min":30},"beta-alia|faa-sfar-vfr":{"v":"F","m":{"w":-31.9,"b":210.5},"t_min":[11,14],"charge_after_min":37},"beta-alia|easa-final-reserve":{"v":"F","m":{"w":-6.5,"b":213.3},"t_min":[11,14],"charge_after_min":37},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-162.4,"b":96.9},"t_min":[13,21],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-160.3,"b":86.8},"t_min":[13,21],"charge_after_min":60}}},{"from":"LGA","to":"EWR","km":32.5,"coords":[[-73.8726,40.7772],[-73.938,40.775],[-73.955,40.762],[-73.971,40.7426],[-73.978,40.708],[-74.004,40.7],[-74.02,40.699],[-74.043,40.677],[-74.115,40.669],[-74.1745,40.6895]],"bands":["transition","east","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-65.6,"b":103.9},"t_min":[6,8],"charge_after_min":45},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-56.1,"b":97.2},"t_min":[6,8],"charge_after_min":45},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-83.9,"b":58},"t_min":[8,9],"charge_after_min":29},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-95.4,"b":50.4},"t_min":[8,9],"charge_after_min":29},"beta-alia|faa-sfar-vfr":{"v":"F","m":{"w":0,"b":218.6},"t_min":[7,9],"charge_after_min":27},"beta-alia|easa-final-reserve":{"v":"C","m":25.4,"t_min":[7,9],"charge_after_min":27},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-121.9,"b":101.9},"t_min":[8,13],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-119.8,"b":91.8},"t_min":[8,13],"charge_after_min":60}}},{"from":"LGA","to":"TEB","km":45.6,"coords":[[-73.8726,40.7772],[-73.938,40.775],[-73.955,40.762],[-73.971,40.7426],[-73.978,40.708],[-74.004,40.7],[-74.02,40.699],[-74.013,40.72],[-74.008,40.7546],[-73.987,40.79],[-73.96,40.828],[-73.947,40.852],[-74.0608,40.8501]],"bands":["transition","east","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-81.6,"b":100.1},"t_min":[8,11],"charge_after_min":55},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-72.1,"b":93.4},"t_min":[8,11],"charge_after_min":55},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-101.4,"b":52},"t_min":[11,13],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-113,"b":44.3},"t_min":[11,13],"charge_after_min":30},"beta-alia|faa-sfar-vfr":{"v":"F","m":{"w":-20.1,"b":213.5},"t_min":[10,12],"charge_after_min":33},"beta-alia|easa-final-reserve":{"v":"C","m":5.2,"t_min":[10,12],"charge_after_min":33},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-147.5,"b":98.7},"t_min":[11,18],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-145.4,"b":88.6},"t_min":[11,18],"charge_after_min":60}}},{"from":"EWR","to":"TEB","km":42.6,"coords":[[-74.1745,40.6895],[-74.115,40.669],[-74.043,40.677],[-74.02,40.699],[-74.013,40.72],[-74.008,40.7546],[-73.987,40.79],[-73.96,40.828],[-73.947,40.852],[-74.0608,40.8501]],"bands":["transition","hudson"],"verdicts":{"joby-s4|faa-sfar-vfr":{"v":"F","m":{"w":-78,"b":100.9},"t_min":[8,11],"charge_after_min":53},"joby-s4|easa-final-reserve":{"v":"F","m":{"w":-68.5,"b":94.3},"t_min":[8,11],"charge_after_min":53},"archer-midnight|faa-sfar-vfr":{"v":"F","m":{"w":-97.5,"b":53.3},"t_min":[11,12],"charge_after_min":30},"archer-midnight|easa-final-reserve":{"v":"F","m":{"w":-109,"b":45.7},"t_min":[11,12],"charge_after_min":30},"beta-alia|faa-sfar-vfr":{"v":"F","m":{"w":-15.6,"b":214.7},"t_min":[9,12],"charge_after_min":32},"beta-alia|easa-final-reserve":{"v":"C","m":9.7,"t_min":[9,12],"charge_after_min":32},"eve-100|faa-sfar-vfr":{"v":"F","m":{"w":-141.8,"b":99.4},"t_min":[11,17],"charge_after_min":60},"eve-100|easa-final-reserve":{"v":"F","m":{"w":-139.7,"b":89.3},"t_min":[11,17],"charge_after_min":60}}}],"bands":{"hudson":"Hudson River Exclusion - transient 1,000 to <1,300 ft MSL, local ops <1,000 ft, 140 KIAS max, CTAF 123.05","east":"East River Exclusion - below 1,500 ft MSL (helicopters), 140 KIAS max, CTAF 123.075","transition":"harbor / shoreline transition - ATC coordination as required"}}};</script>
 <script src="vendor/maplibre-gl.js"></script>
 <script src="vendor/deck.min.js"></script>
 <script src="vendor/pmtiles.js"></script>
