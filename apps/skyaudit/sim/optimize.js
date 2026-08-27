@@ -187,6 +187,31 @@ function rangeClaims(phys, rule) {
   return { rows, caveat: 'claims are audited against the aircraft\'s OWN public numbers plus the literature physics boxes; a REFUTED here means the claim and the public numbers cannot both be right as boxed - assumption-grade boxes (q flags) are stated in the spec packs' };
 }
 
+/* dense certified grids for the interactive fleet designer: every slider
+   position on the page is one of these precomputed, gate-checked points */
+function designerGrids(flights, phys, rule, city, dayDir) {
+  const battery = {}, reserve = {};
+  for (const id of SPEC_IDS) {
+    const spec = M.loadSpec(id);
+    battery[id] = [];
+    for (let B = 60; B <= 700; B += 20) {
+      battery[id].push([B, coverage(flights, withBattery(spec, B), rule, phys)]);
+    }
+    reserve[id] = [];
+    for (let m = 0; m <= 45; m += 3) {
+      reserve[id].push([m, coverage(flights, spec, withReserveMinutes(rule, m), phys)]);
+    }
+  }
+  const cc = chargeCurve(city, dayDir, 'beta-alia');
+  const charge = [];
+  let ci = 0;
+  for (let m = 0; m <= 60; m++) {
+    while (ci + 1 < cc.curve.length && cc.curve[ci + 1].from_minutes <= m) ci++;
+    charge.push(cc.curve.length ? cc.curve[ci].fleetMin : 0);
+  }
+  return { flights: flights.length, battery, reserve, charge_fleet_by_minute: charge };
+}
+
 function run(city, dayDir) {
   dayDir = dayDir || 'day-2026-08-26';
   const phys = M.loadPhysics('kasliwal-2019');
@@ -199,6 +224,7 @@ function run(city, dayDir) {
     charge_lever: chargeCurve(city, dayDir, 'beta-alia'),
     reserve_price: reservePrice(flights, phys),
     range_claims: rangeClaims(phys, rule),
+    designer: designerGrids(flights, phys, rule, city, dayDir),
   };
 }
 

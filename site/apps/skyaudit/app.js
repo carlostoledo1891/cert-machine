@@ -34,11 +34,14 @@ const S = { t: 0, speed: 60, playing: true, key: 'beta-alia|faa-sfar-vfr',
 const NAMES = { 'joby-s4': 'Joby S4', 'archer-midnight': 'Archer Midnight',
   'beta-alia': 'Beta ALIA', 'eve-100': 'Eve EVE-100' };
 const RULES = { 'faa-sfar-vfr': 'FAA 20-min', 'easa-final-reserve': 'EASA 5-min' };
-const VNAME = { C: 'CERTIFIED', R: 'REFUTED', F: 'REFUSED' };
+/* product labels on the surface; the rigorous terms live in the
+   certificate detail layer, one click down */
+const VNAME = { C: 'E-FLYABLE', R: 'BEYOND RANGE', F: 'NEEDS DATA' };
+const TRUST = { C: 'CERTIFIED', R: 'REFUTED', F: 'REFUSED' };
 const VEXPL = {
-  C: 'Every point of the stated parameter boxes lands at or above the reserve floor — a mathematically certified enclosure, not a simulation.',
-  R: 'EVERY point of the boxes violates the reserve floor; the most favorable corner is re-proved failing in exact rational arithmetic.',
-  F: 'The boxes straddle the floor — some points pass, some fail. With assumption-grade public specs this measures what the manufacturer has not published.' };
+  C: 'This flight is provably within the aircraft\'s electric envelope — with reserve energy to spare, under every value of its published numbers.',
+  R: 'This flight provably exceeds what the aircraft\'s public numbers allow — even under the most favorable reading, the battery comes up short.',
+  F: 'The public numbers are too incomplete to decide this flight — the manufacturer hasn\'t published enough to prove it either way.' };
 
 const qs = new URLSearchParams(location.search);
 if (qs.get('k')) S.key = qs.get('k');
@@ -99,10 +102,17 @@ fetch(CFG.bundle).then((r) => r.json()).then((b) => {
   S.t = qs.get('t') !== null ? Math.max(0, Math.min(b.span, +qs.get('t'))) : tDefault;
   if (qs.get('f')) S.sel = b.flights.find((f) => f.id === qs.get('f')) || null;
   $('scrub').max = String(Math.ceil(b.span));
-  syncDock(); buildMatrix(); renderCounts(); renderPanel();
+  syncDock(); buildMatrix(); renderCounts(); renderPanel(); dzRender();
   tick0 = performance.now();
   requestAnimationFrame(frame);
 });
+
+/* ambient decor layer: all other traffic, dim, non-pickable */
+let AMBIENT = null;
+if (CFG.ambient) {
+  fetch(CFG.ambient).then((r) => (r.ok ? r.json() : null))
+    .then((a) => { AMBIENT = a; }).catch(() => {});
+}
 
 function posAt(track, t) {
   if (t < track[0][0] || t > track[track.length - 1][0]) return null;
@@ -123,7 +133,15 @@ function layers() {
     const p = posAt(f.track, S.t);
     if (p) heads.push({ f, p });
   }
-  const L = [
+  const L = [];
+  if (AMBIENT) {
+    L.push(new deck.TripsLayer({ id: 'ambient', data: AMBIENT.tracks,
+      getPath: (tr) => tr.map((e) => [e[2], e[1]]),
+      getTimestamps: (tr) => tr.map((e) => e[0]),
+      currentTime: S.t, trailLength: 150, fadeTrail: true,
+      widthMinPixels: 1, getColor: [...COL.dim, 70], opacity: 0.5, pickable: false }));
+  }
+  L.push(
     new deck.TripsLayer({ id: 'trips', data: b.flights,
       getPath: (f) => f.track.map((e) => [e[2], e[1]]),
       getTimestamps: (f) => f.track.map((e) => e[0]),
@@ -139,7 +157,7 @@ function layers() {
       getFillColor: (d) => (S.mode === 'a' ? altColor(d.p.alt) : COL[d.f.verdicts[S.key]] || COL.F),
       radiusMinPixels: 4, radiusMaxPixels: 7, pickable: true,
       updateTriggers: { getFillColor: [S.key, S.mode] } }),
-  ];
+  );
   if (S.sel) {
     L.push(new deck.PathLayer({ id: 'selpath', data: [S.sel],
       getPath: (f) => f.track.map((e) => [e[2], e[1]]),
@@ -208,6 +226,29 @@ $('speed').onclick = (e) => { if (e.target.dataset.v) { S.speed = +e.target.data
 $('mode').onclick = (e) => { if (e.target.dataset.v) { S.mode = e.target.dataset.v; segSync($('mode'), S.mode); renderCounts(); } };
 new MutationObserver(loadColors).observe(document.documentElement, { attributes: true });
 
+/* ---------------------------- fleet designer -------------------- */
+const DZ = CFG.designer;
+function dzSpec() { return S.key.split('|')[0]; }
+function dzLookup(grid, x) {
+  let best = grid[0];
+  for (const p of grid) if (Math.abs(p[0] - x) < Math.abs(best[0] - x)) best = p;
+  return best;
+}
+function dzRender() {
+  if (!DZ) return;
+  const total = DZ.flights, sp = dzSpec();
+  const b = dzLookup(DZ.battery[sp], +$('dz-b').value);
+  $('dz-b-out').innerHTML = `${NAMES[sp]} at <b>${b[0]} kWh</b> nameplate → <b>${b[1]}/${total}</b> flights e-flyable (${Math.round(b[1] / total * 100)}%)`;
+  const r = dzLookup(DZ.reserve[sp], +$('dz-r').value);
+  $('dz-r-out').innerHTML = `${NAMES[sp]} under a <b>${r[0]}-minute</b> reserve → <b>${r[1]}/${total}</b> flights e-flyable (${Math.round(r[1] / total * 100)}%)`;
+  const m = Math.max(0, Math.min(60, Math.round(+$('dz-c').value)));
+  const fleet = DZ.charge_fleet_by_minute[m];
+  $('dz-c-out').innerHTML = `charge-to-full in <b>${m} min</b> → Beta ALIA serves its provable day with <b>${fleet} aircraft</b>`;
+}
+for (const id of ['dz-b', 'dz-r', 'dz-c']) {
+  const el = $(id); if (el) el.oninput = dzRender;
+}
+
 /* ---------------------------- panel components ------------------ */
 /* altitude sparkline (viewBox 100x26; cursor moved each frame) */
 function altSvg(f) {
@@ -270,16 +311,18 @@ function buildMatrix() {
     if (k) selKey(k.dataset.k);
   };
 }
-function selKey(k) { S.key = k; buildMatrix(); renderCounts(); renderPanel(); }
+function selKey(k) { S.key = k; buildMatrix(); renderCounts(); renderPanel(); dzRender(); }
 
 function renderCounts() {
   const b = S.bundle; if (!b) return;
   const n = { C: 0, R: 0, F: 0 };
   for (const f of b.flights) n[f.verdicts[S.key]]++;
+  const pct = Math.round(n.C / b.flights.length * 100);
   $('counts').innerHTML =
-    `<div class="as-stat c"><b>${n.C}</b><span>certified</span></div>` +
-    `<div class="as-stat r"><b>${n.R}</b><span>refuted</span></div>` +
-    `<div class="as-stat f"><b>${n.F}</b><span>refused</span></div>`;
+    `<div class="as-score">${pct}%<span> of this day is provably electric under the selection</span></div>` +
+    `<div class="as-stat c" title="CERTIFIED — every point of the parameter boxes clears the reserve floor"><b>${n.C}</b><span>e-flyable</span></div>` +
+    `<div class="as-stat r" title="REFUTED — every point of the boxes fails; exact-rational witness"><b>${n.R}</b><span>beyond range</span></div>` +
+    `<div class="as-stat f" title="REFUSED — the published numbers cannot decide it"><b>${n.F}</b><span>needs data</span></div>`;
 }
 
 function encHtml(enc) {
@@ -317,12 +360,16 @@ function renderPanel() {
     <div class="w">${VNAME[v]} — ${NAMES[S.key.split('|')[0]]} · ${RULES[S.key.split('|')[1]]}</div>
     <div class="e">${VEXPL[v]}</div>
   </div>
+  <details class="as-more"><summary>The certificate — why you can trust this</summary>
+  <div class="as-fine" style="margin:6px 0 4px">Verdict class: <b>${TRUST[v]}</b> — a mathematically
+  certified enclosure from interval arithmetic over the published parameter boxes.</div>
   ${encHtml(enc)}
   ${v === 'R' && enc.wit ? `<div class="as-encvals">exact witness margin (rational): ${enc.wit}</div>` : ''}
   ${typeof enc.m === 'number' ? `<div class="as-encvals">interval margin: ${enc.m} kWh</div>`
     : `<div class="as-encvals">margins — worst ${enc.m.w} / best ${enc.m.b} kWh</div>`}
   ${(() => { const ex = exhaustInfo(f, S.key); return ex
     ? `<div class="as-encvals" style="color:var(--v-refu)">worst-corner budget exhausts at km ${ex.km.toFixed(1)} of ${ex.totalKm.toFixed(1)} — marked ● on the route (preview)</div>` : ''; })()}
+  </details>
   <div class="as-h" style="margin-top:14px">Reserve what-if</div>
   <input type="range" id="rsv" class="as-scrub" min="5" max="45" step="1" style="width:100%"
     value="${S.key.endsWith('faa-sfar-vfr') ? 20 : 5}" aria-label="reserve minutes">

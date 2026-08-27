@@ -234,29 +234,52 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
 ## math, more product" — verdicts become the trust layer, answers become
 ## the interface). Ranked build order agreed in session:
 
-- [ ] 6.1 LANGUAGE + SCORES: surface labels become E-FLYABLE ✓ / BEYOND
+- [x] 6.1 DONE — E-FLYABLE ✓ / BEYOND RANGE ✗ / NEEDS DATA ? on the
+      surface; CERTIFIED/REFUTED/REFUSED + enclosure + witness folded
+      into "The certificate — why you can trust this" details; the 12%
+      provably-electric score; Earth-lap headline computed at build.
+      ORIGINAL: surface labels become E-FLYABLE ✓ / BEYOND
       RANGE ✗ / NEEDS DATA ? (CERTIFIED/REFUTED/REFUSED + witnesses move
       to the certificate detail layer, one click down); counts become
       scores ("this day is 12% provably electric"); headline stat band
       gains product numbers (53,024 km flown = 1.3x around the Earth)
-- [ ] 6.2 THE ELECTRIC BILL: per-type helicopter fuel-burn rates
+- [x] 6.2 DONE — scenario/fuel-rates.json (class boxes q:E, wide
+      default for unknown types) + audit/economics.js + build gate 6 +
+      panel card. THE DAY: 56.6-78.6 kL Jet-A, $74k-$165k, 141-200 tCO2;
+      the 46 e-flyable flights: $100-$901 electricity vs $1,647-$3,580
+      fuel for the SAME flights - intervals disjoint (sentence is
+      computed, not asserted), 3.2-4.3 tCO2 avoided. ORIGINAL: per-type helicopter fuel-burn rates
       (published, quality-flagged, pinned) x flight durations -> today's
       Jet-A liters, $ and tonnes CO2; the provably-electric subset's MWh
       and $ from the certified enclosures; rollups per flight / route /
       operator. The first per-real-flight DECISION of the UAM industry's
       own economics pitch. New scenario pack: fuel-rates.json
-- [ ] 6.3 THE DAY (stories + outliers): rush-hour narrative (the 09:58 /
+- [x] 6.3 DONE — audit/stories.js + gate 7 + THE DAY card: hourly
+      activity bars (peak 17:00), leaderboard (N408GG 18 legs/6.5h),
+      records (720-km B407 day; 342-min B06 tour marathon; H60 at
+      6,850 ft; S76 at 160 kt), INFERRED ops mix (heuristics stated),
+      measured outliers (Army H60 orbit 72x direct; news B06 hovering
+      46%). Fixed en route: the strict heli filter moved into corpus.js
+      (one definition) - stories had leaked the miscoded-A7 A320.
+      ORIGINAL: rush-hour narrative (the 09:58 /
       18:22 witness instants), busiest-aircraft leaderboard, records of
       the day (longest/fastest/highest), inferred operation types
       (tour loop / patrol / medevac / offshore — labeled INFERRED);
       "running clean vs outliers" ops view: detour factor (flown/direct),
       altitude vs SFRA bands, turnaround dwell — measurements, never
       judgments of the operator's mission
-- [ ] 6.4 FLEET DESIGNER (interactive): the certified curves (fleet vs
+- [x] 6.4 DONE — designerGrids in optimize.js (33-point battery grid x4,
+      16-point reserve grid x4, 61-point charge curve; 0.73 s total; all
+      inside the gate-5 record), embedded into the page config; three
+      live sliders (battery / reserve rule / charge time), every position
+      a precomputed certified point. ORIGINAL: the certified curves (fleet vs
       charge time, coverage vs battery kWh, coverage vs reserve minutes)
       become live sliders — every slider position backed by a
       precomputed gated point; feels like a simulator, is a proof table
-- [ ] 6.5 AMBIENT TRAFFIC: dim all-traffic layer under the helicopters
+- [x] 6.5 DONE — audit/ambient-bundle.js: 4,133 non-heli aircraft
+      clipped to bbox, 60-s downsample, 2.4 MB, dim non-pickable
+      TripsLayer beneath the helicopters; keeps previous bundle when the
+      local full.jsonl is absent (decor never gates). ORIGINAL: dim all-traffic layer under the helicopters
       (nyc.full.jsonl has 4,444 aircraft incl. every JFK/LGA/EWR
       airliner; downsample hard) — the living-city wow
 - [ ] 6.6 FLIGHT PLANNER (its own sub-phase, after 6.1-6.5): click two

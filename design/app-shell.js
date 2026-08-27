@@ -79,6 +79,9 @@ details.as-more[open] summary{margin-bottom:6px}
 .as-cell[data-on="1"]{border-color:var(--sig);background:var(--sig-soft);color:var(--sig);font-weight:600}
 .as-dot{width:7px;height:7px;border-radius:50%;flex:none}
 
+.as-score{grid-column:1/-1;font-family:var(--f-mono);font-weight:600;font-size:22px;color:var(--ink);
+  padding-bottom:2px}
+.as-score span{font-family:var(--f-sans);font-weight:400;font-size:11.5px;color:var(--ink-3);margin-left:6px}
 /* ---- stat tiles ---- */
 .as-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .as-stat{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:9px;

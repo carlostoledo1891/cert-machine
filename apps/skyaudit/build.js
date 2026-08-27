@@ -63,7 +63,29 @@ if (optBefore && JSON.stringify(optBefore) !== JSON.stringify(optimize)) {
   die('certified thresholds deviate from the committed record');
 }
 
-/* gate 6 — the tiles are the pinned bytes */
+/* gate 6 — the electric bill must match the record */
+console.log('gate: economics');
+const ecoPath = path.join(dataDir, CITY + '.economics.json');
+const ecoBefore = fs.existsSync(ecoPath) ? JSON.parse(fs.readFileSync(ecoPath, 'utf8')) : null;
+run('node', ['audit/economics.js', CITY]);
+const economics = JSON.parse(fs.readFileSync(ecoPath, 'utf8'));
+if (ecoBefore && JSON.stringify(ecoBefore) !== JSON.stringify(economics)) {
+  fs.writeFileSync(ecoPath, JSON.stringify(ecoBefore, null, 2));
+  die('the electric bill deviates from the committed record');
+}
+
+/* gate 7 — the day stories must match the record */
+console.log('gate: stories');
+const stPath = path.join(dataDir, CITY + '.stories.json');
+const stBefore = fs.existsSync(stPath) ? JSON.parse(fs.readFileSync(stPath, 'utf8')) : null;
+run('node', ['audit/stories.js', CITY]);
+const stories = JSON.parse(fs.readFileSync(stPath, 'utf8'));
+if (stBefore && JSON.stringify(stBefore) !== JSON.stringify(stories)) {
+  fs.writeFileSync(stPath, JSON.stringify(stBefore, null, 2));
+  die('day stories deviate from the committed record');
+}
+
+/* gate 8 — the tiles are the pinned bytes */
 const tilesPins = JSON.parse(fs.readFileSync(path.join(APP, 'data/tiles/TILES-PINS.json'), 'utf8'));
 const tilesPath = path.join(APP, 'data/tiles', tilesPins.file);
 const sha = require('crypto').createHash('sha256').update(fs.readFileSync(tilesPath)).digest('hex');
@@ -79,6 +101,9 @@ for (const f of fs.readdirSync(path.join(APP, 'vendor'))) {
   fs.copyFileSync(path.join(APP, 'vendor', f), path.join(outDir, 'vendor', f));
 }
 fs.copyFileSync(path.join(dataDir, CITY + '.replay.json'), path.join(outDir, 'data', CITY + '.replay.json'));
+run('node', ['audit/ambient-bundle.js', CITY]);           /* decor layer; keeps previous bundle if full.jsonl absent */
+const ambientPath = path.join(dataDir, CITY + '.ambient.json');
+if (fs.existsSync(ambientPath)) fs.copyFileSync(ambientPath, path.join(outDir, 'data', CITY + '.ambient.json'));
 fs.copyFileSync(path.join(APP, 'src/app.js'), path.join(outDir, 'app.js'));
 fs.rmSync(path.join(outDir, 'tiles'), { recursive: true, force: true });   /* tiles serve from the repo raw URL (Vercel dropped the 36.9 MB upload) */
 
@@ -114,13 +139,16 @@ const html = renderApp({
   mapAria: 'replay map of New York helicopter traffic with certified verdicts',
   styles: ['vendor/maplibre-gl.css'],
   configJson: JSON.stringify({ style: '/apps/skyaudit/style.json',
-    bundle: '/apps/skyaudit/data/nyc.replay.json', tiles: tilesPins.served_from }),
+    bundle: '/apps/skyaudit/data/nyc.replay.json', tiles: tilesPins.served_from,
+    ambient: '/apps/skyaudit/data/nyc.ambient.json', designer: optimize.designer }),
   scripts: ['vendor/maplibre-gl.js', 'vendor/deck.min.js', 'vendor/pmtiles.js', 'app.js'],
   panelHtml: `
   <section class="as-card">
     <div class="as-h">The audit</div>
     <div class="as-note">One real day of New York helicopter traffic — <b>${after.uniqueAircraft}
-    aircraft, ${after.flights} flights</b>, ADS-B, hash-pinned. Each flight is re-flown on paper
+    aircraft, ${after.flights} flights, ${after.flightStats.totalPathKm.toLocaleString('en-US')} km
+    flown (${(after.flightStats.totalPathKm / 40075).toFixed(1)}× around the Earth)</b> — ADS-B,
+    hash-pinned. Each flight is re-flown on paper
     by an eVTOL: published numbers as honest parameter boxes, a reserve rule, and a three-valued
     verdict from interval arithmetic. <b>Mathematically certified enclosures</b> — no Monte
     Carlo, no airworthiness meaning. REFUSED is a first-class outcome: it measures what the
@@ -143,6 +171,45 @@ const html = renderApp({
   <section class="as-card">
     <div class="as-h">This day, under the selection</div>
     <div id="counts" class="as-stats"></div>
+  </section>
+  <section class="as-card">
+    <div class="as-h">The day</div>
+    <svg viewBox="0 0 100 15" preserveAspectRatio="none" style="width:100%;height:38px;display:block;margin-bottom:2px">
+      ${stories.hourly.map((v, h) => {
+        const max = Math.max(...stories.hourly);
+        const bh = Math.max(0.6, v / max * 13);
+        return `<rect x="${(h * 4.17).toFixed(1)}" y="${(14 - bh).toFixed(1)}" width="3.3" height="${bh.toFixed(1)}"
+          fill="${h === stories.peak_hour_local ? 'var(--sig)' : 'var(--rule)'}"/>`;
+      }).join('')}
+    </svg>
+    <div class="as-fine" style="margin-bottom:10px">flights in the air by hour · peak at ${stories.peak_hour_local}:00 local</div>
+    <div class="as-frow"><span><span class="name">Hardest-working aircraft</span>
+      <span class="sub">${stories.leaderboard.slice(0, 3).map((a) => `${a.reg} (${a.type}) ${a.legs} legs · ${Math.round(a.airborneMin / 60 * 10) / 10} h`).join(' · ')}</span></span></div>
+    <div class="as-frow"><span><span class="name">Records</span>
+      <span class="sub">longest ${stories.records.longest_km.value} (${stories.records.longest_km.reg}) ·
+      ${stories.records.longest_min.value} airborne (${stories.records.longest_min.reg}, ${stories.records.longest_min.ops}) ·
+      highest ${stories.records.highest_ft.value} (${stories.records.highest_ft.type}) ·
+      fastest ${stories.records.fastest_kt.value} (${stories.records.fastest_kt.type})</span></span></div>
+    <div class="as-frow"><span><span class="name">What was flying <span style="color:var(--ink-3);font-weight:400">(inferred)</span></span>
+      <span class="sub">${Object.entries(stories.ops_mix).sort((a, z) => z[1] - a[1]).map(([k, v]) => `${k} ${v}`).join(' · ')}</span></span></div>
+    <div class="as-frow"><span><span class="name">Measured outliers</span>
+      <span class="sub">widest orbit: ${stories.outliers.detours[0].reg} (${stories.outliers.detours[0].type}) flew
+      ${stories.outliers.detours[0].factor}× its direct distance · longest hoverer: ${stories.outliers.dwellers[0].reg}
+      under 10 kt for ${stories.outliers.dwellers[0].dwellPct}% of a ${stories.outliers.dwellers[0].min}-min flight</span></span></div>
+  </section>
+  <section class="as-card">
+    <div class="as-h">The electric bill</div>
+    <div class="as-note">This day's helicopters burned <b>${economics.fuel.liters[0].toLocaleString('en-US')}–${economics.fuel.liters[1].toLocaleString('en-US')} L
+    of Jet-A</b> — $${economics.fuel.usd[0].toLocaleString('en-US')}–$${economics.fuel.usd[1].toLocaleString('en-US')},
+    ${economics.fuel.co2_tonnes[0]}–${economics.fuel.co2_tonnes[1]} tonnes of CO₂.</div>
+    <div class="as-note" style="margin-top:8px">The ${economics.electric_subset.flights} provably-electric flights:
+    <b>$${economics.electric_subset.usd[0]}–$${economics.electric_subset.usd[1]} of electricity</b> vs
+    <b>$${economics.electric_subset.same_flights_fuel.usd[0].toLocaleString('en-US')}–$${economics.electric_subset.same_flights_fuel.usd[1].toLocaleString('en-US')}
+    of fuel for the same flights</b>${economics.electric_subset.usd[1] < economics.electric_subset.same_flights_fuel.usd[0]
+      ? ' — the cost intervals don\'t overlap: the electric worst case beats the fuel best case'
+      : ''}. ${economics.electric_subset.same_flights_fuel.co2_tonnes[0]}–${economics.electric_subset.same_flights_fuel.co2_tonnes[1]} t CO₂ avoided.</div>
+    <div class="as-fine" style="margin-top:8px">Fuel from per-type class burn boxes (stated estimates,
+    scenario/fuel-rates.json); electricity from the CERTIFIED energy enclosures — decided, not projected.</div>
   </section>
   <section class="as-card">
     <div class="as-h">Re-fly the day — fleet frontier</div>
@@ -173,6 +240,21 @@ const html = renderApp({
       ${[5, 10, 15, 20, 25, 30].map((m) => optimize.reserve_price.by_reserve_minutes['beta-alia'][m]).join(' · ')}
       — at 30 minutes, nothing on this day is provable</span></span>
       <span class="val">${optimize.reserve_price.by_reserve_minutes['beta-alia'][5]} → 0</span></div>
+  </section>
+  <section class="as-card">
+    <div class="as-h">Fleet designer — drag a lever; every position is a proof</div>
+    <div class="as-fine" style="margin-bottom:10px">Each slider position looks up a precomputed,
+    gate-checked certified point — it feels like a simulator and is a proof table. Battery and
+    reserve apply to the aircraft selected above; charging applies to the Beta ALIA fleet.</div>
+    <div class="as-h">If the battery were…</div>
+    <input type="range" class="as-scrub" id="dz-b" min="60" max="700" step="20" value="320" style="width:100%">
+    <div class="as-encvals" id="dz-b-out"></div>
+    <div class="as-h" style="margin-top:12px">If the reserve rule were…</div>
+    <input type="range" class="as-scrub" id="dz-r" min="0" max="45" step="3" value="20" style="width:100%">
+    <div class="as-encvals" id="dz-r-out"></div>
+    <div class="as-h" style="margin-top:12px">If charging took…</div>
+    <input type="range" class="as-scrub" id="dz-c" min="0" max="60" step="1" value="45" style="width:100%">
+    <div class="as-encvals" id="dz-c-out"></div>
   </section>
   <section class="as-card">
     <div class="as-h">Range claims, audited</div>

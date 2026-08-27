@@ -1,0 +1,150 @@
+{
+  "city": "nyc",
+  "dayDir": "day-2026-08-26",
+  "flights": 382,
+  "aircraft": 78,
+  "heuristics": "INFERRED ops classes: patrol/military = reg ..PD or type H60; tour loop = returns near start (gc < 12% of path) over >8 km; shuttle hop = <45 km mostly-direct; rest = charter/other. Detour factor = flown/direct distance; dwell = time under 10 kt.",
+  "leaderboard": [
+    {
+      "icao": "a4caf6",
+      "reg": "N408GG",
+      "type": "B407",
+      "legs": 18,
+      "airborneMin": 391,
+      "km": 1101
+    },
+    {
+      "icao": "a81624",
+      "reg": "N62ZA",
+      "type": "B407",
+      "legs": 13,
+      "airborneMin": 307,
+      "km": 1019
+    },
+    {
+      "icao": "aa8548",
+      "reg": "N777ZA",
+      "type": "B407",
+      "legs": 13,
+      "airborneMin": 272,
+      "km": 811
+    },
+    {
+      "icao": "ad2138",
+      "reg": "N945RF",
+      "type": "B407",
+      "legs": 12,
+      "airborneMin": 343,
+      "km": 934
+    },
+    {
+      "icao": "acbcfd",
+      "reg": "N92N",
+      "type": "B407",
+      "legs": 12,
+      "airborneMin": 265,
+      "km": 729
+    }
+  ],
+  "hourly": [
+    2,
+    3,
+    1,
+    1,
+    1,
+    4,
+    6,
+    18,
+    23,
+    28,
+    42,
+    47,
+    45,
+    39,
+    49,
+    56,
+    63,
+    70,
+    54,
+    32,
+    20,
+    16,
+    5,
+    2
+  ],
+  "peak_hour_local": 17,
+  "records": {
+    "longest_km": {
+      "reg": "N406TD",
+      "type": "B407",
+      "value": "720 km",
+      "ops": "tour loop"
+    },
+    "longest_min": {
+      "reg": "N866M",
+      "type": "B06",
+      "value": "342 min",
+      "ops": "tour loop"
+    },
+    "highest_ft": {
+      "reg": "19-21087",
+      "type": "H60",
+      "value": "6850 ft",
+      "ops": "patrol/military"
+    },
+    "fastest_kt": {
+      "reg": "N76ZA",
+      "type": "S76",
+      "value": "160 kt median",
+      "ops": "charter/other"
+    }
+  },
+  "ops_mix": {
+    "charter/other": 177,
+    "tour loop": 130,
+    "patrol/military": 32,
+    "shuttle hop": 43
+  },
+  "outliers": {
+    "detours": [
+      {
+        "reg": "18-20990",
+        "type": "H60",
+        "factor": 72.3,
+        "km": 193
+      },
+      {
+        "reg": "20-21147",
+        "type": "H60",
+        "factor": 60.1,
+        "km": 390
+      },
+      {
+        "reg": "N88ZA",
+        "type": "B407",
+        "factor": 8.3,
+        "km": 246
+      }
+    ],
+    "dwellers": [
+      {
+        "reg": "N27M",
+        "type": "B06",
+        "dwellPct": 46,
+        "min": 96
+      },
+      {
+        "reg": "N95TV",
+        "type": "B06",
+        "dwellPct": 42,
+        "min": 119
+      },
+      {
+        "reg": "N24NY",
+        "type": "B407",
+        "dwellPct": 36,
+        "min": 105
+      }
+    ]
+  }
+}

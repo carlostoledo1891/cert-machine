@@ -1,0 +1,25 @@
+{
+  "id": "fuel-rates",
+  "what": "Helicopter fuel-burn class boxes (liters/hour) and fuel/electricity constants for THE ELECTRIC BILL. Every number is a PUBLIC CLASS ESTIMATE (q:E) carried as a box - per-type cruise burn figures circulate in operator/type references, not manufacturer datasheets. A wide default box covers unknown types honestly.",
+  "q": "E",
+  "burn_lph": {
+    "R22": [30, 40], "R44": [55, 70], "R66": [75, 95],
+    "B06": [95, 140], "B06T": [95, 140], "B505": [95, 140], "H500": [95, 130], "H520": [95, 130],
+    "EC20": [110, 140], "EC30": [160, 200], "AS50": [160, 200], "A119": [150, 200],
+    "B407": [160, 210], "EXPL": [180, 230], "EN28": [90, 120], "EN48": [90, 120], "H269": [40, 60],
+    "EC35": [190, 240], "EC45": [220, 280], "A109": [230, 300], "EC55": [280, 350], "AS55": [180, 240],
+    "H160": [280, 380], "A139": [380, 480], "A169": [280, 350], "A189": [380, 480],
+    "S76": [340, 430], "B412": [340, 420], "B429": [200, 260], "B222": [250, 330], "B230": [250, 330],
+    "S92": [500, 650], "H60": [500, 680], "S61": [500, 650], "AS32": [450, 600], "EC25": [450, 600],
+    "S64": [1300, 1900], "AS65": [300, 380], "BK17": [220, 300], "MD60": [110, 150],
+    "_default": [100, 500]
+  },
+  "default_note": "unknown or untyped aircraft get the wide _default box - stated, never guessed narrow",
+  "jet_a": {
+    "usd_per_liter": [1.3, 2.1],
+    "note_price": "retail FBO Jet-A range ~USD 5-8/gal (class estimate); piston types burn avgas - folded into the same box, share is small and stated",
+    "co2_kg_per_liter": [2.5, 2.55],
+    "note_co2": "3.16 kg CO2 per kg jet fuel x ~0.79-0.81 kg/L"
+  },
+  "electricity": { "usd_per_kwh": [0.14, 0.3], "note": "US commercial range" }
+}

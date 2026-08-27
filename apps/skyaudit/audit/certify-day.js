@@ -18,18 +18,7 @@ const zlib = require('zlib');
 const { segmentTrace } = require('./flights.js');
 const M = require('./mission.js');
 
-const HELI_TYPES = new Set([
-  'AS50','AS55','AS65','AS32','R22','R44','R66','A109','A119','A139',
-  'A169','A189','EC20','EC30','EC35','EC45','EC55','EC25','H160','BK17',
-  'S76','S92','S61','S64','S330','B06','B06T','B222','B230','B407','B412',
-  'B429','B505','H500','H520','H269','EN28','EN48','H60','MD60','EXPL','S108',
-]);
-function isHeliStrict(obj) {
-  if (obj.t) return HELI_TYPES.has(String(obj.t).toUpperCase());
-  return true;   /* untyped rows reached the corpus via category A7 */
-}
-
-const { loadHeli } = require('./corpus.js');
+const { loadHeli, isHeliStrict } = require('./corpus.js');   /* one filter definition for all consumers */
 
 const city = process.argv[2];
 if (!city) { console.error('usage: node certify-day.js <city> [dayDir]'); process.exit(2); }
