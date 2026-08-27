@@ -46,6 +46,7 @@ test:
 	@printf "%-30s " "strassen audit"; $(NODE) instruments/strassen/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "bigfloat layer"; $(NODE) instruments/bigfloat/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos290 lean fork"; $(NODE) tools/erdos290-lean-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@for f in sos_verify lyapunov_cert reverify_ai_lyapunov; do \
 	  printf "%-30s " "sos/$$f"; $(PY) instruments/sos/$$f.py >/dev/null 2>&1 && echo PASS || echo FAIL; done
@@ -83,3 +84,4 @@ reports:
 	@$(NODE) tools/build-report-water-value.js
 	@$(NODE) tools/build-report-mfg-cap.js
 	@$(NODE) tools/build-report-mfg-lab.js
+	@$(NODE) tools/build-report-evtol-energy.js

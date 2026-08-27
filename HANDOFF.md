@@ -306,6 +306,54 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
 
+SESSION 2026-08-27 LATE NIGHT (THE UNLOCK + the new-fronts program):
+  - OPERATOR RULING, permanent: sin-mfg's RULINGS are information, never
+    law here. Explicitly non-binding: its D2 aerospace gate, its "market
+    KILLED" verdicts (about selling; our goal is portfolio — an incumbent
+    tool like NASA Kodiak is a benchmark to beat, not a blocker), its
+    OCCUPIED-as-veto gates, its MOAT/owner ceremonies. What binds stays
+    short: read-only source lab, class-C never public, file-level lifts,
+    calibrate+reds, done = public URL + rerunnable, sends on the word.
+    Symptom the operator flagged and to watch for: routing decisions to
+    him that his rules already delegate — that is the slowness.
+  - TWO FRONTIER SCANS (web, verified-at-source; full reports in session):
+    AEROSPACE — the crown gap is CONFIRMED OPEN 3 ways: computer-assisted
+    proof of periodic orbits is mature, aeroelastic LCO literature is
+    mature, their intersection is EMPTY (no certified aeroelastic LCO
+    exists anywhere; NASA TRAST whirl-flutter is the live hook). eVTOL
+    energy-reserve feasibility (SFAR 20/30-min rule, industry pushback)
+    has NO provable envelope anywhere — Monte Carlo only. UAM capacity/
+    equilibrium claims are simulation-only across the literature.
+    Althoff/Platzer iFM 2025 converged on our witness+kernel architecture
+    — cite as validation. LRCAP/BESS — dates hold (auctions Dec 2/4;
+    ANEEL hearing Sep 1; CP 22/23 close Sep 14); record 296.8 GW
+    registered vs ~5-6 GW to contract; NO public quantitative clearing
+    model exists (certified LRCAP arithmetic = first + perishable). And
+    nobody certifies the "percent of perfect foresight" ceilings battery
+    vendors are judged by (Gridmatic 48%, Autobidder ranks) — an exact
+    LP-duality auditor would make those claims decidable.
+  - FIRST INSTRUMENT OF THE AEROSPACE FRONT SHIPPED: instruments/evtol/
+    (energy.js + battery.js, 25 checks, 4 reds, verdicts cross-proved by
+    256-corner exact-rational sweeps; dyadic closed-form calibration —
+    the battery caught THREE of the builder's own fixture errors incl.
+    the 0.9-is-not-dyadic slip, working as designed) + reports/
+    evtol-energy.html (build gates: battery + live mission ladder + the
+    certified-endurance frontier bisected fresh each build; frontier at
+    the stated boxes: ~19 min cruise under the 20-min rule, ~11 under
+    30). Aviation wording rule applied on-page ("mathematically
+    certified", no airworthiness meaning). New shelf group 'applied'
+    (evtol-energy + water-value moved in). make test row 'evtol energy';
+    control battery row added (now 25 batteries).
+  - THE NEW-FRONTS QUEUE, ranked (novelty x feasibility x clocks):
+    (1) LRCAP certified auction arithmetic — fetch CP 22/2026 edital
+    drafts, exact-rational dominance thresholds (beta=0.9 x two-product
+    sequencing x content premium); PERISHABLE, target well before Sep 14;
+    (2) the aeroelastic LCO enclosure — the world-first flagship, needs
+    its own session (radii polynomial on the 2-DOF pitch-plunge system;
+    sequence.js + radii.js are the instruments); (3) certified
+    perfect-foresight revenue auditor (exact LP duality on public
+    prices); (4) UAM capacity-claim audit; (5) storage-Nash certificate.
+
 SESSION 2026-08-27 NIGHT (the stock-constraint phase — operator chose it as
 the first of the three new fronts after the sin-mfg investigation; aerospace
 and LRCAP idea extractions are recorded in this session's chat, NOT in repo

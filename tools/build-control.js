@@ -44,6 +44,7 @@ const BATTERIES = [
   ['strassen audit', ['instruments/strassen/battery.js'], 'fast-matmul tensor identities over Q and F2; Strassen 1969 calibrates · 3 red controls'],
   ['bigfloat layer', ['instruments/bigfloat/battery.js'], 'directed-rounding big-float intervals; pi/ln2/e to 50 literature digits · 5 red controls'],
   ['erdos852 constants', ['instruments/erdos852/battery.js'], 'certified c0 and C* enclosures; pi^2/8 product calibration · 5 red controls'],
+  ['evtol energy', ['instruments/evtol/battery.js'], 'mission-energy feasibility verdicts cross-proved by 256-corner exact sweeps; dyadic closed-form calibration · 4 red controls'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [

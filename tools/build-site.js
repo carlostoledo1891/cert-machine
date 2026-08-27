@@ -188,6 +188,16 @@ const REPORTS = [
     title: 'The ζ(3) sheet, decided',
     desc: 'The Ramanujan Machine’s complete zeta(3) result sheet re-decided with certificates: proved tail bands, convergence inside the certificate, exact rational comparisons.',
     n: 'the spurious-solution lemma re-proved at build' },
+  /* group 'applied': the new fronts — certified applications with live
+     external stakes (aerospace, energy) */
+  { g: 'applied', f: 'evtol-energy.html', k: 'aerospace · energy certificates',
+    title: 'The reserve, provable',
+    desc: 'Energy-feasibility certificates for eVTOL missions against the FAA reserve rule: CERTIFIED for every parameter point in the boxes, REFUTED with an exact falsifying witness, or honestly REFUSED — where the industry argues with Monte Carlo, this decides.',
+    n: 'verdicts cross-proved by 256-corner exact sweeps' },
+  { g: 'applied', f: 'water-value.html', k: 'energy · certified theorem',
+    title: 'The water value, certified',
+    desc: 'The shadow price of stored water in a hydro-dominated grid is a martingale between stock-binding events — proved by LP duality on scenario trees, with the solver extracted from the published artifact’s own bytes and 120 random trees re-certified at every build.',
+    n: 'duality gap ~1e-14 · continuum limit honestly OPEN' },
   /* group 'ground': the instruments, proven on hard classical ground */
   { g: 'ground', f: 'mfg-cap.html', k: 'certified theorem · multiplicity',
     title: 'Two solutions, provably',
@@ -197,10 +207,6 @@ const REPORTS = [
     title: 'The MFG laboratory, certified',
     desc: 'The single-file MFG laboratory’s certified claims: a published Wardrop table reproduced within its own rounding AND proved (Krawczyk box, exact rational solve), the discrete adjoint identity, and the non-unique split behind unique totals.',
     n: 'four of the lab’s own batteries re-run at build' },
-  { g: 'ground', f: 'water-value.html', k: 'energy · certified theorem',
-    title: 'The water value, certified',
-    desc: 'The shadow price of stored water in a hydro-dominated grid is a martingale between stock-binding events — proved by LP duality on scenario trees, with the solver extracted from the published artifact’s own bytes and 120 random trees re-certified at every build.',
-    n: 'duality gap ~1e-14 · continuum limit honestly OPEN' },
   { g: 'ground', f: 'mercer-program.html', k: 'program · certified landscape',
     title: 'The Mercer program',
     desc: 'Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.',
@@ -227,6 +233,7 @@ const REPORTS = [
     n: 'embedded verifier re-run at build' }
 ];
 const AI_REPORTS = REPORTS.filter((r) => r.g === 'ai');
+const APPLIED_REPORTS = REPORTS.filter((r) => r.g === 'applied');
 const GROUND_REPORTS = REPORTS.filter((r) => r.g === 'ground');
 {
   const onDisk = fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => f.endsWith('.html')).sort();
@@ -352,6 +359,15 @@ const reportsIndexBody = [
   C.section({
     lab: 'the shelf', title: 'AI verification', wide: true,
     bodyRaw: reportCards(AI_REPORTS, '')
+  }),
+  C.section({
+    lab: 'new fronts', title: 'Certified applications with live stakes', wide: true,
+    bodyRaw: reportCards(APPLIED_REPORTS, '')
+      + '<div class="col after-fig">'
+      + C.pRaw('Aerospace and energy: domains where the operative numbers are defended by simulation today, '
+        + 'and where a universally-quantified certificate — or an honest refusal — is a different kind of '
+        + 'statement. Each page names what it does NOT claim.')
+      + '</div>'
   }),
   C.section({
     lab: 'the proving ground', title: 'The instruments, proven on hard classical ground', wide: true,

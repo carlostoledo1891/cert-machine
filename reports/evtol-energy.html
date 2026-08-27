@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Reports · cert-machine</title>
+<title>The reserve, provable</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -282,53 +282,70 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · reports</div>
-  <h1>The reports</h1>
-  <p class="deck">Research notes ordered by weight, not date. Every page re-proves itself: its numbers are recomputed from the certificates and records at build time, its planted falsifiers must fire, and a build that drifts refuses to ship.</p>
+  <div class="eyebrow">cert-machine · aerospace front · every verdict re-proved at this build</div>
+  <h1>The reserve, provable: energy-feasibility certificates for eVTOL missions</h1>
+  <p class="deck">Battery-electric air taxis fly under a hard reserve rule — the FAA&#39;s powered-lift SFAR demands 20 minutes of reserve energy under VFR, 30 under IFR, and industry is arguing the number because reserves gate route economics. Every feasibility figure in that argument today is simulation. This page holds the other kind of statement: for a mission whose durations, powers, capacity and efficiency are known only as BOXES, the verdict &quot;every parameter point lands at or above the reserve floor&quot; is decided — CERTIFIED, REFUTED with an exact falsifying witness, or honestly REFUSED — by interval arithmetic with outward rounding. Mathematically certified enclosures; no airworthiness meaning, and the page says so.</p>
 </header>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">the shelf</div>
-    <h2>AI verification</h2>
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> A provable energy-feasibility envelope for an eVTOL mission class: under representative boxes, the mathematically certified endurance frontier sits at 19 minutes of cruise under the 20-minute reserve rule and 11 under the 30-minute rule — every probe of that frontier a certified verdict, not a Monte Carlo percentile. The 10-minute rule difference costs 7 minutes of certified cruise.</li><li><b>The mechanism.</b> Used and reserve energy are enclosed over the whole parameter box (outward-rounded interval arithmetic); the universal verdict needs one one-sided comparison each way. A refutation re-proves the most favorable corner in exact BigInt rationals — if even that corner fails, all points do — and a box that straddles the floor is REFUSED, never averaged. The battery cross-proves every verdict against 256-corner exhaustive exact sweeps and fires four red controls per run.</li><li><b>Check it.</b> <span class="m">node instruments/evtol/battery.js</span> from a clone — 21 checks; the mission table below was certified during this page's build.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">certified endurance, 20-min rule</div><div class="v held">19 min cruise</div><div class="n">the longest cruise whose mission CERTIFIES for every parameter point in the boxes — found by bisection with a certified verdict at every probe</div></div>
+    <div class="stat"><div class="k">certified endurance, 30-min rule</div><div class="v held">11 min cruise</div><div class="n">the same frontier under the IFR reserve — the rule change costs 7 certified minutes</div></div>
+    <div class="stat"><div class="k">verdicts</div><div class="v">3, all exercised</div><div class="n">CERTIFIED / REFUTED-with-witness / REFUSED — the mission ladder below shows each, live</div></div>
+    <div class="stat"><div class="k">witness arithmetic</div><div class="v held">BigInt rationals</div><div class="n">every refutation carries its most-favorable corner re-proved exactly; every calibration is a dyadic closed form matched exactly</div></div>
+    <div class="stat"><div class="k">battery</div><div class="v held">21 checks · 4 reds</div><div class="n">verdicts cross-proved by 256-corner exact sweeps; forged inputs must be refused at the door</div></div>
+    <div class="stat"><div class="k">what this is not</div><div class="v warn">no airworthiness claim</div><div class="n">&quot;certified&quot; here is a mathematical statement about boxes and arithmetic — never a regulatory status</div></div>
   </div>
-<div class="wide"><div class="cards"><a class="card" href="matmul-eval.html"><span class="card-k">the eval · live board</span><span class="card-t">The matmul eval: ground truth is a proof</span><span class="card-d">Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.</span><span class="card-n">268 proposals graded · zero subtly-wrong survivors</span></a>
-<a class="card" href="alphaevolve.html"><span class="card-k">audit · AI-discovered algorithms</span><span class="card-t">The AI-discovered algorithms, certified</span><span class="card-d">AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.</span><span class="card-n">11 algorithms re-decided each build</span></a>
-<a class="card" href="erdos852.html"><span class="card-k">audit · refutation</span><span class="card-t">The constant that was a rounding error</span><span class="card-d">A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.</span><span class="card-n">refuted at digit 12 · correction certified</span></a>
-<a class="card" href="verifier-loop.html"><span class="card-k">verified reward · demo</span><span class="card-t">The verifier in the loop</span><span class="card-d">The reward channel in closed loop: a model proposes, the grader answers every failure with its own refutation mechanism — the exact violated equation, nothing more — and the model retries. Every trajectory rendered from the append-only ledger.</span><span class="card-n">feedback template-locked · zero coaching</span></a>
-<a class="card" href="answer-key.html"><span class="card-k">note · for eval builders</span><span class="card-t">When the answer key is wrong</span><span class="card-d">Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.</span><span class="card-n">every specimen re-proved at build</span></a>
-<a class="card" href="methods-note.html"><span class="card-k">methods note</span><span class="card-t">None by reading code</span><span class="card-d">Every real bug this machine has found — ten, cataloged — was caught by a red control, a calibration, an impossible number, or a byte pin. How to build verifiers that catch their own defects, stated as engineering.</span><span class="card-n">every regression re-held by a battery at build</span></a>
-<a class="card" href="rm-audit.html"><span class="card-k">audit · standing registry</span><span class="card-t">The Ramanujan Machine, audited</span><span class="card-d">Every row of all seven published result sheets decided by rigorous enclosures and exact rational comparisons — the whole registry re-certified at every build.</span><span class="card-n">51 printed rows · 50 survive · 1 refuted, correction certified</span></a>
-<a class="card" href="impostors.html"><span class="card-k">proved negatives</span><span class="card-t">The impostor catalog</span><span class="card-d">Published constants that agree with simple closed forms for dozens of significant digits — and exact proofs that every one of them is lying. Digit agreement is not evidence: the answer-key-contamination parable.</span><span class="card-n">exact BigInt refutations at full published precision</span></a>
-<a class="card" href="alien-science.html"><span class="card-k">eval note · alignment sandbox</span><span class="card-t">Alien science needs a disposition</span><span class="card-d">An evaluation note on Anthropic’s automated-alignment sandbox: its authors name evaluation as the binding constraint, and this is what certified evaluation looks like.</span><span class="card-n">posted to the inviting repository</span></a>
-<a class="card" href="zeta3-audit.html"><span class="card-k">audit · ζ(3) sheet</span><span class="card-t">The ζ(3) sheet, decided</span><span class="card-d">The Ramanujan Machine’s complete zeta(3) result sheet re-decided with certificates: proved tail bands, convergence inside the certificate, exact rational comparisons.</span><span class="card-n">the spurious-solution lemma re-proved at build</span></a></div></div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the rule and the gap</div>
+    <h2>A named regulatory number, defended by simulation</h2>
+  </div>
+<p>The FAA&#39;s 2024 powered-lift SFAR sets energy reserves for eVTOL operations — 20 minutes VFR, 30 IFR — and the industry pushback is public and quantitative: reserves determine which routes close. EASA&#39;s 2025 IAM package regulates energy management the same way. Yet every number in that argument — mission feasibility, deconfliction energy overhead, reserve adequacy — is produced by simulation: Monte Carlo percentiles over sampled parameters, floating-point optimizers, no statement that survives an adversarial reading of &quot;for every case in the stated envelope&quot;.</p>
+<p>The gap is not modeling sophistication — the field&#39;s power models are fine. The gap is the QUANTIFIER. &quot;Feasible in 10,000 samples&quot; and &quot;feasible for every point in the box&quot; are different claims, and only the second is the shape a reserve rule actually asserts. Interval arithmetic decides the second shape directly, and nobody in the eVTOL energy literature has published such a certificate.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · the instrument</div>
+    <h2>Three verdicts, one honest refusal</h2>
+  </div>
+<p>A mission is segments (hover-climb, cruise, hover-land, …) with duration and electrical-power BOXES; the battery contributes usable-energy and efficiency boxes; the reserve rule contributes a reserve time at a reserve power. Used and required energy are enclosed over the whole box with outward rounding, and the universal verdict follows from two one-sided comparisons: worst case clears — CERTIFIED for every point; best case fails — REFUTED for every point, with the most favorable corner re-proved negative in exact BigInt rationals as the falsifying witness; anything between — REFUSED, with both margins printed. A refusal means the boxes genuinely contain passing and failing aircraft, and no honest instrument can say more until the boxes tighten.</p>
+<p>The corner-witness logic is PROVED, not assumed: the battery sweeps all 256 corners of a two-segment instance in exact rationals and requires the interval bounds to be sound AND corner-achieving (tight to rounding) on feasible, marginal and doomed instances alike. Scope, honestly: this is energy accounting — Σ duration·power/efficiency against usable capacity — not electrochemistry. Voltage sag, temperature and aging live INSIDE the boxes a user states, which is exactly why the inputs are boxes: widen them to cover what the model does not resolve, and every verdict above stays sound.</p>
 </section>
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">new fronts</div>
-    <h2>Certified applications with live stakes</h2>
+    <div class="lab">§3 · the mission ladder</div>
+    <h2>Certified live at this build, under both reserve rules</h2>
   </div>
-<div class="wide"><div class="cards"><a class="card" href="evtol-energy.html"><span class="card-k">aerospace · energy certificates</span><span class="card-t">The reserve, provable</span><span class="card-d">Energy-feasibility certificates for eVTOL missions against the FAA reserve rule: CERTIFIED for every parameter point in the boxes, REFUTED with an exact falsifying witness, or honestly REFUSED — where the industry argues with Monte Carlo, this decides.</span><span class="card-n">verdicts cross-proved by 256-corner exact sweeps</span></a>
-<a class="card" href="water-value.html"><span class="card-k">energy · certified theorem</span><span class="card-t">The water value, certified</span><span class="card-d">The shadow price of stored water in a hydro-dominated grid is a martingale between stock-binding events — proved by LP duality on scenario trees, with the solver extracted from the published artifact’s own bytes and 120 random trees re-certified at every build.</span><span class="card-n">duality gap ~1e-14 · continuum limit honestly OPEN</span></a></div></div><div class="col after-fig"><p>Aerospace and energy: domains where the operative numbers are defended by simulation today, and where a universally-quantified certificate — or an honest refusal — is a different kind of statement. Each page names what it does NOT claim.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>mission</th><th>20-min reserve</th><th>margin (kWh)</th><th>30-min reserve</th><th>margin (kWh)</th></tr></thead><tbody><tr><td>short hop (10 min cruise)</td><td><span class="tag held">CERTIFIED</span></td><td class="n">27.5</td><td><span class="tag held">CERTIFIED</span></td><td class="n">6.7</td></tr><tr><td>design mission (20 min cruise)</td><td><span class="tag dep">REFUSED</span></td><td class="n">-0.9 … 61.1</td><td><span class="tag dep">REFUSED</span></td><td class="n">-21.7 … 45.2</td></tr><tr><td>stretch (35 min cruise)</td><td><span class="tag dep">REFUSED</span></td><td class="n">-43.5 … 31.9</td><td><span class="tag dep">REFUSED</span></td><td class="n">-64.3 … 15.9</td></tr><tr><td>deep stretch (55 min cruise)</td><td><span class="tag open">REFUTED</span></td><td class="n">-7.1</td><td><span class="tag open">REFUTED</span></td><td class="n">-23.1</td></tr></tbody></table></div></div><div class="col"><p>Margins are worst-case for CERTIFIED rows, best-case for REFUTED rows, and the worst…best pair for REFUSED rows — the two numbers a refusal honestly has. The parameter boxes are a representative vectored-thrust class (hover 420–520 kW, cruise 110–150 kW, usable 130–145 kWh, efficiency 0.88–0.94), stated in the page source as inputs — they are NOT any manufacturer's aircraft, and tightening or widening them re-decides every row by the same arithmetic.</p></div>
 </section>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">the proving ground</div>
-    <h2>The instruments, proven on hard classical ground</h2>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the frontier</div>
+    <h2>Where the certified envelope ends</h2>
   </div>
-<div class="wide"><div class="cards"><a class="card" href="mfg-cap.html"><span class="card-k">certified theorem · multiplicity</span><span class="card-t">Two solutions, provably</span><span class="card-d">Certified multiplicity for a non-monotone mean-field game: two equilibria enclosed in disjoint interval-arithmetic balls at one parameter set, in the regime where uniqueness theory is silent — and a proof that REFUSES at the bifurcation.</span><span class="card-n">the unit’s battery + six falsifiers re-run at build</span></a>
-<a class="card" href="mfg-lab.html"><span class="card-k">certified reproduction · registry</span><span class="card-t">The MFG laboratory, certified</span><span class="card-d">The single-file MFG laboratory’s certified claims: a published Wardrop table reproduced within its own rounding AND proved (Krawczyk box, exact rational solve), the discrete adjoint identity, and the non-unique split behind unique totals.</span><span class="card-n">four of the lab’s own batteries re-run at build</span></a>
-<a class="card" href="mercer-program.html"><span class="card-k">program · certified landscape</span><span class="card-t">The Mercer program</span><span class="card-d">Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.</span><span class="card-n">mu(5) ≤ 1 + π/20 · re-certified every build</span></a>
-<a class="card" href="erdos290.html"><span class="card-k">erdős #290 · theorem</span><span class="card-t">Erdős #290: the 4k(k+1) theorem</span><span class="card-d">The square-discriminant law proved and re-proved as exact integer identities during the build, the enclosure sweep deepened past the cited page, the exceptional degree closed.</span><span class="card-n">planted falsifiers must fire at build</span></a>
-<a class="card" href="entropy.html"><span class="card-k">certified invariant</span><span class="card-t">Entropy, with a certificate</span><span class="card-d">A certified lower bound on the topological entropy of the classical Hénon map — covering relations composed to an exact integer spectral argument, calibrated at the full horseshoe.</span><span class="card-n">h_top ≥ 0.3017, a theorem</span></a>
-<a class="card" href="verify-lemniscate.html"><span class="card-k">erdős #1038 · verification</span><span class="card-t">Erdős #1038: thirty decimals verified</span><span class="card-d">The computational fragment of the Darvas–Peng–Tao manuscript re-verified by an independent route — Krawczyk rather than bisection — with the 30th digit read correctly.</span><span class="card-n">filed on the claiming authors’ repository</span></a>
-<a class="card" href="mfg-congest.html"><span class="card-k">validated numerics</span><span class="card-t">A congestion mean-field game, enclosed</span><span class="card-d">An equilibrium of a mean-field game with congestion enclosed by validated numerics: an exact solution within an explicit radius, locally unique in the full sequence space.</span><span class="card-n">embedded verifier re-run at build</span></a>
-<a class="card" href="wardrop-repro.html"><span class="card-k">certified reproduction</span><span class="card-t">Wardrop, certified: exact, enclosed, refused</span><span class="card-d">The multi-population Wardrop equilibria of a published paper reproduced with certificates — exact where possible, enclosed where not, and refused where honesty demands it.</span><span class="card-n">embedded verifier re-run at build</span></a></div></div><div class="col after-fig"><p>These are where the verifiers earned calibration before deciding anything a model produced: censuses reproducing Galias's published counts, boxes re-closing Goddard's, ladders anchored on Apéry. The audits above stand on this ground.</p></div>
+<p>Bisecting on cruise duration with a certified verdict at every probe puts the end of the mathematically certified envelope at 19 minutes of cruise under the 20-minute rule and 11 minutes under the 30-minute rule, for the stated boxes. That difference — 7 minutes of provable endurance — is the quantity the reserve debate is actually about, computed here as a theorem about the boxes rather than a fleet average. The same bisection run against an operator&#39;s own measured boxes is the instrument&#39;s intended use.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git 0fa957e. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · where this goes</div>
+    <h2>The aerospace front, opened</h2>
+  </div>
+<p>This is the first instrument of this site&#39;s aerospace front: the cheapest object where a certified universal statement replaces a simulation percentile in a live regulatory argument. The next two are named: an exact-rational audit of a published UAM capacity claim, and the front&#39;s flagship — a computer-assisted enclosure of an aeroelastic limit-cycle oscillation, an object with mature literatures on both sides and, as far as three independent searches can establish, no certified instance anywhere.</p>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-evtol-energy.js @ git 0fa957e. The instrument's battery ran as this page's gate (21 checks, 4 reds fired), every mission row was certified during the build, and the endurance frontier was re-bisected — the build refuses on any deviation. Instrument: instruments/evtol/energy.js.</p></footer>
 
 </div>
 </html>
