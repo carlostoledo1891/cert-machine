@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+  WATER VALUE — the stochastic water value on a scenario tree, solved exactly and certified.
+
+  EXTRACTED 2026-07-30 from research/mfg-lab/mfg-lab.html route /water-value (module MWV,
+  div pgWater 1071-1188, kernel 4688-4972, module 4976-5081) when the combined laboratory page
+  was split into per-subject notes. That split sends MWV to stock-constraint, and the
+  module's own prose already said where it belonged: "the full note is Price formation with a
+  stock constraint".
+
+  IT IS A PAGE AND NOT A SECTION OF sin-mfg.html, deliberately. A paper is ONE CLAIM, and this
+  is one: the water value is a martingale between stock-binding events, proved in discrete time
+  by LP duality. sin-mfg.html carries a different claim (deterministic interior-reservoir
+  clearing under a band). Folding one into the other would rebuild, inside stock-constraint,
+  the nine-subjects-one-file defect that is deleting the laboratory.
+
+  ONE KERNEL, TWO CARRIERS, AND A GATE. The block between the BEGIN/END VERBATIM markers is a
+  byte-identical copy of research/stock-constraint/tools/water_value_tree.js, held identical by
+  research/mfg-lab/tests/test-water-value-diff.js. That battery's expected embedder set includes
+  THIS FILE (via carrier() → research/stock-constraint/water-value.html) and, until deletion,
+  research/mfg-lab/mfg-lab.html. An ungated embedder is how a kernel silently forks — if you add
+  a third carrier, register it in that battery first.
+
+  Self-contained mathematics: no libraries, no build step, and every number on this page is
+  computed in your browser. The one network request is a cookieless page counter, declared in
+  the head and in the footer — this file states what it does. The runtime below is the
+  minimum the module needs -- $, DPR, sizeCanvas, one HFIT entry -- not the laboratory's router.
+-->
+<meta charset="UTF-8">
+<!-- ==== ENCLOSURE FONTS · GENERATED FROM research/_engine/design/ · DO NOT EDIT HERE ==== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=optional">
+<!-- ==== END ENCLOSURE FONTS ==== -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The stochastic water value on a scenario tree: solved exactly by dynamic programming with piecewise-linear concave value functions, then certified by LP duality with a zero duality gap. The water value is a martingale between stock-binding events.">
+<title>Water value on a scenario tree — Carlos Toledo</title>
+<meta name="author" content="Carlos Toledo">
+<meta name="robots" content="index,follow">
+<style>
+/* ==== ENCLOSURE DESIGN SYSTEM · GENERATED FROM research/_engine/design/ · DO NOT EDIT HERE ==== */
+/* Enclosure design system. Source, with the reasoning: research/_engine/design/ */
+:root{
+color-scheme: light dark;
+--paper:#EDEBEE;
+--surface:#FBFAFB;
+--sunk:#F3F1F4;
+--ink:#16121A;
+--ink-2:#544C5B;
+--ink-3:#6B6174;
+--rule:#D2CBD6;
+--rule-soft:#E3DEE7;
+--sig:#6B2D5C;
+--sig-2:#9A4E86;
+--sig-3:#C79CB8;
+--sig-soft:#F2E4EE;
+--sig-bg:var(--sig-soft);
+--mark:#C9C0CE;
+--neutral-mark:var(--mark);
+--alert:#9C3820;
+--held:#2C6142;
+--held-soft:#DEEBE3;
+--ok:var(--held);
+--ok-soft:var(--held-soft);
+--part:#7E5A0E;      --part-soft:#F1E7CE;
+--ref:#4A4356;       --ref-soft:#E4E0EA;
+--conj:#3E4B8C;      --conj-soft:#DFE3F5;
+--open:var(--alert); --open-soft:#F5DFD8;
+--live:var(--sig);   --live-soft:var(--sig-soft);
+--card:var(--surface);
+--ink-soft:var(--ink-2);
+--grid:var(--rule);
+--fp:var(--sig-2);
+--fp-deep:var(--sig);
+--accent:var(--sig-2);
+--accent-deep:var(--sig);
+--hjb:var(--alert);
+--bad:var(--alert);
+--warn:var(--ink-2);
+--amber:var(--sig-2);
+--good:var(--ok);
+--radius:4px;
+--radius-sm:2px;
+--page-top:40px;
+--nav-h:52px;
+--read-max:900px;
+--prose-max:38rem;
+--wide-max:920px;
+--page-max:1080px;
+--card-gap:14px;
+--nav-max:1120px;
+--section-top:46px;
+--card-pad:18px;
+--modbar-h:48px;
+--good-soft:var(--held-soft);
+--warn-soft:#EDEAF0;
+}
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]){
+--paper:#0F0C12;
+--surface:#181420;
+--sunk:#130F18;
+--ink:#EDE8F0;
+--ink-2:#A79DAF;
+--ink-3:#8E8397;
+--rule:#2E2637;
+--rule-soft:#231C2B;
+--sig:#D897C4;
+--sig-2:#B36F9E;
+--sig-3:#7E4E6D;
+--sig-soft:#2C1B27;
+--mark:#332B3C;
+--alert:#E58868;
+--held:#79C79B;
+--held-soft:#16281E;
+--part:#D8AE55;      --part-soft:#2C2410;
+--ref:#A79DB4;       --ref-soft:#221D2A;
+--conj:#9AA5E4;      --conj-soft:#1A1C33;
+--open-soft:#2E1811;
+--good-soft:var(--held-soft);
+--warn-soft:#231C2B;
+}
+}
+:root[data-theme="dark"]{
+--paper:#0F0C12;
+--surface:#181420;
+--sunk:#130F18;
+--ink:#EDE8F0;
+--ink-2:#A79DAF;
+--ink-3:#8E8397;
+--rule:#2E2637;
+--rule-soft:#231C2B;
+--sig:#D897C4;
+--sig-2:#B36F9E;
+--sig-3:#7E4E6D;
+--sig-soft:#2C1B27;
+--mark:#332B3C;
+--alert:#E58868;
+--held:#79C79B;
+--held-soft:#16281E;
+--part:#D8AE55;    --part-soft:#2C2410;
+--ref:#A79DB4;     --ref-soft:#221D2A;
+--conj:#9AA5E4;    --conj-soft:#1A1C33;
+--open-soft:#2E1811;
+--good-soft:var(--held-soft);
+--warn-soft:#231C2B;
+}
+@font-face{
+font-family:"Fraunces metric fallback";
+src: local("Georgia"), local("Times New Roman");
+font-weight: 100 649;
+size-adjust: 88%;
+line-gap-override: 0%;
+}
+@font-face{
+font-family:"Fraunces metric fallback";
+src: local("Georgia"), local("Times New Roman");
+font-weight: 650 900;
+size-adjust: 92%;
+line-gap-override: 0%;
+}
+:root{
+--ui: "Fraunces", "Fraunces metric fallback", Georgia, "Times New Roman", serif;
+--body: "Spectral", Georgia, "Iowan Old Style", "Palatino Linotype", Charter, serif;
+--data: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+--text-display: clamp(44px, 8.2vw, 80px);
+--text-h1: clamp(40px, 7.4vw, 74px);
+--text-h2: clamp(25px, 3.3vw, 34px);
+--text-h3: 19.5px;
+--text-deck: clamp(19px, 2.2vw, 22px);
+--text-body: 18px;
+--text-small: 15.5px;
+--text-label: 11px;
+--text-num: clamp(52px, 10vw, 96px);
+--text-lede: var(--text-deck);
+--text-tiny: 11px;
+--text-micro: 8px;
+}
+body{
+font-family: var(--body);
+font-size: var(--text-body);
+line-height: 1.66;
+-webkit-font-smoothing: antialiased;
+text-rendering: optimizeLegibility;
+}
+h1,h2,h3,.num,.btn,td.k{ font-family: var(--ui); }
+.eyebrow,.lab,th{
+font-family: var(--data);
+font-size: var(--text-label);
+line-height: 1.45;
+letter-spacing:.15em;
+text-transform: uppercase;
+}
+.eyebrow{ color: var(--sig); }
+.lab{ color: var(--ink-3); }
+th{ letter-spacing:.11em; }
+h1{ font-size: var(--text-h1); line-height:1.0; letter-spacing:-.018em; font-weight:700; margin:16px 0 0; text-wrap:balance; }
+h2{ font-size: var(--text-h2); line-height:1.14; letter-spacing:-.018em; font-weight:700; margin:0 0 8px; text-wrap:balance; }
+h3{ font-size: var(--text-h3); line-height:1.3; letter-spacing:-.014em; font-weight:600; margin:0 0 6px; }
+.deck{ font-size: var(--text-deck); line-height:1.5; color:var(--ink-2); font-weight:300; margin:24px 0 0; }
+p{ margin:0 0 18px; }
+strong,b{ font-weight:600; color:var(--ink); }
+em,i{ font-style:italic; }
+.num,.n,td.n,th.n,.vl,.ci,.mono,.m,code,pre{ font-family: var(--data); font-variant-numeric: tabular-nums; }
+.m{ font-size:.88em; }
+*{ box-sizing:border-box; }
+body{ margin:0; background:var(--paper); color:var(--ink); }
+[data-ds] .page{ max-width:var(--page-max); margin:0 auto; padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px) 96px; }
+[data-ds] a{ color:var(--sig); text-decoration:none; border-bottom:1px solid var(--sig-3); }
+[data-ds] a:hover{ border-bottom-color:var(--sig); }
+[data-ds] a:focus-visible{ outline:2px solid var(--sig); outline-offset:3px; border-radius:var(--radius-sm); }
+[data-ds] section{ margin:clamp(52px,8vw,88px) 0 0; }
+[data-ds] .sec-head{ display:flex; flex-direction:column; gap:10px; margin-bottom:26px; }
+[data-ds] .sec-head .lab{ color:var(--sig); }
+[data-ds] hr.div{ border:0; height:1px; background:var(--rule); margin:0; }
+[data-ds] .finding{
+background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius);
+margin:44px 0 0; padding:clamp(24px,4vw,40px);
+display:grid; grid-template-columns:minmax(0,auto) minmax(0,1fr);
+gap:clamp(20px,4vw,44px); align-items:center;
+}
+@media(max-width:720px){ [data-ds] .finding{ grid-template-columns:1fr; } }
+[data-ds] .num{ font-size:var(--text-num); line-height:.86; font-weight:800; letter-spacing:-.05em;
+color:var(--sig); white-space:nowrap; }
+[data-ds] .num small{ display:block; font-size:15px; letter-spacing:.1em; text-transform:uppercase;
+color:var(--ink-3); font-family:var(--data); font-weight:400; margin-top:14px; }
+[data-ds] .num .sep{ color:var(--ink-3); font-weight:500; }
+[data-ds] .finding p{ font-size:20px; line-height:1.42; margin:0; color:var(--ink); }
+[data-ds] .finding .ci{ margin-top:14px; font-size:13px; color:var(--ink-2); line-height:1.6; }
+[data-ds] .scope{ margin:26px auto 0; max-width:var(--prose-max); border-left:2px solid var(--sig);
+padding:2px 0 2px 18px; color:var(--ink-2); font-size:var(--text-small); line-height:1.5; }
+[data-ds] .tw{ overflow-x:auto; margin:0 0 8px; border:1px solid var(--rule); border-radius:var(--radius); background:var(--surface); }
+[data-ds] table{ border-collapse:collapse; width:100%; min-width:540px; font-size:15px; }
+[data-ds] th{ font-size:var(--text-label); letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3);
+font-weight:500; text-align:left; padding:13px 16px; border-bottom:1px solid var(--rule);
+font-family:var(--data); white-space:nowrap; }
+[data-ds] td{ padding:13px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top; color:var(--ink-2); }
+[data-ds] tr:last-child td{ border-bottom:0; }
+[data-ds] td.k{ color:var(--ink); font-weight:600; white-space:nowrap; }
+[data-ds] td.n, [data-ds] th.n{ text-align:right; white-space:nowrap; color:var(--ink); }
+[data-ds] td.mono{ font-size:13px; color:var(--ink); }
+[data-ds] tr.hit td.n.hit{ color:var(--sig); font-weight:500; }
+[data-ds] caption{ caption-side:bottom; text-align:left; padding:14px 16px 2px; color:var(--ink-3);
+font-size:14.5px; line-height:1.5; }
+[data-ds] figure{ margin:0; }
+[data-ds] .figbox{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius);
+padding:clamp(18px,3vw,30px); overflow-x:auto; }
+[data-ds] .figbox svg{ display:block; width:100%; height:auto; color:var(--ink-2); }
+[data-ds] figcaption{ color:var(--ink-2); font-size:var(--text-small); line-height:1.5; margin-top:14px; max-width:35em; }
+[data-ds] .legend{ display:flex; flex-wrap:wrap; gap:6px 22px; margin:18px 0 0; font-size:14px;
+color:var(--ink-2); font-family:var(--data); }
+[data-ds] .legend span{ display:inline-flex; align-items:center; gap:8px; }
+[data-ds] .sw{ width:12px; height:12px; border-radius:var(--radius-sm); flex:none; }
+[data-ds] .figbox svg text{ font-family:var(--data); }
+[data-ds] .ax, [data-ds] .bn{ font-size:12px; fill:var(--ink-3); }
+[data-ds] .bl{ font-size:13.5px; fill:var(--ink); font-family:var(--ui); }
+[data-ds] .vl{ font-size:13px; fill:var(--ink); }
+[data-ds] .kv{ font-size:13px; fill:var(--sig); font-weight:500; }
+[data-ds] .hv{ font-size:13px; fill:var(--held); font-weight:500; }
+[data-ds] .pull{ font-family:var(--ui); font-weight:700; font-size:clamp(22px,3.2vw,29px); line-height:1.18;
+letter-spacing:-.02em; color:var(--ink); margin:34px 0; text-wrap:balance; }
+[data-ds] .pull b{ color:var(--sig); font-weight:700; }
+[data-ds] .note{ background:var(--sunk); border:1px solid var(--rule-soft); border-radius:var(--radius);
+padding:20px 22px; margin:26px 0; font-size:var(--text-small); line-height:1.55; color:var(--ink-2); }
+[data-ds] .note .lab{ display:block; margin-bottom:8px; color:var(--sig); }
+[data-ds] .note p:last-child{ margin-bottom:0; }
+[data-ds] .note[data-kind="correction"]{ border-left:2px solid var(--sig); }
+[data-ds] .note[data-kind="refusal"]{ border-left:2px solid var(--alert); }
+[data-ds] .note[data-kind="refusal"] .lab{ color:var(--alert); }
+[data-ds] blockquote{ margin:22px 0; padding:0 0 0 20px; border-left:2px solid var(--sig-3);
+font-size:18px; line-height:1.5; color:var(--ink); font-style:italic; }
+[data-ds] blockquote cite{ display:block; margin-top:10px; font-style:normal; font-size:12.5px;
+font-family:var(--data); color:var(--ink-3); letter-spacing:.02em; line-height:1.5; }
+[data-ds] ol.steps{ list-style:none; counter-reset:s; padding:0; margin-top:0; margin-bottom:0; display:flex; flex-direction:column; gap:2px; }
+[data-ds] ol.steps li{ counter-increment:s; display:grid; grid-template-columns:38px 1fr; gap:16px;
+padding:18px 0; border-top:1px solid var(--rule-soft); }
+[data-ds] ol.steps li:first-child{ border-top:0; }
+[data-ds] ol.steps li::before{ content:"D" counter(s); font-family:var(--data); font-size:12px; font-weight:500;
+color:var(--sig); letter-spacing:.06em; padding-top:4px; }
+[data-ds] ol.steps.plain li::before{ content:counter(s); color:var(--ink-3); }
+[data-ds] ol.steps p{ margin:0; font-size:16.5px; line-height:1.55; color:var(--ink-2); }
+[data-ds] ol.steps h3{ margin-bottom:4px; }
+[data-ds] pre{ background:var(--sunk); border:1px solid var(--rule-soft); border-radius:var(--radius);
+padding:18px 20px; overflow-x:auto; margin:22px 0; font-size:13.5px; line-height:1.7; color:var(--ink); }
+[data-ds] pre .c{ color:var(--sig); }
+[data-ds] code{ font-size:.94em; color:var(--ink); }
+[data-ds] ul.limits{ list-style:none; padding:0; margin-top:0; margin-bottom:0; display:flex; flex-direction:column; }
+[data-ds] ul.limits li{ padding:16px 0; border-top:1px solid var(--rule-soft); font-size:16.5px;
+line-height:1.55; color:var(--ink-2); }
+[data-ds] ul.limits li:first-child{ border-top:0; }
+[data-ds] ul.limits b{ color:var(--ink); }
+[data-ds] .readouts{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:var(--card-gap); margin:22px 0; }
+[data-ds] .ro .k{ font-family:var(--data); font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); }
+[data-ds] .ro .v{ font-family:var(--data); font-size:17px; line-height:1.35; color:var(--ink); position:relative; padding-left:14px; }
+[data-ds] .ro .v.small{ font-size:13.5px; }
+[data-ds] .ro .v::before{ content:''; position:absolute; left:0; top:.52em; width:7px; height:7px;
+border-radius:50%; border:1px solid var(--rule); background:transparent; }
+[data-ds] .ro .v.ok::before{ background:var(--ok); border-color:var(--ok); }
+[data-ds] .ro .v.bad::before{ background:var(--alert); border-color:var(--alert); }
+[data-ds] .status{ min-height:2.9em; font-family:var(--data); font-size:13.5px; color:var(--ink-2); }
+@media (prefers-reduced-motion:no-preference){
+[data-ds] .finding, [data-ds] h1, [data-ds] .deck{ animation:rise .55s cubic-bezier(.2,.7,.3,1) both; }
+[data-ds] .deck{ animation-delay:.05s; } [data-ds] .finding{ animation-delay:.1s; }
+}
+@keyframes rise{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:none; } }
+[data-ds] .stats{
+margin:40px 0 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:var(--radius);
+overflow:hidden;
+}
+[data-ds] .stat{ background:var(--surface); padding:22px 24px; display:flex; flex-direction:column; gap:7px; }
+[data-ds] .stat .k{ font-family:var(--data); font-size:10.5px; letter-spacing:.13em;
+text-transform:uppercase; color:var(--ink-3); }
+[data-ds] .stat .v{ font-family:var(--ui); font-weight:700; font-size:27px; line-height:1.05;
+color:var(--sig); letter-spacing:-.02em; }
+[data-ds] .stat .v.sm{ font-family:var(--data); font-size:15px; font-weight:500; letter-spacing:-.02em;
+line-height:1.45; white-space:nowrap; word-break:normal; }
+[data-ds] .stat .n{ font-family:var(--body); font-variant-numeric:normal;
+font-size:14.5px; line-height:1.4; color:var(--ink-2); }
+[data-ds] .eq{
+background:var(--sunk); border:1px solid var(--rule-soft); border-radius:var(--radius);
+padding:20px 22px; margin:22px 0; text-align:center;
+font-family:var(--data); font-size:16px; line-height:1.8; color:var(--ink); overflow-x:auto;
+}
+[data-ds] .tag{
+display:inline-block; font-family:var(--data); font-size:10px; letter-spacing:.1em;
+text-transform:uppercase; padding:3px 8px; border-radius:var(--radius-sm); white-space:nowrap;
+}
+[data-ds] .tag.proved{ background:var(--held-soft); color:var(--held); }
+[data-ds] .tag.cert{ background:var(--sig-soft); color:var(--sig); }
+[data-ds] .tag.dep{ background:var(--sunk); color:var(--ink-3); border:1px solid var(--rule); }
+[data-ds] .v-ok, [data-ds] .v-part, [data-ds] .v-ref,
+[data-ds] .v-conj, [data-ds] .v-open, [data-ds] .v-live{
+display:inline-flex; align-items:center; gap:6px; font-family:var(--data);
+font-size:10px; font-weight:500; letter-spacing:.11em; text-transform:uppercase;
+padding:4px 9px; border-radius:var(--radius-sm); white-space:nowrap; line-height:1.3;
+}
+[data-ds] .v-ok::before, [data-ds] .v-part::before, [data-ds] .v-ref::before,
+[data-ds] .v-conj::before, [data-ds] .v-open::before, [data-ds] .v-live::before{
+content:""; width:6px; height:6px; border-radius:50%; flex:none; background:currentColor;
+}
+[data-ds] .v-ok{   background:var(--ok-soft);   color:var(--ok); }
+[data-ds] .v-part{ background:var(--part-soft); color:var(--part); }
+[data-ds] .v-ref{  background:var(--ref-soft);  color:var(--ref); }
+[data-ds] .v-conj{ background:var(--conj-soft); color:var(--conj); }
+[data-ds] .v-open{ background:var(--open-soft); color:var(--open); }
+[data-ds] .v-live{ background:var(--live-soft); color:var(--live); }
+[data-ds] .grid{ display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule);
+border-radius:var(--radius); overflow:hidden; }
+[data-ds] .g2{ grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+[data-ds] .g3{ grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); }
+[data-ds] .card{ background:var(--surface); padding:24px 26px; display:flex; flex-direction:column; gap:10px; }
+[data-ds] .card .lab{ color:var(--sig); }
+[data-ds] .card h3{ margin:0; }
+[data-ds] .card p{ margin:0; font-size:var(--text-small); line-height:1.5; color:var(--ink-2); }
+[data-ds] .card .meta{ font-family:var(--data); font-size:11px; color:var(--ink-3);
+letter-spacing:.04em; margin-top:auto; padding-top:6px; }
+[data-ds] .rows{ border:1px solid var(--rule); border-radius:var(--radius); background:var(--surface); overflow:hidden; }
+[data-ds] .row{ display:grid; grid-template-columns:1fr auto; gap:8px 22px; padding:22px 26px;
+border-top:1px solid var(--rule-soft); align-items:start; }
+[data-ds] .row:first-child{ border-top:0; }
+[data-ds] .row .t{ font-family:var(--ui); font-weight:600; font-size:17px; line-height:1.32;
+letter-spacing:-.012em; color:var(--ink); }
+[data-ds] .row .t a{ color:var(--ink); border-bottom:0; }
+[data-ds] .row .t a:hover{ color:var(--sig); }
+[data-ds] .row .s{ font-size:15px; line-height:1.55; color:var(--ink-2); grid-column:1/-1;
+margin-top:-2px; max-width:41em; }
+[data-ds] .row .m2{ font-family:var(--data); font-size:11px; color:var(--ink-3);
+grid-column:1/-1; letter-spacing:.03em; }
+[data-ds] .row .vv{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+[data-ds] .filters{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+[data-ds] .fb{ font-family:var(--data); font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+padding:7px 13px; border-radius:var(--radius-sm); border:1px solid var(--rule);
+background:var(--surface); color:var(--ink-2); cursor:pointer; line-height:1.3; }
+[data-ds] .fb:hover{ border-color:var(--ink-3); }
+[data-ds] .fb[aria-pressed="true"]{ background:var(--ink); color:var(--surface); border-color:var(--ink); }
+[data-ds] .fb:focus-visible{ outline:2px solid var(--sig); outline-offset:2px; }
+[data-ds] .rule-box{ border:1px solid var(--sig); border-radius:var(--radius); background:var(--surface);
+padding:clamp(24px,4vw,38px); margin:36px 0 0; text-align:center; }
+[data-ds] .rule-box .big{ font-family:var(--ui); font-weight:700; font-size:clamp(24px,4vw,40px);
+line-height:1.1; letter-spacing:-.024em; color:var(--ink); text-wrap:balance; }
+[data-ds] .rule-box .sub{ color:var(--ink-2); font-size:16px; margin:14px auto 0; max-width:28em; line-height:1.5; }
+[data-ds] ol.st{ list-style:none; counter-reset:s; padding:0; margin-top:0; margin-bottom:0; }
+[data-ds] ol.st li{ counter-increment:s; display:grid; grid-template-columns:34px 1fr; gap:16px;
+padding:19px 0; border-top:1px solid var(--rule-soft); }
+[data-ds] ol.st li:first-child{ border-top:0; }
+[data-ds] ol.st li::before{ content:counter(s); font-family:var(--data); font-size:12px;
+font-weight:500; color:var(--sig); padding-top:5px; }
+[data-ds] ol.st p{ margin:0; font-size:16px; line-height:1.55; color:var(--ink-2); }
+[data-ds] ol.st h3{ margin-bottom:6px; }
+[data-ds] ul.plain{ list-style:none; padding:0; margin-top:0; margin-bottom:0; }
+[data-ds] ul.plain li{ padding:16px 0; border-top:1px solid var(--rule-soft); font-size:16.5px;
+line-height:1.55; color:var(--ink-2); }
+[data-ds] ul.plain li:first-child{ border-top:0; }
+[data-ds] ul.plain b{ color:var(--ink); font-weight:600; }
+[data-ds] .press{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:22px 0 0; }
+[data-ds] .btn{
+font-family:var(--data); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+padding:9px 15px; border-radius:var(--radius-sm); border:1px solid var(--sig);
+background:var(--sig); color:var(--surface); cursor:pointer; line-height:1.3;
+}
+[data-ds] .btn:hover{ background:var(--sig-2); border-color:var(--sig-2); }
+[data-ds] .btn:focus-visible{ outline:2px solid var(--sig); outline-offset:2px; }
+[data-ds] .btn[disabled]{ background:var(--sunk); border-color:var(--rule); color:var(--ink-3); cursor:default; }
+[data-ds] .btn.break{ background:transparent; border-color:var(--alert); color:var(--alert); }
+[data-ds] .btn.break:hover{ background:var(--open-soft); border-color:var(--alert); }
+[data-ds] .btn.ghost{ background:transparent; border-color:var(--rule); color:var(--ink-2); }
+[data-ds] .btn.ghost:hover{ background:var(--sunk); border-color:var(--ink-3); }
+[data-ds] .verdict{
+font-family:var(--data); font-size:13.5px; line-height:1.5; color:var(--ink-2);
+min-height:3.2em; margin:14px 0 0; padding-left:16px; position:relative;
+border-left:2px solid var(--rule);
+}
+[data-ds] .verdict::before{
+content:""; position:absolute; left:-5px; top:.42em; width:8px; height:8px; border-radius:50%;
+background:var(--rule);
+}
+[data-ds] .verdict b{ font-family:var(--data); font-weight:500; letter-spacing:.08em; }
+[data-ds] .verdict[data-state="ok"]{  border-left-color:var(--held); color:var(--ink); }
+[data-ds] .verdict[data-state="ok"]::before{ background:var(--held); }
+[data-ds] .verdict[data-state="ok"] b{ color:var(--held); }
+[data-ds] .verdict[data-state="bad"]{ border-left-color:var(--alert); color:var(--ink); }
+[data-ds] .verdict[data-state="bad"]::before{ background:var(--alert); }
+[data-ds] .verdict[data-state="bad"] b{ color:var(--alert); }
+[data-ds] .press-note{ font-size:14px; line-height:1.5; color:var(--ink-3); margin:10px 0 0; max-width:35em; }
+[data-ds] .col{ max-width:var(--prose-max); margin-left:auto; margin-right:auto; }
+[data-ds] .wide{ max-width:var(--wide-max); margin-left:auto; margin-right:auto; }
+.topbar{
+position:fixed; inset:0 0 auto 0; z-index:50; height:var(--nav-h);
+background:color-mix(in srgb, var(--paper) 82%, transparent);
+backdrop-filter:saturate(180%) blur(12px);
+-webkit-backdrop-filter:saturate(180%) blur(12px);
+border-bottom:1px solid var(--rule-soft);
+}
+.topbar .topbar-in{
+max-width:var(--page-max); margin:0 auto; height:100%;
+padding:0 clamp(18px,4vw,40px);
+display:flex; align-items:center; gap:18px;
+}
+.topbar .brand{
+text-decoration:none;
+font-family:var(--ui); font-weight:700; font-size:14.5px; letter-spacing:-.01em;
+color:var(--ink); border-bottom:0; white-space:nowrap;
+display:inline-flex; align-items:center;
+}
+.topbar .brand:hover{ border-bottom:0; color:var(--sig); }
+.topbar .brand .mk{
+display:inline-block; width:9px; height:9px; flex:none;
+background:var(--sig); margin-right:9px; font-size:0; line-height:0;
+}
+.topbar .crumb{ font-family:var(--data); font-size:11px; color:var(--ink-3); letter-spacing:.04em;
+overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.topbar .crumb a{
+text-decoration:none; color:var(--ink-3); border-bottom:0; }
+.topbar .crumb a:hover{ color:var(--sig); border-bottom:0; }
+.topbar .crumb .s{ margin:0 6px; color:var(--rule); }
+.topbar .crumb .here{ color:var(--ink-2); }
+@media(max-width:720px){ .crumb{ display:none; } }
+.topbar .sitenav{ margin-left:auto; display:flex; gap:20px; }
+.topbar .sitenav a{
+text-decoration:none;
+font-family:var(--data); font-size:var(--text-label); letter-spacing:.13em; text-transform:uppercase;
+color:var(--ink-2); border-bottom:0; padding:0; white-space:nowrap;
+}
+.topbar .sitenav a:hover{ color:var(--sig); border-bottom:0; }
+.topbar .sitenav a[aria-current="page"]{ color:var(--sig); }
+body{ padding-top:var(--nav-h); }
+.sitefoot{
+margin:96px 0 0; border-top:1px solid var(--rule); background:var(--surface);
+display:grid;
+grid-template-columns:
+[gut-l] minmax(clamp(18px,4vw,40px),1fr)
+[c1] minmax(0,560px)
+[c2] auto
+[gut-r] minmax(clamp(18px,4vw,40px),1fr);
+column-gap:48px; row-gap:24px;
+padding:34px 0 44px;
+}
+.sitefoot .foot-cred{ grid-column:c1; padding:0; }
+.sitefoot .foot-cred-in{ max-width:none; margin:0; color:var(--ink-2);
+font-size:var(--text-small); line-height:1.6; }
+.sitefoot .foot-cred p{ margin:0 0 12px; }
+.sitefoot .sitemap{
+grid-column:c2; max-width:none; margin:0; padding:0;
+display:flex; flex-direction:column; flex-wrap:nowrap; gap:8px;
+}
+.sitefoot .sitemap a{
+text-decoration:none;
+font-family:var(--data); font-size:var(--text-label); letter-spacing:.13em; text-transform:uppercase;
+color:var(--ink-2); border-bottom:0; white-space:nowrap;
+}
+.sitefoot .sitemap a:hover{ color:var(--sig); border-bottom:0; }
+.sitefoot .foot-base{
+grid-column:c1 / gut-r; max-width:none; margin:0; padding:18px 0 0;
+border-top:1px solid var(--rule-soft);
+font-family:var(--data); font-size:11px; letter-spacing:.06em; color:var(--ink-3);
+}
+@media(max-width:760px){
+.sitefoot{
+grid-template-columns: clamp(18px,4vw,40px) minmax(0,1fr) clamp(18px,4vw,40px);
+}
+.sitefoot .foot-cred, .sitefoot .sitemap, .sitefoot .foot-base{ grid-column:2; }
+.sitefoot .sitemap{ flex-direction:row; flex-wrap:wrap; gap:10px 22px; }
+}
+.sitefoot .foot-base span{ display:block; }
+footer.colophon{ margin:80px 0 0; padding-top:26px; border-top:1px solid var(--rule);
+color:var(--ink-3); font-size:14.5px; line-height:1.6; font-family:var(--data); }
+footer.colophon p{ margin:0 0 12px; }
+footer.colophon .em{ color:var(--ink-2); }
+/* ==== END ENCLOSURE DESIGN SYSTEM ==== */
+html{overflow-x:clip;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  
+  /* Numeric readouts must never re-measure between frames. */
+  .mono,.status,.eyebrow,.ro .v,.ro .k,.chip,.tab .tno,.tab .tsub,
+  table.mono td,table.mono th{font-variant-numeric:tabular-nums;
+    font-feature-settings:'tnum' 1,'zero' 1}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms !important;
+      animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);
+    font-family:var(--body);line-height:1.65;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-kerning:normal;font-optical-sizing:auto;text-rendering:optimizeLegibility;}
+/* font-size belongs to BODY, never to the ROOT: on the root it redefines what
+   1rem means for the whole page, so --prose-max:38rem resolved to 665px here and 608px
+   on the other 60 pages — two reading measures from one token. Split 2026-08-24. */
+body{font-size:var(--text-body)}
+  body{padding-top:var(--nav-h)}
+  .wrap{max-width:var(--read-max);width:100%;margin:0 auto;padding:var(--page-top) 20px 88px}
+  .eyebrow{font-family:var(--data);font-size:var(--text-tiny);
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+  h1{font-family:var(--ui);font-weight:600;font-size:var(--text-h1);letter-spacing:-.02em;line-height:1.12;margin:4px 0 2px;text-wrap:balance}
+  .sub{color:var(--ink-soft);font-size:14.5px;line-height:1.55;margin-bottom:16px;max-width:38em;text-wrap:pretty}
+  .mainnav{display:flex;align-items:center;gap:1px;flex:1 1 auto;min-width:0;overflow-x:auto;scrollbar-width:none}
+  .mainnav::-webkit-scrollbar{display:none}
+  .nav{position:relative;background:transparent;border:0;white-space:nowrap;
+    font-family:var(--ui);font-size:13.5px;font-weight:500;color:var(--ink-soft);
+    padding:8px 11px;cursor:pointer;border-radius:7px;transition:color .14s,background .14s}
+  .nav:hover{color:var(--ink);background:color-mix(in srgb,var(--ink) 5%,transparent)}
+  .nav::before{content:'';position:absolute;left:11px;right:11px;bottom:-1px;height:2px;background:transparent;border-radius:2px;transition:background .14s}
+  .nav.active{color:var(--ink);font-weight:600}
+  .nav.active::before{background:var(--fp-deep)}
+  .nav:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+  .nav-div{flex:none;width:1px;height:18px;background:var(--grid);margin:0 7px}
+  .cta{flex:none;display:inline-flex;align-items:center;gap:6px;font-family:var(--ui);font-weight:600;font-size:13.5px;
+    color:var(--paper);background:var(--fp-deep);border:1px solid var(--fp-deep);border-radius:var(--radius);padding:8px 15px;
+    text-decoration:none;transition:background .14s,box-shadow .16s;white-space:nowrap}
+  .cta:hover{background:var(--fp);box-shadow:0 2px 8px rgba(14,124,123,.22)}
+  @media(max-width:720px){
+    .nav-div{display:none}
+    .cta{padding:8px 12px}
+  }
+
+  /* ── dropdown navigation: two menus reunite the sections and save the bar ── */
+  .navdrop{position:relative}
+  .navtrig{display:inline-flex;align-items:center;gap:5px;background:transparent;border:0;cursor:pointer;
+    font-family:var(--ui);font-size:13.5px;font-weight:500;color:var(--ink-soft);padding:8px 11px;border-radius:7px;transition:color .14s,background .14s}
+  .navtrig:hover{color:var(--ink);background:color-mix(in srgb,var(--ink) 5%,transparent)}
+  .navdrop.has-active .navtrig{color:var(--ink);font-weight:600}
+  .navtrig .caret{font-size:9px;color:var(--ink-soft);transition:transform .15s}
+  .navdrop:hover .navtrig .caret,.navdrop:focus-within .navtrig .caret{transform:rotate(180deg)}
+  .navmenu{position:absolute;top:calc(100% + 6px);left:0;min-width:216px;background:var(--card);
+    border:1px solid var(--grid);border-radius:var(--radius);box-shadow:0 10px 30px rgba(16,24,40,.13),0 2px 6px rgba(16,24,40,.06);
+    padding:6px;display:none;flex-direction:column;z-index:70}
+  .navdrop:hover .navmenu,.navdrop:focus-within .navmenu{display:flex}
+  .navmenu button,.navmenu a{display:block;text-align:left;background:transparent;border:0;cursor:pointer;text-decoration:none;
+    font-family:var(--ui);font-size:13.5px;font-weight:500;color:var(--ink);padding:8px 10px;border-radius:7px;white-space:nowrap;transition:background .12s,color .12s}
+  .navmenu button:hover,.navmenu a:hover{background:color-mix(in srgb,var(--fp) 8%,transparent);color:var(--fp-deep)}
+  .navmenu button.active{color:var(--fp-deep)}
+  .navmenu .mtag{color:var(--ink-soft);font-family:var(--data);font-size:10px;margin-left:6px}
+  .navmenu-sep{height:1px;background:var(--grid);margin:6px 4px}
+  .navlink{text-decoration:none}
+  @media(max-width:720px){.navmenu{position:static;box-shadow:none;border:0;padding:0 0 0 10px;min-width:0}}
+  .sitefoot-in{max-width:var(--nav-max);margin:0 auto;padding:38px 20px 22px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1.55fr);gap:44px}
+  @media(max-width:820px){.sitefoot-in{grid-template-columns:1fr;gap:26px}}
+  .foot-brand{display:inline-flex;align-items:center;gap:9px;font-family:var(--ui);font-weight:600;font-size:15.5px;letter-spacing:-.015em;color:var(--ink)}
+  .foot-brand .mk{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:var(--fp-deep);color:var(--paper);font-size:14px}
+  .foot-collab{color:var(--ink-soft);font-size:13.5px;line-height:1.62;max-width:27em;margin-top:13px}
+  .foot-collab b{color:var(--ink);font-weight:600}
+  .foot-collab a{color:var(--fp-deep);font-weight:500;text-decoration:none}
+  .foot-collab a:hover{text-decoration:underline}
+  .foot-links{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:520px){.foot-links{grid-template-columns:1fr 1fr}}
+  .foot-col{display:flex;flex-direction:column;gap:9px}
+  .foot-h{font-family:var(--data);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .foot-col a{font-size:13.5px;color:var(--ink);text-decoration:none}
+  .foot-col a:hover{color:var(--fp-deep);text-decoration:underline}
+  /* the credential block — the same paragraphs the other notes here and the SIN-MFG
+     note carry, so the practice reads identically wherever a reader lands. It states
+     what this work does; it makes no licence claim, because a brand is not a licence
+     and this artifact's terms (MIT) are stated below, unchanged. */
+  .foot-cred{max-width:var(--read-max);margin:0 auto;padding:0 20px 4px}
+  .foot-cred-in{border-top:1px solid var(--grid);padding-top:18px;max-width:100%;
+    font-size:13px;line-height:1.62;color:var(--ink-soft)}
+  .foot-cred-in p{margin:0 0 9px} .foot-cred-in p:last-child{margin:0}
+  .foot-cred-in b{color:var(--ink);font-weight:600}
+  .foot-cred-in a{color:var(--fp-deep);font-weight:500;text-decoration:none}
+  .foot-cred-in a:hover{text-decoration:underline}
+
+  /* .page/.page.active removed with the same rule: zero .page elements on this page. */
+
+  .hero{max-width:38em;margin:2px 0 28px}
+  .hero h1{font-family:var(--ui);font-weight:600;font-size:var(--text-h1);
+    line-height:1.08;letter-spacing:-.028em;margin-bottom:15px}
+  .hero .lede{font-size:var(--text-lede);line-height:1.62;color:var(--ink-soft);text-wrap:pretty}
+  .hero .lede b{color:var(--ink);font-weight:600}
+  /* the authorship byline the shared chrome carries. Static, above the fold, present
+     at first paint — it reserves its own line, so it cannot shift anything. */
+  .byline{font-family:var(--data);font-size:11px;line-height:1.5;color:var(--ink-soft);margin:13px 0 0}
+  .receipts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--card-gap);margin:0 0 30px}
+    .rcp{position:relative;display:block;width:100%;text-align:left;background:var(--card);
+    border:1px solid var(--grid);border-radius:var(--radius);padding:15px 16px 14px;cursor:pointer;
+    box-shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);transition:border-color .14s,box-shadow .16s}
+  .rcp:hover{border-color:#D7DBE0;box-shadow:0 4px 12px rgba(16,24,40,.08),0 1px 2px rgba(16,24,40,.04)}
+  .rcp:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .rcp .rk{font-family:var(--data);font-size:9.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--amber);display:block}
+  .rcp .rt{font-family:var(--ui);font-size:15px;font-weight:600;color:var(--ink);
+    display:block;margin:4px 0 6px;letter-spacing:-.01em}
+  .rcp .rv{font-family:var(--data);font-size:11.5px;color:var(--ink);line-height:1.55;display:block}
+  .rcp .rd{font-size:12.5px;color:var(--ink-soft);line-height:1.52;display:block;margin-top:7px}
+
+  .beats{margin:0 0 24px;max-width:100%}
+  .beat{display:grid;grid-template-columns:auto 1fr;gap:15px;padding:14px 0;
+    border-top:1px solid var(--grid)}
+  .beat .bn{font-family:var(--data);font-size:10.5px;letter-spacing:.14em;
+    color:var(--amber);padding-top:4px}
+  .beat h3{font-family:var(--ui);font-size:15px;font-weight:600;margin-bottom:5px;letter-spacing:-.01em}
+  .beat p{font-size:13.8px;line-height:1.62;color:var(--ink-soft);text-wrap:pretty}
+  .beat p b{color:var(--ink);font-weight:600}
+
+  .claim{max-width:40em;margin:2px 0 14px}
+  .claim h1{font-family:var(--ui);font-weight:600;font-size:var(--text-h1);
+    line-height:1.16;letter-spacing:-.022em;margin:0}
+  .claim .src{font-family:var(--data);font-size:11.5px;color:var(--ink-soft);margin-top:9px;line-height:1.6}
+  .badges{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 18px}
+  .badge{display:inline-block;font-family:var(--data);font-size:var(--text-micro);letter-spacing:.07em;text-transform:uppercase;padding:1px 5px;border-radius:var(--radius-sm);border:1px solid transparent;vertical-align:middle;white-space:nowrap;line-height:1.35;font-weight:500}
+  .badge b{color:var(--ink);font-weight:500}
+  /* The highlighted variant used to be `.pv` — a private word, styled here and
+     nowhere else, i.e. a second badge vocabulary running beside the shared one.
+     It now carries the shared vocabulary's own word for what these two badges
+     already render (PROVED), so the class names the thing on screen and nothing on
+     screen changed: the amber treatment is kept verbatim, because what is shared
+     is the token vocabulary, not the styling, and re-colouring these two would
+     restyle a status. If either LABEL is ever reworded, rename this class in the
+     same edit — a class that contradicts the label it decorates is worse than no
+     class at all. */
+  .badge.proved{border-color:var(--amber);background:var(--card)}
+  .badge.proved b{color:var(--amber)}
+  .lede2{font-size:var(--text-body);line-height:1.66;color:var(--ink-soft);max-width:100%;
+    margin:0 0 14px;text-wrap:pretty}
+  .lede2 b{color:var(--ink);font-weight:600}
+  h3.sec{font-family:var(--ui);font-size:14.5px;font-weight:600;letter-spacing:-.012em;
+    margin:26px 0 11px;padding-top:15px;border-top:1px solid var(--grid)}
+  h2 .tag,.card h2 .tag,h3.sec .tag{font-family:var(--data);font-size:var(--text-micro);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-left:8px;font-weight:400}
+  .caveat{border-left:2px solid var(--warn);padding:3px 0 3px 15px;margin:0 0 16px;max-width:100%}
+  .caveat p{font-size:13.4px;line-height:1.62;color:var(--ink-soft);margin-bottom:8px}
+  .caveat p:last-child{margin-bottom:0}
+  .caveat p b{color:var(--ink);font-weight:600}
+  .rcpt{font-family:var(--data);font-size:11.5px;line-height:1.75;color:var(--ink-soft);
+    background:var(--card);border:1px solid var(--grid);border-radius:6px;
+    padding:12px 15px;margin:0 0 16px;overflow-x:auto}
+  .rcpt b{color:var(--ink);font-weight:500}
+
+  .log{max-width:43em}
+  .lg{padding:17px 0;border-top:1px solid var(--grid)}
+  .lg h3{font-family:var(--ui);font-size:14.5px;font-weight:600;margin-bottom:9px;letter-spacing:-.008em}
+  .lg dl{display:grid;grid-template-columns:auto 1fr;gap:5px 13px;font-size:13.2px;line-height:1.58}
+  .lg dt{font-family:var(--data);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--ink-soft);padding-top:4px;white-space:nowrap}
+  .lg dd{color:var(--ink-soft);text-wrap:pretty}
+  .lg dd b{color:var(--ink);font-weight:600}
+  @media(max-width:640px){.lg dl{grid-template-columns:1fr}.lg dt{padding-top:8px}}
+  .pager{display:flex;justify-content:space-between;gap:12px;margin-top:36px;
+    padding-top:15px;border-top:1px solid var(--grid)}
+  .pg{font-family:var(--data);font-size:11.5px;color:var(--ink-soft);background:transparent;
+    border:0;cursor:pointer;padding:5px 0;transition:color .14s;text-align:left}
+  .pg:hover{color:var(--amber)}
+  .pg:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+  .tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:22px}
+  .tab{position:relative;text-align:left;background:var(--card);border:1px solid var(--grid);
+    border-radius:var(--radius);padding:9px 11px 8px;cursor:pointer;overflow:hidden;
+    display:flex;flex-direction:column;gap:1px;
+    transition:border-color .14s,background .14s,box-shadow .14s}
+  /* Active marker is an inset bar drawn INSIDE the box, so switching tabs
+     changes no dimension anywhere. */
+  .tab::before{content:'';position:absolute;left:0;right:0;top:0;height:2px;
+    background:transparent;transition:background .14s}
+  .tab.active::before{background:var(--amber)}
+  .tab:hover{border-color:var(--ink-soft);background:var(--card)}
+  .tab .tno{font-family:var(--data);font-size:9.5px;letter-spacing:.16em;color:var(--ink-soft)}
+  .tab .tname{font-family:var(--ui);font-size:14px;font-weight:600;color:var(--ink);line-height:1.25;letter-spacing:-.005em}
+  .tab .tsub{font-family:var(--data);font-size:9.5px;letter-spacing:.04em;color:var(--ink-soft);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tab.active{border-color:var(--ink);background:var(--card);
+    box-shadow:0 1px 3px rgba(18,23,28,.07)}
+  .tab.active .tno{color:var(--amber)}
+  .tab:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  @media(max-width:900px){.tabs{grid-template-columns:repeat(4,1fr)}}
+  /* The tab-switcher rule that came along in the 2026-07-30 extraction from the
+     dissolved laboratory, where this was ONE TAB among several and JS added .active.
+     This page has exactly one <section>, zero .page elements, and no script that adds
+     .active anywhere -- so the rule hid the entire body of the page, on every visit,
+     from extraction day until now. The prose above still promises 'the panel below'.
+     Removed rather than patched with .active: a switcher with nothing to switch is
+     not a feature waiting for a class, it is dead code that took the page with it. */
+  .shead{margin:2px 0 14px}
+  .shead h2{font-family:var(--ui);font-size:var(--text-h2);font-weight:600;line-height:1.25;letter-spacing:-.015em;text-wrap:balance}
+  .shead p{font-size:13.5px;line-height:1.55;color:var(--ink-soft);max-width:100%;
+    margin-top:6px;padding-left:11px;border-left:2px solid var(--grid);text-wrap:pretty}
+  .presets{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:-6px 0 16px}
+  .presets .plab{font-family:var(--data);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--amber)}
+  .chip{font-family:var(--data);font-size:10px;letter-spacing:.04em;padding:2px 7px;border:1px solid var(--grid);background:var(--grid);color:var(--ink);border-radius:var(--radius-sm);cursor:pointer;font-weight:500;line-height:1.35}
+  .chip:hover{background:var(--ink-soft);border-color:var(--ink-soft);color:var(--paper)}
+  .chip.active,.chip.on{background:var(--fp-deep);border-color:var(--fp-deep);color:var(--paper);font-weight:500}
+  .cardtools{position:absolute;top:8px;right:8px;display:flex;gap:6px;opacity:.4;transition:opacity .12s}
+  .card:hover .cardtools,.cardtools:focus-within{opacity:1}
+  .tbtn{font-family:var(--data);font-size:10px;padding:3px 8px;border:1px solid var(--grid);background:var(--card);color:var(--ink-soft);cursor:pointer;border-radius:var(--radius-sm);transition:color .12s,border-color .12s}
+  .tbtn:hover{color:var(--ink);border-color:var(--ink-soft)}
+  .seedbox{font-family:var(--data);font-size:12px;padding:6px 8px;width:118px;
+    border:1px solid var(--grid);border-radius:2px;background:var(--card);color:var(--ink)}
+  /* method tab prose */
+  .method p{font-size:13.8px;line-height:1.66;color:var(--ink-soft);margin:0 0 15px;max-width:38em}
+  .method p b{color:var(--ink)}
+  .method p>b:first-child{font-family:var(--ui);letter-spacing:.005em}
+  .method p b{font-weight:600}
+  .method .mono{font-family:var(--data);font-size:12.3px}
+  .mtable{width:100%;border-collapse:collapse;font-size:12.5px;margin:6px 0 10px}
+  .mtable th{font-family:var(--data);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-soft);text-align:left;padding:6px 10px 6px 0;border-bottom:1px solid var(--grid)}
+  .mtable td{padding:6px 10px 6px 0;border-bottom:1px solid var(--grid);vertical-align:top;line-height:1.5}
+  .mtable td.mono,.mtable td .mono{font-family:var(--data);font-size:11.5px;white-space:nowrap}
+  .mtable td:first-child{white-space:nowrap;color:var(--ink-soft);font-family:var(--data);font-size:11px}
+
+  /* Wide content scrolls inside its OWN container — never the page body.
+     (Clipping the body would hide overflow instead of fixing it, and would
+     desynchronise scrollHeight from the real page height.) Equations must not
+     break mid-formula, so the equation strip scrolls; the tables are allowed to
+     wrap below 900px instead, which reads better than a scroll on a phone. */
+  .eqs{display:flex;flex-wrap:wrap;gap:8px 28px;padding:12px 16px;
+    border-top:1px solid var(--grid);border-bottom:1px solid var(--grid);margin-bottom:18px;
+    overflow-x:auto}
+  @media(max-width:900px){
+    .mtable td:first-child,.mtable td.mono,.mtable td .mono{white-space:normal}
+  }
+  /* On a phone the button group must not be pinned right by margin-left:auto —
+     with a wide control row it lands 2px past the viewport. Measured, not
+     guessed: the per-route overflow sweep at 390px is what found it. */
+  @media(max-width:640px){
+    .btns{margin-left:0;flex-wrap:wrap}
+  }
+  .eq{font-size:15px;white-space:nowrap}
+  .eq .u{color:var(--hjb);font-weight:600}
+  .eq .m{color:var(--fp);font-weight:600}
+  .eq .dir{font-family:var(--data);font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;margin-left:10px;color:var(--ink-soft)}
+  .eq .dir.b{color:var(--hjb)} .eq .dir.f{color:var(--fp)}
+
+  .controls{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 18px;margin-bottom:18px}
+  .ctl{display:flex;flex-direction:column;gap:3px;min-width:118px}
+  .ctl label{font-family:var(--data);font-size:10.5px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-soft)}
+  .ctl label b{color:var(--ink);font-weight:500}
+  .ctl input[type=range]{width:118px;accent-color:var(--ink)}
+  .ctl .seg{display:flex;gap:0}
+  .seg button{padding:7px 11px;border:1px solid var(--ink);background:transparent;color:var(--ink);
+    font-family:var(--data);font-size:11px;cursor:pointer}
+  .seg button.on{background:var(--ink);color:var(--paper)}
+  .btns{display:flex;gap:10px;margin-left:auto}
+  /* THE PRIMARY ACTION — the one button that runs the flow. Teal signal colour
+     = "the action", matching the Lab's Run button so the whole surface has one
+     primary. */
+  button.main{font-family:var(--ui);font-weight:600;font-size:13px;letter-spacing:0;
+    padding:10px 20px;border:1px solid var(--fp-deep);background:var(--fp-deep);color:var(--paper);
+    cursor:pointer;border-radius:var(--radius);transition:background .14s,box-shadow .16s}
+  button.main:hover{background:var(--fp)}
+  /* RE-RUN NEEDED — an input changed since the last solve. Light the button so
+     it is obvious which one re-runs, and append a re-run glyph to say so. */
+  button.main.needs-run{box-shadow:0 0 0 3px color-mix(in srgb,var(--fp) 22%,transparent)}
+  button.main.needs-run::after{content:'\00A0\21BB'}
+  @keyframes runpulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--fp) 30%,transparent)}
+    50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--fp) 6%,transparent)}}
+  @media(prefers-reduced-motion:no-preference){button.main.needs-run{animation:runpulse 1.9s ease-in-out infinite}}
+  button.ghost{background:transparent;color:var(--ink);border:1px solid var(--grid);
+    font-family:var(--ui);font-weight:500;font-size:13px;padding:10px 16px;cursor:pointer;border-radius:var(--radius);transition:border-color .14s,background .14s}
+  button.ghost:hover{border-color:var(--ink-soft);background:var(--paper)}
+  /* STALE CERTIFICATE — the shown values no longer match the current inputs.
+     Dim them until a re-solve, so a certificate is never read as current when
+     it is not. Opacity only: no dimension change. */
+  .page.stale .ro .v{opacity:.4;transition:opacity .2s}
+  button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--card-gap)}
+  .grid2 > *{min-width:0}
+    .card{background:var(--card);border:1px solid var(--grid);border-radius:var(--radius);
+    padding:16px 18px 14px;position:relative;
+    box-shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);width:100%;min-width:0}
+  .card h2{font-family:var(--ui);font-size:var(--text-h2);font-weight:600;letter-spacing:-.005em;margin-bottom:2px;padding-right:76px}
+  h2 .tag,.card h2 .tag,h3.sec .tag{font-family:var(--data);font-size:var(--text-micro);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-left:8px;font-weight:400}
+  .card h2 .tag.f{color:var(--fp)} .card h2 .tag.b{color:var(--hjb)}
+  .card .note{font-size:12.5px;line-height:1.5;color:var(--ink-soft);margin-bottom:8px;text-wrap:pretty}
+  /* Reserve vertical space BEFORE sizeCanvas() runs, so first paint and
+     tab switches never jump. sizeCanvas sets an explicit style.height,
+     which then overrides aspect-ratio — this is purely the pre-JS floor. */
+  /* Reserve the RIGHT vertical space before sizeCanvas() runs. A single
+     generic ratio was wrong: real h/w spans 0.17..1.0, so one 16/9 floor
+     mis-reserved by up to 394px on cvM2. Each canvas gets its own ratio,
+     taken from the HFIT map that JS uses. sizeCanvas then sets an explicit
+     style.height, which overrides aspect-ratio entirely. */
+  canvas{display:block;width:100%;height:auto;background:var(--card);border-radius:var(--radius-sm)}
+  #cvResid{aspect-ratio:3.125}
+  #cvWdGap{aspect-ratio:5.8824}
+  #cvWdNet{aspect-ratio:2.381}
+  #cvWdBar{aspect-ratio:5.0}
+  #cvWvTree{aspect-ratio:2.6316}
+  #cvM{aspect-ratio:1.5873}
+  #cvU{aspect-ratio:1.5873}
+  #cvLine{aspect-ratio:2.7778}
+  #cvLqErr{aspect-ratio:1.8182}
+  #cvLqOverlay{aspect-ratio:2.7778}
+  #cvResid2{aspect-ratio:3.5714}
+  #cvM2{aspect-ratio:1.0}
+  #cvBif{aspect-ratio:1.25}
+  #cvStF{aspect-ratio:3.3333}
+  #cvStSol{aspect-ratio:2.7778}
+  #cvPrCert{aspect-ratio:3.3333}
+  #cvPrDS{aspect-ratio:2.7778}
+  #cvPrPrice{aspect-ratio:1.6667}
+  #cvPrHeat{aspect-ratio:1.6667}
+  #cvGgFig{aspect-ratio:2.7778}
+  #cvGgCoef{aspect-ratio:1.6667}
+  #cvGgAg{aspect-ratio:1.6667}
+  canvas[style*='height']{aspect-ratio:auto}
+  .span2{grid-column:1/-1}
+
+  .resid{border-left:3px solid var(--amber)}
+  .readouts{display:flex;flex-wrap:wrap;gap:6px 22px;margin:6px 0 10px;
+    font-family:var(--data)}
+  .ro .k{font-family:var(--data);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);line-height:1.35;min-height:1.35em;display:block}
+  .ro .v{font-family:var(--data);font-size:19px;font-weight:500;letter-spacing:-.01em;line-height:1.28;min-height:1.28em;display:block;font-variant-numeric:tabular-nums}
+  .ro .v.small{font-size:14px;padding-top:5px}
+  .ro .v{position:relative;padding-left:13px}
+  .ro .v::before{content:'';position:absolute;left:0;top:.44em;width:6px;height:6px;
+    background:transparent;border:1px solid var(--grid);border-radius:1px}
+  .ro .v.ok{color:var(--fp-deep)}
+  .ro .v.ok::before{background:var(--good);border-color:var(--good);
+    box-shadow:0 0 0 2px color-mix(in srgb,var(--amber) 18%,transparent)}
+  .status{font-family:var(--data);font-size:11px;letter-spacing:.03em;line-height:1.45;
+    color:var(--amber);min-height:2.9em;margin-bottom:4px;text-wrap:pretty;
+    overflow-wrap:anywhere;display:block}
+    a{color:var(--fp);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+    a:hover,a:focus-visible{color:var(--hjb)}
+  .status.done{color:var(--fp-deep)}
+  .status.warn{color:var(--hjb)}
+
+  table.err{border-collapse:collapse;font-family:var(--data);font-size:12px;margin-top:8px}
+  table.err th,table.err td{border:1px solid var(--grid);padding:5px 10px;text-align:right}
+  table.err th{font-weight:500;background:var(--paper)}
+
+  .notes{margin-top:26px;border-top:1px solid var(--grid);padding-top:14px;
+    font-size:13.5px;color:var(--ink-soft);max-width:38em;line-height:1.66}
+  .notes p{margin:0 0 15px}
+  .notes b{color:var(--ink);font-weight:600}
+  .notes p>b:first-child{font-family:var(--ui);letter-spacing:.005em}
+  .notes p+p{margin-top:8px}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:6px;font-size:12.5px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:20px;height:0;border-top:2.5px solid var(--fp)}
+  .sw.naive{border-top:2px dashed #999}
+  .sw.val{border-top:2.5px solid var(--hjb)}
+  .sw.ref{border-top:2px dashed var(--ink)}
+  .sw.amber{border-top:2.5px solid var(--amber)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--ink);display:inline-block}
+  .dot.hollow{background:transparent;border:1.5px solid var(--ink)}
+
+  .eqs{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  canvas{touch-action:pan-y}
+  @media(max-width:640px){
+    .wrap{padding:var(--page-top) 12px 40px}
+    /* Narrow columns wrap the longest status strings to ~4 lines; measured at
+       390px the 2.9em reservation still let a long message push the canvas 32px.
+       Reserve 4 lines here. Verified: canvas movement 0px at 390/640/900/1280/1600. */
+    .status{min-height:5.8em;font-size:10.5px}
+    h1{font-size:var(--text-h1)}
+    .sub{font-size:14px}
+    .mtable{font-size:11px}
+    .mtable td:first-child{font-size:10px}
+    .tabs{display:flex;overflow-x:auto;scroll-snap-type:x proximity;gap:8px;padding-bottom:4px;
+      -webkit-overflow-scrolling:touch}
+    .tab{flex:0 0 140px;scroll-snap-align:start}
+    .shead h2{font-size:var(--text-h2)}
+    .card h2{padding-right:8px}
+    .cardtools{position:static;opacity:1;justify-content:flex-end;margin:-2px 0 4px}
+    .eqs{gap:6px 20px;padding:10px 4px}
+    .eq{font-size:13px}
+    .eq .dir{font-size:9px;margin-left:6px}
+    .controls{gap:12px 14px}
+    .ctl{flex:1 1 130px;min-width:0}
+    .ctl input[type=range]{width:100%}
+    .ctl .seg{width:100%}
+    .seg button{flex:1;padding:8px 6px}
+    .btns{margin-left:0;width:100%}
+    .btns button{flex:1}
+    .readouts{gap:6px 14px}
+    .ro .v{font-size:16px;min-height:1.28em}
+    .ro .v.small{font-size:12.5px}
+    .card{padding:12px 12px 10px}
+    .card .note{font-size:12px}
+    table.err{font-size:10.5px}
+    table.err th,table.err td{padding:4px 6px}
+    .notes{font-size:12.5px}
+    .legend{gap:10px 14px;font-size:11.5px}
+  }
+
+  /* The Lab card: the product, ahead of the evidence for it. Hover changes
+     colour and shadow only — never a dimension (dimensional-stability rule). */
+  .labcard{display:block;text-decoration:none;color:inherit;background:var(--card);
+    border:1px solid var(--grid);border-left:3px solid var(--fp-deep);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 18px;transition:background .15s,box-shadow .15s}
+  .labcard{box-shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06)}
+  .labcard:hover{box-shadow:0 4px 12px rgba(16,24,40,.08),0 1px 2px rgba(16,24,40,.04)}
+  .labcard .lk{display:block;font-family:var(--data);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-soft)}
+  .labcard .lt{display:block;font-family:var(--ui);font-weight:600;font-size:21px;
+    letter-spacing:-.015em;margin:4px 0 6px}
+  .labcard .ld{display:block;max-width:100%;color:var(--ink-soft);font-size:14.5px}
+  .labcard .lgo{display:inline-block;margin-top:10px;font-family:var(--data);font-size:12px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--fp-deep)}
+  /* Everything that is not featured is a LIST, not a card. Cards of equal weight
+     are not a hierarchy; seven of them is a wall. */
+  ul.dirlist{list-style:none;margin:10px 0 0;padding:0;border-top:1px solid var(--grid)}
+  ul.dirlist li{display:grid;grid-template-columns:minmax(140px,190px) 1fr;gap:16px;
+    padding:11px 2px;border-bottom:1px solid var(--grid);align-items:baseline}
+  ul.dirlist li a{font-family:var(--ui);font-weight:600;font-size:14.5px;color:var(--fp-deep);
+    cursor:pointer;text-decoration:none}
+  ul.dirlist li a:hover{text-decoration:underline}
+  ul.dirlist li span{color:var(--ink-soft);font-size:14px}
+  @media(max-width:640px){ul.dirlist li{grid-template-columns:1fr;gap:2px}}
+  @media(max-width:640px){ }
+  @media(max-width:760px){
+  }
+  .alertbar,.draftbar{font-family:var(--data);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:#fff;padding:11px 15px;margin:0 0 18px;line-height:1.5;border-radius:var(--radius);border:0}
+  .alertbar.draft,.draftbar,.alertbar.danger{background:var(--bad)}
+  .alertbar.warn{background:var(--warn-soft);color:var(--ink);border:1px solid var(--grid)}
+  .alertbar.info{background:var(--fp-deep);color:var(--paper)}
+  .alertbar.ok{background:var(--good);color:var(--paper)}
+  .alertbar.muted{background:var(--grid);color:var(--ink)}
+
+  </style>
+<!-- Vercel Web Analytics. Cookieless page counts, no cross-site tracking, no personal
+     data. Declared here rather than injected at build time BECAUSE the export's freshness gate
+     asserts "every copy is byte-identical to its source" — an export that differs from
+     what is committed is exactly the drift that gate exists to catch, so the tag lives in
+     the source or it does not exist.
+     DELIBERATELY ABSENT from research/mfg-congest/mfg-congest.html and
+     research/wardrop-repro/wardrop-repro.html: DEPLOY_ENCLOSURE.md records that those two travel
+     as EMAIL ATTACHMENTS, "self-contained single files, open offline — verified: no
+     external fetches". A paper that phones home when a referee opens it offline costs
+     more trust than a pageview is worth, and mfg-congest additionally carries an
+     IP-reviewed sha256 that expires on any edit (C33). -->
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body class="instrument">
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Carlos Toledo"><span class="mk">&#8718;</span>Carlos&nbsp;Toledo</a>
+    <nav class="sitenav" aria-label="Primary">
+      <a href="/reports">Reports</a>
+      <a href="/stack">Stack</a>
+      <a href="/errata">Errata</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="alertbar ok" role="status">certified by duality</div>
+  <div class="eyebrow">stock-constrained price formation &middot; the stochastic water value</div>
+
+    <div class="claim">
+      <h1>Make the resource finite, and the price acquires a second component — the water value, a martingale between
+      the moments the stock binds.</h1>
+      <div class="src">The previous page's price is a multiplier on <i>instantaneous</i> clearing. Add a scarce stock —
+      a reservoir — and the multiplier gains an intertemporal part. This is where the reproduction ends and my own work
+      begins; the full note is <i>Price formation with a stock constraint</i>.</div>
+    </div>
+    <div class="badges">
+      <span class="badge proved"><b>PROVED</b> · discrete time, by LP duality</span>
+      <span class="badge"><b>CERTIFIED</b> · zero duality gap</span>
+      <span class="badge"><b>OPEN</b> · the continuum statement</span>
+    </div>
+    <p class="lede2" data-verdict="ok">On a finite scenario tree the problem is a linear program, so KKT holds with <b>no constraint
+    qualification</b> and duality is exact. Let w be the multiplier on a node's water balance. Then stationarity in the
+    release gives the Hotelling trichotomy of price against w; stationarity in the carried stock gives
+    <b>w<sub>n</sub> = E[w<sub>child</sub> | n]</b> at every node whose stock is interior, stepping <i>down</i> across a
+    full reservoir and <i>up</i> across an empty one. That is the theorem: <b>the water value is a martingale between
+    stock-binding events</b>, and it is proved by nothing deeper than LP duality.</p>
+    <p class="lede2">The panel below solves the tree exactly — piecewise-linear concave value functions, every
+    breakpoint tracked — and then <b>certifies rather than trusts</b> the answer: primal feasibility, the trichotomy,
+    the dual wedge signs and complementary slackness, and a <b>zero duality gap</b> together prove optimality of the
+    returned primal–dual pair. Only then is the martingale identity read off the certified dual. Move any control and
+    watch which nodes leave the interior: those are exactly the nodes where the martingale is allowed to break.</p>
+
+  <section id="secwv" role="tabpanel" aria-label="Water value on a scenario tree">
+  <header class="shead">
+    <h2>The water value on a scenario tree — solved exactly, certified by duality</h2>
+    <p>Price-taking hydro on a finite tree: release h ∈ [0, h̄] against price ϖ, spill s ≥ 0, carry stock
+    R′ ∈ [0, R̄], linear salvage φR′ at the leaves. The solver is a guess; the certificate is the proof.</p>
+  </header>
+  <div class="eqs">
+    <div class="eq">max Σ p<sub>n</sub>ϖ<sub>n</sub>h<sub>n</sub> + Σ<sub>leaves</sub> p<sub>l</sub>φR′<sub>l</sub><span class="dir">finite LP · KKT needs no CQ</span></div>
+    <div class="eq">ϖ<sub>n</sub> vs <span style="color:var(--amber)">w<sub>n</sub></span> ⇒ h ∈ {0, interior, h̄}<span class="dir b">Hotelling trichotomy</span></div>
+    <div class="eq"><span style="color:var(--amber)">w<sub>n</sub> = E[w<sub>child</sub>|n]</span> + α̃<sub>n</sub> − β̃<sub>n</sub><span class="dir f">martingale off the binding set</span></div>
+  </div>
+
+  <div class="controls">
+    <div class="ctl"><label>tree depth = <b id="vWvD"></b></label>
+      <input type="range" id="wvDepth" min="3" max="6" step="1" value="4"></div>
+    <div class="ctl"><label>reservoir R̄ = <b id="vWvR"></b></label>
+      <input type="range" id="wvRbar" min="0.4" max="1.6" step="0.05" value="0.8"></div>
+    <div class="ctl"><label>turbine h̄ = <b id="vWvH"></b></label>
+      <input type="range" id="wvHbar" min="0.15" max="0.7" step="0.05" value="0.35"></div>
+    <div class="ctl"><label>salvage φ = <b id="vWvP"></b></label>
+      <input type="range" id="wvPhi" min="0" max="1.4" step="0.05" value="0.55"></div>
+    <div class="ctl"><label>scenario seed = <b id="vWvS"></b></label>
+      <input type="range" id="wvSeed" min="1" max="60" step="1" value="7"></div>
+    <div class="btns">
+      <button class="main" id="wvSolveBtn">Solve &amp; certify</button>
+    </div>
+  </div>
+
+  <div class="presets"><span class="plab">try</span>
+    <button class="chip" data-preset="p9a">tight reservoir · the stock binds, the martingale steps</button>
+    <button class="chip" data-preset="p9b">slack reservoir · pure martingale everywhere</button>
+    <button class="chip" data-preset="p9c">worthless water · φ = 0, spill regime</button>
+  </div>
+
+  <div class="grid2">
+    <div class="card resid span2">
+      <h2>Certificates <span class="tag" style="color:var(--amber)">optimality proved, then the theorem read off the dual</span></h2>
+      <div class="status" id="wvStatus"></div>
+      <div class="readouts">
+        <div class="ro"><div class="k">duality gap (rel)</div><div class="v" id="roWvGap">—</div></div>
+        <div class="ro"><div class="k">martingale residual</div><div class="v" id="roWvMart">—</div></div>
+        <div class="ro"><div class="k">trichotomy violations</div><div class="v" id="roWvTri">—</div></div>
+        <div class="ro"><div class="k">binding / total nodes</div><div class="v small" id="roWvBind">—</div></div>
+        <div class="ro"><div class="k">certified revenue</div><div class="v small" id="roWvRev">—</div></div>
+      </div>
+      <div class="note">The duality gap is the load-bearing number: primal revenue minus the dual objective built from
+      the same multipliers. Zero gap proves the returned pair is optimal — no tolerance, no convergence argument. The
+      martingale residual is then <b>max |w<sub>n</sub> − E[w<sub>child</sub>|n]| over interior nodes only</b>, because
+      the theorem makes no claim at nodes where the stock binds; the display says how many nodes are excluded so the
+      certificate cannot be flattered by excluding most of them. Lineage, plainly: water values and their martingale
+      behaviour are classical in hydro scheduling (the SDDP / Pereira–Pinto line) and in commodity-storage economics.
+      What is mine is the precise tree-LP statement, its one-page duality proof, and this certificate.</div>
+    </div>
+
+    <div class="card span2">
+      <h2>The tree, coloured by regime <span class="tag">amber = interior, where the martingale must hold</span></h2>
+      <div class="note">Each node is drawn at its depth with its water value w. <b>Amber</b>: stock interior — w equals
+      the probability-weighted average of its children, to machine precision. <b>Oxblood</b>: reservoir full, the value
+      steps down. <b>Teal</b>: reservoir empty, it steps up. Edge width is conditional probability. The theorem is the
+      picture: colour tells you exactly where the identity is permitted to break.</div>
+      <canvas id="cvWvTree" width="1100" height="420"></canvas>
+    </div>
+  </div>
+  </section>
+
+    <h3 class="sec">What this does not show</h3>
+    <div class="caveat">
+      <p><b>The continuum version is open, and is stated as open.</b> What is proved here is the discrete-time
+      statement on a finite tree. The continuum form — reflected FBSDE well-posedness through the mean-field
+      coupling — is a conjecture in the note, not a result, and nothing on this page should be read as evidence
+      for it.</p>
+      <p><b>Units are dimensionless</b>, as everywhere in this lab. The real-data work — five years of Brazilian
+      hourly prices against the flat-window prediction — lives in the note, where it is labelled <b>consistency,
+      not a test</b>, for a reason worth reading: the published price is the administered output of the official
+      dispatch model, whose hydro-marginal value <i>is</i> a constructed water value, so the agreement partly
+      reflects the price's own construction rather than an independent market fact.</p>
+      <p><b>One weak check is flagged as weak.</b> The tree's revenue-dominance test compares against random
+      feasible policies, which is a weak null; there is no local-optimality witness for the tree yet. The
+      deterministic case has one; the tree does not, and the note says so.</p>
+    </div>
+    <div class="rcpt">
+      <b>kernel</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;research/stock-constraint/tools/water_value_tree.js — <b>embedded verbatim</b> in this page, byte-identity gated<br>
+      <b>gate</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;research/mfg-lab/tests/test-water-value-diff.js — the two copies cannot drift<br>
+      <b>battery</b>&nbsp;&nbsp;&nbsp;&nbsp;research/stock-constraint/tests/test-water-value.js — 120-tree random sweep, every instance certified<br>
+      <b>full note</b>&nbsp;&nbsp;<i>Price formation with a stock constraint</i> — the model, the proofs, the data study
+    </div>
+
+  <!-- ============================ PAGE: RANDOM SUPPLY ============================ -->
+  <div class="foot">
+    Carlos Toledo &middot; one file &mdash; no libraries, no build step, no framework, and every number above computed in your browser. Three typefaces come from Google Fonts; nothing else is fetched. One script: a cookieless page counter, no cross-site tracking, no personal data.<br>
+    The kernel between the VERBATIM markers is byte-identical to <span class="mono">research/stock-constraint/tools/water_value_tree.js</span>.<br>
+    extracted from the dissolved laboratory 2026-07-30 &middot; 2026
+  </div>
+</div>
+
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const DPR=Math.min(2,window.devicePixelRatio||1);
+const clampH=(v,a,b)=>Math.round(Math.min(b,Math.max(a,v)));
+/* The DPR-crisp canvas system, carried verbatim from the laboratory because the invariants are
+   the contract, not the implementation: backing store at CSS x DPR (cap 2); the width/height IDL
+   props are SHADOWED to report LOGICAL css pixels so all draw code lays out in logical units;
+   a persistent setTransform(DPR) maps logical -> physical. Only this function may size a canvas,
+   and it must use setAttribute -- assigning cv.width= throws under the shadow in strict mode --
+   and it reapplies the transform because an attribute resize resets ctx state. No module may
+   call ctx.setTransform/resetTransform. */
+function sizeCanvas(cv,w,h){
+  cv.setAttribute('width',Math.round(w*DPR));
+  cv.setAttribute('height',Math.round(h*DPR));
+  cv.style.height=h+'px';
+  if(!cv._lg){
+    Object.defineProperty(cv,'width',{configurable:true,get(){return cv._w;}});
+    Object.defineProperty(cv,'height',{configurable:true,get(){return cv._h;}});
+    cv._lg=1;
+  }
+  cv._w=w; cv._h=h;
+  cv.getContext('2d').setTransform(DPR,0,0,DPR,0,0);
+}
+const HFIT={cvWvTree:w=>clampH(w*0.38,260,430)};
+function fitCanvases(){
+  for(const id in HFIT){
+    const cv=$(id); if(!cv) continue;
+    const w=cv.clientWidth|0; if(!w) continue;
+    const h=HFIT[id](w);
+    if(!cv._lg||cv.width!==w||cv.height!==h) sizeCanvas(cv,w,h);
+  }
+}
+
+/* THE COMMONJS SHIM, and it is load-bearing. The block below is a NODE file embedded
+   byte-identically, so it ends in `module.exports` and self-demos under `require.main`.
+   Both must exist in the browser or the page dies at parse-with `module is not defined`
+   -- which is exactly what happened on the first assembly of this page. The shim is
+   OUTSIDE the markers so the gated bytes stay untouched. */
+const WVK=(function(){
+const module={exports:{}}, require={main:null};
+/* ==== BEGIN VERBATIM research/stock-constraint/tools/water_value_tree.js ==== */
+/* water_value_tree.js — the STOCHASTIC water value on a scenario tree, solved
+   exactly and certified: the discrete-time content of Proposition B1-stoch
+   (SIN_MFG_Model_Spec_v0.3 §B) as a finished theorem.
+
+   Problem: price-taking hydro on a finite scenario tree (node n, probability
+   p_n, conditional child probs q_c), releasing h_n ∈ [0, h̄] against price ϖ_n,
+   spilling s_n ≥ 0 (dams spill — without it, full-reservoir states with
+   large inflow are infeasible; found by this file's own certificate going
+   red on the first demo), stock R'_n = R^in_n + I_n − h_n − s_n ∈ [0, R̄]
+   (R^in = parent's R'), linear salvage φ·R' at the leaves:
+
+     max  Σ_n p_n ϖ_n h_n + Σ_leaves p_l φ R'_l.
+
+   This is a finite LP; KKT holds with no constraint qualification. With w_n
+   the (per-unit) multiplier of node n's balance:
+
+     · stationarity in h_n :  the Hotelling trichotomy of ϖ_n against w_n;
+     · stationarity in s_n :  w_n ≥ 0, and  s_n > 0 ⇒ w_n = 0  (marginal
+       water at a spilling node is worthless — the floor-spill regime of
+       Prop. A2, reappearing as a dual complementarity);
+     · stationarity in R'_n:  w_n = E[w_child | n] + α̃_n − β̃_n,
+       α̃ ⟂ R'_n ≥ 0,  β̃ ⟂ R'_n ≤ R̄  (leaves: E[w_child] ≔ φ).
+
+   **THE THEOREM: the water value is a martingale between stock-binding
+   events** — w_n = E[w_child | n] exactly at every node whose post-release
+   stock is interior; it steps DOWN across full-reservoir events and UP
+   across empty events, mirror of the deterministic jump directions
+   (water_value_lp.js) with conditional expectation replacing time-stepping.
+   This is the discrete-time lift of B1-stoch's dw = Z dB + dL⁰ − dL̄, proved
+   by nothing deeper than LP duality. Lineage stated plainly: water values
+   and their martingale behavior are classical in hydro scheduling
+   (SDDP/Pereira–Pinto lineage) and commodity-storage economics; what is
+   claimed here is the precise tree-LP statement, its one-page duality
+   proof, and the machine-precision certificate below — inside the SIN-MFG
+   model family where the same w is the price on hydro-marginal windows.
+
+   Solver: EXACT dynamic programming with piecewise-linear concave value
+   functions (payoffs linear, constraints boxes ⇒ V_n is PL concave; all
+   breakpoints tracked exactly), forward pass with a declared tie-breaker
+   (save water: largest optimal R'). Duals constructed backward from the
+   salvage anchor. As always the solver is a guess and the CERTIFICATE is
+   the proof: primal feasibility + trichotomy + wedge signs/comp-slack +
+   ZERO DUALITY GAP prove optimality of the returned pair; the martingale
+   identity is then read off the certified dual. Battery:
+   sin-mfg/tests/test-water-value.js. */
+'use strict';
+
+const TOL = 1e-9;
+
+/* ---- exact piecewise-linear concave functions on [0, Rbar] ---- */
+function evalPL(f, x) {
+  const { xs, vs } = f;
+  if (x <= xs[0]) return vs[0];
+  if (x >= xs[xs.length - 1]) return vs[vs.length - 1];
+  let lo = 0, hi = xs.length - 1;
+  while (hi - lo > 1) { const m = (lo + hi) >> 1; (xs[m] <= x ? lo = m : hi = m); }
+  const t = (x - xs[lo]) / (xs[hi] - xs[lo]);
+  return vs[lo] * (1 - t) + vs[hi] * t;
+}
+/* merge breakpoints closer than 1e-10 — near-duplicate candidates from
+   different kink formulas otherwise create zero-width segments whose slopes
+   are float garbage, poisoning every superdifferential downstream (found by
+   the sweep going red at O(1) while the primal was exact to 9e-16) */
+function dedupe(xs) {
+  const out = [xs[0]];
+  for (let i = 1; i < xs.length; i++) if (xs[i] - out[out.length - 1] > 1e-10) out.push(xs[i]);
+  return out;
+}
+function mixPL(fs, qs) {                       // Σ q_i f_i, exact on merged breakpoints
+  const set = new Set();
+  fs.forEach(f => f.xs.forEach(x => set.add(x)));
+  const xs = dedupe([...set].sort((a, b) => a - b));
+  const vs = xs.map(x => fs.reduce((s, f, i) => s + qs[i] * evalPL(f, x), 0));
+  return { xs, vs };
+}
+function argmaxPL(f) {                          // concave: plateau [xl, xr]
+  let best = -Infinity, xl = f.xs[0], xr = f.xs[0];
+  for (let i = 0; i < f.xs.length; i++) {
+    if (f.vs[i] > best + 1e-13) { best = f.vs[i]; xl = xr = f.xs[i]; }
+    else if (f.vs[i] > best - 1e-13) xr = f.xs[i];
+  }
+  return { xl, xr, best };
+}
+/* exact max of a PL function over a window [lo, hi] — the DECISION always
+   maximizes over the feasible window directly. (A global argmax + clamp is
+   WRONG here: the negative domain extension exists only for derivative
+   extraction, and −ϖR' inflates Gm there into a spurious global peak —
+   found by the sweep: forward passes releasing where storing was optimal.)
+   Tie-break: largest x (save water). */
+function maxOnWindow(f, lo, hi) {
+  let bx = lo, bv = evalPL(f, lo);
+  const consider = (x) => { const v = evalPL(f, x); if (v > bv + 1e-13 || (v > bv - 1e-13 && x > bx)) { bv = v; bx = x; } };
+  for (const x of f.xs) if (x > lo && x < hi) consider(x);
+  consider(hi);
+  return { x: bx, v: bv };
+}
+
+/* ---- tree structure: nodes in an array, parent index, conditional prob q ---- */
+function buildTree(depth, branching, gen) {
+  const nodes = [{ id: 0, parent: -1, q: 1, p: 1, depth: 0, children: [] }];
+  let frontier = [0];
+  for (let d = 1; d < depth; d++) {
+    const next = [];
+    for (const pi of frontier) {
+      for (let b = 0; b < branching; b++) {
+        const id = nodes.length;
+        const q = 1 / branching;
+        nodes.push({ id, parent: pi, q, p: nodes[pi].p * q, depth: d, children: [] });
+        nodes[pi].children.push(id);
+        next.push(id);
+      }
+    }
+    frontier = next;
+  }
+  for (const n of nodes) { const g = gen(n); n.price = g.price; n.inflow = g.inflow; }
+  return nodes;
+}
+
+/* ---- exact solve + dual construction + certificates ---- */
+function solveTree(nodes, { R0, Rbar, hbar, phi }) {
+  const N = nodes.length;
+  /* backward: exact PL value functions V_n(R^in) and stored continuation G_n */
+  const V = new Array(N), G = new Array(N);
+  const order = [...nodes].sort((a, b) => b.depth - a.depth);
+  for (const n of order) {
+    let g;                                       // continuation value of R' at n
+    if (n.children.length === 0) g = { xs: [0, Rbar], vs: [0, phi * Rbar] };
+    else g = mixPL(n.children.map(c => V[c]), n.children.map(c => nodes[c].q));
+    G[n.id] = g;
+    const Gm = { xs: g.xs, vs: g.vs.map((v, i) => v - n.price * g.xs[i]) };   // g(R')−ϖR'
+    /* candidate R^in breakpoints where the window [lo,hi] interacts with Gm.
+       Domain extends BEYOND R̄: parents at a full reservoir pass entry = R̄,
+       and a value function truncated there has an artificially widened
+       superdifferential at the edge (dR = −∞), admitting invalid duals —
+       found by the sweep: distribution overshoot at atTop parents. V is an
+       LP value function, perfectly defined past R̄ (the node spills/releases
+       the excess), so build it on [0, R̄+0.6h̄] and R̄ becomes interior. */
+    const Rext = Rbar + 0.6 * hbar;
+    /* mirror fix at the BOTTOM: entry = 0 (empty-reservoir parents) needs a
+       true left derivative, so extend slightly below 0 — the LP is feasible
+       there whenever entry + I_n ≥ 0 */
+    const lowX = -0.9 * Math.min(n.inflow, 0.5 * hbar);
+    const cand = new Set(lowX < -1e-9 ? [lowX, 0, Rbar, Rext] : [0, Rbar, Rext]);
+    const add = x => { if (x > lowX + 1e-12 && x < Rext - 1e-12) cand.add(x); };
+    for (const b of g.xs) { add(b - n.inflow); add(b - n.inflow + hbar); }
+    const xs = dedupe([...cand].sort((a, b) => a - b));
+    const vs = xs.map(R => {
+      /* with spill: R' ∈ [min(lo, hi), hi]; release min(h̄, R+I−R'), spill rest */
+      const lo = Math.max(0, Math.min(R + n.inflow - hbar, Rbar)), hi = Math.min(Rbar, R + n.inflow);
+      const m = maxOnWindow(Gm, Math.min(lo, hi), hi);
+      return n.price * Math.min(hbar, R + n.inflow - m.x) + evalPL(g, m.x);
+    });
+    V[n.id] = { xs, vs };
+  }
+  /* forward: exact primal (tie-break: save water — largest optimal R') */
+  const Rin = new Float64Array(N), Rp = new Float64Array(N), h = new Float64Array(N), spill = new Float64Array(N);
+  Rin[0] = R0;
+  const fwdOrder = [...nodes].sort((a, b) => a.depth - b.depth);
+  for (const n of fwdOrder) {
+    const g = G[n.id];
+    const Gm = { xs: g.xs, vs: g.vs.map((v, i) => v - n.price * g.xs[i]) };
+    const lo = Math.max(0, Math.min(Rin[n.id] + n.inflow - hbar, Rbar));
+    const hi = Math.min(Rbar, Rin[n.id] + n.inflow);
+    const rp = maxOnWindow(Gm, Math.min(lo, hi), hi).x;
+    Rp[n.id] = rp;
+    h[n.id] = Math.min(hbar, Rin[n.id] + n.inflow - rp);
+    spill[n.id] = Rin[n.id] + n.inflow - rp - h[n.id];
+    for (const c of n.children) Rin[c] = rp;
+  }
+  /* duals: exact superdifferential selection of the value functions, chosen
+     TOP-DOWN. w_n must lie in ∂V_n(entry stock); LP duality guarantees a
+     globally consistent selection exists, and per-node greedy choices do NOT
+     reconcile (found the hard way: 44/120 sweep instances went red under a
+     local chooser). The parent's wedge rule fixes the continuation target;
+     water-filling distributes it over the children's superdifferential
+     intervals. Every constraint is then re-VERIFIED by the certificate set —
+     the selection is a candidate, never a proof. */
+  function superDiff(f, x) {
+    const { xs, vs } = f, n = xs.length, EPS = 1e-11;
+    const slope = j => (vs[j + 1] - vs[j]) / (xs[j + 1] - xs[j]);
+    let i = 0; while (i < n - 2 && xs[i + 1] < x - EPS) i++;
+    let dL, dR;
+    const atBP = Math.abs(x - xs[i]) < EPS ? i : (Math.abs(x - xs[i + 1]) < EPS ? i + 1 : -1);
+    if (atBP === 0) { dL = 1e12; dR = slope(0); }
+    else if (atBP === n - 1) { dL = slope(n - 2); dR = -1e12; }
+    else if (atBP > 0) { dL = slope(atBP - 1); dR = slope(atBP); }
+    else { dL = dR = slope(i); }
+    return { lo: Math.max(dR, 0), hi: Math.max(dL, 0) };       // w ≥ 0 (spill dual)
+  }
+  const w = new Float64Array(N), cont = new Float64Array(N);
+  { const I = superDiff(V[0], Rin[0]); w[0] = spill[0] > TOL ? 0 : I.lo; }
+  for (const n of fwdOrder) {
+    if (n.children.length === 0) continue;
+    const Is = n.children.map(c => superDiff(V[c], Rp[n.id]));
+    const sLo = n.children.reduce((s, c, i) => s + nodes[c].q * Is[i].lo, 0);
+    const sHi = n.children.reduce((s, c, i) => s + nodes[c].q * Is[i].hi, 0);
+    const atTop = Math.abs(Rp[n.id] - Rbar) < TOL, atBot = Math.abs(Rp[n.id]) < TOL;
+    let target = w[n.id];
+    if (atTop) target = Math.max(w[n.id], sLo);                // β̃ ≥ 0: cont ≥ w allowed
+    else if (atBot) target = Math.min(w[n.id], sHi);           // α̃ ≥ 0: cont ≤ w allowed
+    target = Math.min(Math.max(target, sLo), sHi);             // distributable (else certs go red)
+    let deficit = target - sLo;
+    n.children.forEach((c, i) => {
+      const cap = Math.min(Is[i].hi - Is[i].lo, 1e15);
+      const take = Math.max(0, Math.min(cap, deficit / nodes[c].q));
+      w[c] = Is[i].lo + take;
+      deficit -= take * nodes[c].q;
+    });
+  }
+  for (const n of order) {
+    cont[n.id] = n.children.length === 0 ? phi
+      : n.children.reduce((s, c) => s + nodes[c].q * w[c], 0);
+  }
+  /* ---- certificates ---- */
+  const cert = { dynErr: 0, boxErr: 0, tri: 0, wedgeSignErr: 0, compSlack: 0, martingaleRes: 0, bindingNodes: 0, spillNodes: 0, spillDualErr: 0 };
+  for (const n of nodes) {
+    cert.dynErr = Math.max(cert.dynErr, Math.abs(Rp[n.id] - (Rin[n.id] + n.inflow - h[n.id] - spill[n.id])));
+    cert.boxErr = Math.max(cert.boxErr, -h[n.id], h[n.id] - hbar, -Rp[n.id], Rp[n.id] - Rbar, -spill[n.id], 0);
+    if (spill[n.id] > TOL) { cert.spillNodes++; cert.spillDualErr = Math.max(cert.spillDualErr, Math.abs(w[n.id])); }
+    cert.spillDualErr = Math.max(cert.spillDualErr, -w[n.id]);   // w ≥ 0 always (spill dual)
+    if (n.price > w[n.id] + TOL && h[n.id] < hbar - TOL) cert.tri++;
+    if (n.price < w[n.id] - TOL && h[n.id] > TOL) cert.tri++;
+    const wedge = cont[n.id] - w[n.id];          // = β̃ − α̃
+    const atTop = Math.abs(Rp[n.id] - Rbar) < TOL, atBot = Math.abs(Rp[n.id]) < TOL;
+    if (atTop || atBot) cert.bindingNodes++;
+    if (!atTop && !atBot) cert.martingaleRes = Math.max(cert.martingaleRes, Math.abs(wedge));
+    if (wedge > TOL && !atTop) cert.wedgeSignErr = Math.max(cert.wedgeSignErr, wedge);
+    if (wedge < -TOL && !atBot) cert.wedgeSignErr = Math.max(cert.wedgeSignErr, -wedge);
+    if (Math.abs(wedge) > TOL && !atTop && !atBot) cert.compSlack = Math.max(cert.compSlack, Math.abs(wedge));
+  }
+  /* zero duality gap: D = w_root·R0 + Σ p_n [ w_n I_n + R̄·β̃_n + h̄·(ϖ_n−w_n)⁺ ] */
+  let rev = 0, D = w[0] * R0;
+  for (const n of nodes) {
+    rev += n.p * n.price * h[n.id];
+    if (n.children.length === 0) rev += n.p * phi * Rp[n.id];
+    D += n.p * (w[n.id] * n.inflow
+      + Rbar * Math.max(cont[n.id] - w[n.id], 0)
+      + hbar * Math.max(n.price - w[n.id], 0));
+  }
+  cert.revenue = rev;
+  cert.dual = D;
+  /* THE GAP IS REPORTED SIGNED, AND THE SIGN IS THE WHOLE POINT.
+     This is a MAXIMISATION LP, so weak duality gives D >= (primal optimum) >= rev for ANY
+     dual-feasible w and ANY primal-feasible h — no optimality needed, it is an inequality
+     about feasibility alone. So `signedGap = D - rev` is NON-NEGATIVE OR SOMETHING IS WRONG:
+     a negative value cannot be a convergence artifact and cannot be tightened away. It means
+     the dual objective D was assembled from a w that is not dual feasible, or the primal
+     accounting double-counts — in either case a defect in this file, not a tolerance.
+
+     Until 2026-07-29 this line read `Math.abs(rev - D)`, which maps that entire failure
+     direction onto the same non-negative number as the benign one. A dual that undershot the
+     primal by 1e-3 and a primal that undershot the dual by 1e-3 printed identically, and only
+     one of them is possible. The absolute value did not make the check stronger; it deleted
+     half of what the check could see. Same species as PLAN.md 1.2 — every check can go red —
+     and it is why `signViolation` below is a SEPARATE field: a magnitude that happens to sit
+     under tolerance must not launder a sign that is structurally impossible.
+
+     `dualityGap` keeps the magnitude, so every existing consumer and tolerance is unchanged. */
+  cert.signedGap = D - rev;
+  cert.dualityGap = Math.abs(cert.signedGap);
+  cert.gapRel = cert.dualityGap / Math.max(1, Math.abs(rev));
+  cert.signViolation = Math.max(0, -cert.signedGap);   // > 0 ⇒ D < rev ⇒ weak duality violated
+  return { nodes, Rin: [...Rin], Rp: [...Rp], h: [...h], spill: [...spill], w: [...w], cont: [...cont], cert, V, G };
+}
+
+module.exports = { buildTree, solveTree, evalPL, mixPL, argmaxPL, TOL };
+
+if (require.main === module) {
+  /* self-demo: depth-4 binary tree, seeded, engineered to bind */
+  function mulberry32(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const rng = mulberry32(7);
+  const nodes = buildTree(4, 2, n => ({
+    price: 0.5 + 0.8 * rng() + (n.depth === 2 ? 0.5 : 0),
+    inflow: 0.15 + 0.5 * rng(),
+  }));
+  const r = solveTree(nodes, { R0: 0.4, Rbar: 0.8, hbar: 0.35, phi: 0.55 });
+  console.log('water_value_tree self-demo (15 nodes):');
+  console.log('  duality gap     :', r.cert.gapRel.toExponential(2), '(zero ⇒ certified optimal)');
+  console.log('  trichotomy      :', r.cert.tri, 'violations');
+  console.log('  binding nodes   :', r.cert.bindingNodes, 'of', nodes.length);
+  console.log('  martingale res  : max |w_n − E[w_child|n]| off-binding =', r.cert.martingaleRes.toExponential(2));
+  console.log('certificates live in tests/test-water-value.js — run that, not this.');
+}
+/* ==== END VERBATIM ==== */
+return module.exports;
+})();
+
+const MWV=(function(){
+  const cv=$('cvWvTree'), ctx=cv.getContext('2d');
+  /* module-local palette reader (each module has its own; the tokens are the
+     shared contract — reading a nonexistent one returns '' and draws black) */
+  const CSS=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+  const ro=(id,v,ok)=>{const e=$(id);e.textContent=v;e.className='v'+(ok===true?' ok':'')+(String(v).length>13?' small':'');};
+  let S=null;
+  function mulberry32(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  function syncLabels(){
+    $('vWvD').textContent=$('wvDepth').value; $('vWvR').textContent=(+$('wvRbar').value).toFixed(2);
+    $('vWvH').textContent=(+$('wvHbar').value).toFixed(2); $('vWvP').textContent=(+$('wvPhi').value).toFixed(2);
+    $('vWvS').textContent=$('wvSeed').value;
+  }
+  /* THE DECISION RULE, isolated so it can be tested on inputs the page cannot
+     reach by sliding a control. A tiny duality gap is NOT sufficient: a pair
+     with a clean gap but a violated trichotomy or wedge sign is not optimal,
+     and must not be reported as certified. Exposed as window.__wvAudit so the
+     battery can feed it adversarial certificates — otherwise this rule is
+     only ever exercised on instances where every branch agrees, which is
+     indistinguishable from having no rule at all. */
+  const TOLK=1e-9;
+  function audit(c,total){
+    const primalOK=c.dynErr<TOLK&&c.boxErr<TOLK;
+    const dualOK=c.tri===0&&c.wedgeSignErr<TOLK&&c.compSlack<TOLK&&c.spillDualErr<TOLK;
+    const gapOK=c.gapRel<1e-12;
+    const interior=total-c.bindingNodes;
+    return {primalOK,dualOK,gapOK,interior,
+            certified:primalOK&&dualOK&&gapOK,
+            martOK:interior>0&&c.martingaleRes<1e-12};
+  }
+  window.__wvAudit=audit;
+  function solve(){
+    syncLabels();
+    const depth=+$('wvDepth').value, Rbar=+$('wvRbar').value,
+          hbar=+$('wvHbar').value, phi=+$('wvPhi').value, seed=+$('wvSeed').value;
+    const rng=mulberry32(seed);
+    const nodes=WVK.buildTree(depth,2,n=>({price:0.5+0.8*rng()+(n.depth===2?0.5:0),
+                                           inflow:0.15+0.5*rng()}));
+    const r=WVK.solveTree(nodes,{R0:0.4*Rbar/0.8,Rbar,hbar,phi});
+    S=r;
+    const c=r.cert;
+    const a=audit(c,nodes.length), interior=a.interior;
+    ro('roWvGap',c.gapRel.toExponential(2),a.gapOK);
+    ro('roWvMart',interior?c.martingaleRes.toExponential(2):'n/a (no interior node)',a.martOK);
+    ro('roWvTri',String(c.tri),c.tri===0);
+    ro('roWvBind',c.bindingNodes+' / '+nodes.length+(c.spillNodes?' · '+c.spillNodes+' spilling':''));
+    ro('roWvRev',c.revenue.toFixed(5));
+    $('wvStatus').textContent = a.certified
+      ? ('CERTIFIED OPTIMAL — zero duality gap ('+c.gapRel.toExponential(2)+'), trichotomy and wedge signs clean. '
+         +(interior
+            ? ('Water value is a martingale on all '+interior+' interior node'+(interior===1?'':'s')
+               +' to '+c.martingaleRes.toExponential(2)+'; it steps at the '+c.bindingNodes+' binding node'
+               +(c.bindingNodes===1?'':'s')+'.')
+            : 'Every node binds, so the theorem asserts nothing here — no martingale claim is made.')
+         +(c.spillNodes?' '+c.spillNodes+' node'+(c.spillNodes===1?'':'s')+' spilling, where marginal water is worthless (w = 0).':''))
+      : ('NOT CERTIFIED — '+(a.primalOK?'':'primal residual; ')+(a.dualOK?'':'dual sign/complementarity violation; ')
+         +(a.gapOK?'':'duality gap '+c.gapRel.toExponential(2)+'; ')+'no optimality and no martingale claimed.');
+    draw();
+  }
+  function draw(){
+    const W=cv.width,H=cv.height;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle=CSS('--card');ctx.fillRect(0,0,W,H);
+    if(!S)return;
+    const nodes=S.nodes, maxD=Math.max.apply(null,nodes.map(n=>n.depth));
+    const padL=54,padR=64,padT=26,padB=26;
+    const byD={}; nodes.forEach(n=>{(byD[n.depth]=byD[n.depth]||[]).push(n);});
+    const pos={};
+    for(let d=0;d<=maxD;d++){
+      const row=byD[d]||[], x=padL+(maxD?d*(W-padL-padR)/maxD:0);
+      row.forEach((n,i)=>{pos[n.id]={x,y:padT+(row.length===1?(H-padT-padB)/2
+        :i*(H-padT-padB)/(row.length-1))};});
+    }
+    const wv=nodes.map(n=>S.w[n.id]), wmin=Math.min.apply(null,wv), wmax=Math.max.apply(null,wv);
+    ctx.strokeStyle=CSS('--grid');
+    nodes.forEach(n=>{
+      n.children.forEach(ci=>{
+        const a=pos[n.id],b=pos[ci];
+        ctx.beginPath();ctx.lineWidth=0.7+2.2*nodes[ci].q;
+        ctx.moveTo(a.x,a.y);ctx.bezierCurveTo((a.x+b.x)/2,a.y,(a.x+b.x)/2,b.y,b.x,b.y);ctx.stroke();
+      });
+    });
+    ctx.font='500 10px '+getComputedStyle(document.body).getPropertyValue('--data');
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    nodes.forEach(n=>{
+      const p=pos[n.id], Rp=S.Rp[n.id], Rbar=+$('wvRbar').value;
+      const atTop=Rp>Rbar-1e-9, atBot=Rp<1e-9;
+      const col=atTop?CSS('--hjb'):atBot?CSS('--fp'):CSS('--amber');
+      const rad=5+3*(wmax>wmin?(S.w[n.id]-wmin)/(wmax-wmin):0.5);
+      ctx.beginPath();ctx.arc(p.x,p.y,rad,0,6.2832);
+      ctx.fillStyle=col;ctx.fill();
+      if(S.spill[n.id]>1e-9){ctx.strokeStyle=CSS('--ink');ctx.lineWidth=1.2;ctx.stroke();}
+      ctx.fillStyle=CSS('--ink-soft');
+      ctx.fillText(S.w[n.id].toFixed(2),p.x,p.y-rad-8);
+    });
+    ctx.textAlign='left';ctx.fillStyle=CSS('--ink-soft');
+    ctx.fillText('w at each node · ring = spilling',6,H-10);
+  }
+  ['wvDepth','wvRbar','wvHbar','wvPhi','wvSeed'].forEach(id=>{
+    $(id).addEventListener('input',syncLabels);
+  });
+  $('wvSolveBtn').addEventListener('click',solve);
+  syncLabels();
+  return {frame:()=>{},redraw:draw,solveNow:solve};
+})();
+
+
+/* boot: size the canvas, then solve once so the page never shows an empty frame */
+fitCanvases();
+MWV.solveNow();
+let _rt=null;
+window.addEventListener('resize',()=>{clearTimeout(_rt);_rt=setTimeout(()=>{fitCanvases();MWV.redraw();},120);});
+</script>
+<footer class="sitefoot">
+  <nav class="sitemap" aria-label="Site map">
+    <a href="/reports">Reports</a>
+    <a href="/stack">Stack</a>
+    <a href="/errata">Errata</a>
+    <a href="/about">About</a>
+    <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>
+  </nav>
+  <div class="foot-base">Carlos&nbsp;Toledo &middot; carlos@carlostoledo.co &middot; Brazil, 2026</div>
+</footer>
+
+</body>
+</html>

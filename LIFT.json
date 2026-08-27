@@ -349,6 +349,71 @@
       "src": "research/wardrop-repro/wardrop-repro.html",
       "dst": "legacy/research/wardrop-repro/wardrop-repro.html",
       "note": "LEGACY PUBLIC SURFACE \u2014 file-level lift; eligibility criterion: present in the published mfg-lab repo tree (the source lab's own public allowlist, checked 2026-08-27)"
+    },
+    {
+      "src": "research/stock-constraint/stock-constraint.html",
+      "dst": "legacy/research/stock-constraint/stock-constraint.html",
+      "note": "STOCK-CONSTRAINT PUBLIC SET \u2014 file-level lift for the water-value report and the outreach evidence surface; eligibility: present in the published mfg-lab repo tree (checked against the live repo listing 2026-08-27)"
+    },
+    {
+      "src": "research/stock-constraint/water-value.html",
+      "dst": "legacy/research/stock-constraint/water-value.html",
+      "note": "STOCK-CONSTRAINT PUBLIC SET \u2014 carries the scenario-tree water-value solver VERBATIM between markers; the report extracts and re-runs it from these bytes"
+    },
+    {
+      "src": "research/stock-constraint/tests/test-sin.js",
+      "dst": "legacy/research/stock-constraint/tests/test-sin.js",
+      "note": "STOCK-CONSTRAINT PUBLIC SET \u2014 the unit's own battery; self-contained (extracts the kernel from ../stock-constraint.html); re-run as a build gate of reports/water-value.html"
+    },
+    {
+      "src": "research/stock-constraint/tests/test-transpose-sin.js",
+      "dst": "legacy/research/stock-constraint/tests/test-transpose-sin.js",
+      "note": "STOCK-CONSTRAINT PUBLIC SET \u2014 the adjoint-matched-operator battery; re-run as a build gate of reports/water-value.html"
+    },
+    {
+      "src": "research/stock-constraint/tools/continuum_reference.js",
+      "dst": "legacy/research/stock-constraint/tools/continuum_reference.js",
+      "note": "STOCK-CONSTRAINT PUBLIC SET \u2014 the reference scheme test-transpose-sin.js requires"
+    },
+    {
+      "src": "research/stock-constraint/tools/sin_reference.js",
+      "dst": "legacy/research/stock-constraint/tools/sin_reference.js",
+      "note": "STOCK-CONSTRAINT PUBLIC SET \u2014 the reference implementation shipped with the unit"
+    },
+    {
+      "src": "research/stock-constraint/docs/FINDINGS_SIN.md",
+      "dst": "legacy/research/stock-constraint/docs/FINDINGS_SIN.md",
+      "note": "STOCK-CONSTRAINT PUBLIC SET \u2014 the unit's receipts file, served as a raw citation artifact"
+    },
+    {
+      "src": "research/stock-constraint/docs/OPEN_PROBLEMS.md",
+      "dst": "legacy/research/stock-constraint/docs/OPEN_PROBLEMS.md",
+      "note": "STOCK-CONSTRAINT PUBLIC SET \u2014 OP-1/OP-2, quoted by the report"
+    },
+    {
+      "src": "research/stock-constraint/docs/SIN_MFG_Model_Spec_v0.3.md",
+      "dst": "legacy/research/stock-constraint/docs/SIN_MFG_Model_Spec_v0.3.md",
+      "note": "STOCK-CONSTRAINT PUBLIC SET \u2014 the model spec with PROVED/SKETCHED/OPEN labels"
+    },
+    {
+      "src": "research/stock-constraint/docs/pld-data-run.md",
+      "dst": "legacy/research/stock-constraint/docs/pld-data-run.md",
+      "note": "STOCK-CONSTRAINT PUBLIC SET \u2014 the CCEE data recipe (operator-download; the WAF blocks agents)"
+    },
+    {
+      "src": "research/mfg-lab/mfg-lab.html",
+      "dst": "legacy/research/mfg-lab/mfg-lab.html",
+      "note": "OUTREACH EVIDENCE SURFACE \u2014 the single-file MFG laboratory the KAUST letter cites (#/wardrop, #/random-supply, #/verification are its internal routes); byte-preserved, served as a raw citation artifact"
+    },
+    {
+      "src": "research/mfg-cap/mfg-cap.html",
+      "dst": "legacy/research/mfg-cap/mfg-cap.html",
+      "note": "OUTREACH EVIDENCE SURFACE \u2014 the certified-multiplicity artifact page the KAUST letter leads with; byte-preserved"
+    },
+    {
+      "src": "research/mfg-cap/cap-for-mfg.html",
+      "dst": "legacy/research/mfg-cap/cap-for-mfg.html",
+      "note": "OUTREACH EVIDENCE SURFACE \u2014 the companion CAP-for-MFG page; byte-preserved"
     }
   ],
   "patches": [

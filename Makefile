@@ -80,3 +80,4 @@ reports:
 	@$(NODE) tools/build-report-alphaevolve.js
 	@$(NODE) tools/build-report-answer-key.js
 	@$(NODE) tools/build-report-loop.js
+	@$(NODE) tools/build-report-water-value.js

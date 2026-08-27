@@ -1,9 +1,9 @@
 {
  "source_root": "/Users/carlostoledo/Documents/sin-mfg",
- "lifted_at_utc": "2026-08-26T19:02:43.606Z",
+ "lifted_at_utc": "2026-08-27T12:33:02.706Z",
  "policy": "READ-ONLY. The lift copies OUT of sin-mfg and never writes back. `make drift` re-hashes both ends and names what moved.",
  "counts": {
-  "files": 99,
+  "files": 112,
   "patched": 4,
   "missing_in_source": 0
  },
@@ -700,6 +700,97 @@
    "src_sha256": "a24afabfd2c450974618e0af74dbf3368a745a329f8ba94caed5814e4496dc8c",
    "patched": false,
    "local_sha256": "a24afabfd2c450974618e0af74dbf3368a745a329f8ba94caed5814e4496dc8c"
+  },
+  {
+   "src": "research/stock-constraint/stock-constraint.html",
+   "dst": "legacy/research/stock-constraint/stock-constraint.html",
+   "src_sha256": "c5a0e546ab2ef6ce2fd001110870cee71fa029ce4867d49c9dc6342b74b9b047",
+   "patched": false,
+   "local_sha256": "c5a0e546ab2ef6ce2fd001110870cee71fa029ce4867d49c9dc6342b74b9b047"
+  },
+  {
+   "src": "research/stock-constraint/water-value.html",
+   "dst": "legacy/research/stock-constraint/water-value.html",
+   "src_sha256": "57cc5ce59c2a09062b3804a862e6d701a1850f9ed5716d8078d681ddd43e13c5",
+   "patched": false,
+   "local_sha256": "57cc5ce59c2a09062b3804a862e6d701a1850f9ed5716d8078d681ddd43e13c5"
+  },
+  {
+   "src": "research/stock-constraint/tests/test-sin.js",
+   "dst": "legacy/research/stock-constraint/tests/test-sin.js",
+   "src_sha256": "bafb6da67555612caaa7cc4ec0e99316950eaac99034160e4f8ecdff6c3b54d7",
+   "patched": false,
+   "local_sha256": "bafb6da67555612caaa7cc4ec0e99316950eaac99034160e4f8ecdff6c3b54d7"
+  },
+  {
+   "src": "research/stock-constraint/tests/test-transpose-sin.js",
+   "dst": "legacy/research/stock-constraint/tests/test-transpose-sin.js",
+   "src_sha256": "ddf0b44922513be5a45325b0c249653a207699f9d0598daebe903a0dbf1a70b6",
+   "patched": false,
+   "local_sha256": "ddf0b44922513be5a45325b0c249653a207699f9d0598daebe903a0dbf1a70b6"
+  },
+  {
+   "src": "research/stock-constraint/tools/continuum_reference.js",
+   "dst": "legacy/research/stock-constraint/tools/continuum_reference.js",
+   "src_sha256": "924bda15d0542c1362d593c2cc83ed69e8cb4dbbe563732dcdc4bcd2790ff055",
+   "patched": false,
+   "local_sha256": "924bda15d0542c1362d593c2cc83ed69e8cb4dbbe563732dcdc4bcd2790ff055"
+  },
+  {
+   "src": "research/stock-constraint/tools/sin_reference.js",
+   "dst": "legacy/research/stock-constraint/tools/sin_reference.js",
+   "src_sha256": "a343b72dd8f3c4bef69d6c1b6607195f23854f2a881886fadfa12d9dcd0333f5",
+   "patched": false,
+   "local_sha256": "a343b72dd8f3c4bef69d6c1b6607195f23854f2a881886fadfa12d9dcd0333f5"
+  },
+  {
+   "src": "research/stock-constraint/docs/FINDINGS_SIN.md",
+   "dst": "legacy/research/stock-constraint/docs/FINDINGS_SIN.md",
+   "src_sha256": "c73c56ba4faca0ba76b86abe63bca3f1c037c63ce4ea710cbdb1c090a7e96104",
+   "patched": false,
+   "local_sha256": "c73c56ba4faca0ba76b86abe63bca3f1c037c63ce4ea710cbdb1c090a7e96104"
+  },
+  {
+   "src": "research/stock-constraint/docs/OPEN_PROBLEMS.md",
+   "dst": "legacy/research/stock-constraint/docs/OPEN_PROBLEMS.md",
+   "src_sha256": "aae4a0a35e771c2a3a2fba286fa30bf6c8fb52c929b15474bfb9a533cc583fca",
+   "patched": false,
+   "local_sha256": "aae4a0a35e771c2a3a2fba286fa30bf6c8fb52c929b15474bfb9a533cc583fca"
+  },
+  {
+   "src": "research/stock-constraint/docs/SIN_MFG_Model_Spec_v0.3.md",
+   "dst": "legacy/research/stock-constraint/docs/SIN_MFG_Model_Spec_v0.3.md",
+   "src_sha256": "e284bc2dabe7c8c9e7934f3fdd4baf099a5e825a206c4eb4fb47c835bda250ad",
+   "patched": false,
+   "local_sha256": "e284bc2dabe7c8c9e7934f3fdd4baf099a5e825a206c4eb4fb47c835bda250ad"
+  },
+  {
+   "src": "research/stock-constraint/docs/pld-data-run.md",
+   "dst": "legacy/research/stock-constraint/docs/pld-data-run.md",
+   "src_sha256": "998cf04e1ac9a39f409291b979b32994673da47f880a8cd129af9e505e07b310",
+   "patched": false,
+   "local_sha256": "998cf04e1ac9a39f409291b979b32994673da47f880a8cd129af9e505e07b310"
+  },
+  {
+   "src": "research/mfg-lab/mfg-lab.html",
+   "dst": "legacy/research/mfg-lab/mfg-lab.html",
+   "src_sha256": "37c0e3bd640ae4c7fd0fa4a14f9cbf104cc3049b7e2a273071603add0cb01280",
+   "patched": false,
+   "local_sha256": "37c0e3bd640ae4c7fd0fa4a14f9cbf104cc3049b7e2a273071603add0cb01280"
+  },
+  {
+   "src": "research/mfg-cap/mfg-cap.html",
+   "dst": "legacy/research/mfg-cap/mfg-cap.html",
+   "src_sha256": "aeced53621f9e86e637b6a3f726862ace1d44ae190d94f6ae4411c6ae14297a6",
+   "patched": false,
+   "local_sha256": "aeced53621f9e86e637b6a3f726862ace1d44ae190d94f6ae4411c6ae14297a6"
+  },
+  {
+   "src": "research/mfg-cap/cap-for-mfg.html",
+   "dst": "legacy/research/mfg-cap/cap-for-mfg.html",
+   "src_sha256": "f565399725643465f66851716aa7d5baef25465ed15afbea7310ac5815ad2bfd",
+   "patched": false,
+   "local_sha256": "f565399725643465f66851716aa7d5baef25465ed15afbea7310ac5815ad2bfd"
   }
  ]
 }

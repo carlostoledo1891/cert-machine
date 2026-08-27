@@ -306,6 +306,56 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
 
+SESSION 2026-08-27 NIGHT (the stock-constraint phase — operator chose it as
+the first of the three new fronts after the sin-mfg investigation; aerospace
+and LRCAP idea extractions are recorded in this session's chat, NOT in repo
+files — class-C sin-mfg material must never enter this public tree):
+  - THREE-FRONT INVESTIGATION (aerospace / LRCAP / BESS) swept sin-mfg via
+    three read-only agents. Keys: research/lrcap-bess is a LIVE priced
+    engagement (SKUs R$30-100k, Dec 2/4 2026 auctions, ANEEL CP closes
+    14 Sept, outreach drafted-never-sent, class C — nothing liftable);
+    aerospace has a PROMOTED uam-corridor unit + EmbraerX warm-contact
+    strategy + a stale D2 ruling (no aerospace report before the Rust
+    kernel — its stated blocker retired 2026-08-01; operator must
+    re-adjudicate) + one named unbuilt bridge (certified limit-cycle
+    enclosure, the object Kodiak cannot do); "certified" is a hazard word
+    in aviation (always "mathematically certified ... enclosure").
+  - KAUST LETTER READINESS (the phase's cheapest high-value move): the v3
+    Gomes/Ribeiro letter's evidence surface was DEAD — mfg-lab.vercel.app
+    hash-routes now land on this site's root, github.com/carlostoledo1891/
+    mfg-cap 404s. FIXED by hosting the letter's evidence byte-preserved:
+    research/mfg-lab/mfg-lab.html (the #/wardrop #/random-supply
+    #/verification lab) + research/mfg-cap/{mfg-cap,cap-for-mfg}.html now
+    served on carlostoledo.co under /research/. Letter URL substitutions
+    live in the session chat for the operator (the send is theirs; the
+    mfg-cap "MIT code" citation can point at
+    github.com/carlostoledo1891/mfg-lab/tree/main/research/mfg-cap, which
+    resolves today).
+  - THE ENERGY SHELF OPENED: reports/water-value.html
+    (build-report-water-value.js) — the stock-constraint unit's PUBLIC set
+    lifted file-level (13 new LIFT items, eligibility checked against the
+    live published mfg-lab repo listing; drift 112/112 clean). Gates: the
+    unit's OWN batteries re-run at build (test-sin 50 checks incl. its
+    corner sweep; test-transpose-sin with BOTH mutants required to print
+    CAUGHT — the build's red controls), the scenario-tree water-value
+    solver EXTRACTED from water-value.html's verbatim block (sha-pinned
+    28fc1501...; flipped byte refuses; ships beside the page as
+    reports/water_value_tree.extracted.js), 120 seeded random trees
+    re-certified every build (worst rel gap ~5.7e-14, off-binding
+    martingale residual ~9.7e-13, zero trichotomy violations, sign of the
+    gap checked SEPARATELY with a 1e-12 rounding bar — a femto-negative is
+    ulp accumulation, not assembly). PLD layer quoted as history with its
+    own DESCRIPTIVE-CONSISTENCY downgrade; OP-1/OP-2 stated as open.
+    Shelf: 'ground' group; build-site serves the lifted units as raw
+    citation files under /research/ (the alien-science pattern).
+  - NEXT IN PHASE (operator's word where marked): [operator] send the
+    KAUST letter with the URL substitutions; [operator] the LRCAP
+    guard-rail decision (forfeit December consciously, or set a send
+    date — ANEEL CP closes 14 Sept); [agent] OP-2 exploration
+    (Γ-convergence of the exact discrete KKT) when directed; [agent]
+    price-saturation floor-recalibration would need sin-mfg write access
+    — it CANNOT run here; flag only.
+
 SESSION 2026-08-27 LATEST (the report chase — all four queue items, on the
 operator's word "proceed all four"):
   1. reports/alphaevolve.html SHIPPED (build-report-alphaevolve.js): the

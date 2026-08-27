@@ -189,6 +189,10 @@ const REPORTS = [
     desc: 'The Ramanujan Machine’s complete zeta(3) result sheet re-decided with certificates: proved tail bands, convergence inside the certificate, exact rational comparisons.',
     n: 'the spurious-solution lemma re-proved at build' },
   /* group 'ground': the instruments, proven on hard classical ground */
+  { g: 'ground', f: 'water-value.html', k: 'energy · certified theorem',
+    title: 'The water value, certified',
+    desc: 'The shadow price of stored water in a hydro-dominated grid is a martingale between stock-binding events — proved by LP duality on scenario trees, with the solver extracted from the published artifact’s own bytes and 120 random trees re-certified at every build.',
+    n: 'duality gap ~1e-14 · continuum limit honestly OPEN' },
   { g: 'ground', f: 'mercer-program.html', k: 'program · certified landscape',
     title: 'The Mercer program',
     desc: 'Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.',
@@ -468,7 +472,7 @@ put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports · cert-machi
 put('about/index.html', Buffer.from(TPL.render({ title: 'About · Carlos Toledo', bodyRaw: aboutBody, footRaw: aboutFoot })));
 put('machine/index.html', fs.readFileSync(path.join(ROOT, 'index.html')));
 for (const f of fs.readdirSync(path.join(ROOT, 'reports'))) {
-  if (f.endsWith('.html') || f.endsWith('.py')) put('reports/' + f, fs.readFileSync(path.join(ROOT, 'reports', f)));
+  if (f.endsWith('.html') || f.endsWith('.py') || f.endsWith('.js')) put('reports/' + f, fs.readFileSync(path.join(ROOT, 'reports', f)));
 }
 for (const f of fs.readdirSync(path.join(ROOT, 'certs'))) {
   if (f.endsWith('.json') || f.endsWith('.jsonl')) put('certs/' + f, fs.readFileSync(path.join(ROOT, 'certs', f)));
@@ -481,6 +485,18 @@ const ALIEN = path.join(ROOT, 'legacy', 'research', 'alien-science', 'alien-scie
 for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
   const abs = path.join(ALIEN, String(e));
   if (fs.statSync(abs).isFile()) put('research/alien-science/alien-science/' + String(e).split(path.sep).join('/'), fs.readFileSync(abs));
+}
+/* the stock-constraint public set + the outreach evidence surfaces: raw
+   citation FILES under /research/ (the alien-science pattern — byte-preserved
+   files, never restyled pages; extended to the KAUST-letter evidence and the
+   water-value report's source unit, 2026-08-27). Every file here was lifted
+   file-level from the source lab under the published-mfg-lab-tree allowlist. */
+for (const unit of ['research/stock-constraint', 'research/mfg-lab', 'research/mfg-cap']) {
+  const base = path.join(ROOT, 'legacy', unit);
+  for (const e of fs.readdirSync(base, { recursive: true })) {
+    const abs = path.join(base, String(e));
+    if (fs.statSync(abs).isFile()) put(unit + '/' + String(e).split(path.sep).join('/'), fs.readFileSync(abs));
+  }
 }
 
 fs.mkdirSync(SITE, { recursive: true });

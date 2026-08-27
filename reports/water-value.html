@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Reports · cert-machine</title>
+<title>The water value, certified</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -282,43 +282,71 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · reports</div>
-  <h1>The reports</h1>
-  <p class="deck">Research notes ordered by weight, not date. Every page re-proves itself: its numbers are recomputed from the certificates and records at build time, its planted falsifiers must fire, and a build that drifts refuses to ship.</p>
+  <div class="eyebrow">cert-machine · certified audit · energy — re-proved at every build</div>
+  <h1>The water value, certified</h1>
+  <p class="deck">In a hydro-dominated grid the marginal value of stored water is the shadow price that sets the whole dispatch — and it obeys a theorem: between the events where the reservoir hits full or empty, the water value is a MARTINGALE, stepping down across full-reservoir events and up across empty ones. On finite scenario trees that statement is proved by LP duality with no constraint qualification, and this page re-proves it at every build: the solver is extracted from the published artifact&#39;s own bytes, run on 120 random trees, and every certificate re-checked — duality gap, martingale residual, Hotelling trichotomy.</p>
 </header>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">the shelf</div>
-    <h2>AI verification</h2>
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> The stochastic water value on scenario trees is a certified theorem, not a heuristic: w = E[w(child)] at every interior-stock node, exact to 9.7e-13 across this build's 120-tree suite, with zero duality gap (worst relative gap 5.7e-14) and zero trichotomy violations. The deterministic case is proved outright; the continuum limit is honestly OPEN.</li><li><b>The mechanism.</b> The dispatch problem is a finite LP; the water value is its balance multiplier. Weak duality makes the gap one-signed — a negative gap is structurally impossible and the build dies on it rather than reporting a magnitude. The solver ships VERBATIM inside the published page; this build extracts it from those bytes (sha-pinned), so the thing certified is the thing published.</li><li><b>Check it.</b> <span class="m">node legacy/research/stock-constraint/tests/test-sin.js</span> from a clone — the unit's own battery, 50 checks; the extracted solver ships beside this page as <span class="m">reports/water_value_tree.extracted.js</span> and self-demos under node.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">the theorem</div><div class="v held">PROVED (discrete)</div><div class="n">deterministic: LP duality, no constraint qualification needed · scenario trees: w = E[w child] off-binding — the discrete content of dw = Z dB + dL⁰ − dL̄</div></div>
+    <div class="stat"><div class="k">duality gap</div><div class="v held">5.7e-14</div><div class="n">worst RELATIVE gap across 120 seeded random trees, re-solved this build; the sign is checked separately — a negative gap dies, never rounds</div></div>
+    <div class="stat"><div class="k">martingale residual</div><div class="v held">9.7e-13</div><div class="n">max |w − E[w child]| over every interior-stock node in the suite</div></div>
+    <div class="stat"><div class="k">unit batteries</div><div class="v held">50 checks green</div><div class="n">the lifted unit&#39;s own gates re-run: kernel extracted from the artifact bytes; 2 adjoint mutants CAUGHT (the reds fired)</div></div>
+    <div class="stat"><div class="k">tree classes</div><div class="v">116 · 67 · 4</div><div class="n">trees with binding stock events · with spill · pure-martingale — all three certificate classes exercised or the build refuses</div></div>
+    <div class="stat"><div class="k">continuum limit</div><div class="v warn">OPEN</div><div class="n">the reflected-FBSDE well-posedness (OP-1) and the reflecting-boundary duality (OP-2) are stated, not claimed</div></div>
   </div>
-<div class="wide"><div class="cards"><a class="card" href="matmul-eval.html"><span class="card-k">the eval · live board</span><span class="card-t">The matmul eval: ground truth is a proof</span><span class="card-d">Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.</span><span class="card-n">268 proposals graded · zero subtly-wrong survivors</span></a>
-<a class="card" href="alphaevolve.html"><span class="card-k">audit · AI-discovered algorithms</span><span class="card-t">The AI-discovered algorithms, certified</span><span class="card-d">AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.</span><span class="card-n">11 algorithms re-decided each build</span></a>
-<a class="card" href="erdos852.html"><span class="card-k">audit · refutation</span><span class="card-t">The constant that was a rounding error</span><span class="card-d">A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.</span><span class="card-n">refuted at digit 12 · correction certified</span></a>
-<a class="card" href="verifier-loop.html"><span class="card-k">verified reward · demo</span><span class="card-t">The verifier in the loop</span><span class="card-d">The reward channel in closed loop: a model proposes, the grader answers every failure with its own refutation mechanism — the exact violated equation, nothing more — and the model retries. Every trajectory rendered from the append-only ledger.</span><span class="card-n">feedback template-locked · zero coaching</span></a>
-<a class="card" href="answer-key.html"><span class="card-k">note · for eval builders</span><span class="card-t">When the answer key is wrong</span><span class="card-d">Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.</span><span class="card-n">every specimen re-proved at build</span></a>
-<a class="card" href="methods-note.html"><span class="card-k">methods note</span><span class="card-t">None by reading code</span><span class="card-d">Every real bug this machine has found — ten, cataloged — was caught by a red control, a calibration, an impossible number, or a byte pin. How to build verifiers that catch their own defects, stated as engineering.</span><span class="card-n">every regression re-held by a battery at build</span></a>
-<a class="card" href="rm-audit.html"><span class="card-k">audit · standing registry</span><span class="card-t">The Ramanujan Machine, audited</span><span class="card-d">Every row of all seven published result sheets decided by rigorous enclosures and exact rational comparisons — the whole registry re-certified at every build.</span><span class="card-n">51 printed rows · 50 survive · 1 refuted, correction certified</span></a>
-<a class="card" href="impostors.html"><span class="card-k">proved negatives</span><span class="card-t">The impostor catalog</span><span class="card-d">Published constants that agree with simple closed forms for dozens of significant digits — and exact proofs that every one of them is lying. Digit agreement is not evidence: the answer-key-contamination parable.</span><span class="card-n">exact BigInt refutations at full published precision</span></a>
-<a class="card" href="alien-science.html"><span class="card-k">eval note · alignment sandbox</span><span class="card-t">Alien science needs a disposition</span><span class="card-d">An evaluation note on Anthropic’s automated-alignment sandbox: its authors name evaluation as the binding constraint, and this is what certified evaluation looks like.</span><span class="card-n">posted to the inviting repository</span></a>
-<a class="card" href="zeta3-audit.html"><span class="card-k">audit · ζ(3) sheet</span><span class="card-t">The ζ(3) sheet, decided</span><span class="card-d">The Ramanujan Machine’s complete zeta(3) result sheet re-decided with certificates: proved tail bands, convergence inside the certificate, exact rational comparisons.</span><span class="card-n">the spurious-solution lemma re-proved at build</span></a></div></div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the object</div>
+    <h2>A shadow price with a martingale inside</h2>
+  </div>
+<p>A hydro operator holding stock R releases h against price ϖ under a hard box 0 ≤ R ≤ R̄. The water value w is the multiplier of the stock balance, and optimality is the Hotelling trichotomy: release at full rate where ϖ &gt; w, hold where ϖ &lt; w, and at interior release the price IS the water value. In the deterministic case w is piecewise constant, jumping up across empty-reservoir events and down across full ones — proved here as the KKT system of a finite LP, where no constraint qualification is needed and strong duality is an identity you can print.</p>
+<p>On a scenario tree the same proof gives the stochastic statement: at every node whose post-release stock is interior, w equals the conditional expectation of its children&#39;s w — the water value is a martingale between stock-binding events, and spilling nodes pin w = 0 (marginal water at a spilling dam is worthless, reappearing as a dual complementarity). That is the exact discrete content of the continuum equation dw = Z dB + dL⁰ − dL̄, with the local times acting only at the barriers.</p>
 </section>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">the proving ground</div>
-    <h2>The instruments, proven on hard classical ground</h2>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · re-proved at build</div>
+    <h2>The certificate suite this page just ran</h2>
   </div>
-<div class="wide"><div class="cards"><a class="card" href="water-value.html"><span class="card-k">energy · certified theorem</span><span class="card-t">The water value, certified</span><span class="card-d">The shadow price of stored water in a hydro-dominated grid is a martingale between stock-binding events — proved by LP duality on scenario trees, with the solver extracted from the published artifact’s own bytes and 120 random trees re-certified at every build.</span><span class="card-n">duality gap ~1e-14 · continuum limit honestly OPEN</span></a>
-<a class="card" href="mercer-program.html"><span class="card-k">program · certified landscape</span><span class="card-t">The Mercer program</span><span class="card-d">Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.</span><span class="card-n">mu(5) ≤ 1 + π/20 · re-certified every build</span></a>
-<a class="card" href="erdos290.html"><span class="card-k">erdős #290 · theorem</span><span class="card-t">Erdős #290: the 4k(k+1) theorem</span><span class="card-d">The square-discriminant law proved and re-proved as exact integer identities during the build, the enclosure sweep deepened past the cited page, the exceptional degree closed.</span><span class="card-n">planted falsifiers must fire at build</span></a>
-<a class="card" href="entropy.html"><span class="card-k">certified invariant</span><span class="card-t">Entropy, with a certificate</span><span class="card-d">A certified lower bound on the topological entropy of the classical Hénon map — covering relations composed to an exact integer spectral argument, calibrated at the full horseshoe.</span><span class="card-n">h_top ≥ 0.3017, a theorem</span></a>
-<a class="card" href="verify-lemniscate.html"><span class="card-k">erdős #1038 · verification</span><span class="card-t">Erdős #1038: thirty decimals verified</span><span class="card-d">The computational fragment of the Darvas–Peng–Tao manuscript re-verified by an independent route — Krawczyk rather than bisection — with the 30th digit read correctly.</span><span class="card-n">filed on the claiming authors’ repository</span></a>
-<a class="card" href="mfg-congest.html"><span class="card-k">validated numerics</span><span class="card-t">A congestion mean-field game, enclosed</span><span class="card-d">An equilibrium of a mean-field game with congestion enclosed by validated numerics: an exact solution within an explicit radius, locally unique in the full sequence space.</span><span class="card-n">embedded verifier re-run at build</span></a>
-<a class="card" href="wardrop-repro.html"><span class="card-k">certified reproduction</span><span class="card-t">Wardrop, certified: exact, enclosed, refused</span><span class="card-d">The multi-population Wardrop equilibria of a published paper reproduced with certificates — exact where possible, enclosed where not, and refused where honesty demands it.</span><span class="card-n">embedded verifier re-run at build</span></a></div></div><div class="col after-fig"><p>These are where the verifiers earned calibration before deciding anything a model produced: censuses reproducing Galias's published counts, boxes re-closing Goddard's, ladders anchored on Apéry. The audits above stand on this ground.</p></div>
+<p>The scenario-tree solver ships verbatim inside the published water-value artifact, between markers, ending in its own module exports — so this build does not trust a copy: it extracts the solver from the page bytes, checks the extraction&#39;s sha256 against the pin, and refuses on a single flipped byte. The extracted source is then run on 120 seeded random trees (depths 3–5, branching 2–3, randomized prices, inflows, stock boxes and salvage), and on every tree four certificate families are re-checked: the KKT residuals (dynamics, boxes, wedge signs, spill duals), the Hotelling trichotomy (zero violations tolerated), the off-binding martingale residual, and the duality gap.</p>
+<p>The gap check is one-signed on purpose. This is a maximization LP, so weak duality makes dual − primal non-negative for ANY feasible pair — a negative value cannot be a convergence artifact; it can only mean the assembly is wrong, and the build dies on it as a separate check rather than folding it into a magnitude. The red controls are the lifted unit&#39;s own: the adjoint-matched-operator battery must catch both of its planted mutants (it did — 2 CAUGHT this build), and the page-kernel battery re-extracts the browser kernel from the artifact and re-runs its full corner sweep.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git 0c082c5. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · the empirical layer</div>
+    <h2>Five years of PLD, quoted as history — with its own downgrade</h2>
+  </div>
+<p>The unit tested the theorem&#39;s signature against Brazil&#39;s hourly spot price (PLD, submarket Sudeste, 2021–2025): between jumps the price should be flat where hydro is marginal. The record shows interior windows with flatness shrinkage up to 75× against a permutation null, and the flattest year is 2021 — the water crisis, when scarcity kept hydro marginal nearly year-round. The naive seasonal reading (&quot;wet years flatter&quot;) is REFUTED by the same data: flatness tracks the hydro-marginal regime, not the calendar.</p>
+<p>The unit&#39;s own adversarial review downgraded this layer from &quot;confirmed&quot; to DESCRIPTIVE CONSISTENCY, and this page keeps the downgrade: PLD is an administered price built from a model that already moves its water value slowly, the permutation null measures persistence rather than pinning, and the window selection is partly circular. These numbers are quoted as history because their data sits behind CCEE&#39;s access wall — the recipe to re-run them ships with the unit (docs/pld-data-run.md), and nothing in §2&#39;s certificates depends on them.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · open, and said so</div>
+    <h2>What the theorem does not yet reach</h2>
+  </div>
+<ul class="plain"><li><b>OP-1 — the continuum limit.</b> Well-posedness of the doubly-reflected FBSDE for the stock, the water value and its barrier local times, jointly with the mean-field price coupling. Reflection sits in the FORWARD state with solution-dependent barrier events — outside the standard reflected-BSDE toolkits. Three candidate routes are recorded in the unit&#39;s OPEN_PROBLEMS file.</li><li><b>OP-2 — the reflecting-boundary duality.</b> The discrete side is now exact at every resolution (the adjoint-matched pair re-verified this build has operator defect exactly zero), so Γ-convergence of the discrete KKT system is a live route to the continuum duality — a route that did not exist before the matched pair was built.</li><li><b>The band variational inequality.</b> Brazil&#39;s administrative price band makes the equilibrium a monotone VI rather than a minimizer — existence and uniqueness of aggregates follow, and the welfare gap of the band becomes a model output. Sketched in the unit&#39;s model spec with status labels; not claimed here.</li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · provenance</div>
+    <h2>Where these bytes come from</h2>
+  </div>
+<p>Every source file behind this page was lifted FILE-LEVEL from the research unit&#39;s public set — the eligibility criterion is presence in the source lab&#39;s own published tree, checked against the live repository listing — and is served byte-preserved under /research/stock-constraint/ beside this rebuilt page: the two original artifacts, the batteries this build re-ran, the reference implementations, and the model spec with its PROVED/SKETCHED/OPEN labels. The lineage is the price-formation program of the KAUST mean-field-games group (Gomes, Gutierrez, Ribeiro; Bakaryan, Aoun, de Lima Ribeiro, Hovakimyan, Gomes), whose results the source unit reproduces; the certification layer and this page are independent of that group and any error here is ours.</p>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-water-value.js @ git 0c082c5. The unit's own batteries re-ran as gates (50 checks; 2 mutants caught), the solver was re-extracted from the published bytes against its sha pin, and 120 random trees re-certified — the build refuses on any deviation. Source unit files: /research/stock-constraint/ · extracted solver: reports/water_value_tree.extracted.js.</p></footer>
 
 </div>
 </html>
