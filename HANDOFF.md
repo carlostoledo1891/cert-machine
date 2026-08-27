@@ -323,14 +323,23 @@ files — class-C sin-mfg material must never enter this public tree):
   - KAUST LETTER READINESS (the phase's cheapest high-value move): the v3
     Gomes/Ribeiro letter's evidence surface was DEAD — mfg-lab.vercel.app
     hash-routes now land on this site's root, github.com/carlostoledo1891/
-    mfg-cap 404s. FIXED by hosting the letter's evidence byte-preserved:
-    research/mfg-lab/mfg-lab.html (the #/wardrop #/random-supply
-    #/verification lab) + research/mfg-cap/{mfg-cap,cap-for-mfg}.html now
-    served on carlostoledo.co under /research/. Letter URL substitutions
-    live in the session chat for the operator (the send is theirs; the
-    mfg-cap "MIT code" citation can point at
-    github.com/carlostoledo1891/mfg-lab/tree/main/research/mfg-cap, which
-    resolves today).
+    mfg-cap 404s. FIRST FIX (serving the sin-mfg pages byte-preserved under
+    /research/) was WRONG and operator-corrected the same night — see the
+    RULING below. Final state: the letter's evidence = REBUILT reports in
+    this design system (reports/mfg-cap.html — the lead multiplicity
+    result, its battery + 6 falsifiers re-run at build; reports/
+    mfg-lab.html — the lab's certified-claims registry, four of its own
+    batteries at build; reports/wardrop-repro.html and methods-note.html
+    already covered #/wardrop and #/verification). The "MIT code" citation
+    points at github.com/carlostoledo1891/mfg-lab/tree/main/research/
+    mfg-cap (resolves today). The letter's "live in the browser" phrasing
+    needs the operator's rewording at send — the interactive artifact now
+    lives in the public repo, not on this site.
+  - RULING (operator, 2026-08-27, permanent): byte-preserved sin-mfg pages
+    are served ONLY for urls in ALREADY-SENT outreach (the alien-science
+    bundle). Never-sent material NEVER ships in foreign design — rebuild
+    in this design system under /reports and 301 the old path onto the
+    rebuild. Lifted units stay in legacy/ as GATE SOURCES only, unserved.
   - THE ENERGY SHELF OPENED: reports/water-value.html
     (build-report-water-value.js) — the stock-constraint unit's PUBLIC set
     lifted file-level (13 new LIFT items, eligibility checked against the
