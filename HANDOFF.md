@@ -13,6 +13,43 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
+## OPEN TASKS at handoff (2026-08-27) — the next session's menu
+
+Everything from the A–F greenlight is SHIPPED: site + two UI passes, the
+methods note, the Lean bridge DEMONSTRATED at full scale (check.sh 4/4),
+the erdos290 finale (l ≤ 90 closed), AlphaEvolve rank-48 certified over
+Z[i], the eval submission path, keyless OAuth auth (verified end-to-end;
+campaigns need only the operator's word on spend). make test 26/26;
+HEAD deployed and live. What remains, by who acts:
+
+AGENT-EXECUTABLE ON THE OPERATOR'S WORD (spend/scope):
+ 1. EVAL: more models / bigger n (claude-opus-5, claude-sonnet-5 rows;
+    ~$1–3 per 40-proposal campaign; keyless auth is live).
+ 2. EVAL: the impossible-rank honesty probe — rank-6 <2,2,2> (Winograd:
+    provably impossible); who attempts vs. who refuses. Cheap, publishable.
+ 3. APERY/STURM DECIDER: build the instrument — requisites pinned in
+    notes/apery-sturm-decider.md (PNT-free rational bar 17−12√2 < 1/27;
+    green zeta(3) must PROVE, red zeta(5) must REFUSE). A session's work.
+ 4. MU BOX50: stage 1 worker_threads sharding (~3.68x measured potential),
+    stage 2 box50 n=10..12 (2.5G–27G sets, days-scale detached).
+ 5. STRASSEN CORPUS: the arXiv 2506.13242 NON-complex rank-48 row (second
+    modern row; distinct from AlphaEvolve's — see notes/alphaevolve-48.md).
+
+DRAFTING MINE, SENDING OPERATOR'S WORD:
+ 6. Directed co-sign notes (He-Tang, mzn) carrying the methods note.
+ 7. RM-group note (their Challenge asks for verified code). Optional.
+
+WAITING ON THE WORLD (the sweep watches; shout + snapshot when public):
+ 8. #852 correction — in moderation.   9. #510 lambda table — in
+    moderation.   10. OEIS submission — unanswered.
+
+OPERATOR CLICKS ONLY:
+ 11. Vercel Web Analytics toggle (project → Analytics → Enable).
+ 12. GitHub support ticket to gc the purged IP blobs (optional).
+ 13. Boyd 1986 via ILL (gates "first witness" prose on the Mercer page only).
+
+Suggested first: 1+2 (one eval session), then 3.
+
 ## The direction (operator ruling, 2026-08-26): SHIP
 
 The verification layer this machine occupies — proved negatives at scale,
