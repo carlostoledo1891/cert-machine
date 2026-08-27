@@ -361,26 +361,56 @@ FAMILIES = {"egyptian": EgyptianFamily, "matmul": MatmulFamily}
 Proposer = Callable[[str], str]
 
 
+def _oauth_token() -> str:
+    """Short-lived access token from the `ant auth login` profile — the
+    keyless auth path (nothing static exists to leak or rotate)."""
+    import subprocess
+    return subprocess.check_output(
+        ["ant", "auth", "print-credentials", "--access-token"], text=True).strip()
+
+
 def anthropic_proposer(model: str, max_tokens: int = 200) -> Proposer:
+    # Credential resolution, in order: ANTHROPIC_API_KEY, then the OAuth
+    # profile stored by `ant auth login` (preferred: no static key to
+    # manage — the operator's post-leak protocol).
     key = os.environ.get("ANTHROPIC_API_KEY")
+    token = None
     if not key:
-        sys.exit("ANTHROPIC_API_KEY not set")
+        try:
+            token = _oauth_token()
+        except Exception:
+            sys.exit("no ANTHROPIC_API_KEY and no `ant auth login` profile "
+                     "(install: brew install anthropics/tap/ant; then: ant auth login)")
 
     def call(prompt: str) -> str:
+        nonlocal token
         body = json.dumps({"model": model, "max_tokens": max_tokens,
                            "messages": [{"role": "user", "content": prompt}]}).encode()
-        req = urllib.request.Request(
-            "https://api.anthropic.com/v1/messages", data=body,
-            headers={"content-type": "application/json", "x-api-key": key,
-                     "anthropic-version": "2023-06-01"})
+
+        def build_request() -> urllib.request.Request:
+            headers = {"content-type": "application/json",
+                       "anthropic-version": "2023-06-01"}
+            if key:
+                headers["x-api-key"] = key
+            else:
+                headers["Authorization"] = "Bearer " + token
+                headers["anthropic-beta"] = "oauth-2025-04-20"
+            return urllib.request.Request(
+                "https://api.anthropic.com/v1/messages", data=body, headers=headers)
+
         last = None
         for attempt in range(5):                      # transient network/API errors: retry,
             try:                                      # never record them as model outcomes
-                with urllib.request.urlopen(req, timeout=120) as r:
+                with urllib.request.urlopen(build_request(), timeout=120) as r:
                     data = json.load(r)
                 return "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text")
             except Exception as e:                    # noqa: BLE001
                 last = e
+                if token is not None and getattr(e, "code", None) == 401:
+                    try:                              # token expired mid-campaign: refresh once per bounce
+                        token = _oauth_token()
+                    except Exception:                 # noqa: BLE001
+                        pass
                 time.sleep(2 ** attempt)
         raise RuntimeError(f"API failed after 5 attempts: {last}")
     return call
