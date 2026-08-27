@@ -398,8 +398,29 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       row; comparison re-derived at every note build. Battery 29/29
       (N339LL regression + self-compare calibration); app stays pinned
       to the day of record
-- AFTER the four: SP city-pack page (the EmbraerX artifact). HELD for the
-  operator: methodology v2 (the conservatism refinements — Phase 2 box).
+- AFTER the four: SP CITY PACK (the EmbraerX artifact) — spec sharpened
+  2026-08-27 from the program-office brainstorm (what survives, recorded):
+  * Lead framing: EVE-100 over the SP day (4 SP days already certified);
+    NYC stays flagship BY MEASUREMENT — SP is added, not repointed
+  * ANAC RULE PACK is the real gap (Phase 2 "ANAC pending" since day
+    one): research + pin the RBAC reserve requirement, decide under
+    ANAC alongside FAA/EASA — the demo must be in their jurisdiction
+  * SHIP THE PLANNER with it: SP corridor graph + heliport nodes
+    (scenario/cities/sp.json) — the PLAN tab is adjacent to Eve's
+    UATM product line (Vector); that is the door-opening tab
+  * FLIP THRESHOLDS LEAD for Eve: their pack is all-assumption, so the
+    day reads mostly NEEDS DATA — honest framing is the priced
+    invitation ("at X published kWh the SP day turns green"), never
+    "every flight decided" without the qualifier
+  * Sensitivity curves (existing optimize grids) run on the SP day —
+    "the sliders, not a scorecard"
+  * Cheap now, any session: a BRING-YOUR-OWN-BOX runbook — the
+    instrument already takes any spec JSON; document the private
+    decided-version path (the public UNDECIDABLE is the door)
+  * Posture paragraph on the page: independent/exact/refusal-first vs
+    richer internal models; existential = marketing claim, universal =
+    certification basis
+  HELD for the operator: (nothing — methodology v2 DONE, see Phase 2).
   PARKED: synthetic demand packs. Outreach on the operator's word only.
 
 ## Phase 8 — THE PREDICTION PROGRAM (operator's word 2026-08-27: "start
