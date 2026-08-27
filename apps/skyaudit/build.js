@@ -68,62 +68,88 @@ for (const f of fs.readdirSync(path.join(APP, 'vendor'))) {
   fs.copyFileSync(path.join(APP, 'vendor', f), path.join(outDir, 'vendor', f));
 }
 fs.copyFileSync(path.join(dataDir, CITY + '.replay.json'), path.join(outDir, 'data', CITY + '.replay.json'));
-fs.copyFileSync(tilesPath, path.join(outDir, 'tiles', tilesPins.file));
 fs.copyFileSync(path.join(APP, 'src/app.js'), path.join(outDir, 'app.js'));
+fs.rmSync(path.join(outDir, 'tiles'), { recursive: true, force: true });   /* tiles serve from the repo raw URL (Vercel dropped the 36.9 MB upload) */
 
 const style = JSON.parse(fs.readFileSync(path.join(APP, 'src/style.json'), 'utf8'));
-style.sources.protomaps.url = 'pmtiles:///apps/skyaudit/tiles/' + tilesPins.file;
+if (!tilesPins.served_from) die('TILES-PINS.json has no served_from URL');
+style.sources.protomaps.url = 'pmtiles://' + tilesPins.served_from;
 fs.writeFileSync(path.join(outDir, 'style.json'), JSON.stringify(style));
 
 const { renderApp } = require(path.join(ROOT, 'design/app-shell.js'));
 const n = { C: {}, day: after };
 const counts = after.bySpecRule['beta-alia|faa-sfar-vfr'];
+const NAMES = { 'joby-s4': 'Joby S4', 'archer-midnight': 'Archer Midnight',
+  'beta-alia': 'Beta ALIA', 'eve-100': 'Eve EVE-100' };
+const frontierRows = ['beta-alia', 'joby-s4', 'archer-midnight', 'eve-100'].map((s) => {
+  const k = refly.keys[s + '|faa-sfar-vfr'] || { certifiedLegs: 0, fleetMin: 0 };
+  return k.certifiedLegs
+    ? `<div class="as-frow"><span><span class="name">${NAMES[s]}</span>
+       <span class="sub">${k.certifiedLegs} provable legs · witness ${k.witnessLocal} · pool model, FAA 20-min</span></span>
+       <span class="val">exactly ${k.fleetMin} aircraft</span></div>`
+    : `<div class="as-frow"><span><span class="name">${NAMES[s]}</span>
+       <span class="sub">zero provable legs under FAA 20-min</span></span>
+       <span class="val zero">no certifiable fleet</span></div>`;
+}).join('');
+
 const html = renderApp({
   title: 'SkyAudit — one real day over New York, every flight decided',
   description: 'Real ADS-B helicopter traffic over NYC (2026-08-26), replayed — every flight audited against published eVTOL specs and energy-reserve rules with mathematically certified enclosures.',
-  appName: 'SKYAUDIT · NYC · 2026-08-26',
+  appName: 'SkyAudit',
+  meta: 'NYC · 2026-08-26 · PINNED DAY',
   brand: 'CERT-MACHINE',
   homeHref: '/',
   navLinks: [{ href: '/reports/', label: 'reports' }, { href: 'https://github.com/carlostoledo1891/cert-machine', label: 'github' }],
   mapAria: 'replay map of New York helicopter traffic with certified verdicts',
   styles: ['vendor/maplibre-gl.css'],
-  configJson: JSON.stringify({ style: '/apps/skyaudit/style.json', bundle: '/apps/skyaudit/data/nyc.replay.json' }),
+  configJson: JSON.stringify({ style: '/apps/skyaudit/style.json',
+    bundle: '/apps/skyaudit/data/nyc.replay.json', tiles: tilesPins.served_from }),
   scripts: ['vendor/maplibre-gl.js', 'vendor/deck.min.js', 'vendor/pmtiles.js', 'app.js'],
   panelHtml: `
-  <div class="as-h">the audit</div>
-  <div class="as-note">One real day of New York helicopter traffic (${after.uniqueAircraft} unique aircraft,
-  ${after.flights} flights, ADS-B, hash-pinned). Each flight is re-flown on paper by an eVTOL:
-  its published numbers as honest parameter boxes, a reserve rule, and a three-valued verdict
-  from interval arithmetic — <b>mathematically certified enclosures</b>, no Monte Carlo,
-  no airworthiness meaning. REFUSED is a first-class outcome: it measures what the
-  manufacturer has not published.</div>
-  <div class="as-h">re-fly the day — the fleet frontier</div>
-  <div class="as-note">${['beta-alia', 'joby-s4', 'archer-midnight', 'eve-100'].map((s) => {
-    const k = refly.keys[s + '|faa-sfar-vfr'] || { certifiedLegs: 0, fleetMin: 0 };
-    return k.certifiedLegs
-      ? `<b>${s.replace('-', ' ')}</b>: ${k.certifiedLegs} provable legs need <b>exactly ${k.fleetMin} aircraft</b> — ${k.fleetMin - 1} REFUTED by pigeonhole at ${k.witnessLocal}, ${k.fleetMin} CERTIFIED by the verified schedule (pool model, FAA 20-min)`
-      : `<b>${s.replace('-', ' ')}</b>: zero provable legs under FAA 20-min — no fleet can be certified from its public numbers`;
-  }).join('<br>')}</div>
-  <div class="as-h">aircraft · rule</div><div id="keys"></div>
-  <div class="as-h">this day, under the selection</div><div id="counts"></div>
-  <div class="as-h">selected flight</div><div id="flight"></div>
-  <details style="margin-top:12px"><summary class="as-h" style="cursor:pointer">honest boundaries</summary>
-  <div class="as-note">The corpus is what the receiver network saw — equipage in NYC is mandated
-  (14 CFR 91.225 inside the Mode C veil) but coverage gaps and truncated tracks are flagged per
-  flight. The audit is counterfactual arithmetic over stated boxes (specs quality-flagged in the
-  repo; Eve publishes least, so Eve REFUSES most). FAA rule = the 20-min VFR helicopter tier;
-  EASA rule = the 5-min final reserve as a NECESSARY condition only. Data © adsb.lol contributors
-  (ODbL). Rerun everything: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/skyaudit">apps/skyaudit</a>.</div>
-  </details>`,
+  <section class="as-card">
+    <div class="as-h">The audit</div>
+    <div class="as-note">One real day of New York helicopter traffic — <b>${after.uniqueAircraft}
+    aircraft, ${after.flights} flights</b>, ADS-B, hash-pinned. Each flight is re-flown on paper
+    by an eVTOL: published numbers as honest parameter boxes, a reserve rule, and a three-valued
+    verdict from interval arithmetic. <b>Mathematically certified enclosures</b> — no Monte
+    Carlo, no airworthiness meaning. REFUSED is a first-class outcome: it measures what the
+    manufacturer has not published.</div>
+    <details class="as-more"><summary>Honest boundaries</summary>
+    <div class="as-fine">The corpus is what the receiver network saw; coverage gaps and truncated
+    tracks are flagged per flight. The audit is counterfactual arithmetic over stated boxes
+    (quality-flagged in the repo; Eve publishes least, so Eve REFUSES most). FAA = the 20-min VFR
+    helicopter tier; EASA = the 5-min final reserve, a NECESSARY condition only. Data ©
+    <a href="https://adsb.lol">adsb.lol</a> contributors (ODbL). Rerun everything:
+    <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/skyaudit">apps/skyaudit</a>.</div>
+    </details>
+  </section>
+  <section class="as-card">
+    <div class="as-h">Aircraft × rule</div>
+    <div id="keys" class="as-mx"></div>
+  </section>
+  <section class="as-card">
+    <div class="as-h">This day, under the selection</div>
+    <div id="counts" class="as-stats"></div>
+  </section>
+  <section class="as-card">
+    <div class="as-h">Re-fly the day — fleet frontier</div>
+    ${frontierRows}
+  </section>
+  <section class="as-card">
+    <div class="as-h">Selected flight</div>
+    <div id="flight"></div>
+  </section>`,
   dockHtml: `
-  <button class="as-btn" id="play">❚❚</button>
+  <button class="as-play" id="play" aria-label="play/pause">❚❚</button>
   <input type="range" class="as-scrub" id="scrub" min="0" max="86400" step="1" value="0" aria-label="time of day">
   <span class="as-clock" id="clock">—</span>
-  <select class="as-sel" id="speed" aria-label="replay speed">
-    <option value="1">1×</option><option value="10">10×</option><option value="60" selected>60×</option>
-    <option value="120">120×</option><option value="300">300×</option>
-  </select>
-  <button class="as-btn" id="mode">color: verdict</button>
+  <span class="as-seg" id="speed" role="group" aria-label="replay speed">
+    <button data-v="1">1×</button><button data-v="10">10×</button><button data-v="60" data-on="1">60×</button>
+    <button data-v="120">120×</button><button data-v="300">300×</button>
+  </span>
+  <span class="as-seg" id="mode" role="group" aria-label="trail colors">
+    <button data-v="v" data-on="1">VERDICT</button><button data-v="a">ALTITUDE</button>
+  </span>
   <span class="attr">© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> · Protomaps ·
   data © <a href="https://adsb.lol">adsb.lol</a> (ODbL)</span>`,
 });

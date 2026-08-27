@@ -176,6 +176,21 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       nothing outward without the operator's word
 - [ ] Landing-page card / reports-shelf link for the app (the site's
       front door does not yet point at /apps/skyaudit)
+- [x] UI V2 (operator direction 2026-08-27: "high end app design, our
+      colors, sans+mono, Figma/Webflow look"): app shell rebuilt — Inter
+      + IBM Plex Mono (no serif on app pages), card-based panel,
+      aircraft-by-rule MATRIX, verdict stat tiles, frontier rows, verdict
+      banner + enclosure track viz, segmented speed/color controls,
+      styled scrubber, round transport button; mobile dock exact-fit
+      (speed segment hidden <=720px). Verified live by real-time
+      screenshot, desktop + mobile
+- [x] TILES FIX (the map-not-loading bug): Vercel CLI silently dropped
+      the 36.9 MB pmtiles from deployments (smaller files shipped) — the
+      pinned tile bytes now live IN the public repo and serve from
+      raw.githubusercontent (Range + CORS verified), immutably pinned by
+      commit SHA in TILES-PINS.json served_from; client falls back to
+      OpenFreeMap dark if the pinned URL is ever unreachable. Live
+      basemap verified rendering in production
 
 ## Later (parked, not planned)
 - Live layer (adsb.lol live API atop the same client) · third city ·

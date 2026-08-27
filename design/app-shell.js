@@ -1,79 +1,170 @@
 /* app-shell.js — the SECOND page view of the design system: a full-viewport
    application surface (100% width x 100dvh) with a fixed top bar, a lateral
-   panel, and a bottom dock. Same tokens, same type stack, same three-state
-   theme rule as template.js; none of its prose column. Born for apps/
-   (operator definition, 2026-08-27: "a real flight dashboard with lateral
-   panels"). DESIGN.md carries the view's row.
+   panel of cards, and a bottom transport dock. Same palette tokens and
+   three-state theme rule as template.js — but an APP type stack (operator
+   definition, 2026-08-27): sans-serif UI (Inter) + the house mono (IBM Plex
+   Mono) for data, labels and headers. No serif on app pages.
 
-   renderApp({ title, description, panelHtml, dockHtml, brand, homeHref,
-               configJson, scripts, styles }) -> complete document.
+   renderApp({ title, description, panelHtml, dockHtml, brand, appName,
+               homeHref, navLinks, configJson, scripts, styles }) -> document.
 
-   App verdict tokens (--v-cert / --v-refu / --v-refd) are defined HERE, in
-   both palettes, following the same light-on-:root / dark-twice guard
-   pattern as tokens.rootCss — no literal colour leaves this block.        */
+   App verdict tokens (--v-cert / --v-refu / --v-refd) are defined HERE in
+   both palettes with the standard three-state guards; WebGL clients read
+   the computed values at runtime — no literal colour leaves this block.   */
 'use strict';
 
 const T = require('./tokens.js');
 
-const APP_LIGHT = { '--v-cert': '#2C6142', '--v-refu': '#C64B42', '--v-refd': '#8F8798' };
-const APP_DARK  = { '--v-cert': '#79C79B', '--v-refu': '#E06B62', '--v-refd': '#6E6678' };
+const APP_LIGHT = { '--v-cert': '#2C6142', '--v-refu': '#C64B42', '--v-refd': '#8F8798',
+  '--v-cert-soft': '#DEEBE3', '--v-refu-soft': '#F4DEDC', '--v-refd-soft': '#E8E5EC',
+  '--shadow': '0 10px 30px rgba(22,18,26,.14)' };
+const APP_DARK  = { '--v-cert': '#79C79B', '--v-refu': '#E06B62', '--v-refd': '#8E8499',
+  '--v-cert-soft': '#16281E', '--v-refu-soft': '#2E1917', '--v-refd-soft': '#211C29',
+  '--shadow': '0 12px 34px rgba(0,0,0,.5)' };
+
+const APP_FONTS =
+  '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
+  '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">';
 
 function vars(o) { return Object.entries(o).map(([k, v]) => k + ':' + v).join(';'); }
 
 function appCss() {
   return `
-:root{${vars(APP_LIGHT)}}
+:root{${vars(APP_LIGHT)};--f-sans:'Inter',system-ui,-apple-system,sans-serif;--f-mono:${T.TYPE.mono.replace(/"/g, "'")}}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){${vars(APP_DARK)}}}
 :root[data-theme="dark"]{${vars(APP_DARK)}}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink)}
-body{font-family:${T.TYPE.body};font-size:14px}
+body{font-family:var(--f-sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
 .as-map{position:fixed;inset:0}
-.as-top{position:fixed;top:0;left:0;right:0;height:48px;z-index:30;display:flex;align-items:center;
-  gap:18px;padding:0 16px;background:var(--paper);border-bottom:1px solid var(--rule)}
-.as-top .brand{font-family:${T.TYPE.mono};font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+.as-map canvas{outline:none}
+
+/* ---- top bar ---- */
+.as-top{position:fixed;top:0;left:0;right:0;height:56px;z-index:30;display:flex;align-items:center;
+  gap:14px;padding:0 20px;background:var(--paper);border-bottom:1px solid var(--rule)}
+.as-top .brand{font-family:var(--f-mono);font-weight:600;font-size:11px;letter-spacing:.14em;
   color:var(--ink);text-decoration:none;white-space:nowrap}
-.as-top .appname{font-family:${T.TYPE.mono};font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--sig)}
+.as-top .sep{width:1px;height:20px;background:var(--rule)}
+.as-top .appname{font-family:var(--f-sans);font-weight:600;font-size:14px;letter-spacing:.01em;color:var(--ink)}
+.as-top .meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:999px;padding:3px 10px;white-space:nowrap}
 .as-top .spacer{flex:1}
-.as-top a{color:var(--ink-2);text-decoration:none;font-family:${T.TYPE.mono};font-size:11px;
-  letter-spacing:.1em;text-transform:uppercase}
-.as-top a:hover{color:var(--sig)}
-.as-panel{position:fixed;top:58px;right:10px;bottom:86px;width:372px;z-index:20;overflow-y:auto;
-  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:14px 16px}
-.as-panel.closed{display:none}
-.as-dock{position:fixed;left:0;right:0;bottom:0;height:72px;z-index:30;display:flex;align-items:center;
-  gap:14px;padding:0 16px;background:var(--paper);border-top:1px solid var(--rule)}
-.as-dock .attr{margin-left:auto;font-size:10px;color:var(--ink-3);text-align:right;line-height:1.35}
+.as-top a.navx{color:var(--ink-2);text-decoration:none;font-family:var(--f-mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;padding:6px 2px;transition:color .12s}
+.as-top a.navx:hover{color:var(--sig)}
+
+/* ---- panel: a column of cards ---- */
+.as-panel{position:fixed;top:68px;right:12px;bottom:92px;width:404px;z-index:20;overflow-y:auto;
+  display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
+.as-card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+  padding:14px 16px;box-shadow:var(--shadow)}
+.as-h{font-family:var(--f-mono);font-weight:600;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 10px}
+.as-note{font-size:12px;color:var(--ink-2);line-height:1.55}
+.as-note b{color:var(--ink);font-weight:600}
+.as-fine{font-size:11px;color:var(--ink-3);line-height:1.5}
+details.as-more summary{cursor:pointer;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:10px}
+details.as-more summary:hover{color:var(--sig)}
+details.as-more[open] summary{margin-bottom:6px}
+
+/* ---- the aircraft x rule matrix ---- */
+.as-mx{display:grid;grid-template-columns:1fr auto auto;gap:7px 8px;align-items:center}
+.as-mx .name{font-weight:500;font-size:12.5px;color:var(--ink)}
+.as-cell{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;padding:5px 10px;
+  border-radius:7px;border:1px solid var(--rule);background:var(--sunk);color:var(--ink-2);
+  cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:6px}
+.as-cell:hover{border-color:var(--sig-2);color:var(--sig)}
+.as-cell[data-on="1"]{border-color:var(--sig);background:var(--sig-soft);color:var(--sig);font-weight:600}
+.as-dot{width:7px;height:7px;border-radius:50%;flex:none}
+
+/* ---- stat tiles ---- */
+.as-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.as-stat{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:9px;
+  padding:9px 11px;border-left-width:3px}
+.as-stat b{display:block;font-family:var(--f-mono);font-weight:600;font-size:20px;line-height:1.1;color:var(--ink)}
+.as-stat span{font-family:var(--f-mono);font-size:9px;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase}
+.as-stat.c{border-left-color:var(--v-cert)} .as-stat.r{border-left-color:var(--v-refu)} .as-stat.f{border-left-color:var(--v-refd)}
+
+/* ---- frontier rows ---- */
+.as-frow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:7px 0;
+  border-top:1px solid var(--rule-soft)}
+.as-frow:first-of-type{border-top:0;padding-top:0}
+.as-frow .name{font-weight:500;font-size:12.5px}
+.as-frow .val{font-family:var(--f-mono);font-weight:600;font-size:13px;white-space:nowrap}
+.as-frow .val.zero{color:var(--ink-3);font-weight:400}
+.as-frow .sub{display:block;font-size:10.5px;color:var(--ink-3);margin-top:1px}
+
+/* ---- selected flight ---- */
+.as-kv{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:12px;color:var(--ink-3)}
+.as-kv b{color:var(--ink);font-weight:600;font-family:var(--f-mono);font-size:12px}
+.as-verdict{border-left:3px solid var(--rule);background:var(--sunk);border-radius:9px;
+  padding:10px 13px;margin:12px 0 10px}
+.as-verdict .w{font-family:var(--f-mono);font-weight:700;font-size:14px;letter-spacing:.08em}
+.as-verdict .e{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.5}
+.as-verdict.C{border-left-color:var(--v-cert);background:var(--v-cert-soft)} .as-verdict.C .w{color:var(--v-cert)}
+.as-verdict.R{border-left-color:var(--v-refu);background:var(--v-refu-soft)} .as-verdict.R .w{color:var(--v-refu)}
+.as-verdict.F{border-left-color:var(--v-refd);background:var(--v-refd-soft)} .as-verdict.F .w{color:var(--v-refd)}
+
+/* ---- enclosure viz ---- */
+.as-enc{margin:10px 0 4px}
+.as-encrow{display:grid;grid-template-columns:64px 1fr;gap:8px;align-items:center;margin:5px 0}
+.as-encrow .lbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;text-align:right}
+.as-encrow .track{position:relative;height:12px;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:6px}
+.as-encrow .band{position:absolute;top:1px;bottom:1px;border-radius:5px;min-width:4px}
+.as-encrow .band.u{background:var(--v-cert)} .as-encrow .band.d{background:var(--v-refu)}
+.as-encscale{display:grid;grid-template-columns:64px 1fr;gap:8px;font-family:var(--f-mono);font-size:9.5px;color:var(--ink-3)}
+.as-encscale div{display:flex;justify-content:space-between}
+.as-encvals{font-family:var(--f-mono);font-size:10.5px;color:var(--ink-2);margin-top:6px;line-height:1.6}
+
+/* ---- buttons + segmented ---- */
+button{font-family:inherit}
+.as-btn{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;background:var(--sunk);
+  color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:7px 12px;cursor:pointer;transition:all .12s}
+.as-btn:hover{border-color:var(--sig);color:var(--sig)}
+.as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
+.as-seg{display:inline-flex;background:var(--sunk);border:1px solid var(--rule);border-radius:9px;padding:2px;gap:2px}
+.as-seg button{border:0;background:transparent;font-family:var(--f-mono);font-size:10.5px;
+  letter-spacing:.04em;color:var(--ink-2);padding:5px 10px;border-radius:7px;cursor:pointer;transition:all .12s}
+.as-seg button:hover{color:var(--sig)}
+.as-seg button[data-on="1"]{background:var(--sig-soft);color:var(--sig);font-weight:600}
+
+/* ---- dock ---- */
+.as-dock{position:fixed;left:0;right:0;bottom:0;height:76px;z-index:30;display:flex;align-items:center;
+  gap:16px;padding:0 20px;background:var(--paper);border-top:1px solid var(--rule)}
+.as-play{width:42px;height:42px;flex:none;border-radius:50%;border:1px solid var(--rule);
+  background:var(--sunk);color:var(--ink);font-size:13px;cursor:pointer;transition:all .12s;
+  display:flex;align-items:center;justify-content:center}
+.as-play:hover{border-color:var(--sig);color:var(--sig)}
+.as-clock{font-family:var(--f-mono);font-weight:600;font-size:14px;color:var(--ink);min-width:96px;text-align:center}
+.as-dock .attr{margin-left:auto;font-size:9.5px;color:var(--ink-3);text-align:right;line-height:1.4;max-width:220px}
 .as-dock .attr a{color:var(--ink-3)}
-.as-h{font-family:${T.TYPE.mono};font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ink-3);margin:14px 0 6px}
-.as-h:first-child{margin-top:0}
-button.as-btn{font-family:${T.TYPE.mono};font-size:11px;letter-spacing:.08em;background:var(--sunk);
-  color:var(--ink);border:1px solid var(--rule);border-radius:7px;padding:6px 10px;cursor:pointer}
-button.as-btn:hover{border-color:var(--sig);color:var(--sig)}
-button.as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
-.as-chip{display:inline-flex;align-items:center;gap:6px;font-family:${T.TYPE.mono};font-size:10.5px;
-  border:1px solid var(--rule);border-radius:999px;padding:3px 9px;cursor:pointer;color:var(--ink-2)}
-.as-chip[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
-.as-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-input[type=range].as-scrub{flex:1;min-width:0;accent-color:var(--sig);height:26px}
-select.as-sel{font-family:${T.TYPE.mono};font-size:11px;background:var(--sunk);color:var(--ink);
-  border:1px solid var(--rule);border-radius:7px;padding:5px 6px}
-.as-clock{font-family:${T.TYPE.mono};font-size:13px;color:var(--ink);min-width:88px}
-.as-kv{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:12.5px;color:var(--ink-2)}
-.as-kv b{color:var(--ink);font-weight:600}
-.as-note{font-size:11.5px;color:var(--ink-3);line-height:1.45}
-.as-bar{position:relative;height:18px;background:var(--sunk);border:1px solid var(--rule-soft);
-  border-radius:5px;overflow:hidden;margin:4px 0}
-.as-bar .seg{position:absolute;top:0;bottom:0}
+
+/* ---- the scrubber ---- */
+input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance:none;height:26px;background:transparent;cursor:pointer}
+.as-scrub::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:var(--rule)}
+.as-scrub::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+  background:var(--sig);margin-top:-5px;border:2px solid var(--paper);box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.as-scrub::-moz-range-track{height:4px;border-radius:2px;background:var(--rule)}
+.as-scrub::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--sig);border:2px solid var(--paper)}
+
 .maplibregl-ctrl-attrib{font-size:10px}
+.as-panel::-webkit-scrollbar{width:6px}
+.as-panel::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+
 @media (max-width:720px){
-  .as-panel{left:8px;right:8px;top:auto;bottom:86px;width:auto;max-height:42dvh;padding:10px 12px}
-  .as-top .navx{display:none}
-  .as-dock{gap:8px;padding:0 10px}
+  .as-top{height:48px;padding:0 12px;gap:10px}
+  .as-top .appname{font-size:12.5px}
+  .as-top .meta,.as-top .navx{display:none}
+  .as-panel{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:44dvh;gap:8px}
+  .as-card{padding:12px 13px;border-radius:11px}
+  .as-dock{gap:9px;padding:0 10px;height:64px}
+  .as-play{width:36px;height:36px}
+  .as-clock{min-width:78px;font-size:12.5px}
   .as-dock .attr{display:none}
-  .as-clock{min-width:72px;font-size:12px}
+  #speed{display:none}
+  .as-seg button{padding:5px 8px;font-size:10px}
 }`;
 }
 
@@ -85,7 +176,7 @@ function renderApp(o) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${o.title}</title>
 <meta name="description" content="${o.description || ''}">
-${T.GOOGLE_FONTS}
+${APP_FONTS}
 ${(o.styles || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('\n')}
 <style>${T.rootCss()}${appCss()}</style>
 <script>/* ?theme=light|dark stamps the explicit theme state; absent = system */
@@ -95,7 +186,9 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
 <div id="map" class="as-map" aria-label="${o.mapAria || 'interactive map'}"></div>
 <header class="as-top">
   <a class="brand" href="${o.homeHref || '/'}">${o.brand || 'CERT-MACHINE'}</a>
+  <span class="sep"></span>
   <span class="appname">${o.appName || ''}</span>
+  ${o.meta ? `<span class="meta">${o.meta}</span>` : ''}
   <span class="spacer"></span>
   ${(o.navLinks || []).map((l) => `<a class="navx" href="${l.href}">${l.label}</a>`).join('\n  ')}
 </header>

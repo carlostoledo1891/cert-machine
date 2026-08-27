@@ -1,7 +1,10 @@
 /* app.js — the SkyAudit client: one real day of helicopter traffic,
    replayed, with a mathematically certified verdict on every flight.
    apps/skyaudit · cert-machine
-   Globals: maplibregl, deck, pmtiles (vendored UMD; VENDOR-PINS.json). */
+   Globals: maplibregl, deck, pmtiles (vendored UMD; VENDOR-PINS.json).
+   Basemap: pinned PMTiles from the repo raw URL; if that fetch fails the
+   client falls back to OpenFreeMap's keyless dark style (stated in the
+   attribution) — the certificates never depend on the basemap.           */
 'use strict';
 (() => {
 const CFG = window.SKYAUDIT;
@@ -28,35 +31,66 @@ function altColor(alt) {
 /* ---------------------------- state ---------------------------- */
 const S = { t: 0, speed: 60, playing: true, key: 'beta-alia|faa-sfar-vfr',
   mode: 'v', sel: null, follow: false, trail: 240, bundle: null };
+const NAMES = { 'joby-s4': 'Joby S4', 'archer-midnight': 'Archer Midnight',
+  'beta-alia': 'Beta ALIA', 'eve-100': 'Eve EVE-100' };
+const RULES = { 'faa-sfar-vfr': 'FAA 20-min', 'easa-final-reserve': 'EASA 5-min' };
 const VNAME = { C: 'CERTIFIED', R: 'REFUTED', F: 'REFUSED' };
 const VEXPL = {
-  C: 'every point of the stated parameter boxes lands at or above the reserve floor — a mathematically certified enclosure, not a simulation',
-  R: 'EVERY point of the boxes violates the reserve floor; the most favorable corner is re-proved failing in exact rational arithmetic',
-  F: 'the boxes straddle the floor — some points pass, some fail. With assumption-grade public specs this MEASURES what the manufacturer has not published' };
+  C: 'Every point of the stated parameter boxes lands at or above the reserve floor — a mathematically certified enclosure, not a simulation.',
+  R: 'EVERY point of the boxes violates the reserve floor; the most favorable corner is re-proved failing in exact rational arithmetic.',
+  F: 'The boxes straddle the floor — some points pass, some fail. With assumption-grade public specs this measures what the manufacturer has not published.' };
 
 const qs = new URLSearchParams(location.search);
 if (qs.get('k')) S.key = qs.get('k');
 if (qs.get('m')) S.mode = qs.get('m');
 if (qs.get('s')) S.speed = +qs.get('s') || 60;
 
-/* ---------------------------- map ---------------------------- */
+/* ---------------------------- map (with basemap fallback) ------- */
 const protocol = new pmtiles.Protocol();
 maplibregl.addProtocol('pmtiles', protocol.tile);
-const map = new maplibregl.Map({
-  container: 'map', style: CFG.style, center: [-73.995, 40.72], zoom: 11.4,
-  pitch: 52, bearing: -14, minZoom: 8.2, maxZoom: 16.8,
-  maxBounds: [[-74.75, 40.25], [-73.25, 41.15]], attributionControl: { compact: true },
-});
-map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-left');
+const OFM_DARK = 'https://tiles.openfreemap.org/styles/fiord';
 
-map.on('load', () => {
-  map.addLayer({ id: 'sk-buildings', type: 'fill-extrusion', source: 'protomaps',
-    'source-layer': 'buildings', minzoom: 12,
-    paint: { 'fill-extrusion-color': getComputedStyle(document.documentElement).getPropertyValue('--surface').trim(),
-      'fill-extrusion-opacity': 0.55,
-      'fill-extrusion-height': ['coalesce', ['get', 'height'], 10],
-      'fill-extrusion-base': ['coalesce', ['get', 'min_height'], 0] } });
+async function pickStyle() {
+  try {
+    const r = await fetch(CFG.tiles, { headers: { Range: 'bytes=0-127' } });
+    if (r.ok || r.status === 206) return CFG.style;
+  } catch (e) { /* fall through */ }
+  console.warn('skyaudit: pinned tiles unreachable — falling back to OpenFreeMap');
+  return OFM_DARK;
+}
+
+let map;
+pickStyle().then((styleUrl) => {
+  map = new maplibregl.Map({
+    container: 'map', style: styleUrl, center: [-73.995, 40.72], zoom: 11.4,
+    pitch: 52, bearing: -14, minZoom: 8.2, maxZoom: 16.8,
+    maxBounds: [[-74.75, 40.25], [-73.25, 41.15]], attributionControl: { compact: true },
+  });
+  map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-left');
+  map.on('load', addBuildings);
+  map.addControl(overlay);
+  map.on('click', onMapClick);
 });
+
+function addBuildings() {
+  const surface = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim();
+  const sources = map.getStyle().sources;
+  const tries = [
+    { src: 'protomaps', layer: 'buildings', h: 'height', b: 'min_height' },
+    { src: Object.keys(sources).find((k) => sources[k].type === 'vector'), layer: 'building', h: 'render_height', b: 'render_min_height' },
+  ];
+  for (const t of tries) {
+    if (!t.src || !sources[t.src]) continue;
+    try {
+      map.addLayer({ id: 'sk-buildings', type: 'fill-extrusion', source: t.src,
+        'source-layer': t.layer, minzoom: 12,
+        paint: { 'fill-extrusion-color': surface, 'fill-extrusion-opacity': 0.55,
+          'fill-extrusion-height': ['coalesce', ['get', t.h], 10],
+          'fill-extrusion-base': ['coalesce', ['get', t.b], 0] } });
+      return;
+    } catch (e) { /* try next schema */ }
+  }
+}
 
 /* ---------------------------- data ---------------------------- */
 fetch(CFG.bundle).then((r) => r.json()).then((b) => {
@@ -65,11 +99,11 @@ fetch(CFG.bundle).then((r) => r.json()).then((b) => {
   S.t = qs.get('t') !== null ? Math.max(0, Math.min(b.span, +qs.get('t'))) : tDefault;
   if (qs.get('f')) S.sel = b.flights.find((f) => f.id === qs.get('f')) || null;
   $('scrub').max = String(Math.ceil(b.span));
-  buildKeyChips(); renderCounts(); renderPanel(); tick0 = performance.now();
+  syncDock(); buildMatrix(); renderCounts(); renderPanel();
+  tick0 = performance.now();
   requestAnimationFrame(frame);
 });
 
-/* position on a track at rel time t (linear interp), null if outside */
 function posAt(track, t) {
   if (t < track[0][0] || t > track[track.length - 1][0]) return null;
   let lo = 0, hi = track.length - 1;
@@ -81,12 +115,7 @@ function posAt(track, t) {
 
 /* ---------------------------- deck ---------------------------- */
 const overlay = new deck.MapboxOverlay({ interleaved: false, layers: [] });
-map.addControl(overlay);
 
-function trailColor(f) {
-  if (S.mode === 'a') return (d, { index }) => altColor(f.track[Math.min(index, f.track.length - 1)][3]);
-  return COL[f.verdicts[S.key]] || COL.F;
-}
 function layers() {
   const b = S.bundle; if (!b) return [];
   const heads = [];
@@ -122,10 +151,10 @@ function layers() {
   }
   return L;
 }
-map.on('click', (e) => {
+function onMapClick(e) {
   const pick = overlay.pickObject && overlay.pickObject({ x: e.point.x, y: e.point.y, radius: 6 });
   if (pick && pick.object) { S.sel = pick.object.f || pick.object; renderPanel(); pushUrl(); }
-});
+}
 
 /* ---------------------------- loop ---------------------------- */
 let tick0 = performance.now(), lastFollow = 0, lastUrl = 0;
@@ -135,7 +164,7 @@ function frame(now) {
     S.t += dt * S.speed;
     if (S.t > S.bundle.span) S.t = 0;
   }
-  if (S.bundle) {
+  if (S.bundle && map) {
     overlay.setProps({ layers: layers() });
     $('scrub').value = String(S.t);
     $('clock').textContent = clockText();
@@ -154,80 +183,105 @@ function clockText() {
 function pushUrl() {
   const u = new URLSearchParams({ t: S.t.toFixed(0), s: String(S.speed), k: S.key, m: S.mode });
   if (S.sel) u.set('f', S.sel.id);
+  if (qs.get('theme')) u.set('theme', qs.get('theme'));
   history.replaceState(null, '', '?' + u.toString());
 }
 
-/* ---------------------------- controls ---------------------------- */
+/* ---------------------------- dock ---------------------------- */
+function segSync(host, val) {
+  for (const b of host.querySelectorAll('button')) b.dataset.on = b.dataset.v === String(val) ? '1' : '0';
+}
+function syncDock() {
+  segSync($('speed'), S.speed); segSync($('mode'), S.mode);
+  $('play').textContent = S.playing ? '❚❚' : '▶';
+}
 $('play').onclick = () => { S.playing = !S.playing; $('play').textContent = S.playing ? '❚❚' : '▶'; };
 $('scrub').oninput = (e) => { S.t = +e.target.value; };
-$('speed').onchange = (e) => { S.speed = +e.target.value; };
-$('mode').onclick = () => { S.mode = S.mode === 'v' ? 'a' : 'v';
-  $('mode').textContent = S.mode === 'v' ? 'color: verdict' : 'color: altitude';
-  renderCounts(); };
+$('speed').onclick = (e) => { if (e.target.dataset.v) { S.speed = +e.target.dataset.v; segSync($('speed'), S.speed); } };
+$('mode').onclick = (e) => { if (e.target.dataset.v) { S.mode = e.target.dataset.v; segSync($('mode'), S.mode); renderCounts(); } };
 new MutationObserver(loadColors).observe(document.documentElement, { attributes: true });
 
-/* ---------------------------- panel ---------------------------- */
-function keyLabel(k) {
-  const [s, r] = k.split('|');
-  return s.replace('-', ' ') + ' · ' + (r === 'faa-sfar-vfr' ? 'FAA 20-min' : 'EASA 5-min');
+/* ---------------------------- panel components ------------------ */
+function dotHtml(v) {
+  const c = { C: '--v-cert', R: '--v-refu', F: '--v-refd' }[v];
+  return `<span class="as-dot" style="background:var(${c})"></span>`;
 }
-function buildKeyChips() {
-  const b = S.bundle, host = $('keys'); host.innerHTML = '';
-  for (const sp of b.specs) for (const r of b.rules) {
+function matrixHtml(selKey, withDots) {
+  const b = S.bundle;
+  return b.specs.map((sp) => `<span class="name">${NAMES[sp]}</span>` + b.rules.map((r) => {
     const k = sp + '|' + r;
-    const c = document.createElement('span');
-    c.className = 'as-chip'; c.dataset.on = k === S.key ? '1' : '0';
-    c.textContent = keyLabel(k);
-    c.onclick = () => { S.key = k; buildKeyChips(); renderCounts(); renderPanel(); };
-    host.appendChild(c);
-  }
+    const dot = withDots && S.sel ? dotHtml(S.sel.verdicts[k]) : '';
+    return `<button class="as-cell" data-k="${k}" data-on="${k === selKey ? 1 : 0}">${dot}${RULES[r]}</button>`;
+  }).join('')).join('');
 }
+function buildMatrix() {
+  $('keys').innerHTML = matrixHtml(S.key, false);
+  $('keys').onclick = (e) => {
+    const k = e.target.closest && e.target.closest('.as-cell');
+    if (k) selKey(k.dataset.k);
+  };
+}
+function selKey(k) { S.key = k; buildMatrix(); renderCounts(); renderPanel(); }
+
 function renderCounts() {
   const b = S.bundle; if (!b) return;
   const n = { C: 0, R: 0, F: 0 };
   for (const f of b.flights) n[f.verdicts[S.key]]++;
-  $('counts').innerHTML = ['C', 'R', 'F'].map((v) =>
-    `<span class="as-chip" style="cursor:default"><span class="as-dot" style="background:var(${
-      v === 'C' ? '--v-cert' : v === 'R' ? '--v-refu' : '--v-refd'})"></span>${VNAME[v]} ${n[v]}</span>`).join(' ');
+  $('counts').innerHTML =
+    `<div class="as-stat c"><b>${n.C}</b><span>certified</span></div>` +
+    `<div class="as-stat r"><b>${n.R}</b><span>refuted</span></div>` +
+    `<div class="as-stat f"><b>${n.F}</b><span>refused</span></div>`;
 }
-function bar(enc) {
+
+function encHtml(enc) {
   const dLo = enc.e[0] + enc.r[0], dHi = enc.e[1] + enc.r[1];
-  const max = Math.max(enc.u[1], dHi) * 1.06;
-  const seg = (a, b2, v, top) =>
-    `<div class="seg" style="left:${(a / max * 100).toFixed(1)}%;width:${((b2 - a) / max * 100).toFixed(1)}%;` +
-    `top:${top ? '0' : '50%'};height:50%;background:var(${v});opacity:.55"></div>`;
-  return `<div class="as-bar">${seg(enc.u[0], enc.u[1], '--v-cert', true)}${seg(dLo, dHi, '--v-refu', false)}</div>
-  <div class="as-note">top: usable energy ${enc.u[0]}–${enc.u[1]} kWh · bottom: demanded incl. reserve ${dLo.toFixed(1)}–${dHi.toFixed(1)} kWh</div>`;
+  const max = Math.max(enc.u[1], dHi) * 1.05;
+  const seg = (a, b2, cls) =>
+    `<div class="band ${cls}" style="left:${(a / max * 100).toFixed(1)}%;width:${Math.max(0.8, (b2 - a) / max * 100).toFixed(1)}%"></div>`;
+  return `<div class="as-enc">
+    <div class="as-encrow"><span class="lbl">usable</span><div class="track">${seg(enc.u[0], enc.u[1], 'u')}</div></div>
+    <div class="as-encrow"><span class="lbl">demanded</span><div class="track">${seg(dLo, dHi, 'd')}</div></div>
+    <div class="as-encscale"><span></span><div><span>0</span><span>${Math.round(max)} kWh</span></div></div>
+  </div>
+  <div class="as-encvals">usable ${enc.u[0]}–${enc.u[1]} kWh · demanded incl. reserve ${dLo.toFixed(1)}–${dHi.toFixed(1)} kWh</div>`;
 }
+
 function renderPanel() {
   const b = S.bundle, host = $('flight'); if (!b) return;
-  if (!S.sel) { host.innerHTML = '<div class="as-note">Click any aircraft — trail or dot — for its certificate. Colors are VERDICTS under the selected aircraft + rule, not telemetry.</div>'; return; }
+  if (!S.sel) {
+    host.innerHTML = `<div class="as-fine">Click any aircraft — trail or dot — for its certificate.
+    Trail colors are VERDICTS under the selected aircraft + rule, never telemetry.</div>`;
+    return;
+  }
   const f = S.sel, v = f.verdicts[S.key], enc = f.enc[S.key];
-  const vd = { C: '--v-cert', R: '--v-refu', F: '--v-refd' }[v];
+  const cov = f.trunc[0] || f.trunc[1]
+    ? 'truncated at ' + (f.trunc[0] ? 'start' : '') + (f.trunc[0] && f.trunc[1] ? ' + ' : '') + (f.trunc[1] ? 'end' : '')
+    : 'ground-to-ground';
   host.innerHTML = `
   <div class="as-kv">
     <span>aircraft</span><b>${f.reg || f.icao} · ${f.type}</b>
-    <span>flight</span><b>${(f.km).toFixed(1)} km · ${Math.round(f.dur / 60)} min · max ${f.alt} ft</b>
-    <span>coverage</span><b>${f.trunc[0] || f.trunc[1] ? 'truncated at ' + (f.trunc[0] ? 'start' : '') + (f.trunc[0] && f.trunc[1] ? '+' : '') + (f.trunc[1] ? 'end' : '') : 'ground-to-ground'}</b>
+    <span>flight</span><b>${f.km.toFixed(1)} km · ${Math.round(f.dur / 60)} min · max ${f.alt} ft</b>
+    <span>coverage</span><b>${cov}</b>
   </div>
-  <div class="as-h">verdict — ${keyLabel(S.key)}</div>
-  <div style="font-family:monospace;font-size:15px;color:var(${vd});font-weight:700">${VNAME[v]}</div>
-  <div class="as-note" style="margin:4px 0 8px">${VEXPL[v]}</div>
-  ${bar(enc)}
-  ${v === 'R' && enc.wit ? `<div class="as-note">exact witness margin (rational): ${enc.wit}</div>` : ''}
-  ${typeof enc.m === 'number' ? `<div class="as-note">interval margin: ${enc.m} kWh</div>`
-    : `<div class="as-note">margins: worst ${enc.m.w} / best ${enc.m.b} kWh</div>`}
-  <div class="as-h">all eight verdicts</div>
-  <div>${b.specs.map((sp) => b.rules.map((r) => {
-    const k = sp + '|' + r, vv = f.verdicts[k];
-    return `<span class="as-chip" data-on="${k === S.key ? 1 : 0}" onclick="window._selKey('${k}')">
-      <span class="as-dot" style="background:var(${{ C: '--v-cert', R: '--v-refu', F: '--v-refd' }[vv]})"></span>${keyLabel(k)}</span>`;
-  }).join(' ')).join(' ')}</div>
-  <div class="as-h">actions</div>
-  <button class="as-btn" id="followBtn" data-on="${S.follow ? 1 : 0}">follow</button>
-  <button class="as-btn" onclick="window._deselect()">deselect</button>`;
-  const fb = $('followBtn'); if (fb) fb.onclick = () => { S.follow = !S.follow; fb.dataset.on = S.follow ? '1' : '0'; };
+  <div class="as-verdict ${v}">
+    <div class="w">${VNAME[v]} — ${NAMES[S.key.split('|')[0]]} · ${RULES[S.key.split('|')[1]]}</div>
+    <div class="e">${VEXPL[v]}</div>
+  </div>
+  ${encHtml(enc)}
+  ${v === 'R' && enc.wit ? `<div class="as-encvals">exact witness margin (rational): ${enc.wit}</div>` : ''}
+  ${typeof enc.m === 'number' ? `<div class="as-encvals">interval margin: ${enc.m} kWh</div>`
+    : `<div class="as-encvals">margins — worst ${enc.m.w} / best ${enc.m.b} kWh</div>`}
+  <div class="as-h" style="margin-top:14px">All eight verdicts</div>
+  <div class="as-mx" id="mini-mx">${matrixHtml(S.key, true)}</div>
+  <div style="display:flex;gap:8px;margin-top:14px">
+    <button class="as-btn" id="followBtn" data-on="${S.follow ? 1 : 0}">FOLLOW</button>
+    <button class="as-btn" id="deselBtn">DESELECT</button>
+  </div>`;
+  $('mini-mx').onclick = (e) => {
+    const k = e.target.closest && e.target.closest('.as-cell');
+    if (k) selKey(k.dataset.k);
+  };
+  $('followBtn').onclick = () => { S.follow = !S.follow; $('followBtn').dataset.on = S.follow ? '1' : '0'; };
+  $('deselBtn').onclick = () => { S.sel = null; S.follow = false; renderPanel(); pushUrl(); };
 }
-window._selKey = (k) => { S.key = k; buildKeyChips(); renderCounts(); renderPanel(); };
-window._deselect = () => { S.sel = null; S.follow = false; renderPanel(); pushUrl(); };
 })();

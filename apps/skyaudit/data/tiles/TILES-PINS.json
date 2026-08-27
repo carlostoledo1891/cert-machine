@@ -5,5 +5,6 @@
   "source": "https://build.protomaps.com/20260826.pmtiles (same date as the traffic day)",
   "regenerate": "pmtiles extract https://build.protomaps.com/20260826.pmtiles nyc.pmtiles --bbox=-74.35,40.50,-73.65,40.95 --maxzoom=14  (go-pmtiles v1.31.2)",
   "license": "basemap data (c) OpenStreetMap contributors (ODbL), tiles by Protomaps",
-  "note": "not committed to git (36.9 MB); the build gate re-hashes it against this pin"
+  "note": "committed to the public repo (GitHub raw serves Range+CORS; Vercel CLI silently dropped the 36.9 MB upload); served immutably by commit SHA; the build gate re-hashes the local file against sha256 above",
+  "served_from": "https://raw.githubusercontent.com/carlostoledo1891/cert-machine/450d2e96e1ccb0c2f49b7eab3e5e3fae23e3035a/apps/skyaudit/data/tiles/nyc.pmtiles"
 }
