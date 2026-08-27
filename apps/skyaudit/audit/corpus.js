@@ -16,14 +16,30 @@ const zlib = require('zlib');
 /* the strict rotorcraft filter (PINS known_data_quirks): an aircraft with
    a NON-rotorcraft type designator is excluded even when its emitter
    category squawks A7 — an A320 with a miscoded category is not a
-   helicopter. Untyped A7 aircraft stay in. One definition, all consumers. */
+   helicopter. Untyped A7 aircraft stay in. One definition, all consumers.
+
+   Since the registry joins (Phase 7.2): when the aircraft is matched in a
+   pinned civil registry (FAA by Mode S hex / N-number, ANAC RAB by mark),
+   the AUTHORITATIVE type decides — FAA TYPE-ACFT '6' or ANAC CD_CLS 'H…'.
+   Unmatched aircraft fall back to the trace's own t. On the pinned day the
+   registries CONFIRM the trace filter exactly (membership delta: none) —
+   82/382/3,056 stand, now on authority instead of feeder typing. */
 const HELI_TYPES = new Set([
   'AS50','AS55','AS65','AS32','R22','R44','R66','A109','A119','A139',
   'A169','A189','EC20','EC30','EC35','EC45','EC55','EC25','H160','BK17',
   'S76','S92','S61','S64','S330','B06','B06T','B222','B230','B407','B412',
   'B429','B505','H500','H520','H269','EN28','EN48','H60','MD60','EXPL','S108',
 ]);
-function isHeliStrict(obj) {
+let REGISTRY = null;
+function registry() {
+  if (!REGISTRY) REGISTRY = require('./registry.js').loadRegistry(); /* throws on pin drift — never silent */
+  return REGISTRY;
+}
+/* opts.registry substitutes the registry — the seam the battery's red
+   controls forge through; never passed by a consumer. */
+function isHeliStrict(obj, opts) {
+  const hit = ((opts && opts.registry) || registry()).lookup(obj);
+  if (hit) return !!hit.rotorcraft;
   if (obj.t) return HELI_TYPES.has(String(obj.t).toUpperCase());
   return true;
 }

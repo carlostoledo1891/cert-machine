@@ -1,0 +1,786 @@
+{
+ "what": "SkyAudit registry extract — only corpus-joined rows, only used fields",
+ "city": "nyc",
+ "dayDir": "day-2026-08-26",
+ "sources": {
+  "faa": "FAA Releasable Aircraft Database (public domain)",
+  "rab": "ANAC RAB dados_aeronaves.csv (open data)"
+ },
+ "rab_updated": "2026-08-27",
+ "counts": {
+  "corpus": 82,
+  "matched": 73,
+  "unmatched": 9
+ },
+ "unmatched": [
+  {
+   "icao": "a091fc",
+   "reg": null
+  },
+  {
+   "icao": "a4b0e2",
+   "reg": "N401FN"
+  },
+  {
+   "icao": "a7c317",
+   "reg": null
+  },
+  {
+   "icao": "ae5d49",
+   "reg": "16-20832"
+  },
+  {
+   "icao": "ae649a",
+   "reg": "19-21087"
+  },
+  {
+   "icao": "ae6a81",
+   "reg": "20-21147"
+  },
+  {
+   "icao": "afa827",
+   "reg": "18-20990"
+  },
+  {
+   "icao": "aff009",
+   "reg": "18-20994"
+  },
+  {
+   "icao": "c00ff2",
+   "reg": "C-FGAZ"
+  }
+ ],
+ "faa": {
+  "N1103S": {
+   "reg": "N1103S",
+   "icaoHex": "a02f05",
+   "registeredTo": "SCS 21 LLC",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY AIRCRAFT CORP",
+   "model": "S-76D",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N113VG": {
+   "reg": "N113VG",
+   "icaoHex": "a0393a",
+   "registeredTo": "N113VG LLC",
+   "nameKind": "registrant",
+   "mfr": "ROBINSON HELICOPTER",
+   "model": "R22 BETA",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N1308": {
+   "reg": "N1308",
+   "icaoHex": "a07ea1",
+   "registeredTo": "TVPX AIRCRAFT SOLUTIONS INC TRUSTEE",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N176FX": {
+   "reg": "N176FX",
+   "icaoHex": "a1300a",
+   "registeredTo": "FLEXJET VERTICAL LIFT LLC",
+   "nameKind": "registrant",
+   "mfr": "KEYSTONE HELICOPTER",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N181J": {
+   "reg": "N181J",
+   "icaoHex": "a1452b",
+   "registeredTo": "POWDERBIRD LLC",
+   "nameKind": "registrant",
+   "mfr": "AGUSTAWESTLAND PHILADELPHIA",
+   "model": "AW139",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N207MH": {
+   "reg": "N207MH",
+   "icaoHex": "a1ad1f",
+   "registeredTo": "MERIDIAN HELICOPTERS LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "206L-3",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N217MH": {
+   "reg": "N217MH",
+   "icaoHex": "a1d49e",
+   "registeredTo": "MERIDIAN HELICOPTERS LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "206-L4",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N22ZA": {
+   "reg": "N22ZA",
+   "icaoHex": "a1e0e8",
+   "registeredTo": "PMP55 LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "206L-3",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N24NY": {
+   "reg": "N24NY",
+   "icaoHex": "a22ee9",
+   "registeredTo": "HELIINC LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N276FX": {
+   "reg": "N276FX",
+   "icaoHex": "a2bd59",
+   "registeredTo": "FLEXJET VERTICAL LIFT LLC",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N276HS": {
+   "reg": "N276HS",
+   "icaoHex": "a2bd86",
+   "registeredTo": "BANK OF UTAH TRUSTEE",
+   "nameKind": "registrant",
+   "mfr": "AGUSTAWESTLAND PHILADELPHIA",
+   "model": "AW139",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N27M": {
+   "reg": "N27M",
+   "icaoHex": "a2a536",
+   "registeredTo": "HELICOPTERS INC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "206-L4",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N28BB": {
+   "reg": "N28BB",
+   "icaoHex": "a2cbbd",
+   "registeredTo": "COVE PARTNERS LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "429",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N2NJ": {
+   "reg": "N2NJ",
+   "icaoHex": "a18e86",
+   "registeredTo": "NEW JERSEY STATE POLICE",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "206L-3",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N30EN": {
+   "reg": "N30EN",
+   "icaoHex": "a31d6a",
+   "registeredTo": "TVPX AIRCRAFT SOLUTIONS INC TRUSTEE",
+   "nameKind": "registrant",
+   "mfr": "AIRBUS HELICOPTERS",
+   "model": "H160-B",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N30RT": {
+   "reg": "N30RT",
+   "icaoHex": "a31e82",
+   "registeredTo": "BANK OF UTAH TRUSTEE",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N310SW": {
+   "reg": "N310SW",
+   "icaoHex": "a34876",
+   "registeredTo": "WINGS AIR HELICOPTERS LLC",
+   "nameKind": "registrant",
+   "mfr": "AIRBUS HELICOPTERS",
+   "model": "AS 350B3",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N314RG": {
+   "reg": "N314RG",
+   "icaoHex": "a3572b",
+   "registeredTo": "RENCOPTER 314 LLC",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY",
+   "model": "S-92A",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N319SB": {
+   "reg": "N319SB",
+   "icaoHex": "a369d2",
+   "registeredTo": "WG AVIATION HELI I LLC",
+   "nameKind": "registrant",
+   "mfr": "AGUSTAWESTLAND PHILADELPHIA",
+   "model": "AW139",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N3251J": {
+   "reg": "N3251J",
+   "icaoHex": "a38367",
+   "registeredTo": "JETBLUE AIRWAYS CORP",
+   "nameKind": "registrant",
+   "mfr": "AIRBUS CANADA LP",
+   "model": "BD-500-1A11",
+   "typeAcft": "5",
+   "rotorcraft": false
+  },
+  "N34HF": {
+   "reg": "N34HF",
+   "icaoHex": "a3bbaa",
+   "registeredTo": "HELIFLITE SHARES LLC",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N35HF": {
+   "reg": "N35HF",
+   "icaoHex": "a3e329",
+   "registeredTo": "HELIFLITE SHARES LLC",
+   "nameKind": "registrant",
+   "mfr": "KEYSTONE HELICOPTER CORP",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N369FL": {
+   "reg": "N369FL",
+   "icaoHex": "a42e43",
+   "registeredTo": "VASILESCU PAUL",
+   "nameKind": "registrant",
+   "mfr": "HUGHES",
+   "model": "369HS",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N36HF": {
+   "reg": "N36HF",
+   "icaoHex": "a40aa8",
+   "registeredTo": "HELIFLITE SHARES LLC",
+   "nameKind": "registrant",
+   "mfr": "KEYSTONE HELICOPTER CORP",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N38HF": {
+   "reg": "N38HF",
+   "icaoHex": "a459a6",
+   "registeredTo": "HELIFLITE SHARES LLC",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N403TD": {
+   "reg": "N403TD",
+   "icaoHex": "a4b973",
+   "registeredTo": "HFS HELI 1V LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N404TD": {
+   "reg": "N404TD",
+   "icaoHex": "a4bd2a",
+   "registeredTo": "HFS HELI II LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N405LP": {
+   "reg": "N405LP",
+   "icaoHex": "a4c03c",
+   "registeredTo": "GM LEASING CO LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "206L-4",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N406TD": {
+   "reg": "N406TD",
+   "icaoHex": "a4c498",
+   "registeredTo": "HFS HELI V LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N407DE": {
+   "reg": "N407DE",
+   "icaoHex": "a4c6f2",
+   "registeredTo": "PAMOIN 407 LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N408GG": {
+   "reg": "N408GG",
+   "icaoHex": "a4caf6",
+   "registeredTo": "HFS HELI III LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N439H": {
+   "reg": "N439H",
+   "icaoHex": "a5453c",
+   "registeredTo": "BANK OF UTAH TRUSTEE",
+   "nameKind": "registrant",
+   "mfr": "AGUSTAWESTLAND PHILADELPHIA",
+   "model": "AW139",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N45BZ": {
+   "reg": "N45BZ",
+   "icaoHex": "a56ff4",
+   "registeredTo": "LOGISTICS BUSINESS SERVICES LLC",
+   "nameKind": "registrant",
+   "mfr": "AGUSTAWESTLAND SPA",
+   "model": "AW109SP",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N4846": {
+   "reg": "N4846",
+   "icaoHex": "a5fa9f",
+   "registeredTo": "G M LEASING CO LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "206L-3",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N48ZA": {
+   "reg": "N48ZA",
+   "icaoHex": "a5e880",
+   "registeredTo": "48ZA LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N4NJ": {
+   "reg": "N4NJ",
+   "icaoHex": "a4a924",
+   "registeredTo": "STATE OF NEW JERSEY",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "OH-58A",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N536PD": {
+   "reg": "N536PD",
+   "icaoHex": "a6c800",
+   "registeredTo": "WESTCHESTER COUNTY DEPARTMENT OF PUBLIC SAFETY",
+   "nameKind": "registrant",
+   "mfr": "BELL TEXTRON CANADA LTD",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N551HU": {
+   "reg": "N551HU",
+   "icaoHex": "a703e4",
+   "registeredTo": "AIR METHODS LLC",
+   "nameKind": "registrant",
+   "mfr": "EUROCOPTER DEUTSCHLAND GMBH",
+   "model": "EC 135 P2+",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N555ZA": {
+   "reg": "N555ZA",
+   "icaoHex": "a7143e",
+   "registeredTo": "N555ZA LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N576DT": {
+   "reg": "N576DT",
+   "icaoHex": "a76510",
+   "registeredTo": "AREA 109 LLC",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N618HR": {
+   "reg": "N618HR",
+   "icaoHex": "a80d35",
+   "registeredTo": "BOARDWALK AIR I LLC",
+   "nameKind": "registrant",
+   "mfr": "LEONARDO SPA",
+   "model": "AW109SP",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N61UP": {
+   "reg": "N61UP",
+   "icaoHex": "a7ee35",
+   "registeredTo": "TRUSTEES OF THE UNIVERSITY OF PENNSYLVANIA",
+   "nameKind": "registrant",
+   "mfr": "EUROCOPTER DEUTSCHLAND GMBH",
+   "model": "MBB-BK 117 C-2",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N62ZA": {
+   "reg": "N62ZA",
+   "icaoHex": "a81624",
+   "registeredTo": "62ZA LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N638MF": {
+   "reg": "N638MF",
+   "icaoHex": "a85c8d",
+   "registeredTo": "R O P AVIATION INC",
+   "nameKind": "registrant",
+   "mfr": "AGUSTAWESTLAND PHILADELPHIA",
+   "model": "AW139",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N653HA": {
+   "reg": "N653HA",
+   "icaoHex": "a8988f",
+   "registeredTo": "HELICOPTER APPLICATORS INC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "OH-58A",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N65DJ": {
+   "reg": "N65DJ",
+   "icaoHex": "a88ab5",
+   "registeredTo": "HORNET AVIATION LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL TEXTRON CANADA LTD",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N696BB": {
+   "reg": "N696BB",
+   "icaoHex": "a9411b",
+   "registeredTo": "CSC DELAWARE TRUST CO TRUSTEE",
+   "nameKind": "registrant",
+   "mfr": "AGUSTAWESTLAND PHILADELPHIA",
+   "model": "AW139",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N69F": {
+   "reg": "N69F",
+   "icaoHex": "a928da",
+   "registeredTo": "HELICOPTERS INC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N6MV": {
+   "reg": "N6MV",
+   "icaoHex": "a7c3b4",
+   "registeredTo": "WING AND ROTOR TRANSPORTATION HOLDINGS LLC",
+   "nameKind": "registrant",
+   "mfr": "AIRBUS HELICOPTERS",
+   "model": "EC 155B1",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N718WA": {
+   "reg": "N718WA",
+   "icaoHex": "a99bba",
+   "registeredTo": "WINGS AIR HELICOPTERS LLC",
+   "nameKind": "registrant",
+   "mfr": "EUROCOPTER/FRANCE",
+   "model": "AS355N TWINSTAR",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N747EE": {
+   "reg": "N747EE",
+   "icaoHex": "aa0cf4",
+   "registeredTo": "33ZA LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N76FX": {
+   "reg": "N76FX",
+   "icaoHex": "aa3fc2",
+   "registeredTo": "FLEXJET VERTICAL LIFT LLC",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N76ZA": {
+   "reg": "N76ZA",
+   "icaoHex": "aa416f",
+   "registeredTo": "N76ZA LLC",
+   "nameKind": "registrant",
+   "mfr": "KEYSTONE HELICOPTER",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N777ZA": {
+   "reg": "N777ZA",
+   "icaoHex": "aa8548",
+   "registeredTo": "777ZA LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N7QD": {
+   "reg": "N7QD",
+   "icaoHex": "a9513e",
+   "registeredTo": "HELICOPTERS INC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "206-L4",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N80NY": {
+   "reg": "N80NY",
+   "icaoHex": "aae0c7",
+   "registeredTo": "WGB HOLDINGS LLC",
+   "nameKind": "registrant",
+   "mfr": "AGUSTA SPA",
+   "model": "A109E",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N821SS": {
+   "reg": "N821SS",
+   "icaoHex": "ab3633",
+   "registeredTo": "FLY SAFE LLC",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N826SF": {
+   "reg": "N826SF",
+   "icaoHex": "ab48bb",
+   "registeredTo": "N115VG LLC",
+   "nameKind": "registrant",
+   "mfr": "ROBINSON HELICOPTER COMPANY",
+   "model": "R22",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N827JB": {
+   "reg": "N827JB",
+   "icaoHex": "ab4ba6",
+   "registeredTo": "JETBLUE AIRWAYS CORP",
+   "nameKind": "registrant",
+   "mfr": "AIRBUS",
+   "model": "A320-232",
+   "typeAcft": "5",
+   "rotorcraft": false
+  },
+  "N833MK": {
+   "reg": "N833MK",
+   "icaoHex": "ab649c",
+   "registeredTo": "MERCK SHARP & DOHME LLC",
+   "nameKind": "registrant",
+   "mfr": "AIRBUS HELICOPTERS",
+   "model": "H160-B",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N8363N": {
+   "reg": "N8363N",
+   "icaoHex": "ab7172",
+   "registeredTo": "HELIFLIGHTS LLC",
+   "nameKind": "registrant",
+   "mfr": "ROBINSON HELICOPTER",
+   "model": "R44",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N84BL": {
+   "reg": "N84BL",
+   "icaoHex": "ab7da4",
+   "registeredTo": "HELICOPTERS INC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N866M": {
+   "reg": "N866M",
+   "icaoHex": "abe634",
+   "registeredTo": "MIDDLESEX COUNTY MOSQUITO EXTERMINATION COMMISSION",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "206B",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N881LT": {
+   "reg": "N881LT",
+   "icaoHex": "ac2298",
+   "registeredTo": "ARK ANGELS LLC",
+   "nameKind": "registrant",
+   "mfr": "MD HELICOPTERS INC",
+   "model": "MD 900",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N88ZA": {
+   "reg": "N88ZA",
+   "icaoHex": "ac1dbc",
+   "registeredTo": "N88ZA LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N918PD": {
+   "reg": "N918PD",
+   "icaoHex": "acb5ac",
+   "registeredTo": "NEW YORK CITY POLICE DEPARTMENT",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "429",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N919PD": {
+   "reg": "N919PD",
+   "icaoHex": "acb963",
+   "registeredTo": "NEW YORK CITY POLICE DEPARTMENT",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "429",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N922PD": {
+   "reg": "N922PD",
+   "icaoHex": "acc6e1",
+   "registeredTo": "CITY OF NEW YORK POLICE DEPT",
+   "nameKind": "registrant",
+   "mfr": "BELL TEXTRON CANADA LTD",
+   "model": "412EP",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N92N": {
+   "reg": "N92N",
+   "icaoHex": "acbcfd",
+   "registeredTo": "HELICOPTERS INC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N945RF": {
+   "reg": "N945RF",
+   "icaoHex": "ad2138",
+   "registeredTo": "CHARM AVIATION HELI I LLC",
+   "nameKind": "registrant",
+   "mfr": "BELL HELICOPTER TEXTRON CANADA",
+   "model": "407",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N95TV": {
+   "reg": "N95TV",
+   "icaoHex": "ad340b",
+   "registeredTo": "HELICOPTERS INC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "206-L4",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N969YC": {
+   "reg": "N969YC",
+   "icaoHex": "ad7fbe",
+   "registeredTo": "YONKERS CONTRACTING COMPANY INC",
+   "nameKind": "registrant",
+   "mfr": "SIKORSKY",
+   "model": "S-76C",
+   "typeAcft": "6",
+   "rotorcraft": true
+  },
+  "N9BQ": {
+   "reg": "N9BQ",
+   "icaoHex": "ac6aa2",
+   "registeredTo": "HELICOPTERS INC",
+   "nameKind": "registrant",
+   "mfr": "BELL",
+   "model": "206-L4",
+   "typeAcft": "6",
+   "rotorcraft": true
+  }
+ },
+ "rab": {}
+}

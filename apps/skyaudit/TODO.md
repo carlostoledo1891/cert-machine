@@ -339,10 +339,22 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
 ## order; mirrors HANDOFF ACTIVE)
 - [x] 7.1 TODO hygiene — the stale duplicate open boxes above closed with
       pointers to the phase entries that did the work (this commit)
-- [ ] 7.2 REGISTRY JOINS — FAA Releasable Aircraft Database (NYC, public
-      domain) + ANAC RAB (SP, open data): authoritative types + OPERATOR
-      NAMES into the stories and the heli filter; pin both datasets
-      (sha256 + date), battery checks + reds
+- [x] 7.2 REGISTRY JOINS SHIPPED — audit/registry.js: FAA Releasable
+      Aircraft DB (join by Mode S hex + N-number; MASTER×ACFTREF;
+      TYPE-ACFT 6 = rotorcraft; REGISTRANT name, labeled "registered
+      to") + ANAC RAB (join by dashless mark; CD_CLS H… ; CD_TIPO_ICAO;
+      OPERADORES). Raws local/gitignored, sha-pinned + dated in
+      data/registry/REGISTRY-PINS.json; committed extracts = corpus-
+      joined rows only (nyc 73/82 matched, sp 47/61; unmatched listed:
+      5 US Army serials, 1 Canadian, reg-less Brazilians, 2 spoofed-
+      looking hexes). THE FINDING: registry-first typing changes
+      membership NOWHERE — 82/382/3,056 stand, now on authority (the
+      A320 + BD-500 miscodes are excluded BY THE REGISTRY). isHeliStrict
+      consumes the registry first (extract sha REFUSES on drift); names
+      in stories leaderboard/records + the flight card + DAY tab.
+      Battery 27/27 (calibrations N48ZA/PP-BBI, coverage closure, reds:
+      tampered extract REFUSES, forged registry flips both ways);
+      build gate 10
 - [ ] 7.3 /reports COMPANION NOTE — the citable SkyAudit methodology page
       in the house report template (tools/build-report-* pattern): prose,
       honest boundaries, sources, gates re-run at build; linked both ways

@@ -12,6 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 const { loadHeli, isHeliStrict } = require('./corpus.js');
+const { loadRegistry } = require('./registry.js');
 const { segmentTrace } = require('./flights.js');
 
 const TZ = { nyc: 'America/New_York', sp: 'America/Sao_Paulo' };
@@ -26,13 +27,20 @@ function classify(f, reg, type) {
 function run(city, dayDir) {
   dayDir = dayDir || 'day-2026-08-26';
   const tz = TZ[city] || TZ.nyc;
+  const registry = loadRegistry();
   const perAircraft = new Map();
   const all = [];
   for (const obj of loadHeli(city, dayDir).aircraft) {
     if (!isHeliStrict(obj)) continue;
     let fl; try { fl = segmentTrace(obj); } catch { continue; }
     if (!fl.length) continue;
+    /* authoritative names from the pinned registries: FAA publishes the
+       REGISTRANT ("registered to"), ANAC the operador — labeled per source */
+    const hit = registry.lookup(obj);
+    const name = hit ? (hit.registeredTo || (hit.operadores || [])[0] || null) : null;
     const a = { icao: obj.icao, reg: obj.r || obj.icao, type: obj.t || 'untyped',
+      name, nameKind: name ? hit.nameKind : null,
+      regType: hit ? (hit.typeDesignator || hit.model || null) : null,
       legs: fl.length, airborneMin: 0, km: 0 };
     for (const f of fl) {
       a.airborneMin += f.durationS / 60; a.km += f.pathKm;
@@ -51,9 +59,10 @@ function run(city, dayDir) {
   }
   const peak = hourly.indexOf(Math.max(...hourly));
 
+  const nameOf = new Map([...perAircraft.values()].map((a) => [a.reg, a.name]));
   const rec = (arr, key, fmt) => {
     const f = arr.reduce((a, b) => (key(b) > key(a) ? b : a));
-    return { reg: f.reg, type: f.type, value: fmt(f), ops: f.ops };
+    return { reg: f.reg, type: f.type, name: nameOf.get(f.reg) || null, value: fmt(f), ops: f.ops };
   };
   const records = {
     longest_km: rec(all, (f) => f.pathKm, (f) => Math.round(f.pathKm) + ' km'),
@@ -73,6 +82,7 @@ function run(city, dayDir) {
     .sort((a, b) => b.dwellPct - a.dwellPct).slice(0, 3);
 
   return { city, dayDir, flights: all.length, aircraft: perAircraft.size,
+    names_source: 'FAA Releasable Aircraft Database (registrant — "registered to", not necessarily the operator) / ANAC RAB (operador); pinned in data/registry/REGISTRY-PINS.json',
     heuristics: 'INFERRED ops classes: patrol/military = reg ..PD or type H60; tour loop = returns near start (gc < 12% of path) over >8 km; shuttle hop = <45 km mostly-direct; rest = charter/other. Detour factor = flown/direct distance; dwell = time under 10 kt.',
     leaderboard: board, hourly, peak_hour_local: peak, records, ops_mix: mix,
     outliers: { detours, dwellers } };

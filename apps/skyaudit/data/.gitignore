@@ -4,6 +4,10 @@
 *.full.jsonl
 *.heli.jsonl
 day-*/raw/
+# raw civil registries (FAA ReleasableAircraft.zip + extracted txt, ANAC
+# dados_aeronaves.csv): local, re-fetchable, sha-pinned in
+# registry/REGISTRY-PINS.json; only the corpus-joined extracts are committed
+registry/raw/
 # committed: *.heli.jsonl.gz + PINS.json + extract-stats.json + measure.json
 *.certs.jsonl
 nyc.pmtiles

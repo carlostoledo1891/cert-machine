@@ -3,12 +3,16 @@
   "dayDir": "day-2026-08-26",
   "flights": 382,
   "aircraft": 78,
+  "names_source": "FAA Releasable Aircraft Database (registrant — \"registered to\", not necessarily the operator) / ANAC RAB (operador); pinned in data/registry/REGISTRY-PINS.json",
   "heuristics": "INFERRED ops classes: patrol/military = reg ..PD or type H60; tour loop = returns near start (gc < 12% of path) over >8 km; shuttle hop = <45 km mostly-direct; rest = charter/other. Detour factor = flown/direct distance; dwell = time under 10 kt.",
   "leaderboard": [
     {
       "icao": "a4caf6",
       "reg": "N408GG",
       "type": "B407",
+      "name": "HFS HELI III LLC",
+      "nameKind": "registrant",
+      "regType": "407",
       "legs": 18,
       "airborneMin": 391,
       "km": 1101
@@ -17,6 +21,9 @@
       "icao": "a81624",
       "reg": "N62ZA",
       "type": "B407",
+      "name": "62ZA LLC",
+      "nameKind": "registrant",
+      "regType": "407",
       "legs": 13,
       "airborneMin": 307,
       "km": 1019
@@ -25,6 +32,9 @@
       "icao": "aa8548",
       "reg": "N777ZA",
       "type": "B407",
+      "name": "777ZA LLC",
+      "nameKind": "registrant",
+      "regType": "407",
       "legs": 13,
       "airborneMin": 272,
       "km": 811
@@ -33,6 +43,9 @@
       "icao": "ad2138",
       "reg": "N945RF",
       "type": "B407",
+      "name": "CHARM AVIATION HELI I LLC",
+      "nameKind": "registrant",
+      "regType": "407",
       "legs": 12,
       "airborneMin": 343,
       "km": 934
@@ -41,6 +54,9 @@
       "icao": "acbcfd",
       "reg": "N92N",
       "type": "B407",
+      "name": "HELICOPTERS INC",
+      "nameKind": "registrant",
+      "regType": "407",
       "legs": 12,
       "airborneMin": 265,
       "km": 729
@@ -77,24 +93,28 @@
     "longest_km": {
       "reg": "N406TD",
       "type": "B407",
+      "name": "HFS HELI V LLC",
       "value": "720 km",
       "ops": "tour loop"
     },
     "longest_min": {
       "reg": "N866M",
       "type": "B06",
+      "name": "MIDDLESEX COUNTY MOSQUITO EXTERMINATION COMMISSION",
       "value": "342 min",
       "ops": "tour loop"
     },
     "highest_ft": {
       "reg": "19-21087",
       "type": "H60",
+      "name": null,
       "value": "6850 ft",
       "ops": "patrol/military"
     },
     "fastest_kt": {
       "reg": "N76ZA",
       "type": "S76",
+      "name": "N76ZA LLC",
       "value": "160 kt median",
       "ops": "charter/other"
     }

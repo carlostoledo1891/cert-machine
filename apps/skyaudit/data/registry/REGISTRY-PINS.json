@@ -1,0 +1,40 @@
+{
+ "what": "SkyAudit registry pins: raw datasets (local, re-fetchable) + committed extracts",
+ "raw": {
+  "ReleasableAircraft.zip": {
+   "url": "https://registry.faa.gov/database/ReleasableAircraft.zip",
+   "license": "public domain (US government work)",
+   "acquired": "2026-08-27",
+   "dataset_date": "2026-08-26 (file dates inside the zip)",
+   "sha256": "93b2b9110e9972b77f30361df58161ae94c9f0113799e7e98b1af04f793125cc"
+  },
+  "dados_aeronaves.csv": {
+   "url": "https://sistemas.anac.gov.br/dadosabertos/Aeronaves/RAB/dados_aeronaves.csv",
+   "license": "ANAC dados abertos",
+   "acquired": "2026-08-27",
+   "dataset_date": "2026-08-27",
+   "sha256": "5aa6fe1e61a30ef53a0a7cd5968c8d9391d175c0d8ca51932547b55ca94a571d"
+  }
+ },
+ "extracts": {
+  "nyc": {
+   "file": "nyc.registry.json",
+   "sha256": "8bec8d7479a873638d26d630cfc650108f6904a5bdf429512b2210e6b48dcce2",
+   "counts": {
+    "corpus": 82,
+    "matched": 73,
+    "unmatched": 9
+   }
+  },
+  "sp": {
+   "file": "sp.registry.json",
+   "sha256": "292e0cd5f90168869da87b6ba06b0e394eb49b6fa3df812e9f462cf3bc4db15d",
+   "counts": {
+    "corpus": 61,
+    "matched": 47,
+    "unmatched": 14
+   }
+  }
+ },
+ "tool": "node apps/skyaudit/audit/registry.js build"
+}

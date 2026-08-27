@@ -263,4 +263,72 @@ ok('pinned flights reproduce exactly from the pinned corpus', () => {
   assert.ok(Math.abs(b407[0].pathKm - 160) < 2, 'B407 day leg ~160 km');
 });
 
+console.log('-- registry joins: authoritative identity (FAA / ANAC RAB, pinned)');
+
+const registry = require('./audit/registry.js');
+const corpus = require('./audit/corpus.js');
+const fsq = require('fs');
+
+ok('FAA calibration: N48ZA joins by hex AND reg — Bell 407, rotorcraft, 48ZA LLC', () => {
+  const r = registry.loadRegistry();
+  const byHex = r.lookup({ icao: 'a5e880' });
+  const byReg = r.lookup({ icao: 'zzzzzz', r: 'N48ZA' });
+  for (const hit of [byHex, byReg]) {
+    assert.ok(hit, 'N48ZA must join');
+    assert.strictEqual(hit.model, '407');
+    assert.strictEqual(hit.rotorcraft, true);
+    assert.strictEqual(hit.registeredTo, '48ZA LLC');
+    assert.strictEqual(hit.nameKind, 'registrant');
+  }
+});
+
+ok('ANAC calibration: PP-BBI — Bell 429, class H2T, operador Banco Bradesco', () => {
+  const hit = registry.loadRegistry().lookup({ icao: 'zzzzzz', r: 'PP-BBI' });
+  assert.ok(hit, 'PP-BBI must join');
+  assert.strictEqual(hit.typeDesignator, 'B429');
+  assert.strictEqual(hit.cls, 'H2T');
+  assert.strictEqual(hit.rotorcraft, true);
+  assert.ok(hit.operadores[0].includes('BRADESCO'));
+});
+
+ok('coverage closure: matched + unmatched == corpus, both cities, recounted live', () => {
+  for (const city of ['nyc', 'sp']) {
+    const ex = JSON.parse(fsq.readFileSync(path.join(__dirname, 'data/registry/' + city + '.registry.json'), 'utf8'));
+    const keys = registry.corpusKeys(city);
+    assert.strictEqual(ex.counts.corpus, keys.size, city + ' corpus count');
+    assert.strictEqual(ex.counts.matched + ex.counts.unmatched, ex.counts.corpus, city + ' closure');
+    assert.strictEqual(ex.unmatched.length, ex.counts.unmatched, city + ' unmatched list length');
+  }
+});
+
+ok('membership stands on authority: NYC 79/82 strict; miscoded A320 + BD-500 excluded BY THE REGISTRY', () => {
+  const { aircraft } = corpus.loadHeli('nyc');
+  assert.strictEqual(aircraft.filter((a) => corpus.isHeliStrict(a)).length, 79);
+  const r = registry.loadRegistry();
+  for (const reg of ['N827JB', 'N3251J']) {           /* the pinned day's miscoded-A7 jets */
+    const hit = r.byReg.get(reg);
+    assert.ok(hit && hit.rotorcraft === false, reg + ' must be authoritatively non-rotorcraft');
+  }
+});
+
+ok('RED: a tampered extract must REFUSE at load (sha pin)', () => {
+  const nycBytes = fsq.readFileSync(path.join(__dirname, 'data/registry/nyc.registry.json'), 'utf8');
+  const tampered = nycBytes.replace('"rotorcraft": true', '"rotorcraft": false');
+  assert.notStrictEqual(tampered, nycBytes, 'the mutation must land');
+  assert.throws(() => registry.loadRegistry({ extracts: { nyc: tampered } }), /REFUSED.*drifted/);
+});
+
+ok('RED: the filter CONSUMES the registry — a forged registry flips membership both ways', () => {
+  const { aircraft } = corpus.loadHeli('nyc');
+  const a320 = aircraft.find((a) => a.r === 'N827JB');
+  const b407 = aircraft.find((a) => a.r === 'N48ZA');
+  assert.ok(a320 && b407);
+  const forge = (v) => ({ lookup: () => ({ rotorcraft: v }) });
+  assert.strictEqual(corpus.isHeliStrict(a320, { registry: forge(true) }), true, 'forged include must flip the A320 in');
+  assert.strictEqual(corpus.isHeliStrict(b407, { registry: forge(false) }), false, 'forged exclude must flip the B407 out');
+  /* and the real registry restores the truth */
+  assert.strictEqual(corpus.isHeliStrict(a320), false);
+  assert.strictEqual(corpus.isHeliStrict(b407), true);
+});
+
 console.log('battery green: ' + n + '/' + n + ' checks');

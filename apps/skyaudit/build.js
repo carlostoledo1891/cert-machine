@@ -102,6 +102,18 @@ const tilesPath = path.join(APP, 'data/tiles', tilesPins.file);
 const sha = require('crypto').createHash('sha256').update(fs.readFileSync(tilesPath)).digest('hex');
 if (sha !== tilesPins.sha256) die('basemap tiles drifted from TILES-PINS.json');
 
+/* gate 10 — the registry extracts are the pinned bytes and still cover the corpus */
+console.log('gate: registry');
+const registry = require('./audit/registry.js');
+try { registry.loadRegistry(); } catch (e) { die(e.message); }
+for (const city of ['nyc', 'sp']) {
+  const ex = JSON.parse(fs.readFileSync(path.join(APP, 'data/registry', city + '.registry.json'), 'utf8'));
+  const keys = registry.corpusKeys(city);
+  if (ex.counts.corpus !== keys.size || ex.counts.matched + ex.counts.unmatched !== ex.counts.corpus) {
+    die('registry extract ' + city + ' no longer covers the corpus (corpus ' + keys.size + ', extract says ' + JSON.stringify(ex.counts) + ')');
+  }
+}
+
 /* ---- emit ---- */
 console.log('emit: ' + outDir);
 fs.mkdirSync(path.join(outDir, 'vendor'), { recursive: true });
@@ -216,9 +228,10 @@ const html = renderApp({
     </svg>
     <div class="as-fine" style="margin-bottom:10px">flights in the air by hour · peak at ${stories.peak_hour_local}:00 local</div>
     <div class="as-frow"><span><span class="name">Hardest-working aircraft</span>
-      <span class="sub">${stories.leaderboard.slice(0, 3).map((a, i) => `${['🥇', '🥈', '🥉'][i] || ''} ${a.reg} (${a.type}) ${a.legs} legs · ${Math.round(a.airborneMin / 60 * 10) / 10} h`).join(' · ')}</span></span></div>
+      <span class="sub">${stories.leaderboard.slice(0, 3).map((a, i) => `${['🥇', '🥈', '🥉'][i] || ''} ${a.reg}${a.name ? ' — ' + a.name : ''} (${a.type}) ${a.legs} legs · ${Math.round(a.airborneMin / 60 * 10) / 10} h`).join(' · ')}</span>
+      <span class="sub" style="color:var(--ink-3)">names: FAA registry (registered to — not necessarily who operates) / ANAC RAB (operador); both pinned</span></span></div>
     <div class="as-frow"><span><span class="name">Records</span>
-      <span class="sub">longest ${stories.records.longest_km.value} (${stories.records.longest_km.reg}) ·
+      <span class="sub">longest ${stories.records.longest_km.value} (${stories.records.longest_km.reg}${stories.records.longest_km.name ? ', ' + stories.records.longest_km.name : ''}) ·
       ${stories.records.longest_min.value} airborne (${stories.records.longest_min.reg}, ${stories.records.longest_min.ops}) ·
       highest ${stories.records.highest_ft.value} (${stories.records.highest_ft.type}) ·
       fastest ${stories.records.fastest_kt.value} (${stories.records.fastest_kt.type})</span></span></div>

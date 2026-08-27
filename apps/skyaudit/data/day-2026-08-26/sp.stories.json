@@ -1,0 +1,170 @@
+{
+  "city": "sp",
+  "dayDir": "day-2026-08-26",
+  "flights": 148,
+  "aircraft": 55,
+  "names_source": "FAA Releasable Aircraft Database (registrant — \"registered to\", not necessarily the operator) / ANAC RAB (operador); pinned in data/registry/REGISTRY-PINS.json",
+  "heuristics": "INFERRED ops classes: patrol/military = reg ..PD or type H60; tour loop = returns near start (gc < 12% of path) over >8 km; shuttle hop = <45 km mostly-direct; rest = charter/other. Detour factor = flown/direct distance; dwell = time under 10 kt.",
+  "leaderboard": [
+    {
+      "icao": "e49f57",
+      "reg": "PS-ATN",
+      "type": "EC45",
+      "name": "ROTORFLY TÁXI AÉREO E SERVIÇOS AÉREOS ESPECIALIZADOS LTDA",
+      "nameKind": "operador",
+      "regType": "EC45",
+      "legs": 7,
+      "airborneMin": 163,
+      "km": 546
+    },
+    {
+      "icao": "e4997e",
+      "reg": "PP-SGL",
+      "type": "EC30",
+      "name": "GILBERTO SCHINCARIOL JÚNIOR",
+      "nameKind": "operador",
+      "regType": "EC30",
+      "legs": 7,
+      "airborneMin": 84,
+      "km": 213
+    },
+    {
+      "icao": "e499ec",
+      "reg": "PS-DBB",
+      "type": "R44",
+      "name": "IMPLY PARTICIPAÇÕES SOCIETÁRIAS LTDA",
+      "nameKind": "operador",
+      "regType": "R44",
+      "legs": 7,
+      "airborneMin": 45,
+      "km": 132
+    },
+    {
+      "icao": "e4a5b1",
+      "reg": "PS-MGD",
+      "type": "AS50",
+      "name": "SPAIR TAXI AEREO LTDA",
+      "nameKind": "operador",
+      "regType": "AS50",
+      "legs": 6,
+      "airborneMin": 195,
+      "km": 575
+    },
+    {
+      "icao": "e48736",
+      "reg": "PR-OMH",
+      "type": "EC55",
+      "name": "OMNI TAXI AEREO S.A",
+      "nameKind": "operador",
+      "regType": "EC55",
+      "legs": 6,
+      "airborneMin": 194,
+      "km": 640
+    }
+  ],
+  "hourly": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    2,
+    5,
+    13,
+    19,
+    16,
+    18,
+    12,
+    10,
+    14,
+    23,
+    16,
+    12,
+    18,
+    10,
+    6,
+    1,
+    0,
+    0
+  ],
+  "peak_hour_local": 15,
+  "records": {
+    "longest_km": {
+      "reg": "PS-WMS",
+      "type": "B429",
+      "name": "LUGANO WMS PARTICIPACOES LTDA",
+      "value": "346 km",
+      "ops": "tour loop"
+    },
+    "longest_min": {
+      "reg": "PS-WMS",
+      "type": "B429",
+      "name": "LUGANO WMS PARTICIPACOES LTDA",
+      "value": "99 min",
+      "ops": "tour loop"
+    },
+    "highest_ft": {
+      "reg": "e4a3c4",
+      "type": "untyped",
+      "name": null,
+      "value": "8000 ft",
+      "ops": "charter/other"
+    },
+    "fastest_kt": {
+      "reg": "PP-BJS",
+      "type": "B429",
+      "name": "HELISTAR TAXI AEREO ESCOLA DE PILOTAGEM E ASSESSORIA AERONAUTICA LTDA",
+      "value": "153 kt median",
+      "ops": "charter/other"
+    }
+  },
+  "ops_mix": {
+    "tour loop": 35,
+    "charter/other": 82,
+    "shuttle hop": 30,
+    "patrol/military": 1
+  },
+  "outliers": {
+    "detours": [
+      {
+        "reg": "PP-CPD",
+        "type": "B429",
+        "factor": 25.2,
+        "km": 52
+      },
+      {
+        "reg": "PS-MGD",
+        "type": "AS50",
+        "factor": 7.1,
+        "km": 206
+      },
+      {
+        "reg": "PS-DJS",
+        "type": "A169",
+        "factor": 5.7,
+        "km": 69
+      }
+    ],
+    "dwellers": [
+      {
+        "reg": "PS-GER",
+        "type": "AS50",
+        "dwellPct": 67,
+        "min": 14
+      },
+      {
+        "reg": "e49b67",
+        "type": "untyped",
+        "dwellPct": 56,
+        "min": 18
+      },
+      {
+        "reg": "PR-OMH",
+        "type": "EC55",
+        "dwellPct": 39,
+        "min": 31
+      }
+    ]
+  }
+}

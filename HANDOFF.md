@@ -35,9 +35,12 @@ price 194/171/110/46/8/0; electric bill $100-901 vs $1,647-3,580
 disjoint. AGREED NEXT (operator, this order): (1) DONE
 2026-08-27 — TODO hygiene (stale duplicate boxes closed with pointers
 to the phase entries that did the work; TODO.md Phase 7 records this
-order); (2) REGISTRY JOINS — FAA Releasable Aircraft DB
-(NYC, public domain) + ANAC RAB (SP): authoritative types + OPERATOR
-NAMES into stories/filter, pinned; (3) /reports COMPANION NOTE — the
+order); (2) DONE 2026-08-27 — REGISTRY JOINS SHIPPED
+(audit/registry.js: FAA by Mode S hex + N-number, ANAC RAB by mark;
+raws pinned sha256+date, corpus-joined extracts committed; nyc 73/82,
+sp 47/61 matched, unmatched listed honestly; membership delta NONE —
+82/382/3,056 now stand on authority; names in stories + flight card;
+battery 27/27 incl. reds; build gate 10); (3) /reports COMPANION NOTE — the
 citable methodology page in the house template, gates re-run at build,
 linked both ways with the app; (4) SECOND PINNED DAY — day-stability
 (weekend or winter day; pipeline is mechanical: download/extract/

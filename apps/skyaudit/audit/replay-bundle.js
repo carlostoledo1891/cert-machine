@@ -32,6 +32,8 @@ for (const line of readMaybeGz(path.join(dataDir, city + '.certs.jsonl')).split(
 
 /* raw traces for the tracks — the SAME deduped view certify-day audits */
 const { loadHeli } = require('./corpus.js');
+const { loadRegistry } = require('./registry.js');
+const registry = loadRegistry();
 const traces = new Map();
 for (const obj of loadHeli(city, dayDir).aircraft) traces.set(obj.icao, obj);
 
@@ -66,7 +68,11 @@ for (const [id, { meta, rows }] of byFlight) {
       m: typeof row.margin_kwh === 'number' ? r1(row.margin_kwh) : { w: r1(row.margin_kwh.worst), b: r1(row.margin_kwh.best) },
       ...(row.witness ? { wit: row.witness.margin.length > 24 ? row.witness.margin.slice(0, 24) + '…' : row.witness.margin } : {}) };
   }
+  /* authoritative name from the pinned registries (FAA registrant / ANAC operador) */
+  const hit = registry.lookup({ icao, r: meta.reg });
+  const name = hit ? (hit.registeredTo || (hit.operadores || [])[0] || null) : null;
   flights.push({ id, icao, reg: meta.reg, type: meta.type,
+    ...(name ? { name, nk: hit.nameKind } : {}),
     dur: meta.flight.durationS, km: meta.flight.pathKm, alt: meta.flight.maxAltFt,
     trunc: [meta.flight.truncatedStart, meta.flight.truncatedEnd],
     verdicts, enc, track });

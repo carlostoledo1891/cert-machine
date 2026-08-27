@@ -632,6 +632,7 @@ function renderPanel() {
   host.innerHTML = `
   <div class="as-kv">
     <span>aircraft</span><b>${f.reg || f.icao} · ${f.type}</b>
+    ${f.name ? `<span>${f.nk === 'operador' ? 'operador' : 'registered to'}</span><b>${f.name}</b>` : ''}
     <span>flight</span><b>${f.km.toFixed(1)} km · ${Math.round(f.dur / 60)} min · max ${f.alt} ft</b>
     <span>coverage</span><b>${cov}</b>
   </div>
