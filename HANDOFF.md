@@ -32,8 +32,10 @@ of record (NYC pinned day 2026-08-26): 82 aircraft / 382 flights /
 aircraft (pool model); Joby/Archer/Eve zero provable; battery floors
 301/323/355/386 kWh; charge lever 5->4->3 at <=48/<=23 min; reserve
 price 194/171/110/46/8/0; electric bill $100-901 vs $1,647-3,580
-disjoint. AGREED NEXT (operator, this order): (1) TODO hygiene — close
-stale duplicate boxes; (2) REGISTRY JOINS — FAA Releasable Aircraft DB
+disjoint. AGREED NEXT (operator, this order): (1) DONE
+2026-08-27 — TODO hygiene (stale duplicate boxes closed with pointers
+to the phase entries that did the work; TODO.md Phase 7 records this
+order); (2) REGISTRY JOINS — FAA Releasable Aircraft DB
 (NYC, public domain) + ANAC RAB (SP): authoritative types + OPERATOR
 NAMES into stories/filter, pinned; (3) /reports COMPANION NOTE — the
 citable methodology page in the house template, gates re-run at build,

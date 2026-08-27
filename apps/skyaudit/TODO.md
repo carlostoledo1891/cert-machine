@@ -37,17 +37,14 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       g2g at type cruise speeds, S-76 charter 227-264 km/h, B06 tour
       loiter, NYPD B407 patrol with honest gap flags) — all type-
       consistent; 2 pinned as corpus-tied battery regressions (21/21)
-- [ ] Helicopter ID: traces' own `t` + `category A7`; enrichment joins —
-      ANAC RAB `dados_aeronaves.csv` (SP; open data, pin sha + date) and
-      the FAA Releasable Aircraft Database (NYC; public domain, pin) —
-      N-number/registration → type
-- [ ] Flight segmentation (`audit/flights.js`): traces → flights (takeoff/
-      landing detection, gap tolerance), per-flight route metrics
-      (distance, duration, altitude profile, hover-like dwell segments)
-- [ ] Segmentation battery: N hand-verified flights reproduce exactly;
-      reds — a scrambled trace must FAIL, a synthetic flight with known
-      metrics must round-trip, a duplicated-point trace must not create
-      a phantom flight
+- [~] Helicopter ID: traces' own `t` + `category A7` shipped; the
+      enrichment joins are Phase 7.2 (REGISTRY JOINS) below
+- [x] Flight segmentation — DONE in Phase 2 as the certified segmentation
+      (`audit/flights.js`: monotonic-time contract, 900 s gap split, 60 s
+      ground-contact rule, honesty flags); this box was its early spelling
+- [x] Segmentation battery — DONE in Phase 2 (battery.js calibration +
+      reds incl. scrambled-trace THROWS) + the 2 corpus-tied spot-verified
+      regressions; this box was its early spelling
 - [x] Sources pinned: 10 PDFs fetched (FR rule, SC-VTOL + 2 MOCs,
       AMC/GM Part-IAM, Kasliwal, Uber Elevate, PRENOR 351-7, ANAC
       criteria, VoloCity spec) — SOURCES-PINS.json committed (sha256 +
@@ -82,11 +79,12 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       the finding: it measures both public-spec opacity AND the
       FAA-reserve conservatism the industry itself protested (Beta's own
       docket comment)
-- [ ] Known-conservatism refinements (recorded, not yet applied): reserve
-      power at "normal cruising speed" currently uses the full cruise-v
-      box (hi end inflates reserve); mission mass = MTOW box (max-load
-      strictness); per-aircraft disk loading from published geometry
-      where obtainable
+- [ ] (word) HELD 2026-08-27 for the operator's decision — do NOT start:
+      known-conservatism refinements = METHODOLOGY V2 (changes every
+      published number, do once): reserve power at "normal cruising
+      speed" currently uses the full cruise-v box (hi end inflates
+      reserve); mission mass = MTOW box (max-load strictness);
+      per-aircraft disk loading from published geometry where obtainable
 - [x] RANGE-CLAIM AUDIT (sim/optimize.js range_claims + panel card):
       claims are EXISTENTIAL (CONSISTENT = some point of the maker's own
       boxes achieves it; REFUTED = none does); Archer's 60-mi worst-case
@@ -96,8 +94,9 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       -70/+65 kWh — a guarantee the public cannot check) · Eve 100km
       CONSISTENT · Beta: no VTOL claim to audit. Battery red both
       directions (5000 km must REFUTE, 2 km must CERTIFY)
-- [ ] Stdlib spot-checker (`audit/verify_skyaudit.py`): re-proves sampled
-      certificates in exact rationals, zero dependencies
+- [x] Stdlib spot-checker — DONE in Phase 5 as the STDLIB RE-PROOF
+      (`audit/verify_skyaudit.py`: 830 rows re-proved exactly, 2 reds
+      fire); this box was its early spelling
 
 ## Phase 3 — the simulated fleet
 - [x] RE-FLY THE DAY SHIPPED (`sim/refly.js`) — better than the binary
@@ -138,10 +137,12 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       take?"; per-flight RESERVE WHAT-IF slider (client, scales the
       recorded reserve enclosure, honest preview label, flips live
       REFUTED->REFUSED->CERTIFIED)
-- [ ] Live sim mode on the map (aircraft badges, the flip moment
-      animated on trails) — remaining Phase 4b UI
-- [ ] Synthetic demand packs + vertiport geometry (heliport nodes,
-      SFRA/REH corridors) — later scenario packs
+- [x] Live sim mode on the map — DONE in Phase 6.7 as DISPATCH live
+      missions (chevron + ring on the replay clock, RESERVE BREACH
+      PROJECTED as the flip moment); this box was its early spelling
+- [ ] PARKED (operator, 2026-08-27): synthetic demand packs — the
+      vertiport-geometry half shipped in 6.6 (scenario/cities/nyc.json:
+      heliport nodes + SFRA corridor graph); demand packs stay parked
 
 ## Phase 4 — the experience (the app shell)
 - [x] `design/app-shell.js` SHIPPED: the second design-system view —
@@ -173,14 +174,17 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       time) + the honest flip-moment: WORST-CORNER EXHAUSTION MARKER on
       the selected route (the km at which worst-corner accrual net of
       reserve exhausts — labeled preview from recorded enclosures)
-- [ ] Sim mode UI: live badges, vertiport panels, the flip moment;
-      what-if sliders (payload, temperature, rule, fleet size) driving
-      the IN-BROWSER certifier (ship instruments/evtol to the page)
-- [ ] Mode switch: REPLAY (the real day) ↔ SIM (the fleet) ↔ RE-FLY
-      (the fusion) — one map, three lenses
-- [ ] Mobile pass: DPR cap, trail-count throttle, panel → bottom sheet
-- [ ] Screenshot/probe verification at 1440/390, light+dark, zero
-      body overflow (the shot.mjs/probe.mjs pattern from DESIGN.md)
+- [x] Sim mode UI — SUPERSEDED and delivered by 6.4 + 6.7: the what-if
+      sliders ship as precomputed CERTIFIED grids (battery / reserve /
+      charge — every position a gated point, stronger than an in-browser
+      certifier), live badges + flip moment as DISPATCH missions.
+      Payload/temperature sliders fold into methodology v2 (HELD)
+- [x] Mode switch — SUPERSEDED by the 6.6 three-tab design (DAY / FLEET /
+      PLAN): one map, three lenses, shipped as tabs not modes
+- [x] Mobile pass — DONE in Phase 5 (true-390px emulation, bottom-sheet
+      layout, dock exact-fit) + UI V2 mobile verification
+- [x] Screenshot/probe verification — DONE across Phase 5 + UI V2 (live
+      screenshots desktop + mobile, light theme param verified)
 
 ## Phase 5 — trust layer & publish
 - [x] `build.js` gates (5): battery · re-certify-and-compare (restores
@@ -330,3 +334,22 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
 - [x] Mission pins its route+direction at dispatch (select changes
       cannot teleport it); reversed routes fly reversed with flipped
       heading
+
+## Phase 7 — FOUNDATIONS (agreed with the operator 2026-08-27, this
+## order; mirrors HANDOFF ACTIVE)
+- [x] 7.1 TODO hygiene — the stale duplicate open boxes above closed with
+      pointers to the phase entries that did the work (this commit)
+- [ ] 7.2 REGISTRY JOINS — FAA Releasable Aircraft Database (NYC, public
+      domain) + ANAC RAB (SP, open data): authoritative types + OPERATOR
+      NAMES into the stories and the heli filter; pin both datasets
+      (sha256 + date), battery checks + reds
+- [ ] 7.3 /reports COMPANION NOTE — the citable SkyAudit methodology page
+      in the house report template (tools/build-report-* pattern): prose,
+      honest boundaries, sources, gates re-run at build; linked both ways
+      with the app; tl;dr block; shelf placement
+- [ ] 7.4 SECOND PINNED DAY — day-stability: a contrasting day (weekend
+      or winter), download/extract/certify/compare against 2026-08-26;
+      report deltas honestly
+- AFTER the four: SP city-pack page (the EmbraerX artifact). HELD for the
+  operator: methodology v2 (the conservatism refinements — Phase 2 box).
+  PARKED: synthetic demand packs. Outreach on the operator's word only.
