@@ -27,10 +27,22 @@ verdict-colored trails; certificate panel with exact witnesses; THE
 FLEET FRONTIER: Beta ALIA's 46 provable legs need EXACTLY 5 aircraft
 (4 REFUTED by pigeonhole at 09:58:33 ET, 5 CERTIFIED by verified
 schedule); Joby/Archer/Eve: zero provable legs under FAA-20. SP = city
-pack #2 (61/148, certified+refly done, not yet a page). OPEN: landing
-card, live sim mode + what-if sliders, altitude graph, range-claim
-audit, RESEARCH §4 NYC facts (agent). Real urban helicopter traffic
-audited flight-by-flight
+pack #2 (61/148, certified+refly done, not yet a page). V1 COMPLETE
+(2026-08-27): all open items closed — THE OPTIMIZER (certified
+thresholds: battery floors 306/329/362/394 kWh for half the day vs
+estimates; charge lever 5->4->3 aircraft at <=48/<=23 min; reserve
+price 194/171/110/46/8/0 legs at 5..30 min), range-claim audit
+(Archer's 60-mi guarantee UNDECIDABLE from public numbers), reserve
+what-if slider, altitude sparkline + worst-corner exhaustion marker,
+UI v2 (Inter+Plex Mono, cards/matrix/stat tiles), tiles fix (repo-raw
+pinned by commit SHA after Vercel silently dropped the 36.9MB upload),
+landing section, NYC facts verified (RESEARCH §4: Joby-Blade closed and
+flying; Joby flew JFK-Manhattan eVTOL demos Apr 2026 from our
+heliports), sources pinned (10 PDFs sha256), spot-verified segmentation,
+battery 21/21, make test 29/29. AWAITING OPERATOR REVIEW; parked:
+known-conservatism refinements (recorded in TODO), SP city-pack page,
+synthetic demand/vertiport packs, outreach (word). Real urban
+helicopter traffic audited flight-by-flight
 against eVTOL specs + reserve rules via instruments/evtol, PLUS a
 deterministic simulated fleet (scenario packs, live certificates, re-fly-
 the-day fusion, fleet-size frontier). Full-viewport app-shell view (new

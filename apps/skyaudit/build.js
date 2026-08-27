@@ -124,7 +124,9 @@ const html = renderApp({
     by an eVTOL: published numbers as honest parameter boxes, a reserve rule, and a three-valued
     verdict from interval arithmetic. <b>Mathematically certified enclosures</b> — no Monte
     Carlo, no airworthiness meaning. REFUSED is a first-class outcome: it measures what the
-    manufacturer has not published.</div>
+    manufacturer has not published. This is the exact traffic the industry intends to replace:
+    Joby owns Blade's NYC helicopter routes (acquired Aug 2025, flying today), and flew its
+    first JFK–Manhattan eVTOL demos from these same heliports in April 2026.</div>
     <details class="as-more"><summary>Honest boundaries</summary>
     <div class="as-fine">The corpus is what the receiver network saw; coverage gaps and truncated
     tracks are flagged per flight. The audit is counterfactual arithmetic over stated boxes
@@ -171,6 +173,23 @@ const html = renderApp({
       ${[5, 10, 15, 20, 25, 30].map((m) => optimize.reserve_price.by_reserve_minutes['beta-alia'][m]).join(' · ')}
       — at 30 minutes, nothing on this day is provable</span></span>
       <span class="val">${optimize.reserve_price.by_reserve_minutes['beta-alia'][5]} → 0</span></div>
+  </section>
+  <section class="as-card">
+    <div class="as-h">Range claims, audited</div>
+    <div class="as-fine" style="margin-bottom:8px">A range claim is EXISTENTIAL — CONSISTENT means
+    some point of the maker's own public+assumed boxes achieves it; REFUTED means none does.
+    A worst-case guarantee is UNIVERSAL and gets the worst corner.</div>
+    ${optimize.range_claims.rows.map((r) => {
+      const col = { CONSISTENT: '--v-cert', CERTIFIED: '--v-cert', REFUTED: '--v-refu',
+        REFUSED: '--v-refd', 'NO CLAIM': '--v-refd' }[r.verdict] || '--v-refd';
+      const label = r.verdict === 'REFUSED' ? 'UNDECIDABLE' : r.verdict;
+      return `<div class="as-frow"><span><span class="name">${NAMES[r.spec]}</span>
+        <span class="sub">${r.claim || r.note}</span></span>
+        <span class="val" style="color:var(${col})">${label}</span></div>`;
+    }).join('')}
+    <div class="as-fine" style="margin-top:8px">Archer's 60-mi worst-case guarantee is the one
+    UNIVERSAL claim — and it is undecidable from public numbers (margins straddle zero): a
+    guarantee the public cannot check.</div>
   </section>
   <section class="as-card">
     <div class="as-h">Selected flight</div>

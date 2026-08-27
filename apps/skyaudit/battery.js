@@ -222,4 +222,45 @@ ok('optimizer agrees with the gated audit: reserve-price at 20 min == the day\'s
   }
 });
 
+ok('range claims: reds fire in both directions', () => {
+  const phys = mission.loadPhysics('kasliwal-2019');
+  const rule = mission.loadRule('faa-sfar-vfr');
+  const joby = mission.loadSpec('joby-s4');
+  /* a 5000 km claim must be REFUTED even at the best corner */
+  assert.strictEqual(farClaim(5000, joby, phys, rule).verdict, 'REFUTED');
+  /* a 2 km mission must CERTIFY at the worst corner (universal) */
+  const trivial = farClaim(2, mission.loadSpec('archer-midnight'), phys, null);
+  assert.strictEqual(trivial.verdict, 'CERTIFIED');
+  function farClaim(km, spec, ph, r) {
+    const power = require('./audit/power.js');
+    const energy = require(path.join(__dirname, '../../instruments/evtol/energy.js'));
+    const B = (k) => spec.boxes[k].v, P = (k) => ph.boxes[k].v;
+    const pH = power.hoverKw({ m_kg: B('m_kg'), delta_nm2: B('delta_nm2'), eta_h: P('eta_h'), rho: P('rho') });
+    const pC = power.cruiseKw({ m_kg: B('m_kg'), v_kmh: B('v_cruise_kmh'), ld: P('ld'), eta_c: P('eta_c') });
+    const cap = B('battery_kwh'), uf = P('usable_frac');
+    return energy.certify(
+      { segments: [{ name: 'h', t_s: P('hover_budget_s'), p_kw: pH },
+        { name: 'c', t_s: power.cruiseTimeS([km, km], B('v_cruise_kmh')), p_kw: pC }] },
+      { usable_kwh: [cap[0] * uf[0], cap[1] * uf[1]], eta: P('eta_batt'),
+        reserve: r ? { t_s: r.reserve.t_s, p_kw: pC } : { t_s: [0, 0], p_kw: [0, 0] } });
+  }
+});
+
+console.log('-- real-corpus regression (operator-inspected 2026-08-27: speeds/altitudes/patterns type-consistent)');
+
+ok('pinned flights reproduce exactly from the pinned corpus', () => {
+  const { loadHeli } = require('./audit/corpus.js');
+  const byIcao = new Map(loadHeli('nyc').aircraft.map((o) => [o.icao, o]));
+  /* N833MK (H160, 8 clean ground-to-ground shuttle legs) — flight #1 */
+  const h160 = segmentTrace(byIcao.get('ab649c'));
+  assert.strictEqual(h160.length, 8);
+  assert.strictEqual(h160[1].truncatedStart || h160[1].truncatedEnd, false);
+  assert.ok(Math.abs(h160[1].pathKm - 60) < 1, 'H160 leg ~60 km, got ' + h160[1].pathKm);
+  assert.ok(Math.abs(h160[1].durationS / 60 - 15) < 1.5, 'H160 leg ~15 min');
+  /* N48ZA (B407 charter) — 2 flights, first ~160 km */
+  const b407 = segmentTrace(byIcao.get('a5e880'));
+  assert.strictEqual(b407.length, 2);
+  assert.ok(Math.abs(b407[0].pathKm - 160) < 2, 'B407 day leg ~160 km');
+});
+
 console.log('battery green: ' + n + '/' + n + ' checks');

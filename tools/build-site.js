@@ -283,6 +283,29 @@ B.push(C.section({
       + 'every battery executed at its build (never remembered), the full ledger decomposition, drift status.') + '</div>'
 }));
 
+/* ---- the app ------------------------------------------------------------ */
+const skySummary = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps/skyaudit/data/day-2026-08-26/nyc.audit-summary.json'), 'utf8'));
+const skyRefly = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps/skyaudit/data/day-2026-08-26/nyc.refly.json'), 'utf8'));
+const skyBeta = skySummary.bySpecRule['beta-alia|faa-sfar-vfr'];
+const skyFleet = skyRefly.keys['beta-alia|faa-sfar-vfr'].fleetMin;
+B.push(C.section({
+  lab: 'the app', title: 'SkyAudit — one real day over New York, every flight decided',
+  bodyRaw: [
+    C.p('The audit as an experience: a Flightradar24-style replay of a real, hash-pinned day of New York '
+      + 'helicopter traffic (' + skySummary.uniqueAircraft + ' aircraft, ' + skySummary.flights + ' flights) — '
+      + 'except every trail is colored by a VERDICT, not telemetry. Each flight is re-flown on paper by an '
+      + 'eVTOL under a published energy-reserve rule, and decided by interval arithmetic: mathematically '
+      + 'certified enclosures with exact-rational falsifying corners, never Monte Carlo.'),
+    C.p('The day\'s findings: Beta ALIA certifiably covers ' + skyBeta.CERTIFIED + ' of the '
+      + skySummary.flights + ' flights under the FAA 20-minute rule and needs EXACTLY ' + skyFleet
+      + ' aircraft to re-fly them (proved by pigeonhole below, by a verified schedule above); Joby, Archer '
+      + 'and Eve publish too little to certify a single fleet. The optimizer prices the levers — battery '
+      + 'floors, charge times, the reserve rule itself — with a proof on both sides of every threshold.'),
+    C.pRaw('<a href="apps/skyaudit/">Open SkyAudit →</a> — the replay, the certificate panel, the fleet '
+      + 'frontier and the what-if sliders, live. Every number gate-checked at build; data © adsb.lol (ODbL).')
+  ].join('')
+}));
+
 /* ---- the reports -------------------------------------------------------- */
 B.push(C.section({
   lab: 'the reports', title: 'Research notes that re-prove themselves', wide: true,

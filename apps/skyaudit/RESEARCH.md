@@ -242,7 +242,39 @@ presentation) into the session scratchpad — EPHEMERAL. Phase-1 task:
 re-fetch and hash-pin each source into `data/sources/` before any page
 quotes it (the corpus/sources pattern).
 
-## 4. NYC verification — PENDING (follow-up to the aviation agent in
-flight): Joby–Blade status, Archer–United, Joby Dubai, active heliports +
-vertiport conversions, Hudson/East River SFRA structure, the 14 CFR 91.225
-Mode C veil mandate citation.
+## 4. NYC facts — VERIFIED AT SOURCE (2026-08-27; gates page copy)
+
+- **Joby–Blade: CLOSED and FLYING.** Announced 2025-08-04, completed
+  2025-08-29 (Joby's own release; up to $125M; Blade = wholly-owned Joby
+  subsidiary, medical division excluded). The routes operate under Joby
+  TODAY: Q2 2026 Blade revenue $36.2M, seats +50% YoY; Manhattan–JFK/EWR
+  ~$195/seat from West 30th + East 34th; 90,000+ passengers in 2025.
+  https://www.jobyaviation.com/news/joby-completes-acquisition-of-blades-passenger-business
+- **Joby flew REAL eVTOL demos in NYC, April 2026**: first point-to-point
+  eVTOL flights in NYC history (JFK ↔ Manhattan), week-long campaign
+  using JFK, Downtown Skyport, West 30th and East 34th — the exact
+  heliports in our corpus.
+  https://www.jobyaviation.com/news/joby-brings-electric-air-taxis-to-new-york-city-in-week-long-flight-campaign
+- **Archer–United**: EWR–Downtown route announced **Nov 2022** (not 2023
+  — correction), full NYC network vision April 2025; as of Q1 2026 Archer
+  is in FAA Phase 4, initial US ops "expected 2026" via eIPP, NO announced
+  NYC service date. https://news.archer.com/archer-and-united-airlines-announce-first-commercial-electric-air-taxi-route-in-the-us-downtown-manhattan-to-newark-liberty-international-airport
+- **Joby–Delta**: active (NYC/LA home-to-airport, $60M equity). **Dubai:
+  NOT launched** — "targeting first passengers in 2026" as of Aug 2026;
+  write it that way.
+- **Heliports**: Downtown Skyport (JRB) — renamed, Skyports/Groupe ADP
+  operator, eVTOL electrification in progress; West 30th (JRA) — active,
+  pads temporarily on a barge (Penn tunnel works); East 34th — active,
+  VertiPorts by Atlantic preparing for eVTOLs. NYCEDC requires operator
+  electrification within one year of FAA certification.
+- **SFRA (ready paragraph, rule-verified)**: 14 CFR Part 93 Subpart W
+  (§§93.350–353, since Nov 2009): Hudson Exclusion — transient traffic
+  1,000–<1,300 ft MSL, local ops <1,000 ft, southbound west shoreline /
+  northbound east; East River Exclusion below 1,500 ft, closed to
+  fixed-wing except seaplanes/LGA-authorized; 140 KIAS max; CTAF 123.05 /
+  123.075. https://www.law.cornell.edu/cfr/text/14/93.350
+- **ADS-B mandate CONFIRMED with the appendix**: 14 CFR 91.225(d)(2) —
+  within 30 nm of appendix D §1 airports, surface to 10,000 ft; appendix D
+  lists JFK, LGA, EWR — the whole NYC Mode C veil (and the SFRA corridors
+  inside it) requires ADS-B Out since 2020-01-01.
+  https://www.law.cornell.edu/cfr/text/14/91.225

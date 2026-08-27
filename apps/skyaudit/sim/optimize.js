@@ -130,6 +130,63 @@ function reservePrice(flights, phys) {
     note: 'CERTIFIED legs at reserve = N minutes at cruise power (FAA VFR shape); exact counts, monotone nonincreasing in N' };
 }
 
+/* ---- the range-claim audit: manufacturers' own claims vs their own
+   public boxes. A range claim is EXISTENTIAL ("can fly R km"): it is
+   CONSISTENT iff the BEST corner of the honest boxes achieves it, and
+   REFUTED iff no point of the published+assumed envelope does. Archer's
+   "minimum 60 mi worst case" guarantee is UNIVERSAL: worst-corner test. */
+const power = require('../audit/power.js');
+const energyInstr = require(path.join(__dirname, '../../../instruments/evtol/energy.js'));
+
+function claimAudit(distKm, spec, phys, withReserve, rule) {
+  const B = (k) => spec.boxes[k].v, P = (k) => phys.boxes[k].v;
+  const pHover = power.hoverKw({ m_kg: B('m_kg'), delta_nm2: B('delta_nm2'), eta_h: P('eta_h'), rho: P('rho') });
+  const pCruise = power.cruiseKw({ m_kg: B('m_kg'), v_kmh: B('v_cruise_kmh'), ld: P('ld'), eta_c: P('eta_c') });
+  const tCruise = power.cruiseTimeS([distKm, distKm], B('v_cruise_kmh'));
+  const mission = { segments: [
+    { name: 'hover', t_s: P('hover_budget_s'), p_kw: pHover },
+    { name: 'cruise ' + distKm + ' km', t_s: tCruise, p_kw: pCruise } ] };
+  const cap = B('battery_kwh'), uf = P('usable_frac');
+  const battery = { usable_kwh: [cap[0] * uf[0], cap[1] * uf[1]], eta: P('eta_batt'),
+    reserve: withReserve ? { t_s: rule.reserve.t_s, p_kw: pCruise } : { t_s: [0, 0], p_kw: [0, 0] } };
+  return energyInstr.certify(mission, battery);
+}
+
+function rangeClaims(phys, rule) {
+  const rows = [];
+  const add = (specId, distKm, kind, withReserve, claim) => {
+    const spec = M.loadSpec(specId);
+    const c = claimAudit(distKm, spec, phys, withReserve, rule);
+    const best = typeof c.margin_kwh === 'number' ? c.margin_kwh : c.margin_kwh.best;
+    const worst = typeof c.margin_kwh === 'number' ? c.margin_kwh : (c.margin_kwh.worst ?? c.margin_kwh);
+    let verdict;
+    if (kind === 'existential') {
+      verdict = c.verdict === 'REFUTED' ? 'REFUTED' : 'CONSISTENT';
+    } else {
+      verdict = c.verdict;                       /* universal: the instrument's own three values */
+    }
+    rows.push({ spec: specId, claim, dist_km: distKm, kind,
+      reserve: withReserve ? 'faa-20-min at cruise power' : 'none',
+      verdict, instrument_verdict: c.verdict,
+      margins_kwh: typeof c.margin_kwh === 'number' ? { worst: c.margin_kwh } : c.margin_kwh,
+      note: kind === 'existential'
+        ? 'CONSISTENT = some point of the published+assumed boxes achieves the claim; REFUTED = no point does'
+        : 'universal guarantee: tested at the WORST corner of the boxes' });
+    void best; void worst;
+  };
+  add('joby-s4', 161, 'existential', true,
+    '100 mi range including energy reserves (evtol.news attributing Joby)');
+  add('archer-midnight', 161, 'existential', false,
+    'up to 100 mi (Archer PR)');
+  add('archer-midnight', 96.6, 'universal', false,
+    'guaranteed minimum 60 mi in the worst case condition (evtol.news attributing Archer)');
+  add('eve-100', 100, 'existential', false,
+    'designed for 100 km range (Eve institutional presentation, May 2026)');
+  rows.push({ spec: 'beta-alia', verdict: 'NO CLAIM',
+    note: 'no published VTOL-variant range claim to audit (336 nm demonstrated is the CTOL variant)' });
+  return { rows, caveat: 'claims are audited against the aircraft\'s OWN public numbers plus the literature physics boxes; a REFUTED here means the claim and the public numbers cannot both be right as boxed - assumption-grade boxes (q flags) are stated in the spec packs' };
+}
+
 function run(city, dayDir) {
   dayDir = dayDir || 'day-2026-08-26';
   const phys = M.loadPhysics('kasliwal-2019');
@@ -141,6 +198,7 @@ function run(city, dayDir) {
     battery_floor: batteryFloors(flights, phys, rule),
     charge_lever: chargeCurve(city, dayDir, 'beta-alia'),
     reserve_price: reservePrice(flights, phys),
+    range_claims: rangeClaims(phys, rule),
   };
 }
 

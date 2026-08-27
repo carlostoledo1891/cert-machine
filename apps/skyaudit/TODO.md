@@ -8,8 +8,14 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       simulated fleet is in scope · city = best data (SP not required)
 - [x] Research: visual stack (RESEARCH §1) · data sourcing (§2) ·
       specs/rules/energy models (§3)
-- [~] NYC fact verification (Joby–Blade, Archer–United, heliports, SFRA,
-      91.225) — agent in flight; lands as RESEARCH §4
+- [x] NYC facts VERIFIED at source (RESEARCH §4): Joby-Blade CLOSED
+      Aug 2025, routes flying under Joby today ($36.2M Q2-2026); Joby
+      flew real JFK-Manhattan eVTOL demos Apr 2026 from OUR heliports;
+      Archer-United Nov 2022 (date corrected), no NYC service date;
+      Dubai NOT launched (targeting 2026); all 3 heliports active,
+      Downtown Skyport eVTOL conversion underway; SFRA paragraph
+      rule-verified; 91.225(d)(2)+appendix D = whole Mode C veil.
+      One verified sentence added to the audit card
 - [x] CITY DECISION by measurement: **NYC flagship** (143 helis / 382
       flight proxies / 17,879 airborne min vs SP 78 / 132 / 3,406);
       SP = city pack #2. Recorded in APP.md + PINS.json
@@ -27,9 +33,10 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       gunzip-verification; *.full.jsonl local, regenerable
 - [x] Heli-filter refinement: certify-day.js excludes typed non-rotorcraft
       even when A7-miscoded (3 excluded in NYC: A320, BCS3, PA27)
-- [ ] Certified segmentation vs hand-verification: spot-verify ~5 real
-      flights by inspection (currently builder-verified via synthetic
-      calibration only)
+- [x] Spot-verification: 5 real aircraft inspected (H160 shuttle legs
+      g2g at type cruise speeds, S-76 charter 227-264 km/h, B06 tour
+      loiter, NYPD B407 patrol with honest gap flags) — all type-
+      consistent; 2 pinned as corpus-tied battery regressions (21/21)
 - [ ] Helicopter ID: traces' own `t` + `category A7`; enrichment joins —
       ANAC RAB `dados_aeronaves.csv` (SP; open data, pin sha + date) and
       the FAA Releasable Aircraft Database (NYC; public domain, pin) —
@@ -41,10 +48,10 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       reds — a scrambled trace must FAIL, a synthetic flight with known
       metrics must round-trip, a duplicated-point trace must not create
       a phantom flight
-- [ ] Re-fetch and hash-pin the rule/paper sources into `data/sources/`
-      (FR 2024-24886 PDF, SC-VTOL + MOCs, ED 2025/010/R AMC, Kasliwal,
-      Uber Elevate, PRENOR 351-7, ANAC criteria, spec pages) — the
-      scratchpad extracts are ephemeral
+- [x] Sources pinned: 10 PDFs fetched (FR rule, SC-VTOL + 2 MOCs,
+      AMC/GM Part-IAM, Kasliwal, Uber Elevate, PRENOR 351-7, ANAC
+      criteria, VoloCity spec) — SOURCES-PINS.json committed (sha256 +
+      url + date), PDFs local/gitignored, re-fetchable + verifiable
 
 ## Phase 2 — the audit bridge (flight → certificate)
 - [x] Certified segmentation (`audit/flights.js`): monotonic-time contract
@@ -80,8 +87,15 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       box (hi end inflates reserve); mission mass = MTOW box (max-load
       strictness); per-aircraft disk loading from published geometry
       where obtainable
-- [ ] The range-claim audit (bonus row): each manufacturer's published
-      range claim vs its own physics box — CONSISTENT / REFUTED / REFUSED
+- [x] RANGE-CLAIM AUDIT (sim/optimize.js range_claims + panel card):
+      claims are EXISTENTIAL (CONSISTENT = some point of the maker's own
+      boxes achieves it; REFUTED = none does); Archer's 60-mi worst-case
+      guarantee is the one UNIVERSAL claim. RESULTS: Joby 100mi-incl-
+      reserves CONSISTENT · Archer up-to-100mi CONSISTENT · Archer 60-mi
+      GUARANTEE = UNDECIDABLE from public numbers (margins straddle:
+      -70/+65 kWh — a guarantee the public cannot check) · Eve 100km
+      CONSISTENT · Beta: no VTOL claim to audit. Battery red both
+      directions (5000 km must REFUTE, 2 km must CERTIFY)
 - [ ] Stdlib spot-checker (`audit/verify_skyaudit.py`): re-proves sampled
       certificates in exact rationals, zero dependencies
 
@@ -154,8 +168,10 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       render; found+fixed en route: python http.server serves no Range
       (dev server serve.mjs in scratchpad; Vercel verified 206 by the
       research agent)
-- [ ] Click-to-follow verified live; full-day altitude graph (ADSBx
-      pattern) still open
+- [x] Altitude sparkline in the flight card (SVG, cursor tracks replay
+      time) + the honest flip-moment: WORST-CORNER EXHAUSTION MARKER on
+      the selected route (the km at which worst-corner accrual net of
+      reserve exhausts — labeled preview from recorded enclosures)
 - [ ] Sim mode UI: live badges, vertiport panels, the flip moment;
       what-if sliders (payload, temperature, rule, fleet size) driving
       the IN-BROWSER certifier (ship instruments/evtol to the page)
@@ -191,8 +207,8 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       DONE = public URL + rerunnable: both hold
 - [ ] (word) Announce/outreach (EmbraerX play uses city pack #2) —
       nothing outward without the operator's word
-- [ ] Landing-page card / reports-shelf link for the app (the site's
-      front door does not yet point at /apps/skyaudit)
+- [x] Landing section shipped (tools/build-site.js "the app"): numbers
+      read from the app's own gated records at build; live on /
 - [x] UI V2 (operator direction 2026-08-27: "high end app design, our
       colors, sans+mono, Figma/Webflow look"): app shell rebuilt — Inter
       + IBM Plex Mono (no serif on app pages), card-based panel,

@@ -148,6 +148,12 @@ function layers() {
     if (p) L.push(new deck.ScatterplotLayer({ id: 'selhead', data: [p],
       getPosition: (d) => [d.lon, d.lat], radiusMinPixels: 9,
       stroked: true, filled: false, getLineColor: [...COL.sig, 255], lineWidthMinPixels: 2.5 }));
+    const ex = exhaustInfo(S.sel, S.key);
+    if (ex) L.push(new deck.ScatterplotLayer({ id: 'exhaust', data: [ex],
+      getPosition: (d) => [d.lon, d.lat], radiusMinPixels: 6, radiusMaxPixels: 8,
+      stroked: true, filled: true, getFillColor: [...COL.R, 230],
+      getLineColor: [255, 255, 255, 200], lineWidthMinPixels: 1.5,
+      updateTriggers: { getPosition: [S.key] } }));
   }
   return L;
 }
@@ -173,6 +179,7 @@ function frame(now) {
       if (p) { map.easeTo({ center: [p.lon, p.lat], duration: 650 }); lastFollow = now; }
     }
     if (now - lastUrl > 800) { pushUrl(); lastUrl = now; }
+    altCursor();
   }
   requestAnimationFrame(frame);
 }
@@ -202,6 +209,48 @@ $('mode').onclick = (e) => { if (e.target.dataset.v) { S.mode = e.target.dataset
 new MutationObserver(loadColors).observe(document.documentElement, { attributes: true });
 
 /* ---------------------------- panel components ------------------ */
+/* altitude sparkline (viewBox 100x26; cursor moved each frame) */
+function altSvg(f) {
+  const tr = f.track, t0 = tr[0][0], span = Math.max(1, tr[tr.length - 1][0] - t0);
+  const maxAlt = Math.max(100, ...tr.map((e) => e[3]));
+  const step = Math.max(1, Math.floor(tr.length / 200));
+  const pts = [];
+  for (let i = 0; i < tr.length; i += step) {
+    pts.push(((tr[i][0] - t0) / span * 100).toFixed(2) + ',' + (24 - tr[i][3] / maxAlt * 21).toFixed(2));
+  }
+  return `<svg id="altsvg" viewBox="0 0 100 26" preserveAspectRatio="none"
+    style="width:100%;height:54px;display:block;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:8px;margin:10px 0 2px">
+    <polyline points="${pts.join(' ')}" fill="none" stroke="var(--sig-2)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+    <line id="altcur" x1="0" x2="0" y1="1" y2="25" stroke="var(--sig)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  </svg>
+  <div class="as-fine">altitude 0–${Math.round(maxAlt)} ft across the flight · the cursor tracks replay time</div>`;
+}
+function altCursor() {
+  const el = document.getElementById('altcur');
+  if (!el || !S.sel) return;
+  const tr = S.sel.track, t0 = tr[0][0], t1 = tr[tr.length - 1][0];
+  const x = Math.max(0, Math.min(100, (S.t - t0) / Math.max(1, t1 - t0) * 100));
+  el.setAttribute('x1', x); el.setAttribute('x2', x);
+}
+/* worst-corner exhaustion point: the route fraction at which worst-corner
+   accrual consumes usable-minus-reserve (preview from recorded enclosures) */
+function exhaustInfo(f, key) {
+  const enc = f.enc[key]; if (!enc) return null;
+  const frac = (enc.u[0] - enc.r[1]) / (enc.e[1] || 1);
+  if (!(frac > 0 && frac < 1)) return null;
+  if (!f._cum) {
+    const d = [0];
+    for (let i = 1; i < f.track.length; i++) {
+      const a = f.track[i - 1], b2 = f.track[i], dx = (b2[2] - a[2]) * 85, dy = (b2[1] - a[1]) * 111;
+      d.push(d[i - 1] + Math.sqrt(dx * dx + dy * dy));
+    }
+    f._cum = d;
+  }
+  const total = f._cum[f._cum.length - 1], target = total * frac;
+  let i = f._cum.findIndex((x) => x >= target);
+  if (i < 1) i = 1;
+  return { frac, km: target, totalKm: total, lon: f.track[i][2], lat: f.track[i][1] };
+}
 function dotHtml(v) {
   const c = { C: '--v-cert', R: '--v-refu', F: '--v-refd' }[v];
   return `<span class="as-dot" style="background:var(${c})"></span>`;
@@ -263,6 +312,7 @@ function renderPanel() {
     <span>flight</span><b>${f.km.toFixed(1)} km · ${Math.round(f.dur / 60)} min · max ${f.alt} ft</b>
     <span>coverage</span><b>${cov}</b>
   </div>
+  ${altSvg(f)}
   <div class="as-verdict ${v}">
     <div class="w">${VNAME[v]} — ${NAMES[S.key.split('|')[0]]} · ${RULES[S.key.split('|')[1]]}</div>
     <div class="e">${VEXPL[v]}</div>
@@ -271,6 +321,8 @@ function renderPanel() {
   ${v === 'R' && enc.wit ? `<div class="as-encvals">exact witness margin (rational): ${enc.wit}</div>` : ''}
   ${typeof enc.m === 'number' ? `<div class="as-encvals">interval margin: ${enc.m} kWh</div>`
     : `<div class="as-encvals">margins — worst ${enc.m.w} / best ${enc.m.b} kWh</div>`}
+  ${(() => { const ex = exhaustInfo(f, S.key); return ex
+    ? `<div class="as-encvals" style="color:var(--v-refu)">worst-corner budget exhausts at km ${ex.km.toFixed(1)} of ${ex.totalKm.toFixed(1)} — marked ● on the route (preview)</div>` : ''; })()}
   <div class="as-h" style="margin-top:14px">Reserve what-if</div>
   <input type="range" id="rsv" class="as-scrub" min="5" max="45" step="1" style="width:100%"
     value="${S.key.endsWith('faa-sfar-vfr') ? 20 : 5}" aria-label="reserve minutes">

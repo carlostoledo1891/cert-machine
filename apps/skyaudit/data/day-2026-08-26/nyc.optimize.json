@@ -163,5 +163,71 @@
       }
     },
     "note": "CERTIFIED legs at reserve = N minutes at cruise power (FAA VFR shape); exact counts, monotone nonincreasing in N"
+  },
+  "range_claims": {
+    "rows": [
+      {
+        "spec": "joby-s4",
+        "claim": "100 mi range including energy reserves (evtol.news attributing Joby)",
+        "dist_km": 161,
+        "kind": "existential",
+        "reserve": "faa-20-min at cruise power",
+        "verdict": "CONSISTENT",
+        "instrument_verdict": "REFUSED",
+        "margins_kwh": {
+          "worst": -208.04234994356722,
+          "best": 65.22987346834596
+        },
+        "note": "CONSISTENT = some point of the published+assumed boxes achieves the claim; REFUTED = no point does"
+      },
+      {
+        "spec": "archer-midnight",
+        "claim": "up to 100 mi (Archer PR)",
+        "dist_km": 161,
+        "kind": "existential",
+        "reserve": "none",
+        "verdict": "CONSISTENT",
+        "instrument_verdict": "REFUSED",
+        "margins_kwh": {
+          "worst": -150.4654010465857,
+          "best": 34.527311784185116
+        },
+        "note": "CONSISTENT = some point of the published+assumed boxes achieves the claim; REFUTED = no point does"
+      },
+      {
+        "spec": "archer-midnight",
+        "claim": "guaranteed minimum 60 mi in the worst case condition (evtol.news attributing Archer)",
+        "dist_km": 96.6,
+        "kind": "universal",
+        "reserve": "none",
+        "verdict": "REFUSED",
+        "instrument_verdict": "REFUSED",
+        "margins_kwh": {
+          "worst": -70.4921479163068,
+          "best": 65.31249907761514
+        },
+        "note": "universal guarantee: tested at the WORST corner of the boxes"
+      },
+      {
+        "spec": "eve-100",
+        "claim": "designed for 100 km range (Eve institutional presentation, May 2026)",
+        "dist_km": 100,
+        "kind": "existential",
+        "reserve": "none",
+        "verdict": "CONSISTENT",
+        "instrument_verdict": "REFUSED",
+        "margins_kwh": {
+          "worst": -148.94299624003136,
+          "best": 104.8817895699498
+        },
+        "note": "CONSISTENT = some point of the published+assumed boxes achieves the claim; REFUTED = no point does"
+      },
+      {
+        "spec": "beta-alia",
+        "verdict": "NO CLAIM",
+        "note": "no published VTOL-variant range claim to audit (336 nm demonstrated is the CTOL variant)"
+      }
+    ],
+    "caveat": "claims are audited against the aircraft's OWN public numbers plus the literature physics boxes; a REFUTED here means the claim and the public numbers cannot both be right as boxed - assumption-grade boxes (q flags) are stated in the spec packs"
   }
 }
