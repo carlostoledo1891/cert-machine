@@ -10,20 +10,24 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       specs/rules/energy models (§3)
 - [~] NYC fact verification (Joby–Blade, Archer–United, heliports, SFRA,
       91.225) — agent in flight; lands as RESEARCH §4
-- [ ] CITY DECISION by measurement (Phase 1 extraction counts; rule in §2)
+- [x] CITY DECISION by measurement: **NYC flagship** (143 helis / 382
+      flight proxies / 17,879 airborne min vs SP 78 / 132 / 3,406);
+      SP = city pack #2. Recorded in APP.md + PINS.json
 
 ## Phase 1 — the corpus (the pinned day)
-- [ ] Pick the day (a fair-weather weekday) and download the adsb.lol
-      release `vYYYY.MM.DD-planes-readsb-prod-0` (~4 GB, 3 tar parts) +
-      the `-mlatonly` tar; record per-asset sha256 BEFORE extraction
-- [ ] Extraction tool (`audit/extract.js`): global tar → per-city bbox
-      subsets (NYC and SP), readsb trace decode, one JSONL per city;
-      raw tars never enter the repo — only subsets + hashes
-- [ ] Measure both cities: distinct helicopters, heli movements, position
-      density, trace continuity → the CITY DECISION, recorded in APP.md
-- [ ] PINS.json: release tag, asset sha256s, subset sha256s, bbox +
-      extraction params, registry-file hashes. LICENSE-DATA: ODbL-1.0 +
-      "Data © adsb.lol contributors" beside the corpus (repo code stays MIT)
+- [x] Day pinned: 2026-08-26 (Wed). All 4 assets downloaded + sha256'd
+      (prod .aa/.ab/.ac + mlatonly; PINS.json)
+- [x] Extraction tool (`audit/extract.js`): streaming tar reader, gunzip,
+      dual-bbox filter, full/heli split; calibrated on a synthetic tar
+      with known answers; real run: 125,746 traces, 0 parse errors
+- [x] Measurement (`audit/measure.js`): flight proxies per city → the
+      city decision (also calibrated on the synthetic)
+- [x] PINS.json + LICENSE-DATA (ODbL) + data/.gitignore: committed corpora
+      are *.heli.jsonl.gz (NYC 4.7 MB, SP 0.8 MB); raw hashes pinned for
+      gunzip-verification; *.full.jsonl local, regenerable
+- [ ] Heli-filter refinement: drop miscoded-A7 fixed-wing types (A320,
+      BCS3, PA27 seen) — heli = type in set, or A7 with no contradicting
+      fixed-wing type (quirk recorded in PINS.json)
 - [ ] Helicopter ID: traces' own `t` + `category A7`; enrichment joins —
       ANAC RAB `dados_aeronaves.csv` (SP; open data, pin sha + date) and
       the FAA Releasable Aircraft Database (NYC; public domain, pin) —

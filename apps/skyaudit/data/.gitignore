@@ -1,0 +1,7 @@
+# full-traffic subsets are large local artifacts — regenerable byte-for-byte
+# from the PINS.json-pinned release tars via audit/extract.js; only the
+# helicopter corpora (*.heli.jsonl) and pins/stats are committed
+*.full.jsonl
+*.heli.jsonl
+day-*/raw/
+# committed: *.heli.jsonl.gz + PINS.json + extract-stats.json + measure.json

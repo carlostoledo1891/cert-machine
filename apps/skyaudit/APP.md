@@ -24,9 +24,12 @@ candidates, count, and lead with the richest. The two leading candidates:
   market — but equipage is voluntary there, so the corpus undercounts the
   piston/VFR tail. Verified live: SP helicopters DO broadcast today.
 
-Decision rule: extract both from the pinned day; the richer, cleaner corpus
-leads. Facts above verified in RESEARCH.md; NYC operator/heliport status
-re-verified before any page copy states it.
+**DECIDED (2026-08-27, by measurement of the pinned day 2026-08-26 —
+data/day-2026-08-26/PINS.json): NEW YORK is the flagship.** NYC 143
+distinct helicopters / 382 flight proxies / 17,879 airborne minutes vs SP
+78 / 132 / 3,406 — every axis, 2–6×. São Paulo ships as city pack #2 (the
+EmbraerX play). NYC operator/heliport facts still get re-verified at source
+before any page copy states them.
 
 **The thesis it renders.** The UAM industry claims eVTOLs will replace this
 exact traffic. Nobody has ever *decided* that claim — the entire literature is

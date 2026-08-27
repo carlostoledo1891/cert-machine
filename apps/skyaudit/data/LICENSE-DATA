@@ -1,0 +1,16 @@
+The data corpora in this directory (*.heli.jsonl.gz and any derived subsets
+of ADS-B traces) are derived from the adsb.lol open data project's globe_history
+daily releases and are licensed under the Open Database License (ODbL) v1.0
+— NOT under this repository's MIT license, which covers code only.
+
+  Data © adsb.lol contributors · https://www.adsb.lol/docs/open-data/historical/
+  ODbL 1.0: https://opendatacommons.org/licenses/odbl/1-0/
+
+Share-alike applies to these corpora and any derived database. Exact
+provenance (release tag, asset sha256s, extraction bbox and parameters,
+subset sha256s) is recorded in PINS.json beside this file; the extraction is
+reproducible byte-for-byte via apps/skyaudit/audit/extract.js.
+
+Aircraft-registry enrichment files, where present, carry their own origins:
+ANAC RAB open data (Brazil, government open data) and the FAA Releasable
+Aircraft Database (US, public domain), each pinned in PINS.json.

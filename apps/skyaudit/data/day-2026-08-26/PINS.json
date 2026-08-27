@@ -1,0 +1,47 @@
+{
+  "what": "SkyAudit pinned day: adsb.lol globe_history 2026-08-26 (Wednesday), acquired 2026-08-27",
+  "source": {
+    "project": "adsb.lol open data",
+    "docs": "https://www.adsb.lol/docs/open-data/historical/",
+    "license": "ODbL-1.0 (see ../LICENSE-DATA)",
+    "releases": [
+      "https://github.com/adsblol/globe_history_2026/releases/tag/v2026.08.26-planes-readsb-prod-0",
+      "https://github.com/adsblol/globe_history_2026/releases/tag/v2026.08.26-planes-readsb-mlatonly-0"
+    ]
+  },
+  "assets_sha256": {
+    "v2026.08.26-planes-readsb-prod-0.tar.aa": "af9fed4c7a62acef3bfabdaa5ca3a9c5bbbfc9105db7d4569b95001e1efaa786",
+    "v2026.08.26-planes-readsb-prod-0.tar.ab": "986dae219db61b79a1e30b8ca7e5cfa59e3fe3584958dab4ecd091bb210360a9",
+    "v2026.08.26-planes-readsb-prod-0.tar.ac": "c0644687627f05365ac87bb0ec4327d39711521022939c3440ef78f72976f9ee",
+    "v2026.08.26-planes-readsb-mlatonly-0.tar": "91e6ac8f4bf8758e870838e2a26d2acb1da7cd5c9b4e1330578518c4a2b2e91d"
+  },
+  "extraction": {
+    "tool": "apps/skyaudit/audit/extract.js",
+    "input": "cat prod-0.tar.aa prod-0.tar.ab prod-0.tar.ac mlatonly-0.tar | node extract.js <outdir>",
+    "bboxes": {
+      "nyc": { "latMin": 40.50, "latMax": 40.95, "lonMin": -74.35, "lonMax": -73.65 },
+      "sp": { "latMin": -23.75, "latMax": -23.30, "lonMin": -46.95, "lonMax": -46.30 }
+    },
+    "traceFiles": 125746,
+    "parseErrors": 0
+  },
+  "subsets_sha256": {
+    "nyc.heli.jsonl": "a229d6618319f2055367118708c058ac4d1557e32bdd56c632d45a202347a38b",
+    "sp.heli.jsonl": "b71b32999415c6f3fde88e5c35d192f05f032e04cad08bd33a6c338dd6a71315",
+    "nyc.heli.jsonl.gz": "0146daba8171bd7ff0a58b2c0475ed3a4881cd3acea2a2f87a1f42be91cacdd9",
+    "sp.heli.jsonl.gz": "7f94201808051a733112c1671afe6d70bf3884c6e81efa458a0e081fc5471d63"
+  },
+  "committed": "*.heli.jsonl.gz (gunzip and compare against the raw sha256 above); *.full.jsonl stays local, regenerable byte-for-byte from the pinned assets",
+  "city_decision": {
+    "ruling": "NYC is the flagship city pack; SP ships as pack #2 (measured, not preferred — operator rule 2026-08-27)",
+    "measured_by": "apps/skyaudit/audit/measure.js (flight proxies: >=180 s segments split at >15 min gaps, airborne, touching bbox)",
+    "numbers": {
+      "nyc": { "helicopters": 143, "flight_proxies": 382, "airborne_min": 17879, "trace_points": 203667 },
+      "sp": { "helicopters": 78, "flight_proxies": 132, "airborne_min": 3406, "trace_points": 33270 }
+    }
+  },
+  "known_data_quirks": [
+    "a few fixed-wing types carry a miscoded A7 emitter category (A320, BCS3, PA27 seen in NYC) — the certified segmentation must filter heli = (type in HELI_TYPES) or (A7 and no contradicting fixed-wing type)",
+    "flight-proxy airborne minutes include segment portions outside the bbox (offshore S92/S76 legs) — measurement heuristic only, superseded by the certified segmentation"
+  ]
+}
