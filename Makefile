@@ -88,3 +88,4 @@ reports:
 	@$(NODE) tools/build-report-mfg-cap.js
 	@$(NODE) tools/build-report-mfg-lab.js
 	@$(NODE) tools/build-report-evtol-energy.js
+	@$(NODE) tools/build-report-skyaudit.js

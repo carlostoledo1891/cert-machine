@@ -190,6 +190,10 @@ const REPORTS = [
     n: 'the spurious-solution lemma re-proved at build' },
   /* group 'applied': the new fronts — certified applications with live
      external stakes (aerospace, energy) */
+  { g: 'applied', f: 'skyaudit.html', k: 'aerospace · the app, cited',
+    title: 'SkyAudit: the helicopter day, decided',
+    desc: 'One pinned day of New York helicopter traffic, re-flown on paper by four eVTOLs’ own published numbers under the FAA reserve rule — every flight decided: E-FLYABLE, BEYOND RANGE with an exact witness, or NEEDS DATA where public specs cannot say. The citable methodology behind the live app.',
+    n: 'every certificate row recounted at the page’s own build' },
   { g: 'applied', f: 'evtol-energy.html', k: 'aerospace · energy certificates',
     title: 'The reserve, provable',
     desc: 'Energy-feasibility certificates for eVTOL missions against the FAA reserve rule: CERTIFIED for every parameter point in the boxes, REFUTED with an exact falsifying witness, or honestly REFUSED — where the industry argues with Monte Carlo, this decides.',

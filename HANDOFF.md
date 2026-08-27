@@ -40,9 +40,11 @@ order); (2) DONE 2026-08-27 — REGISTRY JOINS SHIPPED
 raws pinned sha256+date, corpus-joined extracts committed; nyc 73/82,
 sp 47/61 matched, unmatched listed honestly; membership delta NONE —
 82/382/3,056 now stand on authority; names in stories + flight card;
-battery 27/27 incl. reds; build gate 10); (3) /reports COMPANION NOTE — the
-citable methodology page in the house template, gates re-run at build,
-linked both ways with the app; (4) SECOND PINNED DAY — day-stability
+battery 27/27 incl. reds; build gate 10); (3) DONE 2026-08-27 — COMPANION NOTE SHIPPED
+(reports/skyaudit.html via tools/build-report-skyaudit.js: app battery
+re-run + 3,056 rows recounted + cross-record consistency as its build
+gates, every number from gated records; linked both ways; shelf group
+'applied' first card); (4) SECOND PINNED DAY — day-stability
 (weekend or winter day; pipeline is mechanical: download/extract/
 certify/compare). HELD for joint decision: the conservatism
 refinements (reserve-speed box / MTOW / disk loading — changes every

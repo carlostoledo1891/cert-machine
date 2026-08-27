@@ -209,7 +209,8 @@ const html = renderApp({
     helicopter tier; EASA = the 5-min final reserve, a NECESSARY condition only. Ambient layer =
     all other traffic, decor only. Data © <a href="https://adsb.lol">adsb.lol</a> contributors
     (ODbL). Rerun everything:
-    <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/skyaudit">apps/skyaudit</a>.</div>
+    <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/skyaudit">apps/skyaudit</a>.
+    Methodology, sources and boundaries, citable: <a href="/reports/skyaudit.html">the companion note</a>.</div>
     </details>
   </section>
   <section class="as-card">

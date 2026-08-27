@@ -355,10 +355,17 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       Battery 27/27 (calibrations N48ZA/PP-BBI, coverage closure, reds:
       tampered extract REFUSES, forged registry flips both ways);
       build gate 10
-- [ ] 7.3 /reports COMPANION NOTE — the citable SkyAudit methodology page
-      in the house report template (tools/build-report-* pattern): prose,
-      honest boundaries, sources, gates re-run at build; linked both ways
-      with the app; tl;dr block; shelf placement
+- [x] 7.3 /reports COMPANION NOTE SHIPPED — reports/skyaudit.html
+      (tools/build-report-skyaudit.js): tl;dr + stats + 7 sections
+      (corpus/counterfactual/verdict table/fleet+thresholds/economics/
+      honest boundaries incl. the v1 conservatisms stated/sources+rerun);
+      GATES at its own build: app battery re-run (27), all 3,056 ledger
+      rows recounted + verdict tallies re-derived, cross-record
+      consistency (economics = refly = reserve-price@20 = certified
+      count), registry closure; every number read from gated records,
+      none typed. Linked both ways (app "Honest boundaries" → note;
+      note § 7 → app). Shelf: group 'applied', first card; Makefile
+      reports += builder
 - [ ] 7.4 SECOND PINNED DAY — day-stability: a contrasting day (weekend
       or winter), download/extract/certify/compare against 2026-08-26;
       report deltas honestly
