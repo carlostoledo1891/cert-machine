@@ -1,0 +1,2123 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+
+<title>852 Discussion Thread | Erdős Problems</title>
+<meta property="og:title" content="852 Discussion Thread | Erdős Problems">
+<link rel="icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/static/style.css?v=7fac6579">
+
+<script>
+document.addEventListener('click', (e) => {
+  // Toggle reply form
+  const toggle = e.target.closest('.reply-toggle');
+  if (toggle) {
+    const id = toggle.getAttribute('data-target');
+    const form = document.getElementById(id);
+    if (form) form.classList.toggle('hidden');
+  }
+  // Reply with quote
+  const quoteBtn = e.target.closest('.reply-quote');
+  if (quoteBtn) {
+    const id = quoteBtn.getAttribute('data-target');
+    const form = document.getElementById(id);
+    if (!form) return;
+    const ta = form.querySelector('textarea');
+    const raw = quoteBtn.getAttribute('data-raw') || '';
+    const quoted = raw.split('\n').map(l => '> ' + l).join('\n') + '\n\n';
+    ta.value = quoted;
+    form.classList.remove('hidden');
+    ta.focus();
+    const len = ta.value.length;
+    ta.setSelectionRange(len, len);
+  }
+});
+</script>
+
+<!-- This creates the reference in the bibliography box. -->
+
+<script>
+function addNewBox(key, problem_id, shouldScroll = false) {
+  const local_id = 'bib-container' + String(problem_id);
+  const container = document.getElementById(local_id);
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  fetch(`/bibs/${encodeURIComponent(key)}`)
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.text();
+    })
+    .then(html => {
+      container.innerHTML = html;
+
+      if (shouldScroll) {
+        requestAnimationFrame(() => {
+          container.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        });
+      }
+    })
+    .catch(err => {
+      console.error("Failed to load bib:", err);
+      container.textContent = "Unable to load reference.";
+
+      if (shouldScroll) {
+        container.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    });
+}
+</script>
+
+<script>
+const filledSVG = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" class="fav-icon">
+  <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+</svg>
+                `;
+const outlineSVG = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="black" fill="white" class="fav-icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.610l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.840-.610l1.285-5.386a.563.563 0 0 0-.182-.557L3.041 10.385a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+</svg>
+                `;
+
+document.addEventListener("click", async (e) => {
+  const btn = e.target.closest(".fav-btn");
+  if (!btn) return;
+
+  e.preventDefault();
+  const problemId = btn.dataset.problemId;
+
+  try {
+    const res = await fetch(`/forum/toggle_favourite/${problemId}`, { method: "POST" });
+    const data = await res.json();
+
+    btn.dataset.favourited = data.favourited ? "true" : "false";
+    btn.innerHTML = data.favourited ? filledSVG : outlineSVG;
+  } catch (err) {
+    console.error("Toggle failed:", err);
+  }
+});
+</script>
+
+    
+<script>
+function addImageBox(X, problem_id, shouldScroll = true) {
+  const local_id = 'image-container' + String(problem_id);
+  const container = document.getElementById(local_id);
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const newBox = document.createElement("div");
+
+  const img = document.createElement("img");
+  img.src = `/static/${encodeURIComponent(X)}.png`;
+  img.className = "responsive-image";
+  img.alt = String(X);
+
+  newBox.appendChild(img);
+  container.appendChild(newBox);
+
+  if (shouldScroll) {
+    requestAnimationFrame(() => {
+      container.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  }
+}
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('searchForm');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    const input = form.querySelector('.searchTerm');
+    if (!input) return;
+    const value = input.value.trim();
+    if (!value) return;
+    const path = '/search/' + encodeURIComponent(value);
+    const inDual = window.location.pathname.startsWith("/dual");
+    if (inDual) {
+      e.preventDefault(); 
+      const selected = document.querySelector('input[name="targetPanel"]:checked');
+      const panel = selected ? selected.value : "left";
+      const iframe = document.getElementById(`iframe-${panel}`);
+      if (iframe) {
+        const url = path.includes("?") ? path + "&embed=1" : path + "?embed=1";
+        iframe.src = url;
+        const box = document.querySelector(`#panel-${panel} input`);
+        if (box) box.value = path;
+      } else {
+        window.location.href = path;
+      }
+    } else {
+      form.action = path;
+      form.method = "GET";
+    }
+  });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.pathname.startsWith("/dual")) return;
+
+  var form = document.getElementById('idsearchForm');
+  if (!form) return;
+
+  form.onsubmit = function() {
+    var input = document.querySelector('.idsearchTerm').value.trim();
+    var searchUrl;
+
+    if (/^\d+$/.test(input)) {
+        searchUrl = '/' + encodeURIComponent(input);
+    } else if (/^((\d+|end)(-(\d+|end))?\s*)+(open|solved|yes|no)?$/.test(input.toLowerCase())) {
+        let parts = input.split(/\s+/).filter(Boolean);
+        searchUrl = '/range/' + parts.map(encodeURIComponent).join('/');
+    } else {
+        alert("Enter either a single integer or a space-separated list of numbers/ranges...");
+        return false;
+    }
+    window.location.href = searchUrl;
+    return false;
+  };
+});
+</script>
+
+<script>
+  window.CURRENT_USERNAME = "";
+</script>
+
+
+<script>
+document.addEventListener("click", async (ev) => {
+  const btn = ev.target.closest(".reaction-btn");
+  if (!btn) return;
+  const you = window.CURRENT_USERNAME || "";
+  const bar = btn.closest(".reaction-bar");
+  const postId = bar?.dataset.postId;
+  const rtype = btn.dataset.type;
+  const reactUrl = bar?.dataset.reactUrl; 
+  if (!postId || !rtype || !reactUrl) return;
+
+  try {
+    const res = await fetch(reactUrl, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({type: rtype})
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      alert(data.error || "Could not update reaction.");
+      return;
+    }
+    const summary = data.summary;
+    
+    bar.querySelectorAll(".reaction-btn").forEach(b => {
+      const t = b.dataset.type;
+      const countSpan = bar.querySelector(`.reaction-count[data-type="${t}"]`);
+      if (countSpan && summary[t]) {
+        countSpan.textContent = summary[t].count;
+    const desc = b.dataset.desc || "";
+    const usersTitle = summary[t].users_title || "No one yet.";
+    b.title = `${desc}\n\n${usersTitle}`;
+      }
+        const iReacted = you && (summary[t].users_title || "").includes(you);
+  b.classList.toggle("active", !!iReacted);
+  b.setAttribute("aria-pressed", iReacted ? "true" : "false");
+    });
+  } catch (e) {
+    console.error(e);
+    alert("Only registered users with 5+ posts can react.");
+  }
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.addEventListener("click", function (e) {
+    const link = e.target.closest(".problem-reaction-link");
+    if (!link) return;
+
+    e.preventDefault();
+
+    const row = link.closest(".problem-reaction-row");
+    if (!row) return;
+
+    const form = row.querySelector(".problem-reaction-form");
+    if (!form) return;
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        if (!data.ok) {
+          console.error(data.error || "Problem reaction update failed");
+          return;
+        }
+
+        const summary = data.summary;
+
+        // Update users text for each reaction type
+        for (const [type, info] of Object.entries(summary)) {
+          const r = document.querySelector(
+            `.problem-reaction-row[data-reaction-type="${type}"]`
+          );
+          if (!r) continue;
+
+          const usersCell = r.querySelector(".problem-reaction-users");
+          if (usersCell) {
+            usersCell.textContent = info.users_title || "None yet";
+          }
+        }
+        link.classList.toggle("active");
+        if (link.classList.contains("active")) {
+          link.textContent = "(no)";
+        } else {
+          link.textContent = "(yes)";
+        }
+      })
+      .catch(err => {
+        console.error("Problem reaction AJAX error", err);
+      });
+  });
+});
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="topnav">
+
+  <div class="left">
+    <div class="logo">
+      <a class="dual-aware" href="/"><img src="/static/EPLogo.png" alt="Logo" height="50"></a>
+    </div>
+    <div class="links dual-aware desktop-nav">
+      <a href="/forum">Forum</a>
+      <a href="/dm">Inbox</a> 
+      <a href="/favourites">Favourites</a>
+      <a href="/tags">Tags</a> 
+      <div class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">More</a>
+        <div class="dropdown-content">
+          <a href="/faq">FAQ</a>
+          <a href="/prizes">Prizes</a>
+          <a href="/lists">Problem Lists</a>
+          <a href="/definitions">Definitions</a>
+          <a href="/links">Links</a>
+        </div>
+      </div> 
+    </div>
+    <div class="mobile-nav">
+    
+        <a class="forumlink" href="/forum">Forum</a>
+    <div class="dropdown">
+      <button class="dropbtn" id="mobileMenuButton">Menu</button>
+      <div class="dropdown-content">
+        <a href="/dm">Inbox</a> 
+        <a href="/favourites">Favourites</a>
+        <a href="/tags">Tags</a>  
+        <a href="/faq">FAQ</a>
+        <a href="/prizes">Prizes</a>
+        <a href="/lists">Problem Lists</a>
+        <a href="/definitions">Definitions</a>
+        <a href="/links">Links</a>
+      </div>
+     </div>
+    </div>
+  </div>
+
+  <div class = "middle">
+    <div class="button-container" style="max-width: 50%;">
+      <form id="idsearchForm">
+        <input required type="text" name="query" class="idsearchTerm" placeholder="# (or range #-#)" title="Enter either a single integer or a space-separated list of numbers/ranges, optionally ending with 'open' or 'solved'.">
+        <button type="submit" class="searchButton">Go</button>
+      </form>
+    </div>
+    <div class="button-container" style="max-width: 50%;">
+      <form id="searchForm">
+        <input required type="text" name="query" class="searchTerm" placeholder="Search" title="Search all problems.">
+        <button type="submit" class="searchButton">Go</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="right">
+    <a href="#" id="dualViewLink" class="split_all">Dual View</a>
+    <a href="/random_solved" class="split_solved dual-aware">Random Solved</a>
+    <a href="/random_open" class="split_open dual-aware">Random Open</a>
+  </div>
+
+</div>
+
+<div id="notifications-slot"></div>
+
+
+
+
+<div class="container">
+<div class="problem-box">
+
+        
+<div class="problem-text" id="open"> 
+ 
+    <div id="prize">
+    
+
+<span class="tooltip">
+OPEN
+<span class="tooltiptext">
+This is open, and cannot be resolved with a finite computation.
+</span>
+</span>
+
+
+
+    </div>
+    
+
+
+
+    <div id="content">
+Let $d_n=p_{n+1}-p_n$, where $p_n$ is the $n$th prime. Let $h(x)$ be maximal such that for some $n&lt;x$ the numbers $d_n,d_{n+1},\ldots,d_{n+h(x)-1}$ are all distinct. Estimate $h(x)$. In particular, is it true that\[h(x) &gt;(\log x)^c\]for some constant $c&#62;0$, and\[h(x)=o(\log x)?\]
+    </div>
+
+    <div id="problem_id">
+<a href="/852">#852</a>: <a href="#bib-container852" onclick="event.preventDefault();addNewBox('Er85c', '852', true);return false;">[Er85c]</a>
+    </div>
+
+ 
+    <div id="tags">
+
+<a href="/tags/number theory">number theory</a> | 
+
+<a href="/tags/primes">primes</a>
+
+    </div>
+
+</div>  
+
+<div class="problem-additional-text"> 
+
+Brun's sieve implies $h(x) \to \infty$ as $x\to \infty$.
+
+
+    <div id="bib-container852"></div>
+ 
+
+    
+    <div class="image-container" id="image-container852"></div>
+</div>
+
+<div class="problem-info">
+
+
+
+<details class="problem-info-section">
+  <summary class="problem-info-row">
+    <span>Proof expositions (0)</span>
+  </summary>
+
+  <div class="problem-info-content problem-expositions">
+If you would like to contribute an exposition of a proof related to this problem, please message a moderator or leave your exposition as a comment.
+    
+      <div class="problem-info-muted">
+        No proof expositions yet.
+      </div>
+    
+
+  </div>
+</details>
+
+<a class="problem-info-row problem-info-link" href="/forum/discuss/852">
+    <span>Comments (8)</span>
+  </a>
+
+  <a class="problem-info-row problem-info-link"
+     href="/forum/thread/852/proof-claims">
+    <span>Proof claims (0)</span>
+  </a>
+
+
+  <details class="problem-info-section">
+    <summary class="problem-info-row">
+      <span>More information and links</span>
+    </summary>
+
+    <div class="problem-info-content">
+
+      <div class="problem-info-small">
+ (<a href="/history/852">View history</a>) (<a href="/latex/852">View the LaTeX source</a>)<p>
+
+When referring to this problem, please use the original sources of Erd&#337;s. If you wish to acknowledge this website, the recommended citation format is:
+<p>
+T. F. Bloom, Erd&#337;s Problem #852, https://www.erdosproblems.com/852, accessed 2026-08-27
+</div>
+      <div class="problem-info-small">
+From the <a href="https://github.com/teorth/erdosproblems">external database</a>. (You can
+        <a href="https://github.com/teorth/erdosproblems">
+          help update
+        </a> this.)
+      </div>
+
+      
+
+        <div class="problem-info-data-row">
+          <span class="problem-info-label">Formalised statement?</span>
+          <span>
+            
+              No
+              (<a href="https://github.com/google-deepmind/formal-conjectures">create one</a>)
+            
+          </span>
+        </div>
+
+        
+          <div class="problem-info-data-row">
+            <span class="problem-info-label">OEIS</span>
+
+            <span>
+              
+                
+                  
+                    <a href="https://oeis.org/A001223"
+                       target="_blank"
+                       rel="noopener noreferrer">A001223</a>, 
+                  
+                
+                  
+                    <a href="https://oeis.org/A053597"
+                       target="_blank"
+                       rel="noopener noreferrer">A053597</a>, 
+                  
+                
+                  
+                    <a href="https://oeis.org/A078515"
+                       target="_blank"
+                       rel="noopener noreferrer">A078515</a>
+                  
+                
+              
+            </span>
+          </div>
+        
+
+        
+
+        
+
+      
+
+    </div>
+  </details>
+
+
+  
+  
+
+  <details class="problem-info-section">
+    <summary class="problem-info-row">
+      <span>Reactions</span>
+    </summary>
+
+    <div class="problem-info-content">
+
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="like">
+
+          <span class="problem-info-label">
+            Likes this problem
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                
+                  <a href="/forum/user/Aron">Aron</a>, 
+                
+                  <a href="/forum/user/rickyc">rickyc</a>, 
+                
+                  <a href="/forum/user/carlos_toledo">carlos_toledo</a>
+                
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="collab">
+
+          <span class="problem-info-label">
+            Interested in collaborating
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="working_on">
+
+          <span class="problem-info-label">
+            Currently working on this problem
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                
+                  <a href="/forum/user/carlos_toledo">carlos_toledo</a>
+                
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="hard">
+
+          <span class="problem-info-label">
+            This problem looks difficult
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="easy">
+
+          <span class="problem-info-label">
+            This problem looks tractable
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="formalisable">
+
+          <span class="problem-info-label">
+            The results on this problem could be formalisable
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="working_form">
+
+          <span class="problem-info-label">
+            I am working on formalising the results on this problem
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+
+    </div>
+  </details>
+
+</div>
+               
+
+
+<div class="problem-additional-text"> 
+
+
+<div class="thread-sort">
+Order by
+  <a href="/forum/thread/852?order=oldest"
+     class="order ">oldest first</a> or
+  <a href="/forum/thread/852?order=newest"
+     class="order active">newest first</a>. (The most recent comments are highlighted in a red border.)
+</div>
+
+
+
+
+<ul class="post-list">
+  
+    
+    
+
+
+
+
+
+
+<li id="post-8584"
+    class="post depth-0
+           recent recent-1
+           even">
+    <div class="post-body" id="post-8584">
+    
+
+
+
+      
+      <p>Both constants in this thread were produced without stated error bounds, so I recomputed them with certified interval arithmetic (directed rounding, every series truncated with an explicit remainder bound, all final comparisons exact).<br><br>**$c_0$ is confirmed.** The unique positive root of $I_0(c)=1$ is<br>$$c_0 = 1.3232282768639494690289693932974634613586\ldots$$<br>(bracketed to width $\sim 10^{-61}$; uniqueness since $I_0'(c) = \log\frac{e^{2c}-1}{2c} &#62; 0$ for $c&#62;0$). The value $1.32322827686395$ quoted above is its correct rounding to 14 places.<br><br>**$C_*$ is incorrect from the 12th significant digit.** The certified value is<br>$$C_* = \tfrac12\Big(\prod_{p\ge 3}\Big(1+\tfrac{1}{(p-1)^3}\Big)-1\Big) = 0.0752403861783092\ldots,$$<br>not $0.0752403861777\ldots$. The discrepancy is floating point, not mathematics: in IEEE-754 double precision the factor $1+(p-1)^{-3}$ rounds to exactly $1.0$ once $(p-1)^3 \ge 2^{53}$, i.e. for every $p &#62; 208{,}064$, so a double-precision product silently ignores all primes beyond $\sim 2\times 10^5$ no matter how far the loop runs. The missing mass, $\sum_{p &#62; 208064} (p-1)^{-3} \approx 9.1\times 10^{-13}$, accounts for the observed error — and indeed a naive double product reproduces $0.0752403861777418$ digit for digit.<br><br>The correction requires no trust in my code. The partial product is a strict lower bound of the infinite product, and already over $p \le 4\times 10^5$, exact integer arithmetic gives $\tfrac12\big(\prod - 1\big) &#62; 0.0752403861778$, which exceeds the published value under either a truncation or a rounding reading. In Python (exact, standard library, under a second):<br><br>'''python<br>L = 400_000<br>sieve = bytearray([1]) * (L + 1)<br>for i in range(2, int(L**0.5) + 1):<br>    if sieve[i]: sieve[i*i::i] = bytearray(len(sieve[i*i::i]))<br>pairs = [((p-1)**3 + 1, (p-1)**3) for p in range(3, L+1, 2) if sieve[p]]<br>def prod(lo, hi):<br>    if hi - lo == 1: return pairs[lo]<br>    m = (lo + hi)//2; a, b = prod(lo, m), prod(m, hi)<br>    return (a[0]*b[0], a[1]*b[1])<br>N, D = prod(0, len(pairs))<br>assert 5 * (N - D) * 10**12 &#62; 752403861778 * D  # (N/D - 1)/2 &#62; 0.0752403861778, exactly<br>'''<br><br>For the upper side, $\sum_{p&#62;L}(p-1)^{-3} \le \sum_{m\ge L} m^{-3} \le \tfrac{1}{2(L-1)^2} = S$ together with $\prod(1+a_p) \le e^S \le 1+S+S^2$ bounds the tail; carrying the product to $L = 3\times 10^7$ with directed rounding pins<br>$$C_* \in [0.0752403861783092455,\; 0.0752403861783095652].$$<br><br>None of this touches the structure of the argument — only the numeric value of $C_*$, and hence $\tfrac12 + C_* = 0.5752403861783\ldots$, in digits that do not affect the qualitative conclusion that $I_0(c)+J(c) &lt; 1$ for small $c &gt; 0$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/carlos_toledo">carlos_toledo</a></strong>
+      
+      — <a href="/forum/thread/852#post-8584">00:06 on 26 Aug 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="8584" data-react-url="/forum/post/8584/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-8358"
+    class="post depth-0
+           recent recent-2
+           odd">
+    <div class="post-body" id="post-8358">
+    
+
+
+
+      
+      <p>Assume Li's estimate (from Thm 3 <a href="https://arxiv.org/abs/2308.04458" rel="nofollow noopener noreferrer ugc" target="_blank">[Li23]</a>)\[<br>\pi(t)-\pi\!\left(t-t^{13/25}\right)\gg \frac{t^{13/25}}{\log t}.<br>\]Let \(d_n,\ldots,d_{n+H-1}\) be distinct, \(n&lt;x\), and set\[<br>A=p_n,\qquad P=p_{n+H},\qquad S=P-A=\sum_{j=0}^{H-1}d_{n+j}.<br>\]Then\[<br>S\ge 1+2+4+\cdots+2(H-1)=H^2-H+1\gg H^2.<br>\]Greedily decompose \((A,P]\), from the right, into intervals\[<br>(t-t^{13/25},t].<br>\]Li's estimate, with a final remainder of length \(\le P^{13/25}\), gives us\[<br>H\gg \frac{S-P^{13/25}}{\log P},<br>\]hence\[<br>S\ll P^{13/25}+H\log P.<br>\]Thus\[<br>H^2\ll P^{13/25}+H\log P<br>\ll P^{13/25}+\frac12H^2+O((\log P)^2),<br>\]so\[<br>H\ll P^{13/50}.<br>\]Also \(H&lt;x\) for large \(x\), since otherwise\[<br>H^2\ll S\le P=p_{n+H}\le p_{2H}\ll H\log H,<br>\]which is a contradiction. Therefore it follows that\[<br>P=p_{n+H}\le p_{2x}\ll x\log x.<br>\]And from $H \ll P^{13/50}$,\[<br>h(x)\ll (x\log x)^{13/50}=x^{0.26+o(1)}.<br>\]I will note that Li's paper is not an established result, but GPT-5.6 Sol finds no major issues in the paper. Moreover, the standard BHP estimate gives $x^{0.2625+o(1)}$ (which is only slightly weaker).</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/rickyc">rickyc</a></strong>
+      
+      — <a href="/forum/thread/852#post-8358">00:36 on 04 Aug 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="8358" data-react-url="/forum/post/8358/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-5773"
+    class="post depth-0
+           
+           even">
+    <div class="post-body" id="post-5773">
+    
+
+
+
+      
+      <p><a href="https://www.ulam.ai/research/erdos852.pdf" rel="nofollow noopener noreferrer ugc" target="_blank">GPT-5.5 Pro got a nice partial result showing</a> that\[<br>        h(x)\gg (\log x)^{1/3}.<br>\]The idea is this: we look at blocks of $H$ consecutive prime gaps whose total length is at most a constant multiple of $H\log N$.  A positive proportion of starting positions have this property.  If such a block has two equal gaps, then five explicitly related numbers must be prime:\[<br>        m,\quad m+a,\quad m+a+q,\quad m+b,\quad m+b+q.<br>\]For fixed $a,b,q$, the Selberg sieve (in a form proved by Lichtman--Teravainen) gives an upper bound of the expected order $N(\log N)^{-5}$, up to the singular series.  Averaging the singular series over the three parameters $a,b,q$ then shows that the number of bad blocks is\[<br>        \ll \frac{NY^3}{(\log N)^5}<br>\]when all offsets are at most $Y$.  Since in our application $Y\asymp H\log N$, this is smaller than the number of available starting positions as soon as $H$ is a sufficiently small multiple of $(\log N)^{1/3}$.<br><br>On the other hand, GPT-5.5 also noted that $h(x)= o(\log x)$ might be wrong if we assume a form of uniform Hardy-Littlewood conjecture and more likely something like $h(x)≤(C+o(1))\log x$ is plausible with a guess at possible asymptotics being<br>$$h(x) \sim 1.32323 \log x$$</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Przemek">Przemek Chojecki</a></strong>
+      
+      — <a href="/forum/thread/852#post-5773">11:44 on 24 Apr 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="5773" data-react-url="/forum/post/5773/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: old-bielefelder, Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">2</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    
+
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-5779"
+    class="post depth-1
+           
+           odd">
+    <div class="post-body" id="post-5779">
+    
+
+
+
+      
+      <p>I am able to corroborate the findings, using a slightly different route. The writeup of what I have so far is at <a href="https://www.overleaf.com/read/tdpvnkrmqtvh#eaec5d" rel="nofollow noopener noreferrer ugc" target="_blank">this Overleaf link</a>.<br><br>Via a scaffold on top of ChatGPT-5.5-Pro that I ran yesterday, $h(x) \gg (\log x)^{1/3}$ comes out of a four-prime rectangle count: we again look at blocks of $H$ consecutive prime gaps whose total length is at most a constant multiple of $H \log N$, and a positive proportion of starting positions have this property.<br><br>If such a block has two equal gaps $d_i = d_j = a$ at positions $i &lt; j$, set $p = p_i$ and $b = p_j - p_i$; then the four integers $p, p+a, p+b, p+a+b$ are all prime, arranged in a rectangle (or the degenerate triple $p, p+a, p+2a$ when $j = i+1$). This uses only four primes instead of five, so one averages over only two parameters rather than three. For $a, b \leq W$, the standard Selberg/Brun upper-bound sieve gives an upper bound of the expected order $N(\log N)^{-4}$ per pair, up to the singular series; averaging the singular series over $(a, b)$ using Gallagher's mean-value estimate, the number of rectangles is $\ll N W^2 (\log N)^{-4}$, with a smaller contribution from the degenerate triples.<br><br>Since each rectangle or triple lies in at most $H$ starting blocks, the number of bad small-span starts is $\ll x H W^2 (\log N)^{-3}$.  Balancing this against the first-moment count $\ll xHL/W$ of large-span blocks yields $W \asymp (\log N)^{4/3}$ and bad count $\ll x H (\log N)^{-1/3}$: this is smaller than the number of available starts once $H$ is a sufficiently small multiple of $(\log N)^{1/3}$.<br><br>The same writeup derives the $1.32323$ constant explicitly. In the iid geometric-gap model with $q = e^{-2/L}$, a saddle-point calculation on the distinctness generating function gives $\log \Pr(H \text{ distinct}) = -L \cdot I_0(c) + o(L)$ with<br>$$I_0(c) = c + c \log\!\left(\frac{e^{2c}-1}{2c}\right) + \tfrac{1}{2} \operatorname{Li}_2(1 - e^{2c}),$$<br>expansion $I_0(c) = c^2/2 + c^3/18 - c^5/900 + O(c^7)$, and $c_0$ defined by $I_0(c_0) = 1$ is $1.32322827686395\ldots$.<br><br>On the conditional side, I have a hypothesis based on a strong (uniform) Hardy-Littlewood k-tuples conjecture on average, in lower-bound form with power-saving, combined with a parity-correct Bonferroni minorant identity (see write-up for details), that would imply $h(x) \geq (c - o(1)) \log x$. The rough idea is that passing from the iid model above to actual primes incurs a correction: primes avoid residue classes modulo small primes, so the model rate $I_0(c)$ must be replaced by $I_0(c) + J(c)$, where $J(c)$ is an odd-prime singular-series pressure coming from a Markov chain on the residue-class trajectories of prefix sums modulo each odd prime. For the conditional bound to give a block of length $cL$ with distinct consecutive prime gaps, one needs $I_0(c) + J(c) &lt; 1$. The relevant fact is that $J$ has the explicit leading expansion<br>$$J(c) = C_* c^2 + O(c^3), \qquad C_* = \tfrac{1}{2}\!\left(\prod_{p \geq 3} \left(1 + \tfrac{1}{(p-1)^3}\right) - 1\right) = 0.0752403861777\ldots,$$<br>so the combined rate $I_0(c) + J(c) = (\tfrac{1}{2} + C_*) c^2 + O(c^3) \approx 0.5752 \, c^2$ is strictly less than $1$ for all sufficiently small $c &gt; 0$: this is then exactly what drives the conditional lower bound $h(x) \geq (c - o(1)) \log x$, and in particular rules out $h(x) = o(\log x)$.<br><br>I think it is interesting GPT-5.5-Pro was able to be elicited to give the same outcome, by quite similar methods, at about the same time, right after its release. Looks like a moderate step jump in the direction of analytic number theory from GPT-5.4-Pro. Unless it is shown that h(x) = o(log x) is highly tied to a notoriously difficult conjecture (granted, such as the first Hardy-Littlewood conjecture...), I am optimistic GPT-5.5-Pro itself can eventually resolve $h(x) = o(log x)$ in the negative.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/DavidTurturean">DavidTurturean</a></strong>
+      
+      — <a href="/forum/thread/852#post-5779">14:55 on 24 Apr 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="5779" data-react-url="/forum/post/5779/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Nat Sothanaphan, Przemek Chojecki"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">2</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-5785"
+    class="post depth-1
+           recent recent-3
+           even">
+    <div class="post-body" id="post-5785">
+    
+
+
+
+      
+      <p>Thanks! Standard <a href="https://chatgpt.com/share/69eb9443-74d8-839a-a2a7-7dcef2ecbcc9" rel="nofollow noopener noreferrer ugc" target="_blank">check</a> claimed 2 minor issues.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/852#post-5785">16:05 on 24 Apr 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="5785" data-react-url="/forum/post/5785/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Przemek Chojecki"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+
+    
+  
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-5426"
+    class="post depth-0
+           
+           odd">
+    <div class="post-body" id="post-5426">
+    
+
+
+
+      
+      <p>I think this page would benefit from recording the best current bounds known for $h(x)$ for any future readers who may wish to make progress on this problem. <br><br>The best upper bound I could construct (with assistance from GPT 5.4) was to show that for every $\epsilon&gt;0$ one has $h(x)\ll x^{0.41+\epsilon}$. I haven't thought too much about this (and I'm sure this can be improved), but in the absence of any recorded bounds, here is a sketch of that argument: <br><br>Let $H=h(x)$. Then for some $n&lt;x$ the $H$ consecutive prime gaps $d_n,d_{n+1},\dots,d_{n+H-1}$ are pairwise distinct.<br><br>Consider $S:=\sum_{j=0}^{H-1} d_{n+j}^2$. Since $d_1=1$ and all other prime gaps are positive even integers, the smallest possible sum of squares of $H$ distinct prime gaps is at least $1^2+2^2+4^2+\cdots +(2H-2)^2\gg H^3$. Hence $S\gg H^3$.<br><br>Also, from the same distinctness observation, the sum of the $H$ gaps is at least $1+2+4+\cdots+2(H-1)=H^2-H+1$. But this sum is $p_{n+H}-p_n&lt;p_{n+H}$, so using $p_m\ll m\log m$ one gets $H^2\ll (x+H)\log(x+H)$. In particular $H&lt;x$ for all large $x$.<br><br>Now let $X:=p_{n+H-1}$. Since $n&lt;x$ and $H&lt;x$, we have $n+H-1&lt;2x$ for large $x$, so $X\le p_{\lceil2x\rceil}\ll x\log x$.<br><br>Finally, $S\le \sum_{p_m\le X} d_m^2$, and Stadlmann’s Theorem 1 <a href="https://arxiv.org/abs/2212.10867" rel="nofollow noopener noreferrer ugc" target="_blank">in this paper</a> gives, for every $\eta&gt;0$, $\sum_{p_m\le X} d_m^2\ll X^{1.23+\eta}$. Therefore $H^3\ll X^{1.23+\eta}\ll (x\log x)^{1.23+\eta}$, so $H\ll x^{0.41+\eta/3}(\log x)^{(1.23+\eta)/3}$. Given $\epsilon&gt;0$, choose $0&lt;\eta&lt;3\epsilon$. Then for sufficiently large $x$, $(\log x)^{(1.23+\eta)/3}\le x^{\epsilon-\eta/3}$, so $H\ll x^{0.41+\epsilon}$.<br><br>Thus $h(x)\ll x^{0.41+\epsilon}$</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Aron">AronBhalla</a></strong>
+      
+      — <a href="/forum/thread/852#post-5426">16:05 on 15 Apr 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="5426" data-react-url="/forum/post/5426/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: TerenceTao, Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">2</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: AronBhalla"
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    
+
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-5433"
+    class="post depth-1
+           
+           even">
+    <div class="post-body" id="post-5433">
+    
+
+
+
+      
+      <p>Congrats. I ran standard <a href="https://chatgpt.com/share/69dfd759-1994-83a0-bdab-e6c8bf30a1b4" rel="nofollow noopener noreferrer ugc" target="_blank">check</a> which found no issues. The exponent seems to be natural from the method.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/852#post-5433">18:32 on 15 Apr 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="5433" data-react-url="/forum/post/5433/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: AronBhalla"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+
+    
+  
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-2378"
+    class="post depth-0
+           
+           even">
+    <div class="post-body" id="post-2378">
+    
+
+
+
+      
+      <p>It seems <a href="https://oeis.org/A078515" rel="nofollow noopener noreferrer ugc" target="_blank">A078515</a> is the inverse of this function $h(x)$, and 27 terms are available.<br><br>I think looking at small terms can be highly misleading in asymptotic number theory, but from the data so far, it <a href="https://chatgpt.com/share/694a1309-86f4-8000-b36e-1d88e6071234" rel="nofollow noopener noreferrer ugc" target="_blank">"looks exponential"</a>.  (Link goes to a ChatGPT session with a basic plot.)  In terms of the original problem, I think this would mean $h(x) = \theta(\log n)$.<br><br>I have not even done the basic analysis of what a random model of the primes would suggest.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/BorisAlexeev">BorisAlexeev</a></strong>
+      
+      — <a href="/forum/thread/852#post-2378">03:59 on 23 Dec 2025</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="2378" data-react-url="/forum/post/2378/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+  
+</ul>
+
+
+
+
+
+<p>
+                        <div style="text-align:center;">
+<strong>All comments are the responsibility of the user. Comments appearing on this page are not verified for correctness. Please keep posts mathematical and on topic.</strong>
+</div>
+<p>
+
+
+<div style="text-align:center; margin: 1em">
+
+
+  <p><a href="/forum/login?next=%2Fforum%2Fthread%2F852">Log in</a> to add a comment.</p>
+
+
+    </div>
+<p><div style="text-align: center; margin: 1em 0;">
+<a href="/forum/">Back to the forum</a>
+</div>
+                </div>
+            </div>
+            
+
+<script>
+document.addEventListener("submit", (e) => {
+  const form = e.target.closest(".reply-form");
+  if (!form) return;
+  const btn = form.querySelector('button[type="submit"]');
+  if (btn?.dataset.submitting === "1") {
+    e.preventDefault(); // already submitted
+    return;
+  }
+  if (btn) {
+    btn.dataset.submitting = "1";
+    btn.disabled = true;
+    btn.textContent = "Posting…";
+  }
+});
+</script>
+
+<script>
+document.addEventListener("click", (ev) => {
+  const a = ev.target.closest(".thread-sort .order");
+  if (!a) return;
+});
+</script>
+
+<script>
+document.addEventListener("submit", (e) => {
+  const form = e.target.closest(".comment-form");
+  if (!form) return;
+
+  const btn = form.querySelector('button[type="submit"]');
+  if (!btn) return;
+
+  // Already submitting? Block.
+  if (btn.dataset.submitting === "1") {
+    e.preventDefault();
+    return;
+  }
+
+  // First submit: lock UI
+  btn.dataset.submitting = "1";
+  btn.disabled = true;
+  const original = btn.textContent;
+  btn.dataset.originalText = original;
+  btn.textContent = "Posting…";
+});
+</script>
+           
+
+
+
+
+<script>
+window.MathJax = {
+  output: {
+    font: 'mathjax-tex'
+  },
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+};
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml-nofont.js"></script>
+
+
+<!-- Previewing forum posts -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, m => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[m]);
+  }
+
+  function normalizeHref(href) {
+    href = href.trim();
+    if (!/^https?:\/\//i.test(href) && !href.startsWith("/")) {
+      href = "https://" + href;
+    }
+
+    return href;
+  }
+
+  let mathJaxQueue = Promise.resolve();
+
+  function clearMathJax(element) {
+    if (window.MathJax && MathJax.typesetClear) {
+      MathJax.typesetClear([element]);
+    }
+  }
+
+  function typesetMath(element) {
+    if (!window.MathJax) return;
+
+    if (MathJax.typesetPromise) {
+      mathJaxQueue = mathJaxQueue
+        .then(() => {
+          if (MathJax.startup && MathJax.startup.promise) {
+            return MathJax.startup.promise;
+          }
+        })
+        .then(() => MathJax.typesetPromise([element]))
+        .catch(err => {
+          console.error("MathJax typeset failed:", err);
+        });
+
+      return;
+    }
+
+    if (MathJax.Hub) {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
+    }
+  }
+
+  function renderPreview(textarea, preview, label) {
+    let raw = textarea.value;
+    const anchors = [];
+    let idx = 0;
+
+    raw = raw.replace(
+      /<a\s+href=("(?:[^"]*)"|'(?:[^']*)')\s*>([\s\S]*?)<\/a>/gi,
+      (match, qHref, labelText) => {
+        const href = qHref.slice(1, -1);
+        const token = `__A_TAG_${idx++}__`;
+
+        anchors.push({
+          token,
+          href: normalizeHref(href),
+          label: labelText
+        });
+
+        return token;
+      }
+    );
+
+    let safe = escapeHtml(raw);
+
+    anchors.forEach(a => {
+      const html = `<a href="${escapeHtml(a.href)}">${escapeHtml(a.label)}</a>`;
+      safe = safe.replace(a.token, html);
+    });
+
+    safe = safe.replace(/\{PROBLEM=(.+?)\}/g, (_, p1) =>
+      `<a href="/${escapeHtml(p1)}">[${escapeHtml(p1)}]</a>`
+    );
+
+    safe = safe.replace(/\n/g, "<br>");
+    clearMathJax(preview);
+
+    if (!safe.trim()) {
+      preview.innerHTML = "";
+      preview.classList.add("hidden");
+      label.classList.add("hidden");
+      return;
+    }
+
+    preview.innerHTML = safe;
+    preview.classList.remove("hidden");
+    label.classList.remove("hidden");
+
+    typesetMath(preview);
+  }
+
+function initialisePreview(textarea) {
+  const form = textarea.closest("form");
+  const preview = form && form.querySelector(".post-preview");
+  const label = form && form.querySelector(".preview-label");
+
+  if (!preview || !label) {
+    return;
+  }
+
+  renderPreview(textarea, preview, label);
+}
+
+document.addEventListener("input", function (event) {
+  if (!event.target.matches("form textarea")) {
+    return;
+  }
+
+  initialisePreview(event.target);
+});
+
+document.querySelectorAll("form textarea").forEach(function (textarea) {
+  initialisePreview(textarea);
+});
+});
+</script>
+
+<!-- To handle the search bar -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function setFilterLink(linkId, newFilter) {
+        const link = document.getElementById(linkId);
+        if (!link) return;
+        const pathParts = window.location.pathname.split("/");
+        // Expect: /<section>/<entry> or /<section>/<entry>/<filter>
+        if (pathParts.length >= 3) {
+            const section = pathParts[1];
+            const entry = pathParts[2];
+            // Construct base: /tags/additive, /sources_bib/BL09, etc.
+            const baseUrl = "/" + section + "/" + entry;
+            link.href = baseUrl + "/" + newFilter;
+        }
+    }
+    setFilterLink("solvedLink", "solved");
+    setFilterLink("openLink", "open");
+    setFilterLink("yesLink", "yes");
+    setFilterLink("noLink", "no");
+});
+</script>
+
+<!-- Handle the dual view link -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const dualLink = document.getElementById("dualViewLink");
+  if (!dualLink) return;
+
+  const isInDualView = window.location.pathname.startsWith("/dual");
+  dualLink.textContent = isInDualView ? "Exit Dual View" : "Dual View";
+  dualLink.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (isInDualView) {
+      try {
+        const leftIframe = document.getElementById("iframe-left");
+        const src = leftIframe?.src || "/";
+        let clean = src.replace(window.location.origin, "");
+        clean = clean.replace(/[?&]embed=1/, "");
+
+        window.location.href = clean;
+      } catch (err) {
+        window.location.href = "/";
+      }
+    } else {
+      const currentPath = window.location.pathname + window.location.search;
+      const rightPanelDefault = "/";
+      const hash = `#left:${encodeURIComponent(currentPath)}&right:${encodeURIComponent(rightPanelDefault)}`;
+      window.location.href = `/dual${hash}`;
+    }
+  });
+});
+</script>
+
+<!-- Redirect links and searches when in dual view mode -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (!window.location.pathname.startsWith("/dual")) return;
+
+  function getTargetPanel() {
+    const selected = document.querySelector('input[name="targetPanel"]:checked');
+    return selected ? selected.value : "left";
+  }
+
+  function loadInPanel(panel, path) {
+    if (!path) return;
+    const iframe = document.getElementById(`iframe-${panel}`);
+    if (!iframe) return;
+    const url = path.includes("?") ? path + "&embed=1" : path + "?embed=1";
+    iframe.src = url;
+    const inputBox = document.querySelector(`#panel-${panel} input`);
+    if (inputBox) inputBox.value = path;
+    console.log(`Loaded "${url}" into panel "${panel}"`);
+  }
+  
+  document.querySelectorAll(".dual-aware a[href^='/'], a.dual-aware[href^='/']").forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const path = this.getAttribute("href");
+      loadInPanel(getTargetPanel(), path);
+    });
+  });
+
+  const idForm = document.getElementById("idsearchForm");
+  if (idForm) {
+    idForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const input = idForm.querySelector(".idsearchTerm").value.trim();
+      if (!input) return;
+
+      let path = null;
+
+      if (/^\d+$/.test(input)) {
+        path = "/go_to/" + encodeURIComponent(input);
+      } else if (/^((\d+|end)(-(\d+|end))?\s*)+(open|solved|yes|no)?$/i.test(input)) {
+        const parts = input.split(/\s+/).filter(Boolean);
+        path = "/range/" + parts.map(encodeURIComponent).join("/");
+      } else {
+        alert("Invalid input format.");
+        return;
+      }
+
+      loadInPanel(getTargetPanel(), path);
+    });
+  }
+
+  const searchForm = document.getElementById("searchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const input = searchForm.querySelector(".searchTerm").value.trim();
+      if (!input) return;
+
+      const path = "/search/" + encodeURIComponent(input);
+      loadInPanel(getTargetPanel(), path);
+    });
+  }
+});
+</script>
+
+<!-- Different menu on mobile -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.getElementById("mobileMenuButton");
+  const dropdown = document.getElementById("mobileDropdown");
+
+  if (button && dropdown) {
+    button.addEventListener("click", function () {
+      dropdown.classList.toggle("show");
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove("show");
+      }
+    });
+  }
+});
+</script>
+
+<!-- For expanding threads -->
+
+<script>
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('#toggle-posts');
+  if (!link) return;
+  e.preventDefault(); 
+
+  const box = document.getElementById('more-posts');
+  const isHidden = box.classList.toggle('hidden');
+  const expanded = !isHidden;
+
+  link.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  box.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+
+  link.textContent = expanded
+    ? 'Show only the top five comments'
+    : `Show ${link.dataset.remaining} more comments`;
+});
+</script>
+
+
+<script>
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('.toggle-replies');
+  if (!link) return;
+  e.preventDefault();
+
+  const pid = link.dataset.postId;
+  const box = document.getElementById(`more-replies-${pid}`);
+  if (!box) return;
+
+  const isHidden = box.classList.toggle('hidden');
+  const expanded = !isHidden;
+
+  link.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  box.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+
+  link.textContent = expanded
+    ? 'Hide replies'
+    : `Show ${link.dataset.remaining} more replies`;
+});
+</script>
+
+
+<script>
+document.addEventListener("click", async function (event) {
+    const button = event.target.closest(".problem-status-option");
+    if (!button) return;
+
+    const widget = button.closest(".problem-status-widget");
+    if (!widget) return;
+
+    if (widget.dataset.canEdit !== "1") return;
+
+    const status = button.dataset.status;
+    const url = widget.dataset.setUrl;
+
+    widget.classList.add("is-saving");
+
+    const buttons = widget.querySelectorAll(".problem-status-option");
+    buttons.forEach(btn => btn.disabled = true);
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Requested-With": "fetch"
+            },
+            body: JSON.stringify({ status: status })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || !data.ok) {
+            throw new Error(data.error || "Could not update problem status.");
+        }
+
+        widget.dataset.currentStatus = data.status;
+
+        buttons.forEach(btn => {
+            const active = btn.dataset.status === data.status;
+            btn.classList.toggle("is-active", active);
+            btn.setAttribute("aria-checked", active ? "true" : "false");
+        });
+
+        const label = widget.querySelector(".js-problem-status-label");
+        const description = widget.querySelector(".js-problem-status-description");
+
+        if (label) label.textContent = data.label || button.dataset.label;
+        if (description) description.textContent = data.description || button.dataset.description;
+          widget.style.setProperty("--status-progress", button.dataset.progress);
+
+    } catch (err) {
+        alert(err.message || "Could not update problem status.");
+    } finally {
+        widget.classList.remove("is-saving");
+
+        if (widget.dataset.canEdit === "1") {
+            buttons.forEach(btn => btn.disabled = false);
+        }
+    }
+});
+</script>
+  
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a31dd5c5ece0c089',t:'MTc4Nzg2MjYzNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

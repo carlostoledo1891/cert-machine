@@ -65,7 +65,11 @@ const finding = (m) => { findings++; console.log('!! ' + m); };
     const m = /(\d+)\s+comments?/.exec(html);
     const n = m ? Number(m[1]) : null;
     const corrected = /0\.07524038617830/.test(html);
-    if (corrected) finding('erdos852: THE CORRECTION IS PUBLIC — snapshot the thread as evidence bytes beside the original pin NOW');
+    /* measured, not remembered: the shout stops only when a snapshot pin exists */
+    const pins = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'sources', 'PINS.json'), 'utf8'));
+    const snapshotted = Object.keys(pins).some((k) => /^erdos852_thread_correction-public/.test(k));
+    if (corrected && !snapshotted) finding('erdos852: THE CORRECTION IS PUBLIC — snapshot the thread as evidence bytes beside the original pin NOW');
+    else if (corrected) say('erdos852: correction PUBLIC, snapshot pinned — watch closed');
     else if (n !== null && state.erdos852Comments !== null && n !== state.erdos852Comments) {
       finding('erdos852: comment count moved ' + state.erdos852Comments + ' -> ' + n + ' (correction digits not visible yet) — read the thread');
     } else say('erdos852: ' + (n === null ? 'count unreadable' : n + ' comments') + ', correction still in the moderation queue');

@@ -92,7 +92,9 @@ DRAFTED OR READY, SENDING ON THE OPERATOR'S WORD:
 
 WAITING ON THE WORLD (node tools/sweep-claims.js watches — FIRST ACTION
 every session):
- 16. #852 correction (moderation) · #510 lambda table (moderation) ·
+ 16. #852 correction PUBLIC 2026-08-27 — thread snapshot pinned beside the
+     original (corpus/sources/erdos852_thread_correction-public_2026-08-27
+     .html), sweep watch closed · #510 lambda table (moderation) ·
      OEIS submission (unanswered).
 
 OPERATOR CLICKS ONLY:
