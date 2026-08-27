@@ -13,53 +13,62 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## OPEN TASKS at handoff (updated 2026-08-27 late) — the next session's menu
+## TASKS BACKLOG — the standing menu (updated 2026-08-27 late night)
 
-SHIPPED since the morning list: the review-fix pass (counts deflated to
-truth, §4 survivors zeroed), the NARRATIVE TRANSFORMATION (AI-verification
-portfolio + the verified-reward/RLVR framing, tl;dr blocks on every
-report), and the FOUR-ITEM REPORT CHASE — reports/alphaevolve.html,
-reports/answer-key.html, reports/verifier-loop.html, and EVAL V2 (honesty
-probe DONE with findings; disguised anti-recall rung DONE; open r22 rung
-DONE; budget-artifact fix in the harness). Vercel Web Analytics: ENABLED
-by the operator 2026-08-27 (the dashboard toggle — collecting from the
-already-deployed snippet). make test 26/26; HEAD deployed and live.
-What remains, by who acts:
+Kept current at every handoff; a session that changes any task's state
+updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-AGENT-EXECUTABLE ON THE OPERATOR'S WORD (spend/scope):
- 1. EVAL: bigger n on the v3 rungs + any new model rows (keyless auth
-    live; thinking rungs cost 10-30k output tokens/proposal — see the
-    budget notes in the 2026-08-27 LATEST session entry). Also open: a
-    true feedback-CONVERSION loop trajectory needs an intermediate-
-    capability model; Laderman/r22 loops need >24k budgets.
- 2. APERY/STURM DECIDER: build the instrument — requisites pinned in
-    notes/apery-sturm-decider.md (PNT-free rational bar 17−12√2 < 1/27;
-    green zeta(3) must PROVE, red zeta(5) must REFUSE). A session's work.
- 3. MU BOX50: stage 1 worker_threads sharding (~3.68x measured potential),
-    stage 2 box50 n=10..12 (2.5G–27G sets, days-scale detached).
- 4. STRASSEN CORPUS: the arXiv 2506.13242 NON-complex rank-48 row (second
-    modern row; distinct from AlphaEvolve's — see notes/alphaevolve-48.md;
-    natural home now: a row on reports/alphaevolve.html).
- 5. RM survivor widths: push the Catalan rows past 1e-12 toward 1e-30
-    (reviewer follow-up; bigfloat layer exists). Tangent-sweep
-    orbit-invariant column (fiber-degree check) likewise parked.
+AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
+ 1. LRCAP CERTIFIED AUCTION ARITHMETIC — PERISHABLE. Fetch ANEEL CP
+    22/2026 edital drafts; exact-rational dominance thresholds (β=0.9
+    locational bonus × two-product Dec 2/4 sequencing × content premium).
+    Clock: CP closes Sep 14; hearing Sep 1; auctions Dec 2/4. Public data
+    only. First-of-kind (frontier scan verified: no public model exists).
+ 2. AEROELASTIC LCO ENCLOSURE — the flagship world-first: radii-polynomial
+    enclosure of the 2-DOF pitch-plunge limit cycle + certified flutter
+    interval (sequence.js + radii.js are the instruments; whirl-flutter
+    ROM as sequel; NASA TRAST is the live hook). Its own session.
+ 3. PERFECT-FORESIGHT REVENUE AUDITOR — exact LP-duality ceiling on
+    public prices; makes vendor "% of perfect" claims decidable.
+ 4. UAM CAPACITY-CLAIM AUDIT (exact-rational recert of a published
+    vertiport/corridor bound) · STORAGE-NASH CERTIFICATE (first
+    machine-checkable equilibrium certificate in that literature).
+ 5. EVAL: bigger n on v3 rungs / new model rows (keyless auth live;
+    thinking rungs cost 10-30k output tokens/proposal); a true
+    feedback-conversion loop needs an intermediate-capability model;
+    Laderman/r22 loops need >24k budgets.
+ 6. APERY/STURM DECIDER (notes/apery-sturm-decider.md; green zeta(3)
+    must PROVE, red zeta(5) must REFUSE). A session's work.
+ 7. MU BOX50 (worker_threads sharding ~3.68x, then n=10..12 detached).
+ 8. STRASSEN 2506.13242 non-complex rank-48 row (home:
+    reports/alphaevolve.html).
+ 9. RM Catalan widths toward 1e-30 · tangent-sweep orbit-invariant column.
+ 10. OP-2 EXPLORATION (Γ-convergence of the exact discrete KKT — the
+    stock-constraint phase's math follow-on).
 
-DRAFTING MINE, SENDING OPERATOR'S WORD:
- 6. Directed co-sign notes (He-Tang, mzn) carrying the methods note.
- 7. RM-group note (their Challenge asks for verified code) — now with the
-    registry AND the corrected counts framing. Optional.
- 8. ONE EXTERNAL RERUN: recruit a named outside person to run the three
-    verifiers (the reviewer's single highest-leverage ask; the disclaimer
-    slot for recording it exists on the control page).
+DRAFTED OR READY, SENDING ON THE OPERATOR'S WORD:
+ 11. KAUST LETTER — READY TO SEND: evidence surface rebuilt and live
+     (reports/mfg-cap.html, mfg-lab.html, wardrop-repro.html,
+     methods-note.html; code link github.com/carlostoledo1891/mfg-lab/
+     tree/main/research/mfg-cap). Needs your 3 sentences, recipient
+     choice, and rewording of "live in the browser".
+ 12. Co-sign notes (He-Tang, mzn) · RM-group note (optional).
+ 13. ONE EXTERNAL RERUN recruitment (highest-leverage credibility move;
+     the recording slot exists on the control page).
+ 14. LRCAP GUARD-RAIL DECISION: forfeit December consciously, or set a
+     send date (the sin-mfg outreach drafts await only the send).
+ 15. EMBRAERX ARTIFACT PLAY — now unlocked: instance-level UAM artifact
+     aimed at the warm contacts (uam-corridor is public; evtol-energy
+     is live here).
 
-WAITING ON THE WORLD (the sweep watches; shout + snapshot when public):
- 9. #852 correction — in moderation.   10. #510 lambda table — in
-    moderation.   11. OEIS submission — unanswered.
+WAITING ON THE WORLD (node tools/sweep-claims.js watches — FIRST ACTION
+every session):
+ 16. #852 correction (moderation) · #510 lambda table (moderation) ·
+     OEIS submission (unanswered).
 
 OPERATOR CLICKS ONLY:
- 12. GitHub support ticket to gc the purged IP blobs (optional).
- 13. Boyd 1986 via ILL (gates "first witness" prose on the Mercer page only).
- DONE 2026-08-27: Vercel Web Analytics toggle — enabled by the operator.
+ 17. GitHub support ticket to gc purged IP blobs (optional) · Boyd 1986
+     via ILL (gates "first witness" prose on the Mercer page only).
 
 ## The direction (operator ruling, 2026-08-26): SHIP
 
@@ -305,6 +314,25 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   verification infrastructure — the eval labs run, the registry that
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-27 CLOSE (documentation + review phase, operator's word):
+  - CLAUDE.md now carries the permanent instructions: sin-mfg is a
+    LEARNING repository (insights applied freely, gates/rulings never
+    imported); every page is born from the cert-machine template (no
+    built pages or CSS from sin-mfg; legacy/ = unserved gate sources;
+    the only byte-preserved exception is already-sent outreach URLs);
+    keep the machine lean (gates catch drift and forgery, never slow
+    development — review and delete what refuses instead of measures);
+    the TASKS BACKLOG at the top of HANDOFF is the operator's standing
+    menu, updated in the same commit as any task-state change.
+  - REVIEW PASS: no tracked junk (641 files; .gitignore already covers
+    .DS_Store/.lake; the 18 sync-resurrected lean files were pruned
+    earlier tonight); every code gate in the repo measures (drift,
+    forgery, count closure, shelf/disk agreement) — none refuses a
+    direction, nothing removed. The lock-imports were behavioral and are
+    closed by the CLAUDE.md rules + memory.
+  - Backlog restructured into TASKS BACKLOG (17 items, ranked, grouped
+    by who acts) at the top of this file.
 
 SESSION 2026-08-27 LATE NIGHT (THE UNLOCK + the new-fronts program):
   - OPERATOR RULING, permanent: sin-mfg's RULINGS are information, never

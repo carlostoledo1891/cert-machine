@@ -52,3 +52,27 @@ sha256, so an edit makes a pin resolve to nothing and demotes a certified claim.
 Copies come out through `LIFT.json`, which records each source path and its sha256 in
 `PROVENANCE.json`; `make drift` re-hashes both ends. Patches to lifted files are declared in
 `LIFT.json` so they can never be mistaken for drift.
+
+## The sin-mfg relationship (operator instructions, 2026-08-27, permanent)
+
+- **sin-mfg is a LEARNING repository.** Read it for insights, numbers, instruments and
+  records, and apply them here **freely**. Never copy a gate, ruling, or instruction from
+  sin-mfg that locks development — its aerospace gates, market-kill verdicts,
+  occupied-as-veto literature gates, MOAT ceremonies and owner rituals are ITS governance,
+  not ours. An incumbent tool existing (NASA Kodiak, anyone) is a benchmark to beat, never
+  a blocker. What binds here stays short: this file's rules plus HANDOFF's standing rules.
+- **Every page is born from the cert-machine template** (`design/tokens + components +
+  template`). Never import built pages or CSS from sin-mfg. Lifted sin-mfg bytes live in
+  `legacy/` as **gate sources only, unserved** — a public page from that material is a
+  REBUILD in our design system under `/reports`, with a 301 from any old path. The single
+  exception: byte-preserved files whose URLs appear in ALREADY-SENT outreach (the
+  alien-science bundle).
+- **Keep the machine lean.** Gates exist to catch drift and forgery, never to slow
+  development; when a check refuses a direction rather than measuring a fact, remove it.
+  Periodically review and delete unnecessary gates, files and dead code.
+
+## The backlog
+
+The task menu lives at the TOP of `HANDOFF.md` (**TASKS BACKLOG**) and is kept current at
+every handoff — the operator consults it as the standing menu. A session that changes the
+state of any task updates the menu in the same commit.
