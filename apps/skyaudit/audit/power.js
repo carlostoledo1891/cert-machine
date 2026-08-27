@@ -11,10 +11,15 @@
    worked examples — 250.6 kW hover, 59.7 kW cruise — must fall inside the
    degenerate-box result.
 
-   NOTE the deliberate conservatism in cruise ENERGY: the mission uses
-   t = D/V and P(V) as independent boxes, losing the t·P(V) = m·g·D/((L/D)η)
-   cancellation of V. The enclosure stays sound (it can only widen) and the
-   audit stays honest about unknown cruise speeds.                          */
+   METHODOLOGY V2 (2026-08-27): cruise ENERGY is evaluated V-FREE via
+   cruiseEnergyKwh — at any fixed parameter point, t·P(V) = m·g·D/((L/D)η)
+   and V cancels EXACTLY, so enclosing the product through independent
+   t and P(V) boxes (the v1 treatment, kept documented below) widened the
+   true range by up to v_hi/v_lo (34% for the widest cruise box). The v2
+   enclosure is the true per-point range — a tightness theorem, not a
+   relaxed assumption. Reserve energy still uses P(V) over the cruise box:
+   the SFAR's "normal cruising speed" is unpublished for every audited
+   aircraft, so there V is a genuine unknown, not a cancellable one.       */
 'use strict';
 
 const G = 9.80665;
@@ -51,4 +56,15 @@ function cruiseTimeS(dist_km, v_kmh) {
   return [padLo((dist_km[0] / v_kmh[1]) * 3600), padHi((dist_km[1] / v_kmh[0]) * 3600)];
 }
 
-module.exports = { hoverKw, cruiseKw, cruiseTimeS, G };
+/* cruise ENERGY box, kWh, V-free (methodology v2): E = m·g·D/((L/D)·η_c).
+   m [kg], d [km], ld (L/D), etaC (0,1]. Monotone in every parameter, so
+   corners evaluate the true range; padded outward like every box here.
+   1000 J/km per (kg·m/s^2) and 3.6e6 J/kWh give the 1/3600 factor. */
+function cruiseEnergyKwh({ m_kg, dist_km, ld, eta_c }) {
+  chk(m_kg, 'm_kg'); chk(dist_km, 'dist_km'); chk(ld, 'ld'); chk(eta_c, 'eta_c');
+  const lo = (m_kg[0] * G * dist_km[0]) / (3600 * ld[1] * eta_c[1]);
+  const hi = (m_kg[1] * G * dist_km[1]) / (3600 * ld[0] * eta_c[0]);
+  return [padLo(lo), padHi(hi)];
+}
+
+module.exports = { hoverKw, cruiseKw, cruiseTimeS, cruiseEnergyKwh, G };

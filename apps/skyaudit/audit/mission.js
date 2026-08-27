@@ -40,11 +40,18 @@ function buildAudit(flight, spec, rule, phys) {
   const pHover = power.hoverKw({ m_kg: B('m_kg'), delta_nm2: B('delta_nm2'), eta_h: P('eta_h'), rho: P('rho') });
   const pCruise = power.cruiseKw({ m_kg: B('m_kg'), v_kmh: B('v_cruise_kmh'), ld: P('ld'), eta_c: P('eta_c') });
   const dist = distanceBox(flight, phys);
-  const tCruise = power.cruiseTimeS(dist, B('v_cruise_kmh'));
+
+  /* methodology v2: cruise energy is V-FREE — at every parameter point
+     t·P(V) = m·g·D/((L/D)η), so the segment carries the exact energy box
+     as a 1-hour pseudo-segment (t/3600·p = E; corner semantics preserved).
+     The reserve leg below still uses P(V): "normal cruising speed" is
+     unpublished for every audited aircraft — there V is a real unknown. */
+  const eCruise = power.cruiseEnergyKwh({ m_kg: B('m_kg'), dist_km: dist, ld: P('ld'), eta_c: P('eta_c') });
 
   const mission = { segments: [
     { name: 'hover (takeoff+landing)', t_s: P('hover_budget_s'), p_kw: pHover },
-    { name: 'cruise ' + dist[0].toFixed(1) + '-' + dist[1].toFixed(1) + ' km', t_s: tCruise, p_kw: pCruise },
+    { name: 'cruise ' + dist[0].toFixed(1) + '-' + dist[1].toFixed(1) + ' km (energy-exact, V cancels)',
+      t_s: [3600, 3600], p_kw: eCruise },
   ] };
   const cap = B('battery_kwh'), uf = P('usable_frac');
   const usable = [cap[0] * uf[0], cap[1] * uf[1]];

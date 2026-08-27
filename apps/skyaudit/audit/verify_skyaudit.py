@@ -64,18 +64,26 @@ def cruise_exact(spec):
     return lo, hi
 
 def margins(row, spec, rule):
-    """exact (worst, best) terminal margins from the row's recorded boxes"""
-    dist = box(row['dist_km']); v = box(spec['boxes']['v_cruise_kmh']['v'])
+    """exact (worst, best) terminal margins from the row's recorded boxes.
+    Methodology v2: cruise energy is V-FREE — at every parameter point
+    t*P(V) = m*g*D/((L/D)*eta_c), so the exact cruise energy is enclosed
+    directly (the v1 product through independent t and P(V) boxes was a
+    sound over-enclosure). The reserve leg keeps P(V): normal cruising
+    speed is unpublished, so V is a genuine unknown there."""
+    dist = box(row['dist_km'])
+    m = box(spec['boxes']['m_kg']['v'])
+    ld = box(PHYS['boxes']['ld']['v']); ec = box(PHYS['boxes']['eta_c']['v'])
     ph = box(row['p_hover_kw']); pc = box(row['p_cruise_kw'])
     th = box(PHYS['boxes']['hover_budget_s']['v'])
     eta = box(PHYS['boxes']['eta_batt']['v'])
     cap = box(spec['boxes']['battery_kwh']['v']); uf = box(PHYS['boxes']['usable_frac']['v'])
     usable = (cap[0] * uf[0], cap[1] * uf[1])
-    tc = (dist[0] / v[1] * 3600, dist[1] / v[0] * 3600)
-    rt = box(rule['reserve']['t_s']); rp = ph if rule['reserve']['power'] == 'hover' else pc
     H = Q(3600)
-    used_w = (tc[1] / H * pc[1] + th[1] / H * ph[1]) / eta[0]
-    used_b = (tc[0] / H * pc[0] + th[0] / H * ph[0]) / eta[1]
+    ecr_w = m[1] * G * dist[1] / (H * ld[0] * ec[0])   # cruise kWh, worst corner
+    ecr_b = m[0] * G * dist[0] / (H * ld[1] * ec[1])   # cruise kWh, best corner
+    rt = box(rule['reserve']['t_s']); rp = ph if rule['reserve']['power'] == 'hover' else pc
+    used_w = (ecr_w + th[1] / H * ph[1]) / eta[0]
+    used_b = (ecr_b + th[0] / H * ph[0]) / eta[1]
     res_w = rt[1] / H * rp[1] / eta[0]
     res_b = rt[0] / H * rp[0] / eta[1]
     return usable[0] - used_w - res_w, usable[1] - used_b - res_b

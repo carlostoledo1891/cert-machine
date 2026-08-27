@@ -79,12 +79,25 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       the finding: it measures both public-spec opacity AND the
       FAA-reserve conservatism the industry itself protested (Beta's own
       docket comment)
-- [ ] (word) HELD 2026-08-27 for the operator's decision — do NOT start:
-      known-conservatism refinements = METHODOLOGY V2 (changes every
-      published number, do once): reserve power at "normal cruising
-      speed" currently uses the full cruise-v box (hi end inflates
-      reserve); mission mass = MTOW box (max-load strictness);
-      per-aircraft disk loading from published geometry where obtainable
+- [x] METHODOLOGY V2 DONE (operator's word 2026-08-27 "insert on the
+      right order, continue" — done BEFORE the ledger/series grew, the
+      cheapest moment). One disclosed move: (1) cruise energy V-FREE —
+      t·P(V) = m·g·D/((L/D)η), V cancels exactly; v1's independent p×t
+      enclosure was sound over-enclosure up to v_hi/v_lo (34% Joby) —
+      a TIGHTNESS THEOREM, battery-proved (v2 ⊂ v1, strict), stdlib
+      verifier updated + re-proves 992 rows 0 defects; (2) operating-
+      mass boxes [published empty + pilot, MTOW] — Joby empty 4,300 lb
+      published, Archer/Beta payload-derived, Eve unchanged (nothing
+      published); REVIEWED AND REFUSED BY THE DATA: reserve at "normal
+      cruising speed" (no maker publishes one — conservative box
+      stays) and per-aircraft disk loading (geometry unpublished, only
+      VoloCity has a datasheet). ALL 4 DAYS re-certified. THE DELTA
+      (disclosed in note §6): day of record 46→100 E-FLYABLE (12%→26%),
+      fleet exactly 10 (witness 18:11:44 ET), floors 267/309/318/304,
+      reserve price 215/195/153/100/14/0 (30-min still ZERO), electric
+      bill $290–2,056 vs $3,966–9,902 still disjoint, Archer guarantee
+      still undecidable, Joby/Archer/Eve still 0 provable. v2 series:
+      Sun 38 (21.7%) · Mon 127 (32%) · Tue 106 (28.1%) · Wed 100 (26.2%)
 - [x] RANGE-CLAIM AUDIT (sim/optimize.js range_claims + panel card):
       claims are EXISTENTIAL (CONSISTENT = some point of the maker's own
       boxes achieves it; REFUTED = none does); Archer's 60-mi worst-case
@@ -421,7 +434,15 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       day tightens alpha: n days -> provable miss-rate 2/(n+1))
 - [ ] 8D SCORE THE STANDING FORECASTS — when adsb.lol publishes
       2026-08-28: node audit/ingest-day.js 2026-08-28 && node
-      audit/forecast.js score 2026-08-28 (the ledger's first outcomes)
+      audit/forecast.js score 2026-08-28 (the ledger's first outcomes).
+      DISCLOSURE REQUIRED AT SCORING: the two standing commits were
+      calibrated under methodology v1. The flights forecast [377,397]
+      is methodology-independent and scores normally; the eflyable
+      forecast [46,51] meets a v2-defined outcome (~100-scale) and
+      will bust BECAUSE THE DEFINITION MOVED — score it, keep it, and
+      state the cause in the score row / HANDOFF. The ledger never
+      rescores and never hides a bust; the penalty lands on us, the
+      honest direction. New commits calibrate on the v2 series
 - [ ] 8E THE FORECAST GYM (frontier-lab bridge, its own session):
       pinned context/outcome splits with proof-of-temporal-hygiene,
       exact proper-score reward, conformal baseline as the floor,

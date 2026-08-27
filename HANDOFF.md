@@ -67,7 +67,25 @@ COMMITTED (certs/skyaudit-forecast-ledger.jsonl): Fri 2026-08-28
 NYC flights [377,397] + E-FLYABLE [46,51], proved coverage 2/4,
 sha-pinned before the day. NEXT: 8C SkyForecast surface · 8D score
 08-28 when its release lands · 8E the Forecast Gym (contamination-
-impossible forecasting eval — the frontier-lab bridge). HELD for joint decision: the conservatism
+impossible forecasting eval — the frontier-lab bridge).
+METHODOLOGY V2 DONE (2026-08-27, operator's word; done before the
+series/ledger grew — the cheapest moment). One disclosed move, full
+detail in TODO.md Phase 2 box + note §6: cruise energy V-FREE (the
+t·P(V) = mgD/((L/D)η) cancellation — v1's independent enclosure was
+sound over-enclosure up to 34%; tightness THEOREM, battery-proved,
+stdlib verifier updated: 992 rows 0 defects) + operating-mass boxes
+from published empty/payload; reserve-at-normal-cruise and disk
+loading REVIEWED AND REFUSED BY THE DATA (unpublished), stated. All
+4 days re-certified. NEW NUMBERS OF RECORD (NYC Wed 2026-08-26):
+100 E-FLYABLE (26.2%), fleet EXACTLY 10 (witness 18:11:44 ET),
+floors 267/309/318/304 kWh, reserve price 215/195/153/100/14/0 —
+30-min reserve still ZERO provable; electric bill $290–2,056 vs
+$3,966–9,902 disjoint; Joby/Archer/Eve still 0 provable; Archer
+60-mi guarantee still undecidable. v2 series: Sun 38 (21.7%) · Mon
+127 (32%) · Tue 106 (28.1%) · Wed 100 (26.2%) — the weekday cluster
+holds under v2. Ledger disclosure for 8D recorded in TODO (flights
+forecast methodology-independent; the v1-calibrated eflyable commit
+will bust against the v2 outcome — scored, kept, cause stated). HELD for joint decision: the conservatism
 refinements (reserve-speed box / MTOW / disk loading — changes every
 published number; do once as methodology v2). THEN: SP city-pack page
 (EmbraerX artifact; data fully processed, needs SP tiles + switcher +

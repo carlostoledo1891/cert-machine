@@ -94,6 +94,22 @@ ok('hover 250.6 kW and cruise 59.7 kW reproduced within tolerance', () => {
   assert.ok(Math.abs((c[0] + c[1]) / 2 - 59.7) < 0.3, 'cruise ' + c);
 });
 
+ok('v2 cruise energy: the Kasliwal example V-free (59.7 kWh over 240.12 km) + the tightness theorem', () => {
+  /* 59.7 kW at 240.12 km/h for one hour is 59.7 kWh over 240.12 km — the
+     same calibration point, with V cancelled */
+  const E = power.cruiseEnergyKwh({ m_kg: [1187.5, 1187.5], dist_km: [240.12, 240.12], ld: [17, 17], eta_c: [0.765, 0.765] });
+  assert.ok(Math.abs((E[0] + E[1]) / 2 - 59.7) < 0.3, 'v-free calibration ' + E);
+  /* tightness: over a nondegenerate v box the v2 enclosure sits INSIDE the
+     v1 p×t product enclosure, strictly at the hi end (the v_hi/v_lo slack) */
+  const m = [2177, 2404], v = [241, 322], ld = [13, 20], ec = [0.70, 0.80], d = [30, 40];
+  const p = power.cruiseKw({ m_kg: m, v_kmh: v, ld, eta_c: ec });
+  const t = power.cruiseTimeS(d, v);
+  const prod = [p[0] * t[0] / 3600, p[1] * t[1] / 3600];
+  const e2 = power.cruiseEnergyKwh({ m_kg: m, dist_km: d, ld, eta_c: ec });
+  assert.ok(prod[0] <= e2[0] && e2[1] <= prod[1], 'v2 must sit inside v1: ' + e2 + ' vs ' + prod);
+  assert.ok(e2[1] < prod[1] * 0.99, 'and strictly tighter at the hi end');
+});
+
 console.log('-- instrument bridge: dyadic hand-computed verdicts');
 
 const dyMission = { segments: [{ name: 'seg', t_s: [900, 900], p_kw: [100, 100] }] };
@@ -352,8 +368,8 @@ ok('forecast adapter: series carries the committed records; weekday/weekend grou
   const s = F.series();
   const rec = s.find((x) => x.date === '2026-08-26');
   const sun = s.find((x) => x.date === '2026-08-23');
-  assert.ok(rec && rec.flights === 382 && rec.eflyable === 46, 'day of record in series');
-  assert.ok(sun && sun.flights === 175 && sun.eflyable === 13, 'contrast Sunday in series');
+  assert.ok(rec && rec.flights === 382 && rec.eflyable === 100, 'day of record in series (v2: 100)');
+  assert.ok(sun && sun.flights === 175 && sun.eflyable === 38, 'contrast Sunday in series (v2: 38)');
   const wkend = F.calibration('2026-08-30');            /* a Sunday target */
   assert.strictEqual(wkend.kind, 'weekend');
   assert.ok(wkend.group.every((g) => ['2026-08-23'].includes(g.date) || [0, 6].includes(new Date(g.date + 'T12:00:00Z').getUTCDay())));

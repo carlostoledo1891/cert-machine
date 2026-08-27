@@ -142,7 +142,7 @@ B.push(C.tldr({
 B.push(C.stats([
   { k: 'the day of record', v: '2026-08-26 · NYC', n: fmt(S.uniqueAircraft) + ' unique aircraft · ' + fmt(S.flights) + ' flights · ' + fmt(S.rows) + ' certificate rows (4 aircraft × 2 rules per flight) — São Paulo runs as pack #2: ' + fmt(SP.flights) + ' flights, ' + fmt(SP.rows) + ' rows' },
   { k: 'provably electric', v: eflyable + ' flights (' + pct + '%)', role: 'held', n: 'Beta ALIA-250 under the FAA 20-minute VFR reserve — every certificate a worst-corner proof over the maker\'s own boxes' },
-  { k: 'minimum fleet, proved', v: 'exactly ' + refly.keys[BETA].fleetMin + ' aircraft', role: 'held', n: refly.keys[BETA].fleetMin - 1 + ' REFUTED by pigeonhole at a witnessed instant (09:58:33 ET, the morning rush); ' + refly.keys[BETA].fleetMin + ' CERTIFIED by an exactly-verified schedule' },
+  { k: 'minimum fleet, proved', v: 'exactly ' + refly.keys[BETA].fleetMin + ' aircraft', role: 'held', n: refly.keys[BETA].fleetMin - 1 + ' REFUTED by pigeonhole at a witnessed instant (' + refly.keys[BETA].witnessLocal + '); ' + refly.keys[BETA].fleetMin + ' CERTIFIED by an exactly-verified schedule' },
   { k: 'the opacity finding', v: 'Joby · Archer · Eve: 0 provable', role: 'warn', n: 'NEEDS DATA dominates their ledgers — the audit measures what public specs cannot decide, and says so instead of guessing' },
   { k: 'authoritative identity', v: regNyc.counts.matched + '/' + regNyc.counts.corpus + ' + ' + regSp.counts.matched + '/' + regSp.counts.corpus + ' joined', role: 'held', n: 'FAA Releasable Aircraft DB + ANAC RAB, sha-pinned; registry-first typing changed corpus membership NOWHERE — the numbers stand on authority, unmatched aircraft listed one by one' },
   { k: 'day-stability, measured', v: cmp.eflyable.pct.record + '% vs ' + cmp.eflyable.pct.contrast + '%', role: 'held', n: 'a contrasting Sunday (' + fmt(cmp.summary.flights.contrast) + ' flights) holds the STRUCTURE — only Beta provable, the others zero on both days — while the provable share moves with the day; §7 states the deltas' },
@@ -221,12 +221,18 @@ B.push(C.section({
       + 'Joby needs ' + floors['joby-s4'] + ' kWh nameplate against a published 130–180, Archer '
       + floors['archer-midnight'] + ' against 120–142, Beta ' + floors['beta-alia'] + ' (the only one close to '
       + 'its own number), Eve ' + floors['eve-100'] + ' — the gap between trade-press narrative and provable '
-      + 'coverage, priced in kWh. The charge lever: Beta\'s fleet is ' + opt.charge_lever.curve[2].fleetMin
-      + ' aircraft at 49+ minutes to full, ' + opt.charge_lever.curve[1].fleetMin + ' at 24–48, '
-      + opt.charge_lever.curve[0].fleetMin + ' at ≤23 — faster chargers are provably worth two aircraft. And the '
+      + 'coverage, priced in kWh. The charge lever, read straight from the certified curve: '
+      + opt.charge_lever.curve.map((c, i) => {
+        const next = opt.charge_lever.curve[i + 1];
+        const span = next ? c.from_minutes + '–' + (next.from_minutes - 1) : c.from_minutes + '+';
+        return c.fleetMin + ' aircraft at ' + span + ' min to full';
+      }).join(', ')
+      + ' — faster chargers are provably worth ' + (opt.charge_lever.curve[opt.charge_lever.curve.length - 1].fleetMin
+        - opt.charge_lever.curve[0].fleetMin) + ' aircraft across the published charge box. And the '
       + 'reserve price: Beta\'s provable legs at 5/10/15/20/25/30 minutes of reserve are '
-      + [5, 10, 15, 20, 25, 30].map((m) => rp[m]).join('/') + ' — at a 30-minute reserve NOTHING on this day is '
-      + 'provable. That is the FAA docket fight, priced flight by flight.')
+      + [5, 10, 15, 20, 25, 30].map((m) => rp[m]).join('/')
+      + (rp[30] === 0 ? ' — at a 30-minute reserve NOTHING on this day is provable. That is the FAA docket fight, priced flight by flight.'
+        : ' — the reserve rule prices provable service flight by flight: the FAA docket fight, quantified.'))
   ].join('\n')
 }));
 
@@ -244,13 +250,22 @@ B.push(C.section({
 }));
 
 B.push(C.section({
-  lab: '§6 · honest boundaries', title: 'What v1 does not claim',
+  lab: '§6 · honest boundaries', title: 'Methodology v2, and what it still does not claim',
   bodyRaw: [
-    C.p('The methodology is deliberately conservative, and its known conservatisms are recorded rather than '
-      + 'silently tuned: reserve power is evaluated over the full cruise-speed box (the high end inflates the '
-      + 'reserve), mission mass is the MTOW box (max-load strictness), and disk loading is a class box where '
-      + 'published geometry could tighten it per aircraft. Relaxing any of these changes every published number, '
-      + 'so they will move only together, as an explicit methodology v2 — not one at a time between builds.'),
+    C.p('METHODOLOGY V2 (2026-08-27) — the recorded v1 conservatisms were resolved together, in one disclosed '
+      + 'move, exactly as promised. What changed: (1) cruise energy is now evaluated V-FREE — at every parameter '
+      + 'point t·P(V) = m·g·D/((L/D)·η) and the speed cancels exactly, so v1\'s independent enclosure of power '
+      + 'and time was a sound over-enclosure (up to 34% at the widest cruise box); removing it is a tightness '
+      + 'theorem, not a relaxed assumption, and the independent Python verifier re-proves the same identity. '
+      + '(2) Mission mass became an operating-mass box [published empty weight + pilot, MTOW] — Joby publishes '
+      + 'empty weight, Archer and Beta publish payload; the strict MTOW corner still decides E-FLYABLE, so the '
+      + 'floor only weakens refutations honestly. What was REVIEWED AND REFUSED BY THE DATA: reserve power at '
+      + '"normal cruising speed" — no audited maker publishes a normal cruise (only "up to" maxima), so the '
+      + 'reserve keeps the full cruise-speed box; and per-aircraft disk loading — rotor geometry is unpublished '
+      + 'for all four (only VoloCity, outside this set, has an official datasheet), so the class boxes stand. '
+      + 'THE DELTA, quoted as history (git a07be1f): v1 certified 46 of these ' + fmt(S.flights) + ' flights '
+      + '(12%); v2 decides ' + eflyable + ' (' + pct + '%) — the interval slack was hiding half the provable '
+      + 'day, and this paragraph is the disclosure.'),
     C.p('One Wednesday is one Wednesday — which is why §7 measures a second, contrasting day instead of assuming '
       + 'stability. The corpus is what the receiver network saw — coverage gaps are flagged '
       + 'per flight, never interpolated. Operation-type labels in the app (tour loop, patrol, shuttle) are '
@@ -280,8 +295,8 @@ B.push(C.section({
       + 'either day; Archer\'s refutation pattern and Eve\'s NEEDS-DATA wall repeat. What moves with the day is '
       + 'the magnitude: Sunday flies less than half the Wednesday (' + fmt(cmp.summary.flights.contrast) + ' vs '
       + fmt(cmp.summary.flights.record) + ' flights) and its provable share is ' + cmp.eflyable.pct.contrast
-      + '% against ' + cmp.eflyable.pct.record + '% — the 12% headline is a property of the pinned Wednesday, '
-      + 'not a universal constant, and this page will not pretend otherwise. The comparison is derived only from '
+      + '% against ' + cmp.eflyable.pct.record + '% — the ' + pct + '% headline is a property of the pinned '
+      + 'Wednesday, not a universal constant, and this page will not pretend otherwise. The comparison is derived only from '
       + 'the two committed summaries and re-derived at every build. A bonus finding from the contrast day: the '
       + 'feed\'s type database called N339LL a SOCATA TBM-700 turboprop; the FAA registry says Robinson R44 II — '
       + 'and its measured day (median 87 kt, ceiling 1,175 ft) agrees with the registry, so the authoritative '
