@@ -118,6 +118,7 @@ contains a number**. A builder passes data; the component decides markup.
 | `p` / `pRaw` / `pull` / `eq` | | prose, prose-with-markup, a pull quote, a display equation |
 | `code(text)` | string | a command / code block: recessed like `.eq`, left-aligned, 13px mono. Never an inline-styled `<pre>` |
 | `note({lab,bodyRaw})` | | the recessed aside — caveats, scope lines, "why this is not what it looks like" |
+| `tldr({findingRaw,mechanismRaw,checkRaw})` | markup strings | the ten-second block under a report's header: finding / mechanism / how a stranger re-checks it. Every report carries one; wraps its own `.col` |
 | `quote({text,cite})` | | a source, quoted, with its citation |
 | `table({cols,rows})` | `cols:[{h,cls}]`, cells are strings or `{raw}` | the ledger form. `cls: 'v'` for mono values, `'k'` for a display-face key, `'n'` for a right-aligned number |
 | `plainList(items)` | `[{b,text}]` or `{raw}` | claim lists — a lead in bold, then the qualification |

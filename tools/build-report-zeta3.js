@@ -80,6 +80,16 @@ B.push(C.header({
     + 'have been a discovery.'
 }));
 
+B.push(C.tldr({
+  findingRaw: 'The Ramanujan Machine\'s complete ζ(3) sheet re-decided with certificates: all five rows survive, '
+    + 'including both rows the Machine marks "new and unproven" — at machine-precision widths.',
+  mechanismRaw: 'Proved per-row tail bands (one row\'s recursion has s_n = n³ as an exact spurious solution its '
+    + 'band must exclude), convergence proved inside the certificate, ζ(3) bracketed exactly from its defining '
+    + 'series — the final comparisons all in exact rationals.',
+  checkRaw: C.m('node instruments/cf/battery.js') + ' — ten red controls, with Apéry\'s proved row as the '
+    + 'calibration.'
+}));
+
 B.push(C.stats([
   { k: 'sheet rows audited', v: '5 / 5', n: 'The complete table from the pinned PDF — including one row the first transcription missed.' },
   { k: 'new-and-unproven rows', v: '2 survive', role: 'held', n: 'Enclosure widths ' + flagship.map(r => r.width.toExponential(1)).join(' and ') + ' — machine precision.' },

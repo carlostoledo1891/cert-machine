@@ -48,6 +48,18 @@ const rmPrinted = rm.counts.certified - 1, rmSurvive = rm.counts.hits - 1;
 const e852 = ledger.families.find((f) => f.name === 'erdos852-constants');
 if (!e852 || e852.counts.rejects !== 1) fail('erdos852 counts moved');
 
+/* the AI-audit flagships and the eval, gated like everything else */
+if (!ledger.conjectures.some((c) => c.family === 'strassen-audit' && c.key === 'mm|alphaevolve-48-4x4x4'))
+  fail('the AlphaEvolve rank-48 row is missing from the ledger');
+if (!ledger.conjectures.some((c) => c.family === 'strassen-audit' && c.key === 'mm|alphatensor-f2-4x4x4'))
+  fail('the AlphaTensor rank-47 F2 row is missing from the ledger');
+const evalRows = fs.readFileSync(path.join(ROOT, 'certs', 'matmul-eval-ledger.jsonl'), 'utf8')
+  .trim().split('\n').map((l) => JSON.parse(l));
+const evalReal = evalRows.filter((r) => r.model !== 'fake');
+if (!evalReal.length) fail('the eval ledger holds no real-model rows — the landing story assumes a live board');
+const evalCert = evalReal.filter((r) => r.outcome === 'certified').length;
+const evalRefuted = evalReal.filter((r) => r.outcome === 'refuted').length;
+
 const census16 = JSON.parse(fs.readFileSync(path.join(ROOT, 'census-high-periods.json'), 'utf8')).find((r) => r.p === 16);
 if (!census16 || !census16.ok || !census16.recheck.ok || census16.points !== 1696) fail('the period-16 census record moved');
 
@@ -65,34 +77,66 @@ const B = [];
 B.push(C.header({
   eyebrow: 'Carlos Toledo · cert-machine',
   title: 'The conjecture engine',
-  deck: 'Verification layers under which AI-scale mathematical search produces only certified output — and certified audits of published AI-generated mathematics. Screens may prune; only exact arithmetic admits. A REFUTED here is proved.'
+  deck: 'AI verification infrastructure: verification layers under which AI-scale mathematical search produces '
+    + 'only certified output — reward signals that cannot be hacked — and certified audits of published '
+    + 'AI-generated mathematics. Screens may prune; only exact arithmetic admits. A REFUTED here is proved.'
 }));
 
 B.push(C.stats([
+  { k: 'published claims', v: '1 refuted · 1 corrected', role: 'warn', n: 'Erdős #852 C* refuted at digit 12 · one RM printed row corrected (a transcription slip) — both replacements certified' },
+  { k: 'AlphaEvolve rank-48', v: 'CERTIFIED', role: 'held', n: 'the ⟨4,4,4⟩ decomposition verified over Z[i] from pinned sources · AlphaTensor\'s rank-47: verified over F2, REFUTED over Q' },
+  { k: 'model proposals graded', v: fmt(evalReal.length), n: evalCert + ' certified — each an exact theorem · ' + evalRefuted + ' subtly wrong'
+      + (evalRefuted === 0 ? ' — the reward channel has never paid out on a false claim' : '') },
   { k: 'closed forms refuted', v: fmt(T.closedFormRefuted + T.closedFormRefutedExact), role: 'held', n: 'every one exact; zero discoveries claimed' },
-  { k: 'certified objects', v: fmt(T.certified), n: 'of ' + fmt(T.generated) + ' generated across 11 families' },
-  { k: 'period-16 Hénon points', v: 'EXACTLY ' + fmt(census16.points), role: 'held', n: fmt(census16.boxes) + ' boxes exhausted, recheck clean' },
-  { k: 'mu(5) bracket', v: '≤ 1 + π/' + topM, role: 'held', n: '= ' + (1 + Math.PI / topM).toFixed(6) + ' — certified on a 1983→1992→2019→here lineage' },
   { k: 'Ramanujan Machine rows', v: rmPrinted + ' printed rows', n: rmSurvive + ' survive · 1 refuted as printed, its correction certified' },
-  { k: 'published claims', v: '1 refuted · 1 corrected', role: 'warn', n: 'Erdős #852 C* refuted at digit 12 · one RM printed row corrected (a transcription slip) — both replacements certified' }
+  { k: 'period-16 Hénon points', v: 'EXACTLY ' + fmt(census16.points), role: 'held', n: fmt(census16.boxes) + ' boxes exhausted, recheck clean — the instruments\' proving ground' }
 ]));
 
 B.push(C.section({
-  lab: 'the three lanes', title: 'What almost nobody else publishes',
+  lab: 'the three products', title: 'What this is',
   bodyRaw: [
-    C.p('Proved negatives at scale. ' + fmt(T.closedFormTested) + ' candidate closed forms tested against certified '
-      + 'enclosures; ' + fmt(T.closedFormRefuted + T.closedFormRefutedExact) + ' refuted, each refutation a proof. '
-      + 'Twenty-one published OEIS constants fall in exact BigInt arithmetic at their full published precision — one '
-      + 'impersonates 1/5 for 62 significant digits before the exact arithmetic separates them.'),
-    C.p('Completeness certificates for non-SAT numerics. Not "we found ' + fmt(census16.points) + ' period-16 points of the '
-      + 'Hénon map" but "there are EXACTLY ' + fmt(census16.points) + ', and nothing else anywhere in the plane" — 452 census '
-      + 'theorems across two maps, each an exhaustion from a certified a priori bound, plus a certified lower bound on '
-      + 'topological entropy.'),
     C.p('Certified audits of published AI-generated mathematics. The GPT-published constant on Erdős #852, refuted at its '
       + '12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — corrected value certified '
       + 'to width 3.2e-16. All ' + rmPrinted + ' printed rows of the Ramanujan Machine\'s seven result sheets decided: '
-      + rmSurvive + ' survive an unconditional audit; one printed row is refuted exactly (a sign slip in the published '
-      + 'constant), its correction certified on the same enclosure.')
+      + rmSurvive + ' survive an unconditional audit; one printed row is refuted exactly, its correction certified on the '
+      + 'same enclosure. AlphaEvolve\'s rank-48 ⟨4,4,4⟩ decomposition: CERTIFIED over Z[i]. AlphaTensor\'s rank-47: '
+      + 'verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2.'),
+    C.p('Evaluation whose ground truth is a proof. Frontier models propose exact tensor decompositions; the grader '
+      + 're-derives every claim from the witness in exact rational arithmetic — no judge, no rubric, and no answer key '
+      + 'to contaminate. A reference value computed in float puts its failure class inside the answer key; here the '
+      + 'reference is not a value at all. ' + fmt(evalReal.length) + ' model proposals graded so far, every certified '
+      + 'row a theorem, every refuted row a proof of error.'),
+    C.p('A verified reward channel. The same harness is a reward oracle for mathematical search under which reward '
+      + 'hacking is excluded by construction, not by monitoring — false positives are provably impossible, and an '
+      + 'instrument that cannot decide refuses rather than pays. Stated as engineering below.'),
+    C.p('And the proving ground the verifiers earned their trust on: ' + fmt(T.closedFormTested) + ' candidate closed '
+      + 'forms tested against certified enclosures, ' + fmt(T.closedFormRefuted + T.closedFormRefutedExact) + ' refuted '
+      + '— each refutation a proof, zero discoveries claimed. Completeness censuses ("there are EXACTLY '
+      + fmt(census16.points) + ' period-16 Hénon points, and nothing else anywhere in the plane"), certified extremal '
+      + 'tables, a certified entropy bound. The instruments were calibrated on hard classical ground — reproducing '
+      + 'Galias\'s censuses, Goddard\'s boxes, Apéry\'s row — before they were pointed at anything a model produced.')
+  ].join('\n')
+}));
+
+B.push(C.section({
+  lab: 'verified reward', title: 'A reward channel that cannot be hacked',
+  bodyRaw: [
+    C.p('The engine\'s one load-bearing invariant — a float screen may only PRUNE, never admit; every admission '
+      + 'passes exact arithmetic; REFUSED earns nothing — is precisely the property a verified-reward signal needs: '
+      + 'there is no gap between "graded correct" and "is correct" for a policy to exploit. A proposal either IS an '
+      + 'exact certificate or it is not, and both directions of the verdict are theorems.'),
+    C.p('That property is measured, not asserted. Every campaign begins with red controls — deliberate forgeries, '
+      + 'including one whose coefficient is off by 1e-9, invisible to any float screen — and a single control '
+      + 'certifying ABORTS the run: the oracle proves its refusal path fires before it grades anything. Across every '
+      + 'real-model campaign to date (' + fmt(evalReal.length) + ' proposals), ' + (evalRefuted === 0
+        ? 'no false proposal has ever certified and no certified row has ever been wrong — the channel has never paid '
+        + 'out on a false claim.'
+        : evalRefuted + ' well-formed proposals were refuted exactly; none certified.')),
+    C.p('The scope is stated as honestly as the property: this holds for claims that reduce to finitely many exact '
+      + 'arithmetic facts — exhibit-a-witness tasks, identities, enclosures — not for mathematics at large. Inside '
+      + 'that domain, the harness that evaluates a model can sit unchanged inside a training loop: reinforcement '
+      + 'learning on certified rewards, with the verifier strictly stronger than the proposer. That is the '
+      + 'verification half of scalable oversight, running, on the one domain where it is currently possible.')
   ].join('\n')
 }));
 
@@ -103,59 +147,63 @@ B.push(C.section({
    card. The build refuses if the shelf and reports/ on disk disagree, so a
    new report cannot ship uncatalogued. */
 const REPORTS = [
-  { f: 'matmul-eval.html', k: 'the eval · live board',
+  /* group 'ai': the AI-verification shelf — the audience-facing work */
+  { g: 'ai', f: 'matmul-eval.html', k: 'the eval · live board',
     title: 'The matmul eval: ground truth is a proof',
-    desc: 'Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric — a proof either exists or it does not.',
-    n: 'first board live · zero subtly-wrong survivors' },
-  { f: 'methods-note.html', k: 'methods note',
-    title: 'None by reading code',
-    desc: 'Every real bug this machine has found — ten, cataloged — was caught by a red control, a calibration, an impossible number, or a byte pin. The discipline stated as engineering, with living gates.',
-    n: 'every regression re-held by a battery at build' },
-  { f: 'erdos852.html', k: 'audit · refutation',
+    desc: 'Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.',
+    n: fmt(evalReal.length) + ' proposals graded · zero subtly-wrong survivors' },
+  { g: 'ai', f: 'erdos852.html', k: 'audit · refutation',
     title: 'The constant that was a rounding error',
-    desc: 'A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction.',
+    desc: 'A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.',
     n: 'refuted at digit 12 · correction certified' },
-  { f: 'rm-audit.html', k: 'audit · standing registry',
+  { g: 'ai', f: 'methods-note.html', k: 'methods note',
+    title: 'None by reading code',
+    desc: 'Every real bug this machine has found — ten, cataloged — was caught by a red control, a calibration, an impossible number, or a byte pin. How to build verifiers that catch their own defects, stated as engineering.',
+    n: 'every regression re-held by a battery at build' },
+  { g: 'ai', f: 'rm-audit.html', k: 'audit · standing registry',
     title: 'The Ramanujan Machine, audited',
     desc: 'Every row of all seven published result sheets decided by rigorous enclosures and exact rational comparisons — the whole registry re-certified at every build.',
     n: rmPrinted + ' printed rows · ' + rmSurvive + ' survive · 1 refuted, correction certified' },
-  { f: 'mercer-program.html', k: 'program · certified landscape',
-    title: 'The Mercer program',
-    desc: 'Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.',
-    n: 'mu(5) ≤ 1 + π/' + topM + ' · re-certified every build' },
-  { f: 'erdos290.html', k: 'erdős #290 · theorem',
-    title: 'Erdős #290: the 4k(k+1) theorem',
-    desc: 'The square-discriminant law proved and re-proved as exact integer identities during the build, the enclosure sweep deepened past the cited page, the exceptional degree closed.',
-    n: 'planted falsifiers must fire at build' },
-  { f: 'impostors.html', k: 'proved negatives',
+  { g: 'ai', f: 'impostors.html', k: 'proved negatives',
     title: 'The impostor catalog',
-    desc: 'Published constants that agree with simple closed forms for dozens of significant digits — and exact proofs that every one of them is lying. Digit agreement is not evidence.',
+    desc: 'Published constants that agree with simple closed forms for dozens of significant digits — and exact proofs that every one of them is lying. Digit agreement is not evidence: the answer-key-contamination parable.',
     n: 'exact BigInt refutations at full published precision' },
-  { f: 'zeta3-audit.html', k: 'audit · ζ(3) sheet',
-    title: 'The ζ(3) sheet, decided',
-    desc: 'The Ramanujan Machine’s complete zeta(3) result sheet re-decided with certificates: proved tail bands, convergence inside the certificate, exact rational comparisons.',
-    n: 'the spurious-solution lemma re-proved at build' },
-  { f: 'entropy.html', k: 'certified invariant',
-    title: 'Entropy, with a certificate',
-    desc: 'A certified lower bound on the topological entropy of the classical Hénon map — covering relations composed to an exact integer spectral argument, calibrated at the full horseshoe.',
-    n: 'h_top ≥ 0.3017, a theorem' },
-  { f: 'verify-lemniscate.html', k: 'erdős #1038 · verification',
-    title: 'Erdős #1038: thirty decimals verified',
-    desc: 'The computational fragment of the Darvas–Peng–Tao manuscript re-verified by an independent route — Krawczyk rather than bisection — with the 30th digit read correctly.',
-    n: 'filed on the claiming authors’ repository' },
-  { f: 'alien-science.html', k: 'eval note · alignment sandbox',
+  { g: 'ai', f: 'alien-science.html', k: 'eval note · alignment sandbox',
     title: 'Alien science needs a disposition',
     desc: 'An evaluation note on Anthropic’s automated-alignment sandbox: its authors name evaluation as the binding constraint, and this is what certified evaluation looks like.',
     n: 'posted to the inviting repository' },
-  { f: 'mfg-congest.html', k: 'validated numerics',
+  { g: 'ai', f: 'zeta3-audit.html', k: 'audit · ζ(3) sheet',
+    title: 'The ζ(3) sheet, decided',
+    desc: 'The Ramanujan Machine’s complete zeta(3) result sheet re-decided with certificates: proved tail bands, convergence inside the certificate, exact rational comparisons.',
+    n: 'the spurious-solution lemma re-proved at build' },
+  /* group 'ground': the instruments, proven on hard classical ground */
+  { g: 'ground', f: 'mercer-program.html', k: 'program · certified landscape',
+    title: 'The Mercer program',
+    desc: 'Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.',
+    n: 'mu(5) ≤ 1 + π/' + topM + ' · re-certified every build' },
+  { g: 'ground', f: 'erdos290.html', k: 'erdős #290 · theorem',
+    title: 'Erdős #290: the 4k(k+1) theorem',
+    desc: 'The square-discriminant law proved and re-proved as exact integer identities during the build, the enclosure sweep deepened past the cited page, the exceptional degree closed.',
+    n: 'planted falsifiers must fire at build' },
+  { g: 'ground', f: 'entropy.html', k: 'certified invariant',
+    title: 'Entropy, with a certificate',
+    desc: 'A certified lower bound on the topological entropy of the classical Hénon map — covering relations composed to an exact integer spectral argument, calibrated at the full horseshoe.',
+    n: 'h_top ≥ 0.3017, a theorem' },
+  { g: 'ground', f: 'verify-lemniscate.html', k: 'erdős #1038 · verification',
+    title: 'Erdős #1038: thirty decimals verified',
+    desc: 'The computational fragment of the Darvas–Peng–Tao manuscript re-verified by an independent route — Krawczyk rather than bisection — with the 30th digit read correctly.',
+    n: 'filed on the claiming authors’ repository' },
+  { g: 'ground', f: 'mfg-congest.html', k: 'validated numerics',
     title: 'A congestion mean-field game, enclosed',
     desc: 'An equilibrium of a mean-field game with congestion enclosed by validated numerics: an exact solution within an explicit radius, locally unique in the full sequence space.',
     n: 'embedded verifier re-run at build' },
-  { f: 'wardrop-repro.html', k: 'certified reproduction',
+  { g: 'ground', f: 'wardrop-repro.html', k: 'certified reproduction',
     title: 'Wardrop, certified: exact, enclosed, refused',
     desc: 'The multi-population Wardrop equilibria of a published paper reproduced with certificates — exact where possible, enclosed where not, and refused where honesty demands it.',
     n: 'embedded verifier re-run at build' }
 ];
+const AI_REPORTS = REPORTS.filter((r) => r.g === 'ai');
+const GROUND_REPORTS = REPORTS.filter((r) => r.g === 'ground');
 {
   const onDisk = fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => f.endsWith('.html')).sort();
   const shelf = REPORTS.map((r) => r.f).sort();
@@ -207,10 +255,11 @@ B.push(C.section({
 B.push(C.section({
   lab: 'the reports', title: 'Research notes that re-prove themselves', wide: true,
   bodyRaw: '<div id="reports"></div>'
-    + reportCards(REPORTS.slice(0, 6), 'reports/')
+    + reportCards(AI_REPORTS.slice(0, 6), 'reports/')
     + '<div class="col after-fig">'
-    + C.pRaw('<a href="reports/">All ' + REPORTS.length + ' reports →</a> — every number on every page is '
-      + 'recomputed from the certificates and records at build time, and a build that drifts refuses to ship.')
+    + C.pRaw('<a href="reports/">All ' + REPORTS.length + ' reports →</a> — including the classical-ground shelf '
+      + 'the instruments were proven on. Every number on every page is recomputed from the certificates and '
+      + 'records at build time, and a build that drifts refuses to ship.')
     + '</div>'
 }));
 
@@ -275,7 +324,19 @@ const reportsIndexBody = [
       + 'from the certificates and records at build time, its planted falsifiers must fire, and a build that '
       + 'drifts refuses to ship.'
   }),
-  '<section>' + reportCards(REPORTS, '') + '</section>'
+  C.section({
+    lab: 'the shelf', title: 'AI verification', wide: true,
+    bodyRaw: reportCards(AI_REPORTS, '')
+  }),
+  C.section({
+    lab: 'the proving ground', title: 'The instruments, proven on hard classical ground', wide: true,
+    bodyRaw: reportCards(GROUND_REPORTS, '')
+      + '<div class="col after-fig">'
+      + C.pRaw('These are where the verifiers earned calibration before deciding anything a model produced: '
+        + 'censuses reproducing Galias\'s published counts, boxes re-closing Goddard\'s, ladders anchored on '
+        + 'Apéry. The audits above stand on this ground.')
+      + '</div>'
+  })
 ].join('\n\n');
 const reportsIndexFoot = '<footer class="col"><p>Generated by tools/build-site.js @ git ' + git + '. '
   + 'MIT. <a href="' + GITHUB + '">Source</a>.</p></footer>';

@@ -1,10 +1,10 @@
-# The conjecture engine: a certification discipline for generated mathematics
+# The conjecture engine — AI verification infrastructure for machine-generated mathematics
 
 *Carlos Toledo · cert-machine · [carlostoledo.co](https://carlostoledo.co)*
 
 > I build verification layers under which AI-scale mathematical search
-> produces only certified output — and I audit published AI-generated
-> mathematics.
+> produces only certified output — reward signals that cannot be hacked —
+> and I audit published AI-generated mathematics.
 
 ```
 make engine    generate → screen → certify; writes ledger.json
@@ -33,19 +33,9 @@ three finish in about a second.
 
 ## What the machine holds
 
-Three lanes almost nobody publishes in:
+Three products for the AI-mathematics era, standing on classical proving
+ground:
 
-- **Proved negatives at scale.** 54.6 million candidate closed forms tested
-  against certified enclosures; every refutation is a proof, and zero
-  discoveries are claimed. Twenty-one published OEIS constants are refuted as
-  impostors in exact BigInt arithmetic at their full published precision —
-  one impersonates 1/5 for 62 significant digits before the exact arithmetic
-  separates them.
-- **Completeness certificates for non-SAT numerics.** Not "we found 1,696
-  period-16 points of the Hénon map" but "there are EXACTLY 1,696, and
-  nothing else anywhere in the plane" — 452 census theorems across two maps,
-  each an exhaustion with a certified a priori bound, plus a certified lower
-  bound on topological entropy.
 - **Certified audits of published AI-generated mathematics.** The
   GPT-published constant on Erdős #852, refuted at its 12th significant digit
   and shown to *be* the naive IEEE-754 float product, digit for digit — with
@@ -53,6 +43,32 @@ Three lanes almost nobody publishes in:
   Ramanujan Machine's seven result sheets decided: 50 survive an
   unconditional audit, and one printed row is refuted exactly (a sign slip in
   the published constant), its correction certified on the same enclosure.
+  AlphaEvolve's rank-48 ⟨4,4,4⟩ decomposition: certified over Z[i].
+  AlphaTensor's rank-47: verified over F2 and refuted over Q — the speedup
+  provably requires characteristic 2.
+- **Evaluation whose ground truth is a proof.** Frontier models propose exact
+  rank-R matmul tensor decompositions; the grader re-derives every claim from
+  the witness alone in stdlib Fractions — no judge, no rubric, and no answer
+  key to contaminate. Every certified row is a theorem, every refuted row a
+  proof of error, and a false positive is provably false
+  (`reports/matmul-eval.html`, ledger `certs/matmul-eval-ledger.jsonl`).
+- **A verified reward channel.** The same harness is a reward oracle under
+  which reward hacking is excluded by construction rather than by monitoring:
+  float screens may only prune, only exact arithmetic admits, and REFUSED
+  earns nothing. Red controls — including a coefficient off by 1e-9,
+  invisible to any float screen — must be refuted exactly before a campaign
+  grades anything, and a certifying control aborts the run. Across every
+  real-model campaign to date, no false proposal has ever certified.
+- **The proving ground.** 54.6 million candidate closed forms tested against
+  certified enclosures, every refutation a proof, zero discoveries claimed —
+  including twenty-one published OEIS constants refuted as impostors at their
+  full published precision (one impersonates 1/5 for 62 significant digits).
+  Completeness certificates for non-SAT numerics: not "we found 1,696
+  period-16 points of the Hénon map" but "there are EXACTLY 1,696, and
+  nothing else anywhere in the plane" — 452 census theorems across two maps,
+  plus a certified lower bound on topological entropy. The instruments were
+  calibrated on hard classical ground — Galias's censuses, Goddard's boxes,
+  Apéry's row — before they decided anything a model produced.
 
 Plus the extremal tables: the first certified mu(n) rows for n = 10..17, an
 18-row lambda table with five first-ever entries, mu(5) ≤ 1 + π/20 certified
@@ -220,15 +236,21 @@ modulus — pending independent verification of the instrument. They are not cla
 of novelty, and several are certainly known. The value of the engine is not any
 row in its tables; it is that every row means exactly one thing.
 
-## Where it goes
+## Verified reward, running
 
-The `sos · re-verify AI result` battery already does the thing this engine is for:
-take a claim produced by a system that cannot be trusted, and decide it. The
-natural next step is to make that the primary mode — a model proposes, the machine
-certifies, and the ledger records how often the proposals were true. That is an
-evaluation with a proof for ground truth. The companion harness
-(`tools/llm-harness.py`) is a first cut at it: stdlib only, Fractions for every
-decision, and it aborts if a deliberately false proposal is ever certified.
+The mode this engine was built toward is live: a model proposes, the machine
+certifies, and the append-only ledger records per-model certified truth rates
+— an evaluation with a proof for ground truth (`tools/llm-harness.py`,
+`reports/matmul-eval.html`). The same properties that make the eval honest
+make the harness a **verified reward oracle**: false positives are provably
+impossible, refusal earns nothing, and the red controls abort any run whose
+grader is broken. Inside its domain — claims that reduce to finitely many
+exact arithmetic facts — it can sit unchanged in a training loop:
+reinforcement learning on certified rewards, with reward hacking excluded by
+construction rather than by monitoring, and the verifier strictly stronger
+than the proposer. The boundary is stated as plainly as the property: this is
+not a general mathematics oracle, and an instrument that cannot decide
+REFUSES rather than guesses.
 
 ## Defects, found and fixed
 

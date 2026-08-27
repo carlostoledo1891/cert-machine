@@ -140,6 +140,17 @@ B.push(C.header({
     + 'This page is the status registry: every verdict on it was re-certified during the build that produced it.'
 }));
 
+B.push(C.tldr({
+  findingRaw: 'All 51 printed rows of the Ramanujan Machine\'s seven result sheets decided: 50 survive an '
+    + 'unconditional audit; one is false as printed — a sign slip, one of three typographic errors on the 2022 '
+    + 'sheet — and its correction is certified on the same enclosure.',
+  mechanismRaw: 'Each continued fraction is enclosed by a proved tail band with convergence inside the '
+    + 'certificate; constants are bracketed from their defining series; the final comparison is exact rational '
+    + 'arithmetic against hash-pinned sheet bytes. The Machine matches truncated decimals; this decides.',
+  checkRaw: C.m('node instruments/cf/battery.js') + ' from a clone — the whole corpus re-certifies, ten red '
+    + 'controls must fire, and this page refuses to build on any deviation.'
+}));
+
 B.push(C.stats([
   { k: 'printed rows decided', v: '51', n: 'all seven published sheets, complete — plus our certified correction, counted separately' },
   { k: 'survive', v: '50', role: 'held', n: 'consistency certified to stated width; equality open, as it must be' },

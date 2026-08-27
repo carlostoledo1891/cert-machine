@@ -297,6 +297,41 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
 
+SESSION 2026-08-27 LATER (narrative transformation — operator ruling after
+the "is my portfolio sexy" brainstorm; report chase NOT started, next on
+the operator's word):
+  - IDENTITY FLIP: the site is an AI-VERIFICATION portfolio. Landing deck
+    and README positioning gained the reward clause ("— reward signals that
+    cannot be hacked —"). "The three lanes" became THE THREE PRODUCTS:
+    certified audits of AI-generated math (first), evals whose ground truth
+    is a proof, a verified reward channel — with the classical math demoted
+    to "the proving ground" paragraph and the reports index split into two
+    shelves (AI verification / the instruments, proven on hard ground).
+  - RLVR SECTION on the landing ("A reward channel that cannot be hacked"):
+    the prune-only invariant = no gap between graded-correct and is-correct;
+    red controls prove the refusal path per campaign; measured "never paid
+    out on a false claim" line computed from the eval ledger at build (with
+    an honest branch if a refuted row ever appears); scope stated (finitely
+    many exact arithmetic facts; REFUSES otherwise). One scalable-oversight
+    sentence, no manifesto. README's "Where it goes" rewritten as "Verified
+    reward, running".
+  - ALPHAEVOLVE ABOVE THE FOLD: landing stat "AlphaEvolve rank-48 CERTIFIED
+    (Z[i]) · AlphaTensor rank-47 verified over F2, REFUTED over Q", gated on
+    the ledger rows (mm|alphaevolve-48-4x4x4, mm|alphatensor-f2-4x4x4). New
+    landing stats also: model proposals graded (computed from
+    certs/matmul-eval-ledger.jsonl at build; gate refuses an empty board).
+  - TL;DR BLOCKS: new design component C.tldr (finding / mechanism / check
+    it — DESIGN.md row added); ALL 13 reports carry one under the header,
+    each with the audience hook in the audience's vocabulary (answer-key
+    contamination on impostors/erdos852, reward oracle on matmul-eval,
+    verifier engineering on methods-note).
+  - NEXT (the report chase, ranked, awaiting the operator's word):
+    (1) AlphaEvolve/AlphaTensor certified-audit page; (2) eval v2 —
+    recall-proof rungs (permuted/rescaled tensors, ±1-restricted <2,2,2>,
+    open <3,3,3> r22 target) + the rank-6 honesty probe (campaigns = spend);
+    (3) verifier-in-the-loop demo report; (4) answer-key-contamination note
+    stitched from erdos852 §6 + impostors.
+
 SESSION 2026-08-27 (review-fix pass — an outside review's defects, all fixed):
   - COUNTS DEFLATED TO TRUTH, everywhere: RM audit is "51 printed rows, 50
     survive, 1 refuted as printed, correction certified" (the 52-row corpus =

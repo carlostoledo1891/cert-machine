@@ -136,6 +136,16 @@ O.push(C.header({
     + 'by a battery that executed during this build, and the build refuses if any goes red.'
 }));
 
+O.push(C.tldr({
+  findingRaw: 'Ten real bugs, zero found by reading code: every one was caught by a red control, a calibration, '
+    + 'an impossible number, or a byte pin. Verifier engineering — not code review — is what actually catches '
+    + 'defects, in this machine and in any evaluation pipeline built on computed ground truth.',
+  mechanismRaw: 'A check that has never gone red is decorative, so every battery carries deliberate forgeries '
+    + 'that must fire; every instrument reproduces a known answer before deciding anything new; and every gate '
+    + 'cited on this page executed during the build that produced it.',
+  checkRaw: C.m('make test') + ' from a clone — every battery, every red control required to fire.'
+}));
+
 O.push(C.stats([
   { k: 'bugs cataloged', v: String(BUGS.length), n: 'real defects with named catches and living gates' },
   { k: 'found by reading code', v: '0', role: 'held', n: 'the null result the whole method predicts' },

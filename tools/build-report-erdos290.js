@@ -142,6 +142,16 @@ O.push(C.header({
     + 'TIGHTENED by running the same lifted instrument past the old horizon.'
 }));
 
+O.push(C.tldr({
+  findingRaw: 'The 4k(k+1) square-discriminant law proved as exact integer identities, the #290 constant\'s '
+    + 'bracket tightened a third past the cited page, and the exceptional-degree question closed through l ≤ 90.',
+  mechanismRaw: 'Closed-form Galois class sums from the cycle-index EGF replace a 38.9-million-object '
+    + 'enumeration (proved equal to it on every degree both can reach); planted falsifiers must fire at every '
+    + 'build.',
+  checkRaw: C.m('node tools/erdos290-lean-battery.js') + ' — closed forms equal enumeration exactly for l ≤ 12, '
+    + 'the broken-EGF red control must fire.'
+}));
+
 O.push(C.stats([
   { k: 'the 4k(k+1) law', v: 'RE-PROVED', role: 'held', n: 'exact integer identities; ' + falsifiers + ' planted falsifiers fired during this build' },
   { k: 'cited bracket (K=60)', v: '[' + B60.lo.toFixed(9) + ', ' + B60.hi.toFixed(9) + ']', sm: true, n: 'reproduced byte-identically from the lifted narrowing pipeline' },

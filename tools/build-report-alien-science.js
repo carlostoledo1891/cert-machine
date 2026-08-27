@@ -52,6 +52,16 @@ O.push(C.header({
     + 'Both verdicts were re-derived from the shipped pack during this build.'
 }));
 
+O.push(C.tldr({
+  findingRaw: 'A capability score and a machine-checked disposition DISAGREE about the same artifact: the clean '
+    + 'fragment is CERTIFIED at exact Bayes residual 0, while a planted mutant carrying the same reported score '
+    + 'is REFUSED by the same checker. Scores rate; dispositions decide.',
+  mechanismRaw: 'The exhibit ships as a pack with its own stdlib-Python kernel; both verdicts were re-derived '
+    + 'from the shipped bytes during this build, not quoted from a run that happened once.',
+  checkRaw: 'download the pack linked on this page and run its kernel — Python standard library, no '
+    + 'dependencies, seconds.'
+}));
+
 O.push(C.stats([
   { k: 'the clean fragment', v: 'CERTIFIED', role: 'held', n: 'exact Bayes residual 0 — re-derived this build from the shipped pack, stdlib Python' },
   { k: 'the planted mutant', v: 'REFUSED', role: 'warn', n: 'same reported score (nobody scored the mutant), same checker, residual 1/10 ≠ 0 — re-derived this build' },

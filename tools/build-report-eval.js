@@ -74,6 +74,17 @@ O.push(C.header({
     + 'already produced a famous discovery.'
 }));
 
+O.push(C.tldr({
+  findingRaw: 'Across every real-model campaign, zero certified rows are wrong and zero float-screen survivors '
+    + 'were subtly false — frontier failures are malformed or rejected, never almost-right. Grading is a proof, '
+    + 'so the leaderboard is a theorem count, and the same harness is a reward oracle that cannot be hacked.',
+  mechanismRaw: 'A proposed rank-R decomposition either satisfies the full tensor identity in exact rational '
+    + 'arithmetic or it does not; red controls — including a coefficient off by 1e-9, invisible to any float '
+    + 'screen — must be refuted exactly before a campaign grades anything, and a certifying control aborts it.',
+  checkRaw: C.m('python3 tools/llm-harness.py --dry-run --family matmul --n 8') + ' — the calibration this page '
+    + 're-ran as its own gate before rendering.'
+}));
+
 O.push(C.stats([
   { k: 'grading', v: 'CERTIFICATE', role: 'held', n: 'exact tensor identity over Fractions — always decidable, never an opinion' },
   { k: 'false positives', v: 'PROVABLY 0', role: 'held', n: 'a wrong decomposition cannot certify; the red controls prove the refusal path fires every run' },

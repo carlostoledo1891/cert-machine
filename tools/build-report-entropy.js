@@ -58,6 +58,16 @@ B.push(C.header({
     + 'was built — and the certified cycle counts that name the ceiling it is climbing toward.'
 }));
 
+B.push(C.tldr({
+  findingRaw: 'h_top(Hénon, a = 1.4, b = 0.3) ≥ ' + cert.hLB.toFixed(4) + ' is a theorem — covering relations '
+    + 'composed to an exact integer spectral bound, re-proved during this build.',
+  mechanismRaw: 'Every covering relation is a strict outward-rounded interval inequality; the census\'s certified '
+    + 'cycle counts name the ceiling the bound climbs toward, and the instrument first reproduces ln 2 at the '
+    + 'full horseshoe before any new bound counts.',
+  checkRaw: C.m('node instruments/entropy/battery.js') + ' — the ln 2 calibration and four red controls run '
+    + 'first.'
+}));
+
 B.push(C.stats([
   { k: 'certified lower bound', v: cert.hLB.toFixed(4), role: 'held', n: 'h_top ≥ ln sp(B_K)/' + cert.composedTo + ' from ' + cert.edges.length + ' covering relations over ' + cert.boxes.length + ' disjoint h-sets, re-proved this build.' },
   { k: 'the census ceiling', v: ceiling.toFixed(4), n: 'max ln(N_p)/p over the certified counts — the rate the literature pins at ≈ 0.4651.' },

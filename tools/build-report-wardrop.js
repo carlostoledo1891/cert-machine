@@ -55,6 +55,17 @@ O.push(C.header({
     + 'published page; it was extracted and re-run during this build.'
 }));
 
+O.push(C.tldr({
+  findingRaw: 'The multi-population Wardrop equilibria of a published paper reproduced with certificates: exact '
+    + 'where possible (the Wardrop gap EXACTLY 0, not a small residual), enclosed where not, and REFUSED where '
+    + 'the instance supports no certificate.',
+  mechanismRaw: 'The paper validates by watching a globally convergent flow settle; a stopping rule cannot '
+    + 'certify uniqueness or positivity — the added certificates do, and one erratum in the paper\'s data is '
+    + 'documented on the page.',
+  checkRaw: 'the embedded verifier (' + C.m('reports/verify_wardrop.py') + ') re-ran during this build; the '
+    + 'report refuses to render unless it verifies.'
+}));
+
 O.push(C.stats([
   { k: 'S2 · affine costs', v: 'EXACT', role: 'held', n: 'the exact rational equilibrium, 38 unknowns; Wardrop gap EXACTLY 0 — not a small residual' },
   { k: 'S3 · nonlinear costs', v: 'KRAWCZYK', role: 'held', n: 'exactly one KKT zero in a box of radius ' + box + ' — existence AND local uniqueness' },

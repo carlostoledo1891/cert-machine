@@ -56,6 +56,16 @@ O.push(C.header({
     + 'bytes and re-run during this build, and this report refuses to render unless it says VERIFIED.'
 }));
 
+O.push(C.tldr({
+  findingRaw: 'An equilibrium of a congestion mean-field game enclosed by validated numerics: an exact solution '
+    + 'provably within an explicit radius of the numerical candidate, locally unique in the full '
+    + 'sequence-space ball, density strictly positive.',
+  mechanismRaw: 'A contraction argument with every inequality in outward-rounded interval arithmetic — '
+    + 'positivity certified, not observed on a plot.',
+  checkRaw: 'the stdlib verifier extracted from this page\'s own published bytes re-ran during this build ('
+    + C.m('reports/verify_congest.py') + ' ships beside the page).'
+}));
+
 O.push(C.stats([
   { k: 'existence radius', v: 'r ≈ 7.75e−15', role: 'held', n: 'an exact solution lies within ' + RAD + ' of the candidate — re-proved this build' },
   { k: 'contraction', v: 'Z₁ = ' + Number(Z1).toFixed(4), role: 'held', n: '< 1 on even AND odd blocks (full-ball local uniqueness, Stage 2.2)' },

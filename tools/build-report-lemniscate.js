@@ -54,6 +54,16 @@ O.push(C.header({
     + mutations + ' mutation controls rejected, verdict CONFIRMED.'
 }));
 
+O.push(C.tldr({
+  findingRaw: 'All 30 printed decimals of the Darvas–Peng–Tao extremal constant verified by an independent '
+    + 'route — the 30th digit is a rounding, and it is read correctly.',
+  mechanismRaw: 'Existence AND local uniqueness of the defining zero by the interval Krawczyk operator — not '
+    + 'bisection, the manuscript\'s route — refined to width below 10⁻⁴⁰, then every printed expansion audited '
+    + 'digit by digit.',
+  checkRaw: 'the page\'s own verifier re-ran during this build: ' + passed + ' checks green, ' + mutations
+    + ' mutation controls rejected — and it is filed on the claiming authors\' repository.'
+}));
+
 O.push(C.stats([
   { k: 'checks, this build', v: passed + ' / ' + (passed + failed), role: 'held', n: 'the cited page\'s own verifier, re-run at build time; the build refuses on any failure' },
   { k: 'mutation controls', v: mutations + ' rejected', role: 'held', n: 'digit tamper, sign flip, box shift, constant perturbation — each must fail, and did' },

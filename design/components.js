@@ -122,6 +122,19 @@ function note({ lab, bodyRaw }) {
     + bodyRaw + '\n</div>';
 }
 
+/* The ten-second block under a report's header: the three lines a 90-second
+   reader needs — what was found, the mechanism, and how a stranger re-checks
+   it. Raw-suffixed fields because a check line is usually a command in m().
+   Wraps its own .col so it can sit between header and first section. */
+function tldr({ findingRaw, mechanismRaw, checkRaw }) {
+  return '<div class="col"><div class="note">\n  <span class="lab">tl;dr</span>\n'
+    + '<ul class="plain">'
+    + '<li><b>The finding.</b> ' + findingRaw + '</li>'
+    + '<li><b>The mechanism.</b> ' + mechanismRaw + '</li>'
+    + '<li><b>Check it.</b> ' + checkRaw + '</li>'
+    + '</ul>\n</div></div>';
+}
+
 function quote({ text, cite }) {
   return '<blockquote>' + esc(text)
     + (cite ? '<cite>' + esc(cite) + '</cite>' : '') + '</blockquote>';
@@ -329,7 +342,7 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
 
 module.exports = {
   esc, escAttr, m, tag, TAG_KINDS, categoryChart, legend,
-  nav, header, stats, scope, section, p, pRaw, pull, eq, code, note, quote,
+  nav, header, stats, scope, section, p, pRaw, pull, eq, code, note, tldr, quote,
   table, plainList, cards, figure, flow,
   svgOpen, svgClose, numberLine, band, vmark, label,
   tokens: T

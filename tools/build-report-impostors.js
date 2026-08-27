@@ -130,6 +130,16 @@ B.push(C.header({
     + 'each of these impersonations would pass any decimal screen ever used to announce a discovery.'
 }));
 
+B.push(C.tldr({
+  findingRaw: 'Twenty-one published constants agree with simple closed forms for up to 62 significant digits — '
+    + 'and every one is provably NOT that form. Digit agreement is not evidence; an answer key validated by '
+    + 'digit matching inherits exactly this failure class.',
+  mechanismRaw: 'One BigInt integer comparison per claim at the full published digit length — no floating point '
+    + 'anywhere — separates the impostor from the identity.',
+  checkRaw: C.m('node tools/test-engine.js') + ' — the engine battery pins A019762 as a permanent regression '
+    + 'control.'
+}));
+
 B.push(C.stats([
   { k: 'constants', v: String(catalog.length), n: 'Published OEIS decimal expansions, audited among ' + C.esc(String(corpusSize)) + ' — the only survivors of a 17-digit double screen.' },
   { k: 'impersonations refuted', v: '21', role: 'held', n: 'Every spelling decided by one BigInt integer comparison at the full published digit length.' },

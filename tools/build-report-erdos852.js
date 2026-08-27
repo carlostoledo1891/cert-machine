@@ -93,6 +93,18 @@ O.push(C.header({
     + 'own sheets and a note in §6 for people who build evaluations on mathematical ground truth.'
 }));
 
+O.push(C.tldr({
+  findingRaw: 'A GPT-published constant on Erdős #852 is wrong from its 12th significant digit, and the '
+    + 'published digits are EXACTLY what a naive IEEE-754 double product emits — the constant is the bug, '
+    + 'printed. The certified correction ships with the page.',
+  mechanismRaw: '87.5% of the Euler-product factors round to 1.0 in double precision and silently vanish; the '
+    + 'partial product in exact integers is already a strict lower bound above the printed value, no tail bound '
+    + 'needed. If a reference value in an eval answer key came from a float pipeline, this failure class lives '
+    + 'inside the key — §6 is addressed to evaluation builders.',
+  checkRaw: C.m('python3 verify/verify_erdos852.py certs/erdos852-certificate.json') + ' — stdlib Python, about '
+    + 'a second, and it must refute a forged value before it exits green.'
+}));
+
 O.push(C.stats([
   { k: 'c0 certified digits', v: '61', role: 'held', n: 'Unique positive root of I0(c) = 1, existence and uniqueness certified; the thread held an unverified decimal.' },
   { k: 'C* enclosure width', v: csenc.cert.extra.width.toExponential(1), role: 'held', n: csenc.cert.extra.primes.toLocaleString() + ' odd primes to ' + csenc.cert.extra.limit.toLocaleString() + ', tail multiplier proved.' },

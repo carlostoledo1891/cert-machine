@@ -87,6 +87,16 @@ O.push(C.header({
     + 'lineage Campbell–Ferguson–Forcade 1983 → Goddard 1992 → Mercer 2019 → here.'
 }));
 
+O.push(C.tldr({
+  findingRaw: 'mu(5) ≤ 1 + π/20 certified — fourteen rungs past the literature on a forty-year lineage — plus '
+    + 'the first certified mu(n) rows anywhere for n = 10..17, and M(0,1,2,6,9) = 1 EXACTLY, by Sturm.',
+  mechanismRaw: 'Exhaustive box sweeps with a conservation identity per box; every exceptional tuple closed by '
+    + 'one exact rational evaluation against an exact bar; the equality decided by a Sturm chain no floating '
+    + 'enclosure could ever reach.',
+  checkRaw: C.m('node instruments/trigmin/mercer6-battery.js') + ' — Mercer\'s own Tables 5–7 must reproduce '
+    + 'exactly before any new rung counts.'
+}));
+
 O.push(C.stats([
   { k: 'sets decided exactly', v: fmt(setsExhausted), role: 'held', n: 'across every mu and lambda box; each box carries a conservation identity that must close' },
   { k: 'mu rows certified', v: muRows.length + '', role: 'held', n: 'n = 9..17 at box 30, n = 10..12 at box 40 — all ' + champsReproved + ' champions re-certified during THIS build' },
