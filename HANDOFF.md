@@ -198,10 +198,23 @@ S6. THE METHODS NOTE — DONE (2026-08-26): reports/methods-note.html
     operator's-word outreach, undrafted). SIX batteries execute as the
     page's own gate; recomputable numbers recomputed, history quoted AS
     history. Ranked #2 on the shelf.
-S7. THE LEAN BRIDGE — BUILT 2026-08-26 (calibration rung green, reds
-    fire; the full-scale kernel run's final batch was in flight at
-    handoff — check lean/erdos852). Lean 4.33 + Mathlib project at
-    lean/erdos852. Design: a ten-line trial-division isPrime with a
+S7. THE LEAN BRIDGE — DEMONSTRATED AT FULL SCALE 2026-08-26/27:
+    check.sh 4/4 — the complete artifact builds green (all 33,859 primes
+    kernel-certified in 240 fine-grain modules, ascent, oddness, the
+    N_spec/D_spec product-spec theorems, THE inequality) and all three
+    forged variants are REJECTED by the kernel. reports/erdos852.html §8
+    now states the demonstrated state (the dated honesty sentence removed
+    by its own rule). Two performance walls were root-caused as CAUSES:
+    (1) isPrime in Bool primitives (Nat.blt/beq) — ite/Decidable chains
+    are kernel poison at scale; (2) NEVER evaluate a 33k-element fold in
+    one decide — the kernel cache held every growing bignum partial
+    (~8GB, 5%-CPU rehash churn); the fix is chunksP (240 chunk
+    REFERENCES) + two generic induction lemmas (all_flatten,
+    prod_map_flatten in Basic.lean) so proofs rewrite over references and
+    the kernel evaluates a TREE of chunk subproducts. Fine grain
+    (~140 primes/module) keeps every decide's cache small — measured
+    635s at 2,116 primes vs 4s at 141. Full build ~16 min on 8 workers.
+    Lean 4.33 + Mathlib project at lean/erdos852. Design: a ten-line trial-division isPrime with a
     machine-checked correctness THEOREM against Mathlib's Nat.Prime
     (Basic.lean), so the kernel evaluates the fast function and the
     33,859-prime list needs ZERO generator trust — an omission only
@@ -242,6 +255,23 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   verification infrastructure — the eval labs run, the registry that
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-26/27 LATE (post-restart continuation):
+  - S7 closed at full scale (see S7 above) — the finishing sequence ran on
+    the operator's word ("when finish, commit and push live"): committed
+    ac360e6, pushed, deploy verified live (§8 demonstrated-state text
+    confirmed on carlostoledo.co).
+  - UI PASS 2 (operator feedback, two agent passes): machine schematic is
+    VERTICAL-DENSE — original type sizes, 4-column self-sizing family
+    grid, full-width spine bands, 4-across instruments, 800x936 design
+    units at 1:1 on desktop (~0.49 scale on phones, accepted; pinch-zooms
+    cleanly). Tables/card grids inside prose sections BREAK OUT to the
+    centered 900px track (.col .wide breakout in template.js); figcaptions
+    span their figure's track. All 13 reports rebuilt on the new
+    stylesheet; verified by emulated screenshots 1440/390 light+dark and
+    a zero-body-overflow probe; make test 26/26, control 24/24, drift
+    clean. CDP screenshot/probe scripts (shot.mjs/probe.mjs) live in the
+    session scratchpad — rewrite from the DESIGN.md description if absent.
 
 SESSION 2026-08-26 (operator greenlit A-F in one word each), beyond the
 S6/S7 entries above:
