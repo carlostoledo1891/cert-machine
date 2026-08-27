@@ -18,6 +18,17 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
+ACTIVE NOW (operator-directed 2026-08-27): SKYAUDIT — apps/skyaudit, the
+first app: real urban helicopter traffic (NYC vs SP decided by corpus
+measurement) replayed Flightradar24-style and audited flight-by-flight
+against eVTOL specs + reserve rules via instruments/evtol, PLUS a
+deterministic simulated fleet (scenario packs, live certificates, re-fly-
+the-day fusion, fleet-size frontier). Full-viewport app-shell view (new
+design-system template variant). Spec: apps/skyaudit/APP.md; plan:
+apps/skyaudit/TODO.md; sourced research: apps/skyaudit/RESEARCH.md
+(visual stack + data source DECIDED; NYC fact-check in flight). Absorbs
+backlog items 4 (UAM audit) and 15 (EmbraerX play → city pack #2).
+
 AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
  1. LRCAP CERTIFIED AUCTION ARITHMETIC — PERISHABLE. Fetch ANEEL CP
     22/2026 edital drafts; exact-rational dominance thresholds (β=0.9
