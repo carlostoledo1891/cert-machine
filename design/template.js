@@ -81,6 +81,13 @@ body{margin:0;background:var(--paper);color:var(--ink);
 [id]{scroll-margin-top:76px}
 .col{max-width:${MEASURE.prose};margin-left:auto;margin-right:auto}
 .wide{max-width:${MEASURE.wide};margin-left:auto;margin-right:auto}
+/* A wide element (table, card grid, figure) emitted inside a prose column
+   breaks out to the page-wide track: .col and .page are both centered, so
+   centering on the viewport IS centering on the page. Width never exceeds
+   the viewport minus the page padding, so the body never scrolls sideways —
+   anything wider (a table) scrolls inside its own .tw container. */
+.col .wide{position:relative;left:50%;transform:translateX(-50%);
+  width:min(${MEASURE.wide},calc(100vw - 2*${SCALE.pagePadX}))}
 
 h1,h2,h3{font-family:${TYPE.display};font-weight:700;letter-spacing:-.018em;text-wrap:balance}
 h1{font-size:${SCALE.h1};line-height:1.0;margin:16px 0 0}
@@ -120,7 +127,7 @@ figure{margin:0}
 .figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
   padding:${SCALE.figPad};overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
-figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px;max-width:70ch}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 .figbox svg text{font-family:${TYPE.mono}}
 .t-ax{font-size:12px;fill:var(--ink-3)}
 .t-lab{font-size:13px;fill:var(--ink)}
@@ -198,6 +205,9 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
    whichever node is active. Without scripts the readout keeps its default text
    and hover still highlights — the figure degrades, it does not vanish. */
 .mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
 .mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
   border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
 .mach-ro .k{font-family:${TYPE.mono};font-size:11px;letter-spacing:.13em;text-transform:uppercase;

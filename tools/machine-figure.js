@@ -7,6 +7,16 @@
    builders call this function. Every count on a node is read off ledger.json
    at build time; nothing is typed in.
 
+   THE DRAWING IS VERTICAL AND DENSE, designed at 800 units wide so desktop
+   renders it near 1:1 (the template caps the rendered width at that same
+   800). Records fall down the page — the families in four columns,
+   ENUMERATE, SCREEN, the instrument row (four across, feeding CERTIFY
+   through the channel the record flow also drops through), CERTIFY, the
+   three outcomes, then the ledger, the closed-form hunt and its two endings,
+   the gates and the control page. The height is computed from the family
+   count, so a new family grows the drawing instead of falling off it (the
+   6th and 7th both did, silently, until looked at).
+
    machineFlow(ledger, { gates })
      gates: {green, ran} — the battery result of the control build. The
      control page passes its own live run; the landing reads batteries.json,
@@ -26,29 +36,61 @@ function machineFlow(ledger, { gates }) {
   const sum = (k) => F.reduce((t, f) => t + f.counts[k], 0);
   const screened = sum('screened'), hits = sum('hits'), rejects = sum('rejects'), refused = sum('refused');
 
-  /* the family column sizes itself: a new family must never fall off the
-     drawing again (the 6th and 7th both did, silently, until looked at) */
-  const famH = 40;
-  const famStep = F.length > 1 ? Math.min(62, Math.floor(320 / (F.length - 1))) : 0;
-  const famTop = Math.max(8, Math.round(188 - ((F.length - 1) * famStep + famH) / 2));
-  const famY = F.map((_, i) => famTop + i * famStep);
+  /* ---- geometry -------------------------------------------------------- */
+  const W = 800;                                   /* design width */
+  /* the family grid: FOUR columns, filled row-major, self-sizing in rows —
+     the 12th family wraps to a fourth row and pushes everything below down */
+  const nCol = 4, colW = 188, famH = 46, famStep = 54, famTop = 10;
+  const colX = [0, 1, 2, 3].map((c) => 8 + c * (colW + 8));
+  const colMid = colX.map((x) => x + colW / 2);
+  const famY = F.map((_, i) => famTop + Math.floor(i / nCol) * famStep);
   const famNodes = F.map((f, i) => ({
-    x: 14, y: famY[i], w: 180, h: famH, role: 'dep',
+    x: colX[i % nCol], y: famY[i], w: colW, h: famH, role: 'dep',
     k: f.name.toUpperCase(), v: commas(f.counts.generated) + ' generated',
     t: 'family · ' + f.name,
     d: f.statement + ' One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.'
   }));
+  /* the lowest box of each column, where that column's feed edge starts */
+  const colBottom = [0, 1, 2, 3].map((c) => {
+    const ys = famY.filter((_, i) => i % nCol === c);
+    return ys.length ? Math.max(...ys) + famH : null;
+  });
+  const famBottom = Math.max(...colBottom.filter((v) => v !== null));
 
+  /* the spine: ENUMERATE and SCREEN as full-width bands (every family column
+     drops straight in), then the instrument row, then CERTIFY */
+  const sx = 8, sw = W - 16, scx = sx + sw / 2, bandH = 50;
+  const enumY = famBottom + 32, enumB = enumY + bandH;
+  const screenY = enumB + 30, screenB = screenY + bandH;
+
+  /* the instrument row, FOUR ACROSS between SCREEN and CERTIFY: two boxes
+     each side of a centre channel, and the record flow drops through the
+     channel while every instrument feeds CERTIFY from above */
+  const iW = 178, iH = 46, iX = [8, 194, 428, 614];
+  const iY = screenB + 26, iB = iY + iH;
+  const iMid = iX.map((x) => x + iW / 2);
+  const certY = iB + 26, certB = certY + bandH;
   const instr = [
-    { x: 248, k: 'INTERVAL · KRAWCZYK', v: 'outward-rounded', t: 'instrument · interval / Krawczyk',
+    { k: 'INTERVAL · KRAWCZYK', v: 'outward-rounded', t: 'instrument · interval / Krawczyk',
       d: 'Outward-rounded interval arithmetic checked against exact BigInt rationals, and the Krawczyk operator with STRICT interior containment — existence and uniqueness, or nothing. The census turns its certificates into completeness theorems: exactly N periodic points, the rest of the plane excluded.' },
-    { x: 414, k: 'TRIGMIN', v: 'certified minima', t: 'instrument · trigmin',
+    { k: 'TRIGMIN', v: 'certified minima', t: 'instrument · trigmin',
       d: 'Certified global minima of integer cosine polynomials: Chebyshev reduction, BigInt Sturm isolation, interval-Newton refinement. Feeds the Newman envelope — the bar a hit has to beat.' },
-    { x: 580, k: 'CENSUS', v: 'exact counts', t: 'instrument · census',
+    { k: 'CENSUS', v: 'exact counts', t: 'instrument · census',
       d: 'Interval branch-and-bound over the phase plane: a certified a priori bound confines every periodic point, tube iteration excludes, Krawczyk-as-contraction resolves each remainder to exactly one point. It can refuse; it can never return a wrong count.' },
-    { x: 746, k: 'SOS · RATIONAL', v: 'lower bounds', t: 'instrument · sum-of-squares',
+    { k: 'SOS · RATIONAL', v: 'lower bounds', t: 'instrument · sum-of-squares',
       d: 'Exact rational sum-of-squares decompositions — a tight global lower bound whose checker goes red on a corrupted certificate. Python, stdlib fractions only.' }
-  ].map(n => ({ ...n, y: 300, w: 150, h: 40, role: 'dep' }));
+  ].map((n, r) => ({ ...n, x: iX[r], y: iY, w: iW, h: iH, role: 'dep' }));
+
+  /* the outcome row, then the ledger column down to the page nodes */
+  const oY = certB + 40, oH = 50, oW = 250, oX = [8, 274, 540], oB = oY + oH;
+  const oMid = oX.map((x) => x + oW / 2);
+  const lx = 220, lw = 360, lcx = lx + lw / 2;
+  const ledgerY = oB + 48, ledgerB = ledgerY + bandH, ledgerMid = ledgerY + bandH / 2;
+  const huntY = ledgerB + 28, huntB = huntY + bandH;
+  const rY = huntB + 40, rH = 46, rX = [120, 420], rW = 260;
+  const rMid = rX.map((x) => x + rW / 2);
+  const gY = rY + rH + 44, gMid = gY + rH / 2;
+  const H = gY + rH + 20;
 
   const gatesNode = {
     k: 'THE GATES', v: gates.green + '/' + gates.ran + ' batteries',
@@ -63,61 +105,75 @@ function machineFlow(ledger, { gates }) {
   };
 
   const nodes = famNodes.concat([
-    { x: 248, y: 160, w: 140, h: 56, role: 'sig', k: 'ENUMERATE', v: commas(T.generated || 0) + ' objects',
+    { x: sx, y: enumY, w: sw, h: bandH, role: 'sig', k: 'ENUMERATE', v: commas(T.generated || 0) + ' objects',
       t: 'enumerate — deterministic and indexed',
       d: 'Every family enumerates by integer index, deterministically: a run of any size resumes and reproduces, and two runs at the same limit produce identical hits. ' + commas(T.generated || 0) + ' objects this build.' },
-    { x: 436, y: 160, w: 140, h: 56, role: 'sig', k: 'SCREEN · FLOAT', v: commas(screened) + ' pass',
+    { x: sx, y: screenY, w: sw, h: bandH, role: 'sig', k: 'SCREEN · FLOAT', v: commas(screened) + ' pass',
       t: 'screen — float, and it may only prune',
       d: 'A fast float estimate decides only what is WORTH certifying. The screen may prune, never admit: nothing it passes is believed, and everything it passes goes to the certifier. Duplicates fold by canonical key on the way.' },
-    { x: 624, y: 160, w: 140, h: 56, role: 'sig', k: 'CERTIFY · EXACT', v: commas(T.certified || 0) + ' decided',
+    { x: sx, y: certY, w: sw, h: bandH, role: 'sig', k: 'CERTIFY · EXACT', v: commas(T.certified || 0) + ' decided',
       t: 'certify — the only authority',
       d: 'The instruments decide: interval enclosures, exact rational arithmetic, strict interior containment for uniqueness. The engine never decides mathematics — it counts, dedupes, and hands the certifier what survived. ' + commas(T.certified || 0) + ' decisions this build.' },
-    { x: 830, y: 92, w: 136, h: 44, role: 'held', k: 'HIT · CERTIFIED', v: commas(hits),
+    { x: oX[0], y: oY, w: oW, h: oH, role: 'held', k: 'HIT · CERTIFIED', v: commas(hits),
       t: 'HIT — a certificate exists',
       d: 'A HIT ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness box, plus the falsifier the certificate must survive. ' + commas(hits) + ' this build.' },
-    { x: 830, y: 166, w: 136, h: 44, role: 'sig', k: 'REJECT · PROVED', v: commas(rejects),
+    { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', k: 'REJECT · PROVED', v: commas(rejects),
       t: 'REJECT — proved uninteresting',
       d: 'The certifier examined the candidate and proved it below the bar. A REJECT here is a theorem about the object, not a failed search. ' + commas(rejects) + ' this build.' },
-    { x: 830, y: 240, w: 136, h: 44, role: 'warn', k: 'REFUSED · HONEST', v: commas(refused),
+    { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', k: 'REFUSED · HONEST', v: commas(refused),
       t: 'REFUSED — absence of proof',
       d: 'The instrument declined to decide — a singular preconditioner, an exhausted budget, a containment that would not close. Absence of proof is never evidence of absence, and a refusal is never converted into a verdict. ' + commas(refused) + ' this build.' },
-    { x: 624, y: 372, w: 140, h: 56, role: 'sig', k: 'LEDGER', v: 'ledger.json',
+    { x: lx, y: ledgerY, w: lw, h: bandH, role: 'sig', k: 'LEDGER', v: 'ledger.json',
       t: 'the ledger',
       d: 'Everything the engine produced, as records on disk: ' + commas((ledger.conjectures || []).length) + ' conjectures kept with their enclosures and certificates. Every number in this drawing is read off the ledger at build time; nothing is typed in.' },
-    { x: 420, y: 372, w: 160, h: 56, role: 'sig', k: 'CLOSED-FORM HUNT', v: commas(T.closedFormTested || 0) + ' tested',
+    { x: lx, y: huntY, w: lw, h: bandH, role: 'sig', k: 'CLOSED-FORM HUNT', v: commas(T.closedFormTested || 0) + ' tested',
       t: 'the closed-form hunt',
       d: 'Every certified enclosure is interrogated for small closed forms — rationals, square roots, multiples and powers of the standard constants. The enclosure decides: outside means refuted exactly, inside means a surviving candidate. Nothing is accepted on digits agreeing.' },
-    { x: 200, y: 352, w: 180, h: 40, role: 'held', k: 'REFUTED EXACTLY', v: commas(T.closedFormRefuted || 0),
+    { x: rX[0], y: rY, w: rW, h: rH, role: 'held', k: 'REFUTED EXACTLY', v: commas(T.closedFormRefuted || 0),
       t: 'refuted exactly',
       d: commas(T.closedFormRefuted || 0) + ' candidate closed forms proved wrong: the value provably lies outside a certified enclosure. The Ramanujan Machine matches truncated decimals and argues from collision probability; this decides.' },
-    { x: 200, y: 412, w: 180, h: 40, role: 'warn', k: 'SURVIVORS · OPEN', v: commas(T.closedFormCandidates || 0) + ' candidates',
+    { x: rX[1], y: rY, w: rW, h: rH, role: 'warn', k: 'SURVIVORS · OPEN', v: commas(T.closedFormCandidates || 0) + ' candidates',
       t: 'the survivors',
       d: commas(T.closedFormCandidates || 0) + ' forms remain inside their enclosures — candidates, not results. They stay open until a tighter enclosure refutes them or an exact argument confirms them.' },
-    { x: 14, y: 386, w: 180, h: 44, role: 'held', ...gatesNode },
-    { x: 624, y: 472, w: 140, h: 40, role: 'dep', ...selfNode }
+    { x: rX[0], y: gY, w: rW, h: rH, role: 'held', ...gatesNode },
+    { x: rX[1], y: gY, w: rW, h: rH, role: 'dep', ...selfNode }
   ], instr);
 
   const edges = [
-    ...famY.map((y, i) => ({ d: 'M194 ' + (y + 20) + ' C224 ' + (y + 20) + ' 218 ' + (167 + i * 7) + ' 246 ' + (167 + i * 7) })),
-    { d: 'M388 188 L434 188' },
-    { d: 'M576 188 L622 188', lab: 'dedup by key', lx: 599, ly: 232 },
-    { d: 'M764 178 C800 160 806 132 828 116' },
-    { d: 'M764 188 L828 188' },
-    { d: 'M764 198 C800 216 806 244 828 262' },
-    { d: 'M966 114 C976 118 976 128 976 140 L976 388 C976 396 970 400 962 400 L768 400', lab: 'only certificates', lx: 968, ly: 300, anchor: 'end' },
-    { d: 'M624 400 L586 400' },
-    { d: 'M420 386 C404 380 398 376 384 372' },
-    { d: 'M420 414 C404 420 398 426 384 432' },
-    { d: 'M694 428 L694 468' },
-    { d: 'M323 300 C345 254 600 248 650 220' },
-    { d: 'M489 300 C509 258 640 246 679 220' },
-    { d: 'M655 300 C668 262 696 240 707 220' },
-    { d: 'M821 300 C800 262 758 240 737 220' },
-    { d: 'M104 386 C150 352 200 330 244 321' }
+    /* every family column drops straight into the full-width ENUMERATE */
+    ...colMid.flatMap((cx, c) => colBottom[c] === null ? [] : [
+      { d: 'M' + cx + ' ' + colBottom[c] + ' L' + cx + ' ' + (enumY - 2) }
+    ]),
+    { d: 'M' + scx + ' ' + enumB + ' L' + scx + ' ' + (screenY - 2) },
+    /* the record flow drops through the instrument row's centre channel */
+    { d: 'M' + scx + ' ' + screenB + ' L' + scx + ' ' + (certY - 2),
+      lab: 'dedup by key', lx: scx + 10, ly: screenB + 18, anchor: 'start' },
+    /* the row feeds CERTIFY */
+    ...iMid.map((cx) => ({ d: 'M' + cx + ' ' + iB + ' L' + cx + ' ' + (certY - 2) })),
+    /* CERTIFY fans straight down to the three outcomes */
+    ...oMid.map((cx) => ({ d: 'M' + cx + ' ' + certB + ' L' + cx + ' ' + (oY - 2) })),
+    /* only a HIT reaches the ledger; REJECT and REFUSED are terminal */
+    { d: 'M' + oMid[0] + ' ' + oB + ' L' + oMid[0] + ' ' + (ledgerMid - 8)
+        + ' Q' + oMid[0] + ' ' + ledgerMid + ' ' + (oMid[0] + 8) + ' ' + ledgerMid
+        + ' L' + (lx - 2) + ' ' + ledgerMid,
+      lab: 'only certificates', lx: oMid[0] + 8, ly: Math.round((oB + ledgerMid) / 2), anchor: 'start' },
+    { d: 'M' + lcx + ' ' + ledgerB + ' L' + lcx + ' ' + (huntY - 2) },
+    /* the hunt's two endings */
+    { d: 'M' + (lcx - 70) + ' ' + huntB + ' C' + (lcx - 70) + ' ' + (huntB + 18)
+        + ' ' + rMid[0] + ' ' + (rY - 18) + ' ' + rMid[0] + ' ' + (rY - 2) },
+    { d: 'M' + (lcx + 70) + ' ' + huntB + ' C' + (lcx + 70) + ' ' + (huntB + 18)
+        + ' ' + rMid[1] + ' ' + (rY - 18) + ' ' + rMid[1] + ' ' + (rY - 2) },
+    /* the ledger rebuilds the control page, down the right margin;
+       the gates gate that same build */
+    { d: 'M' + (lx + lw + 2) + ' ' + ledgerMid + ' L748 ' + ledgerMid
+        + ' Q756 ' + ledgerMid + ' 756 ' + (ledgerMid + 8)
+        + ' L756 ' + (gMid - 8) + ' Q756 ' + gMid + ' 748 ' + gMid
+        + ' L' + (rX[1] + rW + 4) + ' ' + gMid },
+    { d: 'M' + (rX[0] + rW + 2) + ' ' + gMid + ' L' + (rX[1] - 2) + ' ' + gMid }
   ];
 
   return C.flow({
-    w: 980, h: 520,
+    w: W, h: H,
     alt: 'Schematic of the conjecture engine: the families feed enumerate, screen and certify; the instruments decide; only certificates reach the ledger, which feeds the closed-form hunt and the pages.',
     readout: {
       k: 'the machine',

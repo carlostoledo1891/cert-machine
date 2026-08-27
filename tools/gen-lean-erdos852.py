@@ -70,7 +70,12 @@ def main():
     # cores — and the combining theorem is List.all_append, not re-evaluation.
     # contiguous chunks balanced by trial-division weight (~sqrt p), so the
     # slowest chunk does not dominate the parallel build
-    nchunks = max(1, min(16, len(ps) // 512))
+    # FINE grain on purpose: the kernel's whnf cache grows across ONE decide,
+    # and past ~1000 primes the evaluation goes superlinear and page-churns
+    # (measured: 2116 primes = 635s, 347s of it SYSTEM time; 614 primes = 16s).
+    # ~140 primes per module keeps every decide small, fast and memory-light,
+    # and lake parallelizes the modules.
+    nchunks = max(1, min(240, len(ps) // 140))
     total_w = sum(p ** 0.5 for p in ps)
     chunks, cur, acc = [], [], 0.0
     for p in ps:
@@ -98,6 +103,12 @@ def main():
         cl.append("set_option maxHeartbeats 0 in")
         cl.append(f"theorem P{suffix}c{ci}_all_prime : (P{suffix}c{ci}).all isPrime = true := by decide +kernel")
         cl.append("")
+        cl.append("/- per-chunk subproducts: the kernel evaluates the final N and D as a")
+        cl.append("   TREE of these, so no evaluation ever holds 33k growing bignums in")
+        cl.append("   its cache — the linear fold did, and page-churned for hours -/")
+        cl.append(f"def Nc{suffix}{ci} : Nat := (P{suffix}c{ci}.map (fun p => (p - 1) ^ 3 + 1)).prod")
+        cl.append(f"def Dc{suffix}{ci} : Nat := (P{suffix}c{ci}.map (fun p => (p - 1) ^ 3)).prod")
+        cl.append("")
         cl.append("end Erdos852")
         (LEANDIR / (cname + ".lean")).write_text("\n".join(cl) + "\n")
         chunk_files.append(cname)
@@ -115,14 +126,20 @@ def main():
     lines.append("")
     lines.append("namespace Erdos852")
     lines.append("")
-    lines.append("/-- the prime list: the chunks, in order -/")
-    lines.append(f"def {P} : List Nat := " + " ++ ".join(f"P{suffix}c{i}" for i in range(1, nchunks + 1)))
+    lines.append("/-- the chunks, in order, as REFERENCES — proofs below rewrite over this")
+    lines.append("    240-entry list, never over 33,859 literals -/")
+    lines.append(f"def chunks{P} : List (List Nat) := [" + ", ".join(f"P{suffix}c{i}" for i in range(1, nchunks + 1)) + "]")
     lines.append("")
+    lines.append("/-- the prime list -/")
+    lines.append(f"def {P} : List Nat := (chunks{P}).flatten")
+    lines.append("")
+    all_thms = ", ".join(f"P{suffix}c{i}_all_prime" for i in range(1, nchunks + 1))
     lines.append("set_option maxRecDepth 1000000 in")
     lines.append(f"theorem {P}_all_prime : {P}.all isPrime = true := by")
-    lines.append(f"  simp only [{P}, List.all_append, Bool.and_eq_true]")
-    lines.append("  exact ⟨" + ", ".join(f"P{suffix}c{i}_all_prime" for i in range(1, nchunks + 1)) + "⟩"
-                 if nchunks > 1 else f"  exact P{suffix}c1_all_prime")
+    lines.append(f"  unfold {P}")
+    lines.append("  rw [all_flatten]")
+    lines.append(f"  unfold chunks{P}")
+    lines.append(f"  simp only [List.all_cons, List.all_nil, {all_thms}, Bool.true_and, Bool.and_true, Bool.and_self]")
     lines.append("")
     lines.append("set_option maxRecDepth 1000000 in")
     lines.append("set_option maxHeartbeats 0 in")
@@ -140,8 +157,19 @@ def main():
     lines.append(f"theorem {P}_prime : ∀ p ∈ {P}, Nat.Prime p := fun p hp =>")
     lines.append(f"  isPrime_correct (List.all_eq_true.mp {P}_all_prime p hp)")
     lines.append("")
-    lines.append(f"def N{suffix} : Nat := {P}.foldl (fun a p => a * ((p - 1) ^ 3 + 1)) 1")
-    lines.append(f"def D{suffix} : Nat := {P}.foldl (fun a p => a * (p - 1) ^ 3) 1")
+    lines.append(f"def N{suffix} : Nat := ((chunks{P}).map (fun c => (c.map (fun p => (p - 1) ^ 3 + 1)).prod)).prod")
+    lines.append(f"def D{suffix} : Nat := ((chunks{P}).map (fun c => (c.map (fun p => (p - 1) ^ 3)).prod)).prod")
+    lines.append("")
+    lines.append(f"/-- N is EXACTLY the product of (p−1)³+1 over {P} — the generic flatten")
+    lines.append("    lemma instantiated; no arithmetic, no literal terms -/")
+    lines.append(f"theorem N{suffix}_spec : N{suffix} = ({P}.map (fun p => (p - 1) ^ 3 + 1)).prod := by")
+    lines.append(f"  unfold N{suffix} {P}")
+    lines.append(f"  exact (prod_map_flatten _ (chunks{P})).symm")
+    lines.append("")
+    lines.append(f"/-- D is EXACTLY the product of (p−1)³ over {P} -/")
+    lines.append(f"theorem D{suffix}_spec : D{suffix} = ({P}.map (fun p => (p - 1) ^ 3)).prod := by")
+    lines.append(f"  unfold D{suffix} {P}")
+    lines.append(f"  exact (prod_map_flatten _ (chunks{P})).symm")
     lines.append("")
     lines.append("set_option maxRecDepth 1000000 in")
     lines.append("set_option maxHeartbeats 0 in")

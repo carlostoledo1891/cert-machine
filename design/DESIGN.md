@@ -95,6 +95,13 @@ stability matters more than proportion (`body`, `h3`). Prose is capped at **64ch
 reading limit, so expressed in characters. Figures and tables get a wider **900px** track;
 the page itself caps at **1060px**.
 
+A `.wide` element emitted inside a prose column (`.col .wide` — a table or card grid in a
+non-wide section) **breaks out to the page-wide track**: `.col` and `.page` are both
+centered, so the template recenters it on the viewport at
+`min(900px, 100vw − 2·pagePadX)`. Prose keeps its measure, the table gets its track, and
+the body never scrolls sideways — anything wider still scrolls inside its own `.tw`.
+A figure's `figcaption` spans its figure's full track, not a 70ch block.
+
 ---
 
 ## Components
@@ -119,7 +126,7 @@ contains a number**. A builder passes data; the component decides markup.
 | `m(s)` | string | inline monospace — every number, path, id, hash |
 | `tag(text,kind)` | `kind ∈ held·cert·open·dep` | a status chip |
 | `categoryChart({cats,...})` | | value-per-named-bucket figure |
-| `flow({w,h,alt,readout,nodes,edges,caption})` | `nodes:[{x,y,w,h,role,k,v,t,d}]`, `edges:[{d,lab,flow}]` | the interactive machine schematic: nodes as focusable buttons, animated flow along edges, a readout narrating the active node. Ships the design system's ONE inline script; with scripts off the default narration stands and hover still highlights |
+| `flow({w,h,alt,readout,nodes,edges,caption})` | `nodes:[{x,y,w,h,role,k,v,t,d}]`, `edges:[{d,lab,flow}]` | the interactive machine schematic: nodes as focusable buttons, animated flow along edges, a readout narrating the active node. Ships the design system's ONE inline script; with scripts off the default narration stands and hover still highlights. The drawing is geometry-agnostic; the machine's is drawn VERTICAL and DENSE at 800 design units (tools/machine-figure.js — families four across, instruments four across), and the template caps its rendered width at that same 800px so desktop renders near 1:1 |
 | `numberLine({...})`, `band`, `vmark`, `label`, `legend` | | figure atoms |
 
 The top bar (`nav`) is emitted by the template on every page, never by a builder. Its
