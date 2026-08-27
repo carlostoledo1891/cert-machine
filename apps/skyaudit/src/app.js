@@ -271,6 +271,13 @@ function renderPanel() {
   ${v === 'R' && enc.wit ? `<div class="as-encvals">exact witness margin (rational): ${enc.wit}</div>` : ''}
   ${typeof enc.m === 'number' ? `<div class="as-encvals">interval margin: ${enc.m} kWh</div>`
     : `<div class="as-encvals">margins — worst ${enc.m.w} / best ${enc.m.b} kWh</div>`}
+  <div class="as-h" style="margin-top:14px">Reserve what-if</div>
+  <input type="range" id="rsv" class="as-scrub" min="5" max="45" step="1" style="width:100%"
+    value="${S.key.endsWith('faa-sfar-vfr') ? 20 : 5}" aria-label="reserve minutes">
+  <div class="as-encvals" id="rsvout"></div>
+  <div class="as-fine" style="margin-top:2px">Preview: scales this flight's recorded reserve
+  enclosure linearly in time. Committed verdicts are gate-checked at the published rules;
+  the day-level thresholds above are the certified ones.</div>
   <div class="as-h" style="margin-top:14px">All eight verdicts</div>
   <div class="as-mx" id="mini-mx">${matrixHtml(S.key, true)}</div>
   <div style="display:flex;gap:8px;margin-top:14px">
@@ -281,6 +288,18 @@ function renderPanel() {
     const k = e.target.closest && e.target.closest('.as-cell');
     if (k) selKey(k.dataset.k);
   };
+  const baseMin = S.key.endsWith('faa-sfar-vfr') ? 20 : 5;
+  const rsvUpdate = () => {
+    const t = +$('rsv').value, k = t / baseMin;
+    const worst = enc.u[0] - enc.e[1] - enc.r[1] * k;
+    const best = enc.u[1] - enc.e[0] - enc.r[0] * k;
+    const pv = worst >= 0 ? 'C' : best < 0 ? 'R' : 'F';
+    const c = { C: '--v-cert', R: '--v-refu', F: '--v-refd' }[pv];
+    $('rsvout').innerHTML = `at a <b>${t}-minute</b> reserve: ` +
+      `<span style="color:var(${c});font-weight:600">${VNAME[pv]}</span>` +
+      ` · margins worst ${worst.toFixed(1)} / best ${best.toFixed(1)} kWh`;
+  };
+  $('rsv').oninput = rsvUpdate; rsvUpdate();
   $('followBtn').onclick = () => { S.follow = !S.follow; $('followBtn').dataset.on = S.follow ? '1' : '0'; };
   $('deselBtn').onclick = () => { S.sel = null; S.follow = false; renderPanel(); pushUrl(); };
 }

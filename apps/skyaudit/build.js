@@ -52,7 +52,18 @@ if (reflyBefore && JSON.stringify(reflyBefore.keys) !== JSON.stringify(refly.key
   die('re-fly frontier deviates from the committed record');
 }
 
-/* gate 5 — the tiles are the pinned bytes */
+/* gate 5 — the certified thresholds must match the record */
+console.log('gate: optimize thresholds');
+const optPath = path.join(dataDir, CITY + '.optimize.json');
+const optBefore = fs.existsSync(optPath) ? JSON.parse(fs.readFileSync(optPath, 'utf8')) : null;
+run('node', ['sim/optimize.js', CITY]);
+const optimize = JSON.parse(fs.readFileSync(optPath, 'utf8'));
+if (optBefore && JSON.stringify(optBefore) !== JSON.stringify(optimize)) {
+  fs.writeFileSync(optPath, JSON.stringify(optBefore, null, 2));
+  die('certified thresholds deviate from the committed record');
+}
+
+/* gate 6 — the tiles are the pinned bytes */
 const tilesPins = JSON.parse(fs.readFileSync(path.join(APP, 'data/tiles/TILES-PINS.json'), 'utf8'));
 const tilesPath = path.join(APP, 'data/tiles', tilesPins.file);
 const sha = require('crypto').createHash('sha256').update(fs.readFileSync(tilesPath)).digest('hex');
@@ -134,6 +145,32 @@ const html = renderApp({
   <section class="as-card">
     <div class="as-h">Re-fly the day — fleet frontier</div>
     ${frontierRows}
+  </section>
+  <section class="as-card">
+    <div class="as-h">What would it take? — certified thresholds</div>
+    <div class="as-fine" style="margin-bottom:10px">The optimizer: bisect a lever until the
+    verdict flips, and prove BOTH sides — one unit less fails (recounted), at the threshold
+    it holds. Levers over the same pinned day, FAA 20-min shape.</div>
+    ${['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100'].map((s) => {
+      const b = optimize.battery_floor[s], t = b.targets;
+      const fmt = (x) => (x.kwh === null ? '—' : x.kwh + ' kWh');
+      return `<div class="as-frow"><span><span class="name">${NAMES[s]} — battery floor</span>
+        <span class="sub">published ${b.published_box_kwh[0]}–${b.published_box_kwh[1]} kWh (${b.published_q})</span></span>
+        <span class="val">½ day: ${fmt(t[0.5])} · 80%: ${fmt(t[0.8])}</span></div>`;
+    }).join('')}
+    <div class="as-frow"><span><span class="name">Beta ALIA — the charge lever</span>
+      <span class="sub">${optimize.charge_lever.curve.map((c, i, a) => {
+        const to = a[i + 1] ? a[i + 1].from_minutes - 1 : 60;
+        return (c.from_minutes === 0 ? '≤' + to : c.from_minutes + '–' + to) + ' min → ' + c.fleetMin;
+      }).join(' · ')} aircraft — faster chargers are provably worth ${
+        optimize.charge_lever.curve[optimize.charge_lever.curve.length - 1].fleetMin -
+        optimize.charge_lever.curve[0].fleetMin} aircraft</span></span>
+      <span class="val">5 → ${optimize.charge_lever.curve[0].fleetMin}</span></div>
+    <div class="as-frow"><span><span class="name">The reserve rule, priced</span>
+      <span class="sub">Beta ALIA provable legs at 5/10/15/20/25/30-min reserve:
+      ${[5, 10, 15, 20, 25, 30].map((m) => optimize.reserve_price.by_reserve_minutes['beta-alia'][m]).join(' · ')}
+      — at 30 minutes, nothing on this day is provable</span></span>
+      <span class="val">${optimize.reserve_price.by_reserve_minutes['beta-alia'][5]} → 0</span></div>
   </section>
   <section class="as-card">
     <div class="as-h">Selected flight</div>

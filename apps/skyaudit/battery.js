@@ -189,4 +189,37 @@ ok('determinism: two runs, identical timeline hash', () => {
   assert.ok(/^[0-9a-f]{64}$/.test(a.timelineHash));
 });
 
+console.log('-- sim/optimize: certified thresholds');
+
+const opt = require('./sim/optimize.js');
+
+ok('bisection known answer: least x with x >= 37 is 37', () => {
+  const r = opt.bisectLeast(0, 100, (x) => x, 37);
+  assert.strictEqual(r.threshold, 37);
+});
+
+ok('RED: a non-monotone lever must THROW, never return a threshold', () => {
+  /* the spike sits ON the bisection path (first midpoint of [0,40] is 20),
+     so the guard's sampled pairs contain (20,100) followed by (40,40) */
+  assert.throws(() => opt.bisectLeast(0, 40, (x) => (x === 20 ? 100 : x), 15), /monotonicity/);
+});
+
+ok('optimizer agrees with the gated audit: reserve-price at 20 min == the day\'s CERTIFIED count', () => {
+  const res = opt.run('nyc');
+  const summary = JSON.parse(require('fs').readFileSync(
+    require('path').join(__dirname, 'data/day-2026-08-26/nyc.audit-summary.json'), 'utf8'));
+  assert.strictEqual(res.reserve_price.by_reserve_minutes['beta-alia'][20],
+    summary.bySpecRule['beta-alia|faa-sfar-vfr'].CERTIFIED);
+  /* and the charge curve's top step must equal the committed refly frontier */
+  const refly = JSON.parse(require('fs').readFileSync(
+    require('path').join(__dirname, 'data/day-2026-08-26/nyc.refly.json'), 'utf8'));
+  const top = res.charge_lever.curve[res.charge_lever.curve.length - 1];
+  assert.strictEqual(top.fleetMin, refly.keys['beta-alia|faa-sfar-vfr'].fleetMin);
+  /* reserve price monotone nonincreasing */
+  for (const [, row] of Object.entries(res.reserve_price.by_reserve_minutes)) {
+    const vals = [5, 10, 15, 20, 25, 30].map((m) => row[m]);
+    for (let i = 1; i < vals.length; i++) assert.ok(vals[i] <= vals[i - 1], 'reserve price must be monotone');
+  }
+});
+
 console.log('battery green: ' + n + '/' + n + ' checks');

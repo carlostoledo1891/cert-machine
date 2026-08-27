@@ -106,8 +106,25 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
 - [x] Sim battery (16/16 total): known-answer frontier, RED charge-time
       must flip 2→1, RED double-booked schedule must fail verification,
       outside-envelope accounting, two-run determinism hash
-- [ ] Live sim mode on the map (aircraft badges, the flip moment,
-      what-if sliders with the in-browser certifier) — the Phase 4b UI
+- [x] THE OPTIMIZER SHIPPED (sim/optimize.js, operator direction
+      2026-08-27 "show how the system could be optimized"): certified
+      thresholds proved on BOTH sides of every flip, 0.4 s over the day.
+      (1) BATTERY FLOORS: nameplate kWh for 50/80/95% coverage — Joby
+      needs 306 kWh for HALF the day (trade estimate 130-180); Archer
+      329 (vs ~142); Beta 362 (vs 250-325, the only one close); Eve 394.
+      (2) CHARGE LEVER: Beta fleet 5 aircraft at 49+ min charge, 4 at
+      24-48, 3 at <=23 — faster chargers provably worth two aircraft.
+      (3) RESERVE PRICE: Beta provable legs at 5/10/15/20/25/30 min =
+      194/171/110/46/8/0 — at a 30-min reserve NOTHING on this day is
+      provable (the FAA docket fight, priced). Monotonicity-guarded
+      bisection (red: spike on the probe path must THROW); battery 19/19
+      incl. optimizer-agrees-with-audit cross-check; build gate 5
+      (drift refuses, record restored); panel card "What would it
+      take?"; per-flight RESERVE WHAT-IF slider (client, scales the
+      recorded reserve enclosure, honest preview label, flips live
+      REFUTED->REFUSED->CERTIFIED)
+- [ ] Live sim mode on the map (aircraft badges, the flip moment
+      animated on trails) — remaining Phase 4b UI
 - [ ] Synthetic demand packs + vertiport geometry (heliport nodes,
       SFRA/REH corridors) — later scenario packs
 

@@ -1,0 +1,161 @@
+/* optimize.js — WHAT WOULD IT TAKE? Certified thresholds over the pinned
+   day: the machine's answer to "how could this system be optimized",
+   with a proof on BOTH sides of every flip. apps/skyaudit/sim
+
+   Three levers, three certified analyses (FAA 20-min shape throughout):
+
+   1. BATTERY FLOOR (design): the minimum integer nameplate B (kWh, the
+      battery box collapsed to the stated point [B,B]; every other box as
+      published) at which >= K of the day's flights come out CERTIFIED.
+      Coverage is monotone in B (usable energy only grows), so bisection
+      decides it; the certificate is the recount at B* and at B*-1.
+   2. CHARGE LEVER (infrastructure): the pool-model fleet minimum as a
+      function of charge-to-full minutes — the exact step curve, each
+      point proved by pigeonhole + verified schedule (sim/refly.js).
+   3. RESERVE PRICE (policy): provable legs at reserve = 5/10/15/20/25/30
+      minutes at cruise power — the FAA-docket controversy, priced in
+      exactly-counted legs per day.
+
+   Deterministic; results are a gated record (build refuses on drift).   */
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const M = require('../audit/mission.js');
+const { loadHeli } = require('../audit/corpus.js');
+const { segmentTrace } = require('../audit/flights.js');
+const refly = require('./refly.js');
+
+const SPEC_IDS = ['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100'];
+
+function dayFlights(city, dayDir) {
+  const flights = [];
+  for (const obj of loadHeli(city, dayDir).aircraft) {
+    let fl; try { fl = segmentTrace(obj); } catch (e) { continue; }
+    for (const f of fl) flights.push(f);
+  }
+  return flights;
+}
+
+function withBattery(spec, B) {
+  const s = JSON.parse(JSON.stringify(spec));
+  s.boxes.battery_kwh.v = [B, B];
+  return s;
+}
+function withReserveMinutes(rule, min) {
+  const r = JSON.parse(JSON.stringify(rule));
+  r.reserve.t_s = [min * 60, min * 60];
+  return r;
+}
+
+function coverage(flights, spec, rule, phys) {
+  let c = 0;
+  for (const f of flights) if (M.auditFlight(f, spec, rule, phys).verdict === 'CERTIFIED') c++;
+  return c;
+}
+
+/* generic certified bisection: f monotone nondecreasing on integers in
+   [lo, hi]; returns least x with f(x) >= target. The monotonicity GUARD
+   throws if any evaluated pair violates it (battery red exercises this). */
+function bisectLeast(lo, hi, f, target) {
+  const seen = new Map();
+  const ev = (x) => { if (!seen.has(x)) seen.set(x, f(x)); return seen.get(x); };
+  if (ev(hi) < target) return { threshold: null, atHi: ev(hi) };
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (ev(mid) >= target) hi = mid; else lo = mid + 1;
+  }
+  const pairs = [...seen.entries()].sort((a, b) => a[0] - b[0]);
+  for (let i = 1; i < pairs.length; i++) {
+    if (pairs[i][1] < pairs[i - 1][1]) throw new Error('optimize: monotonicity violated at ' + pairs[i][0]);
+  }
+  return { threshold: lo, below: lo > 0 ? (seen.get(lo - 1) ?? f(lo - 1)) : null, at: seen.get(lo) };
+}
+
+function batteryFloors(flights, phys, rule) {
+  const out = {};
+  for (const id of SPEC_IDS) {
+    const spec = M.loadSpec(id);
+    const total = flights.length;
+    const cov = new Map();
+    const f = (B) => { if (!cov.has(B)) cov.set(B, coverage(flights, withBattery(spec, B), rule, phys)); return cov.get(B); };
+    out[id] = { published_box_kwh: spec.boxes.battery_kwh.v, published_q: spec.boxes.battery_kwh.q, targets: {} };
+    for (const K of [0.5, 0.8, 0.95]) {
+      const need = Math.ceil(K * total);
+      const r = bisectLeast(40, 900, f, need);
+      out[id].targets[K] = r.threshold === null
+        ? { kwh: null, note: 'not reachable below 900 kWh', coverage_at_900: r.atHi + '/' + total }
+        : { kwh: r.threshold, covered: f(r.threshold) + '/' + total,
+            one_less: (r.threshold - 1) + ' kWh covers only ' + f(r.threshold - 1) + '/' + total };
+    }
+  }
+  return out;
+}
+
+function chargeCurve(city, dayDir, specId) {
+  const spec = M.loadSpec(specId);
+  const zlib = require('zlib');
+  const p = path.join(__dirname, '../data', dayDir, city + '.certs.jsonl');
+  const raw = fs.existsSync(p) ? fs.readFileSync(p, 'utf8')
+    : zlib.gunzipSync(fs.readFileSync(p + '.gz')).toString('utf8');
+  const rowsAll = raw.split('\n').filter((l) => l.trim()).map((l) => JSON.parse(l))
+    .filter((r) => r.spec === specId && r.rule === 'faa-sfar-vfr');
+  if (!rowsAll.some((r) => r.verdict === 'CERTIFIED')) return { specId, curve: [], note: 'no certifiable legs' };
+  const curve = [];
+  let prev = null;
+  for (let m = 0; m <= 60; m++) {
+    const s = JSON.parse(JSON.stringify(spec));
+    s.boxes.charge_minutes_full.v = [m, m];
+    const res = refly.reflyKey(rowsAll, s, city);
+    if (prev === null || res.fleetMin !== prev) {
+      curve.push({ from_minutes: m, fleetMin: res.fleetMin, witnessLocal: res.witnessLocal || null });
+      prev = res.fleetMin;
+    }
+  }
+  return { specId, published_charge_box_min: spec.boxes.charge_minutes_full.v, curve,
+    note: 'fleetMin per charge-to-full minutes; each point proved by pigeonhole (lower) + verified schedule (upper), pool model' };
+}
+
+function reservePrice(flights, phys) {
+  const rule = M.loadRule('faa-sfar-vfr');
+  const out = {};
+  for (const id of SPEC_IDS) {
+    const spec = M.loadSpec(id);
+    out[id] = {};
+    for (const min of [5, 10, 15, 20, 25, 30]) {
+      out[id][min] = coverage(flights, spec, withReserveMinutes(rule, min), phys);
+    }
+  }
+  return { legs_total: flights.length, by_reserve_minutes: out,
+    note: 'CERTIFIED legs at reserve = N minutes at cruise power (FAA VFR shape); exact counts, monotone nonincreasing in N' };
+}
+
+function run(city, dayDir) {
+  dayDir = dayDir || 'day-2026-08-26';
+  const phys = M.loadPhysics('kasliwal-2019');
+  const rule = M.loadRule('faa-sfar-vfr');
+  const flights = dayFlights(city, dayDir);
+  return {
+    city, dayDir, flights: flights.length,
+    what: 'certified thresholds: every number here is proved on BOTH sides of the flip',
+    battery_floor: batteryFloors(flights, phys, rule),
+    charge_lever: chargeCurve(city, dayDir, 'beta-alia'),
+    reserve_price: reservePrice(flights, phys),
+  };
+}
+
+module.exports = { run, bisectLeast, withBattery, withReserveMinutes, coverage, dayFlights };
+
+if (require.main === module) {
+  const city = process.argv[2] || 'nyc';
+  const res = run(city, process.argv[3]);
+  const out = path.join(__dirname, '../data', res.dayDir, city + '.optimize.json');
+  fs.writeFileSync(out, JSON.stringify(res, null, 2));
+  for (const [id, b] of Object.entries(res.battery_floor)) {
+    const t = b.targets;
+    console.log(id.padEnd(18) + ' 50%: ' + (t[0.5].kwh ?? '—') + ' kWh · 80%: ' + (t[0.8].kwh ?? '—')
+      + ' kWh · 95%: ' + (t[0.95].kwh ?? '—') + ' kWh  (published ' + b.published_box_kwh + ' ' + b.published_q + ')');
+  }
+  console.log('charge lever (beta-alia):', JSON.stringify(res.charge_lever.curve));
+  console.log('reserve price (beta-alia):', JSON.stringify(res.reserve_price.by_reserve_minutes['beta-alia']));
+}

@@ -1,0 +1,167 @@
+{
+  "city": "nyc",
+  "dayDir": "day-2026-08-26",
+  "flights": 394,
+  "what": "certified thresholds: every number here is proved on BOTH sides of the flip",
+  "battery_floor": {
+    "joby-s4": {
+      "published_box_kwh": [
+        130,
+        180
+      ],
+      "published_q": "E",
+      "targets": {
+        "0.5": {
+          "kwh": 306,
+          "covered": "197/394",
+          "one_less": "305 kWh covers only 196/394"
+        },
+        "0.8": {
+          "kwh": 480,
+          "covered": "316/394",
+          "one_less": "479 kWh covers only 315/394"
+        },
+        "0.95": {
+          "kwh": 811,
+          "covered": "375/394",
+          "one_less": "810 kWh covers only 374/394"
+        }
+      }
+    },
+    "archer-midnight": {
+      "published_box_kwh": [
+        120,
+        142
+      ],
+      "published_q": "E",
+      "targets": {
+        "0.5": {
+          "kwh": 329,
+          "covered": "197/394",
+          "one_less": "328 kWh covers only 196/394"
+        },
+        "0.8": {
+          "kwh": 520,
+          "covered": "316/394",
+          "one_less": "519 kWh covers only 315/394"
+        },
+        "0.95": {
+          "kwh": 884,
+          "covered": "375/394",
+          "one_less": "883 kWh covers only 374/394"
+        }
+      }
+    },
+    "beta-alia": {
+      "published_box_kwh": [
+        250,
+        325
+      ],
+      "published_q": "E",
+      "targets": {
+        "0.5": {
+          "kwh": 362,
+          "covered": "197/394",
+          "one_less": "361 kWh covers only 196/394"
+        },
+        "0.8": {
+          "kwh": 581,
+          "covered": "316/394",
+          "one_less": "580 kWh covers only 315/394"
+        },
+        "0.95": {
+          "kwh": null,
+          "note": "not reachable below 900 kWh",
+          "coverage_at_900": "367/394"
+        }
+      }
+    },
+    "eve-100": {
+      "published_box_kwh": [
+        90,
+        160
+      ],
+      "published_q": "A",
+      "targets": {
+        "0.5": {
+          "kwh": 394,
+          "covered": "197/394",
+          "one_less": "393 kWh covers only 196/394"
+        },
+        "0.8": {
+          "kwh": 673,
+          "covered": "316/394",
+          "one_less": "672 kWh covers only 315/394"
+        },
+        "0.95": {
+          "kwh": null,
+          "note": "not reachable below 900 kWh",
+          "coverage_at_900": "349/394"
+        }
+      }
+    }
+  },
+  "charge_lever": {
+    "specId": "beta-alia",
+    "published_charge_box_min": [
+      35,
+      60
+    ],
+    "curve": [
+      {
+        "from_minutes": 0,
+        "fleetMin": 3,
+        "witnessLocal": "11:54:10 ET"
+      },
+      {
+        "from_minutes": 24,
+        "fleetMin": 4,
+        "witnessLocal": "16:49:17 ET"
+      },
+      {
+        "from_minutes": 49,
+        "fleetMin": 5,
+        "witnessLocal": "09:58:33 ET"
+      }
+    ],
+    "note": "fleetMin per charge-to-full minutes; each point proved by pigeonhole (lower) + verified schedule (upper), pool model"
+  },
+  "reserve_price": {
+    "legs_total": 394,
+    "by_reserve_minutes": {
+      "joby-s4": {
+        "5": 54,
+        "10": 9,
+        "15": 0,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      },
+      "archer-midnight": {
+        "5": 14,
+        "10": 0,
+        "15": 0,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      },
+      "beta-alia": {
+        "5": 194,
+        "10": 171,
+        "15": 110,
+        "20": 46,
+        "25": 8,
+        "30": 0
+      },
+      "eve-100": {
+        "5": 0,
+        "10": 0,
+        "15": 0,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      }
+    },
+    "note": "CERTIFIED legs at reserve = N minutes at cruise power (FAA VFR shape); exact counts, monotone nonincreasing in N"
+  }
+}
