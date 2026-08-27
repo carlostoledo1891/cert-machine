@@ -39,7 +39,7 @@ const BATTERIES = [
   ['mercer mu5 ladder', ['instruments/trigmin/mercer6-battery.js'], 'mu(5) <= 1 + pi/m certified m = 5..20; Mercer\'s Tables 5-7 reproduced, the source-lab m=6 record matched, every case point re-proved · 5 red controls'],
   ['census (henon + holmes)', ['instruments/census/battery.js'], 'closed-form calibration, two maps · 5 red controls'],
   ['keller audit + sweep', ['instruments/keller/battery.js'], 'symbolic det over Q, generator calibrated on Alpöge · 4 red controls'],
-  ['cf audit', ['instruments/cf/battery.js'], 'all six Ramanujan Machine sheets (46 rows: e, pi, zeta(3), Catalan, pi^2, ln 2) · 10 red controls'],
+  ['cf audit', ['instruments/cf/battery.js'], 'all seven Ramanujan Machine sheets — 51 printed rows + the certified correction (e, pi, zeta(3), Catalan, pi^2, ln 2, mixed zeta orders) · 10 red controls'],
   ['entropy covering', ['instruments/entropy/battery.js'], 'certified h_top lower bounds; ln 2 calibration at the full horseshoe · 4 red controls'],
   ['strassen audit', ['instruments/strassen/battery.js'], 'fast-matmul tensor identities over Q and F2; Strassen 1969 calibrates · 3 red controls'],
   ['bigfloat layer', ['instruments/bigfloat/battery.js'], 'directed-rounding big-float intervals; pi/ln2/e to 50 literature digits · 5 red controls'],
@@ -56,8 +56,8 @@ const PY = [
   ['sos · global bound', ['instruments/sos/sos_verify.py'], 'stdlib fractions only'],
   ['sos · lyapunov', ['instruments/sos/lyapunov_cert.py'], 'stdlib fractions only'],
   ['sos · re-verify AI result', ['instruments/sos/reverify_ai_lyapunov.py'], 'stdlib fractions only'],
-  ['llm harness — plumbing only, NO model has run', ['tools/llm-harness.py', '--dry-run', '--n', '20', '--ledger', '/dev/null'],
-    'dry run with a FAKE proposer: gates the pipeline, not an LLM result · aborts if a red control certifies']
+  ['llm harness — the eval\'s dry-run gate', ['tools/llm-harness.py', '--dry-run', '--n', '20', '--ledger', '/dev/null'],
+    'a FAKE proposer gates the pipeline, not an LLM result; live model campaigns are separate, in the append-only certs/matmul-eval-ledger.jsonl and on reports/matmul-eval.html · aborts if a red control certifies']
 ];
 function bat(argv, py) {
   if (!runBatteries) return null;
@@ -100,8 +100,9 @@ B.push(C.stats([
   { k: 'batteries green', v: green + ' / ' + ran, role: 'held', n: 'Executed during this build; every red control must fire.' }
 ]));
 
-B.push(C.scope('Local working document. Nothing here has been through a literature gate, no claim has been '
-  + 'minted, and nothing has been sent anywhere. Enclosures are proofs-of-object pending independent verification.'));
+B.push(C.scope('Published, not peer-reviewed, not independently rerun. Every claim below is rerunnable from the '
+  + 'public repository; external reruns will be recorded here as they arrive — none has yet. Enclosures are '
+  + 'proofs-of-object pending that independent verification.'));
 
 /* ---- §1 · the machine, drawn from the ledger -------------------------------
    The drawing itself lives in tools/machine-figure.js, shared with the
@@ -195,6 +196,12 @@ if (ledger.conjectures.length) {
         + 'Both stored as witness sets and re-certified at load, so no value is transcribed. '
         + '<strong>Frozen at load</strong> — the bar never moves under a running campaign, or a candidate\'s '
         + 'verdict would depend on when it was proposed.')
+      + C.pRaw('The bars at n = 10 and n = 17 MOVED in August 2026 — bar(10) to ' + C.m(fmt(Math.sqrt(ENV.barSq(10)), 4))
+        + ' past Boyd\'s 1986 witness, bar(17) to ' + C.m(fmt(Math.sqrt(ENV.barSq(17)), 4)) + ' via the certified '
+        + 'n = 13 box champion — because the exhaustive box30 sweeps behind ' + C.m('certs/mu-table.json')
+        + ' certified minima exceeding what the literature and the source lab held. A returning reader\'s remembered '
+        + 'bar is stale because the mathematics improved, not because anything drifted; the rows tagged '
+        + '"adopted here" are exactly those promotions.')
       + (stale.length ? C.note({
         lab: stale.length + ' unadopted excess', bodyRaw: stale.map(x =>
           C.pRaw('n = ' + x.n + ': certified ' + C.m(fmt(Math.sqrt(x.modSq[0]), 12)) + ', envelope has '

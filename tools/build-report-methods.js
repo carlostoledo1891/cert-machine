@@ -142,7 +142,7 @@ O.push(C.stats([
   { k: 'impossible numbers', v: String(foundBy['impossible number'] || 0), n: 'bounds provably above ceilings, values refuting themselves' },
   { k: 'calibrations', v: String(foundBy['calibration'] || 0), n: 'known answers the instrument had to reproduce first' },
   { k: 'gates run for this page', v: gateRows.length + ' green', role: 'held', n: 'executed during this build; a red refuses the page' },
-  { k: 'the class, in the wild', v: '2 refutations', role: 'warn', n: 'a published constant that was a float artifact; a printed sign slip — same failure class, audited' }
+  { k: 'the class, in the wild', v: '1 refuted · 1 corrected', role: 'warn', n: 'a published constant that was a float artifact, refuted; a printed sign slip, corrected — same failure class, audited' }
 ]));
 
 O.push(C.section({

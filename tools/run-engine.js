@@ -59,7 +59,11 @@ for (const fam of FAMILIES) {
     return fam.name === 'chowla-cosine' ? av - bv : bv - av;      /* small c wins, large min|f| wins */
   }).slice(0, 12);
 
-  const valueShaped = !/henon|keller|holmes/.test(fam.name);
+  /* no closed-form hunt where the value is not a real-valued unknown: the
+     geometric families (henon/keller/holmes) and any family whose certified
+     value is an integer by construction (family flag integerValued) — an
+     integer rank "surviving" 47/1 is noise, not a candidate */
+  const valueShaped = !fam.integerValued && !/henon|keller|holmes/.test(fam.name);
   for (const h of ranked) {
     const rel = valueShaped ? relations(h.enclosure, { maxDen: 24 }) : { candidates: [], tested: 0, refuted: 0 };
     relTested += rel.tested; relRefuted += rel.refuted;

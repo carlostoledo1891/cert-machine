@@ -125,10 +125,15 @@ function relations(enclosure, opts) {
     if (p === 0 || gcd(p, q) !== 1) continue;
     test(p + '/' + q, p / q);
   }
-  /* sqrt of a rational */
+  /* sqrt of a rational — SKIPPING PERFECT SQUARES: with gcd(p,q) = 1,
+     sqrt(p/q) is rational iff p and q are both squares, and that spelling is
+     already tested by the rational loop above (sqrt(2209/1) is 47/1 wearing a
+     radical — counting both made one surviving value two candidates). */
   for (let q = 1; q <= maxDen; q++) {
     const p = Math.round(mid * mid * q);
     if (p <= 0 || gcd(p, q) !== 1) continue;
+    const sp = Math.round(Math.sqrt(p)), sq = Math.round(Math.sqrt(q));
+    if (sp * sp === p && sq * sq === q) continue;
     test('sqrt(' + p + '/' + q + ')', Math.sqrt(p / q));
   }
   /* small multiples and roots of the constants */

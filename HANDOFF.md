@@ -297,6 +297,43 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
 
+SESSION 2026-08-27 (review-fix pass — an outside review's defects, all fixed):
+  - COUNTS DEFLATED TO TRUTH, everywhere: RM audit is "51 printed rows, 50
+    survive, 1 refuted as printed, correction certified" (the 52-row corpus =
+    51 printed + OUR correction; counting it was inflation by one). Front
+    page "published claims refuted: 2" → "1 refuted · 1 corrected" (a
+    transcription slip is not a second refutation). Applied to landing,
+    rm-audit page (deck/stats/registry/footer + gates), README, methods-note
+    stat, cf-audit battery label (which had said six sheets/46 rows — stale),
+    HANDOFF. New and unproven: 39 decided, 38 survive as printed.
+  - §4 SURVIVORS → 0: strassen's integer ranks were "surviving" their own
+    spellings (47/1 AND sqrt(2209/1) — the dedup gap the reviewer named).
+    Fix at the cause: family flag integerValued skips the closed-form hunt;
+    the sqrt vocabulary skips perfect squares (the rational loop already
+    tests that spelling). Ledger regenerated: ...+ 0 open + 0 surviving.
+  - RM-AUDIT REGISTRY gains the DEFINING CF column (a(n) denominators /
+    b(n) numerators — the sheets' own labeling; the four same-value pairs
+    rm-e-a/b, cat-02/05, cat-03/10, cat-07/11 are found by computation and
+    named as distinct CFs, not duplicates). Refutation reframed precisely:
+    THREE typographic errors on the 2022 sheet, one fatal; underlying
+    computation correct. "First on record" now dated (as of 2026-08-27) and
+    open to correction. "The Machine says" labeled sheet-time status.
+  - CROSS-PAGE CONTRADICTION fixed: the battery row no longer says "NO
+    model has run" — it is the eval's dry-run gate, pointing at the live
+    certs/matmul-eval-ledger.jsonl and reports/matmul-eval.html.
+  - STALE DISCLAIMERS replaced (control page + impostors): "Published, not
+    peer-reviewed, not independently rerun" — the slot where external
+    reruns get recorded. (The reviewer's top ask: ONE outside person
+    cloning and running the three verifiers, name + hash recorded.)
+  - ENVELOPE: §5 explains the moved bars (bar(10), bar(17) — box30 sweep
+    champions past Boyd/HJ; computed at build, adopted-here rows = the
+    promotions).
+  - NOT DONE HERE (follow-ups, by design): new discriminating eval rungs
+    (<3,3,3> r22 open target, ±1-restricted <2,2,2>, permuted tensors) →
+    eval tasks 1-2; tangent-sweep orbit-invariant column; Catalan widths
+    to 1e-30; RM-group submission/email = operator's-word outreach (the
+    per-rung §2b table already existed and satisfied that review point).
+
 SESSION 2026-08-26/27 LATE (post-restart continuation):
   - S7 closed at full scale (see S7 above) — the finishing sequence ran on
     the operator's word ("when finish, commit and push live"): committed
@@ -386,14 +423,15 @@ stays correct and current.
 ## State, measured at handoff
 
 ```
-819,145  objects generated across 11 families
- 16,936  certified exactly
-54.6M    closed forms: 54,635,424 tested = 54,634,508 refuted (double)
-         + 21 refuted (exact BigInt) + 877 form-on-record + 0 open + 18 surviving
+819,152  objects generated across 11 families
+ 16,943  certified exactly
+54.6M    closed forms: 54,629,173 tested = 54,628,275 refuted (double)
+         + 21 refuted (exact BigInt) + 877 form-on-record + 0 open + 0 surviving
          — the decomposition closes, and the engine REFUSES a ledger where it does not
-         (the 18 survivors: trivial strassen self-matches — an integer rank enclosure
-         [47,47] "survives" 47/1 and sqrt(2209), as it must; every erdos852 and
-         ramanujan enclosure refuted or outranked its vocabulary forms)
+         (2026-08-27 review fix: the former 18 "survivors" were strassen integer
+         ranks matching their own spellings — integer-valued families now SKIP the
+         closed-form hunt (family flag integerValued) and perfect-square sqrt
+         spellings dedup against their rational form; ZERO survivors is the true state)
     228  existence-AND-uniqueness theorems (Krawczyk)
     452  COMPLETENESS theorems (census: Hénon 328/328 + Holmes cubic 124/124, 0 refusals)
   1,579  chowla screen survivors EXHAUSTED (1,508 certified below 1 — the family is terminal)
@@ -403,10 +441,12 @@ stays correct and current.
          standalone stdlib-Python checker in 0.2 s
       7  fibers cells HIT blind, incl. alpoge-own-target: target (0,1,0) chosen from a fixed
          enumeration, never published anywhere, 3 preimages certified — witnesses AND target self-chosen
-     51  Ramanujan Machine conjectures SURVIVE an UNCONDITIONAL audit — ALL SEVEN
+     50  of the Ramanujan Machine's 51 PRINTED rows SURVIVE an UNCONDITIONAL audit
+         (2026-08-27 counting rule: public counts are printed-rows-only — our
+         certified correction is a 52nd certification, never folded in) — ALL SEVEN
          sheets COMPLETE: e, pi, zeta(3), CATALAN (23 rows), pi^2 (12), ln 2 (1),
-         mixed-zeta-orders (2026-08-26, 5 rows + 1 corrected row) — including ALL
-         39 rows the Machine marks "new and unproven"; PLUS the FIRST certified
+         mixed-zeta-orders (2026-08-26, 5 rows + 1 corrected row) — including 38 of
+         the 39 rows the Machine marks "new and unproven"; PLUS the FIRST certified
          REFUTATION of a printed RM row: the mixed-zeta sheet's row 3 as printed,
          2/(2ζ(5)−2ζ(3)−1), is FALSE (~−1.5035 vs the CF's 2.98623) — a sign slip;
          the +1 correction SURVIVES on the SAME enclosure, mechanism named in the

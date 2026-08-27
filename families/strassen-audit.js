@@ -64,6 +64,10 @@ const CORPUS = (() => {
 module.exports = {
   name: 'strassen-audit',
   statement: 'a claimed fast matrix-multiplication algorithm — a rank-r decomposition of the (n,m,p) tensor — whose defining identity (nm·mp·np exact equations) is VERIFIED over the claimed ring with r strictly below the naive nmp; the C-layout convention is detected and recorded, never assumed',
+  /* the certified value is a RANK — an integer by construction. A closed-form
+     vocabulary run against an integer enclosure can only emit noise ("47/1
+     survives"), so the engine's hunt skips this family entirely. */
+  integerValued: true,
   enumerate: (i) => (i < CORPUS.length ? CORPUS[i] : null),
   /* float screen: run the algorithm on one deterministic integer sample and
      compare against direct multiplication — broken data prunes here */

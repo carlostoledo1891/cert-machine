@@ -40,6 +40,11 @@ const rm = ledger.families.find((f) => f.name === 'ramanujan-audit');
 if (!rm || rm.counts.certified !== 52 || rm.counts.hits !== 51 || rm.counts.rejects !== 1) {
   fail('ramanujan-audit counts moved (' + JSON.stringify(rm && rm.counts) + ') — update the landing story deliberately, not silently');
 }
+/* the 52-row corpus = the 51 PRINTED sheet rows + our certified correction of
+   the refuted one. Public counts use the printed rows only — counting the
+   correction as a 52nd decided row (or its survival as a 51st) would inflate
+   the audit by our own row. */
+const rmPrinted = rm.counts.certified - 1, rmSurvive = rm.counts.hits - 1;
 const e852 = ledger.families.find((f) => f.name === 'erdos852-constants');
 if (!e852 || e852.counts.rejects !== 1) fail('erdos852 counts moved');
 
@@ -68,8 +73,8 @@ B.push(C.stats([
   { k: 'certified objects', v: fmt(T.certified), n: 'of ' + fmt(T.generated) + ' generated across 11 families' },
   { k: 'period-16 Hénon points', v: 'EXACTLY ' + fmt(census16.points), role: 'held', n: fmt(census16.boxes) + ' boxes exhausted, recheck clean' },
   { k: 'mu(5) bracket', v: '≤ 1 + π/' + topM, role: 'held', n: '= ' + (1 + Math.PI / topM).toFixed(6) + ' — certified on a 1983→1992→2019→here lineage' },
-  { k: 'Ramanujan Machine rows', v: rm.counts.certified + ' decided', n: rm.counts.hits + ' survive · 1 printed row refuted, correction certified' },
-  { k: 'published claims refuted', v: '2', role: 'warn', n: 'Erdős #852 C* at digit 12 · one RM printed row — both with certified corrections' }
+  { k: 'Ramanujan Machine rows', v: rmPrinted + ' printed rows', n: rmSurvive + ' survive · 1 refuted as printed, its correction certified' },
+  { k: 'published claims', v: '1 refuted · 1 corrected', role: 'warn', n: 'Erdős #852 C* refuted at digit 12 · one RM printed row corrected (a transcription slip) — both replacements certified' }
 ]));
 
 B.push(C.section({
@@ -85,9 +90,9 @@ B.push(C.section({
       + 'topological entropy.'),
     C.p('Certified audits of published AI-generated mathematics. The GPT-published constant on Erdős #852, refuted at its '
       + '12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — corrected value certified '
-      + 'to width 3.2e-16. All 52 rows of the Ramanujan Machine\'s seven result sheets decided: 51 survive an unconditional '
-      + 'audit; one printed row is refuted exactly (a sign slip in the published constant), its correction certified on the '
-      + 'same enclosure.')
+      + 'to width 3.2e-16. All ' + rmPrinted + ' printed rows of the Ramanujan Machine\'s seven result sheets decided: '
+      + rmSurvive + ' survive an unconditional audit; one printed row is refuted exactly (a sign slip in the published '
+      + 'constant), its correction certified on the same enclosure.')
   ].join('\n')
 }));
 
@@ -113,7 +118,7 @@ const REPORTS = [
   { f: 'rm-audit.html', k: 'audit · standing registry',
     title: 'The Ramanujan Machine, audited',
     desc: 'Every row of all seven published result sheets decided by rigorous enclosures and exact rational comparisons — the whole registry re-certified at every build.',
-    n: rm.counts.certified + ' rows · ' + rm.counts.hits + ' survive · 1 printed row refuted' },
+    n: rmPrinted + ' printed rows · ' + rmSurvive + ' survive · 1 refuted, correction certified' },
   { f: 'mercer-program.html', k: 'program · certified landscape',
     title: 'The Mercer program',
     desc: 'Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.',

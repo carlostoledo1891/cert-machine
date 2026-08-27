@@ -1,7 +1,7 @@
 {
  "what": "Detached certificates for Jacobian/Hessian-conjecture counterexamples. Each entry claims: (1) det of the Jacobian of F is identically the stated constant — a polynomial identity over Q; (2) the listed rational points all map to the listed image under F, exactly; (3) the points are pairwise distinct. Together: F is a Keller map that is not injective, so the Jacobian conjecture is false in that dimension (for hessian entries, F = grad Psi and the Hessian conjecture is false). Verify with tools/verify_keller.py — Python stdlib only, no code from this repo.",
  "polynomialFormat": "each polynomial is a list of monomials [e_1, ..., e_n, coeff] — exponents of x_1..x_n, then the exact rational coefficient as a string",
- "generatedBy": "tools/export-keller-certificate.js @ git 04d4b7c",
+ "generatedBy": "tools/export-keller-certificate.js @ git 1d2b452",
  "sourcePins": {
   "alphaevolve_mathematical_results.ipynb": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
   "alphatensor_f2.npz": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da",

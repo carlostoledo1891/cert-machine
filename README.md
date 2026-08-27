@@ -49,8 +49,8 @@ Three lanes almost nobody publishes in:
 - **Certified audits of published AI-generated mathematics.** The
   GPT-published constant on Erdős #852, refuted at its 12th significant digit
   and shown to *be* the naive IEEE-754 float product, digit for digit — with
-  the corrected value certified to width 3.2e-16. All 52 rows of the
-  Ramanujan Machine's seven result sheets decided: 51 survive an
+  the corrected value certified to width 3.2e-16. All 51 printed rows of the
+  Ramanujan Machine's seven result sheets decided: 50 survive an
   unconditional audit, and one printed row is refuted exactly (a sign slip in
   the published constant), its correction certified on the same enclosure.
 

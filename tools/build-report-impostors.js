@@ -137,8 +137,8 @@ B.push(C.stats([
   { k: 'false refutations', v: '0', role: 'held', n: 'The same instrument keeps every true closed form in the corpus — gated by the engine battery, every build.' }
 ]));
 
-B.push(C.scope('Local working document. Verdicts are conditional on the OEIS published digit streams being '
-  + 'correct — a refutation here reads "not equal, given those digits". Nothing has been sent anywhere.'));
+B.push(C.scope('Published, not peer-reviewed, not independently rerun. Verdicts are conditional on the OEIS '
+  + 'published digit streams being correct — a refutation here reads "not equal, given those digits".'));
 
 {
   B.push(C.section({
