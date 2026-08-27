@@ -517,11 +517,16 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    rebuilds (vercel.json). The one exception stays the alien-science bundle
    above: raw files individually cited in ALREADY-SENT outreach. */
 
+/* site/apps/ is an APP-OWNED ZONE: each app's own gated build
+   (apps/<name>/build.js, invoked by `make site`) emits it, with its own
+   batteries and drift gates. The site sync neither generates nor prunes
+   under it — two builders writing one tree is how files get eaten. */
 fs.mkdirSync(SITE, { recursive: true });
 let wrote = 0, pruned = 0, kept = 0;
 for (const e of fs.readdirSync(SITE, { recursive: true })) {
   const rel = String(e).split(path.sep).join('/');
   const abs = path.join(SITE, String(e));
+  if (rel.startsWith('apps/')) continue;
   if (!fs.statSync(abs).isFile()) continue;
   if (!desired.has(rel)) { fs.rmSync(abs); pruned++; }
 }

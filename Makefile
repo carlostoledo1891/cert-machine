@@ -28,6 +28,7 @@ control:
 
 site: control
 	@$(NODE) tools/build-site.js
+	@$(NODE) apps/skyaudit/build.js
 
 test:
 	@printf "%-30s " "engine + families"; $(NODE) tools/test-engine.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -47,6 +48,8 @@ test:
 	@printf "%-30s " "bigfloat layer"; $(NODE) instruments/bigfloat/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "skyaudit app"; $(NODE) apps/skyaudit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "skyaudit stdlib verifier"; $(PY) apps/skyaudit/audit/verify_skyaudit.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos290 lean fork"; $(NODE) tools/erdos290-lean-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@for f in sos_verify lyapunov_cert reverify_ai_lyapunov; do \
 	  printf "%-30s " "sos/$$f"; $(PY) instruments/sos/$$f.py >/dev/null 2>&1 && echo PASS || echo FAIL; done

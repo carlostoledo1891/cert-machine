@@ -18,11 +18,19 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-ACTIVE NOW (operator-directed 2026-08-27): SKYAUDIT — apps/skyaudit, the
-first app: real urban helicopter traffic (CITY DECIDED by measurement:
-NYC flagship — 82 unique helis/382 flights vs SP 61/148 on the pinned day
-2026-08-26, counts corrected for prod+MLAT dedupe; SP = pack #2)
-replayed Flightradar24-style and audited flight-by-flight
+ACTIVE NOW (operator-directed 2026-08-27): SKYAUDIT — apps/skyaudit.
+V1 IS LIVE: https://carlostoledo.co/apps/skyaudit/ (deployed under the
+default-publish rule; make test 29/29 incl. the app battery 16/16 and
+the stdlib re-proof of 830 rows). The pinned NYC day (82 unique helis,
+382 flights, 3,056 certificate rows) replayed Flightradar24-style with
+verdict-colored trails; certificate panel with exact witnesses; THE
+FLEET FRONTIER: Beta ALIA's 46 provable legs need EXACTLY 5 aircraft
+(4 REFUTED by pigeonhole at 09:58:33 ET, 5 CERTIFIED by verified
+schedule); Joby/Archer/Eve: zero provable legs under FAA-20. SP = city
+pack #2 (61/148, certified+refly done, not yet a page). OPEN: landing
+card, live sim mode + what-if sliders, altitude graph, range-claim
+audit, RESEARCH §4 NYC facts (agent). Real urban helicopter traffic
+audited flight-by-flight
 against eVTOL specs + reserve rules via instruments/evtol, PLUS a
 deterministic simulated fleet (scenario packs, live certificates, re-fly-
 the-day fusion, fleet-size frontier). Full-viewport app-shell view (new

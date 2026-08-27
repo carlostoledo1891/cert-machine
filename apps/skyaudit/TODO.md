@@ -149,18 +149,33 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       body overflow (the shot.mjs/probe.mjs pattern from DESIGN.md)
 
 ## Phase 5 — trust layer & publish
-- [ ] `build.js`: emits `site/apps/skyaudit/`; GATES — full battery, the
-      day re-certified from the pinned corpus, headline stats recomputed
-      exactly and compared to the page, sim timeline hash re-derived;
-      refuses on any deviation
-- [ ] Page prose: tl;dr block; honest boundaries (§2 reality-check:
-      "the day the network saw"; counterfactual wording; the assumption
-      ledger; REFUSED as first-class); aviation wording sweep —
-      "mathematically certified enclosure", never bare "certified"
-- [ ] `make test` row + control-page battery row; `make site` integration
-- [ ] HANDOFF TASKS BACKLOG updated; commit
-- [ ] (word) Deploy live; announce/outreach (EmbraerX play uses city
-      pack #2) — nothing outward without the operator's word
+- [x] `build.js` gates (5): battery · re-certify-and-compare (restores
+      record on refusal) · bundle-match · refly-frontier-compare (same) ·
+      tile-hash. All green
+- [x] STDLIB RE-PROOF (`audit/verify_skyaudit.py`): independent Python
+      reimplementation, exact Fractions + integer-sqrt bounds, zero deps —
+      830 rows re-proved (all CERTIFIED worst-margins >= 0 exactly, all
+      REFUTED best-margins < 0 exactly, power boxes contain exact
+      intervals), 0 defects, 2 reds fire (flipped verdict + tampered box
+      both caught)
+- [x] `make test`: rows "skyaudit app" + "skyaudit stdlib verifier" —
+      29/29 PASS. `make site`: runs apps/skyaudit/build.js; build-site
+      treats site/apps/ as an APP-OWNED ZONE (never generates or prunes
+      there — the two-builders-one-tree bug pre-empted)
+- [x] Mobile + theme pass: true-390px device emulation verified (panel
+      right edge 382/390, dock exactly 390; bottom-sheet layout); the
+      CLI-window "overflow" was a headless >=500px window-width clamp,
+      not a page bug; ?theme=light|dark param added to the app shell
+      (light chrome over the always-dark map canvas — deliberate);
+      headline panel text on-page
+- [x] DEPLOYED LIVE (default-publish rule, 2026-08-27):
+      https://carlostoledo.co/apps/skyaudit/ — all URLs verified 200,
+      tiles 206 on Vercel CDN, live page screenshot green.
+      DONE = public URL + rerunnable: both hold
+- [ ] (word) Announce/outreach (EmbraerX play uses city pack #2) —
+      nothing outward without the operator's word
+- [ ] Landing-page card / reports-shelf link for the app (the site's
+      front door does not yet point at /apps/skyaudit)
 
 ## Later (parked, not planned)
 - Live layer (adsb.lol live API atop the same client) · third city ·

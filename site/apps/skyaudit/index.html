@@ -97,7 +97,7 @@ button.as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:v
   border:1px solid var(--rule);border-radius:999px;padding:3px 9px;cursor:pointer;color:var(--ink-2)}
 .as-chip[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
 .as-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-input[type=range].as-scrub{flex:1;accent-color:var(--sig);height:26px}
+input[type=range].as-scrub{flex:1;min-width:0;accent-color:var(--sig);height:26px}
 select.as-sel{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;background:var(--sunk);color:var(--ink);
   border:1px solid var(--rule);border-radius:7px;padding:5px 6px}
 .as-clock{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--ink);min-width:88px}
@@ -109,9 +109,15 @@ select.as-sel{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,mono
 .as-bar .seg{position:absolute;top:0;bottom:0}
 .maplibregl-ctrl-attrib{font-size:10px}
 @media (max-width:720px){
-  .as-panel{left:8px;right:8px;top:auto;bottom:86px;width:auto;max-height:42dvh}
+  .as-panel{left:8px;right:8px;top:auto;bottom:86px;width:auto;max-height:42dvh;padding:10px 12px}
   .as-top .navx{display:none}
+  .as-dock{gap:8px;padding:0 10px}
+  .as-dock .attr{display:none}
+  .as-clock{min-width:72px;font-size:12px}
 }</style>
+<script>/* ?theme=light|dark stamps the explicit theme state; absent = system */
+(function(){var t=new URLSearchParams(location.search).get('theme');
+if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</script>
 </head><body>
 <div id="map" class="as-map" aria-label="replay map of New York helicopter traffic with certified verdicts"></div>
 <header class="as-top">
