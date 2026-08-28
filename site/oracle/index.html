@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Reports · cert-machine</title>
+<title>certify() — the reward oracle · cert-machine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -282,54 +282,143 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · reports</div>
-  <h1>The reports</h1>
-  <p class="deck">Research notes ordered by weight, not date. Every page re-proves itself: its numbers are recomputed from the certificates and records at build time, its planted falsifiers must fire, and a build that drifts refuses to ship.</p>
+  <div class="eyebrow">cert-machine · the verified reward channel, packaged</div>
+  <h1>certify() — a reward oracle for AI mathematical search</h1>
+  <p class="deck">One function takes a claimed rank-R decomposition of the ⟨n,m,p⟩ matrix-multiplication tensor and returns exactly one of CERTIFIED (every tensor equation verified in exact rational arithmetic), REFUTED (the first violated equation with its exact discrepancy — the grader&#39;s own mechanism, never coaching), or REFUSED (a malformed claim is declined, never guessed at). No float participates in any decision. Red controls run at import: a broken grader refuses to exist. This page is the whole interface — the library, the tool shape for a training loop, the paste box, the evidence.</p>
 </header>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">the shelf</div>
-    <h2>AI verification</h2>
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">the contract</div><div class="v held">3 verdicts</div><div class="n">CERTIFIED(certificate) / REFUTED(mechanism) / REFUSED(reason) — both directions of every verdict are theorems; refusal is what makes the other two trustworthy</div></div>
+    <div class="stat"><div class="k">dependencies</div><div class="v held">0</div><div class="n">one stdlib-Python file; rings Q and F2; 14 battery checks, 6 red controls fired at this page&#39;s build</div></div>
+    <div class="stat"><div class="k">proposals graded</div><div class="v held">268</div><div class="n">96 certified, each an exact theorem · the channel has never paid out on a false claim — the live board recomputes this at every build</div></div>
+    <div class="stat"><div class="k">reward hacking</div><div class="v">excluded</div><div class="n">by construction, not monitoring: there is no gap between graded-correct and is-correct for a policy to exploit; a strictly proper certificate cannot be argued with</div></div>
+    <div class="stat"><div class="k">characteristic matters</div><div class="v">Q ≠ F2, priced</div><div class="n">the same sign-flipped Strassen witness is REFUTED over Q and CERTIFIED over F2 — AlphaTensor&#39;s rank-47 mechanism, reproduced as a battery row</div></div>
+    <div class="stat"><div class="k">scope, honestly</div><div class="v warn">finite exact facts</div><div class="n">exhibit-a-witness tasks over exact rings — not proofs, not asymptotics, not mathematics at large; outside its scope it REFUSES</div></div>
   </div>
-<div class="wide"><div class="cards"><a class="card" href="matmul-eval.html"><span class="card-k">the eval · live board</span><span class="card-t">The matmul eval: ground truth is a proof</span><span class="card-d">Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.</span><span class="card-n">268 proposals graded · zero subtly-wrong survivors</span></a>
-<a class="card" href="alphaevolve.html"><span class="card-k">audit · AI-discovered algorithms</span><span class="card-t">The AI-discovered algorithms, certified</span><span class="card-d">AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.</span><span class="card-n">11 algorithms re-decided each build</span></a>
-<a class="card" href="erdos852.html"><span class="card-k">audit · refutation</span><span class="card-t">The constant that was a rounding error</span><span class="card-d">A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.</span><span class="card-n">refuted at digit 12 · correction certified</span></a>
-<a class="card" href="verifier-loop.html"><span class="card-k">verified reward · demo</span><span class="card-t">The verifier in the loop</span><span class="card-d">The reward channel in closed loop: a model proposes, the grader answers every failure with its own refutation mechanism — the exact violated equation, nothing more — and the model retries. Every trajectory rendered from the append-only ledger.</span><span class="card-n">feedback template-locked · zero coaching</span></a>
-<a class="card" href="answer-key.html"><span class="card-k">note · for eval builders</span><span class="card-t">When the answer key is wrong</span><span class="card-d">Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.</span><span class="card-n">every specimen re-proved at build</span></a>
-<a class="card" href="methods-note.html"><span class="card-k">methods note</span><span class="card-t">None by reading code</span><span class="card-d">Every real bug this machine has found — ten, cataloged — was caught by a red control, a calibration, an impossible number, or a byte pin. How to build verifiers that catch their own defects, stated as engineering.</span><span class="card-n">every regression re-held by a battery at build</span></a>
-<a class="card" href="rm-audit.html"><span class="card-k">audit · standing registry</span><span class="card-t">The Ramanujan Machine, audited</span><span class="card-d">Every row of all seven published result sheets decided by rigorous enclosures and exact rational comparisons — the whole registry re-certified at every build.</span><span class="card-n">51 printed rows · 50 survive · 1 refuted, correction certified</span></a>
-<a class="card" href="impostors.html"><span class="card-k">proved negatives</span><span class="card-t">The impostor catalog</span><span class="card-d">Published constants that agree with simple closed forms for dozens of significant digits — and exact proofs that every one of them is lying. Digit agreement is not evidence: the answer-key-contamination parable.</span><span class="card-n">exact BigInt refutations at full published precision</span></a>
-<a class="card" href="alien-science.html"><span class="card-k">eval note · alignment sandbox</span><span class="card-t">Alien science needs a disposition</span><span class="card-d">An evaluation note on Anthropic’s automated-alignment sandbox: its authors name evaluation as the binding constraint, and this is what certified evaluation looks like.</span><span class="card-n">posted to the inviting repository</span></a>
-<a class="card" href="zeta3-audit.html"><span class="card-k">audit · ζ(3) sheet</span><span class="card-t">The ζ(3) sheet, decided</span><span class="card-d">The Ramanujan Machine’s complete zeta(3) result sheet re-decided with certificates: proved tail bands, convergence inside the certificate, exact rational comparisons.</span><span class="card-n">the spurious-solution lemma re-proved at build</span></a></div></div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · sixty seconds</div>
+    <h2>From &quot;what is this&quot; to a certificate on your laptop</h2>
+  </div>
+<pre class="code"># 1 — get the oracle (one file, stdlib only; red controls run at import)
+curl -sO https://raw.githubusercontent.com/carlostoledo1891/cert-machine/main/oracle/certmachine.py
+
+# 2 — certify Strassen 1969
+python3 -c &quot;
+from certmachine import certify, STRASSEN7
+print(certify({&#39;task&#39;: {&#39;kind&#39;: &#39;matmul&#39;, &#39;n&#39;: 2, &#39;m&#39;: 2, &#39;p&#39;: 2, &#39;rank&#39;: 7},
+               &#39;ring&#39;: &#39;Q&#39;, &#39;witness&#39;: STRASSEN7}))&quot;
+# -&gt; CERTIFIED: all 64 equations hold exactly; certificate carries the witness sha256
+
+# 3 — run the full battery (14 checks, 6 reds that must fire)
+curl -sO https://raw.githubusercontent.com/carlostoledo1891/cert-machine/main/oracle/battery.py
+python3 battery.py</pre><div class="col"><p>A forged coefficient off by exactly 1e-9 — invisible to any float screen — comes back <span class="m">REFUTED</span> with the first violated equation and the exact discrepancy <span class="m">1/1000000000</span>. That mechanism string is the whole feedback loop: deterministic, template-locked to the grader's own arithmetic, so a proposing model can learn from it and cannot be coached by it (<a href="reports/verifier-loop.html">the closed-loop demonstration</a>).</p></div>
 </section>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">new fronts</div>
-    <h2>Certified applications with live stakes</h2>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · paste a claim</div>
+    <h2>Or certify one right here</h2>
   </div>
-<div class="wide"><div class="cards"><a class="card" href="skyaudit.html"><span class="card-k">aerospace · the app, cited</span><span class="card-t">SkyAudit: the helicopter day, decided</span><span class="card-d">One pinned day of New York helicopter traffic, re-flown on paper by four eVTOLs’ own published numbers under the FAA reserve rule — every flight decided: E-FLYABLE, BEYOND RANGE with an exact witness, or NEEDS DATA where public specs cannot say. The citable methodology behind the live app.</span><span class="card-n">every certificate row recounted at the page’s own build</span></a>
-<a class="card" href="evtol-energy.html"><span class="card-k">aerospace · energy certificates</span><span class="card-t">The reserve, provable</span><span class="card-d">Energy-feasibility certificates for eVTOL missions against the FAA reserve rule: CERTIFIED for every parameter point in the boxes, REFUTED with an exact falsifying witness, or honestly REFUSED — where the industry argues with Monte Carlo, this decides.</span><span class="card-n">verdicts cross-proved by 256-corner exact sweeps</span></a>
-<a class="card" href="water-value.html"><span class="card-k">energy · certified theorem</span><span class="card-t">The water value, certified</span><span class="card-d">The shadow price of stored water in a hydro-dominated grid is a martingale between stock-binding events — proved by LP duality on scenario trees, with the solver extracted from the published artifact’s own bytes and 120 random trees re-certified at every build.</span><span class="card-n">duality gap ~1e-14 · continuum limit honestly OPEN</span></a></div></div><div class="col after-fig"><p>Aerospace and energy: domains where the operative numbers are defended by simulation today, and where a universally-quantified certificate — or an honest refusal — is a different kind of statement. Each page names what it does NOT claim.</p></div>
+<p>Runs in your browser in exact BigInt rationals — nothing is uploaded. This widget re-answered its known claims (Strassen certifies, the sub-float forgery refutes, a float entry refuses) at this page&#39;s build, or the page would not exist.</p><div class="col"><textarea id="cm-in" spellcheck="false" style="width:100%;min-height:150px;font-family:ui-monospace,monospace;font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:10px" placeholder='{"task":{"kind":"matmul","n":2,"m":2,"p":2,"rank":7},"ring":"Q","witness":{"u":[[1,0,0,1],...],"v":[...],"w":[...]}}'></textarea><div style="margin:8px 0"><button id="cm-go" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sig);color:var(--paper);border:none;border-radius:6px">certify</button> <button id="cm-ex" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px">load Strassen 1969</button></div><pre id="cm-out" style="white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);border-radius:6px;padding:10px;font-size:13px;min-height:1.5em;overflow-x:auto"></pre></div><script>
+function cmParseEntry(x){
+  if (typeof x === 'number') { if (!Number.isInteger(x)) return null; return [BigInt(x), 1n]; }
+  if (typeof x === 'string') {
+    var m = x.trim().match(/^(-?\d+)(?:\/(-?\d+))?$/); if (!m) return null;
+    var n = BigInt(m[1]), d = m[2] === undefined ? 1n : BigInt(m[2]);
+    if (d === 0n) return null; if (d < 0n) { n = -n; d = -d; } return [n, d];
+  }
+  return null;
+}
+function cmCertify(claim){
+  function refused(r){ return { verdict: 'REFUSED', reason: r }; }
+  if (!claim || typeof claim !== 'object') return refused('claim must be a JSON object');
+  var t = claim.task || {};
+  if (t.kind !== 'matmul') return refused("task.kind must be 'matmul'");
+  var n = t.n|0, m = t.m|0, p = t.p|0, R = t.rank|0;
+  if (!(n>=1&&n<=6&&m>=1&&m<=6&&p>=1&&p<=6&&R>=1&&R<=256)) return refused('task out of the supported box');
+  if (claim.ring !== 'Q' && claim.ring !== 'F2') return refused("ring must be 'Q' or 'F2'");
+  var dims = { u: n*m, v: m*p, w: n*p }, W = {};
+  for (var key in dims) {
+    var rows = (claim.witness||{})[key];
+    if (!Array.isArray(rows) || !rows.length) return refused('witness.' + key + ' must be a non-empty list');
+    W[key] = [];
+    for (var i = 0; i < rows.length; i++) {
+      if (!Array.isArray(rows[i]) || rows[i].length !== dims[key]) return refused('witness.' + key + '[' + i + '] must have length ' + dims[key]);
+      var out = [];
+      for (var j = 0; j < rows[i].length; j++) {
+        var e = cmParseEntry(rows[i][j]);
+        if (!e) return refused('witness.' + key + '[' + i + '] holds a non-exact entry ' + JSON.stringify(rows[i][j]) + ' — integers or exact rationals only; floats are refused');
+        if (claim.ring === 'F2' && e[1] !== 1n) return refused('F2 entries must be integers');
+        out.push(e);
+      }
+      W[key].push(out);
+    }
+  }
+  if (!(W.u.length === W.v.length && W.v.length === W.w.length)) return refused('u, v, w must have the same number of rows');
+  if (W.u.length > R) return { verdict: 'REFUTED', mechanism: { kind: 'rank_overflow', witness_rank: W.u.length, claimed_rank: R } };
+  for (var a = 0; a < n; a++) for (var b = 0; b < m; b++) for (var c = 0; c < m; c++)
+  for (var d = 0; d < p; d++) for (var e2 = 0; e2 < n; e2++) for (var f = 0; f < p; f++) {
+    var num = 0n, den = 1n;
+    for (var r = 0; r < W.u.length; r++) {
+      var x = W.u[r][a*m+b], y = W.v[r][c*p+d], z = W.w[r][e2*p+f];
+      var tn = x[0]*y[0]*z[0], td = x[1]*y[1]*z[1];
+      num = num*td + tn*den; den = den*td;
+    }
+    if (claim.ring === 'F2') { num = ((num % 2n) + 2n) % 2n; den = 1n; }
+    var want = (b === c && e2 === a && f === d) ? 1n : 0n;
+    if (num !== want * den) {
+      var g = num - want*den;
+      return { verdict: 'REFUTED', mechanism: { kind: 'equation_violation',
+        first_violation: [a, b, c, d, e2, f],
+        got: den === 1n ? String(num) : String(num) + '/' + String(den),
+        want: String(want), discrepancy: den === 1n ? String(g) : String(g) + '/' + String(den) } };
+    }
+  }
+  return { verdict: 'CERTIFIED', certificate: { ring: claim.ring, witness_rank: W.u.length,
+    equations_checked: (n*m)*(m*p)*(n*p),
+    statement: 'exact rank-' + W.u.length + ' decomposition of <' + n + ',' + m + ',' + p + '> over ' + claim.ring
+      + ': all ' + (n*m)*(m*p)*(n*p) + ' equations hold exactly (browser mirror — the citable path is oracle/certmachine.py)' } };
+}
+(function(){
+  var S7 = {"u":[[1,0,0,1],[0,0,1,1],[1,0,0,0],[0,0,0,1],[1,1,0,0],[-1,0,1,0],[0,1,0,-1]],"v":[[1,0,0,1],[1,0,0,0],[0,1,0,-1],[-1,0,1,0],[0,0,0,1],[1,1,0,0],[0,0,1,1]],"w":[[1,0,0,1],[0,0,1,-1],[0,1,0,1],[1,0,1,0],[-1,1,0,0],[0,0,0,1],[1,0,0,0]]};
+  var inp = document.getElementById('cm-in'), out = document.getElementById('cm-out');
+  document.getElementById('cm-ex').onclick = function(){
+    inp.value = JSON.stringify({task:{kind:'matmul',n:2,m:2,p:2,rank:7},ring:'Q',witness:S7}, null, 1);
+  };
+  document.getElementById('cm-go').onclick = function(){
+    var claim; try { claim = JSON.parse(inp.value); }
+    catch (e) { out.textContent = 'REFUSED: not JSON — ' + e.message; return; }
+    var r = cmCertify(claim);
+    out.textContent = JSON.stringify(r, null, 1);
+    out.style.borderColor = r.verdict === 'CERTIFIED' ? 'var(--held)' : r.verdict === 'REFUTED' ? 'var(--sig)' : 'var(--rule)';
+  };
+})();</script>
 </section>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">the proving ground</div>
-    <h2>The instruments, proven on hard classical ground</h2>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · in a training loop</div>
+    <h2>The tool a model calls mid-generation</h2>
   </div>
-<div class="wide"><div class="cards"><a class="card" href="mfg-cap.html"><span class="card-k">certified theorem · multiplicity</span><span class="card-t">Two solutions, provably</span><span class="card-d">Certified multiplicity for a non-monotone mean-field game: two equilibria enclosed in disjoint interval-arithmetic balls at one parameter set, in the regime where uniqueness theory is silent — and a proof that REFUSES at the bifurcation.</span><span class="card-n">the unit’s battery + six falsifiers re-run at build</span></a>
-<a class="card" href="mfg-lab.html"><span class="card-k">certified reproduction · registry</span><span class="card-t">The MFG laboratory, certified</span><span class="card-d">The single-file MFG laboratory’s certified claims: a published Wardrop table reproduced within its own rounding AND proved (Krawczyk box, exact rational solve), the discrete adjoint identity, and the non-unique split behind unique totals.</span><span class="card-n">four of the lab’s own batteries re-run at build</span></a>
-<a class="card" href="mercer-program.html"><span class="card-k">program · certified landscape</span><span class="card-t">The Mercer program</span><span class="card-d">Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.</span><span class="card-n">mu(5) ≤ 1 + π/20 · re-certified every build</span></a>
-<a class="card" href="erdos290.html"><span class="card-k">erdős #290 · theorem</span><span class="card-t">Erdős #290: the 4k(k+1) theorem</span><span class="card-d">The square-discriminant law proved and re-proved as exact integer identities during the build, the enclosure sweep deepened past the cited page, the exceptional degree closed.</span><span class="card-n">planted falsifiers must fire at build</span></a>
-<a class="card" href="entropy.html"><span class="card-k">certified invariant</span><span class="card-t">Entropy, with a certificate</span><span class="card-d">A certified lower bound on the topological entropy of the classical Hénon map — covering relations composed to an exact integer spectral argument, calibrated at the full horseshoe.</span><span class="card-n">h_top ≥ 0.3017, a theorem</span></a>
-<a class="card" href="verify-lemniscate.html"><span class="card-k">erdős #1038 · verification</span><span class="card-t">Erdős #1038: thirty decimals verified</span><span class="card-d">The computational fragment of the Darvas–Peng–Tao manuscript re-verified by an independent route — Krawczyk rather than bisection — with the 30th digit read correctly.</span><span class="card-n">filed on the claiming authors’ repository</span></a>
-<a class="card" href="mfg-congest.html"><span class="card-k">validated numerics</span><span class="card-t">A congestion mean-field game, enclosed</span><span class="card-d">An equilibrium of a mean-field game with congestion enclosed by validated numerics: an exact solution within an explicit radius, locally unique in the full sequence space.</span><span class="card-n">embedded verifier re-run at build</span></a>
-<a class="card" href="wardrop-repro.html"><span class="card-k">certified reproduction</span><span class="card-t">Wardrop, certified: exact, enclosed, refused</span><span class="card-d">The multi-population Wardrop equilibria of a published paper reproduced with certificates — exact where possible, enclosed where not, and refused where honesty demands it.</span><span class="card-n">embedded verifier re-run at build</span></a></div></div><div class="col after-fig"><p>These are where the verifiers earned calibration before deciding anything a model produced: censuses reproducing Galias's published counts, boxes re-closing Goddard's, ladders anchored on Apéry. The audits above stand on this ground.</p></div>
+<p>The claim schema and the ready-made Messages-API tool definition (strict schema — a claim validates exactly before the oracle runs) ship beside the library. Wiring it into an agentic or RL loop is an afternoon: the model proposes, the oracle decides, the REFUTED mechanism is the only feedback, and the reward cannot be gamed because a certificate is not an opinion.</p>
+<p><a href="https://github.com/carlostoledo1891/cert-machine/tree/main/oracle">oracle/</a> — <span class="m">certmachine.py</span> · <span class="m">battery.py</span> · <span class="m">claim-schema.json</span> · <span class="m">certificate-schema.json</span> · <span class="m">tool-definition.json</span> · the README carries the tool-runner example.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git c7cb2cb. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the evidence</div>
+    <h2>What stands behind it</h2>
+  </div>
+<p><a href="reports/matmul-eval.html">The live board</a> — 268 model proposals graded across the campaigns, ladder and honesty probes included; every row in the append-only ledger <a href="certs/matmul-eval-ledger.jsonl">certs/matmul-eval-ledger.jsonl</a>.</p>
+<p><a href="reports/verifier-loop.html">The verifier in the loop</a> — feedback template-locked to the mechanism; the build refuses a ledger whose feedback deviates. <a href="reports/erdos852.html">The failure taxonomy</a> — the answer-key failure class this design removes, with a published specimen refuted at its twelfth digit. <a href="reports/answer-key.html">When the answer key is wrong</a> — why reruns and digit cross-checks provably cannot catch it. <a href="reports/methods-note.html">None by reading code</a> — the red-control discipline as engineering.</p>
+<p>The paper draft: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/paper/verified-reward-oracle.md">verified-reward-oracle.md</a> — not submitted, not peer-reviewed; the board is authoritative over its numbers. Independent reruns are invited and recorded: <a href="machine/">the control page</a> holds the slot.</p>
+</section>
+
+<footer class="col"><p>Generated by tools/build-site.js @ git c7cb2cb. Gates at this build: oracle/battery.py (14 checks, 6 reds fired) and the paste-box widget's known answers — the page refuses to build on any deviation. cert-machine · Carlos Toledo.</p></footer>
 
 </div>
 </html>

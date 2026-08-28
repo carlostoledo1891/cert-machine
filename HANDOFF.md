@@ -138,9 +138,21 @@ AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
     paper/verified-reward-oracle.md — the arXiv-shaped DRAFT
     (invariant, red-control discipline, results quoted from ledgers,
     #852+RM taxonomy, honest scope, Lean bridge as extension);
-    SUBMISSION on the word only. STILL PENDING from this shelf:
-    the oracle landing path (operator to adjudicate); outside reruns
-    (item 13, target 3).
+    SUBMISSION on the word only.
+    THE ORACLE LANDING PATH — DONE 2026-08-27 (operator ruling on the
+    word "define the oracle landing path and publish"): /oracle/ is
+    the oracle's own front door — an app-zone-style EXCEPTION to the
+    pages-under-/reports rule, sanctioned by that word (the S2.5c rule
+    otherwise stands). The page: contract stats, the sixty-second
+    curl->certify() path, the paste box (tools/oracle-widget.js — ONE
+    widget definition shared with the board, gated at every build),
+    the tool-shape section, the evidence links (board/loop/taxonomy/
+    methods + the paper draft, labeled not-submitted). GATES: oracle
+    battery re-runs at site build (page refuses without ALL PASS) +
+    widget known answers; numbers read from the eval ledger. Landing's
+    reward-channel section links the door.
+    STILL PENDING from this shelf: outside reruns (item 13, target 3);
+    paper SUBMISSION (word).
  6. APERY/STURM DECIDER (notes/apery-sturm-decider.md; green zeta(3)
     must PROVE, red zeta(5) must REFUSE). A session's work.
  7. MU BOX50 (worker_threads sharding ~3.68x, then n=10..12 detached).
