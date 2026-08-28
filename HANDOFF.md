@@ -18,84 +18,53 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-ACTIVE NOW (operator-directed): SKYAUDIT — apps/skyaudit, LIVE at
-https://carlostoledo.co/apps/skyaudit/ (landing links it). State at
-handoff 2026-08-27 late: the full product exists — three tabs
-(DAY: score/stories/electric-bill · FLEET: matrix/gamified designer/
-frontier/range-claims · PLAN: corridor-network view + certified flight
-planner + DISPATCH live missions with the L/D speed-range tradeoff),
-left-panel selected flight, E-FLYABLE product language over the
-certified trust layer, ambient traffic, oriented chevrons. 9 build
-gates, battery 21/21, make test 29/29, all records committed. Numbers
-of record (NYC pinned day 2026-08-26): 82 aircraft / 382 flights /
-3,056 certificate rows; Beta ALIA 46 E-FLYABLE (12%), needs EXACTLY 5
-aircraft (pool model); Joby/Archer/Eve zero provable; battery floors
-301/323/355/386 kWh; charge lever 5->4->3 at <=48/<=23 min; reserve
-price 194/171/110/46/8/0; electric bill $100-901 vs $1,647-3,580
-disjoint. AGREED NEXT (operator, this order): (1) DONE
-2026-08-27 — TODO hygiene (stale duplicate boxes closed with pointers
-to the phase entries that did the work; TODO.md Phase 7 records this
-order); (2) DONE 2026-08-27 — REGISTRY JOINS SHIPPED
-(audit/registry.js: FAA by Mode S hex + N-number, ANAC RAB by mark;
-raws pinned sha256+date, corpus-joined extracts committed; nyc 73/82,
-sp 47/61 matched, unmatched listed honestly; membership delta NONE —
-82/382/3,056 now stand on authority; names in stories + flight card;
-battery 27/27 incl. reds; build gate 10); (3) DONE 2026-08-27 — COMPANION NOTE SHIPPED
-(reports/skyaudit.html via tools/build-report-skyaudit.js: app battery
-re-run + 3,056 rows recounted + cross-record consistency as its build
-gates, every number from gated records; linked both ways; shelf group
-'applied' first card); (4) DONE 2026-08-27 — SECOND PINNED DAY
-SHIPPED (Sunday 2026-08-23 pinned/certified/re-flown/compared;
-STRUCTURE HOLDS — only Beta provable on both days, magnitude moves:
-E-FLYABLE 7.4% vs 12%, fleet exactly 2 vs 5, stated honestly in note
-§7; registry extracts cover the union of days; N339LL stale-feeder-
-type catch; battery 29/29). ALL FOUR FOUNDATIONS DONE.
-THE PREDICTION PROGRAM OPENED (operator's word 2026-08-27, "start
-A+B and follow on" — full plan in TODO.md Phase 8): principle =
-never certify the future, certify the prediction system (coverage
-theorems, exact scoring, tamper-evident ledger, machine-checkable
-temporal hygiene). SHIPPED: (A) audit/ingest-day.js — one-command
-day ingest; days 08-24 + 08-25 ingested green, corpus is a 4-DAY
-SERIES with weekdays clustering tight (397/51 · 377/50 · 382/46 =
-12.0–13.3% E-FLYABLE) vs the Sunday population (175/13, 7.4%);
-(B) instruments/forecast/ — domain-agnostic conformal intervals
-(coverage = exact rank-lemma counting theorem, REFUSES unprovable
-claims) + append-only commit/score ledger (Winkler score exact in
-rationals, strictly proper; REFUSES backdating/tamper/premature/
-rescore; 5 checks + 4 reds; make test 30 rows). FIRST FORECASTS
-COMMITTED (certs/skyaudit-forecast-ledger.jsonl): Fri 2026-08-28
-NYC flights [377,397] + E-FLYABLE [46,51], proved coverage 2/4,
-sha-pinned before the day. NEXT: 8C SkyForecast surface · 8D score
-08-28 when its release lands · 8E the Forecast Gym (contamination-
-impossible forecasting eval — the frontier-lab bridge).
-METHODOLOGY V2 DONE (2026-08-27, operator's word; done before the
-series/ledger grew — the cheapest moment). One disclosed move, full
-detail in TODO.md Phase 2 box + note §6: cruise energy V-FREE (the
-t·P(V) = mgD/((L/D)η) cancellation — v1's independent enclosure was
-sound over-enclosure up to 34%; tightness THEOREM, battery-proved,
-stdlib verifier updated: 992 rows 0 defects) + operating-mass boxes
-from published empty/payload; reserve-at-normal-cruise and disk
-loading REVIEWED AND REFUSED BY THE DATA (unpublished), stated. All
-4 days re-certified. NEW NUMBERS OF RECORD (NYC Wed 2026-08-26):
-100 E-FLYABLE (26.2%), fleet EXACTLY 10 (witness 18:11:44 ET),
-floors 267/309/318/304 kWh, reserve price 215/195/153/100/14/0 —
-30-min reserve still ZERO provable; electric bill $290–2,056 vs
-$3,966–9,902 disjoint; Joby/Archer/Eve still 0 provable; Archer
-60-mi guarantee still undecidable. v2 series: Sun 38 (21.7%) · Mon
-127 (32%) · Tue 106 (28.1%) · Wed 100 (26.2%) — the weekday cluster
-holds under v2. Ledger disclosure for 8D recorded in TODO (flights
-forecast methodology-independent; the v1-calibrated eflyable commit
-will bust against the v2 outcome — scored, kept, cause stated). HELD for joint decision: the conservatism
-refinements (reserve-speed box / MTOW / disk loading — changes every
-published number; do once as methodology v2). SP CITY PACK SHIPPED
-2026-08-27 (full detail TODO.md): /apps/skyaudit/sp/ decided under
-ANAC RBAC 91.151(b) (pinned, quoted verbatim) — SP day of record
-59/148 E-FLYABLE (40%) vs NYC 26%; measured heliport nodes
-(Helicidade/Campo de Marte), REH corridor planner, Eve flip
-threshold leads the card, BYO-box runbook in APP.md; per-city gate
-loop, battery 33/33. PARKED: synthetic demand packs; outreach (word only).
-Spec: APP.md · plan: TODO.md · sourced research: RESEARCH.md (sections
-1-5).
+STATE OF RECORD (refreshed 2026-08-27, end of the foundations+
+prediction+oracle session; full histories live in apps/skyaudit/TODO.md
+and the session entries below — this block holds only what stands):
+
+  SKYAUDIT — TWO CITY PACKS LIVE, methodology v2, 4-day pinned series.
+  NYC flagship /apps/skyaudit/: Wed 2026-08-26, 82 aircraft / 382
+  flights / 3,056 rows; 100 E-FLYABLE (26.2%), fleet EXACTLY 10;
+  floors 267/309/318/304 kWh; reserve price 215/195/153/100/14/0
+  (30-min = ZERO provable); electric bill $290–2,056 vs $3,966–9,902
+  disjoint; Joby/Archer/Eve 0 provable; Archer guarantee undecidable.
+  SP pack /apps/skyaudit/sp/ under ANAC RBAC 91.151(b) (pinned,
+  quoted): 59/148 E-FLYABLE (40%); REH corridor planner; Eve flip
+  threshold leads (253 kWh). v2 series: Sun 38 (21.7%) · Mon 127
+  (32%) · Tue 106 (28.1%) · Wed 100 (26.2%) — weekday cluster holds.
+  Registry joins (FAA+ANAC, union of days, membership on authority);
+  companion note reports/skyaudit.html (day-stability §7, v2 delta
+  disclosed §6); ingest-day.js = one-command day ingest; battery
+  33/33, 11 build gates, make test 31/31.
+
+  THE PREDICTION PROGRAM — instruments/forecast/ (conformal coverage
+  as counting theorem + append-only exact-scored commit/score ledger,
+  4 reds) · SkyForecast v1 card live (dashed, never verdict-styled;
+  gate 11) · ledger holds 4 commits: 08-28 flights [377,397] +
+  eflyable [46,51] (v1-calibrated, disclosure recorded), 08-31
+  [377,397] + [100,127] (v2). Doctrine: prediction enters as a
+  proposer only (CLAUDE.md).
+
+  THE ORACLE — packaged AND doored: oracle/certmachine.py (red
+  controls at import, Q+F2, exact mechanisms; harness imports the one
+  definition), /oracle/ front door live (60-second curl->certify()
+  path, shared gated paste box with the board, evidence links),
+  paper/verified-reward-oracle.md DRAFT (not submitted).
+
+ACTIVE NEXT (operator to choose; nothing pre-authorized):
+  A. HARBORPROOF build — scouted GO (see O2): FuelEU exact penalty
+     formula in its first live year + Danish Maritime Authority free
+     bulk AIS. The next big observatory.
+  B. 8E THE FORECAST GYM — contamination-impossible forecasting eval
+     (pinned context/outcome splits, proof-of-temporal-hygiene, exact
+     proper-score reward); the frontier-lab bridge; its own session.
+  C. 8C-full — certified-universal-over-forecast-envelope fleet
+     statements; BLOCKED on the parked scenario packs.
+  WAITING ON DATA (automatic): 8D — when adsb.lol releases 2026-08-28:
+     node audit/ingest-day.js 2026-08-28 && node audit/forecast.js
+     score 2026-08-28 (disclosure text in TODO 8D).
+  HELD/PARKED: synthetic demand packs · outreach on the word only.
+  Spec: APP.md · plan: TODO.md · research: RESEARCH.md.
 
 AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
  1. LRCAP CERTIFIED AUCTION ARITHMETIC — PERISHABLE. Fetch ANEEL CP
