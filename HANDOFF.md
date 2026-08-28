@@ -166,12 +166,25 @@ observatory template on a new market, built on the operator's word):
      A FINE ATTACHED; shipowners/charterers/Poseidon-Principles banks
      are compelled buyers who today pay for ESTIMATES. Candidate
      assets: methanol/ammonia/batteries/wind-assist/slow-steaming
-     boxes; admiralty cube law + IMO's own published formulas. SCOUT
-     FIRST: (a) re-verify regulation thresholds/timelines at source
-     (they move), (b) THE DATA GAP — NOAA public-domain AIS is US
-     coastal; FuelEU bites on EU voyages — establish an open EU-water
-     AIS source before declaring the pick. Class societies (DNV/LR/
-     ABS) framed as licensees, not competitors (word-gated commercial).
+     boxes; admiralty cube law + IMO's own published formulas.
+     SCOUTED 2026-08-27 — VERDICT: GO. (a) Regulation verified via
+     class-society/trade summaries (pin EUR-Lex 2023/1805 itself at
+     build): WtW reference 91.16 gCO2eq/MJ; reductions -2% 2025 /
+     -6% 2030 / -14.5% 2035 / -31% 2040 / -62% 2045 / -80% 2050;
+     penalty EUR 2,400 per tonne VLSFO-energy-equivalent over the
+     limit — a PUBLISHED EXACT FORMULA; banking (2 yr) + pooling =
+     more decidable arithmetic. TIMING GIFT: the FIRST verification/
+     penalty cycle closed H1 2026 (penalties due 30 June 2026) — the
+     rule is in its first live year RIGHT NOW. (b) THE DATA GAP
+     CLOSES: the Danish Maritime Authority publishes free bulk
+     historical AIS (CSV, web.ais.dk/aisdata/, ~2 years back) — the
+     Danish straits carry ALL Baltic traffic, EU voyages by
+     construction; verify listing + license at build. Note for the
+     build: the audit is COUNTERFACTUAL (re-sail under candidate-fuel
+     WtW boxes), so no fuel attribution from AIS is needed — exactly
+     the SkyAudit shape; ship particulars need a registry-join analog
+     (AIS static messages + open registries). Class societies (DNV/
+     LR/ABS) framed as licensees, not competitors (word-gated).
      Test sentence, kept verbatim: "Replay a real year of your
      operations under the rule that's coming, and get a verdict with a
      proof, not a forecast."
