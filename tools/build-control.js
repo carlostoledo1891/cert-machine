@@ -49,6 +49,8 @@ const BATTERIES = [
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [
+  ['oracle claim library', ['oracle/battery.py'],
+    'certify() for AI math search: Strassen calibrates, the characteristic-2 pair reproduced, the sub-float forgery refuted with its exact mechanism; red controls also run at import — a broken grader refuses to exist · 6 red controls'],
   ['keller · standalone re-verifier', ['tools/verify_keller.py', 'certs/keller-certificate.json', '--sources', 'corpus/sources'],
     'the detached certificate re-audited from scratch — stdlib fractions, no code from this repo; red control must fire'],
   ['strassen · standalone re-verifier', ['tools/verify_strassen.py', 'certs/strassen-certificate.json', '--sources', 'corpus/sources'],

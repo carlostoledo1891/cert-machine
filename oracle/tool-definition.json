@@ -1,0 +1,35 @@
+{
+  "name": "certify_matmul_decomposition",
+  "description": "Exactly certify or refute a claimed rank-R decomposition of the <n,m,p> matrix-multiplication tensor. Returns CERTIFIED with a certificate (all (nm)(mp)(np) tensor equations verified in exact rational arithmetic — no floats participate in any decision), REFUTED with the mechanism (the first violated equation, the exact left side, required right side, and exact discrepancy — or the rank overflow), or REFUSED with the reason when the claim is not well-formed enough to decide. Entries must be integers or exact rational strings like '1/2'; float entries are refused, never rounded. The convention: sum_r u[r][a*m+b] * v[r][c*p+d] * w[r][e*p+f] equals 1 iff (b==c and e==a and f==d), else 0. This grader is deterministic, cannot be argued with, and its feedback is its own arithmetic — use the REFUTED mechanism to repair the decomposition and resubmit.",
+  "strict": true,
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["task", "ring", "witness"],
+    "properties": {
+      "task": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "n", "m", "p", "rank"],
+        "properties": {
+          "kind": { "const": "matmul" },
+          "n": { "type": "integer", "minimum": 1, "maximum": 6 },
+          "m": { "type": "integer", "minimum": 1, "maximum": 6 },
+          "p": { "type": "integer", "minimum": 1, "maximum": 6 },
+          "rank": { "type": "integer", "minimum": 1, "maximum": 256 }
+        }
+      },
+      "ring": { "enum": ["Q", "F2"] },
+      "witness": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["u", "v", "w"],
+        "properties": {
+          "u": { "type": "array", "minItems": 1, "items": { "type": "array", "items": { "anyOf": [{ "type": "integer" }, { "type": "string" }] } } },
+          "v": { "type": "array", "minItems": 1, "items": { "type": "array", "items": { "anyOf": [{ "type": "integer" }, { "type": "string" }] } } },
+          "w": { "type": "array", "minItems": 1, "items": { "type": "array", "items": { "anyOf": [{ "type": "integer" }, { "type": "string" }] } } }
+        }
+      }
+    }
+  }
+}

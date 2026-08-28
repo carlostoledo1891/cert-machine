@@ -38,6 +38,7 @@ test:
 	  printf "%-30s " "interval/$$t"; $(NODE) instruments/interval/tests/$$t.js >/dev/null 2>&1 && echo PASS || echo FAIL; done
 	@printf "%-30s " "trigmin certifier"; $(NODE) instruments/trigmin/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "forecast instrument"; $(NODE) instruments/forecast/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "oracle claim library"; python3 oracle/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "newman box sweep"; $(NODE) instruments/trigmin/sweep-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lambda sweep"; $(NODE) instruments/trigmin/lambda-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mercer mu5 ladder"; $(NODE) instruments/trigmin/mercer6-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL

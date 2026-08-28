@@ -1,0 +1,127 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "certmachine result (v1)",
+ "oneOf": [
+  {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "verdict",
+    "certificate"
+   ],
+   "properties": {
+    "verdict": {
+     "const": "CERTIFIED"
+    },
+    "certificate": {
+     "type": "object",
+     "required": [
+      "task",
+      "ring",
+      "witness_rank",
+      "equations_checked",
+      "witness_sha256",
+      "statement"
+     ],
+     "properties": {
+      "task": {
+       "type": "object"
+      },
+      "ring": {
+       "enum": [
+        "Q",
+        "F2"
+       ]
+      },
+      "witness_rank": {
+       "type": "integer"
+      },
+      "equations_checked": {
+       "type": "integer"
+      },
+      "witness_sha256": {
+       "type": "string",
+       "pattern": "^[0-9a-f]{64}$"
+      },
+      "statement": {
+       "type": "string"
+      },
+      "verify": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "verdict",
+    "mechanism"
+   ],
+   "properties": {
+    "verdict": {
+     "const": "REFUTED"
+    },
+    "mechanism": {
+     "type": "object",
+     "required": [
+      "kind"
+     ],
+     "properties": {
+      "kind": {
+       "enum": [
+        "equation_violation",
+        "rank_overflow"
+       ]
+      },
+      "first_violation": {
+       "type": "array",
+       "items": {
+        "type": "integer"
+       }
+      },
+      "equation": {
+       "type": "string"
+      },
+      "got": {
+       "type": "string"
+      },
+      "want": {
+       "type": "string"
+      },
+      "discrepancy": {
+       "type": "string"
+      },
+      "witness_rank": {
+       "type": "integer"
+      },
+      "claimed_rank": {
+       "type": "integer"
+      },
+      "text": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "verdict",
+    "reason"
+   ],
+   "properties": {
+    "verdict": {
+     "const": "REFUSED"
+    },
+    "reason": {
+     "type": "string"
+    }
+   }
+  }
+ ]
+}

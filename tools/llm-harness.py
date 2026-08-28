@@ -37,6 +37,12 @@ import time
 import urllib.request
 from dataclasses import dataclass, asdict
 from fractions import Fraction
+
+# the tensor-identity decision core is shared with the public claim oracle
+# (oracle/certmachine.py) — ONE definition, all consumers; certmachine runs
+# its own red controls at import and refuses to exist broken
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'oracle'))
+from certmachine import check_Q as _oracle_check_Q
 from typing import Any, Callable, Iterable, Optional
 
 
@@ -413,24 +419,17 @@ class MatmulFamily(Family):
                 certificate={"tensor": "disguised-222", "rank": len(u), "target_rank": R,
                              "first_violation": bad},
             )
-        # THE decision: the full tensor identity over Fractions. Always decidable.
+        # THE decision: the full tensor identity over Fractions — delegated to
+        # the shared oracle core (identical loop and first-violation order).
         n, m, p, R = target
         u, v, w = obj
         ok = len(u) <= R
+        eq_ok, raw = _oracle_check_Q(u, v, w, n, m, p)
         bad = None
-        for a in range(n):
-            for b in range(m):
-                for c in range(m):
-                    for d in range(p):
-                        for e in range(n):
-                            for f in range(p):
-                                s = sum(u[r][a * m + b] * v[r][c * p + d] * w[r][e * p + f]
-                                        for r in range(len(u)))
-                                want = Fraction(1 if (b == c and e == a and f == d) else 0)
-                                if s != want:
-                                    ok = False
-                                    if bad is None:
-                                        bad = (a, b, c, d, e, f, str(s), str(want))
+        if not eq_ok:
+            ok = False
+            a, b, c, d, e, f, got, want = raw
+            bad = (a, b, c, d, e, f, str(got), str(want))
         return Verdict(
             holds=ok,
             witness=("exact tensor identity holds; rank " + str(len(u)) + " <= " + str(R)) if ok

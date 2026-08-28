@@ -118,22 +118,29 @@ AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
     thinking rungs cost 10-30k output tokens/proposal); a true
     feedback-conversion loop needs an intermediate-capability model;
     Laderman/r22 loops need >24k budgets.
- 5b. THE ORACLE PACKAGING (from the number-one-bet brainstorm
-    2026-08-27; v2 eval already shipped the disguise/probe/open rungs
-    the text asked for — what survives is packaging): (a) the CLAIM
-    LIBRARY — certify({task, ring, witness}) -> CERTIFIED(certificate)
-    / REFUTED(mechanism) / REFUSED(reason); zero deps, red controls at
-    import, JSON claim+certificate schema, PLUS the tool-definition
-    shape a model calls mid-generation (how it sits in a training
-    loop); (b) PASTE-A-DECOMPOSITION on the matmul board — client-side
-    exact-rational certification (our verifiers are stdlib; no server
-    needed on the static site); (c) the arXiv PAPER draft (invariant,
-    red-control discipline, closed-loop curve, #852 taxonomy, honest
-    scope) — drafting agent-side, SUBMISSION on the word; (d) outside
-    reruns target raised 1 -> 3 (item 13). PROPOSAL FOR THE OPERATOR,
-    not acted on: a dedicated oracle landing path (board + paste box +
-    package + paper as its own front door) — conflicts with standing
-    landing rulings, so it is yours to adjudicate.
+ 5b. THE ORACLE PACKAGING — SHIPPED 2026-08-27 (operator's word
+    "proceed on your order"): (a) oracle/certmachine.py — certify()
+    -> CERTIFIED(certificate w/ sha + equation count) / REFUTED(exact
+    mechanism: first violated equation + rational discrepancy, fixed
+    iteration order) / REFUSED(reason); stdlib-only, floats refused at
+    the door, rings Q + F2 (the characteristic-2 pair — sign-flipped
+    Strassen Q-REFUTED/F2-CERTIFIED — is a battery row); RED CONTROLS
+    RUN AT IMPORT (a broken grader refuses to exist); battery.py 14
+    checks + 6 reds; make test row + control-page row; claim/
+    certificate JSON schemas + oracle/tool-definition.json (strict
+    Messages-API tool shape) + README with the tool-runner wiring.
+    ONE DEFINITION: the eval harness now imports certmachine.check_Q
+    (dry battery + eval-report calibration gate both green after the
+    delegation). (b) PASTE-A-DECOMPOSITION live on the matmul board —
+    BigInt-rational browser mirror, GATED AT BUILD (Strassen must
+    certify, forgery must refute, float must refuse or the page
+    refuses to build); nothing uploaded, citable path stated. (c)
+    paper/verified-reward-oracle.md — the arXiv-shaped DRAFT
+    (invariant, red-control discipline, results quoted from ledgers,
+    #852+RM taxonomy, honest scope, Lean bridge as extension);
+    SUBMISSION on the word only. STILL PENDING from this shelf:
+    the oracle landing path (operator to adjudicate); outside reruns
+    (item 13, target 3).
  6. APERY/STURM DECIDER (notes/apery-sturm-decider.md; green zeta(3)
     must PROVE, red zeta(5) must REFUSE). A session's work.
  7. MU BOX50 (worker_threads sharding ~3.68x, then n=10..12 detached).
