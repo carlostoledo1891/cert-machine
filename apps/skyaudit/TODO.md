@@ -473,9 +473,19 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       LEDGER (certs/skyaudit-forecast-ledger.jsonl): Friday 2026-08-28
       NYC flights [377,397] + E-FLYABLE [46,51], proved coverage 2/4
       each (grows with the corpus), sha-pinned, calibration days named
-- [ ] 8C SKYFORECAST — the self-scoring public surface, SPEC UPGRADED
-      2026-08-27 (the prediction-architecture brainstorm; the doctrine
-      rule "prediction enters as a proposer" now binds):
+- [~] 8C SKYFORECAST — V1 SURFACE SHIPPED 2026-08-27: the dashed
+      FORECAST card on the NYC DAY tab (deliberately different in kind
+      and drawing from every decided number — doctrine rule applied):
+      open commits with interval + proved coverage + sha + committed-at,
+      the v1-methodology disclosure on the 08-28 eflyable card, lifetime
+      record recomputed from the ledger at build (gate 11: backdated or
+      orphaned rows refuse the build), ledger linked. NEW v2-calibrated
+      commits for Mon 2026-08-31: flights [377,397], eflyable [100,127],
+      coverage 2/4. REMAINING for 8C-full (needs the parked scenario
+      packs): the certified-universal-over-envelope FLEET statement —
+      "under every scenario in the forecast box, N aircraft suffice" —
+      which requires scenario generation, not just count intervals.
+      ORIGINAL SPEC (kept):
       * not just an interval display — the certifier CONSUMES the
         forecast box: "under EVERY scenario in the forecast envelope,
         N aircraft suffice" — a certified universal over predicted

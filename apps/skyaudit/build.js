@@ -95,6 +95,23 @@ for (const city of ['nyc', 'sp']) {
   }
 }
 
+/* gate 11 — the forecast ledger recounts (SkyForecast reads it at build) */
+console.log('gate: forecast ledger');
+const LEDGER_PATH = path.join(ROOT, 'certs/skyaudit-forecast-ledger.jsonl');
+const ledgerRows = fs.existsSync(LEDGER_PATH)
+  ? fs.readFileSync(LEDGER_PATH, 'utf8').split('\n').filter((l) => l.trim()).map((l) => JSON.parse(l)) : [];
+const fCommits = ledgerRows.filter((r) => r.type === 'commit');
+const fScores = ledgerRows.filter((r) => r.type === 'score');
+for (const s of fScores) {
+  if (!fCommits.some((c) => c.id === s.id)) die('forecast ledger holds a score without its commit: ' + s.id);
+}
+for (const c of fCommits) {
+  if (!(c.madeAt < c.targetTime)) die('forecast ledger holds a backdated commit: ' + c.id);
+}
+const fRecord = { commits: fCommits.length, scored: fScores.length,
+  covered: fScores.filter((s) => s.covered).length };
+const fOpen = fCommits.filter((c) => !fScores.some((s) => s.id === c.id));
+
 /* ---- per-city product text ---- */
 const NAMES = { 'joby-s4': 'Joby S4', 'archer-midnight': 'Archer Midnight',
   'beta-alia': 'Beta ALIA', 'eve-100': 'Eve EVE-100' };
@@ -275,6 +292,31 @@ for (const city of ['nyc', 'sp']) {
         ${stories.outliers.detours[0].factor}× its direct distance · longest hoverer: ${stories.outliers.dwellers[0].reg}
         under 10 kt for ${stories.outliers.dwellers[0].dwellPct}% of a ${stories.outliers.dwellers[0].min}-min flight</span></span></div>
     </section>
+    ${city === 'nyc' ? `
+    <section class="as-card" style="border-style:dashed;border-color:var(--ink-3)">
+      <div class="as-h" style="letter-spacing:.12em">SKYFORECAST — FORECASTS, NOT VERDICTS</div>
+      <div class="as-fine" style="margin-bottom:8px">Everything else on this page is DECIDED from a day
+      that happened. This card is different in kind and drawn differently on purpose: interval
+      FORECASTS for days that have not happened, committed to an append-only ledger (sha-pinned,
+      timestamped BEFORE the day) and scored in exact arithmetic when the day's data is released.
+      Wrong forecasts stay on the ledger forever — that permanence is the point. The coverage claim
+      is a conformal counting theorem under a stated hypothesis (days exchangeable within the
+      weekday/weekend group), never model faith.</div>
+      ${fOpen.map((c2) => {
+        const f2 = c2.forecast;
+        const v1note = c2.id.includes('2026-08-28') && c2.target === 'eflyable'
+          ? ' <span style="color:var(--warn)">committed under methodology v1; will be scored against the v2-defined outcome and likely bust — the ledger never rewrites, and the miss will say why</span>' : '';
+        return `<div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">${c2.id.split(':')[1]} · ${c2.target}</span>
+        <span class="sub">committed ${new Date(c2.madeAt * 1000).toISOString().slice(0, 16)}Z · sha ${c2.payloadSha256.slice(0, 10)} · proved coverage ${f2.coverage} (grows with the corpus)${v1note}</span></span>
+        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[${f2.lo}, ${f2.hi}]</span></div>`;
+      }).join('') || '<div class="as-fine">no open forecasts — the next commit lands with the next calibration day</div>'}
+      <div class="as-fine" style="margin-top:8px">lifetime record, recomputed from the ledger at this build:
+      ${fRecord.commits} committed · ${fRecord.scored} scored · ${fRecord.covered} covered${fRecord.scored
+        ? ' (' + Math.round(fRecord.covered / fRecord.scored * 100) + '% exact coverage)' : ' — the first outcomes arrive with the next day releases'}.
+      Ledger: <a href="/certs/skyaudit-forecast-ledger.jsonl">skyaudit-forecast-ledger.jsonl</a> ·
+      instrument: instruments/forecast (conformal coverage proved by exact rank-lemma enumeration;
+      the ledger refuses backdating, tampering, premature and double scoring).</div>
+    </section>` : ''}
     <section class="as-card">
       <div class="as-h">The electric bill</div>
       <div class="as-note">This day's helicopters burned <b>${economics.fuel.liters[0].toLocaleString('en-US')}–${economics.fuel.liters[1].toLocaleString('en-US')} L
