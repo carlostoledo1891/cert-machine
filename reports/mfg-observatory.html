@@ -1,0 +1,2183 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The MFG regime observatory · cert-machine</title>
+<meta name="description" content="The coupling–potential plane of a mean-field game, partitioned into 19,800 cells and decided: 11,330 carry two exact equilibria in provably disjoint balls valid for every parameter in the cell, 384 sit in the monotone half-plane with the enclosure certified, the rest are undecided with the reason kept. The certifier runs in the page and ships as one dependency-free file.">
+<meta name="author" content="Carlos Toledo">
+<link rel="canonical" href="https://carlostoledo.co/reports/mfg-observatory.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/mfg-observatory.html">
+<meta property="og:title" content="The MFG regime observatory · cert-machine">
+<meta property="og:description" content="The coupling–potential plane of a mean-field game, partitioned into 19,800 cells and decided: 11,330 carry two exact equilibria in provably disjoint balls valid for every parameter in the cell, 384 sit in the monotone half-plane with the enclosure certified, the rest are undecided with the reason kept. The certifier runs in the page and ships as one dependency-free file.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The MFG regime observatory · cert-machine">
+<meta name="twitter:description" content="The coupling–potential plane of a mean-field game, partitioned into 19,800 cells and decided: 11,330 carry two exact equilibria in provably disjoint balls valid for every parameter in the cell, 384 sit in the monotone half-plane with the enclosure certified, the rest are undecided with the reason kept. The certifier runs in the page and ships as one dependency-free file.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 28px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:400;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sig);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:4px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--sig);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:52px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:76px}
+.col{max-width:64ch;margin-left:auto;margin-right:auto}
+.wide{max-width:900px;margin-left:auto;margin-right:auto}
+/* A wide element (table, card grid, figure) emitted inside a prose column
+   breaks out to the page-wide track: .col and .page are both centered, so
+   centering on the viewport IS centering on the page. Width never exceeds
+   the viewport minus the page padding, so the body never scrolls sideways —
+   anything wider (a table) scrolls inside its own .tw container. */
+.col .wide{position:relative;left:50%;transform:translateX(-50%);
+  width:min(900px,calc(100vw - 2*clamp(18px,4vw,40px)))}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:7px;
+  flex:1 1 240px;min-width:200px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:22px 24px;
+  color:inherit;text-decoration:none;transition:border-color .15s ease}
+a.card:hover{border:1px solid var(--sig)}
+a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+.card-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
+.card-t{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:19.5px;line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
+.card-n{margin-top:auto;padding-top:6px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  letter-spacing:.05em;color:var(--ink-3)}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · lab · the certifier runs in your tab</div>
+  <h1>The MFG regime observatory</h1>
+  <p class="deck">Pick a rectangle of mean-field-game parameters. This decides it: two solutions, one solution, or honestly undecided — and when it says two, it hands you both, each inside a ball with a radius, valid for EVERY parameter in the rectangle. 19,800 cells of the coupling–potential plane are decided below; 11,330 of them carry a proof that uniqueness fails there. The same certifier runs in this page, ships beside it as one dependency-free file, and is in the repository.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> Uniqueness fails on a SET, not at a point: 30.7% of the swept plane is covered by cells in which two distinct equilibria are enclosed in provably disjoint balls, uniformly over each cell — the tightest cell still clears its own radii by a factor of 290×, and every density is certified positive.</li><li><b>The mechanism.</b> A radii-polynomial contraction in outward-rounded interval arithmetic, run with the PARAMETERS as intervals and a tangent predictor carrying the candidate across the cell — so the conclusion comes with a quantifier over the rectangle, not a sample of it.</li><li><b>Check it.</b> <span class="m">node labs/mfg/battery.js</span> (9 checks, 6 falsifiers that must each fire), then paste your own cell into the box below — or run <span class="m">reports/mfg-certify.js</span> offline.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">multiplicity, proved</div><div class="v sig">11,330 cells</div><div class="n">30.7% of the swept plane — in each, two exact solutions for EVERY parameter in the cell, not merely at a sampled point</div></div>
+    <div class="stat"><div class="k">the tightest witness</div><div class="v held">290× clear</div><div class="n">the smallest separation-to-radii ratio anywhere in the map (the largest is 1.6e+4×) — disjointness is never marginal</div></div>
+    <div class="stat"><div class="k">densities</div><div class="v held">≥ 2.81e-7</div><div class="n">the smallest certified lower bound on m over any enclosure in the map — m &gt; 0 is a hypothesis of the model, so it is proved, never assumed</div></div>
+    <div class="stat"><div class="k">monotone half-plane</div><div class="v held">384 cells</div><div class="n">c ≥ 0: global uniqueness is Lasry–Lions’ (cited); the enclosure of that solution, uniform over the cell, is ours</div></div>
+    <div class="stat"><div class="k">undecided</div><div class="v warn">8,086 cells</div><div class="n">6,470 of them still enclose at least one exact solution — a solution is proved to exist, and whether it is alone is open</div></div>
+    <div class="stat"><div class="k">the partition</div><div class="v">exact</div><div class="n">the 19,800 cells cover the domain with no gap and no overlap — area 24.000000 against 24.000000, checked at this build</div></div>
+  </div>
+</div>
+
+<p class="scope">Published, not peer-reviewed, not independently rerun. The radii-polynomial machinery is van den Berg–Lessard; the uniform-over-a-rectangle variant, the refutation mode and the partition are this lab’s.</p>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§1 · the tool</div>
+    <h2>Decide a cell, here, now</h2>
+  </div>
+<div class="col"><p>Give it a rectangle of parameters. It solves for both branches, wraps each in a contraction argument over the whole rectangle, and answers. Nothing is uploaded — the certifier below is the repository’s own code, assembled from the same files the map was made with, running in this tab.</p><ul class="plain"><li><b>MULTIPLE.</b> Two exact solutions for every parameter in the cell, in two provably disjoint balls. You get both radii, the separation, and a lower bound on both densities.</li><li><b>UNIQUE.</b> The cell sits in c ≥ 0, where Lasry–Lions gives global uniqueness — <em>cited, not proved here</em>. What is proved here is the enclosure of that solution, uniform over the cell.</li><li><b>UNDECIDED.</b> With the reason, verbatim. Near the bifurcation the argument <em>cannot</em> close, and a certifier that certified there would be broken.</li></ul></div><div class="col"><div class="col"><textarea id="mfg-in" spellcheck="false" rows="6" style="width:100%;font-family:ui-monospace,monospace;font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:10px" placeholder='{"sigma":0.5,"c":[-16.03,-15.97],"A":[0.288,0.313],"N":16,"nu":1.02}'>{"sigma":0.5,"c":[-16.03125,-15.96875],"A":[0.2875,0.3125],"N":16,"nu":1.02}</textarea><div style="margin:8px 0"><button id="mfg-go" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sig);color:var(--paper);border:none;border-radius:6px;margin:0 6px 6px 0">decide this cell</button><button id="mfg-ex1" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px;margin:0 6px 6px 0">a multiplicity cell</button><button id="mfg-ex2" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px;margin:0 6px 6px 0">a monotone cell</button><button id="mfg-ex3" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px;margin:0 6px 6px 0">the bifurcation</button><button id="mfg-ex4" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px;margin:0 6px 6px 0">refute a candidate</button></div><pre id="mfg-out" style="white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);border-radius:6px;padding:10px;font-size:13px;min-height:1.5em;overflow-x:auto"></pre><p class="scope">Runs in this tab. Nothing is uploaded, nothing is logged; the certifier is the repository's own code, assembled from legacy/core/interval/interval.js, legacy/core/mfg/mfg1d.js, labs/mfg/box.js. A cell takes about a tenth of a second.</p></div><script>/* assembled by labs/mfg/widget.js from the repository sources — do not edit here */
+var EqInterval = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/interval\.js$/.test(p))return EqInterval;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+/* interval.js — outward-rounded interval arithmetic over IEEE-754 doubles.
+
+   RIGOR MODEL, stated once and relied on everywhere downstream. JavaScript has
+   no access to the FPU rounding mode, so directed rounding is SIMULATED: every
+   IEEE-754 basic operation (+ − × ÷ and sqrt) returns the correctly rounded
+   nearest double, so the exact real result lies strictly within half an ulp of
+   the computed value. Widening the computed bounds outward by ONE ulp (nextDown
+   on the lower end, nextUp on the upper) therefore encloses the exact result.
+   This is conservative by a factor of ~2 in the last bit and costs nothing at
+   the accuracy we need.
+
+   The library is not trusted on assertion: tests/test-interval.js checks every
+   operation against EXACT BigInt rational arithmetic on thousands of random
+   operands, and mutation-tests the widening (removing it turns the check red).
+
+   That sentence was FALSE from the day it was written until 2026-07-28: the file it
+   names did not exist, and the battery that did cover intervals (test-eqcert.js I2)
+   exercises 4 of these exports. `pow` therefore had no coverage and was wrong —
+   it returned [1,1] for every negative exponent. The file now exists, runs first in
+   `make check-eqcert`, and covers every export. Left as a standing reminder that a cited
+   test is not a test: the citation was read as evidence for months.
+
+   Sequence algebra (weighted ell^1_nu, convolution, parity) lives in
+   src/sequence.js; this file is arithmetic only.
+
+   MIT licensed. Part of eqcert — the single source of truth for interval
+   arithmetic across every project here. Vendored copies are gated
+   byte-identical; never edit a copy. */
+'use strict';
+
+const _buf = new ArrayBuffer(8);
+const _f64 = new Float64Array(_buf);
+const _u64 = new BigUint64Array(_buf);
+
+function nextUp(x) {
+  if (Number.isNaN(x) || x === Infinity) return x;
+  if (x === 0) return Number.MIN_VALUE;
+  _f64[0] = x; _u64[0] += (x > 0 ? 1n : -1n); return _f64[0];
+}
+function nextDown(x) { return -nextUp(-x); }
+
+/* an interval is a 2-array [lo, hi]; `iv(x)` is the thin (point) interval */
+const iv = (lo, hi) => [lo, hi === undefined ? lo : hi];
+const ZERO = iv(0), ONE = iv(1);
+
+function add(a, b) { return [nextDown(a[0] + b[0]), nextUp(a[1] + b[1])]; }
+function sub(a, b) { return [nextDown(a[0] - b[1]), nextUp(a[1] - b[0])]; }
+function mul(a, b) {
+  const p = [a[0] * b[0], a[0] * b[1], a[1] * b[0], a[1] * b[1]];
+  return [nextDown(Math.min(p[0], p[1], p[2], p[3])),
+          nextUp(Math.max(p[0], p[1], p[2], p[3]))];
+}
+function div(a, b) {
+  if (b[0] <= 0 && b[1] >= 0) throw new Error('interval division by an interval containing 0');
+  const q = [a[0] / b[0], a[0] / b[1], a[1] / b[0], a[1] / b[1]];
+  return [nextDown(Math.min(q[0], q[1], q[2], q[3])),
+          nextUp(Math.max(q[0], q[1], q[2], q[3]))];
+}
+function neg(a) { return [-a[1], -a[0]]; }
+/* A square is never negative, so the lower bound is clamped at 0. Without the clamp,
+   sqr([0,0]) returned [-5e-324, 5e-324] — nextDown(0) steps to the smallest negative
+   denormal — and a consumer testing `sqr(x)[0] >= 0` to prove non-negativity would be
+   defeated by the one case where non-negativity is certain. Clamping only TIGHTENS: 0 is
+   a true lower bound for x² always, so enclosure is preserved. The third branch below
+   already did this; the first two did not. (2026-07-28, found by tests/test-interval.js.) */
+function sqr(a) {                       /* tighter than mul(a,a) across 0 */
+  if (a[0] >= 0) return [Math.max(0, nextDown(a[0] * a[0])), nextUp(a[1] * a[1])];
+  if (a[1] <= 0) return [Math.max(0, nextDown(a[1] * a[1])), nextUp(a[0] * a[0])];
+  const m = Math.max(-a[0], a[1]);
+  return [0, nextUp(m * m)];
+}
+/* |a| as an interval of the modulus, and the scalar sup|a| */
+function abs(a) {
+  if (a[0] >= 0) return [a[0], a[1]];
+  if (a[1] <= 0) return [-a[1], -a[0]];
+  return [0, Math.max(-a[0], a[1])];
+}
+const mag = a => Math.max(Math.abs(a[0]), Math.abs(a[1]));   /* sup |a| */
+const mig = a => (a[0] > 0 ? a[0] : a[1] < 0 ? -a[1] : 0);   /* inf |a| */
+const contains = (a, x) => a[0] <= x && x <= a[1];
+const subset = (a, b) => b[0] <= a[0] && a[1] <= b[1];       /* a ⊆ b */
+const interior = (a, b) => b[0] < a[0] && a[1] < b[1];       /* a ⊂ int(b) */
+const width = a => nextUp(a[1] - a[0]);
+
+/* Integer power with a rigorous enclosure (repeated squaring).
+   NEGATIVE EXPONENTS: `while (e > 0)` never runs for n < 0, so this silently returned
+   ONE = [1,1] for every negative n — pow([2,2],-1) claimed to enclose 0.5 and did not.
+   A wrong enclosure is worse than a refusal, and this one was silent. n < 0 now goes
+   through div, which REFUSES a base straddling 0 (there 1/x is unbounded and no finite
+   interval encloses it). Non-integer n is refused rather than truncated: `e >>= 1` would
+   have quietly floored it. Found 2026-07-28 with 0 call sites in the tree — a loaded
+   trap, not a live wound; every certificate in `ledger/` predates and avoids it. */
+function pow(a, n) {
+  if (!Number.isInteger(n)) throw new Error('interval pow: exponent must be an integer, got ' + n);
+  if (n < 0) return div(ONE, pow(a, -n));
+  let r = ONE, base = a, e = n;
+  while (e > 0) { if (e & 1) r = mul(r, base); base = mul(base, base); e >>= 1; }
+  return r;
+}
+
+/* ---------- Stage 2.4 — thin floats and the trigonometric pad ----------
+   Math.cos / Math.sin are implementation-approximated with NO ECMAScript accuracy
+   bound. The positivity kernels used a remembered ±1e-15 pad that under-covered the
+   float mul-chain argument error by ≥16× on the Fourier grids in this monorepo
+   (TOPIC B6: measured 1.641e-14). Until a Taylor / Payne–Hanek interval cos ships
+   (sound interval exp/log: src/transcendental.js), enclose the float evaluation
+   by a DERIVED absolute pad: |d cos/dθ|≤1 and |d sin/dθ|≤1, so
+     pad(ang) = 2·ε·|ang| + ε
+   dominates a 2-ulp relative argument defect plus one ulp of the result.
+   encloseFloat widens a correctly-rounded image of a real (e.g. Math.PI) by one
+   ulp each side — the last-ulp thin-scalar hardening for 2π. */
+function trigAbsPad(ang) {
+  return nextUp(2 * Number.EPSILON * Math.abs(ang) + Number.EPSILON);
+}
+function encloseCos(ang) {
+  const cv = Math.cos(ang), p = trigAbsPad(ang);
+  return [nextDown(cv - p), nextUp(cv + p)];
+}
+function encloseSin(ang) {
+  const sv = Math.sin(ang), p = trigAbsPad(ang);
+  return [nextDown(sv - p), nextUp(sv + p)];
+}
+function encloseFloat(x) {
+  return [nextDown(x), nextUp(x)];
+}
+
+module.exports = {
+  nextUp, nextDown, iv, ZERO, ONE,
+  add, sub, mul, div, neg, sqr, abs, mag, mig,
+  contains, subset, interior, width, pow,
+  trigAbsPad, encloseCos, encloseSin, encloseFloat
+};
+
+return module.exports;})();
+var MFG1D = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/interval\.js$/.test(p))return EqInterval;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+/* mfg1d.js — the model, in Fourier, and a Newton solver for it (floats).
+   The rigorous half lives in validate.js; this file only produces the numerical
+   candidate that the validation then either certifies or refuses.
+
+   THE MODEL — stationary (ergodic) mean-field game on the 1-torus:
+
+       −σ u'' + ½ (u')² + ρ  =  c·m + V(x)        (HJB, backward)
+       −σ m'' − ( m u' )'    =  0                  (Fokker–Planck, forward)
+       ∫₀¹ m = 1,   ∫₀¹ u = 0,   m > 0.
+
+   ρ is the unknown ergodic constant; (u, m, ρ) is the unknown triple. The
+   coupling F(m) = c·m with c > 0 is strictly increasing, i.e. Lasry–Lions
+   MONOTONE, so the system has a unique solution [STANDARD: Lasry–Lions]. That
+   classical uniqueness is what upgrades the local statement the validation
+   proves into a global one — see docs/THEORY.md.
+
+   WHY FOURIER. Both nonlinearities are quadratic, and in the weighted ell^1_nu
+   norm the Fourier coefficients form a Banach algebra, so every quadratic bound
+   the radii-polynomial argument needs is an application of ||f*g|| <= ||f|| ||g||
+   rather than a Sobolev embedding with an unevaluated constant. That is the
+   whole reason this is computable: the constants are products of norms we are
+   already computing.
+
+   SYMMETRY. V is even, so we solve in the space of EVEN functions: all Fourier
+   coefficients are real and f_{-k} = f_k. The validation therefore proves
+   existence and local uniqueness in the even subspace; combined with the
+   classical global uniqueness above, the true solution IS even, so nothing is
+   lost. This is stated as a hypothesis, not hidden — see docs/THEORY.md §4.
+
+   FOURIER FORM. Write u = Σ_k a_k e^{2πikx}, m = Σ_k b_k e^{2πikx}, with
+   a_0 = 0, b_0 = 1 (the two normalisations) and p_k := 2πk a_k (so that
+   (u')^_k = i p_k; p is odd, p_0 = 0). Then, with all convolutions over Z:
+
+     H_k :  σ(2πk)² a_k − ½ (p*p)_k + ρ δ_{k0} − c b_k − V_k = 0      k ≥ 0
+     F_k :  σ(2πk)² b_k + 2πk (b*p)_k                        = 0      k ≥ 1
+
+   F_0 is 0 = 0 identically — the Fokker–Planck equation conserves mass, so its
+   zero mode carries no information and is replaced by the normalisation b_0 = 1.
+   H_0 is what determines ρ. Unknowns (ρ, a_1..a_N, b_1..b_N) and equations
+   (H_0, H_1..H_N, F_1..F_N) both number 2N+1.
+
+   MIT licensed. Part of mfg-cap. */
+'use strict';
+
+const TWO_PI = 2 * Math.PI;
+
+/* PARITY MATTERS, and getting it wrong is invisible in the Fourier residual.
+   u and m are EVEN (f_{-k} = f_k) because V is even, but their DERIVATIVES are
+   ODD: p_k = 2πk a_k satisfies p_{-k} = −p_k. Extending p evenly makes the
+   Fourier residual machine-zero at a point that does not solve the PDE — the
+   Galerkin system is then simply a different (wrong) system. This was a live
+   bug here, caught not by the residual but by evaluating the PDE pointwise and
+   by the Gibbs identity below; both are independent of the solver.
+   at()    — even extension, for u, m, V
+   atOdd() — odd  extension, for p = u' and anything built from it            */
+const at = (f, j) => { const a = j < 0 ? -j : j; return a < f.length ? f[a] : 0; };
+const atOdd = (f, j) => {
+  const a = j < 0 ? -j : j;
+  if (a >= f.length) return 0;
+  return j < 0 ? -f[a] : f[a];
+};
+
+/* (f*g)_k for k = 0..K over Z, with declared parities ('e' even, 'o' odd) */
+function conv(f, g, K, pf, pg) {
+  const gf = pf === 'o' ? atOdd : at, gg = pg === 'o' ? atOdd : at;
+  const out = new Float64Array(K + 1);
+  const Jf = f.length - 1, Jg = g.length - 1;
+  for (let k = 0; k <= K; k++) {
+    let s = 0;
+    for (let j = -Jf; j <= Jf; j++) {
+      const gk = k - j;
+      if (gk < -Jg || gk > Jg) continue;
+      s += gf(f, j) * gg(g, gk);
+    }
+    out[k] = s;
+  }
+  return out;
+}
+
+/* p_k = 2πk a_k on the stored band */
+function pOf(a) {
+  const p = new Float64Array(a.length);
+  for (let k = 0; k < a.length; k++) p[k] = TWO_PI * k * a[k];
+  return p;
+}
+
+/* ---- problem definition ----
+   V is given by its (even, real) Fourier coefficients V_k, k = 0..; the default
+   is V(x) = A cos(2πx), i.e. V_1 = V_{-1} = A/2. */
+function makeProblem({ sigma, c, A, N, Vcoef }) {
+  const V = new Float64Array(N + 1);
+  if (Vcoef) { for (let k = 0; k < Vcoef.length && k <= N; k++) V[k] = Vcoef[k]; }
+  else if (N >= 1) V[1] = A / 2;                 /* A cos(2πx) */
+  return { sigma, c, A, N, V };
+}
+
+/* unpack/pack the unknown vector x = [rho, a_1..a_N, b_1..b_N] */
+function unpack(x, N) {
+  const a = new Float64Array(N + 1), b = new Float64Array(N + 1);
+  const rho = x[0];
+  b[0] = 1;                                       /* ∫m = 1 */
+  for (let k = 1; k <= N; k++) { a[k] = x[k]; b[k] = x[N + k]; }
+  return { rho, a, b };                           /* a[0] = 0 by construction */
+}
+
+/* residual F(x) in R^{2N+1}: [H_0, H_1..H_N, F_1..F_N] */
+function residual(x, P) {
+  const { sigma, c, N, V } = P;
+  const { rho, a, b } = unpack(x, N);
+  const p = pOf(a);
+  const pp = conv(p, p, N, 'o', 'o');       /* (u')² : odd * odd -> even */
+  const bp = conv(b, p, N, 'e', 'o');       /* m u'  : even * odd -> odd  */
+  const R = new Float64Array(2 * N + 1);
+  R[0] = -0.5 * pp[0] + rho - c * b[0] - V[0];
+  for (let k = 1; k <= N; k++) {
+    const l = sigma * (TWO_PI * k) * (TWO_PI * k);
+    R[k] = l * a[k] - 0.5 * pp[k] - c * b[k] - V[k];
+    R[N + k] = l * b[k] + TWO_PI * k * bp[k];
+  }
+  return R;
+}
+
+/* analytic Jacobian DF(x), dense (2N+1)x(2N+1).
+   Derivations (m >= 1, symmetric extension so a_{-m} = a_m):
+     ∂p_j/∂a_m      = 2πm (δ_{j,m} − δ_{j,−m})
+     ∂(p*p)_k/∂a_m  = 4πm ( p_{k−m} − p_{k+m} )
+     ∂(b*p)_k/∂a_m  = 2πm ( b_{k−m} − b_{k+m} )
+     ∂(b*p)_k/∂b_m  =        p_{k−m} + p_{k+m}                          */
+function jacobian(x, P) {
+  const { sigma, c, N } = P;
+  const { a, b } = unpack(x, N);
+  const p = pOf(a);
+  const n = 2 * N + 1;
+  const J = new Float64Array(n * n);
+  const set = (i, j, v) => { J[i * n + j] = v; };
+
+  /* H_0 */
+  set(0, 0, 1);                                             /* ∂/∂ρ */
+  for (let m = 1; m <= N; m++) {
+    set(0, m, -0.5 * 4 * Math.PI * m * (atOdd(p, 0 - m) - atOdd(p, 0 + m)));
+    set(0, N + m, 0);                                       /* b_0 is fixed */
+  }
+  /* H_k, k >= 1 */
+  for (let k = 1; k <= N; k++) {
+    const l = sigma * (TWO_PI * k) * (TWO_PI * k);
+    set(k, 0, 0);
+    for (let m = 1; m <= N; m++) {
+      let v = -0.5 * 4 * Math.PI * m * (atOdd(p, k - m) - atOdd(p, k + m));
+      if (m === k) v += l;
+      set(k, m, v);
+      set(k, N + m, m === k ? -c : 0);
+    }
+  }
+  /* F_k, k >= 1 */
+  for (let k = 1; k <= N; k++) {
+    const l = sigma * (TWO_PI * k) * (TWO_PI * k);
+    set(N + k, 0, 0);
+    for (let m = 1; m <= N; m++) {
+      set(N + k, m, TWO_PI * k * (TWO_PI * m) * (at(b, k - m) - at(b, k + m)));
+      let v = TWO_PI * k * (atOdd(p, k - m) + atOdd(p, k + m));
+      if (m === k) v += l;
+      set(N + k, N + m, v);
+    }
+  }
+  return J;
+}
+
+/* dense LU solve with partial pivoting (n <= a few hundred) */
+function solveLin(M, rhs, n) {
+  const A = Float64Array.from(M), x = Float64Array.from(rhs);
+  const piv = new Int32Array(n);
+  for (let i = 0; i < n; i++) piv[i] = i;
+  for (let k = 0; k < n; k++) {
+    let pr = k, mx = Math.abs(A[k * n + k]);
+    for (let r = k + 1; r < n; r++) { const v = Math.abs(A[r * n + k]); if (v > mx) { mx = v; pr = r; } }
+    if (mx === 0) return null;
+    if (pr !== k) {
+      for (let cc = 0; cc < n; cc++) { const t = A[k * n + cc]; A[k * n + cc] = A[pr * n + cc]; A[pr * n + cc] = t; }
+      const t = x[k]; x[k] = x[pr]; x[pr] = t;
+    }
+    for (let r = k + 1; r < n; r++) {
+      const f = A[r * n + k] / A[k * n + k];
+      if (f === 0) continue;
+      for (let cc = k; cc < n; cc++) A[r * n + cc] -= f * A[k * n + cc];
+      x[r] -= f * x[k];
+    }
+  }
+  for (let k = n - 1; k >= 0; k--) {
+    let s = x[k];
+    for (let cc = k + 1; cc < n; cc++) s -= A[k * n + cc] * x[cc];
+    x[k] = s / A[k * n + k];
+  }
+  return x;
+}
+
+/* numerical inverse of a dense n x n matrix, column by column */
+function inverse(M, n) {
+  const Inv = new Float64Array(n * n), e = new Float64Array(n);
+  for (let cIdx = 0; cIdx < n; cIdx++) {
+    e.fill(0); e[cIdx] = 1;
+    const col = solveLin(M, e, n);
+    if (!col) return null;
+    for (let r = 0; r < n; r++) Inv[r * n + cIdx] = col[r];
+  }
+  return Inv;
+}
+
+/* Newton from the trivial branch (u = 0, m = 1, ρ = c), which is the EXACT
+   solution when V ≡ 0 — so the continuation is from a genuine solution. */
+function solve(P, opts) {
+  opts = opts || {};
+  const { N, c } = P;
+  const n = 2 * N + 1;
+  let x = new Float64Array(n);
+  x[0] = c;
+  if (opts.x0) x = Float64Array.from(opts.x0);
+  let res = residual(x, P), nrm = Infinity, it = 0;
+  const hist = [];
+  for (it = 0; it < (opts.maxIter || 60); it++) {
+    nrm = 0; for (const v of res) nrm = Math.max(nrm, Math.abs(v));
+    hist.push(nrm);
+    if (nrm < (opts.tol || 1e-14)) break;
+    const J = jacobian(x, P);
+    const dx = solveLin(J, res, n);
+    if (!dx) return { ok: false, why: 'singular Jacobian', x, hist };
+    let damp = 1;
+    for (let t = 0; t < 30; t++) {                       /* simple line search */
+      const y = Float64Array.from(x);
+      for (let i = 0; i < n; i++) y[i] -= damp * dx[i];
+      const r2 = residual(y, P);
+      let n2 = 0; for (const v of r2) n2 = Math.max(n2, Math.abs(v));
+      if (n2 < nrm || damp < 1e-6) { x = y; res = r2; break; }
+      damp *= 0.5;
+    }
+  }
+  let fin = 0; for (const v of res) fin = Math.max(fin, Math.abs(v));
+  return { ok: fin < (opts.tol || 1e-14) * 1e3, x, res, resNorm: fin, iters: it, hist };
+}
+
+/* evaluate u, m on a grid from the coefficients (for plotting only) */
+function evalOnGrid(x, P, M) {
+  const { N } = P;
+  const { a, b } = unpack(x, N);
+  const xs = [], us = [], ms = [];
+  for (let i = 0; i < M; i++) {
+    const t = i / M;
+    let u = 0, m = b[0];
+    for (let k = 1; k <= N; k++) {
+      u += 2 * a[k] * Math.cos(TWO_PI * k * t);
+      m += 2 * b[k] * Math.cos(TWO_PI * k * t);
+    }
+    xs.push(t); us.push(u); ms.push(m);
+  }
+  return { xs, us, ms };
+}
+
+/* Follow a solution branch in the coupling c by natural continuation. The
+   non-constant branches past the pitchfork cannot be reached by Newton from
+   the constant state — that state is itself a regular solution and attracts —
+   so the branch is entered just past the bifurcation, where its amplitude is
+   still O(sqrt(c* − c)), and then continued. */
+function continueBranch(mk, cFrom, cTo, steps, x0) {
+  let x = Float64Array.from(x0), P = mk(cFrom), out = [];
+  for (let i = 0; i <= steps; i++) {
+    const c = cFrom + (cTo - cFrom) * (i / steps);
+    P = mk(c);
+    const r = solve(P, { x0: x, maxIter: 200 });
+    if (!(r.resNorm < 1e-11)) return { ok: false, why: 'branch lost at c=' + c, out };
+    x = r.x;
+    out.push({ c, x: Float64Array.from(x), res: r.resNorm });
+  }
+  return { ok: true, out, x, P };
+}
+
+module.exports = {
+  TWO_PI, at, atOdd, conv, pOf, continueBranch, makeProblem, unpack,
+  residual, jacobian, solveLin, inverse, solve, evalOnGrid
+};
+
+return module.exports;})();
+var MFGBox = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/interval\.js$/.test(p))return EqInterval;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+/* box.js — UNIFORM-OVER-A-PARAMETER-BOX validation for the stationary
+   quadratic mean-field game, with a tangent predictor.
+
+   WHAT IS NEW HERE. The lifted kernel (legacy/core/mfg/validate.js) proves, for
+   ONE parameter triple s = (sigma, c, A):
+
+       there exists an exact solution x* with ||x* - xbar|| <= r,
+       and it is the only solution in that ball.
+
+   This file proves the same sentence with a quantifier in front of it:
+
+       for EVERY s in the box S, there exists an exact solution x*(s) with
+       ||x*(s) - xbar(s)|| <= r, and it is the only solution in that ball,
+
+   where xbar(s) is an explicit AFFINE predictor through the box. One solve, one
+   radius, a whole rectangle of parameters. That upgrade is what turns the
+   mfg-cap point result into a MAP: two disjoint box-certificates over the same
+   cell prove multiplicity for every parameter in the cell, so a picture of the
+   parameter plane can be partitioned with nothing unproved between the samples.
+
+   WHY THE PREDICTOR IS NOT OPTIONAL. With a FIXED candidate, Y0 = ||A Phi_s(xbar)||
+   grows linearly in the cell width h, and the radii polynomial needs
+   2 Z2 Y0 < (1 - Z1)^2, so admissible cells shrink like 1/||A||^2 — measured on
+   the multiplicity branch at c = -12, that is h < 0.004, a hairline, not a map.
+   Carrying the tangent xdot (DPhi xdot = -d_s Phi, one linear solve per
+   direction, reusing the Jacobian already factored for A) makes the first-order
+   term cancel and leaves Y0 = O(h^2). The bound used is the mean-value form
+
+       ||A Phi_s(xbar(s))||  <=  ||A Phi_s0(xbar(s0))||
+                                 + sum_dir h_dir * sup_S || A d_dir[ Phi(xbar) ] ||,
+
+   which is rigorous because Phi is a polynomial and S is a box, so the whole
+   segment [s0, s] lies in S. The second term is evaluated in interval
+   arithmetic over S; it vanishes at s0 by the choice of xdot, hence is itself
+   O(h), hence the product is O(h^2).
+
+   TWO THINGS TO WATCH, both handled explicitly below:
+     (1) A must be a FIXED linear operator, or "I - A DPhi" is not one operator
+         at all. So A is built once at the box midpoint: the dense inverse A_N of
+         the midpoint Jacobian, and the tail diagonal 1/(sigma0 2 pi k) with
+         sigma0 the MIDPOINT sigma.
+     (2) Because of (1) the tail of I - A DPhi no longer cancels: at row k it
+         carries 1 - sigma/sigma0, which does NOT decay in k. That term is the
+         honest price of a wide sigma box and it is added to Z1 by hand in the
+         analytic tail bound (explicit columns pick it up automatically).
+
+   AT ZERO WIDTH this file must reproduce validate.js EXACTLY -- same Y0, Z1, Z2,
+   same radius, same kappa, same verdict, bit for bit. That is not a hope, it is
+   battery.js check G1, re-run at every build of the page. Two implementations of
+   one argument WILL diverge unless something fires when they do.
+
+   MIT licensed. Part of cert-machine (labs/mfg). */
+'use strict';
+
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) {
+    module.exports = factory(require('../../legacy/core/interval/interval.js'),
+                             require('../../legacy/core/mfg/mfg1d.js'));
+  } else {
+    root.MFGBox = factory(root.EqInterval, root.MFG1D);
+  }
+})(typeof self !== 'undefined' ? self : this, function (I, M1D) {
+
+const { iv, add, sub, mul, div, neg, abs, mag, mig, ZERO, ONE } = I;
+const TWO_PI = 2 * Math.PI;
+const TWO_PI_I = I.encloseFloat(TWO_PI);
+const TWO_PI_HI = TWO_PI_I[1];
+
+function wNuI(nu, k) {                       /* nu^k, never a thin Math.pow */
+  if (k === 0) return ONE;
+  let r = I.encloseFloat(nu);
+  for (let i = 1; i < k; i++) r = mul(r, I.encloseFloat(nu));
+  return mul(iv(2), r);
+}
+const IDX = K => ({
+  n: 2 * K + 1, K, rho: 0, p: k => k, b: k => K + k,
+  weight: (j, nu) => (j === 0 ? 1 : 2 * Math.pow(nu, j <= K ? j : j - K))
+});
+
+const atE = (f, j) => { const a = j < 0 ? -j : j; return a < f.length ? f[a] : ZERO; };
+const atO = (f, j) => {
+  const a = j < 0 ? -j : j;
+  if (a >= f.length) return ZERO;
+  return j < 0 ? neg(f[a]) : f[a];
+};
+function convI(f, g, K, pf, pg) {
+  const gf = pf === 'o' ? atO : atE, gg = pg === 'o' ? atO : atE;
+  const out = new Array(K + 1);
+  const Jf = f.length - 1, Jg = g.length - 1;
+  for (let k = 0; k <= K; k++) {
+    let s = ZERO;
+    for (let j = -Jf; j <= Jf; j++) {
+      const t = k - j;
+      if (t < -Jg || t > Jg) continue;
+      s = add(s, mul(gf(f, j), gg(g, t)));
+    }
+    out[k] = s;
+  }
+  return out;
+}
+function normNu(f, nu, hasZero) {
+  let s = hasZero ? abs(f[0]) : ZERO;
+  let nk = ONE;
+  const nuI = iv(nu);
+  for (let k = 1; k < f.length; k++) { nk = mul(nk, nuI); s = add(s, mul(iv(2), mul(abs(f[k]), nk))); }
+  return s;
+}
+
+/* ---- the box ------------------------------------------------------------
+   box = { sigma:[lo,hi], c:[lo,hi], A:[lo,hi], N }; a thin box is [t,t].
+   V(x) = A cos 2 pi x, so V_1 = A/2 and every other coefficient is zero.   */
+const mid = t => 0.5 * (t[0] + t[1]);
+const half = t => 0.5 * (t[1] - t[0]);
+function midProblem(box) {
+  return M1D.makeProblem({ sigma: mid(box.sigma), c: mid(box.c), A: mid(box.A), N: box.N });
+}
+/* halving is EXACT in binary floating point, so V_1 needs no outward pad and a
+   thin A box stays thin -- which is what makes gate G1 an equality. */
+function VboxI(box) {
+  const V = new Array(box.N + 1).fill(ZERO);
+  if (box.N >= 1) V[1] = iv(box.A[0] / 2, box.A[1] / 2);
+  return V;
+}
+
+/* Phi over intervals: H rows k = 0..K, F rows k = 1..K */
+function buildPhiI(xb, SIG, C, V, K) {
+  const pp = convI(xb.p, xb.p, K, 'o', 'o');
+  const bp = convI(xb.b, xb.p, K, 'e', 'o');
+  const H = new Array(K + 1), F = new Array(K + 1);
+  const Vi = k => (k < V.length ? V[k] : ZERO);
+  const lam = k => mul(SIG, mul(TWO_PI_I, iv(k)));
+  H[0] = add(sub(mul(iv(-0.5), pp[0]), mul(C, xb.b[0])), sub(xb.rho, Vi(0)));
+  F[0] = ZERO;
+  for (let k = 1; k <= K; k++) {
+    H[k] = sub(sub(mul(lam(k), atO(xb.p, k)), mul(iv(0.5), pp[k])),
+               add(mul(C, atE(xb.b, k)), Vi(k)));
+    F[k] = add(mul(lam(k), atE(xb.b, k)), bp[k]);
+  }
+  return { H, F };
+}
+
+/* a row of DPhi over intervals */
+function dRowI(type, k, xb, SIG, C, K) {
+  const row = { rho: ZERO, p: new Array(K + 1).fill(ZERO), b: new Array(K + 1).fill(ZERO) };
+  const lam = mul(SIG, mul(TWO_PI_I, iv(k)));
+  if (type === 'H' && k === 0) {
+    row.rho = ONE;
+    for (let m = 1; m <= K; m++) row.p[m] = mul(iv(2), atO(xb.p, m));
+    return row;
+  }
+  if (type === 'H') {
+    for (let m = 1; m <= K; m++) {
+      let v = neg(sub(atO(xb.p, k - m), atO(xb.p, k + m)));
+      if (m === k) v = add(v, lam);
+      row.p[m] = v;
+      row.b[m] = (m === k) ? neg(C) : ZERO;
+    }
+    return row;
+  }
+  for (let m = 1; m <= K; m++) {
+    row.p[m] = sub(atE(xb.b, k - m), atE(xb.b, k + m));
+    let v = add(atO(xb.p, k - m), atO(xb.p, k + m));
+    if (m === k) v = add(v, lam);
+    row.b[m] = v;
+  }
+  return row;
+}
+
+/* DPhi(x) applied to a direction d = {rho, p[], b[]} (d_b0 = 0, b_0 is fixed):
+     row H_0 : d_rho - (p * d_p)_0
+     row H_k : sigma(2 pi k) d_p,k - (p * d_p)_k - c d_b,k
+     row F_k : sigma(2 pi k) d_b,k + (b * d_p)_k + (d_b * p)_k                */
+function dPhiApply(xb, d, SIG, C, K) {
+  const pdp = convI(xb.p, d.p, K, 'o', 'o');
+  const bdp = convI(xb.b, d.p, K, 'e', 'o');
+  const dbp = convI(d.b, xb.p, K, 'e', 'o');
+  const H = new Array(K + 1), F = new Array(K + 1);
+  const lam = k => mul(SIG, mul(TWO_PI_I, iv(k)));
+  H[0] = sub(d.rho, pdp[0]); F[0] = ZERO;
+  for (let k = 1; k <= K; k++) {
+    H[k] = sub(sub(mul(lam(k), atO(d.p, k)), pdp[k]), mul(C, atE(d.b, k)));
+    F[k] = add(mul(lam(k), atE(d.b, k)), add(bdp[k], dbp[k]));
+  }
+  return { H, F };
+}
+
+/* d/d(dir) of Phi at fixed x — the parameter derivative
+     c     : H_0 = -b_0 = -1,  H_k = -b_k,          F_k = 0
+     sigma : H_0 = 0,          H_k = (2 pi k) p_k,  F_k = (2 pi k) b_k
+     A     : H_1 = -1/2,       everything else 0     (V_1 = A/2)             */
+function dParamPhi(dir, xb, K) {
+  const H = new Array(K + 1).fill(ZERO), F = new Array(K + 1).fill(ZERO);
+  if (dir === 'c') {
+    H[0] = neg(xb.b[0]);
+    for (let k = 1; k <= K; k++) H[k] = neg(atE(xb.b, k));
+  } else if (dir === 'sigma') {
+    for (let k = 1; k <= K; k++) {
+      const tk = mul(TWO_PI_I, iv(k));
+      H[k] = mul(tk, atO(xb.p, k));
+      F[k] = mul(tk, atE(xb.b, k));
+    }
+  } else if (dir === 'A') {
+    if (K >= 1) H[1] = iv(-0.5);
+  }
+  return { H, F };
+}
+
+/* ---- the validation, uniform over the box ------------------------------- */
+function validateBox(xFloat, box, opts) {
+  opts = opts || {};
+  const N = box.N;
+  const nu = opts.nu || 1.05;
+  const KC = opts.KC || 3 * N;
+  const KR = KC + N;
+  if (!(box.sigma[0] > 0)) return { ok: false, why: 'sigma box must be strictly positive' };
+  const SIG = iv(box.sigma[0], box.sigma[1]), C = iv(box.c[0], box.c[1]);
+  const V = VboxI(box);
+  const sigma0 = mid(box.sigma), c0 = mid(box.c), A0 = mid(box.A);
+  const SIG0 = iv(sigma0), C0 = iv(c0);
+  const V0 = VboxI({ N, A: [A0, A0] });
+  const hs = { sigma: half(box.sigma), c: half(box.c), A: half(box.A) };
+  const L = IDX(N), n = L.n;
+
+  /* the candidate at the midpoint, in (rho, p, b), thin */
+  const un = M1D.unpack(xFloat, N);
+  const p0 = new Array(N + 1).fill(ZERO), b0 = new Array(N + 1).fill(ZERO);
+  b0[0] = ONE;
+  for (let k = 1; k <= N; k++) { p0[k] = mul(TWO_PI_I, iv(k * un.a[k])); b0[k] = iv(un.b[k]); }
+  const xb0 = { rho: iv(un.rho), p: p0, b: b0 };
+
+  /* A, part 1: the dense inverse of the MIDPOINT Jacobian on indices <= N */
+  const Jf = new Float64Array(n * n);
+  for (let k = 0; k <= N; k++) {
+    const rowH = dRowI('H', k, xb0, SIG0, C0, N);
+    const ri = (k === 0) ? 0 : L.p(k);
+    Jf[ri * n + 0] = rowH.rho[0];
+    for (let m = 1; m <= N; m++) { Jf[ri * n + L.p(m)] = rowH.p[m][0]; Jf[ri * n + L.b(m)] = rowH.b[m][0]; }
+    if (k >= 1) {
+      const rowF = dRowI('F', k, xb0, SIG0, C0, N);
+      const rj = L.b(k);
+      Jf[rj * n + 0] = rowF.rho[0];
+      for (let m = 1; m <= N; m++) { Jf[rj * n + L.p(m)] = rowF.p[m][0]; Jf[rj * n + L.b(m)] = rowF.b[m][0]; }
+    }
+  }
+  const AN = M1D.inverse(Jf, n);
+  if (!AN) return { ok: false, why: 'midpoint Jacobian numerically singular' };
+  /* A, part 2: the tail diagonal, at the MIDPOINT sigma (A must not vary over S) */
+  const tailInv = k => div(ONE, mul(SIG0, mul(TWO_PI_I, iv(k))));
+
+  /* ||A v|| for a row vector v given as H (k = 0..K) and F (k = 1..K) */
+  function ANorm(H, F, K) {
+    const rvec = new Array(n).fill(ZERO);
+    rvec[0] = H[0];
+    for (let k = 1; k <= N; k++) { rvec[L.p(k)] = H[k]; rvec[L.b(k)] = F[k]; }
+    let s = ZERO;
+    for (let i = 0; i < n; i++) {
+      let acc = ZERO;
+      for (let j = 0; j < n; j++) acc = add(acc, mul(iv(AN[i * n + j]), rvec[j]));
+      s = add(s, mul(iv(L.weight(i, nu)), abs(acc)));
+    }
+    for (let k = N + 1; k <= K; k++) {
+      const w = wNuI(nu, k);
+      s = add(s, mul(w, abs(mul(tailInv(k), H[k]))));
+      s = add(s, mul(w, abs(mul(tailInv(k), F[k]))));
+    }
+    return s;
+  }
+
+  /* ---- the tangent predictor: DPhi xdot = -d_dir Phi, one solve per live
+     direction, reusing the factored midpoint Jacobian. A direction with zero
+     width gets no tangent (and costs nothing).                             */
+  const dirs = ['sigma', 'c', 'A'].filter(d => hs[d] > 0);
+  const xdot = {};
+  /* opts.freezePredictor sets every tangent to zero, which is exactly the
+     FIXED-candidate bound the literature's single-point argument gives when it
+     is pointed at a box. It exists so the battery can turn the predictor off
+     and require the same cell to fail: a trick nobody can switch off is a trick
+     nobody has measured. */
+  for (const dir of dirs) {
+    if (opts.freezePredictor) {
+      xdot[dir] = { rho: ZERO, p: new Array(N + 1).fill(ZERO), b: new Array(N + 1).fill(ZERO) };
+      continue;
+    }
+    const g = dParamPhi(dir, xb0, N);
+    const rhs = new Float64Array(n);
+    rhs[0] = -g.H[0][0];
+    for (let k = 1; k <= N; k++) { rhs[L.p(k)] = -g.H[k][0]; rhs[L.b(k)] = -g.F[k][0]; }
+    const z = M1D.solveLin(Jf, rhs, n);
+    if (!z) return { ok: false, why: 'tangent solve failed (midpoint Jacobian singular)' };
+    const d = { rho: iv(z[0]), p: new Array(N + 1).fill(ZERO), b: new Array(N + 1).fill(ZERO) };
+    for (let k = 1; k <= N; k++) { d.p[k] = iv(z[L.p(k)]); d.b[k] = iv(z[L.b(k)]); }
+    xdot[dir] = d;
+  }
+
+  /* the predictor over the box: xbar(s) = x0 + sum_dir (s_dir - s0_dir) xdot_dir */
+  const xb = { rho: xb0.rho, p: p0.slice(), b: b0.slice() };
+  for (const dir of dirs) {
+    const t = iv(-hs[dir], hs[dir]), d = xdot[dir];
+    xb.rho = add(xb.rho, mul(t, d.rho));
+    for (let k = 1; k <= N; k++) { xb.p[k] = add(xb.p[k], mul(t, d.p[k])); xb.b[k] = add(xb.b[k], mul(t, d.b[k])); }
+  }
+
+  const normP = normNu(xb.p, nu, false);
+  const normB = normNu(xb.b, nu, true);
+
+  /* ---- Y0: centre term + mean-value term in each live direction ---- */
+  let Y0;
+  {
+    const Phi0 = buildPhiI(xb0, SIG0, C0, V0, 2 * N);
+    Y0 = ANorm(Phi0.H, Phi0.F, 2 * N);
+    for (const dir of dirs) {
+      /* d_dir [ Phi_s(xbar(s)) ] = DPhi_s(xbar(s)) xdot_dir + d_dir Phi(xbar(s)),
+         enclosed over the whole box; it vanishes at the midpoint by the choice
+         of xdot, so this whole term is O(h) and its product with h is O(h^2). */
+      const a1 = dPhiApply(xb, xdot[dir], SIG, C, 2 * N);
+      const a2 = dParamPhi(dir, xb, 2 * N);
+      const H = new Array(2 * N + 1), F = new Array(2 * N + 1);
+      for (let k = 0; k <= 2 * N; k++) { H[k] = add(a1.H[k], a2.H[k]); F[k] = add(a1.F[k] || ZERO, a2.F[k] || ZERO); }
+      Y0 = add(Y0, mul(iv(hs[dir]), ANorm(H, F, 2 * N)));
+    }
+  }
+
+  /* ---- Z1 = sup_S || I - A DPhi(xbar(s)) || (max over columns) ---- */
+  let Z1 = ZERO, worstCol = null;
+  {
+    const rowsH = [], rowsF = [];
+    for (let k = 0; k <= KR; k++) {
+      rowsH.push(dRowI('H', k, xb, SIG, C, KC));
+      rowsF.push(k >= 1 ? dRowI('F', k, xb, SIG, C, KC) : null);
+    }
+    const colNorm = (kind, m) => {
+      const entH = new Array(KR + 1).fill(ZERO), entF = new Array(KR + 1).fill(ZERO);
+      for (let k = 0; k <= KR; k++) {
+        if (kind === 'rho') { entH[k] = (k === 0) ? ONE : ZERO; }
+        else if (kind === 'p') { entH[k] = rowsH[k].p[m] || ZERO; if (k >= 1) entF[k] = rowsF[k].p[m] || ZERO; }
+        else { entH[k] = rowsH[k].b[m] || ZERO; if (k >= 1) entF[k] = rowsF[k].b[m] || ZERO; }
+      }
+      const fin = new Array(n).fill(ZERO);
+      fin[0] = entH[0];
+      for (let k = 1; k <= N; k++) { fin[L.p(k)] = entH[k]; fin[L.b(k)] = entF[k]; }
+      const out = new Array(n).fill(ZERO);
+      for (let i = 0; i < n; i++) {
+        let acc = ZERO;
+        for (let jj = 0; jj < n; jj++) acc = add(acc, mul(iv(AN[i * n + jj]), fin[jj]));
+        out[i] = acc;
+      }
+      const jIdx = kind === 'rho' ? 0 : (kind === 'p' ? (m <= N ? L.p(m) : -1) : (m <= N ? L.b(m) : -1));
+      let s = ZERO;
+      for (let i = 0; i < n; i++) {
+        const e = (i === jIdx) ? ONE : ZERO;
+        s = add(s, mul(iv(L.weight(i, nu)), abs(sub(e, out[i]))));
+      }
+      for (let k = N + 1; k <= KR; k++) {
+        const w = wNuI(nu, k);
+        const eH = (kind === 'p' && m === k) ? ONE : ZERO;
+        const eF = (kind === 'b' && m === k) ? ONE : ZERO;
+        s = add(s, mul(w, abs(sub(eH, mul(tailInv(k), entH[k])))));
+        s = add(s, mul(w, abs(sub(eF, mul(tailInv(k), entF[k])))));
+      }
+      return div(s, kind === 'rho' ? ONE : wNuI(nu, m));
+    };
+    const cand = [['rho', 0]];
+    for (let m = 1; m <= KC; m++) { cand.push(['p', m]); cand.push(['b', m]); }
+    for (const [kind, m] of cand) {
+      const v = colNorm(kind, m);
+      if (v[1] > mag(Z1)) { Z1 = v; worstCol = kind + (kind === 'rho' ? '' : '_' + m); }
+    }
+    /* columns m > KC: A acts as the midpoint diagonal there, so
+         (I - A DPhi) e_m = (1 - sigma/sigma0) e_m - (quadratic part)/(sigma0 2 pi k).
+       The first term is the price of the sigma box and does NOT decay in k; the
+       second is the lifted kernel's bound, with sigma0 in the denominator
+       because that is the operator actually applied. */
+    const diagDefect = mag(sub(ONE, div(SIG, SIG0)));
+    const pert = Math.max(mag(add(normP, normB)), mag(add(abs(C), normP)));
+    const denom = mul(SIG0, mul(TWO_PI_I, iv(KC + 1 - N)));
+    const tailAnalytic = I.nextUp(diagDefect + mag(div(iv(pert), denom)));
+    if (tailAnalytic > mag(Z1)) { Z1 = iv(tailAnalytic); worstCol = 'tail(analytic)'; }
+  }
+
+  /* ---- Z2 = 2||A||. Phi is quadratic in x and its x-quadratic part carries no
+     parameter, so DPhi(x) - DPhi(y) is parameter-free: Z2 does not see the box. */
+  let Z2;
+  {
+    let anorm = 0;
+    for (let j = 0; j < n; j++) {
+      let s = 0;
+      for (let i = 0; i < n; i++) s = I.nextUp(s + L.weight(i, nu) * Math.abs(AN[i * n + j]));
+      const v = I.nextUp(s / L.weight(j, nu));
+      if (v > anorm) anorm = v;
+    }
+    const tailA = 1 / (sigma0 * TWO_PI * (N + 1));
+    Z2 = iv(I.nextUp(2 * Math.max(anorm, tailA)));
+  }
+
+  /* ---- the radii polynomial, then the contraction factor ---- */
+  const y0 = mag(Y0), z1 = mag(Z1), z2 = mag(Z2);
+  const res = { N, nu, KC, dirs: dirs.slice(),
+                box: { sigma: box.sigma.slice(), c: box.c.slice(), A: box.A.slice() },
+                Y0: y0, Z1: z1, Z2: z2, worstCol };
+  if (!(z1 < 1)) return Object.assign(res, { ok: false, why: 'Z1 >= 1 over the box — the midpoint inverse does not control the whole cell' });
+  const disc = (1 - z1) * (1 - z1) - 2 * z2 * y0;
+  if (!(disc > 0)) return Object.assign(res, { ok: false, why: 'discriminant <= 0 — no radius closes the contraction over the box' });
+  const sq = Math.sqrt(disc);
+  const rMin = I.nextUp(((1 - z1) - sq) / z2);
+  const rMax = I.nextDown(((1 - z1) + sq) / z2);
+  const pOf = rr => { const R = iv(rr); return add(sub(mul(mul(iv(0.5), Z2), mul(R, R)), mul(sub(ONE, Z1), R)), Y0); };
+  let rStar = rMin, found = false;
+  for (let t = 0; t < 400; t++) {
+    if (rStar > rMax) break;
+    if (pOf(rStar)[1] < 0) { found = true; break; }
+    rStar = I.nextUp(rStar * 1.05 + Number.MIN_VALUE);
+  }
+  if (!found) return Object.assign(res, { ok: false, why: 'no radius verified p(r) < 0 in interval arithmetic', rMin, rMax });
+  const kappa = add(Z1, mul(Z2, iv(rStar)));
+  if (!(kappa[1] < 1)) {
+    return Object.assign(res, { ok: false, r: rStar, kappa: kappa[1], rMin, rMax,
+      why: 'contraction factor Z1 + Z2 r >= 1 at the smallest admissible radius — T is a self-map but not a contraction' });
+  }
+  return Object.assign(res, { ok: true, rMin, rMax, r: rStar, pAtR: pOf(rStar)[1], kappa: kappa[1], disc,
+                              tangents: dirs.reduce((o, d) => (o[d] = { rho: xdot[d].rho[0],
+                                p: xdot[d].p.map(z => z[0]), b: xdot[d].b.map(z => z[0]) }, o), {}),
+                              predictor: { rho: [xb.rho[0], xb.rho[1]],
+                                           p: xb.p.map(z => [z[0], z[1]]),
+                                           b: xb.b.map(z => [z[0], z[1]]) } });
+}
+
+/* ---- positivity of the density over the WHOLE enclosure, over the WHOLE box.
+   The nu-norm dominates ell^1, which dominates the sup norm, so
+       sup_x |m(x) - mbar(x)| <= r,
+   and a rigorous lower bound on min mbar over the box, minus r, bounds min m
+   below for every parameter in the cell. min mbar is bounded by sampling and
+   paying the modulus of continuity with L = sum_k 2 (2 pi k) |b_k| -- no
+   sampling argument is left unquantified. m > 0 is a HYPOTHESIS of the model,
+   so it is certified, never assumed. At zero width this reproduces
+   validate.js's certifyPositivity exactly (gate G2).                        */
+function boxPositivity(bI, N, r, G) {
+  let L = 0;
+  for (let k = 1; k <= N; k++) L = I.nextUp(L + 2 * TWO_PI_HI * k * mag(bI[k]));
+  G = G || 4096;
+  let lo = Infinity, guard = 0;
+  for (;;) {
+    lo = Infinity;
+    for (let g = 0; g < G; g++) {
+      const t = g / G;
+      let m = iv(1);
+      for (let k = 1; k <= N; k++) {
+        const ci = I.encloseCos(TWO_PI * k * t);
+        m = add(m, mul([2 * bI[k][0], 2 * bI[k][1]], ci));   /* doubling is exact */
+      }
+      if (m[0] < lo) lo = m[0];
+    }
+    const slack = I.nextUp(L / (2 * G));
+    if (slack < 0.25 * Math.abs(lo) || G >= (1 << 21) || ++guard > 12) break;
+    G *= 4;
+  }
+  const minMbar = I.nextDown(lo - I.nextUp(L / (2 * G)));
+  const minM = I.nextDown(minMbar - r);
+  return { minMbar, minM, positive: minM > 0, L, G };
+}
+
+/* ---- separation: a rigorous LOWER bound on ||xbar1(s) - xbar2(s)||_nu, valid
+   for EVERY s in the cell. Weights w(rho) = 1, w(p_k) = w(b_k) = 2 nu^k, as in
+   validate.js. Each coefficient difference is an interval (the two predictors
+   move with s); mig() takes the smallest modulus it can have, and every step
+   rounds DOWN, because the multiplicity claim needs the separation to be at
+   least this large.                                                         */
+function separationBox(v1, v2, N, nu) {
+  const dr = sub(v1.rho, v2.rho);
+  let s = mig(dr), nk = 1;
+  for (let k = 1; k <= N; k++) {
+    nk = I.nextDown(nk * nu);
+    const dp = mig(sub(v1.p[k], v2.p[k]));       /* already in p = u' coordinates */
+    const db = mig(sub(v1.b[k], v2.b[k]));
+    s = I.nextDown(s + I.nextDown(2 * nk * dp));
+    s = I.nextDown(s + I.nextDown(2 * nk * db));
+  }
+  /* nextDown(0) steps to a negative denormal, and a NORM is never negative:
+     clamping at 0 only TIGHTENS a lower bound, so the enclosure survives. Same
+     lesson as sqr() in the interval library's own header. */
+  return Math.max(0, s);
+}
+/* the same for two plain float candidates (thin cell) — the (rho, a, b) form
+   the solver returns, matching test-cap.js's M1 exactly. */
+function separationNu(x1, x2, N, nu) {
+  const u1 = M1D.unpack(x1, N), u2 = M1D.unpack(x2, N);
+  let s = Math.abs(u1.rho - u2.rho), nk = 1;
+  for (let k = 1; k <= N; k++) {
+    nk = I.nextDown(nk * nu);
+    s = I.nextDown(s + I.nextDown(2 * nk * Math.abs(TWO_PI * k * u1.a[k] - TWO_PI * k * u2.a[k])));
+    s = I.nextDown(s + I.nextDown(2 * nk * Math.abs(u1.b[k] - u2.b[k])));
+  }
+  return s;
+}
+
+/* ---- REFUTATION: no exact solution within delta of a claimed equilibrium ---
+   Given a candidate x (Fourier coefficients, exactly as the model stores them)
+   and a claimed accuracy delta in the nu-norm, this decides the NEGATIVE
+   statement. For any y with ||y - x||_nu <= delta and any single equation j,
+
+       |Phi_j(y)|  >=  |Phi_j(x)|  -  L_j * delta,      L_j := max_i |DPhi_j,i| / w_i
+
+   (the dual norm of the row, over the whole ball and the whole parameter box).
+   So one equation whose residual exceeds its own row bound times delta REFUTES
+   the claim outright: no exact solution of the system lies that close, whatever
+   the rest of the vector does. The witness is that equation, its enclosed
+   residual, and its row bound -- checkable by hand.
+
+   This is the direction a solver can never give you. A residual near zero is
+   evidence; a residual provably too large is a proof.                        */
+function refuteCandidate(xFloat, box, delta, opts) {
+  opts = opts || {};
+  const N = box.N, nu = opts.nu || 1.05;
+  if (!(delta > 0)) return { verdict: 'REFUSED', reason: 'delta must be a positive number' };
+  if (!(box.sigma[0] > 0)) return { verdict: 'REFUSED', reason: 'sigma must be strictly positive' };
+  const SIG = iv(box.sigma[0], box.sigma[1]), C = iv(box.c[0], box.c[1]), V = VboxI(box);
+  const un = M1D.unpack(xFloat, N);
+  const p0 = new Array(N + 1).fill(ZERO), b0 = new Array(N + 1).fill(ZERO);
+  b0[0] = ONE;
+  for (let k = 1; k <= N; k++) { p0[k] = mul(TWO_PI_I, iv(k * un.a[k])); b0[k] = iv(un.b[k]); }
+  /* the ball itself: every coefficient may move by delta/w_i, so enclose it */
+  const D = iv(-delta, delta);
+  const ball = { rho: add(iv(un.rho), D), p: p0.slice(), b: b0.slice() };
+  for (let k = 1; k <= N; k++) {
+    const wk = div(D, wNuI(nu, k));
+    ball.p[k] = add(ball.p[k], wk); ball.b[k] = add(ball.b[k], wk);
+  }
+  const xb = { rho: iv(un.rho), p: p0, b: b0 };
+  const Phi = buildPhiI(xb, SIG, C, V, 2 * N);
+  const rowBound = (type, k) => {
+    const KK = k + N + 1;
+    const row = dRowI(type, k, ball, SIG, C, KK);
+    let L = mag(row.rho);                                  /* w(rho) = 1 */
+    for (let m = 1; m <= KK; m++) {
+      const w = wNuI(nu, m);
+      L = Math.max(L, mag(div(row.p[m], w)), mag(div(row.b[m], w)));
+    }
+    return L;
+  };
+  let best = null;
+  for (let k = 0; k <= 2 * N; k++) {
+    for (const type of (k === 0 ? ['H'] : ['H', 'F'])) {
+      const v = type === 'H' ? Phi.H[k] : Phi.F[k];
+      const lo = mig(v);                                   /* |Phi_j(x)| from below */
+      if (!(lo > 0)) continue;
+      const L = k <= N ? rowBound(type, k) : mag(mul(SIG, mul(TWO_PI_I, iv(k))));
+      const margin = I.nextDown(lo - I.nextUp(L * delta));
+      if (margin > 0 && (!best || margin > best.margin)) {
+        best = { equation: type + '_' + k, residual: lo, rowBound: L, margin };
+      }
+    }
+  }
+  if (best) {
+    return { verdict: 'REFUTED', mechanism: Object.assign({ kind: 'residual_exceeds_row_bound', delta, nu }, best),
+      statement: 'no exact solution of this MFG lies within ' + delta + ' (nu-weighted ell^1, nu = ' + nu
+        + ') of the pasted candidate: equation ' + best.equation + ' has |Phi| >= ' + best.residual.toExponential(6)
+        + ' while the whole ball can move it by at most ' + I.nextUp(best.rowBound * delta).toExponential(6) + '.' };
+  }
+  return { verdict: 'REFUSED',
+    reason: 'no single equation exceeds its own row bound at delta = ' + delta
+      + ' — this candidate is not refuted at that accuracy (which is NOT a certificate that it is right; '
+      + 'run the certifier for that)' };
+}
+
+/* ---- THE CELL DECISION, self-contained -----------------------------------
+   ONE definition, used by the sweep (labs/mfg/regime.js) and by the in-browser
+   paste box (labs/mfg/widget.js). Both branches are re-derived from scratch
+   here -- no atlas, no remembered candidate -- so the answer depends on nothing
+   but the cell you hand it:
+
+     aligned  the continuation of the constant state (u = 0, m = 1, rho = c),
+              which is the EXACT solution at A = 0; continued up in A.
+     herding  born at the pitchfork c* = -sigma^2 (2 pi)^2, continued down in c
+              at A = 0, then up in A.
+
+   Verdicts:
+     MULTIPLE   both branches certified over the cell, balls provably disjoint,
+                both densities positive: at least two exact solutions for EVERY
+                parameter in the cell.
+     UNIQUE     the cell lies in c >= 0, where Lasry-Lions gives GLOBAL
+                uniqueness [cited, not proved here], and our certificate
+                encloses that solution uniformly over the cell.
+     UNDECIDED  everything else, reason kept verbatim.                       */
+function seedAligned(box) {
+  const cm = mid(box.c), am = mid(box.A), sg = mid(box.sigma), N = box.N;
+  let x = new Float64Array(2 * N + 1); x[0] = cm;
+  const steps = Math.max(1, Math.ceil(am / 0.05));
+  for (let i = 1; i <= steps; i++) {
+    const r = M1D.solve(M1D.makeProblem({ sigma: sg, c: cm, A: am * i / steps, N }), { x0: x, maxIter: 300 });
+    if (!(r.resNorm < 1e-11)) return seedDirect(box);   /* the branch folded — try a cold start */
+    x = r.x;
+  }
+  return x;
+}
+/* Above the fold the constant-state continuation dies, but solutions still
+   exist there (measured: at c = -12, A >= 1.1 a branch with b_1 < 0, the
+   density peaked AWAY from the potential minimum). A cold Newton from a few
+   structured starts finds one; which seeding produced a certificate is recorded
+   on the cell, because a reader is entitled to know how the candidate was
+   reached even though only the certificate decides anything. */
+function seedDirect(box) {
+  const cm = mid(box.c), am = mid(box.A), sg = mid(box.sigma), N = box.N;
+  const P = M1D.makeProblem({ sigma: sg, c: cm, A: am, N });
+  for (const [p1, b1] of [[0, 0], [-0.2, 0.2], [0.4, -0.4], [-0.6, 0.6], [0.8, -0.8]]) {
+    const x = new Float64Array(2 * N + 1);
+    x[0] = cm; x[1] = p1; x[N + 1] = b1;
+    const r = M1D.solve(P, { x0: x, maxIter: 500 });
+    if (r.resNorm < 1e-11) return r.x;
+  }
+  return null;
+}
+/* a supplied warm start is always re-solved AT the cell midpoint before it is
+   used, so a stale seed cannot smuggle in a candidate for the wrong parameters */
+function refine(x0, box) {
+  const P = M1D.makeProblem({ sigma: mid(box.sigma), c: mid(box.c), A: mid(box.A), N: box.N });
+  const r = M1D.solve(P, { x0, maxIter: 400 });
+  return r.resNorm < 1e-11 ? r.x : null;
+}
+function seedHerding(box) {
+  const cm = mid(box.c), am = mid(box.A), sg = mid(box.sigma), N = box.N;
+  const cStar = -(sg * sg) * TWO_PI * TWO_PI;
+  if (!(cm < cStar)) return null;                    /* the branch is not born yet */
+  const cEnter = cStar - 0.25;                       /* just past the pitchfork, where the branch amplitude is still O(sqrt(c*-c)) */
+  const seed = new Float64Array(2 * N + 1);
+  seed[0] = cEnter; seed[1] = -sg * 0.35; seed[N + 1] = 0.35;
+  const st = M1D.solve(M1D.makeProblem({ sigma: sg, c: cEnter, A: 0, N }), { x0: seed, maxIter: 400 });
+  if (!(st.resNorm < 1e-11)) return null;
+  const steps = Math.max(8, Math.ceil(Math.abs(cEnter - cm) / 0.25));
+  const br = M1D.continueBranch(c => M1D.makeProblem({ sigma: sg, c, A: 0, N }), cEnter, cm, steps, st.x);
+  if (!br.ok) return null;
+  let x = br.x;
+  const as = Math.max(1, Math.ceil(am / 0.05));
+  for (let i = 1; i <= as; i++) {
+    const r = M1D.solve(M1D.makeProblem({ sigma: sg, c: cm, A: am * i / as, N }), { x0: x, maxIter: 300 });
+    if (!(r.resNorm < 1e-11)) return null;
+    x = r.x;
+  }
+  return x;
+}
+function decideCell(box, opts) {
+  opts = opts || {};
+  const nu = opts.nu || 1.02, N = box.N;
+  const collapseTol = opts.collapseTol === undefined ? 0.05 : opts.collapseTol;
+  const out = { c0: box.c[0], c1: box.c[1], a0: box.A[0], a1: box.A[1] };
+  const rec = ct => ({ r: ct.r, Z1: ct.Z1, Z2: ct.Z2, Y0: ct.Y0, kappa: ct.kappa });
+
+  /* A SEED IS NOT EVIDENCE. Supplied or self-found, the candidate is only a
+     starting point; the certificate is the only thing that decides. */
+  let xT = opts.seedT ? refine(opts.seedT, box) : seedAligned(box);
+  if (!xT) xT = seedAligned(box);
+  if (!xT) { out.verdict = 'UNDECIDED'; out.why = 'no numerical candidate on the aligned branch at the cell midpoint'; out.enclosures = 0; out.refinable = false; return out; }
+  const certT = validateBox(xT, box, { nu });
+  let posT = null;
+  if (certT.ok) {
+    posT = boxPositivity(certT.predictor.b, N, certT.r);
+    if (!posT.positive) { certT.ok = false; certT.why = 'density positivity not certified over the ball (min m <= 0)'; }
+  }
+
+  let xH = opts.seedH ? refine(opts.seedH, box) : seedHerding(box);
+  let certH = null, posH = null, sep = null;
+  if (xH && separationNu(xH, xT, N, nu) <= collapseTol) xH = null;   /* same branch, not two */
+  if (xH) {
+    certH = validateBox(xH, box, { nu });
+    if (certH.ok) {
+      posH = boxPositivity(certH.predictor.b, N, certH.r);
+      if (!posH.positive) { certH.ok = false; certH.why = 'density positivity not certified over the ball (min m <= 0)'; }
+    }
+    if (certT.ok && certH.ok) sep = separationBox(certT.predictor, certH.predictor, N, nu);
+  }
+  out.enclosures = (certT.ok ? 1 : 0) + (certH && certH.ok ? 1 : 0);
+
+  if (certT.ok && certH && certH.ok && sep !== null && sep > certT.r + certH.r) {
+    out.verdict = 'MULTIPLE';
+    out.witness = { separation: sep, rSum: certT.r + certH.r, aligned: rec(certT), herding: rec(certH),
+                    minM: Math.min(posT.minM, posH.minM),
+                    b1: [certT.predictor.b[1], certH.predictor.b[1]] };
+    out.refinable = false;
+    return out;
+  }
+  if (box.c[0] >= 0 && certT.ok) {
+    out.verdict = 'UNIQUE';
+    out.witness = { basis: 'Lasry-Lions monotone coupling (c >= 0) — global uniqueness is CITED, not proved here',
+                    enclosure: rec(certT), minM: posT.minM };
+    out.refinable = false;
+    return out;
+  }
+  out.verdict = 'UNDECIDED';
+  out.why = !certT.ok ? ('aligned branch: ' + certT.why)
+          : !xH ? 'only one solution found at the cell midpoint — a second branch is not excluded, it is not exhibited'
+          : !certH.ok ? ('herding branch: ' + certH.why)
+          : 'two solutions found but their certified balls are not yet disjoint (separation ' + sep.toExponential(3)
+            + ' <= r1+r2 ' + (certT.r + certH.r).toExponential(3) + ')';
+  out.refinable = !certT.ok || (!!xH && (!certH.ok || sep <= certT.r + certH.r));
+  if (certT.ok) out.aligned = rec(certT);
+  return out;
+}
+
+/* the bifurcation curve of the constant state: c* = -sigma^2 (2 pi)^2, where the
+   linearisation loses invertibility and NO enclosure can exist. Returned as an
+   interval over a sigma box, so a cell can be tested for straddling it. */
+function cStarBox(sigmaBox) {
+  const S = iv(sigmaBox[0], sigmaBox[1]);
+  return neg(mul(mul(S, S), mul(TWO_PI_I, TWO_PI_I)));
+}
+
+return { validateBox, boxPositivity, refuteCandidate, decideCell, seedAligned, seedHerding, seedDirect,
+         separationBox, separationNu, cStarBox,
+         midProblem, VboxI, normNu, IDX, wNuI, mid, half, buildPhiI, convI };
+});
+
+return module.exports;})();
+
+function mfgParseNum(x, what) {
+  if (typeof x === 'number' && isFinite(x)) return x;
+  if (typeof x === 'string' && /^-?\d+(\.\d+)?([eE][-+]?\d+)?$/.test(x.trim())) return Number(x);
+  throw new Error(what + ' must be a finite number');
+}
+function mfgParseRange(x, what) {
+  if (Array.isArray(x)) {
+    if (x.length !== 2) throw new Error(what + ' must be a number or a [lo, hi] pair');
+    var lo = mfgParseNum(x[0], what + '[0]'), hi = mfgParseNum(x[1], what + '[1]');
+    if (!(lo <= hi)) throw new Error(what + ' must have lo <= hi');
+    return [lo, hi];
+  }
+  var v = mfgParseNum(x, what);
+  return [v, v];
+}
+function mfgCertify(claim) {
+  var refused = function (r) { return { verdict: 'REFUSED', reason: r }; };
+  if (!claim || typeof claim !== 'object' || Array.isArray(claim)) return refused('the claim must be a JSON object');
+  var box, nu, N;
+  try {
+    N = claim.N === undefined ? 16 : (claim.N | 0);
+    if (!(N >= 4 && N <= 24)) return refused('N must be an integer in 4..24 (the certified band of Fourier modes)');
+    nu = claim.nu === undefined ? 1.02 : mfgParseNum(claim.nu, 'nu');
+    if (!(nu >= 1 && nu <= 1.2)) return refused('nu must lie in [1, 1.2] — outside that the Banach-algebra weights are useless');
+    box = { sigma: mfgParseRange(claim.sigma === undefined ? 0.5 : claim.sigma, 'sigma'),
+            c: mfgParseRange(claim.c, 'c'), A: mfgParseRange(claim.A === undefined ? 0 : claim.A, 'A'), N: N };
+  } catch (e) { return refused(e.message); }
+  if (!(box.sigma[0] > 0)) return refused('sigma must be strictly positive');
+  if (box.A[0] < 0) return refused('A is the depth of the potential well and is taken >= 0');
+  var wc = box.c[1] - box.c[0], wa = box.A[1] - box.A[0], ws = box.sigma[1] - box.sigma[0];
+  if (wc > 4 || wa > 1 || ws > 0.4) return refused('that cell is far wider than anything this argument closes — try a cell of a few hundredths');
+
+  var mode = claim.mode || 'cell';
+  if (mode === 'refute') {
+    var cand = claim.candidate;
+    if (!cand || typeof cand !== 'object') return refused("mode 'refute' needs a candidate {rho, a:[...], b:[...]} and a delta");
+    var delta;
+    try { delta = mfgParseNum(claim.delta, 'delta'); } catch (e) { return refused(e.message); }
+    var x = new Float64Array(2 * N + 1);
+    try {
+      x[0] = mfgParseNum(cand.rho, 'candidate.rho');
+      for (var k = 1; k <= N; k++) {
+        x[k] = cand.a && cand.a[k - 1] !== undefined ? mfgParseNum(cand.a[k - 1], 'candidate.a[' + (k - 1) + ']') : 0;
+        x[N + k] = cand.b && cand.b[k - 1] !== undefined ? mfgParseNum(cand.b[k - 1], 'candidate.b[' + (k - 1) + ']') : 0;
+      }
+    } catch (e) { return refused(e.message); }
+    return MFGBox.refuteCandidate(x, box, delta, { nu: nu });
+  }
+  if (mode !== 'cell') return refused("mode must be 'cell' or 'refute'");
+
+  var d;
+  try { d = MFGBox.decideCell(box, { nu: nu }); }
+  catch (e) { return refused('the certifier stopped: ' + e.message); }
+  var head = { verdict: d.verdict, cell: { sigma: box.sigma, c: box.c, A: box.A }, N: N, nu: nu,
+               enclosures: d.enclosures };
+  if (d.verdict === 'MULTIPLE') {
+    head.statement = 'For EVERY (sigma, c, A) in this cell the system has at least TWO exact solutions: two '
+      + 'certified balls, separation ' + d.witness.separation.toExponential(6) + ' against a combined radius '
+      + d.witness.rSum.toExponential(6) + ', both densities bounded below by ' + d.witness.minM.toExponential(6) + '.';
+    head.witness = d.witness;
+  } else if (d.verdict === 'UNIQUE') {
+    head.statement = 'This cell lies in the monotone half-plane c >= 0, where Lasry-Lions gives GLOBAL uniqueness '
+      + '(cited, not proved here). What is proved here is the enclosure: one exact solution within '
+      + d.witness.enclosure.r.toExponential(6) + ' of the predictor, uniformly over the cell, density >= '
+      + d.witness.minM.toExponential(6) + '.';
+    head.witness = d.witness;
+  } else {
+    head.statement = 'UNDECIDED — and that is a measurement, not a shrug: ' + d.why;
+    if (d.aligned) head.enclosure = d.aligned;
+  }
+  return head;
+}
+(function(){
+  var EX = {"multiple":{"sigma":0.5,"c":[-16.03125,-15.96875],"A":[0.2875,0.3125],"N":16,"nu":1.02},"unique":{"sigma":0.5,"c":[0.95,1.05],"A":[0.98,1.02],"N":16,"nu":1.05},"bifurcation":{"sigma":0.5,"c":[-9.88,-9.86],"A":0,"N":16,"nu":1.02}};
+  var inp = document.getElementById('mfg-in'), out = document.getElementById('mfg-out');
+  function set(o){ inp.value = JSON.stringify(o); out.textContent = ''; out.style.borderColor = 'var(--rule)'; }
+  document.getElementById('mfg-ex1').onclick = function(){ set(EX.multiple); };
+  document.getElementById('mfg-ex2').onclick = function(){ set(EX.unique); };
+  document.getElementById('mfg-ex3').onclick = function(){ set(EX.bifurcation); };
+  document.getElementById('mfg-ex4').onclick = function(){
+    var P = MFG1D.makeProblem({sigma:0.5,c:1,A:1,N:16}), s = MFG1D.solve(P), u = MFG1D.unpack(s.x,16);
+    var a = [], b = [];
+    for (var k=1;k<=16;k++){ a.push(u.a[k]); b.push(u.b[k]); }
+    b[0] = b[0] + 0.05;                      /* a candidate that is 5e-2 wrong */
+    set({mode:'refute', sigma:0.5, c:1, A:1, N:16, nu:1.05, delta:1e-3, candidate:{rho:u.rho, a:a, b:b}});
+  };
+  document.getElementById('mfg-go').onclick = function(){
+    var claim; try { claim = JSON.parse(inp.value); }
+    catch (e) { out.textContent = 'REFUSED: not JSON — ' + e.message; out.style.borderColor='var(--rule)'; return; }
+    out.textContent = 'deciding…';
+    setTimeout(function(){
+      var t0 = Date.now(), r;
+      try { r = mfgCertify(claim); } catch (e) { r = { verdict: 'REFUSED', reason: 'the certifier stopped: ' + e.message }; }
+      out.textContent = JSON.stringify(r, null, 1) + '\n\n[' + (Date.now()-t0) + ' ms in this tab]';
+      out.style.borderColor = (r.verdict === 'MULTIPLE' || r.verdict === 'UNIQUE') ? 'var(--held)'
+                            : r.verdict === 'REFUTED' ? 'var(--sig)' : 'var(--rule)';
+    }, 10);
+  };
+})();</script></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the map</div>
+    <h2>The plane, partitioned</h2>
+  </div>
+<div class="col"><p>Every cell below was decided by the certifier in §1, over its own rectangle. A grid of point results would prove nothing between its points; this is a partition, so the plum region is a set of positive measure on which uniqueness provably fails. Cells that refused were quartered and retried — which is why the resolution sharpens exactly along the two curves the theory names.</p></div><div class="wide"><figure>
+  <div class="figbox">
+    <svg viewBox="0 0 900 420" role="img" aria-label="The parameter plane of the mean-field game: coupling c on the horizontal axis, potential depth A on the vertical. A large plum region on the left, below the bifurcation line c* = -9.8696, holds the cells where two solutions are certified for every parameter in the cell. A green band on the right, c &gt;= 0, is the monotone half-plane where uniqueness is classical and the enclosure is certified here. Between and above them, grey cells are undecided, hatched where nothing at all was enclosed.">
+      <defs><pattern id="mfgHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--ink-3)" stroke-width="0.7" fill="none"/></pattern></defs>
+      <rect x="62.00" y="364.33" width="293.76" height="4.02" fill="var(--sig)"/>
+      <rect x="355.41" y="364.33" width="17.01" height="4.02" fill="var(--rule)"/>
+      <rect x="372.06" y="364.33" width="46.48" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="418.19" y="364.33" width="382.16" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="364.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="360.67" width="292.48" height="4.02" fill="var(--sig)"/>
+      <rect x="354.13" y="360.67" width="17.01" height="4.02" fill="var(--rule)"/>
+      <rect x="370.78" y="360.67" width="49.04" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="419.47" y="360.67" width="380.88" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="360.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="357.00" width="291.19" height="4.02" fill="var(--sig)"/>
+      <rect x="352.84" y="357.00" width="17.01" height="4.02" fill="var(--rule)"/>
+      <rect x="369.50" y="357.00" width="50.32" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="419.47" y="357.00" width="380.88" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="357.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="353.33" width="289.91" height="4.02" fill="var(--sig)"/>
+      <rect x="351.56" y="353.33" width="17.01" height="4.02" fill="var(--rule)"/>
+      <rect x="368.22" y="353.33" width="52.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="420.75" y="353.33" width="379.60" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="353.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="349.67" width="288.63" height="4.02" fill="var(--sig)"/>
+      <rect x="350.28" y="349.67" width="17.01" height="4.02" fill="var(--rule)"/>
+      <rect x="366.94" y="349.67" width="54.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="420.75" y="349.67" width="379.60" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="349.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="346.00" width="288.63" height="4.02" fill="var(--sig)"/>
+      <rect x="350.28" y="346.00" width="15.72" height="4.02" fill="var(--rule)"/>
+      <rect x="365.66" y="346.00" width="55.44" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="420.75" y="346.00" width="379.60" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="346.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="342.33" width="287.35" height="4.02" fill="var(--sig)"/>
+      <rect x="349.00" y="342.33" width="15.72" height="4.02" fill="var(--rule)"/>
+      <rect x="364.38" y="342.33" width="58.01" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="422.03" y="342.33" width="378.32" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="342.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="338.67" width="286.07" height="4.02" fill="var(--sig)"/>
+      <rect x="347.72" y="338.67" width="15.72" height="4.02" fill="var(--rule)"/>
+      <rect x="363.09" y="338.67" width="59.29" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="422.03" y="338.67" width="378.32" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="338.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="335.00" width="284.79" height="4.02" fill="var(--sig)"/>
+      <rect x="346.44" y="335.00" width="15.72" height="4.02" fill="var(--rule)"/>
+      <rect x="361.81" y="335.00" width="60.57" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="422.03" y="335.00" width="378.32" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="335.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="331.33" width="283.51" height="4.02" fill="var(--sig)"/>
+      <rect x="345.16" y="331.33" width="15.72" height="4.02" fill="var(--rule)"/>
+      <rect x="360.53" y="331.33" width="61.85" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="422.03" y="331.33" width="378.32" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="331.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="327.67" width="283.51" height="4.02" fill="var(--sig)"/>
+      <rect x="345.16" y="327.67" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="359.25" y="327.67" width="63.13" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="422.03" y="327.67" width="378.32" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="327.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="324.00" width="282.23" height="4.02" fill="var(--sig)"/>
+      <rect x="343.88" y="324.00" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="357.97" y="324.00" width="64.41" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="422.03" y="324.00" width="378.32" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="324.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="320.33" width="280.94" height="4.02" fill="var(--sig)"/>
+      <rect x="342.59" y="320.33" width="15.72" height="4.02" fill="var(--rule)"/>
+      <rect x="357.97" y="320.33" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="370.78" y="320.33" width="1.63" height="4.02" fill="var(--rule)"/>
+      <rect x="372.06" y="320.33" width="50.32" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="422.03" y="320.33" width="378.32" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="320.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="316.67" width="279.66" height="4.02" fill="var(--sig)"/>
+      <rect x="341.31" y="316.67" width="15.72" height="4.02" fill="var(--rule)"/>
+      <rect x="356.69" y="316.67" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="369.50" y="316.67" width="4.19" height="4.02" fill="var(--rule)"/>
+      <rect x="373.34" y="316.67" width="47.76" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="420.75" y="316.67" width="379.60" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="316.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="313.00" width="278.38" height="4.02" fill="var(--sig)"/>
+      <rect x="340.03" y="313.00" width="15.72" height="4.02" fill="var(--rule)"/>
+      <rect x="355.41" y="313.00" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="368.22" y="313.00" width="6.76" height="4.02" fill="var(--rule)"/>
+      <rect x="374.63" y="313.00" width="46.48" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="420.75" y="313.00" width="379.60" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="313.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="309.33" width="278.38" height="4.02" fill="var(--sig)"/>
+      <rect x="340.03" y="309.33" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="354.13" y="309.33" width="14.44" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="368.22" y="309.33" width="9.32" height="4.02" fill="var(--rule)"/>
+      <rect x="377.19" y="309.33" width="43.91" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="420.75" y="309.33" width="379.60" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="309.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="305.67" width="277.10" height="4.02" fill="var(--sig)"/>
+      <rect x="338.75" y="305.67" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="352.84" y="305.67" width="14.44" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="366.94" y="305.67" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="378.47" y="305.67" width="41.35" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="419.47" y="305.67" width="380.88" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="305.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="302.00" width="275.82" height="4.02" fill="var(--sig)"/>
+      <rect x="337.47" y="302.00" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="351.56" y="302.00" width="14.44" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="365.66" y="302.00" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="379.75" y="302.00" width="40.07" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="419.47" y="302.00" width="380.88" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="302.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="298.33" width="275.82" height="4.02" fill="var(--sig)"/>
+      <rect x="337.47" y="298.33" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="351.56" y="298.33" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="364.38" y="298.33" width="18.29" height="4.02" fill="var(--rule)"/>
+      <rect x="382.31" y="298.33" width="36.23" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="418.19" y="298.33" width="382.16" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="298.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="294.67" width="274.54" height="4.02" fill="var(--sig)"/>
+      <rect x="336.19" y="294.67" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="350.28" y="294.67" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="363.09" y="294.67" width="22.13" height="4.02" fill="var(--rule)"/>
+      <rect x="384.88" y="294.67" width="33.66" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="418.19" y="294.67" width="382.16" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="294.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="291.00" width="273.26" height="4.02" fill="var(--sig)"/>
+      <rect x="334.91" y="291.00" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="349.00" y="291.00" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="361.81" y="291.00" width="24.69" height="4.02" fill="var(--rule)"/>
+      <rect x="386.16" y="291.00" width="31.10" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="416.91" y="291.00" width="383.44" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="291.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="287.33" width="271.98" height="4.02" fill="var(--sig)"/>
+      <rect x="333.63" y="287.33" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="347.72" y="287.33" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="360.53" y="287.33" width="28.54" height="4.02" fill="var(--rule)"/>
+      <rect x="388.72" y="287.33" width="27.26" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="415.63" y="287.33" width="384.73" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="287.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="283.67" width="271.98" height="4.02" fill="var(--sig)"/>
+      <rect x="333.63" y="283.67" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="347.72" y="283.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="359.25" y="283.67" width="33.66" height="4.02" fill="var(--rule)"/>
+      <rect x="392.56" y="283.67" width="20.85" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="413.06" y="283.67" width="387.29" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="283.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="280.00" width="270.69" height="4.02" fill="var(--sig)"/>
+      <rect x="332.34" y="280.00" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="346.44" y="280.00" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="359.25" y="280.00" width="36.23" height="4.02" fill="var(--rule)"/>
+      <rect x="395.13" y="280.00" width="15.72" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="410.50" y="280.00" width="389.85" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="280.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="276.33" width="269.41" height="4.02" fill="var(--sig)"/>
+      <rect x="331.06" y="276.33" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="345.16" y="276.33" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="357.97" y="276.33" width="442.38" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="276.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="272.67" width="269.41" height="4.02" fill="var(--sig)"/>
+      <rect x="331.06" y="272.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="343.88" y="272.67" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="356.69" y="272.67" width="443.66" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="272.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="269.00" width="268.13" height="4.02" fill="var(--sig)"/>
+      <rect x="329.78" y="269.00" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="343.88" y="269.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="355.41" y="269.00" width="444.94" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="269.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="265.33" width="266.85" height="4.02" fill="var(--sig)"/>
+      <rect x="328.50" y="265.33" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="342.59" y="265.33" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="355.41" y="265.33" width="444.94" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="265.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="261.67" width="266.85" height="4.02" fill="var(--sig)"/>
+      <rect x="328.50" y="261.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="341.31" y="261.67" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="354.13" y="261.67" width="446.23" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="261.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="258.00" width="265.57" height="4.02" fill="var(--sig)"/>
+      <rect x="327.22" y="258.00" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="341.31" y="258.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="352.84" y="258.00" width="447.51" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="258.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="254.33" width="264.29" height="4.02" fill="var(--sig)"/>
+      <rect x="325.94" y="254.33" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="340.03" y="254.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="351.56" y="254.33" width="448.79" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="254.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="250.67" width="264.29" height="4.02" fill="var(--sig)"/>
+      <rect x="325.94" y="250.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="338.75" y="250.67" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="351.56" y="250.67" width="448.79" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="250.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="247.00" width="263.01" height="4.02" fill="var(--sig)"/>
+      <rect x="324.66" y="247.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="337.47" y="247.00" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="350.28" y="247.00" width="450.07" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="247.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="243.33" width="261.73" height="4.02" fill="var(--sig)"/>
+      <rect x="323.38" y="243.33" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="337.47" y="243.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="349.00" y="243.33" width="451.35" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="243.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="239.67" width="261.73" height="4.02" fill="var(--sig)"/>
+      <rect x="323.38" y="239.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="336.19" y="239.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="347.72" y="239.67" width="452.63" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="239.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="236.00" width="260.44" height="4.02" fill="var(--sig)"/>
+      <rect x="322.09" y="236.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="334.91" y="236.00" width="13.16" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="347.72" y="236.00" width="452.63" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="236.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="232.33" width="259.16" height="4.02" fill="var(--sig)"/>
+      <rect x="320.81" y="232.33" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="334.91" y="232.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="346.44" y="232.33" width="453.91" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="232.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="228.67" width="259.16" height="4.02" fill="var(--sig)"/>
+      <rect x="320.81" y="228.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="333.63" y="228.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="345.16" y="228.67" width="455.19" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="228.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="225.00" width="257.88" height="4.02" fill="var(--sig)"/>
+      <rect x="319.53" y="225.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="332.34" y="225.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="343.88" y="225.00" width="456.48" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="225.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="221.33" width="256.60" height="4.02" fill="var(--sig)"/>
+      <rect x="318.25" y="221.33" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="332.34" y="221.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="343.88" y="221.33" width="456.48" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="221.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="217.67" width="256.60" height="4.02" fill="var(--sig)"/>
+      <rect x="318.25" y="217.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="331.06" y="217.67" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="341.31" y="217.67" width="459.04" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="217.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="214.00" width="255.32" height="4.02" fill="var(--sig)"/>
+      <rect x="316.97" y="214.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="329.78" y="214.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="341.31" y="214.00" width="459.04" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="214.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="210.33" width="255.32" height="4.02" fill="var(--sig)"/>
+      <rect x="316.97" y="210.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="329.78" y="210.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="341.31" y="210.33" width="459.04" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="210.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="206.67" width="254.04" height="4.02" fill="var(--sig)"/>
+      <rect x="315.69" y="206.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="328.50" y="206.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="340.03" y="206.67" width="460.32" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="206.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="203.00" width="252.76" height="4.02" fill="var(--sig)"/>
+      <rect x="314.41" y="203.00" width="14.44" height="4.02" fill="var(--rule)"/>
+      <rect x="328.50" y="203.00" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="338.75" y="203.00" width="461.60" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="203.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="199.33" width="252.76" height="4.02" fill="var(--sig)"/>
+      <rect x="314.41" y="199.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="327.22" y="199.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="338.75" y="199.33" width="461.60" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="199.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="195.67" width="251.47" height="4.02" fill="var(--sig)"/>
+      <rect x="313.13" y="195.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="325.94" y="195.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="337.47" y="195.67" width="462.88" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="195.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="192.00" width="251.47" height="4.02" fill="var(--sig)"/>
+      <rect x="313.13" y="192.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="325.94" y="192.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="337.47" y="192.00" width="462.88" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="192.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="188.33" width="250.19" height="4.02" fill="var(--sig)"/>
+      <rect x="311.84" y="188.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="324.66" y="188.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="336.19" y="188.33" width="464.16" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="188.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="184.67" width="248.91" height="4.02" fill="var(--sig)"/>
+      <rect x="310.56" y="184.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="323.38" y="184.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="334.91" y="184.67" width="465.44" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="184.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="181.00" width="248.91" height="4.02" fill="var(--sig)"/>
+      <rect x="310.56" y="181.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="323.38" y="181.00" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="333.63" y="181.00" width="466.73" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="181.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="177.33" width="247.63" height="4.02" fill="var(--sig)"/>
+      <rect x="309.28" y="177.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="322.09" y="177.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="333.63" y="177.33" width="466.73" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="177.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="173.67" width="247.63" height="4.02" fill="var(--sig)"/>
+      <rect x="309.28" y="173.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="322.09" y="173.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="333.63" y="173.67" width="466.73" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="173.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="170.00" width="246.35" height="4.02" fill="var(--sig)"/>
+      <rect x="308.00" y="170.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="320.81" y="170.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="332.34" y="170.00" width="468.01" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="170.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="166.33" width="245.07" height="4.02" fill="var(--sig)"/>
+      <rect x="306.72" y="166.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="319.53" y="166.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="331.06" y="166.33" width="469.29" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="166.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="162.67" width="245.07" height="4.02" fill="var(--sig)"/>
+      <rect x="306.72" y="162.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="319.53" y="162.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="331.06" y="162.67" width="469.29" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="162.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="159.00" width="243.79" height="4.02" fill="var(--sig)"/>
+      <rect x="305.44" y="159.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="318.25" y="159.00" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="328.50" y="159.00" width="471.85" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="159.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="155.33" width="243.79" height="4.02" fill="var(--sig)"/>
+      <rect x="305.44" y="155.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="318.25" y="155.33" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="328.50" y="155.33" width="471.85" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="155.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="151.67" width="242.51" height="4.02" fill="var(--sig)"/>
+      <rect x="304.16" y="151.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="316.97" y="151.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="328.50" y="151.67" width="471.85" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="151.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="148.00" width="242.51" height="4.02" fill="var(--sig)"/>
+      <rect x="304.16" y="148.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="316.97" y="148.00" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="327.22" y="148.00" width="473.13" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="148.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="144.33" width="241.22" height="4.02" fill="var(--sig)"/>
+      <rect x="302.88" y="144.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="315.69" y="144.33" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="325.94" y="144.33" width="474.41" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="144.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="140.67" width="241.22" height="4.02" fill="var(--sig)"/>
+      <rect x="302.88" y="140.67" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="314.41" y="140.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="325.94" y="140.67" width="474.41" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="140.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="137.00" width="239.94" height="4.02" fill="var(--sig)"/>
+      <rect x="301.59" y="137.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="314.41" y="137.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="325.94" y="137.00" width="474.41" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="137.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="133.33" width="238.66" height="4.02" fill="var(--sig)"/>
+      <rect x="300.31" y="133.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="313.13" y="133.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="324.66" y="133.33" width="475.69" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="133.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="129.67" width="238.66" height="4.02" fill="var(--sig)"/>
+      <rect x="300.31" y="129.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="313.13" y="129.67" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="323.38" y="129.67" width="476.98" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="129.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="126.00" width="237.38" height="4.02" fill="var(--sig)"/>
+      <rect x="299.03" y="126.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="311.84" y="126.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="323.38" y="126.00" width="476.98" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="126.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="122.33" width="237.38" height="4.02" fill="var(--sig)"/>
+      <rect x="299.03" y="122.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="311.84" y="122.33" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="322.09" y="122.33" width="478.26" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="122.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="118.67" width="236.10" height="4.02" fill="var(--sig)"/>
+      <rect x="297.75" y="118.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="310.56" y="118.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="322.09" y="118.67" width="478.26" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="118.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="115.00" width="236.10" height="4.02" fill="var(--sig)"/>
+      <rect x="297.75" y="115.00" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="309.28" y="115.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="320.81" y="115.00" width="479.54" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="115.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="111.33" width="234.82" height="4.02" fill="var(--sig)"/>
+      <rect x="296.47" y="111.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="309.28" y="111.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="320.81" y="111.33" width="479.54" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="111.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="107.67" width="234.82" height="4.02" fill="var(--sig)"/>
+      <rect x="296.47" y="107.67" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="308.00" y="107.67" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="318.25" y="107.67" width="482.10" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="107.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="104.00" width="233.54" height="4.02" fill="var(--sig)"/>
+      <rect x="295.19" y="104.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="308.00" y="104.00" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="318.25" y="104.00" width="482.10" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="104.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="100.33" width="233.54" height="4.02" fill="var(--sig)"/>
+      <rect x="295.19" y="100.33" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="306.72" y="100.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="318.25" y="100.33" width="482.10" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="100.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="96.67" width="232.26" height="4.02" fill="var(--sig)"/>
+      <rect x="293.91" y="96.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="306.72" y="96.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="318.25" y="96.67" width="482.10" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="96.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="93.00" width="230.97" height="4.02" fill="var(--sig)"/>
+      <rect x="292.63" y="93.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="305.44" y="93.00" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="315.69" y="93.00" width="484.66" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="93.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="89.33" width="230.97" height="4.02" fill="var(--sig)"/>
+      <rect x="292.63" y="89.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="305.44" y="89.33" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="315.69" y="89.33" width="484.66" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="89.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="85.67" width="229.69" height="4.02" fill="var(--sig)"/>
+      <rect x="291.34" y="85.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="304.16" y="85.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="315.69" y="85.67" width="484.66" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="85.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="82.00" width="229.69" height="4.02" fill="var(--sig)"/>
+      <rect x="291.34" y="82.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="304.16" y="82.00" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="314.41" y="82.00" width="485.94" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="82.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="78.33" width="228.41" height="4.02" fill="var(--sig)"/>
+      <rect x="290.06" y="78.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="302.88" y="78.33" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="313.13" y="78.33" width="487.23" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="78.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="74.67" width="228.41" height="4.02" fill="var(--sig)"/>
+      <rect x="290.06" y="74.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="302.88" y="74.67" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="313.13" y="74.67" width="487.23" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="74.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="71.00" width="227.13" height="4.02" fill="var(--sig)"/>
+      <rect x="288.78" y="71.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="301.59" y="71.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="313.13" y="71.00" width="487.23" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="71.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="67.33" width="227.13" height="4.02" fill="var(--sig)"/>
+      <rect x="288.78" y="67.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="301.59" y="67.33" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="311.84" y="67.33" width="488.51" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="67.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="63.67" width="225.85" height="4.02" fill="var(--sig)"/>
+      <rect x="287.50" y="63.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="300.31" y="63.67" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="310.56" y="63.67" width="489.79" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="63.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="60.00" width="225.85" height="4.02" fill="var(--sig)"/>
+      <rect x="287.50" y="60.00" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="299.03" y="60.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="310.56" y="60.00" width="489.79" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="60.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="56.33" width="224.57" height="4.02" fill="var(--sig)"/>
+      <rect x="286.22" y="56.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="299.03" y="56.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="310.56" y="56.33" width="489.79" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="56.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="52.67" width="224.57" height="4.02" fill="var(--sig)"/>
+      <rect x="286.22" y="52.67" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="297.75" y="52.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="309.28" y="52.67" width="491.07" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="52.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="49.00" width="223.29" height="4.02" fill="var(--sig)"/>
+      <rect x="284.94" y="49.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="297.75" y="49.00" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="308.00" y="49.00" width="492.35" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="49.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="45.33" width="223.29" height="4.02" fill="var(--sig)"/>
+      <rect x="284.94" y="45.33" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="296.47" y="45.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="308.00" y="45.33" width="492.35" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="45.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="41.67" width="222.01" height="4.02" fill="var(--sig)"/>
+      <rect x="283.66" y="41.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="296.47" y="41.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="308.00" y="41.67" width="492.35" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="41.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="38.00" width="222.01" height="4.02" fill="var(--sig)"/>
+      <rect x="283.66" y="38.00" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="295.19" y="38.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="306.72" y="38.00" width="493.63" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="38.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="34.33" width="220.72" height="4.02" fill="var(--sig)"/>
+      <rect x="282.38" y="34.33" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="295.19" y="34.33" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="305.44" y="34.33" width="494.91" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="34.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="30.67" width="220.72" height="4.02" fill="var(--sig)"/>
+      <rect x="282.38" y="30.67" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="293.91" y="30.67" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="305.44" y="30.67" width="494.91" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="30.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="27.00" width="219.44" height="4.02" fill="var(--sig)"/>
+      <rect x="281.09" y="27.00" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="293.91" y="27.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="305.44" y="27.00" width="494.91" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="27.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="23.33" width="219.44" height="4.02" fill="var(--sig)"/>
+      <rect x="281.09" y="23.33" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="292.63" y="23.33" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="304.16" y="23.33" width="496.19" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="23.33" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="19.67" width="218.16" height="4.02" fill="var(--sig)"/>
+      <rect x="279.81" y="19.67" width="13.16" height="4.02" fill="var(--rule)"/>
+      <rect x="292.63" y="19.67" width="10.60" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="302.88" y="19.67" width="497.48" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="19.67" width="82.35" height="4.02" fill="var(--held)"/>
+      <rect x="62.00" y="16.00" width="218.16" height="4.02" fill="var(--sig)"/>
+      <rect x="279.81" y="16.00" width="11.88" height="4.02" fill="var(--rule)"/>
+      <rect x="291.34" y="16.00" width="11.88" height="4.02" fill="url(#mfgHatch)"/>
+      <rect x="302.88" y="16.00" width="497.48" height="4.02" fill="var(--rule)"/>
+      <rect x="800.00" y="16.00" width="82.35" height="4.02" fill="var(--held)"/>
+      <line x1="395.35" y1="16" x2="395.35" y2="368" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="5 4"/>
+    <text x="401.3" y="30" text-anchor="start" class="t-note">c* = -9.8696</text>
+      <line x1="800.00" y1="16" x2="800.00" y2="368" stroke="var(--ink)" stroke-width="1" stroke-dasharray="2 3"/>
+    <text x="794.0" y="30" text-anchor="end" class="t-note">c = 0</text>
+      <rect x="62" y="16" width="820" height="352" fill="none" stroke="var(--rule)"/>
+      <line x1="62.00" y1="368" x2="62.00" y2="373" stroke="var(--rule)"/>
+    <text x="62.0" y="386" text-anchor="middle" class="t-note">-18</text>
+      <line x1="185.00" y1="368" x2="185.00" y2="373" stroke="var(--rule)"/>
+    <text x="185.0" y="386" text-anchor="middle" class="t-note">-15</text>
+      <line x1="308.00" y1="368" x2="308.00" y2="373" stroke="var(--rule)"/>
+    <text x="308.0" y="386" text-anchor="middle" class="t-note">-12</text>
+      <line x1="431.00" y1="368" x2="431.00" y2="373" stroke="var(--rule)"/>
+    <text x="431.0" y="386" text-anchor="middle" class="t-note">-9</text>
+      <line x1="554.00" y1="368" x2="554.00" y2="373" stroke="var(--rule)"/>
+    <text x="554.0" y="386" text-anchor="middle" class="t-note">-6</text>
+      <line x1="677.00" y1="368" x2="677.00" y2="373" stroke="var(--rule)"/>
+    <text x="677.0" y="386" text-anchor="middle" class="t-note">-3</text>
+      <line x1="800.00" y1="368" x2="800.00" y2="373" stroke="var(--rule)"/>
+    <text x="800.0" y="386" text-anchor="middle" class="t-note">0</text>
+      <line x1="57" y1="368.00" x2="62" y2="368.00" stroke="var(--rule)"/>
+    <text x="53.0" y="372" text-anchor="end" class="t-note">0.0</text>
+      <line x1="57" y1="280.00" x2="62" y2="280.00" stroke="var(--rule)"/>
+    <text x="53.0" y="284" text-anchor="end" class="t-note">0.3</text>
+      <line x1="57" y1="192.00" x2="62" y2="192.00" stroke="var(--rule)"/>
+    <text x="53.0" y="196" text-anchor="end" class="t-note">0.6</text>
+      <line x1="57" y1="104.00" x2="62" y2="104.00" stroke="var(--rule)"/>
+    <text x="53.0" y="108" text-anchor="end" class="t-note">0.9</text>
+      <line x1="57" y1="16.00" x2="62" y2="16.00" stroke="var(--rule)"/>
+    <text x="53.0" y="20" text-anchor="end" class="t-note">1.2</text>
+    <text x="472.0" y="414" text-anchor="middle" class="t-note">coupling c    (c &lt; 0 herding · c &gt; 0 crowd-averse)</text>
+      <text x="14" y="192" class="t-note" transform="rotate(-90 14 192)" text-anchor="middle">potential depth A</text>
+    </svg>
+  </div>
+  <figcaption>σ = 0.5. Plum: two solutions certified for every parameter in the cell (11,330 cells, 30.7% of the plane). Green: the monotone half-plane, uniqueness cited and the enclosure certified (384). Grey: undecided but at least one solution enclosed (6,470). Hatched: undecided with nothing enclosed (1,616). Dashed line: the pitchfork of the constant state at c* = −σ²(2π)² = -9.869604, predicted from the symbol before it was measured; no enclosure can exist there, and the map shows the refusal as a seam. Rasterised at the finest cell used, 0.03125 × 0.0125.</figcaption>
+</figure></div><div class="col"><p>Read the seam. The constant state loses invertibility exactly at c*, so cells straddling it refuse — that vertical scar is not a rendering artefact and not a limitation of the solver: it is the theorem’s own hypothesis failing, drawn to scale. To its left the herding branch has been born and the multiplicity region opens; to its right the aligned branch is alone in this family, and the honest verdict is that we enclose it and cannot say it is the only one until c reaches 0 and the classical theorem takes over.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · the argument</div>
+    <h2>What a cell certificate says, and why the quantifier is the hard part</h2>
+  </div>
+<p>For one parameter triple, the standard argument is Newton–Kantorovich in radii-polynomial form: build an approximate inverse A of the linearisation at a numerical candidate x̄, bound Y0 = ‖AΦ(x̄)‖, Z1 = ‖I − ADΦ(x̄)‖ and the Lipschitz constant Z2, and close ½Z2r² − (1−Z1)r + Y0 &lt; 0. Then an exact solution lies within r of x̄ and is the only one there. That is the lifted kernel, unchanged.</p>
+<p>Over a whole rectangle two things go wrong, and both are visible in the code. First, A must be ONE fixed operator or “I − ADΦ” is not an operator at all — so A is built at the cell midpoint, and the tail of I − ADΦ then carries a term 1 − σ/σ₀ that does not decay in the mode index. That is the honest price of a wide σ box, and it is charged explicitly.</p>
+<p>Second, and worse: with a FIXED candidate, Y0 grows linearly in the cell width, and the discriminant condition then admits only cells narrower than 0.004 in c on the herding branch — a hairline, not a map. So the candidate travels: the tangent ẋ solving DΦ ẋ = −∂ₛΦ is computed from the Jacobian already factored for A, and the bound becomes a mean-value form whose first-order term vanishes by construction. Y0 drops to second order in the width, and cells 15.6× wider close — 0.0625 in c. Falsifier X2 measures both thresholds on the same ladder by switching the predictor off, so that ratio is a measurement of this build, not a claim about one. The map agrees with it: not one cell of the sweep’s starting width 0.125 certifies multiplicity anywhere, while 2,514 close at 0.0625 and 8,816 close at 0.03125.</p>
+<div class="eq">for every s ∈ S :   ∃! x*(s) ∈ B<sub>r</sub>( x̄(s) ),   Φ<sub>s</sub>(x*(s)) = 0,   m(s) &gt; 0</div>
+<p>Two such certificates over the same cell, with a separation bounded below by more than r₁ + r₂, prove that the cell holds at least two solutions everywhere on it. In the worst cell of the whole map that separation clears the combined radii by a factor of 290; the enclosures are never nearly touching.</p>
+<div class="note">
+  <span class="lab">the check a reader can run in their head</span>
+<p>The claim is a statement about every point of a rectangle, so battery check C1 re-solves the system at all four CORNERS of a certified cell and measures the distance from each corner solution to the predicted centre. The certificate says that distance must be below r. On the cell it tests, this build measured r = 2.454e-4 against a worst corner distance of 7.029e-5. A uniform claim that failed at a corner would be caught by arithmetic a referee can repeat.</p>
+</div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the other direction</div>
+    <h2>Refute a candidate equilibrium</h2>
+  </div>
+<p>A solver gives you a residual near zero and asks you to believe. This lab will also decide the NEGATIVE, which no solver can: paste a claimed equilibrium and the accuracy you claim for it, and if a single equation’s residual exceeds what the whole ball of that radius could move it, then no exact solution lies that close — whatever the rest of the vector does.</p>
+<div class="eq">|Φ<sub>j</sub>(y)| ≥ |Φ<sub>j</sub>(x)| − L<sub>j</sub>·δ &nbsp;&gt; 0 &nbsp;&nbsp;for all ‖y − x‖<sub>ν</sub> ≤ δ</div>
+<p>The witness is that one equation, its enclosed residual, and its row bound — three numbers, checkable by hand. A residual near zero is evidence; a residual provably too large is a proof. And the instrument refuses to over-claim in the other direction: hand it a true equilibrium and it returns REFUSED, not a certificate (battery R2). The “refute a candidate” button in §1 loads a worked example, and this build measured its refutation: equation F_1 carries |Φ| ≥ 1.572e-1 while the whole ball of radius δ = 10⁻³ could move it by at most 1.497e-3.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · take it with you</div>
+    <h2>Three ways to run this, none of which involve me</h2>
+  </div>
+<p>The map is evidence that the tool works at scale. The tool is the point.</p>
+<ul class="plain"><li><b>In this tab.</b> The box in §1. Nothing uploaded, nothing logged; a cell takes about a tenth of a second.</li><li><b>One file, offline.</b> <span class="m">reports/mfg-certify.js</span> — the same certifier as a standalone Node script with <em>no dependencies at all</em>, assembled from the repository sources at this build (sha256 7c8376b67efdba7b…). Download it, run it, diff it against the map.</li><li><b>The repository.</b> <span class="m">labs/mfg/</span> — the certifier, the sweep, the battery, and the README that states the scope. MIT.</li></ul>
+<pre class="code">node mfg-certify.js &#39;{&quot;sigma&quot;:0.5,&quot;c&quot;:[-16.03,-15.97],&quot;A&quot;:[0.288,0.313]}&#39;
+  -&gt; MULTIPLE — two exact solutions for every parameter in the cell
+
+git clone https://github.com/carlostoledo1891/cert-machine
+node labs/mfg/battery.js       # 9 checks, 6 falsifiers
+node labs/mfg/regime.js        # rebuild the whole map</pre>
+<p>The browser certifier is not a re-implementation. It is ASSEMBLED at build time from legacy/core/interval/interval.js, legacy/core/mfg/mfg1d.js, labs/mfg/box.js — nothing retyped — and then executed against the Node path and required to give the same verdicts and the same witnesses, or this page does not build. A rule defined twice will diverge; the only defence is a check that fires when it does.</p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§6 · the shelf</div>
+    <h2>What else this lab has decided</h2>
+  </div>
+<div class="col"><p>The observatory is the front door, not the whole lab. Each page below is a separate certified result in mean-field games and traffic equilibrium, and each one re-proves its own claims during its own build — nothing on any of them is remembered from a previous run.</p></div><div class="wide"><div class="cards"><a class="card" href="mfg-cap.html"><span class="card-k">the point this map generalises</span><span class="card-t">Two solutions, provably</span><span class="card-d">Certified multiplicity at ONE parameter set in the anti-monotone regime: two equilibria in disjoint interval-arithmetic balls, and a proof that REFUSES at the bifurcation. The theorem the observatory turns into a partition.</span><span class="card-n">the kernel this lab is built on</span></a>
+<a class="card" href="mfg-congest.html"><span class="card-k">no Hopf–Cole reduction</span><span class="card-t">A congestion mean-field game, enclosed</span><span class="card-d">An equilibrium of an MFG with congestion enclosed by validated numerics — locally unique in the full sequence-space ball, density strictly positive. Its solver is not published, so it stands as one certified point rather than a map: the honest next rung.</span><span class="card-n">its stdlib verifier travels inside the page</span></a>
+<a class="card" href="wardrop-repro.html"><span class="card-k">reproduction with a verdict</span><span class="card-t">Wardrop, certified: exact, enclosed, refused</span><span class="card-d">A published paper’s multi-population equilibria reproduced with certificates — exact where exactness is available, enclosed where it is not, and refused where honesty demands it.</span><span class="card-n">the third verdict is the useful one</span></a>
+<a class="card" href="mfg-lab.html"><span class="card-k">the registry claims</span><span class="card-t">The MFG laboratory, certified</span><span class="card-d">A published Wardrop table reproduced within its own rounding AND proved, the discrete adjoint identity, and the non-unique split behind unique totals.</span><span class="card-n">four of the lab’s own batteries re-run at build</span></a></div></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§7 · the remainder</div>
+    <h2>What is undecided, and why — every reason kept</h2>
+  </div>
+<div class="col"><p>NEEDS-DATA is the sharpest verdict a machine can give, and here it is called UNDECIDED. It is a measurement of where this argument stops, not a shrug — and 6,470 of the 8,086 undecided cells still contain a certified enclosure, which means an exact solution is proved to exist there and only its loneliness is open.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>cells</th><th>the reason, as the certifier stated it</th></tr></thead><tbody><tr><td>5470</td><td>only one solution found at the cell midpoint — a second branch is not excluded, it is not exhibited</td></tr><tr><td>1127</td><td>aligned branch: discriminant &lt;= 0 — no radius closes the contraction over the box</td></tr><tr><td>999</td><td>herding branch: discriminant &lt;= 0 — no radius closes the contraction over the box</td></tr><tr><td>489</td><td>aligned branch: Z1 &gt;= 1 over the box — the midpoint inverse does not control the whole cell</td></tr><tr><td>1</td><td>herding branch: contraction factor Z1 + Z2 r &gt;= 1 at the smallest admissible radius — T is a self-map but not a contraction</td></tr></tbody></table></div></div><div class="col"><p>Three of these are worth reading as physics rather than as failure. “Z1 ≥ 1 over the box” is the cell straddling a singular linearisation — the bifurcation seam. “Density positivity not certified” is the herding density pressing toward zero as the potential deepens, and m &gt; 0 is a hypothesis of the model, so it must be proved and cannot be waved through. “Only one solution found” is the region above the fold where the two branches have collided and annihilated: we exhibit one solution and decline to pretend we know it is alone.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§8 · provenance</div>
+    <h2>Where this comes from, and what would make it better</h2>
+  </div>
+<p>The model and the solver are the KAUST mean-field-games line and the Lasry–Lions/Cirant multiplicity literature; the radii-polynomial framework is van den Berg–Lessard, unchanged. The kernels under &lt;span class=&quot;m&quot;&gt;legacy/core/&lt;/span&gt; were lifted file-level from the published mfg-lab tree, are recorded with their sha256 in &lt;span class=&quot;m&quot;&gt;PROVENANCE.json&lt;/span&gt;, and are never edited here — &lt;span class=&quot;m&quot;&gt;labs/mfg/box.js&lt;/span&gt; is a second implementation of the same argument, which is exactly why the battery demands bit-for-bit agreement with them at zero cell width before this page is allowed to build. The certification layer, and any error in it, is ours.</p>
+<p>This lab is not a platform and is not looking for users in general. It is looking for ONE claim at a time. If you work on mean-field games and there is a statement your group keeps having to defend by hand — a uniqueness regime, a numerical equilibrium, a bound someone doubts — send it. If it is decidable, it gets decided here, with the witness, and the answer is yours whether or not it is the one you wanted.</p>
+<p>The instruments next door: <a href="mfg-cap.html">certified multiplicity at a point</a>, the result this map generalises; <a href="mfg-congest.html">a congestion MFG enclosed</a>, whose Hamiltonian admits no Hopf–Cole reduction; <a href="wardrop-repro.html">Wardrop equilibria reproduced, enclosed and refused</a>; and <a href="methods-note.html">the methods note</a>.</p>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-mfg-observatory.js @ git fefbc49. Gates that ran for this build: labs/mfg/battery.js (9 checks, 6/6 falsifiers red, including the bit-for-bit zero-width equality with the lifted kernel); the browser bundle executed against the Node path and required to agree; the map record re-tallied here from its own 19,800 cells with the area identity checked to 24.000000 = 24.000000; and 8 cells re-decided at build FROM SCRATCH — no warm start — with the same verdicts and independently re-derived witnesses. Map record: <span class="m">certs/mfg-regime-map.json</span>, sha256 ca6b63d34dbd8384…, swept 2026-08-28 in 2037 s. Lab: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/labs/mfg">labs/mfg/</a>. MIT.</p></footer>
+
+</div>
+</html>

@@ -13,7 +13,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-08-27 late night)
+## TASKS BACKLOG — the standing menu (updated 2026-08-28, LAB v0 shipped)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -81,42 +81,71 @@ and the session entries below — this block holds only what stands):
   draft's "measurable improvement" loop claim was REFUTED by our own
   loop ledger and replaced with the honest statement.
 
-FIRST THING NEXT SESSION (operator-approved 2026-08-28, "I accept the
-suggestion"): LAB v0 — THE MFG RESEARCH LAB, tools-first.
-  THE TARGET USER, by name: Ricardo de Lima Ribeiro, KAUST MFG group.
-  The page succeeds when HE uses it. The strategy: the lab is a series
-  of named engagements, never a platform; engagement #1 is the KAUST
-  group, and the KAUST letter (item 11) becomes its delivery vehicle —
-  closing line "send me the one claim that costs your group the most
-  time to defend; I'll certify it as the demonstration" (the
-  pain-mapping is done by ASKING, not guessing).
-  THE BUILD (operator's three requirements, binding):
-   (1) FULL HTML REBUILD in cert-machine's design system — never
-       import styles or gates from sin-mfg (CLAUDE.md permanent rule;
-       restated here on the operator's explicit instruction).
-   (2) The page is TOOLS-FIRST: live (in-browser paste-box certifiers,
-       the oracle/gym widget pattern), download (the extracted stdlib
-       verifiers beside the page), and GitHub (labs/mfg/ in the public
-       repo). A beautiful refactor of the prior project's MFG work,
-       boosted — source material is OUR rebuilt pages (reports/
-       mfg-cap.html, mfg-lab.html, wardrop-repro.html) plus file-level
-       allowlist lifts from the published mfg-lab tree via LIFT.json.
-   (3) Code + docs in a new labs/mfg/ folder; the PAGE is born under
-       /reports (housekeeping ruling S2.5c; a /labs/ app-zone would
-       need a separate operator ruling).
-  THE CENTERPIECE: the regime observatory — the congestion-MFG
-  parameter box partitioned EXACTLY: uniqueness-certified cells /
-  multiplicity-witnessed cells (the mass-discard, each with its exact
-  witness — the mfg-cap result generalized from a point to a map) /
-  undecided cells stated honestly. Plus the researcher intake: paste a
-  parameter set or candidate equilibrium -> CERTIFIED / REFUTED with
-  witness / REFUSED, in the browser, nothing uploaded.
-  WHY IT COMPOUNDS: every lab engagement is simultaneously an external
-  rerun (item 13), a vouching candidate (the portfolio's named gap),
-  and a future observatory pack. Second engagements queued behind MFG:
-  the erdosproblems/OEIS ecosystem (live now via #290), engineering
-  groups via the evtol/aeroelastic instruments.
-  Estimated: one session to first light.
+LAB v0 — SHIPPED 2026-08-28 (operator-approved "I accept the
+suggestion"; the target user, by name, is Ricardo de Lima Ribeiro of the
+KAUST MFG group, and the page succeeds when HE uses it).
+  WHAT SHIPPED: reports/mfg-observatory.html — THE MFG REGIME
+  OBSERVATORY. The mfg-cap point theorem generalised to a MAP: the
+  (c, A) plane at sigma = 1/2 partitioned into 19,800 cells, each
+  decided UNIFORMLY over its own rectangle — 11,330 MULTIPLE (two
+  exact solutions for EVERY parameter in the cell, two provably
+  disjoint certified balls, both densities positive; 30.7% of the
+  plane by area), 384 UNIQUE (c >= 0, Lasry-Lions global uniqueness
+  CITED, our enclosure proved), 8,086 UNDECIDED with the reason kept
+  verbatim (6,470 of them still enclose one exact solution). The
+  partition's area identity is re-checked at every build; a grid of
+  point results would prove nothing between its points.
+  THE INSTRUMENT (labs/mfg/, MIT, tools-first as required):
+   - box.js — uniform-over-a-parameter-box radii-polynomial validation.
+     THE FINDING that made a map possible: with a FIXED candidate Y0
+     grows linearly in cell width and only cells narrower than 0.004
+     in c close on the herding branch (a hairline). Carrying the
+     TANGENT PREDICTOR (DPhi xdot = -d_s Phi, from the Jacobian already
+     factored for A) cancels the first-order term, Y0 drops to O(h^2),
+     and 0.0625 closes — 15.6x wider, and that IS the map's cell size.
+     box.js carries opts.freezePredictor so falsifier X2 can switch the
+     predictor off and measure BOTH thresholds on the same ladder: the
+     ratio quoted on the page is a measurement of that build, and the
+     page parses it rather than transcribing it.
+     Also: boxPositivity over the box, refuteCandidate (the NEGATIVE
+     direction: one equation whose residual exceeds its own row bound
+     times delta proves no exact solution lies that close), decideCell.
+   - regime.js — the adaptive sweep (quadtree; refines only where
+     refinement can help, so resolution sharpens exactly on the
+     pitchfork seam and the fold) -> certs/mfg-regime-map.json.
+   - battery.js — 9 checks + 6 falsifiers. G1/G2 are the important
+     ones: at ZERO cell width box.js reproduces the lifted kernel
+     (legacy/core/mfg/validate.js) BIT FOR BIT on 7 reference
+     instances — same Y0, Z1, Z2, r, kappa — including the kappa
+     column validate.js records in its own header. A rule defined
+     twice WILL diverge; this is the check that fires when it does.
+     C1 re-solves at all four CORNERS of a certified cell and requires
+     each corner solution inside the ball (the uniform claim, checked
+     by arithmetic a referee can repeat).
+   - widget.js — the browser certifier is ASSEMBLED at build from the
+     actual sources (interval.js + mfg1d.js + box.js), nothing retyped,
+     then EXECUTED against the Node path and required to agree on
+     verdicts AND witnesses or the page refuses to build.
+  THE THREE DOORS (tools-first, all live): the paste box in the page
+  (verified working in-browser by CDP: same witness numbers as Node) ·
+  reports/mfg-certify.js, the same certifier as ONE file with NO
+  dependencies at all · labs/mfg/ in the public repo with a README
+  that states the scope.
+  DELIVERY VEHICLE STAGED, NOT SENT: outreach/kaust-mfg-lab.md — the
+  letter, with the closing ask verbatim ("send me the one claim that
+  costs your group the most time to defend"). Needs the operator's
+  three opening sentences and a recipient choice. The old objection
+  against the KAUST draft ("reword 'live in the browser'") is moot.
+  LAB v1, when the word comes: the sigma axis (box.js already charges
+  for a sigma box honestly — the tail diagonal defect |1 - sigma/sigma0|
+  does not decay, and X4 proves it is charged) · the congestion model
+  as a second rung (its solver is NOT published, so today it is one
+  certified point, reports/mfg-congest.html) · every engagement is
+  simultaneously an external rerun (item 13) and a vouching candidate.
+
+FIRST THING NEXT SESSION: node tools/sweep-claims.js, then shard
+health (tail -n 2 certs/shard-logs/shard-*.log) and 8D if a day
+released. Then the ACTIVE NEXT menu below — operator chooses.
 
 ACTIVE NEXT (operator to choose; nothing pre-authorized):
   A. HARBORPROOF — FIRST LIGHT SHIPPED 2026-08-28 (see the 2026-08-28c
@@ -141,6 +170,8 @@ ACTIVE NEXT (operator to choose; nothing pre-authorized):
      thinking-exhaustion HARNESS artifact, fixed at the cause (8192)
      and retried BEFORE anything was pushed (copy-honesty intact).
      Remaining gym moves: more packs · third-party sealed entries.
+  B2. LAB v0 SHIPPED (see above) — remaining moves there: the sigma
+     axis, a second named engagement, and the letter's send (word).
   C. 8C-full — certified-universal-over-forecast-envelope fleet
      statements; BLOCKED on the parked scenario packs.
   WAITING ON DATA (automatic): 8D — when adsb.lol releases a day D:
@@ -273,11 +304,16 @@ observatory template on a new market, built on the operator's word):
      solar-yield claims, roof by roof; consumer protection, map-native.
 
 DRAFTED OR READY, SENDING ON THE OPERATOR'S WORD:
- 11. KAUST LETTER — READY TO SEND: evidence surface rebuilt and live
-     (reports/mfg-cap.html, mfg-lab.html, wardrop-repro.html,
-     methods-note.html; code link github.com/carlostoledo1891/mfg-lab/
-     tree/main/research/mfg-cap). Needs your 3 sentences, recipient
-     choice, and rewording of "live in the browser".
+ 11. KAUST LETTER — REWRITTEN AND STAGED 2026-08-28 as
+     outreach/kaust-mfg-lab.md, now paired with its delivery vehicle:
+     reports/mfg-observatory.html (the regime map), reports/mfg-certify.js
+     (the one-file certifier, no dependencies) and labs/mfg/ in the
+     public repo. Closing ask, verbatim: "send me the one claim that
+     costs your group the most time to defend." STILL NEEDS from the
+     operator: the recipient (Ribeiro alone or +1), three opening
+     sentences in your own words, and a yes/no on the ask as written.
+     The earlier objection ("reword 'live in the browser'") is moot —
+     it is literally live in the browser, CDP-verified.
  12. Co-sign notes (He-Tang, mzn) · RM-group note (optional).
  13. EXTERNAL RERUN recruitment — target raised to THREE on record
      (2026-08-27 brainstorm; highest-leverage credibility move; the
@@ -548,6 +584,55 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   verification infrastructure — the eval labs run, the registry that
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-28e (LAB v0 — operator's word: the MFG research lab,
+tools-first, target Ricardo de Lima Ribeiro; three binding requirements
+kept — full rebuild in OUR design system, tools-first, code in labs/mfg
+with the page under /reports):
+  - THE CENTREPIECE SHIPPED: reports/mfg-observatory.html. 19,800
+    cells; 11,330 MULTIPLE (30.7% of the plane by area), 384 UNIQUE,
+    8,086 UNDECIDED (6,470 still carrying one certified enclosure).
+    Tightest witness anywhere in the map clears its own combined radii
+    by 289.6x; smallest certified density 2.81e-7 (positive, and it is
+    proved, never assumed — m > 0 is a hypothesis of the model).
+  - THE MATHEMATICS THAT MADE IT A MAP AND NOT A TABLE: the box
+    certificate carries a QUANTIFIER — for every s in the rectangle
+    there is a unique solution in B_r(xbar(s)) — which needs (a) A
+    fixed at the box midpoint, so the tail of I - A DPhi carries an
+    undecaying 1 - sigma/sigma0 that is charged by hand, and (b) a
+    TANGENT PREDICTOR, without which admissible cells collapse from
+    0.0625 to 0.004 in c (15.6x). Measured, not assumed: box.js has an
+    opts.freezePredictor switch so falsifier X2 walks the same width
+    ladder both ways, and the page parses the ratio from that run.
+  - THE DIVERGENCE GUARD: labs/mfg/box.js is a SECOND implementation
+    of the lifted kernel's argument. G1/G2 require bit-for-bit equality
+    at zero width on 7 reference instances (kappa 0.4494 at
+    (0.5,-24,0) reproduced from validate.js's own header comment), and
+    the page refuses to build without them. The browser bundle is
+    assembled from the source files and executed against the Node path
+    for the same reason.
+  - THE NEGATIVE DIRECTION: refuteCandidate — paste a claimed
+    equilibrium and a claimed accuracy; one equation whose residual
+    exceeds its own row bound times delta proves no exact solution is
+    that close. R2 requires the instrument to REFUSE rather than
+    certify when handed a true equilibrium.
+  - THREE DOORS, all verified: the in-page paste box (CDP-driven click
+    returned MULTIPLE with the same witness numbers as Node),
+    reports/mfg-certify.js (56 KB, zero dependencies, run at build),
+    labs/mfg/ with its README.
+  - HOUSEKEEPING found and fixed at the cause: `make site` had been
+    REFUSING since the #290 shard campaign started, because the
+    in-progress certs/erdos290-tail-shard-*.json files are not on the
+    published certificate shelf. They are working records that `merge`
+    folds into erdos290-tail-ext.json, so they are now gitignored (like
+    certs/shard-logs/) and excluded from the shelf check by name, with
+    the reason written down. A running campaign can no longer block a
+    site build.
+  - The map record is written compact (one cell per line, reasons
+    interned): pretty-printing 19,800 cells cost 13 MB of leading
+    spaces, and a record that large is one a host may silently drop.
+  - make test gains a row (mfg lab box certifier). Battery 9 checks +
+    6 falsifiers, all green.
 
 SESSION 2026-08-28d (the #290 revisit + the discoverability front —
 operator's words "boost the 290 until where we can", "wait l=120 and

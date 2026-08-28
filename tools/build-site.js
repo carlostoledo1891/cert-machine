@@ -217,6 +217,10 @@ const REPORTS = [
     desc: 'The shadow price of stored water in a hydro-dominated grid is a martingale between stock-binding events — proved by LP duality on scenario trees, with the solver extracted from the published artifact’s own bytes and 120 random trees re-certified at every build.',
     n: 'duality gap ~1e-14 · continuum limit honestly OPEN' },
   /* group 'ground': the instruments, proven on hard classical ground */
+  { g: 'ground', f: 'mfg-observatory.html', k: 'lab · the plane, decided',
+    title: 'The MFG regime observatory',
+    desc: 'The coupling–potential plane of a mean-field game partitioned into cells and decided — thousands carry two exact equilibria in provably disjoint balls valid for EVERY parameter in the cell, not merely at a sampled point. The certifier runs in the page, ships as one dependency-free file, and refuses at the bifurcation.',
+    n: 'the partition’s area identity re-checked at build' },
   { g: 'ground', f: 'mfg-cap.html', k: 'certified theorem · multiplicity',
     title: 'Two solutions, provably',
     desc: 'Certified multiplicity for a non-monotone mean-field game: two equilibria enclosed in disjoint interval-arithmetic balls at one parameter set, in the regime where uniqueness theory is silent — and a proof that REFUSES at the bifurcation.',
@@ -274,13 +278,20 @@ const CERTS = [
   ['lambda-table.json', 'The lambda table: the source lab’s rows reproduced exactly, plus rows nobody else holds, certified at the stated depth.', null],
   ['entropy-henon.json', 'The certified entropy lower bound for the classical Hénon map: h-sets, covering relations, and the exact spectral argument.', null],
   ['erdos290-tail-ext.json', 'The Erdős #290 sweep extension: degrees closed beyond the cited page, the constant’s enclosure tightened degree by degree.', null],
+  ['mfg-regime-map.json', 'The mean-field-game regime map: every cell of the coupling–potential plane with its verdict and its exact witness — two disjoint enclosures where uniqueness provably fails, the monotone enclosure where it does not, and the refusal reason everywhere else.', 'mfg-certify.js'],
   ['matmul-eval-ledger.jsonl', 'The matmul eval’s append-only ledger — every campaign row, every verdict, every tag; the leaderboard is built from this file.', null],
   ['matmul-loop-ledger.jsonl', 'The verifier-in-the-loop ledger — every trajectory round with its verdict and the exact feedback sent; the loop report is built from this file.', null],
   ['skyaudit-forecast-ledger.jsonl', 'The prediction ledger — interval FORECASTS committed before their target day (sha-pinned, append-only) and scored after in exact rationals; coverage claims are conformal counting theorems, never model faith. Wrong forecasts stay forever.', null],
   ['forecast-gym-ledger.jsonl', 'The Forecast Gym’s append-only ledger — every proposer’s forecast sha-committed before its outcome exists, every score an exact Winkler rational; the gym report and its admission board are built from this file.', null]
 ];
 {
-  const onDisk = fs.readdirSync(path.join(ROOT, 'certs')).filter((f) => f.endsWith('.json') || f.endsWith('.jsonl')).sort();
+  /* In-progress campaign shards are WORKING records, not published ones: the
+     detached #290 tail run writes one file per shard and `merge` folds them
+     into erdos290-tail-ext.json, which is what this table describes. They are
+     gitignored for the same reason certs/shard-logs/ is, and excluded here so a
+     running campaign cannot block a site build. */
+  const WORKING = /^erdos290-tail-shard-\d+\.json$/;
+  const onDisk = fs.readdirSync(path.join(ROOT, 'certs')).filter((f) => (f.endsWith('.json') || f.endsWith('.jsonl')) && !WORKING.test(f)).sort();
   const listed = CERTS.map((c) => c[0]).sort();
   if (onDisk.join(',') !== listed.join(','))
     fail('the certificate table and certs/ disagree — disk [' + onDisk + '] vs table [' + listed + ']');
@@ -820,6 +831,9 @@ for (const f of fs.readdirSync(path.join(ROOT, 'reports'))) {
   if (f.endsWith('.html') || f.endsWith('.py') || f.endsWith('.js')) put('reports/' + f, fs.readFileSync(path.join(ROOT, 'reports', f)));
 }
 for (const f of fs.readdirSync(path.join(ROOT, 'certs'))) {
+  /* same exclusion as the shelf check above: in-progress campaign shards are
+     working records, and `merge` folds them into the published certificate */
+  if (/^erdos290-tail-shard-\d+\.json$/.test(f)) continue;
   if (f.endsWith('.json') || f.endsWith('.jsonl')) put('certs/' + f, fs.readFileSync(path.join(ROOT, 'certs', f)));
 }
 for (const f of fs.readdirSync(path.join(ROOT, 'tools'))) {
