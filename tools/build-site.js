@@ -804,10 +804,17 @@ const aboutFoot = '<footer class="col"><p>Carlos Toledo · computer-assisted pro
    auto-cleaned, never a build failure. */
 const desired = new Map();
 const put = (rel, buf) => desired.set(rel, buf);
-put('index.html', Buffer.from(TPL.render({ title: 'cert-machine · the conjecture engine', bodyRaw: B.join('\n\n'), footRaw: foot })));
-put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports · cert-machine', bodyRaw: reportsIndexBody, footRaw: reportsIndexFoot })));
-put('about/index.html', Buffer.from(TPL.render({ title: 'About · Carlos Toledo', bodyRaw: aboutBody, footRaw: aboutFoot })));
-put('oracle/index.html', Buffer.from(TPL.render({ title: 'certify() — the reward oracle · cert-machine', bodyRaw: oracleBody.join('\n\n'), footRaw: oracleFoot })));
+put('index.html', Buffer.from(TPL.render({ title: 'cert-machine · the conjecture engine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/' })));
+put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports · cert-machine', bodyRaw: reportsIndexBody, footRaw: reportsIndexFoot, path: '/reports/',
+  desc: 'The reports shelf: certified audits of AI-generated mathematics, evals whose ground truth is a proof, a verified reward channel — and the instruments, proven on hard classical ground. Every page recomputes its numbers at build.' })));
+put('about/index.html', Buffer.from(TPL.render({ title: 'About · Carlos Toledo', bodyRaw: aboutBody, footRaw: aboutFoot, path: '/about/',
+  desc: 'Not correct — checkable. Computer-assisted proof and validated numerics: what every page here owes you, the record of what has left the building, and how these pages are made.' })));
+put('oracle/index.html', Buffer.from(TPL.render({ title: 'certify() — the reward oracle · cert-machine', bodyRaw: oracleBody.join('\n\n'), footRaw: oracleFoot, path: '/oracle/',
+  desc: 'certify() — a reward oracle for AI mathematical search: CERTIFIED, REFUTED with the exact violated equation, or REFUSED — never a guess. No float participates in any decision; red controls run at import; the ladder, the evidence, and exactly where the guarantee ends.' })));
+/* discoverability assets + crawl surface — generated, like everything else */
+put('favicon.svg', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'favicon.svg')));
+put('og.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og.png')));
+put('robots.txt', Buffer.from('User-agent: *\nAllow: /\nSitemap: https://carlostoledo.co/sitemap.xml\n'));
 put('machine/index.html', fs.readFileSync(path.join(ROOT, 'index.html')));
 for (const f of fs.readdirSync(path.join(ROOT, 'reports'))) {
   if (f.endsWith('.html') || f.endsWith('.py') || f.endsWith('.js')) put('reports/' + f, fs.readFileSync(path.join(ROOT, 'reports', f)));
@@ -835,6 +842,22 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    (apps/<name>/build.js, invoked by `make site`) emits it, with its own
    batteries and drift gates. The site sync neither generates nor prunes
    under it — two builders writing one tree is how files get eaten. */
+/* sitemap: every PAGE in the desired map (the landing, section indexes,
+   the reports) plus the app-zone pages the app builds emit. Raw citation
+   files, certificates and verifiers are crawlable but are not pages. */
+{
+  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/'];
+  for (const rel of desired.keys()) {
+    if (rel === 'index.html') continue;
+    if (rel.endsWith('/index.html') && !rel.startsWith('research/')) urls.push('/' + rel.slice(0, -'index.html'.length));
+    else if (rel.startsWith('reports/') && rel.endsWith('.html')) urls.push('/' + rel);
+  }
+  const xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + urls.sort().map((u) => '  <url><loc>https://carlostoledo.co' + u + '</loc></url>').join('\n')
+    + '\n</urlset>\n';
+  put('sitemap.xml', Buffer.from(xml));
+}
 fs.mkdirSync(SITE, { recursive: true });
 let wrote = 0, pruned = 0, kept = 0;
 for (const e of fs.readdirSync(SITE, { recursive: true })) {

@@ -3,6 +3,12 @@
   "outputDirectory": "site",
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.carlostoledo.co" }],
+      "destination": "https://carlostoledo.co/:path*",
+      "statusCode": 308
+    },
+    {
       "source": "/research/mfg-lab/mfg-lab",
       "destination": "/reports/mfg-lab.html",
       "statusCode": 301

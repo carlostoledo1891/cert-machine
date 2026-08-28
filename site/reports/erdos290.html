@@ -3,6 +3,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Erdős #290: the 4k(k+1) theorem · cert-machine</title>
+<meta name="description" content="Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant behind van Doorn&#39;s lower bound — tightened past the cited page, every number recomputed at build.">
+<meta name="author" content="Carlos Toledo">
+<link rel="canonical" href="https://carlostoledo.co/reports/erdos290.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/erdos290.html">
+<meta property="og:title" content="Erdős #290: the 4k(k+1) theorem · cert-machine">
+<meta property="og:description" content="Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant behind van Doorn&#39;s lower bound — tightened past the cited page, every number recomputed at build.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Erdős #290: the 4k(k+1) theorem · cert-machine">
+<meta name="twitter:description" content="Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant behind van Doorn&#39;s lower bound — tightened past the cited page, every number recomputed at build.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -296,8 +312,8 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   <div class="stats">
     <div class="stat"><div class="k">the 4k(k+1) law</div><div class="v held">RE-PROVED</div><div class="n">exact integer identities; 3 planted falsifiers fired during this build</div></div>
     <div class="stat"><div class="k">cited bracket (K=60)</div><div class="v sm">[0.829113768, 0.833228925]</div><div class="n">reproduced byte-identically from the lifted narrowing pipeline</div></div>
-    <div class="stat"><div class="k">this build&#39;s bracket</div><div class="v sm held">[0.829649026, 0.832403827]</div><div class="n">width 2.75e-3 — 33% tighter; densities pinned through l = 90</div></div>
-    <div class="stat"><div class="k">degrees pinned</div><div class="v">l ≤ 90</div><div class="n">30 new degrees closed by the five-candidate squeeze (l = 61..90), none left open</div></div>
+    <div class="stat"><div class="k">this build&#39;s bracket</div><div class="v sm held">[0.829918323, 0.831988708]</div><div class="n">width 2.07e-3 — 50% tighter; densities pinned through l = 120</div></div>
+    <div class="stat"><div class="k">degrees pinned</div><div class="v">l ≤ 120</div><div class="n">60 new degrees closed by the five-candidate squeeze (l = 61..120), none left open</div></div>
     <div class="stat"><div class="k">conditional c*</div><div class="v sm">0.83073295584873…</div><div class="n">34 certified digits under ONE labeled group-theory assumption — re-derived this build</div></div>
     <div class="stat"><div class="k">1/(1+c*)</div><div class="v sm">0.54622931040010…</div><div class="n">the OEIS-shaped constant, exact rational division of the conditional enclosure</div></div>
   </div>
@@ -322,9 +338,9 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <section class="col">
   <div class="sec-head">
     <div class="lab">§3 · the continuation</div>
-    <h2>Past the horizon: l = 61..90, same instrument, tighter interval</h2>
+    <h2>Past the horizon: l = 61..120, same instrument, tighter interval</h2>
   </div>
-<div class="col"><p>The entire remaining width at l = 60 is the unpinned tail Σ_{l>60} 1/(2l(2l+1)). This repository ran the cited page's own five-candidate squeeze — the lifted galois-exceptions.js, byte-identical, nPrimes = 400, early exit — over l = 61..90. 30 degrees closed to a unique certified survivor — none refused. Result:</p><div class="eq">c ∈ [0.829649026497, 0.832403826529]   (width 2.755e-3, 33% tighter than the cited page)</div><p>Each closed degree also extends the evidence base of §4's assumption: every one is a new even degree at which the group is verified to be one of the two allowed candidates. The extension record is <a href="/certs/erdos290-tail-ext.json"><span class="m">certs/erdos290-tail-ext.json</span></a>; a degree absent from it contributed nothing but honest width. One closure deserves its own sentence: d = 168 is an EXCEPTIONAL degree (4k(k+1) at k = 6, square discriminant by the theorem above), and the cited page explicitly left its Galois group undetermined — the squeeze has now closed it (survivor ES0), pinning the last exceptional density in range.</p></div>
+<div class="col"><p>The entire remaining width at l = 60 is the unpinned tail Σ_{l>60} 1/(2l(2l+1)). This repository ran the cited page's own five-candidate squeeze — the lifted galois-exceptions.js, byte-identical, nPrimes = 400, early exit — over l = 61..120. 60 degrees closed to a unique certified survivor — none refused. Result:</p><div class="eq">c ∈ [0.829918323025, 0.831988707526]   (width 2.070e-3, 50% tighter than the cited page)</div><p>Each closed degree also extends the evidence base of §4's assumption: every one is a new even degree at which the group is verified to be one of the two allowed candidates. The extension record is <a href="/certs/erdos290-tail-ext.json"><span class="m">certs/erdos290-tail-ext.json</span></a>; a degree absent from it contributed nothing but honest width. One closure deserves its own sentence: d = 168 is an EXCEPTIONAL degree (4k(k+1) at k = 6, square discriminant by the theorem above), and the cited page explicitly left its Galois group undetermined — the squeeze has now closed it (survivor ES0), pinning the last exceptional density in range.</p></div>
 </section>
 
 <section class="col">
@@ -343,7 +359,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="col"><p>This page supersedes the one cited in the erdosproblems #290 comment (posted 2026-08-04); that page and its programs are preserved BYTE-IDENTICALLY, hash-pinned through this repository's lift provenance, in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/erdos290.html">the repository</a> (the citation paths 301 here). Its self-contained programs — the theorem checker with its planted falsifiers, the narrowing pipeline, the five-candidate squeeze, the vendored exact-rational arithmetic — live beside it in the repository and are exactly what this build re-ran. To repeat it yourself: <span class="m">node theorem.js</span> (the proof, ~14 s), <span class="m">node narrowing.js</span> (the bracket), <span class="m">node tools/run-erdos290-tail-ext.js</span> (the continuation) from <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>.</p></div>
 </section>
 
-<footer class="col"><p>Generated by tools/build-report-erdos290.js @ git 6e2f211 — the theorem re-proved (falsifiers required to fire), the narrowing record reproduced byte-identically, the bracket re-assembled in exact rationals and calibrated against the record, the conditional enclosure re-derived. The build refuses if any of it moves.</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-erdos290.js @ git b843665 — the theorem re-proved (falsifiers required to fire), the narrowing record reproduced byte-identically, the bracket re-assembled in exact rationals and calibrated against the record, the conditional enclosure re-derived. The build refuses if any of it moves.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

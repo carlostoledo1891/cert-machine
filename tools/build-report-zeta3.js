@@ -223,7 +223,7 @@ const foot = '<footer class="col">'
 
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'zeta3-audit.html'),
-  TPL.render({ title: 'The ζ(3) sheet, decided · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot }));
+  TPL.render({ title: 'The ζ(3) sheet, decided · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/reports/zeta3-audit.html' }));
 
 console.log('reports/zeta3-audit.html written');
 for (const r of rows) console.log('  ' + r.id.padEnd(12) + (r.status || '').padEnd(18) + r.form.padEnd(14)

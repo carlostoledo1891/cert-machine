@@ -239,18 +239,47 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 `.trim();
 }
 
-function render({ title, bodyRaw, footRaw }) {
+/* Every generated page carries the same discoverability head: description
+   (page-specific when the builder passes `desc`, the positioning sentence
+   otherwise), canonical + og:url when the builder passes `path` (the
+   root-absolute served path — pass it for pages with one canonical home),
+   Open Graph / Twitter cards against the one build-generated og image, and
+   the favicon. The canonical host is the apex — www 301s to it. */
+const SITE_ORIGIN = 'https://carlostoledo.co';
+const DEFAULT_DESC = 'Verification layers under which AI-scale mathematical search produces only certified '
+  + 'output — exact rational decisions, interval enclosures, red-controlled instruments, reward signals that '
+  + 'cannot be hacked, and certified audits of published AI-generated mathematics. Every number recomputed at '
+  + 'build; a build that drifts refuses to ship.';
+
+function render({ title, bodyRaw, footRaw, desc, path: pagePath }) {
   const CO = require('./components.js');
   const NAV = CO.nav({
     brand: 'Carlos Toledo', brandHref: '/',
     links: [{ t: 'Reports', href: '/reports/' }, { t: 'Machine', href: '/machine/' }, { t: 'About', href: '/about/' }],
     github: 'https://github.com/carlostoledo1891/cert-machine'
   });
+  const d = desc || DEFAULT_DESC;
+  const canon = pagePath ? SITE_ORIGIN + pagePath : null;
   return `<!doctype html>
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${CO.esc(title)}</title>
+<meta name="description" content="${CO.escAttr(d)}">
+<meta name="author" content="Carlos Toledo">
+${canon ? `<link rel="canonical" href="${canon}">\n<meta property="og:url" content="${canon}">` : ''}
+<meta property="og:title" content="${CO.escAttr(title)}">
+<meta property="og:description" content="${CO.escAttr(d)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="${SITE_ORIGIN}/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${CO.escAttr(title)}">
+<meta name="twitter:description" content="${CO.escAttr(d)}">
+<meta name="twitter:image" content="${SITE_ORIGIN}/og.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${T.GOOGLE_FONTS}">

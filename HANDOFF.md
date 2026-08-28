@@ -81,6 +81,43 @@ and the session entries below — this block holds only what stands):
   draft's "measurable improvement" loop claim was REFUTED by our own
   loop ledger and replaced with the honest statement.
 
+FIRST THING NEXT SESSION (operator-approved 2026-08-28, "I accept the
+suggestion"): LAB v0 — THE MFG RESEARCH LAB, tools-first.
+  THE TARGET USER, by name: Ricardo de Lima Ribeiro, KAUST MFG group.
+  The page succeeds when HE uses it. The strategy: the lab is a series
+  of named engagements, never a platform; engagement #1 is the KAUST
+  group, and the KAUST letter (item 11) becomes its delivery vehicle —
+  closing line "send me the one claim that costs your group the most
+  time to defend; I'll certify it as the demonstration" (the
+  pain-mapping is done by ASKING, not guessing).
+  THE BUILD (operator's three requirements, binding):
+   (1) FULL HTML REBUILD in cert-machine's design system — never
+       import styles or gates from sin-mfg (CLAUDE.md permanent rule;
+       restated here on the operator's explicit instruction).
+   (2) The page is TOOLS-FIRST: live (in-browser paste-box certifiers,
+       the oracle/gym widget pattern), download (the extracted stdlib
+       verifiers beside the page), and GitHub (labs/mfg/ in the public
+       repo). A beautiful refactor of the prior project's MFG work,
+       boosted — source material is OUR rebuilt pages (reports/
+       mfg-cap.html, mfg-lab.html, wardrop-repro.html) plus file-level
+       allowlist lifts from the published mfg-lab tree via LIFT.json.
+   (3) Code + docs in a new labs/mfg/ folder; the PAGE is born under
+       /reports (housekeeping ruling S2.5c; a /labs/ app-zone would
+       need a separate operator ruling).
+  THE CENTERPIECE: the regime observatory — the congestion-MFG
+  parameter box partitioned EXACTLY: uniqueness-certified cells /
+  multiplicity-witnessed cells (the mass-discard, each with its exact
+  witness — the mfg-cap result generalized from a point to a map) /
+  undecided cells stated honestly. Plus the researcher intake: paste a
+  parameter set or candidate equilibrium -> CERTIFIED / REFUTED with
+  witness / REFUSED, in the browser, nothing uploaded.
+  WHY IT COMPOUNDS: every lab engagement is simultaneously an external
+  rerun (item 13), a vouching candidate (the portfolio's named gap),
+  and a future observatory pack. Second engagements queued behind MFG:
+  the erdosproblems/OEIS ecosystem (live now via #290), engineering
+  groups via the evtol/aeroelastic instruments.
+  Estimated: one session to first light.
+
 ACTIVE NEXT (operator to choose; nothing pre-authorized):
   A. HARBORPROOF — FIRST LIGHT SHIPPED 2026-08-28 (see the 2026-08-28c
      session entry): instruments/fueleu (exact Reg 2023/1805 arithmetic
@@ -511,6 +548,58 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   verification infrastructure — the eval labs run, the registry that
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-28d (the #290 revisit + the discoverability front —
+operator's words "boost the 290 until where we can", "wait l=120 and
+have all outreach updated, committed and deployed", "work in the
+foreground on the other tasks"):
+  - THE #290 STATE, READ: your issue-164 comment (teorth/erdosproblems,
+    4 Aug) IS the full answer to Woett's help-wanted ask; zero replies
+    in 24 days because the problem-page comment it promised never
+    cleared moderation. The account for OEIS was only requested
+    2026-08-28 — so the about page's "OEIS submission, posted 4 August,
+    unanswered" line is WRONG and must be corrected (operator to
+    confirm what happened on Aug 4; nothing was ever filed).
+  - THE TAIL EXTENDED to l = 120 (even d <= 240): 60 degrees closed,
+    0 open; the ONLY drops are d = 168 and 224 — exactly the two
+    4k(k+1) in range, the law twice more. Bracket c ∈ [0.829918323,
+    0.831988708] (width 2.07e-3, from 2.75e-3); 1/(1+c) ∈
+    [0.545854892900, 0.546472477723]; assumption enters at d >= 242.
+    Timing law measured ~l^4 (116 s @ 91, 212 s @ 105); the l≈310
+    summit (third UNCONDITIONAL digit) is ~11 single-thread days ->
+    tools/run-erdos290-tail-shard.js (per-shard files, merge refuses
+    disagreement) LAUNCHED with 6 shards at session end — see the cold
+    start; `merge` then rebuild when they finish. Fourth digit needs
+    l≈740 (months): not on the menu.
+  - PRECISION: tools/erdos290-cstar-precision.js moves the conditional
+    enclosure's certified horizon to the live tail record (the lifted
+    kernel capped at 46 digits by ITS first uncertified degree); gated
+    by calibration vs the kernel (43 digits agree), cutoff agreement,
+    containment. 110 digits of c* and of 1/(1+c*) — outreach/
+    b-oeis-cstar.txt, b-oeis-c0.txt (rerun after each horizon move).
+  - OUTREACH STAGED (all sends on the word; OEIS clicks are the
+    operator's, account pending approval): outreach/erdos290-issue164.md
+    (the posted comment pinned + the refreshed follow-up draft),
+    outreach/oeis-erdos290-pack.md (5 packs: disc(f_d) and disc(h_l)
+    integer sequences with Bareiss-verified terms + b-files, the
+    A033996 comment, the two constants staged for after the campaign),
+    outreach/zenodo-plan.md (repo-release DOI now; the #290 deposit
+    after the summit; ORCID first; arXiv note follows Woett).
+    Recommended order: ORCID -> issue-164 follow-up (the loop-closer;
+    numbers are l=120-fresh) -> OEIS packs 1,2,3 once approved ->
+    constants after the campaign.
+  - DISCOVERABILITY FRONT (was title-only): template head with
+    description/og/twitter/favicon, favicon.svg + og.png born from the
+    design tokens (CDP-rendered card), canonical + og:url, www->apex
+    308 in vercel.json, robots.txt + sitemap.xml generated from the
+    desired map (30 URLs), canonical path on all 23 report builders,
+    hand-written descriptions on ten flagships.
+  - JUDGMENT CALLS recorded: All Things Agentic hackathon (Google
+    stack, Aug 31, 11k entrants) — PASS, wrong window/audience/stack.
+    OEIS entries — worth doing as the first third-party acceptance and
+    the pretext for engaging van Doorn, not as a credential.
+  - LAB v0 (MFG, tools-first, target Ricardo de Lima Ribeiro) approved
+    and written up as FIRST THING NEXT SESSION above.
 
 SESSION 2026-08-28c (R3 + HARBORPROOF — operator's word "work on R3 and
 harbor-proof until ship and stop"):

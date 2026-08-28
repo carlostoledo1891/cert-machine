@@ -333,7 +333,8 @@ const foot = '<footer class="col">'
 
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'erdos852.html'),
-  TPL.render({ title: 'The constant that was a rounding error · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot }));
+  TPL.render({ title: 'The constant that was a rounding error · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/erdos852.html',
+    desc: 'A GPT-published constant on Erdős #852, refuted at its twelfth significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.' }));
 
 console.log('reports/erdos852.html written');
 console.log('  c0  ' + c0digits.slice(0, 24) + '…  (' + c0enc.cert.extra.bisections + ' bisections, width ' + c0enc.cert.extra.width.toExponential(2) + ')');

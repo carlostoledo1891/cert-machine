@@ -154,7 +154,7 @@ const foot = '<footer class="col">'
   + '</footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'entropy.html'),
-  TPL.render({ title: 'Entropy, with a certificate · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot }));
+  TPL.render({ title: 'Entropy, with a certificate · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/reports/entropy.html' }));
 
 console.log('reports/entropy.html written');
 console.log('  h_top(' + cert.a + ', ' + cert.b + ') >= ' + cert.hLB.toFixed(6) + ' re-proved ('

@@ -233,7 +233,7 @@ const foot = '<footer class="col">'
 
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'impostors.html'),
-  TPL.render({ title: 'The impostor catalog · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot }));
+  TPL.render({ title: 'The impostor catalog · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/reports/impostors.html' }));
 
 console.log('reports/impostors.html written');
 console.log('  ' + catalog.length + ' constants, ' + totalImpersonations + ' impersonations, deepest agreement '

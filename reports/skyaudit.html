@@ -3,6 +3,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SkyAudit: the helicopter day, decided</title>
+<meta name="description" content="SkyAudit&#39;s citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs&#39; own published numbers under the FAA reserve rule — every flight decided or honestly refused.">
+<meta name="author" content="Carlos Toledo">
+<link rel="canonical" href="https://carlostoledo.co/reports/skyaudit.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/skyaudit.html">
+<meta property="og:title" content="SkyAudit: the helicopter day, decided">
+<meta property="og:description" content="SkyAudit&#39;s citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs&#39; own published numbers under the FAA reserve rule — every flight decided or honestly refused.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SkyAudit: the helicopter day, decided">
+<meta name="twitter:description" content="SkyAudit&#39;s citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs&#39; own published numbers under the FAA reserve rule — every flight decided or honestly refused.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -298,7 +314,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="stat"><div class="k">provably electric</div><div class="v held">100 flights (26%)</div><div class="n">Beta ALIA-250 under the FAA 20-minute VFR reserve — every certificate a worst-corner proof over the maker&#39;s own boxes</div></div>
     <div class="stat"><div class="k">minimum fleet, proved</div><div class="v held">exactly 10 aircraft</div><div class="n">9 REFUTED by pigeonhole at a witnessed instant (18:11:44 ET); 10 CERTIFIED by an exactly-verified schedule</div></div>
     <div class="stat"><div class="k">the opacity finding</div><div class="v warn">Joby · Archer · Eve: 0 provable</div><div class="n">NEEDS DATA dominates their ledgers — the audit measures what public specs cannot decide, and says so instead of guessing</div></div>
-    <div class="stat"><div class="k">authoritative identity</div><div class="v held">106/126 + 114/149 joined</div><div class="n">FAA Releasable Aircraft DB + ANAC RAB, sha-pinned; registry-first typing changed corpus membership NOWHERE — the numbers stand on authority, unmatched aircraft listed one by one</div></div>
+    <div class="stat"><div class="k">authoritative identity</div><div class="v held">112/136 + 129/169 joined</div><div class="n">FAA Releasable Aircraft DB + ANAC RAB, sha-pinned; registry-first typing changed corpus membership NOWHERE — the numbers stand on authority, unmatched aircraft listed one by one</div></div>
     <div class="stat"><div class="k">day-stability, measured</div><div class="v held">26.2% vs 21.7%</div><div class="n">a contrasting Sunday (175 flights) holds the STRUCTURE — only Beta provable, the others zero on both days — while the provable share moves with the day; §7 states the deltas</div></div>
     <div class="stat"><div class="k">what this is not</div><div class="v warn">no airworthiness claim</div><div class="n">&quot;certified&quot; is a mathematical statement about published boxes and exact arithmetic — never a regulatory status, an endorsement, or a judgment of any operator&#39;s mission</div></div>
   </div>
@@ -372,7 +388,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="wide"><div class="tw"><table><thead><tr><th>dataset</th><th>license</th><th>pinned</th><th>sha256 (prefix)</th></tr></thead><tbody><tr><td>adsb.lol globe history 2026-08-26 (4 release assets)</td><td>ODbL-1.0</td><td>day-2026-08-26/PINS.json</td><td>af9fed4c7a62… (+3)</td></tr><tr><td>adsb.lol globe history 2026-08-23 — the contrast day (3 assets)</td><td>ODbL-1.0</td><td>day-2026-08-23/PINS.json</td><td>2a5ee98bd91a… (+2)</td></tr><tr><td>FAA Releasable Aircraft Database</td><td>public domain</td><td>registry/REGISTRY-PINS.json · acquired 2026-08-27</td><td>93b2b9110e99…</td></tr><tr><td>ANAC RAB dados_aeronaves.csv</td><td>ANAC dados abertos</td><td>registry/REGISTRY-PINS.json · dataset 2026-08-27</td><td>5aa6fe1e61a3…</td></tr><tr><td>12 rule/spec/physics source PDFs (FAA SFAR, SC-VTOL + MOCs, Kasliwal 2019, ANAC criteria, …)</td><td>cited</td><td>sources/SOURCES-PINS.json</td><td>per-file</td></tr></tbody></table></div></div><div class="col"><p>Licenses stay separated: code MIT, traffic corpora ODbL, FAA data public domain, ANAC open data — pins beside every dataset. Rerun: <span class="m">node apps/skyaudit/build.js</span> runs all 10 gates (battery incl. red controls that must fire, day re-certified and compared, fleet frontier re-derived, thresholds re-proved, economics recomputed, stories re-told, planner re-planned, tiles and registry extracts hash-checked). The independent verifier <span class="m">python3 apps/skyaudit/audit/verify_skyaudit.py</span> re-proves the ledger in exact fractions with zero dependencies. The app: <a href="/apps/skyaudit/">carlostoledo.co/apps/skyaudit</a>.</p></div>
 </section>
 
-<footer class="col"><p>Generated by tools/build-report-skyaudit.js @ git 398e022. Gates at this build: the app battery (33 checks, red controls fired), all 3,056 + 1,400 certificate rows recounted from both days' ledgers, verdict tallies re-derived, the day-stability comparison re-derived from the committed summaries, cross-record consistency (economics = refly = reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-skyaudit.js @ git b843665. Gates at this build: the app battery (33 checks, red controls fired), all 3,056 + 1,400 certificate rows recounted from both days' ledgers, verdict tallies re-derived, the day-stability comparison re-derived from the committed summaries, cross-record consistency (economics = refly = reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></footer>
 
 </div>
 </html>

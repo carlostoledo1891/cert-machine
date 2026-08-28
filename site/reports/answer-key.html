@@ -3,6 +3,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>When the answer key is wrong</title>
+<meta name="description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working eval design that removes the answer key altogether.">
+<meta name="author" content="Carlos Toledo">
+<link rel="canonical" href="https://carlostoledo.co/reports/answer-key.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/answer-key.html">
+<meta property="og:title" content="When the answer key is wrong">
+<meta property="og:description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working eval design that removes the answer key altogether.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="When the answer key is wrong">
+<meta name="twitter:description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working eval design that removes the answer key altogether.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
@@ -297,7 +313,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="stat"><div class="k">specimen I</div><div class="v warn">wrong at digit 12</div><div class="n">a published constant that IS the naive IEEE-754 product — reproduced live this build, then refuted exactly</div></div>
     <div class="stat"><div class="k">specimen II</div><div class="v warn">62 digits of agreement</div><div class="n">a published constant vs a closed form it provably is not — re-derived in exact BigInt this build</div></div>
     <div class="stat"><div class="k">specimen III</div><div class="v warn">true math, false print</div><div class="n">a printed identity refuted while its own computation is certified correct on the same enclosure</div></div>
-    <div class="stat"><div class="k">the alternative</div><div class="v held">268 rows, no key</div><div class="n">96 certified as theorems; zero false certifications — the answer key does not exist, so it cannot be wrong</div></div>
+    <div class="stat"><div class="k">the alternative</div><div class="v held">274 rows, no key</div><div class="n">96 certified as theorems; zero false certifications — the answer key does not exist, so it cannot be wrong</div></div>
   </div>
 </div>
 
@@ -340,11 +356,11 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="lab">§5 · the design</div>
     <h2>Remove the key</h2>
   </div>
-<p>The structural fix is to grade tasks where no reference value exists to contaminate: ask the model to EXHIBIT a witness — a decomposition, a certificate, a construction — and let the grader re-derive the claim from the witness alone, exactly. The matmul eval on this site is the running instance: 268 frontier-model proposals graded to date, every certified row a theorem, every refuted row a proof of error, zero false certifications — measured, and structurally guaranteed, because there is no answer key to be wrong.</p>
+<p>The structural fix is to grade tasks where no reference value exists to contaminate: ask the model to EXHIBIT a witness — a decomposition, a certificate, a construction — and let the grader re-derive the claim from the witness alone, exactly. The matmul eval on this site is the running instance: 274 frontier-model proposals graded to date, every certified row a theorem, every refuted row a proof of error, zero false certifications — measured, and structurally guaranteed, because there is no answer key to be wrong.</p>
 <p>Three rules transfer to any evaluation built on computed ground truth. Screens may only PRUNE: no float comparison ever admits a claim. Grade with certificates, not tolerances: the verdict should be checkable by re-derivation, not by proximity to a stored number. And put red controls in the grader: deliberately false submissions that must fail, run before anything real is graded — a grader that has never rejected a forgery is not known to reject forgeries. The methods note states the discipline in full; every gate on this site runs under it.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-report-answer-key.js @ git 6e2f211. Every specimen above was re-proved during this build — the naive product re-run and refuted, the impostor depth re-derived in exact BigInt, both RM directions re-certified, the eval ledger re-read — and the build refuses on any deviation.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-answer-key.js @ git b843665. Every specimen above was re-proved during this build — the naive product re-run and refuted, the impostor depth re-derived in exact BigInt, both RM directions re-certified, the eval ledger re-read — and the build refuses on any deviation.</p></footer>
 
 </div>
 </html>

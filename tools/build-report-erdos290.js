@@ -250,6 +250,7 @@ const foot = '<footer class="col">'
   + '</footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'erdos290.html'),
-  TPL.render({ title: 'Erdős #290: the 4k(k+1) theorem · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot }));
+  TPL.render({ title: 'Erdős #290: the 4k(k+1) theorem · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/erdos290.html',
+    desc: 'Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant behind van Doorn\'s lower bound — tightened past the cited page, every number recomputed at build.' }));
 console.log('reports/erdos290.html written: theorem RE-PROVED (' + falsifiers + ' falsifiers), narrowing reproduced, bracket ['
   + bxLo.toFixed(12) + ', ' + bxHi.toFixed(12) + '] (' + fmtPct(bxWidth, B60.width) + ' tighter, l <= ' + Lmax + ') @ git ' + gitrev);

@@ -137,5 +137,5 @@ const foot = '<footer class="col">'
   + '</footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'verify-lemniscate.html'),
-  TPL.render({ title: 'Erdős #1038: thirty decimals verified · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot }));
+  TPL.render({ title: 'Erdős #1038: thirty decimals verified · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/verify-lemniscate.html' }));
 console.log('reports/verify-lemniscate.html written: ' + passed + ' checks, ' + mutations + ' mutations rejected, CONFIRMED @ git ' + gitrev);
