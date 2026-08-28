@@ -5,7 +5,8 @@
   "day-2026-08-23",
   "day-2026-08-24",
   "day-2026-08-25",
-  "day-2026-08-26"
+  "day-2026-08-26",
+  "day-2026-08-27"
  ],
  "sources": {
   "faa": "FAA Releasable Aircraft Database (public domain)",
@@ -13,14 +14,18 @@
  },
  "rab_updated": "2026-08-27",
  "counts": {
-  "corpus": 149,
-  "matched": 114,
-  "unmatched": 35
+  "corpus": 169,
+  "matched": 129,
+  "unmatched": 40
  },
  "unmatched": [
   {
    "icao": "3dd732",
    "reg": "D-HBTA"
+  },
+  {
+   "icao": "a04633",
+   "reg": "N117"
   },
   {
    "icao": "a12345",
@@ -63,11 +68,19 @@
    "reg": null
   },
   {
+   "icao": "e4995e",
+   "reg": null
+  },
+  {
    "icao": "e49b4f",
    "reg": null
   },
   {
    "icao": "e49b67",
+   "reg": null
+  },
+  {
+   "icao": "e49d94",
    "reg": null
   },
   {
@@ -127,6 +140,10 @@
    "reg": null
   },
   {
+   "icao": "e4a4ad",
+   "reg": null
+  },
+  {
    "icao": "e4a55e",
    "reg": null
   },
@@ -136,6 +153,10 @@
   },
   {
    "icao": "e4a606",
+   "reg": null
+  },
+  {
+   "icao": "e4a675",
    "reg": null
   },
   {
@@ -234,6 +255,22 @@
    "proprietarios": [
     "LUCIANO HUCK",
     "RAFAEL SAMPAIO DA MOTTA"
+   ],
+   "nameKind": "operador",
+   "mfr": "BELL HELICOPTER",
+   "model": "429",
+   "typeDesignator": "B429",
+   "cls": "H2T",
+   "rotorcraft": true
+  },
+  "PP-BLA": {
+   "reg": "PP-BLA",
+   "mark": "PPBLA",
+   "operadores": [
+    "PP-BLA PARTICIPACOES SPE S/A"
+   ],
+   "proprietarios": [
+    "PP-BLA PARTICIPACOES SPE S/A"
    ],
    "nameKind": "operador",
    "mfr": "BELL HELICOPTER",
@@ -418,6 +455,22 @@
    "cls": "H2T",
    "rotorcraft": true
   },
+  "PP-JIE": {
+   "reg": "PP-JIE",
+   "mark": "PPJIE",
+   "operadores": [
+    "WILSON ROBERTO GOMES"
+   ],
+   "proprietarios": [
+    "WILSON ROBERTO GOMES"
+   ],
+   "nameKind": "operador",
+   "mfr": "ROBINSON HELICOPTER",
+   "model": "R66",
+   "typeDesignator": "R66",
+   "cls": "H1T",
+   "rotorcraft": true
+  },
   "PP-JNJ": {
    "reg": "PP-JNJ",
    "mark": "PPJNJ",
@@ -597,6 +650,22 @@
    "cls": "H2T",
    "rotorcraft": true
   },
+  "PP-PEM": {
+   "reg": "PP-PEM",
+   "mark": "PPPEM",
+   "operadores": [
+    "PLQ AVIATION HOLDING LTDA"
+   ],
+   "proprietarios": [
+    "PLQ AVIATION HOLDING LTDA"
+   ],
+   "nameKind": "operador",
+   "mfr": "BELL HELICOPTER",
+   "model": "407",
+   "typeDesignator": "B407",
+   "cls": "H1T",
+   "rotorcraft": true
+  },
   "PP-PML": {
    "reg": "PP-PML",
    "mark": "PPPML",
@@ -611,6 +680,22 @@
    "model": "505",
    "typeDesignator": "B505",
    "cls": "H1T",
+   "rotorcraft": true
+  },
+  "PP-PMM": {
+   "reg": "PP-PMM",
+   "mark": "PPPMM",
+   "operadores": [
+    "PRINCESS PATRIMONIAL LTDA"
+   ],
+   "proprietarios": [
+    "DAYCOVAL LEASING SOCIEDADE DE ARRENDAMENTO MERCANTIL S.A."
+   ],
+   "nameKind": "operador",
+   "mfr": "LEONARDO S.P.A",
+   "model": "AW169",
+   "typeDesignator": "A169",
+   "cls": "H2T",
    "rotorcraft": true
   },
   "PP-SGL": {
@@ -754,6 +839,38 @@
    "mfr": "LEONARDO S.P.A",
    "model": "AW169",
    "typeDesignator": "A169",
+   "cls": "H2T",
+   "rotorcraft": true
+  },
+  "PR-FMI": {
+   "reg": "PR-FMI",
+   "mark": "PRFMI",
+   "operadores": [
+    "FULWOOD INVEST.E PARTICIPACOES LTDA"
+   ],
+   "proprietarios": [
+    "FULWOOD INVEST.E PARTICIPACOES LTDA"
+   ],
+   "nameKind": "operador",
+   "mfr": "EUROCOPTER DEUTSCHLAND",
+   "model": "EC 135P2+",
+   "typeDesignator": "EC35",
+   "cls": "H2T",
+   "rotorcraft": true
+  },
+  "PR-FPC": {
+   "reg": "PR-FPC",
+   "mark": "PRFPC",
+   "operadores": [
+    "SOCIEDADE ADMINISTRADORA E GESTÃO PATRIMONIAL LTDA."
+   ],
+   "proprietarios": [
+    "SOCIEDADE ADMINISTRADORA E GESTÃO PATRIMONIAL LTDA."
+   ],
+   "nameKind": "operador",
+   "mfr": "BELL HELICOPTER",
+   "model": "429",
+   "typeDesignator": "B429",
    "cls": "H2T",
    "rotorcraft": true
   },
@@ -1093,6 +1210,22 @@
    "cls": "H1T",
    "rotorcraft": true
   },
+  "PS-ATH": {
+   "reg": "PS-ATH",
+   "mark": "PSATH",
+   "operadores": [
+    "INVERSORA RAYNERS LTDA"
+   ],
+   "proprietarios": [
+    "INVERSORA RAYNERS LTDA"
+   ],
+   "nameKind": "operador",
+   "mfr": "HELIBRAS",
+   "model": "AS 350 B3",
+   "typeDesignator": "AS50",
+   "cls": "H1T",
+   "rotorcraft": true
+  },
   "PS-ATN": {
    "reg": "PS-ATN",
    "mark": "PSATN",
@@ -1218,6 +1351,26 @@
    "mfr": "AIRBUS HELICOPTERS",
    "model": "EC 130 T2",
    "typeDesignator": "EC30",
+   "cls": "H1T",
+   "rotorcraft": true
+  },
+  "PS-CEA": {
+   "reg": "PS-CEA",
+   "mark": "PSCEA",
+   "operadores": [
+    "HBR AVIAÇÃO S.A.",
+    "JAIRO GERALDO RIBEIRO FILHO",
+    "REINALDO MARQUES VARELA"
+   ],
+   "proprietarios": [
+    "HBR AVIACAO S.A",
+    "JAIRO GERALDO RIBEIRO FILHO",
+    "REINALDO MARQUES VARELA"
+   ],
+   "nameKind": "operador",
+   "mfr": "ROBINSON HELICOPTER",
+   "model": "R66",
+   "typeDesignator": "R66",
    "cls": "H1T",
    "rotorcraft": true
   },
@@ -1443,6 +1596,22 @@
    "model": "429",
    "typeDesignator": "B429",
    "cls": "H2T",
+   "rotorcraft": true
+  },
+  "PS-GAT": {
+   "reg": "PS-GAT",
+   "mark": "PSGAT",
+   "operadores": [
+    "DIVERSEY ADMINISTRAÇÃO E PARTICIPAÇÕES S/A."
+   ],
+   "proprietarios": [
+    "DIVERSEY ADMINISTRAÇÃO E PARTICIPAÇÕES S/A."
+   ],
+   "nameKind": "operador",
+   "mfr": "ROBINSON HELICOPTER",
+   "model": "R66",
+   "typeDesignator": "R66",
+   "cls": "H1T",
    "rotorcraft": true
   },
   "PS-GER": {
@@ -1719,6 +1888,22 @@
    "cls": "H1T",
    "rotorcraft": true
   },
+  "PS-NSG": {
+   "reg": "PS-NSG",
+   "mark": "PSNSG",
+   "operadores": [
+    "NS IMPORTACAO E COMERCIO EIRELI"
+   ],
+   "proprietarios": [
+    "TEXTRON FINANCIAL CORPORATION"
+   ],
+   "nameKind": "operador",
+   "mfr": "BELL HELICOPTER",
+   "model": "505",
+   "typeDesignator": "B505",
+   "cls": "H1T",
+   "rotorcraft": true
+  },
   "PS-PCT": {
    "reg": "PS-PCT",
    "mark": "PSPCT",
@@ -1732,6 +1917,24 @@
    "mfr": "AIRBUS HELICOPTERS",
    "model": "H160-B",
    "typeDesignator": "H160",
+   "cls": "H2T",
+   "rotorcraft": true
+  },
+  "PS-PMM": {
+   "reg": "PS-PMM",
+   "mark": "PSPMM",
+   "operadores": [
+    "FORES HOLDING S.A.",
+    "SKY GARRISON HOLDING S.A."
+   ],
+   "proprietarios": [
+    "FORES HOLDING S.A.",
+    "SKY GARRISON HOLDING S.A."
+   ],
+   "nameKind": "operador",
+   "mfr": "AIRBUS HELICOPTERS DEUTSCHLAND",
+   "model": "MBB BK 117 D-3",
+   "typeDesignator": "EC45",
    "cls": "H2T",
    "rotorcraft": true
   },
@@ -1791,6 +1994,22 @@
    ],
    "proprietarios": [
     "BANPAR FOMENTO COMERCIAL E SERVIÇOS LTDA"
+   ],
+   "nameKind": "operador",
+   "mfr": "ROBINSON HELICOPTER",
+   "model": "R66",
+   "typeDesignator": "R66",
+   "cls": "H1T",
+   "rotorcraft": true
+  },
+  "PS-SNG": {
+   "reg": "PS-SNG",
+   "mark": "PSSNG",
+   "operadores": [
+    "START AUTO POSTO LTDA"
+   ],
+   "proprietarios": [
+    "DAYCOVAL LEASING - BANCO MULTIPLO S.A."
    ],
    "nameKind": "operador",
    "mfr": "ROBINSON HELICOPTER",
@@ -2000,6 +2219,54 @@
    "model": "MBB BK 117 D-2",
    "typeDesignator": "EC45",
    "cls": "H2T",
+   "rotorcraft": true
+  },
+  "PT-RDS": {
+   "reg": "PT-RDS",
+   "mark": "PTRDS",
+   "operadores": [
+    "CALÇADOS CARTOM LTDA"
+   ],
+   "proprietarios": [
+    "SAFRA LEASING S/A - ARRENDAMENTO MERCANTIL"
+   ],
+   "nameKind": "operador",
+   "mfr": "BELL HELICOPTER",
+   "model": "505",
+   "typeDesignator": "B505",
+   "cls": "H1T",
+   "rotorcraft": true
+  },
+  "PT-TPO": {
+   "reg": "PT-TPO",
+   "mark": "PTTPO",
+   "operadores": [
+    "VERSUS EMPREENDIMENTOS LTDA"
+   ],
+   "proprietarios": [
+    "VERSUS EMPREENDIMENTOS LTDA"
+   ],
+   "nameKind": "operador",
+   "mfr": "LEONARDO S.P.A",
+   "model": "AW109SP",
+   "typeDesignator": "A109",
+   "cls": "H2T",
+   "rotorcraft": true
+  },
+  "PT-YML": {
+   "reg": "PT-YML",
+   "mark": "PTYML",
+   "operadores": [
+    "ROBECA PARTICIPACOES LTDA"
+   ],
+   "proprietarios": [
+    "ROBECA PARTICIPACOES LTDA"
+   ],
+   "nameKind": "operador",
+   "mfr": "BELL HELICOPTER",
+   "model": "206L-4",
+   "typeDesignator": "B06",
+   "cls": "H1T",
    "rotorcraft": true
   }
  }

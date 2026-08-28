@@ -55,6 +55,9 @@ if (!ledger.conjectures.some((c) => c.family === 'strassen-audit' && c.key === '
   fail('the AlphaTensor rank-47 F2 row is missing from the ledger');
 const evalRows = fs.readFileSync(path.join(ROOT, 'certs', 'matmul-eval-ledger.jsonl'), 'utf8')
   .trim().split('\n').map((l) => JSON.parse(l));
+const gymCommits = fs.readFileSync(path.join(ROOT, 'certs', 'forecast-gym-ledger.jsonl'), 'utf8')
+  .trim().split('\n').filter((l) => l.trim()).map((l) => JSON.parse(l)).filter((r) => r.type === 'commit').length;
+if (!gymCommits) fail('the forecast-gym ledger holds no commits — the gym card assumes a live board');
 const evalReal = evalRows.filter((r) => r.model !== 'fake');
 if (!evalReal.length) fail('the eval ledger holds no real-model rows — the landing story assumes a live board');
 const evalCert = evalReal.filter((r) => r.outcome === 'certified').length;
@@ -167,6 +170,10 @@ const REPORTS = [
     title: 'The verifier in the loop',
     desc: 'The reward channel in closed loop: a model proposes, the grader answers every failure with its own refutation mechanism — the exact violated equation, nothing more — and the model retries. Every trajectory rendered from the append-only ledger.',
     n: 'feedback template-locked · zero coaching' },
+  { g: 'ai', f: 'forecast-gym.html', k: 'the eval · forecasting',
+    title: 'The Forecast Gym: the test set that cannot leak',
+    desc: 'Forecasts are sha-committed to an append-only ledger before their outcomes exist and scored afterward with a proper score in exact rationals — contamination impossible by construction, hedging and overconfidence both priced, admission prune-only with an exact binomial certificate.',
+    n: fmt(gymCommits) + ' forecasts sha-pinned before their targets' },
   { g: 'ai', f: 'answer-key.html', k: 'note · for eval builders',
     title: 'When the answer key is wrong',
     desc: 'Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.',
@@ -265,7 +272,8 @@ const CERTS = [
   ['erdos290-tail-ext.json', 'The Erdős #290 sweep extension: degrees closed beyond the cited page, the constant’s enclosure tightened degree by degree.', null],
   ['matmul-eval-ledger.jsonl', 'The matmul eval’s append-only ledger — every campaign row, every verdict, every tag; the leaderboard is built from this file.', null],
   ['matmul-loop-ledger.jsonl', 'The verifier-in-the-loop ledger — every trajectory round with its verdict and the exact feedback sent; the loop report is built from this file.', null],
-  ['skyaudit-forecast-ledger.jsonl', 'The prediction ledger — interval FORECASTS committed before their target day (sha-pinned, append-only) and scored after in exact rationals; coverage claims are conformal counting theorems, never model faith. Wrong forecasts stay forever.', null]
+  ['skyaudit-forecast-ledger.jsonl', 'The prediction ledger — interval FORECASTS committed before their target day (sha-pinned, append-only) and scored after in exact rationals; coverage claims are conformal counting theorems, never model faith. Wrong forecasts stay forever.', null],
+  ['forecast-gym-ledger.jsonl', 'The Forecast Gym’s append-only ledger — every proposer’s forecast sha-committed before its outcome exists, every score an exact Winkler rational; the gym report and its admission board are built from this file.', null]
 ];
 {
   const onDisk = fs.readdirSync(path.join(ROOT, 'certs')).filter((f) => f.endsWith('.json') || f.endsWith('.jsonl')).sort();
@@ -644,6 +652,10 @@ const oracleBody = [
         + 'cross-checks provably cannot catch it. '
         + '<a href="/reports/methods-note.html">None by reading code</a> — the red-control discipline as '
         + 'engineering.'),
+      C.pRaw('<a href="/reports/forecast-gym.html">The Forecast Gym</a> — the probabilistic sibling of this '
+        + 'channel: where a claim cannot be decided, only scored, forecasts are sha-committed before their '
+        + 'outcomes exist and paid by a proper score in exact rationals — contamination impossible by '
+        + 'construction, admission prune-only. Same discipline, second domain.'),
       C.pRaw('The paper draft: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/paper/'
         + 'verified-reward-oracle.md">verified-reward-oracle.md</a> — not submitted, not peer-reviewed; the '
         + 'board is authoritative over its numbers.')

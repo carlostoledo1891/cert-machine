@@ -109,4 +109,27 @@ red('RED: rescoring is REFUSED — the ledger never rewrites a result', () => {
   fs.rmSync(p);
 });
 
+/* ---- admission: the prune rule, hand-computed ----------------------------- */
+const A = require('./admission.js');
+
+ok('binomial tail hand-computed: claim 1/2, 1 of 4 covered -> tail exactly 5/16', () => {
+  assert.strictEqual(A.binomialTail(1, 4, 1, 2).join('/'), '5/16');   /* (C(4,0)+C(4,1))/16 */
+  assert.strictEqual(A.binomialTail(0, 3, 9, 10).join('/'), '1/1000');
+  assert.strictEqual(A.binomialTail(5, 5, 1, 2).join('/'), '1/1');    /* full tail = 1 */
+});
+
+ok('admission by record only: empty record ADMITTED; honest 50%-claimer with 1/4 stays', () => {
+  assert.strictEqual(A.admit({ claim: [1, 2], scored: 0, covered: 0 }).status, 'ADMITTED');
+  const a = A.admit({ claim: [1, 2], scored: 4, covered: 1 });        /* tail 5/16 > 1/20 */
+  assert.strictEqual(a.status, 'ADMITTED');
+  assert.strictEqual(a.tailStr, '5/16');
+});
+
+red('RED: a 90%-claimer covering 0 of 3 is DEADMITTED with the exact tail 1/1000', () => {
+  const v = A.admit({ claim: [9, 10], scored: 3, covered: 0 });
+  assert.strictEqual(v.status, 'DEADMITTED');
+  assert.strictEqual(v.tailStr, '1/1000');
+  assert.ok(/computed exactly/.test(v.text));
+});
+
 console.log('ALL PASS: ' + n + ' checks, ' + reds + ' reds fired');

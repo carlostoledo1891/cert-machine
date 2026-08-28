@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Forecast Gym · cert-machine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 28px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:400;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sig);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:4px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--sig);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:52px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:76px}
+.col{max-width:64ch;margin-left:auto;margin-right:auto}
+.wide{max-width:900px;margin-left:auto;margin-right:auto}
+/* A wide element (table, card grid, figure) emitted inside a prose column
+   breaks out to the page-wide track: .col and .page are both centered, so
+   centering on the viewport IS centering on the page. Width never exceeds
+   the viewport minus the page padding, so the body never scrolls sideways —
+   anything wider (a table) scrolls inside its own .tw container. */
+.col .wide{position:relative;left:50%;transform:translateX(-50%);
+  width:min(900px,calc(100vw - 2*clamp(18px,4vw,40px)))}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:7px;
+  flex:1 1 240px;min-width:200px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:22px 24px;
+  color:inherit;text-decoration:none;transition:border-color .15s ease}
+a.card:hover{border:1px solid var(--sig)}
+a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+.card-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
+.card-t{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:19.5px;line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
+.card-n{margin-top:auto;padding-top:6px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  letter-spacing:.05em;color:var(--ink-3)}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · the eval shelf · forecasting</div>
+  <h1>The Forecast Gym: the test set that cannot leak</h1>
+  <p class="deck">A forecasting eval in which contamination is impossible by construction, because the outcomes do not exist yet. Every forecast is committed to an append-only ledger — sha256, timestamp strictly before the target — and scored afterward with a proper score in exact rationals, so honesty is the optimal policy and the reward cannot be gamed. Admission is prune-only: a forecaster exactly-improbably below its own claimed coverage is deadmitted, with the exact binomial tail as the certificate. Forecasts are proposals here, never verdicts — this page never confuses the two.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> Hindcast benchmarks cannot prove a model has not seen the outcome; the only outcome provably unseen is one that did not exist when the forecast was committed. The Gym makes temporal hygiene a checkable property: <span class="m">git log certs/forecast-gym-ledger.jsonl</span> dates every sha before its target.</li><li><b>The mechanism.</b> commit-before / score-after on an append-only ledger (backdating, premature scoring, rescoring and tampering are refused — each a red control); Winkler interval score in exact rationals; prune-only admission by exact binomial tail at a stated bar of 1/20.</li><li><b>Check it.</b> <span class="m">node instruments/forecast/battery.js</span> — 7 checks, 5 reds that must fire, in seconds.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">the test set</div><div class="v held">the future</div><div class="n">outcomes that do not exist at commit time — the one split no training corpus can contain</div></div>
+    <div class="stat"><div class="k">commits on the ledger</div><div class="v held">40</div><div class="n">32 gym + 8 SkyForecast product commits, every one sha-pinned before its target; 0 scored so far</div></div>
+    <div class="stat"><div class="k">the score</div><div class="v">proper</div><div class="n">Winkler interval score, exact rationals: uniquely optimized in expectation by the true quantiles — hedging pays in width, overconfidence pays in distance</div></div>
+    <div class="stat"><div class="k">admission</div><div class="v">prune-only</div><div class="n">a proposer below its claimed coverage is DEADMITTED with the exact binomial tail as certificate; admission is lost by record, never by opinion</div></div>
+    <div class="stat"><div class="k">reds at this build</div><div class="v held">5</div><div class="n">backdated commit · premature score · rescore · tampered reveal · the admission rule itself — each must fire or this page does not exist</div></div>
+    <div class="stat"><div class="k">models graded</div><div class="v warn">0</div><div class="n">no model has run yet — the board below holds the house baselines; a campaign is operator-gated spend, like every eval here</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the leak</div>
+    <h2>Why every hindcast benchmark is an answer key</h2>
+  </div>
+<p>Evaluate a model&#39;s forecasting on past data and you are asking a question the training corpus may already answer. Cutoff dates are self-reported, contamination audits are heuristic, and a re-scraped benchmark leaks the moment it is published. No split protocol can prove a negative about what a model has seen.</p>
+<p>The Gym inverts the burden. A forecast is committed — content-addressed by sha256, timestamped — while the outcome is still in the future, so "the model saw the answer" is not improbable but <em>impossible</em>: the answer did not exist. Hygiene is then a property a stranger can check mechanically: the ledger is append-only in a public git history, so every commit carries two independent timestamps (the row's, and git's) that must both precede the target day. The same discipline that removes the answer key from <a href="/reports/matmul-eval.html">the matmul eval</a> — there the reference is a proof, here the reference is the future.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · the mechanism</div>
+    <h2>Commit before, score after, never rewrite</h2>
+  </div>
+<p>A commit row pins <span class="m">{id, target, madeAt, targetTime, sha256(forecast)}</span> with <span class="m">madeAt &lt; targetTime</span> enforced — a backdated commit is refused, a premature score is refused, a second score of the same id is refused, and a sealed commit whose revealed payload does not hash to its committed sha is refused as tampered. Each refusal is a red control in the battery: the mechanism is proved able to say no before it is trusted to say yes.</p>
+<p><strong>Sealed commits</strong> are how competing proposers enter without reading each other: the ledger shows only the sha until scoring, when the payload is revealed and verified against it. A model campaign commits sealed; the reveal is part of the scoring transcript.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · the score</div>
+    <h2>A reward that makes honesty the optimal policy</h2>
+  </div>
+<p>Every scored forecast pays the Winkler interval score at its own committed miss-rate α: <span class="m">width + (2/α) · distance-outside</span>, computed in exact rationals and stored as a string. The score is strictly proper for central intervals — its expectation is uniquely minimized by reporting the true quantiles — so there is no strategy against it: hedge wide and the width term pays, claim narrow and the miss term pays. From the battery's hand-computed row: forecast [10, 20] at α = 1/4 scores 10 when the outcome is 15, and 10 + 8·6 = 58 when the outcome is 26.</p>
+<p>This is the probabilistic sibling of <a href="/oracle/">certify()</a>: there, a claim is decided and the reward cannot pay a false claim; here, a forecast is scored and the reward cannot pay a dishonest one better than an honest one — in expectation, which is the strongest thing a probabilistic channel can promise. Both channels share the discipline: append-only ledgers, red controls first, exact arithmetic everywhere a number is decided.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · admission</div>
+    <h2>Prune-only: below your claimed coverage, you stop being admitted</h2>
+  </div>
+<p>Doctrine: prediction enters as a proposer, never an authority, and a proposer that misses its certified coverage stops being admitted until recalibrated. The Gym computes that rule instead of judging it. A proposer claiming coverage p with k of m scored forecasts covered is held to the exact binomial tail <span class="m">P[X ≤ k], X ~ Binomial(m, p)</span> — BigInt rationals, no float — and is DEADMITTED when the tail falls to 1/20 or below. The verdict reads: "if the claimed coverage were true, a record this bad or worse has this exact probability." The tail is the certificate; the bar is a stated convention; only under-coverage prunes, because over-coverage is the conservative direction and the score already prices it.</p>
+<p>A deadmitted proposer&#39;s new commits are refused by the gym runner, and its deadmission stands in the ledger permanently — wrong forecasts are exhibits here, not embarrassments. The forced dumb baseline below exists to be pruned in public: the mechanism firing on schedule is the demonstration.</p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§5 · the board</div>
+    <h2>The standing record, recounted from the ledger at this build</h2>
+  </div>
+<div class="col"><p>Pack v1 is SkyAudit's pinned day series: two quantities per day (total rotorcraft flights, E-FLYABLE count under the pinned spec/rule pair), forecast for named future days. Three house proposers run — deterministic functions of the pinned series, so every commit is rerunnable. No gym forecast has been scored yet — the first targets are still in the future; the outstanding commits below are the record aging in public. No model has run: model campaigns enter sealed, on the operator's word, and are graded by exactly this machinery.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>proposer</th><th>what it is</th><th>claims</th><th>commits</th><th>covered</th><th>Winkler (sum / n = mean)</th><th>exact tail</th><th>admission</th></tr></thead><tbody><tr><td><span class="m">conformal</span></td><td>the house forecaster; claims only its theorem</td><td>3/5</td><td>8</td><td>—</td><td>—</td><td>—</td><td><span class="tag held">ADMITTED</span></td></tr><tr><td><span class="m">persistence</span></td><td>forced dumb baseline; overconfident by design</td><td>1/2</td><td>12</td><td>—</td><td>—</td><td>—</td><td><span class="tag held">ADMITTED</span></td></tr><tr><td><span class="m">range</span></td><td>the hedger; wide and safe, and pays for it</td><td>9/10</td><td>12</td><td>—</td><td>—</td><td>—</td><td><span class="tag held">ADMITTED</span></td></tr></tbody></table></div></div><div class="col"><p><strong>Outstanding commits</strong> — sha-pinned, waiting for their day to exist. Lead time is on the record: a forecast committed minutes before midnight is worth less than one committed days out, and the ledger shows which is which.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>id</th><th>interval</th><th>claims</th><th>committed at</th><th>target closes</th><th>sha256 (prefix)</th></tr></thead><tbody><tr><td><span class="m">conformal:nyc:2026-08-28:eflyable</span></td><td>[49, 127]</td><td>3/5</td><td>2026-08-28 03:54 UTC</td><td>2026-08-29 00:00 UTC</td><td><span class="m">d6a96524f4d9f830</span></td></tr><tr><td><span class="m">conformal:nyc:2026-08-28:flights</span></td><td>[191, 397]</td><td>3/5</td><td>2026-08-28 03:54 UTC</td><td>2026-08-29 00:00 UTC</td><td><span class="m">b069bd8df3bc4898</span></td></tr><tr><td><span class="m">persistence:nyc:2026-08-28:eflyable</span></td><td>[49, 49]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-08-29 00:00 UTC</td><td><span class="m">264d40311893de18</span></td></tr><tr><td><span class="m">persistence:nyc:2026-08-28:flights</span></td><td>[191, 191]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-08-29 00:00 UTC</td><td><span class="m">78f9d7e07ae8f651</span></td></tr><tr><td><span class="m">range:nyc:2026-08-28:eflyable</span></td><td>[38, 127]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-08-29 00:00 UTC</td><td><span class="m">01bfe750f62b4535</span></td></tr><tr><td><span class="m">range:nyc:2026-08-28:flights</span></td><td>[175, 397]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-08-29 00:00 UTC</td><td><span class="m">fcffc4a4dea7f5e7</span></td></tr><tr><td><span class="m">persistence:nyc:2026-08-29:eflyable</span></td><td>[49, 49]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-08-30 00:00 UTC</td><td><span class="m">264d40311893de18</span></td></tr><tr><td><span class="m">persistence:nyc:2026-08-29:flights</span></td><td>[191, 191]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-08-30 00:00 UTC</td><td><span class="m">78f9d7e07ae8f651</span></td></tr><tr><td><span class="m">range:nyc:2026-08-29:eflyable</span></td><td>[38, 127]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-08-30 00:00 UTC</td><td><span class="m">01bfe750f62b4535</span></td></tr><tr><td><span class="m">range:nyc:2026-08-29:flights</span></td><td>[175, 397]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-08-30 00:00 UTC</td><td><span class="m">fcffc4a4dea7f5e7</span></td></tr><tr><td><span class="m">persistence:nyc:2026-08-30:eflyable</span></td><td>[49, 49]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-08-31 00:00 UTC</td><td><span class="m">264d40311893de18</span></td></tr><tr><td><span class="m">persistence:nyc:2026-08-30:flights</span></td><td>[191, 191]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-08-31 00:00 UTC</td><td><span class="m">78f9d7e07ae8f651</span></td></tr><tr><td><span class="m">range:nyc:2026-08-30:eflyable</span></td><td>[38, 127]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-08-31 00:00 UTC</td><td><span class="m">01bfe750f62b4535</span></td></tr><tr><td><span class="m">range:nyc:2026-08-30:flights</span></td><td>[175, 397]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-08-31 00:00 UTC</td><td><span class="m">fcffc4a4dea7f5e7</span></td></tr><tr><td><span class="m">conformal:nyc:2026-08-31:eflyable</span></td><td>[49, 127]</td><td>3/5</td><td>2026-08-28 03:54 UTC</td><td>2026-09-01 00:00 UTC</td><td><span class="m">d6a96524f4d9f830</span></td></tr><tr><td><span class="m">conformal:nyc:2026-08-31:flights</span></td><td>[191, 397]</td><td>3/5</td><td>2026-08-28 03:54 UTC</td><td>2026-09-01 00:00 UTC</td><td><span class="m">b069bd8df3bc4898</span></td></tr><tr><td><span class="m">persistence:nyc:2026-08-31:eflyable</span></td><td>[49, 49]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-09-01 00:00 UTC</td><td><span class="m">264d40311893de18</span></td></tr><tr><td><span class="m">persistence:nyc:2026-08-31:flights</span></td><td>[191, 191]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-09-01 00:00 UTC</td><td><span class="m">78f9d7e07ae8f651</span></td></tr><tr><td><span class="m">range:nyc:2026-08-31:eflyable</span></td><td>[38, 127]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-09-01 00:00 UTC</td><td><span class="m">01bfe750f62b4535</span></td></tr><tr><td><span class="m">range:nyc:2026-08-31:flights</span></td><td>[175, 397]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-09-01 00:00 UTC</td><td><span class="m">fcffc4a4dea7f5e7</span></td></tr><tr><td><span class="m">conformal:nyc:2026-09-01:eflyable</span></td><td>[49, 127]</td><td>3/5</td><td>2026-08-28 03:54 UTC</td><td>2026-09-02 00:00 UTC</td><td><span class="m">d6a96524f4d9f830</span></td></tr><tr><td><span class="m">conformal:nyc:2026-09-01:flights</span></td><td>[191, 397]</td><td>3/5</td><td>2026-08-28 03:54 UTC</td><td>2026-09-02 00:00 UTC</td><td><span class="m">b069bd8df3bc4898</span></td></tr><tr><td><span class="m">persistence:nyc:2026-09-01:eflyable</span></td><td>[49, 49]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-09-02 00:00 UTC</td><td><span class="m">264d40311893de18</span></td></tr><tr><td><span class="m">persistence:nyc:2026-09-01:flights</span></td><td>[191, 191]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-09-02 00:00 UTC</td><td><span class="m">78f9d7e07ae8f651</span></td></tr><tr><td><span class="m">range:nyc:2026-09-01:eflyable</span></td><td>[38, 127]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-09-02 00:00 UTC</td><td><span class="m">01bfe750f62b4535</span></td></tr><tr><td><span class="m">range:nyc:2026-09-01:flights</span></td><td>[175, 397]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-09-02 00:00 UTC</td><td><span class="m">fcffc4a4dea7f5e7</span></td></tr><tr><td><span class="m">conformal:nyc:2026-09-02:eflyable</span></td><td>[49, 127]</td><td>3/5</td><td>2026-08-28 03:54 UTC</td><td>2026-09-03 00:00 UTC</td><td><span class="m">d6a96524f4d9f830</span></td></tr><tr><td><span class="m">conformal:nyc:2026-09-02:flights</span></td><td>[191, 397]</td><td>3/5</td><td>2026-08-28 03:54 UTC</td><td>2026-09-03 00:00 UTC</td><td><span class="m">b069bd8df3bc4898</span></td></tr><tr><td><span class="m">persistence:nyc:2026-09-02:eflyable</span></td><td>[49, 49]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-09-03 00:00 UTC</td><td><span class="m">264d40311893de18</span></td></tr><tr><td><span class="m">persistence:nyc:2026-09-02:flights</span></td><td>[191, 191]</td><td>1/2</td><td>2026-08-28 03:54 UTC</td><td>2026-09-03 00:00 UTC</td><td><span class="m">78f9d7e07ae8f651</span></td></tr><tr><td><span class="m">range:nyc:2026-09-02:eflyable</span></td><td>[38, 127]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-09-03 00:00 UTC</td><td><span class="m">01bfe750f62b4535</span></td></tr><tr><td><span class="m">range:nyc:2026-09-02:flights</span></td><td>[175, 397]</td><td>9/10</td><td>2026-08-28 03:54 UTC</td><td>2026-09-03 00:00 UTC</td><td><span class="m">fcffc4a4dea7f5e7</span></td></tr></tbody></table></div></div><div class="col"><p>The SkyForecast product ledger — same instruments, the consumer-facing card on <a href="/apps/skyaudit/">SkyAudit</a> — is re-verified by this build too: 8 commits, 0 scored, every Winkler recounted. One mechanism, two surfaces.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · enter</div>
+    <h2>How a model (or you) gets on the board</h2>
+  </div>
+<p>A proposer is anything that emits interval forecasts with a claimed coverage for the named future targets. Submissions are sealed commits: the sha enters the public ledger before the target day, the payload is revealed and hash-verified at scoring, attribution required. Scoring and admission are deterministic, so a submission cannot be argued with — only outperformed.</p>
+<p><span class="m">node tools/forecast-gym.js record</span> prints the board; <span class="m">node instruments/forecast/battery.js</span> proves the machinery on your machine first, reds included. Model campaigns through the same path are spend and run on the operator's word, like every campaign on <a href="/reports/matmul-eval.html">the eval shelf</a>.</p>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-forecast-gym.js @ git bfe044f. Gates at this build: the forecast battery (7 checks, 5 reds fired), both ledgers re-verified row by row with this builder's own arithmetic (payload shas re-hashed, every Winkler recounted string-exact, commit-before/score-after re-checked), and the admission board recomputed from the exact binomial tail. A deviation anywhere refuses the page. Forecasts on this page are proposals, never verdicts.</p></footer>
+
+</div>
+</html>

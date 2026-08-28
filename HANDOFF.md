@@ -38,12 +38,30 @@ and the session entries below — this block holds only what stands):
   33/33, 11 build gates, make test 31/31.
 
   THE PREDICTION PROGRAM — instruments/forecast/ (conformal coverage
-  as counting theorem + append-only exact-scored commit/score ledger,
-  4 reds) · SkyForecast v1 card live (dashed, never verdict-styled;
-  gate 11) · ledger holds 4 commits: 08-28 flights [377,397] +
-  eflyable [46,51] (v1-calibrated, disclosure recorded), 08-31
-  [377,397] + [100,127] (v2). Doctrine: prediction enters as a
-  proposer only (CLAUDE.md).
+  as counting theorem + append-only exact-scored commit/score ledger
+  + NEW admission.js: the prune rule computed as an exact binomial
+  tail at a stated 1/20 bar; battery now 7 checks + 5 reds) ·
+  SkyForecast v1 card live (dashed, never verdict-styled; gate 11) ·
+  product ledger 8 commits: 08-28 v1 pair (disclosure recorded — WILL
+  BUST on eflyable, score it and state the cause), 08-31 v2 pair,
+  09-01 + 09-02 pairs at n=4 coverage 3/5 ([191,397]/[49,127] — the
+  Thu volume drop honestly widened the intervals). Day series now
+  FIVE days: + Thu 2026-08-27 ingested green, 49 E-FLYABLE (25.7% —
+  the weekday RATE cluster holds at half the volume).
+  THE FORECAST GYM (8E) — BUILT 2026-08-28 (operator's word "build
+  what's missing"): tools/forecast-gym.js (three house proposers —
+  conformal claims only its theorem; persistence the forced dumb
+  baseline built to be pruned in public; range the hedger — commits
+  refused for DEADMITTED proposers) + certs/forecast-gym-ledger.jsonl
+  (32 commits sha-pinned before their targets, 6 target days, 0
+  scored yet — first scoring 08-29 when 08-28 releases) +
+  reports/forecast-gym.html (gates: battery + BOTH ledgers re-verified
+  with the builder's own arithmetic — payload shas re-hashed, every
+  Winkler recounted string-exact, commit-before/score-after re-checked
+  — + admission board recomputed). Thesis on the page: the future is
+  the only test set that cannot leak. Model campaigns enter SEALED
+  (sha public, payload revealed at scoring), spend on the word.
+  Doctrine: prediction enters as a proposer only (CLAUDE.md).
 
   THE ORACLE — packaged AND doored: oracle/certmachine.py (red
   controls at import, Q+F2, exact mechanisms; harness imports the one
@@ -67,14 +85,19 @@ ACTIVE NEXT (operator to choose; nothing pre-authorized):
   A. HARBORPROOF build — scouted GO (see O2): FuelEU exact penalty
      formula in its first live year + Danish Maritime Authority free
      bulk AIS. The next big observatory.
-  B. 8E THE FORECAST GYM — contamination-impossible forecasting eval
-     (pinned context/outcome splits, proof-of-temporal-hygiene, exact
-     proper-score reward); the frontier-lab bridge; its own session.
+  B. 8E THE FORECAST GYM — BUILT 2026-08-28 (see the STATE OF RECORD);
+     remaining gym moves: a model campaign through sealed commits
+     (spend, on the word) · more packs · daily commit cadence is now
+     part of 8D.
   C. 8C-full — certified-universal-over-forecast-envelope fleet
      statements; BLOCKED on the parked scenario packs.
-  WAITING ON DATA (automatic): 8D — when adsb.lol releases 2026-08-28:
-     node audit/ingest-day.js 2026-08-28 && node audit/forecast.js
-     score 2026-08-28 (disclosure text in TODO 8D).
+  WAITING ON DATA (automatic): 8D — when adsb.lol releases a day D:
+     node audit/ingest-day.js D && node audit/forecast.js score D &&
+     node tools/forecast-gym.js score D, then COMMIT FORWARD (product
+     + gym) for the next uncommitted days — the ledger ages only if
+     fed daily. For 2026-08-28 specifically: the v1-calibrated
+     eflyable commit will bust against the v2 outcome; score it, keep
+     it, state the cause (disclosure text in TODO 8D).
   HELD/PARKED: synthetic demand packs · outreach on the word only.
   Spec: APP.md · plan: TODO.md · research: RESEARCH.md.
 
@@ -473,6 +496,40 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   verification infrastructure — the eval labs run, the registry that
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-28b (THE FORECAST GYM — operator's word "build what's
+missing", after the hiring-lead read named the prediction engine's three
+gaps: age, the 8C fusion, the public face; 8C stays BLOCKED on the
+operator's own parked scenario packs and was not touched):
+  - AGE: day 2026-08-27 ingested green (Thu, 49 E-FLYABLE, 25.7% — the
+    weekday rate cluster holds at HALF the volume; intervals widened
+    honestly). Product ledger committed forward: 09-01 + 09-02 pairs at
+    the new n=4 coverage 3/5. 8D is now a standing daily cadence:
+    ingest, score BOTH ledgers, commit forward.
+  - THE INSTRUMENT GREW: instruments/forecast/admission.js — the
+    doctrine's prune rule ("below your certified coverage you stop
+    being admitted") computed as an EXACT binomial tail P[X<=k] over
+    BigInt rationals, DEADMITTED at a stated 1/20 bar, the tail printed
+    as the certificate; only under-coverage prunes. Battery 7 checks +
+    5 reds (the deadmission firing IS a red).
+  - THE GYM: tools/forecast-gym.js — three deterministic house
+    proposers (conformal = claims only its theorem, and REFUSED the
+    weekend group as too small to prove anything, on the record;
+    persistence = the forced dumb baseline, expected to be pruned in
+    public; range = the hedger); 32 sealed-capable commits across 6
+    target days; DEADMITTED proposers' commits are refused by the
+    runner (mechanism verified on a scratch ledger: 0/5 at claim 1/2 ->
+    tail 1/32 <= 1/20 -> SKIP printed).
+  - THE PAGE: reports/forecast-gym.html — thesis "the future is the
+    only test set that cannot leak"; gates = battery + both ledgers
+    re-verified with the builder's OWN arithmetic (sha re-hash, Winkler
+    recount string-exact, commit-before/score-after) + admission board
+    recomputed. Shelf AI group position 5; landing card; /oracle/ §8
+    links it as the probabilistic sibling channel. Verified: 31/31,
+    zero overflow 1440/390, board screenshot clean, links root-absolute.
+  - SCRATCH-TEST CAUGHT A REAL BUG before any ledger was touched:
+    admission verdicts carried BigInts that JSON could not serialize —
+    fixed at the cause (tailStr only).
 
 SESSION 2026-08-28 (the oracle door upgrade — operator's word "use what
 survives and update /oracle/", on an outside-drafted oracle page):
