@@ -49,7 +49,19 @@ and the session entries below — this block holds only what stands):
   controls at import, Q+F2, exact mechanisms; harness imports the one
   definition), /oracle/ front door live (60-second curl->certify()
   path, shared gated paste box with the board, evidence links),
-  paper/verified-reward-oracle.md DRAFT (not submitted).
+  paper/verified-reward-oracle.md DRAFT (not submitted). DOOR UPGRADED
+  2026-08-28 (operator's word "use what survives", from an outside
+  draft fact-checked against the ledgers): §3 lab framing (every
+  reward hack is a verifier defect), §4 Monday uses (audit/evaluate/
+  train), §5 THE LADDER with open rungs — all counts recomputed from
+  the eval ledger; a certified rank-6 row refuses the build; the
+  seed-pinned conjugation rung named "next, unbuilt" on record —
+  §6 the loop stated honestly (3 closed all first-round, no
+  feedback-driven conversion yet), §7 scope + the Lean exit, §9
+  trust base + the EXTERNAL-RERUN REGISTRY read from
+  corpus/external-reruns.json (empty until it isn't). The outside
+  draft's "measurable improvement" loop claim was REFUTED by our own
+  loop ledger and replaced with the honest statement.
 
 ACTIVE NEXT (operator to choose; nothing pre-authorized):
   A. HARBORPROOF build — scouted GO (see O2): FuelEU exact penalty
@@ -86,7 +98,12 @@ AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
  5. EVAL: bigger n on v3 rungs / new model rows (keyless auth live;
     thinking rungs cost 10-30k output tokens/proposal); a true
     feedback-conversion loop needs an intermediate-capability model;
-    Laderman/r22 loops need >24k budgets.
+    Laderman/r22 loops need >24k budgets. NEW NAMED RUNG (2026-08-28):
+    the seed-pinned random conjugation of <n,n,n> — provably the same
+    tensor, published factor files don't parse; /oracle/'s ladder
+    names it "next, unbuilt". Building the rung is agent work
+    (generalize the d7 disguise transform); running a campaign on it
+    is spend, on the word.
  5b. THE ORACLE PACKAGING — SHIPPED 2026-08-27 (operator's word
     "proceed on your order"): (a) oracle/certmachine.py — certify()
     -> CERTIFIED(certificate w/ sha + equation count) / REFUTED(exact
@@ -191,7 +208,10 @@ DRAFTED OR READY, SENDING ON THE OPERATOR'S WORD:
      (2026-08-27 brainstorm; highest-leverage credibility move; the
      recording slot exists on the control page). "One machine, one
      operator" is the sentence standing between the oracle and being
-     taken seriously.
+     taken seriously. The registry is now MACHINE-READ (2026-08-28):
+     corpus/external-reruns.json renders on /oracle/ §9 with count and,
+     when non-empty, a who/date/what/hash table — recording a rerun is
+     one JSON entry + rebuild.
  14. LRCAP GUARD-RAIL DECISION: forfeit December consciously, or set a
      send date (the sin-mfg outreach drafts await only the send).
  15. EMBRAERX ARTIFACT PLAY — now unlocked: instance-level UAM artifact
@@ -453,6 +473,29 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   verification infrastructure — the eval labs run, the registry that
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-28 (the oracle door upgrade — operator's word "use what
+survives and update /oracle/", on an outside-drafted oracle page):
+  - The outside draft (written without repo access) was fact-checked
+    against the ledgers before anything shipped. SURVIVED: the lab
+    framing, the Monday uses, the ladder with open rungs, the scope/
+    Lean-exit statement, the on-page rerun registry, the hero sentence
+    ("graded correct and is correct are the same event"). REFUTED BY
+    OUR OWN LEDGER: its closed-loop "measurable improvement" claim +
+    median-rounds stat — the loop record is 3 closed all first-round
+    (opus) and 24 rounds with no conversion (haiku); the page now
+    states that honestly and names the conversion trajectory as open.
+    Its ladder mixed real rungs with corpus rows and an unbuilt rung —
+    now labeled honestly (audits-not-rungs note for AlphaEvolve/
+    AlphaTensor; "next, unbuilt" for the conjugation rung).
+  - /oracle/ rebuilt in build-site.js §1-§9 (foreign CSS never
+    entered): all ladder/loop counts computed from the ledgers at
+    build; NEW GATE-BY-FACT: a CERTIFIED rank-6 <2,2,2> row (Winograd-
+    impossible) refuses the build. NEW RECORD: corpus/external-
+    reruns.json ([] until someone reruns) renders as §9's registry.
+  - Verified: make site green (27/27 control batteries), make test
+    31/31, zero horizontal overflow at 1440/390 (CDP probe), ladder
+    table screenshot clean, every internal link root-absolute.
 
 SESSION 2026-08-27 CLOSE (documentation + review phase, operator's word):
   - CLAUDE.md now carries the permanent instructions: sin-mfg is a
