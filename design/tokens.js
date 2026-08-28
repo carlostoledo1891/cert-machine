@@ -48,7 +48,46 @@ const LIGHT = {
   '--warn':      '#8A5212',   /* open questions, unpatched defects */
   '--warn-soft': '#F6E9D8',
 
-  '--mark':      '#C9C0CE'    /* inert marks in figures */
+  '--mark':      '#C9C0CE',   /* inert marks in figures */
+
+  /* ---- chart marks ----
+     Text tokens are tuned for READING: dark, low-chroma, high contrast on
+     prose. As chart marks they fail — the trio (--sig, --held, --warn) sits
+     outside the OKLCH lightness band, --held drops under the chroma floor, and
+     green↔amber collapses to ΔE 5.4 under protanopia. So chart marks get their
+     own steps, snapped from the SAME three hues: hue held, lightness and chroma
+     moved until the categorical checks pass, then the passing candidate closest
+     to the brand token wins. Measured with the dataviz validator against the
+     figure surface (--surface), all-pairs, both modes:
+       light  worst all-pairs ΔE 6.8 (deutan) · normal 15.3 · band/chroma/contrast PASS
+       dark   worst all-pairs ΔE 6.4 (tritan) · normal 16.2 · band/chroma/contrast PASS
+     (design/battery.js re-derives all of these at every run — they are
+     measurements, and a measurement that is not re-run is a memory.)
+     The published method calibrates its thresholds on protanopia and
+     deuteranopia; design/battery.js gates on TRITANOPIA too, which is stricter
+     than the standard and cost one search to satisfy — the first triple that
+     passed the standard collapsed to ΔE 4.3 tritan in dark mode. The steps
+     below clear all three, and they are CLOSER to the brand tokens than that
+     first answer was, so nothing was traded away for it.
+     CVD still lands in the 6–8 floor band, which is legal ONLY with secondary
+     encoding — so every chart that uses more than one of them ships a labelled
+     legend and direct labels. That is the same rule the app doctrine already
+     states as "severity is never colour alone"; here it is load-bearing. */
+  '--c-1':       '#6F3968',   /* the finding / the signal        (from --sig)  */
+  '--c-2':       '#16724E',   /* proved / held / compliant       (from --held) */
+  '--c-3':       '#885218',   /* open / undecided / over a limit (from --warn) */
+  '--c-ctx':     'var(--ink-3)',    /* de-emphasised context series           */
+  '--c-grid':    'var(--rule-soft)',/* hairline grid, one step off the surface */
+  '--c-axis':    'var(--rule)',     /* the axis rules themselves              */
+
+  /* Sequential ramp — ONE hue (the signature plum), light → dark, for
+     magnitude. Validated with the ordinal checks: monotone L, adjacent ΔL ≥
+     0.06, light end ≥ 2:1 on the figure surface, hue spread 1°. */
+  '--c-s1':      '#C7A5BC',
+  '--c-s2':      '#B982A9',
+  '--c-s3':      '#A86195',
+  '--c-s4':      '#953F80',
+  '--c-s5':      '#7D2169'
 };
 
 const DARK = {
@@ -73,7 +112,22 @@ const DARK = {
   '--warn':      '#E0A860',
   '--warn-soft': '#2B2015',
 
-  '--mark':      '#332B3C'
+  '--mark':      '#332B3C',
+
+  /* chart marks, dark mode — SELECTED against the dark figure surface, not an
+     automatic flip of the light steps; the sequential ramp's anchor flips with
+     it (dark → light as magnitude grows). */
+  '--c-1':       '#B67BAE',
+  '--c-2':       '#46A971',
+  '--c-3':       '#C77F35',
+  '--c-ctx':     'var(--ink-3)',
+  '--c-grid':    'var(--rule-soft)',
+  '--c-axis':    'var(--rule)',
+  '--c-s1':      '#663E5B',
+  '--c-s2':      '#8A4E7A',
+  '--c-s3':      '#AF619A',
+  '--c-s4':      '#C97FB4',
+  '--c-s5':      '#DCA3CB'
 };
 
 /* ------------------------------------------------------------------- type --
@@ -139,6 +193,19 @@ function rootCss() {
    the page battery checks figures against. */
 const FIGURE_TOKENS = ['--ink', '--ink-2', '--ink-3', '--sig', '--sig-2', '--sig-soft',
   '--held', '--held-soft', '--warn', '--warn-soft', '--mark', '--rule', '--rule-soft',
-  '--surface', '--sunk', '--paper'];
+  '--surface', '--sunk', '--paper',
+  '--c-1', '--c-2', '--c-3', '--c-ctx', '--c-grid', '--c-axis',
+  '--c-s1', '--c-s2', '--c-s3', '--c-s4', '--c-s5'];
 
-module.exports = { LIGHT, DARK, TYPE, GOOGLE_FONTS, SCALE, MEASURE, FIGURE_TOKENS, rootCss };
+/* The chart palette, by the JOB each colour does — the only names a chart may
+   reach for. CAT is capped at three on purpose: a fourth hue in this system
+   would have to be generated, and a generated hue is indistinguishable from an
+   existing one under CVD. More than three series means folding the tail into
+   "other", faceting into small multiples, or a table. */
+const CHART = {
+  CAT: ['var(--c-1)', 'var(--c-2)', 'var(--c-3)'],
+  SEQ: ['var(--c-s1)', 'var(--c-s2)', 'var(--c-s3)', 'var(--c-s4)', 'var(--c-s5)'],
+  CTX: 'var(--c-ctx)', GRID: 'var(--c-grid)', AXIS: 'var(--c-axis)', SURFACE: 'var(--surface)'
+};
+
+module.exports = { LIGHT, DARK, TYPE, GOOGLE_FONTS, SCALE, MEASURE, FIGURE_TOKENS, CHART, rootCss };

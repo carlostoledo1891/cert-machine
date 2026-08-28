@@ -5,9 +5,11 @@
    render({title, headRaw, bodyRaw, footRaw}) -> a complete standalone document.
 
    SELF-CONTAINED BY CONSTRUCTION. The CSS is inlined, the figures are inline
-   SVG, and the only script is the few lines components.flow() ships for its
-   readout — with scripts off the schematic keeps its default narration and
-   nothing else on the page changes. The only network reference is the Google
+   SVG, and the only scripts are two readouts: the few lines components.flow()
+   ships for the machine schematic, and the one delegated listener charts.script()
+   ships for chart hover. With scripts off the schematic keeps its default
+   narration, the charts keep every axis tick and direct label, and nothing else
+   on the page changes — neither readout is the only route to a number. The only network reference is the Google
    Fonts stylesheet, and every face has a real fallback stack in tokens.TYPE,
    so the page is fully legible offline — which matters here, because these
    pages are read locally and the machine that generates them has no network
@@ -135,6 +137,23 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 .t-held{font-size:12.5px;fill:var(--held);font-weight:500}
 .t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
 .t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:${TYPE.mono};font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
 
 .pull{font-family:${TYPE.display};font-weight:700;font-size:${SCALE.pull};
   line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}

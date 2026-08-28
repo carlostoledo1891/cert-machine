@@ -42,6 +42,17 @@
   --warn:#8A5212;
   --warn-soft:#F6E9D8;
   --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -61,6 +72,17 @@
     --warn:#E0A860;
     --warn-soft:#2B2015;
     --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
   }
 }
 :root[data-theme="dark"]{
@@ -80,6 +102,17 @@
   --warn:#E0A860;
   --warn-soft:#2B2015;
   --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
 }
 
 *{box-sizing:border-box}
@@ -190,6 +223,23 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 .t-held{font-size:12.5px;fill:var(--held);font-weight:500}
 .t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
 .t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
 
 .pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
   line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
@@ -319,6 +369,84 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 </div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the saving</div>
+    <h2>What each published algorithm buys — and in which ring</h2>
+  </div>
+<div class="col"><p>Each line runs from the naive rank of that target shape to the rank this build actually certified, over the ring named beside it. Nothing here is quoted from a paper: every endpoint is a full exact tensor identity re-checked while this page was generated.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 374" role="img" aria-label="Eleven certified fast matrix-multiplication algorithms, each drawn as a line from the naive rank of its target shape down to the rank actually certified. The longest is 5x5x5, from 125 down to 96 over F2.">
+    <line x1="128.0" y1="12" x2="128.0" y2="312" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="128.0" y="332.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="299.2" y1="12" x2="299.2" y2="312" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="299.2" y="332.0" text-anchor="middle" class="t-ax">32</text>
+    <line x1="470.3" y1="12" x2="470.3" y2="312" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="470.3" y="332.0" text-anchor="middle" class="t-ax">64</text>
+    <line x1="641.5" y1="12" x2="641.5" y2="312" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="641.5" y="332.0" text-anchor="middle" class="t-ax">96</text>
+    <line x1="812.6" y1="12" x2="812.6" y2="312" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="812.6" y="332.0" text-anchor="middle" class="t-ax">128</text>
+    <line x1="796.6" y1="27" x2="641.5" y2="27" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="796.6" cy="27" r="5" fill="var(--c-s2)" stroke="var(--surface)" stroke-width="2" data-cm="5,5,5 · naive rank  n·m·p" data-cmv="rank 125" tabindex="0"/>
+    <circle cx="641.5" cy="27" r="5" fill="var(--c-s5)" stroke="var(--surface)" stroke-width="2" data-cm="5,5,5 · certified rank" data-cmv="rank 96" tabindex="0"/>
+    <text x="118.0" y="31.0" text-anchor="end" class="t-ax">5,5,5</text>
+    <text x="842.0" y="31.0" text-anchor="start" class="t-lab">96  (F2)</text>
+    <line x1="662.9" y1="57" x2="534.5" y2="57" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="662.9" cy="57" r="5" fill="var(--c-s2)" stroke="var(--surface)" stroke-width="2" data-cm="4,5,5 · naive rank  n·m·p" data-cmv="rank 100" tabindex="0"/>
+    <circle cx="534.5" cy="57" r="5" fill="var(--c-s5)" stroke="var(--surface)" stroke-width="2" data-cm="4,5,5 · certified rank" data-cmv="rank 76" tabindex="0"/>
+    <text x="118.0" y="61.0" text-anchor="end" class="t-ax">4,5,5</text>
+    <text x="842.0" y="61.0" text-anchor="start" class="t-lab">76  (Q)</text>
+    <line x1="470.3" y1="87" x2="390.1" y2="87" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="470.3" cy="87" r="5" fill="var(--c-s2)" stroke="var(--surface)" stroke-width="2" data-cm="4,4,4 · naive rank  n·m·p" data-cmv="rank 64" tabindex="0"/>
+    <circle cx="390.1" cy="87" r="5" fill="var(--c-s5)" stroke="var(--surface)" stroke-width="2" data-cm="4,4,4 · certified rank" data-cmv="rank 49" tabindex="0"/>
+    <text x="118.0" y="91.0" text-anchor="end" class="t-ax">4,4,4</text>
+    <text x="842.0" y="91.0" text-anchor="start" class="t-lab">49  (Q)</text>
+    <line x1="470.3" y1="117" x2="390.1" y2="117" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="470.3" cy="117" r="5" fill="var(--c-s2)" stroke="var(--surface)" stroke-width="2" data-cm="4,4,4 · naive rank  n·m·p" data-cmv="rank 64" tabindex="0"/>
+    <circle cx="390.1" cy="117" r="5" fill="var(--c-s5)" stroke="var(--surface)" stroke-width="2" data-cm="4,4,4 · certified rank" data-cmv="rank 49" tabindex="0"/>
+    <text x="118.0" y="121.0" text-anchor="end" class="t-ax">4,4,4</text>
+    <text x="842.0" y="121.0" text-anchor="start" class="t-lab">49  (Q)</text>
+    <line x1="470.3" y1="147" x2="379.4" y2="147" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="470.3" cy="147" r="5" fill="var(--c-s2)" stroke="var(--surface)" stroke-width="2" data-cm="4,4,4 · naive rank  n·m·p" data-cmv="rank 64" tabindex="0"/>
+    <circle cx="379.4" cy="147" r="5" fill="var(--c-s5)" stroke="var(--surface)" stroke-width="2" data-cm="4,4,4 · certified rank" data-cmv="rank 47" tabindex="0"/>
+    <text x="118.0" y="151.0" text-anchor="end" class="t-ax">4,4,4</text>
+    <text x="842.0" y="151.0" text-anchor="start" class="t-lab">47  (F2)</text>
+    <line x1="470.3" y1="177" x2="384.7" y2="177" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="470.3" cy="177" r="5" fill="var(--c-s2)" stroke="var(--surface)" stroke-width="2" data-cm="4,4,4 · naive rank  n·m·p" data-cmv="rank 64" tabindex="0"/>
+    <circle cx="384.7" cy="177" r="5" fill="var(--c-s5)" stroke="var(--surface)" stroke-width="2" data-cm="4,4,4 · certified rank" data-cmv="rank 48" tabindex="0"/>
+    <text x="118.0" y="181.0" text-anchor="end" class="t-ax">4,4,4</text>
+    <text x="842.0" y="181.0" text-anchor="start" class="t-lab">48  (Zi)</text>
+    <line x1="448.9" y1="207" x2="379.4" y2="207" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="448.9" cy="207" r="5" fill="var(--c-s2)" stroke="var(--surface)" stroke-width="2" data-cm="3,4,5 · naive rank  n·m·p" data-cmv="rank 60" tabindex="0"/>
+    <circle cx="379.4" cy="207" r="5" fill="var(--c-s5)" stroke="var(--surface)" stroke-width="2" data-cm="3,4,5 · certified rank" data-cmv="rank 47" tabindex="0"/>
+    <text x="118.0" y="211.0" text-anchor="end" class="t-ax">3,4,5</text>
+    <text x="842.0" y="211.0" text-anchor="start" class="t-lab">47  (Q)</text>
+    <line x1="272.4" y1="237" x2="251.0" y2="237" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="272.4" cy="237" r="5" fill="var(--c-s2)" stroke="var(--surface)" stroke-width="2" data-cm="3,3,3 · naive rank  n·m·p" data-cmv="rank 27" tabindex="0"/>
+    <circle cx="251.0" cy="237" r="5" fill="var(--c-s5)" stroke="var(--surface)" stroke-width="2" data-cm="3,3,3 · certified rank" data-cmv="rank 23" tabindex="0"/>
+    <text x="118.0" y="241.0" text-anchor="end" class="t-ax">3,3,3</text>
+    <text x="842.0" y="241.0" text-anchor="start" class="t-lab">23  (Q)</text>
+    <line x1="170.8" y1="267" x2="165.4" y2="267" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="170.8" cy="267" r="5" fill="var(--c-s2)" stroke="var(--surface)" stroke-width="2" data-cm="2,2,2 · naive rank  n·m·p" data-cmv="rank 8" tabindex="0"/>
+    <circle cx="165.4" cy="267" r="5" fill="var(--c-s5)" stroke="var(--surface)" stroke-width="2" data-cm="2,2,2 · certified rank" data-cmv="rank 7" tabindex="0"/>
+    <text x="118.0" y="271.0" text-anchor="end" class="t-ax">2,2,2</text>
+    <text x="842.0" y="271.0" text-anchor="start" class="t-lab">7  (Q)</text>
+    <line x1="170.8" y1="297" x2="165.4" y2="297" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="170.8" cy="297" r="5" fill="var(--c-s2)" stroke="var(--surface)" stroke-width="2" data-cm="2,2,2 · naive rank  n·m·p" data-cmv="rank 8" tabindex="0"/>
+    <circle cx="165.4" cy="297" r="5" fill="var(--c-s5)" stroke="var(--surface)" stroke-width="2" data-cm="2,2,2 · certified rank" data-cmv="rank 7" tabindex="0"/>
+    <text x="118.0" y="301.0" text-anchor="end" class="t-ax">2,2,2</text>
+    <text x="842.0" y="301.0" text-anchor="start" class="t-lab">7  (Q)</text>
+    <rect x="128" y="358" width="11" height="10" rx="2" fill="var(--c-s2)"/>
+    <text x="147.0" y="368.0" text-anchor="start" class="t-note">naive rank  n·m·p</text>
+    <rect x="291" y="358" width="11" height="10" rx="2" fill="var(--c-s5)"/>
+    <text x="310.0" y="368.0" text-anchor="start" class="t-note">certified rank</text>
+  </svg>
+  </div>
+  <figcaption>10 certified rows. The ring is not decoration — two of these certify over F2 and are REFUTED over Q, which is the whole characteristic-2 story: the same coefficient table is a theorem in one ring and a false claim in another, and only an exact checker can tell you which. The naive endpoint is n·m·p, the number of scalar products the schoolbook algorithm uses on that shape.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§1 · why this is decidable</div>
@@ -361,9 +489,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 <p>Both artifacts were produced by systems whose outputs cannot be trusted by construction and were verified by their authors&#39; own pipelines. This page is the independent layer: different code, exact arithmetic, pinned bytes, red controls, and a verifier a stranger can run in seconds without this machine. The marginal cost of certifying the next published decomposition is minutes — which is the argument of this whole site, applied to the most cited AI-mathematics artifacts there are.</p>
 <p>The same corpus is the ladder for the live eval: models are asked to EXHIBIT decompositions and the same instrument grades them — see the matmul eval, where ground truth is a proof because these identities are always decidable.</p>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-alphaevolve.js @ git fefbc49. All 11 corpus rows were re-certified during this build — every tensor identity re-checked equation by equation in exact arithmetic, every source pin re-hashed — and the build refuses on any deviation. Certificates: certs/strassen-certificate.json · verifier: verify/verify_strassen.py.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-alphaevolve.js @ git b43d7cf. All 11 corpus rows were re-certified during this build — every tensor identity re-checked equation by equation in exact arithmetic, every source pin re-hashed — and the build refuses on any deviation. Certificates: certs/strassen-certificate.json · verifier: verify/verify_strassen.py.</p></footer>
 
 </div>
 </html>

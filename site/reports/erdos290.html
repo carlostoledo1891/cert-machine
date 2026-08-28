@@ -42,6 +42,17 @@
   --warn:#8A5212;
   --warn-soft:#F6E9D8;
   --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -61,6 +72,17 @@
     --warn:#E0A860;
     --warn-soft:#2B2015;
     --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
   }
 }
 :root[data-theme="dark"]{
@@ -80,6 +102,17 @@
   --warn:#E0A860;
   --warn-soft:#2B2015;
   --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
 }
 
 *{box-sizing:border-box}
@@ -190,6 +223,23 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 .t-held{font-size:12.5px;fill:var(--held);font-weight:500}
 .t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
 .t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
 
 .pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
   line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
@@ -335,6 +385,90 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="col"><p>c = Σ_d δ(f_d)/(d(d+1)), where δ(f_d) is the density of primes p for which f_d has a root mod p. Odd d contribute exactly log 2 (proved). Each even d = 2l contributes δ · 1/(2l(2l+1)) with δ pinned EXACTLY where the Galois group is determined — hyperoctahedral at all even d ≤ 120 except {8, 24, 48, 80, 120}, each settled individually — and the honest interval [0,1] everywhere else. Nothing is estimated: every pinned δ is an exact rational, every unpinned δ costs the full width of its weight, and the bracket can therefore only shrink as knowledge grows (the build asserts the recorded narrowing is monotone).</p><p>This build first REPRODUCES the cited page's pipeline byte-for-byte: the lifted narrowing program is re-run and must emit the identical record (it did: same bytes, sha-checked), landing on the cited [0.829113767875, 0.833228924528] at knowledge horizon l = 60.</p></div>
 </section>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2b · the squeeze</div>
+    <h2>The interval, closing</h2>
+  </div>
+<div class="col"><p>Each pinned degree removes its own weight from the unknown tail, so the bracket can only shrink — and this is what that looks like when every point is recomputed in exact rationals at build time. Left of the shaded edge is the cited page's horizon; everything right of it is this repository running the same lifted instrument further.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 300" role="img" aria-label="The certified width of the constant c falls from 1.20e-2 at l = 20 to 2.07e-3 at l = 120 on a logarithmic scale, a smooth decay with no jumps; the region left of l = 60, where the cited page stops, is shaded.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="223.2" x2="878" y2="223.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="227.2" text-anchor="end" class="t-ax">2e-3</text>
+    <line x1="62" y1="126.0" x2="878" y2="126.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="130.0" text-anchor="end" class="t-ax">5e-3</text>
+    <line x1="62" y1="52.6" x2="878" y2="52.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="56.6" text-anchor="end" class="t-ax">1e-2</text>
+    <line x1="62.0" y1="250" x2="62.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="270.0" text-anchor="middle" class="t-ax">20</text>
+    <line x1="225.2" y1="250" x2="225.2" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="225.2" y="270.0" text-anchor="middle" class="t-ax">40</text>
+    <line x1="388.4" y1="250" x2="388.4" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="388.4" y="270.0" text-anchor="middle" class="t-ax">60</text>
+    <line x1="551.6" y1="250" x2="551.6" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="551.6" y="270.0" text-anchor="middle" class="t-ax">80</text>
+    <line x1="714.8" y1="250" x2="714.8" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="714.8" y="270.0" text-anchor="middle" class="t-ax">100</text>
+    <line x1="878.0" y1="250" x2="878.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="270.0" text-anchor="middle" class="t-ax">120</text>
+    <line x1="62" y1="250" x2="878" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="292.0" text-anchor="middle" class="t-note">knowledge horizon  l  (densities pinned exactly for every even d = 2l up to here)</text>
+    <text x="13" y="134" class="t-note" transform="rotate(-90 13 134)" text-anchor="middle">certified width of c</text>
+    <rect x="62.0" y="18" width="326.4" height="232" fill="var(--c-grid)"/>
+    <text x="225.2" y="31.0" text-anchor="middle" class="t-note">the cited page stops here</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="250" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M62.00 32.82 L94.64 51.50 L127.28 67.38 L159.92 81.19 L192.56 93.40 L225.20 104.35 L257.84 114.28 L290.48 123.35 L323.12 131.71 L355.76 139.46 L388.40 146.68 L404.72 150.11 L421.04 153.44 L437.36 156.66 L453.68 159.79 L470.00 162.83 L486.32 165.79 L502.64 168.66 L518.96 171.46 L535.28 174.19 L551.60 176.85 L567.92 179.44 L584.24 181.97 L600.56 184.45 L616.88 186.86 L633.20 189.23 L649.52 191.54 L665.84 193.80 L682.16 196.01 L698.48 198.18 L714.80 200.31 L731.12 202.39 L747.44 204.43 L763.76 206.44 L780.08 208.41 L796.40 210.34 L812.72 212.24 L829.04 214.10 L845.36 215.93 L861.68 217.73 L878.00 219.50 L878.00 250 L62.00 250 Z" fill="var(--c-1)" opacity="0.10"/>
+    <path d="M62.00 32.82 L94.64 51.50 L127.28 67.38 L159.92 81.19 L192.56 93.40 L225.20 104.35 L257.84 114.28 L290.48 123.35 L323.12 131.71 L355.76 139.46 L388.40 146.68 L404.72 150.11 L421.04 153.44 L437.36 156.66 L453.68 159.79 L470.00 162.83 L486.32 165.79 L502.64 168.66 L518.96 171.46 L535.28 174.19 L551.60 176.85 L567.92 179.44 L584.24 181.97 L600.56 184.45 L616.88 186.86 L633.20 189.23 L649.52 191.54 L665.84 193.80 L682.16 196.01 L698.48 198.18 L714.80 200.31 L731.12 202.39 L747.44 204.43 L763.76 206.44 L780.08 208.41 L796.40 210.34 L812.72 212.24 L829.04 214.10 L845.36 215.93 L861.68 217.73 L878.00 219.50" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="219.50" r="4.5" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2"/>
+    <text x="868.0" y="207.5" text-anchor="end" class="t-lab">2.07e-3</text>
+    <circle cx="62.00" cy="32.82" r="12" fill="transparent" data-cmx="62.00" data-cm="width of the certified bracket · l = 20" data-cmv="width 1.205e-2" tabindex="0"/>
+    <circle cx="94.64" cy="51.50" r="12" fill="transparent" data-cmx="94.64" data-cm="width of the certified bracket · l = 24" data-cmv="width 1.010e-2" tabindex="0"/>
+    <circle cx="127.28" cy="67.38" r="12" fill="transparent" data-cmx="127.28" data-cm="width of the certified bracket · l = 28" data-cmv="width 8.695e-3" tabindex="0"/>
+    <circle cx="159.92" cy="81.19" r="12" fill="transparent" data-cmx="159.92" data-cm="width of the certified bracket · l = 32" data-cmv="width 7.633e-3" tabindex="0"/>
+    <circle cx="192.56" cy="93.40" r="12" fill="transparent" data-cmx="192.56" data-cm="width of the certified bracket · l = 36" data-cmv="width 6.802e-3" tabindex="0"/>
+    <circle cx="225.20" cy="104.35" r="12" fill="transparent" data-cmx="225.20" data-cm="width of the certified bracket · l = 40" data-cmv="width 6.135e-3" tabindex="0"/>
+    <circle cx="257.84" cy="114.28" r="12" fill="transparent" data-cmx="257.84" data-cm="width of the certified bracket · l = 44" data-cmv="width 5.586e-3" tabindex="0"/>
+    <circle cx="290.48" cy="123.35" r="12" fill="transparent" data-cmx="290.48" data-cm="width of the certified bracket · l = 48" data-cmv="width 5.128e-3" tabindex="0"/>
+    <circle cx="323.12" cy="131.71" r="12" fill="transparent" data-cmx="323.12" data-cm="width of the certified bracket · l = 52" data-cmv="width 4.739e-3" tabindex="0"/>
+    <circle cx="355.76" cy="139.46" r="12" fill="transparent" data-cmx="355.76" data-cm="width of the certified bracket · l = 56" data-cmv="width 4.405e-3" tabindex="0"/>
+    <circle cx="388.40" cy="146.68" r="12" fill="transparent" data-cmx="388.40" data-cm="width of the certified bracket · l = 60" data-cmv="width 4.115e-3" tabindex="0"/>
+    <circle cx="404.72" cy="150.11" r="12" fill="transparent" data-cmx="404.72" data-cm="width of the certified bracket · l = 62" data-cmv="width 3.984e-3" tabindex="0"/>
+    <circle cx="421.04" cy="153.44" r="12" fill="transparent" data-cmx="421.04" data-cm="width of the certified bracket · l = 64" data-cmv="width 3.861e-3" tabindex="0"/>
+    <circle cx="437.36" cy="156.66" r="12" fill="transparent" data-cmx="437.36" data-cm="width of the certified bracket · l = 66" data-cmv="width 3.745e-3" tabindex="0"/>
+    <circle cx="453.68" cy="159.79" r="12" fill="transparent" data-cmx="453.68" data-cm="width of the certified bracket · l = 68" data-cmv="width 3.636e-3" tabindex="0"/>
+    <circle cx="470.00" cy="162.83" r="12" fill="transparent" data-cmx="470.00" data-cm="width of the certified bracket · l = 70" data-cmv="width 3.534e-3" tabindex="0"/>
+    <circle cx="486.32" cy="165.79" r="12" fill="transparent" data-cmx="486.32" data-cm="width of the certified bracket · l = 72" data-cmv="width 3.436e-3" tabindex="0"/>
+    <circle cx="502.64" cy="168.66" r="12" fill="transparent" data-cmx="502.64" data-cm="width of the certified bracket · l = 74" data-cmv="width 3.344e-3" tabindex="0"/>
+    <circle cx="518.96" cy="171.46" r="12" fill="transparent" data-cmx="518.96" data-cm="width of the certified bracket · l = 76" data-cmv="width 3.257e-3" tabindex="0"/>
+    <circle cx="535.28" cy="174.19" r="12" fill="transparent" data-cmx="535.28" data-cm="width of the certified bracket · l = 78" data-cmv="width 3.175e-3" tabindex="0"/>
+    <circle cx="551.60" cy="176.85" r="12" fill="transparent" data-cmx="551.60" data-cm="width of the certified bracket · l = 80" data-cmv="width 3.096e-3" tabindex="0"/>
+    <circle cx="567.92" cy="179.44" r="12" fill="transparent" data-cmx="567.92" data-cm="width of the certified bracket · l = 82" data-cmv="width 3.021e-3" tabindex="0"/>
+    <circle cx="584.24" cy="181.97" r="12" fill="transparent" data-cmx="584.24" data-cm="width of the certified bracket · l = 84" data-cmv="width 2.950e-3" tabindex="0"/>
+    <circle cx="600.56" cy="184.45" r="12" fill="transparent" data-cmx="600.56" data-cm="width of the certified bracket · l = 86" data-cmv="width 2.882e-3" tabindex="0"/>
+    <circle cx="616.88" cy="186.86" r="12" fill="transparent" data-cmx="616.88" data-cm="width of the certified bracket · l = 88" data-cmv="width 2.817e-3" tabindex="0"/>
+    <circle cx="633.20" cy="189.23" r="12" fill="transparent" data-cmx="633.20" data-cm="width of the certified bracket · l = 90" data-cmv="width 2.755e-3" tabindex="0"/>
+    <circle cx="649.52" cy="191.54" r="12" fill="transparent" data-cmx="649.52" data-cm="width of the certified bracket · l = 92" data-cmv="width 2.695e-3" tabindex="0"/>
+    <circle cx="665.84" cy="193.80" r="12" fill="transparent" data-cmx="665.84" data-cm="width of the certified bracket · l = 94" data-cmv="width 2.639e-3" tabindex="0"/>
+    <circle cx="682.16" cy="196.01" r="12" fill="transparent" data-cmx="682.16" data-cm="width of the certified bracket · l = 96" data-cmv="width 2.584e-3" tabindex="0"/>
+    <circle cx="698.48" cy="198.18" r="12" fill="transparent" data-cmx="698.48" data-cm="width of the certified bracket · l = 98" data-cmv="width 2.532e-3" tabindex="0"/>
+    <circle cx="714.80" cy="200.31" r="12" fill="transparent" data-cmx="714.80" data-cm="width of the certified bracket · l = 100" data-cmv="width 2.481e-3" tabindex="0"/>
+    <circle cx="731.12" cy="202.39" r="12" fill="transparent" data-cmx="731.12" data-cm="width of the certified bracket · l = 102" data-cmv="width 2.433e-3" tabindex="0"/>
+    <circle cx="747.44" cy="204.43" r="12" fill="transparent" data-cmx="747.44" data-cm="width of the certified bracket · l = 104" data-cmv="width 2.387e-3" tabindex="0"/>
+    <circle cx="763.76" cy="206.44" r="12" fill="transparent" data-cmx="763.76" data-cm="width of the certified bracket · l = 106" data-cmv="width 2.342e-3" tabindex="0"/>
+    <circle cx="780.08" cy="208.41" r="12" fill="transparent" data-cmx="780.08" data-cm="width of the certified bracket · l = 108" data-cmv="width 2.299e-3" tabindex="0"/>
+    <circle cx="796.40" cy="210.34" r="12" fill="transparent" data-cmx="796.40" data-cm="width of the certified bracket · l = 110" data-cmv="width 2.257e-3" tabindex="0"/>
+    <circle cx="812.72" cy="212.24" r="12" fill="transparent" data-cmx="812.72" data-cm="width of the certified bracket · l = 112" data-cmv="width 2.217e-3" tabindex="0"/>
+    <circle cx="829.04" cy="214.10" r="12" fill="transparent" data-cmx="829.04" data-cm="width of the certified bracket · l = 114" data-cmv="width 2.179e-3" tabindex="0"/>
+    <circle cx="845.36" cy="215.93" r="12" fill="transparent" data-cmx="845.36" data-cm="width of the certified bracket · l = 116" data-cmv="width 2.141e-3" tabindex="0"/>
+    <circle cx="861.68" cy="217.73" r="12" fill="transparent" data-cmx="861.68" data-cm="width of the certified bracket · l = 118" data-cmv="width 2.105e-3" tabindex="0"/>
+    <circle cx="878.00" cy="219.50" r="12" fill="transparent" data-cmx="878.00" data-cm="width of the certified bracket · l = 120" data-cmv="width 2.070e-3" tabindex="0"/>
+  </svg>
+  </div>
+  <figcaption>Certified width of the bracket for c against the knowledge horizon l, log scale. 1.20e-2 at l = 20 · 4.12e-3 at the cited l = 60 · 2.07e-3 at l = 120, a factor of 6 across the sweep and 50% tighter than the cited page. The curve is smooth because the width is the unpinned tail Σ 1/(2l(2l+1)) and nothing else: no estimate enters, so no point can move up.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§3 · the continuation</div>
@@ -357,9 +491,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>The cited page, byte-preserved — and how to re-run all of it</h2>
   </div>
 <div class="col"><p>This page supersedes the one cited in the erdosproblems #290 comment (posted 2026-08-04); that page and its programs are preserved BYTE-IDENTICALLY, hash-pinned through this repository's lift provenance, in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/erdos290.html">the repository</a> (the citation paths 301 here). Its self-contained programs — the theorem checker with its planted falsifiers, the narrowing pipeline, the five-candidate squeeze, the vendored exact-rational arithmetic — live beside it in the repository and are exactly what this build re-ran. To repeat it yourself: <span class="m">node theorem.js</span> (the proof, ~14 s), <span class="m">node narrowing.js</span> (the bracket), <span class="m">node tools/run-erdos290-tail-ext.js</span> (the continuation) from <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-erdos290.js @ git fefbc49 — the theorem re-proved (falsifiers required to fire), the narrowing record reproduced byte-identically, the bracket re-assembled in exact rationals and calibrated against the record, the conditional enclosure re-derived. The build refuses if any of it moves.</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-erdos290.js @ git b43d7cf — the theorem re-proved (falsifiers required to fire), the narrowing record reproduced byte-identically, the bracket re-assembled in exact rationals and calibrated against the record, the conditional enclosure re-derived. The build refuses if any of it moves.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

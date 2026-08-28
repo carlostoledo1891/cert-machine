@@ -13,7 +13,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-08-28, LAB v0 shipped)
+## TASKS BACKLOG — the standing menu (updated 2026-08-28, LAB v0 + the dataviz pass)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -142,6 +142,13 @@ KAUST MFG group, and the page succeeds when HE uses it).
   as a second rung (its solver is NOT published, so today it is one
   certified point, reports/mfg-congest.html) · every engagement is
   simultaneously an external rerun (item 13) and a vouching candidate.
+
+DATAVIZ, WHAT IS LEFT (no word needed, it is our own surface): the
+pages still without a figure are matmul-eval (the board), forecast-gym
+(the commit timeline, worth doing once scores exist), verifier-loop
+(trajectories), impostors, methods-note, answer-key, alien-science,
+mfg-cap, mfg-congest, wardrop, mfg-lab, lemniscate, zeta3, and the
+landing/control pages. design/charts.js covers every form they need.
 
 FIRST THING NEXT SESSION: node tools/sweep-claims.js, then shard
 health (tail -n 2 certs/shard-logs/shard-*.log) and 8D if a day
@@ -584,6 +591,61 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   verification infrastructure — the eval labs run, the registry that
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-28f (THE DATAVIZ PASS — operator's word: "UX + UI pass
+focused on charts and graphics ... minimal, beautiful, adapt to our
+colours ... insert charts across the reports"; no reference images
+arrived with the message, so the direction was taken from the words):
+  - THE SHELF HAD NO CHARTS. 24 report pages, one figure between them
+    (the observatory map). Now nine pages carry one, each chosen as
+    that page's most important thing to see:
+      erdos290    the certified width of c closing, log scale, with the
+                  cited page's horizon shaded — every point bracket(L)
+                  recomputed in exact rationals at build
+      erdos852    the refutation at 1e-13 zoom: the published constant
+                  and a naive double product on the SAME point, outside
+                  the certified enclosure; log1p back inside
+      harborproof the per-ship flip fraction as a population — and the
+                  chart found something: 2,286 ships (18%) in ONE bin
+                  carrying 30 distinct values, the signature of a shared
+                  default emission factor, now stated in the caption
+      skyaudit    the reserve-price ladder as EMPHASIS (Beta in the
+                  accent, the other three in context grey) — the form
+                  the skill names for "one series is the point"
+      evtol       the three-valued verdict SWEPT: certified / hatched
+                  undecidable / refuted across cruise duration, both
+                  rules. The machine's signature picture
+      entropy     proved vs open, drawn to scale, with ln 2 marked
+      mercer      the mu(5) ladder falling rung by rung
+      water-value the margin as a DISTRIBUTION, not a maximum
+      rm-audit    51 printed rows as cells: 50 green, one plum
+      alphaevolve naive rank -> certified rank per shape, dumbbell
+  - THE ASSET IS design/charts.js — nine forms (lines, band, bars,
+    dist, dumbbell, strip, intervals, segments, sparkline) with the
+    rules applied BY CONSTRUCTION: colour by job, three identity hues
+    max (context exempt, which is how emphasis works), text never wears
+    the data colour, 2px lines / 4px rounded data-ends / 2px surface
+    gaps / hairline SOLID grid (dashes reserved for predicted marks),
+    labels selective. One delegated hover listener per page — the
+    second scripted element the design system ships, and it enhances
+    rather than gates.
+  - THE PALETTE WAS DERIVED, NOT PICKED. The text tokens FAIL as chart
+    marks (outside the OKLCH band, --held under the chroma floor,
+    green<->amber at deltaE 5.4 protan). Chart steps were snapped from
+    the SAME three hues — hue held, L and C moved — taking the passing
+    candidate CLOSEST to the brand. The first answer passed the
+    published standard and then collapsed to deltaE 4.3 under
+    tritanopia, which our own battery gates and the standard does not;
+    the second answer clears all three CVD types AND sits closer to
+    the brand tokens, so nothing was traded for it.
+  - design/battery.js is new and in make test (34 rows now): it
+    re-derives the palette checks in OKLab with Machado 2009 rather
+    than quoting them, scans every generated report for a literal
+    colour inside an <svg> (DESIGN.md has claimed "tokens only" since
+    the beginning with nothing enforcing it), checks every figure has
+    a text alternative, and fires four falsifiers.
+  - Verified by CDP in BOTH themes at desktop and phone widths, with
+    the hover readout exercised in-browser; no horizontal overflow.
 
 SESSION 2026-08-28e (LAB v0 — operator's word: the MFG research lab,
 tools-first, target Ricardo de Lima Ribeiro; three binding requirements

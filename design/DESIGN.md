@@ -31,6 +31,40 @@ the hand-copied relation that goes stale the first time a colour changes.
 So the values live in `tokens.js` as objects, and both forms are emitted from them.
 `tokens.rootCss()` produces the whole `:root` cascade; `tokens.FIGURE_TOKENS` is the list a
 figure may reference, and `test-control.js` fails the build if a figure paints with anything
+
+## charts.js — everything that plots a number
+
+`components.js` owns the page's blocks; `charts.js` owns the charts, because a
+chart has rules prose does not and they are easier to keep in one place than to
+remember at every call site. Forms: `lines` · `band` · `bars` · `dist` ·
+`dumbbell` · `strip` · `intervals` · `segments` · `sparkline`, plus `legend`,
+`script` (one delegated hover listener per page) and the log-axis tick helper.
+
+What the kit enforces so a builder never has to re-derive it:
+
+- **Colour by the job.** Magnitude takes the one-hue sequential ramp
+  (`--c-s1..5`); identity takes at most THREE hues (`--c-1..3`) — a fourth would
+  have to be generated, and a generated hue is indistinguishable from an
+  existing one under colour-vision deficiency; context takes `--c-ctx` and is
+  exempt from that cap, which is how the *emphasis* form works.
+- **Colour is never the only channel.** `legend()` throws on a swatch with no
+  word beside it. The chart trio's worst pair sits in the 6–8 CVD floor band,
+  where secondary encoding is mandatory rather than nice.
+- **Text never wears the data colour** — ink tokens only; identity comes from
+  the coloured mark beside the text.
+- **Marks and spacers:** 2px lines, ≥8px end markers with a 2px surface ring,
+  bars ≤24px with a 4px rounded data-end and a 2px surface gap, hairline SOLID
+  gridlines. Dashes are reserved for predicted/uncertified marks — never grid.
+- **Labels are measured, not hoped:** legend advance comes from the label
+  length, band captions centre only when they fit, callouts stack vertically
+  rather than dodging sideways, and a log axis REFUSES a zero instead of
+  clamping it to the floor.
+
+`design/battery.js` is the gate: it re-derives the palette checks in OKLab with
+the Machado 2009 CVD model (rather than quoting the day they were chosen), scans
+every generated report for a literal colour inside an `<svg>`, checks every
+figure has a text alternative, and fires four falsifiers. It runs in `make test`.
+
 else.
 
 ### The three-state theme rule

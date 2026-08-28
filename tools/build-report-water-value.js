@@ -27,6 +27,7 @@ const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const die = (m) => { console.error('WATER-VALUE REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
@@ -65,6 +66,7 @@ for (const k of ['buildTree', 'solveTree']) if (typeof WV[k] !== 'function') die
 /* ---- gate 3: the certificate suite — 120 seeded random trees ------------- */
 const mulberry32 = (s) => () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
 let maxGap = 0, maxMart = 0, nBinding = 0, nSpill = 0, nPure = 0;
+const GAPS = [], MARTS = [];      /* kept for the figure: 120 trees, every gap */
 for (let seed = 1; seed <= 120; seed++) {
   const rng = mulberry32(seed);
   const depth = 3 + (seed % 3), branch = 2 + (seed % 2);
@@ -84,6 +86,7 @@ for (let seed = 1; seed <= 120; seed++) {
   if (Math.max(c.dynErr, c.boxErr, c.wedgeSignErr, c.spillDualErr) > 1e-9) die('KKT residuals too large at seed ' + seed);
   maxGap = Math.max(maxGap, c.gapRel);
   maxMart = Math.max(maxMart, c.martingaleRes);
+  GAPS.push(c.gapRel); MARTS.push(c.martingaleRes);
   if (c.bindingNodes > 0) nBinding++;
   if (c.spillNodes > 0) nSpill++;
   if (c.bindingNodes === 0 && c.spillNodes === 0) nPure++;
@@ -129,6 +132,56 @@ B.push(C.stats([
   { k: 'tree classes', v: nBinding + ' · ' + nSpill + ' · ' + nPure, n: 'trees with binding stock events · with spill · pure-martingale — all three certificate classes exercised or the build refuses' },
   { k: 'continuum limit', v: 'OPEN', role: 'warn', n: 'the reflected-FBSDE well-posedness (OP-1) and the reflecting-boundary duality (OP-2) are stated, not claimed' }
 ]));
+
+/* ---- how far from the gate ------------------------------------------------
+   The suite refuses a tree whose relative duality gap exceeds 1e-11. The
+   number that matters is not that no tree failed — it is the MARGIN, and a
+   margin is a distribution, not a maximum. */
+{
+  const GATE = 1e-11;
+  /* A log axis cannot show zero, and clamping a zero to the axis floor would
+     draw a value that does not exist. So the exactly-zero trees are counted
+     OUT of the histogram and stated in words. */
+  const zero = GAPS.filter(v => !(v > 0)).length;
+  const pos = GAPS.filter(v => v > 0);
+  const lo = Math.min.apply(null, pos) / 3, hi = GATE * 3;
+  const NB = 40, l0 = Math.log10(lo), l1 = Math.log10(hi), w = (l1 - l0) / NB;
+  const gb = new Array(NB).fill(0);
+  for (const v of pos) gb[Math.max(0, Math.min(NB - 1, Math.floor((Math.log10(v) - l0) / w)))]++;
+  const peak = Math.max.apply(null, gb);
+  const fig = CH.dist({
+    w: 900, h: 290, x0: l0, x1: l1, y0: 0, y1: peak,
+    bins: gb.map((n, i) => ({ n, k: '1e' + (l0 + i * w).toFixed(1) + '–1e' + (l0 + (i + 1) * w).toFixed(1) })),
+    unit: 'trees',
+    xTicks: [-17, -16, -15, -14, -13, -12, -11].filter(e => e >= l0 && e <= l1).map(e => ({ v: e, t: '1e' + e })),
+    yTicks: [{ v: 0, t: '0' }, { v: peak, t: String(peak) }],
+    xLabel: 'relative duality gap  (log scale)',
+    yLabel: 'trees',
+    marks: [{ x: Math.log10(GATE), t: '←  the suite REFUSES beyond here', token: 'var(--c-3)', anchor: 'end' },
+            { x: Math.log10(maxGap), t: 'worst tree ' + maxGap.toExponential(1), token: 'var(--c-1)', row: 1 }],
+    alt: pos.length + ' certified trees binned by relative duality gap on a log scale. The whole population sits '
+      + 'between ' + Math.min.apply(null, pos).toExponential(1) + ' and ' + maxGap.toExponential(1) + ', around '
+      + 'three orders of magnitude below the 1e-11 threshold at which the suite refuses.'
+  });
+  B.push(C.section({
+    lab: '§0 · the margin', title: 'Not "no tree failed" — how far from failing',
+    wide: true,
+    bodyRaw: '<div class="col">'
+      + C.pRaw('A pass/fail suite reports one bit. What a reader should want is the margin, and the margin is a '
+        + 'distribution: every one of the 120 seeded trees, binned by the relative gap between its primal '
+        + 'revenue and its dual certificate. The gate the suite enforces is drawn where it actually sits.')
+      + '</div>'
+      + C.figure({ svgRaw: fig, caption: '120 trees'
+        + (zero ? ', of which ' + zero + ' close the gap EXACTLY and cannot be drawn on a log axis — they are '
+          + 'counted here and left off the plot rather than clamped to its floor' : '')
+        + '. Across the ' + pos.length + ' with a non-zero gap it runs from '
+        + Math.min.apply(null, pos).toExponential(1) + ' to ' + maxGap.toExponential(1) + ' — the worst tree in '
+        + 'the suite is a factor of ' + Math.round(1e-11 / maxGap).toLocaleString('en-US') + ' inside the '
+        + 'refusal threshold, and the off-binding martingale residual is bounded by '
+        + maxMart.toExponential(1) + ' across the same trees. The population sits where floating-point '
+        + 'accumulation puts it, not where a tolerance was tuned to put it.' })
+  }));
+}
 
 B.push(C.section({
   lab: '§1 · the object', title: 'A shadow price with a martingale inside',
@@ -221,6 +274,6 @@ const foot = '<footer class="col"><p>Generated by tools/build-report-water-value
   + 'extracted solver: reports/water_value_tree.extracted.js.</p></footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'water-value.html'),
-  TPL.render({ title: 'The water value, certified', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/reports/water-value.html' }));
+  TPL.render({ title: 'The water value, certified', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/water-value.html' }));
 console.log('reports/water-value.html written: 120 trees re-certified (gap ' + fmtE(maxGap) + ', martingale '
   + fmtE(maxMart) + '), batteries ' + sinPasses + ' checks + ' + trCaught + ' mutants caught @ git ' + git);

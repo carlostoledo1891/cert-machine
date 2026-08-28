@@ -42,6 +42,17 @@
   --warn:#8A5212;
   --warn-soft:#F6E9D8;
   --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -61,6 +72,17 @@
     --warn:#E0A860;
     --warn-soft:#2B2015;
     --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
   }
 }
 :root[data-theme="dark"]{
@@ -80,6 +102,17 @@
   --warn:#E0A860;
   --warn-soft:#2B2015;
   --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
 }
 
 *{box-sizing:border-box}
@@ -190,6 +223,23 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 .t-held{font-size:12.5px;fill:var(--held);font-weight:500}
 .t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
 .t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
 
 .pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
   line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
@@ -319,6 +369,76 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 </div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the sheet</div>
+    <h2>Every printed row, decided</h2>
+  </div>
+<div class="col"><p>One cell per PRINTED row. Our own corrected row is not counted here and never is — correcting a row is not the same as it having survived.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 92" role="img" aria-label="Fifty-one cells, one per printed row of the Ramanujan Machine sheets. Fifty are green — they survive an unconditional interval audit — and exactly one is plum: the refuted row, a sign slip in the printed mixed-zeta entry.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <rect x="6.00" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-e-a" data-cmv="SURVIVES · width 3.89e-16" tabindex="0"/>
+    <rect x="40.23" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-e-b" data-cmv="SURVIVES · width 3.89e-16" tabindex="0"/>
+    <rect x="74.46" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-e-c" data-cmv="SURVIVES · width 8.88e-16" tabindex="0"/>
+    <rect x="108.69" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-pi-a" data-cmv="SURVIVES · width 7.77e-16" tabindex="0"/>
+    <rect x="142.92" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-pi-b" data-cmv="SURVIVES · width 3.89e-16" tabindex="0"/>
+    <rect x="177.15" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z3-pos" data-cmv="SURVIVES · width 8.88e-16" tabindex="0"/>
+    <rect x="211.38" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z3-inv" data-cmv="SURVIVES · width 2.01e-14" tabindex="0"/>
+    <rect x="245.62" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z3-apery" data-cmv="SURVIVES · width 1.78e-15" tabindex="0"/>
+    <rect x="279.85" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z3-new1" data-cmv="SURVIVES · width 2.22e-16 · new and unproven" tabindex="0"/>
+    <rect x="314.08" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z3-new2" data-cmv="SURVIVES · width 8.88e-16 · new and unproven" tabindex="0"/>
+    <rect x="348.31" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-known" data-cmv="SURVIVES · width 2.22e-15" tabindex="0"/>
+    <rect x="382.54" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-01" data-cmv="SURVIVES · width 8.88e-16 · new and unproven" tabindex="0"/>
+    <rect x="416.77" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-02" data-cmv="SURVIVES · width 8.30e-14 · new and unproven" tabindex="0"/>
+    <rect x="451.00" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-03" data-cmv="SURVIVES · width 4.49e-13 · new and unproven" tabindex="0"/>
+    <rect x="485.23" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-04" data-cmv="SURVIVES · width 1.16e-12 · new and unproven" tabindex="0"/>
+    <rect x="519.46" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-05" data-cmv="SURVIVES · width 1.33e-15 · new and unproven" tabindex="0"/>
+    <rect x="553.69" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-06" data-cmv="SURVIVES · width 3.33e-15 · new and unproven" tabindex="0"/>
+    <rect x="587.92" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-07" data-cmv="SURVIVES · width 9.33e-14 · new and unproven" tabindex="0"/>
+    <rect x="622.15" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-08" data-cmv="SURVIVES · width 3.29e-13 · new and unproven" tabindex="0"/>
+    <rect x="656.38" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-09" data-cmv="SURVIVES · width 3.55e-15 · new and unproven" tabindex="0"/>
+    <rect x="690.62" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-10" data-cmv="SURVIVES · width 1.78e-15 · new and unproven" tabindex="0"/>
+    <rect x="724.85" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-11" data-cmv="SURVIVES · width 2.22e-15 · new and unproven" tabindex="0"/>
+    <rect x="759.08" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-12" data-cmv="SURVIVES · width 7.55e-15 · new and unproven" tabindex="0"/>
+    <rect x="793.31" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-13" data-cmv="SURVIVES · width 5.33e-15 · new and unproven" tabindex="0"/>
+    <rect x="827.54" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-14" data-cmv="SURVIVES · width 3.55e-15 · new and unproven" tabindex="0"/>
+    <rect x="861.77" y="6" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-15" data-cmv="SURVIVES · width 1.24e-14 · new and unproven" tabindex="0"/>
+    <rect x="6.00" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-16" data-cmv="SURVIVES · width 9.06e-14 · new and unproven" tabindex="0"/>
+    <rect x="40.23" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-17" data-cmv="SURVIVES · width 5.33e-15 · new and unproven" tabindex="0"/>
+    <rect x="74.46" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-18" data-cmv="SURVIVES · width 3.55e-15 · new and unproven" tabindex="0"/>
+    <rect x="108.69" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-19" data-cmv="SURVIVES · width 5.33e-15 · new and unproven" tabindex="0"/>
+    <rect x="142.92" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-20" data-cmv="SURVIVES · width 7.11e-15 · new and unproven" tabindex="0"/>
+    <rect x="177.15" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-21" data-cmv="SURVIVES · width 7.11e-15 · new and unproven" tabindex="0"/>
+    <rect x="211.38" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-cat-22" data-cmv="SURVIVES · width 7.11e-15 · new and unproven" tabindex="0"/>
+    <rect x="245.62" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-known" data-cmv="SURVIVES · width 8.88e-16" tabindex="0"/>
+    <rect x="279.85" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-proven1" data-cmv="SURVIVES · width 1.89e-15" tabindex="0"/>
+    <rect x="314.08" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-new1" data-cmv="SURVIVES · width 4.44e-15 · new and unproven" tabindex="0"/>
+    <rect x="348.31" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-new2" data-cmv="SURVIVES · width 1.33e-15 · new and unproven" tabindex="0"/>
+    <rect x="382.54" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-proven2" data-cmv="SURVIVES · width 1.55e-15" tabindex="0"/>
+    <rect x="416.77" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-new3" data-cmv="SURVIVES · width 2.66e-15 · new and unproven" tabindex="0"/>
+    <rect x="451.00" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-new4" data-cmv="SURVIVES · width 7.11e-15 · new and unproven" tabindex="0"/>
+    <rect x="485.23" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-new5" data-cmv="SURVIVES · width 7.11e-15 · new and unproven" tabindex="0"/>
+    <rect x="519.46" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-new6" data-cmv="SURVIVES · width 2.66e-15 · new and unproven" tabindex="0"/>
+    <rect x="553.69" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-new7" data-cmv="SURVIVES · width 3.55e-15 · new and unproven" tabindex="0"/>
+    <rect x="587.92" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-new8" data-cmv="SURVIVES · width 1.07e-14 · new and unproven" tabindex="0"/>
+    <rect x="622.15" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-z2-new9" data-cmv="SURVIVES · width 3.55e-15 · new and unproven" tabindex="0"/>
+    <rect x="656.38" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-ln2" data-cmv="SURVIVES · width 1.78e-15 · new and unproven" tabindex="0"/>
+    <rect x="690.62" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-zo-z4z2" data-cmv="SURVIVES · width 8.88e-16 · new and unproven" tabindex="0"/>
+    <rect x="724.85" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-zo-z5z3a" data-cmv="SURVIVES · width 1.78e-15 · new and unproven" tabindex="0"/>
+    <rect x="759.08" y="30" width="32.23" height="22" rx="2" fill="var(--c-1)" data-cm="rm-zo-z5z3b-printed" data-cmv="REFUTED · width 8.88e-16 · new and unproven" tabindex="0"/>
+    <rect x="793.31" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-zo-z5z3c" data-cmv="SURVIVES · width 3.55e-15 · new and unproven" tabindex="0"/>
+    <rect x="827.54" y="30" width="32.23" height="22" rx="2" fill="var(--c-2)" data-cm="rm-zo-z7z3" data-cmv="SURVIVES · width 1.78e-15 · new and unproven" tabindex="0"/>
+    <rect x="6" y="74" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="25.0" y="84.0" text-anchor="start" class="t-note">50 survive an unconditional audit</text>
+    <rect x="279" y="74" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="298.0" y="84.0" text-anchor="start" class="t-note">1 REFUTED — rm-zo-z5z3b-printed</text>
+  </svg>
+  </div>
+  <figcaption>51 printed rows: 50 survive an audit that assumes nothing (interval enclosures, no truncated-decimal collision anywhere), and exactly one is refuted — rm-zo-z5z3b-printed, a sign slip. The widest surviving enclosure is 1.16e-12, so the survivals are not near misses either. Hover any cell for its id, verdict and width.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">the refutation</div>
@@ -356,9 +476,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 <p>The Ramanujan Machine publishes conjectures found by matching truncated decimals, argued from collision probability — its papers say so plainly, and its own Ramanujan Challenge (July 2026) now asks for &quot;reproducible CAS-based or formally verified code&quot;. This page is that verification, applied to the Machine&#39;s entire published output: every verdict is produced by an instrument with red controls that must fire, calibrated on proved rows (Apéry&#39;s 6/ζ(3); the two pi² rows proved by Kadyrov–Orynbassar) before being trusted on unproven ones, and re-run in full by the repository&#39;s test battery.</p>
 <p>The registry updates as sheets appear. A future row that survives will be added as SURVIVES with its width; a future row that fails will be added as REFUTED with its mechanism — this build refuses to render either without the certificate.</p>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-rm-audit.js @ git fefbc49. All 52 certifications above — the 51 printed rows and the correction — were re-run during this build: tail bands re-proved, enclosures re-evaluated, constants re-bracketed from their defining series, source PDFs re-hashed — and the build refuses on any deviation. Certificates and instruments: the cert-machine repository.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-rm-audit.js @ git b43d7cf. All 52 certifications above — the 51 printed rows and the correction — were re-run during this build: tail bands re-proved, enclosures re-evaluated, constants re-bracketed from their defining series, source PDFs re-hashed — and the build refuses on any deviation. Certificates and instruments: the cert-machine repository.</p></footer>
 
 </div>
 </html>

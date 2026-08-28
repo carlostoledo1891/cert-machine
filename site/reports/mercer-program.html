@@ -42,6 +42,17 @@
   --warn:#8A5212;
   --warn-soft:#F6E9D8;
   --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -61,6 +72,17 @@
     --warn:#E0A860;
     --warn-soft:#2B2015;
     --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
   }
 }
 :root[data-theme="dark"]{
@@ -80,6 +102,17 @@
   --warn:#E0A860;
   --warn-soft:#2B2015;
   --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
 }
 
 *{box-sizing:border-box}
@@ -190,6 +223,23 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 .t-held{font-size:12.5px;fill:var(--held);font-weight:500}
 .t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
 .t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
 
 .pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
   line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
@@ -319,6 +369,75 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 </div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the ladder</div>
+    <h2>The bracket on μ(5), rung by rung</h2>
+  </div>
+<div class="col"><p>Every rung is a separate exhaustive claim: at that m, every exceptional tuple is closed by one exact rational evaluation against an exact bar. The curve is what those claims add up to.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 320" role="img" aria-label="The certified upper bound on mu(5), 1 + pi/m, falling from 1.6283 at m = 5 to 1.1571 at m = 20. The region up to m = 6, where the literature stops, is shaded; everything to its right is certified here.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="270.0" x2="878" y2="270.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="274.0" text-anchor="end" class="t-ax">1.0</text>
+    <line x1="62" y1="191.8" x2="878" y2="191.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="195.8" text-anchor="end" class="t-ax">1.2</text>
+    <line x1="62" y1="113.6" x2="878" y2="113.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="117.6" text-anchor="end" class="t-ax">1.4</text>
+    <line x1="62" y1="35.4" x2="878" y2="35.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="39.4" text-anchor="end" class="t-ax">1.6</text>
+    <line x1="62.0" y1="270" x2="62.0" y2="275" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="290.0" text-anchor="middle" class="t-ax">5</text>
+    <line x1="170.8" y1="270" x2="170.8" y2="275" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="170.8" y="290.0" text-anchor="middle" class="t-ax">7</text>
+    <line x1="279.6" y1="270" x2="279.6" y2="275" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="279.6" y="290.0" text-anchor="middle" class="t-ax">9</text>
+    <line x1="388.4" y1="270" x2="388.4" y2="275" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="388.4" y="290.0" text-anchor="middle" class="t-ax">11</text>
+    <line x1="497.2" y1="270" x2="497.2" y2="275" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="497.2" y="290.0" text-anchor="middle" class="t-ax">13</text>
+    <line x1="606.0" y1="270" x2="606.0" y2="275" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="606.0" y="290.0" text-anchor="middle" class="t-ax">15</text>
+    <line x1="714.8" y1="270" x2="714.8" y2="275" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="714.8" y="290.0" text-anchor="middle" class="t-ax">17</text>
+    <line x1="823.6" y1="270" x2="823.6" y2="275" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="823.6" y="290.0" text-anchor="middle" class="t-ax">19</text>
+    <line x1="878.0" y1="270" x2="878.0" y2="275" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="290.0" text-anchor="middle" class="t-ax">20</text>
+    <line x1="62" y1="270" x2="878" y2="270" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="312.0" text-anchor="middle" class="t-note">rung m  —  each one an exhaustive exact search closing every exceptional tuple at that m</text>
+    <text x="13" y="144" class="t-note" transform="rotate(-90 13 144)" text-anchor="middle">certified upper bound on mu(5)</text>
+    <rect x="62.0" y="18" width="54.4" height="252" fill="var(--c-grid)"/>
+    <text x="123.4" y="31.0" text-anchor="start" class="t-note">the literature stops here</text>
+    <line x1="62" y1="270.0" x2="878" y2="270.0" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="874.0" y="264.0" text-anchor="end" class="t-note">mu(5) ≥ 1</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="270" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M62.00 24.37 L116.40 65.30 L170.80 94.55 L225.20 116.48 L279.60 133.54 L334.00 147.18 L388.40 158.35 L442.80 167.65 L497.20 175.53 L551.60 182.27 L606.00 188.12 L660.40 193.24 L714.80 197.75 L769.20 201.77 L823.60 205.36 L878.00 208.59 L878.00 270 L62.00 270 Z" fill="var(--c-1)" opacity="0.10"/>
+    <path d="M62.00 24.37 L116.40 65.30 L170.80 94.55 L225.20 116.48 L279.60 133.54 L334.00 147.18 L388.40 158.35 L442.80 167.65 L497.20 175.53 L551.60 182.27 L606.00 188.12 L660.40 193.24 L714.80 197.75 L769.20 201.77 L823.60 205.36 L878.00 208.59" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="208.59" r="4.5" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2"/>
+    <text x="868.0" y="196.6" text-anchor="end" class="t-lab">1.1571</text>
+    <circle cx="62.00" cy="24.37" r="12" fill="transparent" data-cmx="62.00" data-cm="1 + π/m · rung m = 5" data-cmv="mu(5) ≤ 1.628319" tabindex="0"/>
+    <circle cx="116.40" cy="65.30" r="12" fill="transparent" data-cmx="116.40" data-cm="1 + π/m · rung m = 6" data-cmv="mu(5) ≤ 1.523599" tabindex="0"/>
+    <circle cx="170.80" cy="94.55" r="12" fill="transparent" data-cmx="170.80" data-cm="1 + π/m · rung m = 7" data-cmv="mu(5) ≤ 1.448799" tabindex="0"/>
+    <circle cx="225.20" cy="116.48" r="12" fill="transparent" data-cmx="225.20" data-cm="1 + π/m · rung m = 8" data-cmv="mu(5) ≤ 1.392699" tabindex="0"/>
+    <circle cx="279.60" cy="133.54" r="12" fill="transparent" data-cmx="279.60" data-cm="1 + π/m · rung m = 9" data-cmv="mu(5) ≤ 1.349066" tabindex="0"/>
+    <circle cx="334.00" cy="147.18" r="12" fill="transparent" data-cmx="334.00" data-cm="1 + π/m · rung m = 10" data-cmv="mu(5) ≤ 1.314159" tabindex="0"/>
+    <circle cx="388.40" cy="158.35" r="12" fill="transparent" data-cmx="388.40" data-cm="1 + π/m · rung m = 11" data-cmv="mu(5) ≤ 1.285599" tabindex="0"/>
+    <circle cx="442.80" cy="167.65" r="12" fill="transparent" data-cmx="442.80" data-cm="1 + π/m · rung m = 12" data-cmv="mu(5) ≤ 1.261799" tabindex="0"/>
+    <circle cx="497.20" cy="175.53" r="12" fill="transparent" data-cmx="497.20" data-cm="1 + π/m · rung m = 13" data-cmv="mu(5) ≤ 1.241661" tabindex="0"/>
+    <circle cx="551.60" cy="182.27" r="12" fill="transparent" data-cmx="551.60" data-cm="1 + π/m · rung m = 14" data-cmv="mu(5) ≤ 1.224399" tabindex="0"/>
+    <circle cx="606.00" cy="188.12" r="12" fill="transparent" data-cmx="606.00" data-cm="1 + π/m · rung m = 15" data-cmv="mu(5) ≤ 1.209440" tabindex="0"/>
+    <circle cx="660.40" cy="193.24" r="12" fill="transparent" data-cmx="660.40" data-cm="1 + π/m · rung m = 16" data-cmv="mu(5) ≤ 1.196350" tabindex="0"/>
+    <circle cx="714.80" cy="197.75" r="12" fill="transparent" data-cmx="714.80" data-cm="1 + π/m · rung m = 17" data-cmv="mu(5) ≤ 1.184800" tabindex="0"/>
+    <circle cx="769.20" cy="201.77" r="12" fill="transparent" data-cmx="769.20" data-cm="1 + π/m · rung m = 18" data-cmv="mu(5) ≤ 1.174533" tabindex="0"/>
+    <circle cx="823.60" cy="205.36" r="12" fill="transparent" data-cmx="823.60" data-cm="1 + π/m · rung m = 19" data-cmv="mu(5) ≤ 1.165347" tabindex="0"/>
+    <circle cx="878.00" cy="208.59" r="12" fill="transparent" data-cmx="878.00" data-cm="1 + π/m · rung m = 20" data-cmv="mu(5) ≤ 1.157080" tabindex="0"/>
+  </svg>
+  </div>
+  <figcaption>16 certified rungs, m = 5..20, closing 11,718 exceptional tuples between them. The bound falls from 1.6283 to 1.1571 against a floor of exactly 1, so the bracket on μ(5) is now 0.1571 wide. The shaded region is the literature&#39;s reach; the 14 rungs to its right are this machine&#39;s, and each one is an exhaustion, not a sample.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§1 · the program</div>
@@ -365,9 +484,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>What &quot;first certificate&quot; claims, and what it does not</h2>
   </div>
 <div class="col"><p>Boyd's 1986 survey of large Newman polynomials (LMS Lecture Notes 109) is not yet read first-party in this lab — the volume is access-restricted and an ILL request is the operator's open action. Until those bytes are read, no sentence here claims a "first witness" or priority over the printed record: every row is a FIRST CERTIFICATE — an exhaustion over a named box with a conservation identity, re-checkable by the repository's batteries on every run — which is a claim about the certificate, not about history. Three secondary sources support the framing without the paper; the paper decides nothing computational either way. Where this program's own instruments found their bugs, controls found them: the wrong-endpoint bar refused BY NAME, the fabricated-decimal battery catch, the dilated-champion tie-break — none by reading code.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-mercer.js @ git fefbc49 — 12 mu champions re-certified, the equality theorem re-proved (deflation + Sturm), the ladder re-checked rung by rung, the lambda record read from its battery-gated certificate. The build refuses on any deviation. Certificates: certs/mu-table.json, certs/mu-table-40.json, certs/lambda-table.json, certs/mercer-mu5.json.</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-mercer.js @ git b43d7cf — 12 mu champions re-certified, the equality theorem re-proved (deflation + Sturm), the ladder re-checked rung by rung, the lambda record read from its battery-gated certificate. The build refuses on any deviation. Certificates: certs/mu-table.json, certs/mu-table-40.json, certs/lambda-table.json, certs/mercer-mu5.json.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

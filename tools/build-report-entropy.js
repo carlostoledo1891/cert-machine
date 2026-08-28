@@ -18,6 +18,7 @@ const cp = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const E = require(path.join(ROOT, 'instruments', 'entropy', 'covering.js'));
 
@@ -81,7 +82,53 @@ B.push(C.scope('Local working document. The bound is a theorem modulo one consum
   + 'objects the census certifies.'));
 
 {
+  /* ---- what is proved, what is only suggested ------------------------------
+   Three numbers on one line, and the distance between them IS the open
+   problem. Everything left of the frontier is a theorem; the band beyond it is
+   where cycle counts point and nothing is proved. */
+{
+  const LN2 = Math.log(2);
+  const fig = CH.segments({
+    w: 900, rowH: 58, x0: 0, x1: LN2 * 1.12, padL: 150,
+    xTicks: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7].filter(v => v <= LN2 * 1.12)
+      .map(v => ({ v, t: v.toFixed(1) })),
+    xLabel: 'topological entropy  h_top  (nats per iterate)',
+    rows: [{
+      k: 'h_top(1.4, 0.3)',
+      segs: [
+        { x0: 0, x1: cert.hLB, token: 'var(--c-2)',
+          k: 'PROVED', v: 'h_top >= ' + cert.hLB.toFixed(6) + ' — a theorem, re-proved at this build' },
+        { x0: cert.hLB, x1: ceiling, token: 'var(--c-3)', hatch: true,
+          k: 'NOT DECIDED', v: 'between the certified bound and where certified cycle counts point' }
+      ],
+      marks: [{ x: cert.hLB, t: 'certified ' + cert.hLB.toFixed(4) },
+              { x: ceiling, t: 'cycle counts reach ' + ceiling.toFixed(4), token: 'var(--c-3)', row: 1 },
+              { x: LN2, t: 'ln 2 — the full horseshoe', token: 'var(--c-ctx)', row: 2, anchor: 'end' }]
+    }],
+    keys: [{ token: 'var(--c-2)', t: 'proved: h_top is at least this' },
+           { token: 'var(--c-3)', t: 'open: cycle counts point higher, nothing is proved there', kind: 'hatch' }],
+    alt: 'A number line of topological entropy from zero to about 0.78. A solid green bar runs from zero to the '
+      + 'certified lower bound ' + cert.hLB.toFixed(4) + '. A hatched band continues to ' + ceiling.toFixed(4)
+      + ', where certified cycle counts point but nothing is proved. A separate mark sits at ln 2 = 0.6931, the '
+      + 'entropy of the full horseshoe, where the instrument is calibrated.'
+  });
   B.push(C.section({
+    lab: '§0 · the gap', title: 'What is proved, and how much room is left',
+    wide: true,
+    bodyRaw: '<div class="col">'
+      + C.pRaw('An entropy bound is only interesting next to the thing it is climbing toward. The green bar is '
+        + 'the theorem; the hatched band is the room the certified cycle counts leave for it; ln 2 is the '
+        + 'horseshoe the instrument reproduces before any new bound is allowed to count.')
+      + '</div>'
+      + C.figure({ svgRaw: fig, caption: 'h_top ≥ ' + cert.hLB.toFixed(6) + ' is proved — ' + cert.edges.length
+        + ' covering relations over ' + cert.boxes.length + ' disjoint h-sets, composed to F^' + cert.composedTo
+        + ' and closed by an exact integer spectral bound. The hatched band runs to ' + ceiling.toFixed(4)
+        + ', the growth rate named by the certified cycle census; that number is a COUNT, not a bound, so '
+        + 'nothing in the band is claimed. The gap is the honest state of the problem, drawn to scale.' })
+  }));
+}
+
+B.push(C.section({
     lab: '§1 · the theorem', title: 'What is certified, exactly',
     bodyRaw: '<div class="col">'
       + C.pRaw('There are ' + C.m(String(cert.boxes.length)) + ' parallelograms (h-sets) in the plane, proved '
@@ -154,7 +201,7 @@ const foot = '<footer class="col">'
   + '</footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'entropy.html'),
-  TPL.render({ title: 'Entropy, with a certificate · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/reports/entropy.html' }));
+  TPL.render({ title: 'Entropy, with a certificate · cert-machine', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/entropy.html' }));
 
 console.log('reports/entropy.html written');
 console.log('  h_top(' + cert.a + ', ' + cert.b + ') >= ' + cert.hLB.toFixed(6) + ' re-proved ('

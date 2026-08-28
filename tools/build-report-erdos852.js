@@ -18,6 +18,7 @@ const cp = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const FAM = require(path.join(ROOT, 'families', 'erdos852-constants.js'));
 const E = require(path.join(ROOT, 'instruments', 'erdos852', 'constants.js'));
@@ -164,6 +165,48 @@ O.push(C.scope('Local working document. The certified enclosures are theorems (e
           [{ raw: C.esc('certified enclosure at the same limit') }, { raw: C.m('[' + B.toDecimal(cs2e6.enclosure.lo, 16, 'down') + ', ' + B.toDecimal(cs2e6.enclosure.hi, 16, 'up') + ']') }, { raw: C.tag('the authority', 'held') }]
         ]
       })
+      + (() => {
+        /* THE PICTURE: at this zoom the whole story is one interval and three
+           points. Everything is drawn in units of 1e-13 offset from the shared
+           prefix, because the disagreement lives in the 13th digit and a chart
+           on the raw scale would show four coincident dots. */
+        const BASE = 0.0752403861, SC = 1e13;   /* axis unit: 1e-13 above the shared prefix */
+        const lo = Number(B.toDecimal(cs2e6.enclosure.lo, 18, 'down'));
+        const hi = Number(B.toDecimal(cs2e6.enclosure.hi, 18, 'up'));
+        const at = v => (v - BASE) * SC;
+        const pub = 0.0752403861777418;
+        const xs = [at(lo), at(hi), at(pub), at(log1pC)];
+        const spread = Math.max.apply(null, xs) - Math.min.apply(null, xs);
+        const x0 = Math.min.apply(null, xs) - spread * 0.10, x1 = Math.max.apply(null, xs) + spread * 0.10;
+        const ticks = [];
+        for (let v = Math.ceil(x0); v <= x1; v++) if (v % 2 === 0) ticks.push({ v, t: String(v) });
+        const fig = CH.intervals({
+          w: 900, rowH: 46, x0, x1, padL: 196, padR: 210,
+          xTicks: ticks,
+          xLabel: '( C*  −  0.0752403861 ) × 10¹³      — the whole axis is eight parts in ten trillion',
+          rows: [
+            { k: 'certified enclosure', lo: at(lo), hi: at(hi), token: 'var(--c-2)',
+              v: '[' + B.toDecimal(cs2e6.enclosure.lo, 16, 'down') + ', ' + B.toDecimal(cs2e6.enclosure.hi, 16, 'up') + ']',
+              note: 'the authority' },
+            { k: 'published C*', point: at(pub), token: 'var(--c-1)', v: '0.0752403861777418',
+              note: 'REFUTED — outside by ' + ((lo - pub) * SC).toFixed(1) + ' units' },
+            { k: 'naive double product', point: at(naiveC), token: 'var(--c-1)', v: naiveC.toFixed(16),
+              note: 'the same point, this build' },
+            { k: 'double log1p sum', point: at(log1pC), token: 'var(--c-3)', v: log1pC.toFixed(16),
+              note: 'inside, but uncertified' }
+          ],
+          keys: [{ token: 'var(--c-2)', t: 'certified enclosure' }, { token: 'var(--c-1)', t: 'published / naive float' },
+                 { token: 'var(--c-3)', t: 'float-honest, uncertified' }],
+          alt: 'At a zoom of one part in ten trillion, the certified enclosure for C* is a short green bar. The '
+            + 'published value and the naive double product sit on the same point outside it, to the left; the '
+            + 'log1p float sum sits inside. The published constant and the float artifact are indistinguishable.'
+        });
+        return C.figure({ svgRaw: fig, caption: 'The refutation, at the only scale where it is visible. The '
+          + 'published constant and a naive IEEE-754 double product are the SAME point to every printed digit, '
+          + 'and that point lies outside the certified enclosure — so the published value is not a good estimate '
+          + 'with unlucky last digits, it is the float bug itself. Keeping every factor (log1p) lands back inside: '
+          + 'the arithmetic was never the problem, the silent dropping of 87.5% of the factors was.' });
+      })()
       + C.pRaw('The published ' + C.m('0.0752403861777418') + ' matches the naive float product to every printed '
         + 'digit and lies provably BELOW the certified enclosure. The constant was not approximately right with '
         + 'unlucky digits — it is the float artifact itself, published with 13 digits of confidence when only 11 '
@@ -333,7 +376,7 @@ const foot = '<footer class="col">'
 
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'erdos852.html'),
-  TPL.render({ title: 'The constant that was a rounding error · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/erdos852.html',
+  TPL.render({ title: 'The constant that was a rounding error · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/erdos852.html',
     desc: 'A GPT-published constant on Erdős #852, refuted at its twelfth significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.' }));
 
 console.log('reports/erdos852.html written');

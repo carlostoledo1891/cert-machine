@@ -42,6 +42,17 @@
   --warn:#8A5212;
   --warn-soft:#F6E9D8;
   --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -61,6 +72,17 @@
     --warn:#E0A860;
     --warn-soft:#2B2015;
     --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
   }
 }
 :root[data-theme="dark"]{
@@ -80,6 +102,17 @@
   --warn:#E0A860;
   --warn-soft:#2B2015;
   --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
 }
 
 *{box-sizing:border-box}
@@ -190,6 +223,23 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 .t-held{font-size:12.5px;fill:var(--held);font-weight:500}
 .t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
 .t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
 
 .pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
   line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
@@ -319,6 +369,52 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <p class="scope">Local working document. The bound is a theorem modulo one consumed external result (covering relations imply semi-conjugacy to the subshift — Zgliczyński–Gidea), used the way Krawczyk&#39;s theorem is consumed elsewhere in this lab. Parameters are the exact doubles nearest 1.4 and 0.3, the same objects the census certifies.</p>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the gap</div>
+    <h2>What is proved, and how much room is left</h2>
+  </div>
+<div class="col"><p>An entropy bound is only interesting next to the thing it is climbing toward. The green bar is the theorem; the hatched band is the room the certified cycle counts leave for it; ln 2 is the horseshoe the instrument reproduces before any new bound is allowed to count.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 190" role="img" aria-label="A number line of topological entropy from zero to about 0.78. A solid green bar runs from zero to the certified lower bound 0.3017. A hatched band continues to 0.4658, where certified cycle counts point but nothing is proved. A separate mark sits at ln 2 = 0.6931, the entropy of the full horseshoe, where the instrument is calibrated.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="150.0" y1="50" x2="150.0" y2="108" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="150.0" y="128.0" text-anchor="middle" class="t-ax">0.0</text>
+    <line x1="243.3" y1="50" x2="243.3" y2="108" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="243.3" y="128.0" text-anchor="middle" class="t-ax">0.1</text>
+    <line x1="336.5" y1="50" x2="336.5" y2="108" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="336.5" y="128.0" text-anchor="middle" class="t-ax">0.2</text>
+    <line x1="429.8" y1="50" x2="429.8" y2="108" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="429.8" y="128.0" text-anchor="middle" class="t-ax">0.3</text>
+    <line x1="523.0" y1="50" x2="523.0" y2="108" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="523.0" y="128.0" text-anchor="middle" class="t-ax">0.4</text>
+    <line x1="616.3" y1="50" x2="616.3" y2="108" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="616.3" y="128.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="709.6" y1="50" x2="709.6" y2="108" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="709.6" y="128.0" text-anchor="middle" class="t-ax">0.6</text>
+    <line x1="802.8" y1="50" x2="802.8" y2="108" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="802.8" y="128.0" text-anchor="middle" class="t-ax">0.7</text>
+    <text x="138.0" y="83.0" text-anchor="end" class="t-ax">h_top(1.4, 0.3)</text>
+    <rect x="150.00" y="69" width="279.35" height="20" rx="3" fill="var(--c-2)" data-cm="PROVED" data-cmv="h_top &gt;= 0.301680 — a theorem, re-proved at this build" tabindex="0"/>
+    <rect x="431.35" y="69" width="151.03" height="20" rx="3" fill="url(#cmHatch)" data-cm="NOT DECIDED" data-cmv="between the certified bound and where certified cycle counts point" tabindex="0"/>
+    <rect x="431.35" y="69" width="151.03" height="20" rx="3" fill="none" stroke="var(--c-3)" stroke-width="1"/>
+    <line x1="431.3" y1="64" x2="431.3" y2="94" stroke="var(--ink)" stroke-width="2"/>
+    <text x="438.3" y="61.0" text-anchor="start" class="t-lab">certified 0.3017</text>
+    <line x1="584.4" y1="64" x2="584.4" y2="94" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="591.4" y="44.0" text-anchor="start" class="t-lab">cycle counts reach 0.4658</text>
+    <line x1="796.4" y1="64" x2="796.4" y2="94" stroke="var(--c-ctx)" stroke-width="2"/>
+    <text x="789.4" y="27.0" text-anchor="end" class="t-lab">ln 2 — the full horseshoe</text>
+    <text x="512.0" y="150.0" text-anchor="middle" class="t-note">topological entropy  h_top  (nats per iterate)</text>
+    <rect x="150" y="173" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="169.0" y="183.0" text-anchor="start" class="t-note">proved: h_top is at least this</text>
+    <rect x="402" y="173" width="14" height="10" fill="url(#cmHatch)"/>
+    <text x="421.0" y="183.0" text-anchor="start" class="t-note">open: cycle counts point higher, nothing is proved there</text>
+  </svg>
+  </div>
+  <figcaption>h_top ≥ 0.301680 is proved — 4140 covering relations over 340 disjoint h-sets, composed to F^11 and closed by an exact integer spectral bound. The hatched band runs to 0.4658, the growth rate named by the certified cycle census; that number is a COUNT, not a bound, so nothing in the band is claimed. The gap is the honest state of the problem, drawn to scale.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§1 · the theorem</div>
@@ -341,9 +437,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>What a skeptic runs</h2>
   </div>
 <div class="col"><p><span class="m">make test</span> re-proves everything: the ln 2 calibration at the full horseshoe, four red controls (a covering that does not hold must refuse three different ways; overlapping h-sets must refuse the graph), exactness of the spectral bound on hand matrices, and the detached certificate <span class="m">certs/entropy-henon.json</span> — every h-set re-proved disjoint, every covering relation re-derived, the bound recomputed. The certificate itself is finite data: parallelogram matrices, an edge list, one integer matrix power.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-entropy.js — the certificate re-verified and the calibration re-run during this build; the build fails otherwise.</p><p>git fefbc49 · cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-entropy.js — the certificate re-verified and the calibration re-run during this build; the build fails otherwise.</p><p>git b43d7cf · cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

@@ -42,6 +42,17 @@
   --warn:#8A5212;
   --warn-soft:#F6E9D8;
   --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -61,6 +72,17 @@
     --warn:#E0A860;
     --warn-soft:#2B2015;
     --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
   }
 }
 :root[data-theme="dark"]{
@@ -80,6 +102,17 @@
   --warn:#E0A860;
   --warn-soft:#2B2015;
   --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
 }
 
 *{box-sizing:border-box}
@@ -190,6 +223,23 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 .t-held{font-size:12.5px;fill:var(--held);font-weight:500}
 .t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
 .t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
 
 .pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
   line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
@@ -320,6 +370,89 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 </div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the price of the rule</div>
+    <h2>What a reserve minute actually costs</h2>
+  </div>
+<div class="col"><p>The reserve is the regulator's dial, so the honest way to show an energy audit is to sweep it. Every point is a re-decision of the whole day at that reserve — exact-corner proofs over each maker's own published boxes, not one model re-scaled.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 320" role="img" aria-label="Certified flights against the reserve held back, from 5 to 30 minutes. Beta ALIA-250 falls from 215 at 5 minutes through 100 at the FAA&#39;s 20 minutes to 0 at 30. Joby, Archer and Eve are already at or near zero by 10 minutes and flat on zero after that.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="246.0" x2="878" y2="246.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="250.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="189.7" x2="878" y2="189.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="193.7" text-anchor="end" class="t-ax">100</text>
+    <line x1="62" y1="133.4" x2="878" y2="133.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="137.4" text-anchor="end" class="t-ax">200</text>
+    <line x1="62" y1="77.1" x2="878" y2="77.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="81.1" text-anchor="end" class="t-ax">300</text>
+    <line x1="62" y1="30.9" x2="878" y2="30.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="34.9" text-anchor="end" class="t-ax">382</text>
+    <line x1="62.0" y1="246" x2="62.0" y2="251" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="266.0" text-anchor="middle" class="t-ax">5 min</text>
+    <line x1="225.2" y1="246" x2="225.2" y2="251" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="225.2" y="266.0" text-anchor="middle" class="t-ax">10 min</text>
+    <line x1="388.4" y1="246" x2="388.4" y2="251" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="388.4" y="266.0" text-anchor="middle" class="t-ax">15 min</text>
+    <line x1="551.6" y1="246" x2="551.6" y2="251" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="551.6" y="266.0" text-anchor="middle" class="t-ax">20 min</text>
+    <line x1="714.8" y1="246" x2="714.8" y2="251" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="714.8" y="266.0" text-anchor="middle" class="t-ax">25 min</text>
+    <line x1="878.0" y1="246" x2="878.0" y2="251" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="266.0" text-anchor="middle" class="t-ax">30 min</text>
+    <line x1="62" y1="246" x2="878" y2="246" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="288.0" text-anchor="middle" class="t-note">energy reserve held back at cruise power  (the FAA VFR rule sits at 20 minutes)</text>
+    <text x="13" y="132" class="t-note" transform="rotate(-90 13 132)" text-anchor="middle">flights PROVABLY flyable</text>
+    <rect x="532.0" y="18" width="39.2" height="228" fill="var(--c-grid)"/>
+    <text x="578.2" y="31.0" text-anchor="start" class="t-note">the rule</text>
+    <line x1="62" y1="30.9" x2="878" y2="30.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="874.0" y="24.9" text-anchor="end" class="t-note">all 382 flights in the day</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="246" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M62.00 186.88 L225.20 234.18 L388.40 246.00 L551.60 246.00 L714.80 246.00 L878.00 246.00" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="246.00" r="4.5" fill="var(--c-ctx)" stroke="var(--surface)" stroke-width="2"/>
+    <circle cx="62.00" cy="186.88" r="12" fill="transparent" data-cmx="62.00" data-cm="Joby S4 · reserve 5 min" data-cmv="105 flights certified" tabindex="0"/>
+    <circle cx="225.20" cy="234.18" r="12" fill="transparent" data-cmx="225.20" data-cm="Joby S4 · reserve 10 min" data-cmv="21 flights certified" tabindex="0"/>
+    <circle cx="388.40" cy="246.00" r="12" fill="transparent" data-cmx="388.40" data-cm="Joby S4 · reserve 15 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="551.60" cy="246.00" r="12" fill="transparent" data-cmx="551.60" data-cm="Joby S4 · reserve 20 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="714.80" cy="246.00" r="12" fill="transparent" data-cmx="714.80" data-cm="Joby S4 · reserve 25 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="878.00" cy="246.00" r="12" fill="transparent" data-cmx="878.00" data-cm="Joby S4 · reserve 30 min" data-cmv="0 flights certified" tabindex="0"/>
+    <path d="M62.00 231.36 L225.20 246.00 L388.40 246.00 L551.60 246.00 L714.80 246.00 L878.00 246.00" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="246.00" r="4.5" fill="var(--c-ctx)" stroke="var(--surface)" stroke-width="2"/>
+    <circle cx="62.00" cy="231.36" r="12" fill="transparent" data-cmx="62.00" data-cm="Archer Midnight · reserve 5 min" data-cmv="26 flights certified" tabindex="0"/>
+    <circle cx="225.20" cy="246.00" r="12" fill="transparent" data-cmx="225.20" data-cm="Archer Midnight · reserve 10 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="388.40" cy="246.00" r="12" fill="transparent" data-cmx="388.40" data-cm="Archer Midnight · reserve 15 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="551.60" cy="246.00" r="12" fill="transparent" data-cmx="551.60" data-cm="Archer Midnight · reserve 20 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="714.80" cy="246.00" r="12" fill="transparent" data-cmx="714.80" data-cm="Archer Midnight · reserve 25 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="878.00" cy="246.00" r="12" fill="transparent" data-cmx="878.00" data-cm="Archer Midnight · reserve 30 min" data-cmv="0 flights certified" tabindex="0"/>
+    <path d="M62.00 244.87 L225.20 246.00 L388.40 246.00 L551.60 246.00 L714.80 246.00 L878.00 246.00" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="246.00" r="4.5" fill="var(--c-ctx)" stroke="var(--surface)" stroke-width="2"/>
+    <circle cx="62.00" cy="244.87" r="12" fill="transparent" data-cmx="62.00" data-cm="Eve 100 · reserve 5 min" data-cmv="2 flights certified" tabindex="0"/>
+    <circle cx="225.20" cy="246.00" r="12" fill="transparent" data-cmx="225.20" data-cm="Eve 100 · reserve 10 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="388.40" cy="246.00" r="12" fill="transparent" data-cmx="388.40" data-cm="Eve 100 · reserve 15 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="551.60" cy="246.00" r="12" fill="transparent" data-cmx="551.60" data-cm="Eve 100 · reserve 20 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="714.80" cy="246.00" r="12" fill="transparent" data-cmx="714.80" data-cm="Eve 100 · reserve 25 min" data-cmv="0 flights certified" tabindex="0"/>
+    <circle cx="878.00" cy="246.00" r="12" fill="transparent" data-cmx="878.00" data-cm="Eve 100 · reserve 30 min" data-cmv="0 flights certified" tabindex="0"/>
+    <path d="M62.00 124.94 L225.20 136.20 L388.40 159.85 L551.60 189.69 L714.80 238.12 L878.00 246.00 L878.00 246 L62.00 246 Z" fill="var(--c-1)" opacity="0.10"/>
+    <path d="M62.00 124.94 L225.20 136.20 L388.40 159.85 L551.60 189.69 L714.80 238.12 L878.00 246.00" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="246.00" r="4.5" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2"/>
+    <text x="868.0" y="234.0" text-anchor="end" class="t-lab">0</text>
+    <circle cx="62.00" cy="124.94" r="12" fill="transparent" data-cmx="62.00" data-cm="Beta ALIA-250 · reserve 5 min" data-cmv="215 flights certified" tabindex="0"/>
+    <circle cx="225.20" cy="136.20" r="12" fill="transparent" data-cmx="225.20" data-cm="Beta ALIA-250 · reserve 10 min" data-cmv="195 flights certified" tabindex="0"/>
+    <circle cx="388.40" cy="159.85" r="12" fill="transparent" data-cmx="388.40" data-cm="Beta ALIA-250 · reserve 15 min" data-cmv="153 flights certified" tabindex="0"/>
+    <circle cx="551.60" cy="189.69" r="12" fill="transparent" data-cmx="551.60" data-cm="Beta ALIA-250 · reserve 20 min" data-cmv="100 flights certified" tabindex="0"/>
+    <circle cx="714.80" cy="238.12" r="12" fill="transparent" data-cmx="714.80" data-cm="Beta ALIA-250 · reserve 25 min" data-cmv="14 flights certified" tabindex="0"/>
+    <circle cx="878.00" cy="246.00" r="12" fill="transparent" data-cmx="878.00" data-cm="Beta ALIA-250 · reserve 30 min" data-cmv="0 flights certified" tabindex="0"/>
+    <line x1="62" y1="309" x2="76" y2="309" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="313.0" text-anchor="start" class="t-note">Beta ALIA-250 — the only aircraft provable past 10 minutes</text>
+    <line x1="508" y1="309" x2="522" y2="309" stroke="var(--c-ctx)" stroke-width="2" stroke-linecap="round"/>
+    <text x="527.0" y="313.0" text-anchor="start" class="t-note">Joby S4 · Archer Midnight · Eve 100 — zero from 15 minutes on</text>
+  </svg>
+  </div>
+  <figcaption>Beta ALIA-250 covers 215 of the day&#39;s 382 flights with a 5-minute reserve, 100 at the FAA&#39;s 20 minutes, 14 at 25, and 0 at 30 — the rule as written is close to the edge of what today&#39;s published specs can prove. The other three publish too little to certify a single flight past 10 minutes, which is a statement about DISCLOSURE, not about their aircraft: the verdict is what their own numbers can be made to prove.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§1 · the corpus</div>
@@ -386,9 +519,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>Every dataset pinned, every gate rerunnable</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th>dataset</th><th>license</th><th>pinned</th><th>sha256 (prefix)</th></tr></thead><tbody><tr><td>adsb.lol globe history 2026-08-26 (4 release assets)</td><td>ODbL-1.0</td><td>day-2026-08-26/PINS.json</td><td>af9fed4c7a62… (+3)</td></tr><tr><td>adsb.lol globe history 2026-08-23 — the contrast day (3 assets)</td><td>ODbL-1.0</td><td>day-2026-08-23/PINS.json</td><td>2a5ee98bd91a… (+2)</td></tr><tr><td>FAA Releasable Aircraft Database</td><td>public domain</td><td>registry/REGISTRY-PINS.json · acquired 2026-08-27</td><td>93b2b9110e99…</td></tr><tr><td>ANAC RAB dados_aeronaves.csv</td><td>ANAC dados abertos</td><td>registry/REGISTRY-PINS.json · dataset 2026-08-27</td><td>5aa6fe1e61a3…</td></tr><tr><td>12 rule/spec/physics source PDFs (FAA SFAR, SC-VTOL + MOCs, Kasliwal 2019, ANAC criteria, …)</td><td>cited</td><td>sources/SOURCES-PINS.json</td><td>per-file</td></tr></tbody></table></div></div><div class="col"><p>Licenses stay separated: code MIT, traffic corpora ODbL, FAA data public domain, ANAC open data — pins beside every dataset. Rerun: <span class="m">node apps/skyaudit/build.js</span> runs all 10 gates (battery incl. red controls that must fire, day re-certified and compared, fleet frontier re-derived, thresholds re-proved, economics recomputed, stories re-told, planner re-planned, tiles and registry extracts hash-checked). The independent verifier <span class="m">python3 apps/skyaudit/audit/verify_skyaudit.py</span> re-proves the ledger in exact fractions with zero dependencies. The app: <a href="/apps/skyaudit/">carlostoledo.co/apps/skyaudit</a>.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-skyaudit.js @ git fefbc49. Gates at this build: the app battery (33 checks, red controls fired), all 3,056 + 1,400 certificate rows recounted from both days' ledgers, verdict tallies re-derived, the day-stability comparison re-derived from the committed summaries, cross-record consistency (economics = refly = reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-skyaudit.js @ git b43d7cf. Gates at this build: the app battery (33 checks, red controls fired), all 3,056 + 1,400 certificate rows recounted from both days' ledgers, verdict tallies re-derived, the day-stability comparison re-derived from the committed summaries, cross-record consistency (economics = refly = reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></footer>
 
 </div>
 </html>

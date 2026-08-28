@@ -42,6 +42,17 @@
   --warn:#8A5212;
   --warn-soft:#F6E9D8;
   --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -61,6 +72,17 @@
     --warn:#E0A860;
     --warn-soft:#2B2015;
     --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
   }
 }
 :root[data-theme="dark"]{
@@ -80,6 +102,17 @@
   --warn:#E0A860;
   --warn-soft:#2B2015;
   --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
 }
 
 *{box-sizing:border-box}
@@ -190,6 +223,23 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 .t-held{font-size:12.5px;fill:var(--held);font-weight:500}
 .t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
 .t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
 
 .pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
   line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
@@ -332,7 +382,42 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="lab">§2 · the mechanism</div>
     <h2>Why the published C* is wrong — exactly, and reproducibly</h2>
   </div>
-<div class="col"><p>C* = (1/2)(∏_{p≥3}(1 + 1/(p−1)³) − 1). In IEEE-754 double precision, <span class="m">1 + 1/(p−1)³</span> rounds to exactly <span class="m">1.0</span> as soon as <span class="m">1/(p−1)³ &lt; 2⁻⁵³</span> — that is, for every prime p beyond ≈ 208,000. A naive float loop over any prime limit therefore computes the product only to p ≈ 2·10⁵ and silently discards everything after; the discarded mass is <span class="m">Σ_{p&gt;208064} 1/(p−1)³ ≈ 9.1·10⁻¹³</span> of log-product — which is precisely the size of the error in the published digits. Re-measured live during this build, over the odd primes to 2·10⁶:</p><div class="wide"><div class="tw"><table><thead><tr><th>computation</th><th>result</th><th>status</th></tr></thead><tbody><tr><td>naive double product (drops 87.5% of factors)</td><td class="v"><span class="m">0.0752403861777419</span></td><td><span class="tag open">= the published value, digit for digit</span></td></tr><tr><td>double log1p sum (keeps every factor)</td><td class="v"><span class="m">0.0752403861782102</span></td><td>float-honest, still uncertified</td></tr><tr><td>certified enclosure at the same limit</td><td class="v"><span class="m">[0.0752403861783044, 0.0752403861783764]</span></td><td><span class="tag held">the authority</span></td></tr></tbody></table></div></div><p>The published <span class="m">0.0752403861777418</span> matches the naive float product to every printed digit and lies provably BELOW the certified enclosure. The constant was not approximately right with unlucky digits — it is the float artifact itself, published with 13 digits of confidence when only 11 were real. No amount of raising the prime limit would have fixed it; the loop was already ignoring every prime past 2·10⁵. This is the impostor-catalog failure mode inverted: there, true constants impersonate closed forms past every float screen; here, a float screen impersonated a constant.</p></div>
+<div class="col"><p>C* = (1/2)(∏_{p≥3}(1 + 1/(p−1)³) − 1). In IEEE-754 double precision, <span class="m">1 + 1/(p−1)³</span> rounds to exactly <span class="m">1.0</span> as soon as <span class="m">1/(p−1)³ &lt; 2⁻⁵³</span> — that is, for every prime p beyond ≈ 208,000. A naive float loop over any prime limit therefore computes the product only to p ≈ 2·10⁵ and silently discards everything after; the discarded mass is <span class="m">Σ_{p&gt;208064} 1/(p−1)³ ≈ 9.1·10⁻¹³</span> of log-product — which is precisely the size of the error in the published digits. Re-measured live during this build, over the odd primes to 2·10⁶:</p><div class="wide"><div class="tw"><table><thead><tr><th>computation</th><th>result</th><th>status</th></tr></thead><tbody><tr><td>naive double product (drops 87.5% of factors)</td><td class="v"><span class="m">0.0752403861777419</span></td><td><span class="tag open">= the published value, digit for digit</span></td></tr><tr><td>double log1p sum (keeps every factor)</td><td class="v"><span class="m">0.0752403861782102</span></td><td>float-honest, still uncertified</td></tr><tr><td>certified enclosure at the same limit</td><td class="v"><span class="m">[0.0752403861783044, 0.0752403861783764]</span></td><td><span class="tag held">the authority</span></td></tr></tbody></table></div></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 262" role="img" aria-label="At a zoom of one part in ten trillion, the certified enclosure for C* is a short green bar. The published value and the naive double product sit on the same point outside it, to the left; the log1p float sum sits inside. The published constant and the float artifact are indistinguishable.">
+    <line x1="274.9" y1="16" x2="274.9" y2="200" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="274.9" y="220.0" text-anchor="middle" class="t-ax">778</text>
+    <line x1="404.7" y1="16" x2="404.7" y2="200" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="404.7" y="220.0" text-anchor="middle" class="t-ax">780</text>
+    <line x1="534.4" y1="16" x2="534.4" y2="200" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="534.4" y="220.0" text-anchor="middle" class="t-ax">782</text>
+    <line x1="664.2" y1="16" x2="664.2" y2="200" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="664.2" y="220.0" text-anchor="middle" class="t-ax">784</text>
+    <text x="184.0" y="43.0" text-anchor="end" class="t-ax">certified enclosure</text>
+    <rect x="602.2" y="32" width="46.6" height="14" rx="3" fill="var(--c-2)" data-cm="certified enclosure" data-cmv="[0.0752403861783044, 0.0752403861783764]" tabindex="0"/>
+    <line x1="602.2" y1="27" x2="602.2" y2="51" stroke="var(--c-2)" stroke-width="2"/>
+    <line x1="648.8" y1="27" x2="648.8" y2="51" stroke="var(--c-2)" stroke-width="2"/>
+    <text x="662.8" y="43.0" text-anchor="start" class="t-lab">the authority</text>
+    <text x="184.0" y="89.0" text-anchor="end" class="t-ax">published C*</text>
+    <circle cx="237.2" cy="85" r="6" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2" data-cm="published C*" data-cmv="0.0752403861777418" tabindex="0"/>
+    <text x="251.2" y="89.0" text-anchor="start" class="t-lab">REFUTED — outside by 5.6 units</text>
+    <text x="184.0" y="135.0" text-anchor="end" class="t-ax">naive double product</text>
+    <circle cx="237.2" cy="131" r="6" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2" data-cm="naive double product" data-cmv="0.0752403861777419" tabindex="0"/>
+    <text x="251.2" y="135.0" text-anchor="start" class="t-lab">the same point, this build</text>
+    <text x="184.0" y="181.0" text-anchor="end" class="t-ax">double log1p sum</text>
+    <circle cx="541.0" cy="177" r="6" fill="var(--c-3)" stroke="var(--surface)" stroke-width="2" data-cm="double log1p sum" data-cmv="0.0752403861782102" tabindex="0"/>
+    <text x="555.0" y="181.0" text-anchor="start" class="t-lab">inside, but uncertified</text>
+    <text x="443.0" y="238.0" text-anchor="middle" class="t-note">( C*  −  0.0752403861 ) × 10¹³      — the whole axis is eight parts in ten trillion</text>
+    <rect x="196" y="247" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="215.0" y="257.0" text-anchor="start" class="t-note">certified enclosure</text>
+    <rect x="373" y="247" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="392.0" y="257.0" text-anchor="start" class="t-note">published / naive float</text>
+    <rect x="577" y="247" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="596.0" y="257.0" text-anchor="start" class="t-note">float-honest, uncertified</text>
+  </svg>
+  </div>
+  <figcaption>The refutation, at the only scale where it is visible. The published constant and a naive IEEE-754 double product are the SAME point to every printed digit, and that point lies outside the certified enclosure — so the published value is not a good estimate with unlucky last digits, it is the float bug itself. Keeping every factor (log1p) lands back inside: the arithmetic was never the problem, the silent dropping of 87.5% of the factors was.</figcaption>
+</figure></div><p>The published <span class="m">0.0752403861777418</span> matches the naive float product to every printed digit and lies provably BELOW the certified enclosure. The constant was not approximately right with unlucky digits — it is the float artifact itself, published with 13 digits of confidence when only 11 were real. No amount of raising the prime limit would have fixed it; the loop was already ignoring every prime past 2·10⁵. This is the impostor-catalog failure mode inverted: there, true constants impersonate closed forms past every float screen; here, a float screen impersonated a constant.</p></div>
 </section>
 
 <section class="col">
@@ -381,9 +466,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>The refutation, checked by a kernel that is not ours</h2>
   </div>
 <div class="col"><p>Everything above runs on this project's own stack — and a fair objection is that the stack and the claims share an author. So the refutation also ships as a <strong>Lean 4 artifact</strong> (<span class="m">lean/erdos852/</span> in the repository): the odd primes up to 400,000 as data, a ten-line trial-division certifier with a machine-checked correctness theorem against Mathlib's <span class="m">Nat.Prime</span>, and the ONE integer inequality — the exact partial product N/D over those primes satisfies 5·(N−D)·10¹² &gt; 752403861778·D, i.e. (N/D−1)/2 already exceeds the upper edge of the published claim's window. Every ingredient is re-proved by the Lean kernel: primality of all 33,859 listed primes, strict ascent (no prime counted twice), oddness, and the inequality itself.</p><p>The prime list needs no trust at all: an omitted prime only WEAKENS the lower bound, and every other defect — a composite, a duplicate, an even entry, an inflated claim — makes the build fail, which is exactly what <span class="m">lean/erdos852/check.sh</span> demonstrates: three deliberately forged variants must be REJECTED by the kernel before the green build counts.</p><p>The full-scale run is the demonstrated state: all 33,859 primes certified through the kernel (240 modules), the ascent and oddness checks green, and two spec theorems (<span class="m">N_spec</span>, <span class="m">D_spec</span>) proving — by pure rewriting, no arithmetic — that the tree of chunk subproducts the kernel evaluates IS the product over the full prime list. The forged variants (a planted composite, a broken ascent, an inflated claim) are rejected by the same kernel, every <span class="m">check.sh</span> run.</p><p>What stays outside Lean, stated plainly: the one-paragraph argument that a partial product of factors &gt; 1 over a subset of the primes lower-bounds the full convergent product, and the transcription of the published constant. The kernel replaces this project's BigInt arithmetic, not the definition of C*.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-erdos852.js — all four certificates re-derived, the naive float product re-run, sources re-hashed at build time; the build fails if any of it does not hold.</p><p>git fefbc49 · cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-erdos852.js — all four certificates re-derived, the naive float product re-run, sources re-hashed at build time; the build fails if any of it does not hold.</p><p>git b43d7cf · cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

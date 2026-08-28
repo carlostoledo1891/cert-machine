@@ -42,6 +42,17 @@
   --warn:#8A5212;
   --warn-soft:#F6E9D8;
   --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -61,6 +72,17 @@
     --warn:#E0A860;
     --warn-soft:#2B2015;
     --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
   }
 }
 :root[data-theme="dark"]{
@@ -80,6 +102,17 @@
   --warn:#E0A860;
   --warn-soft:#2B2015;
   --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
 }
 
 *{box-sizing:border-box}
@@ -190,6 +223,23 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 .t-held{font-size:12.5px;fill:var(--held);font-weight:500}
 .t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
 .t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
 
 .pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
   line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
@@ -337,6 +387,81 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <p>Nothing about a ship is modeled here: no speed curves, no engine assumptions, no AIS. The energy is the ship&#39;s own reported fuel; the scope share is the ship&#39;s own reported voyage split. What the registry does not say — which fuel, exactly — enters as a box, and the box is the honest price of the record&#39;s opacity.</p>
 </section>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2b · the disclosure number</div>
+    <h2>How much clean fuel, exactly — for every ship at once</h2>
+  </div>
+<div class="col"><p>A verdict tells an owner they fail. This tells them the price of passing: the exact fraction of scope energy that must come from a zero-well-to-wake fuel before the 2030 limit is cleared. It is computed per ship from that ship's own reported numbers, in exact rationals, and it is the number the regulation is designed to force into the open.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 300" role="img" aria-label="A distribution of the exact zero-well-to-wake fuel share each ship must reach to comply in 2030. 12,620 ships span 5.59% to 6.60%, piled into a narrow ridge around the median of 6.32%.">
+    <line x1="62" y1="250.0" x2="878" y2="250.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="254.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="134.0" x2="878" y2="134.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="138.0" text-anchor="end" class="t-ax">1,143</text>
+    <line x1="62" y1="18.0" x2="878" y2="18.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="22.0" text-anchor="end" class="t-ax">2,286</text>
+    <line x1="62.0" y1="250" x2="62.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="270.0" text-anchor="middle" class="t-ax">5.59%</text>
+    <line x1="391.7" y1="250" x2="391.7" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="391.7" y="270.0" text-anchor="middle" class="t-ax">6%</text>
+    <line x1="878.0" y1="250" x2="878.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="270.0" text-anchor="middle" class="t-ax">6.60%</text>
+    <line x1="62" y1="250" x2="878" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="292.0" text-anchor="middle" class="t-note">zero-WtW share of scope energy required to comply in 2030  (exact, per ship)</text>
+    <text x="13" y="134" class="t-note" transform="rotate(-90 13 134)" text-anchor="middle">ships</text>
+    <path d="M62.00 250 V250.00 a0.8118985126859143 0.8118985126859143 0 0 1 0.8118985126859143 -0.8118985126859143 h14.92 a0.8118985126859143 0.8118985126859143 0 0 1 0.8118985126859143 0.8118985126859143 V250 Z" fill="var(--c-s4)" data-cm="5.59–5.62%" data-cmv="8 ships" tabindex="0"/>
+    <path d="M80.55 250 V250.00 a1.2178477690288714 1.2178477690288714 0 0 1 1.2178477690288714 -1.2178477690288714 h14.11 a1.2178477690288714 1.2178477690288714 0 0 1 1.2178477690288714 1.2178477690288714 V250 Z" fill="var(--c-s4)" data-cm="5.62–5.64%" data-cmv="12 ships" tabindex="0"/>
+    <path d="M99.09 250 V22.00 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.64–5.66%" data-cmv="2,286 ships" tabindex="0"/>
+    <path d="M117.64 250 V248.62 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.66–5.69%" data-cmv="53 ships" tabindex="0"/>
+    <path d="M136.18 250 V248.62 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.69–5.71%" data-cmv="53 ships" tabindex="0"/>
+    <path d="M154.73 250 V248.32 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.71–5.73%" data-cmv="56 ships" tabindex="0"/>
+    <path d="M173.27 250 V247.91 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.73–5.75%" data-cmv="60 ships" tabindex="0"/>
+    <path d="M191.82 250 V247.20 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.75–5.78%" data-cmv="67 ships" tabindex="0"/>
+    <path d="M210.36 250 V246.90 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.78–5.80%" data-cmv="70 ships" tabindex="0"/>
+    <path d="M228.91 250 V247.71 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.80–5.82%" data-cmv="62 ships" tabindex="0"/>
+    <path d="M247.45 250 V246.39 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.82–5.85%" data-cmv="75 ships" tabindex="0"/>
+    <path d="M266.00 250 V245.07 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.85–5.87%" data-cmv="88 ships" tabindex="0"/>
+    <path d="M284.55 250 V244.66 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.87–5.89%" data-cmv="92 ships" tabindex="0"/>
+    <path d="M303.09 250 V243.95 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.89–5.91%" data-cmv="99 ships" tabindex="0"/>
+    <path d="M321.64 250 V244.87 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.91–5.94%" data-cmv="90 ships" tabindex="0"/>
+    <path d="M340.18 250 V243.34 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.94–5.96%" data-cmv="105 ships" tabindex="0"/>
+    <path d="M358.73 250 V242.13 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.96–5.98%" data-cmv="117 ships" tabindex="0"/>
+    <path d="M377.27 250 V241.21 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="5.98–6.01%" data-cmv="126 ships" tabindex="0"/>
+    <path d="M395.82 250 V239.28 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.01–6.03%" data-cmv="145 ships" tabindex="0"/>
+    <path d="M414.36 250 V241.31 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.03–6.05%" data-cmv="125 ships" tabindex="0"/>
+    <path d="M432.91 250 V238.47 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.05–6.07%" data-cmv="153 ships" tabindex="0"/>
+    <path d="M451.45 250 V237.66 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.07–6.10%" data-cmv="161 ships" tabindex="0"/>
+    <path d="M470.00 250 V238.88 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.10–6.12%" data-cmv="149 ships" tabindex="0"/>
+    <path d="M488.55 250 V236.34 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.12–6.14%" data-cmv="174 ships" tabindex="0"/>
+    <path d="M507.09 250 V236.95 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.14–6.16%" data-cmv="168 ships" tabindex="0"/>
+    <path d="M525.64 250 V233.70 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.16–6.19%" data-cmv="200 ships" tabindex="0"/>
+    <path d="M544.18 250 V236.44 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.19–6.21%" data-cmv="173 ships" tabindex="0"/>
+    <path d="M562.73 250 V233.91 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.21–6.23%" data-cmv="198 ships" tabindex="0"/>
+    <path d="M581.27 250 V224.87 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.23–6.26%" data-cmv="287 ships" tabindex="0"/>
+    <path d="M599.82 250 V221.93 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.26–6.28%" data-cmv="316 ships" tabindex="0"/>
+    <path d="M618.36 250 V218.89 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.28–6.30%" data-cmv="346 ships" tabindex="0"/>
+    <path d="M636.91 250 V222.23 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.30–6.32%" data-cmv="313 ships" tabindex="0"/>
+    <path d="M655.45 250 V216.86 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.32–6.35%" data-cmv="366 ships" tabindex="0"/>
+    <path d="M674.00 250 V212.39 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.35–6.37%" data-cmv="410 ships" tabindex="0"/>
+    <path d="M692.55 250 V206.20 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.37–6.39%" data-cmv="471 ships" tabindex="0"/>
+    <path d="M711.09 250 V205.39 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.39–6.42%" data-cmv="479 ships" tabindex="0"/>
+    <path d="M729.64 250 V203.46 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.42–6.44%" data-cmv="498 ships" tabindex="0"/>
+    <path d="M748.18 250 V203.36 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.44–6.46%" data-cmv="499 ships" tabindex="0"/>
+    <path d="M766.73 250 V191.79 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.46–6.48%" data-cmv="613 ships" tabindex="0"/>
+    <path d="M785.27 250 V192.60 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.48–6.51%" data-cmv="605 ships" tabindex="0"/>
+    <path d="M803.82 250 V192.30 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.51–6.53%" data-cmv="608 ships" tabindex="0"/>
+    <path d="M822.36 250 V195.85 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.53–6.55%" data-cmv="573 ships" tabindex="0"/>
+    <path d="M840.91 250 V197.57 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.55–6.58%" data-cmv="556 ships" tabindex="0"/>
+    <path d="M859.45 250 V201.73 a4 4 0 0 1 4 -4 h8.55 a4 4 0 0 1 4 4 V250 Z" fill="var(--c-s4)" data-cm="6.58–6.60%" data-cmv="515 ships" tabindex="0"/>
+    <line x1="648.7" y1="14" x2="648.7" y2="250" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="655.7" y="27.0" text-anchor="start" class="t-lab">median 6.32%</text>
+  </svg>
+  </div>
+  <figcaption>12,620 ships, each contributing one exact fraction. The whole fleet lives inside one percentage point — 5.59% to 6.60%, median 6.32%, 10th percentile 5.66% and 90th 6.54% — because what binds these ships is the regulation&#39;s own oil rows, not the particulars of how each one sailed. THE SPIKE is the part worth stopping on: 2,286 ships (18% of the decided fleet) land in a single bin 2.3 hundredths of a point wide, and between them they carry only 30 distinct values. Two thousand independent measurements do not do that; a shared default emission factor does. The chart is reading the registry&#39;s reporting practice, not the sea.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§3 · the method</div>
@@ -362,9 +487,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 <p>For every non-compliant ship the instrument computes the exact energy fraction that must come from a zero-well-to-wake fuel for the same operations to comply in 2030 — an interval, because the fuel-type opacity propagates. That number is what a charterer, a lender under the Poseidon Principles, or a fuel supplier actually negotiates about; today it is bought as consultancy estimate. Here it is a computation anyone can rerun, and the same arithmetic generalizes to any candidate fuel intensity — replace zero with the fuel&#39;s pinned WtW value and the blend fraction is one exact division away.</p>
 <p>This page is first light for the observatory, not its final shape: the roadmap is per-fuel candidate boxes (methanol, ammonia, wind-assist), company-level aggregation with pooling arithmetic, AIS-replay voyage scoping, and committed FORECASTS of next year's margins graded by <a href="/reports/forecast-gym.html">the Forecast Gym</a>'s machinery. The instrument, the pinned rule, and the registry join are the load-bearing parts, and they are live above.</p>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-harborproof.js @ git fefbc49. Gates at this build: instruments/fueleu/battery.js (10 checks, 5 reds fired — limits, penalty and flip re-derived by hand from pinned OJ bytes; the 1e-9 boundary forgery flipped), the registry bytes re-hashed against their pin, and the whole fleet recomputed in exact rationals during this build. Verdicts are decided over stated boxes; a straddling box is refused as NEEDS DATA, never guessed. Not a compliance determination; not legal advice. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-harborproof.js @ git b43d7cf. Gates at this build: instruments/fueleu/battery.js (10 checks, 5 reds fired — limits, penalty and flip re-derived by hand from pinned OJ bytes; the 1e-9 boundary forgery flipped), the registry bytes re-hashed against their pin, and the whole fleet recomputed in exact rationals during this build. Verdicts are decided over stated boxes; a straddling box is refused as NEEDS DATA, never guessed. Not a compliance determination; not legal advice. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
 
 </div>
 </html>

@@ -30,6 +30,7 @@ const os = require('os');
 
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const LEG = path.join(ROOT, 'legacy', 'research', 'challenges', 'erdos290');
 const K = require(path.join(LEG, 'kernel.js'));
@@ -194,6 +195,54 @@ O.push(C.section({
     + '</div>'
 }));
 
+/* ---- the squeeze, drawn -------------------------------------------------
+   The width of the certified bracket as knowledge advances one degree at a
+   time. Every point is bracket(L) recomputed HERE in exact rationals, so the
+   curve is the certificate's own history, not a sketch of it. */
+const SQUEEZE = (() => {
+  const pts = [];
+  for (let L = 20; L <= Lmax; L += (L < 60 ? 4 : 2)) {
+    const b = bracket(L);
+    pts.push([L, Q.toDouble(sub(b.hi, b.lo))]);
+  }
+  if (pts[pts.length - 1][0] !== Lmax) { const b = bracket(Lmax); pts.push([Lmax, Q.toDouble(sub(b.hi, b.lo))]); }
+  return pts;
+})();
+{
+  const w0 = SQUEEZE[0][1], w1 = SQUEEZE[SQUEEZE.length - 1][1];
+  const at60 = SQUEEZE.reduce((a, p) => (Math.abs(p[0] - 60) < Math.abs(a[0] - 60) ? p : a), SQUEEZE[0]);
+  const fig = CH.lines({
+    w: 900, h: 300, x0: SQUEEZE[0][0], x1: Lmax, y0: w1 * 0.75, y1: w0 * 1.15, logY: true,
+    xTicks: [20, 40, 60, 80, 100, Lmax].filter((v, i, a) => a.indexOf(v) === i).map(v => ({ v, t: String(v) })),
+    yTicks: CH.decades(w1 * 0.75, w0 * 1.15, 6),
+    xLabel: 'knowledge horizon  l  (densities pinned exactly for every even d = 2l up to here)',
+    yLabel: 'certified width of c',
+    bands: [{ x0: SQUEEZE[0][0], x1: 60, token: 'var(--c-grid)', t: 'the cited page stops here' }],
+    series: [{ name: 'width of the certified bracket', pts: SQUEEZE, area: true,
+               endLabel: w1.toExponential(2) }],
+    xOf: v => 'l = ' + v,
+    vOf: v => 'width ' + v.toExponential(3),
+    alt: 'The certified width of the constant c falls from ' + w0.toExponential(2) + ' at l = 20 to '
+      + w1.toExponential(2) + ' at l = ' + Lmax + ' on a logarithmic scale, a smooth decay with no jumps; '
+      + 'the region left of l = 60, where the cited page stops, is shaded.'
+  });
+  O.push(C.section({
+    lab: '§2b · the squeeze', title: 'The interval, closing',
+    wide: true,
+    bodyRaw: '<div class="col">'
+      + C.pRaw('Each pinned degree removes its own weight from the unknown tail, so the bracket can only '
+        + 'shrink — and this is what that looks like when every point is recomputed in exact rationals at '
+        + 'build time. Left of the shaded edge is the cited page\'s horizon; everything right of it is this '
+        + 'repository running the same lifted instrument further.')
+      + '</div>'
+      + C.figure({ svgRaw: fig, caption: 'Certified width of the bracket for c against the knowledge horizon l, '
+        + 'log scale. ' + w0.toExponential(2) + ' at l = 20 · ' + at60[1].toExponential(2) + ' at the cited l = 60 · '
+        + w1.toExponential(2) + ' at l = ' + Lmax + ', a factor of ' + (w0 / w1).toFixed(0) + ' across the sweep and '
+        + fmtPct(w1, at60[1]) + ' tighter than the cited page. The curve is smooth because the width is the '
+        + 'unpinned tail Σ 1/(2l(2l+1)) and nothing else: no estimate enters, so no point can move up.' })
+  }));
+}
+
 O.push(C.section({
   lab: '§3 · the continuation', title: 'Past the horizon: l = 61..' + Lmax + ', same instrument, tighter interval',
   bodyRaw: '<div class="col">'
@@ -250,7 +299,7 @@ const foot = '<footer class="col">'
   + '</footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'erdos290.html'),
-  TPL.render({ title: 'Erdős #290: the 4k(k+1) theorem · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/erdos290.html',
+  TPL.render({ title: 'Erdős #290: the 4k(k+1) theorem · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/erdos290.html',
     desc: 'Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant behind van Doorn\'s lower bound — tightened past the cited page, every number recomputed at build.' }));
 console.log('reports/erdos290.html written: theorem RE-PROVED (' + falsifiers + ' falsifiers), narrowing reproduced, bracket ['
   + bxLo.toFixed(12) + ', ' + bxHi.toFixed(12) + '] (' + fmtPct(bxWidth, B60.width) + ' tighter, l <= ' + Lmax + ') @ git ' + gitrev);
