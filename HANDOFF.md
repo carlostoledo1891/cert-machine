@@ -85,10 +85,16 @@ ACTIVE NEXT (operator to choose; nothing pre-authorized):
   A. HARBORPROOF build — scouted GO (see O2): FuelEU exact penalty
      formula in its first live year + Danish Maritime Authority free
      bulk AIS. The next big observatory.
-  B. 8E THE FORECAST GYM — BUILT 2026-08-28 (see the STATE OF RECORD);
-     remaining gym moves: a model campaign through sealed commits
-     (spend, on the word) · more packs · daily commit cadence is now
-     part of 8D.
+  B. 8E THE FORECAST GYM — BUILT 2026-08-28 + CAMPAIGN v1 COMMITTED
+     the same night (operator's word "Proceed 1"): opus-5 (claim 4/5,
+     wide, forecasts the weekend drop), sonnet-5 (claim 4/5), haiku-4.5
+     (claim 5/6, NARROW — the overconfidence signature the admission
+     rule will test). 36 model commits + 32 house = 68 on the ledger,
+     0 scored; scoring lands with 8D daily. Sonnet's first 3 attempts
+     returned empty text at max_tokens 2048 — the documented
+     thinking-exhaustion HARNESS artifact, fixed at the cause (8192)
+     and retried BEFORE anything was pushed (copy-honesty intact).
+     Remaining gym moves: more packs · third-party sealed entries.
   C. 8C-full — certified-universal-over-forecast-envelope fleet
      statements; BLOCKED on the parked scenario packs.
   WAITING ON DATA (automatic): 8D — when adsb.lol releases a day D:

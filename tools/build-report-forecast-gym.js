@@ -97,6 +97,8 @@ const PROPOSER_LABEL = {
   persistence: 'forced dumb baseline; overconfident by design',
   range: 'the hedger; wide and safe, and pays for it'
 };
+const MODEL_LABEL = 'frontier model — campaign v1: one-shot slate; every model queried before any commit was published';
+const modelProposers = Object.keys(B0).filter((n) => !(n in PROPOSER_LABEL));
 
 const totScored = Object.values(B0).reduce((s, r) => s + r.scored, 0);
 
@@ -130,7 +132,9 @@ B.push(C.stats([
   { k: 'the score', v: 'proper', n: 'Winkler interval score, exact rationals: uniquely optimized in expectation by the true quantiles — hedging pays in width, overconfidence pays in distance' },
   { k: 'admission', v: 'prune-only', n: 'a proposer below its claimed coverage is DEADMITTED with the exact binomial tail as certificate; admission is lost by record, never by opinion' },
   { k: 'reds at this build', v: batReds, role: 'held', n: 'backdated commit · premature score · rescore · tampered reveal · the admission rule itself — each must fire or this page does not exist' },
-  { k: 'models graded', v: '0', role: 'warn', n: 'no model has run yet — the board below holds the house baselines; a campaign is operator-gated spend, like every eval here' }
+  modelProposers.length
+    ? { k: 'models on the board', v: String(modelProposers.length), role: 'held', n: 'frontier models entered campaign v1 with sha-pinned slates; scoring lands as their target days do — a campaign is operator-gated spend, like every eval here' }
+    : { k: 'models graded', v: '0', role: 'warn', n: 'no model has run yet — the board below holds the house baselines; a campaign is operator-gated spend, like every eval here' }
 ]));
 
 B.push(C.section({
@@ -158,9 +162,10 @@ B.push(C.section({
       + 'a second score of the same id is refused, and a sealed commit whose revealed payload does not hash to '
       + 'its committed sha is refused as tampered. Each refusal is a red control in the battery: the mechanism '
       + 'is proved able to say no before it is trusted to say yes.'),
-    C.pRaw('<strong>Sealed commits</strong> are how competing proposers enter without reading each other: the '
-      + 'ledger shows only the sha until scoring, when the payload is revealed and verified against it. A model '
-      + 'campaign commits sealed; the reveal is part of the scoring transcript.')
+    C.pRaw('<strong>Sealed commits</strong> are how third-party proposers enter asynchronously without reading '
+      + 'each other: the ledger shows only the sha until scoring, when the payload is revealed and verified '
+      + 'against it. A house-run model campaign uses the batch form of the same honesty: every model is queried '
+      + 'before any commit is published, and the shared batch timestamp records it.')
   ].join('\n')
 }));
 
@@ -201,7 +206,7 @@ B.push(C.section({
 /* the board */
 const boardRows = Object.entries(B0).map(([name, r]) => [
   { raw: '<span class="m">' + C.esc(name) + '</span>' },
-  PROPOSER_LABEL[name] || name,
+  PROPOSER_LABEL[name] || MODEL_LABEL,
   r.claim ? r.claim : '—',
   String(r.commits),
   r.scored ? r.covered + '/' + r.scored : '—',
@@ -219,8 +224,11 @@ B.push(C.section({
       + 'proposers run — deterministic functions of the pinned series, so every commit is rerunnable. '
       + (totScored === 0 ? 'No gym forecast has been scored yet — the first targets are still in the future; '
         + 'the outstanding commits below are the record aging in public.' : totScored + ' gym forecasts scored so far.')
-      + ' No model has run: model campaigns enter sealed, on the operator\'s word, and are graded by exactly '
-      + 'this machinery.')
+      + ' ' + (modelProposers.length
+        ? modelProposers.length + ' frontier models are on the board via campaign v1 (' + C.m(modelProposers.join(', '))
+          + '): one-shot slates against the sha-named context pack, coverage claims chosen by each model, '
+          + 'queried in batch before any commit was published.'
+        : 'No model has run: model campaigns enter on the operator\'s word and are graded by exactly this machinery.'))
     + '</div>'
     + C.table({
       cols: [{ h: 'proposer' }, { h: 'what it is' }, { h: 'claims' }, { h: 'commits' }, { h: 'covered' }, { h: 'Winkler (sum / n = mean)' }, { h: 'exact tail' }, { h: 'admission' }],

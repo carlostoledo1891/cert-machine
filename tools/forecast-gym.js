@@ -88,7 +88,11 @@ const PROPOSERS = {
 function board() {
   const rows = L.rows(LEDGER);
   const out = {};
-  for (const name of Object.keys(PROPOSERS)) {
+  /* proposers = the house three ∪ whoever has committed (model campaigns
+     enter under their model id; the board discovers them from the ledger) */
+  const names = new Set(Object.keys(PROPOSERS));
+  for (const r of rows) if (r.type === 'commit') names.add(r.id.slice(0, r.id.indexOf(':')));
+  for (const name of names) {
     const commits = rows.filter((r) => r.type === 'commit' && r.id.startsWith(name + ':'));
     const scores = rows.filter((r) => r.type === 'score' && r.id.startsWith(name + ':'));
     /* the claim admission holds a proposer to: the minimum claimed coverage
