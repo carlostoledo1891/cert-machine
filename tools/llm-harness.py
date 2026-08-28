@@ -233,6 +233,74 @@ def disguised_witness():
     }
 
 
+# --- the conjugation rung (R3: seed-pinned fresh instances) -----------------
+# The <2,2,2> tensor transformed by seed-pinned random UNIMODULAR integer
+# matrices acting on each of the three index spaces. Any invertible action
+# per mode preserves tensor rank, so rank 7 stays achievable (transported
+# Strassen is the green control) and rank 6 stays impossible (Winograd 1971
+# transported by the same isomorphism). Unlike the fixed d7 disguise, the
+# transform is a FUNCTION of the seed tag: every new tag is a fresh instance
+# no training corpus can contain, and the published factor files do not
+# satisfy any of them — recall does not parse, only derivation certifies.
+def _det4(M):
+    """Integer determinant by cofactor expansion — asserts unimodularity."""
+    if len(M) == 1:
+        return M[0][0]
+    return sum((-1) ** j * M[0][j] * _det4([r[:j] + r[j + 1:] for r in M[1:]])
+               for j in range(len(M)))
+
+
+def conj_matrices(tag):
+    """Three seed-pinned unimodular 4x4 integer matrices (elementary products)."""
+    rng = random.Random("conj:" + tag)
+
+    def unimodular():
+        M = [[1 if i == j else 0 for j in range(4)] for i in range(4)]
+        for _ in range(10):
+            op = rng.choice([0, 1, 2, 2, 2])          # bias toward row-adds: dense, small
+            i, j = rng.sample(range(4), 2)
+            if op == 0:
+                M[i], M[j] = M[j], M[i]
+            elif op == 1:
+                M[i] = [-x for x in M[i]]
+            else:
+                s = rng.choice([-1, 1])
+                M[i] = [a + s * b for a, b in zip(M[i], M[j])]
+        assert abs(_det4(M)) == 1, "conjugation matrix must be unimodular"
+        return M
+    return unimodular(), unimodular(), unimodular()
+
+
+_TENSOR_CACHE = {}
+
+
+def tensor_value(tag, x, y, z):
+    """T'[x][y][z] for the tensor instance named by tag ('d7' or a conj seed)."""
+    if tag == "d7":
+        return disguised_tensor(x, y, z)
+    t = _TENSOR_CACHE.get(tag)
+    if t is None:
+        P, Q, Rm = conj_matrices(tag)
+        t = {(xx, yy, zz): sum(P[xx][a] * Q[yy][b] * Rm[zz][c] * matmul_tensor_222(a, b, c)
+                               for a in range(4) for b in range(4) for c in range(4))
+             for xx in range(4) for yy in range(4) for zz in range(4)}
+        _TENSOR_CACHE[tag] = t
+    return t[(x, y, z)]
+
+
+def tensor_witness(tag):
+    """Strassen transported through the instance's transform: MUST certify."""
+    if tag == "d7":
+        return disguised_witness()
+    P, Q, Rm = conj_matrices(tag)
+
+    def mv(M, vec):
+        return [sum(M[x][a] * vec[a] for a in range(4)) for x in range(4)]
+    return {"u": [mv(P, r) for r in STRASSEN7["u"]],
+            "v": [mv(Q, r) for r in STRASSEN7["v"]],
+            "w": [mv(Rm, r) for r in STRASSEN7["w"]]}
+
+
 class Declined:
     """The model asserted no decomposition exists. For the impossible rung this
     is the CORRECT response (rank(<2,2,2>) = 7 — Winograd 1971, a consumed
@@ -271,7 +339,7 @@ class MatmulFamily(Family):
     #   open rung     (3,3,3,22)   OPEN (best known 23, lower bound 19) — the
     #                              discovery rung; a certified row would be new math
     LADDER = [(2, 2, 2, 8), (2, 2, 2, 7), (2, 2, 3, 11), (3, 3, 3, 23),
-              (2, 2, 2, 6), ("tensor", "d7", 7), (3, 3, 3, 22)]
+              (2, 2, 2, 6), ("tensor", "d7", 7), ("tensor", "c1", 7), (3, 3, 3, 22)]
 
     @staticmethod
     def is_tensor(target):
@@ -289,13 +357,14 @@ class MatmulFamily(Family):
 
     def prompt(self, target):
         if self.is_tensor(target):
-            _, _, R = target
-            nz = [(x, y, z, disguised_tensor(x, y, z))
+            _, tag, R = target
+            nz = [(x, y, z, tensor_value(tag, x, y, z))
                   for x in range(4) for y in range(4) for z in range(4)
-                  if disguised_tensor(x, y, z) != 0]
+                  if tensor_value(tag, x, y, z) != 0]
             entries = ", ".join(f"T[{x}][{y}][{z}]={v}" for x, y, z, v in nz)
+            inst = "" if tag == "d7" else f" (instance {tag})"
             return (
-                f"Let T be the 4x4x4 tensor over the rationals whose nonzero entries are exactly: "
+                f"Let T be the 4x4x4 tensor over the rationals{inst} whose nonzero entries are exactly: "
                 f"{entries} (all other entries are 0).\n\n"
                 f"Give a rank-{R} (or lower) decomposition of T: three lists u, v, w, each with at "
                 f"most {R} rows of length 4, entries integers or exact fractions written as strings "
@@ -358,7 +427,7 @@ class MatmulFamily(Family):
     def interesting(self, obj, target):
         if self.is_tensor(target):
             # prune-only: shapes, rank bound, one float contraction on random vectors
-            _, _, R = target
+            _, tag, R = target
             u, v, w = obj
             if len(u) > R:
                 return False
@@ -368,7 +437,7 @@ class MatmulFamily(Family):
             a = [rng.uniform(-1, 1) for _ in range(4)]
             b = [rng.uniform(-1, 1) for _ in range(4)]
             c = [rng.uniform(-1, 1) for _ in range(4)]
-            want = sum(disguised_tensor(x, y, z) * a[x] * b[y] * c[z]
+            want = sum(tensor_value(tag, x, y, z) * a[x] * b[y] * c[z]
                        for x in range(4) for y in range(4) for z in range(4))
             got = sum(sum(float(u[r][x]) * a[x] for x in range(4))
                       * sum(float(v[r][y]) * b[y] for y in range(4))
@@ -398,8 +467,8 @@ class MatmulFamily(Family):
 
     def certify(self, obj, target):
         if self.is_tensor(target):
-            # the full 64-entry identity against the disguised tensor, over Fractions
-            _, _, R = target
+            # the full 64-entry identity against the instance tensor, over Fractions
+            _, tag, R = target
             u, v, w = obj
             ok = len(u) <= R
             bad = None
@@ -407,7 +476,7 @@ class MatmulFamily(Family):
                 for y in range(4):
                     for z in range(4):
                         s = sum(u[r][x] * v[r][y] * w[r][z] for r in range(len(u)))
-                        want = Fraction(disguised_tensor(x, y, z))
+                        want = Fraction(tensor_value(tag, x, y, z))
                         if s != want:
                             ok = False
                             if bad is None:
@@ -416,7 +485,8 @@ class MatmulFamily(Family):
                 holds=ok,
                 witness=("exact tensor identity holds; rank " + str(len(u)) + " <= " + str(R)) if ok
                 else ("identity fails at " + repr(bad) if bad else "rank " + str(len(u)) + " > " + str(R)),
-                certificate={"tensor": "disguised-222", "rank": len(u), "target_rank": R,
+                certificate={"tensor": ("disguised-222" if tag == "d7" else "conjugated-222:" + tag),
+                             "rank": len(u), "target_rank": R,
                              "first_violation": bad},
             )
         # THE decision: the full tensor identity over Fractions — delegated to
@@ -442,17 +512,22 @@ class MatmulFamily(Family):
         if isinstance(obj, Declined):
             return "declined: " + obj.reason[:120]
         if self.is_tensor(target):
-            return f"a rank-{len(obj[0])} decomposition of the disguised 4x4x4 tensor (target <= {target[2]})"
+            kind = "disguised" if target[1] == "d7" else f"conjugated ({target[1]})"
+            return f"a rank-{len(obj[0])} decomposition of the {kind} 4x4x4 tensor (target <= {target[2]})"
         n, m, p, R = target
         return f"a rank-{len(obj[0])} decomposition of <{n},{m},{p}> (target <= {R})"
 
     def red_controls(self, target):
         out = []
         if self.is_tensor(target):
+            tag = target[1]
             # transformed Strassen with ONE sign flipped: passes shapes, must NOT certify
-            flip = {k: [list(r) for r in v] for k, v in disguised_witness().items()}
+            flip = {k: [list(r) for r in v] for k, v in tensor_witness(tag).items()}
             flip["w"][0][0] = -flip["w"][0][0] if flip["w"][0][0] != 0 else 1
             out.append(self.parse(json.dumps(flip)))
+            # the RECALL control: raw Strassen — correct for the undisguised tensor,
+            # famous enough to be memorized — must NOT certify against this instance
+            out.append(self.parse(json.dumps(STRASSEN7)))
             return [o for o in out if o is not None]
         n, m, p, R = target
         if (n, m, p) == (2, 2, 2):
@@ -480,7 +555,7 @@ class MatmulFamily(Family):
         new rung's instrument. The probe rung (impossible) and the open rung
         have none, and the page says so."""
         if self.is_tensor(target):
-            return [self.parse(json.dumps(disguised_witness()))]
+            return [self.parse(json.dumps(tensor_witness(target[1])))]
         n, m, p, R = target
         out = []
         if (n, m, p, R) == (2, 2, 2, 7):
@@ -493,12 +568,14 @@ class MatmulFamily(Family):
     # deterministic stand-in for --dry-run
     def fake(self, prompt, rng):
         if prompt.startswith("Let T be the 4x4x4 tensor"):
+            im = re.search(r"\(instance ([a-z0-9]+)\)", prompt)
+            wit = tensor_witness(im.group(1) if im else "d7")
             roll = rng.random()
             if roll < 0.30:
-                return json.dumps(disguised_witness())                 # correct
+                return json.dumps(wit)                                 # correct
             if roll < 0.50:
                 return json.dumps({"impossible": True, "reason": "fake declines"})
-            flip = {k: [list(r) for r in v] for k, v in disguised_witness().items()}
+            flip = {k: [list(r) for r in v] for k, v in wit.items()}
             flip["u"][0][0] = flip["u"][0][0] + 1                      # wrong: refuted/rejected
             return json.dumps(flip)
         m = re.search(r"rank-(\d+) \(or lower\) decomposition of the (\d+)x(\d+) by \d+x(\d+)", prompt)

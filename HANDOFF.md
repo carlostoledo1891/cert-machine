@@ -82,9 +82,18 @@ and the session entries below — this block holds only what stands):
   loop ledger and replaced with the honest statement.
 
 ACTIVE NEXT (operator to choose; nothing pre-authorized):
-  A. HARBORPROOF build — scouted GO (see O2): FuelEU exact penalty
-     formula in its first live year + Danish Maritime Authority free
-     bulk AIS. The next big observatory.
+  A. HARBORPROOF — FIRST LIGHT SHIPPED 2026-08-28 (see the 2026-08-28c
+     session entry): instruments/fueleu (exact Reg 2023/1805 arithmetic
+     from pinned OJ bytes; 10 checks + 5 reds) × the official EU-MRV
+     2025 registry (17,045 ships, THETIS public API, sha-pinned) →
+     reports/harborproof.html — 12,620 ships decided both years, EUR
+     1.19B penalty floor on 2025 as sailed, EUR 3.31B re-sailed under
+     2030, per-ship exact flip fractions (median 6.31%). NOTE: the DMA
+     bulk AIS server was DOWN all session (TLS reset) — AIS voyage
+     replay is the v2 roadmap, not first light; the registry
+     counterfactual needed no AIS. NEXT here: candidate-fuel boxes
+     (methanol/ammonia), company-level pooling arithmetic, the gym
+     margin-forecast pack, the app-zone product face (word).
   B. 8E THE FORECAST GYM — BUILT 2026-08-28 + CAMPAIGN v1 COMMITTED
      the same night (operator's word "Proceed 1"): opus-5 (claim 4/5,
      wide, forecasts the weekend drop), sonnet-5 (claim 4/5), haiku-4.5
@@ -127,12 +136,12 @@ AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
  5. EVAL: bigger n on v3 rungs / new model rows (keyless auth live;
     thinking rungs cost 10-30k output tokens/proposal); a true
     feedback-conversion loop needs an intermediate-capability model;
-    Laderman/r22 loops need >24k budgets. NEW NAMED RUNG (2026-08-28):
-    the seed-pinned random conjugation of <n,n,n> — provably the same
-    tensor, published factor files don't parse; /oracle/'s ladder
-    names it "next, unbuilt". Building the rung is agent work
-    (generalize the d7 disguise transform); running a campaign on it
-    is spend, on the word.
+    Laderman/r22 loops need >24k budgets. R3 CONJUGATION RUNG BUILT
+    2026-08-28 (word "work on R3 until ship"): ('tensor','c1',7) on
+    the ladder — seed-pinned unimodular conjugation, transported
+    Strassen green control, RAW Strassen as a red that must fail,
+    fresh instances mintable forever (tags c2, c3, ...). First
+    campaign tag v4 (see session 2026-08-28c for the budget lesson).
  5b. THE ORACLE PACKAGING — SHIPPED 2026-08-27 (operator's word
     "proceed on your order"): (a) oracle/certmachine.py — certify()
     -> CERTIFIED(certificate w/ sha + equation count) / REFUTED(exact
@@ -502,6 +511,48 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   verification infrastructure — the eval labs run, the registry that
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-28c (R3 + HARBORPROOF — operator's word "work on R3 and
+harbor-proof until ship and stop"):
+  - R3 SHIPPED: the conjugation rung ('tensor','c1',7) in the harness —
+    seed-pinned unimodular conjugation (tensor_value/tensor_witness
+    generalize the d7 path; instance c1: 40 nonzeros, entries to |8|,
+    witness coeffs to |3|); greens: transported Strassen certifies;
+    reds: sign-flip + RAW STRASSEN must fail (the recall control); dry
+    battery green (34 reds run, 0 certified). /oracle/ ladder's
+    "next, unbuilt" row became the live "search" row; eval page gains
+    §2f (fresh instances forever — contamination-proof by algebra).
+    CAMPAIGN v4 FINDING (the budget wall, stated on §2f): d7 was
+    opus-solvable @16k; on c1 opus emits EMPTY at 16k and sonnet at
+    32k every attempt (skipped as harness artifacts); the API 400s
+    non-streaming budgets above ~32k — STREAMING SUPPORT in the
+    harness is the named unblock for deeper budgets. haiku attempted
+    6/6, all exactly rejected. Recall provably scores zero on this
+    rung; derivation hasn't yet fit a buyable budget.
+  - HARBORPROOF FIRST LIGHT SHIPPED (see ACTIVE NEXT A for the standing
+    state): instruments/fueleu (Reg 2023/1805 constants transcribed
+    from OJ bytes fetched via the Publications-Office cellar — EUR-Lex
+    proper anti-bots 202s; the DMA AIS bulk server was DOWN all
+    session, TLS reset — v0 pivoted to the BETTER source: the official
+    EU-MRV per-ship registry, THETIS public API, 2025 v45 generated
+    the same day). THE SHARPENING that made the page: the naive outer
+    box (any WtT × any LCV) straddled 11,971 ships; constraining the
+    fuel-mix simplex by each ship's own reported CO2eq/fuel ratio
+    (extremes at two-fuel vertices — linear-fractional over the
+    constrained polytope) decided ALL 12,620 admitted ships with 0
+    straddles. Battery 10 checks + 5 reds incl. the 1e-9 boundary
+    flip; make test now 32 rows; control page 28 batteries.
+  - QUEUED BY THE OPERATOR mid-session: the Erdős #290 revisit (their
+    #290 comment never cleared moderation while #852 did). Prep done
+    this session: thread re-read (Woett = van Doorn asks for the
+    constant's OEIS expansion; TAO suggests the help-wanted GitHub
+    issue route; 4 comments, ours absent), Woett's b<=6a Lean file
+    fetched (Aristotle+Alexeev, mathlib 4.24.0), our 290 batteries
+    green, A375081's 10,000 terms audited against [vD24]'s proved
+    bounds (0 violations; min (b-a)/log a = 0.657 at a=9233, above
+    our conditional 1/(1+c*) = 0.54622931...), tail-extension runner
+    confirmed incremental past l=90. Assessment delivered in-session;
+    next moves await the word.
 
 SESSION 2026-08-28b (THE FORECAST GYM — operator's word "build what's
 missing", after the hiring-lead read named the prediction engine's three

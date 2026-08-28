@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HARBORPROOF · cert-machine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 28px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:400;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sig);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:4px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--sig);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:52px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:76px}
+.col{max-width:64ch;margin-left:auto;margin-right:auto}
+.wide{max-width:900px;margin-left:auto;margin-right:auto}
+/* A wide element (table, card grid, figure) emitted inside a prose column
+   breaks out to the page-wide track: .col and .page are both centered, so
+   centering on the viewport IS centering on the page. Width never exceeds
+   the viewport minus the page padding, so the body never scrolls sideways —
+   anything wider (a table) scrolls inside its own .tw container. */
+.col .wide{position:relative;left:50%;transform:translateX(-50%);
+  width:min(900px,calc(100vw - 2*clamp(18px,4vw,40px)))}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:7px;
+  flex:1 1 240px;min-width:200px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:22px 24px;
+  color:inherit;text-decoration:none;transition:border-color .15s ease}
+a.card:hover{border:1px solid var(--sig)}
+a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+.card-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
+.card-t{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:19.5px;line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
+.card-n{margin-top:auto;padding-top:6px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  letter-spacing:.05em;color:var(--ink-3)}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · harborproof · first light — FuelEU Maritime, first live compliance year</div>
+  <h1>Re-sail the fleet&#39;s real year under the rule, and decide it</h1>
+  <p class="deck">Replay a real year of operations under the rule that is in force, and get a verdict with a proof, not a forecast. Every ship in the official EU-MRV registry of 2025 — the first year FuelEU Maritime penalties exist — is re-fueled on paper under the regulation&#39;s own published arithmetic, in exact rationals over stated boxes: compliant by a margin, non-compliant with an exact penalty floor in EUR, or NEEDS DATA where the public record&#39;s own opacity leaves the verdict open. Nothing here is an estimate; where an estimate would be needed, the instrument refuses instead.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> All three of the regulation's own default oil rows sit ABOVE the limit that is live right now — an oil-only ship cannot comply with FuelEU by construction — and this page prices that exactly: the 12,620 registry ships whose 2025 reports are consistent with oil-only operation carry a penalty-exposure floor of EUR 1,190.7M on the year they already sailed, growing to EUR 3,308.3M re-sailed unchanged under 2030 — with the exact zero-WtW blend fraction that flips each ship computed per ship (median 6.31%).</li><li><b>The mechanism.</b> the official per-ship registry (verified annual fuel + CO2eq, sha-pinned) × Regulation (EU) 2023/1805's own formulas (constants transcribed from pinned OJ bytes) × exact rational interval arithmetic — verdicts decided over the WHOLE stated box, never at a point; boxes that straddle the limit are refused as NEEDS DATA, never guessed.</li><li><b>Check it.</b> <span class="m">node instruments/fueleu/battery.js</span> (10 checks, 5 reds) · <span class="m">python3 tools/extract-harborproof.py</span> · <span class="m">node tools/build-report-harborproof.js</span></li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">the registry</div><div class="v held">17,045 ships</div><div class="n">EU MRV public emission report, period 2025 v45 — generated 28 Aug 2026, sha-pinned; every number a verified company report, none of them ours</div></div>
+    <div class="stat"><div class="k">decided</div><div class="v held">12,620</div><div class="n">12,620 fully decided both years over their whole constrained box · 0 straddle a limit · 2,385 outside the oil hypothesis — the maybe-compliant ships, undecidable until their fuel mix is public</div></div>
+    <div class="stat"><div class="k">2025, the live year</div><div class="v warn">12,620 over</div><div class="n">ships whose WHOLE intensity box exceeds the 89.3368 gCO2eq/MJ limit in force right now (0 compliant) — every pinned oil row exceeds it, so oil-only operation is non-compliant by the rule&#39;s design</div></div>
+    <div class="stat"><div class="k">penalty floor, 2025</div><div class="v warn">EUR 1,190.7M</div><div class="n">the Annex IV arithmetic summed over the fleet at the FAVORABLE end of every box (floor-rounded cents) — before pooling, banking and borrowing, which are company-level flexibilities</div></div>
+    <div class="stat"><div class="k">re-sailed under 2030</div><div class="v warn">EUR 3,308.3M</div><div class="n">same fleet, same operations, the -6% limit: the exposure floor; the ceiling end of the boxes reaches EUR 3,332.4M</div></div>
+    <div class="stat"><div class="k">the flip threshold</div><div class="v">6.31%</div><div class="n">median exact fraction of scope energy that must come from a zero-WtW fuel to comply in 2030 — computed per ship, the disclosure-shaped number the rule is designed to force</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the rule, pinned</div>
+    <h2>A penalty that is a published exact formula</h2>
+  </div>
+<p>FuelEU Maritime (Regulation (EU) 2023/1805) caps the well-to-wake GHG intensity of the energy a ship uses: the reference value is <span class="m">91,16 gCO2eq/MJ</span> and the limit steps down <span class="m">-2%</span> from 2025, <span class="m">-6%</span> from 2030, <span class="m">-14,5%</span> from 2035, <span class="m">-31%</span>, <span class="m">-62%</span>, <span class="m">-80%</span> (Art. 4(2)). The compliance balance is <span class="m">(GHGIE_target − GHGIE_actual) × energy</span> (Annex IV A) and the penalty is <span class="m">|CB| / (GHGIE_actual × 41 000) × EUR 2 400</span> (Annex IV B) — a closed-form function of numbers a company must already report. The first penalty cycle of this rule closed in June 2026: it is in force, not coming.</p>
+<p>Every constant used here is transcribed from the pinned Official Journal bytes — <span class="m">corpus/sources/fueleu_reg-2023-1805_oj-l234_2023-09-22.pdf</span>, sha256 <span class="m">492df4f7…</span> — and the GWP factors from the pinned RED II Annex V C(4) (<span class="m">CO2 1 · CH4 25 · N2O 298</span>). The instrument's battery re-derives the limits, a hand-computed penalty and a hand-computed flip threshold from those constants at every build, and a forged intensity one part in 10⁹ over the limit must flip the verdict — no tolerance window exists for an optimizer to land in.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · the data</div>
+    <h2>The fleet&#39;s own verified reports, not our measurements</h2>
+  </div>
+<p>The activity record is the EU-MRV public emission report for period 2025 — 17,045 ships' verifier-checked annual totals: fuel consumed, CO2eq emitted, and the voyage split (intra-EU / inbound / outbound / in-port) that determines FuelEU scope. Version 45, generated 28 August 2026, fetched from the THETIS-MRV public API and pinned: <span class="m">1b139b29222dd58c…</span>. The build re-hashes the bytes and refuses on drift; the extraction is stdlib Python, keeps every figure as the exact decimal string the registry printed, and is rerunnable in one command.</p>
+<p>Nothing about a ship is modeled here: no speed curves, no engine assumptions, no AIS. The energy is the ship&#39;s own reported fuel; the scope share is the ship&#39;s own reported voyage split. What the registry does not say — which fuel, exactly — enters as a box, and the box is the honest price of the record&#39;s opacity.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · the method</div>
+    <h2>Boxes, screens, and refusal — stated in full</h2>
+  </div>
+<p><strong>The fossil-oil hypothesis.</strong> A decided ship is assumed to burn some mix of the regulation's three pinned oil rows (HFO, LFO, MGO): LCV in <span class="m">[0,0405, 0,0427]</span> MJ/g, well-to-tank in <span class="m">[13,2, 14,4]</span> gCO2eq/MJ. Its tank-to-wake intensity is not assumed at all — it is the ship's own reported CO2eq divided by its own reported fuel. A plausibility screen (prune-only, like every screen in this machine) admits the hypothesis only when that ratio sits in <span class="m">[3,10, 3,35]</span> g/g, where the pinned oil rows themselves live; LNG burners, methanol, heavy bio blends and inconsistent reports fall outside and are counted, never decided. 2,385 ships sit there today.</p>
+<p><strong>The box is constrained by the ship's own numbers, then decided whole.</strong> The reported CO2eq/fuel ratio pins the feasible oil mixes to a one-parameter family, and the intensity extremes of that family sit at two-fuel vertex blends — computed exactly, so each box is tight: it contains every mix consistent with the observation and nothing else. COMPLIANT means every point of the box clears the limit; NON-COMPLIANT means every point exceeds it; a straddling box is NEEDS DATA, never guessed (0 today — the tightened boxes decide everything the screen admits). The undecided mass lives in the 2,385 ships OUTSIDE the oil screen — LNG, methanol, bio blends: precisely the candidates for actual compliance, and precisely the rows the public record cannot yet decide. The per-fuel breakdown FuelEU already makes companies compute would decide every one; NEEDS DATA is this page measuring that opacity. Penalty sums use directed rounding (floors on the floor, ceilings on the ceiling), so the stated exposure range is a theorem under the stated hypotheses, not an estimate.</p>
+<p><strong>What this is not.</strong> FuelEU compliance is assessed per company with banking, borrowing and pooling; these figures are the raw per-ship Annex IV arithmetic before those flexibilities, under the stated boxes — a mathematically certified counterfactual, not a compliance determination, not a verification statement in the class-society sense, and not legal advice. Scope shares inherit the stated uniform-fuel-mix-across-voyages hypothesis; ice-class and OPS derogations are not applied. Every one of these boundaries is a place the same instrument can sharpen as more of the record becomes public.</p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§4 · the board</div>
+    <h2>The twenty largest 2030 exposures, decided</h2>
+  </div>
+<div class="col"><p>Ranked by the FLOOR of the 2030 penalty box — the amount the Annex IV arithmetic yields even at the most favorable end of every stated box. Names and IMO numbers are the registry&#39;s own; these are public verified reports, restated under a published formula.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>IMO</th><th>ship</th><th>type</th><th>FuelEU scope share</th><th>intensity box gCO2eq/MJ</th><th>2025</th><th>re-sailed 2030</th><th>2030 penalty box [EUR]</th><th>zero-WtW blend to flip 2030</th></tr></thead><tbody><tr><td><span class="m">9351476</span></td><td>CRUISE ROMA</td><td>Ro-pax ship</td><td>99.9%</td><td><span class="m">[91.73, 91.73]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[5,965,247, 5,968,050]</span></td><td><span class="m">[6.58%, 6.58%]</span></td></tr><tr><td><span class="m">9837420</span></td><td>MSC WORLD EUROPA</td><td>Passenger ship (Cruise Passenger ship)</td><td>100.0%</td><td><span class="m">[91.43, 91.47]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[5,908,686, 5,992,305]</span></td><td><span class="m">[6.27%, 6.32%]</span></td></tr><tr><td><span class="m">9319466</span></td><td>FINNMAID</td><td>Ro-pax ship</td><td>100.0%</td><td><span class="m">[91.72, 91.72]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[4,932,759, 4,937,741]</span></td><td><span class="m">[6.57%, 6.57%]</span></td></tr><tr><td><span class="m">9319442</span></td><td>FINNSTAR</td><td>Ro-pax ship</td><td>100.0%</td><td><span class="m">[91.72, 91.72]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[4,712,065, 4,716,262]</span></td><td><span class="m">[6.57%, 6.58%]</span></td></tr><tr><td><span class="m">9349863</span></td><td>COLOR MAGIC</td><td>Ro-pax ship</td><td>100.0%</td><td><span class="m">[91.61, 91.63]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[4,670,631, 4,697,206]</span></td><td><span class="m">[6.46%, 6.48%]</span></td></tr><tr><td><span class="m">9336268</span></td><td>FINNLADY</td><td>Ro-pax ship</td><td>100.0%</td><td><span class="m">[91.71, 91.71]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[4,658,412, 4,664,942]</span></td><td><span class="m">[6.56%, 6.57%]</span></td></tr><tr><td><span class="m">9278234</span></td><td>COLOR FANTASY</td><td>Ro-pax ship</td><td>100.0%</td><td><span class="m">[91.63, 91.64]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[4,586,558, 4,609,434]</span></td><td><span class="m">[6.48%, 6.50%]</span></td></tr><tr><td><span class="m">9948592</span></td><td>GNV POLARIS</td><td>Ro-pax ship</td><td>99.5%</td><td><span class="m">[91.71, 91.71]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[4,519,505, 4,525,380]</span></td><td><span class="m">[6.56%, 6.57%]</span></td></tr><tr><td><span class="m">9565041</span></td><td>BLUE STAR PATMOS</td><td>Ro-pax ship</td><td>99.9%</td><td><span class="m">[91.73, 91.73]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[4,443,812, 4,445,378]</span></td><td><span class="m">[6.59%, 6.59%]</span></td></tr><tr><td><span class="m">9359791</span></td><td>MSC FANTASIA</td><td>Passenger ship (Cruise Passenger ship)</td><td>80.8%</td><td><span class="m">[91.44, 91.48]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[4,089,115, 4,143,717]</span></td><td><span class="m">[6.29%, 6.33%]</span></td></tr><tr><td><span class="m">9351490</span></td><td>CRUISE EUROPA</td><td>Ro-pax ship</td><td>100.0%</td><td><span class="m">[91.68, 91.69]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[3,844,345, 3,854,800]</span></td><td><span class="m">[6.53%, 6.54%]</span></td></tr><tr><td><span class="m">9359806</span></td><td>MSC SPLENDIDA</td><td>Passenger ship (Cruise Passenger ship)</td><td>93.8%</td><td><span class="m">[91.56, 91.59]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[3,825,830, 3,856,226]</span></td><td><span class="m">[6.41%, 6.44%]</span></td></tr><tr><td><span class="m">9424883</span></td><td>AZURA</td><td>Passenger ship (Cruise Passenger ship)</td><td>97.1%</td><td><span class="m">[91.62, 91.63]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[3,712,017, 3,732,438]</span></td><td><span class="m">[6.47%, 6.49%]</span></td></tr><tr><td><span class="m">9378682</span></td><td>SUPERSPEED 2</td><td>Ro-pax ship</td><td>99.9%</td><td><span class="m">[91.73, 91.73]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[3,606,045, 3,607,739]</span></td><td><span class="m">[6.58%, 6.58%]</span></td></tr><tr><td><span class="m">9320087</span></td><td>MSC MUSICA</td><td>Passenger ship (Cruise Passenger ship)</td><td>94.8%</td><td><span class="m">[91.62, 91.63]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[3,596,133, 3,616,103]</span></td><td><span class="m">[6.47%, 6.48%]</span></td></tr><tr><td><span class="m">9803613</span></td><td>MSC GRANDIOSA</td><td>Passenger ship (Cruise Passenger ship)</td><td>95.5%</td><td><span class="m">[91.67, 91.68]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[3,551,304, 3,561,528]</span></td><td><span class="m">[6.53%, 6.54%]</span></td></tr><tr><td><span class="m">9351505</span></td><td>CRUISE SARDEGNA</td><td>Ro-pax ship</td><td>99.9%</td><td><span class="m">[91.65, 91.66]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[3,544,079, 3,557,914]</span></td><td><span class="m">[6.50%, 6.52%]</span></td></tr><tr><td><span class="m">9216028</span></td><td>SUPERFAST III</td><td>Ro-pax ship</td><td>100.0%</td><td><span class="m">[91.19, 91.23]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[3,534,602, 3,582,991]</span></td><td><span class="m">[6.03%, 6.07%]</span></td></tr><tr><td><span class="m">9207584</span></td><td>BLUE STAR 2</td><td>Ro-pax ship</td><td>99.9%</td><td><span class="m">[91.53, 91.56]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[3,392,927, 3,424,662]</span></td><td><span class="m">[6.38%, 6.41%]</span></td></tr><tr><td><span class="m">9216030</span></td><td>SUPERFAST IV</td><td>Ro-pax ship</td><td>100.0%</td><td><span class="m">[91.63, 91.65]</span></td><td>NON-COMPLIANT</td><td>NON-COMPLIANT</td><td><span class="m">[3,363,901, 3,379,651]</span></td><td><span class="m">[6.49%, 6.50%]</span></td></tr></tbody></table></div></div><div class="col"><p>The full fleet: 12,620 ships decided in both years · 0 NEEDS DATA (box straddles a limit) · 2,385 outside the fossil-oil screen · 42 with unusable voyage splits · 1,998 with no reported EU-scope activity. Every count is recomputed from the pinned registry at this build.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · what the flip threshold is for</div>
+    <h2>The rule as an incentive machine, made exact</h2>
+  </div>
+<p>For every non-compliant ship the instrument computes the exact energy fraction that must come from a zero-well-to-wake fuel for the same operations to comply in 2030 — an interval, because the fuel-type opacity propagates. That number is what a charterer, a lender under the Poseidon Principles, or a fuel supplier actually negotiates about; today it is bought as consultancy estimate. Here it is a computation anyone can rerun, and the same arithmetic generalizes to any candidate fuel intensity — replace zero with the fuel&#39;s pinned WtW value and the blend fraction is one exact division away.</p>
+<p>This page is first light for the observatory, not its final shape: the roadmap is per-fuel candidate boxes (methanol, ammonia, wind-assist), company-level aggregation with pooling arithmetic, AIS-replay voyage scoping, and committed FORECASTS of next year's margins graded by <a href="/reports/forecast-gym.html">the Forecast Gym</a>'s machinery. The instrument, the pinned rule, and the registry join are the load-bearing parts, and they are live above.</p>
+</section>
+
+<footer class="col"><p>Generated by tools/build-report-harborproof.js @ git 82d9da5. Gates at this build: instruments/fueleu/battery.js (10 checks, 5 reds fired — limits, penalty and flip re-derived by hand from pinned OJ bytes; the 1e-9 boundary forgery flipped), the registry bytes re-hashed against their pin, and the whole fleet recomputed in exact rationals during this build. Verdicts are decided over stated boxes; a straddling box is refused as NEEDS DATA, never guessed. Not a compliance determination; not legal advice. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+
+</div>
+</html>

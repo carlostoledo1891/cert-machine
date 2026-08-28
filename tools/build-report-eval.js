@@ -149,6 +149,8 @@ for (const r of rows) {
 }
 const rungTuple = (t) => String(t).replace(/[()\s]/g, '').split(',').map(Number);
 const rungLabel = (t) => {
+  const tm = /'tensor', '([a-z0-9]+)'/.exec(String(t));
+  if (tm) return tm[1] === 'd7' ? 'disguised 4×4×4 r7' : 'conjugated 4×4×4 r7 · seed ' + tm[1];
   if (/tensor/.test(String(t))) return 'disguised 4×4×4 r7';
   const [n, m, p, R] = rungTuple(t);
   return '<' + n + ',' + m + ',' + p + '> r' + R;
@@ -284,6 +286,39 @@ if (openAgg.length) {
         + 'and a certified row would be a discovery this page renders in bold rather than a score. It exists '
         + 'because an eval whose grader is a certifier can ASK open questions safely: the one thing that cannot '
         + 'happen is a false positive.') + '</div>'
+  }));
+}
+
+/* ---- §2f · the conjugation rung: fresh instances forever ------------------ */
+const T_CONJ = "('tensor', 'c1', 7)";
+const conjAgg = aggBy(realRows.filter((r) => r.target === T_CONJ));
+if (conjAgg.length) {
+  O.push(C.section({
+    lab: '§2f · the conjugation rung', title: 'An eval that can mint fresh instances forever', wide: true,
+    bodyRaw: C.table({
+      cols: [{ h: 'model' }, { h: 'proposals', cls: 'n' }, { h: 'certified', cls: 'n' }, { h: 'declined', cls: 'n' }, { h: 'attempted, refuted or rejected', cls: 'n' }, { h: 'malformed', cls: 'n' }],
+      rows: conjAgg.map((a) => [
+        { raw: '<span class="m">' + C.esc(a.model) + '</span>' },
+        String(a.n), String(a.certified), String(a.declined), String(a.attempted - a.certified), String(a.malformed)
+      ])
+    })
+      + '<div class="col">' + C.pRaw('The disguise rung generalized from one fixed transform to a FAMILY: the '
+        + '&lt;2,2,2&gt; tensor conjugated by seed-pinned random unimodular integer matrices on each index '
+        + 'space (instance c1 here; every new tag mints another). Unimodular actions preserve tensor rank, so '
+        + 'rank 7 stays achievable — the transported Strassen witness is the green control that must certify — '
+        + 'and rank 6 stays impossible by the transported theorem. RAW Strassen runs as a red control that must '
+        + 'fail: on this rung, recall provably scores zero, and a certified row is a derivation by '
+        + 'construction. Because instances are minted from a seed, this is a benchmark that cannot be '
+        + 'contaminated by its own publication — the same property the Forecast Gym gets from time, obtained '
+        + 'here from algebra.') + '</div>'
+      + '<div class="col">' + C.pRaw('<strong>The first campaign hit a measured wall.</strong> On the fixed '
+        + 'd7 disguise, opus-5 certified within a 16k output budget. On instance c1 — denser after '
+        + 'conjugation, entries to |8| — opus-5 returned empty text at 16k and sonnet-5 at 32k on every '
+        + 'attempt (budget-exhausted replies are skipped as harness artifacts, never recorded as model '
+        + 'outcomes), and the API refuses larger non-streaming budgets; haiku attempted every time and was '
+        + 'exactly rejected every time. So the honest current record on this rung is the table above: recall '
+        + 'scores zero by construction, and derivation has not yet fit inside any budget this harness can '
+        + 'buy. Streaming support for deeper budgets is the named next step; fresh seeds wait either way.') + '</div>'
   }));
 }
 

@@ -204,6 +204,10 @@ const REPORTS = [
     title: 'SkyAudit: the helicopter day, decided',
     desc: 'One pinned day of New York helicopter traffic, re-flown on paper by four eVTOLs’ own published numbers under the FAA reserve rule — every flight decided: E-FLYABLE, BEYOND RANGE with an exact witness, or NEEDS DATA where public specs cannot say. The citable methodology behind the live app.',
     n: 'every certificate row recounted at the page’s own build' },
+  { g: 'applied', f: 'harborproof.html', k: 'maritime · FuelEU, first live year',
+    title: 'HARBORPROOF: the fleet, re-sailed under the rule',
+    desc: 'Every ship in the official EU-MRV 2025 registry — the first year FuelEU Maritime penalties exist — re-fueled on paper under the regulation’s own published penalty formula, in exact rationals over boxes constrained by each ship’s own reported numbers: penalty floors in EUR, exact zero-WtW blend fractions that flip each verdict, NEEDS DATA where the record’s opacity leaves it open.',
+    n: 'the whole registry recomputed at the page’s own build' },
   { g: 'applied', f: 'evtol-energy.html', k: 'aerospace · energy certificates',
     title: 'The reserve, provable',
     desc: 'Energy-feasibility certificates for eVTOL missions against the FAA reserve rule: CERTIFIED for every parameter point in the boxes, REFUTED with an exact falsifying witness, or honestly REFUSED — where the industry argues with Monte Carlo, this decides.',
@@ -457,6 +461,7 @@ const LAD = {
   r23: rungTally('(3, 3, 3, 23)'),
   imp: rungTally('(2, 2, 2, 6)'),
   dis: rungTally("('tensor', 'd7', 7)"),
+  conj: rungTally("('tensor', 'c1', 7)"),
   open22: rungTally('(3, 3, 3, 22)')
 };
 if (LAD.imp.cert > 0) fail('a rank-6 ⟨2,2,2⟩ row is CERTIFIED in the eval ledger — rank ≥ 7 is Winograd\'s theorem, the grader is broken');
@@ -584,18 +589,20 @@ const oracleBody = [
           ['derivation', '⟨3,3,3⟩ rank 23', 'Q', '23 — Laderman 1976', 'recall through a long exact derivation', rec(LAD.r23) + (LAD.r23.cert === 0 ? ' — every failure malformed or rejected, none subtly wrong' : '')],
           ['honesty', '⟨2,2,2⟩ rank 6', 'Q', 'impossible — rank ≥ 7, Winograd 1971', 'the only correct output is to decline', LAD.imp.dec + ' declined · ' + (LAD.imp.rej + LAD.imp.mal) + ' attempts, none certified — ever; a certified row here refuses the build'],
           ['disguise', '⟨2,2,2⟩ under a pinned monomial transform', 'Q', '7, unrecognizable — the prompt never says matmul', 'search, not recall — memorized factor files do not parse', rec(LAD.dis)],
-          ['open', '⟨3,3,3⟩ rank 22', 'Q', '23 since 1976', 'a certified row is a discovery', LAD.open22.cert > 0 ? LAD.open22.cert + ' CERTIFIED — a new result; see the board' : '0 certified · ' + LAD.open22.dec + ' declined — every graded model declined the attempt'],
-          ['next, unbuilt', 'seed-pinned random conjugation of ⟨n,n,n⟩', 'Q', 'unchanged — provably the same tensor', 'turns every recall rung above into search', 'not yet built — named here so its absence is on record']
+          ['search', 'seed-conjugated ⟨2,2,2⟩ · instance c1', 'Q', '7 — provably unchanged by the pinned unimodular conjugation', 'derived, not recalled — no published factor file satisfies any instance; fresh seeds forever', rec(LAD.conj) + (LAD.conj.graded ? '' : ' — the rung is built; its first campaign is pending')],
+          ['open', '⟨3,3,3⟩ rank 22', 'Q', '23 since 1976', 'a certified row is a discovery', LAD.open22.cert > 0 ? LAD.open22.cert + ' CERTIFIED — a new result; see the board' : '0 certified · ' + LAD.open22.dec + ' declined — every graded model declined the attempt']
         ]
       })
       + '<div class="col">'
       + C.pRaw('The ⟨4,4,4⟩ artifacts are audits, not rungs: AlphaEvolve\'s rank-48 decomposition is CERTIFIED '
         + 'over Z[i], and AlphaTensor\'s rank-47 factors are verified over F2 and REFUTED over Q — '
         + '<a href="/reports/alphaevolve.html">the certified audit</a>. Whether rank 47 exists over Q at all is '
-        + 'open; posing that to a policy is what the conjugation rung is for. The disguise rung is the existing '
-        + 'measurement that certification can mean search rather than recall: recalled factor files do not even '
-        + 'parse against the transformed tensor, and the cost asymmetry is quantified on '
-        + '<a href="/reports/matmul-eval.html">the board</a>.')
+        + 'open. The search rung is the anti-recall instrument industrialized: the tensor is conjugated by '
+        + 'seed-pinned unimodular matrices — provably the same object, same rank bar, transported Strassen as '
+        + 'the green control and RAW Strassen as a red that must fail — and every new seed tag is a fresh '
+        + 'instance no training corpus can contain. An eval that can mint unlimited uncontaminated rungs, each '
+        + 'graded by proof, is the machine\'s answer to benchmark leakage; the cost asymmetry it induces is '
+        + 'quantified on <a href="/reports/matmul-eval.html">the board</a>.')
       + '</div>'
   }),
   C.section({
