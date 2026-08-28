@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""extract-harborproof.py — the HARBORPROOF data extraction: the official
+"""extract-harbor-proof.py — the HarborProof data extraction: the official
 EU-MRV public emission report (THETIS-MRV, EMSA) to a pinned JSON record.
 
 Source: corpus/sources/mrv2025-v45.xlsx — the "2025 Full ERs" sheet of the
@@ -13,8 +13,8 @@ rationals happens in the instrument, never here; rows sorted by IMO for a
 deterministic byte-stable output; the output records the source sha256 so
 the report build can refuse on drift.
 
-usage: python3 tools/extract-harborproof.py
-writes: corpus/harborproof-2025.json
+usage: python3 tools/extract-harbor-proof.py
+writes: corpus/harbor-proof-2025.json
 """
 import hashlib
 import io
@@ -25,7 +25,7 @@ from xml.etree import ElementTree as ET
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "corpus", "sources", "mrv2025-v45.xlsx")
-OUT = os.path.join(ROOT, "corpus", "harborproof-2025.json")
+OUT = os.path.join(ROOT, "corpus", "harbor-proof-2025.json")
 A = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
 
 # column index -> field name (header row verified in FIELDS_EXPECT below)

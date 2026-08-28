@@ -155,11 +155,11 @@ health (tail -n 2 certs/shard-logs/shard-*.log) and 8D if a day
 released. Then the ACTIVE NEXT menu below — operator chooses.
 
 ACTIVE NEXT (operator to choose; nothing pre-authorized):
-  A. HARBORPROOF — FIRST LIGHT SHIPPED 2026-08-28 (see the 2026-08-28c
+  A. HarborProof — FIRST LIGHT SHIPPED 2026-08-28 (see the 2026-08-28c
      session entry): instruments/fueleu (exact Reg 2023/1805 arithmetic
      from pinned OJ bytes; 10 checks + 5 reds) × the official EU-MRV
      2025 registry (17,045 ships, THETIS public API, sha-pinned) →
-     reports/harborproof.html — 12,620 ships decided both years, EUR
+     reports/harbor-proof.html — 12,620 ships decided both years, EUR
      1.19B penalty floor on 2025 as sailed, EUR 3.31B re-sailed under
      2030, per-ship exact flip fractions (median 6.31%). NOTE: the DMA
      bulk AIS server was DOWN all session (TLS reset) — AIS voyage
@@ -268,7 +268,7 @@ observatory template on a new market, built on the operator's word):
      perfect-foresight ceiling (dual certificate: the theorem IS the
      product; ERCOT 5-min prices + EIA battery registry, public).
      Absorbs item 3. Deepest instrument moat.
- O2. HARBORPROOF — UPGRADED 2026-08-27 (the killer-app test applied):
+ O2. HarborProof — UPGRADED 2026-08-27 (the killer-app test applied):
      AIS replay against the BINDING rules — FuelEU Maritime GHG-
      intensity thresholds (penalties + pooling), EU ETS on shipping,
      IMO CII bands — "this vessel's real trading pattern, re-sailed on
@@ -599,27 +599,27 @@ arrived with the message, so the direction was taken from the words):
   - THE SHELF HAD NO CHARTS. 24 report pages, one figure between them
     (the observatory map). Now nine pages carry one, each chosen as
     that page's most important thing to see:
-      erdos290    the certified width of c closing, log scale, with the
-                  cited page's horizon shaded — every point bracket(L)
-                  recomputed in exact rationals at build
-      erdos852    the refutation at 1e-13 zoom: the published constant
-                  and a naive double product on the SAME point, outside
-                  the certified enclosure; log1p back inside
-      harborproof the per-ship flip fraction as a population — and the
-                  chart found something: 2,286 ships (18%) in ONE bin
-                  carrying 30 distinct values, the signature of a shared
-                  default emission factor, now stated in the caption
-      skyaudit    the reserve-price ladder as EMPHASIS (Beta in the
-                  accent, the other three in context grey) — the form
-                  the skill names for "one series is the point"
-      evtol       the three-valued verdict SWEPT: certified / hatched
-                  undecidable / refuted across cruise duration, both
-                  rules. The machine's signature picture
-      entropy     proved vs open, drawn to scale, with ln 2 marked
-      mercer      the mu(5) ladder falling rung by rung
-      water-value the margin as a DISTRIBUTION, not a maximum
-      rm-audit    51 printed rows as cells: 50 green, one plum
-      alphaevolve naive rank -> certified rank per shape, dumbbell
+      erdos290     the certified width of c closing, log scale, with the
+                   cited page's horizon shaded — every point bracket(L)
+                   recomputed in exact rationals at build
+      erdos852     the refutation at 1e-13 zoom: the published constant
+                   and a naive double product on the SAME point, outside
+                   the certified enclosure; log1p back inside
+      harbor-proof the per-ship flip fraction as a population — and the
+                   chart found something: 2,286 ships (18%) in ONE bin
+                   carrying 30 distinct values, the signature of a shared
+                   default emission factor, now stated in the caption
+      skyaudit     the reserve-price ladder as EMPHASIS (Beta in the
+                   accent, the other three in context grey) — the form
+                   the skill names for "one series is the point"
+      evtol        the three-valued verdict SWEPT: certified / hatched
+                   undecidable / refuted across cruise duration, both
+                   rules. The machine's signature picture
+      entropy      proved vs open, drawn to scale, with ln 2 marked
+      mercer       the mu(5) ladder falling rung by rung
+      water-value  the margin as a DISTRIBUTION, not a maximum
+      rm-audit     51 printed rows as cells: 50 green, one plum
+      alphaevolve  naive rank -> certified rank per shape, dumbbell
   - THE ASSET IS design/charts.js — nine forms (lines, band, bars,
     dist, dumbbell, strip, intervals, segments, sparkline) with the
     rules applied BY CONSTRUCTION: colour by job, three identity hues
@@ -748,7 +748,7 @@ foreground on the other tasks"):
   - LAB v0 (MFG, tools-first, target Ricardo de Lima Ribeiro) approved
     and written up as FIRST THING NEXT SESSION above.
 
-SESSION 2026-08-28c (R3 + HARBORPROOF — operator's word "work on R3 and
+SESSION 2026-08-28c (R3 + HarborProof — operator's word "work on R3 and
 harbor-proof until ship and stop"):
   - R3 SHIPPED: the conjugation rung ('tensor','c1',7) in the harness —
     seed-pinned unimodular conjugation (tensor_value/tensor_witness
@@ -765,7 +765,7 @@ harbor-proof until ship and stop"):
     harness is the named unblock for deeper budgets. haiku attempted
     6/6, all exactly rejected. Recall provably scores zero on this
     rung; derivation hasn't yet fit a buyable budget.
-  - HARBORPROOF FIRST LIGHT SHIPPED (see ACTIVE NEXT A for the standing
+  - HarborProof FIRST LIGHT SHIPPED (see ACTIVE NEXT A for the standing
     state): instruments/fueleu (Reg 2023/1805 constants transcribed
     from OJ bytes fetched via the Publications-Office cellar — EUR-Lex
     proper anti-bots 202s; the DMA AIS bulk server was DOWN all

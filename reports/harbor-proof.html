@@ -2,21 +2,21 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HARBORPROOF · cert-machine</title>
-<meta name="description" content="HARBORPROOF: every ship in the official EU-MRV 2025 registry re-fueled on paper under FuelEU Maritime&#39;s own penalty formula, in exact rationals — penalty floors in EUR, exact blend fractions that flip each verdict, NEEDS DATA where the record cannot say.">
+<title>HarborProof · cert-machine</title>
+<meta name="description" content="HarborProof: every ship in the official EU-MRV 2025 registry re-fueled on paper under FuelEU Maritime&#39;s own penalty formula, in exact rationals — penalty floors in EUR, exact blend fractions that flip each verdict, NEEDS DATA where the record cannot say.">
 <meta name="author" content="Carlos Toledo">
-<link rel="canonical" href="https://carlostoledo.co/reports/harborproof.html">
-<meta property="og:url" content="https://carlostoledo.co/reports/harborproof.html">
-<meta property="og:title" content="HARBORPROOF · cert-machine">
-<meta property="og:description" content="HARBORPROOF: every ship in the official EU-MRV 2025 registry re-fueled on paper under FuelEU Maritime&#39;s own penalty formula, in exact rationals — penalty floors in EUR, exact blend fractions that flip each verdict, NEEDS DATA where the record cannot say.">
+<link rel="canonical" href="https://carlostoledo.co/reports/harbor-proof.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/harbor-proof.html">
+<meta property="og:title" content="HarborProof · cert-machine">
+<meta property="og:description" content="HarborProof: every ship in the official EU-MRV 2025 registry re-fueled on paper under FuelEU Maritime&#39;s own penalty formula, in exact rationals — penalty floors in EUR, exact blend fractions that flip each verdict, NEEDS DATA where the record cannot say.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HARBORPROOF · cert-machine">
-<meta name="twitter:description" content="HARBORPROOF: every ship in the official EU-MRV 2025 registry re-fueled on paper under FuelEU Maritime&#39;s own penalty formula, in exact rationals — penalty floors in EUR, exact blend fractions that flip each verdict, NEEDS DATA where the record cannot say.">
+<meta name="twitter:title" content="HarborProof · cert-machine">
+<meta name="twitter:description" content="HarborProof: every ship in the official EU-MRV 2025 registry re-fueled on paper under FuelEU Maritime&#39;s own penalty formula, in exact rationals — penalty floors in EUR, exact blend fractions that flip each verdict, NEEDS DATA where the record cannot say.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -348,14 +348,14 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · harborproof · first light — FuelEU Maritime, first live compliance year</div>
+  <div class="eyebrow">cert-machine · HarborProof · first light — FuelEU Maritime, first live compliance year</div>
   <h1>Re-sail the fleet&#39;s real year under the rule, and decide it</h1>
   <p class="deck">Replay a real year of operations under the rule that is in force, and get a verdict with a proof, not a forecast. Every ship in the official EU-MRV registry of 2025 — the first year FuelEU Maritime penalties exist — is re-fueled on paper under the regulation&#39;s own published arithmetic, in exact rationals over stated boxes: compliant by a margin, non-compliant with an exact penalty floor in EUR, or NEEDS DATA where the public record&#39;s own opacity leaves the verdict open. Nothing here is an estimate; where an estimate would be needed, the instrument refuses instead.</p>
 </header>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> All three of the regulation's own default oil rows sit ABOVE the limit that is live right now — an oil-only ship cannot comply with FuelEU by construction — and this page prices that exactly: the 12,620 registry ships whose 2025 reports are consistent with oil-only operation carry a penalty-exposure floor of EUR 1,190.7M on the year they already sailed, growing to EUR 3,308.3M re-sailed unchanged under 2030 — with the exact zero-WtW blend fraction that flips each ship computed per ship (median 6.31%).</li><li><b>The mechanism.</b> the official per-ship registry (verified annual fuel + CO2eq, sha-pinned) × Regulation (EU) 2023/1805's own formulas (constants transcribed from pinned OJ bytes) × exact rational interval arithmetic — verdicts decided over the WHOLE stated box, never at a point; boxes that straddle the limit are refused as NEEDS DATA, never guessed.</li><li><b>Check it.</b> <span class="m">node instruments/fueleu/battery.js</span> (10 checks, 5 reds) · <span class="m">python3 tools/extract-harborproof.py</span> · <span class="m">node tools/build-report-harborproof.js</span></li></ul>
+<ul class="plain"><li><b>The finding.</b> All three of the regulation's own default oil rows sit ABOVE the limit that is live right now — an oil-only ship cannot comply with FuelEU by construction — and this page prices that exactly: the 12,620 registry ships whose 2025 reports are consistent with oil-only operation carry a penalty-exposure floor of EUR 1,190.7M on the year they already sailed, growing to EUR 3,308.3M re-sailed unchanged under 2030 — with the exact zero-WtW blend fraction that flips each ship computed per ship (median 6.31%).</li><li><b>The mechanism.</b> the official per-ship registry (verified annual fuel + CO2eq, sha-pinned) × Regulation (EU) 2023/1805's own formulas (constants transcribed from pinned OJ bytes) × exact rational interval arithmetic — verdicts decided over the WHOLE stated box, never at a point; boxes that straddle the limit are refused as NEEDS DATA, never guessed.</li><li><b>Check it.</b> <span class="m">node instruments/fueleu/battery.js</span> (10 checks, 5 reds) · <span class="m">python3 tools/extract-harbor-proof.py</span> · <span class="m">node tools/build-report-harbor-proof.js</span></li></ul>
 </div></div>
 
 <div class="wide">
@@ -515,7 +515,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-harborproof.js @ git b43d7cf. Gates at this build: instruments/fueleu/battery.js (10 checks, 5 reds fired — limits, penalty and flip re-derived by hand from pinned OJ bytes; the 1e-9 boundary forgery flipped), the registry bytes re-hashed against their pin, and the whole fleet recomputed in exact rationals during this build. Verdicts are decided over stated boxes; a straddling box is refused as NEEDS DATA, never guessed. Not a compliance determination; not legal advice. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-harbor-proof.js @ git ba19558. Gates at this build: instruments/fueleu/battery.js (10 checks, 5 reds fired — limits, penalty and flip re-derived by hand from pinned OJ bytes; the 1e-9 boundary forgery flipped), the registry bytes re-hashed against their pin, and the whole fleet recomputed in exact rationals during this build. Verdicts are decided over stated boxes; a straddling box is refused as NEEDS DATA, never guessed. Not a compliance determination; not legal advice. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
 
 </div>
 </html>

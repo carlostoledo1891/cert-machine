@@ -90,7 +90,7 @@ reports:
 	@$(NODE) tools/build-report-answer-key.js
 	@$(NODE) tools/build-report-loop.js
 	@$(NODE) tools/build-report-forecast-gym.js
-	@$(NODE) tools/build-report-harborproof.js
+	@$(NODE) tools/build-report-harbor-proof.js
 	@$(NODE) tools/build-report-water-value.js
 	@$(NODE) tools/build-report-mfg-cap.js
 	@$(NODE) tools/build-report-mfg-lab.js
