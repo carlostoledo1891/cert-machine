@@ -472,7 +472,7 @@ const oracleBody = [
       + 'comes back <span class="m">REFUTED</span> with the first violated equation and the exact discrepancy '
       + '<span class="m">1/1000000000</span>. That mechanism string is the whole feedback loop: deterministic, '
       + 'template-locked to the grader\'s own arithmetic, so a proposing model can learn from it and cannot be '
-      + 'coached by it (<a href="reports/verifier-loop.html">the closed-loop demonstration</a>).') + '</div>'
+      + 'coached by it (<a href="/reports/verifier-loop.html">the closed-loop demonstration</a>).') + '</div>'
   }),
   C.section({
     lab: '§2 · paste a claim', title: 'Or certify one right here',
@@ -497,21 +497,21 @@ const oracleBody = [
   C.section({
     lab: '§4 · the evidence', title: 'What stands behind it',
     bodyRaw: [
-      C.pRaw('<a href="reports/matmul-eval.html">The live board</a> — ' + fmt(evalReal.length) + ' model '
+      C.pRaw('<a href="/reports/matmul-eval.html">The live board</a> — ' + fmt(evalReal.length) + ' model '
         + 'proposals graded across the campaigns, ladder and honesty probes included; every row in the '
-        + 'append-only ledger <a href="certs/matmul-eval-ledger.jsonl">certs/matmul-eval-ledger.jsonl</a>.'),
-      C.pRaw('<a href="reports/verifier-loop.html">The verifier in the loop</a> — feedback template-locked to '
+        + 'append-only ledger <a href="/certs/matmul-eval-ledger.jsonl">certs/matmul-eval-ledger.jsonl</a>.'),
+      C.pRaw('<a href="/reports/verifier-loop.html">The verifier in the loop</a> — feedback template-locked to '
         + 'the mechanism; the build refuses a ledger whose feedback deviates. '
-        + '<a href="reports/erdos852.html">The failure taxonomy</a> — the answer-key failure class this design '
+        + '<a href="/reports/erdos852.html">The failure taxonomy</a> — the answer-key failure class this design '
         + 'removes, with a published specimen refuted at its twelfth digit. '
-        + '<a href="reports/answer-key.html">When the answer key is wrong</a> — why reruns and digit '
+        + '<a href="/reports/answer-key.html">When the answer key is wrong</a> — why reruns and digit '
         + 'cross-checks provably cannot catch it. '
-        + '<a href="reports/methods-note.html">None by reading code</a> — the red-control discipline as '
+        + '<a href="/reports/methods-note.html">None by reading code</a> — the red-control discipline as '
         + 'engineering.'),
       C.pRaw('The paper draft: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/paper/'
         + 'verified-reward-oracle.md">verified-reward-oracle.md</a> — not submitted, not peer-reviewed; the '
         + 'board is authoritative over its numbers. Independent reruns are invited and recorded: '
-        + '<a href="machine/">the control page</a> holds the slot.')
+        + '<a href="/machine/">the control page</a> holds the slot.')
     ].join('\n')
   })
 ];
