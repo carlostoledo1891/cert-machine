@@ -18,9 +18,18 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-STATE OF RECORD (refreshed 2026-08-27, end of the foundations+
-prediction+oracle session; full histories live in apps/skyaudit/TODO.md
-and the session entries below — this block holds only what stands):
+STATE OF RECORD (refreshed 2026-08-29; full histories live in
+apps/skyaudit/TODO.md and the session entries below — this block holds
+only what stands).
+
+  THE PUBLIC SURFACE, as of this handoff: 24 report pages, every one
+  of them carrying at least one chart built from its own gated numbers
+  (design/charts.js + design/battery.js, both new this week). LAB v0
+  live at reports/mfg-observatory.html with the certifier running in
+  the page, shipping as one dependency-free file, and its lab in
+  labs/mfg/. HarborProof renamed from HARBORPROOF/harborproof with
+  301s from the old paths. make test 34/34, control 28 batteries,
+  drift 130 unchanged.
 
   SKYAUDIT — TWO CITY PACKS LIVE, methodology v2, 4-day pinned series.
   NYC flagship /apps/skyaudit/: Wed 2026-08-26, 82 aircraft / 382
@@ -148,9 +157,35 @@ DATAVIZ: the report shelf is DONE — 24 of 24 pages carry a figure
 our own surface: the landing page, the control page, /oracle/ and
 /machine/. design/charts.js already covers every form they would need.
 
-FIRST THING NEXT SESSION: node tools/sweep-claims.js, then shard
-health (tail -n 2 certs/shard-logs/shard-*.log) and 8D if a day
-released. Then the ACTIVE NEXT menu below — operator chooses.
+FIRST THING NEXT SESSION (in this order):
+  1. node tools/sweep-claims.js
+  2. 8D IS DUE AND THE DATA IS THERE — checked 2026-08-29 00:30, the
+     adsb.lol release v2026.08.28-planes-readsb-prod-0 exists with 3
+     assets, so nothing is waiting on the world:
+        node apps/skyaudit/audit/ingest-day.js 2026-08-28
+        node apps/skyaudit/audit/forecast.js score 2026-08-28
+        node tools/forecast-gym.js score 2026-08-28
+     then commit forward (product + gym) for the next uncommitted days.
+     This is the FIRST scoring the gym has ever had — 68 commits, 0
+     scored until this runs — and the v1-calibrated eflyable commit
+     WILL BUST against the v2 outcome. Score it, keep it, state the
+     cause (disclosure text in apps/skyaudit/TODO.md 8D). Not started
+     this session because the operator called stop.
+  3. Shard health: tail -n 2 certs/shard-logs/shard-*.log
+  Then the ACTIVE NEXT menu below — operator chooses.
+
+#290 SUMMIT CAMPAIGN — STATUS AT HANDOFF 2026-08-29 00:30: six
+detached shards ALIVE and healthy, working l = 121 -> 310. Measured at
+handoff: shards sit at l = 224..229, and 103 of the 190 target degrees
+are closed across certs/erdos290-tail-shard-*.json (17-18 each). Cost
+is ~l^4, so the remaining 87 degrees are the expensive half — expect
+well over another day, not half of one. Nothing here needs attention
+unless a shard dies; the merge path is unchanged:
+    node tools/run-erdos290-tail-shard.js merge
+    node tools/erdos290-cstar-precision.js 110
+    make reports && make site && make test
+    refresh outreach/erdos290-issue164.md + the OEIS constant packs
+    with the new bracket, commit, deploy.
 
 ACTIVE NEXT (operator to choose; nothing pre-authorized):
   A. HarborProof — FIRST LIGHT SHIPPED 2026-08-28 (see the 2026-08-28c
