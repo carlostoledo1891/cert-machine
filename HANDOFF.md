@@ -51,8 +51,9 @@ only what stands).
   + NEW admission.js: the prune rule computed as an exact binomial
   tail at a stated 1/20 bar; battery now 7 checks + 5 reds) ·
   SkyForecast v1 card live (dashed, never verdict-styled; gate 11) ·
-  product ledger 8 commits: 08-28 v1 pair (disclosure recorded — WILL
-  BUST on eflyable, score it and state the cause), 08-31 v2 pair,
+  product ledger 10 commits, 2 SCORED (0/2 covered — the 08-28 v1 pair
+  busted, eflyable on the predicted definition move and flights on a
+  genuine Friday-volume miss; causes stated, nothing rescored), 08-31 v2 pair,
   09-01 + 09-02 pairs at n=4 coverage 3/5 ([191,397]/[49,127] — the
   Thu volume drop honestly widened the intervals). Day series now
   FIVE days: + Thu 2026-08-27 ingested green, 49 E-FLYABLE (25.7% —
@@ -62,8 +63,13 @@ only what stands).
   conformal claims only its theorem; persistence the forced dumb
   baseline built to be pruned in public; range the hedger — commits
   refused for DEADMITTED proposers) + certs/forecast-gym-ledger.jsonl
-  (32 commits sha-pinned before their targets, 6 target days, 0
-  scored yet — first scoring 08-29 when 08-28 releases) +
+  (38 commits sha-pinned before their targets, 7 target days, 12 SCORED
+  2026-08-29 — the first grading in the gym's life: conformal, range,
+  opus-5 and sonnet-5 all 2/2 ADMITTED; persistence 0/2 but KEPT (its
+  1/2 claim clears the bar — the rule refuses to punish what it cannot
+  prove); claude-haiku-4.5 0/2 and DEADMITTED on the exact binomial
+  tail 1/36 < 1/20, the narrow-interval overconfidence signature
+  measured on the first day it could be) +
   reports/forecast-gym.html (gates: battery + BOTH ledgers re-verified
   with the builder's own arithmetic — payload shas re-hashed, every
   Winkler recounted string-exact, commit-before/score-after re-checked
@@ -159,18 +165,24 @@ our own surface: the landing page, the control page, /oracle/ and
 
 FIRST THING NEXT SESSION (in this order):
   1. node tools/sweep-claims.js
-  2. 8D IS DUE AND THE DATA IS THERE — checked 2026-08-29 00:30, the
-     adsb.lol release v2026.08.28-planes-readsb-prod-0 exists with 3
-     assets, so nothing is waiting on the world:
-        node apps/skyaudit/audit/ingest-day.js 2026-08-28
-        node apps/skyaudit/audit/forecast.js score 2026-08-28
-        node tools/forecast-gym.js score 2026-08-28
-     then commit forward (product + gym) for the next uncommitted days.
-     This is the FIRST scoring the gym has ever had — 68 commits, 0
-     scored until this runs — and the v1-calibrated eflyable commit
-     WILL BUST against the v2 outcome. Score it, keep it, state the
-     cause (disclosure text in apps/skyaudit/TODO.md 8D). Not started
-     this session because the operator called stop.
+  2. 8D IS DONE — SCORED 2026-08-29 (see the session entry and
+     apps/skyaudit/TODO.md 8D for the full disclosure). Fri 2026-08-28
+     ingested GREEN: 315 flights, 70 E-FLYABLE (22.2%), fleet 7. The
+     product pair went 0/2 with TWO causes: eflyable busted on the
+     predicted definition move (v1 interval, v2 ruler), and flights
+     busted GENUINELY — [377,397] vs 315, a real low miss the
+     disclosure did not anticipate, because Friday is not a midweek
+     day and no Friday was in the v1 calibration set. The gym scored
+     its first 12 of 68 commits and DEADMITTED claude-haiku-4.5 on the
+     exact binomial tail (claimed 5/6, went 0/2, 1/36 < 1/20).
+     STANDING DAILY LOOP from here: when adsb.lol releases day D,
+        node apps/skyaudit/audit/ingest-day.js D
+        node apps/skyaudit/audit/forecast.js score D
+        node tools/forecast-gym.js score D
+     then commit forward both ledgers for the next uncommitted day.
+     Committed through 2026-09-03 (house + product); 08-29/08-30 have
+     no conformal row and never will — that is a recorded gap, not a
+     bug.
   3. Shard health: tail -n 2 certs/shard-logs/shard-*.log
   Then the ACTIVE NEXT menu below — operator chooses.
 
@@ -205,7 +217,9 @@ ACTIVE NEXT (operator to choose; nothing pre-authorized):
      wide, forecasts the weekend drop), sonnet-5 (claim 4/5), haiku-4.5
      (claim 5/6, NARROW — the overconfidence signature the admission
      rule will test). 36 model commits + 32 house = 68 on the ledger,
-     0 scored; scoring lands with 8D daily. Sonnet's first 3 attempts
+     0 scored at commit time; SCORED 2026-08-29 — sonnet-5 took both
+     targets on Winkler (180/65), opus-5 tied on flights, haiku
+     DEADMITTED exactly as its narrow intervals predicted. Sonnet's first 3 attempts
      returned empty text at max_tokens 2048 — the documented
      thinking-exhaustion HARNESS artifact, fixed at the cause (8192)
      and retried BEFORE anything was pushed (copy-honesty intact).
@@ -214,13 +228,14 @@ ACTIVE NEXT (operator to choose; nothing pre-authorized):
      axis, a second named engagement, and the letter's send (word).
   C. 8C-full — certified-universal-over-forecast-envelope fleet
      statements; BLOCKED on the parked scenario packs.
-  WAITING ON DATA (automatic): 8D — when adsb.lol releases a day D:
+  DAILY LOOP (8D, now proven end-to-end — first scoring 2026-08-29):
+     when adsb.lol releases a day D:
      node audit/ingest-day.js D && node audit/forecast.js score D &&
      node tools/forecast-gym.js score D, then COMMIT FORWARD (product
      + gym) for the next uncommitted days — the ledger ages only if
-     fed daily. For 2026-08-28 specifically: the v1-calibrated
-     eflyable commit will bust against the v2 outcome; score it, keep
-     it, state the cause (disclosure text in TODO 8D).
+     fed daily. Committed through 2026-09-03. Model rows are
+     spend-gated: a DEADMITTED proposer's commits are refused, so
+     claude-haiku-4.5 is out until it is recalibrated and re-entered.
   HELD/PARKED: synthetic demand packs · outreach on the word only.
   Spec: APP.md · plan: TODO.md · research: RESEARCH.md.
 

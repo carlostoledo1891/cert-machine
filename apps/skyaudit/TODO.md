@@ -502,17 +502,54 @@ Legend: [ ] open · [x] done · [~] in flight · (word) = needs the operator's w
       * still wants a thicker corpus (n days -> provable miss-rate
         2/(n+1)); the conformal instrument already emits calibrated
         boxes — we are ahead of the "no point-forecast retrofits" rule
-- [ ] 8D SCORE THE STANDING FORECASTS — when adsb.lol publishes
-      2026-08-28: node audit/ingest-day.js 2026-08-28 && node
-      audit/forecast.js score 2026-08-28 (the ledger's first outcomes).
-      DISCLOSURE REQUIRED AT SCORING: the two standing commits were
-      calibrated under methodology v1. The flights forecast [377,397]
-      is methodology-independent and scores normally; the eflyable
-      forecast [46,51] meets a v2-defined outcome (~100-scale) and
-      will bust BECAUSE THE DEFINITION MOVED — score it, keep it, and
-      state the cause in the score row / HANDOFF. The ledger never
-      rescores and never hides a bust; the penalty lands on us, the
-      honest direction. New commits calibrate on the v2 series
+- [x] 8D SCORED 2026-08-29 — THE LEDGER'S FIRST OUTCOMES, AND THE GYM'S
+      FIRST EVER. Day ingested GREEN: Fri 2026-08-28 NYC = 71 unique
+      aircraft, 68 audited, 315 flights, 2,520 rows, 70 E-FLYABLE
+      (22.2%), fleet 7. Both outcomes are v2 definitions.
+      PRODUCT (certs/skyaudit-forecast-ledger.jsonl) — 0/2 covered,
+      two busts with TWO DIFFERENT causes, and only one of them was
+      the cause the disclosure predicted:
+        flights  [377,397] vs 315 — BUST LOW, Winkler 268. This is a
+          GENUINE MISS, not a definition artifact. The disclosure said
+          this one was methodology-independent and would "score
+          normally"; it did score normally and it was wrong. Cause:
+          the interval was calibrated on the Mon-Wed weekday cluster
+          (377-397 flights) and Friday came in 62 below the floor —
+          the same volume drop first seen on Thu 08-27. FRIDAY IS NOT
+          A MIDWEEK DAY and the v1 commit had no Friday in its
+          calibration set. Nothing is rescored.
+        eflyable [46,51]  vs 70  — BUST HIGH, Winkler 81. THIS is the
+          predicted definition-move bust: the interval was calibrated
+          under methodology v1 (~50-scale) and the outcome is scored
+          under v2 (~100-scale). The forecast was not refuted by the
+          world; it was measured against a ruler it never claimed.
+          Scored, kept, cause stated — the ledger never rescores and
+          never hides a bust, and the penalty lands on us.
+      GYM (certs/forecast-gym-ledger.jsonl) — 12 commits scored, the
+      first of 68 ever to be graded. Outcomes flights 315 / eflyable 70:
+        conformal      2/2  Winkler 206 / 78   ADMITTED
+        range          2/2  Winkler 222 / 89   ADMITTED
+        claude-opus-5  2/2  Winkler 180 / 74   ADMITTED
+        claude-sonnet-5 2/2 Winkler 180 / 65   ADMITTED  (best both targets)
+        persistence    0/2  Winkler 496 / 84   ADMITTED
+        claude-haiku-4-5-20251001 0/2 Winkler 590 / 325  DEADMITTED
+      THE ADMISSION RULE DID EXACTLY WHAT IT WAS BUILT TO DO, on the
+      first day it could. Haiku claimed 5/6 coverage and went 0/2; the
+      exact binomial tail P(X<=0 | n=2, p=5/6) = 1/36 = 0.0278 falls
+      under the stated 1/20 bar, so it is DEADMITTED and its further
+      commits are refused. Recomputed independently this session and it
+      matches the tool string-exact. Its intervals were the narrowest on
+      the board (flights width 50 against opus's 180) — the
+      overconfidence signature named at commit time, now measured.
+      Persistence also went 0/2 and is NOT deadmitted: it claimed only
+      1/2, so P(X<=0 | n=2, p=1/2) = 1/4 clears the bar easily. The
+      forced dumb baseline is bad but not yet PROVABLY miscalibrated,
+      and the rule refuses to punish what it cannot prove. That
+      asymmetry is the instrument working, not a leak.
+      COMMITTED FORWARD the same session: 2026-09-03, house proposers
+      only (conformal now claims 4/6 as the corpus grew; persistence
+      re-anchors on 315/70) + the product pair [191,397]/[49,127] at
+      proved coverage 4/6. Model rows stay spend-gated on the word.
 - [ ] 8E THE FORECAST GYM (frontier-lab bridge, its own session):
       pinned context/outcome splits with proof-of-temporal-hygiene,
       exact proper-score reward, conformal baseline as the floor,
