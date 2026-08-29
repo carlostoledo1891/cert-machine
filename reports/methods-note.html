@@ -369,6 +369,50 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 </div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the count</div>
+    <h2>How 10 real defects were actually caught</h2>
+  </div>
+<div class="col"><p>Every defect below is one this repository shipped and then found. The bar at the bottom is the one the title is about, and it is empty on purpose: not one of them was caught by re-reading the code that contained it.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 284" role="img" aria-label="How each of 10 real defects was caught. Impossible numbers, outside reads, calibration runs, red controls and byte pins each account for some; reading the code accounts for none.">
+    <line x1="268.0" y1="10" x2="268.0" y2="220" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="268.0" y="240.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="410.2" y1="10" x2="410.2" y2="220" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="410.2" y="240.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="552.4" y1="10" x2="552.4" y2="220" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="552.4" y="240.0" text-anchor="middle" class="t-ax">2</text>
+    <line x1="694.7" y1="10" x2="694.7" y2="220" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="694.7" y="240.0" text-anchor="middle" class="t-ax">3</text>
+    <path d="M268 14 h422.66666666666663 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-422.66666666666663 Z" fill="var(--c-1)" data-cm="impossible number" data-cmv="3 of 10 defects surfaced this way" tabindex="0"/>
+    <text x="258.0" y="29.0" text-anchor="end" class="t-ax">impossible number</text>
+    <text x="702.7" y="29.0" text-anchor="start" class="t-lab">3</text>
+    <path d="M268 44 h280.44444444444446 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-280.44444444444446 Z" fill="var(--c-1)" data-cm="calibration" data-cmv="2 of 10 defects surfaced this way" tabindex="0"/>
+    <text x="258.0" y="59.0" text-anchor="end" class="t-ax">calibration</text>
+    <text x="560.4" y="59.0" text-anchor="start" class="t-lab">2</text>
+    <path d="M268 74 h280.44444444444446 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-280.44444444444446 Z" fill="var(--c-1)" data-cm="control" data-cmv="2 of 10 defects surfaced this way" tabindex="0"/>
+    <text x="258.0" y="89.0" text-anchor="end" class="t-ax">control</text>
+    <text x="560.4" y="89.0" text-anchor="start" class="t-lab">2</text>
+    <path d="M268 104 h138.22222222222223 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-138.22222222222223 Z" fill="var(--c-1)" data-cm="outside read" data-cmv="1 of 10 defects surfaced this way" tabindex="0"/>
+    <text x="258.0" y="119.0" text-anchor="end" class="t-ax">outside read</text>
+    <text x="418.2" y="119.0" text-anchor="start" class="t-lab">1</text>
+    <path d="M268 134 h138.22222222222223 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-138.22222222222223 Z" fill="var(--c-1)" data-cm="outside read → conservation identity" data-cmv="1 of 10 defects surfaced this way" tabindex="0"/>
+    <text x="258.0" y="149.0" text-anchor="end" class="t-ax">outside read → conservation identity</text>
+    <text x="418.2" y="149.0" text-anchor="start" class="t-lab">1</text>
+    <path d="M268 164 h138.22222222222223 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-138.22222222222223 Z" fill="var(--c-1)" data-cm="byte pin" data-cmv="1 of 10 defects surfaced this way" tabindex="0"/>
+    <text x="258.0" y="179.0" text-anchor="end" class="t-ax">byte pin</text>
+    <text x="418.2" y="179.0" text-anchor="start" class="t-lab">1</text>
+    <path d="M268 194 h0 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h0 Z" fill="var(--c-ctx)" data-cm="reading the code" data-cmv="0 of 10 defects surfaced this way" tabindex="0"/>
+    <text x="258.0" y="209.0" text-anchor="end" class="t-ax">reading the code</text>
+    <text x="278.0" y="209.0" text-anchor="start" class="t-lab">none</text>
+    <text x="524.0" y="262.0" text-anchor="middle" class="t-note">defects in this repository surfaced that way</text>
+  </svg>
+  </div>
+  <figcaption>10 defects, each counted once under the mechanism that actually surfaced it. An impossible NUMBER — a value refuted against itself, a count that cannot be that large — did the most work; an outside reader and a red control did the rest. Reading the code found none, which is why the gates in this repository are arranged to produce impossible numbers loudly rather than to encourage careful reading.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§1 · the discipline</div>
@@ -424,9 +468,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>What ran to let this page exist</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th>battery</th><th>what it holds for this catalog</th></tr></thead><tbody><tr><td><span class="m">census (henon + holmes)</span></td><td>holds the bisection-line fix and the shift classification</td></tr><tr><td><span class="m">entropy covering</span></td><td>holds the semantic ln 2 red and the slab condition</td></tr><tr><td><span class="m">lambda sweep</span></td><td>refuses the wrong-endpoint bar by name</td></tr><tr><td><span class="m">cf audit</span></td><td>re-proves the spurious-solution lemma</td></tr><tr><td><span class="m">keller audit + fibers</span></td><td>holds the pin-drift and forged-pin reds</td></tr><tr><td><span class="m">engine + families</span></td><td>pins A019762 and the decomposition closure</td></tr></tbody></table></div></div><div class="col"><p>All 6 executed by tools/build-report-methods.js during this build; any red refuses the page. Recomputed from records on the way: the closed-form decomposition closes (<span class="m">54,629,173 tested</span>), the census ceiling <span class="m">ln(1696)/16 = 0.4648</span>, the entropy bound <span class="m">h ≥ 0.301680</span> read from its certificate and confirmed below the ceiling. Wrong historical numbers quoted above (0.61, 0.4812, 0.356403, 77.6M) are quoted AS history — the point of the catalog is that the machine refuses to reproduce them.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-methods.js @ git b43d7cf — 6 batteries executed during this build (page refuses on any red). Repository: github.com/carlostoledo1891/cert-machine (MIT).</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-methods.js @ git b715f17 — 6 batteries executed during this build (page refuses on any red). Repository: github.com/carlostoledo1891/cert-machine (MIT).</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

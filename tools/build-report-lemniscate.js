@@ -20,6 +20,7 @@ const os = require('os');
 
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const die = (m) => { console.error('LEMNISCATE REPORT REFUSED: ' + m); process.exit(1); };
 const gitrev = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
@@ -72,6 +73,44 @@ O.push(C.stats([
   { k: 'the 30th decimal', v: 'a ROUNDING', role: 'warn', n: 'the expansion continues …6351247…, so the printed …635125 is a correct half-up rounding, not an expansion prefix' },
   { k: 'replication', v: 'CROSS-TREE', n: 'their verifier, this repository\'s interval instruments — staged at build, same verdict' }
 ]));
+
+/* ---- how much tighter than the manuscript needs --------------------------
+   The paper asks for a triple inside a box of side 1e-30 and prints 30 decimals
+   of D. The re-verification encloses each coordinate to about 1e-45. Drawing
+   the two on one log axis is the whole "independent re-verification" claim:
+   not "we agree", but "we agree with fifteen decades to spare". */
+{
+  const wm = /widths\(quanta 1e-48\):\s*([\d,\s]+)/.exec(out);
+  if (!wm) die('the refined-width line is gone from the verifier output');
+  const wid = wm[1].split(',').map(t => Number(t.trim()) * 1e-48);
+  const NAMES = ['q*', 'u*', 'v*'];
+  const worst = Math.max.apply(null, wid);
+  const fig = CH.bars({
+    w: 900, rowH: 32, logX: true, min: 1e-47, max: 1e-28, padL: 176, padR: 130,
+    rows: wid.map((w, i) => ({ k: NAMES[i] || 'coordinate ' + (i + 1), v: w, lab: w.toExponential(2),
+      token: 'var(--c-2)', hover: 'certified enclosure width ' + w.toExponential(3) })),
+    xTicks: [1e-45, 1e-40, 1e-35, 1e-30].map(v => ({ v, t: '1e' + Math.round(Math.log10(v)) })),
+    marks: [{ x: 1e-30, t: 'the box the manuscript needs (1e-30)', token: 'var(--c-3)', anchor: 'end' },
+            { x: 1e-40, t: 'this check\'s own bar', token: 'var(--c-ctx)', row: 1, anchor: 'end' }],
+    xLabel: 'width of the certified enclosure (log scale)',
+    alt: 'The certified enclosure width of each coordinate of the extremal triple, on a log axis. All three sit '
+      + 'near 1e-45, fifteen decades inside the 1e-30 box the manuscript\'s own lemma requires.'
+  });
+  O.push(C.section({
+    lab: '§0 · the margin', title: 'Agreeing is easy; agreeing with room to spare is the claim',
+    wide: true,
+    bodyRaw: '<div class="col">'
+      + C.pRaw('An independent re-verification that lands just inside the manuscript\'s own box would confirm '
+        + 'very little. These enclosures are narrower than that box by fifteen orders of magnitude, which is '
+        + 'what makes the printed decimals decidable rather than merely consistent.')
+      + '</div>'
+      + C.figure({ svgRaw: fig, caption: 'Each coordinate of the extremal triple, enclosed to a width of about '
+        + worst.toExponential(2) + ' by a Krawczyk argument in interval arithmetic — against the 1e-30 box '
+        + 'Lemma A.1 asks for. That margin is why all ' + passed + ' checks can be decisions rather than '
+        + 'comparisons: every printed decimal, including all 30 of D, is either inside the enclosure or outside '
+        + 'it, and ' + mutations + ' planted mutations were rejected on the same arithmetic.' })
+  }));
+}
 
 O.push(C.section({
   lab: '§1 · the two findings', title: 'What the digit machinery decided',
@@ -137,5 +176,5 @@ const foot = '<footer class="col">'
   + '</footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'verify-lemniscate.html'),
-  TPL.render({ title: 'Erdős #1038: thirty decimals verified · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/verify-lemniscate.html' }));
+  TPL.render({ title: 'Erdős #1038: thirty decimals verified · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/verify-lemniscate.html' }));
 console.log('reports/verify-lemniscate.html written: ' + passed + ' checks, ' + mutations + ' mutations rejected, CONFIRMED @ git ' + gitrev);

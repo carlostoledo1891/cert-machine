@@ -358,6 +358,41 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <ul class="plain"><li><b>The finding.</b> A capability score and a machine-checked disposition DISAGREE about the same artifact: the clean fragment is CERTIFIED at exact Bayes residual 0, while a planted mutant carrying the same reported score is REFUSED by the same checker. Scores rate; dispositions decide.</li><li><b>The mechanism.</b> The exhibit ships as a pack with its own stdlib-Python kernel; both verdicts were re-derived from the shipped bytes during this build, not quoted from a run that happened once.</li><li><b>Check it.</b> download the pack linked on this page and run its kernel — Python standard library, no dependencies, seconds.</li></ul>
 </div></div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the exhibit</div>
+    <h2>The same score, and a certificate that separates them anyway</h2>
+  </div>
+<div class="col"><p>Nobody scored the mutant — it carries the clean fragment's reported score. The only thing that tells them apart is an exact rational residual, checked against a tolerance of zero, which is why the separation cannot be argued with.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 166" role="img" aria-label="Two fragments on an exact residual axis. The clean one sits at exactly zero and certifies; the planted mutant sits at one tenth and is refused. The tolerance is zero, so the admissible set is the single point at the origin.">
+    <line x1="252.9" y1="16" x2="252.9" y2="104" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="252.9" y="124.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="342.1" y1="16" x2="342.1" y2="104" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="342.1" y="124.0" text-anchor="middle" class="t-ax">0.025</text>
+    <line x1="431.4" y1="16" x2="431.4" y2="104" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="431.4" y="124.0" text-anchor="middle" class="t-ax">0.05</text>
+    <line x1="520.7" y1="16" x2="520.7" y2="104" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="520.7" y="124.0" text-anchor="middle" class="t-ax">0.075</text>
+    <line x1="610.0" y1="16" x2="610.0" y2="104" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="610.0" y="124.0" text-anchor="middle" class="t-ax">0.1</text>
+    <text x="198.0" y="42.0" text-anchor="end" class="t-ax">the clean fragment</text>
+    <circle cx="252.9" cy="38" r="6" fill="var(--c-2)" stroke="var(--surface)" stroke-width="2" data-cm="the clean fragment" data-cmv="residual exactly 0 — CERTIFIED" tabindex="0"/>
+    <text x="266.9" y="42.0" text-anchor="start" class="t-lab">CERTIFIED — residual 0</text>
+    <text x="198.0" y="86.0" text-anchor="end" class="t-ax">the planted mutant</text>
+    <circle cx="610.0" cy="82" r="6" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2" data-cm="the planted mutant" data-cmv="residual 1/10, and epsilon is 0 — REFUSED" tabindex="0"/>
+    <text x="624.0" y="86.0" text-anchor="start" class="t-lab">REFUSED — residual 1/10</text>
+    <text x="460.0" y="142.0" text-anchor="middle" class="t-note">exact Bayes-consistency residual of the fragment  (the admissible set is the single point 0)</text>
+    <rect x="210" y="132" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="229.0" y="142.0" text-anchor="start" class="t-note">certified: residual is exactly zero</text>
+    <rect x="210" y="151" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="229.0" y="161.0" text-anchor="start" class="t-note">refused: any non-zero residual at all</text>
+  </svg>
+  </div>
+  <figcaption>Both fragments were re-derived from the shipped pack during this build, in stdlib Python, with no key and no GPU. The clean one lands at residual exactly 0 and certifies; the planted mutant lands at 1/10 and is refused. Because ε = 0 the admissible set is a single point rather than a tolerance band, so there is no threshold to tune and no score high enough to move the mutant into it. That is the whole disposition this page argues for: not a better score, a different KIND of statement.</figcaption>
+</figure></div>
+</section>
+
 <div class="wide">
   <div class="stats">
     <div class="stat"><div class="k">the clean fragment</div><div class="v held">CERTIFIED</div><div class="n">exact Bayes residual 0 — re-derived this build from the shipped pack, stdlib Python</div></div>
@@ -399,9 +434,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>The pack re-runs for nothing — and the cited bytes hold still</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th>cited artifact</th><th>sha256 (re-hashed this build)</th></tr></thead><tbody><tr><td><a href="/research/alien-science/alien-science/swap-consistency.js"><span class="m">swap-consistency.js</span></a></td><td class="v"><span class="m">d020854f412eb15dcfcc1a55f9e8c347…</span></td></tr><tr><td><a href="/research/alien-science/alien-science/hack-detectors.js"><span class="m">hack-detectors.js</span></a></td><td class="v"><span class="m">068a40c25cb5a4762a1adeadf7c6675d…</span></td></tr><tr><td><a href="/research/alien-science/alien-science/disposition-v0.json"><span class="m">disposition-v0.json</span></a></td><td class="v"><span class="m">7c902f031ea7ffd15f9e119cf7d8b2d0…</span></td></tr><tr><td><a href="/research/alien-science/alien-science/README.md"><span class="m">README.md</span></a></td><td class="v"><span class="m">7f054419a2637701f072d835b159b70a…</span></td></tr></tbody></table></div></div><div class="col"><p>The four files the sandbox issue links are served byte-identical at their original URLs (they are raw artifacts, not pages, so they never restyle). The disagreement pair above is re-derived at every build of this page by the pack's own kernel — <span class="m">python3 fellows-pack/kernels/swap_consistency.py</span>, standard library only — from <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/legacy/research/alien-science/alien-science">the published bundle</a>.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-alien-science.js @ git b43d7cf — the disagreement pair re-derived from the shipped pack during this build (CERTIFIED + REFUSED, or no page); the cited artifacts re-hashed. The page as originally sent is byte-preserved in the repository (legacy/research/alien-science/).</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-alien-science.js @ git b715f17 — the disagreement pair re-derived from the shipped pack during this build (CERTIFIED + REFUSED, or no page); the cited artifacts re-hashed. The page as originally sent is byte-preserved in the repository (legacy/research/alien-science/).</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

@@ -155,24 +155,44 @@ function axes(f, o) {
    moment one series is called something longer than the others, and a collided
    legend is worse than no legend. 11.5px IBM Plex Mono advances 6.9px/char. */
 const legendWidth = it => 19 + Math.ceil(String(it.t).length * 6.9) + 26;
-function legend(items, x, y, gap) {
+/* How many lines a legend will take in the width available. Forms call this
+   BEFORE sizing themselves, because a legend that silently runs off the right
+   edge drops a key — and a dropped key is exactly the failure the legend
+   exists to prevent. */
+function legendLines(items, avail, gap) {
+  if (!items || !items.length) return 0;
+  let lines = 1, cx = 0;
+  for (const it of items) {
+    const w = it.w || gap || legendWidth(it);
+    if (cx > 0 && cx + w > avail) { lines++; cx = 0; }
+    cx += w;
+  }
+  return lines;
+}
+const LEGEND_LINE = 19;
+function legend(items, x, y, gap, avail) {
   const out = [];
-  let cx = x;
+  let cx = x, cy = y;
+  const lines = avail ? legendLines(items, avail, gap) : 1;
+  cy = y - (lines - 1) * LEGEND_LINE;              /* grow upward from the baseline */
   for (const it of items) {
     if (!it.t) throw new Error('charts.legend: a swatch needs a label — colour alone is not allowed');
+    const w = it.w || gap || legendWidth(it);
+    if (avail && cx > x && cx + w > x + avail) { cx = x; cy += LEGEND_LINE; }
+    const y2 = cy;
     if (it.kind === 'dash') {
-      out.push('    <line x1="' + cx + '" y1="' + (y - 4) + '" x2="' + (cx + 14) + '" y2="' + (y - 4)
+      out.push('    <line x1="' + cx + '" y1="' + (y2 - 4) + '" x2="' + (cx + 14) + '" y2="' + (y2 - 4)
         + '" stroke="' + it.token + '" stroke-width="2" stroke-dasharray="4 3"/>');
     } else if (it.kind === 'line') {
-      out.push('    <line x1="' + cx + '" y1="' + (y - 4) + '" x2="' + (cx + 14) + '" y2="' + (y - 4)
+      out.push('    <line x1="' + cx + '" y1="' + (y2 - 4) + '" x2="' + (cx + 14) + '" y2="' + (y2 - 4)
         + '" stroke="' + it.token + '" stroke-width="2" stroke-linecap="round"/>');
     } else if (it.kind === 'hatch') {
-      out.push('    <rect x="' + cx + '" y="' + (y - 10) + '" width="14" height="10" fill="url(#cmHatch)"/>');
+      out.push('    <rect x="' + cx + '" y="' + (y2 - 10) + '" width="14" height="10" fill="url(#cmHatch)"/>');
     } else {
-      out.push('    <rect x="' + cx + '" y="' + (y - 10) + '" width="11" height="10" rx="2" fill="' + it.token + '"/>');
+      out.push('    <rect x="' + cx + '" y="' + (y2 - 10) + '" width="11" height="10" rx="2" fill="' + it.token + '"/>');
     }
-    out.push(txt(cx + 19, y, it.t, 't-note', 'start'));
-    cx += (it.w || gap || legendWidth(it));
+    out.push(txt(cx + 19, y2, it.t, 't-note', 'start'));
+    cx += w;
   }
   return out.join('\n');
 }
@@ -230,10 +250,10 @@ function script() {
    decided never share a typography here, which is the whole audit posture.  */
 function lines(o) {
   const S = o.series;
-  const hasLegend = !!(o.keys || S.length > 1);
-  /* room for the tick row, the axis caption, and the legend line — measured,
-     not guessed, so nothing has to overlap anything */
-  const f = frame(Object.assign({}, o, { padB: o.padB || (28 + (o.xLabel ? 22 : 0) + (hasLegend ? 24 : 0)) }));
+  const preKeys = o.keys || (S.length > 1 ? S.map(x => ({ t: x.name })) : null);
+  const avail0 = (o.w || 900) - (o.padL === undefined ? 62 : o.padL) - (o.padR === undefined ? 22 : o.padR);
+  const nLeg = legendLines(preKeys, avail0, o.legendGap);
+  const f = frame(Object.assign({}, o, { padB: o.padB || (28 + (o.xLabel ? 22 : 0) + (nLeg ? 5 + nLeg * LEGEND_LINE : 0)) }));
   /* Only series drawing an IDENTITY hue count against the cap. A series painted
      in the context grey is the "emphasis" form — one line is the point and the
      rest are background — and background is not identity, so it is exempt. */
@@ -259,6 +279,13 @@ function lines(o) {
     out.push('    <line x1="' + f.L + '" y1="' + y.toFixed(1) + '" x2="' + (f.L + f.pw) + '" y2="' + y.toFixed(1)
       + '" stroke="' + (r.token || CTX) + '" stroke-width="1"' + (r.dashed ? ' stroke-dasharray="4 3"' : '') + '/>');
     if (r.t) out.push(txt(f.L + f.pw - 4, y - 6, r.t, 't-note', 'end'));
+  }
+  /* vertical callouts: a named x, the way `rules` names a y. m.row stacks them. */
+  for (const m of (o.vmarks || [])) {
+    const x = f.px(m.x);
+    out.push('    <line x1="' + x.toFixed(1) + '" y1="' + f.T + '" x2="' + x.toFixed(1) + '" y2="' + (f.T + f.ph)
+      + '" stroke="' + (m.token || CAT[2]) + '" stroke-width="2"' + (m.dashed ? ' stroke-dasharray="5 4"' : '') + '/>');
+    if (m.t) out.push(txt(x + (m.anchor === 'end' ? -7 : 7), f.T + 13 + (m.row || 0) * 17, m.t, 't-lab', m.anchor || 'start'));
   }
   out.push('    <line class="cm-cross" x1="0" y1="' + f.T + '" x2="0" y2="' + (f.T + f.ph)
     + '" stroke="' + AXIS + '" stroke-width="1" style="opacity:0"/>');
@@ -289,7 +316,7 @@ function lines(o) {
     ? S.map((s, i) => ({ token: s.token || CAT[S.slice(0, i).filter(x => !x.token).length], t: s.name,
                          kind: s.dashed ? 'dash' : 'line' }))
     : null);
-  if (keys) out.push(legend(keys, f.L, f.h - 7, o.legendGap));
+  if (keys) out.push(legend(keys, f.L, f.h - 7, o.legendGap, f.pw));
   out.push(close);
   return out.join('\n');
 }
@@ -334,20 +361,36 @@ function band(o) {
 function bars(o) {
   const rows = o.rows;
   const rowH = o.rowH || 26, barH = Math.min(24, rowH - 8);
-  const h = o.h || (rows.length * rowH + 56);
-  const f = frame(Object.assign({ h, y0: 0, y1: 1, x0: 0, x1: o.max, padB: 34, padT: 10 },
+  const hasMarks = !!(o.marks && o.marks.length);
+  const h = o.h || (rows.length * rowH + 56 + (o.xLabel ? 18 : 0) + (hasMarks ? 20 : 0));
+  /* a log x-axis needs a strictly positive floor, and the bar then grows from
+     that floor rather than from zero — which is stated on the axis, because a
+     bar whose baseline is not zero is a bar that can mislead */
+  const lg = !!o.logX;
+  const f = frame(Object.assign({ h, y0: 0, y1: 1, x0: lg ? Math.log10(o.min) : 0,
+    x1: lg ? Math.log10(o.max) : o.max, padB: 34 + (o.xLabel ? 18 : 0), padT: 10 + (hasMarks ? 20 : 0) },
     { w: o.w, padL: o.padL === undefined ? 168 : o.padL, padR: o.padR === undefined ? 74 : o.padR }));
+  const X = v => f.px(lg ? Math.log10(v) : v);
   const out = [open({ w: f.w, h: f.h, alt: o.alt })];
   for (const t of (o.xTicks || [])) {
-    const x = f.px(t.v !== undefined ? t.v : t);
+    const x = X(t.v !== undefined ? t.v : t);
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + f.T + '" x2="' + x.toFixed(1) + '" y2="'
       + (f.T + rows.length * rowH) + '" stroke="' + GRID + '" stroke-width="1"/>');
     out.push(txt(x, f.T + rows.length * rowH + 20, t.t !== undefined ? t.t : compact(t.v !== undefined ? t.v : t), 't-ax', 'middle'));
   }
+  for (const m of (o.marks || [])) {
+    const x = X(m.x);
+    out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (f.T - 3) + '" x2="' + x.toFixed(1) + '" y2="'
+      + (f.T + rows.length * rowH + 3) + '" stroke="' + (m.token || CAT[2]) + '" stroke-width="2"'
+      + (m.dashed ? ' stroke-dasharray="5 4"' : '') + '/>');
+    /* the callout sits ABOVE the bars, in the headroom padT reserved for it —
+       inside the plot it would land on the first bar */
+    if (m.t) out.push(txt(x + (m.anchor === 'end' ? -7 : 7), f.T - 8 - (m.row || 0) * 17, m.t, 't-lab', m.anchor || 'start'));
+  }
   rows.forEach((r, i) => {
     const y = f.T + i * rowH + (rowH - barH) / 2;
-    const wpx = Math.max(2, f.px(r.v) - f.L);
-    const tok = r.token || (o.seq ? SEQ[Math.min(SEQ.length - 1, Math.round((r.v / o.max) * (SEQ.length - 1)))] : CAT[0]);
+    const wpx = Math.max(2, X(r.v) - f.L);
+    const tok = r.token || o.token || CAT[0];
     /* 4px rounded data-end, square at the baseline */
     out.push('    <path ' + hit('d="M' + f.L + ' ' + y + ' h' + Math.max(0, wpx - 4)
       + ' a4 4 0 0 1 4 4 v' + (barH - 8) + ' a4 4 0 0 1 -4 4 h' + -Math.max(0, wpx - 4) + ' Z" fill="' + tok + '"',
@@ -355,7 +398,8 @@ function bars(o) {
     out.push(txt(f.L - 10, y + barH / 2 + 4, r.k, 't-ax', 'end'));
     out.push(txt(f.L + wpx + 8, y + barH / 2 + 4, r.lab || compact(r.v), 't-lab', 'start'));
   });
-  if (o.xLabel) out.push(txt(f.L + f.pw / 2, f.h - 4, o.xLabel, 't-note', 'middle'));
+  if (o.xLabel) out.push(txt(f.L + f.pw / 2, f.T + rows.length * rowH + 42, o.xLabel, 't-note', 'middle'));
+  if (o.keys) out.push(legend(o.keys, f.L, f.h - 6, o.legendGap, f.pw));
   out.push(close);
   return out.join('\n');
 }
@@ -428,7 +472,7 @@ function dumbbell(o) {
     if (r.lab) out.push(txt(f.L + f.pw + 12, y + 4, r.lab, 't-lab', 'start'));
   });
   out.push(legend([{ token: SEQ[1], t: o.aName || 'before' }, { token: SEQ[4], t: o.bName || 'after' }],
-    f.L, f.h - 6, o.legendGap));
+    f.L, f.h - 6, o.legendGap, f.pw));
   out.push(close);
   return out.join('\n');
 }
@@ -452,7 +496,7 @@ function strip(o) {
     out.push('    <rect ' + hit('x="' + x.toFixed(2) + '" y="' + y + '" width="' + Math.max(1, cw).toFixed(2)
       + '" height="' + cell + '" rx="2" fill="' + it.token + '"', it.k, it.v || '') + '/>');
   });
-  out.push(legend(o.keys, L, h - 8, o.legendGap));
+  out.push(legend(o.keys, L, h - 8, o.legendGap, w - L - 4));
   out.push(close);
   return out.join('\n');
 }
@@ -495,7 +539,7 @@ function intervals(o) {
     if (r.note) out.push(txt(f.px(r.point !== undefined ? r.point : r.hi) + 14, y + 4, r.note, 't-lab', 'start'));
   });
   if (o.xLabel) out.push(txt(f.L + f.pw / 2, f.h - 24, o.xLabel, 't-note', 'middle'));
-  if (o.keys) out.push(legend(o.keys, f.L, f.h - 5, o.legendGap));
+  if (o.keys) out.push(legend(o.keys, f.L, f.h - 5, o.legendGap, f.pw));
   out.push(close);
   return out.join('\n');
 }
@@ -511,8 +555,11 @@ function segments(o) {
   const rows = o.rows, rowH = o.rowH || 44;
   const hasLegend = !!o.keys;
   const stack = Math.max(0, ...rows.map(r => Math.max(0, ...(r.marks || []).map(m => m.row || 0))));
-  const f = frame(Object.assign({ h: o.h || (rows.length * rowH + 30 + (o.xLabel ? 22 : 0) + (hasLegend ? 24 : 0) + 22 + stack * 17),
-    y0: 0, y1: 1, padT: 16 + stack * 17, padB: 30 + (o.xLabel ? 22 : 0) + (hasLegend ? 24 : 0) },
+  const availS = (o.w || 900) - (o.padL === undefined ? 176 : o.padL) - (o.padR === undefined ? 26 : o.padR);
+  const nLegS = legendLines(o.keys, availS, o.legendGap);
+  const legH = nLegS ? 5 + nLegS * LEGEND_LINE : 0;
+  const f = frame(Object.assign({ h: o.h || (rows.length * rowH + 30 + (o.xLabel ? 22 : 0) + legH + 22 + stack * 17),
+    y0: 0, y1: 1, padT: 16 + stack * 17, padB: 30 + (o.xLabel ? 22 : 0) + legH },
     { w: o.w, x0: o.x0, x1: o.x1, padL: o.padL === undefined ? 176 : o.padL, padR: o.padR === undefined ? 26 : o.padR }));
   const out = [open({ w: f.w, h: f.h, alt: o.alt })];
   out.push(HATCH_DEF);
@@ -538,6 +585,7 @@ function segments(o) {
     /* m.row stacks callouts; m.anchor pulls the last one back inside the frame.
        Nudging labels sideways to dodge each other detaches them from the rule
        they belong to, so they move UP instead. */
+    if (r.note) out.push(txt(f.L + f.pw + 12, y + 14, r.note, 't-lab', 'start'));
     for (const m of (r.marks || [])) {
       const x = f.px(m.x);
       out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (y - 5) + '" x2="' + x.toFixed(1) + '" y2="' + (y + 25)
@@ -546,7 +594,7 @@ function segments(o) {
     }
   });
   if (o.xLabel) out.push(txt(f.L + f.pw / 2, bottom + 42, o.xLabel, 't-note', 'middle'));
-  if (o.keys) out.push(legend(o.keys, f.L, f.h - 7, o.legendGap));
+  if (o.keys) out.push(legend(o.keys, f.L, f.h - 7, o.legendGap, f.pw));
   out.push(close);
   return out.join('\n');
 }
@@ -567,7 +615,7 @@ function sparkline(vals, o) {
 }
 
 module.exports = {
-  frame, axes, open, close, txt, legend, hit, script, HATCH_DEF,
+  frame, axes, open, close, txt, legend, legendLines, hit, script, HATCH_DEF,
   lines, band, bars, dist, dumbbell, strip, intervals, segments, sparkline,
   compact, decades, nf, CAT, SEQ, CTX, GRID, AXIS, SURFACE
 };

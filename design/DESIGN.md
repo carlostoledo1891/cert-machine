@@ -39,6 +39,7 @@ chart has rules prose does not and they are easier to keep in one place than to
 remember at every call site. Forms: `lines` · `band` · `bars` · `dist` ·
 `dumbbell` · `strip` · `intervals` · `segments` · `sparkline`, plus `legend`,
 `script` (one delegated hover listener per page) and the log-axis tick helper.
+Every report on the shelf carries at least one.
 
 What the kit enforces so a builder never has to re-derive it:
 
@@ -56,9 +57,14 @@ What the kit enforces so a builder never has to re-derive it:
   bars ≤24px with a 4px rounded data-end and a 2px surface gap, hairline SOLID
   gridlines. Dashes are reserved for predicted/uncertified marks — never grid.
 - **Labels are measured, not hoped:** legend advance comes from the label
-  length, band captions centre only when they fit, callouts stack vertically
-  rather than dodging sideways, and a log axis REFUSES a zero instead of
-  clamping it to the floor.
+  length and the legend WRAPS when the row runs out of width (it used to drop
+  the last key, which is the exact failure a legend exists to prevent); band
+  captions centre only when they fit; callouts stack vertically rather than
+  dodging sideways; and a log axis REFUSES a zero instead of clamping it to the
+  floor — `water-value`'s two exactly-zero trees are counted in words instead.
+- **An empty class still gets a key**, labelled as empty. On the eval board the
+  empty REFUTED band IS the finding, and an unlabelled absence sends the reader
+  hunting for a colour that is not on the chart.
 
 `design/battery.js` is the gate: it re-derives the palette checks in OKLab with
 the Machado 2009 CVD model (rather than quoting the day they were chosen), scans

@@ -358,6 +358,70 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <ul class="plain"><li><b>The finding.</b> Across every real-model campaign, zero certified rows are wrong and zero float-screen survivors were subtly false — frontier failures are malformed or rejected, never almost-right. Grading is a proof, so the leaderboard is a theorem count, and the same harness is a reward oracle that cannot be hacked.</li><li><b>The mechanism.</b> A proposed rank-R decomposition either satisfies the full tensor identity in exact rational arithmetic or it does not; red controls — including a coefficient off by 1e-9, invisible to any float screen — must be refuted exactly before a campaign grades anything, and a certifying control aborts it.</li><li><b>Check it.</b> <span class="m">python3 tools/llm-harness.py --dry-run --family matmul --n 8</span> — the calibration this page re-ran as its own gate before rendering.</li></ul>
 </div></div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the failure shape</div>
+    <h2>Frontier models fail loudly, not subtly</h2>
+  </div>
+<div class="col"><p>Each bar is one campaign, split by what the grader did with each proposal. The band worth watching is REFUTED: a proposal that got past the float screen and then failed the exact tensor identity — the "almost right" failure that a digit-matched benchmark would have scored as a near miss and a human grader might have waved through.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 423" role="img" aria-label="One stacked bar per model campaign, showing the share of proposals that certified, were refuted by the exact identity, were rejected by the screen, arrived malformed, or were left undecided. Across all campaigns the refuted band is 0 rows out of 274.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="268.0" y1="16" x2="268.0" y2="322" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="268.0" y="342.0" text-anchor="middle" class="t-ax">0%</text>
+    <line x1="419.5" y1="16" x2="419.5" y2="322" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="419.5" y="342.0" text-anchor="middle" class="t-ax">25%</text>
+    <line x1="571.0" y1="16" x2="571.0" y2="322" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="571.0" y="342.0" text-anchor="middle" class="t-ax">50%</text>
+    <line x1="722.5" y1="16" x2="722.5" y2="322" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="722.5" y="342.0" text-anchor="middle" class="t-ax">75%</text>
+    <line x1="874.0" y1="16" x2="874.0" y2="322" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="874.0" y="342.0" text-anchor="middle" class="t-ax">100%</text>
+    <text x="256.0" y="37.0" text-anchor="end" class="t-ax">haiku-4-5 · v4  (n=6)</text>
+    <rect x="268.00" y="23" width="604.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · v4" data-cmv="6 of 6 rejected" tabindex="0"/>
+    <text x="256.0" y="71.0" text-anchor="end" class="t-ax">sonnet-5 · v3  (n=28)</text>
+    <rect x="268.00" y="57" width="279.36" height="20" rx="3" fill="var(--c-2)" data-cm="sonnet-5 · v3" data-cmv="13 of 28 certified" tabindex="0"/>
+    <rect x="549.36" y="57" width="106.21" height="20" rx="3" fill="var(--c-3)" data-cm="sonnet-5 · v3" data-cmv="5 of 28 rejected" tabindex="0"/>
+    <text x="256.0" y="105.0" text-anchor="end" class="t-ax">opus-5 · v3  (n=32)</text>
+    <rect x="268.00" y="91" width="244.19" height="20" rx="3" fill="var(--c-2)" data-cm="opus-5 · v3" data-cmv="13 of 32 certified" tabindex="0"/>
+    <rect x="514.19" y="91" width="130.56" height="20" rx="3" fill="var(--c-3)" data-cm="opus-5 · v3" data-cmv="7 of 32 rejected" tabindex="0"/>
+    <text x="256.0" y="139.0" text-anchor="end" class="t-ax">haiku-4-5 · v3  (n=30)</text>
+    <rect x="268.00" y="125" width="462.60" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · v3" data-cmv="23 of 30 rejected" tabindex="0"/>
+    <rect x="732.60" y="125" width="119.20" height="20" rx="3" fill="var(--c-ctx)" data-cm="haiku-4-5 · v3" data-cmv="6 of 30 malformed" tabindex="0"/>
+    <text x="256.0" y="173.0" text-anchor="end" class="t-ax">opus-5 · v2  (n=24)</text>
+    <rect x="268.00" y="159" width="427.25" height="20" rx="3" fill="var(--c-2)" data-cm="opus-5 · v2" data-cmv="17 of 24 certified" tabindex="0"/>
+    <rect x="697.25" y="159" width="23.25" height="20" rx="3" fill="var(--c-3)" data-cm="opus-5 · v2" data-cmv="1 of 24 rejected" tabindex="0"/>
+    <rect x="722.50" y="159" width="149.50" height="20" rx="3" fill="var(--c-ctx)" data-cm="opus-5 · v2" data-cmv="6 of 24 malformed" tabindex="0"/>
+    <text x="256.0" y="207.0" text-anchor="end" class="t-ax">sonnet-5 · v2  (n=40)</text>
+    <rect x="268.00" y="193" width="422.20" height="20" rx="3" fill="var(--c-2)" data-cm="sonnet-5 · v2" data-cmv="28 of 40 certified" tabindex="0"/>
+    <rect x="692.20" y="193" width="28.30" height="20" rx="3" fill="var(--c-3)" data-cm="sonnet-5 · v2" data-cmv="2 of 40 rejected" tabindex="0"/>
+    <rect x="722.50" y="193" width="149.50" height="20" rx="3" fill="var(--c-ctx)" data-cm="sonnet-5 · v2" data-cmv="10 of 40 malformed" tabindex="0"/>
+    <text x="256.0" y="241.0" text-anchor="end" class="t-ax">haiku-4-5 · v2  (n=40)</text>
+    <rect x="268.00" y="227" width="573.70" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · v2" data-cmv="38 of 40 rejected" tabindex="0"/>
+    <rect x="843.70" y="227" width="28.30" height="20" rx="3" fill="var(--c-ctx)" data-cm="haiku-4-5 · v2" data-cmv="2 of 40 malformed" tabindex="0"/>
+    <text x="256.0" y="275.0" text-anchor="end" class="t-ax">sonnet-5 · v1  (n=34)</text>
+    <rect x="268.00" y="261" width="443.59" height="20" rx="3" fill="var(--c-2)" data-cm="sonnet-5 · v1" data-cmv="25 of 34 certified" tabindex="0"/>
+    <rect x="713.59" y="261" width="158.41" height="20" rx="3" fill="var(--c-ctx)" data-cm="sonnet-5 · v1" data-cmv="9 of 34 malformed" tabindex="0"/>
+    <text x="256.0" y="309.0" text-anchor="end" class="t-ax">haiku-4-5 · v1  (n=40)</text>
+    <rect x="268.00" y="295" width="573.70" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · v1" data-cmv="38 of 40 rejected" tabindex="0"/>
+    <rect x="843.70" y="295" width="28.30" height="20" rx="3" fill="var(--c-ctx)" data-cm="haiku-4-5 · v1" data-cmv="2 of 40 malformed" tabindex="0"/>
+    <text x="571.0" y="364.0" text-anchor="middle" class="t-note">share of that campaign&#39;s proposals</text>
+    <rect x="268" y="387" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="287.0" y="397.0" text-anchor="start" class="t-note">certified</text>
+    <rect x="376" y="387" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="395.0" y="397.0" text-anchor="start" class="t-note">refuted — none</text>
+    <rect x="518" y="387" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="537.0" y="397.0" text-anchor="start" class="t-note">rejected</text>
+    <rect x="619" y="387" width="11" height="10" rx="2" fill="var(--c-ctx)"/>
+    <text x="638.0" y="397.0" text-anchor="start" class="t-note">malformed</text>
+    <rect x="268" y="406" width="14" height="10" fill="url(#cmHatch)"/>
+    <text x="287.0" y="416.0" text-anchor="start" class="t-note">undecided — none</text>
+  </svg>
+  </div>
+  <figcaption>9 campaigns, 274 proposals, and the REFUTED band holds 0 of them — the almost-right failure does not appear. Frontier failures here are malformed (the reply did not parse) or rejected (the screen caught it), which is a different claim from &quot;models are bad at this&quot;: it says the failures are the kind an exact grader detects for free, and that the certified rows carry no false positives to find.</figcaption>
+</figure></div>
+</section>
+
 <div class="wide">
   <div class="stats">
     <div class="stat"><div class="k">grading</div><div class="v held">CERTIFICATE</div><div class="n">exact tensor identity over Fractions — always decidable, never an opinion</div></div>
@@ -520,9 +584,35 @@ function cmCertify(claim){
     out.style.borderColor = r.verdict === 'CERTIFIED' ? 'var(--held)' : r.verdict === 'REFUTED' ? 'var(--sig)' : 'var(--rule)';
   };
 })();</script>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-eval.js @ git b43d7cf — the harness calibration re-ran during this build (17 red controls, 2 refuted exactly, 0 certified — a control that certifies aborts everything). Ledger: certs/matmul-eval-ledger.jsonl.</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-eval.js @ git b715f17 — the harness calibration re-ran during this build (17 red controls, 2 refuted exactly, 0 certified — a control that certifies aborts everything). Ledger: certs/matmul-eval-ledger.jsonl.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

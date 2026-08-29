@@ -369,6 +369,290 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 </div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the inequality</div>
+    <h2>The one inequality the whole proof rests on</h2>
+  </div>
+<div class="col"><p>Every radius where this curve sits below zero is a radius at which the operator is a contraction, so an exact solution exists within it and is the only one there. The curve is drawn from the three bounds the verifier printed during this build — nothing here is fitted or sketched.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 300" role="img" aria-label="The radii polynomial p(r) plotted from zero. It starts at Y0 = 3.494961e-15, dips below zero across a window beginning at the certified radius 7.754374e-15 and ending near 4.00e-2, then rises back through zero.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="227.9" x2="878" y2="227.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="231.9" text-anchor="end" class="t-ax">-4.7e-3</text>
+    <line x1="62" y1="139.5" x2="878" y2="139.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="143.5" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="29.0" x2="878" y2="29.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="33.0" text-anchor="end" class="t-ax">5.9e-3</text>
+    <line x1="62.0" y1="250" x2="62.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="270.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="225.2" y1="250" x2="225.2" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="225.2" y="270.0" text-anchor="middle" class="t-ax">1.0e-2</text>
+    <line x1="388.4" y1="250" x2="388.4" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="388.4" y="270.0" text-anchor="middle" class="t-ax">2.0e-2</text>
+    <line x1="551.6" y1="250" x2="551.6" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="551.6" y="270.0" text-anchor="middle" class="t-ax">3.0e-2</text>
+    <line x1="714.8" y1="250" x2="714.8" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="714.8" y="270.0" text-anchor="middle" class="t-ax">4.0e-2</text>
+    <line x1="62" y1="250" x2="878" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="292.0" text-anchor="middle" class="t-note">radius r  (nu-weighted)</text>
+    <text x="13" y="134" class="t-note" transform="rotate(-90 13 134)" text-anchor="middle">p(r)</text>
+    <rect x="62.0" y="18" width="652.8" height="232" fill="var(--c-grid)"/>
+    <text x="388.4" y="31.0" text-anchor="middle" class="t-note">every r in here is a valid certificate</text>
+    <line x1="62" y1="139.5" x2="878" y2="139.5" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="874.0" y="133.5" text-anchor="end" class="t-note">p(r) = 0</text>
+    <line x1="62.0" y1="18" x2="62.0" y2="250" stroke="var(--c-2)" stroke-width="2"/>
+    <text x="69.0" y="48.0" text-anchor="start" class="t-lab">certified r = 7.754374e-15 — the window&#39;s left edge</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="250" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M62.00 139.52 L65.40 141.36 L68.80 143.17 L72.20 144.96 L75.60 146.74 L79.00 148.49 L82.40 150.23 L85.80 151.94 L89.20 153.64 L92.60 155.32 L96.00 156.98 L99.40 158.62 L102.80 160.24 L106.20 161.84 L109.60 163.42 L113.00 164.99 L116.40 166.53 L119.80 168.05 L123.20 169.56 L126.60 171.05 L130.00 172.51 L133.40 173.96 L136.80 175.39 L140.20 176.80 L143.60 178.19 L147.00 179.56 L150.40 180.91 L153.80 182.25 L157.20 183.56 L160.60 184.86 L164.00 186.13 L167.40 187.39 L170.80 188.62 L174.20 189.84 L177.60 191.04 L181.00 192.22 L184.40 193.38 L187.80 194.52 L191.20 195.64 L194.60 196.75 L198.00 197.83 L201.40 198.90 L204.80 199.94 L208.20 200.97 L211.60 201.97 L215.00 202.96 L218.40 203.93 L221.80 204.88 L225.20 205.81 L228.60 206.72 L232.00 207.61 L235.40 208.49 L238.80 209.34 L242.20 210.17 L245.60 210.99 L249.00 211.78 L252.40 212.56 L255.80 213.32 L259.20 214.06 L262.60 214.78 L266.00 215.48 L269.40 216.16 L272.80 216.82 L276.20 217.46 L279.60 218.08 L283.00 218.69 L286.40 219.27 L289.80 219.84 L293.20 220.39 L296.60 220.91 L300.00 221.42 L303.40 221.91 L306.80 222.38 L310.20 222.83 L313.60 223.26 L317.00 223.68 L320.40 224.07 L323.80 224.44 L327.20 224.80 L330.60 225.13 L334.00 225.45 L337.40 225.75 L340.80 226.03 L344.20 226.28 L347.60 226.52 L351.00 226.74 L354.40 226.95 L357.80 227.13 L361.20 227.29 L364.60 227.43 L368.00 227.56 L371.40 227.67 L374.80 227.75 L378.20 227.82 L381.60 227.87 L385.00 227.90 L388.40 227.90 L391.80 227.90 L395.20 227.87 L398.60 227.82 L402.00 227.75 L405.40 227.67 L408.80 227.56 L412.20 227.43 L415.60 227.29 L419.00 227.13 L422.40 226.95 L425.80 226.74 L429.20 226.52 L432.60 226.28 L436.00 226.03 L439.40 225.75 L442.80 225.45 L446.20 225.13 L449.60 224.80 L453.00 224.44 L456.40 224.07 L459.80 223.68 L463.20 223.26 L466.60 222.83 L470.00 222.38 L473.40 221.91 L476.80 221.42 L480.20 220.91 L483.60 220.39 L487.00 219.84 L490.40 219.27 L493.80 218.69 L497.20 218.08 L500.60 217.46 L504.00 216.82 L507.40 216.16 L510.80 215.48 L514.20 214.78 L517.60 214.06 L521.00 213.32 L524.40 212.56 L527.80 211.78 L531.20 210.99 L534.60 210.17 L538.00 209.34 L541.40 208.49 L544.80 207.61 L548.20 206.72 L551.60 205.81 L555.00 204.88 L558.40 203.93 L561.80 202.96 L565.20 201.97 L568.60 200.97 L572.00 199.94 L575.40 198.90 L578.80 197.83 L582.20 196.75 L585.60 195.64 L589.00 194.52 L592.40 193.38 L595.80 192.22 L599.20 191.04 L602.60 189.84 L606.00 188.62 L609.40 187.39 L612.80 186.13 L616.20 184.86 L619.60 183.56 L623.00 182.25 L626.40 180.91 L629.80 179.56 L633.20 178.19 L636.60 176.80 L640.00 175.39 L643.40 173.96 L646.80 172.51 L650.20 171.05 L653.60 169.56 L657.00 168.05 L660.40 166.53 L663.80 164.99 L667.20 163.42 L670.60 161.84 L674.00 160.24 L677.40 158.62 L680.80 156.98 L684.20 155.32 L687.60 153.64 L691.00 151.94 L694.40 150.23 L697.80 148.49 L701.20 146.74 L704.60 144.96 L708.00 143.17 L711.40 141.36 L714.80 139.52 L718.20 137.67 L721.60 135.80 L725.00 133.91 L728.40 132.01 L731.80 130.08 L735.20 128.13 L738.60 126.17 L742.00 124.18 L745.40 122.18 L748.80 120.15 L752.20 118.11 L755.60 116.05 L759.00 113.97 L762.40 111.87 L765.80 109.75 L769.20 107.61 L772.60 105.45 L776.00 103.27 L779.40 101.08 L782.80 98.86 L786.20 96.63 L789.60 94.37 L793.00 92.10 L796.40 89.81 L799.80 87.50 L803.20 85.17 L806.60 82.82 L810.00 80.45 L813.40 78.06 L816.80 75.65 L820.20 73.23 L823.60 70.78 L827.00 68.32 L830.40 65.83 L833.80 63.33 L837.20 60.81 L840.60 58.27 L844.00 55.71 L847.40 53.13 L850.80 50.53 L854.20 47.91 L857.60 45.27 L861.00 42.62 L864.40 39.94 L867.80 37.25 L871.20 34.53 L874.60 31.80 L878.00 29.05" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="29.05" r="4.5" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2"/>
+    <circle cx="62.00" cy="139.52" r="12" fill="transparent" data-cmx="62.00" data-cm="p(r) · r = 0.000e+0" data-cmv="p(r) = 3.495e-15" tabindex="0"/>
+    <circle cx="65.40" cy="141.36" r="12" fill="transparent" data-cmx="65.40" data-cm="p(r) · r = 2.083e-4" data-cmv="p(r) = -9.808e-5" tabindex="0"/>
+    <circle cx="68.80" cy="143.17" r="12" fill="transparent" data-cmx="68.80" data-cm="p(r) · r = 4.167e-4" data-cmv="p(r) = -1.951e-4" tabindex="0"/>
+    <circle cx="72.20" cy="144.96" r="12" fill="transparent" data-cmx="72.20" data-cm="p(r) · r = 6.250e-4" data-cmv="p(r) = -2.912e-4" tabindex="0"/>
+    <circle cx="75.60" cy="146.74" r="12" fill="transparent" data-cmx="75.60" data-cm="p(r) · r = 8.334e-4" data-cmv="p(r) = -3.862e-4" tabindex="0"/>
+    <circle cx="79.00" cy="148.49" r="12" fill="transparent" data-cmx="79.00" data-cm="p(r) · r = 1.042e-3" data-cmv="p(r) = -4.801e-4" tabindex="0"/>
+    <circle cx="82.40" cy="150.23" r="12" fill="transparent" data-cmx="82.40" data-cm="p(r) · r = 1.250e-3" data-cmv="p(r) = -5.731e-4" tabindex="0"/>
+    <circle cx="85.80" cy="151.94" r="12" fill="transparent" data-cmx="85.80" data-cm="p(r) · r = 1.458e-3" data-cmv="p(r) = -6.650e-4" tabindex="0"/>
+    <circle cx="89.20" cy="153.64" r="12" fill="transparent" data-cmx="89.20" data-cm="p(r) · r = 1.667e-3" data-cmv="p(r) = -7.559e-4" tabindex="0"/>
+    <circle cx="92.60" cy="155.32" r="12" fill="transparent" data-cmx="92.60" data-cm="p(r) · r = 1.875e-3" data-cmv="p(r) = -8.458e-4" tabindex="0"/>
+    <circle cx="96.00" cy="156.98" r="12" fill="transparent" data-cmx="96.00" data-cm="p(r) · r = 2.083e-3" data-cmv="p(r) = -9.346e-4" tabindex="0"/>
+    <circle cx="99.40" cy="158.62" r="12" fill="transparent" data-cmx="99.40" data-cm="p(r) · r = 2.292e-3" data-cmv="p(r) = -1.022e-3" tabindex="0"/>
+    <circle cx="102.80" cy="160.24" r="12" fill="transparent" data-cmx="102.80" data-cm="p(r) · r = 2.500e-3" data-cmv="p(r) = -1.109e-3" tabindex="0"/>
+    <circle cx="106.20" cy="161.84" r="12" fill="transparent" data-cmx="106.20" data-cm="p(r) · r = 2.708e-3" data-cmv="p(r) = -1.195e-3" tabindex="0"/>
+    <circle cx="109.60" cy="163.42" r="12" fill="transparent" data-cmx="109.60" data-cm="p(r) · r = 2.917e-3" data-cmv="p(r) = -1.280e-3" tabindex="0"/>
+    <circle cx="113.00" cy="164.99" r="12" fill="transparent" data-cmx="113.00" data-cm="p(r) · r = 3.125e-3" data-cmv="p(r) = -1.363e-3" tabindex="0"/>
+    <circle cx="116.40" cy="166.53" r="12" fill="transparent" data-cmx="116.40" data-cm="p(r) · r = 3.333e-3" data-cmv="p(r) = -1.446e-3" tabindex="0"/>
+    <circle cx="119.80" cy="168.05" r="12" fill="transparent" data-cmx="119.80" data-cm="p(r) · r = 3.542e-3" data-cmv="p(r) = -1.528e-3" tabindex="0"/>
+    <circle cx="123.20" cy="169.56" r="12" fill="transparent" data-cmx="123.20" data-cm="p(r) · r = 3.750e-3" data-cmv="p(r) = -1.608e-3" tabindex="0"/>
+    <circle cx="126.60" cy="171.05" r="12" fill="transparent" data-cmx="126.60" data-cm="p(r) · r = 3.958e-3" data-cmv="p(r) = -1.688e-3" tabindex="0"/>
+    <circle cx="130.00" cy="172.51" r="12" fill="transparent" data-cmx="130.00" data-cm="p(r) · r = 4.167e-3" data-cmv="p(r) = -1.766e-3" tabindex="0"/>
+    <circle cx="133.40" cy="173.96" r="12" fill="transparent" data-cmx="133.40" data-cm="p(r) · r = 4.375e-3" data-cmv="p(r) = -1.844e-3" tabindex="0"/>
+    <circle cx="136.80" cy="175.39" r="12" fill="transparent" data-cmx="136.80" data-cm="p(r) · r = 4.583e-3" data-cmv="p(r) = -1.921e-3" tabindex="0"/>
+    <circle cx="140.20" cy="176.80" r="12" fill="transparent" data-cmx="140.20" data-cm="p(r) · r = 4.792e-3" data-cmv="p(r) = -1.996e-3" tabindex="0"/>
+    <circle cx="143.60" cy="178.19" r="12" fill="transparent" data-cmx="143.60" data-cm="p(r) · r = 5.000e-3" data-cmv="p(r) = -2.070e-3" tabindex="0"/>
+    <circle cx="147.00" cy="179.56" r="12" fill="transparent" data-cmx="147.00" data-cm="p(r) · r = 5.208e-3" data-cmv="p(r) = -2.144e-3" tabindex="0"/>
+    <circle cx="150.40" cy="180.91" r="12" fill="transparent" data-cmx="150.40" data-cm="p(r) · r = 5.417e-3" data-cmv="p(r) = -2.216e-3" tabindex="0"/>
+    <circle cx="153.80" cy="182.25" r="12" fill="transparent" data-cmx="153.80" data-cm="p(r) · r = 5.625e-3" data-cmv="p(r) = -2.288e-3" tabindex="0"/>
+    <circle cx="157.20" cy="183.56" r="12" fill="transparent" data-cmx="157.20" data-cm="p(r) · r = 5.833e-3" data-cmv="p(r) = -2.358e-3" tabindex="0"/>
+    <circle cx="160.60" cy="184.86" r="12" fill="transparent" data-cmx="160.60" data-cm="p(r) · r = 6.042e-3" data-cmv="p(r) = -2.427e-3" tabindex="0"/>
+    <circle cx="164.00" cy="186.13" r="12" fill="transparent" data-cmx="164.00" data-cm="p(r) · r = 6.250e-3" data-cmv="p(r) = -2.496e-3" tabindex="0"/>
+    <circle cx="167.40" cy="187.39" r="12" fill="transparent" data-cmx="167.40" data-cm="p(r) · r = 6.459e-3" data-cmv="p(r) = -2.563e-3" tabindex="0"/>
+    <circle cx="170.80" cy="188.62" r="12" fill="transparent" data-cmx="170.80" data-cm="p(r) · r = 6.667e-3" data-cmv="p(r) = -2.629e-3" tabindex="0"/>
+    <circle cx="174.20" cy="189.84" r="12" fill="transparent" data-cmx="174.20" data-cm="p(r) · r = 6.875e-3" data-cmv="p(r) = -2.694e-3" tabindex="0"/>
+    <circle cx="177.60" cy="191.04" r="12" fill="transparent" data-cmx="177.60" data-cm="p(r) · r = 7.084e-3" data-cmv="p(r) = -2.759e-3" tabindex="0"/>
+    <circle cx="181.00" cy="192.22" r="12" fill="transparent" data-cmx="181.00" data-cm="p(r) · r = 7.292e-3" data-cmv="p(r) = -2.822e-3" tabindex="0"/>
+    <circle cx="184.40" cy="193.38" r="12" fill="transparent" data-cmx="184.40" data-cm="p(r) · r = 7.500e-3" data-cmv="p(r) = -2.884e-3" tabindex="0"/>
+    <circle cx="187.80" cy="194.52" r="12" fill="transparent" data-cmx="187.80" data-cm="p(r) · r = 7.709e-3" data-cmv="p(r) = -2.945e-3" tabindex="0"/>
+    <circle cx="191.20" cy="195.64" r="12" fill="transparent" data-cmx="191.20" data-cm="p(r) · r = 7.917e-3" data-cmv="p(r) = -3.005e-3" tabindex="0"/>
+    <circle cx="194.60" cy="196.75" r="12" fill="transparent" data-cmx="194.60" data-cm="p(r) · r = 8.125e-3" data-cmv="p(r) = -3.064e-3" tabindex="0"/>
+    <circle cx="198.00" cy="197.83" r="12" fill="transparent" data-cmx="198.00" data-cm="p(r) · r = 8.334e-3" data-cmv="p(r) = -3.122e-3" tabindex="0"/>
+    <circle cx="201.40" cy="198.90" r="12" fill="transparent" data-cmx="201.40" data-cm="p(r) · r = 8.542e-3" data-cmv="p(r) = -3.179e-3" tabindex="0"/>
+    <circle cx="204.80" cy="199.94" r="12" fill="transparent" data-cmx="204.80" data-cm="p(r) · r = 8.750e-3" data-cmv="p(r) = -3.235e-3" tabindex="0"/>
+    <circle cx="208.20" cy="200.97" r="12" fill="transparent" data-cmx="208.20" data-cm="p(r) · r = 8.959e-3" data-cmv="p(r) = -3.290e-3" tabindex="0"/>
+    <circle cx="211.60" cy="201.97" r="12" fill="transparent" data-cmx="211.60" data-cm="p(r) · r = 9.167e-3" data-cmv="p(r) = -3.344e-3" tabindex="0"/>
+    <circle cx="215.00" cy="202.96" r="12" fill="transparent" data-cmx="215.00" data-cm="p(r) · r = 9.375e-3" data-cmv="p(r) = -3.397e-3" tabindex="0"/>
+    <circle cx="218.40" cy="203.93" r="12" fill="transparent" data-cmx="218.40" data-cm="p(r) · r = 9.584e-3" data-cmv="p(r) = -3.449e-3" tabindex="0"/>
+    <circle cx="221.80" cy="204.88" r="12" fill="transparent" data-cmx="221.80" data-cm="p(r) · r = 9.792e-3" data-cmv="p(r) = -3.500e-3" tabindex="0"/>
+    <circle cx="225.20" cy="205.81" r="12" fill="transparent" data-cmx="225.20" data-cm="p(r) · r = 1.000e-2" data-cmv="p(r) = -3.549e-3" tabindex="0"/>
+    <circle cx="228.60" cy="206.72" r="12" fill="transparent" data-cmx="228.60" data-cm="p(r) · r = 1.021e-2" data-cmv="p(r) = -3.598e-3" tabindex="0"/>
+    <circle cx="232.00" cy="207.61" r="12" fill="transparent" data-cmx="232.00" data-cm="p(r) · r = 1.042e-2" data-cmv="p(r) = -3.646e-3" tabindex="0"/>
+    <circle cx="235.40" cy="208.49" r="12" fill="transparent" data-cmx="235.40" data-cm="p(r) · r = 1.063e-2" data-cmv="p(r) = -3.693e-3" tabindex="0"/>
+    <circle cx="238.80" cy="209.34" r="12" fill="transparent" data-cmx="238.80" data-cm="p(r) · r = 1.083e-2" data-cmv="p(r) = -3.738e-3" tabindex="0"/>
+    <circle cx="242.20" cy="210.17" r="12" fill="transparent" data-cmx="242.20" data-cm="p(r) · r = 1.104e-2" data-cmv="p(r) = -3.783e-3" tabindex="0"/>
+    <circle cx="245.60" cy="210.99" r="12" fill="transparent" data-cmx="245.60" data-cm="p(r) · r = 1.125e-2" data-cmv="p(r) = -3.827e-3" tabindex="0"/>
+    <circle cx="249.00" cy="211.78" r="12" fill="transparent" data-cmx="249.00" data-cm="p(r) · r = 1.146e-2" data-cmv="p(r) = -3.869e-3" tabindex="0"/>
+    <circle cx="252.40" cy="212.56" r="12" fill="transparent" data-cmx="252.40" data-cm="p(r) · r = 1.167e-2" data-cmv="p(r) = -3.911e-3" tabindex="0"/>
+    <circle cx="255.80" cy="213.32" r="12" fill="transparent" data-cmx="255.80" data-cm="p(r) · r = 1.188e-2" data-cmv="p(r) = -3.952e-3" tabindex="0"/>
+    <circle cx="259.20" cy="214.06" r="12" fill="transparent" data-cmx="259.20" data-cm="p(r) · r = 1.208e-2" data-cmv="p(r) = -3.991e-3" tabindex="0"/>
+    <circle cx="262.60" cy="214.78" r="12" fill="transparent" data-cmx="262.60" data-cm="p(r) · r = 1.229e-2" data-cmv="p(r) = -4.030e-3" tabindex="0"/>
+    <circle cx="266.00" cy="215.48" r="12" fill="transparent" data-cmx="266.00" data-cm="p(r) · r = 1.250e-2" data-cmv="p(r) = -4.067e-3" tabindex="0"/>
+    <circle cx="269.40" cy="216.16" r="12" fill="transparent" data-cmx="269.40" data-cm="p(r) · r = 1.271e-2" data-cmv="p(r) = -4.104e-3" tabindex="0"/>
+    <circle cx="272.80" cy="216.82" r="12" fill="transparent" data-cmx="272.80" data-cm="p(r) · r = 1.292e-2" data-cmv="p(r) = -4.139e-3" tabindex="0"/>
+    <circle cx="276.20" cy="217.46" r="12" fill="transparent" data-cmx="276.20" data-cm="p(r) · r = 1.313e-2" data-cmv="p(r) = -4.173e-3" tabindex="0"/>
+    <circle cx="279.60" cy="218.08" r="12" fill="transparent" data-cmx="279.60" data-cm="p(r) · r = 1.333e-2" data-cmv="p(r) = -4.207e-3" tabindex="0"/>
+    <circle cx="283.00" cy="218.69" r="12" fill="transparent" data-cmx="283.00" data-cm="p(r) · r = 1.354e-2" data-cmv="p(r) = -4.239e-3" tabindex="0"/>
+    <circle cx="286.40" cy="219.27" r="12" fill="transparent" data-cmx="286.40" data-cm="p(r) · r = 1.375e-2" data-cmv="p(r) = -4.270e-3" tabindex="0"/>
+    <circle cx="289.80" cy="219.84" r="12" fill="transparent" data-cmx="289.80" data-cm="p(r) · r = 1.396e-2" data-cmv="p(r) = -4.301e-3" tabindex="0"/>
+    <circle cx="293.20" cy="220.39" r="12" fill="transparent" data-cmx="293.20" data-cm="p(r) · r = 1.417e-2" data-cmv="p(r) = -4.330e-3" tabindex="0"/>
+    <circle cx="296.60" cy="220.91" r="12" fill="transparent" data-cmx="296.60" data-cm="p(r) · r = 1.438e-2" data-cmv="p(r) = -4.358e-3" tabindex="0"/>
+    <circle cx="300.00" cy="221.42" r="12" fill="transparent" data-cmx="300.00" data-cm="p(r) · r = 1.458e-2" data-cmv="p(r) = -4.385e-3" tabindex="0"/>
+    <circle cx="303.40" cy="221.91" r="12" fill="transparent" data-cmx="303.40" data-cm="p(r) · r = 1.479e-2" data-cmv="p(r) = -4.412e-3" tabindex="0"/>
+    <circle cx="306.80" cy="222.38" r="12" fill="transparent" data-cmx="306.80" data-cm="p(r) · r = 1.500e-2" data-cmv="p(r) = -4.437e-3" tabindex="0"/>
+    <circle cx="310.20" cy="222.83" r="12" fill="transparent" data-cmx="310.20" data-cm="p(r) · r = 1.521e-2" data-cmv="p(r) = -4.461e-3" tabindex="0"/>
+    <circle cx="313.60" cy="223.26" r="12" fill="transparent" data-cmx="313.60" data-cm="p(r) · r = 1.542e-2" data-cmv="p(r) = -4.484e-3" tabindex="0"/>
+    <circle cx="317.00" cy="223.68" r="12" fill="transparent" data-cmx="317.00" data-cm="p(r) · r = 1.563e-2" data-cmv="p(r) = -4.506e-3" tabindex="0"/>
+    <circle cx="320.40" cy="224.07" r="12" fill="transparent" data-cmx="320.40" data-cm="p(r) · r = 1.583e-2" data-cmv="p(r) = -4.527e-3" tabindex="0"/>
+    <circle cx="323.80" cy="224.44" r="12" fill="transparent" data-cmx="323.80" data-cm="p(r) · r = 1.604e-2" data-cmv="p(r) = -4.547e-3" tabindex="0"/>
+    <circle cx="327.20" cy="224.80" r="12" fill="transparent" data-cmx="327.20" data-cm="p(r) · r = 1.625e-2" data-cmv="p(r) = -4.566e-3" tabindex="0"/>
+    <circle cx="330.60" cy="225.13" r="12" fill="transparent" data-cmx="330.60" data-cm="p(r) · r = 1.646e-2" data-cmv="p(r) = -4.584e-3" tabindex="0"/>
+    <circle cx="334.00" cy="225.45" r="12" fill="transparent" data-cmx="334.00" data-cm="p(r) · r = 1.667e-2" data-cmv="p(r) = -4.601e-3" tabindex="0"/>
+    <circle cx="337.40" cy="225.75" r="12" fill="transparent" data-cmx="337.40" data-cm="p(r) · r = 1.688e-2" data-cmv="p(r) = -4.617e-3" tabindex="0"/>
+    <circle cx="340.80" cy="226.03" r="12" fill="transparent" data-cmx="340.80" data-cm="p(r) · r = 1.708e-2" data-cmv="p(r) = -4.632e-3" tabindex="0"/>
+    <circle cx="344.20" cy="226.28" r="12" fill="transparent" data-cmx="344.20" data-cm="p(r) · r = 1.729e-2" data-cmv="p(r) = -4.646e-3" tabindex="0"/>
+    <circle cx="347.60" cy="226.52" r="12" fill="transparent" data-cmx="347.60" data-cm="p(r) · r = 1.750e-2" data-cmv="p(r) = -4.659e-3" tabindex="0"/>
+    <circle cx="351.00" cy="226.74" r="12" fill="transparent" data-cmx="351.00" data-cm="p(r) · r = 1.771e-2" data-cmv="p(r) = -4.670e-3" tabindex="0"/>
+    <circle cx="354.40" cy="226.95" r="12" fill="transparent" data-cmx="354.40" data-cm="p(r) · r = 1.792e-2" data-cmv="p(r) = -4.681e-3" tabindex="0"/>
+    <circle cx="357.80" cy="227.13" r="12" fill="transparent" data-cmx="357.80" data-cm="p(r) · r = 1.813e-2" data-cmv="p(r) = -4.691e-3" tabindex="0"/>
+    <circle cx="361.20" cy="227.29" r="12" fill="transparent" data-cmx="361.20" data-cm="p(r) · r = 1.833e-2" data-cmv="p(r) = -4.700e-3" tabindex="0"/>
+    <circle cx="364.60" cy="227.43" r="12" fill="transparent" data-cmx="364.60" data-cm="p(r) · r = 1.854e-2" data-cmv="p(r) = -4.707e-3" tabindex="0"/>
+    <circle cx="368.00" cy="227.56" r="12" fill="transparent" data-cmx="368.00" data-cm="p(r) · r = 1.875e-2" data-cmv="p(r) = -4.714e-3" tabindex="0"/>
+    <circle cx="371.40" cy="227.67" r="12" fill="transparent" data-cmx="371.40" data-cm="p(r) · r = 1.896e-2" data-cmv="p(r) = -4.720e-3" tabindex="0"/>
+    <circle cx="374.80" cy="227.75" r="12" fill="transparent" data-cmx="374.80" data-cm="p(r) · r = 1.917e-2" data-cmv="p(r) = -4.724e-3" tabindex="0"/>
+    <circle cx="378.20" cy="227.82" r="12" fill="transparent" data-cmx="378.20" data-cm="p(r) · r = 1.938e-2" data-cmv="p(r) = -4.728e-3" tabindex="0"/>
+    <circle cx="381.60" cy="227.87" r="12" fill="transparent" data-cmx="381.60" data-cm="p(r) · r = 1.958e-2" data-cmv="p(r) = -4.731e-3" tabindex="0"/>
+    <circle cx="385.00" cy="227.90" r="12" fill="transparent" data-cmx="385.00" data-cm="p(r) · r = 1.979e-2" data-cmv="p(r) = -4.732e-3" tabindex="0"/>
+    <circle cx="388.40" cy="227.90" r="12" fill="transparent" data-cmx="388.40" data-cm="p(r) · r = 2.000e-2" data-cmv="p(r) = -4.733e-3" tabindex="0"/>
+    <circle cx="391.80" cy="227.90" r="12" fill="transparent" data-cmx="391.80" data-cm="p(r) · r = 2.021e-2" data-cmv="p(r) = -4.732e-3" tabindex="0"/>
+    <circle cx="395.20" cy="227.87" r="12" fill="transparent" data-cmx="395.20" data-cm="p(r) · r = 2.042e-2" data-cmv="p(r) = -4.731e-3" tabindex="0"/>
+    <circle cx="398.60" cy="227.82" r="12" fill="transparent" data-cmx="398.60" data-cm="p(r) · r = 2.063e-2" data-cmv="p(r) = -4.728e-3" tabindex="0"/>
+    <circle cx="402.00" cy="227.75" r="12" fill="transparent" data-cmx="402.00" data-cm="p(r) · r = 2.083e-2" data-cmv="p(r) = -4.724e-3" tabindex="0"/>
+    <circle cx="405.40" cy="227.67" r="12" fill="transparent" data-cmx="405.40" data-cm="p(r) · r = 2.104e-2" data-cmv="p(r) = -4.720e-3" tabindex="0"/>
+    <circle cx="408.80" cy="227.56" r="12" fill="transparent" data-cmx="408.80" data-cm="p(r) · r = 2.125e-2" data-cmv="p(r) = -4.714e-3" tabindex="0"/>
+    <circle cx="412.20" cy="227.43" r="12" fill="transparent" data-cmx="412.20" data-cm="p(r) · r = 2.146e-2" data-cmv="p(r) = -4.707e-3" tabindex="0"/>
+    <circle cx="415.60" cy="227.29" r="12" fill="transparent" data-cmx="415.60" data-cm="p(r) · r = 2.167e-2" data-cmv="p(r) = -4.700e-3" tabindex="0"/>
+    <circle cx="419.00" cy="227.13" r="12" fill="transparent" data-cmx="419.00" data-cm="p(r) · r = 2.188e-2" data-cmv="p(r) = -4.691e-3" tabindex="0"/>
+    <circle cx="422.40" cy="226.95" r="12" fill="transparent" data-cmx="422.40" data-cm="p(r) · r = 2.208e-2" data-cmv="p(r) = -4.681e-3" tabindex="0"/>
+    <circle cx="425.80" cy="226.74" r="12" fill="transparent" data-cmx="425.80" data-cm="p(r) · r = 2.229e-2" data-cmv="p(r) = -4.670e-3" tabindex="0"/>
+    <circle cx="429.20" cy="226.52" r="12" fill="transparent" data-cmx="429.20" data-cm="p(r) · r = 2.250e-2" data-cmv="p(r) = -4.659e-3" tabindex="0"/>
+    <circle cx="432.60" cy="226.28" r="12" fill="transparent" data-cmx="432.60" data-cm="p(r) · r = 2.271e-2" data-cmv="p(r) = -4.646e-3" tabindex="0"/>
+    <circle cx="436.00" cy="226.03" r="12" fill="transparent" data-cmx="436.00" data-cm="p(r) · r = 2.292e-2" data-cmv="p(r) = -4.632e-3" tabindex="0"/>
+    <circle cx="439.40" cy="225.75" r="12" fill="transparent" data-cmx="439.40" data-cm="p(r) · r = 2.313e-2" data-cmv="p(r) = -4.617e-3" tabindex="0"/>
+    <circle cx="442.80" cy="225.45" r="12" fill="transparent" data-cmx="442.80" data-cm="p(r) · r = 2.333e-2" data-cmv="p(r) = -4.601e-3" tabindex="0"/>
+    <circle cx="446.20" cy="225.13" r="12" fill="transparent" data-cmx="446.20" data-cm="p(r) · r = 2.354e-2" data-cmv="p(r) = -4.584e-3" tabindex="0"/>
+    <circle cx="449.60" cy="224.80" r="12" fill="transparent" data-cmx="449.60" data-cm="p(r) · r = 2.375e-2" data-cmv="p(r) = -4.566e-3" tabindex="0"/>
+    <circle cx="453.00" cy="224.44" r="12" fill="transparent" data-cmx="453.00" data-cm="p(r) · r = 2.396e-2" data-cmv="p(r) = -4.547e-3" tabindex="0"/>
+    <circle cx="456.40" cy="224.07" r="12" fill="transparent" data-cmx="456.40" data-cm="p(r) · r = 2.417e-2" data-cmv="p(r) = -4.527e-3" tabindex="0"/>
+    <circle cx="459.80" cy="223.68" r="12" fill="transparent" data-cmx="459.80" data-cm="p(r) · r = 2.438e-2" data-cmv="p(r) = -4.506e-3" tabindex="0"/>
+    <circle cx="463.20" cy="223.26" r="12" fill="transparent" data-cmx="463.20" data-cm="p(r) · r = 2.458e-2" data-cmv="p(r) = -4.484e-3" tabindex="0"/>
+    <circle cx="466.60" cy="222.83" r="12" fill="transparent" data-cmx="466.60" data-cm="p(r) · r = 2.479e-2" data-cmv="p(r) = -4.461e-3" tabindex="0"/>
+    <circle cx="470.00" cy="222.38" r="12" fill="transparent" data-cmx="470.00" data-cm="p(r) · r = 2.500e-2" data-cmv="p(r) = -4.437e-3" tabindex="0"/>
+    <circle cx="473.40" cy="221.91" r="12" fill="transparent" data-cmx="473.40" data-cm="p(r) · r = 2.521e-2" data-cmv="p(r) = -4.412e-3" tabindex="0"/>
+    <circle cx="476.80" cy="221.42" r="12" fill="transparent" data-cmx="476.80" data-cm="p(r) · r = 2.542e-2" data-cmv="p(r) = -4.385e-3" tabindex="0"/>
+    <circle cx="480.20" cy="220.91" r="12" fill="transparent" data-cmx="480.20" data-cm="p(r) · r = 2.563e-2" data-cmv="p(r) = -4.358e-3" tabindex="0"/>
+    <circle cx="483.60" cy="220.39" r="12" fill="transparent" data-cmx="483.60" data-cm="p(r) · r = 2.583e-2" data-cmv="p(r) = -4.330e-3" tabindex="0"/>
+    <circle cx="487.00" cy="219.84" r="12" fill="transparent" data-cmx="487.00" data-cm="p(r) · r = 2.604e-2" data-cmv="p(r) = -4.301e-3" tabindex="0"/>
+    <circle cx="490.40" cy="219.27" r="12" fill="transparent" data-cmx="490.40" data-cm="p(r) · r = 2.625e-2" data-cmv="p(r) = -4.270e-3" tabindex="0"/>
+    <circle cx="493.80" cy="218.69" r="12" fill="transparent" data-cmx="493.80" data-cm="p(r) · r = 2.646e-2" data-cmv="p(r) = -4.239e-3" tabindex="0"/>
+    <circle cx="497.20" cy="218.08" r="12" fill="transparent" data-cmx="497.20" data-cm="p(r) · r = 2.667e-2" data-cmv="p(r) = -4.207e-3" tabindex="0"/>
+    <circle cx="500.60" cy="217.46" r="12" fill="transparent" data-cmx="500.60" data-cm="p(r) · r = 2.688e-2" data-cmv="p(r) = -4.173e-3" tabindex="0"/>
+    <circle cx="504.00" cy="216.82" r="12" fill="transparent" data-cmx="504.00" data-cm="p(r) · r = 2.708e-2" data-cmv="p(r) = -4.139e-3" tabindex="0"/>
+    <circle cx="507.40" cy="216.16" r="12" fill="transparent" data-cmx="507.40" data-cm="p(r) · r = 2.729e-2" data-cmv="p(r) = -4.104e-3" tabindex="0"/>
+    <circle cx="510.80" cy="215.48" r="12" fill="transparent" data-cmx="510.80" data-cm="p(r) · r = 2.750e-2" data-cmv="p(r) = -4.067e-3" tabindex="0"/>
+    <circle cx="514.20" cy="214.78" r="12" fill="transparent" data-cmx="514.20" data-cm="p(r) · r = 2.771e-2" data-cmv="p(r) = -4.030e-3" tabindex="0"/>
+    <circle cx="517.60" cy="214.06" r="12" fill="transparent" data-cmx="517.60" data-cm="p(r) · r = 2.792e-2" data-cmv="p(r) = -3.991e-3" tabindex="0"/>
+    <circle cx="521.00" cy="213.32" r="12" fill="transparent" data-cmx="521.00" data-cm="p(r) · r = 2.813e-2" data-cmv="p(r) = -3.952e-3" tabindex="0"/>
+    <circle cx="524.40" cy="212.56" r="12" fill="transparent" data-cmx="524.40" data-cm="p(r) · r = 2.833e-2" data-cmv="p(r) = -3.911e-3" tabindex="0"/>
+    <circle cx="527.80" cy="211.78" r="12" fill="transparent" data-cmx="527.80" data-cm="p(r) · r = 2.854e-2" data-cmv="p(r) = -3.869e-3" tabindex="0"/>
+    <circle cx="531.20" cy="210.99" r="12" fill="transparent" data-cmx="531.20" data-cm="p(r) · r = 2.875e-2" data-cmv="p(r) = -3.827e-3" tabindex="0"/>
+    <circle cx="534.60" cy="210.17" r="12" fill="transparent" data-cmx="534.60" data-cm="p(r) · r = 2.896e-2" data-cmv="p(r) = -3.783e-3" tabindex="0"/>
+    <circle cx="538.00" cy="209.34" r="12" fill="transparent" data-cmx="538.00" data-cm="p(r) · r = 2.917e-2" data-cmv="p(r) = -3.738e-3" tabindex="0"/>
+    <circle cx="541.40" cy="208.49" r="12" fill="transparent" data-cmx="541.40" data-cm="p(r) · r = 2.938e-2" data-cmv="p(r) = -3.693e-3" tabindex="0"/>
+    <circle cx="544.80" cy="207.61" r="12" fill="transparent" data-cmx="544.80" data-cm="p(r) · r = 2.958e-2" data-cmv="p(r) = -3.646e-3" tabindex="0"/>
+    <circle cx="548.20" cy="206.72" r="12" fill="transparent" data-cmx="548.20" data-cm="p(r) · r = 2.979e-2" data-cmv="p(r) = -3.598e-3" tabindex="0"/>
+    <circle cx="551.60" cy="205.81" r="12" fill="transparent" data-cmx="551.60" data-cm="p(r) · r = 3.000e-2" data-cmv="p(r) = -3.549e-3" tabindex="0"/>
+    <circle cx="555.00" cy="204.88" r="12" fill="transparent" data-cmx="555.00" data-cm="p(r) · r = 3.021e-2" data-cmv="p(r) = -3.500e-3" tabindex="0"/>
+    <circle cx="558.40" cy="203.93" r="12" fill="transparent" data-cmx="558.40" data-cm="p(r) · r = 3.042e-2" data-cmv="p(r) = -3.449e-3" tabindex="0"/>
+    <circle cx="561.80" cy="202.96" r="12" fill="transparent" data-cmx="561.80" data-cm="p(r) · r = 3.063e-2" data-cmv="p(r) = -3.397e-3" tabindex="0"/>
+    <circle cx="565.20" cy="201.97" r="12" fill="transparent" data-cmx="565.20" data-cm="p(r) · r = 3.083e-2" data-cmv="p(r) = -3.344e-3" tabindex="0"/>
+    <circle cx="568.60" cy="200.97" r="12" fill="transparent" data-cmx="568.60" data-cm="p(r) · r = 3.104e-2" data-cmv="p(r) = -3.290e-3" tabindex="0"/>
+    <circle cx="572.00" cy="199.94" r="12" fill="transparent" data-cmx="572.00" data-cm="p(r) · r = 3.125e-2" data-cmv="p(r) = -3.235e-3" tabindex="0"/>
+    <circle cx="575.40" cy="198.90" r="12" fill="transparent" data-cmx="575.40" data-cm="p(r) · r = 3.146e-2" data-cmv="p(r) = -3.179e-3" tabindex="0"/>
+    <circle cx="578.80" cy="197.83" r="12" fill="transparent" data-cmx="578.80" data-cm="p(r) · r = 3.167e-2" data-cmv="p(r) = -3.122e-3" tabindex="0"/>
+    <circle cx="582.20" cy="196.75" r="12" fill="transparent" data-cmx="582.20" data-cm="p(r) · r = 3.188e-2" data-cmv="p(r) = -3.064e-3" tabindex="0"/>
+    <circle cx="585.60" cy="195.64" r="12" fill="transparent" data-cmx="585.60" data-cm="p(r) · r = 3.208e-2" data-cmv="p(r) = -3.005e-3" tabindex="0"/>
+    <circle cx="589.00" cy="194.52" r="12" fill="transparent" data-cmx="589.00" data-cm="p(r) · r = 3.229e-2" data-cmv="p(r) = -2.945e-3" tabindex="0"/>
+    <circle cx="592.40" cy="193.38" r="12" fill="transparent" data-cmx="592.40" data-cm="p(r) · r = 3.250e-2" data-cmv="p(r) = -2.884e-3" tabindex="0"/>
+    <circle cx="595.80" cy="192.22" r="12" fill="transparent" data-cmx="595.80" data-cm="p(r) · r = 3.271e-2" data-cmv="p(r) = -2.822e-3" tabindex="0"/>
+    <circle cx="599.20" cy="191.04" r="12" fill="transparent" data-cmx="599.20" data-cm="p(r) · r = 3.292e-2" data-cmv="p(r) = -2.759e-3" tabindex="0"/>
+    <circle cx="602.60" cy="189.84" r="12" fill="transparent" data-cmx="602.60" data-cm="p(r) · r = 3.313e-2" data-cmv="p(r) = -2.694e-3" tabindex="0"/>
+    <circle cx="606.00" cy="188.62" r="12" fill="transparent" data-cmx="606.00" data-cm="p(r) · r = 3.333e-2" data-cmv="p(r) = -2.629e-3" tabindex="0"/>
+    <circle cx="609.40" cy="187.39" r="12" fill="transparent" data-cmx="609.40" data-cm="p(r) · r = 3.354e-2" data-cmv="p(r) = -2.563e-3" tabindex="0"/>
+    <circle cx="612.80" cy="186.13" r="12" fill="transparent" data-cmx="612.80" data-cm="p(r) · r = 3.375e-2" data-cmv="p(r) = -2.496e-3" tabindex="0"/>
+    <circle cx="616.20" cy="184.86" r="12" fill="transparent" data-cmx="616.20" data-cm="p(r) · r = 3.396e-2" data-cmv="p(r) = -2.427e-3" tabindex="0"/>
+    <circle cx="619.60" cy="183.56" r="12" fill="transparent" data-cmx="619.60" data-cm="p(r) · r = 3.417e-2" data-cmv="p(r) = -2.358e-3" tabindex="0"/>
+    <circle cx="623.00" cy="182.25" r="12" fill="transparent" data-cmx="623.00" data-cm="p(r) · r = 3.438e-2" data-cmv="p(r) = -2.288e-3" tabindex="0"/>
+    <circle cx="626.40" cy="180.91" r="12" fill="transparent" data-cmx="626.40" data-cm="p(r) · r = 3.458e-2" data-cmv="p(r) = -2.216e-3" tabindex="0"/>
+    <circle cx="629.80" cy="179.56" r="12" fill="transparent" data-cmx="629.80" data-cm="p(r) · r = 3.479e-2" data-cmv="p(r) = -2.144e-3" tabindex="0"/>
+    <circle cx="633.20" cy="178.19" r="12" fill="transparent" data-cmx="633.20" data-cm="p(r) · r = 3.500e-2" data-cmv="p(r) = -2.070e-3" tabindex="0"/>
+    <circle cx="636.60" cy="176.80" r="12" fill="transparent" data-cmx="636.60" data-cm="p(r) · r = 3.521e-2" data-cmv="p(r) = -1.996e-3" tabindex="0"/>
+    <circle cx="640.00" cy="175.39" r="12" fill="transparent" data-cmx="640.00" data-cm="p(r) · r = 3.542e-2" data-cmv="p(r) = -1.921e-3" tabindex="0"/>
+    <circle cx="643.40" cy="173.96" r="12" fill="transparent" data-cmx="643.40" data-cm="p(r) · r = 3.563e-2" data-cmv="p(r) = -1.844e-3" tabindex="0"/>
+    <circle cx="646.80" cy="172.51" r="12" fill="transparent" data-cmx="646.80" data-cm="p(r) · r = 3.583e-2" data-cmv="p(r) = -1.766e-3" tabindex="0"/>
+    <circle cx="650.20" cy="171.05" r="12" fill="transparent" data-cmx="650.20" data-cm="p(r) · r = 3.604e-2" data-cmv="p(r) = -1.688e-3" tabindex="0"/>
+    <circle cx="653.60" cy="169.56" r="12" fill="transparent" data-cmx="653.60" data-cm="p(r) · r = 3.625e-2" data-cmv="p(r) = -1.608e-3" tabindex="0"/>
+    <circle cx="657.00" cy="168.05" r="12" fill="transparent" data-cmx="657.00" data-cm="p(r) · r = 3.646e-2" data-cmv="p(r) = -1.528e-3" tabindex="0"/>
+    <circle cx="660.40" cy="166.53" r="12" fill="transparent" data-cmx="660.40" data-cm="p(r) · r = 3.667e-2" data-cmv="p(r) = -1.446e-3" tabindex="0"/>
+    <circle cx="663.80" cy="164.99" r="12" fill="transparent" data-cmx="663.80" data-cm="p(r) · r = 3.688e-2" data-cmv="p(r) = -1.363e-3" tabindex="0"/>
+    <circle cx="667.20" cy="163.42" r="12" fill="transparent" data-cmx="667.20" data-cm="p(r) · r = 3.708e-2" data-cmv="p(r) = -1.280e-3" tabindex="0"/>
+    <circle cx="670.60" cy="161.84" r="12" fill="transparent" data-cmx="670.60" data-cm="p(r) · r = 3.729e-2" data-cmv="p(r) = -1.195e-3" tabindex="0"/>
+    <circle cx="674.00" cy="160.24" r="12" fill="transparent" data-cmx="674.00" data-cm="p(r) · r = 3.750e-2" data-cmv="p(r) = -1.109e-3" tabindex="0"/>
+    <circle cx="677.40" cy="158.62" r="12" fill="transparent" data-cmx="677.40" data-cm="p(r) · r = 3.771e-2" data-cmv="p(r) = -1.022e-3" tabindex="0"/>
+    <circle cx="680.80" cy="156.98" r="12" fill="transparent" data-cmx="680.80" data-cm="p(r) · r = 3.792e-2" data-cmv="p(r) = -9.346e-4" tabindex="0"/>
+    <circle cx="684.20" cy="155.32" r="12" fill="transparent" data-cmx="684.20" data-cm="p(r) · r = 3.813e-2" data-cmv="p(r) = -8.458e-4" tabindex="0"/>
+    <circle cx="687.60" cy="153.64" r="12" fill="transparent" data-cmx="687.60" data-cm="p(r) · r = 3.833e-2" data-cmv="p(r) = -7.559e-4" tabindex="0"/>
+    <circle cx="691.00" cy="151.94" r="12" fill="transparent" data-cmx="691.00" data-cm="p(r) · r = 3.854e-2" data-cmv="p(r) = -6.650e-4" tabindex="0"/>
+    <circle cx="694.40" cy="150.23" r="12" fill="transparent" data-cmx="694.40" data-cm="p(r) · r = 3.875e-2" data-cmv="p(r) = -5.731e-4" tabindex="0"/>
+    <circle cx="697.80" cy="148.49" r="12" fill="transparent" data-cmx="697.80" data-cm="p(r) · r = 3.896e-2" data-cmv="p(r) = -4.801e-4" tabindex="0"/>
+    <circle cx="701.20" cy="146.74" r="12" fill="transparent" data-cmx="701.20" data-cm="p(r) · r = 3.917e-2" data-cmv="p(r) = -3.862e-4" tabindex="0"/>
+    <circle cx="704.60" cy="144.96" r="12" fill="transparent" data-cmx="704.60" data-cm="p(r) · r = 3.938e-2" data-cmv="p(r) = -2.912e-4" tabindex="0"/>
+    <circle cx="708.00" cy="143.17" r="12" fill="transparent" data-cmx="708.00" data-cm="p(r) · r = 3.958e-2" data-cmv="p(r) = -1.951e-4" tabindex="0"/>
+    <circle cx="711.40" cy="141.36" r="12" fill="transparent" data-cmx="711.40" data-cm="p(r) · r = 3.979e-2" data-cmv="p(r) = -9.808e-5" tabindex="0"/>
+    <circle cx="714.80" cy="139.52" r="12" fill="transparent" data-cmx="714.80" data-cm="p(r) · r = 4.000e-2" data-cmv="p(r) = 1.228e-18" tabindex="0"/>
+    <circle cx="718.20" cy="137.67" r="12" fill="transparent" data-cmx="718.20" data-cm="p(r) · r = 4.021e-2" data-cmv="p(r) = 9.911e-5" tabindex="0"/>
+    <circle cx="721.60" cy="135.80" r="12" fill="transparent" data-cmx="721.60" data-cm="p(r) · r = 4.042e-2" data-cmv="p(r) = 1.992e-4" tabindex="0"/>
+    <circle cx="725.00" cy="133.91" r="12" fill="transparent" data-cmx="725.00" data-cm="p(r) · r = 4.063e-2" data-cmv="p(r) = 3.004e-4" tabindex="0"/>
+    <circle cx="728.40" cy="132.01" r="12" fill="transparent" data-cmx="728.40" data-cm="p(r) · r = 4.083e-2" data-cmv="p(r) = 4.026e-4" tabindex="0"/>
+    <circle cx="731.80" cy="130.08" r="12" fill="transparent" data-cmx="731.80" data-cm="p(r) · r = 4.104e-2" data-cmv="p(r) = 5.058e-4" tabindex="0"/>
+    <circle cx="735.20" cy="128.13" r="12" fill="transparent" data-cmx="735.20" data-cm="p(r) · r = 4.125e-2" data-cmv="p(r) = 6.101e-4" tabindex="0"/>
+    <circle cx="738.60" cy="126.17" r="12" fill="transparent" data-cmx="738.60" data-cm="p(r) · r = 4.146e-2" data-cmv="p(r) = 7.153e-4" tabindex="0"/>
+    <circle cx="742.00" cy="124.18" r="12" fill="transparent" data-cmx="742.00" data-cm="p(r) · r = 4.167e-2" data-cmv="p(r) = 8.216e-4" tabindex="0"/>
+    <circle cx="745.40" cy="122.18" r="12" fill="transparent" data-cmx="745.40" data-cm="p(r) · r = 4.188e-2" data-cmv="p(r) = 9.290e-4" tabindex="0"/>
+    <circle cx="748.80" cy="120.15" r="12" fill="transparent" data-cmx="748.80" data-cm="p(r) · r = 4.208e-2" data-cmv="p(r) = 1.037e-3" tabindex="0"/>
+    <circle cx="752.20" cy="118.11" r="12" fill="transparent" data-cmx="752.20" data-cm="p(r) · r = 4.229e-2" data-cmv="p(r) = 1.147e-3" tabindex="0"/>
+    <circle cx="755.60" cy="116.05" r="12" fill="transparent" data-cmx="755.60" data-cm="p(r) · r = 4.250e-2" data-cmv="p(r) = 1.257e-3" tabindex="0"/>
+    <circle cx="759.00" cy="113.97" r="12" fill="transparent" data-cmx="759.00" data-cm="p(r) · r = 4.271e-2" data-cmv="p(r) = 1.369e-3" tabindex="0"/>
+    <circle cx="762.40" cy="111.87" r="12" fill="transparent" data-cmx="762.40" data-cm="p(r) · r = 4.292e-2" data-cmv="p(r) = 1.481e-3" tabindex="0"/>
+    <circle cx="765.80" cy="109.75" r="12" fill="transparent" data-cmx="765.80" data-cm="p(r) · r = 4.313e-2" data-cmv="p(r) = 1.594e-3" tabindex="0"/>
+    <circle cx="769.20" cy="107.61" r="12" fill="transparent" data-cmx="769.20" data-cm="p(r) · r = 4.333e-2" data-cmv="p(r) = 1.709e-3" tabindex="0"/>
+    <circle cx="772.60" cy="105.45" r="12" fill="transparent" data-cmx="772.60" data-cm="p(r) · r = 4.354e-2" data-cmv="p(r) = 1.825e-3" tabindex="0"/>
+    <circle cx="776.00" cy="103.27" r="12" fill="transparent" data-cmx="776.00" data-cm="p(r) · r = 4.375e-2" data-cmv="p(r) = 1.941e-3" tabindex="0"/>
+    <circle cx="779.40" cy="101.08" r="12" fill="transparent" data-cmx="779.40" data-cm="p(r) · r = 4.396e-2" data-cmv="p(r) = 2.059e-3" tabindex="0"/>
+    <circle cx="782.80" cy="98.86" r="12" fill="transparent" data-cmx="782.80" data-cm="p(r) · r = 4.417e-2" data-cmv="p(r) = 2.177e-3" tabindex="0"/>
+    <circle cx="786.20" cy="96.63" r="12" fill="transparent" data-cmx="786.20" data-cm="p(r) · r = 4.438e-2" data-cmv="p(r) = 2.297e-3" tabindex="0"/>
+    <circle cx="789.60" cy="94.37" r="12" fill="transparent" data-cmx="789.60" data-cm="p(r) · r = 4.458e-2" data-cmv="p(r) = 2.418e-3" tabindex="0"/>
+    <circle cx="793.00" cy="92.10" r="12" fill="transparent" data-cmx="793.00" data-cm="p(r) · r = 4.479e-2" data-cmv="p(r) = 2.539e-3" tabindex="0"/>
+    <circle cx="796.40" cy="89.81" r="12" fill="transparent" data-cmx="796.40" data-cm="p(r) · r = 4.500e-2" data-cmv="p(r) = 2.662e-3" tabindex="0"/>
+    <circle cx="799.80" cy="87.50" r="12" fill="transparent" data-cmx="799.80" data-cm="p(r) · r = 4.521e-2" data-cmv="p(r) = 2.786e-3" tabindex="0"/>
+    <circle cx="803.20" cy="85.17" r="12" fill="transparent" data-cmx="803.20" data-cm="p(r) · r = 4.542e-2" data-cmv="p(r) = 2.911e-3" tabindex="0"/>
+    <circle cx="806.60" cy="82.82" r="12" fill="transparent" data-cmx="806.60" data-cm="p(r) · r = 4.563e-2" data-cmv="p(r) = 3.036e-3" tabindex="0"/>
+    <circle cx="810.00" cy="80.45" r="12" fill="transparent" data-cmx="810.00" data-cm="p(r) · r = 4.583e-2" data-cmv="p(r) = 3.163e-3" tabindex="0"/>
+    <circle cx="813.40" cy="78.06" r="12" fill="transparent" data-cmx="813.40" data-cm="p(r) · r = 4.604e-2" data-cmv="p(r) = 3.291e-3" tabindex="0"/>
+    <circle cx="816.80" cy="75.65" r="12" fill="transparent" data-cmx="816.80" data-cm="p(r) · r = 4.625e-2" data-cmv="p(r) = 3.420e-3" tabindex="0"/>
+    <circle cx="820.20" cy="73.23" r="12" fill="transparent" data-cmx="820.20" data-cm="p(r) · r = 4.646e-2" data-cmv="p(r) = 3.550e-3" tabindex="0"/>
+    <circle cx="823.60" cy="70.78" r="12" fill="transparent" data-cmx="823.60" data-cm="p(r) · r = 4.667e-2" data-cmv="p(r) = 3.681e-3" tabindex="0"/>
+    <circle cx="827.00" cy="68.32" r="12" fill="transparent" data-cmx="827.00" data-cm="p(r) · r = 4.688e-2" data-cmv="p(r) = 3.813e-3" tabindex="0"/>
+    <circle cx="830.40" cy="65.83" r="12" fill="transparent" data-cmx="830.40" data-cm="p(r) · r = 4.708e-2" data-cmv="p(r) = 3.946e-3" tabindex="0"/>
+    <circle cx="833.80" cy="63.33" r="12" fill="transparent" data-cmx="833.80" data-cm="p(r) · r = 4.729e-2" data-cmv="p(r) = 4.080e-3" tabindex="0"/>
+    <circle cx="837.20" cy="60.81" r="12" fill="transparent" data-cmx="837.20" data-cm="p(r) · r = 4.750e-2" data-cmv="p(r) = 4.215e-3" tabindex="0"/>
+    <circle cx="840.60" cy="58.27" r="12" fill="transparent" data-cmx="840.60" data-cm="p(r) · r = 4.771e-2" data-cmv="p(r) = 4.351e-3" tabindex="0"/>
+    <circle cx="844.00" cy="55.71" r="12" fill="transparent" data-cmx="844.00" data-cm="p(r) · r = 4.792e-2" data-cmv="p(r) = 4.488e-3" tabindex="0"/>
+    <circle cx="847.40" cy="53.13" r="12" fill="transparent" data-cmx="847.40" data-cm="p(r) · r = 4.813e-2" data-cmv="p(r) = 4.626e-3" tabindex="0"/>
+    <circle cx="850.80" cy="50.53" r="12" fill="transparent" data-cmx="850.80" data-cm="p(r) · r = 4.833e-2" data-cmv="p(r) = 4.765e-3" tabindex="0"/>
+    <circle cx="854.20" cy="47.91" r="12" fill="transparent" data-cmx="854.20" data-cm="p(r) · r = 4.854e-2" data-cmv="p(r) = 4.906e-3" tabindex="0"/>
+    <circle cx="857.60" cy="45.27" r="12" fill="transparent" data-cmx="857.60" data-cm="p(r) · r = 4.875e-2" data-cmv="p(r) = 5.047e-3" tabindex="0"/>
+    <circle cx="861.00" cy="42.62" r="12" fill="transparent" data-cmx="861.00" data-cm="p(r) · r = 4.896e-2" data-cmv="p(r) = 5.189e-3" tabindex="0"/>
+    <circle cx="864.40" cy="39.94" r="12" fill="transparent" data-cmx="864.40" data-cm="p(r) · r = 4.917e-2" data-cmv="p(r) = 5.332e-3" tabindex="0"/>
+    <circle cx="867.80" cy="37.25" r="12" fill="transparent" data-cmx="867.80" data-cm="p(r) · r = 4.938e-2" data-cmv="p(r) = 5.477e-3" tabindex="0"/>
+    <circle cx="871.20" cy="34.53" r="12" fill="transparent" data-cmx="871.20" data-cm="p(r) · r = 4.958e-2" data-cmv="p(r) = 5.622e-3" tabindex="0"/>
+    <circle cx="874.60" cy="31.80" r="12" fill="transparent" data-cmx="874.60" data-cm="p(r) · r = 4.979e-2" data-cmv="p(r) = 5.768e-3" tabindex="0"/>
+    <circle cx="878.00" cy="29.05" r="12" fill="transparent" data-cmx="878.00" data-cm="p(r) · r = 5.000e-2" data-cmv="p(r) = 5.916e-3" tabindex="0"/>
+  </svg>
+  </div>
+  <figcaption>p(r) = ½Z₂r² − (1−Z₁)r + Y₀ with Y₀ = 3.494961e-15, Z₁ = 0.526756, Z₂ = 23.6616 — all three re-derived by the embedded verifier a moment ago. The curve crosses zero at 7.754374e-15 and again near 4.00e-2; the reported radius is the LEFT crossing, the smallest the argument admits, because a larger one would claim uniqueness in a bigger ball than the contraction earns. The discriminant (1−Z₁)² − 2Z₂Y₀ = 0.223960 is the margin by which the window exists at all: at zero it would close and there would be no certificate.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§1 · the claim</div>
@@ -399,9 +683,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>The proof travels inside the page</h2>
   </div>
 <div class="col"><p>The <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/mfg-congest/mfg-congest.html">published page</a> (byte-preserved in the repository, exactly as sent to its readers) embeds its complete verifier — plain Python, standard library only, MIT — as a download. This build extracted those bytes, hashed them (<span class="m">7c5356222d6289be…</span>), ran the verifier, and required VERIFIED plus the exact radius, contraction and density values above; any drift refuses the page. You can do the same: <a href="verify_congest.py">download the extracted verifier</a> and run <span class="m">python3 verify_congest.py</span> — about four seconds, and its planted falsifiers must refuse before it exits green.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-mfg-congest.js @ git b43d7cf — the embedded verifier extracted from the published bytes and re-run during this build (VERIFIED, or no page). The page as sent is byte-preserved in the repository (legacy/research/mfg-congest/).</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-mfg-congest.js @ git b715f17 — the embedded verifier extracted from the published bytes and re-run during this build (VERIFIED, or no page). The page as sent is byte-preserved in the repository (legacy/research/mfg-congest/).</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

@@ -20,6 +20,7 @@ const cp = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const OE = require(path.join(ROOT, 'families', 'oeis-closedform.js'));
 
@@ -151,7 +152,47 @@ B.push(C.scope('Published, not peer-reviewed, not independently rerun. Verdicts 
   + 'published digit streams being correct — a refutation here reads "not equal, given those digits".'));
 
 {
+  /* ---- how deep each impostor goes before it breaks ------------------------
+   The page's claim is that a float screen cannot catch these. That is not an
+   opinion once you draw it: the screen reaches 17 significant digits, and
+   every constant here agrees with its impostor spelling PAST that line. */
+{
+  const SCREEN = 17;
+  const rowsFig = catalog.map(e => ({
+    k: e.name.length > 30 ? e.name.slice(0, 29) + '…' : e.name,
+    v: e.values[0].agree,
+    lab: e.values[0].agree + ' digits',
+    hover: e.id + ' — agrees to ' + e.values[0].agree + ' digits, then diverges'
+  }));
+  const fig = CH.bars({
+    w: 900, rowH: 26, max: deepest * 1.12, padL: 236, padR: 88,
+    rows: rowsFig,
+    xTicks: [0, SCREEN, 30, 45, 60].filter(v => v <= deepest * 1.12).map(v => ({ v, t: String(v) })),
+    marks: [{ x: SCREEN, t: 'the double screen tests at 17 digits', token: 'var(--c-3)' }],
+    xLabel: 'leading digits the impostor spelling shares with the true constant',
+    alt: 'One bar per audited constant, showing how many leading significant digits its closest false closed '
+      + 'form shares with it before diverging. The shallowest are ' + shallowest + ' digits, at the resolution '
+      + 'of the double screen itself; the deepest runs to ' + deepest + ' digits, far past anything a double '
+      + 'could separate.'
+  });
   B.push(C.section({
+    lab: '§0 · the depth', title: 'How far a false closed form can follow a true constant',
+    wide: true,
+    bodyRaw: '<div class="col">'
+      + C.pRaw('Each bar is one audited constant, and its length is the number of leading digits its closest '
+        + 'false spelling matches before the two part company. The marked line is the reach of the '
+        + 'double-precision screen that admitted them.')
+      + '</div>'
+      + C.figure({ svgRaw: fig, caption: catalog.length + ' constants, ' + totalImpersonations + ' exact '
+        + 'refutations between them; each bar is that constant\'s DEEPEST false spelling. The shallowest '
+        + 'agreement is ' + shallowest + ' significant digits — an IEEE-754 double carries about 16, so at that '
+        + 'depth the screen has no digits left to tell the two apart, which is exactly why these reached the '
+        + 'exact stage. The rest run far past it, to ' + deepest + ' digits. A float screen cannot separate any '
+        + 'of them; one BigInt comparison at the full published length separates all of them.' })
+  }));
+}
+
+B.push(C.section({
     lab: '§1 · the method', title: 'One integer comparison, no floating point',
     bodyRaw: '<div class="col">'
       + C.pRaw('The engine\'s double-precision screen tests each constant against '
@@ -233,7 +274,7 @@ const foot = '<footer class="col">'
 
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'impostors.html'),
-  TPL.render({ title: 'The impostor catalog · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/reports/impostors.html' }));
+  TPL.render({ title: 'The impostor catalog · cert-machine', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/impostors.html' }));
 
 console.log('reports/impostors.html written');
 console.log('  ' + catalog.length + ' constants, ' + totalImpersonations + ' impersonations, deepest agreement '

@@ -358,6 +358,59 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <ul class="plain"><li><b>The finding.</b> Hindcast benchmarks cannot prove a model has not seen the outcome; the only outcome provably unseen is one that did not exist when the forecast was committed. The Gym makes temporal hygiene a checkable property: <span class="m">git log certs/forecast-gym-ledger.jsonl</span> dates every sha before its target.</li><li><b>The mechanism.</b> commit-before / score-after on an append-only ledger (backdating, premature scoring, rescoring and tampering are refused — each a red control); Winkler interval score in exact rationals; prune-only admission by exact binomial tail at a stated bar of 1/20.</li><li><b>Check it.</b> <span class="m">node instruments/forecast/battery.js</span> — 7 checks, 5 reds that must fire, in seconds.</li></ul>
 </div></div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the commitments</div>
+    <h2>What each forecaster risked, before the day existed</h2>
+  </div>
+<div class="col"><p>Nothing on this chart is scored — that is the point of it. Every interval was sha-pinned before its target day existed, so the only thing visible today is how much each proposer risked: a narrow interval scores better when it contains the outcome and worse when it does not.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 318" role="img" aria-label="6 forecasters, each committed to an interval for the same future day before it happened. The widest spans 250 flights; one is a bare point with no width at all.">
+    <line x1="230.8" y1="16" x2="230.8" y2="256" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="230.8" y="276.0" text-anchor="middle" class="t-ax">175</text>
+    <line x1="486.0" y1="16" x2="486.0" y2="256" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="486.0" y="276.0" text-anchor="middle" class="t-ax">300</text>
+    <line x1="741.2" y1="16" x2="741.2" y2="256" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="741.2" y="276.0" text-anchor="middle" class="t-ax">425</text>
+    <text x="178.0" y="40.0" text-anchor="end" class="t-ax">range</text>
+    <rect x="230.8" y="29" width="453.2" height="14" rx="3" fill="var(--c-1)" data-cm="range" data-cmv="[175, 397] — width 222" tabindex="0"/>
+    <line x1="230.8" y1="24" x2="230.8" y2="48" stroke="var(--c-1)" stroke-width="2"/>
+    <line x1="684.0" y1="24" x2="684.0" y2="48" stroke="var(--c-1)" stroke-width="2"/>
+    <text x="698.0" y="40.0" text-anchor="start" class="t-lab">width 222</text>
+    <text x="178.0" y="80.0" text-anchor="end" class="t-ax">conformal</text>
+    <rect x="263.5" y="69" width="420.5" height="14" rx="3" fill="var(--c-1)" data-cm="conformal" data-cmv="[191, 397] — width 206" tabindex="0"/>
+    <line x1="263.5" y1="64" x2="263.5" y2="88" stroke="var(--c-1)" stroke-width="2"/>
+    <line x1="684.0" y1="64" x2="684.0" y2="88" stroke="var(--c-1)" stroke-width="2"/>
+    <text x="698.0" y="80.0" text-anchor="start" class="t-lab">width 206</text>
+    <text x="178.0" y="120.0" text-anchor="end" class="t-ax">opus-5</text>
+    <rect x="373.7" y="109" width="367.4" height="14" rx="3" fill="var(--c-1)" data-cm="opus-5" data-cmv="[245, 425] — width 180" tabindex="0"/>
+    <line x1="373.7" y1="104" x2="373.7" y2="128" stroke="var(--c-1)" stroke-width="2"/>
+    <line x1="741.2" y1="104" x2="741.2" y2="128" stroke="var(--c-1)" stroke-width="2"/>
+    <text x="755.2" y="120.0" text-anchor="start" class="t-lab">width 180</text>
+    <text x="178.0" y="160.0" text-anchor="end" class="t-ax">sonnet-5</text>
+    <rect x="322.7" y="149" width="367.4" height="14" rx="3" fill="var(--c-1)" data-cm="sonnet-5" data-cmv="[220, 400] — width 180" tabindex="0"/>
+    <line x1="322.7" y1="144" x2="322.7" y2="168" stroke="var(--c-1)" stroke-width="2"/>
+    <line x1="690.1" y1="144" x2="690.1" y2="168" stroke="var(--c-1)" stroke-width="2"/>
+    <text x="704.1" y="160.0" text-anchor="start" class="t-lab">width 180</text>
+    <text x="178.0" y="200.0" text-anchor="end" class="t-ax">haiku-4-5</text>
+    <rect x="608.5" y="189" width="102.1" height="14" rx="3" fill="var(--c-1)" data-cm="haiku-4-5" data-cmv="[360, 410] — width 50" tabindex="0"/>
+    <line x1="608.5" y1="184" x2="608.5" y2="208" stroke="var(--c-1)" stroke-width="2"/>
+    <line x1="710.6" y1="184" x2="710.6" y2="208" stroke="var(--c-1)" stroke-width="2"/>
+    <text x="724.6" y="200.0" text-anchor="start" class="t-lab">width 50</text>
+    <text x="178.0" y="240.0" text-anchor="end" class="t-ax">persistence</text>
+    <circle cx="263.5" cy="236" r="6" fill="var(--c-3)" stroke="var(--surface)" stroke-width="2" data-cm="persistence" data-cmv="point forecast 191 — width 0" tabindex="0"/>
+    <text x="277.5" y="240.0" text-anchor="start" class="t-lab">width 0</text>
+    <text x="486.0" y="294.0" text-anchor="middle" class="t-note">flights the audit will count on 2026-08-28 — committed before the day existed</text>
+    <rect x="190" y="303" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="209.0" y="313.0" text-anchor="start" class="t-note">committed interval</text>
+    <rect x="360" y="303" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="379.0" y="313.0" text-anchor="start" class="t-note">point forecast (width 0)</text>
+  </svg>
+  </div>
+  <figcaption>The 6 commitments for 2026-08-28 flights, widest first. Widths run from 0 to 222 flights across the same future. The zero-width row is the persistence baseline, built to be pruned in public. Nothing here is an opinion about who is right; the day decides that, and the exact Winkler score and the admission rule do the rest without anyone&#39;s judgement entering.</figcaption>
+</figure></div>
+</section>
+
 <div class="wide">
   <div class="stats">
     <div class="stat"><div class="k">the test set</div><div class="v held">the future</div><div class="n">outcomes that do not exist at commit time — the one split no training corpus can contain</div></div>
@@ -420,9 +473,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 <p>A proposer is anything that emits interval forecasts with a claimed coverage for the named future targets. Submissions are sealed commits: the sha enters the public ledger before the target day, the payload is revealed and hash-verified at scoring, attribution required. Scoring and admission are deterministic, so a submission cannot be argued with — only outperformed.</p>
 <p><span class="m">node tools/forecast-gym.js record</span> prints the board; <span class="m">node instruments/forecast/battery.js</span> proves the machinery on your machine first, reds included. Model campaigns through the same path are spend and run on the operator's word, like every campaign on <a href="/reports/matmul-eval.html">the eval shelf</a>.</p>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-forecast-gym.js @ git b43d7cf. Gates at this build: the forecast battery (7 checks, 5 reds fired), both ledgers re-verified row by row with this builder's own arithmetic (payload shas re-hashed, every Winkler recounted string-exact, commit-before/score-after re-checked), and the admission board recomputed from the exact binomial tail. A deviation anywhere refuses the page. Forecasts on this page are proposals, never verdicts.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-forecast-gym.js @ git b715f17. Gates at this build: the forecast battery (7 checks, 5 reds fired), both ledgers re-verified row by row with this builder's own arithmetic (payload shas re-hashed, every Winkler recounted string-exact, commit-before/score-after re-checked), and the admission board recomputed from the exact binomial tail. A deviation anywhere refuses the page. Forecasts on this page are proposals, never verdicts.</p></footer>
 
 </div>
 </html>

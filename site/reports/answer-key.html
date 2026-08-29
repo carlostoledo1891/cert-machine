@@ -358,6 +358,39 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <ul class="plain"><li><b>The finding.</b> Three certified ways a mathematical answer key goes wrong: a float artifact published as a constant (correct to a rerun, wrong from digit 12); a published constant agreeing with a wrong closed form for 62 significant digits (digit-matching certifies the impostor); and a printed identity that is false while the computation behind it was right. A model that reproduces any of these grades as correct.</li><li><b>The mechanism.</b> The failure class lives INSIDE the key: rerunning the same float pipeline reproduces the artifact digit for digit, so the standard remedy — recompute and compare digits — CONFIRMS the wrong value. The fix is structural, not more digits: grade witness-exhibiting tasks with exact certificates, so there is no reference value to contaminate.</li><li><b>Check it.</b> every specimen re-proved at this page's build; the working design runs live — <span class="m">python3 tools/llm-harness.py --dry-run --family matmul --n 8</span> from a clone shows the grader refuting its own red controls before it grades anything.</li></ul>
 </div></div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the two ways to be wrong</div>
+    <h2>Agreeing to many digits is not evidence</h2>
+  </div>
+<div class="col"><p>Both bars are published values, and both are wrong — in opposite directions. One stops being correct just past the reach of a hand-check; the other stays correct far past the reach of any float screen and is still not the thing it claims to be.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 162" role="img" aria-label="Two published values on one scale of correct leading digits. The #852 constant is right to 11 digits and wrong from the 12th. A closed form agrees with its constant to 62 digits and is still provably not that constant. A double-precision screen reaches about 17 digits, between the two.">
+    <line x1="232.0" y1="30" x2="232.0" y2="98" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="232.0" y="118.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="330.8" y1="30" x2="330.8" y2="98" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="330.8" y="118.0" text-anchor="middle" class="t-ax">17</text>
+    <line x1="406.4" y1="30" x2="406.4" y2="98" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="406.4" y="118.0" text-anchor="middle" class="t-ax">30</text>
+    <line x1="493.5" y1="30" x2="493.5" y2="98" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="493.5" y="118.0" text-anchor="middle" class="t-ax">45</text>
+    <line x1="580.7" y1="30" x2="580.7" y2="98" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="580.7" y="118.0" text-anchor="middle" class="t-ax">60</text>
+    <line x1="330.8" y1="27" x2="330.8" y2="101" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="337.8" y="22.0" text-anchor="start" class="t-lab">a double screen stops here</text>
+    <path d="M232 35 h59.932146829810904 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-59.932146829810904 Z" fill="var(--c-1)" data-cm="published constant (#852)" data-cmv="the published C* is the naive double product; it parts from the certified enclosure at digit 12" tabindex="0"/>
+    <text x="222.0" y="51.0" text-anchor="end" class="t-ax">published constant (#852)</text>
+    <text x="303.9" y="51.0" text-anchor="start" class="t-lab">right to 11, wrong from 12</text>
+    <path d="M232 69 h356.34482758620686 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-356.34482758620686 Z" fill="var(--c-1)" data-cm="closed form vs constant" data-cmv="A271880 — agrees to 62 digits and is exactly refuted" tabindex="0"/>
+    <text x="222.0" y="85.0" text-anchor="end" class="t-ax">closed form vs constant</text>
+    <text x="600.3" y="85.0" text-anchor="start" class="t-lab">62 digits, then provably not equal</text>
+    <text x="441.0" y="140.0" text-anchor="middle" class="t-note">leading significant digits that are CORRECT before the key fails</text>
+  </svg>
+  </div>
+  <figcaption>Specimen I fails at digit 12, which is why a rerun that agrees to eleven digits confirms nothing: the rerun reproduces the same bug. Specimen II agrees to 62 digits and is exactly refuted, which is why depth of agreement is not evidence either. The marked line is where a double-precision check runs out of digits — it falls between the two failures, so neither of them can be settled by one. Specimen III is not on this axis at all: there the computation is correct and the PRINT is wrong, and no number of digits would have caught it.</figcaption>
+</figure></div>
+</section>
+
 <div class="wide">
   <div class="stats">
     <div class="stat"><div class="k">specimen I</div><div class="v warn">wrong at digit 12</div><div class="n">a published constant that IS the naive IEEE-754 product — reproduced live this build, then refuted exactly</div></div>
@@ -408,9 +441,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 <p>The structural fix is to grade tasks where no reference value exists to contaminate: ask the model to EXHIBIT a witness — a decomposition, a certificate, a construction — and let the grader re-derive the claim from the witness alone, exactly. The matmul eval on this site is the running instance: 274 frontier-model proposals graded to date, every certified row a theorem, every refuted row a proof of error, zero false certifications — measured, and structurally guaranteed, because there is no answer key to be wrong.</p>
 <p>Three rules transfer to any evaluation built on computed ground truth. Screens may only PRUNE: no float comparison ever admits a claim. Grade with certificates, not tolerances: the verdict should be checkable by re-derivation, not by proximity to a stored number. And put red controls in the grader: deliberately false submissions that must fail, run before anything real is graded — a grader that has never rejected a forgery is not known to reject forgeries. The methods note states the discipline in full; every gate on this site runs under it.</p>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-answer-key.js @ git b43d7cf. Every specimen above was re-proved during this build — the naive product re-run and refuted, the impostor depth re-derived in exact BigInt, both RM directions re-certified, the eval ledger re-read — and the build refuses on any deviation.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-answer-key.js @ git b715f17. Every specimen above was re-proved during this build — the naive product re-run and refuted, the impostor depth re-derived in exact BigInt, both RM directions re-certified, the eval ledger re-read — and the build refuses on any deviation.</p></footer>
 
 </div>
 </html>

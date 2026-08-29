@@ -17,6 +17,7 @@ const cp = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const FAM = require(path.join(ROOT, 'families', 'ramanujan-audit.js'));
 const M = require(path.join(ROOT, 'instruments', 'cf', 'minus.js'));
@@ -111,7 +112,48 @@ B.push(C.scope('Local working document. SURVIVES means the claimed form lies ins
     { raw: C.m(r.width.toExponential(2)) },
     { raw: C.tag('SURVIVES', 'held') }
   ]);
+  /* ---- the sheet's five rows, by how tightly each is pinned ----------------
+   The interesting question about a "new and unproven" row is not whether it is
+   on the sheet but whether it is certified as well as the rows nobody doubts.
+   One log axis answers it. */
+{
+  const short = id => id.replace(/^rm-/, '');
+  const sorted = rows.slice().sort((a, b) => a.width - b.width);
+  const lo = Math.min.apply(null, rows.map(r => r.width)) / 6;
+  const hi = Math.max.apply(null, rows.map(r => r.width)) * 6;
+  const fig = CH.bars({
+    w: 900, rowH: 32, logX: true, min: lo, max: hi, padL: 226, padR: 132,
+    rows: sorted.map(r => ({
+      k: short(r.id), v: r.width, lab: r.width.toExponential(2),
+      token: /NEW AND UNPROVEN/.test(r.status || '') ? 'var(--c-1)' : 'var(--c-ctx)',
+      hover: (/NEW AND UNPROVEN/.test(r.status || '') ? 'new and unproven' : 'known identity')
+        + ' — enclosure width ' + r.width.toExponential(3) + ', depth ' + r.depth
+    })),
+    xTicks: CH.decades(lo, hi, 6),
+    xLabel: 'width of the certified enclosure (log scale) — narrower is more tightly pinned',
+    keys: [{ token: 'var(--c-1)', t: 'printed as NEW AND UNPROVEN' },
+           { token: 'var(--c-ctx)', t: 'a known identity' }],
+    alt: 'Five sheet rows ranked by certified enclosure width on a log axis. The two rows the sheet marks as '
+      + 'new and unproven are enclosed as tightly as the known identities beside them.'
+  });
   B.push(C.section({
+    lab: '§0 · the five rows', title: 'How tightly each row is actually pinned',
+    wide: true,
+    bodyRaw: '<div class="col">'
+      + C.pRaw('Every row on this sheet was re-certified during this build. The two the sheet itself flags as '
+        + 'new and unproven are drawn in the accent; the question a reader should ask is whether they are held '
+        + 'to the same standard as the rows nobody argues about.')
+      + '</div>'
+      + C.figure({ svgRaw: fig, caption: rows.length + ' rows, ' + flagship.length + ' of them printed as NEW '
+        + 'AND UNPROVEN. Widths run from ' + sorted[0].width.toExponential(2) + ' to '
+        + sorted[sorted.length - 1].width.toExponential(2) + ', and the flagged rows sit inside that same range '
+        + '— they are certified exactly as tightly as the known identities. What "unproven" means here is that '
+        + 'no PROOF of the identity is on record, not that the numerics are weaker: the enclosure decides the '
+        + 'numerical claim either way, and says nothing about the proof.' })
+  }));
+}
+
+B.push(C.section({
     lab: '§1 · the verdicts', title: 'Five rows, five certificates', wide: true,
     bodyRaw: C.table({
       cols: [{ h: 'row' }, { h: 'the Machine says' }, { h: 'claimed form', cls: 'v' }, { h: 'evaluator' },
@@ -223,7 +265,7 @@ const foot = '<footer class="col">'
 
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'zeta3-audit.html'),
-  TPL.render({ title: 'The ζ(3) sheet, decided · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/reports/zeta3-audit.html' }));
+  TPL.render({ title: 'The ζ(3) sheet, decided · cert-machine', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/zeta3-audit.html' }));
 
 console.log('reports/zeta3-audit.html written');
 for (const r of rows) console.log('  ' + r.id.padEnd(12) + (r.status || '').padEnd(18) + r.form.padEnd(14)

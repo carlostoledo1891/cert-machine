@@ -369,6 +369,48 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <p class="scope">Published, not peer-reviewed, not independently rerun. Verdicts are conditional on the OEIS published digit streams being correct — a refutation here reads &quot;not equal, given those digits&quot;.</p>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the depth</div>
+    <h2>How far a false closed form can follow a true constant</h2>
+  </div>
+<div class="col"><p>Each bar is one audited constant, and its length is the number of leading digits its closest false spelling matches before the two part company. The marked line is the reach of the double-precision screen that admitted them.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 224" role="img" aria-label="One bar per audited constant, showing how many leading significant digits its closest false closed form shares with it before diverging. The shallowest are 16 digits, at the resolution of the double screen itself; the deepest runs to 62 digits, far past anything a double could separate.">
+    <line x1="236.0" y1="30" x2="236.0" y2="160" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="236.0" y="180.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="377.0" y1="30" x2="377.0" y2="160" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="377.0" y="180.0" text-anchor="middle" class="t-ax">17</text>
+    <line x1="484.8" y1="30" x2="484.8" y2="160" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="484.8" y="180.0" text-anchor="middle" class="t-ax">30</text>
+    <line x1="609.3" y1="30" x2="609.3" y2="160" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="609.3" y="180.0" text-anchor="middle" class="t-ax">45</text>
+    <line x1="733.7" y1="30" x2="733.7" y2="160" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="733.7" y="180.0" text-anchor="middle" class="t-ax">60</text>
+    <line x1="377.0" y1="27" x2="377.0" y2="163" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="384.0" y="22.0" text-anchor="start" class="t-lab">the double screen tests at 17 digits</text>
+    <path d="M236 34 h510.2857142857142 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-510.2857142857142 Z" fill="var(--c-1)" data-cm="Decimal expansion of the prob…" data-cmv="A271880 — agrees to 62 digits, then diverges" tabindex="0"/>
+    <text x="226.0" y="47.0" text-anchor="end" class="t-ax">Decimal expansion of the prob…</text>
+    <text x="758.3" y="47.0" text-anchor="start" class="t-lab">62 digits</text>
+    <path d="M236 60 h477.1059907834101 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-477.1059907834101 Z" fill="var(--c-1)" data-cm="Decimal expansion of sqrt(9/1…" data-cmv="A181284 — agrees to 58 digits, then diverges" tabindex="0"/>
+    <text x="226.0" y="73.0" text-anchor="end" class="t-ax">Decimal expansion of sqrt(9/1…</text>
+    <text x="725.1" y="73.0" text-anchor="start" class="t-lab">58 digits</text>
+    <path d="M236 86 h360.9769585253455 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-360.9769585253455 Z" fill="var(--c-1)" data-cm="Decimal expansion of the real…" data-cmv="A359187 — agrees to 44 digits, then diverges" tabindex="0"/>
+    <text x="226.0" y="99.0" text-anchor="end" class="t-ax">Decimal expansion of the real…</text>
+    <text x="609.0" y="99.0" text-anchor="start" class="t-lab">44 digits</text>
+    <path d="M236 112 h128.71889400921657 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-128.71889400921657 Z" fill="var(--c-1)" data-cm="Decimal expansion of Sum_{n&gt;=…" data-cmv="A226120 — agrees to 16 digits, then diverges" tabindex="0"/>
+    <text x="226.0" y="125.0" text-anchor="end" class="t-ax">Decimal expansion of Sum_{n&gt;=…</text>
+    <text x="376.7" y="125.0" text-anchor="start" class="t-lab">16 digits</text>
+    <path d="M236 138 h128.71889400921657 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-128.71889400921657 Z" fill="var(--c-1)" data-cm="Decimal expansion of a number…" data-cmv="A266296 — agrees to 16 digits, then diverges" tabindex="0"/>
+    <text x="226.0" y="151.0" text-anchor="end" class="t-ax">Decimal expansion of a number…</text>
+    <text x="376.7" y="151.0" text-anchor="start" class="t-lab">16 digits</text>
+    <text x="524.0" y="202.0" text-anchor="middle" class="t-note">leading digits the impostor spelling shares with the true constant</text>
+  </svg>
+  </div>
+  <figcaption>5 constants, 21 exact refutations between them; each bar is that constant&#39;s DEEPEST false spelling. The shallowest agreement is 16 significant digits — an IEEE-754 double carries about 16, so at that depth the screen has no digits left to tell the two apart, which is exactly why these reached the exact stage. The rest run far past it, to 62 digits. A float screen cannot separate any of them; one BigInt comparison at the full published length separates all of them.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§1 · the method</div>
@@ -391,9 +433,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>The collision-probability argument, run in reverse</h2>
   </div>
 <div class="col"><p>Digit-matching pipelines — the Ramanujan Machine's published methodology among them — declare a hit when a computed value agrees with a closed form to some tens of digits, and argue from collision probability that the match is almost certainly an identity. This catalog is the reverse experiment on the same kind of data: here are constants that sustain the match to <span class="m">62</span> digits and are provably NOT the number they resemble.</p><p><span class="m">A271880</span> — the probability that a random real is "evil" — agrees with <span class="m">1/5</span> for <span class="m">62</span> digits before diverging; OEIS records the difference separately (A271881, about 2.17e-64). Any screen shallower than 64 digits calls this 1/5.</p><p><span class="m">A266296</span> is literally named "a number close to 24, related to the Ramanujan constant" — the near-integer phenomenon that made e^(pi sqrt 163) famous, caught here impersonating <span class="m">24</span> for <span class="m">16</span> digits and refuted at <span class="m">105</span>.</p><p>The point is not that these five are surprising — OEIS contributors know them. The point is that a probability argument cannot tell these five from a real identity, and an exact decision can. A pipeline whose screening step can mint false positives is indistinguishable from one that cannot; the cure is a certificate, and each row of this catalog carries one: a single integer inequality anyone can recheck.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-impostors.js — every number recomputed from the corpus at build time; the build fails if the records change.</p><p>git b43d7cf · cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-impostors.js — every number recomputed from the corpus at build time; the build fails if the records change.</p><p>git b715f17 · cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

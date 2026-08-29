@@ -369,6 +369,42 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 </div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the margin</div>
+    <h2>Agreeing is easy; agreeing with room to spare is the claim</h2>
+  </div>
+<div class="col"><p>An independent re-verification that lands just inside the manuscript's own box would confirm very little. These enclosures are narrower than that box by fifteen orders of magnitude, which is what makes the printed decimals decidable rather than merely consistent.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 190" role="img" aria-label="The certified enclosure width of each coordinate of the extremal triple, on a log axis. All three sit near 1e-45, fifteen decades inside the 1e-30 box the manuscript&#39;s own lemma requires.">
+    <line x1="238.5" y1="30" x2="238.5" y2="126" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="238.5" y="146.0" text-anchor="middle" class="t-ax">1e-45</text>
+    <line x1="394.8" y1="30" x2="394.8" y2="126" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="394.8" y="146.0" text-anchor="middle" class="t-ax">1e-40</text>
+    <line x1="551.2" y1="30" x2="551.2" y2="126" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="551.2" y="146.0" text-anchor="middle" class="t-ax">1e-35</text>
+    <line x1="707.5" y1="30" x2="707.5" y2="126" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="707.5" y="146.0" text-anchor="middle" class="t-ax">1e-30</text>
+    <line x1="707.5" y1="27" x2="707.5" y2="129" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="700.5" y="22.0" text-anchor="end" class="t-lab">the box the manuscript needs (1e-30)</text>
+    <line x1="394.8" y1="27" x2="394.8" y2="129" stroke="var(--c-ctx)" stroke-width="2"/>
+    <text x="387.8" y="5.0" text-anchor="end" class="t-lab">this check&#39;s own bar</text>
+    <path d="M176 34 h65.20985683185108 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-65.20985683185108 Z" fill="var(--c-2)" data-cm="q*" data-cmv="certified enclosure width 1.636e-45" tabindex="0"/>
+    <text x="166.0" y="50.0" text-anchor="end" class="t-ax">q*</text>
+    <text x="253.2" y="50.0" text-anchor="start" class="t-lab">1.64e-45</text>
+    <path d="M176 66 h74.24657701794092 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-74.24657701794092 Z" fill="var(--c-2)" data-cm="u*" data-cmv="certified enclosure width 3.183e-45" tabindex="0"/>
+    <text x="166.0" y="82.0" text-anchor="end" class="t-ax">u*</text>
+    <text x="262.2" y="82.0" text-anchor="start" class="t-lab">3.18e-45</text>
+    <path d="M176 98 h60.11343099328559 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-60.11343099328559 Z" fill="var(--c-2)" data-cm="v*" data-cmv="certified enclosure width 1.124e-45" tabindex="0"/>
+    <text x="166.0" y="114.0" text-anchor="end" class="t-ax">v*</text>
+    <text x="248.1" y="114.0" text-anchor="start" class="t-lab">1.12e-45</text>
+    <text x="473.0" y="168.0" text-anchor="middle" class="t-note">width of the certified enclosure (log scale)</text>
+  </svg>
+  </div>
+  <figcaption>Each coordinate of the extremal triple, enclosed to a width of about 3.18e-45 by a Krawczyk argument in interval arithmetic — against the 1e-30 box Lemma A.1 asks for. That margin is why all 26 checks can be decisions rather than comparisons: every printed decimal, including all 30 of D, is either inside the enclosure or outside it, and 4 planted mutations were rejected on the same arithmetic.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§1 · the two findings</div>
@@ -399,9 +435,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>The cited page, byte-preserved</h2>
   </div>
 <div class="col"><p>This page supersedes the one cited in the Erdős #1038 GitHub issue (Pengbinghui/pipeline-math#5, 2026-08-05); that page is preserved byte-identically in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/verify-lemniscate.html">the repository</a> (the citation path 301s here), beside <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/lane/laneb-lemniscate/verify.js">the verifier itself</a> — hash-pinned through this repository's lift provenance. Re-run it from <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>: <span class="m">node tools/build-report-lemniscate.js</span> rebuilds this page and refuses unless the verifier is green.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-lemniscate.js @ git b43d7cf — the cited verifier re-run against this repository&#39;s interval instruments during the build; 26 checks, 4 mutation controls, verdict CONFIRMED, or no page.</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-lemniscate.js @ git b715f17 — the cited verifier re-run against this repository&#39;s interval instruments during the build; 26 checks, 4 mutation controls, verdict CONFIRMED, or no page.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

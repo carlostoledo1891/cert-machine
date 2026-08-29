@@ -371,6 +371,48 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <section class="">
   <div class="col sec-head">
+    <div class="lab">§0 · the five rows</div>
+    <h2>How tightly each row is actually pinned</h2>
+  </div>
+<div class="col"><p>Every row on this sheet was re-certified during this build. The two the sheet itself flags as new and unproven are drawn in the accent; the question a reader should ask is whether they are held to the same standard as the rows nobody argues about.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 234" role="img" aria-label="Five sheet rows ranked by certified enclosure width on a log axis. The two rows the sheet marks as new and unproven are enclosed as tightly as the known identities beside them.">
+    <line x1="292.6" y1="10" x2="292.6" y2="170" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="292.6" y="190.0" text-anchor="middle" class="t-ax">1e-16</text>
+    <line x1="446.9" y1="10" x2="446.9" y2="170" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="446.9" y="190.0" text-anchor="middle" class="t-ax">1e-15</text>
+    <line x1="601.2" y1="10" x2="601.2" y2="170" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="601.2" y="190.0" text-anchor="middle" class="t-ax">1e-14</text>
+    <line x1="755.5" y1="10" x2="755.5" y2="170" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="755.5" y="190.0" text-anchor="middle" class="t-ax">1e-13</text>
+    <path d="M226 14 h116.05802759748019 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-116.05802759748019 Z" fill="var(--c-1)" data-cm="z3-new1" data-cmv="new and unproven — enclosure width 2.220e-16, depth 60" tabindex="0"/>
+    <text x="216.0" y="30.0" text-anchor="end" class="t-ax">z3-new1</text>
+    <text x="354.1" y="30.0" text-anchor="start" class="t-lab">2.22e-16</text>
+    <path d="M226 46 h208.9475976117347 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-208.9475976117347 Z" fill="var(--c-ctx)" data-cm="z3-pos" data-cmv="known identity — enclosure width 8.882e-16, depth 120" tabindex="0"/>
+    <text x="216.0" y="62.0" text-anchor="end" class="t-ax">z3-pos</text>
+    <text x="446.9" y="62.0" text-anchor="start" class="t-lab">8.88e-16</text>
+    <path d="M226 78 h208.9475976117347 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-208.9475976117347 Z" fill="var(--c-1)" data-cm="z3-new2" data-cmv="new and unproven — enclosure width 8.882e-16, depth 80" tabindex="0"/>
+    <text x="216.0" y="94.0" text-anchor="end" class="t-ax">z3-new2</text>
+    <text x="446.9" y="94.0" text-anchor="start" class="t-lab">8.88e-16</text>
+    <path d="M226 110 h255.39238261886197 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-255.39238261886197 Z" fill="var(--c-ctx)" data-cm="z3-apery" data-cmv="known identity — enclosure width 1.776e-15, depth 60" tabindex="0"/>
+    <text x="216.0" y="126.0" text-anchor="end" class="t-ax">z3-apery</text>
+    <text x="493.4" y="126.0" text-anchor="start" class="t-lab">1.78e-15</text>
+    <path d="M226 142 h417.9419724025198 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-417.9419724025198 Z" fill="var(--c-ctx)" data-cm="z3-inv" data-cmv="known identity — enclosure width 2.010e-14, depth 10000000" tabindex="0"/>
+    <text x="216.0" y="158.0" text-anchor="end" class="t-ax">z3-inv</text>
+    <text x="655.9" y="158.0" text-anchor="start" class="t-lab">2.01e-14</text>
+    <text x="497.0" y="212.0" text-anchor="middle" class="t-note">width of the certified enclosure (log scale) — narrower is more tightly pinned</text>
+    <rect x="226" y="218" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="245.0" y="228.0" text-anchor="start" class="t-note">printed as NEW AND UNPROVEN</text>
+    <rect x="458" y="218" width="11" height="10" rx="2" fill="var(--c-ctx)"/>
+    <text x="477.0" y="228.0" text-anchor="start" class="t-note">a known identity</text>
+  </svg>
+  </div>
+  <figcaption>5 rows, 2 of them printed as NEW AND UNPROVEN. Widths run from 2.22e-16 to 2.01e-14, and the flagged rows sit inside that same range — they are certified exactly as tightly as the known identities. What &quot;unproven&quot; means here is that no PROOF of the identity is on record, not that the numerics are weaker: the enclosure decides the numerical claim either way, and says nothing about the proof.</figcaption>
+</figure></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
     <div class="lab">§1 · the verdicts</div>
     <h2>Five rows, five certificates</h2>
   </div>
@@ -418,9 +460,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>What a skeptic runs</h2>
   </div>
 <div class="col"><p><span class="m">make test</span> re-runs everything above inside the cf battery: Brouncker and Euler calibrations, Apéry's proved identity as the anchor (an evaluator that refuted it would be broken), the transcription float-guard over all ten corpus rows, seven red controls, and the zeta(3) bracket cross-checked at two depths. The certificates themselves are four shift-and-check positivity facts plus one outward-rounded backward pass — small enough to re-verify by hand, which is the point.</p></div>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-zeta3.js — verdicts, widths, checks and the lemma re-proved from the instruments at build time; the build fails if any of it does not.</p><p>git b43d7cf · cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-zeta3.js — verdicts, widths, checks and the lemma re-proved from the instruments at build time; the build fails if any of it does not.</p><p>git b715f17 · cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

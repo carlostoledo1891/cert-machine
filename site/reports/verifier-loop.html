@@ -358,6 +358,77 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <ul class="plain"><li><b>The finding.</b> 3 of 6 trajectories end CERTIFIED — every certification was first-shot, and no below-bar trajectory was rescued by feedback: the channel is honest in both directions, unable to coach and impossible to sweet-talk. The feedback is never advice: it is the exact index where the identity fails and the exact discrepancy, read off the certificate that refuted the attempt.</li><li><b>The mechanism.</b> Reinforcement signal without reward hacking: the loop's reward is a certificate, so "the model satisfied the grader" and "the mathematics is correct" are the same event. The three feedback templates are fixed in the harness source, and this build REFUSES to render a trajectory whose feedback deviates from them — coaching would invalidate the demonstration.</li><li><b>Check it.</b> <span class="m">python3 tools/llm-harness.py --model &lt;id&gt; --target &quot;(3, 3, 3, 23)&quot; --loop 6 --trajectories 1 --max-tokens 5000 --loop-ledger certs/matmul-loop-ledger.jsonl</span> — same red and green controls as every campaign, run before any round.</li></ul>
 </div></div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · the loop, drawn</div>
+    <h2>Where the feedback did and did not convert</h2>
+  </div>
+<div class="col"><p>Each row is one conversation with the grader; each cell is one graded proposal. A row that turns green after a red cell is a conversion — the verifier's own mechanism, fed back, moving a model from wrong to proved. Look for one.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 290" role="img" aria-label="6 trajectories, one row each, one cell per round coloured by what the grader returned. The 3 that end certified do so in their first cell; no row turns green after a red one.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="289.0" y1="16" x2="289.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="289.0" y="228.0" text-anchor="middle" class="t-ax">round 1</text>
+    <line x1="367.0" y1="16" x2="367.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="367.0" y="228.0" text-anchor="middle" class="t-ax">round 2</text>
+    <line x1="445.0" y1="16" x2="445.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="445.0" y="228.0" text-anchor="middle" class="t-ax">round 3</text>
+    <line x1="523.0" y1="16" x2="523.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="523.0" y="228.0" text-anchor="middle" class="t-ax">round 4</text>
+    <line x1="601.0" y1="16" x2="601.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="601.0" y="228.0" text-anchor="middle" class="t-ax">round 5</text>
+    <line x1="679.0" y1="16" x2="679.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="679.0" y="228.0" text-anchor="middle" class="t-ax">round 6</text>
+    <line x1="757.0" y1="16" x2="757.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="757.0" y="228.0" text-anchor="middle" class="t-ax">round 7</text>
+    <line x1="835.0" y1="16" x2="835.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="835.0" y="228.0" text-anchor="middle" class="t-ax">round 8</text>
+    <text x="238.0" y="36.0" text-anchor="end" class="t-ax">haiku-4-5 · (2, 2, 2, 7) #0</text>
+    <rect x="250.00" y="22" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 1" data-cmv="rejected" tabindex="0"/>
+    <rect x="328.00" y="22" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 2" data-cmv="rejected" tabindex="0"/>
+    <rect x="406.00" y="22" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 3" data-cmv="rejected" tabindex="0"/>
+    <rect x="484.00" y="22" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 4" data-cmv="rejected" tabindex="0"/>
+    <rect x="562.00" y="22" width="76.00" height="20" rx="3" fill="var(--c-ctx)" data-cm="haiku-4-5 · round 5" data-cmv="malformed" tabindex="0"/>
+    <rect x="640.00" y="22" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 6" data-cmv="rejected" tabindex="0"/>
+    <rect x="718.00" y="22" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 7" data-cmv="rejected" tabindex="0"/>
+    <rect x="796.00" y="22" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 8" data-cmv="rejected" tabindex="0"/>
+    <text x="238.0" y="68.0" text-anchor="end" class="t-ax">haiku-4-5 · (2, 2, 2, 7) #1</text>
+    <rect x="250.00" y="54" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 1" data-cmv="rejected" tabindex="0"/>
+    <rect x="328.00" y="54" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 2" data-cmv="rejected" tabindex="0"/>
+    <rect x="406.00" y="54" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 3" data-cmv="rejected" tabindex="0"/>
+    <rect x="484.00" y="54" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 4" data-cmv="rejected" tabindex="0"/>
+    <rect x="562.00" y="54" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 5" data-cmv="rejected" tabindex="0"/>
+    <rect x="640.00" y="54" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 6" data-cmv="rejected" tabindex="0"/>
+    <rect x="718.00" y="54" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 7" data-cmv="rejected" tabindex="0"/>
+    <rect x="796.00" y="54" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 8" data-cmv="rejected" tabindex="0"/>
+    <text x="238.0" y="100.0" text-anchor="end" class="t-ax">haiku-4-5 · (2, 2, 2, 7) #2</text>
+    <rect x="250.00" y="86" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 1" data-cmv="rejected" tabindex="0"/>
+    <rect x="328.00" y="86" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 2" data-cmv="rejected" tabindex="0"/>
+    <rect x="406.00" y="86" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 3" data-cmv="rejected" tabindex="0"/>
+    <rect x="484.00" y="86" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 4" data-cmv="rejected" tabindex="0"/>
+    <rect x="562.00" y="86" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 5" data-cmv="rejected" tabindex="0"/>
+    <rect x="640.00" y="86" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 6" data-cmv="rejected" tabindex="0"/>
+    <rect x="718.00" y="86" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 7" data-cmv="rejected" tabindex="0"/>
+    <rect x="796.00" y="86" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 8" data-cmv="rejected" tabindex="0"/>
+    <text x="238.0" y="132.0" text-anchor="end" class="t-ax">opus-5 · (2, 2, 2, 7) #0</text>
+    <rect x="250.00" y="118" width="76.00" height="20" rx="3" fill="var(--c-2)" data-cm="opus-5 · round 1" data-cmv="certified" tabindex="0"/>
+    <text x="238.0" y="164.0" text-anchor="end" class="t-ax">opus-5 · (2, 2, 2, 7) #1</text>
+    <rect x="250.00" y="150" width="76.00" height="20" rx="3" fill="var(--c-2)" data-cm="opus-5 · round 1" data-cmv="certified" tabindex="0"/>
+    <text x="238.0" y="196.0" text-anchor="end" class="t-ax">opus-5 · (2, 2, 2, 7) #2</text>
+    <rect x="250.00" y="182" width="76.00" height="20" rx="3" fill="var(--c-2)" data-cm="opus-5 · round 1" data-cmv="certified" tabindex="0"/>
+    <text x="562.0" y="250.0" text-anchor="middle" class="t-note">rounds of the conversation, in order — one cell per graded proposal</text>
+    <rect x="250" y="273" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="269.0" y="283.0" text-anchor="start" class="t-note">rejected</text>
+    <rect x="351" y="273" width="11" height="10" rx="2" fill="var(--c-ctx)"/>
+    <text x="370.0" y="283.0" text-anchor="start" class="t-note">malformed</text>
+    <rect x="459" y="273" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="478.0" y="283.0" text-anchor="start" class="t-note">certified</text>
+  </svg>
+  </div>
+  <figcaption>6 trajectories, 27 graded rounds. 3 end certified and 0 of those were conversions — every certified row is green in its first cell. That is the honest state of this loop and it is recorded exactly as a success would be: the feedback is template-locked to the grader&#39;s mechanism, so there is no coaching to credit, and so far there is no conversion to credit either.</figcaption>
+</figure></div>
+</section>
+
 <div class="wide">
   <div class="stats">
     <div class="stat"><div class="k">trajectories</div><div class="v">6</div><div class="n">claude-haiku-4-5-20251001 · claude-opus-5 — each an independent conversation against the grader</div></div>
@@ -396,9 +467,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>From eval to training signal</h2>
   </div>
 <p>An evaluation grades one attempt; a reward channel shapes many. The loop is the smallest possible demonstration that this machine&#39;s grading is the second thing, not just the first: the same certificate that scores a proposal carries, in its refutation mechanism, enough signal to steer the next one — and because false positives are provably impossible, a policy trained against this channel cannot learn to exploit its grader. Scaled up, this is reinforcement learning on certified rewards for mathematical search; run once in a conversation, it is what this page shows.</p>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-loop.js @ git b43d7cf. The grader's red and green controls re-ran during this build; every trajectory row was read off the append-only ledger; and every feedback string was checked against the fixed mechanism templates — a deviation refuses the page.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-loop.js @ git b715f17. The grader's red and green controls re-ran during this build; every trajectory row was read off the append-only ledger; and every feedback string was checked against the fixed mechanism templates — a deviation refuses the page.</p></footer>
 
 </div>
 </html>

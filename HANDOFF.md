@@ -13,7 +13,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-08-28, LAB v0 + the dataviz pass)
+## TASKS BACKLOG — the standing menu (updated 2026-08-29, charts on every report)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -143,12 +143,10 @@ KAUST MFG group, and the page succeeds when HE uses it).
   certified point, reports/mfg-congest.html) · every engagement is
   simultaneously an external rerun (item 13) and a vouching candidate.
 
-DATAVIZ, WHAT IS LEFT (no word needed, it is our own surface): the
-pages still without a figure are matmul-eval (the board), forecast-gym
-(the commit timeline, worth doing once scores exist), verifier-loop
-(trajectories), impostors, methods-note, answer-key, alien-science,
-mfg-cap, mfg-congest, wardrop, mfg-lab, lemniscate, zeta3, and the
-landing/control pages. design/charts.js covers every form they need.
+DATAVIZ: the report shelf is DONE — 24 of 24 pages carry a figure
+(2026-08-29). Still bare, and no word needed to fix them since they are
+our own surface: the landing page, the control page, /oracle/ and
+/machine/. design/charts.js already covers every form they would need.
 
 FIRST THING NEXT SESSION: node tools/sweep-claims.js, then shard
 health (tail -n 2 certs/shard-logs/shard-*.log) and 8D if a day
@@ -591,6 +589,52 @@ operator capability (a flow) into artifacts that hold value unattended (stock):
   verification infrastructure — the eval labs run, the registry that
   updates, the certificates anyone checks in ten seconds." Operator
   capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-29 (EVERY REPORT GETS A CHART — operator's word:
+"apply at least one chart, graphic per report. Cleverly decided and
+showing insightful information"):
+  - COVERAGE IS NOW 24/24. The thirteen remaining pages each got the
+    chart its own argument needed, not a chart:
+      impostors    agreement depth per constant against the 17-digit
+                   double screen — the page's thesis, drawn
+      answer-key   the two ways to be wrong on ONE axis: right to 11
+                   digits, or right to 62 and still refuted; the float
+                   screen falls between them
+      methods-note how 10 real defects were caught, INCLUDING the empty
+                   bar the page is titled after ("none by reading code")
+      matmul-eval  outcome mix per campaign — the REFUTED band is empty
+                   across 274 proposals, which is the finding
+      verifier-loop every trajectory round by round: the 3 certified are
+                   green in cell one, so no feedback conversion exists
+      forecast-gym what each proposer RISKED before the day existed —
+                   widths 0 to 222 on the same future
+      mfg-cap      separation vs combined radius on one log axis: 10^13
+      mfg-congest  the radii polynomial itself, from the verifier's own
+                   Y0/Z1/Z2 — the one inequality the proof rests on
+      mfg-lab      the paper's Table I edge by edge, 12 of 15 exact
+      wardrop      one paper, all three verdicts (exact/enclosed/refused)
+      lemniscate   enclosure width vs the box the manuscript needs: 15
+                   decades of margin
+      zeta3        the five rows by how tightly each is pinned — the
+                   "new and unproven" ones are held to the same standard
+      alien-science the exact residual axis where epsilon = 0, so the
+                   admissible set is a POINT and no score can move the
+                   mutant into it
+  - THREE CHARTS CHANGED WHAT THE PROSE SAID, which is the point of
+    drawing things. The impostor caption first claimed every constant
+    cleared the 17-digit line; two are at 16, and the corrected text
+    now says what the chart says. The mfg-lab caption quoted a
+    max gap of 2 against the page's own 1.568 — the first is a
+    difference of ROUNDED totals, the second the gate's unrounded
+    deviation, and the caption now distinguishes them. HarborProof's
+    spike was found the same way last session.
+  - KIT ADDITIONS, all from real failures seen on screen: intervals,
+    segments (three-valued verdicts and stacked shares), log x-axis and
+    marks on bars, vertical callouts on lines, notes on segment rows,
+    and — the important one — the legend now WRAPS instead of silently
+    dropping its last key off the right edge.
+  - design/battery.js: 24 pages, 48 svg roots, 0 literal colours, every
+    figure with a text alternative. make test 34/34.
 
 SESSION 2026-08-28f (THE DATAVIZ PASS — operator's word: "UX + UI pass
 focused on charts and graphics ... minimal, beautiful, adapt to our

@@ -20,6 +20,7 @@ const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const die = (m) => { console.error('MFG-CONGEST REPORT REFUSED: ' + m); process.exit(1); };
 const gitrev = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
@@ -43,6 +44,8 @@ const g = (re, name) => { const m = re.exec(out); if (!m) die(name + ' not found
 const Z1 = g(/Z1 = \|\|I - A DPhi\(x_bar\)\|\|_nu\s*=\s*([\d.]+)/, 'Z1');
 const RAD = g(/certified radius\s+r\s*=\s*([\d.e+-]+)/, 'radius');
 const MINM = g(/density\s+min m over ball\s*>=\s*([\d.]+)/, 'min density');
+const Y0 = g(/Y0 = \|\|A Phi\(x_bar\)\|\|_nu\s*=\s*([\d.e+-]+)/, 'Y0');
+const Z2 = g(/Z2 = Lipschitz on B_rCap\s*=\s*([\d.]+)/, 'Z2');
 if (Number(Z1) >= 1) die('Z1 >= 1 — the contraction claim is gone');
 
 const O = [];
@@ -74,6 +77,59 @@ O.push(C.stats([
   { k: 'falsifiers', v: 'MUST REFUSE', role: 'warn', n: 'a certificate that cannot go red is fake — each planted break is required to fail inside the verifier' },
   { k: 'why it matters', v: 'NO REDUCTION', n: 'the congestion Hamiltonian ½(u′)²/mᵃ admits no Hopf–Cole reduction — this cannot be called "Gross–Pitaevskii in disguise"' }
 ]));
+
+/* ---- the contraction, drawn ----------------------------------------------
+   Validated numerics comes down to one inequality — p(r) = 1/2 Z2 r^2 -
+   (1 - Z1) r + Y0 < 0 — and every number in it was just printed by the
+   verifier. Plotting it turns "the radii polynomial closes" into something a
+   reader can check with a ruler: the window where p is negative, and the
+   certified radius sitting at its left edge, which is the SMALLEST radius the
+   argument admits rather than a convenient one. */
+{
+  const y0 = Number(Y0), z1 = Number(Z1), z2 = Number(Z2), rr = Number(RAD);
+  const pOf = r => 0.5 * z2 * r * r - (1 - z1) * r + y0;
+  const disc = (1 - z1) * (1 - z1) - 2 * z2 * y0;
+  const rMax = ((1 - z1) + Math.sqrt(disc)) / z2;      /* the window's right edge */
+  const x1 = rMax * 1.25, x0 = 0;
+  const pts = [];
+  for (let i = 0; i <= 240; i++) { const r = x0 + (x1 - x0) * i / 240; pts.push([r, pOf(r)]); }
+  const ylo = Math.min.apply(null, pts.map(p => p[1])), yhi = Math.max(y0, pOf(x1));
+  const fig = CH.lines({
+    w: 900, h: 300, x0, x1, y0: ylo * 1.25, y1: yhi * 1.1,
+    xTicks: [0, rMax / 4, rMax / 2, (3 * rMax) / 4, rMax].map(v => ({ v, t: v === 0 ? '0' : v.toExponential(1) })),
+    yTicks: [ylo, 0, yhi].map(v => ({ v, t: v === 0 ? '0' : v.toExponential(1) })),
+    xLabel: 'radius r  (nu-weighted)',
+    yLabel: 'p(r)',
+    rules: [{ v: 0, t: 'p(r) = 0', token: 'var(--c-ctx)' }],
+    bands: [{ x0: rr, x1: rMax, token: 'var(--c-grid)', t: 'every r in here is a valid certificate' }],
+    /* the certified radius is 13 decades left of the window's right edge, so on
+       this axis it sits ON zero — which is the fact, not a rendering problem */
+    vmarks: [{ x: rr, t: 'certified r = ' + RAD + ' \u2014 the window\'s left edge', token: 'var(--c-2)', row: 1 }],
+    series: [{ name: 'p(r)', pts, endLabel: '' }],
+    xOf: v => 'r = ' + v.toExponential(3),
+    vOf: v => 'p(r) = ' + v.toExponential(3),
+    alt: 'The radii polynomial p(r) plotted from zero. It starts at Y0 = ' + Y0 + ', dips below zero across a '
+      + 'window beginning at the certified radius ' + RAD + ' and ending near ' + rMax.toExponential(2)
+      + ', then rises back through zero.'
+  });
+  O.push(C.section({
+    lab: '§0 · the inequality', title: 'The one inequality the whole proof rests on',
+    wide: true,
+    bodyRaw: '<div class="col">'
+      + C.pRaw('Every radius where this curve sits below zero is a radius at which the operator is a '
+        + 'contraction, so an exact solution exists within it and is the only one there. The curve is drawn '
+        + 'from the three bounds the verifier printed during this build — nothing here is fitted or sketched.')
+      + '</div>'
+      + C.figure({ svgRaw: fig, caption: 'p(r) = \u00bdZ\u2082r\u00b2 \u2212 (1\u2212Z\u2081)r + Y\u2080 with '
+        + 'Y\u2080 = ' + Y0 + ', Z\u2081 = ' + Number(Z1).toFixed(6) + ', Z\u2082 = ' + Number(Z2).toFixed(4)
+        + ' \u2014 all three re-derived by the embedded verifier a moment ago. The curve crosses zero at '
+        + RAD + ' and again near ' + rMax.toExponential(2) + '; the reported radius is the LEFT crossing, the '
+        + 'smallest the argument admits, because a larger one would claim uniqueness in a bigger ball than the '
+        + 'contraction earns. The discriminant (1\u2212Z\u2081)\u00b2 \u2212 2Z\u2082Y\u2080 = '
+        + disc.toFixed(6) + ' is the margin by which the window exists at all: at zero it would close and there '
+        + 'would be no certificate.' })
+  }));
+}
 
 O.push(C.section({
   lab: '§1 · the claim', title: 'What is enclosed, and why congestion is the interesting case',
@@ -142,5 +198,5 @@ const foot = '<footer class="col"><p>' + C.esc('Generated by tools/build-report-
   + '<p>' + C.esc('cert-machine · Carlos Toledo') + '</p></footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'mfg-congest.html'),
-  TPL.render({ title: 'A congestion mean-field game, enclosed · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/mfg-congest.html' }));
+  TPL.render({ title: 'A congestion mean-field game, enclosed · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/mfg-congest.html' }));
 console.log('reports/mfg-congest.html written: VERIFIED re-proved (r=' + RAD + ', Z1=' + Z1 + ', min m>=' + MINM + ') @ git ' + gitrev);

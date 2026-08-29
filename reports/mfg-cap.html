@@ -369,6 +369,42 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 </div>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§0 · to scale</div>
+    <h2>How far from touching the two enclosures are</h2>
+  </div>
+<div class="col"><p>Disjointness is what makes this a multiplicity theorem rather than an observation, so it is worth seeing how much room there is. All three quantities below are lengths in the same weighted norm, so they share one axis; it is logarithmic because otherwise two of the three bars would be invisible.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 176" role="img" aria-label="Three quantities in the same weighted norm on a logarithmic axis. The distance between the two certified solutions is 10.787; the two enclosing balls have a combined radius of 4.72e-13, about thirteen orders of magnitude smaller.">
+    <line x1="303.9" y1="10" x2="303.9" y2="112" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="303.9" y="132.0" text-anchor="middle" class="t-ax">1e-15</text>
+    <line x1="386.8" y1="10" x2="386.8" y2="112" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="386.8" y="132.0" text-anchor="middle" class="t-ax">1e-12</text>
+    <line x1="469.8" y1="10" x2="469.8" y2="112" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="469.8" y="132.0" text-anchor="middle" class="t-ax">1e-9</text>
+    <line x1="552.7" y1="10" x2="552.7" y2="112" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="552.7" y="132.0" text-anchor="middle" class="t-ax">1e-6</text>
+    <line x1="635.6" y1="10" x2="635.6" y2="112" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="635.6" y="132.0" text-anchor="middle" class="t-ax">1e-3</text>
+    <line x1="718.5" y1="10" x2="718.5" y2="112" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="718.5" y="132.0" text-anchor="middle" class="t-ax">1e0</text>
+    <path d="M300 15 h443.04035314257203 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-443.04035314257203 Z" fill="var(--c-1)" data-cm="distance between the two solutions" data-cmv="nu-weighted distance between the two certified centres" tabindex="0"/>
+    <text x="290.0" y="31.0" text-anchor="end" class="t-ax">distance between the two solutions</text>
+    <text x="755.0" y="31.0" text-anchor="start" class="t-lab">10.787</text>
+    <path d="M300 49 h73.82477569070238 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-73.82477569070238 Z" fill="var(--c-2)" data-cm="combined radius of the two balls" data-cmv="r1 + r2 — the two enclosures together" tabindex="0"/>
+    <text x="290.0" y="65.0" text-anchor="end" class="t-ax">combined radius of the two balls</text>
+    <text x="385.8" y="65.0" text-anchor="start" class="t-lab">4.72e-13</text>
+    <path d="M300 83 h20.959646857427913 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-20.959646857427913 Z" fill="var(--c-2)" data-cm="worst enclosure in the monotone control" data-cmv="the loosest radius across the five Lasry-Lions parameter sets" tabindex="0"/>
+    <text x="290.0" y="99.0" text-anchor="end" class="t-ax">worst enclosure in the monotone control</text>
+    <text x="333.0" y="99.0" text-anchor="start" class="t-lab">5.77e-15</text>
+    <text x="536.0" y="154.0" text-anchor="middle" class="t-note">nu-weighted distance (log scale) — one unit, three quantities</text>
+  </svg>
+  </div>
+  <figcaption>The two certified solutions sit 10.787 apart while their enclosures together span 4.72e-13 — a factor of about 10¹³. Nothing about this proof is marginal: the balls would have to grow by thirteen decades before they touched. The third bar is the loosest enclosure the monotone control produced across five Lasry-Lions parameter sets, for scale — the classical regime certifies just as tightly, which is why the interesting question was never precision but whether TWO solutions exist at all.</figcaption>
+</figure></div>
+</section>
+
 <section class="col">
   <div class="sec-head">
     <div class="lab">§1 · the object</div>
@@ -393,9 +429,35 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>Where this comes from, and where the original lives</h2>
   </div>
 <p>The unit was lifted FILE-LEVEL from the source lab&#39;s published tree (the eligibility criterion for everything public here), and this page is a rebuild in this site&#39;s own design system — the original interactive artifact, with the same kernel embedded in its bytes, lives in the public repository (research/mfg-cap in the mfg-lab tree, MIT). The mathematics sits in the mean-field-games literature of the KAUST group and the Lasry–Lions/Cirant multiplicity line; the radii-polynomial framework is van den Berg–Lessard, unchanged. The certification layer, and any error in it, is ours.</p>
-</section>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
-<footer class="col"><p>Generated by tools/build-report-mfg-cap.js @ git b43d7cf. The unit's battery re-ran as this page's gate (17 checks, 6/6 falsifiers fired) and every number above was parsed from that run — the build refuses on any deviation. Source: legacy/research/mfg-cap/ in this repository; original artifact: research/mfg-cap in the public mfg-lab tree.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-mfg-cap.js @ git b715f17. The unit's battery re-ran as this page's gate (17 checks, 6/6 falsifiers fired) and every number above was parsed from that run — the build refuses on any deviation. Source: legacy/research/mfg-cap/ in this repository; original artifact: research/mfg-cap in the public mfg-lab tree.</p></footer>
 
 </div>
 </html>
