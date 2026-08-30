@@ -52,6 +52,7 @@ test:
 	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg lab (box certifier)"; $(NODE) labs/mfg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "mfg2p lab (two populations)"; $(NODE) labs/mfg2p/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "design system + charts"; $(NODE) design/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit app"; $(NODE) apps/skyaudit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit stdlib verifier"; $(PY) apps/skyaudit/audit/verify_skyaudit.py >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -95,5 +96,6 @@ reports:
 	@$(NODE) tools/build-report-mfg-cap.js
 	@$(NODE) tools/build-report-mfg-lab.js
 	@$(NODE) tools/build-report-mfg-observatory.js
+	@$(NODE) tools/build-report-mfg2p.js
 	@$(NODE) tools/build-report-evtol-energy.js
 	@$(NODE) tools/build-report-skyaudit.js

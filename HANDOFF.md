@@ -22,7 +22,8 @@ STATE OF RECORD (refreshed 2026-08-29; full histories live in
 apps/skyaudit/TODO.md and the session entries below — this block holds
 only what stands).
 
-  THE PUBLIC SURFACE, as of this handoff: 24 report pages, every one
+  THE PUBLIC SURFACE, as of this handoff: 25 report pages (+ the
+  two-population regime map, 2026-08-29), every one
   of them carrying at least one chart built from its own gated numbers
   (design/charts.js + design/battery.js, both new this week). LAB v0
   live at reports/mfg-observatory.html with the certifier running in
@@ -151,12 +152,20 @@ KAUST MFG group, and the page succeeds when HE uses it).
   costs your group the most time to defend"). Needs the operator's
   three opening sentences and a recipient choice. The old objection
   against the KAUST draft ("reword 'live in the browser'") is moot.
-  LAB v1, when the word comes: the sigma axis (box.js already charges
-  for a sigma box honestly — the tail diagonal defect |1 - sigma/sigma0|
-  does not decay, and X4 proves it is charged) · the congestion model
-  as a second rung (its solver is NOT published, so today it is one
-  certified point, reports/mfg-congest.html) · every engagement is
-  simultaneously an external rerun (item 13) and a vouching candidate.
+  LAB v1 SHIPPED 2026-08-29 as the TWO-POPULATION lab (labs/mfg2p/, see
+  the ACTIVE NEXT entry). The sigma axis is STILL open and still the
+  expensive one: box2p.js inherits the same defect (A is built at one
+  sigma, so the tail of I - A DPhi carries |1 - sigma/sigma0|, which
+  does not decay in k), falsifier X4 proves it is charged in BOTH labs,
+  and the map was therefore swept at fixed sigma = 0.5. The rescaling
+  that would fix it — divide rows k >= 1 by sigma so the linear diagonal
+  is sigma-free and A's tail inverse is exact, moving the sigma
+  dependence into terms that DO decay — is written up but not built; it
+  gates the sigma axis and nothing else, which is why the map came
+  first. Also open: the congestion model as a second rung (its solver is
+  NOT published, so today it is one certified point,
+  reports/mfg-congest.html) · every engagement is simultaneously an
+  external rerun (item 13) and a vouching candidate.
 
 DATAVIZ: the report shelf is DONE — 24 of 24 pages carry a figure
 (2026-08-29). Still bare, and no word needed to fix them since they are
@@ -224,8 +233,28 @@ ACTIVE NEXT (operator to choose; nothing pre-authorized):
      thinking-exhaustion HARNESS artifact, fixed at the cause (8192)
      and retried BEFORE anything was pushed (copy-honesty intact).
      Remaining gym moves: more packs · third-party sealed entries.
-  B2. LAB v0 SHIPPED (see above) — remaining moves there: the sigma
-     axis, a second named engagement, and the letter's send (word).
+  B2. LAB v0 SHIPPED · LAB v1 (TWO POPULATIONS) SHIPPED 2026-08-29 on the
+     operator's word "proceed on your order", from a paper the operator
+     sent (Wang-Li-Yao-Xia, Mathematics 10(21):4075 — multi-population
+     MFG solved by a GAN). NEW: labs/mfg2p/ (model + box certifier over
+     a rectangle of COUPLING MATRICES + sweep + battery 11 checks / 7
+     falsifiers) and reports/mfg-two-population.html — 21,567 cells,
+     11,628 MULTIPLE, 24 UNIQUE, area identity exact. THE FINDINGS:
+     (a) Lasry-Lions monotonicity (|s| <= c_self) is 11.2x CONSERVATIVE
+     on this slice — it stops at s = 1, the first certified multiplicity
+     is at s = 11.238; (b) THE UNFOLDING, which was not predicted: at
+     d = 0 the second equilibrium arrives through a symmetry-breaking
+     pitchfork at s = 10.90, and at d >= 0.05 there is NO singular
+     Jacobian anywhere in s in [0,15] — the pitchfork unfolds, the
+     primary branch goes smooth, and the second equilibrium survives on
+     a branch NO continuation can reach. Battery U1/U2 gate it. Since
+     attack-defense means d != 0 by definition, that is exactly the
+     regime a neural solver goes blind in, and 11,300+ of the MULTIPLE
+     cells sit at d > 0 — certified where continuation cannot look.
+     REMAINING on this shelf: the sigma axis (still the expensive one,
+     see the note below), the fold in d (it sits past d = 1.5 at
+     sigma = 0.5, so this map does NOT locate it and the page says so),
+     a second named engagement, and the letter's send (word).
   C. 8C-full — certified-universal-over-forecast-envelope fleet
      statements; BLOCKED on the parked scenario packs.
   DAILY LOOP (8D, now proven end-to-end — first scoring 2026-08-29):
@@ -363,7 +392,10 @@ DRAFTED OR READY, SENDING ON THE OPERATOR'S WORD:
      outreach/kaust-mfg-lab.md, now paired with its delivery vehicle:
      reports/mfg-observatory.html (the regime map), reports/mfg-certify.js
      (the one-file certifier, no dependencies) and labs/mfg/ in the
-     public repo. Closing ask, verbatim: "send me the one claim that
+     public repo — and now ALSO reports/mfg-two-population.html, which
+     engages Cirant's multiplicity line directly instead of only citing
+     it and is the stronger opening gift; the letter's evidence
+     paragraph should be refreshed to lead with it before it sends. Closing ask, verbatim: "send me the one claim that
      costs your group the most time to defend." STILL NEEDS from the
      operator: the recipient (Ribeiro alone or +1), three opening
      sentences in your own words, and a yes/no on the ask as written.
