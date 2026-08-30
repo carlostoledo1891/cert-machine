@@ -421,6 +421,62 @@ O.push(C.section({
 const WIDGET = require('./oracle-widget.js');
 try { WIDGET.gate(); } catch (e) { console.error('EVAL REPORT REFUSED: ' + e.message); process.exit(1); }
 
+/* ---- the contamination experiment, computed from the ledger ---------------
+   Same model, same effort, same output cap, same code path — the only variable
+   is whether the answer can be RECALLED or has to be DERIVED. Strassen is in
+   every corpus; the conjugation rungs are Strassen under a seed-pinned
+   unimodular change of basis, provably solvable (the witness is Strassen
+   transported) and unrecallable by construction. c1 and c2 are independent
+   seeds, so the effect is replicated rather than defended on one instance. */
+{
+  const V4 = rows.filter((r) => r.tag === 'v4-effort-low');
+  if (V4.length) {
+    const cellOf = (r) => {
+      const t = String(r.target);
+      return t.includes('c1') ? 'c1' : t.includes('c2') ? 'c2' : t.includes('(2, 2, 2, 7)') ? 'plain' : null;
+    };
+    const short = (m) => m.replace(/^claude-/, '').replace(/-\d{8}$/, '');
+    const cell = new Map();
+    for (const r of V4) {
+      const g = cellOf(r); if (!g) continue;
+      const k = short(r.model) + '|' + g;
+      if (!cell.has(k)) cell.set(k, { n: 0, certified: 0, exhausted: 0, rejected: 0, malformed: 0 });
+      const a = cell.get(k); a.n++;
+      if (r.outcome === 'budget-exhausted') a.exhausted++; else a[r.outcome] = (a[r.outcome] || 0) + 1;
+    }
+    const fmtCell = (a) => {
+      if (!a) return '—';
+      if (a.certified) return '<strong>' + a.certified + ' / ' + a.n + ' certified</strong>';
+      if (a.exhausted === a.n) return '0 certified · ' + a.n + ' never answered';
+      return '0 certified · ' + (a.rejected || 0) + ' rejected, ' + (a.malformed || 0) + ' malformed';
+    };
+    const modelsSeen = [...new Set([...cell.keys()].map((k) => k.split('|')[0]))].sort();
+    O.push(C.section({
+      lab: '§ recall vs derivation', title: 'The same tensor, one change of basis',
+      bodyRaw: '<div class="col">'
+        + C.pRaw('Strassen\u2019s decomposition is in every training corpus. Conjugate the &lt;2,2,2&gt; tensor by '
+          + 'a seed-pinned unimodular change of basis and the task is <em>provably the same difficulty</em> \u2014 the '
+          + 'witness is Strassen transported through the same map, and this build checks that it certifies \u2014 but the '
+          + 'answer can no longer be recalled. Everything below was run at identical effort, identical output cap and '
+          + 'through the identical code path. Two independent seeds, c1 and c2.')
+        + C.table({
+          cols: [{ h: 'model' }, { h: 'plain Strassen' }, { h: 'conjugated · seed c1' }, { h: 'conjugated · seed c2' }],
+          rows: modelsSeen.map((m) => [m, fmtCell(cell.get(m + '|plain')), fmtCell(cell.get(m + '|c1')), fmtCell(cell.get(m + '|c2'))])
+        })
+        + C.pRaw('The two capable models certify the recallable instance almost perfectly and produce <em>nothing '
+          + 'gradeable at all</em> on either conjugated seed \u2014 every attempt spent its entire output budget without '
+          + 'emitting a parseable decomposition, though a valid answer is 347 characters with no entry larger than 3. '
+          + 'Those attempts are recorded as <span class="m">budget-exhausted</span> and excluded from every rate: our '
+          + 'output cap is not the model\u2019s failure. But they are recorded, because a model asked ten times that never '
+          + 'answers must not look, in the ledger, like a model that was never asked.')
+        + C.pRaw('The weakest model is the control that matters. It fails the recallable rung exactly as it fails the '
+          + 'conjugated ones \u2014 so the gap appears only in models capable enough to recall Strassen in the first '
+          + 'place. Without that row, its zero on the conjugated rungs would have looked like evidence and been none.')
+        + '</div>'
+    }));
+  }
+}
+
 O.push(C.section({
   lab: '§ paste a decomposition', title: 'Certify one right now, in this tab',
   bodyRaw: C.p('Paste a claim below — the JSON shape is {task: {kind: "matmul", n, m, p, rank}, ring: "Q"|"F2", '

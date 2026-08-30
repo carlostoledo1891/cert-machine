@@ -338,8 +338,16 @@ class MatmulFamily(Family):
     #                              transform, never named as matmul: recall-proof
     #   open rung     (3,3,3,22)   OPEN (best known 23, lower bound 19) — the
     #                              discovery rung; a certified row would be new math
+    #   conjugation rungs ('tensor','cN',7)  Strassen under a seed-pinned unimodular
+    #                              change of basis. Solvable by construction (the
+    #                              witness is Strassen transported), unrecallable by
+    #                              design, and MINTABLE FOREVER — c1, c2, c3 are
+    #                              different instances of the same task, which is what
+    #                              lets a result be replicated on a seed no model has
+    #                              seen rather than defended on one.
     LADDER = [(2, 2, 2, 8), (2, 2, 2, 7), (2, 2, 3, 11), (3, 3, 3, 23),
-              (2, 2, 2, 6), ("tensor", "d7", 7), ("tensor", "c1", 7), (3, 3, 3, 22)]
+              (2, 2, 2, 6), ("tensor", "d7", 7), ("tensor", "c1", 7),
+              ("tensor", "c2", 7), ("tensor", "c3", 7), (3, 3, 3, 22)]
 
     @staticmethod
     def is_tensor(target):
@@ -611,6 +619,70 @@ FAMILIES = {"egyptian": EgyptianFamily, "matmul": MatmulFamily}
 Proposer = Callable[[str], str]
 
 
+# ---- spend metering -------------------------------------------------------
+# Published per-MTok rates, cached 2026-06-24. They exist to turn a run into a
+# number that can be checked against a budget, not to be authoritative — the
+# invoice is. Before this, the eval ledger recorded latency and nothing else,
+# so the cost of a rung could only ever be estimated after the fact.
+RATES = {
+    "claude-opus-5": (5.0, 25.0),
+    "claude-sonnet-5": (2.0, 10.0),
+    "claude-haiku-4-5-20251001": (1.0, 5.0),
+}
+USAGE = {"calls": 0, "in": 0, "out": 0, "usd": 0.0}
+LAST_USAGE: dict = {}
+
+
+def _charge(model: str, u: dict) -> dict:
+    rin, rout = RATES.get(model, (0.0, 0.0))
+    cin = (u.get("input_tokens", 0) or 0) + (u.get("cache_creation_input_tokens", 0) or 0) \
+        + (u.get("cache_read_input_tokens", 0) or 0)
+    cout = u.get("output_tokens", 0) or 0
+    usd = (cin * rin + cout * rout) / 1e6
+    USAGE["calls"] += 1
+    USAGE["in"] += cin
+    USAGE["out"] += cout
+    USAGE["usd"] += usd
+    return {"in": cin, "out": cout, "usd": round(usd, 6)}
+
+
+def spend_line() -> str:
+    return (f"SPEND: {USAGE['calls']} billed call(s), {USAGE['in']} in / {USAGE['out']} out "
+            f"tokens, ${USAGE['usd']:.4f} at cached rates")
+
+
+def _read_stream(req, timeout: int = 1800):
+    """Accumulate an SSE response into (text, stop_reason, usage).
+
+    Streaming is not a nicety here. The hard rungs need output budgets in the
+    tens of thousands of tokens, and a non-streaming request that large runs
+    past the HTTP timeout — which is why the first conjugation-rung attempt
+    could only be run at 16k, where the model spent the entire budget thinking
+    and emitted nothing. A budget too small to answer in measures our harness,
+    not the model."""
+    text_parts, stop, usage = [], None, {}
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        for raw in r:
+            line = raw.decode("utf-8", "replace").strip()
+            if not line.startswith("data:"):
+                continue
+            try:
+                ev = json.loads(line[5:].strip())
+            except json.JSONDecodeError:
+                continue
+            t = ev.get("type")
+            if t == "content_block_delta":
+                d = ev.get("delta") or {}
+                if d.get("type") == "text_delta":
+                    text_parts.append(d.get("text", ""))
+            elif t == "message_start":
+                usage.update((ev.get("message") or {}).get("usage") or {})
+            elif t == "message_delta":
+                stop = (ev.get("delta") or {}).get("stop_reason", stop)
+                usage.update(ev.get("usage") or {})
+    return "".join(text_parts), stop, usage
+
+
 def _oauth_token() -> str:
     """Short-lived access token from the `ant auth login` profile — the
     keyless auth path (nothing static exists to leak or rotate)."""
@@ -619,7 +691,8 @@ def _oauth_token() -> str:
         ["ant", "auth", "print-credentials", "--access-token"], text=True).strip()
 
 
-def anthropic_chat(model: str, max_tokens: int = 200) -> Callable[[list], str]:
+def anthropic_chat(model: str, max_tokens: int = 200, stream: bool = False,
+                   effort: Optional[str] = None) -> Callable[[list], str]:
     """Messages-in, text-out — the loop mode's transport. anthropic_proposer
     wraps it for the single-prompt path."""
     # Credential resolution, in order: ANTHROPIC_API_KEY, then the OAuth
@@ -636,8 +709,17 @@ def anthropic_chat(model: str, max_tokens: int = 200) -> Callable[[list], str]:
 
     def call(messages: list) -> str:
         nonlocal token
-        body = json.dumps({"model": model, "max_tokens": max_tokens,
-                           "messages": messages}).encode()
+        payload = {"model": model, "max_tokens": max_tokens, "messages": messages}
+        if effort:
+            # The depth knob, and the right one for this failure. On the
+            # conjugation rung a VALID answer is ~350 characters, yet the model
+            # spent 48,000 output tokens deliberating and emitted none of them:
+            # the output budget was never the binding constraint, thinking depth
+            # was. Raising max_tokens further would only buy more silence.
+            payload["output_config"] = {"effort": effort}
+        if stream:
+            payload["stream"] = True
+        body = json.dumps(payload).encode()
 
         def build_request() -> urllib.request.Request:
             headers = {"content-type": "application/json",
@@ -653,8 +735,14 @@ def anthropic_chat(model: str, max_tokens: int = 200) -> Callable[[list], str]:
         last = None
         for attempt in range(5):                      # transient network/API errors: retry,
             try:                                      # never record them as model outcomes
+                if stream:
+                    text, stop, usage = _read_stream(build_request(), timeout=1800)
+                    global LAST_USAGE
+                    LAST_USAGE = _charge(model, usage)
+                    return text, stop
                 with urllib.request.urlopen(build_request(), timeout=300) as r:
                     data = json.load(r)
+                LAST_USAGE = _charge(model, data.get("usage") or {})
                 text = "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text")
                 return text, data.get("stop_reason")
             except Exception as e:                    # noqa: BLE001
@@ -669,13 +757,14 @@ def anthropic_chat(model: str, max_tokens: int = 200) -> Callable[[list], str]:
     return call
 
 
-def anthropic_proposer(model: str, max_tokens: int = 200):
+def anthropic_proposer(model: str, max_tokens: int = 200, stream: bool = False,
+                       effort: Optional[str] = None):
     """Returns (text, stop_reason). A reply cut off by the OUTPUT BUDGET that
     does not parse is a harness artifact, not a model outcome — thinking
     models can spend the whole cap deliberating and return no text at all.
     The campaign loop skips those the way it skips API errors; recording
     them as `malformed` would misattribute our budget as model failure."""
-    chat = anthropic_chat(model, max_tokens)
+    chat = anthropic_chat(model, max_tokens, stream, effort)
     return lambda prompt: chat([{"role": "user", "content": prompt}])
 
 
@@ -720,6 +809,7 @@ class Row:
     certificate: Optional[dict]
     key: Optional[str]
     latency_s: float
+    usage: Optional[dict] = None      # tokens + dollars for the call that produced this row
 
 
 def decide(fam: Family, obj: Any, target: Any) -> tuple[str, Optional[Verdict]]:
@@ -796,7 +886,8 @@ def run_loop(fam: Family, target: Any, args) -> None:
     """Verifier-in-the-loop: the model proposes, the grader answers with its
     refutation mechanism, the model retries — one conversation per trajectory,
     every round a ledger row. Ends on certified, declined, or round cap."""
-    chat = anthropic_chat(args.model, args.max_tokens)
+    chat = anthropic_chat(args.model, args.max_tokens, getattr(args, "stream", False),
+                          getattr(args, "effort", None))
     summary = []
     with open(args.loop_ledger, "a") as ledger:
         for traj in range(args.trajectories):
@@ -824,6 +915,7 @@ def run_loop(fam: Family, target: Any, args) -> None:
                     "outcome": outcome, "proposal_raw": raw.strip(),
                     "witness": v.witness if v else None, "feedback": fb,
                     "latency_s": round(time.time() - t0, 3),
+                    "usage": dict(LAST_USAGE),
                 }) + "\n")
                 print(f"trajectory {traj} round {rnd}: {outcome}", file=sys.stderr)
                 if fb is None:
@@ -833,7 +925,9 @@ def run_loop(fam: Family, target: Any, args) -> None:
                 messages.append({"role": "user", "content": fb})
             summary.append({"trajectory": traj, "rounds": rnd, "final": final})
     print(json.dumps({"family": fam.name, "model": args.model, "target": str(target),
-                      "loop": args.loop, "trajectories": summary}, indent=2))
+                      "loop": args.loop, "trajectories": summary,
+                      "spend": dict(USAGE)}, indent=2))
+    print(spend_line(), file=sys.stderr)
 
 
 def main():
@@ -861,6 +955,13 @@ def main():
                          "receives the grader's own refutation mechanism as feedback and retries. "
                          "Requires --model and --target; writes to --loop-ledger")
     ap.add_argument("--trajectories", type=int, default=1, help="independent loop trajectories")
+    ap.add_argument("--effort", default=None,
+                    choices=["low", "medium", "high", "xhigh", "max"],
+                    help="thinking-depth budget (output_config.effort). Lower effort makes the model "
+                         "commit instead of deliberating past its whole output budget")
+    ap.add_argument("--stream", action="store_true",
+                    help="stream the response (required for output budgets large enough for the hard "
+                         "rungs — a non-streaming request that big outruns the HTTP timeout)")
     ap.add_argument("--loop-ledger", default="certs/matmul-loop-ledger.jsonl")
     args = ap.parse_args()
 
@@ -927,10 +1028,21 @@ def main():
                     continue                          # an API failure is not a model outcome
             obj = fam.parse(raw)
             if stop == "max_tokens" and obj is None:
-                # the OUTPUT BUDGET cut the reply before a parseable object —
-                # a harness artifact (thinking can consume the whole cap),
-                # never a model outcome. Same class as an API error: skip.
-                print(f"SKIPPED (output budget): {t} — reply cut by max_tokens before a parseable object", file=sys.stderr)
+                # The OUTPUT BUDGET cut the reply before a parseable object — a
+                # harness artifact (thinking can consume the whole cap), never a
+                # model outcome, so it is NOT graded and never counts toward any
+                # rate. But dropping the row entirely was its own distortion:
+                # a model asked ten times that never answered became
+                # indistinguishable, in the record, from a model never asked.
+                # It is written as `budget-exhausted` — present as provenance,
+                # excluded from every outcome rate. Recording the attempt is not
+                # the same as attributing a failure.
+                tally["budget-exhausted"] = tally.get("budget-exhausted", 0) + 1
+                row = Row(fam.name, model_name, args.tag, str(t), raw.strip(), None,
+                          "budget-exhausted", None, None, None, None,
+                          round(time.time() - t0, 3), dict(LAST_USAGE) if LAST_USAGE else None)
+                ledger.write(json.dumps(asdict(row)) + "\n")
+                print(f"BUDGET-EXHAUSTED (recorded, ungraded): {t} — reply cut by max_tokens before a parseable object", file=sys.stderr)
                 continue
             outcome, v = decide(fam, obj, t)
             k = fam.key(obj) if obj is not None else None
@@ -941,18 +1053,23 @@ def main():
             tally[outcome] += 1
             row = Row(fam.name, model_name, args.tag, str(t), raw.strip(), repr(obj) if obj is not None else None, outcome,
                       fam.statement(obj, t) if obj is not None else None,
-                      v.witness if v else None, v.certificate if v else None, k, round(time.time() - t0, 3))
+                      v.witness if v else None, v.certificate if v else None, k, round(time.time() - t0, 3),
+                      dict(LAST_USAGE) if LAST_USAGE else None)
             ledger.write(json.dumps(asdict(row)) + "\n")
 
-    n = sum(tally.values())
+    exhausted = tally.get("budget-exhausted", 0)
+    n = sum(v for k, v in tally.items() if k != "budget-exhausted")   # graded proposals only
     print(json.dumps({
-        "family": fam.name, "model": model_name, "proposals": n, **tally,
+        "family": fam.name, "model": model_name, "proposals": n,
+        "budget_exhausted_ungraded": exhausted, **{k: v for k, v in tally.items() if k != "budget-exhausted"},
         "certified_rate": round(tally["certified"] / n, 3) if n else None,
         # The number a paper would quote: of well-formed proposals that looked right to a float
         # screen, how many were actually true?
         "screen_survivor_truth_rate": round(
             tally["certified"] / max(1, tally["certified"] + tally["refuted"] + tally["undecided"]), 3),
+        "spend": dict(USAGE),
     }, indent=2))
+    print(spend_line(), file=sys.stderr)
 
 
 if __name__ == "__main__":

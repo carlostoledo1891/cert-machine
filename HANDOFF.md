@@ -312,7 +312,45 @@ AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
  4. UAM CAPACITY-CLAIM AUDIT (exact-rational recert of a published
     vertiport/corridor bound) · STORAGE-NASH CERTIFICATE (first
     machine-checkable equilibrium certificate in that literature).
- 5. EVAL: bigger n on v3 rungs / new model rows (keyless auth live;
+ 5. EVAL — WORKED 2026-08-30 (operator's word "proceed this front", budget
+    $15, MEASURED SPEND $3.40). THE RESULT: the contamination delta is now a
+    MEASUREMENT, not an assertion. Same model, same effort, same 4k cap, same
+    code path; the only variable is whether the answer can be RECALLED or must
+    be DERIVED (rung ('tensor','cN',7) = Strassen under a seed-pinned
+    unimodular change of basis, provably solvable because the witness is
+    Strassen transported, and the build checks that it certifies):
+        model      plain Strassen      conj c1            conj c2
+        sonnet-5   10/10 CERTIFIED     0, never answered  0, never answered
+        opus-5      9/10 CERTIFIED     0, never answered  0, never answered
+        haiku-4.5   0/10               0/10               0/10
+    REPLICATED on two independent seeds (c1, c2 — the ladder now publishes c2
+    and c3; conj_matrices is seeded by the tag string so instances are mintable
+    forever). "Never answered" = the model spent its ENTIRE output budget and
+    emitted no parseable decomposition, though a valid answer is 347 characters
+    with no entry above 3; measured at 4k, 16k, 32k and 48k and at effort low,
+    medium and default.
+    THE CONTROL IS THE POINT: haiku fails the recallable rung exactly as it
+    fails the conjugated ones, so the gap appears ONLY in models capable enough
+    to recall Strassen. Without that row its zero would have looked like
+    evidence and been none. And low effort is not disabling — sonnet certifies
+    10/10 at low effort on the recallable instance.
+    FOUR HARNESS CAPABILITIES ADDED (tools/llm-harness.py), all permanent:
+    (a) token+dollar METERING per row and per run — before this the ledger
+    recorded latency only, so a rung's cost could never be checked against a
+    budget; (b) SSE STREAMING — without it the hard rungs cannot be run at all,
+    a non-streaming request that large outruns the HTTP timeout; (c) --effort,
+    the thinking-depth knob, which is the right lever when a model deliberates
+    past its whole output budget (raising max_tokens only buys more silence);
+    (d) budget-exhausted LEDGER ROWS — excluded from every rate (our cap is not
+    the model's failure) but PRESENT, because a model asked ten times that
+    never answers must not look like a model that was never asked. That
+    omission would have silently gutted the strongest column of the table.
+    STILL OPEN HERE: feedback conversion is STILL 0 and now for a new reason —
+    the conjugation rung produces no first proposal to give feedback ON, so the
+    loop has nothing to iterate. Also unexplained: at effort low sonnet
+    DECLINED in 56 tokens in loop mode but EXHAUSTED 10/10 in campaign mode,
+    same model, same effort, same rung. n = 10 per cell, no uncertainty stated.
+ 5a. EVAL, REMAINING: bigger n on v3 rungs / new model rows (keyless auth live;
     thinking rungs cost 10-30k output tokens/proposal); a true
     feedback-conversion loop needs an intermediate-capability model;
     Laderman/r22 loops need >24k budgets. R3 CONJUGATION RUNG BUILT

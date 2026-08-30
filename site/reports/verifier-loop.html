@@ -355,7 +355,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> 3 of 6 trajectories end CERTIFIED — every certification was first-shot, and no below-bar trajectory was rescued by feedback: the channel is honest in both directions, unable to coach and impossible to sweet-talk. The feedback is never advice: it is the exact index where the identity fails and the exact discrepancy, read off the certificate that refuted the attempt.</li><li><b>The mechanism.</b> Reinforcement signal without reward hacking: the loop's reward is a certificate, so "the model satisfied the grader" and "the mathematics is correct" are the same event. The three feedback templates are fixed in the harness source, and this build REFUSES to render a trajectory whose feedback deviates from them — coaching would invalidate the demonstration.</li><li><b>Check it.</b> <span class="m">python3 tools/llm-harness.py --model &lt;id&gt; --target &quot;(3, 3, 3, 23)&quot; --loop 6 --trajectories 1 --max-tokens 5000 --loop-ledger certs/matmul-loop-ledger.jsonl</span> — same red and green controls as every campaign, run before any round.</li></ul>
+<ul class="plain"><li><b>The finding.</b> 6 of 10 trajectories end CERTIFIED — every certification was first-shot, and no below-bar trajectory was rescued by feedback: the channel is honest in both directions, unable to coach and impossible to sweet-talk. The feedback is never advice: it is the exact index where the identity fails and the exact discrepancy, read off the certificate that refuted the attempt.</li><li><b>The mechanism.</b> Reinforcement signal without reward hacking: the loop's reward is a certificate, so "the model satisfied the grader" and "the mathematics is correct" are the same event. The three feedback templates are fixed in the harness source, and this build REFUSES to render a trajectory whose feedback deviates from them — coaching would invalidate the demonstration.</li><li><b>Check it.</b> <span class="m">python3 tools/llm-harness.py --model &lt;id&gt; --target &quot;(3, 3, 3, 23)&quot; --loop 6 --trajectories 1 --max-tokens 5000 --loop-ledger certs/matmul-loop-ledger.jsonl</span> — same red and green controls as every campaign, run before any round.</li></ul>
 </div></div>
 
 <section class="">
@@ -365,24 +365,24 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 <div class="col"><p>Each row is one conversation with the grader; each cell is one graded proposal. A row that turns green after a red cell is a conversion — the verifier's own mechanism, fed back, moving a model from wrong to proved. Look for one.</p></div><div class="wide"><figure>
   <div class="figbox">
-  <svg viewBox="0 0 900 290" role="img" aria-label="6 trajectories, one row each, one cell per round coloured by what the grader returned. The 3 that end certified do so in their first cell; no row turns green after a red one.">
+  <svg viewBox="0 0 900 418" role="img" aria-label="10 trajectories, one row each, one cell per round coloured by what the grader returned. The 6 that end certified do so in their first cell; no row turns green after a red one.">
     <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
-    <line x1="289.0" y1="16" x2="289.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="289.0" y="228.0" text-anchor="middle" class="t-ax">round 1</text>
-    <line x1="367.0" y1="16" x2="367.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="367.0" y="228.0" text-anchor="middle" class="t-ax">round 2</text>
-    <line x1="445.0" y1="16" x2="445.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="445.0" y="228.0" text-anchor="middle" class="t-ax">round 3</text>
-    <line x1="523.0" y1="16" x2="523.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="523.0" y="228.0" text-anchor="middle" class="t-ax">round 4</text>
-    <line x1="601.0" y1="16" x2="601.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="601.0" y="228.0" text-anchor="middle" class="t-ax">round 5</text>
-    <line x1="679.0" y1="16" x2="679.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="679.0" y="228.0" text-anchor="middle" class="t-ax">round 6</text>
-    <line x1="757.0" y1="16" x2="757.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="757.0" y="228.0" text-anchor="middle" class="t-ax">round 7</text>
-    <line x1="835.0" y1="16" x2="835.0" y2="208" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="835.0" y="228.0" text-anchor="middle" class="t-ax">round 8</text>
+    <line x1="289.0" y1="16" x2="289.0" y2="336" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="289.0" y="356.0" text-anchor="middle" class="t-ax">round 1</text>
+    <line x1="367.0" y1="16" x2="367.0" y2="336" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="367.0" y="356.0" text-anchor="middle" class="t-ax">round 2</text>
+    <line x1="445.0" y1="16" x2="445.0" y2="336" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="445.0" y="356.0" text-anchor="middle" class="t-ax">round 3</text>
+    <line x1="523.0" y1="16" x2="523.0" y2="336" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="523.0" y="356.0" text-anchor="middle" class="t-ax">round 4</text>
+    <line x1="601.0" y1="16" x2="601.0" y2="336" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="601.0" y="356.0" text-anchor="middle" class="t-ax">round 5</text>
+    <line x1="679.0" y1="16" x2="679.0" y2="336" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="679.0" y="356.0" text-anchor="middle" class="t-ax">round 6</text>
+    <line x1="757.0" y1="16" x2="757.0" y2="336" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="757.0" y="356.0" text-anchor="middle" class="t-ax">round 7</text>
+    <line x1="835.0" y1="16" x2="835.0" y2="336" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="835.0" y="356.0" text-anchor="middle" class="t-ax">round 8</text>
     <text x="238.0" y="36.0" text-anchor="end" class="t-ax">haiku-4-5 · (2, 2, 2, 7) #0</text>
     <rect x="250.00" y="22" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 1" data-cmv="rejected" tabindex="0"/>
     <rect x="328.00" y="22" width="76.00" height="20" rx="3" fill="var(--c-3)" data-cm="haiku-4-5 · round 2" data-cmv="rejected" tabindex="0"/>
@@ -416,25 +416,36 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <rect x="250.00" y="150" width="76.00" height="20" rx="3" fill="var(--c-2)" data-cm="opus-5 · round 1" data-cmv="certified" tabindex="0"/>
     <text x="238.0" y="196.0" text-anchor="end" class="t-ax">opus-5 · (2, 2, 2, 7) #2</text>
     <rect x="250.00" y="182" width="76.00" height="20" rx="3" fill="var(--c-2)" data-cm="opus-5 · round 1" data-cmv="certified" tabindex="0"/>
-    <text x="562.0" y="250.0" text-anchor="middle" class="t-note">rounds of the conversation, in order — one cell per graded proposal</text>
-    <rect x="250" y="273" width="11" height="10" rx="2" fill="var(--c-3)"/>
-    <text x="269.0" y="283.0" text-anchor="start" class="t-note">rejected</text>
-    <rect x="351" y="273" width="11" height="10" rx="2" fill="var(--c-ctx)"/>
-    <text x="370.0" y="283.0" text-anchor="start" class="t-note">malformed</text>
-    <rect x="459" y="273" width="11" height="10" rx="2" fill="var(--c-2)"/>
-    <text x="478.0" y="283.0" text-anchor="start" class="t-note">certified</text>
+    <text x="238.0" y="228.0" text-anchor="end" class="t-ax">sonnet-5 · (2, 2, 2, 7) #0</text>
+    <rect x="250.00" y="214" width="76.00" height="20" rx="3" fill="var(--c-2)" data-cm="sonnet-5 · round 1" data-cmv="certified" tabindex="0"/>
+    <text x="238.0" y="260.0" text-anchor="end" class="t-ax">sonnet-5 · (2, 2, 2, 7) #1</text>
+    <rect x="250.00" y="246" width="76.00" height="20" rx="3" fill="var(--c-2)" data-cm="sonnet-5 · round 1" data-cmv="certified" tabindex="0"/>
+    <text x="238.0" y="292.0" text-anchor="end" class="t-ax">sonnet-5 · (2, 2, 2, 7) #2</text>
+    <rect x="250.00" y="278" width="76.00" height="20" rx="3" fill="var(--c-2)" data-cm="sonnet-5 · round 1" data-cmv="certified" tabindex="0"/>
+    <text x="238.0" y="324.0" text-anchor="end" class="t-ax">sonnet-5 · (&#39;tensor&#39;, &#39;c1&#39;, 7) #0</text>
+    <rect x="250.00" y="310" width="76.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="sonnet-5 · round 1" data-cmv="declined" tabindex="0"/>
+    <rect x="250.00" y="310" width="76.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="562.0" y="378.0" text-anchor="middle" class="t-note">rounds of the conversation, in order — one cell per graded proposal</text>
+    <rect x="250" y="401" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="269.0" y="411.0" text-anchor="start" class="t-note">rejected</text>
+    <rect x="351" y="401" width="11" height="10" rx="2" fill="var(--c-ctx)"/>
+    <text x="370.0" y="411.0" text-anchor="start" class="t-note">malformed</text>
+    <rect x="459" y="401" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="478.0" y="411.0" text-anchor="start" class="t-note">certified</text>
+    <rect x="567" y="401" width="14" height="10" fill="url(#cmHatch)"/>
+    <text x="586.0" y="411.0" text-anchor="start" class="t-note">declined</text>
   </svg>
   </div>
-  <figcaption>6 trajectories, 27 graded rounds. 3 end certified and 0 of those were conversions — every certified row is green in its first cell. That is the honest state of this loop and it is recorded exactly as a success would be: the feedback is template-locked to the grader&#39;s mechanism, so there is no coaching to credit, and so far there is no conversion to credit either.</figcaption>
+  <figcaption>10 trajectories, 31 graded rounds. 6 end certified and 0 of those were conversions — every certified row is green in its first cell. That is the honest state of this loop and it is recorded exactly as a success would be: the feedback is template-locked to the grader&#39;s mechanism, so there is no coaching to credit, and so far there is no conversion to credit either.</figcaption>
 </figure></div>
 </section>
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">trajectories</div><div class="v">6</div><div class="n">claude-haiku-4-5-20251001 · claude-opus-5 — each an independent conversation against the grader</div></div>
-    <div class="stat"><div class="k">end certified</div><div class="v held">3</div><div class="n">the terminal row of each is an exact theorem</div></div>
+    <div class="stat"><div class="k">trajectories</div><div class="v">10</div><div class="n">claude-haiku-4-5-20251001 · claude-opus-5 · claude-sonnet-5 — each an independent conversation against the grader</div></div>
+    <div class="stat"><div class="k">end certified</div><div class="v held">6</div><div class="n">the terminal row of each is an exact theorem</div></div>
     <div class="stat"><div class="k">converted by feedback</div><div class="v">0</div><div class="n">failed at round 1, certified by the round cap — the verifier&#39;s mechanism did the converting</div></div>
-    <div class="stat"><div class="k">rounds graded</div><div class="v">27</div><div class="n">every round a ledger row with its verdict and the exact feedback sent</div></div>
+    <div class="stat"><div class="k">rounds graded</div><div class="v">31</div><div class="n">every round a ledger row with its verdict and the exact feedback sent</div></div>
     <div class="stat"><div class="k">coaching</div><div class="v held">0</div><div class="n">feedback is template-locked to the grader&#39;s own mechanism; the build refuses on any deviation</div></div>
   </div>
 </div>
@@ -458,7 +469,11 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="wide"><div class="tw"><table><thead><tr><th>claude-haiku-4-5-20251001 · (2, 2, 2, 7) · trajectory 2</th><th>verdict</th><th>what the verifier sent back</th></tr></thead><tbody><tr><td>round 1</td><td><span class="tag dep">rejected</span></td><td><span class="m">Your proposal failed the screen: wrong row lengths, more rows than the rank bound, or a floating-point spot-check mismatch. Recheck the stated convention and shapes, then reply with ONLY the corrected JSON object.</span></td></tr><tr><td>round 2</td><td><span class="tag dep">rejected</span></td><td><span class="m">Your proposal failed the screen: wrong row lengths, more rows than the rank bound, or a floating-point spot-check mismatch. Recheck the stated convention and shapes, then reply with ONLY the corrected JSON object.</span></td></tr><tr><td>round 3</td><td><span class="tag dep">rejected</span></td><td><span class="m">Your proposal failed the screen: wrong row lengths, more rows than the rank bound, or a floating-point spot-check mismatch. Recheck the stated convention and shapes, then reply with ONLY the corrected JSON object.</span></td></tr><tr><td>round 4</td><td><span class="tag dep">rejected</span></td><td><span class="m">Your proposal failed the screen: wrong row lengths, more rows than the rank bound, or a floating-point spot-check mismatch. Recheck the stated convention and shapes, then reply with ONLY the corrected JSON object.</span></td></tr><tr><td>round 5</td><td><span class="tag dep">rejected</span></td><td><span class="m">Your proposal failed the screen: wrong row lengths, more rows than the rank bound, or a floating-point spot-check mismatch. Recheck the stated convention and shapes, then reply with ONLY the corrected JSON object.</span></td></tr><tr><td>round 6</td><td><span class="tag dep">rejected</span></td><td><span class="m">Your proposal failed the screen: wrong row lengths, more rows than the rank bound, or a floating-point spot-check mismatch. Recheck the stated convention and shapes, then reply with ONLY the corrected JSON object.</span></td></tr><tr><td>round 7</td><td><span class="tag dep">rejected</span></td><td><span class="m">Your proposal failed the screen: wrong row lengths, more rows than the rank bound, or a floating-point spot-check mismatch. Recheck the stated convention and shapes, then reply with ONLY the corrected JSON object.</span></td></tr><tr><td>round 8</td><td><span class="tag dep">rejected</span></td><td><span class="m">Your proposal failed the screen: wrong row lengths, more rows than the rank bound, or a floating-point spot-check mismatch. Recheck the stated convention and shapes, then reply with ONLY the corrected JSON object.</span></td></tr></tbody></table></div></div>
 <div class="wide"><div class="tw"><table><thead><tr><th>claude-opus-5 · (2, 2, 2, 7) · trajectory 0</th><th>verdict</th><th>what the verifier sent back</th></tr></thead><tbody><tr><td>round 1</td><td><span class="tag held">CERTIFIED</span></td><td>nothing — the terminal row is a theorem</td></tr></tbody></table></div></div>
 <div class="wide"><div class="tw"><table><thead><tr><th>claude-opus-5 · (2, 2, 2, 7) · trajectory 1</th><th>verdict</th><th>what the verifier sent back</th></tr></thead><tbody><tr><td>round 1</td><td><span class="tag held">CERTIFIED</span></td><td>nothing — the terminal row is a theorem</td></tr></tbody></table></div></div>
-<div class="wide"><div class="tw"><table><thead><tr><th>claude-opus-5 · (2, 2, 2, 7) · trajectory 2</th><th>verdict</th><th>what the verifier sent back</th></tr></thead><tbody><tr><td>round 1</td><td><span class="tag held">CERTIFIED</span></td><td>nothing — the terminal row is a theorem</td></tr></tbody></table></div></div><div class="col"><p>Every row above is read off <span class="m">certs/matmul-loop-ledger.jsonl</span> at build time — the raw proposals and full certificates are in the ledger. A trajectory that ends without certifying is rendered exactly like one that succeeds; the demonstration is the channel, not a highlight reel.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>claude-opus-5 · (2, 2, 2, 7) · trajectory 2</th><th>verdict</th><th>what the verifier sent back</th></tr></thead><tbody><tr><td>round 1</td><td><span class="tag held">CERTIFIED</span></td><td>nothing — the terminal row is a theorem</td></tr></tbody></table></div></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>claude-sonnet-5 · (2, 2, 2, 7) · trajectory 0</th><th>verdict</th><th>what the verifier sent back</th></tr></thead><tbody><tr><td>round 1</td><td><span class="tag held">CERTIFIED</span></td><td>nothing — the terminal row is a theorem</td></tr></tbody></table></div></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>claude-sonnet-5 · (2, 2, 2, 7) · trajectory 1</th><th>verdict</th><th>what the verifier sent back</th></tr></thead><tbody><tr><td>round 1</td><td><span class="tag held">CERTIFIED</span></td><td>nothing — the terminal row is a theorem</td></tr></tbody></table></div></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>claude-sonnet-5 · (2, 2, 2, 7) · trajectory 2</th><th>verdict</th><th>what the verifier sent back</th></tr></thead><tbody><tr><td>round 1</td><td><span class="tag held">CERTIFIED</span></td><td>nothing — the terminal row is a theorem</td></tr></tbody></table></div></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>claude-sonnet-5 · (&#39;tensor&#39;, &#39;c1&#39;, 7) · trajectory 0</th><th>verdict</th><th>what the verifier sent back</th></tr></thead><tbody><tr><td>round 1</td><td><span class="tag dep">declined</span></td><td>—</td></tr></tbody></table></div></div><div class="col"><p>Every row above is read off <span class="m">certs/matmul-loop-ledger.jsonl</span> at build time — the raw proposals and full certificates are in the ledger. A trajectory that ends without certifying is rendered exactly like one that succeeds; the demonstration is the channel, not a highlight reel.</p></div>
 </section>
 
 <section class="col">
@@ -495,7 +510,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-loop.js @ git 7811e4a. The grader's red and green controls re-ran during this build; every trajectory row was read off the append-only ledger; and every feedback string was checked against the fixed mechanism templates — a deviation refuses the page.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-loop.js @ git 1a51bdd. The grader's red and green controls re-ran during this build; every trajectory row was read off the append-only ledger; and every feedback string was checked against the fixed mechanism templates — a deviation refuses the page.</p></footer>
 
 </div>
 </html>
