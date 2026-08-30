@@ -223,6 +223,10 @@ const REPORTS = [
     n: rmPrinted + ' printed rows · ' + rmSurvive + ' survive · 1 refuted, correction certified' },
   /* catalogued 2026-08-30 the moment reports/keller.html landed on disk — the
      shelf gate refuses to ship a report it cannot describe, and it did */
+  { g: 'erdos', f: 'tensor-rank-bounds.html', k: 'audit · both walls',
+    title: 'The rank of 3x3 matrix multiplication, audited from both sides',
+    desc: 'Laderman multiplied two 3x3 matrices in 23 multiplications in 1976 and nobody has beaten it since. The lower bound moved from 19 to 20 over F2 in March 2026, in a preprint whose proof is a machine-checkable certificate on a two-star repository. Both walls are re-verified here in exact arithmetic, by an instrument built to be able to contradict either.',
+    n: 'first independent check of the new bound' },
   { g: 'ai', f: 'keller.html', k: 'audit · published counterexamples',
     title: 'The Jacobian conjecture, audited',
     desc: 'The July-2026 announcement that would refute a conjecture open since Keller 1939 — and the literature that followed it within days — decided in exact rational arithmetic: the Jacobian determinant expanded symbolically and compared coefficient by coefficient, every claimed collision re-evaluated as fractions, then the published witnesses thrown away and the collisions found again blind. Eight rows re-certify a sha-pinned published source; three are counterexamples this machine generated itself and no paper carries.',

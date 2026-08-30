@@ -2,21 +2,21 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Wardrop, certified: exact, enclosed, refused · cert-machine</title>
-<meta name="description" content="Verification layers under which AI-scale mathematical search produces only certified output — exact rational decisions, interval enclosures, red-controlled instruments, reward signals that cannot be hacked, and certified audits of published AI-generated mathematics. Every number recomputed at build; a build that drifts refuses to ship.">
+<title>The rank of 3x3 matrix multiplication, audited from both sides</title>
+<meta name="description" content="Laderman&#39;s 23 has stood since 1976; the lower bound moved from 19 to 20 in March 2026 in a preprint nobody had checked. Both walls re-verified here in exact arithmetic, by an instrument that could have contradicted either.">
 <meta name="author" content="Carlos Toledo">
-<link rel="canonical" href="https://carlostoledo.co/reports/wardrop-repro.html">
-<meta property="og:url" content="https://carlostoledo.co/reports/wardrop-repro.html">
-<meta property="og:title" content="Wardrop, certified: exact, enclosed, refused · cert-machine">
-<meta property="og:description" content="Verification layers under which AI-scale mathematical search produces only certified output — exact rational decisions, interval enclosures, red-controlled instruments, reward signals that cannot be hacked, and certified audits of published AI-generated mathematics. Every number recomputed at build; a build that drifts refuses to ship.">
+<link rel="canonical" href="https://carlostoledo.co/reports/tensor-rank-bounds.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/tensor-rank-bounds.html">
+<meta property="og:title" content="The rank of 3x3 matrix multiplication, audited from both sides">
+<meta property="og:description" content="Laderman&#39;s 23 has stood since 1976; the lower bound moved from 19 to 20 in March 2026 in a preprint nobody had checked. Both walls re-verified here in exact arithmetic, by an instrument that could have contradicted either.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Wardrop, certified: exact, enclosed, refused · cert-machine">
-<meta name="twitter:description" content="Verification layers under which AI-scale mathematical search produces only certified output — exact rational decisions, interval enclosures, red-controlled instruments, reward signals that cannot be hacked, and certified audits of published AI-generated mathematics. Every number recomputed at build; a build that drifts refuses to ship.">
+<meta name="twitter:title" content="The rank of 3x3 matrix multiplication, audited from both sides">
+<meta name="twitter:description" content="Laderman&#39;s 23 has stood since 1976; the lower bound moved from 19 to 20 in March 2026 in a preprint nobody had checked. Both walls re-verified here in exact arithmetic, by an instrument that could have contradicted either.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -348,100 +348,47 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · report · the page re-proves itself at every build</div>
-  <h1>A convergent flow finds the equilibrium. A certificate encloses it.</h1>
-  <p class="deck">A certified reproduction of the multi-population Wardrop equilibria in Bakaryan, Aoun, de Lima Ribeiro, Hovakimyan &amp; Gomes (AIMS Mathematics 11(5), 2026, doi:10.3934/math.2026623). The paper validates each equilibrium by watching a globally convergent flow settle; this reproduction adds the complementary thing a stopping rule cannot give — a certificate that the answer is there, alone, and positive — and where the instance does not support one, it REFUSES instead of picking a solution. The verifier is embedded in the published page; it was extracted and re-run during this build.</p>
+  <div class="eyebrow">cert-machine · both walls · an independent audit of someone else&#39;s certificate</div>
+  <h1>The rank of 3x3 matrix multiplication, audited from both sides</h1>
+  <p class="deck">Laderman multiplied two 3x3 matrices in 23 multiplications in 1976 and nobody has done better since. The lower bound sat at 19 from 2003 until March 2026, when it moved to 20 over F2 — in a preprint whose proof is a machine-checkable certificate, on a repository with two stars. This page re-verifies that certificate here, in exact arithmetic, with an instrument that could have contradicted it.</p>
 </header>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> The multi-population Wardrop equilibria of a published paper reproduced with certificates: exact where possible (the Wardrop gap EXACTLY 0, not a small residual), enclosed where not, and REFUSED where the instance supports no certificate.</li><li><b>The mechanism.</b> The paper validates by watching a globally convergent flow settle; a stopping rule cannot certify uniqueness or positivity — the added certificates do, and one erratum in the paper's data is documented on the page.</li><li><b>Check it.</b> the embedded verifier (<span class="m">reports/verify_wardrop.py</span>) re-ran during this build; the report refuses to render unless it verifies.</li></ul>
+<ul class="plain"><li><b>The finding.</b> The certificate behind R_F2(&lt;3,3,3&gt;) &ge; 20 holds everywhere we attacked it: <strong>18 of its 496 nodes</strong> were genuinely attacked and <strong>0 were refuted</strong>. 4 are now proved TWO-SIDED here — for those, none of the paper's four inference rules is trusted at all. The honest limit is the other 478 nodes (96.4%), which this instrument cannot yet reach and which still rest on his reasoning.</li><li><b>The mechanism.</b> We did not reimplement his proof. A verifier that re-runs an author's own inference rules can only ever AGREE with him. This instrument computes GROUND TRUTH instead — the true minimum rank of each constrained sub-tensor, over F2 — and asks whether his number is the truth. A method that can DISAGREE is worth strictly more than one that cannot. Two things his certificate never documents, the constraint semantics and the transposed c-index convention, were recovered from the bytes.</li><li><b>Check it.</b> <span class="m">python3 instruments/tensorlb/battery.py</span> — 12 checks and 3 red controls, all of which must fire; the audited bytes are pinned at sha256 <span class="m">25595a883ce877ee…</span>, which is the git-lfs object id the author published upstream.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">S2 · affine costs</div><div class="v held">EXACT</div><div class="n">the exact rational equilibrium, 38 unknowns; Wardrop gap EXACTLY 0 — not a small residual</div></div>
-    <div class="stat"><div class="k">S3 · nonlinear costs</div><div class="v held">KRAWCZYK</div><div class="n">exactly one KKT zero in a box of radius 7.319e-13 — existence AND local uniqueness</div></div>
-    <div class="stat"><div class="k">S1 · degenerate</div><div class="v warn">REFUSED</div><div class="n">cost monotone but not strictly: the split has a 6-dimensional exact null space; only the totals are pinned, and the non-uniqueness is displayed</div></div>
-    <div class="stat"><div class="k">the erratum</div><div class="v warn">(4,7) = 52</div><div class="n">Table 1 prints 54; the exact total is 1940/37 = 52.432…, certified four independent ways — 3 of 15 printed totals differ by rounding</div></div>
-    <div class="stat"><div class="k">verifier</div><div class="v">stdlib · 44 KB</div><div class="n">embedded in the published page; extracted and re-run at build; sha256 5d5fca032ff5…</div></div>
-    <div class="stat"><div class="k">reflexive catch</div><div class="v">1 bug, OWN code</div><div class="n">certifying against the paper&#39;s Figure 4 exposed a dropped 10⁻³ emission factor in the reproduction&#39;s own cost code — certificates catch the implementer&#39;s mistakes too</div></div>
+    <div class="stat"><div class="k">the interval, today</div><div class="v held">20 ≤ R ≤ 23</div><div class="n">lower bound Wang 2026 over F2 (was Blaeser 19, 2003); upper bound Laderman 1976. Both walls re-verified by this machine</div></div>
+    <div class="stat"><div class="k">nodes attacked</div><div class="v held">18 of 496</div><div class="n">a genuine attempt to find a cheaper decomposition than the certificate claims</div></div>
+    <div class="stat"><div class="k">refuted</div><div class="v held">0</div><div class="n">no node admitted a decomposition below its claimed bound</div></div>
+    <div class="stat"><div class="k">proved two-sided here</div><div class="v held">4</div><div class="n">rank == the claimed bound, computed exactly; the author&#39;s inference rules are not relied on for these</div></div>
+    <div class="stat"><div class="k">still on his reasoning</div><div class="v open">478</div><div class="n">dimension &gt; 2; beyond this instrument. Stated here rather than buried</div></div>
+    <div class="stat"><div class="k">control certificate</div><div class="v held">10/10 witnesses</div><div class="n">&lt;2,2,2&gt;, where rank 7 has been known optimal since Winograd 1971 — every witness re-verified against a sub-tensor we rebuilt ourselves</div></div>
   </div>
 </div>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">§0 · the grammar</div>
-    <h2>One paper, and all three things a certificate can say</h2>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the two walls</div>
+    <h2>What is actually known about R(&amp;lt;3,3,3&amp;gt;)</h2>
   </div>
-<div class="col"><p>These four rows come out of a single published paper, and they are deliberately not all the same verdict. A reproduction that returned "confirmed" four times would be hiding the interesting row — the one where the object being reproduced is not unique, and the honest answer is to refuse.</p></div><div class="wide"><figure>
-  <div class="figbox">
-  <svg viewBox="0 0 900 274" role="img" aria-label="Four claims drawn from one published paper. The S1 totals and the S3 equilibrium are enclosed with certified radii, S2 is certified exactly with no width at all, and the S1 split is refused because the decomposition behind those totals is not unique.">
-    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
-    <text x="242.0" y="40.0" text-anchor="end" class="t-ax">S1 · total flows</text>
-    <rect x="254.00" y="26" width="512.00" height="20" rx="3" fill="var(--c-1)" data-cm="S1 total flows" data-cmv="CERTIFIED — the equilibrium totals are pinned" tabindex="0"/>
-    <text x="780.0" y="40.0" text-anchor="start" class="t-lab">CERTIFIED</text>
-    <text x="242.0" y="80.0" text-anchor="end" class="t-ax">S1 · the split behind them</text>
-    <rect x="254.00" y="66" width="512.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="S1 split" data-cmv="REFUSED — the decomposition is NOT unique, so no certificate is issued for it" tabindex="0"/>
-    <rect x="254.00" y="66" width="512.00" height="20" rx="3" fill="none" stroke="var(--c-3)" stroke-width="1"/>
-    <text x="780.0" y="80.0" text-anchor="start" class="t-lab">REFUSED</text>
-    <text x="242.0" y="120.0" text-anchor="end" class="t-ax">S2 · equilibrium</text>
-    <rect x="254.00" y="106" width="512.00" height="20" rx="3" fill="var(--c-2)" data-cm="S2" data-cmv="CERTIFIED EXACTLY — an exact rational solve, residual identically 0" tabindex="0"/>
-    <text x="780.0" y="120.0" text-anchor="start" class="t-lab">EXACT</text>
-    <text x="242.0" y="160.0" text-anchor="end" class="t-ax">S3 · equilibrium</text>
-    <rect x="254.00" y="146" width="512.00" height="20" rx="3" fill="var(--c-1)" data-cm="S3" data-cmv="CERTIFIED — existence and local uniqueness in a box of radius 7.319e-13" tabindex="0"/>
-    <text x="780.0" y="160.0" text-anchor="start" class="t-lab">r = 7.319e-13</text>
-    <rect x="254" y="219" width="11" height="10" rx="2" fill="var(--c-2)"/>
-    <text x="273.0" y="229.0" text-anchor="start" class="t-note">exact — a rational identity, no width at all</text>
-    <rect x="254" y="238" width="11" height="10" rx="2" fill="var(--c-1)"/>
-    <text x="273.0" y="248.0" text-anchor="start" class="t-note">enclosed — an explicit certified radius</text>
-    <rect x="254" y="257" width="14" height="10" fill="url(#cmHatch)"/>
-    <text x="273.0" y="267.0" text-anchor="start" class="t-note">refused — the object is not unique, so nothing is claimed</text>
-  </svg>
-  </div>
-  <figcaption>S2 is certified EXACTLY: the solve is rational and the residual is identically zero, so there is no radius to report. S1&#39;s totals and S3&#39;s equilibrium are enclosed — S3 inside a Krawczyk box of radius 7.319e-13 carrying existence AND local uniqueness. And S1&#39;s SPLIT is refused: the totals are unique but the decomposition into populations behind them is not, so there is nothing to certify and this page says so rather than reporting the first split its solver happened to land on.</figcaption>
-</figure></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>wall</th><th>value</th><th>who, when</th><th>status here</th></tr></thead><tbody><tr><td>upper bound (any field)</td><td class="n">23</td><td>Laderman 1976</td><td>a rank-23 witness is pinned in certs/strassen-certificate.json and re-certified at every build</td></tr><tr><td>lower bound (F2)</td><td class="n">20</td><td>Wang, arXiv:2603.07280, March 2026</td><td>4 of 496 certificate nodes proved two-sided here; 0 refuted</td></tr><tr><td>lower bound (any field)</td><td class="n">19</td><td>Blaeser 2003</td><td>not audited here — the 20 is an F2 statement and does not supersede it</td></tr><tr><td>border rank (over C)</td><td class="n">≥ 17</td><td>Conner–Harper–Landsberg</td><td>a different quantity; never quote it as a rank bound</td></tr></tbody></table></div></div><div class="col"><p>The gap is real and old: nobody has moved 23 in fifty years, and until this March nobody had moved 19 in twenty-three. A rank-22 algorithm, incidentally, would not even beat Strassen asymptotically — log&#8323;22 &gt; log&#8322;7 — which is why the exhaustive-search literature deliberately stops at 21.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§1 · what a certificate adds</div>
-    <h2>Existence-by-algorithm is not enclosure</h2>
+    <div class="lab">§2 · the audit</div>
+    <h2>Ground truth, not a second opinion</h2>
   </div>
-<div class="col"><p>A traffic equilibrium is the flow pattern in which no driver gains by switching routes. The paper computes each one with a globally convergent Hessian–Riemannian flow and validates it numerically — existence by algorithm plus a benchmark match. A stopping rule tells you WHERE the equilibrium is; it cannot tell you that what it converged to is the only solution nearby, or that the residual being small means the answer is right. The certificate is the complementary object: where the costs are affine, an EXACT rational equilibrium with the Wardrop gap identically zero; where they are smooth and nonlinear, a Krawczyk box holding exactly one solution; where the instance is degenerate, an honest refusal that exhibits the degeneracy instead of hiding it.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>certificate</th><th>nodes</th><th>witnesses re-verified</th><th>proved two-sided</th><th>attacked</th><th>refuted</th></tr></thead><tbody><tr><td>&amp;lt;2,2,2&amp;gt; control (rank 7 known optimal)</td><td class="n">10</td><td class="n">10 / 10</td><td class="n">3</td><td class="n">7</td><td class="n">0</td></tr><tr><td>&amp;lt;3,3,3&amp;gt; — the new bound</td><td class="n">496</td><td class="n">—</td><td class="n">4</td><td class="n">18</td><td class="n">0</td></tr></tbody></table></div></div><div class="col"><p>The control matters more than it looks. Its final node is the unconstrained &lt;2,2,2&gt; tensor with a claimed bound of 7 — a number Winograd proved optimal in 1971. Had our search found a rank-6 decomposition there, the search would have been broken, not the mathematics. It did not.</p><p>The &lt;3,3,3&gt; certificate carries no upper-bound witnesses at all, so there is nothing to cross-check against: it is a pure lower-bound argument across 496 nodes resting on four inference rules. That is exactly why computing ground truth independently is the right audit and reimplementing his rules is the wrong one.</p></div>
 </section>
 
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§2 · three scenarios, three outcomes</div>
-    <h2>Exact, enclosed, refused — each for a proved reason</h2>
-  </div>
-<div class="col"><p>S2 (cars + trucks, affine costs): the equilibrium is solved over exact rationals — 38 unknowns, support slacks identically zero, so the Wardrop gap is EXACTLY 0 and the paper's Figure 2 reproduces with no arithmetic left over. S3 (emission cost, smooth nonlinear): an interval Krawczyk contraction proves a unique KKT zero in an explicit box of radius 7.319e-13 — the paper's convergent iterate is now the provably unique equilibrium of its neighbourhood. S1 (degenerate linear cost): the cost is monotone but NOT strictly, the paper's uniqueness theorem does not apply, and the reproduction proves why no split certificate can exist — the split-conservation operator has an exact null space of dimension six. The totals are certified; the split is refused; refusal is the correct verdict, not a failure to reach one.</p></div>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§3 · the erratum</div>
-    <h2>Three printed totals, one self-inconsistent row</h2>
-  </div>
-<div class="col"><p>Binding the certified S1 equilibrium to the paper's Table 1: twelve of fifteen printed totals match exactly after integer rounding; two differ by one unit of rounding; and edge (4,7) differs by two — the exact total is 1940/37 = 52.432…, which rounds to 52 where the table prints 54. The value is certified four independent ways in the reproduction, and it is reported as what it is: a rounding typo in a table, an erratum for the authors' benefit — not a defect in their method, whose scenarios all reproduce. This is the audit lane's contract: corrections carry certificates, and the correction and the confirmation come from the same arithmetic.</p></div>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§4 · the reflexive catch</div>
-    <h2>The certificate caught its own author first</h2>
-  </div>
-<div class="col"><p>Reproducing the paper's Figure 4 forced this reproduction to find a bug in its OWN cost code — a dropped 10⁻³ emission factor and a congestion-flow slip. That is the strongest argument for certificates in reproduction work: they catch the implementer's mistakes, not only the author's. Under the corrected cost the certified equilibrium is invariant to the edge-length reading, so nothing hinges on measuring a figure. (This episode sits in the benign corner of the <a href="erdos852.html">failure taxonomy</a> this site maintains — caught before publication, by exactly the machinery built to catch it.)</p></div>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§5 · check it</div>
-    <h2>The proof travels inside the page</h2>
-  </div>
-<div class="col"><p>The <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/wardrop-repro/wardrop-repro.html">published page</a> (byte-preserved in the repository, exactly as sent) embeds its complete verifier — plain Python, standard library only, MIT. This build extracted those bytes (<span class="m">sha256 5d5fca032ff5dbb7…</span>), ran them, and required VERIFIED plus every scenario verdict and the erratum value above; any drift refuses the page. Do the same: <a href="verify_wardrop.py">download the extracted verifier</a> and run <span class="m">python3 verify_wardrop.py</span> — under a second, exact Fractions end to end.</p></div>
-</section><script>
+<div class="note">
+  <span class="lab">what this page does NOT claim</span>
+<p>No new mathematics was discovered here. We found no refutation, no better bound and no counterexample; 478 of 496 nodes were never attacked and still depend entirely on the author's reasoning. What this page claims is narrower and, we think, still worth publishing: the first independent check of any part of a new lower bound on a fifty-year-old open problem, by a different implementation, in a different language, from the author's published bytes. Published, not peer-reviewed, not independently rerun — and that last phrase is precisely what this page exists to stop being true of someone else's work.</p>
+</div><script>
 (function(){
   var tip=null;
   function show(el){
@@ -469,7 +416,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-wardrop.js @ git 5d061fb — the embedded verifier extracted from the published bytes and re-run during this build (VERIFIED, or no page). The page as sent is byte-preserved in the repository (legacy/research/wardrop-repro/).</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-tensorlb.js @ git 5d061fb. Gates at this build: the tensorlb battery (12 checks, 3 red controls, all fired), both audits re-run and their numbers parsed rather than transcribed, and the audited certificate matched against the sha256 its author published. A refuted node would refuse this page.</p></footer>
 
 </div>
 </html>

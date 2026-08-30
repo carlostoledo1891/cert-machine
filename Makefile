@@ -62,6 +62,7 @@ test:
 	@printf "%-30s " "keller stdlib verifier"; $(PY) tools/verify_keller.py certs/keller-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "strassen stdlib verifier"; $(PY) tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos852 stdlib verifier"; $(PY) tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "tensorlb (lower-bound audit)"; $(PY) instruments/tensorlb/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "llm harness (dry)"; $(PY) tools/llm-harness.py --dry-run --n 20 --ledger /dev/null >/dev/null 2>&1 && echo PASS || echo FAIL
 
 drift:
@@ -74,6 +75,7 @@ clean:
 	@rm -f index.html ledger.json
 
 reports:
+	@$(NODE) tools/build-report-tensorlb.js
 	@$(NODE) tools/build-report-impostors.js
 	@$(NODE) tools/build-report-zeta3.js
 	@$(NODE) tools/build-report-entropy.js

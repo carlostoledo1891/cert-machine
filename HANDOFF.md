@@ -22,7 +22,7 @@ STATE OF RECORD (refreshed 2026-08-29; full histories live in
 apps/skyaudit/TODO.md and the session entries below — this block holds
 only what stands).
 
-  THE PUBLIC SURFACE, as of this handoff: 26 report pages (+ the
+  THE PUBLIC SURFACE, as of this handoff: 27 report pages (+ the
   two-population regime map 2026-08-29; the matmul eval carries the
   recall-vs-derivation table as of 2026-08-30; + reports/keller.html
   2026-08-30, THE JACOBIAN CONJECTURE AUDITED — see the session block
@@ -375,6 +375,99 @@ gems list, all items"; seven parallel agents on disjoint builders).
 
   MEASURED: 26 report pages, make test 35/35, control 28 batteries,
   drift 130 unchanged, design battery 20 checks / 6 falsifiers.
+
+SESSION 2026-08-30c — THE LOWER WALL. A NEW FRONT, AND AN HONEST NULL.
+(operator's word: "go 3,3,3" then "proceed"; four specs and five security ideas
+were evaluated and DROPPED first — see the verdicts below.)
+
+  WHAT WAS DROPPED, AND WHY (do not revisit without new information):
+   - Spec 1 answer-preserving transformations: NO-GO on graphs/PIT. Our own d7
+     rung already ran that experiment — a permutation disguise was SOLVED
+     (opus 6/6, sonnet 3/3) while dense conjugation is 0/10. Relabelling defeats
+     lookup, not RECOGNITION, and recognition is the binding property.
+   - Spec 2 TSE election reconciliation: NO-GO, three ways. The check is an urna
+     invariant, it is the totalizer's own upstream admission gate, and the two
+     "independent" files are one file (206,117 of 206,117 keys identical,
+     delta 0). Plus a criminal-statute hazard 35 days before a Brazilian
+     election, with REFUTED and "certified" as hazard words. Do not revisit.
+   - Spec 3 cold-vs-derived: GO-WITH-CHANGES but never run. Trials are not
+     independent (opus emitted 2 distinct strings in 26 calls); temperature is
+     a 400 on Opus 5/Sonnet 5; and the hypothesised wrong-sign failure mode
+     DOES NOT OCCUR in our data.
+   - Spec 4 certified RLVR: NO-GO as specified. The all-zeros witness scores
+     8 violated equations of 64 and haiku's median is 9 — emitting NOTHING beats
+     the model, so GRPO has no gradient. Transposed-Strassen also scores 8, so a
+     dense shaping reward cannot tell "right answer, wrong convention" from
+     "gave up".
+   - ZK underconstrained-circuit auditor: NO-GO. Aims at the bug class a linter
+     already detects at 100% and is definitionally blind to the class at 0%.
+     Picus (MIT) is the incumbent; the pitch's formula is that paper's eq. 1,
+     presented as the naive approach.
+   - NIST conformance / PKI verifier / bounded patch certification: NO-GO
+     (occupied, or hazardous, or both). The LLM-on-security-code eval survives
+     as GO-WITH-CHANGES and is unbuilt.
+
+  THE FILTER THAT EXPLAINS ALL OF THEM, and worth keeping: this machine's edge
+  needs (a) an incumbent using FLOATS, so exactness buys something, and (b) a
+  rule with a COMPELLED number, so the verdict has a buyer. FuelEU/HarborProof
+  and eVTOL/SkyAudit have both. ZK has neither. Hunt where floats and
+  regulators coexist.
+
+  THE NEW FRONT — instruments/tensorlb/, THE LOWER WALL.
+  Erdos-style upper-bound auditing has been this repo's habit for months
+  (Strassen, Laderman, AlphaTensor, AlphaEvolve, all pinned in
+  certs/strassen-certificate.json). The lower-bound side had never been touched.
+  Chengu Wang, arXiv:2603.07280 (2026-03-07, MIT code at
+  github.com/wcgbg/tensor-rank-lower-bound, TWO stars, pushed 2026-08-29) proves
+  R_F2(<3,3,3>) >= 20, improving Blaeser's 19 of 2003. So far as we can
+  establish nobody had ever checked it.
+   - THE METHOD, and it is the point: we did NOT reimplement his four inference
+     rules. A verifier that re-runs an author's own rules can only ever AGREE.
+     tensorlb computes GROUND TRUTH — the true minimum rank of each constrained
+     sub-tensor over F2 — and asks whether his number is the truth. A method
+     that can DISAGREE is worth strictly more than one that cannot.
+   - RECOVERED FROM THE BYTES, documented nowhere: the constraint semantics
+     (bitmask functionals forced to zero) and the transposed c[k][i] index
+     convention. Neither is stated in the certificate or the paper's text.
+   - RESULT ON THE CONTROL (<2,2,2>, where rank 7 is optimal since Winograd
+     1971): all 10 upper-bound witnesses re-verified against sub-tensors we
+     rebuilt; 3 bounds proved two-sided; 0 refuted. The root node is the
+     unconstrained tensor at lb 7 — had our search found rank 6 there, our
+     SEARCH was broken, not mathematics. It did not.
+   - RESULT ON THE TARGET (<3,3,3>, 496 nodes): 4 proved TWO-SIDED (his rules
+     not relied on at all), 8 TIGHT-IF (an upper bound equal to his lower
+     bound — NOT a proof of the lower bound), 6 SURVIVES, 478 NOT-ATTACKED
+     (dim > 2, beyond the instrument), and 0 REFUTED.
+   - PROVENANCE: both certificates are pinned in corpus/sources/PINS.json and
+     the n333 sha256 EQUALS the git-lfs object id Wang published upstream
+     (25595a88…c6135d) — we can prove we audited the exact bytes he shipped.
+   - GATES: instruments/tensorlb/battery.py, 12 checks + 3 red controls that all
+     fire (inflated bound, altered witness coefficient, deleted witness term).
+     In make test and gating reports/tensor-rank-bounds.html.
+
+  WE DISCOVERED NOTHING, AND THE PAGE SAYS SO. Zero refutations, no new bound,
+  no counterexample; 478 of 496 nodes still rest entirely on Wang's reasoning.
+  What exists is the first independent check of any part of a new lower bound on
+  a fifty-year-old open problem — a reproduction, not a find. The operator wants
+  a find and this is not one.
+
+  THE REACHABLE NEXT STEP: dim-3 nodes (68 of them) need an exact method for
+  3x9x9 tensors; dim-2 already uses the pencil identity
+  min rank = min_X ( rank X + rank(M0+X) + rank(M1+X) ), searched randomly, which
+  yields UPPER bounds only. An exact dim-2 minimisation would upgrade 8
+  TIGHT-IF nodes to CONFIRMED. Beyond that the four rules must be implemented
+  from the paper, and the honest artifact becomes "verifier derived partly from
+  the reference implementation".
+
+  ALSO OUTSTANDING, unactioned, from the audit earlier this session:
+   - tools/llm-harness.py line ~1014 drops --effort/--stream in CAMPAIGN mode
+     (the loop path passes them). The 90 rows tagged v4-effort-low therefore ran
+     at DEFAULT effort and the tag is a lie on a live page.
+   - tools/build-report-eval.js:53 counts budget-exhausted rows in the
+     leaderboard denominator: opus-5 publishes at 30% where the honest graded
+     rate is 90%, sonnet-5 at 33% where it is 100%.
+   - No ledger row anywhere records output tokens above 4000, yet the eval page
+     claims 16k and 32k campaigns. Re-run c1/c2 metered at high budget as v5.
 
 FIRST THING NEXT SESSION (in this order):
   1. node tools/sweep-claims.js
