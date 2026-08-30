@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>We checked the AI&#39;s homework</title>
+<meta name="description" content="Six mathematical results produced with frontier AI help — Maxwell&#39;s point-charge bound, the Korenblum constant, an Erdős problem from 1958 and three more — each re-verified here in exact arithmetic from the manuscript, by a program that never saw the authors&#39; code.">
+<meta name="author" content="Carlos Toledo">
+<link rel="canonical" href="https://carlostoledo.co/reports/ai-claims-audit.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/ai-claims-audit.html">
+<meta property="og:title" content="We checked the AI&#39;s homework">
+<meta property="og:description" content="Six mathematical results produced with frontier AI help — Maxwell&#39;s point-charge bound, the Korenblum constant, an Erdős problem from 1958 and three more — each re-verified here in exact arithmetic from the manuscript, by a program that never saw the authors&#39; code.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="We checked the AI&#39;s homework">
+<meta name="twitter:description" content="Six mathematical results produced with frontier AI help — Maxwell&#39;s point-charge bound, the Korenblum constant, an Erdős problem from 1958 and three more — each re-verified here in exact arithmetic from the manuscript, by a program that never saw the authors&#39; code.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 28px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:400;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sig);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:4px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--sig);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:52px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:76px}
+.col{max-width:64ch;margin-left:auto;margin-right:auto}
+.wide{max-width:900px;margin-left:auto;margin-right:auto}
+/* A wide element (table, card grid, figure) emitted inside a prose column
+   breaks out to the page-wide track: .col and .page are both centered, so
+   centering on the viewport IS centering on the page. Width never exceeds
+   the viewport minus the page padding, so the body never scrolls sideways —
+   anything wider (a table) scrolls inside its own .tw container. */
+.col .wide{position:relative;left:50%;transform:translateX(-50%);
+  width:min(900px,calc(100vw - 2*clamp(18px,4vw,40px)))}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:7px;
+  flex:1 1 240px;min-width:200px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:22px 24px;
+  color:inherit;text-decoration:none;transition:border-color .15s ease}
+a.card:hover{border:1px solid var(--sig)}
+a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+.card-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
+.card-t{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:19.5px;line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
+.card-n{margin-top:auto;padding-top:6px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  letter-spacing:.05em;color:var(--ink-3)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:4px;background:var(--surface);
+  transition:border-color .15s ease,background .15s ease}
+.pk-t:hover{border-color:var(--sig)}
+.pk-t .pk-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3)}
+.pk-t .pk-n{font-family:"Fraunces",Georgia,serif;font-weight:650;font-size:15px;color:var(--ink-2);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:21px;letter-spacing:-.012em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--sig)}
+.pk-box.warn .lab{color:var(--warn)}
+.pk-box p{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · six claims, six verifiers written from scratch</div>
+  <h1>We checked the AI&#39;s homework</h1>
+  <p class="deck">Six mathematical results produced with help from frontier AI systems — a counterexample to Maxwell&#39;s point-charge bound, a new lower bound for the Korenblum constant, an Erdős problem from 1958, and three more. Each one was re-verified here in exact arithmetic, from the manuscript, by verifiers that never ran a line of the authors&#39; code. This is what survived.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> <strong>5 of 6 held; 1 came back PARTIAL; 0 were refuted.</strong> But the number that matters is the other one: in <strong>6 of 6 cases the computational fragment certified and the analytic core did not</strong> — the identities, enclosures and exhibits are machine-checkable and they all held, while the surrounding argument is prose in every single one. That split is the finding.</li><li><b>The mechanism.</b> Each verifier was written against the <em>manuscript</em>, never derived from and never executing the author's scripts — no Arb, no SymPy, no Mathematica, no code from anybody's archive was run. (In one lane, Mathieu, the author's Python was <em>read</em> to cross-check which identities the TeX meant; it was not executed, and that is stated on the lane.) Exact rationals where the claim is algebraic, outward-rounded intervals and the Krawczyk operator where it is analytic. Each carries <strong>mutation controls</strong>: deliberate corruptions of the claim that the verifier must reject. A verifier that cannot fail is not evidence.</li><li><b>Check it.</b> <span class="m">node instruments/laneaudit/audit.js</span> — all six, 6.7 s end to end on a laptop. 230 checks and 21 mutation controls, every control rejected. This page is built from that run and refuses if any of it goes red.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">claims re-verified</div><div class="v held">6</div><div class="n">each written from the manuscript; no author code was executed in any lane</div></div>
+    <div class="stat"><div class="k">held</div><div class="v held">5 confirmed</div><div class="n">within a scope this page states for each one, never wider</div></div>
+    <div class="stat"><div class="k">partial</div><div class="v open">1</div><div class="n">Ran–Teng: every machine-checkable fragment holds; the analytic core is prose</div></div>
+    <div class="stat"><div class="k">refuted</div><div class="v held">0</div><div class="n">no claim in this set was contradicted by our arithmetic</div></div>
+    <div class="stat"><div class="k">analytic cores audited</div><div class="v open">0 of 6</div><div class="n">the honest ceiling of the whole exercise, and the reason this page exists</div></div>
+    <div class="stat"><div class="k">mutation controls</div><div class="v held">21</div><div class="n">deliberate corruptions the verifiers must reject — all 21 rejected</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the board</div>
+    <h2>Six claims, and exactly how far the checking reached</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>AI system</th><th>verdict</th><th>scope of that verdict</th><th>checks</th><th>controls</th></tr></thead><tbody><tr><td>Maxwell&#39;s point-charge bound</td><td>OpenAI GPT-5.6 Sol (idea)</td><td><span class="tag held">CONFIRMED</span></td><td>at ε = 1/6 only</td><td class="n">20</td><td class="n">3</td></tr><tr><td>The Korenblum constant</td><td>OpenAI Codex (GPT-5.6 Sol), disclosed in the paper</td><td><span class="tag held">CONFIRMED</span></td><td>the numerical criterion</td><td class="n">15</td><td class="n">4</td></tr><tr><td>Erdős Problem #1038</td><td>GPT-5.5 Pro (initial main argument in a solver–verifier framework, then revised by the human authors)</td><td><span class="tag held">CONFIRMED</span></td><td>the computational fragment</td><td class="n">26</td><td class="n">4</td></tr><tr><td>Ran–Teng Conjecture 20</td><td>GPT-5.2 Thinking</td><td><span class="tag open">PARTIAL</span></td><td>machine-checkable fragment only</td><td class="n">43</td><td class="n">5</td></tr><tr><td>The Mathieu property for Lie groups</td><td>not recorded at source</td><td><span class="tag held">CONFIRMED</span></td><td>supporting identities only</td><td class="n">126</td><td class="n">3</td></tr><tr><td>The rank-two Poisson conjecture</td><td>not recorded at source</td><td><span class="tag held">CONFIRMED</span></td><td>the explicit counterexample</td><td class="n">—</td><td class="n">2</td></tr></tbody></table></div></div><div class="col"><p>Two of the six verifiers do not print a check total, so one column reads <span class="m">—</span> rather than a number we made up. The Poisson verifier reports its identities as a set and its mutation controls individually; the count you would want is not one it states, and this page does not state it for it.</p><p><strong>Scope is the whole product here.</strong> Every verdict above is true inside the phrase beside it and false outside it. "CONFIRMED at ε = 1/6" is not "CONFIRMED"; "supporting identities only" is not "theorem proved". The claims themselves are stated with more confidence than that at source, which is precisely why an independent scope line is worth having.</p></div>
+</section>
+
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 204" role="img" aria-label="Bar chart of checks executed per claim: mathieu 126, ranteng 43, lemniscate 26, maxwell 20, korenblum 15. The Poisson verifier prints no total and is omitted.">
+    <line x1="252.0" y1="10" x2="252.0" y2="140" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="252.0" y="160.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="420.0" y1="10" x2="420.0" y2="140" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="420.0" y="160.0" text-anchor="middle" class="t-ax">40</text>
+    <line x1="588.0" y1="10" x2="588.0" y2="140" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="588.0" y="160.0" text-anchor="middle" class="t-ax">80</text>
+    <line x1="756.0" y1="10" x2="756.0" y2="140" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="756.0" y="160.0" text-anchor="middle" class="t-ax">120</text>
+    <path d="M252 14 h525.2 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-525.2 Z" fill="var(--c-1)" data-cm="The Mathieu property for Lie groups" data-cmv="126 checks · 3 mutation controls · 80 ms · CONFIRMED" tabindex="0"/>
+    <text x="242.0" y="27.0" text-anchor="end" class="t-ax">The Mathieu property for Lie groups</text>
+    <text x="789.2" y="27.0" text-anchor="start" class="t-lab">126</text>
+    <path d="M252 40 h176.60000000000002 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-176.60000000000002 Z" fill="var(--c-3)" data-cm="Ran–Teng Conjecture 20" data-cmv="43 checks · 5 mutation controls · 89 ms · PARTIAL" tabindex="0"/>
+    <text x="242.0" y="53.0" text-anchor="end" class="t-ax">Ran–Teng Conjecture 20</text>
+    <text x="440.6" y="53.0" text-anchor="start" class="t-lab">43</text>
+    <path d="M252 66 h105.19999999999999 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-105.19999999999999 Z" fill="var(--c-1)" data-cm="Erdős Problem #1038" data-cmv="26 checks · 4 mutation controls · 0 ms · CONFIRMED" tabindex="0"/>
+    <text x="242.0" y="79.0" text-anchor="end" class="t-ax">Erdős Problem #1038</text>
+    <text x="369.2" y="79.0" text-anchor="start" class="t-lab">26</text>
+    <path d="M252 92 h80 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-80 Z" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound" data-cmv="20 checks · 3 mutation controls · 100 ms · CONFIRMED" tabindex="0"/>
+    <text x="242.0" y="105.0" text-anchor="end" class="t-ax">Maxwell&#39;s point-charge bound</text>
+    <text x="344.0" y="105.0" text-anchor="start" class="t-lab">20</text>
+    <path d="M252 118 h59 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-59 Z" fill="var(--c-1)" data-cm="The Korenblum constant" data-cmv="15 checks · 4 mutation controls · 6000 ms · CONFIRMED" tabindex="0"/>
+    <text x="242.0" y="131.0" text-anchor="end" class="t-ax">The Korenblum constant</text>
+    <text x="323.0" y="131.0" text-anchor="start" class="t-lab">15</text>
+    <text x="546.0" y="182.0" text-anchor="middle" class="t-note">checks executed by the verifier at build time (hover a bar for its mutation controls and runtime)</text>
+  </svg>
+  </div>
+  <figcaption>Depth of checking is not depth of proof. Mathieu carries the most checks in the set and yields the narrowest verdict — its 126 exact identities support a classification theorem that none of them establishes. Ran–Teng, in the contrasting colour, is the one PARTIAL.</figcaption>
+</figure></div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · the finding</div>
+    <h2>The fragment always certifies. The core never does.</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 335" role="img" aria-label="Six rows, one per claim, each split in two. In every row the left half — the computational fragment — is certified here, and the right half — the analytic core — is hatched as not audited. Six certified, six not audited, with no exceptions.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="384.5" y1="16" x2="384.5" y2="256" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="384.5" y="276.0" text-anchor="middle" class="t-ax">the computational fragment</text>
+    <line x1="649.5" y1="16" x2="649.5" y2="256" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="649.5" y="276.0" text-anchor="middle" class="t-ax">the analytic core</text>
+    <text x="240.0" y="40.0" text-anchor="end" class="t-ax">Maxwell&#39;s point-charge bound</text>
+    <rect x="252.00" y="26" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound · computational fragment" data-cmv="certified here — 20 checks, 3 mutation controls rejected" tabindex="0"/>
+    <rect x="517.00" y="26" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="Maxwell&#39;s point-charge bound · analytic core" data-cmv="not audited — The theorem’s asymptotic statement — &quot;for all sufficiently small ε&quot; — and every proof in the paper" tabindex="0"/>
+    <rect x="517.00" y="26" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="794.0" y="40.0" text-anchor="start" class="t-lab">CONFIRMED</text>
+    <text x="240.0" y="80.0" text-anchor="end" class="t-ax">The Korenblum constant</text>
+    <rect x="252.00" y="66" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="The Korenblum constant · computational fragment" data-cmv="certified here — 15 checks, 4 mutation controls rejected" tabindex="0"/>
+    <rect x="517.00" y="66" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="The Korenblum constant · analytic core" data-cmv="not audited — The duality argument itself — the paper’s Lemma 3.1 and Wang’s Proposition 2.1" tabindex="0"/>
+    <rect x="517.00" y="66" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="794.0" y="80.0" text-anchor="start" class="t-lab">CONFIRMED</text>
+    <text x="240.0" y="120.0" text-anchor="end" class="t-ax">Erdős Problem #1038</text>
+    <rect x="252.00" y="106" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="Erdős Problem #1038 · computational fragment" data-cmv="certified here — 26 checks, 4 mutation controls rejected" tabindex="0"/>
+    <rect x="517.00" y="106" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="Erdős Problem #1038 · analytic core" data-cmv="not audited — The proof that this triple is extremal" tabindex="0"/>
+    <rect x="517.00" y="106" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="794.0" y="120.0" text-anchor="start" class="t-lab">CONFIRMED</text>
+    <text x="240.0" y="160.0" text-anchor="end" class="t-ax">Ran–Teng Conjecture 20</text>
+    <rect x="252.00" y="146" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="Ran–Teng Conjecture 20 · computational fragment" data-cmv="certified here — 43 checks, 5 mutation controls rejected" tabindex="0"/>
+    <rect x="517.00" y="146" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="Ran–Teng Conjecture 20 · analytic core" data-cmv="not audited — The analytic core — the argument parametrization, the convexity/Jensen/Karamata optimization that makes necessity hold for ALL parameters, and the branch bookkeeping" tabindex="0"/>
+    <rect x="517.00" y="146" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="794.0" y="160.0" text-anchor="start" class="t-lab">PARTIAL</text>
+    <text x="240.0" y="200.0" text-anchor="end" class="t-ax">The Mathieu property for Lie groups</text>
+    <rect x="252.00" y="186" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="The Mathieu property for Lie groups · computational fragment" data-cmv="certified here — 126 checks, 3 mutation controls rejected" tabindex="0"/>
+    <rect x="517.00" y="186" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="The Mathieu property for Lie groups · analytic core" data-cmv="not audited — The classification theorem itself" tabindex="0"/>
+    <rect x="517.00" y="186" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="794.0" y="200.0" text-anchor="start" class="t-lab">CONFIRMED</text>
+    <text x="240.0" y="240.0" text-anchor="end" class="t-ax">The rank-two Poisson conjecture</text>
+    <rect x="252.00" y="226" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="The rank-two Poisson conjecture · computational fragment" data-cmv="certified here — exact identities, 2 mutation controls rejected" tabindex="0"/>
+    <rect x="517.00" y="226" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="The rank-two Poisson conjecture · analytic core" data-cmv="not audited — The author’s surrounding prose beyond the extracted definitions" tabindex="0"/>
+    <rect x="517.00" y="226" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="794.0" y="240.0" text-anchor="start" class="t-lab">CONFIRMED</text>
+    <rect x="252" y="299" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="271.0" y="309.0" text-anchor="start" class="t-note">certified here, in exact arithmetic</text>
+    <rect x="252" y="318" width="14" height="10" fill="url(#cmHatch)"/>
+    <text x="271.0" y="328.0" text-anchor="start" class="t-note">not audited — the argument is prose</text>
+  </svg>
+  </div>
+  <figcaption>Every row is one claim. Left half: the part a machine can decide, and did. Right half, hatched: the part that carries the theorem. Six for six, with no exception in either column.</figcaption>
+</figure></div><div class="col"><p>This is not a complaint about the authors and it is not a complaint about the AI. It is a measurement of where the checkable surface of a modern mathematical claim actually stops. The exhibits — an eight-atom measure, twenty-four critical points, a quartet of polynomials, thirty decimals of an extremal constant — are all real, and every one of them survived an independent implementation that was trying to break it. The arguments that turn those exhibits into theorems are English prose with mathematical content, and no verifier in this repository or anywhere else can read them.</p><p>The one lane where that gap closes is <strong>Poisson</strong>, and it closes for a structural reason worth naming: a counterexample is an <em>existence</em> claim. Certifying the exhibit IS certifying the claim. Every other lane in this set asks a machine to confirm a universal statement from a finite computation, which it cannot do — so the verdict has to carry a scope line, and it does.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · claim by claim</div>
+    <h2>Pick a claim: what was checked, and what was not</h2>
+  </div>
+<div class="wide"><div class="picker">
+<input class="pk-r" type="radio" name="lane" id="pk-lane-0" checked>
+<input class="pk-r" type="radio" name="lane" id="pk-lane-1">
+<input class="pk-r" type="radio" name="lane" id="pk-lane-2">
+<input class="pk-r" type="radio" name="lane" id="pk-lane-3">
+<input class="pk-r" type="radio" name="lane" id="pk-lane-4">
+<input class="pk-r" type="radio" name="lane" id="pk-lane-5">
+<div class="pk-tabs">
+<label class="pk-t" for="pk-lane-0"><span class="pk-k">CONFIRMED · 20 checks</span><span class="pk-n">Maxwell&#39;s point-charge bound</span></label>
+<label class="pk-t" for="pk-lane-1"><span class="pk-k">CONFIRMED · 15 checks</span><span class="pk-n">The Korenblum constant</span></label>
+<label class="pk-t" for="pk-lane-2"><span class="pk-k">CONFIRMED · 26 checks</span><span class="pk-n">Erdős Problem #1038</span></label>
+<label class="pk-t" for="pk-lane-3"><span class="pk-k">PARTIAL · 43 checks</span><span class="pk-n">Ran–Teng Conjecture 20</span></label>
+<label class="pk-t" for="pk-lane-4"><span class="pk-k">CONFIRMED · 126 checks</span><span class="pk-n">The Mathieu property for Lie groups</span></label>
+<label class="pk-t" for="pk-lane-5"><span class="pk-k">CONFIRMED</span><span class="pk-n">The rank-two Poisson conjecture</span></label>
+</div>
+<div class="pk-panes">
+<div class="pk-p"><div class="pk-head"><h3>Maxwell&#39;s point-charge bound</h3><span class="tag held">CONFIRMED</span> <span class="tag dep">at ε = 1/6 only</span></div><p><strong>The claim.</strong> Five positive point charges in ℝ³ whose potential has at least 24 nondegenerate critical points — exceeding the conjectured bound of 16. <em>Maxwell conjectured that n point charges produce at most (n−1)² critical points of their potential.</em><br><br><strong>Credited system.</strong> OpenAI GPT-5.6 Sol (idea); written up by Arathoon, Ball and Kvalheim<br><strong>Verification at source.</strong> Three-author verification; Mathematica and Maple checks — floating point, no code artifact, no certificate, and no concrete ε.</p><div class="pk-grid"><div class="pk-box"><span class="lab">what we certified</span><p>At the fixed rational ε = 1/6 with qε = 859/248832 exactly, 24 pairwise-disjoint boxes, each certifying existence and local uniqueness of a critical point by the Krawczyk operator and nondegeneracy by an interval Hessian determinant that excludes zero. 24 &gt; 16 is then exact integer arithmetic.</p></div><div class="pk-box warn"><span class="lab">what we did NOT audit</span><p>The theorem’s asymptotic statement — &quot;for all sufficiently small ε&quot; — and every proof in the paper. One ε is certified, not a range.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>The Korenblum constant</h3><span class="tag held">CONFIRMED</span> <span class="tag dep">the numerical criterion</span></div><p><strong>The claim.</strong> c₂ ≥ 0.4263, via a moment-duality criterion and an explicit rational eight-atom measure (arXiv:2607.17748). <em>The Korenblum constant c₂ had a best published lower bound of 0.3554.</em><br><br><strong>Credited system.</strong> OpenAI Codex (GPT-5.6 Sol), disclosed in the paper; author proof by Frank Wikström<br><strong>Verification at source.</strong> An Arb interval certificate shipped with the paper, plus a Zenodo archive.</p><div class="pk-grid"><div class="pk-box"><span class="lab">what we certified</span><p>Every inequality of the paper’s moment-duality criterion for its explicit measure, under our own outward-rounded interval arithmetic — no Arb, no python-flint, and no code from the Zenodo archive executed. The A-family over k = 1..2183, the B-family over k = 1..1299, both tails by exact induction.</p></div><div class="pk-box warn"><span class="lab">what we did NOT audit</span><p>The duality argument itself — the paper’s Lemma 3.1 and Wang’s Proposition 2.1. The bound follows from what we certified only if that argument holds.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>Erdős Problem #1038</h3><span class="tag held">CONFIRMED</span> <span class="tag dep">the computational fragment</span></div><p><strong>The claim.</strong> The infimum is exactly D = 1.834430475762661711090753635125…, in a July 2026 manuscript of Darvas, Peng and Tao. <em>Among monic polynomials with all roots in [−1,1], what is the infimum of the measure of the set where |f| &lt; 1? Open since Erdős–Herzog–Piranian, 1958.</em><br><br><strong>Credited system.</strong> GPT-5.5 Pro (initial main argument in a solver–verifier framework, then revised by the human authors)<br><strong>Verification at source.</strong> Author-checked manuscript shipping its own three Arb certificates and two SymPy verifiers; the official Erdős-problems record was still open.</p><div class="pk-grid"><div class="pk-box"><span class="lab">what we certified</span><p>The extremal triple exists, is unique inside a certified box, lies in the admissible region, and every printed decimal of the extremal constants is correct — including all 30 claimed decimals of D.</p></div><div class="pk-box warn"><span class="lab">what we did NOT audit</span><p>The proof that this triple is extremal. We certified the number the manuscript names; we did not certify that no polynomial does better.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>Ran–Teng Conjecture 20</h3><span class="tag open">PARTIAL</span> <span class="tag dep">machine-checkable fragment only</span></div><p><strong>The claim.</strong> Resolved, in a preprint. Source status: &quot;Human-checked mathematical proof; no formal proof assistant artifact located&quot; (24 Feb 2026). <em>The exact nonreal spectral region for a family of structured matrices — a conjecture in matrix analysis.</em><br><br><strong>Credited system.</strong> GPT-5.2 Thinking<br><strong>Verification at source.</strong> Human-checked prose. No artifact of any kind was located.</p><div class="pk-grid"><div class="pk-box"><span class="lab">what we certified</span><p>Every load-bearing polynomial identity of the proof, exactly over ℚ. Both boundary-attainment families re-proved exactly, including an exact re-proof that every nonreal eigenvalue of the A_L family lies ON the conjectured curve. Certified eigenvalue enclosures over 272 exact matrices found zero counterexamples to the necessity conditions, and attainment is Krawczyk-certified at 10 interior points.</p></div><div class="pk-box warn"><span class="lab">what we did NOT audit</span><p>The analytic core — the argument parametrization, the convexity/Jensen/Karamata optimization that makes necessity hold for ALL parameters, and the branch bookkeeping. It is prose. This is why the verdict is PARTIAL and not CONFIRMED.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>The Mathieu property for Lie groups</h3><span class="tag held">CONFIRMED</span> <span class="tag dep">supporting identities only</span></div><p><strong>The claim.</strong> Exactly the tori — a classification. <em>For which compact connected Lie groups G is the kernel of Haar integration on R(G) a Mathieu–Zhao space?</em><br><br><strong>Credited system.</strong> not recorded at source<br><strong>Verification at source.</strong> An author SymPy script, which we read but did not execute.</p><div class="pk-grid"><div class="pk-box"><span class="lab">what we certified</span><p>Every supporting identity the classification rests on, exactly over ℚ with BigInt rational Laurent arithmetic: the weighted witness moments, the explicit abelian pair and its printed four-term expansion, the matrix-entry representatives and their invariance. Disclosure specific to this lane: the author’s Python was READ to cross-check which identities the TeX intended — its blocks match the manuscript and are the ones re-verified here — but it was never executed, and no value on this page came from it.</p></div><div class="pk-box warn"><span class="lab">what we did NOT audit</span><p>The classification theorem itself. Confirming the identities a proof uses is not confirming the proof, and this lane is the clearest case of that distinction in the set.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>The rank-two Poisson conjecture</h3><span class="tag held">CONFIRMED</span> <span class="tag dep">the explicit counterexample</span></div><p><strong>The claim.</strong> An explicit counterexample: polynomials R, T, D, S in ℚ[x,q,p,z] with prescribed bracket relations. <em>A conjecture about rank-two Poisson structures.</em><br><br><strong>Credited system.</strong> not recorded at source<br><strong>Verification at source.</strong> The author’s own scripts, which we neither derived from nor executed.</p><div class="pk-grid"><div class="pk-box"><span class="lab">what we certified</span><p>All six bracket relations ({D,R} = 1, {S,T} = 1 and the four vanishing ones) hold identically and exactly; the 4×4 symbolic Jacobian determinant is identically 1; and the three claimed points each map exactly to their stated image. A counterexample is an existence claim, so certifying the exhibit IS certifying the claim — the only lane in this set where that is true.</p></div><div class="pk-box warn"><span class="lab">what we did NOT audit</span><p>The author’s surrounding prose beyond the extracted definitions. Nothing load-bearing: the counterexample stands or falls on the exhibit, and the exhibit holds.</p></div></div></div>
+</div>
+</div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · what moved</div>
+    <h2>Two of the six move a published number</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 126" role="img" aria-label="Bar chart of relative gain: Maxwell’s point-charge bound rises from 16 to 24 critical points, a 50 percent increase; the Korenblum constant lower bound rises from 0.3554 to 0.4263, a 19.9 percent increase.">
+    <line x1="252.0" y1="10" x2="252.0" y2="62" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="252.0" y="82.0" text-anchor="middle" class="t-ax">0%</text>
+    <line x1="418.0" y1="10" x2="418.0" y2="62" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="418.0" y="82.0" text-anchor="middle" class="t-ax">20%</text>
+    <line x1="584.0" y1="10" x2="584.0" y2="62" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="584.0" y="82.0" text-anchor="middle" class="t-ax">40%</text>
+    <line x1="750.0" y1="10" x2="750.0" y2="62" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="750.0" y="82.0" text-anchor="middle" class="t-ax">60%</text>
+    <path d="M252 14 h411 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-411 Z" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound" data-cmv="Maxwell’s bound (5−1)² 16 → certified here 24 critical points" tabindex="0"/>
+    <text x="242.0" y="27.0" text-anchor="end" class="t-ax">Maxwell&#39;s point-charge bound</text>
+    <text x="675.0" y="27.0" text-anchor="start" class="t-lab">16 → 24   (+50.0%)</text>
+    <path d="M252 40 h161.57962858750705 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-161.57962858750705 Z" fill="var(--c-1)" data-cm="The Korenblum constant" data-cmv="previous published bound 0.3554 → claimed, and certified here 0.4263 lower bound on c₂" tabindex="0"/>
+    <text x="242.0" y="53.0" text-anchor="end" class="t-ax">The Korenblum constant</text>
+    <text x="425.6" y="53.0" text-anchor="start" class="t-lab">0.3554 → 0.4263   (+19.9%)</text>
+    <text x="501.0" y="104.0" text-anchor="middle" class="t-note">relative increase over the number the claim replaces</text>
+  </svg>
+  </div>
+  <figcaption>The two rows are in different units, so the axis is the one quantity they share: how far each claim moves the number it replaces. The absolute values sit on the bars.</figcaption>
+</figure></div><div class="col"><p>For Maxwell the move is the whole point: <span class="m">24 &gt; 16</span> is exact integer arithmetic once the twenty-four boxes are certified, so at ε = 1/6 the conjectured bound is <strong>false</strong>, and that much is now independently established rather than asserted from floating-point computer algebra. For Korenblum the move is conditional: our arithmetic puts the criterion beyond doubt and the bound follows only if the paper's duality lemma holds, which we did not audit.</p><p>The other four claims do not move a number at all — they settle a question that had no previous numerical answer, or exhibit an object whose existence was open. There is nothing to plot for those, and inventing an axis for them would be the kind of chart this repository does not draw.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · re-run it</div>
+    <h2>Six seconds, one command, no dependencies</h2>
+  </div>
+<div class="col"><p>The verifiers are plain Node with no packages. Clone the repository and run them; there is nothing to install and nothing to trust from us except the arithmetic, which is the point.</p><pre class="code">git clone https://github.com/carlostoledo1891/cert-machine
+cd cert-machine
+node instruments/laneaudit/audit.js</pre><p>Each verifier can also be run alone, in its own directory, and prints its own report — the numbers on this page are parsed out of exactly those reports at build time:</p><pre class="code">node legacy/research/challenges/lane/laneb-maxwell/verify.js
+node legacy/research/challenges/lane/laneb-korenblum/verify.js
+node legacy/research/challenges/lane/laneb-lemniscate/verify.js
+node legacy/research/challenges/lane/laneb-ranteng/verify.js
+node legacy/research/challenges/lane/laneb-mathieu/verify.js
+node legacy/research/challenges/lane/laneb-poisson/verify.js</pre><p>To confirm the verifiers can actually fail, corrupt one and watch it refuse. That is what the 21 mutation controls do automatically on every run: perturb a coefficient, flip a bracket sign, move mass between atoms, replace a candidate with a duplicate. All 21 were rejected in the run that produced this page.</p></div>
+</section>
+
+<div class="note">
+  <span class="lab">what this page does NOT claim</span>
+<p>We did not prove any of these theorems and we did not refute any of them. No analytic argument in the set was audited, because none of them is machine-checkable at any budget we have. What we did is narrower: take six results a frontier model helped produce, write independent verifiers from the manuscripts, and report exactly which parts survive exact arithmetic and which parts were never in reach. The verdicts are ours; the theorems remain the authors'. Several of these claims were already checked by their authors, and in two cases by an Arb certificate the authors shipped — an independent reimplementation is worth something anyway, but it is not a first verification and this page never says it is.</p>
+</div><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
+
+<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git bf0ac13. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 230 checks, 0 failures, 21 mutation controls all rejected, 6.7 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
+
+</div>
+</html>

@@ -13,10 +13,71 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-08-30, the week completed)
+## TASKS BACKLOG — the standing menu (updated 2026-08-30, the six-lane audit narrated)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+SESSION 2026-08-30d — THE SIX-LANE AUDIT, NARRATED (operator: "review sin-mfg
+to bring the 6 lanes audit to this project"; then "not ceremonial and gates,
+the reports must be rebuilt from zero with more appeal"; then "add nice
+interactive charts and graphs"; flagship-only chosen over flagship + six
+detail pages).
+
+  WHAT THIS WAS. sin-mfg's Lane B is six independent re-verifications of
+  AI-CLAIMED mathematical results (mostly aimath.robertj1.com). All six
+  verify.js were ALREADY LIFTED and allowlisted in LIFT.json (2026-08-26) and
+  have been sitting in legacy/research/challenges/lane/ as gate sources,
+  UNSERVED. Only lemniscate had ever had a public page. So this was never a
+  lift job — it was five certified results dark for four days, the same
+  narration deficit the outside-reader audit diagnosed.
+
+  SHIPPED: reports/ai-claims-audit.html — "We checked the AI's homework".
+  All six verifiers RUN AT BUILD (6.0 s end to end): 230 checks across five of
+  the six, 21 mutation controls, every control rejected. 5 CONFIRMED,
+  1 PARTIAL (Ran-Teng), 0 REFUTED.
+  THE FINDING IS THE SPLIT, not the tally: in 6 of 6 the computational
+  fragment certifies and the analytic core does not. Poisson is the one lane
+  where the gap closes, for a structural reason the page names — a
+  counterexample is an EXISTENCE claim, so certifying the exhibit IS
+  certifying the claim. Every other lane asks a machine to confirm a universal
+  statement from a finite computation.
+
+  NEW: instruments/laneaudit/audit.js — the ONE module that runs the six and
+  parses their output (per-lane extractors; formats differ because the
+  verifiers were written months apart). Nothing transcribed. Two verifiers
+  print no check total and the page shows an em-dash rather than a number we
+  invented. The builder refuses on: a failing check, a mutation control that
+  stops firing, a verifier that stops printing its own totals, or any REFUTED.
+
+  NEW DESIGN COMPONENT: C.picker({name,items}) — CSS-state tabs, no script,
+  same device as the nav drawer; every panel ships in the markup so a reader
+  with CSS off sees all six. Capped at 12 (the count the template styles) and
+  throws above it. DESIGN.md row added; CSS in template.js.
+
+  CHARTS: bars (checks per claim, hover = mutation controls + runtime) ·
+  segments (the 6x2 fragment-vs-core grid, hatch as the second channel since
+  the hatch already means "nothing was enclosed here") · bars (relative gain
+  for the two claims that move a published number: Maxwell 16 -> 24, +50%;
+  Korenblum 0.3554 -> 0.4263, +19.9%).
+  A DUMBBELL WAS BUILT AND THROWN AWAY: normalised before/after made both rows
+  identical-length, which conveys nothing. Replaced with relative gain, the
+  one axis two different units actually share.
+
+  TWO DEFECTS CAUGHT BEFORE SHIPPING, both mine:
+   1. The deck claimed verifiers "had never seen the authors' code". FALSE for
+      Mathieu, whose VERDICT records that the author's Python was READ to
+      cross-check which identities the TeX intended (never executed). Deck now
+      says "never ran a line of the authors' code", the tl;dr carries the
+      exception, and the Mathieu lane carries a disclosure paragraph.
+   2. The re-run section shipped git clone .../carlostoledo/cert-machine. The
+      remote is carlostoledo1891. A wrong clone URL in the "check it yourself"
+      section is the same class as the two 404s fixed in 5d061fb.
+
+  NOT DONE, operator's call: the six per-claim detail pages (option b), and
+  whether this page earns a landing-page slot — it sits at shelf index 9, so
+  it is on /reports/ but not in the landing's top-6 feature. Reordering the
+  feature is editorial, not mine.
 
 STATE OF RECORD (refreshed 2026-08-29; full histories live in
 apps/skyaudit/TODO.md and the session entries below — this block holds

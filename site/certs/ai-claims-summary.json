@@ -1,0 +1,60 @@
+{
+  "lanes": 6,
+  "confirmed": 5,
+  "partial": 1,
+  "refuted": 0,
+  "checks": 230,
+  "checksFrom": 5,
+  "mutations": 21,
+  "seconds": 6.7,
+  "verdicts": [
+    {
+      "id": "maxwell",
+      "short": "Maxwell's point-charge bound",
+      "verdict": "CONFIRMED",
+      "scope": "at ε = 1/6 only",
+      "checks": 20,
+      "mutations": 3
+    },
+    {
+      "id": "korenblum",
+      "short": "The Korenblum constant",
+      "verdict": "CONFIRMED",
+      "scope": "the numerical criterion",
+      "checks": 15,
+      "mutations": 4
+    },
+    {
+      "id": "lemniscate",
+      "short": "Erdős Problem #1038",
+      "verdict": "CONFIRMED",
+      "scope": "the computational fragment",
+      "checks": 26,
+      "mutations": 4
+    },
+    {
+      "id": "ranteng",
+      "short": "Ran–Teng Conjecture 20",
+      "verdict": "PARTIAL",
+      "scope": "machine-checkable fragment only",
+      "checks": 43,
+      "mutations": 5
+    },
+    {
+      "id": "mathieu",
+      "short": "The Mathieu property for Lie groups",
+      "verdict": "CONFIRMED",
+      "scope": "supporting identities only",
+      "checks": 126,
+      "mutations": 3
+    },
+    {
+      "id": "poisson",
+      "short": "The rank-two Poisson conjecture",
+      "verdict": "CONFIRMED",
+      "scope": "the explicit counterexample",
+      "checks": null,
+      "mutations": 2
+    }
+  ]
+}

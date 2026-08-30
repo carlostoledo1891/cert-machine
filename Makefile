@@ -102,3 +102,4 @@ reports:
 	@$(NODE) tools/build-report-evtol-energy.js
 	@$(NODE) tools/build-report-skyaudit.js
 	@$(NODE) tools/build-report-keller.js
+	@$(NODE) tools/build-report-ai-claims.js

@@ -209,6 +209,42 @@ a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
 .card-n{margin-top:auto;padding-top:6px;font-family:${TYPE.mono};font-size:11px;
   letter-spacing:.05em;color:var(--ink-3)}
 
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:4px;background:var(--surface);
+  transition:border-color .15s ease,background .15s ease}
+.pk-t:hover{border-color:var(--sig)}
+.pk-t .pk-k{font-family:${TYPE.mono};font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3)}
+.pk-t .pk-n{font-family:${TYPE.display};font-weight:650;font-size:15px;color:var(--ink-2);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:${TYPE.display};font-weight:700;font-size:21px;letter-spacing:-.012em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:${TYPE.mono};font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--sig)}
+.pk-box.warn .lab{color:var(--warn)}
+.pk-box p{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+${Array.from({ length: 12 }, (_, i) => {
+  const n = i + 1;
+  return `.pk-r:nth-of-type(${n}):checked ~ .pk-tabs > .pk-t:nth-child(${n})`
+    + `{border-color:var(--sig);background:var(--sig-soft)}\n`
+    + `.pk-r:nth-of-type(${n}):checked ~ .pk-tabs > .pk-t:nth-child(${n}) .pk-n{color:var(--ink)}\n`
+    + `.pk-r:nth-of-type(${n}):checked ~ .pk-tabs > .pk-t:nth-child(${n}) .pk-k{color:var(--sig)}\n`
+    + `.pk-r:nth-of-type(${n}):focus-visible ~ .pk-tabs > .pk-t:nth-child(${n})`
+    + `{outline:2px solid var(--sig);outline-offset:3px}\n`
+    + `.pk-r:nth-of-type(${n}):checked ~ .pk-panes > .pk-p:nth-child(${n}){display:block}`;
+}).join('\n')}
+
 ul.plain{list-style:none;padding:0;margin:0}
 ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
 ul.plain li:first-child{border-top:0}

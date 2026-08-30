@@ -168,6 +168,41 @@ function cards(items) {
   ).join('\n') + '</div></div>';
 }
 
+/* PICKER — a tabbed panel driven by CSS state, no script. `name` is the radio
+   group; items are [{k: kicker, t: tab word, title, tagRaw, leadRaw, boxes:
+   [{lab, bodyRaw, warn}]}]. The first item opens.
+
+   The radios come FIRST in source order because the template's rules reach the
+   tabs and panels through the sibling combinator. Every panel is present in the
+   markup — a reader with no CSS at all sees all six, which is the right
+   degradation for a page whose point is that nothing is hidden.
+
+   The cap is 12: the template generates that many nth-of-type pairs, and a
+   silently truncated picker would show the wrong panel, so it throws instead. */
+function picker({ name, items }) {
+  if (items.length > 12) throw new Error('picker: ' + items.length + ' items exceeds the 12 the template styles');
+  const id = (i) => 'pk-' + name + '-' + i;
+  const radios = items.map((it, i) =>
+    '<input class="pk-r" type="radio" name="' + escAttr(name) + '" id="' + escAttr(id(i)) + '"'
+    + (i === 0 ? ' checked' : '') + '>').join('\n');
+  const tabs = items.map((it, i) =>
+    '<label class="pk-t" for="' + escAttr(id(i)) + '">'
+    + '<span class="pk-k">' + esc(it.k) + '</span>'
+    + '<span class="pk-n">' + esc(it.t) + '</span></label>').join('\n');
+  const panes = items.map(it =>
+    '<div class="pk-p">'
+    + '<div class="pk-head"><h3>' + esc(it.title) + '</h3>' + (it.tagRaw || '') + '</div>'
+    + (it.leadRaw ? '<p>' + it.leadRaw + '</p>' : '')
+    + (it.boxes && it.boxes.length
+      ? '<div class="pk-grid">' + it.boxes.map(b =>
+        '<div class="pk-box' + (b.warn ? ' warn' : '') + '">'
+        + '<span class="lab">' + esc(b.lab) + '</span><p>' + b.bodyRaw + '</p></div>').join('') + '</div>'
+      : '')
+    + '</div>').join('\n');
+  return '<div class="wide"><div class="picker">\n' + radios
+    + '\n<div class="pk-tabs">\n' + tabs + '\n</div>\n<div class="pk-panes">\n' + panes + '\n</div>\n</div></div>';
+}
+
 /* An unadorned list where each item is a claim: {b: lead, text: rest}. */
 function plainList(items) {
   return '<ul class="plain">' + items.map(it =>
@@ -343,7 +378,7 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
 module.exports = {
   esc, escAttr, m, tag, TAG_KINDS, categoryChart, legend,
   nav, header, stats, scope, section, p, pRaw, pull, eq, code, note, tldr, quote,
-  table, plainList, cards, figure, flow,
+  table, plainList, cards, picker, figure, flow,
   svgOpen, svgClose, numberLine, band, vmark, label,
   tokens: T
 };

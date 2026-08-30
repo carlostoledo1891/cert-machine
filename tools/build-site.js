@@ -86,6 +86,9 @@ const kellerMaps = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'keller-c
 if (!Array.isArray(kellerMaps) || !kellerMaps.length) fail('the keller certificate holds no entries');
 const kellerN = kellerMaps.length;
 
+const aiClaims = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'ai-claims-summary.json'), 'utf8'));
+if (!aiClaims.lanes || !aiClaims.checks) fail('the ai-claims summary is empty — run make reports first');
+
 /* The #852 correction is PUBLIC in the erdosproblems.com thread. The evidence
    is the thread snapshot pinned beside the original page bytes, and both the
    status word and its date are read from that pin — never typed. If the pin
@@ -227,6 +230,10 @@ const REPORTS = [
     title: 'The rank of 3x3 matrix multiplication, audited from both sides',
     desc: 'Laderman multiplied two 3x3 matrices in 23 multiplications in 1976 and nobody has beaten it since. The lower bound moved from 19 to 20 over F2 in March 2026, in a preprint whose proof is a machine-checkable certificate on a two-star repository. Both walls are re-verified here in exact arithmetic, by an instrument built to be able to contradict either.',
     n: 'first independent check of the new bound' },
+  { g: 'ai', f: 'ai-claims-audit.html', k: 'audit · six AI-claimed theorems',
+    title: 'We checked the AI\'s homework',
+    desc: 'Six mathematical results produced with frontier-model help — a counterexample to Maxwell\'s point-charge bound, a new lower bound for the Korenblum constant, an Erdős problem open since 1958 and three more — each re-verified here from the manuscript by verifiers that never ran a line of the authors\' code. ' + aiClaims.confirmed + ' held, ' + aiClaims.partial + ' came back PARTIAL, ' + aiClaims.refuted + ' were refuted; in all ' + aiClaims.lanes + ' the computational fragment certified and the analytic core was out of reach.',
+    n: aiClaims.checks + ' checks · ' + aiClaims.mutations + ' mutation controls, all rejected' },
   { g: 'ai', f: 'keller.html', k: 'audit · published counterexamples',
     title: 'The Jacobian conjecture, audited',
     desc: 'The July-2026 announcement that would refute a conjecture open since Keller 1939 — and the literature that followed it within days — decided in exact rational arithmetic: the Jacobian determinant expanded symbolically and compared coefficient by coefficient, every claimed collision re-evaluated as fractions, then the published witnesses thrown away and the collisions found again blind. Eight rows re-certify a sha-pinned published source; three are counterexamples this machine generated itself and no paper carries.',
@@ -335,6 +342,7 @@ const INPAGE = (f) => ({ href: 'reports/' + f, label: f, src: path.join(ROOT, 'r
 const NOVERIFIER = (f) => ({ tag: 'battery-gated', href: 'reports/' + f, label: 'the report', src: path.join(ROOT, 'reports', f) });
 const CERTS = [
   ['erdos852-certificate.json', 'Both Erdős #852 constants as exact data: the c0 window re-decidable at 130 digits, the C∗ refutation as strict integer inequalities with no tail bound.', PY('verify_erdos852.py')],
+  ['ai-claims-summary.json', 'The six-lane AI-claim audit as the build recorded it: every lane\u2019s verdict, scope, check count and mutation-control count, written by the report builder from a live run of all six verifiers. Not a certificate \u2014 a record of what the verifiers said, so the shelf card and the page cannot quote different numbers.', null],
   ['keller-certificate.json', 'The Jacobian/Hessian counterexample corpus — every polynomial as explicit exact rational monomials; determinants and collisions re-derivable from the file alone.', PY('verify_keller.py')],
   ['strassen-certificate.json', strassenN + ' fast matrix-multiplication algorithms as exact tensor identities over Q and F2 — including AlphaTensor’s rank-47, decided both ways.', PY('verify_strassen.py')],
   ['mercer-mu5.json', 'The mu(5) ladder, mu(5) ≤ 1 + π/m rung by rung to m = ' + topM + ' — every exceptional tuple closed by one exact rational evaluation.', null],

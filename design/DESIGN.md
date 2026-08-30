@@ -163,6 +163,7 @@ contains a number**. A builder passes data; the component decides markup.
 | `table({cols,rows})` | `cols:[{h,cls}]`, cells are strings or `{raw}` | the ledger form. `cls: 'v'` for mono values, `'k'` for a display-face key, `'n'` for a right-aligned number |
 | `plainList(items)` | `[{b,text}]` or `{raw}` | claim lists — a lead in bold, then the qualification |
 | `cards(items)` | `[{href,k,title,desc,n}]` | a grid of link cards, the whole card the anchor: two columns on a desk, one on a phone. The report index and the landing's report list |
+| `picker({name,items})` | `items:[{k,t,title,tagRaw,leadRaw,boxes:[{lab,bodyRaw,warn}]}]` | a tabbed panel driven by CSS state — radios carry the state, labels are the controls, no script. Same device as the nav drawer. Every panel ships in the markup, so with CSS off the reader sees all of them rather than one. Caps at 12 items (the count the template styles) and throws above it |
 | `figure({svgRaw,caption})` | | wraps a figure. **`alt` on the svg is required** |
 | `m(s)` | string | inline monospace — every number, path, id, hash |
 | `tag(text,kind)` | `kind ∈ held·cert·open·dep` | a status chip |
