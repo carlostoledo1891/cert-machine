@@ -13,7 +13,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-08-29, charts on every report)
+## TASKS BACKLOG — the standing menu (updated 2026-08-30, the week completed)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -30,7 +30,7 @@ only what stands).
   live at reports/mfg-observatory.html with the certifier running in
   the page, shipping as one dependency-free file, and its lab in
   labs/mfg/. HarborProof renamed from HARBORPROOF/harborproof with
-  301s from the old paths. make test 34/34, control 28 batteries,
+  301s from the old paths. make test 35/35, control 28 batteries,
   drift 130 unchanged.
 
   SKYAUDIT — TWO CITY PACKS LIVE, methodology v2, 4-day pinned series.
@@ -53,25 +53,57 @@ only what stands).
   + NEW admission.js: the prune rule computed as an exact binomial
   tail at a stated 1/20 bar; battery now 7 checks + 5 reds) ·
   SkyForecast v1 card live (dashed, never verdict-styled; gate 11) ·
-  product ledger 10 commits, 2 SCORED (0/2 covered — the 08-28 v1 pair
+  product ledger 22 commits, 2 SCORED (0/2 covered — the 08-28 v1 pair
   busted, eflyable on the predicted definition move and flights on a
   genuine Friday-volume miss; causes stated, nothing rescored), 08-31 v2 pair,
   09-01 + 09-02 pairs at n=4 coverage 3/5 ([191,397]/[49,127] — the
   Thu volume drop honestly widened the intervals). Day series now
-  FIVE days: + Thu 2026-08-27 ingested green, 49 E-FLYABLE (25.7% —
-  the weekday RATE cluster holds at half the volume).
+  SEVEN days and the week is COMPLETE (2026-08-30): + Sat 2026-08-29
+  ingested green, 266 flights / 58 E-FLYABLE (21.8%), fleet 7 — every
+  one of the seven weekdays is now represented exactly once.
+  THE WEEKEND RATE CLUSTER IS REAL AND IT IS TIGHT: Sun 08-23 21.7%
+  vs Sat 08-29 21.8% — two independent weekend days agreeing to
+  0.1 percentage point, against a weekday cluster of 25.7-32%. The
+  RATE splits by day-type while the VOLUME collapses (266 vs ~382).
+  THE WEEKEND UNLOCK, first available this session: forecast.js
+  refuses any group with n < 2, so while Sunday stood alone NO weekend
+  target was committable — which is exactly why 08-29 and 08-30 have
+  no product rows and why scoring 08-29 REFUSED rather than scored.
+  With Saturday ingested the weekend group reaches n = 2 and weekend
+  targets became committable for the first time: 09-05 + 09-06
+  committed at [175,266]/[38,58], proved coverage 1/3 — weak, and
+  honestly weak, because two days cannot prove more than that.
   THE FORECAST GYM (8E) — BUILT 2026-08-28 (operator's word "build
   what's missing"): tools/forecast-gym.js (three house proposers —
   conformal claims only its theorem; persistence the forced dumb
   baseline built to be pruned in public; range the hedger — commits
   refused for DEADMITTED proposers) + certs/forecast-gym-ledger.jsonl
-  (38 commits sha-pinned before their targets, 7 target days, 12 SCORED
-  2026-08-29 — the first grading in the gym's life: conformal, range,
-  opus-5 and sonnet-5 all 2/2 ADMITTED; persistence 0/2 but KEPT (its
+  (130 commits sha-pinned before their targets, 13 target days, 22 SCORED
+  — 12 on 2026-08-29, the first grading in the gym's life: conformal,
+  range, opus-5 and sonnet-5 all 2/2 ADMITTED; persistence 0/2 but KEPT (its
   1/2 claim clears the bar — the rule refuses to punish what it cannot
   prove); claude-haiku-4.5 0/2 and DEADMITTED on the exact binomial
   tail 1/36 < 1/20, the narrow-interval overconfidence signature
   measured on the first day it could be) +
+  THE SECOND SCORING 2026-08-30 (10 rows, target Sat 2026-08-29,
+  outcome 266 flights / 58 E-FLYABLE) — THE WEEKEND IS WHERE THE
+  NARROW FORECASTERS DIE. On flights EVERY proposer missed except
+  `range`, the deliberate hedger; the Saturday volume collapse was
+  outside all four narrow intervals. Board now: conformal 2/2 · range
+  4/4 (perfect, and the only one to take the Saturday) · opus-5 3/4
+  (it covered eflyable — it had the DIRECTION of the weekend drop, per
+  its v1 claim — but missed the MAGNITUDE on flights) · sonnet-5 2/4,
+  which is the sharp reversal: sonnet WON the first scoring 2/2 and
+  took both Winklers, then missed both targets on the first weekend it
+  ever faced · claude-haiku-4.5 0/4, still DEADMITTED (its 08-29 rows
+  were committed BEFORE the prune and are therefore legitimately
+  scored — the prune is not retroactive and must not be) ·
+  persistence 0/4 and STILL ADMITTED on the exact tail 1/16 > 1/20.
+  PERSISTENCE IS NOW ONE SCORED MISS FROM ITS OWN DEADMISSION: at 0/5
+  under a claimed 1/2 the tail is 1/32 < 1/20 and the rule fires. The
+  forced dumb baseline was built to be pruned in public and it is
+  about to be, on arithmetic stated in advance. auditAdmissionHistory
+  replays all 130 commits: 0 violations. +
   reports/forecast-gym.html (gates: battery + BOTH ledgers re-verified
   with the builder's own arithmetic — payload shas re-hashed, every
   Winkler recounted string-exact, commit-before/score-after re-checked
@@ -179,8 +211,15 @@ FIRST THING NEXT SESSION (in this order):
         node apps/skyaudit/audit/ingest-day.js D
         node apps/skyaudit/audit/forecast.js score D
         node tools/forecast-gym.js score D
-     then commit forward both ledgers for the next uncommitted day. House +
-     product are committed through 2026-09-08; models through 2026-09-08.
+     then commit forward both ledgers for the next uncommitted day. House is
+     committed through 2026-09-09 (incl. the first weekend targets 09-05 +
+     09-06); product through 2026-09-09; models through 2026-09-08.
+     Days ingested and scored through Sat 2026-08-29 — the next release to
+     watch is Sun 2026-08-30. NOTE for weekend days: the product ledger has
+     no rows before 09-05, so `forecast.js score` on a weekend day at or
+     before 08-30 THROWS "no commit with id" — that is the ledger honestly
+     refusing to score what was never committed, not a failure. The gym
+     scores those days normally.
      Model rows are spend-gated AND admission-gated: claude-haiku-4.5 is
      DEADMITTED and is now genuinely skipped, not merely refused at the
      ledger. Check the ledger before any campaign — a stale TARGETS list
@@ -188,13 +227,17 @@ FIRST THING NEXT SESSION (in this order):
   3. Shard health: tail -n 2 certs/shard-logs/shard-*.log
   Then the ACTIVE NEXT menu below — operator chooses.
 
-#290 SUMMIT CAMPAIGN — STATUS AT HANDOFF 2026-08-29 00:30: six
-detached shards ALIVE and healthy, working l = 121 -> 310. Measured at
-handoff: shards sit at l = 224..229, and 103 of the 190 target degrees
-are closed across certs/erdos290-tail-shard-*.json (17-18 each). Cost
-is ~l^4, so the remaining 87 degrees are the expensive half — expect
-well over another day, not half of one. Nothing here needs attention
-unless a shard dies; the merge path is unchanged:
+#290 SUMMIT CAMPAIGN — STATUS AT HANDOFF 2026-08-30: six detached
+shards ALIVE and healthy (pids re-verified, one process each), working
+l = 121 -> 310. Measured at this handoff: 148 of the 190 target degrees
+are closed across certs/erdos290-tail-shard-*.json (24-25 each), and the
+42 that remain are the CONTIGUOUS TOP BLOCK l = 269..310 — the shards
+have swept the range in order and only the summit is left. Cost is ~l^4,
+so those 42 are far more than 42/190 of the work: l = 310 alone costs
+~1.8x what l = 269 does. Progress across this session was 147 -> 148,
+which is the honest rate to plan against — this is days of wall clock,
+not hours. Nothing here needs attention unless a shard dies; the merge
+path is unchanged:
     node tools/run-erdos290-tail-shard.js merge
     node tools/erdos290-cstar-precision.js 110
     make reports && make site && make test
@@ -277,14 +320,20 @@ ACTIVE NEXT (operator to choose; nothing pre-authorized):
      run prints tokens in/out and dollars at cached rates. MEASURED SPEND:
      $0.0682 dry + $0.0703 commit = $0.1385 of the $20. Ledger 124 commits,
      audit 0 violations, haiku frozen at 12 while everyone else grew to 24.
-  DAILY LOOP (8D, now proven end-to-end — first scoring 2026-08-29):
+  DAILY LOOP (8D, proven end-to-end and now RUN TWICE — first scoring
+     2026-08-29, second 2026-08-30 on target Sat 08-29):
      when adsb.lol releases a day D:
      node audit/ingest-day.js D && node audit/forecast.js score D &&
      node tools/forecast-gym.js score D, then COMMIT FORWARD (product
      + gym) for the next uncommitted days — the ledger ages only if
-     fed daily. Committed through 2026-09-03. Model rows are
+     fed daily. Committed through 2026-09-09 (house + product; the
+     first weekend targets, 09-05 + 09-06, entered 2026-08-30 the day
+     the weekend group reached n = 2). Model rows are
      spend-gated: a DEADMITTED proposer's commits are refused, so
      claude-haiku-4.5 is out until it is recalibrated and re-entered.
+     `forecast-gym.js commit` touches ONLY the three house proposers —
+     it costs nothing and is safe to run any time; model rows come from
+     the separate spend-gated campaign script.
   HELD/PARKED: synthetic demand packs · outreach on the word only.
   Spec: APP.md · plan: TODO.md · research: RESEARCH.md.
 

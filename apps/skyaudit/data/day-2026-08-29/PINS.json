@@ -1,0 +1,31 @@
+{
+  "what": "SkyAudit ingested day (prediction-program time series): adsb.lol globe_history 2026-08-29, acquired 2026-08-30",
+  "source": {
+    "project": "adsb.lol open data",
+    "docs": "https://www.adsb.lol/docs/open-data/historical/",
+    "license": "ODbL-1.0 (see ../LICENSE-DATA)",
+    "releases": [
+      "https://github.com/adsblol/globe_history_2026/releases/tag/v2026.08.29-planes-readsb-prod-0",
+      "https://github.com/adsblol/globe_history_2026/releases/tag/v2026.08.29-planes-readsb-mlatonly-0"
+    ]
+  },
+  "assets_sha256": {
+    "v2026.08.29-planes-readsb-prod-0.tar.aa": "f14f883f1ec66fcb1996dae5987d0501cfa01e0de4ec1cfdf0b85153502f221b",
+    "v2026.08.29-planes-readsb-prod-0.tar.ab": "7ed71752efc3a972048c81aedb60c42f428299bd0cbaed67834ebb69bfcbbcb9",
+    "v2026.08.29-planes-readsb-mlatonly-0.tar": "97d7c79956d6dc9c60774c4032f788b121b4fac28efb92245fe192bd461f873a"
+  },
+  "extraction": {
+    "tool": "apps/skyaudit/audit/ingest-day.js -> extract.js",
+    "bboxes": "identical to day-2026-08-26",
+    "traceFiles": 113309,
+    "parseErrors": 0
+  },
+  "subsets_sha256": {
+    "nyc.heli.jsonl": "db3bcc4b89f95ad2b2d0f3b5f81ba668cc739c9dd3498a14f890035681bc8797",
+    "sp.heli.jsonl": "5c939eb049120d58bf20a93aa2ffb7c7efbe56cf4762e8a7e707a318c8ef880b",
+    "nyc.heli.jsonl.gz": "a0edd24664faa22f4addf27d96e530116ffa0942f31bdf750e1762e8b4d1449c",
+    "sp.heli.jsonl.gz": "e53c0175bea74117ed790ad1f2c9f49b65777d23c05c192c25302706efaeb5a5"
+  },
+  "committed": "*.heli.jsonl.gz + certs + records; raw tars and *.full.jsonl deleted after ingest (re-fetchable, sha256 above)",
+  "role": "time-series day for the forecast calibration corpus — the app stays pinned to day-2026-08-26"
+}
