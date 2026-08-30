@@ -26,20 +26,91 @@ const die = (m) => { console.error('METHODS NOTE REFUSED: ' + m); process.exit(1
 const gitrev = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const fmt = (n) => n.toLocaleString('en-US');
 
-/* ---- the gates: the batteries that HOLD the catalog's regressions -------- */
+/* ---- the gates: the batteries that HOLD the catalog's regressions --------
+   Every one RUNS here and a red refuses the page. Their stdout is captured
+   rather than discarded, because one of them — the funnel battery — is not
+   only a gate but the SOURCE of §5: that section's counts and every line in
+   its table are read out of the run that just happened. */
+const FUNNEL_GATE = 'funnel anti-hacking';
 const GATES = [
   ['census (henon + holmes)', ['instruments/census/battery.js'], 'holds the bisection-line fix and the shift classification'],
   ['entropy covering', ['instruments/entropy/battery.js'], 'holds the semantic ln 2 red and the slab condition'],
   ['lambda sweep', ['instruments/trigmin/lambda-battery.js'], 'refuses the wrong-endpoint bar by name'],
   ['cf audit', ['instruments/cf/battery.js'], 're-proves the spurious-solution lemma'],
   ['keller audit + fibers', ['instruments/keller/battery.js'], 'holds the pin-drift and forged-pin reds'],
-  ['engine + families', ['tools/test-engine.js'], 'pins A019762 and the decomposition closure']
+  ['engine + families', ['tools/test-engine.js'], 'pins A019762 and the decomposition closure'],
+  [FUNNEL_GATE, ['machine/funnel/selftest/battery.js'], 'runs every reward-hacking red control in §5 — sabotaged certifier, gamed score, forged record, eaten hit, broken cover']
 ];
 const gateRows = GATES.map(([n, argv, note]) => {
-  const r = cp.spawnSync(process.execPath, argv, { cwd: ROOT, stdio: 'ignore' });
-  if (r.status !== 0) die('gate went red during this build: ' + n);
-  return { n, note };
+  const r = cp.spawnSync(process.execPath, argv, { cwd: ROOT, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  const out = String(r.stdout || '') + String(r.stderr || '');
+  if (r.status !== 0) die('gate went red during this build: ' + n + '\n' + out.slice(-1200));
+  return { n, note, out };
 });
+
+/* ---- §5's material: the funnel battery's own lines, from this build ------
+   Nothing in §5 is typed by hand. The item count, the red-control count, the
+   numbers and every “what it caught” line are parsed out of the battery run
+   above; if the battery's shape changes, this parse dies and no page is
+   written. That is the same rule the page argues for everything else. */
+const funnelGate = gateRows.find((g) => g.n === FUNNEL_GATE);
+if (!funnelGate) die('the funnel battery is not in the gate list');
+const funnelOut = funnelGate.out;
+if (!/^BATTERY GREEN\b/m.test(funnelOut)) die('the funnel battery did not report GREEN:\n' + funnelOut.slice(-1200));
+
+const funnelItems = [];
+const funnelReds = [];
+for (const line of funnelOut.split('\n')) {
+  const it = /^(ITEM \d+ [^—]*?)\s+(PASS|FAIL) — (.+)$/.exec(line);
+  if (it) { funnelItems.push({ name: it[1].trim(), pass: it[2] === 'PASS', detail: it[3].trim() }); continue; }
+  const rd = /^\s+RED \(([a-z])\) (.+?)\s+(FIRED|DID NOT FIRE) — (.+)$/.exec(line);
+  if (rd) funnelReds.push({ id: rd[1], label: rd[2].trim(), fired: rd[3] === 'FIRED', detail: rd[4].trim() });
+}
+if (funnelItems.length < 5 || funnelReds.length < 5)
+  die('could not parse the funnel battery output (' + funnelItems.length + ' items, ' + funnelReds.length + ' red controls)');
+for (const i of funnelItems) if (!i.pass) die('a funnel battery item did not pass: ' + i.name);
+for (const r of funnelReds) if (!r.fired) die('a funnel red control did not fire: (' + r.id + ') ' + r.label);
+
+/* Numbers quoted in §5, each read back out of the line that produced it. */
+const fnum = (re, what) => { const m = re.exec(funnelOut); if (!m) die('the funnel battery output lost the ' + what + ' line'); return m; };
+const F_RECALL = fnum(/(\d+)\/(\d+) enumerated, (\d+)\/(\d+) planted hits found\+certified \(recall ([^)]+)\)/, 'planted recall');
+const F_EMPTY = fnum(/(\d+)\/(\d+) elements certified REJECT/, 'certified-empty box');
+const F_CASC = fnum(/all (\d+) hits admitted/, 'cascade conservation');
+const F_DIVERGE = fnum(/counters diverge as defined \(certified (\d+), new-to-board (\d+)\)/, 'counter divergence');
+const F_WINDOWS = fnum(/empty box exhausted in (\d+) windows/, 'sharded cover');
+const F_COVER = fnum(/\((\d+)\/(\d+) checked, conservation exact\)/, 'cover conservation');
+const F_RESUME = fnum(/killed after (\d+) batches/, 'kill-and-resume');
+
+/* The plain-language half of §5: what each attack actually IS, in the words a
+   reader who does not know this codebase would use. Keyed by the battery's own
+   red-control letter, and the keying is a gate both ways — a control this page
+   does not describe, or a description whose control is gone, refuses the page.
+   The page can never quietly fall behind the battery it is reporting. */
+const CHEATS = {
+  a: { cheat: 'Replace the certifier with one that stamps HIT on everything.', refuses: 'CERTIFIER-INTEGRITY' },
+  b: { cheat: 'Raise the score by inflating the candidate instead of improving it.', refuses: 'SCORE-BATTERY' },
+  c: { cheat: 'Edit a result line after it was written.', refuses: 'CHAIN-BROKEN' },
+  d: { cheat: 'Let the proposer reach outside its return value and write to disk.', refuses: 'FENCE-VIOLATION' },
+  e: { cheat: 'Announce “the best one found so far” without saying what was searched.', refuses: 'claim guard' },
+  f: { cheat: 'Record a metric with no run attached to it.', refuses: 'MEMO-UNPROVENANCED' },
+  g: { cheat: 'Append a number to the stats log by hand, going around the writer.', refuses: 'MEMO-REFUSED' },
+  h: { cheat: 'Mint a new metric without defining it, so its meaning can drift later.', refuses: 'MEMO-METRIC-UNDEFINED' },
+  i: { cheat: 'Report the flattering counter and drop the other one.', refuses: 'checkSessionSummary' },
+  j: { cheat: 'Rewrite the prompt in the log after seeing which answer worked.', refuses: 'promptSha' },
+  k: { cheat: 'Board one object twice under a different ordering to double the count.', refuses: 'canonical-duplicate' },
+  l: { cheat: 'Flood one corner of the space with weak hits to run the board up.', refuses: 'refused-region-floor' },
+  m: { cheat: 'Stop early enough to hide what was never searched — or never stop at all.', refuses: 'bingo, both ways' },
+  n: { cheat: 'Add a cheap pre-filter that quietly drops the hard cases.', refuses: 'RECALL, by stage name' },
+  o: { cheat: 'Have the evolved search program allocate a million-element candidate.', refuses: 'DSL step + size caps' },
+  p: { cheat: 'Change the statement of what is being searched so the result matches it.', refuses: 'STATEMENT-MISMATCH' },
+  q: { cheat: 'Edit one window’s certificate inside a finished exhaustion record.', refuses: 'window sha re-hash' },
+  r: { cheat: 'Leave a one-integer gap between windows — or overlap them — and call the box covered.', refuses: 'tiling geometry' },
+  s: { cheat: 'Publish the cover when one window came back with a hit still in it.', refuses: 'SHARD-INCOMPLETE' }
+};
+for (const r of funnelReds)
+  if (!CHEATS[r.id]) die('the funnel battery grew a red control this page does not describe: (' + r.id + ') ' + r.label);
+for (const id of Object.keys(CHEATS))
+  if (!funnelReds.some((r) => r.id === id)) die('a red control this page describes is gone from the battery: (' + id + ')');
 
 /* ---- numbers recomputed from records ------------------------------------- */
 const ledger = JSON.parse(fs.readFileSync(path.join(ROOT, 'ledger.json'), 'utf8'));
@@ -49,7 +120,7 @@ const T = ledger.totals;
     + T.closedFormOpen + T.closedFormCandidates;
   if (parts !== T.closedFormTested) die('the decomposition does not close: ' + parts + ' != ' + T.closedFormTested);
 }
-const census16 = JSON.parse(fs.readFileSync(path.join(ROOT, 'census-high-periods.json'), 'utf8')).find((r) => r.p === 16);
+const census16 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'census-high-periods.json'), 'utf8')).find((r) => r.p === 16);
 if (!census16 || census16.points !== 1696) die('period-16 census record moved');
 const ceiling = Math.log(census16.points) / 16;                  /* ln(1696)/16 */
 const hcert = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'entropy-henon.json'), 'utf8'));
@@ -134,7 +205,8 @@ O.push(C.header({
   deck: 'Every real bug this project has found — ' + BUGS.length + ' of them, cataloged below — was caught by a '
     + 'red control, a calibration, an impossible number, or a byte pin. Not one was found by reading the code. '
     + 'This note is the discipline stated as engineering, with the receipts: every regression named here is held '
-    + 'by a battery that executed during this build, and the build refuses if any goes red.'
+    + 'by a battery that executed during this build, and the build refuses if any goes red. §5 is the same '
+    + 'discipline under attack: ' + funnelReds.length + ' ways to cheat the machine, and the gate that caught each.'
 }));
 
 O.push(C.tldr({
@@ -144,7 +216,9 @@ O.push(C.tldr({
   mechanismRaw: 'A check that has never gone red is decorative, so every battery carries deliberate forgeries '
     + 'that must fire; every instrument reproduces a known answer before deciding anything new; and every gate '
     + 'cited on this page executed during the build that produced it.',
-  checkRaw: C.m('make test') + ' from a clone — every battery, every red control required to fire.'
+  checkRaw: C.m('make test') + ' from a clone — every battery, every red control required to fire. For the '
+    + 'reward-hacking battery in §5 on its own: ' + C.m('node machine/funnel/selftest/battery.js')
+    + ' (' + funnelItems.length + ' items, ' + funnelReds.length + ' red controls, about a second).'
 }));
 
 O.push(C.stats([
@@ -153,6 +227,7 @@ O.push(C.stats([
   { k: 'impossible numbers', v: String(foundBy['impossible number'] || 0), n: 'bounds provably above ceilings, values refuting themselves' },
   { k: 'calibrations', v: String(foundBy['calibration'] || 0), n: 'known answers the instrument had to reproduce first' },
   { k: 'gates run for this page', v: gateRows.length + ' green', role: 'held', n: 'executed during this build; a red refuses the page' },
+  { k: 'cheats refused', v: String(funnelReds.length), role: 'held', n: 'deliberate attacks on the search machine’s reward signal (§5) — every one caught by a named control, this build' },
   { k: 'the class, in the wild', v: '1 refuted · 1 corrected', role: 'warn', n: 'a published constant that was a float artifact, refuted; a printed sign slip, corrected — same failure class, audited' }
 ]));
 
@@ -260,8 +335,86 @@ O.push(C.section({
     + '</div>'
 }));
 
+/* ---- §5 · the reward-hacking battery ---------------------------------------
+   The one section on this page that DEMONSTRATES rather than argues. Every
+   number and every right-hand cell below is parsed from the battery run at the
+   top of this file; the left-hand cells are the only prose, and they are keyed
+   to the battery's own control letters so they cannot drift away from it. */
 O.push(C.section({
-  lab: '§5 · the invitation', title: 'Replication is the good outcome',
+  lab: '§5 · reward hacking', title: funnelReds.length + ' ways to cheat this machine', wide: true,
+  bodyRaw: '<div class="col">'
+    + C.p('The catalog above is about honest code that turned out to be wrong. This section is about the other '
+      + 'failure, the one that gets worse as the machinery gets more capable: code that is optimizing. Anything '
+      + 'that proposes candidates and scores them has a reward signal, and a reward signal that can be gamed '
+      + 'eventually is gamed — by an evolutionary loop that finds the gap, by a language model that finds the '
+      + 'shortcut, or by a maintainer who nudges a threshold until the number looks right. So the campaign '
+      + 'runner in this repository ships with a battery whose whole job is to cheat it: ' + funnelReds.length
+      + ' attacks, each one written to work, each one caught by a named control.')
+    + C.p('What that demonstrates, and what it does not. The battery runs the full machine against a synthetic '
+      + 'target whose answer is completely known — ' + F_RECALL[1] + ' integer vectors, exactly ' + F_RECALL[3]
+      + ' hits, the property decided exactly in BigInt, one provably empty sub-box — because a gate’s teeth '
+      + 'cannot be measured on a problem whose answer nobody has. Each row below therefore proves one thing '
+      + 'precisely: that this control fires on this attack, with nothing written and no claim minted. It is not '
+      + 'a proof that no attack exists. The honest claim is that these ' + funnelReds.length + ' do not work, and '
+      + 'that this table is where the next one gets added the day somebody finds it.')
+    + C.pRaw('<strong>Each row is one way to cheat this machine and the gate that caught it.</strong> The last '
+      + 'column is not a description of what should happen — it is the line the battery printed during this build.')
+    + '</div>'
+    + C.table({
+      cols: [{ h: '#', cls: 'n' }, { h: 'the cheat' }, { h: 'refused by' }, { h: 'what fired, this build' }],
+      rows: funnelReds.map((r) => [
+        { raw: C.m(r.id) },
+        CHEATS[r.id].cheat,
+        { raw: C.m(CHEATS[r.id].refuses) },
+        r.detail
+      ])
+    })
+    + '<div class="col">'
+    + C.pRaw('<strong>And what passes when nothing is cheating.</strong> A battery of refusals proves only that '
+      + 'the machine says no; these are the same run saying yes, with the numbers read from the same output.')
+    + C.plainList([
+      { b: 'Planted recall.', text: 'Enumerating the whole box: ' + F_RECALL[1] + '/' + F_RECALL[2]
+        + ' candidates enumerated, ' + F_RECALL[3] + '/' + F_RECALL[4] + ' known hits found and certified, recall '
+        + F_RECALL[5] + '. A screen may prune and may never admit, so the run refuses to start until the known '
+        + 'answers have survived it.' },
+      { b: 'A certified-empty box.', text: F_EMPTY[1] + '/' + F_EMPTY[2] + ' elements certified REJECT, one RECORD '
+        + 'claim carrying an exhaustion certificate, zero hit-shaped claims. “We looked and there is nothing '
+        + 'there” is a claim with a certificate behind it here, not an absence of output.' },
+      { b: 'The cover, tiled.', text: 'The same box exhausted in ' + F_WINDOWS[1] + ' windows, each window carrying '
+        + 'its own certificate and the record their mechanical conjunction — ' + F_COVER[1] + '/' + F_COVER[2]
+        + ' checked, conservation exact. A third party re-verifies one window without trusting the other two.' },
+      { b: 'A pre-filter that is allowed to exist.', text: 'The staged screens satisfy in = rejected + passed at '
+        + 'every stage, checked when the record is written and re-derived afterwards by the battery, with all '
+        + F_CASC[1] + ' hits still admitted.' },
+      { b: 'Kill it and resume.', text: 'Killed after ' + F_RESUME[1] + ' batches with a torn half-written line '
+        + 'left on the end, then resumed: the run file and the leaderboard came back byte-identical to the '
+        + 'uninterrupted run.' },
+      { b: 'Two counters, never one.', text: 'On one run the machine certified ' + F_DIVERGE[1] + ' hits and added '
+        + F_DIVERGE[2] + ' to the board. Those count different things — decided this run, versus new to the '
+        + 'board — and a summary printing only the flattering one is refused by name.' }
+    ])
+    + C.note({ lab: 'the 159x line, credited', bodyRaw: C.p('One row above is not this lab’s discovery and should '
+      + 'not read like one. RED (b), the gamed score, exists because a published LLM-for-science project reported '
+      + 'in its own paper that its early runs scored around 60 by feeding in initial conditions carrying 159x the '
+      + 'background power — the metric was rewarding amplitude rather than physics — and that the same runs '
+      + 'scored 3 to 8 once the harness normalized the input away. That number reaches this page second-hand, '
+      + 'through an internal audit note dated 2026-08-20, and has not been re-verified at source here: it is '
+      + 'quoted as history, exactly like the wrong bounds in the catalog above. What is ours is the gate. Before '
+      + 'any campaign starts, the score function is handed a deliberately scale-inflated candidate and must not '
+      + 'reward it, or the run refuses to start — their incident, self-reported; our permanent control, run every '
+      + 'build. This page claims nothing about anyone else’s system beyond what that system published about '
+      + 'itself.') })
+    + C.pRaw('The battery is ' + C.m('machine/funnel/selftest/battery.js') + ': ' + funnelItems.length + ' items, '
+      + funnelReds.length + ' red controls, no dependencies, about a second, deterministic enough that two runs '
+      + 'produce byte-identical output. It runs inside ' + C.m('make test') + ' and it ran during this build — '
+      + 'every count and every quoted line above was read out of that run rather than typed here. If an item goes '
+      + 'red, if a red control stops firing, or if the battery grows a control this page does not describe, the '
+      + 'build refuses and this page is not written.')
+    + '</div>'
+}));
+
+O.push(C.section({
+  lab: '§6 · the invitation', title: 'Replication is the good outcome',
   bodyRaw: '<div class="col">'
     + C.p('The moat here is not the code — it is the discipline and the dated public record, and others '
       + 'replicating both after publication is the outcome this note exists to cause. Every claim above is '
@@ -276,13 +429,16 @@ O.push(C.section({
 }));
 
 O.push(C.section({
-  lab: '§6 · the gates, this build', title: 'What ran to let this page exist', wide: true,
+  lab: '§7 · the gates, this build', title: 'What ran to let this page exist', wide: true,
   bodyRaw: C.table({
     cols: [{ h: 'battery' }, { h: 'what it holds for this catalog' }],
     rows: gateRows.map((g) => [{ raw: C.m(g.n) }, g.note])
   })
     + '<div class="col">' + C.pRaw('All ' + gateRows.length + ' executed by tools/build-report-methods.js during '
-      + 'this build; any red refuses the page. Recomputed from records on the way: the closed-form decomposition '
+      + 'this build; any red refuses the page. The last one is also READ rather than only run: §5 is built out of '
+      + 'its ' + funnelItems.length + ' item lines and ' + funnelReds.length + ' red-control lines, so a control '
+      + 'that stops firing — or one this page has no description for — refuses the build by name. Recomputed '
+      + 'from records on the way: the closed-form decomposition '
       + 'closes (' + C.m(fmt(T.closedFormTested) + ' tested') + '), the census ceiling '
       + C.m('ln(1696)/16 = ' + ceiling.toFixed(4)) + ', the entropy bound ' + C.m('h ≥ ' + hLB.toFixed(6))
       + ' read from its certificate and confirmed below the ceiling. Wrong historical numbers quoted above '

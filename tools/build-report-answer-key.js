@@ -136,6 +136,79 @@ const evalRows = fs.readFileSync(path.join(ROOT, 'certs', 'matmul-eval-ledger.js
 if (!evalRows.length) die('the eval ledger holds no real-model rows');
 const evalCert = evalRows.filter((r) => r.outcome === 'certified').length;
 
+/* ---- specimen V (the control): a published claim that HELD ---------------
+   The four specimens above are keys that went wrong. An instrument that only
+   ever returns REFUTED is not an audit, it is a search — so the taxonomy is
+   not complete without a published claim the same machinery CONFIRMS. The
+   third audit domain (exact rational sum-of-squares, control theory) supplies
+   it. All three SOS programs are run here as this section's gate: each must
+   exit 0 and print ALL PASS or the page is not written, and every number,
+   polynomial and witness quoted in §5 is parsed out of the output captured
+   below — nothing in that section is typed by hand. The same three programs
+   run under `make test`. */
+const SOS = {
+  reverify: 'instruments/sos/reverify_ai_lyapunov.py',
+  bound: 'instruments/sos/sos_verify.py',
+  lyap: 'instruments/sos/lyapunov_cert.py'
+};
+function runPy(rel) {
+  let out;
+  try {
+    out = cp.execSync('python3 ' + rel, { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'] }).toString();
+  } catch (e) {
+    return die(rel + ' did not exit 0 — the SOS battery gates this page\n'
+      + ((e.stdout && e.stdout.toString()) || '') + ((e.stderr && e.stderr.toString()) || ''));
+  }
+  if (/^FAIL/m.test(out) || !/ALL PASS/.test(out)) die(rel + ' did not report ALL PASS:\n' + out);
+  return out;
+}
+const sosOut = {}; let sosChecks = 0;
+for (const k of Object.keys(SOS)) {
+  sosOut[k] = runPy(SOS[k]);
+  sosChecks += (sosOut[k].match(/^PASS/gm) || []).length;
+}
+
+/* the paper's identity and its system, read from the instrument source so the
+   citation on the page cannot drift away from the code that decides it */
+const reSrc = fs.readFileSync(path.join(ROOT, SOS.reverify), 'utf8');
+const arxivId = (/arXiv:(\d{4}\.\d{4,5})/.exec(reSrc) || [])[1];
+const sysM = /system (Eq\.\d+):\s*(.+?)\.\s*$/m.exec(reSrc);
+if (!arxivId || !sysM) die('cannot read the cited paper / system out of ' + SOS.reverify);
+const sysEq = sysM[1], sysBody = sysM[2].replace(/\s*,\s*/, ' ,  ').trim();
+
+/* CONFIRMED — V-dot for the paper's valid function, read out of the run */
+const vdRaw = (/\[Vdot=\{([^}]*)\}\]/.exec(sosOut.reverify) || [])[1];
+const vdMon = vdRaw ? [...vdRaw.matchAll(/\((\d+),\s*(\d+)\):(-?\d+)/g)].map((m) => [+m[1], +m[2], +m[3]]) : [];
+if (vdMon.length !== 2) die('cannot read the confirmed V-dot out of ' + SOS.reverify + ' output');
+const SUP = { 2: '²', 3: '³', 4: '⁴' };
+const mono = (a, b) => [a ? 'x1' + (SUP[a] || '') : '', b ? 'x2' + (SUP[b] || '') : ''].filter(Boolean).join('·');
+const vdotStr = vdMon.map(([a, b, c], i) => (c < 0 ? (i ? ' − ' : '−') : (i ? ' + ' : '')) + Math.abs(c) + '·' + mono(a, b)).join('');
+if (!/PASS\s+C2 -Vdot is an exact weighted SOS/.test(sosOut.reverify)) die('the weighted-SOS confirmation row moved');
+
+/* REFUTED — the paper's own under-sampled candidates, with exact witnesses */
+const refuted = [];
+for (const line of sosOut.reverify.split('\n')) {
+  const m = /^PASS\s+R x1\^2\+(.+?)x2\^2 is NOT a Lyapunov function.*\[x=\(([^,]+),\s*([^)]+)\)\s*->\s*Vdot=(\S+)\]\s*$/.exec(line);
+  if (m) refuted.push({ coef: m[1].trim().split(' ')[0], label: m[1].trim(), x1: m[2].trim(), x2: m[3].trim(), vdot: m[4].trim() });
+}
+if (refuted.length !== 3) die('expected 3 under-sampled candidates refuted, found ' + refuted.length);
+const flagged = refuted.find((r) => /Eq\.\s*\d+/.test(r.label) && /flag/i.test(r.label));
+if (!flagged) die('the paper-flagged candidate is not among the refutations');
+flagged.eq = 'Eq. ' + /Eq\.\s*(\d+)/.exec(flagged.label)[1];
+const others = refuted.filter((r) => r !== flagged);
+const sysEqPretty = sysEq.replace(/^Eq\.\s*/, 'Eq. ');
+
+/* REFUSED — the honest boundary: nonnegative, and provably not SOS */
+const gamma = (/global lower bound p\(x\) >= (\d+) is CERTIFIED/.exec(sosOut.bound) || [])[1];
+if (!gamma) die('the exact SOS global lower bound no longer certifies');
+if (!/^PASS\s+L1 the Motzkin polynomial REFUSES an SOS certificate/m.test(sosOut.bound)) die('the Motzkin refusal row moved');
+const motzProbe = (/\[M\(1,1\) = (\S+)\]/.exec(sosOut.bound) || [])[1];
+if (motzProbe !== '0') die('the Motzkin nonnegativity probe moved: ' + motzProbe);
+
+/* the red control on the third program: the certificate must go red */
+const perturbW = (/\[Vdot\(1,0\) = (\S+) > 0\]/.exec(sosOut.lyap) || [])[1];
+if (!perturbW) die('the unstable-perturbation witness is missing from ' + SOS.lyap);
+
 /* ---- the page ------------------------------------------------------------ */
 const git = sh('git rev-parse --short HEAD') || 'unknown';
 const B = [];
@@ -146,8 +219,9 @@ B.push(C.header({
   deck: 'An evaluation graded against reference values inherits the failure class of whatever computed them — '
     + 'and for mathematical ground truth the computing pipeline is usually floating point, checked by digit '
     + 'agreement. This note holds three certified specimens of answer keys going wrong in ways reruns and digit '
-    + 'cross-checks provably cannot catch, and one working design that removes the answer key altogether. '
-    + 'Every specimen was re-proved during the build that produced this page.'
+    + 'cross-checks provably cannot catch, one published claim the same instruments CONFIRM — a control, '
+    + 'because an audit that only ever refutes is not an audit — and one working design that removes the '
+    + 'answer key altogether. Every specimen was re-proved during the build that produced this page.'
 }));
 
 B.push(C.tldr({
@@ -155,7 +229,9 @@ B.push(C.tldr({
     + 'constant (correct to a rerun, wrong from digit 12); a published constant agreeing with a wrong closed '
     + 'form for ' + deepest + ' significant digits (digit-matching certifies the impostor); and a printed '
     + 'identity that is false while the computation behind it was right. A model that reproduces any of these '
-    + 'grades as correct.',
+    + 'grades as correct. And the control that makes those three readable: pointed at the machine-DISCOVERED '
+    + 'Lyapunov functions of arXiv:' + arxivId + ', the same exact machinery returns CONFIRMED — the paper '
+    + 'held up.',
   mechanismRaw: 'The failure class lives INSIDE the key: rerunning the same float pipeline reproduces the '
     + 'artifact digit for digit, so the standard remedy — recompute and compare digits — CONFIRMS the wrong '
     + 'value. The fix is structural, not more digits: grade witness-exhibiting tasks with exact certificates, '
@@ -210,6 +286,7 @@ B.push(C.stats([
   { k: 'specimen I', v: 'wrong at digit 12', role: 'warn', n: 'a published constant that IS the naive IEEE-754 product — reproduced live this build, then refuted exactly' },
   { k: 'specimen II', v: deepest + ' digits of agreement', role: 'warn', n: 'a published constant vs a closed form it provably is not — re-derived in exact BigInt this build' },
   { k: 'specimen III', v: 'true math, false print', role: 'warn', n: 'a printed identity refuted while its own computation is certified correct on the same enclosure' },
+  { k: 'the control', v: 'the paper held up', role: 'held', n: 'a machine-discovered Lyapunov function of arXiv:' + arxivId + ' CONFIRMED by exact SOS this build — plus a true statement the same instrument REFUSES to certify' },
   { k: 'the alternative', v: evalRows.length + ' rows, no key', role: 'held', n: evalCert + ' certified as theorems; zero false certifications — the answer key does not exist, so it cannot be wrong' }
 ]));
 
@@ -265,8 +342,107 @@ B.push(C.section({
     + 'and a model reproducing the (correct) computation grades as wrong against the (false) print.')
 }));
 
+/* ---- §5 · the control specimen ------------------------------------------
+   Gated above: this section does not exist unless all three SOS programs
+   exited 0 with ALL PASS this build. Every quantity below is interpolated
+   from their captured stdout. */
 B.push(C.section({
-  lab: '§5 · the design', title: 'Remove the key',
+  lab: '§5 · the control', title: 'What a clean audit looks like',
+  wide: true,
+  bodyRaw: '<div class="col">' + [
+    C.p('Every specimen so far is a key that went wrong, which is exactly the reason this one is here. An '
+      + 'instrument that returns REFUTED on everything it is pointed at is not an audit, it is a search — and '
+      + 'the taxonomy of answer keys is not complete without the case where the published value is right and '
+      + 'the audit says so. This site\'s third audit domain supplies it. Alongside tensor decompositions and '
+      + 'continued fractions there is an exact rational sum-of-squares certifier, aimed at control theory, and '
+      + 'pointed at a 2026 paper\'s machine-DISCOVERED Lyapunov functions it returns CONFIRMED. The paper held '
+      + 'up. That is the headline, and it is a stronger result for this machine than another refutation would '
+      + 'have been.'),
+    C.pRaw('arXiv:' + arxivId + ' reports Lyapunov functions found by constrained symbolic regression for the '
+      + 'nonlinear system it gives as ' + sysEqPretty + ','),
+    C.eq(C.esc(sysBody)),
+    C.pRaw('The instrument re-derives V̇ = ∇V · f symbolically over the rationals — Python\'s '
+      + C.m('fractions') + ' and nothing else, no floating point anywhere in the decision — and then demands '
+      + 'an exact sum-of-squares certificate rather than a numerical minimum. For the function the paper states '
+      + 'as valid, V = x1² + 4·x2², it gets one:'),
+    C.eq(C.esc('V̇ = ' + vdotStr + '   =   −( 2·x1² + 8·(x2²)² )')),
+    C.p('The cross term is not small, it is absent: the coefficient 4 is what annihilates it exactly. What is '
+      + 'left is a weighted sum of squares whose only zero is the origin, so V decreases along every nonzero '
+      + 'trajectory and the system is globally asymptotically stable — decided, not estimated, and re-derived '
+      + 'during the build that produced this page. The method is classical (Lyapunov 1892; SOS-Lyapunov, '
+      + 'Parrilo 2000) and the function is the paper\'s. Nothing here is ours except the re-verification.'),
+    C.pRaw('The same run also refutes the ' + refuted.length + ' under-sampled candidates the paper reports — '
+      + 'and the paper flags them itself. Its ' + C.esc(flagged.eq) + ', V = x1² + ' + C.esc(flagged.coef)
+      + '·x2², is stated in the paper as having an incorrect coefficient; the instrument supplies the exact '
+      + 'witness that sentence implies. At the rational point '
+      + C.m('x = (' + flagged.x1 + ', ' + flagged.x2 + ')') + ' the derivative is'),
+    C.eq(C.esc('V̇ = ' + flagged.vdot + '  >  0')),
+    C.pRaw('— a positive rational, checkable by hand, with no tolerance anywhere in the statement. V increases '
+      + 'there, so V is not a Lyapunov function for that system, full stop. The coarser candidates fall the '
+      + 'same way: ' + others.map((r) => 'V = x1² + ' + C.esc(r.coef) + '·x2² at '
+        + C.m('(' + r.x1 + ', ' + r.x2 + ')') + ' gives ' + C.m('V̇ = ' + r.vdot)).join(', and ') + '. This is '
+      + 'corroboration of the authors\' own statement, not a catch — they wrote down that the coefficient was '
+      + 'wrong, and the machine wrote down the number that proves it. What exact arithmetic adds is the '
+      + 'distinction the paper is already drawing. The coefficients are not "approximately right" and "nearly '
+      + 'right": 4 is exactly right and ' + C.esc(flagged.coef) + ' is exactly wrong, and no float screen '
+      + 'anywhere in the neighbourhood of a derivative the size of ' + C.esc(flagged.vdot) + ' would tell you '
+      + 'which was which.'),
+    C.p('The third outcome is the one that makes the other two worth anything. The same certifier, run on the '
+      + 'Motzkin polynomial x1⁴·x2² + x1²·x2⁴ − 3·x1²·x2² + 1 — nonnegative for every real x1 and x2, and '
+      + 'famously (Motzkin 1967) not a sum of squares — returns REFUSED. It declines to certify a statement '
+      + 'that is TRUE, because the certificate it requires provably does not exist for it. It prints the probe '
+      + 'M(1,1) = ' + motzProbe + ' beside the refusal so the refusal reads as what it is: a refusal to '
+      + 'certify, never a claim of falsity. That is the honest behaviour and not a bug. A checker that fudged '
+      + 'Motzkin through would be certifying by wishful thinking, and its CONFIRMED on the Lyapunov function '
+      + 'would then be worth exactly nothing.')
+  ].join('\n') + '</div>\n'
+    + C.table({
+      cols: [{ h: 'verdict' }, { h: 'object' }, { h: 'the exact reason' }],
+      rows: [
+        [{ raw: C.tag('CONFIRMED', 'held') },
+          { raw: 'V = x1² + 4·x2², the paper\'s stated valid function' },
+          { raw: 'V̇ = ' + C.esc(vdotStr) + ' — an exact weighted SOS, zero only at the origin' }],
+        [{ raw: C.tag('REFUTED', 'cert') },
+          { raw: 'V = x1² + ' + C.esc(flagged.coef) + '·x2², flagged as under-sampled by the paper itself' },
+          { raw: 'witness ' + C.m('x = (' + flagged.x1 + ', ' + flagged.x2 + ')') + ' gives V̇ = '
+            + C.esc(flagged.vdot) + ' > 0' }],
+        [{ raw: C.tag('REFUSED', 'open') },
+          { raw: 'the Motzkin polynomial — nonnegative everywhere, and not a sum of squares' },
+          { raw: 'no SOS certificate exists, so none is issued; the instrument declines a true statement '
+            + 'rather than guess (probe M(1,1) = ' + C.esc(motzProbe) + ')' }]
+      ]
+    })
+    + '<div class="col">' + [
+    C.p('Read the three as a set, because separately none of them is the argument. One machine-discovered '
+      + 'result confirmed exactly. The paper\'s own flagged candidates refuted with rational witnesses. One '
+      + 'true statement refused for want of a certificate. Three verdicts, three different reasons, one '
+      + 'instrument that can reach all three — which is the only condition under which the first one means '
+      + 'anything. For an evaluation builder the transfer is direct: a grader you have never seen decline is '
+      + 'not known to be able to decline, and a grader that cannot decline will eventually confirm your answer '
+      + 'key back to you.'),
+    C.pRaw('This section is its own gate. The three programs ran during this build, each exited 0, and '
+      + 'together they reported ' + sosChecks + ' PASS rows and no failures — including the red controls that '
+      + 'must fire (a corrupted certificate refused, an overclaimed bound refuted at ' + C.m('x = 1') + ', and '
+      + 'an unstable perturbation whose witness gives ' + C.m('V̇(1,0) = ' + perturbW) + ' > 0). If any one of '
+      + 'them fails or stops printing ALL PASS, this page is not written at all. Run them yourself from a '
+      + 'clone — stdlib only, no SDP solver, no dependencies:')
+      + C.code('python3 ' + SOS.reverify + '\npython3 ' + SOS.bound + '\npython3 ' + SOS.lyap)
+      + C.pRaw('All three are also rows in ' + C.m('make test') + ', so they run on every battery, not only '
+        + 'when this page is built. The exact global lower bound in the second one — a quartic certified at '
+        + '≥ ' + gamma + ' by an exact SOS decomposition, the bound attained — is the same instrument doing the '
+        + 'ordinary version of the job.')
+  ].join('\n') + '</div>'
+}));
+
+B.push(C.scope('Published, not peer-reviewed, not independently rerun. arXiv:' + arxivId + ' is cited as a '
+  + 'CLAIM: its system, its Lyapunov functions and its own statement about the under-sampled coefficients are '
+  + 'taken as printed, and every verdict above reads "given those equations". The mathematics is not ours — '
+  + 'the Lyapunov functions are the paper\'s, discovered by its method, and the SOS-Lyapunov technique is '
+  + 'Parrilo 2000 on Lyapunov 1892. No priority is claimed for anything in this section; it re-verifies '
+  + 'someone else\'s result exactly and reports that it holds.'));
+
+B.push(C.section({
+  lab: '§6 · the design', title: 'Remove the key',
   bodyRaw: [
     C.p('The structural fix is to grade tasks where no reference value exists to contaminate: ask the model to '
       + 'EXHIBIT a witness — a decomposition, a certificate, a construction — and let the grader re-derive the '
@@ -285,11 +461,14 @@ B.push(C.section({
 
 const foot = '<footer class="col"><p>Generated by tools/build-report-answer-key.js @ git ' + git + '. Every '
   + 'specimen above was re-proved during this build — the naive product re-run and refuted, the impostor depth '
-  + 're-derived in exact BigInt, both RM directions re-certified, the eval ledger re-read — and the build '
-  + 'refuses on any deviation.</p></footer>';
+  + 're-derived in exact BigInt, both RM directions re-certified, the eval ledger re-read, and all three SOS '
+  + 'programs run to ALL PASS (' + sosChecks + ' checks) with §5\'s numbers parsed from their output — and the '
+  + 'build refuses on any deviation.</p></footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'answer-key.html'),
   TPL.render({ title: 'When the answer key is wrong', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/answer-key.html',
-    desc: 'Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working eval design that removes the answer key altogether.' }));
+    desc: 'Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch, one published claim the same exact instruments confirm, and the eval design that removes the answer key altogether.' }));
 console.log('reports/answer-key.html written: 3 specimens re-proved (digit-12 artifact, ' + deepest
-  + '-digit impostor ' + deepestId + ', RM print pair) + eval ledger ' + evalRows.length + ' rows @ git ' + git);
+  + '-digit impostor ' + deepestId + ', RM print pair) + eval ledger ' + evalRows.length + ' rows + SOS control '
+  + '(arXiv:' + arxivId + ' CONFIRMED, ' + refuted.length + ' flagged candidates refuted, Motzkin REFUSED; '
+  + sosChecks + ' checks) @ git ' + git);

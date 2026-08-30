@@ -191,9 +191,70 @@ function svgColourViolations(html, file) {
     noAlt.length === 0, noAlt.length ? [...new Set(noAlt)].join(', ') : figs + ' checked');
 }
 
+/* ---- the other way a page lies: markup that arrived as DATA --------------
+   components.js escapes everything on the value path, and that escape is the
+   honest default — it is why a ledger string can never become markup. The
+   cost is a failure mode with no other alarm: a builder that concatenates a
+   <strong> into a table cell, or a <span class="m"> into C.p(), ships the TAG
+   ITSELF as visible text. The reader sees &lt;strong&gt;9 / 10 certified&lt;/
+   strong&gt; where a number should be. Nothing throws, no page fails to
+   build, and the defect is invisible to every check above — which is exactly
+   how it reached the newest, most-promoted page and stood there in
+   production. The escape is never the bug; the raw affordances (pRaw, {raw}
+   cells) are the fix. So this check measures the OUTPUT and names the page.
+
+   Cut first: <pre>/<code>, where a source listing shows markup ON PURPOSE,
+   and <script>/<style>, where entities are never decoded into anything. The
+   tag-name list is what makes the check discriminate rather than nag — a
+   report that writes the tensor &lt;2,2,2&gt;, as the matmul pages do
+   constantly, is escaping an angle bracket, not leaking a tag. */
+const LEAK_TAGS = 'strong|em|code|br|span|b|i|a|p|div|ul|ol|li|h[1-6]|pre|sup|sub'
+  + '|blockquote|figure|figcaption|table|tr|td|th';
+const LEAK_RE = new RegExp('&lt;/?(?:' + LEAK_TAGS + ')\\b[^<>]{0,200}?&gt;', 'gi');
+function escapedTagLeaks(html, file) {
+  const text = String(html)
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<pre[\s\S]*?<\/pre>/gi, '')
+    .replace(/<code[\s\S]*?<\/code>/gi, '');
+  const out = [];
+  let m;
+  LEAK_RE.lastIndex = 0;
+  while ((m = LEAK_RE.exec(text))) out.push(file + ': ' + m[0]);
+  return out;
+}
+/* A page carrying a KNOWN leak of exactly this shape and count, whose builder
+   the session that added this check did not own. An entry is a DEBT, not a
+   pass: the check fails if the count moves in EITHER direction — a new leak,
+   or the fix landing and the entry going stale. Deleting the line is the only
+   way a page leaves this list, so the exception cannot rot into a hole.
+     mfg-observatory.html · 6 · tools/build-report-mfg-observatory.js:467
+       a C.p() carrying three C.m() spans; the one-line fix is C.pRaw(). */
+const LEAK_DEBT = {};   /* mfg-observatory.html paid off 2026-08-30 — C.p -> C.pRaw at §8 */
+{
+  const dir = path.join(ROOT, 'reports');
+  const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => f.endsWith('.html')) : [];
+  let bad = [];
+  const stale = [];
+  for (const f of files) {
+    const found = escapedTagLeaks(fs.readFileSync(path.join(dir, f), 'utf8'), f);
+    const owed = LEAK_DEBT[f] || 0;
+    if (found.length > owed) bad = bad.concat(found);
+    else if (found.length < owed) stale.push(f + ' leaks ' + found.length + ', debt says ' + owed
+      + ' — the fix landed: DELETE its line from LEAK_DEBT in design/battery.js');
+  }
+  const owedNote = Object.keys(LEAK_DEBT).length
+    ? ' · owed, not forgiven: ' + Object.keys(LEAK_DEBT).map(k => k + ' \u00d7' + LEAK_DEBT[k]).join(', ') : '';
+  check('F3 no report page shows an escaped HTML tag as visible text — markup that reached a cell as DATA',
+    bad.length === 0 && stale.length === 0,
+    bad.length ? bad.slice(0, 4).join(' \u00b7 ') + (bad.length > 4 ? ' \u2026+' + (bad.length - 4) : '')
+      : stale.length ? stale.join(' \u00b7 ')
+      : files.length + ' pages, 0 leaks' + owedNote);
+}
+
 /* ================= X · falsifiers ======================================== */
 console.log('\n    executing falsifiers');
-let reds = 0; const redTotal = 4;
+let reds = 0; const redTotal = 6;
 {
   const bad = svgColourViolations('<svg><rect fill="#ff0000"/></svg>', 'planted');
   if (bad.length === 1) { reds++; console.log('       RED ok  X1 a planted literal hex in a figure is caught'); }
@@ -215,6 +276,19 @@ let reds = 0; const redTotal = 4;
   try { CH.legend([{ token: 'var(--c-1)' }], 0, 0); } catch (e) { threw = true; }
   if (threw) { reds++; console.log('       RED ok  X4 a legend swatch with no word beside it is REFUSED (colour is never the only channel)'); }
   else console.log('       RED FAIL  X4 an unlabelled swatch was accepted');
+}
+{
+  const bad = escapedTagLeaks('<td>&lt;strong&gt;9 / 10 certified&lt;/strong&gt;</td>', 'planted');
+  if (bad.length === 2) { reds++; console.log('       RED ok  X5 the cell that shipped \u2014 an escaped <strong> pair standing in for a number \u2014 is caught'); }
+  else console.log('       RED FAIL  X5 escaped markup can reach a page as visible text unseen   [' + bad.length + ' found, want 2]');
+}
+{
+  /* power AND discrimination in one control: a check that fired on every
+     escaped angle bracket would flag the tensor notation on half the reports
+     and be switched off within a week, which is the same as having no check */
+  const bad = escapedTagLeaks('<p>Conjugate the &lt;2,2,2&gt; tensor. &lt;em&gt;this one leaked&lt;/em&gt;</p>', 'planted');
+  if (bad.length === 2 && !bad.some(b => /2,2,2/.test(b))) { reds++; console.log('       RED ok  X6 a leaked <em> is caught while the escaped tensor <2,2,2> beside it is not'); }
+  else console.log('       RED FAIL  X6 the scanner does not separate a leaked tag from an honestly escaped bracket   [' + bad.length + ' found, want 2]');
 }
 console.log('    every falsifier turned its target red   [' + reds + '/' + redTotal + ']');
 if (reds !== redTotal) fails++;

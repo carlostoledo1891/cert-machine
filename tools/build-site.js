@@ -63,7 +63,7 @@ if (!evalReal.length) fail('the eval ledger holds no real-model rows — the lan
 const evalCert = evalReal.filter((r) => r.outcome === 'certified').length;
 const evalRefuted = evalReal.filter((r) => r.outcome === 'refuted').length;
 
-const census16 = JSON.parse(fs.readFileSync(path.join(ROOT, 'census-high-periods.json'), 'utf8')).find((r) => r.p === 16);
+const census16 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'census-high-periods.json'), 'utf8')).find((r) => r.p === 16);
 if (!census16 || !census16.ok || !census16.recheck.ok || census16.points !== 1696) fail('the period-16 census record moved');
 
 const mercer = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'mercer-mu5.json'), 'utf8'));
@@ -74,6 +74,34 @@ const topM = rungs[rungs.length - 1];
 const lambdaRows = Object.keys(JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda-table.json'), 'utf8')).rows).length;
 const muRows = Object.keys(JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'mu-table.json'), 'utf8')).rows).length;
 if (lambdaRows < 23 || muRows < 9) fail('mu/lambda tables thinner than recorded (' + lambdaRows + ', ' + muRows + ')');
+
+/* How many fast matmul algorithms this machine re-decides is READ from the
+   detached certificate. It was typed by hand in three places once and three
+   different numbers shipped (nine, ten, eleven, for one file of ten entries);
+   a count that can drift is a count this builder computes. */
+const strassenAlgos = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'strassen-certificate.json'), 'utf8')).entries;
+if (!Array.isArray(strassenAlgos) || !strassenAlgos.length) fail('the strassen certificate holds no entries');
+const strassenN = strassenAlgos.length;
+const kellerMaps = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'keller-certificate.json'), 'utf8')).entries;
+if (!Array.isArray(kellerMaps) || !kellerMaps.length) fail('the keller certificate holds no entries');
+const kellerN = kellerMaps.length;
+
+/* The #852 correction is PUBLIC in the erdosproblems.com thread. The evidence
+   is the thread snapshot pinned beside the original page bytes, and both the
+   status word and its date are read from that pin — never typed. If the pin
+   goes, the status claim on /about/ goes with it and the build refuses. */
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+  'August', 'September', 'October', 'November', 'December'];
+const longDate = (iso) => { const [y, mo, d] = iso.split('-').map(Number); return d + ' ' + MONTHS[mo - 1] + ' ' + y; };
+const e852Public = (() => {
+  const dir = path.join(ROOT, 'corpus', 'sources');
+  const pins = JSON.parse(fs.readFileSync(path.join(dir, 'PINS.json'), 'utf8'));
+  const hit = Object.keys(pins).map((k) => /^(erdos852_thread_correction-public_(\d{4}-\d{2}-\d{2})\.html)$/.exec(k)).find(Boolean);
+  if (!hit) fail('/about/ states the Erdős #852 correction is public in the thread; the evidence for that status is the '
+    + 'pinned snapshot corpus/sources/erdos852_thread_correction-public_<date>.html, and PINS.json does not hold it');
+  if (!fs.existsSync(path.join(dir, hit[1]))) fail('the pinned #852 thread snapshot ' + hit[1] + ' is in PINS.json but absent from corpus/sources');
+  return { file: hit[1], date: hit[2] };
+})();
 
 /* ---- the landing page ---------------------------------------------------- */
 const B = [];
@@ -151,7 +179,13 @@ B.push(C.section({
    /reports/ index shows all of it. Annotations stay qualitative or gated:
    a volatile number that this builder did not recompute does not go on a
    card. The build refuses if the shelf and reports/ on disk disagree, so a
-   new report cannot ship uncatalogued. */
+   new report cannot ship uncatalogued.
+
+   ARRAY ORDER is the ranking (the landing shows its head); the `g` field is
+   the LANE a card sits in on /reports/, and the two are independent — the
+   Erdős lane's flagship is ranked into the head of the shelf and therefore
+   sits inside the ai block below. Lanes are drawn with filter(), which
+   preserves this order, so a lane is always ranked like the shelf. */
 const REPORTS = [
   /* group 'ai': the AI-verification shelf — the audience-facing work */
   { g: 'ai', f: 'matmul-eval.html', k: 'the eval · live board',
@@ -161,8 +195,9 @@ const REPORTS = [
   { g: 'ai', f: 'alphaevolve.html', k: 'audit · AI-discovered algorithms',
     title: 'The AI-discovered algorithms, certified',
     desc: 'AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.',
-    n: '11 algorithms re-decided each build' },
-  { g: 'ai', f: 'erdos852.html', k: 'audit · refutation',
+    n: strassenN + ' algorithms re-decided each build' },
+  /* lane 'erdos', ranked here: the refutation is the head of the whole shelf */
+  { g: 'erdos', f: 'erdos852.html', k: 'erdős #852 · refutation',
     title: 'The constant that was a rounding error',
     desc: 'A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.',
     n: 'refuted at digit 12 · correction certified' },
@@ -186,6 +221,12 @@ const REPORTS = [
     title: 'The Ramanujan Machine, audited',
     desc: 'Every row of all seven published result sheets decided by rigorous enclosures and exact rational comparisons — the whole registry re-certified at every build.',
     n: rmPrinted + ' printed rows · ' + rmSurvive + ' survive · 1 refuted, correction certified' },
+  /* catalogued 2026-08-30 the moment reports/keller.html landed on disk — the
+     shelf gate refuses to ship a report it cannot describe, and it did */
+  { g: 'ai', f: 'keller.html', k: 'audit · published counterexamples',
+    title: 'The Jacobian conjecture, audited',
+    desc: 'The July-2026 announcement that would refute a conjecture open since Keller 1939 — and the literature that followed it within days — decided in exact rational arithmetic: the Jacobian determinant expanded symbolically and compared coefficient by coefficient, every claimed collision re-evaluated as fractions, then the published witnesses thrown away and the collisions found again blind. Eight rows re-certify a sha-pinned published source; three are counterexamples this machine generated itself and no paper carries.',
+    n: kellerN + ' certificates · 3 generated here, in no paper' },
   { g: 'ai', f: 'impostors.html', k: 'proved negatives',
     title: 'The impostor catalog',
     desc: 'Published constants that agree with simple closed forms for dozens of significant digits — and exact proofs that every one of them is lying. Digit agreement is not evidence: the answer-key-contamination parable.',
@@ -233,19 +274,19 @@ const REPORTS = [
     title: 'The MFG laboratory, certified',
     desc: 'The single-file MFG laboratory’s certified claims: a published Wardrop table reproduced within its own rounding AND proved (Krawczyk box, exact rational solve), the discrete adjoint identity, and the non-unique split behind unique totals.',
     n: 'four of the lab’s own batteries re-run at build' },
-  { g: 'ground', f: 'mercer-program.html', k: 'program · certified landscape',
+  { g: 'erdos', f: 'mercer-program.html', k: 'erdős #510 · certified landscape',
     title: 'The Mercer program',
-    desc: 'Chowla’s cosine dips and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build.',
+    desc: 'Chowla’s cosine dips — Erdős #510 — and Newman’s 0/1 minima certified as one landscape: exhaustive box sweeps, exact champions, a Sturm equality — every claim re-proved at build. The certified lambda table is the note filed on the #510 page.',
     n: 'mu(5) ≤ 1 + π/' + topM + ' · re-certified every build' },
-  { g: 'ground', f: 'erdos290.html', k: 'erdős #290 · theorem',
+  { g: 'erdos', f: 'erdos290.html', k: 'erdős #290 · theorem',
     title: 'Erdős #290: the 4k(k+1) theorem',
-    desc: 'The square-discriminant law proved and re-proved as exact integer identities during the build, the enclosure sweep deepened past the cited page, the exceptional degree closed.',
+    desc: 'The square-discriminant law proved and re-proved as exact integer identities during the build, the enclosure sweep deepened past the cited page, every exceptional degree in range closed.',
     n: 'planted falsifiers must fire at build' },
   { g: 'ground', f: 'entropy.html', k: 'certified invariant',
     title: 'Entropy, with a certificate',
     desc: 'A certified lower bound on the topological entropy of the classical Hénon map — covering relations composed to an exact integer spectral argument, calibrated at the full horseshoe.',
     n: 'h_top ≥ 0.3017, a theorem' },
-  { g: 'ground', f: 'verify-lemniscate.html', k: 'erdős #1038 · verification',
+  { g: 'erdos', f: 'verify-lemniscate.html', k: 'erdős #1038 · verification',
     title: 'Erdős #1038: thirty decimals verified',
     desc: 'The computational fragment of the Darvas–Peng–Tao manuscript re-verified by an independent route — Krawczyk rather than bisection — with the 30th digit read correctly.',
     n: 'filed on the claiming authors’ repository' },
@@ -258,7 +299,9 @@ const REPORTS = [
     desc: 'The multi-population Wardrop equilibria of a published paper reproduced with certificates — exact where possible, enclosed where not, and refused where honesty demands it.',
     n: 'embedded verifier re-run at build' }
 ];
+const LANES = ['ai', 'erdos', 'applied', 'ground'];
 const AI_REPORTS = REPORTS.filter((r) => r.g === 'ai');
+const ERDOS_REPORTS = REPORTS.filter((r) => r.g === 'erdos');
 const APPLIED_REPORTS = REPORTS.filter((r) => r.g === 'applied');
 const GROUND_REPORTS = REPORTS.filter((r) => r.g === 'ground');
 {
@@ -266,24 +309,39 @@ const GROUND_REPORTS = REPORTS.filter((r) => r.g === 'ground');
   const shelf = REPORTS.map((r) => r.f).sort();
   if (onDisk.join(',') !== shelf.join(','))
     fail('the report shelf and reports/ disagree — disk [' + onDisk + '] vs shelf [' + shelf + ']');
+  /* every card is drawn exactly once: a lane typo would silently drop a
+     report off /reports/ while the disk check above still passed */
+  const lanes = AI_REPORTS.length + ERDOS_REPORTS.length + APPLIED_REPORTS.length + GROUND_REPORTS.length;
+  if (lanes !== REPORTS.length)
+    fail('a report carries a lane that is not one of [' + LANES + '] — ' + lanes + ' of ' + REPORTS.length + ' cards would be drawn');
 }
 const reportCards = (rs, prefix) => C.cards(rs.map((r) => ({ href: prefix + r.f, k: r.k, title: r.title, desc: r.desc, n: r.n })));
 
 /* ---- the certificates, described -----------------------------------------
    Same rule as the shelf: the build refuses if certs/ holds a file this
-   table cannot describe. */
+   table cannot describe.
+
+   The re-verify column ships exactly two kinds of link and one honest
+   absence, and each link NAMES the repo file it is copied from so the build
+   can refuse a link that would 404. It shipped two once: /verify/ holds ONLY
+   the detached .py verifiers, and two rows pointed single-file JS/HTML
+   artifacts at it. Those artifacts live under /reports/. */
+const PY = (f) => ({ href: 'verify/' + f, label: f, src: path.join(ROOT, 'tools', f) });
+const INPAGE = (f) => ({ href: 'reports/' + f, label: f, src: path.join(ROOT, 'reports', f) });
+const NOVERIFIER = (f) => ({ tag: 'battery-gated', href: 'reports/' + f, label: 'the report', src: path.join(ROOT, 'reports', f) });
 const CERTS = [
-  ['erdos852-certificate.json', 'Both Erdős #852 constants as exact data: the c0 window re-decidable at 130 digits, the C∗ refutation as strict integer inequalities with no tail bound.', 'verify_erdos852.py'],
-  ['keller-certificate.json', 'The Jacobian/Hessian counterexample corpus — every polynomial as explicit exact rational monomials; determinants and collisions re-derivable from the file alone.', 'verify_keller.py'],
-  ['strassen-certificate.json', 'Nine fast matrix-multiplication algorithms as exact tensor identities over Q and F2 — including AlphaTensor’s rank-47, decided both ways.', 'verify_strassen.py'],
+  ['erdos852-certificate.json', 'Both Erdős #852 constants as exact data: the c0 window re-decidable at 130 digits, the C∗ refutation as strict integer inequalities with no tail bound.', PY('verify_erdos852.py')],
+  ['keller-certificate.json', 'The Jacobian/Hessian counterexample corpus — every polynomial as explicit exact rational monomials; determinants and collisions re-derivable from the file alone.', PY('verify_keller.py')],
+  ['strassen-certificate.json', strassenN + ' fast matrix-multiplication algorithms as exact tensor identities over Q and F2 — including AlphaTensor’s rank-47, decided both ways.', PY('verify_strassen.py')],
   ['mercer-mu5.json', 'The mu(5) ladder, mu(5) ≤ 1 + π/m rung by rung to m = ' + topM + ' — every exceptional tuple closed by one exact rational evaluation.', null],
   ['mu-table.json', 'The Newman min-modulus table: every set in the named boxes exhausted, champions certified, orbits classified, conservation per row.', null],
   ['mu-table-40.json', 'The wider-box extension of the mu table — billions of sets exhausted, the narrow-box crowding artifacts corrected.', null],
-  ['lambda-table.json', 'The lambda table: the source lab’s rows reproduced exactly, plus rows nobody else holds, certified at the stated depth.', null],
+  ['lambda-table.json', 'The lambda table: the source lab’s rows reproduced exactly, plus rows that lab’s record does not hold and no table this lab has read holds — a claim about the certificates, not about priority.', null],
+  ['census-high-periods.json', 'The Hénon high-period census, p = 13..16: every period point of the classical map found and counted exactly, the plane exhausted box by box, each row re-checked with zero unmatched — the proving ground the interval instruments were calibrated on.', null],
   ['entropy-henon.json', 'The certified entropy lower bound for the classical Hénon map: h-sets, covering relations, and the exact spectral argument.', null],
   ['erdos290-tail-ext.json', 'The Erdős #290 sweep extension: degrees closed beyond the cited page, the constant’s enclosure tightened degree by degree.', null],
-  ['mfg2p-regime-map.json', 'The TWO-population regime map: every cell of the coupling plane with its verdict and its exact witness — the symmetric cross-coupling s against the attack-defense asymmetry d, two disjoint enclosures where uniqueness provably fails, the Lasry-Lions monotone strip where it does not, and the refusal reason everywhere else.', 'mfg-two-population.html'],
-  ['mfg-regime-map.json', 'The mean-field-game regime map: every cell of the coupling–potential plane with its verdict and its exact witness — two disjoint enclosures where uniqueness provably fails, the monotone enclosure where it does not, and the refusal reason everywhere else.', 'mfg-certify.js'],
+  ['mfg2p-regime-map.json', 'The TWO-population regime map: every cell of the coupling plane with its verdict and its exact witness — the symmetric cross-coupling s against the attack-defense asymmetry d, two disjoint enclosures where uniqueness provably fails, the Lasry-Lions monotone strip where it does not, and the refusal reason everywhere else. There is no single-file certifier for this map: it is decided by labs/mfg2p/box2p.js and re-gated by that lab’s battery at every build of its report.', NOVERIFIER('mfg-two-population.html')],
+  ['mfg-regime-map.json', 'The mean-field-game regime map: every cell of the coupling–potential plane with its verdict and its exact witness — two disjoint enclosures where uniqueness provably fails, the monotone enclosure where it does not, and the refusal reason everywhere else.', INPAGE('mfg-certify.js')],
   ['matmul-eval-ledger.jsonl', 'The matmul eval’s append-only ledger — every campaign row, every verdict, every tag; the leaderboard is built from this file.', null],
   ['matmul-loop-ledger.jsonl', 'The verifier-in-the-loop ledger — every trajectory round with its verdict and the exact feedback sent; the loop report is built from this file.', null],
   ['skyaudit-forecast-ledger.jsonl', 'The prediction ledger — interval FORECASTS committed before their target day (sha-pinned, append-only) and scored after in exact rationals; coverage claims are conformal counting theorems, never model faith. Wrong forecasts stay forever.', null],
@@ -300,6 +358,13 @@ const CERTS = [
   const listed = CERTS.map((c) => c[0]).sort();
   if (onDisk.join(',') !== listed.join(','))
     fail('the certificate table and certs/ disagree — disk [' + onDisk + '] vs table [' + listed + ']');
+  /* and no re-verify link may 404: every one names its repo source, and the
+     sync below copies exactly tools/verify_*.py -> verify/ and reports/* ->
+     reports/. A link whose source is gone refuses the build. */
+  for (const [f, , v] of CERTS) {
+    if (!v) continue;
+    if (!fs.existsSync(v.src)) fail('the re-verify link for ' + f + ' points at /' + v.href + ', whose source ' + path.relative(ROOT, v.src) + ' does not exist — that link would 404');
+  }
 }
 
 /* ---- the machine, drawn ------------------------------------------------- */
@@ -348,7 +413,9 @@ B.push(C.section({
 B.push(C.section({
   lab: 'the reports', title: 'Research notes that re-prove themselves', wide: true,
   bodyRaw: '<div id="reports"></div>'
-    + reportCards(AI_REPORTS.slice(0, 6), 'reports/')
+    /* the head of the RANKING, not of one lane — the shelf's order is the
+       ranking and lanes are a /reports/ concern */
+    + reportCards(REPORTS.slice(0, 6), 'reports/')
     + '<div class="col after-fig">'
     + C.pRaw('<a href="reports/">All ' + REPORTS.length + ' reports →</a> — including the classical-ground shelf '
       + 'the instruments were proven on. Every number on every page is recomputed from the certificates and '
@@ -376,10 +443,12 @@ B.push(C.section({
   lab: 'the certificates', title: 'Proofs that travel without the machine', wide: true,
   bodyRaw: C.table({
     cols: [{ h: 'certificate' }, { h: 'what it holds' }, { h: 're-verify', cls: 'v' }],
-    rows: CERTS.map(([f, what, verifier]) => [
+    rows: CERTS.map(([f, what, v]) => [
       { raw: '<a href="certs/' + f + '"><span class="m">' + C.esc(f) + '</span></a>' },
       what,
-      { raw: verifier ? '<a href="verify/' + verifier + '"><span class="m">' + C.esc(verifier) + '</span></a>' : C.tag('battery-gated', 'dep') }
+      { raw: !v ? C.tag('battery-gated', 'dep')
+        : v.tag ? C.tag(v.tag, 'dep') + ' <a href="' + v.href + '">' + C.esc(v.label) + '</a>'
+          : '<a href="' + v.href + '"><span class="m">' + C.esc(v.label) + '</span></a>' }
     ])
   })
     + '<div class="col">' + C.pRaw('Code, corpus, and full provenance: <a href="' + GITHUB + '">'
@@ -422,6 +491,19 @@ const reportsIndexBody = [
     bodyRaw: reportCards(AI_REPORTS, '')
   }),
   C.section({
+    lab: 'the open list', title: 'Erdős problems, audited', wide: true,
+    bodyRaw: reportCards(ERDOS_REPORTS, '')
+      + '<div class="col after-fig">'
+      + C.pRaw('Erdős’s list is a public register of open questions, which makes it the sharpest available test '
+        + 'of whether a verdict produced here survives contact with the people who own the problem. Each page '
+        + 'decides a finite, exact fragment and says exactly which one: a published constant refuted at its '
+        + 'twelfth significant digit with its correction certified, certified extremal tables for Chowla’s '
+        + 'cosine problem, a square-discriminant law re-proved as integer identities, and an independent '
+        + 'verification of a claimed proof’s computational appendix. What has been filed with each problem, '
+        + 'and what has come back, is on <a href="/about/">the about page</a>, in status words meant exactly.')
+      + '</div>'
+  }),
+  C.section({
     lab: 'new fronts', title: 'Certified applications with live stakes', wide: true,
     bodyRaw: reportCards(APPLIED_REPORTS, '')
       + '<div class="col after-fig">'
@@ -434,9 +516,13 @@ const reportsIndexBody = [
     lab: 'the proving ground', title: 'The instruments, proven on hard classical ground', wide: true,
     bodyRaw: reportCards(GROUND_REPORTS, '')
       + '<div class="col after-fig">'
-      + C.pRaw('These are where the verifiers earned calibration before deciding anything a model produced: '
-        + 'censuses reproducing Galias\'s published counts, boxes re-closing Goddard\'s, ladders anchored on '
-        + 'Apéry. The audits above stand on this ground.')
+      /* names only what this lane still holds: two of the old examples (the
+         Newman boxes, the Apéry ladder) are catalogued in other lanes now */
+      + C.pRaw('These are where the verifiers earned calibration before deciding anything a model produced: a '
+        + 'published Wardrop table reproduced within its own rounding and then proved outright, mean-field '
+        + 'equilibria enclosed in disjoint balls where uniqueness theory is silent and REFUSED at the '
+        + 'bifurcation, an entropy bound calibrated at the full horseshoe. The audits above — and the Erdős '
+        + 'pages, whose exhaustive box sweeps are these same instruments — stand on this ground.')
       + '</div>'
   })
 ].join('\n\n');
@@ -468,33 +554,58 @@ WIDGET.gate();
 const rungTally = (tgt) => {
   const rows = evalReal.filter((r) => r.target === tgt);
   const n = (o) => rows.filter((r) => r.outcome === o).length;
-  return { graded: rows.length, cert: n('certified'), rej: n('rejected'), mal: n('malformed'), dec: n('declined') };
+  return { rows: rows.length, cert: n('certified'), rej: n('rejected'), mal: n('malformed'), dec: n('declined'), bud: n('budget-exhausted') };
 };
-const LAD = {
-  r8: rungTally('(2, 2, 2, 8)'),
-  r7: rungTally('(2, 2, 2, 7)'),
-  r11: rungTally('(2, 2, 3, 11)'),
-  r23: rungTally('(3, 3, 3, 23)'),
-  imp: rungTally('(2, 2, 2, 6)'),
-  dis: rungTally("('tensor', 'd7', 7)"),
-  conj: rungTally("('tensor', 'c1', 7)"),
-  open22: rungTally('(3, 3, 3, 22)')
+/* Each rung names its ledger target here, once, so the coverage gate below
+   reads the same list the table does. */
+const RUNGS = {
+  r8: '(2, 2, 2, 8)',
+  r7: '(2, 2, 2, 7)',
+  r11: '(2, 2, 3, 11)',
+  r23: '(3, 3, 3, 23)',
+  imp: '(2, 2, 2, 6)',
+  dis: "('tensor', 'd7', 7)",
+  conj: "('tensor', 'c1', 7)",
+  conj2: "('tensor', 'c2', 7)",
+  open22: '(3, 3, 3, 22)'
 };
+const LAD = Object.fromEntries(Object.entries(RUNGS).map(([k, t]) => [k, rungTally(t)]));
 if (LAD.imp.cert > 0) fail('a rank-6 ⟨2,2,2⟩ row is CERTIFIED in the eval ledger — rank ≥ 7 is Winograd\'s theorem, the grader is broken');
-const rec = (t) => t.cert + ' certified / ' + t.graded + ' graded';
+/* The page says every count in the record column is recomputed from the
+   ledger. That is a UNIVERSAL, so it is gated: a campaign target with no
+   rung would leave real graded rows off the ladder and make the sentence
+   false (it did once — the c2 instance, 30 rows, on no rung). */
+{
+  const covered = new Set(Object.values(RUNGS));
+  const missing = [...new Set(evalReal.map((r) => r.target))].filter((t) => !covered.has(t));
+  if (missing.length) fail('the eval ledger holds campaign targets no ladder rung covers — ' + JSON.stringify(missing)
+    + ' — and /oracle/ claims every count in the ladder is recomputed from that ledger; give the target a rung or narrow the claim');
+  const onLadder = Object.values(LAD).reduce((a, t) => a + t.rows, 0);
+  if (onLadder !== evalReal.length) fail('the ladder rungs sum to ' + onLadder + ' rows but the eval ledger holds '
+    + evalReal.length + ' real-model rows — a target is double-counted');
+}
+/* budget-exhausted replies are harness artifacts (our output cap), never a
+   model outcome — the board excludes them from every rate, so the ladder
+   prints them beside the graded count rather than inside it. */
+const rec = (t) => t.cert + ' certified / ' + (t.rows - t.bud) + ' graded'
+  + (t.bud ? ' · ' + t.bud + ' budget-exhausted (our output cap, not a model outcome)' : '');
 const loopRows = fs.readFileSync(path.join(ROOT, 'certs', 'matmul-loop-ledger.jsonl'), 'utf8')
   .trim().split('\n').map((l) => JSON.parse(l));
+/* A trajectory is one conversation: model × campaign tag × target × index.
+   Keying on model#index alone MERGES two different conversations a model ran
+   against two different targets — it did, and this page reported 9 where the
+   loop report reported 10. The identity lives here, once. */
 const lTraj = new Map();
 for (const r of loopRows) {
-  const k = r.model + '#' + r.trajectory;
+  const k = [r.model, r.tag, r.target, r.trajectory].join('|');
   if (!lTraj.has(k)) lTraj.set(k, []);
   lTraj.get(k).push(r);
 }
-let loopClosed = 0, loopClosedR1 = 0, loopOpenTraj = 0, loopOpenRounds = 0;
+let loopClosed = 0, loopClosedR1 = 0, loopOpenTraj = 0, loopOpenRounds = 0, loopOpenMech = 0;
 for (const rs of lTraj.values()) {
   const c = rs.filter((r) => r.outcome === 'certified');
   if (c.length) { loopClosed++; if (Math.min(...c.map((r) => Number(r.round))) === 1) loopClosedR1++; }
-  else { loopOpenTraj++; loopOpenRounds += rs.length; }
+  else { loopOpenTraj++; loopOpenRounds += rs.length; loopOpenMech += rs.filter((r) => r.feedback).length; }
 }
 const reruns = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'external-reruns.json'), 'utf8'));
 const oracleBody = [
@@ -594,7 +705,8 @@ const oracleBody = [
         + 'and Laderman, and the early rungs measure exactly that. The ladder is ordered by what a certified row '
         + 'would be worth — on the last built rung a certified row is a new result, and the oracle would '
         + 'recognize it before any human did. Every count in the record column is recomputed from the append-only '
-        + 'ledger at this build.')
+        + 'ledger at this build, and every real-model row in that ledger sits on exactly one rung below — a '
+        + 'campaign target with no rung refuses this build rather than quietly leaving rows off the ladder.')
       + '</div>'
       + C.table({
         cols: [{ h: 'rung' }, { h: 'target' }, { h: 'ring' }, { h: 'the bar' }, { h: 'a certificate means' }, { h: 'the record at this build' }],
@@ -605,7 +717,8 @@ const oracleBody = [
           ['derivation', '⟨3,3,3⟩ rank 23', 'Q', '23 — Laderman 1976', 'recall through a long exact derivation', rec(LAD.r23) + (LAD.r23.cert === 0 ? ' — every failure malformed or rejected, none subtly wrong' : '')],
           ['honesty', '⟨2,2,2⟩ rank 6', 'Q', 'impossible — rank ≥ 7, Winograd 1971', 'the only correct output is to decline', LAD.imp.dec + ' declined · ' + (LAD.imp.rej + LAD.imp.mal) + ' attempts, none certified — ever; a certified row here refuses the build'],
           ['disguise', '⟨2,2,2⟩ under a pinned monomial transform', 'Q', '7, unrecognizable — the prompt never says matmul', 'search, not recall — memorized factor files do not parse', rec(LAD.dis)],
-          ['search', 'seed-conjugated ⟨2,2,2⟩ · instance c1', 'Q', '7 — provably unchanged by the pinned unimodular conjugation', 'derived, not recalled — no published factor file satisfies any instance; fresh seeds forever', rec(LAD.conj) + (LAD.conj.graded ? '' : ' — the rung is built; its first campaign is pending')],
+          ['search', 'seed-conjugated ⟨2,2,2⟩ · instance c1', 'Q', '7 — provably unchanged by the pinned unimodular conjugation', 'derived, not recalled — no published factor file satisfies any instance; fresh seeds forever', rec(LAD.conj) + (LAD.conj.rows ? '' : ' — the rung is built; its first campaign is pending')],
+          ['search', 'seed-conjugated ⟨2,2,2⟩ · instance c2', 'Q', '7 — a second independent seed, the same rank bar by the same theorem', 'the rung minted twice: an instance that did not exist before its campaign cannot be in any training corpus', rec(LAD.conj2) + (LAD.conj2.rows ? '' : ' — the rung is built; its first campaign is pending')],
           ['open', '⟨3,3,3⟩ rank 22', 'Q', '23 since 1976', 'a certified row is a discovery', LAD.open22.cert > 0 ? LAD.open22.cert + ' CERTIFIED — a new result; see the board' : '0 certified · ' + LAD.open22.dec + ' declined — every graded model declined the attempt']
         ]
       })
@@ -631,9 +744,10 @@ const oracleBody = [
         + 'ledger whose feedback string deviates from the grader\'s own mechanism, so the channel provably '
         + 'cannot coach.'),
       C.pRaw((loopClosed === loopClosedR1 && loopOpenTraj > 0)
-        ? 'The record, honestly: ' + loopClosed + ' trajectories closed — every one on its first round, by a '
-          + 'model that needed no feedback — and the ' + loopOpenTraj + ' that never closed received '
-          + loopOpenRounds + ' rounds of exact mechanism without converting. So the loop demonstrates the '
+        ? 'The record, honestly: ' + loopClosed + ' of ' + lTraj.size + ' trajectories closed — every one on its '
+          + 'first round, by a model that needed no feedback — and the ' + loopOpenTraj + ' that never closed spent '
+          + loopOpenRounds + ' rounds in the loop, ' + loopOpenMech + ' of them answered with exact mechanism, '
+          + 'without a single conversion. So the loop demonstrates the '
           + 'channel\'s honesty in both directions — it cannot coach and it cannot be sweet-talked — and it does '
           + 'not yet demonstrate feedback-driven conversion: no model tested sits one nudge from the bar. That '
           + 'open item is stated the same way on <a href="/reports/verifier-loop.html">the loop report</a>.'
@@ -763,9 +877,13 @@ const aboutBody = [
       C.p('Everything here is self-published and self-checked, so the honest question is what happens when it '
         + 'leaves. The record, with the status words meant exactly:'),
       C.plainList([
-        { b: 'Submitted, awaiting moderation.', text: 'A correction to a GPT-published constant on Erdős #852 — '
-          + 'refuted at its 12th significant digit, certified replacement attached — posted to the problem’s '
-          + 'discussion thread on erdosproblems.com.' },
+        { b: 'Public in the thread since ' + longDate(e852Public.date) + ' — no reply yet.', text: 'A correction to a '
+          + 'GPT-published constant on Erdős #852 — refuted at its 12th significant digit, certified replacement '
+          + 'attached — posted to the problem’s discussion thread on erdosproblems.com, where it cleared moderation '
+          + 'and now stands visible. The thread as it stands is pinned in this repository as evidence bytes '
+          + '(corpus/sources/' + e852Public.file + '). Visible is not endorsed: nobody has answered it, no author '
+          + 'has amended anything, and a comment clearing a moderation queue is not peer review and not an '
+          + 'independent rerun.' },
         { b: 'Filed, 5 August 2026 — no reply yet.', text: 'An independent confirmation of the computational '
           + 'appendix of a claimed proof of Erdős #1038, filed as an issue on the claiming authors’ own '
           + 'repository: all 30 printed decimals verified by a different route — Krawczyk rather than bisection.' },

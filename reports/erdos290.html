@@ -355,15 +355,16 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> The 4k(k+1) square-discriminant law proved as exact integer identities, the #290 constant's bracket tightened a third past the cited page, and the exceptional-degree question closed through l ≤ 90.</li><li><b>The mechanism.</b> Closed-form Galois class sums from the cycle-index EGF replace a 38.9-million-object enumeration (proved equal to it on every degree both can reach); planted falsifiers must fire at every build.</li><li><b>Check it.</b> <span class="m">node tools/erdos290-lean-battery.js</span> — closed forms equal enumeration exactly for l ≤ 12, the broken-EGF red control must fire.</li></ul>
+<ul class="plain"><li><b>The finding.</b> The 4k(k+1) square-discriminant law proved as exact integer identities, the #290 constant's bracket tightened to width 9.17e-4 — 78% tighter than the cited page — and every even degree pinned exactly through l = 272 (d = 544), the 6 exceptional degrees past the cited horizon (d = 168, 224, 288, 360, 440 and 528) among them.</li><li><b>The mechanism.</b> Closed-form Galois class sums from the cycle-index EGF replace a 38.9-million-object enumeration (proved equal to it on every degree both can reach); planted falsifiers must fire at every build.</li><li><b>Check it.</b> <span class="m">node tools/erdos290-lean-battery.js</span> — closed forms equal enumeration exactly for l ≤ 12, the broken-EGF red control must fire.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats">
     <div class="stat"><div class="k">the 4k(k+1) law</div><div class="v held">RE-PROVED</div><div class="n">exact integer identities; 3 planted falsifiers fired during this build</div></div>
     <div class="stat"><div class="k">cited bracket (K=60)</div><div class="v sm">[0.829113768, 0.833228925]</div><div class="n">reproduced byte-identically from the lifted narrowing pipeline</div></div>
-    <div class="stat"><div class="k">this build&#39;s bracket</div><div class="v sm held">[0.829918323, 0.831988708]</div><div class="n">width 2.07e-3 — 50% tighter; densities pinned through l = 120</div></div>
-    <div class="stat"><div class="k">degrees pinned</div><div class="v">l ≤ 120</div><div class="n">60 new degrees closed by the five-candidate squeeze (l = 61..120), none left open</div></div>
+    <div class="stat"><div class="k">this build&#39;s bracket</div><div class="v sm held">[0.830372306, 0.831288895]</div><div class="n">width 9.17e-4 — 78% tighter; densities pinned through l = 272</div></div>
+    <div class="stat"><div class="k">degrees pinned</div><div class="v">l ≤ 272</div><div class="n">212 new degrees closed by the five-candidate squeeze (l = 61..272), none left open</div></div>
+    <div class="stat"><div class="k">exceptional degrees</div><div class="v held">6 closed</div><div class="n">d = 4k(k+1) past the cited d ≤ 120: 168 (k = 6), 224 (k = 7), 288 (k = 8), 360 (k = 9), 440 (k = 10), 528 (k = 11) — every one in range</div></div>
     <div class="stat"><div class="k">conditional c*</div><div class="v sm">0.83073295584873…</div><div class="n">34 certified digits under ONE labeled group-theory assumption — re-derived this build</div></div>
     <div class="stat"><div class="k">1/(1+c*)</div><div class="v sm">0.54622931040010…</div><div class="n">the OEIS-shaped constant, exact rational division of the conditional enclosure</div></div>
   </div>
@@ -374,7 +375,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="lab">§1 · the theorem</div>
     <h2>disc(f_d) is a square exactly at d = 4k(k+1)</h2>
   </div>
-<div class="col"><p>Take P(x) = ∏_{j=0}^{d}(x−j) and f_d = P′, degree d. For EVEN d = 2l, recentring at d/2 makes f_d even: f_d(x + l) = h(x²) for a degree-l polynomial h. Four exact facts finish it: h(0) = (−1)^l (l!)²; the published composition law disc(h(x²)) = (−1)^l 2^{2l} · lead(h) · h(0) · disc(h)² (Altmann–Awtrey–Cryan–Shannon–Touchette 2020, non-monic factor restored); lead(f_d) = d+1; and disc(h) ≠ 0 by Rolle. Substituting:</p><div class="eq">disc(f_d) = (d+1) · ( 2^l · l! · disc(h) )²</div><p>so disc(f_d) is a perfect square exactly when d+1 is — that is, exactly at d = 4k(k+1). (Odd d are out of scope and need to be: there d/2 is a rational root, δ = 1, and that is where the log 2 that carries ~83% of c comes from.) The build re-checks every line as an exact integer identity and requires the planted falsifiers — an index-from-1 misdefinition, a dropped non-monic factor — to FAIL. Until 2026-08-03 the source lab stated this law as a conjecture with 24 controls; it is a theorem.</p></div>
+<div class="col"><p>Take P(x) = ∏_{j=0}^{d}(x−j) and f_d = P′, degree d. For EVEN d = 2l, recentring at d/2 makes f_d even: f_d(x + l) = h(x²) for a degree-l polynomial h. Four exact facts finish it: h(0) = (−1)^l (l!)²; the published composition law disc(h(x²)) = (−1)^l 2^{2l} · lead(h) · h(0) · disc(h)² (Altmann–Awtrey–Cryan–Shannon–Touchette 2020, non-monic factor restored); lead(f_d) = d+1; and disc(h) ≠ 0 by Rolle. Substituting:</p><div class="eq">disc(f_d) = (d+1) · ( 2^l · l! · disc(h) )²</div><p>so disc(f_d) is a perfect square exactly when d+1 is — that is, exactly at d = 4k(k+1). (Odd d are out of scope and need to be: there d/2 is a rational root, δ = 1, and that is where the log 2 that carries 83% of c comes from.) The build re-checks every line as an exact integer identity and requires the planted falsifiers — an index-from-1 misdefinition, a dropped non-monic factor — to FAIL. Until 2026-08-03 the source lab stated this law as a conjecture with 24 controls; it is a theorem.</p></div>
 </section>
 
 <section class="col">
@@ -382,7 +383,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="lab">§2 · the enclosure</div>
     <h2>What the bracket for c is made of</h2>
   </div>
-<div class="col"><p>c = Σ_d δ(f_d)/(d(d+1)), where δ(f_d) is the density of primes p for which f_d has a root mod p. Odd d contribute exactly log 2 (proved). Each even d = 2l contributes δ · 1/(2l(2l+1)) with δ pinned EXACTLY where the Galois group is determined — hyperoctahedral at all even d ≤ 120 except {8, 24, 48, 80, 120}, each settled individually — and the honest interval [0,1] everywhere else. Nothing is estimated: every pinned δ is an exact rational, every unpinned δ costs the full width of its weight, and the bracket can therefore only shrink as knowledge grows (the build asserts the recorded narrowing is monotone).</p><p>This build first REPRODUCES the cited page's pipeline byte-for-byte: the lifted narrowing program is re-run and must emit the identical record (it did: same bytes, sha-checked), landing on the cited [0.829113767875, 0.833228924528] at knowledge horizon l = 60.</p></div>
+<div class="col"><p>c = Σ_d δ(f_d)/(d(d+1)), where δ(f_d) is the density of primes p for which f_d has a root mod p. Odd d contribute exactly log 2 (proved). Each even d = 2l contributes δ · 1/(2l(2l+1)) with δ pinned EXACTLY where the Galois group is determined — hyperoctahedral at all even d ≤ 120 except {8, 24, 48, 80, 120} (the exceptional d = 4k(k+1) in that range, each settled individually) — and the honest interval [0,1] everywhere else. Nothing is estimated: every pinned δ is an exact rational, every unpinned δ costs the full width of its weight, and the bracket can therefore only shrink as knowledge grows (the build asserts the recorded narrowing is monotone).</p><p>This build first REPRODUCES the cited page's pipeline byte-for-byte: the lifted narrowing program is re-run and must emit the identical record (it did: same bytes, sha-checked), landing on the cited [0.829113767875, 0.833228924528] at knowledge horizon l = 60.</p></div>
 </section>
 
 <section class="">
@@ -392,89 +393,114 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 <div class="col"><p>Each pinned degree removes its own weight from the unknown tail, so the bracket can only shrink — and this is what that looks like when every point is recomputed in exact rationals at build time. Left of the shaded edge is the cited page's horizon; everything right of it is this repository running the same lifted instrument further.</p></div><div class="wide"><figure>
   <div class="figbox">
-  <svg viewBox="0 0 900 300" role="img" aria-label="The certified width of the constant c falls from 1.20e-2 at l = 20 to 2.07e-3 at l = 120 on a logarithmic scale, a smooth decay with no jumps; the region left of l = 60, where the cited page stops, is shaded.">
+  <svg viewBox="0 0 900 300" role="img" aria-label="The certified width of the constant c falls from 1.20e-2 at l = 20 to 9.17e-4 at l = 272 on a logarithmic scale, a smooth decay with no jumps; the region left of l = 60, where the cited page stops, is shaded.">
     <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
-    <line x1="62" y1="223.2" x2="878" y2="223.2" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="53.0" y="227.2" text-anchor="end" class="t-ax">2e-3</text>
-    <line x1="62" y1="126.0" x2="878" y2="126.0" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="53.0" y="130.0" text-anchor="end" class="t-ax">5e-3</text>
-    <line x1="62" y1="52.6" x2="878" y2="52.6" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="53.0" y="56.6" text-anchor="end" class="t-ax">1e-2</text>
+    <line x1="62" y1="221.0" x2="878" y2="221.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="225.0" text-anchor="end" class="t-ax">1e-3</text>
+    <line x1="62" y1="167.5" x2="878" y2="167.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="171.5" text-anchor="end" class="t-ax">2e-3</text>
+    <line x1="62" y1="96.7" x2="878" y2="96.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="100.7" text-anchor="end" class="t-ax">5e-3</text>
+    <line x1="62" y1="43.2" x2="878" y2="43.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="47.2" text-anchor="end" class="t-ax">1e-2</text>
     <line x1="62.0" y1="250" x2="62.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="62.0" y="270.0" text-anchor="middle" class="t-ax">20</text>
-    <line x1="225.2" y1="250" x2="225.2" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="225.2" y="270.0" text-anchor="middle" class="t-ax">40</text>
-    <line x1="388.4" y1="250" x2="388.4" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="388.4" y="270.0" text-anchor="middle" class="t-ax">60</text>
-    <line x1="551.6" y1="250" x2="551.6" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="551.6" y="270.0" text-anchor="middle" class="t-ax">80</text>
-    <line x1="714.8" y1="250" x2="714.8" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="714.8" y="270.0" text-anchor="middle" class="t-ax">100</text>
+    <line x1="191.5" y1="250" x2="191.5" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="191.5" y="270.0" text-anchor="middle" class="t-ax">60</text>
+    <line x1="353.4" y1="250" x2="353.4" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="353.4" y="270.0" text-anchor="middle" class="t-ax">110</text>
+    <line x1="547.7" y1="250" x2="547.7" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="547.7" y="270.0" text-anchor="middle" class="t-ax">170</text>
+    <line x1="709.6" y1="250" x2="709.6" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="709.6" y="270.0" text-anchor="middle" class="t-ax">220</text>
     <line x1="878.0" y1="250" x2="878.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="878.0" y="270.0" text-anchor="middle" class="t-ax">120</text>
+    <text x="878.0" y="270.0" text-anchor="middle" class="t-ax">272</text>
     <line x1="62" y1="250" x2="878" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="470.0" y="292.0" text-anchor="middle" class="t-note">knowledge horizon  l  (densities pinned exactly for every even d = 2l up to here)</text>
     <text x="13" y="134" class="t-note" transform="rotate(-90 13 134)" text-anchor="middle">certified width of c</text>
-    <rect x="62.0" y="18" width="326.4" height="232" fill="var(--c-grid)"/>
-    <text x="225.2" y="31.0" text-anchor="middle" class="t-note">the cited page stops here</text>
+    <rect x="62.0" y="18" width="129.5" height="232" fill="var(--c-grid)"/>
+    <text x="198.5" y="31.0" text-anchor="start" class="t-note">the cited page stops here</text>
     <line class="cm-cross" x1="0" y1="18" x2="0" y2="250" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
-    <path d="M62.00 32.82 L94.64 51.50 L127.28 67.38 L159.92 81.19 L192.56 93.40 L225.20 104.35 L257.84 114.28 L290.48 123.35 L323.12 131.71 L355.76 139.46 L388.40 146.68 L404.72 150.11 L421.04 153.44 L437.36 156.66 L453.68 159.79 L470.00 162.83 L486.32 165.79 L502.64 168.66 L518.96 171.46 L535.28 174.19 L551.60 176.85 L567.92 179.44 L584.24 181.97 L600.56 184.45 L616.88 186.86 L633.20 189.23 L649.52 191.54 L665.84 193.80 L682.16 196.01 L698.48 198.18 L714.80 200.31 L731.12 202.39 L747.44 204.43 L763.76 206.44 L780.08 208.41 L796.40 210.34 L812.72 212.24 L829.04 214.10 L845.36 215.93 L861.68 217.73 L878.00 219.50 L878.00 250 L62.00 250 Z" fill="var(--c-1)" opacity="0.10"/>
-    <path d="M62.00 32.82 L94.64 51.50 L127.28 67.38 L159.92 81.19 L192.56 93.40 L225.20 104.35 L257.84 114.28 L290.48 123.35 L323.12 131.71 L355.76 139.46 L388.40 146.68 L404.72 150.11 L421.04 153.44 L437.36 156.66 L453.68 159.79 L470.00 162.83 L486.32 165.79 L502.64 168.66 L518.96 171.46 L535.28 174.19 L551.60 176.85 L567.92 179.44 L584.24 181.97 L600.56 184.45 L616.88 186.86 L633.20 189.23 L649.52 191.54 L665.84 193.80 L682.16 196.01 L698.48 198.18 L714.80 200.31 L731.12 202.39 L747.44 204.43 L763.76 206.44 L780.08 208.41 L796.40 210.34 L812.72 212.24 L829.04 214.10 L845.36 215.93 L861.68 217.73 L878.00 219.50" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="878.00" cy="219.50" r="4.5" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2"/>
-    <text x="868.0" y="207.5" text-anchor="end" class="t-lab">2.07e-3</text>
-    <circle cx="62.00" cy="32.82" r="12" fill="transparent" data-cmx="62.00" data-cm="width of the certified bracket · l = 20" data-cmv="width 1.205e-2" tabindex="0"/>
-    <circle cx="94.64" cy="51.50" r="12" fill="transparent" data-cmx="94.64" data-cm="width of the certified bracket · l = 24" data-cmv="width 1.010e-2" tabindex="0"/>
-    <circle cx="127.28" cy="67.38" r="12" fill="transparent" data-cmx="127.28" data-cm="width of the certified bracket · l = 28" data-cmv="width 8.695e-3" tabindex="0"/>
-    <circle cx="159.92" cy="81.19" r="12" fill="transparent" data-cmx="159.92" data-cm="width of the certified bracket · l = 32" data-cmv="width 7.633e-3" tabindex="0"/>
-    <circle cx="192.56" cy="93.40" r="12" fill="transparent" data-cmx="192.56" data-cm="width of the certified bracket · l = 36" data-cmv="width 6.802e-3" tabindex="0"/>
-    <circle cx="225.20" cy="104.35" r="12" fill="transparent" data-cmx="225.20" data-cm="width of the certified bracket · l = 40" data-cmv="width 6.135e-3" tabindex="0"/>
-    <circle cx="257.84" cy="114.28" r="12" fill="transparent" data-cmx="257.84" data-cm="width of the certified bracket · l = 44" data-cmv="width 5.586e-3" tabindex="0"/>
-    <circle cx="290.48" cy="123.35" r="12" fill="transparent" data-cmx="290.48" data-cm="width of the certified bracket · l = 48" data-cmv="width 5.128e-3" tabindex="0"/>
-    <circle cx="323.12" cy="131.71" r="12" fill="transparent" data-cmx="323.12" data-cm="width of the certified bracket · l = 52" data-cmv="width 4.739e-3" tabindex="0"/>
-    <circle cx="355.76" cy="139.46" r="12" fill="transparent" data-cmx="355.76" data-cm="width of the certified bracket · l = 56" data-cmv="width 4.405e-3" tabindex="0"/>
-    <circle cx="388.40" cy="146.68" r="12" fill="transparent" data-cmx="388.40" data-cm="width of the certified bracket · l = 60" data-cmv="width 4.115e-3" tabindex="0"/>
-    <circle cx="404.72" cy="150.11" r="12" fill="transparent" data-cmx="404.72" data-cm="width of the certified bracket · l = 62" data-cmv="width 3.984e-3" tabindex="0"/>
-    <circle cx="421.04" cy="153.44" r="12" fill="transparent" data-cmx="421.04" data-cm="width of the certified bracket · l = 64" data-cmv="width 3.861e-3" tabindex="0"/>
-    <circle cx="437.36" cy="156.66" r="12" fill="transparent" data-cmx="437.36" data-cm="width of the certified bracket · l = 66" data-cmv="width 3.745e-3" tabindex="0"/>
-    <circle cx="453.68" cy="159.79" r="12" fill="transparent" data-cmx="453.68" data-cm="width of the certified bracket · l = 68" data-cmv="width 3.636e-3" tabindex="0"/>
-    <circle cx="470.00" cy="162.83" r="12" fill="transparent" data-cmx="470.00" data-cm="width of the certified bracket · l = 70" data-cmv="width 3.534e-3" tabindex="0"/>
-    <circle cx="486.32" cy="165.79" r="12" fill="transparent" data-cmx="486.32" data-cm="width of the certified bracket · l = 72" data-cmv="width 3.436e-3" tabindex="0"/>
-    <circle cx="502.64" cy="168.66" r="12" fill="transparent" data-cmx="502.64" data-cm="width of the certified bracket · l = 74" data-cmv="width 3.344e-3" tabindex="0"/>
-    <circle cx="518.96" cy="171.46" r="12" fill="transparent" data-cmx="518.96" data-cm="width of the certified bracket · l = 76" data-cmv="width 3.257e-3" tabindex="0"/>
-    <circle cx="535.28" cy="174.19" r="12" fill="transparent" data-cmx="535.28" data-cm="width of the certified bracket · l = 78" data-cmv="width 3.175e-3" tabindex="0"/>
-    <circle cx="551.60" cy="176.85" r="12" fill="transparent" data-cmx="551.60" data-cm="width of the certified bracket · l = 80" data-cmv="width 3.096e-3" tabindex="0"/>
-    <circle cx="567.92" cy="179.44" r="12" fill="transparent" data-cmx="567.92" data-cm="width of the certified bracket · l = 82" data-cmv="width 3.021e-3" tabindex="0"/>
-    <circle cx="584.24" cy="181.97" r="12" fill="transparent" data-cmx="584.24" data-cm="width of the certified bracket · l = 84" data-cmv="width 2.950e-3" tabindex="0"/>
-    <circle cx="600.56" cy="184.45" r="12" fill="transparent" data-cmx="600.56" data-cm="width of the certified bracket · l = 86" data-cmv="width 2.882e-3" tabindex="0"/>
-    <circle cx="616.88" cy="186.86" r="12" fill="transparent" data-cmx="616.88" data-cm="width of the certified bracket · l = 88" data-cmv="width 2.817e-3" tabindex="0"/>
-    <circle cx="633.20" cy="189.23" r="12" fill="transparent" data-cmx="633.20" data-cm="width of the certified bracket · l = 90" data-cmv="width 2.755e-3" tabindex="0"/>
-    <circle cx="649.52" cy="191.54" r="12" fill="transparent" data-cmx="649.52" data-cm="width of the certified bracket · l = 92" data-cmv="width 2.695e-3" tabindex="0"/>
-    <circle cx="665.84" cy="193.80" r="12" fill="transparent" data-cmx="665.84" data-cm="width of the certified bracket · l = 94" data-cmv="width 2.639e-3" tabindex="0"/>
-    <circle cx="682.16" cy="196.01" r="12" fill="transparent" data-cmx="682.16" data-cm="width of the certified bracket · l = 96" data-cmv="width 2.584e-3" tabindex="0"/>
-    <circle cx="698.48" cy="198.18" r="12" fill="transparent" data-cmx="698.48" data-cm="width of the certified bracket · l = 98" data-cmv="width 2.532e-3" tabindex="0"/>
-    <circle cx="714.80" cy="200.31" r="12" fill="transparent" data-cmx="714.80" data-cm="width of the certified bracket · l = 100" data-cmv="width 2.481e-3" tabindex="0"/>
-    <circle cx="731.12" cy="202.39" r="12" fill="transparent" data-cmx="731.12" data-cm="width of the certified bracket · l = 102" data-cmv="width 2.433e-3" tabindex="0"/>
-    <circle cx="747.44" cy="204.43" r="12" fill="transparent" data-cmx="747.44" data-cm="width of the certified bracket · l = 104" data-cmv="width 2.387e-3" tabindex="0"/>
-    <circle cx="763.76" cy="206.44" r="12" fill="transparent" data-cmx="763.76" data-cm="width of the certified bracket · l = 106" data-cmv="width 2.342e-3" tabindex="0"/>
-    <circle cx="780.08" cy="208.41" r="12" fill="transparent" data-cmx="780.08" data-cm="width of the certified bracket · l = 108" data-cmv="width 2.299e-3" tabindex="0"/>
-    <circle cx="796.40" cy="210.34" r="12" fill="transparent" data-cmx="796.40" data-cm="width of the certified bracket · l = 110" data-cmv="width 2.257e-3" tabindex="0"/>
-    <circle cx="812.72" cy="212.24" r="12" fill="transparent" data-cmx="812.72" data-cm="width of the certified bracket · l = 112" data-cmv="width 2.217e-3" tabindex="0"/>
-    <circle cx="829.04" cy="214.10" r="12" fill="transparent" data-cmx="829.04" data-cm="width of the certified bracket · l = 114" data-cmv="width 2.179e-3" tabindex="0"/>
-    <circle cx="845.36" cy="215.93" r="12" fill="transparent" data-cmx="845.36" data-cm="width of the certified bracket · l = 116" data-cmv="width 2.141e-3" tabindex="0"/>
-    <circle cx="861.68" cy="217.73" r="12" fill="transparent" data-cmx="861.68" data-cm="width of the certified bracket · l = 118" data-cmv="width 2.105e-3" tabindex="0"/>
-    <circle cx="878.00" cy="219.50" r="12" fill="transparent" data-cmx="878.00" data-cm="width of the certified bracket · l = 120" data-cmv="width 2.070e-3" tabindex="0"/>
+    <path d="M62.00 28.80 L74.95 42.41 L87.90 53.98 L100.86 64.04 L113.81 72.94 L126.76 80.92 L139.71 88.16 L152.67 94.77 L165.62 100.86 L178.57 106.51 L191.52 111.77 L204.48 116.69 L217.43 121.32 L230.38 125.69 L243.33 129.83 L256.29 133.75 L269.24 137.49 L282.19 141.05 L295.14 144.45 L308.10 147.72 L321.05 150.85 L334.00 153.85 L346.95 156.75 L359.90 159.54 L372.86 162.23 L385.81 164.83 L398.76 167.35 L411.71 169.79 L424.67 172.15 L437.62 174.45 L450.57 176.67 L463.52 178.84 L476.48 180.94 L489.43 182.99 L502.38 184.99 L515.33 186.94 L528.29 188.83 L541.24 190.69 L554.19 192.50 L567.14 194.27 L580.10 195.99 L593.05 197.69 L606.00 199.34 L618.95 200.96 L631.90 202.55 L644.86 204.10 L657.81 205.63 L670.76 207.12 L683.71 208.59 L696.67 210.02 L709.62 211.44 L722.57 212.82 L735.52 214.19 L748.48 215.53 L761.43 216.84 L774.38 218.14 L787.33 219.41 L800.29 220.66 L813.24 221.89 L826.19 223.11 L839.14 224.30 L852.10 225.48 L865.05 226.64 L878.00 227.78 L878.00 250 L62.00 250 Z" fill="var(--c-1)" opacity="0.10"/>
+    <path d="M62.00 28.80 L74.95 42.41 L87.90 53.98 L100.86 64.04 L113.81 72.94 L126.76 80.92 L139.71 88.16 L152.67 94.77 L165.62 100.86 L178.57 106.51 L191.52 111.77 L204.48 116.69 L217.43 121.32 L230.38 125.69 L243.33 129.83 L256.29 133.75 L269.24 137.49 L282.19 141.05 L295.14 144.45 L308.10 147.72 L321.05 150.85 L334.00 153.85 L346.95 156.75 L359.90 159.54 L372.86 162.23 L385.81 164.83 L398.76 167.35 L411.71 169.79 L424.67 172.15 L437.62 174.45 L450.57 176.67 L463.52 178.84 L476.48 180.94 L489.43 182.99 L502.38 184.99 L515.33 186.94 L528.29 188.83 L541.24 190.69 L554.19 192.50 L567.14 194.27 L580.10 195.99 L593.05 197.69 L606.00 199.34 L618.95 200.96 L631.90 202.55 L644.86 204.10 L657.81 205.63 L670.76 207.12 L683.71 208.59 L696.67 210.02 L709.62 211.44 L722.57 212.82 L735.52 214.19 L748.48 215.53 L761.43 216.84 L774.38 218.14 L787.33 219.41 L800.29 220.66 L813.24 221.89 L826.19 223.11 L839.14 224.30 L852.10 225.48 L865.05 226.64 L878.00 227.78" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="227.78" r="4.5" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2"/>
+    <text x="868.0" y="215.8" text-anchor="end" class="t-lab">9.17e-4</text>
+    <circle cx="62.00" cy="28.80" r="12" fill="transparent" data-cmx="62.00" data-cm="width of the certified bracket · l = 20" data-cmv="width 1.205e-2" tabindex="0"/>
+    <circle cx="74.95" cy="42.41" r="12" fill="transparent" data-cmx="74.95" data-cm="width of the certified bracket · l = 24" data-cmv="width 1.010e-2" tabindex="0"/>
+    <circle cx="87.90" cy="53.98" r="12" fill="transparent" data-cmx="87.90" data-cm="width of the certified bracket · l = 28" data-cmv="width 8.695e-3" tabindex="0"/>
+    <circle cx="100.86" cy="64.04" r="12" fill="transparent" data-cmx="100.86" data-cm="width of the certified bracket · l = 32" data-cmv="width 7.633e-3" tabindex="0"/>
+    <circle cx="113.81" cy="72.94" r="12" fill="transparent" data-cmx="113.81" data-cm="width of the certified bracket · l = 36" data-cmv="width 6.802e-3" tabindex="0"/>
+    <circle cx="126.76" cy="80.92" r="12" fill="transparent" data-cmx="126.76" data-cm="width of the certified bracket · l = 40" data-cmv="width 6.135e-3" tabindex="0"/>
+    <circle cx="139.71" cy="88.16" r="12" fill="transparent" data-cmx="139.71" data-cm="width of the certified bracket · l = 44" data-cmv="width 5.586e-3" tabindex="0"/>
+    <circle cx="152.67" cy="94.77" r="12" fill="transparent" data-cmx="152.67" data-cm="width of the certified bracket · l = 48" data-cmv="width 5.128e-3" tabindex="0"/>
+    <circle cx="165.62" cy="100.86" r="12" fill="transparent" data-cmx="165.62" data-cm="width of the certified bracket · l = 52" data-cmv="width 4.739e-3" tabindex="0"/>
+    <circle cx="178.57" cy="106.51" r="12" fill="transparent" data-cmx="178.57" data-cm="width of the certified bracket · l = 56" data-cmv="width 4.405e-3" tabindex="0"/>
+    <circle cx="191.52" cy="111.77" r="12" fill="transparent" data-cmx="191.52" data-cm="width of the certified bracket · l = 60" data-cmv="width 4.115e-3" tabindex="0"/>
+    <circle cx="204.48" cy="116.69" r="12" fill="transparent" data-cmx="204.48" data-cm="width of the certified bracket · l = 64" data-cmv="width 3.861e-3" tabindex="0"/>
+    <circle cx="217.43" cy="121.32" r="12" fill="transparent" data-cmx="217.43" data-cm="width of the certified bracket · l = 68" data-cmv="width 3.636e-3" tabindex="0"/>
+    <circle cx="230.38" cy="125.69" r="12" fill="transparent" data-cmx="230.38" data-cm="width of the certified bracket · l = 72" data-cmv="width 3.436e-3" tabindex="0"/>
+    <circle cx="243.33" cy="129.83" r="12" fill="transparent" data-cmx="243.33" data-cm="width of the certified bracket · l = 76" data-cmv="width 3.257e-3" tabindex="0"/>
+    <circle cx="256.29" cy="133.75" r="12" fill="transparent" data-cmx="256.29" data-cm="width of the certified bracket · l = 80" data-cmv="width 3.096e-3" tabindex="0"/>
+    <circle cx="269.24" cy="137.49" r="12" fill="transparent" data-cmx="269.24" data-cm="width of the certified bracket · l = 84" data-cmv="width 2.950e-3" tabindex="0"/>
+    <circle cx="282.19" cy="141.05" r="12" fill="transparent" data-cmx="282.19" data-cm="width of the certified bracket · l = 88" data-cmv="width 2.817e-3" tabindex="0"/>
+    <circle cx="295.14" cy="144.45" r="12" fill="transparent" data-cmx="295.14" data-cm="width of the certified bracket · l = 92" data-cmv="width 2.695e-3" tabindex="0"/>
+    <circle cx="308.10" cy="147.72" r="12" fill="transparent" data-cmx="308.10" data-cm="width of the certified bracket · l = 96" data-cmv="width 2.584e-3" tabindex="0"/>
+    <circle cx="321.05" cy="150.85" r="12" fill="transparent" data-cmx="321.05" data-cm="width of the certified bracket · l = 100" data-cmv="width 2.481e-3" tabindex="0"/>
+    <circle cx="334.00" cy="153.85" r="12" fill="transparent" data-cmx="334.00" data-cm="width of the certified bracket · l = 104" data-cmv="width 2.387e-3" tabindex="0"/>
+    <circle cx="346.95" cy="156.75" r="12" fill="transparent" data-cmx="346.95" data-cm="width of the certified bracket · l = 108" data-cmv="width 2.299e-3" tabindex="0"/>
+    <circle cx="359.90" cy="159.54" r="12" fill="transparent" data-cmx="359.90" data-cm="width of the certified bracket · l = 112" data-cmv="width 2.217e-3" tabindex="0"/>
+    <circle cx="372.86" cy="162.23" r="12" fill="transparent" data-cmx="372.86" data-cm="width of the certified bracket · l = 116" data-cmv="width 2.141e-3" tabindex="0"/>
+    <circle cx="385.81" cy="164.83" r="12" fill="transparent" data-cmx="385.81" data-cm="width of the certified bracket · l = 120" data-cmv="width 2.070e-3" tabindex="0"/>
+    <circle cx="398.76" cy="167.35" r="12" fill="transparent" data-cmx="398.76" data-cm="width of the certified bracket · l = 124" data-cmv="width 2.004e-3" tabindex="0"/>
+    <circle cx="411.71" cy="169.79" r="12" fill="transparent" data-cmx="411.71" data-cm="width of the certified bracket · l = 128" data-cmv="width 1.942e-3" tabindex="0"/>
+    <circle cx="424.67" cy="172.15" r="12" fill="transparent" data-cmx="424.67" data-cm="width of the certified bracket · l = 132" data-cmv="width 1.883e-3" tabindex="0"/>
+    <circle cx="437.62" cy="174.45" r="12" fill="transparent" data-cmx="437.62" data-cm="width of the certified bracket · l = 136" data-cmv="width 1.828e-3" tabindex="0"/>
+    <circle cx="450.57" cy="176.67" r="12" fill="transparent" data-cmx="450.57" data-cm="width of the certified bracket · l = 140" data-cmv="width 1.776e-3" tabindex="0"/>
+    <circle cx="463.52" cy="178.84" r="12" fill="transparent" data-cmx="463.52" data-cm="width of the certified bracket · l = 144" data-cmv="width 1.727e-3" tabindex="0"/>
+    <circle cx="476.48" cy="180.94" r="12" fill="transparent" data-cmx="476.48" data-cm="width of the certified bracket · l = 148" data-cmv="width 1.681e-3" tabindex="0"/>
+    <circle cx="489.43" cy="182.99" r="12" fill="transparent" data-cmx="489.43" data-cm="width of the certified bracket · l = 152" data-cmv="width 1.637e-3" tabindex="0"/>
+    <circle cx="502.38" cy="184.99" r="12" fill="transparent" data-cmx="502.38" data-cm="width of the certified bracket · l = 156" data-cmv="width 1.595e-3" tabindex="0"/>
+    <circle cx="515.33" cy="186.94" r="12" fill="transparent" data-cmx="515.33" data-cm="width of the certified bracket · l = 160" data-cmv="width 1.555e-3" tabindex="0"/>
+    <circle cx="528.29" cy="188.83" r="12" fill="transparent" data-cmx="528.29" data-cm="width of the certified bracket · l = 164" data-cmv="width 1.517e-3" tabindex="0"/>
+    <circle cx="541.24" cy="190.69" r="12" fill="transparent" data-cmx="541.24" data-cm="width of the certified bracket · l = 168" data-cmv="width 1.481e-3" tabindex="0"/>
+    <circle cx="554.19" cy="192.50" r="12" fill="transparent" data-cmx="554.19" data-cm="width of the certified bracket · l = 172" data-cmv="width 1.447e-3" tabindex="0"/>
+    <circle cx="567.14" cy="194.27" r="12" fill="transparent" data-cmx="567.14" data-cm="width of the certified bracket · l = 176" data-cmv="width 1.414e-3" tabindex="0"/>
+    <circle cx="580.10" cy="195.99" r="12" fill="transparent" data-cmx="580.10" data-cm="width of the certified bracket · l = 180" data-cmv="width 1.383e-3" tabindex="0"/>
+    <circle cx="593.05" cy="197.69" r="12" fill="transparent" data-cmx="593.05" data-cm="width of the certified bracket · l = 184" data-cmv="width 1.353e-3" tabindex="0"/>
+    <circle cx="606.00" cy="199.34" r="12" fill="transparent" data-cmx="606.00" data-cm="width of the certified bracket · l = 188" data-cmv="width 1.325e-3" tabindex="0"/>
+    <circle cx="618.95" cy="200.96" r="12" fill="transparent" data-cmx="618.95" data-cm="width of the certified bracket · l = 192" data-cmv="width 1.297e-3" tabindex="0"/>
+    <circle cx="631.90" cy="202.55" r="12" fill="transparent" data-cmx="631.90" data-cm="width of the certified bracket · l = 196" data-cmv="width 1.271e-3" tabindex="0"/>
+    <circle cx="644.86" cy="204.10" r="12" fill="transparent" data-cmx="644.86" data-cm="width of the certified bracket · l = 200" data-cmv="width 1.245e-3" tabindex="0"/>
+    <circle cx="657.81" cy="205.63" r="12" fill="transparent" data-cmx="657.81" data-cm="width of the certified bracket · l = 204" data-cmv="width 1.221e-3" tabindex="0"/>
+    <circle cx="670.76" cy="207.12" r="12" fill="transparent" data-cmx="670.76" data-cm="width of the certified bracket · l = 208" data-cmv="width 1.198e-3" tabindex="0"/>
+    <circle cx="683.71" cy="208.59" r="12" fill="transparent" data-cmx="683.71" data-cm="width of the certified bracket · l = 212" data-cmv="width 1.175e-3" tabindex="0"/>
+    <circle cx="696.67" cy="210.02" r="12" fill="transparent" data-cmx="696.67" data-cm="width of the certified bracket · l = 216" data-cmv="width 1.153e-3" tabindex="0"/>
+    <circle cx="709.62" cy="211.44" r="12" fill="transparent" data-cmx="709.62" data-cm="width of the certified bracket · l = 220" data-cmv="width 1.133e-3" tabindex="0"/>
+    <circle cx="722.57" cy="212.82" r="12" fill="transparent" data-cmx="722.57" data-cm="width of the certified bracket · l = 224" data-cmv="width 1.112e-3" tabindex="0"/>
+    <circle cx="735.52" cy="214.19" r="12" fill="transparent" data-cmx="735.52" data-cm="width of the certified bracket · l = 228" data-cmv="width 1.093e-3" tabindex="0"/>
+    <circle cx="748.48" cy="215.53" r="12" fill="transparent" data-cmx="748.48" data-cm="width of the certified bracket · l = 232" data-cmv="width 1.074e-3" tabindex="0"/>
+    <circle cx="761.43" cy="216.84" r="12" fill="transparent" data-cmx="761.43" data-cm="width of the certified bracket · l = 236" data-cmv="width 1.056e-3" tabindex="0"/>
+    <circle cx="774.38" cy="218.14" r="12" fill="transparent" data-cmx="774.38" data-cm="width of the certified bracket · l = 240" data-cmv="width 1.038e-3" tabindex="0"/>
+    <circle cx="787.33" cy="219.41" r="12" fill="transparent" data-cmx="787.33" data-cm="width of the certified bracket · l = 244" data-cmv="width 1.021e-3" tabindex="0"/>
+    <circle cx="800.29" cy="220.66" r="12" fill="transparent" data-cmx="800.29" data-cm="width of the certified bracket · l = 248" data-cmv="width 1.005e-3" tabindex="0"/>
+    <circle cx="813.24" cy="221.89" r="12" fill="transparent" data-cmx="813.24" data-cm="width of the certified bracket · l = 252" data-cmv="width 9.891e-4" tabindex="0"/>
+    <circle cx="826.19" cy="223.11" r="12" fill="transparent" data-cmx="826.19" data-cm="width of the certified bracket · l = 256" data-cmv="width 9.737e-4" tabindex="0"/>
+    <circle cx="839.14" cy="224.30" r="12" fill="transparent" data-cmx="839.14" data-cm="width of the certified bracket · l = 260" data-cmv="width 9.588e-4" tabindex="0"/>
+    <circle cx="852.10" cy="225.48" r="12" fill="transparent" data-cmx="852.10" data-cm="width of the certified bracket · l = 264" data-cmv="width 9.443e-4" tabindex="0"/>
+    <circle cx="865.05" cy="226.64" r="12" fill="transparent" data-cmx="865.05" data-cm="width of the certified bracket · l = 268" data-cmv="width 9.302e-4" tabindex="0"/>
+    <circle cx="878.00" cy="227.78" r="12" fill="transparent" data-cmx="878.00" data-cm="width of the certified bracket · l = 272" data-cmv="width 9.166e-4" tabindex="0"/>
   </svg>
   </div>
-  <figcaption>Certified width of the bracket for c against the knowledge horizon l, log scale. 1.20e-2 at l = 20 · 4.12e-3 at the cited l = 60 · 2.07e-3 at l = 120, a factor of 6 across the sweep and 50% tighter than the cited page. The curve is smooth because the width is the unpinned tail Σ 1/(2l(2l+1)) and nothing else: no estimate enters, so no point can move up.</figcaption>
+  <figcaption>Certified width of the bracket for c against the knowledge horizon l, log scale. 1.20e-2 at l = 20 · 4.12e-3 at the cited l = 60 · 9.17e-4 at l = 272, a factor of 13 across the sweep and 78% tighter than the cited page. The curve is smooth because the width is the unpinned tail Σ 1/(2l(2l+1)) and nothing else: no estimate enters, so no point can move up.</figcaption>
 </figure></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
     <div class="lab">§3 · the continuation</div>
-    <h2>Past the horizon: l = 61..120, same instrument, tighter interval</h2>
+    <h2>Past the horizon: l = 61..272, same instrument, tighter interval</h2>
   </div>
-<div class="col"><p>The entire remaining width at l = 60 is the unpinned tail Σ_{l>60} 1/(2l(2l+1)). This repository ran the cited page's own five-candidate squeeze — the lifted galois-exceptions.js, byte-identical, nPrimes = 400, early exit — over l = 61..120. 60 degrees closed to a unique certified survivor — none refused. Result:</p><div class="eq">c ∈ [0.829918323025, 0.831988707526]   (width 2.070e-3, 50% tighter than the cited page)</div><p>Each closed degree also extends the evidence base of §4's assumption: every one is a new even degree at which the group is verified to be one of the two allowed candidates. The extension record is <a href="/certs/erdos290-tail-ext.json"><span class="m">certs/erdos290-tail-ext.json</span></a>; a degree absent from it contributed nothing but honest width. One closure deserves its own sentence: d = 168 is an EXCEPTIONAL degree (4k(k+1) at k = 6, square discriminant by the theorem above), and the cited page explicitly left its Galois group undetermined — the squeeze has now closed it (survivor ES0), pinning the last exceptional density in range.</p></div>
+<div class="col"><p>The entire remaining width at l = 60 is the unpinned tail Σ_{l>60} 1/(2l(2l+1)). This repository ran the cited page's own five-candidate squeeze — the lifted galois-exceptions.js, byte-identical, nPrimes = 400, early exit — over l = 61..272. 212 degrees closed to a unique certified survivor — none refused. Result:</p><div class="eq">c ∈ [0.830372305977, 0.831288895492]   (width 9.166e-4, 78% tighter than the cited page)</div><p>Each closed degree also extends the evidence base of §4's assumption: every one is a new even degree at which the group is verified to be one of the two allowed candidates. The extension record is <a href="/certs/erdos290-tail-ext.json"><span class="m">certs/erdos290-tail-ext.json</span></a>; a degree absent from it contributed nothing but honest width.</p><p>Some closures deserve their own sentence. The EXCEPTIONAL degrees past the cited horizon — d = 4k(k+1), square discriminant by the theorem of §1, the degrees the cited page could not reach and left with their Galois group undetermined — are 168 (k = 6), 224 (k = 7), 288 (k = 8), 360 (k = 9), 440 (k = 10), 528 (k = 11). The squeeze closed EVERY one of them (survivor ES0), so every exceptional density through l = 272 is now an exact rational.</p></div>
 </section>
 
 <section class="col">
@@ -482,7 +508,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="lab">§4 · the conditional value</div>
     <h2>c to 34 digits — under one labeled assumption</h2>
   </div>
-<div class="col"><p>Under one assumption — for every even d ≥ 122, Gal(f_d) is either S_l⁺ or its index-2 subgroup, which is true at every degree where the group has been determined — the tail telescopes with two explicitly-carried error terms (the index-2 allowance 1/(2^l l!) and the alternating-series deviation, both below 10⁻¹⁰⁰ at l = 61), and c is pinned to 34 digits, re-derived during this build:</p><div class="eq"><span class="m">c* ∈ [0.8307329558487356638503727480334797, 0.8307329558487356638503727480334798]</span></div><p>The derived constant 1/(1+c*) = 0.546229310400104587… (exact rational division of the enclosure) is the OEIS-shaped output. The assumption subsumes irreducibility of f_d for even d ≥ 122; it is certified only through the pinned horizon, and the unconditional statement remains the bracket of §3 — the two are never conflated.</p></div>
+<div class="col"><p>Below d = 62 the lifted kernel needs no assumption: it carries the paper's hyperoctahedral range and the exceptional densities at d = 8, 24 and 48 as exact rationals. Under one assumption about everything above it — for every even d ≥ 62, Gal(f_d) is either S_l⁺ or its index-2 subgroup, which is true at every degree where the group has been determined — the tail telescopes with two explicitly-carried error terms (the index-2 allowance 1/(2^l l!) and the alternating-series deviation), and c is pinned to 34 digits, re-derived during this build:</p><div class="eq"><span class="m">c* ∈ [0.8307329558487356638503727480334797, 0.8307329558487356638503727480334798]</span></div><p>That boundary is not asserted here, it is READ OFF the enclosure: the whole width of the interval above is the sum of the carried allowances, largest at l = 31 where one term costs 1.45e-47 — which caps this enclosure at 46 decimals no matter how large the cutoff, of which the record publishes 34. The derived constant 1/(1+c*) = 0.546229310400104587… (exact rational division of the enclosure) is the OEIS-shaped output. The assumption subsumes irreducibility of f_d for those degrees; it is certified only through the pinned horizon, and the unconditional statement remains the bracket of §3 — the two are never conflated.</p><p>The same telescoping run against THIS build's horizon instead of the cited kernel's — <span class="m">node tools/erdos290-cstar-precision.js</span> — starts its assumption at d = 546 rather than d = 62, and the enclosure lengthens accordingly; that tool carries its own calibration against the kernel at the old horizon and writes the OEIS b-files.</p></div>
 </section>
 
 <section class="col">
@@ -490,7 +516,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="lab">§5 · provenance</div>
     <h2>The cited page, byte-preserved — and how to re-run all of it</h2>
   </div>
-<div class="col"><p>This page supersedes the one cited in the erdosproblems #290 comment (posted 2026-08-04); that page and its programs are preserved BYTE-IDENTICALLY, hash-pinned through this repository's lift provenance, in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/erdos290.html">the repository</a> (the citation paths 301 here). Its self-contained programs — the theorem checker with its planted falsifiers, the narrowing pipeline, the five-candidate squeeze, the vendored exact-rational arithmetic — live beside it in the repository and are exactly what this build re-ran. To repeat it yourself: <span class="m">node theorem.js</span> (the proof, ~14 s), <span class="m">node narrowing.js</span> (the bracket), <span class="m">node tools/run-erdos290-tail-ext.js</span> (the continuation) from <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>.</p></div>
+<div class="col"><p>This page supersedes the one cited in the erdosproblems #290 comment (posted 2026-08-04); that page and its programs are preserved BYTE-IDENTICALLY, hash-pinned through this repository's lift provenance, in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/erdos290.html">the repository</a> (the citation paths 301 here). Its self-contained programs — the theorem checker with its planted falsifiers, the narrowing pipeline, the five-candidate squeeze, the vendored exact-rational arithmetic — live beside it in the repository and are exactly what this build re-ran. To repeat it yourself: <span class="m">node theorem.js</span> (the proof), <span class="m">node narrowing.js</span> (the bracket), <span class="m">node tools/run-erdos290-tail-ext.js</span> or, sharded across cores, <span class="m">node tools/run-erdos290-tail-shard.js</span> (the continuation past l = 60) from <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>.</p></div>
 </section><script>
 (function(){
   var tip=null;
@@ -519,7 +545,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-erdos290.js @ git 57c1b55 — the theorem re-proved (falsifiers required to fire), the narrowing record reproduced byte-identically, the bracket re-assembled in exact rationals and calibrated against the record, the conditional enclosure re-derived. The build refuses if any of it moves.</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-erdos290.js @ git 84bdfdc — the theorem re-proved (falsifiers required to fire), the narrowing record reproduced byte-identically, the bracket re-assembled in exact rationals and calibrated against the record, the conditional enclosure re-derived. The build refuses if any of it moves.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

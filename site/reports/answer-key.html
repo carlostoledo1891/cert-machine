@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>When the answer key is wrong</title>
-<meta name="description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working eval design that removes the answer key altogether.">
+<meta name="description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch, one published claim the same exact instruments confirm, and the eval design that removes the answer key altogether.">
 <meta name="author" content="Carlos Toledo">
 <link rel="canonical" href="https://carlostoledo.co/reports/answer-key.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/answer-key.html">
 <meta property="og:title" content="When the answer key is wrong">
-<meta property="og:description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working eval design that removes the answer key altogether.">
+<meta property="og:description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch, one published claim the same exact instruments confirm, and the eval design that removes the answer key altogether.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -16,7 +16,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="When the answer key is wrong">
-<meta name="twitter:description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working eval design that removes the answer key altogether.">
+<meta name="twitter:description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch, one published claim the same exact instruments confirm, and the eval design that removes the answer key altogether.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -350,12 +350,12 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <header class="col">
   <div class="eyebrow">cert-machine · note for evaluation builders · specimens re-proved at every build</div>
   <h1>When the answer key is wrong</h1>
-  <p class="deck">An evaluation graded against reference values inherits the failure class of whatever computed them — and for mathematical ground truth the computing pipeline is usually floating point, checked by digit agreement. This note holds three certified specimens of answer keys going wrong in ways reruns and digit cross-checks provably cannot catch, and one working design that removes the answer key altogether. Every specimen was re-proved during the build that produced this page.</p>
+  <p class="deck">An evaluation graded against reference values inherits the failure class of whatever computed them — and for mathematical ground truth the computing pipeline is usually floating point, checked by digit agreement. This note holds three certified specimens of answer keys going wrong in ways reruns and digit cross-checks provably cannot catch, one published claim the same instruments CONFIRM — a control, because an audit that only ever refutes is not an audit — and one working design that removes the answer key altogether. Every specimen was re-proved during the build that produced this page.</p>
 </header>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> Three certified ways a mathematical answer key goes wrong: a float artifact published as a constant (correct to a rerun, wrong from digit 12); a published constant agreeing with a wrong closed form for 62 significant digits (digit-matching certifies the impostor); and a printed identity that is false while the computation behind it was right. A model that reproduces any of these grades as correct.</li><li><b>The mechanism.</b> The failure class lives INSIDE the key: rerunning the same float pipeline reproduces the artifact digit for digit, so the standard remedy — recompute and compare digits — CONFIRMS the wrong value. The fix is structural, not more digits: grade witness-exhibiting tasks with exact certificates, so there is no reference value to contaminate.</li><li><b>Check it.</b> every specimen re-proved at this page's build; the working design runs live — <span class="m">python3 tools/llm-harness.py --dry-run --family matmul --n 8</span> from a clone shows the grader refuting its own red controls before it grades anything.</li></ul>
+<ul class="plain"><li><b>The finding.</b> Three certified ways a mathematical answer key goes wrong: a float artifact published as a constant (correct to a rerun, wrong from digit 12); a published constant agreeing with a wrong closed form for 62 significant digits (digit-matching certifies the impostor); and a printed identity that is false while the computation behind it was right. A model that reproduces any of these grades as correct. And the control that makes those three readable: pointed at the machine-DISCOVERED Lyapunov functions of arXiv:2606.10045, the same exact machinery returns CONFIRMED — the paper held up.</li><li><b>The mechanism.</b> The failure class lives INSIDE the key: rerunning the same float pipeline reproduces the artifact digit for digit, so the standard remedy — recompute and compare digits — CONFIRMS the wrong value. The fix is structural, not more digits: grade witness-exhibiting tasks with exact certificates, so there is no reference value to contaminate.</li><li><b>Check it.</b> every specimen re-proved at this page's build; the working design runs live — <span class="m">python3 tools/llm-harness.py --dry-run --family matmul --n 8</span> from a clone shows the grader refuting its own red controls before it grades anything.</li></ul>
 </div></div>
 
 <section class="">
@@ -396,6 +396,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="stat"><div class="k">specimen I</div><div class="v warn">wrong at digit 12</div><div class="n">a published constant that IS the naive IEEE-754 product — reproduced live this build, then refuted exactly</div></div>
     <div class="stat"><div class="k">specimen II</div><div class="v warn">62 digits of agreement</div><div class="n">a published constant vs a closed form it provably is not — re-derived in exact BigInt this build</div></div>
     <div class="stat"><div class="k">specimen III</div><div class="v warn">true math, false print</div><div class="n">a printed identity refuted while its own computation is certified correct on the same enclosure</div></div>
+    <div class="stat"><div class="k">the control</div><div class="v held">the paper held up</div><div class="n">a machine-discovered Lyapunov function of arXiv:2606.10045 CONFIRMED by exact SOS this build — plus a true statement the same instrument REFUSES to certify</div></div>
     <div class="stat"><div class="k">the alternative</div><div class="v held">364 rows, no key</div><div class="n">115 certified as theorems; zero false certifications — the answer key does not exist, so it cannot be wrong</div></div>
   </div>
 </div>
@@ -434,9 +435,32 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <p>The subtlest class: the key is wrong even though the computation behind it was right. The Ramanujan Machine&#39;s 2022 mixed-zeta sheet prints an identity that is FALSE as printed — a sign slip in the constant term, one of three typographic errors on the sheet — while the continued fraction its own polynomials define converges to the corrected value exactly: both directions re-certified on one enclosure during this build. No rerun of the discovery pipeline catches this, because the pipeline was never wrong; the print is. A key transcribed from a paper inherits the paper&#39;s typos as ground truth, and a model reproducing the (correct) computation grades as wrong against the (false) print.</p>
 </section>
 
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§5 · the control</div>
+    <h2>What a clean audit looks like</h2>
+  </div>
+<div class="col"><p>Every specimen so far is a key that went wrong, which is exactly the reason this one is here. An instrument that returns REFUTED on everything it is pointed at is not an audit, it is a search — and the taxonomy of answer keys is not complete without the case where the published value is right and the audit says so. This site&#39;s third audit domain supplies it. Alongside tensor decompositions and continued fractions there is an exact rational sum-of-squares certifier, aimed at control theory, and pointed at a 2026 paper&#39;s machine-DISCOVERED Lyapunov functions it returns CONFIRMED. The paper held up. That is the headline, and it is a stronger result for this machine than another refutation would have been.</p>
+<p>arXiv:2606.10045 reports Lyapunov functions found by constrained symbolic regression for the nonlinear system it gives as Eq. 17,</p>
+<div class="eq">x1&#39; = -x1 + 4x2 ,  x2&#39; = -x1 - x2^3</div>
+<p>The instrument re-derives V̇ = ∇V · f symbolically over the rationals — Python's <span class="m">fractions</span> and nothing else, no floating point anywhere in the decision — and then demands an exact sum-of-squares certificate rather than a numerical minimum. For the function the paper states as valid, V = x1² + 4·x2², it gets one:</p>
+<div class="eq">V̇ = −2·x1² − 8·x2⁴   =   −( 2·x1² + 8·(x2²)² )</div>
+<p>The cross term is not small, it is absent: the coefficient 4 is what annihilates it exactly. What is left is a weighted sum of squares whose only zero is the origin, so V decreases along every nonzero trajectory and the system is globally asymptotically stable — decided, not estimated, and re-derived during the build that produced this page. The method is classical (Lyapunov 1892; SOS-Lyapunov, Parrilo 2000) and the function is the paper&#39;s. Nothing here is ours except the re-verification.</p>
+<p>The same run also refutes the 3 under-sampled candidates the paper reports — and the paper flags them itself. Its Eq. 23, V = x1² + 3.97·x2², is stated in the paper as having an incorrect coefficient; the instrument supplies the exact witness that sentence implies. At the rational point <span class="m">x = (3/200000, 1/1000)</span> the derivative is</p>
+<div class="eq">V̇ = 22103/50000000000000  &gt;  0</div>
+<p>— a positive rational, checkable by hand, with no tolerance anywhere in the statement. V increases there, so V is not a Lyapunov function for that system, full stop. The coarser candidates fall the same way: V = x1² + 2·x2² at <span class="m">(1/1000, 1/1000)</span> gives <span class="m">V̇ = 499999/250000000000</span>, and V = x1² + 3·x2² at <span class="m">(1/2000, 1/1000)</span> gives <span class="m">V̇ = 249997/500000000000</span>. This is corroboration of the authors' own statement, not a catch — they wrote down that the coefficient was wrong, and the machine wrote down the number that proves it. What exact arithmetic adds is the distinction the paper is already drawing. The coefficients are not "approximately right" and "nearly right": 4 is exactly right and 3.97 is exactly wrong, and no float screen anywhere in the neighbourhood of a derivative the size of 22103/50000000000000 would tell you which was which.</p>
+<p>The third outcome is the one that makes the other two worth anything. The same certifier, run on the Motzkin polynomial x1⁴·x2² + x1²·x2⁴ − 3·x1²·x2² + 1 — nonnegative for every real x1 and x2, and famously (Motzkin 1967) not a sum of squares — returns REFUSED. It declines to certify a statement that is TRUE, because the certificate it requires provably does not exist for it. It prints the probe M(1,1) = 0 beside the refusal so the refusal reads as what it is: a refusal to certify, never a claim of falsity. That is the honest behaviour and not a bug. A checker that fudged Motzkin through would be certifying by wishful thinking, and its CONFIRMED on the Lyapunov function would then be worth exactly nothing.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>verdict</th><th>object</th><th>the exact reason</th></tr></thead><tbody><tr><td><span class="tag held">CONFIRMED</span></td><td>V = x1² + 4·x2², the paper's stated valid function</td><td>V̇ = −2·x1² − 8·x2⁴ — an exact weighted SOS, zero only at the origin</td></tr><tr><td><span class="tag cert">REFUTED</span></td><td>V = x1² + 3.97·x2², flagged as under-sampled by the paper itself</td><td>witness <span class="m">x = (3/200000, 1/1000)</span> gives V̇ = 22103/50000000000000 > 0</td></tr><tr><td><span class="tag open">REFUSED</span></td><td>the Motzkin polynomial — nonnegative everywhere, and not a sum of squares</td><td>no SOS certificate exists, so none is issued; the instrument declines a true statement rather than guess (probe M(1,1) = 0)</td></tr></tbody></table></div></div><div class="col"><p>Read the three as a set, because separately none of them is the argument. One machine-discovered result confirmed exactly. The paper&#39;s own flagged candidates refuted with rational witnesses. One true statement refused for want of a certificate. Three verdicts, three different reasons, one instrument that can reach all three — which is the only condition under which the first one means anything. For an evaluation builder the transfer is direct: a grader you have never seen decline is not known to be able to decline, and a grader that cannot decline will eventually confirm your answer key back to you.</p>
+<p>This section is its own gate. The three programs ran during this build, each exited 0, and together they reported 19 PASS rows and no failures — including the red controls that must fire (a corrupted certificate refused, an overclaimed bound refuted at <span class="m">x = 1</span>, and an unstable perturbation whose witness gives <span class="m">V̇(1,0) = 2</span> > 0). If any one of them fails or stops printing ALL PASS, this page is not written at all. Run them yourself from a clone — stdlib only, no SDP solver, no dependencies:</p><pre class="code">python3 instruments/sos/reverify_ai_lyapunov.py
+python3 instruments/sos/sos_verify.py
+python3 instruments/sos/lyapunov_cert.py</pre><p>All three are also rows in <span class="m">make test</span>, so they run on every battery, not only when this page is built. The exact global lower bound in the second one — a quartic certified at ≥ 5 by an exact SOS decomposition, the bound attained — is the same instrument doing the ordinary version of the job.</p></div>
+</section>
+
+<p class="scope">Published, not peer-reviewed, not independently rerun. arXiv:2606.10045 is cited as a CLAIM: its system, its Lyapunov functions and its own statement about the under-sampled coefficients are taken as printed, and every verdict above reads &quot;given those equations&quot;. The mathematics is not ours — the Lyapunov functions are the paper&#39;s, discovered by its method, and the SOS-Lyapunov technique is Parrilo 2000 on Lyapunov 1892. No priority is claimed for anything in this section; it re-verifies someone else&#39;s result exactly and reports that it holds.</p>
+
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§5 · the design</div>
+    <div class="lab">§6 · the design</div>
     <h2>Remove the key</h2>
   </div>
 <p>The structural fix is to grade tasks where no reference value exists to contaminate: ask the model to EXHIBIT a witness — a decomposition, a certificate, a construction — and let the grader re-derive the claim from the witness alone, exactly. The matmul eval on this site is the running instance: 364 frontier-model proposals graded to date, every certified row a theorem, every refuted row a proof of error, zero false certifications — measured, and structurally guaranteed, because there is no answer key to be wrong.</p>
@@ -469,7 +493,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-answer-key.js @ git 57c1b55. Every specimen above was re-proved during this build — the naive product re-run and refuted, the impostor depth re-derived in exact BigInt, both RM directions re-certified, the eval ledger re-read — and the build refuses on any deviation.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-answer-key.js @ git 84bdfdc. Every specimen above was re-proved during this build — the naive product re-run and refuted, the impostor depth re-derived in exact BigInt, both RM directions re-certified, the eval ledger re-read, and all three SOS programs run to ALL PASS (19 checks) with §5's numbers parsed from their output — and the build refuses on any deviation.</p></footer>
 
 </div>
 </html>

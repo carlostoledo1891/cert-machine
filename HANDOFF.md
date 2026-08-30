@@ -22,9 +22,11 @@ STATE OF RECORD (refreshed 2026-08-29; full histories live in
 apps/skyaudit/TODO.md and the session entries below — this block holds
 only what stands).
 
-  THE PUBLIC SURFACE, as of this handoff: 25 report pages (+ the
+  THE PUBLIC SURFACE, as of this handoff: 26 report pages (+ the
   two-population regime map 2026-08-29; the matmul eval carries the
-  recall-vs-derivation table as of 2026-08-30), every one
+  recall-vs-derivation table as of 2026-08-30; + reports/keller.html
+  2026-08-30, THE JACOBIAN CONJECTURE AUDITED — see the session block
+  below), every one
   of them carrying at least one chart built from its own gated numbers
   (design/charts.js + design/battery.js, both new this week). LAB v0
   live at reports/mfg-observatory.html with the certifier running in
@@ -32,6 +34,21 @@ only what stands).
   labs/mfg/. HarborProof renamed from HARBORPROOF/harborproof with
   301s from the old paths. make test 35/35, control 28 batteries,
   drift 130 unchanged.
+
+  THE OUTSIDE-READER AUDIT (2026-08-30). An outside reader sent seven
+  "hidden gem" claims. Fact-checked against the repo: FOUR REFUTED, three
+  partly true, none fully confirmed — Mercer, entropy, #290 and the
+  one-population MFG map all had shipped pages the reader had not opened
+  (the Mercer "gap" was the title of that page's own §0). THE USEFUL
+  FINDING WAS THE PATTERN, NOT THE LIST: a motivated reader with repo
+  access concluded "no page exists" for five pages that do, because they
+  were reading certs/ and HANDOFF rather than reports/. The deficit is
+  DISCOVERABILITY FROM THE SURFACES PEOPLE LAND ON, not narration —
+  which is what the Erdos lane below is for. Two independent sweeps then
+  found what the reader had not: eight real defects on live pages, and
+  five certified-but-unnarrated results. Both were executed the same day
+  by seven parallel agents on disjoint builders; every claim below was
+  re-verified by the operator's agent before it shipped.
 
   SKYAUDIT — TWO CITY PACKS LIVE, methodology v2, 4-day pinned series.
   NYC flagship /apps/skyaudit/: Wed 2026-08-26, 82 aircraft / 382
@@ -234,6 +251,130 @@ DATAVIZ: the report shelf is DONE — 24 of 24 pages carry a figure
 (2026-08-29). Still bare, and no word needed to fix them since they are
 our own surface: the landing page, the control page, /oracle/ and
 /machine/. design/charts.js already covers every form they would need.
+
+SESSION 2026-08-30b — THE DEFECT SWEEP AND THE FIVE UNNARRATED RESULTS
+(operator's word: "Start with the urgent part and after finish execute the
+gems list, all items"; seven parallel agents on disjoint builders).
+
+  SIX LIVE DEFECTS FIXED, all verified on carlostoledo.co before and after:
+   1. TWO HARD 404s in the landing page's re-verify column — the column a
+      skeptic clicks FIRST. /verify/ ships only the three .py verifiers;
+      two rows pointed single-file JS/HTML artifacts at it. Now three
+      constructors (PY / INPAGE / NOVERIFIER) that each NAME the repo file
+      they copy from, and a gate that refuses any re-verify link whose
+      source does not exist. The mfg2p row was also MISLABELED — there is
+      no single-file certifier for that map; it now says so.
+   2. THE ABOUT PAGE understated the project's ONLY external validation:
+      "#852: Submitted, awaiting moderation" when it has been PUBLIC since
+      2026-08-27. Now reads the status and date from the pin in
+      corpus/sources/PINS.json, and refuses if the snapshot disappears.
+      Deliberately NOT overclaimed: visible is not endorsed, clearing a
+      moderation queue is not peer review.
+   3. ESCAPED MARKUP rendering as literal text on the flagship eval page —
+      TEN leaks, not the two visible ones. Fixed with components.table's
+      existing {raw} affordance (values still escaped; raw is for markup
+      the BUILDER wrote, never for a value off disk). design/battery.js
+      gained check F3 + reds X5/X6 — X6 requires a leaked <em> to fire
+      while the escaped tensor <2,2,2> beside it does NOT, because a check
+      that fires on every escaped bracket gets switched off in a week.
+      A second page (mfg-observatory §8) had the same defect, 6 leaks,
+      carried as an exact-pinned LEAK_DEBT that failed in BOTH directions;
+      fixed the same day (C.p -> C.pRaw) and the debt line deleted.
+   4. THREE COUNTS FOR ONE FILE: strassen-certificate.json has 10 entries;
+      the site said "Nine" and "11 algorithms" on three surfaces. Now
+      computed once from the certificate.
+   5. THE ORACLE PAGE contradicted the page it links: "9 trajectories"
+      vs verifier-loop.html's "6 of 10". Root cause: the trajectory key
+      merged sonnet-5's (2,2,2,7) and ('tensor','c1',7) trajectory 0.
+      Now keyed on (model, tag, target, trajectory). TRUE unclosed-rounds
+      figure is 25, of which 24 carried mechanism — the 4th unclosed
+      trajectory DECLINED and its feedback is null, so it received none.
+   6. #290's tl;dr contradicted its own body ("a third" / "l <= 90" vs
+      "50%" / "l <= 120"), and claimed d = 168 was "the last exceptional
+      density in range" when the DEPLOYED cert already closed ES0 at both
+      l = 84 and l = 112. All computed now. A FOURTH defect surfaced in
+      the same file: the page said the conditional enclosure assumes
+      "every even d >= 122" while the lifted kernel branches at 2l <= 60,
+      i.e. it assumes from d = 62 — the page claimed to assume LESS than
+      its own computation does. The builder now DETECTS the boundary
+      (the enclosure width is the sum of carried allowances) and dies if
+      it cannot locate it.
+
+  #290 MERGED AND REPUBLISHED: +152 degrees -> 212 closed, l = 61..272
+  contiguous, open: [] throughout. Bracket 2.070e-3 -> 9.166e-4, from
+  "50% tighter than the cited page" to 78%. All SIX exceptional degrees
+  past the cited horizon (d = 168, 224, 288, 360, 440, 528) closed to
+  ES0. c* agreed to 110 digits at horizon 272. NOTE: the OEIS b-files came
+  back BYTE-IDENTICAL — at horizon 120 the allowance was already ~1e-238,
+  so 110 digits were saturated; the horizon move shows up past ~230 only.
+  The six shards are STILL RUNNING toward l = 310; this was an interim
+  merge and the merge tool supports another.
+
+  FIVE UNNARRATED RESULTS, NOW PUBLISHED:
+   - reports/keller.html (NEW) — THE JACOBIAN CONJECTURE, AUDITED. 11
+     certificates, 10 distinct maps: Jacobian false in dim 3, Hessian
+     false in 5 vars, five Gallagher members rebuilt from seeds, and
+     THREE COUNTEREXAMPLES GENERATED HERE that no paper carries. The
+     doubling identity det Hess(y*F) = -4 = -(det J F)^2 makes the two
+     published entries certify each other (ARITHMETIC independence, not
+     byte independence — both pin the same PDF, and the page says so).
+     keller-fibers re-finds the collisions BLIND; 7/9 cells certify, and
+     the 2 that FAIL are on the page, because a lower bound allowed to be
+     weak is the only kind worth trusting. Gates: battery 32 checks / 9
+     reds + verify_keller.py + certificate<->family monomial identity.
+   - methods-note §5 — "19 ways to cheat this machine". The funnel's
+     anti-hacking battery, 14 items / 19 red controls, keyed to the
+     battery's own control letters and checked BOTH directions: a new red
+     control with no description, or a description whose control vanished,
+     REFUSES the page. That is the structural fix for the defect that hid
+     this battery in the first place. CREDIT CORRECTED: the 159x
+     amplitude-inflation incident is NOT ours — it is a third-party
+     project's self-disclosed result, reaching us second-hand through a
+     sin-mfg audit note; the page credits it as history and does not name
+     the project. The gate is ours.
+   - answer-key §5 — "what a clean audit looks like": instruments/sos
+     re-verifies the AI-discovered Lyapunov functions of arXiv:2606.10045
+     in exact rationals and THE PAPER HELD UP. Three verdicts as a set:
+     one CONFIRMED, three of the paper's OWN FLAGGED candidates refuted
+     with exact witnesses (Eq. 23 at x = (3/200000, 1/1000) gives
+     22103/50000000000000 > 0), and Motzkin REFUSED — the instrument
+     declining to certify something TRUE, which is correct behaviour.
+     This extends "I audit published AI mathematics" from two domains to
+     THREE (+ control theory). An auditor whose instrument can return
+     CONFIRMED is the only kind whose REFUTED is worth anything.
+   - mercer §6 — "what has been decided exhaustively, and why there is no
+     single number". THE PAGE WAS DOUBLE-COUNTING: box 30 is nested inside
+     box 40, so the old "5,090,150,225 sets" counted 98,979,465 twice;
+     the lambda 23-row sum re-counted 31,020,445. Deflated and published
+     by KIND with units named and NO TOTAL — the table's last row is the
+     refusal itself. The buried result: 725,532,585 sets deepened M=25 ->
+     M=30 (698,969,540 never before certified) whose collective answer was
+     "the incumbent still stands" — 8 of 9 CONFIRMED, 1 improved. The page
+     used to compress that into one subordinate clause. Also corrected:
+     "confirmed thirteen of fourteen optimisers" was wrong on its face —
+     only 9 rows carry a vsShallower verdict.
+   - certs/census-high-periods.json — the landing page cited 1,419,655,025
+     boxes from a file that lived at the REPO ROOT and was therefore never
+     deployed: a headline number with no published artifact to check it
+     against. Moved into certs/ (four builders rewired), so the existing
+     cert sync publishes it; the cert-table gate refused until it had a
+     row, which is the gate working.
+
+  THREE PRIORITY CLAIMS DEFLATED: "the first certified mu(n) rows
+  ANYWHERE" contradicted the same page's own Boyd-1986-is-unread
+  disclaimer (3 leaks, now 0); the landing page's "rows nobody else
+  holds" got the same treatment. Priority is never claimed from an
+  unread record.
+
+  THE ERDOS LANE — the repositioning move. Four Erdos problems were
+  presented as four unrelated one-offs; reports/index.html now carries
+  "Erdos problems, audited" grouping #852, #510 (mercer-program, which a
+  reader previously could not tell was Erdos work at all), #290 and
+  #1038. Presentation only, no new mathematics — it turns four pages into
+  a program.
+
+  MEASURED: 26 report pages, make test 35/35, control 28 batteries,
+  drift 130 unchanged, design battery 20 checks / 6 falsifiers.
 
 FIRST THING NEXT SESSION (in this order):
   1. node tools/sweep-claims.js

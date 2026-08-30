@@ -446,7 +446,11 @@ try { WIDGET.gate(); } catch (e) { console.error('EVAL REPORT REFUSED: ' + e.mes
     }
     const fmtCell = (a) => {
       if (!a) return '—';
-      if (a.certified) return '<strong>' + a.certified + ' / ' + a.n + ' certified</strong>';
+      /* a table cell may carry markup ONLY through the {raw} affordance in
+         components.table — the plain-string path is escaped, by design. The
+         values inside a raw cell still go through esc(): raw is an exception
+         for markup THIS file wrote, never for a value off the ledger. */
+      if (a.certified) return { raw: '<strong>' + C.esc(a.certified) + ' / ' + C.esc(a.n) + ' certified</strong>' };
       if (a.exhausted === a.n) return '0 certified · ' + a.n + ' never answered';
       return '0 certified · ' + (a.rejected || 0) + ' rejected, ' + (a.malformed || 0) + ' malformed';
     };
@@ -479,14 +483,14 @@ try { WIDGET.gate(); } catch (e) { console.error('EVAL REPORT REFUSED: ' + e.mes
 
 O.push(C.section({
   lab: '§ paste a decomposition', title: 'Certify one right now, in this tab',
-  bodyRaw: C.p('Paste a claim below — the JSON shape is {task: {kind: "matmul", n, m, p, rank}, ring: "Q"|"F2", '
+  bodyRaw: C.pRaw('Paste a claim below — the JSON shape is {task: {kind: "matmul", n, m, p, rank}, ring: "Q"|"F2", '
     + 'witness: {u, v, w}} with integer or exact-rational ("1/2") entries — and get the verdict from the same '
     + 'arithmetic that grades the board: CERTIFIED with the equation count, REFUTED with the first violated '
     + 'equation and its exact discrepancy, or REFUSED with the reason. Everything runs in your browser in exact '
     + 'BigInt rationals; nothing is uploaded. This widget was executed at this page\'s build against Strassen, a '
     + 'sub-float forgery, and a float entry — the build refuses if any answer moves. The citable path is the '
-    + 'zero-dependency library: <span class="m">oracle/certmachine.py</span> (red controls at import), with the '
-    + 'ready-made tool definition in <span class="m">oracle/tool-definition.json</span> — the whole package at '
+    + 'zero-dependency library: ' + C.m('oracle/certmachine.py') + ' (red controls at import), with the '
+    + 'ready-made tool definition in ' + C.m('oracle/tool-definition.json') + ' — the whole package at '
     + '<a href="/oracle/">/oracle/</a>.')
     + WIDGET.boxHtml()
 }));

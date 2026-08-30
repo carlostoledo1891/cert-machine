@@ -6,7 +6,7 @@
    Everything is recomputed or re-read from records at build time: the
    detached certificate is re-verified edge by edge (the same full re-proof
    the battery runs), the calibration horseshoe is re-certified at ln 2, and
-   the growth-rate table is read off census-high-periods.json — certified
+   the growth-rate table is read off certs/census-high-periods.json — certified
    completeness records, not samples. Any failure aborts the build.
 
    usage: node tools/build-report-entropy.js */
@@ -41,7 +41,7 @@ const cal = E.certifyGraph(map6,
 if (!cal.ok || Math.abs(cal.hLB - Math.log(2)) > 1e-12) die('calibration horseshoe failed');
 
 /* ---- the census growth table, read off the certified records -------------- */
-const census = JSON.parse(fs.readFileSync(path.join(ROOT, 'census-high-periods.json'), 'utf8'))
+const census = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'census-high-periods.json'), 'utf8'))
   .filter(r => r.ok).map(r => ({ p: r.p, points: r.points, rate: Math.log(r.points) / r.p }));
 if (!census.length) die('no census records');
 const ceiling = Math.max(...census.map(r => r.rate));

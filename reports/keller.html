@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Jacobian conjecture, audited · cert-machine</title>
+<meta name="description" content="Eleven explicit Jacobian- and Hessian-conjecture counterexamples decided in exact rational arithmetic — eight re-certified from sha-pinned published sources, three generated here — with the collisions rediscovered blind and a stdlib-Python verifier that shares no code with the machine.">
+<meta name="author" content="Carlos Toledo">
+<link rel="canonical" href="https://carlostoledo.co/reports/keller.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/keller.html">
+<meta property="og:title" content="The Jacobian conjecture, audited · cert-machine">
+<meta property="og:description" content="Eleven explicit Jacobian- and Hessian-conjecture counterexamples decided in exact rational arithmetic — eight re-certified from sha-pinned published sources, three generated here — with the collisions rediscovered blind and a stdlib-Python verifier that shares no code with the machine.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Jacobian conjecture, audited · cert-machine">
+<meta name="twitter:description" content="Eleven explicit Jacobian- and Hessian-conjecture counterexamples decided in exact rational arithmetic — eight re-certified from sha-pinned published sources, three generated here — with the collisions rediscovered blind and a stdlib-Python verifier that shares no code with the machine.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 28px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:400;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sig);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:4px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--sig);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:52px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:76px}
+.col{max-width:64ch;margin-left:auto;margin-right:auto}
+.wide{max-width:900px;margin-left:auto;margin-right:auto}
+/* A wide element (table, card grid, figure) emitted inside a prose column
+   breaks out to the page-wide track: .col and .page are both centered, so
+   centering on the viewport IS centering on the page. Width never exceeds
+   the viewport minus the page padding, so the body never scrolls sideways —
+   anything wider (a table) scrolls inside its own .tw container. */
+.col .wide{position:relative;left:50%;transform:translateX(-50%);
+  width:min(900px,calc(100vw - 2*clamp(18px,4vw,40px)))}
+
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:7px;
+  flex:1 1 240px;min-width:200px}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .v.held{color:var(--held)}
+.stat .v.warn{color:var(--warn)}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
+.figbox svg text{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:22px 24px;
+  color:inherit;text-decoration:none;transition:border-color .15s ease}
+a.card:hover{border:1px solid var(--sig)}
+a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+.card-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
+.card-t{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:19.5px;line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
+.card-n{margin-top:auto;padding-top:6px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  letter-spacing:.05em;color:var(--ink-3)}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · every number on this page recomputed at build time</div>
+  <h1>The Jacobian conjecture, audited</h1>
+  <p class="deck">In July 2026 an explicit polynomial map was announced that would refute a conjecture open since Keller 1939, and a small literature followed it within days. This page takes none of it on trust. 11 explicit maps — 8 transcribed or reconstructed from published sources whose bytes this repository holds and re-hashes, 3 built here — are decided in exact rational arithmetic: the Jacobian determinant expanded symbolically and compared coefficient by coefficient, every claimed collision re-evaluated as fractions, distinctness checked. Then the machine throws the published witnesses away and finds the collisions again blind. No float participates in any verdict, and the certificates are checkable by a stranger with a Python interpreter and no code from this repository.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> 11 certificates, all 11 green at this build. Each says one thing exactly: <em>this</em> map has <em>this</em> constant Jacobian determinant as a polynomial identity over the rationals, and <em>these</em> distinct rational points share one image. 8 come from published sources; <strong>3 were generated here</strong> and match nobody's printed map. The distinction is drawn on every row — it is the most useful thing on the page.</li><li><b>The mechanism.</b> A counterexample is three decidable facts, not an argument: <span class="m">det J_F ≡ c ≠ 0</span> checked by expanding the <span class="m">n×n</span> symbolic determinant over exact fractions and requiring every nonconstant monomial to cancel; <span class="m">k ≥ 2</span> listed points evaluated exactly and compared to the image as fractions; the points compared pairwise. All three are finite exact checks, so the verdict is decided rather than sampled.</li><li><b>Check it.</b> <span class="m">python3 tools/verify_keller.py certs/keller-certificate.json --sources corpus/sources</span> — Python standard library only, zero code shared with the machine that wrote the certificate, under a second, and it must refute a forged coefficient before it exits green.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">certificates</div><div class="v held">11</div><div class="n">10 distinct maps in dimensions 3, 5, 8; the n=8 row is the n=3 map with identity coordinates adjoined, and says so.</div></div>
+    <div class="stat"><div class="k">generated here</div><div class="v sig">3</div><div class="n">New curves pushed through the published tangent-sweep recipe at degrees 3, 4 and 5 — no printed map transcribed, geometric degrees 4, 5, 6.</div></div>
+    <div class="stat"><div class="k">determinants, decided</div><div class="v sm held">−2 · 128 · 1 · −1</div><div class="n">Each proved as a polynomial identity over Q — 1,403 Jacobian monomials across the corpus had to cancel, and did.</div></div>
+    <div class="stat"><div class="k">witness evaluations</div><div class="v held">24</div><div class="n">Every listed rational point re-evaluated in exact fractions and compared to its image coordinate by coordinate; every pair compared for distinctness.</div></div>
+    <div class="stat"><div class="k">found blind</div><div class="v">3 preimages</div><div class="n">Multistart Newton on the exact map, no published witness consumed, each preimage in a certified Krawczyk box — and a triangular automorphism control certifies exactly 1 over 400 starts.</div></div>
+    <div class="stat"><div class="k">gates at this build</div><div class="v">32/32</div><div class="n">9 red controls fired in the battery; the independent verifier decided 11 entries with 0 failures and re-hashed 15 pinned sources.</div></div>
+  </div>
+</div>
+
+<p class="scope">Published, not peer-reviewed, not independently rerun. What is decided here is a property of the explicit maps printed in the certificate — determinants, collisions, distinctness — not a claim about the standing of anyone&#39;s paper. The external results are cited as CLAIMS and their bytes are pinned; this page asserts no priority, adjudicates no dispute, and contains no map in dimension 2, so it decides nothing about the plane.</p>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the corpus</div>
+    <h2>Eleven maps, one decision procedure</h2>
+  </div>
+<div class="col"><p>Every row below passed the same three exact checks at this build, twice: once through this repository's instrument and once through a stdlib-Python verifier that shares no arithmetic with it. The <em>lane</em> column is the one to read first — it says where the map came from, and the page never lets those blur.</p><div class="wide"><div class="tw"><table><thead><tr><th>certificate</th><th>source, as recorded</th><th>what the object is</th><th>dimension</th><th>det J</th><th>points</th><th>lane</th></tr></thead><tbody><tr><td><span class="m">keller-0</span></td><td>Alpöge 2026-07-19</td><td>the announced map, transcribed from the pinned preprint that prints it</td><td class="v"><span class="m">n = 3</span></td><td class="v"><span class="m">−2</span></td><td class="v"><span class="m">3</span></td><td><span class="tag held">transcribed · pinned</span></td></tr><tr><td><span class="m">keller-1</span></td><td>Alpöge 2026-07-19</td><td>the n=3 map with identity coordinates adjoined — the stabilization, stated once</td><td class="v"><span class="m">n = 8</span></td><td class="v"><span class="m">−2</span></td><td class="v"><span class="m">3</span></td><td><span class="tag held">transcribed · pinned</span></td></tr><tr><td><span class="m">keller-2</span></td><td>tangent-sweep d=3</td><td>our own degree-3 curve, [6, −6, 1] — geometric degree 4</td><td class="v"><span class="m">n = 3</span></td><td class="v"><span class="m">−2</span></td><td class="v"><span class="m">2</span></td><td><span class="tag cert">generated here</span></td></tr><tr><td><span class="m">keller-3</span></td><td>tangent-sweep d=4</td><td>our own degree-4 curve, [52/5, −51/5, 0, 1] — geometric degree 5</td><td class="v"><span class="m">n = 3</span></td><td class="v"><span class="m">−2</span></td><td class="v"><span class="m">2</span></td><td><span class="tag cert">generated here</span></td></tr><tr><td><span class="m">keller-4</span></td><td>tangent-sweep d=5</td><td>our own degree-5 curve, [20, −19, 0, 0, 1] — geometric degree 6</td><td class="v"><span class="m">n = 3</span></td><td class="v"><span class="m">−2</span></td><td class="v"><span class="m">2</span></td><td><span class="tag cert">generated here</span></td></tr><tr><td><span class="m">keller-5</span></td><td>Meng–Yang arXiv:2607.22198</td><td>Hessian determinant of a degree-14 polynomial in 5 variables; its gradient is the map</td><td class="v"><span class="m">n = 5</span></td><td class="v"><span class="m">128</span></td><td class="v"><span class="m">2</span></td><td><span class="tag held">transcribed · pinned</span></td></tr><tr><td><span class="m">keller-6</span></td><td>Gallagher zenodo.21479195 d=2, fiber degree 3</td><td>the paper&#39;s seed [2, −3] rebuilt under its own gauge — generic fiber degree 3</td><td class="v"><span class="m">n = 3</span></td><td class="v"><span class="m">1</span></td><td class="v"><span class="m">2</span></td><td><span class="tag held">rebuilt from a published seed</span></td></tr><tr><td><span class="m">keller-7</span></td><td>Gallagher zenodo.21479195 d=3, fiber degree 4</td><td>the paper&#39;s seed [3/2, −3/2, −1] rebuilt under its own gauge — generic fiber degree 4</td><td class="v"><span class="m">n = 3</span></td><td class="v"><span class="m">1</span></td><td class="v"><span class="m">2</span></td><td><span class="tag held">rebuilt from a published seed</span></td></tr><tr><td><span class="m">keller-8</span></td><td>Gallagher zenodo.21479195 d=4, fiber degree 5</td><td>the paper&#39;s seed [17/10, −27/10, 1, −1] rebuilt under its own gauge — generic fiber degree 5</td><td class="v"><span class="m">n = 3</span></td><td class="v"><span class="m">1</span></td><td class="v"><span class="m">2</span></td><td><span class="tag held">rebuilt from a published seed</span></td></tr><tr><td><span class="m">keller-9</span></td><td>Gallagher zenodo.21479195 d=5, fiber degree 6</td><td>the paper&#39;s seed [9/5, −14/5, 0, 1, −1] rebuilt under its own gauge — generic fiber degree 6</td><td class="v"><span class="m">n = 3</span></td><td class="v"><span class="m">1</span></td><td class="v"><span class="m">2</span></td><td><span class="tag held">rebuilt from a published seed</span></td></tr><tr><td><span class="m">keller-10</span></td><td>Gallagher zenodo.21479195 distinct member</td><td>the paper&#39;s seed [1, 0, −2] rebuilt under its own gauge — generic fiber degree 4</td><td class="v"><span class="m">n = 3</span></td><td class="v"><span class="m">−1</span></td><td class="v"><span class="m">2</span></td><td><span class="tag held">rebuilt from a published seed</span></td></tr></tbody></table></div></div><p>Sources are recorded attributions, transcribed together with the bytes they were transcribed from. This corpus transcribes from 2 held files — <span class="m">gallagher2026.pdf · mengyang2026.pdf</span> — and 8 of the 11 entries carry one; the 3 generated rows carry none, because there is nothing to transcribe. The announced dimension-3 map arrived as a post with no canonical bytes of its own, so its rows pin the preprint that prints it in full — which is the same file the Hessian entry pins. Worth saying plainly: the cross-check in §4 is therefore an ARITHMETIC independence, not a second independent source. Two objects transcribed separately from one preprint, linked by an identity recomputed here from scratch. The certificate carries the machine's whole pin table; the independent verifier re-hashed every entry in it during this build and matched 15 of 15. A drifted source refuses the certificate rather than quietly certifying against a memory of it.</p><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 368" role="img" aria-label="A horizontal bar chart of all 11 certificates, one bar each, measured by the number of monomials in the symbolic Jacobian that the determinant expansion has to cancel. The bars are grouped into three lanes by colour and by position: 3 transcribed from pinned bytes (33, 38, 339 monomials), 5 rebuilt from a published seed (33, 78, 141, 222, 78), and 3 generated here (78, 141, 222). The largest is the Meng–Yang Hessian entry in five variables at 339 monomials; the smallest are the Alpöge n=3 map and the Gallagher degree-2 seed at 33 each. Every bar cancelled to a constant exactly.">
+    <line x1="214.0" y1="10" x2="214.0" y2="296" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="214.0" y="316.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="372.4" y1="10" x2="372.4" y2="296" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="372.4" y="316.0" text-anchor="middle" class="t-ax">100</text>
+    <line x1="530.8" y1="10" x2="530.8" y2="296" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="530.8" y="316.0" text-anchor="middle" class="t-ax">200</text>
+    <line x1="689.3" y1="10" x2="689.3" y2="296" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="689.3" y="316.0" text-anchor="middle" class="t-ax">300</text>
+    <path d="M214 14 h48.278947368421086 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-48.278947368421086 Z" fill="var(--c-1)" data-cm="Alpöge n=3" data-cmv="det J = −2 · n = 3 · 3 points" tabindex="0"/>
+    <text x="204.0" y="27.0" text-anchor="end" class="t-ax">Alpöge n=3</text>
+    <text x="274.3" y="27.0" text-anchor="start" class="t-lab">33</text>
+    <path d="M214 40 h56.19999999999999 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-56.19999999999999 Z" fill="var(--c-1)" data-cm="Alpöge n=8 (padded)" data-cmv="det J = −2 · n = 8 · 3 points" tabindex="0"/>
+    <text x="204.0" y="53.0" text-anchor="end" class="t-ax">Alpöge n=8 (padded)</text>
+    <text x="282.2" y="53.0" text-anchor="start" class="t-lab">38</text>
+    <path d="M214 66 h533.0473684210526 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-533.0473684210526 Z" fill="var(--c-1)" data-cm="Meng–Yang · HC in 5 vars" data-cmv="det J = 128 · n = 5 · 2 points" tabindex="0"/>
+    <text x="204.0" y="79.0" text-anchor="end" class="t-ax">Meng–Yang · HC in 5 vars</text>
+    <text x="759.0" y="79.0" text-anchor="start" class="t-lab">339</text>
+    <path d="M214 92 h48.278947368421086 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-48.278947368421086 Z" fill="var(--c-2)" data-cm="Gallagher · fiber degree 3" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
+    <text x="204.0" y="105.0" text-anchor="end" class="t-ax">Gallagher · fiber degree 3</text>
+    <text x="274.3" y="105.0" text-anchor="start" class="t-lab">33</text>
+    <path d="M214 118 h119.5684210526316 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-119.5684210526316 Z" fill="var(--c-2)" data-cm="Gallagher · fiber degree 4" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
+    <text x="204.0" y="131.0" text-anchor="end" class="t-ax">Gallagher · fiber degree 4</text>
+    <text x="345.6" y="131.0" text-anchor="start" class="t-lab">78</text>
+    <path d="M214 144 h219.37368421052633 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-219.37368421052633 Z" fill="var(--c-2)" data-cm="Gallagher · fiber degree 5" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
+    <text x="204.0" y="157.0" text-anchor="end" class="t-ax">Gallagher · fiber degree 5</text>
+    <text x="445.4" y="157.0" text-anchor="start" class="t-lab">141</text>
+    <path d="M214 170 h347.69473684210527 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-347.69473684210527 Z" fill="var(--c-2)" data-cm="Gallagher · fiber degree 6" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
+    <text x="204.0" y="183.0" text-anchor="end" class="t-ax">Gallagher · fiber degree 6</text>
+    <text x="573.7" y="183.0" text-anchor="start" class="t-lab">222</text>
+    <path d="M214 196 h119.5684210526316 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-119.5684210526316 Z" fill="var(--c-2)" data-cm="Gallagher · fiber degree 4" data-cmv="det J = −1 · n = 3 · 2 points" tabindex="0"/>
+    <text x="204.0" y="209.0" text-anchor="end" class="t-ax">Gallagher · fiber degree 4</text>
+    <text x="345.6" y="209.0" text-anchor="start" class="t-lab">78</text>
+    <path d="M214 222 h119.5684210526316 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-119.5684210526316 Z" fill="var(--c-3)" data-cm="ours · curve degree 3" data-cmv="det J = −2 · n = 3 · 2 points" tabindex="0"/>
+    <text x="204.0" y="235.0" text-anchor="end" class="t-ax">ours · curve degree 3</text>
+    <text x="345.6" y="235.0" text-anchor="start" class="t-lab">78</text>
+    <path d="M214 248 h219.37368421052633 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-219.37368421052633 Z" fill="var(--c-3)" data-cm="ours · curve degree 4" data-cmv="det J = −2 · n = 3 · 2 points" tabindex="0"/>
+    <text x="204.0" y="261.0" text-anchor="end" class="t-ax">ours · curve degree 4</text>
+    <text x="445.4" y="261.0" text-anchor="start" class="t-lab">141</text>
+    <path d="M214 274 h347.69473684210527 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-347.69473684210527 Z" fill="var(--c-3)" data-cm="ours · curve degree 5" data-cmv="det J = −2 · n = 3 · 2 points" tabindex="0"/>
+    <text x="204.0" y="287.0" text-anchor="end" class="t-ax">ours · curve degree 5</text>
+    <text x="573.7" y="287.0" text-anchor="start" class="t-lab">222</text>
+    <text x="515.0" y="338.0" text-anchor="middle" class="t-note">monomials in the symbolic Jacobian that the determinant expansion must cancel to a constant</text>
+    <rect x="214" y="352" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="233.0" y="362.0" text-anchor="start" class="t-note">transcribed · pinned bytes</text>
+    <rect x="439" y="352" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="458.0" y="362.0" text-anchor="start" class="t-note">rebuilt from a seed</text>
+    <rect x="616" y="352" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="635.0" y="362.0" text-anchor="start" class="t-note">generated here</text>
+  </svg>
+  </div>
+  <figcaption>The exact-arithmetic load each certificate carries, counted by the independent verifier during this build. The bar is the size of the object that had to cancel: the determinant of an n×n matrix of polynomials, expanded over fractions, with every nonconstant monomial required to vanish. The three generated maps are not the small cases — they are among the heaviest in the corpus, which is the point of generating rather than transcribing.</figcaption>
+</figure></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · what a certificate decides</div>
+    <h2>Three facts, and nothing between them</h2>
+  </div>
+<div class="col"><p>The Jacobian conjecture is a statement about maps whose Jacobian determinant is a nonzero constant — Keller maps. A counterexample in dimension n is one object with three parts, and each part is a finite question about exact rationals:</p><ul class="plain"><li><b>The determinant is constant, and it is this constant.</b> The n×n Jacobian is built by formal differentiation, its determinant expanded symbolically over BigInt fractions, and every monomial with a nonzero exponent is required to have cancelled. If one survives, the map is not a Keller map and refutes nothing — that is a REFUTED verdict, not a shrug.</li><li><b>The listed points share an image, exactly.</b> Each point is substituted into each coordinate polynomial in exact rational arithmetic and compared with the claimed image as a fraction. A point that is off by 10⁻⁹ is off.</li><li><b>The points are pairwise distinct.</b> Compared coordinate by coordinate as fractions. Two copies of one point are not a collision, and the instrument says so rather than counting them.</li></ul><p>Those three facts together say the map is a Keller map that is not injective, so it is not an automorphism. That is the whole deduction, and it is the one the certificate makes — a statement about the printed map, decided here, independent of who published it or whether their argument stands.</p><p>The float layer is present and powerless. It samples the determinant at one floating-point point to decide whether the symbolic expansion is worth running; nothing about a passing sample is believed, and the screen may only prune. Every verdict on this page comes from the exact layer.</p><div class="note">
+  <span class="lab">the controls that must fire</span>
+<p>A verifier that has never rejected a plausible forgery has an unknown false-accept rate. This build ran 32 checks with 9 red controls, and refuses if any control goes quiet: one coefficient of the map nudged by 10⁻⁶ (the determinant must stop being constant), one collision point moved by 10⁻⁹ (exact evaluation must catch it), the same point listed twice (distinctness must catch it), a curve whose twist equations are violated by 10⁻⁶ (the generator must REFUSE to ship it rather than emit it), a seed that violates the published gauge, a forged source hash, a source with no recorded pin, a perturbation of the Hessian polynomial, and the fiber hunter's own negative control in §5. The independent verifier carries its own forged-coefficient control and exits nonzero if it passes.</p>
+</div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · the distinction</div>
+    <h2>Re-certified from a published witness, versus made here</h2>
+  </div>
+<div class="col"><p>These are not the same act, and a page that blurs them is not worth reading. 3 entries are TRANSCRIBED: somebody published a map and its witnesses, this repository holds the bytes, and the audit re-decides the printed object. 5 are REBUILT: the paper published a recipe and a seed rather than a finished map, so the map is regenerated here from the seed with every gauge condition verified, then decided. 3 are GENERATED: curves chosen here, pushed through the published tangent-sweep construction, producing maps that appear in no paper.</p><p>The generator is calibrated before it is believed. At curve degree 2 it must reproduce the announced map polynomial for polynomial — same curve <span class="m">[4, −3]</span>, same twist, same coefficients — and the battery fails if a single monomial differs. Only then are the higher degrees admitted, and each one goes through exactly the same exact audit as a published claim, with its collision witnesses constructed from a secant line and then re-evaluated as fractions as if a stranger had supplied them.</p><div class="wide"><div class="tw"><table><thead><tr><th>certificate</th><th>our curve coefficients</th><th>geometric degree</th><th>det J</th><th>Jacobian monomials</th><th>the two witnesses</th></tr></thead><tbody><tr><td><span class="m">keller-2</span></td><td class="v"><span class="m">[6, −6, 1]</span></td><td class="v"><span class="m">4</span></td><td class="v"><span class="m">−2</span></td><td class="v"><span class="m">78</span></td><td class="v"><span class="m">(−2/3, 5/2, 183/8)  (2/11, −13/2, 297/8)</span></td></tr><tr><td><span class="m">keller-3</span></td><td class="v"><span class="m">[52/5, −51/5, 0, 1]</span></td><td class="v"><span class="m">5</span></td><td class="v"><span class="m">−2</span></td><td class="v"><span class="m">141</span></td><td class="v"><span class="m">(−5/11, 16/5, 25707/875)  (5/41, −46/5, −279907/875)</span></td></tr><tr><td><span class="m">keller-4</span></td><td class="v"><span class="m">[20, −19, 0, 0, 1]</span></td><td class="v"><span class="m">6</span></td><td class="v"><span class="m">−2</span></td><td class="v"><span class="m">222</span></td><td class="v"><span class="m">(−6/25, 31/6, 222325/1512)  (6/101, −107/6, −5512277/1512)</span></td></tr></tbody></table></div></div><div class="note">
+  <span class="lab">what &quot;generated here&quot; does and does not mean</span>
+<p>A new curve through a published mechanism is a new instance, not a new mechanism — the construction is Speyer's tangent sweep as written up by Gao (arXiv:2608.00222), and this repository claims none of it. These three maps have also NOT been checked for coordinate-equivalence against the members of the published infinite family: they may or may not be equivalent to something already in print, and nothing here decides that. What is certified is exactly what the certificate says — these polynomials, this determinant, these two points.</p>
+</div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the cross-check</div>
+    <h2>Two independent entries that certify each other</h2>
+  </div>
+<div class="col"><p>The corpus holds two claims about two different conjectures: a map in dimension 3 with <span class="m">det J = −2</span>, and a degree-14 polynomial in 5 variables whose Hessian determinant is claimed to be <span class="m">128</span>. They are transcribed separately, from separate statements, and they are connected by an identity this build recomputes from scratch rather than cites.</p><p>Take the dimension-3 map F, adjoin three new variables y₁, y₂, y₃, and form the single six-variable polynomial <span class="m">φ = y · F</span> — 16 monomials. Its Hessian is a 6×6 matrix of polynomials (126 monomials in total), and its determinant, expanded symbolically over the rationals during this build, comes out as the constant:</p><div class="eq">det Hess(y · F)  =  −4  =  −(det J F)²  =  −(−2)²</div><p>Both sides are computed here; neither is transcribed. So the Hessian entry is not a second, unrelated thing to trust: the Hessian construction descends from the same map the first entry certifies, and the identity linking them is checked exactly, every build. If the transcription of either object were wrong, this constant would not be <span class="m">−4</span>. It is a cross-check with no shared arithmetic to hide in — the determinant of a 6×6 polynomial matrix does not accidentally collapse to −(−2)².</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · found blind</div>
+    <h2>The machine finds the collisions again, with the witnesses taken away</h2>
+  </div>
+<div class="col"><p>Everything above decides witnesses somebody supplied. This section supplies none. For each map and each rational target, a damped multistart Newton hunt looks for preimages in floating point — a hunter that proves nothing and is allowed to miss — and every candidate it reaches is then certified in a Krawczyk box on the EXACT map, with interval-enclosed rational coefficients and strict interior containment. Boxes that are provably disjoint hold provably distinct preimages. The output is a lower bound by construction: more preimages can exist, fewer cannot.</p><p>On the announced map, aimed at its own collision image, the hunt certifies <span class="m">3</span> preimages without being told any of them — and each of the 3 published rational witnesses lands inside one of the certified boxes, which is the check that the rediscovery is of the same points and not of three others. The published witnesses are the answer key; the hunt never reads it.</p><div class="wide"><div class="tw"><table><thead><tr><th>cell</th><th>target</th><th>where the target came from</th><th>witnesses constructed</th><th>certified blind</th><th>verdict</th></tr></thead><tbody><tr><td><span class="m">alpoge</span></td><td class="v"><span class="m">(−1/4, 0, 0)</span></td><td>the map&#39;s own collision image</td><td class="v"><span class="m">3</span></td><td class="v"><span class="m">3</span></td><td><span class="tag cert">≥ 3 preimages, certified</span></td></tr><tr><td><span class="m">alpoge-own-target</span></td><td class="v"><span class="m">(0, 1, 0)</span></td><td>chosen here by a fixed enumeration — not a published image</td><td class="v"><span class="m">2</span></td><td class="v"><span class="m">3</span></td><td><span class="tag cert">≥ 3 preimages, certified</span></td></tr><tr><td><span class="m">sweep-d3</span></td><td class="v"><span class="m">(−13/8, −2, 1)</span></td><td>the map&#39;s own collision image</td><td class="v"><span class="m">2</span></td><td class="v"><span class="m">3</span></td><td><span class="tag cert">≥ 3 preimages, certified</span></td></tr><tr><td><span class="m">sweep-d4</span></td><td class="v"><span class="m">(−13/5, −16/5, 1)</span></td><td>the map&#39;s own collision image</td><td class="v"><span class="m">2</span></td><td class="v"><span class="m">2</span></td><td><span class="tag cert">≥ 2 preimages, certified</span></td></tr><tr><td><span class="m">sweep-d5</span></td><td class="v"><span class="m">(−61/12, −19/3, 1)</span></td><td>the map&#39;s own collision image</td><td class="v"><span class="m">2</span></td><td class="v"><span class="m">0</span></td><td><span class="tag dep">no certified preimage</span></td></tr><tr><td><span class="m">gallagher-d2</span></td><td class="v"><span class="m">(−4, −4, 1)</span></td><td>the map&#39;s own collision image</td><td class="v"><span class="m">2</span></td><td class="v"><span class="m">3</span></td><td><span class="tag cert">≥ 3 preimages, certified</span></td></tr><tr><td><span class="m">gallagher-d3</span></td><td class="v"><span class="m">(−1/2, −1/2, 1)</span></td><td>the map&#39;s own collision image</td><td class="v"><span class="m">2</span></td><td class="v"><span class="m">3</span></td><td><span class="tag cert">≥ 3 preimages, certified</span></td></tr><tr><td><span class="m">gallagher-d4</span></td><td class="v"><span class="m">(−11/10, −11/10, 1)</span></td><td>the map&#39;s own collision image</td><td class="v"><span class="m">2</span></td><td class="v"><span class="m">1</span></td><td><span class="tag open">1 preimage — nothing proved</span></td></tr><tr><td><span class="m">gallagher-distinct</span></td><td class="v"><span class="m">(0, 0, 1)</span></td><td>the map&#39;s own collision image</td><td class="v"><span class="m">2</span></td><td class="v"><span class="m">2</span></td><td><span class="tag cert">≥ 2 preimages, certified</span></td></tr></tbody></table></div></div><p>Three things in that table are worth the reader's attention. <strong>The self-chosen target.</strong> A skeptic can say the collision image was handed to us even if the witnesses were not — so one cell aims at a target picked here by a fixed enumeration of plain rational points, <span class="m">(0, 1, 0)</span>, which is nobody's published image and nobody's constructed collision. It certifies <span class="m">3</span> preimages. <strong>The hunter beating its input.</strong> 3 cells certify MORE preimages than the number of witnesses their construction wrote down. <strong>The honest failures.</strong> 2 cells do not certify non-injectivity at all — the float hunter did not reach enough roots, and the certificate says so instead of rounding up. Those maps are still certified non-injective by §1; the fiber counter simply did not re-find it unaided, and a lower bound that is allowed to be weak is the only kind that can be trusted when it is strong.</p><div class="note">
+  <span class="lab">the control that makes the count mean something</span>
+<p>A preimage counter that manufactures non-injectivity would find extra roots everywhere, so it is run against a map that provably has none: the triangular automorphism <span class="m">(x + y², y + z³, z)</span>, injective by construction with det J = 1. Over 400 starts on the same ladder of scales, the dedup by certified box disjointness returns <span class="m">EXACTLY 1 preimage</span>. The counter can come back with one, and does — which is what makes 3 evidence rather than an artifact.</p>
+</div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · the honest boundary</div>
+    <h2>What this page does not claim</h2>
+  </div>
+<div class="col"><p>The certificates are narrow on purpose, and the value of a narrow claim is that it is either true or refuted. Stated plainly, here is everything this page is NOT saying:</p><ul class="plain"><li><b>Not that the external results stand.</b> The announcements and preprints are cited as CLAIMS and their bytes are pinned by sha256. Whether they are correct as papers, whether they survive refereeing, whether anyone has contested them since the pinned versions — none of that is decided here, and nothing here should be read as saying it is settled.</li><li><b>Not a priority claim, in either direction.</b> The source column records attributions as transcribed, with dates as given. This repository claims no discovery, no precedence, and no share of anyone else&#39;s result. The three generated maps are new instances of a published mechanism, and have not been checked for coordinate-equivalence against the members already in print.</li><li><b>Not a statement about the plane.</b> The corpus contains no map in dimension 2. Every certificate here is dimension 3 or above, so this page decides nothing at all about the two-dimensional case.</li><li><b>Not five theorems where there is one.</b> Adjoining identity coordinates carries a counterexample from dimension 3 to every higher dimension with the determinant and the witnesses unchanged. That is padding, not new mathematics, so the corpus carries exactly 1 padded row — audited at n=8 to exercise the 8×8 symbolic determinant — and its own certificate text says it is padding.</li><li><b>Not an upper bound on anything.</b> The blind fiber counts in §5 are lower bounds by construction. &quot;At least k preimages, each in a certified box, the boxes pairwise disjoint&quot; is the theorem; &quot;exactly k&quot; is not claimed and would need the plane exhausted, not sampled.</li><li><b>Not a proof produced by a language model.</b> Models are not in the decision path anywhere on this page. The instrument, the battery, the generator and the independent verifier are ordinary deterministic code, and every verdict is a finite exact computation a reader can re-run.</li></ul></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§7 · check it</div>
+    <h2>What a skeptic runs</h2>
+  </div>
+<div class="col"><p>The certificate is a detached artifact: <span class="m">certs/keller-certificate.json</span> (sha256 <span class="m">9ee1ff71a81a0a93…</span>) holds every map as an explicit list of monomials with exact rational coefficients, every witness as exact rationals, the claimed determinant, and the sha256 of every source it was transcribed from. Nothing in it is implicit and nothing in it is a float. It is meant to be checked without this repository:</p><pre class="code">python3 tools/verify_keller.py certs/keller-certificate.json --sources corpus/sources</pre><p>That file is Python standard library only — <span class="m">fractions.Fraction</span>, <span class="m">hashlib</span>, <span class="m">json</span> — and shares no arithmetic with the machine that wrote the certificate. It re-derives the Jacobian by formal differentiation, expands the determinant, evaluates every witness, re-hashes the pinned sources, and then forges a coefficient and requires the audit to FAIL. At this build it decided <span class="m">11 entries</span> with <span class="m">0 failures</span>, matched <span class="m">15 source hashes</span>, and its red control fired.</p><p>Inside the repository, <span class="m">node instruments/keller/battery.js</span> runs the instrument's own gate — <span class="m">32 checks</span> at this build, <span class="m">9 of them red controls</span>, including the generator calibration against the announced map and the blind fiber rediscovery. This page refuses to render if the battery fails, if the independent verifier fails, if the detached certificate has drifted by one monomial from the family that produced it, or if the six-variable doubling identity in §4 stops coming out <span class="m">−4</span>.</p></div>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
+
+<footer class="col"><p>Generated by tools/build-report-keller.js — 11 certificates re-certified from families/keller-audit.js, re-verified through tools/verify_keller.py, sources re-hashed, the fiber family re-run and the doubling identity recomputed at build time; the build fails if any of it does not hold.</p><p>git 84bdfdc · cert-machine · Carlos Toledo</p></footer>
+
+</div>
+</html>

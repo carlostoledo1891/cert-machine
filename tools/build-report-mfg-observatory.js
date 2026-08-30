@@ -464,7 +464,7 @@ O.push(C.section({
 O.push(C.section({
   lab: '§8 · provenance', title: 'Where this comes from, and what would make it better',
   bodyRaw: [
-    C.p('The model and the solver are the KAUST mean-field-games line and the Lasry–Lions/Cirant multiplicity '
+    C.pRaw('The model and the solver are the KAUST mean-field-games line and the Lasry–Lions/Cirant multiplicity '
       + 'literature; the radii-polynomial framework is van den Berg–Lessard, unchanged. The kernels under '
       + C.m('legacy/core/') + ' were lifted file-level from the published mfg-lab tree, are recorded with their '
       + 'sha256 in ' + C.m('PROVENANCE.json') + ', and are never edited here — ' + C.m('labs/mfg/box.js') + ' is a '
