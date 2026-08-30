@@ -23,7 +23,8 @@ apps/skyaudit/TODO.md and the session entries below — this block holds
 only what stands).
 
   THE PUBLIC SURFACE, as of this handoff: 25 report pages (+ the
-  two-population regime map, 2026-08-29), every one
+  two-population regime map 2026-08-29; the matmul eval carries the
+  recall-vs-derivation table as of 2026-08-30), every one
   of them carrying at least one chart built from its own gated numbers
   (design/charts.js + design/battery.js, both new this week). LAB v0
   live at reports/mfg-observatory.html with the certifier running in
@@ -174,24 +175,16 @@ our own surface: the landing page, the control page, /oracle/ and
 
 FIRST THING NEXT SESSION (in this order):
   1. node tools/sweep-claims.js
-  2. 8D IS DONE — SCORED 2026-08-29 (see the session entry and
-     apps/skyaudit/TODO.md 8D for the full disclosure). Fri 2026-08-28
-     ingested GREEN: 315 flights, 70 E-FLYABLE (22.2%), fleet 7. The
-     product pair went 0/2 with TWO causes: eflyable busted on the
-     predicted definition move (v1 interval, v2 ruler), and flights
-     busted GENUINELY — [377,397] vs 315, a real low miss the
-     disclosure did not anticipate, because Friday is not a midweek
-     day and no Friday was in the v1 calibration set. The gym scored
-     its first 12 of 68 commits and DEADMITTED claude-haiku-4.5 on the
-     exact binomial tail (claimed 5/6, went 0/2, 1/36 < 1/20).
-     STANDING DAILY LOOP from here: when adsb.lol releases day D,
+  2. 8D DAILY LOOP — when adsb.lol releases a day D:
         node apps/skyaudit/audit/ingest-day.js D
         node apps/skyaudit/audit/forecast.js score D
         node tools/forecast-gym.js score D
-     then commit forward both ledgers for the next uncommitted day.
-     Committed through 2026-09-03 (house + product); 08-29/08-30 have
-     no conformal row and never will — that is a recorded gap, not a
-     bug.
+     then commit forward both ledgers for the next uncommitted day. House +
+     product are committed through 2026-09-08; models through 2026-09-08.
+     Model rows are spend-gated AND admission-gated: claude-haiku-4.5 is
+     DEADMITTED and is now genuinely skipped, not merely refused at the
+     ledger. Check the ledger before any campaign — a stale TARGETS list
+     spends on calls whose rows can only be duplicate-refused.
   3. Shard health: tail -n 2 certs/shard-logs/shard-*.log
   Then the ACTIVE NEXT menu below — operator chooses.
 
