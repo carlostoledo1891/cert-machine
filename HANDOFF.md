@@ -44,9 +44,24 @@ only what stands).
   threshold leads (253 kWh). v2 series: Sun 38 (21.7%) · Mon 127
   (32%) · Tue 106 (28.1%) · Wed 100 (26.2%) — weekday cluster holds.
   Registry joins (FAA+ANAC, union of days, membership on authority);
-  companion note reports/skyaudit.html (day-stability §7, v2 delta
-  disclosed §6); ingest-day.js = one-command day ingest; battery
-  33/33, 11 build gates, make test 31/31.
+  companion note reports/skyaudit.html (day-stability §7 REBUILT
+  2026-08-30 — it read a HARDCODED pair, DAY=08-26 vs DAY2=08-23, so
+  the public page argued from two days while the corpus held seven and
+  neither Fri 08-28 nor Sat 08-29 had any public home; §7 now renders
+  the WHOLE series from audit/forecast.js's own series() — one module
+  owns the day scan and the E-FLYABLE definition, so the page and the
+  forecaster cannot disagree — with a per-day bar chart, a 7-row table,
+  and a shape computed at build rather than asserted in prose; the
+  controlled Wed-vs-Sun pair survives as §7b. NEW GATE 2c: every day
+  shown is re-tallied from its OWN certificate ledger. The first
+  version of that gate was VACUOUS — it compared the summary against
+  series(), which reads the same file, and a red control corrupting a
+  non-record day's CERTIFIED passed clean; the row-count check misses
+  it too, since rows is untouched. Fixed to recount VERDICTS from the
+  .gz ledger, the only independent witness, and both reds now fire:
+  corrupt CERTIFIED -> REFUSED, corrupt rows -> REFUSED, restored ->
+  PASS. v2 delta disclosed §6); ingest-day.js = one-command day ingest;
+  battery 33/33, 12 build gates, make test 35/35.
 
   THE PREDICTION PROGRAM — instruments/forecast/ (conformal coverage
   as counting theorem + append-only exact-scored commit/score ledger
@@ -61,10 +76,25 @@ only what stands).
   SEVEN days and the week is COMPLETE (2026-08-30): + Sat 2026-08-29
   ingested green, 266 flights / 58 E-FLYABLE (21.8%), fleet 7 — every
   one of the seven weekdays is now represented exactly once.
-  THE WEEKEND RATE CLUSTER IS REAL AND IT IS TIGHT: Sun 08-23 21.7%
-  vs Sat 08-29 21.8% — two independent weekend days agreeing to
-  0.1 percentage point, against a weekday cluster of 25.7-32%. The
-  RATE splits by day-type while the VOLUME collapses (266 vs ~382).
+  THE WEEKEND-CLUSTER CLAIM WAS OVERSTATED AND IS CORRECTED HERE
+  (2026-08-30, caught while building the page that would have published
+  it). The first write-up said "weekend 21.7/21.8 against a weekday
+  cluster of 25.7-32%" — that range SILENTLY DROPPED Friday 08-28 at
+  22.2%, a weekday sitting 0.4 points from Saturday. What the seven days
+  actually show, computed: the share peaks Mon at 32.0% and falls on
+  every following day without exception — 32.0, 28.1, 26.2, 25.7, 22.2,
+  21.8 — with the opening Sunday at 21.7. A weekday/weekend split does
+  still separate the groups, but by 0.4 points (min weekday Fri 22.2 >
+  max weekend Sat 21.8), not by the wide gap first claimed. VOLUME does
+  NOT split by day type at all: Thu 191 flights is BELOW Sat 266.
+  Two readings fit the same seven numbers — a weekly cycle and a
+  monotone drift unrelated to weekday — and ONE WEEK CANNOT TELL THEM
+  APART. reports/skyaudit.html §7 now states exactly that and refuses
+  to pick one; the separation margin is COMPUTED at build, so a day
+  that breaks the split rewrites the sentence instead of embarrassing
+  it. The lesson is the counting rule: deflate to truth BEFORE anything
+  is stated publicly — the overstatement survived one commit message
+  (4aa5657) because no page had to render it yet.
   THE WEEKEND UNLOCK, first available this session: forecast.js
   refuses any group with n < 2, so while Sunday stood alone NO weekend
   target was committable — which is exactly why 08-29 and 08-30 have

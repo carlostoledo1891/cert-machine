@@ -365,7 +365,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="stat"><div class="k">minimum fleet, proved</div><div class="v held">exactly 10 aircraft</div><div class="n">9 REFUTED by pigeonhole at a witnessed instant (18:11:44 ET); 10 CERTIFIED by an exactly-verified schedule</div></div>
     <div class="stat"><div class="k">the opacity finding</div><div class="v warn">Joby · Archer · Eve: 0 provable</div><div class="n">NEEDS DATA dominates their ledgers — the audit measures what public specs cannot decide, and says so instead of guessing</div></div>
     <div class="stat"><div class="k">authoritative identity</div><div class="v held">125/156 + 150/196 joined</div><div class="n">FAA Releasable Aircraft DB + ANAC RAB, sha-pinned; registry-first typing changed corpus membership NOWHERE — the numbers stand on authority, unmatched aircraft listed one by one</div></div>
-    <div class="stat"><div class="k">day-stability, measured</div><div class="v held">26.2% vs 21.7%</div><div class="n">a contrasting Sunday (175 flights) holds the STRUCTURE — only Beta provable, the others zero on both days — while the provable share moves with the day; §7 states the deltas</div></div>
+    <div class="stat"><div class="k">day-stability, measured</div><div class="v held">21.7% – 32.0% across 7 days</div><div class="n">the audit was run over 7 consecutive days; the STRUCTURE holds on every one — only Beta provable, the others zero — while the provable share moves by more than ten points, so the headline is a property of its day; §7 shows the whole series</div></div>
     <div class="stat"><div class="k">what this is not</div><div class="v warn">no airworthiness claim</div><div class="n">&quot;certified&quot; is a mathematical statement about published boxes and exact arithmetic — never a regulatory status, an endorsement, or a judgment of any operator&#39;s mission</div></div>
   </div>
 </div>
@@ -502,13 +502,61 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <h2>Methodology v2, and what it still does not claim</h2>
   </div>
 <p>METHODOLOGY V2 (2026-08-27) — the recorded v1 conservatisms were resolved together, in one disclosed move, exactly as promised. What changed: (1) cruise energy is now evaluated V-FREE — at every parameter point t·P(V) = m·g·D/((L/D)·η) and the speed cancels exactly, so v1&#39;s independent enclosure of power and time was a sound over-enclosure (up to 34% at the widest cruise box); removing it is a tightness theorem, not a relaxed assumption, and the independent Python verifier re-proves the same identity. (2) Mission mass became an operating-mass box [published empty weight + pilot, MTOW] — Joby publishes empty weight, Archer and Beta publish payload; the strict MTOW corner still decides E-FLYABLE, so the floor only weakens refutations honestly. What was REVIEWED AND REFUSED BY THE DATA: reserve power at &quot;normal cruising speed&quot; — no audited maker publishes a normal cruise (only &quot;up to&quot; maxima), so the reserve keeps the full cruise-speed box; and per-aircraft disk loading — rotor geometry is unpublished for all four (only VoloCity, outside this set, has an official datasheet), so the class boxes stand. THE DELTA, quoted as history (git a07be1f): v1 certified 46 of these 382 flights (12%); v2 decides 100 (26%) — the interval slack was hiding half the provable day, and this paragraph is the disclosure.</p>
-<p>One Wednesday is one Wednesday — which is why §7 measures a second, contrasting day instead of assuming stability. The corpus is what the receiver network saw — coverage gaps are flagged per flight, never interpolated. Operation-type labels in the app (tour loop, patrol, shuttle) are heuristics, labeled INFERRED, and judge nobody&#39;s mission. Names come from the registries and mean what the registries mean: the FAA publishes the REGISTRANT (&quot;registered to&quot; — often an LLC, not necessarily who operates), ANAC publishes the operador. And nothing here carries airworthiness meaning: every &quot;certified&quot; is a statement about interval arithmetic over published boxes.</p>
+<p>One Wednesday is one Wednesday — which is why §7 runs the same audit over 7 consecutive days instead of assuming stability. The corpus is what the receiver network saw — coverage gaps are flagged per flight, never interpolated. Operation-type labels in the app (tour loop, patrol, shuttle) are heuristics, labeled INFERRED, and judge nobody&#39;s mission. Names come from the registries and mean what the registries mean: the FAA publishes the REGISTRANT (&quot;registered to&quot; — often an LLC, not necessarily who operates), ANAC publishes the operador. And nothing here carries airworthiness meaning: every &quot;certified&quot; is a statement about interval arithmetic over published boxes.</p>
 </section>
 
 <section class="">
   <div class="col sec-head">
     <div class="lab">§7 · day-stability</div>
-    <h2>The same audit, a contrasting Sunday</h2>
+    <h2>The same audit, 7 consecutive days</h2>
+  </div>
+<div class="col"><p>One Wednesday proves nothing about a Tuesday, so the audit was run over 7 consecutive days, each ingested from its own sha-pinned adsb.lol release, each certified independently, and each recounted from its own committed certificate ledger as a gate on this build. Nothing here is modelled or interpolated: every row is a day that was actually flown.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 256" role="img" aria-label="Provable share for each of seven consecutive days: Sun 21.7%, Mon 32.0%, Tue 28.1%, Wed 26.2%, Thu 25.7%, Fri 22.2%, Sat 21.8%. The highest is Mon at 32.0% and the lowest is 21.7%.">
+    <line x1="108.0" y1="10" x2="108.0" y2="192" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="108.0" y="212.0" text-anchor="middle" class="t-ax">0%</text>
+    <line x1="298.1" y1="10" x2="298.1" y2="192" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="298.1" y="212.0" text-anchor="middle" class="t-ax">10%</text>
+    <line x1="488.3" y1="10" x2="488.3" y2="192" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="488.3" y="212.0" text-anchor="middle" class="t-ax">20%</text>
+    <line x1="678.4" y1="10" x2="678.4" y2="192" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="678.4" y="212.0" text-anchor="middle" class="t-ax">30%</text>
+    <path d="M108 14 h408.6218220338983 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-408.6218220338983 Z" fill="var(--c-2)" data-cm="Sun 08-23" data-cmv="Sun 2026-08-23: 38 of 175 flights provable" tabindex="0"/>
+    <text x="98.0" y="27.0" text-anchor="end" class="t-ax">Sun 08-23</text>
+    <text x="528.6" y="27.0" text-anchor="start" class="t-lab">21.7%  (38 of 175)</text>
+    <path d="M108 40 h604.4745762711865 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-604.4745762711865 Z" fill="var(--c-1)" data-cm="Mon 08-24" data-cmv="Mon 2026-08-24: 127 of 397 flights provable" tabindex="0"/>
+    <text x="98.0" y="53.0" text-anchor="end" class="t-ax">Mon 08-24</text>
+    <text x="724.5" y="53.0" text-anchor="start" class="t-lab">32.0%  (127 of 397)</text>
+    <path d="M108 66 h530.3167372881356 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-530.3167372881356 Z" fill="var(--c-1)" data-cm="Tue 08-25" data-cmv="Tue 2026-08-25: 106 of 377 flights provable" tabindex="0"/>
+    <text x="98.0" y="79.0" text-anchor="end" class="t-ax">Tue 08-25</text>
+    <text x="650.3" y="79.0" text-anchor="start" class="t-lab">28.1%  (106 of 377)</text>
+    <path d="M108 92 h494.1885593220338 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-494.1885593220338 Z" fill="var(--c-1)" data-cm="Wed 08-26" data-cmv="Wed 2026-08-26: 100 of 382 flights provable" tabindex="0"/>
+    <text x="98.0" y="105.0" text-anchor="end" class="t-ax">Wed 08-26</text>
+    <text x="614.2" y="105.0" text-anchor="start" class="t-lab">26.2%  (100 of 382)</text>
+    <path d="M108 118 h484.6811440677966 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-484.6811440677966 Z" fill="var(--c-1)" data-cm="Thu 08-27" data-cmv="Thu 2026-08-27: 49 of 191 flights provable" tabindex="0"/>
+    <text x="98.0" y="131.0" text-anchor="end" class="t-ax">Thu 08-27</text>
+    <text x="604.7" y="131.0" text-anchor="start" class="t-lab">25.7%  (49 of 191)</text>
+    <path d="M108 144 h418.12923728813564 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-418.12923728813564 Z" fill="var(--c-1)" data-cm="Fri 08-28" data-cmv="Fri 2026-08-28: 70 of 315 flights provable" tabindex="0"/>
+    <text x="98.0" y="157.0" text-anchor="end" class="t-ax">Fri 08-28</text>
+    <text x="538.1" y="157.0" text-anchor="start" class="t-lab">22.2%  (70 of 315)</text>
+    <path d="M108 170 h410.52330508474574 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-410.52330508474574 Z" fill="var(--c-2)" data-cm="Sat 08-29" data-cmv="Sat 2026-08-29: 58 of 266 flights provable" tabindex="0"/>
+    <text x="98.0" y="183.0" text-anchor="end" class="t-ax">Sat 08-29</text>
+    <text x="530.5" y="183.0" text-anchor="start" class="t-lab">21.8%  (58 of 266)</text>
+    <text x="467.0" y="234.0" text-anchor="middle" class="t-note">share of the day&#39;s flights PROVABLY flyable — Beta ALIA-250 under the FAA 20-minute VFR reserve</text>
+    <rect x="108" y="240" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="127.0" y="250.0" text-anchor="start" class="t-note">Monday–Friday</text>
+    <rect x="243" y="240" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="262.0" y="250.0" text-anchor="start" class="t-note">Saturday · Sunday</text>
+  </svg>
+  </div>
+  <figcaption>The provable share moves across the series by 10.3 points — from 32.0% down to 21.7%. The headline 26% is a property of the pinned Wednesday, not a constant.</figcaption>
+</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>day</th><th>flights</th><th>certificate rows</th><th>aircraft</th><th>E-FLYABLE</th><th>share</th><th>min fleet</th></tr></thead><tbody><tr><td>Sun 2026-08-23</td><td class="n">175</td><td class="n">1,400</td><td class="n">51</td><td class="n">38</td><td class="n">21.7%</td><td class="n">exactly 6</td></tr><tr><td>Mon 2026-08-24</td><td class="n">397</td><td class="n">3,176</td><td class="n">73</td><td class="n">127</td><td class="n">32.0%</td><td class="n">exactly 12</td></tr><tr><td>Tue 2026-08-25</td><td class="n">377</td><td class="n">3,016</td><td class="n">80</td><td class="n">106</td><td class="n">28.1%</td><td class="n">exactly 10</td></tr><tr><td>Wed 2026-08-26</td><td class="n">382</td><td class="n">3,056</td><td class="n">82</td><td class="n">100</td><td class="n">26.2%</td><td class="n">exactly 10</td></tr><tr><td>Thu 2026-08-27</td><td class="n">191</td><td class="n">1,528</td><td class="n">63</td><td class="n">49</td><td class="n">25.7%</td><td class="n">exactly 8</td></tr><tr><td>Fri 2026-08-28</td><td class="n">315</td><td class="n">2,520</td><td class="n">71</td><td class="n">70</td><td class="n">22.2%</td><td class="n">exactly 7</td></tr><tr><td>Sat 2026-08-29</td><td class="n">266</td><td class="n">2,128</td><td class="n">54</td><td class="n">58</td><td class="n">21.8%</td><td class="n">exactly 7</td></tr></tbody></table></div></div><div class="col"><p><strong>What the week shows, computed rather than asserted.</strong> The share peaks on Mon at 32.0% and then falls on every following day without exception, down to 21.8% on Sat — a run of 6 days, which is every day from the peak to the end of the series. A weekday/weekend split also separates these days, but only just: the lowest weekday (Fri, 22.2%) sits <strong>0.4 points</strong> above the highest weekend day (Sat, 21.8%). That margin is far too thin to carry weight, and the Friday that defines it is nearer the weekend than to any other weekday.</p><p>So two readings fit the same 7 numbers — a weekly cycle, and a monotone drift that has nothing to do with the day of the week — and <strong>one week cannot tell them apart</strong>. This page will not pick one. What it does claim is the part that needs no model: on each of these days, that many flights were provably flyable and the rest were not, and the number moved by 10.3 points across a single week. Any vendor statistic quoted without its day is missing its most important qualifier. The series extends by one row per day through the same one-command ingest, and the reading here will be revised by arithmetic, not by preference, as it does.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§7b · the controlled pair</div>
+    <h2>One variable isolated: the same week, a Sunday</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th></th><th>Wednesday 2026-08-26 (record)</th><th>Sunday 2026-08-23 (contrast)</th></tr></thead><tbody><tr><td>unique aircraft (audited)</td><td class="n">82 (79)</td><td class="n">51 (51)</td></tr><tr><td>flights · certificate rows</td><td class="n">382 · 3,056</td><td class="n">175 · 1,400</td></tr><tr><td>km flown (audited paths)</td><td class="n">47,028</td><td class="n">30,239</td></tr><tr><td>E-FLYABLE (Beta ALIA, FAA 20-min)</td><td class="n">100 (26.2%)</td><td class="n">38 (21.7%)</td></tr><tr><td>minimum fleet, proved both directions</td><td class="n">exactly 10</td><td class="n">exactly 6</td></tr><tr><td>Joby / Archer / Eve provable flights</td><td class="n">0 / 0 / 0</td><td class="n">0 / 0 / 0</td></tr></tbody></table></div></div><div class="col"><p>The contrast day was chosen to isolate one variable: a Sunday in the SAME week, season and receiver network as the Wednesday of record. What holds across both days is the STRUCTURE: only Beta's published numbers prove anything; Joby, Archer and Eve decide zero flights on either day; Archer's refutation pattern and Eve's NEEDS-DATA wall repeat. What moves with the day is the magnitude: Sunday flies less than half the Wednesday (175 vs 382 flights) and its provable share is 21.7% against 26.2% — the 26% headline is a property of the pinned Wednesday, not a universal constant, and this page will not pretend otherwise. The comparison is derived only from the two committed summaries and re-derived at every build. A bonus finding from the contrast day: the feed's type database called N339LL a SOCATA TBM-700 turboprop; the FAA registry says Robinson R44 II — and its measured day (median 87 kt, ceiling 1,175 ft) agrees with the registry, so the authoritative filter admitted a real helicopter the feeder typing would have dropped.</p></div>
 </section>
@@ -547,7 +595,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-skyaudit.js @ git 57c1b55. Gates at this build: the app battery (33 checks, red controls fired), all 3,056 + 1,400 certificate rows recounted from both days' ledgers, verdict tallies re-derived, the day-stability comparison re-derived from the committed summaries, cross-record consistency (economics = refly = reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-skyaudit.js @ git 4aa5657. Gates at this build: the app battery (33 checks, red controls fired), all 3,056 + 1,400 certificate rows recounted from every day's own ledger (7 days), verdict tallies re-derived, the day-stability comparison re-derived from the committed summaries, cross-record consistency (economics = refly = reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></footer>
 
 </div>
 </html>

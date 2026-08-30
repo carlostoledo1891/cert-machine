@@ -93,6 +93,61 @@ for (const [city, ex] of [['nyc', regNyc], ['sp', regSp]]) {
   if (ex.counts.corpus !== unionKeys(city).size) die('registry extract ' + city + ' no longer covers the union of committed days');
 }
 
+/* ---- the whole series (7 · day-stability) ---------------------------------
+   The day scan and the E-FLYABLE definition live in ONE module: audit/forecast.js
+   owns them, the prediction ledger calls the same function, and this page calls it
+   too — so the page and the forecaster can never disagree about which days exist
+   or what E-FLYABLE means. A rule defined twice WILL diverge. */
+const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const WEEK = require(path.join(APP, 'audit', 'forecast.js')).series().map((d) => {
+  const dir = path.join(APP, 'data', 'day-' + d.date);
+  const s = J(path.join(dir, 'nyc.audit-summary.json'));
+  const rf = J(path.join(dir, 'nyc.refly.json'));
+  const dow = new Date(d.date + 'T12:00:00Z').getUTCDay();
+  /* gate 2c: EVERY day shown is recounted from its own committed ledger, not just
+     the record and contrast days — a page that displays seven days must gate seven.
+     The VERDICTS are re-tallied, not merely the row count: series() reads the same
+     summary file, so comparing the summary against itself would pass vacuously, and
+     a corrupted CERTIFIED leaves `rows` untouched. The ledger is the only independent
+     witness here, so the tally is what the displayed number is checked against. */
+  const tallyD = {}; let nD = 0;
+  for (const line of zlib.gunzipSync(fs.readFileSync(path.join(dir, 'nyc.certs.jsonl.gz'))).toString('utf8').split('\n')) {
+    if (!line.trim()) continue;
+    nD++;
+    const r = JSON.parse(line);
+    const k = r.spec + '|' + r.rule;
+    (tallyD[k] = tallyD[k] || { CERTIFIED: 0, REFUTED: 0, REFUSED: 0 })[r.verdict]++;
+  }
+  if (nD !== s.rows) die('series recount ' + d.date + ': ' + nD + ' rows != summary ' + s.rows);
+  for (const [k, v] of Object.entries(s.bySpecRule)) {
+    for (const verdict of ['CERTIFIED', 'REFUTED', 'REFUSED']) {
+      if ((tallyD[k] && tallyD[k][verdict] || 0) !== (v[verdict] || 0)) {
+        die('series verdict recount deviates at ' + d.date + ' ' + k + ' ' + verdict);
+      }
+    }
+  }
+  if (!tallyD[BETA] || tallyD[BETA].CERTIFIED !== d.eflyable) die('series E-FLYABLE disagrees with the ledger at ' + d.date);
+  return { date: d.date, dow, dowName: DOW[dow], weekend: dow === 0 || dow === 6,
+    flights: d.flights, eflyable: d.eflyable, rows: s.rows, uniqueAircraft: s.uniqueAircraft,
+    km: s.flightStats.totalPathKm, fleetMin: rf.keys[BETA].fleetMin,
+    pct: Math.round(d.eflyable / d.flights * 1000) / 10 };
+});
+if (WEEK.length < 2) die('the day-stability section needs at least two days');
+/* the shape of the series, computed — never asserted in prose. The run is measured
+   from the first day whose share is the maximum, so a later day breaking the decline
+   shortens it instead of quietly invalidating the sentence built on it. */
+const peakIx = WEEK.reduce((b, r, i) => (r.pct > WEEK[b].pct ? i : b), 0);
+let runEnd = peakIx;
+while (runEnd + 1 < WEEK.length && WEEK[runEnd + 1].pct < WEEK[runEnd].pct) runEnd++;
+const RUN = WEEK.slice(peakIx, runEnd + 1);
+const monotone = RUN.length === WEEK.length - peakIx;
+const wkEnd = WEEK.filter((r) => r.weekend), wkDay = WEEK.filter((r) => !r.weekend);
+const lo = (a) => Math.min(...a.map((r) => r.pct)), hi = (a) => Math.max(...a.map((r) => r.pct));
+/* does a weekday/weekend split actually separate the two groups? Only if the
+   weekday MINIMUM sits above the weekend MAXIMUM. It does not, and the page says so
+   rather than quoting a range that drops the weekday which breaks it. */
+const splitHolds = wkEnd.length && wkDay.length && lo(wkDay) > hi(wkEnd);
+
 /* ---- derived, from records only ------------------------------------------- */
 const pct = Math.round(eflyable / S.flights * 100);
 const laps = (S.flightStats.totalPathKm / 40075).toFixed(1);
@@ -146,7 +201,7 @@ B.push(C.stats([
   { k: 'minimum fleet, proved', v: 'exactly ' + refly.keys[BETA].fleetMin + ' aircraft', role: 'held', n: refly.keys[BETA].fleetMin - 1 + ' REFUTED by pigeonhole at a witnessed instant (' + refly.keys[BETA].witnessLocal + '); ' + refly.keys[BETA].fleetMin + ' CERTIFIED by an exactly-verified schedule' },
   { k: 'the opacity finding', v: 'Joby · Archer · Eve: 0 provable', role: 'warn', n: 'NEEDS DATA dominates their ledgers — the audit measures what public specs cannot decide, and says so instead of guessing' },
   { k: 'authoritative identity', v: regNyc.counts.matched + '/' + regNyc.counts.corpus + ' + ' + regSp.counts.matched + '/' + regSp.counts.corpus + ' joined', role: 'held', n: 'FAA Releasable Aircraft DB + ANAC RAB, sha-pinned; registry-first typing changed corpus membership NOWHERE — the numbers stand on authority, unmatched aircraft listed one by one' },
-  { k: 'day-stability, measured', v: cmp.eflyable.pct.record + '% vs ' + cmp.eflyable.pct.contrast + '%', role: 'held', n: 'a contrasting Sunday (' + fmt(cmp.summary.flights.contrast) + ' flights) holds the STRUCTURE — only Beta provable, the others zero on both days — while the provable share moves with the day; §7 states the deltas' },
+  { k: 'day-stability, measured', v: lo(WEEK).toFixed(1) + '% – ' + hi(WEEK).toFixed(1) + '% across ' + WEEK.length + ' days', role: 'held', n: 'the audit was run over ' + WEEK.length + ' consecutive days; the STRUCTURE holds on every one — only Beta provable, the others zero — while the provable share moves by more than ten points, so the headline is a property of its day; §7 shows the whole series' },
   { k: 'what this is not', v: 'no airworthiness claim', role: 'warn', n: '"certified" is a mathematical statement about published boxes and exact arithmetic — never a regulatory status, an endorsement, or a judgment of any operator\'s mission' }
 ]));
 
@@ -321,7 +376,7 @@ B.push(C.section({
       + 'THE DELTA, quoted as history (git a07be1f): v1 certified 46 of these ' + fmt(S.flights) + ' flights '
       + '(12%); v2 decides ' + eflyable + ' (' + pct + '%) — the interval slack was hiding half the provable '
       + 'day, and this paragraph is the disclosure.'),
-    C.p('One Wednesday is one Wednesday — which is why §7 measures a second, contrasting day instead of assuming '
+    C.p('One Wednesday is one Wednesday — which is why §7 runs the same audit over ' + WEEK.length + ' consecutive days instead of assuming '
       + 'stability. The corpus is what the receiver network saw — coverage gaps are flagged '
       + 'per flight, never interpolated. Operation-type labels in the app (tour loop, patrol, shuttle) are '
       + 'heuristics, labeled INFERRED, and judge nobody\'s mission. Names come from the registries and mean what '
@@ -331,8 +386,72 @@ B.push(C.section({
   ].join('\n')
 }));
 
+/* §7 — the whole series first, the controlled pair second */
+const wkFig = CH.bars({
+  w: 900, max: Math.max(...WEEK.map(r => r.pct)) * 1.18, padL: 108,
+  rows: WEEK.map(r => ({
+    k: r.dowName + ' ' + r.date.slice(5),
+    v: r.pct,
+    lab: r.pct.toFixed(1) + '%  (' + r.eflyable + ' of ' + fmt(r.flights) + ')',
+    token: r.weekend ? 'var(--c-2)' : 'var(--c-1)',
+    hover: r.dowName + ' ' + r.date + ': ' + r.eflyable + ' of ' + fmt(r.flights) + ' flights provable',
+  })),
+  xTicks: [0, 10, 20, 30].map(v => ({ v, t: v + '%' })),
+  xLabel: 'share of the day\'s flights PROVABLY flyable — Beta ALIA-250 under the FAA 20-minute VFR reserve',
+  keys: [{ token: 'var(--c-1)', t: 'Monday–Friday' },
+         { token: 'var(--c-2)', t: 'Saturday · Sunday' }],
+  alt: 'Provable share for each of seven consecutive days: '
+    + WEEK.map(r => r.dowName + ' ' + r.pct.toFixed(1) + '%').join(', ')
+    + '. The highest is ' + WEEK[peakIx].dowName + ' at ' + WEEK[peakIx].pct.toFixed(1)
+    + '% and the lowest is ' + WEEK.reduce((a, b) => (b.pct < a.pct ? b : a)).pct.toFixed(1) + '%.',
+});
 B.push(C.section({
-  lab: '§7 · day-stability', title: 'The same audit, a contrasting Sunday', wide: true,
+  lab: '§7 · day-stability', title: 'The same audit, ' + WEEK.length + ' consecutive days', wide: true,
+  bodyRaw: '<div class="col">'
+    + C.pRaw('One Wednesday proves nothing about a Tuesday, so the audit was run over '
+      + fmt(WEEK.length) + ' consecutive days, each ingested from its own sha-pinned adsb.lol release, each '
+      + 'certified independently, and each recounted from its own committed certificate ledger as a gate on '
+      + 'this build. Nothing here is modelled or interpolated: every row is a day that was actually flown.')
+    + '</div>'
+    + C.figure({ svgRaw: wkFig, caption: 'The provable share moves across the series by '
+      + (hi(WEEK) - lo(WEEK)).toFixed(1) + ' points — from ' + hi(WEEK).toFixed(1) + '% down to '
+      + lo(WEEK).toFixed(1) + '%. The headline ' + pct + '% is a property of the pinned Wednesday, '
+      + 'not a constant.' })
+    + C.table({
+      cols: [{ h: 'day' }, { h: 'flights', cls: 'n' }, { h: 'certificate rows', cls: 'n' },
+             { h: 'aircraft', cls: 'n' }, { h: 'E-FLYABLE', cls: 'n' }, { h: 'share', cls: 'n' },
+             { h: 'min fleet', cls: 'n' }],
+      rows: WEEK.map(r => [r.dowName + ' ' + r.date, fmt(r.flights), fmt(r.rows), fmt(r.uniqueAircraft),
+        String(r.eflyable), r.pct.toFixed(1) + '%', 'exactly ' + r.fleetMin]),
+    })
+    + '<div class="col">'
+    + C.pRaw('<strong>What the week shows, computed rather than asserted.</strong> The share peaks on '
+      + WEEK[peakIx].dowName + ' at ' + WEEK[peakIx].pct.toFixed(1) + '% and then falls on every following day '
+      + 'without exception, down to ' + RUN[RUN.length - 1].pct.toFixed(1) + '% on '
+      + RUN[RUN.length - 1].dowName + ' — a run of ' + RUN.length + ' days'
+      + (monotone ? ', which is every day from the peak to the end of the series' : '') + '. '
+      + (splitHolds
+        ? ('A weekday/weekend split also separates these days, but only just: the lowest weekday ('
+          + wkDay.reduce((a, b) => (b.pct < a.pct ? b : a)).dowName + ', ' + lo(wkDay).toFixed(1)
+          + '%) sits <strong>' + (lo(wkDay) - hi(wkEnd)).toFixed(1) + ' points</strong> above the highest '
+          + 'weekend day (' + wkEnd.reduce((a, b) => (b.pct > a.pct ? b : a)).dowName + ', '
+          + hi(wkEnd).toFixed(1) + '%). That margin is far too thin to carry weight, and the Friday that '
+          + 'defines it is nearer the weekend than to any other weekday.')
+        : ('A weekday/weekend split does NOT separate these days: the lowest weekday sits at '
+          + lo(wkDay).toFixed(1) + '%, at or below the highest weekend day at ' + hi(wkEnd).toFixed(1) + '%.'))
+      + '</p><p>So two readings fit the same ' + WEEK.length + ' numbers — a weekly cycle, and a monotone drift that has '
+      + 'nothing to do with the day of the week — and <strong>one week cannot tell them apart</strong>. This '
+      + 'page will not pick one. What it does claim is the part that needs no model: on each of these days, '
+      + 'that many flights were provably flyable and the rest were not, and the number moved by '
+      + (hi(WEEK) - lo(WEEK)).toFixed(1) + ' points across a single week. Any vendor statistic quoted '
+      + 'without its day is missing its most '
+      + 'important qualifier. The series extends by one row per day through the same one-command ingest, and '
+      + 'the reading here will be revised by arithmetic, not by preference, as it does.')
+    + '</div>'
+}));
+
+B.push(C.section({
+  lab: '§7b · the controlled pair', title: 'One variable isolated: the same week, a Sunday', wide: true,
   bodyRaw: C.table({
     cols: [{ h: '' }, { h: 'Wednesday 2026-08-26 (record)', cls: 'n' }, { h: 'Sunday 2026-08-23 (contrast)', cls: 'n' }],
     rows: [
@@ -385,7 +504,7 @@ B.push(C.section({
 
 const foot = '<footer class="col"><p>Generated by tools/build-report-skyaudit.js @ git ' + git + '. Gates at this '
   + 'build: the app battery (' + nChecks + ' checks, red controls fired), all ' + fmt(S.rows) + ' + ' + fmt(S2.rows)
-  + ' certificate rows recounted from both days\' ledgers, verdict tallies re-derived, the day-stability '
+  + ' certificate rows recounted from every day\'s own ledger (' + WEEK.length + ' days), verdict tallies re-derived, the day-stability '
   + 'comparison re-derived from the committed summaries, cross-record consistency (economics = refly = '
   + 'reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any '
   + 'deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></footer>';
