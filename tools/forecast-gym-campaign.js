@@ -32,11 +32,15 @@ const { execSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const L = require(path.join(ROOT, 'instruments/forecast/ledger.js'));
-const { LEDGER } = require(path.join(ROOT, 'tools/forecast-gym.js'));
+const { LEDGER, board, admissionGate } = require(path.join(ROOT, 'tools/forecast-gym.js'));
 const { series } = require(path.join(ROOT, 'apps/skyaudit/audit/forecast.js'));
 
 const MODELS = ['claude-opus-5', 'claude-sonnet-5', 'claude-haiku-4-5-20251001'];
-const TARGETS = ['2026-08-28', '2026-08-29', '2026-08-30', '2026-08-31', '2026-09-01', '2026-09-02'];
+/* The uncommitted window. A target already on the ledger is refused as a
+   duplicate commit — correctly — but the API call to produce it is paid for
+   before the ledger ever sees it, so a stale TARGETS list spends money to
+   generate rows that cannot land. Check the ledger before every campaign. */
+const TARGETS = ['2026-09-03', '2026-09-04', '2026-09-05', '2026-09-06', '2026-09-07', '2026-09-08'];
 const KEYS = ['flights', 'eflyable'];
 const CITY = 'nyc';
 
@@ -87,6 +91,22 @@ function getAuth() {
   };
 }
 
+/* Published per-MTok rates, cached 2026-06-24. They are here to turn a run into
+   a number we can check against the budget, not to be authoritative: the
+   invoice is. Every run prints what it actually consumed. */
+const RATES = {
+  'claude-opus-5': { in: 5, out: 25 },
+  'claude-sonnet-5': { in: 2, out: 10 },
+  'claude-haiku-4-5-20251001': { in: 1, out: 5 },
+};
+const SPEND = [];
+function chargeOf(model, u) {
+  const r = RATES[model] || { in: 0, out: 0 };
+  const cin = (u.input_tokens || 0) + (u.cache_creation_input_tokens || 0) + (u.cache_read_input_tokens || 0);
+  return { model, in: cin, out: u.output_tokens || 0,
+    usd: (cin * r.in + (u.output_tokens || 0) * r.out) / 1e6 };
+}
+
 async function ask(auth, model) {
   /* 8192: a thinking model can spend a small cap entirely on deliberation and
      return empty text — a harness artifact, not a model outcome (the matmul
@@ -103,6 +123,11 @@ async function ask(auth, model) {
       if (r.status === 401 && auth.refresh) { auth.refresh(); throw new Error('401 (token refreshed)'); }
       if (!r.ok) throw new Error('HTTP ' + r.status + ': ' + (await r.text()).slice(0, 200));
       const data = await r.json();
+      if (data.usage) {
+        const c = chargeOf(model, data.usage);
+        SPEND.push(c);
+        console.log('  usage ' + model + ': in ' + c.in + ' out ' + c.out + ' -> $' + c.usd.toFixed(4));
+      }
       return data.content.filter((b) => b.type === 'text').map((b) => b.text).join('');
     } catch (e) { last = e; await new Promise((res) => setTimeout(res, 2 ** attempt * 1000)); }
   }
@@ -142,11 +167,23 @@ function parseSlate(text) {
   console.log('context pack sha256 ' + packSha + ' · ' + all.length + ' calibration days · '
     + TARGETS.length + ' targets x ' + KEYS.length + ' quantities');
   const auth = getAuth();
+  /* the board is read ONCE, before any model is queried, so every model in this
+     run faces the same record — and so a proposer the rule has already pruned
+     never reaches the network */
+  const BOARD = board();
 
   /* collect every slate BEFORE committing any — nothing to copy */
   const slates = {};
   for (const model of models) {
     let slate = null, why = null;
+    const g = admissionGate(model, BOARD);
+    if (!g.allowed) {
+      /* Skipping here is the point: a DEADMITTED proposer is not merely refused
+         at the ledger, it is never QUERIED. Enforcing a prune only at commit
+         time means paying for the call that the rule already forbids. */
+      console.log(model + ': SKIPPED, not queried — ' + g.why);
+      continue;
+    }
     for (let tries = 0; tries < 3 && !slate; tries++) {
       try {
         const text = await ask(auth, model);
@@ -161,10 +198,17 @@ function parseSlate(text) {
       console.log(model + ': DID NOT ENTER after 3 attempts — ' + why);
     }
   }
+  const total = SPEND.reduce((a, c) => a + c.usd, 0);
+  console.log('SPEND THIS RUN: ' + SPEND.length + ' billed call(s), '
+    + SPEND.reduce((a, c) => a + c.in, 0) + ' in / ' + SPEND.reduce((a, c) => a + c.out, 0)
+    + ' out tokens, $' + total.toFixed(4) + ' at cached rates');
   if (mode === '--dry') { console.log('dry run: nothing committed'); return; }
 
   const madeAt = Math.floor(Date.now() / 1000);
+  const commitBoard = board();          /* re-read: scoring may have run since */
   for (const [model, slate] of Object.entries(slates)) {
+    const cg = admissionGate(model, commitBoard);
+    if (!cg.allowed) { console.log('REFUSED all commits for ' + model + ' — ' + cg.why); continue; }
     const [p, q] = slate.claim;
     for (const d of TARGETS) {
       const targetTime = dayEndUtc(d);

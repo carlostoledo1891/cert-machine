@@ -257,6 +257,33 @@ ACTIVE NEXT (operator to choose; nothing pre-authorized):
      a second named engagement, and the letter's send (word).
   C. 8C-full — certified-universal-over-forecast-envelope fleet
      statements; BLOCKED on the parked scenario packs.
+  THE PRUNE GAP — FOUND AND CLOSED 2026-08-29 (operator's word "Approved,
+     go ahead"). When claude-haiku-4.5 was DEADMITTED by the first scoring,
+     the rule was enforced in ONE place: the loop that commits the three
+     HOUSE proposers. tools/forecast-gym-campaign.js queried its own model
+     list and called L.commit directly, and L.commit enforces temporal
+     hygiene but NOT admission — so a pruned model would have been queried,
+     paid for, and committed. The prune held for the baselines and did not
+     hold for the models it was written for. NOW: one admissionGate() in
+     forecast-gym.js that both paths call; the campaign checks it BEFORE the
+     API call (a prune enforced only at the ledger costs money to enforce)
+     and again at commit; board() is time-parameterised (board({asOf})); and
+     auditAdmissionHistory() replays EVERY commit against the board as of
+     its own madeAt — the record-level invariant that does not depend on any
+     caller. The report page gates on it (gate 4) and the gate is proven
+     non-vacuous by a red control that builds a corrupt ledger and must
+     catch it with the exact tail 1/36. Verified live: injecting a real
+     post-deadmission haiku commit REFUSES the page.
+  CAMPAIGN v2 COMMITTED 2026-08-29 (operator budget: $20). Targets
+     2026-09-03..09-08 — the campaign's TARGETS were stale (all six already
+     on the ledger), and a stale target list SPENDS on calls whose rows can
+     only be duplicate-refused, so check the ledger before every campaign.
+     opus-5 (claim 2/3) and sonnet-5 (claim 3/4) entered, 24 rows;
+     haiku SKIPPED, NOT QUERIED. Both models claimed LOWER coverage than in
+     v1 (4/5) — noted, not explained. The campaign now meters itself: every
+     run prints tokens in/out and dollars at cached rates. MEASURED SPEND:
+     $0.0682 dry + $0.0703 commit = $0.1385 of the $20. Ledger 124 commits,
+     audit 0 violations, haiku frozen at 12 while everyone else grew to 24.
   DAILY LOOP (8D, now proven end-to-end — first scoring 2026-08-29):
      when adsb.lol releases a day D:
      node audit/ingest-day.js D && node audit/forecast.js score D &&

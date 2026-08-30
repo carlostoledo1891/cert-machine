@@ -84,9 +84,21 @@ const PROPOSERS = {
   }
 };
 
-/* ---- the per-proposer record, recomputed exactly from the ledger ---------- */
-function board() {
-  const rows = L.rows(LEDGER);
+/* ---- the per-proposer record, recomputed exactly from the ledger ----------
+   opts.asOf (a unix instant) restricts the record to what was KNOWN then: only
+   scores settled strictly before that moment count. board() with no options is
+   the record as of now, which is what the CLI and the page show; the audit
+   below walks the ledger and asks for the board as of each commit, which is the
+   only way to ask whether a commit was legitimate WHEN IT WAS MADE. One
+   function, so the live rule and the historical audit can never drift apart. */
+function board(opts) {
+  const asOf = opts && opts.asOf;
+  const ledger = (opts && opts.ledger) || LEDGER;
+  const rows = L.rows(ledger).filter((r) => {
+    if (asOf === undefined) return true;
+    if (r.type === 'score') return r.at < asOf;      /* a score settles at r.at */
+    return r.madeAt < asOf;
+  });
   const out = {};
   /* proposers = the house three ∪ whoever has committed (model campaigns
      enter under their model id; the board discovers them from the ledger) */
@@ -116,6 +128,48 @@ function board() {
   return out;
 }
 
+/* ---- THE ADMISSION GATE — the ONE definition of "may this proposer commit?"
+   Both consumers pass through here: the house loop below and the frontier-model
+   campaign (tools/forecast-gym-campaign.js). It used to be an inline check in
+   the house loop only, which meant a DEADMITTED model could still be queried
+   AND committed by the campaign — the prune rule held for three proposers and
+   quietly did not hold for the ones it was written for. A rule defined once is
+   the whole point (CLAUDE.md); this is that one place.                       */
+function admissionGate(name, b) {
+  const rec = (b || board())[name];
+  if (!rec) return { allowed: true, why: 'no record yet — admission is lost by record, never by opinion' };
+  if (rec.admission.status === 'DEADMITTED') return { allowed: false, why: rec.admission.text };
+  return { allowed: true, why: rec.admission.text };
+}
+
+/* ---- THE RECORD-LEVEL INVARIANT, audited from the ledger alone ------------
+   The gate above is code, and code can be bypassed by the next tool somebody
+   writes. This is the property that does not depend on any caller:
+
+       no commit exists from a proposer that was ALREADY DEADMITTED at the
+       instant that commit was made.
+
+   Replay the ledger in commit order; for each commit ask for the board as of
+   its own madeAt — the scores that had settled by then, nothing later — and
+   require that the proposer was admitted at that moment. A violation means the
+   ledger itself is corrupt, whoever wrote it and however it was written. The
+   report page gates on this, so a bad row cannot be published.              */
+function auditAdmissionHistory(ledgerPath) {
+  const ledger = ledgerPath || LEDGER;
+  const rows = L.rows(ledger);
+  const commits = rows.filter((r) => r.type === 'commit').slice().sort((a, b) => a.madeAt - b.madeAt);
+  const violations = [];
+  for (const c of commits) {
+    const name = c.id.slice(0, c.id.indexOf(':'));
+    const asOf = board({ ledger, asOf: c.madeAt })[name];
+    if (asOf && asOf.admission.status === 'DEADMITTED') {
+      violations.push({ id: c.id, madeAt: c.madeAt, scored: asOf.scored, covered: asOf.covered,
+        claim: asOf.claim, tail: asOf.admission.tailStr, text: asOf.admission.text });
+    }
+  }
+  return { commits: commits.length, violations };
+}
+
 function commit(dates) {
   const all = series();
   const madeAt = Math.floor(Date.now() / 1000);
@@ -123,10 +177,8 @@ function commit(dates) {
   for (const targetDate of dates) {
     const targetTime = dayEndUtc(targetDate);
     for (const [name, propose] of Object.entries(PROPOSERS)) {
-      if (b[name].admission.status === 'DEADMITTED') {
-        console.log('SKIP ' + name + ' (' + targetDate + '): ' + b[name].admission.text);
-        continue;
-      }
+      const g = admissionGate(name, b);
+      if (!g.allowed) { console.log('SKIP ' + name + ' (' + targetDate + '): ' + g.why); continue; }
       for (const key of KEYS) {
         const f = propose(all, targetDate, key);
         if (f.refused) { console.log('REFUSED ' + name + ':' + targetDate + ':' + key + ' — ' + f.refused); continue; }
@@ -157,7 +209,7 @@ function score(targetDate) {
   }
 }
 
-module.exports = { board, PROPOSERS, LEDGER };
+module.exports = { board, PROPOSERS, LEDGER, admissionGate, auditAdmissionHistory };
 
 if (require.main === module) {
   const [cmd, ...args] = process.argv.slice(2);
