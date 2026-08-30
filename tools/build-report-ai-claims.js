@@ -29,8 +29,8 @@ const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cw
 let L;
 try { L = AUDIT.run(); } catch (e) { die(e.message); }
 
-const withChecks = L.filter(r => r.checks !== null);
-const totalChecks = withChecks.reduce((a, b) => a + b.checks, 0);
+const withChecks = L.filter(r => r.rows !== null);
+const totalChecks = withChecks.reduce((a, b) => a + b.rows, 0);
 const totalMut = L.reduce((a, b) => a + b.mutations, 0);
 const totalMs = L.reduce((a, b) => a + (b.ms || 0), 0);
 const confirmed = L.filter(r => r.verdict === 'CONFIRMED').length;
@@ -69,7 +69,7 @@ B.push(C.tldr({
     + 'where it is analytic. Each carries <strong>mutation controls</strong>: deliberate corruptions of the '
     + 'claim that the verifier must reject. A verifier that cannot fail is not evidence.',
   checkRaw: C.m('node instruments/laneaudit/audit.js') + ' — all six, ' + (totalMs / 1000).toFixed(1)
-    + ' s end to end on a laptop. ' + totalChecks + ' checks and ' + totalMut + ' mutation controls, '
+    + ' s end to end on a laptop. ' + totalChecks + ' individually named checks and ' + totalMut + ' mutation controls, '
     + 'every control rejected. This page is built from that run and refuses if any of it goes red.'
 }));
 
@@ -80,6 +80,7 @@ B.push(C.stats([
   { k: 'refuted', v: String(refuted), role: 'held', n: 'no claim in this set was contradicted by our arithmetic' },
   { k: 'analytic cores audited', v: '0 of ' + L.length, role: 'open', n: 'the honest ceiling of the whole exercise, and the reason this page exists' },
   { k: 'mutation controls', v: String(totalMut), role: 'held', n: 'deliberate corruptions the verifiers must reject — all ' + totalMut + ' rejected' },
+  { k: 'named checks', v: String(totalChecks), role: 'held', n: 'counted by one rule across all six, not taken from six verifiers that disagree about what a check is' },
 ]));
 
 /* ---- §1 the board -------------------------------------------------------- */
@@ -87,15 +88,20 @@ B.push(C.section({
   lab: '§1 · the board', title: 'Six claims, and exactly how far the checking reached',
   bodyRaw: C.table({
     cols: [{ h: 'claim' }, { h: 'AI system' }, { h: 'verdict' }, { h: 'scope of that verdict' },
-           { h: 'checks', cls: 'n' }, { h: 'controls', cls: 'n' }],
+           { h: 'named checks', cls: 'n' }, { h: 'its own total', cls: 'n' }, { h: 'controls', cls: 'n' }],
     rows: L.map(r => [
-      r.short, r.system.replace(/;.*$/, ''), { raw: vtag(r) }, r.scope, num(r.checks), String(r.mutations)
+      { raw: '<a href="/reports/claim-' + r.id + '.html">' + C.esc(r.short) + '</a>' },
+      r.system.replace(/;.*$/, ''), { raw: vtag(r) }, r.scope,
+      num(r.rows), num(r.reported), String(r.mutations)
     ])
   }) + '<div class="col">'
-    + C.pRaw('Two of the six verifiers do not print a check total, so one column reads ' + C.m('—')
-      + ' rather than a number we made up. The Poisson verifier reports its identities as a set and its '
-      + 'mutation controls individually; the count you would want is not one it states, and this page does '
-      + 'not state it for it.')
+    + C.pRaw('<strong>The six verifiers do not agree about what a check is</strong>, and the two columns say so '
+      + 'rather than hiding it. Maxwell, Ran\u2013Teng and Erd\u0151s #1038 fold their mutation controls into '
+      + 'their own printed total (17+3=20, 38+5=43, 22+4=26); Mathieu counts its controls separately; '
+      + 'Korenblum and Poisson print no total at all. So the first column is computed here by ONE rule applied '
+      + 'to all six \u2014 a named check row that is not a mutation control \u2014 and the second column is '
+      + 'whatever each verifier says about itself. Where a verifier names no rows, or states no total, the cell '
+      + 'reads ' + C.m('\u2014') + ' instead of a number we invented. Click any claim for its full ledger.')
     + C.pRaw('<strong>Scope is the whole product here.</strong> Every verdict above is true inside the '
       + 'phrase beside it and false outside it. "CONFIRMED at ε = 1/6" is not "CONFIRMED"; '
       + '"supporting identities only" is not "theorem proved". The claims themselves are stated with more '
@@ -104,27 +110,26 @@ B.push(C.section({
 }));
 
 /* ---- fig 1: how far each was checked ------------------------------------- */
-const bmax = Math.max.apply(null, withChecks.map(r => r.checks));
+const bmax = Math.max.apply(null, withChecks.map(r => r.rows));
 B.push(C.figure({
   svgRaw: CH.bars({
     w: 900, max: Math.ceil(bmax / 20) * 20, padL: 252, padR: 60,
-    xTicks: [0, 40, 80, 120].map(v => ({ v })),
-    xLabel: 'checks executed by the verifier at build time (hover a bar for its mutation controls and runtime)',
-    alt: 'Bar chart of checks executed per claim: mathieu ' + (L.find(r => r.id === 'mathieu').checks)
-      + ', ranteng ' + (L.find(r => r.id === 'ranteng').checks) + ', lemniscate '
-      + (L.find(r => r.id === 'lemniscate').checks) + ', maxwell ' + (L.find(r => r.id === 'maxwell').checks)
-      + ', korenblum ' + (L.find(r => r.id === 'korenblum').checks)
-      + '. The Poisson verifier prints no total and is omitted.',
-    rows: withChecks.slice().sort((a, b) => b.checks - a.checks).map(r => ({
-      k: r.short, v: r.checks, lab: String(r.checks),
+    xTicks: [0, 10, 20, 30, 40].map(v => ({ v })),
+    xLabel: 'individually named checks the verifier printed at build time (hover for controls and runtime)',
+    alt: 'Bar chart of named checks per claim: Ran\u2013Teng 38, Erd\u0151s #1038 22, Maxwell 17, '
+      + 'Korenblum 15. The Mathieu and Poisson verifiers print a summary rather than named rows and are '
+      + 'omitted from this chart.',
+    rows: withChecks.slice().sort((a, b) => b.rows - a.rows).map(r => ({
+      k: r.short, v: r.rows, lab: String(r.rows),
       token: r.verdict === 'PARTIAL' ? CH.CAT[2] : CH.CAT[0],
-      hover: r.checks + ' checks · ' + r.mutations + ' mutation controls · '
+      hover: r.rows + ' named checks · ' + r.mutations + ' mutation controls · '
         + (r.ms === null ? 'sub-millisecond' : r.ms + ' ms') + ' · ' + r.verdict
     }))
   }),
-  caption: 'Depth of checking is not depth of proof. Mathieu carries the most checks in the set and yields '
-    + 'the narrowest verdict — its 126 exact identities support a classification theorem that none of them '
-    + 'establishes. Ran–Teng, in the contrasting colour, is the one PARTIAL.'
+  caption: 'Only four of the six print named check rows, so only four are plotted — Mathieu reports 126 '
+    + 'checks as a summary and Poisson reports its identities as a set, and a bar drawn from a number that '
+    + 'names nothing would be a bar drawn from nothing. Ran–Teng, in the contrasting colour, is the one '
+    + 'PARTIAL, and it carries the most named checks in the set: depth of checking is not depth of proof.'
 }));
 
 /* ---- §2 the finding ------------------------------------------------------ */
@@ -144,7 +149,7 @@ B.push(C.section({
         note: r.verdict,
         segs: [
           { x0: 0, x1: 0.5, token: CH.CAT[0], k: r.short + ' · computational fragment',
-            v: 'certified here — ' + (r.checks === null ? 'exact identities' : r.checks + ' checks')
+            v: 'certified here — ' + (r.rows === null ? 'exact identities, reported as a summary' : r.rows + ' named checks')
                + ', ' + r.mutations + ' mutation controls rejected' },
           { x0: 0.5, x1: 1, token: CH.CTX, hatch: true, k: r.short + ' · analytic core',
             v: 'not audited — ' + r.notChecked.replace(/\.\s.*$/, '') }
@@ -175,7 +180,7 @@ B.push(C.section({
   bodyRaw: C.picker({
     name: 'lane',
     items: L.map(r => ({
-      k: r.verdict + (r.checks === null ? '' : ' · ' + r.checks + ' checks'),
+      k: r.verdict + (r.rows === null ? '' : ' · ' + r.rows + ' checks'),
       t: r.short,
       title: r.short,
       tagRaw: vtag(r) + ' ' + C.tag(r.scope, 'dep'),
@@ -262,7 +267,7 @@ B.push(C.note({
 
 const foot = '<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git ' + git
   + '. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — '
-  + totalChecks + ' checks, 0 failures, ' + totalMut + ' mutation controls all rejected, '
+  + totalChecks + ' named checks, 0 failures, ' + totalMut + ' mutation controls all rejected, '
   + (totalMs / 1000).toFixed(1) + ' s. Every count on this page is parsed from that run. A failing check, '
   + 'a mutation control that stops firing, or a verifier that stops printing its own totals refuses the '
   + 'page rather than publishing a stale number.</p></footer>';
@@ -274,9 +279,10 @@ fs.writeFileSync(path.join(ROOT, 'certs', 'ai-claims-summary.json'),
   JSON.stringify({
     lanes: L.length, confirmed, partial, refuted,
     checks: totalChecks, checksFrom: withChecks.length,
+    checkRule: 'a named PASS row that is not a mutation control, counted identically for all six',
     mutations: totalMut, seconds: Number((totalMs / 1000).toFixed(1)),
     verdicts: L.map(r => ({ id: r.id, short: r.short, verdict: r.verdict, scope: r.scope,
-                            checks: r.checks, mutations: r.mutations }))
+                            namedChecks: r.rows, selfReported: r.reported, mutations: r.mutations }))
   }, null, 2) + '\n');
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'ai-claims-audit.html'),

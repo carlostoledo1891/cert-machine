@@ -13,7 +13,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-08-30, the six-lane audit narrated)
+## TASKS BACKLOG — the standing menu (updated 2026-08-30, six-lane audit + six claim pages)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -74,10 +74,34 @@ detail pages).
       remote is carlostoledo1891. A wrong clone URL in the "check it yourself"
       section is the same class as the two 404s fixed in 5d061fb.
 
-  NOT DONE, operator's call: the six per-claim detail pages (option b), and
-  whether this page earns a landing-page slot — it sits at shelf index 9, so
-  it is on /reports/ but not in the landing's top-6 feature. Reordering the
-  feature is editorial, not mine.
+  THE SIX PER-CLAIM PAGES SHIPPED (operator: "build the 6 per claim and push
+  live"), reports/claim-<id>.html, registered on the shelf and in the sitemap.
+  Each carries §1 the claim at source · §2 the verifier's OWN check ledger as
+  it printed it at this build (per-stage tables + a per-stage bar chart where
+  the verifier emits stages) · §3 the falsifiers, each named · §4 the boundary
+  · §5 re-run + cards to the other five. tools/build-report-claim.js loops the
+  six; instruments/laneaudit/audit.js gained ledger() so the flagship and the
+  detail pages read ONE parser and cannot disagree.
+
+  AND A CORRECTION TO THE FLAGSHIP I SHIPPED AN HOUR EARLIER. Building the
+  ledger exposed that THE SIX VERIFIERS DO NOT AGREE ABOUT WHAT A CHECK IS:
+  maxwell, ranteng and lemniscate FOLD their mutation controls into their own
+  printed total (17+3=20, 38+5=43, 22+4=26); mathieu counts its 3 separately;
+  korenblum and poisson print no total at all. The first version of the page
+  put those six incomparable numbers in one column and summed them to "230
+  checks". That number was not wrong per verifier — each was parsed from its
+  own output — but the COLUMN was not a column, and the sum was not a sum.
+  Now: one rule applied to all six (a named PASS row that is not a mutation
+  control) giving 92 named checks, the verifier's own total carried in a
+  SECOND column beside it, and a paragraph naming the disagreement with the
+  arithmetic shown. Where a verifier names no rows or states no total the cell
+  reads em-dash. The counting rule again: deflate to truth before anything is
+  stated publicly — this one survived a commit AND a deploy before the
+  per-claim build forced it into the open.
+
+  STILL the operator's call: whether the flagship earns a landing-page slot —
+  it sits at shelf index 9, so it is on /reports/ but not in the landing's
+  top-6 feature. Reordering the feature is editorial, not mine.
 
 STATE OF RECORD (refreshed 2026-08-29; full histories live in
 apps/skyaudit/TODO.md and the session entries below — this block holds

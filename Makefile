@@ -103,3 +103,4 @@ reports:
 	@$(NODE) tools/build-report-skyaudit.js
 	@$(NODE) tools/build-report-keller.js
 	@$(NODE) tools/build-report-ai-claims.js
+	@$(NODE) tools/build-report-claim.js

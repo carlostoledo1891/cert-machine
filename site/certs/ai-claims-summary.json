@@ -3,17 +3,19 @@
   "confirmed": 5,
   "partial": 1,
   "refuted": 0,
-  "checks": 230,
-  "checksFrom": 5,
+  "checks": 92,
+  "checksFrom": 4,
+  "checkRule": "a named PASS row that is not a mutation control, counted identically for all six",
   "mutations": 21,
-  "seconds": 6.7,
+  "seconds": 6,
   "verdicts": [
     {
       "id": "maxwell",
       "short": "Maxwell's point-charge bound",
       "verdict": "CONFIRMED",
       "scope": "at ε = 1/6 only",
-      "checks": 20,
+      "namedChecks": 17,
+      "selfReported": 20,
       "mutations": 3
     },
     {
@@ -21,7 +23,8 @@
       "short": "The Korenblum constant",
       "verdict": "CONFIRMED",
       "scope": "the numerical criterion",
-      "checks": 15,
+      "namedChecks": 15,
+      "selfReported": null,
       "mutations": 4
     },
     {
@@ -29,7 +32,8 @@
       "short": "Erdős Problem #1038",
       "verdict": "CONFIRMED",
       "scope": "the computational fragment",
-      "checks": 26,
+      "namedChecks": 22,
+      "selfReported": 26,
       "mutations": 4
     },
     {
@@ -37,7 +41,8 @@
       "short": "Ran–Teng Conjecture 20",
       "verdict": "PARTIAL",
       "scope": "machine-checkable fragment only",
-      "checks": 43,
+      "namedChecks": 38,
+      "selfReported": 43,
       "mutations": 5
     },
     {
@@ -45,7 +50,8 @@
       "short": "The Mathieu property for Lie groups",
       "verdict": "CONFIRMED",
       "scope": "supporting identities only",
-      "checks": 126,
+      "namedChecks": null,
+      "selfReported": 126,
       "mutations": 3
     },
     {
@@ -53,7 +59,8 @@
       "short": "The rank-two Poisson conjecture",
       "verdict": "CONFIRMED",
       "scope": "the explicit counterexample",
-      "checks": null,
+      "namedChecks": null,
+      "selfReported": null,
       "mutations": 2
     }
   ]

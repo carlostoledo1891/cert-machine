@@ -137,14 +137,63 @@ const PARSE = {
 
 const countPass = (s) => (s.match(/^\s*(?:PASS|OK)\b/gm) || []).length;
 
+/* --------------------------------------------------------------- ledger --
+   The per-claim pages render each verifier's OWN report, so this turns its
+   stdout into structure. The six were written months apart and print three
+   different ways, and this function does not paper over that:
+
+     staged  maxwell, korenblum, ranteng — "[n] Title" blocks of PASS rows
+     flat    lemniscate — PASS rows with no sections
+     terse   mathieu, poisson — a summary only, no per-check ledger at all
+
+   `shape` is reported so a page can say which one it is looking at rather
+   than pretending every verifier is equally talkative. A terse lane gets no
+   invented ledger; it gets its report verbatim and a sentence saying so. */
+const STAGE_RE = /^\[(\d+)\]\s*(.+?)\s*$/;
+const PASS_RE = /^\s*(?:PASS|OK)\s+(.*?)\s*$/;
+const MUT_TITLE = /mutation control/i;
+
+function ledger(out) {
+  const lines = out.split('\n');
+  const stages = [];
+  const controls = [];
+  const flat = [];
+  let cur = null, inMut = false;
+
+  for (const ln of lines) {
+    const st = STAGE_RE.exec(ln);
+    if (st) {
+      inMut = MUT_TITLE.test(st[2]);
+      cur = inMut ? null : { n: Number(st[1]), title: st[2].replace(/:$/, ''), checks: [] };
+      if (cur) stages.push(cur);
+      continue;
+    }
+    const pm = PASS_RE.exec(ln);
+    if (pm) {
+      const text = pm[1];
+      if (inMut || /^M\d+\b/.test(text)) controls.push(text);
+      else if (cur) cur.checks.push(text);
+      else flat.push(text);
+      continue;
+    }
+    /* poisson prints its controls as whole sentences, not PASS rows */
+    const pc = /^Mutation control \d+ \((.+?)\): rejected, (\d+) failing checks/.exec(ln);
+    if (pc) controls.push(pc[1] + ' \u2014 rejected, ' + pc[2] + ' failing checks');
+  }
+
+  const staged = stages.reduce((a, s) => a + s.checks.length, 0);
+  const shape = staged ? 'staged' : (flat.length ? 'flat' : 'terse');
+  return { shape, stages, flat, controls, raw: out.trim() };
+}
+
 function parse(lane, out) {
   const P = PARSE[lane.id];
-  let checks = null, failures = 0, mutations = 0;
+  let reported = null, failures = 0, mutations = 0;
 
   if (P.total) {
     const m = P.total.exec(out);
     if (!m) throw new Error(lane.id + ': the verifier stopped printing its own check total');
-    checks = Number(m[1]); failures = Number(m[2]);
+    reported = Number(m[1]); failures = Number(m[2]);
   }
 
   if (P.mutTotal) {
@@ -157,14 +206,23 @@ function parse(lane, out) {
     const at = P.mutAt.exec(out);
     if (!at) throw new Error(lane.id + ': the mutation-control section is gone from the output');
     mutations = countPass(out.slice(at.index));
-    if (checks === null) checks = countPass(out.slice(0, at.index));
   }
 
   let ms = null;
   if (P.ms) { const m = P.ms.exec(out); if (m) ms = Math.round(Number(m[1]) * 1000); }
   if (P.msMs) { const m = P.msMs.exec(out); if (m) ms = Number(m[1]); }
 
-  return { checks, failures, mutations, ms };
+  /* THE ONE RULE for "a check", applied identically to all six: a named PASS
+     row that is not a mutation control. The verifiers do NOT agree with each
+     other on this — maxwell, ranteng and lemniscate fold their controls into
+     their own printed total, mathieu counts them separately, korenblum and
+     poisson print no total at all. Taking each verifier's word would put six
+     incomparable numbers in one column, so the column is computed here and
+     each verifier's own figure is carried alongside it as `reported`. */
+  const L = ledger(out);
+  const rows = L.stages.reduce((a, st) => a + st.checks.length, 0) + L.flat.length;
+
+  return { reported, rows: rows || null, failures, mutations, ms, ledger: L };
 }
 
 /* ------------------------------------------------------------------ run --
@@ -186,7 +244,7 @@ function run() {
   });
 }
 
-module.exports = { run, LANES };
+module.exports = { run, ledger, LANES };
 
 if (require.main === module) {
   const rows = run();
@@ -194,13 +252,16 @@ if (require.main === module) {
   console.log('laneaudit — six independent re-verifications of AI-claimed theorems\n');
   for (const r of rows) {
     console.log('  ' + r.id.padEnd(11) + r.verdict.padEnd(10)
-      + ('checks ' + n(r.checks)).padEnd(13)
-      + ('mutations ' + r.mutations).padEnd(15)
+      + ('named ' + n(r.rows)).padEnd(11)
+      + ('self-reported ' + n(r.reported)).padEnd(21)
+      + ('controls ' + r.mutations).padEnd(14)
       + (r.ms === null ? '' : r.ms + ' ms'));
   }
-  const tc = rows.filter(r => r.checks !== null).reduce((a, b) => a + b.checks, 0);
+  const tc = rows.filter(r => r.rows !== null).reduce((a, b) => a + b.rows, 0);
   const tm = rows.reduce((a, b) => a + b.mutations, 0);
   const tms = rows.reduce((a, b) => a + (b.ms || 0), 0);
-  console.log('\n  ' + tc + ' checks across ' + rows.filter(r => r.checks !== null).length + ' of ' + rows.length
-    + ' verifiers, ' + tm + ' mutation controls all rejected, ' + (tms / 1000).toFixed(1) + ' s total');
+  console.log('\n  ' + tc + ' named checks across ' + rows.filter(r => r.rows !== null).length + ' of '
+    + rows.length + ' verifiers, ' + tm + ' mutation controls all rejected, '
+    + (tms / 1000).toFixed(1) + ' s total');
+  console.log('  (a "check" is computed here, not taken from each verifier\'s own total \u2014 they disagree)');
 }

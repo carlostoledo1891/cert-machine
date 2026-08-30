@@ -441,7 +441,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <strong>5 of 6 held; 1 came back PARTIAL; 0 were refuted.</strong> But the number that matters is the other one: in <strong>6 of 6 cases the computational fragment certified and the analytic core did not</strong> — the identities, enclosures and exhibits are machine-checkable and they all held, while the surrounding argument is prose in every single one. That split is the finding.</li><li><b>The mechanism.</b> Each verifier was written against the <em>manuscript</em>, never derived from and never executing the author's scripts — no Arb, no SymPy, no Mathematica, no code from anybody's archive was run. (In one lane, Mathieu, the author's Python was <em>read</em> to cross-check which identities the TeX meant; it was not executed, and that is stated on the lane.) Exact rationals where the claim is algebraic, outward-rounded intervals and the Krawczyk operator where it is analytic. Each carries <strong>mutation controls</strong>: deliberate corruptions of the claim that the verifier must reject. A verifier that cannot fail is not evidence.</li><li><b>Check it.</b> <span class="m">node instruments/laneaudit/audit.js</span> — all six, 6.7 s end to end on a laptop. 230 checks and 21 mutation controls, every control rejected. This page is built from that run and refuses if any of it goes red.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <strong>5 of 6 held; 1 came back PARTIAL; 0 were refuted.</strong> But the number that matters is the other one: in <strong>6 of 6 cases the computational fragment certified and the analytic core did not</strong> — the identities, enclosures and exhibits are machine-checkable and they all held, while the surrounding argument is prose in every single one. That split is the finding.</li><li><b>The mechanism.</b> Each verifier was written against the <em>manuscript</em>, never derived from and never executing the author's scripts — no Arb, no SymPy, no Mathematica, no code from anybody's archive was run. (In one lane, Mathieu, the author's Python was <em>read</em> to cross-check which identities the TeX meant; it was not executed, and that is stated on the lane.) Exact rationals where the claim is algebraic, outward-rounded intervals and the Krawczyk operator where it is analytic. Each carries <strong>mutation controls</strong>: deliberate corruptions of the claim that the verifier must reject. A verifier that cannot fail is not evidence.</li><li><b>Check it.</b> <span class="m">node instruments/laneaudit/audit.js</span> — all six, 6.0 s end to end on a laptop. 92 individually named checks and 21 mutation controls, every control rejected. This page is built from that run and refuses if any of it goes red.</li></ul>
 </div></div>
 
 <div class="wide">
@@ -452,6 +452,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="stat"><div class="k">refuted</div><div class="v held">0</div><div class="n">no claim in this set was contradicted by our arithmetic</div></div>
     <div class="stat"><div class="k">analytic cores audited</div><div class="v open">0 of 6</div><div class="n">the honest ceiling of the whole exercise, and the reason this page exists</div></div>
     <div class="stat"><div class="k">mutation controls</div><div class="v held">21</div><div class="n">deliberate corruptions the verifiers must reject — all 21 rejected</div></div>
+    <div class="stat"><div class="k">named checks</div><div class="v held">92</div><div class="n">counted by one rule across all six, not taken from six verifiers that disagree about what a check is</div></div>
   </div>
 </div>
 
@@ -460,39 +461,38 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="lab">§1 · the board</div>
     <h2>Six claims, and exactly how far the checking reached</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>AI system</th><th>verdict</th><th>scope of that verdict</th><th>checks</th><th>controls</th></tr></thead><tbody><tr><td>Maxwell&#39;s point-charge bound</td><td>OpenAI GPT-5.6 Sol (idea)</td><td><span class="tag held">CONFIRMED</span></td><td>at ε = 1/6 only</td><td class="n">20</td><td class="n">3</td></tr><tr><td>The Korenblum constant</td><td>OpenAI Codex (GPT-5.6 Sol), disclosed in the paper</td><td><span class="tag held">CONFIRMED</span></td><td>the numerical criterion</td><td class="n">15</td><td class="n">4</td></tr><tr><td>Erdős Problem #1038</td><td>GPT-5.5 Pro (initial main argument in a solver–verifier framework, then revised by the human authors)</td><td><span class="tag held">CONFIRMED</span></td><td>the computational fragment</td><td class="n">26</td><td class="n">4</td></tr><tr><td>Ran–Teng Conjecture 20</td><td>GPT-5.2 Thinking</td><td><span class="tag open">PARTIAL</span></td><td>machine-checkable fragment only</td><td class="n">43</td><td class="n">5</td></tr><tr><td>The Mathieu property for Lie groups</td><td>not recorded at source</td><td><span class="tag held">CONFIRMED</span></td><td>supporting identities only</td><td class="n">126</td><td class="n">3</td></tr><tr><td>The rank-two Poisson conjecture</td><td>not recorded at source</td><td><span class="tag held">CONFIRMED</span></td><td>the explicit counterexample</td><td class="n">—</td><td class="n">2</td></tr></tbody></table></div></div><div class="col"><p>Two of the six verifiers do not print a check total, so one column reads <span class="m">—</span> rather than a number we made up. The Poisson verifier reports its identities as a set and its mutation controls individually; the count you would want is not one it states, and this page does not state it for it.</p><p><strong>Scope is the whole product here.</strong> Every verdict above is true inside the phrase beside it and false outside it. "CONFIRMED at ε = 1/6" is not "CONFIRMED"; "supporting identities only" is not "theorem proved". The claims themselves are stated with more confidence than that at source, which is precisely why an independent scope line is worth having.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>AI system</th><th>verdict</th><th>scope of that verdict</th><th>named checks</th><th>its own total</th><th>controls</th></tr></thead><tbody><tr><td><a href="/reports/claim-maxwell.html">Maxwell&#39;s point-charge bound</a></td><td>OpenAI GPT-5.6 Sol (idea)</td><td><span class="tag held">CONFIRMED</span></td><td>at ε = 1/6 only</td><td class="n">17</td><td class="n">20</td><td class="n">3</td></tr><tr><td><a href="/reports/claim-korenblum.html">The Korenblum constant</a></td><td>OpenAI Codex (GPT-5.6 Sol), disclosed in the paper</td><td><span class="tag held">CONFIRMED</span></td><td>the numerical criterion</td><td class="n">15</td><td class="n">—</td><td class="n">4</td></tr><tr><td><a href="/reports/claim-lemniscate.html">Erdős Problem #1038</a></td><td>GPT-5.5 Pro (initial main argument in a solver–verifier framework, then revised by the human authors)</td><td><span class="tag held">CONFIRMED</span></td><td>the computational fragment</td><td class="n">22</td><td class="n">26</td><td class="n">4</td></tr><tr><td><a href="/reports/claim-ranteng.html">Ran–Teng Conjecture 20</a></td><td>GPT-5.2 Thinking</td><td><span class="tag open">PARTIAL</span></td><td>machine-checkable fragment only</td><td class="n">38</td><td class="n">43</td><td class="n">5</td></tr><tr><td><a href="/reports/claim-mathieu.html">The Mathieu property for Lie groups</a></td><td>not recorded at source</td><td><span class="tag held">CONFIRMED</span></td><td>supporting identities only</td><td class="n">—</td><td class="n">126</td><td class="n">3</td></tr><tr><td><a href="/reports/claim-poisson.html">The rank-two Poisson conjecture</a></td><td>not recorded at source</td><td><span class="tag held">CONFIRMED</span></td><td>the explicit counterexample</td><td class="n">—</td><td class="n">—</td><td class="n">2</td></tr></tbody></table></div></div><div class="col"><p><strong>The six verifiers do not agree about what a check is</strong>, and the two columns say so rather than hiding it. Maxwell, Ran–Teng and Erdős #1038 fold their mutation controls into their own printed total (17+3=20, 38+5=43, 22+4=26); Mathieu counts its controls separately; Korenblum and Poisson print no total at all. So the first column is computed here by ONE rule applied to all six — a named check row that is not a mutation control — and the second column is whatever each verifier says about itself. Where a verifier names no rows, or states no total, the cell reads <span class="m">—</span> instead of a number we invented. Click any claim for its full ledger.</p><p><strong>Scope is the whole product here.</strong> Every verdict above is true inside the phrase beside it and false outside it. "CONFIRMED at ε = 1/6" is not "CONFIRMED"; "supporting identities only" is not "theorem proved". The claims themselves are stated with more confidence than that at source, which is precisely why an independent scope line is worth having.</p></div>
 </section>
 
 <div class="wide"><figure>
   <div class="figbox">
-  <svg viewBox="0 0 900 204" role="img" aria-label="Bar chart of checks executed per claim: mathieu 126, ranteng 43, lemniscate 26, maxwell 20, korenblum 15. The Poisson verifier prints no total and is omitted.">
-    <line x1="252.0" y1="10" x2="252.0" y2="140" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="252.0" y="160.0" text-anchor="middle" class="t-ax">0</text>
-    <line x1="420.0" y1="10" x2="420.0" y2="140" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="420.0" y="160.0" text-anchor="middle" class="t-ax">40</text>
-    <line x1="588.0" y1="10" x2="588.0" y2="140" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="588.0" y="160.0" text-anchor="middle" class="t-ax">80</text>
-    <line x1="756.0" y1="10" x2="756.0" y2="140" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="756.0" y="160.0" text-anchor="middle" class="t-ax">120</text>
-    <path d="M252 14 h525.2 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-525.2 Z" fill="var(--c-1)" data-cm="The Mathieu property for Lie groups" data-cmv="126 checks · 3 mutation controls · 80 ms · CONFIRMED" tabindex="0"/>
-    <text x="242.0" y="27.0" text-anchor="end" class="t-ax">The Mathieu property for Lie groups</text>
-    <text x="789.2" y="27.0" text-anchor="start" class="t-lab">126</text>
-    <path d="M252 40 h176.60000000000002 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-176.60000000000002 Z" fill="var(--c-3)" data-cm="Ran–Teng Conjecture 20" data-cmv="43 checks · 5 mutation controls · 89 ms · PARTIAL" tabindex="0"/>
-    <text x="242.0" y="53.0" text-anchor="end" class="t-ax">Ran–Teng Conjecture 20</text>
-    <text x="440.6" y="53.0" text-anchor="start" class="t-lab">43</text>
-    <path d="M252 66 h105.19999999999999 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-105.19999999999999 Z" fill="var(--c-1)" data-cm="Erdős Problem #1038" data-cmv="26 checks · 4 mutation controls · 0 ms · CONFIRMED" tabindex="0"/>
-    <text x="242.0" y="79.0" text-anchor="end" class="t-ax">Erdős Problem #1038</text>
-    <text x="369.2" y="79.0" text-anchor="start" class="t-lab">26</text>
-    <path d="M252 92 h80 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-80 Z" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound" data-cmv="20 checks · 3 mutation controls · 100 ms · CONFIRMED" tabindex="0"/>
-    <text x="242.0" y="105.0" text-anchor="end" class="t-ax">Maxwell&#39;s point-charge bound</text>
-    <text x="344.0" y="105.0" text-anchor="start" class="t-lab">20</text>
-    <path d="M252 118 h59 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-59 Z" fill="var(--c-1)" data-cm="The Korenblum constant" data-cmv="15 checks · 4 mutation controls · 6000 ms · CONFIRMED" tabindex="0"/>
-    <text x="242.0" y="131.0" text-anchor="end" class="t-ax">The Korenblum constant</text>
-    <text x="323.0" y="131.0" text-anchor="start" class="t-lab">15</text>
-    <text x="546.0" y="182.0" text-anchor="middle" class="t-note">checks executed by the verifier at build time (hover a bar for its mutation controls and runtime)</text>
+  <svg viewBox="0 0 900 178" role="img" aria-label="Bar chart of named checks per claim: Ran–Teng 38, Erdős #1038 22, Maxwell 17, Korenblum 15. The Mathieu and Poisson verifiers print a summary rather than named rows and are omitted from this chart.">
+    <line x1="252.0" y1="10" x2="252.0" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="252.0" y="134.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="399.0" y1="10" x2="399.0" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="399.0" y="134.0" text-anchor="middle" class="t-ax">10</text>
+    <line x1="546.0" y1="10" x2="546.0" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="546.0" y="134.0" text-anchor="middle" class="t-ax">20</text>
+    <line x1="693.0" y1="10" x2="693.0" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="693.0" y="134.0" text-anchor="middle" class="t-ax">30</text>
+    <line x1="840.0" y1="10" x2="840.0" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="840.0" y="134.0" text-anchor="middle" class="t-ax">40</text>
+    <path d="M252 14 h554.6 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-554.6 Z" fill="var(--c-3)" data-cm="Ran–Teng Conjecture 20" data-cmv="38 named checks · 5 mutation controls · 73 ms · PARTIAL" tabindex="0"/>
+    <text x="242.0" y="27.0" text-anchor="end" class="t-ax">Ran–Teng Conjecture 20</text>
+    <text x="818.6" y="27.0" text-anchor="start" class="t-lab">38</text>
+    <path d="M252 40 h319.4000000000001 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-319.4000000000001 Z" fill="var(--c-1)" data-cm="Erdős Problem #1038" data-cmv="22 named checks · 4 mutation controls · 0 ms · CONFIRMED" tabindex="0"/>
+    <text x="242.0" y="53.0" text-anchor="end" class="t-ax">Erdős Problem #1038</text>
+    <text x="583.4" y="53.0" text-anchor="start" class="t-lab">22</text>
+    <path d="M252 66 h245.89999999999998 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-245.89999999999998 Z" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound" data-cmv="17 named checks · 3 mutation controls · 100 ms · CONFIRMED" tabindex="0"/>
+    <text x="242.0" y="79.0" text-anchor="end" class="t-ax">Maxwell&#39;s point-charge bound</text>
+    <text x="509.9" y="79.0" text-anchor="start" class="t-lab">17</text>
+    <path d="M252 92 h216.5 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-216.5 Z" fill="var(--c-1)" data-cm="The Korenblum constant" data-cmv="15 named checks · 4 mutation controls · 5400 ms · CONFIRMED" tabindex="0"/>
+    <text x="242.0" y="105.0" text-anchor="end" class="t-ax">The Korenblum constant</text>
+    <text x="480.5" y="105.0" text-anchor="start" class="t-lab">15</text>
+    <text x="546.0" y="156.0" text-anchor="middle" class="t-note">individually named checks the verifier printed at build time (hover for controls and runtime)</text>
   </svg>
   </div>
-  <figcaption>Depth of checking is not depth of proof. Mathieu carries the most checks in the set and yields the narrowest verdict — its 126 exact identities support a classification theorem that none of them establishes. Ran–Teng, in the contrasting colour, is the one PARTIAL.</figcaption>
+  <figcaption>Only four of the six print named check rows, so only four are plotted — Mathieu reports 126 checks as a summary and Poisson reports its identities as a set, and a bar drawn from a number that names nothing would be a bar drawn from nothing. Ran–Teng, in the contrasting colour, is the one PARTIAL, and it carries the most named checks in the set: depth of checking is not depth of proof.</figcaption>
 </figure></div>
 
 <section class="col">
@@ -509,32 +509,32 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <line x1="649.5" y1="16" x2="649.5" y2="256" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="649.5" y="276.0" text-anchor="middle" class="t-ax">the analytic core</text>
     <text x="240.0" y="40.0" text-anchor="end" class="t-ax">Maxwell&#39;s point-charge bound</text>
-    <rect x="252.00" y="26" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound · computational fragment" data-cmv="certified here — 20 checks, 3 mutation controls rejected" tabindex="0"/>
+    <rect x="252.00" y="26" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound · computational fragment" data-cmv="certified here — 17 named checks, 3 mutation controls rejected" tabindex="0"/>
     <rect x="517.00" y="26" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="Maxwell&#39;s point-charge bound · analytic core" data-cmv="not audited — The theorem’s asymptotic statement — &quot;for all sufficiently small ε&quot; — and every proof in the paper" tabindex="0"/>
     <rect x="517.00" y="26" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="794.0" y="40.0" text-anchor="start" class="t-lab">CONFIRMED</text>
     <text x="240.0" y="80.0" text-anchor="end" class="t-ax">The Korenblum constant</text>
-    <rect x="252.00" y="66" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="The Korenblum constant · computational fragment" data-cmv="certified here — 15 checks, 4 mutation controls rejected" tabindex="0"/>
+    <rect x="252.00" y="66" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="The Korenblum constant · computational fragment" data-cmv="certified here — 15 named checks, 4 mutation controls rejected" tabindex="0"/>
     <rect x="517.00" y="66" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="The Korenblum constant · analytic core" data-cmv="not audited — The duality argument itself — the paper’s Lemma 3.1 and Wang’s Proposition 2.1" tabindex="0"/>
     <rect x="517.00" y="66" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="794.0" y="80.0" text-anchor="start" class="t-lab">CONFIRMED</text>
     <text x="240.0" y="120.0" text-anchor="end" class="t-ax">Erdős Problem #1038</text>
-    <rect x="252.00" y="106" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="Erdős Problem #1038 · computational fragment" data-cmv="certified here — 26 checks, 4 mutation controls rejected" tabindex="0"/>
+    <rect x="252.00" y="106" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="Erdős Problem #1038 · computational fragment" data-cmv="certified here — 22 named checks, 4 mutation controls rejected" tabindex="0"/>
     <rect x="517.00" y="106" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="Erdős Problem #1038 · analytic core" data-cmv="not audited — The proof that this triple is extremal" tabindex="0"/>
     <rect x="517.00" y="106" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="794.0" y="120.0" text-anchor="start" class="t-lab">CONFIRMED</text>
     <text x="240.0" y="160.0" text-anchor="end" class="t-ax">Ran–Teng Conjecture 20</text>
-    <rect x="252.00" y="146" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="Ran–Teng Conjecture 20 · computational fragment" data-cmv="certified here — 43 checks, 5 mutation controls rejected" tabindex="0"/>
+    <rect x="252.00" y="146" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="Ran–Teng Conjecture 20 · computational fragment" data-cmv="certified here — 38 named checks, 5 mutation controls rejected" tabindex="0"/>
     <rect x="517.00" y="146" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="Ran–Teng Conjecture 20 · analytic core" data-cmv="not audited — The analytic core — the argument parametrization, the convexity/Jensen/Karamata optimization that makes necessity hold for ALL parameters, and the branch bookkeeping" tabindex="0"/>
     <rect x="517.00" y="146" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="794.0" y="160.0" text-anchor="start" class="t-lab">PARTIAL</text>
     <text x="240.0" y="200.0" text-anchor="end" class="t-ax">The Mathieu property for Lie groups</text>
-    <rect x="252.00" y="186" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="The Mathieu property for Lie groups · computational fragment" data-cmv="certified here — 126 checks, 3 mutation controls rejected" tabindex="0"/>
+    <rect x="252.00" y="186" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="The Mathieu property for Lie groups · computational fragment" data-cmv="certified here — exact identities, reported as a summary, 3 mutation controls rejected" tabindex="0"/>
     <rect x="517.00" y="186" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="The Mathieu property for Lie groups · analytic core" data-cmv="not audited — The classification theorem itself" tabindex="0"/>
     <rect x="517.00" y="186" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="794.0" y="200.0" text-anchor="start" class="t-lab">CONFIRMED</text>
     <text x="240.0" y="240.0" text-anchor="end" class="t-ax">The rank-two Poisson conjecture</text>
-    <rect x="252.00" y="226" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="The rank-two Poisson conjecture · computational fragment" data-cmv="certified here — exact identities, 2 mutation controls rejected" tabindex="0"/>
+    <rect x="252.00" y="226" width="263.00" height="20" rx="3" fill="var(--c-1)" data-cm="The rank-two Poisson conjecture · computational fragment" data-cmv="certified here — exact identities, reported as a summary, 2 mutation controls rejected" tabindex="0"/>
     <rect x="517.00" y="226" width="263.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="The rank-two Poisson conjecture · analytic core" data-cmv="not audited — The author’s surrounding prose beyond the extracted definitions" tabindex="0"/>
     <rect x="517.00" y="226" width="263.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="794.0" y="240.0" text-anchor="start" class="t-lab">CONFIRMED</text>
@@ -561,11 +561,11 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <input class="pk-r" type="radio" name="lane" id="pk-lane-4">
 <input class="pk-r" type="radio" name="lane" id="pk-lane-5">
 <div class="pk-tabs">
-<label class="pk-t" for="pk-lane-0"><span class="pk-k">CONFIRMED · 20 checks</span><span class="pk-n">Maxwell&#39;s point-charge bound</span></label>
+<label class="pk-t" for="pk-lane-0"><span class="pk-k">CONFIRMED · 17 checks</span><span class="pk-n">Maxwell&#39;s point-charge bound</span></label>
 <label class="pk-t" for="pk-lane-1"><span class="pk-k">CONFIRMED · 15 checks</span><span class="pk-n">The Korenblum constant</span></label>
-<label class="pk-t" for="pk-lane-2"><span class="pk-k">CONFIRMED · 26 checks</span><span class="pk-n">Erdős Problem #1038</span></label>
-<label class="pk-t" for="pk-lane-3"><span class="pk-k">PARTIAL · 43 checks</span><span class="pk-n">Ran–Teng Conjecture 20</span></label>
-<label class="pk-t" for="pk-lane-4"><span class="pk-k">CONFIRMED · 126 checks</span><span class="pk-n">The Mathieu property for Lie groups</span></label>
+<label class="pk-t" for="pk-lane-2"><span class="pk-k">CONFIRMED · 22 checks</span><span class="pk-n">Erdős Problem #1038</span></label>
+<label class="pk-t" for="pk-lane-3"><span class="pk-k">PARTIAL · 38 checks</span><span class="pk-n">Ran–Teng Conjecture 20</span></label>
+<label class="pk-t" for="pk-lane-4"><span class="pk-k">CONFIRMED</span><span class="pk-n">The Mathieu property for Lie groups</span></label>
 <label class="pk-t" for="pk-lane-5"><span class="pk-k">CONFIRMED</span><span class="pk-n">The rank-two Poisson conjecture</span></label>
 </div>
 <div class="pk-panes">
@@ -654,7 +654,7 @@ node legacy/research/challenges/lane/laneb-poisson/verify.js</pre><p>To confirm 
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git bf0ac13. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 230 checks, 0 failures, 21 mutation controls all rejected, 6.7 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git 7b80b71. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 92 named checks, 0 failures, 21 mutation controls all rejected, 6.0 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
 
 </div>
 </html>
