@@ -63,6 +63,56 @@ function evaluate(con) {
 
 const base = evaluate(C.full);
 
+/* ---- ASK MODE: price one lemma, stated on the command line ---------------
+   node tools/erdos290-lemma-value.js --ask 0.3,0.5
+   means "suppose someone proves δ always lies between 0.3 and 0.5". The tool
+   answers three things and nothing else: is that consistent with what we have
+   already computed, what would it be worth, and is it worth more than doing
+   nothing. This is the whole instrument in one command. */
+{
+  const i = process.argv.indexOf('--ask');
+  if (i > 0 && process.argv[i + 1]) {
+    const [a, b] = process.argv[i + 1].split(',').map(Number);
+    if (!(a >= 0 && b <= 1 && a < b)) {
+      console.error('--ask wants lo,hi with 0 <= lo < hi <= 1');
+      process.exit(1);
+    }
+    const den = 1000000;
+    const con = {
+      id: 'ask:' + a + ',' + b,
+      label: 'δ ∈ [' + a + ', ' + b + ']',
+      needs: 'a proof that δ(f_d) ∈ [' + a + ', ' + b + '] for every large even d',
+      bounds: () => ({ A: Q.R(BigInt(Math.round(a * den)), BigInt(den)),
+                       B: Q.R(BigInt(Math.round(b * den)), BigInt(den)) })
+    };
+    const chk = T.consistentWithPinned(Q, con, I.EXACT, 31);
+    console.log('');
+    console.log('  YOU ASKED:  suppose δ(f_d) ∈ [' + a + ', ' + b + '] for every large even d.');
+    console.log('');
+    if (!chk.ok) {
+      console.log('  ALREADY FALSE. ' + chk.why + ':');
+      console.log('               δ(f_' + chk.d + ') = ' + Q.toDouble(chk.delta).toFixed(12)
+        + ', which this project computed exactly.');
+      console.log('  Do not spend a day on it. Checked against ' + I.EXACT.size + ' densities on file.');
+      console.log('');
+      process.exit(0);
+    }
+    const r = evaluate(con);
+    const gain = r.vDig - base.vDig;
+    console.log('  CONSISTENT with all ' + chk.checked + ' densities already computed. Not refuted.');
+    console.log('');
+    console.log('  WORTH:      c₀ known to ' + r.vDig + ' digits  (today, assuming nothing: ' + base.vDig + ')');
+    console.log('              ' + r.vStr.slice(0, 2 + r.vDig) + '…');
+    console.log('              bracket width ' + base.width.toExponential(2) + '  ->  ' + r.width.toExponential(2));
+    console.log('');
+    console.log(gain > 0
+      ? '  VERDICT:    WORTH PROVING — it buys ' + gain + ' digit' + (gain > 1 ? 's' : '') + '.'
+      : '  VERDICT:    TRUE BUT WORTHLESS — it narrows the bracket and buys no digit.');
+    console.log('');
+    process.exit(0);
+  }
+}
+
 console.log('');
 console.log('ERDŐS #290 — WHAT EACH LEMMA WOULD BE WORTH');
 console.log('horizon l <= ' + I.Lmax + ' (every even d <= ' + 2 * I.Lmax + ' pinned exactly, '
