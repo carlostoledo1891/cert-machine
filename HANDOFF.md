@@ -18,6 +18,64 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
+SPEC-GENERATION.md — THE GENERATION FRONT, SPECIFIED, NOT BUILT (2026-08-31,
+operator: "Research how to add a generation front... bring solutions to make it
+work and stand out from the newest competitors", then "yes, spec").
+
+  THE RESEARCH FINDING. AlphaEvolve-class systems are bottlenecked on the
+  EVALUATOR, not the proposer — the stated requirement is "a manually designed
+  unhackable evaluator that maps solutions to scalar scores", and the
+  documented failures are what a scalar buys (a candidate that deleted a GPU
+  memory limit and caught the exception; candidates that skipped pipeline
+  stages; one that zero-weighted 97% of experts to win a balance metric).
+  AlphaProof Nexus (arXiv:2605.22763, May 2026) is the closest published
+  system — 9 of 353 Erdős problems at hundreds of dollars each — and names the
+  exact problem: "the mismatch between evolutionary algorithms, which typically
+  assume a graduated fitness landscape, and formal proof evaluation, which is
+  inherently binary." THEIR ANSWER IS LLM RATERS scoring plausibility, clarity
+  and novelty into an Elo, and their admitted failure modes are agents
+  offloading difficulty into sorry's that restate the target and sketches
+  citing hallucinated lemmas. A subjective fitness signal buys exactly that.
+
+  THE WEDGE, and the reason to build at all: AN INTERVAL ENCLOSURE IS BOTH.
+  The verdict is a proof; the WIDTH is the gradient. Evolution gets a
+  continuous, objective, monotone landscape and soundness is never traded for
+  it, with no model's opinion anywhere in the loop. That is a technical answer
+  to a problem a DeepMind-adjacent paper published in May and solved with
+  vibes, and it is available to this project only because the interval stack
+  already exists.
+
+  THREE OF FOUR PARTS ARE ALREADY BUILT: machine/engine.js (the loop),
+  oracle/tool-definition.json (a strict-schema model-callable certifier that
+  already returns CERTIFIED / REFUTED-with-mechanism / REFUSED), the 17
+  instruments (the fitness functions), machine/funnel/ (14 items / 19
+  anti-hacking red controls — the thing competitors name as the hard part),
+  and instruments/forecast/admission.js (the prune rule, reusable verbatim by
+  changing the noun from forecaster to proposer). MISSING: the controller.
+
+  THE SPEC covers: the propose(ctx) contract added beside enumerate (additive,
+  never a replacement — the #852 find came from a plain scan and a scan wins
+  wherever it can exhaust) · ctx.refuted carrying the certifier's MECHANISM as
+  a repair instruction, which is what makes it a loop rather than a lottery ·
+  rationale recorded and never read by any decision · fitness ranked verdict,
+  then exact progress against the incumbent, then width · proposer identity as
+  (model, prompt version, temperature) so a revised prompt is a NEW proposer,
+  which is the honest form of readmission the gym still lacks · the prune gate
+  sitting BEFORE the API call, not at the ledger · publishing the denominator.
+
+  BUILD ORDER is 7 steps; steps 1-4 are a working single-proposer loop and the
+  honest MVP. STATED STOP CONDITION: if after step 4 the proposer has not
+  beaten enumerate on the same budget, report that and stop — a null is
+  publishable and this project has published one before.
+
+  FIRST TARGET named in the spec: the polynomial-multiplication tensors over
+  F2/F3 (18 published lower bounds, gaps of 3 to 10, 1980s CRT upper bounds,
+  flip-graph never pointed at them though its authors name them applicable and
+  publish the code). Two-sided: a hit is a new upper bound, a hit below a
+  published lower bound refutes a 2026 paper.
+
+  NOT BUILT. Operator's call whether to start at step 1.
+
 SESSION 2026-08-30f — A FIND. THE #852 RECORD EXTENDED PAST THE PUBLISHED TERMS.
 
   L2 (the deep run launched in the previous block) reproduced the published
