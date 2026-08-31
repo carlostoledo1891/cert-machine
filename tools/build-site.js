@@ -360,13 +360,38 @@ const CERTS = [
   ['skyaudit-forecast-ledger.jsonl', 'The prediction ledger — interval FORECASTS committed before their target day (sha-pinned, append-only) and scored after in exact rationals; coverage claims are conformal counting theorems, never model faith. Wrong forecasts stay forever.', null],
   ['forecast-gym-ledger.jsonl', 'The Forecast Gym’s append-only ledger — every proposer’s forecast sha-committed before its outcome exists, every score an exact Winkler rational; the gym report and its admission board are built from this file.', null]
 ];
+/* WORKING — records that exist while a run is in flight and are NOT part of
+   the published set. ONE pattern, used by BOTH the description gate and the
+   publication loop below: a file excused from being described must also be
+   excused from shipping, and when those two lists were written out separately
+   they diverged the first time one was edited.
+
+   `erdos290-tail-shard-N.json`  the detached campaign's per-shard files; the
+                                 merge folds them into erdos290-tail-ext.json
+   `wip-*`                       declared work in progress. A gate catches
+                                 drift and forgery, never slows development
+                                 (CLAUDE.md); requiring a published-record
+                                 description for a ledger a generation run
+                                 rewrites every few minutes is friction. The
+                                 day it earns a page it takes a real name and
+                                 a table row like everything else. */
+const WORKING = /^(?:erdos290-tail-shard-\d+\.json|wip-.*)$/;
 {
   /* In-progress campaign shards are WORKING records, not published ones: the
      detached #290 tail run writes one file per shard and `merge` folds them
      into erdos290-tail-ext.json, which is what this table describes. They are
      gitignored for the same reason certs/shard-logs/ is, and excluded here so a
-     running campaign cannot block a site build. */
-  const WORKING = /^erdos290-tail-shard-\d+\.json$/;
+     running campaign cannot block a site build.
+
+     `wip-*` joins them for the same reason. A gate catches drift and forgery;
+     it never slows development (CLAUDE.md). Requiring a table row for every
+     file in certs/ is right for a PUBLISHED record and pure friction for a
+     working ledger a generation run rewrites every few minutes. So `wip-*` is
+     declared work in progress: nothing on the site may quote it, and the day
+     it earns a page it takes a real name and a table row like everything
+     else. The gate keeps every bit of its power over what actually ships. */
+  /* WORKING is module-scope (see above): the SAME pattern gates description
+     and publication, because a file excused from one must be excused from both. */
   const onDisk = fs.readdirSync(path.join(ROOT, 'certs')).filter((f) => (f.endsWith('.json') || f.endsWith('.jsonl')) && !WORKING.test(f)).sort();
   const listed = CERTS.map((c) => c[0]).sort();
   if (onDisk.join(',') !== listed.join(','))
@@ -1131,9 +1156,7 @@ for (const f of fs.readdirSync(path.join(ROOT, 'reports'))) {
   if (f.endsWith('.html') || f.endsWith('.py') || f.endsWith('.js')) put('reports/' + f, fs.readFileSync(path.join(ROOT, 'reports', f)));
 }
 for (const f of fs.readdirSync(path.join(ROOT, 'certs'))) {
-  /* same exclusion as the shelf check above: in-progress campaign shards are
-     working records, and `merge` folds them into the published certificate */
-  if (/^erdos290-tail-shard-\d+\.json$/.test(f)) continue;
+  if (WORKING.test(f)) continue;          /* the one pattern, not a second copy */
   if (f.endsWith('.json') || f.endsWith('.jsonl')) put('certs/' + f, fs.readFileSync(path.join(ROOT, 'certs', f)));
 }
 for (const f of fs.readdirSync(path.join(ROOT, 'tools'))) {

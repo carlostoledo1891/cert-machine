@@ -13,10 +13,68 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-08-31, #852 record EXTENDED)
+## TASKS BACKLOG — the standing menu (updated 2026-08-31, generation front BUILT)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+SESSION 2026-08-31b — THE GENERATION FRONT IS BUILT AND IT CERTIFIES
+(operator: "Start building. Remember to change the cerimonial and gates to
+accept it. We must have a more maleable system. Go").
+
+  STEPS 1-4 OF SPEC-GENERATION.md ARE DONE. machine/generate/:
+    f2scheme.js   schemes over F2 as bitmasks; the EXACT residual (the count
+                  of violated tensor equations) is the fitness — an integer,
+                  not a score, computed from the object the proposer
+                  submitted by arithmetic the proposer never touches; plus
+                  flip and reduce, the identity-preserving moves.
+    proposers/flip.js  the FREE proposer: a flip-graph random walk. No API
+                  call, no tokens. This is deliberate — it is the honest
+                  baseline every paid proposer must beat, and the spec's stop
+                  condition now has a concrete number to beat.
+    ledger.js     append-only, commit-before-certify.
+    controller.js the loop, wired to instruments/forecast/admission.js
+                  UNCHANGED — the prune rule needed only a new noun.
+
+  IT WORKS. <2,2,2>: rediscovers Strassen's rank 7 from naive 8 in under a
+  second. <3,3,3> over F2: naive 27 -> 26 -> 25 -> 24 -> 23, i.e. LADERMAN'S
+  RANK, from scratch, in ~13 s at $0.0000. The authority agrees:
+  instruments/strassen returns VERIFIED, layout CA, 729 equations, and the
+  BigInt cross-check confirms it. Board: flip@v1 13/13 certified, ADMITTED.
+
+  TWO TUNING ERRORS, FIXED BY MEASUREMENT NOT GUESSWORK: restarting from the
+  best scheme every round collapsed the walk into one basin and stuck at 24;
+  replacing that with a fixed odd/even alternation tied freshness to seed
+  parity so half the seeds were never tried. The restart is now ADAPTIVE —
+  continue while the walk pays, start fresh the moment a round returns
+  nothing. That is what reached 23 through the controller.
+
+  THE GATES, MADE MALLEABLE — AND THE TWO DEFECTS THAT SURFACED DOING IT.
+  A declared `wip-*` namespace in certs/ is now exempt from the description
+  table: a gate catches drift and forgery, it never charges rent on iteration
+  (CLAUDE.md). But making it malleable exposed two real defects:
+   1. A PUBLICATION LEAK I CREATED. The table ignored wip-*, but the site
+      build copies certs/ wholesale — so the working ledger would have
+      SHIPPED to carlostoledo.co while being excused from description.
+      Exactly backwards.
+   2. THE RULE WAS ALREADY DEFINED TWICE. The shard-exclusion regex existed
+      in the description gate AND again in the publication loop, and they
+      DIVERGED the instant one was edited. The corpus.js lesson, happening
+      live, in a file that already carries a comment warning about it.
+  Now ONE module-scope WORKING pattern serves both, with the rule stated
+  once: a file excused from being described must also be excused from
+  shipping. Both falsifiers verified — an undescribed non-wip certificate
+  still REFUSES the build, and a wip- file is exempt AND never shipped.
+  certs/wip-* is gitignored.
+
+  THE SHAPE WORTH REUSING: do not weaken a gate, give it a DECLARED NAMESPACE
+  with an explicit contract. The gate loses no power over what ships.
+
+  NOT DONE: width() formalised on instruments/interval (only the algebraic
+  case is done) · ctx.refuted mechanisms actually consumed by a proposer that
+  can repair (the flip walk ignores them and does not need them) · the model
+  proposer · the report page. Per the spec's stop condition, a paid proposer
+  must now beat rank 23 on <3,3,3> at $0.0000 before it earns its invoice.
 
 SPEC-GENERATION.md — THE GENERATION FRONT, SPECIFIED, NOT BUILT (2026-08-31,
 operator: "Research how to add a generation front... bring solutions to make it
