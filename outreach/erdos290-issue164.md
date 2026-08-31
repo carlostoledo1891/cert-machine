@@ -109,77 +109,72 @@ misconception. An independent recomputation of delta(f_8) = 25/64 in Sage or Mag
 take an afternoon and is what I would most like from this thread.
 
 
-## The follow-up draft — READY TO POST, NOT POSTED (2026-08-31, l = 310 horizon)
+## The follow-up comment — DRAFTED, NOT POSTED (2026-08-31)
 
-Post as a new comment on teorth/erdosproblems#164. `gh` is authenticated and
-can do it; it waits on the operator's word. Everything below is derived from
-certs/erdos290-tail-ext.json and re-derives at every build of the report.
+A pure delta on the 2026-08-04 comment above, which IS already posted. It
+does not re-introduce the problem or restate the method; it says only what
+changed. Post as a new comment on teorth/erdosproblems#164 — `gh` is
+authenticated and can do it on the operator's word.
 
 ---
 
-@Woett — the computation has moved, and the digit you guessed is now
-unconditional.
+@Woett — the third digit is now unconditional.
 
-First, the loop I left open above: the erdosproblems problem-page comment I
-promised never appeared — it has been in that site's moderation queue since
-early August. Until it clears, the mathematics lives, and re-certifies at
-every build, at https://www.carlostoledo.co/reports/erdos290.html
+When I posted above, the unconditional bracket was
 
-**1. The determination now reaches every even d ≤ 620.** The five-candidate
-structural squeeze — with the partition enumeration replaced by closed-form
-conjugacy-class sums from the cycle-index EGF, proved equal to the
-enumeration on every degree both can reach — closed 250 consecutive even
-degrees, d = 122 … 620. Unique survivor at each; none left open.
+    1/(1+c) in [0.545485611000, 0.546712849449]
 
-Every exceptional degree in that range fell with it: d = 4k(k+1) for
-k = 6..11, that is 168, 224, 288, 360, 440, 528. Those are exactly the
-degrees where disc(f_d) is a perfect square, and the only ones in range that
-drop — which is the content of
+which, as I said then, pins only the first two digits. The determination has
+since been pushed from even d <= 120 to **every even d <= 620** — 250
+consecutive degrees closed by the five-candidate structural squeeze, unique
+survivor at each, none left open. That gives
 
-    disc(f_d) = (d+1) · ( 2^l · l! · disc(h) )²,    f_d(x+l) = h(x²),
+    c        in [0.830416407911, 0.831220912621]
+    1/(1+c)  in [0.546083759260, 0.546323774021]
 
-so disc(f_d) is a square iff d+1 is, i.e. iff d = 4k(k+1).
+so **1/(1+c) = 0.546... with no assumption of any kind.** The 6 you guessed
+is now proved rather than conditional.
 
-**2. The unconditional interval, at knowledge horizon l ≤ 310:**
+Three things came with it.
 
-    c        ∈ [0.830416407911, 0.831220912621]
-    1/(1+c)  ∈ [0.546083759260, 0.546323774021]
+**The exceptional degrees all fell.** d = 4k(k+1) for k = 6..11 — that is
+168, 224, 288, 360, 440, 528 — every one closed to an exact delta. They are
+also the only degrees in that range that drop, which is forced by
 
-So **1/(1+c) = 0.546…, with no assumption of any kind.** The previous
-horizon pinned only 0.54…. The 6 you guessed is now proved rather than
-conditional. (Every unpinned degree is still charged its full weight, δ ∈
-[0,1], so the bracket can only ever shrink — it cannot move.)
+    disc(f_d) = (d+1) * ( 2^l * l! * disc(h) )^2,    where f_d(x+l) = h(x^2),
 
-**3. The conditional expansion is unchanged in value, but its assumption now
-starts far later** — at even d ≥ 622 rather than d ≥ 62:
+so disc(f_d) is a perfect square exactly when d+1 is.
 
-    1/(1+c) = 0.54622931040010458741266058543836314273483317015360
-               25719941771294105433330321849365902394181630751977
-               3773368722
+**The conditional expansion is unchanged in value, but its assumption now
+starts far later** — at even d >= 622 instead of d >= 62:
 
-The assumption is the labeled one: for every even d past the pinned horizon,
-Gal(f_d) is either S_l⁺ or its index-2 subgroup. It holds at every degree
-where the group has been determined — which is now every even d ≤ 620.
+    1/(1+c) = 0.54622931040010458741266058543836314273483317015360257199417712941054333303218493659023941816307519773773368722
 
-**On the sequencing question.** I still think only the conditional expansion
-is worth an OEIS entry, with the assumption written into the definition and
-its failure semantics stated. What is new is that there is now a clean
-unconditional companion to put beside it: 0.546. If an editor prefers a
-sequence that assumes nothing, that is the one to take, at the cost of three
-digits instead of 110.
+**On sequencing, my view is unchanged**: the conditional expansion is the one
+worth an entry, with the assumption written into the definition and its
+failure semantics stated — a first failure at d0 moves c by at most
+1/(d0(d0+1)) and 1/(1+c) by at most about 0.299/(d0(d0+1)), which at
+d0 = 622 is below 8e-7, so such an entry is amended by raising d0 and never
+retracted. What is new is that there is now a clean unconditional companion
+to set beside it, 0.546, for an editor who would rather have three digits
+that assume nothing than 110 that assume something. I am happy either way.
 
-**Where this stops, honestly.** The bracket width is essentially
-1/(4·horizon) — it is the unpinned tail Σ_{l>L} 1/(2l(2l+1)) and nothing
-else. A fourth unconditional digit therefore needs the horizon near 3100
-rather than 310: ten times the degrees, each roughly 10⁴ times more
-expensive. That is no longer a machine problem. What would actually move it
-is a theorem that stops charging every undetermined degree the full unit —
-even a proof that δ lies in some interval of width 0.1 for all large even d
-would shrink the whole tail tenfold for free, with no computation at all.
+**Where this stops, and it is worth saying plainly.** The bracket width is
+essentially 1/(4*horizon) — it is the unpinned tail Sum_{l>L} 1/(2l(2l+1))
+and nothing else, since every undetermined degree is charged the full
+delta in [0,1]. A fourth unconditional digit therefore needs the horizon near
+3100 rather than 310: ten times the degrees, each roughly 10^4 times more
+expensive. That is no longer a compute problem. What would actually move it
+is a theorem that stops charging the full unit — even a proof that delta lies
+in *some* interval of width 0.1 for all large even d would shrink the entire
+tail tenfold, immediately, with no computation at all.
 
-**The independent-check ask stands**, unchanged, and remains the thing this
-computation most wants from someone else's hands: δ(f_8) = 25/64 re-derived
-in Sage or Magma is an afternoon. One dependency is still yours, stated
-plainly: the unconditional interval takes Lemma 32's Magma determination that
-G_d = S_l⁺ for even d ≤ 60 outside {8, 24, 48} as given. I certified the
+The check I asked for still stands, and is still what this computation most
+wants from someone else's hands: delta(f_8) = 25/64 re-derived in Sage or
+Magma is an afternoon. And one dependency remains yours, stated plainly: the
+unconditional interval takes Lemma 32's Magma determination that G_d = S_l^+
+for even d <= 60 outside {8, 24, 48} as given — I certified the
 irreducibility half independently, not the group half.
+
+Everything above re-certifies at every build, and the method and code are at
+https://www.carlostoledo.co/reports/erdos290.html
