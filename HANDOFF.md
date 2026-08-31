@@ -18,6 +18,29 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
+OUTREACH STATE LIVES IN ONE FILE NOW: `outreach/SEND-QUEUE.md`.
+It is the single source of truth for what is ready, what is held and why.
+Outreach status had accumulated across ~20 places in this document, which is
+exactly the shape of thing that diverges the first time one copy is edited;
+consult the queue, and record sends there.
+
+  READY (need a human — this repo has no mail transport and no OEIS API):
+    the #852 OEIS record extension (re-verified 2026-08-31, independently) ·
+    the KAUST letter · ORCID then the Zenodo DOI.
+  HELD ON MERIT until the #290 shard merge, because the summit is mid-flight
+  and will change the exact numbers they quote: the issue-164 follow-up
+  (which `gh` COULD post today — it is held on judgement, not mechanics; its
+  own text promises a third unconditional digit "when the squeeze reaches
+  l ~ 310", and the shards are at l = 304..309) and the #290 OEIS packs.
+  ALREADY OUT: the #852 correction; the #510 comment (in moderation).
+
+  AND A CORRECTION TO THE COUNT THIS PROJECT HAS BEEN QUOTING ITSELF: it is
+  not "nine of eleven outreach artifacts never sent". Eleven destinations are
+  NAMED; only six have drafts that exist and have never been sent. The arXiv
+  #290 note, the oracle paper, the outside reruns, EmbraerX and the RM-group
+  note have no document in outreach/ at all. They are intentions, not staged
+  artifacts, and counting them as staged overstated how close they are.
+
 SESSION 2026-08-30c — THE POLYNOMIAL FRONT: RUN, CALIBRATED, PUBLISHED, CLOSED
 (operator: "point the generation loop at the polynomial-multiplication tensors";
 then "finish the tasks related, update the report and stop this front".)
