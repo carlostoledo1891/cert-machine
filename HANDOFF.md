@@ -146,8 +146,39 @@ SESSION 2026-08-31e — THE GLIDE BAND IS BUILT. reports/glide-band.html
   WORDING: "certified" always means a mathematically certified enclosure, no
   airworthiness meaning; the artifact carries NOT FOR NAVIGATION on its face.
 
+  EVOLVED SAME SESSION (operator: "use illustrative scenarios to fill the
+  parameters missing ... evolve the report"). Two additions carried it.
+
+   · FIVE ILLUSTRATIVE PACKS replace the single anonymous envelope: trainer,
+     high-performance single, turboprop propeller FEATHERED, turboprop
+     propeller did NOT feather, glider. Each is a stated class with a stated
+     envelope AND the glide ratio the panel would be CONFIGURED with. The
+     fourth pack is the whole point and it is a better scenario than the
+     reversed forecast, because nobody had to choose a value to make it bite:
+     same aircraft, same flight, one action short, and the failure is not a
+     bad number but an EVENT THE INSTRUMENT CANNOT OBSERVE. The panel keeps
+     drawing the feathered ring because nothing tells it otherwise.
+   · THE TURN (H5): height lost turning onto each field at standard rate from
+     the aircraft's ACTUAL ADS-B ground track, charged to BOTH instruments so
+     the comparison stays about method. The band is now visibly asymmetric
+     about the flight path instead of a ring centred on the aeroplane, and it
+     uses real pinned data rather than another assumption.
+
+  THE THREE NUMBERS NOW, all gated at build:
+     panel inside the envelope   54% unproved,  0 refutable  (structural)
+     propeller did NOT feather   29% of the same line's claims REFUTED
+     forecast 180 degrees out    27% REFUTED
+  Philadelphia International is among the refuted rows in the no-feather
+  scenario — a major airport the line shows inside reach and the band proves
+  is not.
+
   NEXT ON THIS FRONT: terrain (H1) over a pinned DEM — same arithmetic, and it
-  can only ever cost green claims, never add them.
+  can only ever cost green claims, never add them. AND ONE THING TO SCOUT
+  BEFORE ANY OUTREACH: TAWS is mandated equipment and its predictive
+  terrain-clearance component has this same uncertainty structure. If that
+  holds up at the source, terrain-aware reachability has a COMPELLED BUYER
+  where the bare glide ring does not — which would move this front from demo
+  to market. Read the actual rule before saying it out loud.
 
 SESSION 2026-08-31d — THE READING SESSION. NOTHING BUILT, FOUR THINGS SETTLED.
 

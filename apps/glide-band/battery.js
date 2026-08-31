@@ -113,6 +113,24 @@ ok('widening an input can only widen the band (never narrow it)', () => {
   }
 });
 
+ok('the turn: 0 s straight ahead, 60 s to reverse, symmetric either way', () => {
+  assert.strictEqual(K.turnSeconds(230, 230), 0);
+  assert.ok(Math.abs(K.turnSeconds(230, 50) - 180 / K.TURN_RATE_DPS) < 1e-9);
+  assert.ok(Math.abs(K.turnSeconds(0, 90) - K.turnSeconds(0, 270)) < 1e-9);
+});
+
+ok('the turn penalty only ever COSTS reach, at every bearing', () => {
+  const e = { LD: [10.2, 12.6], Va: [92 * KT, 108 * KT], Ws: [15 * KT, 25 * KT], Wdir: [255, 285] };
+  for (let bg = 0; bg < 360; bg += 9) {
+    const t = K.turnSeconds(230, bg);
+    const free = K.band(bg, [7000, 7400], e, 0);
+    const turned = K.band(bg, [7000, 7400], e, t);
+    assert.ok(turned.lo <= free.lo + 1e-9 && turned.hi <= free.hi + 1e-9,
+      'the turn ADDED reach at bearing ' + bg);
+    if (t === 0) assert.ok(Math.abs(turned.hi - free.hi) < 1e-9, 'a zero turn changed the band');
+  }
+});
+
 /* ---------- 4 · verdicts --------------------------------------------------- */
 console.log('-- verdicts');
 

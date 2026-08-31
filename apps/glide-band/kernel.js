@@ -51,6 +51,13 @@
        deliberately conservative — it dominates double-precision error in the
        haversine by six orders of magnitude, so the geodesy needs no separate
        error argument.
+   H5  Reaching a field behind you costs the height lost turning onto it.
+       Modelled as a standard-rate turn (3 deg/s) from the aircraft's ACTUAL
+       ADS-B ground track, with progress during the turn counted as zero —
+       conservative, and it makes the band asymmetric about the flight path
+       rather than a ring centred on the aeroplane. The same penalty is
+       applied to the nominal line, so the comparison stays about
+       point-estimate versus enclosure and nothing else.
    H4  The envelope itself is a STATED scenario, not manufacturer data. No
        published performance figure for any aircraft is asserted anywhere in
        this app. Move the envelope and every number moves with it.               */
@@ -124,7 +131,7 @@ function bearingOf(lat1, lon1, lat2, lon2) {
    FROM) }, h = [lo,hi] metres above the site. Returns metres, plus a
    `degenerate` flag when the envelope admits a crosswind at or above the
    airspeed, where the steady-glide model has no solution on that course.  */
-function bandRaw(bearingDeg, h, env) {
+function bandRaw(bearingDeg, h, env, tTurn) {
   const a = (bearingDeg - env.Wdir[1]) * D2R;
   const b = (bearingDeg - env.Wdir[0]) * D2R;
   const lo = Math.min(a, b), hi = Math.max(a, b);
@@ -136,9 +143,25 @@ function bandRaw(bearingDeg, h, env) {
   const degenerate = rad[0] <= 0;
 
   const Vg = add(isqrt(rad), along);
-  const t = div(mul(h, env.LD), env.Va);
+  /* THE TURN (see H5). Reaching a field behind you costs the height you sink
+     while turning onto it. Sink is Va/LD, the turn takes tTurn seconds at
+     standard rate, and progress during it is conservatively counted as zero.
+     Applied HERE, inside the sub-box, so Va and LD stay correlated with the
+     rest of the evaluation instead of being charged twice. */
+  const hEff = tTurn ? sub(h, mul(div(env.Va, env.LD), [tTurn, tTurn])) : h;
+  const hPos = [Math.max(0, hEff[0]), Math.max(0, hEff[1])];
+  const t = div(mul(hPos, env.LD), env.Va);
   const d = mul(t, Vg);
   return { lo: d[0], hi: d[1], degenerate };
+}
+
+/* seconds to turn from the current ground track onto a bearing, at the
+   standard rate of 3 degrees per second */
+const TURN_RATE_DPS = 3;
+function turnSeconds(trackDeg, bearingDeg) {
+  if (trackDeg === null || trackDeg === undefined) return 0;
+  let d = Math.abs(((bearingDeg - trackDeg) % 360 + 540) % 360 - 180);
+  return d / TURN_RATE_DPS;
 }
 
 /* MINCING. Va appears in both the time-aloft factor and the ground-speed
@@ -156,11 +179,11 @@ function splitIv(r, n) {
   for (let i = 0; i < n; i++) out.push([r[0] + (r[1] - r[0]) * i / n, r[0] + (r[1] - r[0]) * (i + 1) / n]);
   return out;
 }
-function band(bearingDeg, h, env) {
+function band(bearingDeg, h, env, tTurn) {
   let lo = Infinity, hi = -Infinity, degenerate = false;
   for (const Va of splitIv(env.Va, NVA)) {
     for (const Wdir of splitIv(env.Wdir, NWD)) {
-      const r = bandRaw(bearingDeg, h, Object.assign({}, env, { Va, Wdir }));
+      const r = bandRaw(bearingDeg, h, Object.assign({}, env, { Va, Wdir }), tTurn);
       if (r.lo < lo) lo = r.lo;
       if (r.hi > hi) hi = r.hi;
       if (r.degenerate) degenerate = true;
@@ -170,13 +193,14 @@ function band(bearingDeg, h, env) {
 }
 
 /* the single line every shipped product draws: one value per input */
-function nominal(bearingDeg, h_m, nom) {
+function nominal(bearingDeg, h_m, nom, tTurn) {
   const D = (bearingDeg - nom.Wdir) * D2R;
   const along = -nom.Ws * Math.cos(D);
   const cross = nom.Ws * Math.sin(D);
   const rad = nom.Va * nom.Va - cross * cross;
   if (rad <= 0) return 0;
-  return Math.max(0, (h_m * nom.LD / nom.Va) * (Math.sqrt(rad) + along));
+  const h = Math.max(0, h_m - (tTurn ? (nom.Va / nom.LD) * tTurn : 0));
+  return Math.max(0, (h * nom.LD / nom.Va) * (Math.sqrt(rad) + along));
 }
 
 /* ---------- one site, one state ------------------------------------------- */
@@ -191,8 +215,9 @@ function decide(state, site, env, nom) {
              lo: 0, hi: 0, nom: 0, shown: false };
   }
   const hPos = [Math.max(0, h[0]), h[1]];
-  const bd = band(g.bearing, hPos, env);
-  const dn = nominal(g.bearing, (state.alt_nom_m - siteM), nom);
+  const tTurn = turnSeconds(state.track, g.bearing);
+  const bd = band(g.bearing, hPos, env, tTurn);
+  const dn = nominal(g.bearing, (state.alt_nom_m - siteM), nom, tTurn);
 
   let verdict;
   if (bd.degenerate) verdict = UNDECIDED;
@@ -201,7 +226,7 @@ function decide(state, site, env, nom) {
   else verdict = UNDECIDED;
 
   return { verdict, D: g.dist, bearing: g.bearing, lo: bd.lo, hi: bd.hi,
-           nom: dn, shown: g.dist[0] <= dn, degenerate: bd.degenerate };
+           nom: dn, shown: g.dist[0] <= dn, degenerate: bd.degenerate, tTurn };
 }
 
 /* ---------- the disclosure lever ------------------------------------------
@@ -229,6 +254,6 @@ function requiredLD(state, site, env, cap) {
 
 module.exports = {
   FT, KT, R_EARTH, isqrt, cosHull, sinHull, greatCircle, bearingOf,
-  band, bandRaw, nominal, decide, requiredLD, NVA, NWD,
+  band, bandRaw, nominal, decide, requiredLD, NVA, NWD, turnSeconds, TURN_RATE_DPS,
   REACHABLE, UNREACHABLE, UNDECIDED
 };
