@@ -143,41 +143,121 @@ Proposed added comment:
 
 ---
 
-## PACK 4 (STAGED — awaits campaign) — c0 = 1/(1+c), van Doorn's constant
+## PACK 4 — READY (2026-08-31) — c0 = 1/(1+c), van Doorn's constant
+
+The campaign condition this pack waited on is MET: the horizon reached
+l = 310 (every even d <= 620 pinned exactly, 250 degrees closed, none open),
+and the first three digits are now unconditional. Every number below is
+produced by tools/erdos290-cstar-precision.js and rewritten at each horizon
+extension; the b-file is outreach/b-oeis-c0.txt (110 terms).
 
 NAME
-  Decimal expansion of 1/(1+c), where c = Sum_{d>=1} delta(f_d)/(d(d+1))
+  Decimal expansion of 1/(1+c), where c = Sum_{d>=1} delta(f_d)/(d*(d+1))
   and delta(f_d) is the density of primes p for which the derivative of
   x*(x-1)*...*(x-d) has a root mod p; conjecturally the optimal constant
   in van Doorn's lower bound b(a) > a + (c_0+o(1))*log(a) for Erdos
   problem #290.
 
-DATA (offset 0; digits certified under the stated assumption)
+OFFSET
+  0, 1
+
+DATA (offset 0)
   5, 4, 6, 2, 2, 9, 3, 1, 0, 4, 0, 0, 1, 0, 4, 5, 8, 7, 4, 1, 2, 6, 6,
-  0, 5, 8, 5, 4, 3, 8, 3, 6, 3
-  [REPLACE with the extended-precision expansion at campaign close]
+  0, 5, 8, 5, 4, 3, 8, 3, 6, 3, 1, 4, 2, 7, 3, 4, 8, 3, 3, 1, 7, 0, 1,
+  5, 3, 6, 0, 2, 5, 7, 1, 9, 9, 4, 1, 7, 7, 1, 2, 9, 4, 1, 0, 5, 4, 3,
+  3, 3, 3, 0, 3, 2, 1, 8, 4, 9, 3, 6, 5, 9, 0, 2, 3, 9, 4, 1, 8, 1, 6,
+  3, 0, 7, 5, 1, 9, 7, 7, 3, 7, 7, 3, 3, 6, 8, 7, 2, 2
 
-COMMENTS (the load-bearing part — fill the bracketed numbers at send time)
-  The first [3] digits are UNCONDITIONAL: the certified interval is
-  1/(1+c) in [[lo], [hi]], from exact rational Galois densities pinned
-  for all even d <= [620] and the honest interval [0,1] at every
-  unpinned degree. The remaining digits hold under one assumption: the
-  Galois group of f_d is the full signed symmetric group for even
-  d >= [622]. Failure semantics: a first failure at degree d0 perturbs
-  the constant by at most [bound]/(d0*(d0+1)); the entry would be
-  amended by raising d0, not retracted. Requested by W. van Doorn
-  (arXiv:2411.03073, author) at the erdosproblems forum and at
-  github.com/teorth/erdosproblems/issues/164 ("I think it would be
-  worthwhile to add the decimal expansion of c_0 to the OEIS").
+COMMENTS
+  The first 3 digits are UNCONDITIONAL. The certified interval is
+  1/(1+c) in [0.546083759260, 0.546323774021], obtained from exact
+  rational Galois densities pinned for every even d <= 620 together with
+  the honest interval [0,1] at every unpinned degree. No estimate enters
+  the bracket, so it can only narrow as more degrees are pinned; it
+  cannot move.
 
-LINKS / XREFS / KEYWORD as PACK 1, plus keyword: cons; b-file with the
-extended expansion; cf. A375081, A033996, PACKS 1-2.
+  The remaining digits hold under one stated assumption: for every even
+  d >= 622, Gal(f_d) is either the full signed symmetric group S_l^+
+  (l = d/2) or its index-2 subgroup. That assumption is verified at every
+  degree where the group has been determined, which is every even
+  d <= 620.
+
+  Failure semantics, so the entry can be amended rather than retracted:
+  a first failure of the assumption at degree d0 perturbs c by at most
+  1/(d0*(d0+1)) and perturbs 1/(1+c) by at most about 0.299/(d0*(d0+1)),
+  since the derivative of 1/(1+c) is -1/(1+c)^2 = -0.2984... at this c.
+  With d0 = 622 that is below 8e-7, so the digits above are stable well
+  past the point where the assumption first bites; a failure would raise
+  d0 and shorten the entry, not invalidate it.
+
+  Requested by W. van Doorn (arXiv:2411.03073, the author) at the
+  erdosproblems forum and at github.com/teorth/erdosproblems/issues/164:
+  "I think it would be worthwhile to add the decimal expansion of c_0 to
+  the OEIS".
+
+EXAMPLE
+  0.54622931040010458741266058543836314273483317015360...
+
+LINKS
+  W. van Doorn, arXiv:2411.03073
+  teorth/erdosproblems, issue #164
+  Independent certification and the full method, re-run at every build:
+  https://www.carlostoledo.co/reports/erdos290.html
+
+KEYWORD
+  nonn, cons
+
+XREFS
+  Cf. PACK 5 (the constant c itself), PACKS 1-2, A375081, A033996.
 
 ---
 
-## PACK 5 (STAGED — awaits campaign) — the density-sum constant c
+## PACK 5 — READY (2026-08-31) — c, the density-sum constant
 
-Same structure as PACK 4 with DATA = 8, 3, 0, 7, 3, 2, 9, 5, 5, 8, 4,
-8, 7, 3, ... and the unconditional interval [0.829649026, 0.832403827]
-[update at campaign close]. NAME: "Decimal expansion of
-Sum_{d>=1} delta(f_d)/(d(d+1)) ..." — cross-ref PACK 4.
+NAME
+  Decimal expansion of c = Sum_{d>=1} delta(f_d)/(d*(d+1)), where
+  delta(f_d) is the density of primes p for which the derivative of
+  x*(x-1)*...*(x-d) has a root mod p. See PACK 4 for 1/(1+c), the
+  constant in van Doorn's bound for Erdos problem #290.
+
+OFFSET
+  0, 1
+
+DATA (offset 0)
+  8, 3, 0, 7, 3, 2, 9, 5, 5, 8, 4, 8, 7, 3, 5, 6, 6, 3, 8, 5, 0, 3, 7,
+  2, 7, 4, 8, 0, 3, 3, 4, 7, 9, 7, 4, 7, 2, 9, 3, 4, 3, 8, 0, 0, 4, 7,
+  8, 3, 8, 0, 4, 6, 1, 2, 1, 5, 2, 5, 1, 7, 2, 3, 2, 1, 5, 8, 3, 2, 1,
+  2, 5, 5, 0, 1, 9, 6, 6, 5, 8, 9, 9, 6, 5, 6, 2, 3, 3, 4, 8, 3, 2, 3,
+  6, 4, 6, 5, 5, 1, 9, 0, 1, 6, 1, 6, 5, 2, 2, 0, 9, 5
+
+COMMENTS
+  The first 2 digits are UNCONDITIONAL: c lies in the certified interval
+  [0.830416407911, 0.831220912621]. That is one digit fewer than PACK 4
+  because passing to 1/(1+c) contracts the interval by a factor of about
+  0.299. Everything else -- the assumption for even d >= 622, the failure
+  semantics, the provenance -- is exactly as in PACK 4.
+
+  Odd d contribute exactly log 2 to the sum, which is proved and carries
+  roughly 83 percent of c; the whole difficulty is the even degrees.
+
+KEYWORD
+  nonn, cons
+
+XREFS
+  Cf. PACK 4, PACKS 1-2.
+
+---
+
+## Submission order, and the one editor question to expect
+
+Send PACKS 1-3 first (campaign-independent integer sequences), then
+PACK 4, then PACK 5 as its cross-reference. PACK 4 is the one van Doorn
+asked for by name and should carry the correspondence link.
+
+EXPECT THIS QUESTION, and it is fair: "is a conditional constant an
+appropriate OEIS entry?" The prepared answer: the assumption is named in
+the COMMENTS, its failure semantics are quantified, and there is an
+unconditional statement to fall back on -- 1/(1+c) = 0.546... -- so an
+editor who prefers an assumption-free entry can take a 3-digit sequence
+instead of a 110-digit one. Offer both and let the editor choose. Do not
+argue for the long one.

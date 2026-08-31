@@ -60,7 +60,7 @@ const NARROW = JSON.parse(lifted.toString());
 fs.rmSync(SCR, { recursive: true, force: true });
 
 /* ---- 3 · the bracket, re-assembled exactly, calibrated, then extended ----- */
-const R = Q.R, add = Q.add, sub = Q.sub, mul = Q.mul;
+const R = Q.R, add = Q.add, sub = Q.sub, mul = Q.mul, div = Q.div;
 const ZERO = R(0n, 1n), ONE = R(1n, 1n);
 const W = (l) => R(1n, BigInt(2 * l) * BigInt(2 * l + 1));
 const EXC = new Set([4, 12, 24]);
@@ -146,6 +146,37 @@ const B60 = { lo: P60.lo, hi: P60.hi, width: P60.width };
 const BX = bracket(Lmax);
 const bxLo = dec(BX.lo, 12, false), bxHi = dec(BX.hi, 12, true);
 const bxWidth = Q.toDouble(sub(BX.hi, BX.lo));
+
+/* ---- 1/(1+c): the value the sequencing question actually asks for --------
+   c is the object the sum defines; 1/(1+c) is what an OEIS entry would carry,
+   and it is what the #290 issue asked for by name. It is derived HERE by exact
+   rational division of the bracket's own endpoints — never by dividing the
+   printed decimals — and 1/(1+x) is decreasing, so the endpoints swap.
+
+   `agreed` counts the leading decimal digits the two endpoints SHARE. That is
+   the honest meaning of "digits known unconditionally": digits both ends of a
+   proved interval agree on cannot be moved by anything inside it. The count is
+   computed, so the page cannot claim a digit the bracket does not hold. */
+const invOf = (b) => ({ lo: div(ONE, add(ONE, b.hi)), hi: div(ONE, add(ONE, b.lo)) });
+const agreedDigits = (lo, hi, kd) => {
+  const a = dec(lo, kd, false).toFixed(kd), b = dec(hi, kd, true).toFixed(kd);
+  let n = 0;
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) break;
+    if (a[i] >= '0' && a[i] <= '9' && i > 1) n++;   /* skip the leading "0." */
+  }
+  return n;
+};
+const INV = invOf(BX);
+const uncLo = dec(INV.lo, 12, false), uncHi = dec(INV.hi, 12, true);
+const invAgreed = agreedDigits(INV.lo, INV.hi, 12);
+/* the same quantity at the CITED horizon, so "was N digits, now M" is derived */
+const INV60 = invOf({ lo: R(BigInt(Math.round(B60.lo * 1e12)), 10n ** 12n),
+                      hi: R(BigInt(Math.round(B60.hi * 1e12)), 10n ** 12n) });
+const inv60Agreed = agreedDigits(INV60.lo, INV60.hi, 12);
+const invPrefix = uncLo.toFixed(12).slice(0, 2 + invAgreed);
+if (invAgreed <= inv60Agreed) die('the extension did not add an unconditional digit to 1/(1+c) — '
+  + 'the page\'s headline is derived from this comparison and must not be written when it is false');
 if (bxWidth > B60.width + 1e-15) die('the extended bracket is wider than the recorded K=60 bracket — impossible');
 
 /* ---- 4 · the conditional enclosure, re-derived ---------------------------- */
@@ -193,21 +224,25 @@ const O = [];
 
 O.push(C.header({
   eyebrow: 'cert-machine · report · every number recomputed at build',
-  title: 'Erdős #290: a five-line theorem, and an interval that keeps closing',
-  deck: 'For even d, the discriminant of f_d = (∏(x−j))′ is a perfect square exactly at d = 4k(k+1) — proved, '
-    + 'and re-proved as exact integer identities during this build with its planted falsifiers required to fire. '
-    + 'Around it: a certified bracket for the constant c in the #290 density sum, assembled in exact rationals '
-    + 'from pinned Galois densities — reproduced here byte-for-byte from the cited page\'s own programs, then '
-    + 'TIGHTENED by running the same lifted instrument past the old horizon.'
+  title: 'A digit that was a guess is now a theorem',
+  deck: 'Someone asked, in an open GitHub issue, what number to put in the OEIS for Erdős problem #290 — and '
+    + 'guessed its third digit. That digit is now PROVED. The constant is ' + C.esc(invPrefix) + '…, with no '
+    + 'assumption of any kind, where every previous horizon could pin only ' + C.esc(dec(INV60.lo, 12, false).toFixed(12).slice(0, 2 + inv60Agreed))
+    + '…. It took closing ' + (Lmax - citedL) + ' consecutive degrees of a computation nobody had run past '
+    + 'd = ' + citedD + '.'
 }));
 
 /* The tl;dr states the SAME three numbers §2b and §3 state, from the same variables —
    it used to carry its own literals ("a third", "l ≤ 90") and they had gone stale against
    the body of the page. A number that appears twice must be computed once. */
 O.push(C.tldr({
-  findingRaw: 'The 4k(k+1) square-discriminant law proved as exact integer identities, the #290 constant\'s '
-    + 'bracket tightened to width ' + bxWidth.toExponential(2) + ' — ' + fmtPct(bxWidth, B60.width) + ' tighter than '
-    + 'the cited page — and every even degree pinned exactly through l = ' + Lpin + ' (d = ' + 2 * Lpin + ')'
+  findingRaw: '<strong>1/(1+c) = ' + C.esc(invPrefix) + '…, unconditionally.</strong> Three digits of the '
+    + 'constant an OEIS entry would carry, proved — not estimated, not sampled, and not resting on any '
+    + 'assumption. The previous horizon held only ' + C.esc(dec(INV60.lo, 12, false).toFixed(12).slice(0, 2 + inv60Agreed))
+    + '…, so the third digit is new here, and it is the digit the #290 issue guessed. Underneath it: the '
+    + '4k(k+1) square-discriminant law proved as exact integer identities, the bracket for c tightened to width '
+    + bxWidth.toExponential(2) + ' — ' + fmtPct(bxWidth, B60.width) + ' tighter than the cited page — and every '
+    + 'even degree pinned exactly through l = ' + Lpin + ' (d = ' + 2 * Lpin + ')'
     + (excClosed.length
       ? ', the ' + excClosed.length + ' exceptional degrees past the cited horizon (d = ' + andList(excClosed.map((e) => String(e.d))) + ') among them.'
       : '.'),
@@ -219,6 +254,7 @@ O.push(C.tldr({
 }));
 
 O.push(C.stats([
+  { k: '1/(1+c), unconditional', v: C.esc(invPrefix) + '…', role: 'held', n: 'the OEIS-shaped constant, proved with NO assumption — [' + uncLo.toFixed(12) + ', ' + uncHi.toFixed(12) + '], derived by exact rational division of the bracket. ' + invAgreed + ' digits agreed, against ' + inv60Agreed + ' at the cited horizon' },
   { k: 'the 4k(k+1) law', v: 'RE-PROVED', role: 'held', n: 'exact integer identities; ' + falsifiers + ' planted falsifiers fired during this build' },
   { k: 'cited bracket (K=' + citedL + ')', v: '[' + B60.lo.toFixed(9) + ', ' + B60.hi.toFixed(9) + ']', sm: true, n: 'reproduced byte-identically from the lifted narrowing pipeline' },
   { k: 'this build\'s bracket', v: '[' + bxLo.toFixed(9) + ', ' + bxHi.toFixed(9) + ']', sm: true, role: 'held', n: 'width ' + bxWidth.toExponential(2) + ' — ' + fmtPct(bxWidth, B60.width) + ' tighter; densities pinned through l = ' + Lpin },

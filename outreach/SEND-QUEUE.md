@@ -76,11 +76,22 @@ the squeeze reaches l ≈ 310". **That digit landed:**
 This is the strongest send in the queue and the only one where a specific
 person asked a specific question and is still waiting.
 
-### 2b. The #290 OEIS packs — regenerated
-`outreach/b-oeis-cstar.txt` and `b-oeis-c0.txt` are rewritten by
-`tools/erdos290-cstar-precision.js` at every horizon extension and now carry
-110 agreed digits at the l ≤ 310 horizon. `oeis-erdos290-pack.md` should be
-re-read before sending; its prose predates the merge.
+### 2b. The #290 OEIS packs — READY, packs 4 and 5 now filled
+`outreach/oeis-erdos290-pack.md`. Packs 4 and 5 were STAGED against exactly
+one condition — "awaits the l ≈ 310 campaign, first three digits
+unconditional" — and that condition is now MET. Both are filled with real
+numbers: 110 terms each from `b-oeis-c0.txt` and `b-oeis-cstar.txt`, the
+unconditional intervals, the assumption, and quantified failure semantics so
+an entry can be amended rather than retracted.
+
+PACK 4 is the one **W. van Doorn asked for by name** — he is the author of
+arXiv:2411.03073 and wrote "I think it would be worthwhile to add the decimal
+expansion of c_0 to the OEIS". Send order: packs 1-3 (campaign-independent)
+any time, then 4, then 5.
+
+One editor question is pre-answered in the file: if an editor objects to a
+conditional constant, offer the 3-digit unconditional sequence instead and
+let them choose. Do not argue for the long one.
 
 ## LANE 3 — already out, nothing to do
 

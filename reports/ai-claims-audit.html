@@ -441,7 +441,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <strong>5 of 6 held; 1 came back PARTIAL; 0 were refuted.</strong> But the number that matters is the other one: in <strong>6 of 6 cases the computational fragment certified and the analytic core did not</strong> — the identities, enclosures and exhibits are machine-checkable and they all held, while the surrounding argument is prose in every single one. That split is the finding.</li><li><b>The mechanism.</b> Each verifier was written against the <em>manuscript</em>, never derived from and never executing the author's scripts — no Arb, no SymPy, no Mathematica, no code from anybody's archive was run. (In one lane, Mathieu, the author's Python was <em>read</em> to cross-check which identities the TeX meant; it was not executed, and that is stated on the lane.) Exact rationals where the claim is algebraic, outward-rounded intervals and the Krawczyk operator where it is analytic. Each carries <strong>mutation controls</strong>: deliberate corruptions of the claim that the verifier must reject. A verifier that cannot fail is not evidence.</li><li><b>Check it.</b> <span class="m">node instruments/laneaudit/audit.js</span> — all six, 4.0 s end to end on a laptop. 92 individually named checks and 21 mutation controls, every control rejected. This page is built from that run and refuses if any of it goes red.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <strong>5 of 6 held; 1 came back PARTIAL; 0 were refuted.</strong> But the number that matters is the other one: in <strong>6 of 6 cases the computational fragment certified and the analytic core did not</strong> — the identities, enclosures and exhibits are machine-checkable and they all held, while the surrounding argument is prose in every single one. That split is the finding.</li><li><b>The mechanism.</b> Each verifier was written against the <em>manuscript</em>, never derived from and never executing the author's scripts — no Arb, no SymPy, no Mathematica, no code from anybody's archive was run. (In one lane, Mathieu, the author's Python was <em>read</em> to cross-check which identities the TeX meant; it was not executed, and that is stated on the lane.) Exact rationals where the claim is algebraic, outward-rounded intervals and the Krawczyk operator where it is analytic. Each carries <strong>mutation controls</strong>: deliberate corruptions of the claim that the verifier must reject. A verifier that cannot fail is not evidence.</li><li><b>Check it.</b> <span class="m">node instruments/laneaudit/audit.js</span> — all six, 4.1 s end to end on a laptop. 92 individually named checks and 21 mutation controls, every control rejected. This page is built from that run and refuses if any of it goes red.</li></ul>
 </div></div>
 
 <div class="wide">
@@ -477,7 +477,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <text x="693.0" y="134.0" text-anchor="middle" class="t-ax">30</text>
     <line x1="840.0" y1="10" x2="840.0" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="840.0" y="134.0" text-anchor="middle" class="t-ax">40</text>
-    <path d="M252 14 h554.6 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-554.6 Z" fill="var(--c-3)" data-cm="Ran–Teng Conjecture 20" data-cmv="38 named checks · 5 mutation controls · 36 ms · PARTIAL" tabindex="0"/>
+    <path d="M252 14 h554.6 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-554.6 Z" fill="var(--c-3)" data-cm="Ran–Teng Conjecture 20" data-cmv="38 named checks · 5 mutation controls · 43 ms · PARTIAL" tabindex="0"/>
     <text x="242.0" y="27.0" text-anchor="end" class="t-ax">Ran–Teng Conjecture 20</text>
     <text x="818.6" y="27.0" text-anchor="start" class="t-lab">38</text>
     <path d="M252 40 h319.4000000000001 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-319.4000000000001 Z" fill="var(--c-1)" data-cm="Erdős Problem #1038" data-cmv="22 named checks · 4 mutation controls · 0 ms · CONFIRMED" tabindex="0"/>
@@ -486,7 +486,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <path d="M252 66 h245.89999999999998 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-245.89999999999998 Z" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound" data-cmv="17 named checks · 3 mutation controls · 0 ms · CONFIRMED" tabindex="0"/>
     <text x="242.0" y="79.0" text-anchor="end" class="t-ax">Maxwell&#39;s point-charge bound</text>
     <text x="509.9" y="79.0" text-anchor="start" class="t-lab">17</text>
-    <path d="M252 92 h216.5 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-216.5 Z" fill="var(--c-1)" data-cm="The Korenblum constant" data-cmv="15 named checks · 4 mutation controls · 3700 ms · CONFIRMED" tabindex="0"/>
+    <path d="M252 92 h216.5 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-216.5 Z" fill="var(--c-1)" data-cm="The Korenblum constant" data-cmv="15 named checks · 4 mutation controls · 3800 ms · CONFIRMED" tabindex="0"/>
     <text x="242.0" y="105.0" text-anchor="end" class="t-ax">The Korenblum constant</text>
     <text x="480.5" y="105.0" text-anchor="start" class="t-lab">15</text>
     <text x="546.0" y="156.0" text-anchor="middle" class="t-note">individually named checks the verifier printed at build time (hover for controls and runtime)</text>
@@ -654,7 +654,7 @@ node legacy/research/challenges/lane/laneb-poisson/verify.js</pre><p>To confirm 
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git 325d9c1. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 92 named checks, 0 failures, 21 mutation controls all rejected, 4.0 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git bd46e5d. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 92 named checks, 0 failures, 21 mutation controls all rejected, 4.1 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
 
 </div>
 </html>

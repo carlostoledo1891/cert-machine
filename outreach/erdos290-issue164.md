@@ -109,45 +109,77 @@ misconception. An independent recomputation of delta(f_8) = 25/64 in Sage or Mag
 take an afternoon and is what I would most like from this thread.
 
 
-## The follow-up draft (NOT SENT — awaiting the word; numbers as of the
-## l = 120 run, 2026-08-28)
+## The follow-up draft — READY TO POST, NOT POSTED (2026-08-31, l = 310 horizon)
 
-@Woett — three updates on the computation above, and one loop closed.
+Post as a new comment on teorth/erdosproblems#164. `gh` is authenticated and
+can do it; it waits on the operator's word. Everything below is derived from
+certs/erdos290-tail-ext.json and re-derives at every build of the report.
 
-The problem-page comment promised above never appeared: it has been
-sitting in the erdosproblems moderation queue since early August. Until
-it clears, the mathematics lives — and re-certifies at every build — at
-the link the zip already points to:
-https://www.carlostoledo.co/reports/erdos290.html
-(the mfg-lab URL above redirects there).
+---
 
-1. The determination now reaches even d <= 240. The five-candidate
-structural squeeze, with the partition enumeration replaced by
-closed-form conjugacy-class sums from the cycle-index EGF (proved equal
-to the enumeration on every degree both can reach), closed every even d
-in (120, 240]: unique survivor at each, none left open. That includes
-the sixth and seventh exceptional degrees, d = 168 = 4·6·7 and
-d = 224 = 4·7·8, each settled with its exact delta — and they are the
-ONLY two degrees in that range that drop, exactly as the discriminant
-identity says: disc(f_d) is a square iff d+1 is.
+@Woett — the computation has moved, and the digit you guessed is now
+unconditional.
 
-2. The unconditional interval, now at knowledge horizon l ≤ 310
-(every even d up to 620 pinned exactly, 250 degrees closed, none open):
-c ∈ [0.830416407911, 0.831220912621], hence
-1/(1+c) ∈ [0.546083759260, 0.546323774021].
-THE THIRD UNCONDITIONAL DIGIT HAS FALLEN: 1/(1+c) = 0.546… with no
-assumption of any kind, where the previous horizon pinned only 0.54.
-So the "6" you guessed is now confirmed unconditionally, not merely
-under the tail hypothesis. That hypothesis now enters only at even
-d ≥ 622 (l = 311), where it used to enter at d = 242.
+First, the loop I left open above: the erdosproblems problem-page comment I
+promised never appeared — it has been in that site's moderation queue since
+early August. Until it clears, the mathematics lives, and re-certifies at
+every build, at https://www.carlostoledo.co/reports/erdos290.html
 
-3. The conditional expansion, now to 110 digits (the enclosure's
-certified horizon moved to d <= 240; the labeled assumption is the
-same):
-1/(1+c) = 0.54622931040010458741266058543836314273483317015360257199417712941054333303218493659023941816307519773773368722
-so the "6" you guessed is confirmed under the stated assumption, and
-unconditionally the value is pinned inside [0.5458, 0.5465].
+**1. The determination now reaches every even d ≤ 620.** The five-candidate
+structural squeeze — with the partition enumeration replaced by closed-form
+conjugacy-class sums from the cycle-index EGF, proved equal to the
+enumeration on every degree both can reach — closed 250 consecutive even
+degrees, d = 122 … 620. Unique survivor at each; none left open.
 
-The independent-check ask stands: delta(f_8) = 25/64 re-derived in Sage
-or Magma is an afternoon, and remains what this computation most wants
-from someone else's hands.
+Every exceptional degree in that range fell with it: d = 4k(k+1) for
+k = 6..11, that is 168, 224, 288, 360, 440, 528. Those are exactly the
+degrees where disc(f_d) is a perfect square, and the only ones in range that
+drop — which is the content of
+
+    disc(f_d) = (d+1) · ( 2^l · l! · disc(h) )²,    f_d(x+l) = h(x²),
+
+so disc(f_d) is a square iff d+1 is, i.e. iff d = 4k(k+1).
+
+**2. The unconditional interval, at knowledge horizon l ≤ 310:**
+
+    c        ∈ [0.830416407911, 0.831220912621]
+    1/(1+c)  ∈ [0.546083759260, 0.546323774021]
+
+So **1/(1+c) = 0.546…, with no assumption of any kind.** The previous
+horizon pinned only 0.54…. The 6 you guessed is now proved rather than
+conditional. (Every unpinned degree is still charged its full weight, δ ∈
+[0,1], so the bracket can only ever shrink — it cannot move.)
+
+**3. The conditional expansion is unchanged in value, but its assumption now
+starts far later** — at even d ≥ 622 rather than d ≥ 62:
+
+    1/(1+c) = 0.54622931040010458741266058543836314273483317015360
+               25719941771294105433330321849365902394181630751977
+               3773368722
+
+The assumption is the labeled one: for every even d past the pinned horizon,
+Gal(f_d) is either S_l⁺ or its index-2 subgroup. It holds at every degree
+where the group has been determined — which is now every even d ≤ 620.
+
+**On the sequencing question.** I still think only the conditional expansion
+is worth an OEIS entry, with the assumption written into the definition and
+its failure semantics stated. What is new is that there is now a clean
+unconditional companion to put beside it: 0.546. If an editor prefers a
+sequence that assumes nothing, that is the one to take, at the cost of three
+digits instead of 110.
+
+**Where this stops, honestly.** The bracket width is essentially
+1/(4·horizon) — it is the unpinned tail Σ_{l>L} 1/(2l(2l+1)) and nothing
+else. A fourth unconditional digit therefore needs the horizon near 3100
+rather than 310: ten times the degrees, each roughly 10⁴ times more
+expensive. That is no longer a machine problem. What would actually move it
+is a theorem that stops charging every undetermined degree the full unit —
+even a proof that δ lies in some interval of width 0.1 for all large even d
+would shrink the whole tail tenfold for free, with no computation at all.
+
+**The independent-check ask stands**, unchanged, and remains the thing this
+computation most wants from someone else's hands: δ(f_8) = 25/64 re-derived
+in Sage or Magma is an afternoon. One dependency is still yours, stated
+plainly: the unconditional interval takes Lemma 32's Magma determination that
+G_d = S_l⁺ for even d ≤ 60 outside {8, 24, 48} as given. I certified the
+irreducibility half independently, not the group half.
