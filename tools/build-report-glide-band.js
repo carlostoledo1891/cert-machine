@@ -207,392 +207,610 @@ const modScen = BASE.ss;
 const totShown = BASE.shown, totFalse = BASE.bad, pctFalse = BASE.pct;
 
 /* the single worst row anywhere: shown by the line, proved out */
+/* the worst row IN THE SCENARIO THE PARAGRAPH IS ABOUT — the unfeathered
+   propeller, forecast right. Scanning every scenario instead quotes a
+   reversed-forecast row under a heading about the propeller: the kind of small
+   mismatch nobody catches on the page and everybody catches in the room. */
 let worst = null;
-for (const s of scen) for (const r of s.top) {
+for (const s of scen.filter((x) => x.p === PI_WINDMILL && x.m === 0)) for (const r of s.top) {
   if (r[5] === 1 && (!worst || (r[1] - r[3]) > (worst.row[1] - worst.row[3]))) worst = { row: r, s };
 }
 
 const bytes = JSON.stringify(scen).length;
 
-/* ======================================================================== */
-const B = [];
+/* ======================================================================
+   THE FIGURES. Every mark below reaches for a design token by name and
+   never for a literal colour — a literal is invisible in one of the two
+   themes, and that rule is why design/tokens.js exists. The verdict roles
+   are fixed once here and used identically by the static figures and by
+   the interactive map, so the page reads as one system:
+
+     proved reachable  --c-2   undecided  --c-3   refuted  --c-1
+     the panel's line  --ink-2, dashed          context  --ink-3
+   ====================================================================== */
+const V_G = 'var(--c-2)', V_A = 'var(--c-3)', V_R = 'var(--c-1)';
+const V_LINE = 'var(--ink-2)', V_CTX = 'var(--ink-3)';
+
 const pct = (x) => x.toFixed(0) + '%';
 const AP_OF = (i) => relevant[i];
 
+/* a closed polar path from an array of radii, in a local px scale */
+function ringPath(rs, cx, cy, sc) {
+  let d = '';
+  for (let b = 0; b < rs.length; b++) {
+    const th = b * 2 * Math.PI / rs.length;
+    d += (b ? 'L' : 'M') + (cx + Math.sin(th) * rs[b] * sc).toFixed(1) + ' '
+       + (cy - Math.cos(th) * rs[b] * sc).toFixed(1);
+  }
+  return d + 'Z';
+}
+const HATCH = (id) => '<pattern id="' + id + '" width="7" height="7" patternUnits="userSpaceOnUse" '
+  + 'patternTransform="rotate(45)"><rect width="7" height="7" fill="var(--warn-soft)"/>'
+  + '<line x1="0" y1="0" x2="0" y2="7" stroke="' + V_A + '" stroke-width="1.3" opacity=".6"/></pattern>';
+
+/* ---------- FIGURE 1 · the idea, on real numbers -------------------------- */
+function figIdea() {
+  const s = HERO;
+  let maxR = 0;
+  for (const r of s.rhi) if (r > maxR) maxR = r;
+  for (const r of s.rnom) if (r > maxR) maxR = r;
+  const W = 900, H = 430, cx = 250, cy = H / 2, sc = (H * 0.42) / maxR;
+  const o = ['<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="One line versus three zones">'];
+  o.push('<defs>' + HATCH('h1') + '</defs>');
+  o.push('<path d="' + ringPath(s.rhi, cx, cy, sc) + ' ' + ringPath(s.rlo, cx, cy, sc)
+    + '" fill-rule="evenodd" fill="url(#h1)"/>');
+  o.push('<path d="' + ringPath(s.rlo, cx, cy, sc) + '" fill="var(--held-soft)" stroke="' + V_G + '" stroke-width="2.4"/>');
+  o.push('<path d="' + ringPath(s.rhi, cx, cy, sc) + '" fill="none" stroke="' + V_R + '" stroke-width="2.4"/>');
+  o.push('<path d="' + ringPath(s.rnom, cx, cy, sc) + '" fill="none" stroke="' + V_LINE
+    + '" stroke-width="2.6" stroke-dasharray="9 6"/>');
+  o.push('<circle cx="' + cx + '" cy="' + cy + '" r="5.5" fill="var(--ink)"/>');
+
+  /* label column on the right; each block connects to its ring at its own
+     angle, so no leader ever crosses a boundary it does not belong to */
+  const CX = 520;
+  const at = (rs, ang) => {
+    const k = Math.round(((ang % 360) / 360) * rs.length) % rs.length;
+    return [cx + Math.sin(ang * Math.PI / 180) * rs[k] * sc, cy - Math.cos(ang * Math.PI / 180) * rs[k] * sc];
+  };
+  const blocks = [
+    { y: 92, t: 'YOU WILL REACH THESE', sub: 'true for every value in the envelope', col: V_G,
+      pt: at(s.rlo, 38), sw: 'fill="var(--held-soft)" stroke="' + V_G + '" stroke-width="2"' },
+    { y: 176, t: 'NOBODY CAN SAY', sub: 'the evidence does not settle it', col: V_A,
+      pt: at(s.rlo.map((v, k) => (v + s.rhi[k]) / 2), 25), sw: 'fill="url(#h1)" stroke="' + V_A + '" stroke-width="1.6"' },
+    { y: 260, t: 'YOU WILL NOT', sub: 'true for no value in the envelope', col: V_R,
+      pt: at(s.rhi, 14), sw: 'fill="none" stroke="' + V_R + '" stroke-width="2"' },
+    { y: 352, t: 'THE LINE YOUR PANEL DRAWS', sub: 'one value per input, and it runs', sub2: 'through the middle zone',
+      col: V_LINE, pt: at(s.rnom, 155), line: true }
+  ];
+  for (const b of blocks) {
+    o.push('<path d="M' + b.pt[0].toFixed(1) + ' ' + b.pt[1].toFixed(1) + ' L' + (CX - 26) + ' ' + b.y
+      + ' L' + (CX - 12) + ' ' + b.y + '" fill="none" stroke="var(--rule)" stroke-width="1.2"/>');
+    if (b.line) {
+      o.push('<line x1="' + (CX - 8) + '" y1="' + (b.y - 5) + '" x2="' + (CX + 12) + '" y2="' + (b.y - 5)
+        + '" stroke="' + V_LINE + '" stroke-width="2.6" stroke-dasharray="7 5"/>');
+    } else {
+      o.push('<rect x="' + (CX - 8) + '" y="' + (b.y - 13) + '" width="16" height="16" ' + b.sw + '/>');
+    }
+    o.push('<text x="' + (CX + 22) + '" y="' + (b.y - 1) + '" font-size="15.5" font-weight="600" fill="'
+      + b.col + '">' + b.t + '</text>');
+    o.push('<text x="' + (CX + 22) + '" y="' + (b.y + 18) + '" font-size="13.5" fill="var(--ink-2)">' + b.sub + '</text>');
+    if (b.sub2) o.push('<text x="' + (CX + 22) + '" y="' + (b.y + 35) + '" font-size="13.5" fill="var(--ink-2)">'
+      + b.sub2 + '</text>');
+  }
+  o.push('</svg>');
+  return o.join('\n');
+}
+
+/* ---------- FIGURE 2 · the route ------------------------------------------ */
+function figRoute() {
+  const pts = FLIGHT.track.filter((p) => p.alt >= 3000);
+  const las = pts.map((p) => p.lat), los = pts.map((p) => p.lon);
+  const la0 = Math.min.apply(null, las), la1 = Math.max.apply(null, las);
+  const lo0 = Math.min.apply(null, los), lo1 = Math.max.apply(null, los);
+  const W = 900, H = 440, M = 40;
+  const kx = 111.32 * Math.cos((la0 + la1) / 2 * Math.PI / 180), ky = 110.57;
+  const spanX = (lo1 - lo0) * kx, spanY = (la1 - la0) * ky;
+  const sc = Math.min((W - 2 * M - 300) / spanX, (H - 2 * M - 26) / spanY);
+  const ox = M + ((W - 2 * M - 300) - spanX * sc) / 2, oy = M + ((H - 2 * M - 26) - spanY * sc) / 2;
+  const X = (lo) => ox + (lo - lo0) * kx * sc, Y = (la) => oy + (la1 - la) * ky * sc;
+  const o = ['<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="The pinned flight track">'];
+  for (const a of relevant) {
+    if (a.lon < lo0 || a.lon > lo1 || a.lat < la0 || a.lat > la1) continue;
+    o.push('<circle cx="' + X(a.lon).toFixed(1) + '" cy="' + Y(a.lat).toFixed(1) + '" r="1.7" fill="var(--mark)"/>');
+  }
+  o.push('<path d="' + pts.map((p, i) => (i ? 'L' : 'M') + X(p.lon).toFixed(1) + ' ' + Y(p.lat).toFixed(1)).join('')
+    + '" fill="none" stroke="' + V_CTX + '" stroke-width="1.6"/>');
+  const cruise = TRACK;
+  o.push('<path d="' + cruise.map((p, i) => (i ? 'L' : 'M') + X(p.lon).toFixed(1) + ' ' + Y(p.lat).toFixed(1)).join('')
+    + '" fill="none" stroke="var(--sig)" stroke-width="4.5" stroke-linecap="round"/>');
+  const p0 = cruise[0], p1 = cruise[cruise.length - 1];
+  o.push('<circle cx="' + X(p0.lon).toFixed(1) + '" cy="' + Y(p0.lat).toFixed(1) + '" r="4.5" fill="var(--sig)"/>');
+  o.push('<circle cx="' + X(p1.lon).toFixed(1) + '" cy="' + Y(p1.lat).toFixed(1) + '" r="4.5" fill="var(--sig)"/>');
+
+  /* the caption column, so nothing is written over the map */
+  const LX = W - 322, altMax = Math.max.apply(null, cruise.map((c) => c.alt));
+  const rows = [
+    ['var(--sig)', C.esc(FLIGHT.reg) + ' \u00b7 ' + C.esc(FLIGHT.type),
+      'the cruise decided here, ' + Math.round(cruise[0].alt).toLocaleString() + '\u2013'
+      + Math.round(altMax).toLocaleString() + ' ft'],
+    [V_CTX, 'the rest of the trace', 'climb and descent, not decided here'],
+    ['var(--mark)', relevant.length + ' airfields', 'each decided at all ' + scen.length + ' states']
+  ];
+  /* wrap the sub-lines so nothing runs off the viewBox edge */
+  const AVAIL = W - (LX + 24) - 10, CHW = 7.45;
+  const wrap = (t) => {
+    const words = t.split(' '), out = []; let line = '';
+    for (const w of words) {
+      if (line && (line.length + 1 + w.length) * CHW > AVAIL) { out.push(line); line = w; }
+      else line = line ? line + ' ' + w : w;
+    }
+    if (line) out.push(line);
+    return out;
+  };
+  rows.forEach((r, i) => {
+    const y = 120 + i * 74;
+    o.push('<rect x="' + LX + '" y="' + (y - 11) + '" width="14" height="4" fill="' + r[0] + '"/>');
+    o.push('<text x="' + (LX + 24) + '" y="' + (y - 3) + '" font-size="14.5" font-weight="600" fill="var(--ink)">'
+      + r[1] + '</text>');
+    wrap(r[2]).forEach((ln, k) => o.push('<text x="' + (LX + 24) + '" y="' + (y + 16 + k * 17)
+      + '" font-size="13" fill="var(--ink-2)">' + ln + '</text>'));
+  });
+  o.push('<text x="' + LX + '" y="' + (H - 24) + '" font-size="12.5" fill="var(--ink-3)">'
+    + C.esc(FLIGHT.desc || FLIGHT.type) + ' \u00b7 ' + FLIGHT.day + '</text>');
+  o.push('</svg>');
+  return o.join('\n');
+}
+
+/* ---------- FIGURE 3 · the five scenarios, one scale ---------------------- */
+function figPacks() {
+  const ti = HERO.t;
+  /* the glider is excluded from THIS figure on purpose: its reach is about
+     four times the others, so putting it on the shared scale collapses the
+     four powered cells to dots and the comparison the figure exists for is
+     lost. It stays in the composition chart, where the axis is a proportion
+     and the scale problem does not arise. */
+  const idxs = PACKS.map((pk, i) => i).filter((i) => PACKS[i].key !== 'glider');
+  const cells = idxs.map((pi) => byKey.get(key(ti, WI_MID, 0, pi)));
+  let maxR = 0;
+  for (const s of cells) { for (const r of s.rhi) if (r > maxR) maxR = r;
+                           for (const r of s.rnom) if (r > maxR) maxR = r; }
+  const CW = 222, CH = 214, W = 900, H = CH + 46;
+  const sc = (CW * 0.40) / maxR;
+  const o = ['<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Four powered scenarios at one scale">'];
+  o.push('<defs>' + HATCH('h3') + '</defs>');
+  cells.forEach((s, i) => {
+    const pk = PACKS[idxs[i]];
+    const cx = 111 + i * CW, cy = 106;
+    o.push('<path d="' + ringPath(s.rhi, cx, cy, sc) + ' ' + ringPath(s.rlo, cx, cy, sc)
+      + '" fill-rule="evenodd" fill="url(#h3)"/>');
+    o.push('<path d="' + ringPath(s.rlo, cx, cy, sc) + '" fill="var(--held-soft)" stroke="' + V_G + '" stroke-width="1.8"/>');
+    o.push('<path d="' + ringPath(s.rhi, cx, cy, sc) + '" fill="none" stroke="' + V_R + '" stroke-width="1.8"/>');
+    o.push('<path d="' + ringPath(s.rnom, cx, cy, sc) + '" fill="none" stroke="' + V_LINE
+      + '" stroke-width="2" stroke-dasharray="7 5"/>');
+    o.push('<circle cx="' + cx + '" cy="' + cy + '" r="3" fill="var(--ink)"/>');
+    const outside = pk.panelLD > pk.LD[1];
+    o.push('<text x="' + cx + '" y="' + (CH - 8) + '" text-anchor="middle" font-size="13.5" font-weight="600" fill="'
+      + (outside ? V_R : 'var(--ink)') + '">' + C.esc(pk.label) + '</text>');
+    o.push('<text x="' + cx + '" y="' + (CH + 9) + '" text-anchor="middle" font-size="12" fill="var(--ink-2)">'
+      + C.esc(pk.sub.length > 30 ? pk.sub.replace('fixed-pitch, ', '') : pk.sub) + '</text>');
+    o.push('<text x="' + cx + '" y="' + (CH + 28) + '" text-anchor="middle" font-size="12" font-weight="'
+      + (s.c[5] ? '600' : '400') + '" fill="' + (s.c[5] ? V_R : V_CTX) + '">' + s.c[5] + ' refuted</text>');
+  });
+  o.push('</svg>');
+  return o.join('\n');
+}
+
+/* ---------- FIGURE 4 · what the line claims, and what survives ------------ */
+function figComposition(rows) {
+  const W = 900, L = 268, R = 96, rowH = 46, H = rows.length * rowH + 62;
+  const bw = W - L - R;
+  const o = ['<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Verdict composition per scenario">'];
+  rows.forEach((r, i) => {
+    const y = 28 + i * rowH;
+    const tot = Math.max(1, r.shown);
+    const wG = bw * (r.shown - r.bad) / tot, wA = bw * (r.bad - r.dam) / tot, wR = bw * r.dam / tot;
+    o.push('<text x="' + (L - 12) + '" y="' + (y + 13) + '" text-anchor="end" font-size="13" font-weight="'
+      + (r.emph ? '600' : '400') + '" fill="var(--ink)">' + C.esc(r.label) + '</text>');
+    if (r.sub) o.push('<text x="' + (L - 12) + '" y="' + (y + 29) + '" text-anchor="end" font-size="11.5" fill="var(--ink-3)">'
+      + C.esc(r.sub) + '</text>');
+    o.push('<rect x="' + L + '" y="' + y + '" width="' + wG.toFixed(1) + '" height="22" fill="' + V_G + '"/>');
+    o.push('<rect x="' + (L + wG).toFixed(1) + '" y="' + y + '" width="' + wA.toFixed(1) + '" height="22" fill="' + V_A + '" opacity=".55"/>');
+    o.push('<rect x="' + (L + wG + wA).toFixed(1) + '" y="' + y + '" width="' + wR.toFixed(1) + '" height="22" fill="' + V_R + '"/>');
+    if (wG > 34) o.push('<text x="' + (L + 8) + '" y="' + (y + 16) + '" font-size="12" fill="var(--surface)">'
+      + pct(100 * (r.shown - r.bad) / tot) + '</text>');
+    if (wR > 34) o.push('<text x="' + (L + bw - 8) + '" y="' + (y + 16) + '" text-anchor="end" font-size="12" fill="var(--surface)">'
+      + pct(100 * r.dam / tot) + '</text>');
+    o.push('<text x="' + (W - R + 12) + '" y="' + (y + 16) + '" font-size="12.5" fill="var(--ink-2)">'
+      + r.shown.toLocaleString() + '</text>');
+  });
+  const y0 = H - 20;
+  const sw = (x, c, t, op) => '<rect x="' + x + '" y="' + (y0 - 9) + '" width="11" height="11" fill="' + c
+    + '"' + (op ? ' opacity="' + op + '"' : '') + '/><text x="' + (x + 17) + '" y="' + y0
+    + '" font-size="12.5" fill="var(--ink-2)">' + t + '</text>';
+  o.push(sw(L, V_G, 'proved reachable'));
+  o.push(sw(L + 152, V_A, 'undecided', '.55'));
+  o.push(sw(L + 268, V_R, 'REFUTED \u2014 provably not'));
+  o.push('<text x="' + (W - R + 12) + '" y="' + y0 + '" font-size="11.5" fill="var(--ink-3)">claims</text>');
+  o.push('</svg>');
+  return o.join('\n');
+}
+
+const COMP_ROWS = PACKS.map((pk, pi) => {
+  const a = aggOf(pi, WI_MID, 0);
+  return { label: pk.label, sub: pk.sub, shown: a.shown, bad: a.bad, dam: a.dam,
+           emph: pi === PI_WINDMILL };
+}).concat([{ label: 'Turboprop', sub: 'feathered, forecast 180\u00b0 out',
+             shown: REVERSED.shown, bad: REVERSED.bad, dam: REVERSED.dam, emph: true }]);
+
+/* ======================================================================== */
+const B = [];
+
 B.push(C.header({
-  eyebrow: 'cert-machine · report · every number recomputed at build',
-  title: 'The glide ring is unfalsifiable. That is the problem with it.',
-  deck: 'When the engine quits the panel draws one ring and calls it your reach — one glide ratio, one '
-    + 'forecast wind, one weight, rendered as a promise. Recomputed as an enclosure over those same inputs’ '
-    + 'uncertainty, on a real pinned flight: ' + pct(pctFalse) + ' of the airfields inside that line cannot be '
-    + 'proved reachable, and none can be proved unreachable either. That is not a coincidence. It is what makes '
-    + 'the line safe to draw and impossible to check.'
+  eyebrow: 'cert-machine \u00b7 report \u00b7 every number recomputed at build',
+  title: 'The ring shows you one answer. There are three.',
+  deck: 'When the engine quits your panel draws a single ring and calls it your reach. The honest picture has '
+    + 'three parts: airfields you will reach whatever the assumptions, airfields you will reach under none, and '
+    + '\u2014 the largest group \u2014 the ones the evidence does not settle. Today that third group is drawn '
+    + 'inside the line, where it looks exactly like the first.'
 }));
 
-B.push(C.tldr({
-  findingRaw: '<strong>' + pct(pctFalse) + ' of the sites inside the single-line ring are not proved reachable — '
-    + 'and zero are proved unreachable.</strong> The zero is structural, and the build asserts it: while the '
-    + 'panel’s configured glide ratio lies inside the honest envelope, its line always falls between the two '
-    + 'certified boundaries, so nothing inside it can ever be refuted. Change one thing the glass cannot see '
-    + '— the propeller does not feather — and ' + pct(NOFEATHER.pctDam) + ' of what that same line shows '
-    + 'becomes provably out of reach. Reverse the winds-aloft forecast instead and it is '
-    + pct(REVERSED.pctDam) + '.',
-  mechanismRaw: 'Outward-rounded interval arithmetic over the glide model, the box subdivided ' + K.NVA + '×'
-    + K.NWD + ' so the answer is not charged for a dependency the physics does not have, and the height lost '
-    + 'turning onto each field taken from the aircraft’s actual ADS-B ground track. Both outer verdicts are '
-    + 'conservative: a wider enclosure can only move a site INTO undecided, never into a wrong answer.',
-  checkRaw: C.m('node apps/glide-band/battery.js') + ' — ' + nChecks + ' checks including a 4000-draw '
-    + 'containment test, and ' + nReds + ' red controls that must fire, among them the point-estimate method itself.'
-}));
+B.push(C.figure({ svgRaw: figIdea(), caption: 'The same instant, computed both ways \u2014 real numbers from the '
+  + 'flight below, not a schematic. The dashed line is a point estimate: one glide ratio, one forecast wind, one '
+  + 'weight. The two solid boundaries enclose every value those inputs can take. The line spends most of its '
+  + 'length inside the zone where nothing is settled.' }));
 
 B.push(C.stats([
-  { k: 'shown by the line, not proved', v: pct(pctFalse), role: 'held',
-    n: totFalse + ' of ' + totShown + ' site-states — turboprop, propeller feathered, 35 kt, forecast right' },
-  { k: 'shown by the line, refutable', v: '0', role: 'held',
-    n: 'structural, and gated at build: while the configured ratio sits inside the envelope the line cannot be '
-       + 'proved wrong about anything — unfalsifiable, not correct' },
-  { k: 'if the prop does not feather', v: pct(NOFEATHER.pctDam), role: 'held',
-    n: NOFEATHER.dam + ' of ' + NOFEATHER.shown + ' site-states inside the same line become PROVABLY unreachable. '
-       + 'Same aircraft, same flight, one action short — and the glass has no way to know' },
-  { k: 'if the forecast is reversed', v: pct(REVERSED.pctDam), role: 'held',
-    n: REVERSED.dam + ' of ' + REVERSED.shown + ' site-states refuted when the winds-aloft forecast is 180° out' },
-  { k: 'the flight', v: C.esc(FLIGHT.reg || FLIGHT.icao), sm: true,
-    n: C.esc(FLIGHT.desc || FLIGHT.type) + ', single-engine turboprop, ' + FLIGHT.day
-       + ' — adsb.lol, pinned through apps/skyaudit' },
-  { k: 'states swept', v: String(scen.length), sm: true,
-    n: TRACK.length + ' cruise positions × ' + PACKS.length + ' aircraft scenarios × ' + WINDS.length
-       + ' winds × ' + MODES.length + ' forecast modes, over ' + relevant.length
-       + ' airfields, every one decided at build' }
+  { k: 'inside the line, not proved', v: pct(pctFalse), role: 'warn',
+    n: totFalse + ' of ' + totShown + ' claims \u2014 turboprop, propeller feathered, 35 kt, forecast right' },
+  { k: 'inside the line, refutable', v: '0',
+    n: 'structural, and gated at build: while the panel\u2019s configured ratio sits inside the envelope, its '
+       + 'line cannot be proved wrong about anything' },
+  { k: 'if the propeller does not feather', v: pct(NOFEATHER.pctDam),
+    n: NOFEATHER.dam + ' of ' + NOFEATHER.shown + ' claims become PROVABLY unreachable \u2014 same aircraft, same '
+       + 'flight, one action short, and the glass has no way to know' }
 ]));
 
-/* ---------------- the dashboard ------------------------------------------- */
+/* ---------------- §1 the flight ------------------------------------------- */
+B.push(C.section({
+  lab: '\u00a71 \u00b7 the flight', title: 'A real aeroplane, on a real afternoon',
+  bodyRaw: '<div class="col">'
+    + C.pRaw('Everything here is decided on one pinned ADS-B trace: ' + C.esc(FLIGHT.reg) + ', a '
+      + C.esc(FLIGHT.desc || FLIGHT.type) + ' \u2014 a <em>single-engine</em> turboprop, which is why a glide '
+      + 'ring is a live instrument and not a curiosity \u2014 cruising at ' + Math.round(HERO.alt).toLocaleString()
+      + ' ft on ' + FLIGHT.day + '. Nothing happened on this flight. The question is what the panel would have '
+      + 'been telling the crew if something had.')
+    + '</div>'
+}));
+B.push(C.figure({ svgRaw: figRoute(), caption: 'The trace, with the cruise segment this page decides marked in '
+  + 'the signature colour. The ' + relevant.length + ' airfields in play are the grey dots. Flight data '
+  + '\u00a9 adsb.lol under ODbL, ingested and pinned by apps/skyaudit; airfields from OurAirports, public domain.' }));
+
+/* ---------------- §2 the instrument --------------------------------------- */
 const DATA = {
   scen, airports: relevant.map((a) => [a.ident, a.name, a.lat, a.lon, a.elev_ft]),
-  winds: WINDS.map((w) => w.name), packs: PACKS.map((p) => p.label + ' · ' + p.sub),
-  nb: NB, track: FLIGHT.track.filter((p) => p.alt >= 10000).map((p) => [+p.lat.toFixed(4), +p.lon.toFixed(4)])
+  winds: WINDS.map((w) => w.name), nb: NB,
+  track: FLIGHT.track.filter((p) => p.alt >= 10000).map((p) => [+p.lat.toFixed(4), +p.lon.toFixed(4)])
 };
-
-const seg = (id, items, sel) => '<div id="' + id + '" class="gb-seg">' + items.map((t, i) =>
-  '<button data-v="' + i + '"' + (i === sel ? ' class="on"' : '') + '>' + C.esc(t) + '</button>').join('') + '</div>';
+const seg = (id, items, sel) => '<div id="' + id + '" class="gb-seg" role="group">' + items.map((t, i) =>
+  '<button type="button" data-v="' + i + '"' + (i === sel ? ' class="on"' : '') + '>' + C.esc(t) + '</button>').join('') + '</div>';
 
 const DASH = `
-<div class="gb-wrap">
-  <div class="gb-controls">
+<div class="gb">
+  <div class="gb-bar">
     <label class="gb-ctl"><span>Position along the cruise</span>
       <input id="gb-t" type="range" min="0" max="${TRACK.length - 1}" value="${HERO.t}" step="1">
       <output id="gb-tout"></output></label>
     <div class="gb-ctl"><span>Aircraft &amp; configuration</span>
-      ${seg('gb-p', PACKS.map((p) => p.label + ' · ' + p.sub), HERO.p)}</div>
-  </div>
-  <div class="gb-controls">
-    <div class="gb-ctl"><span>Forecast wind (from 270°)</span>${seg('gb-w', WINDS.map((w) => w.name), HERO.w)}</div>
+      ${seg('gb-p', PACKS.map((p) => p.label + ' \u00b7 ' + p.sub), HERO.p)}</div>
+    <div class="gb-ctl"><span>Forecast wind</span>${seg('gb-w', WINDS.map((w) => w.name), HERO.w)}</div>
     <div class="gb-ctl"><span>Is the forecast right?</span>${seg('gb-m', MODES.map((m) => m.label), HERO.m)}</div>
   </div>
   <p id="gb-note" class="gb-note"></p>
   <div class="gb-stage">
-    <svg id="gb-svg" viewBox="0 0 900 620" role="img" aria-label="Certified glide band around a pinned flight"></svg>
-    <div class="gb-nav">NOT FOR NAVIGATION · illustrative scenario, not manufacturer data</div>
+    <svg id="gb-svg" viewBox="0 0 900 620" role="img" aria-label="Certified glide band on a pinned flight"></svg>
+    <div class="gb-nav">NOT FOR NAVIGATION \u00b7 illustrative scenario, not manufacturer data</div>
   </div>
   <div class="gb-key">
-    <span><i class="k-g"></i>PROVED REACHABLE <em>(if the path is unobstructed — H1)</em></span>
-    <span><i class="k-a"></i>UNDECIDED <em>the envelope does not settle it</em></span>
+    <span><i class="k-g"></i>PROVED REACHABLE <em>if the path is unobstructed (H1)</em></span>
+    <span><i class="k-a"></i>UNDECIDED <em>the evidence does not settle it</em></span>
     <span><i class="k-r"></i>REFUTED <em>unreachable for every value in the envelope</em></span>
-    <span><i class="k-n"></i>the single line a panel draws</span>
+    <span><i class="k-n"></i><em>the single line a panel draws</em></span>
   </div>
-  <div id="gb-counts" class="gb-counts"></div>
-  <div class="gb-tablewrap"><table class="gb-table"><thead><tr>
+  <p id="gb-counts" class="gb-counts"></p>
+  <div class="gb-tw"><table class="gb-table"><thead><tr>
     <th>ident</th><th>airfield</th><th class="n">distance</th><th class="n">proved band</th>
-    <th class="n">the line says</th><th>verdict</th><th class="n">turn</th><th class="n">needs L/D ≥</th>
+    <th class="n">the line says</th><th>verdict</th><th class="n">turn</th><th class="n">needs L/D \u2265</th>
   </tr></thead><tbody id="gb-rows"></tbody></table></div>
   <p class="gb-cap" id="gb-cap"></p>
 </div>
 <script>
 (function(){
-var D = ${JSON.stringify(DATA)};
-var NOTES = ${JSON.stringify(PACKS.map((p) => p.note))};
-var svg = document.getElementById('gb-svg');
-var NS='http://www.w3.org/2000/svg';
+var D=${JSON.stringify(DATA)}, NOTES=${JSON.stringify(PACKS.map((p) => p.note))};
+var svg=document.getElementById('gb-svg'), NS='http://www.w3.org/2000/svg';
 var ti=${HERO.t}, wi=${HERO.w}, mi=${HERO.m}, pi=${HERO.p};
-function scenOf(){ for(var i=0;i<D.scen.length;i++){ var x=D.scen[i];
+function S(){ for(var i=0;i<D.scen.length;i++){ var x=D.scen[i];
   if(x.t===ti&&x.w===wi&&x.m===mi&&x.p===pi) return x; } return D.scen[0]; }
 function el(n,at){ var e=document.createElementNS(NS,n); for(var k in at) e.setAttribute(k,at[k]); return e; }
-
 function draw(){
-  var s=scenOf();
-  var W=900,H=620,cx=W*0.5,cy=H*0.5;
-  var maxR=0; for(var i=0;i<s.rhi.length;i++) if(s.rhi[i]>maxR) maxR=s.rhi[i];
-  for(var i=0;i<s.rnom.length;i++) if(s.rnom[i]>maxR) maxR=s.rnom[i];
-  var span=Math.max(maxR*1.18,20);
-  var kmPerDegLat=110.574, kmPerDegLon=111.320*Math.cos(s.lat*Math.PI/180);
-  var sc=(H*0.46)/span;
-  function P(lat,lon){ return [cx+(lon-s.lon)*kmPerDegLon*sc, cy-(lat-s.lat)*kmPerDegLat*sc]; }
-  function ring(rs){ var d=''; for(var b=0;b<rs.length;b++){ var th=b*2*Math.PI/rs.length;
-      var x=cx+Math.sin(th)*rs[b]*sc, y=cy-Math.cos(th)*rs[b]*sc; d+=(b?'L':'M')+x.toFixed(1)+' '+y.toFixed(1); }
+  var s=S(), W=900,H=620,cx=W*0.5,cy=H*0.5, i;
+  var maxR=0; for(i=0;i<s.rhi.length;i++) if(s.rhi[i]>maxR) maxR=s.rhi[i];
+  for(i=0;i<s.rnom.length;i++) if(s.rnom[i]>maxR) maxR=s.rnom[i];
+  var span=Math.max(maxR*1.16,20), sc=(H*0.45)/span;
+  var kLat=110.574, kLon=111.320*Math.cos(s.lat*Math.PI/180);
+  function P(la,lo){ return [cx+(lo-s.lon)*kLon*sc, cy-(la-s.lat)*kLat*sc]; }
+  function ring(rs){ var d='',b,th,x,y; for(b=0;b<rs.length;b++){ th=b*2*Math.PI/rs.length;
+      x=cx+Math.sin(th)*rs[b]*sc; y=cy-Math.cos(th)*rs[b]*sc; d+=(b?'L':'M')+x.toFixed(1)+' '+y.toFixed(1); }
     return d+'Z'; }
   while(svg.firstChild) svg.removeChild(svg.firstChild);
-
   var defs=el('defs');
-  var pat=el('pattern',{id:'gbHatch',width:'7',height:'7',patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'});
-  pat.appendChild(el('rect',{width:'7',height:'7',fill:'var(--gb-a-soft)'}));
-  pat.appendChild(el('line',{x1:'0',y1:'0',x2:'0',y2:'7',stroke:'var(--gb-a)','stroke-width':'1.4','opacity':'.55'}));
+  var pat=el('pattern',{id:'gbH',width:'7',height:'7',patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'});
+  pat.appendChild(el('rect',{width:'7',height:'7',fill:'var(--warn-soft)'}));
+  pat.appendChild(el('line',{x1:'0',y1:'0',x2:'0',y2:'7',stroke:'var(--c-3)','stroke-width':'1.3',opacity:'.6'}));
   defs.appendChild(pat); svg.appendChild(defs);
-
-  svg.appendChild(el('path',{d:ring(s.rhi)+' '+ring(s.rlo),'fill-rule':'evenodd',fill:'url(#gbHatch)'}));
-  svg.appendChild(el('path',{d:ring(s.rlo),fill:'var(--gb-g-soft)',stroke:'var(--gb-g)','stroke-width':'2.2'}));
-  svg.appendChild(el('path',{d:ring(s.rhi),fill:'none',stroke:'var(--gb-r)','stroke-width':'2.2'}));
-  svg.appendChild(el('path',{d:ring(s.rnom),fill:'none',stroke:'var(--gb-n)','stroke-width':'2.6','stroke-dasharray':'9 6'}));
-
-  var td=''; for(var i=0;i<D.track.length;i++){ var q=P(D.track[i][0],D.track[i][1]); td+=(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1); }
-  svg.appendChild(el('path',{d:td,fill:'none',stroke:'var(--gb-track)','stroke-width':'1.6','opacity':'.75'}));
-
-  var order={R:0,A:1,G:2};
-  var idx=[]; for(var i=0;i<D.airports.length;i++) idx.push(i);
+  svg.appendChild(el('path',{d:ring(s.rhi)+' '+ring(s.rlo),'fill-rule':'evenodd',fill:'url(#gbH)'}));
+  svg.appendChild(el('path',{d:ring(s.rlo),fill:'var(--held-soft)',stroke:'var(--c-2)','stroke-width':'2.2'}));
+  svg.appendChild(el('path',{d:ring(s.rhi),fill:'none',stroke:'var(--c-1)','stroke-width':'2.2'}));
+  svg.appendChild(el('path',{d:ring(s.rnom),fill:'none',stroke:'var(--ink-2)','stroke-width':'2.6','stroke-dasharray':'9 6'}));
+  var td=''; for(i=0;i<D.track.length;i++){ var q=P(D.track[i][0],D.track[i][1]); td+=(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1); }
+  svg.appendChild(el('path',{d:td,fill:'none',stroke:'var(--ink-3)','stroke-width':'1.5',opacity:'.7'}));
+  var order={R:0,A:1,G:2}, idx=[]; for(i=0;i<D.airports.length;i++) idx.push(i);
   idx.sort(function(a,b){ return order[s.vs[a]]-order[s.vs[b]]; });
   for(var k=0;k<idx.length;k++){
-    var i=idx[k], a=D.airports[i], p=P(a[2],a[3]);
+    var j=idx[k], a=D.airports[j], p=P(a[2],a[3]);
     if(p[0]<-40||p[0]>W+40||p[1]<-40||p[1]>H+40) continue;
-    var v=s.vs[i], shown=s.shown[i]==='Y';
-    var col=v==='G'?'var(--gb-g)':(v==='A'?'var(--gb-a)':'var(--gb-r)');
+    var v=s.vs[j], shown=s.shown[j]==='Y';
+    var col=v==='G'?'var(--c-2)':(v==='A'?'var(--c-3)':'var(--c-1)');
     var big=(shown&&v!=='G');
     var dx=p[0]-cx, dy=p[1]-cy, rr=Math.sqrt(dx*dx+dy*dy)/sc;
-    var far=(!shown && v==='R' && rr>maxR*1.06);
-    svg.appendChild(el('circle',{cx:p[0].toFixed(1),cy:p[1].toFixed(1),r:big?4.6:(far?1.7:2.6),
-      fill:v==='G'?col:'var(--gb-paper)',stroke:col,'stroke-width':big?2:1.3,opacity:far?'0.28':'1'}));
-    if(big&&v==='R'){
-      svg.appendChild(el('path',{d:'M'+(p[0]-3.2)+' '+(p[1]-3.2)+'L'+(p[0]+3.2)+' '+(p[1]+3.2)+
-        'M'+(p[0]+3.2)+' '+(p[1]-3.2)+'L'+(p[0]-3.2)+' '+(p[1]+3.2),stroke:'var(--gb-r)','stroke-width':'1.8'}));
-    }
+    var far=(!shown&&v==='R'&&rr>maxR*1.05);
+    svg.appendChild(el('circle',{cx:p[0].toFixed(1),cy:p[1].toFixed(1),r:big?4.6:(far?1.6:2.5),
+      fill:v==='G'?col:'var(--surface)',stroke:col,'stroke-width':big?2:1.3,opacity:far?'0.3':'1'}));
+    if(big&&v==='R') svg.appendChild(el('path',{d:'M'+(p[0]-3.2)+' '+(p[1]-3.2)+'L'+(p[0]+3.2)+' '+(p[1]+3.2)+
+      'M'+(p[0]+3.2)+' '+(p[1]-3.2)+'L'+(p[0]-3.2)+' '+(p[1]+3.2),stroke:'var(--c-1)','stroke-width':'1.8'}));
   }
   var ac=P(s.lat,s.lon);
-  if(s.trk!==null&&s.trk!==undefined){
-    var th=s.trk*Math.PI/180, L=26;
+  if(s.trk!==null&&s.trk!==undefined){ var th=s.trk*Math.PI/180,L=26;
     svg.appendChild(el('path',{d:'M'+ac[0]+' '+ac[1]+'L'+(ac[0]+Math.sin(th)*L)+' '+(ac[1]-Math.cos(th)*L),
-      stroke:'var(--gb-ink)','stroke-width':'2.4'}));
-  }
-  svg.appendChild(el('circle',{cx:ac[0],cy:ac[1],r:6,fill:'var(--gb-ink)'}));
-  svg.appendChild(el('circle',{cx:ac[0],cy:ac[1],r:11,fill:'none',stroke:'var(--gb-ink)','stroke-width':'1.4','opacity':'.5'}));
-
-  var barKm=Math.max(10,Math.round(span/4/10)*10), bx=64, by=H-40;
-  svg.appendChild(el('line',{x1:bx,y1:by,x2:bx+barKm*sc,y2:by,stroke:'var(--gb-ink)','stroke-width':'2'}));
-  var tx=el('text',{x:bx,y:by-9,'font-size':'13',fill:'var(--gb-ink)'}); tx.textContent=barKm+' km';
-  svg.appendChild(tx);
-
-  document.getElementById('gb-tout').textContent = Math.round(s.alt).toLocaleString()+' ft · track '+
-    (s.trk===null?'—':Math.round(s.trk)+'°')+' · '+s.lat.toFixed(3)+', '+s.lon.toFixed(3);
-  document.getElementById('gb-note').textContent = NOTES[pi];
+      stroke:'var(--ink)','stroke-width':'2.4'})); }
+  svg.appendChild(el('circle',{cx:ac[0],cy:ac[1],r:5.5,fill:'var(--ink)'}));
+  svg.appendChild(el('circle',{cx:ac[0],cy:ac[1],r:11,fill:'none',stroke:'var(--ink)','stroke-width':'1.3',opacity:'.45'}));
+  var barKm=Math.max(10,Math.round(span/4/10)*10), bx=60, by=H-38;
+  svg.appendChild(el('line',{x1:bx,y1:by,x2:bx+barKm*sc,y2:by,stroke:'var(--ink-2)','stroke-width':'2'}));
+  var tx=el('text',{x:bx,y:by-9,'font-size':'13',fill:'var(--ink-2)'}); tx.textContent=barKm+' km'; svg.appendChild(tx);
+  document.getElementById('gb-tout').textContent=Math.round(s.alt).toLocaleString()+' ft \\u00b7 track '+
+    (s.trk==null?'\\u2014':Math.round(s.trk)+'\\u00b0');
+  document.getElementById('gb-note').textContent=NOTES[pi];
   var c=s.c;
-  document.getElementById('gb-counts').innerHTML =
-    '<b>'+c[3]+'</b> airfields inside the single line &nbsp;→&nbsp; <span class="g"><b>'+(c[3]-c[4])+
-    '</b> proved</span>, <span class="a"><b>'+(c[4]-c[5])+'</b> undecided</span>, <span class="r"><b>'+c[5]+
-    '</b> refuted</span>';
-
+  document.getElementById('gb-counts').innerHTML='<b>'+c[3]+'</b> airfields inside the single line &nbsp;\\u2192&nbsp; '+
+    '<span class="g"><b>'+(c[3]-c[4])+'</b> proved</span>, <span class="a"><b>'+(c[4]-c[5])+
+    '</b> undecided</span>, <span class="r"><b>'+c[5]+'</b> refuted</span>';
   var tb=document.getElementById('gb-rows'); tb.innerHTML='';
-  if(!s.top.length){ tb.innerHTML='<tr><td colspan="8">Nothing inside the line is left unproved at this state.</td></tr>'; }
-  for(var r=0;r<s.top.length;r++){ var t=s.top[r], a=D.airports[t[0]];
-    var nm=a[1].length>34?a[1].slice(0,33)+'…':a[1];
-    var tr=document.createElement('tr');
-    tr.innerHTML='<td class="mono">'+a[0]+'</td><td>'+nm+'</td><td class="n mono">'+t[1].toFixed(1)+' km</td>'+
-      '<td class="n mono">'+t[2].toFixed(0)+'–'+t[3].toFixed(0)+' km</td>'+
-      '<td class="n mono">'+t[4].toFixed(0)+' km</td>'+
+  if(!s.top.length) tb.innerHTML='<tr><td colspan="8">Nothing inside the line is left unproved at this state.</td></tr>';
+  for(var r=0;r<s.top.length;r++){ var t=s.top[r], ap=D.airports[t[0]];
+    var nm=ap[1].length>34?ap[1].slice(0,33)+'\\u2026':ap[1], tr=document.createElement('tr');
+    tr.innerHTML='<td class="mono">'+ap[0]+'</td><td>'+nm+'</td><td class="n mono">'+t[1].toFixed(1)+'</td>'+
+      '<td class="n mono">'+t[2].toFixed(0)+'\\u2013'+t[3].toFixed(0)+'</td><td class="n mono">'+t[4].toFixed(0)+'</td>'+
       '<td>'+(t[5]?'<span class="v-r">REFUTED</span>':'<span class="v-a">UNDECIDED</span>')+'</td>'+
-      '<td class="n mono">'+t[7]+' s</td>'+
-      '<td class="n mono">'+(t[6]?t[6].toFixed(1):'—')+'</td>';
-    tb.appendChild(tr);
-  }
-  document.getElementById('gb-cap').textContent =
-    'Airfields the single line places inside your reach that the certified band does not prove, worst first. '+
-    '"Turn" is the seconds of standard-rate turn needed to point at the field from the aircraft’s actual '+
-    'ADS-B ground track, and the height lost doing it is charged to both instruments. "Needs L/D ≥" is the '+
-    'glide ratio you would have to KNOW you have for the field to turn green with everything else unchanged '+
-    '— the disclosure this verdict is asking for.';
+      '<td class="n mono">'+t[7]+' s</td><td class="n mono">'+(t[6]?t[6].toFixed(1):'\\u2014')+'</td>';
+    tb.appendChild(tr); }
+  document.getElementById('gb-cap').textContent='Distances in km. Airfields the single line places inside your '+
+    'reach that the certified band does not prove, worst first. "Turn" is the seconds of standard-rate turn to '+
+    'point at the field from the aircraft\\u2019s actual ADS-B ground track \\u2014 the height lost doing it is '+
+    'charged to both instruments. "Needs L/D \\u2265" is the glide ratio you would have to KNOW you have for the '+
+    'field to turn green, everything else unchanged: the disclosure this verdict is asking for.';
 }
-function wire(id,set){ var b=document.getElementById(id).querySelectorAll('button');
-  for(var i=0;i<b.length;i++) b[i].addEventListener('click',function(e){
-    set(+e.target.getAttribute('data-v'));
-    for(var j=0;j<b.length;j++) b[j].className=(+b[j].getAttribute('data-v')===set())?'on':'';
+function wire(id,get,set){ var b=document.getElementById(id).querySelectorAll('button'), i;
+  for(i=0;i<b.length;i++) b[i].addEventListener('click',function(e){
+    set(+e.currentTarget.getAttribute('data-v'));
+    for(var j=0;j<b.length;j++) b[j].className=(+b[j].getAttribute('data-v')===get())?'on':'';
     draw(); }); }
-wire('gb-w',function(v){ if(v!==undefined) wi=v; return wi; });
-wire('gb-m',function(v){ if(v!==undefined) mi=v; return mi; });
-wire('gb-p',function(v){ if(v!==undefined) pi=v; return pi; });
+wire('gb-w',function(){return wi;},function(v){wi=v;});
+wire('gb-m',function(){return mi;},function(v){mi=v;});
+wire('gb-p',function(){return pi;},function(v){pi=v;});
 document.getElementById('gb-t').addEventListener('input',function(e){ ti=+e.target.value; draw(); });
 draw();
 })();
-</script>
-<style>
-.gb-wrap{--gb-g:#2C6142;--gb-g-soft:#DEEBE3;--gb-a:#8A5212;--gb-a-soft:#F6E9D8;--gb-r:#8E2B2B;
-  --gb-n:#9A4E86;--gb-track:#544C5B;--gb-ink:#16121A;--gb-paper:#FBFAFB;margin:0 0 1rem;}
-.gb-controls{display:flex;gap:1.6rem;flex-wrap:wrap;align-items:flex-end;margin:0 0 .8rem;}
-.gb-ctl{display:flex;flex-direction:column;gap:.35rem;font-size:.82rem;}
-.gb-ctl>span{text-transform:uppercase;letter-spacing:.06em;font-size:.7rem;opacity:.7;}
-.gb-ctl input[type=range]{width:min(360px,64vw);}
-.gb-ctl output{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;}
-.gb-seg{display:flex;flex-wrap:wrap;border:1px solid var(--gb-track);border-radius:3px;overflow:hidden;}
-.gb-seg button{border:0;background:transparent;padding:.4rem .7rem;font:inherit;font-size:.78rem;cursor:pointer;
-  border-right:1px solid var(--gb-track);}
-.gb-seg button:last-child{border-right:0;}
-.gb-seg button.on{background:var(--gb-ink);color:var(--gb-paper);}
-.gb-note{font-size:.8rem;opacity:.75;margin:.2rem 0 .8rem;max-width:70ch;}
-.gb-stage{position:relative;}
-.gb-stage svg{width:100%;height:auto;display:block;background:var(--gb-paper);border:1px solid var(--gb-track);}
-.gb-nav{position:absolute;right:.6rem;bottom:.6rem;font-size:.66rem;letter-spacing:.09em;
-  text-transform:uppercase;opacity:.72;background:var(--gb-paper);padding:.15rem .4rem;}
-.gb-key{display:flex;gap:1.2rem;flex-wrap:wrap;margin:.7rem 0;font-size:.78rem;align-items:center;}
-.gb-key i{display:inline-block;width:12px;height:12px;margin-right:.4rem;vertical-align:-2px;border-radius:50%;}
-.gb-key em{opacity:.65;font-style:normal;}
-.k-g{background:var(--gb-g);}.k-a{background:var(--gb-a-soft);border:2px solid var(--gb-a);}
-.k-r{background:var(--gb-paper);border:2px solid var(--gb-r);}
-.k-n{background:transparent;border-top:2px dashed var(--gb-n);border-radius:0!important;height:0!important;width:18px!important;}
-.gb-counts{font-size:.95rem;margin:.5rem 0 1rem;}
-.gb-counts .g{color:var(--gb-g);}.gb-counts .a{color:var(--gb-a);}.gb-counts .r{color:var(--gb-r);}
-.gb-tablewrap{overflow-x:auto;}
-.gb-table{width:100%;border-collapse:collapse;font-size:.82rem;}
-.gb-table th,.gb-table td{padding:.38rem .6rem;border-bottom:1px solid var(--gb-a-soft);text-align:left;}
-.gb-table th{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;opacity:.7;}
-.gb-table .n{text-align:right;}
-.gb-table .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
-.v-r{color:var(--gb-r);font-weight:600;}.v-a{color:var(--gb-a);font-weight:600;}
-.gb-cap{font-size:.78rem;opacity:.72;margin-top:.5rem;}
-@media(prefers-color-scheme:dark){.gb-wrap{--gb-ink:#EDEBEE;--gb-paper:#1A161E;--gb-track:#908995;
-  --gb-g-soft:#1E3529;--gb-a-soft:#3A2E1C;}}
-</style>`;
+</script>`;
 
 B.push(C.section({
-  lab: '§1 · the instrument', wide: true,
-  title: 'One flight, ' + relevant.length + ' airfields, five scenarios, three verdicts',
+  lab: '\u00a72 \u00b7 the instrument', wide: true,
+  title: 'Fly the cruise. Watch the three zones move.',
   bodyRaw: '<div class="col">'
-    + C.pRaw('Scrub the slider to fly the cruise. The dashed line is what a panel draws from point estimates. '
-      + 'The filled boundary is the certified inner ring — every airfield inside it is reachable for '
-      + '<em>every</em> value in the stated envelope. The outer boundary is refutation: beyond it, no value in '
-      + 'the envelope reaches. The hatched annulus between is the part nobody currently shows you.')
-    + C.pRaw('The shapes lean forward because reaching a field behind you costs the height you lose turning '
-      + 'onto it. The turn is taken from the aircraft’s <em>actual</em> ADS-B ground track (the needle on '
-      + 'the aeroplane), charged at standard rate, and applied to the dashed line too — so the comparison '
-      + 'stays about point estimate versus enclosure and nothing else.')
-    + C.pRaw('Then change the aircraft. The two turboprop scenarios are the same aeroplane on the same flight, '
-      + 'differing only in whether the propeller feathered.')
+    + C.pRaw('Scrub along the flight. The shapes lean forward because reaching a field <em>behind</em> you costs '
+      + 'the height you lose turning onto it \u2014 taken from the aircraft\u2019s actual ADS-B ground track, and '
+      + 'charged to the dashed line too, so the comparison stays about method and nothing else.')
+    + C.pRaw('Then change the aircraft. The two turboprop rows are the <strong>same aeroplane on the same '
+      + 'flight</strong>, differing only in whether the propeller feathered.')
     + '</div>' + DASH
 }));
 
+/* ---------------- §3 the comparison --------------------------------------- */
 B.push(C.section({
-  lab: '§2 · the comparison', title: 'What the single line hides',
+  lab: '\u00a73 \u00b7 the comparison', title: 'One assumption the glass cannot check',
   bodyRaw: '<div class="col">'
-    + C.pRaw('The comparison is not “their number versus our number” — both come from the same '
-      + 'physics and the same flight. It is a comparison of <em>methods</em>: one value per input, versus the '
-      + 'range each input actually has. Nothing here asserts what any particular product computes internally; '
-      + 'what is compared is the point-estimate method, which is what every shipped glide ring draws.')
-    + C.pRaw('<strong>The first half is about logic rather than arithmetic, and it is the uncomfortable one.</strong> '
-      + 'While the panel’s configured glide ratio lies inside the honest envelope, its line always falls '
-      + 'between the two certified boundaries — the build asserts this across every such scenario and '
-      + 'refuses if it ever fails. So no airfield inside that line can be proved unreachable. The line is never '
-      + 'caught being wrong, and never shown to be right either: ' + pct(pctFalse) + ' of what it claims is '
-      + 'undecided by the evidence it was drawn from. An instrument that cannot fail a test is not passing one.')
-    + C.pRaw('<strong>The second half is what happens when something the glass cannot see is false.</strong> '
-      + 'Select <em>Turboprop · propeller did NOT feather</em>. Same aeroplane, same flight, same altitude; '
-      + 'the drill was one action short, and an unfeathered propeller is a large draggy disc. The panel keeps '
-      + 'drawing the ring it was configured with, because nothing tells it otherwise. Now '
-      + NOFEATHER.dam + ' of the ' + NOFEATHER.shown + ' site-states it shows as reachable — '
-      + pct(NOFEATHER.pctDam) + ' — are provably unreachable for every value in the envelope. Reverse the '
-      + 'winds-aloft forecast instead, a documented failure of the other input the ring leans on, and it is '
-      + REVERSED.dam + ' of ' + REVERSED.shown + ' (' + pct(REVERSED.pctDam) + ').')
-    + (worst ? C.pRaw('<strong>The sharpest single row in the sweep.</strong> At '
-        + Math.round(worst.s.alt).toLocaleString() + ' ft, <span class="m">' + C.esc(AP_OF(worst.row[0]).ident)
-        + '</span> — ' + C.esc(AP_OF(worst.row[0]).name) + ' — lies ' + worst.row[1].toFixed(1)
-        + ' km away. The single line puts your reach at ' + worst.row[4].toFixed(0) + ' km, so it draws that '
-        + 'field comfortably inside. The certified band is ' + worst.row[2].toFixed(0) + '–'
-        + worst.row[3].toFixed(0) + ' km: the field is beyond the outer boundary, unreachable for <em>every</em> '
-        + 'value in the envelope. Not uncertain — refuted.') : '')
-    + C.pRaw('<strong>What actually changed between the two halves is worth naming.</strong> The line did not '
-      + 'become less accurate. It became FALSIFIABLE, and was falsified. That is the whole difference between '
-      + 'the two instruments, and it is why the undecided annulus is the product rather than a defect: a wider '
-      + 'band is the same answer with its width shown. Every undecided row carries the disclosure that would '
-      + 'settle it — the last column is the glide ratio you would have to know you have.')
+    + C.pRaw('Four powered scenarios, same flight, same instant, drawn at one scale. Three of them are '
+      + 'ordinary: the panel\u2019s configured glide ratio sits inside the honest envelope, so its dashed line '
+      + 'falls between the two boundaries and the picture is the familiar one \u2014 a solid core, a wide '
+      + 'undecided annulus, nothing refuted. Watch the fourth.')
+    + '</div>'
+}));
+B.push(C.figure({ svgRaw: figPacks(), caption: 'The fourth cell is the same aircraft as the third with the '
+  + 'propeller unfeathered. Nothing about the panel changed \u2014 it is still configured with the feathered '
+  + 'ratio, because nothing tells it otherwise \u2014 so its dashed line now sits outside the boundary beyond '
+  + 'which nothing is reachable at all. The glider scenario is left off this figure deliberately: its reach is '
+  + 'roughly four times the others and on a shared scale it collapses these four to dots. It appears in the '
+  + 'composition chart below, where the axis is a proportion.' }));
+
+B.push(C.section({
+  lab: '', title: 'What an unfeathered propeller does to the picture',
+  bodyRaw: '<div class="col">'
+    + C.pull('The failure is not a bad number. It is an event the instrument cannot observe.')
+    + C.pRaw('An unfeathered propeller is a large draggy disc, and it roughly halves what the aeroplane can '
+      + 'reach. The ring on the glass does not move, because nothing in the system knows. Of the '
+      + NOFEATHER.shown + ' claims that line makes across the cruise, ' + NOFEATHER.dam + ' \u2014 '
+      + pct(NOFEATHER.pctDam) + ' \u2014 are now provably unreachable for every value in the envelope. '
+      + (worst ? 'The worst single row in that scenario: <span class="m">' + C.esc(AP_OF(worst.row[0]).ident)
+        + '</span>, ' + C.esc(AP_OF(worst.row[0]).name) + ', at ' + Math.round(worst.s.alt).toLocaleString()
+        + ' ft. The field is ' + worst.row[1].toFixed(0) + ' km away, the line promises ' + worst.row[4].toFixed(0)
+        + ' km of reach, and the band ends at ' + worst.row[3].toFixed(0) + ' km \u2014 not close, and not a '
+        + 'judgement call.' : ''))
+    + '</div>'
+}));
+B.push(C.figure({ svgRaw: figComposition(COMP_ROWS), caption: 'Every claim the single line makes across the '
+  + 'cruise, sorted by what survives checking. The right-hand column is how many claims it made. Reversing the '
+  + 'winds-aloft forecast \u2014 a documented failure of the other input the ring leans on \u2014 does the same '
+  + 'thing by a different route.' }));
+
+/* ---------------- §4 the argument ----------------------------------------- */
+B.push(C.section({
+  lab: '\u00a74 \u00b7 the argument', title: 'Why the line could never have warned you',
+  bodyRaw: '<div class="col">'
+    + C.pRaw('Look again at the four ordinary scenarios. Not one of them contains a <em>single</em> refuted '
+      + 'airfield, and that is not luck. While the panel\u2019s assumed glide ratio, airspeed and wind sit '
+      + 'anywhere inside the honest envelope, its line is mathematically guaranteed to fall between the two '
+      + 'boundaries \u2014 this build asserts it across every such scenario and refuses to publish if it ever '
+      + 'fails. So nothing inside that line can be proved unreachable.')
+    + C.pull('The line is drawn from the very assumptions it would have to doubt. It cannot be caught being '
+      + 'wrong \u2014 and it is never shown to be right either.')
+    + C.pRaw('That is the whole case, and it is worth being precise about what it does and does not say. It does '
+      + 'not say the ring is inaccurate. It says the ring is <em>unfalsifiable</em>: ' + pct(pctFalse) + ' of what '
+      + 'it claims is undecided by the evidence it was drawn from, and it has no way to tell you which part. An '
+      + 'instrument that cannot fail a test is not passing one.')
+    + C.pRaw('What changed in the unfeathered case was not accuracy. The line became <strong>falsifiable</strong>, '
+      + 'and was falsified. That is the difference between the two instruments, and it is why the undecided '
+      + 'annulus is the product rather than a defect: a wider band is the same answer with its width shown. '
+      + 'Narrow the inputs \u2014 real flight-test data, a propeller-state signal, a better wind \u2014 and the '
+      + 'annulus shrinks. Its width is a measurement of what nobody knows yet.')
     + '</div>'
 }));
 
+/* ---------------- §5 the hypotheses --------------------------------------- */
 B.push(C.section({
-  lab: '§3 · the scenarios', title: 'Five illustrative packs, and what each is for',
+  lab: '\u00a75 \u00b7 what is not claimed', title: 'Five hypotheses, on the page rather than in a footnote',
   bodyRaw: C.table({
-    cols: [{ h: 'scenario' }, { h: 'glide ratio, envelope', cls: 'n' }, { h: 'panel is set to', cls: 'n' },
-           { h: 'best glide, kt', cls: 'n' }, { h: 'what it is for' }],
-    rows: PACKS.map((p) => [
-      p.label + ' · ' + p.sub,
-      { raw: C.m(p.LD[0] + '–' + p.LD[1]) },
-      { raw: C.m(String(p.panelLD)) + (p.panelLD > p.LD[1] ? ' <strong>(outside)</strong>' : '') },
-      { raw: C.m(p.Va[0] + '–' + p.Va[1]) },
-      p.note
-    ])
+    cols: [{ h: '' }, { h: 'the hypothesis' }, { h: 'which way it can be wrong' }],
+    rows: [
+      [{ raw: C.m('H1') }, 'Terrain is not modelled. The band is glide distance over ground at the field\u2019s own elevation.',
+        { raw: '<strong>Asymmetric, and it runs the safe way.</strong> Rising ground can only REMOVE reach, so REFUTED is unaffected and stays proved; PROVED REACHABLE means \u201creachable if the path is unobstructed\u201d. A terrain layer moves green fields to undecided, never the reverse.' }],
+      [{ raw: C.m('H2') }, 'Steady wind through the descent and a steady-state glide.',
+        'No pushover transient, no shear or thermal structure, and no credit for trading cruise speed back into height.'],
+      [{ raw: C.m('H3') }, 'Great circles on a sphere whose radius is enclosed by [6356.752, 6378.137] km.',
+        'Deliberately crude and deliberately conservative \u2014 six orders of magnitude above the double-precision error of the haversine, so the geodesy needs no separate error argument.'],
+      [{ raw: C.m('H4') }, 'The envelopes are illustrative classes in stated configurations \u2014 not manufacturer data.',
+        { raw: 'No published performance figure for any aircraft is asserted anywhere here, and nothing claims what any product computes internally; what is compared is the point-estimate METHOD. Move the envelope and every percentage moves. <strong>The structural finding of \u00a74 does not \u2014 it holds for any envelope wider than a point.</strong>' }],
+      [{ raw: C.m('H5') }, 'The turn: height lost turning onto each field at standard rate from the actual ADS-B ground track.',
+        'Progress during the turn counted as zero \u2014 conservative \u2014 and charged to both instruments equally.']
+    ]
   }) + '<div class="col">'
-    + C.pRaw('These are <em>illustrative classes in stated configurations</em>, not manufacturer data, and that '
-      + 'is H4 below. The point of the table is the third column: in four of the five packs the panel’s '
-      + 'configured ratio sits inside the envelope, and in those four it is unfalsifiable. In the fifth it sits '
-      + 'outside — not because anyone chose a bad number, but because the propeller did something the panel '
-      + 'was never told about.')
+    + C.note({ lab: 'wording', bodyRaw: C.pRaw('\u201cCertified\u201d on this page always means a '
+        + '<em>mathematically certified enclosure</em>: an interval proved to contain the true value. It carries '
+        + 'no airworthiness meaning, no design assurance and no approval of any kind. The artifact says NOT FOR '
+        + 'NAVIGATION on its face and means it \u2014 this is a demonstration of a decision procedure, on a '
+        + 'flight that had no emergency and a crew who did nothing of the sort.') })
     + '</div>'
 }));
 
+/* ---------------- §6 the gap ---------------------------------------------- */
 B.push(C.section({
-  lab: '§4 · what is and is not claimed', title: 'Five hypotheses, stated rather than buried',
+  lab: '\u00a76 \u00b7 the honest gap', title: 'What would have to be true for this to be in a cockpit',
   bodyRaw: '<div class="col">'
-    + C.pRaw('<strong>H1 · terrain is not modelled.</strong> The band is glide distance over ground at the '
-      + 'field’s own elevation. Rising ground between here and there can only REMOVE reach, so the asymmetry '
-      + 'is load-bearing and runs the safe way: <em>REFUTED is unaffected by H1 and stays proved; PROVED '
-      + 'REACHABLE carries H1 and means “reachable if the path is unobstructed”.</em> A terrain layer '
-      + 'would move green fields to undecided and never the reverse.')
-    + C.pRaw('<strong>H2 · steady state.</strong> Steady wind through the descent and a steady-state glide: '
-      + 'no pushover transient, no shear or thermal structure, and no credit for trading cruise speed for height.')
-    + C.pRaw('<strong>H3 · geometry.</strong> Great circles on a sphere whose radius is enclosed by '
-      + '[6356.752, 6378.137] km, pole to equator — deliberately crude, deliberately conservative, and six '
-      + 'orders of magnitude above the double-precision error of the haversine, so the geodesy needs no separate '
-      + 'error argument.')
-    + C.pRaw('<strong>H4 · the envelopes are illustrative scenarios, not manufacturer data.</strong> No '
-      + 'published performance figure for any aircraft is asserted anywhere here; the packs of §3 are stated '
-      + 'classes with stated spans for propeller state, weight and speed-hold error. Altitude carries ±'
-      + ALT_PAD_FT + ' ft, forecast wind ±' + (100 * WIND_REL).toFixed(0) + '% on speed and ±'
-      + WIND_DIR_PAD + '° on direction. Move any of them and every number moves. The <em>structural</em> '
-      + 'finding does not: it holds for any envelope wider than a point.')
-    + C.pRaw('<strong>H5 · the turn.</strong> Reaching a field behind you costs the height lost turning '
-      + 'onto it: a standard-rate turn from the aircraft’s actual ADS-B ground track, with progress during '
-      + 'the turn counted as zero. Conservative, and charged to both instruments equally.')
-    + C.note({ lab: 'wording', bodyRaw: C.pRaw('“Certified” on this page always means a '
-        + '<em>mathematically certified enclosure</em> — an interval proved to contain the true value. It '
-        + 'carries no airworthiness meaning, no design assurance and no approval of any kind. The artifact says '
-        + 'NOT FOR NAVIGATION on its face and means it: this is a demonstration of a decision procedure, on a '
-        + 'flight that had no emergency and whose crew did nothing of the sort.') })
+    + C.pRaw('<strong>Terrain.</strong> H1 is the big one. A certified band with a terrain floor is the same '
+      + 'arithmetic over a pinned elevation model \u2014 the next build, not a research problem.')
+    + C.pRaw('<strong>Real performance data.</strong> The envelopes are stated, not measured. Flight-test data '
+      + 'would replace H4 with something narrower and the annulus would shrink, which is exactly the point.')
+    + C.pRaw('<strong>Design assurance.</strong> Nothing here is DO-178C evidence, and the distance between an '
+      + 'exact enclosure and certifiable software is the real cost in avionics.')
+    + C.pull('\u201cWe ran ten thousand sorties and saw no failure\u201d has the same shape. It cannot be refuted '
+      + 'by the evidence it rests on.')
+    + C.pRaw('Which is the reason this is worth more than a display feature. The defect on this page is not '
+      + 'really about glide rings \u2014 it is what happens whenever a point estimate is handed over as a '
+      + 'decision boundary, and it is the same defect that makes a test campaign an unfalsifiable safety '
+      + 'argument. The glide ring is simply the most legible instance of it: one line, one aeroplane, and a '
+      + 'field you either reach or you do not.')
     + '</div>'
 }));
 
-B.push(C.section({
-  lab: '§5 · the honest gap', title: 'What would have to be true for this to be in a cockpit',
-  bodyRaw: '<div class="col">'
-    + C.pRaw('Three things this does not have, named so nobody has to ask. <strong>Terrain.</strong> H1 is the '
-      + 'big one; a certified band with a terrain floor is the same arithmetic over a pinned elevation model, '
-      + 'and it is the next build rather than a research problem. <strong>Real performance data.</strong> The '
-      + 'envelopes are stated, not measured; flight-test data would replace H4 with something narrower and the '
-      + 'annulus would shrink accordingly — which is exactly the point, because the width is a measure of '
-      + 'what is not known. <strong>Design assurance.</strong> Nothing here is DO-178C evidence, and the distance '
-      + 'between an exact enclosure and certifiable software is the real cost in avionics.')
-    + C.pRaw('What it does have is the part that is hard to buy: a verdict that cannot be argued with, an '
-      + 'annulus that is honest about what is not known, and a published threshold that says what would settle '
-      + 'it. And the defect it exhibits is not really about glide rings. “We ran ten thousand sorties and '
-      + 'saw no failure” has the same shape: it cannot be refuted by the evidence it rests on. The glide '
-      + 'ring is simply the most legible instance of it.')
-    + '</div>'
-}));
+const foot = '<footer class="col"><p>Generated by tools/build-report-glide-band.js @ git ' + git + '. The app\u2019s '
+  + 'battery ran as this page\u2019s gate (' + nChecks + ' checks, ' + nReds + ' reds fired), the data pins were '
+  + 're-hashed, and all ' + scen.length + ' states \u2014 ' + TRACK.length + ' cruise positions \u00d7 '
+  + PACKS.length + ' scenarios \u00d7 ' + WINDS.length + ' winds \u00d7 ' + MODES.length + ' forecast modes over '
+  + relevant.length + ' airfields \u2014 were decided during this build. The build refuses on any deviation, and '
+  + 'refuses if either failure scenario stops biting. Flight: ' + C.esc(FLIGHT.reg || FLIGHT.icao)
+  + ', adsb.lol ' + FLIGHT.day + ', pinned through apps/skyaudit \u2014 ADS-B data \u00a9 adsb.lol, ODbL. '
+  + 'Airfields: OurAirports (public domain), sha256 ' + PINS.files['airports.csv'].sha256.slice(0, 12)
+  + '\u2026. Instrument: apps/glide-band/kernel.js.</p></footer>';
 
-const foot = '<footer class="col"><p>Generated by tools/build-report-glide-band.js @ git ' + git + '. The '
-  + 'app’s battery ran as this page’s gate (' + nChecks + ' checks, ' + nReds + ' reds fired), the data '
-  + 'pins were re-hashed, and all ' + scen.length + ' states were decided during this build — the build '
-  + 'refuses on any deviation. Flight: ' + C.esc(FLIGHT.reg || FLIGHT.icao) + ', adsb.lol ' + FLIGHT.day
-  + ', pinned through apps/skyaudit — ADS-B data © adsb.lol, ODbL. Airfields: OurAirports (public '
-  + 'domain), sha256 ' + PINS.files['airports.csv'].sha256.slice(0, 12) + '…. Instrument: '
-  + 'apps/glide-band/kernel.js.</p></footer>';
+const STYLE = `
+<style>
+.gb{margin:0 0 1rem;}
+.gb-bar{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-end;margin:0 0 .7rem;}
+.gb-ctl{display:flex;flex-direction:column;gap:.34rem;}
+.gb-ctl>span{text-transform:uppercase;letter-spacing:.07em;font-size:.68rem;color:var(--ink-3);}
+.gb-ctl input[type=range]{width:min(320px,60vw);accent-color:var(--sig);}
+.gb-ctl output{font-family:var(--mono,ui-monospace,SFMono-Regular,Menlo,monospace);font-size:.78rem;color:var(--ink-2);}
+.gb-seg{display:flex;flex-wrap:wrap;border:1px solid var(--rule);border-radius:2px;overflow:hidden;background:var(--surface);}
+.gb-seg button{border:0;background:transparent;padding:.4rem .72rem;font:inherit;font-size:.78rem;
+  color:var(--ink-2);cursor:pointer;border-right:1px solid var(--rule);}
+.gb-seg button:last-child{border-right:0;}
+.gb-seg button:hover{background:var(--sunk);}
+.gb-seg button.on{background:var(--sig);color:var(--surface);}
+.gb-note{font-size:.82rem;color:var(--ink-2);margin:.1rem 0 .8rem;max-width:74ch;}
+.gb-stage{position:relative;}
+.gb-stage svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--rule);}
+.gb-nav{position:absolute;right:.55rem;bottom:.55rem;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);background:var(--surface);padding:.12rem .38rem;}
+.gb-key{display:flex;gap:1.15rem;flex-wrap:wrap;margin:.75rem 0 .3rem;font-size:.78rem;color:var(--ink);}
+.gb-key i{display:inline-block;width:11px;height:11px;margin-right:.4rem;vertical-align:-1px;border-radius:50%;}
+.gb-key em{color:var(--ink-3);font-style:normal;margin-left:.3rem;}
+.k-g{background:var(--c-2);}
+.k-a{background:var(--warn-soft);border:2px solid var(--c-3);}
+.k-r{background:var(--surface);border:2px solid var(--c-1);}
+.k-n{border-radius:0!important;height:0!important;width:17px!important;border-top:2px dashed var(--ink-2);}
+.gb-counts{font-size:.95rem;margin:.55rem 0 1rem;color:var(--ink);}
+.gb-counts .g{color:var(--c-2);}.gb-counts .a{color:var(--c-3);}.gb-counts .r{color:var(--c-1);}
+.gb-tw{overflow-x:auto;}
+.gb-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.gb-table th,.gb-table td{padding:.36rem .6rem;border-bottom:1px solid var(--rule-soft);text-align:left;}
+.gb-table th{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:400;}
+.gb-table td{color:var(--ink-2);} .gb-table .n{text-align:right;}
+.gb-table .mono{font-family:var(--mono,ui-monospace,SFMono-Regular,Menlo,monospace);color:var(--ink);}
+.v-r{color:var(--c-1);font-weight:600;}.v-a{color:var(--c-3);font-weight:600;}
+.gb-cap{font-size:.78rem;color:var(--ink-3);margin-top:.5rem;}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease;}
+.rv.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}}
+</style>
+<script>
+/* Scroll reveal, built so it CANNOT hide content. Three guards, because a
+   reading page that goes blank when an observer misbehaves is worse than a
+   page with no animation at all:
+     1. nothing is hidden unless IntersectionObserver exists;
+     2. anything already on screen is never hidden in the first place;
+     3. a 1.5 s failsafe reveals everything regardless of what the observer did. */
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var all=document.querySelectorAll('figure, .gb, .stats, .pull'), t=[], i;
+  for(i=0;i<all.length;i++){
+    var r=all[i].getBoundingClientRect();
+    if(r.top < (window.innerHeight||800) * 1.05) continue;   /* already in view */
+    all[i].classList.add('rv'); t.push(all[i]);
+  }
+  var reveal=function(el){ el.classList.add('in'); };
+  var io=new IntersectionObserver(function(es){
+    for(var k=0;k<es.length;k++) if(es[k].isIntersecting){ reveal(es[k].target); io.unobserve(es[k].target); }
+  },{rootMargin:'0px 0px -6% 0px',threshold:0.05});
+  for(i=0;i<t.length;i++) io.observe(t[i]);
+  setTimeout(function(){ for(var k=0;k<t.length;k++) reveal(t[k]); }, 1500);
+})();
+</script>`;
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'glide-band.html'),
-  TPL.render({ title: 'Your glide ring is one line', bodyRaw: B.join('\n\n'), footRaw: foot,
-    path: '/reports/glide-band.html',
-    desc: 'The engine-out glide ring recomputed as a certified enclosure on a real pinned flight: an inner '
-      + 'boundary proved reachable, an outer boundary proved not, and the honest annulus between that no shipped '
-      + 'product draws.' }));
+  TPL.render({ title: 'The ring shows you one answer. There are three.',
+    bodyRaw: B.join('\n\n') + STYLE, footRaw: foot, path: '/reports/glide-band.html',
+    desc: 'The engine-out glide ring recomputed as a certified enclosure on a real pinned flight: airfields you '
+      + 'will reach whatever the assumptions, airfields you will reach under none, and the undecided annulus '
+      + 'between that no shipped product draws.' }));
 
 console.log('reports/glide-band.html written: base ' + pct(pctFalse) + ' unproved / 0 refuted, no-feather '
   + pct(NOFEATHER.pctDam) + ' refuted, reversed ' + pct(REVERSED.pctDam) + ' refuted, ' + relevant.length
