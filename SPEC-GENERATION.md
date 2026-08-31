@@ -278,9 +278,36 @@ the claim is existential. In priority order:
    item whose appeal rests on "nobody has tried X" is an item resting on a
    negative that was never checked. Check it first — the target that survives
    is smaller, but it is real.
-2. **3×3 rank-23 addition count** — incumbent 55, whose authors explicitly
-   disclaim global optimality; the two-level search over schemes × circuits
-   has never been run.
+2. **3×3 rank-23 addition count** — incumbent 55 (Karunaratne & Idamekorala,
+   arXiv:2607.28676, 28 July 2026), whose authors prove optimality only for
+   ONE FIXED ORIENTATION of one fixed tensor and so do disclaim the global
+   claim. The two-level search over schemes × circuits is still not what
+   anyone has run.
+
+   **CORRECTED 2026-08-31, by the same gate that corrected item 1.** This
+   item read as though the area were quiet. It is the opposite: the additive
+   record moved SEVEN times in under a year — 98 (Laderman 1976), then 62,
+   61, 60, 59, 58, 56, 55, several of them a single addition apart, the last
+   three all in 2026. Anyone entering this race is entering it mid-sprint
+   against people who are clearly still running.
+
+   Two things follow, and they point in opposite directions:
+   - **As a SEARCH target it is poor for us.** Our generation front is F2
+     only, and these are integer schemes with a {-1,0,1} alphabet; the flip
+     walk cannot produce them. Beating 55 needs a supply of rank-23 integer
+     schemes AND an exact shortest-linear-program minimizer, and the people
+     shaving single additions off it have both.
+   - **As an AUDIT target it was excellent, and that is what was done.** A
+     record moving this fast is one where a miscount propagates before anyone
+     looks. reports/matmul-additions.html is the independent check: the claim
+     HELD — 55 gates counted here, all three circuits realize their factor
+     matrices exactly, 729 Brent equations exact over Q. instruments/slp is
+     the reusable part, and it decides the half a tensor checker cannot see.
+
+   The generalisation worth keeping: when the prior-art gate kills a target as
+   a search, ask whether the same target is alive as an AUDIT. A field moving
+   fast produces unchecked claims faster than it produces checked ones, and
+   checking is the thing this machine is already good at.
 3. **OEIS record extensions in the #852 family** — proven at 67 minutes per
    term on 2026-08-31.
 

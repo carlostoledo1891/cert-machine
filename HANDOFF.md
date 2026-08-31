@@ -18,6 +18,44 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
+SESSION 2026-08-31 — THE 55-ADDITION AUDIT (option 3, redirected by its own
+prior-art gate from a search into an audit)
+
+  reports/matmul-additions.html is live. THE CLAIM HELD.
+
+  Karunaratne & Idamekorala, arXiv:2607.28676 (28 Jul 2026) claim a
+  55-addition, rank-23 circuit for general 3x3 matrix multiplication. One
+  month old; their certificate repo has ZERO stars. Verified here, from their
+  published bytes, with an instrument that could have contradicted it and
+  without running a line of their code:
+    · all three circuits realize their factor matrices EXACTLY (symbolic
+      evaluation over the integers, row by row)
+    · the gates count to 55 HERE — 13 + 14 + 28 — matching the declaration
+    · 729 Brent equations exact over Q, rank 23, layout AC
+    · every coefficient in {-1,0,1}, which is what supports their
+      any-associative-ring claim
+    · naive cost of the same three maps: 122 additions, computed here — and
+      122 is the number their own source file is named for (cn122)
+  instruments/slp + battery: 16 checks, 8 red controls, all fire.
+
+  WHY AN AUDIT AND NOT THE SEARCH THE BACKLOG ASKED FOR. The prior-art gate
+  killed the search: the additive record moved SEVEN times in under a year
+  (98 -> 62 -> 61 -> 60 -> 59 -> 58 -> 56 -> 55), several steps one addition
+  apart, three of them in 2026. And our generation front is F2-only while
+  these are integer {-1,0,1} schemes, so the flip walk cannot even produce
+  candidates. SPEC-GENERATION.md §7 item 2 is corrected in place with the
+  generalisation worth keeping: WHEN THE PRIOR-ART GATE KILLS A TARGET AS A
+  SEARCH, ASK WHETHER IT IS ALIVE AS AN AUDIT. A field moving this fast makes
+  unchecked claims faster than checked ones.
+
+  WHAT IS REUSABLE: instruments/slp decides the half a tensor checker cannot
+  see — that a straight-line program computes the linear map it claims, and
+  that it uses the gates it says. Any future additive-complexity claim, ours
+  or anyone's, goes through it.
+
+  NOT DONE: their LOCAL optimality claim (that no 13-gate circuit exists for
+  that map) is a different computation and this instrument does not do it.
+
 OUTREACH STATE LIVES IN ONE FILE NOW: `outreach/SEND-QUEUE.md`.
 It is the single source of truth for what is ready, what is held and why.
 Outreach status had accumulated across ~20 places in this document, which is
