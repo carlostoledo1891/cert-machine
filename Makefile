@@ -106,6 +106,7 @@ reports:
 	@$(NODE) tools/build-report-mfg2p.js
 	@$(NODE) tools/build-report-evtol-energy.js
 	@$(NODE) tools/build-report-skyaudit.js
+	@$(NODE) tools/build-report-glide-band.js
 	@$(NODE) tools/build-report-keller.js
 	@$(NODE) tools/build-report-ai-claims.js
 	@$(NODE) tools/build-report-claim.js

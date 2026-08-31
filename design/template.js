@@ -91,8 +91,11 @@ body{margin:0;background:var(--paper);color:var(--ink);
 .col .wide{position:relative;left:50%;transform:translateX(-50%);
   width:min(${MEASURE.wide},calc(100vw - 2*${SCALE.pagePadX}))}
 
-h1,h2,h3{font-family:${TYPE.display};font-weight:700;letter-spacing:-.018em;text-wrap:balance}
-h1{font-size:${SCALE.h1};line-height:1.0;margin:16px 0 0}
+/* Tracking is per-family, not universal: the -.018em that suited the old
+   display serif leaves a grotesque looking loose at headline sizes, and a
+   grotesque tightens more as it grows. */
+h1,h2,h3{font-family:${TYPE.display};font-weight:700;letter-spacing:-.021em;text-wrap:balance}
+h1{font-size:${SCALE.h1};line-height:1.0;margin:16px 0 0;letter-spacing:-.032em}
 h2{font-size:${SCALE.h2};line-height:1.14;margin:0 0 8px}
 h3{font-size:${SCALE.h3};line-height:1.3;margin:0 0 6px;font-weight:600}
 .eyebrow,.lab{font-family:${TYPE.mono};font-size:11px;letter-spacing:.15em;text-transform:uppercase}

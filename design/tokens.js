@@ -134,15 +134,24 @@ const DARK = {
    Three faces with three jobs. Every one carries a real fallback stack: the
    page must be legible before a webfont lands, and the figures must not reflow
    when it does. */
+/* SANS THROUGHOUT (2026-08-31). The house ran on a high-contrast display serif
+   and a serif for prose, which read well in long paragraphs and badly in the
+   places this lab actually puts its evidence: table bodies, dense figures and
+   anything numeric. Display is now a grotesque with enough weight to carry a
+   74px headline; prose is IBM Plex Sans, which shares its design language and
+   metrics with the IBM Plex Mono already used for every number, label and
+   axis on the site — so body, data and code finally belong to one family.
+   Reverting is this block and nothing else. */
 const TYPE = {
-  display: '"Fraunces",Georgia,serif',                        /* headings, key figures */
-  body:    '"Spectral",Georgia,serif',                        /* prose */
-  mono:    '"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace'  /* data, labels, code */
+  display: '"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif',        /* headings, key figures */
+  body:    '"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif',  /* prose */
+  mono:    '"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace'   /* data, labels, code */
 };
 
 const GOOGLE_FONTS =
-  'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700' +
-  '&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap';
+  'https://fonts.googleapis.com/css2?family=Archivo:wght@600;700' +
+  '&family=IBM+Plex+Mono:wght@400;500' +
+  '&family=IBM+Plex+Sans:wght@400;500;600&display=swap';
 
 /* ------------------------------------------------------------------ scale --
    Fluid where a jump would be visible, fixed where stability matters more than

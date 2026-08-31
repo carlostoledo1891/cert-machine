@@ -21,7 +21,7 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <script defer src="/_vercel/insights/script.js"></script>
 
 <style>
@@ -118,7 +118,7 @@
 *{box-sizing:border-box}
 html{color-scheme:light dark}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  font-family:"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
 .page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
 
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
@@ -177,8 +177,11 @@ body{margin:0;background:var(--paper);color:var(--ink);
 .col .wide{position:relative;left:50%;transform:translateX(-50%);
   width:min(900px,calc(100vw - 2*clamp(18px,4vw,40px)))}
 
-h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;letter-spacing:-.018em;text-wrap:balance}
-h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0}
+/* Tracking is per-family, not universal: the -.018em that suited the old
+   display serif leaves a grotesque looking loose at headline sizes, and a
+   grotesque tightens more as it grows. */
+h1,h2,h3{font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:-.021em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0;letter-spacing:-.032em}
 h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
 h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
 .eyebrow,.lab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
@@ -202,7 +205,7 @@ section{margin:clamp(50px,7.5vw,84px) 0 0}
   padding:22px 24px;display:flex;flex-direction:column;gap:7px;
   flex:1 1 240px;min-width:200px}
 .stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
-.stat .v{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v{font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
 .stat .v.sm{font-size:14px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
 .stat .v.held{color:var(--held)}
 .stat .v.warn{color:var(--warn)}
@@ -241,7 +244,7 @@ figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
 svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
 @media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
 
-.pull{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
+.pull{font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:700;font-size:clamp(23px,3.2vw,30px);
   line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
 .pull b{color:var(--sig)}
 
@@ -271,7 +274,7 @@ th{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-
   color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
 td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
 tr:last-child td{border-bottom:0}
-td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Fraunces",Georgia,serif}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif}
 td.v{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
 td.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
 .tag{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.1em;
@@ -289,7 +292,7 @@ a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
 a.card:hover{border:1px solid var(--sig)}
 a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
 .card-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
-.card-t{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:19.5px;line-height:1.22;
+.card-t{font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:700;font-size:19.5px;line-height:1.22;
   letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
 .card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
 .card-n{margin-top:auto;padding-top:6px;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
@@ -308,10 +311,10 @@ a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
 .pk-t:hover{border-color:var(--sig)}
 .pk-t .pk-k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--ink-3)}
-.pk-t .pk-n{font-family:"Fraunces",Georgia,serif;font-weight:650;font-size:15px;color:var(--ink-2);line-height:1.2}
+.pk-t .pk-n{font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:650;font-size:15px;color:var(--ink-2);line-height:1.2}
 .pk-p{display:none}
 .pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
-.pk-p h3{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:21px;letter-spacing:-.012em;
+.pk-p h3{font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:700;font-size:21px;letter-spacing:-.012em;
   color:var(--ink);margin:0}
 .pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
 @media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
@@ -549,7 +552,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-lemniscate.js @ git bd46e5d — the cited verifier re-run against this repository&#39;s interval instruments during the build; 26 checks, 4 mutation controls, verdict CONFIRMED, or no page.</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-lemniscate.js @ git 4acc224 — the cited verifier re-run against this repository&#39;s interval instruments during the build; 26 checks, 4 mutation controls, verdict CONFIRMED, or no page.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>
