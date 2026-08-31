@@ -35,6 +35,7 @@ const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const LEG = path.join(ROOT, 'legacy', 'research', 'challenges', 'erdos290');
 const K = require(path.join(LEG, 'kernel.js'));
 const Q = require(path.join(LEG, 'rational.js'));
+const TAIL = require(path.join(ROOT, 'machine', 'erdos290', 'tail.js'));
 
 const sh = (c, cwd) => cp.execSync(c, { cwd: cwd || ROOT, stdio: ['ignore', 'pipe', 'pipe'] }).toString();
 const die = (m) => { console.error('ERDOS290 REPORT REFUSED: ' + m); process.exit(1); };
@@ -109,25 +110,16 @@ const andList = (xs) => (xs.length < 2 ? xs.join('') : xs.slice(0, -1).join(', '
 /* The squeeze's own run parameters, parsed out of the record's method string. */
 const extPrimes = (String(EXT.method || '').match(/nPrimes[:= ]\s*(\d+)/) || [])[1] || null;
 
-function bracket(maxPinned) {
-  let lo = add(L2.lo, ZERO), hi = add(L2.hi, ZERO);
-  for (let l = 1; l <= 30; l++) {
-    if (EXC.has(l)) continue;
-    const d = mul(K.deltaHyperoct(l), W(l));
-    lo = add(lo, d); hi = add(hi, d);
-  }
-  let partial = ZERO;
-  for (let l = 1; l <= maxPinned; l++) partial = add(partial, W(l));
-  hi = add(hi, sub(sub(ONE, L2.lo), partial));            /* beyond maxPinned: δ ∈ [0,1] */
-  const pinnable = [4, 12, 24];
-  for (let l = 31; l <= maxPinned; l++) pinnable.push(l);
-  for (const l of pinnable) {
-    const w = W(l);
-    if (EXACT.has(l)) { const d = mul(EXACT.get(l), w); lo = add(lo, d); hi = add(hi, d); }
-    else hi = add(hi, w);
-  }
-  return { lo, hi };
-}
+/* THE BRACKET NOW LIVES IN ONE PLACE: machine/erdos290/tail.js. It was
+   inline here, and the moment a second consumer needed it — the lemma-value
+   tool, which re-assembles the same bracket under hypothetical constraints —
+   an inline copy would have become the third rule in this repository to be
+   written twice and diverge. Called with no constraint it charges every
+   undetermined degree the full δ ∈ [0,1], exactly as this function always
+   did; the calibration gate below re-assembles the CITED horizon and refuses
+   unless it reproduces the published record to every displayed digit, so a
+   faithless extraction fails this build rather than shipping. */
+const bracket = TAIL.makeBracket({ Q, K, L2, EXACT, EXC, W });
 const dec = (a, kd, up) => { const sc = 10n ** BigInt(kd);
   let q = a.n * sc / a.d; if (up && a.n * sc % a.d !== 0n) q += 1n; return Number(q) / Number(sc); };
 

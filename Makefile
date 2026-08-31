@@ -50,6 +50,7 @@ test:
 	@printf "%-30s " "strassen audit"; $(NODE) instruments/strassen/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "bilinear certifier"; $(NODE) instruments/bilinear/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "slp additive circuits"; $(NODE) instruments/slp/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "erdos290 tail constraints"; $(NODE) machine/erdos290/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "bigfloat layer"; $(NODE) instruments/bigfloat/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
