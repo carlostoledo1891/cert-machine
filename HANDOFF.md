@@ -152,9 +152,15 @@ SESSION 2026-08-31d — THE READING SESSION. NOTHING BUILT, FOUR THINGS SETTLED.
      Unclaimed part: only the 4k(k+1) characterisation itself. van Doorn's
      paper contains no discriminant and no square anywhere (grepped in full).
 
-  SEND STATE IS STALE IN THIS FILE. outreach/issue164-PASTE.md was NOT
-  unsent — it was posted verbatim to teorth/erdosproblems#164 on
-  2026-08-31T18:47:28Z by carlostoledo1891. Still unsent: the two OEIS packs.
+  SEND STATE. outreach/issue164-PASTE.md was NOT unsent — it was posted
+  verbatim to teorth/erdosproblems#164 on 2026-08-31T18:47:28Z. A follow-up,
+  outreach/issue164-PASTE-2.md, was posted on the operator's word at
+  2026-08-31T20:21:11Z (comment 5484039660): the two-sided Theorem 8 and the
+  0.61 -> 0.6022 endpoint, the fourth-digit repricing, the kernel-not-image
+  sketch with its irreducibility blocker, and the Cullinan citation
+  correction. Write "problem 290", never "#290", in that repo — a bare #290
+  auto-links to an unrelated issue; caught and edited out after posting.
+  STILL UNSENT: the two OEIS packs.
 
 SESSION 2026-08-31c — #290 CLOSED, AND THE NEXT MOVE IS READING
 
