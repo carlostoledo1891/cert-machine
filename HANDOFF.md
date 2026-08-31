@@ -87,6 +87,75 @@ and consulting sin-mfg is what killed it. Read that lab FIRST next time.)
   reduction at m > 5. Honest framing there is "certified where nothing
   certified exists", never "progress on Chowla".
 
+SESSION 2026-08-31d — THE READING SESSION. NOTHING BUILT, FOUR THINGS SETTLED.
+
+  The instruction was to read, not to build, and nothing was built: no
+  instrument, no gate, no battery. The only file changed is
+  corpus/targets.json, which is memory and refuses nothing.
+
+  1. THE 0.54 IN VAN DOORN IS OURS TO SHARPEN, AND WE ALREADY HAVE.
+     Read from his Theorem 8, not the abstract. It is TWO-SIDED:
+       0.54 < liminf (b(a)-a)/log a < 0.61
+     Lemma 31 gives the lower endpoint 1/(1+c), Lemma 30 the upper 1/(2c),
+     Lemma 32 supplies 0.82 < c < 0.85, and BOTH constants are those two
+     expressions rounded to two decimals. So 0.54 -> 0.546 is a genuine
+     sharpening of a published theorem statement. It is already banked.
+
+  2. THE FOURTH DIGIT IS AN OEIS DIGIT, NOT A THEOREM DIGIT.
+     No theorem anywhere states this constant to four places. The earlier
+     framing — "a fourth digit is a sharper constant in a published theorem"
+     — was overstated, and targets.json now says so. Chase the fourth digit
+     for the sequence entry if at all.
+
+  3. THE OTHER CONSTANT, 0.61, IS IMPROVABLE RIGHT NOW FOR FREE, AND NOBODY
+     HAS SAID SO. The upper endpoint 1/(2c) needs a LOWER bound on c, and a
+     lower bound needs no tail lemma at all — the unpinned tail is charged 0.
+     Our certified c >= 0.830416407911 gives liminf < 0.6021076 immediately.
+     Theorem 8 would read 0.546 < liminf < 0.6022, the published interval
+     narrowing from width 0.07 to 0.0562, on data already certified and
+     already public. Every public artefact from this project — the report
+     page, both issue-164 comments, the OEIS packs — speaks only about
+     1/(1+c). NEW TARGET ROW: erdos290-upper-constant. The direction of
+     Lemma 30 must be read at the source before this is stated publicly;
+     the arithmetic is checked, the reading is not.
+
+  4. THE DELTA-WINDOW TARGET IS REPRICED, AND ITS UNSCOUTED FIELD IS CLOSED.
+     · The window that buys the fourth digit is delta in (0.0990, 0.5156],
+       not [0.293, 0.493]. Wider on the low side, TIGHTER on the high side,
+       and both ends within ~3% of the free bounds — so a lemma that only
+       just clears them is worthless. Width 0.1 near 1-e^(-1/2) clears both.
+     · THE FRAMING WAS WRONG. delta = 1 - E[2^(-fix)] presupposes the sign
+       kernel K = G ∩ C_2^l is large. Given that, Jensen (2^(-t) convex) plus
+       Burnside (E[fix] = 1 for any transitive image) gives delta <= 1/2 with
+       no primitivity, no Jordan, no group identification at all. The target
+       is the KERNEL, not the image. K in {0, diag} is the dangerous case.
+     · WHAT IS KNOWN UNCONDITIONALLY: nothing. van Doorn's Lemma 32 proof is
+       verbatim a PARI/Magma run — irreducible for even d <= 500, group for
+       even d <= 60 — so irreducibility of f_d is NOT a theorem for large d,
+       and his Lemma 38 assumes it. No literature on Gal(f_d) exists; the
+       family appears to be studied nowhere else. The nearest published
+       analogue (arXiv:2510.18857, random reciprocal polynomials) is
+       probabilistic and gives no purchase on a fixed d.
+     · UNTRIED ANGLE, recorded not attempted: f_d(0) = (-1)^d d!, leading
+       coefficient d+1, h(0) = (-1)^l (l!)^2 — Dumas/Newton-polygon at primes
+       dividing d! is exactly the Filaseta-Trifonov machinery for Bessel and
+       generalized Laguerre. Nobody has pointed it at f_d.
+
+  5. A CITATION IS WRONG IN THE PREPRINT, AND IT MATTERS BEFORE ANY SUBMISSION.
+     The composition-discriminant step is credited to Altmann-Awtrey-Cryan-
+     Shannon-Touchette 2020 with the claim that handling the NON-MONIC factor
+     d+1 is the new part. AACST2020 is about x^8 + a x^4 + b and carries no
+     general composition law; and the general NON-MONIC law is already
+     written down — John Cullinan, "The discriminant of a composition"
+     (faculty.bard.edu/cullinan/disccomp.pdf), explicit in the leading
+     coefficients, hypotheses satisfied here since Res(h, x^2) = (l!)^4 != 0.
+     Unclaimed part: only the 4k(k+1) characterisation itself. van Doorn's
+     paper contains no discriminant and no square anywhere (grepped in full).
+
+  SEND STATE IS STALE IN THIS FILE. outreach/issue164-PASTE.md was NOT
+  unsent — it was posted verbatim to teorth/erdosproblems#164 on
+  2026-08-31T18:47:28Z by carlostoledo1891. Still unsent: the two OEIS packs.
+
 SESSION 2026-08-31c — #290 CLOSED, AND THE NEXT MOVE IS READING
 
   **START THE NEXT SESSION BY READING, NOT BUILDING.** The single open target
