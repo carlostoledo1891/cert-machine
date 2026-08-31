@@ -435,47 +435,65 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <header class="col">
   <div class="eyebrow">Carlos Toledo · cert-machine</div>
-  <h1>The conjecture engine</h1>
-  <p class="deck">AI verification infrastructure: verification layers under which AI-scale mathematical search produces only certified output — reward signals that cannot be hacked — and certified audits of published AI-generated mathematics. Screens may prune; only exact arithmetic admits. A REFUTED here is proved.</p>
+  <h1>We check the math that machines publish</h1>
+  <p class="deck">AI systems are producing mathematical results — new constants, new algorithms, new theorems — faster than anyone is reading them. This machine decides them one at a time and shows its work: proved, disproved, or honestly refused.</p>
 </header>
 
-<div class="wide">
-  <div class="stats">
-    <div class="stat"><div class="k">published claims</div><div class="v warn">1 refuted · 1 corrected</div><div class="n">Erdős #852 C* refuted at digit 12 · one RM printed row corrected (a transcription slip) — both replacements certified</div></div>
-    <div class="stat"><div class="k">AlphaEvolve rank-48</div><div class="v held">CERTIFIED</div><div class="n">the ⟨4,4,4⟩ decomposition verified over Z[i] from pinned sources · AlphaTensor&#39;s rank-47: verified over F2, REFUTED over Q</div></div>
-    <div class="stat"><div class="k">model proposals graded</div><div class="v">364</div><div class="n">115 certified — each an exact theorem · 0 subtly wrong — the reward channel has never paid out on a false claim</div></div>
-    <div class="stat"><div class="k">closed forms refuted</div><div class="v held">54,628,296</div><div class="n">every one exact; zero discoveries claimed</div></div>
-    <div class="stat"><div class="k">Ramanujan Machine rows</div><div class="v">51 printed rows</div><div class="n">50 survive · 1 refuted as printed, its correction certified</div></div>
-    <div class="stat"><div class="k">period-16 Hénon points</div><div class="v held">EXACTLY 1,696</div><div class="n">1,419,655,025 boxes exhausted, recheck clean — the instruments&#39; proving ground</div></div>
-  </div>
-</div>
+<p class="scope">No probability arguments and no digit-matching. A claim is admitted only by exact arithmetic on whole numbers, and an instrument that cannot decide refuses instead of guessing. When a page here says REFUTED, that is a proof, and the falsifying witness is printed beside it.</p>
 
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">the three products</div>
-    <h2>What this is</h2>
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">start here</div>
+    <h2>Four cases, in plain words</h2>
   </div>
-<p>Certified audits of published AI-generated mathematics. The GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — corrected value certified to width 3.2e-16. All 51 printed rows of the Ramanujan Machine&#39;s seven result sheets decided: 50 survive an unconditional audit; one printed row is refuted exactly, its correction certified on the same enclosure. AlphaEvolve&#39;s rank-48 ⟨4,4,4⟩ decomposition: CERTIFIED over Z[i]. AlphaTensor&#39;s rank-47: verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2.</p>
-<p>Evaluation whose ground truth is a proof. Frontier models propose exact tensor decompositions; the grader re-derives every claim from the witness in exact rational arithmetic — no judge, no rubric, and no answer key to contaminate. A reference value computed in float puts its failure class inside the answer key; here the reference is not a value at all. 364 model proposals graded so far, every certified row a theorem, every refuted row a proof of error.</p>
-<p>A verified reward channel. The same harness is a reward oracle for mathematical search under which reward hacking is excluded by construction, not by monitoring — false positives are provably impossible, and an instrument that cannot decide refuses rather than pays. Stated as engineering below.</p>
-<p>And the proving ground the verifiers earned their trust on: 54,629,173 candidate closed forms tested against certified enclosures, 54,628,296 refuted — each refutation a proof, zero discoveries claimed. Completeness censuses (&quot;there are EXACTLY 1,696 period-16 Hénon points, and nothing else anywhere in the plane&quot;), certified extremal tables, a certified entropy bound. The instruments were calibrated on hard classical ground — reproducing Galias&#39;s censuses, Goddard&#39;s boxes, Apéry&#39;s row — before they were pointed at anything a model produced.</p>
+<div class="wide"><div class="cards"><a class="card" href="reports/erdos852.html"><span class="card-k">a refutation · erdős #852</span><span class="card-t">The constant that was a rounding error</span><span class="card-d">A constant for an open Erdős problem, published with frontier-model help, quoted to 13 decimal places, with no error bound. It is wrong from digit 12 — and the wrong digits are exactly what an ordinary floating-point loop prints. The constant was not near-right with unlucky endings. It was the bug, published. The corrected value is certified here and the correction is now public in the problem’s own thread.</span><span class="card-n">refuted at digit 12 · correction certified and public</span></a>
+<a class="card" href="reports/ai-claims-audit.html"><span class="card-k">six theorems · re-verified</span><span class="card-t">We checked the AI’s homework</span><span class="card-d">Six mathematical results produced with frontier-model help — among them a counterexample to a bound of Maxwell’s and an Erdős problem open since 1958 — re-verified here from the manuscripts, by code that never ran a line of the authors’. 5 held, 1 came back partial, none was refuted. The finding is not the tally: in all 6, the part a machine can check held, and the part that carries the theorem stayed out of reach.</span><span class="card-n">92 checks · 21 deliberate forgeries, every one rejected</span></a>
+<a class="card" href="reports/keller.html"><span class="card-k">objects · not in any paper</span><span class="card-t">Three counterexamples nobody has published</span><span class="card-d">A conjecture standing since 1939 was refuted in July 2026. This machine re-decided the published counterexamples in exact fractions, then threw the published answers away and found the collisions again blind. Along the way it generated 3 counterexamples of its own, on the same mechanism, that no paper carries.</span><span class="card-n">11 certificates · 3 generated here</span></a>
+<a class="card" href="reports/tensor-rank-bounds.html"><span class="card-k">a null result, published anyway</span><span class="card-t">We tried to break a new result and could not</span><span class="card-d">A lower bound on a fifty-year-old problem moved in March 2026, in a preprint whose proof is a machine-checkable file on a two-star repository. We rebuilt the check independently, with an instrument built to be able to contradict it. It did not. That is worth publishing: an audit that could only ever agree is not an audit.</span><span class="card-n">the first independent check of the new bound</span></a></div></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">verified reward</div>
-    <h2>A reward channel that cannot be hacked</h2>
+    <div class="lab">one of them, in full</div>
+    <h2>How a floating-point bug became a published constant</h2>
   </div>
-<p>The engine&#39;s one load-bearing invariant — a float screen may only PRUNE, never admit; every admission passes exact arithmetic; REFUSED earns nothing — is precisely the property a verified-reward signal needs: there is no gap between &quot;graded correct&quot; and &quot;is correct&quot; for a policy to exploit. A proposal either IS an exact certificate or it is not, and both directions of the verdict are theorems.</p>
-<p>That property is measured, not asserted. Every campaign begins with red controls — deliberate forgeries, including one whose coefficient is off by 1e-9, invisible to any float screen — and a single control certifying ABORTS the run: the oracle proves its refusal path fires before it grades anything. Across every real-model campaign to date (364 proposals), no false proposal has ever certified and no certified row has ever been wrong — the channel has never paid out on a false claim.</p>
-<p>The scope is stated as honestly as the property: this holds for claims that reduce to finitely many exact arithmetic facts — exhibit-a-witness tasks, identities, enclosures — not for mathematics at large. Inside that domain, the harness that evaluates a model can sit unchanged inside a training loop: reinforcement learning on certified rewards, with the verifier strictly stronger than the proposer. That is the verification half of scalable oversight, running, on the one domain where it is currently possible.</p>
-<p><a href="oracle/">The oracle, packaged →</a> — one curl, zero dependencies, certify() on your laptop in under a minute: the claim schema, the tool definition a model calls mid-generation, the paste box, the paper draft, the ledgers.</p>
+<p>Erdős problem #852 has a constant attached to it. In 2026 a value for that constant appeared, produced with frontier-model help and quoted to 13 decimal places. This machine enclosed the same constant in exact arithmetic. The two agree for a while and then they do not.</p>
+<pre class="code">published  0.0752403861777
+certified  0.0752403861783092455893…
+                        ↑ wrong from here</pre>
+<p>The interesting part is which wrong digits. The obvious way to compute this constant is a loop: take a few million prime numbers, turn each into a factor slightly larger than one, and multiply them together in ordinary floating point. Past a certain size those factors are so close to one that rounding makes them exactly one, and they stop contributing anything at all. The running product goes still. Going still is what convergence looks like, so the loop appears to have settled, and it prints.</p>
+<p class="pull"><b>The published constant is what that loop prints, digit for digit.</b> It was not approximately right with unlucky endings. It was the bug.</p>
+<p>That is why one wrong constant is worth a whole page. Every ordinary defence fails against this. Rerunning it reproduces the same wrong digits, because two independent floating-point implementations agree with each other rather than with the truth. Spending more compute changes nothing, because the loop is already ignoring almost every factor you would be adding. Checking the digits against a reference value fails whenever the reference came out of the same kind of pipeline — which is how a bad number gets into an answer key and stays there.</p>
+<p>What settles it is arithmetic that never rounds. The refutation here is a strict inequality between two whole numbers, with a denominator millions of digits long and no approximation anywhere in it. The corrected value is trapped between two exact fractions that agree for 15 decimal places, so the true constant cannot be anywhere near the published one.</p>
+<p>The correction has been public in the problem’s own thread on erdosproblems.com since 27 August 2026. <a href="reports/erdos852.html">The full audit →</a> — the refutation as integers, the certified correction, and a catalogue of the other ways a mathematical answer key goes wrong without anyone noticing.</p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">the shelf</div>
+    <h2>Everything else it has decided</h2>
+  </div>
+<div id="reports"></div><div class="wide"><div class="cards"><a class="card" href="reports/matmul-eval.html"><span class="card-k">the eval · live board</span><span class="card-t">The matmul eval: ground truth is a proof</span><span class="card-d">Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.</span><span class="card-n">364 proposals graded · zero subtly-wrong survivors</span></a>
+<a class="card" href="reports/alphaevolve.html"><span class="card-k">audit · AI-discovered algorithms</span><span class="card-t">The AI-discovered algorithms, certified</span><span class="card-d">AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.</span><span class="card-n">10 algorithms re-decided each build</span></a>
+<a class="card" href="reports/verifier-loop.html"><span class="card-k">verified reward · demo</span><span class="card-t">The verifier in the loop</span><span class="card-d">The reward channel in closed loop: a model proposes, the grader answers every failure with its own refutation mechanism — the exact violated equation, nothing more — and the model retries. Every trajectory rendered from the append-only ledger.</span><span class="card-n">feedback template-locked · zero coaching</span></a>
+<a class="card" href="reports/forecast-gym.html"><span class="card-k">the eval · forecasting</span><span class="card-t">The Forecast Gym: the test set that cannot leak</span><span class="card-d">Forecasts are sha-committed to an append-only ledger before their outcomes exist and scored afterward with a proper score in exact rationals — contamination impossible by construction, hedging and overconfidence both priced, admission prune-only with an exact binomial certificate.</span><span class="card-n">130 forecasts sha-pinned before their targets</span></a>
+<a class="card" href="reports/answer-key.html"><span class="card-k">note · for eval builders</span><span class="card-t">When the answer key is wrong</span><span class="card-d">Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.</span><span class="card-n">every specimen re-proved at build</span></a>
+<a class="card" href="reports/methods-note.html"><span class="card-k">methods note</span><span class="card-t">None by reading code</span><span class="card-d">Every real bug this machine has found — ten, cataloged — was caught by a red control, a calibration, an impossible number, or a byte pin. How to build verifiers that catch their own defects, stated as engineering.</span><span class="card-n">every regression re-held by a battery at build</span></a></div></div><div class="col after-fig"><p><a href="reports/">All 35 reports →</a> — the AI-verification shelf, the Erdős problems, the applied fronts in aerospace and energy, and the classical ground the instruments were proven on first. Every number on every page is recomputed from the certificates and records at build time, and a build that drifts refuses to ship.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">why you can trust this</div>
+    <h2>One rule, and what it costs</h2>
+  </div>
+<p>Everything here rests on a single rule, and most of the engineering is the cost of keeping it.</p>
+<ul class="plain"><li><b>A fast check may only rule things out.</b> Floating-point screens run first and discard candidates by the million. They are never allowed to let one through. Nothing reaches a verdict without exact arithmetic behind it, so a rounding error can cost time and can never cost truth.</li><li><b>Both verdicts are theorems.</b> CERTIFIED means the statement was re-derived from whole numbers. REFUTED means a falsifying witness exists, and it is printed. Neither one is a confidence level.</li><li><b>An instrument that cannot decide says so.</b> REFUSED is a real verdict here and it gets used. A number that cannot be proved does not get published as though it were.</li><li><b>Every battery carries forgeries that must fail.</b> Fake inputs are planted in each run, including one wrong by a billionth — invisible to any floating-point check. If a forgery ever passes, the run aborts before it grades anything real. Every genuine bug this project has found was caught that way; none by reading code.</li></ul>
 </section>
 
 <section class="">
   <div class="col sec-head">
     <div class="lab">the machine</div>
-    <h2>How a conjecture becomes a certificate</h2>
+    <h2>How a claim becomes a certificate</h2>
   </div>
 <div class="wide"><figure class="mach">
   <div class="figbox">
@@ -691,25 +709,40 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <script>(function(){var f=document.querySelector("figure.mach");if(!f)return;var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}f.querySelectorAll("g.nd").forEach(function(g){g.addEventListener("click",function(){on(g)});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});});})();</script><div class="col after-fig"><p>The <a href="machine/">control page</a> is this drawing, live: every family, every battery executed at its build (never remembered), the full ledger decomposition, drift status.</p></div>
 </section>
 
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">the app</div>
-    <h2>SkyAudit — one real day over New York, every flight decided</h2>
-  </div>
-<p>The audit as an experience: a Flightradar24-style replay of a real, hash-pinned day of New York helicopter traffic (82 aircraft, 382 flights) — except every trail is colored by a VERDICT, not telemetry. Each flight is re-flown on paper by an eVTOL under a published energy-reserve rule, and decided by interval arithmetic: mathematically certified enclosures with exact-rational falsifying corners, never Monte Carlo.</p><p>The day&#39;s findings: Beta ALIA certifiably covers 100 of the 382 flights under the FAA 20-minute rule and needs EXACTLY 10 aircraft to re-fly them (proved by pigeonhole below, by a verified schedule above); Joby, Archer and Eve publish too little to certify a single fleet. The optimizer prices the levers — battery floors, charge times, the reserve rule itself — with a proof on both sides of every threshold.</p><p><a href="apps/skyaudit/">Open SkyAudit →</a> — the replay, the certificate panel, the fleet frontier and the what-if sliders, live. Every number gate-checked at build; data © adsb.lol (ODbL). Also live: <a href="apps/skyaudit/sp/">the São Paulo pack</a> — the world's busiest urban helicopter market, decided under Brazil's own reserve rule (ANAC RBAC 91.151(b), pinned).</p>
-</section>
-
 <section class="">
   <div class="col sec-head">
-    <div class="lab">the reports</div>
-    <h2>Research notes that re-prove themselves</h2>
+    <div class="lab">the tally</div>
+    <h2>What it has decided so far</h2>
   </div>
-<div id="reports"></div><div class="wide"><div class="cards"><a class="card" href="reports/matmul-eval.html"><span class="card-k">the eval · live board</span><span class="card-t">The matmul eval: ground truth is a proof</span><span class="card-d">Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.</span><span class="card-n">364 proposals graded · zero subtly-wrong survivors</span></a>
-<a class="card" href="reports/alphaevolve.html"><span class="card-k">audit · AI-discovered algorithms</span><span class="card-t">The AI-discovered algorithms, certified</span><span class="card-d">AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.</span><span class="card-n">10 algorithms re-decided each build</span></a>
-<a class="card" href="reports/erdos852.html"><span class="card-k">erdős #852 · refutation</span><span class="card-t">The constant that was a rounding error</span><span class="card-d">A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.</span><span class="card-n">refuted at digit 12 · correction certified</span></a>
-<a class="card" href="reports/verifier-loop.html"><span class="card-k">verified reward · demo</span><span class="card-t">The verifier in the loop</span><span class="card-d">The reward channel in closed loop: a model proposes, the grader answers every failure with its own refutation mechanism — the exact violated equation, nothing more — and the model retries. Every trajectory rendered from the append-only ledger.</span><span class="card-n">feedback template-locked · zero coaching</span></a>
-<a class="card" href="reports/forecast-gym.html"><span class="card-k">the eval · forecasting</span><span class="card-t">The Forecast Gym: the test set that cannot leak</span><span class="card-d">Forecasts are sha-committed to an append-only ledger before their outcomes exist and scored afterward with a proper score in exact rationals — contamination impossible by construction, hedging and overconfidence both priced, admission prune-only with an exact binomial certificate.</span><span class="card-n">130 forecasts sha-pinned before their targets</span></a>
-<a class="card" href="reports/answer-key.html"><span class="card-k">note · for eval builders</span><span class="card-t">When the answer key is wrong</span><span class="card-d">Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.</span><span class="card-n">every specimen re-proved at build</span></a></div></div><div class="col after-fig"><p><a href="reports/">All 35 reports →</a> — including the classical-ground shelf the instruments were proven on. Every number on every page is recomputed from the certificates and records at build time, and a build that drifts refuses to ship.</p></div>
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">published claims decided</div><div class="v warn">1 refuted · 1 corrected</div><div class="n">a constant on Erdős #852, wrong from digit 12 · one printed Ramanujan Machine row, a transcription slip — both replacements certified</div></div>
+    <div class="stat"><div class="k">AI-claimed theorems re-verified</div><div class="v">6</div><div class="n">5 held, 1 partial, none refuted — checked from the manuscripts, never from the authors’ code</div></div>
+    <div class="stat"><div class="k">AI-discovered algorithms re-decided</div><div class="v held">10</div><div class="n">at every build, from commit-pinned bytes — AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and refuted over Q</div></div>
+    <div class="stat"><div class="k">model proposals graded</div><div class="v">364</div><div class="n">115 certified, each an exact theorem · none subtly wrong — nothing false has ever been graded correct</div></div>
+    <div class="stat"><div class="k">closed forms disproved</div><div class="v held">54,628,296</div><div class="n">each one an exact proof, out of 54,629,173 tested — and zero discoveries claimed</div></div>
+    <div class="stat"><div class="k">Hénon points, counted exactly</div><div class="v held">EXACTLY 1,696</div><div class="n">period 16, with a proof that there are no others anywhere in the plane — 1,419,655,025 boxes exhausted. The classical case the instruments were calibrated on before they were pointed at anything new.</div></div>
+  </div>
+</div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">the same instrument, pointed at the world</div>
+    <h2>SkyAudit — one real day over New York, every flight decided</h2>
+  </div>
+<p>A real, hash-pinned day of New York helicopter traffic — 82 aircraft, 382 flights — replayed on a map. Every trail is coloured by a verdict rather than by telemetry: each flight is re-flown on paper by an electric aircraft, using that manufacturer’s own published numbers, under the FAA’s energy-reserve rule, and decided.</p><p>Beta’s ALIA can certifiably cover 100 of the 382 flights and needs exactly 10 aircraft to do it — the lower half proved by pigeonhole, the upper half by an actual schedule. Joby, Archer and Eve publish too little to certify a single fleet, and the app says NEEDS DATA rather than guessing, with the exact number that would flip it printed beside the verdict.</p><p><a href="apps/skyaudit/">Open SkyAudit →</a> — the replay, the certificate panel, the fleet frontier and the what-if sliders, live. Data © adsb.lol (ODbL). Also live: <a href="apps/skyaudit/sp/">the São Paulo pack</a> — the world’s busiest urban helicopter market, decided under Brazil’s own reserve rule.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">for people building evals</div>
+    <h2>A grader that cannot be fooled</h2>
+  </div>
+<p>The instrument that audits a published claim also grades a model’s output, and that is turning out to be the more useful job. A model proposes an exact object; the grader re-derives it from whole numbers and answers CERTIFIED or REFUTED. There is no judge model, no rubric, and no stored answer key — so there is nothing to leak into a training set and nothing to game. The gap between “graded correct” and “is correct” that a policy would learn to exploit does not exist, because the grade is the proof.</p>
+<p>That is measured, not asserted. Every campaign opens with deliberate forgeries — including one wrong by a billionth, invisible to any floating-point check — and if a single forgery grades as correct the run aborts before it touches real work. Across every real-model campaign so far, 364 proposals, nothing false has ever been graded correct and no certified row has ever turned out to be wrong.</p>
+<p>The honest limit: this works for claims that come down to finitely many exact arithmetic facts — exhibit a witness, verify an identity, bound a quantity. It does not work for mathematics at large, and nothing here pretends otherwise. Inside that boundary the same grader can sit unchanged inside a training loop, with the verifier strictly stronger than the thing it is grading.</p>
+<p><a href="oracle/">The oracle, packaged →</a> — one curl, no dependencies, running on your laptop in under a minute: the claim schema, the tool definition a model calls mid-generation, the paste box, the paper draft, the ledgers.</p>
 </section>
 
 <section class="col">
@@ -737,15 +770,14 @@ python3 verify/verify_strassen.py certs/strassen-certificate.json</pre>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">the discipline</div>
-    <h2>Why believe any of it</h2>
+    <div class="lab">the limits</div>
+    <h2>What this is not</h2>
   </div>
-<p>One load-bearing invariant: nothing floating-point can ever admit a claim. Screens only prune; every admission passes exact arithmetic (BigInt rationals, directed dyadic rounding, Sturm chains); an instrument that cannot decide REFUSES rather than guesses; every exhaustion carries a conservation identity that throws rather than return a record with a hole in it.</p>
-<p>Every battery carries red controls — forged inputs that must FAIL — and every instrument is calibrated against a case with a known answer before it runs on anything new. Every real bug this project has found was caught by a control, a calibration, or an impossible number; none by reading code.</p>
-<p>The trust base, honestly: V8 BigInt and IEEE-754 correct rounding; a handful of named external theorems consumed and cross-checked, not machine-proved; one machine, one operator. This meets the working standard of the computer-assisted-proof tradition — Tucker&#39;s Lorenz, Galias&#39;s Hénon censuses, whose published counts the census here reproduces independently — one rung below the formal-proof standard.</p>
+<p>This is one machine and one operator. The trust base is stated rather than hidden: V8’s big-integer arithmetic and IEEE-754 correct rounding are assumed correct, and a handful of named external theorems are consumed and cross-checked rather than machine-proved. Nothing here is a formal proof in the sense of Lean or Coq, and no page claims to be.</p>
+<p>What it does meet is the working standard of the computer-assisted-proof tradition — Tucker on the Lorenz attractor, Galias on the Hénon censuses, whose published counts this machine reproduces independently. That is one rung below a formal proof and several rungs above a decimal that looked convincing.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git 6353c79 from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<footer class="col"><p>Generated by tools/build-site.js @ git fd5b0db from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
 
 </div>
 </html>

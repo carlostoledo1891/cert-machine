@@ -106,76 +106,44 @@ const e852Public = (() => {
   return { file: hit[1], date: hit[2] };
 })();
 
-/* ---- the landing page ---------------------------------------------------- */
-const B = [];
-B.push(C.header({
-  eyebrow: 'Carlos Toledo · cert-machine',
-  title: 'The conjecture engine',
-  deck: 'AI verification infrastructure: verification layers under which AI-scale mathematical search produces '
-    + 'only certified output — reward signals that cannot be hacked — and certified audits of published '
-    + 'AI-generated mathematics. Screens may prune; only exact arithmetic admits. A REFUTED here is proved.'
-}));
+/* ---- the lead story, derived from the certificate ------------------------
+   The landing OPENS with the Erdős #852 refutation told in plain words, so
+   every number that story quotes is read out of the detached certificate here
+   — including the DIGIT at which the published value goes wrong, which is
+   computed from the two decimal strings rather than counted by a human once
+   and then repeated. */
+const e852cert = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erdos852-certificate.json'), 'utf8'));
+const csPub = e852cert.cstar.published.value;
+const csLo = e852cert.cstar.enclosure.lo, csHi = e852cert.cstar.enclosure.hi;
+if (e852cert.cstar.published.verdict !== 'REFUTED')
+  fail('the landing story says the published C* is refuted; the certificate says ' + e852cert.cstar.published.verdict);
+const frac = (s) => { const i = String(s).indexOf('.'); if (i < 0) fail('not a decimal: ' + s); return String(s).slice(i + 1); };
+const firstDiff = (a, b) => { for (let i = 0; i < Math.min(a.length, b.length); i++) if (a[i] !== b[i]) return i + 1; return 0; };
+const csWrongAt = firstDiff(frac(csPub), frac(csLo));
+if (!csWrongAt) fail('the published C* agrees with the certified enclosure on every printed digit — the landing story is not true');
+const csPubDigits = frac(csPub).length;
+/* how much of the correction is settled: the digits the enclosure's two edges share */
+const csSettled = firstDiff(frac(csLo), frac(csHi)) - 1;
+if (csSettled < csWrongAt) fail('the enclosure settles ' + csSettled + ' digits, fewer than the ' + csWrongAt + ' the published value gets wrong');
 
-B.push(C.stats([
-  { k: 'published claims', v: '1 refuted · 1 corrected', role: 'warn', n: 'Erdős #852 C* refuted at digit 12 · one RM printed row corrected (a transcription slip) — both replacements certified' },
-  { k: 'AlphaEvolve rank-48', v: 'CERTIFIED', role: 'held', n: 'the ⟨4,4,4⟩ decomposition verified over Z[i] from pinned sources · AlphaTensor\'s rank-47: verified over F2, REFUTED over Q' },
-  { k: 'model proposals graded', v: fmt(evalReal.length), n: evalCert + ' certified — each an exact theorem · ' + evalRefuted + ' subtly wrong'
-      + (evalRefuted === 0 ? ' — the reward channel has never paid out on a false claim' : '') },
-  { k: 'closed forms refuted', v: fmt(T.closedFormRefuted + T.closedFormRefutedExact), role: 'held', n: 'every one exact; zero discoveries claimed' },
-  { k: 'Ramanujan Machine rows', v: rmPrinted + ' printed rows', n: rmSurvive + ' survive · 1 refuted as printed, its correction certified' },
-  { k: 'period-16 Hénon points', v: 'EXACTLY ' + fmt(census16.points), role: 'held', n: fmt(census16.boxes) + ' boxes exhausted, recheck clean — the instruments\' proving ground' }
-]));
+/* the two numbers, digit-aligned, with the divergence marked — the whole
+   refutation in one glance, and the only place on this page a reader has to
+   look at a decimal expansion. Column arithmetic, not a hand-placed caret.
+   The gutter and the marker text are kept short on purpose: this block sets
+   the width of a <pre> that must still fit a 390px phone without scrolling. */
+const csDigitBlock = (() => {
+  const w = 'certified'.length + 2;
+  const pad = (s) => s + ' '.repeat(w - s.length);
+  const col = w + 2 + csWrongAt - 1;
+  return pad('published') + csPub + '\n'
+    + pad('certified') + csLo + '…\n'
+    + ' '.repeat(col) + '↑ wrong from here';
+})();
 
-B.push(C.section({
-  lab: 'the three products', title: 'What this is',
-  bodyRaw: [
-    C.p('Certified audits of published AI-generated mathematics. The GPT-published constant on Erdős #852, refuted at its '
-      + '12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — corrected value certified '
-      + 'to width 3.2e-16. All ' + rmPrinted + ' printed rows of the Ramanujan Machine\'s seven result sheets decided: '
-      + rmSurvive + ' survive an unconditional audit; one printed row is refuted exactly, its correction certified on the '
-      + 'same enclosure. AlphaEvolve\'s rank-48 ⟨4,4,4⟩ decomposition: CERTIFIED over Z[i]. AlphaTensor\'s rank-47: '
-      + 'verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2.'),
-    C.p('Evaluation whose ground truth is a proof. Frontier models propose exact tensor decompositions; the grader '
-      + 're-derives every claim from the witness in exact rational arithmetic — no judge, no rubric, and no answer key '
-      + 'to contaminate. A reference value computed in float puts its failure class inside the answer key; here the '
-      + 'reference is not a value at all. ' + fmt(evalReal.length) + ' model proposals graded so far, every certified '
-      + 'row a theorem, every refuted row a proof of error.'),
-    C.p('A verified reward channel. The same harness is a reward oracle for mathematical search under which reward '
-      + 'hacking is excluded by construction, not by monitoring — false positives are provably impossible, and an '
-      + 'instrument that cannot decide refuses rather than pays. Stated as engineering below.'),
-    C.p('And the proving ground the verifiers earned their trust on: ' + fmt(T.closedFormTested) + ' candidate closed '
-      + 'forms tested against certified enclosures, ' + fmt(T.closedFormRefuted + T.closedFormRefutedExact) + ' refuted '
-      + '— each refutation a proof, zero discoveries claimed. Completeness censuses ("there are EXACTLY '
-      + fmt(census16.points) + ' period-16 Hénon points, and nothing else anywhere in the plane"), certified extremal '
-      + 'tables, a certified entropy bound. The instruments were calibrated on hard classical ground — reproducing '
-      + 'Galias\'s censuses, Goddard\'s boxes, Apéry\'s row — before they were pointed at anything a model produced.')
-  ].join('\n')
-}));
-
-B.push(C.section({
-  lab: 'verified reward', title: 'A reward channel that cannot be hacked',
-  bodyRaw: [
-    C.p('The engine\'s one load-bearing invariant — a float screen may only PRUNE, never admit; every admission '
-      + 'passes exact arithmetic; REFUSED earns nothing — is precisely the property a verified-reward signal needs: '
-      + 'there is no gap between "graded correct" and "is correct" for a policy to exploit. A proposal either IS an '
-      + 'exact certificate or it is not, and both directions of the verdict are theorems.'),
-    C.p('That property is measured, not asserted. Every campaign begins with red controls — deliberate forgeries, '
-      + 'including one whose coefficient is off by 1e-9, invisible to any float screen — and a single control '
-      + 'certifying ABORTS the run: the oracle proves its refusal path fires before it grades anything. Across every '
-      + 'real-model campaign to date (' + fmt(evalReal.length) + ' proposals), ' + (evalRefuted === 0
-        ? 'no false proposal has ever certified and no certified row has ever been wrong — the channel has never paid '
-        + 'out on a false claim.'
-        : evalRefuted + ' well-formed proposals were refuted exactly; none certified.')),
-    C.p('The scope is stated as honestly as the property: this holds for claims that reduce to finitely many exact '
-      + 'arithmetic facts — exhibit-a-witness tasks, identities, enclosures — not for mathematics at large. Inside '
-      + 'that domain, the harness that evaluates a model can sit unchanged inside a training loop: reinforcement '
-      + 'learning on certified rewards, with the verifier strictly stronger than the proposer. That is the '
-      + 'verification half of scalable oversight, running, on the one domain where it is currently possible.'),
-    C.pRaw('<a href="oracle/">The oracle, packaged →</a> — one curl, zero dependencies, certify() on your laptop '
-      + 'in under a minute: the claim schema, the tool definition a model calls mid-generation, the paste box, '
-      + 'the paper draft, the ledgers.')
-  ].join('\n')
-}));
+/* the Keller lane's own objects: counterexamples this machine generated that
+   no paper carries. Counted from the certificate, never typed. */
+const kellerNew = kellerMaps.filter((e) => /generated\+certified here/.test(String(e.source))).length;
+if (!kellerNew) fail('the keller certificate holds no counterexample generated here — the landing card claims some');
 
 /* ---- the report shelf, ordered by weight ---------------------------------
    The order IS the ranking — the landing shows the head of this list, the
@@ -407,6 +375,142 @@ const CERTS = [
   }
 }
 
+/* ---- the landing page ----------------------------------------------------
+   NARRATIVE ORDER, rebuilt 2026-08-30 on the operator's verdict that the page
+   opened with machinery: a reason to care first, then the sharpest single case
+   told in plain words, then the shelf, and only then the apparatus. This is
+   CLAUDE.md's app doctrine applied to the front door — product words on the
+   surface, the enclosure and the falsifier one click down. Nothing about the
+   derivation discipline changed: every number below is still recomputed here
+   and the build still refuses when one of them stops closing. What changed is
+   which of them a stranger meets first.
+
+   B is assembled AFTER the shelf and the certificate table so the opening can
+   quote counts those tables gate (the number of reports, the Keller objects) —
+   a landing that says "31 write-ups" while reports/ holds another number is
+   exactly the drift the shelf gate exists to catch. */
+const B = [];
+B.push(C.header({
+  eyebrow: 'Carlos Toledo · cert-machine',
+  title: 'We check the math that machines publish',
+  deck: 'AI systems are producing mathematical results — new constants, new algorithms, new theorems — faster than '
+    + 'anyone is reading them. This machine decides them one at a time and shows its work: proved, disproved, or '
+    + 'honestly refused.'
+}));
+B.push(C.scope('No probability arguments and no digit-matching. A claim is admitted only by exact arithmetic on whole '
+  + 'numbers, and an instrument that cannot decide refuses instead of guessing. When a page here says REFUTED, that '
+  + 'is a proof, and the falsifying witness is printed beside it.'));
+
+/* the four cases a stranger should meet first. Their files are gated against
+   the shelf below, so a lead card can never point at a report that is not
+   catalogued — and the descriptions are written for someone who is smart and
+   is not a number theorist, which is a different job from the shelf's. */
+const LEAD = [
+  { f: 'erdos852.html', k: 'a refutation · erdős #852',
+    title: 'The constant that was a rounding error',
+    desc: 'A constant for an open Erdős problem, published with frontier-model help, quoted to ' + csPubDigits
+      + ' decimal places, with no error bound. It is wrong from digit ' + csWrongAt + ' — and the wrong digits are exactly '
+      + 'what an ordinary floating-point loop prints. The constant was not near-right with unlucky endings. It was the '
+      + 'bug, published. The corrected value is certified here and the correction is now public in the problem’s own thread.',
+    n: 'refuted at digit ' + csWrongAt + ' · correction certified and public' },
+  { f: 'ai-claims-audit.html', k: 'six theorems · re-verified',
+    title: 'We checked the AI’s homework',
+    desc: 'Six mathematical results produced with frontier-model help — among them a counterexample to a bound of '
+      + 'Maxwell’s and an Erdős problem open since 1958 — re-verified here from the manuscripts, by code that never ran '
+      + 'a line of the authors’. ' + aiClaims.confirmed + ' held, ' + aiClaims.partial + ' came back partial, '
+      + (aiClaims.refuted === 0 ? 'none was refuted' : aiClaims.refuted + ' were refuted')
+      + '. The finding is not the tally: in all ' + aiClaims.lanes + ', the part a machine '
+      + 'can check held, and the part that carries the theorem stayed out of reach.',
+    n: aiClaims.checks + ' checks · ' + aiClaims.mutations + ' deliberate forgeries, every one rejected' },
+  { f: 'keller.html', k: 'objects · not in any paper',
+    title: 'Three counterexamples nobody has published',
+    desc: 'A conjecture standing since 1939 was refuted in July 2026. This machine re-decided the published '
+      + 'counterexamples in exact fractions, then threw the published answers away and found the collisions again '
+      + 'blind. Along the way it generated ' + kellerNew + ' counterexamples of its own, on the same mechanism, that no '
+      + 'paper carries.',
+    n: kellerN + ' certificates · ' + kellerNew + ' generated here' },
+  { f: 'tensor-rank-bounds.html', k: 'a null result, published anyway',
+    title: 'We tried to break a new result and could not',
+    desc: 'A lower bound on a fifty-year-old problem moved in March 2026, in a preprint whose proof is a '
+      + 'machine-checkable file on a two-star repository. We rebuilt the check independently, with an instrument built '
+      + 'to be able to contradict it. It did not. That is worth publishing: an audit that could only ever agree is not '
+      + 'an audit.',
+    n: 'the first independent check of the new bound' }
+];
+{
+  const shelved = new Set(REPORTS.map((r) => r.f));
+  for (const l of LEAD) if (!shelved.has(l.f)) fail('the landing leads with ' + l.f + ', which is not on the shelf — that link would 404');
+}
+B.push(C.section({
+  lab: 'start here', title: 'Four cases, in plain words', wide: true,
+  bodyRaw: C.cards(LEAD.map((l) => ({ href: 'reports/' + l.f, k: l.k, title: l.title, desc: l.desc, n: l.n })))
+}));
+
+B.push(C.section({
+  lab: 'one of them, in full', title: 'How a floating-point bug became a published constant',
+  bodyRaw: [
+    C.p('Erdős problem #852 has a constant attached to it. In 2026 a value for that constant appeared, produced with '
+      + 'frontier-model help and quoted to ' + csPubDigits + ' decimal places. This machine enclosed the same constant in '
+      + 'exact arithmetic. The two agree for a while and then they do not.'),
+    C.code(csDigitBlock),
+    C.p('The interesting part is which wrong digits. The obvious way to compute this constant is a loop: take a few '
+      + 'million prime numbers, turn each into a factor slightly larger than one, and multiply them together in ordinary '
+      + 'floating point. Past a certain size those factors are so close to one that rounding makes them exactly one, and '
+      + 'they stop contributing anything at all. The running product goes still. Going still is what convergence looks '
+      + 'like, so the loop appears to have settled, and it prints.'),
+    C.pull('<b>The published constant is what that loop prints, digit for digit.</b> It was not approximately right with '
+      + 'unlucky endings. It was the bug.'),
+    C.p('That is why one wrong constant is worth a whole page. Every ordinary defence fails against this. Rerunning it '
+      + 'reproduces the same wrong digits, because two independent floating-point implementations agree with each other '
+      + 'rather than with the truth. Spending more compute changes nothing, because the loop is already ignoring almost '
+      + 'every factor you would be adding. Checking the digits against a reference value fails whenever the reference '
+      + 'came out of the same kind of pipeline — which is how a bad number gets into an answer key and stays there.'),
+    C.p('What settles it is arithmetic that never rounds. The refutation here is a strict inequality between two whole '
+      + 'numbers, with a denominator millions of digits long and no approximation anywhere in it. The corrected value is '
+      + 'trapped between two exact fractions that agree for ' + csSettled + ' decimal places, so the true constant cannot '
+      + 'be anywhere near the published one.'),
+    C.pRaw('The correction has been public in the problem’s own thread on erdosproblems.com since '
+      + C.esc(longDate(e852Public.date)) + '. <a href="reports/erdos852.html">The full audit →</a> — the refutation as '
+      + 'integers, the certified correction, and a catalogue of the other ways a mathematical answer key goes wrong '
+      + 'without anyone noticing.')
+  ].join('\n')
+}));
+
+/* ---- the reports -------------------------------------------------------- */
+/* the head of the RANKING minus the four already led with, so the shelf never
+   shows a stranger the same card twice */
+const shelfHead = REPORTS.filter((r) => !LEAD.some((l) => l.f === r.f)).slice(0, 6);
+B.push(C.section({
+  lab: 'the shelf', title: 'Everything else it has decided', wide: true,
+  bodyRaw: '<div id="reports"></div>'
+    + reportCards(shelfHead, 'reports/')
+    + '<div class="col after-fig">'
+    + C.pRaw('<a href="reports/">All ' + REPORTS.length + ' reports →</a> — the AI-verification shelf, the Erdős '
+      + 'problems, the applied fronts in aerospace and energy, and the classical ground the instruments were proven '
+      + 'on first. Every number on every page is recomputed from the certificates and records at build time, and a '
+      + 'build that drifts refuses to ship.')
+    + '</div>'
+}));
+
+B.push(C.section({
+  lab: 'why you can trust this', title: 'One rule, and what it costs',
+  bodyRaw: [
+    C.p('Everything here rests on a single rule, and most of the engineering is the cost of keeping it.'),
+    C.plainList([
+      { b: 'A fast check may only rule things out.', text: 'Floating-point screens run first and discard candidates by '
+        + 'the million. They are never allowed to let one through. Nothing reaches a verdict without exact arithmetic '
+        + 'behind it, so a rounding error can cost time and can never cost truth.' },
+      { b: 'Both verdicts are theorems.', text: 'CERTIFIED means the statement was re-derived from whole numbers. '
+        + 'REFUTED means a falsifying witness exists, and it is printed. Neither one is a confidence level.' },
+      { b: 'An instrument that cannot decide says so.', text: 'REFUSED is a real verdict here and it gets used. A '
+        + 'number that cannot be proved does not get published as though it were.' },
+      { b: 'Every battery carries forgeries that must fail.', text: 'Fake inputs are planted in each run, including one '
+        + 'wrong by a billionth — invisible to any floating-point check. If a forgery ever passes, the run aborts before '
+        + 'it grades anything real. Every genuine bug this project has found was caught that way; none by reading code.' }
+    ])
+  ].join('\n')
+}));
+
 /* ---- the machine, drawn ------------------------------------------------- */
 /* IDENTICAL to the control page's drawing (operator ruling): the battery
    count comes from batteries.json, the record the control build measured
@@ -418,10 +522,35 @@ const gates = (() => {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
 })();
 B.push(C.section({
-  lab: 'the machine', title: 'How a conjecture becomes a certificate', wide: true,
+  lab: 'the machine', title: 'How a claim becomes a certificate', wide: true,
   bodyRaw: machineFlow(ledger, { gates })
     + '<div class="col after-fig">' + C.pRaw('The <a href="machine/">control page</a> is this drawing, live: every family, '
       + 'every battery executed at its build (never remembered), the full ledger decomposition, drift status.') + '</div>'
+}));
+
+/* ---- the tally ----------------------------------------------------------
+   the stat strip, which used to open the page. It is evidence of scale, not
+   a reason to care, so it sits after the reason. */
+B.push(C.section({
+  lab: 'the tally', title: 'What it has decided so far', wide: true,
+  bodyRaw: C.stats([
+    { k: 'published claims decided', v: '1 refuted · 1 corrected', role: 'warn',
+      n: 'a constant on Erdős #852, wrong from digit ' + csWrongAt + ' · one printed Ramanujan Machine row, a transcription '
+        + 'slip — both replacements certified' },
+    { k: 'AI-claimed theorems re-verified', v: fmt(aiClaims.lanes),
+      n: aiClaims.confirmed + ' held, ' + aiClaims.partial + ' partial, ' + (aiClaims.refuted === 0 ? 'none refuted' : aiClaims.refuted + ' refuted') + ' — checked from the '
+        + 'manuscripts, never from the authors’ code' },
+    { k: 'AI-discovered algorithms re-decided', v: fmt(strassenN), role: 'held',
+      n: 'at every build, from commit-pinned bytes — AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; '
+        + 'AlphaTensor’s rank-47 verified over F2 and refuted over Q' },
+    { k: 'model proposals graded', v: fmt(evalReal.length),
+      n: evalCert + ' certified, each an exact theorem · ' + (evalRefuted === 0 ? 'none subtly wrong — nothing false has ever been graded correct' : evalRefuted + ' subtly wrong') },
+    { k: 'closed forms disproved', v: fmt(T.closedFormRefuted + T.closedFormRefutedExact), role: 'held',
+      n: 'each one an exact proof, out of ' + fmt(T.closedFormTested) + ' tested — and zero discoveries claimed' },
+    { k: 'Hénon points, counted exactly', v: 'EXACTLY ' + fmt(census16.points), role: 'held',
+      n: 'period 16, with a proof that there are no others anywhere in the plane — ' + fmt(census16.boxes)
+        + ' boxes exhausted. The classical case the instruments were calibrated on before they were pointed at anything new.' }
+  ])
 }));
 
 /* ---- the app ------------------------------------------------------------ */
@@ -430,37 +559,44 @@ const skyRefly = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps/skyaudit/data/
 const skyBeta = skySummary.bySpecRule['beta-alia|faa-sfar-vfr'];
 const skyFleet = skyRefly.keys['beta-alia|faa-sfar-vfr'].fleetMin;
 B.push(C.section({
-  lab: 'the app', title: 'SkyAudit — one real day over New York, every flight decided',
+  lab: 'the same instrument, pointed at the world', title: 'SkyAudit — one real day over New York, every flight decided',
   bodyRaw: [
-    C.p('The audit as an experience: a Flightradar24-style replay of a real, hash-pinned day of New York '
-      + 'helicopter traffic (' + skySummary.uniqueAircraft + ' aircraft, ' + skySummary.flights + ' flights) — '
-      + 'except every trail is colored by a VERDICT, not telemetry. Each flight is re-flown on paper by an '
-      + 'eVTOL under a published energy-reserve rule, and decided by interval arithmetic: mathematically '
-      + 'certified enclosures with exact-rational falsifying corners, never Monte Carlo.'),
-    C.p('The day\'s findings: Beta ALIA certifiably covers ' + skyBeta.CERTIFIED + ' of the '
-      + skySummary.flights + ' flights under the FAA 20-minute rule and needs EXACTLY ' + skyFleet
-      + ' aircraft to re-fly them (proved by pigeonhole below, by a verified schedule above); Joby, Archer '
-      + 'and Eve publish too little to certify a single fleet. The optimizer prices the levers — battery '
-      + 'floors, charge times, the reserve rule itself — with a proof on both sides of every threshold.'),
-    C.pRaw('<a href="apps/skyaudit/">Open SkyAudit →</a> — the replay, the certificate panel, the fleet '
-      + 'frontier and the what-if sliders, live. Every number gate-checked at build; data © adsb.lol (ODbL). '
-      + 'Also live: <a href="apps/skyaudit/sp/">the São Paulo pack</a> — the world\'s busiest urban helicopter '
-      + 'market, decided under Brazil\'s own reserve rule (ANAC RBAC 91.151(b), pinned).')
+    C.p('A real, hash-pinned day of New York helicopter traffic — ' + skySummary.uniqueAircraft + ' aircraft, '
+      + skySummary.flights + ' flights — replayed on a map. Every trail is coloured by a verdict rather than by '
+      + 'telemetry: each flight is re-flown on paper by an electric aircraft, using that manufacturer’s own published '
+      + 'numbers, under the FAA’s energy-reserve rule, and decided.'),
+    C.p('Beta’s ALIA can certifiably cover ' + skyBeta.CERTIFIED + ' of the ' + skySummary.flights + ' flights and '
+      + 'needs exactly ' + skyFleet + ' aircraft to do it — the lower half proved by pigeonhole, the upper half by an '
+      + 'actual schedule. Joby, Archer and Eve publish too little to certify a single fleet, and the app says NEEDS DATA '
+      + 'rather than guessing, with the exact number that would flip it printed beside the verdict.'),
+    C.pRaw('<a href="apps/skyaudit/">Open SkyAudit →</a> — the replay, the certificate panel, the fleet frontier and the '
+      + 'what-if sliders, live. Data © adsb.lol (ODbL). Also live: <a href="apps/skyaudit/sp/">the São Paulo pack</a> '
+      + '— the world’s busiest urban helicopter market, decided under Brazil’s own reserve rule.')
   ].join('')
 }));
 
-/* ---- the reports -------------------------------------------------------- */
 B.push(C.section({
-  lab: 'the reports', title: 'Research notes that re-prove themselves', wide: true,
-  bodyRaw: '<div id="reports"></div>'
-    /* the head of the RANKING, not of one lane — the shelf's order is the
-       ranking and lanes are a /reports/ concern */
-    + reportCards(REPORTS.slice(0, 6), 'reports/')
-    + '<div class="col after-fig">'
-    + C.pRaw('<a href="reports/">All ' + REPORTS.length + ' reports →</a> — including the classical-ground shelf '
-      + 'the instruments were proven on. Every number on every page is recomputed from the certificates and '
-      + 'records at build time, and a build that drifts refuses to ship.')
-    + '</div>'
+  lab: 'for people building evals', title: 'A grader that cannot be fooled',
+  bodyRaw: [
+    C.p('The instrument that audits a published claim also grades a model’s output, and that is turning out to be the '
+      + 'more useful job. A model proposes an exact object; the grader re-derives it from whole numbers and answers '
+      + 'CERTIFIED or REFUTED. There is no judge model, no rubric, and no stored answer key — so there is nothing to '
+      + 'leak into a training set and nothing to game. The gap between \u201cgraded correct\u201d and \u201cis correct\u201d that a policy '
+      + 'would learn to exploit does not exist, because the grade is the proof.'),
+    C.p('That is measured, not asserted. Every campaign opens with deliberate forgeries — including one wrong by a '
+      + 'billionth, invisible to any floating-point check — and if a single forgery grades as correct the run aborts '
+      + 'before it touches real work. Across every real-model campaign so far, ' + fmt(evalReal.length) + ' proposals, '
+      + (evalRefuted === 0
+        ? 'nothing false has ever been graded correct and no certified row has ever turned out to be wrong.'
+        : evalRefuted + ' well-formed proposals were refuted exactly and none of them certified.')),
+    C.p('The honest limit: this works for claims that come down to finitely many exact arithmetic facts — exhibit a '
+      + 'witness, verify an identity, bound a quantity. It does not work for mathematics at large, and nothing here '
+      + 'pretends otherwise. Inside that boundary the same grader can sit unchanged inside a training loop, with the '
+      + 'verifier strictly stronger than the thing it is grading.'),
+    C.pRaw('<a href="oracle/">The oracle, packaged →</a> — one curl, no dependencies, running on your laptop in under a '
+      + 'minute: the claim schema, the tool definition a model calls mid-generation, the paste box, the paper draft, '
+      + 'the ledgers.')
+  ].join('\n')
 }));
 
 B.push(C.section({
@@ -497,19 +633,15 @@ B.push(C.section({
 }));
 
 B.push(C.section({
-  lab: 'the discipline', title: 'Why believe any of it',
+  lab: 'the limits', title: 'What this is not',
   bodyRaw: [
-    C.p('One load-bearing invariant: nothing floating-point can ever admit a claim. Screens only prune; every admission '
-      + 'passes exact arithmetic (BigInt rationals, directed dyadic rounding, Sturm chains); an instrument that cannot '
-      + 'decide REFUSES rather than guesses; every exhaustion carries a conservation identity that throws rather than '
-      + 'return a record with a hole in it.'),
-    C.p('Every battery carries red controls — forged inputs that must FAIL — and every instrument is calibrated against '
-      + 'a case with a known answer before it runs on anything new. Every real bug this project has found was caught by '
-      + 'a control, a calibration, or an impossible number; none by reading code.'),
-    C.p('The trust base, honestly: V8 BigInt and IEEE-754 correct rounding; a handful of named external theorems consumed '
-      + 'and cross-checked, not machine-proved; one machine, one operator. This meets the working standard of the '
-      + 'computer-assisted-proof tradition — Tucker\'s Lorenz, Galias\'s Hénon censuses, whose published counts the census '
-      + 'here reproduces independently — one rung below the formal-proof standard.')
+    C.p('This is one machine and one operator. The trust base is stated rather than hidden: V8’s big-integer '
+      + 'arithmetic and IEEE-754 correct rounding are assumed correct, and a handful of named external theorems are '
+      + 'consumed and cross-checked rather than machine-proved. Nothing here is a formal proof in the sense of Lean or '
+      + 'Coq, and no page claims to be.'),
+    C.p('What it does meet is the working standard of the computer-assisted-proof tradition — Tucker on the Lorenz '
+      + 'attractor, Galias on the Hénon censuses, whose published counts this machine reproduces independently. That '
+      + 'is one rung below a formal proof and several rungs above a decimal that looked convincing.')
   ].join('\n')
 }));
 
