@@ -1,0 +1,25 @@
+DATA LICENCES — apps/glide-band/data
+====================================
+The code in this repository is MIT. The data under this directory is NOT,
+and each source keeps its own terms. Both extracts here are DERIVED records;
+their sources are recorded by URL and sha256 in PINS.json and are re-fetchable.
+
+airports.json
+  Derived from the OurAirports airports.csv dump
+  (https://davidmegginson.github.io/ourairports-data/airports.csv).
+  OurAirports releases its data into the PUBLIC DOMAIN. No restriction.
+  Filtered here to the corridor bounding box of the pinned flight, with
+  heliports, seaplane bases, balloonports and closed fields removed, and to
+  the fields used by the instrument (ident, name, lat, lon, elevation, type,
+  scheduled_service, municipality, region).
+
+flight.json
+  Derived from one ADS-B day ingested by apps/skyaudit from adsb.lol.
+  Data (c) adsb.lol, released under the Open Database License (ODbL).
+  Under ODbL: attribution is required, the database stays under ODbL, and
+  any public use of a derived database must offer it under the same terms.
+  The extract here is one aircraft's trace, thinned for display, and it
+  carries the same terms as the source. Attribution appears on the built
+  page and in apps/skyaudit's own notices.
+
+Nothing under this directory may be relicensed by being copied out of it.

@@ -1,0 +1,28 @@
+{
+ "what": "sources for apps/glide-band, hash-pinned",
+ "files": {
+  "airports.csv": {
+   "sha256": "e56b20ecaa187ef954f3cce670a5559147ad071ff962915fdd72fb885f826da4",
+   "bytes": 12713591,
+   "url": "https://davidmegginson.github.io/ourairports-data/airports.csv",
+   "fetched": "2026-08-31",
+   "licence": "public domain (OurAirports)",
+   "note": "raw csv not vendored; airports.json is the filtered extract, re-derivable from this sha256"
+  },
+  "nyc.full.jsonl": {
+   "sha256": null,
+   "from": "apps/skyaudit/data/day-2026-08-26/PINS.json",
+   "note": "the flight trace is READ from the skyaudit day, which carries its own adsb.lol pin"
+  }
+ },
+ "derived": {
+  "flight.json": {
+   "sha256": "5bca0088c1d4e00c7c8ece2362e221bae4b507d746378e97b62484fd51a55099",
+   "bytes": 131716
+  },
+  "airports.json": {
+   "sha256": "5cf70e90638fe289f5db906c16d3105ba56bfd8313ce35a8996644358f0eee1b",
+   "bytes": 225127
+  }
+ }
+}

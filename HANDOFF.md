@@ -87,6 +87,68 @@ and consulting sin-mfg is what killed it. Read that lab FIRST next time.)
   reduction at m > 5. Honest framing there is "certified where nothing
   certified exists", never "progress on Chowla".
 
+SESSION 2026-08-31e — THE GLIDE BAND IS BUILT. reports/glide-band.html
+
+  Operator: "Build #2 ... report + interactive dashboard ... BOLD on the
+  comparison." Built on SkyAudit's implementation map: app dir with a battery
+  as the page's gate, sha256-pinned data, every number computed at build.
+
+  WHAT IT IS. Engine-out reach on a REAL pinned flight — N412JS, a PC-12
+  single-engine turboprop at FL240, adsb.lol 2026-08-26, read through
+  apps/skyaudit's own day pin — against 650 airfields from OurAirports
+  (public domain, pinned). Interval arithmetic over the glide model gives an
+  inner boundary (reachable for EVERY value in the envelope), an outer
+  boundary (reachable for NONE), and the annulus between. 288 states: 36
+  cruise positions x 4 wind presets x 2 forecast modes, all decided at build.
+  Interactive: scrub the trajectory, switch wind, toggle the forecast mode.
+
+  THE HEADLINE IS NOT THE ONE THE SCOUT EXPECTED, AND IT IS BETTER.
+  The comparison is not "their ring is too big". It is that while the panel's
+  assumed inputs sit inside the honest envelope, its line ALWAYS falls between
+  the two certified boundaries — so nothing inside it can ever be proved
+  unreachable. The single line cannot be caught being wrong, and is never
+  shown to be right either: 57% of what it claims is undecided by the evidence
+  it was drawn from. An instrument that cannot fail a test is not passing one.
+  The build GATES this: a mode-0 refutation would refuse the page.
+  Reverse the winds-aloft forecast — a documented failure of the input the
+  ring leans on hardest — and 1356 site-states inside that same line become
+  provably unreachable. The line did not get less accurate; it became
+  FALSIFIABLE, and was falsified.
+
+  TWO NEAR-MISSES WORTH REMEMBERING.
+   · The first battery had a red control that fired VACUOUSLY — an
+     assert.ok(false) at the end guaranteed it regardless of the loop above.
+     That is sin-mfg's vacuous-green failure reproduced from scratch. It is
+     now a real mutant that grades against the nominal ring.
+   · The first route to refutations was going to raise a "book glide ratio"
+     until crosses appeared. That is tuning a number until the story works.
+     The honest case — a reversed winds-aloft forecast — needed no tuning.
+
+  A CORRECTION TO SESSION d, and it runs against me: I wrote in targets.json
+  and in a commit that SkyAudit ingests NO ADS-B. IT DOES, DAILY.
+  apps/skyaudit/audit/ingest-day.js downloads an adsb.lol day, pins it,
+  extracts, certifies and re-flies; eight pinned days are on disk. I had read
+  only SOURCES-PINS.json (the regulatory PDFs) and concluded there was no
+  feed. "Zero new data" HOLDS for the ADS-B track board. The second half of
+  that row stands and is the half that matters: the traces are self-reported
+  position/alt/gs/track with no pseudoranges, so GNSS-solution infeasibility
+  is still undecidable from them and kinematic infeasibility is still the
+  honest scope. Row corrected.
+
+  HYPOTHESES, STATED ON THE PAGE RATHER THAN BURIED. H1 terrain is not
+  modelled — and the asymmetry is load-bearing: REFUTED is unaffected and
+  stays proved, PROVED REACHABLE means "if the path is unobstructed". H2
+  steady state. H3 spherical earth enclosed pole-to-equator. H4 the envelope
+  is a STATED scenario — no manufacturer performance figure is asserted
+  anywhere, and nothing claims what any particular product computes
+  internally; what is compared is the point-estimate METHOD.
+
+  WORDING: "certified" always means a mathematically certified enclosure, no
+  airworthiness meaning; the artifact carries NOT FOR NAVIGATION on its face.
+
+  NEXT ON THIS FRONT: terrain (H1) over a pinned DEM — same arithmetic, and it
+  can only ever cost green claims, never add them.
+
 SESSION 2026-08-31d — THE READING SESSION. NOTHING BUILT, FOUR THINGS SETTLED.
 
   The instruction was to read, not to build, and nothing was built: no
