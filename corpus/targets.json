@@ -1,0 +1,87 @@
+{
+  "what": "Targets considered, and what became of them. This is MEMORY, not a gate: nothing here refuses anything. It exists because five separate targets died in one session on 2026-08-31, each after hours of work, and every one of them would have died in minutes if the prior art had been read first — and because that intelligence otherwise lives only in commit messages and is lost by the next session.",
+  "howToUse": "Before committing time to a target, look for it here. If it is listed DEAD, read why and do not re-derive it. If it is not listed, scout it and add a row — including when the answer is OPEN, because a scouted-and-open target is worth more than an unscouted one.",
+  "verdicts": {
+    "OPEN": "scouted, nobody owns it, worth work",
+    "OCCUPIED": "someone has done it; beating them is a race, not a gap",
+    "DEAD": "closed, refuted, or conjecturally impossible",
+    "UNSCOUTED": "named but never checked — treat every claim about it as unverified"
+  },
+  "targets": [
+    {
+      "id": "matmul-poly-full-f2",
+      "name": "Polynomial multiplication over F2, FULL product P_n",
+      "verdict": "OCCUPIED",
+      "scouted": "2026-08-31",
+      "killedBy": "Chen & Kauers, arXiv:2502.06264 (Feb 2025) — adapted the Kauers-Moosbauer flip-graph software to polynomial multiplication and published a 10x10 table over Z2. Their squares land exactly ON the Montgomery/CRT bounds: P2=3, P3=6, P4=9, P5=13, P6=17, P7=22, P8=26.",
+      "note": "Their table is a good CALIBRATION LADDER for any flip-graph walk. Use it that way; do not attack the family.",
+      "cost": "~4 hours before the paper was found"
+    },
+    {
+      "id": "matmul-poly-trunc-cyclic-f2",
+      "name": "Polynomial multiplication over F2, TRUNCATED and CYCLIC products",
+      "verdict": "OPEN but low-yield",
+      "scouted": "2026-08-31",
+      "finding": "Chen & Kauers do NOT touch these — the words cyclic/truncated/negacyclic do not appear in their paper. But Wang (arXiv:2603.07280) improved T9 from 27 to 26 himself, by flip-graph search over F2, in a FOOTNOTE. So modern search has touched exactly one case, and it won.",
+      "measured": "Our free walk reproduced published upper bounds exactly at C7 (13, which is optimal), T6 (14) and T7 (18), then landed 1 above at T8 (23 vs 22) and T9 (27 vs 26) and 3 above at C8 (25 vs 22). Laptop-bound, not algorithm-bound.",
+      "note": "Over F2 the negacyclic product IS the cyclic one (X^n+1 = X^n-1 in characteristic 2). The untested lever is a better SEED: fold a full-product scheme down to the cyclic target, same rank, free, instead of starting at naive rank n^2."
+    },
+    {
+      "id": "matmul-3x3-addition-count",
+      "name": "Additive complexity of rank-23 3x3 matrix multiplication",
+      "verdict": "OCCUPIED — an active sprint",
+      "scouted": "2026-08-31",
+      "killedBy": "The record moved SEVEN times in under a year: 98 (Laderman 1976), 62, 61, 60 (arXiv:2508.03857), 59 (arXiv:2601.05272), 58 (arXiv:2512.21980), 56 (arXiv:2604.27645), 55 (arXiv:2607.28676, Jul 2026). Three of those in 2026.",
+      "note": "Also a representation mismatch: our generation front is F2-only and these are integer schemes over {-1,0,1}. As an AUDIT target it was excellent — the 55 verified here and held. instruments/slp is the reusable part.",
+      "cost": "the search was abandoned at the gate; the audit took ~1 hour and produced a page"
+    },
+    {
+      "id": "chowla-cosine-small-c",
+      "name": "Chowla's cosine problem — constructing sets with small c",
+      "verdict": "DEAD",
+      "scouted": "2026-08-31",
+      "killedBy": "TWO independent reasons. (1) sin-mfg's own chowla-cosine probe carries a literature gate dated 2026-08-20, confidence 9/10, ruling explicit small-c sets OCCUPIED by Mercer (INTEGERS 19 (2019) #A4) and Bedert (arXiv:2509.05260); that lab had already reached c <= 0.6460 at n=20 while our run reached only 0.778. (2) Chowla CONJECTURED K(n) ~ sqrt(n), i.e. c bounded below — so the FrontierMath ask is to refute Chowla's conjecture, and Epoch's own page says 'there is also a risk that Chowla's conjecture is true, in which case the problem is not solvable'.",
+      "measured": "Our certified c rises with n: 0.6558 (n=10), 0.7073 (15), 0.7781 (20), 0.7733 (25), 0.8205 (30) — parked near the folklore constant 1/sqrt(2), a factor ~15 from the 1/20 landmark, trending the wrong way. Data consistent with the conjecture.",
+      "note": "THE LESSON: the killing gate was already on disk in sin-mfg. Read that lab BEFORE building, not after. The one live sub-lane is the VERIFIER, not the mathematics — Epoch's sampling check can be fooled (demonstrated: A = 40320*{1..24}, max(A) under their 1e6 ceiling, true c = 1.189981, a 1000-point grid reports 0.2041).",
+      "cost": "~3 hours, and the answer was local the whole time"
+    },
+    {
+      "id": "erdos290-delta-lower-half",
+      "name": "Prove delta(f_d) >= 1/2 for large even d",
+      "verdict": "DEAD — the claim is false",
+      "scouted": "2026-08-31",
+      "killedBy": "delta(f_d) approaches 1 - e^(-1/2) = 0.3934693..., and the density pinned at d = 62 is 0.393469340287. A floor at 1/2 is contradicted by data this project computed itself.",
+      "note": "Proposed out loud by this project before being checked against its own records. Any proposed bound on delta must be compared against the 283 pinned densities in certs/erdos290-tail-ext.json first."
+    },
+    {
+      "id": "erdos290-family-arguments",
+      "name": "Close a residue class of degrees rather than bounding all of them",
+      "verdict": "OPEN but nearly worthless",
+      "scouted": "2026-08-31",
+      "measured": "A class of density 1/m removes almost exactly 1/m of the bracket width: 49.8% for one degree in two, 33.2% for one in three, 24.9% for one in four. It buys a digit only when the class is nearly everything.",
+      "note": "Ranked as a promising middle path before it was measured. It is linear where the problem needs exponential."
+    },
+    {
+      "id": "erdos290-delta-window",
+      "name": "Bound delta(f_d) to a window around 1 - e^(-1/2) for all large even d",
+      "verdict": "OPEN — the live target",
+      "scouted": "2026-08-31",
+      "why": "The #290 bracket's width is the unpinned tail and nothing else, so a two-sided window of width 0.2 — delta in [0.293, 0.493] — buys the fourth unconditional digit of c_0. Brute force needs the horizon at ~3100 instead of 310: ten times the degrees at ~10^4 times the cost each, on the order of 10^5 times the compute.",
+      "structure": "delta = 1 - E[(1/2)^fix(sigma)] over the image of Gal(f_d) in S_l, because the roots pair as +/-r and an element fixes a root only when it fixes a coordinate AND signs it plus. So the value is forced by how LARGE that image is — it is one group-theoretic question, not a per-degree grind.",
+      "unscouted": "What is known unconditionally about Gal(f_d) and its image in S_l for large d, including whether f_d is even known to be irreducible. THIS HAS NOT BEEN CHECKED. Do it before attempting anything.",
+      "worth": "c_0 is the constant in van Doorn's b(a) > a + 0.54*log(a) (arXiv:2411.03073). A fourth digit is a sharper constant in a published theorem — not an ornament."
+    },
+    {
+      "id": "erdos290-4k-k-plus-1-theorem",
+      "name": "disc(f_d) is a perfect square exactly at d = 4k(k+1)",
+      "verdict": "UNSCOUTED",
+      "note": "Proved and re-proved at every build here, in a few lines from the Altmann-Awtrey-Cryan-Shannon-Touchette 2020 composition law. Because it follows quickly from a published law, someone may well have written it down. Scout before calling it ours."
+    },
+    {
+      "id": "generation-paid-proposer",
+      "name": "Does a model proposer beat the free flip walk?",
+      "verdict": "OPEN — never run",
+      "note": "SPEC-GENERATION.md says a paid proposer must beat the free baseline before it earns its invoice. The baseline is now nailed down: flip@v1 reaches Laderman's 23 on <3,3,3> over F2 at $0.0000. The paid side has never been run. Cheap, and it settles whether models add anything to this machine."
+    }
+  ]
+}

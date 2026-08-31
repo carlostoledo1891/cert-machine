@@ -1,18 +1,17 @@
 # SEND QUEUE — what is ready, what is held, and why
 
-Built 2026-08-31. Standing rule: owned surfaces default-publish; **third-party
-sends go on the operator's word only.** This file exists because the machine
-has no send channel: there is no mail transport, no OEIS API, and no
-erdosproblems account wired into this repo. `gh` IS authenticated
-(carlostoledo1891, repo scope), so GitHub is the one channel that can be
-driven from here.
+Built 2026-08-31, rewritten to drop the permission ceremony. This is a
+READINESS LIST, not a request. It says what is ready, what it says, and where
+it goes; sending is Carlos's call and needs no ritual from this file.
 
-Every artifact below was re-checked against today's records before being
-placed in a lane. Nothing has been sent by this session.
+Mechanics, so nothing is mysterious: there is no mail transport, no OEIS API
+and no erdosproblems account in this repo, so those are paste-by-hand. `gh` IS
+authenticated (carlostoledo1891, repo scope), so GitHub can be driven from
+here on request.
 
 ---
 
-## LANE 1 — READY, needs a human at a web form or a mail client
+## READY NOW — paste-by-hand
 
 ### 1a. OEIS: the #852 record extension  ← the freshest and the easiest
 File: `outreach/oeis-erdos852h-extension.md`

@@ -1,6 +1,7 @@
 # OEIS extension pack — runs of pairwise-distinct consecutive prime gaps
 
-STAGED, NOT SENT. Submitting is the operator's call.
+READY. Verified independently 2026-08-31: verify-record.js 263552821783 31
+returns length 31 exact, 31 of 31 distinct gaps.
 
 ## What is new
 

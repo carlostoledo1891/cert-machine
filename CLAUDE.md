@@ -118,6 +118,18 @@ Copies come out through `LIFT.json`, which records each source path and its sha2
   decided NEVER share a color or a typography — the moment a reader
   cannot tell which is which, the audit posture is gone.
 
+## Target memory (added 2026-08-31)
+
+`corpus/targets.json` records every target scouted and what became of it;
+`node tools/targets.js [word]` reads it. It is MEMORY, not a gate — it refuses
+nothing and is wired into no build. It exists because five targets died in one
+session, each after hours, and every one would have died in minutes if the
+prior art had been read first. **Scout before building, and write the row —
+including when the verdict is OPEN, because a scouted-and-open target is worth
+more than an unscouted one.** sin-mfg's own probe notes count as prior art and
+are the first place to look; one of the five was already killed there, on disk,
+the whole time.
+
 ## The backlog
 
 The task menu lives at the TOP of `HANDOFF.md` (**TASKS BACKLOG**) and is kept current at

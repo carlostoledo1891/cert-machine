@@ -113,8 +113,8 @@ take an afternoon and is what I would most like from this thread.
 
 A pure delta on the 2026-08-04 comment above, which IS already posted. It
 does not re-introduce the problem or restate the method; it says only what
-changed. Post as a new comment on teorth/erdosproblems#164 — `gh` is
-authenticated and can do it on the operator's word.
+changed. Post as a new comment on teorth/erdosproblems#164. The paste-only body is
+in outreach/issue164-PASTE.md. `gh` can post it if you would rather not paste.
 
 ---
 
