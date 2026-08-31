@@ -247,13 +247,37 @@ The report page is not a leaderboard of wins. It is:
 The controller is worthless without a target where certification is cheap and
 the claim is existential. In priority order:
 
-1. **Polynomial-multiplication tensors over F₂/F₃** — 18 published lower
-   bounds with gaps of 3 to 10; upper bounds are still 1980s CRT hand
-   constructions; flip-graph search has never been pointed at them although
-   its authors name them as applicable and publish the code. F₂ arithmetic
-   makes the certifier nearly free, and `instruments/strassen` already decides
-   tensor decompositions exactly. Every hit is a new upper bound; a hit below
-   a published lower bound refutes a 2026 paper. Two-sided, cannot lose.
+1. **Polynomial-multiplication tensors over F₂** — 18 published lower bounds
+   (Wang, arXiv:2603.07280) with gaps of 3 to 10; the upper bounds they are
+   measured against are still 1980s CRT hand constructions (Wagh–Morgera,
+   Morgera, Winograd) and Cenk–Özbudak 2009. F₂ arithmetic makes the
+   certifier nearly free. Every hit is a new upper bound; a hit below a
+   published lower bound refutes a 2026 paper.
+
+   **CORRECTED 2026-08-30, by the prior-art gate this list asks for.** This
+   item used to read "flip-graph search has never been pointed at them". That
+   is false, and the paper that falsifies it is one this spec should have
+   found: Chen & Kauers, *Flip Graphs for Polynomial Multiplication*
+   (arXiv:2502.06264, February 2025) adapted the Kauers–Moosbauer software to
+   the polynomial case and published a 10×10 table of ranks over ℤ₂. So:
+
+   - **The FULL product P_n over F₂ is taken.** Their squares are 3, 6, 9,
+     13, 17, 22, 26 for P₂..P₈ — landing exactly ON the Montgomery/CRT bounds
+     Wang cites, never below them. Attacking it would be redoing their run.
+   - **The CYCLIC, TRUNCATED and NEGACYCLIC products are untouched.** Those
+     words do not appear in their paper at all; it is the full product and
+     Hensel lifting, and its own conclusion names ℤ₃/ℤ₅/ℤ₇ as not done.
+
+   The correction narrows the target and pays for itself twice: their table
+   is also a **calibration ladder**, a set of published ranks reached by the
+   same method, so a walk that cannot match them is a walk whose numbers on
+   the open families mean nothing. That ladder is now the gate in
+   `instruments/bilinear/battery.js`.
+
+   And it says something worth keeping about how this list is written: an
+   item whose appeal rests on "nobody has tried X" is an item resting on a
+   negative that was never checked. Check it first — the target that survives
+   is smaller, but it is real.
 2. **3×3 rank-23 addition count** — incumbent 55, whose authors explicitly
    disclaim global optimality; the two-level search over schemes × circuits
    has never been run.

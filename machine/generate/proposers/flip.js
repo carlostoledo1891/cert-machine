@@ -16,6 +16,11 @@
    SCREENS by rank; the instrument CERTIFIES. That is the engine's existing
    split, and it is what makes a walk of millions of steps affordable.
 
+   The walk never asks what the target MEANS. It is handed a seed scheme and
+   moves that preserve whatever tensor that scheme sums to, so pointing it at
+   a polynomial product instead of a matrix product costs nothing here — the
+   target arrives in `ctx` and is passed straight through.
+
    MIT. Part of cert-machine. */
 'use strict';
 
@@ -29,22 +34,27 @@ function rng(seed) {
 }
 
 /**
- * walk({n,m,p, seed, steps, start, plateauLimit})
+ * walk({target, seed, steps, start, plateauLimit})
  *   -> { best, bestRank, found: [{scheme, rank, atStep}], steps, restarts }
  *
  * `found` holds one entry per NEW record rank, in the order reached — each
  * is a proposal the controller will hand to the certifier.
  */
 function walk(opts) {
-  const { n, m, p } = opts;
+  const target = opts.target;
   const steps = opts.steps || 200000;
-  const plateauLimit = opts.plateauLimit || 8000;
+  const plateauLimit = opts.plateauLimit || 1200;
+  /* how far above the best rank the walk is allowed to climb before it gives
+     up and restarts. Zero disables the plus transition entirely, which is how
+     the "does it still stall?" calibration is run. */
+  const slack = opts.slack === undefined ? 2 : opts.slack;
   const rand = rng(opts.seed === undefined ? 1 : opts.seed);
+  const wid = F.widths(target);
 
-  let cur = F.reduce(opts.start ? opts.start.map(t => t.slice()) : F.naive(n, m, p));
+  let cur = F.reduce(opts.start ? opts.start.map(t => t.slice()) : F.naive(target));
   let best = cur.map(t => t.slice()), bestRank = cur.length;
   const found = [];
-  let sincePlateau = 0, restarts = 0, step = 0;
+  let sincePlateau = 0, restarts = 0, pluses = 0, step = 0;
 
   for (; step < steps; step++) {
     const sites = F.flipSites(cur);
@@ -66,27 +76,44 @@ function walk(opts) {
       }
     }
 
-    /* a walk that has stopped finding anything is restarted from the best
-       scheme so far — the standard escape, and it is what makes long runs
-       productive rather than drifting */
+    /* A WALK THAT HAS STOPPED FINDING ANYTHING HAS TWO WAYS OUT, and taking
+       only the second one is what made this walk stall above the published
+       ranks from P5 upward:
+         CLIMB    spend a unit of rank on a plus transition and keep going,
+                  while still within `slack` of the best — the escape that
+                  makes the low-rank regions reachable at all;
+         RESTART  fall back to the best scheme once the climb budget is used
+                  up, so a run cannot wander off and never come back. */
     if (++sincePlateau > plateauLimit) {
-      cur = best.map(t => t.slice());
       sincePlateau = 0;
+      if (slack > 0 && cur.length < bestRank + slack) {
+        const i = Math.floor(rand() * cur.length);
+        const pos = Math.floor(rand() * 3);
+        /* the new factor is drawn over the whole coordinate space. Drawing it
+           instead from inside the support of the factor being split — keeping
+           both halves local — was tried and measured: identical ranks on T7
+           and T8 at equal budget, so the simpler draw stays and the option
+           did not earn a config flag. */
+        const mask = Math.floor(rand() * (1 << wid[pos]));
+        const climbed = F.split(cur, i, pos, mask);
+        if (climbed !== cur) { cur = climbed; pluses++; continue; }
+      }
+      cur = best.map(t => t.slice());
       restarts++;
     }
   }
 
-  return { best, bestRank, found, steps: step, restarts };
+  return { best, bestRank, found, steps: step, restarts, pluses };
 }
 
 /* the proposer interface the controller calls (SPEC-GENERATION.md §2) */
 async function propose(ctx) {
-  const { n, m, p } = ctx.target.dims;
+  const target = ctx.target.tensor;
   const seed = ctx.seed === undefined ? 1 : ctx.seed;
   const start = ctx.best && ctx.best.length ? ctx.best[0].scheme : null;
-  const r = walk({ n, m, p, seed, steps: ctx.budget.steps || 200000, start });
+  const r = walk({ target, seed, steps: ctx.budget.steps || 200000, start });
   return r.found.map(f => ({
-    obj: { scheme: f.scheme, n, m, p },
+    obj: { scheme: f.scheme, target },
     claim: [1, 2],            /* half of what it reports should certify */
     rationale: 'flip-graph walk, seed ' + seed + ', new record rank at step ' + f.atStep,
     proposer: 'flip@v1'

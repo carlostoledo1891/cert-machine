@@ -18,6 +18,106 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
+SESSION 2026-08-30c — THE POLYNOMIAL FRONT: RUN, CALIBRATED, PUBLISHED, CLOSED
+(operator: "point the generation loop at the polynomial-multiplication tensors";
+then "finish the tasks related, update the report and stop this front".)
+
+  STATE: **DONE AND CLOSED.** reports/polynomial-multiplication.html is live,
+  certs/bilinear-certificate.json holds 9 certified schemes, make test is
+  37 PASS. Do not reopen without a new idea — the budget lever is exhausted
+  at this scale (see WHAT WOULD ACTUALLY MOVE IT, below).
+
+  THE RESULT IS A NULL, AND THE CALIBRATION IS WHY IT IS WORTH A PAGE.
+  Nine targets certified, ZERO published upper bounds beaten:
+
+      C7   naive 49 -> 13   published 13..13   MATCH  (the EXACT rank)
+      T6   naive 21 -> 14   published 13..14   MATCH
+      T7   naive 28 -> 18   published 16..18   MATCH
+      T8   naive 36 -> 23   published 19..22   above by 1
+      T9   naive 45 -> 27   published 21..26   above by 1
+      C8   naive 64 -> 25   published 19..22   above by 3
+      P2/P3/P4 -> 3/6/9     Chen-Kauers Z2 table, exact agreement
+
+  Three published hand constructions (Wagh-Morgera 1983, Cenk-Ozbudak 2009)
+  re-derived from the naive algorithm by a random walk that was told nothing
+  about them, at $0.0000 in ~20 minutes of one nice-10 laptop core while the
+  #290 summit had the other six. C7 is the sharp one: its walls MEET at 13,
+  so reaching 13 is reaching the true minimum, not an estimate.
+
+  THE PRIOR-ART GATE PAID FOR ITSELF TWICE — and the task premise was wrong.
+  The brief said "nobody has pointed modern search at these". False, twice:
+   1. CHEN & KAUERS, arXiv:2502.06264 (Feb 2025) already ran a flip graph
+      over Z2 on the FULL product and published a 10x10 table. Their squares
+      (P6=17, P7=22, P8=26) land exactly ON the Montgomery/CRT bounds, never
+      below. The full product is TAKEN; attacking it was redoing their run.
+      Their table is now our CALIBRATION LADDER instead.
+   2. WANG HIMSELF, in a footnote to the very table of new lower bounds,
+      improved T9 from 27 to 26 BY FLIP-GRAPH SEARCH OVER F2. So the one
+      truncated case modern search has touched, it beat — which is the honest
+      reason to have expected the others to move, and they did not for us.
+  SPEC-GENERATION.md §7 item 1 has been corrected in place. The lesson is
+  written there: an item whose appeal rests on "nobody has tried X" is resting
+  on a negative nobody checked.
+
+  WHAT WAS BUILT (all reusable, none of it polynomial-specific):
+    machine/generate/targets.js   every bilinear target in ONE module —
+                  matmul <n,m,p>, full P_n, truncated T_n, cyclic C_n, and
+                  C_n^- which over F2 IS C_n (X^n+1 = X^n-1 in char 2; the
+                  module says so rather than inventing a separate search).
+    f2scheme.js   generalised from matmul to any target. Nothing in the
+                  residual, the flips or the reduces was ever about matrices.
+    proposers/flip.js  gained the PLUS TRANSITION, the rank-increasing move.
+                  This was not a guess — see below.
+    instruments/bilinear/  the new certifier: exact over F2 for ANY target,
+                  and it REBUILDS the tensor from the target's NAME by literal
+                  polynomial arithmetic. It never takes the claimant's word
+                  for which tensor is being decomposed, because any scheme
+                  decomposes something. 16 checks, 7 red controls, 4 ladder
+                  rungs. Cross-checked against instruments/strassen on the one
+                  case they share (Strassen's rank 7).
+    tools/run-bilinear-front.js   the campaign runner.
+    tools/build-report-bilinear.js  re-decides all 9 schemes at every build.
+    corpus/bilinear-bounds.json   the literature, with citations. NOT ours.
+
+  THE LADDER CAUGHT THE SEARCH BEING BROKEN, which is the whole argument for
+  having one. Without a rank-increasing move the walk matched the literature
+  at P2..P4 and then quietly sat above it from P5 on — P6 at 21 against the
+  published 17. That looks EXACTLY like success if nobody checks the top of
+  the ladder. Adding the plus transition moved P6 21 -> 18 and P5 14 -> 13.
+  The ladder is now a deterministic gate (fixed seed, fixed budget) in the
+  battery, so a future change that re-breaks the walk refuses the build.
+
+  TWO DEFECTS I CREATED AND FIXED, both of the self-hiding kind:
+   1. THE RECORD AND THE RESTART SEED SHARED ONE VARIABLE. The adaptive
+      restart cleared it, so the certifier could audit the NAIVE algorithm
+      while the run printed the record rank — a VERIFIED stamp on the wrong
+      object. Two variables now, with the reason written at the site.
+   2. TWO CAMPAIGNS, ONE CERTIFICATE FILE, LAST WRITER WINS. Load-once /
+      write-at-end silently deleted the other campaign's rows. Writes now
+      merge against disk per target, so a run that dies halfway still keeps
+      everything it certified.
+
+  MEASURED AND REJECTED: drawing the plus transition's mask from inside the
+  support of the factor being split (keeping both halves local) instead of
+  over the whole space. Identical ranks on T7 and T8 at equal budget, so the
+  option was DELETED rather than left as dead config.
+
+  NOT ATTEMPTED, and the page says so in a computed sentence rather than
+  implying a complete sweep: T10, T11, C10, P6, P7, P8. C10's naive seed has
+  100 terms and the walk is ~O(r^2) per step, so it was the wall.
+
+  WHAT WOULD ACTUALLY MOVE IT (for whoever reopens this):
+   - NOT more budget at this scale. We are 1 above at T8 and T9 after ~10^7
+     steps; Wang's own T9 win used a 192-core c8g.48xlarge. The laptop is the
+     binding constraint, not the algorithm.
+   - The real lever is a BETTER SEED, not a longer walk: fold a full-product
+     scheme down to the cyclic target (c and c+n merge, same rank, free) and
+     start there instead of at naive rank n^2. Untested — it is the one idea
+     that was left on the table when the front was closed.
+   - F3 is completely unbuilt. instruments/bilinear is F2-only and REFUSES a
+     claim over any other ring rather than pretending. Wang's F3 rows
+     (C9/C9-, T8, T9, T10) have gaps of 5 to 10 and nobody has swept them.
+
 SESSION 2026-08-31b — THE GENERATION FRONT IS BUILT AND IT CERTIFIES
 (operator: "Start building. Remember to change the cerimonial and gates to
 accept it. We must have a more maleable system. Go").

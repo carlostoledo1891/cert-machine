@@ -80,6 +80,8 @@ if (lambdaRows < 23 || muRows < 9) fail('mu/lambda tables thinner than recorded 
    different numbers shipped (nine, ten, eleven, for one file of ten entries);
    a count that can drift is a count this builder computes. */
 const strassenAlgos = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'strassen-certificate.json'), 'utf8')).entries;
+const bilinearEntries = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'bilinear-certificate.json'), 'utf8')).entries;
+const bilinearN = bilinearEntries.length;
 if (!Array.isArray(strassenAlgos) || !strassenAlgos.length) fail('the strassen certificate holds no entries');
 const strassenN = strassenAlgos.length;
 const kellerMaps = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'keller-certificate.json'), 'utf8')).entries;
@@ -202,6 +204,10 @@ const REPORTS = [
     title: 'The rank of 3x3 matrix multiplication, audited from both sides',
     desc: 'Laderman multiplied two 3x3 matrices in 23 multiplications in 1976 and nobody has beaten it since. The lower bound moved from 19 to 20 over F2 in March 2026, in a preprint whose proof is a machine-checkable certificate on a two-star repository. Both walls are re-verified here in exact arithmetic, by an instrument built to be able to contradict either.',
     n: 'first independent check of the new bound' },
+  { g: 'erdos', f: 'polynomial-multiplication.html', k: 'generation · polynomial multiplication over F2',
+    title: 'A free search against forty-year-old multiplication bounds',
+    desc: 'The best known ways to multiply polynomials over F2 are still hand constructions from 1983 and 2009, and every lower bound underneath them moved in March 2026. A free flip-graph walk was pointed at the gap and certified exactly. It reproduced three published upper bounds from scratch — including the cyclic convolution C7, where the two walls meet, so that rank is the exact answer — and beat none of them. The calibration is the result, and the prior-art check that narrowed the target is on the page.',
+    n: 'a null result, with the ladder that makes it mean something' },
   { g: 'ai', f: 'ai-claims-audit.html', k: 'audit · six AI-claimed theorems',
     title: 'We checked the AI\'s homework',
     desc: 'Six mathematical results produced with frontier-model help — a counterexample to Maxwell\'s point-charge bound, a new lower bound for the Korenblum constant, an Erdős problem open since 1958 and three more — each re-verified here from the manuscript by verifiers that never ran a line of the authors\' code. ' + aiClaims.confirmed + ' held, ' + aiClaims.partial + ' came back PARTIAL, ' + aiClaims.refuted + ' were refuted; in all ' + aiClaims.lanes + ' the computational fragment certified and the analytic core was out of reach.',
@@ -346,6 +352,7 @@ const CERTS = [
   ['ai-claims-summary.json', 'The six-lane AI-claim audit as the build recorded it: every lane\u2019s verdict, scope, check count and mutation-control count, written by the report builder from a live run of all six verifiers. Not a certificate \u2014 a record of what the verifiers said, so the shelf card and the page cannot quote different numbers.', null],
   ['keller-certificate.json', 'The Jacobian/Hessian counterexample corpus — every polynomial as explicit exact rational monomials; determinants and collisions re-derivable from the file alone.', PY('verify_keller.py')],
   ['strassen-certificate.json', strassenN + ' fast matrix-multiplication algorithms as exact tensor identities over Q and F2 — including AlphaTensor’s rank-47, decided both ways.', PY('verify_strassen.py')],
+  ['bilinear-certificate.json', bilinearN + ' bilinear algorithms for POLYNOMIAL multiplication over F2 — full, truncated and cyclic products — each found by the generation front’s free flip-graph walk and decided by instruments/bilinear, which rebuilds the target tensor from its name rather than trusting the scheme handed to it. Every entry stores its scheme in full, so any reader can re-decide it; the published bounds each one is measured against live in corpus/bilinear-bounds.json and are not results of this repository.', NOVERIFIER('polynomial-multiplication.html')],
   ['mercer-mu5.json', 'The mu(5) ladder, mu(5) ≤ 1 + π/m rung by rung to m = ' + topM + ' — every exceptional tuple closed by one exact rational evaluation.', null],
   ['mu-table.json', 'The Newman min-modulus table: every set in the named boxes exhausted, champions certified, orbits classified, conservation per row.', null],
   ['mu-table-40.json', 'The wider-box extension of the mu table — billions of sets exhausted, the narrow-box crowding artifacts corrected.', null],

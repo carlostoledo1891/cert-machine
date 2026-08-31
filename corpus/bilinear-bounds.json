@@ -1,0 +1,37 @@
+{
+  "what": "Published bilinear-complexity bounds for polynomial multiplication over F2, as they stand in the literature. Every row is transcribed from a named source and is NOT a result of this repository; what this repository computes goes in certs/bilinear-certificate.json and is compared against these.",
+  "convention": "P_n, T_n, C_n multiply two polynomials of n coefficients each (degree n-1). P is the full product (2n-1 coefficients out), T the truncated/short product (the low n coefficients), C the cyclic product modulo X^n - 1. Over F2, X^n + 1 = X^n - 1, so the negacyclic product C_n^- IS C_n and carries no separate row.",
+  "lowerBoundSource": "Chengu Wang, 'Automated Lower Bounds for Bilinear Complexity over Finite Fields', arXiv:2603.07280. The 'previous' column is the best lower bound before that paper, as Wang's Table 1 reports it.",
+  "retrieved": "2026-08-30",
+  "refs": {
+    "12": "M. Cenk and F. Ozbudak, 'Multiplication of polynomials modulo x^n', Theoretical Computer Science 412(29):3451-3462, 2011",
+    "15": "H. Fan and M. A. Hasan, \"Comments on 'Five, six, and seven-term Karatsuba-like formulae'\", IEEE Trans. Computers 56(5):716-717, 2007",
+    "26": "P. L. Montgomery, 'Five, six, and seven-term Karatsuba-like formulae', IEEE Trans. Computers 54(3):362-369, 2005",
+    "27": "S. D. Morgera, 'Multiplicative complexity of bilinear algorithms for cyclic convolution over finite fields', Multidimensional Systems and Signal Processing 1(1):99-111, 1990",
+    "32": "M. D. Wagh and S. D. Morgera, 'A new structured design method for convolutions over finite fields, part I', IEEE Trans. Information Theory 29(4):583-595, 1983",
+    "34": "S. Winograd, 'Some bilinear forms whose multiplicative complexity depends on the field of constants', Mathematical Systems Theory 10(2):169-180, 1977",
+    "CK25": "S. Chen and M. Kauers, 'Flip Graphs for Polynomial Multiplication', arXiv:2502.06264, February 2025 - flip-graph search over Z2 for the FULL product only",
+    "W-fn": "Wang, arXiv:2603.07280, footnote to Table 1: a new upper bound of 26 for multiplication over Z[x]/x^9, obtained by flip-graph search over F2 and lifted to Z"
+  },
+  "rows": [
+    { "target": "P6",  "lower": 16, "lowerPrev": 15, "upper": 17, "upperRef": ["26"],       "upperNote": null },
+    { "target": "P7",  "lower": 19, "lowerPrev": 18, "upper": 22, "upperRef": ["26"],       "upperNote": null },
+    { "target": "P8",  "lower": 21, "lowerPrev": 20, "upper": 26, "upperRef": ["34", "15"], "upperNote": null },
+
+    { "target": "C7",  "lower": 13, "lowerPrev": 12, "upper": 13, "upperRef": ["32"],       "upperNote": "TIGHT: the lower and upper bounds meet, so 13 is the exact rank" },
+    { "target": "C8",  "lower": 19, "lowerPrev": 16, "upper": 22, "upperRef": ["27", "12"], "upperNote": null },
+    { "target": "C10", "lower": 22, "lowerPrev": 19, "upper": 29, "upperRef": ["27"],       "upperNote": null },
+
+    { "target": "T6",  "lower": 13, "lowerPrev": 12, "upper": 14, "upperRef": ["12"],       "upperNote": null },
+    { "target": "T7",  "lower": 16, "lowerPrev": 14, "upper": 18, "upperRef": ["12"],       "upperNote": null },
+    { "target": "T8",  "lower": 19, "lowerPrev": 16, "upper": 22, "upperRef": ["12"],       "upperNote": null },
+    { "target": "T9",  "lower": 21, "lowerPrev": 18, "upper": 26, "upperRef": ["W-fn"],     "upperNote": "Wang's Table 1 cites 27 from [12] and then improves it to 26 himself, in a footnote, BY FLIP-GRAPH SEARCH OVER F2 - the only truncated case modern search has been pointed at. 26 is the number to beat." },
+    { "target": "T10", "lower": 24, "lowerPrev": 20, "upper": 31, "upperRef": ["12"],       "upperNote": null },
+    { "target": "T11", "lower": 27, "lowerPrev": 22, "upper": 36, "upperRef": ["12"],       "upperNote": null }
+  ],
+  "chenKauersFullProduct": {
+    "what": "Chen & Kauers ran the SAME method this repository uses - a flip graph over F2 - on the FULL product, and published a table over Z2. These are their square-case ranks, which this repository uses as a calibration ladder: a walk that cannot reach them is a walk whose numbers elsewhere mean nothing.",
+    "ranks": { "P2": 3, "P3": 6, "P4": 9, "P5": 13, "P6": 17, "P7": 22, "P8": 26 },
+    "note": "Their P6, P7, P8 land exactly ON the Montgomery/Winograd-Fan-Hasan upper bounds above, never below. They do not touch the cyclic, truncated or negacyclic families - those words do not appear in the paper."
+  }
+}

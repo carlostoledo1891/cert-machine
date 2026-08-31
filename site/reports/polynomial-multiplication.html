@@ -2,21 +2,21 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>When the answer key is wrong</title>
-<meta name="description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch, one published claim the same exact instruments confirm, and the eval design that removes the answer key altogether.">
+<title>A free search against forty-year-old multiplication bounds</title>
+<meta name="description" content="The best known ways to multiply polynomials over F2 are hand constructions from the 1980s. Every lower bound under them moved in 2026. A free flip-graph walk, certified exactly, against the gap.">
 <meta name="author" content="Carlos Toledo">
-<link rel="canonical" href="https://carlostoledo.co/reports/answer-key.html">
-<meta property="og:url" content="https://carlostoledo.co/reports/answer-key.html">
-<meta property="og:title" content="When the answer key is wrong">
-<meta property="og:description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch, one published claim the same exact instruments confirm, and the eval design that removes the answer key altogether.">
+<link rel="canonical" href="https://carlostoledo.co/reports/polynomial-multiplication.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/polynomial-multiplication.html">
+<meta property="og:title" content="A free search against forty-year-old multiplication bounds">
+<meta property="og:description" content="The best known ways to multiply polynomials over F2 are hand constructions from the 1980s. Every lower bound under them moved in 2026. A free flip-graph walk, certified exactly, against the gap.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="When the answer key is wrong">
-<meta name="twitter:description" content="Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch, one published claim the same exact instruments confirm, and the eval design that removes the answer key altogether.">
+<meta name="twitter:title" content="A free search against forty-year-old multiplication bounds">
+<meta name="twitter:description" content="The best known ways to multiply polynomials over F2 are hand constructions from the 1980s. Every lower bound under them moved in 2026. A free flip-graph walk, certified exactly, against the gap.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -434,152 +434,66 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · note for evaluation builders · specimens re-proved at every build</div>
-  <h1>When the answer key is wrong</h1>
-  <p class="deck">An evaluation graded against reference values inherits the failure class of whatever computed them — and for mathematical ground truth the computing pipeline is usually floating point, checked by digit agreement. This note holds three certified specimens of answer keys going wrong in ways reruns and digit cross-checks provably cannot catch, one published claim the same instruments CONFIRM — a control, because an audit that only ever refutes is not an audit — and one working design that removes the answer key altogether. Every specimen was re-proved during the build that produced this page.</p>
+  <div class="eyebrow">cert-machine · the generation front · polynomial multiplication over F2</div>
+  <h1>A free search against forty-year-old multiplication bounds</h1>
+  <p class="deck">How many multiplications does it take to multiply two polynomials over F2? For the truncated and cyclic products the best known answers are still hand constructions from the 1980s and 2009, and in March 2026 every lower bound underneath them moved. Modern search has been pointed at exactly one of them, once, in a footnote — and it won. The free search did not beat a single published upper bound. It reproduced 3 of them from scratch at no cost, which is the honest result and is why the calibration below is worth more than the headline would have been.</p>
 </header>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> Three certified ways a mathematical answer key goes wrong: a float artifact published as a constant (correct to a rerun, wrong from digit 12); a published constant agreeing with a wrong closed form for 62 significant digits (digit-matching certifies the impostor); and a printed identity that is false while the computation behind it was right. A model that reproduces any of these grades as correct. And the control that makes those three readable: pointed at the machine-DISCOVERED Lyapunov functions of arXiv:2606.10045, the same exact machinery returns CONFIRMED — the paper held up.</li><li><b>The mechanism.</b> The failure class lives INSIDE the key: rerunning the same float pipeline reproduces the artifact digit for digit, so the standard remedy — recompute and compare digits — CONFIRMS the wrong value. The fix is structural, not more digits: grade witness-exhibiting tasks with exact certificates, so there is no reference value to contaminate.</li><li><b>Check it.</b> every specimen re-proved at this page's build; the working design runs live — <span class="m">python3 tools/llm-harness.py --dry-run --family matmul --n 8</span> from a clone shows the grader refuting its own red controls before it grades anything.</li></ul>
+<ul class="plain"><li><b>The finding.</b> No published upper bound was beaten. The search reproduced <strong>3 published upper bounds from scratch</strong>, including <span class="m">C7</span>, where the published upper and lower bounds meet — so that rank is the exact answer, not an estimate. Total cost: <strong>$0.0000</strong>, in 1331 seconds of one laptop core. The lower bounds it is measured against were computed on 192-core cloud instances at a few dollars each.</li><li><b>The mechanism.</b> A flip-graph random walk proposes; an exact instrument decides. The walk is free — no model, no API call, no tokens — and it is deliberately the honest baseline every paid proposer has to beat. Correctness is never the walk's job: a flip is an identity over F2, so every scheme it reaches decomposes the same tensor by construction, and the walk only ever screens by RANK. The certifier rebuilds the target tensor from the target's NAME, by literal polynomial arithmetic, and never takes the claimant's word for which tensor is being decomposed — any scheme decomposes something.</li><li><b>Check it.</b> <span class="m">node instruments/bilinear/battery.js</span> — 16 checks including 8 red controls and a 4-rung calibration ladder of published ranks the walk must still reach. This page re-decides all 9 stored schemes at every build (2,824 tensor equations); one that stopped closing would refuse it. Reproduce with <span class="m">node tools/run-bilinear-front.js --targets T8,C8</span>.</li></ul>
 </div></div>
-
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">§0 · the two ways to be wrong</div>
-    <h2>Agreeing to many digits is not evidence</h2>
-  </div>
-<div class="col"><p>Both bars are published values, and both are wrong — in opposite directions. One stops being correct just past the reach of a hand-check; the other stays correct far past the reach of any float screen and is still not the thing it claims to be.</p></div><div class="wide"><figure>
-  <div class="figbox">
-  <svg viewBox="0 0 900 162" role="img" aria-label="Two published values on one scale of correct leading digits. The #852 constant is right to 11 digits and wrong from the 12th. A closed form agrees with its constant to 62 digits and is still provably not that constant. A double-precision screen reaches about 17 digits, between the two.">
-    <line x1="232.0" y1="30" x2="232.0" y2="98" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="232.0" y="118.0" text-anchor="middle" class="t-ax">0</text>
-    <line x1="330.8" y1="30" x2="330.8" y2="98" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="330.8" y="118.0" text-anchor="middle" class="t-ax">17</text>
-    <line x1="406.4" y1="30" x2="406.4" y2="98" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="406.4" y="118.0" text-anchor="middle" class="t-ax">30</text>
-    <line x1="493.5" y1="30" x2="493.5" y2="98" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="493.5" y="118.0" text-anchor="middle" class="t-ax">45</text>
-    <line x1="580.7" y1="30" x2="580.7" y2="98" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="580.7" y="118.0" text-anchor="middle" class="t-ax">60</text>
-    <line x1="330.8" y1="27" x2="330.8" y2="101" stroke="var(--c-3)" stroke-width="2"/>
-    <text x="337.8" y="22.0" text-anchor="start" class="t-lab">a double screen stops here</text>
-    <path d="M232 35 h59.932146829810904 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-59.932146829810904 Z" fill="var(--c-1)" data-cm="published constant (#852)" data-cmv="the published C* is the naive double product; it parts from the certified enclosure at digit 12" tabindex="0"/>
-    <text x="222.0" y="51.0" text-anchor="end" class="t-ax">published constant (#852)</text>
-    <text x="303.9" y="51.0" text-anchor="start" class="t-lab">right to 11, wrong from 12</text>
-    <path d="M232 69 h356.34482758620686 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-356.34482758620686 Z" fill="var(--c-1)" data-cm="closed form vs constant" data-cmv="A271880 — agrees to 62 digits and is exactly refuted" tabindex="0"/>
-    <text x="222.0" y="85.0" text-anchor="end" class="t-ax">closed form vs constant</text>
-    <text x="600.3" y="85.0" text-anchor="start" class="t-lab">62 digits, then provably not equal</text>
-    <text x="441.0" y="140.0" text-anchor="middle" class="t-note">leading significant digits that are CORRECT before the key fails</text>
-  </svg>
-  </div>
-  <figcaption>Specimen I fails at digit 12, which is why a rerun that agrees to eleven digits confirms nothing: the rerun reproduces the same bug. Specimen II agrees to 62 digits and is exactly refuted, which is why depth of agreement is not evidence either. The marked line is where a double-precision check runs out of digits — it falls between the two failures, so neither of them can be settled by one. Specimen III is not on this axis at all: there the computation is correct and the PRINT is wrong, and no number of digits would have caught it.</figcaption>
-</figure></div>
-</section>
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">specimen I</div><div class="v warn">wrong at digit 12</div><div class="n">a published constant that IS the naive IEEE-754 product — reproduced live this build, then refuted exactly</div></div>
-    <div class="stat"><div class="k">specimen II</div><div class="v warn">62 digits of agreement</div><div class="n">a published constant vs a closed form it provably is not — re-derived in exact BigInt this build</div></div>
-    <div class="stat"><div class="k">specimen III</div><div class="v warn">true math, false print</div><div class="n">a printed identity refuted while its own computation is certified correct on the same enclosure</div></div>
-    <div class="stat"><div class="k">the control</div><div class="v held">the paper held up</div><div class="n">a machine-discovered Lyapunov function of arXiv:2606.10045 CONFIRMED by exact SOS this build — plus a true statement the same instrument REFUSES to certify</div></div>
-    <div class="stat"><div class="k">the alternative</div><div class="v held">364 rows, no key</div><div class="n">115 certified as theorems; zero false certifications — the answer key does not exist, so it cannot be wrong</div></div>
+    <div class="stat"><div class="k">targets certified</div><div class="v held">9</div><div class="n">each an explicit scheme stored in full in certs/bilinear-certificate.json and re-decided at every build</div></div>
+    <div class="stat"><div class="k">published bounds beaten</div><div class="v open">0</div><div class="n">none — the search matched the literature but did not get under it</div></div>
+    <div class="stat"><div class="k">published bounds reproduced</div><div class="v held">3</div><div class="n">hand constructions from 1983-2009, re-derived from the naive algorithm by a random walk that was told nothing about them</div></div>
+    <div class="stat"><div class="k">exact ranks confirmed</div><div class="v held">1</div><div class="n">targets where the published lower and upper bounds meet, so the walk reaching that rank is reaching the true minimum</div></div>
+    <div class="stat"><div class="k">still above the literature</div><div class="v open">3</div><div class="n">the search did not reach the published bound. Listed, not dropped</div></div>
+    <div class="stat"><div class="k">published targets not attempted</div><div class="v open">6</div><div class="n">P6, P7, P8, C10, T10, T11 — the campaign was stopped, not exhausted</div></div>
+    <div class="stat"><div class="k">cost</div><div class="v held">$0.0000</div><div class="n">1331 s of one core, nice-10, on a laptop that was busy with another campaign at the time</div></div>
   </div>
 </div>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§1 · the class</div>
-    <h2>Reruns confirm the bug</h2>
+    <div class="lab">§1 · the result</div>
+    <h2>Every target, against what is published</h2>
   </div>
-<p>The reference values in mathematical answer keys are computed — by scripts, by CAS calls, by a model run once and trusted. When the pipeline is floating point, its silent failures become the key&#39;s silent failures, and the usual defenses do nothing: a RERUN of the same pipeline reproduces the same artifact bit for bit, and a DIGIT CROSS-CHECK against an independently computed float value agrees, because both pipelines drop the same mass the same way. The failure class lives inside the key, and a model that reproduces the artifact grades as correct — while a model that computes the true value grades as wrong.</p>
-<p>This is not hypothetical. Each section below is a certified specimen from this site&#39;s audits — re-proved, not cited, during this page&#39;s build.</p>
+<div class="wide"><div class="tw"><table><thead><tr><th>target</th><th>what it is</th><th>naive</th><th>published</th><th>ours</th><th>standing</th><th>upper bound is due to</th></tr></thead><tbody><tr><td><span class="m">C7</span></td><td>cyclic product, 7 coefficients each</td><td class="n">49</td><td class="n">13..13</td><td class="n"><strong>13</strong></td><td><span class="tag dep">held</span></td><td>M. D. Wagh and S. D. Morgera, &#39;A new structured design method for convolutions over finite fields 1983</td></tr><tr><td><span class="m">C8</span></td><td>cyclic product, 8 coefficients each</td><td class="n">64</td><td class="n">19..22</td><td class="n"><strong>25</strong></td><td><span class="tag dep">open</span></td><td>S. D. Morgera, &#39;Multiplicative complexity of bilinear algorithms for cyclic convolution over finite fields&#39; 1990; M. Cenk and F. Ozbudak, &#39;Multiplication of polynomials modulo x^n&#39; 2011</td></tr><tr><td><span class="m">P2</span></td><td>full product, 2 coefficients each</td><td class="n">4</td><td class="n">—</td><td class="n"><strong>3</strong></td><td><span class="tag dep">dep</span></td><td>—</td></tr><tr><td><span class="m">P3</span></td><td>full product, 3 coefficients each</td><td class="n">9</td><td class="n">—</td><td class="n"><strong>6</strong></td><td><span class="tag dep">dep</span></td><td>—</td></tr><tr><td><span class="m">P4</span></td><td>full product, 4 coefficients each</td><td class="n">16</td><td class="n">—</td><td class="n"><strong>9</strong></td><td><span class="tag dep">dep</span></td><td>—</td></tr><tr><td><span class="m">T6</span></td><td>truncated product, 6 coefficients each</td><td class="n">21</td><td class="n">13..14</td><td class="n"><strong>14</strong></td><td><span class="tag dep">held</span></td><td>M. Cenk and F. Ozbudak, &#39;Multiplication of polynomials modulo x^n&#39; 2011</td></tr><tr><td><span class="m">T7</span></td><td>truncated product, 7 coefficients each</td><td class="n">28</td><td class="n">16..18</td><td class="n"><strong>18</strong></td><td><span class="tag dep">held</span></td><td>M. Cenk and F. Ozbudak, &#39;Multiplication of polynomials modulo x^n&#39; 2011</td></tr><tr><td><span class="m">T8</span></td><td>truncated product, 8 coefficients each</td><td class="n">36</td><td class="n">19..22</td><td class="n"><strong>23</strong></td><td><span class="tag dep">open</span></td><td>M. Cenk and F. Ozbudak, &#39;Multiplication of polynomials modulo x^n&#39; 2011</td></tr><tr><td><span class="m">T9</span></td><td>truncated product, 9 coefficients each</td><td class="n">45</td><td class="n">21..26</td><td class="n"><strong>27</strong></td><td><span class="tag dep">open</span></td><td>Wang, arXiv:2603.07280, footnote to Table 1: a new upper bound of 26 for multiplication over Z[x]/x^9, obtained by flip-graph search over F2 and lifted to Z</td></tr></tbody></table></div></div><div class="col"><p>The <em>naive</em> column is the definition itself run as an algorithm — one multiplication per non-zero of the target tensor. That is where every walk starts, and it is told nothing else: no construction, no published scheme, no hint. <em>Published</em> is the interval the literature leaves open, lower bound from Wang's 2026 preprint, upper bound from the hand constructions named in the last column.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§2 · specimen I</div>
-    <h2>The constant that was a rounding error</h2>
+    <div class="lab">§2 · why believe the open rows</div>
+    <h2>The ladder that has to hold first</h2>
   </div>
-<p>A GPT-published constant on Erdős #852 — an Euler product over primes — is wrong from its 12th significant digit. The wrong digits are not near the truth by accident: re-run live during this build, the naive double-precision product over 148,932 primes emits 0.0752403861777419 — the published value, digit for digit — because 87.5% of its factors round to exactly 1.0 and silently vanish. The exact partial product, a strict lower bound with no tail estimate needed, already exceeds the printed value: REFUTED, re-decided this build. The published constant is the bug, printed.</p>
-<p>If that number sat in an answer key, every float-faithful model would score correct and every exact model would score wrong. The full mechanism, the certified correction, and the failure taxonomy are in the Erdős #852 report; this is its §6 argument, promoted to a page of its own.</p>
+<div class="col"><p>A search that reports a number on an open problem is worth exactly as much as its behaviour on the problems whose answers are already known. So the instrument's battery carries a ladder of PUBLISHED ranks the free walk has to keep reaching, at a fixed seed and a fixed budget — a deterministic gate, not a coin flip.</p><p>The sharpest rung is <span class="m">C7</span>. Wagh and Morgera gave a rank-13 cyclic convolution over F2 in 1983; Wang proved in 2026 that 13 is also a lower bound. The two walls meet, so 13 is the exact rank — and the walk finds it from the naive rank-49 algorithm, in seconds, having been told nothing.</p><p>The ladder is also what caught this search being broken. Without a rank-INCREASING move the walk matched the literature on the small full products and then quietly sat above it from P5 on — which looks exactly like success if nobody checks the top of the ladder. Adding the plus transition moved P6 from 21 to 18. That is the whole argument for calibrating against published numbers rather than against nothing.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§3 · specimen II</div>
-    <h2>Digit agreement is not evidence</h2>
+    <div class="lab">§3 · what was already done</div>
+    <h2>The prior art, checked before the search was written</h2>
   </div>
-<p>Validating a key by matching digits assumes agreement implies identity. The impostor catalog is the certified counterexample set: 21 published constants that agree with simple closed forms — and are provably not equal to them, each refutation one exact BigInt comparison at the full published precision. The deepest specimen (A271880, re-derived this build) agrees with a plain rational for 62 significant digits before exact arithmetic separates them. Any digit-matched validation shallower than that certifies the impostor; twenty digits — a &quot;discovery&quot; threshold elsewhere — is not close. Agreement depth is evidence about your precision budget, never about identity.</p>
+<div class="wide"><div class="tw"><table><thead><tr><th>who</th><th>what they searched</th><th>what it means for this page</th></tr></thead><tbody><tr><td>Barbulescu, Detrey, Estibals &amp; Zimmermann 2012; Covanov 2017</td><td>exhaustive search for OPTIMAL bilinear formulae</td><td>reaches degree 5 — the short product modulo X⁵ and the circulant modulo X⁵−1. Every target on this page is beyond it.</td></tr><tr><td>Chen &amp; Kauers, arXiv:2502.06264, Feb 2025</td><td>flip graphs for the FULL product over Z₂, a 10×10 table</td><td>the full product is theirs, and their squares land exactly ON the Montgomery bounds, never below. Their table is used here as the calibration ladder, not as a target. The words cyclic, truncated and negacyclic do not appear in their paper.</td></tr><tr><td>Wang, arXiv:2603.07280, Mar 2026</td><td>18 new LOWER bounds; and, in one footnote, a flip-graph search over F2 for T₉</td><td>the lower walls on this page are his. His footnote also improves T₉ from 27 to 26 by exactly this method — so the one truncated case modern search has touched, it beat. That is the reason to expect the others to move.</td></tr></tbody></table></div></div><div class="col"><p>This table is the correction. The task that produced this page was written around the claim that flip-graph search had never been pointed at polynomial multiplication. That is false, and finding out cost half an hour: Chen and Kauers had already done the full product, so attacking it would have been redoing their run. What survived the check is smaller and real — the cyclic and truncated families, which nobody has swept. An item whose appeal rests on "nobody has tried this" is resting on a negative that was never checked.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§4 · specimen III</div>
-    <h2>True computation, false print</h2>
+    <div class="lab">§4 · the certifier</div>
+    <h2>A scheme decomposes something — the question is what</h2>
   </div>
-<p>The subtlest class: the key is wrong even though the computation behind it was right. The Ramanujan Machine&#39;s 2022 mixed-zeta sheet prints an identity that is FALSE as printed — a sign slip in the constant term, one of three typographic errors on the sheet — while the continued fraction its own polynomials define converges to the corrected value exactly: both directions re-certified on one enclosure during this build. No rerun of the discovery pipeline catches this, because the pipeline was never wrong; the print is. A key transcribed from a paper inherits the paper&#39;s typos as ground truth, and a model reproducing the (correct) computation grades as wrong against the (false) print.</p>
+<div class="col"><p>The failure mode for this kind of search is not an arithmetic slip, it is certifying the wrong tensor. Any set of rank-one terms decomposes SOME tensor; a certifier that accepts the target alongside the scheme is checking a tautology. So <span class="m">instruments/bilinear</span> takes only the target's NAME and rebuilds the tensor itself, by literal polynomial arithmetic — an actual convolution, an actual reduction modulo X&#8319;&#8722;1 — never by the index formula the search uses. The two derivations are asserted equal in the battery, entry by entry, for every family and size.</p><p>The red controls are what make that more than a claim. A correct <span class="m">C7</span> scheme audited as <span class="m">T7</span> is REFUTED. Strassen's rank 7, handed over in the other C-index layout, is REFUTED — the target name pins the tensor and the instrument will not shop for a convention that makes a claim pass. And the one case this instrument shares with the older <span class="m">instruments/strassen</span> is put through both, which is worth more than either alone.</p><p>One more refusal is wired in and has never fired: a scheme that certifies BELOW a published lower bound refuses this build outright. It would mean a 2026 theorem is false, and it is far likelier that this repository is wrong — so it is treated as a bug report against us until an independent check says otherwise, rather than as the headline it would be.</p></div>
 </section>
 
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">§5 · the control</div>
-    <h2>What a clean audit looks like</h2>
-  </div>
-<div class="col"><p>Every specimen so far is a key that went wrong, which is exactly the reason this one is here. An instrument that returns REFUTED on everything it is pointed at is not an audit, it is a search — and the taxonomy of answer keys is not complete without the case where the published value is right and the audit says so. This site&#39;s third audit domain supplies it. Alongside tensor decompositions and continued fractions there is an exact rational sum-of-squares certifier, aimed at control theory, and pointed at a 2026 paper&#39;s machine-DISCOVERED Lyapunov functions it returns CONFIRMED. The paper held up. That is the headline, and it is a stronger result for this machine than another refutation would have been.</p>
-<p>arXiv:2606.10045 reports Lyapunov functions found by constrained symbolic regression for the nonlinear system it gives as Eq. 17,</p>
-<div class="eq">x1&#39; = -x1 + 4x2 ,  x2&#39; = -x1 - x2^3</div>
-<p>The instrument re-derives V̇ = ∇V · f symbolically over the rationals — Python's <span class="m">fractions</span> and nothing else, no floating point anywhere in the decision — and then demands an exact sum-of-squares certificate rather than a numerical minimum. For the function the paper states as valid, V = x1² + 4·x2², it gets one:</p>
-<div class="eq">V̇ = −2·x1² − 8·x2⁴   =   −( 2·x1² + 8·(x2²)² )</div>
-<p>The cross term is not small, it is absent: the coefficient 4 is what annihilates it exactly. What is left is a weighted sum of squares whose only zero is the origin, so V decreases along every nonzero trajectory and the system is globally asymptotically stable — decided, not estimated, and re-derived during the build that produced this page. The method is classical (Lyapunov 1892; SOS-Lyapunov, Parrilo 2000) and the function is the paper&#39;s. Nothing here is ours except the re-verification.</p>
-<p>The same run also refutes the 3 under-sampled candidates the paper reports — and the paper flags them itself. Its Eq. 23, V = x1² + 3.97·x2², is stated in the paper as having an incorrect coefficient; the instrument supplies the exact witness that sentence implies. At the rational point <span class="m">x = (3/200000, 1/1000)</span> the derivative is</p>
-<div class="eq">V̇ = 22103/50000000000000  &gt;  0</div>
-<p>— a positive rational, checkable by hand, with no tolerance anywhere in the statement. V increases there, so V is not a Lyapunov function for that system, full stop. The coarser candidates fall the same way: V = x1² + 2·x2² at <span class="m">(1/1000, 1/1000)</span> gives <span class="m">V̇ = 499999/250000000000</span>, and V = x1² + 3·x2² at <span class="m">(1/2000, 1/1000)</span> gives <span class="m">V̇ = 249997/500000000000</span>. This is corroboration of the authors' own statement, not a catch — they wrote down that the coefficient was wrong, and the machine wrote down the number that proves it. What exact arithmetic adds is the distinction the paper is already drawing. The coefficients are not "approximately right" and "nearly right": 4 is exactly right and 3.97 is exactly wrong, and no float screen anywhere in the neighbourhood of a derivative the size of 22103/50000000000000 would tell you which was which.</p>
-<p>The third outcome is the one that makes the other two worth anything. The same certifier, run on the Motzkin polynomial x1⁴·x2² + x1²·x2⁴ − 3·x1²·x2² + 1 — nonnegative for every real x1 and x2, and famously (Motzkin 1967) not a sum of squares — returns REFUSED. It declines to certify a statement that is TRUE, because the certificate it requires provably does not exist for it. It prints the probe M(1,1) = 0 beside the refusal so the refusal reads as what it is: a refusal to certify, never a claim of falsity. That is the honest behaviour and not a bug. A checker that fudged Motzkin through would be certifying by wishful thinking, and its CONFIRMED on the Lyapunov function would then be worth exactly nothing.</p></div>
-<div class="wide"><div class="tw"><table><thead><tr><th>verdict</th><th>object</th><th>the exact reason</th></tr></thead><tbody><tr><td><span class="tag held">CONFIRMED</span></td><td>V = x1² + 4·x2², the paper's stated valid function</td><td>V̇ = −2·x1² − 8·x2⁴ — an exact weighted SOS, zero only at the origin</td></tr><tr><td><span class="tag cert">REFUTED</span></td><td>V = x1² + 3.97·x2², flagged as under-sampled by the paper itself</td><td>witness <span class="m">x = (3/200000, 1/1000)</span> gives V̇ = 22103/50000000000000 > 0</td></tr><tr><td><span class="tag open">REFUSED</span></td><td>the Motzkin polynomial — nonnegative everywhere, and not a sum of squares</td><td>no SOS certificate exists, so none is issued; the instrument declines a true statement rather than guess (probe M(1,1) = 0)</td></tr></tbody></table></div></div><div class="col"><p>Read the three as a set, because separately none of them is the argument. One machine-discovered result confirmed exactly. The paper&#39;s own flagged candidates refuted with rational witnesses. One true statement refused for want of a certificate. Three verdicts, three different reasons, one instrument that can reach all three — which is the only condition under which the first one means anything. For an evaluation builder the transfer is direct: a grader you have never seen decline is not known to be able to decline, and a grader that cannot decline will eventually confirm your answer key back to you.</p>
-<p>This section is its own gate. The three programs ran during this build, each exited 0, and together they reported 19 PASS rows and no failures — including the red controls that must fire (a corrupted certificate refused, an overclaimed bound refuted at <span class="m">x = 1</span>, and an unstable perturbation whose witness gives <span class="m">V̇(1,0) = 2</span> > 0). If any one of them fails or stops printing ALL PASS, this page is not written at all. Run them yourself from a clone — stdlib only, no SDP solver, no dependencies:</p><pre class="code">python3 instruments/sos/reverify_ai_lyapunov.py
-python3 instruments/sos/sos_verify.py
-python3 instruments/sos/lyapunov_cert.py</pre><p>All three are also rows in <span class="m">make test</span>, so they run on every battery, not only when this page is built. The exact global lower bound in the second one — a quartic certified at ≥ 5 by an exact SOS decomposition, the bound attained — is the same instrument doing the ordinary version of the job.</p></div>
-</section>
+<div class="note">
+  <span class="lab">what this page does NOT claim</span>
+<p>Nothing here is new mathematics. The search matched the literature and did not get under it, on the budget it was given, and that is reported as the result rather than buried. These are F2 statements; a scheme over F2 need not lift to Z or to any other field, and no lifting was attempted. The 3 rows are still above the literature, listed rather than dropped. And this is not a complete sweep: <span class="m">P6</span>, <span class="m">P7</span>, <span class="m">P8</span>, <span class="m">C10</span>, <span class="m">T10</span>, <span class="m">T11</span> carry published bounds and were never attempted here — the campaign was stopped, not exhausted. Published, not peer-reviewed, not independently rerun — which is exactly the status this machine exists to stop being true of other people's work, and it applies to ours the same way.</p>
+</div>
 
-<p class="scope">Published, not peer-reviewed, not independently rerun. arXiv:2606.10045 is cited as a CLAIM: its system, its Lyapunov functions and its own statement about the under-sampled coefficients are taken as printed, and every verdict above reads &quot;given those equations&quot;. The mathematics is not ours — the Lyapunov functions are the paper&#39;s, discovered by its method, and the SOS-Lyapunov technique is Parrilo 2000 on Lyapunov 1892. No priority is claimed for anything in this section; it re-verifies someone else&#39;s result exactly and reports that it holds.</p>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§6 · the design</div>
-    <h2>Remove the key</h2>
-  </div>
-<p>The structural fix is to grade tasks where no reference value exists to contaminate: ask the model to EXHIBIT a witness — a decomposition, a certificate, a construction — and let the grader re-derive the claim from the witness alone, exactly. The matmul eval on this site is the running instance: 364 frontier-model proposals graded to date, every certified row a theorem, every refuted row a proof of error, zero false certifications — measured, and structurally guaranteed, because there is no answer key to be wrong.</p>
-<p>Three rules transfer to any evaluation built on computed ground truth. Screens may only PRUNE: no float comparison ever admits a claim. Grade with certificates, not tolerances: the verdict should be checkable by re-derivation, not by proximity to a stored number. And put red controls in the grader: deliberately false submissions that must fail, run before anything real is graded — a grader that has never rejected a forgery is not known to reject forgeries. The methods note states the discipline in full; every gate on this site runs under it.</p>
-</section><script>
-(function(){
-  var tip=null;
-  function show(el){
-    var box=el.closest('.figbox'); if(!box) return;
-    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
-    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
-    tip.style.display='block';
-    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
-    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
-    if(y<4) y=r.bottom+10;
-    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
-    tip.style.top=(y+scrollY)+'px';
-    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
-    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
-  }
-  function hide(el){
-    if(tip) tip.style.display='none';
-    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
-    if(c) c.style.opacity=0;
-  }
-  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
-  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
-  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
-  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
-  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
-})();</script>
-
-<footer class="col"><p>Generated by tools/build-report-answer-key.js @ git 396a236. Every specimen above was re-proved during this build — the naive product re-run and refuted, the impostor depth re-derived in exact BigInt, both RM directions re-certified, the eval ledger re-read, and all three SOS programs run to ALL PASS (19 checks) with §5's numbers parsed from their output — and the build refuses on any deviation.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-bilinear.js @ git 396a236. Gates at this build: the bilinear battery (16 checks, 8 red controls, 4 calibration rungs), and all 9 stored schemes re-decided here from their bitmasks — 2,824 tensor equations over F2. A scheme that stopped closing, or one certifying below a published lower bound, would refuse this page.</p></footer>
 
 </div>
 </html>

@@ -48,6 +48,7 @@ test:
 	@printf "%-30s " "cf audit"; $(NODE) instruments/cf/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "entropy covering"; $(NODE) instruments/entropy/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "strassen audit"; $(NODE) instruments/strassen/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "bilinear certifier"; $(NODE) instruments/bilinear/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "bigfloat layer"; $(NODE) instruments/bigfloat/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -76,6 +77,7 @@ clean:
 
 reports:
 	@$(NODE) tools/build-report-tensorlb.js
+	@$(NODE) tools/build-report-bilinear.js
 	@$(NODE) tools/build-report-impostors.js
 	@$(NODE) tools/build-report-zeta3.js
 	@$(NODE) tools/build-report-entropy.js

@@ -1,11 +1,17 @@
-/* f2scheme.js — matrix-multiplication schemes over F2, as bitmasks.
+/* f2scheme.js — bilinear schemes over F2, as bitmasks.
 
    The generation front needs three things from a representation, and this
    file is the one place that knows all three:
 
      the OBJECT      a rank-r decomposition, as r triples of F2 vectors
      the FITNESS     how far it is from being a decomposition, exactly
-     the MOVES       flips and reductions — the operations a proposer applies
+     the MOVES       flips, splits and reductions — what a proposer applies
+
+   NONE OF THE THREE IS ABOUT MATRICES. A target is a triple of dimensions
+   and a list of the (a,b,c) it sets to 1, and everything below is written
+   against that and nothing else — so the same walk, the same exact residual
+   and the same moves work on matrix multiplication and on polynomial
+   products without a line changing. The targets live in `targets.js`.
 
    Over F2 a vector is a bit pattern, so a term is three integers and the
    whole scheme is 3r integers. The tensor identity is then an exact XOR
@@ -13,8 +19,8 @@
    fast enough that a proposer can be graded thousands of times a second.
 
    THE FITNESS IS THE RESIDUAL. `residual()` returns the exact number of
-   tensor equations the scheme gets wrong. Zero means it IS a matrix
-   multiplication algorithm; anything else is a distance, and it is an
+   tensor equations the scheme gets wrong. Zero means the scheme IS an
+   algorithm for the target; anything else is a distance, and it is an
    integer, not a score. That is the graduated-but-exact signal the whole
    design turns on: a proposer cannot argue with it and cannot game it,
    because it is arithmetic over the object the proposer submitted.
@@ -22,30 +28,16 @@
    MIT. Part of cert-machine. */
 'use strict';
 
-/* ---- the target tensor ---------------------------------------------------
-   <n,m,p>: C[i][k] = sum_j A[i][j] B[j][k]. The coefficient of
-   a_{ij} b_{jk} c_{ki} is 1, everything else 0. Index layout is row-major
-   throughout this file, and the CONVENTION IS STATED rather than assumed:
-     a index = i*m + j      (n*m of them)
-     b index = j*p + k      (m*p of them)
-     c index = k*n + i      (p*n of them)  -- the transposed C layout
-*/
-function dimsOf(n, m, p) { return { na: n * m, nb: m * p, nc: p * n }; }
-
-/** the set of (a,b,c) triples the target tensor sets to 1 */
-function targetTriples(n, m, p) {
-  const out = [];
-  for (let i = 0; i < n; i++) for (let j = 0; j < m; j++) for (let k = 0; k < p; k++) {
-    out.push([i * m + j, j * p + k, k * n + i]);
-  }
-  return out;
-}
+/* ---- the target ----------------------------------------------------------
+   A target is { name, statement, na, nb, nc, triples } — see targets.js,
+   which is the one definition of every family the front attacks. This file
+   only ever asks a target two things: how big it is, and which (a,b,c) it
+   sets to 1. */
 
 /** the target as a Set of packed keys, for O(1) membership */
-function targetSet(n, m, p) {
-  const { nb, nc } = dimsOf(n, m, p);
+function targetSet(target) {
   const s = new Set();
-  for (const [a, b, c] of targetTriples(n, m, p)) s.add((a * nb + b) * nc + c);
+  for (const [a, b, c] of target.triples) s.add((a * target.nb + b) * target.nc + c);
   return s;
 }
 
@@ -54,8 +46,8 @@ function targetSet(n, m, p) {
    equation by equation. The count of disagreements is the distance.
 
    A scheme is a list of [u, v, w] bitmask triples. */
-function residual(scheme, n, m, p) {
-  const { na, nb, nc } = dimsOf(n, m, p);
+function residual(scheme, target) {
+  const { na, nb, nc } = target;
   const acc = new Uint8Array(na * nb * nc);
   for (const [u, v, w] of scheme) {
     for (let a = 0; a < na; a++) {
@@ -67,7 +59,7 @@ function residual(scheme, n, m, p) {
       }
     }
   }
-  const T = targetSet(n, m, p);
+  const T = targetSet(target);
   let bad = 0, first = null;
   for (let a = 0; a < na; a++) for (let b = 0; b < nb; b++) for (let c = 0; c < nc; c++) {
     const idx = (a * nb + b) * nc + c;
@@ -82,7 +74,7 @@ function residual(scheme, n, m, p) {
   return { violations: bad, equations: na * nb * nc, first };
 }
 
-const isDecomposition = (scheme, n, m, p) => residual(scheme, n, m, p).violations === 0;
+const isDecomposition = (scheme, target) => residual(scheme, target).violations === 0;
 
 /* ---- the moves -----------------------------------------------------------
    FLIP. Two terms sharing one factor can be rewritten, keeping the tensor
@@ -101,6 +93,37 @@ const isDecomposition = (scheme, n, m, p) => residual(scheme, n, m, p).violation
      u(x)v(x)w1 + u(x)v(x)w2  =  u(x)v(x)(w1+w2)
 
    and if w1+w2 = 0 the term vanishes entirely and the rank drops by two. */
+
+/** PLUS. The rank-INCREASING move: one term becomes two.
+
+      u(x)v(x)w  =  u(x)v(x)w1 + u(x)v(x)w2      whenever w1 + w2 = w
+
+    over F2, and likewise in the other two positions. It costs a unit of rank
+    and buys nothing directly, which is exactly why it is here: a walk that
+    can only flip and reduce cannot leave a local minimum, and the low-rank
+    regions of the flip graph are not reachable from every starting point
+    without first going UP. (Kauers & Moosbauer's plus transition.) This was
+    not a guess — the walk was measured without it first, and it reproduced
+    the published rank for the full products P2..P4 and then stalled above it
+    from P5 on; the calibration ladder in instruments/bilinear/battery.js is
+    what says whether it is still stalling today.
+
+    `mask` is the new factor at `pos`; the second term takes the complement.
+    Both must be nonzero or the move is not a split, so a caller that hands
+    over 0 or the original factor gets its scheme back unchanged. */
+function split(scheme, i, pos, mask) {
+  const orig = scheme[i][pos];
+  if (mask === 0 || mask === orig) return scheme;
+  const s = scheme.map(t => t.slice());
+  const other = s[i].slice();
+  s[i][pos] = mask;
+  other[pos] = orig ^ mask;
+  s.push(other);
+  return s;
+}
+
+/** the width of each factor position, for a caller drawing a random mask */
+const widths = (target) => [target.na, target.nb, target.nc];
 
 /** every (i, j, position) where terms i and j share the factor at `position` */
 function flipSites(scheme) {
@@ -154,34 +177,40 @@ function reduce(scheme) {
 }
 
 /* ---- seeds ---------------------------------------------------------------- */
-/** the naive rank-nmp algorithm: one product per (i,j,k) */
-function naive(n, m, p) {
-  return targetTriples(n, m, p).map(([a, b, c]) => [1 << a, 1 << b, 1 << c]);
+/** the definition itself, as an algorithm: one product per 1 in the target.
+    Always correct, never fast — the rank every search has to beat. */
+function naive(target) {
+  return target.triples.map(([a, b, c]) => [1 << a, 1 << b, 1 << c]);
 }
 
 /* ---- handing the object to the certifier ----------------------------------
-   instruments/strassen decides integer factor matrices, so a scheme is
-   converted to U/V/W column form. The generation loop screens with
-   residual() and CERTIFIES with the instrument — the same split the engine
-   already uses, screen in fast arithmetic, decide with the authority. */
-function toClaim(scheme, n, m, p, id) {
-  const { na, nb, nc } = dimsOf(n, m, p);
+   A certifier decides U/V/W column form, so a scheme is converted to it. The
+   generation loop screens with residual() and CERTIFIES with an instrument —
+   the same split the engine already uses: screen in fast arithmetic, decide
+   with the authority. `target` names which tensor the claim is against, so
+   the certifier can rebuild it independently rather than take our word.
+
+   For a matrix-multiplication target the extra `dims` field is filled in,
+   because instruments/strassen asks for it by name. */
+function toClaim(scheme, target, id) {
   const col = (size, get) => Array.from({ length: size }, (_, row) =>
     scheme.map(t => (get(t) >> row) & 1));
-  return {
+  const claim = {
     id: id || 'generated',
-    dims: [n, m, p],
+    target: target.name,
     ring: 'F2',
     rank: scheme.length,
-    U: col(na, t => t[0]),
-    V: col(nb, t => t[1]),
-    W: col(nc, t => t[2])
+    U: col(target.na, t => t[0]),
+    V: col(target.nb, t => t[1]),
+    W: col(target.nc, t => t[2])
   };
+  if (/^<\d+,\d+,\d+>$/.test(target.name)) claim.dims = target.name.slice(1, -1).split(',').map(Number);
+  return claim;
 }
 
 const key = (scheme) => scheme.map(t => t.join(':')).sort().join('|');
 
 module.exports = {
-  dimsOf, targetTriples, targetSet, residual, isDecomposition,
-  flipSites, flip, reduce, naive, toClaim, key
+  targetSet, residual, isDecomposition,
+  flipSites, flip, split, widths, reduce, naive, toClaim, key
 };
