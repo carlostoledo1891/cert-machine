@@ -86,6 +86,10 @@ const kellerMaps = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'keller-c
 if (!Array.isArray(kellerMaps) || !kellerMaps.length) fail('the keller certificate holds no entries');
 const kellerN = kellerMaps.length;
 
+const h852 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erdos852-h-records.json'), 'utf8'));
+const h852Max = Math.max.apply(null, h852.records.map((r) => r.len));
+if (!(h852Max > 30)) fail('the #852 record file no longer passes the last published term (A079007 ends at a run of 30)');
+
 const aiClaims = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'ai-claims-summary.json'), 'utf8'));
 if (!aiClaims.lanes || !aiClaims.checks) fail('the ai-claims summary is empty — run make reports first');
 
@@ -205,7 +209,7 @@ const REPORTS = [
   { g: 'erdos', f: 'erdos852-h.html', k: 'erdos · conjecture vs data',
     title: 'A conjecture nobody had checked against the numbers',
     desc: 'Erdős #852 conjectures that the longest run of pairwise-distinct prime gaps grows like c₀·log x. This repository certified c₀ to 61 digits; the exact record data has been in the OEIS since 2002; nobody had compared them. Recomputed here in integer arithmetic and placed against the constant — under the reading the problem statement actually gives, they agree across every decade; under the other reading they do not.',
-    n: 'records recomputed from scratch, checked term for term against A078515' },
+    n: 'reproduces every published term, then passes them \u2014 a run of ' + h852Max + ' pairwise-distinct gaps' },
   { g: 'ai', f: 'claim-maxwell.html', k: 'one of six · at ε = 1/6 only',
     title: 'Maxwell\'s point-charge bound — re-verified',
     desc: 'Five positive point charges in ℝ³ whose potential has at least 24 nondegenerate critical points — exceeding the conjectured bound of 16. Re-verified here from the manuscript: the verifier\'s full check ledger as it printed it at build time, the named falsifiers that prove it can fail, and the boundary the audit did not cross.',
@@ -338,6 +342,7 @@ const INPAGE = (f) => ({ href: 'reports/' + f, label: f, src: path.join(ROOT, 'r
 const NOVERIFIER = (f) => ({ tag: 'battery-gated', href: 'reports/' + f, label: 'the report', src: path.join(ROOT, 'reports', f) });
 const CERTS = [
   ['erdos852-certificate.json', 'Both Erdős #852 constants as exact data: the c0 window re-decidable at 130 digits, the C∗ refutation as strict integer inequalities with no tail bound.', PY('verify_erdos852.py')],
+  ['erdos852-h-records.json', 'Every record run of pairwise-distinct consecutive prime gaps the scan has closed \u2014 index, opening prime and length. The head reproduces OEIS A078515/A079889 term for term; the tail passes them. Each record beyond the published terms is re-proved at build by an independent Miller\u2013Rabin verifier.', null],
   ['ai-claims-summary.json', 'The six-lane AI-claim audit as the build recorded it: every lane\u2019s verdict, scope, check count and mutation-control count, written by the report builder from a live run of all six verifiers. Not a certificate \u2014 a record of what the verifiers said, so the shelf card and the page cannot quote different numbers.', null],
   ['keller-certificate.json', 'The Jacobian/Hessian counterexample corpus — every polynomial as explicit exact rational monomials; determinants and collisions re-derivable from the file alone.', PY('verify_keller.py')],
   ['strassen-certificate.json', strassenN + ' fast matrix-multiplication algorithms as exact tensor identities over Q and F2 — including AlphaTensor’s rank-47, decided both ways.', PY('verify_strassen.py')],

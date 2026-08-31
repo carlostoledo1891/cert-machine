@@ -13,10 +13,61 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-08-30, #852 conjecture-vs-data)
+## TASKS BACKLOG — the standing menu (updated 2026-08-31, #852 record EXTENDED)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+SESSION 2026-08-30f — A FIND. THE #852 RECORD EXTENDED PAST THE PUBLISHED TERMS.
+
+  L2 (the deep run launched in the previous block) reproduced the published
+  state of the art and then passed it:
+
+    len 30  index    7,889,803,997  prime 196,948,778,371   = A079007's LAST term
+    len 31  index   10,435,962,861  prime 263,552,821,783   BEYOND EVERY PUBLISHED TERM
+
+  A079007 held n = 0..30; A078515 and A079889 held 27 terms each, all ending at
+  196,948,778,371. Ours is the 28th index term and A079007(31).
+
+  THE EXHIBIT IS INDEPENDENTLY CERTIFIED. instruments/erdos852h/verify-record.js
+  shares NO line with the scan — deterministic BigInt Miller-Rabin, next-prime
+  by stepping, a Set for distinctness. It re-proves at every build that
+  263552821783 is prime, that the next 31 gaps
+  (76 8 34 36 26 106 38 82 18 54 50 16 62 70 14 48 42 64 6 104 24 12 66 22 30
+  96 2 10 74 4 32) are pairwise distinct, that the run spans
+  263552821783..263552823109, and that the 32nd gap is 4 — already present, so
+  the run is EXACTLY 31 and not longer. The last PUBLISHED term is re-proved
+  the same way as a control: a verifier that cannot confirm what the
+  literature already holds is not evidence.
+
+  TWO CLAIMS, STATED SEPARATELY BECAUSE THEY ARE NOT EQUALLY STRONG:
+    h reaches 31 there  — independently re-proved, does not depend on the scan
+    it is the SMALLEST such index — a statement about every index below it;
+      only the exhaustive scan can speak to it. Evidence for the scan: it
+      reproduced all 27 A078515 indices and all 27 A079889 start primes
+      exactly before extending them. Evidence, not an independent proof.
+  The page says exactly this and never blurs the two.
+
+  WHY THIS ONE WORKED, when the tensor front did not: a lower bound is a
+  universal statement and an audit of one can only ever AGREE. h(x) >= k is
+  EXISTENTIAL — one object settles it, and producing objects is what this
+  machine does. That was the lesson written down when #290's tensor lane
+  returned a null, and it is the lesson that paid here.
+
+  SHIPPED WITH IT: reports/erdos852-h.html §4 "Past the last published term"
+  (the exhibit re-proved at build; a record that fails to re-prove, or that
+  turns out longer than claimed, REFUSES the page) ·
+  certs/erdos852-h-records.json, described in the certificate table ·
+  outreach/oeis-erdos852h-extension.md, the submission pack for A078515 /
+  A079007 / A079889 with the caveat about minimality written into it.
+  The shelf card now reads "reproduces every published term, then passes them".
+
+  THE RUN COMPLETED: exhaustive to 5e11 in 4042 s (67 min), 28 distinct
+  records, structurally clean. No length 32 exists below 5e11, so the finding
+  is not "31 found so far" but "31 is the record up to 5e11" — the stronger
+  statement, and the one the page makes.
+
+  NOT SENT: the OEIS submission itself. Third-party send, operator's word.
 
 SESSION 2026-08-30e — ERDŐS #852: THE CONJECTURE, FINALLY AGAINST THE DATA
 (operator: "how could we push more on erdos852?" then "Go L1" then "Start all 3").

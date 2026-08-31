@@ -22,6 +22,7 @@ const C = require(path.join(ROOT, 'design', 'components.js'));
 const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const H = require(path.join(ROOT, 'instruments', 'erdos852h', 'h.js'));
+const V = require(path.join(ROOT, 'instruments', 'erdos852h', 'verify-record.js'));
 const A = require(path.join(ROOT, 'instruments', 'erdos852h', 'analyse.js'));
 
 const die = (m) => { console.error('852-h REPORT REFUSED: ' + m); process.exit(1); };
@@ -69,6 +70,29 @@ const idxAgree = D.slice(0, n).every((r, i) => r.n === A078515[i]);
 const pAgree = D.slice(0, n).every((r, i) => r.p === A079889[i]);
 if (!idxAgree) die('our record indices disagree with A078515 — that is a FINDING, not a build: stop and write it up');
 if (!pAgree) die('our record start primes disagree with A079889 — stop and write it up');
+
+/* ---- the extension, re-proved from nothing -------------------------------
+   Records beyond the last published term are the only NEW mathematics on this
+   page, so they are re-proved at every build by verify-record.js — BigInt
+   Miller-Rabin and a set, sharing no line with the scan that found them. The
+   scan's claim that a record is the SMALLEST such index cannot be re-proved
+   this way and the page never says it was. */
+const beyond = D.slice(A078515.length);
+const exhibits = beyond.map(r => {
+  let v;
+  try { v = V.verify(String(r.p), r.len); }
+  catch (e) { die('a record beyond the published terms FAILED to re-prove: ' + e.message); }
+  if (!v.exact) die('record at ' + r.p + ' is longer than the claimed ' + r.len + ' — the scan understated it');
+  return Object.assign({}, r, v);
+});
+/* the deepest PUBLISHED term is re-proved too, as a control: if the verifier
+   could not confirm a term the literature already holds, it is not evidence */
+const control = (() => {
+  const last = D[A078515.length - 1];
+  if (!last) return null;
+  try { return Object.assign({}, last, V.verify(String(last.p), last.len)); }
+  catch (e) { die('the verifier could not re-prove the last PUBLISHED record: ' + e.message); }
+})();
 
 const bands = A.bands(R);
 const cons = A.consistency(bands);
@@ -121,6 +145,8 @@ B.push(C.stats([
   { k: 'longest run found', v: String(hMax), role: 'held', n: 'a run of ' + hMax + ' consecutive prime gaps, pairwise distinct — an exhibit anyone can check' },
   { k: 'c₀ inside the band', v: cons.inside + ' of ' + cons.plateaus, role: cons.inside * 2 >= cons.plateaus ? 'held' : 'open', n: 'the honest test: does the certified constant lie between each plateau\'s high and low ratio' },
   { k: 'the other reading', v: '≈ ' + f4(readings[readings.length - 1].rp), role: 'open', n: 'x as a bound on the prime rather than on n — sits well below c₀ and is not closing' },
+  { k: 'beyond the published terms', v: exhibits.length ? '+' + exhibits.length : '0', role: exhibits.length ? 'held' : 'open',
+    n: exhibits.length ? 'record runs longer than anything in A078515 / A079007 / A079889, each re-proved here from nothing' : 'the scan has not yet passed the last published term' },
   { k: 'proved', v: 'nothing', role: 'open', n: '#852 is explicitly not resolvable by a finite computation. This is evidence, and the page says so throughout' },
 ]));
 
@@ -224,6 +250,47 @@ B.push(C.section({
 }));
 
 /* ---- §4 ------------------------------------------------------------------- */
+/* ---- the extension -------------------------------------------------------- */
+if (exhibits.length) {
+  const e = exhibits[exhibits.length - 1];
+  B.push(C.section({
+    lab: '\u00a74 \u00b7 the extension', title: 'Past the last published term',
+    bodyRaw: '<div class="col">'
+      + C.pRaw('The record data stopped where other people\u2019s computations stopped: A079007 ends at a run of '
+        + control.len + ' gaps opening at ' + C.m(String(control.p)) + ', and A078515 and A079889 end at the same '
+        + 'place. Our scan reproduced that term exactly and kept going.')
+      + '</div>'
+      + C.table({
+        cols: [{ h: 'run length', cls: 'n' }, { h: 'opening prime', cls: 'n' }, { h: 'index n', cls: 'n' }, { h: 'status' }],
+        rows: [
+          [String(control.len), String(control.p), String(control.n), 'the last term the literature holds \u2014 re-proved here as a control'],
+          ...exhibits.map(x => [String(x.len), String(x.p), String(x.n), { raw: C.tag('new', 'held') + ' beyond every published term' }])
+        ]
+      })
+      + '<div class="col">'
+      + C.pRaw('<strong>The exhibit, re-proved at this build by a program sharing no line with the scan that found '
+        + 'it.</strong> ' + C.m(String(e.p)) + ' is prime, and the ' + e.len + ' consecutive gaps that follow it are '
+        + 'pairwise distinct:')
+      /* 31 numbers on one line overflow the block on any narrow screen; rows of
+         eight keep the whole run visible without scrolling */
+      + C.code(e.gaps.reduce((a, g, i) => a + (i && i % 8 === 0 ? '\n' : (i ? ' ' : ''))
+          + String(g) + (i < e.gaps.length - 1 ? ',' : ''), ''))
+      + C.pRaw('The run spans the primes ' + C.m(e.spans[0]) + ' to ' + C.m(e.spans[1]) + '. It is exactly '
+        + e.len + ' long and not longer, because the next gap is ' + C.m(String(e.nextGap)) + ', which already '
+        + 'appears in the list. Anyone can check every word of that in a minute, which is the point of an '
+        + 'existence claim.')
+      + '</div>'
+      + C.note({ lab: 'two claims, and they are not equally strong', bodyRaw:
+          C.pRaw('That <strong>h reaches ' + e.len + '</strong> at this prime is re-proved above by an independent '
+            + 'implementation \u2014 BigInt Miller\u2013Rabin and a set \u2014 and does not depend on the scan at '
+            + 'all. That this is the <strong>smallest</strong> index achieving it is a statement about every index '
+            + 'below it, and only the exhaustive scan can speak to that. The scan reproduced all ' + n
+            + ' published terms exactly, which is the best evidence available for it, and it is still evidence '
+            + 'rather than an independent proof. Both are stated separately here for that reason.')
+      })
+  }));
+}
+
 B.push(C.note({
   lab: 'what this page does NOT claim',
   bodyRaw: C.pRaw('We did not prove the asymptotic and we could not have: the #852 page states plainly that the '

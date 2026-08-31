@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>A conjecture nobody had checked against the numbers</title>
-<meta name="description" content="Erdős #852 conjectures h(x) ~ c₀·log x. We certified c₀ to 61 digits; the exact record data has been in the OEIS since 2002; nobody had compared them. Under the reading the problem statement actually gives, they agree across 5 decades.">
+<meta name="description" content="Erdős #852 conjectures h(x) ~ c₀·log x. We certified c₀ to 61 digits; the exact record data has been in the OEIS since 2002; nobody had compared them. Under the reading the problem statement actually gives, they agree across 8 decades.">
 <meta name="author" content="Carlos Toledo">
 <link rel="canonical" href="https://carlostoledo.co/reports/erdos852-h.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/erdos852-h.html">
 <meta property="og:title" content="A conjecture nobody had checked against the numbers">
-<meta property="og:description" content="Erdős #852 conjectures h(x) ~ c₀·log x. We certified c₀ to 61 digits; the exact record data has been in the OEIS since 2002; nobody had compared them. Under the reading the problem statement actually gives, they agree across 5 decades.">
+<meta property="og:description" content="Erdős #852 conjectures h(x) ~ c₀·log x. We certified c₀ to 61 digits; the exact record data has been in the OEIS since 2002; nobody had compared them. Under the reading the problem statement actually gives, they agree across 8 decades.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -16,7 +16,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="A conjecture nobody had checked against the numbers">
-<meta name="twitter:description" content="Erdős #852 conjectures h(x) ~ c₀·log x. We certified c₀ to 61 digits; the exact record data has been in the OEIS since 2002; nobody had compared them. Under the reading the problem statement actually gives, they agree across 5 decades.">
+<meta name="twitter:description" content="Erdős #852 conjectures h(x) ~ c₀·log x. We certified c₀ to 61 digits; the exact record data has been in the OEIS since 2002; nobody had compared them. Under the reading the problem statement actually gives, they agree across 8 decades.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -441,16 +441,17 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> Read as the problem is written — <em>"for some n &lt; x"</em>, where n <strong>indexes</strong> a prime — the certified c₀ lands <strong>inside 9 of 14 plateau bands</strong> of the exact record data, with no drift across 5 decades. Read the other way, with x as a bound on the prime itself, the same data gives a ratio of about 1.1400 and falling away from c₀. <strong>The data picks the reading.</strong> It also bears on Erdős's own question: he asked whether h(x) = o(log x), and the ratio here is flat near c₀, not decaying.</li><li><b>The mechanism.</b> Integers only — no floats anywhere in the computation. A run is a window of gaps with no repeat; a record is the first index whose window beats every earlier one, found by a streaming two-pointer scan. Because h is a step function whose records ARE its jumps, sampling the ratio at records reads only the tops of the steps and flatters it, so every plateau is reported as a <strong>band</strong> — the ratio at the step's start and at its end — and c₀ is asked to lie inside, not to match a corner.</li><li><b>Check it.</b> <span class="m">node instruments/erdos852h/h.js 3e8</span> — recomputed during this build, 2.2 s to 3e+8. Our first 20 record indices and start primes are checked term for term against the sha-pinned bytes of <span class="m">A078515</span> and <span class="m">A079889</span>; a disagreement refuses this page.</li></ul>
+<ul class="plain"><li><b>The finding.</b> Read as the problem is written — <em>"for some n &lt; x"</em>, where n <strong>indexes</strong> a prime — the certified c₀ lands <strong>inside 12 of 22 plateau bands</strong> of the exact record data, with no drift across 8 decades. Read the other way, with x as a bound on the prime itself, the same data gives a ratio of about 1.1450 and falling away from c₀. <strong>The data picks the reading.</strong> It also bears on Erdős's own question: he asked whether h(x) = o(log x), and the ratio here is flat near c₀, not decaying.</li><li><b>The mechanism.</b> Integers only — no floats anywhere in the computation. A run is a window of gaps with no repeat; a record is the first index whose window beats every earlier one, found by a streaming two-pointer scan. Because h is a step function whose records ARE its jumps, sampling the ratio at records reads only the tops of the steps and flatters it, so every plateau is reported as a <strong>band</strong> — the ratio at the step's start and at its end — and c₀ is asked to lie inside, not to match a corner.</li><li><b>Check it.</b> <span class="m">node instruments/erdos852h/h.js 3e8</span> — the deep run in certs/erdos852-h-records.json, 4042.2 s to 5e+11. Our first 27 record indices and start primes are checked term for term against the sha-pinned bytes of <span class="m">A078515</span> and <span class="m">A079889</span>; a disagreement refuses this page.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">records recomputed here</div><div class="v held">20</div><div class="n">independent of OEIS — a streaming integer scan, written from the problem statement</div></div>
-    <div class="stat"><div class="k">agreement with OEIS</div><div class="v held">20 / 20</div><div class="n">A078515 indices and A079889 start primes, term for term, against sha-pinned bytes</div></div>
-    <div class="stat"><div class="k">longest run found</div><div class="v held">22</div><div class="n">a run of 22 consecutive prime gaps, pairwise distinct — an exhibit anyone can check</div></div>
-    <div class="stat"><div class="k">c₀ inside the band</div><div class="v held">9 of 14</div><div class="n">the honest test: does the certified constant lie between each plateau&#39;s high and low ratio</div></div>
-    <div class="stat"><div class="k">the other reading</div><div class="v open">≈ 1.1400</div><div class="n">x as a bound on the prime rather than on n — sits well below c₀ and is not closing</div></div>
+    <div class="stat"><div class="k">records recomputed here</div><div class="v held">28</div><div class="n">independent of OEIS — a streaming integer scan, written from the problem statement</div></div>
+    <div class="stat"><div class="k">agreement with OEIS</div><div class="v held">27 / 27</div><div class="n">A078515 indices and A079889 start primes, term for term, against sha-pinned bytes</div></div>
+    <div class="stat"><div class="k">longest run found</div><div class="v held">31</div><div class="n">a run of 31 consecutive prime gaps, pairwise distinct — an exhibit anyone can check</div></div>
+    <div class="stat"><div class="k">c₀ inside the band</div><div class="v held">12 of 22</div><div class="n">the honest test: does the certified constant lie between each plateau&#39;s high and low ratio</div></div>
+    <div class="stat"><div class="k">the other reading</div><div class="v open">≈ 1.1450</div><div class="n">x as a bound on the prime rather than on n — sits well below c₀ and is not closing</div></div>
+    <div class="stat"><div class="k">beyond the published terms</div><div class="v held">+1</div><div class="n">record runs longer than anything in A078515 / A079007 / A079889, each re-proved here from nothing</div></div>
     <div class="stat"><div class="k">proved</div><div class="v open">nothing</div><div class="n">#852 is explicitly not resolvable by a finite computation. This is evidence, and the page says so throughout</div></div>
   </div>
 </div>
@@ -460,7 +461,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="lab">§1 · the two halves</div>
     <h2>A constant with no data, and data with no constant</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>half</th><th>where it lived</th><th>what it says</th></tr></thead><tbody><tr><td>the constant</td><td>the #852 discussion thread, published 2026-04-24</td><td>h(x) ~ c₀·log x, with c₀ the unique positive root of I₀(c) = 1. Certified here to 61 digits: c₀ = 1.32322827686394946902…</td></tr><tr><td>the data</td><td>OEIS A053597 / A078515 / A079007 / A079889, since 2002</td><td>the exact record runs — every index at which a longer pairwise-distinct run of gaps begins, and the prime that opens it</td></tr><tr><td>the crossing</td><td>nowhere</td><td>the problem page lists the sequences in its OEIS box and the thread states the constant; neither does anything with the other</td></tr></tbody></table></div></div><div class="col"><p>That gap is the whole opportunity, and it needed no new mathematics to close — only the willingness to compute one side and look at the other. We recomputed the records from scratch rather than reading them out of the OEIS, so the comparison has two independent witnesses to the same integers: a sequence from 2002 and a scan written this week from the problem statement. They agree on all 20 terms we can both reach.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>half</th><th>where it lived</th><th>what it says</th></tr></thead><tbody><tr><td>the constant</td><td>the #852 discussion thread, published 2026-04-24</td><td>h(x) ~ c₀·log x, with c₀ the unique positive root of I₀(c) = 1. Certified here to 61 digits: c₀ = 1.32322827686394946902…</td></tr><tr><td>the data</td><td>OEIS A053597 / A078515 / A079007 / A079889, since 2002</td><td>the exact record runs — every index at which a longer pairwise-distinct run of gaps begins, and the prime that opens it</td></tr><tr><td>the crossing</td><td>nowhere</td><td>the problem page lists the sequences in its OEIS box and the thread states the constant; neither does anything with the other</td></tr></tbody></table></div></div><div class="col"><p>That gap is the whole opportunity, and it needed no new mathematics to close — only the willingness to compute one side and look at the other. We recomputed the records from scratch rather than reading them out of the OEIS, so the comparison has two independent witnesses to the same integers: a sequence from 2002 and a scan written this week from the problem statement. They agree on all 27 terms we can both reach.</p></div>
 </section>
 
 <section class="col">
@@ -488,36 +489,48 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <text x="57.0" y="38.4" text-anchor="end" class="t-ax">1.5</text>
     <line x1="66.0" y1="247" x2="66.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="66.0" y="267.0" text-anchor="middle" class="t-ax">10⁴</text>
-    <line x1="269.0" y1="247" x2="269.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="269.0" y="267.0" text-anchor="middle" class="t-ax">10⁵</text>
-    <line x1="472.0" y1="247" x2="472.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="472.0" y="267.0" text-anchor="middle" class="t-ax">10⁶</text>
-    <line x1="675.0" y1="247" x2="675.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="675.0" y="267.0" text-anchor="middle" class="t-ax">10⁷</text>
+    <line x1="182.0" y1="247" x2="182.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="182.0" y="267.0" text-anchor="middle" class="t-ax">10⁵</text>
+    <line x1="298.0" y1="247" x2="298.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="298.0" y="267.0" text-anchor="middle" class="t-ax">10⁶</text>
+    <line x1="414.0" y1="247" x2="414.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="414.0" y="267.0" text-anchor="middle" class="t-ax">10⁷</text>
+    <line x1="530.0" y1="247" x2="530.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="530.0" y="267.0" text-anchor="middle" class="t-ax">10⁸</text>
+    <line x1="646.0" y1="247" x2="646.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="646.0" y="267.0" text-anchor="middle" class="t-ax">10⁹</text>
+    <line x1="762.0" y1="247" x2="762.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="762.0" y="267.0" text-anchor="middle" class="t-ax">10¹⁰</text>
     <line x1="878.0" y1="247" x2="878.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="878.0" y="267.0" text-anchor="middle" class="t-ax">10⁸</text>
+    <text x="878.0" y="267.0" text-anchor="middle" class="t-ax">10¹¹</text>
     <line x1="66" y1="247" x2="878" y2="247" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="472.0" y="289.0" text-anchor="middle" class="t-note">x  (the bound in the problem statement)</text>
     <text x="13" y="132.5" class="t-note" transform="rotate(-90 13 132.5)" text-anchor="middle">h(x) / log x</text>
     <line class="cm-cross" x1="0" y1="18" x2="0" y2="247" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
-    <path d="M66.00 63.32 L269.00 98.84 L472.00 98.84 L675.00 98.84 L878.00 134.36" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="878.00" cy="134.36" r="4.5" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2"/>
+    <path d="M66.00 63.32 L182.00 98.84 L298.00 98.84 L414.00 98.84 L530.00 81.08 L646.00 114.63 L762.00 98.84 L878.00 124.67" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="124.67" r="4.5" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2"/>
     <circle cx="66.00" cy="63.32" r="12" fill="transparent" data-cmx="66.00" data-cm="index reading · 4" data-cmv="1.41" tabindex="0"/>
-    <circle cx="269.00" cy="98.84" r="12" fill="transparent" data-cmx="269.00" data-cm="index reading · 5" data-cmv="1.30" tabindex="0"/>
-    <circle cx="472.00" cy="98.84" r="12" fill="transparent" data-cmx="472.00" data-cm="index reading · 6" data-cmv="1.30" tabindex="0"/>
-    <circle cx="675.00" cy="98.84" r="12" fill="transparent" data-cmx="675.00" data-cm="index reading · 7" data-cmv="1.30" tabindex="0"/>
-    <circle cx="878.00" cy="134.36" r="12" fill="transparent" data-cmx="878.00" data-cm="index reading · 8" data-cmv="1.19" tabindex="0"/>
-    <path d="M66.00 205.40 L269.00 155.67 L472.00 169.88 L675.00 180.03 L878.00 152.12" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="878.00" cy="152.12" r="4.5" fill="var(--c-2)" stroke="var(--surface)" stroke-width="2"/>
+    <circle cx="182.00" cy="98.84" r="12" fill="transparent" data-cmx="182.00" data-cm="index reading · 5" data-cmv="1.30" tabindex="0"/>
+    <circle cx="298.00" cy="98.84" r="12" fill="transparent" data-cmx="298.00" data-cm="index reading · 6" data-cmv="1.30" tabindex="0"/>
+    <circle cx="414.00" cy="98.84" r="12" fill="transparent" data-cmx="414.00" data-cm="index reading · 7" data-cmv="1.30" tabindex="0"/>
+    <circle cx="530.00" cy="81.08" r="12" fill="transparent" data-cmx="530.00" data-cm="index reading · 8" data-cmv="1.36" tabindex="0"/>
+    <circle cx="646.00" cy="114.63" r="12" fill="transparent" data-cmx="646.00" data-cm="index reading · 9" data-cmv="1.25" tabindex="0"/>
+    <circle cx="762.00" cy="98.84" r="12" fill="transparent" data-cmx="762.00" data-cm="index reading · 10" data-cmv="1.30" tabindex="0"/>
+    <circle cx="878.00" cy="124.67" r="12" fill="transparent" data-cmx="878.00" data-cm="index reading · 11" data-cmv="1.22" tabindex="0"/>
+    <path d="M66.00 205.40 L182.00 155.67 L298.00 169.88 L414.00 180.03 L530.00 152.12 L646.00 177.77 L762.00 155.67 L878.00 150.51" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="150.51" r="4.5" fill="var(--c-2)" stroke="var(--surface)" stroke-width="2"/>
     <circle cx="66.00" cy="205.40" r="12" fill="transparent" data-cmx="66.00" data-cm="prime reading · 4" data-cmv="0.98" tabindex="0"/>
-    <circle cx="269.00" cy="155.67" r="12" fill="transparent" data-cmx="269.00" data-cm="prime reading · 5" data-cmv="1.13" tabindex="0"/>
-    <circle cx="472.00" cy="169.88" r="12" fill="transparent" data-cmx="472.00" data-cm="prime reading · 6" data-cmv="1.09" tabindex="0"/>
-    <circle cx="675.00" cy="180.03" r="12" fill="transparent" data-cmx="675.00" data-cm="prime reading · 7" data-cmv="1.05" tabindex="0"/>
-    <circle cx="878.00" cy="152.12" r="12" fill="transparent" data-cmx="878.00" data-cm="prime reading · 8" data-cmv="1.14" tabindex="0"/>
+    <circle cx="182.00" cy="155.67" r="12" fill="transparent" data-cmx="182.00" data-cm="prime reading · 5" data-cmv="1.13" tabindex="0"/>
+    <circle cx="298.00" cy="169.88" r="12" fill="transparent" data-cmx="298.00" data-cm="prime reading · 6" data-cmv="1.09" tabindex="0"/>
+    <circle cx="414.00" cy="180.03" r="12" fill="transparent" data-cmx="414.00" data-cm="prime reading · 7" data-cmv="1.05" tabindex="0"/>
+    <circle cx="530.00" cy="152.12" r="12" fill="transparent" data-cmx="530.00" data-cm="prime reading · 8" data-cmv="1.14" tabindex="0"/>
+    <circle cx="646.00" cy="177.77" r="12" fill="transparent" data-cmx="646.00" data-cm="prime reading · 9" data-cmv="1.06" tabindex="0"/>
+    <circle cx="762.00" cy="155.67" r="12" fill="transparent" data-cmx="762.00" data-cm="prime reading · 10" data-cmv="1.13" tabindex="0"/>
+    <circle cx="878.00" cy="150.51" r="12" fill="transparent" data-cmx="878.00" data-cm="prime reading · 11" data-cmv="1.14" tabindex="0"/>
     <path d="M66.00 92.19 L878.00 92.19" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 4"/>
     <circle cx="878.00" cy="92.19" r="4.5" fill="var(--c-ctx)" stroke="var(--surface)" stroke-width="2"/>
     <circle cx="66.00" cy="92.19" r="12" fill="transparent" data-cmx="66.00" data-cm="certified c₀ · 4" data-cmv="1.32" tabindex="0"/>
-    <circle cx="878.00" cy="92.19" r="12" fill="transparent" data-cmx="878.00" data-cm="certified c₀ · 8" data-cmv="1.32" tabindex="0"/>
+    <circle cx="878.00" cy="92.19" r="12" fill="transparent" data-cmx="878.00" data-cm="certified c₀ · 11" data-cmv="1.32" tabindex="0"/>
     <rect x="66" y="304" width="11" height="10" rx="2" fill="var(--c-1)"/>
     <text x="85.0" y="314.0" text-anchor="start" class="t-note">x bounds the INDEX n — the reading the statement gives</text>
     <rect x="484" y="304" width="11" height="10" rx="2" fill="var(--c-2)"/>
@@ -527,7 +540,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </svg>
   </div>
   <figcaption>The same exact data under the two readings. c₀ is a dashed reference because it is a PREDICTION, not a measurement — predicted and decided never share a typography on these pages.</figcaption>
-</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>x</th><th>h(x), index reading</th><th>ratio</th><th>h(x), prime reading</th><th>ratio</th><th>c₀·log x</th></tr></thead><tbody><tr><td class="n">1e+4</td><td class="n">13</td><td class="n">1.4115</td><td class="n">9</td><td class="n">0.9772</td><td class="n">12.19</td></tr><tr><td class="n">1e+5</td><td class="n">15</td><td class="n">1.3029</td><td class="n">13</td><td class="n">1.1292</td><td class="n">15.23</td></tr><tr><td class="n">1e+6</td><td class="n">18</td><td class="n">1.3029</td><td class="n">15</td><td class="n">1.0857</td><td class="n">18.28</td></tr><tr><td class="n">1e+7</td><td class="n">21</td><td class="n">1.3029</td><td class="n">17</td><td class="n">1.0547</td><td class="n">21.33</td></tr><tr><td class="n">1e+8</td><td class="n">22</td><td class="n">1.1943</td><td class="n">21</td><td class="n">1.1400</td><td class="n">24.37</td></tr></tbody></table></div></div>
+</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>x</th><th>h(x), index reading</th><th>ratio</th><th>h(x), prime reading</th><th>ratio</th><th>c₀·log x</th></tr></thead><tbody><tr><td class="n">1e+4</td><td class="n">13</td><td class="n">1.4115</td><td class="n">9</td><td class="n">0.9772</td><td class="n">12.19</td></tr><tr><td class="n">1e+5</td><td class="n">15</td><td class="n">1.3029</td><td class="n">13</td><td class="n">1.1292</td><td class="n">15.23</td></tr><tr><td class="n">1e+6</td><td class="n">18</td><td class="n">1.3029</td><td class="n">15</td><td class="n">1.0857</td><td class="n">18.28</td></tr><tr><td class="n">1e+7</td><td class="n">21</td><td class="n">1.3029</td><td class="n">17</td><td class="n">1.0547</td><td class="n">21.33</td></tr><tr><td class="n">1e+8</td><td class="n">25</td><td class="n">1.3572</td><td class="n">21</td><td class="n">1.1400</td><td class="n">24.37</td></tr><tr><td class="n">1e+9</td><td class="n">26</td><td class="n">1.2546</td><td class="n">22</td><td class="n">1.0616</td><td class="n">27.42</td></tr><tr><td class="n">1e+10</td><td class="n">30</td><td class="n">1.3029</td><td class="n">26</td><td class="n">1.1292</td><td class="n">30.47</td></tr><tr><td class="n">1e+11</td><td class="n">31</td><td class="n">1.2239</td><td class="n">29</td><td class="n">1.1450</td><td class="n">33.52</td></tr></tbody></table></div></div>
 </section>
 
 <section class="col">
@@ -537,24 +550,24 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 <div class="col"><p>Between one record closing and the next, h(x) is <strong>constant</strong> while log x keeps growing, so the ratio falls steadily from a high at the step's start to a low at its end. Quoting the ratio at the records — which is where it is highest — would be picking the flattering corner of every step. So each plateau is drawn as the full band it occupies, and the test is whether c₀ lies inside.</p></div><div class="wide"><figure>
   <div class="figbox">
-  <svg viewBox="0 0 900 462" role="img" aria-label="One horizontal band per plateau of h, showing the range of h/log x it covers. The certified c0 = 1.3232 is marked on each row and falls inside 9 of the 14 bands.">
+  <svg viewBox="0 0 900 670" role="img" aria-label="One horizontal band per plateau of h, showing the range of h/log x it covers. The certified c0 = 1.3232 is marked on each row and falls inside 12 of the 22 bands.">
     <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
-    <line x1="178.8" y1="16" x2="178.8" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="178.8" y="400.0" text-anchor="middle" class="t-ax">1.20</text>
-    <line x1="265.7" y1="16" x2="265.7" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="265.7" y="400.0" text-anchor="middle" class="t-ax">1.25</text>
-    <line x1="352.5" y1="16" x2="352.5" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="352.5" y="400.0" text-anchor="middle" class="t-ax">1.30</text>
-    <line x1="439.3" y1="16" x2="439.3" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="439.3" y="400.0" text-anchor="middle" class="t-ax">1.35</text>
-    <line x1="526.1" y1="16" x2="526.1" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="526.1" y="400.0" text-anchor="middle" class="t-ax">1.40</text>
-    <line x1="613.0" y1="16" x2="613.0" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="613.0" y="400.0" text-anchor="middle" class="t-ax">1.45</text>
-    <line x1="699.8" y1="16" x2="699.8" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="699.8" y="400.0" text-anchor="middle" class="t-ax">1.50</text>
-    <line x1="786.6" y1="16" x2="786.6" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="786.6" y="400.0" text-anchor="middle" class="t-ax">1.55</text>
+    <line x1="178.8" y1="16" x2="178.8" y2="588" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="178.8" y="608.0" text-anchor="middle" class="t-ax">1.20</text>
+    <line x1="265.7" y1="16" x2="265.7" y2="588" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="265.7" y="608.0" text-anchor="middle" class="t-ax">1.25</text>
+    <line x1="352.5" y1="16" x2="352.5" y2="588" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="352.5" y="608.0" text-anchor="middle" class="t-ax">1.30</text>
+    <line x1="439.3" y1="16" x2="439.3" y2="588" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="439.3" y="608.0" text-anchor="middle" class="t-ax">1.35</text>
+    <line x1="526.1" y1="16" x2="526.1" y2="588" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="526.1" y="608.0" text-anchor="middle" class="t-ax">1.40</text>
+    <line x1="613.0" y1="16" x2="613.0" y2="588" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="613.0" y="608.0" text-anchor="middle" class="t-ax">1.45</text>
+    <line x1="699.8" y1="16" x2="699.8" y2="588" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="699.8" y="608.0" text-anchor="middle" class="t-ax">1.50</text>
+    <line x1="786.6" y1="16" x2="786.6" y2="588" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="786.6" y="608.0" text-anchor="middle" class="t-ax">1.55</text>
     <text x="80.0" y="33.0" text-anchor="end" class="t-ax">h = 7</text>
     <rect x="245.50" y="19" width="91.86" height="20" rx="3" fill="var(--c-1)" data-cm="h = 7 plateau" data-cmv="x from 225 to 285 · ratio 1.2924 down to 1.2384" tabindex="0"/>
     <text x="816.0" y="33.0" text-anchor="start" class="t-lab">band below c₀</text>
@@ -611,20 +624,66 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <rect x="340.82" y="357" width="146.61" height="20" rx="3" fill="var(--c-1)" data-cm="h = 21 plateau" data-cmv="x from 4114361 to 11271092 · ratio 1.3789 down to 1.2933" tabindex="0"/>
     <text x="816.0" y="371.0" text-anchor="start" class="t-lab">c₀ inside</text>
     <line x1="392.8" y1="352" x2="392.8" y2="382" stroke="var(--c-3)" stroke-width="2"/>
-    <text x="448.0" y="422.0" text-anchor="middle" class="t-note">h / log x across the plateau, from its start (right end) to its end (left end)</text>
-    <rect x="92" y="445" width="11" height="10" rx="2" fill="var(--c-1)"/>
-    <text x="111.0" y="455.0" text-anchor="start" class="t-note">the ratio band this plateau occupies</text>
-    <rect x="386" y="445" width="11" height="10" rx="2" fill="var(--c-3)"/>
-    <text x="405.0" y="455.0" text-anchor="start" class="t-note">the certified c₀, marked on every row</text>
+    <text x="80.0" y="397.0" text-anchor="end" class="t-ax">h = 22</text>
+    <rect x="237.90" y="383" width="207.87" height="20" rx="3" fill="var(--c-1)" data-cm="h = 22 plateau" data-cmv="x from 11271093 to 55282795 · ratio 1.3549 down to 1.2340" tabindex="0"/>
+    <text x="816.0" y="397.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="378" x2="392.8" y2="408" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="423.0" text-anchor="end" class="t-ax">h = 23</text>
+    <rect x="309.13" y="409" width="24.18" height="20" rx="3" fill="var(--c-1)" data-cm="h = 23 plateau" data-cmv="x from 55282796 to 68256062 · ratio 1.2901 down to 1.2750" tabindex="0"/>
+    <text x="816.0" y="423.0" text-anchor="start" class="t-lab">band below c₀</text>
+    <line x1="392.8" y1="404" x2="392.8" y2="434" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="449.0" text-anchor="end" class="t-ax">h = 24</text>
+    <rect x="405.40" y="435" width="1.00" height="20" rx="3" fill="var(--c-1)" data-cm="h = 24 plateau" data-cmv="x from 68256063 to 68256064 · ratio 1.3305 down to 1.3305" tabindex="0"/>
+    <text x="816.0" y="449.0" text-anchor="start" class="t-lab">band above c₀</text>
+    <line x1="392.8" y1="430" x2="392.8" y2="460" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="475.0" text-anchor="end" class="t-ax">h = 25</text>
+    <rect x="446.75" y="461" width="52.92" height="20" rx="3" fill="var(--c-1)" data-cm="h = 25 plateau" data-cmv="x from 68256065 to 104011383 · ratio 1.3859 down to 1.3543" tabindex="0"/>
+    <text x="816.0" y="475.0" text-anchor="start" class="t-lab">band above c₀</text>
+    <line x1="392.8" y1="456" x2="392.8" y2="486" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="501.0" text-anchor="end" class="t-ax">h = 26</text>
+    <rect x="272.72" y="487" width="266.10" height="20" rx="3" fill="var(--c-1)" data-cm="h = 26 plateau" data-cmv="x from 104011384 to 1009322516 · ratio 1.4084 down to 1.2541" tabindex="0"/>
+    <text x="816.0" y="501.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="482" x2="392.8" y2="512" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="527.0" text-anchor="end" class="t-ax">h = 27</text>
+    <rect x="328.25" y="513" width="26.23" height="20" rx="3" fill="var(--c-1)" data-cm="h = 27 plateau" data-cmv="x from 1009322517 to 1311699280 · ratio 1.3023 down to 1.2860" tabindex="0"/>
+    <text x="816.0" y="527.0" text-anchor="start" class="t-lab">band below c₀</text>
+    <line x1="392.8" y1="508" x2="392.8" y2="538" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="553.0" text-anchor="end" class="t-ax">h = 29</text>
+    <rect x="304.82" y="539" width="186.86" height="20" rx="3" fill="var(--c-1)" data-cm="h = 29 plateau" data-cmv="x from 1311699281 to 7889804025 · ratio 1.3813 down to 1.2726" tabindex="0"/>
+    <text x="816.0" y="553.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="534" x2="392.8" y2="564" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="579.0" text-anchor="end" class="t-ax">h = 30</text>
+    <rect x="353.31" y="565" width="25.72" height="20" rx="3" fill="var(--c-1)" data-cm="h = 30 plateau" data-cmv="x from 7889804026 to 10435962890 · ratio 1.3164 down to 1.3005" tabindex="0"/>
+    <text x="816.0" y="579.0" text-anchor="start" class="t-lab">band below c₀</text>
+    <line x1="392.8" y1="560" x2="392.8" y2="590" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="448.0" y="630.0" text-anchor="middle" class="t-note">h / log x across the plateau, from its start (right end) to its end (left end)</text>
+    <rect x="92" y="653" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="111.0" y="663.0" text-anchor="start" class="t-note">the ratio band this plateau occupies</text>
+    <rect x="386" y="653" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="405.0" y="663.0" text-anchor="start" class="t-note">the certified c₀, marked on every row</text>
   </svg>
   </div>
-  <figcaption>Each row is one plateau of h. The vertical mark is the certified c₀. It lands inside 9 of 14 bands; where it misses, it misses narrowly and in both directions — 4 bands sit entirely below it and 1 entirely above.</figcaption>
+  <figcaption>Each row is one plateau of h. The vertical mark is the certified c₀. It lands inside 12 of 22 bands; where it misses, it misses narrowly and in both directions — 7 bands sit entirely below it and 3 entirely above.</figcaption>
 </figure></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the extension</div>
+    <h2>Past the last published term</h2>
+  </div>
+<div class="col"><p>The record data stopped where other people’s computations stopped: A079007 ends at a run of 30 gaps opening at <span class="m">196948778371</span>, and A078515 and A079889 end at the same place. Our scan reproduced that term exactly and kept going.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>run length</th><th>opening prime</th><th>index n</th><th>status</th></tr></thead><tbody><tr><td class="n">30</td><td class="n">196948778371</td><td class="n">7889803997</td><td>the last term the literature holds — re-proved here as a control</td></tr><tr><td class="n">31</td><td class="n">263552821783</td><td class="n">10435962861</td><td><span class="tag held">new</span> beyond every published term</td></tr></tbody></table></div></div><div class="col"><p><strong>The exhibit, re-proved at this build by a program sharing no line with the scan that found it.</strong> <span class="m">263552821783</span> is prime, and the 31 consecutive gaps that follow it are pairwise distinct:</p><pre class="code">76, 8, 34, 36, 26, 106, 38, 82,
+18, 54, 50, 16, 62, 70, 14, 48,
+42, 64, 6, 104, 24, 12, 66, 22,
+30, 96, 2, 10, 74, 4, 32</pre><p>The run spans the primes <span class="m">263552821783</span> to <span class="m">263552823109</span>. It is exactly 31 long and not longer, because the next gap is <span class="m">4</span>, which already appears in the list. Anyone can check every word of that in a minute, which is the point of an existence claim.</p></div><div class="note">
+  <span class="lab">two claims, and they are not equally strong</span>
+<p>That <strong>h reaches 31</strong> at this prime is re-proved above by an independent implementation — BigInt Miller–Rabin and a set — and does not depend on the scan at all. That this is the <strong>smallest</strong> index achieving it is a statement about every index below it, and only the exhaustive scan can speak to that. The scan reproduced all 27 published terms exactly, which is the best evidence available for it, and it is still evidence rather than an independent proof. Both are stated separately here for that reason.</p>
+</div>
 </section>
 
 <div class="note">
   <span class="lab">what this page does NOT claim</span>
-<p>We did not prove the asymptotic and we could not have: the #852 page states plainly that the problem "cannot be resolved with a finite computation", and that is correct. What is here is a finite, exact computation placed against a published conjecture and a certified constant, reported with its sampling bias removed. It is consistent with h(x) ~ c₀·log x under the index reading and inconsistent with it under the prime reading, over the range we can reach. Consistency over 5 decades is evidence, not a theorem, and the ratio's misses — 4 bands below c₀ and 1 above — are shown rather than smoothed. The one hard result on this page is the agreement: 20 record indices and 20 start primes, recomputed from scratch, match sequences published in 2002 exactly.</p>
+<p>We did not prove the asymptotic and we could not have: the #852 page states plainly that the problem "cannot be resolved with a finite computation", and that is correct. What is here is a finite, exact computation placed against a published conjecture and a certified constant, reported with its sampling bias removed. It is consistent with h(x) ~ c₀·log x under the index reading and inconsistent with it under the prime reading, over the range we can reach. Consistency over 8 decades is evidence, not a theorem, and the ratio's misses — 7 bands below c₀ and 3 above — are shown rather than smoothed. The one hard result on this page is the agreement: 27 record indices and 27 start primes, recomputed from scratch, match sequences published in 2002 exactly.</p>
 </div>
 
 <section class="col">
@@ -663,7 +722,7 @@ node instruments/erdos852h/h.js 3e8</pre><p>The scan streams: a segmented sieve 
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-erdos852h.js @ git 6353c79. Gates at this build: the records recomputed by instruments/erdos852h/h.js in integer arithmetic (recomputed during this build, 2.2 s to 3e+8), checked term for term against the sha256-pinned bytes of OEIS A078515 and A079889 — 20 indices and 20 start primes, all agreeing. A disagreement with either sequence, or a drifted pin, refuses the page.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-erdos852h.js @ git b2950ac. Gates at this build: the records recomputed by instruments/erdos852h/h.js in integer arithmetic (the deep run in certs/erdos852-h-records.json, 4042.2 s to 5e+11), checked term for term against the sha256-pinned bytes of OEIS A078515 and A079889 — 27 indices and 27 start primes, all agreeing. A disagreement with either sequence, or a drifted pin, refuses the page.</p></footer>
 
 </div>
 </html>
