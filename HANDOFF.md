@@ -18,6 +18,75 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
+SESSION 2026-08-31b — CHOWLA'S COSINE PROBLEM: MACHINERY BUILT, TARGET CLOSED
+(operator: "can we work more on Chowla's Cosine Problem? Consult sin-mfg" —
+and consulting sin-mfg is what killed it. Read that lab FIRST next time.)
+
+  VERDICT: THE SMALL-c SEARCH IS DEAD. Do not reopen it. Two independent
+  reasons, either one sufficient:
+
+  1. OCCUPIED, and sin-mfg had already ruled so. Its chowla-cosine probe
+     carries a literature gate dated 2026-08-20 (confidence 9/10):
+     "Candidate 2 - explicit sets with small normalised minimum (c <= 0.6460
+     at n=20): OCCUPIED", by Mercer (INTEGERS 19 (2019) #A4) and Bedert
+     (arXiv:2509.05260). Their own funnel had already reached c <= 0.6460 at
+     n=20. OUR RUN REACHED 0.778 — WORSE THAN WORK ALREADY ON DISK.
+  2. CONJECTURALLY IMPOSSIBLE. Bedert, quoted in that gate: K(n) << sqrt(n)
+     is the best known upper bound and "Chowla conjectured that this is
+     sharp". Since c = K(n)/sqrt(n), Chowla's own conjecture says c is
+     bounded BELOW. Epoch's problem page says the same in its own words:
+     solving it "would disprove Chowla's conjecture", and "there is also a
+     risk that Chowla's conjecture is true, in which case the problem is not
+     solvable."
+
+  OUR OWN DATA AGREES WITH THE CONJECTURE, which is the honest null:
+     n     10      15      20      25      30
+     c <= 0.6558  0.7073  0.7781  0.7733  0.8205        (certs/chowla-records.json)
+  RISING with n and parked near the folklore constant 1/sqrt(2) = 0.7071. A
+  factor of ~15 from the 1/20 landmark with no trend toward it. A folklore
+  family (A = positive differences of a perfect difference set) already gives
+  c -> 1/sqrt(2) at EVERY n of its shape; our best beat it at no n.
+
+  WHAT WAS BUILT AND IS WORTH KEEPING: machine/generate/chowla.js (float
+  screen + exact certify + classical baselines REBUILT here, so no lift is
+  needed), proposers/setwalk.js (the free hill climb), tools/run-chowla-front.js.
+  Calibrated 3-for-3 against sin-mfg's exhaustive champions and it
+  independently REDISCOVERED the n=10 champion 0.655838. The machinery is
+  sound; the target is not. No report page was built - there is no result.
+  The degree wall is now refused rather than endured (Mian-Chowla at n=30
+  reaches 1312 and hung the first smoke test).
+
+  THE ONE LANE STILL OPEN, and it is about the VERIFIER, not the mathematics.
+  Epoch's page admits "the verifier uses a numerical sampling check, so there
+  is a small risk there". It is a bigger risk than that, DEMONSTRATED with
+  certificates: A = 40320*{1..24} has max(A) = 967,680, legal under Epoch's
+  own <1e6 ceiling, and its TRUE certified merit is c = 1.189981 - a bad set.
+  A 1000-point grid sampler reports apparent c = 0.2041 (it would pass a
+  c=0.25 bar; plain undersampling, no adversarial alignment). A sampler whose
+  resolution DIVIDES 40320 reports min f_A = +24, i.e. "never negative at
+  all", passing ANY c. Only at M >= 100,000 does it approach truth, and it
+  still under-reports. Structurally a grid needs M >~ max(A) because f_A has
+  degree max(A); Epoch permits max(A) up to 1e6.
+  We reach degree 967,680 with a certifier walled at 400 ONLY because
+  dilation invariance c(N*S) = c(S) is a theorem.
+  This is also the lane sin-mfg's gate left open: Candidate 1, "certified
+  enclosures as a verification method exceeding numerical sampling", ruled
+  PARTIAL rather than occupied.
+  PROPOSED, NOT DONE, AND NOT SENT: report the sampling gap to Epoch as
+  benchmark hardening. Submitting such a set to SCORE would be fraud - it
+  violates the bound by ~5x while dressed to pass. Third-party send, so it
+  waits on the operator's word like everything else in outreach/SEND-QUEUE.md.
+  Caveat to carry: Epoch's actual sampler (resolution, grid vs random,
+  adaptive) is unknown, so this proves the CLASS is exploitable, not that
+  their verifier is broken.
+
+  IF THIS FAMILY IS WORKED AGAIN, the live targets are in sin-mfg's
+  mercer-program probe and are about mu/lambda, not small c: n = 17 (first
+  term-count case with no printed demonstration of mu > 1); certifying
+  Hare-Jankauskas' 19-term degree-38 polynomial has min >= 2; Mercer's §6
+  reduction at m > 5. Honest framing there is "certified where nothing
+  certified exists", never "progress on Chowla".
+
 SESSION 2026-08-31 — THE 55-ADDITION AUDIT (option 3, redirected by its own
 prior-art gate from a search into an audit)
 

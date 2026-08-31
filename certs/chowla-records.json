@@ -1,0 +1,242 @@
+{
+  "what": "Certified Chowla merits c(A) = -min_x sum_{a in A} cos(ax) / sqrt(|A|), one row per set size n. Every c is an UPPER bound proved by instruments/trigmin: c(A) <= hi, for the set stored beside it. A row says nothing about the infimum over all sets of that size, and nothing about the asymptotic question Chowla actually asked.",
+  "instrument": "instruments/trigmin/certify-min.js",
+  "caution": "SMALL n IS EASY AND MEANS NOTHING ASYMPTOTICALLY. Chowla's problem asks for a construction whose c stays bounded as n grows; a low c at one n is a fact about that n. The trend across n is the only part of this file that speaks to the problem, and it is not a proof of anything either.",
+  "landmarks": {
+    "known_since_1960s": 1,
+    "unreached": 0.05
+  },
+  "rows": [
+    {
+      "n": 10,
+      "maxA": 30,
+      "certifiedC": 0.6558381806398923,
+      "enclosure": [
+        0.6558381806398919,
+        0.6558381806398923
+      ],
+      "degree": 12,
+      "set": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        12
+      ],
+      "classical": {
+        "name": "{1..n}",
+        "certifiedC": 0.8849523513024508
+      },
+      "beatsClassical": true,
+      "belowUnitLandmark": true,
+      "search": {
+        "proposer": "setwalk@v1",
+        "seeds": 3,
+        "evals": 40000,
+        "maxA": 30,
+        "seconds": 40.2,
+        "costUsd": 0
+      }
+    },
+    {
+      "n": 15,
+      "maxA": 45,
+      "certifiedC": 0.7073315483530433,
+      "enclosure": [
+        0.7073315483530429,
+        0.7073315483530433
+      ],
+      "degree": 25,
+      "set": [
+        2,
+        3,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        17,
+        20,
+        23,
+        25
+      ],
+      "classical": {
+        "name": "{1..n}",
+        "certifiedC": 1.001539273219359
+      },
+      "beatsClassical": true,
+      "belowUnitLandmark": true,
+      "search": {
+        "proposer": "setwalk@v1",
+        "seeds": 3,
+        "evals": 40000,
+        "maxA": 45,
+        "seconds": 70.7,
+        "costUsd": 0
+      }
+    },
+    {
+      "n": 20,
+      "maxA": 60,
+      "certifiedC": 0.7780654764398435,
+      "enclosure": [
+        0.7780654764398428,
+        0.7780654764398435
+      ],
+      "degree": 60,
+      "set": [
+        1,
+        2,
+        4,
+        6,
+        10,
+        14,
+        15,
+        19,
+        20,
+        21,
+        25,
+        29,
+        31,
+        35,
+        39,
+        40,
+        41,
+        50,
+        54,
+        60
+      ],
+      "classical": {
+        "name": "QR mod 41",
+        "certifiedC": 1.1004060648339016
+      },
+      "beatsClassical": true,
+      "belowUnitLandmark": true,
+      "search": {
+        "proposer": "setwalk@v1",
+        "seeds": 3,
+        "evals": 40000,
+        "maxA": 60,
+        "seconds": 88.2,
+        "costUsd": 0
+      }
+    },
+    {
+      "n": 25,
+      "maxA": 75,
+      "certifiedC": 0.7733267093877233,
+      "enclosure": [
+        0.7733267093877226,
+        0.7733267093877233
+      ],
+      "degree": 68,
+      "set": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        11,
+        14,
+        16,
+        19,
+        20,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        30,
+        38,
+        48,
+        49,
+        52,
+        54,
+        68
+      ],
+      "classical": {
+        "name": "{1..n}",
+        "certifiedC": 1.2093263549456124
+      },
+      "beatsClassical": true,
+      "belowUnitLandmark": true,
+      "search": {
+        "proposer": "setwalk@v1",
+        "seeds": 3,
+        "evals": 40000,
+        "maxA": 75,
+        "seconds": 111.8,
+        "costUsd": 0
+      }
+    },
+    {
+      "n": 30,
+      "maxA": 90,
+      "certifiedC": 0.820466200913105,
+      "enclosure": [
+        0.8204662009131043,
+        0.820466200913105
+      ],
+      "degree": 76,
+      "set": [
+        1,
+        4,
+        6,
+        7,
+        8,
+        12,
+        13,
+        14,
+        18,
+        19,
+        20,
+        24,
+        25,
+        26,
+        33,
+        36,
+        37,
+        38,
+        39,
+        43,
+        51,
+        55,
+        57,
+        61,
+        62,
+        63,
+        67,
+        69,
+        75,
+        76
+      ],
+      "classical": {
+        "name": "QR mod 61",
+        "certifiedC": 1.119196507094382
+      },
+      "beatsClassical": true,
+      "belowUnitLandmark": true,
+      "search": {
+        "proposer": "setwalk@v1",
+        "seeds": 3,
+        "evals": 40000,
+        "maxA": 90,
+        "seconds": 167,
+        "costUsd": 0
+      }
+    }
+  ],
+  "generated": "2026-08-31"
+}
