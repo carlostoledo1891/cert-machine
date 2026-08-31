@@ -192,30 +192,4 @@ function loadInputs(ROOT, LEG) {
 }
 
 
-/* ---- refuting a proposed lemma with data we already have -------------------
-   A constraint is a CLAIM about degrees nobody has computed. But this project
-   has computed hundreds of them, and a claim that contradicts one of those is
-   false before anyone tries to prove it. So every constraint is checked
-   against the pinned densities first, and a lemma that fails is REFUTED
-   rather than priced — which costs nothing and is the cheapest possible
-   review of a research idea.
-
-   The check is deliberately conservative: it only tests degrees ABOVE the
-   range the constraint claims to govern is irrelevant — a bound asserted "for
-   every large even d" is tested against every pinned degree, because a lemma
-   that fails at d = 400 is not saved by being asymptotic. Where a proposer
-   genuinely means "for all d > D", pass `from`. */
-function consistentWithPinned(Q, con, EXACT, from) {
-  const start = from || 0;
-  const b = con.bounds(start);
-  for (const [l, dv] of [...EXACT.entries()].sort((x, y) => x[0] - y[0])) {
-    if (l < start) continue;
-    if (Q.cmp(dv, b.A) < 0 || Q.cmp(dv, b.B) > 0) {
-      return { ok: false, l, d: 2 * l, delta: dv,
-        why: 'the pinned density at d = ' + (2 * l) + ' lies outside the claimed interval' };
-    }
-  }
-  return { ok: true, checked: [...EXACT.keys()].filter((l) => l >= start).length };
-}
-
-module.exports = { constraints, limitEnclosure, makeBracket, loadInputs, consistentWithPinned };
+module.exports = { constraints, limitEnclosure, makeBracket, loadInputs };
