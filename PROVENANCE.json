@@ -1,10 +1,10 @@
 {
  "source_root": "/Users/carlostoledo/Documents/sin-mfg",
- "lifted_at_utc": "2026-08-27T13:31:15.896Z",
+ "lifted_at_utc": "2026-08-31T18:02:38.641Z",
  "policy": "READ-ONLY. The lift copies OUT of sin-mfg and never writes back. `make drift` re-hashes both ends and names what moved.",
  "counts": {
   "files": 130,
-  "patched": 4,
+  "patched": 7,
   "missing_in_source": 0
  },
  "files": [
@@ -187,8 +187,8 @@
    "src": "core/interval/rational.js",
    "dst": "instruments/interval/rational.js",
    "src_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b",
-   "patched": false,
-   "local_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b"
+   "patched": true,
+   "local_sha256": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920"
   },
   {
    "src": "core/interval/sequence.js",
@@ -215,8 +215,8 @@
    "src": "core/interval/tests/test-interval.js",
    "dst": "instruments/interval/tests/test-interval.js",
    "src_sha256": "016331cb82c112c435071155d041482c0719c3e916c7a23a765c7954c56d9b98",
-   "patched": false,
-   "local_sha256": "016331cb82c112c435071155d041482c0719c3e916c7a23a765c7954c56d9b98"
+   "patched": true,
+   "local_sha256": "3ce65c6eace6e39440de2eecca0dd033548b36109c264cac23db4d52a7bdd755"
   },
   {
    "src": "core/interval/tests/test-transcendental-enclosure.js",
@@ -593,8 +593,8 @@
    "src": "research/challenges/erdos290/rational.js",
    "dst": "legacy/research/challenges/erdos290/rational.js",
    "src_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b",
-   "patched": false,
-   "local_sha256": "dc654469acc441694303479573cb1e44fe06e649c8da5eeda8bac9c2d22ab05b"
+   "patched": true,
+   "local_sha256": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920"
   },
   {
    "src": "research/challenges/erdos290/tail-deltas.json",

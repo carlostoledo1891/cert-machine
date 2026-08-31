@@ -54,36 +54,33 @@ DOI second. Nothing else in this queue depends on it.
 
 ---
 
-## LANE 2 — HELD ON MERIT, not on mechanics. Do not send yet.
+## LANE 2 — the #290 hold is RELEASED (2026-08-31)
 
-Everything touching Erdős #290 is held because **the summit is mid-flight and
-will change the exact numbers these drafts quote.** As of 2026-08-31 the six
-detached shards are at l = 304, 305, 306, 307, 308, 309, closing on 310.
+The summit finished: six shards closed l = 293..310, the main record holds
+250 degrees closed and 0 open, l = 61..310 contiguous. Everything that was
+held for it is now current.
 
-### 2a. The issue-164 follow-up  ← the one I could have posted, and did not
-File: `outreach/erdos290-issue164.md`. Target:
-`teorth/erdosproblems#164`, open since 2025-11-28, no replies since the
-2026-08-04 comment. `gh` can post this today.
+### 2a. The issue-164 follow-up — READY, and `gh` can post it
+File: `outreach/erdos290-issue164.md`, rewritten against the new horizon.
+Target: `teorth/erdosproblems#164`, open since 2025-11-28, no replies since
+the 2026-08-04 comment.
 
-It is held because the draft says, in its own text:
+It was held because its own text promised a third unconditional digit "when
+the squeeze reaches l ≈ 310". **That digit landed:**
 
-> The third unconditional digit falls when the squeeze reaches l ≈ 310
-> (even d up to ~620); that run is in progress.
+    unconditional  c       ∈ [0.830416407911, 0.831220912621]
+    unconditional 1/(1+c)  ∈ [0.546083759260, 0.546323774021]
 
-Posting that sentence hours before the run delivers the digit it promises
-buys one stale comment and forces a third. The draft's other headline numbers
-— d ≤ 240 determined, tail assumption entering at even d ≥ 242, 110
-conditional digits — are all superseded by the merge. **Send after the merge,
-with the third digit in hand.** That is also what HANDOFF's standing
-post-merge checklist says to do.
+0.546 is pinned with NO assumption, where the previous horizon pinned only
+0.54. The tail hypothesis now enters at l = 311 (even d ≥ 622), was 242.
+This is the strongest send in the queue and the only one where a specific
+person asked a specific question and is still waiting.
 
-### 2b. The #290 OEIS packs
-Files: `outreach/oeis-erdos290-pack.md`, `b-oeis-c0.txt`, `b-oeis-cstar.txt`,
-`b-disc-fd.txt`, `b-disc-h.txt`. Same reason: the b-files are the enclosure,
-and the enclosure is what the running campaign tightens. Regenerate after the
-merge, then send.
-
----
+### 2b. The #290 OEIS packs — regenerated
+`outreach/b-oeis-cstar.txt` and `b-oeis-c0.txt` are rewritten by
+`tools/erdos290-cstar-precision.js` at every horizon extension and now carry
+110 agreed digits at the l ≤ 310 horizon. `oeis-erdos290-pack.md` should be
+re-read before sending; its prose predates the merge.
 
 ## LANE 3 — already out, nothing to do
 

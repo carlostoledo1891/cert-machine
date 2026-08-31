@@ -441,7 +441,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <strong>CONFIRMED</strong> — supporting identities only. What a machine can decide about this claim, it decided, and it held. What it cannot decide is stated below rather than left to the reader to notice.</li><li><b>The mechanism.</b> Written against the manuscript. The author's code was never executed — though in this lane, and only this one, it was <em>read</em> to cross-check which identities the TeX intended. Verification that existed at source: An author SymPy script, which we read but did not execute.</li><li><b>Check it.</b> <span class="m">node legacy/research/challenges/lane/laneb-mathieu/verify.js</span> — 60 ms at this build, a summary report and 3 mutation controls, every control rejected.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <strong>CONFIRMED</strong> — supporting identities only. What a machine can decide about this claim, it decided, and it held. What it cannot decide is stated below rather than left to the reader to notice.</li><li><b>The mechanism.</b> Written against the manuscript. The author's code was never executed — though in this lane, and only this one, it was <em>read</em> to cross-check which identities the TeX intended. Verification that existed at source: An author SymPy script, which we read but did not execute.</li><li><b>Check it.</b> <span class="m">node legacy/research/challenges/lane/laneb-mathieu/verify.js</span> — 40 ms at this build, a summary report and 3 mutation controls, every control rejected.</li></ul>
 </div></div>
 
 <div class="wide">
@@ -450,7 +450,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="stat"><div class="k">named checks</div><div class="v held">—</div><div class="n">this verifier reports a summary, not named rows — see below</div></div>
     <div class="stat"><div class="k">the verifier&#39;s own total</div><div class="v held">126</div><div class="n">stated by the verifier itself</div></div>
     <div class="stat"><div class="k">mutation controls</div><div class="v held">3</div><div class="n">deliberate corruptions of the claim — every one rejected, or this page would not build</div></div>
-    <div class="stat"><div class="k">runtime</div><div class="v held">60 ms</div><div class="n">plain Node, no packages, no author code</div></div>
+    <div class="stat"><div class="k">runtime</div><div class="v held">40 ms</div><div class="n">plain Node, no packages, no author code</div></div>
     <div class="stat"><div class="k">analytic core</div><div class="v open">not audited</div><div class="n">true of all six claims in this set, and the reason the flagship exists</div></div>
   </div>
 </div>
@@ -468,7 +468,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <div class="lab">§2 · what we certified</div>
     <h2>The ledger, as the verifier printed it at this build</h2>
   </div>
-<div class="col"><p>Every supporting identity the classification rests on, exactly over ℚ with BigInt rational Laurent arithmetic: the weighted witness moments, the explicit abelian pair and its printed four-term expansion, the matrix-entry representatives and their invariance. Disclosure specific to this lane: the author’s Python was READ to cross-check which identities the TeX intended — its blocks match the manuscript and are the ones re-verified here — but it was never executed, and no value on this page came from it.</p></div><div class="col"><p><strong>This verifier reports a summary rather than named rows.</strong> It states its own totals and its mutation-control outcome and stops there, so there is no per-check ledger to show and this page does not manufacture one. Its complete output at this build is reproduced verbatim:</p><pre class="code">checks: 126, failures: 0, mutation controls rejected: 3/3, runtime: 0.06s
+<div class="col"><p>Every supporting identity the classification rests on, exactly over ℚ with BigInt rational Laurent arithmetic: the weighted witness moments, the explicit abelian pair and its printed four-term expansion, the matrix-entry representatives and their invariance. Disclosure specific to this lane: the author’s Python was READ to cross-check which identities the TeX intended — its blocks match the manuscript and are the ones re-verified here — but it was never executed, and no value on this page came from it.</p></div><div class="col"><p><strong>This verifier reports a summary rather than named rows.</strong> It states its own totals and its mutation-control outcome and stops there, so there is no per-check ledger to show and this page does not manufacture one. Its complete output at this build is reproduced verbatim:</p><pre class="code">checks: 126, failures: 0, mutation controls rejected: 3/3, runtime: 0.04s
 ALL SUPPORTING IDENTITIES VERIFIED EXACTLY (BigInt rationals).</pre></div>
 </section>
 
@@ -531,7 +531,7 @@ node legacy/research/challenges/lane/laneb-mathieu/verify.js</pre><p>Plain Node,
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-claim.js @ git 396a236. Every row on this page was printed by legacy/research/challenges/lane/laneb-mathieu/verify.js during this build and parsed by instruments/laneaudit/audit.js — the same module the flagship reads, so the two pages cannot quote different numbers. A failing check or a mutation control that stopped firing would refuse this page.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-claim.js @ git 325d9c1. Every row on this page was printed by legacy/research/challenges/lane/laneb-mathieu/verify.js during this build and parsed by instruments/laneaudit/audit.js — the same module the flagship reads, so the two pages cannot quote different numbers. A failing check or a mutation control that stopped firing would refuse this page.</p></footer>
 
 </div>
 </html>

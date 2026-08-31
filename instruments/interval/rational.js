@@ -58,10 +58,14 @@ const abs = a => (a.n < 0n ? neg(a) : a);
 /* a double that is >= (resp <=) the exact value — for reporting only.
    Number(n)/Number(d) overflows on large heights, so scale first. */
 function toDouble(a) {
-  const q = Number(a.n) / Number(a.d);
-  if (Number.isFinite(q)) return q;
-  const shift = BigInt(Math.max(0, a.d.toString(2).length - 1000));
-  return Number(a.n >> shift) / Number(a.d >> shift);
+  if (a.n === 0n) return 0;
+  const sign = (a.n < 0n) !== (a.d < 0n) ? -1 : 1;
+  const N = a.n < 0n ? -a.n : a.n;
+  const D = a.d < 0n ? -a.d : a.d;
+  const bn = N.toString(2).length, bd = D.toString(2).length;
+  if (bn < 1000 && bd < 1000) return sign * (Number(N) / Number(D));
+  const shift = BigInt(Math.max(bn, bd) - 1000);
+  return sign * (Number(N >> shift) / Number(D >> shift));
 }
 const toString = a => (a.d === 1n ? a.n.toString() : a.n + '/' + a.d);
 

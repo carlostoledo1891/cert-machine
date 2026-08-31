@@ -276,7 +276,22 @@ let reds = 0;
   const caught = 1e-15 < need;
   if (caught) { reds++; console.log('       RED ok  X5 remembered ±1e-15 trig pad under-covers derived pad ' + need.toExponential(3) + ' at ang=' + ang.toFixed(2) + ' (×' + (need / 1e-15).toFixed(1) + ')'); }
 }
-check('X every falsifier turned its own target red', reds === 5, reds + '/5');
+{
+  /* X6 — the toDouble underflow that reported a certified WIDTH as exactly
+     zero. Found 2026-08-31 by the Erdos #290 squeeze at horizon l = 309: once
+     the denominator passes ~1024 bits while the numerator does not,
+     Number(d) is Infinity, the quotient is finite/Infinity = 0, and the old
+     guard `Number.isFinite(q)` ACCEPTED that zero. A width of zero reads as
+     infinite precision, which is the worst direction this file can fail in. */
+  const Q = require('../rational.js');
+  const N = (2n ** 1016n) * 3n, D = (2n ** 1026n) * 3n * 10000n / 8071n;
+  const got = Q.toDouble({ n: N, d: D });
+  const oldWay = Number(N) / Number(D);
+  const caught = got > 1e-4 && got < 1e-3 && oldWay === 0 && Number.isFinite(oldWay);
+  if (caught) { reds++; console.log('       RED ok  X6 a rational with a >1024-bit denominator reports ' + got.toExponential(3)
+    + ', not the 0 the old isFinite guard accepted (a certified width of zero is a claim of infinite precision)'); }
+}
+check('X every falsifier turned its own target red', reds === 6, reds + '/6');
 
 console.log('\n' + (fail ? fail + ' FAILED, ' + pass + ' passed'
   : 'ALL PASS (' + pass + ' checks) — every export is exercised; arithmetic against exact BigInt\n' +

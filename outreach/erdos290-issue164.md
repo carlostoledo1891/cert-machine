@@ -1,19 +1,32 @@
 # Erdős #290 — the GitHub issue comment (teorth/erdosproblems#164)
 
-STATUS (2026-08-28): the comment below was POSTED 2026-08-04 16:28 UTC by
+STATUS (2026-08-31): the comment reproduced below was POSTED 2026-08-04 by
 carlostoledo1891 on https://github.com/teorth/erdosproblems/issues/164
-(Woett's "HELP WANTED: Computing sequence for Erdős problem #290",
-opened 2025-11-28, label help-wanted, still OPEN). No replies as of
-2026-08-28. The problem-page comment it promises ("will add the link
-here as soon as it is up") is STILL IN the erdosproblems moderation
-queue — the promised link was never added, which is the likeliest
-reason the loop never closed. The mfg-lab URL it cites 301s to
-https://www.carlostoledo.co/reports/erdos290.html (verified 2026-08-28).
+(Woett's "HELP WANTED: Computing sequence for Erdős problem #290", opened
+2025-11-28, label help-wanted, still OPEN). No replies.
 
-A FOLLOW-UP DRAFT with the post-Aug-4 news (d <= 240 determination,
-d = 168 and 224 settled, interval halved, failure degree 122 -> 242,
-110 conditional digits)
-sits below the posted text. SEND ON THE OPERATOR'S WORD ONLY.
+**THE SUMMIT FINISHED 2026-08-31 AND THE FOLLOW-UP IS NOW SENDABLE.** The six
+detached shards closed the contiguous block l = 293..310; the main record
+holds 250 degrees closed, 0 open, l = 61..310 contiguous. The follow-up draft
+below has been rewritten against that horizon. It was HELD until now on
+purpose: its own text promised a third unconditional digit "when the squeeze
+reaches l ≈ 310", and sending it before that landed would have bought a stale
+comment and forced a third.
+
+THE PROMISE LANDED:
+
+    unconditional  c        ∈ [0.830416407911, 0.831220912621]   (l ≤ 310)
+    unconditional  1/(1+c)  ∈ [0.546083759260, 0.546323774021]
+
+so **0.546 is now pinned WITHOUT the tail assumption** — previously only 0.54
+was. The "6" the correspondent guessed is confirmed unconditionally. The
+assumption now enters only at l = 311 (even d ≥ 622), was l = 242.
+
+STILL TRUE: the erdosproblems problem-page comment promised in the posted
+text ("will add the link here as soon as it is up") remains in that site's
+moderation queue, and is the likeliest reason the loop never closed.
+
+SEND ON THE OPERATOR'S WORD ONLY. Nothing here has been posted.
 
 ## The posted comment (2026-08-04), verbatim
 
@@ -118,13 +131,15 @@ d = 224 = 4·7·8, each settled with its exact delta — and they are the
 ONLY two degrees in that range that drop, exactly as the discriminant
 identity says: disc(f_d) is a square iff d+1 is.
 
-2. The unconditional interval halved:
-c ∈ [0.829918323, 0.831988708], hence with outward rounding
-1/(1+c) ∈ [0.545854892900, 0.546472477723],
-and the tail assumption now enters only at even d >= 242 — a first
-failure at d0 = 242 moves 1/(1+c) by about 3e-6 and preserves 0.54622.
-The third unconditional digit falls when the squeeze reaches l ≈ 310
-(even d up to ~620); that run is in progress.
+2. The unconditional interval, now at knowledge horizon l ≤ 310
+(every even d up to 620 pinned exactly, 250 degrees closed, none open):
+c ∈ [0.830416407911, 0.831220912621], hence
+1/(1+c) ∈ [0.546083759260, 0.546323774021].
+THE THIRD UNCONDITIONAL DIGIT HAS FALLEN: 1/(1+c) = 0.546… with no
+assumption of any kind, where the previous horizon pinned only 0.54.
+So the "6" you guessed is now confirmed unconditionally, not merely
+under the tail hypothesis. That hypothesis now enters only at even
+d ≥ 622 (l = 311), where it used to enter at d = 242.
 
 3. The conditional expansion, now to 110 digits (the enclosure's
 certified horizon moved to d <= 240; the labeled assumption is the
