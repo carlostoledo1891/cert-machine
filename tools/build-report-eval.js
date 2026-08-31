@@ -45,13 +45,60 @@ const LEDGER = path.join(ROOT, 'certs', 'matmul-eval-ledger.jsonl');
 const rows = fs.existsSync(LEDGER)
   ? fs.readFileSync(LEDGER, 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l))
   : [];
+/* ---- BUDGET-EXHAUSTED IS NOT A MODEL OUTCOME -----------------------------
+   A reply cut off by OUR output budget that returns no text is a harness
+   artifact: it measures what we were willing to pay for, not what the model
+   can do. The harness has always said so in its docstring and the ledger has
+   always recorded it under its own name — and then this file counted those
+   rows in the leaderboard denominator anyway, which published opus-5 at a
+   30% certified rate where the honest rate over rows it actually answered
+   is 90%. Understating a model threefold on our own page.
+
+   ONE definition, used by EVERY aggregation below, because this is exactly
+   the rule that diverges when it is written out twice (the corpus.js lesson,
+   and this file already had three denominators). Exhausted rows are counted,
+   named and displayed — never silently dropped and never in the denominator. */
+const EXHAUSTED = 'budget-exhausted';
+const isModelOutcome = (r) => r.outcome !== EXHAUSTED;
+
+/* ---- what the ledger can actually support about output budgets -----------
+   This page used to state that campaigns ran under 16k and 32k output
+   budgets. No row in this ledger records an output anywhere near that: the
+   largest is below. Those budgets may well have been real on the day, but a
+   page in this repository does not get to assert a number its record cannot
+   back, so the figure below is COMPUTED and the prose says only what it
+   supports. If a future campaign genuinely logs a larger output, this number
+   moves on its own. */
+const maxOut = rows.reduce((m, r) => Math.max(m, (r.usage && r.usage.out) || 0), 0);
+const tok = (n) => n >= 1000 ? (n / 1000).toFixed(n % 1000 ? 1 : 0) + 'k' : String(n);
+
+/* ---- corrections to rows already written ---------------------------------
+   The ledger is append-only and is never rewritten. A row that turns out to
+   be mislabelled is corrected in certs/matmul-eval-corrections.json and the
+   correction is applied HERE, at display time, with the reason visible on the
+   page. Any consumer of the ledger that does not read this file will print a
+   label we know to be false. */
+const CORR = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'matmul-eval-corrections.json'), 'utf8'));
+const tagFix = new Map(CORR.corrections.filter(c => c.appliesTo && c.appliesTo.tag)
+  .map(c => [c.appliesTo.tag, c]));
+const displayTag = (t) => (tagFix.has(t) ? tagFix.get(t).displayTag : t);
+{ /* a correction naming a tag no row carries is a stale correction — refuse */
+  const tags = new Set(rows.map(r => r.tag || 'v1'));
+  for (const [t, c] of tagFix) {
+    if (!tags.has(t)) die('correction ' + c.id + ' names tag "' + t + '", which no ledger row carries');
+    const n = rows.filter(r => (r.tag || 'v1') === t).length;
+    if (n !== c.rows) die('correction ' + c.id + ' claims ' + c.rows + ' rows, the ledger holds ' + n);
+  }
+}
+
 const byModel = new Map();
 for (const r of rows) {
   if (r.family !== 'matmul') continue;
   const tag = r.tag || 'v1';
   const k = (r.model || 'fake') + ' · ' + tag;
-  if (!byModel.has(k)) byModel.set(k, { model: r.model || 'fake', tag, n: 0, malformed: 0, rejected: 0, refuted: 0, certified: 0, undecided: 0 });
+  if (!byModel.has(k)) byModel.set(k, { model: r.model || 'fake', tag, n: 0, exhausted: 0, malformed: 0, rejected: 0, refuted: 0, certified: 0, undecided: 0 });
   const a = byModel.get(k);
+  if (!isModelOutcome(r)) { a.exhausted++; continue; }
   a.n++; a[r.outcome] = (a[r.outcome] || 0) + 1;
 }
 const agg = [...byModel.values()].map((a) => ({
@@ -103,10 +150,10 @@ O.push(C.tldr({
     for (const [k, token, hatch] of ORDER) {
       const n = a[k] || 0; if (!n) continue;
       segs.push({ x0: acc / a.n, x1: (acc + n) / a.n, token, hatch,
-        k: short(a.model) + ' · ' + a.tag, v: n + ' of ' + a.n + ' ' + k });
+        k: short(a.model) + ' · ' + displayTag(a.tag), v: n + ' of ' + a.n + ' ' + k });
       acc += n;
     }
-    return { k: short(a.model) + ' · ' + a.tag + '  (n=' + a.n + ')', segs };
+    return { k: short(a.model) + ' · ' + displayTag(a.tag) + '  (n=' + a.n + ')', segs };
   });
   const totRef = models.reduce((s, a) => s + (a.refuted || 0), 0);
   const totN = models.reduce((s, a) => s + a.n, 0);
@@ -171,11 +218,12 @@ O.push(C.section({
     + '</div>'
 }));
 
-const cols = [{ h: 'model' }, { h: 'prompt' }, { h: 'proposals' }, { h: 'certified' }, { h: 'refuted' }, { h: 'rejected' }, { h: 'malformed' }, { h: 'certified rate' }, { h: 'survivor truth' }];
+const cols = [{ h: 'model' }, { h: 'prompt' }, { h: 'answered' }, { h: 'certified' }, { h: 'refuted' }, { h: 'rejected' }, { h: 'malformed' }, { h: 'our budget ran out' }, { h: 'certified rate' }, { h: 'survivor truth' }];
 const mkRow = (a, tagKind) => [
   { raw: '<span class="m">' + C.esc(a.model) + '</span>' + (tagKind ? ' ' + C.tag('calibration baseline', tagKind) : '') },
-  { raw: '<span class="m">' + C.esc(a.tag || 'v1') + '</span>' },
-  String(a.n), String(a.certified), String(a.refuted), String(a.rejected), String(a.malformed), pct(a.certRate), pct(a.survivorTruth)
+  { raw: '<span class="m">' + C.esc(displayTag(a.tag || 'v1')) + '</span>' },
+  String(a.n), String(a.certified), String(a.refuted), String(a.rejected), String(a.malformed),
+  String(a.exhausted || 0), pct(a.certRate), pct(a.survivorTruth)
 ];
 O.push(C.section({
   lab: '§2 · the leaderboard', title: models.length ? 'Certified truth rates' : 'No model has run yet — honestly', wide: true,
@@ -201,8 +249,9 @@ const byRung = new Map();
 for (const r of rows) {
   if (r.family !== 'matmul' || (r.model || 'fake') === 'fake') continue;
   const k = r.model + ' ' + (r.tag || 'v1') + ' ' + r.target;
-  if (!byRung.has(k)) byRung.set(k, { model: r.model, tag: r.tag || 'v1', target: r.target, n: 0, malformed: 0, rejected: 0, refuted: 0, certified: 0, undecided: 0 });
+  if (!byRung.has(k)) byRung.set(k, { model: r.model, tag: r.tag || 'v1', target: r.target, n: 0, exhausted: 0, malformed: 0, rejected: 0, refuted: 0, certified: 0, undecided: 0 });
   const a = byRung.get(k);
+  if (!isModelOutcome(r)) { a.exhausted++; continue; }   /* the one rule, not a second copy */
   a.n++; a[r.outcome] = (a[r.outcome] || 0) + 1;
 }
 const rungTuple = (t) => String(t).replace(/[()\s]/g, '').split(',').map(Number);
@@ -224,20 +273,29 @@ if (rungRows.length) {
   O.push(C.section({
     lab: '§2b · the ladder, per rung', title: 'Where the cliffs are', wide: true,
     bodyRaw: C.table({
-      cols: [{ h: 'model' }, { h: 'prompt' }, { h: 'rung' }, { h: 'proposals', cls: 'n' }, { h: 'certified', cls: 'n' }, { h: 'refuted', cls: 'n' }, { h: 'rejected', cls: 'n' }, { h: 'malformed', cls: 'n' }, { h: 'certified rate', cls: 'n' }],
+      cols: [{ h: 'model' }, { h: 'prompt' }, { h: 'rung' }, { h: 'answered', cls: 'n' }, { h: 'certified', cls: 'n' }, { h: 'refuted', cls: 'n' }, { h: 'rejected', cls: 'n' }, { h: 'malformed', cls: 'n' }, { h: 'our budget ran out', cls: 'n' }, { h: 'certified rate', cls: 'n' }],
       rows: rungRows.map((a) => [
         { raw: '<span class="m">' + C.esc(a.model) + '</span>' },
-        { raw: '<span class="m">' + C.esc(a.tag) + '</span>' },
+        { raw: '<span class="m">' + C.esc(displayTag(a.tag)) + '</span>' },
         { raw: '<span class="m">' + C.esc(rungLabel(a.target)) + '</span>' },
         String(a.n), String(a.certified), String(a.refuted), String(a.rejected), String(a.malformed),
-        pct(a.n ? a.certified / a.n : null)
+        String(a.exhausted || 0), pct(a.n ? a.certified / a.n : null)
       ])
     })
       + '<div class="col">' + C.pRaw('The aggregate board hides the shape of failure; this table is where it lives. '
         + 'The rungs are ordered easy to hard within each campaign: '
         + '<span class="m">&lt;2,2,2&gt; r7</span> is Strassen 1969, <span class="m">r8</span> is the naive format rung, '
         + '<span class="m">&lt;2,2,3&gt; r11</span> and <span class="m">&lt;3,3,3&gt; r23</span> (Laderman) test whether '
-        + 'recall survives precision. Every count is read off the append-only ledger at build time.') + '</div>'
+        + 'recall survives precision. Every count is read off the append-only ledger at build time.')
+      + C.pRaw('<strong>Two corrections, applied here rather than hidden.</strong> The <em>answered</em> column '
+        + 'counts only proposals the model actually returned: a reply cut off by OUR output budget is counted in '
+        + 'its own column and kept out of every rate, because it measures what we paid for, not what the model '
+        + 'can do. Counting those in the denominator is what this page did until 2026-08-31, and it published '
+        + 'opus-5 at a 30% certified rate where the honest figure over rows it answered is 90%. And the prompt '
+        + 'tag reading <span class="m">v4 (tagged effort-low; ran at DEFAULT effort)</span> is a correction too: '
+        + 'the harness dropped its <span class="m">--effort</span> argument in campaign mode, so 90 rows carry a '
+        + 'label that was never true. The rows are not rewritten — the ledger is append-only — so the correction '
+        + 'lives in certs/matmul-eval-corrections.json and is applied at display time.') + '</div>'
   }));
 }
 
@@ -249,8 +307,9 @@ if (realRows.some((r) => r.target === T_PROBE && r.outcome === 'certified'))
 const aggBy = (rs) => {
   const m2 = new Map();
   for (const r of rs) {
-    if (!m2.has(r.model)) m2.set(r.model, { model: r.model, n: 0, declined: 0, attempted: 0, malformed: 0, certified: 0 });
+    if (!m2.has(r.model)) m2.set(r.model, { model: r.model, n: 0, exhausted: 0, declined: 0, attempted: 0, malformed: 0, certified: 0 });
     const a = m2.get(r.model);
+    if (!isModelOutcome(r)) { a.exhausted++; continue; }  /* the one rule, not a third copy */
     a.n++;
     if (r.outcome === 'declined') a.declined++;
     else if (r.outcome === 'malformed') a.malformed++;
@@ -314,11 +373,13 @@ if (disgAgg.length) {
         + 'The gap between the last two columns is the recall gap, measured.') + '</div>'
       + '<div class="col">' + C.pRaw('<strong>The cost asymmetry is itself the measurement.</strong> The plain '
         + 'rank-7 rung costs a capable model almost nothing — recall — while this rung, the SAME task up to '
-        + 'relabeling, consumed extended-thinking budgets in the tens of thousands of tokens per proposal '
-        + '(2026-08-27 campaigns: opus-5 solved it within a 16k output budget; sonnet-5 exhausted 16k on every '
-        + 'attempt and produced its certified rows only under 32k; replies cut by OUR budget are skipped as '
-        + 'harness artifacts, never recorded as model outcomes). Removing the label converts a free lookup into '
-        + 'thousands of tokens of genuine derivation — which is exactly what an anti-recall rung is for.') + '</div>'
+        + 'relabeling, spends real output on every proposal: the largest single reply in this ledger is '
+        + tok(maxOut) + ' tokens, and replies cut off by OUR budget are recorded under their own name and kept '
+        + 'out of every rate on this page. Removing the label converts a free lookup into genuine derivation — '
+        + 'which is exactly what an anti-recall rung is for. <em>Corrected 2026-08-31:</em> this paragraph used '
+        + 'to say the 2026-08-27 campaigns ran under 16k and 32k output budgets. Nothing in this ledger records '
+        + 'an output above ' + tok(maxOut) + ', so that claim was not ours to make and the figure is now computed '
+        + 'from the record.') + '</div>'
   }));
 }
 
@@ -370,10 +431,10 @@ if (conjAgg.length) {
         + 'contaminated by its own publication — the same property the Forecast Gym gets from time, obtained '
         + 'here from algebra.') + '</div>'
       + '<div class="col">' + C.pRaw('<strong>The first campaign hit a measured wall.</strong> On the fixed '
-        + 'd7 disguise, opus-5 certified within a 16k output budget. On instance c1 — denser after '
-        + 'conjugation, entries to |8| — opus-5 returned empty text at 16k and sonnet-5 at 32k on every '
-        + 'attempt (budget-exhausted replies are skipped as harness artifacts, never recorded as model '
-        + 'outcomes), and the API refuses larger non-streaming budgets; haiku attempted every time and was '
+        + 'd7 disguise, opus-5 certified. On instance c1 — denser after '
+        + 'conjugation, entries to |8| — opus-5 and sonnet-5 returned empty text on every '
+        + 'attempt, exhausting the output budget (those replies are recorded under their own name and kept '
+        + 'out of every rate on this page); haiku attempted every time and was '
         + 'exactly rejected every time. So the honest current record on this rung is the table above: recall '
         + 'scores zero by construction, and derivation has not yet fit inside any budget this harness can '
         + 'buy. Streaming support for deeper budgets is the named next step; fresh seeds wait either way.') + '</div>'

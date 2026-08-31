@@ -1009,9 +1009,19 @@ def main():
         return
 
     model_name = args.model_label if args.proposals else (args.model or "fake")
+    # --effort and --stream are passed THROUGH here. They were not, for the
+    # 2026-08-27 campaigns: this call took only (model, max_tokens), so every
+    # row tagged v4-effort-low actually ran at the API's DEFAULT effort and
+    # the tag on the published leaderboard was false. run_loop had always
+    # passed them, which is why the bug survived — the loop mode looked fine.
+    # The correction to the affected rows is recorded in
+    # certs/matmul-eval-corrections.json; the rows themselves are not
+    # rewritten, because a record that can lose its losses is not a record.
     propose = (None if args.proposals
                else fake_proposer(fam, args.seed) if args.dry_run
-               else anthropic_proposer(args.model, args.max_tokens))
+               else anthropic_proposer(args.model, args.max_tokens,
+                                       getattr(args, "stream", False),
+                                       getattr(args, "effort", None)))
     tally = {"malformed": 0, "rejected": 0, "refuted": 0, "certified": 0, "undecided": 0, "declined": 0}
     seen = set()
 

@@ -1,0 +1,16 @@
+{
+  "what": "Corrections to rows already written in certs/matmul-eval-ledger.jsonl. The ledger is append-only and is NEVER rewritten — a record that can lose its losses is not a record — so a row that turns out to be mislabelled is corrected HERE and the report applies the correction when it displays the row. Every consumer of the ledger must read this file too.",
+  "corrections": [
+    {
+      "id": "v4-effort-low-was-default-effort",
+      "found": "2026-08-31",
+      "appliesTo": { "tag": "v4-effort-low" },
+      "rows": 90,
+      "what": "These rows are tagged as having run at LOW thinking effort. They did not. tools/llm-harness.py built its campaign proposer with anthropic_proposer(model, max_tokens) and dropped the --effort argument entirely, so every one of them ran at the API's default effort. run_loop passed effort correctly, which is why the bug survived review: the loop mode was right and only the campaign path was wrong.",
+      "consequence": "The tag was false on a published leaderboard. No measurement of low-effort behaviour exists in this ledger; the rows remain valid as DEFAULT-effort measurements and are displayed as such.",
+      "displayTag": "v4 (tagged effort-low; ran at DEFAULT effort)",
+      "fix": "tools/llm-harness.py now passes --effort and --stream through in campaign mode. Re-running under a genuine low-effort budget would need a new tag; it has not been done.",
+      "affectedModels": ["claude-haiku-4-5-20251001", "claude-opus-5", "claude-sonnet-5"]
+    }
+  ]
+}
