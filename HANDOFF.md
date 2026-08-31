@@ -87,6 +87,77 @@ and consulting sin-mfg is what killed it. Read that lab FIRST next time.)
   reduction at m > 5. Honest framing there is "certified where nothing
   certified exists", never "progress on Chowla".
 
+SESSION 2026-08-31c — #290 CLOSED, AND THE NEXT MOVE IS READING
+
+  **START THE NEXT SESSION BY READING, NOT BUILDING.** The single open target
+  worth work is `erdos290-delta-window` in corpus/targets.json, and its
+  `unscouted` field is the whole instruction: what is known unconditionally
+  about Gal(f_d) and its image in S_l — including whether f_d is even known
+  to be irreducible for large even d — HAS NOT BEEN CHECKED. Until it is,
+  nothing about that lemma is worth attempting.
+
+  WHAT IS DONE AND LIVE
+   · The #290 summit finished: 6 shards closed l = 293..310, merged, 250
+     degrees closed, 0 open, l = 61..310 contiguous.
+   · c ∈ [0.830416407911, 0.831220912621] and 1/(1+c) ∈
+     [0.546083759260, 0.546323774021], so **c_0 = 0.546 UNCONDITIONALLY**,
+     where every previous horizon pinned only 0.54. The conditional
+     expansion holds at 110 digits with its assumption now entering at
+     even d >= 622 rather than 62.
+   · reports/erdos290.html leads with it: "A digit that was a guess is now a
+     theorem". The 1/(1+c) interval and the count of agreed digits are
+     DERIVED at build; a gate refuses the build if an extension ever fails to
+     add an unconditional digit.
+   · WHY THE DIGITS MATTER, and this was mis-stated for most of the session:
+     van Doorn arXiv:2411.03073 is about denominators of generalized harmonic
+     sums and proves b(a) > a + 0.54*log(a). c_0 IS that constant. A third
+     unconditional digit is the difference between a published theorem saying
+     0.54 and saying 0.546. NOT AN OEIS ORNAMENT. (Inferred from the abstract;
+     checking it against his derivation is stage 0 of SPEC-PRICING.md.)
+
+  DRAFTED, PASTE-READY, NOT SENT — sending is Carlos's call and needs no
+  ceremony; SEND-QUEUE.md is now a readiness list, not a request.
+   · outreach/issue164-PASTE.md — a pure delta on the comment already posted
+     on teorth/erdosproblems#164, GitHub-safe Markdown (a stray asterisk had
+     been italicising half a paragraph; fixed and verified mechanically).
+   · outreach/oeis-erdos290-pack.md — packs 4 and 5 FILLED, 110 terms each,
+     with quantified failure semantics so an entry is amended by raising d0
+     rather than retracted. Pack 4 is the one van Doorn asked for by name.
+   · outreach/oeis-erdos852h-extension.md — the length-31 record, re-verified.
+
+  A REAL BUG, FIXED, WITH ITS RED CONTROL: Q.toDouble took its fast path
+  whenever the quotient was FINITE. Once a denominator passes ~1024 bits while
+  the numerator does not, Number(d) is Infinity, finite/Infinity is 0, and
+  isFinite(0) is true — so it returned ZERO. Since toDouble reports enclosure
+  WIDTHS, a certified bracket printed as width exactly zero: infinite precision
+  claimed silently. It surfaced only because a log axis cannot take log10(0).
+  Fixed in instruments/interval and in the lifted legacy copy, BOTH DECLARED as
+  patches in LIFT.json — the first attempt was an in-place edit of a lifted
+  tree and the next lift silently reverted it. THE SAME DEFECT IS UPSTREAM in
+  sin-mfg; reported, not repaired.
+
+  WHAT THE SESSION ACTUALLY TAUGHT, and it is not about code. Five targets
+  died — polynomial multiplication, the 55-addition search, Chowla small-c,
+  delta >= 1/2, family arguments — each after hours, each of which would have
+  died in minutes if the prior art had been read first. sin-mfg's Chowla gate
+  had ruled that lane OCCUPIED on 2026-08-20 and sat unread on disk while three
+  hours went into rediscovering it. corpus/targets.json now holds all nine
+  targets with the citation that killed each; `node tools/targets.js [word]`
+  reads it. It is memory, not a gate: no die(), no build wiring, refuses
+  nothing.
+
+  DELETED THIS SESSION, on the operator's instruction and correctly: a lemma-
+  pricing tool and its battery and refutation check. The operator asked for
+  ideas and got a checkpoint. The findings survive in SPEC-PRICING.md —
+  delta >= 1/2 is false; family arguments are worth their density and never
+  buy a digit; a window of width 0.2 buys the fourth digit where compute needs
+  ~10^5 times. machine/erdos290/tail.js was KEPT because it removed a
+  duplicated bracket, not because it checks anything.
+
+  STANDING NOTE ON HOW TO WORK HERE: scout first, build second. Write the
+  targets.json row even when the verdict is OPEN. Do not answer a request for
+  ideas with a gate.
+
 SESSION 2026-08-31 — THE 55-ADDITION AUDIT (option 3, redirected by its own
 prior-art gate from a search into an audit)
 
