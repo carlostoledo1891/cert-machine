@@ -171,6 +171,27 @@ if (invAgreed <= inv60Agreed) die('the extension did not add an unconditional di
   + 'the page\'s headline is derived from this comparison and must not be written when it is false');
 if (bxWidth > B60.width + 1e-15) die('the extended bracket is wider than the recorded K=60 bracket — impossible');
 
+/* ---- 1/(2c): the OTHER endpoint of van Doorn's Theorem 8 ------------------
+   Theorem 8 is TWO-SIDED — 1/(1+c) ≤ liminf (b(a)−a)/log a ≤ 1/(2c), Lemma 31
+   below and Lemma 30 above — and BOTH published constants, 0.54 and 0.61, are
+   those two expressions at two decimals under Lemma 32's 0.82 < c < 0.85.
+   Everything above sharpens the lower one. This sharpens the upper one, from
+   the same record and at no extra cost: 1/(2c) DECREASES in c, so it is fed by
+   the bracket's certified LOWER endpoint — and a lower endpoint charges the
+   unpinned tail zero, so no tail lemma and no further degree enters it.
+   Rounded OUTWARD (up), so the printed number is a valid upper bound. Derived
+   at the cited horizon too, so "was, now" is computed rather than claimed. */
+const TWO = R(2n, 1n);
+const upperOf = (clo) => div(ONE, mul(TWO, clo));
+const twoCHi = dec(upperOf(BX.lo), 12, true);
+const twoC60Hi = dec(upperOf(R(BigInt(Math.round(B60.lo * 1e12)), 10n ** 12n)), 12, true);
+/* van Doorn's published pair, QUOTED from Theorem 8 — never derived here. */
+const VD = { lo: 0.54, hi: 0.61 };
+if (!(twoCHi < VD.hi)) die('the derived upper endpoint 1/(2c) = ' + twoCHi + ' does not improve the published '
+  + VD.hi + ' — the section claiming it must not be written when it is false');
+if (!(uncLo > VD.lo)) die('the derived lower endpoint 1/(1+c) = ' + uncLo + ' does not improve the published ' + VD.lo);
+const vdWidth = VD.hi - VD.lo, newWidth = twoCHi - uncLo;
+
 /* ---- 4 · the conditional enclosure, re-derived ---------------------------- */
 const CS = K.conditionalCStar(120, 80);
 /* the published precision is the RECORD's, read off the record's own string */
@@ -237,7 +258,10 @@ O.push(C.tldr({
     + 'even degree pinned exactly through l = ' + Lpin + ' (d = ' + 2 * Lpin + ')'
     + (excClosed.length
       ? ', the ' + excClosed.length + ' exceptional degrees past the cited horizon (d = ' + andList(excClosed.map((e) => String(e.d))) + ') among them.'
-      : '.'),
+      : '.')
+    + ' And the same bracket moves the OTHER end of the published theorem, which nothing here had said before: '
+    + 'Theorem 8 is two-sided, so 1/(2c) ≤ ' + twoCHi.toFixed(6) + ' sharpens its upper constant ' + VD.hi
+    + ' at no extra cost — §3b.',
   mechanismRaw: 'Closed-form Galois class sums from the cycle-index EGF replace a 38.9-million-object '
     + 'enumeration (proved equal to it on every degree both can reach); planted falsifiers must fire at every '
     + 'build.',
@@ -262,7 +286,7 @@ O.push(C.section({
     + C.pRaw('Take P(x) = ∏_{j=0}^{d}(x−j) and f_d = P′, degree d. For EVEN d = 2l, recentring at d/2 makes f_d '
       + 'even: f_d(x + l) = h(x²) for a degree-l polynomial h. Four exact facts finish it: '
       + 'h(0) = (−1)^l (l!)²; the published composition law disc(h(x²)) = (−1)^l 2^{2l} · lead(h) · h(0) · disc(h)² '
-      + '(Altmann–Awtrey–Cryan–Shannon–Touchette 2020, non-monic factor restored); lead(f_d) = d+1; and '
+      + '(the non-monic composition law — Cullinan, <em>The discriminant of a composition</em>, which carries the leading coefficients explicitly; its hypotheses hold here since Res(h, x²) = h(0)² = (l!)⁴ ≠ 0); lead(f_d) = d+1; and '
       + 'disc(h) ≠ 0 by Rolle. Substituting:')
     + C.eq(C.esc('disc(f_d) = (d+1) · ( 2^l · l! · disc(h) )²'))
     + C.pRaw('so disc(f_d) is a perfect square exactly when d+1 is — that is, exactly at d = 4k(k+1). '
@@ -378,6 +402,33 @@ O.push(C.section({
     + '</div>'
 }));
 
+/* Added after reading Theorem 8 at the source rather than from the abstract:
+   the theorem has two constants and this repository had only ever spoken about
+   one of them. Nothing new is computed here — it is the same bracket, divided
+   the other way. */
+O.push(C.section({
+  lab: '§3b · the other constant', title: 'Theorem 8 is two-sided, and the same bracket moves both ends',
+  bodyRaw: '<div class="col">'
+    + C.pRaw('The bound this page exists to sharpen is one half of a pair. Van Doorn\'s Theorem 8 reads '
+      + C.m('0.54 < liminf (b(a)−a)/log a < 0.61') + ', with Lemma 31 supplying the lower endpoint 1/(1+c), '
+      + 'Lemma 30 the upper endpoint 1/(2c), and Lemma 32 supplying 0.82 &lt; c &lt; 0.85. Both published constants '
+      + 'are those two expressions rounded to two decimals — so the same constant c governs both, and a certified '
+      + 'bracket for c moves both ends of the published interval, not one.')
+    + C.pRaw('The upper endpoint costs nothing extra. 1/(2c) DECREASES in c, so it is fed by the bracket\'s '
+      + 'certified LOWER endpoint — and the lower endpoint charges the unpinned tail zero, so no tail lemma, no '
+      + 'assumption about the groups above the horizon, and no further degree enters it at all. Dividing the same '
+      + 'bracket the other way, with outward rounding:')
+    + C.eq(C.esc('liminf (b(a)−a)/log a ≤ 1/(2c) ≤ ' + twoCHi.toFixed(12) + '   (published: ' + VD.hi + ')'))
+    + C.pRaw('Setting the two together, Theorem 8 becomes ' + C.m(uncLo.toFixed(12) + ' < liminf < ' + twoCHi.toFixed(12))
+      + ' — the published interval narrowing from width ' + vdWidth.toFixed(2) + ' to ' + newWidth.toFixed(4) + '. '
+      + 'Honesty about where that comes from: most of the upper-endpoint gain was already available at the cited '
+      + 'horizon, which gives ' + twoC60Hi.toFixed(12) + '; the continuation of §3 moves it the rest of the way. '
+      + 'The published 0.61 is conservative mainly because 0.82 is a conservative reading of c, not because the '
+      + 'horizon was short. Both numbers above carry the same Lemma 32 dependency as everything else on this page, '
+      + 'and neither carries the §4 assumption.')
+    + '</div>'
+}));
+
 O.push(C.section({
   lab: '§4 · the conditional value', title: 'c to ' + condDigits + ' digits — under one labeled assumption',
   bodyRaw: '<div class="col">'
@@ -426,6 +477,6 @@ const foot = '<footer class="col">'
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'erdos290.html'),
   TPL.render({ title: 'Erdős #290: the 4k(k+1) theorem · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/erdos290.html',
-    desc: 'Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant behind van Doorn\'s lower bound — tightened past the cited page, every number recomputed at build.' }));
+    desc: 'Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant behind BOTH endpoints of van Doorn\'s Theorem 8 — tightened past the cited page, every number recomputed at build.' }));
 console.log('reports/erdos290.html written: theorem RE-PROVED (' + falsifiers + ' falsifiers), narrowing reproduced, bracket ['
   + bxLo.toFixed(12) + ', ' + bxHi.toFixed(12) + '] (' + fmtPct(bxWidth, B60.width) + ' tighter, l <= ' + Lmax + ') @ git ' + gitrev);
