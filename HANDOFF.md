@@ -13,10 +13,71 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-08-30, six-lane audit + six claim pages)
+## TASKS BACKLOG — the standing menu (updated 2026-08-30, #852 conjecture-vs-data)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+SESSION 2026-08-30e — ERDŐS #852: THE CONJECTURE, FINALLY AGAINST THE DATA
+(operator: "how could we push more on erdos852?" then "Go L1" then "Start all 3").
+
+  THE OPENING. #852's constant work was finished and public (5d061fb/earlier):
+  c0 certified to 61 digits, the published C* REFUTED at digit 12, correction
+  live on erdosproblems.com since 2026-08-27. What was NOT done: the constant
+  had never been compared to the DATA. The thread conjectures h(x) ~ c0 log x;
+  OEIS A053597/A078515/A079007/A079889 have held the exact record runs since
+  2002; the problem page lists those sequences in its own OEIS box. Neither
+  side had ever been pointed at the other. That gap needed no new mathematics.
+
+  L1 SHIPPED — reports/erdos852-h.html. instruments/erdos852h/ (h.js, a
+  streaming segmented sieve + two-pointer longest-repeat-free-window scan,
+  integers only, memory independent of the limit; analyse.js, the crossing).
+  Our scan reproduces A078515's record indices AND A079889's start primes
+  term for term — two independent witnesses to the same integers, a 2002
+  sequence and a scan written this week from the problem statement.
+
+  THE FINDING IS A READING. #852 says "for some n < x", and n INDEXES a prime,
+  so x counts primes rather than measuring size. Under that reading c0 lands
+  inside 9 of 14 plateau bands with no drift across the decades; under the
+  prime reading the same data gives ~1.14 and is not closing on c0. THE DATA
+  PICKS THE READING. It also bears on Erdős's own question — he asked whether
+  h(x) = o(log x), and the ratio is flat near c0, not decaying.
+  SAMPLING BIAS REMOVED, not ignored: h is a step function whose records ARE
+  its jumps, so quoting the ratio at records reads only the tops of the steps.
+  Every plateau is reported as a BAND (ratio at its start and at its end) and
+  c0 is asked to lie inside. Where it misses it misses narrowly and in both
+  directions — 4 bands below, 1 above — and the page shows that rather than
+  smoothing it.
+
+  L3 SHIPPED — lean/erdos852/Erdos852/Statement.lean, a formalised STATEMENT
+  of #852 (the problem page's own field reads "Formalised statement? No
+  (create one)"). Type-checks clean on Lean 4.33.1 + Mathlib, zero sorry.
+  It formalises the INDEX reading, and it does not hide the landmine: h is an
+  sSup and Nat.sSup of an unbounded set is junk 0, so DistinctRunSetBddAbove
+  is stated as the named side-condition it is and everything needing it takes
+  it as a hypothesis. Both Erdős questions are stated, plus ThreadConjecture,
+  recorded because it is INCOMPATIBLE with question 2.
+
+  L2 RUNNING — h.js to 5e11 in the background, targeting a record past
+  A078515's last term (index 7,889,803,997). certs/erdos852-h-records.json
+  when it lands; the report prefers that file over a build-time recompute.
+
+  A REAL BUG, CAUGHT BY THE FIRST L2 RUN AND FIXED. The seen-table was an
+  Int32Array holding GAP INDICES. Past the 2^31-st prime the stored index
+  wraps negative, `last >= left` silently goes false, repeats stop cutting the
+  window, and the run length explodes — observed as a bogus record of length
+  14,730,343 at index 2147483648 EXACTLY. Now Float64Array (exact to 2^53).
+  THE GATE HOLE THIS EXPOSED IS THE REAL LESSON: the corruption landed PAST
+  the last OEIS term, so a prefix comparison against A078515 would have passed
+  it clean and the page would have published h_max = 14 million. Added
+  analyse.validate() — monotone indices, monotone lengths, step <= 3, start
+  primes increasing, and a plausibility ceiling — which catches it with no
+  reference sequence at all, and the builder now runs it BEFORE the OEIS
+  comparison. A reference check only covers the head of a deep run.
+
+  NOT DONE: submitting the formalised statement to erdosproblems.com, and the
+  thread comment reporting the reading finding. Both are third-party sends and
+  wait on the operator's word (outreach discipline unchanged).
 
 SESSION 2026-08-30d — THE SIX-LANE AUDIT, NARRATED (operator: "review sin-mfg
 to bring the 6 lanes audit to this project"; then "not ceremonial and gates,

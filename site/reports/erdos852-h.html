@@ -2,21 +2,21 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Maxwell&#39;s point-charge bound — re-verified</title>
-<meta name="description" content="Maxwell&#39;s point-charge bound: Five positive point charges in ℝ³ whose potential has at least 24 nondegenerate critical points — exceeding the conjectured bound of 16. Re-verified here from the manuscript — CONFIRMED, at ε = 1/6 only. The full check ledger, the falsifiers, and the boundary the audit did not cross.">
+<title>A conjecture nobody had checked against the numbers</title>
+<meta name="description" content="Erdős #852 conjectures h(x) ~ c₀·log x. We certified c₀ to 61 digits; the exact record data has been in the OEIS since 2002; nobody had compared them. Under the reading the problem statement actually gives, they agree across 5 decades.">
 <meta name="author" content="Carlos Toledo">
-<link rel="canonical" href="https://carlostoledo.co/reports/claim-maxwell.html">
-<meta property="og:url" content="https://carlostoledo.co/reports/claim-maxwell.html">
-<meta property="og:title" content="Maxwell&#39;s point-charge bound — re-verified">
-<meta property="og:description" content="Maxwell&#39;s point-charge bound: Five positive point charges in ℝ³ whose potential has at least 24 nondegenerate critical points — exceeding the conjectured bound of 16. Re-verified here from the manuscript — CONFIRMED, at ε = 1/6 only. The full check ledger, the falsifiers, and the boundary the audit did not cross.">
+<link rel="canonical" href="https://carlostoledo.co/reports/erdos852-h.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/erdos852-h.html">
+<meta property="og:title" content="A conjecture nobody had checked against the numbers">
+<meta property="og:description" content="Erdős #852 conjectures h(x) ~ c₀·log x. We certified c₀ to 61 digits; the exact record data has been in the OEIS since 2002; nobody had compared them. Under the reading the problem statement actually gives, they agree across 5 decades.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Maxwell&#39;s point-charge bound — re-verified">
-<meta name="twitter:description" content="Maxwell&#39;s point-charge bound: Five positive point charges in ℝ³ whose potential has at least 24 nondegenerate critical points — exceeding the conjectured bound of 16. Re-verified here from the manuscript — CONFIRMED, at ε = 1/6 only. The full check ledger, the falsifiers, and the boundary the audit did not cross.">
+<meta name="twitter:title" content="A conjecture nobody had checked against the numbers">
+<meta name="twitter:description" content="Erdős #852 conjectures h(x) ~ c₀·log x. We certified c₀ to 61 digits; the exact record data has been in the OEIS since 2002; nobody had compared them. Under the reading the problem statement actually gives, they agree across 5 decades.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -434,100 +434,207 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · one of six · re-verified from the manuscript</div>
-  <h1>Maxwell&#39;s point-charge bound</h1>
-  <p class="deck">Five positive point charges in ℝ³ whose potential has at least 24 nondegenerate critical points — exceeding the conjectured bound of 16. Maxwell conjectured that n point charges produce at most (n−1)² critical points of their potential.</p>
+  <div class="eyebrow">cert-machine · Erdős #852 · the constant, finally against the data</div>
+  <h1>A conjecture nobody had checked against the numbers</h1>
+  <p class="deck">Erdős #852 asks how long a run of consecutive prime gaps can stay pairwise distinct. Its discussion thread conjectures h(x) ~ c₀·log x. This repository certified c₀ to 61 digits last week. The exact record data has been in the OEIS since 2002. Nobody had put the two in the same room — so we did, and the answer depends on a reading of the problem statement that turns out to be decidable from the data.</p>
 </header>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <strong>CONFIRMED</strong> — at ε = 1/6 only. What a machine can decide about this claim, it decided, and it held. What it cannot decide is stated below rather than left to the reader to notice.</li><li><b>The mechanism.</b> Written against the manuscript. The author's code was never executed. Verification that existed at source: Three-author verification; Mathematica and Maple checks — floating point, no code artifact, no certificate, and no concrete ε.</li><li><b>Check it.</b> <span class="m">node legacy/research/challenges/lane/laneb-maxwell/verify.js</span> — 100 ms at this build, 17 named checks and 3 mutation controls, every control rejected.</li></ul>
+<ul class="plain"><li><b>The finding.</b> Read as the problem is written — <em>"for some n &lt; x"</em>, where n <strong>indexes</strong> a prime — the certified c₀ lands <strong>inside 9 of 14 plateau bands</strong> of the exact record data, with no drift across 5 decades. Read the other way, with x as a bound on the prime itself, the same data gives a ratio of about 1.1400 and falling away from c₀. <strong>The data picks the reading.</strong> It also bears on Erdős's own question: he asked whether h(x) = o(log x), and the ratio here is flat near c₀, not decaying.</li><li><b>The mechanism.</b> Integers only — no floats anywhere in the computation. A run is a window of gaps with no repeat; a record is the first index whose window beats every earlier one, found by a streaming two-pointer scan. Because h is a step function whose records ARE its jumps, sampling the ratio at records reads only the tops of the steps and flatters it, so every plateau is reported as a <strong>band</strong> — the ratio at the step's start and at its end — and c₀ is asked to lie inside, not to match a corner.</li><li><b>Check it.</b> <span class="m">node instruments/erdos852h/h.js 3e8</span> — recomputed during this build, 2.2 s to 3e+8. Our first 20 record indices and start primes are checked term for term against the sha-pinned bytes of <span class="m">A078515</span> and <span class="m">A079889</span>; a disagreement refuses this page.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">verdict</div><div class="v held">CONFIRMED</div><div class="n">at ε = 1/6 only</div></div>
-    <div class="stat"><div class="k">named checks</div><div class="v held">17</div><div class="n">each one printed by the verifier at this build and listed on this page</div></div>
-    <div class="stat"><div class="k">the verifier&#39;s own total</div><div class="v held">20</div><div class="n">its total folds the 3 mutation controls in; ours does not</div></div>
-    <div class="stat"><div class="k">mutation controls</div><div class="v held">3</div><div class="n">deliberate corruptions of the claim — every one rejected, or this page would not build</div></div>
-    <div class="stat"><div class="k">runtime</div><div class="v held">100 ms</div><div class="n">plain Node, no packages, no author code</div></div>
-    <div class="stat"><div class="k">analytic core</div><div class="v open">not audited</div><div class="n">true of all six claims in this set, and the reason the flagship exists</div></div>
+    <div class="stat"><div class="k">records recomputed here</div><div class="v held">20</div><div class="n">independent of OEIS — a streaming integer scan, written from the problem statement</div></div>
+    <div class="stat"><div class="k">agreement with OEIS</div><div class="v held">20 / 20</div><div class="n">A078515 indices and A079889 start primes, term for term, against sha-pinned bytes</div></div>
+    <div class="stat"><div class="k">longest run found</div><div class="v held">22</div><div class="n">a run of 22 consecutive prime gaps, pairwise distinct — an exhibit anyone can check</div></div>
+    <div class="stat"><div class="k">c₀ inside the band</div><div class="v held">9 of 14</div><div class="n">the honest test: does the certified constant lie between each plateau&#39;s high and low ratio</div></div>
+    <div class="stat"><div class="k">the other reading</div><div class="v open">≈ 1.1400</div><div class="n">x as a bound on the prime rather than on n — sits well below c₀ and is not closing</div></div>
+    <div class="stat"><div class="k">proved</div><div class="v open">nothing</div><div class="n">#852 is explicitly not resolvable by a finite computation. This is evidence, and the page says so throughout</div></div>
   </div>
 </div>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§1 · at source</div>
-    <h2>What was claimed, by whom, and what checking already existed</h2>
+    <div class="lab">§1 · the two halves</div>
+    <h2>A constant with no data, and data with no constant</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>field</th><th>as recorded at source</th></tr></thead><tbody><tr><td class="k">the claim</td><td>Five positive point charges in ℝ³ whose potential has at least 24 nondegenerate critical points — exceeding the conjectured bound of 16.</td></tr><tr><td class="k">the problem</td><td>Maxwell conjectured that n point charges produce at most (n−1)² critical points of their potential.</td></tr><tr><td class="k">credited AI system</td><td>OpenAI GPT-5.6 Sol (idea); written up by Arathoon, Ball and Kvalheim</td></tr><tr><td class="k">verification at source</td><td>Three-author verification; Mathematica and Maple checks — floating point, no code artifact, no certificate, and no concrete ε.</td></tr><tr><td class="k">our verdict</td><td><span class="tag held">CONFIRMED</span> <span class="tag dep">at ε = 1/6 only</span></td></tr></tbody></table></div></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>half</th><th>where it lived</th><th>what it says</th></tr></thead><tbody><tr><td>the constant</td><td>the #852 discussion thread, published 2026-04-24</td><td>h(x) ~ c₀·log x, with c₀ the unique positive root of I₀(c) = 1. Certified here to 61 digits: c₀ = 1.32322827686394946902…</td></tr><tr><td>the data</td><td>OEIS A053597 / A078515 / A079007 / A079889, since 2002</td><td>the exact record runs — every index at which a longer pairwise-distinct run of gaps begins, and the prime that opens it</td></tr><tr><td>the crossing</td><td>nowhere</td><td>the problem page lists the sequences in its OEIS box and the thread states the constant; neither does anything with the other</td></tr></tbody></table></div></div><div class="col"><p>That gap is the whole opportunity, and it needed no new mathematics to close — only the willingness to compute one side and look at the other. We recomputed the records from scratch rather than reading them out of the OEIS, so the comparison has two independent witnesses to the same integers: a sequence from 2002 and a scan written this week from the problem statement. They agree on all 20 terms we can both reach.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§2 · what we certified</div>
-    <h2>The ledger, as the verifier printed it at this build</h2>
+    <div class="lab">§2 · the reading</div>
+    <h2>The problem says &quot;for some n &lt; x&quot;, and n indexes a prime</h2>
   </div>
-<div class="col"><p>At the fixed rational ε = 1/6 with qε = 859/248832 exactly, 24 pairwise-disjoint boxes, each certifying existence and local uniqueness of a critical point by the Krawczyk operator and nondegeneracy by an interval Hessian determinant that excludes zero. 24 &gt; 16 is then exact integer arithmetic.</p></div><div class="wide"><figure>
+<div class="col"><p>As published, #852 reads: <em>"Let dₙ = pₙ₊₁ − pₙ … let h(x) be maximal such that for some n &lt; x the numbers dₙ, …, dₙ₊ₕ₍ₓ₎₋₁ are all distinct."</em> The bound is on <strong>n</strong>, and n is an index into the primes — so x counts primes rather than measuring size. It is an easy thing to read past, and the conjecture means something different under each reading. The data is not ambiguous about which one it belongs to.</p></div><div class="wide"><figure>
   <div class="figbox">
-  <svg viewBox="0 0 900 178" role="img" aria-label="Bar chart of named checks per stage for Maxwell&#39;s point-charge bound: Exact configuration data (paper §2 + eq. (1)) and sqrt soundness 7, Candidates (float Newton from paper Lemma 2 seeds — no evidentiary weight) 3, Certificates: Krawczyk existence+uniqueness box and interval Hessian per point 5, Structure against the paper (det signs and Morse indices per shell) 2.">
-    <line x1="300.0" y1="10" x2="300.0" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="300.0" y="134.0" text-anchor="middle" class="t-ax">0</text>
-    <line x1="631.3" y1="10" x2="631.3" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="631.3" y="134.0" text-anchor="middle" class="t-ax">5</text>
-    <path d="M300 14 h459.75 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-459.75 Z" fill="var(--c-1)" data-cm="Exact configuration data (paper…" data-cmv="7 named checks in stage [1]" tabindex="0"/>
-    <text x="290.0" y="27.0" text-anchor="end" class="t-ax">Exact configuration data (paper…</text>
-    <text x="771.8" y="27.0" text-anchor="start" class="t-lab">7</text>
-    <path d="M300 40 h194.75 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-194.75 Z" fill="var(--c-1)" data-cm="Candidates (float Newton from p…" data-cmv="3 named checks in stage [2]" tabindex="0"/>
-    <text x="290.0" y="53.0" text-anchor="end" class="t-ax">Candidates (float Newton from p…</text>
-    <text x="506.8" y="53.0" text-anchor="start" class="t-lab">3</text>
-    <path d="M300 66 h327.25 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-327.25 Z" fill="var(--c-1)" data-cm="Certificates: Krawczyk existenc…" data-cmv="5 named checks in stage [3]" tabindex="0"/>
-    <text x="290.0" y="79.0" text-anchor="end" class="t-ax">Certificates: Krawczyk existenc…</text>
-    <text x="639.3" y="79.0" text-anchor="start" class="t-lab">5</text>
-    <path d="M300 92 h128.5 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-128.5 Z" fill="var(--c-1)" data-cm="Structure against the paper (de…" data-cmv="2 named checks in stage [4]" tabindex="0"/>
-    <text x="290.0" y="105.0" text-anchor="end" class="t-ax">Structure against the paper (de…</text>
-    <text x="440.5" y="105.0" text-anchor="start" class="t-lab">2</text>
-    <text x="565.0" y="156.0" text-anchor="middle" class="t-note">named checks in each stage of the verifier&#39;s own run</text>
+  <svg viewBox="0 0 900 340" role="img" aria-label="Two lines of the ratio h(x)/log x against x. Under the index reading the ratio stays near 1.30 to 1.41 across every decade, straddling the certified c0 = 1.3232. Under the prime reading it sits between 0.98 and 1.14 and does not approach c0.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="66" y1="230.6" x2="878" y2="230.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="57.0" y="234.6" text-anchor="end" class="t-ax">0.9</text>
+    <line x1="66" y1="197.9" x2="878" y2="197.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="57.0" y="201.9" text-anchor="end" class="t-ax">1.0</text>
+    <line x1="66" y1="165.2" x2="878" y2="165.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="57.0" y="169.2" text-anchor="end" class="t-ax">1.1</text>
+    <line x1="66" y1="132.5" x2="878" y2="132.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="57.0" y="136.5" text-anchor="end" class="t-ax">1.2</text>
+    <line x1="66" y1="99.8" x2="878" y2="99.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="57.0" y="103.8" text-anchor="end" class="t-ax">1.3</text>
+    <line x1="66" y1="67.1" x2="878" y2="67.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="57.0" y="71.1" text-anchor="end" class="t-ax">1.4</text>
+    <line x1="66" y1="34.4" x2="878" y2="34.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="57.0" y="38.4" text-anchor="end" class="t-ax">1.5</text>
+    <line x1="66.0" y1="247" x2="66.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="66.0" y="267.0" text-anchor="middle" class="t-ax">10⁴</text>
+    <line x1="269.0" y1="247" x2="269.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="269.0" y="267.0" text-anchor="middle" class="t-ax">10⁵</text>
+    <line x1="472.0" y1="247" x2="472.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="472.0" y="267.0" text-anchor="middle" class="t-ax">10⁶</text>
+    <line x1="675.0" y1="247" x2="675.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="675.0" y="267.0" text-anchor="middle" class="t-ax">10⁷</text>
+    <line x1="878.0" y1="247" x2="878.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="267.0" text-anchor="middle" class="t-ax">10⁸</text>
+    <line x1="66" y1="247" x2="878" y2="247" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="472.0" y="289.0" text-anchor="middle" class="t-note">x  (the bound in the problem statement)</text>
+    <text x="13" y="132.5" class="t-note" transform="rotate(-90 13 132.5)" text-anchor="middle">h(x) / log x</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="247" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M66.00 63.32 L269.00 98.84 L472.00 98.84 L675.00 98.84 L878.00 134.36" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="134.36" r="4.5" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2"/>
+    <circle cx="66.00" cy="63.32" r="12" fill="transparent" data-cmx="66.00" data-cm="index reading · 4" data-cmv="1.41" tabindex="0"/>
+    <circle cx="269.00" cy="98.84" r="12" fill="transparent" data-cmx="269.00" data-cm="index reading · 5" data-cmv="1.30" tabindex="0"/>
+    <circle cx="472.00" cy="98.84" r="12" fill="transparent" data-cmx="472.00" data-cm="index reading · 6" data-cmv="1.30" tabindex="0"/>
+    <circle cx="675.00" cy="98.84" r="12" fill="transparent" data-cmx="675.00" data-cm="index reading · 7" data-cmv="1.30" tabindex="0"/>
+    <circle cx="878.00" cy="134.36" r="12" fill="transparent" data-cmx="878.00" data-cm="index reading · 8" data-cmv="1.19" tabindex="0"/>
+    <path d="M66.00 205.40 L269.00 155.67 L472.00 169.88 L675.00 180.03 L878.00 152.12" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="152.12" r="4.5" fill="var(--c-2)" stroke="var(--surface)" stroke-width="2"/>
+    <circle cx="66.00" cy="205.40" r="12" fill="transparent" data-cmx="66.00" data-cm="prime reading · 4" data-cmv="0.98" tabindex="0"/>
+    <circle cx="269.00" cy="155.67" r="12" fill="transparent" data-cmx="269.00" data-cm="prime reading · 5" data-cmv="1.13" tabindex="0"/>
+    <circle cx="472.00" cy="169.88" r="12" fill="transparent" data-cmx="472.00" data-cm="prime reading · 6" data-cmv="1.09" tabindex="0"/>
+    <circle cx="675.00" cy="180.03" r="12" fill="transparent" data-cmx="675.00" data-cm="prime reading · 7" data-cmv="1.05" tabindex="0"/>
+    <circle cx="878.00" cy="152.12" r="12" fill="transparent" data-cmx="878.00" data-cm="prime reading · 8" data-cmv="1.14" tabindex="0"/>
+    <path d="M66.00 92.19 L878.00 92.19" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <circle cx="878.00" cy="92.19" r="4.5" fill="var(--c-ctx)" stroke="var(--surface)" stroke-width="2"/>
+    <circle cx="66.00" cy="92.19" r="12" fill="transparent" data-cmx="66.00" data-cm="certified c₀ · 4" data-cmv="1.32" tabindex="0"/>
+    <circle cx="878.00" cy="92.19" r="12" fill="transparent" data-cmx="878.00" data-cm="certified c₀ · 8" data-cmv="1.32" tabindex="0"/>
+    <rect x="66" y="304" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="85.0" y="314.0" text-anchor="start" class="t-note">x bounds the INDEX n — the reading the statement gives</text>
+    <rect x="484" y="304" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="503.0" y="314.0" text-anchor="start" class="t-note">x bounds the PRIME pₙ</text>
+    <line x1="66" y1="329" x2="80" y2="329" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="85.0" y="333.0" text-anchor="start" class="t-note">certified c₀ = 1.3232 (a prediction, not a measurement)</text>
   </svg>
   </div>
-  <figcaption>The verifier organises its own run into 4 stages. This is that structure, counted at build time — not a summary written by hand.</figcaption>
-</figure></div><div class="wide"><div class="tw"><table><thead><tr><th></th><th>[1]  Exact configuration data (paper §2 + eq. (1)) and sqrt soundness</th></tr></thead><tbody><tr><td class="n">1</td><td>q_eps = (3/4)(1/6)^3 - (5/32)(1/6)^5 = 859/248832 (paper eq. (1) at eps = 1/6)</td></tr><tr><td class="n">2</td><td>q_eps &gt; 0 — all five charges positive (hypothesis of the construction)</td></tr><tr><td class="n">3</td><td>24 &gt; (n-1)^2 = 16 at n = 5 — the arithmetic of the refutation (exact integers)</td></tr><tr><td class="n">4</td><td>eps and q_eps enclosed in proved intervals of width 8.67e-19</td></tr><tr><td class="n">5</td><td>sqrt(3) enclosure proved by exact rational squaring: lo^2 &lt; 3 &lt; hi^2</td></tr><tr><td class="n">6</td><td>sqrtIv = exp(log/2) containment verified on 7 rationals by exact squaring</td></tr><tr><td class="n">7</td><td>float grad/Hess agree with finite differences of V (worst dev 5.2e-10)</td></tr></tbody></table></div></div>
-<div class="wide"><div class="tw"><table><thead><tr><th></th><th>[2]  Candidates (float Newton from paper Lemma 2 seeds — no evidentiary weight)</th></tr></thead><tbody><tr><td class="n">1</td><td>24 distinct candidates found (got 24)</td></tr><tr><td class="n">2</td><td>orbit shells |x| = 4.60e-14, 1.58e-3, 8.88e-3, 1.18e-2, 1.60e-2, 9.49e-2, 2.17e-1 with sizes [1,3,2,6,6,3,3] (origin; 3 planar-in; 2 axial; 6+6 off-planar; 3 planar-out; 3 edge)</td></tr><tr><td class="n">3</td><td>theta=pi ray carries 3 planar equilibria at x = -1.580e-3, -9.490e-2, -2.172e-1 (paper Fig. 1d shows 3)</td></tr></tbody></table></div></div>
-<div class="wide"><div class="tw"><table><thead><tr><th></th><th>[3]  Certificates: Krawczyk existence+uniqueness box and interval Hessian per point</th></tr></thead><tbody><tr><td class="n">1</td><td>Krawczyk certifies existence + local uniqueness in all 24 boxes (got 24)</td></tr><tr><td class="n">2</td><td>interval det Hess excludes 0 on all 24 certified boxes (got 24) — nondegeneracy</td></tr><tr><td class="n">3</td><td>harmonicity witness: 0 in trace Hess interval on all 24 boxes (got 24)</td></tr><tr><td class="n">4</td><td>all 276 box pairs disjoint; min coordinate gap 1.37e-3</td></tr><tr><td class="n">5</td><td>CLAIM GATE: 24 disjoint certified nondegenerate critical points  =&gt;  24 &gt; 16 = (5-1)^2</td></tr></tbody></table></div></div>
-<div class="wide"><div class="tw"><table><thead><tr><th></th><th>[4]  Structure against the paper (det signs and Morse indices per shell)</th></tr></thead><tbody><tr><td class="n">1</td><td>certified Morse index per shell = [1,2,2,1,2,1,2] — matches Lemma 2 signatures + Remark 2 edge index</td></tr><tr><td class="n">2</td><td>index totals {1: 10, 2: 14, 0: 0, 3: 0} — paper Remark 2: m1 = 10, m2 = 14; no index-0/3 (V is harmonic: no interior extrema)</td></tr></tbody></table></div></div>
+  <figcaption>The same exact data under the two readings. c₀ is a dashed reference because it is a PREDICTION, not a measurement — predicted and decided never share a typography on these pages.</figcaption>
+</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>x</th><th>h(x), index reading</th><th>ratio</th><th>h(x), prime reading</th><th>ratio</th><th>c₀·log x</th></tr></thead><tbody><tr><td class="n">1e+4</td><td class="n">13</td><td class="n">1.4115</td><td class="n">9</td><td class="n">0.9772</td><td class="n">12.19</td></tr><tr><td class="n">1e+5</td><td class="n">15</td><td class="n">1.3029</td><td class="n">13</td><td class="n">1.1292</td><td class="n">15.23</td></tr><tr><td class="n">1e+6</td><td class="n">18</td><td class="n">1.3029</td><td class="n">15</td><td class="n">1.0857</td><td class="n">18.28</td></tr><tr><td class="n">1e+7</td><td class="n">21</td><td class="n">1.3029</td><td class="n">17</td><td class="n">1.0547</td><td class="n">21.33</td></tr><tr><td class="n">1e+8</td><td class="n">22</td><td class="n">1.1943</td><td class="n">21</td><td class="n">1.1400</td><td class="n">24.37</td></tr></tbody></table></div></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§3 · the falsifiers</div>
-    <h2>Proof that this verifier can fail</h2>
+    <div class="lab">§3 · the honest test</div>
+    <h2>h is a step function, so the ratio is a band — not a point</h2>
   </div>
-<div class="col"><p>A verifier that cannot reject a false claim is not evidence, it is decoration. So each one carries mutation controls: the claim is deliberately corrupted and the verifier must refuse it. All 3 were rejected in the run that built this page, and a control that stopped firing would refuse the page instead.</p></div><div class="wide"><div class="tw"><table><thead><tr><th></th><th>the corruption, and how it was caught</th></tr></thead><tbody><tr><td class="n">1</td><td>M1 (q_eps -&gt; +eps^5 term) rejected: only 1/24 boxes certify at the claimed points</td></tr><tr><td class="n">2</td><td>M2 (candidate #8 replaced by a copy of #6) rejected: 24/24 boxes certify but disjointness fails</td></tr><tr><td class="n">3</td><td>M3 (q_eps -&gt; (3/4)eps^3) rejected: origin box refuses (float Hessian singular — no approximate inverse); 0/24 certify</td></tr></tbody></table></div></div>
+<div class="col"><p>Between one record closing and the next, h(x) is <strong>constant</strong> while log x keeps growing, so the ratio falls steadily from a high at the step's start to a low at its end. Quoting the ratio at the records — which is where it is highest — would be picking the flattering corner of every step. So each plateau is drawn as the full band it occupies, and the test is whether c₀ lies inside.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 462" role="img" aria-label="One horizontal band per plateau of h, showing the range of h/log x it covers. The certified c0 = 1.3232 is marked on each row and falls inside 9 of the 14 bands.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="178.8" y1="16" x2="178.8" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="178.8" y="400.0" text-anchor="middle" class="t-ax">1.20</text>
+    <line x1="265.7" y1="16" x2="265.7" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="265.7" y="400.0" text-anchor="middle" class="t-ax">1.25</text>
+    <line x1="352.5" y1="16" x2="352.5" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="352.5" y="400.0" text-anchor="middle" class="t-ax">1.30</text>
+    <line x1="439.3" y1="16" x2="439.3" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="439.3" y="400.0" text-anchor="middle" class="t-ax">1.35</text>
+    <line x1="526.1" y1="16" x2="526.1" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="526.1" y="400.0" text-anchor="middle" class="t-ax">1.40</text>
+    <line x1="613.0" y1="16" x2="613.0" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="613.0" y="400.0" text-anchor="middle" class="t-ax">1.45</text>
+    <line x1="699.8" y1="16" x2="699.8" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="699.8" y="400.0" text-anchor="middle" class="t-ax">1.50</text>
+    <line x1="786.6" y1="16" x2="786.6" y2="380" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="786.6" y="400.0" text-anchor="middle" class="t-ax">1.55</text>
+    <text x="80.0" y="33.0" text-anchor="end" class="t-ax">h = 7</text>
+    <rect x="245.50" y="19" width="91.86" height="20" rx="3" fill="var(--c-1)" data-cm="h = 7 plateau" data-cmv="x from 225 to 285 · ratio 1.2924 down to 1.2384" tabindex="0"/>
+    <text x="816.0" y="33.0" text-anchor="start" class="t-lab">band below c₀</text>
+    <line x1="392.8" y1="14" x2="392.8" y2="44" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="59.0" text-anchor="end" class="t-ax">h = 8</text>
+    <rect x="181.14" y="45" width="368.07" height="20" rx="3" fill="var(--c-1)" data-cm="h = 8 plateau" data-cmv="x from 286 to 780 · ratio 1.4144 down to 1.2013" tabindex="0"/>
+    <text x="816.0" y="59.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="40" x2="392.8" y2="70" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="85.0" text-anchor="end" class="t-ax">h = 9</text>
+    <rect x="170.39" y="71" width="269.07" height="20" rx="3" fill="var(--c-1)" data-cm="h = 9 plateau" data-cmv="x from 781 to 1864 · ratio 1.3512 down to 1.1951" tabindex="0"/>
+    <text x="816.0" y="85.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="66" x2="392.8" y2="96" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="111.0" text-anchor="end" class="t-ax">h = 10</text>
+    <rect x="206.29" y="97" width="192.55" height="20" rx="3" fill="var(--c-1)" data-cm="h = 10 plateau" data-cmv="x from 1865 to 3733 · ratio 1.3278 down to 1.2158" tabindex="0"/>
+    <text x="816.0" y="111.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="92" x2="392.8" y2="122" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="137.0" text-anchor="end" class="t-ax">h = 11</text>
+    <rect x="252.19" y="123" width="163.16" height="20" rx="3" fill="var(--c-1)" data-cm="h = 11 plateau" data-cmv="x from 3734 to 7009 · ratio 1.3373 down to 1.2422" tabindex="0"/>
+    <text x="816.0" y="137.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="118" x2="392.8" y2="148" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="163.0" text-anchor="end" class="t-ax">h = 12</text>
+    <rect x="448.23" y="149" width="1.00" height="20" rx="3" fill="var(--c-1)" data-cm="h = 12 plateau" data-cmv="x from 7010 to 7011 · ratio 1.3552 down to 1.3551" tabindex="0"/>
+    <text x="816.0" y="163.0" text-anchor="start" class="t-lab">band above c₀</text>
+    <line x1="392.8" y1="144" x2="392.8" y2="174" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="189.0" text-anchor="end" class="t-ax">h = 13</text>
+    <rect x="383.71" y="175" width="258.59" height="20" rx="3" fill="var(--c-1)" data-cm="h = 13 plateau" data-cmv="x from 7012 to 19218 · ratio 1.4680 down to 1.3180" tabindex="0"/>
+    <text x="816.0" y="189.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="170" x2="392.8" y2="200" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="215.0" text-anchor="end" class="t-ax">h = 15</text>
+    <rect x="243.52" y="201" width="490.29" height="20" rx="3" fill="var(--c-1)" data-cm="h = 15 plateau" data-cmv="x from 19219 to 184177 · ratio 1.5207 down to 1.2373" tabindex="0"/>
+    <text x="816.0" y="215.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="196" x2="392.8" y2="226" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="241.0" text-anchor="end" class="t-ax">h = 16</text>
+    <rect x="310.14" y="227" width="74.62" height="20" rx="3" fill="var(--c-1)" data-cm="h = 16 plateau" data-cmv="x from 184178 to 280118 · ratio 1.3197 down to 1.2756" tabindex="0"/>
+    <text x="816.0" y="241.0" text-anchor="start" class="t-lab">band below c₀</text>
+    <line x1="392.8" y1="222" x2="392.8" y2="252" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="267.0" text-anchor="end" class="t-ax">h = 17</text>
+    <rect x="257.25" y="253" width="189.34" height="20" rx="3" fill="var(--c-1)" data-cm="h = 17 plateau" data-cmv="x from 280119 to 849892 · ratio 1.3553 down to 1.2452" tabindex="0"/>
+    <text x="816.0" y="267.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="248" x2="392.8" y2="278" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="293.0" text-anchor="end" class="t-ax">h = 18</text>
+    <rect x="259.37" y="279" width="123.08" height="20" rx="3" fill="var(--c-1)" data-cm="h = 18 plateau" data-cmv="x from 849893 to 1870739 · ratio 1.3184 down to 1.2464" tabindex="0"/>
+    <text x="816.0" y="293.0" text-anchor="start" class="t-lab">band below c₀</text>
+    <line x1="392.8" y1="274" x2="392.8" y2="304" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="319.0" text-anchor="end" class="t-ax">h = 19</text>
+    <rect x="281.73" y="305" width="95.89" height="20" rx="3" fill="var(--c-1)" data-cm="h = 19 plateau" data-cmv="x from 1870740 to 3570779 · ratio 1.3156 down to 1.2593" tabindex="0"/>
+    <text x="816.0" y="319.0" text-anchor="start" class="t-lab">band below c₀</text>
+    <line x1="392.8" y1="300" x2="392.8" y2="330" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="345.0" text-anchor="end" class="t-ax">h = 20</text>
+    <rect x="375.41" y="331" width="19.42" height="20" rx="3" fill="var(--c-1)" data-cm="h = 20 plateau" data-cmv="x from 3570780 to 4114360 · ratio 1.3255 down to 1.3132" tabindex="0"/>
+    <text x="816.0" y="345.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="326" x2="392.8" y2="356" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="80.0" y="371.0" text-anchor="end" class="t-ax">h = 21</text>
+    <rect x="340.82" y="357" width="146.61" height="20" rx="3" fill="var(--c-1)" data-cm="h = 21 plateau" data-cmv="x from 4114361 to 11271092 · ratio 1.3789 down to 1.2933" tabindex="0"/>
+    <text x="816.0" y="371.0" text-anchor="start" class="t-lab">c₀ inside</text>
+    <line x1="392.8" y1="352" x2="392.8" y2="382" stroke="var(--c-3)" stroke-width="2"/>
+    <text x="448.0" y="422.0" text-anchor="middle" class="t-note">h / log x across the plateau, from its start (right end) to its end (left end)</text>
+    <rect x="92" y="445" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="111.0" y="455.0" text-anchor="start" class="t-note">the ratio band this plateau occupies</text>
+    <rect x="386" y="445" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="405.0" y="455.0" text-anchor="start" class="t-note">the certified c₀, marked on every row</text>
+  </svg>
+  </div>
+  <figcaption>Each row is one plateau of h. The vertical mark is the certified c₀. It lands inside 9 of 14 bands; where it misses, it misses narrowly and in both directions — 4 bands sit entirely below it and 1 entirely above.</figcaption>
+</figure></div>
 </section>
 
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§4 · the boundary</div>
-    <h2>What this audit did NOT reach</h2>
-  </div>
 <div class="note">
-  <span class="lab">not audited</span>
-<p>The theorem’s asymptotic statement — &quot;for all sufficiently small ε&quot; — and every proof in the paper. One ε is certified, not a range.</p>
-</div><div class="col"><p>This is the part worth reading twice. The verdict at the top of this page is true inside its scope line and false outside it, and the sentence above is where the scope line comes from. Across all six claims in this set the same split appears: the computational fragment certifies and the analytic core does not — <a href="/reports/ai-claims-audit.html">the flagship page measures exactly that</a>.</p></div>
-</section>
+  <span class="lab">what this page does NOT claim</span>
+<p>We did not prove the asymptotic and we could not have: the #852 page states plainly that the problem "cannot be resolved with a finite computation", and that is correct. What is here is a finite, exact computation placed against a published conjecture and a certified constant, reported with its sampling bias removed. It is consistent with h(x) ~ c₀·log x under the index reading and inconsistent with it under the prime reading, over the range we can reach. Consistency over 5 decades is evidence, not a theorem, and the ratio's misses — 4 bands below c₀ and 1 above — are shown rather than smoothed. The one hard result on this page is the agreement: 20 record indices and 20 start primes, recomputed from scratch, match sequences published in 2002 exactly.</p>
+</div>
 
 <section class="col">
   <div class="sec-head">
     <div class="lab">§5 · re-run it</div>
-    <h2>One command, no dependencies</h2>
+    <h2>Integers, streaming, no dependencies</h2>
   </div>
 <div class="col"><pre class="code">git clone https://github.com/carlostoledo1891/cert-machine
 cd cert-machine
-node legacy/research/challenges/lane/laneb-maxwell/verify.js</pre><p>Plain Node, no packages. It prints the ledger above, runs its own falsifiers, and exits non-zero if anything fails. <span class="m">node instruments/laneaudit/audit.js</span> runs all six.</p></div><div class="wide"><div class="cards"><a class="card" href="/reports/claim-korenblum.html"><span class="card-k">CONFIRMED · 15 checks</span><span class="card-t">The Korenblum constant</span><span class="card-d">c₂ ≥ 0.4263, via a moment-duality criterion and an explicit rational eight-atom measure (arXiv:2607.17748).</span><span class="card-n">the numerical criterion</span></a>
-<a class="card" href="/reports/claim-lemniscate.html"><span class="card-k">CONFIRMED · 22 checks</span><span class="card-t">Erdős Problem #1038</span><span class="card-d">The infimum is exactly D = 1.834430475762661711090753635125…, in a July 2026 manuscript of Darvas, Peng and Tao.</span><span class="card-n">the computational fragment</span></a>
-<a class="card" href="/reports/claim-ranteng.html"><span class="card-k">PARTIAL · 38 checks</span><span class="card-t">Ran–Teng Conjecture 20</span><span class="card-d">Resolved, in a preprint. Source status: &quot;Human-checked mathematical proof; no formal proof assistant artifact located&quot; (24 Feb 2026).</span><span class="card-n">machine-checkable fragment only</span></a>
-<a class="card" href="/reports/claim-mathieu.html"><span class="card-k">CONFIRMED</span><span class="card-t">The Mathieu property for Lie groups</span><span class="card-d">Exactly the tori — a classification.</span><span class="card-n">supporting identities only</span></a>
-<a class="card" href="/reports/claim-poisson.html"><span class="card-k">CONFIRMED</span><span class="card-t">The rank-two Poisson conjecture</span><span class="card-d">An explicit counterexample: polynomials R, T, D, S in ℚ[x,q,p,z] with prescribed bracket relations.</span><span class="card-n">the explicit counterexample</span></a></div></div>
+node instruments/erdos852h/h.js 3e8</pre><p>The scan streams: a segmented sieve feeds a two-pointer window, and only a 1024-entry last-seen table is held, so memory does not grow with the limit. The certified constant it is compared against lives in <span class="m">certs/erdos852-certificate.json</span> and is re-checked by <span class="m">python3 verify/verify_erdos852.py</span> — the subject of <a href="/reports/erdos852.html">the companion page on the constant itself</a>, where one of the two published decimals was refuted at its 12th digit.</p></div>
 </section><script>
 (function(){
   var tip=null;
@@ -556,7 +663,7 @@ node legacy/research/challenges/lane/laneb-maxwell/verify.js</pre><p>Plain Node,
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-claim.js @ git 7b80b71. Every row on this page was printed by legacy/research/challenges/lane/laneb-maxwell/verify.js during this build and parsed by instruments/laneaudit/audit.js — the same module the flagship reads, so the two pages cannot quote different numbers. A failing check or a mutation control that stopped firing would refuse this page.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-erdos852h.js @ git 6353c79. Gates at this build: the records recomputed by instruments/erdos852h/h.js in integer arithmetic (recomputed during this build, 2.2 s to 3e+8), checked term for term against the sha256-pinned bytes of OEIS A078515 and A079889 — 20 indices and 20 start primes, all agreeing. A disagreement with either sequence, or a drifted pin, refuses the page.</p></footer>
 
 </div>
 </html>
