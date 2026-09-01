@@ -59,6 +59,7 @@ const BATTERIES = [
   ['mfg lab (box certifier)', ['labs/mfg/battery.js'], 'the box certifier for the MFG lab'],
   ['mfg2p lab (two populations)', ['labs/mfg2p/battery.js'], 'two-population equilibria'],
   ['erdos290 lean battery', ['tools/erdos290-lean-battery.js'], 'closed forms equal enumeration exactly for l <= 12; the broken-EGF red must fire'],
+  ['critcount (certified peak counts)', ['instruments/critcount/battery.js'], 'critical-point counts of even cosine series over an enclosure ball — count derived from CERTIFIED region signs only, outward coefficient products, ball Lipschitz folded into the cell pad; closed-form two/three-harmonic calibrations and the terra record walk · 4 red controls (mutated boundary, zeroed ball pad, degenerate curvature, two critical points in one region — each fires)'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [
@@ -70,6 +71,8 @@ const PY = [
     'every matmul identity re-derived in stdlib Python ints; pins re-hashed; red control must fire'],
   ['erdos852 · standalone re-verifier', ['tools/verify_erdos852.py', 'certs/erdos852-certificate.json', '--sources', 'corpus/sources'],
     'the C* refutation re-proved in exact stdlib ints (no tail, no rounding); the c0 window re-decided at 130 digits; 4 red controls must fire'],
+  ['mfgcap · terra re-certification', ['instruments/mfgcap/battery.py'],
+    'the congestion-MFG peak-splitting enclosures (T1 two peaks, T6 three peaks) re-certified inside cert-machine: validate_g pinned BIT-FOR-BIT to the frozen published verifier on its embedded instance, the stdlib Gauss-Jordan approximate inverse certifying at the identical radius, the record walk, and the A2/A3 data terms — the only new lines — attacked by their own mutations · 5 red controls'],
   ['sos · global bound', ['instruments/sos/sos_verify.py'], 'stdlib fractions only'],
   ['sos · lyapunov', ['instruments/sos/lyapunov_cert.py'], 'stdlib fractions only'],
   ['sos · re-verify AI result', ['instruments/sos/reverify_ai_lyapunov.py'], 'stdlib fractions only'],

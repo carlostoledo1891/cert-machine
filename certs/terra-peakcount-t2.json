@@ -1,0 +1,140 @@
+{
+ "what": "certified critical-point count for the T2 equilibrium and its potential",
+ "statement": "EVERY function in the certified enclosure ball (radius 2.246e-13, l1_nu with nu=1.02) around the T2 candidate density has EXACTLY 1 strict local maxima and 1 strict local minima on the torus; the potential has exactly 1 well(s). The ceiling holds at this instance (peaks <= wells).",
+ "verdict": "VERIFIED",
+ "source": {
+  "cert": "certs/terra-recert-t2.json",
+  "verdict": "VERIFIED",
+  "r": 2.2462335911279024e-13,
+  "nu": 1.02,
+  "N": 96
+ },
+ "instance": {
+  "sigma": 0.002,
+  "gamma": 0.01,
+  "A1": 0.003,
+  "A2": 0.00035999999999999997,
+  "A3": 0,
+  "N": 96,
+  "nu": 1.02,
+  "G": 1536,
+  "a": 0.5,
+  "exactBinary64Hex": {
+   "sigma": "0x1.0624dd2f1a9fcp-9",
+   "gamma": "0x1.47ae147ae147bp-7",
+   "A1": "0x1.89374bc6a7efap-9",
+   "A2": "0x1.797cc39ffd60ep-12",
+   "A3": "0x0.0p+0"
+  },
+  "note": "the theorem is about these exact binary64 values, not the decimal strings that name them (TERRA-PORT.md coefficient condition)"
+ },
+ "ballPads": {
+  "d1": 2.621779734457721e-11,
+  "d2": 1.2241652690375783e-8,
+  "d3": 0.000009644937738983039
+ },
+ "m": {
+  "label": "density m*",
+  "maxima": 1,
+  "minima": 1,
+  "chain": [
+   0,
+   0.5
+  ],
+  "curv": [
+   "+",
+   "-"
+  ],
+  "regions": [
+   {
+    "kind": "curv",
+    "lo": 0,
+    "hi": 0.11619178523959726,
+    "sign": "+",
+    "margin": 2.428740896840556,
+    "grid": 256
+   },
+   {
+    "kind": "slope",
+    "lo": 0.11619178523959726,
+    "hi": 0.2661917852395973,
+    "sign": "+",
+    "margin": 0.4223911113215999,
+    "grid": 256
+   },
+   {
+    "kind": "curv",
+    "lo": 0.2661917852395973,
+    "hi": 0.5,
+    "sign": "-",
+    "margin": 0.20952467851740145,
+    "grid": 256
+   }
+  ],
+  "minMargin": 0.20952467851740145,
+  "assertions": {
+   "contiguous": true,
+   "curvatureAlternates": true,
+   "slopeMatchesChain": true,
+   "countFrom": "certified region signs only"
+  }
+ },
+ "V": {
+  "label": "potential V",
+  "maxima": 1,
+  "minima": 1,
+  "chain": [
+   0,
+   0.5
+  ],
+  "curv": [
+   "-",
+   "+"
+  ],
+  "regions": [
+   {
+    "kind": "curv",
+    "lo": 0,
+    "hi": 0.13428394832440754,
+    "sign": "-",
+    "margin": 0.07205356776887571,
+    "grid": 256
+   },
+   {
+    "kind": "slope",
+    "lo": 0.13428394832440754,
+    "hi": 0.28428394832440756,
+    "sign": "-",
+    "margin": 0.0164958195764278,
+    "grid": 256
+   },
+   {
+    "kind": "curv",
+    "lo": 0.28428394832440756,
+    "hi": 0.5,
+    "sign": "+",
+    "margin": 0.06097220257365653,
+    "grid": 256
+   }
+  ],
+  "minMargin": 0.0164958195764278,
+  "assertions": {
+   "contiguous": true,
+   "curvatureAlternates": true,
+   "slopeMatchesChain": true,
+   "countFrom": "certified region signs only"
+  }
+ },
+ "peaks": 1,
+ "wells": 1,
+ "peaksExceedWells": false,
+ "rigor": {
+  "countFrom": "certified region signs only (float is the proposer, never the authority)",
+  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, trig argument rounding chain bounded",
+  "cellPad": "(L + ballPadNextDeriv) * h/2 + ballPad — the ball Lipschitz is folded in"
+ },
+ "meta": {
+  "date": "2026-09-01",
+  "git": "5c1b0c2"
+ }
+}

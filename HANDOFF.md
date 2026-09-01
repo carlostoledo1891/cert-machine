@@ -36,18 +36,41 @@ OPERATOR ACTS — nothing here needs a session, only a decision
      default-on. Both live pushes this session went out without an explicit
      per-push word.
 
-ASSIGNED NEXT — THE TERRA PORT (operator, 2026-09-01, "full port as
-priority"): frontier-apps/experiments/terra holds a certified MFG
-peak-splitting finding (audited in full this session, main specimen
-independently re-derived from its record). THE PLAN IS TERRA-PORT.md AT
-REPO ROOT — read it before touching anything; targets row: terra-port.
-RE-INSPECT frontier-apps first (it was still updating during the audit).
-Port order: MIT verify_congest.py A2/A3 extension re-certifying T1+T6 →
-instruments/critcount (three rigor fixes + firing battery) → sigma* =
-1/(8pi^2) in exact rationals → bracket table → terra-cap census →
-atlas REBUILD from design/ → facelaw → attention catalogue. OPERATOR
-QUESTION PENDING: was reports/mfg-congest.html ever sent anywhere?
-(decides the terra paper's "first CAP for MFG" priority claim).
+IN PROGRESS — THE TERRA PORT (operator, 2026-09-01, "full port as
+priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
+2026-09-01, the finding RE-PROVED inside cert-machine at full standard:
+  · instruments/mfgcap — verify_ext.py extends the FROZEN published
+    verifier (reports/verify_congest.py is re-extracted from the sent
+    page's bytes at every build: IMPORT it, never edit it) with the
+    A2/A3 data terms; calibrated BIT-FOR-BIT on the embedded N=14
+    instance; stdlib Gauss-Jordan builds the approximate inverses the
+    terra records don't store. T1 re-closed at the IDENTICAL radius
+    2.519546402577481e-13 (Z1 equal to the last digit); T6 at 2.73e-13.
+    Nine falsifiers fire per instance, X8/X9 attacking the new A2/A3
+    lines themselves. certs/terra-recert-{t1,t2,t3,t4,t6,t7,t8}.json.
+  · instruments/critcount — fresh authorship, three audit fixes as
+    conditions of entry (count from CERTIFIED region signs only;
+    outward coefficient products with the trig rounding chain bounded;
+    ball Lipschitz folded into the cell pad). T1 = EXACTLY 2 maxima /
+    1 well, T6 = EXACTLY 3 / 1. All four required reds fire.
+  · sigma* = 1/(8pi^2) DECIDED IN EXACT RATIONALS (certs/terra-
+    sigmastar.json): crossover polynomial factors (k^2-1)(1-k^2 s^2),
+    gamma coefficient IDENTICALLY zero (k=2..12), band-pass identity,
+    windows (1/16,1/4) and (1/27,1/3) exact, Machin pi bracket 1.3e-44.
+  · bracket table certs/terra-bracket-table.json: 7 rows under one
+    theorem (honest counting: 2 theorems + a table, never "eight");
+    threshold pinned in [0.13,0.14] by certified T7/T8 counts, exact-
+    rational prediction r_c = 0.132725 inside.
+  REMAINING (order per TERRA-PORT.md): (5) terra-cap census.js —
+  Krawczyk EXACTLY-n, the most cert-machine-shaped artifact; (6) atlas
+  REBUILD from design/ (needs a scatter form in design/charts.js);
+  (7) facelaw with rebuilt evidence; (8) attention phantom-bifurcation
+  catalogue. LESSON PAID FOR: falsifier thresholds must scale with the
+  instance (the frozen X5 absolute bar, tuned at A=0.3, silently missed
+  at A1=0.003 — rewritten relative).
+  OPERATOR QUESTION STILL PENDING: was reports/mfg-congest.html ever
+  sent anywhere? (decides the terra paper's "first CAP for MFG"
+  priority claim, and whether its "first" is a first or a self-citation).
 
 SECOND TASK — FINISH LAMBDA(6) (one family of ten remains uncertified).
 State at handoff:
