@@ -37,6 +37,7 @@
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..', '..');
 const F = require(path.join(ROOT, 'instruments/lambda4/forms.js'));
+const D = require(path.join(ROOT, 'instruments/lambda4/dot.js'));
 const EN = require(path.join(ROOT, 'instruments/lambda4/engine.js'));
 const Q = require(path.join(ROOT, 'instruments/interval/rational.js'));
 
@@ -128,6 +129,64 @@ function closeNode(label, spec, opts) {
     if (!opts.rootConds || !opts.rootConds[spec.rootKey])
       throw new Error(label + ': delegation to unknown root [' + spec.rootKey + ']');
     return { label, kind: 'delegate', rootKey: spec.rootKey, note: spec.note || '' };
+  }
+  if (spec.kind === 'auto') {
+    /* a 2-dof leaf closed by anchored closure with the anchor pair FOUND BY
+       DETERMINISTIC SEARCH over a fixed menu (member forms, unit vectors,
+       small combos x each rational anchor angle). The anchor is a WITNESS,
+       not an assumption: whichever pair the search lands on, the closure's
+       threshold is DERIVED and its finite part is decided by the certified
+       instrument — the search only chooses which certificate gets written.
+       Only pairs whose Se order is strictly positive in every coordinate
+       are eligible, so one bound makes the finite box. */
+    const C = spec.C;
+    if (C.n !== 2) throw new Error(label + ': auto leaf requires a 2-dof cone, got n = ' + C.n);
+    const names = Object.keys(C.member);
+    const menu = [];
+    const seen = new Set();
+    const addForm = (f, l) => { const k = f.join(','); if (!seen.has(k)) { seen.add(k); menu.push({ f, l }); } };
+    for (const nm of names) addForm(C.member[nm], nm);
+    addForm([1n, 0n], 'x1'); addForm([0n, 1n], 'x2');
+    for (const [p, r] of [[1, 1], [2, 1], [1, 2], [3, 1], [1, 3], [3, 2], [2, 3]])
+      addForm([BigInt(p), BigInt(r)], p + 'x1+' + r + 'x2');
+    const XIS = [D.XI_PI, D.XI_2PI3, D.XI_PI3, D.XI_PI2, D.XI_4PI3, D.XI_PI6];
+    const XIS_SO = XIS.concat([D.XI_ZERO]);
+    /* phase 1 — collect every certifying anchor pair (cheap: symbolic bound
+       + threshold scan); phase 2 — decide finite parts smallest-N0 first,
+       so the expensive certified-minimum enumeration runs on the tightest
+       box that exists, not the first one the menu happens to offer */
+    const found = [];
+    const capN = spec.capN || 80;                             /* leaves seen so far derive N0 <= 28 */
+    let tiny = false;
+    for (const Se of menu) {
+      if (tiny) break;
+      if (!Se.f.every(c => c >= 1n)) continue;                /* box-bounding only */
+      for (const So of menu) {
+        if (tiny) break;
+        if (So.f.join(',') === Se.f.join(',')) continue;
+        if (!F.certPos(So.f)) continue;
+        for (const xe of XIS) for (const xo of XIS_SO) {
+          try {
+            const cl = EN.anchoredClosure({ C, members: names, Se: { order: Se.f, xi: xe },
+              So: { order: So.f, xi: xo }, tailMember: null, target: opts.target, capN });
+            found.push({ Se, So, xe, xo, cl });
+            if (cl.N0 <= 12) { tiny = true; break; }          /* small box: decide it now */
+          } catch (e) { /* not an anchor pair */ }
+        }
+      }
+    }
+    found.sort((p, r) => p.cl.N0 - r.cl.N0);
+    for (const cand of found.slice(0, 5)) {
+      const finite = EN.finitePart({ C, bounds: [{ form: cand.Se.f, N0: cand.cl.N0 }],
+        target: opts.target, skip: spec.skip || [], tol: opts.tol });
+      if (!finite.ok) continue;                                /* undecided box: try the next */
+      opts.stats.closures++; opts.stats.finiteSets += finite.closed;
+      return { label, kind: 'closure',
+        auto: { Se: cand.Se.l + ' @ ' + cand.xe.name, So: cand.So.l + ' @ ' + cand.xo.name },
+        closures: [cand.cl], finite };
+    }
+    throw new Error(label + ': auto leaf found no working anchor pair over the menu ('
+      + found.length + ' certifying pairs, none with a decidable box)');
   }
   if (spec.kind === 'split') {
     /* a condition whose region triangulates into several cones: each part is
@@ -240,13 +299,18 @@ function closeFamily(rootKey, spec, opts) {
   const stats = { dots: 0, closures: 0, finiteSets: 0 };
   const o = Object.assign({}, opts, { stats });
 
-  const famTuples = tuples(spec.C, opts.cap);
+  /* onto: a split root (a family region that is not one simplicial cone)
+     covers with the UNION of its part cones */
+  const rootCones = spec.kind === 'split' ? spec.parts.map(p => p.C) : [spec.C];
+  for (const rc of rootCones) if (!rc) throw new Error('closeFamily [' + rootKey + ']: a root part has no cone');
+  const famTuples = rootCones.map(rc => tuples(rc, opts.cap));
   const pts = conditionPoints(opts.topC, [rootCond], opts.cap);
   let onto = 0;
   for (const A of pts) {
     onto++;
-    if (!famTuples.has(A.join(',')))
-      throw new Error('closeFamily [' + rootKey + ']: cone misses family point ' + A.join(','));
+    const k = A.join(',');
+    if (!famTuples.some(t => t.has(k)))
+      throw new Error('closeFamily [' + rootKey + ']: cone(s) miss family point ' + k);
   }
   if (!onto) throw new Error('closeFamily [' + rootKey + ']: no family points in the box');
 

@@ -419,6 +419,290 @@ stage('lambda5-family: a+d = e', () => {
   }, { target: L5, tol: 1e-10, cap: 24, topC: C5, rootConds: rootCondsOf(gen5) });
 });
 
+/* ---- lambda(5) family: a+2d = 2e ------------------------------------------- */
+/* a = 2*al, e = d + al. Six level-3 subtrees off the omcsq-a dot: three
+   close with zero exceptions (2d = 3a, e = 2d-b, e = 2d-c), the rest reduce
+   to 2-dof leaves closed by searched anchors. d = 2a triangulates on the
+   midpoint 3al (which is what dissolves its parity constraint) into seven
+   cones. No walls: {1,2,4,5,6} is not in this family. */
+stage('lambda5-family: a+2d = 2e', () => {
+  if (!gen5) throw new Error('lambda5-generic did not run');
+  const C = { n: 4, names: ['al', 'p', 'q', 'r'], member: { a: [2n, 0n, 0n, 0n], b: [2n, 1n, 0n, 0n], c: [2n, 1n, 1n, 0n], d: [2n, 1n, 1n, 1n], e: [3n, 1n, 1n, 1n] }, defs: {} };
+  const K = (member) => ({ kind: 'auto', C: { n: 2, names: ['x', 'y'], member, defs: {} } });
+  const dotW = (C3, m, subs) => ({
+    kind: 'dot', C: C3, S: { order: C3.member.e, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C3.member[m] }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: ['a', 'b', 'c', 'd'], anchored: ['e'], subs: subs || {}
+  });
+
+  /* E2: b = 2a, cone (al,q,r) */
+  const E2C = { n: 3, names: ['al', 'q', 'r'], member: { a: [2n, 0n, 0n], b: [4n, 0n, 0n], c: [4n, 1n, 0n], d: [4n, 1n, 1n], e: [5n, 1n, 1n] }, defs: {} };
+  const E2ral = K({ a: [2n, 0n], b: [4n, 0n], c: [4n, 1n], d: [5n, 1n], e: [6n, 1n] });  /* r = al (two keys, one hyperplane) */
+  /* E3: c = 2a, split on p vs al */
+  const E3a = { n: 3, names: ['p', 'i', 'r'], member: { a: [2n, 2n, 0n], b: [3n, 2n, 0n], c: [4n, 4n, 0n], d: [4n, 4n, 1n], e: [5n, 5n, 1n] }, defs: {} };
+  const E3c = { n: 3, names: ['i', 'j', 'r'], member: { a: [2n, 2n, 0n], b: [4n, 3n, 0n], c: [4n, 4n, 0n], d: [4n, 4n, 1n], e: [5n, 5n, 1n] }, defs: {} };
+  const E3cral = K({ a: [2n, 2n], b: [4n, 3n], c: [4n, 4n], d: [5n, 4n], e: [6n, 5n] });  /* r = i, two keys */
+  /* E4: d = 2a, split on the midpoint 3al */
+  const E4i = { n: 3, names: ['p', 'q', 'r'], member: { a: [2n, 2n, 2n], b: [3n, 2n, 2n], c: [3n, 3n, 2n], d: [4n, 4n, 4n], e: [5n, 5n, 5n] }, defs: {} };
+  const E4iiiA = { n: 3, names: ['p', 'm', 'j'], member: { a: [2n, 2n, 2n], b: [3n, 2n, 2n], c: [4n, 4n, 3n], d: [4n, 4n, 4n], e: [5n, 5n, 5n] }, defs: {} };
+  const E4iiiC = { n: 3, names: ['s', 'm', 'i'], member: { a: [2n, 2n, 2n], b: [3n, 3n, 2n], c: [4n, 3n, 3n], d: [4n, 4n, 4n], e: [5n, 5n, 5n] }, defs: {} };
+  const E4v = { n: 3, names: ['u', 'v', 'w'], member: { a: [2n, 2n, 2n], b: [4n, 3n, 3n], c: [4n, 4n, 3n], d: [4n, 4n, 4n], e: [5n, 5n, 5n] }, defs: {} };
+
+  return CL.closeFamily(rootKeyOf(gen5, 'a+2d = 2e'), {
+    kind: 'dot', familyLabel: 'a+2d = 2e', C,
+    S: { order: C.member.e, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C.member.a }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: ['a', 'b', 'c', 'd'], anchored: ['e'],
+    subs: {
+      '1,-1,-1,-1': dotW({ n: 3, names: ['p', 'q', 'r'], member: { a: [2n, 2n, 2n], b: [3n, 2n, 2n], c: [3n, 3n, 2n], d: [3n, 3n, 3n], e: [4n, 4n, 4n] }, defs: {} }, 'd'),  /* 2d = 3a */
+      '2,-1,0,0': dotW(E2C, 'c', {                                        /* b = 2a */
+        '2,0,-2': E2ral, '1,0,-1': E2ral,
+        '3,1,-1': K({ a: [2n, 0n], b: [4n, 0n], c: [4n, 1n], d: [7n, 2n], e: [8n, 2n] }),
+        '4,1,-1': K({ a: [2n, 0n], b: [4n, 0n], c: [4n, 1n], d: [8n, 2n], e: [9n, 2n] }),
+        '3,0,-1': K({ a: [2n, 0n], b: [4n, 0n], c: [4n, 1n], d: [7n, 1n], e: [8n, 1n] }),
+        '2,1,-1': K({ a: [2n, 0n], b: [4n, 0n], c: [4n, 1n], d: [6n, 2n], e: [7n, 2n] }),
+        '2,1,-2': K({ a: [2n, 0n], b: [4n, 0n], c: [4n, 2n], d: [5n, 3n], e: [6n, 3n] })
+      }),
+      '2,-1,-1,0': { kind: 'split', parts: [                              /* c = 2a */
+        Object.assign(dotW(E3a, 'b', {
+          '1,-1,-1': K({ a: [4n, 2n], b: [5n, 3n], c: [8n, 4n], d: [8n, 5n], e: [10n, 6n] }),
+          '2,0,-1': K({ a: [2n, 2n], b: [3n, 2n], c: [4n, 4n], d: [6n, 4n], e: [7n, 5n] }),
+          '2,1,-1': K({ a: [2n, 2n], b: [3n, 2n], c: [4n, 4n], d: [6n, 5n], e: [7n, 6n] })
+        }), { partLabel: 'b-a < al' }),
+        Object.assign(K({ a: [2n, 0n], b: [3n, 0n], c: [4n, 0n], d: [4n, 1n], e: [5n, 1n] }), { partLabel: 'b-a = al' }),
+        Object.assign(dotW(E3c, 'b', {
+          '2,0,-2': E3cral, '1,0,-1': E3cral,
+          '3,1,-1': K({ a: [2n, 2n], b: [4n, 3n], c: [4n, 4n], d: [7n, 5n], e: [8n, 6n] }),
+          '4,2,-1': K({ a: [2n, 2n], b: [4n, 3n], c: [4n, 4n], d: [8n, 6n], e: [9n, 7n] }),
+          '2,0,-1': K({ a: [2n, 2n], b: [4n, 3n], c: [4n, 4n], d: [6n, 4n], e: [7n, 5n] }),
+          '2,-1,-2': K({ a: [2n, 6n], b: [4n, 10n], c: [4n, 12n], d: [5n, 12n], e: [6n, 15n] }),
+          '3,2,-1': K({ a: [2n, 2n], b: [4n, 3n], c: [4n, 4n], d: [7n, 6n], e: [8n, 7n] })
+        }), { partLabel: 'b-a > al' })
+      ] },
+      '2,-1,-1,-1': { kind: 'split', parts: [                             /* d = 2a */
+        Object.assign(dotW(E4i, 'b', {
+          '1,-1,-1': K({ a: [4n, 4n], b: [5n, 5n], c: [6n, 5n], d: [8n, 8n], e: [10n, 10n] }),
+          '1,0,-1': K({ a: [4n, 2n], b: [5n, 2n], c: [5n, 3n], d: [8n, 4n], e: [10n, 5n] })
+        }), { partLabel: 'b,c < 3al' }),
+        Object.assign(K({ a: [2n, 2n], b: [3n, 2n], c: [3n, 3n], d: [4n, 4n], e: [5n, 5n] }), { partLabel: 'c = 3al' }),
+        Object.assign(dotW(E4iiiA, 'b', {
+          '1,-1,-1': K({ a: [4n, 4n], b: [5n, 5n], c: [8n, 7n], d: [8n, 8n], e: [10n, 10n] })
+        }), { partLabel: 'b<3al<c, b-2al < c-3al' }),
+        Object.assign(K({ a: [2n, 2n], b: [3n, 2n], c: [4n, 3n], d: [4n, 4n], e: [5n, 5n] }), { partLabel: 'b<3al<c, equal offsets' }),
+        Object.assign(dotW(E4iiiC, 'b', {
+          '1,1,-1': K({ a: [4n, 4n], b: [5n, 5n], c: [7n, 6n], d: [8n, 8n], e: [10n, 10n] })
+        }), { partLabel: 'b<3al<c, b-2al > c-3al' }),
+        Object.assign(K({ a: [2n, 2n], b: [3n, 3n], c: [4n, 3n], d: [4n, 4n], e: [5n, 5n] }), { partLabel: 'b = 3al' }),
+        Object.assign(dotW(E4v, 'b', {
+          '2,0,-1': K({ a: [6n, 2n], b: [10n, 3n], c: [10n, 4n], d: [12n, 4n], e: [15n, 5n] }),
+          '2,-1,-1': { kind: 'split', parts: [
+            Object.assign(K({ a: [6n, 6n], b: [10n, 10n], c: [11n, 10n], d: [12n, 12n], e: [15n, 15n] }), { partLabel: 'v < u' }),
+            Object.assign({ kind: 'ray', A: [6, 10, 11, 12, 15] }, { partLabel: 'v = u' }),
+            Object.assign(K({ a: [6n, 6n], b: [10n, 10n], c: [12n, 11n], d: [12n, 12n], e: [15n, 15n] }), { partLabel: 'v > u' })
+          ] }
+        }), { partLabel: '3al < b' })
+      ] },
+      '1,0,-1,-1': dotW({ n: 3, names: ['p', 'q', 'r'], member: { a: [0n, 2n, 2n], b: [1n, 2n, 2n], c: [1n, 3n, 2n], d: [1n, 3n, 3n], e: [1n, 4n, 4n] }, defs: {} }, 'd'),  /* e = 2d-b */
+      '1,0,0,-1': dotW({ n: 3, names: ['al', 'p', 'q'], member: { a: [2n, 0n, 0n], b: [2n, 1n, 0n], c: [2n, 1n, 1n], d: [3n, 1n, 1n], e: [4n, 1n, 1n] }, defs: {} }, 'd')  /* e = 2d-c */
+    }
+  }, { target: L5, tol: 1e-10, cap: 24, topC: C5, rootConds: rootCondsOf(gen5) });
+});
+
+/* ---- lambda(5) family: b+2d = 2e ------------------------------------------- */
+/* b = 2*be, e = d + be. Root splits on a vs be; the extremizer {1,2,4,5,6}
+   sits INTERIOR to the a = be cone and is walled in both of that cone's
+   sum leaves (2a = c-b and a = e-d). */
+stage('lambda5-family: b+2d = 2e', () => {
+  if (!gen5) throw new Error('lambda5-generic did not run');
+  const M = (names, mm) => ({ n: names.length, names, member: mm, defs: {} });
+  const K = (mm, skip) => ({ kind: 'auto', C: M(['x', 'y'], mm), skip: skip || [] });
+  const dotW = (C3, m, subs) => ({
+    kind: 'dot', C: C3, S: { order: C3.member.e, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C3.member[m] }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: Object.keys(C3.member).filter(x => x !== 'e'), anchored: ['e'], subs: subs || {}
+  });
+  const W16 = [1, 2, 4, 5, 6];
+
+  const BB1 = M(['a', 'i', 'q', 's'], { a: [1n, 0n, 0n, 0n], b: [2n, 2n, 0n, 0n], c: [2n, 2n, 1n, 0n], d: [2n, 2n, 1n, 1n], e: [3n, 3n, 1n, 1n] });
+  const BB2 = M(['a', 'q', 's'], { a: [1n, 0n, 0n], b: [2n, 0n, 0n], c: [2n, 1n, 0n], d: [2n, 1n, 1n], e: [3n, 1n, 1n] });
+  const BB3 = M(['t', 'm', 'q', 's'], { a: [2n, 1n, 0n, 0n], b: [2n, 2n, 0n, 0n], c: [2n, 2n, 1n, 0n], d: [2n, 2n, 1n, 1n], e: [3n, 3n, 1n, 1n] });
+  const BB32 = M(['t', 'm', 's'], { a: [2n, 1n, 0n], b: [2n, 2n, 0n], c: [4n, 2n, 0n], d: [4n, 2n, 1n], e: [5n, 3n, 1n] });
+  const BB33a = M(['q', 'i', 'm'], { a: [2n, 2n, 1n], b: [2n, 2n, 2n], c: [3n, 2n, 2n], d: [4n, 4n, 2n], e: [5n, 5n, 3n] });
+  const BB33c = M(['i', 'j', 'm'], { a: [2n, 2n, 1n], b: [2n, 2n, 2n], c: [4n, 3n, 2n], d: [4n, 4n, 2n], e: [5n, 5n, 3n] });
+  const BB35 = M(['t', 'm', 'q'], { a: [2n, 1n, 0n], b: [2n, 2n, 0n], c: [2n, 2n, 1n], d: [3n, 2n, 1n], e: [4n, 3n, 1n] });
+
+  return CL.closeFamily(rootKeyOf(gen5, 'b+2d = 2e'), {
+    kind: 'split', familyLabel: 'b+2d = 2e',
+    parts: [
+      Object.assign(dotW(BB1, 'a'), { partLabel: 'a < be' }),
+      Object.assign(dotW(BB2, 'b', {
+        '1,-1,-1': K({ a: [1n, 1n], b: [2n, 2n], c: [3n, 2n], d: [3n, 3n], e: [4n, 4n] }),
+        '2,-1,0': K({ a: [1n, 0n], b: [2n, 0n], c: [4n, 0n], d: [4n, 1n], e: [5n, 1n] }, [W16]),
+        '1,0,-1': K({ a: [1n, 0n], b: [2n, 0n], c: [2n, 1n], d: [3n, 1n], e: [4n, 1n] }, [W16])
+      }), { partLabel: 'a = be (extremizer cone)' }),
+      Object.assign(dotW(BB3, 'a', {
+        '1,-1,-1,-1': dotW(M(['m', 'q', 's'], { a: [3n, 2n, 2n], b: [4n, 2n, 2n], c: [4n, 3n, 2n], d: [4n, 3n, 3n], e: [6n, 4n, 4n] }), 'b'),
+        '2,0,-1,0': dotW(BB32, 'b', {
+          '1,-1,1': K({ a: [3n, 1n], b: [4n, 2n], c: [6n, 2n], d: [6n, 3n], e: [8n, 4n] }),
+          '1,1,-1': K({ a: [2n, 1n], b: [2n, 2n], c: [4n, 2n], d: [5n, 3n], e: [6n, 4n] }),
+          '0,2,-1': K({ a: [2n, 1n], b: [2n, 2n], c: [4n, 2n], d: [4n, 4n], e: [5n, 5n] })
+        }),
+        '2,0,-1,-1': { kind: 'split', parts: [
+          Object.assign(dotW(BB33a, 'b', {
+            '1,1,-1': K({ a: [3n, 3n], b: [4n, 4n], c: [5n, 4n], d: [6n, 6n], e: [8n, 8n] }),
+            '0,1,-1': K({ a: [2n, 3n], b: [2n, 4n], c: [3n, 4n], d: [4n, 6n], e: [5n, 8n] })
+          }), { partLabel: 'q < t' }),
+          Object.assign(K({ a: [2n, 1n], b: [2n, 2n], c: [3n, 2n], d: [4n, 2n], e: [5n, 3n] }), { partLabel: 'q = t' }),
+          Object.assign(dotW(BB33c, 'b', {
+            '1,1,-1': K({ a: [3n, 3n], b: [4n, 4n], c: [6n, 5n], d: [6n, 6n], e: [8n, 8n] })
+          }), { partLabel: 'q > t' })
+        ] },
+        '1,0,-1,-1': dotW(M(['m', 'q', 's'], { a: [1n, 2n, 2n], b: [2n, 2n, 2n], c: [2n, 3n, 2n], d: [2n, 3n, 3n], e: [3n, 4n, 4n] }), 'd'),
+        '1,0,0,-1': dotW(BB35, 'b', {
+          '0,1,-1': K({ a: [2n, 1n], b: [2n, 2n], c: [2n, 3n], d: [3n, 3n], e: [4n, 4n] }),
+          '1,2,-1': K({ a: [2n, 1n], b: [2n, 2n], c: [3n, 4n], d: [4n, 4n], e: [5n, 5n] })
+        })
+      }), { partLabel: 'be < a < 2be' })
+    ]
+  }, { target: L5, tol: 1e-10, cap: 24, topC: C5, rootConds: rootCondsOf(gen5) });
+});
+
+/* ---- lambda(5) family: c+2d = 2e ------------------------------------------- */
+/* c = 2*gam, e = d + gam. Root splits on b vs gam, then (above gam) on a vs
+   w = b - gam and a vs gam: seven cones. Four close with no exceptions; the
+   rest bottom out in 2-dof leaves. No walls: the extremizer is not here. */
+stage('lambda5-family: c+2d = 2e', () => {
+  if (!gen5) throw new Error('lambda5-generic did not run');
+  const M = (names, mm) => ({ n: names.length, names, member: mm, defs: {} });
+  const K = (mm) => ({ kind: 'auto', C: M(['x', 'y'], mm) });
+  const dotW = (C3, m, subs) => ({
+    kind: 'dot', C: C3, S: { order: C3.member.e, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C3.member[m] }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: Object.keys(C3.member).filter(x => x !== 'e'), anchored: ['e'], subs: subs || {}
+  });
+
+  const CC1 = M(['a', 'p', 'r', 's'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 0n, 0n], c: [2n, 2n, 2n, 0n], d: [2n, 2n, 2n, 1n], e: [3n, 3n, 3n, 1n] });
+  const CC2 = M(['a', 'p', 's'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [2n, 2n, 0n], d: [2n, 2n, 1n], e: [3n, 3n, 1n] });
+  const CC3 = M(['a', 'm', 'i', 's'], { a: [1n, 0n, 0n, 0n], b: [2n, 2n, 1n, 0n], c: [2n, 2n, 2n, 0n], d: [2n, 2n, 2n, 1n], e: [3n, 3n, 3n, 1n] });
+  const CC4 = M(['w', 'i', 's'], { a: [1n, 0n, 0n], b: [2n, 1n, 0n], c: [2n, 2n, 0n], d: [2n, 2n, 1n], e: [3n, 3n, 1n] });
+  const CC5 = M(['w', 'k', 'l', 's'], { a: [1n, 1n, 0n, 0n], b: [2n, 1n, 1n, 0n], c: [2n, 2n, 2n, 0n], d: [2n, 2n, 2n, 1n], e: [3n, 3n, 3n, 1n] });
+  const CC51 = M(['w', 'k', 's'], { a: [1n, 1n, 0n], b: [2n, 2n, 0n], c: [2n, 4n, 0n], d: [2n, 4n, 1n], e: [3n, 6n, 1n] });
+  const CC6 = M(['w', 'i', 's'], { a: [1n, 1n, 0n], b: [2n, 1n, 0n], c: [2n, 2n, 0n], d: [2n, 2n, 1n], e: [3n, 3n, 1n] });
+  const CC7 = M(['t', 'm', 'i', 's'], { a: [2n, 1n, 1n, 0n], b: [2n, 2n, 1n, 0n], c: [2n, 2n, 2n, 0n], d: [2n, 2n, 2n, 1n], e: [3n, 3n, 3n, 1n] });
+  const CC72 = M(['t', 'm', 'i'], { a: [2n, 1n, 1n], b: [2n, 2n, 1n], c: [2n, 2n, 2n], d: [4n, 2n, 2n], e: [5n, 3n, 3n] });
+
+  return CL.closeFamily(rootKeyOf(gen5, 'c+2d = 2e'), {
+    kind: 'split', familyLabel: 'c+2d = 2e',
+    parts: [
+      Object.assign(dotW(CC1, 'b'), { partLabel: 'b < gam' }),
+      Object.assign(dotW(CC2, 'a'), { partLabel: 'b = gam' }),
+      Object.assign(dotW(CC3, 'a'), { partLabel: 'gam < b, a < w' }),
+      Object.assign(dotW(CC4, 'a'), { partLabel: 'gam < b, a = w' }),
+      Object.assign(dotW(CC5, 'a', {
+        '0,1,-1,0': dotW(CC51, 'b', {
+          '2,0,-1': K({ a: [1n, 1n], b: [2n, 2n], c: [2n, 4n], d: [4n, 4n], e: [5n, 6n] }),
+          '1,-2,-1': K({ a: [3n, 1n], b: [6n, 2n], c: [8n, 2n], d: [8n, 3n], e: [12n, 4n] }),
+          '1,0,-1': K({ a: [1n, 1n], b: [2n, 2n], c: [2n, 4n], d: [3n, 4n], e: [4n, 6n] })
+        })
+      }), { partLabel: 'gam < b, w < a < gam' }),
+      Object.assign(dotW(CC6, 'b', {
+        '1,-1,-1': K({ a: [2n, 1n], b: [3n, 2n], c: [4n, 2n], d: [4n, 3n], e: [6n, 4n] }),
+        '1,0,-1': K({ a: [1n, 1n], b: [2n, 1n], c: [2n, 2n], d: [3n, 2n], e: [4n, 3n] })
+      }), { partLabel: 'gam < b, a = gam' }),
+      Object.assign(dotW(CC7, 'a', {
+        '1,-1,-1,-1': dotW(M(['m', 'i', 's'], { a: [3n, 3n, 2n], b: [4n, 3n, 2n], c: [4n, 4n, 2n], d: [4n, 4n, 3n], e: [6n, 6n, 4n] }), 'b'),
+        '2,0,0,-1': dotW(CC72, 'b', {
+          '1,-1,1': K({ a: [3n, 2n], b: [4n, 3n], c: [4n, 4n], d: [6n, 4n], e: [8n, 6n] }),
+          '1,-1,0': K({ a: [3n, 1n], b: [4n, 1n], c: [4n, 2n], d: [6n, 2n], e: [8n, 3n] })
+        }),
+        '1,0,0,-1': dotW(M(['t', 'm', 'i'], { a: [2n, 1n, 1n], b: [2n, 2n, 1n], c: [2n, 2n, 2n], d: [3n, 2n, 2n], e: [4n, 3n, 3n] }), 'd'),
+        '1,0,-1,-1': dotW(M(['m', 'i', 's'], { a: [1n, 3n, 2n], b: [2n, 3n, 2n], c: [2n, 4n, 2n], d: [2n, 4n, 3n], e: [3n, 6n, 4n] }), 'c')
+      }), { partLabel: 'gam < b, gam < a < b' })
+    ]
+  }, { target: L5, tol: 1e-10, cap: 24, topC: C5, rootConds: rootCondsOf(gen5) });
+});
+
+/* ---- lambda(5) family: 3d = 2e --------------------------------------------- */
+/* d = 2*dl, e = 3*dl, c < 2*dl. The family region triangulates on where c,
+   b, a fall against dl (and, above dl, against the offsets v = b-dl,
+   w = c-dl): SEVENTEEN cones — the price of the parity relation, exactly as
+   lambda(4)'s 2d = 3c was its widest family. Every cone closes by a
+   classical dot; conditions bottom out in 2-dof leaves. No walls. */
+stage('lambda5-family: 3d = 2e', () => {
+  if (!gen5) throw new Error('lambda5-generic did not run');
+  const M = (names, mm) => ({ n: names.length, names, member: mm, defs: {} });
+  const K = (mm) => ({ kind: 'auto', C: M(['x', 'y'], mm) });
+  const dotW = (C3, m, subs) => ({
+    kind: 'dot', C: C3, S: { order: C3.member.e, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C3.member[m] }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: ['a', 'b', 'c', 'd'], anchored: ['e'], subs: subs || {}
+  });
+  const P = (partLabel, node) => Object.assign(node, { partLabel });
+
+  return CL.closeFamily(rootKeyOf(gen5, '3d = 2e'), {
+    kind: 'split', familyLabel: '3d = 2e',
+    parts: [
+      P('c < dl', dotW(M(['a', 'p', 'q', 'r'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 0n, 0n], c: [1n, 1n, 1n, 0n], d: [2n, 2n, 2n, 2n], e: [3n, 3n, 3n, 3n] }), 'c')),
+      P('c = dl', dotW(M(['a', 'p', 'q'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [1n, 1n, 1n], d: [2n, 2n, 2n], e: [3n, 3n, 3n] }), 'b')),
+      P('b < dl < c, w < a', dotW(M(['w', 'k', 'p', 'i'], { a: [1n, 1n, 0n, 0n], b: [1n, 1n, 1n, 0n], c: [2n, 1n, 1n, 1n], d: [2n, 2n, 2n, 2n], e: [3n, 3n, 3n, 3n] }), 'b', {
+        '0,1,1,-1': dotW(M(['w', 'k', 'p'], { a: [1n, 1n, 0n], b: [1n, 1n, 1n], c: [2n, 2n, 2n], d: [2n, 4n, 4n], e: [3n, 6n, 6n] }), 'a', {
+          '1,1,-1': K({ a: [1n, 1n], b: [2n, 2n], c: [4n, 4n], d: [6n, 8n], e: [9n, 12n] })
+        })
+      })),
+      P('b < dl < c, w = a', dotW(M(['a', 'p', 'i'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [2n, 1n, 1n], d: [2n, 2n, 2n], e: [3n, 3n, 3n] }), 'a', {
+        '1,-1,0': K({ a: [1n, 0n], b: [2n, 0n], c: [3n, 1n], d: [4n, 2n], e: [6n, 3n] })
+      })),
+      P('b < dl < c, a < w < b', dotW(M(['a', 'm', 'j', 'i'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 1n, 0n], c: [2n, 2n, 1n, 1n], d: [2n, 2n, 2n, 2n], e: [3n, 3n, 3n, 3n] }), 'a', {
+        '1,-1,-1,0': dotW(M(['m', 'j', 'i'], { a: [1n, 1n, 0n], b: [2n, 2n, 0n], c: [4n, 3n, 1n], d: [4n, 4n, 2n], e: [6n, 6n, 3n] }), 'b', {
+          '0,1,-1': K({ a: [1n, 1n], b: [2n, 2n], c: [4n, 4n], d: [4n, 6n], e: [6n, 9n] })
+        })
+      })),
+      P('b < dl < c, w = b', dotW(M(['a', 'p', 'i'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [2n, 2n, 1n], d: [2n, 2n, 2n], e: [3n, 3n, 3n] }), 'b')),
+      P('b < dl < c, b < w', dotW(M(['a', 'p', 'm', 'i'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 0n, 0n], c: [2n, 2n, 2n, 1n], d: [2n, 2n, 2n, 2n], e: [3n, 3n, 3n, 3n] }), 'b')),
+      P('b = dl, w < a', dotW(M(['w', 'k', 'i'], { a: [1n, 1n, 0n], b: [1n, 1n, 1n], c: [2n, 1n, 1n], d: [2n, 2n, 2n], e: [3n, 3n, 3n] }), 'a', {
+        '0,1,-1': K({ a: [1n, 1n], b: [1n, 2n], c: [2n, 2n], d: [2n, 4n], e: [3n, 6n] })
+      })),
+      P('b = dl, w = a', dotW(M(['a', 'i'], { a: [1n, 0n], b: [1n, 1n], c: [2n, 1n], d: [2n, 2n], e: [3n, 3n] }), 'a')),
+      P('b = dl, a < w', dotW(M(['a', 'm', 'i'], { a: [1n, 0n, 0n], b: [1n, 1n, 1n], c: [2n, 2n, 1n], d: [2n, 2n, 2n], e: [3n, 3n, 3n] }), 'a')),
+      P('dl < b, a < v', dotW(M(['a', 'k', 'm', 'j'], { a: [1n, 0n, 0n, 0n], b: [2n, 2n, 1n, 1n], c: [2n, 2n, 2n, 1n], d: [2n, 2n, 2n, 2n], e: [3n, 3n, 3n, 3n] }), 'a')),
+      P('dl < b, a = v', dotW(M(['a', 'm', 'j'], { a: [1n, 0n, 0n], b: [2n, 1n, 1n], c: [2n, 2n, 1n], d: [2n, 2n, 2n], e: [3n, 3n, 3n] }), 'a')),
+      P('dl < b, v < a < w', dotW(M(['v', 'k', 'mm', 'j'], { a: [1n, 1n, 0n, 0n], b: [2n, 1n, 1n, 1n], c: [2n, 2n, 2n, 1n], d: [2n, 2n, 2n, 2n], e: [3n, 3n, 3n, 3n] }), 'a', {
+        '0,1,-1,-1': dotW(M(['v', 'mm', 'j'], { a: [1n, 1n, 1n], b: [2n, 2n, 2n], c: [2n, 4n, 3n], d: [2n, 4n, 4n], e: [3n, 6n, 6n] }), 'c', {
+          '1,0,-1': K({ a: [2n, 1n], b: [4n, 2n], c: [5n, 4n], d: [6n, 4n], e: [9n, 6n] })
+        })
+      })),
+      P('dl < b, a = w', dotW(M(['v', 'm', 'j'], { a: [1n, 1n, 0n], b: [2n, 1n, 1n], c: [2n, 2n, 1n], d: [2n, 2n, 2n], e: [3n, 3n, 3n] }), 'a', {
+        '0,1,-1': K({ a: [1n, 1n], b: [2n, 2n], c: [2n, 3n], d: [2n, 4n], e: [3n, 6n] })
+      })),
+      P('dl < b, w < a < dl', dotW(M(['v', 'm', 'k', 'j'], { a: [1n, 1n, 1n, 0n], b: [2n, 1n, 1n, 1n], c: [2n, 2n, 1n, 1n], d: [2n, 2n, 2n, 2n], e: [3n, 3n, 3n, 3n] }), 'a', {
+        '0,0,1,-1': dotW(M(['v', 'm', 'k'], { a: [1n, 1n, 1n], b: [2n, 1n, 2n], c: [2n, 2n, 2n], d: [2n, 2n, 4n], e: [3n, 3n, 6n] }), 'b', {
+          /* the {2m+3k,...} leaf: no menu anchor certifies, but its own dot
+             closes with zero exceptions (the family dips far below target) */
+          '1,-1,-2': dotW(M(['m', 'k'], { a: [2n, 3n], b: [3n, 6n], c: [4n, 6n], d: [4n, 8n], e: [6n, 12n] }), 'c'),
+          '1,0,-2': K({ a: [1n, 3n], b: [1n, 6n], c: [2n, 6n], d: [2n, 8n], e: [3n, 12n] })
+        }),
+        '0,1,1,-1': dotW(M(['v', 'm', 'k'], { a: [1n, 1n, 1n], b: [2n, 2n, 2n], c: [2n, 3n, 2n], d: [2n, 4n, 4n], e: [3n, 6n, 6n] }), 'b', {
+          /* like its twin above: no menu anchor, but the leaf's own dot
+             closes with zero exceptions */
+          '1,-1,-2': dotW(M(['m', 'k'], { a: [2n, 3n], b: [4n, 6n], c: [5n, 6n], d: [6n, 8n], e: [9n, 12n] }), 'a'),
+          '1,-2,-2': dotW(M(['m', 'k'], { a: [3n, 3n], b: [6n, 6n], c: [7n, 6n], d: [8n, 8n], e: [12n, 12n] }), 'a')
+        })
+      })),
+      P('dl < b, a = dl', dotW(M(['v', 'm', 'j'], { a: [1n, 1n, 1n], b: [2n, 1n, 1n], c: [2n, 2n, 1n], d: [2n, 2n, 2n], e: [3n, 3n, 3n] }), 'b', {
+        '1,-1,-1': K({ a: [2n, 2n], b: [3n, 3n], c: [4n, 3n], d: [4n, 4n], e: [6n, 6n] }),
+        '1,0,-1': K({ a: [2n, 1n], b: [3n, 1n], c: [3n, 2n], d: [4n, 2n], e: [6n, 3n] })
+      })),
+      P('dl < a', dotW(M(['z', 'y', 'm', 'j'], { a: [2n, 1n, 1n, 1n], b: [2n, 2n, 1n, 1n], c: [2n, 2n, 2n, 1n], d: [2n, 2n, 2n, 2n], e: [3n, 3n, 3n, 3n] }), 'a', {
+        '1,-1,-1,-1': dotW(M(['y', 'm', 'j'], { a: [3n, 3n, 3n], b: [4n, 3n, 3n], c: [4n, 4n, 3n], d: [4n, 4n, 4n], e: [6n, 6n, 6n] }), 'b'),
+        '1,0,0,-1': dotW(M(['z', 'y', 'm'], { a: [3n, 1n, 1n], b: [3n, 2n, 1n], c: [3n, 2n, 2n], d: [4n, 2n, 2n], e: [6n, 3n, 3n] }), 'b', {
+          '0,1,-1': K({ a: [3n, 2n], b: [3n, 3n], c: [3n, 4n], d: [4n, 4n], e: [6n, 6n] })
+        }),
+        '1,0,-1,-1': dotW(M(['y', 'm', 'j'], { a: [1n, 3n, 3n], b: [2n, 3n, 3n], c: [2n, 4n, 3n], d: [2n, 4n, 4n], e: [3n, 6n, 6n] }), 'c')
+      }))
+    ]
+  }, { target: L5, tol: 1e-10, cap: 24, topC: C5, rootConds: rootCondsOf(gen5) });
+});
+
 save();
 console.log('certs/lambda56-campaign.json written · ' + failures + ' failed stage(s) · ' + (Date.now() - t0) + ' ms');
 if (record.stages['lambda5-generic'] && record.stages['lambda5-generic'].ok) {

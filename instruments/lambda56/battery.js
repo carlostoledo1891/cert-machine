@@ -203,8 +203,11 @@ red('R5 a skip list naming an absent set must throw', () => {
   check('W1 record: every stage ok', names.length >= 8 && names.every(n => st[n].ok === true),
     names.filter(n => !st[n].ok).join(',') || 'all ok');
   const closed = names.filter(n => n.startsWith('lambda5-family:') && st[n].ok && st[n].status === 'CLOSED');
-  check('W2 record: 4 lambda(5) families CLOSED so far (2d=e, c+d=e, b+d=e, a+d=e)',
-    closed.length === 4, closed.map(n => n.replace('lambda5-family: ', '')).join(' · '));
+  const wl = (st['lambda5-generic'] && st['lambda5-generic'].worklist) || [];
+  const closedSet = new Set(closed.map(n => n.replace('lambda5-family: ', '')));
+  check('W2 record: EVERY lambda(5) worklist family is CLOSED — the reduction is complete',
+    wl.length === 8 && wl.every(w => closedSet.has(w.family)),
+    closed.length + '/8: ' + [...closedSet].join(' · '));
   const wl5 = st['lambda5-generic'] && st['lambda5-generic'].worklist;
   check('W3 record: lambda(5) worklist has 8 families, lambda(6) 10',
     wl5 && wl5.length === 8
