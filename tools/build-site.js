@@ -182,6 +182,15 @@ const REPORTS = [
       + 'remainder decided in exact arithmetic. λ(4) = −L(1,2,3,4), the root of 512y³ − 1227y² + 600y + 125 near '
       + '1.51956 — machine-derived, re-proved at every build, and stated with its verification status beside it.',
     n: 'not peer-reviewed · the full record re-derives at build' },
+  { g: 'erdos', f: 'erdos1038-sup.html', k: 'erdős #1038 · the supremum side',
+    title: 'How shallow can a lemniscate stay?',
+    desc: 'Tao reformulated Erdős #1038 over discrete measures and conjectured the supremum of |{U<0}| is 2√2 — '
+      + '"this may be hard to prove completely." For rational weights it is a per-degree polynomial question, and '
+      + 'the machine decided the first seven degrees: odd degrees fall strictly below 2.82 < 2√2 (branch-and-bound '
+      + 'certificates, 127 boxes for the cubic); even degrees localize the supremum to [2√2, 2.82845] with the '
+      + 'two-atom witness within 2.3×10⁻⁵ of optimal. Plus the certified landscape: an interior cubic champion and '
+      + 'a quintic cliff where the sublevel set changes topology.',
+    n: 'per-degree theorems · the conjecture itself stays open · not peer-reviewed' },
   { g: 'erdos', f: 'erdos852.html', k: 'erdős #852 · refutation',
     title: 'The constant that was a rounding error',
     desc: 'A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.',
@@ -371,6 +380,7 @@ const CERTS = [
   ['bilinear-certificate.json', bilinearN + ' bilinear algorithms for POLYNOMIAL multiplication over F2 — full, truncated and cyclic products — each found by the generation front’s free flip-graph walk and decided by instruments/bilinear, which rebuilds the target tensor from its name rather than trusting the scheme handed to it. Every entry stores its scheme in full, so any reader can re-decide it; the published bounds each one is measured against live in corpus/bilinear-bounds.json and are not results of this repository.', NOVERIFIER('polynomial-multiplication.html')],
   ['lambda4-audit.json', 'The adversarial audit of the lambda(4) proof: an independent clause walk sharing no code with the engine — inner products by direct trigonometric summation, family and subfamily membership by plain integer arithmetic, thresholds read from the campaign record, finite-clause sets re-certified fresh by the calibrated instrument. Every gcd-reduced 4-set in the box must be reached by an explicit clause of the proof (generic, family dot, closure, finite, delegated, or the definitional witness); a set with no clause is a hole and aborts. Also carries the full theorem sweep of the box: zero refuters.', null],
   ['lambda4-campaign.json', 'The lambda(4) campaign record. Phase 0: Mercer\'s Section-5 strategy (INTEGERS 19 (2019) #A4) executed mechanically — lambda(2) and the whole lambda(3) proof re-derived with exception families discovered and thresholds derived, not transcribed; the lambda(4) generic case with its 14 exception conditions discovered and matched against the paper\'s hand-written list; the measured reduction: five of the fourteen carry strictly negative delta, so NINE families remain. Phase 1, in progress: each family closed so far carries its full derivation here — second-level dot theorem, subfamily cones, derived thresholds, decided finite parts. d = 2c is CLOSED. Re-derived symbolically at every build by the lambda4 battery; finite parts pinned here and sampled at every run.', null],
+  ['sublevel-tao179.json', 'The Tao #179 sublevel campaign (Erdős #1038, supremum side): rational-weight discrete measures on [-1,1] are monic root-constrained polynomials via |q| < 1, and this record holds certified sublevel measures — the 2√2 witness, grid champions including the interior cubic champion near 2.7542 and the quintic transition peak near 2.8011 — plus per-degree branch-and-bound THEOREMS: odd degrees strictly below 2.82 < 2√2, even degrees localized to [2√2, 2.82845] with (x²−1)^{N/2} attaining the left end. Every measure an outward enclosure from BigInt Sturm isolation; the box bound calibrated to equal the measure on thin boxes.', null],
   ['mercer-mu5.json', 'The mu(5) ladder, mu(5) ≤ 1 + π/m rung by rung to m = ' + topM + ' — every exceptional tuple closed by one exact rational evaluation.', null],
   ['mu-table.json', 'The Newman min-modulus table: every set in the named boxes exhausted, champions certified, orbits classified, conservation per row.', null],
   ['mu-table-40.json', 'The wider-box extension of the mu table — billions of sets exhausted, the narrow-box crowding artifacts corrected.', null],

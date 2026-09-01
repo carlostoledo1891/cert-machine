@@ -37,6 +37,7 @@ const BATTERIES = [
   ['newman box sweep', ['instruments/trigmin/sweep-battery.js'], 'Goddard\'s 1992 box re-closed every run, cross-lab counts pinned; 100% kill audit · 7 red controls'],
   ['lambda sweep', ['instruments/trigmin/lambda-battery.js'], 'Mercer\'s proved closed forms computed, never remembered; the wrong-endpoint bar refused by name and shown fatal · 4 red controls'],
   ['lambda4 campaign', ['instruments/lambda4/battery.js'], 'Mercer\'s lambda(2) and lambda(3) proofs re-derived mechanically at every run — exception families DISCOVERED, thresholds DERIVED; the Section-5 generic case with its 14 exceptions matched against the hand-written list; the worklist measured at NINE families · 8 red controls'],
+  ['sublevel (tao 179)', ['instruments/sublevel/battery.js'], 'certified sublevel measures for root-constrained monic polynomials (Tao\'s #179 supremum conjecture on Erdős #1038): the 2*sqrt(2) witness enclosed, the box bound equal to the measure on thin boxes, and the degree-3 theorem plus degree-4 localization RE-PROVED at every run · 3 red controls'],
   ['mercer mu5 ladder', ['instruments/trigmin/mercer6-battery.js'], 'mu(5) <= 1 + pi/m certified m = 5..20; Mercer\'s Tables 5-7 reproduced, the source-lab m=6 record matched, every case point re-proved · 5 red controls'],
   ['census (henon + holmes)', ['instruments/census/battery.js'], 'closed-form calibration, two maps · 5 red controls'],
   ['keller audit + sweep', ['instruments/keller/battery.js'], 'symbolic det over Q, generator calibrated on Alpöge · 4 red controls'],

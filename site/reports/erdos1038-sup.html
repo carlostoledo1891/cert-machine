@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The supremum side of Erdős #1038 · cert-machine</title>
+<meta name="description" content="Per-degree certified theorems on Tao&#39;s supremum conjecture for Erdős #1038: odd degrees 3, 5, 7 fall strictly below 2√2; even degrees 4 and 6 localize the supremum to [2√2, 2.82845] with the two-atom witness attaining the left end. Exact-rational sublevel measures, branch-and-bound certificates, machine-derived, not peer-reviewed.">
+<meta name="author" content="Carlos Toledo">
+<link rel="canonical" href="https://carlostoledo.co/reports/erdos1038-sup.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/erdos1038-sup.html">
+<meta property="og:title" content="The supremum side of Erdős #1038 · cert-machine">
+<meta property="og:description" content="Per-degree certified theorems on Tao&#39;s supremum conjecture for Erdős #1038: odd degrees 3, 5, 7 fall strictly below 2√2; even degrees 4 and 6 localize the supremum to [2√2, 2.82845] with the two-atom witness attaining the left end. Exact-rational sublevel measures, branch-and-bound certificates, machine-derived, not peer-reviewed.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The supremum side of Erdős #1038 · cert-machine">
+<meta name="twitter:description" content="Per-degree certified theorems on Tao&#39;s supremum conjecture for Erdős #1038: odd degrees 3, 5, 7 fall strictly below 2√2; even degrees 4 and 6 localize the supremum to [2√2, 2.82845] with the two-atom witness attaining the left end. Exact-rational sublevel measures, branch-and-bound certificates, machine-derived, not peer-reviewed.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  --paper:#EDEBEE;
+  --surface:#FBFAFB;
+  --sunk:#F3F1F4;
+  --ink:#16121A;
+  --ink-2:#544C5B;
+  --ink-3:#867C8E;
+  --rule:#D2CBD6;
+  --rule-soft:#E3DEE7;
+  --sig:#6B2D5C;
+  --sig-2:#9A4E86;
+  --sig-soft:#F2E4EE;
+  --held:#2C6142;
+  --held-soft:#DEEBE3;
+  --warn:#8A5212;
+  --warn-soft:#F6E9D8;
+  --mark:#C9C0CE;
+  --c-1:#6F3968;
+  --c-2:#16724E;
+  --c-3:#885218;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#C7A5BC;
+  --c-s2:#B982A9;
+  --c-s3:#A86195;
+  --c-s4:#953F80;
+  --c-s5:#7D2169;
+  --f-display:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-sans:"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0C12;
+    --surface:#181420;
+    --sunk:#130F18;
+    --ink:#EDE8F0;
+    --ink-2:#A79DAF;
+    --ink-3:#7E7386;
+    --rule:#2E2637;
+    --rule-soft:#231C2B;
+    --sig:#D897C4;
+    --sig-2:#B36F9E;
+    --sig-soft:#2C1B27;
+    --held:#79C79B;
+    --held-soft:#16281E;
+    --warn:#E0A860;
+    --warn-soft:#2B2015;
+    --mark:#332B3C;
+    --c-1:#B67BAE;
+    --c-2:#46A971;
+    --c-3:#C77F35;
+    --c-ctx:var(--ink-3);
+    --c-grid:var(--rule-soft);
+    --c-axis:var(--rule);
+    --c-s1:#663E5B;
+    --c-s2:#8A4E7A;
+    --c-s3:#AF619A;
+    --c-s4:#C97FB4;
+    --c-s5:#DCA3CB;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0C12;
+  --surface:#181420;
+  --sunk:#130F18;
+  --ink:#EDE8F0;
+  --ink-2:#A79DAF;
+  --ink-3:#7E7386;
+  --rule:#2E2637;
+  --rule-soft:#231C2B;
+  --sig:#D897C4;
+  --sig-2:#B36F9E;
+  --sig-soft:#2C1B27;
+  --held:#79C79B;
+  --held-soft:#16281E;
+  --warn:#E0A860;
+  --warn-soft:#2B2015;
+  --mark:#332B3C;
+  --c-1:#B67BAE;
+  --c-2:#46A971;
+  --c-3:#C77F35;
+  --c-ctx:var(--ink-3);
+  --c-grid:var(--rule-soft);
+  --c-axis:var(--rule);
+  --c-s1:#663E5B;
+  --c-s2:#8A4E7A;
+  --c-s3:#AF619A;
+  --c-s4:#C97FB4;
+  --c-s5:#DCA3CB;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--f-sans);font-size:18px;line-height:1.66;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 28px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px}
+.topnav .brand{font-family:var(--f-mono);font-weight:400;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sig);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;border:none}
+.navlinks a:hover{color:var(--sig)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink);background:var(--surface)}
+.navlinks .ghbtn:hover{border-color:var(--sig);color:var(--sig)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:4px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--sig);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:52px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:76px}
+.col{max-width:64ch;margin-left:auto;margin-right:auto}
+.wide{max-width:900px;margin-left:auto;margin-right:auto}
+/* A wide element (table, card grid, figure) emitted inside a prose column
+   breaks out to the page-wide track: .col and .page are both centered, so
+   centering on the viewport IS centering on the page. Width never exceeds
+   the viewport minus the page padding, so the body never scrolls sideways —
+   anything wider (a table) scrolls inside its own .tw container. */
+.col .wide{position:relative;left:50%;transform:translateX(-50%);
+  width:min(900px,calc(100vw - 2*clamp(18px,4vw,40px)))}
+
+/* Tracking is per-family, not universal: the -.018em that suited the old
+   display serif leaves a grotesque looking loose at headline sizes, and a
+   grotesque tightens more as it grows. */
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:-.021em;text-wrap:balance}
+h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;margin:16px 0 0;letter-spacing:-.032em}
+h2{font-size:clamp(25px,3.3vw,34px);line-height:1.14;margin:0 0 8px}
+h3{font-size:19.5px;line-height:1.3;margin:0 0 6px;font-weight:600}
+.eyebrow,.lab{font-family:var(--f-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{color:var(--sig)}
+.lab{color:var(--ink-3)}
+.deck{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--ink-2);font-weight:300;margin:24px 0 0}
+p{margin:0 0 18px}
+a{color:var(--sig);text-decoration:none;border-bottom:1px solid var(--sig-2)}
+a:hover{border-bottom-width:2px}
+a:focus-visible{outline:2px solid var(--sig);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.88em}
+
+section{margin:clamp(50px,7.5vw,84px) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.sec-head .lab{color:var(--sig)}
+
+.stats{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:7px;
+  flex:1 1 240px;min-width:200px}
+.stat .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
+.stat .v.sm{font-size:14px;font-family:var(--f-mono);font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+
+.scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
+  color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:clamp(16px,3vw,28px);overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-2);font-size:15.5px;line-height:1.5;margin-top:14px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--sig);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--held);font-weight:500}
+.t-warn{font-size:12.5px;fill:var(--warn);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-3)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:280px}
+.cm-tip b{display:block;font-weight:500;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-2)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--sig);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:700;font-size:clamp(23px,3.2vw,30px);
+  line-height:1.2;letter-spacing:-.02em;margin:32px 0;text-wrap:balance}
+.pull b{color:var(--sig)}
+
+.eq{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:15px;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:16px 18px;margin:22px 0;
+  font-family:var(--f-mono);font-size:13px;line-height:1.75;color:var(--ink);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:19px 22px;margin:24px 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.note .lab{display:block;margin-bottom:8px;color:var(--sig)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--sig-2);
+  font-size:18px;line-height:1.5;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;
+  font-family:var(--f-mono);color:var(--ink-3);letter-spacing:.02em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap;font-family:var(--f-display)}
+td.v{font-family:var(--f-mono);font-size:12.5px;color:var(--ink);word-break:break-all}
+td.n{font-family:var(--f-mono);font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag.held{background:var(--held-soft);color:var(--held)}
+.tag.cert{background:var(--sig-soft);color:var(--sig)}
+.tag.open{background:var(--warn-soft);color:var(--warn)}
+.tag.dep{background:var(--sunk);color:var(--ink-3);border:1px solid var(--rule)}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:9px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:22px 24px;
+  color:inherit;text-decoration:none;transition:border-color .15s ease}
+a.card:hover{border:1px solid var(--sig)}
+a.card:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--sig)}
+.card-t{font-family:var(--f-display);font-weight:700;font-size:19.5px;line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:14.5px;line-height:1.52;color:var(--ink-2)}
+.card-n{margin-top:auto;padding-top:6px;font-family:var(--f-mono);font-size:11px;
+  letter-spacing:.05em;color:var(--ink-3)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:4px;background:var(--surface);
+  transition:border-color .15s ease,background .15s ease}
+.pk-t:hover{border-color:var(--sig)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:650;font-size:15px;color:var(--ink-2);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:700;font-size:21px;letter-spacing:-.012em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--sig)}
+.pk-box.warn .lab{color:var(--warn)}
+.pk-box p{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--sig);background:var(--sig-soft)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--sig)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--sig);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule-soft);font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:600}
+
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-3);font-size:14px;line-height:1.65;font-family:var(--f-mono)}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sig);white-space:nowrap}
+.mach-ro .d{font-size:14.5px;line-height:1.5;color:var(--ink-2);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--sunk);stroke:var(--rule);stroke-width:1;transition:stroke .15s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--sig);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--sig);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--sig)}
+.mach svg .acc-held{fill:var(--held)}
+.mach svg .acc-warn{fill:var(--warn)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--sig-2);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .55s cubic-bezier(.2,.7,.3,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">erdős #1038 · the supremum side · teorth/erdosproblems #179</div>
+  <h1>How shallow can a lemniscate stay?</h1>
+  <p class="deck">Tao reformulated Erdős #1038 over discrete probability measures and asked for the supremum of |{U_μ &lt; 0}|, conjecturing 2√2 — “this may be hard to prove completely.” For rational weights the question is about root-constrained polynomials, decidable degree by degree. This machine decided the first seven degrees: the odd ones fall strictly below the conjecture, and the even ones pin its witness to within 2.3×10⁻⁵ of optimal.</p>
+</header>
+
+<p class="scope">Machine-derived, per-degree theorems for rational-weight measures — Tao&#39;s conjecture itself (all measures, all denominators) remains open, and the even-degree equality case is localized, not characterized. Every number on this page is a certified outward enclosure recomputed at this build; nothing is decided in floating point. Not peer-reviewed.</p>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> For every monic polynomial of degree <b>3, 5, or 7</b> with all roots in [−1,1]: <span class="m">|{|q|&lt;1}| &lt; 2.82 &lt; 2√2</span> — the whole degree falls strictly below the conjectured supremum. For degrees <b>4 and 6</b> and 8: the degree supremum lies in <span class="m">[2√2, 2.82845]</span>, the left end attained by (x²−1)^{N/2} — the conjectured extremizer, within 2.3×10⁻⁵ of optimal.</li><li><b>The mechanism.</b> Rational weights with denominator N make <span class="m">U_μ &lt; 0</span> exactly <span class="m">|q(x)| &lt; 1</span> for a monic degree-N polynomial with roots in [−1,1]. Sublevel measures are certified by BigInt Sturm isolation of the boundary roots; a branch-and-bound over root boxes prunes with the pointwise bound <span class="m">|q_r(x)| ≥ Π dist(x, I_i)</span>, whose own sublevel measure is computed the same way and equals the true measure on thin boxes.</li><li><b>Check it.</b> <span class="m">node tools/run-sublevel-campaign.js</span> re-derives everything; <span class="m">node instruments/sublevel/battery.js</span> re-proves the degree-3 theorem and the degree-4 localization at every run, in under a second, plus 3 red controls.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">per-degree theorems</div><div class="v">6</div><div class="n">Degrees 3, 4, 5, 6, 7, 8 — each a branch-and-bound certificate tree over all root configurations.</div></div>
+    <div class="stat"><div class="k">the witness</div><div class="v">2√2</div><div class="n">x²−1: certified [2.8284271247, 2.8284271247] — the two-atom measure Tao conjectures extremal.</div></div>
+    <div class="stat"><div class="k">box certificates</div><div class="v">66,676</div><div class="n">Across all theorems; the cubic needed 127 boxes, the heaviest even degree carries the rest.</div></div>
+    <div class="stat"><div class="k">configurations swept</div><div class="v">838</div><div class="n">Certified grid champions behind the landscape story, before any theorem was attempted.</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the problem</div>
+    <h2>The other end of #1038</h2>
+  </div>
+<p>Erdős #1038 concerns how small the sublevel set of a polynomial with constrained roots can be. Its <em>infimum</em> side was resolved in 2026 by Darvas–Peng–Tao — this lab <a href="verify-lemniscate.html">independently verified the computational fragment</a> of that manuscript. In <a href="https://github.com/teorth/erdosproblems/issues/179">erdosproblems#179</a>, Tao poses the other end: over discrete probability measures μ = Σ pᵢ δ_{aᵢ} on [−1,1], with logarithmic potential U_μ(x) = Σ pᵢ log|x − aᵢ|, how LARGE can |{x : U_μ(x) < 0}| be?</p>
+<p>His conjecture: the supremum is <span class="m">2√2</span>, attained by the uniform measure on {−1, +1} — and “this may be hard to prove completely.” The thread had no answers when this campaign began.</p>
+<div class="eq">p = k⁄N rational  ⟹  U_μ(x) &lt; 0  ⟺  |q(x)| &lt; 1,&nbsp;&nbsp; q(x) = Π (x − aᵢ)^{kᵢ} monic, roots in [−1,1]</div>
+<p>So the conjecture restricted to rational weights of denominator N is a statement about degree-N polynomials — a finite-dimensional, certifiable object. That is the machine's opening.</p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the instrument</div>
+    <h2>Sublevel measures, certified</h2>
+  </div>
+<div class="col"><p>The boundary of {|q| &lt; 1} consists of roots of the integer polynomials A ∓ dᴺ (A the root-scaled form of q). Those are isolated and refined by the BigInt Sturm machinery of the trigmin instrument — the code calibrated on Mercer's closed forms in the λ(4) campaign — and each gap between boundary roots is decided by one exact rational comparison. The measure is summed outward: a true enclosure, never a float.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>polynomial</th><th>certified measure of {|q|&lt;1}</th><th>exact value</th></tr></thead><tbody><tr><td>x² − 1</td><td class="v">[2.828427124746, 2.828427124747]</td><td>2√2 = 2.8284271247…</td></tr><tr><td>x²</td><td class="v">[1.999999999999, 2.000000000000]</td><td>2</td></tr><tr><td>x</td><td class="v">[2.000000000000, 2.000000000001]</td><td>2</td></tr><tr><td>(x−1)²</td><td class="v">[2.000000000000, 2.000000000001]</td><td>2</td></tr><tr><td>(x²−1)²</td><td class="v">[2.828427124745, 2.828427124746]</td><td>2√2 again — even powers of the witness keep it</td></tr></tbody></table></div></div>
+<div class="col"><p>The last row is why even degrees are different: powers of the witness keep its measure, so (x²−1)^{N/2} attains 2√2 at every even degree, and no even degree can fall strictly below the conjecture the way the odd ones do.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§3 · the landscape</div>
+    <h2>An interior champion, and a cliff</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 380" role="img" aria-label="Two certified curves of sublevel measure against the free root r. The cubic family (x²−1)(x−r) rises to an interior maximum near r = 0.785 at about 2.754 and falls as r reaches 1. The quintic family (x²−1)²(x−r) climbs higher, to about 2.801 near r = 0.884, then drops discontinuously — a cliff where two components of the sublevel set merge. A dashed rule marks 2√2, above both curves.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="279.8" x2="878" y2="279.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="283.8" text-anchor="end" class="t-ax">2.4</text>
+    <line x1="62" y1="227.5" x2="878" y2="227.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="231.5" text-anchor="end" class="t-ax">2.5</text>
+    <line x1="62" y1="175.1" x2="878" y2="175.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="179.1" text-anchor="end" class="t-ax">2.6</text>
+    <line x1="62" y1="122.7" x2="878" y2="122.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="126.7" text-anchor="end" class="t-ax">2.7</text>
+    <line x1="62" y1="70.4" x2="878" y2="70.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="74.4" text-anchor="end" class="t-ax">2.8</text>
+    <line x1="62" y1="55.5" x2="878" y2="55.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="59.5" text-anchor="end" class="t-ax">2√2</text>
+    <line x1="62.0" y1="306" x2="62.0" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="326.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="225.2" y1="306" x2="225.2" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="225.2" y="326.0" text-anchor="middle" class="t-ax">0.6</text>
+    <line x1="388.4" y1="306" x2="388.4" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="388.4" y="326.0" text-anchor="middle" class="t-ax">0.7</text>
+    <line x1="551.6" y1="306" x2="551.6" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="551.6" y="326.0" text-anchor="middle" class="t-ax">0.8</text>
+    <line x1="714.8" y1="306" x2="714.8" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="714.8" y="326.0" text-anchor="middle" class="t-ax">0.9</text>
+    <line x1="878.0" y1="306" x2="878.0" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="326.0" text-anchor="middle" class="t-ax">1.0</text>
+    <line x1="62" y1="306" x2="878" y2="306" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="348.0" text-anchor="middle" class="t-note">the free root r (remaining roots pinned at ±1; quintic pins them double)</text>
+    <line x1="62" y1="55.5" x2="878" y2="55.5" stroke="var(--c-ctx)" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="874.0" y="49.5" text-anchor="end" class="t-note">2√2 — the conjectured supremum</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="306" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M62.00 127.59 L74.75 126.89 L87.50 126.18 L100.25 125.46 L113.00 124.73 L125.75 123.99 L138.50 123.24 L151.25 122.47 L164.00 121.69 L176.75 120.90 L189.50 120.10 L202.25 119.29 L215.00 118.46 L227.75 117.62 L240.50 116.77 L253.25 115.91 L266.00 115.04 L278.75 114.15 L291.50 113.25 L304.25 112.34 L317.00 111.42 L329.75 110.48 L342.50 109.53 L355.25 108.57 L368.00 107.60 L380.75 106.61 L393.50 105.61 L406.25 104.60 L419.00 103.58 L431.75 102.54 L444.50 101.49 L457.25 100.43 L470.00 99.36 L482.75 98.27 L495.50 97.17 L508.25 96.05 L521.00 94.93 L533.75 108.79 L546.50 156.72 L559.25 180.86 L572.00 199.26 L584.75 214.63 L597.50 228.05 L610.25 240.06 L623.00 251.01 L635.75 261.11 L648.50 270.51 L661.25 279.32 L674.00 287.62 L686.75 295.49 L699.50 302.96 L712.25 310.09 L725.00 316.90 L737.75 323.43 L750.50 329.70 L763.25 335.74 L776.00 341.55 L788.75 347.15 L801.50 352.57 L814.25 357.81 L827.00 362.87 L839.75 367.78 L852.50 372.54 L865.25 377.15 L878.00 381.63" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="381.63" r="4.5" fill="var(--c-1)" stroke="var(--surface)" stroke-width="2"/>
+    <circle cx="62.00" cy="127.59" r="12" fill="transparent" data-cmx="62.00" data-cm="cubic (x²−1)(x−r) · 0.5" data-cmv="2.69" tabindex="0"/>
+    <circle cx="74.75" cy="126.89" r="12" fill="transparent" data-cmx="74.75" data-cm="cubic (x²−1)(x−r) · 0.51" data-cmv="2.69" tabindex="0"/>
+    <circle cx="87.50" cy="126.18" r="12" fill="transparent" data-cmx="87.50" data-cm="cubic (x²−1)(x−r) · 0.52" data-cmv="2.69" tabindex="0"/>
+    <circle cx="100.25" cy="125.46" r="12" fill="transparent" data-cmx="100.25" data-cm="cubic (x²−1)(x−r) · 0.52" data-cmv="2.69" tabindex="0"/>
+    <circle cx="113.00" cy="124.73" r="12" fill="transparent" data-cmx="113.00" data-cm="cubic (x²−1)(x−r) · 0.53" data-cmv="2.70" tabindex="0"/>
+    <circle cx="125.75" cy="123.99" r="12" fill="transparent" data-cmx="125.75" data-cm="cubic (x²−1)(x−r) · 0.54" data-cmv="2.70" tabindex="0"/>
+    <circle cx="138.50" cy="123.24" r="12" fill="transparent" data-cmx="138.50" data-cm="cubic (x²−1)(x−r) · 0.55" data-cmv="2.70" tabindex="0"/>
+    <circle cx="151.25" cy="122.47" r="12" fill="transparent" data-cmx="151.25" data-cm="cubic (x²−1)(x−r) · 0.55" data-cmv="2.70" tabindex="0"/>
+    <circle cx="164.00" cy="121.69" r="12" fill="transparent" data-cmx="164.00" data-cm="cubic (x²−1)(x−r) · 0.56" data-cmv="2.70" tabindex="0"/>
+    <circle cx="176.75" cy="120.90" r="12" fill="transparent" data-cmx="176.75" data-cm="cubic (x²−1)(x−r) · 0.57" data-cmv="2.70" tabindex="0"/>
+    <circle cx="189.50" cy="120.10" r="12" fill="transparent" data-cmx="189.50" data-cm="cubic (x²−1)(x−r) · 0.58" data-cmv="2.71" tabindex="0"/>
+    <circle cx="202.25" cy="119.29" r="12" fill="transparent" data-cmx="202.25" data-cm="cubic (x²−1)(x−r) · 0.59" data-cmv="2.71" tabindex="0"/>
+    <circle cx="215.00" cy="118.46" r="12" fill="transparent" data-cmx="215.00" data-cm="cubic (x²−1)(x−r) · 0.59" data-cmv="2.71" tabindex="0"/>
+    <circle cx="227.75" cy="117.62" r="12" fill="transparent" data-cmx="227.75" data-cm="cubic (x²−1)(x−r) · 0.6" data-cmv="2.71" tabindex="0"/>
+    <circle cx="240.50" cy="116.77" r="12" fill="transparent" data-cmx="240.50" data-cm="cubic (x²−1)(x−r) · 0.61" data-cmv="2.71" tabindex="0"/>
+    <circle cx="253.25" cy="115.91" r="12" fill="transparent" data-cmx="253.25" data-cm="cubic (x²−1)(x−r) · 0.62" data-cmv="2.71" tabindex="0"/>
+    <circle cx="266.00" cy="115.04" r="12" fill="transparent" data-cmx="266.00" data-cm="cubic (x²−1)(x−r) · 0.63" data-cmv="2.71" tabindex="0"/>
+    <circle cx="278.75" cy="114.15" r="12" fill="transparent" data-cmx="278.75" data-cm="cubic (x²−1)(x−r) · 0.63" data-cmv="2.72" tabindex="0"/>
+    <circle cx="291.50" cy="113.25" r="12" fill="transparent" data-cmx="291.50" data-cm="cubic (x²−1)(x−r) · 0.64" data-cmv="2.72" tabindex="0"/>
+    <circle cx="304.25" cy="112.34" r="12" fill="transparent" data-cmx="304.25" data-cm="cubic (x²−1)(x−r) · 0.65" data-cmv="2.72" tabindex="0"/>
+    <circle cx="317.00" cy="111.42" r="12" fill="transparent" data-cmx="317.00" data-cm="cubic (x²−1)(x−r) · 0.66" data-cmv="2.72" tabindex="0"/>
+    <circle cx="329.75" cy="110.48" r="12" fill="transparent" data-cmx="329.75" data-cm="cubic (x²−1)(x−r) · 0.66" data-cmv="2.72" tabindex="0"/>
+    <circle cx="342.50" cy="109.53" r="12" fill="transparent" data-cmx="342.50" data-cm="cubic (x²−1)(x−r) · 0.67" data-cmv="2.73" tabindex="0"/>
+    <circle cx="355.25" cy="108.57" r="12" fill="transparent" data-cmx="355.25" data-cm="cubic (x²−1)(x−r) · 0.68" data-cmv="2.73" tabindex="0"/>
+    <circle cx="368.00" cy="107.60" r="12" fill="transparent" data-cmx="368.00" data-cm="cubic (x²−1)(x−r) · 0.69" data-cmv="2.73" tabindex="0"/>
+    <circle cx="380.75" cy="106.61" r="12" fill="transparent" data-cmx="380.75" data-cm="cubic (x²−1)(x−r) · 0.7" data-cmv="2.73" tabindex="0"/>
+    <circle cx="393.50" cy="105.61" r="12" fill="transparent" data-cmx="393.50" data-cm="cubic (x²−1)(x−r) · 0.7" data-cmv="2.73" tabindex="0"/>
+    <circle cx="406.25" cy="104.60" r="12" fill="transparent" data-cmx="406.25" data-cm="cubic (x²−1)(x−r) · 0.71" data-cmv="2.73" tabindex="0"/>
+    <circle cx="419.00" cy="103.58" r="12" fill="transparent" data-cmx="419.00" data-cm="cubic (x²−1)(x−r) · 0.72" data-cmv="2.74" tabindex="0"/>
+    <circle cx="431.75" cy="102.54" r="12" fill="transparent" data-cmx="431.75" data-cm="cubic (x²−1)(x−r) · 0.73" data-cmv="2.74" tabindex="0"/>
+    <circle cx="444.50" cy="101.49" r="12" fill="transparent" data-cmx="444.50" data-cm="cubic (x²−1)(x−r) · 0.73" data-cmv="2.74" tabindex="0"/>
+    <circle cx="457.25" cy="100.43" r="12" fill="transparent" data-cmx="457.25" data-cm="cubic (x²−1)(x−r) · 0.74" data-cmv="2.74" tabindex="0"/>
+    <circle cx="470.00" cy="99.36" r="12" fill="transparent" data-cmx="470.00" data-cm="cubic (x²−1)(x−r) · 0.75" data-cmv="2.74" tabindex="0"/>
+    <circle cx="482.75" cy="98.27" r="12" fill="transparent" data-cmx="482.75" data-cm="cubic (x²−1)(x−r) · 0.76" data-cmv="2.75" tabindex="0"/>
+    <circle cx="495.50" cy="97.17" r="12" fill="transparent" data-cmx="495.50" data-cm="cubic (x²−1)(x−r) · 0.77" data-cmv="2.75" tabindex="0"/>
+    <circle cx="508.25" cy="96.05" r="12" fill="transparent" data-cmx="508.25" data-cm="cubic (x²−1)(x−r) · 0.77" data-cmv="2.75" tabindex="0"/>
+    <circle cx="521.00" cy="94.93" r="12" fill="transparent" data-cmx="521.00" data-cm="cubic (x²−1)(x−r) · 0.78" data-cmv="2.75" tabindex="0"/>
+    <circle cx="533.75" cy="108.79" r="12" fill="transparent" data-cmx="533.75" data-cm="cubic (x²−1)(x−r) · 0.79" data-cmv="2.73" tabindex="0"/>
+    <circle cx="546.50" cy="156.72" r="12" fill="transparent" data-cmx="546.50" data-cm="cubic (x²−1)(x−r) · 0.8" data-cmv="2.64" tabindex="0"/>
+    <circle cx="559.25" cy="180.86" r="12" fill="transparent" data-cmx="559.25" data-cm="cubic (x²−1)(x−r) · 0.8" data-cmv="2.59" tabindex="0"/>
+    <circle cx="572.00" cy="199.26" r="12" fill="transparent" data-cmx="572.00" data-cm="cubic (x²−1)(x−r) · 0.81" data-cmv="2.55" tabindex="0"/>
+    <circle cx="584.75" cy="214.63" r="12" fill="transparent" data-cmx="584.75" data-cm="cubic (x²−1)(x−r) · 0.82" data-cmv="2.52" tabindex="0"/>
+    <circle cx="597.50" cy="228.05" r="12" fill="transparent" data-cmx="597.50" data-cm="cubic (x²−1)(x−r) · 0.83" data-cmv="2.50" tabindex="0"/>
+    <circle cx="610.25" cy="240.06" r="12" fill="transparent" data-cmx="610.25" data-cm="cubic (x²−1)(x−r) · 0.84" data-cmv="2.48" tabindex="0"/>
+    <circle cx="623.00" cy="251.01" r="12" fill="transparent" data-cmx="623.00" data-cm="cubic (x²−1)(x−r) · 0.84" data-cmv="2.46" tabindex="0"/>
+    <circle cx="635.75" cy="261.11" r="12" fill="transparent" data-cmx="635.75" data-cm="cubic (x²−1)(x−r) · 0.85" data-cmv="2.44" tabindex="0"/>
+    <circle cx="648.50" cy="270.51" r="12" fill="transparent" data-cmx="648.50" data-cm="cubic (x²−1)(x−r) · 0.86" data-cmv="2.42" tabindex="0"/>
+    <circle cx="661.25" cy="279.32" r="12" fill="transparent" data-cmx="661.25" data-cm="cubic (x²−1)(x−r) · 0.87" data-cmv="2.40" tabindex="0"/>
+    <circle cx="674.00" cy="287.62" r="12" fill="transparent" data-cmx="674.00" data-cm="cubic (x²−1)(x−r) · 0.88" data-cmv="2.39" tabindex="0"/>
+    <circle cx="686.75" cy="295.49" r="12" fill="transparent" data-cmx="686.75" data-cm="cubic (x²−1)(x−r) · 0.88" data-cmv="2.37" tabindex="0"/>
+    <circle cx="699.50" cy="302.96" r="12" fill="transparent" data-cmx="699.50" data-cm="cubic (x²−1)(x−r) · 0.89" data-cmv="2.36" tabindex="0"/>
+    <circle cx="712.25" cy="310.09" r="12" fill="transparent" data-cmx="712.25" data-cm="cubic (x²−1)(x−r) · 0.9" data-cmv="2.34" tabindex="0"/>
+    <circle cx="725.00" cy="316.90" r="12" fill="transparent" data-cmx="725.00" data-cm="cubic (x²−1)(x−r) · 0.91" data-cmv="2.33" tabindex="0"/>
+    <circle cx="737.75" cy="323.43" r="12" fill="transparent" data-cmx="737.75" data-cm="cubic (x²−1)(x−r) · 0.91" data-cmv="2.32" tabindex="0"/>
+    <circle cx="750.50" cy="329.70" r="12" fill="transparent" data-cmx="750.50" data-cm="cubic (x²−1)(x−r) · 0.92" data-cmv="2.30" tabindex="0"/>
+    <circle cx="763.25" cy="335.74" r="12" fill="transparent" data-cmx="763.25" data-cm="cubic (x²−1)(x−r) · 0.93" data-cmv="2.29" tabindex="0"/>
+    <circle cx="776.00" cy="341.55" r="12" fill="transparent" data-cmx="776.00" data-cm="cubic (x²−1)(x−r) · 0.94" data-cmv="2.28" tabindex="0"/>
+    <circle cx="788.75" cy="347.15" r="12" fill="transparent" data-cmx="788.75" data-cm="cubic (x²−1)(x−r) · 0.95" data-cmv="2.27" tabindex="0"/>
+    <circle cx="801.50" cy="352.57" r="12" fill="transparent" data-cmx="801.50" data-cm="cubic (x²−1)(x−r) · 0.95" data-cmv="2.26" tabindex="0"/>
+    <circle cx="814.25" cy="357.81" r="12" fill="transparent" data-cmx="814.25" data-cm="cubic (x²−1)(x−r) · 0.96" data-cmv="2.25" tabindex="0"/>
+    <circle cx="827.00" cy="362.87" r="12" fill="transparent" data-cmx="827.00" data-cm="cubic (x²−1)(x−r) · 0.97" data-cmv="2.24" tabindex="0"/>
+    <circle cx="839.75" cy="367.78" r="12" fill="transparent" data-cmx="839.75" data-cm="cubic (x²−1)(x−r) · 0.98" data-cmv="2.23" tabindex="0"/>
+    <circle cx="852.50" cy="372.54" r="12" fill="transparent" data-cmx="852.50" data-cm="cubic (x²−1)(x−r) · 0.98" data-cmv="2.22" tabindex="0"/>
+    <circle cx="865.25" cy="377.15" r="12" fill="transparent" data-cmx="865.25" data-cm="cubic (x²−1)(x−r) · 0.99" data-cmv="2.21" tabindex="0"/>
+    <circle cx="878.00" cy="381.63" r="12" fill="transparent" data-cmx="878.00" data-cm="cubic (x²−1)(x−r) · 1" data-cmv="2.21" tabindex="0"/>
+    <path d="M62.00 97.98 L74.75 97.59 L87.50 97.21 L100.25 96.81 L113.00 96.41 L125.75 96.00 L138.50 95.59 L151.25 95.16 L164.00 94.73 L176.75 94.29 L189.50 93.85 L202.25 93.39 L215.00 92.93 L227.75 92.47 L240.50 91.99 L253.25 91.51 L266.00 91.01 L278.75 90.52 L291.50 90.01 L304.25 89.49 L317.00 88.97 L329.75 88.44 L342.50 87.90 L355.25 87.35 L368.00 86.79 L380.75 86.23 L393.50 85.65 L406.25 85.07 L419.00 84.48 L431.75 83.88 L444.50 83.27 L457.25 82.65 L470.00 82.03 L482.75 81.39 L495.50 80.75 L508.25 80.09 L521.00 79.43 L533.75 78.75 L546.50 78.07 L559.25 77.38 L572.00 76.68 L584.75 75.96 L597.50 75.24 L610.25 74.51 L623.00 73.76 L635.75 73.01 L648.50 72.25 L661.25 71.47 L674.00 70.69 L686.75 69.89 L686.75 69.89 L689.94 83.13 L693.13 99.43 L696.31 109.44 L699.50 117.32 L699.50 117.32 L712.25 140.25 L725.00 157.05 L737.75 170.86 L750.50 182.81 L763.25 193.44 L776.00 203.09 L788.75 211.96 L801.50 220.19 L814.25 227.88 L827.00 235.12 L839.75 241.95 L852.50 248.43 L865.25 254.60 L878.00 260.48" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="260.48" r="4.5" fill="var(--c-2)" stroke="var(--surface)" stroke-width="2"/>
+    <circle cx="62.00" cy="97.98" r="12" fill="transparent" data-cmx="62.00" data-cm="quintic (x²−1)²(x−r) · 0.5" data-cmv="2.75" tabindex="0"/>
+    <circle cx="74.75" cy="97.59" r="12" fill="transparent" data-cmx="74.75" data-cm="quintic (x²−1)²(x−r) · 0.51" data-cmv="2.75" tabindex="0"/>
+    <circle cx="87.50" cy="97.21" r="12" fill="transparent" data-cmx="87.50" data-cm="quintic (x²−1)²(x−r) · 0.52" data-cmv="2.75" tabindex="0"/>
+    <circle cx="100.25" cy="96.81" r="12" fill="transparent" data-cmx="100.25" data-cm="quintic (x²−1)²(x−r) · 0.52" data-cmv="2.75" tabindex="0"/>
+    <circle cx="113.00" cy="96.41" r="12" fill="transparent" data-cmx="113.00" data-cm="quintic (x²−1)²(x−r) · 0.53" data-cmv="2.75" tabindex="0"/>
+    <circle cx="125.75" cy="96.00" r="12" fill="transparent" data-cmx="125.75" data-cm="quintic (x²−1)²(x−r) · 0.54" data-cmv="2.75" tabindex="0"/>
+    <circle cx="138.50" cy="95.59" r="12" fill="transparent" data-cmx="138.50" data-cm="quintic (x²−1)²(x−r) · 0.55" data-cmv="2.75" tabindex="0"/>
+    <circle cx="151.25" cy="95.16" r="12" fill="transparent" data-cmx="151.25" data-cm="quintic (x²−1)²(x−r) · 0.55" data-cmv="2.75" tabindex="0"/>
+    <circle cx="164.00" cy="94.73" r="12" fill="transparent" data-cmx="164.00" data-cm="quintic (x²−1)²(x−r) · 0.56" data-cmv="2.75" tabindex="0"/>
+    <circle cx="176.75" cy="94.29" r="12" fill="transparent" data-cmx="176.75" data-cm="quintic (x²−1)²(x−r) · 0.57" data-cmv="2.75" tabindex="0"/>
+    <circle cx="189.50" cy="93.85" r="12" fill="transparent" data-cmx="189.50" data-cm="quintic (x²−1)²(x−r) · 0.58" data-cmv="2.76" tabindex="0"/>
+    <circle cx="202.25" cy="93.39" r="12" fill="transparent" data-cmx="202.25" data-cm="quintic (x²−1)²(x−r) · 0.59" data-cmv="2.76" tabindex="0"/>
+    <circle cx="215.00" cy="92.93" r="12" fill="transparent" data-cmx="215.00" data-cm="quintic (x²−1)²(x−r) · 0.59" data-cmv="2.76" tabindex="0"/>
+    <circle cx="227.75" cy="92.47" r="12" fill="transparent" data-cmx="227.75" data-cm="quintic (x²−1)²(x−r) · 0.6" data-cmv="2.76" tabindex="0"/>
+    <circle cx="240.50" cy="91.99" r="12" fill="transparent" data-cmx="240.50" data-cm="quintic (x²−1)²(x−r) · 0.61" data-cmv="2.76" tabindex="0"/>
+    <circle cx="253.25" cy="91.51" r="12" fill="transparent" data-cmx="253.25" data-cm="quintic (x²−1)²(x−r) · 0.62" data-cmv="2.76" tabindex="0"/>
+    <circle cx="266.00" cy="91.01" r="12" fill="transparent" data-cmx="266.00" data-cm="quintic (x²−1)²(x−r) · 0.63" data-cmv="2.76" tabindex="0"/>
+    <circle cx="278.75" cy="90.52" r="12" fill="transparent" data-cmx="278.75" data-cm="quintic (x²−1)²(x−r) · 0.63" data-cmv="2.76" tabindex="0"/>
+    <circle cx="291.50" cy="90.01" r="12" fill="transparent" data-cmx="291.50" data-cm="quintic (x²−1)²(x−r) · 0.64" data-cmv="2.76" tabindex="0"/>
+    <circle cx="304.25" cy="89.49" r="12" fill="transparent" data-cmx="304.25" data-cm="quintic (x²−1)²(x−r) · 0.65" data-cmv="2.76" tabindex="0"/>
+    <circle cx="317.00" cy="88.97" r="12" fill="transparent" data-cmx="317.00" data-cm="quintic (x²−1)²(x−r) · 0.66" data-cmv="2.76" tabindex="0"/>
+    <circle cx="329.75" cy="88.44" r="12" fill="transparent" data-cmx="329.75" data-cm="quintic (x²−1)²(x−r) · 0.66" data-cmv="2.77" tabindex="0"/>
+    <circle cx="342.50" cy="87.90" r="12" fill="transparent" data-cmx="342.50" data-cm="quintic (x²−1)²(x−r) · 0.67" data-cmv="2.77" tabindex="0"/>
+    <circle cx="355.25" cy="87.35" r="12" fill="transparent" data-cmx="355.25" data-cm="quintic (x²−1)²(x−r) · 0.68" data-cmv="2.77" tabindex="0"/>
+    <circle cx="368.00" cy="86.79" r="12" fill="transparent" data-cmx="368.00" data-cm="quintic (x²−1)²(x−r) · 0.69" data-cmv="2.77" tabindex="0"/>
+    <circle cx="380.75" cy="86.23" r="12" fill="transparent" data-cmx="380.75" data-cm="quintic (x²−1)²(x−r) · 0.7" data-cmv="2.77" tabindex="0"/>
+    <circle cx="393.50" cy="85.65" r="12" fill="transparent" data-cmx="393.50" data-cm="quintic (x²−1)²(x−r) · 0.7" data-cmv="2.77" tabindex="0"/>
+    <circle cx="406.25" cy="85.07" r="12" fill="transparent" data-cmx="406.25" data-cm="quintic (x²−1)²(x−r) · 0.71" data-cmv="2.77" tabindex="0"/>
+    <circle cx="419.00" cy="84.48" r="12" fill="transparent" data-cmx="419.00" data-cm="quintic (x²−1)²(x−r) · 0.72" data-cmv="2.77" tabindex="0"/>
+    <circle cx="431.75" cy="83.88" r="12" fill="transparent" data-cmx="431.75" data-cm="quintic (x²−1)²(x−r) · 0.73" data-cmv="2.77" tabindex="0"/>
+    <circle cx="444.50" cy="83.27" r="12" fill="transparent" data-cmx="444.50" data-cm="quintic (x²−1)²(x−r) · 0.73" data-cmv="2.78" tabindex="0"/>
+    <circle cx="457.25" cy="82.65" r="12" fill="transparent" data-cmx="457.25" data-cm="quintic (x²−1)²(x−r) · 0.74" data-cmv="2.78" tabindex="0"/>
+    <circle cx="470.00" cy="82.03" r="12" fill="transparent" data-cmx="470.00" data-cm="quintic (x²−1)²(x−r) · 0.75" data-cmv="2.78" tabindex="0"/>
+    <circle cx="482.75" cy="81.39" r="12" fill="transparent" data-cmx="482.75" data-cm="quintic (x²−1)²(x−r) · 0.76" data-cmv="2.78" tabindex="0"/>
+    <circle cx="495.50" cy="80.75" r="12" fill="transparent" data-cmx="495.50" data-cm="quintic (x²−1)²(x−r) · 0.77" data-cmv="2.78" tabindex="0"/>
+    <circle cx="508.25" cy="80.09" r="12" fill="transparent" data-cmx="508.25" data-cm="quintic (x²−1)²(x−r) · 0.77" data-cmv="2.78" tabindex="0"/>
+    <circle cx="521.00" cy="79.43" r="12" fill="transparent" data-cmx="521.00" data-cm="quintic (x²−1)²(x−r) · 0.78" data-cmv="2.78" tabindex="0"/>
+    <circle cx="533.75" cy="78.75" r="12" fill="transparent" data-cmx="533.75" data-cm="quintic (x²−1)²(x−r) · 0.79" data-cmv="2.78" tabindex="0"/>
+    <circle cx="546.50" cy="78.07" r="12" fill="transparent" data-cmx="546.50" data-cm="quintic (x²−1)²(x−r) · 0.8" data-cmv="2.79" tabindex="0"/>
+    <circle cx="559.25" cy="77.38" r="12" fill="transparent" data-cmx="559.25" data-cm="quintic (x²−1)²(x−r) · 0.8" data-cmv="2.79" tabindex="0"/>
+    <circle cx="572.00" cy="76.68" r="12" fill="transparent" data-cmx="572.00" data-cm="quintic (x²−1)²(x−r) · 0.81" data-cmv="2.79" tabindex="0"/>
+    <circle cx="584.75" cy="75.96" r="12" fill="transparent" data-cmx="584.75" data-cm="quintic (x²−1)²(x−r) · 0.82" data-cmv="2.79" tabindex="0"/>
+    <circle cx="597.50" cy="75.24" r="12" fill="transparent" data-cmx="597.50" data-cm="quintic (x²−1)²(x−r) · 0.83" data-cmv="2.79" tabindex="0"/>
+    <circle cx="610.25" cy="74.51" r="12" fill="transparent" data-cmx="610.25" data-cm="quintic (x²−1)²(x−r) · 0.84" data-cmv="2.79" tabindex="0"/>
+    <circle cx="623.00" cy="73.76" r="12" fill="transparent" data-cmx="623.00" data-cm="quintic (x²−1)²(x−r) · 0.84" data-cmv="2.79" tabindex="0"/>
+    <circle cx="635.75" cy="73.01" r="12" fill="transparent" data-cmx="635.75" data-cm="quintic (x²−1)²(x−r) · 0.85" data-cmv="2.79" tabindex="0"/>
+    <circle cx="648.50" cy="72.25" r="12" fill="transparent" data-cmx="648.50" data-cm="quintic (x²−1)²(x−r) · 0.86" data-cmv="2.80" tabindex="0"/>
+    <circle cx="661.25" cy="71.47" r="12" fill="transparent" data-cmx="661.25" data-cm="quintic (x²−1)²(x−r) · 0.87" data-cmv="2.80" tabindex="0"/>
+    <circle cx="674.00" cy="70.69" r="12" fill="transparent" data-cmx="674.00" data-cm="quintic (x²−1)²(x−r) · 0.88" data-cmv="2.80" tabindex="0"/>
+    <circle cx="686.75" cy="69.89" r="12" fill="transparent" data-cmx="686.75" data-cm="quintic (x²−1)²(x−r) · 0.88" data-cmv="2.80" tabindex="0"/>
+    <circle cx="686.75" cy="69.89" r="12" fill="transparent" data-cmx="686.75" data-cm="quintic (x²−1)²(x−r) · 0.88" data-cmv="2.80" tabindex="0"/>
+    <circle cx="689.94" cy="83.13" r="12" fill="transparent" data-cmx="689.94" data-cm="quintic (x²−1)²(x−r) · 0.88" data-cmv="2.78" tabindex="0"/>
+    <circle cx="693.13" cy="99.43" r="12" fill="transparent" data-cmx="693.13" data-cm="quintic (x²−1)²(x−r) · 0.89" data-cmv="2.74" tabindex="0"/>
+    <circle cx="696.31" cy="109.44" r="12" fill="transparent" data-cmx="696.31" data-cm="quintic (x²−1)²(x−r) · 0.89" data-cmv="2.73" tabindex="0"/>
+    <circle cx="699.50" cy="117.32" r="12" fill="transparent" data-cmx="699.50" data-cm="quintic (x²−1)²(x−r) · 0.89" data-cmv="2.71" tabindex="0"/>
+    <circle cx="699.50" cy="117.32" r="12" fill="transparent" data-cmx="699.50" data-cm="quintic (x²−1)²(x−r) · 0.89" data-cmv="2.71" tabindex="0"/>
+    <circle cx="712.25" cy="140.25" r="12" fill="transparent" data-cmx="712.25" data-cm="quintic (x²−1)²(x−r) · 0.9" data-cmv="2.67" tabindex="0"/>
+    <circle cx="725.00" cy="157.05" r="12" fill="transparent" data-cmx="725.00" data-cm="quintic (x²−1)²(x−r) · 0.91" data-cmv="2.63" tabindex="0"/>
+    <circle cx="737.75" cy="170.86" r="12" fill="transparent" data-cmx="737.75" data-cm="quintic (x²−1)²(x−r) · 0.91" data-cmv="2.61" tabindex="0"/>
+    <circle cx="750.50" cy="182.81" r="12" fill="transparent" data-cmx="750.50" data-cm="quintic (x²−1)²(x−r) · 0.92" data-cmv="2.59" tabindex="0"/>
+    <circle cx="763.25" cy="193.44" r="12" fill="transparent" data-cmx="763.25" data-cm="quintic (x²−1)²(x−r) · 0.93" data-cmv="2.56" tabindex="0"/>
+    <circle cx="776.00" cy="203.09" r="12" fill="transparent" data-cmx="776.00" data-cm="quintic (x²−1)²(x−r) · 0.94" data-cmv="2.55" tabindex="0"/>
+    <circle cx="788.75" cy="211.96" r="12" fill="transparent" data-cmx="788.75" data-cm="quintic (x²−1)²(x−r) · 0.95" data-cmv="2.53" tabindex="0"/>
+    <circle cx="801.50" cy="220.19" r="12" fill="transparent" data-cmx="801.50" data-cm="quintic (x²−1)²(x−r) · 0.95" data-cmv="2.51" tabindex="0"/>
+    <circle cx="814.25" cy="227.88" r="12" fill="transparent" data-cmx="814.25" data-cm="quintic (x²−1)²(x−r) · 0.96" data-cmv="2.50" tabindex="0"/>
+    <circle cx="827.00" cy="235.12" r="12" fill="transparent" data-cmx="827.00" data-cm="quintic (x²−1)²(x−r) · 0.97" data-cmv="2.49" tabindex="0"/>
+    <circle cx="839.75" cy="241.95" r="12" fill="transparent" data-cmx="839.75" data-cm="quintic (x²−1)²(x−r) · 0.98" data-cmv="2.47" tabindex="0"/>
+    <circle cx="852.50" cy="248.43" r="12" fill="transparent" data-cmx="852.50" data-cm="quintic (x²−1)²(x−r) · 0.98" data-cmv="2.46" tabindex="0"/>
+    <circle cx="865.25" cy="254.60" r="12" fill="transparent" data-cmx="865.25" data-cm="quintic (x²−1)²(x−r) · 0.99" data-cmv="2.45" tabindex="0"/>
+    <circle cx="878.00" cy="260.48" r="12" fill="transparent" data-cmx="878.00" data-cm="quintic (x²−1)²(x−r) · 1" data-cmv="2.44" tabindex="0"/>
+    <line x1="62" y1="369" x2="76" y2="369" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="373.0" text-anchor="start" class="t-note">cubic (x²−1)(x−r)</text>
+    <line x1="225" y1="369" x2="239" y2="369" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
+    <text x="244.0" y="373.0" text-anchor="start" class="t-note">quintic (x²−1)²(x−r)</text>
+  </svg>
+  </div>
+  <figcaption>Both curves are certified enclosures recomputed at this build (the plotted value is the upper endpoint; widths are below picture resolution). The cubic supremum is at an INTERIOR critical root — certified 2.754173 at r = 201/256 — not at a lattice point. The quintic family peaks at 2.801091 near r = 905/1024 and then falls off a cliff: a topological transition where two components of {|q|&lt;1} merge and the measure drops by ~0.09 discontinuously. The odd-degree suprema climb toward 2√2 — approaching the two-atom witness without reaching it.</figcaption>
+</figure></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§4 · the theorems</div>
+    <h2>Seven degrees, decided</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>degree</th><th>certified statement</th><th>boxes</th><th>depth</th><th>time</th><th></th></tr></thead><tbody><tr><td><span class="m">N = 3</span></td><td>every degree-3 polynomial stays below 2.82 &lt; 2√2 — the whole degree falls strictly under the conjecture</td><td class="v"><span class="m">127</span></td><td class="v"><span class="m">16</span></td><td class="v"><span class="m">0.0 s</span></td><td><span class="tag held">strict</span></td></tr><tr><td><span class="m">N = 4</span></td><td>the degree supremum lies in [2√2, 2.82845]; (x²−1)^2 attains the left end</td><td class="v"><span class="m">549</span></td><td class="v"><span class="m">59</span></td><td class="v"><span class="m">0.1 s</span></td><td><span class="tag cert">localized</span></td></tr><tr><td><span class="m">N = 5</span></td><td>every degree-5 polynomial stays below 2.82 &lt; 2√2 — the whole degree falls strictly under the conjecture</td><td class="v"><span class="m">1,583</span></td><td class="v"><span class="m">37</span></td><td class="v"><span class="m">0.2 s</span></td><td><span class="tag held">strict</span></td></tr><tr><td><span class="m">N = 6</span></td><td>the degree supremum lies in [2√2, 2.82845]; (x²−1)^3 attains the left end</td><td class="v"><span class="m">4,219</span></td><td class="v"><span class="m">89</span></td><td class="v"><span class="m">0.6 s</span></td><td><span class="tag cert">localized</span></td></tr><tr><td><span class="m">N = 7</span></td><td>every degree-7 polynomial stays below 2.82 &lt; 2√2 — the whole degree falls strictly under the conjecture</td><td class="v"><span class="m">28,773</span></td><td class="v"><span class="m">63</span></td><td class="v"><span class="m">8.8 s</span></td><td><span class="tag held">strict</span></td></tr><tr><td><span class="m">N = 8</span></td><td>the degree supremum lies in [2√2, 2.82845]; (x²−1)^4 attains the left end</td><td class="v"><span class="m">31,425</span></td><td class="v"><span class="m">118</span></td><td class="v"><span class="m">5.7 s</span></td><td><span class="tag cert">localized</span></td></tr></tbody></table></div></div>
+<div class="col"><p>Each row quantifies over EVERY root configuration in [−1,1]ᴺ — collisions and multiplicities included — through the ordered-and-mirrored branch-and-bound: a box is closed when the certified measure of {Π dist(x, Iᵢ) &lt; 1} falls below the threshold, and that bound equals the true measure on thin boxes (a battery check). In measure language: every discrete probability measure on [−1,1] whose weights have denominator 3, 5, or 7 satisfies |{U_μ &lt; 0}| &lt; 2.82; for denominators 4 and 6 and 8, the two-atom witness is within 2.3×10⁻⁵ of the best possible.</p><div class="note">
+  <span class="lab">not decided</span>
+<p><span class="m">deg9</span>: bnb: box budget exhausted — recorded as attempted and open, not silently dropped.</p>
+</div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · what remains</div>
+    <h2>The honest boundary</h2>
+  </div>
+<ul class="plain"><li><b>Tao&#39;s conjecture itself is open.</b> These are per-degree theorems; the conjecture quantifies over all measures, which is the N → ∞ limit. The odd-degree suprema climbing toward 2√2 is certified evidence FOR the conjecture, not a proof of it.</li><li><b>The even-degree equality case is localized, not characterized.</b> The supremum sits within 2.3×10⁻⁵ of 2√2 with the witness attaining it; proving the witness is the UNIQUE maximizer would need equality-grade machinery, the way the λ(4) campaign walled off its extremizer.</li><li><b>Higher degrees are compute, not new ideas.</b> The branch-and-bound certificates grow with dimension but nothing structural changes; the degree ladder can be pushed as far as budget allows.</li><li><b>Machine-derived, not peer-reviewed.</b> Every claim re-derives in one command; the record is certs/sublevel-tao179.json; refutations are invited.</li></ul>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
+
+<footer class="col"><p>Generated by tools/build-report-erdos1038-sup.js — witness, calibrations and both family curves re-certified at build; theorem table read from the campaign record.</p><p>git cd057d7 · framing: T. Tao, teorth/erdosproblems#179 · the infimum side: Darvas–Peng–Tao, verified at reports/verify-lemniscate.html</p><p style="margin-top:20px;color:var(--ink-2)">Carlos Toledo · cert-machine</p></footer>
+
+</div>
+</html>

@@ -1,0 +1,135 @@
+{
+ "what": "The Tao #179 sublevel campaign (Erdős #1038, supremum side). Rational-weight discrete measures on [-1,1] with denominator N are monic degree-N polynomials with roots in [-1,1]; this record holds certified sublevel measures |{|q|<1}| (lower-bound witnesses for the conjectured sup 2*sqrt(2)), certified grid champions, and per-degree branch-and-bound THEOREMS: odd degrees 3, 5, 7 fall strictly below 2.82 < 2*sqrt(2); even degrees 4, 6, 8 have supremum in [2*sqrt(2), 2.82845], the left end attained by (x^2-1)^{N/2}. A degree marked failed was ATTEMPTED and is open, not silently dropped. Every measure is an exact outward enclosure from BigInt Sturm root isolation; every branch-and-bound pruning uses the certified min-product box bound (calibrated: thin boxes reproduce measures to all printed digits).",
+ "provenance": "Conjecture and framing: T. Tao, teorth/erdosproblems#179 (Dec 2025), on erdosproblems.com #1038. The infimum side was resolved by Darvas-Peng-Tao (2026); this campaign addresses the supremum side only.",
+ "witness": {
+  "config": "(x^2-1): uniform measure on {-1,+1}",
+  "measure": {
+   "lo": "7774721279937/2748779069440",
+   "hi": "388736063997/137438953472",
+   "loD": 2.828427124745576,
+   "hiD": 2.8284271247466677
+  },
+  "equals": "2*sqrt(2), certified"
+ },
+ "sweeps": {
+  "n=3 d=8": {
+   "configs": 505,
+   "champion": {
+    "lo": "518676742335/188978561024",
+    "hi": "8298827877363/3023656976384",
+    "loD": 2.7446327219579625,
+    "hiD": 2.7446327219589546,
+    "roots": "-8,6,8",
+    "d": 8
+   }
+  },
+  "n=4 d=4": {
+   "configs": 264,
+   "champion": {
+    "lo": "49758216191595/17592186044416",
+    "hi": "49758216191613/17592186044416",
+    "loD": 2.828427124745474,
+    "hiD": 2.828427124746497,
+    "roots": "-4,-4,4,4",
+    "d": 4
+   }
+  },
+  "n=5 d=2": {
+   "configs": 69,
+   "champion": {
+    "lo": "9817124967843/3573412790272",
+    "hi": "9817124967849/3573412790272",
+    "loD": 2.7472686599679808,
+    "hiD": 2.74726865996966,
+    "roots": "-2,-2,1,2,2",
+    "d": 2
+   }
+  }
+ },
+ "cubicChampion": {
+  "config": "(-1, 201/256, 1)",
+  "measure": {
+   "lo": "757061440731/274877906944",
+   "hi": "2081918962011/755914244096",
+   "loD": 2.754173477045697,
+   "hiD": 2.754173477046689
+  },
+  "note": "interior critical root — the degree-3 supremum is NOT at a lattice point and sits near 2.7542"
+ },
+ "quinticPeak": {
+  "config": "(-1 dbl, 905/1024, 1 dbl)",
+  "measure": {
+   "lo": "10009453274475/3573412790272",
+   "hi": "10009453274481/3573412790272",
+   "loD": 2.8010906833165232,
+   "hiD": 2.8010906833182023
+  },
+  "note": "the family (x^2-1)^2(x-r) peaks at a topological transition of the sublevel set near r = 905/1024, then drops discontinuously"
+ },
+ "theorems": {
+  "deg3 < 2.82": {
+   "n": 3,
+   "T": "141/50",
+   "TD": 2.82,
+   "leaves": 45,
+   "explored": 127,
+   "maxDepth": 16,
+   "ms": 12
+  },
+  "deg5 < 2.82": {
+   "n": 5,
+   "T": "141/50",
+   "TD": 2.82,
+   "leaves": 522,
+   "explored": 1583,
+   "maxDepth": 37,
+   "ms": 212
+  },
+  "deg7 < 2.82": {
+   "n": 7,
+   "T": "141/50",
+   "TD": 2.82,
+   "leaves": 9472,
+   "explored": 28773,
+   "maxDepth": 63,
+   "ms": 8771
+  },
+  "deg4 sup in [2sqrt2, 2.82845]": {
+   "n": 4,
+   "T": "56569/20000",
+   "TD": 2.82845,
+   "leaves": 213,
+   "explored": 549,
+   "maxDepth": 59,
+   "ms": 57
+  },
+  "deg6 sup in [2sqrt2, 2.82845]": {
+   "n": 6,
+   "T": "56569/20000",
+   "TD": 2.82845,
+   "leaves": 1370,
+   "explored": 4219,
+   "maxDepth": 89,
+   "ms": 645
+  },
+  "deg8 sup in [2sqrt2, 2.82845]": {
+   "n": 8,
+   "T": "56569/20000",
+   "TD": 2.82845,
+   "leaves": 9330,
+   "explored": 31425,
+   "maxDepth": 118,
+   "ms": 5671
+  },
+  "deg9": {
+   "n": 9,
+   "failed": "bnb: box budget exhausted",
+   "ms": 2871488
+  }
+ },
+ "meta": {
+  "date": "2026-09-01",
+  "git": "cd057d7",
+  "ms": 2887031
+ }
+}
