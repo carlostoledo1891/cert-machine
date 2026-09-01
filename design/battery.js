@@ -256,7 +256,7 @@ const LEAK_DEBT = {};   /* mfg-observatory.html paid off 2026-08-30 — C.p -> C
 
 /* ================= X · falsifiers ======================================== */
 console.log('\n    executing falsifiers');
-let reds = 0; const redTotal = 9;
+let reds = 0; const redTotal = 10;
 {
   /* the grayscale palette gate has teeth: a planted near-identical gray pair
      must fail the ΔE-15 separation the real trio passes */
@@ -311,6 +311,25 @@ let reds = 0; const redTotal = 9;
   try { CH.scatter({ w: 400, h: 200, x0: 0, x1: 1, logX: true, y0: 0, y1: 1, alt: 'x', pts: [] }); } catch (e) { threw2 = true; }
   if (threw2) { reds++; console.log('       RED ok  X8 a log x-axis with a zero floor is REFUSED, never clamped'); }
   else console.log('       RED FAIL  X8 a zero floor was silently accepted on a log x-axis');
+
+  /* the portrait form: renders token-only with both scales; its one rule fires */
+  const dual = CH.lines2({
+    w: 400, h: 220, x0: 0, x1: 1, alt: 'planted portrait',
+    xTicks: [0, 0.5, 1],
+    left: { y0: 0.8, y1: 1.2, ticks: [0.9, 1, 1.1], label: 'm', series: [{ pts: [[0, 1], [0.5, 1.1], [1, 1]], token: 'var(--c-1)', k: 'm' }] },
+    right: { y0: -1, y1: 1, ticks: [-1, 0, 1], label: 'V', series: [{ pts: [[0, 1], [0.5, -1], [1, 1]], token: 'var(--c-ctx)', dashed: true, k: 'V' }] },
+    keys: [{ token: 'var(--c-1)', t: 'density', kind: 'line' }, { token: 'var(--c-ctx)', t: 'potential', kind: 'dash' }],
+  });
+  check('F6 the dual-scale portrait form renders token-only with the reference series dashed',
+    svgColourViolations('<svg' + dual.split('<svg')[1], 'lines2').length === 0 && /stroke-dasharray="5 4"/.test(dual));
+  let threw3 = false;
+  try {
+    CH.lines2({ w: 400, h: 220, x0: 0, x1: 1, alt: 'x', xTicks: [],
+      left: { y0: 0, y1: 1, ticks: [], series: [{ pts: [[0, 0], [1, 1]], token: 'var(--c-1)' }] },
+      right: { y0: 0, y1: 1, ticks: [], series: [{ pts: [[0, 1], [1, 0]], token: 'var(--c-1)' }] } });
+  } catch (e) { threw3 = true; }
+  if (threw3) { reds++; console.log('       RED ok  X9 a right-scale series sharing the left\'s stroke style is REFUSED'); }
+  else console.log('       RED FAIL  X9 two scales were allowed to share a stroke style');
 }
 {
   const bad = escapedTagLeaks('<td>&lt;strong&gt;9 / 10 certified&lt;/strong&gt;</td>', 'planted');

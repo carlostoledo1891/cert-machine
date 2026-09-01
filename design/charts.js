@@ -657,9 +657,68 @@ function scatter(o) {
   }
   for (const p of P.filter(p => p.diamond)) {
     const x = f.px(p.x), y = f.py(p.y), s = 7;
+    /* hollow = the negative specimen (chart-surface fill, token stroke): filled
+       and open diamonds are the two THEOREM kinds, split vs no-split */
+    const fill = p.hollow ? SURFACE : p.token;
+    const stroke = p.hollow ? p.token : SURFACE;
     out.push('    <path ' + hit('d="M' + x.toFixed(1) + ' ' + (y - s).toFixed(1) + ' L' + (x + s).toFixed(1) + ' ' + y.toFixed(1)
       + ' L' + x.toFixed(1) + ' ' + (y + s).toFixed(1) + ' L' + (x - s).toFixed(1) + ' ' + y.toFixed(1)
-      + ' Z" fill="' + p.token + '" stroke="' + SURFACE + '" stroke-width="2"', p.k, p.v || '') + '/>');
+      + ' Z" fill="' + fill + '" stroke="' + stroke + '" stroke-width="2"', p.k, p.v || '') + '/>');
+  }
+  if (o.keys) out.push(legend(o.keys, f.L, f.h - 7, o.legendGap, f.pw));
+  out.push(close);
+  return out.join('\n');
+}
+
+/* LINES2 — the portrait form: one curve read against a REFERENCE curve that
+   lives on its own scale (the equilibrium density against the potential that
+   shaped it). This is the kit's ONE sanctioned second y-scale, and it is legal
+   here for a reason the general rule ("never two y-scales") exists to protect:
+   the comparison the chart makes is POSITIONAL — where the peaks sit against
+   where the wells sit — never a magnitude comparison between the two scales.
+   The form enforces the distinction it depends on: every right-scale series
+   MUST be dashed or context-toned (refused otherwise), the right axis labels
+   sit on the right in the context ink, and the legend names both. Built for
+   the terra T1/T6 portraits (m* against V); generic over any curve-vs-shape
+   pair read by position.
+     left:  {y0, y1, ticks, label, series: [{pts: [[x,y],...], token, k}]}
+     right: {y0, y1, ticks, label, series: [{pts, token, dashed, k}]}       */
+function lines2(o) {
+  for (const s of o.right.series) {
+    if (!s.dashed && s.token !== CTX) {
+      throw new Error('charts.lines2: a right-scale series must be dashed or context-toned — '
+        + 'two scales may never share a stroke style');
+    }
+  }
+  const avail0 = (o.w || 900) - (o.padL === undefined ? 62 : o.padL) - (o.padR === undefined ? 56 : o.padR);
+  const nLeg = legendLines(o.keys, avail0, o.legendGap);
+  const f = frame(Object.assign({}, o, {
+    y0: o.left.y0, y1: o.left.y1,
+    padR: o.padR === undefined ? 56 : o.padR,
+    padB: o.padB || (28 + (o.xLabel ? 22 : 0) + (nLeg ? 5 + nLeg * LEGEND_LINE : 0)),
+  }));
+  const pyR = v => f.T + f.ph - (v - o.right.y0) / (o.right.y1 - o.right.y0) * f.ph;
+  const out = [open({ w: f.w, h: f.h, alt: o.alt, cls: o.cls })];
+  out.push(axes(f, { xTicks: o.xTicks, yTicks: o.left.ticks, xLabel: o.xLabel, yLabel: o.left.label }));
+  for (const t of (o.right.ticks || [])) {
+    const v = t.v !== undefined ? t.v : t;
+    const y = pyR(v);
+    out.push(txt(f.L + f.pw + 9, y + 4, t.t !== undefined ? t.t : compact(v), 't-ax', 'start'));
+  }
+  if (o.right.label) out.push('    <text x="' + (f.w - 10) + '" y="' + (f.T + f.ph / 2) + '" class="t-note" '
+    + 'transform="rotate(90 ' + (f.w - 10) + ' ' + (f.T + f.ph / 2) + ')" text-anchor="middle">' + esc(o.right.label) + '</text>');
+  const path = (pts, py) => pts.map((p, i) => (i ? 'L' : 'M') + f.px(p[0]).toFixed(1) + ' ' + py(p[1]).toFixed(1)).join(' ');
+  for (const s of o.right.series) {
+    out.push('    <path d="' + path(s.pts, pyR) + '" fill="none" stroke="' + (s.token || CTX) + '" stroke-width="2"'
+      + (s.dashed ? ' stroke-dasharray="5 4"' : '') + ' stroke-linejoin="round"/>');
+  }
+  for (const s of o.left.series) {
+    out.push('    <path d="' + path(s.pts, f.py) + '" fill="none" stroke="' + (s.token || CAT[0])
+      + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>');
+  }
+  for (const m of (o.marks || [])) {
+    out.push('    <circle ' + hit('cx="' + f.px(m.x).toFixed(1) + '" cy="' + f.py(m.y).toFixed(1)
+      + '" r="5" fill="' + (m.token || CAT[0]) + '" stroke="' + SURFACE + '" stroke-width="2"', m.k, m.v || '') + '/>');
   }
   if (o.keys) out.push(legend(o.keys, f.L, f.h - 7, o.legendGap, f.pw));
   out.push(close);
@@ -683,6 +742,6 @@ function sparkline(vals, o) {
 
 module.exports = {
   frame, axes, open, close, txt, legend, legendLines, hit, script, HATCH_DEF,
-  lines, band, bars, dist, dumbbell, strip, intervals, segments, scatter, sparkline,
+  lines, band, bars, dist, dumbbell, strip, intervals, segments, scatter, lines2, sparkline,
   compact, decades, nf, CAT, SEQ, CTX, GRID, AXIS, SURFACE
 };

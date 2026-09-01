@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The crowd splits — MFG beyond the uniqueness wall</title>
+<meta name="description" content="Certified congestion-MFG equilibria with more density peaks than potential wells: two theorems, a seven-row bracket table, the exact gamma-free crossover 1/(8pi^2) decided in rationals, and an EXACTLY-3 Galerkin census — every number from a machine-written certificate.">
+<meta name="author" content="Carlos Toledo">
+<link rel="canonical" href="https://carlostoledo.co/reports/terra.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/terra.html">
+<meta property="og:title" content="The crowd splits — MFG beyond the uniqueness wall">
+<meta property="og:description" content="Certified congestion-MFG equilibria with more density peaks than potential wells: two theorems, a seven-row bracket table, the exact gamma-free crossover 1/(8pi^2) decided in rationals, and an EXACTLY-3 Galerkin census — every number from a machine-written certificate.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The crowd splits — MFG beyond the uniqueness wall">
+<meta name="twitter:description" content="Certified congestion-MFG equilibria with more density peaks than potential wells: two theorems, a seven-row bracket table, the exact gamma-free crossover 1/(8pi^2) decided in rationals, and an EXACTLY-3 Galerkin census — every number from a machine-written certificate.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:0.9375rem;line-height:1.65;font-weight:400;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+.page{max-width:1200px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 60px) clamp(1.25rem,4vw,3rem) 96px}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 82%, transparent);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+.navlinks .ghbtn svg{display:block}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:6px}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+.col{max-width:68ch;margin-left:auto;margin-right:auto}
+.wide{max-width:900px;margin-left:auto;margin-right:auto}
+/* A wide element (table, card grid, figure) emitted inside a prose column
+   breaks out to the page-wide track: .col and .page are both centered, so
+   centering on the viewport IS centering on the page. Width never exceeds
+   the viewport minus the page padding, so the body never scrolls sideways —
+   anything wider (a table) scrolls inside its own .tw container. */
+.col .wide{position:relative;left:50%;transform:translateX(-50%);
+  width:min(900px,calc(100vw - 2*clamp(1.25rem,4vw,3rem)))}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.eyebrow,.lab{font-family:var(--f-mono);font-size:0.6875rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase}
+.eyebrow{color:var(--ink-4)}
+.lab{color:var(--ink-4)}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:56ch;text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the frontier fused grid: 1px gaps painted by the border colour */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+.scope{margin:24px auto 0;max-width:68ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:6px;
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:0 8px 28px rgba(0,0,0,.55);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--sunk);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone (the frontier grammar):
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:999px;white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:8px;background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:8px;padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+footer{margin:clamp(5rem,12vh,9rem) 0 0;padding-top:32px;border-top:1px solid var(--rule);
+  color:var(--ink-5);font-size:0.6875rem;letter-spacing:.08em;line-height:1.9;font-family:var(--f-mono);text-transform:uppercase}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-3);border-bottom-color:var(--rule-strong);text-transform:none;letter-spacing:.04em}
+footer a:hover{color:var(--ink)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · re-proved from certificates at every build</div>
+  <h1>The crowd splits — mean-field games beyond the uniqueness wall</h1>
+  <p class="deck">A congestion-averse crowd in a single-well cost landscape can settle into TWO density peaks — or THREE. The mechanism is a band-pass response with an exact, discount-free crossover at σ* = 1/(8π²), decided in exact rationals. The crowd re-weights a harmonic the potential already contains — it does not invent structure. Two theorems and a seven-row bracket table, every enclosure re-proved inside this machine; floats draw the map below, and the diamonds are the territory.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> Exact equilibria of a congestion mean-field game whose density carries MORE strict local maxima than the potential has wells: two peaks over one well (T1), three over one (T6) — radii-polynomial enclosures at radius ~2.5e-13, locally unique in the full sequence-space ball, both positivity walls certified.</li><li><b>The mechanism.</b> The linear-response gain c(κ) = κ/[(1+σκ)²+γκ] is band-pass, so the equilibrium counts wells with gain-weighted amplitudes while the potential counts them flat; the splitting window is the exact rational interval (1/16, 1/4), and the crossover σ* = 1/(8π²) is γ-independent by exact polynomial cancellation.</li><li><b>Check it.</b> every number on this page reads from a VERIFIED certificate (<span class="m">certs/terra-*.json</span>, <span class="m">certs/mfg-cap-census-*.json</span>); the build refuses on any other verdict. Re-run: <span class="m">python3 instruments/mfgcap/run_recert.py t1</span> · <span class="m">node instruments/critcount/run.js t1</span></li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats">
+    <div class="stat"><div class="k">exact crossover</div><div class="v">1/(8π²)</div><div class="n">σ* = 0.012665147955292… — γ-independent, decided in exact rationals (Machin bracket width 1.3e-44), not float agreement</div></div>
+    <div class="stat"><div class="k">the honest count</div><div class="v">2 + table</div><div class="n">one phenomenon theorem (T1) + one three-peak theorem (T6) + a seven-row bracket table — rows of a table are rows of a table</div></div>
+    <div class="stat"><div class="k">tightest ball</div><div class="v">2.97e-14</div><div class="n">ℓ¹_ν enclosure radius, minimum over the seven re-certified instances; density and branch positivity over every ball</div></div>
+    <div class="stat"><div class="k">the window</div><div class="v">1/16 &lt; r &lt; 1/4</div><div class="n">A₂/A₁ where a one-well potential splits the crowd (σ, γ → 0 limit); third harmonic: (1/27, 1/3)</div></div>
+  </div>
+</div>
+
+<p class="scope">Published, not peer-reviewed, not independently rerun. The finding originated on the author’s frontier-apps bench and was re-proved end to end inside this machine: an independent verifier lineage calibrated bit-for-bit to the frozen published verifier, independently computed approximate inverses, a fresh critical-point counter, and falsifier batteries whose reds fire. Nothing here has been sent anywhere.</p>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§1 · the phase map</div>
+    <h2>Floats are the map, theorems the territory</h2>
+  </div>
+<p>Dots are 224 float equilibrium solves (N = 32, candidate data, pinned by sha256 — nothing certified about them). The dashed curve is the linear-response boundary r_c(σ) — a PREDICTION, so it is dashed. The diamonds are the certified specimens re-proved in this machine: filled where EVERY density in the enclosure ball has exactly two maxima, open where exactly one. The wedge between the boundary and r = 1/4 is where gain-weighted well-counting beats flat well-counting — the potential already contains the second harmonic; the crowd re-weights it across the ¼ threshold.</p><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 430" role="img" aria-label="phase map: certified peak counts and float solves over sigma and A2/A1">
+    <line x1="62" y1="337.0" x2="878" y2="337.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="341.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="287.2" x2="878" y2="287.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="291.2" text-anchor="end" class="t-ax">0.05</text>
+    <line x1="62" y1="237.3" x2="878" y2="237.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="241.3" text-anchor="end" class="t-ax">0.1</text>
+    <line x1="62" y1="187.5" x2="878" y2="187.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="191.5" text-anchor="end" class="t-ax">0.15</text>
+    <line x1="62" y1="137.6" x2="878" y2="137.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="141.6" text-anchor="end" class="t-ax">0.2</text>
+    <line x1="62" y1="87.8" x2="878" y2="87.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="91.8" text-anchor="end" class="t-ax">0.25</text>
+    <line x1="62" y1="37.9" x2="878" y2="37.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="41.9" text-anchor="end" class="t-ax">0.3</text>
+    <line x1="131.9" y1="337" x2="131.9" y2="342" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="131.9" y="357.0" text-anchor="middle" class="t-ax">1e-3</text>
+    <line x1="267.8" y1="337" x2="267.8" y2="342" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="267.8" y="357.0" text-anchor="middle" class="t-ax">2e-3</text>
+    <line x1="447.4" y1="337" x2="447.4" y2="342" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="447.4" y="357.0" text-anchor="middle" class="t-ax">5e-3</text>
+    <line x1="583.2" y1="337" x2="583.2" y2="342" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="583.2" y="357.0" text-anchor="middle" class="t-ax">1e-2</text>
+    <line x1="719.1" y1="337" x2="719.1" y2="342" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="719.1" y="357.0" text-anchor="middle" class="t-ax">2e-2</text>
+    <line x1="854.9" y1="337" x2="854.9" y2="342" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="854.9" y="357.0" text-anchor="middle" class="t-ax">4e-2</text>
+    <line x1="62" y1="337" x2="878" y2="337" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="379.0" text-anchor="middle" class="t-note">σ (log)</text>
+    <text x="13" y="177.5" class="t-note" transform="rotate(-90 13 177.5)" text-anchor="middle">A₂/A₁</text>
+    <line x1="629.5" y1="18" x2="629.5" y2="337" stroke="var(--c-ctx)" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="635.5" y="31.0" text-anchor="start" class="t-lab">σ* = 1/(8π²)</text>
+    <line x1="62" y1="87.8" x2="878" y2="87.8" stroke="var(--c-ctx)" stroke-width="1.5"/>
+    <text x="872.0" y="81.8" text-anchor="end" class="t-lab">r = 1/4</text>
+    <path d="M88.2 215.4 L90.9 215.3 L93.6 215.2 L96.3 215.1 L99.0 215.0 L101.7 214.9 L104.4 214.8 L107.1 214.7 L109.8 214.6 L112.6 214.5 L115.3 214.4 L118.0 214.3 L120.7 214.2 L123.4 214.1 L126.1 213.9 L128.8 213.8 L131.5 213.7 L134.2 213.6 L136.9 213.5 L139.7 213.3 L142.4 213.2 L145.1 213.1 L147.8 213.0 L150.5 212.8 L153.2 212.7 L155.9 212.6 L158.6 212.4 L161.3 212.3 L164.0 212.1 L166.7 212.0 L169.5 211.9 L172.2 211.7 L174.9 211.6 L177.6 211.4 L180.3 211.2 L183.0 211.1 L185.7 210.9 L188.4 210.8 L191.1 210.6 L193.8 210.4 L196.5 210.3 L199.3 210.1 L202.0 209.9 L204.7 209.7 L207.4 209.6 L210.1 209.4 L212.8 209.2 L215.5 209.0 L218.2 208.8 L220.9 208.6 L223.6 208.4 L226.4 208.2 L229.1 208.0 L231.8 207.8 L234.5 207.6 L237.2 207.4 L239.9 207.2 L242.6 206.9 L245.3 206.7 L248.0 206.5 L250.7 206.2 L253.4 206.0 L256.2 205.8 L258.9 205.5 L261.6 205.3 L264.3 205.0 L267.0 204.8 L269.7 204.5 L272.4 204.2 L275.1 204.0 L277.8 203.7 L280.5 203.4 L283.2 203.1 L286.0 202.9 L288.7 202.6 L291.4 202.3 L294.1 202.0 L296.8 201.7 L299.5 201.4 L302.2 201.0 L304.9 200.7 L307.6 200.4 L310.3 200.1 L313.1 199.7 L315.8 199.4 L318.5 199.0 L321.2 198.7 L323.9 198.3 L326.6 198.0 L329.3 197.6 L332.0 197.2 L334.7 196.8 L337.4 196.4 L340.1 196.0 L342.9 195.6 L345.6 195.2 L348.3 194.8 L351.0 194.4 L353.7 194.0 L356.4 193.5 L359.1 193.1 L361.8 192.7 L364.5 192.2 L367.2 191.7 L369.9 191.3 L372.7 190.8 L375.4 190.3 L378.1 189.8 L380.8 189.3 L383.5 188.8 L386.2 188.3 L388.9 187.7 L391.6 187.2 L394.3 186.7 L397.0 186.1 L399.8 185.6 L402.5 185.0 L405.2 184.4 L407.9 183.8 L410.6 183.2 L413.3 182.6 L416.0 182.0 L418.7 181.4 L421.4 180.7 L424.1 180.1 L426.8 179.4 L429.6 178.7 L432.3 178.1 L435.0 177.4 L437.7 176.7 L440.4 176.0 L443.1 175.2 L445.8 174.5 L448.5 173.7 L451.2 173.0 L453.9 172.2 L456.7 171.4 L459.4 170.6 L462.1 169.8 L464.8 169.0 L467.5 168.2 L470.2 167.3 L472.9 166.5 L475.6 165.6 L478.3 164.7 L481.0 163.8 L483.7 162.9 L486.5 161.9 L489.2 161.0 L491.9 160.0 L494.6 159.1 L497.3 158.1 L500.0 157.1 L502.7 156.1 L505.4 155.0 L508.1 154.0 L510.8 152.9 L513.5 151.8 L516.3 150.7 L519.0 149.6 L521.7 148.5 L524.4 147.3 L527.1 146.2 L529.8 145.0 L532.5 143.8 L535.2 142.6 L537.9 141.3 L540.6 140.1 L543.4 138.8 L546.1 137.5 L548.8 136.2 L551.5 134.9 L554.2 133.5 L556.9 132.2 L559.6 130.8 L562.3 129.4 L565.0 127.9 L567.7 126.5 L570.4 125.0 L573.2 123.5 L575.9 122.0 L578.6 120.5 L581.3 119.0 L584.0 117.4 L586.7 115.8 L589.4 114.2 L592.1 112.6 L594.8 110.9 L597.5 109.2 L600.2 107.5 L603.0 105.8 L605.7 104.1 L608.4 102.3 L611.1 100.5 L613.8 98.7 L616.5 96.9 L619.2 95.0 L621.9 93.2 L624.6 91.3 L627.3 89.3 L630.1 87.4" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/>
+    <text x="637.1" y="91.4" text-anchor="start" class="t-lab">r_c(σ)</text>
+    <circle cx="88.2" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="217.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.12" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="197.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.14" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="177.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.16" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="157.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.18" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="137.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.2" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="117.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.22" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="88.2" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0008 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="197.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.14" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="177.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.16" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="157.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.18" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="137.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.2" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="117.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.22" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="139.6" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00104 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="197.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.14" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="177.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.16" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="157.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.18" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="137.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.2" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="117.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.22" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="190.7" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00135 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="197.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.14" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="177.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.16" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="157.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.18" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="137.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.2" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="117.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.22" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="241.6" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00175 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="197.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.14" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="177.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.16" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="157.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.18" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="137.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.2" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="117.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.22" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="292.6" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00227 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="197.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.14" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="177.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.16" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="157.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.18" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="137.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.2" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="117.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.22" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="343.9" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00295 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="197.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.14" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="177.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.16" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="157.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.18" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="137.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.2" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="117.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.22" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="395.1" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00383 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="197.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.14" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="177.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.16" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="157.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.18" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="137.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.2" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="117.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.22" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="446.2" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00497 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="197.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.14" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="177.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.16" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="157.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.18" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="137.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.2" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="117.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.22" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="497.0" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00644 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="197.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.14" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="177.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.16" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="157.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.18" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="137.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.2" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="117.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.22" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="548.3" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.00837 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="197.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.14" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="177.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.16" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="157.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.18" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="137.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.2" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="117.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.22" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="97.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.24" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="77.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.26" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="600.1" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0109 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="197.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.14" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="177.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.16" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="157.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.18" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="137.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.2" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="117.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.22" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="97.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.24" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="77.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.26" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="57.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.28" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="650.5" cy="37.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0141 · r=0.3" data-cmv="2 peaks (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="197.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.14" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="177.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.16" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="157.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.18" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="137.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.2" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="117.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.22" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="97.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.24" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="77.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.26" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="57.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.28" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="701.6" cy="37.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0183 · r=0.3" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="197.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.14" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="177.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.16" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="157.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.18" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="137.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.2" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="117.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.22" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="97.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.24" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="77.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.26" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="57.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.28" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="752.3" cy="37.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0237 · r=0.3" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="197.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.14" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="177.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.16" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="157.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.18" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="137.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.2" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="117.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.22" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="97.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.24" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="77.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.26" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="57.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.28" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="803.7" cy="37.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.0308 · r=0.3" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="297.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.04" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="277.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.06" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="257.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.08" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="237.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.1" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="217.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.12" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="197.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.14" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="177.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.16" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="157.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.18" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="137.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.2" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="117.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.22" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="97.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.24" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="77.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.26" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="57.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.28" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <circle cx="854.9" cy="37.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="σ=0.04 · r=0.3" data-cmv="1 peak (float solve, N=32)" tabindex="0"/>
+    <path d="M267.8 130.6 L274.8 137.6 L267.8 144.6 L260.8 137.6 Z" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="T1 — theorem" data-cmv="EXACTLY 2 peaks · r = 2.52e-13" tabindex="0"/>
+    <path d="M267.8 210.4 L274.8 217.4 L267.8 224.4 L260.8 217.4 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="T2 — theorem" data-cmv="EXACTLY 1 peak · r = 2.25e-13" tabindex="0"/>
+    <path d="M719.1 130.6 L726.1 137.6 L719.1 144.6 L712.1 137.6 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="T3 — theorem" data-cmv="EXACTLY 1 peak · r = 2.97e-14" tabindex="0"/>
+    <path d="M267.8 180.5 L274.8 187.5 L267.8 194.5 L260.8 187.5 Z" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="T4 — theorem" data-cmv="EXACTLY 2 peaks · r = 2.37e-13" tabindex="0"/>
+    <path d="M267.8 200.4 L274.8 207.4 L267.8 214.4 L260.8 207.4 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="T7 — theorem" data-cmv="EXACTLY 1 peak · r = 2.30e-13" tabindex="0"/>
+    <path d="M267.8 190.4 L274.8 197.4 L267.8 204.4 L260.8 197.4 Z" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="T8 — theorem" data-cmv="EXACTLY 2 peaks · r = 2.32e-13" tabindex="0"/>
+    <rect x="62" y="394" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="81.0" y="404.0" text-anchor="start" class="t-note">ceiling holds (float)</text>
+    <rect x="252" y="394" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="271.0" y="404.0" text-anchor="start" class="t-note">SPLIT: peaks &gt; wells (float)</text>
+    <line x1="491" y1="400" x2="505" y2="400" stroke="var(--c-2)" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="510.0" y="404.0" text-anchor="start" class="t-note">boundary r_c(σ) — predicted</text>
+    <rect x="62" y="413" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="81.0" y="423.0" text-anchor="start" class="t-note">theorem: 2 peaks (filled) / 1 peak (open)</text>
+  </svg>
+  </div>
+  <figcaption>The predicted boundary crosses r = 1/4 at σ* (dashed vertical). Certified: two-peak theorems (filled) at σ = 0.002 inside the wedge — T1 (r = 0.20), T4 (0.15), T8 (0.14); one-peak theorems (open) below the threshold — T2 (0.12), T7 (0.13) — and past the crossover — T3 (σ = 0.02). The threshold is pinned inside [0.13, 0.14] by T7/T8, and the exact-rational prediction r_c = 0.132725 lands inside. The origin bench also proved a σ = 0.001 replication (T5, N = 176) not yet re-certified here.</figcaption>
+</figure></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the specimens</div>
+    <h2>One well. Two peaks. Then three.</h2>
+  </div>
+<p>The potential (dashed, right scale — a positional comparison, never a magnitude one) has a single well at x = ½. The certified equilibrium density peaks on either side of it.</p><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 360" role="img" aria-label="T1 — the phenomenon theorem: candidate density against the potential">
+    <line x1="62" y1="267.5" x2="844" y2="267.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="271.5" text-anchor="end" class="t-ax">0.895</text>
+    <line x1="62" y1="209.8" x2="844" y2="209.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="213.8" text-anchor="end" class="t-ax">0.934</text>
+    <line x1="62" y1="152.0" x2="844" y2="152.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="156.0" text-anchor="end" class="t-ax">0.974</text>
+    <line x1="62" y1="94.2" x2="844" y2="94.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="98.2" text-anchor="end" class="t-ax">1.014</text>
+    <line x1="62" y1="36.5" x2="844" y2="36.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="40.5" text-anchor="end" class="t-ax">1.053</text>
+    <line x1="62.0" y1="286" x2="62.0" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="306.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="257.5" y1="286" x2="257.5" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="257.5" y="306.0" text-anchor="middle" class="t-ax">0.25</text>
+    <line x1="453.0" y1="286" x2="453.0" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="453.0" y="306.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="648.5" y1="286" x2="648.5" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="648.5" y="306.0" text-anchor="middle" class="t-ax">0.75</text>
+    <line x1="844.0" y1="286" x2="844.0" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="844.0" y="306.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="62" y1="286" x2="844" y2="286" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="453.0" y="328.0" text-anchor="middle" class="t-note">x</text>
+    <text x="13" y="152" class="t-note" transform="rotate(-90 13 152)" text-anchor="middle">m</text>
+    <text x="853.0" y="271.5" text-anchor="start" class="t-ax">-0.002</text>
+    <text x="853.0" y="213.8" text-anchor="start" class="t-ax">-0.001</text>
+    <text x="853.0" y="156.0" text-anchor="start" class="t-ax">0.001</text>
+    <text x="853.0" y="98.2" text-anchor="start" class="t-ax">0.002</text>
+    <text x="853.0" y="40.5" text-anchor="start" class="t-ax">0.004</text>
+    <text x="890" y="152" class="t-note" transform="rotate(90 890 152)" text-anchor="middle">V</text>
+    <path d="M62.0 36.5 L64.4 36.5 L66.9 36.6 L69.3 36.8 L71.8 37.1 L74.2 37.5 L76.7 37.9 L79.1 38.4 L81.5 39.0 L84.0 39.7 L86.4 40.5 L88.9 41.3 L91.3 42.2 L93.8 43.2 L96.2 44.2 L98.7 45.4 L101.1 46.5 L103.5 47.8 L106.0 49.2 L108.4 50.6 L110.9 52.0 L113.3 53.6 L115.8 55.2 L118.2 56.9 L120.7 58.6 L123.1 60.4 L125.5 62.2 L128.0 64.2 L130.4 66.1 L132.9 68.1 L135.3 70.2 L137.8 72.3 L140.2 74.5 L142.6 76.7 L145.1 79.0 L147.5 81.3 L150.0 83.6 L152.4 86.0 L154.9 88.5 L157.3 90.9 L159.8 93.4 L162.2 95.9 L164.6 98.5 L167.1 101.1 L169.5 103.7 L172.0 106.3 L174.4 109.0 L176.9 111.7 L179.3 114.3 L181.7 117.0 L184.2 119.8 L186.6 122.5 L189.1 125.2 L191.5 128.0 L194.0 130.7 L196.4 133.5 L198.8 136.2 L201.3 139.0 L203.7 141.7 L206.2 144.5 L208.6 147.2 L211.1 150.0 L213.5 152.7 L216.0 155.4 L218.4 158.1 L220.8 160.8 L223.3 163.4 L225.7 166.1 L228.2 168.7 L230.6 171.3 L233.1 173.9 L235.5 176.5 L238.0 179.0 L240.4 181.5 L242.8 184.0 L245.3 186.4 L247.7 188.9 L250.2 191.2 L252.6 193.6 L255.1 195.9 L257.5 198.2 L259.9 200.5 L262.4 202.7 L264.8 204.8 L267.3 207.0 L269.7 209.1 L272.2 211.1 L274.6 213.2 L277.1 215.1 L279.5 217.1 L281.9 219.0 L284.4 220.8 L286.8 222.7 L289.3 224.4 L291.7 226.2 L294.2 227.8 L296.6 229.5 L299.0 231.1 L301.5 232.7 L303.9 234.2 L306.4 235.6 L308.8 237.1 L311.3 238.5 L313.7 239.8 L316.1 241.1 L318.6 242.4 L321.0 243.6 L323.5 244.8 L325.9 245.9 L328.4 247.1 L330.8 248.1 L333.3 249.2 L335.7 250.1 L338.1 251.1 L340.6 252.0 L343.0 252.9 L345.5 253.7 L347.9 254.6 L350.4 255.3 L352.8 256.1 L355.3 256.8 L357.7 257.5 L360.1 258.1 L362.6 258.7 L365.0 259.3 L367.5 259.9 L369.9 260.4 L372.4 260.9 L374.8 261.4 L377.2 261.9 L379.7 262.3 L382.1 262.7 L384.6 263.1 L387.0 263.5 L389.5 263.8 L391.9 264.1 L394.3 264.5 L396.8 264.7 L399.2 265.0 L401.7 265.3 L404.1 265.5 L406.6 265.7 L409.0 265.9 L411.5 266.1 L413.9 266.3 L416.3 266.4 L418.8 266.6 L421.2 266.7 L423.7 266.8 L426.1 267.0 L428.6 267.1 L431.0 267.1 L433.4 267.2 L435.9 267.3 L438.3 267.4 L440.8 267.4 L443.2 267.4 L445.7 267.5 L448.1 267.5 L450.6 267.5 L453.0 267.5 L455.4 267.5 L457.9 267.5 L460.3 267.5 L462.8 267.4 L465.2 267.4 L467.7 267.4 L470.1 267.3 L472.6 267.2 L475.0 267.1 L477.4 267.1 L479.9 267.0 L482.3 266.8 L484.8 266.7 L487.2 266.6 L489.7 266.4 L492.1 266.3 L494.5 266.1 L497.0 265.9 L499.4 265.7 L501.9 265.5 L504.3 265.3 L506.8 265.0 L509.2 264.7 L511.6 264.5 L514.1 264.1 L516.5 263.8 L519.0 263.5 L521.4 263.1 L523.9 262.7 L526.3 262.3 L528.8 261.9 L531.2 261.4 L533.6 260.9 L536.1 260.4 L538.5 259.9 L541.0 259.3 L543.4 258.7 L545.9 258.1 L548.3 257.5 L550.8 256.8 L553.2 256.1 L555.6 255.3 L558.1 254.6 L560.5 253.7 L563.0 252.9 L565.4 252.0 L567.9 251.1 L570.3 250.1 L572.7 249.2 L575.2 248.1 L577.6 247.1 L580.1 245.9 L582.5 244.8 L585.0 243.6 L587.4 242.4 L589.9 241.1 L592.3 239.8 L594.7 238.5 L597.2 237.1 L599.6 235.6 L602.1 234.2 L604.5 232.7 L607.0 231.1 L609.4 229.5 L611.8 227.8 L614.3 226.2 L616.7 224.4 L619.2 222.7 L621.6 220.8 L624.1 219.0 L626.5 217.1 L628.9 215.1 L631.4 213.2 L633.8 211.1 L636.3 209.1 L638.7 207.0 L641.2 204.8 L643.6 202.7 L646.1 200.5 L648.5 198.2 L650.9 195.9 L653.4 193.6 L655.8 191.2 L658.3 188.9 L660.7 186.4 L663.2 184.0 L665.6 181.5 L668.1 179.0 L670.5 176.5 L672.9 173.9 L675.4 171.3 L677.8 168.7 L680.3 166.1 L682.7 163.4 L685.2 160.8 L687.6 158.1 L690.0 155.4 L692.5 152.7 L694.9 150.0 L697.4 147.2 L699.8 144.5 L702.3 141.7 L704.7 139.0 L707.1 136.2 L709.6 133.5 L712.0 130.7 L714.5 128.0 L716.9 125.2 L719.4 122.5 L721.8 119.8 L724.3 117.0 L726.7 114.3 L729.1 111.7 L731.6 109.0 L734.0 106.3 L736.5 103.7 L738.9 101.1 L741.4 98.5 L743.8 95.9 L746.3 93.4 L748.7 90.9 L751.1 88.5 L753.6 86.0 L756.0 83.6 L758.5 81.3 L760.9 79.0 L763.4 76.7 L765.8 74.5 L768.2 72.3 L770.7 70.2 L773.1 68.1 L775.6 66.1 L778.0 64.2 L780.5 62.2 L782.9 60.4 L785.4 58.6 L787.8 56.9 L790.2 55.2 L792.7 53.6 L795.1 52.0 L797.6 50.6 L800.0 49.2 L802.5 47.8 L804.9 46.5 L807.3 45.4 L809.8 44.2 L812.2 43.2 L814.7 42.2 L817.1 41.3 L819.6 40.5 L822.0 39.7 L824.4 39.0 L826.9 38.4 L829.3 37.9 L831.8 37.5 L834.2 37.1 L836.7 36.8 L839.1 36.6 L841.6 36.5 L844.0 36.5" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/>
+    <path d="M62.0 267.5 L64.4 267.5 L66.9 267.3 L69.3 267.0 L71.8 266.6 L74.2 266.1 L76.7 265.5 L79.1 264.8 L81.5 264.0 L84.0 263.0 L86.4 262.0 L88.9 260.9 L91.3 259.6 L93.8 258.3 L96.2 256.8 L98.7 255.3 L101.1 253.6 L103.5 251.9 L106.0 250.0 L108.4 248.1 L110.9 246.1 L113.3 244.0 L115.8 241.8 L118.2 239.5 L120.7 237.2 L123.1 234.8 L125.5 232.3 L128.0 229.7 L130.4 227.1 L132.9 224.4 L135.3 221.6 L137.8 218.8 L140.2 215.9 L142.6 213.0 L145.1 210.0 L147.5 207.0 L150.0 204.0 L152.4 200.9 L154.9 197.7 L157.3 194.5 L159.8 191.3 L162.2 188.1 L164.6 184.8 L167.1 181.6 L169.5 178.3 L172.0 174.9 L174.4 171.6 L176.9 168.3 L179.3 165.0 L181.7 161.6 L184.2 158.3 L186.6 154.9 L189.1 151.6 L191.5 148.3 L194.0 145.0 L196.4 141.7 L198.8 138.4 L201.3 135.2 L203.7 132.0 L206.2 128.8 L208.6 125.6 L211.1 122.5 L213.5 119.4 L216.0 116.3 L218.4 113.3 L220.8 110.3 L223.3 107.3 L225.7 104.5 L228.2 101.6 L230.6 98.8 L233.1 96.1 L235.5 93.4 L238.0 90.7 L240.4 88.1 L242.8 85.6 L245.3 83.1 L247.7 80.7 L250.2 78.4 L252.6 76.1 L255.1 73.9 L257.5 71.7 L259.9 69.6 L262.4 67.6 L264.8 65.6 L267.3 63.7 L269.7 61.9 L272.2 60.1 L274.6 58.4 L277.1 56.8 L279.5 55.2 L281.9 53.7 L284.4 52.3 L286.8 51.0 L289.3 49.7 L291.7 48.4 L294.2 47.3 L296.6 46.2 L299.0 45.2 L301.5 44.2 L303.9 43.3 L306.4 42.5 L308.8 41.7 L311.3 41.0 L313.7 40.3 L316.1 39.7 L318.6 39.2 L321.0 38.7 L323.5 38.3 L325.9 37.9 L328.4 37.5 L330.8 37.3 L333.3 37.0 L335.7 36.8 L338.1 36.7 L340.6 36.6 L343.0 36.5 L345.5 36.5 L347.9 36.5 L350.4 36.5 L352.8 36.6 L355.3 36.7 L357.7 36.9 L360.1 37.0 L362.6 37.2 L365.0 37.4 L367.5 37.7 L369.9 37.9 L372.4 38.2 L374.8 38.5 L377.2 38.8 L379.7 39.1 L382.1 39.4 L384.6 39.8 L387.0 40.1 L389.5 40.5 L391.9 40.8 L394.3 41.2 L396.8 41.5 L399.2 41.9 L401.7 42.2 L404.1 42.5 L406.6 42.9 L409.0 43.2 L411.5 43.5 L413.9 43.8 L416.3 44.1 L418.8 44.4 L421.2 44.6 L423.7 44.9 L426.1 45.1 L428.6 45.3 L431.0 45.5 L433.4 45.7 L435.9 45.9 L438.3 46.0 L440.8 46.1 L443.2 46.2 L445.7 46.3 L448.1 46.4 L450.6 46.4 L453.0 46.4 L455.4 46.4 L457.9 46.4 L460.3 46.3 L462.8 46.2 L465.2 46.1 L467.7 46.0 L470.1 45.9 L472.6 45.7 L475.0 45.5 L477.4 45.3 L479.9 45.1 L482.3 44.9 L484.8 44.6 L487.2 44.4 L489.7 44.1 L492.1 43.8 L494.5 43.5 L497.0 43.2 L499.4 42.9 L501.9 42.5 L504.3 42.2 L506.8 41.9 L509.2 41.5 L511.6 41.2 L514.1 40.8 L516.5 40.5 L519.0 40.1 L521.4 39.8 L523.9 39.4 L526.3 39.1 L528.8 38.8 L531.2 38.5 L533.6 38.2 L536.1 37.9 L538.5 37.7 L541.0 37.4 L543.4 37.2 L545.9 37.0 L548.3 36.9 L550.8 36.7 L553.2 36.6 L555.6 36.5 L558.1 36.5 L560.5 36.5 L563.0 36.5 L565.4 36.6 L567.9 36.7 L570.3 36.8 L572.7 37.0 L575.2 37.3 L577.6 37.5 L580.1 37.9 L582.5 38.3 L585.0 38.7 L587.4 39.2 L589.9 39.7 L592.3 40.3 L594.7 41.0 L597.2 41.7 L599.6 42.5 L602.1 43.3 L604.5 44.2 L607.0 45.2 L609.4 46.2 L611.8 47.3 L614.3 48.4 L616.7 49.7 L619.2 51.0 L621.6 52.3 L624.1 53.7 L626.5 55.2 L628.9 56.8 L631.4 58.4 L633.8 60.1 L636.3 61.9 L638.7 63.7 L641.2 65.6 L643.6 67.6 L646.1 69.6 L648.5 71.7 L650.9 73.9 L653.4 76.1 L655.8 78.4 L658.3 80.7 L660.7 83.1 L663.2 85.6 L665.6 88.1 L668.1 90.7 L670.5 93.4 L672.9 96.1 L675.4 98.8 L677.8 101.6 L680.3 104.5 L682.7 107.3 L685.2 110.3 L687.6 113.3 L690.0 116.3 L692.5 119.4 L694.9 122.5 L697.4 125.6 L699.8 128.8 L702.3 132.0 L704.7 135.2 L707.1 138.4 L709.6 141.7 L712.0 145.0 L714.5 148.3 L716.9 151.6 L719.4 154.9 L721.8 158.3 L724.3 161.6 L726.7 165.0 L729.1 168.3 L731.6 171.6 L734.0 174.9 L736.5 178.3 L738.9 181.6 L741.4 184.8 L743.8 188.1 L746.3 191.3 L748.7 194.5 L751.1 197.7 L753.6 200.9 L756.0 204.0 L758.5 207.0 L760.9 210.0 L763.4 213.0 L765.8 215.9 L768.2 218.8 L770.7 221.6 L773.1 224.4 L775.6 227.1 L778.0 229.7 L780.5 232.3 L782.9 234.8 L785.4 237.2 L787.8 239.5 L790.2 241.8 L792.7 244.0 L795.1 246.1 L797.6 248.1 L800.0 250.0 L802.5 251.9 L804.9 253.6 L807.3 255.3 L809.8 256.8 L812.2 258.3 L814.7 259.6 L817.1 260.9 L819.6 262.0 L822.0 263.0 L824.4 264.0 L826.9 264.8 L829.3 265.5 L831.8 266.1 L834.2 266.6 L836.7 267.0 L839.1 267.3 L841.6 267.5 L844.0 267.5" fill="none" stroke="var(--c-1)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="345.9" cy="36.5" r="5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="certified maximum" data-cmv="x ≈ 0.363" tabindex="0"/>
+    <circle cx="560.1" cy="36.5" r="5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="certified maximum" data-cmv="x ≈ 0.637" tabindex="0"/>
+    <line x1="62" y1="349" x2="76" y2="349" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="353.0" text-anchor="start" class="t-note">m*(x) candidate</text>
+    <line x1="211" y1="349" x2="225" y2="349" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="230.0" y="353.0" text-anchor="start" class="t-note">V(x) — the one-well potential</text>
+  </svg>
+  </div>
+  <figcaption>T1 — the phenomenon theorem — σ = 0.002 · γ = 0.01 · A₂/A₁ = 0.2 · certified ball radius 2.52e-13 · min m over ball ≥ 0.8944. The curve is the CANDIDATE (floats are the map); the theorem is that EVERY density in the ball has exactly 2 strict maxima — marked dots at the certified locations — while V has exactly 1 well. The split is certified with margin six orders above the ball pads.</figcaption>
+</figure></div><div class="after-fig"></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 360" role="img" aria-label="T6 — the three-peak theorem: candidate density against the potential">
+    <line x1="62" y1="267.5" x2="844" y2="267.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="271.5" text-anchor="end" class="t-ax">0.883</text>
+    <line x1="62" y1="209.8" x2="844" y2="209.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="213.8" text-anchor="end" class="t-ax">0.941</text>
+    <line x1="62" y1="152.0" x2="844" y2="152.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="156.0" text-anchor="end" class="t-ax">1.000</text>
+    <line x1="62" y1="94.2" x2="844" y2="94.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="98.2" text-anchor="end" class="t-ax">1.058</text>
+    <line x1="62" y1="36.5" x2="844" y2="36.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="40.5" text-anchor="end" class="t-ax">1.117</text>
+    <line x1="62.0" y1="286" x2="62.0" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="306.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="257.5" y1="286" x2="257.5" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="257.5" y="306.0" text-anchor="middle" class="t-ax">0.25</text>
+    <line x1="453.0" y1="286" x2="453.0" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="453.0" y="306.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="648.5" y1="286" x2="648.5" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="648.5" y="306.0" text-anchor="middle" class="t-ax">0.75</text>
+    <line x1="844.0" y1="286" x2="844.0" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="844.0" y="306.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="62" y1="286" x2="844" y2="286" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="453.0" y="328.0" text-anchor="middle" class="t-note">x</text>
+    <text x="13" y="152" class="t-note" transform="rotate(-90 13 152)" text-anchor="middle">m</text>
+    <text x="853.0" y="271.5" text-anchor="start" class="t-ax">-0.004</text>
+    <text x="853.0" y="213.8" text-anchor="start" class="t-ax">-0.002</text>
+    <text x="853.0" y="156.0" text-anchor="start" class="t-ax">0</text>
+    <text x="853.0" y="98.2" text-anchor="start" class="t-ax">0.002</text>
+    <text x="853.0" y="40.5" text-anchor="start" class="t-ax">0.004</text>
+    <text x="890" y="152" class="t-note" transform="rotate(90 890 152)" text-anchor="middle">V</text>
+    <path d="M62.0 36.5 L64.4 36.5 L66.9 36.7 L69.3 37.0 L71.8 37.4 L74.2 37.9 L76.7 38.6 L79.1 39.3 L81.5 40.1 L84.0 41.1 L86.4 42.2 L88.9 43.3 L91.3 44.6 L93.8 45.9 L96.2 47.4 L98.7 48.9 L101.1 50.5 L103.5 52.2 L106.0 54.0 L108.4 55.9 L110.9 57.8 L113.3 59.8 L115.8 61.8 L118.2 63.9 L120.7 66.0 L123.1 68.2 L125.5 70.5 L128.0 72.7 L130.4 75.0 L132.9 77.3 L135.3 79.7 L137.8 82.0 L140.2 84.4 L142.6 86.7 L145.1 89.1 L147.5 91.5 L150.0 93.8 L152.4 96.1 L154.9 98.4 L157.3 100.7 L159.8 103.0 L162.2 105.2 L164.6 107.4 L167.1 109.6 L169.5 111.7 L172.0 113.7 L174.4 115.8 L176.9 117.7 L179.3 119.7 L181.7 121.5 L184.2 123.3 L186.6 125.1 L189.1 126.7 L191.5 128.4 L194.0 129.9 L196.4 131.4 L198.8 132.9 L201.3 134.2 L203.7 135.5 L206.2 136.8 L208.6 138.0 L211.1 139.1 L213.5 140.2 L216.0 141.2 L218.4 142.1 L220.8 143.0 L223.3 143.9 L225.7 144.7 L228.2 145.4 L230.6 146.1 L233.1 146.8 L235.5 147.4 L238.0 148.0 L240.4 148.6 L242.8 149.1 L245.3 149.6 L247.7 150.1 L250.2 150.6 L252.6 151.1 L255.1 151.5 L257.5 152.0 L259.9 152.5 L262.4 152.9 L264.8 153.4 L267.3 153.9 L269.7 154.4 L272.2 154.9 L274.6 155.4 L277.1 156.0 L279.5 156.6 L281.9 157.2 L284.4 157.9 L286.8 158.6 L289.3 159.3 L291.7 160.1 L294.2 161.0 L296.6 161.9 L299.0 162.8 L301.5 163.8 L303.9 164.9 L306.4 166.0 L308.8 167.2 L311.3 168.5 L313.7 169.8 L316.1 171.1 L318.6 172.6 L321.0 174.1 L323.5 175.6 L325.9 177.3 L328.4 178.9 L330.8 180.7 L333.3 182.5 L335.7 184.3 L338.1 186.3 L340.6 188.2 L343.0 190.3 L345.5 192.3 L347.9 194.4 L350.4 196.6 L352.8 198.8 L355.3 201.0 L357.7 203.3 L360.1 205.6 L362.6 207.9 L365.0 210.2 L367.5 212.5 L369.9 214.9 L372.4 217.3 L374.8 219.6 L377.2 222.0 L379.7 224.3 L382.1 226.7 L384.6 229.0 L387.0 231.3 L389.5 233.5 L391.9 235.8 L394.3 238.0 L396.8 240.1 L399.2 242.2 L401.7 244.2 L404.1 246.2 L406.6 248.1 L409.0 250.0 L411.5 251.8 L413.9 253.5 L416.3 255.1 L418.8 256.6 L421.2 258.1 L423.7 259.4 L426.1 260.7 L428.6 261.8 L431.0 262.9 L433.4 263.9 L435.9 264.7 L438.3 265.4 L440.8 266.1 L443.2 266.6 L445.7 267.0 L448.1 267.3 L450.6 267.5 L453.0 267.5 L455.4 267.5 L457.9 267.3 L460.3 267.0 L462.8 266.6 L465.2 266.1 L467.7 265.4 L470.1 264.7 L472.6 263.9 L475.0 262.9 L477.4 261.8 L479.9 260.7 L482.3 259.4 L484.8 258.1 L487.2 256.6 L489.7 255.1 L492.1 253.5 L494.5 251.8 L497.0 250.0 L499.4 248.1 L501.9 246.2 L504.3 244.2 L506.8 242.2 L509.2 240.1 L511.6 238.0 L514.1 235.8 L516.5 233.5 L519.0 231.3 L521.4 229.0 L523.9 226.7 L526.3 224.3 L528.8 222.0 L531.2 219.6 L533.6 217.3 L536.1 214.9 L538.5 212.5 L541.0 210.2 L543.4 207.9 L545.9 205.6 L548.3 203.3 L550.8 201.0 L553.2 198.8 L555.6 196.6 L558.1 194.4 L560.5 192.3 L563.0 190.3 L565.4 188.2 L567.9 186.3 L570.3 184.3 L572.7 182.5 L575.2 180.7 L577.6 178.9 L580.1 177.3 L582.5 175.6 L585.0 174.1 L587.4 172.6 L589.9 171.1 L592.3 169.8 L594.7 168.5 L597.2 167.2 L599.6 166.0 L602.1 164.9 L604.5 163.8 L607.0 162.8 L609.4 161.9 L611.8 161.0 L614.3 160.1 L616.7 159.3 L619.2 158.6 L621.6 157.9 L624.1 157.2 L626.5 156.6 L628.9 156.0 L631.4 155.4 L633.8 154.9 L636.3 154.4 L638.7 153.9 L641.2 153.4 L643.6 152.9 L646.1 152.5 L648.5 152.0 L650.9 151.5 L653.4 151.1 L655.8 150.6 L658.3 150.1 L660.7 149.6 L663.2 149.1 L665.6 148.6 L668.1 148.0 L670.5 147.4 L672.9 146.8 L675.4 146.1 L677.8 145.4 L680.3 144.7 L682.7 143.9 L685.2 143.0 L687.6 142.1 L690.0 141.2 L692.5 140.2 L694.9 139.1 L697.4 138.0 L699.8 136.8 L702.3 135.5 L704.7 134.2 L707.1 132.9 L709.6 131.4 L712.0 129.9 L714.5 128.4 L716.9 126.7 L719.4 125.1 L721.8 123.3 L724.3 121.5 L726.7 119.7 L729.1 117.7 L731.6 115.8 L734.0 113.7 L736.5 111.7 L738.9 109.6 L741.4 107.4 L743.8 105.2 L746.3 103.0 L748.7 100.7 L751.1 98.4 L753.6 96.1 L756.0 93.8 L758.5 91.5 L760.9 89.1 L763.4 86.7 L765.8 84.4 L768.2 82.0 L770.7 79.7 L773.1 77.3 L775.6 75.0 L778.0 72.7 L780.5 70.5 L782.9 68.2 L785.4 66.0 L787.8 63.9 L790.2 61.8 L792.7 59.8 L795.1 57.8 L797.6 55.9 L800.0 54.0 L802.5 52.2 L804.9 50.5 L807.3 48.9 L809.8 47.4 L812.2 45.9 L814.7 44.6 L817.1 43.3 L819.6 42.2 L822.0 41.1 L824.4 40.1 L826.9 39.3 L829.3 38.6 L831.8 37.9 L834.2 37.4 L836.7 37.0 L839.1 36.7 L841.6 36.5 L844.0 36.5" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/>
+    <path d="M62.0 267.5 L64.4 267.4 L66.9 267.2 L69.3 266.7 L71.8 266.1 L74.2 265.4 L76.7 264.4 L79.1 263.3 L81.5 262.1 L84.0 260.7 L86.4 259.1 L88.9 257.4 L91.3 255.6 L93.8 253.6 L96.2 251.5 L98.7 249.2 L101.1 246.9 L103.5 244.4 L106.0 241.8 L108.4 239.2 L110.9 236.4 L113.3 233.6 L115.8 230.7 L118.2 227.7 L120.7 224.7 L123.1 221.6 L125.5 218.5 L128.0 215.3 L130.4 212.2 L132.9 209.0 L135.3 205.8 L137.8 202.7 L140.2 199.5 L142.6 196.4 L145.1 193.3 L147.5 190.2 L150.0 187.2 L152.4 184.2 L154.9 181.3 L157.3 178.5 L159.8 175.7 L162.2 173.1 L164.6 170.5 L167.1 168.0 L169.5 165.6 L172.0 163.3 L174.4 161.1 L176.9 159.0 L179.3 157.0 L181.7 155.2 L184.2 153.5 L186.6 151.8 L189.1 150.4 L191.5 149.0 L194.0 147.8 L196.4 146.7 L198.8 145.7 L201.3 144.9 L203.7 144.1 L206.2 143.6 L208.6 143.1 L211.1 142.7 L213.5 142.5 L216.0 142.3 L218.4 142.3 L220.8 142.4 L223.3 142.6 L225.7 142.9 L228.2 143.2 L230.6 143.7 L233.1 144.2 L235.5 144.8 L238.0 145.4 L240.4 146.2 L242.8 146.9 L245.3 147.7 L247.7 148.6 L250.2 149.4 L252.6 150.3 L255.1 151.2 L257.5 152.2 L259.9 153.1 L262.4 154.0 L264.8 154.9 L267.3 155.7 L269.7 156.5 L272.2 157.3 L274.6 158.1 L277.1 158.7 L279.5 159.4 L281.9 159.9 L284.4 160.4 L286.8 160.8 L289.3 161.1 L291.7 161.3 L294.2 161.5 L296.6 161.5 L299.0 161.4 L301.5 161.2 L303.9 160.9 L306.4 160.5 L308.8 160.0 L311.3 159.3 L313.7 158.6 L316.1 157.7 L318.6 156.6 L321.0 155.5 L323.5 154.2 L325.9 152.8 L328.4 151.3 L330.8 149.6 L333.3 147.9 L335.7 146.0 L338.1 144.0 L340.6 141.9 L343.0 139.7 L345.5 137.4 L347.9 135.0 L350.4 132.4 L352.8 129.9 L355.3 127.2 L357.7 124.4 L360.1 121.6 L362.6 118.7 L365.0 115.7 L367.5 112.7 L369.9 109.7 L372.4 106.6 L374.8 103.5 L377.2 100.4 L379.7 97.2 L382.1 94.1 L384.6 91.0 L387.0 87.8 L389.5 84.7 L391.9 81.7 L394.3 78.6 L396.8 75.6 L399.2 72.7 L401.7 69.9 L404.1 67.1 L406.6 64.3 L409.0 61.7 L411.5 59.2 L413.9 56.8 L416.3 54.4 L418.8 52.2 L421.2 50.2 L423.7 48.2 L426.1 46.4 L428.6 44.7 L431.0 43.2 L433.4 41.8 L435.9 40.6 L438.3 39.5 L440.8 38.6 L443.2 37.8 L445.7 37.2 L448.1 36.8 L450.6 36.6 L453.0 36.5 L455.4 36.6 L457.9 36.8 L460.3 37.2 L462.8 37.8 L465.2 38.6 L467.7 39.5 L470.1 40.6 L472.6 41.8 L475.0 43.2 L477.4 44.7 L479.9 46.4 L482.3 48.2 L484.8 50.2 L487.2 52.2 L489.7 54.4 L492.1 56.8 L494.5 59.2 L497.0 61.7 L499.4 64.3 L501.9 67.1 L504.3 69.9 L506.8 72.7 L509.2 75.6 L511.6 78.6 L514.1 81.7 L516.5 84.7 L519.0 87.8 L521.4 91.0 L523.9 94.1 L526.3 97.2 L528.8 100.4 L531.2 103.5 L533.6 106.6 L536.1 109.7 L538.5 112.7 L541.0 115.7 L543.4 118.7 L545.9 121.6 L548.3 124.4 L550.8 127.2 L553.2 129.9 L555.6 132.4 L558.1 135.0 L560.5 137.4 L563.0 139.7 L565.4 141.9 L567.9 144.0 L570.3 146.0 L572.7 147.9 L575.2 149.6 L577.6 151.3 L580.1 152.8 L582.5 154.2 L585.0 155.5 L587.4 156.6 L589.9 157.7 L592.3 158.6 L594.7 159.3 L597.2 160.0 L599.6 160.5 L602.1 160.9 L604.5 161.2 L607.0 161.4 L609.4 161.5 L611.8 161.5 L614.3 161.3 L616.7 161.1 L619.2 160.8 L621.6 160.4 L624.1 159.9 L626.5 159.4 L628.9 158.7 L631.4 158.1 L633.8 157.3 L636.3 156.5 L638.7 155.7 L641.2 154.9 L643.6 154.0 L646.1 153.1 L648.5 152.2 L650.9 151.2 L653.4 150.3 L655.8 149.4 L658.3 148.6 L660.7 147.7 L663.2 146.9 L665.6 146.2 L668.1 145.4 L670.5 144.8 L672.9 144.2 L675.4 143.7 L677.8 143.2 L680.3 142.9 L682.7 142.6 L685.2 142.4 L687.6 142.3 L690.0 142.3 L692.5 142.5 L694.9 142.7 L697.4 143.1 L699.8 143.6 L702.3 144.1 L704.7 144.9 L707.1 145.7 L709.6 146.7 L712.0 147.8 L714.5 149.0 L716.9 150.4 L719.4 151.8 L721.8 153.5 L724.3 155.2 L726.7 157.0 L729.1 159.0 L731.6 161.1 L734.0 163.3 L736.5 165.6 L738.9 168.0 L741.4 170.5 L743.8 173.1 L746.3 175.7 L748.7 178.5 L751.1 181.3 L753.6 184.2 L756.0 187.2 L758.5 190.2 L760.9 193.3 L763.4 196.4 L765.8 199.5 L768.2 202.7 L770.7 205.8 L773.1 209.0 L775.6 212.2 L778.0 215.3 L780.5 218.5 L782.9 221.6 L785.4 224.7 L787.8 227.7 L790.2 230.7 L792.7 233.6 L795.1 236.4 L797.6 239.2 L800.0 241.8 L802.5 244.4 L804.9 246.9 L807.3 249.2 L809.8 251.5 L812.2 253.6 L814.7 255.6 L817.1 257.4 L819.6 259.1 L822.0 260.7 L824.4 262.1 L826.9 263.3 L829.3 264.4 L831.8 265.4 L834.2 266.1 L836.7 266.7 L839.1 267.2 L841.6 267.4 L844.0 267.5" fill="none" stroke="var(--c-1)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="217.7" cy="142.3" r="5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="certified maximum" data-cmv="x ≈ 0.199" tabindex="0"/>
+    <circle cx="688.3" cy="142.3" r="5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="certified maximum" data-cmv="x ≈ 0.801" tabindex="0"/>
+    <circle cx="453.0" cy="36.5" r="5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="certified maximum" data-cmv="x ≈ 0.500" tabindex="0"/>
+    <line x1="62" y1="349" x2="76" y2="349" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="353.0" text-anchor="start" class="t-note">m*(x) candidate</text>
+    <line x1="211" y1="349" x2="225" y2="349" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="230.0" y="353.0" text-anchor="start" class="t-note">V(x) — the one-well potential</text>
+  </svg>
+  </div>
+  <figcaption>T6 — the three-peak theorem — σ = 0.002 · γ = 0.01 · A₃/A₁ = 0.25 (third harmonic) · certified ball radius 2.73e-13 · min m over ball ≥ 0.8823. The curve is the CANDIDATE (floats are the map); the theorem is that EVERY density in the ball has exactly 3 strict maxima — marked dots at the certified locations — while V has exactly 1 well. The k-th-harmonic Chebyshev law (window (1/27, 1/3) at k = 3) predicted it; the certificate proves it.</figcaption>
+</figure></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§3 · the bracket table</div>
+    <h2>Seven instances, one theorem, every bound shown</h2>
+  </div>
+<p>Honest counting: the finding is the two theorems above plus THIS TABLE — negatives, replications and the threshold pin are rows, not theorems. Every enclosure bound is displayed (the reference atlas omitted them; this machine’s own bar requires them): Y₀ the residual defect, Z₁ the contraction bound (< 1 on both the even and odd blocks — full-space local uniqueness), Z₂ the Lipschitz bound, the closure margin, and both positivity floors.</p><div class="wide"><div class="tw"><table><thead><tr><th>instance</th><th>role</th><th>σ</th><th>ratio</th><th>radius r</th><th>Y₀</th><th>Z₁</th><th>Z₂</th><th>margin</th><th>min m</th><th>min w</th><th>peaks / wells</th></tr></thead><tbody><tr><td><b>T1</b></td><td>main</td><td><span class="m">0.002</span></td><td><span class="m">r=0.2</span></td><td><span class="m">2.52e-13</span></td><td><span class="m">2.5e-14</span></td><td><span class="m">0.8970</span></td><td><span class="m">1132</span></td><td><span class="m">4.7e-6</span></td><td><span class="m">0.8944</span></td><td><span class="m">0.9743</span></td><td><span class="tag held">EXACTLY 2 / 1</span></td></tr><tr><td><b>T2</b></td><td>negative</td><td><span class="m">0.002</span></td><td><span class="m">r=0.12</span></td><td><span class="m">2.25e-13</span></td><td><span class="m">2.4e-14</span></td><td><span class="m">0.8889</span></td><td><span class="m">1114</span></td><td><span class="m">5.5e-6</span></td><td><span class="m">0.9059</span></td><td><span class="m">0.9721</span></td><td><span class="tag dep">EXACTLY 1 / 1</span></td></tr><tr><td><b>T3</b></td><td>negative</td><td><span class="m">0.02</span></td><td><span class="m">r=0.2</span></td><td><span class="m">2.97e-14</span></td><td><span class="m">1.3e-14</span></td><td><span class="m">0.5235</span></td><td><span class="m">228</span></td><td><span class="m">5.0e-4</span></td><td><span class="m">0.9621</span></td><td><span class="m">0.9864</span></td><td><span class="tag dep">EXACTLY 1 / 1</span></td></tr><tr><td><b>T4</b></td><td>replication</td><td><span class="m">0.002</span></td><td><span class="m">r=0.15</span></td><td><span class="m">2.37e-13</span></td><td><span class="m">2.4e-14</span></td><td><span class="m">0.8919</span></td><td><span class="m">1121</span></td><td><span class="m">5.2e-6</span></td><td><span class="m">0.9016</span></td><td><span class="m">0.9738</span></td><td><span class="tag held">EXACTLY 2 / 1</span></td></tr><tr><td><b>T6</b></td><td>three peaks</td><td><span class="m">0.002</span></td><td><span class="m">r₃=0.25</span></td><td><span class="m">2.73e-13</span></td><td><span class="m">2.5e-14</span></td><td><span class="m">0.9046</span></td><td><span class="m">1150</span></td><td><span class="m">4.0e-6</span></td><td><span class="m">0.8823</span></td><td><span class="m">0.9462</span></td><td><span class="tag held">EXACTLY 3 / 1</span></td></tr><tr><td><b>T7</b></td><td>threshold pin, lower</td><td><span class="m">0.002</span></td><td><span class="m">r=0.13</span></td><td><span class="m">2.30e-13</span></td><td><span class="m">2.4e-14</span></td><td><span class="m">0.8899</span></td><td><span class="m">1116</span></td><td><span class="m">5.4e-6</span></td><td><span class="m">0.9044</span></td><td><span class="m">0.9728</span></td><td><span class="tag dep">EXACTLY 1 / 1</span></td></tr><tr><td><b>T8</b></td><td>threshold pin, upper</td><td><span class="m">0.002</span></td><td><span class="m">r=0.14</span></td><td><span class="m">2.32e-13</span></td><td><span class="m">2.4e-14</span></td><td><span class="m">0.8909</span></td><td><span class="m">1119</span></td><td><span class="m">5.3e-6</span></td><td><span class="m">0.9030</span></td><td><span class="m">0.9734</span></td><td><span class="tag held">EXACTLY 2 / 1</span></td></tr></tbody></table></div></div><p>T7 and T8 pin the splitting threshold at σ = 0.002, γ = 0.01 inside <b>[0.13, 0.14]</b> by certified counts; the exact-rational linear-response prediction r_c = 0.132725… lands inside the pin.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the constant</div>
+    <h2>σ* = 1/(8π²), decided — not measured</h2>
+  </div>
+<p>The crossover where the second harmonic’s gain overtakes the first’s is an exact rational fact, not a 12-digit float agreement. With s = σκ₁, the crossover polynomial factors over ℚ:</p><div class="eq">k²[(1+s)² + g] − [(1+k²s)² + k²g]  =  (k²−1)(1 − k²s²)</div><p>The γ-coefficient is IDENTICALLY ZERO (decided for k = 2..12 by exact coefficient arithmetic in <span class="m">certs/terra-sigmastar.json</span>), so the crossover sits at s = 1/k for every γ — at k = 2, σ* = 1/(8π²), bracketed by rationals via Machin’s formula to width 1.3e-44. The band-pass shape itself is the same kind of fact: D − κ∂D/∂κ = (1+σκ)(1−σκ) exactly, so the gain peaks at κ = 1/σ for every discount. The splitting windows (1/16, 1/4) and (1/27, 1/3) are exact rational consequences of the Chebyshev Uₖ₋₁ law. Linear response PREDICTS; only the enclosure and peak-count certificates PROVE.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · the census</div>
+    <h2>EXACTLY three — an exact solution count</h2>
+  </div>
+<p>For the ergodic mfg-cap system (V ≡ 0, c = −12, σ = ½), a Krawczyk exhaustion census proves the even Galerkin truncation has EXACTLY 3 solutions in an explicit printed box — every subbox eliminated by an interval-residual or Krawczyk exclusion, every solution isolated with existence AND uniqueness per box. Box-bounded, truncation-level; the PDE count stays an open problem.</p><div class="wide"><div class="tw"><table><thead><tr><th>N (modes)</th><th>dimensions</th><th>boxes processed</th><th>seconds</th><th>verdict</th></tr></thead><tbody><tr><td><span class="m">N = 2</span></td><td><span class="m">5</span></td><td><span class="m">2,077</span></td><td><span class="m">0.1</span></td><td><span class="tag held">EXACTLY 3 · one-to-one</span></td></tr><tr><td><span class="m">N = 3</span></td><td><span class="m">7</span></td><td><span class="m">21,642</span></td><td><span class="m">0.8</span></td><td><span class="tag held">EXACTLY 3 · one-to-one</span></td></tr><tr><td><span class="m">N = 4</span></td><td><span class="m">9</span></td><td><span class="m">335,862</span></td><td><span class="m">17.7</span></td><td><span class="tag held">EXACTLY 3 · one-to-one</span></td></tr><tr><td><span class="m">N = 5</span></td><td><span class="m">11</span></td><td><span class="m">6,954,073</span></td><td><span class="m">586.7</span></td><td><span class="tag held">EXACTLY 3 · one-to-one</span></td></tr></tbody></table></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · why you can trust this</div>
+    <h2>Two implementations, nine falsifiers, one bar</h2>
+  </div>
+<p>The enclosures are radii-polynomial certificates on the augmented (a₀, p, m, w) system, ℓ¹_ν tail bounds (the enclosed object solves the SYSTEM, not an N-mode approximation), both parity blocks of the linearization certified. Two independent implementations agree: the certified T1 radius here equals the origin bench’s record to the last digit, with independently computed approximate inverses on each side. Nine falsifiers fire per instance — including two that attack the A₂/A₃ extension’s own lines (zeroed and wrong-mode data terms must each explode the residual, and do). Peak counts never trust a float sign: floats propose, certified region chains decide, and anything uncertifiable REFUSES.</p><div class="note">
+  <span class="lab">the paper</span>
+<p>The record-driven write-up is <span class="m">paper/terra-peaks.md</span> (PDF: <span class="m">paper/terra-peaks.pdf</span>) — generated by <span class="m">tools/build-terra-writeup.js</span> from the same certificates as this page; the build refuses if any input moves. Draft; nothing is sent anywhere without explicit operator release.</p>
+</div>
+</section>
+
+<footer><p>cert-machine · built 2026-09-01 · git 6b65b88 · every number from a VERIFIED certificate · phase-map floats pinned sha256 30b3cfe49514…</p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p></footer>
+
+
+
+</div>
+</html>
