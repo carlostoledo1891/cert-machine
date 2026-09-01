@@ -212,6 +212,9 @@ red('R5 a skip list naming an absent set must throw', () => {
   check('W3 record: lambda(5) worklist has 8 families, lambda(6) 10',
     wl5 && wl5.length === 8
     && st['lambda6-generic'] && st['lambda6-generic'].worklist.length === 10);
+  const closed6 = names.filter(n => n.startsWith('lambda6-family:') && st[n].ok && st[n].status === 'CLOSED');
+  check('W5 record: lambda(6) families closed so far (>= 2: d+e = f, 2e = f)',
+    closed6.length >= 2, closed6.map(n => n.replace('lambda6-family: ', '')).join(' · '));
   /* the extremizer must be walled off exactly 4 times in the a+d=e tree
      (cone B of the 3c=2a+2d split, and K2/K3/K6 of the core) */
   const raw = JSON.stringify(st['lambda5-family: a+d = e'] || {});

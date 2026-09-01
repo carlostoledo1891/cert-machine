@@ -14,7 +14,7 @@
     "a+c = d",
     "b+2c = 2d"
    ],
-   "ms": 5
+   "ms": 3
   },
   "targets": {
    "ok": true,
@@ -77,7 +77,7 @@
     }
    },
    "nonMonotonicity": "L(1,2,4,5,6).hi < L(1,2,4,6,7,8).lo certified",
-   "ms": 15
+   "ms": 14
   },
   "lambda5-generic": {
    "ok": true,
@@ -861,7 +861,7 @@
     ],
     "deltaSum": "2"
    },
-   "ms": 38
+   "ms": 42
   },
   "lambda5-family: 2d = e": {
    "ok": true,
@@ -1503,7 +1503,7 @@
      }
     ]
    },
-   "ms": 28558
+   "ms": 28809
   },
   "lambda5-family: c+d = e": {
    "ok": true,
@@ -1536,7 +1536,7 @@
     "children": {},
     "coverage": []
    },
-   "ms": 15
+   "ms": 17
   },
   "lambda5-family: b+d = e": {
    "ok": true,
@@ -1679,7 +1679,7 @@
      }
     ]
    },
-   "ms": 277
+   "ms": 263
   },
   "lambda5-family: a+d = e": {
    "ok": true,
@@ -2757,7 +2757,7 @@
      }
     ]
    },
-   "ms": 23688
+   "ms": 22883
   },
   "lambda5-family: a+2d = 2e": {
    "ok": true,
@@ -5283,7 +5283,7 @@
      }
     ]
    },
-   "ms": 121823
+   "ms": 96511
   },
   "lambda5-family: b+2d = 2e": {
    "ok": true,
@@ -6481,7 +6481,7 @@
      }
     ]
    },
-   "ms": 30673
+   "ms": 33702
   },
   "lambda5-family: c+2d = 2e": {
    "ok": true,
@@ -7352,7 +7352,7 @@
      }
     ]
    },
-   "ms": 53595
+   "ms": 63059
   },
   "lambda5-family: 3d = 2e": {
    "ok": true,
@@ -8790,13 +8790,94 @@
      }
     ]
    },
-   "ms": 49413
+   "ms": 45416
+  },
+  "lambda6-family: d+e = f": {
+   "ok": true,
+   "rootKey": "1,1,1,1,0,-1",
+   "status": "CLOSED",
+   "ontoChecked": 712,
+   "stats": {
+    "dots": 1,
+    "closures": 0,
+    "finiteSets": 0
+   },
+   "node": {
+    "label": "d+e = f",
+    "kind": "dot",
+    "base": "0",
+    "posBase": "3",
+    "dip": "-5/3",
+    "exceptions": [
+     {
+      "key": "1,1,1,-2,-1",
+      "label": "3c = d+e",
+      "delta": "-1/2"
+     },
+     {
+      "key": "1,0,0,-2,-1",
+      "label": "a+2c = d+e",
+      "delta": "-1/2"
+     },
+     {
+      "key": "1,1,0,-2,-1",
+      "label": "b+2c = d+e",
+      "delta": "-1/2"
+     }
+    ],
+    "children": {},
+    "coverage": []
+   },
+   "ms": 21
+  },
+  "lambda6-family: 2e = f": {
+   "ok": true,
+   "rootKey": "1,1,1,1,1,-1",
+   "status": "CLOSED",
+   "ontoChecked": 251,
+   "stats": {
+    "dots": 1,
+    "closures": 0,
+    "finiteSets": 0
+   },
+   "node": {
+    "label": "2e = f",
+    "kind": "dot",
+    "base": "0",
+    "posBase": "3",
+    "dip": "-5/3",
+    "exceptions": [
+     {
+      "key": "1,1,1,1,-2",
+      "label": "3d = 2e",
+      "delta": "-1/2"
+     },
+     {
+      "key": "1,0,0,0,-2",
+      "label": "a+2d = 2e",
+      "delta": "-1/2"
+     },
+     {
+      "key": "1,1,0,0,-2",
+      "label": "b+2d = 2e",
+      "delta": "-1/2"
+     },
+     {
+      "key": "1,1,1,0,-2",
+      "label": "c+2d = 2e",
+      "delta": "-1/2"
+     }
+    ],
+    "children": {},
+    "coverage": []
+   },
+   "ms": 13
   }
  },
  "meta": {
   "date": "2026-09-01",
-  "git": "097f8d5",
-  "ms": 308457,
+  "git": "5069086",
+  "ms": 291108,
   "failures": 0
  }
 }

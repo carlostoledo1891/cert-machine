@@ -4,99 +4,85 @@ Working dir: /Users/carlostoledo/Documents/cert-machine
 Read CLAUDE.md and HANDOFF.md; both current. For the tip, run
 `git log --oneline -1` — a hash written into this file would name the commit
 before the one that carries it, so it is deliberately not stamped here.
-make test 42 PASS · wiring ALL PASS · working tree clean, origin in sync,
+make test 43 PASS · wiring ALL PASS · working tree clean, origin in sync,
 site deployed (Vercel publishes on push).
 
 FIRST ACTION:  node tools/sweep-claims.js
 SECOND ACTION: node tools/targets.js
-  22 targets with the citation that killed or opened each. Read it before
-  proposing anything. The DEAD and OCCUPIED rows are afternoons already paid
-  for; the ENGAGED rows are live public threads with our name on them.
-THIRD ACTION:  read the MENU at the top of HANDOFF.md.
+  23 targets with the citation that killed or opened each. The row
+  lambda56-nonmonotonicity is YOUR campaign's memory.
+THIRD ACTION:  read the MENU at the top of HANDOFF.md, and the session-g log
+  right below it — it carries the method notes this file compresses.
+FOURTH ACTION: gh issue view 392 --repo teorth/erdosproblems --comments and
+  the same for 179 — A MAINTAINER REPLY OUTRANKS EVERYTHING; report and
+  pause before acting on one.
 
-YOUR TASK THIS SESSION — ASSIGNED BY THE OPERATOR AT HANDOFF:
-OPEN THE LAMBDA(5) CAMPAIGN, THEN LAMBDA(6). The goal is the pair of
-theorems lambda(5) = -L(1,2,4,5,6) and lambda(6) = -L(1,2,4,6,7,8) —
-Mercer's remaining conjectured values — because together they prove the
-FIRST NON-MONOTONICITY in the sequence (lambda(6) < lambda(5)). The
-lambda(4) engine (instruments/lambda4/: forms, dot, estimates, engine)
-is the enabling asset and generalizes to 5 members as-is.
+YOUR TASK THIS SESSION — FINISH LAMBDA(6), continuing the operator's
+2026-09-01 assignment (lambda(5) is DONE; the pair proves the first
+non-monotonicity, lambda(6) = -L(1,2,4,6,7,8) < lambda(5) = -L(1,2,4,5,6)).
 
-KNOW THIS BEFORE THE FIRST WEIGHT IS TRIED: the lambda(4) generic dip was
--8/5 = -1.6, which does NOT clear lambda(5) ~ 1.627461. The Section-5 shape
-needs g0 with -g0 - 1 below -1.6275, i.e. g0 > 0.628 (try 2/3), and a
-weight whose base still lands <= 0 at that heavier g0 — finding it is the
-campaign's first real question; the engine makes candidate weights cheap to
-test (see the d=2c session pattern: propose, run dotTheorem, read the base
-and the exception deltas). Note the conjectured optimizers are NOT initial
-segments: {1,2,4,5,6} and {1,2,4,6,7,8}. Targets come from
-CM.certify([1,2,4,5,6]) etc. Keep the lambda(4) discipline whole:
-calibration as the gate (the new battery must re-derive lambda(4)'s generic
-case before touching lambda(5)); exceptions are OUTPUT, never input;
-condition keys are the truth, labels for custom cones are display-only;
-every finite part decided; the extremizer walled off as the definitional
-witness (BOTH campaigns have equality families); coverage checked
-point-by-point and SCOPED to each condition's origin cone — the coverage
-gate caught two real proof holes in lambda(4); trust it.
+WHERE THE CAMPAIGN STANDS (certs/lambda56-campaign.json, one stage per
+family; runner tools/run-lambda56-campaign.js re-derives everything on each
+run, ~7 min):
 
-WHERE THINGS STAND
+  · LAMBDA(5) REDUCTION COMPLETE. All 8 exception families CLOSED: 74 dot
+    theorems, 76 anchored closures (thresholds derived), 1725 finite sets
+    decided, coverage at 15330 points, {1,2,4,5,6} walled at 4 leaves.
+  · LAMBDA(6): generic certified (10 families), d+e=f and 2e=f CLOSED.
+    REMAINING EIGHT, ranked: c+e=f (1 sub: d=2b) · b+e=f (2 subs: c=2a,
+    d=2a) · a+e=f (6 subs, THE EXTREMIZER FAMILY — expect the double-sum
+    core b+d = a+e = f to need the sq-atom comb, and note {1,2,4,6,7,8}
+    also satisfies 2c=f, so expect MORE walls than lambda(5) had) · then
+    the five parity families a/b/c/d+2e=2f and 3e=2f (root triangulations;
+    lambda(5)'s 3d=2e took 17 cones — budget accordingly).
 
-  · LAMBDA(4) IS PROVED, AUDITED, WRITTEN UP, ARCHIVED. All nine families
-    closed (certs/lambda4-campaign.json); independent audit clean
-    (25,819 sets, zero holes, certs/lambda4-audit.json); write-up
-    paper/lambda4-proof.md (v0.9 — STILL WANTS THE OPERATOR'S READ);
-    page reports/lambda4.html; DOI 10.5281/zenodo.22225861; releases
-    lambda4-v1.0/.1. Exact value: root of 512y^3-1227y^2+600y+125.
-  · TWO LIVE THREADS IN TAO'S REPO, our name on both, posted with
-    operator approval: teorth/erdosproblems#392 (the lambda(4)
-    formalization offer) and a comment on #179 (six per-degree theorems
-    on the Erdős #1038 supremum: odd 3/5/7 strictly < 2.82 < 2sqrt2;
-    even 4/6/8 localized to [2sqrt2, 2.82845]; record
-    certs/sublevel-tao179.json; page reports/erdos1038-sup.html).
-    A REPLY FROM THE MAINTAINER OUTRANKS EVERYTHING — check both threads
-    early (gh issue view 392/179 --repo teorth/erdosproblems --comments)
-    and tell the operator before acting on one.
-  · THE X CLAIM IS STAGED, NOT POSTED — operator's action; thread draft in
-    session logs; refresh it to mention #179 before they post.
-  · #510 (erdosproblems.com): the lambda-table comment still sits in
-    moderation (the sweep watches); the lambda(4) follow-up comment is
-    staged in outreach/lambda4-announcements.md, operator-approval gated.
-  · Scouted and open nearby: Erdős #425 F(n) certification (issue #300,
-    the quick community win); deg-9/10 of the #179 ladder; the even-degree
-    equality characterization (the lambda(4) walling technique fits).
+THE METHOD, proven over nine closed families — follow it mechanically:
+  1. PROBE: dotTheorem on the family cone, S(top member, pi), gConst 2/3,
+     single omcsq atom per candidate member; keep the fewest-positives
+     weight. Zero positives = family closed, write the stage.
+  2. PARAMETRIZE each positive condition as a cone (evaluate the CONDITION
+     VECTOR — labels on custom cones are GARBAGE, two wrong-leaf hunts
+     last session prove it). Regions that are not one simplicial cone get
+     'split' nodes; family roots too (closeFamily accepts a split root).
+  3. RECURSE: 3-dof-and-up cones get their own dots; 2-dof cones become
+     'auto' leaves (anchor found by menu search — a witness, not an
+     assumption). A 2-dof leaf that resists the whole menu usually closes
+     by ITS OWN dot with zero exceptions — try that before inventing
+     anchors.
+  4. THE CORE: if every classical atom lands base > 0 on a sub-cone, you
+     are on a double sum system (two member pairs summing to the top
+     member. On S(top, pi) matches annihilate with complement wraps —
+     structural, not a bug). Use the sq atom: comb |(1+z_a)(5+7z_b+
+     5z_b^2)|^2 with z_m = e^{i(m+top)theta} on S(top, 2pi/3, Bmax 14),
+     gConst 7/6. Choose comb members from DIFFERENT complement pairs.
+  5. WALLS: the extremizer must land in finite parts and be skipped there.
+     Find its active conditions by EVALUATING VECTORS at its coordinates;
+     the battery counts walls — update the count when lambda(6)'s are in.
+  6. Batteries: instruments/lambda56/battery.js must stay green (15 checks,
+     5 red controls; W2 pins the complete lambda(5) worklist). Extend it
+     with lambda(6) closure checks as families close.
 
-THE RULES THAT BIND, in one paragraph each
+AFTER LAMBDA(6) CLOSES (possibly same session): (1) the independent audit,
+mirroring tools/audit-lambda4.js — an alien clause walk over all reduced
+6-sets in a box, zero shared code; (2) the write-up via the
+build-lambda4-writeup.js pattern; (3) the NON-MONOTONICITY result is the
+headline — lambda(2) < lambda(3) < lambda(4) < lambda(5) > lambda(6), the
+sequence turns; announcement drafts to outreach/, OPERATOR-GATED per item.
 
-  SCOUT BEFORE YOU BUILD. sin-mfg (/Users/carlostoledo/Documents/sin-mfg) is
-  READ-ONLY and permanently so — read anything, write nothing, and read it
-  FIRST. Write the targets.json row for whatever you scout, including OPEN.
+THE RULES THAT BIND (full text in CLAUDE.md + HANDOFF):
+  sin-mfg is READ-ONLY, permanently. Scout before building; write the
+  targets row. NOTHING POSTS WITHOUT PER-ITEM OPERATOR APPROVAL. A red
+  control that cannot fail is decoration. CHECKPOINT LONG COMPUTE — the
+  runner writes its record after every stage; keep it that way. Exceptions
+  are OUTPUT, never input. Coverage is point-by-point, scoped to the
+  raising cone, from condition vectors. Every displayed number comes from
+  a gated record.
 
-  NOTHING POSTS WITHOUT APPROVAL. Standing operator rule (2026-09-01):
-  external sends — issues, comments, X, anything off this repo — are
-  presented to the operator with results and the exact text, and approved
-  PER ITEM. Repo commits and pushes are the normal flow. Drafts live in
-  outreach/.
-
-  DO NOT ANSWER A REQUEST FOR IDEAS WITH A CHECKER. Gates catch drift and
-  forgery, never direction.
-
-  A RED CONTROL THAT CANNOT FAIL IS DECORATION. Two were caught and
-  rewritten in the last two sessions; check every red can actually fire.
-
-  CHECKPOINT LONG COMPUTE. The first sublevel runner spent 90 minutes with
-  nothing written because it only wrote at the end and one stage was
-  uncaught. Runners write their record after EVERY stage, every stage is
-  failure-tolerant, budgets are bounded. lambda(5)'s trees will be bigger
-  than lambda(4)'s — build the campaign runner incremental from the start.
-
-WHAT THE LAST SESSION WOULD TELL YOU IF IT COULD SAY ONE THING
-
-  The coverage gate is the proof's immune system. It caught a
-  hand-mistranslated condition list and an extremizer sitting on a cone
-  boundary — either would have been a silent hole in lambda(4). When you
-  build lambda(5)'s families: never trust your own member-space translation
-  of a condition vector; evaluate the vector, and make every claim's
-  coverage a point-by-point check scoped to the cone that raised it.
-
-Now: run the three actions, confirm the two Tao threads are quiet (or
-report replies and pause), then open the lambda(5) campaign.
+WHAT THE LAST SESSION WOULD TELL YOU IF IT COULD SAY ONE THING:
+  When a family resists, the failure MODE is information: base > 0 on
+  every classical weight means a double-sum core (reach for the comb);
+  an auto leaf with zero certifying pairs but deep minima means the menu
+  is wrong, not the family (run the leaf's own dot); a finite part
+  refusing on the conjectured optimizer means you missed a wall (evaluate
+  its condition vectors again). Every dead end this session turned out to
+  be the machine telling the truth.

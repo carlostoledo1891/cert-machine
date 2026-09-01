@@ -36,14 +36,39 @@ OPERATOR ACTS — nothing here needs a session, only a decision
      default-on. Both live pushes this session went out without an explicit
      per-push word.
 
-ASSIGNED NEXT — LAMBDA(5) THEN LAMBDA(6) (operator, 2026-09-01 handoff):
-the pair proves the first NON-MONOTONICITY (lambda(6) < lambda(5), Mercer's
-conjecture). COLD-START.md carries the campaign brief: the lambda(4) engine
-generalizes as-is; the first real question is the generic weight at
-g0 > 0.628 (the -8/5 dip no longer clears the target); optimizers are
-{1,2,4,5,6} and {1,2,4,6,7,8}; keep the calibration gate, the coverage
-scoping, and incremental runners. CHECK THE TWO TAO THREADS FIRST (#392,
-#179 comment) — a maintainer reply outranks the campaign; report and pause.
+ASSIGNED NEXT — FINISH LAMBDA(6) (continuing the operator's 2026-09-01
+assignment; session g closed ALL OF LAMBDA(5) and opened lambda(6)):
+
+  LAMBDA(5) = -L(1,2,4,5,6) IS REDUCED, COMPLETELY. All eight exception
+  families of the generic case are CLOSED in certs/lambda56-campaign.json
+  (74 dot theorems, 76 anchored closures with derived thresholds, 1725
+  finite sets decided, {1,2,4,5,6} the definitional witness on 4 walls).
+  battery: instruments/lambda56/battery.js, 15 checks + 5 red controls,
+  wired into make test and build-control.
+
+  LAMBDA(6) STANDS AT 3/10 FAMILIES CLOSED (d+e=f, 2e=f done in single
+  dots — verify in the record; the worklist is in the lambda6-generic
+  stage). What remains, ranked by expected difficulty:
+   · c+e=f (1 sub-condition: d=2b), b+e=f (2 subs: c=2a, d=2a) — shallow.
+   · a+e=f — the extremizer family; 6 subs; expect the double-sum core
+     b+d = a+e = f to need the SAME Fejer-Riesz comb that broke lambda(5)'s
+     core (sq atom in dot.js, classes m+f at S(f, 2pi/3), g0 = 7/6).
+     {1,2,4,6,7,8} also satisfies 2c = f — expect one more wall than
+     lambda(5) had.
+   · the parity families 2e=f-style leftovers: a+2e=2f, b+2e=2f, c+2e=2f,
+     d+2e=2f, 3e=2f — root triangulations like lambda(5)'s 3d=2e
+     (17 cones); budget most of the session here.
+  THE METHOD IS PROVEN — probe with dotTheorem (single omcsq atom, S(f,pi),
+  g0=2/3, pick the atom member with fewest positives), parametrize each
+  condition as a cone, let 'auto' leaves close 2-dof pieces, and when a
+  2-dof leaf resists the anchor menu, try ITS OWN dot (two such leaves in
+  3d=2e closed that way with zero exceptions). Labels on custom cones are
+  GARBAGE — keys and condition vectors are the only truth.
+
+  AFTER lambda(6): the independent audit (mirror tools/audit-lambda4.js),
+  the write-up, and the NON-MONOTONICITY announcement — all external sends
+  operator-gated as always. CHECK THE TWO TAO THREADS FIRST (#392, #179) —
+  a maintainer reply outranks the campaign; report and pause.
 
 DONE CAMPAIGN — lambda(4) as a THEOREM (opened and CLOSED 2026-09-01)
 
@@ -140,6 +165,62 @@ DO NOT REOPEN — `node tools/targets.js` carries the citation that killed each
   atlas of certified intervals. Seven afternoons already paid for.
 
 ────────────────────────────────────────────────────────────────────────────
+
+SESSION 2026-09-01g — LAMBDA(5) PROVED-AS-REDUCED IN ONE SESSION; LAMBDA(6)
+OPENED AT 3/10 (operator handoff: "open the lambda(5) campaign, then
+lambda(6)"; both Tao threads checked first — quiet, zero replies)
+
+  THE RESULT. lambda(5) = -L(1,2,4,5,6) ~ 1.62746066: the Section-5 generic
+  case is certified and ALL EIGHT of its exception families are closed —
+  74 dot theorems, 76 anchored closures (every threshold derived), 1725
+  finite sets decided by the certified instrument, coverage checked at
+  15330 points, {1,2,4,5,6} walled as the definitional witness on exactly
+  4 leaves. Record certs/lambda56-campaign.json (incremental, one write
+  per stage); battery instruments/lambda56/battery.js (15 checks, 5 red
+  controls); driver instruments/lambda56/close.js. lambda(6): generic
+  certified (10-family worklist), d+e=f and 2e=f closed.
+
+  THE GENERIC ANSWER (the handoff's 'first real question'): at g0 = 2/3
+  every pure (1-cos m)^2 atom lands base EXACTLY 0 — the omc atoms Mercer
+  used die at the heavier g0, omcsq atoms are precisely neutral, and a
+  SINGLE atom on the second-largest member minimizes the exception count
+  (8 families for lambda(5), 10 for lambda(6); four-atom weights give 32).
+  Dip -5/3 clears both targets.
+
+  THE STRUCTURAL DISCOVERY — WHY LAMBDA(5) WAS PLAUSIBLY OPEN. The cone
+  b+c = a+d = e (a double sum system; {1,2,4,5,6} is one) admits NO
+  classical Section-5 weight: on S(e,pi) members pair into complements
+  ((a,d),(b,c) both summing to e), and every match a weight can earn is
+  annihilated by its complement wrap — cos(k pi) + cos((k-1) pi) = 0
+  identically — so base = w0*g0 > 0 for EVERY nonnegative weight. On
+  S(e, 2pi/3) the wrap sum at k = 1 mod 3 is -1 with no cancellation, and
+  a Fejer-Riesz comb along the frequency classes m+e — the new 'sq' atom
+  |(1+z_a)(5+7z_b+5z_b^2)|^2, z_m = e^{i(m+e)theta} — lands base -8 at
+  g0 = 7/6 (dip -7/6-1/2 = -5/3 still clears). Its six conditions are
+  ordinary 2-dof cones. The sq atom is ADDITIVE to dot.js (lambda(4)
+  battery untouched, still green); battery red control R1 proves the
+  obstruction is real at every run (all classical atoms must refuse).
+
+  THE ENGINEERING. instruments/lambda56/close.js walks arbitrary-depth
+  closure trees: registries matched by EXACT condition key (labels on
+  custom cones are garbage — memberEq assumes prefix cones; two wrong-leaf
+  hunts this session prove the point), coverage enumerated from condition
+  VECTORS point-by-point and scoped to the raising cone, delegations
+  verified against root vectors, 'split' nodes for triangulated regions
+  (3d=2e took SEVENTEEN root cones — the parity price, as 2d=3c was in
+  lambda(4)), 'auto' leaves that find anchor pairs by deterministic menu
+  search (the anchor is a witness, not an assumption). When a 2-dof leaf
+  resists the whole menu, try ITS OWN dot theorem — two such leaves closed
+  with zero exceptions.
+
+  WALLS LEARNED THE HARD WAY: {1,2,4,5,6} activates THREE core conditions
+  (v=2a, v=a+u, u=a in cone coords), not the two a label-read suggested —
+  the third wall (K2) was found by the finite part refusing, exactly as
+  designed. Evaluate vectors; never read labels.
+
+  WHAT DID NOT HAPPEN: no audit yet (mirror tools/audit-lambda4.js next),
+  no write-up, no announcement, nothing external sent. #510 comment still
+  in moderation; X claim still staged (operator's action).
 
 SESSION 2026-09-01 — THE LAMBDA(4) CAMPAIGN OPENS: PHASE 0 BUILT AND GREEN
 (operator: scout for a problem where the machine can produce a SOLUTION, not

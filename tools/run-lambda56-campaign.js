@@ -703,6 +703,32 @@ stage('lambda5-family: 3d = 2e', () => {
   }, { target: L5, tol: 1e-10, cap: 24, topC: C5, rootConds: rootCondsOf(gen5) });
 });
 
+/* ---- lambda(6) families: the two that close in one dot ---------------------- */
+/* d+e = f and 2e = f each close with ZERO positive conditions — the same
+   single-atom shape as lambda(5)'s c+d = e. The other eight lambda(6)
+   families await their trees (probes so far: c+e = f raises one condition,
+   b+e = f two, a+e = f six and carries the extremizer {1,2,4,6,7,8}). */
+stage('lambda6-family: d+e = f', () => {
+  if (!gen6) throw new Error('lambda6-generic did not run');
+  const C = F.ctx(['a', 'b', 'c', 'd', 'e'], { f: { d: 1, e: 1 } });
+  return CL.closeFamily(rootKeyOf(gen6, 'd+e = f'), {
+    kind: 'dot', familyLabel: 'd+e = f', C,
+    S: { order: C.member.f, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C.member.c }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: ['a', 'b', 'c', 'd', 'e'], anchored: ['f'], subs: {}
+  }, { target: L6, tol: 1e-10, cap: 21, topC: C6, rootConds: rootCondsOf(gen6) });
+});
+stage('lambda6-family: 2e = f', () => {
+  if (!gen6) throw new Error('lambda6-generic did not run');
+  const C = F.ctx(['a', 'b', 'c', 'd', 'e'], { f: { e: 2 } });
+  return CL.closeFamily(rootKeyOf(gen6, '2e = f'), {
+    kind: 'dot', familyLabel: '2e = f', C,
+    S: { order: C.member.f, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C.member.d }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: ['a', 'b', 'c', 'd', 'e'], anchored: ['f'], subs: {}
+  }, { target: L6, tol: 1e-10, cap: 21, topC: C6, rootConds: rootCondsOf(gen6) });
+});
+
 save();
 console.log('certs/lambda56-campaign.json written · ' + failures + ' failed stage(s) · ' + (Date.now() - t0) + ' ms');
 if (record.stages['lambda5-generic'] && record.stages['lambda5-generic'].ok) {
