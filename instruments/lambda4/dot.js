@@ -114,6 +114,21 @@ function weightExpr(W) {
       E.c0 = Q.add(E.c0, Q.mul(coeff, q(3, 2)));
       addCos(E, atom.form, Q.mul(coeff, q(2)));
       addCos(E, F.scale(atom.form, 2), Q.mul(coeff, q(1, 2)));
+    } else if (atom.kind === 'sq') {           /* |sum_j c_j e^{i f_j theta}|^2 */
+      /* the Fejer-Riesz atom: nonnegative on the circle BY CONSTRUCTION for
+         ANY real rational c_j (it is a modulus squared). Expansion:
+         sum_j c_j^2 + 2 sum_{j<k} c_j c_k cos(f_j - f_k). Introduced for the
+         lambda(5)/(6) double-sum-system cores, where every classical atom
+         provably lands base > 0 and only frequency combs along the classes
+         m + e (mod 3e) reach base <= 0 at the heavy g0 the 2pi/3 anchor
+         needs. Subsumes omc/omcsq/opc/opcsq; kept alongside them so the
+         lambda(4) campaign record stays byte-stable. */
+      const T = atom.terms;
+      if (!Array.isArray(T) || T.length < 1) throw new Error('dot: sq atom needs terms [{form, coeff}]');
+      for (const t of T) E.c0 = Q.add(E.c0, Q.mul(coeff, Q.mul(t.coeff, t.coeff)));
+      for (let j = 0; j < T.length; j++) for (let k = j + 1; k < T.length; k++)
+        addCos(E, F.sub(T[j].form, T[k].form),
+          Q.mul(coeff, Q.mul(q(2), Q.mul(T[j].coeff, T[k].coeff))));
     } else throw new Error('dot: unknown weight atom ' + atom.kind);
   }
   return E;
@@ -131,7 +146,7 @@ function inner(We, Ge, S) {
   const contrib = (form, weightQ, via) => {
     if (Q.isZero(weightQ)) return;
     if (F.isZero(form)) { out.base = Q.add(out.base, weightQ); return; }  /* cos 0 = 1 */
-    const an = F.multiplesInEven(form, S.order);
+    const an = F.multiplesInEven(form, S.order, S.Bmax);   /* S.Bmax: optional, for sq-atom combs whose forms exceed 6x the order */
     if (an.kind === 'zero') { out.base = Q.add(out.base, weightQ); return; }
     if (an.kind === 'never') return;
     if (an.kind === 'exact') {
