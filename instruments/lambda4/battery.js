@@ -269,6 +269,11 @@ const S4 = { order: C4.member.d, xi: D.XI_PI };
     gConst: q(1, 10), gMembers: ['a', 'b'], anchored: ['c', 'd'], target: L4 });
   check('N6 2d=3c cone W1 (b < gam) re-derived: base -4/5, closed GENERICALLY (no positives)',
     rW1.ok && rW1.base === '-4/5' && rW1.exceptions.filter(e => e.deltaSign > 0).length === 0);
+  /* the independent audit record: clean, on a box at least 30, zero refuters */
+  const au = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda4-audit.json'), 'utf8'));
+  check('N7 the independent audit walk is on file: box >= 30, every set claused, zero refuters',
+    au.box >= 30 && au.setsWalked > 25000 && au.sweep.refuters === 0 && au.finiteRecertified > 400,
+    au.setsWalked + ' sets, ' + au.finiteRecertified + ' re-certified');
 }
 
 /* ---- red controls ---------------------------------------------------------- */

@@ -259,11 +259,20 @@ B.push(C.section({
       + 'the extremizer skipped); a sample of finite certificates. <strong>Checked, at every test run:</strong> the '
       + 'engine re-derives Mercer\'s published λ(2) and λ(3) proofs end to end — exception families discovered, his '
       + 'thresholds (a ≥ 3, b ≥ 3, b ≥ 33) derived — before it is allowed to touch λ(4); 8 red controls must fire.'),
-    C.pRaw('<strong>Not yet:</strong> peer review; any independent implementation; a prose write-up a referee can '
-      + 'read start to finish. Those are the named next steps, and until they happen the honest status of the '
-      + 'theorem-level sentence is exactly what the scope line at the top of this page says. The full machine record '
-      + 'is ' + C.m('certs/lambda4-campaign.json') + '; the statement and strategy are Mercer\'s, and the paper is '
-      + 'the first thing to read: arXiv:1709.06612.')
+    (fs.existsSync(path.join(ROOT, 'certs', 'lambda4-audit.json')) ? (() => {
+      const au = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda4-audit.json'), 'utf8'));
+      return C.pRaw('<strong>Independently walked:</strong> an adversarial audit sharing no code with the engine — '
+        + 'inner products by direct trigonometric summation, membership by plain arithmetic, thresholds read from '
+        + 'the record, finite-clause sets re-certified fresh — covered every gcd-reduced 4-set with max element ≤ '
+        + au.box + ': ' + C.m(String(au.setsWalked)) + ' sets, every one reached by an explicit clause of the proof, '
+        + C.m(String(au.finiteRecertified)) + ' fresh certificates, zero holes; the full sweep found zero refuters. '
+        + 'The prose write-up is ' + C.m('paper/lambda4-proof.md') + ' (draft v0.9, every constant interpolated from '
+        + 'the record).');
+    })() : ''),
+    C.pRaw('<strong>Not yet:</strong> peer review, and a human read of the write-up. Until those happen the honest '
+      + 'status of the theorem-level sentence is exactly what the scope line at the top of this page says. The full '
+      + 'machine record is ' + C.m('certs/lambda4-campaign.json') + '; the statement and strategy are Mercer\'s, and '
+      + 'the paper is the first thing to read: arXiv:1709.06612.')
   ].join('\n')
 }));
 

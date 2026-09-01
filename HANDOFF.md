@@ -75,14 +75,25 @@ ACTIVE CAMPAIGN — lambda(4) as a THEOREM (opened 2026-09-01, operator: "start"
      hand-mistranslated condition list (the engine's keys are the truth;
      labels for custom cones are display-only), and coverage scoping at
      the extremizer's boundary cone.
-     WHAT REMAINS (next session): (1) the referee-grade WRITE-UP — a
-     prose proof generated from the record, lemma by lemma, plus an
-     independent re-verification path for the finite certificates;
-     (2) the honest final audit: one adversarial pass hunting any gap
-     between "the record says closed" and "a referee says proved" —
-     especially the cone parametrizations' onto-ness (checked on boxes,
-     argued once each in comments) and the additive branch accounting;
-     (3) whether and how to tell Mercer — OWNER-ONLY per standing rule.
+     THE AUDIT RAN AND IS CLEAN (2026-09-01, tools/audit-lambda4.js,
+     certs/lambda4-audit.json): an independent clause walk sharing no
+     code with the engine — direct trigonometric summation, plain-
+     arithmetic membership, record thresholds, fresh certificates —
+     covered all 25,819 gcd-reduced 4-sets with d <= 30: every one
+     reached by an explicit clause, 0 holes, 423 finite-clause sets
+     re-certified fresh, full sweep 0 refuters. Battery N7 pins it.
+     THE WRITE-UP EXISTS: paper/lambda4-proof.md (draft v0.9, generated
+     by tools/build-lambda4-writeup.js — prose authored once, every
+     constant interpolated from the record; Lemmas A-F with proofs,
+     cone bijections stated, per-family closure data). WANTS ONE HUMAN
+     READ before any submission.
+     WHAT REMAINS: (1) operator reads the write-up; (2) priority stamp
+     (tagged release + Zenodo DOI — operator's account) and the public
+     claim (X thread drafted in session 2026-09-01's close); (3) whether
+     and how to tell Mercer — OWNER-ONLY per standing rule; (4) the
+     sequel campaign: lambda(5) then lambda(6) — Mercer conjectured
+     lambda(6) < lambda(5), so proving both is the first non-
+     monotonicity theorem; the engine is the enabling asset.
 
 NEXT SESSION COULD BUILD — ranked, with the reason each is ranked there
 
