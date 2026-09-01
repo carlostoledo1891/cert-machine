@@ -4,8 +4,8 @@ Working dir: /Users/carlostoledo/Documents/cert-machine
 Read CLAUDE.md and HANDOFF.md; both current. For the tip, run
 `git log --oneline -1` — a hash written into this file would name the commit
 before the one that carries it, so it is deliberately not stamped here.
-make test 39 PASS · batteries 29/29 · design battery ALL PASS · drift 130
-unchanged, 0 local edited. Working tree clean, origin in sync, site deployed.
+make test 40 PASS · batteries 37/37 · wiring ALL PASS · drift 130 unchanged,
+0 local edited. Working tree clean, origin in sync, site deployed.
 
 FIRST ACTION:  node tools/sweep-claims.js
 SECOND ACTION: node tools/targets.js
@@ -36,6 +36,10 @@ WHERE THINGS STAND
     anything. Terrain (H1) is the named next build.
   · The whole site moved to sans this session, and the SkyAudit app surface
     stopped owning its own fonts. 45 pages, one font request, one source.
+  · The build now checks its own wiring (tools/check-wiring.js): every report
+    builder reachable from `make reports`, the two battery registries in
+    agreement, and no built page declaring a font outside the token block.
+    It found three defects on its first outing, including one in itself.
   · UNSENT and NEEDING REWORK: the two OEIS packs. Their framing predates the
     repricing — the fourth digit is a sequence digit, not a theorem digit.
 
