@@ -69,6 +69,11 @@ priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
     certs/mfg-cap-census-N{2..5}-c-12.json; battery re-proves N=2 LIVE
     every run; the 0.537 off-center-split lesson is a firing red (the
     midpoint split refuses at the constant solution's exact coordinates).
+  · ITEM 6's STATED BLOCKER CLEARED same session: design/charts.js now
+    has the SCATTER form (verdict-coloured point field, theorem
+    specimens as ringed diamonds, dashed = predicted curves, logX with
+    refuse-on-zero; battery 8/8 falsifiers). The atlas rebuild can
+    start directly on the page.
   REMAINING (order per TERRA-PORT.md): (6) atlas
   REBUILD from design/ (needs a scatter form in design/charts.js);
   (7) facelaw with rebuilt evidence; (8) attention phantom-bifurcation
