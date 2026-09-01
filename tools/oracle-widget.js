@@ -91,7 +91,7 @@ function gate() {
 
 /* the interactive block (textarea + buttons + output), shared markup */
 function boxHtml() {
-  return '<div class="col"><textarea id="cm-in" spellcheck="false" style="width:100%;min-height:150px;font-family:ui-monospace,monospace;'
+  return '<div class="col"><textarea id="cm-in" spellcheck="false" style="width:100%;min-height:150px;font-family:var(--f-mono);'
     + 'font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:10px" '
     + 'placeholder=\'{"task":{"kind":"matmul","n":2,"m":2,"p":2,"rank":7},"ring":"Q","witness":{"u":[[1,0,0,1],...],"v":[...],"w":[...]}}\'></textarea>'
     + '<div style="margin:8px 0"><button id="cm-go" style="font:inherit;padding:6px 14px;cursor:pointer;'

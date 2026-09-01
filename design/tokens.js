@@ -181,10 +181,24 @@ function block(vars, indent) {
 }
 
 /* The complete `:root` cascade, all three theme states. */
+/* The type stack ships as CUSTOM PROPERTIES, not as values interpolated into
+   each rule, so that (a) both page shells get it from one place and (b) a
+   literal font stack appearing anywhere OUTSIDE this :root block is a
+   detectable defect rather than a matter of taste. tools/check-wiring.js
+   asserts exactly that. Fonts do not change between themes, so they are
+   emitted once and never overridden in the dark blocks. */
+function fontBlock(indent) {
+  const pad = indent || '  ';
+  return [pad + '--f-display:' + TYPE.display + ';',
+          pad + '--f-sans:' + TYPE.body + ';',
+          pad + '--f-mono:' + TYPE.mono + ';'].join('\n');
+}
+
 function rootCss() {
   return [
     ':root{',
     block(LIGHT),
+    fontBlock(),
     '}',
     '@media (prefers-color-scheme: dark){',
     '  :root:not([data-theme="light"]){',
@@ -217,4 +231,4 @@ const CHART = {
   CTX: 'var(--c-ctx)', GRID: 'var(--c-grid)', AXIS: 'var(--c-axis)', SURFACE: 'var(--surface)'
 };
 
-module.exports = { LIGHT, DARK, TYPE, GOOGLE_FONTS, SCALE, MEASURE, FIGURE_TOKENS, CHART, rootCss };
+module.exports = { LIGHT, DARK, TYPE, GOOGLE_FONTS, SCALE, MEASURE, FIGURE_TOKENS, CHART, rootCss, fontBlock };

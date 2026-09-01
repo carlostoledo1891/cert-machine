@@ -43,21 +43,14 @@ NEXT SESSION COULD BUILD — ranked, with the reason each is ranked there
      first. Same arithmetic over a pinned elevation model; it can only ever
      move green fields to undecided, never the reverse, so it costs claims
      and adds none. Named as the next build on the page itself.
-  2. THE TOKEN-BLOCK ASSERTION (offered twice, never answered). A battery
-     check that every built page declares exactly the :root block
-     design/tokens.js emits. BOTH defects found in session f were
-     hand-maintained registries that nothing checked — `make reports` missing
-     a builder, and app-shell.js restating its own fonts. This one check
-     catches both at build instead of by eye. Small, and the house already
-     runs this kind of gate everywhere else.
-  3. THE MINTED BENCHMARK — but the first job is a MEASUREMENT, not a build.
+  2. THE MINTED BENCHMARK — but the first job is a MEASUREMENT, not a build.
      reports/matmul-eval.html currently scores all zeros: opus-5 and sonnet-5
      returned empty text, haiku was exactly rejected every time. A benchmark
      nothing scores on cannot order the frontier. Make difficulty a dial with
      the theorem riding along and sweep it until the curve runs from
      recall-trivial to currently-impossible. Until that curve exists there is
      nothing to publish.
-  4. THE CONJECTURE GRAVEYARD — also a measurement first. Yield is n = 1
+  3. THE CONJECTURE GRAVEYARD — also a measurement first. Yield is n = 1
      (erdos852). Sample N checkable OEIS "it appears that" comments, run the
      engine, count refuted / held / not-checkable. One run decides whether
      this is a graveyard or an empty field.
@@ -148,6 +141,52 @@ and consulting sin-mfg is what killed it. Read that lab FIRST next time.)
   Hare-Jankauskas' 19-term degree-38 polynomial has min >= 2; Mercer's §6
   reduction at m > 5. Honest framing there is "certified where nothing
   certified exists", never "progress on Chowla".
+
+SESSION 2026-08-31g — THE REGISTRIES ARE CHECKED NOW. tools/check-wiring.js
+
+  Operator: "fix the defects." The two named instances were already fixed;
+  what was not fixed is that NOTHING CHECKED THEM. This session built the
+  check, and the check immediately found two more of the same class plus one
+  in itself.
+
+  tools/check-wiring.js — 4 checks, 4 red controls, each red a planted
+  violation the check must catch:
+   1  every tools/build-report-*.js is invoked by `make reports`   [33]
+   2  `make test` and build-control run the SAME batteries          [37 each]
+   3  this check is itself registered in both (a wiring check nothing runs
+      is the defect it was written to prevent)
+   4  no built page declares a font stack outside the :root block   [41 pages]
+
+  WHAT CHECK 2 FOUND, and it is worse than the defect that prompted it.
+  SEVEN batteries ran in `make test` and NOT in build-control — including
+  design/battery.js and apps/skyaudit/battery.js — while the control build
+  printed "batteries 29/29 green". All seven pass, so nothing was hiding, but
+  the number was a completeness claim over a set the reader did not have.
+  Now 37/37 across two registries that must agree.
+
+  WHAT CHECK 4 FOUND: three more generators inlining a literal mono stack
+  (labs/mfg/widget.js, tools/oracle-widget.js, apps/skyaudit/build.js — 23
+  occurrences), and one of mine — build-report-glide-band.js used
+  var(--mono, <literal>), naming a custom property that DID NOT EXIST, so it
+  silently fell back to the literal every time.
+
+  THE SYSTEMIC FIX BEHIND CHECK 4. design/tokens.js now emits --f-display,
+  --f-sans and --f-mono as custom properties inside :root. Both page shells
+  already call T.rootCss(), so one definition reaches reports and apps alike;
+  template.js consumes the variables instead of interpolating stacks into 29
+  rules, and app-shell.js dropped its own declarations entirely. "One type
+  system" is now a fact the build checks, not a claim in a comment.
+
+  THE CHECK FAILED ON ITS FIRST REAL RUN, AND THAT WAS THE POINT. It scanned
+  site/, but `make control` runs its batteries BEFORE build-site syncs, so it
+  was reading the previous build's output and exiting non-zero — an ordering
+  bug in the check written to catch ordering bugs. It now scans reports/,
+  index.html and site/apps (which the app builder writes directly), and the
+  reasoning is in the file so it is not re-introduced. A gate that passes on
+  its first run has told you nothing.
+
+  STATE: make test 40 PASS · batteries 37/37 · drift 130 unchanged · wiring
+  ALL PASS (4 checks, 4/4 falsifiers).
 
 SESSION 2026-08-31f — THE TYPE IS SANS, AND THE APP SURFACE JOINED THE SYSTEM
 

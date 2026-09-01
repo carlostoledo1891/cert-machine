@@ -1,0 +1,170 @@
+#!/usr/bin/env node
+/* check-wiring.js — the gate for the registries nobody was checking.
+   tools/ · cert-machine
+
+   WHY THIS EXISTS. Three defects were found by eye on 2026-08-31, and not one
+   of them was a code-quality problem. Each was a LIST SOMEBODY HAS TO
+   REMEMBER TO UPDATE:
+
+     · `make reports` was missing build-report-glide-band.js, so a site-wide
+       restyle would have left the newest page as the only serif one.
+     · design/app-shell.js restated its own font stack instead of deriving it,
+       so the site ran two type systems and tokens.js governed one.
+     · seven batteries ran in `make test` and NOT in build-control's list,
+       while the control build reported "batteries 29/29 green" — a
+       completeness claim over an incomplete set.
+
+   A registry that is only maintained by memory will diverge; the house rule
+   already says so ("a rule defined twice WILL diverge — the corpus.js
+   lesson"). This file turns each of those into a check that fails the build.
+
+   Every check ships a RED CONTROL: a planted violation the check must catch.
+   A check that cannot fail is decoration, which is the other lesson of that
+   day.
+
+   run: node tools/check-wiring.js                                          */
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+
+const ROOT = path.resolve(__dirname, '..');
+const T = require(path.join(ROOT, 'design', 'tokens.js'));
+
+let checks = 0, fails = 0, reds = 0, redTotal = 0;
+const ok = (name, detail) => { checks++; console.log('  ok  ' + String(checks).padStart(2) + '  ' + name + (detail ? '   ' + detail : '')); };
+const bad = (name, detail) => { checks++; fails++; console.log('  FAIL ' + String(checks).padStart(2) + '  ' + name + '\n        ' + detail); };
+const red = (name, fired) => {
+  redTotal++;
+  if (fired) { reds++; console.log('       RED ok    ' + name); }
+  else { fails++; console.log('       RED FAIL  ' + name + ' — the check cannot fail, so it is decoration'); }
+};
+
+const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
+const MAKE = read('Makefile');
+const CONTROL = read('tools/build-control.js');
+
+console.log('wiring battery');
+
+/* ---------------------------------------------------------------- 1 -----
+   Every report builder is invoked by `make reports`. Without this, a builder
+   can exist, be committed, produce a page — and be skipped by the one target
+   that rebuilds the site.                                                 */
+console.log('-- registries');
+
+const reportsTarget = (() => {
+  const m = /\nreports:\n((?:\t.*\n)+)/.exec(MAKE);
+  return m ? m[1] : '';
+})();
+const builders = fs.readdirSync(path.join(ROOT, 'tools'))
+  .filter((f) => /^build-report-.*\.js$/.test(f)).sort();
+const missingFromTarget = builders.filter((b) => !reportsTarget.includes(b));
+if (!reportsTarget) bad('`make reports` target found', 'could not locate a reports: target in the Makefile');
+else if (missingFromTarget.length) bad('every report builder is in `make reports`',
+  missingFromTarget.length + ' not invoked: ' + missingFromTarget.join(', '));
+else ok('every report builder is in `make reports`', '[' + builders.length + ' builders]');
+
+red('a builder missing from `make reports` is caught',
+  ['tools/build-report-planted.js'].filter((b) => !reportsTarget.includes(b)).length === 1);
+
+/* ---------------------------------------------------------------- 2 -----
+   The two battery registries agree. `make test` and build-control each hold
+   their own list; the control build prints a green count over ITS list, so a
+   battery present in one and absent from the other makes that count a claim
+   about a set the reader does not have.                                   */
+const batteriesIn = (text) => {
+  const out = new Set();
+  const re = /([A-Za-z0-9/_.-]*(?:battery|selftest|test-engine)[A-Za-z0-9/_.-]*\.js)/g;
+  let m;
+  while ((m = re.exec(text))) out.add(m[1].replace(/^\.\//, ''));
+  return out;
+};
+const inMake = batteriesIn(MAKE), inControl = batteriesIn(CONTROL);
+const onlyMake = [...inMake].filter((b) => !inControl.has(b)).sort();
+const onlyControl = [...inControl].filter((b) => !inMake.has(b)).sort();
+if (onlyMake.length || onlyControl.length) {
+  bad('`make test` and build-control run the same batteries',
+    (onlyMake.length ? 'in make test only: ' + onlyMake.join(', ') : '')
+    + (onlyMake.length && onlyControl.length ? '\n        ' : '')
+    + (onlyControl.length ? 'in build-control only: ' + onlyControl.join(', ') : ''));
+} else ok('`make test` and build-control run the same batteries', '[' + inMake.size + ' each]');
+
+red('a battery in one registry and not the other is caught',
+  [...batteriesIn('$(NODE) instruments/planted/battery.js')].filter((b) => !inControl.has(b)).length === 1);
+
+/* ---------------------------------------------------------------- 3 -----
+   This file is itself registered in both places. A wiring check that nothing
+   runs is the defect it was written to prevent.                           */
+const selfInMake = /check-wiring\.js/.test(MAKE);
+const selfInControl = /check-wiring\.js/.test(CONTROL);
+if (selfInMake && selfInControl) ok('this check is registered in both `make test` and build-control');
+else bad('this check is registered in both `make test` and build-control',
+  'make test: ' + (selfInMake ? 'yes' : 'NO') + ' · build-control: ' + (selfInControl ? 'yes' : 'NO'));
+
+/* ---------------------------------------------------------------- 4 -----
+   No built page declares a literal font stack outside the :root block.
+   design/tokens.js emits --f-display/--f-sans/--f-mono once, for both page
+   shells; everything else must reference them. This is what makes "the site
+   has one type system" a fact the build can check rather than a claim.   */
+console.log('-- the type system');
+
+const STACKS = new Set([T.TYPE.display, T.TYPE.body, T.TYPE.mono].map((s) => s.replace(/'/g, '"')));
+const GENERIC = /^(inherit|initial|unset|revert|sans-serif|serif|monospace|ui-monospace,monospace)$/;
+
+function fontOffences(html, label) {
+  /* strip the :root blocks — that is the ONE place a literal stack belongs */
+  const body = html.replace(/:root(?:\[[^\]]*\])?\s*\{[^}]*\}/g, '');
+  const out = [];
+  /* a font stack is a comma-separated list of quoted names, bare idents or a
+     var() reference — matched explicitly so the value stops at the closing
+     quote of a style="..." attribute instead of swallowing the markup after it */
+  const item = '(?:"[^"]*"|\'[^\']*\'|var\\([^)]*\\)|[A-Za-z0-9_-]+(?:[ \\t][A-Za-z0-9_-]+)*)';
+  const re = new RegExp('font-family:\\s*(' + item + '(?:\\s*,\\s*' + item + ')*)', 'g');
+  let m;
+  while ((m = re.exec(body))) {
+    const v = m[1].trim().replace(/'/g, '"').replace(/\s*,\s*/g, ',');
+    if (!v) continue;
+    if (/^var\(--f-(display|sans|mono)\)$/.test(v)) continue;
+    if (GENERIC.test(v)) continue;
+    if (STACKS.has(v)) continue;                      /* a token stack, verbatim */
+    out.push(label + ': ' + v.slice(0, 72));
+  }
+  return out;
+}
+
+/* WHICH FILES TO SCAN, and it matters. The first version walked site/, which
+   made this check fail inside `make control` for a reason that had nothing to
+   do with fonts: control runs its batteries BEFORE build-site syncs, so the
+   check was reading the previous build's output. Scan what is current at that
+   moment instead — the report builds themselves, the control page, and the
+   app pages, which their own builder writes straight into site/apps. site/ is
+   a byte copy of these, so nothing is lost by checking the originals. */
+const pages = [];
+const walk = (dir) => {
+  if (!fs.existsSync(path.join(ROOT, dir))) return;
+  for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+    const rel = dir + '/' + e.name;
+    if (e.isDirectory()) { if (!/vendor|node_modules/.test(e.name)) walk(rel); }
+    else if (e.name.endsWith('.html')) pages.push(rel);
+  }
+};
+walk('reports');
+walk('site/apps');
+if (fs.existsSync(path.join(ROOT, 'index.html'))) pages.push('index.html');
+
+const offences = [];
+for (const p of pages) offences.push(...fontOffences(read(p), p));
+if (offences.length) bad('no built page declares a font outside the token block',
+  offences.length + ' literal stack(s):\n        ' + offences.slice(0, 6).join('\n        '));
+else ok('no built page declares a font outside the token block', '[' + pages.length + ' pages]');
+
+red('a literal font stack outside :root is caught',
+  fontOffences('<style>:root{--f-sans:"IBM Plex Sans"}\n.x{font-family:"Comic Sans MS",cursive}</style>', 'planted').length === 1);
+red('a stack INSIDE :root is not flagged (or the check would be unusable)',
+  fontOffences('<style>:root{--f-sans:"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif}</style>', 'planted').length === 0);
+
+/* ------------------------------------------------------------------------ */
+console.log('    every falsifier turned its target red   [' + reds + '/' + redTotal + ']');
+console.log('\n' + (fails === 0 ? 'ALL PASS' : fails + ' FAILED')
+  + '   (' + checks + ' checks, ' + reds + '/' + redTotal + ' falsifiers)');
+process.exit(fails === 0 ? 0 : 1);

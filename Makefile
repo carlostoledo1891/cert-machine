@@ -56,6 +56,7 @@ test:
 	@printf "%-30s " "mfg lab (box certifier)"; $(NODE) labs/mfg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg2p lab (two populations)"; $(NODE) labs/mfg2p/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "design system + charts"; $(NODE) design/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "wiring"; $(NODE) tools/check-wiring.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit app"; $(NODE) apps/skyaudit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "glide band"; $(NODE) apps/glide-band/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit stdlib verifier"; $(PY) apps/skyaudit/audit/verify_skyaudit.py >/dev/null 2>&1 && echo PASS || echo FAIL

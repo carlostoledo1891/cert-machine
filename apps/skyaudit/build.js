@@ -306,9 +306,9 @@ for (const city of ['nyc', 'sp']) {
         const f2 = c2.forecast;
         const v1note = c2.id.includes('2026-08-28') && c2.target === 'eflyable'
           ? ' <span style="color:var(--warn)">committed under methodology v1; will be scored against the v2-defined outcome and likely bust — the ledger never rewrites, and the miss will say why</span>' : '';
-        return `<div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">${c2.id.split(':')[1]} · ${c2.target}</span>
+        return `<div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">${c2.id.split(':')[1]} · ${c2.target}</span>
         <span class="sub">committed ${new Date(c2.madeAt * 1000).toISOString().slice(0, 16)}Z · sha ${c2.payloadSha256.slice(0, 10)} · proved coverage ${f2.coverage} (grows with the corpus)${v1note}</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[${f2.lo}, ${f2.hi}]</span></div>`;
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[${f2.lo}, ${f2.hi}]</span></div>`;
       }).join('') || '<div class="as-fine">no open forecasts — the next commit lands with the next calibration day</div>'}
       <div class="as-fine" style="margin-top:8px">lifetime record, recomputed from the ledger at this build:
       ${fRecord.commits} committed · ${fRecord.scored} scored · ${fRecord.covered} covered${fRecord.scored

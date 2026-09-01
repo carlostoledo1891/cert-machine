@@ -48,6 +48,14 @@ const BATTERIES = [
   ['forecast instrument', ['instruments/forecast/battery.js'], 'conformal coverage proved by exact rank-lemma enumeration; Winkler scores hand-computed in rationals; the ledger refuses backdating, tampering, premature and double scoring; the admission prune rule decided by exact binomial tail · 5 red controls'],
   ['fueleu penalty arithmetic', ['instruments/fueleu/battery.js'], 'Regulation (EU) 2023/1805 intensity limits, Annex IV penalty and blend-flip thresholds in exact rationals — constants transcribed from pinned OJ bytes; the 1e-9 boundary forgery flips the verdict · 4 red controls'],
   ['glide band', ['apps/glide-band/battery.js'], 'certified engine-out reach from interval inputs; geodesy calibrated on the meridian degree and JFK-LAX, 4000-draw containment, and the point-estimate method itself run as a red \u00b7 4 red controls'],
+  ['design system + charts', ['design/battery.js'], 'palette validated against the dataviz checks in BOTH modes and under three CVD simulations; the token block, the figure kit and the escaped-tag scanner · 6 red controls'],
+  ['wiring', ['tools/check-wiring.js'], 'the registries nobody was checking: every report builder reachable from `make reports`, the two battery lists in agreement, and no built page declaring a font outside the token block · 4 red controls'],
+  ['skyaudit app', ['apps/skyaudit/battery.js'], 'segmentation and mission calibration for the pinned ADS-B day'],
+  ['bilinear certifier', ['instruments/bilinear/battery.js'], 'bilinear identities over Q and F2'],
+  ['slp additive circuits', ['instruments/slp/battery.js'], 'straight-line programs, additive cost'],
+  ['mfg lab (box certifier)', ['labs/mfg/battery.js'], 'the box certifier for the MFG lab'],
+  ['mfg2p lab (two populations)', ['labs/mfg2p/battery.js'], 'two-population equilibria'],
+  ['erdos290 lean battery', ['tools/erdos290-lean-battery.js'], 'closed forms equal enumeration exactly for l <= 12; the broken-EGF red must fire'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
 ];
 const PY = [

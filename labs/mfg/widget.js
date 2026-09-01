@@ -188,7 +188,7 @@ function boxHtml(opts) {
   const btn = (id, label, primary) => '<button id="' + id + '" style="font:inherit;padding:6px 14px;cursor:pointer;'
     + (primary ? 'background:var(--sig);color:var(--paper);border:none' : 'background:var(--sunk);color:var(--ink);border:1px solid var(--rule)')
     + ';border-radius:6px;margin:0 6px 6px 0">' + label + '</button>';
-  return '<div class="col"><textarea id="mfg-in" spellcheck="false" rows="6" style="width:100%;font-family:ui-monospace,monospace;'
+  return '<div class="col"><textarea id="mfg-in" spellcheck="false" rows="6" style="width:100%;font-family:var(--f-mono);'
     + 'font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:10px" '
     + 'placeholder=\'{"sigma":0.5,"c":[-16.03,-15.97],"A":[0.288,0.313],"N":16,"nu":1.02}\'>'
     + JSON.stringify(examples.multiple) + '</textarea>'

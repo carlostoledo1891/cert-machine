@@ -39,7 +39,7 @@ function vars(o) { return Object.entries(o).map(([k, v]) => k + ':' + v).join(';
 
 function appCss() {
   return `
-:root{${vars(APP_LIGHT)};--f-sans:${T.TYPE.body.replace(/"/g, "'")};--f-display:${T.TYPE.display.replace(/"/g, "'")};--f-mono:${T.TYPE.mono.replace(/"/g, "'")}}
+:root{${vars(APP_LIGHT)}}   /* --f-sans/--f-display/--f-mono come from T.rootCss(), emitted just above */
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){${vars(APP_DARK)}}}
 :root[data-theme="dark"]{${vars(APP_DARK)}}
 *{box-sizing:border-box}
