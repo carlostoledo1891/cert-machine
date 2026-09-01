@@ -36,7 +36,16 @@ OPERATOR ACTS — nothing here needs a session, only a decision
      default-on. Both live pushes this session went out without an explicit
      per-push word.
 
-ACTIVE CAMPAIGN — lambda(4) as a THEOREM (opened 2026-09-01, operator: "start")
+ASSIGNED NEXT — LAMBDA(5) THEN LAMBDA(6) (operator, 2026-09-01 handoff):
+the pair proves the first NON-MONOTONICITY (lambda(6) < lambda(5), Mercer's
+conjecture). COLD-START.md carries the campaign brief: the lambda(4) engine
+generalizes as-is; the first real question is the generic weight at
+g0 > 0.628 (the -8/5 dip no longer clears the target); optimizers are
+{1,2,4,5,6} and {1,2,4,6,7,8}; keep the calibration gate, the coverage
+scoping, and incremental runners. CHECK THE TWO TAO THREADS FIRST (#392,
+#179 comment) — a maintainer reply outranks the campaign; report and pause.
+
+DONE CAMPAIGN — lambda(4) as a THEOREM (opened and CLOSED 2026-09-01)
 
   0. THE LAMBDA(4) CAMPAIGN, Phase 1: close the NINE families. Phase 0 is
      BUILT and green (instruments/lambda4/, battery 20 checks + 8 red
