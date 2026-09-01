@@ -74,10 +74,19 @@ priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
     specimens as ringed diamonds, dashed = predicted curves, logX with
     refuse-on-zero; battery 8/8 falsifiers). The atlas rebuild can
     start directly on the page.
+  OPERATOR RULING (2026-09-01): frontier-apps is a SANDBOX and anything
+  on it WILL be published. So the publishable terra artifacts must be
+  REBUILT HERE from certified records (build-lambda4-writeup.js
+  pattern) with the paper-rebuild fixes in TERRA-PORT.md — the sandbox
+  PDFs as they sit carry the title overclaim, the eight/five count and
+  decimal-named coefficients, and must not ship as-is. "Will be
+  published" is intent, not a release: every send stays operator-gated.
   REMAINING (order per TERRA-PORT.md): (6) atlas
-  REBUILD from design/ (needs a scatter form in design/charts.js);
-  (7) facelaw with rebuilt evidence; (8) attention phantom-bifurcation
-  catalogue. LESSON PAID FOR: falsifier thresholds must scale with the
+  REBUILD from design/ (scatter form now DONE); (7) facelaw with
+  rebuilt evidence; (8) attention phantom-bifurcation catalogue;
+  (9, elevated by the ruling) the PAPER REBUILD from our certs —
+  terra-recert-*, terra-peakcount-*, terra-sigmastar, terra-bracket-
+  table, mfg-cap-census-* now carry every number the paper needs. LESSON PAID FOR: falsifier thresholds must scale with the
   instance (the frozen X5 absolute bar, tuned at A=0.3, silently missed
   at A1=0.003 — rewritten relative).
   PRIORITY QUESTION RESOLVED (operator, 2026-09-01): reports/
