@@ -1,5 +1,5 @@
-# Comment for teorth/erdosproblems#179 — FINAL DRAFT, awaiting operator approval
-# (standing rule: nothing posts without presenting results + explicit approval)
+# Comment for teorth/erdosproblems#179 — POSTED 2026-09-01 with operator approval
+# https://github.com/teorth/erdosproblems/issues/179#issuecomment-5492843637
 
 Record: certs/sublevel-tao179.json @ the pushed head. All numbers below match
 the record: odd 3/5/7 strict, even 4/6/8 localized, deg9 attempted-open.

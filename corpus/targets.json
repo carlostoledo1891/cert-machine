@@ -202,12 +202,13 @@
     {
       "id": "erdos1038-beat-the-ai",
       "name": "Tao's \"Beat the AI\" on Erdős #1038 — certified bounds on the sup/inf of |{x : U_mu(x) < 0}|",
-      "verdict": "OPEN — scouted 2026-09-01; the highest-visibility collaboration target on the board",
+      "verdict": "ENGAGED 2026-09-01 — six per-degree theorems certified and POSTED to the thread (operator-approved)",
       "scouted": "2026-09-01",
       "finding": "teorth/erdosproblems issue #179, authored by TAO HIMSELF, labeled help-wanted, ZERO comments as of scouting. Reformulates #1038 as: over discrete probability measures mu on [-1,1], bound |{x : U_mu(x) < 0}| where U_mu is the logarithmic potential; the sup is conjectured 2*sqrt(2) at the two-atom measure. An explicitly open invitation to compete with AI on a problem THIS LAB ALREADY TOUCHED: reports/verify-lemniscate.html certified the Darvas-Peng-Tao computational fragment (Krawczyk route, 30 decimals) and was filed on the authors' repository.",
       "openAngle": "The machine's lane: certified TWO-SIDED bounds — lower by certified evaluation of explicit measures (finite atom configurations, exact rational weights, interval enclosure of the sublevel-set measure), upper by a reduction/relaxation the instruments can decide. Even a certified lower-bound record posted to an empty Tao thread is visible; a proof of the 2*sqrt(2) sup would be a theorem in his lap.",
       "worth": "Direct engagement channel with the erdosproblems maintainer in his own thread, in the exact genre (certified, machine-derived) the lambda(4) issue #392 just announced. Cost unknown until the measure-optimization landscape is probed; start with certified evaluation of the conjectured extremizer.",
-      "next": "Probe: certify |{x : U < 0}| for the two-atom measure exactly (it should give 2*sqrt(2) — a closed form to verify); then explore whether perturbations certify strictly less (evidence for the conjecture) and what upper-bound machinery exists."
+      "next": "Watch the thread for a reply from the maintainer; push deg 9 (odd, needs T closer to 2sqrt2 or bigger budget) and deg 10 if engagement warrants; the even-degree equality characterization is the equality-grade sequel.",
+      "measured": "Odd degrees 3/5/7: every root-constrained monic polynomial strictly below 2.82 < 2sqrt2 (127/1,583/28,773 box certificates). Even degrees 4/6/8: supremum localized to [2sqrt2, 2.82845], witness (x^2-1)^{N/2} attains the left end — the conjectured extremizer within 2.3e-5 of optimal. Combined: every measure with weight denominator <= 8 satisfies the conjectured bound. Landscape: interior cubic champion ~2.75417 at r=201/256; quintic topological cliff ~2.80109 at r=905/1024. Degree 9 attempted, budget-bound, recorded open. Record certs/sublevel-tao179.json; page reports/erdos1038-sup.html; comment posted at issuecomment-5492843637."
     },
     {
       "id": "erdos425-multiplicative-sidon-table",
