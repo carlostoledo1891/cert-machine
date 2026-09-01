@@ -18,6 +18,68 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-08-31 (session f). Session logs follow below; this is
+the part to read first. `node tools/targets.js` is the memory behind it —
+19 rows, and the DEAD ones are the afternoons you do not have to spend again.
+────────────────────────────────────────────────────────────────────────────
+
+OPERATOR ACTS — nothing here needs a session, only a decision
+
+  1. OEIS packs 4 and 5 (outreach/oeis-erdos290-pack.md) — DRAFTED, UNSENT,
+     AND NOW OUT OF DATE. They were written when the fourth digit looked like
+     a theorem-level prize. It is not: van Doorn's Theorem 8 states its
+     constants to two decimals, so 0.54 -> 0.546 sharpened a printed theorem
+     and the fourth digit sharpens only a sequence entry. REWORK THE FRAMING
+     BEFORE SENDING. Everything else in outreach/ has gone.
+  2. Whether to keep pushing the aviation front, and whether pushes stay
+     default-on. Both live pushes this session went out without an explicit
+     per-push word.
+
+NEXT SESSION COULD BUILD — ranked, with the reason each is ranked there
+
+  1. TERRAIN FOR THE GLIDE BAND (H1). The single most-asked question about
+     reports/glide-band.html, and the one objection an avionics reader raises
+     first. Same arithmetic over a pinned elevation model; it can only ever
+     move green fields to undecided, never the reverse, so it costs claims
+     and adds none. Named as the next build on the page itself.
+  2. THE TOKEN-BLOCK ASSERTION (offered twice, never answered). A battery
+     check that every built page declares exactly the :root block
+     design/tokens.js emits. BOTH defects found in session f were
+     hand-maintained registries that nothing checked — `make reports` missing
+     a builder, and app-shell.js restating its own fonts. This one check
+     catches both at build instead of by eye. Small, and the house already
+     runs this kind of gate everywhere else.
+  3. THE MINTED BENCHMARK — but the first job is a MEASUREMENT, not a build.
+     reports/matmul-eval.html currently scores all zeros: opus-5 and sonnet-5
+     returned empty text, haiku was exactly rejected every time. A benchmark
+     nothing scores on cannot order the frontier. Make difficulty a dial with
+     the theorem riding along and sweep it until the curve runs from
+     recall-trivial to currently-impossible. Until that curve exists there is
+     nothing to publish.
+  4. THE CONJECTURE GRAVEYARD — also a measurement first. Yield is n = 1
+     (erdos852). Sample N checkable OEIS "it appears that" comments, run the
+     engine, count refuted / held / not-checkable. One run decides whether
+     this is a graveyard or an empty field.
+
+SCOUT BEFORE ANYTHING ELSE IS SPENT ON THEM
+
+  · TAWS. If predictive terrain-clearance alerting is mandated equipment,
+    terrain-aware reachability has a COMPELLED BUYER where a bare glide ring
+    does not — which moves that front from demo to market. READ THE ACTUAL
+    RULE; nobody here has, and it is asserted nowhere.
+  · erdos290-delta-window. Its `unscouted` field is closed (nothing is known
+    unconditionally; f_d is not even a proved irreducible for large d), but
+    the lemma itself is open and the row now prices it honestly.
+
+DO NOT REOPEN — `node tools/targets.js` carries the citation that killed each
+
+  Chowla small-c · delta(f_d) >= 1/2 · family arguments · matmul full product
+  over F2 · the 55-addition search · a proof-carrying-numbers standard · an
+  atlas of certified intervals. Seven afternoons already paid for.
+
+────────────────────────────────────────────────────────────────────────────
+
 SESSION 2026-08-31b — CHOWLA'S COSINE PROBLEM: MACHINERY BUILT, TARGET CLOSED
 (operator: "can we work more on Chowla's Cosine Problem? Consult sin-mfg" —
 and consulting sin-mfg is what killed it. Read that lab FIRST next time.)
@@ -86,6 +148,58 @@ and consulting sin-mfg is what killed it. Read that lab FIRST next time.)
   Hare-Jankauskas' 19-term degree-38 polynomial has min >= 2; Mercer's §6
   reduction at m > 5. Honest framing there is "certified where nothing
   certified exists", never "progress on Chowla".
+
+SESSION 2026-08-31f — THE TYPE IS SANS, AND THE APP SURFACE JOINED THE SYSTEM
+
+  Operator: the serifs read badly in tables and dense figures; then, after
+  seeing the live site, "lots of pages are not restyled — what rises a
+  question about the quality of the css and components."
+
+  THE FONTS. Two lines in design/tokens.js, because every page takes its
+  :root from that one file:
+      display  Fraunces -> Archivo
+      body     Spectral -> IBM Plex Sans
+      mono     IBM Plex Mono, unchanged
+  IBM Plex Sans shares its design language with the Plex Mono already used
+  for every number, label and axis, so prose, data and code are one family
+  now. h1 tracking retuned -.018em -> -.032em: the old value was fitted to a
+  serif and a grotesque reads loose at display size.
+  ONE CORRECTION TO THE DIAGNOSIS, in the operator's favour: the CHARTS were
+  never serif — template.js has always set .figbox svg text to the mono. What
+  was serif is body prose, table body cells and the td.k column.
+
+  THE "NOT RESTYLED" PAGES WERE A STALE DEPLOY, not a broken cascade. Local
+  was fully restyled at the time of the question; live was still on the
+  pre-change commit because nothing had been pushed. Reports side held up: 38
+  pages moved on two lines.
+
+  BUT THE QUESTION FOUND SOMETHING REAL, at the seam rather than in the CSS.
+  design/app-shell.js — the second page view, used by the SkyAudit app —
+  hardcoded --f-sans:'Inter' and restated its own Google Fonts URL. Two type
+  systems, one governed. That is the corpus.js lesson in the CSS layer.
+  It now derives --f-sans, --f-display and --f-mono from tokens.js and builds
+  its font link from T.GOOGLE_FONTS. The app keeps its variable NAMES (its
+  CSS is written against them) and owns no VALUES. Shared request gained IBM
+  Plex Mono 600 and 700, which the app genuinely uses and was synthesising.
+  WHY IT HAD DIVERGED is now recorded in that file rather than silently
+  reversed: the operator's 2026-08-27 rule "no serif on app pages" was right
+  while the reports were serif, and its premise expired when they stopped.
+  Left alone deliberately: APP_LIGHT/APP_DARK still own the verdict palette
+  (--v-cert/--v-refu/--v-refd) — app semantics defined once, not a duplicate.
+
+  AUDIT OF THE BUILT SITE: 45 pages on ONE font request, 0 on the old one,
+  0 Fraunces, 0 declarations of Inter. (The 13 files matching "Inter" are
+  Interval, Internal, Intersection — a sloppy grep of mine, not a hit.)
+
+  THE STANDING LESSON, and it is the one worth carrying: both defects this
+  session were HAND-MAINTAINED REGISTRIES THAT NOTHING CHECKS — `make
+  reports` was missing build-report-glide-band.js, so a site-wide restyle
+  would have left the newest page as the only serif one; and app-shell.js
+  restated fonts. Neither is a CSS problem. The durable fix is menu item 2.
+
+  LIVE: 0d7dc37 (fonts) and 529403d (app surface), both deployed and verified
+  at carlostoledo.co — reports, homepage, /apps/skyaudit/ and /apps/skyaudit/sp/
+  all on the house type, one shared css2? URL between them.
 
 SESSION 2026-08-31e — THE GLIDE BAND IS BUILT. reports/glide-band.html
 

@@ -89,11 +89,11 @@
     {
       "id": "erdos290-upper-constant",
       "name": "van Doorn Theorem 8's OTHER constant, 0.61, is already improvable at zero cost",
-      "verdict": "OPEN — free, unclaimed, never stated anywhere",
+      "verdict": "SENT 2026-08-31 — stated publicly, no longer unclaimed",
       "scouted": "2026-08-31",
       "finding": "Theorem 8 is TWO-SIDED: 0.54 < liminf (b(a)-a)/log a < 0.61, from Lemma 30 (liminf <= 1/(2c)) and Lemma 31 (liminf >= 1/(1+c)), with Lemma 32's 0.82 < c < 0.85. The upper constant 0.61 = 1/(2 * 0.82) needs a LOWER bound on c — and a lower bound on c needs no tail lemma at all, since the unpinned tail is simply charged 0. Our certified c >= 0.830416407911 gives liminf < 0.6021076 immediately.",
       "why": "Everything published from this project — the report page, both issue-164 comments, the OEIS packs — speaks only about 1/(1+c) and the lower constant. The upper constant improves 0.61 -> 0.6022 from the SAME certified data: no window, no new degree, no assumption beyond the Lemma 32 dependency already carried. Theorem 8 would read 0.546 < liminf < 0.6022, narrowing the published interval from width 0.07 to 0.0562.",
-      "note": "NOT VERIFIED beyond the arithmetic: 1/(2 * 0.830416407911) = 0.6021075634. Read Lemma 30 in the source and confirm the direction before stating it publicly (it is an upper bound on the liminf, so larger c is sharper — check it, do not trust this line). If it holds it is the cheapest unclaimed result on the table, and the issue-164 comment posted 2026-08-31 omits it."
+      "note": "Lemma 30 was read at the source before it was stated (it is an upper bound on the liminf with c the EXACT constant, so a certified lower bound on c plugs straight in). Then published in the issue-164 follow-up, comment 5484039660: liminf <= 1/(2c) <= 0.602107563430 against the published 0.61, with the honest note that the cited horizon already gave 0.603053548709 — almost all of the gain is that 0.82 was a conservative reading of c, and our 250 degrees move it by about 0.001."
     },
     {
       "id": "minted-benchmark",
