@@ -198,6 +198,25 @@
       "gap": "Honestly priced: Mercer says PERHAPS it is possible to reduce each M_j — the 14 families are research, not turnkey; one resistant family kills the theorem (no partial credit: 13/14 is not lambda(4)). Estimate P(all 14 close with LP-searched weights + recursion) unknown until families d=2c and d=3c/2 are attempted first — they look hardest (d commensurate with c collapses the equispaced set). Attempt those two FIRST; if both close, the rest very likely follow.",
       "next": "Referee-grade prose writeup generated from the record; one adversarial audit pass (cone onto-ness, branch additivity); contact with Mercer is OWNER-ONLY.",
       "measured": "The full campaign: Mercer's 14 exceptions re-derived exactly (five close themselves — the real reduction is nine families); all nine closed by second-level dot theorems + anchored closures with DERIVED thresholds + finite parts decided in exact arithmetic; the three equality families wall {1,2,3,4} off as the definitional witness. Exact value: root of 512y^3-1227y^2+600y+125 near 1.5195578816428 (cubic computed by exact resultant — new). Record: certs/lambda4-campaign.json; page: reports/lambda4.html; battery re-derives lambda(2)+lambda(3) at every run + 8 red controls."
+    },
+    {
+      "id": "erdos1038-beat-the-ai",
+      "name": "Tao's \"Beat the AI\" on Erdős #1038 — certified bounds on the sup/inf of |{x : U_mu(x) < 0}|",
+      "verdict": "OPEN — scouted 2026-09-01; the highest-visibility collaboration target on the board",
+      "scouted": "2026-09-01",
+      "finding": "teorth/erdosproblems issue #179, authored by TAO HIMSELF, labeled help-wanted, ZERO comments as of scouting. Reformulates #1038 as: over discrete probability measures mu on [-1,1], bound |{x : U_mu(x) < 0}| where U_mu is the logarithmic potential; the sup is conjectured 2*sqrt(2) at the two-atom measure. An explicitly open invitation to compete with AI on a problem THIS LAB ALREADY TOUCHED: reports/verify-lemniscate.html certified the Darvas-Peng-Tao computational fragment (Krawczyk route, 30 decimals) and was filed on the authors' repository.",
+      "openAngle": "The machine's lane: certified TWO-SIDED bounds — lower by certified evaluation of explicit measures (finite atom configurations, exact rational weights, interval enclosure of the sublevel-set measure), upper by a reduction/relaxation the instruments can decide. Even a certified lower-bound record posted to an empty Tao thread is visible; a proof of the 2*sqrt(2) sup would be a theorem in his lap.",
+      "worth": "Direct engagement channel with the erdosproblems maintainer in his own thread, in the exact genre (certified, machine-derived) the lambda(4) issue #392 just announced. Cost unknown until the measure-optimization landscape is probed; start with certified evaluation of the conjectured extremizer.",
+      "next": "Probe: certify |{x : U < 0}| for the two-atom measure exactly (it should give 2*sqrt(2) — a closed form to verify); then explore whether perturbations certify strictly less (evidence for the conjecture) and what upper-bound machinery exists."
+    },
+    {
+      "id": "erdos425-multiplicative-sidon-table",
+      "name": "Erdős #425: certify and extend the F(n) multiplicative-Sidon table (issue #300)",
+      "verdict": "OPEN — scouted 2026-09-01; a certify-the-computed-table contribution in the #290/issue-164 mold",
+      "scouted": "2026-09-01",
+      "finding": "teorth/erdosproblems issue #300: a contributor computed F(1..80) — max multiplicative Sidon subset of {1..n} — via an INTEGER PROGRAM (uncertified, solver-based), notes the sequence is absent from OEIS, and wants it submitted. The machine's exact niche: an ILP optimum is a float-solver artifact until the lower bound (exhibited set) and upper bound (no larger set) are certified; exact branch-and-bound or exhaustion with certificates turns the table into records.",
+      "worth": "Same shape as the #290 contribution that earned this lab its standing in that repo. Also a fresh OEIS entry with certified provenance. Moderate compute; the conflict structure (ab = cd quadruples) is finite and clean.",
+      "next": "Verify a prefix (n <= 40) by independent exact search; decide whether n <= 80 is reachable exactly; comment on the issue with certified values + method; OEIS submission with the issue author (credit shared)."
     }
   ]
 }
