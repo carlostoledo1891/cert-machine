@@ -1,0 +1,579 @@
+{
+ "what": "lambda(4) campaign, Phase 0: Mercer arXiv:1709.06612 Section 5 executed mechanically — lambda(2) and lambda(3) re-derived end to end as calibration, the lambda(4) generic case derived with its exception list DISCOVERED, and the remaining reduction measured at NINE families (five of Mercer's fourteen carry strictly negative delta and are closed by the generic argument itself unless a positive-delta condition holds simultaneously).",
+ "provenance": "Statement and strategy: Idris Mercer, INTEGERS 19 (2019) #A4 (arXiv:1709.06612), read at source. Every threshold below is DERIVED by the engine, never transcribed.",
+ "targets": {
+  "L2": {
+   "A": [
+    1,
+    2
+   ],
+   "lo": "-5066549580791809/4503599627370496",
+   "hi": "-5066549580791807/4503599627370496"
+  },
+  "L3": {
+   "A": [
+    1,
+    2,
+    3
+   ],
+   "lo": "-5924778740580625/4503599627370496",
+   "hi": "-370298671286289/281474976710656"
+  },
+  "L4": {
+   "A": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "lo": "-855435038691829/562949953421312",
+   "hi": "-6843480309534631/4503599627370496"
+  },
+  "L2exact": "-9/8"
+ },
+ "lambda2": {
+  "closure": {
+   "ok": true,
+   "tailMember": "b",
+   "N0": 3,
+   "validityFloor": 1,
+   "expr": {
+    "A": "-2",
+    "B": "1/2",
+    "C": "0"
+   },
+   "boundAtN0": {
+    "lo": "-20038373596108193916090968595330243293666836312540805723172850846749975/13803492693581127574869511724554050904902217944340773110325048447598592",
+    "hi": "-2885525797839579923917099477727555032200077975753987844723452293100217527/1987702947875682370781209688335783330305919383985071327886806976454197248"
+   },
+   "target": {
+    "lo": "-9/8",
+    "hi": "-9/8"
+   },
+   "pieces": [
+    {
+     "member": "a",
+     "kind": "lemma3.2",
+     "u": "0",
+     "v": "1"
+    },
+    {
+     "member": "b",
+     "kind": "exact",
+     "u": "1",
+     "value": "-1"
+    }
+   ]
+  },
+  "finite": {
+   "ok": true,
+   "enumerated": 1,
+   "closed": 0,
+   "skipped": [
+    "1,2"
+   ],
+   "undecided": []
+  }
+ },
+ "lambda3": {
+  "M0": {
+   "ok": true,
+   "base": "0",
+   "posBase": "2",
+   "dip": "-3/2",
+   "dipQ": {
+    "n": "-3",
+    "d": "2"
+   },
+   "target": {
+    "lo": "-5924778740580625/4503599627370496",
+    "hi": "-370298671286289/281474976710656"
+   },
+   "anchoredVals": {
+    "c": "-1"
+   },
+   "exceptions": [
+    {
+     "key": "1,-1,-1",
+     "label": "2a = c",
+     "cond": [
+      "1",
+      "-1",
+      "-1"
+     ],
+     "delta": "1/2",
+     "deltaSign": 1,
+     "inhabited": true,
+     "example": {
+      "a": 2,
+      "b": 3,
+      "c": 4
+     }
+    },
+    {
+     "key": "1,1,-1",
+     "label": "2b = c",
+     "cond": [
+      "1",
+      "1",
+      "-1"
+     ],
+     "delta": "1/2",
+     "deltaSign": 1,
+     "inhabited": true,
+     "example": {
+      "a": 1,
+      "b": 2,
+      "c": 4
+     }
+    },
+    {
+     "key": "1,0,-1",
+     "label": "a+b = c",
+     "cond": [
+      "1",
+      "0",
+      "-1"
+     ],
+     "delta": "1",
+     "deltaSign": 1,
+     "inhabited": true,
+     "example": {
+      "a": 1,
+      "b": 2,
+      "c": 3
+     }
+    }
+   ]
+  },
+  "families": [
+   {
+    "label": "c = 2a",
+    "closure": {
+     "ok": true,
+     "tailMember": "a",
+     "N0": 3,
+     "validityFloor": 1,
+     "expr": {
+      "A": "-2",
+      "B": "1/2",
+      "C": "0"
+     },
+     "boundAtN0": {
+      "lo": "-20038373596108193916090968595330243293666836312540805723172850846749975/13803492693581127574869511724554050904902217944340773110325048447598592",
+      "hi": "-2885525797839579923917099477727555032200077975753987844723452293100217527/1987702947875682370781209688335783330305919383985071327886806976454197248"
+     },
+     "target": {
+      "lo": "-5924778740580625/4503599627370496",
+      "hi": "-370298671286289/281474976710656"
+     },
+     "pieces": [
+      {
+       "member": "a",
+       "kind": "exact",
+       "u": "1",
+       "value": "-1/2"
+      },
+      {
+       "member": "b",
+       "kind": "lemma3.2",
+       "u": "0",
+       "v": "1"
+      },
+      {
+       "member": "c",
+       "kind": "exact",
+       "u": "2",
+       "value": "-1/2"
+      }
+     ]
+    },
+    "finite": {
+     "ok": true,
+     "enumerated": 1,
+     "closed": 1,
+     "skipped": [],
+     "undecided": []
+    }
+   },
+   {
+    "label": "c = 2b",
+    "closure": {
+     "ok": true,
+     "tailMember": "b",
+     "N0": 3,
+     "validityFloor": 1,
+     "expr": {
+      "A": "-2",
+      "B": "1/2",
+      "C": "0"
+     },
+     "boundAtN0": {
+      "lo": "-20038373596108193916090968595330243293666836312540805723172850846749975/13803492693581127574869511724554050904902217944340773110325048447598592",
+      "hi": "-2885525797839579923917099477727555032200077975753987844723452293100217527/1987702947875682370781209688335783330305919383985071327886806976454197248"
+     },
+     "target": {
+      "lo": "-5924778740580625/4503599627370496",
+      "hi": "-370298671286289/281474976710656"
+     },
+     "pieces": [
+      {
+       "member": "a",
+       "kind": "lemma3.2",
+       "u": "0",
+       "v": "1"
+      },
+      {
+       "member": "b",
+       "kind": "exact",
+       "u": "1",
+       "value": "-1/2"
+      },
+      {
+       "member": "c",
+       "kind": "exact",
+       "u": "2",
+       "value": "-1/2"
+      }
+     ]
+    },
+    "finite": {
+     "ok": true,
+     "enumerated": 1,
+     "closed": 1,
+     "skipped": [],
+     "undecided": []
+    }
+   },
+   {
+    "label": "c = a+b",
+    "closure": {
+     "ok": true,
+     "tailMember": "b",
+     "N0": 33,
+     "validityFloor": 6,
+     "expr": {
+      "A": "-3/2",
+      "B": "0",
+      "C": "6"
+     },
+     "boundAtN0": {
+      "lo": "-29/22",
+      "hi": "-29/22"
+     },
+     "target": {
+      "lo": "-5924778740580625/4503599627370496",
+      "hi": "-370298671286289/281474976710656"
+     },
+     "pieces": [
+      {
+       "member": "a",
+       "kind": "lemma3.3",
+       "u": "0",
+       "v": "1",
+       "floor": 6
+      },
+      {
+       "member": "b",
+       "kind": "exact",
+       "u": "1",
+       "value": "-1/2"
+      },
+      {
+       "member": "c",
+       "kind": "lemma3.3",
+       "u": "1",
+       "v": "1",
+       "floor": 6
+      }
+     ]
+    },
+    "finite": {
+     "ok": true,
+     "enumerated": 323,
+     "closed": 322,
+     "skipped": [
+      "1,2,3"
+     ],
+     "undecided": []
+    }
+   }
+  ]
+ },
+ "lambda4generic": {
+  "base": "0",
+  "posBase": "5",
+  "dip": "-8/5",
+  "exceptions": [
+   {
+    "label": "2a = d",
+    "delta": "1/2",
+    "example": {
+     "a": 3,
+     "b": 4,
+     "c": 5,
+     "d": 6
+    }
+   },
+   {
+    "label": "2b = d",
+    "delta": "1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 4
+    }
+   },
+   {
+    "label": "2c = a+d",
+    "delta": "-1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 5
+    }
+   },
+   {
+    "label": "2c = b+d",
+    "delta": "-1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 4
+    }
+   },
+   {
+    "label": "2c = d",
+    "delta": "7/5",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 6
+    }
+   },
+   {
+    "label": "3c = 2d",
+    "delta": "1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 4,
+     "d": 6
+    }
+   },
+   {
+    "label": "3c = d",
+    "delta": "-1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 9
+    }
+   },
+   {
+    "label": "a+2c = 2d",
+    "delta": "1/2",
+    "example": {
+     "a": 2,
+     "b": 3,
+     "c": 4,
+     "d": 5
+    }
+   },
+   {
+    "label": "a+2c = d",
+    "delta": "-1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 7
+    }
+   },
+   {
+    "label": "a+b = d",
+    "delta": "1",
+    "example": {
+     "a": 2,
+     "b": 3,
+     "c": 4,
+     "d": 5
+    }
+   },
+   {
+    "label": "a+c = d",
+    "delta": "5/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 4
+    }
+   },
+   {
+    "label": "b+2c = 2d",
+    "delta": "1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 4
+    }
+   },
+   {
+    "label": "b+2c = d",
+    "delta": "-1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 8
+    }
+   },
+   {
+    "label": "b+c = d",
+    "delta": "5/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 5
+    }
+   }
+  ],
+  "extremizerEscape": {
+   "active": [
+    "2b = d",
+    "2c = b+d",
+    "a+c = d",
+    "b+2c = 2d"
+   ],
+   "deltaSum": "3",
+   "note": "positive by inspection — the generic argument correctly fails on {1,2,3,4}"
+  },
+  "worklist": [
+   {
+    "family": "2a = d",
+    "delta": "1/2",
+    "example": {
+     "a": 3,
+     "b": 4,
+     "c": 5,
+     "d": 6
+    }
+   },
+   {
+    "family": "2b = d",
+    "delta": "1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 4
+    }
+   },
+   {
+    "family": "2c = d",
+    "delta": "7/5",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 6
+    }
+   },
+   {
+    "family": "3c = 2d",
+    "delta": "1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 4,
+     "d": 6
+    }
+   },
+   {
+    "family": "a+2c = 2d",
+    "delta": "1/2",
+    "example": {
+     "a": 2,
+     "b": 3,
+     "c": 4,
+     "d": 5
+    }
+   },
+   {
+    "family": "a+b = d",
+    "delta": "1",
+    "example": {
+     "a": 2,
+     "b": 3,
+     "c": 4,
+     "d": 5
+    }
+   },
+   {
+    "family": "a+c = d",
+    "delta": "5/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 4
+    }
+   },
+   {
+    "family": "b+2c = 2d",
+    "delta": "1/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 4
+    }
+   },
+   {
+    "family": "b+c = d",
+    "delta": "5/2",
+    "example": {
+     "a": 1,
+     "b": 2,
+     "c": 3,
+     "d": 5
+    }
+   }
+  ],
+  "closedFree": [
+   {
+    "family": "2c = a+d",
+    "delta": "-1/2"
+   },
+   {
+    "family": "2c = b+d",
+    "delta": "-1/2"
+   },
+   {
+    "family": "3c = d",
+    "delta": "-1/2"
+   },
+   {
+    "family": "a+2c = d",
+    "delta": "-1/2"
+   },
+   {
+    "family": "b+2c = d",
+    "delta": "-1/2"
+   }
+  ]
+ },
+ "meta": {
+  "date": "2026-09-01",
+  "git": "4ef1c13",
+  "ms": 25933
+ }
+}

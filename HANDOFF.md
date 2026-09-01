@@ -36,6 +36,25 @@ OPERATOR ACTS — nothing here needs a session, only a decision
      default-on. Both live pushes this session went out without an explicit
      per-push word.
 
+ACTIVE CAMPAIGN — lambda(4) as a THEOREM (opened 2026-09-01, operator: "start")
+
+  0. THE LAMBDA(4) CAMPAIGN, Phase 1: close the NINE families. Phase 0 is
+     BUILT and green (instruments/lambda4/, battery 20 checks + 8 red
+     controls, certs/lambda4-phase0.json): the engine re-derives Mercer's
+     lambda(2) and lambda(3) proofs mechanically at every run — exception
+     families DISCOVERED, thresholds a>=3, b>=3, b>=33 DERIVED — and the
+     Section-5 generic case reproduces his 14 exceptions exactly. THE PHASE-0
+     FINDING: five of the fourteen carry strictly negative delta, so the
+     generic argument closes them for free and the real reduction is NINE
+     families: d=2a, d=2b, d=2c, 2d=3c, 2d=2c+a, d=a+b, d=a+c, 2d=2c+b,
+     d=b+c. Each needs a second-level Section-5 move (dot product on the
+     family's own context, discovering ITS exceptions, recursing to 2-dof
+     then finite). The engine supports the recursion already (mixed-sign
+     forms, 2pi/3 anchors, arbitrary cone contexts). Start with d=2c and
+     2d=3c — the c-commensurate ones the scout priced as hardest. The row
+     lambda4-theorem in targets.json carries the full pricing; sin-mfg's
+     mercer-program probe holds the pinned paper.
+
 NEXT SESSION COULD BUILD — ranked, with the reason each is ranked there
 
   1. TERRAIN FOR THE GLIDE BAND (H1). The single most-asked question about
@@ -72,6 +91,47 @@ DO NOT REOPEN — `node tools/targets.js` carries the citation that killed each
   atlas of certified intervals. Seven afternoons already paid for.
 
 ────────────────────────────────────────────────────────────────────────────
+
+SESSION 2026-09-01 — THE LAMBDA(4) CAMPAIGN OPENS: PHASE 0 BUILT AND GREEN
+(operator: scout for a problem where the machine can produce a SOLUTION, not
+a certificate of someone else's number; then "start")
+
+  THE TARGET. Mercer (arXiv:1709.06612, INTEGERS 19 (2019) #A4, read at
+  source — PDF pinned in sin-mfg's mercer-program probe) proves lambda(2) and
+  lambda(3) on the finite front of Chowla's cosine problem / Erdős #510,
+  conjectures lambda(4) = -L(1,2,3,4) ~ 1.519558 at {1,2,3,4}, writes "the
+  current author is unaware of how to evaluate lambda(4)", and leaves the
+  strategy in his Section 5. Zero follow-up located in 7+ years; the only
+  citer is JMTZ on the asymptotic side. Occupancy clean. targets.json row:
+  lambda4-theorem.
+
+  WHAT WAS BUILT — instruments/lambda4/ (forms, dot, estimates, engine,
+  battery) + tools/run-lambda4-phase0.js + certs/lambda4-phase0.json:
+  · A symbolic inner-product engine over equispaced sets: exact rational,
+    piecewise over DISCOVERED collision conditions. Mixed-sign forms handled
+    under evenness (the t=0 vanishing case is real); Lemma 3.4 applied with
+    the hypothesis the textbook statement omits (<w,1>_S > 0, red-controlled).
+  · The Lemma 3.1/3.2/3.3 combinator with derived thresholds — pi enters only
+    as a directed rational enclosure from the bigfloat instrument; Lemma
+    3.3's pi/6 validity range carried as a floor.
+  · CALIBRATION IS THE GATE: the battery re-derives lambda(2) (N0=3 derived)
+    and ALL of lambda(3) (M0's three exception families discovered; a>=3,
+    b>=3, b>=33 derived; finite parts decided — 322 sets closed, (1,2,3) the
+    definitional witness) at every run, before the engine may touch lambda(4).
+  · THE PHASE-0 FINDING: the Section-5 generic case reproduces Mercer's 14
+    exceptions EXACTLY — and five carry strictly negative delta (2c=a+d,
+    2c=b+d, 3c=d, a+2c=d, b+2c=d), so the generic argument itself closes
+    them unless a positive-delta condition holds simultaneously. THE REAL
+    REDUCTION IS NINE FAMILIES, NOT FOURTEEN. Consistency held: {1,2,3,4}
+    activates four conditions summing to +3, so the argument correctly
+    cannot close the extremizer.
+
+  WHAT PHASE 1 IS: for each of the nine families, a second-level Section-5
+  move on the family's own cone context (the engine already supports 2pi/3
+  anchors, mixed-sign forms and arbitrary cone parametrizations), recursing
+  to 2-dof subfamilies and finite lists the certified instrument decides.
+  One resistant family kills the theorem — attack d=2c and 2d=3c first so
+  failure is cheap and early.
 
 SESSION 2026-08-31b — CHOWLA'S COSINE PROBLEM: MACHINERY BUILT, TARGET CLOSED
 (operator: "can we work more on Chowla's Cosine Problem? Consult sin-mfg" —
