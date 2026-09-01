@@ -63,7 +63,24 @@ const save = () => {
   const bigints = (k, v) => (typeof v === 'bigint' ? v.toString() : v);
   fs.writeFileSync(OUT, JSON.stringify(record, bigints, 1) + '\n');
 };
+/* ONLY=<substring> reruns just the matching stages, carrying every other
+   stage forward from the existing record UNCHANGED — an iteration tool for
+   family assembly. A full no-ONLY run (the one that counts) recomputes
+   everything; the battery checks the record whichever way it was written. */
+const ONLY = process.env.ONLY || null;
+if (ONLY) {
+  try {
+    const prev = JSON.parse(fs.readFileSync(OUT, 'utf8'));
+    record.stages = prev.stages || {};
+    console.log('  ONLY="' + ONLY + '": carrying ' + Object.keys(record.stages).length + ' recorded stages forward');
+  } catch (e) { console.log('  ONLY set but no existing record — running matching stages fresh'); }
+}
 const stage = (name, fn) => {
+  /* the calibration gate and the generic theorems always run — they are
+     cheap, they are the gate, and the family stages consume their output */
+  const always = name.includes('generic') || name.includes('calibration') || name === 'targets';
+  const wanted = !ONLY || ONLY.split('|').some(pat => name.includes(pat));
+  if (ONLY && !wanted && !always) return;
   const t = Date.now();
   try {
     record.stages[name] = Object.assign({ ok: true }, fn());
@@ -72,7 +89,7 @@ const stage = (name, fn) => {
   } catch (e) {
     failures++;
     record.stages[name] = { ok: false, error: e.message, ms: Date.now() - t };
-    console.log('  stage ' + name + ': FAILED — ' + e.message.slice(0, 120));
+    console.log('  stage ' + name + ': FAILED — ' + e.message.slice(0, 160));
   }
   save();
 };
@@ -800,6 +817,328 @@ stage('lambda6-family: b+e = f', () => {
       })
     }
   }, { target: L6, tol: 1e-10, cap: 21, topC: C6, rootConds: rootCondsOf(gen6) });
+});
+
+/* ---- lambda(6) family: a+e = f — the extremizer's family -------------------- */
+/* The deepest tree of the whole campaign. Its six sub-conditions are the
+   lambda(5) worklist one level down. THREE comb cores appear: the full
+   double sum system b+d = a+e = 2c = f, and two 3x=2f self-wrap cones
+   (3c = 2f under b+d = f, and the b+c = f slices of 3d = 2f, where the
+   atom's second harmonic wraps through the defining relation — the same
+   +lambda/4 obstruction, broken the same way). {1,2,4,6,7,8} is walled at
+   three leaves: c = 2b and b = 2a inside the core, and d = 3*gam inside
+   the b = gam slice of c+2d = 2f. */
+stage('lambda6-family: a+e = f', () => {
+  if (!gen6) throw new Error('lambda6-generic did not run');
+  const M = (names, mm) => ({ n: names.length, names, member: mm, defs: {} });
+  const K = (mm, skip) => ({ kind: 'auto', C: M(['x', 'y'], mm), skip: skip || [] });
+  const RAY = (A) => ({ kind: 'ray', A });
+  const P = (partLabel, node) => Object.assign(node, { partLabel });
+  const dotW = (C3, m, subs) => ({
+    kind: 'dot', C: C3, S: { order: C3.member.f, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C3.member[m] }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: Object.keys(C3.member).filter(x => x !== 'f'), anchored: ['f'], subs: subs || {}
+  });
+  const combW = (C3, subs) => {
+    const f1 = F.add(C3.member.a, C3.member.f), f2 = F.add(C3.member.b, C3.member.f);
+    const terms = [];
+    [1n, 1n].forEach((cj, j) => [5n, 7n, 5n].forEach((ck, k) =>
+      terms.push({ form: F.add(F.scale(f1, j), F.scale(f2, k)), coeff: Q.R(cj * ck, 1n) })));
+    return { kind: 'dot', C: C3, S: { order: C3.member.f, xi: D.XI_2PI3, Bmax: 18 },
+      W: [{ atom: { kind: 'sq', terms }, coeff: q(1) }],
+      gConst: q(7, 6), gMembers: Object.keys(C3.member).filter(x => x !== 'f'), anchored: ['f'],
+      witnessBox: 20, subs: subs || {} };
+  };
+  const W8 = [1, 2, 4, 6, 7, 8];
+  const C = F.ctx(['a', 'b', 'c', 'd', 'e'], { f: { a: 1, e: 1 } });
+
+  /* ---- S4: b+d = f, and inside it the core and 3c = 2f -------------------- */
+  const S4 = M(['a', 'u', 'v', 'w'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 0n, 0n], c: [1n, 1n, 1n, 0n], d: [1n, 1n, 1n, 1n], e: [1n, 2n, 1n, 1n], f: [2n, 2n, 1n, 1n] });
+  const CORE = M(['a', 'u', 'v'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [1n, 1n, 1n], d: [1n, 1n, 2n], e: [1n, 2n, 2n], f: [2n, 2n, 2n] });
+  const coreVeqA = K({ a: [1n, 0n], b: [1n, 1n], c: [2n, 1n], d: [3n, 1n], e: [3n, 2n], f: [4n, 2n] });   /* v = a: keys [2,0,-2] and [1,0,-1] */
+  const S42 = M(['a', 'i', 'j'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [2n, 2n, 2n], d: [2n, 2n, 3n], e: [2n, 3n, 3n], f: [3n, 3n, 3n] });
+  const S4node = dotW(S4, 'c', {
+    '0,0,1,-1': combW(CORE, {                                 /* 2c = f: THE CORE */
+      '2,0,-2': coreVeqA, '1,0,-1': coreVeqA,
+      '1,-1,-2': K({ a: [1n, 2n], b: [2n, 2n], c: [2n, 3n], d: [2n, 4n], e: [3n, 4n], f: [4n, 6n] }),
+      '1,1,-1': K({ a: [1n, 0n], b: [1n, 1n], c: [2n, 2n], d: [3n, 3n], e: [3n, 4n], f: [4n, 4n] }, [W8]),   /* c = 2b: WALL */
+      '1,1,-2': { kind: 'split', parts: [
+        P('a<v', K({ a: [1n, 0n], b: [2n, 2n], c: [3n, 3n], d: [4n, 4n], e: [5n, 6n], f: [6n, 6n] })),
+        P('a=v', RAY([1, 2, 3, 4, 5, 6])),
+        P('a>v', K({ a: [2n, 1n], b: [2n, 2n], c: [3n, 3n], d: [4n, 4n], e: [4n, 5n], f: [6n, 6n] }))
+      ] },
+      '1,0,-2': K({ a: [2n, 0n], b: [2n, 1n], c: [3n, 1n], d: [4n, 1n], e: [4n, 2n], f: [6n, 2n] }),
+      '2,1,-1': K({ a: [1n, 0n], b: [1n, 1n], c: [3n, 2n], d: [5n, 3n], e: [5n, 4n], f: [6n, 4n] }),
+      '2,1,-2': K({ a: [1n, 0n], b: [1n, 2n], c: [2n, 3n], d: [3n, 4n], e: [3n, 6n], f: [4n, 6n] }),
+      '1,-1,0': K({ a: [1n, 0n], b: [2n, 0n], c: [2n, 1n], d: [2n, 2n], e: [3n, 2n], f: [4n, 2n] }, [W8])    /* b = 2a: WALL */
+    }),
+    '1,1,-1,2': combW(S42, {                                  /* 3c = 2f: self-wrap core */
+      '1,-1,-3': K({ a: [1n, 3n], b: [2n, 3n], c: [4n, 8n], d: [4n, 9n], e: [5n, 9n], f: [6n, 12n] }),
+      '1,1,-1': K({ a: [1n, 0n], b: [1n, 1n], c: [4n, 4n], d: [5n, 5n], e: [5n, 6n], f: [6n, 6n] }),
+      '1,0,-2': K({ a: [2n, 0n], b: [2n, 1n], c: [6n, 2n], d: [7n, 2n], e: [7n, 3n], f: [9n, 3n] }),
+      '1,0,-3': K({ a: [3n, 0n], b: [3n, 1n], c: [8n, 2n], d: [9n, 2n], e: [9n, 3n], f: [12n, 3n] }),
+      '1,0,-1': K({ a: [1n, 0n], b: [1n, 1n], c: [4n, 2n], d: [5n, 2n], e: [5n, 3n], f: [6n, 3n] }),
+      '1,-1,0': K({ a: [1n, 0n], b: [2n, 0n], c: [4n, 2n], d: [4n, 3n], e: [5n, 3n], f: [6n, 3n] })
+    })
+  });
+
+  /* ---- S3: b+2d = 2f (b = 2*be, f = d+be, e = d+be-a) --------------------- */
+  const S3 = M(['a', 'i', 'q', 's'], { a: [1n, 0n, 0n, 0n], b: [2n, 2n, 0n, 0n], c: [2n, 2n, 1n, 0n], d: [2n, 2n, 1n, 1n], e: [2n, 3n, 1n, 1n], f: [3n, 3n, 1n, 1n] });
+  const S32 = M(['a', 'i', 's'], { a: [1n, 0n, 0n], b: [2n, 2n, 0n], c: [4n, 4n, 0n], d: [4n, 4n, 1n], e: [4n, 5n, 1n], f: [5n, 5n, 1n] });
+  const s32SeqBeta = K({ a: [1n, 0n], b: [2n, 2n], c: [4n, 4n], d: [5n, 5n], e: [5n, 6n], f: [6n, 6n] });   /* s = be: keys [1,1,-1] and [2,2,-2] */
+  const S3node = dotW(S3, 'b', {
+    '1,1,-1,-1': { kind: 'split', parts: [                    /* 2d = 3b */
+      P('a<q', dotW(M(['a', 'x', 's'], { a: [1n, 0n, 0n], b: [2n, 2n, 2n], c: [3n, 3n, 2n], d: [3n, 3n, 3n], e: [3n, 4n, 4n], f: [4n, 4n, 4n] }), 'd')),
+      P('a=q', dotW(M(['a', 's'], { a: [1n, 0n], b: [2n, 2n], c: [3n, 2n], d: [3n, 3n], e: [3n, 4n], f: [4n, 4n] }), 'd')),
+      P('a>q', dotW(M(['q', 'k', 'l'], { a: [1n, 1n, 0n], b: [2n, 2n, 2n], c: [3n, 2n, 2n], d: [3n, 3n, 3n], e: [3n, 3n, 4n], f: [4n, 4n, 4n] }), 'd'))
+    ] },
+    '2,2,-1,0': dotW(S32, 'c', {                              /* c = 2b */
+      '1,1,-1': s32SeqBeta, '2,2,-2': s32SeqBeta,
+      '2,2,-1': K({ a: [1n, 0n], b: [2n, 2n], c: [4n, 4n], d: [6n, 6n], e: [6n, 7n], f: [7n, 7n] }),
+      '3,3,-1': K({ a: [1n, 0n], b: [2n, 2n], c: [4n, 4n], d: [7n, 7n], e: [7n, 8n], f: [8n, 8n] }),
+      '4,4,-1': K({ a: [1n, 0n], b: [2n, 2n], c: [4n, 4n], d: [8n, 8n], e: [8n, 9n], f: [9n, 9n] })
+    }),
+    '2,2,-1,-1': { kind: 'split', parts: [                    /* d = 2b, on q vs be and a */
+      P('q<be, a<q', dotW(M(['a', 'x', 'r'], { a: [1n, 0n, 0n], b: [2n, 2n, 2n], c: [3n, 3n, 2n], d: [4n, 4n, 4n], e: [4n, 5n, 5n], f: [5n, 5n, 5n] }), 'c', {
+        '1,1,-1': K({ a: [1n, 0n], b: [4n, 4n], c: [5n, 5n], d: [8n, 8n], e: [9n, 10n], f: [10n, 10n] }) })),
+      P('q<be, a=q', K({ a: [1n, 0n], b: [2n, 2n], c: [3n, 2n], d: [4n, 4n], e: [4n, 5n], f: [5n, 5n] })),
+      P('q<be, a>q', dotW(M(['q', 't', 'u'], { a: [1n, 1n, 0n], b: [2n, 2n, 2n], c: [3n, 2n, 2n], d: [4n, 4n, 4n], e: [4n, 4n, 5n], f: [5n, 5n, 5n] }), 'c', {
+        '1,-1,-1': K({ a: [2n, 1n], b: [4n, 4n], c: [5n, 5n], d: [8n, 8n], e: [8n, 9n], f: [10n, 10n] }) })),
+      P('q=be', K({ a: [1n, 0n], b: [2n, 2n], c: [3n, 3n], d: [4n, 4n], e: [4n, 5n], f: [5n, 5n] })),
+      P('q>be, a<v', dotW(M(['a', 'y', 'w'], { a: [1n, 0n, 0n], b: [2n, 2n, 2n], c: [4n, 4n, 3n], d: [4n, 4n, 4n], e: [4n, 5n, 5n], f: [5n, 5n, 5n] }), 'c', {
+        '2,2,-1': K({ a: [1n, 0n], b: [6n, 6n], c: [10n, 10n], d: [12n, 12n], e: [14n, 15n], f: [15n, 15n] }) })),
+      P('q>be, a=v', K({ a: [1n, 0n], b: [2n, 2n], c: [4n, 3n], d: [4n, 4n], e: [4n, 5n], f: [5n, 5n] })),
+      P('q>be, a>v', dotW(M(['v', 't2', 'z'], { a: [1n, 1n, 0n], b: [2n, 2n, 2n], c: [4n, 3n, 3n], d: [4n, 4n, 4n], e: [4n, 4n, 5n], f: [5n, 5n, 5n] }), 'c', {
+        '2,-1,-1': { kind: 'split', parts: [
+          P('t2<v', K({ a: [2n, 1n], b: [6n, 6n], c: [10n, 10n], d: [12n, 12n], e: [13n, 14n], f: [15n, 15n] })),
+          P('t2=v', RAY([2, 6, 10, 12, 13, 15])),
+          P('t2>v', K({ a: [3n, 2n], b: [6n, 6n], c: [10n, 10n], d: [12n, 12n], e: [12n, 13n], f: [15n, 15n] }))
+        ] } }))
+    ] },
+    '1,1,0,-1': dotW(M(['a', 'i', 'q'], { a: [1n, 0n, 0n], b: [2n, 2n, 0n], c: [2n, 2n, 1n], d: [3n, 3n, 1n], e: [3n, 4n, 1n], f: [4n, 4n, 1n] }), 'd')  /* f = b+c: d floats free */
+  });
+
+  /* ---- S5: c+2d = 2f (c = 2*gam, f = d+gam, e = d+gam-a), 5-cone split ---- */
+  const S5iii = M(['a', 'm', 'i', 's'], { a: [1n, 0n, 0n, 0n], b: [2n, 2n, 1n, 0n], c: [2n, 2n, 2n, 0n], d: [2n, 2n, 2n, 1n], e: [2n, 3n, 3n, 1n], f: [3n, 3n, 3n, 1n] });
+  const S5v = M(['w', 'k', 'l', 's'], { a: [1n, 1n, 0n, 0n], b: [2n, 1n, 1n, 0n], c: [2n, 2n, 2n, 0n], d: [2n, 2n, 2n, 1n], e: [2n, 2n, 3n, 1n], f: [3n, 3n, 3n, 1n] });
+  const S5node = { kind: 'split', parts: [
+    P('b<gam', dotW(M(['a', 'p', 'r', 's'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 0n, 0n], c: [2n, 2n, 2n, 0n], d: [2n, 2n, 2n, 1n], e: [2n, 3n, 3n, 1n], f: [3n, 3n, 3n, 1n] }), 'b')),
+    P('b=gam (extremizer)', dotW(M(['a', 'p', 's'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [2n, 2n, 0n], d: [2n, 2n, 1n], e: [2n, 3n, 1n], f: [3n, 3n, 1n] }), 'c', {
+      '1,1,-1': K({ a: [1n, 0n], b: [1n, 1n], c: [2n, 2n], d: [3n, 3n], e: [3n, 4n], f: [4n, 4n] }, [W8])   /* d = 3gam: WALL */
+    })),
+    P('gam<b, a<w', dotW(S5iii, 'b', {
+      '1,1,-1,-1': { kind: 'split', parts: [
+        P('i<a', dotW(M(['i', 'k', 'm'], { a: [1n, 1n, 0n], b: [3n, 2n, 2n], c: [4n, 2n, 2n], d: [4n, 3n, 3n], e: [5n, 3n, 4n], f: [6n, 4n, 4n] }), 'c')),
+        P('i=a', K({ a: [1n, 0n], b: [3n, 2n], c: [4n, 2n], d: [4n, 3n], e: [5n, 4n], f: [6n, 4n] })),
+        P('i>a', dotW(M(['a', 'j', 'n'], { a: [1n, 0n, 0n], b: [3n, 3n, 2n], c: [4n, 4n, 2n], d: [4n, 4n, 3n], e: [5n, 6n, 4n], f: [6n, 6n, 4n] }), 'c'))
+      ] },
+      '2,2,0,-1': dotW(M(['a', 'm', 'i'], { a: [1n, 0n, 0n], b: [2n, 2n, 1n], c: [2n, 2n, 2n], d: [4n, 4n, 2n], e: [4n, 5n, 3n], f: [5n, 5n, 3n] }), 'c', {
+        '1,1,-1': K({ a: [1n, 0n], b: [3n, 3n], c: [4n, 4n], d: [6n, 6n], e: [7n, 8n], f: [8n, 8n] }) }),
+      '1,1,0,-1': dotW(M(['a', 'm', 'i'], { a: [1n, 0n, 0n], b: [2n, 2n, 1n], c: [2n, 2n, 2n], d: [3n, 3n, 2n], e: [3n, 4n, 3n], f: [4n, 4n, 3n] }), 'd')
+    })),
+    P('gam<b, a=w', dotW(M(['w', 'i', 's'], { a: [1n, 0n, 0n], b: [2n, 1n, 0n], c: [2n, 2n, 0n], d: [2n, 2n, 1n], e: [2n, 3n, 1n], f: [3n, 3n, 1n] }), 'b', {
+      '1,-1,-1': K({ a: [1n, 1n], b: [3n, 2n], c: [4n, 2n], d: [4n, 3n], e: [5n, 3n], f: [6n, 4n] }),
+      '2,0,-1': K({ a: [1n, 0n], b: [2n, 1n], c: [2n, 2n], d: [4n, 2n], e: [4n, 3n], f: [5n, 3n] }),
+      '1,0,-1': K({ a: [1n, 0n], b: [2n, 1n], c: [2n, 2n], d: [3n, 2n], e: [3n, 3n], f: [4n, 3n] })
+    })),
+    P('gam<b, w<a<gam', dotW(S5v, 'b', {
+      '1,-1,-1,-1': dotW(M(['k', 'l', 's'], { a: [2n, 1n, 1n], b: [3n, 3n, 2n], c: [4n, 4n, 2n], d: [4n, 4n, 3n], e: [4n, 5n, 3n], f: [6n, 6n, 4n] }), 'c'),
+      '2,0,0,-1': dotW(M(['w', 'k', 'l'], { a: [1n, 1n, 0n], b: [2n, 1n, 1n], c: [2n, 2n, 2n], d: [4n, 2n, 2n], e: [4n, 2n, 3n], f: [5n, 3n, 3n] }), 'c', {
+        '1,-1,-1': K({ a: [2n, 1n], b: [3n, 3n], c: [4n, 4n], d: [6n, 6n], e: [6n, 7n], f: [8n, 8n] }) }),
+      '1,0,0,-1': dotW(M(['w', 'k', 'l'], { a: [1n, 1n, 0n], b: [2n, 1n, 1n], c: [2n, 2n, 2n], d: [3n, 2n, 2n], e: [3n, 2n, 3n], f: [4n, 3n, 3n] }), 'd')
+    }))
+  ] };
+
+  /* ---- S2: 3d = 2f, the 15-cone split ------------------------------------- */
+  const S2node = { kind: 'split', parts: [
+    P('R1 c<dl', dotW(M(['a', 'p', 'q', 'r'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 0n, 0n], c: [1n, 1n, 1n, 0n], d: [2n, 2n, 2n, 2n], e: [2n, 3n, 3n, 3n], f: [3n, 3n, 3n, 3n] }), 'c')),
+    P('R2 c=dl', dotW(M(['a', 'p', 'q'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [1n, 1n, 1n], d: [2n, 2n, 2n], e: [2n, 3n, 3n], f: [3n, 3n, 3n] }), 'b')),
+    P('R3a w<a', dotW(M(['w', 'k', 'p', 'i'], { a: [1n, 1n, 0n, 0n], b: [1n, 1n, 1n, 0n], c: [2n, 1n, 1n, 1n], d: [2n, 2n, 2n, 2n], e: [2n, 2n, 3n, 3n], f: [3n, 3n, 3n, 3n] }), 'b', {
+      '0,1,1,-1': dotW(M(['w', 'k', 'p'], { a: [1n, 1n, 0n], b: [1n, 1n, 1n], c: [2n, 2n, 2n], d: [2n, 4n, 4n], e: [2n, 5n, 6n], f: [3n, 6n, 6n] }), 'c', {
+        '1,-2,-2': K({ a: [3n, 2n], b: [3n, 3n], c: [6n, 6n], d: [8n, 8n], e: [9n, 10n], f: [12n, 12n] }) }) })),
+    P('R3b w=a', dotW(M(['a', 'p', 'i'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [2n, 1n, 1n], d: [2n, 2n, 2n], e: [2n, 3n, 3n], f: [3n, 3n, 3n] }), 'b', {
+      '0,1,-1': K({ a: [1n, 0n], b: [1n, 1n], c: [2n, 2n], d: [2n, 4n], e: [2n, 6n], f: [3n, 6n] }) })),
+    P('R3c a<w<b', dotW(M(['a', 'm', 'j', 'i'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 1n, 0n], c: [2n, 2n, 1n, 1n], d: [2n, 2n, 2n, 2n], e: [2n, 3n, 3n, 3n], f: [3n, 3n, 3n, 3n] }), 'b', {
+      '0,0,1,-1': dotW(M(['a', 'm', 'j'], { a: [1n, 0n, 0n], b: [1n, 1n, 1n], c: [2n, 2n, 2n], d: [2n, 2n, 4n], e: [2n, 3n, 6n], f: [3n, 3n, 6n] }), 'c', {
+        '1,1,-2': { kind: 'split', parts: [
+          P('a<j', K({ a: [1n, 0n], b: [3n, 3n], c: [6n, 6n], d: [8n, 8n], e: [11n, 12n], f: [12n, 12n] })),
+          P('a=j', RAY([1, 3, 6, 8, 11, 12])),
+          P('a>j', K({ a: [2n, 1n], b: [3n, 3n], c: [6n, 6n], d: [8n, 8n], e: [10n, 11n], f: [12n, 12n] }))
+        ] } }) })),
+    P('R3d w=b', dotW(M(['a', 'p', 'i'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [2n, 2n, 1n], d: [2n, 2n, 2n], e: [2n, 3n, 3n], f: [3n, 3n, 3n] }), 'b')),
+    P('R3e b<w<dl', dotW(M(['a', 'p', 'm', 'i'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 0n, 0n], c: [2n, 2n, 2n, 1n], d: [2n, 2n, 2n, 2n], e: [2n, 3n, 3n, 3n], f: [3n, 3n, 3n, 3n] }), 'b')),
+    P('R4a w<a', dotW(M(['w', 'k', 'i'], { a: [1n, 1n, 0n], b: [1n, 1n, 1n], c: [2n, 1n, 1n], d: [2n, 2n, 2n], e: [2n, 2n, 3n], f: [3n, 3n, 3n] }), 'c', {
+      '1,-1,-1': K({ a: [2n, 1n], b: [2n, 2n], c: [3n, 3n], d: [4n, 4n], e: [4n, 5n], f: [6n, 6n] }) })),
+    P('R4b w=a', dotW(M(['a', 'i'], { a: [1n, 0n], b: [1n, 1n], c: [2n, 1n], d: [2n, 2n], e: [2n, 3n], f: [3n, 3n] }), 'c', {
+      '1,-1': RAY([1, 2, 3, 4, 5, 6]) })),
+    P('R4c a<w', dotW(M(['a', 'm', 'i'], { a: [1n, 0n, 0n], b: [1n, 1n, 1n], c: [2n, 2n, 1n], d: [2n, 2n, 2n], e: [2n, 3n, 3n], f: [3n, 3n, 3n] }), 'c', {
+      '1,1,-1': K({ a: [1n, 0n], b: [2n, 2n], c: [3n, 3n], d: [4n, 4n], e: [5n, 6n], f: [6n, 6n] }) })),
+    P('R5a a<v', dotW(M(['a', 'k', 'm', 'j'], { a: [1n, 0n, 0n, 0n], b: [2n, 2n, 1n, 1n], c: [2n, 2n, 2n, 1n], d: [2n, 2n, 2n, 2n], e: [2n, 3n, 3n, 3n], f: [3n, 3n, 3n, 3n] }), 'b', {
+      '1,1,-1,-1': { kind: 'split', parts: [
+        P('a<m', dotW(M(['a', 't', 'j'], { a: [1n, 0n, 0n], b: [3n, 3n, 3n], c: [4n, 4n, 3n], d: [4n, 4n, 4n], e: [5n, 6n, 6n], f: [6n, 6n, 6n] }), 'c')),
+        P('a=m', K({ a: [1n, 0n], b: [3n, 3n], c: [4n, 3n], d: [4n, 4n], e: [5n, 6n], f: [6n, 6n] })),
+        P('a>m', dotW(M(['m', 't2', 'u'], { a: [1n, 1n, 0n], b: [3n, 3n, 3n], c: [4n, 3n, 3n], d: [4n, 4n, 4n], e: [5n, 5n, 6n], f: [6n, 6n, 6n] }), 'c'))
+      ] },
+      '1,1,0,-1': combW(M(['a', 'k', 'm'], { a: [1n, 0n, 0n], b: [3n, 3n, 1n], c: [3n, 3n, 2n], d: [4n, 4n, 2n], e: [5n, 6n, 3n], f: [6n, 6n, 3n] }), {
+        '2,0,-1': K({ a: [1n, 0n], b: [5n, 3n], c: [7n, 3n], d: [8n, 4n], e: [11n, 6n], f: [12n, 6n] }),
+        '1,0,-1': K({ a: [1n, 0n], b: [4n, 3n], c: [5n, 3n], d: [6n, 4n], e: [8n, 6n], f: [9n, 6n] })
+      }) })),
+    P('R5b a=v', dotW(M(['a', 'm', 'j'], { a: [1n, 0n, 0n], b: [2n, 1n, 1n], c: [2n, 2n, 1n], d: [2n, 2n, 2n], e: [2n, 3n, 3n], f: [3n, 3n, 3n] }), 'b', {
+      '1,-1,-1': K({ a: [1n, 1n], b: [3n, 3n], c: [4n, 3n], d: [4n, 4n], e: [5n, 5n], f: [6n, 6n] }),
+      '1,0,-1': K({ a: [1n, 0n], b: [3n, 1n], c: [3n, 2n], d: [4n, 2n], e: [5n, 3n], f: [6n, 3n] })
+    })),
+    P('R5c v<a<w', dotW(M(['v', 'k', 'mm', 'j'], { a: [1n, 1n, 0n, 0n], b: [2n, 1n, 1n, 1n], c: [2n, 2n, 2n, 1n], d: [2n, 2n, 2n, 2n], e: [2n, 2n, 3n, 3n], f: [3n, 3n, 3n, 3n] }), 'b', {
+      '1,-1,-1,-1': dotW(M(['k', 'mm', 'j'], { a: [2n, 1n, 1n], b: [3n, 3n, 3n], c: [4n, 4n, 3n], d: [4n, 4n, 4n], e: [4n, 5n, 5n], f: [6n, 6n, 6n] }), 'c'),
+      '1,0,0,-1': combW(M(['v', 'k', 'mm'], { a: [1n, 1n, 0n], b: [3n, 1n, 1n], c: [3n, 2n, 2n], d: [4n, 2n, 2n], e: [5n, 2n, 3n], f: [6n, 3n, 3n] }), {
+        '1,-1,1': K({ a: [2n, 1n], b: [4n, 2n], c: [5n, 4n], d: [6n, 4n], e: [7n, 5n], f: [9n, 6n] }),
+        '2,1,-1': K({ a: [1n, 1n], b: [5n, 2n], c: [7n, 4n], d: [8n, 4n], e: [11n, 5n], f: [12n, 6n] }),
+        '1,0,-1': K({ a: [1n, 1n], b: [4n, 1n], c: [5n, 2n], d: [6n, 2n], e: [8n, 2n], f: [9n, 3n] })
+      }) })),
+    P('R5d a=w', dotW(M(['v', 'm', 'j'], { a: [1n, 1n, 0n], b: [2n, 1n, 1n], c: [2n, 2n, 1n], d: [2n, 2n, 2n], e: [2n, 2n, 3n], f: [3n, 3n, 3n] }), 'b', {
+      '1,-1,-1': K({ a: [2n, 1n], b: [3n, 3n], c: [4n, 3n], d: [4n, 4n], e: [4n, 5n], f: [6n, 6n] }),
+      '1,0,-1': K({ a: [1n, 1n], b: [3n, 1n], c: [3n, 2n], d: [4n, 2n], e: [5n, 2n], f: [6n, 3n] })
+    })),
+    P('R5e w<a<dl', dotW(M(['v', 'm', 'k', 'j'], { a: [1n, 1n, 1n, 0n], b: [2n, 1n, 1n, 1n], c: [2n, 2n, 1n, 1n], d: [2n, 2n, 2n, 2n], e: [2n, 2n, 2n, 3n], f: [3n, 3n, 3n, 3n] }), 'b', {
+      '1,-1,-1,-1': dotW(M(['m', 'k', 'j'], { a: [2n, 2n, 1n], b: [3n, 3n, 3n], c: [4n, 3n, 3n], d: [4n, 4n, 4n], e: [4n, 4n, 5n], f: [6n, 6n, 6n] }), 'c'),
+      '1,0,-1,-1': combW(M(['m', 'k', 'j'], { a: [1n, 2n, 1n], b: [1n, 3n, 3n], c: [2n, 3n, 3n], d: [2n, 4n, 4n], e: [2n, 4n, 5n], f: [3n, 6n, 6n] }), {
+        '0,1,-1': K({ a: [1n, 3n], b: [1n, 6n], c: [2n, 6n], d: [2n, 8n], e: [2n, 9n], f: [3n, 12n] }),
+        '1,1,-1': K({ a: [2n, 3n], b: [4n, 6n], c: [5n, 6n], d: [6n, 8n], e: [7n, 9n], f: [9n, 12n] })
+      }) }))
+  ] };
+
+  return CL.closeFamily(rootKeyOf(gen6, 'a+e = f'), {
+    kind: 'dot', familyLabel: 'a+e = f', C,
+    S: { order: C.member.f, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C.member.d }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: ['a', 'b', 'c', 'd', 'e'], anchored: ['f'],
+    subs: {
+      '0,1,1,1,-1': dotW(M(['a', 'u', 'v', 'w'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 0n, 0n], c: [1n, 1n, 1n, 0n], d: [1n, 1n, 1n, 1n], e: [1n, 2n, 2n, 2n], f: [2n, 2n, 2n, 2n] }), 'c'),   /* 2d = f */
+      '1,-1,-1,-1,2': S2node,                                 /* 3d = 2f */
+      '1,-1,0,0,2': S3node,                                   /* b+2d = 2f */
+      '0,1,0,0,-1': S4node,                                   /* b+d = f: extremizer */
+      '1,-1,-1,0,2': S5node,                                  /* c+2d = 2f: extremizer */
+      '0,1,1,0,-1': dotW(M(['a', 'u', 'v', 'w'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 0n, 0n], c: [1n, 1n, 1n, 0n], d: [1n, 1n, 1n, 1n], e: [1n, 2n, 2n, 1n], f: [2n, 2n, 2n, 1n] }), 'b')    /* c+d = f */
+    }
+  }, { target: L6, tol: 1e-10, cap: 30, topC: C6, rootConds: rootCondsOf(gen6) });
+});
+
+/* ---- the interleave generator for parity-family roots ----------------------- */
+/* single definition in instruments/lambda56/close.js — the generator is part
+   of the certified driver, not runner-local convenience */
+const { parityCones, parityMatrix } = CL;
+const vadd = (u, v) => u.map((x, i) => x + v[i]);
+const vscale = (u, s) => u.map(x => x * BigInt(s));
+
+/* ---- lambda(6): the four remaining parity families, auto-closed ------------- */
+stage('lambda6-family: b+2e = 2f', () => {
+  if (!gen6) throw new Error('lambda6-generic did not run');
+  /* b = 2*be, f = e+be; below-2be members: {a}; c,d,e free above 2be */
+  const parts = parityCones(['a']).map((cone) => ({
+    kind: 'autoClose', partLabel: cone.label,
+    C: parityMatrix(cone, ['a'], 3, (formOf, eps, tail, nP) => {
+      const b = vscale(eps, 2);
+      const c = vadd(b, tail(0)), d = vadd(c, tail(1)), e = vadd(d, tail(2));
+      return { n: nP, names: Array.from({ length: nP }, (_, i) => 'x' + i),
+        member: { a: formOf('a'), b, c, d, e, f: vadd(e, eps) }, defs: {} };
+    })
+  }));
+  return CL.closeFamily(rootKeyOf(gen6, 'b+2e = 2f'), { kind: 'split', familyLabel: 'b+2e = 2f', parts },
+    { target: L6, tol: 1e-10, cap: 24, topC: C6, rootConds: rootCondsOf(gen6), witness: [1, 2, 4, 6, 7, 8] });
+});
+
+stage('lambda6-family: c+2e = 2f', () => {
+  if (!gen6) throw new Error('lambda6-generic did not run');
+  /* c = 2*gam, f = e+gam; below: {a,b}; d,e free above 2gam */
+  const parts = parityCones(['a', 'b']).map((cone) => ({
+    kind: 'autoClose', partLabel: cone.label,
+    C: parityMatrix(cone, ['a', 'b'], 2, (formOf, eps, tail, nP) => {
+      const c = vscale(eps, 2);
+      const d = vadd(c, tail(0)), e = vadd(d, tail(1));
+      return { n: nP, names: Array.from({ length: nP }, (_, i) => 'x' + i),
+        member: { a: formOf('a'), b: formOf('b'), c, d, e, f: vadd(e, eps) }, defs: {} };
+    })
+  }));
+  return CL.closeFamily(rootKeyOf(gen6, 'c+2e = 2f'), { kind: 'split', familyLabel: 'c+2e = 2f', parts },
+    { target: L6, tol: 1e-10, cap: 24, topC: C6, rootConds: rootCondsOf(gen6) });
+});
+
+stage('lambda6-family: d+2e = 2f', () => {
+  if (!gen6) throw new Error('lambda6-generic did not run');
+  /* d = 2*dl, f = e+dl; below: {a,b,c}; e free above 2dl */
+  const parts = parityCones(['a', 'b', 'c']).map((cone) => ({
+    kind: 'autoClose', partLabel: cone.label,
+    C: parityMatrix(cone, ['a', 'b', 'c'], 1, (formOf, eps, tail, nP) => {
+      const d = vscale(eps, 2);
+      const e = vadd(d, tail(0));
+      return { n: nP, names: Array.from({ length: nP }, (_, i) => 'x' + i),
+        member: { a: formOf('a'), b: formOf('b'), c: formOf('c'), d, e, f: vadd(e, eps) }, defs: {} };
+    })
+  }));
+  return CL.closeFamily(rootKeyOf(gen6, 'd+2e = 2f'), { kind: 'split', familyLabel: 'd+2e = 2f', parts },
+    { target: L6, tol: 1e-10, cap: 24, topC: C6, rootConds: rootCondsOf(gen6) });
+});
+
+stage('lambda6-family: 3e = 2f', () => {
+  if (!gen6) throw new Error('lambda6-generic did not run');
+  /* e = 2*ep, f = 3*ep; below: {a,b,c,d} — the widest triangulation of the
+     whole campaign, generated, not hand-written */
+  const parts = parityCones(['a', 'b', 'c', 'd']).map((cone) => ({
+    kind: 'autoClose', partLabel: cone.label,
+    C: parityMatrix(cone, ['a', 'b', 'c', 'd'], 0, (formOf, eps, tail, nP) => ({
+      n: nP, names: Array.from({ length: nP }, (_, i) => 'x' + i),
+      member: { a: formOf('a'), b: formOf('b'), c: formOf('c'), d: formOf('d'),
+        e: vscale(eps, 2), f: vscale(eps, 3) }, defs: {} })
+    )
+  }));
+  return CL.closeFamily(rootKeyOf(gen6, '3e = 2f'), { kind: 'split', familyLabel: '3e = 2f', parts },
+    { target: L6, tol: 1e-10, cap: 24, topC: C6, rootConds: rootCondsOf(gen6) });
+});
+
+/* ---- lambda(6) family: a+2e = 2f ------------------------------------------- */
+/* a = 2*al, f = e+al. Six of the eight conditions fall to the mechanical
+   shapes; d = 2a and e = 2a are midpoint splits around 3*al — the same
+   interleave generator as the parity roots, with a shifted reconstruction
+   (below members are 2*al + value, above members 3*al + offset). */
+stage('lambda6-family: a+2e = 2f', () => {
+  if (!gen6) throw new Error('lambda6-generic did not run');
+  const C = { n: 5, names: ['al', 'p', 'q', 'r', 's'], member: {
+    a: [2n, 0n, 0n, 0n, 0n], b: [2n, 1n, 0n, 0n, 0n], c: [2n, 1n, 1n, 0n, 0n],
+    d: [2n, 1n, 1n, 1n, 0n], e: [2n, 1n, 1n, 1n, 1n], f: [3n, 1n, 1n, 1n, 1n] }, defs: {} };
+  /* midpoint splits: members `mids` live in (2al, k*al top end); everything
+     reconstructs from the interleave of their below-3al values and
+     above-3al offsets, with alpha = eps of the generator */
+  const midSplit = (mids, fixed) => parityCones(mids).map((cone) => ({
+    kind: 'autoClose', partLabel: cone.label,
+    C: parityMatrix(cone, mids, fixed.nExtra, (formOf, alpha, tail, nP) => {
+      /* value v: member = 2al + v; tie: 2al + al = 3al; offset o: the
+         generator's formOf already returns al + o, so member = 2al + (al+o)
+         = 3al + o — one uniform rule for all three kinds */
+      const mm = { a: vscale(alpha, 2) };
+      for (const nm of mids) mm[nm] = vadd(vscale(alpha, 2), formOf(nm));
+      return fixed.finish(mm, alpha, tail, nP);
+    })
+  }));
+
+  return CL.closeFamily(rootKeyOf(gen6, 'a+2e = 2f'), {
+    kind: 'autoClose', familyLabel: 'a+2e = 2f', C,
+    manual: {
+      '2,-1,-1,-1,0': { kind: 'split', parts: midSplit(['b', 'c'], {
+        nExtra: 1,
+        finish: (mm, alpha, tail, nP) => {
+          mm.d = vscale(alpha, 4);
+          mm.e = vadd(mm.d, tail(0));
+          mm.f = vadd(mm.e, alpha);
+          return { n: nP, names: Array.from({ length: nP }, (_, i) => 'y' + i), member: mm, defs: {} };
+        } }) },
+      '2,-1,-1,-1,-1': { kind: 'split', parts: midSplit(['b', 'c', 'd'], {
+        nExtra: 0,
+        finish: (mm, alpha, tail, nP) => {
+          mm.e = vscale(alpha, 4);
+          mm.f = vscale(alpha, 5);
+          return { n: nP, names: Array.from({ length: nP }, (_, i) => 'y' + i), member: mm, defs: {} };
+        } }) }
+    }
+  }, { target: L6, tol: 1e-10, cap: 26, topC: C6, rootConds: rootCondsOf(gen6) });
 });
 
 save();

@@ -36,44 +36,54 @@ OPERATOR ACTS — nothing here needs a session, only a decision
      default-on. Both live pushes this session went out without an explicit
      per-push word.
 
-ASSIGNED NEXT — FINISH LAMBDA(6) (continuing the operator's 2026-09-01
-assignment; session g closed ALL OF LAMBDA(5) and opened lambda(6)):
+ASSIGNED NEXT — THE TERRA PORT (operator, 2026-09-01, "full port as
+priority"): frontier-apps/experiments/terra holds a certified MFG
+peak-splitting finding (audited in full this session, main specimen
+independently re-derived from its record). THE PLAN IS TERRA-PORT.md AT
+REPO ROOT — read it before touching anything; targets row: terra-port.
+RE-INSPECT frontier-apps first (it was still updating during the audit).
+Port order: MIT verify_congest.py A2/A3 extension re-certifying T1+T6 →
+instruments/critcount (three rigor fixes + firing battery) → sigma* =
+1/(8pi^2) in exact rationals → bracket table → terra-cap census →
+atlas REBUILD from design/ → facelaw → attention catalogue. OPERATOR
+QUESTION PENDING: was reports/mfg-congest.html ever sent anywhere?
+(decides the terra paper's "first CAP for MFG" priority claim).
 
-  LAMBDA(5) = -L(1,2,4,5,6) IS REDUCED, COMPLETELY. All eight exception
-  families of the generic case are CLOSED in certs/lambda56-campaign.json
-  (74 dot theorems, 76 anchored closures with derived thresholds, 1725
-  finite sets decided, {1,2,4,5,6} the definitional witness on 4 walls).
-  battery: instruments/lambda56/battery.js, 15 checks + 5 red controls,
-  wired into make test and build-control.
-
-  LAMBDA(6) STANDS AT 4/10 FAMILIES CLOSED — d+e=f, 2e=f, c+e=f, b+e=f
-  all green in the record (the last two closed FIRST TRY once the method
-  was dialed in). What remains, ranked, WITH THE PROBES ALREADY RUN:
-   · a+e=f — the extremizer family; omcsq d gives 6 subs whose labels ARE
-     readable (prefix cone): 2d=f, 3d=2f, b+2d=2f, b+d=f (extremizer
-     ACTIVE, 2+6=8), c+2d=2f, c+d=f — the ENTIRE lambda(5) worklist
-     pattern one level down, with a floating. Expect the double-sum core
-     b+d = a+e = f to need the Fejer-Riesz comb (sq atom, classes m+f at
-     S(f, 2pi/3), g0 = 7/6); {1,2,4,6,7,8} is also on c+2d=2f (4+12=16),
-     so walls in both subtrees.
-   · a+2e=2f — probed: omcsq a, 8 subs mirroring lambda(5)'s a+2d=2e
-     (2e=3a, b=2a, c=2a with the 3-cone split, d=2a with the 7-cone
-     midpoint split, three e=2e-minus-member single cones) PLUS the new
-     beast e=2a, where b,c,d ALL float in (a,2a) — its midpoint
-     triangulation is the biggest single object in the campaign.
-   · b+2e=2f (extremizer at the a=be boundary again), c+2e=2f, 3e=2f —
-     root triangulations like lambda(5)'s (3, 7 and 17 cones there).
-  THE METHOD IS PROVEN — probe with dotTheorem (single omcsq atom, S(f,pi),
-  g0=2/3, pick the atom member with fewest positives), parametrize each
-  condition as a cone, let 'auto' leaves close 2-dof pieces, and when a
-  2-dof leaf resists the anchor menu, try ITS OWN dot (two such leaves in
-  3d=2e closed that way with zero exceptions). Labels on custom cones are
-  GARBAGE — keys and condition vectors are the only truth.
-
-  AFTER lambda(6): the independent audit (mirror tools/audit-lambda4.js),
-  the write-up, and the NON-MONOTONICITY announcement — all external sends
-  operator-gated as always. CHECK THE TWO TAO THREADS FIRST (#392, #179) —
-  a maintainer reply outranks the campaign; report and pause.
+SECOND TASK — FINISH LAMBDA(6) (one family of ten remains uncertified).
+State at handoff:
+  · lambda(5) COMPLETE and committed (8/8 families).
+  · lambda(6): 5 families ok IN the committed record (d+e=f, 2e=f, c+e=f,
+    b+e=f, a+e=f with its 3 walls); b+2e=2f, c+2e=2f, d+2e=2f, 3e=2f all
+    VERIFIED CLOSED offline (b+2e: 62 dots/1478 finite sets in 114 min;
+    c+2e: 37/655; d+2e: 50/688; 3e: 125 dots/841 finite sets over 41
+    GENERATED root cones) — their in-record run was IN FLIGHT at handoff
+    (nohup pid 24291, ONLY='b+2e = 2f|c+2e = 2f|d+2e = 2f|3e = 2f',
+    writes certs/lambda56-campaign.json incrementally; check the record's
+    stages first — it survives session end).
+  · a+2e=2f: the campaign's heaviest tree, was COMPUTING OFFLINE at
+    handoff (nohup pid 72893, ~4h in, healthy at 100% CPU in BigInt
+    arithmetic; verdict lands in
+    /private/tmp/claude-501/-Users-carlostoledo-Documents-cert-machine/776c9149-d43e-4dae-b0b0-451991a0bdcd/scratchpad/a2e.log).
+    If dead or lost, rerun: ONLY='a+2e = 2f' node
+    tools/run-lambda56-campaign.js (its stage is in the runner; expect
+    hours; AUTOCLOSE_TRACE=1 gives a stderr heartbeat).
+  · THE DRIVER IS DONE: instruments/lambda56/close.js now carries the
+    full auto-closer (deterministic weight probes with comb fallback,
+    mechanical sub-cone shapes: unit substitution, ratios, general
+    k-midpoints, parity-pairs, general mod-k divisibility, a
+    depth-bounded universal comparison fallback — 15/16 of the observed
+    shape corpus unit-tested green), the parity-region interleave
+    generator (all four roots verified point-by-point offline, 19,285
+    points), memoization, capped adaptive coverage boxes, and the
+    witness-wall mechanism (walls {1,2,4,6,7,8} automatically).
+  · TO FINISH: (1) confirm all five parity stages ok in the record (run
+    any missing with ONLY); (2) one full no-ONLY run for a coherent
+    record (hours — background it); (3) battery: W5 → all-10 like W2,
+    wall-count check for lambda(6) (a+e=f has 3; count b+2e's from the
+    record); (4) make test, commit, docs. THEN: the independent audit
+    (mirror tools/audit-lambda4.js), the write-up, the NON-MONOTONICITY
+    announcement — operator-gated.
+  · Both Tao threads (#392, #179) quiet all session.
 
 DONE CAMPAIGN — lambda(4) as a THEOREM (opened and CLOSED 2026-09-01)
 

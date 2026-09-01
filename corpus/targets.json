@@ -233,6 +233,18 @@
     "tools/run-lambda56-campaign.js"
    ],
    "priorArt": "Mercer arXiv:1709.06612 Section 5 (the roadmap, unexecuted past n=4 even conjecturally); our lambda4-theorem row (CLOSED) is the enabling asset."
+  },
+  {
+   "id": "terra-port",
+   "name": "frontier-apps/terra: certified MFG peak-splitting — port into cert-machine",
+   "verdict": "ENGAGED 2026-09-01 — SCOUTED IN FULL (agent audit, main specimen independently re-derived from its record); port plan saved as TERRA-PORT.md; OPERATOR PRIORITY for the next session; no development yet",
+   "scouted": "2026-09-01",
+   "finding": "frontier-apps/experiments/terra holds a real, probably-sound certified finding: for the discounted congestion MFG on the torus with a ONE-well two-harmonic potential, exact equilibria (radii-polynomial enclosures, radius ~2.5e-13, positivity walls) with exactly TWO local maxima (and a 3-peak instance T6). Mechanism: band-pass linear response, sigma* = 1/(8pi^2) gamma-independent, splitting window 1/16 < r < 1/4, Chebyshev k-harmonic law. Records machine-written and mutually consistent; the interval library is byte-identical to ours. MISSING exactly what cert-machine exists for: zero batteries on that bench, the only modified lines (A2/A3 patch) untested, counting inflation (8 claimed theorems = 2 + a bracket table), title overclaim (the crowd RE-WEIGHTS an existing harmonic 1.88x — it does not invent structure), three latent rigor gaps in the peak counter, decimal-vs-binary64 coefficient mismatch, no git at the source.",
+   "openAngle": "Port order in TERRA-PORT.md: (1) extend our MIT verify_congest.py to A2/A3 and re-certify T1+T6 inside cert-machine; (2) instruments/critcount from certify-peaks.js with three rigor fixes + a firing battery; (3) sigma*=1/(8pi^2) decided in exact rationals; (4) bracket table; (5) terra-cap census.js (Krawczyk EXACTLY-n); (6) atlas REBUILT from design/ (needs a scatter chart form); (7) facelaw with rebuilt evidence; (8) attention phantom-bifurcation catalogue. DO NOT port terra-2p (byte-identical round trip), eqcert, the LLM study (no data). RE-INSPECT first: frontier-apps was still updating during the audit (new Phase-3E note + fourth paper landed mid-audit). OPERATOR QUESTION: was reports/mfg-congest.html ever sent? (decides the priority claim).",
+   "artifacts": [
+    "TERRA-PORT.md"
+   ],
+   "priorArt": "Karuturi arXiv:2605.20213 (the mandatory fence: spontaneous instability, cognate 8pi^2nu^2 constant); Cesaroni-Cirant 1705.10741; Osborne-Smears 2502.14687; Cecchin-Dai Pra-Fischer-Pelino 1810.05492; OUR OWN reports/mfg-congest.html (first-CAP-for-MFG claim already made here at sigma=0.5, A2=0)."
   }
  ]
 }
