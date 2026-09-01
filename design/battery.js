@@ -70,39 +70,42 @@ const contrast = (a, b) => { const [hi, lo] = [relLum(a), relLum(b)].sort((x, y)
 
 const CATK = ['--c-1', '--c-2', '--c-3'];
 const SEQK = ['--c-s1', '--c-s2', '--c-s3', '--c-s4', '--c-s5'];
-const MODES = [
-  { name: 'light', vars: T.LIGHT, band: [0.43, 0.77], surface: T.LIGHT['--surface'] },
-  { name: 'dark', vars: T.DARK, band: [0.48, 0.67], surface: T.DARK['--surface'] }
-];
+const PAL = T.DARKONLY;
+const CHART_SURFACE = PAL['--sunk'];
 
 /* ================= T · the tokens ======================================== */
 {
-  const missing = T.FIGURE_TOKENS.filter(k => !(k in T.LIGHT) || !(k in T.DARK));
-  check('T1 every FIGURE_TOKEN is defined in BOTH themes — a colour defined in one is undefined for somebody',
-    missing.length === 0, missing.length ? missing.join(', ') : T.FIGURE_TOKENS.length + ' tokens, light and dark');
+  const missing = T.FIGURE_TOKENS.filter(k => !(k in PAL));
+  check('T1 every FIGURE_TOKEN is defined in the palette',
+    missing.length === 0, missing.length ? missing.join(', ') : T.FIGURE_TOKENS.length + ' tokens');
 }
 {
-  const bad = [];
-  for (const k of Object.keys(T.LIGHT)) if (!(k in T.DARK)) bad.push('light-only ' + k);
-  for (const k of Object.keys(T.DARK)) if (!(k in T.LIGHT)) bad.push('dark-only ' + k);
-  check('T2 the two palettes carry the same key set', bad.length === 0, bad.join(', ') || Object.keys(T.LIGHT).length + ' keys each');
+  check('T2 the LIGHT/DARK compatibility aliases resolve to the ONE palette (no second copy to drift)',
+    T.LIGHT === PAL && T.DARK === PAL);
 }
 {
+  /* one deliberate theme state (the frontier skin is dark-only): the full
+     palette on bare :root with color-scheme:dark, and NONE of the retired
+     three-state machinery lingering to define colours nobody can reach */
   const css = T.rootCss();
-  const ok = /:root\{/.test(css) && /prefers-color-scheme: dark/.test(css)
-    && /:root:not\(\[data-theme="light"\]\)/.test(css) && /:root\[data-theme="dark"\]/.test(css);
-  check('T3 the cascade covers all THREE theme states (explicit light, explicit dark, system default)', ok);
+  const ok = /:root\{/.test(css) && /color-scheme:dark/.test(css)
+    && !/prefers-color-scheme/.test(css) && !/data-theme/.test(css);
+  check('T3 the cascade is ONE deliberate theme state — dark by declaration, no dead branches', ok);
 }
 
-/* ================= P · the chart palette, recomputed ===================== */
-for (const M of MODES) {
-  const cat = CATK.map(k => M.vars[k]);
-  const outBand = cat.filter(h => { const [L] = oklch(h); return L < M.band[0] || L > M.band[1]; });
-  check('P1 ' + M.name + ' · every categorical mark sits inside the OKLCH lightness band ' + M.band.join('–'),
-    outBand.length === 0, outBand.length ? outBand.join(', ') : cat.map(h => oklch(h)[0].toFixed(3)).join(' · '));
-  const lowC = cat.filter(h => oklch(h)[1] < 0.10);
-  check('P2 ' + M.name + ' · every categorical mark clears the chroma floor 0.10 (below it a hue reads grey)',
-    lowC.length === 0, lowC.length ? lowC.join(', ') : cat.map(h => oklch(h)[1].toFixed(3)).join(' · '));
+/* ================= P · the chart palette, recomputed =====================
+   The frontier skin's categorical marks are near-neutral GRAYS: identity is
+   carried by LIGHTNESS plus the secondary channels (legend, direct labels,
+   dash-for-predicted, hatch), never by hue. That changes what must be proved:
+   colour-vision safety comes from neutrality itself (a gray is a gray under
+   every CVD), so the battery asserts near-neutrality AND re-simulates the
+   worst pair anyway — the simulation is the tripwire for a chromatic value
+   sneaking into a slot the neutrality argument covers. */
+{
+  const cat = CATK.map(k => PAL[k]);
+  const chromatic = cat.filter(h => oklch(h)[1] > 0.03);
+  check('P1 every categorical mark is near-neutral (OKLCH chroma ≤ 0.03) — CVD-safe by construction',
+    chromatic.length === 0, chromatic.length ? chromatic.join(', ') : cat.map(h => oklch(h)[1].toFixed(4)).join(' · '));
   let worst = { d: Infinity }, worstN = { d: Infinity };
   for (let i = 0; i < cat.length; i++) for (let j = i + 1; j < cat.length; j++) {
     for (const kind of ['protan', 'deutan', 'tritan']) {
@@ -112,28 +115,27 @@ for (const M of MODES) {
     const dn = deltaE(cat[i], cat[j]);
     if (dn < worstN.d) worstN = { d: dn, p: cat[i] + '↔' + cat[j] };
   }
-  /* 6 is the floor, 8 the target; the 6–8 band is legal ONLY with secondary
-     encoding, which charts.js enforces by refusing an unlabelled legend swatch */
-  check('P3 ' + M.name + ' · worst all-pairs CVD separation clears the floor 6 (target 8)',
-    worst.d >= 6, worst.p + ' ΔE ' + worst.d.toFixed(1) + ' (' + worst.kind + ')'
-      + (worst.d < 8 ? ' — floor band: secondary encoding REQUIRED, charts.legend enforces it' : ''));
-  check('P4 ' + M.name + ' · worst all-pairs NORMAL-vision separation clears 15 (a hard gate)',
+  check('P2 worst all-pairs NORMAL-vision separation clears 15 (lightness does the identity work)',
     worstN.d >= 15, worstN.p + ' ΔE ' + worstN.d.toFixed(1));
-  const lowK = cat.filter(h => contrast(h, M.surface) < 3);
-  check('P5 ' + M.name + ' · every categorical mark clears 3:1 against the figure surface',
-    lowK.length === 0, lowK.length ? lowK.join(', ') : cat.map(h => contrast(h, M.surface).toFixed(2) + ':1').join(' · '));
+  check('P3 worst all-pairs separation under each CVD simulation clears 12 (the chromatic tripwire)',
+    worst.d >= 12, worst.p + ' ΔE ' + worst.d.toFixed(1) + ' (' + worst.kind + ')');
+  const lowK = cat.filter(h => contrast(h, CHART_SURFACE) < 3);
+  check('P4 every categorical mark clears 3:1 against the chart surface',
+    lowK.length === 0, lowK.length ? lowK.join(', ') : cat.map(h => contrast(h, CHART_SURFACE).toFixed(2) + ':1').join(' · '));
 
-  const seq = SEQK.map(k => M.vars[k]);
+  const seq = SEQK.map(k => PAL[k]);
   const Ls = seq.map(h => oklch(h)[0]);
-  const mono = Ls.every((v, i) => i === 0 || (M.name === 'light' ? v < Ls[i - 1] : v > Ls[i - 1]));
+  const mono = Ls.every((v, i) => i === 0 || v > Ls[i - 1]);   /* dim -> bright with magnitude */
   const gaps = Ls.slice(1).map((v, i) => Math.abs(v - Ls[i]));
-  const hues = seq.map(okhue), spread = Math.max.apply(null, hues) - Math.min.apply(null, hues);
-  check('P6 ' + M.name + ' · the sequential ramp is ONE hue with monotone lightness and ΔL ≥ 0.06 per step',
-    mono && Math.min.apply(null, gaps) >= 0.06 && spread <= 6,
-    'hue spread ' + spread.toFixed(1) + '° · min ΔL ' + Math.min.apply(null, gaps).toFixed(3));
-  const lightEnd = M.name === 'light' ? seq[0] : seq[0];
-  check('P7 ' + M.name + ' · the ramp\'s low-contrast end still clears 2:1 on the figure surface',
-    contrast(lightEnd, M.surface) >= 2, lightEnd + ' at ' + contrast(lightEnd, M.surface).toFixed(2) + ':1');
+  const seqChromatic = seq.filter(h => oklch(h)[1] > 0.03);
+  check('P5 the sequential ramp is near-neutral, monotone dim→bright, ΔL ≥ 0.06 per step',
+    mono && Math.min.apply(null, gaps) >= 0.06 && seqChromatic.length === 0,
+    'L ' + Ls.map(v => v.toFixed(2)).join('→') + ' · min ΔL ' + Math.min.apply(null, gaps).toFixed(3));
+  check('P6 the ramp\'s dim end still clears 2:1 on the chart surface',
+    contrast(seq[0], CHART_SURFACE) >= 2, seq[0] + ' at ' + contrast(seq[0], CHART_SURFACE).toFixed(2) + ':1');
+  check('P7 verdict separation is weight+shape, not colour: the chip grammar\'s two inks clear 4.5:1 text contrast',
+    contrast(PAL['--ink'], PAL['--paper']) >= 4.5 && contrast(PAL['--ink-3'], PAL['--paper']) >= 4.5,
+    contrast(PAL['--ink'], PAL['--paper']).toFixed(1) + ':1 · ' + contrast(PAL['--ink-3'], PAL['--paper']).toFixed(1) + ':1');
 }
 
 /* ================= F · the generated figures ============================= */
@@ -254,7 +256,14 @@ const LEAK_DEBT = {};   /* mfg-observatory.html paid off 2026-08-30 — C.p -> C
 
 /* ================= X · falsifiers ======================================== */
 console.log('\n    executing falsifiers');
-let reds = 0; const redTotal = 8;
+let reds = 0; const redTotal = 9;
+{
+  /* the grayscale palette gate has teeth: a planted near-identical gray pair
+     must fail the ΔE-15 separation the real trio passes */
+  const d = deltaE('#a9a9b4', '#b0b0bb');
+  if (d < 15) { reds++; console.log('       RED ok  X0 a planted near-identical gray pair fails the separation gate (ΔE ' + d.toFixed(1) + ')'); }
+  else console.log('       RED FAIL  X0 an indistinguishable gray pair passed the separation gate');
+}
 {
   const bad = svgColourViolations('<svg><rect fill="#ff0000"/></svg>', 'planted');
   if (bad.length === 1) { reds++; console.log('       RED ok  X1 a planted literal hex in a figure is caught'); }

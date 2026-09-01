@@ -11,167 +11,130 @@
    second copy for the figures is the drift C50 warns about. So the values live
    here as data and both forms are emitted from them.
 
-   THE THREE-STATE THEME RULE, which is easy to get wrong and expensive to fix:
-   a viewer is in one of three states — explicit light, explicit dark, or the
-   default "system", which stamps nothing on the root element. So the full light
-   palette is defined on bare `:root`; dark overrides appear TWICE, once under
-   `prefers-color-scheme: dark` guarded by `:not([data-theme="light"])` and once
-   under `[data-theme="dark"]`. A colour whose only definition lives inside a
-   media query is a colour that is undefined for somebody.
+   PROVENANCE (operator instruction, 2026-09-01): the palette, faces and scale
+   below reproduce the FRONTIER design system — frontier-apps/site/design/
+   tokens.css + base.css (the terra atlas skin) — verbatim where a value maps,
+   under the house token NAMES so every consumer (components, charts, battery,
+   check-wiring) keeps its contract. The reference bytes are snapshotted in
+   design/frontier-ref/ (frontier-apps has no git):
+     tokens.css sha256 15eb6f28cdd1e2e4deaf8826e8417c841a4aff8809340f42d7f0b06c711479b8
+     base.css   sha256 91d8172f51788d8ec5fb7723044c5e6b8dab923d1f5b33733f06a5251e418f7f
+   This replaces the erdos-290 plum/green/amber house style; reverting is
+   `git revert` of the restyle commit and nothing else.
 
-   Provenance: the palette, type stack and scale are taken from the erdos-290
-   research note, which is the house style this lab publishes in. */
+   ONE THEME, DELIBERATELY. Frontier is dark-first, grayscale-only ("accent
+   hues reserved for a future version"), and the operator asked for exactly
+   that. So there is ONE palette on bare `:root` with color-scheme:dark; no
+   media queries, no [data-theme] blocks, nothing undefined for anybody. The
+   three-state machinery this file used to carry is retired with it.
+
+   IDENTITY IS NEVER COLOUR-ALONE — more load-bearing than ever in grayscale:
+   the chart series are three GRAYS (validated below), so the legend rule, the
+   direct labels, dash-for-predicted and the hatch are what separate series;
+   verdicts separate by WEIGHT + SHAPE (filled / outlined / dashed chips). */
 'use strict';
 
 /* ---------------------------------------------------------------- palette --
-   Roles, not names. `--sig` is "the signature colour"; that it is currently
-   plum is a decision recorded here and nowhere else. */
-const LIGHT = {
-  '--paper':     '#EDEBEE',   /* the page ground */
-  '--surface':   '#FBFAFB',   /* raised: cards, figure boxes, table bodies */
-  '--sunk':      '#F3F1F4',   /* recessed: notes, equations */
+   Frontier's values under the house names. Mapping recorded pair by pair so
+   the correspondence is checkable against frontier's tokens.css:
+     --paper   = --bg            --surface = --surface (cards)
+     --sunk    = --bg-raised     --surface2= --surface-2 (hover/nested)
+     --ink..3  = --ink..3        --ink-4/5 = --ink-4/5 (new, frontier)
+     --rule    = --border        --rule-strong = --border-strong
+     --rule-soft = --chart-grid  (recessive internal hairlines)
+     --sig     = --ink (links/eyebrows carry ink, not a hue)
+     --sig-2   = --ink-4 (the link underline at rest)
+     --sig-soft= --surface-2 (washes)
+     --held    = --ink   / --held-soft = --surface-2   (certified: WEIGHT)
+     --warn    = --ink-3 / --warn-soft = --surface     (open: DIMNESS)
+     --mark    = --border-strong (inert figure marks)                       */
+const DARKONLY = {
+  '--paper':        '#0a0a0c',   /* page ground            (frontier --bg) */
+  '--surface':      '#141419',   /* cards                  (--surface)     */
+  '--sunk':         '#101014',   /* charts, panels, code   (--bg-raised)   */
+  '--surface2':     '#1a1a20',   /* hover / nested         (--surface-2)   */
 
-  '--ink':       '#16121A',   /* body text and headings */
-  '--ink-2':     '#544C5B',   /* secondary prose, table cells, captions */
-  '--ink-3':     '#867C8E',   /* labels, axis text, metadata */
+  '--ink':          '#f6f6f8',   /* headlines, primary values */
+  '--ink-2':        '#c9c9d2',   /* body */
+  '--ink-3':        '#9a9aa6',   /* secondary, axis labels */
+  '--ink-4':        '#6e6e7a',   /* muted, eyebrows at rest */
+  '--ink-5':        '#4a4a55',   /* disabled, watermark numerals */
 
-  '--rule':      '#D2CBD6',   /* structural borders */
-  '--rule-soft': '#E3DEE7',   /* internal dividers */
+  '--rule':         '#232329',   /* hairlines              (--border) */
+  '--rule-strong':  '#32323c',   /* emphasized, hover      (--border-strong) */
+  '--rule-soft':    '#1c1c22',   /* recessive dividers     (--chart-grid) */
 
-  '--sig':       '#6B2D5C',   /* signature: links, section labels, key figures */
-  '--sig-2':     '#9A4E86',   /* signature underline / secondary strokes */
-  '--sig-soft':  '#F2E4EE',   /* signature wash, for tag backgrounds */
+  '--sig':          '#f6f6f8',   /* links, section labels — ink, not a hue */
+  '--sig-2':        '#6e6e7a',   /* link underline at rest */
+  '--sig-soft':     '#1a1a20',   /* washes, tag backgrounds */
 
-  '--held':      '#2C6142',   /* the second voice: proved / green / confirmed */
-  '--held-soft': '#DEEBE3',
+  '--held':         '#f6f6f8',   /* certified voice: BRIGHT (weight, not hue) */
+  '--held-soft':    '#1a1a20',
+  '--warn':         '#9a9aa6',   /* open/undecided voice: DIM */
+  '--warn-soft':    '#141419',
 
-  '--warn':      '#8A5212',   /* open questions, unpatched defects */
-  '--warn-soft': '#F6E9D8',
+  '--mark':         '#32323c',   /* inert marks in figures */
+  '--band-fill':    'rgba(246,246,248,0.07)',  /* interval bands, area fills */
 
-  '--mark':      '#C9C0CE',   /* inert marks in figures */
+  /* ---- chart marks — frontier's validated categorical GRAYS ----
+     (their record: worst-pair CVD dE 19.6, all >= 3:1 on the chart surface;
+     design/battery.js re-derives both facts at every run, because a
+     measurement that is not re-run is a memory. Grayscale is CVD-invariant BY
+     CONSTRUCTION — the battery asserts zero chroma rather than simulating.) */
+  '--c-1':          '#f6f6f8',   /* the finding / the signal  (--series-1) */
+  '--c-2':          '#a9a9b4',   /*                           (--series-2) */
+  '--c-3':          '#6e6e7a',   /*                           (--series-3) */
+  '--c-ctx':        'var(--ink-5)',     /* de-emphasised context series */
+  '--c-grid':       '#1c1c22',          /* (--chart-grid) */
+  '--c-axis':       '#2a2a32',          /* (--chart-axis) */
 
-  /* ---- chart marks ----
-     Text tokens are tuned for READING: dark, low-chroma, high contrast on
-     prose. As chart marks they fail — the trio (--sig, --held, --warn) sits
-     outside the OKLCH lightness band, --held drops under the chroma floor, and
-     green↔amber collapses to ΔE 5.4 under protanopia. So chart marks get their
-     own steps, snapped from the SAME three hues: hue held, lightness and chroma
-     moved until the categorical checks pass, then the passing candidate closest
-     to the brand token wins. Measured with the dataviz validator against the
-     figure surface (--surface), all-pairs, both modes:
-       light  worst all-pairs ΔE 6.8 (deutan) · normal 15.3 · band/chroma/contrast PASS
-       dark   worst all-pairs ΔE 6.4 (tritan) · normal 16.2 · band/chroma/contrast PASS
-     (design/battery.js re-derives all of these at every run — they are
-     measurements, and a measurement that is not re-run is a memory.)
-     The published method calibrates its thresholds on protanopia and
-     deuteranopia; design/battery.js gates on TRITANOPIA too, which is stricter
-     than the standard and cost one search to satisfy — the first triple that
-     passed the standard collapsed to ΔE 4.3 tritan in dark mode. The steps
-     below clear all three, and they are CLOSER to the brand tokens than that
-     first answer was, so nothing was traded away for it.
-     CVD still lands in the 6–8 floor band, which is legal ONLY with secondary
-     encoding — so every chart that uses more than one of them ships a labelled
-     legend and direct labels. That is the same rule the app doctrine already
-     states as "severity is never colour alone"; here it is load-bearing. */
-  '--c-1':       '#6F3968',   /* the finding / the signal        (from --sig)  */
-  '--c-2':       '#16724E',   /* proved / held / compliant       (from --held) */
-  '--c-3':       '#885218',   /* open / undecided / over a limit (from --warn) */
-  '--c-ctx':     'var(--ink-3)',    /* de-emphasised context series           */
-  '--c-grid':    'var(--rule-soft)',/* hairline grid, one step off the surface */
-  '--c-axis':    'var(--rule)',     /* the axis rules themselves              */
-
-  /* Sequential ramp — ONE hue (the signature plum), light → dark, for
-     magnitude. Validated with the ordinal checks: monotone L, adjacent ΔL ≥
-     0.06, light end ≥ 2:1 on the figure surface, hue spread 1°. */
-  '--c-s1':      '#C7A5BC',
-  '--c-s2':      '#B982A9',
-  '--c-s3':      '#A86195',
-  '--c-s4':      '#953F80',
-  '--c-s5':      '#7D2169'
-};
-
-const DARK = {
-  '--paper':     '#0F0C12',
-  '--surface':   '#181420',
-  '--sunk':      '#130F18',
-
-  '--ink':       '#EDE8F0',
-  '--ink-2':     '#A79DAF',
-  '--ink-3':     '#7E7386',
-
-  '--rule':      '#2E2637',
-  '--rule-soft': '#231C2B',
-
-  '--sig':       '#D897C4',
-  '--sig-2':     '#B36F9E',
-  '--sig-soft':  '#2C1B27',
-
-  '--held':      '#79C79B',
-  '--held-soft': '#16281E',
-
-  '--warn':      '#E0A860',
-  '--warn-soft': '#2B2015',
-
-  '--mark':      '#332B3C',
-
-  /* chart marks, dark mode — SELECTED against the dark figure surface, not an
-     automatic flip of the light steps; the sequential ramp's anchor flips with
-     it (dark → light as magnitude grows). */
-  '--c-1':       '#B67BAE',
-  '--c-2':       '#46A971',
-  '--c-3':       '#C77F35',
-  '--c-ctx':     'var(--ink-3)',
-  '--c-grid':    'var(--rule-soft)',
-  '--c-axis':    'var(--rule)',
-  '--c-s1':      '#663E5B',
-  '--c-s2':      '#8A4E7A',
-  '--c-s3':      '#AF619A',
-  '--c-s4':      '#C97FB4',
-  '--c-s5':      '#DCA3CB'
+  /* Sequential ramp — ONE track of gray, dim -> bright with magnitude on the
+     dark ground. Measured (OKLab L): .413 / .542 / .641 / .738 / .974 —
+     monotone, every gap >= 0.06, dim end 2.17:1 on the chart surface; the
+     battery re-derives all of it at every run. */
+  '--c-s1':         '#4a4a55',
+  '--c-s2':         '#6e6e7a',
+  '--c-s3':         '#8b8b97',
+  '--c-s4':         '#a9a9b4',
+  '--c-s5':         '#f6f6f8'
 };
 
 /* ------------------------------------------------------------------- type --
-   Three faces with three jobs. Every one carries a real fallback stack: the
-   page must be legible before a webfont lands, and the figures must not reflow
-   when it does. */
-/* SANS THROUGHOUT (2026-08-31). The house ran on a high-contrast display serif
-   and a serif for prose, which read well in long paragraphs and badly in the
-   places this lab actually puts its evidence: table bodies, dense figures and
-   anything numeric. Display is now a grotesque with enough weight to carry a
-   74px headline; prose is IBM Plex Sans, which shares its design language and
-   metrics with the IBM Plex Mono already used for every number, label and
-   axis on the site — so body, data and code finally belong to one family.
-   Reverting is this block and nothing else. */
+   Frontier's two faces, from Google Fonts with real local fallback stacks:
+   the page must be legible before a webfont lands, and the figures must not
+   reflow when it does. (Frontier vendors subsetted woff2 copies of the SAME
+   faces; Google serves the full variable fonts — visually identical, and the
+   pages stay light. Vendoring can be revisited at deploy time.) */
 const TYPE = {
-  display: '"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif',        /* headings, key figures */
-  body:    '"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif',  /* prose */
-  mono:    '"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace'   /* data, labels, code */
+  display: '"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif',
+  body:    '"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif',
+  mono:    '"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace'
 };
 
 const GOOGLE_FONTS =
-  'https://fonts.googleapis.com/css2?family=Archivo:wght@600;700' +
-  '&family=IBM+Plex+Mono:wght@400;500;600;700' +
-  '&family=IBM+Plex+Sans:wght@400;500;600&display=swap';
+  'https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600' +
+  '&family=JetBrains+Mono:wght@400;500;600;700&display=swap';
 
 /* ------------------------------------------------------------------ scale --
-   Fluid where a jump would be visible, fixed where stability matters more than
-   proportion. Every clamp() is (floor, preferred, ceiling) on the viewport. */
+   Frontier's fluid scale, carried under the house keys. */
 const SCALE = {
-  h1:      'clamp(40px,7.4vw,74px)',
-  h2:      'clamp(25px,3.3vw,34px)',
-  h3:      '19.5px',
-  deck:    'clamp(19px,2.2vw,22px)',
-  pull:    'clamp(23px,3.2vw,30px)',
-  body:    '18px',
-  section: 'clamp(50px,7.5vw,84px)',
+  h1:      'clamp(2.75rem,1.2rem + 6vw,5.5rem)',      /* --text-display */
+  h2:      'clamp(1.9rem,1.2rem + 2.4vw,3rem)',       /* --text-1 */
+  h3:      'clamp(1.35rem,1.1rem + 1vw,1.75rem)',     /* --text-2 */
+  deck:    '1.125rem',                                /* --text-3 (lede) */
+  pull:    'clamp(1.35rem,1.1rem + 1vw,1.75rem)',
+  body:    '0.9375rem',                               /* --text-body */
+  small:   '0.8125rem',                               /* --text-small / mono */
+  eyebrow: '0.6875rem',                               /* --text-eyebrow */
+  section: 'clamp(5rem,12vh,9rem)',                   /* --section-pad */
   pagePadY:'clamp(28px,5vw,60px)',
-  pagePadX:'clamp(18px,4vw,40px)',
-  figPad:  'clamp(16px,3vw,28px)'
+  pagePadX:'clamp(1.25rem,4vw,3rem)',                 /* --gutter */
+  figPad:  '1.5rem'                                   /* --s-5 */
 };
 
-/* Measure: prose is capped in CHARACTERS, not pixels, because the limit is a
-   reading limit. Figures and tables get their own wider track. */
-const MEASURE = { prose: '64ch', wide: '900px', page: '1060px' };
+/* Measure: frontier's containers. Prose capped in characters (reading limit);
+   figures and tables get the wide track. */
+const MEASURE = { prose: '68ch', wide: '900px', page: '1200px', narrow: '820px' };
 
 /* ------------------------------------------------------------- emitters --- */
 
@@ -180,13 +143,11 @@ function block(vars, indent) {
   return Object.keys(vars).map(k => pad + k + ':' + vars[k] + ';').join('\n');
 }
 
-/* The complete `:root` cascade, all three theme states. */
 /* The type stack ships as CUSTOM PROPERTIES, not as values interpolated into
    each rule, so that (a) both page shells get it from one place and (b) a
    literal font stack appearing anywhere OUTSIDE this :root block is a
    detectable defect rather than a matter of taste. tools/check-wiring.js
-   asserts exactly that. Fonts do not change between themes, so they are
-   emitted once and never overridden in the dark blocks. */
+   asserts exactly that. */
 function fontBlock(indent) {
   const pad = indent || '  ';
   return [pad + '--f-display:' + TYPE.display + ';',
@@ -194,41 +155,38 @@ function fontBlock(indent) {
           pad + '--f-mono:' + TYPE.mono + ';'].join('\n');
 }
 
+/* ONE theme state: the full palette on bare :root, dark by declaration. */
 function rootCss() {
   return [
     ':root{',
-    block(LIGHT),
+    '  color-scheme:dark;',
+    block(DARKONLY),
     fontBlock(),
-    '}',
-    '@media (prefers-color-scheme: dark){',
-    '  :root:not([data-theme="light"]){',
-    block(DARK, '    '),
-    '  }',
-    '}',
-    ':root[data-theme="dark"]{',
-    block(DARK),
     '}'
   ].join('\n');
 }
 
 /* Token names available to inline SVG as var(--x). Figures must use ONLY these
-   — a literal hex in a figure is invisible in one theme, and this list is what
-   the page battery checks figures against. */
-const FIGURE_TOKENS = ['--ink', '--ink-2', '--ink-3', '--sig', '--sig-2', '--sig-soft',
-  '--held', '--held-soft', '--warn', '--warn-soft', '--mark', '--rule', '--rule-soft',
-  '--surface', '--sunk', '--paper',
+   — the page battery checks figures against this list. */
+const FIGURE_TOKENS = ['--ink', '--ink-2', '--ink-3', '--ink-4', '--ink-5',
+  '--sig', '--sig-2', '--sig-soft',
+  '--held', '--held-soft', '--warn', '--warn-soft', '--mark', '--band-fill',
+  '--rule', '--rule-soft', '--rule-strong',
+  '--surface', '--surface2', '--sunk', '--paper',
   '--c-1', '--c-2', '--c-3', '--c-ctx', '--c-grid', '--c-axis',
   '--c-s1', '--c-s2', '--c-s3', '--c-s4', '--c-s5'];
 
 /* The chart palette, by the JOB each colour does — the only names a chart may
-   reach for. CAT is capped at three on purpose: a fourth hue in this system
-   would have to be generated, and a generated hue is indistinguishable from an
-   existing one under CVD. More than three series means folding the tail into
-   "other", faceting into small multiples, or a table. */
+   reach for. CAT stays capped at three: in grayscale a fourth step would crowd
+   the lightness track below the separation the battery enforces. More than
+   three series means folding the tail into "other", faceting, or a table. */
 const CHART = {
   CAT: ['var(--c-1)', 'var(--c-2)', 'var(--c-3)'],
   SEQ: ['var(--c-s1)', 'var(--c-s2)', 'var(--c-s3)', 'var(--c-s4)', 'var(--c-s5)'],
-  CTX: 'var(--c-ctx)', GRID: 'var(--c-grid)', AXIS: 'var(--c-axis)', SURFACE: 'var(--surface)'
+  CTX: 'var(--c-ctx)', GRID: 'var(--c-grid)', AXIS: 'var(--c-axis)', SURFACE: 'var(--sunk)'
 };
 
-module.exports = { LIGHT, DARK, TYPE, GOOGLE_FONTS, SCALE, MEASURE, FIGURE_TOKENS, CHART, rootCss, fontBlock };
+/* Kept exports: LIGHT/DARK aliases point at the one palette so any consumer
+   still importing them keeps working while it migrates. */
+module.exports = { LIGHT: DARKONLY, DARK: DARKONLY, DARKONLY, TYPE, GOOGLE_FONTS,
+  SCALE, MEASURE, FIGURE_TOKENS, CHART, rootCss, fontBlock };
