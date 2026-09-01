@@ -2,6 +2,11 @@
 
 *Carlos Toledo · cert-machine · [carlostoledo.co](https://carlostoledo.co)*
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22225861.svg)](https://doi.org/10.5281/zenodo.22225861)
+**λ(4) = −L(1,2,3,4)** — the third exact value of Chowla's cosine dip (Erdős #510, finite front),
+proved by executing and completing Mercer's 2019 strategy. [The proof page](https://carlostoledo.co/reports/lambda4.html) ·
+[the write-up](paper/lambda4-proof.md) · machine-derived, not peer-reviewed, refutations invited.
+
 > I build verification layers under which AI-scale mathematical search
 > produces only certified output — reward signals that cannot be hacked —
 > and I audit published AI-generated mathematics.

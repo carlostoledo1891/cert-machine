@@ -272,7 +272,10 @@ B.push(C.section({
     C.pRaw('<strong>Not yet:</strong> peer review, and a human read of the write-up. Until those happen the honest '
       + 'status of the theorem-level sentence is exactly what the scope line at the top of this page says. The full '
       + 'machine record is ' + C.m('certs/lambda4-campaign.json') + '; the statement and strategy are Mercer\'s, and '
-      + 'the paper is the first thing to read: arXiv:1709.06612.')
+      + 'the paper is the first thing to read: arXiv:1709.06612.'),
+    C.pRaw('<strong>Cite this work:</strong> the repository snapshot carrying the proof, the record, the audit and '
+      + 'the write-up is archived at <a href="https://doi.org/10.5281/zenodo.22225861">doi:10.5281/zenodo.22225861</a> '
+      + '(all versions: doi:10.5281/zenodo.22225860); the release tag is ' + C.m('lambda4-v1.0.1') + '.')
   ].join('\n')
 }));
 

@@ -74,7 +74,7 @@ const doc = `# The value of lambda(4)
 
 **A machine-derived proof that lambda(4) = -L(1,2,3,4), completing the program of Mercer's Section 5.**
 
-Draft v0.9 · ${rec.meta.date} · repository cert-machine @ git ${git} · record \`certs/lambda4-campaign.json\`
+Draft v0.9 · ${rec.meta.date} · repository cert-machine @ git ${git} · record \`certs/lambda4-campaign.json\` · archived: doi:10.5281/zenodo.22225861
 
 ## Status
 

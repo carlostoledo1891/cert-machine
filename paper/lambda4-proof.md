@@ -2,7 +2,7 @@
 
 **A machine-derived proof that lambda(4) = -L(1,2,3,4), completing the program of Mercer's Section 5.**
 
-Draft v0.9 · 2026-09-01 · repository cert-machine @ git d76c7c1 · record `certs/lambda4-campaign.json`
+Draft v0.9 · 2026-09-01 · repository cert-machine @ git e8daa11 · record `certs/lambda4-campaign.json` · archived: doi:10.5281/zenodo.22225861
 
 ## Status
 
