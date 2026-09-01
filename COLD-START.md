@@ -28,13 +28,16 @@ run, ~7 min):
   · LAMBDA(5) REDUCTION COMPLETE. All 8 exception families CLOSED: 74 dot
     theorems, 76 anchored closures (thresholds derived), 1725 finite sets
     decided, coverage at 15330 points, {1,2,4,5,6} walled at 4 leaves.
-  · LAMBDA(6): generic certified (10 families), d+e=f and 2e=f CLOSED.
-    REMAINING EIGHT, ranked: c+e=f (1 sub: d=2b) · b+e=f (2 subs: c=2a,
-    d=2a) · a+e=f (6 subs, THE EXTREMIZER FAMILY — expect the double-sum
-    core b+d = a+e = f to need the sq-atom comb, and note {1,2,4,6,7,8}
-    also satisfies 2c=f, so expect MORE walls than lambda(5) had) · then
-    the five parity families a/b/c/d+2e=2f and 3e=2f (root triangulations;
-    lambda(5)'s 3d=2e took 17 cones — budget accordingly).
+  · LAMBDA(6): generic certified (10 families); d+e=f, 2e=f, c+e=f and
+    b+e=f CLOSED (the last two first-try). REMAINING SIX:
+    a+e=f (6 subs, THE EXTREMIZER FAMILY — its omcsq-d conditions are the
+    lambda(5) worklist one level down: 2d=f, 3d=2f, b+2d=2f, b+d=f
+    [extremizer active], c+2d=2f [extremizer active], c+d=f; expect the
+    comb on the b+d = a+e = f core, walls in two subtrees) ·
+    a+2e=2f (probed: omcsq a, 8 subs mirroring lambda(5)'s a+2d=2e, plus
+    the new e=2a sub where b,c,d ALL float in (a,2a) — budget its midpoint
+    triangulation generously) · b+2e=2f (extremizer at a=be) · c+2e=2f ·
+    d+2e=2f · 3e=2f (root triangulations; lambda(5) took 3/7/17 cones).
 
 THE METHOD, proven over nine closed families — follow it mechanically:
   1. PROBE: dotTheorem on the family cone, S(top member, pi), gConst 2/3,
@@ -58,9 +61,9 @@ THE METHOD, proven over nine closed families — follow it mechanically:
   5. WALLS: the extremizer must land in finite parts and be skipped there.
      Find its active conditions by EVALUATING VECTORS at its coordinates;
      the battery counts walls — update the count when lambda(6)'s are in.
-  6. Batteries: instruments/lambda56/battery.js must stay green (15 checks,
-     5 red controls; W2 pins the complete lambda(5) worklist). Extend it
-     with lambda(6) closure checks as families close.
+  6. Batteries: instruments/lambda56/battery.js must stay green (16 checks,
+     5 red controls; W2 pins the complete lambda(5) worklist, W5 the
+     lambda(6) closure count). Extend it as families close.
 
 AFTER LAMBDA(6) CLOSES (possibly same session): (1) the independent audit,
 mirroring tools/audit-lambda4.js — an alien clause walk over all reduced

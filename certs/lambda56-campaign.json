@@ -14,7 +14,7 @@
     "a+c = d",
     "b+2c = 2d"
    ],
-   "ms": 3
+   "ms": 2
   },
   "targets": {
    "ok": true,
@@ -77,7 +77,7 @@
     }
    },
    "nonMonotonicity": "L(1,2,4,5,6).hi < L(1,2,4,6,7,8).lo certified",
-   "ms": 14
+   "ms": 12
   },
   "lambda5-generic": {
    "ok": true,
@@ -414,7 +414,7 @@
     ],
     "deltaSum": "2"
    },
-   "ms": 6
+   "ms": 4
   },
   "lambda6-generic": {
    "ok": true,
@@ -861,7 +861,7 @@
     ],
     "deltaSum": "2"
    },
-   "ms": 42
+   "ms": 33
   },
   "lambda5-family: 2d = e": {
    "ok": true,
@@ -1503,7 +1503,7 @@
      }
     ]
    },
-   "ms": 28809
+   "ms": 24656
   },
   "lambda5-family: c+d = e": {
    "ok": true,
@@ -1536,7 +1536,7 @@
     "children": {},
     "coverage": []
    },
-   "ms": 17
+   "ms": 12
   },
   "lambda5-family: b+d = e": {
    "ok": true,
@@ -1679,7 +1679,7 @@
      }
     ]
    },
-   "ms": 263
+   "ms": 238
   },
   "lambda5-family: a+d = e": {
    "ok": true,
@@ -2757,7 +2757,7 @@
      }
     ]
    },
-   "ms": 22883
+   "ms": 20554
   },
   "lambda5-family: a+2d = 2e": {
    "ok": true,
@@ -5283,7 +5283,7 @@
      }
     ]
    },
-   "ms": 96511
+   "ms": 83950
   },
   "lambda5-family: b+2d = 2e": {
    "ok": true,
@@ -6481,7 +6481,7 @@
      }
     ]
    },
-   "ms": 33702
+   "ms": 20602
   },
   "lambda5-family: c+2d = 2e": {
    "ok": true,
@@ -7352,7 +7352,7 @@
      }
     ]
    },
-   "ms": 63059
+   "ms": 42009
   },
   "lambda5-family: 3d = 2e": {
    "ok": true,
@@ -8790,7 +8790,7 @@
      }
     ]
    },
-   "ms": 45416
+   "ms": 38453
   },
   "lambda6-family: d+e = f": {
    "ok": true,
@@ -8828,7 +8828,7 @@
     "children": {},
     "coverage": []
    },
-   "ms": 21
+   "ms": 19
   },
   "lambda6-family: 2e = f": {
    "ok": true,
@@ -8871,13 +8871,953 @@
     "children": {},
     "coverage": []
    },
-   "ms": 13
+   "ms": 12
+  },
+  "lambda6-family: c+e = f": {
+   "ok": true,
+   "rootKey": "1,1,1,0,0,-1",
+   "status": "CLOSED",
+   "ontoChecked": 1629,
+   "stats": {
+    "dots": 6,
+    "closures": 3,
+    "finiteSets": 67
+   },
+   "node": {
+    "label": "c+e = f",
+    "kind": "dot",
+    "base": "0",
+    "posBase": "3",
+    "dip": "-5/3",
+    "exceptions": [
+     {
+      "key": "1,1,-1,-1,0",
+      "label": "2b = d",
+      "delta": "1/2"
+     },
+     {
+      "key": "1,1,-1,0,-1",
+      "label": "2b+d = c+e",
+      "delta": "-1/2"
+     },
+     {
+      "key": "1,1,-2,-1,-1",
+      "label": "3b = c+e",
+      "delta": "-1/2"
+     },
+     {
+      "key": "1,0,-2,-1,-1",
+      "label": "a+2b = c+e",
+      "delta": "-1/2"
+     }
+    ],
+    "children": {
+     "1,1,-1,-1,0": {
+      "label": "c+e = f » 2b = d",
+      "kind": "split",
+      "parts": [
+       {
+        "label": "c+e = f » 2b = d / w < a",
+        "kind": "dot",
+        "base": "0",
+        "posBase": "3",
+        "dip": "-5/3",
+        "exceptions": [
+         {
+          "key": "1,1,-1,0",
+          "label": "2k = j",
+          "delta": "1/2"
+         },
+         {
+          "key": "0,1,-1,-1",
+          "label": "2k = w+s",
+          "delta": "-1/2"
+         }
+        ],
+        "children": {
+         "1,1,-1,0": {
+          "label": "c+e = f » 2b = d / w < a » 2k = j",
+          "kind": "dot",
+          "base": "0",
+          "posBase": "3",
+          "dip": "-5/3",
+          "exceptions": [
+           {
+            "key": "0,1,-1",
+            "label": "2k = w+s",
+            "delta": "-1/2"
+           },
+           {
+            "key": "1,2,-1",
+            "label": "3k = w+s",
+            "delta": "4/3"
+           },
+           {
+            "key": "2,3,-1",
+            "label": "4k = w+s",
+            "delta": "-1/2"
+           },
+           {
+            "key": "3,4,-1",
+            "label": "5k = w+s",
+            "delta": "-1/2"
+           },
+           {
+            "key": "5,6,-1",
+            "label": "7k = w+s",
+            "delta": "-1/2"
+           }
+          ],
+          "children": {
+           "1,2,-1": {
+            "label": "c+e = f » 2b = d / w < a » 2k = j » 3k = w+s",
+            "kind": "closure",
+            "auto": {
+             "Se": "a @ 2pi/3",
+             "So": "c @ 2pi/3"
+            },
+            "closures": [
+             {
+              "ok": true,
+              "tailMember": null,
+              "N0": 6,
+              "validityFloor": 6,
+              "expr": {
+               "A": "-3",
+               "B": "0",
+               "C": "6",
+               "D": "0"
+              },
+              "boundAtN0": {
+               "lo": "-2",
+               "hi": "-2"
+              },
+              "target": {
+               "lo": "-112015241955925/70368744177664",
+               "hi": "-7168975485179199/4503599627370496"
+              },
+              "pieces": [
+               {
+                "member": "a",
+                "kind": "exact",
+                "u": "1",
+                "value": "-1/2"
+               },
+               {
+                "member": "b",
+                "kind": "exact",
+                "u": "2",
+                "value": "-1/2"
+               },
+               {
+                "member": "c",
+                "kind": "lemma3.3",
+                "u": "0",
+                "v": "1",
+                "floor": 6
+               },
+               {
+                "member": "d",
+                "kind": "exact",
+                "u": "4",
+                "value": "-1/2"
+               },
+               {
+                "member": "e",
+                "kind": "lemma3.3",
+                "u": "8",
+                "v": "-1",
+                "floor": 6
+               },
+               {
+                "member": "f",
+                "kind": "exact",
+                "u": "8",
+                "value": "-1/2"
+               }
+              ]
+             }
+            ],
+            "finite": {
+             "ok": true,
+             "enumerated": 9,
+             "closed": 9,
+             "skipped": [],
+             "undecided": []
+            }
+           }
+          },
+          "coverage": [
+           {
+            "condition": "3k = w+s",
+            "key": "1,2,-1",
+            "pointsChecked": 1
+           }
+          ]
+         }
+        },
+        "coverage": [
+         {
+          "condition": "2k = j",
+          "key": "1,1,-1,0",
+          "pointsChecked": 11
+         }
+        ]
+       },
+       {
+        "label": "c+e = f » 2b = d / w = a",
+        "kind": "dot",
+        "base": "0",
+        "posBase": "3",
+        "dip": "-5/3",
+        "exceptions": [
+         {
+          "key": "1,-1,0",
+          "label": "2a = j",
+          "delta": "1/2"
+         }
+        ],
+        "children": {
+         "1,-1,0": {
+          "label": "c+e = f » 2b = d / w = a » 2a = j",
+          "kind": "closure",
+          "auto": {
+           "Se": "e @ pi",
+           "So": "a @ 2pi/3"
+          },
+          "closures": [
+           {
+            "ok": true,
+            "tailMember": null,
+            "N0": 26,
+            "validityFloor": 24,
+            "expr": {
+             "A": "-5/2",
+             "B": "9/2",
+             "C": "21",
+             "D": "0"
+            },
+            "boundAtN0": {
+             "lo": "-15178138086381430985725228969733827695400991762658444457916198494128565319/9331161060860842240611789925798538411713899330374362622579732750576648192",
+             "hi": "-242850209382102895771603663515741243107624350123268117711938231846571035247/149298576973773475849788638812776614587422389285989801961275724009226371072"
+            },
+            "target": {
+             "lo": "-112015241955925/70368744177664",
+             "hi": "-7168975485179199/4503599627370496"
+            },
+            "pieces": [
+             {
+              "member": "a",
+              "kind": "lemma3.3",
+              "u": "0",
+              "v": "1",
+              "floor": 6
+             },
+             {
+              "member": "b",
+              "kind": "lemma3.3",
+              "u": "0",
+              "v": "2",
+              "floor": 12
+             },
+             {
+              "member": "c",
+              "kind": "trivial",
+              "u": "0",
+              "v": "3",
+              "warn": "target angle 0"
+             },
+             {
+              "member": "d",
+              "kind": "lemma3.3",
+              "u": "0",
+              "v": "4",
+              "floor": 24
+             },
+             {
+              "member": "e",
+              "kind": "exact",
+              "u": "1",
+              "value": "-1"
+             },
+             {
+              "member": "f",
+              "kind": "lemma3.2",
+              "u": "1",
+              "v": "3"
+             }
+            ]
+           }
+          ],
+          "finite": {
+           "ok": true,
+           "enumerated": 49,
+           "closed": 49,
+           "skipped": [],
+           "undecided": []
+          }
+         }
+        },
+        "coverage": [
+         {
+          "condition": "2a = j",
+          "key": "1,-1,0",
+          "pointsChecked": 18
+         }
+        ]
+       },
+       {
+        "label": "c+e = f » 2b = d / a < w < b",
+        "kind": "dot",
+        "base": "0",
+        "posBase": "3",
+        "dip": "-5/3",
+        "exceptions": [
+         {
+          "key": "1,-1,-1,0",
+          "label": "2a = j",
+          "delta": "1/2"
+         }
+        ],
+        "children": {
+         "1,-1,-1,0": {
+          "label": "c+e = f » 2b = d / a < w < b » 2a = j",
+          "kind": "dot",
+          "base": "0",
+          "posBase": "3",
+          "dip": "-5/3",
+          "exceptions": [
+           {
+            "key": "0,1,-1",
+            "label": "2j = i+s",
+            "delta": "4/3"
+           },
+           {
+            "key": "1,2,-1",
+            "label": "3j = i+s",
+            "delta": "-1/2"
+           },
+           {
+            "key": "2,3,-1",
+            "label": "4j = i+s",
+            "delta": "-1/2"
+           },
+           {
+            "key": "4,5,-1",
+            "label": "6j = i+s",
+            "delta": "-1/2"
+           }
+          ],
+          "children": {
+           "0,1,-1": {
+            "label": "c+e = f » 2b = d / a < w < b » 2a = j » 2j = i+s",
+            "kind": "closure",
+            "auto": {
+             "Se": "a @ 2pi/3",
+             "So": "c @ 2pi/3"
+            },
+            "closures": [
+             {
+              "ok": true,
+              "tailMember": null,
+              "N0": 6,
+              "validityFloor": 6,
+              "expr": {
+               "A": "-3",
+               "B": "0",
+               "C": "6",
+               "D": "0"
+              },
+              "boundAtN0": {
+               "lo": "-2",
+               "hi": "-2"
+              },
+              "target": {
+               "lo": "-112015241955925/70368744177664",
+               "hi": "-7168975485179199/4503599627370496"
+              },
+              "pieces": [
+               {
+                "member": "a",
+                "kind": "exact",
+                "u": "1",
+                "value": "-1/2"
+               },
+               {
+                "member": "b",
+                "kind": "exact",
+                "u": "2",
+                "value": "-1/2"
+               },
+               {
+                "member": "c",
+                "kind": "lemma3.3",
+                "u": "0",
+                "v": "1",
+                "floor": 6
+               },
+               {
+                "member": "d",
+                "kind": "exact",
+                "u": "4",
+                "value": "-1/2"
+               },
+               {
+                "member": "e",
+                "kind": "lemma3.3",
+                "u": "8",
+                "v": "-1",
+                "floor": 6
+               },
+               {
+                "member": "f",
+                "kind": "exact",
+                "u": "8",
+                "value": "-1/2"
+               }
+              ]
+             }
+            ],
+            "finite": {
+             "ok": true,
+             "enumerated": 9,
+             "closed": 9,
+             "skipped": [],
+             "undecided": []
+            }
+           }
+          },
+          "coverage": [
+           {
+            "condition": "2j = i+s",
+            "key": "0,1,-1",
+            "pointsChecked": 1
+           }
+          ]
+         }
+        },
+        "coverage": [
+         {
+          "condition": "2a = j",
+          "key": "1,-1,-1,0",
+          "pointsChecked": 6
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "coverage": [
+     {
+      "condition": "2b = d",
+      "key": "1,1,-1,-1,0",
+      "pointsChecked": 187
+     }
+    ]
+   },
+   "ms": 5453
+  },
+  "lambda6-family: b+e = f": {
+   "ok": true,
+   "rootKey": "1,1,0,0,0,-1",
+   "status": "CLOSED",
+   "ontoChecked": 3787,
+   "stats": {
+    "dots": 8,
+    "closures": 3,
+    "finiteSets": 15
+   },
+   "node": {
+    "label": "b+e = f",
+    "kind": "dot",
+    "base": "0",
+    "posBase": "3",
+    "dip": "-5/3",
+    "exceptions": [
+     {
+      "key": "1,-1,-1,0,0",
+      "label": "2a = c",
+      "delta": "1/2"
+     },
+     {
+      "key": "1,-1,-1,-1,0",
+      "label": "2a = d",
+      "delta": "1/2"
+     },
+     {
+      "key": "1,-1,0,-1,-1",
+      "label": "2a+c = b+e",
+      "delta": "-1/2"
+     },
+     {
+      "key": "1,-1,0,0,-1",
+      "label": "2a+d = b+e",
+      "delta": "-1/2"
+     },
+     {
+      "key": "1,-2,-1,-1,-1",
+      "label": "3a = b+e",
+      "delta": "-1/2"
+     }
+    ],
+    "children": {
+     "1,-1,-1,0,0": {
+      "label": "b+e = f » 2a = c",
+      "kind": "dot",
+      "base": "0",
+      "posBase": "3",
+      "dip": "-5/3",
+      "exceptions": [
+       {
+        "key": "0,1,-1,-1",
+        "label": "2k = u+s",
+        "delta": "4/3"
+       },
+       {
+        "key": "2,2,-1,0",
+        "label": "3k = p",
+        "delta": "1/2"
+       },
+       {
+        "key": "1,2,-1,-1",
+        "label": "3k = u+s",
+        "delta": "-1/2"
+       },
+       {
+        "key": "2,3,0,-1",
+        "label": "3k+p = u+s",
+        "delta": "-1/2"
+       },
+       {
+        "key": "2,3,-1,-1",
+        "label": "4k = u+s",
+        "delta": "-1/2"
+       },
+       {
+        "key": "0,1,0,-1",
+        "label": "k+p = u+s",
+        "delta": "2"
+       }
+      ],
+      "children": {
+       "0,1,-1,-1": {
+        "label": "b+e = f » 2a = c » 2k = u+s",
+        "kind": "dot",
+        "base": "0",
+        "posBase": "3",
+        "dip": "-5/3",
+        "exceptions": [],
+        "children": {},
+        "coverage": []
+       },
+       "2,2,-1,0": {
+        "label": "b+e = f » 2a = c » 3k = p",
+        "kind": "dot",
+        "base": "0",
+        "posBase": "3",
+        "dip": "-5/3",
+        "exceptions": [
+         {
+          "key": "0,1,-1",
+          "label": "2k = u+s",
+          "delta": "3/2"
+         },
+         {
+          "key": "1,2,-1",
+          "label": "3k = u+s",
+          "delta": "-1/2"
+         },
+         {
+          "key": "0,2,-2",
+          "label": "4k = 2u+2s",
+          "delta": "1/2"
+         },
+         {
+          "key": "2,3,-1",
+          "label": "4k = u+s",
+          "delta": "4/3"
+         },
+         {
+          "key": "3,4,-1",
+          "label": "5k = u+s",
+          "delta": "-1/2"
+         },
+         {
+          "key": "4,5,-1",
+          "label": "6k = u+s",
+          "delta": "-1/2"
+         },
+         {
+          "key": "6,7,-1",
+          "label": "8k = u+s",
+          "delta": "-1/2"
+         }
+        ],
+        "children": {
+         "0,1,-1": {
+          "label": "b+e = f » 2a = c » 3k = p » 2k = u+s",
+          "kind": "closure",
+          "auto": {
+           "Se": "a @ 2pi/3",
+           "So": "b @ pi"
+          },
+          "closures": [
+           {
+            "ok": true,
+            "tailMember": null,
+            "N0": 4,
+            "validityFloor": 1,
+            "expr": {
+             "A": "-5/2",
+             "B": "1",
+             "C": "0",
+             "D": "0"
+            },
+            "boundAtN0": {
+             "lo": "-207952347752136000394557740807080291452805962701548797729205754515946959/110427941548649020598956093796432407239217743554726184882600387580788736",
+             "hi": "-3327237564034176006312923852913284661156948949972892584253853843423372471/1766847064778384329583297500742918515827483896875618958121606201292619776"
+            },
+            "target": {
+             "lo": "-112015241955925/70368744177664",
+             "hi": "-7168975485179199/4503599627370496"
+            },
+            "pieces": [
+             {
+              "member": "a",
+              "kind": "exact",
+              "u": "1",
+              "value": "-1/2"
+             },
+             {
+              "member": "b",
+              "kind": "lemma3.2",
+              "u": "0",
+              "v": "1"
+             },
+             {
+              "member": "c",
+              "kind": "exact",
+              "u": "2",
+              "value": "-1/2"
+             },
+             {
+              "member": "d",
+              "kind": "exact",
+              "u": "4",
+              "value": "-1/2"
+             },
+             {
+              "member": "e",
+              "kind": "lemma3.2",
+              "u": "6",
+              "v": "-1"
+             },
+             {
+              "member": "f",
+              "kind": "exact",
+              "u": "6",
+              "value": "1"
+             }
+            ]
+           }
+          ],
+          "finite": {
+           "ok": true,
+           "enumerated": 3,
+           "closed": 3,
+           "skipped": [],
+           "undecided": []
+          }
+         },
+         "0,2,-2": {
+          "label": "b+e = f » 2a = c » 3k = p » 4k = 2u+2s",
+          "kind": "closure",
+          "auto": {
+           "Se": "a @ 2pi/3",
+           "So": "b @ pi"
+          },
+          "closures": [
+           {
+            "ok": true,
+            "tailMember": null,
+            "N0": 4,
+            "validityFloor": 1,
+            "expr": {
+             "A": "-5/2",
+             "B": "1",
+             "C": "0",
+             "D": "0"
+            },
+            "boundAtN0": {
+             "lo": "-207952347752136000394557740807080291452805962701548797729205754515946959/110427941548649020598956093796432407239217743554726184882600387580788736",
+             "hi": "-3327237564034176006312923852913284661156948949972892584253853843423372471/1766847064778384329583297500742918515827483896875618958121606201292619776"
+            },
+            "target": {
+             "lo": "-112015241955925/70368744177664",
+             "hi": "-7168975485179199/4503599627370496"
+            },
+            "pieces": [
+             {
+              "member": "a",
+              "kind": "exact",
+              "u": "1",
+              "value": "-1/2"
+             },
+             {
+              "member": "b",
+              "kind": "lemma3.2",
+              "u": "0",
+              "v": "1"
+             },
+             {
+              "member": "c",
+              "kind": "exact",
+              "u": "2",
+              "value": "-1/2"
+             },
+             {
+              "member": "d",
+              "kind": "exact",
+              "u": "4",
+              "value": "-1/2"
+             },
+             {
+              "member": "e",
+              "kind": "lemma3.2",
+              "u": "6",
+              "v": "-1"
+             },
+             {
+              "member": "f",
+              "kind": "exact",
+              "u": "6",
+              "value": "1"
+             }
+            ]
+           }
+          ],
+          "finite": {
+           "ok": true,
+           "enumerated": 3,
+           "closed": 3,
+           "skipped": [],
+           "undecided": []
+          }
+         },
+         "2,3,-1": {
+          "label": "b+e = f » 2a = c » 3k = p » 4k = u+s",
+          "kind": "closure",
+          "auto": {
+           "Se": "a @ 2pi/3",
+           "So": "b @ 2pi/3"
+          },
+          "closures": [
+           {
+            "ok": true,
+            "tailMember": null,
+            "N0": 6,
+            "validityFloor": 6,
+            "expr": {
+             "A": "-3",
+             "B": "0",
+             "C": "6",
+             "D": "0"
+            },
+            "boundAtN0": {
+             "lo": "-2",
+             "hi": "-2"
+            },
+            "target": {
+             "lo": "-112015241955925/70368744177664",
+             "hi": "-7168975485179199/4503599627370496"
+            },
+            "pieces": [
+             {
+              "member": "a",
+              "kind": "exact",
+              "u": "1",
+              "value": "-1/2"
+             },
+             {
+              "member": "b",
+              "kind": "lemma3.3",
+              "u": "0",
+              "v": "1",
+              "floor": 6
+             },
+             {
+              "member": "c",
+              "kind": "exact",
+              "u": "2",
+              "value": "-1/2"
+             },
+             {
+              "member": "d",
+              "kind": "exact",
+              "u": "4",
+              "value": "-1/2"
+             },
+             {
+              "member": "e",
+              "kind": "lemma3.3",
+              "u": "8",
+              "v": "-1",
+              "floor": 6
+             },
+             {
+              "member": "f",
+              "kind": "exact",
+              "u": "8",
+              "value": "-1/2"
+             }
+            ]
+           }
+          ],
+          "finite": {
+           "ok": true,
+           "enumerated": 9,
+           "closed": 9,
+           "skipped": [],
+           "undecided": []
+          }
+         }
+        },
+        "coverage": [
+         {
+          "condition": "2k = u+s",
+          "key": "0,1,-1",
+          "pointsChecked": 3
+         },
+         {
+          "condition": "4k = 2u+2s",
+          "key": "0,2,-2",
+          "pointsChecked": 3
+         },
+         {
+          "condition": "4k = u+s",
+          "key": "2,3,-1",
+          "pointsChecked": 1
+         }
+        ]
+       },
+       "0,1,0,-1": {
+        "label": "b+e = f » 2a = c » k+p = u+s",
+        "kind": "dot",
+        "base": "0",
+        "posBase": "3",
+        "dip": "-5/3",
+        "exceptions": [],
+        "children": {},
+        "coverage": []
+       }
+      },
+      "coverage": [
+       {
+        "condition": "2k = u+s",
+        "key": "0,1,-1,-1",
+        "pointsChecked": 10
+       },
+       {
+        "condition": "3k = p",
+        "key": "2,2,-1,0",
+        "pointsChecked": 19
+       },
+       {
+        "condition": "k+p = u+s",
+        "key": "0,1,0,-1",
+        "pointsChecked": 48
+       }
+      ]
+     },
+     "1,-1,-1,-1,0": {
+      "label": "b+e = f » 2a = d",
+      "kind": "dot",
+      "base": "0",
+      "posBase": "3",
+      "dip": "-5/3",
+      "exceptions": [
+       {
+        "key": "0,1,-1,-1",
+        "label": "2v = u+s",
+        "delta": "4/3"
+       },
+       {
+        "key": "2,3,1,-1",
+        "label": "2v+2k = u+s",
+        "delta": "-1/2"
+       },
+       {
+        "key": "1,2,0,-1",
+        "label": "2v+k = u+s",
+        "delta": "-1/2"
+       },
+       {
+        "key": "2,3,0,-1",
+        "label": "3v+k = u+s",
+        "delta": "-1/2"
+       },
+       {
+        "key": "0,1,0,-1",
+        "label": "v+k = u+s",
+        "delta": "2"
+       }
+      ],
+      "children": {
+       "0,1,-1,-1": {
+        "label": "b+e = f » 2a = d » 2v = u+s",
+        "kind": "dot",
+        "base": "0",
+        "posBase": "3",
+        "dip": "-5/3",
+        "exceptions": [],
+        "children": {},
+        "coverage": []
+       },
+       "0,1,0,-1": {
+        "label": "b+e = f » 2a = d » v+k = u+s",
+        "kind": "dot",
+        "base": "0",
+        "posBase": "3",
+        "dip": "-5/3",
+        "exceptions": [],
+        "children": {},
+        "coverage": []
+       }
+      },
+      "coverage": [
+       {
+        "condition": "2v = u+s",
+        "key": "0,1,-1,-1",
+        "pointsChecked": 4
+       },
+       {
+        "condition": "v+k = u+s",
+        "key": "0,1,0,-1",
+        "pointsChecked": 13
+       }
+      ]
+     }
+    },
+    "coverage": [
+     {
+      "condition": "2a = c",
+      "key": "1,-1,-1,0,0",
+      "pointsChecked": 273
+     },
+     {
+      "condition": "2a = d",
+      "key": "1,-1,-1,-1,0",
+      "pointsChecked": 71
+     }
+    ]
+   },
+   "ms": 978
   }
  },
  "meta": {
   "date": "2026-09-01",
-  "git": "5069086",
-  "ms": 291108,
+  "git": "f331c87",
+  "ms": 237281,
   "failures": 0
  }
 }

@@ -729,6 +729,79 @@ stage('lambda6-family: 2e = f', () => {
   }, { target: L6, tol: 1e-10, cap: 21, topC: C6, rootConds: rootCondsOf(gen6) });
 });
 
+/* ---- lambda(6) family: c+e = f --------------------------------------------- */
+/* One condition (d = 2b), whose region c-b < b splits on w = c-b vs a. */
+stage('lambda6-family: c+e = f', () => {
+  if (!gen6) throw new Error('lambda6-generic did not run');
+  const M = (names, mm) => ({ n: names.length, names, member: mm, defs: {} });
+  const K = (mm) => ({ kind: 'auto', C: M(['x', 'y'], mm) });
+  const dotW = (C3, m, subs) => ({
+    kind: 'dot', C: C3, S: { order: C3.member.f, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C3.member[m] }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: Object.keys(C3.member).filter(x => x !== 'f'), anchored: ['f'], subs: subs || {}
+  });
+  const C = F.ctx(['a', 'b', 'c', 'd', 'e'], { f: { c: 1, e: 1 } });
+  return CL.closeFamily(rootKeyOf(gen6, 'c+e = f'), {
+    kind: 'dot', familyLabel: 'c+e = f', C,
+    S: { order: C.member.f, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C.member.b }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: ['a', 'b', 'c', 'd', 'e'], anchored: ['f'],
+    subs: {
+      '1,1,-1,-1,0': { kind: 'split', parts: [
+        Object.assign(dotW(M(['w', 'k', 'j', 's'], { a: [1n, 1n, 0n, 0n], b: [1n, 1n, 1n, 0n], c: [2n, 1n, 1n, 0n], d: [2n, 2n, 2n, 0n], e: [2n, 2n, 2n, 1n], f: [4n, 3n, 3n, 1n] }), 'a', {
+          '1,1,-1,0': dotW(M(['w', 'k', 's'], { a: [1n, 1n, 0n], b: [2n, 2n, 0n], c: [3n, 2n, 0n], d: [4n, 4n, 0n], e: [4n, 4n, 1n], f: [7n, 6n, 1n] }), 'd', {
+            '1,2,-1': K({ a: [1n, 1n], b: [2n, 2n], c: [3n, 2n], d: [4n, 4n], e: [5n, 6n], f: [8n, 8n] })
+          })
+        }), { partLabel: 'w < a' }),
+        Object.assign(dotW(M(['a', 'j', 's'], { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [2n, 1n, 0n], d: [2n, 2n, 0n], e: [2n, 2n, 1n], f: [4n, 3n, 1n] }), 'a', {
+          '1,-1,0': K({ a: [1n, 0n], b: [2n, 0n], c: [3n, 0n], d: [4n, 0n], e: [4n, 1n], f: [7n, 1n] })
+        }), { partLabel: 'w = a' }),
+        Object.assign(dotW(M(['a', 'i', 'j', 's'], { a: [1n, 0n, 0n, 0n], b: [1n, 1n, 1n, 0n], c: [2n, 2n, 1n, 0n], d: [2n, 2n, 2n, 0n], e: [2n, 2n, 2n, 1n], f: [4n, 4n, 3n, 1n] }), 'a', {
+          '1,-1,-1,0': dotW(M(['i', 'j', 's'], { a: [1n, 1n, 0n], b: [2n, 2n, 0n], c: [4n, 3n, 0n], d: [4n, 4n, 0n], e: [4n, 4n, 1n], f: [8n, 7n, 1n] }), 'd', {
+            '0,1,-1': K({ a: [1n, 1n], b: [2n, 2n], c: [4n, 3n], d: [4n, 4n], e: [4n, 5n], f: [8n, 8n] })
+          })
+        }), { partLabel: 'a < w < b' })
+      ] }
+    }
+  }, { target: L6, tol: 1e-10, cap: 21, topC: C6, rootConds: rootCondsOf(gen6) });
+});
+
+/* ---- lambda(6) family: b+e = f --------------------------------------------- */
+/* Two conditions, c = 2a and d = 2a; both single cones; four of their five
+   sub-cones close with zero exceptions. */
+stage('lambda6-family: b+e = f', () => {
+  if (!gen6) throw new Error('lambda6-generic did not run');
+  const M = (names, mm) => ({ n: names.length, names, member: mm, defs: {} });
+  const K = (mm) => ({ kind: 'auto', C: M(['x', 'y'], mm) });
+  const dotW = (C3, m, subs) => ({
+    kind: 'dot', C: C3, S: { order: C3.member.f, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C3.member[m] }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: Object.keys(C3.member).filter(x => x !== 'f'), anchored: ['f'], subs: subs || {}
+  });
+  const C = F.ctx(['a', 'b', 'c', 'd', 'e'], { f: { b: 1, e: 1 } });
+  const BE12leaf = K({ a: [1n, 1n], b: [2n, 1n], c: [2n, 2n], d: [4n, 4n], e: [4n, 5n], f: [6n, 6n] });  /* k = s: two keys, one hyperplane */
+  return CL.closeFamily(rootKeyOf(gen6, 'b+e = f'), {
+    kind: 'dot', familyLabel: 'b+e = f', C,
+    S: { order: C.member.f, xi: D.XI_PI },
+    W: [{ atom: { kind: 'omcsq', form: C.member.a }, coeff: q(2) }],
+    gConst: q(2, 3), gMembers: ['a', 'b', 'c', 'd', 'e'], anchored: ['f'],
+    subs: {
+      '1,-1,-1,0,0': dotW(M(['u', 'k', 'p', 's'], { a: [1n, 1n, 0n, 0n], b: [2n, 1n, 0n, 0n], c: [2n, 2n, 0n, 0n], d: [2n, 2n, 1n, 0n], e: [2n, 2n, 1n, 1n], f: [4n, 3n, 1n, 1n] }), 'c', {
+        '0,1,-1,-1': dotW(M(['u', 'p', 's'], { a: [1n, 1n, 1n], b: [2n, 1n, 1n], c: [2n, 2n, 2n], d: [2n, 3n, 2n], e: [2n, 3n, 3n], f: [4n, 4n, 4n] }), 'a'),
+        '2,2,-1,0': dotW(M(['u', 'k', 's'], { a: [1n, 1n, 0n], b: [2n, 1n, 0n], c: [2n, 2n, 0n], d: [4n, 4n, 0n], e: [4n, 4n, 1n], f: [6n, 5n, 1n] }), 'd', {
+          '0,1,-1': BE12leaf, '0,2,-2': BE12leaf,
+          '2,3,-1': K({ a: [1n, 1n], b: [2n, 1n], c: [2n, 2n], d: [4n, 4n], e: [6n, 7n], f: [8n, 8n] })
+        }),
+        '0,1,0,-1': dotW(M(['u', 'k', 'p'], { a: [1n, 1n, 0n], b: [2n, 1n, 0n], c: [2n, 2n, 0n], d: [2n, 2n, 1n], e: [2n, 3n, 1n], f: [4n, 4n, 1n] }), 'a')
+      }),
+      '1,-1,-1,-1,0': dotW(M(['u', 'v', 'k', 's'], { a: [1n, 1n, 1n, 0n], b: [2n, 1n, 1n, 0n], c: [2n, 2n, 1n, 0n], d: [2n, 2n, 2n, 0n], e: [2n, 2n, 2n, 1n], f: [4n, 3n, 3n, 1n] }), 'c', {
+        '0,1,-1,-1': dotW(M(['u', 'k', 's'], { a: [1n, 2n, 1n], b: [2n, 2n, 1n], c: [2n, 3n, 2n], d: [2n, 4n, 2n], e: [2n, 4n, 3n], f: [4n, 6n, 4n] }), 'd'),
+        '0,1,0,-1': dotW(M(['u', 'v', 'k'], { a: [1n, 1n, 1n], b: [2n, 1n, 1n], c: [2n, 2n, 1n], d: [2n, 2n, 2n], e: [2n, 3n, 2n], f: [4n, 4n, 3n] }), 'a')
+      })
+    }
+  }, { target: L6, tol: 1e-10, cap: 21, topC: C6, rootConds: rootCondsOf(gen6) });
+});
+
 save();
 console.log('certs/lambda56-campaign.json written · ' + failures + ' failed stage(s) · ' + (Date.now() - t0) + ' ms');
 if (record.stages['lambda5-generic'] && record.stages['lambda5-generic'].ok) {

@@ -46,18 +46,23 @@ assignment; session g closed ALL OF LAMBDA(5) and opened lambda(6)):
   battery: instruments/lambda56/battery.js, 15 checks + 5 red controls,
   wired into make test and build-control.
 
-  LAMBDA(6) STANDS AT 3/10 FAMILIES CLOSED (d+e=f, 2e=f done in single
-  dots — verify in the record; the worklist is in the lambda6-generic
-  stage). What remains, ranked by expected difficulty:
-   · c+e=f (1 sub-condition: d=2b), b+e=f (2 subs: c=2a, d=2a) — shallow.
-   · a+e=f — the extremizer family; 6 subs; expect the double-sum core
-     b+d = a+e = f to need the SAME Fejer-Riesz comb that broke lambda(5)'s
-     core (sq atom in dot.js, classes m+f at S(f, 2pi/3), g0 = 7/6).
-     {1,2,4,6,7,8} also satisfies 2c = f — expect one more wall than
-     lambda(5) had.
-   · the parity families 2e=f-style leftovers: a+2e=2f, b+2e=2f, c+2e=2f,
-     d+2e=2f, 3e=2f — root triangulations like lambda(5)'s 3d=2e
-     (17 cones); budget most of the session here.
+  LAMBDA(6) STANDS AT 4/10 FAMILIES CLOSED — d+e=f, 2e=f, c+e=f, b+e=f
+  all green in the record (the last two closed FIRST TRY once the method
+  was dialed in). What remains, ranked, WITH THE PROBES ALREADY RUN:
+   · a+e=f — the extremizer family; omcsq d gives 6 subs whose labels ARE
+     readable (prefix cone): 2d=f, 3d=2f, b+2d=2f, b+d=f (extremizer
+     ACTIVE, 2+6=8), c+2d=2f, c+d=f — the ENTIRE lambda(5) worklist
+     pattern one level down, with a floating. Expect the double-sum core
+     b+d = a+e = f to need the Fejer-Riesz comb (sq atom, classes m+f at
+     S(f, 2pi/3), g0 = 7/6); {1,2,4,6,7,8} is also on c+2d=2f (4+12=16),
+     so walls in both subtrees.
+   · a+2e=2f — probed: omcsq a, 8 subs mirroring lambda(5)'s a+2d=2e
+     (2e=3a, b=2a, c=2a with the 3-cone split, d=2a with the 7-cone
+     midpoint split, three e=2e-minus-member single cones) PLUS the new
+     beast e=2a, where b,c,d ALL float in (a,2a) — its midpoint
+     triangulation is the biggest single object in the campaign.
+   · b+2e=2f (extremizer at the a=be boundary again), c+2e=2f, 3e=2f —
+     root triangulations like lambda(5)'s (3, 7 and 17 cones there).
   THE METHOD IS PROVEN — probe with dotTheorem (single omcsq atom, S(f,pi),
   g0=2/3, pick the atom member with fewest positives), parametrize each
   condition as a cone, let 'auto' leaves close 2-dof pieces, and when a
