@@ -1,13 +1,15 @@
 cert-machine — cold start. READ FIRST, BUILD SECOND.
 
 Working dir: /Users/carlostoledo/Documents/cert-machine
-Read CLAUDE.md and HANDOFF.md; both current. HEAD is 7ca3e18.
+Read CLAUDE.md and HANDOFF.md; both current. For the tip, run
+`git log --oneline -1` — a hash written into this file would name the commit
+before the one that carries it, so it is deliberately not stamped here.
 make test 39 PASS · batteries 29/29 · design battery ALL PASS · drift 130
 unchanged, 0 local edited. Working tree clean, origin in sync, site deployed.
 
 FIRST ACTION:  node tools/sweep-claims.js
 SECOND ACTION: node tools/targets.js
-  20 targets with the citation that killed each. Read it before proposing
+  19 targets with the citation that killed each. Read it before proposing
   anything. It exists because five targets died in one session, each after
   hours, each of which would have died in minutes. Seven are DEAD or
   OCCUPIED — those rows are afternoons already paid for.
