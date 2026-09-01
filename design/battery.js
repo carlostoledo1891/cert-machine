@@ -254,7 +254,7 @@ const LEAK_DEBT = {};   /* mfg-observatory.html paid off 2026-08-30 — C.p -> C
 
 /* ================= X · falsifiers ======================================== */
 console.log('\n    executing falsifiers');
-let reds = 0; const redTotal = 6;
+let reds = 0; const redTotal = 8;
 {
   const bad = svgColourViolations('<svg><rect fill="#ff0000"/></svg>', 'planted');
   if (bad.length === 1) { reds++; console.log('       RED ok  X1 a planted literal hex in a figure is caught'); }
@@ -276,6 +276,32 @@ let reds = 0; const redTotal = 6;
   try { CH.legend([{ token: 'var(--c-1)' }], 0, 0); } catch (e) { threw = true; }
   if (threw) { reds++; console.log('       RED ok  X4 a legend swatch with no word beside it is REFUSED (colour is never the only channel)'); }
   else console.log('       RED FAIL  X4 an unlabelled swatch was accepted');
+}
+{
+  /* the scatter form (the phase-map picture): rendered output is token-only,
+     hover-reachable, and its two construction rules refuse when violated */
+  const CH = require(path.join(__dirname, 'charts.js'));
+  const svg = CH.scatter({
+    w: 400, h: 200, x0: 0.001, x1: 0.1, logX: true, y0: 0, y1: 0.3, alt: 'planted phase map',
+    xTicks: [{ v: 0.001, t: '1e-3' }, { v: 0.01, t: '1e-2' }], yTicks: [0, 0.1, 0.2],
+    pts: [{ x: 0.002, y: 0.2, token: 'var(--c-1)', k: 'cell', v: '2 peaks' },
+          { x: 0.02, y: 0.2, token: 'var(--c-2)', k: 'cell', v: '1 peak' },
+          { x: 0.002, y: 0.15, token: 'var(--c-1)', k: 'T4', v: 'theorem', diamond: true }],
+    curves: [{ pts: [[0.001, 0.1], [0.01, 0.2]], token: 'var(--c-ctx)', dashed: true, k: 'predicted' }],
+    vlines: [{ x: 0.0126, token: 'var(--c-ctx)', t: 'sigma*', dashed: false }],
+    keys: [{ token: 'var(--c-1)', t: 'split' }, { token: 'var(--c-2)', t: 'single' }],
+  });
+  check('F5 the scatter form renders token-only with legend, diamond and hover marks',
+    svgColourViolations('<svg' + svg.split('<svg')[1], 'scatter').length === 0
+    && /data-cm=/.test(svg) && /stroke-dasharray="5 4"/.test(svg) && /Z" fill=/.test(svg));
+  let threw1 = false;
+  try { CH.scatter({ w: 400, h: 200, x0: 0, x1: 1, y0: 0, y1: 1, alt: 'x', pts: [{ x: 0.1, y: 0.1, token: 'var(--c-1)' }, { x: 0.2, y: 0.2, token: 'var(--c-2)' }] }); } catch (e) { threw1 = true; }
+  if (threw1) { reds++; console.log('       RED ok  X7 a two-colour scatter with no legend is REFUSED'); }
+  else console.log('       RED FAIL  X7 a two-colour scatter rendered without a legend');
+  let threw2 = false;
+  try { CH.scatter({ w: 400, h: 200, x0: 0, x1: 1, logX: true, y0: 0, y1: 1, alt: 'x', pts: [] }); } catch (e) { threw2 = true; }
+  if (threw2) { reds++; console.log('       RED ok  X8 a log x-axis with a zero floor is REFUSED, never clamped'); }
+  else console.log('       RED FAIL  X8 a zero floor was silently accepted on a log x-axis');
 }
 {
   const bad = escapedTagLeaks('<td>&lt;strong&gt;9 / 10 certified&lt;/strong&gt;</td>', 'planted');

@@ -100,9 +100,17 @@ function frame(o) {
   if (logY && !(o.y0 > 0)) throw new Error('charts: a log y-axis needs a strictly positive floor');
   const ys = v => (logY ? Math.log10(v) : v);
   const y0 = ys(o.y0), y1 = ys(o.y1);
+  /* logX mirrors logY, with the same honesty about zero: refused, never clamped */
+  const logX = !!o.logX;
+  if (logX && !(o.x0 > 0)) throw new Error('charts: a log x-axis needs a strictly positive floor');
+  const xs = v => (logX ? Math.log10(v) : v);
+  const x0s = xs(o.x0), x1s = xs(o.x1);
   return {
-    w, h, L, R, T: TOPP, B: BOT, pw, ph, logY,
-    px: v => L + (v - o.x0) / (o.x1 - o.x0) * pw,
+    w, h, L, R, T: TOPP, B: BOT, pw, ph, logY, logX,
+    px: v => {
+      if (logX && !(v > 0)) throw new Error('charts: value ' + v + ' cannot sit on a log axis');
+      return L + (xs(v) - x0s) / (x1s - x0s) * pw;
+    },
     py: v => {
       if (logY && !(v > 0)) throw new Error('charts: value ' + v + ' cannot sit on a log axis');
       return TOPP + ph - (ys(v) - y0) / (y1 - y0) * ph;
@@ -599,6 +607,65 @@ function segments(o) {
   return out.join('\n');
 }
 
+/* SCATTER — a decided POINT FIELD over a two-parameter plane. Solve or decide
+   at every sampled (x, y), colour each mark by its cell's VERDICT, and lay the
+   theorem specimens over the field as ringed DIAMONDS: floats are the map,
+   theorems the territory, and the two never share a glyph. Overlay curves are
+   for closed-form boundaries; a boundary that comes from linear response is a
+   PREDICTION and must be passed dashed — predicted and decided never share a
+   typography, which is the audit posture applied to a chart form. Built for
+   the terra phase map (a couple hundred solves, sigma on a log axis), generic
+   over any point field.
+     pts:    [{x, y, token, k, v, diamond}]         diamond = a proved specimen
+     curves: [{pts: [[x,y],...], token, dashed, k}] overlay boundary curves
+     vlines: [{x, token, t, dashed}]                marklines (e.g. sigma*)
+     hlines: [{y, token, t, dashed}]
+     keys:   REQUIRED once the marks carry 2+ distinct colours               */
+function scatter(o) {
+  const P = o.pts || [];
+  const toks = new Set(P.map(p => p.token));
+  if (toks.size >= 2 && !(o.keys && o.keys.length)) {
+    throw new Error('charts.scatter: 2+ mark colours need a labelled legend — colour is never the only channel');
+  }
+  const avail0 = (o.w || 900) - (o.padL === undefined ? 62 : o.padL) - (o.padR === undefined ? 22 : o.padR);
+  const nLeg = legendLines(o.keys, avail0, o.legendGap);
+  const f = frame(Object.assign({}, o, { padB: o.padB || (28 + (o.xLabel ? 22 : 0) + (nLeg ? 5 + nLeg * LEGEND_LINE : 0)) }));
+  const out = [open({ w: f.w, h: f.h, alt: o.alt, cls: o.cls })];
+  out.push(axes(f, o));
+  for (const l of (o.vlines || [])) {
+    const x = f.px(l.x);
+    out.push('    <line x1="' + x.toFixed(1) + '" y1="' + f.T + '" x2="' + x.toFixed(1) + '" y2="' + (f.T + f.ph)
+      + '" stroke="' + (l.token || CTX) + '" stroke-width="1.5"' + (l.dashed ? ' stroke-dasharray="4 3"' : '') + '/>');
+    if (l.t) out.push(txt(x + 6, f.T + 13, l.t, 't-lab', 'start'));
+  }
+  for (const l of (o.hlines || [])) {
+    const y = f.py(l.y);
+    out.push('    <line x1="' + f.L + '" y1="' + y.toFixed(1) + '" x2="' + (f.L + f.pw) + '" y2="' + y.toFixed(1)
+      + '" stroke="' + (l.token || CTX) + '" stroke-width="1.5"' + (l.dashed ? ' stroke-dasharray="4 3"' : '') + '/>');
+    if (l.t) out.push(txt(f.L + f.pw - 6, y - 6, l.t, 't-lab', 'end'));
+  }
+  for (const c of (o.curves || [])) {
+    const d = c.pts.map((p, i) => (i ? 'L' : 'M') + f.px(p[0]).toFixed(1) + ' ' + f.py(p[1]).toFixed(1)).join(' ');
+    out.push('    <path d="' + d + '" fill="none" stroke="' + (c.token || CTX) + '" stroke-width="2"'
+      + (c.dashed ? ' stroke-dasharray="5 4"' : '') + ' stroke-linejoin="round"/>');
+    if (c.k) out.push(txt(f.px(c.pts[c.pts.length - 1][0]) + 7, f.py(c.pts[c.pts.length - 1][1]) + 4, c.k, 't-lab', 'start'));
+  }
+  /* dots under diamonds, so a proved specimen is never buried by its own cell */
+  for (const p of P.filter(p => !p.diamond)) {
+    out.push('    <circle ' + hit('cx="' + f.px(p.x).toFixed(1) + '" cy="' + f.py(p.y).toFixed(1)
+      + '" r="4.5" fill="' + p.token + '" stroke="' + SURFACE + '" stroke-width="1.5"', p.k, p.v || '') + '/>');
+  }
+  for (const p of P.filter(p => p.diamond)) {
+    const x = f.px(p.x), y = f.py(p.y), s = 7;
+    out.push('    <path ' + hit('d="M' + x.toFixed(1) + ' ' + (y - s).toFixed(1) + ' L' + (x + s).toFixed(1) + ' ' + y.toFixed(1)
+      + ' L' + x.toFixed(1) + ' ' + (y + s).toFixed(1) + ' L' + (x - s).toFixed(1) + ' ' + y.toFixed(1)
+      + ' Z" fill="' + p.token + '" stroke="' + SURFACE + '" stroke-width="2"', p.k, p.v || '') + '/>');
+  }
+  if (o.keys) out.push(legend(o.keys, f.L, f.h - 7, o.legendGap, f.pw));
+  out.push(close);
+  return out.join('\n');
+}
+
 /* SPARKLINE — for a stat tile. Context in the de-emphasis hue, the current
    point in the accent. No axis, no labels: it is a shape, not a reading. */
 function sparkline(vals, o) {
@@ -616,6 +683,6 @@ function sparkline(vals, o) {
 
 module.exports = {
   frame, axes, open, close, txt, legend, legendLines, hit, script, HATCH_DEF,
-  lines, band, bars, dist, dumbbell, strip, intervals, segments, sparkline,
+  lines, band, bars, dist, dumbbell, strip, intervals, segments, scatter, sparkline,
   compact, decades, nf, CAT, SEQ, CTX, GRID, AXIS, SURFACE
 };
