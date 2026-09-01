@@ -173,7 +173,15 @@ const REPORTS = [
     title: 'The AI-discovered algorithms, certified',
     desc: 'AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.',
     n: strassenN + ' algorithms re-decided each build' },
-  /* lane 'erdos', ranked here: the refutation is the head of the whole shelf */
+  /* lane 'erdos', ranked here: the theorem and the refutation head the shelf */
+  { g: 'erdos', f: 'lambda4.html', k: 'erdős #510 · a theorem',
+    title: 'λ(4), settled',
+    desc: 'The third exact value of Chowla\'s cosine dip. Mercer proved λ(2) and λ(3) in 2019, conjectured λ(4), '
+      + 'wrote that he did not know how to evaluate it, and left a strategy. The machine executed the strategy and '
+      + 'finished it: all nine remaining families closed, thresholds derived rather than transcribed, every finite '
+      + 'remainder decided in exact arithmetic. λ(4) = −L(1,2,3,4), the root of 512y³ − 1227y² + 600y + 125 near '
+      + '1.51956 — machine-derived, re-proved at every build, and stated with its verification status beside it.',
+    n: 'not peer-reviewed · the full record re-derives at build' },
   { g: 'erdos', f: 'erdos852.html', k: 'erdős #852 · refutation',
     title: 'The constant that was a rounding error',
     desc: 'A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.',

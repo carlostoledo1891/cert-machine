@@ -80,6 +80,7 @@ clean:
 	@rm -f index.html ledger.json
 
 reports:
+	@$(NODE) tools/build-report-lambda4.js
 	@$(NODE) tools/build-report-tensorlb.js
 	@$(NODE) tools/build-report-bilinear.js
 	@$(NODE) tools/build-report-add55.js

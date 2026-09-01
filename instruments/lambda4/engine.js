@@ -141,7 +141,7 @@ function anchoredClosure(spec) {
   const bAtN0 = E.boundAt(ab.expr, N0);
   return {
     ok: true, tailMember, N0, validityFloor: ab.validityFloor,
-    expr: { A: Q.toString(ab.expr.A), B: Q.toString(ab.expr.B), C: Q.toString(ab.expr.C) },
+    expr: { A: Q.toString(ab.expr.A), B: Q.toString(ab.expr.B), C: Q.toString(ab.expr.C), D: Q.toString(ab.expr.D || D.q(0)) },
     boundAtN0: { lo: Q.toString(bAtN0.lo), hi: Q.toString(bAtN0.hi) },
     target: { lo: Q.toString(target.lo), hi: Q.toString(target.hi) },
     pieces: ab.pieces
@@ -159,7 +159,7 @@ function anchoredClosure(spec) {
 function finitePart(spec) {
   const { C, target, skip } = spec;
   const bounds = (spec.bounds || [{ tailMember: spec.tailMember, N0: spec.N0 }])
-    .map(b => ({ tf: C.member[b.tailMember], N0: b.N0, name: b.tailMember }));
+    .map(b => ({ tf: b.form || C.member[b.tailMember], N0: b.N0, name: b.tailMember || 'form' }));
   for (const b of bounds) if (!b.tf) throw new Error('finitePart: unknown tail member ' + b.name);
   for (let i = 0; i < C.n; i++)
     if (!bounds.some(b => b.tf[i] >= 1n))

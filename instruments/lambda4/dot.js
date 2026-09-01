@@ -39,16 +39,34 @@ const q = (n, d) => Q.R(BigInt(n), BigInt(d === undefined ? 1 : d));
    cos(t*xi) as an exact rational — defined exactly for these two anchors. */
 const XI_PI = { p: 1n, r: 1n, name: 'pi' };
 const XI_2PI3 = { p: 2n, r: 3n, name: '2pi/3' };
+const XI_PI3 = { p: 1n, r: 3n, name: 'pi/3' };   /* cos(t*pi/3) in {1, 1/2, -1/2, -1} */
+const XI_PI2 = { p: 1n, r: 2n, name: 'pi/2' };   /* cos(t*pi/2) in {1, 0, -1} */
+const XI_4PI3 = { p: 4n, r: 3n, name: '4pi/3' };
+const XI_ZERO = { p: 0n, r: 1n, name: '0' };     /* companion anchor for reflection estimates */
+const XI_PI6 = { p: 1n, r: 6n, name: 'pi/6' };   /* rational only at even t and t = 3, 9 (mod 12) */
 
 function cosOfMultiple(t, xi) {
   const T = BigInt(t);
   if (xi.r === 1n) return (T * xi.p) % 2n === 0n ? q(1) : q(-1);
+  if (xi.r === 2n) {
+    const m = ((T * xi.p) % 4n + 4n) % 4n;             /* angle = m*pi/2 */
+    return m === 0n ? q(1) : m === 2n ? q(-1) : q(0);
+  }
   if (xi.r === 3n) {
     const m = ((T * xi.p) % 6n + 6n) % 6n;             /* angle = m*pi/3 */
     if (m === 0n) return q(1);
     if (m === 3n) return q(-1);
     if (m === 1n || m === 5n) return q(1, 2);
     return q(-1, 2);                                    /* 2pi/3, 4pi/3 */
+  }
+  if (xi.r === 6n) {
+    const m = ((T * xi.p) % 12n + 12n) % 12n;          /* angle = m*pi/6 */
+    if (m === 0n) return q(1);
+    if (m === 6n) return q(-1);
+    if (m === 3n || m === 9n) return q(0);
+    if (m === 2n || m === 10n) return q(1, 2);
+    if (m === 4n || m === 8n) return q(-1, 2);
+    throw new Error('dot: cos(' + m + 'pi/6) is irrational — this multiple cannot anchor');
   }
   throw new Error('dot: unsupported anchor xi = ' + xi.p + 'pi/' + xi.r);
 }
@@ -88,6 +106,13 @@ function weightExpr(W) {
     } else if (atom.kind === 'omcsq') {        /* (1-cos k)^2 = 3/2 - 2cos k + (1/2)cos 2k */
       E.c0 = Q.add(E.c0, Q.mul(coeff, q(3, 2)));
       addCos(E, atom.form, Q.mul(coeff, q(-2)));
+      addCos(E, F.scale(atom.form, 2), Q.mul(coeff, q(1, 2)));
+    } else if (atom.kind === 'opc') {          /* 1 + cos k = 2cos^2(k/2) >= 0 */
+      E.c0 = Q.add(E.c0, coeff);
+      addCos(E, atom.form, coeff);
+    } else if (atom.kind === 'opcsq') {        /* (1+cos k)^2 = 3/2 + 2cos k + (1/2)cos 2k */
+      E.c0 = Q.add(E.c0, Q.mul(coeff, q(3, 2)));
+      addCos(E, atom.form, Q.mul(coeff, q(2)));
       addCos(E, F.scale(atom.form, 2), Q.mul(coeff, q(1, 2)));
     } else throw new Error('dot: unknown weight atom ' + atom.kind);
   }
@@ -145,4 +170,4 @@ function anchoredValue(form, S) {
   return an.kind === 'exact' ? { value: cosOfMultiple(an.t, S.xi) } : null;
 }
 
-module.exports = { q, XI_PI, XI_2PI3, cosOfMultiple, expr, addCos, weightExpr, inner, anchoredValue };
+module.exports = { q, XI_PI, XI_2PI3, XI_PI3, XI_PI2, XI_4PI3, XI_ZERO, XI_PI6, cosOfMultiple, expr, addCos, weightExpr, inner, anchoredValue };

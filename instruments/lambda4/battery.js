@@ -230,6 +230,47 @@ const S4 = { order: C4.member.d, xi: D.XI_PI };
   check('F7 five d=2c finite sets re-certified below L(1,2,3,4)', okS);
 }
 
+/* ---- Phase 1, the full nine: record walk + fast re-derivations ------------- */
+{
+  const rec = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda4-campaign.json'), 'utf8'));
+  const fams = rec.lambda4families || {};
+  const NINE = ['d = 2c', 'd = 2a', 'd = b+c', 'd = a+b', 'd = a+c', '2d = 2c+a', 'd = 2b', '2d = 2c+b', '2d = 3c'];
+  check('N1 the record holds all NINE families, every one CLOSED',
+    NINE.every(n => fams[n] && fams[n].status === 'CLOSED'), NINE.filter(n => fams[n]).length + '/9');
+  /* walk every finite part in the record: none may be undecided, and the
+     total closed count is the campaign's finite workload, stated */
+  let finites = 0, closedSets = 0, undecided = 0, skips = [];
+  const walk = (o) => {
+    if (!o || typeof o !== 'object') return;
+    if (Array.isArray(o)) { o.forEach(walk); return; }
+    if (o.enumerated !== undefined && o.undecided !== undefined) {
+      finites++; closedSets += o.closed; undecided += o.undecided.length;
+      for (const s of (o.skipped || [])) skips.push(s);
+    }
+    Object.values(o).forEach(walk);
+  };
+  walk(fams);
+  check('N2 every finite part in every family is fully decided',
+    undecided === 0, finites + ' finite parts, ' + closedSets + ' sets closed');
+  check('N3 the ONLY set ever skipped is the extremizer {1,2,3,4}, in the equality families',
+    skips.length >= 3 && skips.every(s => s === '1,2,3,4'), skips.length + ' skips');
+  check('N4 the delegation targets exist and are closed (d = 2a, d = a+b)',
+    fams['d = 2a'] && fams['d = 2a'].status === 'CLOSED' && fams['d = a+b'] && fams['d = a+b'].status === 'CLOSED');
+  /* fast symbolic re-derivations of the two heaviest family dots */
+  const D1 = { n: 3, names: ['a', 'e', 'r'], member: { a: [1n, 0n, 0n], b: [1n, 1n, 1n], c: [2n, 2n, 1n], d: [2n, 2n, 2n] }, defs: {} };
+  const rD1 = EN.dotTheorem({ C: D1, S: { order: D1.member.b, xi: D.XI_2PI3 },
+    W: [{ atom: { kind: 'omcsq', form: D1.member.a }, coeff: q(2) }, { atom: { kind: 'omcsq', form: D1.member.c }, coeff: q(2) }],
+    gConst: q(3, 5), gMembers: ['a', 'c'], anchored: ['b', 'd'], target: L4 });
+  check('N5 d=2b cone D1 re-derived: base -2/5, five positive conditions',
+    rD1.ok && rD1.base === '-2/5' && rD1.exceptions.filter(e => e.deltaSign > 0).length === 5);
+  const W1 = { n: 3, names: ['a', 'u2', 'u3'], member: { a: [1n, 0n, 0n], b: [1n, 1n, 0n], c: [2n, 2n, 2n], d: [3n, 3n, 3n] }, defs: {} };
+  const rW1 = EN.dotTheorem({ C: W1, S: { order: [1n, 1n, 1n], xi: D.XI_PI3 },
+    W: [{ atom: { kind: 'omc', form: W1.member.a }, coeff: q(1) }, { atom: { kind: 'omc', form: W1.member.b }, coeff: q(1) }],
+    gConst: q(1, 10), gMembers: ['a', 'b'], anchored: ['c', 'd'], target: L4 });
+  check('N6 2d=3c cone W1 (b < gam) re-derived: base -4/5, closed GENERICALLY (no positives)',
+    rW1.ok && rW1.base === '-4/5' && rW1.exceptions.filter(e => e.deltaSign > 0).length === 0);
+}
+
 /* ---- red controls ---------------------------------------------------------- */
 console.log('\n    executing falsifiers');
 red('X1 a wrong weight (omcsq coefficient 1, not 2) must not certify', () => {

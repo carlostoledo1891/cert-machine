@@ -54,21 +54,35 @@ ACTIVE CAMPAIGN — lambda(4) as a THEOREM (opened 2026-09-01, operator: "start"
      lambda4-theorem in targets.json carries the full pricing; sin-mfg's
      mercer-program probe holds the pinned paper.
 
-     STATUS 2026-09-01, same session: d=2c is CLOSED — the first of the
-     nine. Weight 2(1-cos a)^2 + 2(1-cos b)^2 on S(c, 2pi/3) gives base
-     -2/5 with only FOUR positive sub-conditions (b=2a, c=2a, c=2b,
-     c=a+b); each closed by anchored closures with derived thresholds
-     (19/19 union, 3, 3, 25) and fully decided finite parts (50+1+1+179
-     sets, none undecided); cone coverage checked point-by-point. All in
-     certs/lambda4-campaign.json, battery 27 checks + 8 reds.
-     EIGHT REMAIN: d=2a, d=2b, 2d=3c, 2d=2c+a, d=a+b, d=a+c, 2d=2c+b,
-     d=b+c. KNOWN OBSTACLE, measured this session: 2d=3c (set
-     {a,b,2g,3g}) does not fit the prefix-cone trick — the region needs
-     either a chain-split into homogeneous cones or, better, certPos
-     upgraded to an exact Fourier-Motzkin LP over an explicit constraint
-     list, which also unlocks the equality-carrying families (d=2b,
-     d=a+c, d=b+c contain the extremizer, so their closures must reach
-     exactly L(1,2,3,4), the way lambda(3)'s M3 did via mu(3)).
+     STATUS 2026-09-01, end of session: ALL NINE FAMILIES ARE CLOSED.
+     lambda(4) = -L(1,2,3,4), the root of 512y^3 - 1227y^2 + 600y + 125
+     in the certified enclosure near 1.5195578816428 (the exact cubic is
+     new — computed by exact resultant; nobody had printed it). The
+     campaign record certs/lambda4-campaign.json carries every
+     derivation; reports/lambda4.html is the proof announcement page,
+     every step re-executed at its own build; battery: calibration
+     (Mercer's lambda(2)+lambda(3) re-derived mechanically every run),
+     the 14/9 exception structure, record walk, 8 red controls.
+     THE ROUTE THAT WORKED (no Fourier-Motzkin needed): chain-split
+     triangulations (d=2b on a vs c-b; 2d=2c+b on a vs beta; 2d=3c into
+     seven cones), parity substitutions, an extended anchor menu (pi/3,
+     pi/2, 4pi/3, pi/6, and the reflection anchor 0), one new elementary
+     lemma (cos(pi/2 +- eps) <= eps), and DELEGATION — two sub-conditions
+     of 2d=2c+b turned out to BE the closed families d=2a and d=a+b.
+     The three equality families wall {1,2,3,4} off as the definitional
+     witness in a single cone/ray and certify every neighbour strictly.
+     TWO REAL DEFECTS caught by the coverage gate before shipping: a
+     hand-mistranslated condition list (the engine's keys are the truth;
+     labels for custom cones are display-only), and coverage scoping at
+     the extremizer's boundary cone.
+     WHAT REMAINS (next session): (1) the referee-grade WRITE-UP — a
+     prose proof generated from the record, lemma by lemma, plus an
+     independent re-verification path for the finite certificates;
+     (2) the honest final audit: one adversarial pass hunting any gap
+     between "the record says closed" and "a referee says proved" —
+     especially the cone parametrizations' onto-ness (checked on boxes,
+     argued once each in comments) and the additive branch accounting;
+     (3) whether and how to tell Mercer — OWNER-ONLY per standing rule.
 
 NEXT SESSION COULD BUILD — ranked, with the reason each is ranked there
 

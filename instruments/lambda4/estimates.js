@@ -65,14 +65,19 @@ function pi2Enclosure() {
 }
 
 /* ---------------- bound expressions -------------------------------------- */
-/* {A, B, C}: A + B*pi^2/N^2 + C/N, with B, C >= 0 required (monotone in N). */
+/* {A, B, C, D}: A + B*pi^2/N^2 + C/N + D*pi/N, with B, C, D >= 0 required
+   (monotone in N). D carries the pi-linear terms of the pi/2-target lemma. */
 function boundAt(expr, N) {
-  if (Q.sign(expr.B) < 0 || Q.sign(expr.C) < 0)
-    throw new Error('estimates: bound expression not monotone (B or C negative)');
+  const D = expr.D || q(0);
+  if (Q.sign(expr.B) < 0 || Q.sign(expr.C) < 0 || Q.sign(D) < 0)
+    throw new Error('estimates: bound expression not monotone (B, C or D negative)');
   const n = q(N), n2 = q(N * N);
-  const p2 = pi2Enclosure();
+  const p2 = pi2Enclosure(), p1 = piEnclosure();
   const t = Q.add(expr.A, Q.div(expr.C, n));
-  return { lo: Q.add(t, Q.div(Q.mul(expr.B, p2.lo), n2)), hi: Q.add(t, Q.div(Q.mul(expr.B, p2.hi), n2)) };
+  return {
+    lo: Q.add(Q.add(t, Q.div(Q.mul(expr.B, p2.lo), n2)), Q.div(Q.mul(D, p1.lo), n)),
+    hi: Q.add(Q.add(t, Q.div(Q.mul(expr.B, p2.hi), n2)), Q.div(Q.mul(D, p1.hi), n))
+  };
 }
 
 /* least integer N >= floorN with bound(N).hi strictly below target.lo;
@@ -98,6 +103,7 @@ function angleClass(u, v, xiE, xiO) {
   if (num === den) return { cls: 'pi' };
   const g6 = (x) => x * 6n;                              /* compare to 2pi/3, 4pi/3 */
   if (g6(num) === 4n * den || g6(num) === 8n * den) return { cls: 'twothird' };
+  if (num * 2n === den || num * 2n === 3n * den) return { cls: 'halfpi' };  /* pi/2, 3pi/2 */
   return { cls: 'other', frac: num + '/' + den + ' pi' };
 }
 
@@ -114,7 +120,7 @@ function anchoredBound(C, members, Se, So) {
   if (!F.certPos(Se.order) || !F.certPos(So.order))
     throw new Error('estimates: both orders must be certifiably >= 1');
   const pieces = [];
-  let A = q(0), B = q(0), Cc = q(0);
+  let A = q(0), B = q(0), Cc = q(0), Dd = q(0);
   let validityFloor = 1;
   for (const nm of members) {
     const k = C.member[nm];
@@ -141,6 +147,11 @@ function anchoredBound(C, members, Se, So) {
       Cc = Q.add(Cc, Q.R(3n * av, 1n));
       validityFloor = Math.max(validityFloor, Number(6n * av));
       pieces.push({ member: nm, kind: 'lemma3.3', u: String(u), v: String(v), floor: Number(6n * av) });
+    } else if (cls.cls === 'halfpi') {
+      /* cos(pi/2 + x) = -sin x <= |x| and cos(3pi/2 + x) = sin x <= |x|,
+         globally — so cos <= 0 + eps = |v| pi / N, with no validity floor */
+      Dd = Q.add(Dd, Q.R(av, 1n));
+      pieces.push({ member: nm, kind: 'lemma-halfpi', u: String(u), v: String(v) });
     } else if (cls.cls === 'one') {
       /* target angle 0: the trivial bound cos <= 1. Legal, and flagged —
          an estimate leaning on it is almost certainly not what was meant. */
@@ -150,7 +161,7 @@ function anchoredBound(C, members, Se, So) {
       throw new Error('estimates: member ' + nm + ' lands at unsupported angle ' + cls.frac);
     }
   }
-  return { expr: { A, B, C: Cc }, validityFloor, pieces };
+  return { expr: { A, B, C: Cc, D: Dd }, validityFloor, pieces };
 }
 
 module.exports = { piEnclosure, pi2Enclosure, boundAt, threshold, angleClass, anchoredBound, bigfloatToQ };
