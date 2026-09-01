@@ -80,9 +80,16 @@ priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
   catalogue. LESSON PAID FOR: falsifier thresholds must scale with the
   instance (the frozen X5 absolute bar, tuned at A=0.3, silently missed
   at A1=0.003 — rewritten relative).
-  OPERATOR QUESTION STILL PENDING: was reports/mfg-congest.html ever
-  sent anywhere? (decides the terra paper's "first CAP for MFG"
-  priority claim, and whether its "first" is a first or a self-citation).
+  PRIORITY QUESTION RESOLVED (operator, 2026-09-01): reports/
+  mfg-congest.html was NEVER sent — shared locally only. So nothing in
+  this program is public yet, no self-citation hazard exists, and the
+  FIRST PUBLIC ARTIFACT carries the whole priority stamp. When the send
+  is released, the package should state both firsts coherently: the
+  enclosure itself (the sigma=0.5, A2=0 instance — which is literally
+  the frozen calibration gate of our terra re-certification) and the
+  beyond-the-potential peak count (terra). The terra paper cites the
+  mfg-congest work as the same author's unpublished base instance, not
+  as prior art.
 
 SECOND TASK — FINISH LAMBDA(6) (one family of ten remains uncertified).
 State at handoff:

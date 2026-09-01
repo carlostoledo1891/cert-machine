@@ -133,10 +133,12 @@ count inconsistency; the title/abstract overclaim; exact coefficients; cite
 the radii-polynomial lineage properly (van den Berg-Lessard with real
 references; Rump for Krawczyk); attribute the falsified "ceiling" as the
 lab's own prior from an unreproduced 508-sample float campaign (not folk
-belief); and RESOLVE THE PRIORITY QUESTION — our reports/mfg-congest.html
-already claims the first validated-numerics MFG equilibrium enclosure.
-OPERATOR INPUT NEEDED: was mfg-congest ever sent/published anywhere? That
-decides whether the terra paper's "first" is a first or a self-citation.
+belief); and the PRIORITY QUESTION, RESOLVED (operator, 2026-09-01): mfg-congest
+was NEVER sent, only shared locally. Nothing in the program is public, so
+the first public artifact carries the whole priority stamp; the terra
+paper cites mfg-congest as the same author's unpublished base instance
+(it is the frozen calibration gate of the re-certification), not as
+prior art, and the release package should state both firsts coherently.
 Fences to keep cited: Karuturi arXiv:2605.20213 (spontaneous instability,
 potential-free, cognate 8 pi^2 nu^2 constant — the mandatory fence),
 Cesaroni-Cirant 1705.10741 (the foil), Osborne-Smears 2502.14687,
