@@ -81,6 +81,16 @@ priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
   PDFs as they sit carry the title overclaim, the eight/five count and
   decimal-named coefficients, and must not ship as-is. "Will be
   published" is intent, not a release: every send stays operator-gated.
+  · THE FRONTIER SKIN LANDED (operator instruction, 2026-09-01, session
+    continuation): every cert-machine page now wears the terra atlas
+    design system — dark-only, grayscale-only, Inter + JetBrains Mono,
+    verdicts by weight+shape — with OUR inline-SVG chart framework kept
+    (auditable bytes, batteries keep their grip). tokens.js carries the
+    frontier palette verbatim under house token names; reference bytes
+    sha-pinned in design/frontier-ref/. Battery re-derives the grayscale
+    claims (worst pair dE 19.6 = frontier recorded); 9/9 falsifiers;
+    46/46 batteries; CDP-verified against the reference. Aviation apps
+    keep their own verdict hues (app-shell APP_* tokens).
   REMAINING (order per TERRA-PORT.md): (6) atlas
   REBUILD from design/ (scatter form now DONE); (7) facelaw with
   rebuilt evidence; (8) attention phantom-bifurcation catalogue;
