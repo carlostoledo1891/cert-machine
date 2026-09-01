@@ -91,9 +91,14 @@ function dotTheorem(spec) {
   const ip = D.inner(We, Ge, S);
   if (Q.sign(ip.base) > 0) return { ok: false, why: 'base inner product is positive', base: Q.toString(ip.base) };
 
-  /* Lemma 3.4 hypothesis: w not identically 0 on S, via <w,1>_S base > 0 */
+  /* Lemma 3.4 hypothesis: w not identically 0 on S — and it must hold on
+     EVERY branch the theorem closes, so the check is the worst case over all
+     collision subsets: base plus every negative delta of <w,1>_S. That is
+     conservative (inconsistent subsets only help), never optimistic. */
   const pos = D.inner(We, D.expr(q(1)), S);
-  if (Q.sign(pos.base) <= 0) return { ok: false, why: '<w,1>_S base is not positive — Lemma 3.4 does not apply', posBase: Q.toString(pos.base) };
+  let posWorst = pos.base;
+  for (const v of pos.colls.values()) if (Q.sign(v.delta) < 0) posWorst = Q.add(posWorst, v.delta);
+  if (Q.sign(posWorst) <= 0) return { ok: false, why: '<w,1>_S can reach ' + Q.toString(posWorst) + ' on a branch — Lemma 3.4 does not apply', posBase: Q.toString(pos.base) };
 
   /* the dip: g <= 0 somewhere on S, so sum over gMembers <= -gConst; each
      anchored member contributes its exact constant on S */
@@ -144,21 +149,29 @@ function anchoredClosure(spec) {
 }
 
 /* ---------------- move 3: the finite part --------------------------------- */
-/* Enumerate every gcd-reduced point of the family whose tail value is BELOW
-   N0, and decide each with the certified minimum instrument. skip lists the
-   sets excluded as definitional witnesses (the conjectured extremal set:
-   equality, not a violation). Every skipped set must actually appear. */
+/* Enumerate every gcd-reduced point of the family in the BOX where every
+   listed tail value is below its threshold, and decide each with the
+   certified minimum instrument. `bounds` is [{tailMember, N0}] (the single
+   tailMember/N0 pair is accepted as shorthand); together the tails must give
+   every coordinate a positive coefficient, or the box is not finite. skip
+   lists the sets excluded as definitional witnesses (the conjectured
+   extremal set: equality, not a violation). Every skipped set must appear. */
 function finitePart(spec) {
-  const { C, tailMember, N0, target, skip } = spec;
-  const tf = C.member[tailMember];
-  if (!tf.every(a => a >= 1n))
-    throw new Error('finitePart: tail form must have every coefficient >= 1 so the enumeration is a finite box');
+  const { C, target, skip } = spec;
+  const bounds = (spec.bounds || [{ tailMember: spec.tailMember, N0: spec.N0 }])
+    .map(b => ({ tf: C.member[b.tailMember], N0: b.N0, name: b.tailMember }));
+  for (const b of bounds) if (!b.tf) throw new Error('finitePart: unknown tail member ' + b.name);
+  for (let i = 0; i < C.n; i++)
+    if (!bounds.some(b => b.tf[i] >= 1n))
+      throw new Error('finitePart: tail form must have every coefficient >= 1 so the enumeration is a finite box'
+        + ' (coordinate ' + i + ' is bounded by no tail)');
   const names = Object.keys(C.member);
   const points = [];
   const x = F.vec(C.n, 1n);
   const val = (f) => Number(f.reduce((s, a, i) => s + a * x[i], 0n));
+  const outside = () => bounds.some(b => val(b.tf) >= b.N0);
   const rec = (i) => {
-    if (val(tf) >= N0) return;                    /* increasing in every x_i */
+    if (outside()) return;                        /* every tail increases in every x_i */
     if (i === C.n) {
       const A = names.map(nm => val(C.member[nm])).sort((p, r) => p - r);
       for (let j = 1; j < A.length; j++) if (A[j] === A[j - 1]) return;  /* not a set */
@@ -167,12 +180,13 @@ function finitePart(spec) {
       points.push(A);
       return;
     }
-    /* deeper coordinates are at their minimum (1) here, and tf has every
-       coefficient >= 1, so val(tf) only grows with v and with depth: the
-       break is sound and the box is finite */
-    for (let v = 1; v <= 4 * N0 + 4; v++) {
+    /* deeper coordinates are at their minimum (1) here, and every tail is
+       nondecreasing in every coordinate, so once some tail exceeds its bound
+       no larger v (and no deeper choice) can re-enter the box */
+    const cap = 4 * Math.max(...bounds.map(b => b.N0)) + 4;
+    for (let v = 1; v <= cap; v++) {
       x[i] = BigInt(v);
-      if (val(tf) >= N0) break;
+      if (outside()) break;
       rec(i + 1);
     }
     x[i] = 1n;

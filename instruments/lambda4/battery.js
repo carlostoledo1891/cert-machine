@@ -130,7 +130,7 @@ for (const f of FAM3) {
 
 /* ---- lambda(3): sampled finite re-certification + the pinned record ------- */
 {
-  const rec = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda4-phase0.json'), 'utf8'));
+  const rec = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda4-campaign.json'), 'utf8'));
   const fam = rec.lambda3.families.find(x => x.label === 'c = a+b');
   check('R1 record: c=a+b finite part enumerated 323, closed 322, (1,2,3) skipped, none undecided',
     fam.finite.enumerated === 323 && fam.finite.closed === 322
@@ -186,6 +186,48 @@ const S4 = { order: C4.member.d, xi: D.XI_PI };
     gen.exceptions.filter(x => x.deltaSign < 0).length === 5, neg);
   check('L4e the worklist is the NINE positive-delta families',
     gen.exceptions.filter(x => x.deltaSign > 0).length === 9);
+}
+
+/* ---- Phase 1, family d = 2c: re-derived symbolically every run ------------- */
+{
+  const CF = F.ctx(['a', 'b', 'c'], { d: { c: 2 } });
+  const dot = EN.dotTheorem({
+    C: CF, S: { order: CF.member.c, xi: D.XI_2PI3 },
+    W: [{ atom: { kind: 'omcsq', form: CF.member.a }, coeff: q(2) },
+        { atom: { kind: 'omcsq', form: CF.member.b }, coeff: q(2) }],
+    gConst: q(3, 5), gMembers: ['a', 'b'], anchored: ['c', 'd'], target: L4, witnessBox: 20
+  });
+  check('F1 family d=2c: base -2/5, dip -8/5, both anchors exact at -1/2',
+    dot.ok && dot.base === '-2/5' && dot.dip === '-8/5'
+    && dot.anchoredVals.c === '-1/2' && dot.anchoredVals.d === '-1/2');
+  const posLabels = dot.exceptions.filter(e => e.deltaSign > 0).map(e => e.label).sort().join(' | ');
+  check('F2 family d=2c: exactly four positive sub-conditions',
+    posLabels === '2a = b | 2a = c | 2b = c | a+b = c', posLabels);
+  /* subfamily thresholds, re-derived */
+  const S1 = { n: 2, names: ['a', 'e'], member: { a: [1n, 0n], b: [2n, 0n], c: [2n, 1n], d: [4n, 2n] }, defs: {} };
+  const clA = EN.anchoredClosure({ C: S1, members: ['a', 'b', 'c', 'd'], Se: { order: S1.member.a, xi: D.XI_2PI3 }, So: { order: S1.member.c, xi: D.XI_2PI3 }, tailMember: 'a', target: L4 });
+  const clB = EN.anchoredClosure({ C: S1, members: ['a', 'b', 'c', 'd'], Se: { order: S1.member.c, xi: D.XI_2PI3 }, So: { order: S1.member.a, xi: D.XI_2PI3 }, tailMember: 'c', target: L4 });
+  check('F3 subfamily b=2a: union closure a >= 19 OR c >= 19, both DERIVED',
+    clA.N0 === 19 && clB.N0 === 19 && clA.validityFloor === 12);
+  const S4f = { n: 2, names: ['a', 'b'], member: { a: [1n, 0n], b: [1n, 1n], c: [2n, 1n], d: [4n, 2n] }, defs: {} };
+  const cl4 = EN.anchoredClosure({ C: S4f, members: ['a', 'b', 'c', 'd'], Se: { order: S4f.member.b, xi: D.XI_2PI3 }, So: { order: S4f.member.a, xi: D.XI_2PI3 }, tailMember: 'b', target: L4 });
+  check('F4 subfamily c=a+b: threshold b >= 25 DERIVED', cl4.N0 === 25, 'N0 = ' + cl4.N0);
+  /* the record's finite parts, counts + a sampled re-certification */
+  const rec = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda4-campaign.json'), 'utf8'));
+  const fam = rec.lambda4families['d = 2c'];
+  const sizes = fam.subfamilies.map(s => s.finite.enumerated + '/' + s.finite.closed).join(' ');
+  check('F5 record: family d=2c CLOSED — every subfamily finite part fully decided',
+    fam.status === 'CLOSED' && fam.subfamilies.every(s => s.finite.enumerated === s.finite.closed && s.finite.undecided.length === 0),
+    sizes);
+  check('F6 record: coverage checked point-by-point for all four sub-conditions',
+    fam.coverage.length === 4 && fam.coverage.every(c => c.pointsChecked > 0));
+  const LAM = require('#instruments/trigmin/lambda.js');
+  let okS = true;
+  for (const A of [[1, 2, 3, 6], [2, 3, 4, 8], [1, 2, 4, 8], [3, 4, 7, 14], [5, 7, 12, 24]]) {
+    const r = LAM.certifyLambda(A, { tol: 1e-10 });
+    if (!(Q.cmp(Q.fromDouble(r.minEnclosure[1]), L4.lo) < 0)) okS = false;
+  }
+  check('F7 five d=2c finite sets re-certified below L(1,2,3,4)', okS);
 }
 
 /* ---- red controls ---------------------------------------------------------- */

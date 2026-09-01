@@ -50,10 +50,25 @@ ACTIVE CAMPAIGN — lambda(4) as a THEOREM (opened 2026-09-01, operator: "start"
      d=b+c. Each needs a second-level Section-5 move (dot product on the
      family's own context, discovering ITS exceptions, recursing to 2-dof
      then finite). The engine supports the recursion already (mixed-sign
-     forms, 2pi/3 anchors, arbitrary cone contexts). Start with d=2c and
-     2d=3c — the c-commensurate ones the scout priced as hardest. The row
+     forms, 2pi/3 anchors, arbitrary cone contexts). The row
      lambda4-theorem in targets.json carries the full pricing; sin-mfg's
      mercer-program probe holds the pinned paper.
+
+     STATUS 2026-09-01, same session: d=2c is CLOSED — the first of the
+     nine. Weight 2(1-cos a)^2 + 2(1-cos b)^2 on S(c, 2pi/3) gives base
+     -2/5 with only FOUR positive sub-conditions (b=2a, c=2a, c=2b,
+     c=a+b); each closed by anchored closures with derived thresholds
+     (19/19 union, 3, 3, 25) and fully decided finite parts (50+1+1+179
+     sets, none undecided); cone coverage checked point-by-point. All in
+     certs/lambda4-campaign.json, battery 27 checks + 8 reds.
+     EIGHT REMAIN: d=2a, d=2b, 2d=3c, 2d=2c+a, d=a+b, d=a+c, 2d=2c+b,
+     d=b+c. KNOWN OBSTACLE, measured this session: 2d=3c (set
+     {a,b,2g,3g}) does not fit the prefix-cone trick — the region needs
+     either a chain-split into homogeneous cones or, better, certPos
+     upgraded to an exact Fourier-Motzkin LP over an explicit constraint
+     list, which also unlocks the equality-carrying families (d=2b,
+     d=a+c, d=b+c contain the extremizer, so their closures must reach
+     exactly L(1,2,3,4), the way lambda(3)'s M3 did via mu(3)).
 
 NEXT SESSION COULD BUILD — ranked, with the reason each is ranked there
 

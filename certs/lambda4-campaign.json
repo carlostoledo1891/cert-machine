@@ -1,5 +1,5 @@
 {
- "what": "lambda(4) campaign, Phase 0: Mercer arXiv:1709.06612 Section 5 executed mechanically — lambda(2) and lambda(3) re-derived end to end as calibration, the lambda(4) generic case derived with its exception list DISCOVERED, and the remaining reduction measured at NINE families (five of Mercer's fourteen carry strictly negative delta and are closed by the generic argument itself unless a positive-delta condition holds simultaneously).",
+ "what": "The lambda(4) campaign record. Phase 0: Mercer arXiv:1709.06612 Section 5 executed mechanically — lambda(2) and lambda(3) re-derived end to end as calibration, the lambda(4) generic case derived with its exception list DISCOVERED, and the remaining reduction measured at NINE families (five of Mercer's fourteen carry strictly negative delta and are closed by the generic argument itself unless a positive-delta condition holds simultaneously). Phase 1, in progress: families closed so far are listed in lambda4families with their full derivations — second-level dot theorems, subfamily cones, derived thresholds, decided finite parts.",
  "provenance": "Statement and strategy: Idris Mercer, INTEGERS 19 (2019) #A4 (arXiv:1709.06612), read at source. Every threshold below is DERIVED by the engine, never transcribed.",
  "targets": {
   "L2": {
@@ -571,9 +571,456 @@
    }
   ]
  },
+ "lambda4families": {
+  "d = 2c": {
+   "family": "d = 2c",
+   "status": "CLOSED",
+   "dot": {
+    "base": "-2/5",
+    "posBase": "6",
+    "dip": "-8/5",
+    "exceptions": [
+     {
+      "label": "2a = b",
+      "delta": "1/2",
+      "example": {
+       "a": 1,
+       "b": 2,
+       "c": 3,
+       "d": 6
+      }
+     },
+     {
+      "label": "2a = c",
+      "delta": "7/10",
+      "example": {
+       "a": 2,
+       "b": 3,
+       "c": 4,
+       "d": 8
+      }
+     },
+     {
+      "label": "2a+b = 2c",
+      "delta": "-1/4",
+      "example": {
+       "a": 3,
+       "b": 4,
+       "c": 5,
+       "d": 10
+      }
+     },
+     {
+      "label": "2a+b = c",
+      "delta": "-1/4",
+      "example": {
+       "a": 1,
+       "b": 2,
+       "c": 4,
+       "d": 8
+      }
+     },
+     {
+      "label": "2b = a+c",
+      "delta": "-1/4",
+      "example": {
+       "a": 1,
+       "b": 2,
+       "c": 3,
+       "d": 6
+      }
+     },
+     {
+      "label": "2b = c",
+      "delta": "7/10",
+      "example": {
+       "a": 1,
+       "b": 2,
+       "c": 4,
+       "d": 8
+      }
+     },
+     {
+      "label": "3a = 2c",
+      "delta": "-1/4",
+      "example": {
+       "a": 4,
+       "b": 5,
+       "c": 6,
+       "d": 12
+      }
+     },
+     {
+      "label": "3a = c",
+      "delta": "-1/4",
+      "example": {
+       "a": 1,
+       "b": 2,
+       "c": 3,
+       "d": 6
+      }
+     },
+     {
+      "label": "3b = 2c",
+      "delta": "-1/4",
+      "example": {
+       "a": 1,
+       "b": 2,
+       "c": 3,
+       "d": 6
+      }
+     },
+     {
+      "label": "3b = c",
+      "delta": "-1/4",
+      "example": {
+       "a": 1,
+       "b": 2,
+       "c": 6,
+       "d": 12
+      }
+     },
+     {
+      "label": "a+2b = 2c",
+      "delta": "-1/4",
+      "example": {
+       "a": 2,
+       "b": 3,
+       "c": 4,
+       "d": 8
+      }
+     },
+     {
+      "label": "a+2b = c",
+      "delta": "-1/4",
+      "example": {
+       "a": 1,
+       "b": 2,
+       "c": 5,
+       "d": 10
+      }
+     },
+     {
+      "label": "a+b = c",
+      "delta": "2",
+      "example": {
+       "a": 1,
+       "b": 2,
+       "c": 3,
+       "d": 6
+      }
+     }
+    ]
+   },
+   "subfamilies": [
+    {
+     "label": "b = 2a",
+     "closures": [
+      {
+       "ok": true,
+       "tailMember": "a",
+       "N0": 19,
+       "validityFloor": 12,
+       "expr": {
+        "A": "-2",
+        "B": "0",
+        "C": "9"
+       },
+       "boundAtN0": {
+        "lo": "-29/19",
+        "hi": "-29/19"
+       },
+       "target": {
+        "lo": "-855435038691829/562949953421312",
+        "hi": "-6843480309534631/4503599627370496"
+       },
+       "pieces": [
+        {
+         "member": "a",
+         "kind": "exact",
+         "u": "1",
+         "value": "-1/2"
+        },
+        {
+         "member": "b",
+         "kind": "exact",
+         "u": "2",
+         "value": "-1/2"
+        },
+        {
+         "member": "c",
+         "kind": "lemma3.3",
+         "u": "0",
+         "v": "1",
+         "floor": 6
+        },
+        {
+         "member": "d",
+         "kind": "lemma3.3",
+         "u": "0",
+         "v": "2",
+         "floor": 12
+        }
+       ]
+      },
+      {
+       "ok": true,
+       "tailMember": "c",
+       "N0": 19,
+       "validityFloor": 12,
+       "expr": {
+        "A": "-2",
+        "B": "0",
+        "C": "9"
+       },
+       "boundAtN0": {
+        "lo": "-29/19",
+        "hi": "-29/19"
+       },
+       "target": {
+        "lo": "-855435038691829/562949953421312",
+        "hi": "-6843480309534631/4503599627370496"
+       },
+       "pieces": [
+        {
+         "member": "a",
+         "kind": "lemma3.3",
+         "u": "0",
+         "v": "1",
+         "floor": 6
+        },
+        {
+         "member": "b",
+         "kind": "lemma3.3",
+         "u": "0",
+         "v": "2",
+         "floor": 12
+        },
+        {
+         "member": "c",
+         "kind": "exact",
+         "u": "1",
+         "value": "-1/2"
+        },
+        {
+         "member": "d",
+         "kind": "exact",
+         "u": "2",
+         "value": "-1/2"
+        }
+       ]
+      }
+     ],
+     "finite": {
+      "ok": true,
+      "enumerated": 50,
+      "closed": 50,
+      "skipped": [],
+      "undecided": []
+     }
+    },
+    {
+     "label": "c = 2a",
+     "closures": [
+      {
+       "ok": true,
+       "tailMember": "a",
+       "N0": 3,
+       "validityFloor": 1,
+       "expr": {
+        "A": "-5/2",
+        "B": "1/2",
+        "C": "0"
+       },
+       "boundAtN0": {
+        "lo": "-26940119942898757703525724457607268746117945284711192278335375070549271/13803492693581127574869511724554050904902217944340773110325048447598592",
+        "hi": "-3879377271777421109307704321895446697353037667746523508666855781327316151/1987702947875682370781209688335783330305919383985071327886806976454197248"
+       },
+       "target": {
+        "lo": "-855435038691829/562949953421312",
+        "hi": "-6843480309534631/4503599627370496"
+       },
+       "pieces": [
+        {
+         "member": "a",
+         "kind": "exact",
+         "u": "1",
+         "value": "-1/2"
+        },
+        {
+         "member": "b",
+         "kind": "lemma3.2",
+         "u": "0",
+         "v": "1"
+        },
+        {
+         "member": "c",
+         "kind": "exact",
+         "u": "2",
+         "value": "-1/2"
+        },
+        {
+         "member": "d",
+         "kind": "exact",
+         "u": "4",
+         "value": "-1/2"
+        }
+       ]
+      }
+     ],
+     "finite": {
+      "ok": true,
+      "enumerated": 1,
+      "closed": 1,
+      "skipped": [],
+      "undecided": []
+     }
+    },
+    {
+     "label": "c = 2b",
+     "closures": [
+      {
+       "ok": true,
+       "tailMember": "b",
+       "N0": 3,
+       "validityFloor": 1,
+       "expr": {
+        "A": "-5/2",
+        "B": "1/2",
+        "C": "0"
+       },
+       "boundAtN0": {
+        "lo": "-26940119942898757703525724457607268746117945284711192278335375070549271/13803492693581127574869511724554050904902217944340773110325048447598592",
+        "hi": "-3879377271777421109307704321895446697353037667746523508666855781327316151/1987702947875682370781209688335783330305919383985071327886806976454197248"
+       },
+       "target": {
+        "lo": "-855435038691829/562949953421312",
+        "hi": "-6843480309534631/4503599627370496"
+       },
+       "pieces": [
+        {
+         "member": "a",
+         "kind": "lemma3.2",
+         "u": "0",
+         "v": "1"
+        },
+        {
+         "member": "b",
+         "kind": "exact",
+         "u": "1",
+         "value": "-1/2"
+        },
+        {
+         "member": "c",
+         "kind": "exact",
+         "u": "2",
+         "value": "-1/2"
+        },
+        {
+         "member": "d",
+         "kind": "exact",
+         "u": "4",
+         "value": "-1/2"
+        }
+       ]
+      }
+     ],
+     "finite": {
+      "ok": true,
+      "enumerated": 1,
+      "closed": 1,
+      "skipped": [],
+      "undecided": []
+     }
+    },
+    {
+     "label": "c = a+b",
+     "closures": [
+      {
+       "ok": true,
+       "tailMember": "b",
+       "N0": 25,
+       "validityFloor": 12,
+       "expr": {
+        "A": "-2",
+        "B": "0",
+        "C": "12"
+       },
+       "boundAtN0": {
+        "lo": "-38/25",
+        "hi": "-38/25"
+       },
+       "target": {
+        "lo": "-855435038691829/562949953421312",
+        "hi": "-6843480309534631/4503599627370496"
+       },
+       "pieces": [
+        {
+         "member": "a",
+         "kind": "lemma3.3",
+         "u": "0",
+         "v": "1",
+         "floor": 6
+        },
+        {
+         "member": "b",
+         "kind": "exact",
+         "u": "1",
+         "value": "-1/2"
+        },
+        {
+         "member": "c",
+         "kind": "lemma3.3",
+         "u": "1",
+         "v": "1",
+         "floor": 6
+        },
+        {
+         "member": "d",
+         "kind": "lemma3.3",
+         "u": "2",
+         "v": "2",
+         "floor": 12
+        }
+       ]
+      }
+     ],
+     "finite": {
+      "ok": true,
+      "enumerated": 179,
+      "closed": 179,
+      "skipped": [],
+      "undecided": []
+     }
+    }
+   ],
+   "coverage": [
+    {
+     "condition": "2a = b",
+     "subfamily": "b = 2a",
+     "pointsChecked": 380
+    },
+    {
+     "condition": "2a = c",
+     "subfamily": "c = 2a",
+     "pointsChecked": 190
+    },
+    {
+     "condition": "2b = c",
+     "subfamily": "c = 2b",
+     "pointsChecked": 190
+    },
+    {
+     "condition": "a+b = c",
+     "subfamily": "c = a+b",
+     "pointsChecked": 380
+    }
+   ]
+  }
+ },
  "meta": {
   "date": "2026-09-01",
-  "git": "4ef1c13",
-  "ms": 25933
+  "git": "ad9b30f",
+  "ms": 54711
  }
 }
