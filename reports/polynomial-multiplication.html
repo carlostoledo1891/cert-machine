@@ -121,7 +121,8 @@
 *{box-sizing:border-box}
 html{color-scheme:light dark}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:var(--f-sans);font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  font-family:var(--f-sans);font-size:18px;line-height:1.66;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
 
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
@@ -210,8 +211,6 @@ section{margin:clamp(50px,7.5vw,84px) 0 0}
 .stat .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
 .stat .v{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
 .stat .v.sm{font-size:14px;font-family:var(--f-mono);font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
-.stat .v.held{color:var(--held)}
-.stat .v.warn{color:var(--warn)}
 .stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
 
 .scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
@@ -452,13 +451,13 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">targets certified</div><div class="v held">9</div><div class="n">each an explicit scheme stored in full in certs/bilinear-certificate.json and re-decided at every build</div></div>
-    <div class="stat"><div class="k">published bounds beaten</div><div class="v open">0</div><div class="n">none — the search matched the literature but did not get under it</div></div>
-    <div class="stat"><div class="k">published bounds reproduced</div><div class="v held">3</div><div class="n">hand constructions from 1983-2009, re-derived from the naive algorithm by a random walk that was told nothing about them</div></div>
-    <div class="stat"><div class="k">exact ranks confirmed</div><div class="v held">1</div><div class="n">targets where the published lower and upper bounds meet, so the walk reaching that rank is reaching the true minimum</div></div>
-    <div class="stat"><div class="k">still above the literature</div><div class="v open">3</div><div class="n">the search did not reach the published bound. Listed, not dropped</div></div>
-    <div class="stat"><div class="k">published targets not attempted</div><div class="v open">6</div><div class="n">P6, P7, P8, C10, T10, T11 — the campaign was stopped, not exhausted</div></div>
-    <div class="stat"><div class="k">cost</div><div class="v held">$0.0000</div><div class="n">1331 s of one core, nice-10, on a laptop that was busy with another campaign at the time</div></div>
+    <div class="stat"><div class="k">targets certified</div><div class="v">9</div><div class="n">each an explicit scheme stored in full in certs/bilinear-certificate.json and re-decided at every build</div></div>
+    <div class="stat"><div class="k">published bounds beaten</div><div class="v">0</div><div class="n">none — the search matched the literature but did not get under it</div></div>
+    <div class="stat"><div class="k">published bounds reproduced</div><div class="v">3</div><div class="n">hand constructions from 1983-2009, re-derived from the naive algorithm by a random walk that was told nothing about them</div></div>
+    <div class="stat"><div class="k">exact ranks confirmed</div><div class="v">1</div><div class="n">targets where the published lower and upper bounds meet, so the walk reaching that rank is reaching the true minimum</div></div>
+    <div class="stat"><div class="k">still above the literature</div><div class="v">3</div><div class="n">the search did not reach the published bound. Listed, not dropped</div></div>
+    <div class="stat"><div class="k">published targets not attempted</div><div class="v">6</div><div class="n">P6, P7, P8, C10, T10, T11 — the campaign was stopped, not exhausted</div></div>
+    <div class="stat"><div class="k">cost</div><div class="v">$0.0000</div><div class="n">1331 s of one core, nice-10, on a laptop that was busy with another campaign at the time</div></div>
   </div>
 </div>
 
@@ -499,7 +498,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <p>Nothing here is new mathematics. The search matched the literature and did not get under it, on the budget it was given, and that is reported as the result rather than buried. These are F2 statements; a scheme over F2 need not lift to Z or to any other field, and no lifting was attempted. The 3 rows are still above the literature, listed rather than dropped. And this is not a complete sweep: <span class="m">P6</span>, <span class="m">P7</span>, <span class="m">P8</span>, <span class="m">C10</span>, <span class="m">T10</span>, <span class="m">T11</span> carry published bounds and were never attempted here — the campaign was stopped, not exhausted. Published, not peer-reviewed, not independently rerun — which is exactly the status this machine exists to stop being true of other people's work, and it applies to ours the same way.</p>
 </div>
 
-<footer class="col"><p>Generated by tools/build-report-bilinear.js @ git 3bafac3. Gates at this build: the bilinear battery (16 checks, 8 red controls, 4 calibration rungs), and all 9 stored schemes re-decided here from their bitmasks — 2,824 tensor equations over F2. A scheme that stopped closing, or one certifying below a published lower bound, would refuse this page.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-bilinear.js @ git fd54566. Gates at this build: the bilinear battery (16 checks, 8 red controls, 4 calibration rungs), and all 9 stored schemes re-decided here from their bitmasks — 2,824 tensor equations over F2. A scheme that stopped closing, or one certifying below a published lower bound, would refuse this page.</p></footer>
 
 </div>
 </html>

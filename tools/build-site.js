@@ -559,10 +559,12 @@ B.push(C.section({
 }));
 
 /* ---- the machine, drawn ------------------------------------------------- */
-/* IDENTICAL to the control page's drawing (operator ruling): the battery
-   count comes from batteries.json, the record the control build measured
-   and wrote. make site runs make control first, so it is never stale. */
-const { machineFlow } = require(path.join(__dirname, 'machine-figure.js'));
+/* The COMPACT drawing (operator instruction 2026-08-31: the full schematic is
+   too big for the homepage — it stays on the control page, which links from
+   here). The battery count comes from batteries.json, the record the control
+   build measured and wrote. make site runs make control first, so it is
+   never stale. */
+const { machineFlowCompact } = require(path.join(__dirname, 'machine-figure.js'));
 const gates = (() => {
   const p = path.join(ROOT, 'batteries.json');
   if (!fs.existsSync(p)) fail('batteries.json missing — run make control (make site does) so the gates count is measured, not remembered');
@@ -570,9 +572,10 @@ const gates = (() => {
 })();
 B.push(C.section({
   lab: 'the machine', title: 'How a claim becomes a certificate', wide: true,
-  bodyRaw: machineFlow(ledger, { gates })
-    + '<div class="col after-fig">' + C.pRaw('The <a href="machine/">control page</a> is this drawing, live: every family, '
-      + 'every battery executed at its build (never remembered), the full ledger decomposition, drift status.') + '</div>'
+  bodyRaw: machineFlowCompact(ledger, { gates })
+    + '<div class="col after-fig">' + C.pRaw('The <a href="machine/">control page</a> carries the full drawing, live: every '
+      + 'family, every instrument, every battery executed at its build (never remembered), the full ledger '
+      + 'decomposition, drift status.') + '</div>'
 }));
 
 /* ---- the tally ----------------------------------------------------------

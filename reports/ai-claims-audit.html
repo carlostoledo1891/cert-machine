@@ -121,7 +121,8 @@
 *{box-sizing:border-box}
 html{color-scheme:light dark}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:var(--f-sans);font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  font-family:var(--f-sans);font-size:18px;line-height:1.66;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
 
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
@@ -210,8 +211,6 @@ section{margin:clamp(50px,7.5vw,84px) 0 0}
 .stat .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
 .stat .v{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
 .stat .v.sm{font-size:14px;font-family:var(--f-mono);font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
-.stat .v.held{color:var(--held)}
-.stat .v.warn{color:var(--warn)}
 .stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
 
 .scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
@@ -452,13 +451,13 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">claims re-verified</div><div class="v held">6</div><div class="n">each written from the manuscript; no author code was executed in any lane</div></div>
-    <div class="stat"><div class="k">held</div><div class="v held">5 confirmed</div><div class="n">within a scope this page states for each one, never wider</div></div>
-    <div class="stat"><div class="k">partial</div><div class="v open">1</div><div class="n">Ran–Teng: every machine-checkable fragment holds; the analytic core is prose</div></div>
-    <div class="stat"><div class="k">refuted</div><div class="v held">0</div><div class="n">no claim in this set was contradicted by our arithmetic</div></div>
-    <div class="stat"><div class="k">analytic cores audited</div><div class="v open">0 of 6</div><div class="n">the honest ceiling of the whole exercise, and the reason this page exists</div></div>
-    <div class="stat"><div class="k">mutation controls</div><div class="v held">21</div><div class="n">deliberate corruptions the verifiers must reject — all 21 rejected</div></div>
-    <div class="stat"><div class="k">named checks</div><div class="v held">92</div><div class="n">counted by one rule across all six, not taken from six verifiers that disagree about what a check is</div></div>
+    <div class="stat"><div class="k">claims re-verified</div><div class="v">6</div><div class="n">each written from the manuscript; no author code was executed in any lane</div></div>
+    <div class="stat"><div class="k">held</div><div class="v">5 confirmed</div><div class="n">within a scope this page states for each one, never wider</div></div>
+    <div class="stat"><div class="k">partial</div><div class="v">1</div><div class="n">Ran–Teng: every machine-checkable fragment holds; the analytic core is prose</div></div>
+    <div class="stat"><div class="k">refuted</div><div class="v">0</div><div class="n">no claim in this set was contradicted by our arithmetic</div></div>
+    <div class="stat"><div class="k">analytic cores audited</div><div class="v">0 of 6</div><div class="n">the honest ceiling of the whole exercise, and the reason this page exists</div></div>
+    <div class="stat"><div class="k">mutation controls</div><div class="v">21</div><div class="n">deliberate corruptions the verifiers must reject — all 21 rejected</div></div>
+    <div class="stat"><div class="k">named checks</div><div class="v">92</div><div class="n">counted by one rule across all six, not taken from six verifiers that disagree about what a check is</div></div>
   </div>
 </div>
 
@@ -483,7 +482,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <text x="693.0" y="134.0" text-anchor="middle" class="t-ax">30</text>
     <line x1="840.0" y1="10" x2="840.0" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="840.0" y="134.0" text-anchor="middle" class="t-ax">40</text>
-    <path d="M252 14 h554.6 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-554.6 Z" fill="var(--c-3)" data-cm="Ran–Teng Conjecture 20" data-cmv="38 named checks · 5 mutation controls · 37 ms · PARTIAL" tabindex="0"/>
+    <path d="M252 14 h554.6 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-554.6 Z" fill="var(--c-s2)" data-cm="Ran–Teng Conjecture 20" data-cmv="38 named checks · 5 mutation controls · 37 ms · PARTIAL" tabindex="0"/>
     <text x="242.0" y="27.0" text-anchor="end" class="t-ax">Ran–Teng Conjecture 20</text>
     <text x="818.6" y="27.0" text-anchor="start" class="t-lab">38</text>
     <path d="M252 40 h319.4000000000001 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-319.4000000000001 Z" fill="var(--c-1)" data-cm="Erdős Problem #1038" data-cmv="22 named checks · 4 mutation controls · 0 ms · CONFIRMED" tabindex="0"/>
@@ -498,7 +497,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <text x="546.0" y="156.0" text-anchor="middle" class="t-note">individually named checks the verifier printed at build time (hover for controls and runtime)</text>
   </svg>
   </div>
-  <figcaption>Only four of the six print named check rows, so only four are plotted — Mathieu reports 126 checks as a summary and Poisson reports its identities as a set, and a bar drawn from a number that names nothing would be a bar drawn from nothing. Ran–Teng, in the contrasting colour, is the one PARTIAL, and it carries the most named checks in the set: depth of checking is not depth of proof.</figcaption>
+  <figcaption>Only four of the six print named check rows, so only four are plotted — Mathieu reports 126 checks as a summary and Poisson reports its identities as a set, and a bar drawn from a number that names nothing would be a bar drawn from nothing. Ran–Teng, in the lighter shade, is the one PARTIAL, and it carries the most named checks in the set: depth of checking is not depth of proof.</figcaption>
 </figure></div>
 
 <section class="col">
@@ -660,7 +659,7 @@ node legacy/research/challenges/lane/laneb-poisson/verify.js</pre><p>To confirm 
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git 3bafac3. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 92 named checks, 0 failures, 21 mutation controls all rejected, 4.1 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git fd54566. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 92 named checks, 0 failures, 21 mutation controls all rejected, 4.1 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
 
 </div>
 </html>

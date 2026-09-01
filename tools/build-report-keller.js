@@ -313,7 +313,11 @@ O.push(C.scope('Published, not peer-reviewed, not independently rerun. What is d
         + 'entry in it during this build and matched ' + pinsMatched + ' of ' + pinsMatched + '. A drifted source '
         + 'refuses the certificate rather than quietly certifying against a memory of it.')
       + (() => {
-        const laneToken = { transcribed: CH.CAT[0], reconstructed: CH.CAT[1], generated: CH.CAT[2] };
+        /* the three lanes ride the brand-pink ramp with a skipped step between
+           neighbours (operator ruling 2026-08-31: chart bars stay in the pink
+           family) — light for transcribed bytes, darkest for the machine's own
+           objects; the legend and the row labels carry the identity, as always */
+        const laneToken = { transcribed: CH.SEQ[0], reconstructed: CH.SEQ[2], generated: CH.SEQ[4] };
         const order = ['transcribed', 'reconstructed', 'generated'];
         const rowsC = [];
         for (const lane of order) {
@@ -331,9 +335,9 @@ O.push(C.scope('Published, not peer-reviewed, not independently rerun. What is d
         /* bars() sizes for a ONE-LINE legend; the labels below are short
            enough to stay on one line at this width, and the explicit height
            keeps that line clear of the axis caption */
-        const keys = [{ token: CH.CAT[0], t: 'transcribed · pinned bytes' },
-          { token: CH.CAT[1], t: 'rebuilt from a seed' },
-          { token: CH.CAT[2], t: 'generated here' }];
+        const keys = [{ token: laneToken.transcribed, t: 'transcribed · pinned bytes' },
+          { token: laneToken.reconstructed, t: 'rebuilt from a seed' },
+          { token: laneToken.generated, t: 'generated here' }];
         const ROWH = 26, PADL = 214, PADR = 84;
         if (CH.legendLines(keys, 900 - PADL - PADR) !== 1) die('the figure legend no longer fits on one line');
         const fig = CH.bars({

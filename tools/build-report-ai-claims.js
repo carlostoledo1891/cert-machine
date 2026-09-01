@@ -121,14 +121,16 @@ B.push(C.figure({
       + 'omitted from this chart.',
     rows: withChecks.slice().sort((a, b) => b.rows - a.rows).map(r => ({
       k: r.short, v: r.rows, lab: String(r.rows),
-      token: r.verdict === 'PARTIAL' ? CH.CAT[2] : CH.CAT[0],
+      /* bars stay in the brand-pink family (operator ruling 2026-08-31): the
+         one PARTIAL wears the light ramp step, never the amber */
+      token: r.verdict === 'PARTIAL' ? CH.SEQ[1] : CH.CAT[0],
       hover: r.rows + ' named checks · ' + r.mutations + ' mutation controls · '
         + (r.ms === null ? 'sub-millisecond' : r.ms + ' ms') + ' · ' + r.verdict
     }))
   }),
   caption: 'Only four of the six print named check rows, so only four are plotted — Mathieu reports 126 '
     + 'checks as a summary and Poisson reports its identities as a set, and a bar drawn from a number that '
-    + 'names nothing would be a bar drawn from nothing. Ran–Teng, in the contrasting colour, is the one '
+    + 'names nothing would be a bar drawn from nothing. Ran–Teng, in the lighter shade, is the one '
     + 'PARTIAL, and it carries the most named checks in the set: depth of checking is not depth of proof.'
 }));
 

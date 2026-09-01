@@ -44,7 +44,7 @@ function appCss() {
 :root[data-theme="dark"]{${vars(APP_DARK)}}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink)}
-body{font-family:var(--f-sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{font-family:var(--f-sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 a{color:inherit}
 .as-map{position:fixed;inset:0}
 .as-map canvas{outline:none}
@@ -170,7 +170,9 @@ details.as-more[open] summary{margin-bottom:6px}
 .as-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .as-stat{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:9px;
   padding:9px 11px;border-left-width:3px}
-.as-stat b{display:block;font-family:var(--f-mono);font-weight:600;font-size:20px;line-height:1.1;color:var(--ink)}
+/* the big number is always the signature pink (operator ruling 2026-08-31);
+   the verdict stays on the tile's left border, never on the number */
+.as-stat b{display:block;font-family:var(--f-mono);font-weight:600;font-size:20px;line-height:1.1;color:var(--sig)}
 .as-stat span{font-family:var(--f-mono);font-size:9px;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase}
 .as-stat.c{border-left-color:var(--v-cert)} .as-stat.r{border-left-color:var(--v-refu)} .as-stat.f{border-left-color:var(--v-refd)}
 

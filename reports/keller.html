@@ -121,7 +121,8 @@
 *{box-sizing:border-box}
 html{color-scheme:light dark}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:var(--f-sans);font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  font-family:var(--f-sans);font-size:18px;line-height:1.66;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
 
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
@@ -210,8 +211,6 @@ section{margin:clamp(50px,7.5vw,84px) 0 0}
 .stat .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
 .stat .v{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
 .stat .v.sm{font-size:14px;font-family:var(--f-mono);font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
-.stat .v.held{color:var(--held)}
-.stat .v.warn{color:var(--warn)}
 .stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
 
 .scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
@@ -452,10 +451,10 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">certificates</div><div class="v held">11</div><div class="n">10 distinct maps in dimensions 3, 5, 8; the n=8 row is the n=3 map with identity coordinates adjoined, and says so.</div></div>
-    <div class="stat"><div class="k">generated here</div><div class="v sig">3</div><div class="n">New curves pushed through the published tangent-sweep recipe at degrees 3, 4 and 5 — no printed map transcribed, geometric degrees 4, 5, 6.</div></div>
-    <div class="stat"><div class="k">determinants, decided</div><div class="v sm held">−2 · 128 · 1 · −1</div><div class="n">Each proved as a polynomial identity over Q — 1,403 Jacobian monomials across the corpus had to cancel, and did.</div></div>
-    <div class="stat"><div class="k">witness evaluations</div><div class="v held">24</div><div class="n">Every listed rational point re-evaluated in exact fractions and compared to its image coordinate by coordinate; every pair compared for distinctness.</div></div>
+    <div class="stat"><div class="k">certificates</div><div class="v">11</div><div class="n">10 distinct maps in dimensions 3, 5, 8; the n=8 row is the n=3 map with identity coordinates adjoined, and says so.</div></div>
+    <div class="stat"><div class="k">generated here</div><div class="v">3</div><div class="n">New curves pushed through the published tangent-sweep recipe at degrees 3, 4 and 5 — no printed map transcribed, geometric degrees 4, 5, 6.</div></div>
+    <div class="stat"><div class="k">determinants, decided</div><div class="v sm">−2 · 128 · 1 · −1</div><div class="n">Each proved as a polynomial identity over Q — 1,403 Jacobian monomials across the corpus had to cancel, and did.</div></div>
+    <div class="stat"><div class="k">witness evaluations</div><div class="v">24</div><div class="n">Every listed rational point re-evaluated in exact fractions and compared to its image coordinate by coordinate; every pair compared for distinctness.</div></div>
     <div class="stat"><div class="k">found blind</div><div class="v">3 preimages</div><div class="n">Multistart Newton on the exact map, no published witness consumed, each preimage in a certified Krawczyk box — and a triangular automorphism control certifies exactly 1 over 400 starts.</div></div>
     <div class="stat"><div class="k">gates at this build</div><div class="v">32/32</div><div class="n">9 red controls fired in the battery; the independent verifier decided 11 entries with 0 failures and re-hashed 15 pinned sources.</div></div>
   </div>
@@ -479,45 +478,45 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
     <text x="530.8" y="316.0" text-anchor="middle" class="t-ax">200</text>
     <line x1="689.3" y1="10" x2="689.3" y2="296" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="689.3" y="316.0" text-anchor="middle" class="t-ax">300</text>
-    <path d="M214 14 h48.278947368421086 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-48.278947368421086 Z" fill="var(--c-1)" data-cm="Alpöge n=3" data-cmv="det J = −2 · n = 3 · 3 points" tabindex="0"/>
+    <path d="M214 14 h48.278947368421086 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-48.278947368421086 Z" fill="var(--c-s1)" data-cm="Alpöge n=3" data-cmv="det J = −2 · n = 3 · 3 points" tabindex="0"/>
     <text x="204.0" y="27.0" text-anchor="end" class="t-ax">Alpöge n=3</text>
     <text x="274.3" y="27.0" text-anchor="start" class="t-lab">33</text>
-    <path d="M214 40 h56.19999999999999 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-56.19999999999999 Z" fill="var(--c-1)" data-cm="Alpöge n=8 (padded)" data-cmv="det J = −2 · n = 8 · 3 points" tabindex="0"/>
+    <path d="M214 40 h56.19999999999999 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-56.19999999999999 Z" fill="var(--c-s1)" data-cm="Alpöge n=8 (padded)" data-cmv="det J = −2 · n = 8 · 3 points" tabindex="0"/>
     <text x="204.0" y="53.0" text-anchor="end" class="t-ax">Alpöge n=8 (padded)</text>
     <text x="282.2" y="53.0" text-anchor="start" class="t-lab">38</text>
-    <path d="M214 66 h533.0473684210526 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-533.0473684210526 Z" fill="var(--c-1)" data-cm="Meng–Yang · HC in 5 vars" data-cmv="det J = 128 · n = 5 · 2 points" tabindex="0"/>
+    <path d="M214 66 h533.0473684210526 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-533.0473684210526 Z" fill="var(--c-s1)" data-cm="Meng–Yang · HC in 5 vars" data-cmv="det J = 128 · n = 5 · 2 points" tabindex="0"/>
     <text x="204.0" y="79.0" text-anchor="end" class="t-ax">Meng–Yang · HC in 5 vars</text>
     <text x="759.0" y="79.0" text-anchor="start" class="t-lab">339</text>
-    <path d="M214 92 h48.278947368421086 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-48.278947368421086 Z" fill="var(--c-2)" data-cm="Gallagher · fiber degree 3" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
+    <path d="M214 92 h48.278947368421086 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-48.278947368421086 Z" fill="var(--c-s3)" data-cm="Gallagher · fiber degree 3" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
     <text x="204.0" y="105.0" text-anchor="end" class="t-ax">Gallagher · fiber degree 3</text>
     <text x="274.3" y="105.0" text-anchor="start" class="t-lab">33</text>
-    <path d="M214 118 h119.5684210526316 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-119.5684210526316 Z" fill="var(--c-2)" data-cm="Gallagher · fiber degree 4" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
+    <path d="M214 118 h119.5684210526316 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-119.5684210526316 Z" fill="var(--c-s3)" data-cm="Gallagher · fiber degree 4" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
     <text x="204.0" y="131.0" text-anchor="end" class="t-ax">Gallagher · fiber degree 4</text>
     <text x="345.6" y="131.0" text-anchor="start" class="t-lab">78</text>
-    <path d="M214 144 h219.37368421052633 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-219.37368421052633 Z" fill="var(--c-2)" data-cm="Gallagher · fiber degree 5" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
+    <path d="M214 144 h219.37368421052633 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-219.37368421052633 Z" fill="var(--c-s3)" data-cm="Gallagher · fiber degree 5" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
     <text x="204.0" y="157.0" text-anchor="end" class="t-ax">Gallagher · fiber degree 5</text>
     <text x="445.4" y="157.0" text-anchor="start" class="t-lab">141</text>
-    <path d="M214 170 h347.69473684210527 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-347.69473684210527 Z" fill="var(--c-2)" data-cm="Gallagher · fiber degree 6" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
+    <path d="M214 170 h347.69473684210527 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-347.69473684210527 Z" fill="var(--c-s3)" data-cm="Gallagher · fiber degree 6" data-cmv="det J = 1 · n = 3 · 2 points" tabindex="0"/>
     <text x="204.0" y="183.0" text-anchor="end" class="t-ax">Gallagher · fiber degree 6</text>
     <text x="573.7" y="183.0" text-anchor="start" class="t-lab">222</text>
-    <path d="M214 196 h119.5684210526316 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-119.5684210526316 Z" fill="var(--c-2)" data-cm="Gallagher · fiber degree 4" data-cmv="det J = −1 · n = 3 · 2 points" tabindex="0"/>
+    <path d="M214 196 h119.5684210526316 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-119.5684210526316 Z" fill="var(--c-s3)" data-cm="Gallagher · fiber degree 4" data-cmv="det J = −1 · n = 3 · 2 points" tabindex="0"/>
     <text x="204.0" y="209.0" text-anchor="end" class="t-ax">Gallagher · fiber degree 4</text>
     <text x="345.6" y="209.0" text-anchor="start" class="t-lab">78</text>
-    <path d="M214 222 h119.5684210526316 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-119.5684210526316 Z" fill="var(--c-3)" data-cm="ours · curve degree 3" data-cmv="det J = −2 · n = 3 · 2 points" tabindex="0"/>
+    <path d="M214 222 h119.5684210526316 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-119.5684210526316 Z" fill="var(--c-s5)" data-cm="ours · curve degree 3" data-cmv="det J = −2 · n = 3 · 2 points" tabindex="0"/>
     <text x="204.0" y="235.0" text-anchor="end" class="t-ax">ours · curve degree 3</text>
     <text x="345.6" y="235.0" text-anchor="start" class="t-lab">78</text>
-    <path d="M214 248 h219.37368421052633 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-219.37368421052633 Z" fill="var(--c-3)" data-cm="ours · curve degree 4" data-cmv="det J = −2 · n = 3 · 2 points" tabindex="0"/>
+    <path d="M214 248 h219.37368421052633 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-219.37368421052633 Z" fill="var(--c-s5)" data-cm="ours · curve degree 4" data-cmv="det J = −2 · n = 3 · 2 points" tabindex="0"/>
     <text x="204.0" y="261.0" text-anchor="end" class="t-ax">ours · curve degree 4</text>
     <text x="445.4" y="261.0" text-anchor="start" class="t-lab">141</text>
-    <path d="M214 274 h347.69473684210527 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-347.69473684210527 Z" fill="var(--c-3)" data-cm="ours · curve degree 5" data-cmv="det J = −2 · n = 3 · 2 points" tabindex="0"/>
+    <path d="M214 274 h347.69473684210527 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-347.69473684210527 Z" fill="var(--c-s5)" data-cm="ours · curve degree 5" data-cmv="det J = −2 · n = 3 · 2 points" tabindex="0"/>
     <text x="204.0" y="287.0" text-anchor="end" class="t-ax">ours · curve degree 5</text>
     <text x="573.7" y="287.0" text-anchor="start" class="t-lab">222</text>
     <text x="515.0" y="338.0" text-anchor="middle" class="t-note">monomials in the symbolic Jacobian that the determinant expansion must cancel to a constant</text>
-    <rect x="214" y="352" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <rect x="214" y="352" width="11" height="10" rx="2" fill="var(--c-s1)"/>
     <text x="233.0" y="362.0" text-anchor="start" class="t-note">transcribed · pinned bytes</text>
-    <rect x="439" y="352" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <rect x="439" y="352" width="11" height="10" rx="2" fill="var(--c-s3)"/>
     <text x="458.0" y="362.0" text-anchor="start" class="t-note">rebuilt from a seed</text>
-    <rect x="616" y="352" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <rect x="616" y="352" width="11" height="10" rx="2" fill="var(--c-s5)"/>
     <text x="635.0" y="362.0" text-anchor="start" class="t-note">generated here</text>
   </svg>
   </div>
@@ -608,7 +607,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-keller.js — 11 certificates re-certified from families/keller-audit.js, re-verified through tools/verify_keller.py, sources re-hashed, the fiber family re-run and the doubling identity recomputed at build time; the build fails if any of it does not hold.</p><p>git 3bafac3 · cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-keller.js — 11 certificates re-certified from families/keller-audit.js, re-verified through tools/verify_keller.py, sources re-hashed, the fiber family re-run and the doubling identity recomputed at build time; the build fails if any of it does not hold.</p><p>git fd54566 · cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

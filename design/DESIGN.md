@@ -121,8 +121,8 @@ something unproved is a lie told in a colour.
 
 | face | job | stack |
 |---|---|---|
-| `TYPE.display` | headings, stat values | Fraunces → Georgia → serif |
-| `TYPE.body` | prose | Spectral → Georgia → serif |
+| `TYPE.display` | headings, stat values | Archivo → Helvetica → sans-serif |
+| `TYPE.body` | prose | IBM Plex Sans → Helvetica → sans-serif |
 | `TYPE.mono` | **every number, id, path and hash** | IBM Plex Mono → ui-monospace → Menlo |
 
 Every face has a real fallback. These pages are read locally, sometimes with no network, and
@@ -152,7 +152,7 @@ contains a number**. A builder passes data; the component decides markup.
 | component | data | use |
 |---|---|---|
 | `header({eyebrow,title,deck})` | strings | the page head |
-| `stats(items)` | `[{k,v,n,sm,role,vRaw}]` | the hero strip. `role`: `held`/`warn` colours the value; `sm` for long values |
+| `stats(items)` | `[{k,v,n,sm,vRaw}]` | the hero strip. The big number is **always the signature pink** (operator ruling 2026-08-31); a legacy `role` field is accepted and ignored. `sm` for long values |
 | `scope(text)` | string | the rule under the hero: what this document is and is not |
 | `section({lab,title,bodyRaw,wide})` | | a numbered section. `wide` puts the body in the 900px track |
 | `p` / `pRaw` / `pull` / `eq` | | prose, prose-with-markup, a pull quote, a display equation |
@@ -168,7 +168,7 @@ contains a number**. A builder passes data; the component decides markup.
 | `m(s)` | string | inline monospace — every number, path, id, hash |
 | `tag(text,kind)` | `kind ∈ held·cert·open·dep` | a status chip |
 | `categoryChart({cats,...})` | | value-per-named-bucket figure |
-| `flow({w,h,alt,readout,nodes,edges,caption})` | `nodes:[{x,y,w,h,role,k,v,t,d}]`, `edges:[{d,lab,flow}]` | the interactive machine schematic: nodes as focusable buttons, animated flow along edges, a readout narrating the active node. Ships the design system's ONE inline script; with scripts off the default narration stands and hover still highlights. The drawing is geometry-agnostic; the machine's is drawn VERTICAL and DENSE at 800 design units (tools/machine-figure.js — families four across, instruments four across), and the template caps its rendered width at that same 800px so desktop renders near 1:1 |
+| `flow({w,h,alt,readout,nodes,edges,caption})` | `nodes:[{x,y,w,h,role,k,v,t,d}]`, `edges:[{d,lab,flow}]` | the interactive machine schematic: nodes as focusable buttons, animated flow along edges, a readout narrating the active node. Ships the design system's ONE inline script; with scripts off the default narration stands and hover still highlights. The drawing is geometry-agnostic; the machine's is drawn VERTICAL and DENSE at 800 design units (tools/machine-figure.js — families four across, instruments four across), and the template caps its rendered width at that same 800px so desktop renders near 1:1. The landing shows the COMPACT five-stop variant (`machineFlowCompact`, same file), the control page the full drawing — operator ruling 2026-08-31 |
 | `numberLine({...})`, `band`, `vmark`, `label`, `legend` | | figure atoms |
 
 The top bar (`nav`) is emitted by the template on every page, never by a builder. Its

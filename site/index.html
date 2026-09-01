@@ -121,7 +121,8 @@
 *{box-sizing:border-box}
 html{color-scheme:light dark}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:var(--f-sans);font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  font-family:var(--f-sans);font-size:18px;line-height:1.66;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
 
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
@@ -210,8 +211,6 @@ section{margin:clamp(50px,7.5vw,84px) 0 0}
 .stat .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
 .stat .v{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
 .stat .v.sm{font-size:14px;font-family:var(--f-mono);font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
-.stat .v.held{color:var(--held)}
-.stat .v.warn{color:var(--warn)}
 .stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
 
 .scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
@@ -503,216 +502,70 @@ certified  0.0752403861783092455893…
   </div>
 <div class="wide"><figure class="mach">
   <div class="figbox">
-    <div class="mach-ro"><div class="k" data-ro-k>the machine</div><div class="d" data-ro-d>Generate at scale, screen in float, certify the survivors exactly. Select any node for what it does — every count is read off ledger.json at build time.</div></div>
-    <svg viewBox="0 0 800 936" role="img" aria-label="Schematic of the conjecture engine: the families feed enumerate, screen and certify; the instruments decide; only certificates reach the ledger, which feeds the closed-form hunt and the pages.">
+    <div class="mach-ro"><div class="k" data-ro-k>the machine</div><div class="d" data-ro-d>Generate at scale, screen in float, certify the survivors exactly. Select any stage for what it does — every count is read off ledger.json at build time.</div></div>
+    <svg viewBox="0 0 800 416" role="img" aria-label="Compact schematic of the conjecture engine: enumerate across 11 families, screen in float, certify exactly, three outcomes, and only certificates reach the ledger the gates guard.">
       <defs><marker id="mfa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>
-      <path class="ed" d="M102 164 L102 194" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M102 164 L102 194"/>
-      <path class="ed" d="M298 164 L298 194" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M298 164 L298 194"/>
-      <path class="ed" d="M494 164 L494 194" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M494 164 L494 194"/>
-      <path class="ed" d="M690 110 L690 194" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M690 110 L690 194"/>
-      <path class="ed" d="M400 246 L400 274" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M400 246 L400 274"/>
-      <path class="ed" d="M400 326 L400 422" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M400 326 L400 422"/>
-      <path class="ed" d="M97 398 L97 422" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M97 398 L97 422"/>
-      <path class="ed" d="M283 398 L283 422" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M283 398 L283 422"/>
-      <path class="ed" d="M517 398 L517 422" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M517 398 L517 422"/>
-      <path class="ed" d="M703 398 L703 422" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M703 398 L703 422"/>
-      <path class="ed" d="M133 474 L133 512" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M133 474 L133 512"/>
-      <path class="ed" d="M399 474 L399 512" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M399 474 L399 512"/>
-      <path class="ed" d="M665 474 L665 512" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M665 474 L665 512"/>
-      <path class="ed" d="M133 564 L133 629 Q133 637 141 637 L218 637" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M133 564 L133 629 Q133 637 141 637 L218 637"/>
-      <path class="ed" d="M400 662 L400 688" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M400 662 L400 688"/>
-      <path class="ed" d="M330 740 C330 758 250 762 250 778" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M330 740 C330 758 250 762 250 778"/>
-      <path class="ed" d="M470 740 C470 758 550 762 550 778" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M470 740 C470 758 550 762 550 778"/>
-      <path class="ed" d="M582 637 L748 637 Q756 637 756 645 L756 885 Q756 893 748 893 L684 893" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M582 637 L748 637 Q756 637 756 645 L756 885 Q756 893 748 893 L684 893"/>
-      <path class="ed" d="M382 893 L418 893" marker-end="url(#mfa)"/>
-      <path class="ed-f" d="M382 893 L418 893"/>
-      <g class="nd" tabindex="0" role="button" aria-label="family · chowla-cosine" data-t="family · chowla-cosine" data-d="a finite integer set whose certified Chowla merit c = -min f_A / sqrt|A| falls below 1 One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="8" y="10" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="8" y="10" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="22" y="28">CHOWLA-COSINE</text>
-        <text class="nd-v" x="22" y="45">400,000 generated</text>
+      <path class="ed" d="M400 60 L400 88" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M400 60 L400 88"/>
+      <path class="ed" d="M400 140 L400 168" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M400 140 L400 168"/>
+      <path class="ed" d="M133 220 L133 258" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M133 220 L133 258"/>
+      <path class="ed" d="M399 220 L399 258" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M399 220 L399 258"/>
+      <path class="ed" d="M665 220 L665 258" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M665 220 L665 258"/>
+      <path class="ed" d="M133 310 L133 350" marker-end="url(#mfa)"/>
+      <path class="ed-f" d="M133 310 L133 350"/>
+      <g class="nd" tabindex="0" role="button" aria-label="enumerate — deterministic and indexed" data-t="enumerate — deterministic and indexed" data-d="11 families, one file and six functions each; every one enumerates by integer index, deterministically, so a run of any size resumes and reproduces. 819,152 objects this build. The full family table is on the control page.">
+        <rect class="nd-box" x="8" y="10" width="784" height="50" rx="5"/>
+        <rect class="acc-sig" x="8" y="10" width="3" height="50" rx="1.5"/>
+        <text class="nd-k" x="22" y="28">ENUMERATE · 11 FAMILIES</text>
+        <text class="nd-v" x="22" y="49">819,152 objects</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="family · erdos852-constants" data-t="family · erdos852-constants" data-d="a constant holding up the conjectured asymptotic h(x) ~ c0 log x on Erdős #852, replaced by a certified interval enclosure — and its published decimal decided exactly against that enclosure One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="204" y="10" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="204" y="10" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="218" y="28">ERDOS852-CONSTANTS</text>
-        <text class="nd-v" x="218" y="45">4 generated</text>
+      <g class="nd" tabindex="0" role="button" aria-label="screen — float, and it may only prune" data-t="screen — float, and it may only prune" data-d="A fast float estimate decides only what is WORTH certifying. The screen may prune, never admit: nothing it passes is believed, and everything it passes goes to the certifier.">
+        <rect class="nd-box" x="8" y="90" width="784" height="50" rx="5"/>
+        <rect class="acc-sig" x="8" y="90" width="3" height="50" rx="1.5"/>
+        <text class="nd-k" x="22" y="108">SCREEN · FLOAT</text>
+        <text class="nd-v" x="22" y="129">17,741 pass</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="family · henon-census" data-t="family · henon-census" data-d="a parameter pair (a,b) and period p for which the number of period-p points of the Hénon map is determined EXACTLY: every fixed point of H^p enclosed in a certified uniqueness box, the rest of the plane excluded by interval arithmetic One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="400" y="10" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="400" y="10" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="414" y="28">HENON-CENSUS</text>
-        <text class="nd-v" x="414" y="45">328 generated</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="family · henon-orbits" data-t="family · henon-orbits" data-d="a parameter pair (a,b) and an explicit box in which the Hénon map provably has a periodic orbit of period p, and exactly one One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="596" y="10" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="596" y="10" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="610" y="28">HENON-ORBITS</text>
-        <text class="nd-v" x="610" y="45">3,936 generated</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="family · holmes-census" data-t="family · holmes-census" data-d="a parameter pair (d,b) and period p for which the number of period-p points of the Holmes cubic Hénon map is determined EXACTLY: every fixed point of H^p enclosed in a certified uniqueness box, the rest of the plane excluded by interval arithmetic One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="8" y="64" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="8" y="64" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="22" y="82">HOLMES-CENSUS</text>
-        <text class="nd-v" x="22" y="99">124 generated</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="family · keller-audit" data-t="family · keller-audit" data-d="an explicit polynomial map C^n -&gt; C^n whose Jacobian determinant is proved constant by symbolic expansion over exact rationals, with certified distinct rational points sharing one image — the Jacobian conjecture refuted in dimension n, decided here and not trusted One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="204" y="64" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="204" y="64" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="218" y="82">KELLER-AUDIT</text>
-        <text class="nd-v" x="218" y="99">11 generated</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="family · keller-fibers" data-t="family · keller-fibers" data-d="a Keller map and a rational target with AT LEAST k certified preimages — pairwise-disjoint Krawczyk boxes found by blind multistart Newton on the exact map; k &gt;= 2 re-proves non-injectivity with no witnesses consumed One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="400" y="64" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="400" y="64" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="414" y="82">KELLER-FIBERS</text>
-        <text class="nd-v" x="414" y="99">9 generated</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="family · newman-minmod" data-t="family · newman-minmod" data-d="an n-term Newman polynomial whose certified min|f| on |z|=1 exceeds every value achievable with fewer terms One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="596" y="64" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="596" y="64" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="610" y="82">NEWMAN-MINMOD</text>
-        <text class="nd-v" x="610" y="99">400,000 generated</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="family · oeis-closedform" data-t="family · oeis-closedform" data-d="a published OEIS constant whose record — name AND fetched formula/comment fields — states no closed form, while its digits are consistent with a small closed form and every other form in the vocabulary is refuted One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="8" y="118" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="8" y="118" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="22" y="136">OEIS-CLOSEDFORM</text>
-        <text class="nd-v" x="22" y="153">14,677 generated</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="family · ramanujan-audit" data-t="family · ramanujan-audit" data-d="a published Ramanujan Machine conjecture re-evaluated as a rigorous enclosure and decided against the claimed closed form — survival certified to the enclosure width, refutation proved (and, for their corpus, a discovery) One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="204" y="118" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="204" y="118" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="218" y="136">RAMANUJAN-AUDIT</text>
-        <text class="nd-v" x="218" y="153">52 generated</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="family · strassen-audit" data-t="family · strassen-audit" data-d="a claimed fast matrix-multiplication algorithm — a rank-r decomposition of the (n,m,p) tensor — whose defining identity (nm·mp·np exact equations) is VERIFIED over the claimed ring with r strictly below the naive nmp; the C-layout convention is detected and recorded, never assumed One file, six functions — enumerate, value, interesting, certify, key, statement; the engine supplies the loop, the scale and the dedup.">
-        <rect class="nd-box" x="400" y="118" width="188" height="46" rx="5"/>
-        <rect class="acc-dep" x="400" y="118" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="414" y="136">STRASSEN-AUDIT</text>
-        <text class="nd-v" x="414" y="153">11 generated</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="enumerate — deterministic and indexed" data-t="enumerate — deterministic and indexed" data-d="Every family enumerates by integer index, deterministically: a run of any size resumes and reproduces, and two runs at the same limit produce identical hits. 819,152 objects this build.">
-        <rect class="nd-box" x="8" y="196" width="784" height="50" rx="5"/>
-        <rect class="acc-sig" x="8" y="196" width="3" height="50" rx="1.5"/>
-        <text class="nd-k" x="22" y="214">ENUMERATE</text>
-        <text class="nd-v" x="22" y="235">819,152 objects</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="screen — float, and it may only prune" data-t="screen — float, and it may only prune" data-d="A fast float estimate decides only what is WORTH certifying. The screen may prune, never admit: nothing it passes is believed, and everything it passes goes to the certifier. Duplicates fold by canonical key on the way.">
-        <rect class="nd-box" x="8" y="276" width="784" height="50" rx="5"/>
-        <rect class="acc-sig" x="8" y="276" width="3" height="50" rx="1.5"/>
-        <text class="nd-k" x="22" y="294">SCREEN · FLOAT</text>
-        <text class="nd-v" x="22" y="315">17,741 pass</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="certify — the only authority" data-t="certify — the only authority" data-d="The instruments decide: interval enclosures, exact rational arithmetic, strict interior containment for uniqueness. The engine never decides mathematics — it counts, dedupes, and hands the certifier what survived. 16,943 decisions this build.">
-        <rect class="nd-box" x="8" y="424" width="784" height="50" rx="5"/>
-        <rect class="acc-sig" x="8" y="424" width="3" height="50" rx="1.5"/>
-        <text class="nd-k" x="22" y="442">CERTIFY · EXACT</text>
-        <text class="nd-v" x="22" y="463">16,943 decided</text>
+      <g class="nd" tabindex="0" role="button" aria-label="certify — the only authority" data-t="certify — the only authority" data-d="The instruments decide: interval enclosures, exact rational arithmetic, strict interior containment for uniqueness. The engine never decides mathematics. 16,943 decisions this build.">
+        <rect class="nd-box" x="8" y="170" width="784" height="50" rx="5"/>
+        <rect class="acc-sig" x="8" y="170" width="3" height="50" rx="1.5"/>
+        <text class="nd-k" x="22" y="188">CERTIFY · EXACT</text>
+        <text class="nd-v" x="22" y="209">16,943 decided</text>
       </g>
       <g class="nd" tabindex="0" role="button" aria-label="HIT — a certificate exists" data-t="HIT — a certificate exists" data-d="A HIT ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness box, plus the falsifier the certificate must survive. 2,274 this build.">
-        <rect class="nd-box" x="8" y="514" width="250" height="50" rx="5"/>
-        <rect class="acc-held" x="8" y="514" width="3" height="50" rx="1.5"/>
-        <text class="nd-k" x="22" y="532">HIT · CERTIFIED</text>
-        <text class="nd-v" x="22" y="553">2,274</text>
+        <rect class="nd-box" x="8" y="260" width="250" height="50" rx="5"/>
+        <rect class="acc-held" x="8" y="260" width="3" height="50" rx="1.5"/>
+        <text class="nd-k" x="22" y="278">HIT · CERTIFIED</text>
+        <text class="nd-v" x="22" y="299">2,274</text>
       </g>
       <g class="nd" tabindex="0" role="button" aria-label="REJECT — proved uninteresting" data-t="REJECT — proved uninteresting" data-d="The certifier examined the candidate and proved it below the bar. A REJECT here is a theorem about the object, not a failed search. 14,668 this build.">
-        <rect class="nd-box" x="274" y="514" width="250" height="50" rx="5"/>
-        <rect class="acc-sig" x="274" y="514" width="3" height="50" rx="1.5"/>
-        <text class="nd-k" x="288" y="532">REJECT · PROVED</text>
-        <text class="nd-v" x="288" y="553">14,668</text>
+        <rect class="nd-box" x="274" y="260" width="250" height="50" rx="5"/>
+        <rect class="acc-sig" x="274" y="260" width="3" height="50" rx="1.5"/>
+        <text class="nd-k" x="288" y="278">REJECT · PROVED</text>
+        <text class="nd-v" x="288" y="299">14,668</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="REFUSED — absence of proof" data-t="REFUSED — absence of proof" data-d="The instrument declined to decide — a singular preconditioner, an exhausted budget, a containment that would not close. Absence of proof is never evidence of absence, and a refusal is never converted into a verdict. 1 this build.">
-        <rect class="nd-box" x="540" y="514" width="250" height="50" rx="5"/>
-        <rect class="acc-warn" x="540" y="514" width="3" height="50" rx="1.5"/>
-        <text class="nd-k" x="554" y="532">REFUSED · HONEST</text>
-        <text class="nd-v" x="554" y="553">1</text>
+      <g class="nd" tabindex="0" role="button" aria-label="REFUSED — absence of proof" data-t="REFUSED — absence of proof" data-d="The instrument declined to decide. Absence of proof is never evidence of absence, and a refusal is never converted into a verdict. 1 this build.">
+        <rect class="nd-box" x="540" y="260" width="250" height="50" rx="5"/>
+        <rect class="acc-warn" x="540" y="260" width="3" height="50" rx="1.5"/>
+        <text class="nd-k" x="554" y="278">REFUSED · HONEST</text>
+        <text class="nd-v" x="554" y="299">1</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="the ledger" data-t="the ledger" data-d="Everything the engine produced, as records on disk: 95 conjectures kept with their enclosures and certificates. Every number in this drawing is read off the ledger at build time; nothing is typed in.">
-        <rect class="nd-box" x="220" y="612" width="360" height="50" rx="5"/>
-        <rect class="acc-sig" x="220" y="612" width="3" height="50" rx="1.5"/>
-        <text class="nd-k" x="234" y="630">LEDGER</text>
-        <text class="nd-v" x="234" y="651">ledger.json</text>
+      <g class="nd" tabindex="0" role="button" aria-label="the ledger, and the gates on every build" data-t="the ledger, and the gates on every build" data-d="Only certificates reach ledger.json, where the closed-form hunt interrogates every enclosure. Every battery is executed at every control build, never remembered — 37/37 green at this ledger&#39;s build — and red controls are deliberate forgeries the instruments must catch.">
+        <rect class="nd-box" x="8" y="352" width="784" height="50" rx="5"/>
+        <rect class="acc-held" x="8" y="352" width="3" height="50" rx="1.5"/>
+        <text class="nd-k" x="22" y="370">LEDGER · THE GATES</text>
+        <text class="nd-v" x="22" y="391">ledger.json · 37/37 batteries</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="the closed-form hunt" data-t="the closed-form hunt" data-d="Every certified enclosure is interrogated for small closed forms — rationals, square roots, multiples and powers of the standard constants. The enclosure decides: outside means refuted exactly, inside means a surviving candidate. Nothing is accepted on digits agreeing.">
-        <rect class="nd-box" x="220" y="690" width="360" height="50" rx="5"/>
-        <rect class="acc-sig" x="220" y="690" width="3" height="50" rx="1.5"/>
-        <text class="nd-k" x="234" y="708">CLOSED-FORM HUNT</text>
-        <text class="nd-v" x="234" y="729">54,629,173 tested</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="refuted exactly" data-t="refuted exactly" data-d="54,628,275 candidate closed forms proved wrong: the value provably lies outside a certified enclosure. The Ramanujan Machine matches truncated decimals and argues from collision probability; this decides.">
-        <rect class="nd-box" x="120" y="780" width="260" height="46" rx="5"/>
-        <rect class="acc-held" x="120" y="780" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="134" y="798">REFUTED EXACTLY</text>
-        <text class="nd-v" x="134" y="815">54,628,275</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="the survivors" data-t="the survivors" data-d="0 forms remain inside their enclosures — candidates, not results. They stay open until a tighter enclosure refutes them or an exact argument confirms them.">
-        <rect class="nd-box" x="420" y="780" width="260" height="46" rx="5"/>
-        <rect class="acc-warn" x="420" y="780" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="434" y="798">SURVIVORS · OPEN</text>
-        <text class="nd-v" x="434" y="815">0 candidates</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="the gates — batteries and red controls" data-t="the gates — batteries and red controls" data-d="Every battery is executed at every control build, never remembered: 37/37 green at this ledger&#39;s build. Red controls are deliberate forgeries the instruments must catch — a control that cannot fire is decoration. Every real bug this project has found was found by a control, none by reading code.">
-        <rect class="nd-box" x="120" y="870" width="260" height="46" rx="5"/>
-        <rect class="acc-held" x="120" y="870" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="134" y="888">THE GATES</text>
-        <text class="nd-v" x="134" y="905">37/37 batteries</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="the control page" data-t="the control page" data-d="The live dashboard this schematic feeds: every family, every battery, the full ledger decomposition, drift status. Generated from the ledger alone — editing it by hand is a change to nothing; the next build overwrites it, which is the point.">
-        <rect class="nd-box" x="420" y="870" width="260" height="46" rx="5"/>
-        <rect class="acc-dep" x="420" y="870" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="434" y="888">THE CONTROL PAGE</text>
-        <text class="nd-v" x="434" y="905">/machine/</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="instrument · interval / Krawczyk" data-t="instrument · interval / Krawczyk" data-d="Outward-rounded interval arithmetic checked against exact BigInt rationals, and the Krawczyk operator with STRICT interior containment — existence and uniqueness, or nothing. The census turns its certificates into completeness theorems: exactly N periodic points, the rest of the plane excluded.">
-        <rect class="nd-box" x="8" y="352" width="178" height="46" rx="5"/>
-        <rect class="acc-dep" x="8" y="352" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="22" y="370">INTERVAL · KRAWCZYK</text>
-        <text class="nd-v" x="22" y="387">outward-rounded</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="instrument · trigmin" data-t="instrument · trigmin" data-d="Certified global minima of integer cosine polynomials: Chebyshev reduction, BigInt Sturm isolation, interval-Newton refinement. Feeds the Newman envelope — the bar a hit has to beat.">
-        <rect class="nd-box" x="194" y="352" width="178" height="46" rx="5"/>
-        <rect class="acc-dep" x="194" y="352" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="208" y="370">TRIGMIN</text>
-        <text class="nd-v" x="208" y="387">certified minima</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="instrument · census" data-t="instrument · census" data-d="Interval branch-and-bound over the phase plane: a certified a priori bound confines every periodic point, tube iteration excludes, Krawczyk-as-contraction resolves each remainder to exactly one point. It can refuse; it can never return a wrong count.">
-        <rect class="nd-box" x="428" y="352" width="178" height="46" rx="5"/>
-        <rect class="acc-dep" x="428" y="352" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="442" y="370">CENSUS</text>
-        <text class="nd-v" x="442" y="387">exact counts</text>
-      </g>
-      <g class="nd" tabindex="0" role="button" aria-label="instrument · sum-of-squares" data-t="instrument · sum-of-squares" data-d="Exact rational sum-of-squares decompositions — a tight global lower bound whose checker goes red on a corrupted certificate. Python, stdlib fractions only.">
-        <rect class="nd-box" x="614" y="352" width="178" height="46" rx="5"/>
-        <rect class="acc-dep" x="614" y="352" width="3" height="46" rx="1.5"/>
-        <text class="nd-k" x="628" y="370">SOS · RATIONAL</text>
-        <text class="nd-v" x="628" y="387">lower bounds</text>
-      </g>
-      <text class="ed-lab" x="410" y="344" text-anchor="start">dedup by key</text>
-      <text class="ed-lab" x="141" y="601" text-anchor="start">only certificates</text>
+      <text class="ed-lab" x="410" y="160" text-anchor="start">dedup by key</text>
+      <text class="ed-lab" x="143" y="336" text-anchor="start">only certificates</text>
     </svg>
   </div>
-  <figcaption>The loop this repository runs. Families supply objects and mathematics; the engine supplies scale and bookkeeping; the instruments alone decide. REJECT and REFUSED are terminal by design — only a certificate reaches the ledger, the gates run on every build, and every page is rebuilt from the ledger alone.</figcaption>
+  <figcaption>The loop, in five stops. The screen may only prune; the instruments alone decide; REJECT and REFUSED are terminal by design. The full drawing — every family, every instrument, the closed-form hunt — is on the control page.</figcaption>
 </figure></div>
-<script>(function(){var f=document.querySelector("figure.mach");if(!f)return;var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}f.querySelectorAll("g.nd").forEach(function(g){g.addEventListener("click",function(){on(g)});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});});})();</script><div class="col after-fig"><p>The <a href="machine/">control page</a> is this drawing, live: every family, every battery executed at its build (never remembered), the full ledger decomposition, drift status.</p></div>
+<script>(function(){var f=document.querySelector("figure.mach");if(!f)return;var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}f.querySelectorAll("g.nd").forEach(function(g){g.addEventListener("click",function(){on(g)});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});});})();</script><div class="col after-fig"><p>The <a href="machine/">control page</a> carries the full drawing, live: every family, every instrument, every battery executed at its build (never remembered), the full ledger decomposition, drift status.</p></div>
 </section>
 
 <section class="">
@@ -722,12 +575,12 @@ certified  0.0752403861783092455893…
   </div>
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">published claims decided</div><div class="v warn">1 refuted · 1 corrected</div><div class="n">a constant on Erdős #852, wrong from digit 12 · one printed Ramanujan Machine row, a transcription slip — both replacements certified</div></div>
+    <div class="stat"><div class="k">published claims decided</div><div class="v">1 refuted · 1 corrected</div><div class="n">a constant on Erdős #852, wrong from digit 12 · one printed Ramanujan Machine row, a transcription slip — both replacements certified</div></div>
     <div class="stat"><div class="k">AI-claimed theorems re-verified</div><div class="v">6</div><div class="n">5 held, 1 partial, none refuted — checked from the manuscripts, never from the authors’ code</div></div>
-    <div class="stat"><div class="k">AI-discovered algorithms re-decided</div><div class="v held">10</div><div class="n">at every build, from commit-pinned bytes — AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and refuted over Q</div></div>
+    <div class="stat"><div class="k">AI-discovered algorithms re-decided</div><div class="v">10</div><div class="n">at every build, from commit-pinned bytes — AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and refuted over Q</div></div>
     <div class="stat"><div class="k">model proposals graded</div><div class="v">364</div><div class="n">115 certified, each an exact theorem · none subtly wrong — nothing false has ever been graded correct</div></div>
-    <div class="stat"><div class="k">closed forms disproved</div><div class="v held">54,628,296</div><div class="n">each one an exact proof, out of 54,629,173 tested — and zero discoveries claimed</div></div>
-    <div class="stat"><div class="k">Hénon points, counted exactly</div><div class="v held">EXACTLY 1,696</div><div class="n">period 16, with a proof that there are no others anywhere in the plane — 1,419,655,025 boxes exhausted. The classical case the instruments were calibrated on before they were pointed at anything new.</div></div>
+    <div class="stat"><div class="k">closed forms disproved</div><div class="v">54,628,296</div><div class="n">each one an exact proof, out of 54,629,173 tested — and zero discoveries claimed</div></div>
+    <div class="stat"><div class="k">Hénon points, counted exactly</div><div class="v">EXACTLY 1,696</div><div class="n">period 16, with a proof that there are no others anywhere in the plane — 1,419,655,025 boxes exhausted. The classical case the instruments were calibrated on before they were pointed at anything new.</div></div>
   </div>
 </div>
 </section>
@@ -783,7 +636,7 @@ python3 verify/verify_strassen.py certs/strassen-certificate.json</pre>
 <p>What it does meet is the working standard of the computer-assisted-proof tradition — Tucker on the Lorenz attractor, Galias on the Hénon censuses, whose published counts this machine reproduces independently. That is one rung below a formal proof and several rungs above a decimal that looked convincing.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git 3bafac3 from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<footer class="col"><p>Generated by tools/build-site.js @ git fd54566 from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
 
 </div>
 </html>

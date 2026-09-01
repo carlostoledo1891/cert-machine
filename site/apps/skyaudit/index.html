@@ -34,6 +34,9 @@
   --c-s3:#A86195;
   --c-s4:#953F80;
   --c-s5:#7D2169;
+  --f-display:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-sans:"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -95,12 +98,12 @@
   --c-s4:#C97FB4;
   --c-s5:#DCA3CB;
 }
-:root{--v-cert:#2C6142;--v-refu:#C64B42;--v-refd:#8F8798;--v-cert-soft:#DEEBE3;--v-refu-soft:#F4DEDC;--v-refd-soft:#E8E5EC;--shadow:0 10px 30px rgba(22,18,26,.14);--f-sans:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;--f-display:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;--f-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+:root{--v-cert:#2C6142;--v-refu:#C64B42;--v-refd:#8F8798;--v-cert-soft:#DEEBE3;--v-refu-soft:#F4DEDC;--v-refd-soft:#E8E5EC;--shadow:0 10px 30px rgba(22,18,26,.14)}   /* --f-sans/--f-display/--f-mono come from T.rootCss(), emitted just above */
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--v-cert:#79C79B;--v-refu:#E06B62;--v-refd:#8E8499;--v-cert-soft:#16281E;--v-refu-soft:#2E1917;--v-refd-soft:#211C29;--shadow:0 12px 34px rgba(0,0,0,.5)}}
 :root[data-theme="dark"]{--v-cert:#79C79B;--v-refu:#E06B62;--v-refd:#8E8499;--v-cert-soft:#16281E;--v-refu-soft:#2E1917;--v-refd-soft:#211C29;--shadow:0 12px 34px rgba(0,0,0,.5)}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink)}
-body{font-family:var(--f-sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{font-family:var(--f-sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 a{color:inherit}
 .as-map{position:fixed;inset:0}
 .as-map canvas{outline:none}
@@ -226,7 +229,9 @@ details.as-more[open] summary{margin-bottom:6px}
 .as-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .as-stat{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:9px;
   padding:9px 11px;border-left-width:3px}
-.as-stat b{display:block;font-family:var(--f-mono);font-weight:600;font-size:20px;line-height:1.1;color:var(--ink)}
+/* the big number is always the signature pink (operator ruling 2026-08-31);
+   the verdict stays on the tile's left border, never on the number */
+.as-stat b{display:block;font-family:var(--f-mono);font-weight:600;font-size:20px;line-height:1.1;color:var(--sig)}
 .as-stat span{font-family:var(--f-mono);font-size:9px;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase}
 .as-stat.c{border-left-color:var(--v-cert)} .as-stat.r{border-left-color:var(--v-refu)} .as-stat.f{border-left-color:var(--v-refd)}
 
@@ -420,47 +425,47 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
       Wrong forecasts stay on the ledger forever — that permanence is the point. The coverage claim
       is a conformal counting theorem under a stated hypothesis (days exchangeable within the
       weekday/weekend group), never model faith.</div>
-      <div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-08-31 · flights</span>
+      <div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-08-31 · flights</span>
         <span class="sub">committed 2026-08-28T00:22Z · sha e4dc29f5d5 · proved coverage 2/4 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[377, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-08-31 · eflyable</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[377, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-08-31 · eflyable</span>
         <span class="sub">committed 2026-08-28T00:22Z · sha fb0771ffca · proved coverage 2/4 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[100, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-01 · flights</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[100, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-01 · flights</span>
         <span class="sub">committed 2026-08-28T03:54Z · sha fa871e3d48 · proved coverage 3/5 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-01 · eflyable</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-01 · eflyable</span>
         <span class="sub">committed 2026-08-28T03:54Z · sha b2ea75536d · proved coverage 3/5 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-02 · flights</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-02 · flights</span>
         <span class="sub">committed 2026-08-28T03:54Z · sha fa871e3d48 · proved coverage 3/5 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-02 · eflyable</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-02 · eflyable</span>
         <span class="sub">committed 2026-08-28T03:54Z · sha b2ea75536d · proved coverage 3/5 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-03 · flights</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-03 · flights</span>
         <span class="sub">committed 2026-08-29T04:00Z · sha d96488ed84 · proved coverage 4/6 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-03 · eflyable</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-03 · eflyable</span>
         <span class="sub">committed 2026-08-29T04:00Z · sha 7370a22d78 · proved coverage 4/6 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-04 · flights</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-04 · flights</span>
         <span class="sub">committed 2026-08-30T02:10Z · sha d96488ed84 · proved coverage 4/6 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-04 · eflyable</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-04 · eflyable</span>
         <span class="sub">committed 2026-08-30T02:10Z · sha 7370a22d78 · proved coverage 4/6 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-07 · flights</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-07 · flights</span>
         <span class="sub">committed 2026-08-30T02:10Z · sha d96488ed84 · proved coverage 4/6 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-07 · eflyable</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-07 · eflyable</span>
         <span class="sub">committed 2026-08-30T02:10Z · sha 7370a22d78 · proved coverage 4/6 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-08 · flights</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-08 · flights</span>
         <span class="sub">committed 2026-08-30T02:10Z · sha d96488ed84 · proved coverage 4/6 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-08 · eflyable</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-08 · eflyable</span>
         <span class="sub">committed 2026-08-30T02:10Z · sha 7370a22d78 · proved coverage 4/6 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-05 · flights</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[49, 127]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-05 · flights</span>
         <span class="sub">committed 2026-08-30T05:49Z · sha 5adf81ee27 · proved coverage 1/3 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[175, 266]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-05 · eflyable</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[175, 266]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-05 · eflyable</span>
         <span class="sub">committed 2026-08-30T05:49Z · sha ede4daec30 · proved coverage 1/3 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[38, 58]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-06 · flights</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[38, 58]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-06 · flights</span>
         <span class="sub">committed 2026-08-30T05:49Z · sha 5adf81ee27 · proved coverage 1/3 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[175, 266]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-06 · eflyable</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[175, 266]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-06 · eflyable</span>
         <span class="sub">committed 2026-08-30T05:49Z · sha ede4daec30 · proved coverage 1/3 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[38, 58]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-09 · flights</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[38, 58]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-09 · flights</span>
         <span class="sub">committed 2026-08-30T05:49Z · sha d96488ed84 · proved coverage 4/6 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:ui-monospace,monospace">2026-09-09 · eflyable</span>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[191, 397]</span></div><div class="as-frow"><span><span class="name" style="font-family:var(--f-mono)">2026-09-09 · eflyable</span>
         <span class="sub">committed 2026-08-30T05:49Z · sha 7370a22d78 · proved coverage 4/6 (grows with the corpus)</span></span>
-        <span class="val" style="font-family:ui-monospace,monospace;font-weight:400">[49, 127]</span></div>
+        <span class="val" style="font-family:var(--f-mono);font-weight:400">[49, 127]</span></div>
       <div class="as-fine" style="margin-top:8px">lifetime record, recomputed from the ledger at this build:
       22 committed · 2 scored · 0 covered (0% exact coverage).
       Ledger: <a href="/certs/skyaudit-forecast-ledger.jsonl">skyaudit-forecast-ledger.jsonl</a> ·

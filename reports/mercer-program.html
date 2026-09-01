@@ -121,7 +121,8 @@
 *{box-sizing:border-box}
 html{color-scheme:light dark}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:var(--f-sans);font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  font-family:var(--f-sans);font-size:18px;line-height:1.66;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
 
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
@@ -210,8 +211,6 @@ section{margin:clamp(50px,7.5vw,84px) 0 0}
 .stat .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
 .stat .v{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
 .stat .v.sm{font-size:14px;font-family:var(--f-mono);font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
-.stat .v.held{color:var(--held)}
-.stat .v.warn{color:var(--warn)}
 .stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
 
 .scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
@@ -452,12 +451,12 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">sets decided exactly</div><div class="v held">4,991,170,760</div><div class="n">DISTINCT sets across every mu and lambda box; each box carries a conservation identity that must close, and 129,999,910 re-decided sets are subtracted, not counted twice (§6)</div></div>
-    <div class="stat"><div class="k">mu rows certified</div><div class="v held">12</div><div class="n">n = 9..17 at box 30, n = 10..12 at box 40 — all 12 champions re-certified during THIS build</div></div>
-    <div class="stat"><div class="k">lambda rows</div><div class="v held">14</div><div class="n">n = 4..17; 9 reproduce the source lab (n=4 to the per-stage kill split), 5 have no source-lab counterpart, all deepened to M = 30</div></div>
-    <div class="stat"><div class="k">mu(5) bracket</div><div class="v sm held">1 ≤ mu(5) ≤ 1 + π/20</div><div class="n">1.157080 — 16 certified rungs, 11,718 exceptional tuples closed by exact points</div></div>
-    <div class="stat"><div class="k">one exact equality</div><div class="v sm held">M(0,1,2,6,9) = 1</div><div class="n">re-proved this build by deflation + Sturm — a tie no interval enclosure can decide</div></div>
-    <div class="stat"><div class="k">framing</div><div class="v warn">CERTIFICATES</div><div class="n">first certificates over NAMED boxes — never &quot;first witness&quot;: Boyd 1986 remains unread, and prose stays inside what is proved</div></div>
+    <div class="stat"><div class="k">sets decided exactly</div><div class="v">4,991,170,760</div><div class="n">DISTINCT sets across every mu and lambda box; each box carries a conservation identity that must close, and 129,999,910 re-decided sets are subtracted, not counted twice (§6)</div></div>
+    <div class="stat"><div class="k">mu rows certified</div><div class="v">12</div><div class="n">n = 9..17 at box 30, n = 10..12 at box 40 — all 12 champions re-certified during THIS build</div></div>
+    <div class="stat"><div class="k">lambda rows</div><div class="v">14</div><div class="n">n = 4..17; 9 reproduce the source lab (n=4 to the per-stage kill split), 5 have no source-lab counterpart, all deepened to M = 30</div></div>
+    <div class="stat"><div class="k">mu(5) bracket</div><div class="v sm">1 ≤ mu(5) ≤ 1 + π/20</div><div class="n">1.157080 — 16 certified rungs, 11,718 exceptional tuples closed by exact points</div></div>
+    <div class="stat"><div class="k">one exact equality</div><div class="v sm">M(0,1,2,6,9) = 1</div><div class="n">re-proved this build by deflation + Sturm — a tie no interval enclosure can decide</div></div>
+    <div class="stat"><div class="k">framing</div><div class="v">CERTIFICATES</div><div class="n">first certificates over NAMED boxes — never &quot;first witness&quot;: Boyd 1986 remains unread, and prose stays inside what is proved</div></div>
   </div>
 </div>
 
@@ -580,12 +579,12 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   </div>
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">mu sets · box 40</div><div class="v held">3,432,900,848</div><div class="n">unit: SETS. n = 10..12, every set {0} ∪ (n−1 exponents ≤ 40), each decided against an exact bar</div></div>
-    <div class="stat"><div class="k">mu sets · box 30</div><div class="v held">757,048,335</div><div class="n">unit: SETS. n = 9..17; 98,979,465 also lie inside box 40 and are never counted twice on this page</div></div>
-    <div class="stat"><div class="k">lambda sets</div><div class="v held">900,201,042</div><div class="n">unit: SETS. Deepest box per n over n = 4..17; the 23 recorded rows sum to 931,221,487 only by re-counting shallower boxes</div></div>
-    <div class="stat"><div class="k">Hénon boxes</div><div class="v held">1,972,325,286</div><div class="n">unit: BOXES — a different object entirely. p = 13, 14, 15, 16, plane exhausted, 3,844 points found, 0 unmatched on recheck</div></div>
-    <div class="stat"><div class="k">closed forms tested</div><div class="v held">54,629,173</div><div class="n">unit: CANDIDATE CLOSED FORMS — a third object. 54,628,296 refuted against certified enclosures (54,628,275 in double, 21 exactly in BigInt), 0 surviving</div></div>
-    <div class="stat"><div class="k">the total</div><div class="v sm warn">NOT ONE NUMBER</div><div class="n">sets, boxes and closed forms do not add. A headline that summed them would be exactly the inflated number this machine exists to refuse</div></div>
+    <div class="stat"><div class="k">mu sets · box 40</div><div class="v">3,432,900,848</div><div class="n">unit: SETS. n = 10..12, every set {0} ∪ (n−1 exponents ≤ 40), each decided against an exact bar</div></div>
+    <div class="stat"><div class="k">mu sets · box 30</div><div class="v">757,048,335</div><div class="n">unit: SETS. n = 9..17; 98,979,465 also lie inside box 40 and are never counted twice on this page</div></div>
+    <div class="stat"><div class="k">lambda sets</div><div class="v">900,201,042</div><div class="n">unit: SETS. Deepest box per n over n = 4..17; the 23 recorded rows sum to 931,221,487 only by re-counting shallower boxes</div></div>
+    <div class="stat"><div class="k">Hénon boxes</div><div class="v">1,972,325,286</div><div class="n">unit: BOXES — a different object entirely. p = 13, 14, 15, 16, plane exhausted, 3,844 points found, 0 unmatched on recheck</div></div>
+    <div class="stat"><div class="k">closed forms tested</div><div class="v">54,629,173</div><div class="n">unit: CANDIDATE CLOSED FORMS — a third object. 54,628,296 refuted against certified enclosures (54,628,275 in double, 21 exactly in BigInt), 0 surviving</div></div>
+    <div class="stat"><div class="k">the total</div><div class="v sm">NOT ONE NUMBER</div><div class="n">sets, boxes and closed forms do not add. A headline that summed them would be exactly the inflated number this machine exists to refuse</div></div>
   </div>
 </div><div class="wide"><div class="tw"><table><thead><tr><th>kind</th><th>unit</th><th>decided exhaustively</th><th>what ONE decision says</th><th>record read at build</th></tr></thead><tbody><tr><td>Newman box sweep, box 40 · n = 10..12</td><td>sets</td><td class="v">3,432,900,848</td><td>this 0/1 polynomial&#39;s min |f| on the circle is below the bar — or it survives and is certified</td><td><span class="m">certs/mu-table-40.json</span></td></tr><tr><td>Newman box sweep, box 30 · n = 9..17</td><td>sets</td><td class="v">757,048,335</td><td>the same decision in the narrower box; 98,979,465 of these sets lie inside box 40 too and are counted ONCE</td><td><span class="m">certs/mu-table.json</span></td></tr><tr><td>Chowla box sweep · n = 4..17</td><td>sets</td><td class="v">900,201,042</td><td>this set&#39;s certified dip does not beat the bar — deepest box per n; the 31,020,445 sets re-decided at a shallower M are not counted again</td><td><span class="m">certs/lambda-table.json</span></td></tr><tr><td>Hénon periodic-point census · p = 13..16</td><td>boxes</td><td class="v">1,972,325,286</td><td>no period-p point lies in this box — or exactly one does, certified; the plane is exhausted and the recheck leaves 0 unmatched</td><td><span class="m">certs/census-high-periods.json</span></td></tr><tr><td>closed-form hunt · 95 certified enclosures</td><td>candidate closed forms</td><td class="v">54,629,173</td><td>the certified value provably lies OUTSIDE this form — 54,628,296 refuted, 877 already on the OEIS record, 0 surviving</td><td><span class="m">ledger.json</span></td></tr><tr><td><b>one headline figure</b></td><td>—</td><td class="v"><b>REFUSED</b></td><td>three different objects; the only sum this page makes is 4,090,969,718 + 900,201,042 = 4,991,170,760 DISTINCT sets, because mu sets and lambda sets are the same unit and disjoint populations</td><td><span class="m">this page</span></td></tr></tbody></table></div></div><div class="col"><p>Every number above is a NEGATIVE at scale. A box sweep publishes one champion and quietly decides everything else against it; a census publishes a point count and quietly proves the rest of the plane empty; the closed-form hunt publishes zero discoveries and refutes 54,628,296 forms exactly. Those refusals are the work, and each one is proved — not a truncated-decimal miss, not a search that timed out. They are listed here by kind and never added, because the units differ; the counting rule that forbids the sum is the same rule that makes each row worth printing.</p></div><div class="col"><p><b>The single largest one is the quietest.</b> 725,532,585 sets were re-decided when the lambda table was deepened from M = 25 to M = 30 at n = 9, 10, 11, 12, 13, 15, 16, 17 — 698,969,540 of them never inside a certified box before — and the collective answer was <em>the incumbent still stands</em>: at all 8 of those n the M = 25 optimiser is CONFIRMED as the M = 30 optimiser. That is a proved negative over 725,532,585 sets, not a failed search. Exactly 1 of the 9 deepenings moved a bound (λ(14), on 145,422,675 sets), and that one improvement is what the page used to report — the 725,532,585 sets behind the other answer were a single subordinate clause.</p></div><div class="col"><div class="note">
   <span class="lab">the deflation, stated</span>
@@ -627,7 +626,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-mercer.js @ git 3bafac3 — 12 mu champions re-certified, the equality theorem re-proved (deflation + Sturm), the ladder re-checked rung by rung, the lambda record read from its battery-gated certificate, every conservation identity re-added row by row, and §6&#39;s counts read by kind from their own records with the nested boxes deflated. The build refuses on any deviation. Certificates: certs/mu-table.json, certs/mu-table-40.json, certs/lambda-table.json, certs/mercer-mu5.json, certs/census-high-periods.json, ledger.json; provenance registry: instruments/trigmin/envelope.js.</p><p>cert-machine · Carlos Toledo</p></footer>
+<footer class="col"><p>Generated by tools/build-report-mercer.js @ git fd54566 — 12 mu champions re-certified, the equality theorem re-proved (deflation + Sturm), the ladder re-checked rung by rung, the lambda record read from its battery-gated certificate, every conservation identity re-added row by row, and §6&#39;s counts read by kind from their own records with the nested boxes deflated. The build refuses on any deviation. Certificates: certs/mu-table.json, certs/mu-table-40.json, certs/lambda-table.json, certs/mercer-mu5.json, certs/census-high-periods.json, ledger.json; provenance registry: instruments/trigmin/envelope.js.</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

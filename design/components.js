@@ -77,11 +77,14 @@ function header({ eyebrow, title, deck }) {
     + '</header>';
 }
 
-/* The stat strip. Each: {k: label, v: value, n: note, sm: true for long values,
-   role: 'sig'|'held'|'warn' to colour the value}. */
+/* The stat strip. Each: {k: label, v: value, n: note, sm: true for long values}.
+   The big number is ALWAYS the signature pink (operator ruling 2026-08-31: the
+   value in a stat grid never wears a verdict colour — verdicts belong to tags
+   and prose). A `role` field is still accepted from older builders and ignored,
+   so no class ships without a rule. */
 function stats(items) {
   const cells = items.map(it => {
-    const cls = 'v' + (it.sm ? ' sm' : '') + (it.role ? ' ' + it.role : '');
+    const cls = 'v' + (it.sm ? ' sm' : '');
     return '    <div class="stat"><div class="k">' + esc(it.k) + '</div>'
       + '<div class="' + cls + '">' + (it.vRaw || esc(it.v)) + '</div>'
       + (it.n ? '<div class="n">' + esc(it.n) + '</div>' : '') + '</div>';

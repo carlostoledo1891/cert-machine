@@ -121,7 +121,8 @@
 *{box-sizing:border-box}
 html{color-scheme:light dark}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:var(--f-sans);font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  font-family:var(--f-sans);font-size:18px;line-height:1.66;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .page{max-width:1060px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 52px) clamp(18px,4vw,40px) 96px}
 
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
@@ -210,8 +211,6 @@ section{margin:clamp(50px,7.5vw,84px) 0 0}
 .stat .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
 .stat .v{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.05;color:var(--sig);letter-spacing:-.02em}
 .stat .v.sm{font-size:14px;font-family:var(--f-mono);font-weight:500;letter-spacing:-.02em;white-space:nowrap;line-height:1.45}
-.stat .v.held{color:var(--held)}
-.stat .v.warn{color:var(--warn)}
 .stat .n{font-size:14.5px;line-height:1.4;color:var(--ink-2)}
 
 .scope{margin:24px auto 0;max-width:64ch;border-left:2px solid var(--sig);padding-left:18px;
@@ -453,12 +452,12 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
 <div class="wide">
   <div class="stats">
     <div class="stat"><div class="k">the day of record</div><div class="v">2026-08-26 · NYC</div><div class="n">82 unique aircraft · 382 flights · 3,056 certificate rows (4 aircraft × 2 rules per flight) — São Paulo runs as pack #2: 148 flights, 1,184 rows</div></div>
-    <div class="stat"><div class="k">provably electric</div><div class="v held">100 flights (26%)</div><div class="n">Beta ALIA-250 under the FAA 20-minute VFR reserve — every certificate a worst-corner proof over the maker&#39;s own boxes</div></div>
-    <div class="stat"><div class="k">minimum fleet, proved</div><div class="v held">exactly 10 aircraft</div><div class="n">9 REFUTED by pigeonhole at a witnessed instant (18:11:44 ET); 10 CERTIFIED by an exactly-verified schedule</div></div>
-    <div class="stat"><div class="k">the opacity finding</div><div class="v warn">Joby · Archer · Eve: 0 provable</div><div class="n">NEEDS DATA dominates their ledgers — the audit measures what public specs cannot decide, and says so instead of guessing</div></div>
-    <div class="stat"><div class="k">authoritative identity</div><div class="v held">125/156 + 150/196 joined</div><div class="n">FAA Releasable Aircraft DB + ANAC RAB, sha-pinned; registry-first typing changed corpus membership NOWHERE — the numbers stand on authority, unmatched aircraft listed one by one</div></div>
-    <div class="stat"><div class="k">day-stability, measured</div><div class="v held">21.7% – 32.0% across 7 days</div><div class="n">the audit was run over 7 consecutive days; the STRUCTURE holds on every one — only Beta provable, the others zero — while the provable share moves by more than ten points, so the headline is a property of its day; §7 shows the whole series</div></div>
-    <div class="stat"><div class="k">what this is not</div><div class="v warn">no airworthiness claim</div><div class="n">&quot;certified&quot; is a mathematical statement about published boxes and exact arithmetic — never a regulatory status, an endorsement, or a judgment of any operator&#39;s mission</div></div>
+    <div class="stat"><div class="k">provably electric</div><div class="v">100 flights (26%)</div><div class="n">Beta ALIA-250 under the FAA 20-minute VFR reserve — every certificate a worst-corner proof over the maker&#39;s own boxes</div></div>
+    <div class="stat"><div class="k">minimum fleet, proved</div><div class="v">exactly 10 aircraft</div><div class="n">9 REFUTED by pigeonhole at a witnessed instant (18:11:44 ET); 10 CERTIFIED by an exactly-verified schedule</div></div>
+    <div class="stat"><div class="k">the opacity finding</div><div class="v">Joby · Archer · Eve: 0 provable</div><div class="n">NEEDS DATA dominates their ledgers — the audit measures what public specs cannot decide, and says so instead of guessing</div></div>
+    <div class="stat"><div class="k">authoritative identity</div><div class="v">125/156 + 150/196 joined</div><div class="n">FAA Releasable Aircraft DB + ANAC RAB, sha-pinned; registry-first typing changed corpus membership NOWHERE — the numbers stand on authority, unmatched aircraft listed one by one</div></div>
+    <div class="stat"><div class="k">day-stability, measured</div><div class="v">21.7% – 32.0% across 7 days</div><div class="n">the audit was run over 7 consecutive days; the STRUCTURE holds on every one — only Beta provable, the others zero — while the provable share moves by more than ten points, so the headline is a property of its day; §7 shows the whole series</div></div>
+    <div class="stat"><div class="k">what this is not</div><div class="v">no airworthiness claim</div><div class="n">&quot;certified&quot; is a mathematical statement about published boxes and exact arithmetic — never a regulatory status, an endorsement, or a judgment of any operator&#39;s mission</div></div>
   </div>
 </div>
 
@@ -687,7 +686,7 @@ footer a{color:var(--ink-2);border-bottom-color:var(--rule)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-skyaudit.js @ git 3bafac3. Gates at this build: the app battery (33 checks, red controls fired), all 3,056 + 1,400 certificate rows recounted from every day's own ledger (7 days), verdict tallies re-derived, the day-stability comparison re-derived from the committed summaries, cross-record consistency (economics = refly = reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-skyaudit.js @ git fd54566. Gates at this build: the app battery (33 checks, red controls fired), all 3,056 + 1,400 certificate rows recounted from every day's own ledger (7 days), verdict tallies re-derived, the day-stability comparison re-derived from the committed summaries, cross-record consistency (economics = refly = reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></footer>
 
 </div>
 </html>

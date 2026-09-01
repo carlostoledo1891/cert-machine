@@ -1,11 +1,13 @@
 /* machine-figure.js — the machine schematic, built from the ledger.
    tools/ · cert-machine
 
-   One drawing, two pages: the control page (/machine/) and the landing both
-   show how a conjecture becomes a certificate, and they must never drift
-   apart — so the geometry, the prose and the node wiring live HERE and both
-   builders call this function. Every count on a node is read off ledger.json
-   at build time; nothing is typed in.
+   TWO drawings, one file. The control page (/machine/) shows the FULL
+   schematic (machineFlow); the landing shows the COMPACT one
+   (machineFlowCompact) — operator instruction 2026-08-31, superseding the
+   earlier identical-on-both-pages ruling: the full drawing was too big for
+   the homepage. Both live HERE so their prose and their counts can never
+   drift apart, and every count on a node is read off ledger.json at build
+   time; nothing is typed in.
 
    THE DRAWING IS VERTICAL AND DENSE, designed at 800 units wide so desktop
    renders it near 1:1 (the template caps the rendered width at that same
@@ -184,4 +186,84 @@ function machineFlow(ledger, { gates }) {
   });
 }
 
-module.exports = { machineFlow };
+/* The COMPACT drawing, for the landing only: the spine and nothing else —
+   enumerate (families folded into the band), screen, certify, the three
+   outcomes, the ledger+gates. Five stops where the full drawing has twenty;
+   the same narrations ride the readout, so nothing is dumbed down, only
+   drawn smaller. Roughly a third of the full drawing's height. */
+function machineFlowCompact(ledger, { gates }) {
+  const T = ledger.totals || {};
+  const F = ledger.families;
+  const sum = (k) => F.reduce((t, f) => t + f.counts[k], 0);
+  const screened = sum('screened'), hits = sum('hits'), rejects = sum('rejects'), refused = sum('refused');
+
+  const W = 800, sx = 8, sw = W - 16, scx = sx + sw / 2, bandH = 50, gap = 30;
+  const enumY = 10, enumB = enumY + bandH;
+  const screenY = enumB + gap, screenB = screenY + bandH;
+  const certY = screenB + gap, certB = certY + bandH;
+  const oY = certB + 40, oH = 50, oW = 250, oX = [8, 274, 540], oB = oY + oH;
+  const oMid = oX.map((x) => x + oW / 2);
+  const ledgerY = oB + 42, H = ledgerY + bandH + 14;
+
+  const nodes = [
+    { x: sx, y: enumY, w: sw, h: bandH, role: 'sig',
+      k: 'ENUMERATE · ' + F.length + ' FAMILIES', v: commas(T.generated || 0) + ' objects',
+      t: 'enumerate — deterministic and indexed',
+      d: F.length + ' families, one file and six functions each; every one enumerates by integer index, '
+        + 'deterministically, so a run of any size resumes and reproduces. ' + commas(T.generated || 0)
+        + ' objects this build. The full family table is on the control page.' },
+    { x: sx, y: screenY, w: sw, h: bandH, role: 'sig', k: 'SCREEN · FLOAT', v: commas(screened) + ' pass',
+      t: 'screen — float, and it may only prune',
+      d: 'A fast float estimate decides only what is WORTH certifying. The screen may prune, never admit: '
+        + 'nothing it passes is believed, and everything it passes goes to the certifier.' },
+    { x: sx, y: certY, w: sw, h: bandH, role: 'sig', k: 'CERTIFY · EXACT', v: commas(T.certified || 0) + ' decided',
+      t: 'certify — the only authority',
+      d: 'The instruments decide: interval enclosures, exact rational arithmetic, strict interior containment '
+        + 'for uniqueness. The engine never decides mathematics. ' + commas(T.certified || 0) + ' decisions this build.' },
+    { x: oX[0], y: oY, w: oW, h: oH, role: 'held', k: 'HIT · CERTIFIED', v: commas(hits),
+      t: 'HIT — a certificate exists',
+      d: 'A HIT ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness '
+        + 'box, plus the falsifier the certificate must survive. ' + commas(hits) + ' this build.' },
+    { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', k: 'REJECT · PROVED', v: commas(rejects),
+      t: 'REJECT — proved uninteresting',
+      d: 'The certifier examined the candidate and proved it below the bar. A REJECT here is a theorem about the '
+        + 'object, not a failed search. ' + commas(rejects) + ' this build.' },
+    { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', k: 'REFUSED · HONEST', v: commas(refused),
+      t: 'REFUSED — absence of proof',
+      d: 'The instrument declined to decide. Absence of proof is never evidence of absence, and a refusal is '
+        + 'never converted into a verdict. ' + commas(refused) + ' this build.' },
+    { x: sx, y: ledgerY, w: sw, h: bandH, role: 'held',
+      k: 'LEDGER · THE GATES', v: 'ledger.json · ' + gates.green + '/' + gates.ran + ' batteries',
+      t: 'the ledger, and the gates on every build',
+      d: 'Only certificates reach ledger.json, where the closed-form hunt interrogates every enclosure. Every '
+        + 'battery is executed at every control build, never remembered — ' + gates.green + '/' + gates.ran
+        + ' green at this ledger\'s build — and red controls are deliberate forgeries the instruments must catch.' }
+  ];
+
+  const edges = [
+    { d: 'M' + scx + ' ' + enumB + ' L' + scx + ' ' + (screenY - 2) },
+    { d: 'M' + scx + ' ' + screenB + ' L' + scx + ' ' + (certY - 2),
+      lab: 'dedup by key', lx: scx + 10, ly: screenB + 20, anchor: 'start' },
+    ...oMid.map((cx) => ({ d: 'M' + cx + ' ' + certB + ' L' + cx + ' ' + (oY - 2) })),
+    /* only a HIT reaches the ledger; REJECT and REFUSED are terminal */
+    { d: 'M' + oMid[0] + ' ' + oB + ' L' + oMid[0] + ' ' + (ledgerY - 2),
+      lab: 'only certificates', lx: oMid[0] + 10, ly: oB + 26, anchor: 'start' }
+  ];
+
+  return C.flow({
+    w: W, h: H,
+    alt: 'Compact schematic of the conjecture engine: enumerate across ' + F.length + ' families, screen in '
+      + 'float, certify exactly, three outcomes, and only certificates reach the ledger the gates guard.',
+    readout: {
+      k: 'the machine',
+      d: 'Generate at scale, screen in float, certify the survivors exactly. Select any stage for what it does — '
+        + 'every count is read off ledger.json at build time.'
+    },
+    nodes, edges,
+    caption: 'The loop, in five stops. The screen may only prune; the instruments alone decide; REJECT and '
+      + 'REFUSED are terminal by design. The full drawing — every family, every instrument, the closed-form '
+      + 'hunt — is on the control page.'
+  });
+}
+
+module.exports = { machineFlow, machineFlowCompact };
