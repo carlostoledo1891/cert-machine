@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use or check this proof, please cite it as below."
+title: "The value of lambda(4): a machine-derived proof completing Mercer's Section-5 program (Chowla's cosine problem, finite front)"
+authors:
+  - family-names: "Toledo"
+    given-names: "Carlos"
+    email: "carlos@carlostoledo.co"
+date-released: "2026-09-01"
+url: "https://carlostoledo.co/reports/lambda4.html"
+repository-code: "https://github.com/carlostoledo1891/cert-machine"
+license: MIT
+keywords:
+  - "Chowla cosine problem"
+  - "Erdos problem 510"
+  - "Newman polynomials"
+  - "trigonometric sums"
+  - "certified computation"
+  - "exact rational arithmetic"
+  - "AI-assisted mathematics"
+abstract: >-
+  A machine-derived proof that lambda(4) = -L(1,2,3,4): the third exact value of
+  Chowla's cosine dip, conjectured by Mercer (INTEGERS 19 (2019) #A4,
+  arXiv:1709.06612) alongside a strategy he could not execute. The strategy is
+  executed and completed mechanically: the fourteen exceptional families are
+  re-derived symbolically (five close themselves), the remaining nine are each
+  closed by second-level weight arguments with derived thresholds, and 2,231
+  finite cases are decided in exact rational arithmetic. Exactly, lambda(4) is
+  the root of 512y^3 - 1227y^2 + 600y + 125 near 1.5195578816428. Includes an
+  independent audit walk sharing no code with the proving engine (25,819 sets,
+  zero holes, zero refuters) and a referee-grade write-up. Machine-derived with
+  Claude (Anthropic) driving certified-arithmetic instruments; not peer-reviewed.
