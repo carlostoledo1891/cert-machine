@@ -1,9 +1,17 @@
 /* app-shell.js — the SECOND page view of the design system: a full-viewport
    application surface (100% width x 100dvh) with a fixed top bar, a lateral
-   panel of cards, and a bottom transport dock. Same palette tokens and
-   three-state theme rule as template.js — but an APP type stack (operator
-   definition, 2026-08-27): sans-serif UI (Inter) + the house mono (IBM Plex
-   Mono) for data, labels and headers. No serif on app pages.
+   panel of cards, and a bottom transport dock. Same palette tokens, same type
+   tokens and the same three-state theme rule as template.js.
+
+   TYPE HISTORY, because this block used to diverge and the reason mattered.
+   The operator's 2026-08-27 definition gave app pages their own stack —
+   sans-serif UI (Inter) plus the house mono — under the rule "no serif on app
+   pages", which was correct while the reports ran on a display serif and a
+   serif for prose. On 2026-08-31 the whole site moved to sans, so the reason
+   for a second stack expired with it. --f-sans, --f-display and --f-mono now
+   all come from tokens.js: the app keeps its own variable NAMES, because its
+   CSS is written against them, but it no longer owns a single font VALUE.
+   One family list, one font request, for reports and apps alike.
 
    renderApp({ title, description, panelHtml, dockHtml, brand, appName,
                homeHref, navLinks, configJson, scripts, styles }) -> document.
@@ -22,15 +30,16 @@ const APP_DARK  = { '--v-cert': '#79C79B', '--v-refu': '#E06B62', '--v-refd': '#
   '--v-cert-soft': '#16281E', '--v-refu-soft': '#2E1917', '--v-refd-soft': '#211C29',
   '--shadow': '0 12px 34px rgba(0,0,0,.5)' };
 
+/* the SAME request the reports make — derived, never restated */
 const APP_FONTS =
   '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
-  '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">';
+  '<link rel="stylesheet" href="' + T.GOOGLE_FONTS + '">';
 
 function vars(o) { return Object.entries(o).map(([k, v]) => k + ':' + v).join(';'); }
 
 function appCss() {
   return `
-:root{${vars(APP_LIGHT)};--f-sans:'Inter',system-ui,-apple-system,sans-serif;--f-mono:${T.TYPE.mono.replace(/"/g, "'")}}
+:root{${vars(APP_LIGHT)};--f-sans:${T.TYPE.body.replace(/"/g, "'")};--f-display:${T.TYPE.display.replace(/"/g, "'")};--f-mono:${T.TYPE.mono.replace(/"/g, "'")}}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){${vars(APP_DARK)}}}
 :root[data-theme="dark"]{${vars(APP_DARK)}}
 *{box-sizing:border-box}
@@ -46,7 +55,7 @@ a{color:inherit}
 .as-top .brand{font-family:var(--f-mono);font-weight:600;font-size:11px;letter-spacing:.14em;
   color:var(--ink);text-decoration:none;white-space:nowrap}
 .as-top .sep{width:1px;height:20px;background:var(--rule)}
-.as-top .appname{font-family:var(--f-sans);font-weight:600;font-size:14px;letter-spacing:.01em;color:var(--ink)}
+.as-top .appname{font-family:var(--f-display);font-weight:700;letter-spacing:-.01em;font-size:14px;letter-spacing:.01em;color:var(--ink)}
 .as-top .meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-3);
   border:1px solid var(--rule);border-radius:999px;padding:3px 10px;white-space:nowrap}
 .as-top .spacer{flex:1}

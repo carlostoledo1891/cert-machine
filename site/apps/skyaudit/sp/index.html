@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SkyAudit São Paulo — the largest urban helicopter market, decided under ANAC rules</title>
 <meta name="description" content="Real ADS-B helicopter traffic over São Paulo (2026-08-26), replayed — every flight audited against published eVTOL specs under ANAC RBAC 91.151(b), with mathematically certified enclosures.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="../vendor/maplibre-gl.css">
 <style>:root{
   --paper:#EDEBEE;
@@ -95,7 +95,7 @@
   --c-s4:#C97FB4;
   --c-s5:#DCA3CB;
 }
-:root{--v-cert:#2C6142;--v-refu:#C64B42;--v-refd:#8F8798;--v-cert-soft:#DEEBE3;--v-refu-soft:#F4DEDC;--v-refd-soft:#E8E5EC;--shadow:0 10px 30px rgba(22,18,26,.14);--f-sans:'Inter',system-ui,-apple-system,sans-serif;--f-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+:root{--v-cert:#2C6142;--v-refu:#C64B42;--v-refd:#8F8798;--v-cert-soft:#DEEBE3;--v-refu-soft:#F4DEDC;--v-refd-soft:#E8E5EC;--shadow:0 10px 30px rgba(22,18,26,.14);--f-sans:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;--f-display:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;--f-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--v-cert:#79C79B;--v-refu:#E06B62;--v-refd:#8E8499;--v-cert-soft:#16281E;--v-refu-soft:#2E1917;--v-refd-soft:#211C29;--shadow:0 12px 34px rgba(0,0,0,.5)}}
 :root[data-theme="dark"]{--v-cert:#79C79B;--v-refu:#E06B62;--v-refd:#8E8499;--v-cert-soft:#16281E;--v-refu-soft:#2E1917;--v-refd-soft:#211C29;--shadow:0 12px 34px rgba(0,0,0,.5)}
 *{box-sizing:border-box}
@@ -111,7 +111,7 @@ a{color:inherit}
 .as-top .brand{font-family:var(--f-mono);font-weight:600;font-size:11px;letter-spacing:.14em;
   color:var(--ink);text-decoration:none;white-space:nowrap}
 .as-top .sep{width:1px;height:20px;background:var(--rule)}
-.as-top .appname{font-family:var(--f-sans);font-weight:600;font-size:14px;letter-spacing:.01em;color:var(--ink)}
+.as-top .appname{font-family:var(--f-display);font-weight:700;letter-spacing:-.01em;font-size:14px;letter-spacing:.01em;color:var(--ink)}
 .as-top .meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-3);
   border:1px solid var(--rule);border-radius:999px;padding:3px 10px;white-space:nowrap}
 .as-top .spacer{flex:1}
