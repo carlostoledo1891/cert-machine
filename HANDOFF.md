@@ -91,9 +91,20 @@ priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
     claims (worst pair dE 19.6 = frontier recorded); 9/9 falsifiers;
     46/46 batteries; CDP-verified against the reference. Aviation apps
     keep their own verdict hues (app-shell APP_* tokens).
-  REMAINING (order per TERRA-PORT.md): (6) atlas
-  REBUILD from design/ (scatter form now DONE); (7) facelaw with
-  rebuilt evidence; (8) attention phantom-bifurcation catalogue;
+  · ITEM 6 CORE BUILT same session: reports/terra.html — the atlas from
+    OUR certs with THE REFERENCE PAGE-S CHARTS on our SVG framework
+    (scatter phase map with filled/open theorem diamonds + dashed
+    predicted boundary; lines2 dual-scale portraits with certified peak
+    marks — the form REFUSES a right-scale series sharing the left-s
+    stroke). Every enclosure bound displayed; overclaim wording gated
+    at build; phase-map floats sha-pinned. paper/terra-peaks.pdf built
+    print-styled via CDP printToPDF (tools/build-terra-pdf.js).
+    STILL OPEN on the atlas: the live in-browser solver (candidate-only
+    toy, needs the MIT float kernel embedded + the candidate chip) and
+    the 21,567-cell mfg2p regime-map section (renders from OUR OWN
+    certs/mfg2p-regime-map.json when wanted).
+  REMAINING (order per TERRA-PORT.md): (7) facelaw with rebuilt
+  evidence; (8) attention phantom-bifurcation catalogue;
   (9, elevated by the ruling) the PAPER REBUILD from our certs —
   terra-recert-*, terra-peakcount-*, terra-sigmastar, terra-bracket-
   table, mfg-cap-census-* now carry every number the paper needs. LESSON PAID FOR: falsifier thresholds must scale with the
