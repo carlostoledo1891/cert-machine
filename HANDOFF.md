@@ -61,8 +61,15 @@ priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
     theorem (honest counting: 2 theorems + a table, never "eight");
     threshold pinned in [0.13,0.14] by certified T7/T8 counts, exact-
     rational prediction r_c = 0.132725 inside.
-  REMAINING (order per TERRA-PORT.md): (5) terra-cap census.js —
-  Krawczyk EXACTLY-n, the most cert-machine-shaped artifact; (6) atlas
+  · ITEM 5 ALSO DONE 2026-09-01: labs/mfg/census.js (authored fresh on
+    OUR lifted MIT mfg1d kernel) — Krawczyk exhaustion census, EXACTLY 3
+    solutions of the even Galerkin mfg-cap system at c=-12 for N=2..5
+    (N=5: 6,954,073 boxes / 587s — frontier's own run was 6.95M/529s),
+    one-to-one candidate matching, honest box-bounded truncation scope.
+    certs/mfg-cap-census-N{2..5}-c-12.json; battery re-proves N=2 LIVE
+    every run; the 0.537 off-center-split lesson is a firing red (the
+    midpoint split refuses at the constant solution's exact coordinates).
+  REMAINING (order per TERRA-PORT.md): (6) atlas
   REBUILD from design/ (needs a scatter form in design/charts.js);
   (7) facelaw with rebuilt evidence; (8) attention phantom-bifurcation
   catalogue. LESSON PAID FOR: falsifier thresholds must scale with the

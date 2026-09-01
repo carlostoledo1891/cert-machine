@@ -57,6 +57,7 @@ test:
 	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg lab (box certifier)"; $(NODE) labs/mfg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "mfg-cap census (EXACTLY-n)"; $(NODE) labs/mfg/census-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg2p lab (two populations)"; $(NODE) labs/mfg2p/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "design system + charts"; $(NODE) design/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "wiring"; $(NODE) tools/check-wiring.js >/dev/null 2>&1 && echo PASS || echo FAIL

@@ -58,6 +58,7 @@ const BATTERIES = [
   ['slp additive circuits', ['instruments/slp/battery.js'], 'straight-line programs, additive cost'],
   ['mfg lab (box certifier)', ['labs/mfg/battery.js'], 'the box certifier for the MFG lab'],
   ['mfg2p lab (two populations)', ['labs/mfg2p/battery.js'], 'two-population equilibria'],
+  ['mfg-cap census (EXACTLY-n)', ['labs/mfg/census-battery.js'], 'Krawczyk exhaustion census of the even Galerkin mfg-cap system: EXACTLY 3 solutions at c=-12 re-proved live at N=2 every run, records walked for N=2..5, honest box-bounded truncation scope asserted · 3 red controls (midpoint split refuses at the constant solution’s exact coordinates, starved budget, corrupted kernel)'],
   ['erdos290 lean battery', ['tools/erdos290-lean-battery.js'], 'closed forms equal enumeration exactly for l <= 12; the broken-EGF red must fire'],
   ['critcount (certified peak counts)', ['instruments/critcount/battery.js'], 'critical-point counts of even cosine series over an enclosure ball — count derived from CERTIFIED region signs only, outward coefficient products, ball Lipschitz folded into the cell pad; closed-form two/three-harmonic calibrations and the terra record walk · 4 red controls (mutated boundary, zeroed ball pad, degenerate curvature, two critical points in one region — each fires)'],
   ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
