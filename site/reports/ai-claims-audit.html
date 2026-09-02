@@ -151,9 +151,43 @@ section{margin:clamp(5rem,12vh,9rem) 0 0}
 .sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
 .sec-head .lab{color:var(--ink-4)}
 
-/* stat tiles — the frontier fused grid: 1px gaps painted by the border colour */
-.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+@media (min-width:681px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
 .stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
 .stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
 .stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
@@ -231,7 +265,7 @@ td.k{color:var(--ink);font-weight:500;white-space:nowrap}
 td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
 td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 
-/* verdict chips — WEIGHT + SHAPE, never colour-alone (the frontier grammar):
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
    certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
@@ -242,6 +276,7 @@ td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 .tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
 
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
 @media (max-width:680px){.cards{grid-template-columns:1fr}}
 a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
   border:1px solid var(--rule);border-radius:10px;padding:24px;
@@ -275,6 +310,7 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
   color:var(--ink);margin:0}
 .pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
 @media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
 .pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:8px;padding:18px 20px}
 .pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
@@ -407,11 +443,11 @@ footer a:hover{color:var(--ink)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <strong>5 of 6 held; 1 came back PARTIAL; 0 were refuted.</strong> But the number that matters is the other one: in <strong>6 of 6 cases the computational fragment certified and the analytic core did not</strong> — the identities, enclosures and exhibits are machine-checkable and they all held, while the surrounding argument is prose in every single one. That split is the finding.</li><li><b>The mechanism.</b> Each verifier was written against the <em>manuscript</em>, never derived from and never executing the author's scripts — no Arb, no SymPy, no Mathematica, no code from anybody's archive was run. (In one lane, Mathieu, the author's Python was <em>read</em> to cross-check which identities the TeX meant; it was not executed, and that is stated on the lane.) Exact rationals where the claim is algebraic, outward-rounded intervals and the Krawczyk operator where it is analytic. Each carries <strong>mutation controls</strong>: deliberate corruptions of the claim that the verifier must reject. A verifier that cannot fail is not evidence.</li><li><b>Check it.</b> <span class="m">node instruments/laneaudit/audit.js</span> — all six, 5.8 s end to end on a laptop. 92 individually named checks and 21 mutation controls, every control rejected. This page is built from that run and refuses if any of it goes red.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <strong>5 of 6 held; 1 came back PARTIAL; 0 were refuted.</strong> But the number that matters is the other one: in <strong>6 of 6 cases the computational fragment certified and the analytic core did not</strong> — the identities, enclosures and exhibits are machine-checkable and they all held, while the surrounding argument is prose in every single one. That split is the finding.</li><li><b>The mechanism.</b> Each verifier was written against the <em>manuscript</em>, never derived from and never executing the author's scripts — no Arb, no SymPy, no Mathematica, no code from anybody's archive was run. (In one lane, Mathieu, the author's Python was <em>read</em> to cross-check which identities the TeX meant; it was not executed, and that is stated on the lane.) Exact rationals where the claim is algebraic, outward-rounded intervals and the Krawczyk operator where it is analytic. Each carries <strong>mutation controls</strong>: deliberate corruptions of the claim that the verifier must reject. A verifier that cannot fail is not evidence.</li><li><b>Check it.</b> <span class="m">node instruments/laneaudit/audit.js</span> — all six, 6.6 s end to end on a laptop. 92 individually named checks and 21 mutation controls, every control rejected. This page is built from that run and refuses if any of it goes red.</li></ul>
 </div></div>
 
 <div class="wide">
-  <div class="stats">
+  <div class="stats" data-n="7">
     <div class="stat"><div class="k">claims re-verified</div><div class="v">6</div><div class="n">each written from the manuscript; no author code was executed in any lane</div></div>
     <div class="stat"><div class="k">held</div><div class="v">5 confirmed</div><div class="n">within a scope this page states for each one, never wider</div></div>
     <div class="stat"><div class="k">partial</div><div class="v">1</div><div class="n">Ran–Teng: every machine-checkable fragment holds; the analytic core is prose</div></div>
@@ -443,16 +479,16 @@ footer a:hover{color:var(--ink)}
     <text x="693.0" y="134.0" text-anchor="middle" class="t-ax">30</text>
     <line x1="840.0" y1="10" x2="840.0" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="840.0" y="134.0" text-anchor="middle" class="t-ax">40</text>
-    <path d="M252 14 h554.6 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-554.6 Z" fill="var(--c-s2)" data-cm="Ran–Teng Conjecture 20" data-cmv="38 named checks · 5 mutation controls · 54 ms · PARTIAL" tabindex="0"/>
+    <path d="M252 14 h554.6 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-554.6 Z" fill="var(--c-s2)" data-cm="Ran–Teng Conjecture 20" data-cmv="38 named checks · 5 mutation controls · 56 ms · PARTIAL" tabindex="0"/>
     <text x="242.0" y="27.0" text-anchor="end" class="t-ax">Ran–Teng Conjecture 20</text>
     <text x="818.6" y="27.0" text-anchor="start" class="t-lab">38</text>
     <path d="M252 40 h319.4000000000001 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-319.4000000000001 Z" fill="var(--c-1)" data-cm="Erdős Problem #1038" data-cmv="22 named checks · 4 mutation controls · 0 ms · CONFIRMED" tabindex="0"/>
     <text x="242.0" y="53.0" text-anchor="end" class="t-ax">Erdős Problem #1038</text>
     <text x="583.4" y="53.0" text-anchor="start" class="t-lab">22</text>
-    <path d="M252 66 h245.89999999999998 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-245.89999999999998 Z" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound" data-cmv="17 named checks · 3 mutation controls · 0 ms · CONFIRMED" tabindex="0"/>
+    <path d="M252 66 h245.89999999999998 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-245.89999999999998 Z" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound" data-cmv="17 named checks · 3 mutation controls · 100 ms · CONFIRMED" tabindex="0"/>
     <text x="242.0" y="79.0" text-anchor="end" class="t-ax">Maxwell&#39;s point-charge bound</text>
     <text x="509.9" y="79.0" text-anchor="start" class="t-lab">17</text>
-    <path d="M252 92 h216.5 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-216.5 Z" fill="var(--c-1)" data-cm="The Korenblum constant" data-cmv="15 named checks · 4 mutation controls · 5300 ms · CONFIRMED" tabindex="0"/>
+    <path d="M252 92 h216.5 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-216.5 Z" fill="var(--c-1)" data-cm="The Korenblum constant" data-cmv="15 named checks · 4 mutation controls · 6000 ms · CONFIRMED" tabindex="0"/>
     <text x="242.0" y="105.0" text-anchor="end" class="t-ax">The Korenblum constant</text>
     <text x="480.5" y="105.0" text-anchor="start" class="t-lab">15</text>
     <text x="546.0" y="156.0" text-anchor="middle" class="t-note">individually named checks the verifier printed at build time (hover for controls and runtime)</text>
@@ -620,7 +656,7 @@ node legacy/research/challenges/lane/laneb-poisson/verify.js</pre><p>To confirm 
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git dce0161. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 92 named checks, 0 failures, 21 mutation controls all rejected, 5.8 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git 641d2c0. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 92 named checks, 0 failures, 21 mutation controls all rejected, 6.6 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
 
 </div>
 </html>

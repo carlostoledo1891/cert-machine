@@ -151,9 +151,43 @@ section{margin:clamp(5rem,12vh,9rem) 0 0}
 .sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
 .sec-head .lab{color:var(--ink-4)}
 
-/* stat tiles — the frontier fused grid: 1px gaps painted by the border colour */
-.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+@media (min-width:681px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
 .stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
 .stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
 .stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
@@ -231,7 +265,7 @@ td.k{color:var(--ink);font-weight:500;white-space:nowrap}
 td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
 td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 
-/* verdict chips — WEIGHT + SHAPE, never colour-alone (the frontier grammar):
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
    certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
@@ -242,6 +276,7 @@ td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 .tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
 
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
 @media (max-width:680px){.cards{grid-template-columns:1fr}}
 a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
   border:1px solid var(--rule);border-radius:10px;padding:24px;
@@ -275,6 +310,7 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
   color:var(--ink);margin:0}
 .pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
 @media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
 .pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:8px;padding:18px 20px}
 .pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
@@ -437,7 +473,7 @@ footer a:hover{color:var(--ink)}
 </figure></div>
 
 <div class="wide">
-  <div class="stats">
+  <div class="stats" data-n="3">
     <div class="stat"><div class="k">inside the line, not proved</div><div class="v">54%</div><div class="n">801 of 1491 claims — turboprop, propeller feathered, 35 kt, forecast right</div></div>
     <div class="stat"><div class="k">inside the line, refutable</div><div class="v">0</div><div class="n">structural, and gated at build: while the panel’s configured ratio sits inside the envelope, its line cannot be proved wrong about anything</div></div>
     <div class="stat"><div class="k">if the propeller does not feather</div><div class="v">29%</div><div class="n">425 of 1491 claims become PROVABLY unreachable — same aircraft, same flight, one action short, and the glass has no way to know</div></div>
@@ -1100,7 +1136,7 @@ draw();
 })();
 </script>
 
-<footer class="col"><p>Generated by tools/build-report-glide-band.js @ git dce0161. The app’s battery ran as this page’s gate (20 checks, 4 reds fired), the data pins were re-hashed, and all 480 states — 16 cruise positions × 5 scenarios × 3 winds × 2 forecast modes over 320 airfields — were decided during this build. The build refuses on any deviation, and refuses if either failure scenario stops biting. Flight: N412JS, adsb.lol 2026-08-26, pinned through apps/skyaudit — ADS-B data © adsb.lol, ODbL. Airfields: OurAirports (public domain), sha256 e56b20ecaa18…. Instrument: apps/glide-band/kernel.js.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-glide-band.js @ git 641d2c0. The app’s battery ran as this page’s gate (20 checks, 4 reds fired), the data pins were re-hashed, and all 480 states — 16 cruise positions × 5 scenarios × 3 winds × 2 forecast modes over 320 airfields — were decided during this build. The build refuses on any deviation, and refuses if either failure scenario stops biting. Flight: N412JS, adsb.lol 2026-08-26, pinned through apps/skyaudit — ADS-B data © adsb.lol, ODbL. Airfields: OurAirports (public domain), sha256 e56b20ecaa18…. Instrument: apps/glide-band/kernel.js.</p></footer>
 
 </div>
 </html>

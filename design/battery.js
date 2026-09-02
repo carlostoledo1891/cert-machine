@@ -254,9 +254,54 @@ const LEAK_DEBT = {};   /* mfg-observatory.html paid off 2026-08-30 — C.p -> C
       : files.length + ' pages, 0 leaks' + owedNote);
 }
 
+/* ---- F4 · the FULL-ROW RULE (2026-09-02) --------------------------------
+   A grid must never expose an empty track (the fused stats grid renders one
+   as a giant blank cell — the broken-grid look). Enforcement has two ends:
+   the template must CARRY the balanced per-count rules and the remainder
+   guards, and every built stats block must carry data-n equal to its cell
+   count (the invariant the per-count CSS keys on). */
+function statsGridViolations(html, file) {
+  const out = [];
+  const re = /<div class="stats"([^>]*)>([\s\S]*?)\n  <\/div>/g;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    const dn = /data-n="(\d+)"/.exec(m[1]);
+    const cells = (m[2].match(/class="stat"/g) || []).length;
+    if (!dn) out.push(file + ': a stats grid without data-n (' + cells + ' cells)');
+    else if (Number(dn[1]) !== cells) out.push(file + ': data-n=' + dn[1] + ' but ' + cells + ' cells');
+  }
+  return out;
+}
+{
+  const TPL = require(path.join(__dirname, 'template.js'));
+  const cssText = TPL.css();
+  let rulesOk = true;
+  for (let n = 1; n <= 12; n++) if (!cssText.includes('.stats[data-n="' + n + '"]{grid-template-columns')) rulesOk = false;
+  check('F4a the template carries the balanced stats layout for every count 1..12',
+    rulesOk && cssText.includes('.stats .stat:last-child:nth-child(odd)'));
+  check('F4b .cards and .pk-grid carry the odd-last full-row guard',
+    cssText.includes('.cards>:last-child:nth-child(odd)') && cssText.includes('.pk-grid>:last-child:nth-child(odd)'));
+  const shell = fs.readFileSync(path.join(ROOT, 'design', 'app-shell.js'), 'utf8');
+  check('F4c the app shell grids carry remainder guards',
+    shell.includes('.as-datablocks>:last-child:nth-child(4n+1)') && shell.includes('.as-stats>:last-child:nth-child(3n+1)'));
+  const dirs = [['reports', path.join(ROOT, 'reports')], ['root', ROOT]];
+  let bad = [], pages = 0;
+  for (const [tag, dir] of dirs) {
+    const files = tag === 'root' ? ['index.html'] : fs.readdirSync(dir).filter(f => f.endsWith('.html'));
+    for (const f of files) {
+      const p = path.join(dir, f);
+      if (!fs.existsSync(p)) continue;
+      pages++;
+      bad = bad.concat(statsGridViolations(fs.readFileSync(p, 'utf8'), f));
+    }
+  }
+  check('F4d every built stats grid carries data-n equal to its cell count',
+    bad.length === 0, bad.length ? bad.slice(0, 4).join(' · ') : pages + ' pages scanned, 0 violations');
+}
+
 /* ================= X · falsifiers ======================================== */
 console.log('\n    executing falsifiers');
-let reds = 0; const redTotal = 10;
+let reds = 0; const redTotal = 13;
 {
   /* the grayscale palette gate has teeth: a planted near-identical gray pair
      must fail the ΔE-15 separation the real trio passes */
@@ -343,6 +388,24 @@ let reds = 0; const redTotal = 10;
   const bad = escapedTagLeaks('<p>Conjugate the &lt;2,2,2&gt; tensor. &lt;em&gt;this one leaked&lt;/em&gt;</p>', 'planted');
   if (bad.length === 2 && !bad.some(b => /2,2,2/.test(b))) { reds++; console.log('       RED ok  X6 a leaked <em> is caught while the escaped tensor <2,2,2> beside it is not'); }
   else console.log('       RED FAIL  X6 the scanner does not separate a leaked tag from an honestly escaped bracket   [' + bad.length + ' found, want 2]');
+}
+{
+  /* the FULL-ROW RULE's teeth: a stats grid whose data-n lies, and one with
+     no data-n at all, must both be caught — that attribute is what keys the
+     balanced per-count layout, so a mismatch IS the broken grid */
+  const planted = '<div class="stats" data-n="4">\n'
+    + Array.from({ length: 6 }, () => '    <div class="stat"><div class="k">A</div></div>').join('\n') + '\n  </div>';
+  const b1 = statsGridViolations(planted, 'planted');
+  if (b1.length === 1 && /data-n=4 but 6 cells/.test(b1[0])) { reds++; console.log('       RED ok  X10 a stats grid whose data-n lies about its cell count is caught'); }
+  else console.log('       RED FAIL  X10 a lying data-n passed the full-row gate   [' + JSON.stringify(b1) + ']');
+  const b2 = statsGridViolations('<div class="stats">\n    <div class="stat"><div class="k">A</div></div>\n  </div>', 'planted');
+  if (b2.length === 1 && /without data-n/.test(b2[0])) { reds++; console.log('       RED ok  X11 a stats grid emitted without data-n is caught'); }
+  else console.log('       RED FAIL  X11 a data-n-less grid passed the full-row gate');
+  let threw = false;
+  const C = require(path.join(__dirname, 'components.js'));
+  try { C.stats(Array.from({ length: 13 }, (_, i) => ({ k: 'k' + i, v: 'v' }))); } catch (e) { threw = /1\.\.12/.test(e.message); }
+  if (threw) { reds++; console.log('       RED ok  X12 a 13-cell stats row is REFUSED at the component (the balanced grid is defined for 1..12)'); }
+  else console.log('       RED FAIL  X12 an out-of-range stats count was accepted');
 }
 console.log('    every falsifier turned its target red   [' + reds + '/' + redTotal + ']');
 if (reds !== redTotal) fails++;

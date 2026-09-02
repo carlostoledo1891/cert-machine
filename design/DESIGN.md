@@ -214,6 +214,31 @@ wrong three pages later; a component with no row gets reinvented by the next bui
 The red controls inject a hand-typed number, a clock, a stray hex and a stripped `aria-label`
 and confirm each is detected. A check nobody has seen go red is decoration.
 
+## The full-row rule (2026-09-02, standing)
+
+**A grid never exposes an empty track.** The fused stats grid paints its 1px rules with the
+CONTAINER background, so an unfilled last row renders as one giant blank "cell" — the
+broken-grid look this rule exists to kill, at any cell count, on every page.
+
+- `C.stats()` emits `data-n` (its cell count, 1–12; out of range REFUSES) and the template
+  generates a balanced layout per count (`statsGridRules` in template.js): cells split into
+  `ceil(n/4)` rows whose sizes differ by at most one; the track count is the lcm of the row
+  sizes and each cell spans `lcm/rowsize`, so **every row is exactly full by construction**
+  — 6 → 3+3, 5 → 3+2 (wider bottom cells), 7 → 4+3. Mobile base is two columns with the odd
+  last cell spanning both; desktop layouts live in a `min-width` query, so there is no
+  specificity fight and no `!important`.
+- Every other fixed-column grid carries remainder guards in CSS (`.cards`, `.pk-grid`, the
+  app shell's `.as-datablocks` and `.as-stats`): the last row's cells span the leftover
+  tracks whatever the count.
+- The design battery enforces both ends (F4a–F4d): the template must carry the per-count
+  rules and the guards, and **every built stats grid must carry `data-n` equal to its cell
+  count** — reports, the landing, all of it. Three falsifiers (X10–X12) plant a lying
+  `data-n`, a missing one, and a 13-cell row, and each must be caught. F4d's first real run
+  caught the landing page's stale block — the check earned its place on day one.
+
+A new grid component joins this rule before it ships: either its rows are full by
+construction, or it carries remainder guards, and the battery learns to check it.
+
 ## The app shell (second view, 2026-08-27)
 
 `design/app-shell.js` renders the design system's SECOND page view: a

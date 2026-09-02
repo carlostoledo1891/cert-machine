@@ -83,13 +83,19 @@ function header({ eyebrow, title, deck }) {
    and prose). A `role` field is still accepted from older builders and ignored,
    so no class ships without a rule. */
 function stats(items) {
+  /* FULL-ROW RULE: the grid is balanced per count via data-n (template.js
+     statsGridRules); the design battery refuses any built page whose
+     data-n disagrees with its cell count. */
+  if (!items.length || items.length > 12) {
+    throw new Error('stats: ' + items.length + ' cells — the balanced grid is defined for 1..12');
+  }
   const cells = items.map(it => {
     const cls = 'v' + (it.sm ? ' sm' : '');
     return '    <div class="stat"><div class="k">' + esc(it.k) + '</div>'
       + '<div class="' + cls + '">' + (it.vRaw || esc(it.v)) + '</div>'
       + (it.n ? '<div class="n">' + esc(it.n) + '</div>' : '') + '</div>';
   }).join('\n');
-  return '<div class="wide">\n  <div class="stats">\n' + cells + '\n  </div>\n</div>';
+  return '<div class="wide">\n  <div class="stats" data-n="' + items.length + '">\n' + cells + '\n  </div>\n</div>';
 }
 
 /* The scope line under the hero — what this document is and is not. */

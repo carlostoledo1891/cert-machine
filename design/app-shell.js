@@ -129,6 +129,13 @@ a{color:inherit}
 .as-dispatch:hover{filter:brightness(1.15);transform:translateY(-1px)}
 .as-dispatch[disabled]{opacity:.35;cursor:not-allowed;transform:none}
 .as-datablocks{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+/* FULL-ROW RULE (design/template.js): the last row fills its tracks at any count.
+   remainder 1 -> the last block spans 4; remainder 2 -> both span 2;
+   remainder 3 -> the first of the three spans 2. */
+.as-datablocks>:last-child:nth-child(4n+1){grid-column:span 4}
+.as-datablocks>:nth-last-child(2):nth-child(4n+1),
+.as-datablocks>:last-child:nth-child(4n+2),
+.as-datablocks>:nth-last-child(3):nth-child(4n+1){grid-column:span 2}
 .as-db{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:8px;padding:7px 9px}
 .as-db span{display:block;font-family:var(--f-mono);font-size:8.5px;letter-spacing:.14em;
   color:var(--ink-3);text-transform:uppercase}
@@ -168,6 +175,9 @@ details.as-more[open] summary{margin-bottom:6px}
 .as-score span{font-family:var(--f-sans);font-weight:400;font-size:11.5px;color:var(--ink-3);margin-left:6px}
 /* ---- stat tiles ---- */
 .as-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+/* FULL-ROW RULE: remainder 1 -> last tile spans 3; remainder 2 -> first of the two spans 2 */
+.as-stats>:last-child:nth-child(3n+1){grid-column:span 3}
+.as-stats>:nth-last-child(2):nth-child(3n+1){grid-column:span 2}
 .as-stat{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:9px;
   padding:9px 11px;border-left-width:3px}
 /* the big number is always the signature pink (operator ruling 2026-08-31);

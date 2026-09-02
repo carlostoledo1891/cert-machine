@@ -31,6 +31,48 @@
 
 const T = require('./tokens.js');
 
+/* ---- THE FULL-ROW RULE (2026-09-02, standing) --------------------------
+   A grid must never expose an empty track. The fused stats grid paints its
+   1px rules with the CONTAINER background, so an unfilled row renders as a
+   giant blank "cell" — the broken-grid look the operator flagged across
+   the site. The rule, enforced by construction + a battery gate:
+   · .stats carries data-n = its cell count (components.js emits it; the
+     design battery refuses any built page where they disagree). Rows are
+     BALANCED at build: n cells split into ceil(n/4) rows whose sizes
+     differ by at most 1; the track count is the lcm of the row sizes and
+     every cell spans lcm/rowsize — so every row is exactly full at every
+     count. Mobile-first base is 2 columns with the odd last cell spanning
+     both; the per-count desktop rules live in a min-width query, so no
+     specificity fight.
+   · every other fixed-column grid (.cards, .pk-grid, the app shell's
+     block grids) carries remainder guards: the last row's cells span the
+     leftover tracks, whatever the count. */
+function statsGridRules() {
+  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  const lcm = (a, b) => a * b / gcd(a, b);
+  const out = [];
+  for (let n = 1; n <= 12; n++) {
+    const k = Math.ceil(n / 4);
+    const base = Math.floor(n / k), extra = n - base * k;
+    const rows = [];
+    for (let r = 0; r < k; r++) rows.push(r < extra ? base + 1 : base);
+    const B = rows.reduce((a, s) => lcm(a, s), 1);
+    out.push(`.stats[data-n="${n}"]{grid-template-columns:repeat(${B},minmax(0,1fr))}`);
+    /* explicit span per run of equal-size rows — always emitted, so these
+       (0,4,0) rules beat the mobile odd-last guard at desktop */
+    let idx = 1;
+    for (let r = 0; r < k;) {
+      let r2 = r;
+      while (r2 + 1 < k && rows[r2 + 1] === rows[r]) r2++;
+      const from = idx, count = rows.slice(r, r2 + 1).reduce((a, s) => a + s, 0);
+      const span = B / rows[r];
+      out.push(`.stats[data-n="${n}"] .stat:nth-child(n+${from}):nth-child(-n+${from + count - 1}){grid-column:span ${span}}`);
+      idx += count; r = r2 + 1;
+    }
+  }
+  return out.join('\n');
+}
+
 function css() {
   const { SCALE, MEASURE } = T;
   return `
@@ -123,9 +165,16 @@ section{margin:${SCALE.section} 0 0}
 .sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
 .sec-head .lab{color:var(--ink-4)}
 
-/* stat tiles — the fused grid: 1px gaps painted by the border colour */
-.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+@media (min-width:681px){
+${statsGridRules()}
+}
 .stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
 .stat .k{font-family:var(--f-mono);font-size:${SCALE.eyebrow};letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
 .stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
@@ -214,6 +263,7 @@ td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 .tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
 
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
 @media (max-width:680px){.cards{grid-template-columns:1fr}}
 a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
   border:1px solid var(--rule);border-radius:10px;padding:24px;
@@ -247,6 +297,7 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
   color:var(--ink);margin:0}
 .pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
 @media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
 .pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:8px;padding:18px 20px}
 .pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
