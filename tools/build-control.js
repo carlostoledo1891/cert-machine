@@ -46,6 +46,7 @@ const BATTERIES = [
   ['entropy covering', ['instruments/entropy/battery.js'], 'certified h_top lower bounds; ln 2 calibration at the full horseshoe · 4 red controls'],
   ['strassen audit', ['instruments/strassen/battery.js'], 'fast-matmul tensor identities over Q and F2; Strassen 1969 calibrates · 3 red controls'],
   ['bigfloat layer', ['instruments/bigfloat/battery.js'], 'directed-rounding big-float intervals; pi/ln2/e to 50 literature digits · 5 red controls'],
+  ['ivspecial (Γ + Bessel)', ['instruments/ivspecial/battery.js'], 'interval Γ (Spouge) and Bessel J_ν at fractional and NEGATIVE order — the spectral-geometry instrument: half-integer closed forms, Γ cross-derived on bigfloat against (2n)!/(4ⁿn!)·√π, J against exact-rational series brackets at dyadic points, the pinned frontier source re-hashed · 5 red controls'],
   ['erdos852 constants', ['instruments/erdos852/battery.js'], 'certified c0 and C* enclosures; pi^2/8 product calibration · 5 red controls'],
   ['evtol energy', ['instruments/evtol/battery.js'], 'mission-energy feasibility verdicts cross-proved by 256-corner exact sweeps; dyadic closed-form calibration · 4 red controls'],
   ['forecast instrument', ['instruments/forecast/battery.js'], 'conformal coverage proved by exact rank-lemma enumeration; Winkler scores hand-computed in rationals; the ledger refuses backdating, tampering, premature and double scoring; the admission prune rule decided by exact binomial tail · 5 red controls'],
