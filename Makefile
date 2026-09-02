@@ -55,6 +55,7 @@ test:
 	@printf "%-30s " "slp additive circuits"; $(NODE) instruments/slp/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "bigfloat layer"; $(NODE) instruments/bigfloat/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "ivspecial (Γ + Bessel)"; $(NODE) instruments/ivspecial/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "hotspots (ember chain)"; $(NODE) instruments/hotspots/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg lab (box certifier)"; $(NODE) labs/mfg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL

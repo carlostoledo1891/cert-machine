@@ -1,0 +1,361 @@
+{
+ "record": "ember-corner",
+ "campaign": "ember — certified hot spots for a trapezoid outside every proven class",
+ "specimen": {
+  "vertices": [
+   "(0, 0)",
+   "(1, 0)",
+   "(17/20, 9/10)",
+   "(1/4, 9/10)"
+  ],
+  "note": "vertices are EXACT RATIONALS; convex; side slopes 6 and 18/5; no symmetry axis; not a lip domain"
+ },
+ "generated": "2026-09-02T14:42:18.049Z",
+ "trustBase": [
+  "instruments/interval rigor model (outward-rounded IEEE doubles; exact BigInt rationals)",
+  "instruments/ivspecial (interval Γ Spouge + Bessel J_ν; battery: closed-form falsifiers + bigfloat/exact-rational cross-gates)",
+  "Liu framework Thm 2.4 (Appl. Math. Comput. 2015), as quoted in You–Xie–Liu arXiv:1808.08148 §2 — LITERATURE INPUT, assumed not certified; pinned at corpus/sources/liu2018_arxiv-1808-08148.pdf (sha256 fb867aa5…), transcription beside the pin",
+  "Liu Lemma 3.2 CR interpolation constant 0.1893·h_K, arXiv:1808.08148 p.8 (Lemma 3.2 quoting Liu 2015) — LITERATURE INPUT, assumed not certified; same pin",
+  "classical facts: Neumann separation in a sector + H¹ regularity (excludes the singular Bessel family), Green identity, spectral theorem, Courant"
+ ],
+ "source": {
+  "bench": "/Users/carlostoledo/Documents/frontier-apps/experiments/ember/",
+  "note": "frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial"
+ },
+ "verdict": "VERIFIED",
+ "statement": "The four corner tips (full sectors r ≤ 0.11; the C wedge to 0.12) admit no interior extremum: A by ∂rφ̂ < 0, B/D by value, C max side by value, C min side by the gradient min-form plus the ladder-identity normal-monotonicity wedge. Corner coefficients certified by big-annulus L² extraction AND re-extracted at a second annulus (enclosures must intersect — condition of entry).",
+ "inputs": {
+  "E_L2": 0.00006535174499233859,
+  "mu1": [
+   12.020976137861565,
+   12.022398348138436
+  ],
+  "witnessMax": 2.1260290907622075,
+  "witnessMinDeep": 1.9938107725305556,
+  "from": [
+   "certs/ember-eigenpair.json",
+   "certs/ember-pointwise.json",
+   "certs/ember-defect.json"
+  ]
+ },
+ "RTIP": 0.11,
+ "tips": {
+  "A": {
+   "b0": [
+    2.1095113966011376,
+    2.1931576134707655
+   ],
+   "b1": [
+    2.6820953168121746,
+    2.9873874221042946
+   ],
+   "b2": [
+    -2.973906229658358,
+    12.76094905165364
+   ],
+   "T2": 0.011213654867600066,
+   "ann": [
+    0.1,
+    0.45
+   ],
+   "secondAnnulus": {
+    "b0": [
+     2.121257592416831,
+     2.18109276260042
+    ],
+    "b1": [
+     2.691363188320929,
+     2.9772145234658587
+    ],
+    "b2": [
+     -6.893297798838066,
+     16.653059005565765
+    ],
+    "T2": 0.0065745854348332475,
+    "ann": [
+     0.13,
+     0.4
+    ]
+   },
+   "valueRange": [
+    2.015278905106481,
+    2.193226297094631
+   ],
+   "radialWorst": -0.04988804470500195,
+   "innerDisk": -10.035041485059377
+  },
+  "B": {
+   "b0": [
+    0.8315480707980253,
+    0.877037970308221
+   ],
+   "b1": [
+    -4.595634041284728,
+    -4.273145489554728
+   ],
+   "b2": [
+    0.3192804860310505,
+    6.551453164561625
+   ],
+   "T2": 0.003947066511227824,
+   "ann": [
+    0.1,
+    0.45
+   ],
+   "secondAnnulus": {
+    "b0": [
+     0.8378685451635426,
+     0.8705474249519307
+    ],
+    "b1": [
+     -4.5744978309975695,
+     -4.29315212914682
+    ],
+    "b2": [
+     -0.8160126619765037,
+     7.6777342956974755
+    ],
+    "T2": 0.002168862651926486,
+    "ann": [
+     0.13,
+     0.4
+    ]
+   },
+   "valueRange": [
+    0.7565549904171839,
+    0.8965066841782028
+   ]
+  },
+  "C": {
+   "b0": [
+    -2.020353458498882,
+    -1.978946351838731
+   ],
+   "b1": [
+    -2.0456669941033625,
+    -1.893725652584295
+   ],
+   "b2": [
+    -5.304009535512255,
+    -3.679836660110377
+   ],
+   "T2": 0.00689939777089671,
+   "ann": [
+    0.08,
+    0.42
+   ],
+   "secondAnnulus": {
+    "b0": [
+     -2.0151566290904293,
+     -1.9840348756160664
+    ],
+    "b1": [
+     -2.0356229618767965,
+     -1.9033124865924071
+    ],
+    "b2": [
+     -5.3765788633638785,
+     -3.605345257632055
+    ],
+    "T2": 0.0043255141073632606,
+    "ann": [
+     0.11,
+     0.38
+    ]
+   },
+   "valueRange": [
+    -2.0261839645411444,
+    -1.8465050263108518
+   ],
+   "minFormWorst": 0.0001477482329387308,
+   "wedgeWorstC2": 13.039935115303559,
+   "wedgeInnerC2": 11.646934309705548
+  },
+  "D": {
+   "b0": [
+    -1.570407504238547,
+    -1.546422251113908
+   ],
+   "b1": [
+    3.4180271320561126,
+    3.633259863350241
+   ],
+   "b2": [
+    -1.5241446676323869,
+    -0.3640700192851953
+   ],
+   "T2": 0.005211341268929749,
+   "ann": [
+    0.08,
+    0.42
+   ],
+   "secondAnnulus": {
+    "b0": [
+     -1.5674889488111903,
+     -1.549263638925829
+    ],
+    "b1": [
+     3.4330057395126805,
+     3.6176224056715363
+    ],
+    "b2": [
+     -1.6005383221300147,
+     -0.2869378116393345
+    ],
+    "T2": 0.003151127738741239,
+    "ann": [
+     0.11,
+     0.38
+    ]
+   },
+   "valueRange": [
+    -1.6642997952515894,
+    -1.3514632695752773
+   ]
+  }
+ },
+ "ladder": "∂t²[J_ν(kr)cos(νθ)] = (k²/4)[J_{ν+2}cos((ν+2)θ) + J_{ν−2}cos((ν−2)θ) − 2J_νcos(νθ)]",
+ "extractSecs": [
+  24.2,
+  24.2,
+  23.8,
+  23.8
+ ],
+ "checks": [
+  {
+   "name": "trial identity vs defect record",
+   "ok": true
+  },
+  {
+   "name": "corner A b0: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[2.1095,2.1932] ann2=[2.1213,2.1811]"
+  },
+  {
+   "name": "corner A b1: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[2.6821,2.9874] ann2=[2.6914,2.9772]"
+  },
+  {
+   "name": "corner A b2: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[-2.9739,12.7609] ann2=[-6.8933,16.6531]"
+  },
+  {
+   "name": "corner B b0: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[0.8315,0.8770] ann2=[0.8379,0.8705]"
+  },
+  {
+   "name": "corner B b1: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[-4.5956,-4.2731] ann2=[-4.5745,-4.2932]"
+  },
+  {
+   "name": "corner B b2: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[0.3193,6.5515] ann2=[-0.8160,7.6777]"
+  },
+  {
+   "name": "corner C b0: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[-2.0204,-1.9789] ann2=[-2.0152,-1.9840]"
+  },
+  {
+   "name": "corner C b1: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[-2.0457,-1.8937] ann2=[-2.0356,-1.9033]"
+  },
+  {
+   "name": "corner C b2: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[-5.3040,-3.6798] ann2=[-5.3766,-3.6053]"
+  },
+  {
+   "name": "corner D b0: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[-1.5704,-1.5464] ann2=[-1.5675,-1.5493]"
+  },
+  {
+   "name": "corner D b1: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[3.4180,3.6333] ann2=[3.4330,3.6176]"
+  },
+  {
+   "name": "corner D b2: two-annulus enclosures intersect",
+   "ok": true,
+   "detail": "ann1=[-1.5241,-0.3641] ann2=[-1.6005,-0.2869]"
+  },
+  {
+   "name": "tip B: value-kill both sides",
+   "ok": true,
+   "detail": "[0.757, 0.897]"
+  },
+  {
+   "name": "tip D: value-kill both sides",
+   "ok": true,
+   "detail": "[-1.664, -1.351]"
+  },
+  {
+   "name": "tip A: min-side value-kill",
+   "ok": true,
+   "detail": "-2.015"
+  },
+  {
+   "name": "tip C: max-side value-kill",
+   "ok": true,
+   "detail": "-1.847"
+  },
+  {
+   "name": "tip A: ∂rφ̂ < 0 on r ∈ [0.008, 0.11]",
+   "ok": true,
+   "detail": "worst -4.99e-2"
+  },
+  {
+   "name": "tip A: ∂rφ̂/r < 0 on r ≤ 0.008 (factored inner disk)",
+   "ok": true,
+   "detail": "-10.035"
+  },
+  {
+   "name": "tip C: b1 certified negative (ann1)",
+   "ok": true,
+   "detail": "b1_up=-1.894"
+  },
+  {
+   "name": "tip C: b1 certified negative (ann2)",
+   "ok": true,
+   "detail": "b1_up=-1.903"
+  },
+  {
+   "name": "tip C: |∇φ̂| > 0 on θ ∈ [0.35, ω], r ∈ [1e-5, 0.11]",
+   "ok": true,
+   "detail": "min 0.0001"
+  },
+  {
+   "name": "tip C: inner piece r ≤ 1e-5 (limit form)",
+   "ok": true,
+   "detail": "θ-term 4.91e-4 vs others 1.21e-4"
+  },
+  {
+   "name": "ladder bridge (r=0.06, θ=0.15)",
+   "ok": true,
+   "detail": "num=3.926 ladder=[3.463,4.385]"
+  },
+  {
+   "name": "ladder bridge (r=0.09, θ=0.05)",
+   "ok": true,
+   "detail": "num=4.281 ladder=[3.816,4.750]"
+  },
+  {
+   "name": "tip C: φ̂_nn ≥ c₂ > 0 on the wedge θ ≤ 0.35, r ∈ [1e-6, 0.12]",
+   "ok": true,
+   "detail": "worst c₂ 13.04"
+  },
+  {
+   "name": "tip C: wedge inner piece r ≤ 1e-6",
+   "ok": true,
+   "detail": "c₂ ≥ 11.65"
+  }
+ ],
+ "secs": 96.2
+}

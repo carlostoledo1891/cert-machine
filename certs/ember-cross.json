@@ -1,0 +1,86 @@
+{
+ "record": "ember-cross",
+ "campaign": "ember — certified hot spots for a trapezoid outside every proven class",
+ "specimen": {
+  "vertices": [
+   "(0, 0)",
+   "(1, 0)",
+   "(17/20, 9/10)",
+   "(1/4, 9/10)"
+  ],
+  "note": "vertices are EXACT RATIONALS; convex; side slopes 6 and 18/5; no symmetry axis; not a lip domain"
+ },
+ "generated": "2026-09-02T14:42:18.876Z",
+ "trustBase": [
+  "instruments/interval rigor model (outward-rounded IEEE doubles; exact BigInt rationals)",
+  "instruments/ivspecial (interval Γ Spouge + Bessel J_ν; battery: closed-form falsifiers + bigfloat/exact-rational cross-gates)",
+  "Liu framework Thm 2.4 (Appl. Math. Comput. 2015), as quoted in You–Xie–Liu arXiv:1808.08148 §2 — LITERATURE INPUT, assumed not certified; pinned at corpus/sources/liu2018_arxiv-1808-08148.pdf (sha256 fb867aa5…), transcription beside the pin",
+  "Liu Lemma 3.2 CR interpolation constant 0.1893·h_K, arXiv:1808.08148 p.8 (Lemma 3.2 quoting Liu 2015) — LITERATURE INPUT, assumed not certified; same pin",
+  "classical facts: Neumann separation in a sector + H¹ regularity (excludes the singular Bessel family), Green identity, spectral theorem, Courant"
+ ],
+ "source": {
+  "bench": "/Users/carlostoledo/Documents/frontier-apps/experiments/ember/",
+  "note": "frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial"
+ },
+ "verdict": "VERIFIED",
+ "statement": "Independent cross-derivations: I₀ = 5/48 exact; C_tr enclosed on bigfloat from exact-rational geometry (meets and tightens the eigenpair route); μ1 upper bound re-derived on a conforming P1 FEM basis (different discretization family); the second-annulus corner-coefficient condition re-asserted.",
+ "I0": "5/48",
+ "Ctr": {
+  "bigfloat": [
+   2.6426189449929693,
+   2.64261894499297
+  ],
+  "eigenpairRoute": 2.642618944992971,
+  "c0sq": 0.14853868194842407,
+  "R2max": 0.478125
+ },
+ "p1Upper": {
+  "n": 16,
+  "ndof": 289,
+  "upper": 12.06415383201281,
+  "spectralUpper": 12.041819147219154,
+  "mu1": [
+   12.020976137861565,
+   12.022398348138436
+  ]
+ },
+ "checks": [
+  {
+   "name": "I₀ re-derived in exact rationals = 5/48",
+   "ok": true
+  },
+  {
+   "name": "x0 = (21/40, 9/20) is a star center (all edge dots > 0, exact)",
+   "ok": true
+  },
+  {
+   "name": "C_tr: bigfloat enclosure meets the eigenpair route",
+   "ok": true,
+   "detail": "bigfloat [2.642618944993, 2.642618944993] vs record upper 2.642618944993"
+  },
+  {
+   "name": "C_tr: bigfloat enclosure is tighter than 1e-12",
+   "ok": true,
+   "detail": "4.44e-16"
+  },
+  {
+   "name": "P1: K·1 = 0 exactly (rational row sums)",
+   "ok": true
+  },
+  {
+   "name": "P1 independent upper encloses μ1 from above",
+   "ok": true,
+   "detail": "P1(n=16) upper 12.064154 ≥ μ1 lower 12.020976"
+  },
+  {
+   "name": "P1 upper agrees with the spectral route (window 12.02–12.15)",
+   "ok": true,
+   "detail": "P1 12.064154 vs spectral Galerkin 12.041819 vs eigenpair [12.020976, 12.022398]"
+  },
+  {
+   "name": "corner coefficients: two-annulus intersections hold in the record",
+   "ok": true
+  }
+ ],
+ "secs": 0.8
+}

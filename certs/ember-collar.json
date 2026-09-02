@@ -1,0 +1,73 @@
+{
+ "record": "ember-collar",
+ "campaign": "ember — certified hot spots for a trapezoid outside every proven class",
+ "specimen": {
+  "vertices": [
+   "(0, 0)",
+   "(1, 0)",
+   "(17/20, 9/10)",
+   "(1/4, 9/10)"
+  ],
+  "note": "vertices are EXACT RATIONALS; convex; side slopes 6 and 18/5; no symmetry axis; not a lip domain"
+ },
+ "generated": "2026-09-02T14:40:41.851Z",
+ "trustBase": [
+  "instruments/interval rigor model (outward-rounded IEEE doubles; exact BigInt rationals)",
+  "instruments/ivspecial (interval Γ Spouge + Bessel J_ν; battery: closed-form falsifiers + bigfloat/exact-rational cross-gates)",
+  "Liu framework Thm 2.4 (Appl. Math. Comput. 2015), as quoted in You–Xie–Liu arXiv:1808.08148 §2 — LITERATURE INPUT, assumed not certified; pinned at corpus/sources/liu2018_arxiv-1808-08148.pdf (sha256 fb867aa5…), transcription beside the pin",
+  "Liu Lemma 3.2 CR interpolation constant 0.1893·h_K, arXiv:1808.08148 p.8 (Lemma 3.2 quoting Liu 2015) — LITERATURE INPUT, assumed not certified; same pin",
+  "classical facts: Neumann separation in a sector + H¹ regularity (excludes the singular Bessel family), Green identity, spectral theorem, Courant"
+ ],
+ "source": {
+  "bench": "/Users/carlostoledo/Documents/frontier-apps/experiments/ember/",
+  "note": "frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial"
+ },
+ "verdict": "VERIFIED",
+ "statement": "Every collar cell of the 1/100 grid (corner-min depth < 3/40, not entirely inside a tip disk) is killed on both sides by the value argument with REFLECTED pointwise-e bounds — zero residual cells. Together with stage-pointwise (core cells) and the tips (R1 cells) the interior partition closes by construction.",
+ "inputs": {
+  "E_L2": 0.00006535174499233859,
+  "deltaLambda": 0.0007111051384348386,
+  "mu1up": 12.022398348138436,
+  "NuUp": 2.499744223864139,
+  "supFluxPerEdge": [
+   0.00001376039502151031,
+   0.000009134794826721813,
+   0.000012444767078947143,
+   0.000013910038614144616
+  ],
+  "witnessMax": 2.1260290907622075,
+  "witnessMinDeep": 1.9938107725305556,
+  "from": [
+   "certs/ember-eigenpair.json",
+   "certs/ember-defect.json",
+   "certs/ember-pointwise.json"
+  ]
+ },
+ "reflectionNote": "even reflection of φ̂ across an open edge is exact; u's reflection carries a single-layer with density 2∂νu, bounded by supD·3R/π",
+ "sweep": {
+  "collarCells": 2272,
+  "evals": 2926,
+  "refined": 164,
+  "survivors": 0,
+  "worstP": 2.1235919819544717,
+  "worstM": 1.99363316238693,
+  "survivorCells": []
+ },
+ "checks": [
+  {
+   "name": "trial identity vs defect record",
+   "ok": true
+  },
+  {
+   "name": "COLLAR: ZERO residual cells (both sides, deep min witness)",
+   "ok": true,
+   "detail": "{\"collarCells\":2272,\"evals\":2926,\"refined\":164,\"survivors\":0,\"worstP\":2.1235919819544717,\"worstM\":1.99363316238693,\"survivorCells\":[]}"
+  },
+  {
+   "name": "collar kill margins positive",
+   "ok": true,
+   "detail": "max side 2.123592 < 2.126029; min side 1.993633 < 1.993811"
+  }
+ ],
+ "secs": 6
+}

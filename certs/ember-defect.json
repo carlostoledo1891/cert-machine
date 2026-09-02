@@ -1,0 +1,194 @@
+{
+ "record": "ember-defect",
+ "campaign": "ember — certified hot spots for a trapezoid outside every proven class",
+ "specimen": {
+  "vertices": [
+   "(0, 0)",
+   "(1, 0)",
+   "(17/20, 9/10)",
+   "(1/4, 9/10)"
+  ],
+  "note": "vertices are EXACT RATIONALS; convex; side slopes 6 and 18/5; no symmetry axis; not a lip domain"
+ },
+ "generated": "2026-09-02T14:40:18.724Z",
+ "trustBase": [
+  "instruments/interval rigor model (outward-rounded IEEE doubles; exact BigInt rationals)",
+  "instruments/ivspecial (interval Γ Spouge + Bessel J_ν; battery: closed-form falsifiers + bigfloat/exact-rational cross-gates)",
+  "Liu framework Thm 2.4 (Appl. Math. Comput. 2015), as quoted in You–Xie–Liu arXiv:1808.08148 §2 — LITERATURE INPUT, assumed not certified; pinned at corpus/sources/liu2018_arxiv-1808-08148.pdf (sha256 fb867aa5…), transcription beside the pin",
+  "Liu Lemma 3.2 CR interpolation constant 0.1893·h_K, arXiv:1808.08148 p.8 (Lemma 3.2 quoting Liu 2015) — LITERATURE INPUT, assumed not certified; same pin",
+  "classical facts: Neumann separation in a sector + H¹ regularity (excludes the singular Bessel family), Green identity, spectral theorem, Courant"
+ ],
+ "source": {
+  "bench": "/Users/carlostoledo/Documents/frontier-apps/experiments/ember/",
+  "note": "frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial"
+ },
+ "verdict": "VERIFIED",
+ "statement": "‖∂νu‖_{L²(∂Ω)} ≤ defectUpper for the frozen exact-Helmholtz trial (order-2 interval Taylor jets along each edge, Bessel-ODE closure, certified midpoint-Taylor cell rule; per-edge pointwise sup|∂νu| certified from the same jets).",
+ "trial": {
+  "lambdaTilde": 12.021687243,
+  "K": 10,
+  "nbasis": 40,
+  "coefficients": [
+   -4.545775382608376,
+   2.8330116650432635,
+   -4.509915893922395,
+   5.482102152814437,
+   -1.4636900101070296,
+   -305.91585186501334,
+   -10056.802899419534,
+   -47904.88140401989,
+   -19422250.462553024,
+   0,
+   -2.563491429443502,
+   -4.431859785272341,
+   2.992436933644638,
+   0.8339443625872769,
+   10.969816536110812,
+   -145.75298142893962,
+   1662.8327044169346,
+   -65644.6585718384,
+   220429.63552093506,
+   -97872974.99588013,
+   -1.265117939989023,
+   -1.9684508947825117,
+   -4.416535224354552,
+   5.371873297105727,
+   -23.149279641834216,
+   166.8255105398423,
+   -866.141494514623,
+   4681.439152488425,
+   -61215.296606430114,
+   221526.37881804164,
+   0.02850593640194605,
+   3.524420879499283,
+   -0.9026485368823367,
+   0.9059845094861736,
+   22.890598021283623,
+   55.94928954571824,
+   160.84605250617355,
+   -3186.7570923009284,
+   -15051.251885127087,
+   -190509.41980976844
+  ],
+  "floatDefect": 0.000009014713885671235,
+  "note": "coefficients are frozen exact doubles from the deterministic float MPS proposer (trial.js); downstream stages regenerate and compare element-exact"
+ },
+ "cells": 700,
+ "defectUpper": 0.000012368817442805293,
+ "perEdge": [
+  {
+   "edge": 0,
+   "fluxSq": 5.521468387773315e-11,
+   "supFlux": 0.00001376039502151031
+  },
+  {
+   "edge": 1,
+   "fluxSq": 2.4729983539375695e-11,
+   "supFlux": 0.000009134794826721813
+  },
+  {
+   "edge": 2,
+   "fluxSq": 2.6734472584880956e-11,
+   "supFlux": 0.000012444767078947143
+  },
+  {
+   "edge": 3,
+   "fluxSq": 4.630850493145453e-11,
+   "supFlux": 0.000013910038614144616
+  }
+ ],
+ "supFluxPerEdge": [
+  0.00001376039502151031,
+  0.000009134794826721813,
+  0.000012444767078947143,
+  0.000013910038614144616
+ ],
+ "checks": [
+  {
+   "name": "bridge edge0 t=0.31",
+   "ok": true,
+   "detail": "float=5.526e-6 iv=[5.486e-6,5.565e-6]"
+  },
+  {
+   "name": "bridge edge0 t=0.5",
+   "ok": true,
+   "detail": "float=5.275e-6 iv=[5.250e-6,5.301e-6]"
+  },
+  {
+   "name": "bridge edge0 t=0.77",
+   "ok": true,
+   "detail": "float=3.823e-6 iv=[3.794e-6,3.852e-6]"
+  },
+  {
+   "name": "bridge d/dτ edge0",
+   "ok": true,
+   "detail": "num=-6.244e-6 iv=[-6.497e-6,-5.995e-6]"
+  },
+  {
+   "name": "bridge edge1 t=0.31",
+   "ok": true,
+   "detail": "float=1.208e-6 iv=[1.192e-6,1.224e-6]"
+  },
+  {
+   "name": "bridge edge1 t=0.5",
+   "ok": true,
+   "detail": "float=-1.656e-6 iv=[-1.671e-6,-1.642e-6]"
+  },
+  {
+   "name": "bridge edge1 t=0.77",
+   "ok": true,
+   "detail": "float=-5.598e-6 iv=[-5.614e-6,-5.582e-6]"
+  },
+  {
+   "name": "bridge d/dτ edge1",
+   "ok": true,
+   "detail": "num=-1.567e-5 iv=[-1.578e-5,-1.555e-5]"
+  },
+  {
+   "name": "bridge edge2 t=0.31",
+   "ok": true,
+   "detail": "float=-5.145e-6 iv=[-5.168e-6,-5.122e-6]"
+  },
+  {
+   "name": "bridge edge2 t=0.5",
+   "ok": true,
+   "detail": "float=-7.380e-6 iv=[-7.399e-6,-7.360e-6]"
+  },
+  {
+   "name": "bridge edge2 t=0.77",
+   "ok": true,
+   "detail": "float=-6.105e-6 iv=[-6.127e-6,-6.084e-6]"
+  },
+  {
+   "name": "bridge d/dτ edge2",
+   "ok": true,
+   "detail": "num=1.158e-5 iv=[1.144e-5,1.173e-5]"
+  },
+  {
+   "name": "bridge edge3 t=0.31",
+   "ok": true,
+   "detail": "float=-2.336e-6 iv=[-2.349e-6,-2.324e-6]"
+  },
+  {
+   "name": "bridge edge3 t=0.5",
+   "ok": true,
+   "detail": "float=2.302e-6 iv=[2.287e-6,2.318e-6]"
+  },
+  {
+   "name": "bridge edge3 t=0.77",
+   "ok": true,
+   "detail": "float=6.987e-6 iv=[6.948e-6,7.025e-6]"
+  },
+  {
+   "name": "bridge d/dτ edge3",
+   "ok": true,
+   "detail": "num=1.362e-5 iv=[1.348e-5,1.376e-5]"
+  },
+  {
+   "name": "certified defect within sane factor of float (sanity)",
+   "ok": true,
+   "detail": "certified 1.2369e-5 vs float 9.015e-6"
+  }
+ ],
+ "secs": 4.3
+}

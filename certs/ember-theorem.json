@@ -1,0 +1,204 @@
+{
+ "record": "ember-theorem",
+ "campaign": "ember — certified hot spots for a trapezoid outside every proven class",
+ "specimen": {
+  "vertices": [
+   "(0, 0)",
+   "(1, 0)",
+   "(17/20, 9/10)",
+   "(1/4, 9/10)"
+  ],
+  "note": "vertices are EXACT RATIONALS; convex; side slopes 6 and 18/5; no symmetry axis; not a lip domain"
+ },
+ "generated": "2026-09-02T14:42:18.926Z",
+ "trustBase": [
+  "instruments/interval rigor model (outward-rounded IEEE doubles; exact BigInt rationals)",
+  "instruments/ivspecial (interval Γ Spouge + Bessel J_ν; battery: closed-form falsifiers + bigfloat/exact-rational cross-gates)",
+  "Liu framework Thm 2.4 (Appl. Math. Comput. 2015), as quoted in You–Xie–Liu arXiv:1808.08148 §2 — LITERATURE INPUT, assumed not certified; pinned at corpus/sources/liu2018_arxiv-1808-08148.pdf (sha256 fb867aa5…), transcription beside the pin",
+  "Liu Lemma 3.2 CR interpolation constant 0.1893·h_K, arXiv:1808.08148 p.8 (Lemma 3.2 quoting Liu 2015) — LITERATURE INPUT, assumed not certified; same pin",
+  "classical facts: Neumann separation in a sector + H¹ regularity (excludes the singular Bessel family), Green identity, spectral theorem, Courant"
+ ],
+ "source": {
+  "bench": "/Users/carlostoledo/Documents/frontier-apps/experiments/ember/",
+  "note": "frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial"
+ },
+ "verdict": "VERIFIED",
+ "statement": "THEOREM. Let Ω be the trapezoid with vertices A=(0,0), B=(1,0), C=(17/20,9/10), D=(1/4,9/10) — convex, side slopes 6 and 18/5, no axis of symmetry, not a lip domain; to our knowledge outside every class for which the hot spots conjecture was previously proven. The second Neumann eigenvalue μ1 is SIMPLE, with μ1 ∈ [12.020976137861565, 12.022398348138436], and the second Neumann eigenfunction attains its maximum and its minimum on ∂Ω ONLY.",
+ "honestFraming": {
+  "claim": "to our knowledge the first certified hot-spots domain outside every analytically proven class — ONE domain, ONE theorem; the quadrilateral census is future work and is not counted",
+  "fences": [
+   "Judge–Mondal: all triangles (Annals of Mathematics, 2020; and the 2022 erratum)",
+   "de Dios-Pardo et al.: convex domains in high dimension",
+   "lip domains (Atar–Burdzy)",
+   "symmetric quadrilateral subcases (arXiv:2604.19003, Apr 2026)"
+  ],
+  "raceWatch": "arXiv weekly for quadrilateral hot-spots claims",
+  "status": "machine-derived, published nowhere, not peer-reviewed, not independently rerun"
+ },
+ "mu1": [
+  12.020976137861565,
+  12.022398348138436
+ ],
+ "simple": true,
+ "chain": {
+  "spectrum": {
+   "mu1CR": [
+    11.892662878023904,
+    12.041819147219154
+   ],
+   "mu2lo": 13.95593603770136
+  },
+  "defect": {
+   "defectUpper": 0.000012368817442805293
+  },
+  "eigenpair": {
+   "mu1": [
+    12.020976137861565,
+    12.022398348138436
+   ],
+   "E_L2": 0.00006535174499233859,
+   "Ctr": 2.642618944992971
+  },
+  "pointwise": {
+   "witnesses": {
+    "max": 2.1260290907622075,
+    "minDeep": 1.9938107725305556
+   },
+   "coreSup": [
+    2.086146764692134,
+    1.9715110520750174
+   ]
+  },
+  "collar": {
+   "cells": 2272,
+   "survivors": 0
+  },
+  "corner": {
+   "valueRanges": {
+    "A": [
+     2.015278905106481,
+     2.193226297094631
+    ],
+    "B": [
+     0.7565549904171839,
+     0.8965066841782028
+    ],
+    "C": [
+     -2.0261839645411444,
+     -1.8465050263108518
+    ],
+    "D": [
+     -1.6642997952515894,
+     -1.3514632695752773
+    ]
+   }
+  },
+  "cross": {
+   "CtrBigfloat": [
+    2.6426189449929693,
+    2.64261894499297
+   ],
+   "p1Upper": 12.06415383201281
+  }
+ },
+ "partition": {
+  "grid": "1/100",
+  "tipCells": 498,
+  "coreCells": 4690,
+  "collarCells": 2272,
+  "exterior": 1540,
+  "rules": "R1 entirely-in-tip (exact); core = corner-min depth ≥ 3/40 (exact, concavity); collar = the rest meeting Ω (exact SAT)"
+ },
+ "records": {
+  "ember-spectrum.json": "9a6bd2aebb1119ce79ad2b10cf178a002d9a4d7739b1d7bf313615a588512afe",
+  "ember-defect.json": "4947c112ff57d56a754bca9f1b8c5ce38864ec3e03c93ed93573a23170f1297a",
+  "ember-eigenpair.json": "3448fc920e03252443954ed1c49c54a263d36c7e6dafb40817fbdd96534d6260",
+  "ember-pointwise.json": "0600b4d3aa11367d97ec28ff3a6e1327d1f01d4bf1b9181c97c2740b6092fcf8",
+  "ember-collar.json": "d0b0d5d769079cc9da6474d17bdfee61f74ceed6323e2da18e677b8e3794c3a1",
+  "ember-corner.json": "78d3c62219518c343c58ee65ef47410226a9a68515ab5b01a3a1c617349852ac",
+  "ember-cross.json": "9cc8a492d5a1c11f5d477e79e2d9f04b40165c158e73ed61e7e865da99793e0d"
+ },
+ "checks": [
+  {
+   "name": "eigenpair inputs = spectrum + defect outputs",
+   "ok": true
+  },
+  {
+   "name": "pointwise inputs = eigenpair outputs",
+   "ok": true
+  },
+  {
+   "name": "collar inputs = eigenpair + defect + pointwise outputs",
+   "ok": true
+  },
+  {
+   "name": "corner inputs = eigenpair + pointwise outputs",
+   "ok": true
+  },
+  {
+   "name": "μ1 (eigenpair) ⊆ μ1 (spectrum CR)",
+   "ok": true
+  },
+  {
+   "name": "spectral gap: μ2 lower > μ1 upper ⇒ μ1 SIMPLE",
+   "ok": true
+  },
+  {
+   "name": "PARTITION (rational re-decision): core cell count = pointwise record",
+   "ok": true,
+   "detail": "re-decided 4690 vs record 4690"
+  },
+  {
+   "name": "PARTITION (rational re-decision): collar cell count = collar record",
+   "ok": true,
+   "detail": "re-decided 2272 vs record 2272"
+  },
+  {
+   "name": "PARTITION: every grid cell classified exactly once (tip/core/collar/exterior)",
+   "ok": true,
+   "detail": "tip 498 + core 4690 + collar 2272 + exterior 1540 = 9000"
+  },
+  {
+   "name": "Ω convex (exact rational cross products)",
+   "ok": true
+  },
+  {
+   "name": "core sweep: zero survivors",
+   "ok": true
+  },
+  {
+   "name": "collar sweep: zero survivors",
+   "ok": true
+  },
+  {
+   "name": "core margins positive (both sides)",
+   "ok": true,
+   "detail": "max 3.93e-2, min 5.61e-4"
+  },
+  {
+   "name": "collar kills strict (both sides)",
+   "ok": true
+  },
+  {
+   "name": "tip A: max side by ∂rφ̂ < 0; min side by value",
+   "ok": true
+  },
+  {
+   "name": "tip B: value kill both sides",
+   "ok": true
+  },
+  {
+   "name": "tip D: value kill both sides",
+   "ok": true
+  },
+  {
+   "name": "tip C: max side by value; min side by min-form + wedge",
+   "ok": true
+  },
+  {
+   "name": "cross-derivations record VERIFIED (I₀, C_tr bigfloat, P1 upper, two-annulus)",
+   "ok": true
+  }
+ ],
+ "secs": 0
+}
