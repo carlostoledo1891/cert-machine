@@ -156,24 +156,22 @@ re-run with records + firing reds -> independent cross-derivations
 arXiv:1808.08148 -> reports/ember.html + paper from design/. P3 census
 is a separate future campaign. Sends held.
 
-SECOND TASK — FINISH LAMBDA(6) (one family of ten remains uncertified).
-State at handoff:
+SECOND TASK — FINISH LAMBDA(6) (one family of ten remains).
+State at handoff (2026-09-02):
   · lambda(5) COMPLETE and committed (8/8 families).
-  · lambda(6): 5 families ok IN the committed record (d+e=f, 2e=f, c+e=f,
-    b+e=f, a+e=f with its 3 walls); b+2e=2f, c+2e=2f, d+2e=2f, 3e=2f all
-    VERIFIED CLOSED offline (b+2e: 62 dots/1478 finite sets in 114 min;
-    c+2e: 37/655; d+2e: 50/688; 3e: 125 dots/841 finite sets over 41
-    GENERATED root cones) — their in-record run was IN FLIGHT at handoff
-    (nohup pid 24291, ONLY='b+2e = 2f|c+2e = 2f|d+2e = 2f|3e = 2f',
-    writes certs/lambda56-campaign.json incrementally; check the record's
-    stages first — it survives session end).
-  · a+2e=2f: the campaign's heaviest tree, was COMPUTING OFFLINE at
-    handoff (nohup pid 72893, ~4h in, healthy at 100% CPU in BigInt
-    arithmetic; verdict lands in
-    /private/tmp/claude-501/-Users-carlostoledo-Documents-cert-machine/776c9149-d43e-4dae-b0b0-451991a0bdcd/scratchpad/a2e.log).
-    If dead or lost, rerun: ONLY='a+2e = 2f' node
-    tools/run-lambda56-campaign.js (its stage is in the runner; expect
-    hours; AUTOCLOSE_TRACE=1 gives a stderr heartbeat).
+  · lambda(6): NINE of ten CLOSED IN THE COMMITTED RECORD
+    (certs/lambda56-campaign.json, 0 failures, battery 16/16 with 5
+    reds) — d+e=f, 2e=f, c+e=f, b+e=f, a+e=f, b+2e=2f, c+2e=2f,
+    d+2e=2f, 3e=2f. The in-record parity run completed 2026-09-01
+    (2.6 h); the once-stale "no mechanical shape" failure is gone.
+  · a+2e=2f: STILL COMPUTING OFFLINE — nohup pid 72893, ~22 h elapsed
+    at handoff, 100% CPU in BigInt arithmetic, no verdict yet. Verdict
+    lands in /private/tmp/claude-501/-Users-carlostoledo-Documents-cert-machine/776c9149-d43e-4dae-b0b0-451991a0bdcd/scratchpad/a2e.log
+    (0 bytes until completion — that is normal). If dead or lost,
+    rerun: ONLY='a+2e = 2f' node tools/run-lambda56-campaign.js
+    (expect many hours; AUTOCLOSE_TRACE=1 for a stderr heartbeat). It
+    is the campaign's heaviest tree; past ~30 h with no verdict, check
+    ps and consider the trace before assuming health.
   · THE DRIVER IS DONE: instruments/lambda56/close.js now carries the
     full auto-closer (deterministic weight probes with comb fallback,
     mechanical sub-cone shapes: unit substitution, ratios, general
