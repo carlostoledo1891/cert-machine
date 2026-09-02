@@ -110,6 +110,21 @@ for (const x of [0.5, 1.7, 3.25]) {
 ok(I.contains(S.besselJIv(iv(0), iv(1)), 0.7651976865579666), 'J_0(1) ∋ literature float');
 ok(I.contains(S.besselJIv(iv(1), iv(2)), 0.5767248077568734), 'J_1(2) ∋ literature float');
 
+/* FAT-INTERVAL ORDER (new 2026-09-02): the band program evaluates J over
+   an interval of ν (the corner exponent moves with the domain), so the
+   enclosure must cover every order in the interval — checked against the
+   point-order enclosures at the endpoints and an interior order. */
+{
+  const fat = S.besselJIv(iv(0.5, 1.5), iv(1.7));
+  for (const nu of [0.5, 1.0, 1.5]) {
+    ok(overlap(fat, S.besselJIv(iv(nu), iv(1.7))), 'fat-order J_{[0.5,1.5]}(1.7) covers ν=' + nu);
+  }
+  const fatNeg = S.besselJIv(iv(-0.5, 0.25), iv(1.7));
+  ok(overlap(fatNeg, mul(S.sqrtIv(div(iv(2), mul(T.PI, iv(1.7)))), T.cos(iv(1.7)))),
+    'fat-order J_{[−0.5,0.25]}(1.7) covers the ν=−1/2 closed form');
+  ok(overlap(fatNeg, S.besselJIv(iv(0), iv(1.7))), 'fat-order J_{[−0.5,0.25]}(1.7) covers ν=0');
+}
+
 /* recurrence J_{ν−1} + J_{ν+1} = (2ν/x)·J_ν at fractional ν, including a
    NEGATIVE-order instance (ν−1 = −0.2942) */
 for (const [nu, x] of [[1.7058, 3.3], [2.4169, 4.6], [3.4116, 2.2], [0.7058, 1.9]]) {
@@ -266,6 +281,12 @@ for (const [k, p, q, label] of [[-1, 27n, 16n, 'J_{−1/2}(27/16)'], [0, 27n, 16
   threw = false;
   try { S.besselJIv(iv(-0.7), iv(1)); } catch (e) { threw = /-0\.6/.test(e.message); }
   ok(threw, 'RED: besselJIv at ν = −0.7 is REFUSED at the door (D2: gammaIv domain)');
+
+  /* R6: a fat order whose LOW end dips below the door is refused too —
+     a wide interval must not smuggle in an order the domain excludes */
+  threw = false;
+  try { S.besselJIv(iv(-0.7, 0.5), iv(1)); } catch (e) { threw = /-0\.6/.test(e.message); }
+  ok(threw, 'RED: fat order [−0.7, 0.5] is REFUSED at the door — width does not bypass the domain');
 }
 
 console.log('');

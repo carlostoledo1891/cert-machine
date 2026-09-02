@@ -20,6 +20,15 @@
          with the honest message. (Ember needs ν−2 ≈ −0.19 at corner C —
          well inside.)
      D3  dead duplicated branch in besselJdIv (both arms identical) folded.
+     D4  (2026-09-02, for the band program's fat-interval ORDERS) gammaIv
+         splits wide arguments by unimodality: Spouge over a wide interval
+         loses the bracket cancellation (Γ([0.5, 1.25]) enclosed to width
+         ~1700, an interval containing 0, refusing the Bessel series). Γ is
+         log-convex hence unimodal on (0,∞) with its unique minimum in
+         [1.4616, 1.4617], so for width > 1e-3 the enclosure is the hull of
+         POINT evaluations at the endpoints, plus the enclosure over
+         [1.4616, 1.4617] when the argument straddles the minimum. The
+         battery's fat-order falsifiers cover both regimes.
 
    Exports (all take/return instruments/interval [lo,hi] intervals unless
    noted): sqrtIv, atanIv, angleOf (interval angle in [0,2π) of a float
@@ -123,9 +132,21 @@ function gammaIv(z) { // Γ(z) for z > 0.4 (below 1: via Γ(z) = Γ(z+1)/z); mem
   const key = z[0] + ',' + z[1];
   const hit = gammaMemo.get(key);
   if (hit) return hit;
-  const out = gammaIvRaw(z);
+  const out = z[1] - z[0] > 1e-3 ? gammaIvWide(z) : gammaIvRaw(z);
   if (gammaMemo.size < 4096) gammaMemo.set(key, out);
   return out;
+}
+/* D4: wide arguments by unimodality — Γ is log-convex on (0,∞) with its
+   unique minimum inside [1.4616, 1.4617], so on [a,b] the maximum is at an
+   endpoint and the minimum is at the interior minimum when straddled,
+   else at the nearer endpoint. Point evaluations keep Spouge tight. */
+function gammaIvWide(z) {
+  if (z[0] <= 0.4) throw new Error('gammaIv: z > 0.4 required');
+  const ga = gammaIvRaw([z[0], z[0]]);
+  const gb = gammaIvRaw([z[1], z[1]]);
+  let lo = Math.min(ga[0], gb[0]);
+  if (z[0] < 1.4617 && z[1] > 1.4616) lo = Math.min(lo, gammaIvRaw([1.4616, 1.4617])[0]);
+  return [lo, Math.max(ga[1], gb[1])];
 }
 function gammaIvRaw(z) {
   if (z[0] <= 0.4) throw new Error('gammaIv: z > 0.4 required');

@@ -201,6 +201,20 @@ fence list extended (Hatcher 2405.19508 non-convex L-tiled; Siudeja
 cited as lineage), and a gate now refuses the misattribution by name.
 Race-scout re-run: nothing new on quadrilaterals; no validated-numerics
 MFG prior art found.
+BENCH WATCH (2026-09-02 pm, operator: "we are evolving there"): P3a —
+THE BAND — is building on the frontier bench (band-*.js, PHASE3.md,
+data/band/): a certified band of trapezoids glued to the specimen, the
+census's first rung. MID-FLIGHT, NOT PORTABLE: uniform-in-c spectrum IS
+certified on one chunk via affine transplantation (direct interval-c CR
+provably fails — a paid-for dead end), but the zone records show
+negative margins and hundreds of collar survivors; no THEOREM-BAND.md.
+Port trigger: the chunk chain closes + the theorem doc lands. Full
+intel (lessons, cold-spot repricing, the fat-margin-specimen route for
+our open problem 2) in targets.json ember-port.benchIntel. DONE HERE
+NOW: ivspecial D4 — fat-interval-order Γ by unimodal split (wide Spouge
+enclosed 0 and refused; the band needs interval orders) + fat-order
+falsifiers + the width-does-not-bypass-the-door red; battery 75/6; the
+ember chain re-verified byte-identical.
 CO-AUTHOR PATH (operator asked): verification-invitation drafts staged
 — outreach/ember-verification-invites.md (Hatcher first; Judge/Mondal,
 Burdzy, de Dios Pont, the 2604.19003 group) and
