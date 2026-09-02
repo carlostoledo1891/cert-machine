@@ -59,6 +59,10 @@ const BT = rd('terra-bracket-table.json');
 if (BT.verdict !== 'VERIFIED') die('bracket table not VERIFIED');
 const CEN = [2, 3, 4, 5].map(N => rd('mfg-cap-census-N' + N + '-c-12.json'));
 if (!CEN.every(c => c.verdict === 'VERIFIED' && c.count === 3)) die('census records moved');
+const FLW = rd('facelaw-theorem.json');
+if (FLW.verdict !== 'VERIFIED') die('facelaw theorem not VERIFIED');
+const ATT = rd('attnflow-theorems.json');
+if (ATT.verdict !== 'VERIFIED') die('attnflow theorems not VERIFIED');
 
 const PM_PATH = path.join(ROOT, 'instruments', 'mfgcap', 'records', 'terra-phasemap.json');
 const PM_SHA = '30b3cfe495142578bad807711158ba3f70f4fa51c6bf92476804fd8b1a8a23b9';
@@ -287,9 +291,67 @@ O.push(C.section({
     }),
 }));
 
+/* ------------------------------------------------- the selection wing */
+O.push(C.section({
+  lab: '§6 · faces & selection', title: 'k = |shared| − cons + z, with its evidence',
+  bodyRaw: C.pRaw('When the cost is class-independent, the two-population equilibrium is a FACE — a set the '
+    + 'equilibrium conditions cannot pin to a point — and its exact tangent dimension obeys a purely '
+    + 'combinatorial law: shared edges, minus non-exit touched nodes, PLUS the number of exit-free components '
+    + 'of the shared subgraph. The combinatorial shortcut everyone would reach for is correct exactly when '
+    + 'z = 0, and undercounts by exactly z otherwise.')
+    + C.pRaw('The evidence this theorem never had now exists (' + C.m('certs/facelaw-theorem.json') + '): the '
+      + 'origin bench’s seeded ensemble replayed call-for-call re-derives its published '
+      + '<b>' + FLW.originEnsemble.shortcutFailures + ' shortcut failures</b> on '
+      + FLW.originEnsemble.tested + ' networks as a replication — every failing instance ENUMERATED in the '
+      + 'record so any reader can re-run any one — and a fresh-seed ensemble adds '
+      + FLW.freshEnsemble.shortcutFailures + ' more on ' + FLW.freshEnsemble.tested + '. The exit-free-cycle '
+      + 'family realizes every deficit; the origin 15-edge instance has z = 0, which is why the shortcut '
+      + 'looked like a law. Exact over ℚ; combinatorics on the constraint matrices, not an enclosure. '
+      + 'The origin bench’s preregistered LLM-selection study is NOT ported: its data lives only there, and '
+      + 'importing its numbers would import a claim this machine cannot re-run.'),
+}));
+
+/* ------------------------------------------------- the attention wing */
+{
+  const betas = [1.5, 2.5, 4];
+  const G2 = 240;
+  const curve = (b) => Array.from({ length: G2 + 1 }, (_, g) => {
+    const c = -0.98 + (g / G2) * 1.96;
+    return [c, 2 * (1 + b * c) ** 2 * (1 - c * c) / ((1 + b) ** 2 + (1 + b * c) ** 2)];
+  });
+  const svg = CH.lines({
+    w: 900, h: 330, x0: -1, x1: 1, y0: 0, y1: 2.1,
+    alt: 'the reduced equal-cluster attention flow at three betas, with its double zeros',
+    xTicks: [-1, -0.5, 0, 0.5, 1], yTicks: [0, 0.5, 1, 1.5, 2],
+    xLabel: 'c = ⟨cluster, cluster⟩', yLabel: 'ċ',
+    series: betas.map((b, i) => ({ name: 'β = ' + b, pts: curve(b), token: ['var(--c-1)', 'var(--c-2)', 'var(--c-3)'][i] })),
+    keys: betas.map((b, i) => ({ token: ['var(--c-1)', 'var(--c-2)', 'var(--c-3)'][i], t: 'β = ' + b, kind: 'line' })),
+  });
+  O.push(C.section({
+    lab: '§7 · attention', title: 'A double zero is not a crossing',
+    wide: true,
+    bodyRaw: C.pRaw('For token dynamics under the rational kernel (1 + β⟨x_i,x_j⟩)^p — never a Transformer/softmax '
+      + 'claim — the reduced equal-cluster flow touches zero at c* = −1/β and rises on both sides: the zero has '
+      + 'multiplicity EXACTLY 2 (decided by exact polynomial division), the denominator is a sum of squares, and '
+      + 'ċ > 0 everywhere else on (−1, 1) for every β > 1. One-sided semi-stability; every pitchfork claim about '
+      + 'this flow is REFUTED, exactly (' + C.m('certs/attnflow-theorems.json') + '). The consensus spectrum {0, −1} '
+      + 'is β- AND p-free — the kernel slope cancels identically, decided by exact dual-number expansion. '
+      + 'Cross-weights of the ⟨u,v⟩ = −1/β family vanish identically, to first order for every p ≥ 2 — and NOT at '
+      + 'p = 1, the model’s own honest candidate for a true bifurcation.')
+      + C.figure({
+        svgRaw: svg,
+        caption: 'The reduced flow at three couplings (float rendering of the exactly-decided object). Each curve '
+          + 'kisses zero at c* = −1/β and never crosses — the degenerate case every finite-budget bifurcation '
+          + 'story dies on. The phantom-bifurcation taxonomy travels with the certificate: the locator transient '
+          + 'is re-demonstrated live (a float budget declares an equilibrium; the exact decision refutes it at '
+          + 'the same point), and the budget-heavy artifacts are carried as origin-measured, never as proved here.',
+      }),
+  }));
+}
+
 /* ------------------------------------------------------------------ method */
 O.push(C.section({
-  lab: '§6 · why you can trust this', title: 'Two implementations, nine falsifiers, one bar',
+  lab: '§8 · why you can trust this', title: 'Two implementations, nine falsifiers, one bar',
   bodyRaw: C.pRaw('The enclosures are radii-polynomial certificates on the augmented (a₀, p, m, w) system, '
     + 'ℓ¹_ν tail bounds (the enclosed object solves the SYSTEM, not an N-mode approximation), both parity blocks '
     + 'of the linearization certified. Two independent implementations agree: the certified T1 radius here equals '
