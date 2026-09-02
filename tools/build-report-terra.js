@@ -59,6 +59,8 @@ const BT = rd('terra-bracket-table.json');
 if (BT.verdict !== 'VERIFIED') die('bracket table not VERIFIED');
 const CEN = [2, 3, 4, 5].map(N => rd('mfg-cap-census-N' + N + '-c-12.json'));
 if (!CEN.every(c => c.verdict === 'VERIFIED' && c.count === 3)) die('census records moved');
+const MULT = rd('mfg-cap-multiplicity.json');
+if (MULT.verdict !== 'VERIFIED') die('multiplicity record not VERIFIED');
 const FLW = rd('facelaw-theorem.json');
 if (FLW.verdict !== 'VERIFIED') die('facelaw theorem not VERIFIED');
 const ATT = rd('attnflow-theorems.json');
@@ -288,7 +290,14 @@ O.push(C.section({
         { raw: C.m(c.stats.seconds.toFixed(1)) },
         { raw: C.tag('EXACTLY 3 · one-to-one', 'held') },
       ]),
-    }),
+    })
+    + C.pRaw('And its FUNCTION-SPACE companion (' + C.m('certs/mfg-cap-multiplicity.json') + '): at each of six '
+      + 'couplings c = −11 … −24 — past the Lasry–Lions monotonicity wall — the constant solution, the '
+      + 'symmetry-broken branch and its half-shift mirror sit in PAIRWISE DISJOINT uniqueness balls with '
+      + 'certified positive density (the deepest floor: min m ≥ ' + MULT.minMOverAllBalls.toExponential(2)
+      + ' at c = −24): AT LEAST THREE distinct exact solutions of the system at every listed coupling. '
+      + 'At c = −9.5, inside the monotone regime, the branch collapses onto the constant and no claim is made '
+      + '— the recorded boundary.'),
 }));
 
 /* ------------------------------------------------- the selection wing */

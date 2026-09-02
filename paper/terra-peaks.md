@@ -2,7 +2,7 @@
 
 **Certified equilibria whose density carries more local maxima than the potential has wells — two theorems, a seven-row bracket table, and an exact, gamma-independent crossover constant.**
 
-Draft v0.1 (machine-generated) · 2026-09-01 · repository cert-machine @ git 844241e
+Draft v0.1 (machine-generated) · 2026-09-02 · repository cert-machine @ git fac3b8a
 
 [OPERATOR] author line · [OPERATOR] venue · [OPERATOR] acknowledgments · [OPERATOR] AI-involvement disclosure wording
 
@@ -174,6 +174,16 @@ boxes; every subbox eliminated by interval-residual or Krawczyk exclusion, each
 solution isolated by Moore–Krawczyk K(X) ⊂ int(X)). The claim is stated
 box-bounded and truncation-level; the PDE-level count is an open problem.
 (`certs/mfg-cap-census-N{2..5}-c-12.json`.)
+
+Its FUNCTION-SPACE companion: at each of six couplings c = -11, -12, -14, -16, -20, -24
+— past the Lasry–Lions monotonicity wall c* = −σ²(2π)² — the constant solution,
+the symmetry-broken branch and its half-shift mirror are enclosed in PAIRWISE
+DISJOINT ℓ¹_ν uniqueness balls with certified positive density (deepest floor
+min m ≥ 4.45e-4 at c = −24): AT LEAST THREE distinct exact
+solutions of the SYSTEM at every listed coupling, and the half-shift symmetry
+provably produces a different solution, not a relabeling. At c = −9.5, inside
+the monotone regime, the branch collapses onto the constant and no claim is
+made. (`certs/mfg-cap-multiplicity.json`.)
 
 ## 7. Method and verification posture
 

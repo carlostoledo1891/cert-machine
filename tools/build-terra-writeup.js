@@ -59,6 +59,8 @@ const BT = rd('terra-bracket-table.json');
 if (BT.verdict !== 'VERIFIED' || BT.table.length !== 7) die('bracket table not VERIFIED with 7 rows');
 const CEN = [2, 3, 4, 5].map(N => rd('mfg-cap-census-N' + N + '-c-12.json'));
 if (!CEN.every(c => c.verdict === 'VERIFIED' && c.count === 3)) die('census records moved');
+const MULT = rd('mfg-cap-multiplicity.json');
+if (MULT.verdict !== 'VERIFIED') die('multiplicity record not VERIFIED');
 const want = { t1: 2, t2: 1, t3: 1, t4: 2, t6: 3, t7: 1, t8: 2 };
 for (const t of TAGS) if (PC[t].peaks !== want[t] || PC[t].wells !== 1) die(t + ' counts moved');
 
@@ -244,6 +246,16 @@ boxes; every subbox eliminated by interval-residual or Krawczyk exclusion, each
 solution isolated by Moore–Krawczyk K(X) ⊂ int(X)). The claim is stated
 box-bounded and truncation-level; the PDE-level count is an open problem.
 (\`certs/mfg-cap-census-N{2..5}-c-12.json\`.)
+
+Its FUNCTION-SPACE companion: at each of six couplings c = ${MULT.couplings.map(r => r.c).join(', ')}
+— past the Lasry–Lions monotonicity wall c* = −σ²(2π)² — the constant solution,
+the symmetry-broken branch and its half-shift mirror are enclosed in PAIRWISE
+DISJOINT ℓ¹_ν uniqueness balls with certified positive density (deepest floor
+min m ≥ ${Number(MULT.minMOverAllBalls).toExponential(2)} at c = −24): AT LEAST THREE distinct exact
+solutions of the SYSTEM at every listed coupling, and the half-shift symmetry
+provably produces a different solution, not a relabeling. At c = −9.5, inside
+the monotone regime, the branch collapses onto the constant and no claim is
+made. (\`certs/mfg-cap-multiplicity.json\`.)
 
 ## 7. Method and verification posture
 

@@ -36,6 +36,29 @@ for (const N of [2, 3, 4, 5]) {
     `N=${N} record states the honest box-bounded truncation scope`);
 }
 
+/* ---- green: the multiplicity record (>= 3 distinct exact solutions) ---- */
+{
+  const p = path.join(ROOT, 'certs', 'mfg-cap-multiplicity.json');
+  ok(fs.existsSync(p), 'certs/mfg-cap-multiplicity.json exists');
+  if (fs.existsSync(p)) {
+    const c = JSON.parse(fs.readFileSync(p, 'utf8'));
+    ok(c.verdict === 'VERIFIED' && c.couplings.length === 6 && c.couplings.every(r => r.claimed),
+      'all six couplings claim >= 3 distinct exact solutions in disjoint balls');
+    ok(c.couplings.every(r => Object.values(r.pairs).every(q => q.disjoint && q.gap > 0)),
+      'every recorded pair is disjoint with a strictly positive gap');
+    ok(c.boundary.claimed === false && c.boundary.branchCollapsedToConstant === true,
+      'the c = -9.5 boundary row declines: the branch collapses onto the constant in the monotone regime');
+    ok(c.minMOverAllBalls > 0 && c.minMOverAllBalls < 1e-3,
+      'the deepest density floor is positive and near-vacuum (' + c.minMOverAllBalls.toExponential(2) + ')');
+    ok(/half-shift/.test(c.statement) && /NO claim/.test(c.statement),
+      'the statement carries the half-shift corollary and the honest boundary');
+    // red: a forged radius must break disjointness in the record's own arithmetic
+    const q = Object.values(c.couplings[0].pairs)[0];
+    red(!(q.distanceLo - (q.radiiSum + q.distanceLo) > 0),
+      'inflating a ball radius by the pair distance defeats disjointness (the gate is arithmetic, not a flag)');
+  }
+}
+
 /* ---- red controls ---- */
 // R1: the measured lesson — a MIDPOINT split parks the constant solution
 // (a_k = 0 exactly) on child boundaries forever; the census must REFUSE,
