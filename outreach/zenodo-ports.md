@@ -1,16 +1,25 @@
-# Zenodo deposits for the two ported theorem programs (staged 2026-09-02; clicks are the operator's)
+# Zenodo deposits for the two ported theorem programs (staged 2026-09-02)
 
-Same doctrine as zenodo-plan.md: priority rests on immutable third-party
-timestamps; deposits are earned insurance. The lambda(4) deposit exists
-(10.5281/zenodo.22225861, in CITATION.cff). These two are drafted and
-UNSENT. Recommended order: reserve both DOIs first (Zenodo lets you
-reserve before publishing), hand the strings back to the machine so
-CITATION.cff and the pages carry them, then push + publish the deposits
-against the pushed state.
+STATUS 2026-09-02 (after the v2026.09 release): THE PRIORITY STAMP
+EXISTS. The GitHub→Zenodo integration was on, so the tagged release
+minted a repo-snapshot DOI automatically with the updated .zenodo.json
+metadata: **10.5281/zenodo.22257596** (version v2026.09), under the same
+concept as the lambda(4) deposit — concept DOI **10.5281/zenodo.22225860**
+(resolves to latest). Both theorem programs — papers, records, code —
+are inside that immutable archive, and CITATION.cff + both report-page
+footers now carry the DOIs.
 
-BACKFILL STEP (machine's, after DOIs exist): add both DOIs to
-CITATION.cff (references), to the two report pages' footers, and to
-HANDOFF; one follow-up commit + push.
+WHAT REMAINS OPTIONAL: the two standalone per-result deposits below,
+which buy citation granularity (their own titles, their own DOIs to
+cite in the papers' front matter). They need the operator's account —
+either the clicks, or a Zenodo personal access token
+(zenodo.org → Applications → Personal access tokens, scopes
+deposit:write + deposit:actions) handed to the machine, which will then
+create both from these drafts and the prepared bundles in
+outreach/zenodo-bundles/ (gitignored, rebuilt on demand).
+
+BACKFILL STEP (machine's, if/when the per-result DOIs exist): add them
+to CITATION.cff references and the papers; one commit + push.
 
 ---
 

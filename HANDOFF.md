@@ -160,17 +160,21 @@ decisions; CDP-verified), paper/ember-hotspots.md + .pdf (draft v0.9,
 REMAINS: operator reads the paper; release order (with terra) —
 ALL SENDS HELD; P3 census is a SEPARATE campaign, not started, never
 pre-counted. Race watch: arXiv weekly.
-RELEASE STATE (2026-09-02, operator asked to go live): the push IS the
-publication — origin is 30 commits behind and the live site predates
-BOTH ports. Everything machine-side is ready and committed: both pages
-catalogued on the shelf + certificate table (the gates that refused
-uncatalogued pages did their job), stale pre-release wording fixed,
-site/ rebuilt through the gated pipeline. Zenodo: lambda(4) DOI exists
-(10.5281/zenodo.22225861); the TWO PORT DEPOSITS are drafted paste-ready
-in outreach/zenodo-ports.md (clicks are the operator's; recommended:
-reserve DOIs -> machine stamps CITATION + pages -> push -> publish
-deposits). Waiting on the operator's ordering word: push now and
-backfill DOIs, or reserve DOIs first.
+RELEASED 2026-09-02 (operator: "Send all live"): pushed to origin
+(5c1b0c2 -> 5be75e7, 31 commits — the first publication of BOTH ports),
+tagged v2026.09, GitHub release cut. Vercel auto-deployed; ember.html,
+terra.html, landing and sitemap verified 200 LIVE at carlostoledo.co
+with the release git rev. THE PRIORITY STAMP EXISTS: the GitHub→Zenodo
+integration auto-minted the repo-snapshot DOI 10.5281/zenodo.22257596
+(v2026.09) under concept DOI 10.5281/zenodo.22225860 (same concept as
+lambda(4)'s 22225861 — one archive lineage, versioned per release).
+CITATION.cff rewritten to cite the repo at v2026.09 with lambda(4) as a
+reference; both report footers carry the concept DOI. OPTIONAL REMAINS:
+two standalone per-result deposits for citation granularity
+(outreach/zenodo-ports.md metadata + prebuilt bundles in
+outreach/zenodo-bundles/, gitignored) — need the operator's Zenodo
+clicks or a personal access token. The operator's paper read of
+ember-hotspots.md is still wanted (it is now public as draft v0.9).
 
 SECOND TASK — FINISH LAMBDA(6) (one family of ten remains).
 State at handoff (2026-09-02):

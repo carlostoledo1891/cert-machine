@@ -1,32 +1,49 @@
 cff-version: 1.2.0
-message: "If you use or check this proof, please cite it as below."
-title: "The value of lambda(4): a machine-derived proof completing Mercer's Section-5 program (Chowla's cosine problem, finite front)"
+message: "If you use, check, or build on these results, please cite as below."
+title: "cert-machine: verification layers for AI-scale mathematical search (certified audits, proof-grounded evals, verified reward channels)"
 authors:
   - family-names: "Toledo"
     given-names: "Carlos"
     email: "carlos@carlostoledo.co"
-date-released: "2026-09-01"
-doi: "10.5281/zenodo.22225861"
-url: "https://carlostoledo.co/reports/lambda4.html"
+date-released: "2026-09-02"
+version: "v2026.09"
+doi: "10.5281/zenodo.22257596"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22225860"
+    description: "Concept DOI — resolves to the latest archived version"
+url: "https://carlostoledo.co"
 repository-code: "https://github.com/carlostoledo1891/cert-machine"
 license: MIT
 keywords:
-  - "Chowla cosine problem"
-  - "Erdos problem 510"
-  - "Newman polynomials"
-  - "trigonometric sums"
   - "certified computation"
+  - "interval arithmetic"
   - "exact rational arithmetic"
+  - "computer-assisted proof"
   - "AI-assisted mathematics"
+  - "hot spots conjecture"
+  - "mean-field games"
+  - "Chowla cosine problem"
 abstract: >-
-  A machine-derived proof that lambda(4) = -L(1,2,3,4): the third exact value of
-  Chowla's cosine dip, conjectured by Mercer (INTEGERS 19 (2019) #A4,
-  arXiv:1709.06612) alongside a strategy he could not execute. The strategy is
-  executed and completed mechanically: the fourteen exceptional families are
-  re-derived symbolically (five close themselves), the remaining nine are each
-  closed by second-level weight arguments with derived thresholds, and 2,231
-  finite cases are decided in exact rational arithmetic. Exactly, lambda(4) is
-  the root of 512y^3 - 1227y^2 + 600y + 125 near 1.5195578816428. Includes an
-  independent audit walk sharing no code with the proving engine (25,819 sets,
-  zero holes, zero refuters) and a referee-grade write-up. Machine-derived with
-  Claude (Anthropic) driving certified-arithmetic instruments; not peer-reviewed.
+  A conjecture engine and verification lab: generate mathematical objects at
+  scale, screen in float, certify the survivors exactly (interval enclosures
+  and exact rational decisions — a refutation here is proved). Headline
+  machine-derived results archived in v2026.09: the value of lambda(4)
+  (Chowla's cosine problem, finite front); a certified hot-spots domain
+  beyond every analytically proven class (the second Neumann eigenfunction
+  of a convex trapezoid with no symmetry axis attains its extrema on the
+  boundary only, mu_1 simple in [12.020976137, 12.022398349]); and certified
+  mean-field-game equilibria with more density peaks than potential wells,
+  with the exact discount-free crossover 1/(8 pi^2). Every page recomputes
+  its numbers from the certificates at build; planted red controls must
+  fire; a build that drifts refuses to ship. Machine-derived with Claude
+  (Anthropic) driving certified-arithmetic instruments; not peer-reviewed.
+references:
+  - type: software
+    title: "The value of lambda(4): a machine-derived proof completing Mercer's Section-5 program (Chowla's cosine problem, finite front)"
+    authors:
+      - family-names: "Toledo"
+        given-names: "Carlos"
+    doi: "10.5281/zenodo.22225861"
+    date-released: "2026-09-01"
+    notes: "The lambda(4) release (archive version 1 of this concept); report at https://carlostoledo.co/reports/lambda4.html"

@@ -112,13 +112,13 @@ counted as "staged but unsent".
 are named; six have drafts that have never been sent; of those six, three are
 ready now (1a, 1b, 1c) and three are held on merit until the #290 merge.
 
-### 5. Zenodo: the two port deposits (staged 2026-09-02)
-File: `outreach/zenodo-ports.md` — paste-ready metadata for Deposit E
-(the hot-spots theorem) and Deposit T (the MFG splitting program);
-contents lists name the exact files to upload. Destination: zenodo.org,
-operator's account (like the lambda(4) deposit, 10.5281/zenodo.22225861).
-Recommended flow: RESERVE both DOIs first, hand the strings back so
-CITATION.cff and the report pages carry them at first publication, then
-publish the deposits against the pushed release. `.zenodo.json` now
-carries the repo-snapshot metadata, so a tagged GitHub release mints a
-correct whole-repo DOI if the integration is on.
+### 5. Zenodo: the two port deposits — PARTIALLY DONE 2026-09-02
+THE STAMP EXISTS: the v2026.09 release auto-minted the repo-snapshot
+DOI 10.5281/zenodo.22257596 (concept 10.5281/zenodo.22225860 — same
+concept as lambda(4)'s deposit) via the GitHub integration, archiving
+both theorem programs whole. CITATION.cff and both report-page footers
+carry it. STILL OPTIONAL: the two standalone per-result deposits for
+citation granularity — metadata in `outreach/zenodo-ports.md`, upload
+bundles prebuilt in `outreach/zenodo-bundles/` (gitignored). Needs the
+operator's account: the clicks, or a personal access token
+(deposit:write + deposit:actions) for the machine to do it.
