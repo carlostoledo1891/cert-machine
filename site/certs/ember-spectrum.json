@@ -1,0 +1,163 @@
+{
+ "record": "ember-spectrum",
+ "campaign": "ember — certified hot spots for a trapezoid outside every proven class",
+ "specimen": {
+  "vertices": [
+   "(0, 0)",
+   "(1, 0)",
+   "(17/20, 9/10)",
+   "(1/4, 9/10)"
+  ],
+  "note": "vertices are EXACT RATIONALS; convex; side slopes 6 and 18/5; no symmetry axis; not a lip domain"
+ },
+ "generated": "2026-09-02T14:40:14.383Z",
+ "trustBase": [
+  "instruments/interval rigor model (outward-rounded IEEE doubles; exact BigInt rationals)",
+  "instruments/ivspecial (interval Γ Spouge + Bessel J_ν; battery: closed-form falsifiers + bigfloat/exact-rational cross-gates)",
+  "Liu framework Thm 2.4 (Appl. Math. Comput. 2015), as quoted in You–Xie–Liu arXiv:1808.08148 §2 — LITERATURE INPUT, assumed not certified; pinned at corpus/sources/liu2018_arxiv-1808-08148.pdf (sha256 fb867aa5…), transcription beside the pin",
+  "Liu Lemma 3.2 CR interpolation constant 0.1893·h_K, arXiv:1808.08148 p.8 (Lemma 3.2 quoting Liu 2015) — LITERATURE INPUT, assumed not certified; same pin",
+  "classical facts: Neumann separation in a sector + H¹ regularity (excludes the singular Bessel family), Green identity, spectral theorem, Courant"
+ ],
+ "source": {
+  "bench": "/Users/carlostoledo/Documents/frontier-apps/experiments/ember/",
+  "note": "frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial"
+ },
+ "verdict": "VERIFIED",
+ "statement": "Two-sided spectrum localization for the trapezoid: μ1 ∈ [lower, upper] with exactly one nonzero eigenvalue below μ2lo, hence μ1 is simple. Uppers: interval Galerkin Rayleigh–Ritz (floats only pick the subspace). Lowers: exact-rational Crouzeix–Raviart + interval LDLᵀ inertia + Liu framework Thm 2.4 with the CR constant 0.1893·h_K.",
+ "mu1": [
+  11.892662878023904,
+  12.041819147219154
+ ],
+ "mu2lo": 13.95593603770136,
+ "mu2up": 14.126846955679559,
+ "simple": true,
+ "galerkin": {
+  "NU": 12,
+  "NV": 12,
+  "dim": 169,
+  "upperMu1": 12.041819147219154,
+  "upperMu2": 14.126846955679559,
+  "floatMu1": 12.041819147218863,
+  "floatMu2": 14.126846955679053
+ },
+ "cr": {
+  "n": 12,
+  "ndof": 456,
+  "hmax": 0.12611386438502095,
+  "sigma1": 11.97382227487445,
+  "sigma2": 14.067831642400789,
+  "lowerMu1": 11.892662878023904,
+  "lowerMu2": 13.95593603770136
+ },
+ "calibration": {
+  "rectangleUpperMu1": 9.869604401089406,
+  "rectangleLowerMu1": 9.791229322947887,
+  "exact": "π²"
+ },
+ "checks": [
+  {
+   "name": "Liu arXiv:1808.08148 pin re-hashed (the two literature inputs)",
+   "ok": true,
+   "detail": "fb867aa5ab937b92"
+  },
+  {
+   "name": "rectangle: table parity vs Simpson",
+   "ok": true,
+   "detail": "20 integrals, worst dev 5.5e-10"
+  },
+  {
+   "name": "rectangle: constant-mode row encloses 0",
+   "ok": true
+  },
+  {
+   "name": "rectangle: float λ0 ≈ 0 (constant)",
+   "ok": true
+  },
+  {
+   "name": "rectangle: certified upper ≥ float (sanity)",
+   "ok": true
+  },
+  {
+   "name": "rectangle: certified upper vs exact π²",
+   "ok": true,
+   "detail": "upper 9.8696044 vs π² 9.8696044"
+  },
+  {
+   "name": "rectangle CR: K·1 = 0 exactly (rational)",
+   "ok": true
+  },
+  {
+   "name": "rectangle CR: M diagonal positive",
+   "ok": true
+  },
+  {
+   "name": "rectangle CR: float λ_h,1 ≈ 0",
+   "ok": true
+  },
+  {
+   "name": "rectangle CR: inertia certificate μ1",
+   "ok": true,
+   "detail": "σ=9.834602"
+  },
+  {
+   "name": "rectangle CR: inertia certificate μ2",
+   "ok": true,
+   "detail": "σ=12.131616"
+  },
+  {
+   "name": "rectangle: two-sided enclosure contains π²",
+   "ok": true,
+   "detail": "[9.791229, 9.869604]"
+  },
+  {
+   "name": "trapezoid: table parity vs Simpson",
+   "ok": true,
+   "detail": "20 integrals, worst dev 7.4e-10"
+  },
+  {
+   "name": "trapezoid: constant-mode row encloses 0",
+   "ok": true
+  },
+  {
+   "name": "trapezoid: float λ0 ≈ 0 (constant)",
+   "ok": true
+  },
+  {
+   "name": "trapezoid: certified upper ≥ float (sanity)",
+   "ok": true
+  },
+  {
+   "name": "trapezoid CR: K·1 = 0 exactly (rational)",
+   "ok": true
+  },
+  {
+   "name": "trapezoid CR: M diagonal positive",
+   "ok": true
+  },
+  {
+   "name": "trapezoid CR: float λ_h,1 ≈ 0",
+   "ok": true
+  },
+  {
+   "name": "trapezoid CR: inertia certificate μ1",
+   "ok": true,
+   "detail": "σ=11.973822"
+  },
+  {
+   "name": "trapezoid CR: inertia certificate μ2",
+   "ok": true,
+   "detail": "σ=14.067832"
+  },
+  {
+   "name": "trapezoid: μ1 lower ≤ upper",
+   "ok": true,
+   "detail": "[11.892663, 12.041819]"
+  },
+  {
+   "name": "trapezoid: CERTIFIED SPECTRAL GAP — lower(μ2) > upper(μ1) ⇒ μ1 SIMPLE",
+   "ok": true,
+   "detail": "13.955936 > 12.041819"
+  }
+ ],
+ "secs": 3.9
+}

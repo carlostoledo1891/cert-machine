@@ -1,0 +1,204 @@
+{
+ "what": "sigma* = 1/(8 pi^2) and the band-pass mechanism, decided in exact rationals",
+ "statement": "LINEAR-RESPONSE facts of the congestion-MFG transfer function c(kappa) = kappa/[(1+sigma kappa)^2 + gamma kappa], each a polynomial identity over Q decided by exact coefficient arithmetic: the gain peaks at kappa = 1/sigma for EVERY gamma (the gamma term cancels identically in D - kappa dD/dkappa); the k-th-vs-first harmonic crossover polynomial factors as (k^2-1)(1-k^2 s^2) with g-coefficient IDENTICALLY ZERO, so c_k = c_1 exactly at sigma = 1/(4 pi^2 k) \u2014 sigma* = 1/(8 pi^2) at k=2, gamma-independent by exact cancellation, replacing terra's 12-digit float agreement; the limiting splitting windows are the exact rationals (1/16, 1/4) at k=2 and (1/27, 1/3) at k=3 via the Chebyshev U_{k-1} law. HONEST FRAMING: linear response predicts; only the enclosure and peak-count certificates prove. The crowd re-weights harmonics the potential already contains \u2014 it does not invent structure.",
+ "verdict": "VERIFIED",
+ "P1_bandpass": {
+  "identity": true,
+  "gammaFree": true,
+  "lhs": "-1*sigma^2*kappa^2 + 1",
+  "rhs": "-1*sigma^2*kappa^2 + 1"
+ },
+ "P2_crossover": [
+  {
+   "k": 2,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-12*s^2 + 3"
+  },
+  {
+   "k": 3,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-72*s^2 + 8"
+  },
+  {
+   "k": 4,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-240*s^2 + 15"
+  },
+  {
+   "k": 5,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-600*s^2 + 24"
+  },
+  {
+   "k": 6,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-1260*s^2 + 35"
+  },
+  {
+   "k": 7,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-2352*s^2 + 48"
+  },
+  {
+   "k": 8,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-4032*s^2 + 63"
+  },
+  {
+   "k": 9,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-6480*s^2 + 80"
+  },
+  {
+   "k": 10,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-9900*s^2 + 99"
+  },
+  {
+   "k": 11,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-14520*s^2 + 120"
+  },
+  {
+   "k": 12,
+   "identity": true,
+   "gammaFree": true,
+   "rootIsOneOverK": true,
+   "signBelowPositive": true,
+   "signAboveNegative": true,
+   "N": "-20592*s^2 + 143"
+  }
+ ],
+ "P3_windows": [
+  {
+   "k": 2,
+   "flatThreshold": "1/4",
+   "limitGainRatio": "4",
+   "window": [
+    "1/16",
+    "1/4"
+   ],
+   "exact": true
+  },
+  {
+   "k": 3,
+   "flatThreshold": "1/3",
+   "limitGainRatio": "9",
+   "window": [
+    "1/27",
+    "1/3"
+   ],
+   "exact": true
+  }
+ ],
+ "sigmaStar": {
+  "exact": "1/(8*pi^2)",
+  "piBracketRational": [
+   "428994114659828544271324082642382647009144088181506540481554117690906642544051519400042380565371135733228114237887070001835339982556105428317848467669722043875673653882485568159999054663473010078252/136553067810886069125631050740320524060221007425955776648702472923428271533895649839954425584859077522497782490156604378205192153547901074572390842329723333568869403364942627376876771450042724609375",
+   "980182912939362651092892116984621567192373266188041129032417475703161120042953456490577264350291563561364917389325680210758195442223248790653968657126115990677977417828960306303659501378345463850048136/312001911457024926181006849973513946193755366607120796718021358234365851931506136580321469753309414686503833344809415947498351240112386291225981492188645061471495567584355512735783122479915618896484375"
+  ],
+  "bracketRational": [
+   "97345192752837221895087921342408061657245807471526791403078698408632503377394913964136662386955579238074394080290592453291161607474480645921175130912010585447877656424560770542827717312437492597640643909095461668521157781463404209720475342824095035622055553545805411049362877680420129701603516547374144505592825190933317201250651877395355947631607959147785114929762873003937784233130514621734619140625/7686068342546353459415553165791429003529836904507039696946643683960951437703430474892769495955017239912110678304237395140175597523906537081769651304932812382111419558043580755426394428002358902692403453128051213156537525527180695807287489969023477120475911140578788665821609602961502911980175841807567033669127433383556683955134438814741643620135564200357991143443972210902668987106823175966156136595968",
+   "18646740328564449110894073680064475021040202544230127477746920220135372202133327998497664267969320062799385083577023750841223791117068579475033472188235085621413718471683574773659955904313615207667154894967272321510847565949739567051519614160865953543300279915535623318171725581825986424283898983982383144606706876847860858286128776797026224152921438357612127223461584435426630079746246337890625/1472287603302160959348372869722225039064478585368608193742628933041516045627657016602226234352355075820224261158468125607569172886574264469564670376259461436881460124661566069488979851044175906696361378917635080030319185367204999518219532023962804368205008513647900540748212430380466357144399692993057960331128450237854390908713967171696315259180549726761945483751245668592056396098239705307004032"
+  ],
+  "bracketDecimal": [
+   0.012665147955292222,
+   0.012665147955292222
+  ],
+  "widthDecimal": 1.260457206935725e-44,
+  "note": "rational endpoints are the certificate; the decimal rendering is display only"
+ },
+ "sigmaStarPerK": [
+  {
+   "k": 2,
+   "sigma": "1/(4*pi^2*2)"
+  },
+  {
+   "k": 3,
+   "sigma": "1/(4*pi^2*3)"
+  },
+  {
+   "k": 4,
+   "sigma": "1/(4*pi^2*4)"
+  },
+  {
+   "k": 5,
+   "sigma": "1/(4*pi^2*5)"
+  },
+  {
+   "k": 6,
+   "sigma": "1/(4*pi^2*6)"
+  },
+  {
+   "k": 7,
+   "sigma": "1/(4*pi^2*7)"
+  },
+  {
+   "k": 8,
+   "sigma": "1/(4*pi^2*8)"
+  },
+  {
+   "k": 9,
+   "sigma": "1/(4*pi^2*9)"
+  },
+  {
+   "k": 10,
+   "sigma": "1/(4*pi^2*10)"
+  },
+  {
+   "k": 11,
+   "sigma": "1/(4*pi^2*11)"
+  },
+  {
+   "k": 12,
+   "sigma": "1/(4*pi^2*12)"
+  }
+ ],
+ "provenance": {
+  "derivation": "frontier-apps/experiments/terra/LAYER2.md (read, not lifted; no git at source); every identity re-derived and decided here"
+ },
+ "meta": {
+  "date": "2026-09-01",
+  "git": "5c1b0c2"
+ }
+}

@@ -1,0 +1,318 @@
+{
+ "what": "certified non-uniqueness for the mfg-cap system: >= 3 distinct exact solutions per coupling",
+ "statement": "For sigma = 1/2, V = 0, nu = 1.02, at each coupling c in {-11, -12, -14, -16, -20, -24} — past the Lasry-Lions monotonicity wall c* = -sigma^2 (2pi)^2 — the constant solution, the symmetry-broken branch and its half-shift mirror are enclosed in PAIRWISE DISJOINT ell^1_nu balls with local uniqueness (radii-polynomial, validate.js) and certified positive density: AT LEAST THREE distinct exact solutions of the system at every listed coupling. The half-shift corollary is thereby concrete: the symmetry provably produces a different solution, not a relabeling. At c = -9.5, inside the monotone regime, the branch collapses onto the constant and NO claim is made — the recorded boundary. Function-space companion to the truncation-level EXACTLY-3 census (certs/mfg-cap-census-*.json).",
+ "verdict": "VERIFIED",
+ "sigma": 0.5,
+ "N": "per coupling (16; 24 at c=-20; 32 at c=-24)",
+ "nu": 1.02,
+ "cStar": -9.869604401089358,
+ "couplings": [
+  {
+   "c": -11,
+   "N": 16,
+   "balls": {
+    "constant": {
+     "r": 7.044553294033026e-15,
+     "Y0": 5.329070518200831e-15,
+     "Z1": 0.20596522047187288,
+     "kappa": 0.20596522047204915,
+     "minM": 0.999999999999991
+    },
+    "branch": {
+     "r": 4.727436281189864e-13,
+     "Y0": 3.2764628310487083e-13,
+     "Z1": 0.2722743780750218,
+     "kappa": 0.2722743780894953,
+     "minM": 0.29738944839017
+    },
+    "mirror": {
+     "r": 4.727436281189876e-13,
+     "Y0": 3.2764628310487023e-13,
+     "Z1": 0.2722743780750218,
+     "kappa": 0.2722743780894953,
+     "minM": 0.29738944839017184
+    }
+   },
+   "pairs": {
+    "constant|branch": {
+     "distanceLo": 6.7016671191917006,
+     "radiiSum": 4.797881814130195e-13,
+     "gap": 6.70166711919122,
+     "disjoint": true
+    },
+    "constant|mirror": {
+     "distanceLo": 6.7016671191917006,
+     "radiiSum": 4.797881814130207e-13,
+     "gap": 6.70166711919122,
+     "disjoint": true
+    },
+    "branch|mirror": {
+     "distanceLo": 8.234912229546977,
+     "radiiSum": 9.45487256237974e-13,
+     "gap": 8.23491222954603,
+     "disjoint": true
+    }
+   },
+   "claimed": true,
+   "conclusion": "AT LEAST THREE distinct exact solutions at this coupling — three disjoint uniqueness balls"
+  },
+  {
+   "c": -12,
+   "N": 16,
+   "balls": {
+    "constant": {
+     "r": 7.216737409379427e-15,
+     "Y0": 5.329070518200831e-15,
+     "Z1": 0.22468933142386083,
+     "kappa": 0.22468933142396344,
+     "minM": 0.9999999999999908
+    },
+    "branch": {
+     "r": 1.627349602833864e-11,
+     "Y0": 1.1063135985151644e-11,
+     "Z1": 0.320174523921323,
+     "kappa": 0.32017452428786053,
+     "minM": 0.16290989613683637
+    },
+    "mirror": {
+     "r": 1.6273496028338714e-11,
+     "Y0": 1.1063135985151642e-11,
+     "Z1": 0.320174523921323,
+     "kappa": 0.32017452428786053,
+     "minM": 0.16290989613683945
+    }
+   },
+   "pairs": {
+    "constant|branch": {
+     "distanceLo": 10.786902469109082,
+     "radiiSum": 1.628071276574802e-11,
+     "gap": 10.7869024690928,
+     "disjoint": true
+    },
+    "constant|mirror": {
+     "distanceLo": 10.786902469109082,
+     "radiiSum": 1.6280712765748094e-11,
+     "gap": 10.7869024690928,
+     "disjoint": true
+    },
+    "branch|mirror": {
+     "distanceLo": 11.521700243201753,
+     "radiiSum": 3.254699205667736e-11,
+     "gap": 11.521700243169205,
+     "disjoint": true
+    }
+   },
+   "claimed": true,
+   "conclusion": "AT LEAST THREE distinct exact solutions at this coupling — three disjoint uniqueness balls"
+  },
+  {
+   "c": -14,
+   "N": 16,
+   "balls": {
+    "constant": {
+     "r": 7.222947742346329e-15,
+     "Y0": 5.329070518200831e-15,
+     "Z1": 0.2621375533278368,
+     "kappa": 0.2621375533278968,
+     "minM": 0.9999999999999908
+    },
+    "branch": {
+     "r": 5.894585376389874e-9,
+     "Y0": 3.323048330023838e-9,
+     "Z1": 0.4080667543451673,
+     "kappa": 0.40806686417726556,
+     "minM": 0.05633696495243755
+    },
+    "mirror": {
+     "r": 5.894585376389893e-9,
+     "Y0": 3.323048330023838e-9,
+     "Z1": 0.4080667543451673,
+     "kappa": 0.40806686417726556,
+     "minM": 0.05633696495244248
+    }
+   },
+   "pairs": {
+    "constant|branch": {
+     "distanceLo": 18.79423712856165,
+     "radiiSum": 5.894592599337616e-9,
+     "gap": 18.794237122667056,
+     "disjoint": true
+    },
+    "constant|mirror": {
+     "distanceLo": 18.79423712856165,
+     "radiiSum": 5.894592599337635e-9,
+     "gap": 18.794237122667056,
+     "disjoint": true
+    },
+    "branch|mirror": {
+     "distanceLo": 16.760340832609593,
+     "radiiSum": 1.1789170752779768e-8,
+     "gap": 16.760340820820417,
+     "disjoint": true
+    }
+   },
+   "claimed": true,
+   "conclusion": "AT LEAST THREE distinct exact solutions at this coupling — three disjoint uniqueness balls"
+  },
+  {
+   "c": -16,
+   "N": 16,
+   "balls": {
+    "constant": {
+     "r": 1.3309737613339425e-14,
+     "Y0": 8.881784197001412e-15,
+     "Z1": 0.2995857752318127,
+     "kappa": 0.29958577523189583,
+     "minM": 0.9999999999999847
+    },
+    "branch": {
+     "r": 2.1378648328799066e-7,
+     "Y0": 1.0294554811465847e-7,
+     "Z1": 0.494387028474187,
+     "kappa": 0.4943908944417477,
+     "minM": 0.019035819954819427
+    },
+    "mirror": {
+     "r": 2.1378648328799113e-7,
+     "Y0": 1.0294554811465847e-7,
+     "Z1": 0.494387028474187,
+     "kappa": 0.4943908944417477,
+     "minM": 0.01903581995482648
+    }
+   },
+   "pairs": {
+    "constant|branch": {
+     "distanceLo": 27.27875565817426,
+     "radiiSum": 2.1378649659772826e-7,
+     "gap": 27.27875544438776,
+     "disjoint": true
+    },
+    "constant|mirror": {
+     "distanceLo": 27.27875565817426,
+     "radiiSum": 2.1378649659772874e-7,
+     "gap": 27.27875544438776,
+     "disjoint": true
+    },
+    "branch|mirror": {
+     "distanceLo": 21.43384358917619,
+     "radiiSum": 4.275729665759818e-7,
+     "gap": 21.433843161603217,
+     "disjoint": true
+    }
+   },
+   "claimed": true,
+   "conclusion": "AT LEAST THREE distinct exact solutions at this coupling — three disjoint uniqueness balls"
+  },
+  {
+   "c": -20,
+   "N": 24,
+   "balls": {
+    "constant": {
+     "r": 1.5003065999662225e-14,
+     "Y0": 1.0658141036401738e-14,
+     "Z1": 0.25464790894704414,
+     "kappa": 0.25464790894711276,
+     "minM": 0.9999999999999821
+    },
+    "branch": {
+     "r": 9.265319398003326e-9,
+     "Y0": 4.935726317047381e-9,
+     "Z1": 0.4406546394888118,
+     "kappa": 0.4406548180365802,
+     "minM": 0.0032822343078426613
+    },
+    "mirror": {
+     "r": 9.265319398003371e-9,
+     "Y0": 4.935726317047381e-9,
+     "Z1": 0.4406546394888118,
+     "kappa": 0.4406548180365802,
+     "minM": 0.0032822343078545368
+    }
+   },
+   "pairs": {
+    "constant|branch": {
+     "distanceLo": 46.70355475786101,
+     "radiiSum": 9.265334401069326e-9,
+     "gap": 46.70355474859567,
+     "disjoint": true
+    },
+    "constant|mirror": {
+     "distanceLo": 46.70355475786101,
+     "radiiSum": 9.26533440106937e-9,
+     "gap": 46.70355474859567,
+     "disjoint": true
+    },
+    "branch|mirror": {
+     "distanceLo": 30.51686142602056,
+     "radiiSum": 1.8530638796006696e-8,
+     "gap": 30.51686140748992,
+     "disjoint": true
+    }
+   },
+   "claimed": true,
+   "conclusion": "AT LEAST THREE distinct exact solutions at this coupling — three disjoint uniqueness balls"
+  },
+  {
+   "c": -24,
+   "N": 32,
+   "balls": {
+    "constant": {
+     "r": 1.4538324586393316e-14,
+     "Y0": 1.0658141036401814e-14,
+     "Z1": 0.2314980990427696,
+     "kappa": 0.23149809904282653,
+     "minM": 0.9999999999999817
+    },
+    "branch": {
+     "r": 1.0863058128516093e-9,
+     "Y0": 6.358343470131555e-10,
+     "Z1": 0.414681987051153,
+     "kappa": 0.41468201021524115,
+     "minM": 0.0004446712169844009
+    },
+    "mirror": {
+     "r": 1.0863058128516155e-9,
+     "Y0": 6.358343470131555e-10,
+     "Z1": 0.414681987051153,
+     "kappa": 0.41468201021524115,
+     "minM": 0.00044467121700110366
+    }
+   },
+   "pairs": {
+    "constant|branch": {
+     "distanceLo": 70.01252343039322,
+     "radiiSum": 1.0863203511761958e-9,
+     "gap": 70.01252342930688,
+     "disjoint": true
+    },
+    "constant|mirror": {
+     "distanceLo": 70.01252343039322,
+     "radiiSum": 1.086320351176202e-9,
+     "gap": 70.01252342930688,
+     "disjoint": true
+    },
+    "branch|mirror": {
+     "distanceLo": 39.85055903797396,
+     "radiiSum": 2.172611625703225e-9,
+     "gap": 39.85055903580134,
+     "disjoint": true
+    }
+   },
+   "claimed": true,
+   "conclusion": "AT LEAST THREE distinct exact solutions at this coupling — three disjoint uniqueness balls"
+  }
+ ],
+ "boundary": {
+  "c": -9.5,
+  "claimed": false,
+  "branchCollapsedToConstant": true,
+  "distanceHi": 6.97e-322,
+  "why": "the branch continuation lands ON the constant — no second solution to enclose"
+ },
+ "minMOverAllBalls": 0.0004446712169844009,
+ "meta": {
+  "date": "2026-09-02",
+  "git": "fac3b8a",
+  "ms": 3191
+ }
+}

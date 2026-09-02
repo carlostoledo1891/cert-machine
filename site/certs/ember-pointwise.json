@@ -1,0 +1,146 @@
+{
+ "record": "ember-pointwise",
+ "campaign": "ember — certified hot spots for a trapezoid outside every proven class",
+ "specimen": {
+  "vertices": [
+   "(0, 0)",
+   "(1, 0)",
+   "(17/20, 9/10)",
+   "(1/4, 9/10)"
+  ],
+  "note": "vertices are EXACT RATIONALS; convex; side slopes 6 and 18/5; no symmetry axis; not a lip domain"
+ },
+ "generated": "2026-09-02T14:40:35.823Z",
+ "trustBase": [
+  "instruments/interval rigor model (outward-rounded IEEE doubles; exact BigInt rationals)",
+  "instruments/ivspecial (interval Γ Spouge + Bessel J_ν; battery: closed-form falsifiers + bigfloat/exact-rational cross-gates)",
+  "Liu framework Thm 2.4 (Appl. Math. Comput. 2015), as quoted in You–Xie–Liu arXiv:1808.08148 §2 — LITERATURE INPUT, assumed not certified; pinned at corpus/sources/liu2018_arxiv-1808-08148.pdf (sha256 fb867aa5…), transcription beside the pin",
+  "Liu Lemma 3.2 CR interpolation constant 0.1893·h_K, arXiv:1808.08148 p.8 (Lemma 3.2 quoting Liu 2015) — LITERATURE INPUT, assumed not certified; same pin",
+  "classical facts: Neumann separation in a sector + H¹ regularity (excludes the singular Bessel family), Green identity, spectral theorem, Courant"
+ ],
+ "source": {
+  "bench": "/Users/carlostoledo/Documents/frontier-apps/experiments/ember/",
+  "note": "frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial"
+ },
+ "verdict": "VERIFIED",
+ "statement": "Every CORE cell of the 1/100 grid (corner-min depth ≥ 3/40, exact — cell-min by concavity) is killed on both sides: certified witnesses beat the certified whole-cell sup + solid-mean e-bound. With stage-collar killing the complementary cells and the tips covering R1 cells, the interior partition closes by construction. Solid-mean lemma with EXACT kernel norm I₀ = 5/48 (derived in rationals).",
+ "I0": "5/48",
+ "kernelNote": "G_R(r) = (1/2π)(ln(R/r) − (R²−r²)/2R²), ‖G_R‖_{L²(B_R)} = R√(I₀/2π)",
+ "inputs": {
+  "E_L2": 0.00006535174499233859,
+  "deltaLambda": 0.0007111051384348386,
+  "mu1up": 12.022398348138436,
+  "from": [
+   "certs/ember-eigenpair.json"
+  ]
+ },
+ "NuUpGlobal": 2.499744223864139,
+ "witnesses": {
+  "max": {
+   "x": 0.0455553961419178,
+   "y": 0.039047482407358114,
+   "R": 0.03176948995037966,
+   "eBound": 0.0011710570276222887,
+   "value": 2.1260290907622075,
+   "meaning": "φ̂(w₊) ≥ value"
+  },
+  "min": {
+   "x": 0.7967991251724212,
+   "y": 0.8503587768497203,
+   "R": 0.047158161992765756,
+   "eBound": 0.0007974176286844512,
+   "value": 1.97262217848619,
+   "meaning": "−φ̂(w₋) ≥ value"
+  },
+  "minDeep": {
+   "x": 0.8305,
+   "y": 0.881,
+   "R": 0.018,
+   "eBound": 0.002054317062156894,
+   "value": 1.9938107725305556,
+   "meaning": "−φ̂(w₋′) ≥ value — the collar/corner witness"
+  }
+ },
+ "core": {
+  "depthFloor": "3/40",
+  "grid": "1/100, refine to 1/400",
+  "rule": "CORE cell ⇔ corner-min depth ≥ 3/40 (exact rational; cell-min by concavity); complementary cells are stage-collar's; entirely-in-tip cells (R1) are the tip lemmas'",
+  "supPlus": 2.086146764692134,
+  "supMinus": 1.9715110520750174,
+  "eBoundCore": 0.0005498282192696464,
+  "R": 0.07,
+  "marginMax": 0.039332497850803616,
+  "marginMin": 0.0005612981919025373,
+  "cells": {
+   "coreCells": 4690,
+   "evals": 4746,
+   "refined": 14,
+   "survivors": 0
+  }
+ },
+ "boundaryLandscape": {
+  "max": {
+   "v": 2.150965178905131,
+   "x": 0,
+   "y": 0,
+   "e": 0,
+   "t": 0
+  },
+  "min": {
+   "v": -1.9997763220053326,
+   "x": 0.8305,
+   "y": 0.9,
+   "e": 2,
+   "t": 0.0325
+  },
+  "note": "float steering only — no claim"
+ },
+ "checks": [
+  {
+   "name": "trial identity vs defect record",
+   "ok": true
+  },
+  {
+   "name": "I₀ = 5/48 DERIVED in exact rationals",
+   "ok": true
+  },
+  {
+   "name": "I₀ numeric parity",
+   "ok": true,
+   "detail": "0.104167"
+  },
+  {
+   "name": "witness(+) ball inside Ω (exact rational decision)",
+   "ok": true
+  },
+  {
+   "name": "witness(−) ball inside Ω (exact rational decision)",
+   "ok": true
+  },
+  {
+   "name": "deep min witness ball inside Ω (exact rational decision)",
+   "ok": true
+  },
+  {
+   "name": "deep min witness beats the shallow one",
+   "ok": true,
+   "detail": "1.993811 > 1.972622"
+  },
+  {
+   "name": "CORE: every core cell killed on both sides (zero survivors)",
+   "ok": true,
+   "detail": "{\"coreCells\":4690,\"evals\":4746,\"refined\":14,\"survivors\":0}"
+  },
+  {
+   "name": "CORE (max side) margin positive",
+   "ok": true,
+   "detail": "2.126029 > 2.086697"
+  },
+  {
+   "name": "CORE (min side) margin positive",
+   "ok": true,
+   "detail": "1.972622 > 1.972061"
+  }
+ ],
+ "secs": 13
+}

@@ -1,0 +1,108 @@
+{
+ "record": "ember-eigenpair",
+ "campaign": "ember — certified hot spots for a trapezoid outside every proven class",
+ "specimen": {
+  "vertices": [
+   "(0, 0)",
+   "(1, 0)",
+   "(17/20, 9/10)",
+   "(1/4, 9/10)"
+  ],
+  "note": "vertices are EXACT RATIONALS; convex; side slopes 6 and 18/5; no symmetry axis; not a lip domain"
+ },
+ "generated": "2026-09-02T14:40:22.808Z",
+ "trustBase": [
+  "instruments/interval rigor model (outward-rounded IEEE doubles; exact BigInt rationals)",
+  "instruments/ivspecial (interval Γ Spouge + Bessel J_ν; battery: closed-form falsifiers + bigfloat/exact-rational cross-gates)",
+  "Liu framework Thm 2.4 (Appl. Math. Comput. 2015), as quoted in You–Xie–Liu arXiv:1808.08148 §2 — LITERATURE INPUT, assumed not certified; pinned at corpus/sources/liu2018_arxiv-1808-08148.pdf (sha256 fb867aa5…), transcription beside the pin",
+  "Liu Lemma 3.2 CR interpolation constant 0.1893·h_K, arXiv:1808.08148 p.8 (Lemma 3.2 quoting Liu 2015) — LITERATURE INPUT, assumed not certified; same pin",
+  "classical facts: Neumann separation in a sector + H¹ regularity (excludes the singular Bessel family), Green identity, spectral theorem, Courant"
+ ],
+ "source": {
+  "bench": "/Users/carlostoledo/Documents/frontier-apps/experiments/ember/",
+  "note": "frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial"
+ },
+ "verdict": "VERIFIED",
+ "statement": "μ1 ∈ mu1 and ‖u − c₁φ₁‖_{L²} ≤ eigenfunctionL2Error, via the boundary-residual identity, the rational star-shaped trace constant, and the CR spectrum localization; also |e|_{H¹} ≤ EH1 and the δλ = |λ̃ − μ1| bound used by the pointwise machinery.",
+ "inputs": {
+  "defectUpper": 0.000012368817442805293,
+  "mu1CR": [
+   11.892662878023904,
+   12.041819147219154
+  ],
+  "mu2lo": 13.95593603770136,
+  "from": [
+   "certs/ember-defect.json",
+   "certs/ember-spectrum.json"
+  ]
+ },
+ "trace": {
+  "x0": [
+   "21/40",
+   "9/20"
+  ],
+  "c0lo": 0.38540716385197604,
+  "Rup": 0.6914658342969667,
+  "Ctr": 2.642618944992971
+ },
+ "normLower": 0.16599615453196703,
+ "epsilon": 0.00003268607130151679,
+ "F": 3.9975042055993515,
+ "c1lo": 0.16599614166766077,
+ "mu1": [
+  12.020976137861565,
+  12.022398348138436
+ ],
+ "mu1width": 0.001422210276871283,
+ "deltaLambda": 0.0007111051384348386,
+ "eigenfunctionL2Error": 0.00006535174499233859,
+ "relativeL2Error": 0.00039369436142183754,
+ "G": 55.788913003786746,
+ "EH1": 0.00024413872579120952,
+ "checks": [
+  {
+   "name": "trial identity: regenerated coefficients match the defect record element-exact",
+   "ok": true
+  },
+  {
+   "name": "bridge u(0.4,0.3)",
+   "ok": true,
+   "detail": "float=0.79910550 iv=[0.79910550,0.79910550]"
+  },
+  {
+   "name": "bridge u(0.55,0.5)",
+   "ok": true,
+   "detail": "float=-0.53051966 iv=[-0.53051966,-0.53051966]"
+  },
+  {
+   "name": "bridge u(0.62,0.42)",
+   "ok": true,
+   "detail": "float=-0.19795776 iv=[-0.19795776,-0.19795776]"
+  },
+  {
+   "name": "‖u‖ lower bound positive and sane",
+   "ok": true,
+   "detail": "0.1660"
+  },
+  {
+   "name": "c1² > 0",
+   "ok": true,
+   "detail": "0.0276"
+  },
+  {
+   "name": "G decreasing on [μ2lo, ∞) (numeric guard + limit 1)",
+   "ok": true
+  },
+  {
+   "name": "μ1 enclosure tightened vs CR",
+   "ok": true,
+   "detail": "width 1.42e-3 vs CR 1.49e-1"
+  },
+  {
+   "name": "eigenfunction error below core budget",
+   "ok": true,
+   "detail": "3.94e-4 vs budget 1.9e-3"
+  }
+ ],
+ "secs": 4.1
+}

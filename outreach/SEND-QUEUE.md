@@ -111,3 +111,14 @@ counted as "staged but unsent".
 **So the honest count is not "nine of eleven unsent".** Eleven destinations
 are named; six have drafts that have never been sent; of those six, three are
 ready now (1a, 1b, 1c) and three are held on merit until the #290 merge.
+
+### 5. Zenodo: the two port deposits (staged 2026-09-02)
+File: `outreach/zenodo-ports.md` — paste-ready metadata for Deposit E
+(the hot-spots theorem) and Deposit T (the MFG splitting program);
+contents lists name the exact files to upload. Destination: zenodo.org,
+operator's account (like the lambda(4) deposit, 10.5281/zenodo.22225861).
+Recommended flow: RESERVE both DOIs first, hand the strings back so
+CITATION.cff and the report pages carry them at first publication, then
+publish the deposits against the pushed release. `.zenodo.json` now
+carries the repo-snapshot metadata, so a tagged GitHub release mints a
+correct whole-repo DOI if the integration is on.

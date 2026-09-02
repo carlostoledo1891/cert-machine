@@ -121,7 +121,7 @@ function run() {
         'symmetric quadrilateral subcases (arXiv:2604.19003, Apr 2026)',
       ],
       raceWatch: 'arXiv weekly for quadrilateral hot-spots claims',
-      status: 'machine-derived, published nowhere, not peer-reviewed, not independently rerun',
+      status: 'machine-derived, not peer-reviewed, not independently rerun',
     },
     mu1: eig.mu1,
     simple: true,

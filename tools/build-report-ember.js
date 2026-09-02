@@ -67,8 +67,8 @@ O.push(C.stats([
   { k: 'trust base', v: '2 inputs', n: 'two quoted lemmas of Liu (arXiv:1808.08148, pinned sha256 ' + pin.sha256.slice(0, 12) + '…) — named in every record; everything else re-derives here' },
 ]));
 
-O.push(C.scope('Machine-derived; not peer-reviewed; not independently rerun; nothing published yet — every send is '
-  + 'held. The claim is fenced: Judge–Mondal proved all triangles (Annals 2020), lip domains are Atar–Burdzy, '
+O.push(C.scope('Machine-derived; published from this repository; not peer-reviewed; not independently rerun. '
+  + 'The claim is fenced: Judge–Mondal proved all triangles (Annals 2020), lip domains are Atar–Burdzy, '
   + 'convex domains in high dimension are de Dios-Pardo et al., and symmetric quadrilateral subcases are '
   + 'arXiv:2604.19003 — this domain sits outside each class, and the claim is ONE domain, never the quadrilateral '
   + 'conjecture. Race watch: arXiv, weekly. Every number on this page comes from a VERIFIED record in '
@@ -251,7 +251,7 @@ O.push(C.section({
       + 'make test                                # every battery in the machine')
     + C.pRaw('Sources: ' + C.m('instruments/hotspots/') + ' + ' + C.m('instruments/ivspecial/') + ' · literature '
       + 'input pinned at ' + C.m('corpus/sources/liu2018_arxiv-1808-08148.pdf') + ' with its transcription beside '
-      + 'it. All sends are held until released by the author.'),
+      + 'it. Refutations and independent re-runs are invited: carlos@carlostoledo.co.'),
 }));
 
 O.push('<footer><p>cert-machine · built ' + new Date().toISOString().slice(0, 10) + ' · git ' + gitrev

@@ -4,99 +4,45 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SkyAudit São Paulo — the largest urban helicopter market, decided under ANAC rules</title>
 <meta name="description" content="Real ADS-B helicopter traffic over São Paulo (2026-08-26), replayed — every flight audited against published eVTOL specs under ANAC RBAC 91.151(b), with mathematically certified enclosures.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../vendor/maplibre-gl.css">
 <style>:root{
-  --paper:#EDEBEE;
-  --surface:#FBFAFB;
-  --sunk:#F3F1F4;
-  --ink:#16121A;
-  --ink-2:#544C5B;
-  --ink-3:#867C8E;
-  --rule:#D2CBD6;
-  --rule-soft:#E3DEE7;
-  --sig:#6B2D5C;
-  --sig-2:#9A4E86;
-  --sig-soft:#F2E4EE;
-  --held:#2C6142;
-  --held-soft:#DEEBE3;
-  --warn:#8A5212;
-  --warn-soft:#F6E9D8;
-  --mark:#C9C0CE;
-  --c-1:#6F3968;
-  --c-2:#16724E;
-  --c-3:#885218;
-  --c-ctx:var(--ink-3);
-  --c-grid:var(--rule-soft);
-  --c-axis:var(--rule);
-  --c-s1:#C7A5BC;
-  --c-s2:#B982A9;
-  --c-s3:#A86195;
-  --c-s4:#953F80;
-  --c-s5:#7D2169;
-  --f-display:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
-  --f-sans:"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#0F0C12;
-    --surface:#181420;
-    --sunk:#130F18;
-    --ink:#EDE8F0;
-    --ink-2:#A79DAF;
-    --ink-3:#7E7386;
-    --rule:#2E2637;
-    --rule-soft:#231C2B;
-    --sig:#D897C4;
-    --sig-2:#B36F9E;
-    --sig-soft:#2C1B27;
-    --held:#79C79B;
-    --held-soft:#16281E;
-    --warn:#E0A860;
-    --warn-soft:#2B2015;
-    --mark:#332B3C;
-    --c-1:#B67BAE;
-    --c-2:#46A971;
-    --c-3:#C77F35;
-    --c-ctx:var(--ink-3);
-    --c-grid:var(--rule-soft);
-    --c-axis:var(--rule);
-    --c-s1:#663E5B;
-    --c-s2:#8A4E7A;
-    --c-s3:#AF619A;
-    --c-s4:#C97FB4;
-    --c-s5:#DCA3CB;
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#0F0C12;
-  --surface:#181420;
-  --sunk:#130F18;
-  --ink:#EDE8F0;
-  --ink-2:#A79DAF;
-  --ink-3:#7E7386;
-  --rule:#2E2637;
-  --rule-soft:#231C2B;
-  --sig:#D897C4;
-  --sig-2:#B36F9E;
-  --sig-soft:#2C1B27;
-  --held:#79C79B;
-  --held-soft:#16281E;
-  --warn:#E0A860;
-  --warn-soft:#2B2015;
-  --mark:#332B3C;
-  --c-1:#B67BAE;
-  --c-2:#46A971;
-  --c-3:#C77F35;
-  --c-ctx:var(--ink-3);
-  --c-grid:var(--rule-soft);
-  --c-axis:var(--rule);
-  --c-s1:#663E5B;
-  --c-s2:#8A4E7A;
-  --c-s3:#AF619A;
-  --c-s4:#C97FB4;
-  --c-s5:#DCA3CB;
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 :root{--v-cert:#2C6142;--v-refu:#C64B42;--v-refd:#8F8798;--v-cert-soft:#DEEBE3;--v-refu-soft:#F4DEDC;--v-refd-soft:#E8E5EC;--shadow:0 10px 30px rgba(22,18,26,.14)}   /* --f-sans/--f-display/--f-mono come from T.rootCss(), emitted just above */
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--v-cert:#79C79B;--v-refu:#E06B62;--v-refd:#8E8499;--v-cert-soft:#16281E;--v-refu-soft:#2E1917;--v-refd-soft:#211C29;--shadow:0 12px 34px rgba(0,0,0,.5)}}

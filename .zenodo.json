@@ -1,6 +1,6 @@
 {
-  "title": "The value of lambda(4): a machine-derived proof completing Mercer's Section-5 program (Chowla's cosine problem, finite front)",
-  "description": "A machine-derived proof that lambda(4) = -L(1,2,3,4): the third exact value of Chowla's cosine dip (the finite front of Erdős problem #510), conjectured by Idris Mercer in INTEGERS 19 (2019) #A4 (arXiv:1709.06612) alongside a reduction strategy he wrote he could not execute. This repository executes and completes the strategy mechanically: the fourteen exceptional families of Mercer's Section 5 are re-derived symbolically (five are shown to close themselves), the remaining nine are each closed by second-level weight arguments on equispaced sets with thresholds derived rather than transcribed, and 2,231 finite cases are decided in exact rational arithmetic. Exactly, lambda(4) is the root of 512y^3 - 1227y^2 + 600y + 125 in a certified enclosure near 1.5195578816428; the cubic (apparently never printed before) is computed by exact resultant. The archive includes: the full campaign record (certs/lambda4-campaign.json), an independent adversarial audit sharing no code with the proving engine (25,819 gcd-reduced sets walked, every one reached by an explicit clause of the proof, zero holes, zero refuters), a battery that re-derives Mercer's published lambda(2) and lambda(3) proofs from scratch at every run, and a referee-grade prose write-up (paper/lambda4-proof.md). The proof re-runs in one command: node tools/run-lambda4-campaign.js. Machine-derived with Claude (Anthropic) driving certified-arithmetic instruments; the statement, strategy, and core lemmas are Mercer's. NOT peer-reviewed; refutations and independent re-verifications are invited.",
+  "title": "cert-machine: verification layers for AI-scale mathematical search (certified audits, proof-grounded evals, verified reward channels)",
+  "description": "A conjecture engine and verification lab: generate mathematical objects at scale, screen in float, certify the survivors exactly (interval enclosures and exact rational decisions — a refutation here is proved), and hunt closed forms for what survives. The repository carries machine-derived, certificate-backed results with their full records: the value of lambda(4) (Chowla's cosine problem, finite front; DOI 10.5281/zenodo.22225861), a certified hot-spots domain beyond every analytically proven class (the second Neumann eigenfunction of a convex trapezoid with no symmetry axis attains its extrema on the boundary only), certified mean-field-game equilibria with more density peaks than potential wells and the exact crossover 1/(8 pi^2), certified audits of AI-produced mathematics, and proof-grounded model evals. Every page recomputes its numbers from the certificates at build; planted red controls must fire; a build that drifts refuses to ship. Machine-derived with Claude (Anthropic) driving certified-arithmetic instruments; not peer-reviewed. Pinned third-party corpora under corpus/sources/ retain their own licenses.",
   "creators": [
     { "name": "Toledo, Carlos" }
   ],
@@ -8,12 +8,14 @@
   "access_right": "open",
   "license": "MIT",
   "keywords": [
-    "Chowla cosine problem", "Erdos problem 510", "Newman polynomials",
-    "trigonometric sums", "certified computation", "exact rational arithmetic",
-    "interval arithmetic", "AI-assisted mathematics", "computer-assisted proof"
+    "certified computation", "interval arithmetic", "exact rational arithmetic",
+    "computer-assisted proof", "AI-assisted mathematics", "verification",
+    "hot spots conjecture", "mean-field games", "Chowla cosine problem",
+    "spectral geometry"
   ],
   "related_identifiers": [
-    { "identifier": "arXiv:1709.06612", "relation": "cites", "scheme": "arxiv" },
-    { "identifier": "https://carlostoledo.co/reports/lambda4.html", "relation": "isSupplementTo", "scheme": "url" }
+    { "identifier": "https://carlostoledo.co", "relation": "isSupplementTo", "scheme": "url" },
+    { "identifier": "https://github.com/carlostoledo1891/cert-machine", "relation": "isIdenticalTo", "scheme": "url" },
+    { "identifier": "10.5281/zenodo.22225861", "relation": "isSupplementTo", "scheme": "doi" }
   ]
 }

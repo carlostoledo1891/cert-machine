@@ -149,6 +149,14 @@ const csDigitBlock = (() => {
 /* the Keller lane's own objects: counterexamples this machine generated that
    no paper carries. Counted from the certificate, never typed. */
 const kellerNew = kellerMaps.filter((e) => /generated\+certified here/.test(String(e.source))).length;
+
+/* the two ported theorem programs, gated like everything else */
+const emberT = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'ember-theorem.json'), 'utf8'));
+if (emberT.verdict !== 'VERIFIED') fail('the ember theorem record is not VERIFIED — the card claims a theorem');
+const emberMu1 = emberT.mu1.map(Number);
+if (!(emberMu1[0] > 12.02 && emberMu1[1] < 12.03)) fail('ember μ1 enclosure moved — update the card deliberately');
+const terraBT = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'terra-bracket-table.json'), 'utf8'));
+if (terraBT.verdict !== 'VERIFIED') fail('the terra bracket table is not VERIFIED — the card claims theorems');
 if (!kellerNew) fail('the keller certificate holds no counterexample generated here — the landing card claims some');
 
 /* ---- the report shelf, ordered by weight ---------------------------------
@@ -182,6 +190,24 @@ const REPORTS = [
       + 'remainder decided in exact arithmetic. λ(4) = −L(1,2,3,4), the root of 512y³ − 1227y² + 600y + 125 near '
       + '1.51956 — machine-derived, re-proved at every build, and stated with its verification status beside it.',
     n: 'not peer-reviewed · the full record re-derives at build' },
+  /* lane 'ground', ranked here: the two ported theorem programs */
+  { g: 'ground', f: 'ember.html', k: 'certified theorem · hot spots',
+    title: 'The hot spot stays on the boundary',
+    desc: 'The second Neumann eigenfunction of a convex trapezoid with no symmetry axis — to our knowledge the '
+      + 'first certified hot-spots domain outside every analytically proven class (all triangles took Judge–Mondal '
+      + 'an Annals paper; lip domains, high-dimensional convex bodies and symmetric quadrilaterals are the other '
+      + 'fences) — attains its maximum and minimum on the boundary only. Eight machine-checked records, a cell '
+      + 'partition decided in exact rationals, corner coefficients certified at two independent annuli, and red '
+      + 'controls that fire. One domain, one theorem; the quadrilateral conjecture itself stays open.',
+    n: 'μ₁ ∈ [' + emberMu1[0].toFixed(7) + ', ' + (Math.ceil(emberMu1[1] * 1e7) / 1e7).toFixed(7) + '], simple · the chain re-runs in ~2 min' },
+  { g: 'ground', f: 'terra.html', k: 'certified theorems · MFG splitting',
+    title: 'The crowd splits — MFG beyond the uniqueness wall',
+    desc: 'A congestion-averse crowd in a single-well cost landscape provably settles into TWO density peaks — or '
+      + 'THREE. Two computer-assisted theorems and a bracket table of certified instances whose enclosure balls fix '
+      + 'the exact peak count of the exact solution; the discount-free crossover σ* = 1/(8π²) decided in exact '
+      + 'rationals; certified multiplicity where uniqueness theory is silent; an EXACTLY-3 census; the '
+      + '21,567-cell regime map.',
+    n: 'two theorems + a bracket table · honest counting, every bound displayed' },
   { g: 'erdos', f: 'erdos1038-sup.html', k: 'erdős #1038 · the supremum side',
     title: 'How shallow can a lemniscate stay?',
     desc: 'Tao reformulated Erdős #1038 over discrete measures and conjectured the supremum of |{U<0}| is 2√2 — '
@@ -395,8 +421,47 @@ const CERTS = [
   ['matmul-eval-corrections.json', 'Corrections to rows already written in the matmul eval ledger. The ledger is append-only and is never rewritten, so a row that turns out to be MISLABELLED is corrected here and the correction is applied when the report displays it — currently one: 90 rows tagged v4-effort-low ran at the API’s DEFAULT effort, because the harness dropped its --effort argument in campaign mode. A correction naming a tag no row carries, or claiming a row count the ledger does not hold, refuses the report build.', null],
   ['matmul-loop-ledger.jsonl', 'The verifier-in-the-loop ledger — every trajectory round with its verdict and the exact feedback sent; the loop report is built from this file.', null],
   ['skyaudit-forecast-ledger.jsonl', 'The prediction ledger — interval FORECASTS committed before their target day (sha-pinned, append-only) and scored after in exact rationals; coverage claims are conformal counting theorems, never model faith. Wrong forecasts stay forever.', null],
-  ['forecast-gym-ledger.jsonl', 'The Forecast Gym’s append-only ledger — every proposer’s forecast sha-committed before its outcome exists, every score an exact Winkler rational; the gym report and its admission board are built from this file.', null]
+  ['forecast-gym-ledger.jsonl', 'The Forecast Gym’s append-only ledger — every proposer’s forecast sha-committed before its outcome exists, every score an exact Winkler rational; the gym report and its admission board are built from this file.', null],
+  ['lambda56-campaign.json', 'The lambda(5)/lambda(6) campaign record (Chowla’s cosine dip, the non-monotonicity program): lambda(5) = −L(1,2,4,5,6) closed in full — the generic case certified, all eight exception families closed with derived thresholds, 1725 finite sets decided, the extremizer walled — and lambda(6) in progress with nine of its ten families closed in this record. The double-sum-core obstruction theorem (no classical weight works on b+c = a+d = e) and the Fejér–Riesz comb weight that beats it are re-proved by the battery at every run.', null],
+  ['terra-sigmastar.json', 'The exact crossover of the MFG splitting program: σ* = 1/(8π²), discount-free, DECIDED IN EXACT RATIONALS — the crossover polynomial factors, the γ-coefficient is identically zero (checked k = 2..12), the band-pass identity and both harmonic windows are exact, π enters only as a Machin bracket of width 1.3e-44.', NOVERIFIER('terra.html')],
+  ['terra-bracket-table.json', 'The bracket table under the splitting theorems: seven certified rows straddling both predicted thresholds — negatives below the amplitude threshold and past the crossover, replications, and the threshold pin r_c ∈ [0.13, 0.14] with the exact-rational prediction landing inside. Honest counting lives here: two theorems plus a table, never eight.', NOVERIFIER('terra.html')],
+  ['mfg-cap-multiplicity.json', 'Certified multiplicity for the ergodic quadratic MFG past its pitchfork: at each of six couplings, at least THREE distinct exact solutions enclosed in pairwise disjoint uniqueness balls with certified positive density — exactly where Lasry–Lions monotonicity is silent. The c = −9.5 monotone-regime boundary, where the branch collapses and no claim is made, is recorded too.', NOVERIFIER('terra.html')],
+  ['attnflow-theorems.json', 'The attention-wing theorems: a rational-kernel token flow chosen so equilibrium and stability are DECIDABLE in exact ℚ — the consensus spectrum proved β- and p-free by exact dual-number expansion, the two-cluster cross-weights identically zero with the honest p = 1 boundary, the reduced flow’s double zero decided by exact division (every pitchfork claim refuted), and the phantom-bifurcation taxonomy with its live artifact.', NOVERIFIER('terra.html')],
+  ['facelaw-theorem.json', 'The face-dimension law k = |shared| − cons + z, decided against the exact ℚ null space on two seeded 4,000-network ensembles; every instance where the natural shortcut fails (precisely the z > 0 cases) is ENUMERATED here so any reader can re-run any one.', NOVERIFIER('terra.html')],
 ];
+/* the terra enclosure + peak-count records, one pair per instance */
+for (const t of ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8']) {
+  const T = t.toUpperCase();
+  CERTS.push([
+    'terra-recert-' + t + '.json',
+    'The ' + T + ' enclosure of the congestion-MFG splitting program: a radii-polynomial certificate around the stored candidate — exact instance parameters, certified ℓ¹_ν ball radius, contraction bound Z₁, closure margin, and density floor — re-certified here against the frozen published verifier extended with the data terms; nine falsifiers fire per instance at every battery run.',
+    NOVERIFIER('terra.html')]);
+  CERTS.push([
+    'terra-peakcount-' + t + '.json',
+    'The certified peak count for ' + T + ': the exact number of strict maxima of EVERY density in the ' + T + ' enclosure ball, derived from CERTIFIED region signs only (instruments/critcount) — outward coefficient products, ball Lipschitz folded into the cell pad, never a float sign.',
+    NOVERIFIER('terra.html')]);
+}
+/* the mfg-cap census, one record per truncation level */
+for (const N of [2, 3, 4, 5]) {
+  CERTS.push([
+    'mfg-cap-census-N' + N + '-c-12.json',
+    'The Krawczyk exhaustion census at Galerkin level N = ' + N + ': every subbox of the printed box eliminated by interval residual or Krawczyk exclusion, each survivor isolated by K(X) ⊂ int(X) — EXACTLY three solutions of the truncated even system at c = −12, matched one-to-one to the candidates. Box-bounded, truncation-level; the PDE-level count is the stated open problem.',
+    NOVERIFIER('terra.html')]);
+}
+/* the ember chain, one record per stage */
+{
+  const E = {
+    spectrum: 'Stage 1 of the hot-spots chain: two-sided spectrum localization for the trapezoid — interval Galerkin Rayleigh–Ritz uppers (floats only pick the subspace), exact-rational Crouzeix–Raviart assembly with interval LDLᵀ inertia counts and Liu’s framework for the lowers; the certified gap makes μ₁ SIMPLE. The rectangle regression encloses π² at every run.',
+    defect: 'Stage 2: the frozen Helmholtz trial’s boundary defect — order-2 interval Taylor jets along every edge with Bessel-ODE closure, a certified midpoint-Taylor cell rule, value AND derivative bridges against an independent float evaluation, and the exact trial coefficients frozen for every downstream stage.',
+    eigenpair: 'Stage 3: the eigenpair certificate — the boundary-residual identity with the rational star-shaped trace constant and the CR localization tightens μ₁ by a factor of ~105 and encloses the eigenfunction in L²; also the H¹ error and the δλ bound the pointwise machinery consumes.',
+    pointwise: 'Stage 4: the solid-mean pointwise machinery — kernel norm I₀ = 5/48 DERIVED in exact rationals, witness balls decided inside Ω in exact rationals, and every CORE cell of the 1/100 grid (corner-min depth ≥ 3/40, exact by concavity) killed on both sides with zero survivors.',
+    collar: 'Stage 5: the collar sweep — every sub-core cell killed by the value argument with REFLECTED pointwise bounds across its nearest open edge (the single layer bounded by the certified per-edge flux sups), kill-or-refine to 1/800, ZERO residual cells.',
+    corner: 'Stage 6: the four corner-tip certificates — Bessel–Fourier coefficients certified by annulus L² extraction AND re-extracted at a second annulus (the enclosures must intersect — a condition of entry), value kills at B/C/D, radial monotonicity at A, and the ladder-identity wedge bound at C where the boundary minimum lives.',
+    cross: 'The independent cross-derivations: I₀ = 5/48 in exact rationals, the trace constant re-derived on directed dyadic big-floats from the exact-rational star geometry, μ₁ bounded above on an independent conforming P1 basis, and the two-annulus corner condition re-asserted.',
+    theorem: 'The assembled hot-spots theorem: cross-record chain consistency (every stage’s inputs equal the upstream outputs), the interior partition RE-DECIDED IN EXACT RATIONALS, every sweep and tip verdict re-checked, the honest framing with its fence list, and the sha256 of every input record.',
+  };
+  for (const [st, d] of Object.entries(E)) CERTS.push(['ember-' + st + '.json', d, NOVERIFIER('ember.html')]);
+}
 /* WORKING — records that exist while a run is in flight and are NOT part of
    the published set. ONE pattern, used by BOTH the description gate and the
    publication loop below: a file excused from being described must also be

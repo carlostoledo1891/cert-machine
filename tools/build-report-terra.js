@@ -418,7 +418,7 @@ O.push(C.section({
       + 'node labs/mfg/multiplicity.js                     # >= 3 solutions per coupling\n'
       + 'make test                                         # every battery, every red control')
     + C.pRaw('The write-up: ' + C.m('paper/terra-peaks.md') + ' · PDF: ' + C.m('paper/terra-peaks.pdf')
-      + ' — generated from the same certificates as this page. All sends are held until released by the author.'),
+      + ' — generated from the same certificates as this page. Refutations and independent re-runs are invited: carlos@carlostoledo.co.'),
 }));
 
 O.push('<footer><p>cert-machine · built ' + new Date().toISOString().slice(0, 10) + ' · git ' + gitrev

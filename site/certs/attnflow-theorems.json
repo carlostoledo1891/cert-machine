@@ -1,0 +1,87 @@
+{
+ "what": "the decidable attention flow \u2014 exact-Q theorems decided, phantom taxonomy carried",
+ "statement": "For token dynamics on the sphere under the rational kernel (1 + beta<x_i,x_j>)^p (NEVER a Transformer/softmax claim \u2014 that theory is Geshkovski-Letrouit-Polyanskiy-Rigollet, arXiv:2312.10794): the reduced equal-cluster flow has a DOUBLE zero at c* = -1/beta and is strictly positive elsewhere on (-1,1) for every beta > 1 \u2014 one-sided semi-stability, no linear crossing at any beta, every pitchfork claim about it REFUTED exactly; the <u,v> = -1/beta two-cluster family's cross-weights vanish IDENTICALLY, to first order for every p >= 2 (and NOT at p = 1 \u2014 the model's own honest candidate for a true bifurcation); the consensus linearization is (Jv)_i = vbar - v_i with the kernel slope cancelling IDENTICALLY (beta- and p-free, spectrum {0, -1}), decided mechanically at n = 3..6 as the check on the paper's all-n paragraph proof.",
+ "verdict": "VERIFIED",
+ "D1_reducedFlow": {
+  "multiplicityExactly2": true,
+  "denominatorSOS": true,
+  "signStructure": true,
+  "refuted": "any linear-crossing/pitchfork claim for this reduced flow at any beta > 1"
+ },
+ "D2_crossWeights": {
+  "crossWeightIdenticallyZero": true,
+  "firstOrderVanishes_p2to12": true,
+  "p1DerivativeIsOne": true,
+  "honest": "p = 1 breaks first-order vanishing \u2014 the model's own candidate for a true bifurcation, recorded, not smoothed over"
+ },
+ "D3_consensusSpectrum": {
+  "decidedAt": [
+   {
+    "n": 3,
+    "slopeFree": true,
+    "jacobianIsMeanMinusId": true
+   },
+   {
+    "n": 4,
+    "slopeFree": true,
+    "jacobianIsMeanMinusId": true
+   },
+   {
+    "n": 5,
+    "slopeFree": true,
+    "jacobianIsMeanMinusId": true
+   },
+   {
+    "n": 6,
+    "slopeFree": true,
+    "jacobianIsMeanMinusId": true
+   }
+  ],
+  "scope": "decided at the stated sizes; the all-n proof is the paper's (tangent perturbations are orthogonal to the consensus point) \u2014 the machine decision checks it, never replaces it"
+ },
+ "phantomCatalogue": {
+  "what": "a taxonomy of how finite float budgets manufacture bifurcations",
+  "artifacts": [
+   {
+    "name": "locator transient",
+    "status": "RE-DEMONSTRATED LIVE on this bench",
+    "demo": {
+     "live": true,
+     "beta": 2.5,
+     "start": -0.39990000000000003,
+     "budgetSteps": 200000,
+     "phantomEquilibriumDeclared": true,
+     "exactRefutation": true,
+     "note": "the float budget expires with |cdot| < 1e-6 and a locator would file an equilibrium; the exact decision at the same point: cdot > 0, strictly \u2014 a REFUTED here is proved"
+    }
+   },
+   {
+    "name": "Newton metastability",
+    "status": "ORIGIN-MEASURED (slow-manifold points polished into \"equilibria\"); not re-run here",
+    "provenance": "frontier-apps PHASE3E (no git)"
+   },
+   {
+    "name": "the demoted omega-limit",
+    "status": "ORIGIN-MEASURED; not re-run here",
+    "provenance": "frontier-apps PHASE3E (no git)"
+   },
+   {
+    "name": "cutoff slicing",
+    "status": "ORIGIN-MEASURED (beta = 2.5 \"stable\" at 80k steps, collapses ~84.5k; the claimed \"crossing in (2.5, 2.7)\" was the budget's level set on a smooth collapse-time curve); re-running needs the origin's hour-scale float budget \u2014 carried as sourced, not proved here",
+    "provenance": "frontier-apps PHASE3E (no git)"
+   }
+  ],
+  "transfer": "a warning taxonomy for softmax studies where metastability IS the phenomenon"
+ },
+ "refusalHonored": "the cheap edge-of-chaos certificate stays UNBUILT: the origin's own literature gate refused it as \"certifying the wrong object very precisely\" (the mean-field approximation, not any finite network); this port honors that refusal",
+ "provenance": {
+  "origin": "sin-mfg/research/probes/attention-* (read-only)",
+  "settledAt": "frontier-apps/experiments/terra-attn (no git; fourth paper)",
+  "implementation": "instruments/attnflow/attnflow.py, authored fresh"
+ },
+ "meta": {
+  "date": "2026-09-01",
+  "git": "dc8b193",
+  "ms": 171
+ }
+}
