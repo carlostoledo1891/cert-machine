@@ -19,22 +19,40 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
-THE MENU, as of 2026-08-31 (session f). Session logs follow below; this is
-the part to read first. `node tools/targets.js` is the memory behind it —
-19 rows, and the DEAD ones are the afternoons you do not have to spend again.
+THE MENU, as of 2026-09-02 (the release day). Session logs follow below;
+this is the part to read first. `node tools/targets.js` is the memory
+behind it — 25 rows, and the DEAD ones are the afternoons you do not have
+to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
+DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
 
 OPERATOR ACTS — nothing here needs a session, only a decision
 
-  1. OEIS packs 4 and 5 (outreach/oeis-erdos290-pack.md) — DRAFTED, UNSENT,
-     AND NOW OUT OF DATE. They were written when the fourth digit looked like
-     a theorem-level prize. It is not: van Doorn's Theorem 8 states its
-     constants to two decimals, so 0.54 -> 0.546 sharpened a printed theorem
-     and the fourth digit sharpens only a sequence entry. REWORK THE FRAMING
-     BEFORE SENDING. Everything else in outreach/ has gone.
-  2. Whether to keep pushing the aviation front, and whether pushes stay
-     default-on. Both live pushes this session went out without an explicit
-     per-push word.
+  1. READ paper/ember-hotspots.md (draft v0.9, public, journal-typeset)
+     — the standing ask since the port landed.
+  2. APPROVE-OR-EDIT the formal-conjectures issue
+     (outreach/formal-conjectures-hotspots-issue.md, staged verbatim;
+     two knobs flagged: the up-for-grabs checkbox, the self-reference
+     paragraph). On the word, the machine posts it via gh.
+  3. The verification-invitation letters (SEND-QUEUE item 6): three
+     opening sentences, recipient picks, yes/no on the closing line —
+     ember (Hatcher first) and terra (Cirant first; merges the KAUST
+     letter).
+  4. OPTIONAL: the two per-result Zenodo deposits (zenodo-ports.md
+     metadata paste-ready, bundles prebuilt) — clicks or a token.
+  5. OEIS packs 4 and 5 (outreach/oeis-erdos290-pack.md) — DRAFTED,
+     UNSENT, framing needs rework before sending (the fourth digit is an
+     OEIS digit, not a theorem digit).
+  6. Whether the aviation front keeps its default-on pushes.
+
+WAITING ON THE OPERATOR — the band (P3a). Operator, 2026-09-02 evening:
+"Ember will work for some time yet, wait for my instructions." DO NOT
+port, track, or touch the frontier bench until the operator says so.
+When they do: the port trigger is THEOREM-BAND.md + a green zones record
+(last surveyed state: all 32 σ-cells failing); the full intel — the
+transplantation trick, the paid-for dead ends, the cold-spot repricing
+and the fat-margin-specimen route — is in targets ember-port.benchIntel;
+ivspecial is already band-ready (D4 fat-interval-order Γ, falsified).
 
 IN PROGRESS — THE TERRA PORT (operator, 2026-09-01, "full port as
 priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
@@ -223,8 +241,16 @@ merging kaust-mfg-lab.md). Adversarial ask; co-authorship only as the
 natural close. Each needs the operator's three opening sentences +
 recipient choice. SEND-QUEUE item 6.
 
-SECOND TASK — FINISH LAMBDA(6) (one family of ten remains).
-State at handoff (2026-09-02):
+FIRST TASK NEXT SESSION — FINISH LAMBDA(6) (one family of ten remains).
+UPDATE at the 2026-09-02 evening handoff: a+2e = 2f is at ~31.6 h
+elapsed (PID 72893, ~99% CPU, verdict log still 0 bytes) — PAST the
+~30 h scrutiny bar this file set. The next session should NOT just keep
+waiting: check ps; if alive, rerun the shape count mentally against the
+close.js coverage-box growth (the tree is the campaign's heaviest and
+30 h+ is possible but no longer assumed healthy); consider killing and
+rerunning with AUTOCLOSE_TRACE=1 for a stderr heartbeat so progress is
+observable. The decision is the session's; the rerun command is below.
+Original state:
   · lambda(5) COMPLETE and committed (8/8 families).
   · lambda(6): NINE of ten CLOSED IN THE COMMITTED RECORD
     (certs/lambda56-campaign.json, 0 failures, battery 16/16 with 5
@@ -352,6 +378,60 @@ DO NOT REOPEN — `node tools/targets.js` carries the citation that killed each
   atlas of certified intervals. Seven afternoons already paid for.
 
 ────────────────────────────────────────────────────────────────────────────
+
+SESSION 2026-09-02b — THE RELEASE DAY (same calendar day, after the port)
+
+  THE RELEASE. Operator: "Send all live." Pushed 31 commits (first
+  publication of BOTH ports), tagged v2026.09, Vercel auto-deployed,
+  everything verified live. The GitHub→Zenodo integration minted the
+  repo-snapshot DOI 10.5281/zenodo.22257596 automatically (concept
+  10.5281/zenodo.22225860 — one archive lineage with lambda(4));
+  CITATION.cff rewritten, both report footers carry the concept DOI.
+
+  THE CLAIMS AUDIT (operator: "are they claiming everything they
+  could?"): three findings, all executed — terra's dropped firsts
+  restored with gates; ember's VERTEX-A COROLLARY certified from
+  existing records and stated everywhere; the de-Dios-Pont fence
+  mislabel (a counterexample listed as a proven class, inherited from
+  the bench) fixed everywhere with a gate refusing it by name; fences
+  extended (Hatcher, Siudeja, Polymath7 lineage). Details in the DONE
+  block above.
+
+  THE FULL-ROW RULE (operator screenshot: broken stats grids site-wide):
+  a grid never exposes an empty track — stats grids balanced by
+  construction via data-n + per-count generated CSS (6→3+3, 5→3+2,
+  7→4+3), remainder guards on every other fixed-column grid, design
+  battery F4a-F4d + three reds; F4d caught the landing page on its
+  first run. design/DESIGN.md carries the rule.
+
+  THE PRINT ENGINE (operator: papers need the frontier look): design/
+  paper.js — the bench's LaTeX-article look in print CSS (STIX Two Text,
+  abstract environment, amsthm run-in theorems, booktabs tables, page
+  numbers) over the raw-socket CDP client; both PDF builders are thin
+  wrappers; build-paper-pdf.js prints any paper (lambda4-proof.pdf now
+  exists).
+
+  THE LANDING REVAMP (operator: "be bold"): hero "The machine proves it
+  — or breaks it"; two theorems lead the start-here cards; "the theorem,
+  in full" walk added; shelf retitled "The record, ordered by weight";
+  THEOREM PROGRAMS tile opens the tally; a landing gate refuses any
+  "first ..." without its qualifier.
+
+  VENUES SCOUTED (operator: where can I comment?): google-deepmind/
+  formal-conjectures (hot spots ABSENT from 2,615 statements — issue
+  drafted and STAGED, awaiting approval; their 510.lean exists and our
+  lambda values are natural variants = the cheapest future Lean PR);
+  google-deepmind/alphaevolve_results issue #7 is literally about
+  independent verification (our audit fits); alphaevolve problems repo
+  = certificate-backed-issue culture, nothing of ours maps today.
+  Honest negatives: no terra venue (letters are the channel), nothing
+  at Anthropic.
+
+  THE BENCH SURVEY (operator: "we are evolving there"): P3a the band —
+  mid-flight, zones failing, NOT ported; intel recorded; ivspecial D4
+  (fat-interval-order Γ by unimodal split) built + falsified here so
+  the instrument is ready. Then the operator: "wait for my
+  instructions" — bench watches stopped, hands off.
 
 SESSION 2026-09-02 — THE EMBER PORT, ASSIGNED TO BUILT IN ONE SESSION
 (operator handoff: execute EMBER-PORT.md; both Tao threads checked first —

@@ -5,82 +5,62 @@ Read CLAUDE.md and HANDOFF.md; both current. For the tip, run
 `git log --oneline -1` — a hash written into this file would name the commit
 before the one that carries it, so it is deliberately not stamped here.
 
+STATE YOU INHERIT: THE SITE IS LIVE AND DOI-STAMPED. Both theorem
+programs (ember + terra) are public at carlostoledo.co, released
+v2026.09, archived under concept DOI 10.5281/zenodo.22225860 (version
+10.5281/zenodo.22257596). The claims audit ran; the vertex-A corollary
+is certified and stated; the landing leads with the theorems; the papers
+are journal-typeset via design/paper.js. Everything further OUTWARD is
+operator-gated and queued under OPERATOR ACTS in the menu.
+
 FIRST ACTION:  node tools/sweep-claims.js
 SECOND ACTION: node tools/targets.js
-  25 targets. The rows ember-port and lambda56-nonmonotonicity are this
-  handoff's two live campaigns; terra-port is BUILT (items 1-8 + T5, the
-  atlas, the paper) with only the live solver and the papers-3/4 split
-  question open.
-THIRD ACTION:  read the MENU at the top of HANDOFF.md, then EMBER-PORT.md
-  in full — it is the assigned plan.
-FOURTH ACTION: check the offline lambda(6) computation BEFORE anything
+  25 rows. ember-port is BUILT+RELEASED (its benchIntel field carries
+  the band-port intel); lambda56-nonmonotonicity is the live campaign.
+THIRD ACTION:  check the offline lambda(6) computation BEFORE anything
   else long-running: `ps -p 72893 -o pid,%cpu,etime` and
   `cat '/private/tmp/claude-501/-Users-carlostoledo-Documents-cert-machine/776c9149-d43e-4dae-b0b0-451991a0bdcd/scratchpad/a2e.log'`
-  (a+2e = 2f, ~22 h at handoff; the log is 0 bytes until the verdict —
-  that is normal). If it has FINISHED: fold the verdict in per HANDOFF's
-  SECOND TASK (in-record ONLY run, then the full no-ONLY run, battery,
-  commit). If it died: rerun per HANDOFF. Do not block the ember port on
-  it — background and continue.
-FIFTH ACTION:  gh issue view 392 --repo teorth/erdosproblems --comments and
-  the same for 179 — A MAINTAINER REPLY OUTRANKS EVERYTHING; report and
-  pause before acting on one.
+  (a+2e = 2f; ~31.6 h at handoff — PAST the ~30 h scrutiny bar; the log
+  is 0 bytes until the verdict, which is normal, but do not just keep
+  waiting: HANDOFF's FIRST TASK block has the decision guidance and the
+  AUTOCLOSE_TRACE rerun command). If it FINISHED: fold the verdict in
+  per HANDOFF (in-record ONLY run, full no-ONLY run, battery W5 +
+  wall-count, make test, commit) — then the lambda(5)/(6) audit,
+  write-up, and the NON-MONOTONICITY announcement, operator-gated.
+FOURTH ACTION: gh issue view 392 --repo teorth/erdosproblems --comments
+  and the same for 179 — A MAINTAINER REPLY OUTRANKS EVERYTHING; report
+  and pause before acting on one. (Both quiet all of 2026-09-02.)
+FIFTH ACTION:  read the MENU at the top of HANDOFF.md — OPERATOR ACTS
+  now carries the decision queue (paper read, the staged
+  formal-conjectures issue, the invitation letters, optional deposits).
 
-YOUR TASK THIS SESSION — THE EMBER PORT (operator, 2026-09-02: "ember is
-finished on frontier, plan the port" — plan written and committed; now
-execute it). frontier-apps/experiments/ember holds a certified theorem:
-the second Neumann eigenfunction of the trapezoid A(0,0) B(1,0)
-C(17/20, 9/10) D(1/4, 9/10) — convex, no symmetry axis, not a lip domain,
-OUTSIDE EVERY CLASS where the hot spots conjecture was previously proven —
-attains its extrema ON THE BOUNDARY ONLY; mu1 is simple in
-[12.020976127, 12.022398359]. Six-stage certificate chain, ~3 min
-deterministic runtime, on the frontier bench. The finding is real; what it
-lacks is what this machine adds: red controls on a chain that has none,
-independent cross-derivations, pinned literature inputs, records, and a
-page + paper whose builds refuse when a check goes red.
+YOUR TASK THIS SESSION — FINISH LAMBDA(6) (third action above IS the
+task): one family (a+2e = 2f) separates the campaign from the first
+non-monotonicity theorem lambda(6) < lambda(5). Everything else about
+the close is DONE (driver, parity stages, walls); HANDOFF's FIRST TASK
+block is the checklist.
 
-THE PLAN IS EMBER-PORT.md — ranked list, port conditions, do-not-port,
-red flags. Follow its order:
-  1. instruments/ivspecial — interval Gamma (Spouge) + fractional-order
-     Bessel J_nu incl. NEGATIVE order, copy-with-sha of the operator's
-     own MIT ivspecial.js + line-by-line review + the 47 falsifiers as a
-     registered battery + NEW bigfloat cross-check reds. The missing
-     instrument for the whole spectral-geometry lane.
-  2. instruments/hotspots — the six cert stages re-run here on
-     instruments/interval, one record per stage in certs/ember-*.json,
-     battery with firing reds (mutated vertex, forged I0 != 5/48,
-     dropped reflection layer, flipped ladder identity, partition
-     completeness re-decided in RATIONALS).
-  3. Independent cross-derivations — I0 = 5/48 and C_tr in exact
-     rationals; mu1 upper bound on an independent basis; the corner
-     coefficients b0/b1/b2 re-extracted at a SECOND annulus radius
-     (condition of entry — the chain's most delicate step).
-  4. Pin Liu arXiv:1808.08148 into corpus/sources; the two literature
-     inputs are named trust-base assumptions in every record.
-  5. reports/ember.html from design/ — the OPERATOR'S report, archaeology
-     gate enforced (the terra treatment; see tools/build-report-terra.js
-     for the pattern, including the gate that refuses bench narrative).
-  6. tools/build-ember-writeup.js -> paper + PDF (the printToPDF pipeline
-     is tools/build-terra-pdf.js — reuse; note the raw-socket CDP client
-     and its handshake gotcha, both already solved there).
-  P3 (the quadrilateral census toward "convex quadrilaterals have no hot
-  spots") is a SEPARATE future campaign — do not start it, do not count
-  it.
-
-HONEST FRAMING (mandatory): "to our knowledge the first certified
-hot-spots domain outside every analytically proven class" — ALWAYS with
-the fence list (Judge-Mondal triangles/Annals; dDP convex high-d; lip
-domains; symmetric quadrilateral subcases arXiv:2604.19003) and the
-weekly arXiv race watch. One domain, one theorem — never more.
+DO NOT TOUCH THE FRONTIER BENCH. Operator, 2026-09-02 evening: "Ember
+will work for some time yet, wait for my instructions." The band (P3a)
+is mid-flight there; the port trigger (THEOREM-BAND.md + a green zones
+record) and the full intel are recorded in HANDOFF (WAITING ON THE
+OPERATOR block) and targets ember-port.benchIntel. The instrument side
+is already band-ready (ivspecial D4, fat-interval-order Γ, falsified).
+Act only on the operator's word.
 
 STANDING CONTEXT (details in HANDOFF):
-  · The frontier skin IS the house design system now; charts are our
-    inline-SVG forms (scatter with theorem diamonds, lines2 dual-scale,
-    merged-path cell maps) — batteries keep their grip on figure bytes.
-  · frontier-apps is a publication-bound SANDBOX (operator ruling
-    2026-09-01): its artifacts will be published, so publishable
-    versions are rebuilt HERE from certificates; provenance lives in
-    records, never on pages. Nothing is public yet; the first release
-    carries the priority stamp. ALL SENDS ARE OPERATOR-GATED.
-  · sin-mfg remains READ-ONLY, permanently.
-  · The terra claims ledger (what we will claim at the end) is in the
-    session report artifact and mirrors reports/terra.html + the paper.
+  · ALL SENDS ARE OPERATOR-GATED. The staged queue: the
+    formal-conjectures hot-spots issue (awaiting approval verbatim),
+    two verification-invitation letters (need three operator inputs
+    each), two optional per-result Zenodo deposits (bundles prebuilt).
+  · Honest framing travels everywhere: "to our knowledge" + the fence
+    list on every first-claim; de Dios Pont (2412.06344) is a
+    COUNTEREXAMPLE, never a proven class — gates refuse the mislabel
+    by name on page and paper. Race watch: arXiv, weekly.
+  · The FULL-ROW RULE is standing design law (design/DESIGN.md): a grid
+    never exposes an empty track; the design battery enforces it.
+  · design/paper.js is THE print engine; build-paper-pdf.js prints any
+    paper/*.md.
+  · sin-mfg remains READ-ONLY, permanently. frontier-apps is a
+    publication-bound sandbox and NOT a lift source; crossings are
+    copy-with-sha of the operator's own work.
