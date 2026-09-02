@@ -144,17 +144,22 @@ priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
   mfg-congest work as the same author's unpublished base instance, not
   as prior art.
 
-ASSIGNED — THE EMBER PORT (operator, 2026-09-02: ember finished on the
-frontier bench, plan the port). THE PLAN IS EMBER-PORT.md AT REPO ROOT;
-targets row ember-port. The finding: the first certified hot-spots
-domain outside every analytically proven class (trapezoid, second
-Neumann eigenfunction, extrema boundary-only, mu1 simple). Port order:
-instruments/ivspecial (interval Gamma/Bessel — the missing instrument
-for the whole spectral-geometry lane) -> instruments/hotspots chain
-re-run with records + firing reds -> independent cross-derivations
-(corner coefficients at two radii = condition of entry) -> pin Liu
-arXiv:1808.08148 -> reports/ember.html + paper from design/. P3 census
-is a separate future campaign. Sends held.
+DONE — THE EMBER PORT (assigned 2026-09-02, BUILT the same day; session
+log 2026-09-02 below; targets row ember-port carries the full record).
+All six items landed: instruments/ivspecial (battery 69/5 reds, bigfloat
+cross-gates, negative-order falsifier the bench lacked), the 8-record
+chain in instruments/hotspots (~2 min; mu1 in [12.020976138,
+12.022398348] SIMPLE; partition RE-DECIDED IN RATIONALS — the review
+found and closed TWO real quantization gaps in the bench partition, kept
+as firing reds), cross-derivations (I0 = 5/48 exact; C_tr on bigfloat;
+P1-FEM mu1 upper; second-annulus corner extraction = condition of
+entry), Liu 1808.08148 pinned + transcribed + re-hashed at certify,
+reports/ember.html (zone map drawn from the same rational cell
+decisions; CDP-verified), paper/ember-hotspots.md + .pdf (draft v0.9,
+[OPERATOR] flags). Battery 31 checks / 8 reds; 47/47 batteries.
+REMAINS: operator reads the paper; release order (with terra) —
+ALL SENDS HELD; P3 census is a SEPARATE campaign, not started, never
+pre-counted. Race watch: arXiv weekly.
 
 SECOND TASK — FINISH LAMBDA(6) (one family of ten remains).
 State at handoff (2026-09-02):
@@ -285,6 +290,72 @@ DO NOT REOPEN — `node tools/targets.js` carries the citation that killed each
   atlas of certified intervals. Seven afternoons already paid for.
 
 ────────────────────────────────────────────────────────────────────────────
+
+SESSION 2026-09-02 — THE EMBER PORT, ASSIGNED TO BUILT IN ONE SESSION
+(operator handoff: execute EMBER-PORT.md; both Tao threads checked first —
+quiet, zero replies; lambda(6) a+2e still computing offline, untouched)
+
+  WHAT LANDED, in the plan's order:
+  1. instruments/ivspecial — copy-with-sha of the operator's MIT ivspecial
+     (bytes pinned in frontier-ref/), line-by-line review with THREE
+     DECLARED DELTAS (D1 besselJdIv tail bar tightened to q <= 0.9 — the
+     ×2 factor is only proved below 0.95; D2 honest nu > -0.6 domain guard;
+     D3 dead branch folded). Battery 69 checks / 5 firing reds: the bench
+     falsifiers promoted PLUS the negative-order closed form J_{-1/2} the
+     bench never tested PLUS the new two-implementation gates — Gamma at
+     half-integers vs (2n)!/(4^n n!)·sqrt(pi) on bigfloat, J vs
+     exact-rational series brackets, all at DYADIC points so both routes
+     evaluate the same real number.
+  2. instruments/hotspots — the chain re-run on OUR instruments, one
+     record per stage (spectrum, defect, eigenpair, pointwise, collar,
+     corner, cross, theorem), each stage READING inputs from the upstream
+     record (the bench hand-copied constants). Bench numbers re-proved:
+     mu1 in [12.020976138, 12.022398348] (a hair tighter), defect
+     1.2369e-5, witnesses 2.126029 / 1.993811, all tip endgames exact.
+     THE REVIEW'S REAL FINDING — two quantization gaps in the bench
+     partition: (a) tip-skip on MIN-corner distance < 0.11 vs tips
+     covering r <= 0.11 left 95 cells of the 1/100 grid in NEITHER sweep
+     NOR any tip disk; (b) the core cover's corner-max depth bar is
+     unsound because depth is CONCAVE (its cell max lives mid-cell).
+     Fix: ONE grid, complementary exact rules — core iff corner-min
+     depth >= 3/40 (= cell min, by concavity), tip-skip iff ENTIRELY
+     inside one 0.11-disk (corner max, by convexity of distance),
+     domain-meet by exact SAT — so the partition closes by construction,
+     is re-decided in rationals at theorem time, and the bench's rule is
+     a firing red. Both sweeps kill-or-refine to zero survivors (core
+     margin min-side 5.6e-4 — thin, certified; collar worstM 1.99363 vs
+     witness 1.993811).
+  3. Cross-derivations: I0 = 5/48 DERIVED in exact rationals (termwise
+     t^a ln^k t closed forms); C_tr from exact-rational star geometry on
+     bigfloat, width < 1e-12, meets the doubles route; mu1 upper bound
+     re-proved on a conforming P1 FEM basis (12.0642, n=16 exact-rational
+     mesh) — a different discretization family; corner b0/b1/b2
+     re-extracted at a SECOND annulus with intersection REQUIRED (all 12
+     coefficient pairs intersect).
+  4. Liu arXiv:1808.08148 downloaded, PINNED (fb867aa5...), Thm 2.4 and
+     Lemma 3.2 READ AT SOURCE (pages 5 and 8 verified against the bench's
+     quotes), transcription in corpus/sources/liu2018-TRANSCRIPTION.md;
+     stage-spectrum re-hashes the pin at certify time; forged pin is a
+     battery red.
+  5. reports/ember.html — born from design/, the zone map drawn from THE
+     SAME rational cell decisions the proof uses (merged-path cells, the
+     regime-map pattern), witnesses as diamonds; gates refuse the claim
+     without its qualifier + fence list, counting inflation, and
+     workshop narrative; CDP-verified full-page (the terra raw-socket
+     client reused for screenshots too). Two page defects caught on the
+     first screenshot: C.m() inside C.scope() leaks escaped HTML (scope
+     escapes); C.plainList takes {text}, not strings.
+  6. paper/ember-hotspots.md + .pdf — record-driven (build-lambda4
+     pattern), honest-framing gates, MPS lineage, [OPERATOR] flags.
+     Draft v0.9, WANTS ONE HUMAN READ.
+
+  STATE: make test 50/50 · batteries 47/47 · wiring 4/4 · drift 130
+  unchanged. Sends held; the release-order decision (terra + ember, the
+  priority stamp) is the operator's.
+
+  WORTH REMEMBERING: the ONE-GRID partition trick (complementary
+  corner-min/corner-max rules, each exact for its convexity direction)
+  is the reusable shape for every future census sweep — P3 will want it.
 
 SESSION 2026-09-01g — LAMBDA(5) PROVED-AS-REDUCED IN ONE SESSION; LAMBDA(6)
 OPENED AT 3/10 (operator handoff: "open the lambda(5) campaign, then
