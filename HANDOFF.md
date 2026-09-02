@@ -103,8 +103,22 @@ priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
     toy, needs the MIT float kernel embedded + the candidate chip) and
     the 21,567-cell mfg2p regime-map section (renders from OUR OWN
     certs/mfg2p-regime-map.json when wanted).
-  REMAINING (order per TERRA-PORT.md): (7) facelaw with rebuilt
-  evidence; (8) attention phantom-bifurcation catalogue;
+  · ITEMS 7-8 CORE BUILT same session: instruments/facelaw (the theorem
+    k = |shared| - cons + z with evidence REBUILT — the origin seed
+    replayed re-derives its published 572 failures as a replication, a
+    fresh seed adds 571, every failing instance ENUMERATED in
+    certs/facelaw-theorem.json; the LLM study NOT ported, no data on
+    this bench) and instruments/attnflow (reduced-flow double zero by
+    exact division + SOS + sign — every pitchfork claim refuted
+    exactly; cross-weights identically zero, honest p=1 boundary;
+    consensus beta/p-freeness by exact dual-number expansion at n=3..6;
+    phantom taxonomy with the locator transient LIVE and the
+    budget-heavy artifacts ORIGIN-MEASURED; the edge-of-chaos refusal
+    quoted and honored). Atlas carries both wings.
+  REMAINING terra content: paper 2 companion extras (the certified
+  multiplicity pairs c=-11..-24 and the >=3-even-solutions corollary on
+  labs/mfg); papers 2-4 record-driven rebuilds + PDFs; the atlas live
+  solver and mfg2p regime-map section;
   (9, elevated by the ruling) the PAPER REBUILD from our certs —
   terra-recert-*, terra-peakcount-*, terra-sigmastar, terra-bracket-
   table, mfg-cap-census-* now carry every number the paper needs. LESSON PAID FOR: falsifier thresholds must scale with the
