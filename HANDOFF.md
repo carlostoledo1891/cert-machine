@@ -144,6 +144,18 @@ priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
   mfg-congest work as the same author's unpublished base instance, not
   as prior art.
 
+ASSIGNED — THE EMBER PORT (operator, 2026-09-02: ember finished on the
+frontier bench, plan the port). THE PLAN IS EMBER-PORT.md AT REPO ROOT;
+targets row ember-port. The finding: the first certified hot-spots
+domain outside every analytically proven class (trapezoid, second
+Neumann eigenfunction, extrema boundary-only, mu1 simple). Port order:
+instruments/ivspecial (interval Gamma/Bessel — the missing instrument
+for the whole spectral-geometry lane) -> instruments/hotspots chain
+re-run with records + firing reds -> independent cross-derivations
+(corner coefficients at two radii = condition of entry) -> pin Liu
+arXiv:1808.08148 -> reports/ember.html + paper from design/. P3 census
+is a separate future campaign. Sends held.
+
 SECOND TASK — FINISH LAMBDA(6) (one family of ten remains uncertified).
 State at handoff:
   · lambda(5) COMPLETE and committed (8/8 families).
