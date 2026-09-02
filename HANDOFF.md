@@ -115,10 +115,19 @@ priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
     phantom taxonomy with the locator transient LIVE and the
     budget-heavy artifacts ORIGIN-MEASURED; the edge-of-chaos refusal
     quoted and honored). Atlas carries both wings.
-  REMAINING terra content: paper 2 companion extras (the certified
-  multiplicity pairs c=-11..-24 and the >=3-even-solutions corollary on
-  labs/mfg); papers 2-4 record-driven rebuilds + PDFs; the atlas live
-  solver and mfg2p regime-map section;
+  · PAPER-2 EXTRAS DONE (2026-09-01 cont.): labs/mfg/multiplicity.js —
+    >= 3 distinct exact solutions per coupling c=-11..-24 in pairwise
+    disjoint balls (min m to 4.45e-4, matching the origin 4.3e-4), the
+    half-shift corollary concrete, the c=-9.5 monotone-regime boundary
+    declining honestly. certs/mfg-cap-multiplicity.json; census battery
+    walks it (27 checks). Atlas + paper + PDF carry it.
+  · REGIME MAP DONE: 21,567 cells on the atlas from our own
+    certs/mfg2p-regime-map.json (3 merged SVG paths, hatch=UNDECIDED).
+  REMAINING terra content: the atlas live solver (candidate-only float
+  Newton for the CONGESTION model — needs fresh authorship, our mfg1d
+  is the mfg-cap model); standalone rebuilds of papers 3-4 if the
+  operator wants the four-paper structure kept (their theorem content
+  is certified and on the atlas; the LLM study stays frontier-only);
   (9, elevated by the ruling) the PAPER REBUILD from our certs —
   terra-recert-*, terra-peakcount-*, terra-sigmastar, terra-bracket-
   table, mfg-cap-census-* now carry every number the paper needs. LESSON PAID FOR: falsifier thresholds must scale with the
