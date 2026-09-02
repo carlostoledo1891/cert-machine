@@ -73,6 +73,8 @@ test:
 	@printf "%-30s " "tensorlb (lower-bound audit)"; $(PY) instruments/tensorlb/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfgcap (terra re-cert)"; $(PY) instruments/mfgcap/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "critcount (peak counts)"; $(NODE) instruments/critcount/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "facelaw (face dimension)"; $(PY) instruments/facelaw/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "attnflow (attention exact-Q)"; $(PY) instruments/attnflow/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "llm harness (dry)"; $(PY) tools/llm-harness.py --dry-run --n 20 --ledger /dev/null >/dev/null 2>&1 && echo PASS || echo FAIL
 
 drift:
