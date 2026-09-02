@@ -527,20 +527,42 @@ const WORKING = /^(?:erdos290-tail-shard-\d+\.json|wip-.*)$/;
 const B = [];
 B.push(C.header({
   eyebrow: 'Carlos Toledo · cert-machine',
-  title: 'We check the math that machines publish',
-  deck: 'AI systems are producing mathematical results — new constants, new algorithms, new theorems — faster than '
-    + 'anyone is reading them. This machine decides them one at a time and shows its work: proved, disproved, or '
-    + 'honestly refused.'
+  title: 'The machine proves it — or breaks it',
+  deck: 'AI produces mathematical claims faster than anyone can read them. This machine does both ends of the job '
+    + 'with the same exact arithmetic. It has settled a value conjectured open since 2019, certified what is — to '
+    + 'our knowledge — the first hot-spots domain beyond every class analysts have reached, and refuted a '
+    + 'published constant at its twelfth digit. Every verdict is a re-runnable certificate: proved, disproved, or '
+    + 'honestly refused — never a probability argument.'
 }));
 B.push(C.scope('No probability arguments and no digit-matching. A claim is admitted only by exact arithmetic on whole '
   + 'numbers, and an instrument that cannot decide refuses instead of guessing. When a page here says REFUTED, that '
   + 'is a proof, and the falsifying witness is printed beside it.'));
 
-/* the four cases a stranger should meet first. Their files are gated against
-   the shelf below, so a lead card can never point at a report that is not
-   catalogued — and the descriptions are written for someone who is smart and
-   is not a number theorist, which is a different job from the shelf's. */
+/* the four results a stranger should meet first — two theorems, then the two
+   strongest audits (2026-09-02: the theorems earned the front). Files are
+   gated against the shelf below, so a lead card can never point at a report
+   that is not catalogued — and the descriptions are written for someone who
+   is smart and is not a number theorist, which is a different job from the
+   shelf's. */
 const LEAD = [
+  { f: 'ember.html', k: 'a theorem · hot spots, asked 1974',
+    title: 'The hot spot sits at one corner — proved',
+    desc: 'Where does heat concentrate in a still room? Rauch asked in 1974; fifty years of proofs cover '
+      + 'triangles (an Annals paper), symmetric shapes, and little else — and in high dimension the conjecture '
+      + 'turned out to be FALSE, which makes the flat convex case the live one. For a lopsided trapezoid outside '
+      + 'every proven class, this machine certified the answer: the extremes live on the boundary, and the '
+      + 'hottest point is exactly one vertex. To our knowledge the first certified hot-spots domain beyond every '
+      + 'analytically proven class.',
+    n: 'the whole proof re-runs in ~2 minutes · archived with a DOI' },
+  { f: 'lambda4.html', k: 'a theorem · erdős #510',
+    title: 'A number that was a conjecture is now exact',
+    desc: 'Mercer proved the first two values of Chowla’s cosine dip in 2019, conjectured the third, and '
+      + 'wrote that he did not know how to evaluate it. The machine executed his own strategy to the end: '
+      + 'λ(4) is the root of 512y³ − 1227y² + 600y + 125 near 1.51956 — a cubic no paper '
+      + 'had printed — with every threshold derived rather than transcribed and every finite case decided in '
+      + 'exact arithmetic. An independent audit sharing no code with the prover walked all 25,819 cases: zero '
+      + 'holes, zero refuters.',
+    n: 're-proved at every build · archived with a DOI' },
   { f: 'erdos852.html', k: 'a refutation · erdős #852',
     title: 'The constant that was a rounding error',
     desc: 'A constant for an open Erdős problem, published with frontier-model help, quoted to ' + csPubDigits
@@ -557,32 +579,43 @@ const LEAD = [
       + '. The finding is not the tally: in all ' + aiClaims.lanes + ', the part a machine '
       + 'can check held, and the part that carries the theorem stayed out of reach.',
     n: aiClaims.checks + ' checks · ' + aiClaims.mutations + ' deliberate forgeries, every one rejected' },
-  { f: 'keller.html', k: 'objects · not in any paper',
-    title: 'Three counterexamples nobody has published',
-    desc: 'A conjecture standing since 1939 was refuted in July 2026. This machine re-decided the published '
-      + 'counterexamples in exact fractions, then threw the published answers away and found the collisions again '
-      + 'blind. Along the way it generated ' + kellerNew + ' counterexamples of its own, on the same mechanism, that no '
-      + 'paper carries.',
-    n: kellerN + ' certificates · ' + kellerNew + ' generated here' },
-  { f: 'tensor-rank-bounds.html', k: 'a null result, published anyway',
-    title: 'We tried to break a new result and could not',
-    desc: 'A lower bound on a fifty-year-old problem moved in March 2026, in a preprint whose proof is a '
-      + 'machine-checkable file on a two-star repository. We rebuilt the check independently, with an instrument built '
-      + 'to be able to contradict it. It did not. That is worth publishing: an audit that could only ever agree is not '
-      + 'an audit.',
-    n: 'the first independent check of the new bound' }
 ];
+/* keller and tensor-rank-bounds moved from the lead back to the shelf on
+   2026-09-02 — the theorems took their places; both remain fully ranked in
+   REPORTS and rejoin shelfHead automatically. */
 {
   const shelved = new Set(REPORTS.map((r) => r.f));
   for (const l of LEAD) if (!shelved.has(l.f)) fail('the landing leads with ' + l.f + ', which is not on the shelf — that link would 404');
 }
 B.push(C.section({
-  lab: 'start here', title: 'Four cases, in plain words', wide: true,
+  lab: 'start here', title: 'Two theorems and two audits, in plain words', wide: true,
   bodyRaw: C.cards(LEAD.map((l) => ({ href: 'reports/' + l.f, k: l.k, title: l.title, desc: l.desc, n: l.n })))
 }));
 
 B.push(C.section({
-  lab: 'one of them, in full', title: 'How a floating-point bug became a published constant',
+  lab: 'the theorem, in full', title: 'How a trapezoid got a theorem',
+  bodyRaw: [
+    C.p('The domain is deliberately inconvenient: a convex trapezoid with side slopes 6 and 18/5, no symmetry '
+      + 'axis, nothing any existing proof technique can grab. The machine proves its second Neumann eigenvalue is '
+      + 'simple by certifying a spectral gap — upper bounds from an interval Galerkin method, lower bounds from '
+      + 'exact-rational finite elements with eigenvalue counts by interval inertia. It then builds a trial '
+      + 'function that solves the eigenvalue equation EXACTLY — a sum of Bessel fans anchored at the four corners '
+      + '— and certifies that its boundary defect is a hundred-thousandth, which pins the true eigenfunction '
+      + 'within an explicit distance of the trial.'),
+    C.p('Then the geography: every interior point is assigned, in exact rational arithmetic, to a deep core, a '
+      + 'boundary collar, or a corner sector — and each region is killed by its own argument. Core and collar '
+      + 'cells die by comparison against certified interior witnesses; the corner sectors die by certified '
+      + 'series expansions, where the delicate corner needs a Bessel ladder identity to tame a divergent second '
+      + 'derivative whose singular part arrives, provably, with the helpful sign. Zero cells survive. The '
+      + 'extremes are on the boundary, the hottest point is vertex A and nowhere else, and the whole chain — '
+      + 'eight records, every red control firing — re-runs from one command in about two minutes. '
+      + 'The full account: '),
+    C.pRaw('<a href="reports/ember.html">the report</a> · <a href="https://doi.org/10.5281/zenodo.22225860">the archived release</a>.'),
+  ].join('\n')
+}));
+
+B.push(C.section({
+  lab: 'the refutation, in full', title: 'How a floating-point bug became a published constant',
   bodyRaw: [
     C.p('Erdős problem #852 has a constant attached to it. In 2026 a value for that constant appeared, produced with '
       + 'frontier-model help and quoted to ' + csPubDigits + ' decimal places. This machine enclosed the same constant in '
@@ -616,7 +649,7 @@ B.push(C.section({
    shows a stranger the same card twice */
 const shelfHead = REPORTS.filter((r) => !LEAD.some((l) => l.f === r.f)).slice(0, 6);
 B.push(C.section({
-  lab: 'the shelf', title: 'Everything else it has decided', wide: true,
+  lab: 'the shelf', title: 'The record, ordered by weight', wide: true,
   bodyRaw: '<div id="reports"></div>'
     + reportCards(shelfHead, 'reports/')
     + '<div class="col after-fig">'
@@ -672,6 +705,10 @@ B.push(C.section({
 B.push(C.section({
   lab: 'the tally', title: 'What it has decided so far', wide: true,
   bodyRaw: C.stats([
+    { k: 'theorem programs', v: '3', role: 'held',
+      n: 'λ(4) exact and λ(5) closed (λ(6) one family from the non-monotonicity theorem); the hot-spots trapezoid '
+        + 'with its vertex-A corollary; the MFG splitting pair with its bracket table — every one re-proved or '
+        + 're-walked at build' },
     { k: 'published claims decided', v: '1 refuted · 1 corrected', role: 'warn',
       n: 'a constant on Erdős #852, wrong from digit ' + csWrongAt + ' · one printed Ramanujan Machine row, a transcription '
         + 'slip — both replacements certified' },
@@ -1248,6 +1285,14 @@ const aboutFoot = '<footer class="col"><p>Carlos Toledo · computer-assisted pro
    auto-cleaned, never a build failure. */
 const desired = new Map();
 const put = (rel, buf) => desired.set(rel, buf);
+{
+  /* the landing's own claim gate: any "first ..." on this page must travel
+     with its qualifier (the fence lists live on the report pages) */
+  const joined = B.join('\n\n');
+  if (/\bfirst (certified |validated[- ])?[a-z-]* ?(hot-spots|enclosure|domain)/i.test(joined) && !/to\s+our knowledge/i.test(joined)) {
+    fail('a priority claim reached the landing without its qualifier');
+  }
+}
 put('index.html', Buffer.from(TPL.render({ title: 'cert-machine · the conjecture engine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/' })));
 put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports · cert-machine', bodyRaw: reportsIndexBody, footRaw: reportsIndexFoot, path: '/reports/',
   desc: 'The reports shelf: certified audits of AI-generated mathematics, evals whose ground truth is a proof, a verified reward channel — and the instruments, proven on hard classical ground. Every page recomputes its numbers at build.' })));
