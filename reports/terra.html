@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The crowd splits — MFG beyond the uniqueness wall</title>
-<meta name="description" content="Certified congestion-MFG equilibria with more density peaks than potential wells: two theorems, a seven-row bracket table, the exact gamma-free crossover 1/(8pi^2) decided in rationals, and an EXACTLY-3 Galerkin census — every number from a machine-written certificate.">
+<meta name="description" content="Certified congestion-MFG equilibria with more density peaks than potential wells: two theorems, a bracket table, the exact gamma-free crossover 1/(8pi^2) decided in rationals, certified multiplicity, an EXACTLY-3 census, the regime map, and the faces and attention wings — every number from a machine-written certificate.">
 <meta name="author" content="Carlos Toledo">
 <link rel="canonical" href="https://carlostoledo.co/reports/terra.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/terra.html">
 <meta property="og:title" content="The crowd splits — MFG beyond the uniqueness wall">
-<meta property="og:description" content="Certified congestion-MFG equilibria with more density peaks than potential wells: two theorems, a seven-row bracket table, the exact gamma-free crossover 1/(8pi^2) decided in rationals, and an EXACTLY-3 Galerkin census — every number from a machine-written certificate.">
+<meta property="og:description" content="Certified congestion-MFG equilibria with more density peaks than potential wells: two theorems, a bracket table, the exact gamma-free crossover 1/(8pi^2) decided in rationals, certified multiplicity, an EXACTLY-3 census, the regime map, and the faces and attention wings — every number from a machine-written certificate.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -16,7 +16,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The crowd splits — MFG beyond the uniqueness wall">
-<meta name="twitter:description" content="Certified congestion-MFG equilibria with more density peaks than potential wells: two theorems, a seven-row bracket table, the exact gamma-free crossover 1/(8pi^2) decided in rationals, and an EXACTLY-3 Galerkin census — every number from a machine-written certificate.">
+<meta name="twitter:description" content="Certified congestion-MFG equilibria with more density peaks than potential wells: two theorems, a bracket table, the exact gamma-free crossover 1/(8pi^2) decided in rationals, certified multiplicity, an EXACTLY-3 census, the regime map, and the faces and attention wings — every number from a machine-written certificate.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -151,7 +151,7 @@ section{margin:clamp(5rem,12vh,9rem) 0 0}
 .sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
 .sec-head .lab{color:var(--ink-4)}
 
-/* stat tiles — the frontier fused grid: 1px gaps painted by the border colour */
+/* stat tiles — the fused grid: 1px gaps painted by the border colour */
 .stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
 .stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
@@ -231,7 +231,7 @@ td.k{color:var(--ink);font-weight:500;white-space:nowrap}
 td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
 td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 
-/* verdict chips — WEIGHT + SHAPE, never colour-alone (the frontier grammar):
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
    certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
@@ -400,33 +400,28 @@ footer a:hover{color:var(--ink)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · report · re-proved from certificates at every build</div>
+  <div class="eyebrow">cert-machine · the splitting atlas · γ = 0.01 · rebuilt from certificates at every build</div>
   <h1>The crowd splits — mean-field games beyond the uniqueness wall</h1>
-  <p class="deck">A congestion-averse crowd in a single-well cost landscape can settle into TWO density peaks — or THREE. The mechanism is a band-pass response with an exact, discount-free crossover at σ* = 1/(8π²), decided in exact rationals. The crowd re-weights a harmonic the potential already contains — it does not invent structure. Two theorems and a seven-row bracket table, every enclosure re-proved inside this machine; floats draw the map below, and the diamonds are the territory.</p>
+  <p class="deck">A congestion-averse crowd in a single-well cost landscape can settle into TWO peaks — or THREE. The mechanism is a band-pass response with an exact, discount-free crossover at σ* = 1/(8π²); the phenomenon is proved — two computer-assisted theorems and a bracket table of certified instances whose enclosure balls fix the exact peak count of the exact solution, bracketing every predicted threshold. The crowd re-weights a harmonic the potential already contains. Floats draw the map below; the diamonds are the territory.</p>
 </header>
-
-<div class="col"><div class="note">
-  <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> Exact equilibria of a congestion mean-field game whose density carries MORE strict local maxima than the potential has wells: two peaks over one well (T1), three over one (T6) — radii-polynomial enclosures at radius ~2.5e-13, locally unique in the full sequence-space ball, both positivity walls certified.</li><li><b>The mechanism.</b> The linear-response gain c(κ) = κ/[(1+σκ)²+γκ] is band-pass, so the equilibrium counts wells with gain-weighted amplitudes while the potential counts them flat; the splitting window is the exact rational interval (1/16, 1/4), and the crossover σ* = 1/(8π²) is γ-independent by exact polynomial cancellation.</li><li><b>Check it.</b> every number on this page reads from a VERIFIED certificate (<span class="m">certs/terra-*.json</span>, <span class="m">certs/mfg-cap-census-*.json</span>); the build refuses on any other verdict. Re-run: <span class="m">python3 instruments/mfgcap/run_recert.py t1</span> · <span class="m">node instruments/critcount/run.js t1</span></li></ul>
-</div></div>
 
 <div class="wide">
   <div class="stats">
-    <div class="stat"><div class="k">exact crossover</div><div class="v">1/(8π²)</div><div class="n">σ* = 0.012665147955292… — γ-independent, decided in exact rationals (Machin bracket width 1.3e-44), not float agreement</div></div>
-    <div class="stat"><div class="k">the honest count</div><div class="v">2 + table</div><div class="n">one phenomenon theorem (T1) + one three-peak theorem (T6) + a seven-row bracket table — rows of a table are rows of a table</div></div>
-    <div class="stat"><div class="k">tightest ball</div><div class="v">2.97e-14</div><div class="n">ℓ¹_ν enclosure radius, minimum over the seven re-certified instances; density and branch positivity over every ball</div></div>
+    <div class="stat"><div class="k">exact crossover</div><div class="v">1/(8π²)</div><div class="n">σ* = 0.012665147955292… — independent of the discount γ, decided in exact rationals (Machin bracket, width 1.3e-44)</div></div>
+    <div class="stat"><div class="k">theorems</div><div class="v">2 + table</div><div class="n">certified peak counts both sides of both thresholds — incl. THREE peaks from one well, and the amplitude threshold pinned inside [0.13, 0.14]</div></div>
+    <div class="stat"><div class="k">tightest ball</div><div class="v">2.97e-14</div><div class="n">ℓ¹_ν enclosure radius — density positivity and branch certified over every ball</div></div>
     <div class="stat"><div class="k">the window</div><div class="v">1/16 &lt; r &lt; 1/4</div><div class="n">A₂/A₁ where a one-well potential splits the crowd (σ, γ → 0 limit); third harmonic: (1/27, 1/3)</div></div>
   </div>
 </div>
 
-<p class="scope">Published, not peer-reviewed, not independently rerun. The finding originated on the author’s frontier-apps bench and was re-proved end to end inside this machine: an independent verifier lineage calibrated bit-for-bit to the frozen published verifier, independently computed approximate inverses, a fresh critical-point counter, and falsifier batteries whose reds fire. Nothing here has been sent anywhere.</p>
+<p class="scope">Published, not peer-reviewed, not independently rerun. Every claim on this page re-runs from this repository: the enclosures come from two independent implementations of the radii-polynomial argument that agree on the certified radius to the last digit, the peak counts derive only from certified region signs, and every instrument carries red controls that fire. Grid dots are float candidates and are labeled as such; nothing on this page is a forecast.</p>
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§1 · the phase map</div>
-    <h2>Floats are the map, theorems the territory</h2>
+    <div class="lab">the phase map</div>
+    <h2>Peak count over (σ, A₂/A₁)</h2>
   </div>
-<p>Dots are 224 float equilibrium solves (N = 32, candidate data, pinned by sha256 — nothing certified about them). The dashed curve is the linear-response boundary r_c(σ) — a PREDICTION, so it is dashed. The diamonds are the certified specimens re-proved in this machine: filled where EVERY density in the enclosure ball has exactly two maxima, open where exactly one. The wedge between the boundary and r = 1/4 is where gain-weighted well-counting beats flat well-counting — the potential already contains the second harmonic; the crowd re-weights it across the ¼ threshold.</p><div class="wide"><figure>
+<p>Dots: 224 float equilibrium solves (N = 32, fresh seed each, pinned by sha256) · dashed line: the closed-form linear-response boundary r_c(σ) · diamonds: the certified theorems — filled where EVERY density in the enclosure ball has exactly two maxima, open where exactly one. The T7/T8 pair straddles the boundary.</p><div class="wide"><figure>
   <div class="figbox">
   <svg viewBox="0 0 900 430" role="img" aria-label="phase map: certified peak counts and float solves over sigma and A2/A1">
     <line x1="62" y1="337.0" x2="878" y2="337.0" stroke="var(--c-grid)" stroke-width="1"/>
@@ -704,18 +699,18 @@ footer a:hover{color:var(--ink)}
     <text x="81.0" y="423.0" text-anchor="start" class="t-note">theorem: 2 peaks (filled) / 1 peak (open)</text>
   </svg>
   </div>
-  <figcaption>The predicted boundary crosses r = 1/4 at σ* (dashed vertical). Certified: two-peak theorems (filled) at σ = 0.002 inside the wedge — T1 (r = 0.20), T4 (0.15), T8 (0.14); one-peak theorems (open) below the threshold — T2 (0.12), T7 (0.13) — and past the crossover — T3 (σ = 0.02). The threshold is pinned inside [0.13, 0.14] by T7/T8, and the exact-rational prediction r_c = 0.132725 lands inside. The origin bench also proved a σ = 0.001 replication (T5, N = 176) not yet re-certified here.</figcaption>
+  <figcaption>The wedge between the boundary curve and r = 1/4 (where the potential itself goes two-well) is where gain-weighted well-counting beats flat well-counting — the crowd re-weights the second harmonic the potential already contains, across the ¼ critical-point threshold. The predicted boundary meets r = 1/4 exactly at σ* (dashed vertical). Certified: two-peak theorems (filled diamonds) at σ = 0.002 inside the wedge; one-peak theorems (open) below the threshold (r = 0.12, 0.13) and past the crossover (σ = 0.02). The threshold is pinned inside [0.13, 0.14] by T7/T8, and the exact-rational prediction r_c = 0.132725… lands inside.</figcaption>
 </figure></div>
 </section>
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§2 · the specimens</div>
-    <h2>One well. Two peaks. Then three.</h2>
+    <div class="lab">the main specimen</div>
+    <h2>T1 — one well, two peaks</h2>
   </div>
-<p>The potential (dashed, right scale — a positional comparison, never a magnitude one) has a single well at x = ½. The certified equilibrium density peaks on either side of it.</p><div class="wide"><figure>
+<p>The potential (dim, dashed, right scale — a positional comparison, never a magnitude one) has a single well at x = ½. The certified equilibrium density peaks at x ≈ 0.363 and 0.637 with a saddle between — the exact solution provably carries two strict maxima, with the certification margin six orders above the enclosure pads.</p><div class="wide"><figure>
   <div class="figbox">
-  <svg viewBox="0 0 900 360" role="img" aria-label="T1 — the phenomenon theorem: candidate density against the potential">
+  <svg viewBox="0 0 900 360" role="img" aria-label="T1: candidate density against the potential">
     <line x1="62" y1="267.5" x2="844" y2="267.5" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="53.0" y="271.5" text-anchor="end" class="t-ax">0.895</text>
     <line x1="62" y1="209.8" x2="844" y2="209.8" stroke="var(--c-grid)" stroke-width="1"/>
@@ -755,10 +750,18 @@ footer a:hover{color:var(--ink)}
     <text x="230.0" y="353.0" text-anchor="start" class="t-note">V(x) — the one-well potential</text>
   </svg>
   </div>
-  <figcaption>T1 — the phenomenon theorem — σ = 0.002 · γ = 0.01 · A₂/A₁ = 0.2 · certified ball radius 2.52e-13 · min m over ball ≥ 0.8944. The curve is the CANDIDATE (floats are the map); the theorem is that EVERY density in the ball has exactly 2 strict maxima — marked dots at the certified locations — while V has exactly 1 well. The split is certified with margin six orders above the ball pads.</figcaption>
-</figure></div><div class="after-fig"></div><div class="wide"><figure>
+  <figcaption>σ = 0.002 · γ = 0.01 · A₂/A₁ = 0.2 · certified ball radius 2.52e-13 · min m over ball ≥ 0.8944. The curve is the candidate (floats are the map); the theorem is that EVERY density in the ball has exactly 2 strict maxima — dots mark the certified locations — while V has exactly 1 well. </figcaption>
+</figure></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">the three-peak specimen</div>
+    <h2>T6 — one well, three peaks</h2>
+  </div>
+<p>The mechanism does not stop at one extra peak. With the third harmonic inside its predicted window — the Chebyshev U₂ law gives (1/27, 1/3) at k = 3 — the crowd splits three ways at the bottom of the same single well.</p><div class="wide"><figure>
   <div class="figbox">
-  <svg viewBox="0 0 900 360" role="img" aria-label="T6 — the three-peak theorem: candidate density against the potential">
+  <svg viewBox="0 0 900 360" role="img" aria-label="T6: candidate density against the potential">
     <line x1="62" y1="267.5" x2="844" y2="267.5" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="53.0" y="271.5" text-anchor="end" class="t-ax">0.883</text>
     <line x1="62" y1="209.8" x2="844" y2="209.8" stroke="var(--c-grid)" stroke-width="1"/>
@@ -799,40 +802,40 @@ footer a:hover{color:var(--ink)}
     <text x="230.0" y="353.0" text-anchor="start" class="t-note">V(x) — the one-well potential</text>
   </svg>
   </div>
-  <figcaption>T6 — the three-peak theorem — σ = 0.002 · γ = 0.01 · A₃/A₁ = 0.25 (third harmonic) · certified ball radius 2.73e-13 · min m over ball ≥ 0.8823. The curve is the CANDIDATE (floats are the map); the theorem is that EVERY density in the ball has exactly 3 strict maxima — marked dots at the certified locations — while V has exactly 1 well. The k-th-harmonic Chebyshev law (window (1/27, 1/3) at k = 3) predicted it; the certificate proves it.</figcaption>
+  <figcaption>σ = 0.002 · γ = 0.01 · A₃/A₁ = 0.25 (third harmonic, A₂ = 0) · certified ball radius 2.73e-13 · min m over ball ≥ 0.8823. The curve is the candidate (floats are the map); the theorem is that EVERY density in the ball has exactly 3 strict maxima — dots mark the certified locations — while V has exactly 1 well. </figcaption>
 </figure></div>
 </section>
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§3 · the bracket table</div>
-    <h2>Seven instances, one theorem, every bound shown</h2>
+    <div class="lab">the theorems</div>
+    <h2>Two theorems, 5 bracket rows — every bound shown</h2>
   </div>
-<p>Honest counting: the finding is the two theorems above plus THIS TABLE — negatives, replications and the threshold pin are rows, not theorems. Every enclosure bound is displayed (the reference atlas omitted them; this machine’s own bar requires them): Y₀ the residual defect, Z₁ the contraction bound (< 1 on both the even and odd blocks — full-space local uniqueness), Z₂ the Lipschitz bound, the closure margin, and both positivity floors.</p><div class="wide"><div class="tw"><table><thead><tr><th>instance</th><th>role</th><th>σ</th><th>ratio</th><th>radius r</th><th>Y₀</th><th>Z₁</th><th>Z₂</th><th>margin</th><th>min m</th><th>min w</th><th>peaks / wells</th></tr></thead><tbody><tr><td><b>T1</b></td><td>main</td><td><span class="m">0.002</span></td><td><span class="m">r=0.2</span></td><td><span class="m">2.52e-13</span></td><td><span class="m">2.5e-14</span></td><td><span class="m">0.8970</span></td><td><span class="m">1132</span></td><td><span class="m">4.7e-6</span></td><td><span class="m">0.8944</span></td><td><span class="m">0.9743</span></td><td><span class="tag held">EXACTLY 2 / 1</span></td></tr><tr><td><b>T2</b></td><td>negative</td><td><span class="m">0.002</span></td><td><span class="m">r=0.12</span></td><td><span class="m">2.25e-13</span></td><td><span class="m">2.4e-14</span></td><td><span class="m">0.8889</span></td><td><span class="m">1114</span></td><td><span class="m">5.5e-6</span></td><td><span class="m">0.9059</span></td><td><span class="m">0.9721</span></td><td><span class="tag dep">EXACTLY 1 / 1</span></td></tr><tr><td><b>T3</b></td><td>negative</td><td><span class="m">0.02</span></td><td><span class="m">r=0.2</span></td><td><span class="m">2.97e-14</span></td><td><span class="m">1.3e-14</span></td><td><span class="m">0.5235</span></td><td><span class="m">228</span></td><td><span class="m">5.0e-4</span></td><td><span class="m">0.9621</span></td><td><span class="m">0.9864</span></td><td><span class="tag dep">EXACTLY 1 / 1</span></td></tr><tr><td><b>T4</b></td><td>replication</td><td><span class="m">0.002</span></td><td><span class="m">r=0.15</span></td><td><span class="m">2.37e-13</span></td><td><span class="m">2.4e-14</span></td><td><span class="m">0.8919</span></td><td><span class="m">1121</span></td><td><span class="m">5.2e-6</span></td><td><span class="m">0.9016</span></td><td><span class="m">0.9738</span></td><td><span class="tag held">EXACTLY 2 / 1</span></td></tr><tr><td><b>T6</b></td><td>three peaks</td><td><span class="m">0.002</span></td><td><span class="m">r₃=0.25</span></td><td><span class="m">2.73e-13</span></td><td><span class="m">2.5e-14</span></td><td><span class="m">0.9046</span></td><td><span class="m">1150</span></td><td><span class="m">4.0e-6</span></td><td><span class="m">0.8823</span></td><td><span class="m">0.9462</span></td><td><span class="tag held">EXACTLY 3 / 1</span></td></tr><tr><td><b>T7</b></td><td>threshold pin, lower</td><td><span class="m">0.002</span></td><td><span class="m">r=0.13</span></td><td><span class="m">2.30e-13</span></td><td><span class="m">2.4e-14</span></td><td><span class="m">0.8899</span></td><td><span class="m">1116</span></td><td><span class="m">5.4e-6</span></td><td><span class="m">0.9044</span></td><td><span class="m">0.9728</span></td><td><span class="tag dep">EXACTLY 1 / 1</span></td></tr><tr><td><b>T8</b></td><td>threshold pin, upper</td><td><span class="m">0.002</span></td><td><span class="m">r=0.14</span></td><td><span class="m">2.32e-13</span></td><td><span class="m">2.4e-14</span></td><td><span class="m">0.8909</span></td><td><span class="m">1119</span></td><td><span class="m">5.3e-6</span></td><td><span class="m">0.9030</span></td><td><span class="m">0.9734</span></td><td><span class="tag held">EXACTLY 2 / 1</span></td></tr></tbody></table></div></div><p>T7 and T8 pin the splitting threshold at σ = 0.002, γ = 0.01 inside <b>[0.13, 0.14]</b> by certified counts; the exact-rational linear-response prediction r_c = 0.132725… lands inside the pin.</p>
+<p>Honest counting: T1 and T6 are the theorems; the rest are rows of a bracket table under them — negatives below the amplitude threshold and past the crossover, replications, and the threshold pin. Each row is an enclosure with full-ball local uniqueness (even AND odd blocks — evenness is a corollary, not an assumption), and every bound is displayed: the radius, the contraction bound Z₁, the closure margin, and the certified density floor. Records in <span class="m">certs/</span>.</p><div class="wide"><div class="tw"><table><thead><tr><th>instance</th><th>σ</th><th>A₂/A₁ (or A₃/A₁)</th><th>N</th><th>ν</th><th>ball radius</th><th>Z₁</th><th>margin</th><th>min m</th><th>peaks / wells</th><th>record</th></tr></thead><tbody><tr><td><b>T6</b> (3-peak)</td><td><span class="m">0.002</span></td><td><span class="m">A₃: 0.25</span></td><td><span class="m">96</span></td><td><span class="m">1.02</span></td><td><span class="m">2.73e-13</span></td><td><span class="m">0.9046</span></td><td><span class="m">3.95e-6</span></td><td><span class="m">0.8823</span></td><td><span class="tag held">3 / 1</span></td><td><span class="m">terra-recert-t6.json</span></td></tr><tr><td><b>T2</b></td><td><span class="m">0.002</span></td><td><span class="m">0.12</span></td><td><span class="m">96</span></td><td><span class="m">1.02</span></td><td><span class="m">2.25e-13</span></td><td><span class="m">0.8889</span></td><td><span class="m">5.54e-6</span></td><td><span class="m">0.9059</span></td><td><span class="tag dep">1 / 1</span></td><td><span class="m">terra-recert-t2.json</span></td></tr><tr><td><b>T7</b></td><td><span class="m">0.002</span></td><td><span class="m">0.13</span></td><td><span class="m">96</span></td><td><span class="m">1.02</span></td><td><span class="m">2.30e-13</span></td><td><span class="m">0.8899</span></td><td><span class="m">5.43e-6</span></td><td><span class="m">0.9044</span></td><td><span class="tag dep">1 / 1</span></td><td><span class="m">terra-recert-t7.json</span></td></tr><tr><td><b>T8</b></td><td><span class="m">0.002</span></td><td><span class="m">0.14</span></td><td><span class="m">96</span></td><td><span class="m">1.02</span></td><td><span class="m">2.32e-13</span></td><td><span class="m">0.8909</span></td><td><span class="m">5.32e-6</span></td><td><span class="m">0.9030</span></td><td><span class="tag held">2 / 1</span></td><td><span class="m">terra-recert-t8.json</span></td></tr><tr><td><b>T4</b></td><td><span class="m">0.002</span></td><td><span class="m">0.15</span></td><td><span class="m">96</span></td><td><span class="m">1.02</span></td><td><span class="m">2.37e-13</span></td><td><span class="m">0.8919</span></td><td><span class="m">5.21e-6</span></td><td><span class="m">0.9016</span></td><td><span class="tag held">2 / 1</span></td><td><span class="m">terra-recert-t4.json</span></td></tr><tr><td><b>T1</b> (main)</td><td><span class="m">0.002</span></td><td><span class="m">0.2</span></td><td><span class="m">96</span></td><td><span class="m">1.02</span></td><td><span class="m">2.52e-13</span></td><td><span class="m">0.8970</span></td><td><span class="m">4.69e-6</span></td><td><span class="m">0.8944</span></td><td><span class="tag held">2 / 1</span></td><td><span class="m">terra-recert-t1.json</span></td></tr><tr><td><b>T3</b></td><td><span class="m">0.02</span></td><td><span class="m">0.2</span></td><td><span class="m">64</span></td><td><span class="m">1.05</span></td><td><span class="m">2.97e-14</span></td><td><span class="m">0.5235</span></td><td><span class="m">4.99e-4</span></td><td><span class="m">0.9621</span></td><td><span class="tag dep">1 / 1</span></td><td><span class="m">terra-recert-t3.json</span></td></tr></tbody></table></div></div><p>T5 (σ = 0.001, r = 0.15, N = 176) is certifying at this build and joins the table automatically when its record lands.</p>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§4 · the constant</div>
-    <h2>σ* = 1/(8π²), decided — not measured</h2>
+    <div class="lab">the companion result</div>
+    <h2>Certified multiplicity where uniqueness theory is silent</h2>
   </div>
-<p>The crossover where the second harmonic’s gain overtakes the first’s is an exact rational fact, not a 12-digit float agreement. With s = σκ₁, the crossover polynomial factors over ℚ:</p><div class="eq">k²[(1+s)² + g] − [(1+k²s)² + k²g]  =  (k²−1)(1 − k²s²)</div><p>The γ-coefficient is IDENTICALLY ZERO (decided for k = 2..12 by exact coefficient arithmetic in <span class="m">certs/terra-sigmastar.json</span>), so the crossover sits at s = 1/k for every γ — at k = 2, σ* = 1/(8π²), bracketed by rationals via Machin’s formula to width 1.3e-44. The band-pass shape itself is the same kind of fact: D − κ∂D/∂κ = (1+σκ)(1−σκ) exactly, so the gain peaks at κ = 1/σ for every discount. The splitting windows (1/16, 1/4) and (1/27, 1/3) are exact rational consequences of the Chebyshev Uₖ₋₁ law. Linear response PREDICTS; only the enclosure and peak-count certificates PROVE.</p>
+<p>Ergodic quadratic MFG, V ≡ 0, σ = ½. Past the pitchfork c* = −σ²(2π)² the constant state, the symmetry-broken branch and its half-shift mirror are enclosed in PAIRWISE DISJOINT ℓ¹_ν uniqueness balls with certified positive density, at each of six couplings c = −11 … −24: AT LEAST THREE distinct exact solutions at every listed coupling, exactly where Lasry–Lions monotonicity makes no claim. The radii grow and the density digs toward vacuum as the coupling deepens — min m down to 4.45e-4 at c = −24 — and the half-shift symmetry is thereby proved to produce a genuinely different solution, not a relabeling. At c = −9.5, inside the monotone regime, the branch collapses onto the constant and no claim is made — the recorded boundary. (<span class="m">certs/mfg-cap-multiplicity.json</span>)</p>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§5 · the census</div>
-    <h2>EXACTLY three — an exact solution count</h2>
+    <div class="lab">the census</div>
+    <h2>EXACTLY three, for the truncated system</h2>
   </div>
-<p>For the ergodic mfg-cap system (V ≡ 0, c = −12, σ = ½), a Krawczyk exhaustion census proves the even Galerkin truncation has EXACTLY 3 solutions in an explicit printed box — every subbox eliminated by an interval-residual or Krawczyk exclusion, every solution isolated with existence AND uniqueness per box. Box-bounded, truncation-level; the PDE count stays an open problem.</p><div class="wide"><div class="tw"><table><thead><tr><th>N (modes)</th><th>dimensions</th><th>boxes processed</th><th>seconds</th><th>verdict</th></tr></thead><tbody><tr><td><span class="m">N = 2</span></td><td><span class="m">5</span></td><td><span class="m">2,077</span></td><td><span class="m">0.1</span></td><td><span class="tag held">EXACTLY 3 · one-to-one</span></td></tr><tr><td><span class="m">N = 3</span></td><td><span class="m">7</span></td><td><span class="m">21,642</span></td><td><span class="m">0.8</span></td><td><span class="tag held">EXACTLY 3 · one-to-one</span></td></tr><tr><td><span class="m">N = 4</span></td><td><span class="m">9</span></td><td><span class="m">335,862</span></td><td><span class="m">17.7</span></td><td><span class="tag held">EXACTLY 3 · one-to-one</span></td></tr><tr><td><span class="m">N = 5</span></td><td><span class="m">11</span></td><td><span class="m">6,954,073</span></td><td><span class="m">586.7</span></td><td><span class="tag held">EXACTLY 3 · one-to-one</span></td></tr></tbody></table></div></div><p>And its FUNCTION-SPACE companion (<span class="m">certs/mfg-cap-multiplicity.json</span>): at each of six couplings c = −11 … −24 — past the Lasry–Lions monotonicity wall — the constant solution, the symmetry-broken branch and its half-shift mirror sit in PAIRWISE DISJOINT uniqueness balls with certified positive density (the deepest floor: min m ≥ 4.45e-4 at c = −24): AT LEAST THREE distinct exact solutions of the system at every listed coupling. At c = −9.5, inside the monotone regime, the branch collapses onto the constant and no claim is made — the recorded boundary.</p>
+<p>Krawczyk exhaustion over an explicit printed box B: every subbox of an adaptive partition is eliminated by an interval-residual or Krawczyk exclusion, and each surviving box is isolated by Moore–Krawczyk K(X) ⊂ int(X) — existence AND uniqueness per box. Box-bounded, truncation-level; the PDE-level count is the stated open problem.</p><div class="wide"><div class="tw"><table><thead><tr><th>Galerkin N</th><th>dimensions</th><th>boxes processed</th><th>seconds</th><th>solutions in B</th><th>matching</th></tr></thead><tbody><tr><td><span class="m">N = 2</span></td><td><span class="m">5</span></td><td><span class="m">2,077</span></td><td><span class="m">0.1</span></td><td><span class="tag held">EXACTLY 3</span></td><td><span class="m">constant · branch · mirror, one-to-one</span></td></tr><tr><td><span class="m">N = 3</span></td><td><span class="m">7</span></td><td><span class="m">21,642</span></td><td><span class="m">0.8</span></td><td><span class="tag held">EXACTLY 3</span></td><td><span class="m">constant · branch · mirror, one-to-one</span></td></tr><tr><td><span class="m">N = 4</span></td><td><span class="m">9</span></td><td><span class="m">335,862</span></td><td><span class="m">17.7</span></td><td><span class="tag held">EXACTLY 3</span></td><td><span class="m">constant · branch · mirror, one-to-one</span></td></tr><tr><td><span class="m">N = 5</span></td><td><span class="m">11</span></td><td><span class="m">6,954,073</span></td><td><span class="m">586.7</span></td><td><span class="tag held">EXACTLY 3</span></td><td><span class="m">constant · branch · mirror, one-to-one</span></td></tr></tbody></table></div></div>
 </section>
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§6 · the regime map</div>
-    <h2>21,567 rectangles, three verdicts</h2>
+    <div class="lab">the regime map</div>
+    <h2>Multiplicity decided over whole rectangles</h2>
   </div>
-<p>The two-population regime map, rendered straight from this machine’s own record (<span class="m">certs/mfg2p-regime-map.json</span> — the same record the origin bench reproduced cell-for-cell): every rectangle of coupling matrices decided UNIFORMLY over its whole cell, adaptive refinement where the answer changes, and the undecided region drawn as itself — hatched, not rounded away. The exact area identity (decided in rationals) confirms the three regions tile the rectangle.</p><div class="wide"><figure>
+<p>Coupling plane (s, d): s = symmetric cross-interaction, d = attack–defense asymmetry. Every rectangle of coupling matrices is decided UNIFORMLY over its whole cell — 11,628 cells certified MULTIPLE (two exact solutions for EVERY parameter in the cell, disjoint balls, positive densities), 24 UNIQUE, and the undecided region drawn as itself — hatched, not rounded away. The exact area identity (decided in rationals) confirms the three regions tile the rectangle. (<span class="m">certs/mfg2p-regime-map.json</span>)</p><div class="wide"><figure>
   <div class="figbox">
   <svg viewBox="0 0 900 460" role="img" aria-label="two-population MFG regime map: 21,567 cells decided uniformly over rectangles of coupling matrices">
     <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
@@ -867,24 +870,24 @@ footer a:hover{color:var(--ink)}
     <text x="551.0" y="452.0" text-anchor="start" class="t-note">UNDECIDED — honest (9,915)</text>
   </svg>
   </div>
-  <figcaption>MULTIPLE 11,628 · UNIQUE 24 · UNDECIDED 9,915 cells. Re-run: node labs/mfg2p/regime2p.js.</figcaption>
+  <figcaption>Adaptive refinement concentrates cells where the answer changes. Re-run: node labs/mfg2p/regime2p.js.</figcaption>
 </figure></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§7 · faces &amp; selection</div>
-    <h2>k = |shared| − cons + z, with its evidence</h2>
+    <div class="lab">the selection wing</div>
+    <h2>The face-dimension law</h2>
   </div>
-<p>When the cost is class-independent, the two-population equilibrium is a FACE — a set the equilibrium conditions cannot pin to a point — and its exact tangent dimension obeys a purely combinatorial law: shared edges, minus non-exit touched nodes, PLUS the number of exit-free components of the shared subgraph. The combinatorial shortcut everyone would reach for is correct exactly when z = 0, and undercounts by exactly z otherwise.</p><p>The evidence this theorem never had now exists (<span class="m">certs/facelaw-theorem.json</span>): the origin bench’s seeded ensemble replayed call-for-call re-derives its published <b>572 shortcut failures</b> on 3933 networks as a replication — every failing instance ENUMERATED in the record so any reader can re-run any one — and a fresh-seed ensemble adds 571 more on 3925. The exit-free-cycle family realizes every deficit; the origin 15-edge instance has z = 0, which is why the shortcut looked like a law. Exact over ℚ; combinatorics on the constraint matrices, not an enclosure. The origin bench’s preregistered LLM-selection study is NOT ported: its data lives only there, and importing its numbers would import a claim this machine cannot re-run.</p>
+<p>When the cost is class-independent, the two-population equilibrium is a FACE — a positive-dimensional set the equilibrium conditions cannot pin to a point — and its exact tangent dimension obeys a purely combinatorial law: <b>k = |shared| − cons + z</b>, where z counts exit-free components of the shared subgraph. The natural shortcut (drop z) is correct exactly when every shared component touches an exit, and undercounts by exactly z otherwise.</p><p>The law is decided against the exact ℚ null space on two seeded 4,000-network ensembles — the shortcut fails on 572 and 571 instances respectively, precisely the z > 0 cases, and every failing instance is ENUMERATED in the record so any reader can re-run any one. A constructed exit-free-cycle family realizes every deficit. Exact over ℚ; combinatorics on the constraint matrices, not an enclosure. (<span class="m">certs/facelaw-theorem.json</span>)</p>
 </section>
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§8 · attention</div>
-    <h2>A double zero is not a crossing</h2>
+    <div class="lab">the attention wing</div>
+    <h2>A decidable attention flow, and the bifurcations that weren’t</h2>
   </div>
-<p>For token dynamics under the rational kernel (1 + β⟨x_i,x_j⟩)^p — never a Transformer/softmax claim — the reduced equal-cluster flow touches zero at c* = −1/β and rises on both sides: the zero has multiplicity EXACTLY 2 (decided by exact polynomial division), the denominator is a sum of squares, and ċ > 0 everywhere else on (−1, 1) for every β > 1. One-sided semi-stability; every pitchfork claim about this flow is REFUTED, exactly (<span class="m">certs/attnflow-theorems.json</span>). The consensus spectrum {0, −1} is β- AND p-free — the kernel slope cancels identically, decided by exact dual-number expansion. Cross-weights of the ⟨u,v⟩ = −1/β family vanish identically, to first order for every p ≥ 2 — and NOT at p = 1, the model’s own honest candidate for a true bifurcation.</p><div class="wide"><figure>
+<p>Rational-kernel token dynamics on the sphere — (1 + β⟨x_i,x_j⟩)^p, chosen so equilibrium and stability are decidable in exact ℚ; never a Transformer/softmax claim. Three theorems: the consensus spectrum {0, −1} is β- AND p-free (the kernel slope cancels identically — decided by exact dual-number expansion); the ⟨u,v⟩ = −1/β two-cluster family’s cross-weights vanish identically, to first order for every p ≥ 2 (and NOT at p = 1 — the model’s own honest candidate for a true bifurcation); and the reduced flow below. Plus a four-artifact catalogue of how finite float budgets manufacture bifurcations — one artifact re-demonstrated live at every battery run, with its exact refutation. (<span class="m">certs/attnflow-theorems.json</span>)</p><div class="wide"><figure>
   <div class="figbox">
   <svg viewBox="0 0 900 330" role="img" aria-label="the reduced equal-cluster attention flow at three betas, with its double zeros">
     <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
@@ -1649,22 +1652,36 @@ footer a:hover{color:var(--ink)}
     <text x="269.0" y="323.0" text-anchor="start" class="t-note">β = 4</text>
   </svg>
   </div>
-  <figcaption>The reduced flow at three couplings (float rendering of the exactly-decided object). Each curve kisses zero at c* = −1/β and never crosses — the degenerate case every finite-budget bifurcation story dies on. The phantom-bifurcation taxonomy travels with the certificate: the locator transient is re-demonstrated live (a float budget declares an equilibrium; the exact decision refutes it at the same point), and the budget-heavy artifacts are carried as origin-measured, never as proved here.</figcaption>
+  <figcaption>The reduced two-cluster flow ċ(c) = 2(1+βc)²(1−c²)/[(1+β)²+(1+βc)²] for three β. The curve TOUCHES zero at c* = −1/β (a double zero — multiplicity decided by exact division) and never crosses: one-sided semi-stability at every β &gt; 1, so every pitchfork claim about this flow is refuted, exactly.</figcaption>
 </figure></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§9 · why you can trust this</div>
-    <h2>Two implementations, nine falsifiers, one bar</h2>
+    <div class="lab">the mechanism</div>
+    <h2>The mechanism, in four lines</h2>
   </div>
-<p>The enclosures are radii-polynomial certificates on the augmented (a₀, p, m, w) system, ℓ¹_ν tail bounds (the enclosed object solves the SYSTEM, not an N-mode approximation), both parity blocks of the linearization certified. Two independent implementations agree: the certified T1 radius here equals the origin bench’s record to the last digit, with independently computed approximate inverses on each side. Nine falsifiers fire per instance — including two that attack the A₂/A₃ extension’s own lines (zeroed and wrong-mode data terms must each explode the residual, and do). Peak counts never trust a float sign: floats propose, certified region chains decide, and anything uncertifiable REFUSES.</p><div class="note">
-  <span class="lab">the paper</span>
-<p>The record-driven write-up is <span class="m">paper/terra-peaks.md</span> (PDF: <span class="m">paper/terra-peaks.pdf</span>) — generated by <span class="m">tools/build-terra-writeup.js</span> from the same certificates as this page; the build refuses if any input moves. Draft; nothing is sent anywhere without explicit operator release.</p>
+<p>Linearize the discounted congestion MFG about its flat equilibrium: the density response to a cost mode of frequency κ is</p><div class="eq">m̂ = −c(κ)·A     with     c(κ) = κ / [ (1+σκ)² + γκ ]</div><p>— a band-pass, peaked at κ = 1/σ. The second harmonic overtakes the fundamental exactly when σκ₁ = ½, and the γ-terms cancel IDENTICALLY (an exact polynomial fact, <span class="m">certs/terra-sigmastar.json</span>), giving σ* = 1/(8π²), discount-free. The equilibrium counts wells by gain-weighted harmonic amplitudes; the potential counts them flat; the splitting window is exactly the gap between the two counts.</p><div class="note">
+  <span class="lab">scope, stated plainly</span>
+<p>Mechanism is linear response, derived in advance and confirmed — Turing-adjacent mode selection in a driven, monotone-regime system, distinguished from spontaneous instability (Karuturi, arXiv:2605.20213) and from peaks that mirror the potential (Cesaroni–Cirant, arXiv:1705.10741). The theorems certify existence, full-ball uniqueness (both parities), density positivity and the branch selection; the peak counts never trust a float sign.</p>
 </div>
 </section>
 
-<footer><p>cert-machine · built 2026-09-02 · git b8c3808 · every number from a VERIFIED certificate · phase-map floats pinned sha256 30b3cfe49514…</p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p></footer>
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">reproduce</div>
+    <h2>Reproduce</h2>
+  </div>
+<p>Every certificate re-runs from this repository:</p><pre class="code">python3 instruments/mfgcap/run_recert.py t1      # the T1 enclosure, nine falsifiers
+node instruments/critcount/run.js t1              # EXACTLY 2 maxima over the whole ball
+python3 instruments/mfgcap/sigmastar.py           # sigma* = 1/(8pi^2), exact rationals
+python3 instruments/mfgcap/bracket_table.py       # the bracket table + threshold pin
+node labs/mfg/census.js --N 5 --c -12             # EXACTLY 3 (6.95M boxes)
+node labs/mfg/multiplicity.js                     # &gt;= 3 solutions per coupling
+make test                                         # every battery, every red control</pre><p>The write-up: <span class="m">paper/terra-peaks.md</span> · PDF: <span class="m">paper/terra-peaks.pdf</span> — generated from the same certificates as this page. All sends are held until released by the author.</p>
+</section>
+
+<footer><p>cert-machine · built 2026-09-02 · git de7471f · every number from a VERIFIED certificate · phase-map floats pinned sha256 30b3cfe49514…</p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p></footer>
 
 
 

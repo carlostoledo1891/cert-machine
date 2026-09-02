@@ -44,6 +44,10 @@ ROWS = [
     ('t7', 'threshold pin, lower: r = 0.13', 1),
     ('t8', 'threshold pin, upper: r = 0.14', 2),
 ]
+# T5 (sigma = 0.001, r = 0.15, N = 176) joins automatically once certified
+if (os.path.exists(os.path.join(ROOT, 'certs', 'terra-recert-t5.json'))
+        and os.path.exists(os.path.join(ROOT, 'certs', 'terra-peakcount-t5.json'))):
+    ROWS.insert(4, ('t5', 'replication at low viscosity: sigma = 0.001, N = 176', 2))
 
 
 def rc_rational_bracket(sigma, gamma):

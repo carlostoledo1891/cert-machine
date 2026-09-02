@@ -123,7 +123,7 @@ section{margin:${SCALE.section} 0 0}
 .sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
 .sec-head .lab{color:var(--ink-4)}
 
-/* stat tiles — the frontier fused grid: 1px gaps painted by the border colour */
+/* stat tiles — the fused grid: 1px gaps painted by the border colour */
 .stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
 .stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
@@ -203,7 +203,7 @@ td.k{color:var(--ink);font-weight:500;white-space:nowrap}
 td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
 td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 
-/* verdict chips — WEIGHT + SHAPE, never colour-alone (the frontier grammar):
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
    certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;

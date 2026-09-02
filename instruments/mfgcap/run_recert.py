@@ -65,6 +65,7 @@ TAGS = {
     't2': _bracket('t2', 'one-peak negative: r = 0.12 below the predicted threshold 0.1327'),
     't3': _bracket('t3', 'one-peak negative: sigma = 0.02 above sigma*, gain ratio kills the split'),
     't4': _bracket('t4', 'replication: r = 0.15 above threshold, two peaks expected'),
+    't5': _bracket('t5', 'replication at low viscosity: sigma = 0.001, r = 0.15, N = 176'),
     't7': _bracket('t7', 'threshold pin, lower side: r = 0.13, one peak expected'),
     't8': _bracket('t8', 'threshold pin, upper side: r = 0.14, two peaks expected'),
     't1': {

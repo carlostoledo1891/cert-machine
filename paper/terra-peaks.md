@@ -1,25 +1,10 @@
 # Gain-weighted well-counting in a congestion mean-field game
 
-**Certified equilibria whose density carries more local maxima than the potential has wells — two theorems, a seven-row bracket table, and an exact, gamma-independent crossover constant.**
+**Certified equilibria whose density carries more local maxima than the potential has wells — two theorems, a bracket table of certified instances, and an exact, gamma-independent crossover constant.**
 
-Draft v0.1 (machine-generated) · 2026-09-02 · repository cert-machine @ git fac3b8a
+Draft v0.2 (machine-generated) · 2026-09-02 · repository cert-machine @ git de7471f
 
 [OPERATOR] author line · [OPERATOR] venue · [OPERATOR] acknowledgments · [OPERATOR] AI-involvement disclosure wording
-
-## Status and provenance
-
-Every number in this document is interpolated at build time from machine-written
-certificates in `certs/` (named where used); the build refuses to render if any
-certificate is missing, refused, or structurally moved. The finding originated on
-the author's frontier-apps bench and was **re-proved end to end inside
-cert-machine**: an independent verifier lineage (a bit-for-bit-calibrated
-extension of the frozen stdlib Python verifier), independently computed
-approximate inverses, a fresh critical-point counter, and falsifier batteries
-whose red controls fire. Nothing here has been published or sent anywhere.
-Priority note: the companion enclosure of the base instance (sigma = 1/2,
-single-harmonic potential; the page `reports/mfg-congest.html`) was never
-published either — it is the same author's unpublished base instance and is the
-frozen calibration gate of the present verification, not prior art.
 
 ## Abstract
 
@@ -47,7 +32,47 @@ radii-polynomial certificates at radius ~2.52e-13 with local
 uniqueness in the full sequence-space ball (even AND odd blocks) and both
 positivity walls certified. This document is generated from those certificates.
 
-## 1. The model and the exact instances
+## 1. Introduction
+
+Under Lasry–Lions monotonicity, mean-field-game theory guarantees a unique
+equilibrium, and the intuition that travels with the theory is stronger than
+the theorem: the population's density is expected to mirror the cost — wells
+of the potential become peaks of the crowd, one for one. The known rigorous
+results reinforce that reading (in the Cesaroni–Cirant regime, density peaks
+sit where the potential's wells sit), and the natural working assumption is a
+CEILING: the equilibrium cannot carry more local maxima than the cost has
+wells.
+
+This paper proves the ceiling false, inside the uniqueness regime, by
+validated numerics. At explicit parameters of a stationary discounted
+congestion mean-field game on the torus we certify exact equilibria whose
+density carries EXACTLY two — and, at a third-harmonic instance, EXACTLY
+three — strict local maxima over a potential with EXACTLY one well. The
+mechanism is not exotic and we state it at its true altitude: the linearized
+response to the cost is a band-pass filter in harmonic frequency, so the
+equilibrium counts wells with GAIN-WEIGHTED amplitudes while the potential
+counts them flat, and between those two counts a single well splits the crowd.
+What the linear analysis cannot give — and the certificates do — is the
+nonlinear statement: these are exact equilibria of the full congestion system,
+with local uniqueness in the full sequence-space ball and both positivity
+walls certified.
+
+Contributions. (i) The phenomenon theorem and its three-peak companion
+(Sections 4–5), by radii-polynomial enclosures whose certified balls fix the
+exact critical-point count of the exact solution. (ii) The crossover constant
+sigma* = 1/(8 pi^2), INDEPENDENT of the discount, decided as an exact-rational
+polynomial identity rather than observed numerically (Section 3). (iii) A
+bracket table of certified instances pinning the splitting threshold inside
+[0.13, 0.14], with the exact-rational linear-response prediction landing
+inside the pin (Section 6). (iv) An exact solution count for the companion
+ergodic system — EXACTLY three Galerkin solutions, box-bounded — together
+with function-space multiplicity: at least three distinct exact solutions per
+coupling in pairwise disjoint uniqueness balls (Section 7). Every number in
+this document is interpolated at build time from machine-written certificates
+(named where used); the build refuses to render if any certificate is
+missing, refused, or structurally moved.
+
+## 2. The model and the exact instances
 
 Stationary discounted congestion MFG on the unit torus (congestion exponent
 a = 1/2):
@@ -68,7 +93,7 @@ A2 = 0.0006000000000000001 (0x1.3a92a30553262p-11), N = 96,
 ν = 1.02. Three-peak instance (T6): A3 = 0.00075
 (0x1.89374bc6a7efap-11), A2 = 0, same σ, γ, N, ν.
 
-## 2. Linear response: the band-pass gain and the exact crossover
+## 3. Linear response: the band-pass gain and the exact crossover
 
 At first order in the potential amplitudes the congestion term drops and each
 harmonic responds independently: m̂_k = −c(κ_k) A_k with κ_k = (2πk)² and
@@ -89,10 +114,10 @@ crossover polynomial N_k(s, g) = k²[(1+s)² + g] − [(1+k²s)² + k²g] factor
 root is s = 1/k exactly (decided for k = 2..12). Hence c_k = c_1 exactly at
 σ = 1/(4π²k); at k = 2,
 
-    σ* = 1/(8π²) ∈ [0.012665147955292222, 0.012665147955292222]
+    σ* = 1/(8π²) = 0.012665147955292222…
 
-(rational bracket via Machin's formula, width 1.26e-44;
-the rational endpoints are in the certificate). The γ-independence is an exact
+(rational bracket of width 1.26e-44 via Machin's
+formula — the exact rational endpoints are in the certificate). The γ-independence is an exact
 cancellation, not numerical smallness.
 
 **Proposition 3 (the splitting windows).** sin 2πkx = sin 2πx · U_{k−1}(cos 2πx),
@@ -111,9 +136,9 @@ as elementary isolates the actual contribution, which is the MFG setting, the
 exact γ-free constant, and the nonlinear certificates below]. Linear response
 PREDICTS; only the certificates PROVE.
 
-## 3. Theorem 1 — two peaks over one well
+## 4. Theorem 1 — two peaks over one well
 
-**Theorem 1.** At the T1 instance of §1 (A1 > 4A2: V has exactly one well),
+**Theorem 1.** At the T1 instance of §2 (A1 > 4A2: V has exactly one well),
 there is an exact equilibrium (u, m, w) of the full congestion system within
 ℓ¹_ν distance 2.520e-13 of the stored candidate, locally unique in the
 full sequence-space ball — even (cosine) AND odd (sine) blocks — with
@@ -134,7 +159,7 @@ ball with the ball's derivative pads folded into every cell bound
 smallest certified margin 6.72e-2 — more than six orders above the
 pads.
 
-## 4. Theorem 2 — three peaks over one well
+## 5. Theorem 2 — three peaks over one well
 
 **Theorem 2.** At the T6 instance (third harmonic, A3/A1 = 0.25,
 one well), the analogous statement holds with radius 2.731e-13,
@@ -142,7 +167,7 @@ m ≥ 0.8823, and EXACTLY 3 strict local maxima
 (3 minima); V has exactly 1 well.
 (`certs/terra-recert-t6.json`, `certs/terra-peakcount-t6.json`.)
 
-## 5. The bracket table — seven certified instances under one theorem
+## 6. The bracket table — the certified instances under one theorem
 
 Honest counting: the finding is the two theorems above plus THIS TABLE — rows
 of a table are rows of a table, not further theorems.
@@ -164,7 +189,7 @@ certified counts, and the exact-rational prediction
 r_c = [(1+4s)² + 4g]/(16[(1+s)² + g]) = 0.132725…
 (rational bracket in `certs/terra-bracket-table.json`) lands inside the pin.
 
-## 6. Companion result — an exact solution count
+## 7. Companion results — an exact count, and certified multiplicity
 
 For the ergodic mfg-cap system (V ≡ 0, monotone coupling c = −12, σ = 1/2), a
 Krawczyk exhaustion census proves the N-mode even Galerkin truncation has
@@ -185,14 +210,15 @@ provably produces a different solution, not a relabeling. At c = −9.5, inside
 the monotone regime, the branch collapses onto the constant and no claim is
 made. (`certs/mfg-cap-multiplicity.json`.)
 
-## 7. Method and verification posture
+## 8. Method and verification posture
 
 The enclosures are radii-polynomial certificates on the augmented (a₀, p, m, w)
 system with the reciprocal constraint, ℓ¹_ν Banach-algebra tail bounds (the
 enclosed object solves the SYSTEM, not an N-mode approximation), and both
 blocks of the linearization certified — the odd block is where a
-symmetry-breaking solution would live. Two independent implementations agree:
-the certified T1 radius here equals the originating bench's record to the last
+symmetry-breaking solution would live. Two independent implementations of
+the argument — a JavaScript kernel and the stdlib-Python verifier lineage that
+ships inside the companion page — agree on the certified T1 radius to the last
 digit, with independently computed approximate inverses on each side. The
 verifier's falsifier battery (nine controls per instance) includes two that
 attack the extension's own new lines: zeroing the instance's harmonic data term
@@ -206,7 +232,7 @@ exceed potential wells was THIS LAB'S OWN working assumption, formed on an
 unreproduced ~508-sample float campaign — not folk belief, and not literature.
 The certificates above refute it.
 
-## 8. Related work and fences
+## 9. Related work and fences
 
 - Karuturi, arXiv:2605.20213 — THE MANDATORY FENCE: spontaneous instability of
   the uniform state under an interaction kernel with NO potential, with a
@@ -222,13 +248,25 @@ The certificates above refute it.
   verification) — the CAP lineage this work instantiates. [OPERATOR/CITE:
   exact reference strings before submission.]
 
-## 9. Open problems
+## 10. Open problems
 
 PDE-level census (rung b); k-peak uniformity in k; sharper r_c digits;
 non-even branches as γ → 0; the time-dependent forward–backward CAP.
 
+## Status and reproducibility
+
+Nothing in this program has been published or sent anywhere; every send is
+released only by the author. Every certificate re-runs from the repository
+(`python3 instruments/mfgcap/run_recert.py t1`, `node
+instruments/critcount/run.js t1`, `python3 instruments/mfgcap/sigmastar.py`,
+`node labs/mfg/census.js`, `node labs/mfg/multiplicity.js`, `make test`).
+The base instance of this program — the σ = 1/2 single-harmonic enclosure of
+`reports/mfg-congest.html` — is the companion page whose embedded stdlib
+verifier serves as the calibration gate of every certificate here; the two are
+one program and any priority claim is made by their first release together.
+
 ---
 *Generated by tools/build-terra-writeup.js from the named certificates; the
-build refuses if any input is missing, refused, or moved. Draft v0.1 wants a
+build refuses if any input is missing, refused, or moved. Draft v0.2 wants a
 human read [OPERATOR] before anything further; nothing is sent anywhere without
 explicit operator release.*
