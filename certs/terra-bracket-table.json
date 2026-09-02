@@ -84,6 +84,26 @@
    ]
   },
   {
+   "tag": "T5",
+   "role": "replication at low viscosity: sigma = 0.001, N = 176",
+   "sigma": 0.001,
+   "gamma": 0.01,
+   "A1": 0.001,
+   "A2": 0.00015,
+   "A3": 0.0,
+   "N": 176,
+   "nu": 1.015,
+   "r": 5.313360274907975e-13,
+   "Z1": 0.9259760724291124,
+   "minM": 0.96494281979973,
+   "peaks": 2,
+   "wells": 1,
+   "certs": [
+    "certs/terra-recert-t5.json",
+    "certs/terra-peakcount-t5.json"
+   ]
+  },
+  {
    "tag": "T6",
    "role": "three peaks: third harmonic r3 = 0.25",
    "sigma": 0.002,
@@ -162,6 +182,6 @@
  },
  "meta": {
   "date": "2026-09-01",
-  "git": "5c1b0c2"
+  "git": "5b6a608"
  }
 }

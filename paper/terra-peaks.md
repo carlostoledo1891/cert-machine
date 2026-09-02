@@ -2,7 +2,7 @@
 
 **Certified equilibria whose density carries more local maxima than the potential has wells — two theorems, a bracket table of certified instances, and an exact, gamma-independent crossover constant.**
 
-Draft v0.2 (machine-generated) · 2026-09-02 · repository cert-machine @ git de7471f
+Draft v0.2 (machine-generated) · 2026-09-02 · repository cert-machine @ git 5b6a608
 
 [OPERATOR] author line · [OPERATOR] venue · [OPERATOR] acknowledgments · [OPERATOR] AI-involvement disclosure wording
 
@@ -23,7 +23,7 @@ second-vs-first harmonic crossover σ* = 1/(8π²) is INDEPENDENT of the couplin
 the crossover polynomial is identically zero), not by float agreement — and the
 limiting splitting window is the exact rational interval (1/16, 1/4)
 (third harmonic: (1/27, 1/3), the Chebyshev U_{k−1} law). Around each theorem
-sit five further certified instances forming a bracket table: negatives below
+sit six further certified instances forming a bracket table: negatives below
 the amplitude threshold and above σ*, replications, and a threshold pin — the
 splitting threshold at σ = 0.002, γ = 0.01 lies in [0.13, 0.14] by certified
 counts, with the exact-rational linear-response prediction
@@ -178,12 +178,13 @@ of a table are rows of a table, not further theorems.
 | T2 | 0.002 | A2/A1 = 0.12 | 96 | 2.25e-13 | 0.8889 | 0.9059 | 1 / 1 |
 | T3 | 0.02 | A2/A1 = 0.2 | 64 | 2.97e-14 | 0.5235 | 0.9621 | 1 / 1 |
 | T4 | 0.002 | A2/A1 = 0.15 | 96 | 2.37e-13 | 0.8919 | 0.9016 | 2 / 1 |
+| T5 | 0.001 | A2/A1 = 0.15 | 176 | 5.31e-13 | 0.9260 | 0.9649 | 2 / 1 |
 | T6 | 0.002 | A3/A1 = 0.25 | 96 | 2.73e-13 | 0.9046 | 0.8823 | 3 / 1 |
 | T7 | 0.002 | A2/A1 = 0.13 | 96 | 2.30e-13 | 0.8899 | 0.9044 | 1 / 1 |
 | T8 | 0.002 | A2/A1 = 0.14 | 96 | 2.32e-13 | 0.8909 | 0.9030 | 2 / 1 |
 
 T2 (r = 0.12) and T3 (σ = 0.02 > σ*) are one-peak negatives exactly where the
-linear response predicts none; T4 replicates the split at r = 0.15; T7/T8 pin
+linear response predicts none; T4 and T5 (σ = 0.001, N = 176) replicate the split at r = 0.15; T7/T8 pin
 the splitting threshold at σ = 0.002, γ = 0.01 inside **[0.13, 0.14]** by
 certified counts, and the exact-rational prediction
 r_c = [(1+4s)² + 4g]/(16[(1+s)² + g]) = 0.132725…

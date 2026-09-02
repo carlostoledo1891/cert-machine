@@ -116,6 +116,8 @@ if os.path.exists(btp):
     bt = json.load(open(btp))
     ok(bt['verdict'] == 'VERIFIED', 'bracket table VERIFIED')
     want = {'T1': 2, 'T2': 1, 'T3': 1, 'T4': 2, 'T6': 3, 'T7': 1, 'T8': 2}
+    if any(r['tag'] == 'T5' for r in bt['table']):
+        want['T5'] = 2
     got = {r['tag']: r['peaks'] for r in bt['table']}
     ok(got == want, 'bracket table counts are exactly %s' % want)
     ok(all(r['wells'] == 1 for r in bt['table']), 'every bracket row has exactly one well')
