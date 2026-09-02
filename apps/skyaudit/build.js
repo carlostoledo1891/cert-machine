@@ -207,6 +207,7 @@ for (const city of ['nyc', 'sp']) {
   const html = renderApp({
     title: T.title,
     description: T.description,
+    path: city === 'nyc' ? '/apps/skyaudit/' : '/apps/skyaudit/sp/',
     appName: 'SkyAudit',
     meta: T.meta,
     brand: 'CERT-MACHINE',

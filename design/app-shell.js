@@ -279,6 +279,18 @@ function renderApp(o) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${o.title}</title>
 <meta name="description" content="${o.description || ''}">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+${o.path ? `<link rel="canonical" href="https://carlostoledo.co${o.path}">
+<meta property="og:url" content="https://carlostoledo.co${o.path}">
+<meta property="og:title" content="${o.title}">
+<meta property="og:description" content="${o.description || ''}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">` : ''}
 ${APP_FONTS}
 ${(o.styles || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('\n')}
 <style>${T.rootCss()}${appCss()}</style>

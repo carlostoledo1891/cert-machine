@@ -1293,7 +1293,8 @@ const put = (rel, buf) => desired.set(rel, buf);
     fail('a priority claim reached the landing without its qualifier');
   }
 }
-put('index.html', Buffer.from(TPL.render({ title: 'cert-machine · the conjecture engine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/' })));
+put('index.html', Buffer.from(TPL.render({ title: 'cert-machine · the conjecture engine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/',
+  desc: 'Verification layers for AI-scale mathematical search — exact rational decisions, interval enclosures, reward signals that cannot be hacked — and certified audits of published AI-generated mathematics.' })));
 put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports · cert-machine', bodyRaw: reportsIndexBody, footRaw: reportsIndexFoot, path: '/reports/',
   desc: 'The reports shelf: certified audits of AI-generated mathematics, evals whose ground truth is a proof, a verified reward channel — and the instruments, proven on hard classical ground. Every page recomputes its numbers at build.' })));
 put('about/index.html', Buffer.from(TPL.render({ title: 'About · Carlos Toledo', bodyRaw: aboutBody, footRaw: aboutFoot, path: '/about/',
@@ -1347,6 +1348,23 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
     + urls.sort().map((u) => '  <url><loc>https://carlostoledo.co' + u + '</loc></url>').join('\n')
     + '\n</urlset>\n';
   put('sitemap.xml', Buffer.from(xml));
+}
+/* meta gate: every served page carries its OWN description — a page that
+   falls back to the template default, or two pages sharing one description,
+   is the corpus.js divergence in SEO form and refuses the build. */
+{
+  const seen = new Map();
+  for (const [rel, buf] of desired) {
+    if (!rel.endsWith('.html')) continue;
+    const m = String(buf).match(/name="description" content="([^"]*)"/);
+    if (!m || !m[1]) fail('meta gate: ' + rel + ' has no meta description');
+    const d = m[1];
+    if (d === require(path.join(ROOT, 'design', 'template.js')).DEFAULT_DESC) {
+      fail('meta gate: ' + rel + ' ships the default description — give it its own');
+    }
+    if (seen.has(d)) fail('meta gate: ' + rel + ' and ' + seen.get(d) + ' share one description');
+    seen.set(d, rel);
+  }
 }
 fs.mkdirSync(SITE, { recursive: true });
 let wrote = 0, pruned = 0, kept = 0;

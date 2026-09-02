@@ -5,6 +5,8 @@
 <title>The rank-two Poisson conjecture — re-verified</title>
 <meta name="description" content="The rank-two Poisson conjecture: An explicit counterexample: polynomials R, T, D, S in ℚ[x,q,p,z] with prescribed bracket relations. Re-verified here from the manuscript — CONFIRMED, the explicit counterexample. The full check ledger, the falsifiers, and the boundary the audit did not cross.">
 <meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/claim-poisson.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/claim-poisson.html">
 <meta property="og:title" content="The rank-two Poisson conjecture — re-verified">
@@ -14,10 +16,12 @@
 <meta property="og:image" content="https://carlostoledo.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The rank-two Poisson conjecture — re-verified">
 <meta name="twitter:description" content="The rank-two Poisson conjecture: An explicit counterexample: polynomials R, T, D, S in ℚ[x,q,p,z] with prescribed bracket relations. Re-verified here from the manuscript — CONFIRMED, the explicit counterexample. The full check ledger, the falsifiers, and the boundary the audit did not cross.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The rank-two Poisson conjecture — re-verified","description":"The rank-two Poisson conjecture: An explicit counterexample: polynomials R, T, D, S in ℚ[x,q,p,z] with prescribed bracket relations. Re-verified here from the manuscript — CONFIRMED, the explicit counterexample. The full check ledger, the falsifiers, and the boundary the audit did not cross.","url":"https://carlostoledo.co/reports/claim-poisson.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -443,7 +447,7 @@ footer a:hover{color:var(--ink)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <strong>CONFIRMED</strong> — the explicit counterexample. What a machine can decide about this claim, it decided, and it held. What it cannot decide is stated below rather than left to the reader to notice.</li><li><b>The mechanism.</b> Written against the manuscript. The author's code was never executed. Verification that existed at source: The author’s own scripts, which we neither derived from nor executed.</li><li><b>Check it.</b> <span class="m">node legacy/research/challenges/lane/laneb-poisson/verify.js</span> — 400 ms at this build, a summary report and 2 mutation controls, every control rejected.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <strong>CONFIRMED</strong> — the explicit counterexample. What a machine can decide about this claim, it decided, and it held. What it cannot decide is stated below rather than left to the reader to notice.</li><li><b>The mechanism.</b> Written against the manuscript. The author's code was never executed. Verification that existed at source: The author’s own scripts, which we neither derived from nor executed.</li><li><b>Check it.</b> <span class="m">node legacy/research/challenges/lane/laneb-poisson/verify.js</span> — 300 ms at this build, a summary report and 2 mutation controls, every control rejected.</li></ul>
 </div></div>
 
 <div class="wide">
@@ -452,7 +456,7 @@ footer a:hover{color:var(--ink)}
     <div class="stat"><div class="k">named checks</div><div class="v">—</div><div class="n">this verifier reports a summary, not named rows — see below</div></div>
     <div class="stat"><div class="k">the verifier&#39;s own total</div><div class="v">—</div><div class="n">this verifier prints no total of its own</div></div>
     <div class="stat"><div class="k">mutation controls</div><div class="v">2</div><div class="n">deliberate corruptions of the claim — every one rejected, or this page would not build</div></div>
-    <div class="stat"><div class="k">runtime</div><div class="v">400 ms</div><div class="n">plain Node, no packages, no author code</div></div>
+    <div class="stat"><div class="k">runtime</div><div class="v">300 ms</div><div class="n">plain Node, no packages, no author code</div></div>
     <div class="stat"><div class="k">analytic core</div><div class="v">not audited</div><div class="n">true of all six claims in this set, and the reason the flagship exists</div></div>
   </div>
 </div>
@@ -473,7 +477,7 @@ footer a:hover{color:var(--ink)}
 <div class="col"><p>All six bracket relations ({D,R} = 1, {S,T} = 1 and the four vanishing ones) hold identically and exactly; the 4×4 symbolic Jacobian determinant is identically 1; and the three claimed points each map exactly to their stated image. A counterexample is an existence claim, so certifying the exhibit IS certifying the claim — the only lane in this set where that is true.</p></div><div class="col"><p><strong>This verifier reports a summary rather than named rows.</strong> It states its own totals and its mutation-control outcome and stops there, so there is no per-check ledger to show and this page does not manufacture one. Its complete output at this build is reproduced verbatim:</p><pre class="code">All claimed identities hold exactly (bracket relations, det J = 1, three-point fiber).
 Mutation control 1 (R -&gt; R + 1/7): rejected, 3 failing checks. OK
 Mutation control 2 (bracket sign swapped): rejected, 2 failing checks. OK
-Elapsed: 0.4s
+Elapsed: 0.3s
 VERDICT: CONFIRMED</pre></div>
 </section>
 
@@ -536,7 +540,7 @@ node legacy/research/challenges/lane/laneb-poisson/verify.js</pre><p>Plain Node,
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-claim.js @ git 641d2c0. Every row on this page was printed by legacy/research/challenges/lane/laneb-poisson/verify.js during this build and parsed by instruments/laneaudit/audit.js — the same module the flagship reads, so the two pages cannot quote different numbers. A failing check or a mutation control that stopped firing would refuse this page.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-claim.js @ git b8360ab. Every row on this page was printed by legacy/research/challenges/lane/laneb-poisson/verify.js during this build and parsed by instruments/laneaudit/audit.js — the same module the flagship reads, so the two pages cannot quote different numbers. A failing check or a mutation control that stopped firing would refuse this page.</p></footer>
 
 </div>
 </html>

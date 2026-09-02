@@ -381,6 +381,43 @@ const DEFAULT_DESC = 'Verification layers under which AI-scale mathematical sear
   + 'cannot be hacked, and certified audits of published AI-generated mathematics. Every number recomputed at '
   + 'build; a build that drifts refuses to ship.';
 
+/* Structured data for answer engines: type picked by served path, content
+   drawn from the SAME title/desc the visible head carries — one source, so
+   the card and the page can never disagree. Emitted only for pages with a
+   canonical home. */
+const GITHUB_REPO = 'https://github.com/carlostoledo1891/cert-machine';
+const CONCEPT_DOI = 'https://doi.org/10.5281/zenodo.22225860';
+const PERSON = {
+  '@type': 'Person', name: 'Carlos Toledo', url: SITE_ORIGIN + '/about/',
+  sameAs: ['https://github.com/carlostoledo1891', GITHUB_REPO],
+};
+function ldJson(pagePath, title, d, canon) {
+  let obj = null;
+  if (pagePath === '/') {
+    obj = {
+      '@context': 'https://schema.org', '@type': 'WebSite',
+      name: 'cert-machine · Carlos Toledo', url: SITE_ORIGIN, description: d,
+      author: PERSON, sameAs: [GITHUB_REPO, CONCEPT_DOI],
+    };
+  } else if (pagePath === '/about/') {
+    obj = {
+      '@context': 'https://schema.org', '@type': 'ProfilePage',
+      url: canon, mainEntity: Object.assign({}, PERSON, { description: d }),
+    };
+  } else if (pagePath.startsWith('/reports/') && pagePath.endsWith('.html')) {
+    obj = {
+      '@context': 'https://schema.org', '@type': 'ScholarlyArticle',
+      headline: title, description: d, url: canon,
+      image: SITE_ORIGIN + '/og.png', author: PERSON,
+      isPartOf: { '@type': 'WebSite', name: 'cert-machine', url: SITE_ORIGIN },
+      isBasedOn: GITHUB_REPO,
+    };
+  }
+  if (!obj) return '';
+  const json = JSON.stringify(obj).replace(/</g, '\\u003c');
+  return `<script type="application/ld+json">${json}</script>`;
+}
+
 function render({ title, bodyRaw, footRaw, desc, path: pagePath }) {
   const CO = require('./components.js');
   const NAV = CO.nav({
@@ -397,6 +434,8 @@ function render({ title, bodyRaw, footRaw, desc, path: pagePath }) {
 <title>${CO.esc(title)}</title>
 <meta name="description" content="${CO.escAttr(d)}">
 <meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
 ${canon ? `<link rel="canonical" href="${canon}">\n<meta property="og:url" content="${canon}">` : ''}
 <meta property="og:title" content="${CO.escAttr(title)}">
 <meta property="og:description" content="${CO.escAttr(d)}">
@@ -405,10 +444,12 @@ ${canon ? `<link rel="canonical" href="${canon}">\n<meta property="og:url" conte
 <meta property="og:image" content="${SITE_ORIGIN}/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${CO.escAttr(title)}">
 <meta name="twitter:description" content="${CO.escAttr(d)}">
 <meta name="twitter:image" content="${SITE_ORIGIN}/og.png">
+${pagePath ? ldJson(pagePath, title, d, canon) : ''}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -432,4 +473,4 @@ ${footRaw || ''}
 `;
 }
 
-module.exports = { render, css };
+module.exports = { render, css, DEFAULT_DESC };

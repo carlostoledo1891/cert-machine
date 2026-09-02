@@ -274,7 +274,8 @@ const foot = '<footer class="col">'
 
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'impostors.html'),
-  TPL.render({ title: 'The impostor catalog · cert-machine', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/impostors.html' }));
+  TPL.render({ title: 'The impostor catalog · cert-machine', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/impostors.html',
+    desc: 'Published constants that match simple closed forms for dozens of digits — and exact proofs that every one is lying. Digit agreement is not evidence.' }));
 
 console.log('reports/impostors.html written');
 console.log('  ' + catalog.length + ' constants, ' + totalImpersonations + ' impersonations, deepest agreement '

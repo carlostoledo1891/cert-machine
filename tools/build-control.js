@@ -262,7 +262,8 @@ const foot = '<footer class="col">'
   + '</footer>';
 
 fs.writeFileSync(path.join(ROOT, 'index.html'),
-  TPL.render({ title: 'cert-machine · the machine, live', bodyRaw: B.join('\n\n'), footRaw: foot }));
+  TPL.render({ title: 'cert-machine · the machine, live', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/machine/',
+    desc: 'The machine, live: every family, instrument, battery and certificate in the current build of cert-machine — a conjecture engine whose numbers recompute at every run.' }));
 
 console.log('index.html written');
 console.log('  generated ' + commas(T.generated || 0) + ' · certified ' + commas(T.certified || 0)

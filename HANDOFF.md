@@ -241,6 +241,28 @@ merging kaust-mfg-lab.md). Adversarial ask; co-authorship only as the
 natural close. Each needs the operator's three opening sentences +
 recipient choice. SEND-QUEUE item 6.
 
+DONE 2026-09-02 (late session, operator-assigned while the bench waits):
+SEO/AEO PASS + THE DARK OG CARD. Strategy + keyword map in design/SEO.md.
+Implemented in the generators (never in built pages): unique meta
+descriptions for the 13 pages that shipped the duplicated template
+default (12 report builders + the machine page, which also lacked its
+canonical — both fixed); JSON-LD by served path in design/template.js
+(WebSite+Person with the concept DOI on /, ScholarlyArticle on every
+report, ProfilePage on /about/ — generated from the SAME title/desc
+strings as the visible head, one source); og:image:alt, theme-color,
+max-image-preview on every page; canonical + OG on the SkyAudit app
+pages via app-shell `path`. NEW META GATE in build-site.js: the build
+refuses a served page with no description, the default description, or
+a description shared with another page. og.png REPLACED: a real
+dark-mode 1200x630 screenshot of the landing (tools/build-og.js — the
+paper.js raw-socket CDP client, real waits, 2x downscaled by sips, a
+bottom fade so the crop reads composed). All batteries pass.
+LAMBDA(6) DECISION THIS SESSION: pid 72893 alive at ~99% CPU, RSS
+stable 166 MB, all-in-interpreter (sampled) — left RUNNING; a watcher
+notifies on verdict-or-exit. Rationale: killing loses 31.7 h for a
+heartbeat that buys no speed; the coverage boxes are capped so the
+tree terminates. Revisit hard if it passes ~48 h.
+
 FIRST TASK NEXT SESSION — FINISH LAMBDA(6) (one family of ten remains).
 UPDATE at the 2026-09-02 evening handoff: a+2e = 2f is at ~31.6 h
 elapsed (PID 72893, ~99% CPU, verdict log still 0 bytes) — PAST the

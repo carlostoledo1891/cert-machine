@@ -201,7 +201,8 @@ const foot = '<footer class="col">'
   + '</footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'entropy.html'),
-  TPL.render({ title: 'Entropy, with a certificate · cert-machine', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/entropy.html' }));
+  TPL.render({ title: 'Entropy, with a certificate · cert-machine', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/entropy.html',
+    desc: 'A certified lower bound on the topological entropy of the classical Hénon map — covering relations composed to an exact integer spectral argument.' }));
 
 console.log('reports/entropy.html written');
 console.log('  h_top(' + cert.a + ', ' + cert.b + ') >= ' + cert.hLB.toFixed(6) + ' re-proved ('
