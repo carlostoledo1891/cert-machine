@@ -103,6 +103,7 @@ reports:
 	@$(NODE) tools/build-report-lemniscate.js
 	@$(NODE) tools/build-report-mfg-congest.js
 	@$(NODE) tools/build-report-terra.js
+	@$(NODE) tools/build-report-ember.js
 	@$(NODE) tools/build-report-wardrop.js
 	@$(NODE) tools/build-report-alien-science.js
 	@$(NODE) tools/build-report-eval.js
