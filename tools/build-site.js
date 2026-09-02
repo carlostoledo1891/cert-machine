@@ -195,18 +195,21 @@ const REPORTS = [
     title: 'The hot spot stays on the boundary',
     desc: 'The second Neumann eigenfunction of a convex trapezoid with no symmetry axis — to our knowledge the '
       + 'first certified hot-spots domain outside every analytically proven class (all triangles took Judge–Mondal '
-      + 'an Annals paper; lip domains, high-dimensional convex bodies and symmetric quadrilaterals are the other '
-      + 'fences) — attains its maximum and minimum on the boundary only. Eight machine-checked records, a cell '
-      + 'partition decided in exact rationals, corner coefficients certified at two independent annuli, and red '
-      + 'controls that fire. One domain, one theorem; the quadrilateral conjecture itself stays open.',
+      + 'an Annals paper; lip domains, L-tiled polygons and symmetric quadrangles are the other proven classes, '
+      + 'while in high dimension convex sets can FAIL the conjecture, making the planar convex case the live one) '
+      + '— attains its maximum and minimum on the boundary only. Corollary: the hot spot is AT vertex A, and only '
+      + 'there. Eight machine-checked records, a cell partition decided in exact rationals, corner coefficients '
+      + 'certified at two independent annuli, and red controls that fire. One domain, one theorem, one corollary; '
+      + 'the quadrilateral conjecture itself stays open.',
     n: 'μ₁ ∈ [' + emberMu1[0].toFixed(7) + ', ' + (Math.ceil(emberMu1[1] * 1e7) / 1e7).toFixed(7) + '], simple · the chain re-runs in ~2 min' },
   { g: 'ground', f: 'terra.html', k: 'certified theorems · MFG splitting',
     title: 'The crowd splits — MFG beyond the uniqueness wall',
     desc: 'A congestion-averse crowd in a single-well cost landscape provably settles into TWO density peaks — or '
-      + 'THREE. Two computer-assisted theorems and a bracket table of certified instances whose enclosure balls fix '
-      + 'the exact peak count of the exact solution; the discount-free crossover σ* = 1/(8π²) decided in exact '
-      + 'rationals; certified multiplicity where uniqueness theory is silent; an EXACTLY-3 census; the '
-      + '21,567-cell regime map.',
+      + 'THREE. To our knowledge the first validated-numerics equilibrium enclosures for a mean-field game, and '
+      + 'the first whose certified peak count strictly exceeds the potential\'s wells. Two computer-assisted '
+      + 'theorems and a bracket table of certified instances whose enclosure balls fix the exact peak count of the '
+      + 'exact solution; the discount-free crossover σ* = 1/(8π²) decided in exact rationals; certified '
+      + 'multiplicity where uniqueness theory is silent; an EXACTLY-3 census; the 21,567-cell regime map.',
     n: 'two theorems + a bracket table · honest counting, every bound displayed' },
   { g: 'erdos', f: 'erdos1038-sup.html', k: 'erdős #1038 · the supremum side',
     title: 'How shallow can a lemniscate stay?',

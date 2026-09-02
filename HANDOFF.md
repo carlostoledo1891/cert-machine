@@ -175,6 +175,39 @@ two standalone per-result deposits for citation granularity
 outreach/zenodo-bundles/, gitignored) — need the operator's Zenodo
 clicks or a personal access token. The operator's paper read of
 ember-hotspots.md is still wanted (it is now public as draft v0.9).
+CLAIMS AUDIT (2026-09-02, operator: "are they claiming everything they
+could?" — answer was NO, three findings, all EXECUTED same day):
+(1) TERRA had dropped its planned priority claims at release — both
+firsts (first validated-numerics MFG enclosures; first certified peak
+count exceeding the wells) now stated with "to our knowledge" + fences
+on the page scope and in the paper's Status-and-priority section, with
+BUILD GATES that refuse the page/paper if the claims or fences go
+missing again; the stale "nothing published" paper wording fixed.
+(2) EMBER had a certified-but-unstated COROLLARY: the hot spot is AT
+VERTEX A and only there, phi(A) in [2.126029, 2.193158] — derived
+entirely from existing records (witness inside the sector, exact;
+strict radial decrease; everything else certified below), added to the
+theorem record as four checks + a corollary block, re-walked by the
+battery, stated on page and paper. The cold-spot twin (vertex C vs
+edge interior) recorded OPEN — enclosures overlap the float minimum;
+off-vertex would contrast with the triangle behaviour. Now open
+problem 2 in the paper.
+(3) THE FENCE LIST CARRIED A BENCH ERROR live for a day: 2412.06344 is
+de Dios PONT, "Convex sets can have interior hot spots" — a
+COUNTEREXAMPLE in high dimension, not a proven class. Corrected
+everywhere (page, paper, record, shelf card, zenodo drafts, targets),
+fence list extended (Hatcher 2405.19508 non-convex L-tiled; Siudeja
+1308.3005 partial acute; Polymath7/Nigam validated-numerics antecedent
+cited as lineage), and a gate now refuses the misattribution by name.
+Race-scout re-run: nothing new on quadrilaterals; no validated-numerics
+MFG prior art found.
+CO-AUTHOR PATH (operator asked): verification-invitation drafts staged
+— outreach/ember-verification-invites.md (Hatcher first; Judge/Mondal,
+Burdzy, de Dios Pont, the 2604.19003 group) and
+outreach/terra-verification-invites.md (Cirant first; Cesaroni; KAUST,
+merging kaust-mfg-lab.md). Adversarial ask; co-authorship only as the
+natural close. Each needs the operator's three opening sentences +
+recipient choice. SEND-QUEUE item 6.
 
 SECOND TASK — FINISH LAMBDA(6) (one family of ten remains).
 State at handoff (2026-09-02):

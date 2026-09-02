@@ -47,9 +47,11 @@ Metadata (paste-ready):
     with mu_1 simple in [12.020976137, 12.022398349]. To our knowledge
     the first certified hot-spots domain outside every class where the
     conjecture was previously proven (all triangles: Judge-Mondal,
-    Annals 2020; lip domains: Atar-Burdzy; convex domains in high
-    dimension: de Dios-Pardo et al.; symmetric quadrilateral subcases:
-    arXiv:2604.19003). One domain, one theorem; the convex-quadrilateral
+    Annals 2020; lip domains: Atar-Burdzy; certain non-convex L-tiled polygons:
+    Hatcher, arXiv:2405.19508; symmetric quadrangle subcases:
+    arXiv:2604.19003 — while in sufficiently high dimension the
+    conjecture is FALSE for convex sets, de Dios Pont arXiv:2412.06344,
+    making the planar convex case the live one). One domain, one theorem; the convex-quadrilateral
     conjecture itself remains open. Eight machine-checked records:
     two-sided spectrum localization (interval Galerkin uppers;
     exact-rational Crouzeix-Raviart + interval inertia lowers via Liu's
@@ -68,6 +70,8 @@ Metadata (paste-ready):
     - arXiv:1808.08148 (cites — You-Xie-Liu, the two quoted lemmas)
     - arXiv:2108.10386 (references — Judge-Mondal)  [OPERATOR: verify
       the canonical Annals DOI before deposit]
+    - arXiv:2412.06344 (references — de Dios Pont, high-dim counterexamples)
+    - arXiv:2405.19508 (references — Hatcher, non-convex L-tiled polygons)
     - arXiv:2604.19003 (references — symmetric quadrilateral subcases)
     - math/9803030 (references — Burdzy-Werner counterexample)
     - https://carlostoledo.co/reports/ember.html (isSupplementTo)
@@ -91,8 +95,10 @@ Metadata (paste-ready):
   Upload type: software · License: MIT (code/records; text CC-BY-4.0 if
             split is offered)
   Description:
-    Certified equilibria of a discounted congestion-averse mean-field
-    game in a single-well cost landscape carrying TWO density peaks —
+    To our knowledge the first validated-numerics equilibrium enclosures
+    for a mean-field game, and the first certified equilibria whose exact
+    peak count strictly exceeds the potential's well count: certified
+    equilibria of a discounted congestion-averse mean-field game in a single-well cost landscape carrying TWO density peaks —
     and, with the third harmonic in its predicted window, THREE. Two
     computer-assisted theorems plus a bracket table of certified
     instances whose interval-enclosure balls fix the exact peak count of
@@ -107,9 +113,10 @@ Metadata (paste-ready):
     mechanism is linear response — the crowd re-weights a harmonic the
     potential already contains; distinguished from spontaneous
     instability (arXiv:2605.20213) and from peaks that mirror the
-    potential (arXiv:1705.10741). The base congestion instance builds on
-    the same author's unpublished validated-numerics computation, not on
-    prior art. Machine-derived with Claude (Anthropic) driving
+    potential (arXiv:1705.10741). The base congestion instance is the
+    same author's companion enclosure (reports/mfg-congest.html), released
+    together with the atlas; the two are one program and the priority
+    claims are made by that joint release. Machine-derived with Claude (Anthropic) driving
     certified-arithmetic instruments. NOT peer-reviewed; refutations and
     independent re-runs are invited.
   Related identifiers:

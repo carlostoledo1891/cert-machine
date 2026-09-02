@@ -122,3 +122,13 @@ citation granularity — metadata in `outreach/zenodo-ports.md`, upload
 bundles prebuilt in `outreach/zenodo-bundles/` (gitignored). Needs the
 operator's account: the clicks, or a personal access token
 (deposit:write + deposit:actions) for the machine to do it.
+
+### 6. Verification invitations for both theorem programs (staged 2026-09-02)
+Files: `outreach/ember-verification-invites.md` (Hatcher first; then
+Judge/Mondal, Burdzy, de Dios Pont, the 2604.19003 group) and
+`outreach/terra-verification-invites.md` (Cirant first; Cesaroni; KAUST —
+supersedes-or-merges the older kaust-mfg-lab.md, do not send both).
+Adversarial ask ("try to break it"), co-authorship only as the natural
+close if engagement warrants. Each needs the operator's three opening
+sentences, recipient choice, and a yes/no on the closing line. Every
+claim in both letters is already on the released pages with its fences.

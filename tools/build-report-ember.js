@@ -55,9 +55,10 @@ O.push(C.header({
   title: 'The hot spot stays on the boundary',
   deck: 'The second Neumann eigenfunction of a convex trapezoid with no symmetry axis — to our knowledge the '
     + 'first certified hot-spots domain outside every analytically proven class — attains its maximum and its '
-    + 'minimum on the boundary only. One domain, one theorem: μ₁ is simple, its enclosure is '
-    + ivStr(MU1, 9) + ', and every interior point is excluded by a certified cell of an exact partition. '
-    + 'Floats propose; interval and rational arithmetic decide.',
+    + 'minimum on the boundary only. And more precisely: the maximum is attained AT VERTEX A, and only there — '
+    + 'certified, with φ̂(A) ∈ ' + ivStr(R.theorem.corollary.phiAtA, 6) + '. One domain, one theorem, one '
+    + 'corollary: μ₁ is simple, its enclosure is ' + ivStr(MU1, 9) + ', and every interior point is excluded by '
+    + 'a certified cell of an exact partition. Floats propose; interval and rational arithmetic decide.',
 }));
 
 O.push(C.stats([
@@ -68,11 +69,15 @@ O.push(C.stats([
 ]));
 
 O.push(C.scope('Machine-derived; published from this repository; not peer-reviewed; not independently rerun. '
-  + 'The claim is fenced: Judge–Mondal proved all triangles (Annals 2020), lip domains are Atar–Burdzy, '
-  + 'convex domains in high dimension are de Dios-Pardo et al., and symmetric quadrilateral subcases are '
-  + 'arXiv:2604.19003 — this domain sits outside each class, and the claim is ONE domain, never the quadrilateral '
-  + 'conjecture. Race watch: arXiv, weekly. Every number on this page comes from a VERIFIED record in '
-  + 'certs/ember-*.json; the chain re-runs in about two minutes.'));
+  + 'The claim is fenced: Judge–Mondal proved all triangles (Annals 2020, after partial acute-triangle results, '
+  + 'Siudeja arXiv:1308.3005), lip domains are Atar–Burdzy, certain non-convex L-tiled polygons are Hatcher '
+  + '(arXiv:2405.19508), and symmetric quadrangle subcases are Deng–Gui–Jiang–Yang–Yao (arXiv:2604.19003) — this '
+  + 'domain sits outside each class. In the other direction, in sufficiently high dimension the conjecture is '
+  + 'FALSE for convex sets (de Dios Pont, arXiv:2412.06344), so the planar convex case is exactly where it '
+  + 'remains expected — and where this domain lives. A validated-numerics route to acute triangles was developed '
+  + 'in the Polymath7 project before the analytic triangle proof; it is lineage here, not a fence. The claim is '
+  + 'ONE domain, never the quadrilateral conjecture. Race watch: arXiv, weekly. Every number on this page comes '
+  + 'from a VERIFIED record in certs/ember-*.json; the chain re-runs in about two minutes.'));
 
 /* ---------------------------------------------------------- the zone map */
 {
@@ -223,7 +228,22 @@ O.push(C.scope('Machine-derived; published from this repository; not peer-review
         + 'whole wedge, down to r = 10⁻⁶, and the exact second-order Taylor from the Neumann edge (the first-order '
         + 'term vanishes by the boundary condition) forces every interior wedge point strictly above the boundary '
         + 'minimum. J_{ν−2} at ν − 2 ≈ −0.19 is a NEGATIVE-ORDER Bessel evaluation — the reason the instrument '
-        + 'layer carries fractional and negative orders with their own falsifier battery.'),
+        + 'layer carries fractional and negative orders with their own falsifier battery.')
+      + C.note({
+        lab: 'the corollary, and its open twin',
+        bodyRaw: C.pRaw('<b>The hot spot is vertex A — certified.</b> The witness w₊ sits inside A\'s sector '
+          + '(decided in exact rationals); ∂rφ̂ < 0 on the whole punctured sector means φ̂ strictly decreases '
+          + 'along every ray from A, so φ̂(A) > φ̂(w₊) ≥ ' + R.pointwise.witnesses.max.value.toFixed(6) + '; and '
+          + 'every point outside the sector — core, collar, tips B/C/D — is certified strictly below that. At '
+          + 'the vertex the expansion collapses to φ̂(A) = b₀(A), so φ̂(A) ∈ ' + ivStr(R.theorem.corollary.phiAtA, 6)
+          + '. For triangles, extrema-only-at-vertices is Judge–Mondal\'s refinement; the maximum-side analogue '
+          + 'now holds, certified, for this quadrilateral.')
+          + C.pRaw('<b>The cold spot is an open question of enclosure width.</b> φ̂(C) = b₀(C) ∈ '
+          + ivStr(R.corner.tips.C.b0, 4) + ' overlaps the observed boundary minimum (float −1.9998, sitting '
+          + '0.0195 from C along the top edge). Whether the minimum is at vertex C or strictly inside the edge '
+          + 'is undecided; a tighter corner extraction would decide it — and an off-vertex answer would contrast '
+          + 'with the triangle behaviour, where extrema occur only at vertices.'),
+      }),
   }));
 }
 
@@ -269,9 +289,10 @@ const html = TPL.render({
   bodyRaw: O.join('\n\n'),
 });
 if (/first certified/i.test(html) && !/to our knowledge/i.test(html)) die('the claim appears without its qualifier');
-for (const fence of ['Judge–Mondal', 'lip domains', '2604.19003', 'high dimension']) {
+for (const fence of ['Judge–Mondal', 'lip domains', '2604.19003', 'de Dios Pont', '2405.19508', '1308.3005']) {
   if (!html.includes(fence)) die('the fence list is incomplete: missing ' + fence);
 }
+if (/de Dios[- ]Pardo/.test(html)) die('the misattributed fence wording is back — 2412.06344 is de Dios Pont, and it is a COUNTEREXAMPLE, not a proven class');
 if (!/ONE domain/.test(html)) die('the one-domain scope statement is missing');
 if (/quadrilateral conjecture (is|now) (settled|proved)|census (is )?complete/i.test(html)) die('counting inflation reached the page');
 if (/frontier|origin bench|ported|port log|re-proved end to end/i.test(html)) die('workshop archaeology reached the page — this is the report, not a port log');

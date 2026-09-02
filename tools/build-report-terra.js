@@ -92,11 +92,17 @@ O.push(C.stats([
   { k: 'the window', v: '1/16 < r < 1/4', n: 'A₂/A₁ where a one-well potential splits the crowd (σ, γ → 0 limit); third harmonic: (1/27, 1/3)' },
 ]));
 
-O.push(C.scope('Published, not peer-reviewed, not independently rerun. Every claim on this page re-runs from this '
-  + 'repository: the enclosures come from two independent implementations of the radii-polynomial argument that '
-  + 'agree on the certified radius to the last digit, the peak counts derive only from certified region signs, '
-  + 'and every instrument carries red controls that fire. Grid dots are float candidates and are labeled as such; '
-  + 'nothing on this page is a forecast.'));
+O.push(C.scope('Published, not peer-reviewed, not independently rerun. Two priority claims, each fenced: to our '
+  + 'knowledge these are the first certified equilibria of a mean-field game whose exact peak count strictly '
+  + 'EXCEEDS the potential\'s well count — the nearest published phenomena are spontaneous instability '
+  + '(arXiv:2605.20213) and peaks that mirror the potential (arXiv:1705.10741), and we found no validated-numerics '
+  + 'equilibrium enclosures for MFG anywhere in the literature; and the base instance of the program (the '
+  + 'companion page, mfg-congest.html, released together with this atlas) is to our knowledge the first '
+  + 'validated-numerics enclosure of an MFG equilibrium at all. Refutations of either claim are invited. Every '
+  + 'claim on this page re-runs from this repository: the enclosures come from two independent implementations of '
+  + 'the radii-polynomial argument that agree on the certified radius to the last digit, the peak counts derive '
+  + 'only from certified region signs, and every instrument carries red controls that fire. Grid dots are float '
+  + 'candidates and are labeled as such; nothing on this page is a forecast.'));
 
 /* -------------------------------------------------------------- phase map */
 {
@@ -437,6 +443,8 @@ const html = TPL.render({
 });
 if (/invents? structure/.test(html)) die('overclaim wording reached the page');
 if (/eight (computer-assisted )?theorems/i.test(html)) die('counting inflation reached the page');
+if (/first certified|first validated/i.test(html) && !/to our knowledge/i.test(html)) die('a priority claim appears without its qualifier');
+if (!/to our knowledge/.test(html) || !/2605\.20213/.test(html) || !/1705\.10741/.test(html)) die('the priority claims are missing or unfenced — the 2026-09-01 resolution requires both firsts stated at release');
 if (/frontier|re-proved end to end|origin bench|ported/i.test(html)) die('bench archaeology reached the page — this is the report, not a port log');
 fs.writeFileSync(path.join(ROOT, 'reports', 'terra.html'), html);
 console.log('reports/terra.html written: ' + TAGS.length + ' certified instances'

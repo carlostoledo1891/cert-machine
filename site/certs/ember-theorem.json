@@ -10,7 +10,7 @@
   ],
   "note": "vertices are EXACT RATIONALS; convex; side slopes 6 and 18/5; no symmetry axis; not a lip domain"
  },
- "generated": "2026-09-02T15:14:47.925Z",
+ "generated": "2026-09-02T16:28:04.629Z",
  "trustBase": [
   "instruments/interval rigor model (outward-rounded IEEE doubles; exact BigInt rationals)",
   "instruments/ivspecial (interval Γ Spouge + Bessel J_ν; battery: closed-form falsifiers + bigfloat/exact-rational cross-gates)",
@@ -23,14 +23,25 @@
   "note": "frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial"
  },
  "verdict": "VERIFIED",
- "statement": "THEOREM. Let Ω be the trapezoid with vertices A=(0,0), B=(1,0), C=(17/20,9/10), D=(1/4,9/10) — convex, side slopes 6 and 18/5, no axis of symmetry, not a lip domain; to our knowledge outside every class for which the hot spots conjecture was previously proven. The second Neumann eigenvalue μ1 is SIMPLE, with μ1 ∈ [12.020976137861565, 12.022398348138436], and the second Neumann eigenfunction attains its maximum and its minimum on ∂Ω ONLY.",
+ "statement": "THEOREM. Let Ω be the trapezoid with vertices A=(0,0), B=(1,0), C=(17/20,9/10), D=(1/4,9/10) — convex, side slopes 6 and 18/5, no axis of symmetry, not a lip domain; to our knowledge outside every class for which the hot spots conjecture was previously proven. The second Neumann eigenvalue μ1 is SIMPLE, with μ1 ∈ [12.020976137861565, 12.022398348138436], and the second Neumann eigenfunction attains its maximum and its minimum on ∂Ω ONLY. COROLLARY: the maximum is attained at vertex A and only there.",
+ "corollary": {
+  "statement": "The maximum of φ̂ over the closure is attained AT VERTEX A AND ONLY THERE, with φ̂(A) ∈ [2.1260290907622075, 2.1931576134707655] (= b₀(A) exactly, intersected with the witness chain). For triangles, extrema only at vertices is Judge–Mondal's refinement; for this quadrilateral the maximum-side analogue is now certified.",
+  "maxAtVertex": "A",
+  "phiAtA": [
+   2.1260290907622075,
+   2.1931576134707655
+  ],
+  "minimumLocation": "OPEN — φ̂(C) = b₀(C) ∈ [-2.020353458498882, -1.978946351838731] overlaps the observed boundary minimum (float −1.9998 at distance 0.0195 from C along the top edge); whether the cold spot is at vertex C or strictly inside the edge is undecided at current enclosure widths — a tighter corner extraction would decide it, and an off-vertex answer would contrast with the triangle behaviour."
+ },
  "honestFraming": {
   "claim": "to our knowledge the first certified hot-spots domain outside every analytically proven class — ONE domain, ONE theorem; the quadrilateral census is future work and is not counted",
   "fences": [
-   "Judge–Mondal: all triangles (Annals of Mathematics, 2020; and the 2022 erratum)",
-   "de Dios-Pardo et al.: convex domains in high dimension",
+   "Judge–Mondal: all triangles (Annals of Mathematics, 2020; and the 2022 erratum); earlier partial acute-triangle results (Siudeja, arXiv:1308.3005)",
    "lip domains (Atar–Burdzy)",
-   "symmetric quadrilateral subcases (arXiv:2604.19003, Apr 2026)"
+   "certain non-convex polygons: L-tiled domains (Hatcher, arXiv:2405.19508)",
+   "symmetric quadrangle subcases (Deng–Gui–Jiang–Yang–Yao, arXiv:2604.19003, Apr 2026)",
+   "THE OTHER DIRECTION: in sufficiently high dimension the conjecture is FALSE for convex sets (de Dios Pont, arXiv:2412.06344, \"Convex sets can have interior hot spots\") — the planar convex case is exactly where the conjecture remains expected, and this domain sits there",
+   "computational antecedent, cited not fenced: the Polymath7 project developed a validated-numerics route to acute triangles (numerics by Nigam) before the analytic triangle proof"
   ],
   "raceWatch": "arXiv weekly for quadrilateral hot-spots claims",
   "status": "machine-derived, not peer-reviewed, not independently rerun"
@@ -196,9 +207,28 @@
    "ok": true
   },
   {
+   "name": "COROLLARY (i): w₊ lies inside tip A's sector (exact rational)",
+   "ok": true
+  },
+  {
+   "name": "COROLLARY (ii): φ̂ strictly radially decreasing on all of tip A",
+   "ok": true,
+   "detail": "cells worst -4.99e-2, inner disk -10.04"
+  },
+  {
+   "name": "COROLLARY (iii): everything outside tip A is certified below φ̂(w₊)",
+   "ok": true,
+   "detail": "2.123592 < 2.126029"
+  },
+  {
+   "name": "COROLLARY: φ̂(A) enclosure coherent (witness chain meets b₀(A))",
+   "ok": true,
+   "detail": "[2.126029, 2.193158]"
+  },
+  {
    "name": "cross-derivations record VERIFIED (I₀, C_tr bigfloat, P1 upper, two-annulus)",
    "ok": true
   }
  ],
- "secs": 0.1
+ "secs": 0
 }

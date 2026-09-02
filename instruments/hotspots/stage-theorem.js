@@ -100,6 +100,50 @@ function run() {
   checks.push({ name: 'tip D: value kill both sides', ok: cor.tips.D.valueRange[1] < WP && -cor.tips.D.valueRange[0] < WM });
   checks.push({ name: 'tip C: max side by value; min side by min-form + wedge', ok: cor.tips.C.valueRange[1] < WP && cor.tips.C.minFormWorst > 0 && cor.tips.C.wedgeWorstC2 > 0 && cor.tips.C.wedgeInnerC2 > 0 && cor.tips.C.b1[1] < 0 });
 
+  /* ---------- COROLLARY: the hot spot is AT vertex A, and only there ------
+     Derived entirely from the stage records (no new computation):
+     (i)   w₊ lies inside tip A's sector (exact rational disk decision);
+     (ii)  ∂rφ̂ < 0 on the whole punctured sector (cells + factored inner
+           disk), so φ̂ strictly decreases along every ray from A — hence
+           φ̂(A) > φ̂(w₊) ≥ WIT_P, and every other tip-A point is < φ̂(A);
+     (iii) every point outside tip A is certified < WIT_P: core cells
+           (sup + solid-mean bound), collar cells (reflected bounds), and
+           the value ranges of tips B, C, D.
+     At the vertex the expansion collapses to φ̂(A) = b₀(A) (J_{kν}(0) = 0
+     for kν > 0), giving the two-sided value enclosure. The minimum's
+     location is NOT decided: φ̂(C) = b₀(C) overlaps the observed boundary
+     minimum, so vertex-vs-edge-interior is an open question of enclosure
+     width, recorded as such. */
+  const dbl2rat = (x) => { let e2 = 0, y = x; while (!Number.isInteger(y)) { y *= 2; e2++; } return SP.rat(BigInt(y), 1n << BigInt(e2)); };
+  const wplus = pw.witnesses.max;
+  const WPv = wplus.value;
+  checks.push({
+    name: 'COROLLARY (i): w₊ lies inside tip A\'s sector (exact rational)',
+    ok: SP.distLeQ([dbl2rat(wplus.x), dbl2rat(wplus.y)], 0, SP.RTIP),
+  });
+  checks.push({
+    name: 'COROLLARY (ii): φ̂ strictly radially decreasing on all of tip A',
+    ok: cor.tips.A.radialWorst < 0 && cor.tips.A.innerDisk < 0,
+    detail: `cells worst ${cor.tips.A.radialWorst.toExponential(2)}, inner disk ${cor.tips.A.innerDisk.toFixed(2)}`,
+  });
+  const outsideTipA = Math.max(
+    pw.core.supPlus + pw.core.eBoundCore,
+    col.sweep.worstP,
+    cor.tips.B.valueRange[1], cor.tips.C.valueRange[1], cor.tips.D.valueRange[1]);
+  checks.push({
+    name: 'COROLLARY (iii): everything outside tip A is certified below φ̂(w₊)',
+    ok: outsideTipA < WPv,
+    detail: `${outsideTipA.toFixed(6)} < ${WPv.toFixed(6)}`,
+  });
+  const phiAtA = [Math.max(WPv, cor.tips.A.b0[0]), cor.tips.A.b0[1]];
+  checks.push({ name: 'COROLLARY: φ̂(A) enclosure coherent (witness chain meets b₀(A))', ok: phiAtA[0] <= phiAtA[1], detail: `[${phiAtA[0].toFixed(6)}, ${phiAtA[1].toFixed(6)}]` });
+  const corollary = {
+    statement: 'The maximum of φ̂ over the closure is attained AT VERTEX A AND ONLY THERE, with φ̂(A) ∈ [' + phiAtA[0] + ', ' + phiAtA[1] + '] (= b₀(A) exactly, intersected with the witness chain). For triangles, extrema only at vertices is Judge–Mondal\'s refinement; for this quadrilateral the maximum-side analogue is now certified.',
+    maxAtVertex: 'A',
+    phiAtA,
+    minimumLocation: 'OPEN — φ̂(C) = b₀(C) ∈ [' + cor.tips.C.b0[0] + ', ' + cor.tips.C.b0[1] + '] overlaps the observed boundary minimum (float −1.9998 at distance 0.0195 from C along the top edge); whether the cold spot is at vertex C or strictly inside the edge is undecided at current enclosure widths — a tighter corner extraction would decide it, and an off-vertex answer would contrast with the triangle behaviour.',
+  };
+
   /* ---------- cross-derivations present and verified ---------- */
   checks.push({ name: 'cross-derivations record VERIFIED (I₀, C_tr bigfloat, P1 upper, two-annulus)', ok: crx.verdict === 'VERIFIED' });
 
@@ -111,14 +155,17 @@ function run() {
 
   return {
     verdict: ok ? 'VERIFIED' : 'REFUSED',
-    statement: 'THEOREM. Let Ω be the trapezoid with vertices A=(0,0), B=(1,0), C=(17/20,9/10), D=(1/4,9/10) — convex, side slopes 6 and 18/5, no axis of symmetry, not a lip domain; to our knowledge outside every class for which the hot spots conjecture was previously proven. The second Neumann eigenvalue μ1 is SIMPLE, with μ1 ∈ [' + eig.mu1[0] + ', ' + eig.mu1[1] + '], and the second Neumann eigenfunction attains its maximum and its minimum on ∂Ω ONLY.',
+    statement: 'THEOREM. Let Ω be the trapezoid with vertices A=(0,0), B=(1,0), C=(17/20,9/10), D=(1/4,9/10) — convex, side slopes 6 and 18/5, no axis of symmetry, not a lip domain; to our knowledge outside every class for which the hot spots conjecture was previously proven. The second Neumann eigenvalue μ1 is SIMPLE, with μ1 ∈ [' + eig.mu1[0] + ', ' + eig.mu1[1] + '], and the second Neumann eigenfunction attains its maximum and its minimum on ∂Ω ONLY. COROLLARY: the maximum is attained at vertex A and only there.',
+    corollary,
     honestFraming: {
       claim: 'to our knowledge the first certified hot-spots domain outside every analytically proven class — ONE domain, ONE theorem; the quadrilateral census is future work and is not counted',
       fences: [
-        'Judge–Mondal: all triangles (Annals of Mathematics, 2020; and the 2022 erratum)',
-        'de Dios-Pardo et al.: convex domains in high dimension',
+        'Judge–Mondal: all triangles (Annals of Mathematics, 2020; and the 2022 erratum); earlier partial acute-triangle results (Siudeja, arXiv:1308.3005)',
         'lip domains (Atar–Burdzy)',
-        'symmetric quadrilateral subcases (arXiv:2604.19003, Apr 2026)',
+        'certain non-convex polygons: L-tiled domains (Hatcher, arXiv:2405.19508)',
+        'symmetric quadrangle subcases (Deng–Gui–Jiang–Yang–Yao, arXiv:2604.19003, Apr 2026)',
+        'THE OTHER DIRECTION: in sufficiently high dimension the conjecture is FALSE for convex sets (de Dios Pont, arXiv:2412.06344, "Convex sets can have interior hot spots") — the planar convex case is exactly where the conjecture remains expected, and this domain sits there',
+        'computational antecedent, cited not fenced: the Polymath7 project developed a validated-numerics route to acute triangles (numerics by Nigam) before the analytic triangle proof',
       ],
       raceWatch: 'arXiv weekly for quadrilateral hot-spots claims',
       status: 'machine-derived, not peer-reviewed, not independently rerun',

@@ -106,6 +106,15 @@ const rec = {};
     for (const kk of ['b0', 'b1', 'b2'])
       if (t[kk][1] < t.secondAnnulus[kk][0] || t[kk][0] > t.secondAnnulus[kk][1]) annOk = false;
   ok(annOk, 'two-annulus corner extraction intersects (condition of entry)');
+  /* the vertex-A corollary, re-walked from the numbers it rests on */
+  const cy = rec.theorem.corollary;
+  const outsideA = Math.max(p.core.supPlus + p.core.eBoundCore, c.sweep.worstP,
+    k.tips.B.valueRange[1], k.tips.C.valueRange[1], k.tips.D.valueRange[1]);
+  ok(cy && cy.maxAtVertex === 'A'
+    && k.tips.A.radialWorst < 0 && k.tips.A.innerDisk < 0
+    && outsideA < p.witnesses.max.value
+    && cy.phiAtA[0] >= p.witnesses.max.value && cy.phiAtA[1] <= k.tips.A.b0[1],
+    'COROLLARY re-walked: the hot spot is at vertex A and only there');
 }
 
 /* ---------- 3 · live re-proofs (cheap) ---------- */

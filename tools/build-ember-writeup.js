@@ -74,14 +74,18 @@ Omega is simple, with
     mu_1 in ${ivs(MU1, 9)},
 
 and that the second Neumann eigenfunction attains its maximum and its
-minimum on the boundary only. To our knowledge this is the first certified
-hot-spots domain outside every class for which the conjecture was
-previously proven: all triangles (Judge and Mondal, Annals of Mathematics
-2020, with the 2022 erratum), lip domains (Atar and Burdzy), convex
-domains in sufficiently high dimension (de Dios-Pardo et al.), and the
-symmetric quadrilateral subcases (arXiv:2604.19003). The claim is one
-domain and one theorem; the convex-quadrilateral conjecture itself remains
-open. The certificate chain assumes two quoted results from the literature
+minimum on the boundary only — and, more precisely, that the maximum is
+attained at vertex A and only there. To our knowledge this is the first
+certified hot-spots domain outside every class for which the conjecture
+was previously proven: all triangles (Judge and Mondal, Annals of
+Mathematics 2020, with the 2022 erratum), lip domains (Atar and Burdzy),
+certain non-convex L-tiled polygons (Hatcher, arXiv:2405.19508), and the
+symmetric quadrangle subcases (Deng-Gui-Jiang-Yang-Yao, arXiv:2604.19003).
+In the other direction, the conjecture is FALSE for convex sets in
+sufficiently high dimension (de Dios Pont, arXiv:2412.06344), which makes
+the planar convex case — where this domain lives — exactly the place the
+conjecture remains expected. The claim is one domain and one theorem; the
+convex-quadrilateral conjecture itself remains open. The certificate chain assumes two quoted results from the literature
 (Liu's lower-bound framework and the Crouzeix-Raviart interpolation
 constant 0.1893 h_K, both from arXiv:1808.08148, whose PDF is pinned by
 sha256 in the repository) and standard facts; everything else re-derives
@@ -101,12 +105,21 @@ conjecture is believed true and proved only classwise:
 - **lip domains** (two Lipschitz-1 graphs): Atar-Burdzy, by probabilistic
   coupling;
 - **all triangles**: Judge-Mondal, Annals of Mathematics 2020 (erratum
-  2022) — one Annals paper for the simplest polygon class;
-- **convex domains in high dimension**: de Dios-Pardo et al.;
-- **quadrilaterals with a symmetry axis** and related subcases:
-  arXiv:2604.19003 (April 2026).
+  2022) — one Annals paper for the simplest polygon class, after partial
+  acute-triangle results (Siudeja, arXiv:1308.3005);
+- **certain non-convex polygons** (L-tiled domains): Hatcher,
+  arXiv:2405.19508;
+- **quadrangles with a symmetry axis** and related subcases:
+  Deng-Gui-Jiang-Yang-Yao, arXiv:2604.19003 (April 2026).
 
-Convex quadrilaterals in general remain open. The specimen here is chosen
+And in the opposite direction: **the conjecture is false for convex sets
+in sufficiently high dimension** (de Dios Pont, arXiv:2412.06344,
+"Convex sets can have interior hot spots"), so the planar convex case is
+precisely where the conjecture remains expected. Convex quadrilaterals in
+the plane remain open. A validated-numerics route to acute triangles was
+developed in the Polymath7 project (with numerics by Nigam) before the
+analytic triangle proof; we cite it as the computational antecedent of
+the present approach. The specimen here is chosen
 to sit outside every listed class: its side slopes (6 and 18/5) exceed 1,
 so it is not a lip domain in any axis orientation; it has no symmetry
 axis; it is a quadrilateral, not a triangle; it lives in the plane. The
@@ -135,6 +148,29 @@ of Omega only, and
 Normalization: phi-hat := c_1 phi_1 = u - e as produced by the chain;
 extrema locations are scale-invariant; the sign is fixed by
 phi-hat(A) > 0.
+
+**Corollary (the hot spot is vertex A).** The maximum of phi-hat over the
+closure is attained at vertex A and only there, with
+
+    phi-hat(A) in ${ivs(R.theorem.corollary.phiAtA, 6)}   (= b_0(A) exactly).
+
+Proof from the chain's records: the interior witness w+ lies inside A's
+corner sector (an exact rational disk decision); the certified radial
+monotonicity d_r phi-hat < 0 on the whole punctured sector means phi-hat
+strictly decreases along every ray from A, so phi-hat(A) > phi-hat(w+) >=
+${R.pointwise.witnesses.max.value.toFixed(6)}; and every point outside the sector — core cells, collar
+cells, and the value ranges of tips B, C, D — is certified strictly below
+that bound. At the vertex the corner expansion collapses to b_0(A) since
+J_{k nu}(0) = 0 for k >= 1. For triangles, "extrema only at vertices" is
+Judge-Mondal's refinement of the hot-spots statement; the maximum-side
+analogue now holds, certified, for this quadrilateral.
+
+The minimum's location is deliberately left as an open question of
+enclosure width: phi-hat(C) = b_0(C) in ${ivs(R.corner.tips.C.b0, 4)} overlaps the observed
+boundary minimum (float value -1.9998 at distance 0.0195 from C along the
+top edge), so vertex-vs-edge-interior is not decided. A tighter corner
+extraction would decide it; an off-vertex answer would contrast with the
+triangle behaviour.
 
 ## 3. The certificate chain
 
@@ -380,9 +416,12 @@ peer-reviewed; not independently rerun.
    hot spots". Every instrument above is parameterized by the
    quadrilateral; the campaign is scoped, priced, and NOT started — and
    is not counted here.
-2. **Sharper mu_1.** The enclosure width ${e2(R.eigenpair.mu1width)} is defect-limited;
+2. **The cold spot's exact location.** Decide vertex C versus the edge
+   interior (see the corollary's open twin): a tighter b_0(C) extraction
+   plus one certified edge comparison settles it either way.
+3. **Sharper mu_1.** The enclosure width ${e2(R.eigenpair.mu1width)} is defect-limited;
    larger fans and finer edge quadrature buy digits directly.
-3. **Other single domains.** Non-trapezoidal convex quadrilaterals with
+4. **Other single domains.** Non-trapezoidal convex quadrilaterals with
    all slopes > 1 need no new mathematics, only compute.
 
 ---
@@ -394,9 +433,10 @@ is sent anywhere without the operator's word.*
 
 /* gates */
 if (/first certified/i.test(md) && !/to our knowledge/i.test(md)) die('claim without qualifier');
-for (const fence of ['Judge and Mondal', 'lip domains', '2604.19003', 'high dimension']) {
+for (const fence of ['Judge and Mondal', 'lip domains', '2604.19003', 'de Dios Pont', '2405.19508', '1308.3005', 'Polymath7']) {
   if (!md.includes(fence)) die('fence list incomplete: ' + fence);
 }
+if (/de Dios[- ]Pardo/.test(md)) die('misattributed fence — 2412.06344 is de Dios Pont, a COUNTEREXAMPLE, not a proven class');
 if (/frontier|origin bench|ported/i.test(md)) die('workshop archaeology reached the paper');
 
 fs.writeFileSync(path.join(ROOT, 'paper', 'ember-hotspots.md'), md);
