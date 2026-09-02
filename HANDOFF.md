@@ -160,6 +160,17 @@ decisions; CDP-verified), paper/ember-hotspots.md + .pdf (draft v0.9,
 REMAINS: operator reads the paper; release order (with terra) —
 ALL SENDS HELD; P3 census is a SEPARATE campaign, not started, never
 pre-counted. Race watch: arXiv weekly.
+RELEASE STATE (2026-09-02, operator asked to go live): the push IS the
+publication — origin is 30 commits behind and the live site predates
+BOTH ports. Everything machine-side is ready and committed: both pages
+catalogued on the shelf + certificate table (the gates that refused
+uncatalogued pages did their job), stale pre-release wording fixed,
+site/ rebuilt through the gated pipeline. Zenodo: lambda(4) DOI exists
+(10.5281/zenodo.22225861); the TWO PORT DEPOSITS are drafted paste-ready
+in outreach/zenodo-ports.md (clicks are the operator's; recommended:
+reserve DOIs -> machine stamps CITATION + pages -> push -> publish
+deposits). Waiting on the operator's ordering word: push now and
+backfill DOIs, or reserve DOIs first.
 
 SECOND TASK — FINISH LAMBDA(6) (one family of ten remains).
 State at handoff (2026-09-02):
