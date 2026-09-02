@@ -300,9 +300,60 @@ O.push(C.section({
       + '— the recorded boundary.'),
 }));
 
+/* ------------------------------------------------- the regime map (mfg2p) */
+{
+  const RM = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'mfg2p-regime-map.json'), 'utf8'));
+  const [s0, s1] = RM.config.sRange, [d0, d1] = RM.config.dRange;
+  const W = 900, H = 460, L = 62, R = 22, T = 18, B = 74;
+  const pw = W - L - R, ph = H - T - B;
+  const px = v => L + (v - s0) / (s1 - s0) * pw;
+  const py = v => T + ph - (v - d0) / (d1 - d0) * ph;
+  const paths = { MULTIPLE: [], UNIQUE: [], UNDECIDED: [] };
+  for (const cell of RM.cells) {
+    const x = px(cell.s[0]), y = py(cell.d[1]);
+    const w = px(cell.s[1]) - x, h = py(cell.d[0]) - y;
+    paths[cell.verdict].push('M' + x.toFixed(1) + ' ' + y.toFixed(1) + 'h' + w.toFixed(1) + 'v' + h.toFixed(1) + 'h-' + w.toFixed(1) + 'z');
+  }
+  const tickRow = (n, lo, hi) => Array.from({ length: n + 1 }, (_, i) => lo + (i / n) * (hi - lo));
+  const svg = [CH.open({ w: W, h: H, alt: 'two-population MFG regime map: 21,567 cells decided uniformly over rectangles of coupling matrices' })];
+  svg.push(CH.HATCH_DEF);
+  svg.push('    <path d="' + paths.UNIQUE.join('') + '" fill="var(--c-3)" fill-opacity="0.9"/>');
+  svg.push('    <path d="' + paths.MULTIPLE.join('') + '" fill="var(--c-1)" fill-opacity="0.55"/>');
+  svg.push('    <path d="' + paths.UNDECIDED.join('') + '" fill="url(#cmHatch)"/>');
+  for (const t of tickRow(5, s0, s1)) {
+    svg.push('    <line x1="' + px(t).toFixed(1) + '" y1="' + (T + ph) + '" x2="' + px(t).toFixed(1) + '" y2="' + (T + ph + 5) + '" stroke="var(--c-axis)" stroke-width="1"/>');
+    svg.push(CH.txt(px(t), T + ph + 20, t.toFixed(1), 't-ax', 'middle'));
+  }
+  for (const t of tickRow(5, d0, d1)) {
+    svg.push(CH.txt(L - 9, py(t) + 4, t.toFixed(2), 't-ax', 'end'));
+  }
+  svg.push(CH.txt(L + pw / 2, T + ph + 42, 'symmetric coupling s', 't-note', 'middle'));
+  svg.push('    <text x="13" y="' + (T + ph / 2) + '" class="t-note" transform="rotate(-90 13 ' + (T + ph / 2) + ')" text-anchor="middle">asymmetry d</text>');
+  svg.push(CH.legend([
+    { token: 'var(--c-1)', t: 'MULTIPLE — non-uniqueness certified (' + RM.counts.MULTIPLE.toLocaleString('en-US') + ')' },
+    { token: 'var(--c-3)', t: 'UNIQUE (' + RM.counts.UNIQUE.toLocaleString('en-US') + ')' },
+    { token: 'var(--c-ctx)', t: 'UNDECIDED — honest (' + RM.counts.UNDECIDED.toLocaleString('en-US') + ')', kind: 'hatch' },
+  ], L, H - 8, null, pw));
+  svg.push(CH.close);
+  O.push(C.section({
+    lab: '§6 · the regime map', title: RM.cells.length.toLocaleString('en-US') + ' rectangles, three verdicts',
+    wide: true,
+    bodyRaw: C.pRaw('The two-population regime map, rendered straight from this machine’s own record '
+      + '(' + C.m('certs/mfg2p-regime-map.json') + ' — the same record the origin bench reproduced cell-for-cell): '
+      + 'every rectangle of coupling matrices decided UNIFORMLY over its whole cell, adaptive refinement where '
+      + 'the answer changes, and the undecided region drawn as itself — hatched, not rounded away. The exact area '
+      + 'identity (decided in rationals) confirms the three regions tile the rectangle.')
+      + C.figure({
+        svgRaw: svg.join('\n'),
+        caption: 'MULTIPLE ' + RM.counts.MULTIPLE.toLocaleString('en-US') + ' · UNIQUE ' + RM.counts.UNIQUE
+          + ' · UNDECIDED ' + RM.counts.UNDECIDED.toLocaleString('en-US') + ' cells. Re-run: ' + C.esc(RM.rerun) + '.',
+      }),
+  }));
+}
+
 /* ------------------------------------------------- the selection wing */
 O.push(C.section({
-  lab: '§6 · faces & selection', title: 'k = |shared| − cons + z, with its evidence',
+  lab: '§7 · faces & selection', title: 'k = |shared| − cons + z, with its evidence',
   bodyRaw: C.pRaw('When the cost is class-independent, the two-population equilibrium is a FACE — a set the '
     + 'equilibrium conditions cannot pin to a point — and its exact tangent dimension obeys a purely '
     + 'combinatorial law: shared edges, minus non-exit touched nodes, PLUS the number of exit-free components '
@@ -337,7 +388,7 @@ O.push(C.section({
     keys: betas.map((b, i) => ({ token: ['var(--c-1)', 'var(--c-2)', 'var(--c-3)'][i], t: 'β = ' + b, kind: 'line' })),
   });
   O.push(C.section({
-    lab: '§7 · attention', title: 'A double zero is not a crossing',
+    lab: '§8 · attention', title: 'A double zero is not a crossing',
     wide: true,
     bodyRaw: C.pRaw('For token dynamics under the rational kernel (1 + β⟨x_i,x_j⟩)^p — never a Transformer/softmax '
       + 'claim — the reduced equal-cluster flow touches zero at c* = −1/β and rises on both sides: the zero has '
@@ -360,7 +411,7 @@ O.push(C.section({
 
 /* ------------------------------------------------------------------ method */
 O.push(C.section({
-  lab: '§8 · why you can trust this', title: 'Two implementations, nine falsifiers, one bar',
+  lab: '§9 · why you can trust this', title: 'Two implementations, nine falsifiers, one bar',
   bodyRaw: C.pRaw('The enclosures are radii-polynomial certificates on the augmented (a₀, p, m, w) system, '
     + 'ℓ¹_ν tail bounds (the enclosed object solves the SYSTEM, not an N-mode approximation), both parity blocks '
     + 'of the linearization certified. Two independent implementations agree: the certified T1 radius here equals '
