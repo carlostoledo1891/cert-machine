@@ -3,14 +3,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Erdős #1038: the infimum, bracketed</title>
-<meta name="description" content="Erdős #1038 has three claimed AI-assisted proofs and no examined ones: a certified unconditional bracket 1.828 &lt;= inf &lt;= 1.8344305, with Tao&#39;s model Problem 4.1 answered for every epsilon.">
+<meta name="description" content="A certified unconditional bracket 1.828 &lt;= inf &lt;= 1.8344305 for the Erdős-Herzog-Piranian infimum (Erdős #1038), with Tao&#39;s model Problem 4.1 answered for every epsilon — assuming none of the three currently claimed proofs of the exact value.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/erdos1038-inf.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/erdos1038-inf.html">
 <meta property="og:title" content="Erdős #1038: the infimum, bracketed">
-<meta property="og:description" content="Erdős #1038 has three claimed AI-assisted proofs and no examined ones: a certified unconditional bracket 1.828 &lt;= inf &lt;= 1.8344305, with Tao&#39;s model Problem 4.1 answered for every epsilon.">
+<meta property="og:description" content="A certified unconditional bracket 1.828 &lt;= inf &lt;= 1.8344305 for the Erdős-Herzog-Piranian infimum (Erdős #1038), with Tao&#39;s model Problem 4.1 answered for every epsilon — assuming none of the three currently claimed proofs of the exact value.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -19,9 +19,9 @@
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Erdős #1038: the infimum, bracketed">
-<meta name="twitter:description" content="Erdős #1038 has three claimed AI-assisted proofs and no examined ones: a certified unconditional bracket 1.828 &lt;= inf &lt;= 1.8344305, with Tao&#39;s model Problem 4.1 answered for every epsilon.">
+<meta name="twitter:description" content="A certified unconditional bracket 1.828 &lt;= inf &lt;= 1.8344305 for the Erdős-Herzog-Piranian infimum (Erdős #1038), with Tao&#39;s model Problem 4.1 answered for every epsilon — assuming none of the three currently claimed proofs of the exact value.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Erdős #1038: the infimum, bracketed","description":"Erdős #1038 has three claimed AI-assisted proofs and no examined ones: a certified unconditional bracket 1.828 \u003c= inf \u003c= 1.8344305, with Tao's model Problem 4.1 answered for every epsilon.","url":"https://carlostoledo.co/reports/erdos1038-inf.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Erdős #1038: the infimum, bracketed","description":"A certified unconditional bracket 1.828 \u003c= inf \u003c= 1.8344305 for the Erdős-Herzog-Piranian infimum (Erdős #1038), with Tao's model Problem 4.1 answered for every epsilon — assuming none of the three currently claimed proofs of the exact value.","url":"https://carlostoledo.co/reports/erdos1038-inf.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -441,8 +441,8 @@ footer a:hover{color:var(--ink)}
 
 <header class="col">
   <div class="eyebrow">cert-machine · erdős #1038 · the infimum side · every number rebuilt at this build</div>
-  <h1>Three AI proofs of one Erdős problem. Nobody has checked any of them.</h1>
-  <p class="deck">Erdős–Herzog–Piranian asked in 1958 how small the set where a monic polynomial stays below 1 can be. Three separate AI-assisted full proofs of the answer are now claimed on the erdősproblems forum — and the forum states plainly that nobody associated with it has examined any part of them. This page adjudicates none of them. It reports what holds without them: a certified bracket, both ends unconditional.</p>
+  <h1>A certified bracket for the Erdős–Herzog–Piranian infimum</h1>
+  <p class="deck">Erdős, Herzog and Piranian asked in 1958 how small the set where a monic polynomial stays below 1 can be. This page brackets the infimum in certified interval arithmetic, both ends unconditional, and answers a model problem from Tao’s notes for every ε. Three AI-assisted proofs of the exact value are currently claimed and none has been independently examined, so nothing here assumes any of them.</p>
 </header>
 
 <div class="col"><div class="note">
@@ -527,7 +527,7 @@ footer a:hover{color:var(--ink)}
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-lemniscate-inf.js @ git 70d88e5. Gates: the whole program re-run live (T1–T3 recomputed, the T4 record re-verified by an independent checker), the battery (19 checks, 5 red controls, all fired), the bracket ordered, and the claim fence present by name. Certificates: certs/erdos1038-inf.json and certs/erdos1038-forcing-1.828.json. The certifier is instruments/interval — the same one behind the ember and terra theorems. Published, not peer-reviewed, not independently rerun.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-lemniscate-inf.js @ git 34e0956. Gates: the whole program re-run live (T1–T3 recomputed, the T4 record re-verified by an independent checker), the battery (19 checks, 5 red controls, all fired), the bracket ordered, and the claim fence present by name. Certificates: certs/erdos1038-inf.json and certs/erdos1038-forcing-1.828.json. The certifier is instruments/interval — the same one behind the ember and terra theorems. Published, not peer-reviewed, not independently rerun.</p></footer>
 
 </div>
 </html>
