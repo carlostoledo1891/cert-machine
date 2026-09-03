@@ -1,0 +1,205 @@
+{
+ "what": "The kissing ledger: every public record configuration for the kissing number, re-decided in exact arithmetic over Z[sqrt2] on BigInt — shared-nothing with every producer's own verifier. A direction set with pairwise angles >= 60 degrees IS a kissing configuration; the decision is <x,y> <= 0 or 4<x,y>^2 <= <x,x><y,y>, exact, per pair.",
+ "scope": "Lower-bound witnesses only. No upper-bound (SDP) claims are touched, and no search for new records is performed.",
+ "provenance": {
+  "corpus/kissing/alphaevolve-d11-593.json": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+  "corpus/kissing/ea-d11-594-winner.json": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
+  "corpus/kissing/station-d11-604.json": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37"
+ },
+ "generated": "2026-09-03T04:47:41.653Z",
+ "git": "7925146",
+ "rows": [
+  {
+   "id": "cal-d4-24",
+   "claimant": "classical (generated here)",
+   "claim": "K(4) >= 24 — exact value, Musin 2003",
+   "source": "D4 root directions",
+   "verdict": "CERTIFIED",
+   "n": 24,
+   "dim": 4,
+   "pairs": 276,
+   "contacts": 96,
+   "uniformNorm": null,
+   "worst": {
+    "i": 0,
+    "j": 4,
+    "cos2Approx": 0.25
+   },
+   "ms": 2
+  },
+  {
+   "id": "cal-e8-240",
+   "claimant": "classical (generated here)",
+   "claim": "K(8) = 240 — exact value, Levenshtein / Odlyzko–Sloane 1979",
+   "source": "E8 root directions",
+   "verdict": "CERTIFIED",
+   "n": 240,
+   "dim": 8,
+   "pairs": 28680,
+   "contacts": 6720,
+   "uniformNorm": null,
+   "worst": {
+    "i": 0,
+    "j": 4,
+    "cos2Approx": 0.25
+   },
+   "ms": 19
+  },
+  {
+   "id": "alphaevolve-593",
+   "claimant": "AlphaEvolve (Novikov et al., DeepMind)",
+   "claim": "K(11) >= 593 — the May 2025 record",
+   "source": "github.com/google-deepmind/alphaevolve_results mathematical_results.ipynb cell B.11",
+   "verdict": "CERTIFIED",
+   "n": 593,
+   "dim": 11,
+   "pairs": 175528,
+   "contacts": 0,
+   "uniformNorm": null,
+   "worst": {
+    "i": 321,
+    "j": 325,
+    "cos2Approx": 0.2499999999997728
+   },
+   "ms": 181,
+   "upstream_sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "form": "integer vectors, entries up to ~8.7e12"
+  },
+  {
+   "id": "ea-594-winner",
+   "claimant": "EinsteinArena agents (Bianchi et al. platform)",
+   "claim": "K(11) >= 594 — the solved n=594 rung, score-0 winner (solution #1492)",
+   "source": "https://einsteinarena.com/api/solutions/best?problem_id=6",
+   "verdict": "CERTIFIED",
+   "n": 594,
+   "dim": 11,
+   "pairs": 176121,
+   "contacts": 17088,
+   "uniformNorm": null,
+   "worst": {
+    "i": 0,
+    "j": 22,
+    "cos2Approx": 0.25
+   },
+   "ms": 112,
+   "upstream_sha256": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
+   "form": "decimal literals read as exact rationals"
+  },
+  {
+   "id": "station-604-1",
+   "claimant": "The Station agents (dualverse-ai)",
+   "claim": "K(11) >= 604 — configuration 1 of three",
+   "source": "github.com/dualverse-ai/station_data_v2 artifacts/kissing_number/kissing_certificates.npz",
+   "verdict": "CERTIFIED",
+   "n": 604,
+   "dim": 11,
+   "pairs": 182106,
+   "contacts": 19704,
+   "uniformNorm": true,
+   "worst": {
+    "i": 0,
+    "j": 15,
+    "cos2Approx": 0.25
+   },
+   "ms": 109,
+   "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
+   "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4"
+  },
+  {
+   "id": "station-604-2",
+   "claimant": "The Station agents (dualverse-ai)",
+   "claim": "K(11) >= 604 — configuration 2 of three",
+   "source": "github.com/dualverse-ai/station_data_v2 artifacts/kissing_number/kissing_certificates.npz",
+   "verdict": "CERTIFIED",
+   "n": 604,
+   "dim": 11,
+   "pairs": 182106,
+   "contacts": 22904,
+   "uniformNorm": true,
+   "worst": {
+    "i": 0,
+    "j": 1,
+    "cos2Approx": 0.25
+   },
+   "ms": 103,
+   "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
+   "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4"
+  },
+  {
+   "id": "station-604-3",
+   "claimant": "The Station agents (dualverse-ai)",
+   "claim": "K(11) >= 604 — configuration 3 of three",
+   "source": "github.com/dualverse-ai/station_data_v2 artifacts/kissing_number/kissing_certificates.npz",
+   "verdict": "CERTIFIED",
+   "n": 604,
+   "dim": 11,
+   "pairs": 182106,
+   "contacts": 22840,
+   "uniformNorm": true,
+   "worst": {
+    "i": 0,
+    "j": 1,
+    "cos2Approx": 0.25
+   },
+   "ms": 112,
+   "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
+   "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4"
+  },
+  {
+   "id": "station-shell-582",
+   "claimant": "classical (Best 1977 class; bytes from the Station bundle)",
+   "claim": "K(11) >= 582 — the pre-2022 record shell, integer norm-4 maximum (Lean-proved maximal by the Station)",
+   "source": "github.com/dualverse-ai/station_data_v2 artifacts/kissing_number/kissing_certificates.npz",
+   "verdict": "CERTIFIED",
+   "n": 582,
+   "dim": 11,
+   "pairs": 169071,
+   "contacts": 22560,
+   "uniformNorm": null,
+   "worst": {
+    "i": 0,
+    "j": 1,
+    "cos2Approx": 0.25
+   },
+   "ms": 95,
+   "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
+   "form": "integer vectors"
+  },
+  {
+   "id": "station-d12-lift",
+   "claimant": "The Station agents (dualverse-ai)",
+   "claim": "construction device: 604 integer D12 vectors whose oblique shadow is configuration 3 (also a valid 604-point direction set in R^12)",
+   "source": "github.com/dualverse-ai/station_data_v2 artifacts/kissing_number/kissing_certificates.npz",
+   "verdict": "CERTIFIED",
+   "n": 604,
+   "dim": 12,
+   "pairs": 182106,
+   "contacts": 22840,
+   "uniformNorm": null,
+   "worst": {
+    "i": 0,
+    "j": 1,
+    "cos2Approx": 0.25
+   },
+   "ms": 121,
+   "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
+   "form": "integer vectors in R^12"
+  },
+  {
+   "id": "ea-604",
+   "claimant": "EinsteinArena (Bianchi, Kwon, Pappu, Zou — arXiv:2606.10402)",
+   "claim": "K(11) >= 604 — the paper's headline result, credited by Cohn's reference table (2026-06-22)",
+   "source": "https://einsteinarena.com/api (queried 2026-09-03)",
+   "verdict": "NEEDS DATA",
+   "detail": "The public API exposes the solved n=594 rung (bytes certified above) and the open n=605 rung; no rung or endpoint serves the 604-point configuration itself. Platform threads (#241) describe the frozen 604 as a Q(sqrt2) norm-4 object — the same family as the Station configurations certified above. The threshold: publish the 604 vectors in any exact or decimal form and this row decides in minutes."
+  },
+  {
+   "id": "ganzhinov-592",
+   "claimant": "M. Ganzhinov (arXiv:2207.08266, Highly symmetric lines)",
+   "claim": "K(11) >= 592 — the 2022 record the AI ladder started from",
+   "source": "not yet pulled",
+   "verdict": "QUEUED",
+   "detail": "Construction paper predating the AI ladder; bytes not yet hunted. Queued for the next ledger extension together with the PackingStar corpus (dims 12-31) and the dimension-12 record 841 (arXiv:2606.18984)."
+  }
+ ]
+}

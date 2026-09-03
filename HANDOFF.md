@@ -253,6 +253,27 @@ merging kaust-mfg-lab.md). Adversarial ask; co-authorship only as the
 natural close. Each needs the operator's three opening sentences +
 recipient choice. SEND-QUEUE item 6.
 
+DONE 2026-09-03 (operator: "Go... if we could eat the numbers, do it"):
+THE KISSING LEDGER — K(11) >= 604 INDEPENDENTLY CERTIFIED. New
+instrument instruments/kissing (exact Z[sqrt2] on BigInt, the two-case
+sign test, decimal literals as exact rationals; battery 23/6 reds),
+certs/kissing-ledger.json (11 rows), reports/kissing.html live on the
+shelf. Certified from the claimants' own sha-pinned bytes: AlphaEvolve
+593 (integer, notebook), EinsteinArena 594 rung winner (its float bytes
+read as exact rationals ARE a witness — 17,088 exact contacts; their
+verifier is Decimal-80, not proof), the Station's three 604s (shell
+norm exactly 4; contact counts 19,704/22,904/22,840 — pairwise
+NON-CONGRUENT, stated as a certified corollary), the classical 582
+shell, the D12 lift; D4=24 and E8=240 re-proved every run (E8's 6,720
+contacts = 240·56/2). EinsteinArena's headline 604: NEEDS DATA — no
+public endpoint serves the vectors (rungs 594-solved and 605-open
+checked; threads call it a Q(sqrt2) norm-4 object). STILL TO EAT
+(instrument takes them as-is): Ganzhinov 592, dim-12 841
+(arXiv:2606.18984), PackingStar dims 12-31 (repo cloned in scratchpad,
+13D RATIONAL configs), EA d16 rung. Full intel: targets row
+kissing11-604-audit; memory kissing-ledger-campaign. 51/51 batteries.
+Sends about this (to the platforms, Cohn, or anyone) remain GATED.
+
 DONE 2026-09-02 (late session, operator-assigned while the bench waits):
 SEO/AEO PASS + THE DARK OG CARD. Strategy + keyword map in design/SEO.md.
 Implemented in the generators (never in built pages): unique meta

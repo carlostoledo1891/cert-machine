@@ -38,6 +38,7 @@ test:
 	  printf "%-30s " "interval/$$t"; $(NODE) instruments/interval/tests/$$t.js >/dev/null 2>&1 && echo PASS || echo FAIL; done
 	@printf "%-30s " "trigmin certifier"; $(NODE) instruments/trigmin/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "forecast instrument"; $(NODE) instruments/forecast/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "kissing ledger"; $(NODE) instruments/kissing/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "fueleu penalty"; $(NODE) instruments/fueleu/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "oracle claim library"; python3 oracle/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "newman box sweep"; $(NODE) instruments/trigmin/sweep-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -110,6 +111,7 @@ reports:
 	@$(NODE) tools/build-report-mercer.js
 	@$(NODE) tools/build-report-methods.js
 	@$(NODE) tools/build-report-alphaevolve.js
+	@$(NODE) tools/build-report-kissing.js
 	@$(NODE) tools/build-report-answer-key.js
 	@$(NODE) tools/build-report-loop.js
 	@$(NODE) tools/build-report-forecast-gym.js
