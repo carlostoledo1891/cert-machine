@@ -258,6 +258,53 @@ merging kaust-mfg-lab.md). Adversarial ask; co-authorship only as the
 natural close. Each needs the operator's three opening sentences +
 recipient choice. SEND-QUEUE item 6.
 
+RELEASED 2026-09-03 — v2026.09.1, DOI 10.5281/zenodo.22285003
+(concept DOI 10.5281/zenodo.22225860 unchanged). Covers the hot-spots
+FAMILY, the Erdős #1038 bracket, the kissing ledger and covering as an
+instrument. CITATION.cff and .zenodo.json at v2026.09.1.
+
+PAPERS ARE LATEX NOW (operator: "use the same styles used on the bench's
+papers... only for papers"). PAGES stay in the house design system.
+  · paper/tex/certmachine.sty — shared preamble carrying every macro the
+    crossed bench sources use, plus \cmauthor and \cmdisclosure. THE
+    [OPERATOR] FLAGS ARE FILLED: author line from the identity already in
+    CITATION.cff/.zenodo.json (nothing invented), affiliation "Independent
+    researcher", and one AI-disclosure wording adapted from the statement
+    posted under the erdosproblems forum's rule 1. STILL THE OPERATOR'S:
+    venue, ORCID, and whether to submit at all.
+  · tools/build-paper-tex.js (tectonic) REFUSES any paper still containing
+    [OPERATOR], TODO or XXX — a placeholder can never reach a PDF.
+    "make papers" builds all.
+  · Crossed + adapted from the bench with sha pins (corpus/papers):
+    ember-hotspots (the family paper) and erdos1038-inf. Each gains OUR
+    contribution as a section — the independent covering audit, with the
+    51 zero-width cells and the rung ladder respectively.
+  · NEW: paper/kissing-ledger.pdf, none existed anywhere; generated from
+    certs/kissing-ledger.json so constants cannot drift, with the
+    non-congruence corollary proved from the distinct contact counts.
+  · URL DISCIPLINE: the LaTeX compiles to the SAME basenames because
+    paper/erdos1038-inf.pdf is already live in the sent GitHub #179 and
+    forum comments. The superseded .md files became pointers (not
+    deletions, so nothing 404s and no stale draft can contradict its PDF)
+    and both markdown generators now refuse to emit.
+  · STILL UNCONVERTED: paper/lambda4-proof.md and paper/terra-peaks.md are
+    markdown; terra-peaks.md/.pdf are linked from reports/terra.html.
+    FOUR MORE BENCH .tex EXIST AND ARE CROSSABLE (terra, terra-cap,
+    terra-faces/select, terra-attn, mfg-terra) — not done, not claimed.
+
+BENCH NOTE (operator, 2026-09-03): experiments/envs is an environments /
+problems research line, explicitly "Built in frontier-apps for later
+porting to cert-machine". ITS IDEA IS THE STRONGEST UNPORTED THING THERE:
+"a certified enclosure is a canary factory" — if q is certified in an
+interval of width 4e-13 and a grader accepts anything within 1e-9 of its
+reference, every value in the surrounding band is provably NOT q AND
+guaranteed to pass that grader, so adversarial submissions are MINTED
+without limit from certificates we already hold. It carries its own
+honesty rule (canaries only from facts marked certified; mintCanaries
+throws rather than degrade). That is the verifier-audit product with a
+real mechanism, and it lands exactly on this repository's positioning.
+Operator says it is NOT the current focus.
+
 DONE 2026-09-03 (operator: "Proceed 1 and 2"):
 TIER 1 — THE #290 PAGE WAS STALE AND IS FIXED, plus the gate for the class.
 reports/erdos290.html was presenting its 0.61 -> 0.602108 sharpening as a

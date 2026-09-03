@@ -2,20 +2,41 @@
   "title": "cert-machine: verification layers for AI-scale mathematical search (certified audits, proof-grounded evals, verified reward channels)",
   "description": "A conjecture engine and verification lab: generate mathematical objects at scale, screen in float, certify the survivors exactly (interval enclosures and exact rational decisions — a refutation here is proved), and hunt closed forms for what survives. The repository carries machine-derived, certificate-backed results with their full records: the value of lambda(4) (Chowla's cosine problem, finite front; DOI 10.5281/zenodo.22225861), a certified hot-spots domain beyond every analytically proven class (the second Neumann eigenfunction of a convex trapezoid with no symmetry axis attains its extrema on the boundary only), certified mean-field-game equilibria with more density peaks than potential wells and the exact crossover 1/(8 pi^2), certified audits of AI-produced mathematics, and proof-grounded model evals. Every page recomputes its numbers from the certificates at build; planted red controls must fire; a build that drifts refuses to ship. Machine-derived with Claude (Anthropic) driving certified-arithmetic instruments; not peer-reviewed. Pinned third-party corpora under corpus/sources/ retain their own licenses.",
   "creators": [
-    { "name": "Toledo, Carlos" }
+    {
+      "name": "Toledo, Carlos"
+    }
   ],
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
   "keywords": [
-    "certified computation", "interval arithmetic", "exact rational arithmetic",
-    "computer-assisted proof", "AI-assisted mathematics", "verification",
-    "hot spots conjecture", "mean-field games", "Chowla cosine problem",
+    "certified computation",
+    "interval arithmetic",
+    "exact rational arithmetic",
+    "computer-assisted proof",
+    "AI-assisted mathematics",
+    "verification",
+    "hot spots conjecture",
+    "mean-field games",
+    "Chowla cosine problem",
     "spectral geometry"
   ],
   "related_identifiers": [
-    { "identifier": "https://carlostoledo.co", "relation": "isSupplementTo", "scheme": "url" },
-    { "identifier": "https://github.com/carlostoledo1891/cert-machine", "relation": "isIdenticalTo", "scheme": "url" },
-    { "identifier": "10.5281/zenodo.22225861", "relation": "isSupplementTo", "scheme": "doi" }
-  ]
+    {
+      "identifier": "https://carlostoledo.co",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/carlostoledo1891/cert-machine",
+      "relation": "isIdenticalTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.5281/zenodo.22225861",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    }
+  ],
+  "version": "v2026.09.1"
 }
