@@ -293,6 +293,18 @@ byte-identical, so no new certifier was needed), corpus/lemniscate
     is cited on the page and is the honest limit. A BUILD GATE refuses
     page and paper if any claimant name, the forum's caveat, or our own
     analytic-core limitation goes missing.
+  · BOTH SENDS ARE OUT 2026-09-03: teorth/erdosproblems#179 comment
+    5525911933 is LIVE (edited once to repair rendering — GitHub KaTeX
+    rejects \operatorname, and \, printed as commas); the erdosproblems
+    FORUM thread-1038 comment is POSTED and IN MODERATION, pasted by the
+    operator. Watch both for replies — a maintainer or Tao reply outranks
+    everything. VENUE MARKUP, now established: the forum runs MathJax,
+    turns newlines into <br> (so paragraphs must be UNWRAPPED), accepts
+    <a href> and ESCAPES <b>, and does NOT process markdown at all.
+    Forum RULE 3 forbids posting partial proofs in full — the comment was
+    cut to 793 words with derivations in the linked PDF; the site is
+    explicitly NOT an AI-progress benchmark, so the page H1 was retitled
+    to the mathematics before the link went public.
   · REMAINING: the operator reads the paper ([OPERATOR] flags: author
     line, venue, AI-disclosure — the forum's disclosure norm is itself
     contested right now, see the tdarv comment); whether to submit at
