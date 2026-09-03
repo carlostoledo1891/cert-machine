@@ -1,0 +1,106 @@
+{
+ "what": "Where the work has gone, and what has come back. One row per outward send, with the status word meant exactly. This is a RECORD, not prose: the About page renders it, so updating a status is a record edit and the page cannot quietly go stale.",
+ "statusWords": {
+  "public, no reply": "visible to everyone, answered by nobody",
+  "filed, no reply": "received by the other party's tracker, unanswered",
+  "posted, no reply": "published where it was aimed, unanswered",
+  "open, no comments": "an issue nobody has responded to",
+  "live, no reply": "a comment visible in the thread, unanswered",
+  "posted, visibility unconfirmed": "submitted, and we have not verified it appeared",
+  "submitted, awaiting moderation": "in a queue, not yet visible",
+  "still in the moderation queue": "submitted and confirmed not yet visible"
+ },
+ "lastChecked": "2026-09-03",
+ "rows": [
+  {
+   "id": "erdos852-thread",
+   "what": "A correction to a GPT-published constant on Erdős #852 — refuted at its 12th significant digit, certified replacement attached.",
+   "where": "the problem's discussion thread on erdosproblems.com",
+   "url": "https://www.erdosproblems.com/852",
+   "sent": "2026-08-27",
+   "status": "public, no reply",
+   "note": "It cleared moderation and stands visible. The thread as it stands is pinned in this repository as evidence bytes. Visible is not endorsed: nobody has answered it, no author has amended anything, and clearing a moderation queue is not peer review and not an independent rerun."
+  },
+  {
+   "id": "dpt-appendix",
+   "what": "An independent confirmation of the computational appendix of a claimed proof of Erdős #1038 — all 30 printed decimals verified by a different route, Krawczyk rather than bisection.",
+   "where": "an issue on the claiming authors' own repository",
+   "url": null,
+   "sent": "2026-08-05",
+   "status": "filed, no reply",
+   "note": "To my knowledge still the only independent verification of any part of any of the three claimed proofs of that problem."
+  },
+  {
+   "id": "anthropic-sandbox",
+   "what": "An evaluation note on a public automated-alignment sandbox whose authors invited stress-testing.",
+   "where": "an issue on that repository",
+   "url": null,
+   "sent": "2026-08-04",
+   "status": "posted, no reply",
+   "note": ""
+  },
+  {
+   "id": "erdos290-oeis",
+   "what": "A note on Erdős #290, whose constant's decimal expansion is also an OEIS submission.",
+   "where": "erdosproblems.com and OEIS",
+   "url": null,
+   "sent": "2026-08-04",
+   "status": "submitted, awaiting moderation",
+   "note": ""
+  },
+  {
+   "id": "gh-164",
+   "what": "The Erdős #290 square-discriminant law as exact integer identities, with a certified bracket for the Galois-density constant — and a correction to my own earlier write-up, in the same comment.",
+   "where": "teorth/erdosproblems issue 164",
+   "url": "https://github.com/teorth/erdosproblems/issues/164",
+   "sent": "2026-08-31",
+   "status": "live, no reply",
+   "note": "Superseded on the mathematics five days later by arXiv:2609.00104, which proves the liminf exactly; our bracket is now the certified numeric value of that constant rather than one end of a range, and the page says so. A follow-up comment is written and unsent."
+  },
+  {
+   "id": "gh-179",
+   "what": "Both ends of Erdős #1038: per-degree theorems on the supremum side, then a certified lower bound inf ≥ 1.828 with no tail estimate and no assumed minimizer.",
+   "where": "teorth/erdosproblems issue 179 (two comments)",
+   "url": "https://github.com/teorth/erdosproblems/issues/179",
+   "sent": "2026-09-03",
+   "status": "live, no reply",
+   "note": "The second comment was edited after posting to fix rendering: GitHub's KaTeX rejects \\\\operatorname and renders \\\\, as a visible comma."
+  },
+  {
+   "id": "gh-392",
+   "what": "λ(4) = −L(1,2,3,4) offered as an unusually clean Lean formalization target — six elementary lemmas, exact rational identities, and 2,231 finite cases each carrying a certified enclosure.",
+   "where": "teorth/erdosproblems issue 392",
+   "url": "https://github.com/teorth/erdosproblems/issues/392",
+   "sent": "2026-09-02",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "forum-1038",
+   "what": "The same infimum result, rewritten for the forum's own rules — derivations pushed to the linked PDF because the site forbids posting partial proofs in full.",
+   "where": "the erdosproblems.com forum, thread 1038",
+   "url": "https://www.erdosproblems.com/forum/thread/1038",
+   "sent": "2026-09-03",
+   "status": "posted, visibility unconfirmed",
+   "note": "The site queues comments for moderation and I have not confirmed this one visible."
+  },
+  {
+   "id": "forum-510",
+   "what": "A note on Chowla's cosine problem (#510) and the λ(4) result.",
+   "where": "the erdosproblems.com forum",
+   "url": null,
+   "sent": "2026-09-02",
+   "status": "still in the moderation queue",
+   "note": "Checked by tools/sweep-claims.js, which watches for it appearing."
+  },
+  {
+   "id": "einstein-604",
+   "what": "A request to the authors of the 604-point dimension-11 kissing configuration for their vectors, so the one NEEDS DATA row in our ledger can be decided.",
+   "where": "vinid/einstein-arena issue 64",
+   "url": "https://github.com/vinid/einstein-arena/issues/64",
+   "sent": "2026-09-03",
+   "status": "open, no comments",
+   "note": "The ask is offer-shaped: the certification is already built and waiting on the bytes."
+  }
+ ]
+}

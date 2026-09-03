@@ -71,6 +71,10 @@ const envsTol = envsRec.graders.find((g) => /absolute/.test(g.name));
 const envsSound = envsRec.graders.find((g) => /enclosure/.test(g.name));
 if (!envsTol || !envsSound || envsSound.falseAccept !== 0) fail('the envs record no longer shows a sound certificate grader — no card may quote it');
 const claimsLedger = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'claims-ledger.json'), 'utf8'));
+const outreach = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'outreach.json'), 'utf8'));
+if (!outreach.rows.length) fail('the outreach record is empty — the about page would claim nothing has left the building');
+for (const r of outreach.rows) if (!r.status || !r.sent || !outreach.statusWords[r.status])
+  fail('an outreach row carries a status word that is not defined in the record: ' + r.id);
 if (claimsLedger.rows.filter((r) => r.origin === 'submitted').length !== claimsLedger.submitted)
   fail('the claims ledger submitted count disagrees with its rows');
 if (l5audit.refuters !== 0) fail('the lambda(5) audit records refuters — no card may call the theorem audited');
@@ -936,7 +940,7 @@ const reportsIndexBody = [
       + 'drifts refuses to ship.'
   }),
   C.section({
-    lab: 'the shelf', title: 'AI verification', wide: true,
+    lab: 'the shelf', title: 'Verification — the audits, the environments, the desk', wide: true,
     bodyRaw: reportCards(AI_REPORTS, '')
   }),
   C.section({
@@ -1282,8 +1286,10 @@ const aboutBody = [
   C.header({
     eyebrow: 'Carlos Toledo · about',
     title: 'Not correct. Checkable.',
-    deck: 'You can disagree with a result on this site by running something — and the disagreement is then '
-      + 'about the mathematics, rather than about which of us is more credible.'
+    deck: 'Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared '
+      + 'with the claimant, refusal as a verdict. You can disagree with a result on this site by running '
+      + 'something, and the disagreement is then about the mathematics rather than about which of us is more '
+      + 'credible.'
   }),
   C.section({
     lab: 'the job', title: 'Narrow, and not solving',
@@ -1325,25 +1331,21 @@ const aboutBody = [
     bodyRaw: [
       C.p('Everything here is self-published and self-checked, so the honest question is what happens when it '
         + 'leaves. The record, with the status words meant exactly:'),
-      C.plainList([
-        { b: 'Public in the thread since ' + longDate(e852Public.date) + ' — no reply yet.', text: 'A correction to a '
-          + 'GPT-published constant on Erdős #852 — refuted at its 12th significant digit, certified replacement '
-          + 'attached — posted to the problem’s discussion thread on erdosproblems.com, where it cleared moderation '
-          + 'and now stands visible. The thread as it stands is pinned in this repository as evidence bytes '
-          + '(corpus/sources/' + e852Public.file + '). Visible is not endorsed: nobody has answered it, no author '
-          + 'has amended anything, and a comment clearing a moderation queue is not peer review and not an '
-          + 'independent rerun.' },
-        { b: 'Filed, 5 August 2026 — no reply yet.', text: 'An independent confirmation of the computational '
-          + 'appendix of a claimed proof of Erdős #1038, filed as an issue on the claiming authors’ own '
-          + 'repository: all 30 printed decimals verified by a different route — Krawczyk rather than bisection.' },
-        { b: 'Posted, 4 August 2026 — no reply yet.', text: 'An evaluation note on Anthropic’s public '
-          + 'automated-alignment sandbox, posted as an issue on the repository whose authors invited stress-testing.' },
-        { b: 'Submitted, awaiting moderation.', text: 'A note on Erdős #290 to erdosproblems.com; the constant’s '
-          + 'decimal expansion is also an OEIS submission, posted 4 August 2026, unanswered.' }
-      ]),
+      C.plainList(outreach.rows.map((r) => ({
+        b: r.status.charAt(0).toUpperCase() + r.status.slice(1) + ' — sent ' + longDate(r.sent) + '.',
+        raw: C.esc(r.what) + ' <em>(' + (r.url ? '<a href="' + C.escAttr(r.url) + '">' + C.esc(r.where) + '</a>' : C.esc(r.where)) + ')</em>.'
+          + (r.note ? ' ' + C.esc(r.note) : '')
+      }))),
+      C.pRaw('Status words mean exactly what they say and nothing more: '
+        + Object.entries(outreach.statusWords).map(([k, v]) => '<em>' + C.esc(k) + '</em> — ' + C.esc(v)).join(' · ')
+        + '. Last checked ' + C.esc(longDate(outreach.lastChecked)) + '.'),
       C.pRaw('<strong>Filed is not accepted; posted is not replied.</strong> No result on this site has yet been '
         + 'reproduced by anyone else, and none has been peer-reviewed. That is the plain state of it, and it is '
-        + 'why the pages ship their own falsifiers rather than asking for trust.')
+        + 'why the pages ship their own falsifiers rather than asking for trust.'),
+      C.pRaw('Traffic in the other direction has somewhere to go now: <a href="/reports/claims.html">the claims '
+        + 'desk</a> takes a claim and answers it in public, whichever way it falls. '
+        + fmt(claimsLedger.decided) + ' have been decided so far and ' + claimsLedger.submitted + ' of those was '
+        + 'sent by somebody else — a number this site publishes while it is still zero.')
     ].join('\n')
   }),
   C.section({
