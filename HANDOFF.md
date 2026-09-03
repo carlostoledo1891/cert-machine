@@ -44,7 +44,13 @@ OPERATOR ACTS — nothing here needs a session, only a decision
      UNSENT, framing needs rework before sending (the fourth digit is an
      OEIS digit, not a theorem digit).
   6. Whether the aviation front keeps its default-on pushes.
-  7. NEW 2026-09-02 (late): ERDOS #290 SHARPENED UNDER US — arXiv:
+  7. NEW 2026-09-03: THE EINSTEIN-ARENA 604 ISSUE — staged verbatim at
+     outreach/einstein-arena-604-issue.md (GitHub issue on
+     vinid/einstein-arena asking for the 604 vectors; the ledger's
+     NEEDS-DATA row is the case, the ask is offer-shaped). Post command
+     is in the file; on the word, gh posts it. Fallback if it sits
+     quiet ~2 weeks: email Bianchi/Zou with the same text.
+  8. NEW 2026-09-02 (late): ERDOS #290 SHARPENED UNDER US — arXiv:
      2609.00104 (van Doorn, submitted 2026-08-31, a human rewrite of a
      ChatGPT-discovered proof; raw note at github.com/Woett/
      ChatGPT-s-note-on-Erdos290) proves liminf (b(a)-a)/log a = 1/(1+c)
