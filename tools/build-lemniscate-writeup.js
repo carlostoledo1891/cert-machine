@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+/* SUPERSEDED 2026-09-03: the paper of record is now LaTeX (paper/tex/, built by
+   tools/build-paper-tex.js). This generator is kept only for its record gates
+   and refuses to emit, so it can never re-publish a stale markdown draft. */
+if (!process.env.ALLOW_STALE_MD) { console.error(p_name + ': superseded by the LaTeX paper — run tools/build-paper-tex.js'); process.exit(1); }
 /* build-lemniscate-writeup.js — generate paper/erdos1038-inf.md, the
    record-driven write-up of the Erdős #1038 infimum program.
 
@@ -18,6 +22,7 @@ const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
+const p_name = 'tools/build-lemniscate-writeup.js';
 const die = (m) => { console.error('LEMNISCATE WRITEUP REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 

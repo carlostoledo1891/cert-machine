@@ -1,0 +1,59 @@
+%% certmachine.sty — the shared preamble for this repository's papers.
+%%
+%% Adopted from the style the operator's own bench papers use, because real
+%% LaTeX typesets mathematics properly and the markdown-through-a-print-engine
+%% route does not: it cannot render theorem environments, it mangles displays,
+%% and it silently turned pipes into tables. Pages stay in the house design
+%% system; PAPERS are LaTeX. Compiled with tectonic (self-contained).
+\ProvidesPackage{certmachine}
+\RequirePackage[margin=1.1in]{geometry}
+\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{booktabs}
+\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{microtype}
+\RequirePackage{tikz}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\newcommand{\supp}{\operatorname{supp}}
+%% macros the crossed bench sources use — kept verbatim so those papers
+%% compile unchanged against this shared preamble
+\newcommand{\dnu}{\partial_\nu}
+\newcommand{\lam}{\tilde\lambda}
+\newcommand{\phih}{\hat\varphi}
+\DeclareMathOperator*{\essinf}{ess\,inf}
+
+%% The author block every paper here shares. Identity is the one this
+%% repository already publishes in CITATION.cff and .zenodo.json — nothing is
+%% invented. Affiliation and venue remain the author's to set.
+\newcommand{\cmauthor}{Carlos Toledo\thanks{Independent researcher.
+Contact: carlos@carlostoledo.co. \cmdisclosure}}
+
+%% The AI-involvement disclosure, one wording across every paper, adapted from
+%% the statement posted under the erdosproblems forum's rule 1. It says what is
+%% true: a model proposes, a certificate decides, and the certificate is the
+%% evidence offered.
+\newcommand{\cmdisclosure}{This work was produced with substantial AI
+assistance in a certified-verification setting: constructions and exposition
+were proposed with the help of large language models, and every quantitative
+claim is decided by outward-rounded interval arithmetic or exact rational
+arithmetic, with adversarial controls that must fire for the certificate to be
+accepted. The certificates, not the models, are the evidence, and they are
+public and re-runnable. Machine-derived and not peer-reviewed.}
+
+%% the standard reproduction block
+\newcommand{\cmrepro}[1]{\section*{Reproduction}
+Every constant in this paper is interpolated from a certificate record in the
+\texttt{cert-machine} repository, so the document cannot quote a number the
+machine did not certify.
+#1}

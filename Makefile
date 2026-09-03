@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help engine control test drift lift clean reports site
+.PHONY: help engine control test drift lift clean reports site papers
 
 help:
 	@echo "cert-machine — the conjecture engine"
@@ -134,3 +134,7 @@ reports:
 	@$(NODE) tools/build-report-ai-claims.js
 	@$(NODE) tools/build-report-claim.js
 	@$(NODE) tools/build-report-erdos852h.js
+
+papers:
+	@$(NODE) tools/build-kissing-paper.js
+	@$(NODE) tools/build-paper-tex.js --all

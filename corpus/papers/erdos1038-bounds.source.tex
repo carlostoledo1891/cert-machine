@@ -1,0 +1,386 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\supp}{\operatorname{supp}}
+\DeclareMathOperator*{\essinf}{ess\,inf}
+
+\title{Certified bounds for Erd\H{o}s problem \#1038,\\
+and a tail-free forcing argument}
+\author{Carlos Toledo\thanks{Contact: carlos@carlostoledo.co.
+Preprint v1.0. % [OWNER: affiliation line, acknowledgments, and any
+% AI-assistance disclosure wording are yours to set before deposit.]
+}}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For a probability measure $\mu$ on $[-1,1]$ write
+$U_\mu(x)=\int\log\frac{1}{|x-t|}\,d\mu(t)$ and
+$L(\mu)=\lvert\{x: U_\mu(x)>0\}\rvert$. Erd\H{o}s, Herzog and Piranian
+asked for the infimum and supremum of $L$. The supremum is known to be
+$2\sqrt2$; for the infimum the recorded state of the problem is
+$1.814605\le\inf L\le 1.8344\ldots$, with the upper end resting on
+careful floating-point numerics. We give interval-arithmetic
+certificates, outward rounded over IEEE-754 doubles, for four
+statements. First, $\inf L\le 1.8344304971959906$, replacing the
+numerical upper bound by a proof and sharpening the endpoints of the
+conjectured extremal set by roughly six orders of magnitude. Second,
+$\inf L\ge 1.828$, by a \emph{pure forcing} argument that needs no tail
+construction, no minimiser, and no contradiction --- against a published
+lower bound of $1.814605$ obtained with a five-atom tail. Third, three
+dual measures posted in the problem's public thread, previously
+validated only by sampling, are verified rigorously. Fourth, an explicit
+one-parameter family answers Tao's Problem 4.1 affirmatively for
+\emph{every} $\varepsilon\in(0,0.1]$, closing the model problem that
+obstructs the conjectured value. We also report a phenomenon we call the
+$\delta$-mechanism, which makes small-$\varepsilon$ dual constructions
+fail below an explicit threshold when their constants are rounded, and
+we prove --- by measurement rather than assertion --- that the forcing
+method itself is exhausted near $1.829$, so the remaining gap is not a
+matter of more computation.
+\end{abstract}
+
+\section{Introduction}
+
+Let $\mu$ be a Borel probability measure on $[-1,1]$ and let
+\[
+  U_\mu(x)=\int \log\frac{1}{|x-t|}\,d\mu(t),
+  \qquad
+  E_\mu=\{x\in\R: U_\mu(x)>0\},
+  \qquad
+  L(\mu)=\lvert E_\mu\rvert .
+\]
+Taking $\mu$ to be the root measure of a monic polynomial with all roots
+in $[-1,1]$, $L(\mu)$ is the measure of the set where the polynomial
+exceeds $1$ in modulus, which is how Erd\H{o}s, Herzog and Piranian
+originally posed the question. The supremum of $L$ is $2\sqrt2$. The
+infimum is open. The community record when this work began was
+\[
+  1.814605 \;\le\; \inf L \;\le\; 1.8344\ldots,
+\]
+the lower bound from a dual-forcing argument closed by a five-atom tail,
+and the upper bound from evaluating a conjectured extremal measure in
+floating point.
+
+This paper does two things. It replaces the numerical upper bound with a
+certificate and improves the lower bound to $1.828$ by an argument of a
+different shape; and it reports, with equal weight, the point at which
+that argument stops working and why. The second half is not a
+disclaimer. A method whose ceiling has been measured is more useful to
+the next person than one whose ceiling is unknown, and we spend
+Section~\ref{sec:exhaustion} establishing that ceiling as carefully as we
+spend Section~\ref{sec:lower} establishing the bound.
+
+\paragraph{Rigor model.} Every numerical statement below is produced by
+outward-rounded interval arithmetic over IEEE-754 doubles, using a small
+library (\texttt{eqcert}) whose primitives are directed-rounding
+arithmetic, an interval logarithm, and exact BigInt rationals for
+falsification tests. No statement is decided by a floating-point
+comparison. Each certificate is a JSON record of exact numbers; each is
+re-checked by a second, independently written verifier that shares no
+code with the routine that produced it.
+
+\section{A certified upper bound}\label{sec:upper}
+
+\begin{theorem}\label{thm:upper}
+Let $a=0.804462$ and $A=0.8245218$ (exact rationals), and let
+\[
+  \mu = A\,\delta_{-1} + f(y)\,dy \ \text{ on } [a,1],
+  \qquad
+  f(y)=\frac{1-A\sqrt{2(1+a)}/(1+y)}{\pi\sqrt{(y-a)(1-y)}} .
+\]
+Then $f\ge 0$, $\mu$ is a probability measure, $E_\mu=(x_L,x_R)
+\setminus\{-1\}$, and
+\[
+  x_L\in[-1.8081074413361424,\,-1.808107441336006],
+\]
+\[
+  x_R\in[0.02632305585964334,\,0.026323055859847976],
+\]
+\[
+  L(\mu)=x_R-x_L\in[1.834430497195649,\,1.8344304971959906].
+\]
+In particular $\inf L\le 1.8344304971959906$.
+\end{theorem}
+
+The proof evaluates the off-support potential in closed form as
+$c_{\mathrm{level}}+g(x,\infty)-A\,g_\Omega(x,-1)$, where $g$ denotes
+Green's functions of $\mathbb{C}\setminus[a,1]$ written in the Joukowski
+coordinate, so that every quantity is a composition of logarithms and
+square roots and is therefore directly enclosable. The set structure
+follows from three one-line convexity and monotonicity lemmas recorded
+with the certificate. Two classical identities are \emph{quoted} rather
+than certified --- the arcsine-potential identity and the balayage of a
+point mass onto an interval (Saff--Totik) --- and each is bridged
+numerically against direct quadrature to between $10^{-9}$ and
+$10^{-16}$. We flag this explicitly: Theorem~\ref{thm:upper} is
+certified modulo two textbook facts, and a fully self-contained version
+would want certified logarithmic quadrature.
+
+\section{Verifying the thread's dual measures}
+
+Three atomic measures $\lambda^{(\varepsilon)}$ for
+$\varepsilon\in\{0.002,0.001,0.0005\}$ were posted publicly and checked
+by sampling. We certify them.
+
+\begin{theorem}
+Each of the three measures has all weights strictly positive and
+satisfies $U_{\lambda}\ge 0$ on all of $[-1,1]$, with certified
+off-atom minima $1.24\cdot10^{-5}$, $2.65\cdot10^{-6}$ and
+$3.96\cdot10^{-6}$ respectively.
+\end{theorem}
+
+The method avoids quadrature entirely. On each open gap between
+consecutive support points $U_\lambda$ is convex and tends to $+\infty$
+at both ends, so a tangent line at any interior point bounds it from
+below on the whole gap; adaptive tangent envelopes, bisected until
+positive, then cover $[-1,1]$. This removes the sampling caveat, which
+matters because the problem's public record already contains two
+verifier errors --- a sign slip and an undersampling --- and sampling
+was the residual soft spot.
+
+\section{Tao's Problem 4.1 for every $\varepsilon$}
+
+\begin{theorem}\label{thm:family}
+For every $\varepsilon\in(0,0.1]$ the explicit measure
+$\lambda^{(\varepsilon)} = m_p\delta_{p_0+\varepsilon} + m_q\delta_{q_0}
++ m_1\delta_1 + g\,\mathbf{1}_{(a,1-\varepsilon)}\,dy$, with the masses
+given by the residue closed forms and
+\[
+  g(x)=\frac{1}{\pi}\,\frac{(x+A)\sqrt{(x-a)(1-\varepsilon-x)}}
+  {(x-p_0-\varepsilon)(x-q_0)(1-x)},
+\]
+is a positive measure with $U_{\lambda^{(\varepsilon)}}\ge 0$ on all of
+$[-1,1]$.
+\end{theorem}
+
+Coverage is by $624{,}275$ interval chunks on $[10^{-12},0.1]$ together
+with a lemma covering $(0,10^{-12}]$ through the substitution
+$t=\zeta_1-1$, under which the $\varepsilon\to0$ singular pole at $1$
+cancels algebraically. The certified uniform margins are
+$U_\lambda(-1)\ge 1.7\cdot10^{-8}$ and cut-level $\ge0$. This settles
+affirmatively the model problem whose failure would obstruct the
+conjectured value of the infimum.
+
+\subsection{The $\delta$-mechanism}
+
+One phenomenon deserves separate statement, because it is a trap for
+anyone extending these constructions numerically. As
+$\varepsilon\to0$,
+\[
+  U_{\lambda^{(\varepsilon)}}(-1)\longrightarrow
+  \delta = -\frac{(\text{primal level defect})\cdot(\text{density mass})}{A},
+\]
+and with \emph{rounded} minimiser constants the level defect is nonzero.
+Its sign then decides everything. Constants inherited from
+Theorem~\ref{thm:upper}'s parameter set give $\delta=-9.2\cdot10^{-9}$,
+and the family then \emph{provably} fails for
+$\varepsilon<\varepsilon^\star=\lvert\delta\rvert/0.21\approx
+4.3\cdot10^{-8}$. Choosing the family's primal constants with the level
+defect on the other side ($A_f=0.82452163$) gives
+$\delta=+5.26\cdot10^{-8}$ and uniform positivity. All published work in
+the thread sits at $\varepsilon\ge5\cdot10^{-4}$, far above the wall,
+so nobody has met it; anyone building small-$\varepsilon$ duals from
+midpoint decimals will.
+
+We found this the right way round: the certifier reported a decisively
+negative window, and the explanation came afterwards.
+
+\section{A tail-free lower bound}\label{sec:lower}
+
+\begin{theorem}\label{thm:lower}
+$\inf L \ge 1.828$.
+\end{theorem}
+
+\paragraph{Standing assumptions.} We use the thread's standard
+reduction, which is also the external hypothesis of the problem's Lean
+formalisation: $\mu$ normalised with $\supp\mu\subseteq\{-1\}\cup[0,1]$
+and $(-\sqrt2,0)\subseteq E:=E_\mu$. Beyond that the only analytic input
+is Fubini's identity $\int U_\nu\,d\mu=\int U_\mu\,d\nu$, in the form of
+a \emph{finite-atom selector}: if $\nu=\delta_{a_0}+\sum_i w_i
+\delta_{p_i}$ with $w_i\ge0$ satisfies $U_\nu>0$ on $\supp\mu$ and
+$U_\mu(a_0)\le0$, then $U_\mu(p_i)>0$ for some $i$ with $w_i>0$.
+
+\paragraph{The argument.} Let $a_0$ be the infimum of the component of
+$E$ containing $(-\sqrt2,0)$; then $U_\mu(a_0)\le0$ by lower
+semicontinuity and $a_0\in[-2,-\sqrt2]$. Fix a target $c$. If
+$a_0\le -c$ then $\lvert E\rvert\ge\lvert(a_0,0)\rvert\ge c$ and we are
+done. Otherwise put $R=c-\lvert a_0\rvert$ and exhibit, for every
+$b\in[0,R]$, a dual
+\[
+  \nu_b=\delta_{a_0}+w_0\delta_b+\sum_j w_j\delta_{s_j-b}
+  \qquad\text{with } U_{\nu_b}>0 \text{ on } \{-1\}\cup[0,1] \supseteq \supp\mu .
+\]
+The lanes $b\mapsto b$ and $b\mapsto s_j-b$ move at unit speed with
+pairwise disjoint images $[0,R]$ and $[s_j-R,s_j]$, all disjoint from
+$(a_0,0)$. The selector therefore places, for each $b$, some lane atom
+in $E$, whence $\sum_j\lvert E\cap\mathrm{im}_j\rvert\ge R$ and
+$\lvert E\rvert\ge\lvert a_0\rvert+R=c$. There is no minimiser, no
+contradiction and no tail.
+
+\paragraph{What is certified.} The range $a_0\in[-c,-\sqrt2]$ is tiled by
+boxes; each box carries one comb of lanes and a tiling of $b\in[0,R]$;
+each $b$-box carries one frozen weight vector obtained from a
+floating-point linear program, which the certificate \emph{verifies} and
+never trusts. Four facts make this affordable. $U_\nu(x)$ is increasing
+in $a_0$ for $x>a_0$, so each $b$-box is checked at the deepest $a_0$
+that needs it. Convex pole sums $K-\sum c_k\log\lvert y-q_k\rvert$ with
+$c_k\ge0$ are bounded below by interval tangent lines between
+consecutive poles. The point $x=-1$ is a convex problem in $b$. And,
+decisively:
+
+\begin{lemma}[translation monotonicity]
+Write $y=x+b$. The teeth contribution
+$-\sum_j w_j\log\lvert y-s_j\rvert$ does not depend on $b$, and the
+remaining part satisfies
+\[
+  \partial_b\Bigl[-\log(y-b-a_0)-w_0\log(y-2b)\Bigr]
+  = \frac{1}{x-a_0}+\frac{2w_0}{x-b} > 0
+  \qquad\text{for } x\ge b .
+\]
+\end{lemma}
+
+Consequently on $x\in[b^+,1]$ the minimum over a $b$-box is attained at
+the smallest admissible $b$, and the two-parameter box collapses into
+two \emph{thin} one-dimensional convex problems with no smearing loss at
+all. Without it, the near poles cost about $10h$ per box half-width and
+the box count is an order of magnitude worse.
+
+\paragraph{The certificates.} Four are on disk, each verified by an
+independently written checker that re-derives the tiling, geometry and
+weight structure from the JSON alone and then hunts for counterexamples
+in doubles.
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\toprule
+target $c$ & $a_0$-boxes & $b$-boxes & runtime & smallest double $U$ found \\
+\midrule
+1.816 & 81  & 1224  & 182\,s  & $8.8\cdot10^{-3}$ \\
+1.82  & 82  & 2480  & 334\,s  & $5.9\cdot10^{-3}$ \\
+1.825 & 165 & 9952  & 1182\,s & $2.9\cdot10^{-3}$ \\
+\textbf{1.828} & \textbf{332} & \textbf{40000} & \textbf{5421\,s} & $\mathbf{2.1\cdot10^{-4}}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+At $c=1.828$ the worst certified margin is $7.482\cdot10^{-7}$ and no
+$a_0$-box ever required splitting. Combining with
+Theorem~\ref{thm:upper},
+\[
+  1.828 \;\le\; \inf L \;\le\; 1.8344304971959906 ,
+\]
+a bracket of width $0.0064$, against $0.0198$ before.
+
+\section{The method is exhausted, and we can say where}\label{sec:exhaustion}
+
+It would be easy to leave the reader to discover that this argument does
+not reach $1.8344$. We measured instead.
+
+\paragraph{The ceiling is the upper bound, in principle.} At the
+conjectured minimiser's $a_0^\star=x_L$ the lane range can reach at most
+$x_R$, so $c\le\lvert x_L\rvert+x_R=1.8344\ldots$ exactly. The method is
+not structurally limited to a worse constant than the truth.
+
+\paragraph{In practice it stops at $\approx1.8285$.} A float scan over
+lane topologies puts the feasibility boundary of this family at
+$\approx1.8285$: $c=1.828$ is feasible with worst margin
+$+5.5\cdot10^{-4}$, $c=1.829$ is infeasible at $-5.4\cdot10^{-4}$. So the
+certified $1.828$ sits essentially \emph{at} the wall, with about
+$5\cdot10^{-4}$ of headroom rather than the $6\cdot10^{-3}$ needed.
+
+\paragraph{Lane redesign does not help.} Extending the teeth downwards,
+extending them above $1$ (legitimate, since $E\subseteq[-2,2]$ and the
+dual needs positivity only on $\{-1\}\cup[0,1]$), pairing ascending with
+descending lanes, grading the tooth spacing, and non-unit lane speeds
+were all measured. Every variant matched the comb exactly or did worse.
+Non-unit speed is in fact a \emph{no-op}: with all speeds $s$ the
+required range is $R/s$ and every image has length $s\cdot(R/s)=R$, so
+the geometry is identical and only the parametrisation changes; mixed
+speeds are strictly worse, since the gain is $(\min_i s_i)\cdot R$ while
+faster lanes consume proportionally more room.
+
+\paragraph{The obstruction, identified.} Giving the linear program a
+dense grid of candidate atom positions instead of a comb --- an upper
+bound for any lane topology --- returns a margin of $\approx+6.5
+\cdot10^{-2}$ supported on one heavy atom near $b$ together with a
+cluster of ten atoms inside $[0.97,1.0]$, a window of width $\approx
+0.03$. But the covering argument requires those ten lanes to have
+\emph{disjoint} images of length $R\approx0.032$ each, i.e.\ about
+$0.32$ of room: a tenfold forced dilation of the optimal support. That
+dilation is the entire cost, and it explains why offering more room
+changes nothing.
+
+\paragraph{Support localisation buys exactly zero.} It is tempting to
+believe the residual gap is the price of demanding positivity on all of
+$[0,1]$ rather than on $\supp\mu^\star=\{-1\}\cup[0.8045,1]$. We
+believed it, wrote it down, and then measured it: relaxing the
+requirement from $\{-1\}\cup[0,1]$ to $\{-1\}\cup[L,1]$ changes the
+achievable target by \emph{nothing} for every $L\le0.8045$, to every
+printed digit. The reason is structural. For $x,p\in[0,1]$ we have
+$\lvert x-p\rvert\le1$, so $-w\log\lvert x-p\rvert\ge0$: every atom
+placed in $[0,1]$ contributes non-negatively to $U_\nu$ on all of
+$[0,1]$, and interior positivity can always be bought with more weight.
+At $x=-1$ the sign flips, $\lvert-1-p\rvert=1+p\in[1,2]$, and
+\[
+  U_\nu(-1)=-\log(\lvert a_0\rvert-1)-\sum_i w_i\log(1+p_i)>0
+\]
+becomes a \emph{weight budget}. Drop $x=-1$ and the program is
+unbounded: nothing else limits the weights at all. So the single binding
+constraint of the whole method is the atom at $-1$, which lies in
+$\supp\mu$ under the standard reduction and cannot be relaxed by any
+statement about $[0,1]$.
+
+\paragraph{Relaxing pointwise positivity: real, and worth $+0.0007$.}
+The selector never needed $U_\nu>0$ pointwise; it needs only $\int
+U_\nu\,d\mu>0$. Writing $A$ for the mass at $-1$ and worst-casing the
+rest onto the minimum over $[0,1]$ gives the weaker sufficient condition
+\[
+  V(a_0,A)=A\,U_\nu(-1)+(1-A)\min_{[0,1]}U_\nu>0 ,
+\]
+required for every $A\in[0,1]$. This is a genuine strengthening --- the
+only modification we found that moves the ceiling at all --- and it
+moves it from $\approx1.8285$ to $\approx1.8292$. The binding $A$ lands
+in $[0.806,0.837]$, bracketing the conjectured minimiser's
+$A=0.82452$, so the relaxed method does bind on the right obstruction.
+For $A\lesssim0.786$ the program is unbounded and those measures are
+free; at $A=1$ only $U_\nu(-1)>0$ is needed. The whole obstruction lives
+in a narrow window of $A$, and inside it the trade is weak.
+
+\medskip
+
+The conclusion we draw is not that the gap is small but that it is not a
+computational one. Closing it requires an argument structurally
+different from a dual with finitely many moving atoms.
+
+\section{Limits}
+
+Theorem~\ref{thm:upper} is certified modulo two quoted classical
+identities, each numerically bridged but not itself certified.
+Theorem~\ref{thm:lower} is conditional on the standard reduction
+($\supp\mu\subseteq\{-1\}\cup[0,1]$ and $(-\sqrt2,0)\subseteq E$)
+together with the Fubini selector; this is the same base as the
+problem's existing formalisation, but it is a hypothesis and not a
+theorem of this paper. The results in
+Section~\ref{sec:exhaustion} other than the exact ceiling identity are
+floating-point measurements, clearly marked as such, and are offered as
+evidence about where to spend effort rather than as certified
+statements. Nothing here determines $\inf L$; the problem remains open.
+
+This work is machine-assisted throughout and has not been peer reviewed.
+The certificates are built to be attacked directly, and refutations are
+more welcome than citations.
+
+\end{document}

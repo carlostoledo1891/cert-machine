@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+/* SUPERSEDED 2026-09-03: the paper of record is now LaTeX (paper/tex/, built by
+   tools/build-paper-tex.js). This generator is kept only for its record gates
+   and refuses to emit, so it can never re-publish a stale markdown draft. */
+if (!process.env.ALLOW_STALE_MD) { console.error(p_name + ': superseded by the LaTeX paper — run tools/build-paper-tex.js'); process.exit(1); }
 /* build-ember-writeup.js — generate paper/ember-hotspots.md, the
    record-driven write-up of the certified hot-spots theorem.
 
@@ -20,6 +24,7 @@ const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
+const p_name = 'tools/build-ember-writeup.js';
 const die = (m) => { console.error('EMBER WRITEUP REFUSED: ' + m); process.exit(1); };
 const rd = (f) => {
   const p = path.join(ROOT, 'certs', f);
