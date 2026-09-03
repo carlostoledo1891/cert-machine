@@ -301,6 +301,38 @@ notifies on verdict-or-exit. Rationale: killing loses 31.7 h for a
 heartbeat that buys no speed; the coverage boxes are capped so the
 tree terminates. Revisit hard if it passes ~48 h.
 
+LAMBDA(6) DIAGNOSED 2026-09-03 (the observability the instrument lacked
+now exists, and it changed the diagnosis). At 43.4 h the original run
+(pid 72893) is healthy by every process metric — 99% CPU sustained, RSS
+climbing 166 → 281 MB (memo tables still taking NEW states, so it is
+not spinning), stack deep in interpreted BigInt work. But no readout.
+So a TRACED TWIN was started in an isolated git worktree
+(scratchpad/l6trace, AUTOCLOSE_TRACE=1, ONLY='a+2e = 2f') — it cannot
+race the record because it writes the worktree's own certs/. It cost
+nothing and settled the question the log could not:
+  · BASELINE, a family that FINISHED: d+2e = 2f traced end to end —
+    70 nodes, 5.9 min, steady ~12 nodes/min, max depth 3. Nodes tick by
+    roughly every 5 seconds.
+  · THE TWIN REPRODUCES THE STALL: 22 nodes in the first 90 seconds,
+    then SILENCE — one node, #22, at depth 3 with n=2 (the 2-dof
+    endgame), has held the process for 10+ minutes and counting. Path:
+    a+2e = 2f » [2,-1,0,0,0] » [2,1,1,-2] / substitute x_s »
+    [2,-1,-3] / substitute x_al.
+  · SO THE DIAGNOSIS IS NOT "a bigger tree". It is INDIVIDUAL 2-dof
+    endgame nodes whose cost explodes — which is where close.js's
+    capped adaptive coverage boxes do their work. If the cap is
+    thrashing there, 43 h buys nothing and the fix is mathematical (a
+    better mechanical shape for this cone, or a smarter box schedule),
+    not more hours.
+  · BOTH PROCESSES LEFT RUNNING (a core each, 8-core box): the original
+    keeps its 43 h head start, the twin is now the map. A monitor
+    reports twin milestones and either process exiting. THE DECIDING
+    OBSERVATION: if the twin clears node 22 in reasonable time the tree
+    is passable; if it does not, that node IS the target and the
+    campaign needs the closer improved rather than re-run.
+  · Nothing was killed. Killing the original remains the operator's
+    call; it is the only irreversible move here.
+
 FIRST TASK NEXT SESSION — FINISH LAMBDA(6) (one family of ten remains).
 UPDATE at the 2026-09-02 evening handoff: a+2e = 2f is at ~31.6 h
 elapsed (PID 72893, ~99% CPU, verdict log still 0 bytes) — PAST the
