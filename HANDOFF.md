@@ -47,8 +47,7 @@ OPERATOR ACTS — nothing here needs a session, only a decision
   7. NEW 2026-09-03: THE EINSTEIN-ARENA 604 ISSUE — staged verbatim at
      outreach/einstein-arena-604-issue.md (GitHub issue on
      vinid/einstein-arena asking for the 604 vectors; the ledger's
-     NEEDS-DATA row is the case, the ask is offer-shaped). Post command
-     is in the file; on the word, gh posts it. Fallback if it sits
+     NEEDS-DATA row is the case, the ask is offer-shaped). POSTED 2026-09-03 on the operator's word: github.com/vinid/einstein-arena/issues/64 — now a WATCH item; a reply outranks. Fallback if it sits
      quiet ~2 weeks: email Bianchi/Zou with the same text.
   8. NEW 2026-09-02 (late): ERDOS #290 SHARPENED UNDER US — arXiv:
      2609.00104 (van Doorn, submitted 2026-08-31, a human rewrite of a
