@@ -1315,6 +1315,12 @@ put('oracle/index.html', Buffer.from(TPL.render({ title: 'certify() — the rewa
 /* discoverability assets + crawl surface — generated, like everything else */
 put('favicon.svg', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'favicon.svg')));
 put('og.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og.png')));
+/* the write-ups: papers are generated from the same certificates as their
+   report pages, and are linked from outreach, so they are served here rather
+   than left to the repository tree only. */
+for (const f of fs.readdirSync(path.join(ROOT, 'paper'))) {
+  if (f.endsWith('.pdf') || f.endsWith('.md')) put('paper/' + f, fs.readFileSync(path.join(ROOT, 'paper', f)));
+}
 put('robots.txt', Buffer.from('User-agent: *\nAllow: /\nSitemap: https://carlostoledo.co/sitemap.xml\n'));
 put('machine/index.html', fs.readFileSync(path.join(ROOT, 'index.html')));
 for (const f of fs.readdirSync(path.join(ROOT, 'reports'))) {
