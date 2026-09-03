@@ -57,6 +57,10 @@ console.log('    ' + t2.results.length + ' measures, min certified margin '
 console.log('T3  the ε-family (Tao Problem 4.1)');
 run('family.js', ['1e-12', '0.1']);
 run('sliver.js');
+/* the family's COVERING, independently audited (shares no code with family.js) */
+const cov = cp.spawnSync('node', [path.join(INS, 'verify-family-cover.js'), '--json'], { cwd: ROOT, maxBuffer: 32 * 1024 * 1024 });
+if (cov.status !== 0) die('the eps-family COVERING audit REFUSED:\n' + (String(cov.stdout) + String(cov.stderr)).slice(-700));
+const coverAudit = JSON.parse(String(cov.stdout));
 const t3 = readJson(path.join(INS, 'cert-eps-family.json'));
 const t3s = readJson(path.join(INS, 'cert-eps-sliver.json'));
 console.log('    ' + t3.chunks.toLocaleString('en-US') + ' chunks on [1e-12, 0.1] + the sliver on (0, 1e-12]');
@@ -102,6 +106,7 @@ const out = {
     T1_upper: t1,
     T2_thread_duals: t2,
     T3_family: { range: 'ε ∈ (0, 0.1]', onChunks: t3, sliver: t3s,
+      coveringAudit: coverAudit,
       answers: 'Tao Problem 4.1, affirmatively, for the whole range' },
     T4_forcing: t4 ? { record: 'certs/erdos1038-forcing-1.828.json', summary: t4, independentVerify: t4verify }
       : 'PENDING — run instruments/lemniscate/forcing.js 1.828 certs/erdos1038-forcing-1.828.json',

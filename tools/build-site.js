@@ -201,7 +201,7 @@ const REPORTS = [
   /* lane 'ground', ranked here: the two ported theorem programs */
   { g: 'ground', f: 'ember.html', k: 'certified theorem · hot spots',
     title: 'The hot spot stays on the boundary',
-    desc: 'The second Neumann eigenfunction of a convex trapezoid with no symmetry axis — to our knowledge the '
+    desc: 'Not one domain but a continuum: for every c in [0.845, 0.85] the convex trapezoid A(0,0) B(1,0) C(c,9/10) D(1/4,9/10) has a simple second Neumann eigenvalue whose eigenfunction attains its extrema on the boundary only — to our knowledge the first certified hot-spots result for a positive-measure FAMILY, with the original specimen c = 17/20 as its right endpoint. The second Neumann eigenfunction of a convex trapezoid with no symmetry axis — to our knowledge the '
       + 'first certified hot-spots domain outside every analytically proven class (all triangles took Judge–Mondal '
       + 'an Annals paper; lip domains, L-tiled polygons and symmetric quadrangles are the other proven classes, '
       + 'while in high dimension convex sets can FAIL the conjecture, making the planar convex case the live one) '
@@ -542,7 +542,7 @@ B.push(C.header({
   title: 'The machine proves it — or breaks it',
   deck: 'AI produces mathematical claims faster than anyone can read them. This machine does both ends of the job '
     + 'with the same exact arithmetic. It has settled a value conjectured open since 2019, certified what is — to '
-    + 'our knowledge — the first hot-spots domain beyond every class analysts have reached, and refuted a '
+    + 'our knowledge — the first hot-spots result for a whole family of domains beyond every class analysts have reached, and refuted a '
     + 'published constant at its twelfth digit. Every verdict is a re-runnable certificate: proved, disproved, or '
     + 'honestly refused — never a probability argument.'
 }));

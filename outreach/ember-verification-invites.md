@@ -1,3 +1,21 @@
+> **UPDATED 2026-09-03 — the theorem is now a FAMILY, not a specimen.** Both
+> drafts below were written for the single domain c = 17/20. The certified
+> result is now: for every c in [0.845, 0.85] the
+> trapezoid A(0,0) B(1,0) C(c,9/10) D(1/4,9/10) has simple mu_1 and its second
+> Neumann eigenfunction attains its extrema on the boundary only —
+> 17 chunks tiling the interval with shared endpoints,
+> 738 sigma-cells inside them, mu_1 >= 11.85157
+> and mu_2 >= 13.90774 uniformly. To our knowledge the
+> first certified hot-spots result for a POSITIVE-MEASURE FAMILY beyond every
+> proven class; the old specimen is its right endpoint.
+>
+> This makes both asks STRONGER, and each needs its opening rewritten around
+> the family before it goes out. Scope to keep honest in both: the six-stage
+> chain ran on the bench and is audited here, not re-derived (reports/ember.html
+> says so), and the convex-quadrilateral conjecture itself remains OPEN — this
+> is a family, not the census. Page: https://carlostoledo.co/reports/ember.html
+> · record: certs/ember-band.json · auditor: instruments/emberband/verify-band.js
+
 # Ember verification invitations (STAGED 2026-09-02, NOT SENT)
 
 Status: **staged**. Outward sends happen on the operator's word only.

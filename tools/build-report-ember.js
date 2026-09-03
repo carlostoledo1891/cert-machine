@@ -74,9 +74,8 @@ O.push(C.header({
     + 'positive-measure FAMILY rather than a single specimen. The domain below, c = 17/20, is the right endpoint '
     + 'and is where the program started. '
     : '')
-    + 'The second Neumann eigenfunction of a convex trapezoid with no symmetry axis — to our knowledge the '
-    + 'first certified hot-spots domain outside every analytically proven class — attains its maximum and its '
-    + 'minimum on the boundary only. And more precisely: the maximum is attained AT VERTEX A, and only there — '
+    + 'The domain treated in full below is that endpoint: a convex trapezoid with no symmetry axis, whose '
+    + 'second Neumann eigenfunction attains its maximum and its minimum on the boundary only. And more precisely: the maximum is attained AT VERTEX A, and only there — '
     + 'certified, with φ̂(A) ∈ ' + ivStr(R.theorem.corollary.phiAtA, 6) + '. One domain, one theorem, one '
     + 'corollary: μ₁ is simple, its enclosure is ' + ivStr(MU1, 9) + ', and every interior point is excluded by '
     + 'a certified cell of an exact partition. Floats propose; interval and rational arithmetic decide.',

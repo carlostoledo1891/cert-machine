@@ -99,6 +99,7 @@ B.push(C.stats([
   { k: 'the bracket, unconditional', v: lo + ' ≤ inf ≤ ' + up.toFixed(7), role: 'held', n: 'both ends certified here; assumes no claimed proof' },
   { k: 'claimed full proofs', v: '3', role: 'open', n: 'Darvas–Peng–Tao · Shouqiao Wang · Cristian Budala — all AI-assisted, all reporting the same D, none examined by the forum' },
   { k: 'Tao Problem 4.1', v: 'YES, all ε', role: 'held', n: fmt(T3.onChunks.chunks) + ' certified chunks on [1e-12, 0.1] plus the sliver lemma on (0, 1e-12]' },
+  { k: 'the family’s covering, audited', v: (T3.coveringAudit ? T3.coveringAudit.rungs + ' rungs, no gap' : '—'), role: 'held', n: 'a per-ε claim proved chunk by chunk stands on whether the chunks cover the range. The rung ladder makes that checkable in ' + (T3.coveringAudit ? T3.coveringAudit.rungs : '?') + ' entries instead of ' + fmt(T3.onChunks.chunks) + ', and an auditor sharing no code with the producer confirms it tiles [1e-12, 0.1] with shared endpoints' },
   { k: 'the lower bound costs', v: T4.summary.a0Boxes + ' boxes, ' + Math.round(T4.summary.secs) + ' s', role: 'held', n: 'no tail, no minimizer; worst certified margin ' + T4.summary.worstMargin.toExponential(3) },
   { k: 'thread duals certified', v: T2.results.length + ' of ' + T2.results.length, role: 'held', n: 'the community\'s posted measures, previously validated by sampling only' },
   { k: 'analytic cores audited', v: '0', role: 'open', n: 'ours is a bracket, not an adjudication — the claimed proofs\' analytic arguments are beyond this instrument and we say so' },

@@ -34,5 +34,12 @@
    "from": "frontier-apps/experiments/erdos1038/lp.js",
    "sha256": "c4a8b12abd94dce22a46bf351679f74e28a115876546f33639ca52e09bb9b7bc"
   }
- }
+ },
+ "patches": [
+  {
+   "file": "family.js",
+   "at": "2026-09-03",
+   "why": "The record stored only a chunk COUNT, so the covering of [EPS_MIN, EPS_MAX] rested on the loop shape and could not be audited from the artifact. The patch records the rung ladder (eLo, eHi, ok, chunks) and the failure count, turning the covering into a checkable proof. No mathematics changed; the certification path is untouched."
+  }
+ ]
 }

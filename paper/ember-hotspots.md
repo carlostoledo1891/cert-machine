@@ -1,6 +1,6 @@
 # A certified hot-spots domain beyond the proven classes
 
-**Draft v0.9 — generated from machine certificates (git ddbe592); every
+**Draft v0.9 — generated from machine certificates (git 845f4f3); every
 numerical constant below is interpolated from a VERIFIED record and none is
 hand-transcribed.**
 
@@ -30,8 +30,9 @@ symmetric quadrangle subcases (Deng-Gui-Jiang-Yang-Yao, arXiv:2604.19003).
 In the other direction, the conjecture is FALSE for convex sets in
 sufficiently high dimension (de Dios Pont, arXiv:2412.06344), which makes
 the planar convex case — where this domain lives — exactly the place the
-conjecture remains expected. The claim is one domain and one theorem; the
-convex-quadrilateral conjecture itself remains open. The certificate chain assumes two quoted results from the literature
+conjecture remains expected. The claim is a positive-measure FAMILY of domains (see the band section
+below) together with the single-domain theorem and corollary proved here in
+full; the convex-quadrilateral conjecture itself remains open. The certificate chain assumes two quoted results from the literature
 (Liu's lower-bound framework and the Crouzeix-Raviart interpolation
 constant 0.1893 h_K, both from arXiv:1808.08148, whose PDF is pinned by
 sha256 in the repository) and standard facts; everything else re-derives
@@ -413,6 +414,6 @@ is a family, not the census.
 
 ---
 
-*Generated 2026-09-03 from certs/ember-*.json (git ddbe592).
+*Generated 2026-09-03 from certs/ember-*.json (git 845f4f3).
 This draft wants one human read [OPERATOR] before anything further; nothing
 is sent anywhere without the operator's word.*

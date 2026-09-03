@@ -208,10 +208,22 @@ function run(e1, e2, depth) {
   const okL = run(e1, mid, depth + 1), okR = run(mid, e2, depth + 1);
   return okL && okR;
 }
+/* PATCH (cert-machine, 2026-09-03, declared): record the RUNG LADDER.
+   The covering of [EPS_MIN, EPS_MAX] was previously guaranteed only by the
+   shape of this loop — the record stored a chunk COUNT, so no reader could
+   check it. Each rung is [eLo, eHi] with eHi of the next rung equal to eLo of
+   the previous, and run() returns true only when a rung is fully covered
+   (a chunk certifies, or BOTH recursive halves do). Emitting the rungs plus
+   their ok flags therefore emits a complete, checkable covering proof in ~113
+   entries instead of 624k. Audited by verify-family-cover.js. */
 let eHi = EPS_MAX, allOk = true;
+const rungs = [];
 while (eHi > EPS_MIN * (1 + 1e-12)) {
   const eLo = Math.max(EPS_MIN, eHi / 1.25);
-  if (!run(eLo, eHi, 0)) allOk = false;
+  const before = chunks;
+  const ok = run(eLo, eHi, 0);
+  rungs.push({ eLo, eHi, ok, chunks: chunks - before });
+  if (!ok) allOk = false;
   eHi = eLo;
   if (failed.length > 4) break;
 }
@@ -221,6 +233,9 @@ if (allOk && !fails) {
   fs.writeFileSync(path.join(__dirname, 'cert-eps-family.json'), JSON.stringify({
     statement: 'for every eps in [EPS_MIN, EPS_MAX], the explicit ansatz measure lambda^(eps) (rational A per chunk) is positive, supported in {xL+eps} u {xR} u [a,1-eps] u {1}, and U_lambda >= 0 on [-1,1] (Tao Problem 4.1: YES on this range)',
     a: aC, xL: XL, xR: XR, EPS_MIN, EPS_MAX, chunks, minUm1, minEta,
+    fails, failed,
+    covering: { rungs, ratio: 1.25,
+      note: 'rungs tile [EPS_MIN, EPS_MAX] with shared endpoints; each ok rung is fully covered by its own recursive subdivision (a chunk certifies, or both halves do). Re-checked by instruments/lemniscate/verify-family-cover.js.' },
     literatureInputs: ['T1 template Hilbert transform (Tao notes §4)', 'T2 mass = (N/Q)(inf) = 1', 'soft-edge continuity of U at a, b'],
     builtAt: new Date().toISOString(),
   }, null, 1));

@@ -77,6 +77,34 @@ ok(/no guarantee of proof correctness|has examined any part/.test(ind),
 ok(/did not audit its analytic core/.test(ind),
   'fence: the record states we did NOT audit the analytic core we confirmed the appendix of');
 
+/* ---- the family COVERING, audited and attacked ---- */
+{
+  const cp2 = require('child_process');
+  const os2 = require('os');
+  const COVER = path.join(HERE, 'verify-family-cover.js');
+  const FAMREC = path.join(HERE, 'cert-eps-family.json');
+  const runCover = (rec) => {
+    const r = cp.spawnSync('node', [COVER], { cwd: ROOT, env: Object.assign({}, process.env, { FAMILY_REC: rec }), maxBuffer: 32 * 1024 * 1024 });
+    return r.status === 0;
+  };
+  ok(runCover(FAMREC), 'the eps-family covering VERIFIES: the rung ladder tiles [1e-12, 0.1] with no gap');
+  const fam = JSON.parse(fs.readFileSync(FAMREC, 'utf8'));
+  ok(fam.covering && fam.covering.rungs.length > 100, 'the record carries its rung ladder, so the covering is auditable at all',
+    (fam.covering ? fam.covering.rungs.length : 0) + ' rungs');
+  ok(fam.fails === 0, 'the record now states its failure count explicitly', 'fails = ' + fam.fails);
+  /* red controls: break the covering the ways it can actually break */
+  const mutCover = (fn) => {
+    const t = path.join(os2.tmpdir(), 'famcover-' + process.pid + '-' + Math.random().toString(36).slice(2) + '.json');
+    try { const j = JSON.parse(fs.readFileSync(FAMREC, 'utf8')); fn(j); fs.writeFileSync(t, JSON.stringify(j)); return !runCover(t); }
+    finally { if (fs.existsSync(t)) fs.rmSync(t); }
+  };
+  red(mutCover((j) => { j.covering.rungs.splice(50, 1); }), 'X6 a rung removed from the middle of the ladder opens a GAP and is REFUSED');
+  red(mutCover((j) => { j.covering.rungs[30].eLo *= 1.01; }), 'X7 a rung endpoint moved 1% breaks the tiling and is REFUSED');
+  red(mutCover((j) => { j.covering.rungs[10].ok = false; }), 'X8 one rung flagged not-covered is REFUSED');
+  red(mutCover((j) => { j.fails = 1; }), 'X9 a record admitting one failed chunk is REFUSED');
+  red(mutCover((j) => { delete j.covering; }), 'X10 a record with no rung ladder cannot prove its covering and is REFUSED');
+}
+
 /* ---- red controls: real source mutations ---- */
 console.log('red controls');
 red(mutantFails('upper.js', [
