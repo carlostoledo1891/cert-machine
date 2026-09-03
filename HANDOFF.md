@@ -26,6 +26,41 @@ to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
 
+THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
+
+  NEXT SESSION, IN ORDER
+  1. PUBLISH LAMBDA(5) — it is COMPLETE (8/8 families in
+     certs/lambda56-campaign.json) and has NO PAGE and NO PAPER, while
+     lambda(4) is published. Build reports/lambda5.html from the record
+     with its own gates (build-report-lambda4.js is the pattern). HOLD the
+     paper's shape: if lambda(6) lands, (4)+(5)+(6) become ONE
+     non-monotonicity paper.
+  2. REVIEW THE BENCH AGAIN, all folders and all pages, for valuable
+     mathematics, instruments, claims and narrative. Known-and-ported:
+     ember/BAND, erdos1038, terra family, kissing11. Known-and-unported:
+     experiments/envs (the canary-factory idea). New: experiments/kissing12
+     (probe only, no theorem doc — leave it).
+  3. LAMBDA(6): a+2e = 2f at ~49.5 h, plus the traced twin in
+     scratchpad/l6trace. If it lands: fold the verdict in, then the
+     audit, then the NON-MONOTONICITY announcement (operator-gated).
+
+  BUILDS QUEUED, NOT STARTED
+  4. Covering: mfg-regime-map and terra-bracket-table emit no cell/row
+     list, so neither is auditable. One-line producer patch each, the same
+     one family.js got, then point instruments/covering at them.
+  5. Papers still markdown: lambda4-proof.md, terra-peaks.md. Four bench
+     .tex crossable: terra, terra-cap, terra-faces, terra-attn, mfg-terra.
+  6. Erdős #1038 SUPREMUM paper — none exists; it is the companion to the
+     inf paper and our #179 comment is live. Currently proved for
+     rational weights of denominator <= 8; raising that is compute-bound.
+  7. Erdős #290 paper — a theorem, and its bracket is now the value of a
+     constant proved exact.
+
+  RULE OF THUMB, adopted this session: PAPERS FOR THEOREMS, PAGES FOR
+  AUDITS. An audit page re-runs its own numbers at every build, which is a
+  better artifact than a frozen PDF; keller, rm-audit and erdos852 do not
+  want papers.
+
 OPERATOR ACTS — nothing here needs a session, only a decision
 
   1. READ paper/ember-hotspots.md (draft v0.9, public, journal-typeset)
