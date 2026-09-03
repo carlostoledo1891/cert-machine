@@ -98,16 +98,64 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
        · battery instruments/lambda56/battery.js is now 19 checks / 7 reds
          (M1 calibration, M2 the quintic, N1 the non-monotonicity, R6 a
          perturbed quintic, R7 a reducible polynomial).
-     STILL OPEN on λ(5): NO INDEPENDENT AUDIT (λ(4) has one — mirror
-     tools/audit-lambda4.js), no write-up. Both stated on the page itself.
-     The paper's shape still waits on λ(6).
-  2. REVIEW THE BENCH AGAIN, all folders and all pages, for valuable
-     mathematics, instruments, claims and narrative. NOT DONE this session
-     — the session went to λ(5) and the positioning decisions on the
-     operator's word. Known-and-ported: ember/BAND, erdos1038, terra family,
-     kissing11. Known-and-unported: experiments/envs (the canary-factory
-     idea). New: experiments/kissing12 (probe only, no theorem doc — leave
-     it).
+     THE INDEPENDENT AUDIT RAN THE SAME SESSION (tools/audit-lambda5.js,
+     certs/lambda5-audit.json, box 30, 225 s): 139,246 gcd-reduced 5-sets,
+     ZERO REFUTERS of the theorem, 3,481 screened sets re-certified exactly
+     so the screen is audited rather than trusted. It shares no code with
+     the symbolic engine and it decides three things:
+       · the THEOREM — every set in the box dips strictly below
+         L(1,2,4,5,6) except the extremizer, which attains it;
+       · the SYMBOLIC LAYER — the engine's model (inner product = base plus
+         the deltas of the ACTIVE conditions) agrees with direct
+         trigonometric summation at EVERY set in the box to 5.3e-14, and
+         every set the generic argument does not close satisfies one of the
+         eight recorded family conditions;
+       · the OBSTRUCTION, by its mechanism rather than by search — on all
+         798 double-sum-core points the cosines cancel identically on
+         S(e, π) (worst residual 8.1e-14), because dθ = π − aθ there, so g
+         is CONSTANT on S and no nonnegative weight can start; the comb
+         closes all 578 core points with no positive condition active.
+     WHAT THE AUDIT DOES NOT DO, said on the page: it does not walk the
+     INTERIOR of the eight closure trees — subfamily cones, derived
+     thresholds, finite parts. λ(4)'s audit does that for λ(4). Battery
+     check A1 pins the audit record. STILL OPEN on λ(5): the tree-interior
+     audit, and no write-up. The paper's shape still waits on λ(6).
+  2. REVIEW THE BENCH — DONE 2026-09-03, folder by folder, and written into
+     TARGET MEMORY so it is never repeated: rows bench-survey-2026-09-03,
+     bench-route-certificate, bench-ignorance-budget, bench-greedy-overclaim
+     (node tools/targets.js, 32 rows). THE SEARCH IS NOW CLOSED: there is no
+     further unported mathematics on that bench beyond four things.
+     UNPORTED, RANKED:
+       1. experiments/envs — the canary factory, still the strongest idea
+          there; the operator has said it is NOT the current focus.
+       2. experiments/route-certificate, the CFMM HALF — a per-route
+          best-execution certificate: weak duality bounds ANY route's
+          shortfall in bps without the verifier trusting the auditor's
+          optimizer. We hold the TRAFFIC half of Wardrop already
+          (reports/wardrop-repro.html) and none of this. It passes the
+          killer-app test: a claim every aggregator makes, an exact
+          instrument, pinned on-chain data, and a buyer exposed to the
+          number. Fence carried from the bench: convex CFMM routing is
+          published (Angeris-Chitra-Boyd); the narrow claim is the SHIPPED
+          per-route certificate.
+       3. THE IGNORANCE BUDGET (experiments/lrcap-bid) — compute the
+          decision as an enclosure over a box of sourced inputs, then
+          attribute the WIDTH to each input and rank them: a priced
+          "what to nail down next" list in the units of the decision. It is
+          the sharp generalization of our own "publish the threshold that
+          flips the verdict". Take the input grading vocabulary whole
+          (FACT / PRESS / CLAIM / ASSUMPTION, with PENDING-RESEARCH
+          blocking a non-draft certificate).
+       4. The fleet/LRCAP market audit — refutation-shaped (the greedy
+          overclaim of price-taking spreadsheets), but it needs pinned ONS
+          data and is not mathematics.
+     LEAVE ALONE: kissing12 — still three probe files and no theorem doc,
+     unchanged since the last survey; the ember/BAND rule applies.
+     ALSO SETTLED: NOVELTY.md's "unminted results" seed corpus is HARVESTED
+     — sigma* = 1/(8 pi^2) is certs/terra-sigmastar.json, the non-uniqueness
+     pair is certs/mfg-cap-multiplicity.json, the 6-dim equilibrium face is
+     instruments/facelaw. PARKED.md holds no mathematics, only presentation
+     bets.
 
   2b. QUEUED BY THE POSITIONING DECISIONS (D5, D6, D7):
       · the intake queue, GitHub-native, now that the build/send line is

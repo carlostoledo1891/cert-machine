@@ -11,8 +11,10 @@ proved by executing and completing Mercer's 2019 strategy. [The proof page](http
 
 **λ(5) = −L(1,2,4,5,6)** — the fourth, an algebraic number of degree exactly 5, with its minimal
 polynomial exhibited; and with it λ(6) < λ(5), the first non-monotonicity of the sequence.
-[The proof page](https://carlostoledo.co/reports/lambda5.html) · machine-derived, not peer-reviewed,
-**and not independently audited yet** — unlike λ(4).
+[The proof page](https://carlostoledo.co/reports/lambda5.html) · machine-derived, not peer-reviewed.
+An independent audit sharing no code with the engine walked every gcd-reduced 5-set with largest element
+≤ 30 — 139,246 sets, zero refuters — and cross-validated the engine's symbolic layer against direct
+summation to 5e-14; it does **not** yet walk the interior of the eight closure trees, which λ(4)'s audit does.
 
 > I decide mathematical claims — mine and other people's — in exact
 > arithmetic, without running the claimant's code, and I publish the

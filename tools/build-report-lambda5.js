@@ -174,6 +174,17 @@ for (const A of SAMPLE) {
   if (!(Q.cmp(Q.fromDouble(r.minEnclosure[1]), L5.lo) < 0)) die('sample set ' + A + ' no longer certifies below the target');
 }
 
+/* the independent audit, if it has run: read as data, and refused if it does
+   not match the target this page just re-certified */
+const AUDP = path.join(ROOT, 'certs', 'lambda5-audit.json');
+const AUD = fs.existsSync(AUDP) ? JSON.parse(fs.readFileSync(AUDP, 'utf8')) : null;
+if (AUD) {
+  if (AUD.refuters !== 0) die('the independent audit records refuters of the theorem');
+  if (AUD.target.lo !== Q.toString(L5.lo) || AUD.target.hi !== Q.toString(L5.hi))
+    die('the audit was run against a different target enclosure than this build certifies');
+  if (!(AUD.setsWalked > 0) || !(AUD.screenAudited > 0)) die('the audit record is empty');
+}
+
 /* ---- numbers for the page --------------------------------------------------- */
 const lam = (e) => -Q.toDouble(e.hi);                 /* lambda = -L, low end of the value */
 const L5lo = Q.toDouble(Q.neg(L5.hi)), L5hi = Q.toDouble(Q.neg(L5.lo));
@@ -192,8 +203,11 @@ B.push(C.header({
     + 'turns down at six.'
 }));
 
-B.push(C.scope('A machine-derived proof, published for scrutiny: not peer-reviewed, and — unlike λ(4) on this '
-  + 'site — NO independent audit has walked it yet. Every derivation below is re-executed at this page\'s own '
+B.push(C.scope('A machine-derived proof, published for scrutiny: not peer-reviewed. An independent audit '
+  + (AUD ? 'has walked the theorem, the first level of the reduction and the obstruction — but NOT the interior of '
+        + 'the eight closure trees, which λ(4)\'s audit does walk for λ(4). '
+        : 'has not run yet, unlike λ(4) on this site. ')
+  + 'Every derivation below is re-executed at this page\'s own '
   + 'build in exact rational arithmetic, and the build refuses to ship if any step deviates; the algebra is '
   + 'calibrated first against two published closed forms it must reproduce. The mathematics is restated here '
   + 'so it can be checked without reading code.'));
@@ -210,7 +224,8 @@ B.push(C.tldr({
     + 'it, is §6.',
   checkRaw: C.m('node tools/run-lambda56-campaign.js') + ' re-derives the campaign and writes the record; '
     + C.m('node instruments/lambda56/battery.js') + ' re-proves the calibration (λ(4)\'s generic case, and the '
-    + 'published λ(3) and λ(4) closed forms) and fires 7 red controls.'
+    + 'published λ(3) and λ(4) closed forms) before any λ(5) claim, and fires its red controls; '
+    + C.m('node tools/audit-lambda5.js') + ' re-walks the theorem with no shared code.'
 }));
 
 B.push(C.stats([
@@ -432,12 +447,30 @@ B.push(C.section({
       + 'every finite part decided, only the extremizer skipped, ' + T.walls + ' walls and each one inside a family '
       + 'the extremizer belongs to; and a sample of finite '
       + 'certificates.'),
-    C.pRaw('<strong>Checked, at every test run:</strong> ' + C.m('instruments/lambda56/battery.js') + ' — 19 '
-      + 'checks and 7 red controls, including the λ(4) calibration that must pass before any λ(5) claim is '
-      + 'computed, and the record walk that makes a rotted record refuse rather than linger.'),
-    C.pRaw('<strong>Not yet, and this is the gap:</strong> λ(4) carries an independent audit — a clause walk '
-      + 'sharing no code with the engine that reached all 25,819 gcd-reduced 4-sets in its box with zero holes. '
-      + '<strong>λ(5) has no such audit.</strong> There is also no prose write-up yet, no peer review, and no '
+    C.pRaw('<strong>Checked, at every test run:</strong> ' + C.m('instruments/lambda56/battery.js') + ' — the '
+      + 'λ(4) calibration that must pass before any λ(5) claim is computed, the record walk that makes a rotted '
+      + 'record refuse rather than linger, the audit record pinned against this target, and red controls that '
+      + 'must fire: a classical atom closing the double-sum core, a comb at too light a constant, an '
+      + 'unregistered condition, a wrong sub-cone, a skip list naming an absent set, a quintic off by one '
+      + 'coefficient, a reducible polynomial called irreducible.'),
+    (AUD ? C.pRaw('<strong>Independently audited, at this box:</strong> a second walk sharing no code with the '
+      + 'symbolic engine — inner products by direct trigonometric summation, condition membership by plain integer '
+      + 'arithmetic on the record\'s condition vectors, sets re-certified from scratch — covered every gcd-reduced '
+      + '5-set with largest element ≤ ' + AUD.box + ': ' + C.m(num(AUD.setsWalked)) + ' sets, '
+      + C.m(String(AUD.refuters)) + ' refuters of the theorem, ' + C.m(num(AUD.screenAudited))
+      + ' screened sets re-certified exactly to audit the screen itself. It also cross-validates the engine\'s '
+      + 'whole symbolic layer: the model says an inner product is its base plus the deltas of the active '
+      + 'conditions, and direct summation agrees at every set in the box to '
+      + C.m(AUD.symbolicVsNumeric.worstGap.toExponential(1)) + '. The obstruction is confirmed by its mechanism '
+      + 'rather than by search — on all ' + AUD.obstruction.corePoints + ' double-sum-core points in the box the '
+      + 'cosines cancel identically on S(e, π) (worst residual '
+      + C.m(AUD.obstruction.worstCancellationResidual.toExponential(1)) + '), so no nonnegative weight can start, '
+      + 'and the comb closes every core point where no positive condition is active. Record: '
+      + C.m('certs/lambda5-audit.json') + '.') : '')
+      + C.pRaw('<strong>Not yet, and these are the gaps:</strong> the audit above walks the THEOREM, the first '
+      + 'level of the reduction and the obstruction — it does NOT walk the interior of the eight closure trees, '
+      + 'the subfamily cones, the derived thresholds or the finite parts inside them. λ(4)\'s audit does walk '
+      + 'those for λ(4); no equivalent exists here yet. There is also no prose write-up, no peer review and no '
       + 'human read. Until those exist the honest status of the theorem-level sentence is exactly what the scope '
       + 'line at the top of this page says. The full machine record is ' + C.m('certs/lambda56-campaign.json')
       + '; the statement and strategy are Mercer\'s, and his paper is the first thing to read: arXiv:1709.06612.'),

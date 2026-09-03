@@ -272,6 +272,25 @@ red('R5 a skip list naming an absent set must throw', () => {
     'lambda(6) <= ' + (-Q.toDouble(L6.lo)).toFixed(13) + ' < ' + (-Q.toDouble(L5.hi)).toFixed(13) + ' = lambda(5)');
 }
 
+/* ---- the independent audit, pinned ------------------------------------------ */
+/* If the audit has run, its verdict is part of the gate: a record claiming
+   refuters, or one written against a different target than this battery
+   certifies, must not sit quietly beside a green run. */
+{
+  const ap = path.join(ROOT, 'certs', 'lambda5-audit.json');
+  if (fs.existsSync(ap)) {
+    const au = JSON.parse(fs.readFileSync(ap, 'utf8'));
+    check('A1 the independent audit is clean and was run against THIS target',
+      au.refuters === 0 && au.setsWalked > 0 && au.screenAudited > 0
+      && au.target.lo === Q.toString(L5.lo) && au.target.hi === Q.toString(L5.hi)
+      && au.symbolicVsNumeric.worstGap < 1e-7 && au.obstruction.worstCancellationResidual < 1e-9,
+      'box ' + au.box + ', ' + au.setsWalked.toLocaleString('en-US') + ' sets, symbolic=numeric to '
+      + au.symbolicVsNumeric.worstGap.toExponential(1));
+  } else {
+    console.log('   note  A1 skipped: no certs/lambda5-audit.json on disk (run tools/audit-lambda5.js)');
+  }
+}
+
 /* ---- the witness ------------------------------------------------------------ */
 {
   /* {1,2,4,5,6} must sit exactly ON the target (it defines it), and the
