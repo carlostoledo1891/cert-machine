@@ -19,9 +19,12 @@
 - Official problem page still records `1.519 ≤ inf ≤ 1.835`.
 - Hua Xu: five-atom finite certificate, **Lean/Mathlib package**, M = 1.806304
   then 1.807100.
-- catsflowers5544 / mendozalab: extended the same structure to **M = 1.814605**
-  (4 lanes / 5 atoms, K = 560 blocks, per-block LP weights, interval-checked).
-  mendozalab calls it "the now claimed 1.814605" and wants a proper write-up.
+- **mendozalab** reached **M = 1.814605** (4 lanes / 5 atoms, K = 560 blocks,
+  per-block LP weights, interval-checked, "done with Claude orchestrating the LP
+  search and the Rust kernel"); catsflowers5544 was at 1.814600 and reported an
+  obstruction near block 192. Nat Sothanaphan then critiqued that post's prose —
+  see the tone constraint below. NOTE: this thread already contains AI-assisted
+  certified work; what drew fire was the writing, not the method.
 - Method credited upthread to **jspier's finite-atom approach** on the standard
   reduction in Tao's / natso26's notes.
 - **Problem 4.1 had a typo**, corrected in-thread by J_Koizumi_144: the
@@ -29,7 +32,7 @@
 
 ## TONE CONSTRAINT — this is not optional
 
-mendozalab, in-thread, on an earlier AI-assisted post: *"I want to draw
+Nat Sothanaphan, in-thread, on mendozalab's AI-assisted 1.814605 post: *"I want to draw
 attention to the 'purple prose' here (overly flowery writing that distracts
 from the content due to its style), which sometimes happens in AI writing. For
 example, what is a 'leg'? What does it mean for interval arithmetic to be
@@ -90,8 +93,8 @@ by its worst corner. Without that step the near poles cost roughly 10·h per box
 half-width and the box count is an order of magnitude worse.
 
 For context, and please correct me if I have the state of the thread wrong: the
-best finite-atom bound recorded here is 1.814605 (catsflowers5544, extending Hua
-Xu's structure), with Hua Xu's Lean/Mathlib package at 1.807100. Mine is an
+best finite-atom bound recorded in this thread is 1.814605, and Hua Xu's
+Lean/Mathlib package stands at 1.807100. Mine is an
 interval certificate, not a Lean formalization, so it is a weaker kind of object
 than Hua Xu's even though the number is larger. **The forcing certificate is
 structured to be a formalization target** — finitely many boxes, one frozen
