@@ -47,13 +47,34 @@ const MU1 = R.eigenpair.mu1;
 const WITP = R.pointwise.witnesses.max.value;
 const WITM = R.pointwise.witnesses.minDeep.value;
 
+/* ---- THE BAND (P3a): the family result that subsumes this specimen ----
+   Read from certs/ember-band.json, which tools/run-ember-band.js writes only
+   after instruments/emberband/verify-band.js VERIFIES both covering ladders.
+   The page refuses if the band record is present but does not contain this
+   domain, so the two statements can never drift apart. */
+const BANDP = path.join(ROOT, 'certs', 'ember-band.json');
+const BAND = fs.existsSync(BANDP) ? JSON.parse(fs.readFileSync(BANDP, 'utf8')) : null;
+if (BAND) {
+  const iv = BAND.audited.interval;
+  if (!(iv[0] <= 0.85 && 0.85 <= iv[1])) die('the band record does not cover this page\'s specimen c = 17/20');
+  if (BAND.audited.chunks !== 17) die('the band record no longer carries 17 chunks');
+  for (const w of ['Judge', 'de Dios Pont']) if (!BAND.fences.includes(w)) die('the band record lost the fence naming ' + w);
+}
+
 /* ================================================================ the page */
 const O = [];
 
 O.push(C.header({
   eyebrow: 'cert-machine · spectral geometry · rebuilt from certificates at every build',
   title: 'The hot spot stays on the boundary',
-  deck: 'The second Neumann eigenfunction of a convex trapezoid with no symmetry axis — to our knowledge the '
+  deck: (BAND ? 'Not one domain but a CONTINUUM of them: for every c in [' + BAND.audited.interval[0] + ', '
+    + BAND.audited.interval[1] + '] the convex trapezoid A(0,0) B(1,0) C(c,9/10) D(1/4,9/10) — no symmetry axis, '
+    + 'outside every analytically proven class — has a simple second Neumann eigenvalue whose eigenfunction '
+    + 'attains its extrema on the boundary only. To our knowledge the first certified hot-spots result for a '
+    + 'positive-measure FAMILY rather than a single specimen. The domain below, c = 17/20, is the right endpoint '
+    + 'and is where the program started. '
+    : '')
+    + 'The second Neumann eigenfunction of a convex trapezoid with no symmetry axis — to our knowledge the '
     + 'first certified hot-spots domain outside every analytically proven class — attains its maximum and its '
     + 'minimum on the boundary only. And more precisely: the maximum is attained AT VERTEX A, and only there — '
     + 'certified, with φ̂(A) ∈ ' + ivStr(R.theorem.corollary.phiAtA, 6) + '. One domain, one theorem, one '
@@ -65,6 +86,8 @@ O.push(C.stats([
   { k: 'the domain', v: 'A B C D', n: '(0,0) · (1,0) · (17/20, 9/10) · (1/4, 9/10) — exact rationals; convex, side slopes 6 and 18/5, no symmetry axis, not a lip domain' },
   { k: 'μ₁ enclosure', v: '1.42e-3', n: 'μ₁ ∈ ' + ivStr(MU1, 9) + ', simple (certified spectral gap: μ₂ ≥ ' + R.spectrum.mu2lo.toFixed(4) + ')' },
   { k: 'the partition', v: (R.theorem.partition.coreCells + R.theorem.partition.collarCells).toLocaleString('en-US') + ' cells', n: 'core ' + R.theorem.partition.coreCells + ' + collar ' + R.theorem.partition.collarCells + ' on the 1/100 grid, classes decided in exact rationals; four corner sectors close the rest — zero surviving cells' },
+  { k: 'the band', v: BAND ? 'c ∈ [' + BAND.audited.interval[0] + ', ' + BAND.audited.interval[1] + ']' : 'not built', role: 'held', n: BAND ? BAND.audited.chunks + ' chunks tiling the interval with shared endpoints and no gap, ' + BAND.audited.sigmaCells.toLocaleString('en-US') + ' σ-cells inside them — both ladders re-derived by an independent auditor; μ₁ ≥ ' + BAND.audited.mu1LowerUniform.toFixed(5) + ' and μ₂ ≥ ' + BAND.audited.mu2LowerUniform.toFixed(5) + ' uniformly, so μ₁ is simple for every c' : 'run tools/run-ember-band.js' },
+  { k: 'band margins', v: BAND ? BAND.audited.marginPMin.toExponential(2) + ' / ' + BAND.audited.marginMMin.toExponential(2) : '—', role: 'held', n: BAND ? 'the thinnest zone margins over all ' + BAND.audited.sigmaCells.toLocaleString('en-US') + ' cells of all ' + BAND.audited.chunks + ' chunks, max and min side; zero collar survivors outside the corner windows anywhere' : '' },
   { k: 'trust base', v: '2 inputs', n: 'two quoted lemmas of Liu (arXiv:1808.08148, pinned sha256 ' + pin.sha256.slice(0, 12) + '…) — named in every record; everything else re-derives here' },
 ]));
 
@@ -261,6 +284,41 @@ O.push(C.section({
 }));
 
 /* -------------------------------------------------------------- reproduce */
+if (BAND) {
+  const A = BAND.audited;
+  O.push(C.section({
+    lab: '§B · the band', title: 'From one domain to a continuum',
+    bodyRaw: C.table({
+      cols: [{ h: 'what is certified' }, { h: 'value', cls: 'n' }, { h: 'why it is the load-bearing part' }],
+      rows: [
+        ['the interval', 'c ∈ [' + A.interval[0] + ', ' + A.interval[1] + ']', 'a positive-measure family, not a point — the uniqueness wall is crossed on an interval'],
+        ['chunk ladder', A.chunks + ' chunks, no gap', 'shared endpoints, re-derived here; a gap of 1e-12 would make the interval claim false'],
+        ['σ-cell ladder', A.sigmaCells.toLocaleString('en-US') + ' cells, no gap', 'every certified quantity is per-cell, so the cells must tile [−1,0] in each stage too'],
+        ['uniform simplicity', 'μ₁ ≥ ' + A.mu1LowerUniform.toFixed(5) + ', μ₂ ≥ ' + A.mu2LowerUniform.toFixed(5), 'the gap never closes, so μ₁ stays simple for every c and the eigenfunction is well defined'],
+        ['thinnest margins', A.marginPMin.toExponential(3) + ' / ' + A.marginMMin.toExponential(3), 'max and min side, worst over every cell of every chunk — both strictly positive'],
+        ['collar survivors outside the corner windows', String(A.collarSurvivorsOutsideWindows), 'zero, everywhere; the corners are closed by exact local expansions instead'],
+        ['tip C genericity', 'sup b₁ = ' + A.tipC_b1_sup.toFixed(4) + ' < 0', 'the named condition the specimen proof leaned on, re-checked on all ' + A.chunks + ' chunks by corner position, not by sign'],
+      ]
+    }) + '<div class="col">'
+    + C.pRaw('An interval theorem is a union of chunk theorems, and the way such a union fails is almost never '
+      + 'arithmetic — it is COVERING. Two ladders carry the whole result and neither is visible inside any single '
+      + 'certificate: the chunks must tile the interval, and inside each chunk the σ-cells must tile [−1,0] in '
+      + 'every stage that reports per-cell numbers. Both are re-derived here from the stage records by '
+      + C.m('instruments/emberband/verify-band.js') + ', which shares no code with the producer, and the battery '
+      + 'keeps eight red controls that each break the band in a different realistic way — a removed chunk, an '
+      + 'endpoint nudged by 1e-5, one missing σ-cell out of ' + A.sigmaCells.toLocaleString('en-US') + ', a single '
+      + 'margin at −1e-9, one escaped collar survivor, a dropped stage, tip C losing its sign, and a ladder that '
+      + 'tiles the wrong interval. All eight must fire or the page does not build.')
+    + C.pRaw('<strong>Scope, stated plainly.</strong> The six-stage chain was executed on the bench that produced '
+      + 'it, not re-executed here — roughly ten hours, with the defect stage alone at 25 minutes per chunk. What '
+      + 'this page adds is the independent audit: the covering ladders and every band-wide value re-derived from '
+      + 'per-cell data by a checker that shares no code with the producer, over records sha-pinned in '
+      + C.m('corpus/emberband') + '. That is the genre of this repository\'s '
+      + '<a href="/reports/tensor-rank-bounds.html">lower-bound audit</a>, not of its from-scratch theorems. The '
+      + 'convex-quadrilateral conjecture itself remains open: this is a family, not the census.') + '</div>'
+  }));
+}
+
 O.push(C.section({
   lab: 'reproduce', title: 'Reproduce',
   bodyRaw: C.pRaw('The whole chain re-runs from this repository, deterministically:')

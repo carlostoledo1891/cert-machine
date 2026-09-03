@@ -27,6 +27,49 @@ const rd = (f) => {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
 };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
+/* the band record: present once tools/run-ember-band.js has verified it */
+const BANDP = path.join(ROOT, 'certs', 'ember-band.json');
+const BAND = fs.existsSync(BANDP) ? JSON.parse(fs.readFileSync(BANDP, 'utf8')) : null;
+const bandSection = BAND ? `
+## The band: from this domain to a positive-measure family
+_
+For every c in [${BAND.audited.interval[0]}, ${BAND.audited.interval[1]}] the
+trapezoid A(0,0) B(1,0) C(c,9/10) D(1/4,9/10) satisfies the same conclusion:
+mu_1(c) is simple and the second Neumann eigenfunction attains its maximum and
+its minimum on the boundary only. The domain treated above, c = 17/20, is the
+right endpoint of that interval. To our knowledge this is the first certified
+hot-spots result for a positive-measure FAMILY of domains outside every proven
+class, rather than for a single specimen.
+_
+The certified interval is assembled from ${BAND.audited.chunks} chunks carrying
+${BAND.audited.sigmaCells} sigma-cells in total, with uniform bounds
+mu_1(c) >= ${BAND.audited.mu1LowerUniform.toFixed(5)} and
+mu_2(c) >= ${BAND.audited.mu2LowerUniform.toFixed(5)}, so the spectral gap never
+closes and mu_1 stays simple across the whole family. The thinnest zone margins
+over every cell of every chunk are ${BAND.audited.marginPMin.toExponential(3)}
+(max side) and ${BAND.audited.marginMMin.toExponential(3)} (min side), both
+strictly positive, with ${BAND.audited.collarSurvivorsOutsideWindows} collar
+survivors outside the corner windows anywhere. Corner C keeps b_1 certified
+strictly negative on every chunk, sup b_1 = ${BAND.audited.tipC_b1_sup.toFixed(4)}
+— the genericity condition the single-domain proof leaned on, now checked across
+the family.
+_
+WHAT AN INTERVAL THEOREM CAN GET WRONG. A union of chunk theorems fails on
+COVERING far more easily than on arithmetic, and neither covering claim is
+visible inside any single certificate: the chunks must tile the interval with
+shared endpoints, and inside each chunk the sigma-cells must tile [-1,0] in
+every stage that reports per-cell numbers. Both ladders are re-derived, from the
+stage records themselves, by instruments/emberband/verify-band.js, which shares
+no code with the program that produced them; a gap of 1e-12 in either would make
+the interval statement false. Eight red controls break the band in eight
+realistic ways and each must be refused.
+_
+SCOPE. The six-stage chain was executed on the bench where it was developed and
+is NOT re-executed in this repository (about ten hours; the defect stage alone is
+25 minutes per chunk). What is contributed here is the independent audit over
+sha-pinned records. The convex-quadrilateral conjecture itself remains open: this
+is a family, not the census.
+`.replace(/^_$/gm, '') : '';
 
 const R = {};
 for (const st of ['spectrum', 'defect', 'eigenpair', 'pointwise', 'collar', 'corner', 'cross', 'theorem']) {
@@ -408,6 +451,8 @@ pinned sha256 ${pin.sha256.slice(0, 16)}..., transcription beside the pin — an
 classical facts (sector Neumann separation + H^1 regularity, Green's
 identity, the spectral theorem, Courant). Machine-derived; not
 peer-reviewed; not independently rerun.
+
+${bandSection}
 
 ## 7. Open problems
 

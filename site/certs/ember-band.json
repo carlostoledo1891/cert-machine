@@ -1,0 +1,94 @@
+{
+ "what": "THE EMBER BAND. For every c in [0.845, 0.85], the trapezoid A(0,0) B(1,0) C(c,9/10) D(1/4,9/10) is a convex quadrilateral with no axis of symmetry, outside every class for which the hot spots conjecture was previously proven; its second Neumann eigenvalue is simple and its second Neumann eigenfunction attains its maximum and minimum on the boundary only. To our knowledge this is the first certified hot-spots result for a POSITIVE-MEASURE FAMILY of such domains rather than a single specimen.",
+ "extends": "reports/ember.html — the published single-domain theorem at c = 17/20, which the band covers at its right endpoint and which the audit checks for containment.",
+ "fences": "Previously proven classes, unchanged: all triangles (Judge–Mondal, Annals 2020 + 2022 erratum), lip domains (Atar–Burdzy), certain non-convex L-tiled polygons (Hatcher arXiv:2405.19508), symmetric quadrangle subcases (Deng–Gui–Jiang–Yang–Yao arXiv:2604.19003). In the other direction the conjecture is FALSE for convex sets in sufficiently high dimension (de Dios Pont, arXiv:2412.06344) — a counterexample, never a proven class. The planar convex quadrilateral conjecture itself remains OPEN; this is a family, not the census.",
+ "scope": "AUDIT, not re-derivation. The six-stage chain ran on the operator's frontier bench; this record is an independent audit of its 85 certified stage records, sha-pinned in corpus/emberband. The audit shares no code with the producer and re-derives the two covering ladders and every band-wide value from per-cell data. The chain is not re-executed here (~10 h).",
+ "theCoveringClaims": "What an interval theorem can silently get wrong is COVERING, not arithmetic. Both ladders are re-derived here and are gapless: the 17 chunks tile [0.845, 0.85] with shared endpoints, and inside every chunk the sigma-cells tile [-1, 0] in each of the zones, defect and eigenpair stages. A gap of 1e-12 in either would make the interval statement false.",
+ "audited": {
+  "chunks": 17,
+  "interval": [
+   0.845,
+   0.85
+  ],
+  "sigmaCells": 738,
+  "mu1LowerUniform": 11.85157121967546,
+  "mu2LowerUniform": 13.90773849408803,
+  "D_supMax": 0.00008109390325676392,
+  "marginPMin": 0.000247,
+  "marginMMin": 0.000641,
+  "collarSurvivorsOutsideWindows": 0,
+  "witPMin": 0.9869161998117849,
+  "witMMin": 0.9269244608697715,
+  "lamMin": 12.02171102969838,
+  "lamMax": 12.043085406436873,
+  "CtrMax": 2.6426189449929716,
+  "worstFloatDefect": 0.00001342,
+  "tipC_b1_sup": -0.8790855311499267,
+  "tipC_chunksNegative": 17
+ },
+ "checks": [
+  {
+   "name": "the 17 chunks tile [0.845, 0.85] with no gap",
+   "pass": true,
+   "detail": "covered [0.845,0.85] in 17 chunks"
+  },
+  {
+   "name": "every chunk carries all five certified stage records",
+   "pass": true,
+   "detail": "17 complete chunk sets"
+  },
+  {
+   "name": "sigma-cells tile [-1, 0] inside every chunk and every stage",
+   "pass": true,
+   "detail": "738 zones cells total, worst gap 0"
+  },
+  {
+   "name": "the published specimen c = 17/20 lies inside the band",
+   "pass": true
+  },
+  {
+   "name": "mu1 is uniformly bounded below, so it stays SIMPLE across the band",
+   "pass": true,
+   "detail": "mu1 >= 11.85157, mu2 >= 13.90774"
+  },
+  {
+   "name": "the eigenvalue window sits strictly between the two uniform bounds",
+   "pass": true,
+   "detail": "lam in [12.02171, 12.04309]"
+  },
+  {
+   "name": "every zones cell has a STRICTLY POSITIVE margin on both sides",
+   "pass": true,
+   "detail": "min marginP 2.470e-4, min marginM 6.410e-4"
+  },
+  {
+   "name": "no collar survivor outside the two corner windows, any cell, any chunk",
+   "pass": true,
+   "detail": "0 survivors outside windows"
+  },
+  {
+   "name": "the corner witnesses stay bounded away from the core suprema",
+   "pass": true,
+   "detail": "WIT_P >= 0.98692, WIT_M >= 0.92692"
+  },
+  {
+   "name": "tip C keeps b1 certified strictly negative on ALL 17 chunks",
+   "pass": true,
+   "detail": "sup b1 = -0.8791 on 17/17 chunks"
+  },
+  {
+   "name": "the float fit was only ever a gate, and it cleared its own bar",
+   "pass": true,
+   "detail": "worst float defect 1.342e-5"
+  }
+ ],
+ "provenance": {
+  "source": "frontier-apps/experiments/ember/data/band",
+  "crossed": "2026-09-03",
+  "files": 105,
+  "ledger": "corpus/emberband/ledger.jsonl",
+  "theoremDoc": "corpus/emberband/THEOREM-BAND.source.md"
+ },
+ "generated": "2026-09-03T15:32:59.612Z",
+ "git": "ddbe592"
+}

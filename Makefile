@@ -40,6 +40,7 @@ test:
 	@printf "%-30s " "forecast instrument"; $(NODE) instruments/forecast/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "kissing ledger"; $(NODE) instruments/kissing/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lemniscate (erdős 1038 inf)"; $(NODE) instruments/lemniscate/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "ember band (P3a audit)"; $(NODE) instruments/emberband/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "fueleu penalty"; $(NODE) instruments/fueleu/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "oracle claim library"; python3 oracle/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "newman box sweep"; $(NODE) instruments/trigmin/sweep-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -105,6 +106,7 @@ reports:
 	@$(NODE) tools/build-report-lemniscate.js
 	@$(NODE) tools/build-report-mfg-congest.js
 	@$(NODE) tools/build-report-terra.js
+	@$(NODE) tools/run-ember-band.js
 	@$(NODE) tools/build-report-ember.js
 	@$(NODE) tools/build-report-wardrop.js
 	@$(NODE) tools/build-report-alien-science.js

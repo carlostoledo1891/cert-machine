@@ -1,6 +1,6 @@
 # A certified hot-spots domain beyond the proven classes
 
-**Draft v0.9 — generated from machine certificates (git 7f519fb); every
+**Draft v0.9 — generated from machine certificates (git ddbe592); every
 numerical constant below is interpolated from a VERIFIED record and none is
 hand-transcribed.**
 
@@ -355,6 +355,47 @@ classical facts (sector Neumann separation + H^1 regularity, Green's
 identity, the spectral theorem, Courant). Machine-derived; not
 peer-reviewed; not independently rerun.
 
+
+## The band: from this domain to a positive-measure family
+
+For every c in [0.845, 0.85] the
+trapezoid A(0,0) B(1,0) C(c,9/10) D(1/4,9/10) satisfies the same conclusion:
+mu_1(c) is simple and the second Neumann eigenfunction attains its maximum and
+its minimum on the boundary only. The domain treated above, c = 17/20, is the
+right endpoint of that interval. To our knowledge this is the first certified
+hot-spots result for a positive-measure FAMILY of domains outside every proven
+class, rather than for a single specimen.
+
+The certified interval is assembled from 17 chunks carrying
+738 sigma-cells in total, with uniform bounds
+mu_1(c) >= 11.85157 and
+mu_2(c) >= 13.90774, so the spectral gap never
+closes and mu_1 stays simple across the whole family. The thinnest zone margins
+over every cell of every chunk are 2.470e-4
+(max side) and 6.410e-4 (min side), both
+strictly positive, with 0 collar
+survivors outside the corner windows anywhere. Corner C keeps b_1 certified
+strictly negative on every chunk, sup b_1 = -0.8791
+— the genericity condition the single-domain proof leaned on, now checked across
+the family.
+
+WHAT AN INTERVAL THEOREM CAN GET WRONG. A union of chunk theorems fails on
+COVERING far more easily than on arithmetic, and neither covering claim is
+visible inside any single certificate: the chunks must tile the interval with
+shared endpoints, and inside each chunk the sigma-cells must tile [-1,0] in
+every stage that reports per-cell numbers. Both ladders are re-derived, from the
+stage records themselves, by instruments/emberband/verify-band.js, which shares
+no code with the program that produced them; a gap of 1e-12 in either would make
+the interval statement false. Eight red controls break the band in eight
+realistic ways and each must be refused.
+
+SCOPE. The six-stage chain was executed on the bench where it was developed and
+is NOT re-executed in this repository (about ten hours; the defect stage alone is
+25 minutes per chunk). What is contributed here is the independent audit over
+sha-pinned records. The convex-quadrilateral conjecture itself remains open: this
+is a family, not the census.
+
+
 ## 7. Open problems
 
 1. **The census.** Sweep the moduli space of convex quadrilaterals with
@@ -372,6 +413,6 @@ peer-reviewed; not independently rerun.
 
 ---
 
-*Generated 2026-09-02 from certs/ember-*.json (git 7f519fb).
+*Generated 2026-09-03 from certs/ember-*.json (git ddbe592).
 This draft wants one human read [OPERATOR] before anything further; nothing
 is sent anywhere without the operator's word.*

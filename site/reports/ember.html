@@ -442,14 +442,16 @@ footer a:hover{color:var(--ink)}
 <header class="col">
   <div class="eyebrow">cert-machine · spectral geometry · rebuilt from certificates at every build</div>
   <h1>The hot spot stays on the boundary</h1>
-  <p class="deck">The second Neumann eigenfunction of a convex trapezoid with no symmetry axis — to our knowledge the first certified hot-spots domain outside every analytically proven class — attains its maximum and its minimum on the boundary only. And more precisely: the maximum is attained AT VERTEX A, and only there — certified, with φ̂(A) ∈ [2.126029, 2.193158]. One domain, one theorem, one corollary: μ₁ is simple, its enclosure is [12.020976137, 12.022398349], and every interior point is excluded by a certified cell of an exact partition. Floats propose; interval and rational arithmetic decide.</p>
+  <p class="deck">Not one domain but a CONTINUUM of them: for every c in [0.845, 0.85] the convex trapezoid A(0,0) B(1,0) C(c,9/10) D(1/4,9/10) — no symmetry axis, outside every analytically proven class — has a simple second Neumann eigenvalue whose eigenfunction attains its extrema on the boundary only. To our knowledge the first certified hot-spots result for a positive-measure FAMILY rather than a single specimen. The domain below, c = 17/20, is the right endpoint and is where the program started. The second Neumann eigenfunction of a convex trapezoid with no symmetry axis — to our knowledge the first certified hot-spots domain outside every analytically proven class — attains its maximum and its minimum on the boundary only. And more precisely: the maximum is attained AT VERTEX A, and only there — certified, with φ̂(A) ∈ [2.126029, 2.193158]. One domain, one theorem, one corollary: μ₁ is simple, its enclosure is [12.020976137, 12.022398349], and every interior point is excluded by a certified cell of an exact partition. Floats propose; interval and rational arithmetic decide.</p>
 </header>
 
 <div class="wide">
-  <div class="stats" data-n="4">
+  <div class="stats" data-n="6">
     <div class="stat"><div class="k">the domain</div><div class="v">A B C D</div><div class="n">(0,0) · (1,0) · (17/20, 9/10) · (1/4, 9/10) — exact rationals; convex, side slopes 6 and 18/5, no symmetry axis, not a lip domain</div></div>
     <div class="stat"><div class="k">μ₁ enclosure</div><div class="v">1.42e-3</div><div class="n">μ₁ ∈ [12.020976137, 12.022398349], simple (certified spectral gap: μ₂ ≥ 13.9559)</div></div>
     <div class="stat"><div class="k">the partition</div><div class="v">6,962 cells</div><div class="n">core 4690 + collar 2272 on the 1/100 grid, classes decided in exact rationals; four corner sectors close the rest — zero surviving cells</div></div>
+    <div class="stat"><div class="k">the band</div><div class="v">c ∈ [0.845, 0.85]</div><div class="n">17 chunks tiling the interval with shared endpoints and no gap, 738 σ-cells inside them — both ladders re-derived by an independent auditor; μ₁ ≥ 11.85157 and μ₂ ≥ 13.90774 uniformly, so μ₁ is simple for every c</div></div>
+    <div class="stat"><div class="k">band margins</div><div class="v">2.47e-4 / 6.41e-4</div><div class="n">the thinnest zone margins over all 738 cells of all 17 chunks, max and min side; zero collar survivors outside the corner windows anywhere</div></div>
     <div class="stat"><div class="k">trust base</div><div class="v">2 inputs</div><div class="n">two quoted lemmas of Liu (arXiv:1808.08148, pinned sha256 fb867aa5ab93…) — named in every record; everything else re-derives here</div></div>
   </div>
 </div>
@@ -520,6 +522,14 @@ footer a:hover{color:var(--ink)}
 
 <section class="col">
   <div class="sec-head">
+    <div class="lab">§B · the band</div>
+    <h2>From one domain to a continuum</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>what is certified</th><th>value</th><th>why it is the load-bearing part</th></tr></thead><tbody><tr><td>the interval</td><td class="n">c ∈ [0.845, 0.85]</td><td>a positive-measure family, not a point — the uniqueness wall is crossed on an interval</td></tr><tr><td>chunk ladder</td><td class="n">17 chunks, no gap</td><td>shared endpoints, re-derived here; a gap of 1e-12 would make the interval claim false</td></tr><tr><td>σ-cell ladder</td><td class="n">738 cells, no gap</td><td>every certified quantity is per-cell, so the cells must tile [−1,0] in each stage too</td></tr><tr><td>uniform simplicity</td><td class="n">μ₁ ≥ 11.85157, μ₂ ≥ 13.90774</td><td>the gap never closes, so μ₁ stays simple for every c and the eigenfunction is well defined</td></tr><tr><td>thinnest margins</td><td class="n">2.470e-4 / 6.410e-4</td><td>max and min side, worst over every cell of every chunk — both strictly positive</td></tr><tr><td>collar survivors outside the corner windows</td><td class="n">0</td><td>zero, everywhere; the corners are closed by exact local expansions instead</td></tr><tr><td>tip C genericity</td><td class="n">sup b₁ = -0.8791 &lt; 0</td><td>the named condition the specimen proof leaned on, re-checked on all 17 chunks by corner position, not by sign</td></tr></tbody></table></div></div><div class="col"><p>An interval theorem is a union of chunk theorems, and the way such a union fails is almost never arithmetic — it is COVERING. Two ladders carry the whole result and neither is visible inside any single certificate: the chunks must tile the interval, and inside each chunk the σ-cells must tile [−1,0] in every stage that reports per-cell numbers. Both are re-derived here from the stage records by <span class="m">instruments/emberband/verify-band.js</span>, which shares no code with the producer, and the battery keeps eight red controls that each break the band in a different realistic way — a removed chunk, an endpoint nudged by 1e-5, one missing σ-cell out of 738, a single margin at −1e-9, one escaped collar survivor, a dropped stage, tip C losing its sign, and a ladder that tiles the wrong interval. All eight must fire or the page does not build.</p><p><strong>Scope, stated plainly.</strong> The six-stage chain was executed on the bench that produced it, not re-executed here — roughly ten hours, with the defect stage alone at 25 minutes per chunk. What this page adds is the independent audit: the covering ladders and every band-wide value re-derived from per-cell data by a checker that shares no code with the producer, over records sha-pinned in <span class="m">corpus/emberband</span>. That is the genre of this repository's <a href="/reports/tensor-rank-bounds.html">lower-bound audit</a>, not of its from-scratch theorems. The convex-quadrilateral conjecture itself remains open: this is a family, not the census.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
     <div class="lab">reproduce</div>
     <h2>Reproduce</h2>
   </div>
@@ -530,7 +540,7 @@ node instruments/ivspecial/battery.js    # the Γ/Bessel layer: 69 checks, 5 red
 make test                                # every battery in the machine</pre><p>Sources: <span class="m">instruments/hotspots/</span> + <span class="m">instruments/ivspecial/</span> · literature input pinned at <span class="m">corpus/sources/liu2018_arxiv-1808-08148.pdf</span> with its transcription beside it. Refutations and independent re-runs are invited: carlos@carlostoledo.co.</p>
 </section>
 
-<footer><p>cert-machine · built 2026-09-02 · git b8360ab · every number from a VERIFIED record · Liu pin fb867aa5ab93… · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p></footer>
+<footer><p>cert-machine · built 2026-09-03 · git ddbe592 · every number from a VERIFIED record · Liu pin fb867aa5ab93… · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p></footer>
 
 
 
