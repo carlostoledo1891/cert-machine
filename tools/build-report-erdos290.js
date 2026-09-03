@@ -259,9 +259,9 @@ O.push(C.tldr({
     + (excClosed.length
       ? ', the ' + excClosed.length + ' exceptional degrees past the cited horizon (d = ' + andList(excClosed.map((e) => String(e.d))) + ') among them.'
       : '.')
-    + ' And the same bracket moves the OTHER end of the published theorem, which nothing here had said before: '
-    + 'Theorem 8 is two-sided, so 1/(2c) ≤ ' + twoCHi.toFixed(6) + ' sharpens its upper constant ' + VD.hi
-    + ' at no extra cost — §3b.',
+    + ' Since 2026-08-31 the liminf is a THEOREM, not an interval: van Doorn (arXiv:2609.00104) proved it equals '
+    + '1/(1+c) exactly, so this bracket is now the certified numeric value of that constant rather than one end '
+    + 'of a range — and the two-sided reading below (1/(2c) ≤ ' + twoCHi.toFixed(6) + ') is superseded, §3b.',
   mechanismRaw: 'Closed-form Galois class sums from the cycle-index EGF replace a 38.9-million-object '
     + 'enumeration (proved equal to it on every degree both can reach); planted falsifiers must fire at every '
     + 'build.',
@@ -407,9 +407,18 @@ O.push(C.section({
    one of them. Nothing new is computed here — it is the same bracket, divided
    the other way. */
 O.push(C.section({
-  lab: '§3b · the other constant', title: 'Theorem 8 is two-sided, and the same bracket moves both ends',
+  lab: '§3b · superseded, and why it is kept', title: 'The liminf became exact — so this bracket is now its value',
   bodyRaw: '<div class="col">'
-    + C.pRaw('The bound this page exists to sharpen is one half of a pair. Van Doorn\'s Theorem 8 reads '
+    + C.pRaw('<strong>Read this section as history.</strong> On 2026-08-31 van Doorn posted '
+      + '<a href="https://arxiv.org/abs/2609.00104">arXiv:2609.00104</a>, which proves that '
+      + C.m('liminf (b(a)−a)/log a = 1/(1+c)') + ' EXACTLY — a human write-up of a proof discovered with ChatGPT '
+      + '5.6-Sol Pro. Theorem 8 is therefore no longer a two-sided interval, and the upper-endpoint sharpening '
+      + 'this section describes no longer improves anything. What survives is better: the certified bracket on c '
+      + 'above is now the numeric value of a constant that is known exactly, and to our knowledge it remains the '
+      + 'sharpest published enclosure of it — the new paper states only "approximately 0.546" and makes no effort '
+      + 'to compute it precisely. The reasoning below is left standing because it was correct when posted and '
+      + 'because the lower endpoint 1/(1+c) is exactly what the new theorem singles out.')
+    + C.pRaw('The bound this page set out to sharpen was one half of a pair. Van Doorn\'s Theorem 8 read '
       + C.m('0.54 < liminf (b(a)−a)/log a < 0.61') + ', with Lemma 31 supplying the lower endpoint 1/(1+c), '
       + 'Lemma 30 the upper endpoint 1/(2c), and Lemma 32 supplying 0.82 &lt; c &lt; 0.85. Both published constants '
       + 'are those two expressions rounded to two decimals — so the same constant c governs both, and a certified '
