@@ -51,10 +51,12 @@ B.push(C.tldr({
     + Object.entries(R.byVerdict).filter(([k]) => k !== 'QUEUED').map(([k, v]) => v + ' ' + k).join(', ')
     + (R.pending ? ', with ' + R.pending + ' queued and not yet decided — queued is not decided, so it is counted separately' : '')
     + '. Each row is derived from the record that decided it — a claim with no record gets no row.',
-  mechanismRaw: 'Three verdicts and no fourth. CERTIFIED and REFUTED are theorems; PARTIAL names the '
-    + 'fragment that was actually reached; NEEDS DATA measures the claimant rather than the claim, and is '
-    + 'what a claim gets when its bytes are not public. REFUSED is what a claim gets when this instrument '
-    + 'cannot decide it — a real outcome, published like any other, and not evidence either way.',
+  mechanismRaw: 'The instrument returns THREE verdicts and no fourth: CERTIFIED and REFUTED are theorems, '
+    + 'REFUSED is what a claim gets when this instrument cannot decide it — a real outcome, published like any '
+    + 'other, and not evidence either way. The other labels in the ledger are COMPOSITIONS of those three, not '
+    + 'extra verdicts: PARTIAL is a certified fragment beside a refused core, and names which is which; '
+    + 'NEEDS DATA is a refusal whose reason belongs to the claimant (the bytes were never published); MIXED is '
+    + 'an aggregate row whose record holds both a certification and a refutation.',
   checkRaw: 'Submit through <a href="' + NEW + '">the claim form</a>. Everything decided is on this page, '
     + 'and every verdict links to the record it came from.'
 }));
@@ -71,7 +73,7 @@ B.push(C.stats([
 B.push(C.section({
   lab: '§1 · the boundary', title: 'What can be decided here, and what cannot',
   bodyRaw: [
-    C.pRaw('<strong>In scope.</strong> ' + C.esc(R.scope)),
+    C.pRaw('<strong>In scope.</strong> ' + C.esc(R.scope.replace(/^What can be decided here:\s*/, ''))),
     C.plainList([
       { b: 'A constant, to stated digits.', text: 'Exhibit the value; the instrument brackets the true '
         + 'quantity in exact arithmetic and compares. This is how a published constant was refuted at its '
