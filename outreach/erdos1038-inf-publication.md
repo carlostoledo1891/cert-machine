@@ -158,7 +158,7 @@ posted in this thread sits at ε ≥ 5e-4, far above the wall, so nobody would h
 met it — but anyone extending to small ε from midpoint decimals will.
 
 **Where this stops.** The lane family above is close to exhausted: its
-floating-point feasibility boundary is near 1.829, and the certified margin at
+floating-point feasibility boundary is ≈ 1.8285, and the certified margin at
 1.828 is already 4.12e-7, so finer boxes will not buy the next thousandth. The
 *method* is not exhausted: at a₀ = x_L the b-range reaches x_R, so its ceiling
 is |x_L| + x_R = 1.83443…, exactly the upper bound in item 2. The remaining
