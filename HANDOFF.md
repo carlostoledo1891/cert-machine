@@ -258,6 +258,50 @@ merging kaust-mfg-lab.md). Adversarial ask; co-authorship only as the
 natural close. Each needs the operator's three opening sentences +
 recipient choice. SEND-QUEUE item 6.
 
+DONE 2026-09-03 (operator: "decide what we can use... Go"):
+THE EMBER BAND IS PORTED — the hot-spots theorem is now a POSITIVE-MEASURE
+FAMILY, live on reports/ember.html. The operator's own port trigger was
+met at 08:39 that morning (THEOREM-BAND.md + a green ledger), so the hold
+was satisfied rather than overridden.
+  · WHAT IT SAYS: for every c in [0.845, 0.85] the trapezoid A(0,0) B(1,0)
+    C(c,9/10) D(1/4,9/10) has simple mu1 and its second Neumann
+    eigenfunction attains its extrema on the boundary only. To our
+    knowledge the first certified hot-spots result for a positive-measure
+    family beyond every proven class; the published specimen c = 17/20 is
+    the right endpoint and the audit checks that containment.
+  · corpus/emberband — 105 records sha-pinned (17 chunks x 5 certified
+    stages, the fit inputs, ledger.jsonl, THEOREM-BAND.source.md).
+    instruments/emberband/verify-band.js — FRESH AUTHORSHIP, shares no
+    code with the producer. battery.js — 23 checks / 8 reds.
+    certs/ember-band.json. 53/53 batteries.
+  · THE AUDIT'S REAL CONTRIBUTION IS COVERING, not arithmetic. A band
+    theorem is a union of chunk theorems and the union fails on covering:
+    the 17 chunks must tile [0.845,0.85] with shared endpoints, AND the
+    sigma-cells must tile [-1,0] inside every chunk in each of the zones,
+    defect and eigenpair stages. Both re-derived here, both gapless; a
+    1e-12 gap in either falsifies the interval claim and NEITHER is
+    visible inside any single certificate. Every band-wide value matches
+    the source doc exactly (mu1 >= 11.85157, mu2 >= 13.90774, margins
+    2.470e-4/6.410e-4, tip C sup b1 = -0.8791, 738 = 2x39 + 15x44 cells).
+  · TWO DEFECTS IN MY OWN CHECKER, found by making a red control fire:
+    the tip-C test counted TIPS not CHUNKS, and corner B also carries a
+    negative b1 — so a sign-based scan could never detect corner C losing
+    the property. C is now identified BY POSITION (index 2), cross-checked
+    against its documented value; the red control was also flipping B.
+    The lesson generalises: never detect the property you are verifying
+    by the property itself.
+  · SCOPE ON THE PAGE: AUDIT, not re-derivation. The six-stage chain ran
+    on the bench (~10 h; defect alone 25 min/chunk) and was NOT re-run
+    here. Genre = reports/tensor-rank-bounds.html. The
+    convex-quadrilateral conjecture stays OPEN — a family, not the census.
+  · STILL UNPORTED on the bench, surveyed: experiments/envs (canary.js,
+    graders/, uniformity.js — eval infrastructure, touched 09-03, looks
+    relevant to the AI-verification lane); mfg-terra/THEOREM-MFG.md
+    (touched 09-03). fleet-dispatch, forecast-credibility,
+    route-certificate and lrcap-bess are one-script PLANS, not built
+    certificates — porting them would port a stub. lrcap-bid is documents
+    (a productized PT-BR offer).
+
 DONE 2026-09-03 (operator: "Port 1038... build the page, build the paper"):
 THE ERDŐS #1038 INFIMUM PROGRAM IS PORTED, and it is the strongest
 audit-lane story on the site. instruments/lemniscate (seven scripts
