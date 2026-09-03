@@ -1,4 +1,11 @@
-# cert-machine — the conjecture engine
+# cert-machine — independent exact certification
+
+> Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.
+>
+> Adopted 2026-09-03 as the ONE description, to be held for a year (D1 in
+> notes/positioning-decisions-2026-09-03.md). It goes in the site title, the
+> README, CITATION.cff and .zenodo.json, and nowhere is it paraphrased. The
+> engine below is the generator; the position is the judge.
 
 Generate mathematical objects at scale, screen in float, **certify the survivors exactly**,
 and hunt closed forms for what survives. The Ramanujan-Machine shape with the part they

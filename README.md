@@ -1,4 +1,6 @@
-# The conjecture engine — AI verification infrastructure for machine-generated mathematics
+# Independent exact certification of machine-generated mathematics
+
+*Exact arithmetic, no code shared with the claimant, refusal as a verdict.*
 
 *Carlos Toledo · cert-machine · [carlostoledo.co](https://carlostoledo.co)*
 
@@ -7,9 +9,17 @@
 proved by executing and completing Mercer's 2019 strategy. [The proof page](https://carlostoledo.co/reports/lambda4.html) ·
 [the write-up](paper/lambda4-proof.md) · machine-derived, not peer-reviewed, refutations invited.
 
-> I build verification layers under which AI-scale mathematical search
-> produces only certified output — reward signals that cannot be hacked —
-> and I audit published AI-generated mathematics.
+**λ(5) = −L(1,2,4,5,6)** — the fourth, an algebraic number of degree exactly 5, with its minimal
+polynomial exhibited; and with it λ(6) < λ(5), the first non-monotonicity of the sequence.
+[The proof page](https://carlostoledo.co/reports/lambda5.html) · machine-derived, not peer-reviewed,
+**and not independently audited yet** — unlike λ(4).
+
+> I decide mathematical claims — mine and other people's — in exact
+> arithmetic, without running the claimant's code, and I publish the
+> refusals as well as the verdicts.
+>
+> *Only a machine that can prove a theorem should be trusted to refuse one:*
+> the theorems here are the calibration, the audits are the work.
 
 ```
 make engine    generate → screen → certify; writes ledger.json

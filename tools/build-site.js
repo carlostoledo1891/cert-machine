@@ -61,6 +61,14 @@ if (!gymCommits) fail('the forecast-gym ledger holds no commits — the gym card
 const evalReal = evalRows.filter((r) => r.model !== 'fake');
 if (!evalReal.length) fail('the eval ledger holds no real-model rows — the landing story assumes a live board');
 const evalCert = evalReal.filter((r) => r.outcome === 'certified').length;
+/* the grader's refusal rate on submitted claims: a reply carrying no parseable
+   proposal is OUR refusal; a model declining and a reply cut off by our own
+   output cap are not, and are excluded from the denominator as well as the
+   numerator. The full breakdown by kind is /reports/refusals.html. */
+const evalMalformed = evalReal.filter((r) => r.outcome === 'malformed').length;
+const evalClaims = evalReal.filter((r) => ['certified', 'rejected', 'refuted', 'malformed'].includes(r.outcome)).length;
+if (!evalClaims) fail('the eval ledger holds no submitted claims — the refusal rate would have no denominator');
+const evalRefusalRate = (100 * evalMalformed / evalClaims).toFixed(0) + '%';
 const evalRefuted = evalReal.filter((r) => r.outcome === 'refuted').length;
 
 const census16 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'census-high-periods.json'), 'utf8')).find((r) => r.p === 16);
@@ -190,6 +198,14 @@ const REPORTS = [
     desc: 'K(11)’s record moved three times in eighteen months — every mover an AI, each validated by its producer’s own verifier. The whole ladder (AlphaEvolve 593, EinsteinArena 594, the Station’s three exact 604s) re-decided here in exact Z[√2] arithmetic from published bytes; the one claim with no public bytes measured as NEEDS DATA.',
     n: 'K(11) ≥ 604 · certified from the claimants’ own bytes' },
   /* lane 'erdos', ranked here: the theorem and the refutation head the shelf */
+  { g: 'erdos', f: 'lambda5.html', k: 'erdős #510 · a theorem',
+    title: 'λ(5), settled — and the sequence turns down',
+    desc: 'The fourth exact value of Chowla\'s cosine dip, and the first whose optimiser is not an initial '
+      + 'segment: λ(5) = −L(1,2,4,5,6), an algebraic number of degree exactly five, with its minimal polynomial '
+      + 'exhibited. One family in the reduction admits no classical weight at all — a structural obstruction the '
+      + 'page proves fresh at every build — and a Fejér–Riesz comb gets through it. A consequence needs nothing '
+      + 'further: λ(6) < λ(5), so the sequence that had been climbing turns down.',
+    n: 'not peer-reviewed · no independent audit yet · re-proved at build' },
   { g: 'erdos', f: 'lambda4.html', k: 'erdős #510 · a theorem',
     title: 'λ(4), settled',
     desc: 'The third exact value of Chowla\'s cosine dip. Mercer proved λ(2) and λ(3) in 2019, conjectured λ(4), '
@@ -244,6 +260,13 @@ const REPORTS = [
     title: 'When the answer key is wrong',
     desc: 'Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.',
     n: 'every specimen re-proved at build' },
+  { g: 'ai', f: 'refusals.html', k: 'note · the third verdict',
+    title: 'What the machine would not decide',
+    desc: 'Every refusal on record, by kind, each with its own denominator: the grader\'s refusal rate on claims '
+      + 'other people submitted, the generation loop\'s own refusals, NEEDS DATA where a claimant published no '
+      + 'bytes to decide on, campaigns published as unfinished, and the undecided cells of two exhaustive sweeps. '
+      + 'Deliberately no total — the kinds are not commensurable, and one big number would be a smaller fact.',
+    n: 'no total on purpose · every row names its denominator' },
   { g: 'ai', f: 'methods-note.html', k: 'methods note',
     title: 'None by reading code',
     desc: 'Every real bug this machine has found — ten, cataloged — was caught by a red control, a calibration, an impossible number, or a byte pin. How to build verifiers that catch their own defects, stated as engineering.',
@@ -592,6 +615,17 @@ const LEAD = [
       + 'can check held, and the part that carries the theorem stayed out of reach.',
     n: aiClaims.checks + ' checks · ' + aiClaims.mutations + ' deliberate forgeries, every one rejected' },
 ];
+/* LEAD ORDER, set 2026-09-03: the CATCHES lead and the theorems follow.
+   Theorems earn respect; catches earn attention, and a theorem read first
+   makes this look like a prover's site rather than an auditor's. The order
+   below is the ranking the landing draws. */
+LEAD.sort((a, b) => {
+  const rank = (f) => ['erdos852.html', 'ai-claims-audit.html', 'ember.html', 'lambda4.html'].indexOf(f);
+  return rank(a.f) - rank(b.f);
+});
+if (LEAD.some((l) => ['erdos852.html', 'ai-claims-audit.html', 'ember.html', 'lambda4.html'].indexOf(l.f) < 0))
+  fail('a lead card is not in the ranking list — the sort would silently drop it to the front');
+
 /* keller and tensor-rank-bounds moved from the lead back to the shelf on
    2026-09-02 — the theorems took their places; both remain fully ranked in
    REPORTS and rejoin shelfHead automatically. */
@@ -600,8 +634,11 @@ const LEAD = [
   for (const l of LEAD) if (!shelved.has(l.f)) fail('the landing leads with ' + l.f + ', which is not on the shelf — that link would 404');
 }
 B.push(C.section({
-  lab: 'start here', title: 'Two theorems and two audits, in plain words', wide: true,
-  bodyRaw: C.cards(LEAD.map((l) => ({ href: 'reports/' + l.f, k: l.k, title: l.title, desc: l.desc, n: l.n })))
+  lab: 'start here', title: 'The catches first — then the theorems that calibrate them', wide: true,
+  bodyRaw: C.pRaw('<strong>Only a machine that can prove a theorem should be trusted to refuse one.</strong> The '
+    + 'audits are what the instruments are for; the theorems below them are the evidence that the instruments are '
+    + 'strong enough for their refusals to count.')
+    + C.cards(LEAD.map((l) => ({ href: 'reports/' + l.f, k: l.k, title: l.title, desc: l.desc, n: l.n })))
 }));
 
 B.push(C.section({
@@ -682,8 +719,11 @@ B.push(C.section({
         + 'behind it, so a rounding error can cost time and can never cost truth.' },
       { b: 'Both verdicts are theorems.', text: 'CERTIFIED means the statement was re-derived from whole numbers. '
         + 'REFUTED means a falsifying witness exists, and it is printed. Neither one is a confidence level.' },
-      { b: 'An instrument that cannot decide says so.', text: 'REFUSED is a real verdict here and it gets used. A '
-        + 'number that cannot be proved does not get published as though it were.' },
+      { b: 'An instrument that cannot decide says so.', raw: 'REFUSED is a real verdict here and it gets used: on '
+        + 'the eval board it is ' + evalRefusalRate + ' of ' + fmt(evalClaims) + ' submitted claims, and every '
+        + 'other refusal in the lab is counted by kind — with its own denominator, never merged into one number — '
+        + 'on <a href="reports/refusals.html">the refusals page</a>. A number that cannot be proved does not get '
+        + 'published as though it were.' },
       { b: 'Every battery carries forgeries that must fail.', text: 'Fake inputs are planted in each run, including one '
         + 'wrong by a billionth — invisible to any floating-point check. If a forgery ever passes, the run aborts before '
         + 'it grades anything real. Every genuine bug this project has found was caught that way; none by reading code.' }
@@ -828,7 +868,17 @@ B.push(C.section({
       + 'Coq, and no page claims to be.'),
     C.p('What it does meet is the working standard of the computer-assisted-proof tradition — Tucker on the Lorenz '
       + 'attractor, Galias on the Hénon censuses, whose published counts this machine reproduces independently. That '
-      + 'is one rung below a formal proof and several rungs above a decimal that looked convincing.')
+      + 'is one rung below a formal proof and several rungs above a decimal that looked convincing.'),
+    C.pRaw('<strong>What independence means here, exactly.</strong> Independence from the CLAIMANT: when this '
+      + 'machine decides someone else\'s claim, it does not run their code and their code is never in the trust '
+      + 'path. It does not mean every checker is a clean-room rewrite of every producer. Two instruments reuse code '
+      + 'across the producer/checker line, both times this lab\'s own and both deliberately: '
+      + C.m('instruments/mfgcap') + ' IMPORTS the frozen verifier published with the congestion result rather than '
+      + 'editing it — freezing those bytes is the point, and they are re-extracted from the sent page at every '
+      + 'build — and ' + C.m('instruments/lemniscate') + ' was crossed from this lab\'s own bench with its '
+      + 'require paths repointed at the certifier that bench already used. Where a page claims clean-room '
+      + 'independence — the λ(4) clause walk, the #1038 forcing re-check, the band verifier — it says so on that '
+      + 'page, and it means it.')
   ].join('\n')
 }));
 
@@ -1305,8 +1355,8 @@ const put = (rel, buf) => desired.set(rel, buf);
     fail('a priority claim reached the landing without its qualifier');
   }
 }
-put('index.html', Buffer.from(TPL.render({ title: 'cert-machine · the conjecture engine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/',
-  desc: 'Verification layers for AI-scale mathematical search — exact rational decisions, interval enclosures, reward signals that cannot be hacked — and certified audits of published AI-generated mathematics.' })));
+put('index.html', Buffer.from(TPL.render({ title: 'cert-machine · independent exact certification', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/',
+  desc: 'Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict. Certified audits of published AI-generated mathematics, evals whose ground truth is a proof, and the theorems that calibrate the instruments.' })));
 put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports · cert-machine', bodyRaw: reportsIndexBody, footRaw: reportsIndexFoot, path: '/reports/',
   desc: 'The reports shelf: certified audits of AI-generated mathematics, evals whose ground truth is a proof, a verified reward channel — and the instruments, proven on hard classical ground. Every page recomputes its numbers at build.' })));
 put('about/index.html', Buffer.from(TPL.render({ title: 'About · Carlos Toledo', bodyRaw: aboutBody, footRaw: aboutFoot, path: '/about/',

@@ -95,6 +95,8 @@ clean:
 
 reports:
 	@$(NODE) tools/build-report-lambda4.js
+	@$(NODE) tools/build-report-lambda5.js
+	@$(NODE) tools/build-report-refusals.js
 	@$(NODE) tools/build-report-erdos1038-sup.js
 	@$(NODE) tools/build-report-tensorlb.js
 	@$(NODE) tools/build-report-bilinear.js

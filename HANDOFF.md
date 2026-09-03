@@ -1,5 +1,7 @@
 # HANDOFF — cert-machine
 
+**Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.** (the name, adopted 2026-09-03, held for a year.)
+
 ## What it is
 
 A conjecture engine: generate mathematical objects at scale, screen in float,
@@ -28,18 +30,92 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
 THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
 
+  POSITIONING — DECIDED 2026-09-03 (operator: "do the changes you suggest and
+  decide the options by keeping us honest"). Full memo, with the measured
+  facts behind each call: notes/positioning-decisions-2026-09-03.md; the
+  operator's note pinned verbatim at notes/positioning-brainstorm-2026-09-03.md.
+    D1 THE NAME — DONE. One sentence, held for a year:
+       "Independent exact certification of machine-generated mathematics —
+       exact arithmetic, no code shared with the claimant, refusal as a
+       verdict." Widened from the note's AI-only version because half the
+       site's weight (λ(4), λ(5), #1038 both ends, #290, K(11), terra/MFG)
+       is OUR mathematics, not audits of AI claims. Stamped in ALL SIX
+       places at once — site <title> + meta, README H1, CLAUDE.md, HANDOFF,
+       CITATION.cff, .zenodo.json — because shipping three names was the
+       actual defect. OPERATOR ACTION OWED: edit the Zenodo metadata title
+       for v2026.09.1 (10.5281/zenodo.22285003) and the concept record so
+       the DOI landing page matches CITATION.cff. Until then that is the one
+       documented lag, and it is deliberate.
+    D2 THE REFUSAL COUNTER — DONE, as a measurement. The tile now reads
+       REFUSED · IN THE LOOP with its true denominator (1 of 16,943), and
+       reports/refusals.html counts every refusal in the lab BY KIND with its
+       own denominator: 8 rows, 5 kinds, no total on purpose. The note's
+       "fold NEEDS DATA in" was DECLINED — it breaks the three-valued
+       doctrine and the deflate-to-truth rule. Headline number recovered
+       from a record nobody was reading: the grader's refusal rate on
+       submitted claims is 13% (39 of 301), with model-declines and our own
+       output-cap artifacts excluded from both ends of the fraction.
+    D3 THE CALIBRATION SENTENCE — DONE, verbatim, and the LEAD reordered so
+       the catches lead: erdos852 → ai-claims-audit → ember → lambda4.
+    D4 "NO SHARED CODE" — DONE. Independence is now stated as independence
+       from the CLAIMANT, and the limits section discloses the two places
+       code crosses the producer/checker line (mfgcap imports the frozen
+       verifier; lemniscate shares the certifier with the bench it came
+       from) — both ours, both deliberate. The unqualified phrase would not
+       have survived a check.
+    D5 INTAKE — NOT BUILT, deliberately; the ruling it needed is adopted:
+       PUBLISHING A DECISION ON OUR OWN SITE IS A BUILD; POSTING IT INTO
+       SOMEONE ELSE'S THREAD, REPO OR INBOX IS A SEND. GitHub-native intake
+       (issue template + labels + a ledger page generated from the issues)
+       is queued as a 1-2 session build, not started.
+    D6 MONTHLY LEDGER — ADOPTED, first instance at the end of September
+       2026. The page is a build; announcing it is a send.
+    D7 SEQUENCE — λ(5) shipped under the calibration framing rather than as
+       a headline. The grader benchmark is closer than the note thought: the
+       audits exist, only the aggregate error-rate-per-source table is
+       missing.
+
   NEXT SESSION, IN ORDER
-  1. PUBLISH LAMBDA(5) — it is COMPLETE (8/8 families in
-     certs/lambda56-campaign.json) and has NO PAGE and NO PAPER, while
-     lambda(4) is published. Build reports/lambda5.html from the record
-     with its own gates (build-report-lambda4.js is the pattern). HOLD the
-     paper's shape: if lambda(6) lands, (4)+(5)+(6) become ONE
-     non-monotonicity paper.
+  1. PUBLISH LAMBDA(5) — DONE 2026-09-03. reports/lambda5.html is live,
+     built by tools/build-report-lambda5.js from the record with its own
+     gates (8/8 families, 1,725 finite sets, 15,330 coverage points, walls
+     checked against the conditions the extremizer actually satisfies).
+     NEW MATHEMATICS THIS SESSION, not in the record before:
+       · instruments/trigmin/minpoly.js — the exact minimal polynomial of a
+         certified cosine-sum minimum, by fraction-free Sylvester resultant
+         + Sturm + mod-p irreducibility (Rabin, cross-checked at deg <= 5 by
+         an exhaustive test sharing no code). λ(5) is ALGEBRAIC OF DEGREE
+         EXACTLY 5, root of
+         93312y^5 - 358625y^4 + 282712y^3 + 441594y^2 - 761656y + 301799.
+         CALIBRATION: the same instrument re-derives Mercer's published
+         λ(3) = (17+7√7)/27 as 27y^2 - 34y - 2 AND our own λ(4) cubic before
+         it is trusted. It also prints λ(6)'s witness value as a degree-7
+         irreducible, ready for when the campaign lands.
+       · THE NON-MONOTONICITY NEEDS NO λ(6) PROOF. λ(n) is an INFIMUM over
+         n-sets, so {1,2,4,6,7,8} alone gives λ(6) <= 1.5918... < 1.6274...
+         = λ(5). λ(6) < λ(5) is a THEOREM AS OF NOW; the campaign proves the
+         stronger statement (the exact VALUE of λ(6)). Battery check N1.
+       · battery instruments/lambda56/battery.js is now 19 checks / 7 reds
+         (M1 calibration, M2 the quintic, N1 the non-monotonicity, R6 a
+         perturbed quintic, R7 a reducible polynomial).
+     STILL OPEN on λ(5): NO INDEPENDENT AUDIT (λ(4) has one — mirror
+     tools/audit-lambda4.js), no write-up. Both stated on the page itself.
+     The paper's shape still waits on λ(6).
   2. REVIEW THE BENCH AGAIN, all folders and all pages, for valuable
-     mathematics, instruments, claims and narrative. Known-and-ported:
-     ember/BAND, erdos1038, terra family, kissing11. Known-and-unported:
-     experiments/envs (the canary-factory idea). New: experiments/kissing12
-     (probe only, no theorem doc — leave it).
+     mathematics, instruments, claims and narrative. NOT DONE this session
+     — the session went to λ(5) and the positioning decisions on the
+     operator's word. Known-and-ported: ember/BAND, erdos1038, terra family,
+     kissing11. Known-and-unported: experiments/envs (the canary-factory
+     idea). New: experiments/kissing12 (probe only, no theorem doc — leave
+     it).
+
+  2b. QUEUED BY THE POSITIONING DECISIONS (D5, D6, D7):
+      · the intake queue, GitHub-native, now that the build/send line is
+        ruled (1-2 sessions);
+      · the monthly ledger page, first instance end of September 2026;
+      · the grader benchmark: one aggregate table of error rate per source
+        over answer-key + matmul-eval + rm-audit + ai-claims — the audits
+        exist, the aggregate does not.
   3. LAMBDA(6): a+2e = 2f at ~49.5 h, plus the traced twin in
      scratchpad/l6trace. If it lands: fold the verdict in, then the
      audit, then the NON-MONOTONICITY announcement (operator-gated).
@@ -62,6 +138,15 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
   want papers.
 
 OPERATOR ACTS — nothing here needs a session, only a decision
+
+  0. NEW 2026-09-03, and the only thing the rename left owed: EDIT THE
+     ZENODO METADATA TITLE for v2026.09.1 (10.5281/zenodo.22285003) and for
+     the concept record (…22225860) to
+     "cert-machine: independent exact certification of machine-generated
+     mathematics", so the DOI landing page matches CITATION.cff and the
+     site. Metadata edits on a published record are allowed and do not mint
+     a new DOI. Until it is done, the repo says one name and the DOI page
+     says the old one — the one documented lag of the rename.
 
   1. READ paper/ember-hotspots.md (draft v0.9, public, journal-typeset)
      — the standing ask since the port landed.
@@ -91,9 +176,10 @@ OPERATOR ACTS — nothing here needs a session, only a decision
      EXACTLY — the constant OUR bracket pins to 3 unconditional digits
      (already public on issue 164). Our same-day 0.61→0.6021
      upper-constant comment is superseded (not wrong — overtaken).
-     Decisions: (a) follow-up comment on issue 164 [SEND]; (b) refresh
-     reports/erdos290.html from two-sided Theorem-8 framing to the
-     exact-liminf state [site push]; (c) optional ai-claims-audit row —
+     Decisions: (a) follow-up comment on issue 164 [SEND, still owed];
+     (b) refresh reports/erdos290.html to the exact-liminf state — DONE
+     (the page carries §3b "superseded, and why it is kept" and cites
+     2609.00104; verified 2026-09-03); (c) optional ai-claims-audit row —
      a ChatGPT-proved Erdős constant whose numerics our ledger already
      certifies. Full intel: targets row erdos290-sharp-liminf.
 

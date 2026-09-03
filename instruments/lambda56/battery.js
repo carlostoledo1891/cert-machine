@@ -222,6 +222,56 @@ red('R5 a skip list naming an absent set must throw', () => {
   check('W4 record: {1,2,4,5,6} is the definitional witness on exactly 4 walls', walls === 4, walls + ' walls');
 }
 
+/* ---- the exact value: minimal polynomial ------------------------------------ */
+/* CALIBRATION BEFORE CLAIM, as everywhere in this campaign: the minimal-
+   polynomial instrument must first re-derive two PUBLISHED closed forms —
+   Mercer's lambda(3) = (17 + 7 sqrt 7)/27, i.e. the root of 27y^2 - 34y - 2,
+   and this lab's own lambda(4) cubic — before its lambda(5) quintic counts. */
+{
+  const MP = require(path.join(ROOT, 'instruments/trigmin/minpoly.js'));
+  const c3 = MP.certifyMinPoly([1, 2, 3], EN.targetEnclosure([1, 2, 3], 1e-13));
+  const c4 = MP.certifyMinPoly([1, 2, 3, 4], L4);
+  check('M1 minimal-polynomial instrument re-derives Mercer\'s lambda(3) and this lab\'s lambda(4) cubic',
+    c3.ok && MP.fmt(c3.S, 'y') === '27y^2 - 34y - 2'
+    && c4.ok && MP.fmt(c4.S, 'y') === '512y^3 - 1227y^2 + 600y + 125',
+    MP.fmt(c3.S, 'y') + '  |  ' + MP.fmt(c4.S, 'y'));
+
+  const c5 = MP.certifyMinPoly([1, 2, 4, 5, 6], L5);
+  check('M2 lambda(5) is algebraic of degree exactly 5, with its minimal polynomial exhibited',
+    c5.ok && c5.degree === 5 && c5.interior && c5.signChange
+    && c5.rootsInEnclosure === 1 && c5.irreducible && c5.crossChecked === true
+    && MP.fmt(c5.S, 'y') === '93312y^5 - 358625y^4 + 282712y^3 + 441594y^2 - 761656y + 301799',
+    MP.fmt(c5.S, 'y') + '  irreducible mod ' + c5.prime);
+
+  red('R6 a quintic off by one coefficient must fail the enclosure gate', () => {
+    const bad = c5.R.slice(); bad[0] = bad[0] + 1n;
+    const sLo = require(path.join(ROOT, 'instruments/trigmin/cheb.js')).evalSign(bad, L5.lo);
+    const sHi = require(path.join(ROOT, 'instruments/trigmin/cheb.js')).evalSign(bad, L5.hi);
+    return sLo * sHi < 0 ? 'a perturbed quintic still brackets the root' : true;
+  });
+  red('R7 a reducible polynomial must be reported reducible by BOTH tests, at every prime', () => {
+    /* (y^2 + 1)(y^3 + y + 1) = y^5 + 2y^3 + y^2 + y + 1 */
+    const red5 = [1n, 1n, 1n, 2n, 0n, 1n];
+    for (const p of [5, 7, 11, 13, 17, 19, 23]) {
+      if (MP.rabinIrreducibleModP(red5, p) === true) return 'Rabin called a reducible quintic irreducible at p = ' + p;
+      if (MP.irreducibleModP(red5, p) === true) return 'the exhaustive test called it irreducible at p = ' + p;
+    }
+    return true;
+  });
+}
+
+/* ---- the non-monotonicity, as a consequence of lambda(5) alone -------------- */
+/* lambda(n) is an INFIMUM over n-sets of -L(A), so ANY 6-set is an upper
+   bound on lambda(6): {1,2,4,6,7,8} gives lambda(6) <= -L(1,2,4,6,7,8), and
+   with lambda(5) = -L(1,2,4,5,6) proved, lambda(6) < lambda(5) follows with
+   no lambda(6) campaign at all. The campaign proves the stronger statement
+   (the exact VALUE of lambda(6)); this is the weaker one, already available. */
+{
+  check('N1 lambda(6) < lambda(5) follows from lambda(5) plus one witness set',
+    Q.cmp(L5.hi, L6.lo) < 0,
+    'lambda(6) <= ' + (-Q.toDouble(L6.lo)).toFixed(13) + ' < ' + (-Q.toDouble(L5.hi)).toFixed(13) + ' = lambda(5)');
+}
+
 /* ---- the witness ------------------------------------------------------------ */
 {
   /* {1,2,4,5,6} must sit exactly ON the target (it defines it), and the

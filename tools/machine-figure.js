@@ -122,9 +122,9 @@ function machineFlow(ledger, { gates }) {
     { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', k: 'REJECT · PROVED', v: commas(rejects),
       t: 'REJECT — proved uninteresting',
       d: 'The certifier examined the candidate and proved it below the bar. A REJECT here is a theorem about the object, not a failed search. ' + commas(rejects) + ' this build.' },
-    { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', k: 'REFUSED · HONEST', v: commas(refused),
+    { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', k: 'REFUSED · IN THE LOOP', v: commas(refused),
       t: 'REFUSED — absence of proof',
-      d: 'The instrument declined to decide — a singular preconditioner, an exhausted budget, a containment that would not close. Absence of proof is never evidence of absence, and a refusal is never converted into a verdict. ' + commas(refused) + ' this build.' },
+      d: 'The instrument declined to decide — a singular preconditioner, an exhausted budget, a containment that would not close. Absence of proof is never evidence of absence, and a refusal is never converted into a verdict. ' + commas(refused) + ' of ' + commas(T.certified || 0) + ' decisions this build. THIS COUNTER IS THE LOOP\'S OWN: the lab\'s other refusals — NEEDS DATA where a claimant published no bytes, campaigns recorded unfinished, the undecided cells of the sweeps, the grader\'s refusal rate on submitted claims — are counted by kind at /reports/refusals.html, never merged with this one.' },
     { x: lx, y: ledgerY, w: lw, h: bandH, role: 'sig', k: 'LEDGER', v: 'ledger.json',
       t: 'the ledger',
       d: 'Everything the engine produced, as records on disk: ' + commas((ledger.conjectures || []).length) + ' conjectures kept with their enclosures and certificates. Every number in this drawing is read off the ledger at build time; nothing is typed in.' },
@@ -228,10 +228,12 @@ function machineFlowCompact(ledger, { gates }) {
       t: 'REJECT — proved uninteresting',
       d: 'The certifier examined the candidate and proved it below the bar. A REJECT here is a theorem about the '
         + 'object, not a failed search. ' + commas(rejects) + ' this build.' },
-    { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', k: 'REFUSED · HONEST', v: commas(refused),
+    { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', k: 'REFUSED · IN THE LOOP', v: commas(refused),
       t: 'REFUSED — absence of proof',
       d: 'The instrument declined to decide. Absence of proof is never evidence of absence, and a refusal is '
-        + 'never converted into a verdict. ' + commas(refused) + ' this build.' },
+        + 'never converted into a verdict. ' + commas(refused) + ' of ' + commas(T.certified || 0)
+        + ' decisions this build — the LOOP\'s own count. Every other refusal in the lab is counted by kind, '
+        + 'with its own denominator, at /reports/refusals.html.' },
     { x: sx, y: ledgerY, w: sw, h: bandH, role: 'held',
       k: 'LEDGER · THE GATES', v: 'ledger.json · ' + gates.green + '/' + gates.ran + ' batteries',
       t: 'the ledger, and the gates on every build',
