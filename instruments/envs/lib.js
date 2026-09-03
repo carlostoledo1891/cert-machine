@@ -82,7 +82,9 @@ const FACTS = [];
 function fact(o) {
   if (!(o.lo <= o.hi)) throw new Error(`fact ${o.id}: enclosure is not an interval`);
   if (!Number.isFinite(o.lo) || !Number.isFinite(o.hi)) throw new Error(`fact ${o.id}: non-finite endpoint`);
-  FACTS.push(o);
+  /* recordPath is repo-relative and is what every gate resolves: the named tier
+     reads from certs/, the ledger tier from the repository root. */
+  FACTS.push(Object.assign({ tier: 'named', recordPath: o.record ? 'certs/' + o.record : null }, o));
 }
 
 /* Erdos #1038, the infimum side — our own record */
@@ -168,6 +170,39 @@ fact((() => {
   };
 })());
 
+/* ---- THE BULK TIER (cert-machine, 2026-09-03) ------------------------------
+   The named facts above are curated: each one has a story and is printed on the
+   page. But the corpus is supposed to GROW with the certificate shelf, and the
+   engine's own ledger already holds every conjecture it certified, each with an
+   outward enclosure and its width. Those enter here as a second tier: not
+   printed row by row, counted and summarised. This is the compounding claim
+   made literal — nobody can copy this corpus without first doing the
+   mathematics that produced it.
+
+   The bulk tier includes ZERO-WIDTH facts (exact integers: a tensor rank, a
+   contact count). Those are the sharpest canary seeds in the corpus: when the
+   true value is an exact integer, EVERY value in the whole tolerance window is
+   provably wrong, and a tolerance grader accepts all of them. */
+{
+  const LP = path.join(__dirname, '..', '..', 'ledger.json');
+  if (fs.existsSync(LP)) {
+    const bytes = fs.readFileSync(LP);
+    const sha = crypto.createHash('sha256').update(bytes).digest('hex');
+    const ledger = JSON.parse(bytes.toString('utf8'));
+    for (const c of (ledger.conjectures || [])) {
+      if (!Array.isArray(c.enclosure) || c.enclosure.length !== 2) continue;
+      const [lo, hi] = c.enclosure;
+      if (!Number.isFinite(lo) || !Number.isFinite(hi) || !(lo <= hi)) continue;
+      FACTS.push({
+        tier: 'ledger', id: c.family + ' ' + c.key, what: c.text,
+        lo, hi, certified: true,
+        source: 'ledger.json (certified conjecture) · sha256:' + sha.slice(0, 16),
+        record: 'ledger.json', recordPath: 'ledger.json', sha256: sha
+      });
+    }
+  }
+}
+
 const factById = id => FACTS.find(f => f.id === id);
 
 /* ---------------------------------------------------------------------------------------------
@@ -183,6 +218,14 @@ function toleranceInterior(fact, tol, side = 1) {
   if (!(w < tol * 0.5)) return null;              // need room: the value must clear the enclosure
   const push = (tol - w) * 0.5;                   // outside the enclosure, inside tol of all of it
   const v = side > 0 ? fact.hi + push : fact.lo - push;
+  /* PORT PATCH (cert-machine, 2026-09-03) — CAUGHT BY OUR OWN BATTERY. With a
+     ZERO-WIDTH fact (an exact integer: a tensor rank, a contact count) and a
+     tight tolerance, hi + tol/2 ROUNDS BACK TO hi as a double: the "provably
+     wrong" value is bit-identical to the true one, and the suite would be
+     asserting a falsehood. The arithmetic was right and the float was not.
+     Every minted value is now checked to be a strictly different double, on
+     the correct side, before it is allowed out. */
+  if (!(side > 0 ? v > fact.hi : v < fact.lo)) return null;
   const worst = side > 0 ? v - fact.lo : fact.hi - v;   // distance to the far end of the enclosure
   if (!(worst < tol)) return null;
   return { value: v, gapFromEnclosure: push, worstDistanceToEnclosure: worst };
@@ -225,8 +268,11 @@ function mintCanaries(fact, tol) {
     });
   }
   // truncation: the enclosure rounded to fewer digits than it determines
-  const digits = Math.max(1, Math.floor(-Math.log10(Math.max(fact.hi - fact.lo, 1e-300))) - 2);
-  const trunc = Number(fact.lo.toPrecision(Math.max(1, digits - 3)));
+  /* PORT PATCH: clamp. A zero-width fact (an exact integer — a tensor rank, a
+     contact count) drives this to ~295 significant digits and toPrecision
+     throws. Doubles carry at most 17, so 17 is the honest ceiling. */
+  const digits = Math.max(1, Math.min(17, Math.floor(-Math.log10(Math.max(fact.hi - fact.lo, 1e-300))) - 2));
+  const trunc = Number(fact.lo.toPrecision(Math.max(1, Math.min(17, digits - 3))));
   if (trunc < fact.lo || trunc > fact.hi) out.push({
     family: 'over-truncated', factId: fact.id, value: trunc, tol,
     why: `quoted to ${Math.max(1, digits - 3)} significant digits, which lands outside the enclosure`,

@@ -28,7 +28,10 @@
 const path = require('path');
 const L = require(path.join(__dirname, 'lib.js'));
 
-const TOLS = [1e-6, 1e-9, 1e-12];
+/* PORT PATCH (cert-machine): the bench probed three tolerances. The curve is
+   the whole argument — a tolerance grader's false-accept rate does NOT fall off
+   a cliff as the tolerance tightens — and three points cannot show a curve. */
+const TOLS = [1e-3, 1e-4, 1e-6, 1e-8, 1e-9, 1e-10, 1e-12, 1e-14, 1e-15];
 
 /* ---------------------------------------------------------------------------------------------
    Build the submission set: canaries (provably wrong) + controls (provably right).

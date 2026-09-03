@@ -49,10 +49,13 @@ const red = (n, fn) => {
     L.FACTS.length + ' facts');
 
   /* DRIFT: each fact naming a record must still match that record's bytes */
-  const pinned = L.FACTS.filter(f => f.sha256 && f.record);
+  const pinned = L.FACTS.filter(f => f.sha256 && f.recordPath);
   let drifted = [];
+  const seen = new Set();
   for (const f of pinned) {
-    const p = path.join(ROOT, 'certs', f.record);
+    if (seen.has(f.recordPath)) continue;
+    seen.add(f.recordPath);
+    const p = path.join(ROOT, f.recordPath);
     const now = crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
     if (now !== f.sha256) drifted.push(f.record);
   }

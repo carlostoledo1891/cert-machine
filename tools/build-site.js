@@ -619,7 +619,7 @@ const LEAD = [
      refusal as a verdict — the audits lead and one theorem calibrates them. ember.html and
      lambda4.html moved back to the shelf the same day: they are not weaker, they are older, and the
      lead has four slots. Both stay fully ranked in REPORTS and rejoin shelfHead automatically. */
-  { f: 'envs.html', k: 'the measurement · nobody benchmarks the graders',
+  { f: 'envs.html', k: 'the measurement · adversaries with a proof',
     title: 'We graded the graders',
     desc: 'Almost every mathematical grader compares a number to a stored decimal within a tolerance. '
       + 'Against ' + fmt(envsRec.provablyWrong) + ' submissions that are PROVABLY wrong — each one outside a '

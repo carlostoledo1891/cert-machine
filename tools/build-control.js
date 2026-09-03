@@ -292,10 +292,14 @@ B.push(C.section({
         + 'schemes, bilinear products over F2, spherical codes, certify-or-refute a constant. What is missing is '
         + 'the packaging: one environment, one harness, a published pass-rate table, and the hack rate printed '
         + 'beside it. The rungs are built; the wrapper is not.' },
-      { b: 'A benchmark of the graders.', text: 'Everyone benchmarks models; nobody benchmarks the answer keys. '
-        + 'Re-decide the exactly-checkable keys of public benchmarks and publish the error rate per source. The '
-        + 'existence proof that the rate is not zero is already on this site — a published constant wrong from '
-        + 'its twelfth digit — and the instrument that measures a grader is already built. The aggregate is not.' },
+      { b: 'A benchmark of the graders.', text: 'Re-decide the exactly-checkable keys of public benchmarks and '
+        + 'publish the error rate per source. CORRECTION, 2026-09-03: an earlier version of this line said nobody '
+        + 'benchmarks the graders. That is false, and a literature pass found it out — verifier false-accept and '
+        + 'false-reject rates are measured in the 2026 RLVR literature, including on deployed code-RL suites, and '
+        + 'benchmark answer-key errors have their own papers. What is not in that literature, so far as this pass '
+        + 'reached, is an adversarial set whose members are PROVABLY wrong rather than believed wrong: everyone '
+        + 'else mutates a reference answer, and a certified enclosure refutes a value outright. That narrower '
+        + 'thing is what remains to build here.' },
       { b: 'An open-frontier environment.', text: 'Every mathematics environment trains against problems with '
         + 'known answers. The one worth building has none: the reward is beating the current certified record, '
         + 'and the record ratchets when a rollout beats it — kissing numbers, matmul ranks, explicit constants. '
