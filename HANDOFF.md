@@ -44,6 +44,18 @@ OPERATOR ACTS — nothing here needs a session, only a decision
      UNSENT, framing needs rework before sending (the fourth digit is an
      OEIS digit, not a theorem digit).
   6. Whether the aviation front keeps its default-on pushes.
+  7. NEW 2026-09-02 (late): ERDOS #290 SHARPENED UNDER US — arXiv:
+     2609.00104 (van Doorn, submitted 2026-08-31, a human rewrite of a
+     ChatGPT-discovered proof; raw note at github.com/Woett/
+     ChatGPT-s-note-on-Erdos290) proves liminf (b(a)-a)/log a = 1/(1+c)
+     EXACTLY — the constant OUR bracket pins to 3 unconditional digits
+     (already public on issue 164). Our same-day 0.61→0.6021
+     upper-constant comment is superseded (not wrong — overtaken).
+     Decisions: (a) follow-up comment on issue 164 [SEND]; (b) refresh
+     reports/erdos290.html from two-sided Theorem-8 framing to the
+     exact-liminf state [site push]; (c) optional ai-claims-audit row —
+     a ChatGPT-proved Erdős constant whose numerics our ledger already
+     certifies. Full intel: targets row erdos290-sharp-liminf.
 
 WAITING ON THE OPERATOR — the band (P3a). Operator, 2026-09-02 evening:
 "Ember will work for some time yet, wait for my instructions." DO NOT
