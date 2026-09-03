@@ -157,6 +157,53 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
      instruments/facelaw. PARKED.md holds no mathematics, only presentation
      bets.
 
+  2c. THE ENVIRONMENTS ARE PORTED (2026-09-03, operator: "Proceed the port").
+      instruments/envs — three environments and their harness, crossed from the
+      operator's own bench with sha (instruments/envs/PROVENANCE.json); the
+      bench's lib/eqcert files are BYTE-IDENTICAL to instruments/interval, so
+      no new arithmetic entered the machine. What changed in the port is the
+      COMPOUNDING part: the fact corpus is no longer five hand-typed pairs but
+      NINE facts READ OUT OF RECORDS in certs/ and sha-pinned to them, and the
+      battery refuses on drift. New canary family `published-wrong`: every
+      other family is synthesised, that one emits the decimal a real problem
+      thread published (#852), 6.09e-13 outside our certificate and inside any
+      ordinary tolerance.
+      MEASURED, offline: 172 submissions, 134 provably wrong · absolute
+      tolerance accepts 85.1% of them (93.2% at 1e-6, 77.3% at 1e-12 — it
+      never closes) · relative 67.9% · exact match 0% but rejects 47.4% of the
+      RIGHT ones · the certificate grader 0.0% / 0.0%.
+      Battery 13 checks / 5 reds, including the accept-everything and
+      reject-everything graders that must BOTH score zero — that pair is what
+      makes the false-reject half load-bearing.
+      STILL AHEAD on this front, in the order the verdict ranked them: the
+      exact-witness-gym wrapper over rungs we already own (oracle/certmachine
+      is rungs 0-1, kissing is rung 2, the #852/RM/answer-key audits are rung
+      3); the grader benchmark as the paper; the open-frontier environment
+      last, for the grant.
+      NETWORK STAYS OFF: the harness refuses it unless ENVS_ALLOW_NETWORK=1.
+      A rung x model table with real models is an operator decision.
+
+  2d. THE CLAIMS DESK IS OPEN (same session). reports/claims.html +
+      .github/ISSUE_TEMPLATE/claim.yml + certs/claims-ledger.json, which is
+      DERIVED from the records that decided each claim — a claim with no
+      record gets no row. 18 decided, 1 queued and deliberately NOT counted as
+      decided, 0 submitted by anyone else, and the page publishes that zero.
+      This is D5 built on the ruling adopted this morning: publishing a
+      decision on our own site is a build, posting it into someone else's
+      thread is a send.
+
+  2e. THE PORTFOLIO LEAD, decided this session. Under the position the audits
+      lead and one theorem calibrates:
+        1 envs — "We graded the graders" (the position, as a measurement)
+        2 erdos852 — the catch, and literally a row inside 1
+        3 ai-claims-audit — the audit at scale
+        4 lambda5 — the calibration theorem, now audited
+      ember.html and lambda4.html moved back to the shelf: not weaker, older,
+      and the lead has four slots. The landing hero, the eval section and the
+      tally were rewritten to match; the "published claims decided" tile now
+      says out loud that the six AI-claimed theorems are six OF those rows and
+      not a separate total.
+
   2b. QUEUED BY THE POSITIONING DECISIONS (D5, D6, D7):
       · the intake queue, GitHub-native, now that the build/send line is
         ruled (1-2 sessions);

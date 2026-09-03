@@ -1,0 +1,242 @@
+{
+ "what": "Externally published mathematical claims this machine has decided, one row per claim, each derived from the record that decided it. The verdicts are the instrument's, not a summary: CERTIFIED and REFUTED are theorems, PARTIAL names the fragment that was reached, NEEDS DATA measures the claimant rather than the claim, and MIXED means the row is an aggregate whose record holds both.",
+ "honestCounting": "Every row is DERIVED from a record; a claim with no record gets no row. ORIGIN is tracked separately: everything here is self-initiated — we chose the claim. Nothing has been submitted yet, and the submitted count stays zero until it is not.",
+ "scope": "What can be decided here: claims that come down to finitely many exact arithmetic facts — exhibit a witness, verify an identity, bound a quantity, decide a constant. Everything else is REFUSED as out of scope rather than guessed at.",
+ "rows": [
+  {
+   "id": "ai-maxwell",
+   "claim": "Maxwell's point-charge bound",
+   "claimant": "a manuscript produced with frontier-model help",
+   "source": "published manuscript",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "at ε = 1/6 only",
+   "checks": 17,
+   "decidedFrom": "certs/ai-claims-summary.json",
+   "page": "/reports/ai-claims-audit.html"
+  },
+  {
+   "id": "ai-korenblum",
+   "claim": "The Korenblum constant",
+   "claimant": "a manuscript produced with frontier-model help",
+   "source": "published manuscript",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the numerical criterion",
+   "checks": 15,
+   "decidedFrom": "certs/ai-claims-summary.json",
+   "page": "/reports/ai-claims-audit.html"
+  },
+  {
+   "id": "ai-lemniscate",
+   "claim": "Erdős Problem #1038",
+   "claimant": "a manuscript produced with frontier-model help",
+   "source": "published manuscript",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the computational fragment",
+   "checks": 22,
+   "decidedFrom": "certs/ai-claims-summary.json",
+   "page": "/reports/ai-claims-audit.html"
+  },
+  {
+   "id": "ai-ranteng",
+   "claim": "Ran–Teng Conjecture 20",
+   "claimant": "a manuscript produced with frontier-model help",
+   "source": "published manuscript",
+   "origin": "self-initiated",
+   "verdict": "PARTIAL",
+   "scope": "machine-checkable fragment only",
+   "checks": 38,
+   "decidedFrom": "certs/ai-claims-summary.json",
+   "page": "/reports/ai-claims-audit.html"
+  },
+  {
+   "id": "ai-mathieu",
+   "claim": "The Mathieu property for Lie groups",
+   "claimant": "a manuscript produced with frontier-model help",
+   "source": "published manuscript",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "supporting identities only",
+   "checks": null,
+   "decidedFrom": "certs/ai-claims-summary.json",
+   "page": "/reports/ai-claims-audit.html"
+  },
+  {
+   "id": "ai-poisson",
+   "claim": "The rank-two Poisson conjecture",
+   "claimant": "a manuscript produced with frontier-model help",
+   "source": "published manuscript",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the explicit counterexample",
+   "checks": null,
+   "decidedFrom": "certs/ai-claims-summary.json",
+   "page": "/reports/ai-claims-audit.html"
+  },
+  {
+   "id": "erdos852-cstar",
+   "claim": "C* for Erdos #852, published as 0.0752403861777 with no error bound",
+   "claimant": "a problem thread post produced with frontier-model help",
+   "source": "erdosproblems.com problem thread",
+   "origin": "self-initiated",
+   "verdict": "REFUTED",
+   "scope": "the constant itself, to its printed digits",
+   "mechanism": "outside a certified enclosure; the corrected value is certified and public in the thread",
+   "decidedFrom": "certs/erdos852-certificate.json",
+   "page": "/reports/erdos852.html"
+  },
+  {
+   "id": "kiss-cal-d4-24",
+   "claim": "K(4) >= 24 — exact value, Musin 2003",
+   "claimant": "classical (generated here)",
+   "source": "D4 root directions",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the configuration as published, in exact arithmetic",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "kiss-cal-e8-240",
+   "claim": "K(8) = 240 — exact value, Levenshtein / Odlyzko–Sloane 1979",
+   "claimant": "classical (generated here)",
+   "source": "E8 root directions",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the configuration as published, in exact arithmetic",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "kiss-alphaevolve-593",
+   "claim": "K(11) >= 593 — the May 2025 record",
+   "claimant": "AlphaEvolve (Novikov et al., DeepMind)",
+   "source": "github.com/google-deepmind/alphaevolve_results mathematical_results.ipynb cell B.11",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the configuration as published, in exact arithmetic",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "kiss-ea-594-winner",
+   "claim": "K(11) >= 594 — the solved n=594 rung, score-0 winner (solution #1492)",
+   "claimant": "EinsteinArena agents (Bianchi et al. platform)",
+   "source": "https://einsteinarena.com/api/solutions/best?problem_id=6",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the configuration as published, in exact arithmetic",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "kiss-station-604-1",
+   "claim": "K(11) >= 604 — configuration 1 of three",
+   "claimant": "The Station agents (dualverse-ai)",
+   "source": "github.com/dualverse-ai/station_data_v2 artifacts/kissing_number/kissing_certificates.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the configuration as published, in exact arithmetic",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "kiss-station-604-2",
+   "claim": "K(11) >= 604 — configuration 2 of three",
+   "claimant": "The Station agents (dualverse-ai)",
+   "source": "github.com/dualverse-ai/station_data_v2 artifacts/kissing_number/kissing_certificates.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the configuration as published, in exact arithmetic",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "kiss-station-604-3",
+   "claim": "K(11) >= 604 — configuration 3 of three",
+   "claimant": "The Station agents (dualverse-ai)",
+   "source": "github.com/dualverse-ai/station_data_v2 artifacts/kissing_number/kissing_certificates.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the configuration as published, in exact arithmetic",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "kiss-station-shell-582",
+   "claim": "K(11) >= 582 — the pre-2022 record shell, integer norm-4 maximum (Lean-proved maximal by the Station)",
+   "claimant": "classical (Best 1977 class; bytes from the Station bundle)",
+   "source": "github.com/dualverse-ai/station_data_v2 artifacts/kissing_number/kissing_certificates.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the configuration as published, in exact arithmetic",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "kiss-station-d12-lift",
+   "claim": "construction device: 604 integer D12 vectors whose oblique shadow is configuration 3 (also a valid 604-point direction set in R^12)",
+   "claimant": "The Station agents (dualverse-ai)",
+   "source": "github.com/dualverse-ai/station_data_v2 artifacts/kissing_number/kissing_certificates.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the configuration as published, in exact arithmetic",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "kiss-ea-604",
+   "claim": "K(11) >= 604 — the paper's headline result, credited by Cohn's reference table (2026-06-22)",
+   "claimant": "EinsteinArena (Bianchi, Kwon, Pappu, Zou — arXiv:2606.10402)",
+   "source": "https://einsteinarena.com/api (queried 2026-09-03)",
+   "origin": "self-initiated",
+   "verdict": "NEEDS DATA",
+   "scope": "undecidable here: no public coordinates",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "kiss-ganzhinov-592",
+   "claim": "K(11) >= 592 — the 2022 record the AI ladder started from",
+   "claimant": "M. Ganzhinov (arXiv:2207.08266, Highly symmetric lines)",
+   "source": "not yet pulled",
+   "origin": "self-initiated",
+   "verdict": "QUEUED",
+   "scope": "the configuration as published, in exact arithmetic",
+   "decidedFrom": "certs/kissing-ledger.json",
+   "page": "/reports/kissing.html"
+  },
+  {
+   "id": "rm-registry",
+   "claim": "the published Ramanujan Machine result sheets, 52 printed rows",
+   "claimant": "the Ramanujan Machine project",
+   "source": "published result sheets",
+   "origin": "self-initiated",
+   "verdict": "MIXED",
+   "scope": "51 rows survive their certified enclosure, 1 refuted exactly",
+   "decidedFrom": "ledger.json (family ramanujan-audit)",
+   "page": "/reports/rm-audit.html"
+  }
+ ],
+ "count": 19,
+ "decided": 18,
+ "pending": 1,
+ "byVerdict": {
+  "CERTIFIED": 14,
+  "PARTIAL": 1,
+  "REFUTED": 1,
+  "NEEDS DATA": 1,
+  "QUEUED": 1,
+  "MIXED": 1
+ },
+ "byOrigin": {
+  "self-initiated": 19
+ },
+ "submitted": 0,
+ "meta": {
+  "date": "2026-09-03",
+  "git": "5a63704"
+ }
+}

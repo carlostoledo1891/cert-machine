@@ -1,0 +1,60 @@
+name: Submit a claim for decision
+description: A mathematical claim you want decided in exact arithmetic — certified, refuted, or honestly refused.
+title: "[claim] "
+labels: ["claim"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **What this desk decides.** Claims that come down to finitely many exact arithmetic facts:
+        exhibit a witness, verify an identity, bound a quantity, decide a constant to stated digits.
+
+        **What it refuses.** Anything else — asymptotics, "for all n", proofs in prose. A refusal is a
+        real outcome here and it is published like any other; it is not a judgement about the claim.
+
+        **What you get.** One of three verdicts, in public, whichever way it falls: CERTIFIED with a
+        certificate that re-runs on stock Python without this engine, REFUTED with the falsifying
+        witness printed, or REFUSED with the reason. We do not run the claimant's code.
+  - type: textarea
+    id: claim
+    attributes:
+      label: The claim, stated precisely
+      description: One sentence a machine could be asked to decide. Include every constant to full precision.
+      placeholder: "The constant X equals 1.234567890123 to the digits printed."
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Where it is published
+      description: A link — paper, preprint, thread, repository, leaderboard. Unpublished claims are welcome; say so.
+    validations:
+      required: true
+  - type: textarea
+    id: witness
+    attributes:
+      label: What would count as a witness
+      description: The object that settles it — coordinates, coefficients, a bracket. If you have one, paste it or link to the exact bytes.
+    validations:
+      required: false
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of claim is it
+      options:
+        - a constant, to stated digits
+        - an exhibited object (a construction, a configuration, a decomposition)
+        - an identity or an inequality over a finite set
+        - a published result whose computational part you want re-checked
+        - something else (say so in the claim)
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Before you send
+      options:
+        - label: I understand the verdict is published, including if it refutes the claim or refuses to decide it.
+          required: true
+        - label: I understand a refusal means this instrument could not decide it, and is not evidence either way.
+          required: true

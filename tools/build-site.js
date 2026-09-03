@@ -66,6 +66,13 @@ const evalCert = evalReal.filter((r) => r.outcome === 'certified').length;
    output cap are not, and are excluded from the denominator as well as the
    numerator. The full breakdown by kind is /reports/refusals.html. */
 const l5audit = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda5-audit.json'), 'utf8'));
+const envsRec = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'envs-record.json'), 'utf8'));
+const envsTol = envsRec.graders.find((g) => /absolute/.test(g.name));
+const envsSound = envsRec.graders.find((g) => /enclosure/.test(g.name));
+if (!envsTol || !envsSound || envsSound.falseAccept !== 0) fail('the envs record no longer shows a sound certificate grader — no card may quote it');
+const claimsLedger = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'claims-ledger.json'), 'utf8'));
+if (claimsLedger.rows.filter((r) => r.origin === 'submitted').length !== claimsLedger.submitted)
+  fail('the claims ledger submitted count disagrees with its rows');
 if (l5audit.refuters !== 0) fail('the lambda(5) audit records refuters — no card may call the theorem audited');
 const evalMalformed = evalReal.filter((r) => r.outcome === 'malformed').length;
 const evalClaims = evalReal.filter((r) => ['certified', 'rejected', 'refuted', 'malformed'].includes(r.outcome)).length;
@@ -262,6 +269,14 @@ const REPORTS = [
     title: 'When the answer key is wrong',
     desc: 'Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.',
     n: 'every specimen re-proved at build' },
+  { g: 'ai', f: 'claims.html', k: 'the claims desk',
+    title: 'Send us a claim',
+    desc: 'A mathematical claim that comes down to finitely many exact arithmetic facts is decided here — '
+      + 'certified with a certificate that re-runs without this engine, refuted with the falsifying witness '
+      + 'printed, or honestly refused. Every row of the ledger is derived from the record that decided it, the '
+      + 'queue is open and its submitted count is published even while it is zero, and the claimant\'s code is '
+      + 'never in the trust path.',
+    n: fmt(claimsLedger.decided) + ' claims decided · ' + claimsLedger.submitted + ' submitted so far' },
   { g: 'ai', f: 'envs.html', k: 'environments · the grader, graded',
     title: 'We graded the graders',
     desc: 'A grader that checks a number against a stored decimal within a tolerance accepts values that are '
@@ -453,6 +468,7 @@ const CERTS = [
   ['strassen-certificate.json', strassenN + ' fast matrix-multiplication algorithms as exact tensor identities over Q and F2 — including AlphaTensor’s rank-47, decided both ways.', PY('verify_strassen.py')],
   ['bilinear-certificate.json', bilinearN + ' bilinear algorithms for POLYNOMIAL multiplication over F2 — full, truncated and cyclic products — each found by the generation front’s free flip-graph walk and decided by instruments/bilinear, which rebuilds the target tensor from its name rather than trusting the scheme handed to it. Every entry stores its scheme in full, so any reader can re-decide it; the published bounds each one is measured against live in corpus/bilinear-bounds.json and are not results of this repository.', NOVERIFIER('polynomial-multiplication.html')],
   ['lambda4-audit.json', 'The adversarial audit of the lambda(4) proof: an independent clause walk sharing no code with the engine — inner products by direct trigonometric summation, family and subfamily membership by plain integer arithmetic, thresholds read from the campaign record, finite-clause sets re-certified fresh by the calibrated instrument. Every gcd-reduced 4-set in the box must be reached by an explicit clause of the proof (generic, family dot, closure, finite, delegated, or the definitional witness); a set with no clause is a hole and aborts. Also carries the full theorem sweep of the box: zero refuters.', null],
+  ['claims-ledger.json', 'The claims desk ledger: every externally published mathematical claim this machine has decided, one row per claim, each DERIVED from the record that decided it — a claim with no record gets no row. Origin is tracked separately from verdict, because everything decided so far was self-initiated and the submitted count stays published even while it is zero.', null],
   ['envs-record.json', 'The environments record: the fact corpus (every entry read out of a record in certs/ and sha256-pinned to it, because a canary asserts \u201cprovably wrong\u201d and that may not rest on a re-typed decimal), the grader QA measurement across four reference grader shapes and three tolerances, the uniformity gym\u2019s solver table, and the attacker ladder with the rungs that cannot be broken. Written by running the environments offline \u2014 no model is called and the harness refuses the network unless explicitly switched on.', null],
   ['envs-ledger.jsonl', 'The append-only environments ledger: one row per (environment, rung, model, k) cell with pass rate, Wilson interval, wrong/refused split and the forgery-gate result for the run. Rows so far are reference and stub solvers only; a row produced by a real model is a decision, not a default.', null],
   ['lambda5-audit.json', 'The independent audit of the lambda(5) theorem: a second walk sharing no code with the symbolic engine — inner products by direct trigonometric summation, condition membership by plain integer arithmetic on the record\u2019s own condition vectors, and every set the float screen prunes sampled and re-certified exactly, so the screen is audited rather than trusted. It decides three things and says so: the THEOREM (every gcd-reduced 5-set in the box dips strictly below L(1,2,4,5,6), except the extremizer, which attains it \u2014 a set that did not would be a refuter and aborts), the FIRST LEVEL of the reduction (the engine\u2019s symbolic model says an inner product is its base plus the deltas of the active conditions, and direct summation must agree at every set in the box; every set the generic argument does not close must satisfy one of the eight recorded family conditions), and the OBSTRUCTION by its mechanism rather than by search (on the double-sum core the cosines cancel identically on S(e, pi), so no nonnegative weight can start, and the comb closes every core point where no positive condition is active). It does NOT walk the interior of the eight closure trees; the lambda(4) audit does that for lambda(4).', null],
@@ -576,10 +592,12 @@ const B = [];
 B.push(C.header({
   eyebrow: 'Carlos Toledo · cert-machine',
   title: 'The machine proves it — or breaks it',
-  deck: 'AI produces mathematical claims faster than anyone can read them. This machine does both ends of the job '
-    + 'with the same exact arithmetic. It has settled a value conjectured open since 2019, certified what is — to '
-    + 'our knowledge — the first hot-spots result for a whole family of domains beyond every class analysts have reached, and refuted a '
-    + 'published constant at its twelfth digit. Every verdict is a re-runnable certificate: proved, disproved, or '
+  deck: 'AI produces mathematical claims faster than anyone can read them, and the graders that check those claims '
+    + 'mostly compare decimals. This machine decides claims — other people\'s and its own — in exact arithmetic, '
+    + 'without ever running the claimant\'s code. It refuted a published constant at its twelfth digit, measured '
+    + 'what an ordinary tolerance grader actually accepts ('
+    + (100 * envsTol.falseAccept).toFixed(1) + '% of submissions that are provably wrong), and settled two values '
+    + 'of a sequence conjectured open since 2019. Every verdict is a re-runnable certificate: proved, disproved, or '
     + 'honestly refused — never a probability argument.'
 }));
 B.push(C.scope('No probability arguments and no digit-matching. A claim is admitted only by exact arithmetic on whole '
@@ -593,24 +611,19 @@ B.push(C.scope('No probability arguments and no digit-matching. A claim is admit
    is smart and is not a number theorist, which is a different job from the
    shelf's. */
 const LEAD = [
-  { f: 'ember.html', k: 'a theorem · hot spots, asked 1974',
-    title: 'The hot spot sits at one corner — proved',
-    desc: 'Where does heat concentrate in a still room? Rauch asked in 1974; fifty years of proofs cover '
-      + 'triangles (an Annals paper), symmetric shapes, and little else — and in high dimension the conjecture '
-      + 'turned out to be FALSE, which makes the flat convex case the live one. For a lopsided trapezoid outside '
-      + 'every proven class, this machine certified the answer: the extremes live on the boundary, and the '
-      + 'hottest point is exactly one vertex. To our knowledge the first certified hot-spots domain beyond every '
-      + 'analytically proven class.',
-    n: 'the whole proof re-runs in ~2 minutes · archived with a DOI' },
-  { f: 'lambda4.html', k: 'a theorem · erdős #510',
-    title: 'A number that was a conjecture is now exact',
-    desc: 'Mercer proved the first two values of Chowla’s cosine dip in 2019, conjectured the third, and '
-      + 'wrote that he did not know how to evaluate it. The machine executed his own strategy to the end: '
-      + 'λ(4) is the root of 512y³ − 1227y² + 600y + 125 near 1.51956 — a cubic no paper '
-      + 'had printed — with every threshold derived rather than transcribed and every finite case decided in '
-      + 'exact arithmetic. An independent audit sharing no code with the prover walked all 25,819 cases: zero '
-      + 'holes, zero refuters.',
-    n: 're-proved at every build · archived with a DOI' },
+  /* THE PORTFOLIO LEAD, set 2026-09-03. Under the position — independent exact certification, with
+     refusal as a verdict — the audits lead and one theorem calibrates them. ember.html and
+     lambda4.html moved back to the shelf the same day: they are not weaker, they are older, and the
+     lead has four slots. Both stay fully ranked in REPORTS and rejoin shelfHead automatically. */
+  { f: 'envs.html', k: 'the measurement · nobody benchmarks the graders',
+    title: 'We graded the graders',
+    desc: 'Almost every mathematical grader compares a number to a stored decimal within a tolerance. '
+      + 'Against ' + fmt(envsRec.provablyWrong) + ' submissions that are PROVABLY wrong — each one outside a '
+      + 'certified enclosure — that grader accepts ' + (100 * envsTol.falseAccept).toFixed(1) + '% of them, and '
+      + 'a grader that compares against the certificate instead accepts none. The adversarial set is not written '
+      + 'by hand: a certified enclosure mints it without limit, which is why the certificates had to exist first. '
+      + 'One of the canaries is not synthetic — it is a number a real problem thread published.',
+    n: fmt(envsRec.corpus.length) + ' facts, each sha-pinned to its certificate · measured offline' },
   { f: 'erdos852.html', k: 'a refutation · erdős #852',
     title: 'The constant that was a rounding error',
     desc: 'A constant for an open Erdős problem, published with frontier-model help, quoted to ' + csPubDigits
@@ -627,17 +640,21 @@ const LEAD = [
       + '. The finding is not the tally: in all ' + aiClaims.lanes + ', the part a machine '
       + 'can check held, and the part that carries the theorem stayed out of reach.',
     n: aiClaims.checks + ' checks · ' + aiClaims.mutations + ' deliberate forgeries, every one rejected' },
+  { f: 'lambda5.html', k: 'a theorem · erdős #510',
+    title: 'A sequence that was climbing turns down',
+    desc: 'Mercer proved the first two values of Chowla’s cosine dip in 2019 and conjectured the rest. This machine '
+      + 'proved the third, and then the fourth: λ(5) = −L(1,2,4,5,6), an algebraic number of degree exactly five, '
+      + 'with the minimal polynomial exhibited. One family in the reduction admits no classical weight at all — a '
+      + 'structural obstruction the page proves fresh at every build. And a consequence needs nothing further: '
+      + 'λ(6) < λ(5), so the sequence that had been climbing turns down.',
+    n: 'audited over ' + fmt(l5audit.setsWalked) + ' sets, 0 refuters · not peer-reviewed' },
 ];
 /* LEAD ORDER, set 2026-09-03: the CATCHES lead and the theorems follow.
    Theorems earn respect; catches earn attention, and a theorem read first
    makes this look like a prover's site rather than an auditor's. The order
    below is the ranking the landing draws. */
-LEAD.sort((a, b) => {
-  const rank = (f) => ['erdos852.html', 'ai-claims-audit.html', 'ember.html', 'lambda4.html'].indexOf(f);
-  return rank(a.f) - rank(b.f);
-});
-if (LEAD.some((l) => ['erdos852.html', 'ai-claims-audit.html', 'ember.html', 'lambda4.html'].indexOf(l.f) < 0))
-  fail('a lead card is not in the ranking list — the sort would silently drop it to the front');
+/* The array order above IS the ranking; this only guards against editing one and not the other. */
+if (LEAD.length !== 4) fail('the lead has ' + LEAD.length + ' cards — the landing is built for four');
 
 /* keller and tensor-rank-bounds moved from the lead back to the shelf on
    2026-09-02 — the theorems took their places; both remain fully ranked in
@@ -647,7 +664,7 @@ if (LEAD.some((l) => ['erdos852.html', 'ai-claims-audit.html', 'ember.html', 'la
   for (const l of LEAD) if (!shelved.has(l.f)) fail('the landing leads with ' + l.f + ', which is not on the shelf — that link would 404');
 }
 B.push(C.section({
-  lab: 'start here', title: 'The catches first — then the theorems that calibrate them', wide: true,
+  lab: 'start here', title: 'The audits lead. The theorem is the calibration.', wide: true,
   bodyRaw: C.pRaw('<strong>Only a machine that can prove a theorem should be trusted to refuse one.</strong> The '
     + 'audits are what the instruments are for; the theorems below them are the evidence that the instruments are '
     + 'strong enough for their refusals to count.')
@@ -761,7 +778,10 @@ B.push(C.section({
   bodyRaw: machineFlowCompact(ledger, { gates })
     + '<div class="col after-fig">' + C.pRaw('The <a href="machine/">control page</a> carries the full drawing, live: every '
       + 'family, every instrument, every battery executed at its build (never remembered), the full ledger '
-      + 'decomposition, drift status.') + '</div>'
+      + 'decomposition, drift status. If you have a claim you want put through it, '
+      + '<a href="reports/claims.html">the claims desk</a> takes one: certified, refuted, or honestly refused, '
+      + 'published whichever way it falls — ' + fmt(claimsLedger.decided) + ' decided so far, '
+      + claimsLedger.submitted + ' of them sent by somebody else.') + '</div>'
 }));
 
 /* ---- the tally ----------------------------------------------------------
@@ -771,12 +791,14 @@ B.push(C.section({
   lab: 'the tally', title: 'What it has decided so far', wide: true,
   bodyRaw: C.stats([
     { k: 'theorem programs', v: '3', role: 'held',
-      n: 'λ(4) exact and λ(5) closed (λ(6) one family from the non-monotonicity theorem); the hot-spots trapezoid '
-        + 'with its vertex-A corollary; the MFG splitting pair with its bracket table — every one re-proved or '
-        + 're-walked at build' },
-    { k: 'published claims decided', v: '1 refuted · 1 corrected', role: 'warn',
-      n: 'a constant on Erdős #852, wrong from digit ' + csWrongAt + ' · one printed Ramanujan Machine row, a transcription '
-        + 'slip — both replacements certified' },
+      n: 'Chowla\'s cosine dip — λ(4) and λ(5) both exact, and with λ(5) the sequence provably turns down at 6; '
+        + 'the hot-spots trapezoid with its vertex-A corollary; the MFG splitting pair with its bracket table — '
+        + 'every one re-proved or re-walked at build' },
+    { k: 'published claims decided', v: fmt(claimsLedger.decided), role: 'warn',
+      n: Object.entries(claimsLedger.byVerdict).filter(([k]) => k !== 'QUEUED').map(([k, v]) => v + ' ' + k).join(' · ')
+        + ' — every row derived from the record that decided it; ' + claimsLedger.pending + ' queued and not counted, '
+        + 'and ' + claimsLedger.submitted + ' submitted by somebody else. The ' + aiClaims.lanes
+        + ' AI-claimed theorems in the next tile are ' + aiClaims.lanes + ' of these rows, not a separate total.' },
     { k: 'AI-claimed theorems re-verified', v: fmt(aiClaims.lanes),
       n: aiClaims.confirmed + ' held, ' + aiClaims.partial + ' partial, ' + (aiClaims.refuted === 0 ? 'none refuted' : aiClaims.refuted + ' refuted') + ' — checked from the '
         + 'manuscripts, never from the authors’ code' },
@@ -833,6 +855,11 @@ B.push(C.section({
       + 'witness, verify an identity, bound a quantity. It does not work for mathematics at large, and nothing here '
       + 'pretends otherwise. Inside that boundary the same grader can sit unchanged inside a training loop, with the '
       + 'verifier strictly stronger than the thing it is grading.'),
+    C.pRaw('<strong>And the grader itself is now measured, not assumed.</strong> Point a suite of provably-wrong '
+      + 'submissions — minted from certified enclosures, so each one is outside a certificate by construction — at '
+      + 'the four grader shapes, and an absolute-tolerance grader accepts ' + (100 * envsTol.falseAccept).toFixed(1)
+      + '% of them while a grader that compares against the certificate accepts none. '
+      + '<a href="reports/envs.html">We graded the graders →</a>'),
     C.pRaw('<a href="oracle/">The oracle, packaged →</a> — one curl, no dependencies, running on your laptop in under a '
       + 'minute: the claim schema, the tool definition a model calls mid-generation, the paste box, the paper draft, '
       + 'the ledgers.')
