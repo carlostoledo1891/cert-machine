@@ -1,0 +1,68 @@
+{
+ "what": "The three environments and their shared harness, crossed from the operator's own frontier-apps bench (his work, sha-pinned at the moment of crossing). The bench sources import lib/eqcert/{interval,transcendental}.js, which are BYTE-IDENTICAL to instruments/interval/ — verified by sha at the crossing — so the certifier was already ours and no new arithmetic entered the machine. The idea: a certified enclosure is a canary factory. If a quantity is certified to width 4e-13 and a grader accepts anything within 1e-9, every value in the surrounding band is provably NOT the quantity AND passes that grader, so adversarial submissions are minted without limit from certificates already on disk.",
+ "crossed": "2026-09-03",
+ "files": {
+  "lib.js": {
+   "from": "frontier-apps/experiments/envs/lib.js",
+   "sha256": "57f5df4c212502ee5fa7a6242311b5e76c49c723b065289e5fb2bbf32dc9574f"
+  },
+  "canary.js": {
+   "from": "frontier-apps/experiments/envs/canary.js",
+   "sha256": "5de6bc4d568eb85e3e5f845575d17023c4c1b40911b1621da274ba5d07eee349"
+  },
+  "uniformity.js": {
+   "from": "frontier-apps/experiments/envs/uniformity.js",
+   "sha256": "a15d809a55fe205e2245e883fd00a11949668effd9d5079b47d08e3517bae257"
+  },
+  "env-canary.js": {
+   "from": "frontier-apps/experiments/envs/env-canary.js",
+   "sha256": "b3f1daeb7c27e5329368ae25e883e85212474362295a79a95d34e77770fd16ce"
+  },
+  "env-uniformity.js": {
+   "from": "frontier-apps/experiments/envs/env-uniformity.js",
+   "sha256": "0e2f05c0553a19a014d3ac1e05112c08c15bf3f27b6cdfcb32a492250dac915e"
+  },
+  "harness.js": {
+   "from": "frontier-apps/experiments/envs/harness.js",
+   "sha256": "4982ea12f09631c21aa68418b0379099d81786693804b50d1086769188c18aef"
+  },
+  "sweep.js": {
+   "from": "frontier-apps/experiments/envs/sweep.js",
+   "sha256": "c52039236fe2be70fd190a081c43c09da603e19066df92ca181a4d218312f749"
+  }
+ },
+ "patches": [
+  {
+   "file": "lib.js",
+   "what": "require path: ../../lib/eqcert -> ../interval (byte-identical files)"
+  },
+  {
+   "file": "lib.js",
+   "what": "THE FACT CORPUS REBUILT. The bench held five hand-typed lo/hi pairs with a prose source. Here every fact is READ OUT OF A RECORD in certs/ and the record is sha256-pinned beside it, because a canary asserts 'provably wrong' and that assertion may not rest on a re-typed decimal. Conversions (decimal string -> double, exact rational -> double) are outward, so widening can only weaken an enclosure, never falsify it."
+  },
+  {
+   "file": "lib.js",
+   "what": "FACT ADDED: erdos1038.inf, the bracketed infimum itself — a legitimately WIDE, range-valued quantity for which any decimal answer key is wrong by construction. It replaces the bench's ember.mu1, which this machine cannot read from a record in machine-readable form."
+  },
+  {
+   "file": "lib.js",
+   "what": "FACTS ADDED from this machine's shelf: erdos852.cstar, erdos852.c0, chowla.lambda4, chowla.lambda5. The corpus is 9 facts here against the bench's 5, and it grows with every certificate."
+  },
+  {
+   "file": "lib.js",
+   "what": "CANARY FAMILY ADDED: published-wrong. Every other family is synthesised; this one emits the decimal a real publication actually carried for the quantity (the Erdos #852 constant), which is simultaneously outside our certificate and inside any ordinary tolerance. It is the only family that is a reproduction rather than a construction."
+  },
+  {
+   "file": "sweep.js",
+   "what": "ledger path: instruments/envs/data/ledger.jsonl -> certs/envs-ledger.jsonl (records live in certs/ here)"
+  },
+  {
+   "file": "env-canary.js",
+   "what": "rung c2 (the rung with an EMPTY attack band) used ember.mu1 on the bench purely for its width; it now uses erdos1038.inf, whose width is genuine ignorance about the quantity rather than coarseness of the record. The rung asserts its own precondition (enclosure wider than the tolerance) and throws if the corpus stops satisfying it."
+  }
+ ],
+ "notPorted": [
+  "build-pages.js — pages are born from design/tokens+components+template here, never crossed"
+ ],
+ "networkRule": "harness.js REFUSES to reach the network unless ENVS_ALLOW_NETWORK=1. That is the bench's rule and it is kept: a model call sends a prompt off this machine, and nothing leaves without an explicit decision."
+}

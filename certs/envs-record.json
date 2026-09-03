@@ -1,0 +1,317 @@
+{
+ "what": "The environments record. Three environments over one idea: a certified enclosure is a canary factory. If a quantity is certified to width w and a grader accepts anything within tol > w of a stored decimal, every value in the surrounding band is simultaneously provably NOT the quantity and guaranteed to pass — so adversarial submissions are minted, without limit, from certificates already on disk. canary.js grades OTHER PEOPLE'S graders with them; the uniformity gym rewards evidence over verdicts; the attacker environment rewards breaking a grader, and scores \"I could not break it\" separately from a false break.",
+ "honestyRule": "Canaries are minted ONLY from facts marked certified, and mintCanaries throws on anything else rather than quietly degrading: the claim \"provably wrong\" is the product, and it may not rest on a decimal somebody re-typed. Every fact here is read out of a record in certs/ and that record is sha256-pinned beside it; the battery refuses on drift.",
+ "network": "Offline. No model was called to produce this record; the harness refuses the network unless ENVS_ALLOW_NETWORK=1, which is the operator's decision, not the harness's.",
+ "corpus": [
+  {
+   "id": "erdos1038.upper",
+   "what": "L(mu*) for the conjectured minimiser of Erdos #1038 (an upper bound for the infimum)",
+   "lo": 1.8344304971956489,
+   "hi": 1.8344304971959908,
+   "width": 3.419486915845482e-13,
+   "record": "erdos1038-inf.json",
+   "sha256": "782671075726514595b8d889b1fc4f8a378cfc5709fd103d455125e9a9485f74",
+   "source": "certs/erdos1038-inf.json (T1_upper) · sha256:7826710757265145",
+   "publishedWrong": null
+  },
+  {
+   "id": "erdos1038.xL",
+   "what": "left endpoint x_L of {U_mu* > 0}",
+   "lo": -1.8081074413361427,
+   "hi": -1.8081074413360059,
+   "width": 1.3677947663381929e-13,
+   "record": "erdos1038-inf.json",
+   "sha256": "782671075726514595b8d889b1fc4f8a378cfc5709fd103d455125e9a9485f74",
+   "source": "certs/erdos1038-inf.json (T1_upper) · sha256:7826710757265145",
+   "publishedWrong": null
+  },
+  {
+   "id": "erdos1038.xR",
+   "what": "right endpoint x_R of {U_mu* > 0}",
+   "lo": 0.026323055859643337,
+   "hi": 0.02632305585984798,
+   "width": 2.0464185901403198e-13,
+   "record": "erdos1038-inf.json",
+   "sha256": "782671075726514595b8d889b1fc4f8a378cfc5709fd103d455125e9a9485f74",
+   "source": "certs/erdos1038-inf.json (T1_upper) · sha256:7826710757265145",
+   "publishedWrong": null
+  },
+  {
+   "id": "erdos1038.inf",
+   "what": "the Erdos-Herzog-Piranian infimum itself — bracketed unconditionally, not pinned",
+   "lo": 1.8279999999999998,
+   "hi": 1.8344304971959908,
+   "width": 0.006430497195990981,
+   "record": "erdos1038-inf.json",
+   "sha256": "782671075726514595b8d889b1fc4f8a378cfc5709fd103d455125e9a9485f74",
+   "source": "certs/erdos1038-inf.json (bracket) · sha256:7826710757265145",
+   "publishedWrong": null
+  },
+  {
+   "id": "erdos852.cstar",
+   "what": "C* = (1/2)(prod_{p>=3}(1 + 1/(p-1)^3) - 1), the Erdos #852 constant",
+   "lo": 0.07524038617830923,
+   "hi": 0.07524038617830958,
+   "width": 3.469446951953614e-16,
+   "record": "erdos852-certificate.json",
+   "sha256": "4379194d0bd4e63bb906e2f45f6a8443e9934c292a5feab2e9e0195005f445de",
+   "source": "certs/erdos852-certificate.json (cstar.enclosure) · sha256:4379194d0bd4e63b",
+   "publishedWrong": 0.0752403861777
+  },
+  {
+   "id": "erdos852.c0",
+   "what": "c0, the unique positive root of I0(c) = 1 (Erdos #852) — bracketed to 40 decimals",
+   "lo": 1.3232282768639492,
+   "hi": 1.3232282768639496,
+   "width": 4.440892098500626e-16,
+   "record": "erdos852-certificate.json",
+   "sha256": "4379194d0bd4e63bb906e2f45f6a8443e9934c292a5feab2e9e0195005f445de",
+   "source": "certs/erdos852-certificate.json (c0.bracket40) · sha256:4379194d0bd4e63b",
+   "publishedWrong": null
+  },
+  {
+   "id": "chowla.lambda4",
+   "what": "lambda(4) = -L(1,2,3,4), the third exact value of Chowla's cosine dip",
+   "lo": 1.5195578816428479,
+   "hi": 1.5195578816428486,
+   "width": 6.661338147750939e-16,
+   "record": "lambda4-campaign.json",
+   "sha256": "a3cae1ee336d7c4e7fb9f56b4f125333728347ffeb9f6b2518a1a2aee7461a6e",
+   "source": "certs/lambda4-campaign.json (targets.L4, negated) · sha256:a3cae1ee336d7c4e",
+   "publishedWrong": null
+  },
+  {
+   "id": "chowla.lambda5",
+   "what": "lambda(5) = -L(1,2,4,5,6), the fourth exact value — algebraic of degree exactly 5",
+   "lo": 1.6274606644665792,
+   "hi": 1.6274606644665799,
+   "width": 6.661338147750939e-16,
+   "record": "lambda56-campaign.json",
+   "sha256": "8c12b5fcf291d584abde4a1ccee7d7651cb59f3a807d7edb0bedf6d8277b253d",
+   "source": "certs/lambda56-campaign.json (targets.L5, negated) · sha256:8c12b5fcf291d584",
+   "publishedWrong": null
+  },
+  {
+   "id": "terra.sigmaStar",
+   "what": "sigma* = 1/(8 pi^2), the viscosity at which the second harmonic stops being attenuated",
+   "lo": 0.012665147955292213,
+   "hi": 0.012665147955292229,
+   "width": 1.5612511283791264e-17,
+   "record": null,
+   "sha256": null,
+   "source": "closed form, enclosed here from an enclosure of pi — never a typed decimal (certs/terra-sigmastar.json decides the same constant in exact rationals)",
+   "publishedWrong": null
+  }
+ ],
+ "canaryFamilies": {
+  "tolerance-interior": 48,
+  "ulp-outside": 54,
+  "over-truncated": 27,
+  "control": 38,
+  "published-wrong": 3,
+  "float-cancellation": 2
+ },
+ "submissions": 172,
+ "provablyWrong": 134,
+ "provablyRight": 38,
+ "tolerancesProbed": [
+  0.000001,
+  1e-9,
+  1e-12
+ ],
+ "graders": [
+  {
+   "name": "absolute-tolerance (|v - key| < tol)",
+   "falseAccept": 0.8507462686567164,
+   "falseReject": 0.05263157894736842,
+   "soundness": 0.14139827179890024,
+   "wrongSubmissions": 134,
+   "rightSubmissions": 38,
+   "falseAcceptByTolerance": {
+    "0.000001": 0.9318181818181818,
+    "1e-9": 0.8478260869565217,
+    "1e-12": 0.7727272727272727
+   },
+   "fooledBy": {
+    "tolerance-interior": 48,
+    "ulp-outside": 48,
+    "over-truncated": 14,
+    "published-wrong": 3,
+    "float-cancellation": 1
+   }
+  },
+  {
+   "name": "relative-tolerance (|v - key|/|key| < tol)",
+   "falseAccept": 0.6791044776119403,
+   "falseReject": 0.05263157894736842,
+   "soundness": 0.30400628436763555,
+   "wrongSubmissions": 134,
+   "rightSubmissions": 38,
+   "falseAcceptByTolerance": {
+    "0.000001": 0.7954545454545454,
+    "1e-9": 0.6956521739130435,
+    "1e-12": 0.5454545454545454
+   },
+   "fooledBy": {
+    "tolerance-interior": 30,
+    "ulp-outside": 46,
+    "over-truncated": 13,
+    "published-wrong": 2
+   }
+  },
+  {
+   "name": "exact-match (v === key)",
+   "falseAccept": 0,
+   "falseReject": 0.47368421052631576,
+   "soundness": 0.5263157894736843,
+   "wrongSubmissions": 134,
+   "rightSubmissions": 38,
+   "falseAcceptByTolerance": {
+    "0.000001": 0,
+    "1e-9": 0,
+    "1e-12": 0
+   },
+   "fooledBy": {}
+  },
+  {
+   "name": "enclosure (v in certified [lo,hi])  <- the sound grader",
+   "falseAccept": 0,
+   "falseReject": 0,
+   "soundness": 1,
+   "wrongSubmissions": 134,
+   "rightSubmissions": 38,
+   "falseAcceptByTolerance": {
+    "0.000001": 0,
+    "1e-9": 0,
+    "1e-12": 0
+   },
+   "fooledBy": {}
+  }
+ ],
+ "uniformity": {
+  "instances": 12,
+  "twoDimensional": 5,
+  "needled": 10,
+  "razor": 2,
+  "scoring": "+1 correct WITH evidence · 0 correct but unsupported · +0.25 honest UNDECIDED · -1 wrong",
+  "solvers": [
+   {
+    "name": "sampling K=1e3",
+    "score": 1,
+    "correct": 1,
+    "wrong": 0,
+    "unsupported": 11,
+    "abstained": 0,
+    "needlesMissed": 9
+   },
+   {
+    "name": "sampling K=1e5",
+    "score": 3,
+    "correct": 3,
+    "wrong": 0,
+    "unsupported": 9,
+    "abstained": 0,
+    "needlesMissed": 7
+   },
+   {
+    "name": "sampling + bluffed tiling",
+    "score": -6,
+    "correct": 3,
+    "wrong": 9,
+    "unsupported": 0,
+    "abstained": 0,
+    "needlesMissed": 9
+   },
+   {
+    "name": "interval bisection (sound)",
+    "score": 11.25,
+    "correct": 11,
+    "wrong": 0,
+    "unsupported": 0,
+    "abstained": 1,
+    "needlesMissed": 0
+   },
+   {
+    "name": "interval, 2e3-cell budget",
+    "score": 9,
+    "correct": 8,
+    "wrong": 0,
+    "unsupported": 0,
+    "abstained": 4,
+    "needlesMissed": 0
+   }
+  ]
+ },
+ "attacker": {
+  "rungs": [
+   {
+    "id": "c0",
+    "label": "wide band",
+    "note": "absolute tolerance 1e-6 against an enclosure ~1e-13 wide — the band is ~10 million times the enclosure",
+    "attackable": true,
+    "fact": "erdos1038.upper",
+    "grader": "absolute-tolerance",
+    "tolerance": 0.000001,
+    "noAttackScore": -1,
+    "mintedAttackScore": 1,
+    "attackBandWidth": 5.000001710442348e-7
+   },
+   {
+    "id": "c1",
+    "label": "narrow band",
+    "note": "absolute tolerance 1e-9 — same trick, four orders less room",
+    "attackable": true,
+    "fact": "erdos1038.upper",
+    "grader": "relative-tolerance",
+    "tolerance": 1e-9,
+    "noAttackScore": -1,
+    "mintedAttackScore": 1,
+    "attackBandWidth": 5.001710157159778e-10
+   },
+   {
+    "id": "c2",
+    "label": "tolerance under the enclosure",
+    "note": "absolute tolerance 1e-3 against an enclosure WIDER than the tolerance — the band of accepted-but-wrong values is empty, as arithmetic",
+    "attackable": false,
+    "fact": "erdos1038.inf",
+    "grader": "absolute-tolerance",
+    "tolerance": 0.001,
+    "noAttackScore": 1,
+    "mintedAttackScore": -1,
+    "attackBandWidth": 0
+   },
+   {
+    "id": "c3",
+    "label": "sound grader",
+    "note": "the grader compares against the certificate; no accepted-but-wrong value exists",
+    "attackable": false,
+    "fact": "erdos1038.upper",
+    "grader": "enclosure",
+    "tolerance": null,
+    "noAttackScore": 1,
+    "mintedAttackScore": -1,
+    "attackBandWidth": 0
+   }
+  ]
+ },
+ "forgeries": {
+  "planted": 26,
+  "leaked": 0
+ },
+ "ledgerRows": 36,
+ "ledgerModels": [
+  "stub:sampler-1e3",
+  "stub:bluffer",
+  "stub:sound",
+  "stub:sound-2e3",
+  "stub:prose",
+  "stub:always-attack",
+  "stub:always-noattack",
+  "stub:calibrated"
+ ],
+ "meta": {
+  "date": "2026-09-03",
+  "git": "08a8ff1",
+  "ms": 2479
+ }
+}
