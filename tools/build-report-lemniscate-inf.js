@@ -45,6 +45,14 @@ if (typeof T4 === 'string') die('the forcing lower bound is not in the record �
 if (!(R.bracket.lower < R.bracket.upper)) die('the bracket is not ordered');
 const lo = R.bracket.lower, up = R.bracket.upper;
 const D = '1.83443047576266171109';
+/* external reference points, cited as recorded rather than derived here:
+   the problem page's recorded bounds, and the best finite-atom lower bound
+   recorded in the forum thread. The gap arithmetic is computed, not typed. */
+const D_NUM = 1.83443047576266171109;
+const PAGE_RECORDED_LO = 1.519, PAGE_RECORDED_UP = 1.835, THREAD_BEST = 1.814605;
+const gapBefore = D_NUM - THREAD_BEST, gapNow = D_NUM - lo;
+const gapClosedPct = (100 * (gapBefore - gapNow) / gapBefore).toFixed(0);
+const aboveD = (up - D_NUM);
 const fmt = (x) => x.toLocaleString('en-US');
 
 /* ---- gate 3: THE FENCE, by name ---- */
@@ -65,8 +73,12 @@ B.push(C.header({
 
 B.push(C.tldr({
   findingRaw: '<strong>' + lo + ' ≤ inf ≤ ' + up + '</strong>, certified end to end in interval arithmetic. '
-    + 'The lower end needs <strong>no tail, no minimizer and no contradiction</strong> — it is pure forcing, one '
-    + 'classical identity, ' + fmt(T4.summary.a0Boxes) + ' boxes. The upper end is an explicit measure. Separately, '
+    + 'The lower end moves the best finite-atom bound recorded in the problem\'s forum thread — ' + THREAD_BEST
+    + ' — up to ' + lo + ', <strong>closing about ' + gapClosedPct + '% of the remaining gap</strong> to the value '
+    + 'the claimed proofs report; the problem page itself still records ' + PAGE_RECORDED_LO + '. It needs '
+    + '<strong>no tail, no minimizer and no contradiction</strong> — it is pure forcing, one '
+    + 'classical identity, ' + fmt(T4.summary.a0Boxes) + ' boxes. The upper end is an explicit measure, sharper '
+    + 'than the ' + PAGE_RECORDED_UP + ' on the problem page and certified rather than numerical. Separately, '
     + '<strong>Tao\'s model Problem 4.1 is answered affirmatively for every ε ∈ (0, 0.1]</strong> — '
     + fmt(T3.onChunks.chunks) + ' certified ε-chunks plus a sliver lemma closing the singular limit. All three '
     + 'claimed proofs report the same constant D = ' + D + '…, which sits inside this bracket; that is '
@@ -90,6 +102,9 @@ B.push(C.stats([
   { k: 'the lower bound costs', v: T4.summary.a0Boxes + ' boxes, ' + Math.round(T4.summary.secs) + ' s', role: 'held', n: 'no tail, no minimizer; worst certified margin ' + T4.summary.worstMargin.toExponential(3) },
   { k: 'thread duals certified', v: T2.results.length + ' of ' + T2.results.length, role: 'held', n: 'the community\'s posted measures, previously validated by sampling only' },
   { k: 'analytic cores audited', v: '0', role: 'open', n: 'ours is a bracket, not an adjudication — the claimed proofs\' analytic arguments are beyond this instrument and we say so' },
+  { k: 'gap to the conjectured value', v: gapClosedPct + '% closed', role: 'held', n: 'the thread\'s best recorded finite-atom bound ' + THREAD_BEST + ' → ' + lo + ', against D = ' + D + '…' },
+  { k: 'our upper bound vs D', v: '+' + aboveD.toExponential(2), role: 'held', n: 'an independent construction landing that far above the constant all three claimed proofs report — corroboration of the value, not of any proof of it' },
+  { k: 'independent checks of the claims', v: '1 of 3, appendix only', role: 'open', n: 'to our knowledge the only independent verification of any part of any of the three claimed proofs: Appendix A of Darvas–Peng–Tao, re-derived by a different route' },
 ]));
 
 B.push(C.section({
@@ -109,11 +124,14 @@ B.push(C.section({
     + '<em>"is no guarantee of proof correctness, and does not mean that anyone associated with this site has '
     + 'examined any part of the proof."</em> Three independent AI-assisted arguments agreeing on '
     + 'D&nbsp;=&nbsp;' + D + '… is genuine evidence about the number. It is not a proof anyone has read.')
-  + C.pRaw('This repository has one prior result here, and it is narrower than it sounds: we '
+  + C.pRaw('<strong>To our knowledge no independent verification of any part of any of the three has been '
+    + 'published</strong> — the forum says as much, and we would be glad to be shown otherwise. This repository '
+    + 'has done one such check, and it is narrower than it sounds: we '
     + '<a href="/reports/claim-lemniscate.html">re-verified the computational appendix</a> of the '
     + 'Darvas–Peng–Tao manuscript — the extremal triple exists, is unique in a certified box, and all thirty '
     + 'printed decimals of D are correct. That says nothing about the analytic core, which we did not audit and '
-    + 'which is where a proof of this problem actually lives. The supremum side of the same problem is a '
+    + 'which is where a proof of this problem actually lives. It is, so far as we can establish, the only part of '
+    + 'any of the three claims that anyone outside the authors has checked. The supremum side of the same problem is a '
     + 'separate program: <a href="/reports/erdos1038-sup.html">the certified per-degree theorems</a> on Tao\'s '
     + 'conjecture that sup = 2√2.') + '</div>'
 }));
