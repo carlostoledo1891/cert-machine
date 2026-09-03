@@ -1,0 +1,38 @@
+{
+ "what": "Erdős #1038 infimum-side certificates. Sources are the operator's own frontier-apps bench scripts (his work, crossed with sha); they import interval.js and transcendental.js, which are BYTE-IDENTICAL to instruments/interval/. Only the require paths and the record directory were rewritten — the mathematics is re-derived here, not copied as output.",
+ "crossed": "2026-09-03",
+ "files": {
+  "upper.js": {
+   "from": "frontier-apps/experiments/erdos1038/cert-min.js",
+   "sha256": "f368cf45471dd3bfde69572727758d7d650b0052d218861c5d58c78b28ef923a"
+  },
+  "duals.js": {
+   "from": "frontier-apps/experiments/erdos1038/cert-eps.js",
+   "sha256": "0d3c24b4b35d469ad4f2a8351d6e72ed26d3e1b83a045fceb014960c79c369ca"
+  },
+  "family.js": {
+   "from": "frontier-apps/experiments/erdos1038/cert-eps-family.js",
+   "sha256": "a45a507975d33d0183e3c6528c2611ca066aef93308fdd24fa8c736f1ae3e7d9"
+  },
+  "sliver.js": {
+   "from": "frontier-apps/experiments/erdos1038/cert-eps-sliver.js",
+   "sha256": "38a758b17956dabcbdad7bac28b40ca2795e02a045e8b6a99a962bb77dbdd8bb"
+  },
+  "forcing.js": {
+   "from": "frontier-apps/experiments/erdos1038/cert-force.js",
+   "sha256": "4839a2abbae2a08e1a4b8bfddbaed29f7d104447ff70034223a1aecbdb96d7b9"
+  },
+  "verify-forcing.js": {
+   "from": "frontier-apps/experiments/erdos1038/verify-force.js",
+   "sha256": "ae6407ef88a900f281a60268cdad59984d1abd30d07c6868f2a1d7f00b615c36"
+  },
+  "lab-force5.js": {
+   "from": "frontier-apps/experiments/erdos1038/lab-force5.js",
+   "sha256": "2f2a0e2315ef870c03d17d4baf1f8b5a99a2d9e7129f41c6af58d269d2252139"
+  },
+  "lp.js": {
+   "from": "frontier-apps/experiments/erdos1038/lp.js",
+   "sha256": "c4a8b12abd94dce22a46bf351679f74e28a115876546f33639ca52e09bb9b7bc"
+  }
+ }
+}

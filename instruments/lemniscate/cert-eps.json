@@ -1,0 +1,30 @@
+{
+ "statement": "each atomic measure (exact double coordinates from the thread data) is positive and has U(x) = sum w log(1/|x-s|) >= certifiedMin >= 0 on all of [-1,1]",
+ "results": [
+  {
+   "file": "lambda-eps0.002.json",
+   "eps": 0.002,
+   "nAtoms": 278,
+   "weightsPositive": true,
+   "certifiedMin": 0.000012426310916688179,
+   "worstAt": 0.9431968626469778
+  },
+  {
+   "file": "lambda-eps0.001.json",
+   "eps": 0.001,
+   "nAtoms": 183,
+   "weightsPositive": true,
+   "certifiedMin": 0.0000026528273678233826,
+   "worstAt": 0.9576152465656285
+  },
+  {
+   "file": "lambda-eps0.0005.json",
+   "eps": 0.0005,
+   "nAtoms": 184,
+   "weightsPositive": true,
+   "certifiedMin": 0.000003958505457255387,
+   "worstAt": 0.8568792400862069
+  }
+ ],
+ "builtAt": "2026-09-03T11:50:55.250Z"
+}

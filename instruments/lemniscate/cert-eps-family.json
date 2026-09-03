@@ -1,0 +1,17 @@
+{
+ "statement": "for every eps in [EPS_MIN, EPS_MAX], the explicit ansatz measure lambda^(eps) (rational A per chunk) is positive, supported in {xL+eps} u {xR} u [a,1-eps] u {1}, and U_lambda >= 0 on [-1,1] (Tao Problem 4.1: YES on this range)",
+ "a": 0.804462,
+ "xL": -1.8081072518940688,
+ "xR": 0.02632310211711336,
+ "EPS_MIN": 1e-12,
+ "EPS_MAX": 0.1,
+ "chunks": 624275,
+ "minUm1": 5.24428200975832e-8,
+ "minEta": 3.3987685251935357e-15,
+ "literatureInputs": [
+  "T1 template Hilbert transform (Tao notes §4)",
+  "T2 mass = (N/Q)(inf) = 1",
+  "soft-edge continuity of U at a, b"
+ ],
+ "builtAt": "2026-09-03T11:51:58.574Z"
+}

@@ -1,0 +1,174 @@
+{
+ "what": "Erdős #1038 (Erdős–Herzog–Piranian 1958), the INFIMUM side. For nonconstant monic polynomials f with all roots in [-1,1], equivalently probability measures μ on [-1,1] with U_μ(x) = ∫log(1/|x-t|)dμ(t), this program brackets inf |{U_μ < 0}| = inf |{|f| < 1}| in certified interval arithmetic, and answers Tao's model Problem 4.1 affirmatively for every ε.",
+ "scope": "The infimum side only. The supremum side (Tao's #179 conjecture, sup = 2√2) is a separate program of this repository: reports/erdos1038-sup.html.",
+ "independence": "Nothing here assumes any claimed proof of this problem. Three AI-assisted full proofs are claimed on the erdosproblems forum (Darvas–Peng–Tao 2026-07-15; Shouqiao Wang; Cristian Budala 2026-08-24), all reporting D = 1.83443047576266171109…; the forum states that appearing there is no guarantee of correctness and that nobody associated with the site has examined any part of them. This repository separately CONFIRMED the computational appendix of the Darvas–Peng–Tao manuscript (reports/claim-lemniscate.html) and did not audit its analytic core.",
+ "bracket": {
+  "lower": 1.828,
+  "upper": 1.8344304971959906,
+  "note": "both ends unconditional; the lower end needs no tail and no minimizer"
+ },
+ "theorems": {
+  "T1_upper": {
+   "statement": "inf over probability measures on [-1,1] of |{U_mu < 0}| <= lenUp; witness mu = A*delta_{-1} + f dy on [a,1]",
+   "a": 0.804462,
+   "A": 0.8245218,
+   "cLevel": [
+    9.315301996437596e-8,
+    9.31530341752307e-8
+   ],
+   "xL": [
+    -1.8081074413361424,
+    -1.808107441336006
+   ],
+   "xR": [
+    0.02632305585964334,
+    0.026323055859847976
+   ],
+   "lenLo": 1.834430497195649,
+   "lenUp": 1.8344304971959906,
+   "literatureInputs": [
+    "arcsine potential identity (L1)",
+    "balayage of a point mass onto an interval (L2)"
+   ],
+   "builtAt": "2026-09-03T11:50:51.804Z"
+  },
+  "T2_thread_duals": {
+   "statement": "each atomic measure (exact double coordinates from the thread data) is positive and has U(x) = sum w log(1/|x-s|) >= certifiedMin >= 0 on all of [-1,1]",
+   "results": [
+    {
+     "file": "lambda-eps0.002.json",
+     "eps": 0.002,
+     "nAtoms": 278,
+     "weightsPositive": true,
+     "certifiedMin": 0.000012426310916688179,
+     "worstAt": 0.9431968626469778
+    },
+    {
+     "file": "lambda-eps0.001.json",
+     "eps": 0.001,
+     "nAtoms": 183,
+     "weightsPositive": true,
+     "certifiedMin": 0.0000026528273678233826,
+     "worstAt": 0.9576152465656285
+    },
+    {
+     "file": "lambda-eps0.0005.json",
+     "eps": 0.0005,
+     "nAtoms": 184,
+     "weightsPositive": true,
+     "certifiedMin": 0.000003958505457255387,
+     "worstAt": 0.8568792400862069
+    }
+   ],
+   "builtAt": "2026-09-03T11:50:55.250Z"
+  },
+  "T3_family": {
+   "range": "ε ∈ (0, 0.1]",
+   "onChunks": {
+    "statement": "for every eps in [EPS_MIN, EPS_MAX], the explicit ansatz measure lambda^(eps) (rational A per chunk) is positive, supported in {xL+eps} u {xR} u [a,1-eps] u {1}, and U_lambda >= 0 on [-1,1] (Tao Problem 4.1: YES on this range)",
+    "a": 0.804462,
+    "xL": -1.8081072518940688,
+    "xR": 0.02632310211711336,
+    "EPS_MIN": 1e-12,
+    "EPS_MAX": 0.1,
+    "chunks": 624275,
+    "minUm1": 5.24428200975832e-8,
+    "minEta": 3.3987685251935357e-15,
+    "literatureInputs": [
+     "T1 template Hilbert transform (Tao notes §4)",
+     "T2 mass = (N/Q)(inf) = 1",
+     "soft-edge continuity of U at a, b"
+    ],
+    "builtAt": "2026-09-03T11:51:58.574Z"
+   },
+   "sliver": {
+    "statement": "for every eps in (0, EPS0], lambda^(eps) with A = A_S is positive with U >= 0 on [-1,1]; composes with cert-eps-family.json to all eps in (0, 0.1]",
+    "a": 0.804462,
+    "xL": -1.8081072518940688,
+    "xR": 0.02632310211711336,
+    "A_S": 1.1833541845,
+    "EPS0": 1e-12,
+    "tUp": 0.000004522883416767666,
+    "eta": [
+     1.6595246540146637e-7,
+     1.6603900676592792e-7
+    ],
+    "Um1": [
+     1.7186940169555612e-8,
+     1.740020238801251e-8
+    ],
+    "builtAt": "2026-09-03T11:51:58.634Z"
+   },
+   "answers": "Tao Problem 4.1, affirmatively, for the whole range"
+  },
+  "T4_forcing": {
+   "record": "certs/erdos1038-forcing-1.828.json",
+   "summary": {
+    "cap": 1.828,
+    "a0Boxes": 86,
+    "bBoxes": 1350,
+    "worstMargin": 4.1163795160638377e-7,
+    "lpCalls": 1518,
+    "secs": 265.274,
+    "fullRange": true,
+    "aRange": [
+     -1.828,
+     -1.414213562373095
+    ]
+   },
+   "independentVerify": {
+    "ok": true,
+    "smallestDoubleU": 0.000014121
+   }
+  }
+ },
+ "provenance": {
+  "what": "Erdős #1038 infimum-side certificates. Sources are the operator's own frontier-apps bench scripts (his work, crossed with sha); they import interval.js and transcendental.js, which are BYTE-IDENTICAL to instruments/interval/. Only the require paths and the record directory were rewritten — the mathematics is re-derived here, not copied as output.",
+  "crossed": "2026-09-03",
+  "files": {
+   "upper.js": {
+    "from": "frontier-apps/experiments/erdos1038/cert-min.js",
+    "sha256": "f368cf45471dd3bfde69572727758d7d650b0052d218861c5d58c78b28ef923a"
+   },
+   "duals.js": {
+    "from": "frontier-apps/experiments/erdos1038/cert-eps.js",
+    "sha256": "0d3c24b4b35d469ad4f2a8351d6e72ed26d3e1b83a045fceb014960c79c369ca"
+   },
+   "family.js": {
+    "from": "frontier-apps/experiments/erdos1038/cert-eps-family.js",
+    "sha256": "a45a507975d33d0183e3c6528c2611ca066aef93308fdd24fa8c736f1ae3e7d9"
+   },
+   "sliver.js": {
+    "from": "frontier-apps/experiments/erdos1038/cert-eps-sliver.js",
+    "sha256": "38a758b17956dabcbdad7bac28b40ca2795e02a045e8b6a99a962bb77dbdd8bb"
+   },
+   "forcing.js": {
+    "from": "frontier-apps/experiments/erdos1038/cert-force.js",
+    "sha256": "4839a2abbae2a08e1a4b8bfddbaed29f7d104447ff70034223a1aecbdb96d7b9"
+   },
+   "verify-forcing.js": {
+    "from": "frontier-apps/experiments/erdos1038/verify-force.js",
+    "sha256": "ae6407ef88a900f281a60268cdad59984d1abd30d07c6868f2a1d7f00b615c36"
+   },
+   "lab-force5.js": {
+    "from": "frontier-apps/experiments/erdos1038/lab-force5.js",
+    "sha256": "2f2a0e2315ef870c03d17d4baf1f8b5a99a2d9e7129f41c6af58d269d2252139"
+   },
+   "lp.js": {
+    "from": "frontier-apps/experiments/erdos1038/lp.js",
+    "sha256": "c4a8b12abd94dce22a46bf351679f74e28a115876546f33639ca52e09bb9b7bc"
+   }
+  }
+ },
+ "corpus": {
+  "what": "natso26's dual measures posted in the erdosproblems #1038 thread, vendored via the operator's bench. Third-party data: certified here, not authored here.",
+  "fetched": "2026-09-03",
+  "files": {
+   "lambda-eps0.002.json": "d32cccf6737262822aaa255561d64e98808f4413f43b1cfb12083629acdf8054",
+   "lambda-eps0.001.json": "e24b3d21080181602bf27fd5bac1bb4cecb74100d0dfaed29d6da1ea516804bb",
+   "lambda-eps0.0005.json": "2e09ee3071d91452d9026b988f746761a0204b309932a65f4be5bfe9286da9fe"
+  }
+ },
+ "generated": "2026-09-03T11:52:01.560Z",
+ "git": "0ce3ff7"
+}

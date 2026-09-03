@@ -258,6 +258,48 @@ merging kaust-mfg-lab.md). Adversarial ask; co-authorship only as the
 natural close. Each needs the operator's three opening sentences +
 recipient choice. SEND-QUEUE item 6.
 
+DONE 2026-09-03 (operator: "Port 1038... build the page, build the paper"):
+THE ERDŐS #1038 INFIMUM PROGRAM IS PORTED, and it is the strongest
+audit-lane story on the site. instruments/lemniscate (seven scripts
+crossed with sha256 from the operator's own bench; their require paths
+repointed to instruments/interval, which the bench was ALREADY using —
+interval.js, radii.js, transcendental.js and certificate.js are
+byte-identical, so no new certifier was needed), corpus/lemniscate
+(natso26's three thread measures, sha-pinned), certs/erdos1038-inf.json
++ certs/erdos1038-forcing-1.828.json, tools/run-lemniscate.js, battery
+19 checks / 5 reds, reports/erdos1038-inf.html, paper/erdos1038-inf.md
++ .pdf. 52/52 batteries.
+  · ALL FOUR THEOREMS RE-DERIVED HERE. T1 inf ≤ 1.8344304971959906
+    reproduces bit-identically; T3 = 624,275 ε-chunks exactly matching
+    the bench + the sliver, so Tao's Problem 4.1 is answered for ALL
+    ε ∈ (0, 0.1]; T2 the three thread duals certified. T4 was RE-RUN
+    FROM SCRATCH and certified the same 1.828 in 265 s with 86 a₀-boxes
+    / 1350 b-boxes — against the bench's 5421 s / 332 / 40000. A 20×
+    cheaper certificate at the same bound (different box-schedule
+    defaults; both valid, ours coarser and still clear).
+  · THE FRAMING FINDING, and why this must never ship as "we improved
+    the published lower bound": the bench had ZERO knowledge of the
+    claim landscape. The #1038 forum lists THREE claimed full proofs,
+    all AI-assisted, all reporting D = 1.83443047576266171109… —
+    Darvas/Peng/Runzhou Tao (2026-07-15, GPT-5.5 Pro), Shouqiao Wang
+    (GPT-5.6 Sol), Cristian Budala (2026-08-24, GPT-5.6 Sol) — and the
+    forum says in its own words that appearing there "is no guarantee
+    of proof correctness, and does not mean that anyone associated with
+    this site has examined any part of the proof." So the headline is
+    "three AI proofs, none checked; here is what holds without them":
+    an unconditional bracket 1.828 ≤ inf ≤ 1.83443 whose lower end has
+    a one-identity trust base. Our prior claim-lemniscate.html audit
+    (DPT's computational appendix CONFIRMED, analytic core NOT audited)
+    is cited on the page and is the honest limit. A BUILD GATE refuses
+    page and paper if any claimant name, the forum's caveat, or our own
+    analytic-core limitation goes missing.
+  · REMAINING: the operator reads the paper ([OPERATOR] flags: author
+    line, venue, AI-disclosure — the forum's disclosure norm is itself
+    contested right now, see the tdarv comment); whether to submit at
+    all while three claims are outstanding; forum/GitHub publication
+    (the operator wants to keep publishing there — STAGE and present,
+    per-item approval still stands).
+
 DONE 2026-09-03 (operator: "Go... if we could eat the numbers, do it"):
 THE KISSING LEDGER — K(11) >= 604 INDEPENDENTLY CERTIFIED. New
 instrument instruments/kissing (exact Z[sqrt2] on BigInt, the two-case
