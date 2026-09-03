@@ -278,6 +278,25 @@ const allChecks = checks.every(c => c.pass);
 const allReds = reds.every(r => r.pass);
 for (const c of checks) console.log((c.pass ? 'PASS  ' : 'FAIL  ') + c.name + (c.note ? '   [' + c.note + ']' : ''));
 for (const r of reds) console.log((r.pass ? 'RED-OK' : 'RED-X ') + ' ' + r.name + (r.note ? '   [' + r.note + ']' : ''));
+/* ---- the regime map's COVERING and TALLY, via instruments/covering ----
+   The page states counts over a partition of the coupling plane, which is only
+   meaningful if the cells actually account for the plane: a missing patch
+   silently shrinks the denominator, a duplicated cell silently inflates a
+   verdict. Area accounting settles both, and the tally must sum to the cells. */
+{
+  const COV = require(path.join(ROOT, 'instruments', 'covering', 'covering.js'));
+  const rec = JSON.parse(require('fs').readFileSync(path.join(ROOT, 'certs', 'mfg2p-regime-map.json'), 'utf8'));
+  const boxes = rec.cells.map((c) => ({ x: c.s, y: c.d }));
+  const xs = boxes.flatMap((b) => b.x), ys = boxes.flatMap((b) => b.y);
+  const region = { x: [Math.min(...xs), Math.max(...xs)], y: [Math.min(...ys), Math.max(...ys)] };
+  const cov = COV.tileArea2D(boxes, region, { tol: 1e-9 });
+  ok('regime map: the cells account for the coupling plane exactly', cov.ok, COV.describe2D(cov));
+  const tally = Object.values(rec.counts || {}).reduce((a, b) => a + b, 0);
+  ok('regime map: the verdict tally sums to the cell count', tally === rec.cells.length, tally + ' vs ' + rec.cells.length);
+  red('one missing cell breaks the regime-map area accounting',
+    !COV.tileArea2D(boxes.slice(0, boxes.length - 1), region, { tol: 1e-9 }).ok);
+}
+
 console.log('labs/mfg2p battery: ' + checks.filter(c => c.pass).length + '/' + checks.length + ' checks, ' +
             reds.filter(r => r.pass).length + '/' + reds.length + ' falsifiers');
 if (!allChecks || !allReds) process.exit(1);

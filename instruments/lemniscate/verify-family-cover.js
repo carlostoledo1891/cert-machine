@@ -17,6 +17,7 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const COV = require(path.join(__dirname, '..', 'covering', 'covering.js'));
 const REC = process.env.FAMILY_REC || path.join(__dirname, 'cert-eps-family.json');
 
 const problems = [];
@@ -40,14 +41,10 @@ if (!cov || !Array.isArray(cov.rungs) || !cov.rungs.length) {
     'top rung eHi = ' + rungs[0].eHi + ', EPS_MAX = ' + R.EPS_MAX);
   ck('the ladder ends at EPS_MIN', close(rungs[rungs.length - 1].eLo, R.EPS_MIN),
     'bottom rung eLo = ' + rungs[rungs.length - 1].eLo + ', EPS_MIN = ' + R.EPS_MIN);
-  let gaps = 0, worst = 0;
-  for (let i = 0; i + 1 < rungs.length; i++) {
-    if (!close(rungs[i].eLo, rungs[i + 1].eHi)) {
-      gaps++; worst = Math.max(worst, Math.abs(rungs[i].eLo - rungs[i + 1].eHi) / rungs[i].eLo);
-    }
-  }
-  ck('consecutive rungs share endpoints, so the ladder has no gap', gaps === 0,
-    gaps ? gaps + ' gap(s), worst relative ' + worst.toExponential(2) : rungs.length + ' rungs contiguous');
+  /* the rung ladder, via the shared covering module — relative comparison,
+     since the ladder spans eleven decades */
+  const rc = COV.tileGaps(rungs.map((r) => [r.eLo, r.eHi]), R.EPS_MIN, R.EPS_MAX, { rel: true, eps: REL });
+  ck('consecutive rungs share endpoints, so the ladder has no gap', rc.ok, COV.describe(rc));
   ck('every rung is flagged fully covered', rungs.every((r) => r.ok === true),
     rungs.filter((r) => r.ok !== true).length + ' rung(s) not covered');
   ck('every rung is a non-empty interval', rungs.every((r) => r.eHi > r.eLo));

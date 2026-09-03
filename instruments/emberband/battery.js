@@ -49,7 +49,8 @@ ok(d.marginPMin > 0 && d.marginMMin > 0, 'both zone margins are strictly positiv
 ok(d.collarSurvivorsOutsideWindows === 0, 'zero collar survivors outside the corner windows');
 ok(d.mu2LowerUniform > d.mu1LowerUniform, 'the uniform spectral gap keeps mu1 simple across the band');
 ok(d.tipC_b1_sup < 0, 'tip C keeps b1 strictly negative on every chunk', 'sup b1 = ' + d.tipC_b1_sup);
-ok(R.checks.length === 11 && R.checks.every((c) => c.pass), 'all 11 audit checks pass in the record');
+ok(R.checks.length >= 12 && R.checks.every((c) => c.pass), 'every audit check passes in the record', R.checks.length + ' checks');
+ok(typeof d.degenerateCells === 'number', 'the record states how many zero-width cells exist', String(d.degenerateCells) + ' found (redundant duplicates at shared endpoints; excluded from the covering, which the remaining cells complete)');
 /* the fences and the honest scope must survive into the record */
 for (const w of ['Judge', 'Burdzy', 'Hatcher', 'de Dios Pont']) ok(R.fences.includes(w), 'fence names ' + w);
 ok(/counterexample, never a proven class/.test(R.fences), 'the de Dios Pont result is labelled a counterexample, not a class');

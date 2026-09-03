@@ -26,6 +26,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..', '..');
 /* EMBERBAND_DIR lets the battery point the auditor at a mutated COPY; the
    pinned corpus itself is never written to. */
+const COV = require(path.join(__dirname, '..', 'covering', 'covering.js'));
 const D = process.env.EMBERBAND_DIR || path.join(ROOT, 'corpus', 'emberband');
 
 const TARGET = { lo: 0.845, hi: 0.85 };
@@ -68,32 +69,28 @@ for (const k of keys) {
 chunks.sort((a, b) => a.lo - b.lo);
 
 /* ---- COVERING 1: do the chunks tile the target interval? ---- */
-let cover = { ok: true, gaps: [] };
-if (!chunks.length) { bad('no certified chunks found'); cover.ok = false; }
-else {
-  if (Math.abs(chunks[0].lo - TARGET.lo) > EPS) { cover.ok = false; bad('the ladder starts at ' + chunks[0].lo + ', not ' + TARGET.lo); }
-  if (Math.abs(chunks[chunks.length - 1].hi - TARGET.hi) > EPS) { cover.ok = false; bad('the ladder ends at ' + chunks[chunks.length - 1].hi + ', not ' + TARGET.hi); }
-  for (let i = 0; i + 1 < chunks.length; i++) {
-    const g = chunks[i + 1].lo - chunks[i].hi;
-    if (g > EPS) { cover.ok = false; cover.gaps.push({ after: chunks[i].key, gap: g }); bad('GAP of ' + g.toExponential(3) + ' between ' + chunks[i].key + ' and ' + chunks[i + 1].key); }
-  }
-  if (chunks.some((c) => !(c.hi > c.lo))) bad('a chunk has non-positive width');
-}
+/* the chunk ladder, via the shared covering module (instruments/covering) */
+const cover = COV.tileGaps(chunks.map((c) => [c.lo, c.hi]), TARGET.lo, TARGET.hi, { eps: EPS });
+if (!cover.ok) bad('the chunk ladder does not tile [' + TARGET.lo + ', ' + TARGET.hi + ']: ' + COV.describe(cover));
 const specimenCovered = chunks.some((c) => SPECIMEN >= c.lo - EPS && SPECIMEN <= c.hi + EPS);
 if (!specimenCovered) bad('the published specimen c = 17/20 is NOT covered by the band');
 
 /* ---- COVERING 2: do the sigma-cells tile [-1, 0] inside every chunk? ---- */
-let cellCover = { ok: true, worstGap: 0, totalCells: 0 };
+let cellCover = { ok: true, worstGap: 0, totalCells: 0, degenerate: 0 };
 for (const c of chunks) {
   for (const [stage, arr] of [['zones', c.zones.cells], ['defect', c.defect.cells], ['eigenpair', c.eigenpair.cells]]) {
     if (!Array.isArray(arr) || !arr.length) { bad(c.key + ': ' + stage + ' carries no cells'); cellCover.ok = false; continue; }
-    const cells = arr.map((x) => x.sig).slice().sort((a, b) => a[0] - b[0]);
-    if (stage === 'zones') cellCover.totalCells += cells.length;
-    if (Math.abs(cells[0][0] - (-1)) > EPS) { cellCover.ok = false; bad(c.key + '/' + stage + ': cells start at ' + cells[0][0] + ', not -1'); }
-    if (Math.abs(cells[cells.length - 1][1] - 0) > EPS) { cellCover.ok = false; bad(c.key + '/' + stage + ': cells end at ' + cells[cells.length - 1][1] + ', not 0'); }
-    for (let i = 0; i + 1 < cells.length; i++) {
-      const g = cells[i + 1][0] - cells[i][1];
-      if (g > EPS) { cellCover.ok = false; cellCover.worstGap = Math.max(cellCover.worstGap, g); bad(c.key + '/' + stage + ': sigma-cell GAP ' + g.toExponential(3) + ' after ' + JSON.stringify(cells[i])); }
+    if (stage === 'zones') cellCover.totalCells += arr.length;
+    const rc = COV.tileGaps(arr.map((x) => x.sig), -1, 0, { eps: EPS });
+    /* Zero-width cells exist in these records (the ratio-1.3 refinement toward
+       sigma = 0 bottoms out and emits a duplicate at a shared endpoint). They
+       cover nothing, so they cannot affect the covering — but a certified cell
+       over an empty set is worth counting rather than silently dropping. */
+    if (rc.degenerate) cellCover.degenerate += rc.degenerate;
+    if (!rc.ok) {
+      cellCover.ok = false;
+      if (rc.gaps.length) cellCover.worstGap = Math.max(cellCover.worstGap, ...rc.gaps.map((g) => g.size));
+      bad(c.key + '/' + stage + ': sigma-cells do not tile [-1, 0]: ' + COV.describe(rc));
     }
   }
 }
@@ -108,6 +105,7 @@ const derived = {
   chunks: chunks.length,
   interval: chunks.length ? [chunks[0].lo, chunks[chunks.length - 1].hi] : null,
   sigmaCells: cellCover.totalCells,
+  degenerateCells: cellCover.degenerate,
   mu1LowerUniform: min(chunks.map((c) => c.spectrum.mu1LowerUniform)),
   mu2LowerUniform: min(chunks.map((c) => c.spectrum.mu2LowerUniform)),
   D_supMax: max(chunks.map((c) => c.defect.D_sup)),
@@ -146,13 +144,15 @@ if (tipCneg !== chunks.length) bad('tip C is certified negative on only ' + tipC
 const checks = [];
 const ck = (name, cond, detail) => { checks.push({ name, pass: !!cond, detail }); if (!cond) bad('CHECK FAILED: ' + name + (detail ? ' — ' + detail : '')); };
 
-ck('the 17 chunks tile [0.845, 0.85] with no gap', cover.ok && cover.gaps.length === 0,
+ck('the 17 chunks tile [0.845, 0.85] with no gap', cover.ok,
   derived.interval ? 'covered ' + JSON.stringify(derived.interval) + ' in ' + derived.chunks + ' chunks' : 'no cover');
 ck('every chunk carries all five certified stage records', chunks.length === keys.length && !problems.some((p) => /missing its/.test(p)),
   chunks.length + ' complete chunk sets');
 ck('sigma-cells tile [-1, 0] inside every chunk and every stage', cellCover.ok,
   derived.sigmaCells + ' zones cells total, worst gap ' + (cellCover.worstGap ? cellCover.worstGap.toExponential(2) : '0'));
 ck('the published specimen c = 17/20 lies inside the band', specimenCovered);
+ck('zero-width cells, if any, are redundant rather than holes', cellCover.ok,
+  derived.degenerateCells ? derived.degenerateCells + ' zero-width cell(s) found and excluded; the remaining cells still tile [-1, 0]' : 'none present');
 ck('mu1 is uniformly bounded below, so it stays SIMPLE across the band', derived.mu1LowerUniform > 0 && derived.mu2LowerUniform > derived.mu1LowerUniform,
   'mu1 >= ' + derived.mu1LowerUniform.toFixed(5) + ', mu2 >= ' + derived.mu2LowerUniform.toFixed(5));
 ck('the eigenvalue window sits strictly between the two uniform bounds', derived.lamMin > derived.mu1LowerUniform - 1 && derived.lamMax < derived.mu2LowerUniform,

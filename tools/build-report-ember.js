@@ -297,6 +297,7 @@ if (BAND) {
         ['thinnest margins', A.marginPMin.toExponential(3) + ' / ' + A.marginMMin.toExponential(3), 'max and min side, worst over every cell of every chunk — both strictly positive'],
         ['collar survivors outside the corner windows', String(A.collarSurvivorsOutsideWindows), 'zero, everywhere; the corners are closed by exact local expansions instead'],
         ['tip C genericity', 'sup b₁ = ' + A.tipC_b1_sup.toFixed(4) + ' < 0', 'the named condition the specimen proof leaned on, re-checked on all ' + A.chunks + ' chunks by corner position, not by sign'],
+        ['zero-width cells found', String(A.degenerateCells), 'an audit finding, not in the producer\'s summary: cells the σ-refinement emitted at zero width. They certify an empty set, so they cannot affect the covering — and the covering is complete without them in every chunk and every stage'],
       ]
     }) + '<div class="col">'
     + C.pRaw('An interval theorem is a union of chunk theorems, and the way such a union fails is almost never '
@@ -308,6 +309,13 @@ if (BAND) {
       + 'endpoint nudged by 1e-5, one missing σ-cell out of ' + A.sigmaCells.toLocaleString('en-US') + ', a single '
       + 'margin at −1e-9, one escaped collar survivor, a dropped stage, tip C losing its sign, and a ladder that '
       + 'tiles the wrong interval. All eight must fire or the page does not build.')
+    + C.pRaw('The audit also turned up something the producing summary does not mention: <strong>'
+      + A.degenerateCells + ' of the σ-cells are zero-width</strong>, emitted where the ratio-1.3 refinement toward '
+      + 'σ = 0 bottoms out and duplicates a shared endpoint. They certify an empty set, so they cannot bridge a gap '
+      + 'or affect the conclusion — and the auditor confirms the remaining cells still tile [−1,0] in every chunk '
+      + 'and every stage. It is reported rather than dropped because a certificate covering nothing is worth '
+      + 'counting, and because the check that excludes them is also the check that stops one from papering over a '
+      + 'real hole.')
     + C.pRaw('<strong>Scope, stated plainly.</strong> The six-stage chain was executed on the bench that produced '
       + 'it, not re-executed here — roughly ten hours, with the defect stage alone at 25 minutes per chunk. What '
       + 'this page adds is the independent audit: the covering ladders and every band-wide value re-derived from '
@@ -352,7 +360,10 @@ for (const fence of ['Judge–Mondal', 'lip domains', '2604.19003', 'de Dios Pon
 if (/de Dios[- ]Pardo/.test(html)) die('the misattributed fence wording is back — 2412.06344 is de Dios Pont, and it is a COUNTEREXAMPLE, not a proven class');
 if (!/ONE domain/.test(html)) die('the one-domain scope statement is missing');
 if (/quadrilateral conjecture (is|now) (settled|proved)|census (is )?complete/i.test(html)) die('counting inflation reached the page');
-if (/frontier|origin bench|ported|port log|re-proved end to end/i.test(html)) die('workshop archaeology reached the page — this is the report, not a port log');
+/* word boundaries matter here: the un-anchored /ported/ matched "reported",
+   "supported" and "imported", so this gate was rejecting legitimate prose. Its
+   intent — keep port-log archaeology off the report — is unchanged. */
+if (/\bfrontier\b|origin bench|\bported\b|\bport log\b|re-proved end to end/i.test(html)) die('workshop archaeology reached the page — this is the report, not a port log');
 fs.writeFileSync(path.join(ROOT, 'reports', 'ember.html'), html);
 console.log('reports/ember.html written: μ₁ ∈ ' + ivStr(MU1, 9) + ', partition '
   + R.theorem.partition.coreCells + '+' + R.theorem.partition.collarCells + ' cells, 8 records @ git ' + gitrev);

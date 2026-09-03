@@ -11,6 +11,7 @@
    0.85
   ],
   "sigmaCells": 738,
+  "degenerateCells": 51,
   "mu1LowerUniform": 11.85157121967546,
   "mu2LowerUniform": 13.90773849408803,
   "D_supMax": 0.00008109390325676392,
@@ -45,6 +46,11 @@
   {
    "name": "the published specimen c = 17/20 lies inside the band",
    "pass": true
+  },
+  {
+   "name": "zero-width cells, if any, are redundant rather than holes",
+   "pass": true,
+   "detail": "51 zero-width cell(s) found and excluded; the remaining cells still tile [-1, 0]"
   },
   {
    "name": "mu1 is uniformly bounded below, so it stays SIMPLE across the band",
@@ -89,6 +95,6 @@
   "ledger": "corpus/emberband/ledger.jsonl",
   "theoremDoc": "corpus/emberband/THEOREM-BAND.source.md"
  },
- "generated": "2026-09-03T15:32:59.612Z",
- "git": "ddbe592"
+ "generated": "2026-09-03T16:15:58.855Z",
+ "git": "96a9939"
 }
