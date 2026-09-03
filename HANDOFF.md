@@ -258,6 +258,56 @@ merging kaust-mfg-lab.md). Adversarial ask; co-authorship only as the
 natural close. Each needs the operator's three opening sentences +
 recipient choice. SEND-QUEUE item 6.
 
+DONE 2026-09-03 (operator: "Proceed 1 and 2"):
+TIER 1 — THE #290 PAGE WAS STALE AND IS FIXED, plus the gate for the class.
+reports/erdos290.html was presenting its 0.61 -> 0.602108 sharpening as a
+live result. It has not been one since 2026-08-31, when arXiv:2609.00104
+proved liminf = 1/(1+c) EXACTLY; our own targets row said SUPERSEDED from
+the 2nd and the page never changed. The page now cites that paper, marks
+the section history, and states the stronger surviving claim: our bracket
+is the numeric VALUE of a constant now known exactly, and remains the
+sharpest published enclosure (the new paper says only "approximately
+0.546"). The staged issue-164 follow-up is still UNSENT.
+  · NEW GATE tools/check-stale-claims.js, in make test. sweep-claims.js
+    watches for NEW external claims and structurally cannot see one of OUR
+    pages drifting behind literature already logged. The gate pairs every
+    SUPERSEDED/DEAD/REFUTED targets row with the report page it bears on
+    (matched by PROBLEM TOKEN — rows rarely name a path) and REQUIRES that
+    page to cite the superseding source BY ARXIV ID.
+  · Three iterations, each failure worth keeping: v1 examined 0 pairs and
+    printed "0 stale" (a FALSE GREEN — the gate now exits 2 if it examines
+    nothing); v2 passed on a loose "no longer" match found elsewhere on the
+    page; only demanding the id is unfakeable. Verified by faithful revert.
+
+TIER 2 — ONE COVERING MODULE (instruments/covering), and it earned its keep.
+The check existed twice (band ladders, 1038 rung ladder), which CLAUDE.md
+forbids. Now one module + its own battery (21 checks / 12 reds), both
+auditors refactored onto it.
+  · IT FOUND WHAT THE HAND-ROLLED BAND CHECK WAS BLIND TO: 51 zero-width
+    sigma-cells, where the ratio-1.3 refinement toward sigma = 0 bottoms out
+    and duplicates a shared endpoint. They certify an EMPTY SET. The theorem
+    is untouched (the rest still tiles [-1,0] everywhere) but the producing
+    summary never mentions them; the page states it and the record counts
+    it. My first spot-check said 2 because I looked at one chunk.
+  · SEMANTICS CORRECTED: an empty piece covers nothing — a fact about the
+    piece, NOT a hole in the region. Reported and excluded, with a red
+    proving it can never bridge a real gap.
+  · 2D ADDED for adaptive box maps: area accounting, with the honest limit
+    IN THE MODULE — area proves covering ALMOST everywhere, right for a
+    tally over a partition, NOT sufficient for an every-parameter claim.
+    mfg2p: 21,567 cells account for [0,15]x[0,1.5] to relative area error
+    3.05e-13, tally sums exactly to the cell count; both enforced in
+    labs/mfg2p/battery.js with a red.
+  · ALSO FIXED: build-report-ember.js's archaeology gate used an unanchored
+    /ported/ and so rejected "reported", "supported", "imported". Anchored,
+    intent unchanged, verified on seven cases.
+  · CORRECTION TO MY OWN PROPOSAL, stated rather than buried:
+    mfg-regime-map carries NO cell list (my earlier key-name match was
+    wrong) and terra-bracket-table carries no row list. Neither is
+    auditable until its producer emits the pieces — the same one-line patch
+    family.js got. NOT done, NOT claimed.
+  · 55/55 batteries.
+
 DONE 2026-09-03 (operator: "decide what we can use... Go"):
 THE EMBER BAND IS PORTED — the hot-spots theorem is now a POSITIVE-MEASURE
 FAMILY, live on reports/ember.html. The operator's own port trigger was
