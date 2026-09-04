@@ -1,0 +1,27 @@
+# node playground/interferometer/cert-cp.js reds
+# run 2026-09-04 from the ported copy, against the released CSVs in ../data/.
+# 27 minutes on one laptop. This file is the evidence the port is functional,
+# not decorative: the certificate machinery runs here, not only on the bench.
+
+reds  48x48 working grid, Nf=512, 4000 CP iterations, 5 rounds, sub=8
+RED 1 — a sky we built ourselves must be inside its own ceiling
+  PASS  ring 43.3 µas, 0.6 Jy, empty centre, r<=8  —  truth 0.0000 <= ceiling 0.4336 (witness 0.3923)
+  PASS  ring 43.3 µas, 0.6 Jy, empty centre, r<=20  —  truth 0.0000 <= ceiling 0.8232 (witness 0.7508)
+  PASS  ring + 0.25 Jy central point, r<=8  —  truth 0.2500 <= ceiling 0.5002 (witness 0.4273)
+  PASS  ring + 0.25 Jy central point, r<=20  —  truth 0.2500 <= ceiling 1.0684 (witness 0.9434)
+  PASS  point source 0.4 Jy at the centre, r<=8  —  truth 0.4000 <= ceiling 0.5956 (witness 0.5799)
+  PASS  point source 0.4 Jy at the centre, r<=20  —  truth 0.4000 <= ceiling 0.9982 (witness 0.9739)
+RED 2 — the witness must be a real measure: recompute its constraints from scratch
+  PASS  witness satisfies every amplitude ceiling and the flux cap  —  worst |V|/A 1.000000, total 0.3908 Jy <= 2, value 0.1250
+RED 3 — monotone in the radius
+  PASS  r=8 vs r=24  —  0.2834 <= 0.7069
+RED 4 — a wider error budget may only loosen it
+  PASS  gain 1% -> 20%  —  0.3637 -> 0.3637
+RED 5 — deleting a telescope may only loosen it
+  PASS  drop the Greenland Telescope  —  838 -> 485 rows: 0.3637 -> 0.3979
+RED 6 — translate the disk and the field together: the ceiling must not move
+  PASS  field and disk both at (0,0) vs (22,0) vs (-14,16) µas  —  0.3637 / 0.3638 / 0.3637 — spread 0.0%
+         (with the field held fixed instead, the same disk gives 0.4354 — the difference is the field-of-view edge, not a broken invariance)
+
+ALL REDS FIRED.
+

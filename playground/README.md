@@ -56,6 +56,21 @@ M87 release, and the question *what do these data actually determine?*
 - `INTERFEROMETER.md` — the full log, including the corrections. Read the
   gotchas at the bottom; they cost real time.
 
+**Verified running here, 2026-09-04.** `cert-cp.js reds` — the six adversarial
+checks — all fired from this copy against the released CSVs: three synthetic
+skies inside their own ceilings at two radii each, the witness re-checked from
+scratch as a real measure (worst |V|/A exactly 1.000000), monotone in radius,
+monotone in the error budget, dropping the Greenland Telescope loosens the bound
+0.3637 → 0.3979, and translating the disk *and the field together* moves the
+ceiling by 0.0% across three positions. 27 minutes on one laptop; the log is
+`out/reds-2026-09-04.txt`.
+
+The translation red is the one worth reading twice. It was wrong twice on the
+bench, both times by stating the invariance without its hypothesis: amplitude
+constraints are translation-invariant *on the plane*, and a stated field of view
+is not. Hold the field fixed and the same disk gives 0.4354 — a 20% move that is
+the field-of-view edge, not a broken invariance.
+
 Re-run the mathematics:
 
 ```
