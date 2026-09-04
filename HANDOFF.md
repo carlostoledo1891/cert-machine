@@ -187,6 +187,109 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
       identical, which is what "every record comes out of running the code beside
       it" is supposed to mean.
 
+  ══ SESSION CLOSED 2026-09-04 (THIRD). THE VISUAL VERTICAL IS BUILT AND LIVE:
+     nine instruments at /instruments, four of them crossed from the bench this
+     session, the WARRANT grammar written and applied, and the homepage and
+     /machine both carrying the vertical as a complement rather than a footnote.
+     $0.00 SPENT — no model calls at any point. 56/56 batteries.
+     NEXT SESSION: WAIT FOR THE OPERATOR'S INSTRUCTIONS BEFORE BUILDING. ══
+
+  WHAT SHIPPED, in order, all pushed and live:
+
+  1. playground/warrant.js — THE GRAMMAR. Four standings on a lattice,
+     REFUSED < CHOSEN < COMPUTED < DECIDED, combining by MINIMUM: a mark's
+     standing is the weakest standing on its path to the pixel. Three rules do
+     the work and none is a judgement call — the arithmetic demotes and never
+     the author (a float step takes DECIDED to COMPUTED); REFUSED is absorbing;
+     and ARGMAX OVER A NON-UNIQUE OPTIMUM YIELDS CHOSEN, which is the unwritten
+     one and the shape of every regularised inverse problem.
+     A FOURTH RULE WAS FOUND BY BUILDING, not by reasoning: stroke carries
+     standing only when a figure holds marks of MORE THAN ONE standing; where
+     they all share one the channel is free and the figure must say what it is
+     carrying. The crossed comparison plates use stroke for model identity under
+     exactly that licence. See playground/design/COMPONENTS.md.
+
+  2. /instruments/curveset — the second instance of the interferometer template,
+     crossed from the bench with sha at both ends. NIST StRD Pontius load cell:
+     132x the reported +/- assuming only monotone (and that interval IS the
+     ladder spacing), 1.0x joining the dots — so on a fine ladder the functional
+     form buys NOTHING. The IL-6 assay gives the OPPOSITE verdict at 3.6x. That
+     pair is why it is a method and not a scold. 24 tests green.
+
+  3. FOUR PAGES CROSSED FROM THE BENCH (operator: "neural-geometry,
+     exact-geometry folders and maybe more" + "the geometries index"):
+     /instruments/plates (8 figures; VII and VIII are certificates rendered at
+     their own resolution, from OUR forcing certificate — 86 a-boxes, 1,350
+     b-boxes, not the bench's 332/40,000), /instruments/exact-geometry (the
+     control, 8 of 8 predictions held, 1 refused at the metric gate),
+     /instruments/answer-shape (7 subjects, every pair both ways),
+     /instruments/affect (12 feelings, the circumplex recovered from a second
+     question set with no words in common, six moods, and twelve clock hours as
+     the control that moves 85% in the smallest model).
+     PLATE V ALREADY DREW THE GRAMMAR — "solid: a bound on every sky. dashed: a
+     sky that exists" — months before it had a name. That is the best evidence
+     available that the distinction is real rather than invented.
+
+  4. THE RENAME. /playground is /instruments; vercel.json carries the 301s; the
+     nav, sitemap and every page follow. THE SOURCE FOLDER STAYS playground/ —
+     instruments/ at the root is the CERTIFIERS and is never served. Documented
+     in CLAUDE.md, this file and playground/README.md; DO NOT "fix" it.
+
+  5. THE HERO STOPPED LYING. It said "Nothing here is certified"; two of those
+     nine pages draw a certificate straight from the gated shelf and five decide
+     their headline number in exact arithmetic. The true claim is NOTHING THERE
+     IS GATED, which is about ceremony. Every card now states WHAT DECIDES IT in
+     one line. Two cards per row, shape-hunt first, and shape-hunt now CITES THE
+     LINEUP PROTOCOL (Buja 2009, Wickham 2010, nullabor) because it reinvented
+     it without the name.
+
+  6. THE HOMEPAGE AND /machine CARRY THE VERTICAL. Homepage gains one section at
+     43% down — "A certificate settles a number. It does not make anyone look at
+     it." — with four record-derived cards. /machine gains §9 (the grammar) and
+     §10 (the full certificate shelf, folded after six behind a <details> pill).
+     THE LANDING PAGE'S 68-ROW TABLE IS GONE: three rows stay, the ones that
+     carry a detached verifier. tools/certs-shelf.js is now the ONE definition.
+
+  7. DESIGN AUDIT: seven container widths and ten reading measures across nine
+     pages, collapsed onto three tokens in playground/design/shell.css. AND
+     THERE IS NO NARROW CONTAINER — a narrow container is centred, so a section
+     using one steps inward and the left edge stops being a line. The reading
+     measure belongs to the prose; components take the container.
+
+  8. TWO PLATES WERE MOSTLY BLACK and both for the same reason: the drawing
+     spent its area on the part with nothing in it. PLATE VIII drew all 61 teeth
+     when the LP never uses more than 13 and usually 3 — now cropped, with the
+     count in its own footer. PLATE IV's axis ran two decades past the last dot
+     and its vertical range was the parabolas' extremes — now set by the
+     decisions and symmetric about zero. Every embedded raster on all nine pages
+     was decoded and checked; nothing is near-black now.
+
+  STILL OPEN, and nothing is started:
+    · THE INTERFEROMETER HAS NO STANDALONE URL OR LAUNCH. It is one of nine
+      cards. The review that started this said it has the widest audience of
+      anything here.
+    · PHANTOM BIFURCATIONS — the sixth instrument, and still the highest visual
+      payoff per hour on the list. instruments/census has the pitchfork logic,
+      certs/entropy-henon.json and families/henon-census.js have the data.
+    · oss/certsplat ON THE BENCH — certified pruning for 3D Gaussian splats with
+      a stdlib-Python verifier AND A DRAFTED gsplat RFC. The most visually
+      spectacular thing available and the RFC is an OUTWARD-FACING ACTION, which
+      is the binding constraint on every path. Blocked only on checking the
+      Mip-NeRF 360 / Tanks & Temples licence.
+    · warrant/SPEC.md — under 300 lines, four rules now instead of three,
+      thirteen components as worked examples, MIT + CC0. DO NOT PUBLISH IT
+      BEFORE THE FINDING: a spec with no finding attached is a proposal.
+    · THE FINDING: the interferometer re-reading, citing Feng et al. 2024 and
+      EHT Paper IV. Second case, and the more credible one because it catches
+      its author: this page published 40 of 54 and it became 24 of 54.
+    · curveset's envelope is drawn SOLID but evaluated in floats. By the
+      grammar's own rule 1 that is COMPUTED, not DECIDED. Either redraw it or
+      compute the endpoints in exact rationals — the data are half-integers and
+      the envelope is a min/max of linear functions, so the exact route is open.
+    · The catalogue null on shape-hunt still admits 2 of 6 controls at the 5%
+      bar. It is the one null on that page that has not been rebuilt twice.
+    · PLATE IV's "p(r) = 0" label sits on top of the zero line and the dots.
+
   ══ /playground IS NOW /instruments (2026-09-04, operator approved the rename).
      The section was called the playground while it held one interferometer; it
      now holds NINE instruments, a NIST calibration result and two certificates
