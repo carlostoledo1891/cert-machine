@@ -119,35 +119,48 @@ can see is the part that is only drawn.
 
 ### `neural-geometry/` — the shapes a model will admit to from the outside
 
-Built 2026-09-04, after reading what Goodfire actually does. They find geometry
-by **opening** the model: decompose the activations and days of the week come
-out as a circle, colours as a surface. That needs the weights.
+Goodfire finds geometry by **opening** the model — decompose the activations and
+days of the week come out as a circle, colours as a surface. That needs the
+weights. This asks from outside instead: every pair of items, one integer 0–100,
+**one row at a time**, so the two halves of each pair come from calls that never
+see each other and their agreement is a consistency test nobody requested.
 
-This asks from outside. Every pair of items, one integer 0–100, **one row at a
-time** — because asked as a whole matrix the model can enforce its own symmetry
-by reading what it just wrote, and asked row by row the two halves of every pair
-come from calls that never see each other. Their agreement is then a consistency
-test nobody requested, and it turns out to be the sharpest separator on the page.
+**15 sets × 3 models, 436 calls, $0.65.** Seven wheels, four lines, a taxonomy,
+a kinship grid, and two controls that are there to fail.
 
-- `sets.js` — five sets, each a prediction, two of them controls that must fail
-- `probe.js` — the elicitation, budget-capped, worst case reserved per call
-- `decide.js` — asymmetry, closure ratio and Gram **signature**, all exact on
-  integers; then float coordinates for drawing, labelled as a view
-- `plate.js` — one plate per set per model: every pair as a chord, the item
-  order as a path, the closing step drawn apart because everything hangs on it
+- `sets.js` — every set is a prediction, with `shape` and `order` declared
+- `probe.js` — the elicitation, budget-capped; `--repair` re-asks only the rows
+  that came back unparseable, because one fumbled row should not cost 435 calls
+  and a dropped cell reads like a finding
+- `decide.js` — asymmetry, closure ratio, the **triangle inequality**, Gromov's
+  **δ** and the Gram **signature**, all exact on integers; then float coordinates
+  for drawing, labelled as a view
+- `plate.js` — one plate per set per model (every pair a chord; the item order a
+  path where there is one, the minimum spanning tree where there is not), plus
+  `mapPlate`, which puts all 44 cells in the plane of the two numbers
 
-**What it found**, 144 calls, $0.18, three models:
+**What it found**
 
-- **Structure is curvature.** Every structured set produces answers that are not
-  Euclidean — the Gram matrix carries 1–5 negative directions, in all three
-  models. The unrelated-noun control produces **zero**, in all three. Squeezing a
-  cycle into pairwise distances cannot be done flatly, and by Schoenberg that
-  failure is exactly what a cycle looks like from the outside.
-- **The hue wheel closes** (1.16× on average) and **the digits do not** (5.24×) —
-  the control that must not be a circle isn't one.
-- **The week does not close** (3.14×), against the prediction. Monday and Sunday
-  sit further apart than any adjacent pair. The year closes and the hue wheel
-  closes; the week is bent but open. The failed prediction is on the page.
+- **Structure is curvature.** All 6 control cells have a positive semidefinite
+  Gram — zero negative directions, for unrelated nouns and nonsense strings
+  alike, in all three models. 38 of the 39 structured cells are not PSD.
+- **The frame moves the geometry.** The same twelve numerals: as *digits* they
+  lie on a line (closure 5.48× mean); named as *hours on a clock face* they close
+  into a ring (0.97× mean, one model at exactly 1.00). Nothing changed but what
+  they are for.
+- **Octave equivalence is not in there.** B is a semitone below C, and the models
+  do not close the chromatic scale (3.27× mean) — the worst-fitting set on the
+  page in two dimensions. They hold the note names in alphabetical order, not the
+  pitch class.
+- **δ is not a tree detector, and the page says so.** It was brought in to tell a
+  taxonomy from a wheel and it half works — cycles 0.343, taxonomy 0.182 — but
+  the controls are *lower still* at 0.062, because unstructured answers are
+  near-equilateral and near-equilateral is near-tree by this measure. δ measures
+  how CLOSED a structure is, and only means anything once curvature has said
+  there is one. **The prediction was sharper than the result and the result is
+  what is drawn.**
+- **Are they even distances?** Planets and scales of size never once violate the
+  triangle inequality. The wheels do, and the smallest model does it most.
 
 ### `uv-art.js`, `index.css`, `build.js` — the gathering page
 

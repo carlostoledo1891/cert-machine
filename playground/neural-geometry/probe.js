@@ -69,7 +69,46 @@ function parseRow(text, k) {
   return a;
 }
 
+/* REPAIR asks again only for the rows that came back unparseable, and touches
+   nothing else. A single row that a model fumbled should not cost a re-run of
+   four hundred calls, and quietly dropping the cell would leave a hole in the
+   table that reads like a finding. */
+const REPAIR = argv.includes('--repair');
+
 (async () => {
+  if (REPAIR) {
+    const rec = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'probe.json'), 'utf8'));
+    let fixed = 0, tried = 0;
+    for (const M of rec.models) {
+      const spec = MODELS.find((x) => x.id === M.id);
+      if (!spec) continue;
+      const call = budgeted(spec);
+      for (const S of SETS) {
+        const cell = M.sets[S.id];
+        if (!cell) continue;
+        for (let i = 0; i < cell.n; i++) {
+          if (!cell.raw[i].some((x) => x === null)) continue;
+          tried++;
+          const others = S.items.filter((_, j) => j !== i);
+          let r;
+          try { r = await call(PROMPT(S.items[i], others)); } catch (e) { continue; }
+          const vals = parseRow(r.text, S.items.length - 1);
+          if (!vals) { console.log(`  still unparseable: ${M.id} · ${S.id} · row ${i}`); continue; }
+          let k = 0;
+          for (let j = 0; j < cell.n; j++) { if (j === i) { cell.raw[i][j] = 0; continue; } cell.raw[i][j] = vals[k++]; }
+          cell.refused = Math.max(0, (cell.refused || 0) - 1);
+          fixed++;
+          console.log(`  repaired: ${M.id} · ${S.id} · row ${i} (${S.items[i]})`);
+        }
+      }
+    }
+    rec.meta.spent = Number(((rec.meta.spent || 0) + state.spent).toFixed(4));
+    rec.meta.calls = (rec.meta.calls || 0) + state.calls;
+    rec.meta.repairs = (rec.meta.repairs || 0) + fixed;
+    fs.writeFileSync(path.join(HERE, 'out', 'probe.json'), JSON.stringify(rec) + '\n');
+    console.log(`\n${fixed}/${tried} repaired · +$${state.spent.toFixed(4)} · total $${rec.meta.spent.toFixed(4)} over ${rec.meta.calls} calls`);
+    return;
+  }
   const out = { meta: { date: new Date().toISOString().slice(0, 10), cap: CAP, maxTokens: MAXTOK, scale: 100 }, models: [] };
   outer:
   for (const spec of MODELS) {

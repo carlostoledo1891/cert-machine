@@ -7,7 +7,7 @@ const path = require('path');
 const HERE = __dirname;
 const PG = path.join(HERE, '..');
 const { page } = require(path.join(PG, 'design', 'shell.js'));
-const { plate } = require('./plate.js');
+const { plate, mapPlate } = require('./plate.js');
 
 const G = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'geometry.json'), 'utf8'));
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
@@ -21,29 +21,37 @@ const model = (id) => G.models.find((m) => m.id === id);
 const IDS = G.models.map((m) => m.id);
 
 /* the three facts the page is built on, computed here rather than asserted */
-const structured = sets.filter((s) => s.id !== 'unrelated');
-const control = sets.find((s) => s.id === 'unrelated');
-const qStructured = structured.flatMap((s) => s.models.map((m) => m.signature.q));
-const qControl = control.models.map((m) => m.signature.q);
-const capStructured = structured.flatMap((s) => s.models.map((m) => m.captured));
-const capControl = control.models.map((m) => m.captured);
+const setOf = (id) => sets.find((s) => s.id === id);
+const done = (s) => s.models.filter((m) => !m.incomplete);
+const structured = sets.filter((s) => s.shape !== 'none');
+const controls = sets.filter((s) => s.shape === 'none');
+const qStructured = structured.flatMap((s) => done(s).map((m) => m.signature.q));
+const qControl = controls.flatMap((s) => done(s).map((m) => m.signature.q));
+const strCells = qStructured.length, ctlCells = qControl.length;
+const qPos = qStructured.filter((q) => q > 0).length;
+const capStructured = structured.flatMap((s) => done(s).map((m) => m.captured));
+const capControl = controls.flatMap((s) => done(s).map((m) => m.captured));
+const triCtl = controls.flatMap((s) => done(s).map((m) => m.tri.violations));
 const asymBy = IDS.map((id) => ({ id, worst: Math.max(...sets.map((s) => byId(s, id).asym.max)) }));
 const cyclicBy = IDS.map((id) => ({ id, hits: sets.filter((s) => byId(s, id).cyclic).length }));
 const hues = sets.find((s) => s.id === 'hues');
 const digits = sets.find((s) => s.id === 'digits');
 const weekdays = sets.find((s) => s.id === 'weekdays');
-const closeOf = (s) => s.models.map((m) => m.closure.ratio);
+const closeOf = (s) => done(s).map((m) => m.closure.ratio);
+const hypOf = (s) => done(s).map((m) => m.hyp.norm);
+const byShape = (k) => sets.filter((s) => s.shape === k);
+const meanHyp = (s) => mean(hypOf(s));
 const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length;
 
 const plateBlock = (s, m) => `
   <div class="pl">
     <div class="who"><span class="m">${short(m.id)}</span><span class="c">${m.n} items · ${(m.n * (m.n - 1)) / 2} pairs</span></div>
-    ${plate(m, s.items)}
+    ${plate(m, s.items, { hasOrder: s.order })}
     <div class="nums">
-      <span><span class="k">closure</span><span class="v ${m.closure.ratio < 1.6 ? 'hit' : ''}">${n(m.closure.ratio)}×</span></span>
+      <span><span class="k">${s.order ? 'closure' : 'tri viol'}</span><span class="v ${s.order ? (m.closure.ratio < 1.6 ? 'hit' : '') : (m.tri.violations === 0 ? 'hit' : '')}">${s.order ? n(m.closure.ratio) + '×' : m.tri.violations}</span></span>
+      <span><span class="k">δ / diam</span><span class="v ${m.hyp.norm !== null && m.hyp.norm < 0.14 ? 'hit' : ''}">${m.hyp.norm === null ? '—' : n(m.hyp.norm, 3)}</span></span>
       <span><span class="k">curved dirs</span><span class="v ${m.signature.q > 0 ? 'hit' : ''}">${m.signature.q}</span></span>
       <span><span class="k">2D holds</span><span class="v ${m.captured > 0.8 ? 'hit' : ''}">${(100 * m.captured).toFixed(0)}%</span></span>
-      <span><span class="k">order</span><span class="v ${m.cyclic ? 'hit' : ''}">${m.cyclic ? 'kept' : 'broken'}</span></span>
     </div>
   </div>`;
 
@@ -53,18 +61,28 @@ const setBlock = (s) => `
     <div>
       <div class="eyebrow">${s.id} · predicted: ${s.predict}</div>
       <h2>${s.title}</h2>
-      <div class="verdict"><span class="tag">closure ratio</span> ${closeOf(s).map((c) => n(c)).join(' · ')}<br>
+      <div class="verdict">${s.order ? `<span class="tag">closure ratio</span> ${closeOf(s).map((c) => n(c)).join(' · ')}<br>
+      <span class="tag">cyclic order</span> ${s.models.map((m) => (m.cyclic ? 'kept' : 'broken')).join(' · ')}<br>` : ''}
+      <span class="tag">δ / diameter</span> ${s.models.map((m) => n(m.hyp.norm, 3)).join(' · ')}<br>
       <span class="tag">curved directions</span> ${s.models.map((m) => m.signature.q).join(' · ')} of ${s.models[0].n - 1}</div>
     </div>
     <p class="why">${s.why}</p>
   </div>
-  <div class="plates">${s.models.map((m) => plateBlock(s, m)).join('')}</div>
+  <div class="plates">${s.models.map((m) => (m.incomplete
+    ? `<div class="pl"><div class="who"><span class="m">${short(m.id)}</span><span class="c">no plate</span></div><p class="cap" style="padding:var(--s-6) 0;color:var(--ink-5)">A row came back unparseable and was not repaired, so this cell has no matrix. It is left here rather than dropped, because a missing tile reads like a finding.</p></div>`
+    : plateBlock(s, m))).join('')}</div>
 </div></section>`;
 
-const rows = sets.map((s) => s.models.map((m) => `<tr><td>${s.id}</td><td>${short(m.id)}</td>`
-  + `<td>${n(m.closure.ratio)}</td><td>${n(m.closure.closing, 1)}</td><td>${n(m.closure.median, 1)}</td>`
-  + `<td>${m.signature.p}+ ${m.signature.q}− ${m.signature.z}z</td><td>${(100 * m.captured).toFixed(0)}%</td>`
-  + `<td>${m.asym.max}</td><td>${m.cyclic ? 'kept' : 'broken'}</td></tr>`).join('')).join('');
+const dash = '<td>—</td>';
+const rows = sets.map((s) => s.models.map((m) => {
+  if (m.incomplete) return `<tr><td>${s.id}</td><td>${short(m.id)}</td><td colspan="7">incomplete — a row came back unparseable</td></tr>`;
+  return `<tr><td>${s.id}</td><td>${short(m.id)}</td>`
+    + (m.closure ? `<td>${n(m.closure.ratio)}</td><td>${n(m.closure.closing, 1)}</td>` : dash + dash)
+    + `<td>${n(m.hyp.norm, 3)}</td>`
+    + `<td>${m.tri.violations}/${m.tri.tested}</td>`
+    + `<td>${m.signature.p}+ ${m.signature.q}− ${m.signature.z}z</td><td>${(100 * m.captured).toFixed(0)}%</td>`
+    + `<td>${m.asym.max}</td></tr>`;
+}).join('')).join('');
 
 const body = `
 <header class="hero"><div class="wrap">
@@ -75,20 +93,40 @@ const body = `
 
 <section class="finding"><div class="wrap"><div class="grid">
   <div>
-    <h3><span class="big">${qControl.every((q) => q === 0) ? 'q = 0' : 'q = ' + qControl.join('/')}</span>Structure is curvature.</h3>
-    <p>Every structured set produces answers that are <b>not Euclidean</b> — the Gram matrix carries ${Math.min(...qStructured)}–${Math.max(...qStructured)} negative directions, in all three models. The unrelated nouns produce <b>zero</b>, in all three. A model squeezing a cycle into pairwise distances cannot do it flatly, and the failure to be flat is the fingerprint of the structure.</p>
+    <h3><span class="big">0 of ${ctlCells}</span>Structure is curvature.</h3>
+    <p>The Gram matrix of a set of distances is positive semidefinite exactly when those distances are Euclidean. Every one of the ${ctlCells} control cells is: <b>zero negative directions</b>, for unrelated nouns and for nonsense strings alike, in all three models. ${qPos} of the ${strCells} structured cells are not. Squeezing a cycle, a tree or a grid into pairwise numbers cannot be done flatly, and the failure to be flat is the fingerprint.</p>
   </div>
   <div>
-    <h3><span class="big">${n(mean(closeOf(hues)))}× vs ${n(mean(closeOf(digits)))}×</span>The wheel closes. The line does not.</h3>
-    <p>Walk the items in order and compare the step home to the steps along the way. For the hues that ratio averages ${n(mean(closeOf(hues)))} — red really is next to rose. For the digits it averages ${n(mean(closeOf(digits)))}: nine is not adjacent to zero, and the control that must not be a circle is not one.</p>
+    <h3><span class="big">${n(mean(closeOf(setOf('digits'))))}× → ${n(mean(closeOf(setOf('clockhours'))))}×</span>The frame moves the geometry.</h3>
+    <p>The same twelve numerals, asked twice. As <b>digits</b> they lie on a line and nine is nowhere near zero. Named as <b>hours on a clock face</b> they close into a ring — in all three models, one of them at exactly 1.00. Nothing about the tokens changed, only what they are for. Whatever these models store, it is not the numeral.</p>
   </div>
   <div>
-    <h3><span class="big">${n(mean(closeOf(weekdays)))}×</span>But the week does not close.</h3>
-    <p>The prediction was a circle and the answers say otherwise: Monday and Sunday sit <b>${n(mean(closeOf(weekdays)))} neighbour-steps apart</b>, further than any adjacent pair. The year closes and the hue wheel closes; the week is bent but open. Whatever these models hold, the weekend is a real edge in it.</p>
+    <h3><span class="big">${n(mean(closeOf(setOf('chromatic'))))}×</span>And octave equivalence is not in there.</h3>
+    <p>B is one semitone below C, which is the oldest cycle in music. The models do not close it — the scale comes back as a line at ${closeOf(setOf('chromatic')).map((c) => n(c)).join(', ')}, and it is the worst-fitting set on the page in two dimensions. They have the note NAMES, in the order the alphabet gives them, and not the pitch class.</p>
   </div>
 </div></div></section>
 
-${sets.map(setBlock).join('')}
+<section class="mapsec"><div class="wrap">
+  <div class="maphead">
+    <div>
+      <div class="eyebrow">every set, every model, two numbers</div>
+      <h2>The map</h2>
+    </div>
+    <p class="why">Curvature against closure: the share of the signature that is negative, against Gromov's δ over the diameter. Neither number knows what the set was — the grouping is what the answers do on their own. <b>The controls sit alone in the corner where both are zero</b>, and nothing else is near them.</p>
+  </div>
+  ${mapPlate(sets)}
+  <div class="legend">
+    ${['cycle', 'line', 'tree', 'grid', 'none'].map((k) => `<span><i class="sw k-${k}"></i>${k === 'none' ? 'controls' : k}</span>`).join('')}
+  </div>
+  <p class="why" style="margin-top:var(--s-5);max-width:70ch">
+    <b>What δ does and does not do.</b> It was brought in to tell a tree from a wheel, and it half works: the cycles average ${n(mean(byShape('cycle').map(meanHyp)), 3)} and the taxonomy ${n(meanHyp(setOf('carnivores')), 3)}. But the controls are <em>lower still</em> at ${n(mean(byShape('none').map(meanHyp)), 3)}, because answers with no structure are near-equilateral and near-equilateral is near-tree by this measure. So δ is not a tree detector. It measures how CLOSED a structure is, and it only means anything once curvature has already said there is one. The prediction was sharper than the result and the result is what is drawn.
+  </p>
+</div></section>
+
+${[['cycle', 'the wheels'], ['line', 'the lines'], ['tree', 'the branching one'], ['grid', 'the two-axis one'], ['none', 'the controls']]
+  .map(([k, label]) => byShape(k).length
+    ? `<div class="band"><div class="wrap"><span class="eyebrow">${label}</span></div></div>` + byShape(k).map(setBlock).join('')
+    : '').join('')}
 
 <section class="method"><div class="wrap narrow">
   <div class="eyebrow">the method</div>
@@ -102,13 +140,16 @@ ${sets.map(setBlock).join('')}
   <h3>Why the negative directions are the finding</h3>
   <p>By Schoenberg, a distance matrix is Euclidean exactly when its doubly-centred Gram matrix is positive semidefinite, and then the rank is the smallest flat space the points fit in. Geodesic distances on a circle are famously <em>not</em> Euclidean — you would need the chords — so a model that answers about a cycle in cycle-distances must produce negative directions, and one that answers about nothing in particular has no reason to. That is exactly the split measured here, and it is the same claim Goodfire makes from inside, arrived at without the weights.</p>
 
+  <h3>Is it even a distance?</h3>
+  <p>Nothing forces a model's numbers to be a metric. It answers one pair at a time and owes nothing to any third point, so the first question about "distance" is whether it is one. Every triple was checked exactly: the controls violate the triangle inequality <b>${triCtl.reduce((a, x) => a + x, 0)} times out of ${controls.flatMap((x) => done(x).map((m) => m.tri.tested)).reduce((a, x) => a + x, 0)}</b>, and so do the physical orderings — planets and scales of size never violate it once. The wheels do, and the smallest model does it most: its worst set breaks the inequality in ${Math.max(...sets.flatMap((x) => done(x).filter((m) => m.id === 'claude-haiku-4-5').map((m) => m.tri.violations)))} triples. A model whose own differences are not a metric is not holding a space.</p>
+
   <h3>What is decided and what is drawn</h3>
   <p>Decided, exactly: the asymmetry, the closure ratio, and the signature. Drawn, in floating point and labelled as such: the two-dimensional coordinates, which come from an eigendecomposition of the same Gram matrix and are honest only to the degree the “2D holds” column reports — ${(100 * Math.min(...capStructured)).toFixed(0)}–${(100 * Math.max(...capStructured)).toFixed(0)}% of the structure for the structured sets against ${(100 * Math.min(...capControl)).toFixed(0)}–${(100 * Math.max(...capControl)).toFixed(0)}% for the control. The chords are the raw judgements, so what you are looking at is the matrix and not a summary of it.</p>
 
   <h3>What this is not</h3>
   <p>It is not interpretability. Nothing here says how the model computes anything, and nothing here opens it. It is a measurement of what its <em>answers</em> are shaped like, on five small sets, with two of them present only to fail. Five sets is not a survey; the sets were chosen before the calls were made and all five are on the page, including the one whose prediction was wrong.</p>
 
-  <table><thead><tr><th>set</th><th>model</th><th>closure</th><th>closing</th><th>median step</th><th>signature</th><th>2D</th><th>asym</th><th>order</th></tr></thead><tbody>${rows}</tbody></table>
+  <table><thead><tr><th>set</th><th>model</th><th>closure</th><th>closing step</th><th>δ/diam</th><th>triangle</th><th>signature</th><th>2D</th><th>asym</th></tr></thead><tbody>${rows}</tbody></table>
 
   <pre>ENVS_ALLOW_NETWORK=1 node playground/neural-geometry/probe.js --cap 2.00
 node playground/neural-geometry/decide.js

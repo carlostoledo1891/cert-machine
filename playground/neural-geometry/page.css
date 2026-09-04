@@ -38,6 +38,7 @@ svg.plate { display: block; width: 100%; height: auto; overflow: visible; margin
 .ch { stroke: var(--ink-2); }
 .ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
 .clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-dasharray: 6 6; stroke-linecap: round; }
+.mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
 .pt { fill: var(--ink); }
 .pt.first { fill: var(--ink); stroke: var(--bg-raised); stroke-width: 2.5; }
 .lb { font-family: var(--font-mono); font-size: 13.5px; fill: var(--ink-4); }
@@ -64,3 +65,30 @@ svg.plate { display: block; width: 100%; height: auto; overflow: visible; margin
 .foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); }
 .foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
 .foot a { color: var(--ink-4); text-decoration: none; } .foot a:hover { color: var(--ink-2); }
+
+/* the map, and the bands that group the sets by what was predicted of them */
+.mapsec { padding: clamp(3rem, 7vh, 5rem) 0; border-bottom: 1px solid var(--border); }
+.maphead { display: grid; gap: var(--s-5) clamp(1.5rem, 4vw, 3rem); grid-template-columns: 1fr; align-items: end; }
+@media (min-width: 900px) { .maphead { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); } }
+.maphead h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); margin-top: var(--s-3); }
+svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto 0; height: auto; overflow: visible; }
+.mg { stroke: var(--chart-grid); stroke-width: 1; }
+.max { font-family: var(--font-mono); font-size: 12px; fill: var(--ink-5); }
+.max.ax { font-size: 12px; fill: var(--ink-4); letter-spacing: 0.06em; }
+.mb { fill: none; stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 4 5; }
+.ml.ctl { fill: var(--ink-2); }
+.mp { fill: var(--ink-3); }
+.mp.k-cycle { fill: var(--ink); }
+.mp.k-none { fill: var(--ink); stroke: var(--bg); stroke-width: 2; }
+.mp.k-line { fill: var(--ink-3); }
+.mp.k-tree, .mp.k-grid { fill: var(--ink-2); }
+.ml { font-family: var(--font-mono); font-size: 12px; fill: var(--ink-4); }
+.legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--ink-3); margin-right: 8px; vertical-align: middle; border-top: 0; }
+.legend .sw.k-cycle { background: var(--ink); }
+.legend .sw.k-none { background: var(--ink); box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--ink-4); }
+.legend .sw.k-line { background: var(--ink-3); }
+.legend .sw.k-tree, .legend .sw.k-grid { background: var(--ink-2); }
+.legend { justify-content: center; }
+
+.band { padding: clamp(2rem, 5vh, 3.5rem) 0 0; }
+.band .eyebrow { display: block; border-top: 1px solid var(--border-strong); padding-top: var(--s-4); color: var(--ink-3); }

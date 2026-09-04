@@ -80,6 +80,67 @@ function closure(D, n) {
   };
 }
 
+/* THE TRIANGLE INEQUALITY, exactly. Nothing forces a model's numbers to be a
+   metric — it is answering one pair at a time and has no obligation to any
+   third point. So the first question about "distance" is whether it is one.
+   Every triple, decided on integers. */
+function triangles(D, n) {
+  let tested = 0, bad = 0;
+  let worst = R.int(0);
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) for (let k = 0; k < n; k++) {
+    if (i === j || j === k || i === k) continue;
+    tested++;
+    const slack = R.sub(R.add(D[i][j], D[j][k]), D[i][k]);   // ≥ 0 iff the triangle holds
+    if (R.sign(slack) < 0) { bad++; if (R.lt(slack, worst)) worst = slack; }
+  }
+  return { tested, violations: bad, rate: tested ? bad / tested : 0, worst: R.toNumber(worst) };
+}
+
+/* GROMOV'S FOUR-POINT CONDITION, exactly — and this is the axis that says which
+   KIND of structure, where the Gram signature only says there is one.
+
+   For four points take the three ways of pairing them up and sum each pairing.
+   Order the sums S1 ≥ S2 ≥ S3; then δ = (S1 − S2)/2. A TREE gives zero for every
+   quadruple, because in a tree two of the three sums always coincide. A CYCLE
+   gives something large, and grows with the cycle. So δ, divided by the diameter
+   to make it scale-free, separates a taxonomy from a wheel — which the curvature
+   count cannot do, since both are simply "not flat". */
+function hyperbolicity(D, n) {
+  let delta = R.int(0), quads = 0;
+  let diam = R.int(0);
+  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) if (R.gt(D[i][j], diam)) diam = D[i][j];
+  for (let a = 0; a < n; a++) for (let b = a + 1; b < n; b++)
+    for (let c = b + 1; c < n; c++) for (let d = c + 1; d < n; d++) {
+      quads++;
+      const S = [R.add(D[a][b], D[c][d]), R.add(D[a][c], D[b][d]), R.add(D[a][d], D[b][c])];
+      S.sort((x, y) => R.cmp(y, x));                       // S[0] ≥ S[1] ≥ S[2]
+      const q = R.mul(half, R.sub(S[0], S[1]));
+      if (R.gt(q, delta)) delta = q;
+    }
+  return {
+    delta: R.toNumber(delta), diameter: R.toNumber(diam), quads,
+    norm: R.sign(diam) === 0 ? null : R.toNumber(R.div(delta, diam)),
+  };
+}
+
+/* the minimum spanning tree, for the sets that have no canonical order — a
+   taxonomy has no first animal, so there is no path to walk and the honest
+   skeleton to draw is the cheapest tree the model's own numbers admit. */
+function mst(D, n) {
+  const inTree = [0], out = [], edges = [];
+  for (let i = 1; i < n; i++) out.push(i);
+  while (out.length) {
+    let bi = 0, bj = 0, best = null;
+    for (const i of inTree) for (let k = 0; k < out.length; k++) {
+      const j = out[k];
+      if (best === null || R.lt(D[i][j], best)) { best = D[i][j]; bi = i; bj = j; }
+    }
+    edges.push([bi, bj, R.toNumber(best)]);
+    inTree.push(bj); out.splice(out.indexOf(bj), 1);
+  }
+  return edges;
+}
+
 /* Gram of the doubly-centred squared distances, exactly:
    G[i][j] = -½ ( D²[i][j] − rowᵢ − rowⱼ + grand ) */
 function gram(D, n) {
@@ -188,7 +249,7 @@ function angularOrder(pts) {
 const out = { meta: Object.assign({}, P.meta, { decided: new Date().toISOString().slice(0, 10) }), sets: [], models: P.models.map((m) => ({ id: m.id, effort: m.effort })) };
 
 for (const S of SETS) {
-  const row = { id: S.id, title: S.title, predict: S.predict, why: S.why, items: S.items, models: [] };
+  const row = { id: S.id, title: S.title, predict: S.predict, why: S.why, shape: S.shape, order: !!S.order, items: S.items, models: [] };
   for (const M of P.models) {
     const rec = M.sets[S.id];
     if (!rec || rec.raw.some((r) => r.some((x) => x === null))) { row.models.push({ id: M.id, incomplete: true }); continue; }
@@ -199,8 +260,9 @@ for (const S of SETS) {
     const c = closure(D, n);
     const xy = coords2D(G, n);
     row.models.push({
-      id: M.id, n, asym: asymmetry(rec.raw, n), closure: c, signature: sig,
-      pts: xy.pts, captured: xy.captured, cyclic: angularOrder(xy.pts),
+      id: M.id, n, asym: asymmetry(rec.raw, n), closure: S.order ? c : null, signature: sig,
+      tri: triangles(D, n), hyp: hyperbolicity(D, n), mst: mst(D, n),
+      pts: xy.pts, captured: xy.captured, cyclic: S.order ? angularOrder(xy.pts) : null,
       D: D.map((r) => r.map(R.toNumber)),
     });
   }
@@ -210,11 +272,13 @@ for (const S of SETS) {
 fs.mkdirSync(path.join(HERE, 'out'), { recursive: true });
 fs.writeFileSync(path.join(HERE, 'out', 'geometry.json'), JSON.stringify(out) + '\n');
 
-console.log(`${'set'.padEnd(11)} ${'model'.padEnd(17)} ${'closure'.padStart(8)} ${'signature'.padStart(11)} ${'2D holds'.padStart(9)} ${'asym'.padStart(6)}  cyclic`);
+const H = (x) => (x === null ? '  —  ' : x.toFixed(3));
+console.log(`${'set'.padEnd(12)} ${'shape'.padEnd(6)} ${'model'.padEnd(9)} ${'closure'.padStart(8)} ${'delta/diam'.padStart(10)} ${'tri viol'.padStart(9)} ${'q'.padStart(3)} ${'2D'.padStart(5)} ${'asym'.padStart(5)}`);
 for (const s of out.sets) for (const m of s.models) {
-  if (m.incomplete) { console.log(`${s.id.padEnd(11)} ${m.id.padEnd(17)}   (incomplete)`); continue; }
-  console.log(`${s.id.padEnd(11)} ${m.id.padEnd(17)} ${m.closure.ratio.toFixed(2).padStart(8)} `
-    + `${(m.signature.p + '+ ' + m.signature.q + '− ' + m.signature.z + 'z').padStart(11)} `
-    + `${(100 * m.captured).toFixed(0).padStart(8)}% ${m.asym.max.toString().padStart(6)}  ${m.cyclic ? 'yes' : 'no'}`);
+  if (m.incomplete) { console.log(`${s.id.padEnd(12)} ${s.shape.padEnd(6)} ${m.id.replace('claude-', '').padEnd(9)}   (incomplete)`); continue; }
+  console.log(`${s.id.padEnd(12)} ${s.shape.padEnd(6)} ${m.id.replace('claude-', '').padEnd(9)} `
+    + `${(m.closure ? m.closure.ratio.toFixed(2) : '—').padStart(8)} ${H(m.hyp.norm).padStart(10)} `
+    + `${(m.tri.violations + '/' + m.tri.tested).padStart(9)} ${String(m.signature.q).padStart(3)} `
+    + `${(100 * m.captured).toFixed(0).padStart(4)}% ${m.asym.max.toString().padStart(5)}`);
 }
 console.log(`\n→ out/geometry.json`);
