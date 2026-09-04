@@ -1,10 +1,10 @@
 # Certificate-grounded grading: a construction manual
 
-*Carlos Toledo · cert-machine · DRAFT, sections 2 and 3 only*
+*Carlos Toledo · cert-machine · DRAFT — sections 1, 2, 3 and 7*
 
 > **Status.** Machine-assisted draft, not peer-reviewed, not submitted. Every number in this
 > document was read from `certs/envs-record.json` at build time (2026-09-03, git `6750a59`); the living version of each is at <https://carlostoledo.co/reports/envs.html>, where it is
-> recomputed on every build. Sections 1 and 4-11 are outlined and unwritten; this file does not
+> recomputed on every build. Sections 4-6 and 8-11 are outlined and unwritten; this file does not
 > pretend otherwise.
 
 **Thesis.** Verifier false-accept rates are measured today against labels, behavioural diffs and human
@@ -13,6 +13,34 @@ form rather than mutated — and the field's standard remedy for numeric grading
 tolerance, provably does not close the hole.
 
 ---
+
+## 1 · The reward is a software artifact
+
+When a model is trained or evaluated against a machine-checkable task, the reward is not a judgement.
+It is a program: it parses the output, extracts an answer, compares a value, runs a test, enforces a
+timeout, and returns a number. Bugs in that program do not add noise. Under optimisation pressure they
+become the objective.
+
+The size of the problem is not in dispute, and none of the following numbers are ours:
+
+- **28.5%** of a 49-task sample of SWE-bench Verified, and **25.0%** of a 20-task R2E-Gym sample, have
+  test suites weak enough to accept an incorrect patch (Rajan, arXiv:2606.16062). Across 134 frontier
+  model submissions, tasks flagged hackable inflate within-stratum Pass@1 by **+14.14 pp**.
+- OpenAI announced in February 2026 that **59.4%** of failed tasks on the same benchmark have flawed
+  tests; the benchmark's own release audit was a manual sweep by 93 developers.
+- A preregistered causal contrast on MBPP puts the leak-stratum false-positive share **+43.8 pt** above
+  clean tasks, and finds that **47.57%** of rewarded false positives are, under signed human
+  adjudication, genuinely wrong code (Zhang, arXiv:2607.11022).
+- Two identical 7B models differing only in verifier design show a **35%** reward gap
+  (*LLMs Gaming Verifiers*, arXiv:2604.15149).
+- Deliberately buggy math, tool-call and code verifiers accept incorrect completions at rates **0.832**,
+  **0.869** and **0.557**; a replay against the open-source `math-verify` gives **10/60**
+  (Ray, arXiv:2606.01066).
+
+This paper is about one corner of that surface: the case where the claimed answer is a **number**, and
+where a certificate for that number can exist. It is a narrow corner and an unusually tractable one,
+because in it the question "is this submission wrong?" has an answer that does not depend on anybody's
+key.
 
 ## 2 · What "wrong" means, and why it is usually a comparison
 
@@ -158,7 +186,89 @@ problem thread published for the quantity, `0.0752403861777`, which lies outside
 lab's certificate by `6.09e-13` and inside any ordinary tolerance of it. It is a member of the acceptance band that nobody had to mint:
 it was printed, in public, as a result.
 
+## 7 · The construction manual
+
+What follows is the tuning. Each item is a knob someone has to set, the setting this lab uses, and the
+failure that taught it. Where a number appears it is measured, not recommended.
+
+### 7.1 Choosing the tolerance
+
+Do not. If a certificate exists, grade against it: `lo ≤ v ≤ hi`. That is the only setting for which
+Proposition 1 gives an empty band, and it is the row in §3.3 with 0.0% false-accept
+and 0.0% false-reject.
+
+If no certificate exists, you are choosing a `ρ` whether you say so or not. Publish it: state the
+tolerance **and** your best bound on the quantity's own precision, so a reader can compute how many
+widths of wrongness the grader will accept. A tolerance published without a precision is a number with
+no denominator.
+
+### 7.2 Forgeries: how many, of what kind, and what "must fire" costs
+
+Plant them before anything real is graded, and abort the run if one passes. This lab plants
+26 in the two model-facing environments (0 have ever leaked)
+and mutation controls in every audit lane. The cost is real — a forgery that cannot fire is worse than
+none, because it reports soundness it never tested — so each one is checked to fail on a deliberately
+broken copy of the instrument before it is trusted to pass on the real one.
+
+The two forgeries that matter most are the degenerate graders: **accept-everything** and
+**reject-everything**. Both must score zero. Without the second, a false-accept benchmark is passed
+perfectly by a grader that rejects every submission, and the false-reject half of the measurement is
+decorative.
+
+### 7.3 Controls, and why the suite carries positives at all
+
+Of 4,418 submissions in the suite, 418 are provably **right** —
+drawn from inside the certificates, including the midpoint printed at full double precision and read
+back. They exist so that strictness has a price. The exact-match grader's 24.4%
+false-reject rate is only visible because of them, and it is the reason exact matching is not the answer
+to §3.
+
+### 7.4 Abstention rewards
+
+In an environment where a verdict must carry evidence, the scoring that works is: **+1** correct with
+evidence, **0** correct but unsupported, **+0.25** honest abstention, **−1** wrong. Two consequences are
+load-bearing. A bare verdict scores zero however correct it is, because a verdict without evidence is
+indistinguishable from a lucky guess. And dressing a sampling grid as a tiling scores **−6.00** — worse than abstaining — because the cell holding the
+needle refuses to verify.
+
+The requirement people miss: the solver table needs a **budget-limited sound** row. Without one,
+abstention is never the correct answer to anything in the suite, the +0.25 is never earned, and the
+environment quietly teaches bravado. In this suite that row abstains 4
+times and is never wrong.
+
+### 7.5 Evidence formats
+
+An evidence format whose soundness depends on the flaw being large enough is not an evidence format.
+Coverings are submitted as **dyadic addresses** and accepted only if they form a complete prefix-free
+set — checked combinatorially, with no arithmetic and no slack. An earlier version checked contiguity
+with a 1e-15 tolerance; it was not exploitable against the needles in the suite, and it was still wrong
+to keep, because the submitter chooses the gap.
+
+### 7.6 The calibration gate
+
+An instrument may not state a new result until it has re-derived a published one — **at every run**, not
+once at the start. The minimal-polynomial instrument in this lab reproduces two published closed forms
+before it is allowed to compute an unpublished one; the campaign engine re-derives the previous case of
+its own theorem before touching the next. A calibration that ran once is a memory, and memories drift.
+
+### 7.7 Corpus growth
+
+Facts are **read from records and sha-pinned to them**, never typed. The corpus here is
+104 facts and grows with every certificate the lab produces — which is the part that
+cannot be copied, since it requires having done the mathematics first. Two rules keep it honest: minting
+from a fact that is not marked certified **throws** rather than degrading, and a record whose bytes have
+changed makes the battery refuse rather than mint from a stale number.
+
+### 7.8 Counting
+
+Report rates with denominators, per kind, and never merge kinds. An instrument declining to decide is
+not a claimant publishing no data is not a budget running out. Separate what is **yours** from what is
+not: on the eval board of this lab, a reply carrying no parseable proposal is our refusal, a model
+arguing the target is impossible is the model's, and a reply cut off by our own output cap is neither
+and belongs in no rate at all. Merging those three would have produced a larger number and a smaller
+fact.
+
 ---
 
-*Sections 1 and 4-11 are outlined and unwritten. Generated by `tools/build-paper-grading.js` from
-`certs/envs-record.json`; git `6750a59`.*
+*Sections 4-6 and 8-11 are outlined and unwritten. Generated by `tools/build-paper-grading.js` from
+`certs/envs-record.json`; git `9b47d2c`.*

@@ -463,7 +463,106 @@ footer a:hover{color:var(--ink)}
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§1 · the measurement</div>
+    <div class="lab">§1 · the picture</div>
+    <h2>What a tolerance grader accepts</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 210" role="img" aria-label="The acceptance band drawn to scale in units of the tolerance: the certified enclosure is thinner than one pixel, and every value inside the tolerance window but outside it is provably wrong and accepted anyway.">
+    <rect x="165.8" y="70" width="604.4" height="52" fill="var(--c-grid)" stroke="var(--c-axis)" stroke-width="1"/>
+    <rect x="165.8" y="70" width="302.2" height="52" fill="var(--c-1)" opacity="0.30"/>
+    <rect x="468.0" y="70" width="302.2" height="52" fill="var(--c-1)" opacity="0.30"/>
+    <rect x="467.5" y="62" width="1.0" height="68" fill="var(--c-2)"/>
+    <line x1="468.0" y1="52" x2="468.0" y2="140" stroke="var(--c-axis)" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="468.0" y="44" text-anchor="middle" class="t-lab">the stored key</text>
+    <text x="165.8" y="142" text-anchor="middle" class="t-ax">− tol</text>
+    <text x="770.2" y="142" text-anchor="middle" class="t-ax">+ tol</text>
+    <text x="301.8" y="100" text-anchor="middle" class="t-lab">ACCEPTED · PROVABLY WRONG</text>
+    <text x="634.2" y="100" text-anchor="middle" class="t-lab">ACCEPTED · PROVABLY WRONG</text>
+    <text x="476.5" y="158" text-anchor="start" class="t-note">the certificate — floored to 1 px so it is visible; its true width is 1/562,950 of this window</text>
+  </svg>
+  </div>
+  <figcaption>Drawn to scale in units of the tolerance. The certified enclosure is the narrow bar at the centre — at a routine tolerance of 1e-9 against a typical certificate here (width 4e-15) it is 1/562,950 of the accepted window, floored to one pixel so it is visible at all. Everything shaded is accepted by the grader and refuted by the certificate.</figcaption>
+</figure></div>
+<div class="col"><p>The accepted-but-wrong region has width <span class="m">2·tol − w</span> and is empty only when <span class="m">tol ≤ w/2</span> — at which point the grader accepts a sub-interval of the certificate and has become a certificate grader with gratuitous rejections. The ratio of band to certificate, <span class="m">ρ = 2·tol/w − 1</span>, is <span class="m">562,949</span> here: the grader will accept a band 562,949 times wider than the proof.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the curve</div>
+    <h2>Tightening the tolerance does not close the hole</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 340" role="img" aria-label="False-accept rate against tolerance for four grader shapes. The tolerance graders decline as the tolerance tightens but do not reach zero; the certificate grader is flat at zero everywhere.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="266.0" x2="878" y2="266.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="270.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="204.0" x2="878" y2="204.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="208.0" text-anchor="end" class="t-ax">25</text>
+    <line x1="62" y1="142.0" x2="878" y2="142.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="146.0" text-anchor="end" class="t-ax">50</text>
+    <line x1="62" y1="80.0" x2="878" y2="80.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="84.0" text-anchor="end" class="t-ax">75</text>
+    <line x1="62" y1="18.0" x2="878" y2="18.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="22.0" text-anchor="end" class="t-ax">100</text>
+    <line x1="62" y1="266" x2="878" y2="266" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="308.0" text-anchor="middle" class="t-note">tolerance</text>
+    <text x="13" y="142" class="t-note" transform="rotate(-90 13 142)" text-anchor="middle">false-accept rate (%)</text>
+    <line x1="62" y1="266.0" x2="878" y2="266.0" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="874.0" y="260.0" text-anchor="end" class="t-note">certificate-grounded: 0% at every tolerance</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="266" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M72.28 155.78 L138.61 73.71 L271.28 45.61 L403.96 37.65 L470.29 33.86 L536.63 29.68 L669.30 19.59 L801.97 19.59 L868.31 19.59" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="868.31" cy="19.59" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <circle cx="72.28" cy="155.78" r="12" fill="transparent" data-cmx="72.28" data-cm="absolute-tolerance · 1.0e-15" data-cmv="44.4" tabindex="0"/>
+    <circle cx="138.61" cy="73.71" r="12" fill="transparent" data-cmx="138.61" data-cm="absolute-tolerance · 1.0e-14" data-cmv="77.5" tabindex="0"/>
+    <circle cx="271.28" cy="45.61" r="12" fill="transparent" data-cmx="271.28" data-cm="absolute-tolerance · 1.0e-12" data-cmv="88.9" tabindex="0"/>
+    <circle cx="403.96" cy="37.65" r="12" fill="transparent" data-cmx="403.96" data-cm="absolute-tolerance · 1.0e-10" data-cmv="92.1" tabindex="0"/>
+    <circle cx="470.29" cy="33.86" r="12" fill="transparent" data-cmx="470.29" data-cm="absolute-tolerance · 1.0e-9" data-cmv="93.6" tabindex="0"/>
+    <circle cx="536.63" cy="29.68" r="12" fill="transparent" data-cmx="536.63" data-cm="absolute-tolerance · 1.0e-8" data-cmv="95.3" tabindex="0"/>
+    <circle cx="669.30" cy="19.59" r="12" fill="transparent" data-cmx="669.30" data-cm="absolute-tolerance · 1.0e-6" data-cmv="99.4" tabindex="0"/>
+    <circle cx="801.97" cy="19.59" r="12" fill="transparent" data-cmx="801.97" data-cm="absolute-tolerance · 1.0e-4" data-cmv="99.4" tabindex="0"/>
+    <circle cx="868.31" cy="19.59" r="12" fill="transparent" data-cmx="868.31" data-cm="absolute-tolerance · 0.001" data-cmv="99.4" tabindex="0"/>
+    <path d="M72.28 92.79 L138.61 72.51 L271.28 51.99 L403.96 41.37 L470.29 37.04 L536.63 30.21 L669.30 23.84 L801.97 23.84 L868.31 23.84" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="868.31" cy="23.84" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <circle cx="72.28" cy="92.79" r="12" fill="transparent" data-cmx="72.28" data-cm="relative-tolerance · 1.0e-15" data-cmv="69.8" tabindex="0"/>
+    <circle cx="138.61" cy="72.51" r="12" fill="transparent" data-cmx="138.61" data-cm="relative-tolerance · 1.0e-14" data-cmv="78" tabindex="0"/>
+    <circle cx="271.28" cy="51.99" r="12" fill="transparent" data-cmx="271.28" data-cm="relative-tolerance · 1.0e-12" data-cmv="86.3" tabindex="0"/>
+    <circle cx="403.96" cy="41.37" r="12" fill="transparent" data-cmx="403.96" data-cm="relative-tolerance · 1.0e-10" data-cmv="90.6" tabindex="0"/>
+    <circle cx="470.29" cy="37.04" r="12" fill="transparent" data-cmx="470.29" data-cm="relative-tolerance · 1.0e-9" data-cmv="92.3" tabindex="0"/>
+    <circle cx="536.63" cy="30.21" r="12" fill="transparent" data-cmx="536.63" data-cm="relative-tolerance · 1.0e-8" data-cmv="95.1" tabindex="0"/>
+    <circle cx="669.30" cy="23.84" r="12" fill="transparent" data-cmx="669.30" data-cm="relative-tolerance · 1.0e-6" data-cmv="97.6" tabindex="0"/>
+    <circle cx="801.97" cy="23.84" r="12" fill="transparent" data-cmx="801.97" data-cm="relative-tolerance · 1.0e-4" data-cmv="97.6" tabindex="0"/>
+    <circle cx="868.31" cy="23.84" r="12" fill="transparent" data-cmx="868.31" data-cm="relative-tolerance · 0.001" data-cmv="97.6" tabindex="0"/>
+    <path d="M72.28 266.00 L138.61 266.00 L271.28 266.00 L403.96 266.00 L470.29 266.00 L536.63 266.00 L669.30 266.00 L801.97 266.00 L868.31 266.00" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="868.31" cy="266.00" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="2"/>
+    <circle cx="72.28" cy="266.00" r="12" fill="transparent" data-cmx="72.28" data-cm="exact-match · 1.0e-15" data-cmv="0" tabindex="0"/>
+    <circle cx="138.61" cy="266.00" r="12" fill="transparent" data-cmx="138.61" data-cm="exact-match · 1.0e-14" data-cmv="0" tabindex="0"/>
+    <circle cx="271.28" cy="266.00" r="12" fill="transparent" data-cmx="271.28" data-cm="exact-match · 1.0e-12" data-cmv="0" tabindex="0"/>
+    <circle cx="403.96" cy="266.00" r="12" fill="transparent" data-cmx="403.96" data-cm="exact-match · 1.0e-10" data-cmv="0" tabindex="0"/>
+    <circle cx="470.29" cy="266.00" r="12" fill="transparent" data-cmx="470.29" data-cm="exact-match · 1.0e-9" data-cmv="0" tabindex="0"/>
+    <circle cx="536.63" cy="266.00" r="12" fill="transparent" data-cmx="536.63" data-cm="exact-match · 1.0e-8" data-cmv="0" tabindex="0"/>
+    <circle cx="669.30" cy="266.00" r="12" fill="transparent" data-cmx="669.30" data-cm="exact-match · 1.0e-6" data-cmv="0" tabindex="0"/>
+    <circle cx="801.97" cy="266.00" r="12" fill="transparent" data-cmx="801.97" data-cm="exact-match · 1.0e-4" data-cmv="0" tabindex="0"/>
+    <circle cx="868.31" cy="266.00" r="12" fill="transparent" data-cmx="868.31" data-cm="exact-match · 0.001" data-cmv="0" tabindex="0"/>
+    <line x1="62" y1="329" x2="76" y2="329" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="333.0" text-anchor="start" class="t-note">absolute-tolerance</text>
+    <line x1="232" y1="329" x2="246" y2="329" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
+    <text x="251.0" y="333.0" text-anchor="start" class="t-note">relative-tolerance</text>
+    <line x1="402" y1="329" x2="416" y2="329" stroke="var(--c-3)" stroke-width="2" stroke-linecap="round"/>
+    <text x="421.0" y="333.0" text-anchor="start" class="t-note">exact-match</text>
+    <line x1="523" y1="329" x2="537" y2="329" stroke="var(--c-ctx)" stroke-width="2" stroke-linecap="round"/>
+    <text x="542.0" y="333.0" text-anchor="start" class="t-note">certificate-grounded (flat at 0)</text>
+  </svg>
+  </div>
+  <figcaption>False-accept rate against tolerance, over 4,000 provably-wrong submissions. The band closes fact by fact, as the tolerance drops below half that fact&#39;s certificate width — so the aggregate falls and reaches zero only when the tolerance is under half the width of every certificate in the corpus.</figcaption>
+</figure></div>
+<div class="col"><p>This is the figure that answers the standard remedy. A published bug taxonomy for reward verifiers lists exactly this failure — a loose numeric tolerance accepting a nearby wrong value — and prescribes tightening the tolerance. Four orders of magnitude of tightening take the absolute-tolerance grader from 99.4% to 44.4%, and the only tolerance that reaches zero is one that has stopped being a tolerance.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§3 · the measurement</div>
     <h2>Four graders, one suite</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th>grader</th><th>false-accept</th><th>false-reject</th><th>soundness</th><th>false-accept by tolerance</th></tr></thead><tbody><tr><td>absolute-tolerance (|v - key| &lt; tol)</td><td class="v"><span class="m">89.5%</span></td><td class="v"><span class="m">0.5%</span></td><td class="v"><span class="m">10.4%</span></td><td>1e-3: 99.4% · 1e-4: 99.4% · 1e-6: 99.4% · 1e-8: 95.3% · 1e-9: 93.6% · 1e-10: 92.1% · 1e-12: 88.9% · 1e-14: 77.5% · 1e-15: 44.4%</td></tr><tr><td>relative-tolerance (|v - key|/|key| &lt; tol)</td><td class="v"><span class="m">90.3%</span></td><td class="v"><span class="m">0.5%</span></td><td class="v"><span class="m">9.6%</span></td><td>1e-3: 97.6% · 1e-4: 97.6% · 1e-6: 97.6% · 1e-8: 95.1% · 1e-9: 92.3% · 1e-10: 90.6% · 1e-12: 86.3% · 1e-14: 78.0% · 1e-15: 69.8%</td></tr><tr><td>exact-match (v === key)</td><td class="v"><span class="m">0.0%</span></td><td class="v"><span class="m">24.4%</span></td><td class="v"><span class="m">75.6%</span></td><td>1e-3: 0.0% · 1e-4: 0.0% · 1e-6: 0.0% · 1e-8: 0.0% · 1e-9: 0.0% · 1e-10: 0.0% · 1e-12: 0.0% · 1e-14: 0.0% · 1e-15: 0.0%</td></tr><tr><td>enclosure (v in certified [lo,hi])  &lt;- the sound grader</td><td class="v"><span class="m">0.0%</span></td><td class="v"><span class="m">0.0%</span></td><td class="v"><span class="m">100.0%</span></td><td>1e-3: 0.0% · 1e-4: 0.0% · 1e-6: 0.0% · 1e-8: 0.0% · 1e-9: 0.0% · 1e-10: 0.0% · 1e-12: 0.0% · 1e-14: 0.0% · 1e-15: 0.0%</td></tr></tbody></table></div></div>
@@ -472,7 +571,7 @@ footer a:hover{color:var(--ink)}
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§2 · the corpus</div>
+    <div class="lab">§4 · the corpus</div>
     <h2>Every canary traces to a certificate</h2>
   </div>
 <div class="col"><p>A canary asserts that a value is PROVABLY WRONG. That assertion is the product, so it may not rest on a decimal somebody re-typed: every fact below is read out of a record in <span class="m">certs/</span> at load time, and the record is sha256-pinned beside it. If a record changes, the battery refuses rather than minting canaries from a stale number. Minting from a fact that is not marked certified throws — it does not degrade.</p></div>
@@ -482,7 +581,7 @@ footer a:hover{color:var(--ink)}
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§3 · the uniformity gym</div>
+    <div class="lab">§5 · the uniformity gym</div>
     <h2>A verdict without evidence scores zero</h2>
   </div>
 <div class="col"><p>Decide whether <span class="m">f &gt; 0</span> on the whole domain — and support it. HOLDS must ship a dyadic tiling whose every cell carries a verified positive lower bound; FAILS must ship a witness. A bare verdict scores zero however correct it is, because a verdict without evidence is indistinguishable from a lucky guess. Of 12 instances, 10 carry a needle — a notch narrow enough that any coarser grid steps over it — 5 are two-dimensional and 2 are razor-thin. Scoring: +1 correct WITH evidence · 0 correct but unsupported · +0.25 honest UNDECIDED · -1 wrong.</p></div>
@@ -492,7 +591,7 @@ footer a:hover{color:var(--ink)}
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§4 · the attacker</div>
+    <div class="lab">§6 · the attacker</div>
     <h2>An environment that rewards breaking things</h2>
   </div>
 <div class="col"><p>Invert the polarity. The model is not asked to construct a correct object; it is shown a grader and asked to BREAK it — to produce a value the grader accepts and that is provably wrong. Ground truth is free, because a certified enclosure decides both halves without a human. Every environment in existence trains provers; this one trains verifiers.</p></div>
@@ -502,13 +601,13 @@ footer a:hover{color:var(--ink)}
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§5 · the rules</div>
+    <div class="lab">§7 · the rules</div>
     <h2>What this is not</h2>
   </div>
 <ul class="plain"><li><b>Not a benchmark of anyone&#39;s product.</b> The four graders here are reference SHAPES — an absolute tolerance, a relative tolerance, exact match, and the certificate itself. The suite that measures a real grader runs on that grader&#39;s own machine and prints the rates there. Every buyer of this is also a subject of it, and auditing your customers is not a business.</li><li><b>Not a claim that tolerance graders are stupid.</b> They are the correct tool when there is no certificate to compare against. The measurement says something narrower and harder: where a certificate EXISTS, comparing against a decimal throws away the thing that would have made the check sound.</li><li><b>Not minted from anything uncertified.</b> A fact that is float-grade can seed a task and must never seed a claim that a submission is provably wrong. The generator throws on a non-certified fact rather than quietly degrading, and the battery keeps a red control on exactly that.</li><li><b>Not connected to anything.</b> The model harness refuses to reach the network unless it is explicitly switched on. Every number on this page was produced offline against reference solvers and stub models; a rung × model table with real models is a decision, not a default.</li><li><b>Not the first environment with no answer key.</b> Kernel-checked proof environments have had that property for years, and verifiable-reward environments are a whole category. What is unusual here is narrower: the grader is exact rather than tolerant, the adversarial examples are generated from certificates rather than written by hand, and the refusal rate and the hack rate are published as measured numbers rather than asserted.</li></ul>
 </section>
 
-<footer class="col"><p>Generated by tools/build-report-envs.js from certs/envs-record.json (2026-09-03, git 6750a59). Rebuild the record: node tools/run-envs.js</p><p>git 6750a59 · instruments/envs, crossed from the operator&#39;s own bench with sha (instruments/envs/PROVENANCE.json) · MIT</p><p style="margin-top:20px;color:var(--ink-2)">Carlos Toledo · cert-machine</p></footer>
+<footer class="col"><p>Generated by tools/build-report-envs.js from certs/envs-record.json (2026-09-03, git 6750a59). Rebuild the record: node tools/run-envs.js</p><p>git 9b47d2c · instruments/envs, crossed from the operator&#39;s own bench with sha (instruments/envs/PROVENANCE.json) · MIT</p><p style="margin-top:20px;color:var(--ink-2)">Carlos Toledo · cert-machine</p></footer>
 
 </div>
 </html>
