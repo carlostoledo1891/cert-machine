@@ -140,10 +140,10 @@ O.push(C.scope('Published, not peer-reviewed, not independently rerun. Two prior
   O.push(C.section({
     lab: 'the phase map', title: 'Peak count over (σ, A₂/A₁)',
     wide: true,
-    bodyRaw: C.pRaw('Dots: ' + PM.grid.length + ' float equilibrium solves (N = ' + PM.N + ', fresh seed each, '
+    bodyRaw: '<div class="col">' + C.pRaw('Dots: ' + PM.grid.length + ' float equilibrium solves (N = ' + PM.N + ', fresh seed each, '
       + 'pinned by sha256) · dashed line: the closed-form linear-response boundary r_c(σ) · diamonds: the '
       + 'certified theorems — filled where EVERY density in the enclosure ball has exactly two maxima, open '
-      + 'where exactly one. The T7/T8 pair straddles the boundary.')
+      + 'where exactly one. The T7/T8 pair straddles the boundary.') + '</div>'
       + C.figure({
         svgRaw: svg,
         caption: 'The wedge between the boundary curve and r = 1/4 (where the potential itself goes two-well) is '
@@ -203,19 +203,19 @@ function portrait(tag, title, capExtra) {
 O.push(C.section({
   lab: 'the main specimen', title: 'T1 — one well, two peaks',
   wide: true,
-  bodyRaw: C.pRaw('The potential (dim, dashed, right scale — a positional comparison, never a magnitude one) has a '
+  bodyRaw: '<div class="col">' + C.pRaw('The potential (dim, dashed, right scale — a positional comparison, never a magnitude one) has a '
     + 'single well at x = ½. The certified equilibrium density peaks at x ≈ 0.363 and 0.637 with a saddle between '
     + '— the exact solution provably carries two strict maxima, with the certification margin six orders above '
-    + 'the enclosure pads.')
+    + 'the enclosure pads.') + '</div>'
     + portrait('t1', 'T1'),
 }));
 
 O.push(C.section({
   lab: 'the three-peak specimen', title: 'T6 — one well, three peaks',
   wide: true,
-  bodyRaw: C.pRaw('The mechanism does not stop at one extra peak. With the third harmonic inside its predicted '
+  bodyRaw: '<div class="col">' + C.pRaw('The mechanism does not stop at one extra peak. With the third harmonic inside its predicted '
     + 'window — the Chebyshev U₂ law gives (1/27, 1/3) at k = 3 — the crowd splits three ways at the bottom of '
-    + 'the same single well.')
+    + 'the same single well.') + '</div>'
     + portrait('t6', 'T6'),
 }));
 
@@ -242,11 +242,11 @@ O.push(C.section({
   O.push(C.section({
     lab: 'the theorems', title: 'Two theorems, ' + (order.length - 2) + ' bracket rows — every bound shown',
     wide: true,
-    bodyRaw: C.pRaw('Honest counting: T1 and T6 are the theorems; the rest are rows of a bracket table under them '
+    bodyRaw: '<div class="col">' + C.pRaw('Honest counting: T1 and T6 are the theorems; the rest are rows of a bracket table under them '
       + '— negatives below the amplitude threshold and past the crossover, replications, and the threshold pin. '
       + 'Each row is an enclosure with full-ball local uniqueness (even AND odd blocks — evenness is a corollary, '
       + 'not an assumption), and every bound is displayed: the radius, the contraction bound Z₁, the closure '
-      + 'margin, and the certified density floor. Records in ' + C.m('certs/') + '.')
+      + 'margin, and the certified density floor. Records in ' + C.m('certs/') + '.') + '</div>'
       + C.table({
         cols: [{ h: 'instance' }, { h: 'σ' }, { h: 'A₂/A₁ (or A₃/A₁)' }, { h: 'N' }, { h: 'ν' }, { h: 'ball radius' },
           { h: 'Z₁' }, { h: 'margin' }, { h: 'min m' }, { h: 'peaks / wells' }, { h: 'record' }],
@@ -327,12 +327,12 @@ O.push(C.section({
   O.push(C.section({
     lab: 'the regime map', title: 'Multiplicity decided over whole rectangles',
     wide: true,
-    bodyRaw: C.pRaw('Coupling plane (s, d): s = symmetric cross-interaction, d = attack–defense asymmetry. Every '
+    bodyRaw: '<div class="col">' + C.pRaw('Coupling plane (s, d): s = symmetric cross-interaction, d = attack–defense asymmetry. Every '
       + 'rectangle of coupling matrices is decided UNIFORMLY over its whole cell — '
       + RM.counts.MULTIPLE.toLocaleString('en-US') + ' cells certified MULTIPLE (two exact solutions for EVERY '
       + 'parameter in the cell, disjoint balls, positive densities), ' + RM.counts.UNIQUE + ' UNIQUE, and the '
       + 'undecided region drawn as itself — hatched, not rounded away. The exact area identity (decided in '
-      + 'rationals) confirms the three regions tile the rectangle. (' + C.m('certs/mfg2p-regime-map.json') + ')')
+      + 'rationals) confirms the three regions tile the rectangle. (' + C.m('certs/mfg2p-regime-map.json') + ')') + '</div>'
       + C.figure({
         svgRaw: svg.join('\n'),
         caption: 'Adaptive refinement concentrates cells where the answer changes. Re-run: ' + C.esc(RM.rerun) + '.',
@@ -375,14 +375,14 @@ O.push(C.section({
   O.push(C.section({
     lab: 'the attention wing', title: 'A decidable attention flow, and the bifurcations that weren’t',
     wide: true,
-    bodyRaw: C.pRaw('Rational-kernel token dynamics on the sphere — (1 + β⟨x_i,x_j⟩)^p, chosen so equilibrium and '
+    bodyRaw: '<div class="col">' + C.pRaw('Rational-kernel token dynamics on the sphere — (1 + β⟨x_i,x_j⟩)^p, chosen so equilibrium and '
       + 'stability are decidable in exact ℚ; never a Transformer/softmax claim. Three theorems: the consensus '
       + 'spectrum {0, −1} is β- AND p-free (the kernel slope cancels identically — decided by exact dual-number '
       + 'expansion); the ⟨u,v⟩ = −1/β two-cluster family’s cross-weights vanish identically, to first order for '
       + 'every p ≥ 2 (and NOT at p = 1 — the model’s own honest candidate for a true bifurcation); and the reduced '
       + 'flow below. Plus a four-artifact catalogue of how finite float budgets manufacture bifurcations — one '
       + 'artifact re-demonstrated live at every battery run, with its exact refutation. '
-      + '(' + C.m('certs/attnflow-theorems.json') + ')')
+      + '(' + C.m('certs/attnflow-theorems.json') + ')') + '</div>'
       + C.figure({
         svgRaw: svg,
         caption: 'The reduced two-cluster flow ċ(c) = 2(1+βc)²(1−c²)/[(1+β)²+(1+βc)²] for three β. The curve '

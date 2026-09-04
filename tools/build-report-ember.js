@@ -156,12 +156,12 @@ O.push(C.scope('Machine-derived; published from this repository; not peer-review
   O.push(C.section({
     lab: 'the zone map', title: 'Every interior point is somebody\'s problem',
     wide: true,
-    bodyRaw: C.pRaw('The interior is partitioned on the 1/100 grid, and the classes are decided in EXACT RATIONALS '
+    bodyRaw: '<div class="col">' + C.pRaw('The interior is partitioned on the 1/100 grid, and the classes are decided in EXACT RATIONALS '
       + '— depth is concave on a convex domain, so a cell\'s minimum depth sits at a corner and the core test is '
       + 'exact; a cell goes to a corner sector only when it lies ENTIRELY inside that vertex\'s 0.11-disk (the '
       + 'max-corner test is exact because distance is convex); domain membership is a separating-axis decision. '
       + 'The theorem record re-decides the whole partition at assembly time, and this figure is drawn from those '
-      + 'same decisions — not from an artist\'s sketch.')
+      + 'same decisions — not from an artist\'s sketch.') + '</div>'
       + C.figure({
         svgRaw: svg.join('\n'),
         caption: 'Core cells die by comparison against the interior witnesses (diamonds): certified sup + '
@@ -201,11 +201,11 @@ O.push(C.scope('Machine-derived; published from this repository; not peer-review
   O.push(C.section({
     lab: 'the certificate chain', title: 'Six stages, two cross-checks, one record each',
     wide: true,
-    bodyRaw: C.pRaw('Every stage reads its inputs from the upstream record — no constant travels by hand — and '
+    bodyRaw: '<div class="col">' + C.pRaw('Every stage reads its inputs from the upstream record — no constant travels by hand — and '
       + 'each is a falsifiable claim: the batteries mutate a vertex, forge the kernel norm, flip the ladder '
       + 'identity\'s sign, inflate the flux, and the chain must refuse each one. The two literature inputs '
       + '(Liu\'s framework theorem and the Crouzeix–Raviart constant 0.1893·h_K) are assumptions, named in every '
-      + 'record\'s trust base, with the source PDF pinned and re-hashed at certify time.')
+      + 'record\'s trust base, with the source PDF pinned and re-hashed at certify time.') + '</div>'
       + C.table({
         cols: [{ h: 'stage' }, { h: 'what it certifies' }, { h: 'the number' }, { h: 'record' }],
         rows,
@@ -232,10 +232,10 @@ O.push(C.scope('Machine-derived; published from this repository; not peer-review
   O.push(C.section({
     lab: 'the corner sectors', title: 'The tips, and the ladder identity',
     wide: true,
-    bodyRaw: C.pRaw('In each corner sector the eigenfunction is EXACTLY a Bessel–Fourier series '
+    bodyRaw: '<div class="col">' + C.pRaw('In each corner sector the eigenfunction is EXACTLY a Bessel–Fourier series '
       + 'φ̂ = Σ b_k J_{kν}(√μ₁ r) cos(kνθ) (Neumann separation; H¹ regularity excludes the singular family). '
       + 'The b-coefficients are certified by annulus L² extraction and — the chain\'s most delicate step — '
-      + 're-extracted at a SECOND annulus: the two enclosures of every coefficient must intersect, and do.')
+      + 're-extracted at a SECOND annulus: the two enclosures of every coefficient must intersect, and do.') + '</div>'
       + C.table({
         cols: [{ h: 'corner' }, { h: 'b₀' }, { h: 'b₁' }, { h: 'b₂' }, { h: 'value range on the tip' }, { h: 'the argument' }],
         rows,

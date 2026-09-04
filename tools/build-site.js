@@ -67,6 +67,13 @@ const evalCert = evalReal.filter((r) => r.outcome === 'certified').length;
    numerator. The full breakdown by kind is /reports/refusals.html. */
 const l5audit = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda5-audit.json'), 'utf8'));
 const envsRec = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'envs-record.json'), 'utf8'));
+/* the Hub environment's own run: policies and models on the same seeds. Read,
+   never retyped — the reports row and the lead sentence below both quote it. */
+const gymPilot = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'grader-pilot.json'), 'utf8'));
+const gymHub = JSON.parse(fs.readFileSync(path.join(ROOT, 'environments', 'break_the_grader', '.prime', '.env-metadata.json'), 'utf8'));
+const gymBy = (id) => gymPilot.models.find((m) => m.id === id);
+const gymPol = (name) => gymPilot.baseline.find((b) => b.policy === name);
+const sgn = (x) => (x >= 0 ? '+' : '\u2212') + Math.abs(x).toFixed(3);
 const envsTol = envsRec.graders.find((g) => /absolute/.test(g.name));
 const envsSound = envsRec.graders.find((g) => /enclosure/.test(g.name));
 if (!envsTol || !envsSound || envsSound.falseAccept !== 0) fail('the envs record no longer shows a sound certificate grader — no card may quote it');
@@ -273,14 +280,21 @@ const REPORTS = [
     title: 'When the answer key is wrong',
     desc: 'Three certified specimens of mathematical answer keys failing in ways reruns and digit cross-checks provably cannot catch — and the working design that removes the answer key altogether.',
     n: 'every specimen re-proved at build' },
-  { g: 'ai', f: 'gym.html', k: 'an environment · no answer key',
+  { g: 'ai', f: 'gym.html', k: 'an environment · published, and installable',
     title: 'Break the grader, or prove it cannot be broken',
     desc: 'A reinforcement-learning environment whose adversarial examples are GENERATED from certified '
       + 'enclosures rather than authored: every negative carries a proof, the set is infinite because the '
       + 'parameter space is continuous, and difficulty is one number with a closed form — the band a tolerance '
       + 'grader leaves open, which vanishes exactly when the tolerance drops under half the certificate width. '
-      + 'Zero dependencies, and both standing answers lose somewhere so only checking wins.',
-    n: 'shipped as a wheel · forgery battery is the test suite' },
+      + 'It is on the Environments Hub as ' + gymHub.owner + '/' + gymHub.name + ', which makes it the one thing '
+      + 'here a stranger can check in a single command instead of by reading. On the same ' + gymPilot.meta.n
+      + ' tasks it separates three frontier models — ' + sgn(gymBy('claude-opus-5').mean) + ', '
+      + sgn(gymBy('claude-sonnet-5').mean) + ', ' + sgn(gymBy('claude-haiku-4-5').mean)
+      + ' — and the smallest scores below a one-line blind policy at ' + sgn(gymPol('always').mean)
+      + ', because the blind policy makes no false claims and that model makes '
+      + gymBy('claude-haiku-4-5').false_claims + '.',
+    n: 'v' + gymHub.version + ' on the Hub · ' + gymPilot.meta.calls + ' model calls, $'
+      + gymPilot.meta.spent.toFixed(2) + ' · the reference table needs no key' },
   { g: 'ai', f: 'claims.html', k: 'the claims desk',
     title: 'Send us a claim',
     desc: 'A mathematical claim that comes down to finitely many exact arithmetic facts is decided here — '
@@ -679,9 +693,23 @@ if (LEAD.length !== 4) fail('the lead has ' + LEAD.length + ' cards — the land
 }
 B.push(C.section({
   lab: 'start here', title: 'The audits lead. The theorem is the calibration.', wide: true,
-  bodyRaw: C.pRaw('<strong>Only a machine that can prove a theorem should be trusted to refuse one.</strong> The '
-    + 'audits are what the instruments are for; the theorems below them are the evidence that the instruments are '
-    + 'strong enough for their refusals to count.')
+  /* the CARDS want the wide track; the sentence above them does not. A wide
+     section hands its whole body the full width, so prose in one has to ask for
+     the reading measure back — that is what .col is for, and leaving it off set
+     this paragraph about 110 characters wide against the 70 every other
+     paragraph on the site uses. */
+  /* ONE sentence about the Hub, not a fifth card. The lead has four slots by a
+     decision that still holds, and an installable artifact is a different KIND
+     of fact from an audit — it is the only thing on this site a stranger can
+     check without reading anything, and that belongs in a line, not in a box
+     competing with the refusals. */
+  bodyRaw: '<div class="col">' + C.pRaw('<strong>Only a machine that can prove a theorem should be trusted to '
+    + 'refuse one.</strong> The audits are what the instruments are for; the theorems below them are the evidence '
+    + 'that the instruments are strong enough for their refusals to count.')
+    + C.pRaw('The first of them ships as a package anyone can install: '
+      + C.m('prime env install ' + gymHub.owner + '/' + gymHub.name) + ' puts the environment behind the first '
+      + 'card on your own machine, where its forgery battery runs before it will score anything. '
+      + '<a href="reports/gym.html">What it measured</a>.') + '</div>'
     + C.cards(LEAD.map((l) => ({ href: 'reports/' + l.f, k: l.k, title: l.title, desc: l.desc, n: l.n })))
 }));
 
