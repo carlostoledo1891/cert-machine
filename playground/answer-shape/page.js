@@ -138,9 +138,9 @@ svg.pl .ovp.m1 { fill-opacity:.62; } svg.pl .ovp.m2 { fill-opacity:.42; }
 .subhead { display:flex; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; }
 .note { font-family:var(--font-mono); font-size:var(--text-eyebrow); line-height:1.75; color:var(--ink-4); background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-s); padding:var(--s-4); margin-top:var(--s-4); }
 .note b { color:var(--ink-2); font-weight:500; }
-.legend { display:flex; gap:var(--s-5); flex-wrap:wrap; font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-5); margin-top:var(--s-4); }
-.legend i { display:inline-block; width:26px; height:0; border-top:2px solid #f6f6f8; vertical-align:middle; margin-right:7px; }
-.legend .l1 i { opacity:.62; border-top-style:dashed; } .legend .l2 i { opacity:.42; border-top-style:dotted; }`;
+.mchips { display:flex; gap:var(--s-5); flex-wrap:wrap; font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-5); margin-top:var(--s-4); }
+.mchips i { display:inline-block; width:26px; height:0; border-top:2px solid #f6f6f8; vertical-align:middle; margin-right:7px; }
+.mchips .l1 i { opacity:.62; border-top-style:dashed; } .mchips .l2 i { opacity:.42; border-top-style:dotted; }`;
 
 const subjectSection = (sub, extra = '') => `
 <section class="section">
@@ -171,7 +171,7 @@ const overlaySection = (sub, tail = '') => `<div class="reveal ovsec">
   <div>
     <div class="eyebrow">all three on one frame</div>
     <p style="margin-top:var(--s-3); color:var(--ink-3); font-size:var(--text-body); line-height:1.7;">Each model's picture is its own; a table of distances fixes nothing about rotation, reflection or overall size, so putting three of them in one frame means removing exactly those freedoms and nothing else. What is left is disagreement about shape.${tail}</p>
-    <div class="legend">${MODELS.map((M, k) => `<span class="l${k}"><i></i>${M.label}</span>`).join('')}</div>
+    <div class="mchips">${MODELS.map((M, k) => `<span class="l${k}"><i></i>${M.label}</span>`).join('')}</div>
     ${statTable(sub)}
   </div>
 </div>`;

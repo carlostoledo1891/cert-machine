@@ -65,7 +65,6 @@ const UV = uvSVG(BEST_NIGHT, { size: 900 });
 
 /* ---- the page ------------------------------------------------------------ */
 const CSS = fs.readFileSync(path.join(HERE, 'index.css'), 'utf8');
-const SHELLCSS = fs.readFileSync(path.join(HERE, 'design', 'shell.css'), 'utf8');
 
 /* the neural-geometry headlines, averaged over the models rather than picked */
 const ngSet = (id) => NG.G.sets.find((s) => s.id === id);
@@ -277,7 +276,7 @@ const html = page({
   title: 'instruments · cert-machine',
   desc: 'Instruments made touchable. Nothing here is certified — that is the entire permission.',
   root: '', here: 'home', body,
-  script: `<style>${SHELLCSS}\n${CSS}</style>`,
+  script: `<style>${CSS}</style>`,
 });
 
 /* ---- write ---------------------------------------------------------------- */

@@ -10,6 +10,173 @@
 <meta property="og:description" content="Seven subjects, three models, every pair asked both ways round — and the exact decision of whether the answers are a shape at all: effective rank, negative mass, the exact signature, and where the triangle inequality fails.">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="../design/tokens.css">
+<style>/* shell.css — the navbar and the measure scale, and nothing else. Everything an
+   /instruments page looks like beyond this is that page's own business. */
+.pg-nav { position: relative; z-index: 30; }
+.pg-nav-in {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-5);
+  padding: var(--s-5) var(--gutter);
+  max-width: none;
+}
+.pg-mark {
+  font-family: var(--font-mono); font-size: var(--text-small); letter-spacing: 0.14em;
+  text-transform: lowercase; color: var(--ink); text-decoration: none;
+}
+.pg-mark .sl { color: var(--ink-5); }
+.pg-mark:hover { color: var(--ink); }
+.pg-links { display: flex; gap: var(--s-5); }
+.pg-links a {
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase; color: var(--ink-4); text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.pg-links a:hover { color: var(--ink-2); }
+
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
+
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
+
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
+
+/* ---- THE TABLE RULE, once ------------------------------------------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. Four /instruments pages scrolled the whole document sideways
+   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
+   answer-shape 78 — every one of them a nowrap table sitting in a container
+   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
+   rule that made it scroll lived in base.css and that page never linked it.
+   One class, one rule, declared where every page already inlines it. */
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
+     table sliced mid-character with nothing to indicate there was more; a box
+     that hides a column without saying so is the same defect as a number
+     without its units. The four layers are the standard scroll-shadow: two
+     ground-coloured covers pinned to the CONTENT (background-attachment:local,
+     so they slide away as you scroll) over two shadows pinned to the BOX, so a
+     shadow shows exactly when there is something past that edge and vanishes
+     when there is not. No script, and nothing to keep in sync. */
+  background:
+    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--bg-raised); }
+.tw > table { margin: 0; }
+.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }
+
+
+/* ---- the eyebrow: seven declarations before this, and the weight was the
+   thing they disagreed about. The report engine sets 500, bench.css set none
+   at all, and interferometer set 500 on its own — so /instruments ran its
+   eyebrows a weight lighter than the reports on every page but one. 500, once,
+   on both sides of the site. ---- */
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); font-weight: 500;
+  letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+
+/* ---- the hero. The bottom padding is the LARGER of the two that were in
+   service; curveset's tighter one was not a decision, it was a copy that had
+   drifted. A page wanting a different hero (the gathering page does, and says
+   so) overrides these two properties and nothing else. ---- */
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title);
+  margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3);
+  color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+/* ---- the footer, with the margin-top the crossed pages had and the written
+   ones did not ---- */
+.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
+.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+.foot a { color: var(--ink-4); text-decoration: none; }
+.foot a:hover { color: var(--ink-2); }
+
+/* ---- the panel: a raised box with a hairline. Spacing between consecutive
+   panels is a sibling rule, so a page never adds a margin-top of its own and
+   the two versions cannot disagree about which edge carries the gap. ---- */
+.panel { background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-l); padding: var(--s-5); }
+.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
+
+/* ---- THE GRAMMAR. Stroke pattern carries standing; see ../warrant.js for the
+   rule about when the channel is free. A REFUSED mark has no stroke at all —
+   the void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG
+   <pattern>, and a pattern is addressed by an id that lives in the figure that
+   defines it. A shared rule would point every page at one page's id. */
+
+/* ---- the standing legend. Rendered by warrant.js, laid out by
+   design/grid.js: the column count is derived from data-n, not declared. ---- */
+/* align-items:start on the ROW, so every label sits on one line even when a
+   gloss wraps to two — the swatches were floating to the middle of whichever
+   item happened to be tallest. */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+</style>
 
 </head>
 <body>
@@ -230,7 +397,7 @@
   <div>
     <div class="eyebrow">all three on one frame</div>
     <p style="margin-top:var(--s-3); color:var(--ink-3); font-size:var(--text-body); line-height:1.7;">Each model's picture is its own; a table of distances fixes nothing about rotation, reflection or overall size, so putting three of them in one frame means removing exactly those freedoms and nothing else. What is left is disagreement about shape.</p>
-    <div class="legend"><span class="l0"><i></i>Opus 5</span><span class="l1"><i></i>Sonnet 5</span><span class="l2"><i></i>Haiku 4.5</span></div>
+    <div class="mchips"><span class="l0"><i></i>Opus 5</span><span class="l1"><i></i>Sonnet 5</span><span class="l2"><i></i>Haiku 4.5</span></div>
     <div class="stats">
   <div class="h"></div><div class="h">Opus 5</div><div class="h">Sonnet 5</div><div class="h">Haiku 4.5</div>
   <div class="h">effective rank</div><div>6</div><div>5</div><div>6</div><div class="h">negative mass</div><div>17.0%</div><div>21.1%</div><div>17.3%</div><div class="h">exact signature</div><div>(3, 3, 1)</div><div>(3, 3, 1)</div><div>(3, 3, 1)</div><div class="h">δ / diameter</div><div>0.323</div><div>0.417</div><div>0.360</div><div class="h">contrast, max/min</div><div>6.8×</div><div>7.1×</div><div>3.6×</div><div class="h">both orders differ by</div><div>14.7% of a distance</div><div>20.1% of a distance</div><div>17.8% of a distance</div><div class="h">closing step</div><div>1.22× the median</div><div>2.90× the median</div><div>1.00× the median</div>
@@ -267,7 +434,7 @@
   <div>
     <div class="eyebrow">all three on one frame</div>
     <p style="margin-top:var(--s-3); color:var(--ink-3); font-size:var(--text-body); line-height:1.7;">Each model's picture is its own; a table of distances fixes nothing about rotation, reflection or overall size, so putting three of them in one frame means removing exactly those freedoms and nothing else. What is left is disagreement about shape.</p>
-    <div class="legend"><span class="l0"><i></i>Opus 5</span><span class="l1"><i></i>Sonnet 5</span><span class="l2"><i></i>Haiku 4.5</span></div>
+    <div class="mchips"><span class="l0"><i></i>Opus 5</span><span class="l1"><i></i>Sonnet 5</span><span class="l2"><i></i>Haiku 4.5</span></div>
     <div class="stats">
   <div class="h"></div><div class="h">Opus 5</div><div class="h">Sonnet 5</div><div class="h">Haiku 4.5</div>
   <div class="h">effective rank</div><div>11</div><div>11</div><div>11</div><div class="h">negative mass</div><div>34.5%</div><div>35.9%</div><div>26.8%</div><div class="h">exact signature</div><div>(6, 5, 1)</div><div>(6, 5, 1)</div><div>(6, 5, 1)</div><div class="h">δ / diameter</div><div>0.659</div><div>0.664</div><div>0.539</div><div class="h">contrast, max/min</div><div>9.9×</div><div>16.5×</div><div>11.5×</div><div class="h">both orders differ by</div><div>16.0% of a distance</div><div>28.6% of a distance</div><div>37.1% of a distance</div><div class="h">closing step</div><div>0.63× the median</div><div>0.94× the median</div><div>1.56× the median</div>
@@ -304,7 +471,7 @@
   <div>
     <div class="eyebrow">all three on one frame</div>
     <p style="margin-top:var(--s-3); color:var(--ink-3); font-size:var(--text-body); line-height:1.7;">Each model's picture is its own; a table of distances fixes nothing about rotation, reflection or overall size, so putting three of them in one frame means removing exactly those freedoms and nothing else. What is left is disagreement about shape.</p>
-    <div class="legend"><span class="l0"><i></i>Opus 5</span><span class="l1"><i></i>Sonnet 5</span><span class="l2"><i></i>Haiku 4.5</span></div>
+    <div class="mchips"><span class="l0"><i></i>Opus 5</span><span class="l1"><i></i>Sonnet 5</span><span class="l2"><i></i>Haiku 4.5</span></div>
     <div class="stats">
   <div class="h"></div><div class="h">Opus 5</div><div class="h">Sonnet 5</div><div class="h">Haiku 4.5</div>
   <div class="h">effective rank</div><div>9</div><div>10</div><div>11</div><div class="h">negative mass</div><div>23.6%</div><div>22.5%</div><div>25.2%</div><div class="h">exact signature</div><div>(7, 4, 1)</div><div>(6, 5, 1)</div><div>(7, 4, 1)</div><div class="h">δ / diameter</div><div>0.495</div><div>0.545</div><div>0.473</div><div class="h">contrast, max/min</div><div>8.6×</div><div>6.6×</div><div>5.0×</div><div class="h">both orders differ by</div><div>3.5% of a distance</div><div>18.8% of a distance</div><div>16.3% of a distance</div><div class="h">closing step</div><div>1.00× the median</div><div>0.60× the median</div><div>1.00× the median</div>
@@ -341,7 +508,7 @@
   <div>
     <div class="eyebrow">all three on one frame</div>
     <p style="margin-top:var(--s-3); color:var(--ink-3); font-size:var(--text-body); line-height:1.7;">Each model's picture is its own; a table of distances fixes nothing about rotation, reflection or overall size, so putting three of them in one frame means removing exactly those freedoms and nothing else. What is left is disagreement about shape.</p>
-    <div class="legend"><span class="l0"><i></i>Opus 5</span><span class="l1"><i></i>Sonnet 5</span><span class="l2"><i></i>Haiku 4.5</span></div>
+    <div class="mchips"><span class="l0"><i></i>Opus 5</span><span class="l1"><i></i>Sonnet 5</span><span class="l2"><i></i>Haiku 4.5</span></div>
     <div class="stats">
   <div class="h"></div><div class="h">Opus 5</div><div class="h">Sonnet 5</div><div class="h">Haiku 4.5</div>
   <div class="h">effective rank</div><div>8</div><div>9</div><div>8</div><div class="h">negative mass</div><div>12.4%</div><div>12.4%</div><div>15.7%</div><div class="h">exact signature</div><div>(6, 3, 1)</div><div>(6, 3, 1)</div><div>(6, 3, 1)</div><div class="h">δ / diameter</div><div>0.321</div><div>0.192</div><div>0.281</div><div class="h">contrast, max/min</div><div>11.7×</div><div>16.3×</div><div>7.1×</div><div class="h">both orders differ by</div><div>17.5% of a distance</div><div>21.9% of a distance</div><div>23.8% of a distance</div>
@@ -378,7 +545,7 @@
   <div>
     <div class="eyebrow">all three on one frame</div>
     <p style="margin-top:var(--s-3); color:var(--ink-3); font-size:var(--text-body); line-height:1.7;">Each model's picture is its own; a table of distances fixes nothing about rotation, reflection or overall size, so putting three of them in one frame means removing exactly those freedoms and nothing else. What is left is disagreement about shape. Here there is nothing else: seven words with no relation to each other and no relation for the models to agree about, so the three frames fall on top of one another only by accident.</p>
-    <div class="legend"><span class="l0"><i></i>Opus 5</span><span class="l1"><i></i>Sonnet 5</span><span class="l2"><i></i>Haiku 4.5</span></div>
+    <div class="mchips"><span class="l0"><i></i>Opus 5</span><span class="l1"><i></i>Sonnet 5</span><span class="l2"><i></i>Haiku 4.5</span></div>
     <div class="stats">
   <div class="h"></div><div class="h">Opus 5</div><div class="h">Sonnet 5</div><div class="h">Haiku 4.5</div>
   <div class="h">effective rank</div><div>6</div><div>6</div><div>6</div><div class="h">negative mass</div><div>0.0%</div><div>0.0%</div><div>0.0%</div><div class="h">exact signature</div><div>(6, 0, 1)</div><div>(6, 0, 1)</div><div>(6, 0, 1)</div><div class="h">δ / diameter</div><div>0.075</div><div>0.032</div><div>0.067</div><div class="h">contrast, max/min</div><div>1.3×</div><div>1.1×</div><div>1.2×</div><div class="h">both orders differ by</div><div>4.0% of a distance</div><div>3.4% of a distance</div><div>5.2% of a distance</div>
@@ -418,85 +585,7 @@
   <a href="../shape-hunt/index.html">and what survives a null</a>
   <span>crossed from the bench 2026-09-04</span>
 </div></div></footer>
-<style>/* shell.css — the navbar and the measure scale, and nothing else. Everything an
-   /instruments page looks like beyond this is that page's own business. */
-.pg-nav { position: relative; z-index: 30; }
-.pg-nav-in {
-  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-5);
-  padding: var(--s-5) var(--gutter);
-  max-width: none;
-}
-.pg-mark {
-  font-family: var(--font-mono); font-size: var(--text-small); letter-spacing: 0.14em;
-  text-transform: lowercase; color: var(--ink); text-decoration: none;
-}
-.pg-mark .sl { color: var(--ink-5); }
-.pg-mark:hover { color: var(--ink); }
-.pg-links { display: flex; gap: var(--s-5); }
-.pg-links a {
-  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow);
-  text-transform: uppercase; color: var(--ink-4); text-decoration: none;
-  transition: color var(--dur-fast) var(--ease-out);
-}
-.pg-links a:hover { color: var(--ink-2); }
-
-/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
-   Nine pages arrived by four routes — written here, ported from the bench,
-   crossed with declared patches — and each brought its own idea of how wide a
-   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
-   reading measures down to three widths. The ruler then measured what three
-   widths still cost: /instruments sat at x=108 and the reports at x=398, so
-   the front page and this place shared no left edge, and the 1560px "wide"
-   track produced the 1849px table that ran off the screen.
-
-   So: ONE container, and it is the same number the reports use — the values
-   come from design/tokens.js now (--container, --read, --title), which is why
-   there is no :root block here any more.
-
-   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
-   inside the container (.tw below), sheds columns, or becomes a different
-   component. The reading measure stays WIDER than the reports' old 68ch: these
-   pages are figure-first, the prose sits beside and beneath components running
-   the full track, and a narrow column there reads as a leftover.
-
-   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
-   centred, so a section using one steps inward from every other section on the
-   page and the left edge stops being a line. The reading measure belongs to
-   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
-   container keeps its width for whatever component comes next. */
-.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
-.wrap.wide, .container.wide, .wide > .container,
-.wrap.narrow, .container.narrow { max-width: var(--container); }
-.lede, .prose, .prose > p, .why { max-width: var(--read); }
-
-/* ---- THE TABLE RULE, once ------------------------------------------------
-   A table is allowed to be wider than the page. It is not allowed to take the
-   page with it. Four /instruments pages scrolled the whole document sideways
-   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
-   answer-shape 78 — every one of them a nowrap table sitting in a container
-   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
-   rule that made it scroll lived in base.css and that page never linked it.
-   One class, one rule, declared where every page already inlines it. */
-.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
-  border: 1px solid var(--border); border-radius: var(--radius-m);
-  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
-     table sliced mid-character with nothing to indicate there was more; a box
-     that hides a column without saying so is the same defect as a number
-     without its units. The four layers are the standard scroll-shadow: two
-     ground-coloured covers pinned to the CONTENT (background-attachment:local,
-     so they slide away as you scroll) over two shadows pinned to the BOX, so a
-     shadow shows exactly when there is something past that edge and vanishes
-     when there is not. No script, and nothing to keep in sync. */
-  background:
-    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
-    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
-    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
-    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
-    var(--bg-raised); }
-.tw > table { margin: 0; }
-.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }
-
-/* bench.css — the structural shim for every page crossed from the bench.
+<style>/* bench.css — the structural shim for every page crossed from the bench.
 
    Three pages here (plates, exact-geometry, affect) carry markup that came over
    byte-for-byte, so they carry the bench's structural class names. Rather than
@@ -519,9 +608,6 @@ body { margin: 0; background: var(--bg); color: var(--ink-2);
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
 .reveal { opacity: 1; transform: none; }
-
-.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
-.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(1.5rem, 4vh, 3rem); }
 h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title); text-wrap: balance; }
 .lede { max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
@@ -543,28 +629,12 @@ h2.t2, h3.t2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); text-wrap: balanc
 
 svg { display: block; width: 100%; height: auto; }
 img { max-width: 100%; }
-
-/* the grammar's own classes, so a plate can say what it is standing on */
-.w-decided { stroke: var(--ink); }
-.w-computed { stroke: var(--ink-3); }
-.w-chosen { stroke: var(--ink-2); }
 /* THE LEGEND IS STILL DECLARED THREE TIMES — here, in curveset/page.css and as
    a flex variant on neural-geometry — and it holds 3, 3, 4, 5 and 7 items on
    five pages while declaring three columns on four of them. Deriving the count
    with auto-fit was tried in phase 2 and MEASURED WORSE: seven items in five
    columns is 5+2, four more left edges than 3+3+1. The component needs
-   designing, not a one-line selector change. Phase 3. */
-.legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5); grid-template-columns: 1fr; }
 @media (min-width: 700px) { .legend { grid-template-columns: repeat(3, 1fr); } }
-.legend .item { display: grid; grid-template-columns: 46px 1fr; gap: var(--s-3); align-items: center; }
-.legend svg { width: 46px; height: 14px; overflow: visible; }
-.legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
-.legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
-
-.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
-.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono);
-  font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
-.foot a { color: var(--ink-4); text-decoration: none; } .foot a:hover { color: var(--ink-2); }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 
 /* ---- flow spacing ---------------------------------------------------------
@@ -574,7 +644,6 @@ img { max-width: 100%; }
    our spacing scale, as adjacency rules rather than per-element margins. */
 .section h1 + *, .section h2 + *, .section h3 + * { margin-top: var(--s-4); }
 .section .eyebrow + h1, .section .eyebrow + h2, .section .eyebrow + h3 { margin-top: var(--s-2); }
-.section h2 + .eyebrow, .section h1 + .eyebrow, .section h3 + .eyebrow { margin-top: var(--s-2); }
 .section p + p, .section p + .nums, .section p + .pred, .section p + table,
 .section p + .lede, .section .lede + p { margin-top: var(--s-4); }
 .section ul, .section ol { margin: var(--s-4) 0 0; padding-left: 1.15em; color: var(--ink-3); }
@@ -643,8 +712,8 @@ svg.pl .ovp.m1 { fill-opacity:.62; } svg.pl .ovp.m2 { fill-opacity:.42; }
 .subhead { display:flex; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; }
 .note { font-family:var(--font-mono); font-size:var(--text-eyebrow); line-height:1.75; color:var(--ink-4); background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-s); padding:var(--s-4); margin-top:var(--s-4); }
 .note b { color:var(--ink-2); font-weight:500; }
-.legend { display:flex; gap:var(--s-5); flex-wrap:wrap; font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-5); margin-top:var(--s-4); }
-.legend i { display:inline-block; width:26px; height:0; border-top:2px solid #f6f6f8; vertical-align:middle; margin-right:7px; }
-.legend .l1 i { opacity:.62; border-top-style:dashed; } .legend .l2 i { opacity:.42; border-top-style:dotted; }</style>
+.mchips { display:flex; gap:var(--s-5); flex-wrap:wrap; font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-5); margin-top:var(--s-4); }
+.mchips i { display:inline-block; width:26px; height:0; border-top:2px solid #f6f6f8; vertical-align:middle; margin-right:7px; }
+.mchips .l1 i { opacity:.62; border-top-style:dashed; } .mchips .l2 i { opacity:.42; border-top-style:dotted; }</style>
 </body>
 </html>

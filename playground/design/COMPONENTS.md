@@ -39,6 +39,40 @@ the difference. That is the best evidence available that the distinction is real
 
 ---
 
+## Where a component lives (added 2026-09-04, phase 3)
+
+Until this pass the catalogue said what each component was FOR and left where
+it was declared to whoever needed it. An audit of the eleven stylesheets that
+ship to /instruments found **32 class names declared in more than one place**,
+and the copies had drifted: `.hero` had two bottom paddings, so it was a
+different height on curveset than on its siblings; `.foot` had three distinct
+rule bodies; `.eyebrow` was one weight lighter on /instruments than on the
+reports, on every page but one. None of it was visible. All the pages still
+looked like pages.
+
+So the rule is now:
+
+> **Furniture every document page uses is declared in `components.js`, once.
+> A page's own components stay in the page's own sheet.** The base layer is
+> emitted by `shell.js`'s `page()`, so a builder cannot forget it — ten of
+> them used to paste it in by hand, and one had already forgotten and linked a
+> different stylesheet instead.
+
+`.legend` WAS ONE NAME OVER THREE COMPONENTS: the warrant standing legend
+(curveset, plates), a category swatch row (neural-geometry) and a model
+identity row (answer-shape). They shared a name, a stylesheet slot and nothing
+else. The standing legend is `.w-legend`, rendered by `warrant.js`; the other
+two are `.swatches` and `.mchips`. Watch for this: `.item` is still a child
+class shared by `.hero-meta` and `.w-legend`, which is exactly what made the
+first audit of this miscount a legend's size.
+
+**Column counts are derived, never declared.** `design/grid.js` takes n and
+lays it out in rows as equal as possible; the container carries `data-n` and
+the CSS reads it. It was written for the reports' `.stats` strip and could not
+be reached from here, which is why four pages declared a legend width by hand.
+Phase 2 tried `auto-fit` instead and the layout ruler refused the change —
+auto-fit picks a count from the available width, which is not the same question.
+
 ## The catalogue
 
 ### `plate` — art, then what it is, then the rule that produced it

@@ -11,6 +11,17 @@
 */
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+
+/* THE BASE LAYER IS THE SHELL'S JOB, not the caller's. Ten builders each read
+   shell.css and pasted it into their own <style>, which is a list ten people
+   have to remember; interferometer had already forgotten a different one and
+   linked base.css instead. page() emits it now, and a builder passes only what
+   is its own. */
+const BASE = fs.readFileSync(path.join(__dirname, 'shell.css'), 'utf8')
+  + '\n' + require(path.join(__dirname, 'components.js')).sharedCss();
+
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 function nav(root, here) {
@@ -36,6 +47,7 @@ function page({ title, desc = '', root = '', here = 'home', body, head = '', scr
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="${root}design/tokens.css">
+<style>${BASE}</style>
 ${head}
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>

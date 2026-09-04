@@ -24,15 +24,12 @@ const W = require(path.join(PG, 'warrant.js'));
 const P = require('./plates.js');
 const PROV = JSON.parse(fs.readFileSync(path.join(HERE, 'PROVENANCE.json'), 'utf8'));
 const CSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
-const SHELLCSS = fs.readFileSync(path.join(PG, 'design', 'shell.css'), 'utf8');
 const fmt = (x) => Number(x).toLocaleString('en-US');
 
 /* the legend comes out of warrant.js, so the page cannot describe a grammar it
    is not using. REFUSED has no stroke and no plate here uses it, so it is left
    out rather than drawn as a shape it does not have. */
-const legend = `<div class="legend">${W.LEGEND.filter((L) => L.s !== W.REFUSED).map((L) =>
-  `<div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" ${W.attrs(L.s, { width: 2.4 })}/></svg>`
-  + `<div><div class="k">${L.label}</div><div class="g">${L.gloss}</div></div></div>`).join('')}</div>`;
+const legend = W.legendHtml({ exclude: [W.REFUSED] });
 
 const grammar = `
 <section class="section">
@@ -75,7 +72,7 @@ function build(OUT) {
     desc: 'Eight plates. Interpretability pulls geometry out of a working model and asks what it means; these are stated as a rule and its parameters, then drawn — including two that are certificates rendered at their own resolution.',
     root: '../', here: 'plates',
     body: body + foot,
-    script: `<style>${SHELLCSS}\n${CSS}\n${P.CSS}</style>`,
+    script: `<style>${CSS}\n${P.CSS}</style>`,
   });
   const dir = path.join(OUT, 'plates');
   fs.mkdirSync(dir, { recursive: true });

@@ -21,9 +21,6 @@ body { margin: 0; background: var(--bg); color: var(--ink-2);
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
 .reveal { opacity: 1; transform: none; }
-
-.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
-.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(1.5rem, 4vh, 3rem); }
 h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title); text-wrap: balance; }
 .lede { max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
@@ -45,28 +42,12 @@ h2.t2, h3.t2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); text-wrap: balanc
 
 svg { display: block; width: 100%; height: auto; }
 img { max-width: 100%; }
-
-/* the grammar's own classes, so a plate can say what it is standing on */
-.w-decided { stroke: var(--ink); }
-.w-computed { stroke: var(--ink-3); }
-.w-chosen { stroke: var(--ink-2); }
 /* THE LEGEND IS STILL DECLARED THREE TIMES — here, in curveset/page.css and as
    a flex variant on neural-geometry — and it holds 3, 3, 4, 5 and 7 items on
    five pages while declaring three columns on four of them. Deriving the count
    with auto-fit was tried in phase 2 and MEASURED WORSE: seven items in five
    columns is 5+2, four more left edges than 3+3+1. The component needs
-   designing, not a one-line selector change. Phase 3. */
-.legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5); grid-template-columns: 1fr; }
 @media (min-width: 700px) { .legend { grid-template-columns: repeat(3, 1fr); } }
-.legend .item { display: grid; grid-template-columns: 46px 1fr; gap: var(--s-3); align-items: center; }
-.legend svg { width: 46px; height: 14px; overflow: visible; }
-.legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
-.legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
-
-.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
-.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono);
-  font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
-.foot a { color: var(--ink-4); text-decoration: none; } .foot a:hover { color: var(--ink-2); }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 
 /* ---- flow spacing ---------------------------------------------------------
@@ -76,7 +57,6 @@ img { max-width: 100%; }
    our spacing scale, as adjacency rules rather than per-element margins. */
 .section h1 + *, .section h2 + *, .section h3 + * { margin-top: var(--s-4); }
 .section .eyebrow + h1, .section .eyebrow + h2, .section .eyebrow + h3 { margin-top: var(--s-2); }
-.section h2 + .eyebrow, .section h1 + .eyebrow, .section h3 + .eyebrow { margin-top: var(--s-2); }
 .section p + p, .section p + .nums, .section p + .pred, .section p + table,
 .section p + .lede, .section .lede + p { margin-top: var(--s-4); }
 .section ul, .section ol { margin: var(--s-4) 0 0; padding-left: 1.15em; color: var(--ink-3); }

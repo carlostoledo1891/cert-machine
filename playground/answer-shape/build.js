@@ -22,7 +22,6 @@ const { page } = require(path.join(PG, 'design', 'shell.js'));
 const A = require('./page.js');
 const PROV = JSON.parse(fs.readFileSync(path.join(HERE, 'PROVENANCE.json'), 'utf8'));
 const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
-const SHELLCSS = fs.readFileSync(path.join(PG, 'design', 'shell.css'), 'utf8');
 const G = A.G;
 const spend = (G.spend || []).reduce((a, x) => a + x.usd, 0);
 const calls = (G.subjects || []).reduce((a, s) => a + (s.items ? s.items.length * (s.items.length - 1) : 0), 0);
@@ -56,7 +55,7 @@ function build(OUT) {
     title: 'The shape of an answer · instruments',
     desc: 'Seven subjects, three models, every pair asked both ways round — and the exact decision of whether the answers are a shape at all: effective rank, negative mass, the exact signature, and where the triangle inequality fails.',
     root: '../', here: 'answer-shape', body: head + sections + foot,
-    script: `<style>${SHELLCSS}\n${BENCHCSS}\n${A.CSS}</style>`,
+    script: `<style>${BENCHCSS}\n${A.CSS}</style>`,
   });
   const dir = path.join(OUT, 'answer-shape');
   fs.mkdirSync(dir, { recursive: true });

@@ -102,4 +102,34 @@ const LEGEND = [
   { s: REFUSED, label: 'refused', gloss: 'no mark — the void is drawn' },
 ];
 
-module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice, refuse, stroke, attrs, LEGEND };
+
+/* ---------------------------------------------------------- the renderer --
+   THE LEGEND IS DRAWN HERE, not on the page. It was written out twice — in
+   curveset/build.js and plates/build.js, the same swatch, the same two-line
+   caption, the same loop, once including REFUSED and once filtering it out —
+   and the CSS behind it was declared four times under a name two OTHER
+   components were also using. A grammar whose legend disagrees with itself
+   between two pages is not a grammar.
+
+   `data-n` is the item count, and the balanced grid in design/grid.js reads it:
+   four standings lay out as one row of four, three as one row of three, and
+   nothing declares a column count by hand any more.
+
+   A page that does not use REFUSED passes `exclude: [REFUSED]` rather than
+   drawing a void it has no marks for — plates does exactly that, and saying so
+   in the call is better than a filter copied into the page.                 */
+function legendHtml({ exclude = [], width = 2.4 } = {}) {
+  const items = LEGEND.filter((L) => !exclude.includes(L.s));
+  const swatch = (s) => (s === REFUSED
+    ? `<rect x="0" y="1" width="46" height="12" class="w-void"/>`
+    : `<line x1="1" y1="7" x2="45" y2="7" ${attrs(s, { width })}/>`);
+  return `<div class="w-legend" data-n="${items.length}">`
+    + items.map((L) => `<div class="item">`
+      + `<svg viewBox="0 0 46 14" aria-hidden="true">${swatch(L.s)}</svg>`
+      + `<div><div class="k">${L.label}</div><div class="g">${L.gloss}</div></div>`
+      + `</div>`).join('')
+    + `</div>`;
+}
+
+module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice,
+  refuse, stroke, attrs, LEGEND, legendHtml };

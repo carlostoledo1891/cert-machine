@@ -13,7 +13,6 @@ const LAD = require('./ladder.js');
 const S = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'shapes.json'), 'utf8'));
 const ST = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'studies.json'), 'utf8'));
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
-const SHELLCSS = fs.readFileSync(path.join(PG, 'design', 'shell.css'), 'utf8');
 const n = (x, d = 4) => (x === null || x === undefined ? '—' : Number(x).toFixed(d));
 const short = (id) => id.replace('claude-', '').replace('-4-5', ' 4.5').replace('-5', ' 5');
 const fmt = (x) => Number(x).toLocaleString('en-US');
@@ -355,7 +354,7 @@ function build(OUT) {
     title: 'Nothing here is a perfect circle · instruments',
     desc: 'Exhaustive exact tests for hidden polygons in geometries elicited from language models — the nulls that had to be rebuilt, the group elements named in words, and a whole-number certificate that some of the answers came from no arrangement of points anywhere.',
     root: '../', here: 'shape-hunt', body,
-    script: `<style>${SHELLCSS}\n${CSS}</style>`,
+    script: `<style>${CSS}</style>`,
   });
   const dir = path.join(OUT, 'shape-hunt');
   fs.mkdirSync(dir, { recursive: true });

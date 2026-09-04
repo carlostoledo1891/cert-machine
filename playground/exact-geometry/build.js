@@ -20,7 +20,6 @@ const { page } = require(path.join(PG, 'design', 'shell.js'));
 const E = require('./page.js');
 const PROV = JSON.parse(fs.readFileSync(path.join(HERE, 'PROVENANCE.json'), 'utf8'));
 const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
-const SHELLCSS = fs.readFileSync(path.join(PG, 'design', 'shell.css'), 'utf8');
 
 const rows = E.rows;
 const n = rows.length;
@@ -73,7 +72,7 @@ function build(OUT) {
     desc: 'The control page: an instrument that decides what shape a table of distances has, pointed at point sets whose shape is fixed by construction — so that its answers on the pages that ask a model mean something.',
     root: '../', here: 'exact-geometry',
     body: head + sections + foot,
-    script: `<style>${SHELLCSS}\n${BENCHCSS}\n${E.CSS}</style>`,
+    script: `<style>${BENCHCSS}\n${E.CSS}</style>`,
   });
   const dir = path.join(OUT, 'exact-geometry');
   fs.mkdirSync(dir, { recursive: true });

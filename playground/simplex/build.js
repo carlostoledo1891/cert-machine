@@ -11,7 +11,6 @@ const { page } = require(path.join(PG, 'design', 'shell.js'));
 const D = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'decision.json'), 'utf8'));
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
-const SHELLCSS = fs.readFileSync(path.join(PG, 'design', 'shell.css'), 'utf8');
 const M = D.meta;
 const n = (x, d) => Number(x).toFixed(d === undefined ? 3 : d);
 
@@ -104,7 +103,7 @@ function build(OUT) {
     title: 'An attention row is a point · instruments',
     desc: 'Attention weights sum to one, so a row is a point in a simplex. One real row from a tiny GPT, drawn where it lives, with its concentration decided in exact arithmetic.',
     root: '../', here: 'simplex', body,
-    script: `<style>${SHELLCSS}\n${CSS}</style>\n<script>${APP}</script>`,
+    script: `<style>${CSS}</style>\n<script>${APP}</script>`,
   });
   const dir = path.join(OUT, 'simplex');
   fs.mkdirSync(dir, { recursive: true });

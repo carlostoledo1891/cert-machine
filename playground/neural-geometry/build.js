@@ -11,7 +11,6 @@ const { plate, mapPlate } = require('./plate.js');
 
 const G = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'geometry.json'), 'utf8'));
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
-const SHELLCSS = fs.readFileSync(path.join(PG, 'design', 'shell.css'), 'utf8');
 const n = (x, d) => Number(x).toFixed(d === undefined ? 2 : d);
 const short = (id) => id.replace('claude-', '').replace('-4-5', ' 4.5').replace('-5', ' 5');
 
@@ -121,7 +120,7 @@ const body = `
     <p class="why">Curvature against closure: the share of the signature that is negative, against Gromov's δ over the diameter. Neither number knows what the set was — the grouping is what the answers do on their own. <b>The controls sit alone in the corner where both are zero</b>, and nothing else is near them.</p>
   </div>
   ${mapPlate(sets)}
-  <div class="legend">
+  <div class="swatches">
     ${['cycle', 'line', 'tree', 'grid', 'none'].map((k) => `<span><i class="sw k-${k}"></i>${k === 'none' ? 'controls' : k}</span>`).join('')}
   </div>
   <p class="why" style="margin-top:var(--s-5);max-width:70ch">
@@ -209,7 +208,7 @@ function build(OUT) {
     title: 'The shapes a model will admit to from the outside · instruments',
     desc: 'Neural geometry without the weights: elicit every pairwise dissimilarity from three working models, then decide exactly what those answers can be. The hue wheel closes, the digits do not, and the week is bent but open.',
     root: '../', here: 'neural-geometry', body,
-    script: `<style>${SHELLCSS}\n${CSS}</style>`,
+    script: `<style>${CSS}</style>`,
   });
   const dir = path.join(OUT, 'neural-geometry');
   fs.mkdirSync(dir, { recursive: true });

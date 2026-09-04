@@ -21,7 +21,6 @@ const { page } = require(path.join(PG, 'design', 'shell.js'));
 const D = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'page-data.json'), 'utf8'));
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
-const SHELLCSS = fs.readFileSync(path.join(PG, 'design', 'shell.css'), 'utf8');
 const M = D.meta;
 const n = (x, d) => Number(x).toFixed(d === undefined ? 3 : d);
 const readOut = (f) => { try { return JSON.parse(fs.readFileSync(path.join(HERE, 'out', f), 'utf8')); } catch (e) { return null; } };
@@ -63,7 +62,7 @@ const body = `
 
 <button class="pt" id="panelToggle">controls</button>
 
-<aside class="panel">
+<aside class="ov-panel">
   <div class="grp">
     <span class="eyebrow">the one control that matters</span>
     ${slider('cPhase', 'phase information', 0, 1, 0.01)}
@@ -167,7 +166,7 @@ function build(OUT) {
     title: 'Not the picture — the set of pictures · instruments',
     desc: 'Every sky the Event Horizon Telescope data allow for M87, drawn at once: agreement as ink, disagreement as texture.',
     root: '../', here: 'interferometer', body,
-    script: `<style>${SHELLCSS}\n${CSS}</style>\n<script>${APP}</script>\n<script>(function(){document.getElementById('aboutOpen').onclick=function(){document.body.classList.add('sheet-open');};document.getElementById('aboutClose').onclick=function(){document.body.classList.remove('sheet-open');};document.addEventListener('keydown',function(e){if(e.key==='Escape')document.body.classList.remove('sheet-open');});})();</script>`,
+    script: `<style>${CSS}</style>\n<script>${APP}</script>\n<script>(function(){document.getElementById('aboutOpen').onclick=function(){document.body.classList.add('sheet-open');};document.getElementById('aboutClose').onclick=function(){document.body.classList.remove('sheet-open');};document.addEventListener('keydown',function(e){if(e.key==='Escape')document.body.classList.remove('sheet-open');});})();</script>`,
   });
   const dir = path.join(OUT, 'interferometer');
   fs.mkdirSync(dir, { recursive: true });

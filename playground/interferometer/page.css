@@ -38,14 +38,6 @@ p a, li a, td a {
 }
 p a:hover, li a:hover, td a:hover { background-image: linear-gradient(var(--ink), var(--ink)); }
 
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--text-eyebrow);
-  font-weight: 500;
-  letter-spacing: var(--track-eyebrow);
-  text-transform: uppercase;
-  color: var(--ink-4);
-}
 
 html, body { height: 100%; overflow: hidden; }
 body { background: var(--bg); }
@@ -71,18 +63,18 @@ main { position: fixed; inset: 0; width: 100vw; height: 100vh; }
 .rd .v { font-family: var(--font-mono); font-size: var(--text-small); color: var(--ink); font-variant-numeric: tabular-nums; }
 
 /* ---- control panel ---- */
-.panel { position: absolute; z-index: 20; right: 0; top: 0; bottom: 0; width: min(330px, 88vw);
+.ov-panel { position: absolute; z-index: 20; right: 0; top: 0; bottom: 0; width: min(330px, 88vw);
   background: rgba(16,16,20,0.86); backdrop-filter: blur(14px); border-left: 1px solid var(--border);
   padding: clamp(4.5rem, 9vh, 6rem) var(--s-5) var(--s-5); overflow-y: auto; transition: transform var(--dur-med) var(--ease-out); }
-body.panel-hidden .panel { transform: translateX(100%); }
-.panel::-webkit-scrollbar { width: 6px; }
-.panel::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+body.ov-panel-hidden .ov-panel { transform: translateX(100%); }
+.ov-panel::-webkit-scrollbar { width: 6px; }
+.ov-panel::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
 
 .pt { position: absolute; z-index: 25; bottom: clamp(1rem, 3vh, 2rem); right: min(330px, 88vw); transform: none;
   margin-right: var(--s-4); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
   background: var(--surface); border: 1px solid var(--border-strong); color: var(--ink-3); border-radius: var(--radius-s);
   padding: 0.5em 0.8em; cursor: pointer; transition: all var(--dur-med) var(--ease-out); }
-body.panel-hidden .pt { right: 0; margin-right: var(--gutter); }
+body.ov-panel-hidden .pt { right: 0; margin-right: var(--gutter); }
 .pt:hover { color: var(--ink); border-color: var(--ink-3); }
 
 .grp { margin-bottom: var(--s-5); }

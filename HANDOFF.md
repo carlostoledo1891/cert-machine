@@ -190,12 +190,54 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
     probe's. SVG is excluded from the clipped count now, with the reason in the
     file. The ratchet caught it as a regression, which is what it is for.
   · ONE CHANGE WAS REVERTED BY MEASUREMENT. Deriving the legend's column count
-    with auto-fit made plates WORSE — seven items in five columns is 5+2, four
-    more left edges than the 3+3+1 it had. The legend is still declared three
-    times and still holds 3, 3, 4, 5 and 7 items against three declared
-    columns. It needs designing, not a selector change. PHASE 3.
+    with auto-fit made plates measurably WORSE — four more distinct left edges —
+    so it was backed out and left to phase 3. CORRECTION (phase 3): the note
+    written here said plates put SEVEN legend items into three columns. It puts
+    THREE. The seven came from counting 'class="item"' across the whole page,
+    where four of them belong to .hero-meta — a different component that shares
+    the child class name. The finding that survives is the one phase 3 acted
+    on: .legend was one NAME over THREE DIFFERENT COMPONENTS.
 
-  THE PLAN FOR PHASES 3-4 (agreed with the operator; nothing started):
+  PHASE 3 SHIPPED — ONE COMPONENT SET:
+
+  · THE AUDIT: 32 class names declared in more than one of the eleven
+    stylesheets that ship to /instruments, and the copies HAD ALREADY DRIFTED —
+    .hero with two bottom paddings (a different hero height on curveset than on
+    its two siblings, chosen by nobody), .foot with three distinct rule bodies,
+    .eyebrow at one weight on the reports and another on /instruments. None of
+    it visible; every page still looked like a page. Now 27, and the diverged
+    ones are down from 8 to 3, all three of them deliberate overrides.
+  · playground/design/components.js is the shared layer — .eyebrow, the .hero
+    family, the .foot family, .panel, the grammar's stroke classes and the
+    standing legend. It is GENERATED, because the legend grid is derived.
+  · THE BASE LAYER IS THE SHELL'S JOB NOW. Ten builders each read shell.css and
+    pasted it into their own <style> — a list ten people have to remember, and
+    interferometer had already forgotten a different one and linked base.css
+    instead. shell.js's page() emits it; a builder passes only what is its own.
+  · .legend WAS ONE NAME OVER THREE COMPONENTS: the warrant standing legend
+    (curveset, plates), a category swatch row (neural-geometry) and a model
+    identity row (answer-shape) — one name, one stylesheet slot, nothing else
+    in common. The standing legend is .w-legend and is RENDERED BY warrant.js
+    (the markup existed twice, once including REFUSED and once filtering it);
+    the others are .swatches and .mchips. interferometer's .panel, a fixed
+    overlay that wanted the same word as the shared box, is .ov-panel.
+  · design/grid.js — the balanced n-item grid, extracted from template.js and
+    VERIFIED BYTE-IDENTICAL to the statsGridRules() it replaces. It now lays
+    out both the reports' .stats strip and the standing legend: the container
+    carries data-n and nothing declares a column count. This is the first rule
+    the two sides of the site actually share.
+  · warrant.js gained legendHtml(). Phase 4 has somewhere to grow now.
+  · THE EYEBROW WEIGHT: the report engine sets 500, bench.css set none, and
+    interferometer set 500 on its own — so /instruments ran a weight lighter
+    than the reports on every page but one. 500, once, on both sides.
+  · A CLAIM FROM PHASE 2 IS CORRECTED ABOVE. The audit tool that found the
+    duplication over-reports: it counts a comma-separated selector list as
+    several declarations, and it counts a child class (.item) without its
+    parent. Both were checked by hand before anything was moved.
+  · 528/528 geometry numbers unchanged across the whole pass — consolidating
+    the components moved nothing, which is what it had to do.
+
+  THE PLAN FOR PHASE 4 (agreed with the operator; nothing started):
 
   · PHASE 3 — ONE COMPONENT SET. Move `.legend`, the table, the stat strip, the
     card and the plate frame out of nine private <style> blocks into the shared

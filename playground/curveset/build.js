@@ -19,7 +19,6 @@ const E = require('./envelope.js');
 const P = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'page.json'), 'utf8'));
 const PROV = JSON.parse(fs.readFileSync(path.join(HERE, 'PROVENANCE.json'), 'utf8'));
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
-const SHELLCSS = fs.readFileSync(path.join(PG, 'design', 'shell.css'), 'utf8');
 const src = (f) => fs.readFileSync(path.join(HERE, f), 'utf8');
 
 const fmt = (v, u) => (v === null || v === undefined ? '—'
@@ -34,15 +33,9 @@ const rungLabel = (g) => (g.kind === 'monotone' ? 'monotone only' : g.kind === '
 const lastIdx = (s) => s.rungs.length - 1;
 const monoR = (s) => ratio(s, 0), dotsR = (s) => ratio(s, lastIdx(s));
 
-/* the legend is drawn from warrant.js so the page cannot describe a grammar it
-   is not using */
-const legend = `<div class="legend">${W.LEGEND.map((L) => {
-  const a = L.s === W.REFUSED
-    ? `<rect x="0" y="1" width="46" height="12" class="w-void"/>`
-    : `<line x1="1" y1="7" x2="45" y2="7" ${W.attrs(L.s, { width: 2.4 })}/>`;
-  return `<div class="item"><svg viewBox="0 0 46 14" aria-hidden="true">${a}</svg>`
-    + `<div><div class="k">${L.label}</div><div class="g">${L.gloss}</div></div></div>`;
-}).join('')}</div>`;
+/* the legend is RENDERED BY warrant.js, not described here: the page cannot
+   disagree with the grammar it is using, and the markup existed twice. */
+const legend = W.legendHtml();
 
 const panel = (s) => {
   const start = 0;                       /* open on bare monotonicity — the widest true answer */
@@ -171,7 +164,7 @@ function build(OUT) {
     title: 'The line they published, and the lines that fit · instruments',
     desc: 'Two real calibrations — a NIST load cell and a rat IL-6 assay — with the whole set of curves the standards allow, computed in closed form, and the published fit drawn inside it as one member chosen by a criterion rather than by the data.',
     root: '../', here: 'curveset', body,
-    script: `<style>${SHELLCSS}\n${CSS}</style>\n${runtime}`,
+    script: `<style>${CSS}</style>\n${runtime}`,
   });
   const dir = path.join(OUT, 'curveset');
   fs.mkdirSync(dir, { recursive: true });

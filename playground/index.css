@@ -14,11 +14,6 @@ a { color: inherit; }
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; }
 
-.eyebrow {
-  font-family: var(--font-mono); font-size: var(--text-eyebrow);
-  letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4);
-}
-
 /* ---- hero ---- */
 .hero { padding: clamp(3rem, 11vh, 8rem) 0 clamp(3rem, 8vh, 6rem); }
 .hero h1 {
@@ -101,11 +96,6 @@ p { margin: 0; }
 @media (min-width: 760px) { .rules .grid { grid-template-columns: repeat(3, 1fr); } }
 .rules h3 { font-size: 1rem; letter-spacing: var(--track-title); }
 .rules p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); line-height: 1.6; max-width: 40ch; }
-
-.foot { padding: var(--s-6) 0 var(--s-8); border-top: 1px solid var(--border); }
-.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
-.foot a { color: var(--ink-4); text-decoration: none; }
-.foot a:hover { color: var(--ink-2); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 

@@ -8,36 +8,14 @@ body { margin: 0; background: var(--bg); color: var(--ink-2);
   font-family: var(--font-sans); font-size: var(--text-body); line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
-.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
-
-.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(1.6rem, 4vh, 3rem); }
-.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 24ch; margin-top: var(--s-4); text-wrap: balance; }
-.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
-.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 .sec { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
 .sec h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); margin-top: var(--s-3); }
 .sec .why { margin-top: var(--s-5); max-width: var(--read); color: var(--ink-3); }
 .sec .why b { color: var(--ink-2); font-weight: var(--weight-medium); }
-
-/* ---- the grammar, once ---------------------------------------------------- */
-.w-decided { stroke: var(--ink); }
-.w-computed { stroke: var(--ink-3); }
-.w-chosen { stroke: var(--ink-2); }
 .w-void { fill: url(#wvoid); stroke: var(--border-strong); stroke-width: 1; }
-
-.legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-6);
-  grid-template-columns: 1fr; }
 @media (min-width: 700px) { .legend { grid-template-columns: repeat(4, 1fr); } }
-.legend .item { display: grid; grid-template-columns: 46px 1fr; gap: var(--s-3); align-items: center; }
-.legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
-.legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--ink); }
-.legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
 
-/* ---- the instrument panel ------------------------------------------------- */
-.panel { margin-top: var(--s-7); background: var(--bg-raised); border: 1px solid var(--border);
-  border-radius: var(--radius-l); padding: var(--s-5) var(--s-5) var(--s-6); }
 .panel .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s-3) var(--s-5); }
 .panel .head .t { font-size: var(--text-2); color: var(--ink); font-weight: var(--weight-medium); }
 .panel .head .s { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-5); }
@@ -93,11 +71,7 @@ td.dim { color: var(--ink-5); }
 
 pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised); border: 1px solid var(--border);
   border-radius: var(--radius-m); overflow-x: auto; font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); }
-.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); }
-.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
-.foot a { color: var(--ink-4); text-decoration: none; } .foot a:hover { color: var(--ink-2); }
 
 /* a section that holds a component runs the full container; the prose inside it
    keeps the reading measure, so the two never fight over the same width */
 .sec .why, .sec ul.why, .sec p { max-width: var(--read); }
-.sec table, .sec pre, .sec .panel, .sec .grid3, .sec .legend, .sec .cert { max-width: none; }

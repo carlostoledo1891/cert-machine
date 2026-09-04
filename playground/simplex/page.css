@@ -8,7 +8,6 @@ body {
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; }
 a { color: inherit; }
-.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
 
 .stage { display: grid; gap: clamp(1.25rem, 3vw, 2.5rem); padding: var(--s-5) var(--gutter) var(--s-8);
   /* minmax(0,1fr), not 1fr: a bare 1fr track floors at the content's
@@ -21,9 +20,6 @@ a { color: inherit; }
 .hd h1 { font-size: clamp(2rem, 1rem + 3.4vw, 3.3rem); margin-top: var(--s-3); }
 .hd p { margin-top: var(--s-5); color: var(--ink-3); font-size: var(--text-3); line-height: 1.55; }
 .hd b { color: var(--ink-2); font-weight: var(--weight-medium); }
-
-.panel { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-l); padding: var(--s-5); }
-.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
 .panel .cap { margin-top: var(--s-4); font-size: var(--text-small); color: var(--ink-4); line-height: 1.55; }
 .panel .cap b { color: var(--ink-3); font-weight: var(--weight-medium); }
 svg { display: block; width: 100%; height: auto; overflow: visible; }

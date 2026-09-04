@@ -4,12 +4,8 @@ body { margin: 0; background: var(--bg); color: var(--ink-2);
   font-family: var(--font-sans); font-size: var(--text-body); line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
-.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
-
-.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
-.hero h1 { font-size: clamp(2.1rem, 1rem + 4.2vw, 4rem); max-width: 24ch; margin-top: var(--s-4); text-wrap: balance; }
-.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
-.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+/* the only thing this page wants that the shared hero does not give it */
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4.2vw, 4rem); }
 
 .finding { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: var(--s-7) 0; }
 .finding .grid { display: grid; gap: var(--s-6) clamp(1.5rem, 4vw, 3rem); grid-template-columns: 1fr; }
@@ -46,10 +42,10 @@ svg.ngp { display: block; width: 100%; height: auto; overflow: visible; margin: 
 .pl .nums .v { display: block; font-family: var(--font-mono); font-size: 0.9rem; color: var(--ink-2); font-variant-numeric: tabular-nums; margin-top: 1px; }
 .pl .nums .v.hit { color: var(--ink); }
 
-.legend { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5); margin-top: var(--s-5); font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-5); letter-spacing: 0.06em; }
-.legend i { display: inline-block; width: 22px; height: 0; border-top: 1.6px solid var(--ink); vertical-align: middle; margin-right: 7px; font-style: normal; }
-.legend i.d { border-top-style: dashed; border-color: var(--ink-3); }
-.legend i.c { border-top: 1px solid var(--ink-4); }
+.swatches { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5); margin-top: var(--s-5); font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-5); letter-spacing: 0.06em; }
+.swatches i { display: inline-block; width: 22px; height: 0; border-top: 1.6px solid var(--ink); vertical-align: middle; margin-right: 7px; font-style: normal; }
+.swatches i.d { border-top-style: dashed; border-color: var(--ink-3); }
+.swatches i.c { border-top: 1px solid var(--ink-4); }
 
 .method { padding: clamp(3rem, 7vh, 5rem) 0 clamp(4rem, 10vh, 7rem); }
 .method h3 { font-size: 1.05rem; margin-top: var(--s-7); }
@@ -60,9 +56,6 @@ svg.ngp { display: block; width: 100%; height: auto; overflow: visible; margin: 
 .method th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
 .method pre { margin-top: var(--s-4); padding: var(--s-4); background: var(--bg-raised); border: 1px solid var(--border);
   border-radius: var(--radius-m); overflow-x: auto; font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); }
-.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); }
-.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
-.foot a { color: var(--ink-4); text-decoration: none; } .foot a:hover { color: var(--ink-2); }
 
 /* the map, and the bands that group the sets by what was predicted of them */
 .mapsec { padding: clamp(3rem, 7vh, 5rem) 0; border-bottom: 1px solid var(--border); }
@@ -81,15 +74,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 .mp.k-line { fill: var(--ink-3); }
 .mp.k-tree, .mp.k-grid { fill: var(--ink-2); }
 .ml { font-family: var(--font-mono); font-size: 12px; fill: var(--ink-4); }
-.legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--ink-3); margin-right: 8px; vertical-align: middle; border-top: 0; }
-.legend .sw.k-cycle { background: var(--ink); }
-.legend .sw.k-none { background: var(--ink); box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--ink-4); }
-.legend .sw.k-line { background: var(--ink-3); }
-.legend .sw.k-tree, .legend .sw.k-grid { background: var(--ink-2); }
-.legend { justify-content: center; }
+.swatches .sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--ink-3); margin-right: 8px; vertical-align: middle; border-top: 0; }
+.swatches .sw.k-cycle { background: var(--ink); }
+.swatches .sw.k-none { background: var(--ink); box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--ink-4); }
+.swatches .sw.k-line { background: var(--ink-3); }
+.swatches .sw.k-tree, .swatches .sw.k-grid { background: var(--ink-2); }
+.swatches { justify-content: center; }
 
 .band { padding: clamp(2rem, 5vh, 3.5rem) 0 0; }
-.band .eyebrow { display: block; border-top: 1px solid var(--border-strong); padding-top: var(--s-4); color: var(--ink-3); }
 
 /* the frame experiment: four plates, same items, one sentence apart */
 .frames { padding: clamp(3rem, 7vh, 5rem) 0; border-bottom: 1px solid var(--border); }

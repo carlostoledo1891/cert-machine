@@ -30,6 +30,9 @@
 'use strict';
 
 const T = require('./tokens.js');
+/* the balanced n-item grid lives in design/grid.js so /instruments can reach it
+   too — the legend there was declaring its column count by hand on four pages */
+const { balancedGrid } = require('./grid.js');
 
 /* ---- THE FULL-ROW RULE (2026-09-02, standing) --------------------------
    A grid must never expose an empty track. The fused stats grid paints its
@@ -47,31 +50,6 @@ const T = require('./tokens.js');
    · every other fixed-column grid (.cards, .pk-grid, the app shell's
      block grids) carries remainder guards: the last row's cells span the
      leftover tracks, whatever the count. */
-function statsGridRules() {
-  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
-  const lcm = (a, b) => a * b / gcd(a, b);
-  const out = [];
-  for (let n = 1; n <= 12; n++) {
-    const k = Math.ceil(n / 4);
-    const base = Math.floor(n / k), extra = n - base * k;
-    const rows = [];
-    for (let r = 0; r < k; r++) rows.push(r < extra ? base + 1 : base);
-    const B = rows.reduce((a, s) => lcm(a, s), 1);
-    out.push(`.stats[data-n="${n}"]{grid-template-columns:repeat(${B},minmax(0,1fr))}`);
-    /* explicit span per run of equal-size rows — always emitted, so these
-       (0,4,0) rules beat the mobile odd-last guard at desktop */
-    let idx = 1;
-    for (let r = 0; r < k;) {
-      let r2 = r;
-      while (r2 + 1 < k && rows[r2 + 1] === rows[r]) r2++;
-      const from = idx, count = rows.slice(r, r2 + 1).reduce((a, s) => a + s, 0);
-      const span = B / rows[r];
-      out.push(`.stats[data-n="${n}"] .stat:nth-child(n+${from}):nth-child(-n+${from + count - 1}){grid-column:span ${span}}`);
-      idx += count; r = r2 + 1;
-    }
-  }
-  return out.join('\n');
-}
 
 function css() {
   const { SCALE, LAYOUT } = T;
@@ -181,7 +159,7 @@ section{margin:${SCALE.section} 0 0}
   gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
 .stats .stat:last-child:nth-child(odd){grid-column:1/-1}
 @media (min-width:681px){
-${statsGridRules()}
+${balancedGrid('.stats', '.stat')}
 }
 .stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
 .stat .k{font-family:var(--f-mono);font-size:${SCALE.eyebrow};letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}

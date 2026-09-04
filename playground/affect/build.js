@@ -21,7 +21,6 @@ const { page } = require(path.join(PG, 'design', 'shell.js'));
 const A = require('./page.js');
 const PROV = JSON.parse(fs.readFileSync(path.join(HERE, 'PROVENANCE.json'), 'utf8'));
 const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
-const SHELLCSS = fs.readFileSync(path.join(PG, 'design', 'shell.css'), 'utf8');
 const M = A.M;
 const spend = (M.spend || []).reduce((a, x) => a + x.usd, 0);
 const moods = (M.moods || []).map((m) => m.id || m);
@@ -54,7 +53,7 @@ function build(OUT) {
     title: 'The geometry of feeling · instruments',
     desc: 'Twelve feelings placed by pairwise questions, the circumplex axes recovered from a question set with no words in common, and the same twelve asked again under six moods — with twelve clock hours as the control that has no business moving.',
     root: '../', here: 'affect', body: head + sections + foot,
-    script: `<style>${SHELLCSS}\n${BENCHCSS}\n${A.CSS}</style>`,
+    script: `<style>${BENCHCSS}\n${A.CSS}</style>`,
   });
   const dir = path.join(OUT, 'affect');
   fs.mkdirSync(dir, { recursive: true });
