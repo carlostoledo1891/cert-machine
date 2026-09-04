@@ -78,8 +78,9 @@ const fact = (k, v, note) =>
 const body = `
 <header class="hero"><div class="wrap">
   <div class="eyebrow">cert-machine &middot; instruments</div>
-  <h1>Nothing here is certified. That is the entire permission.</h1>
-  <p class="lede">The rest of this repository proves things, and gates itself accordingly &mdash; a page there cannot ship if a number on it has drifted from the record underneath. This place is for the other half of the work: <b>the instruments made touchable</b>, the mathematics dressed so that you would want to look at it. Everything here is real and computed on this machine from data on disk. None of it is a proof, and none of it will pretend to be.</p>
+  <h1>Nine instruments, and each one says what decides it.</h1>
+  <p class="lede">This page used to open by saying that nothing here was certified. That was the wrong claim and it had stopped being true: two of these pages draw a certificate straight from the shelf the rest of the site gates, and five of them decide their headline number in exact integer or rational arithmetic. <b>What is true is that nothing here is gated</b> &mdash; no number on these pages has a certificate row the build checks, no page here can refuse a deploy, and none of them is covered by <code>make test</code>. That is a fact about ceremony, not about the mathematics, and the two are not the same thing.</p>
+  <p class="lede" style="margin-top:var(--s-5)">So instead of one disclaimer at the door, <b>every card below says what backs its headline number</b>, in the same words the pages use: exact rationals, exact integers, a record from the certificate shelf, or floats. Where it is floats, the page says so beside the number rather than at the bottom.</p>
 </div></header>
 
 <section class="projects"><div class="wrap">
@@ -88,6 +89,27 @@ const body = `
     <span class="eyebrow">nine, so far</span>
   </div>
 
+  <div class="cards">
+  <a class="card" href="shape-hunt/index.html">
+    <figure class="card-art">
+      <div class="plate">${SH.cardArt()}<span class="uv-scale">${fmt(SH.SHAPETESTS)} shape tests &middot; ${fmt(SH.PERMTESTS)} permutations</span></div>
+      <figcaption><b>A symmetry, recovered from a model&rsquo;s own answers.</b> Each chord joins an item to where the permutation sends it, so a rotation reads as a fan and a reflection as rungs across an axis. Nobody asked about symmetry; it is what survived when everything else did not.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">shape hunt &middot; five studies &middot; no model calls</div>
+      <div class="backs"><span class="bk">what decides it</span><span class="bv">exact rationals</span><span class="bn">every survivor is recomputed in exact rationals, and the impossibility witnesses clear a floor that is proved rather than sampled</span></div>
+      <h2>Nothing here is a perfect circle.</h2>
+      <p class="sub">The elicited geometries look like they hold shapes &mdash; a pentagon here, four points on a circle there. So this looks exhaustively, at every triple and quadruple and five-subset of every set from every model, and then runs the identical search on the same numbers with the geometry shuffled out. Almost nothing survives that. What does is not a polygon &mdash; and for most of the sets the verdict is not a margin at all but a certificate in whole numbers that no such points exist.</p>
+      <div class="facts">
+        ${fact('collinear triples found', SH.beats('collinear') + ' of ' + SH.real.length, 'not one, in any set, better than shuffling the same distances would give')}
+        ${fact('regular pentagons', SH.beats('r5') + ' of ' + SH.real.length, 'and the roundest pentagon in pure noise looks exactly as convincing')}
+        ${fact('symmetries that hold', SH.real.filter((r) => r.symmetry.beatsBoth).length + ' of ' + SH.real.length, 'under two nulls of opposite bias that no control clears — including the antipodal map on the compass, which nobody asked about')}
+        ${fact('provably not distances', SH.ST.cm.rows.filter((r) => !r.synthetic && r.refuted).length + ' of ' + SH.ST.cm.rows.filter((r) => !r.synthetic).length, 'refuted above a floor that is proved rather than sampled, each with a four-item witness — while the nonsense controls embed exactly')}
+      </div>
+      <span class="go">read the hunt <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
   <a class="card" href="interferometer/index.html">
     <figure class="card-art">
       <div class="plate">${UV.svg}<span class="uv-scale">longest baseline ${n(UV.maxUV, 2)} G&lambda;</span></div>
@@ -95,6 +117,7 @@ const body = `
     </figure>
     <div class="card-body">
       <div class="eyebrow">interferometer &middot; M87 &middot; ${M.freqGHz.toFixed(0)} GHz</div>
+      <div class="backs"><span class="bk">what decides it</span><span class="bv">floats</span><span class="bn">a certificate-shaped bound with no proof on disk yet, and the page leads with that</span></div>
       <h2>Not the picture. The set of pictures.</h2>
       <p class="sub">The famous black-hole image is <em>one</em> sky chosen, by an imaging prior, from the infinitely many the data allow. This draws the set instead: ${D.members.length} skies fitted under deliberately different priors, agreement rendered as ink and disagreement as texture. One slider decides how much of the phase information the picture is allowed to use &mdash; and at zero the ring dissolves, because amplitudes alone cannot see where anything is.</p>
       <div class="facts">
@@ -107,6 +130,26 @@ const body = `
     </div>
   </a>
 
+  <a class="card" href="curveset/index.html">
+    <figure class="card-art">
+      <div class="plate">${CS.cardArt()}<span class="uv-scale">${n(CS.monoR(CS.pontius), 0)}&times; the reported &plusmn;, assuming only monotone</span></div>
+      <figcaption><b>The same question, on something everyday.</b> Twenty loads applied twice at NIST, and the whole set of calibration curves those standards allow &mdash; solid, because it is what the data forces. The published quadratic is the dotted line inside it: one member of that set, chosen by a fitting criterion rather than by the measurements.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">curveset &middot; ${CS.P.sets.length} real calibrations &middot; no model calls</div>
+      <div class="backs"><span class="bk">what decides it</span><span class="bv">closed form, in floats</span><span class="bn">the envelope is a min and a max of straight lines, so it is exact as a formula and evaluated as a double</span></div>
+      <h2>The line they published, and the lines that fit.</h2>
+      <p class="sub">A calibration is run forwards and used backwards, and the backwards number always comes off a fitted curve. The fit is an assumption and it is never priced. This computes what the standards allow instead &mdash; in closed form, no optimiser, no sampling &mdash; under assumptions you can dial one at a time, from <em>monotone only</em> to <em>join the dots</em>, with the parametric fit past the end of the dial.</p>
+      <div class="facts">
+        ${fact('load cell, monotone only', n(CS.monoR(CS.pontius), 0) + '\u00d7', 'the honest interval is exactly the ladder spacing &mdash; which two standards you are between, and nothing finer')}
+        ${fact('and joining the dots', n(CS.dotsR(CS.pontius), 1) + '\u00d7', 'linear interpolation lands on the reported precision: on a fine ladder the functional form buys nothing')}
+        ${fact('the assay, joining the dots', n(CS.dotsR(CS.il6), 1) + '\u00d7', 'the opposite verdict &mdash; on a coarse ladder the four-parameter form is doing the work')}
+        ${fact('the mathematics', 'closed form', 'U and L are a min and a max of straight lines, so reading backwards is a bisection and the page runs the file the tests run')}
+      </div>
+      <span class="go">turn the dial <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
   <a class="card" href="plates/index.html">
     <figure class="card-art">
       <div class="plate">${PL.cardArt()}<span class="uv-scale">plate I of ${PL.counts.plates} &middot; n = 0 &hellip; 99 across mod 2, 5, 10, 100</span></div>
@@ -114,6 +157,7 @@ const body = `
     </figure>
     <div class="card-body">
       <div class="eyebrow">plates &middot; ${PL.counts.plates} figures &middot; no interaction, no model calls</div>
+      <div class="backs"><span class="bk">what decides it</span><span class="bv">records from the certificate shelf</span><span class="bn">plates IV, VII and VIII are drawn from certificates the rest of the site gates; the other five are rules stated and drawn</span></div>
       <h2>Manifolds we are handed.</h2>
       <p class="sub">Their manifolds are <em>found</em> &mdash; pulled out of a working model and interpreted. These are <em>stated</em>: a rule, its parameters, and then a drawing. Two of the eight are not illustrations at all but certificates rendered at their own resolution, which is what a proof looks like when you stop reading it and start looking at it.</p>
       <div class="facts">
@@ -133,6 +177,7 @@ const body = `
     </figure>
     <div class="card-body">
       <div class="eyebrow">affect &middot; ${AF.M.moods.length} moods &times; ${AF.M.models.length} models &middot; $${AF.spend.toFixed(2)} already spent</div>
+      <div class="backs"><span class="bk">what decides it</span><span class="bv">exact integers</span><span class="bn">the signature, the negative mass and the metric gate are decided on the integer table; the plates are float drawings of it</span></div>
       <h2>The geometry of feeling, and the control that catches it.</h2>
       <p class="sub">Twelve feelings, then the same twelve asked again under six moods &mdash; and twelve clock hours carried through the identical pipeline as a control that has no business moving. A mood effect that also moves the clock is not a mood effect. One model&rsquo;s clock moves anyway.</p>
       <div class="facts">
@@ -152,6 +197,7 @@ const body = `
     </figure>
     <div class="card-body">
       <div class="eyebrow">answer shape &middot; ${AS.G.subjects.length} subjects &times; ${AS.G.models.length} models &middot; $${AS.spend.toFixed(2)} already spent</div>
+      <div class="backs"><span class="bk">what decides it</span><span class="bv">exact integers</span><span class="bn">same instrument, same exactness — the triangle inequality and the signature are decided, the pictures are views</span></div>
       <h2>The shape of an answer.</h2>
       <p class="sub">Ask how different two things are, one pair at a time, and you get a table of numbers. A table of distances is a shape &mdash; or it is not one, and the difference is decidable in exact integer arithmetic. Every pair is asked <em>both ways round</em>, so the asymmetry is measured rather than averaged away.</p>
       <div class="facts">
@@ -164,62 +210,6 @@ const body = `
     </div>
   </a>
 
-  <a class="card" href="exact-geometry/index.html">
-    <figure class="card-art">
-      <div class="plate">${XG.cardArt()}<span class="uv-scale">${XG.n} sets whose shape is fixed by construction</span></div>
-      <figcaption><b>The positive control for every geometry page here.</b> Five telescopes at one instant are points in a plane by construction, and there is no room for argument. If the instrument does not come back with effective rank 2 and nothing negative, the arithmetic is broken and every other number is worthless.</figcaption>
-    </figure>
-    <div class="card-body">
-      <div class="eyebrow">exact geometry &middot; ${XG.n} sets &middot; no model calls at all</div>
-      <h2>Point it at something whose shape is already known.</h2>
-      <p class="sub">Every other geometry page here asks a model for a table of dissimilarities and decides what shape the answers have. This one asks nothing. The prediction is written first, in the source, and never edited afterwards &mdash; which is the only thing that makes &ldquo;agreed&rdquo; mean anything.</p>
-      <div class="facts">
-        ${fact('predictions that held', XG.agreed + ' of ' + XG.n, 'written before the run, in sets.js, and not touched since')}
-        ${fact('refused at the gate', '1', 'a set that violates the metric gate is refused rather than scored &mdash; running the arithmetic anyway returns a plausible number from a broken input')}
-        ${fact('the awkward reading, kept', 'signature', 'quantising a projection to integers guarantees the exact signature will not come back clean, so it is printed beside the rank rather than instead of it')}
-      </div>
-      <span class="go">read the controls <span class="arw">&rarr;</span></span>
-    </div>
-  </a>
-
-  <a class="card" href="curveset/index.html">
-    <figure class="card-art">
-      <div class="plate">${CS.cardArt()}<span class="uv-scale">${n(CS.monoR(CS.pontius), 0)}&times; the reported &plusmn;, assuming only monotone</span></div>
-      <figcaption><b>The same question, on something everyday.</b> Twenty loads applied twice at NIST, and the whole set of calibration curves those standards allow &mdash; solid, because it is what the data forces. The published quadratic is the dotted line inside it: one member of that set, chosen by a fitting criterion rather than by the measurements.</figcaption>
-    </figure>
-    <div class="card-body">
-      <div class="eyebrow">curveset &middot; ${CS.P.sets.length} real calibrations &middot; no model calls</div>
-      <h2>The line they published, and the lines that fit.</h2>
-      <p class="sub">A calibration is run forwards and used backwards, and the backwards number always comes off a fitted curve. The fit is an assumption and it is never priced. This computes what the standards allow instead &mdash; in closed form, no optimiser, no sampling &mdash; under assumptions you can dial one at a time, from <em>monotone only</em> to <em>join the dots</em>, with the parametric fit past the end of the dial.</p>
-      <div class="facts">
-        ${fact('load cell, monotone only', n(CS.monoR(CS.pontius), 0) + '\u00d7', 'the honest interval is exactly the ladder spacing &mdash; which two standards you are between, and nothing finer')}
-        ${fact('and joining the dots', n(CS.dotsR(CS.pontius), 1) + '\u00d7', 'linear interpolation lands on the reported precision: on a fine ladder the functional form buys nothing')}
-        ${fact('the assay, joining the dots', n(CS.dotsR(CS.il6), 1) + '\u00d7', 'the opposite verdict &mdash; on a coarse ladder the four-parameter form is doing the work')}
-        ${fact('the mathematics', 'closed form', 'U and L are a min and a max of straight lines, so reading backwards is a bisection and the page runs the file the tests run')}
-      </div>
-      <span class="go">turn the dial <span class="arw">&rarr;</span></span>
-    </div>
-  </a>
-
-  <a class="card" href="simplex/index.html">
-    <figure class="card-art">
-      <div class="plate">${SIMPLEX.cardArt()}<span class="uv-scale">${SIMPLEX.M.positions} positions</span></div>
-      <figcaption><b>One attention row, drawn where it lives.</b> The ${SIMPLEX.M.positions} vertices are the ${SIMPLEX.M.positions} positions the head can attend to; the row is the point. It starts at dead centre &mdash; attending to everything equally &mdash; and the trail is where sharpening the temperature takes it. Solid while the claim is decided, dashed once it is only drawn.</figcaption>
-    </figure>
-    <div class="card-body">
-      <div class="eyebrow">attention geometry &middot; one frozen row &middot; exact</div>
-      <h2>An attention row is a point. Nobody draws it that way.</h2>
-      <p class="sub">Attention weights are nonnegative and sum to one, which makes a row a point in a simplex &mdash; and a bar chart throws that away. Focus is distance from the centre; concentration has contours; temperature is a path. One real row from a tiny GPT, in the room it actually lives in, with the one claim about it that is decided rather than drawn: sharpening must move the point toward a vertex, proved in exact rational arithmetic because consecutive values differ in the fourteenth decimal.</p>
-      <div class="facts">
-        ${fact('positions', SIMPLEX.M.positions, `layer 0, head 0, seed 0 — frozen once and sha-pinned`)}
-        ${fact('checks, exact', SIMPLEX.D.checks.length + '/' + SIMPLEX.D.checks.length, 'including two planted mutants that must fail to concentrate')}
-        ${fact('effective positions', n(SIMPLEX.D.exact[0].PR, 2) + ' → ' + n(SIMPLEX.D.exact[SIMPLEX.D.exact.length - 1].PR, 2), `across the decided grid, out of ${SIMPLEX.M.positions}`)}
-        ${fact('drawn past it', n(SIMPLEX.D.view[SIMPLEX.D.view.length - 1].PR, 2), 'at β 400, essentially a vertex — and dashed, because it is not decided')}
-      </div>
-      <span class="go">open the instrument <span class="arw">&rarr;</span></span>
-    </div>
-  </a>
-
   <a class="card" href="neural-geometry/index.html">
     <figure class="card-art">
       <div class="plate">${NG.cardArt()}<span class="uv-scale">${NG.G.meta.calls} calls &middot; $${NG.G.meta.spent.toFixed(2)}</span></div>
@@ -227,6 +217,7 @@ const body = `
     </figure>
     <div class="card-body">
       <div class="eyebrow">neural geometry &middot; ${NG.G.models.length} models &middot; no weights</div>
+      <div class="backs"><span class="bk">what decides it</span><span class="bv">exact integers</span><span class="bn">asymmetry, closure, the triangle inequality, Gromov delta and the Gram signature, all decided on integers</span></div>
       <h2>The shapes a model will admit to from the outside.</h2>
       <p class="sub">Goodfire finds circles and colour surfaces by opening the model and decomposing its activations, which needs the weights. This asks from outside instead &mdash; every pair, one integer, one row at a time &mdash; and then decides exactly what those answers can be. If the circle is real it should survive being asked about; a shape that lives only in the activations was never a shape the model uses.</p>
       <div class="facts">
@@ -239,50 +230,45 @@ const body = `
     </div>
   </a>
 
-  <a class="card" href="shape-hunt/index.html">
+  <a class="card" href="exact-geometry/index.html">
     <figure class="card-art">
-      <div class="plate">${SH.cardArt()}<span class="uv-scale">${fmt(SH.SHAPETESTS)} shape tests &middot; ${fmt(SH.PERMTESTS)} permutations</span></div>
-      <figcaption><b>A symmetry, recovered from a model&rsquo;s own answers.</b> Each chord joins an item to where the permutation sends it, so a rotation reads as a fan and a reflection as rungs across an axis. Nobody asked about symmetry; it is what survived when everything else did not.</figcaption>
+      <div class="plate">${XG.cardArt()}<span class="uv-scale">${XG.n} sets whose shape is fixed by construction</span></div>
+      <figcaption><b>The positive control for every geometry page here.</b> Five telescopes at one instant are points in a plane by construction, and there is no room for argument. If the instrument does not come back with effective rank 2 and nothing negative, the arithmetic is broken and every other number is worthless.</figcaption>
     </figure>
     <div class="card-body">
-      <div class="eyebrow">shape hunt &middot; five studies &middot; no model calls</div>
-      <h2>Nothing here is a perfect circle.</h2>
-      <p class="sub">The elicited geometries look like they hold shapes &mdash; a pentagon here, four points on a circle there. So this looks exhaustively, at every triple and quadruple and five-subset of every set from every model, and then runs the identical search on the same numbers with the geometry shuffled out. Almost nothing survives that. What does is not a polygon &mdash; and for most of the sets the verdict is not a margin at all but a certificate in whole numbers that no such points exist.</p>
+      <div class="eyebrow">exact geometry &middot; ${XG.n} sets &middot; no model calls at all</div>
+      <div class="backs"><span class="bk">what decides it</span><span class="bv">exact integers</span><span class="bn">and the predictions were written before the run, which is the only thing that makes "agreed" mean anything</span></div>
+      <h2>Point it at something whose shape is already known.</h2>
+      <p class="sub">Every other geometry page here asks a model for a table of dissimilarities and decides what shape the answers have. This one asks nothing. The prediction is written first, in the source, and never edited afterwards &mdash; which is the only thing that makes &ldquo;agreed&rdquo; mean anything.</p>
       <div class="facts">
-        ${fact('collinear triples found', SH.beats('collinear') + ' of ' + SH.real.length, 'not one, in any set, better than shuffling the same distances would give')}
-        ${fact('regular pentagons', SH.beats('r5') + ' of ' + SH.real.length, 'and the roundest pentagon in pure noise looks exactly as convincing')}
-        ${fact('symmetries that hold', SH.real.filter((r) => r.symmetry.beatsBoth).length + ' of ' + SH.real.length, 'under two nulls of opposite bias that no control clears — including the antipodal map on the compass, which nobody asked about')}
-        ${fact('provably not distances', SH.ST.cm.rows.filter((r) => !r.synthetic && r.refuted).length + ' of ' + SH.ST.cm.rows.filter((r) => !r.synthetic).length, 'refuted above a floor that is proved rather than sampled, each with a four-item witness — while the nonsense controls embed exactly')}
+        ${fact('predictions that held', XG.agreed + ' of ' + XG.n, 'written before the run, in sets.js, and not touched since')}
+        ${fact('refused at the gate', '1', 'a set that violates the metric gate is refused rather than scored &mdash; running the arithmetic anyway returns a plausible number from a broken input')}
+        ${fact('the awkward reading, kept', 'signature', 'quantising a projection to integers guarantees the exact signature will not come back clean, so it is printed beside the rank rather than instead of it')}
       </div>
-      <span class="go">read the hunt <span class="arw">&rarr;</span></span>
+      <span class="go">read the controls <span class="arw">&rarr;</span></span>
     </div>
   </a>
 
-
-</div></section>
-
-<section class="rules"><div class="wrap">
-  <span class="eyebrow">how this place works</span>
-  <div class="grid">
-    <div>
-      <h3>No gates.</h3>
-      <p>This folder is built by its own thirty-line script. It is not wired into the repository&rsquo;s site build and none of that build&rsquo;s refusals apply to it. Nothing here can block anything there, and nothing there can slow anything here down.</p>
+  <a class="card" href="simplex/index.html">
+    <figure class="card-art">
+      <div class="plate">${SIMPLEX.cardArt()}<span class="uv-scale">${SIMPLEX.M.positions} positions</span></div>
+      <figcaption><b>One attention row, drawn where it lives.</b> The ${SIMPLEX.M.positions} vertices are the ${SIMPLEX.M.positions} positions the head can attend to; the row is the point. It starts at dead centre &mdash; attending to everything equally &mdash; and the trail is where sharpening the temperature takes it. Solid while the claim is decided, dashed once it is only drawn.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">attention geometry &middot; one frozen row &middot; exact</div>
+      <div class="backs"><span class="bk">what decides it</span><span class="bv">exact rationals for the claim</span><span class="bn">consecutive values differ in the fourteenth decimal, so the monotonicity is decided on BigInt fractions; the trail is dashed where it is only drawn</span></div>
+      <h2>An attention row is a point. Nobody draws it that way.</h2>
+      <p class="sub">Attention weights are nonnegative and sum to one, which makes a row a point in a simplex &mdash; and a bar chart throws that away. Focus is distance from the centre; concentration has contours; temperature is a path. One real row from a tiny GPT, in the room it actually lives in, with the one claim about it that is decided rather than drawn: sharpening must move the point toward a vertex, proved in exact rational arithmetic because consecutive values differ in the fourteenth decimal.</p>
+      <div class="facts">
+        ${fact('positions', SIMPLEX.M.positions, `layer 0, head 0, seed 0 — frozen once and sha-pinned`)}
+        ${fact('checks, exact', SIMPLEX.D.checks.length + '/' + SIMPLEX.D.checks.length, 'including two planted mutants that must fail to concentrate')}
+        ${fact('effective positions', n(SIMPLEX.D.exact[0].PR, 2) + ' → ' + n(SIMPLEX.D.exact[SIMPLEX.D.exact.length - 1].PR, 2), `across the decided grid, out of ${SIMPLEX.M.positions}`)}
+        ${fact('drawn past it', n(SIMPLEX.D.view[SIMPLEX.D.view.length - 1].PR, 2), 'at β 400, essentially a vertex — and dashed, because it is not decided')}
+      </div>
+      <span class="go">open the instrument <span class="arw">&rarr;</span></span>
     </div>
-    <div>
-      <h3>But no fiction either.</h3>
-      <p>Every number on every page comes out of a record in this folder, and every record comes out of running the code beside it. Freedom from ceremony is not freedom from arithmetic. Where a thing is a float and not a proof, the page says so in the same breath as the number.</p>
-    </div>
-    <div>
-      <h3>The data is not ours.</h3>
-      <p>The Event Horizon Telescope files here are the public release, byte for byte, under the collaboration&rsquo;s own terms &mdash; the code is MIT and the data is not. They are carried so the pages can be re-run rather than believed.</p>
-    </div>
+  </a>
   </div>
-</div></section>
-
-<footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">the machine</a>
-  <a href="https://github.com/carlostoledo1891/cert-machine">source</a>
   <span>built ${new Date().toISOString().slice(0, 10)}</span>
 </div></div></footer>
 `;
