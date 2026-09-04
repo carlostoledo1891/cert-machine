@@ -1,0 +1,71 @@
+{
+  "what": "answer-shape",
+  "liftedFrom": "/Users/carlostoledo/Documents/frontier-apps",
+  "liftedOn": "2026-09-04",
+  "why": "The seven-subject comparison page. NOT the same experiment as playground/neural-geometry, which is ours (18 sets, 527 calls, $0.78) — this one asks every pair BOTH ways round, 132 calls per model on a twelve-item set, and spends its budget on asymmetry rather than breadth. It is here for its components as much as its result: three models in one frame with rotation, reflection and scale removed; the heat tables under it; and the triangle-inequality matrix.",
+  "rule": "Science, drawing code and records crossed byte-for-byte. The PAGE is rebuilt in this repository’s design system — no bench CSS, no bench HTML, no ECharts. Patches declared here so they can never be mistaken for drift.",
+  "patches": [
+    "page.js: require paths repointed at this folder and at playground/png.js; the bench page-writing tail replaced by module.exports. The content functions are untouched.",
+    "The records carry model calls already paid for on the bench. Nothing here re-spends, and no page in this repository issues a call at build time."
+  ],
+  "files": [
+    {
+      "file": "page.js",
+      "sourcePath": "tools/build-neural-geometry.js",
+      "sha256": "d05df37d5ca63ffbb7ed8b3aec8fbe45f94f0e586605e9107cb54190678711aa",
+      "sourceSha256": "418e07bf4e13432340d8b030f8c40ec9ef8f5962cf6857d61b6fbfd2847de9a0",
+      "bytes": 25102
+    },
+    {
+      "file": "plate.js",
+      "sourcePath": "experiments/neural-geometry/plate.js",
+      "sha256": "8615d91e6d9e39cfa52b2401da302816810b90a6721fbc64def9a5b8b0e26985",
+      "sourceSha256": "8615d91e6d9e39cfa52b2401da302816810b90a6721fbc64def9a5b8b0e26985",
+      "bytes": 9150
+    },
+    {
+      "file": "sets.js",
+      "sourcePath": "experiments/neural-geometry/sets.js",
+      "sha256": "cd720d1bbf1db58138ab010172b2fb8e8cc3260c0c829d7659cd1dd909f690b2",
+      "sourceSha256": "cd720d1bbf1db58138ab010172b2fb8e8cc3260c0c829d7659cd1dd909f690b2",
+      "bytes": 3870
+    },
+    {
+      "file": "decide.js",
+      "sourcePath": "experiments/neural-geometry/decide.js",
+      "sha256": "9346696b5a99e9ec8751ad607c05767eb343475515753ff5536854a388a3cfae",
+      "sourceSha256": "9346696b5a99e9ec8751ad607c05767eb343475515753ff5536854a388a3cfae",
+      "bytes": 8381
+    },
+    {
+      "file": "api.js",
+      "sourcePath": "experiments/neural-geometry/api.js",
+      "sha256": "1c774ef65808b17ef15858c53cf22b1bbc2557bbbdff141125354c95be32ab23",
+      "sourceSha256": "1c774ef65808b17ef15858c53cf22b1bbc2557bbbdff141125354c95be32ab23",
+      "bytes": 4222
+    },
+    {
+      "file": "NEURAL-GEOMETRY.md",
+      "sourcePath": "experiments/neural-geometry/NEURAL-GEOMETRY.md",
+      "sha256": "43f88690beb534bb9888c3c7fa94e908250b755b3ddba25352f66c9bf8fd5d01",
+      "sourceSha256": "43f88690beb534bb9888c3c7fa94e908250b755b3ddba25352f66c9bf8fd5d01",
+      "bytes": 4355
+    },
+    {
+      "file": "out/geometry.json",
+      "sourcePath": "experiments/neural-geometry/out/geometry.json",
+      "sha256": "b95f61f553daa4089bcb24b73b9405e567e753103c903bcd6770748077ae32f9",
+      "sourceSha256": "b95f61f553daa4089bcb24b73b9405e567e753103c903bcd6770748077ae32f9",
+      "bytes": 53781
+    },
+    {
+      "file": "out/probe.json",
+      "sourcePath": "experiments/neural-geometry/out/probe.json",
+      "sha256": "61a84a8ad22035654577b1152f90444b232ebbca8e5d70664e60100a897dac6e",
+      "sourceSha256": "61a84a8ad22035654577b1152f90444b232ebbca8e5d70664e60100a897dac6e",
+      "bytes": 10576
+    }
+  ],
+  "crossed": true,
+  "note": "page.js is the one file with declared patches, so its sha differs from source by design; every other file matches byte-for-byte."
+}

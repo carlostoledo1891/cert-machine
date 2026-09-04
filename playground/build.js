@@ -25,6 +25,29 @@ const SIMPLEX = require(path.join(HERE, 'simplex', 'build.js'));
 const NG = require(path.join(HERE, 'neural-geometry', 'build.js'));
 const SH = require(path.join(HERE, 'shape-hunt', 'build.js'));
 const CS = require(path.join(HERE, 'curveset', 'build.js'));
+const PL = require(path.join(HERE, 'plates', 'build.js'));
+const XG = require(path.join(HERE, 'exact-geometry', 'build.js'));
+const AS = require(path.join(HERE, 'answer-shape', 'build.js'));
+const AF = require(path.join(HERE, 'affect', 'build.js'));
+/* the affect card's numbers, read out of the record rather than typed. A card
+   that repeats a page's figures by hand is a second copy, and a second copy
+   drifts. */
+const AFX = (() => {
+  const M = AF.M, ids = M.models.map((m) => m.id);
+  const cx = ids.map((id) => M.circumplex['neutral|' + id]);
+  const cell = ids.map((id) => M.cells['neutral|affect|' + id]);
+  /* the control's own movement: the shape gap the twelve clock hours pick up
+     under a mood, which by construction should be nothing */
+  const clock = Object.keys(M.effects)
+    .filter((k) => /\|clock\|/.test(k) && !/^neutral\|/.test(k))
+    .map((k) => M.effects[k].gap)
+    .filter((g) => typeof g === 'number');
+  return {
+    rx: cx.map((c) => c.rx), ang: cx.map((c) => c.leadingAxisAngle),
+    rank: cell.map((c) => c.spectrum.effRank), neg: cell.map((c) => c.spectrum.negMass),
+    worstClock: clock.length ? Math.round(100 * Math.max(...clock)) : null,
+  };
+})();
 
 const n = (x, d = 2) => Number(x).toFixed(d);
 const fmt = (x) => Number(x).toLocaleString('en-US');
@@ -62,7 +85,7 @@ const body = `
 <section class="projects"><div class="wrap">
   <div class="count">
     <span class="eyebrow">the projects</span>
-    <span class="eyebrow">five, so far</span>
+    <span class="eyebrow">nine, so far</span>
   </div>
 
   <a class="card" href="interferometer/index.html">
@@ -81,6 +104,81 @@ const body = `
         ${SWEEP ? fact('bracket', n(100 * (worst - 1), 0) + '%', `worst of ${SWEEP.rows.length} radii — a prior-free, phase-free enclosure, best ${n(100 * (best - 1), 0)}%`) : ''}
       </div>
       <span class="go">open the instrument <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+  <a class="card" href="plates/index.html">
+    <figure class="card-art">
+      <div class="plate">${PL.cardArt()}<span class="uv-scale">plate I of ${PL.counts.plates} &middot; n = 0 &hellip; 99 across mod 2, 5, 10, 100</span></div>
+      <figcaption><b>A number as a point on a product of circles.</b> Interpretability research reports that a model stores a number as a set of residues, one angle per modulus, and adds by rotating all of them at once. Drawn here from the definition rather than recovered from activations &mdash; the honest way for this bench to hold the object.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">plates &middot; ${PL.counts.plates} figures &middot; no interaction, no model calls</div>
+      <h2>Manifolds we are handed.</h2>
+      <p class="sub">Their manifolds are <em>found</em> &mdash; pulled out of a working model and interpreted. These are <em>stated</em>: a rule, its parameters, and then a drawing. Two of the eight are not illustrations at all but certificates rendered at their own resolution, which is what a proof looks like when you stop reading it and start looking at it.</p>
+      <div class="facts">
+        ${fact('a proof, tiled', fmt(PL.counts.bBoxes) + ' boxes', 'brightness is how little room each box had &mdash; the bright seams are where the argument nearly ran out')}
+        ${fact('the tightest box', PL.counts.worstMargin.toExponential(2), 'one number, and the whole lower bound rests on it')}
+        ${fact('the instrument itself', fmt(PL.counts.visibilities) + ' rings', 'each measurement is a circle: the radius is known, the angle on it is not')}
+        ${fact('the grammar, found', 'plate V', 'solid for a bound on every sky, dashed for one sky that exists &mdash; drawn that way before it had a name')}
+      </div>
+      <span class="go">open the series <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+  <a class="card" href="affect/index.html">
+    <figure class="card-art">
+      <div class="plate">${AF.cardArt()}<span class="uv-scale">twelve feelings, placed by pairwise questions alone</span></div>
+      <figcaption><b>The circumplex, recovered twice.</b> The ring is fixed by asking only how different each pair of feelings is. The axes &mdash; pleasant to the right, activated upward &mdash; come from a completely separate question set with no words in common, and land on the plane the pairwise table had already chosen.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">affect &middot; ${AF.M.moods.length} moods &times; ${AF.M.models.length} models &middot; $${AF.spend.toFixed(2)} already spent</div>
+      <h2>The geometry of feeling, and the control that catches it.</h2>
+      <p class="sub">Twelve feelings, then the same twelve asked again under six moods &mdash; and twelve clock hours carried through the identical pipeline as a control that has no business moving. A mood effect that also moves the clock is not a mood effect. One model&rsquo;s clock moves anyway.</p>
+      <div class="facts">
+        ${fact('two question sets, no words shared', 'r = ' + AFX.rx.map((v) => v.toFixed(2)).join(', '), 'pleasantness, agreeing between the plane the pairwise table fixed and the scalar answers it never saw')}
+        ${fact('and it is the leading axis', AFX.ang.map((v) => Math.abs(v).toFixed(0) + '&deg;').join(', '), 'pleasantness lands on that plane&rsquo;s own principal axis &mdash; an axis fixed before any scalar was read')}
+        ${fact('but a plane it is not', 'rank ' + AFX.rank.join(', '), 'with ' + AFX.neg.map((v) => (100 * v).toFixed(0) + '%').join(', ') + ' negative mass &mdash; no arrangement of points in any Euclidean space has these distances')}
+        ${fact('the control moves', 'up to ' + AFX.worstClock + '%', 'twelve clock hours, under a mood, in the smallest model &mdash; which is exactly what a control is for')}
+      </div>
+      <span class="go">read the moods <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+  <a class="card" href="answer-shape/index.html">
+    <figure class="card-art">
+      <div class="plate">${AS.cardArt()}<span class="uv-scale">every pair asked both ways round</span></div>
+      <figcaption><b>Three models in one frame.</b> A table of distances fixes nothing about rotation, reflection or overall size, so putting three of them on one axis means removing exactly those freedoms and nothing else. What is left is disagreement about shape.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">answer shape &middot; ${AS.G.subjects.length} subjects &times; ${AS.G.models.length} models &middot; $${AS.spend.toFixed(2)} already spent</div>
+      <h2>The shape of an answer.</h2>
+      <p class="sub">Ask how different two things are, one pair at a time, and you get a table of numbers. A table of distances is a shape &mdash; or it is not one, and the difference is decidable in exact integer arithmetic. Every pair is asked <em>both ways round</em>, so the asymmetry is measured rather than averaged away.</p>
+      <div class="facts">
+        ${fact('the hue wheel', 'red beside violet', 'the one cycle that is not a convention &mdash; a model that puts them at opposite ends has learned a list of colour words, not a colour space')}
+        ${fact('where the triangle fails', 'up to 23% of triples', 'break d(a,c) &le; d(a,b) + d(b,c) &mdash; so no arrangement of points in any space has those distances')}
+        ${fact('the nonsense control', 'metric', 'strings that are not words come back as a clean metric in all three models, which is what a control is supposed to do')}
+        ${fact('line or cycle', 'both, measured', 'each table held against the two shapes it could have, one free scale each, fixed in closed form so the residuals compare')}
+      </div>
+      <span class="go">compare the three <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+  <a class="card" href="exact-geometry/index.html">
+    <figure class="card-art">
+      <div class="plate">${XG.cardArt()}<span class="uv-scale">${XG.n} sets whose shape is fixed by construction</span></div>
+      <figcaption><b>The positive control for every geometry page here.</b> Five telescopes at one instant are points in a plane by construction, and there is no room for argument. If the instrument does not come back with effective rank 2 and nothing negative, the arithmetic is broken and every other number is worthless.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">exact geometry &middot; ${XG.n} sets &middot; no model calls at all</div>
+      <h2>Point it at something whose shape is already known.</h2>
+      <p class="sub">Every other geometry page here asks a model for a table of dissimilarities and decides what shape the answers have. This one asks nothing. The prediction is written first, in the source, and never edited afterwards &mdash; which is the only thing that makes &ldquo;agreed&rdquo; mean anything.</p>
+      <div class="facts">
+        ${fact('predictions that held', XG.agreed + ' of ' + XG.n, 'written before the run, in sets.js, and not touched since')}
+        ${fact('refused at the gate', '1', 'a set that violates the metric gate is refused rather than scored &mdash; running the arithmetic anyway returns a plausible number from a broken input')}
+        ${fact('the awkward reading, kept', 'signature', 'quantising a projection to integers guarantees the exact signature will not come back clean, so it is printed beside the rank rather than instead of it')}
+      </div>
+      <span class="go">read the controls <span class="arw">&rarr;</span></span>
     </div>
   </a>
 
@@ -213,6 +311,10 @@ const sx = SIMPLEX.build(OUT);
 const ng = NG.build(OUT);
 const sh = SH.build(OUT);
 const cs = CS.build(OUT);
+const pl = PL.build(OUT);
+const xg = XG.build(OUT);
+const as = AS.build(OUT);
+const af = AF.build(OUT);
 
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
 console.log(`site/playground/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
@@ -222,4 +324,8 @@ console.log(`site/playground/simplex/            ${(sx.bytes / 1024).toFixed(0)}
 console.log(`site/playground/neural-geometry/     ${(ng.bytes / 1024).toFixed(0)} KB  ·  ${ng.sets} sets × ${ng.models} models, ${ng.calls} calls, $${ng.spent.toFixed(2)}`);
 console.log(`site/playground/shape-hunt/         ${(sh.bytes / 1024).toFixed(0)} KB  ·  ${fmt(sh.tests)} shape tests over ${sh.cases} cases`);
 console.log(`site/playground/curveset/          ${(cs.bytes / 1024).toFixed(0)} KB  ·  ${cs.sets} calibrations · load cell ${n(cs.mono, 0)}× monotone, ${n(cs.dots, 1)}× joining the dots; assay ${n(cs.assay, 1)}×`);
+console.log(`site/playground/plates/            ${(pl.bytes / 1024).toFixed(0)} KB  ·  ${pl.plates} plates · ${fmt(pl.visibilities)} visibilities, ${pl.cells} certified cells, ${fmt(pl.bBoxes)} proof boxes`);
+console.log(`site/playground/exact-geometry/    ${(xg.bytes / 1024).toFixed(0)} KB  ·  ${xg.sets} sets whose shape is known, ${xg.agreed} predictions held, ${xg.refused} refused at the gate`);
+console.log(`site/playground/answer-shape/      ${(as.bytes / 1024).toFixed(0)} KB  ·  ${as.subjects} subjects × ${as.models} models, every pair both ways, $${as.spend.toFixed(2)}`);
+console.log(`site/playground/affect/            ${(af.bytes / 1024).toFixed(0)} KB  ·  ${af.moods} moods × ${af.models} models, clock hours as the control, $${af.spend.toFixed(2)}`);
 console.log(`@ git ${git}`);

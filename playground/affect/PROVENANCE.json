@@ -1,0 +1,92 @@
+{
+  "what": "affect",
+  "liftedFrom": "/Users/carlostoledo/Documents/frontier-apps",
+  "liftedOn": "2026-09-04",
+  "why": "The mood half. Twelve feelings placed by pairwise questions; the circumplex axes recovered from a second question set with no words in common; the same twelve asked again under six moods, with twelve clock hours carried through the identical pipeline as a control. The control is the page.",
+  "rule": "Science, drawing code and records crossed byte-for-byte. The PAGE is rebuilt in this repository’s design system — no bench CSS, no bench HTML, no ECharts. Patches declared here so they can never be mistaken for drift.",
+  "patches": [
+    "page.js: require paths repointed at this folder and at playground/png.js; the bench page-writing tail replaced by module.exports. The content functions are untouched.",
+    "The records carry model calls already paid for on the bench. Nothing here re-spends, and no page in this repository issues a call at build time."
+  ],
+  "files": [
+    {
+      "file": "page.js",
+      "sourcePath": "tools/build-sentiment.js",
+      "sha256": "cf66999e3f85e82c81d47d94e8fe8421c401863eace04d71ab171095728cbe98",
+      "sourceSha256": "2a30c1cbfb7b0afe0cadcffd5f210a597d86451606d4ddb6b6f18560084ef40c",
+      "bytes": 32820
+    },
+    {
+      "file": "sentiment-plate.js",
+      "sourcePath": "experiments/neural-geometry/sentiment-plate.js",
+      "sha256": "d110fe164ff6179e21facb2d17372afe25ba43ceeb9879efce23aa6e9726c5bf",
+      "sourceSha256": "d110fe164ff6179e21facb2d17372afe25ba43ceeb9879efce23aa6e9726c5bf",
+      "bytes": 5562
+    },
+    {
+      "file": "plate.js",
+      "sourcePath": "experiments/neural-geometry/plate.js",
+      "sha256": "8615d91e6d9e39cfa52b2401da302816810b90a6721fbc64def9a5b8b0e26985",
+      "sourceSha256": "8615d91e6d9e39cfa52b2401da302816810b90a6721fbc64def9a5b8b0e26985",
+      "bytes": 9150
+    },
+    {
+      "file": "affect.js",
+      "sourcePath": "experiments/neural-geometry/affect.js",
+      "sha256": "c80b30dc1700894dd8188473cf111be8125ed2d9d914b2237b2e341c420aa83a",
+      "sourceSha256": "c80b30dc1700894dd8188473cf111be8125ed2d9d914b2237b2e341c420aa83a",
+      "bytes": 3746
+    },
+    {
+      "file": "moods.js",
+      "sourcePath": "experiments/neural-geometry/moods.js",
+      "sha256": "cf9ddfc95c7143c25071604ee004714d42349f5be1ce234008c1036a3b9ee528",
+      "sourceSha256": "cf9ddfc95c7143c25071604ee004714d42349f5be1ce234008c1036a3b9ee528",
+      "bytes": 2309
+    },
+    {
+      "file": "decide-mood.js",
+      "sourcePath": "experiments/neural-geometry/decide-mood.js",
+      "sha256": "f0460df794c0be704128a34cc829b488b8bfb5b8d53d652e27bd415b681cbda1",
+      "sourceSha256": "f0460df794c0be704128a34cc829b488b8bfb5b8d53d652e27bd415b681cbda1",
+      "bytes": 14876
+    },
+    {
+      "file": "probe-mood.js",
+      "sourcePath": "experiments/neural-geometry/probe-mood.js",
+      "sha256": "e60e5a4e91f07ccb398c41b4afa9646eab2ce8439174d7dbfd22ce7bd09cca96",
+      "sourceSha256": "e60e5a4e91f07ccb398c41b4afa9646eab2ce8439174d7dbfd22ce7bd09cca96",
+      "bytes": 5785
+    },
+    {
+      "file": "api.js",
+      "sourcePath": "experiments/neural-geometry/api.js",
+      "sha256": "1c774ef65808b17ef15858c53cf22b1bbc2557bbbdff141125354c95be32ab23",
+      "sourceSha256": "1c774ef65808b17ef15858c53cf22b1bbc2557bbbdff141125354c95be32ab23",
+      "bytes": 4222
+    },
+    {
+      "file": "SENTIMENT.md",
+      "sourcePath": "experiments/neural-geometry/SENTIMENT.md",
+      "sha256": "ffce6867e53a0848cb0d8be4638c1da252c9b8d30f3020b4e3cae11bbd2ca9e4",
+      "sourceSha256": "ffce6867e53a0848cb0d8be4638c1da252c9b8d30f3020b4e3cae11bbd2ca9e4",
+      "bytes": 5721
+    },
+    {
+      "file": "out/mood-geometry.json",
+      "sourcePath": "experiments/neural-geometry/out/mood-geometry.json",
+      "sha256": "6e8009ab30ee3d501cee1f8eb984dda6ff3bfbf4b0d031761d75cad4c5bd90c2",
+      "sourceSha256": "6e8009ab30ee3d501cee1f8eb984dda6ff3bfbf4b0d031761d75cad4c5bd90c2",
+      "bytes": 183497
+    },
+    {
+      "file": "out/mood.json",
+      "sourcePath": "experiments/neural-geometry/out/mood.json",
+      "sha256": "d96e1f3aca423c597971924971c639b2050c0302d45bc29718a403b943110bed",
+      "sourceSha256": "d96e1f3aca423c597971924971c639b2050c0302d45bc29718a403b943110bed",
+      "bytes": 23313
+    }
+  ],
+  "crossed": true,
+  "note": "page.js is the one file with declared patches, so its sha differs from source by design; every other file matches byte-for-byte."
+}

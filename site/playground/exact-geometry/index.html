@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exact geometry · playground</title>
+<meta name="description" content="The control page: an instrument that decides what shape a table of distances has, pointed at point sets whose shape is fixed by construction — so that its answers on the pages that ask a model mean something.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Exact geometry · playground">
+<meta property="og:description" content="The control page: an instrument that decides what shape a table of distances has, pointed at point sets whose shape is fixed by construction — so that its answers on the pages that ask a model mean something.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../design/tokens.css">
+
+</head>
+<body>
+<nav class="pg-nav"><div class="pg-nav-in">
+  <a class="pg-mark" href="../index.html">playground<span class="sl">/</span></a>
+  <div class="pg-links">
+    <a href="../../index.html">cert-machine</a>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="container">
+  <div class="eyebrow">playground · exact geometry · the control, and it is meant to be boring</div>
+  <h1 class="display" style="margin-top:var(--s-4);max-width:19ch;">Point the instrument at something whose shape is already known</h1>
+  <p class="lede" style="margin-top:var(--s-6);">Every other geometry page here asks a model for a table of dissimilarities and decides what shape its answers have. <b>This one asks nothing.</b> Each set below is points whose shape is fixed by construction, and the same exact instrument is pointed at them. If it does not return the shape that is there, every number on every other page is worthless — so this page is built first and its result is supposed to be dull.</p>
+  <div class="hero-meta">
+    <span class="item"><span class="k">sets</span><span class="v">8</span></span>
+    <span class="item"><span class="k">prediction held</span><span class="v">8 of 8</span></span>
+    <span class="item"><span class="k">exactly euclidean</span><span class="v">6</span></span>
+    <span class="item"><span class="k">refused at the gate</span><span class="v">1</span></span>
+    <span class="item"><span class="k">model calls</span><span class="v">none</span></span>
+  </div>
+</div></header>
+
+<section class="section"><div class="container">
+  <div class="eyebrow">how to read a card</div>
+  <h2 class="t2" style="margin-top:var(--s-3)">Predicted, decided, agreed — in that order, and written before the run.</h2>
+  <div class="prose" style="max-width:72ch;margin-top:var(--s-5)">
+    <p>Each card states the shape the construction guarantees, then the shape the instrument decided from the integer table alone, then whether they matched. <b>The prediction is written first</b>, in <code>sets.js</code>, and it is not edited afterwards — which is the only thing that makes "agreed" mean anything.</p>
+    <p>Two of the readings are deliberately awkward and are kept that way. Quantising a projection to integers guarantees the exact signature will <em>not</em> come back clean, so the signature is printed beside the effective rank rather than instead of it. And a set that violates the metric gate is <b>refused</b> rather than scored: the arithmetic downstream assumes a metric, and running it anyway would produce a plausible number from a broken input.</p>
+  </div>
+</div></section><section class="section">
+  <div class="container narrow">
+    <div class="prose reveal">
+      <h2 class="t2">What is decided, and in what order</h2>
+      <p><strong>Is it a distance at all.</strong> Symmetry, positivity, and the triangle inequality for every triple. A table that fails is refused before anything else runs, because no arrangement of points in any space has those distances and every number downstream would be decoration. One of the eight is here to fail this gate, and it does.</p>
+      <p><strong>The closing step.</strong> Where the items have an order, walk it, then take the step from the last back to the first. On a cycle that is one more neighbour and the ratio is one; on a line it is the whole way home and the ratio is about <em>n</em>&nbsp;&minus;&nbsp;1. No embedding, no projection — a statement about the table.</p>
+      <p><strong>The signature.</strong> By Schoenberg a table is Euclidean exactly when its doubly-centred Gram matrix is positive semidefinite, and its rank is then the smallest dimension the points fit in. Computed by exact symmetric congruence, so the answer is a triple: Euclidean directions, genuinely non-Euclidean ones, flat ones. Sylvester&rsquo;s law makes that basis-independent and rationals make it decidable — including the case of exactly zero, which no floating-point eigensolver can certify.</p>
+      <p><strong>And the spectrum beside it, which is not optional.</strong> An exact signature is infinitely sensitive: perturb one entry of a rank-2 table by a single unit and it goes full rank, because a sign is a sign however small the number carrying it. Twelve points that genuinely live in a three-dimensional box came back (6,&nbsp;5,&nbsp;1) here. So the exact triple is printed next to the float spectrum, and a table counts as Euclidean to within quantisation when its negative directions carry a negligible share of the mass. The triple alone would be exact and misleading, which is the worst combination available.</p>
+      <p><strong>Then the four-point condition</strong>, which separates kinds of structure once the signature has said how much there is, and the minimum spanning tree, so that a set with no canonical order still gets a skeleton — one that came from the numbers rather than from a story.</p>
+    </div>
+    <div class="scoreline reveal">
+      <span>array-a <b style="color:var(--ink)">✓</b></span><span>array-b <b style="color:var(--ink)">✓</b></span><span>hex-chord <b style="color:var(--ink)">✓</b></span><span>hex-cycle <b style="color:var(--ink)">✓</b></span><span>band-curve <b style="color:var(--ink)">✓</b></span><span>proof-walk <b style="color:var(--ink)">✓</b></span><span>random <b style="color:var(--ink)">✓</b></span><span>nonmetric <b style="color:var(--ink)">✓</b></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">plane &middot; 5 items</div>
+      <h2 class="t1" style="margin-top:var(--s-2); max-width:26ch;">the array at 04h49 UT (+1d)</h2>
+    </div>
+    <div class="exg reveal" style="margin-top:var(--s-5);">
+      <div class="art"><svg viewBox="0 0 520 520" class="plate" role="img" aria-label="5 items placed by their own distance table; every pair drawn as a chord."><rect width="520" height="520" fill="#0a0a0c"/><g class="chords"><line x1="458.0" y1="251.7" x2="225.5" y2="257.8" class="ch" stroke-opacity="0.166" stroke-width="0.84"/>,<line x1="458.0" y1="251.7" x2="141.3" y2="262.6" class="ch" stroke-opacity="0.076" stroke-width="0.64"/>,<line x1="62.0" y1="97.1" x2="225.5" y2="257.8" class="ch" stroke-opacity="0.171" stroke-width="0.85"/>,<line x1="62.0" y1="97.1" x2="141.3" y2="262.6" class="ch" stroke-opacity="0.248" stroke-width="1.08"/>,<line x1="62.0" y1="97.1" x2="76.8" y2="422.9" class="ch" stroke-opacity="0.069" stroke-width="0.63"/>,<line x1="225.5" y1="257.8" x2="141.3" y2="262.6" class="ch" stroke-opacity="0.483" stroke-width="1.94"/>,<line x1="225.5" y1="257.8" x2="76.8" y2="422.9" class="ch" stroke-opacity="0.181" stroke-width="0.88"/>,<line x1="141.3" y1="262.6" x2="76.8" y2="422.9" class="ch" stroke-opacity="0.268" stroke-width="1.14"/></g><path d="M458.0,251.7L225.5,257.8M225.5,257.8L141.3,262.6M141.3,262.6L76.8,422.9M141.3,262.6L62.0,97.1" class="mst"/><circle cx="458.0" cy="251.7" r="3.2" class="pt"/><text x="475.0" y="255.2" class="lb" text-anchor="start">AA</text><circle cx="62.0" cy="97.1" r="3.2" class="pt"/><text x="48.9" y="90.5" class="lb" text-anchor="end">GL</text><circle cx="225.5" cy="257.8" r="3.2" class="pt"/><text x="208.5" y="260.9" class="lb" text-anchor="end">LM</text><circle cx="141.3" cy="262.6" r="3.2" class="pt"/><text x="124.4" y="267.2" class="lb" text-anchor="end">MG</text><circle cx="76.8" cy="422.9" r="3.2" class="pt"/><text x="64.1" y="438.4" class="lb" text-anchor="end">MM</text></svg></div>
+      <div>
+        <p class="lede" style="font-size:var(--text-body); color:var(--ink-3);">At one instant every baseline is a projection onto the same plane, so these stations are points in ℝ² by construction and there is no room for argument. This is the positive control for the whole page: if the effective rank does not come back 2 with nothing negative, the arithmetic below is broken and every other number on the page is worthless. The exact triple will NOT be (2,0,·) — quantising the projections to integers guarantees that — which is exactly why the spectrum is printed beside it.</p>
+        <div class="nums">
+          <div><div class="k">effective rank</div><div class="v">2</div></div>
+          <div><div class="k">negative mass</div><div class="v">0.00%</div></div>
+          <div><div class="k">exact signature</div><div class="v">(3, 1, 1)</div></div>
+          
+          <div><div class="k">δ / diameter</div><div class="v">0.049</div></div>
+        </div>
+        <div class="pred">
+<b>predicted</b>  exactly a plane — effective rank 2 and no negative mass
+<b>decided</b>    effective rank 2, negative mass 0.00%, exact signature (3,1,1)
+<b>agreed</b>     yes
+<b>distances</b>  1000 × projected separation in Gλ, one instant, reference station at the origin
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">plane &middot; 5 items</div>
+      <h2 class="t1" style="margin-top:var(--s-2); max-width:26ch;">the same 5 dishes, 2.1 hours later</h2>
+    </div>
+    <div class="exg reveal" style="margin-top:var(--s-5);">
+      <div class="art"><svg viewBox="0 0 520 520" class="plate" role="img" aria-label="5 items placed by their own distance table; every pair drawn as a chord."><rect width="520" height="520" fill="#0a0a0c"/><g class="chords"><line x1="458.0" y1="239.5" x2="268.9" y2="205.1" class="ch" stroke-opacity="0.221" stroke-width="1.00"/>,<line x1="458.0" y1="239.5" x2="186.2" y2="215.4" class="ch" stroke-opacity="0.106" stroke-width="0.70"/>,<line x1="458.0" y1="239.5" x2="109.3" y2="396.1" class="ch" stroke-opacity="0.042" stroke-width="0.60"/>,<line x1="62.0" y1="123.9" x2="268.9" y2="205.1" class="ch" stroke-opacity="0.171" stroke-width="0.85"/>,<line x1="62.0" y1="123.9" x2="186.2" y2="215.4" class="ch" stroke-opacity="0.297" stroke-width="1.24"/>,<line x1="62.0" y1="123.9" x2="109.3" y2="396.1" class="ch" stroke-opacity="0.103" stroke-width="0.69"/>,<line x1="268.9" y1="205.1" x2="186.2" y2="215.4" class="ch" stroke-opacity="0.478" stroke-width="1.92"/>,<line x1="268.9" y1="205.1" x2="109.3" y2="396.1" class="ch" stroke-opacity="0.134" stroke-width="0.76"/>,<line x1="186.2" y1="215.4" x2="109.3" y2="396.1" class="ch" stroke-opacity="0.214" stroke-width="0.97"/></g><path d="M458.0,239.5L268.9,205.1M268.9,205.1L186.2,215.4M186.2,215.4L62.0,123.9M186.2,215.4L109.3,396.1" class="mst"/><circle cx="458.0" cy="239.5" r="3.2" class="pt"/><text x="474.9" y="241.9" class="lb" text-anchor="start">AA</text><circle cx="62.0" cy="123.9" r="3.2" class="pt"/><text x="48.0" y="118.5" class="lb" text-anchor="end">GL</text><circle cx="268.9" cy="205.1" r="3.2" class="pt"/><text x="271.7" y="192.5" class="lb" text-anchor="middle">LM</text><circle cx="186.2" cy="215.4" r="3.2" class="pt"/><text x="171.7" y="210.8" class="lb" text-anchor="end">MG</text><circle cx="109.3" cy="396.1" r="3.2" class="pt"/><text x="96.7" y="411.7" class="lb" text-anchor="end">MM</text></svg></div>
+      <div>
+        <p class="lede" style="font-size:var(--text-body); color:var(--ink-3);">THE PAIRED EXPERIMENT, and the pair is a rotation rather than a reframing. 2.1 hours later the Earth has turned and the same rigid arrangement of dishes casts its shadow on a different plane. The rank must be 2 again — it is still one projection — but the shape inside that plane is not the same shape: not one of the ten distances survives unchanged. Two flat pictures of one solid object, and the fact that neither is three-dimensional is the whole reason interferometry needs a whole night rather than an instant.</p>
+        <div class="nums">
+          <div><div class="k">effective rank</div><div class="v">2</div></div>
+          <div><div class="k">negative mass</div><div class="v">0.00%</div></div>
+          <div><div class="k">exact signature</div><div class="v">(2, 2, 1)</div></div>
+          
+          <div><div class="k">δ / diameter</div><div class="v">0.072</div></div>
+        </div>
+        <div class="pred">
+<b>predicted</b>  a plane again — but a different one, and a different shape in it
+<b>decided</b>    effective rank 2, negative mass 0.00%, exact signature (2,2,1)
+<b>agreed</b>     yes
+<b>distances</b>  1000 × projected separation in Gλ, one instant, reference station at the origin
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">cycle &middot; 6 items</div>
+      <h2 class="t1" style="margin-top:var(--s-2); max-width:26ch;">six points on a circle, measured through the circle</h2>
+    </div>
+    <div class="exg reveal" style="margin-top:var(--s-5);">
+      <div class="art"><svg viewBox="0 0 520 520" class="plate" role="img" aria-label="6 items placed by their own distance table; every pair drawn as a chord."><rect width="520" height="520" fill="#0a0a0c"/><g class="chords"><line x1="127.8" y1="412.3" x2="325.8" y2="450.6" class="ch" stroke-opacity="0.197" stroke-width="0.93"/>,<line x1="127.8" y1="412.3" x2="458.0" y2="298.3" class="ch" stroke-opacity="0.049" stroke-width="0.61"/>,<line x1="127.8" y1="412.3" x2="194.2" y2="69.4" class="ch" stroke-opacity="0.049" stroke-width="0.61"/>,<line x1="127.8" y1="412.3" x2="62.0" y2="221.7" class="ch" stroke-opacity="0.197" stroke-width="0.93"/>,<line x1="325.8" y1="450.6" x2="458.0" y2="298.3" class="ch" stroke-opacity="0.197" stroke-width="0.93"/>,<line x1="325.8" y1="450.6" x2="392.2" y2="107.7" class="ch" stroke-opacity="0.049" stroke-width="0.61"/>,<line x1="325.8" y1="450.6" x2="62.0" y2="221.7" class="ch" stroke-opacity="0.049" stroke-width="0.61"/>,<line x1="458.0" y1="298.3" x2="392.2" y2="107.7" class="ch" stroke-opacity="0.197" stroke-width="0.93"/>,<line x1="458.0" y1="298.3" x2="194.2" y2="69.4" class="ch" stroke-opacity="0.049" stroke-width="0.61"/>,<line x1="392.2" y1="107.7" x2="194.2" y2="69.4" class="ch" stroke-opacity="0.197" stroke-width="0.93"/>,<line x1="392.2" y1="107.7" x2="62.0" y2="221.7" class="ch" stroke-opacity="0.049" stroke-width="0.61"/>,<line x1="194.2" y1="69.4" x2="62.0" y2="221.7" class="ch" stroke-opacity="0.197" stroke-width="0.93"/></g><path d="M127.8,412.3L325.8,450.6L458.0,298.3L392.2,107.7L194.2,69.4L62.0,221.7" class="ord"/><path d="M62.0,221.7L127.8,412.3" class="clo"/><circle cx="127.8" cy="412.3" r="4.6" class="pt first"/><text x="116.7" y="429.3" class="lb first" text-anchor="end">0</text><circle cx="325.8" cy="450.6" r="3.2" class="pt"/><text x="331.4" y="470.9" class="lb" text-anchor="middle">1</text><circle cx="458.0" cy="298.3" r="3.2" class="pt"/><text x="474.7" y="305.8" class="lb" text-anchor="start">2</text><circle cx="392.2" cy="107.7" r="3.2" class="pt"/><text x="403.3" y="99.1" class="lb" text-anchor="start">3</text><circle cx="194.2" cy="69.4" r="3.2" class="pt"/><text x="188.6" y="57.5" class="lb" text-anchor="middle">4</text><circle cx="62.0" cy="221.7" r="3.2" class="pt"/><text x="45.3" y="222.6" class="lb" text-anchor="end">5</text></svg></div>
+      <div>
+        <p class="lede" style="font-size:var(--text-body); color:var(--ink-3);">A regular hexagon in the plane. Straight-line distances between its vertices, which is the only cycle on this page whose squared distances are integers — the twelve-tone version has 2 − √3 in its table and there is no honest integer for that. The closing step is one more side, so the ratio is one. This is the positive control: if it does not come back exactly rank 2 with nothing negative, the arithmetic below is wrong.</p>
+        <div class="nums">
+          <div><div class="k">effective rank</div><div class="v">2</div></div>
+          <div><div class="k">negative mass</div><div class="v">0.00%</div></div>
+          <div><div class="k">exact signature</div><div class="v">(3, 2, 1)</div></div>
+          <div><div class="k">closure ratio</div><div class="v">1.00×</div></div>
+          <div><div class="k">δ / diameter</div><div class="v">0.250</div></div>
+        </div>
+        <div class="pred">
+<b>predicted</b>  a circle, and exactly Euclidean: rank 2, no negative directions
+<b>decided</b>    effective rank 2, negative mass 0.00%, exact signature (3,2,1), closure 1.00×
+<b>agreed</b>     yes
+<b>distances</b>  1000 × chord length, unit circumradius
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">cycle &middot; 6 items</div>
+      <h2 class="t1" style="margin-top:var(--s-2); max-width:26ch;">the same six points, measured around the circle</h2>
+    </div>
+    <div class="exg reveal" style="margin-top:var(--s-5);">
+      <div class="art"><svg viewBox="0 0 520 520" class="plate" role="img" aria-label="6 items placed by their own distance table; every pair drawn as a chord."><rect width="520" height="520" fill="#0a0a0c"/><g class="chords"><line x1="62.0" y1="231.3" x2="136.2" y2="417.1" class="ch" stroke-opacity="0.335" stroke-width="1.37"/>,<line x1="62.0" y1="231.3" x2="334.2" y2="445.8" class="ch" stroke-opacity="0.104" stroke-width="0.70"/>,<line x1="62.0" y1="231.3" x2="383.8" y2="102.9" class="ch" stroke-opacity="0.104" stroke-width="0.70"/>,<line x1="62.0" y1="231.3" x2="185.8" y2="74.2" class="ch" stroke-opacity="0.335" stroke-width="1.37"/>,<line x1="136.2" y1="417.1" x2="334.2" y2="445.8" class="ch" stroke-opacity="0.335" stroke-width="1.37"/>,<line x1="136.2" y1="417.1" x2="458.0" y2="288.7" class="ch" stroke-opacity="0.104" stroke-width="0.70"/>,<line x1="136.2" y1="417.1" x2="185.8" y2="74.2" class="ch" stroke-opacity="0.104" stroke-width="0.70"/>,<line x1="334.2" y1="445.8" x2="458.0" y2="288.7" class="ch" stroke-opacity="0.335" stroke-width="1.37"/>,<line x1="334.2" y1="445.8" x2="383.8" y2="102.9" class="ch" stroke-opacity="0.104" stroke-width="0.70"/>,<line x1="458.0" y1="288.7" x2="383.8" y2="102.9" class="ch" stroke-opacity="0.335" stroke-width="1.37"/>,<line x1="458.0" y1="288.7" x2="185.8" y2="74.2" class="ch" stroke-opacity="0.104" stroke-width="0.70"/>,<line x1="383.8" y1="102.9" x2="185.8" y2="74.2" class="ch" stroke-opacity="0.335" stroke-width="1.37"/></g><path d="M62.0,231.3L136.2,417.1L334.2,445.8L458.0,288.7L383.8,102.9L185.8,74.2" class="ord"/><path d="M185.8,74.2L62.0,231.3" class="clo"/><circle cx="62.0" cy="231.3" r="4.6" class="pt first"/><text x="45.2" y="233.1" class="lb first" text-anchor="end">0</text><circle cx="136.2" cy="417.1" r="3.2" class="pt"/><text x="125.6" y="434.7" class="lb" text-anchor="end">1</text><circle cx="334.2" cy="445.8" r="3.2" class="pt"/><text x="340.5" y="465.8" class="lb" text-anchor="start">2</text><circle cx="458.0" cy="288.7" r="3.2" class="pt"/><text x="474.8" y="295.3" class="lb" text-anchor="start">3</text><circle cx="383.8" cy="102.9" r="3.2" class="pt"/><text x="394.4" y="93.7" class="lb" text-anchor="start">4</text><circle cx="185.8" cy="74.2" r="3.2" class="pt"/><text x="179.5" y="62.6" class="lb" text-anchor="end">5</text></svg></div>
+      <div>
+        <p class="lede" style="font-size:var(--text-body); color:var(--ink-3);">THE POINT OF THE PAIR. Same six items, same cyclic order, same closing step of one — and a different fact. Walking round the rim instead of cutting across it gives the graph metric of a 6-cycle, and a cycle metric is famously not Euclidean: no set of points in any ℝᵈ has these distances. The closure ratio cannot tell the two apart, because both close in one step. Only the signature can. A page that reported "circle" for both would be hiding the more interesting half of what happened.</p>
+        <div class="nums">
+          <div><div class="k">effective rank</div><div class="v">5</div></div>
+          <div><div class="k">negative mass</div><div class="v">22.86%</div></div>
+          <div><div class="k">exact signature</div><div class="v">(3, 2, 1)</div></div>
+          <div><div class="k">closure ratio</div><div class="v">1.00×</div></div>
+          <div><div class="k">δ / diameter</div><div class="v">0.333</div></div>
+        </div>
+        <div class="pred">
+<b>predicted</b>  still a cycle — but NOT Euclidean: negative directions must appear
+<b>decided</b>    effective rank 5, negative mass 22.86%, exact signature (3,2,1), closure 1.00×
+<b>agreed</b>     yes
+<b>distances</b>  1000 × steps around the rim
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">line &middot; 12 items</div>
+      <h2 class="t1" style="margin-top:var(--s-2); max-width:26ch;">a certified band, in the coordinates of its own certificate</h2>
+    </div>
+    <div class="exg reveal" style="margin-top:var(--s-5);">
+      <div class="art"><svg viewBox="0 0 520 520" class="plate" role="img" aria-label="12 items placed by their own distance table; every pair drawn as a chord."><rect width="520" height="520" fill="#0a0a0c"/><g class="chords"><line x1="458.0" y1="300.1" x2="427.9" y2="240.4" class="ch" stroke-opacity="0.522" stroke-width="2.11"/>,<line x1="458.0" y1="300.1" x2="404.2" y2="197.4" class="ch" stroke-opacity="0.382" stroke-width="1.54"/>,<line x1="458.0" y1="300.1" x2="349.0" y2="370.8" class="ch" stroke-opacity="0.350" stroke-width="1.42"/>,<line x1="458.0" y1="300.1" x2="312.4" y2="293.7" class="ch" stroke-opacity="0.311" stroke-width="1.29"/>,<line x1="458.0" y1="300.1" x2="286.7" y2="239.7" class="ch" stroke-opacity="0.235" stroke-width="1.04"/>,<line x1="458.0" y1="300.1" x2="237.4" y2="417.3" class="ch" stroke-opacity="0.130" stroke-width="0.75"/>,<line x1="458.0" y1="300.1" x2="197.1" y2="321.8" class="ch" stroke-opacity="0.115" stroke-width="0.72"/>,<line x1="458.0" y1="300.1" x2="169.4" y2="258.5" class="ch" stroke-opacity="0.085" stroke-width="0.66"/>,<line x1="458.0" y1="300.1" x2="97.3" y2="377.1" class="ch" stroke-opacity="0.044" stroke-width="0.60"/>,<line x1="458.0" y1="300.1" x2="62.0" y2="290.0" class="ch" stroke-opacity="0.040" stroke-width="0.60"/>,<line x1="427.9" y1="240.4" x2="404.2" y2="197.4" class="ch" stroke-opacity="0.582" stroke-width="2.36"/>,<line x1="427.9" y1="240.4" x2="349.0" y2="370.8" class="ch" stroke-opacity="0.297" stroke-width="1.24"/>,<line x1="427.9" y1="240.4" x2="312.4" y2="293.7" class="ch" stroke-opacity="0.357" stroke-width="1.45"/>,<line x1="427.9" y1="240.4" x2="286.7" y2="239.7" class="ch" stroke-opacity="0.323" stroke-width="1.33"/>,<line x1="427.9" y1="240.4" x2="237.4" y2="417.3" class="ch" stroke-opacity="0.118" stroke-width="0.72"/>,<line x1="427.9" y1="240.4" x2="197.1" y2="321.8" class="ch" stroke-opacity="0.137" stroke-width="0.77"/>,<line x1="427.9" y1="240.4" x2="169.4" y2="258.5" class="ch" stroke-opacity="0.119" stroke-width="0.73"/>,<line x1="427.9" y1="240.4" x2="97.3" y2="377.1" class="ch" stroke-opacity="0.047" stroke-width="0.61"/>,<line x1="427.9" y1="240.4" x2="62.0" y2="290.0" class="ch" stroke-opacity="0.044" stroke-width="0.60"/>,<line x1="427.9" y1="240.4" x2="100.1" y2="102.7" class="ch" stroke-opacity="0.048" stroke-width="0.61"/>,<line x1="404.2" y1="197.4" x2="349.0" y2="370.8" class="ch" stroke-opacity="0.235" stroke-width="1.04"/>,<line x1="404.2" y1="197.4" x2="312.4" y2="293.7" class="ch" stroke-opacity="0.342" stroke-width="1.40"/>,<line x1="404.2" y1="197.4" x2="286.7" y2="239.7" class="ch" stroke-opacity="0.363" stroke-width="1.47"/>,<line x1="404.2" y1="197.4" x2="237.4" y2="417.3" class="ch" stroke-opacity="0.100" stroke-width="0.69"/>,<line x1="404.2" y1="197.4" x2="197.1" y2="321.8" class="ch" stroke-opacity="0.141" stroke-width="0.78"/>,<line x1="404.2" y1="197.4" x2="169.4" y2="258.5" class="ch" stroke-opacity="0.139" stroke-width="0.77"/>,<line x1="404.2" y1="197.4" x2="97.3" y2="377.1" class="ch" stroke-opacity="0.048" stroke-width="0.61"/>,<line x1="404.2" y1="197.4" x2="62.0" y2="290.0" class="ch" stroke-opacity="0.048" stroke-width="0.61"/>,<line x1="404.2" y1="197.4" x2="100.1" y2="102.7" class="ch" stroke-opacity="0.065" stroke-width="0.63"/>,<line x1="349.0" y1="370.8" x2="312.4" y2="293.7" class="ch" stroke-opacity="0.466" stroke-width="1.87"/>,<line x1="349.0" y1="370.8" x2="286.7" y2="239.7" class="ch" stroke-opacity="0.310" stroke-width="1.28"/>,<line x1="349.0" y1="370.8" x2="237.4" y2="417.3" class="ch" stroke-opacity="0.373" stroke-width="1.51"/>,<line x1="349.0" y1="370.8" x2="197.1" y2="321.8" class="ch" stroke-opacity="0.280" stroke-width="1.18"/>,<line x1="349.0" y1="370.8" x2="169.4" y2="258.5" class="ch" stroke-opacity="0.182" stroke-width="0.89"/>,<line x1="349.0" y1="370.8" x2="97.3" y2="377.1" class="ch" stroke-opacity="0.127" stroke-width="0.75"/>,<line x1="349.0" y1="370.8" x2="62.0" y2="290.0" class="ch" stroke-opacity="0.080" stroke-width="0.65"/>,<line x1="349.0" y1="370.8" x2="100.1" y2="102.7" class="ch" stroke-opacity="0.045" stroke-width="0.60"/>,<line x1="312.4" y1="293.7" x2="286.7" y2="239.7" class="ch" stroke-opacity="0.547" stroke-width="2.21"/>,<line x1="312.4" y1="293.7" x2="237.4" y2="417.3" class="ch" stroke-opacity="0.313" stroke-width="1.29"/>,<line x1="312.4" y1="293.7" x2="197.1" y2="321.8" class="ch" stroke-opacity="0.379" stroke-width="1.53"/>,<line x1="312.4" y1="293.7" x2="169.4" y2="258.5" class="ch" stroke-opacity="0.309" stroke-width="1.28"/>,<line x1="312.4" y1="293.7" x2="97.3" y2="377.1" class="ch" stroke-opacity="0.156" stroke-width="0.82"/>,<line x1="312.4" y1="293.7" x2="62.0" y2="290.0" class="ch" stroke-opacity="0.130" stroke-width="0.75"/>,<line x1="312.4" y1="293.7" x2="100.1" y2="102.7" class="ch" stroke-opacity="0.090" stroke-width="0.67"/>,<line x1="286.7" y1="239.7" x2="237.4" y2="417.3" class="ch" stroke-opacity="0.230" stroke-width="1.02"/>,<line x1="286.7" y1="239.7" x2="197.1" y2="321.8" class="ch" stroke-opacity="0.371" stroke-width="1.50"/>,<line x1="286.7" y1="239.7" x2="169.4" y2="258.5" class="ch" stroke-opacity="0.378" stroke-width="1.53"/>,<line x1="286.7" y1="239.7" x2="97.3" y2="377.1" class="ch" stroke-opacity="0.151" stroke-width="0.80"/>,<line x1="286.7" y1="239.7" x2="62.0" y2="290.0" class="ch" stroke-opacity="0.156" stroke-width="0.82"/>,<line x1="286.7" y1="239.7" x2="100.1" y2="102.7" class="ch" stroke-opacity="0.151" stroke-width="0.80"/>,<line x1="237.4" y1="417.3" x2="197.1" y2="321.8" class="ch" stroke-opacity="0.414" stroke-width="1.66"/>,<line x1="237.4" y1="417.3" x2="169.4" y2="258.5" class="ch" stroke-opacity="0.252" stroke-width="1.09"/>,<line x1="237.4" y1="417.3" x2="97.3" y2="377.1" class="ch" stroke-opacity="0.312" stroke-width="1.29"/>,<line x1="237.4" y1="417.3" x2="62.0" y2="290.0" class="ch" stroke-opacity="0.176" stroke-width="0.87"/>,<line x1="237.4" y1="417.3" x2="100.1" y2="102.7" class="ch" stroke-opacity="0.053" stroke-width="0.61"/>,<line x1="197.1" y1="321.8" x2="169.4" y2="258.5" class="ch" stroke-opacity="0.519" stroke-width="2.09"/>,<line x1="197.1" y1="321.8" x2="97.3" y2="377.1" class="ch" stroke-opacity="0.390" stroke-width="1.57"/>,<line x1="197.1" y1="321.8" x2="62.0" y2="290.0" class="ch" stroke-opacity="0.329" stroke-width="1.35"/>,<line x1="197.1" y1="321.8" x2="100.1" y2="102.7" class="ch" stroke-opacity="0.141" stroke-width="0.78"/>,<line x1="169.4" y1="258.5" x2="97.3" y2="377.1" class="ch" stroke-opacity="0.328" stroke-width="1.35"/>,<line x1="169.4" y1="258.5" x2="62.0" y2="290.0" class="ch" stroke-opacity="0.396" stroke-width="1.59"/>,<line x1="169.4" y1="258.5" x2="100.1" y2="102.7" class="ch" stroke-opacity="0.253" stroke-width="1.09"/>,<line x1="97.3" y1="377.1" x2="62.0" y2="290.0" class="ch" stroke-opacity="0.445" stroke-width="1.78"/>,<line x1="97.3" y1="377.1" x2="100.1" y2="102.7" class="ch" stroke-opacity="0.101" stroke-width="0.69"/>,<line x1="62.0" y1="290.0" x2="100.1" y2="102.7" class="ch" stroke-opacity="0.216" stroke-width="0.98"/></g><path d="M458.0,300.1L427.9,240.4L404.2,197.4L349.0,370.8L312.4,293.7L286.7,239.7L237.4,417.3L197.1,321.8L169.4,258.5L97.3,377.1L62.0,290.0L100.1,102.7" class="ord"/><path d="M100.1,102.7L458.0,300.1" class="clo"/><circle cx="458.0" cy="300.1" r="4.6" class="pt first"/><text x="474.7" y="307.7" class="lb first" text-anchor="start">0.00080</text><circle cx="427.9" cy="240.4" r="3.2" class="pt"/><text x="444.8" y="242.6" class="lb" text-anchor="start">0.00097</text><circle cx="404.2" cy="197.4" r="3.2" class="pt"/><text x="419.8" y="194.8" class="lb" text-anchor="start">0.00114</text><circle cx="349.0" cy="370.8" r="3.2" class="pt"/><text x="359.6" y="388.3" class="lb" text-anchor="start">0.00136</text><circle cx="312.4" cy="293.7" r="3.2" class="pt"/><text x="326.7" y="307.1" class="lb" text-anchor="start">0.00170</text><circle cx="286.7" cy="239.7" r="3.2" class="pt"/><text x="300.3" y="233.7" class="lb" text-anchor="start">0.00204</text><circle cx="237.4" cy="417.3" r="3.2" class="pt"/><text x="235.0" y="438.4" class="lb" text-anchor="middle">0.00238</text><circle cx="197.1" cy="321.8" r="3.2" class="pt"/><text x="185.0" y="337.9" class="lb" text-anchor="end">0.00305</text><circle cx="169.4" cy="258.5" r="3.2" class="pt"/><text x="152.4" y="262.5" class="lb" text-anchor="end">0.00373</text><circle cx="97.3" cy="377.1" r="3.2" class="pt"/><text x="83.5" y="391.2" class="lb" text-anchor="end">0.00485</text><circle cx="62.0" cy="290.0" r="3.2" class="pt"/><text x="45.2" y="296.8" class="lb" text-anchor="end">0.00620</text><circle cx="100.1" cy="102.7" r="3.2" class="pt"/><text x="88.0" y="95.0" class="lb" text-anchor="end">0.00732</text></svg></div>
+      <div>
+        <p class="lede" style="font-size:var(--text-body); color:var(--ink-3);">Every cell of this theorem was closed by the same three numbers: a defect, a contraction and a curvature. Those three are the certificate’s own coordinates, and the cells are indexed by a single physical parameter, so they should trace a CURVE through that space and nothing more — rank one, and a closing step that is the whole journey home. If a circle appeared here it would mean the certificate returns to a state it has already been in, which nobody claimed and nobody wants.</p>
+        <div class="nums">
+          <div><div class="k">effective rank</div><div class="v">2</div></div>
+          <div><div class="k">negative mass</div><div class="v">0.05%</div></div>
+          <div><div class="k">exact signature</div><div class="v">(6, 5, 1)</div></div>
+          <div><div class="k">closure ratio</div><div class="v">4.34×</div></div>
+          <div><div class="k">δ / diameter</div><div class="v">0.202</div></div>
+        </div>
+        <div class="pred">
+<b>predicted</b>  a line — one parameter, so one dimension
+<b>decided</b>    effective rank 2, negative mass 0.05%, exact signature (6,5,1), closure 4.34×
+<b>agreed</b>     yes
+<b>distances</b>  1000 × Euclidean distance in normalised (log Y₀, Z₁, log Z₂)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">line &middot; 12 items</div>
+      <h2 class="t1" style="margin-top:var(--s-2); max-width:26ch;">a proof, walked from one end of its covering to the other</h2>
+    </div>
+    <div class="exg reveal" style="margin-top:var(--s-5);">
+      <div class="art"><svg viewBox="0 0 520 520" class="plate" role="img" aria-label="12 items placed by their own distance table; every pair drawn as a chord."><rect width="520" height="520" fill="#0a0a0c"/><g class="chords"><line x1="458.0" y1="241.0" x2="167.7" y2="131.5" class="ch" stroke-opacity="0.070" stroke-width="0.63"/>,<line x1="458.0" y1="241.0" x2="142.9" y2="186.6" class="ch" stroke-opacity="0.063" stroke-width="0.62"/>,<line x1="458.0" y1="241.0" x2="141.0" y2="246.2" class="ch" stroke-opacity="0.065" stroke-width="0.63"/>,<line x1="458.0" y1="241.0" x2="139.7" y2="284.0" class="ch" stroke-opacity="0.063" stroke-width="0.62"/>,<line x1="458.0" y1="241.0" x2="123.3" y2="252.6" class="ch" stroke-opacity="0.056" stroke-width="0.61"/>,<line x1="458.0" y1="241.0" x2="111.7" y2="244.4" class="ch" stroke-opacity="0.051" stroke-width="0.61"/>,<line x1="458.0" y1="241.0" x2="119.8" y2="288.6" class="ch" stroke-opacity="0.053" stroke-width="0.61"/>,<line x1="458.0" y1="241.0" x2="99.6" y2="234.8" class="ch" stroke-opacity="0.047" stroke-width="0.60"/>,<line x1="458.0" y1="241.0" x2="140.6" y2="388.5" class="ch" stroke-opacity="0.049" stroke-width="0.61"/>,<line x1="458.0" y1="241.0" x2="127.0" y2="353.5" class="ch" stroke-opacity="0.049" stroke-width="0.61"/>,<line x1="167.7" y1="131.5" x2="142.9" y2="186.6" class="ch" stroke-opacity="0.545" stroke-width="2.20"/>,<line x1="167.7" y1="131.5" x2="141.0" y2="246.2" class="ch" stroke-opacity="0.379" stroke-width="1.53"/>,<line x1="167.7" y1="131.5" x2="139.7" y2="284.0" class="ch" stroke-opacity="0.290" stroke-width="1.22"/>,<line x1="167.7" y1="131.5" x2="123.3" y2="252.6" class="ch" stroke-opacity="0.349" stroke-width="1.42"/>,<line x1="167.7" y1="131.5" x2="111.7" y2="244.4" class="ch" stroke-opacity="0.356" stroke-width="1.45"/>,<line x1="167.7" y1="131.5" x2="119.8" y2="288.6" class="ch" stroke-opacity="0.269" stroke-width="1.14"/>,<line x1="167.7" y1="131.5" x2="99.6" y2="234.8" class="ch" stroke-opacity="0.357" stroke-width="1.45"/>,<line x1="167.7" y1="131.5" x2="140.6" y2="388.5" class="ch" stroke-opacity="0.118" stroke-width="0.72"/>,<line x1="167.7" y1="131.5" x2="127.0" y2="353.5" class="ch" stroke-opacity="0.160" stroke-width="0.83"/>,<line x1="167.7" y1="131.5" x2="62.0" y2="151.2" class="ch" stroke-opacity="0.386" stroke-width="1.56"/>,<line x1="142.9" y1="186.6" x2="141.0" y2="246.2" class="ch" stroke-opacity="0.548" stroke-width="2.22"/>,<line x1="142.9" y1="186.6" x2="139.7" y2="284.0" class="ch" stroke-opacity="0.434" stroke-width="1.74"/>,<line x1="142.9" y1="186.6" x2="123.3" y2="252.6" class="ch" stroke-opacity="0.515" stroke-width="2.07"/>,<line x1="142.9" y1="186.6" x2="111.7" y2="244.4" class="ch" stroke-opacity="0.522" stroke-width="2.10"/>,<line x1="142.9" y1="186.6" x2="119.8" y2="288.6" class="ch" stroke-opacity="0.410" stroke-width="1.65"/>,<line x1="142.9" y1="186.6" x2="99.6" y2="234.8" class="ch" stroke-opacity="0.514" stroke-width="2.07"/>,<line x1="142.9" y1="186.6" x2="140.6" y2="388.5" class="ch" stroke-opacity="0.198" stroke-width="0.93"/>,<line x1="142.9" y1="186.6" x2="127.0" y2="353.5" class="ch" stroke-opacity="0.261" stroke-width="1.12"/>,<line x1="142.9" y1="186.6" x2="62.0" y2="151.2" class="ch" stroke-opacity="0.432" stroke-width="1.73"/>,<line x1="141.0" y1="246.2" x2="139.7" y2="284.0" class="ch" stroke-opacity="0.620" stroke-width="2.54"/>,<line x1="141.0" y1="246.2" x2="123.3" y2="252.6" class="ch" stroke-opacity="0.675" stroke-width="2.79"/>,<line x1="141.0" y1="246.2" x2="111.7" y2="244.4" class="ch" stroke-opacity="0.636" stroke-width="2.61"/>,<line x1="141.0" y1="246.2" x2="119.8" y2="288.6" class="ch" stroke-opacity="0.579" stroke-width="2.35"/>,<line x1="141.0" y1="246.2" x2="99.6" y2="234.8" class="ch" stroke-opacity="0.578" stroke-width="2.35"/>,<line x1="141.0" y1="246.2" x2="140.6" y2="388.5" class="ch" stroke-opacity="0.318" stroke-width="1.31"/>,<line x1="141.0" y1="246.2" x2="127.0" y2="353.5" class="ch" stroke-opacity="0.399" stroke-width="1.61"/>,<line x1="141.0" y1="246.2" x2="62.0" y2="151.2" class="ch" stroke-opacity="0.347" stroke-width="1.41"/>,<line x1="139.7" y1="284.0" x2="123.3" y2="252.6" class="ch" stroke-opacity="0.624" stroke-width="2.55"/>,<line x1="139.7" y1="284.0" x2="111.7" y2="244.4" class="ch" stroke-opacity="0.578" stroke-width="2.35"/>,<line x1="139.7" y1="284.0" x2="119.8" y2="288.6" class="ch" stroke-opacity="0.666" stroke-width="2.75"/>,<line x1="139.7" y1="284.0" x2="99.6" y2="234.8" class="ch" stroke-opacity="0.522" stroke-width="2.10"/>,<line x1="139.7" y1="284.0" x2="140.6" y2="388.5" class="ch" stroke-opacity="0.413" stroke-width="1.66"/>,<line x1="139.7" y1="284.0" x2="127.0" y2="353.5" class="ch" stroke-opacity="0.505" stroke-width="2.03"/>,<line x1="139.7" y1="284.0" x2="62.0" y2="151.2" class="ch" stroke-opacity="0.282" stroke-width="1.19"/>,<line x1="123.3" y1="252.6" x2="111.7" y2="244.4" class="ch" stroke-opacity="0.704" stroke-width="2.93"/>,<line x1="123.3" y1="252.6" x2="119.8" y2="288.6" class="ch" stroke-opacity="0.626" stroke-width="2.56"/>,<line x1="123.3" y1="252.6" x2="99.6" y2="234.8" class="ch" stroke-opacity="0.639" stroke-width="2.62"/>,<line x1="123.3" y1="252.6" x2="140.6" y2="388.5" class="ch" stroke-opacity="0.332" stroke-width="1.36"/>,<line x1="123.3" y1="252.6" x2="127.0" y2="353.5" class="ch" stroke-opacity="0.423" stroke-width="1.70"/>,<line x1="123.3" y1="252.6" x2="62.0" y2="151.2" class="ch" stroke-opacity="0.368" stroke-width="1.49"/>,<line x1="111.7" y1="244.4" x2="119.8" y2="288.6" class="ch" stroke-opacity="0.596" stroke-width="2.43"/>,<line x1="111.7" y1="244.4" x2="99.6" y2="234.8" class="ch" stroke-opacity="0.690" stroke-width="2.86"/>,<line x1="111.7" y1="244.4" x2="140.6" y2="388.5" class="ch" stroke-opacity="0.308" stroke-width="1.28"/>,<line x1="111.7" y1="244.4" x2="127.0" y2="353.5" class="ch" stroke-opacity="0.399" stroke-width="1.61"/>,<line x1="111.7" y1="244.4" x2="62.0" y2="151.2" class="ch" stroke-opacity="0.403" stroke-width="1.62"/>,<line x1="119.8" y1="288.6" x2="99.6" y2="234.8" class="ch" stroke-opacity="0.552" stroke-width="2.23"/>,<line x1="119.8" y1="288.6" x2="140.6" y2="388.5" class="ch" stroke-opacity="0.421" stroke-width="1.69"/>,<line x1="119.8" y1="288.6" x2="127.0" y2="353.5" class="ch" stroke-opacity="0.530" stroke-width="2.14"/>,<line x1="119.8" y1="288.6" x2="62.0" y2="151.2" class="ch" stroke-opacity="0.299" stroke-width="1.24"/>,<line x1="99.6" y1="234.8" x2="140.6" y2="388.5" class="ch" stroke-opacity="0.281" stroke-width="1.18"/>,<line x1="99.6" y1="234.8" x2="127.0" y2="353.5" class="ch" stroke-opacity="0.369" stroke-width="1.49"/>,<line x1="99.6" y1="234.8" x2="62.0" y2="151.2" class="ch" stroke-opacity="0.447" stroke-width="1.79"/>,<line x1="140.6" y1="388.5" x2="127.0" y2="353.5" class="ch" stroke-opacity="0.620" stroke-width="2.53"/>,<line x1="140.6" y1="388.5" x2="62.0" y2="151.2" class="ch" stroke-opacity="0.126" stroke-width="0.74"/>,<line x1="127.0" y1="353.5" x2="62.0" y2="151.2" class="ch" stroke-opacity="0.180" stroke-width="0.88"/></g><path d="M458.0,241.0L167.7,131.5L142.9,186.6L141.0,246.2L139.7,284.0L123.3,252.6L111.7,244.4L119.8,288.6L99.6,234.8L140.6,388.5L127.0,353.5L62.0,151.2" class="ord"/><path d="M62.0,151.2L458.0,241.0" class="clo"/><circle cx="458.0" cy="241.0" r="4.6" class="pt first"/><text x="474.9" y="243.5" class="lb first" text-anchor="start">-1.828</text><circle cx="167.7" cy="131.5" r="3.2" class="pt"/><text x="157.7" y="121.9" class="lb" text-anchor="end">-1.794</text><circle cx="142.9" cy="186.6" r="3.2" class="pt"/><text x="128.5" y="181.8" class="lb" text-anchor="end">-1.760</text><circle cx="141.0" cy="246.2" r="3.2" class="pt"/><text x="124.1" y="248.5" class="lb" text-anchor="end">-1.727</text><circle cx="139.7" cy="284.0" r="3.2" class="pt"/><text x="123.0" y="291.6" class="lb" text-anchor="end">-1.693</text><circle cx="123.3" cy="252.6" r="3.2" class="pt"/><text x="106.4" y="255.9" class="lb" text-anchor="end">-1.659</text><circle cx="111.7" cy="244.4" r="3.2" class="pt"/><text x="94.8" y="246.8" class="lb" text-anchor="end">-1.626</text><circle cx="119.8" cy="288.6" r="3.2" class="pt"/><text x="103.2" y="296.3" class="lb" text-anchor="end">-1.592</text><circle cx="99.6" cy="234.8" r="3.2" class="pt"/><text x="82.8" y="236.4" class="lb" text-anchor="end">-1.558</text><circle cx="140.6" cy="388.5" r="3.2" class="pt"/><text x="129.0" y="405.1" class="lb" text-anchor="end">-1.524</text><circle cx="127.0" cy="353.5" r="3.2" class="pt"/><text x="113.1" y="367.4" class="lb" text-anchor="end">-1.490</text><circle cx="62.0" cy="151.2" r="3.2" class="pt"/><text x="47.1" y="147.2" class="lb" text-anchor="end">-1.457</text></svg></div>
+      <div>
+        <p class="lede" style="font-size:var(--text-body); color:var(--ink-3);">The same question asked of a proof rather than a theorem. Each of these is a slab of the covering that forced an Erdős bound, described by how much margin its tightest box had, how wide it is, and how many teeth its linear programme reached for. A subdivision driven by one sweeping parameter should also be a curve — but a proof changes strategy where the difficulty changes, and a strategy change is a kink. The quantity to watch is not the closure ratio, it is the hyperbolicity: a curve that bends sharply is still a curve, and the four-point condition can tell that from a tree.</p>
+        <div class="nums">
+          <div><div class="k">effective rank</div><div class="v">3</div></div>
+          <div><div class="k">negative mass</div><div class="v">0.04%</div></div>
+          <div><div class="k">exact signature</div><div class="v">(6, 5, 1)</div></div>
+          <div><div class="k">closure ratio</div><div class="v">6.97×</div></div>
+          <div><div class="k">δ / diameter</div><div class="v">0.173</div></div>
+        </div>
+        <div class="pred">
+<b>predicted</b>  a line, but a rougher one than the band
+<b>decided</b>    effective rank 3, negative mass 0.04%, exact signature (6,5,1), closure 6.97×
+<b>agreed</b>     yes
+<b>distances</b>  1000 × Euclidean distance in normalised (log worst margin, log width, mean teeth used)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">none &middot; 9 items</div>
+      <h2 class="t1" style="margin-top:var(--s-2); max-width:26ch;">nine points thrown into seven dimensions</h2>
+    </div>
+    <div class="exg reveal" style="margin-top:var(--s-5);">
+      <div class="art"><svg viewBox="0 0 520 520" class="plate" role="img" aria-label="9 items placed by their own distance table; every pair drawn as a chord."><rect width="520" height="520" fill="#0a0a0c"/><g class="chords"><line x1="375.3" y1="329.0" x2="458.0" y2="95.0" class="ch" stroke-opacity="0.071" stroke-width="0.64"/>,<line x1="375.3" y1="329.0" x2="132.4" y2="121.3" class="ch" stroke-opacity="0.080" stroke-width="0.65"/>,<line x1="375.3" y1="329.0" x2="431.0" y2="237.4" class="ch" stroke-opacity="0.212" stroke-width="0.97"/>,<line x1="375.3" y1="329.0" x2="107.7" y2="95.2" class="ch" stroke-opacity="0.061" stroke-width="0.62"/>,<line x1="375.3" y1="329.0" x2="120.9" y2="147.9" class="ch" stroke-opacity="0.070" stroke-width="0.63"/>,<line x1="375.3" y1="329.0" x2="147.5" y2="410.5" class="ch" stroke-opacity="0.142" stroke-width="0.78"/>,<line x1="375.3" y1="329.0" x2="62.0" y2="320.0" class="ch" stroke-opacity="0.073" stroke-width="0.64"/>,<line x1="375.3" y1="329.0" x2="278.3" y2="425.0" class="ch" stroke-opacity="0.162" stroke-width="0.83"/>,<line x1="458.0" y1="95.0" x2="132.4" y2="121.3" class="ch" stroke-opacity="0.061" stroke-width="0.62"/>,<line x1="458.0" y1="95.0" x2="431.0" y2="237.4" class="ch" stroke-opacity="0.070" stroke-width="0.63"/>,<line x1="458.0" y1="95.0" x2="107.7" y2="95.2" class="ch" stroke-opacity="0.044" stroke-width="0.60"/>,<line x1="458.0" y1="95.0" x2="120.9" y2="147.9" class="ch" stroke-opacity="0.055" stroke-width="0.61"/>,<line x1="458.0" y1="95.0" x2="147.5" y2="410.5" class="ch" stroke-opacity="0.040" stroke-width="0.60"/>,<line x1="458.0" y1="95.0" x2="278.3" y2="425.0" class="ch" stroke-opacity="0.056" stroke-width="0.61"/>,<line x1="132.4" y1="121.3" x2="431.0" y2="237.4" class="ch" stroke-opacity="0.078" stroke-width="0.65"/>,<line x1="132.4" y1="121.3" x2="107.7" y2="95.2" class="ch" stroke-opacity="0.324" stroke-width="1.33"/>,<line x1="132.4" y1="121.3" x2="120.9" y2="147.9" class="ch" stroke-opacity="0.342" stroke-width="1.39"/>,<line x1="132.4" y1="121.3" x2="147.5" y2="410.5" class="ch" stroke-opacity="0.122" stroke-width="0.73"/>,<line x1="132.4" y1="121.3" x2="62.0" y2="320.0" class="ch" stroke-opacity="0.211" stroke-width="0.97"/>,<line x1="132.4" y1="121.3" x2="278.3" y2="425.0" class="ch" stroke-opacity="0.069" stroke-width="0.63"/>,<line x1="431.0" y1="237.4" x2="107.7" y2="95.2" class="ch" stroke-opacity="0.058" stroke-width="0.62"/>,<line x1="431.0" y1="237.4" x2="120.9" y2="147.9" class="ch" stroke-opacity="0.050" stroke-width="0.61"/>,<line x1="431.0" y1="237.4" x2="147.5" y2="410.5" class="ch" stroke-opacity="0.057" stroke-width="0.62"/>,<line x1="431.0" y1="237.4" x2="62.0" y2="320.0" class="ch" stroke-opacity="0.045" stroke-width="0.60"/>,<line x1="431.0" y1="237.4" x2="278.3" y2="425.0" class="ch" stroke-opacity="0.082" stroke-width="0.65"/>,<line x1="107.7" y1="95.2" x2="120.9" y2="147.9" class="ch" stroke-opacity="0.186" stroke-width="0.90"/>,<line x1="107.7" y1="95.2" x2="147.5" y2="410.5" class="ch" stroke-opacity="0.080" stroke-width="0.65"/>,<line x1="107.7" y1="95.2" x2="62.0" y2="320.0" class="ch" stroke-opacity="0.152" stroke-width="0.80"/>,<line x1="107.7" y1="95.2" x2="278.3" y2="425.0" class="ch" stroke-opacity="0.048" stroke-width="0.61"/>,<line x1="120.9" y1="147.9" x2="147.5" y2="410.5" class="ch" stroke-opacity="0.121" stroke-width="0.73"/>,<line x1="120.9" y1="147.9" x2="62.0" y2="320.0" class="ch" stroke-opacity="0.155" stroke-width="0.81"/>,<line x1="120.9" y1="147.9" x2="278.3" y2="425.0" class="ch" stroke-opacity="0.083" stroke-width="0.66"/>,<line x1="147.5" y1="410.5" x2="62.0" y2="320.0" class="ch" stroke-opacity="0.332" stroke-width="1.36"/>,<line x1="147.5" y1="410.5" x2="278.3" y2="425.0" class="ch" stroke-opacity="0.289" stroke-width="1.21"/>,<line x1="62.0" y1="320.0" x2="278.3" y2="425.0" class="ch" stroke-opacity="0.153" stroke-width="0.81"/></g><path d="M375.3,329.0L431.0,237.4M375.3,329.0L278.3,425.0M278.3,425.0L147.5,410.5M147.5,410.5L62.0,320.0M62.0,320.0L132.4,121.3M132.4,121.3L120.9,147.9M132.4,121.3L107.7,95.2M375.3,329.0L458.0,95.0" class="mst"/><circle cx="375.3" cy="329.0" r="3.2" class="pt"/><text x="389.9" y="342.0" class="lb" text-anchor="start">p1</text><circle cx="458.0" cy="95.0" r="3.2" class="pt"/><text x="471.1" y="88.3" class="lb" text-anchor="start">p2</text><circle cx="132.4" cy="121.3" r="3.2" class="pt"/><text x="120.9" y="113.0" class="lb" text-anchor="end">p3</text><circle cx="431.0" cy="237.4" r="3.2" class="pt"/><text x="447.8" y="239.3" class="lb" text-anchor="start">p4</text><circle cx="107.7" cy="95.2" r="3.2" class="pt"/><text x="96.1" y="86.9" class="lb" text-anchor="end">p5</text><circle cx="120.9" cy="147.9" r="3.2" class="pt"/><text x="107.7" y="141.5" class="lb" text-anchor="end">p6</text><circle cx="147.5" cy="410.5" r="3.2" class="pt"/><text x="137.3" y="428.3" class="lb" text-anchor="end">p7</text><circle cx="62.0" cy="320.0" r="3.2" class="pt"/><text x="45.7" y="329.1" class="lb" text-anchor="end">p8</text><circle cx="278.3" cy="425.0" r="3.2" class="pt"/><text x="280.2" y="446.1" class="lb" text-anchor="middle">p9</text></svg></div>
+      <div>
+        <p class="lede" style="font-size:var(--text-body); color:var(--ink-3);">The floor everything else has to clear. These points have no structure beyond being points, so their distances should need every dimension available and no shape should survive. A method that finds a tidy circle here is drawing its own assumptions, which is the reference playground’s warning and it applies unchanged.</p>
+        <div class="nums">
+          <div><div class="k">effective rank</div><div class="v">6</div></div>
+          <div><div class="k">negative mass</div><div class="v">0.00%</div></div>
+          <div><div class="k">exact signature</div><div class="v">(8, 0, 1)</div></div>
+          
+          <div><div class="k">δ / diameter</div><div class="v">0.200</div></div>
+        </div>
+        <div class="pred">
+<b>predicted</b>  no low dimension and no cycle — effective rank near the ceiling
+<b>decided</b>    effective rank 6, negative mass 0.00%, exact signature (8,0,1)
+<b>agreed</b>     yes
+<b>distances</b>  1000 × Euclidean distance in ℝ⁷, fixed seed
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">refused &middot; 7 items</div>
+      <h2 class="t1" style="margin-top:var(--s-2); max-width:26ch;">a table that is not a distance at all</h2>
+    </div>
+    <div class="exg reveal" style="margin-top:var(--s-5);">
+      <div class="art"><svg viewBox="0 0 520 520" class="plate"><rect width="520" height="520" fill="#0a0a0c"/><text x="260" y="252" text-anchor="middle" class="ref">REFUSED</text><text x="260" y="274" text-anchor="middle" class="refsub">this table is not a distance, so there is nothing to place</text></svg></div>
+      <div>
+        <p class="lede" style="font-size:var(--text-body); color:var(--ink-3);">THE HARDEST CONTROL, and the one the reference does not have. Neighbours are far apart and everything else is close, which no arrangement of points in any space can produce: d(1,3) = 40 while d(1,2) + d(2,3) = 2000 is fine, but d(1,2) = 1000 against d(1,3) + d(3,2) = 80 is not. A signature will still come back — the arithmetic does not care — and a plate will still draw. The decision has to catch it BEFORE either, or every number on this page is decoration.</p>
+        
+        <div class="pred">
+<b>predicted</b>  refused — the triangle inequality fails, so nothing downstream is meaningful
+<b>decided</b>    REFUSED at the gate
+           triangle inequality fails: d(0,1) = 1000 > 40 + 40
+<b>agreed</b>     yes
+<b>distances</b>  exact by construction
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container narrow">
+    <div class="section-head reveal"><h2 class="t1">And then we asked a model</h2><span class="eyebrow">the probe</span></div>
+    <div class="prose reveal">
+      <p>Everything above was arithmetic on objects. The reference this borrows from does something else: it asks a language model for the distance between every pair of things and decides what shape the answers have. That method cannot be checked, because nobody knows the true geometry of a model&rsquo;s beliefs. Here it can be, because two of these subjects have an answer.</p>
+      <p>So claude-opus-5 was asked for every pair of the six points twice, once in each order, in 60 calls that never saw one another. No mention of dimension, embedding, Euclidean anything &mdash; just &ldquo;how far apart are these two, as an integer&rdquo;.</p>
+    </div>
+    <div class="table-wrap reveal" style="margin-top:var(--s-5);">
+      <table><thead><tr><th>subject</th><th></th><th>effective rank</th><th>negative mass</th><th>closure</th><th>δ / diam</th><th>asymmetry</th></tr></thead><tbody>
+      <tr><td class="mono" rowspan="2">hex-chord</td><td class="mono dim">model</td><td class="mono">2</td><td class="mono">0.45%</td><td class="mono">1.00×</td><td class="mono">0.250</td><td class="mono">0 max over 15 pairs</td></tr><tr><td class="mono dim">exact</td><td class="mono">2</td><td class="mono">0.00%</td><td class="mono">1.00×</td><td class="mono">0.250</td><td class="mono dim">—</td></tr><tr><td class="mono" rowspan="2">hex-cycle</td><td class="mono dim">model</td><td class="mono">5</td><td class="mono">22.86%</td><td class="mono">1.00×</td><td class="mono">0.333</td><td class="mono">0 max over 15 pairs</td></tr><tr><td class="mono dim">exact</td><td class="mono">5</td><td class="mono">22.86%</td><td class="mono">1.00×</td><td class="mono">0.333</td><td class="mono dim">—</td></tr>
+      </tbody></table>
+    </div>
+    <div class="prose reveal" style="margin-top:var(--s-6);">
+      <p><strong>It reproduces both, to the digit.</strong> The straight-line hexagon comes back effective rank 2 with essentially nothing negative; the rim metric comes back with 22.86% negative mass, which is the exact figure the arithmetic gives and the exact statement that no arrangement of points in any Euclidean space has those distances. Every pair was answered identically in both orders, in calls that could not see each other.</p>
+      <p>What makes that worth writing down is where the fact lives. It is in none of the thirty answers. &ldquo;Vertex 0 and vertex 2 are 66 apart&rdquo; says nothing about embeddability; the non-Euclidean fact only exists in all thirty at once, and it survived being split into thirty independent questions and reassembled by a procedure the model never saw.</p>
+      <p><strong>The first attempt failed, and the failure is the better half.</strong> Asked on a 0&ndash;100 scale, the model gave 33, 67 and 100 for one, two and three steps round the rim &mdash; which is correct to the nearest integer and <em>is not a distance</em>: 33 + 33 = 66 &lt; 67, so the triangle inequality fails by one unit and the gate refused the table before any geometry was computed. Nothing was wrong with the answers. The scale was wrong: a rim of six points contains the ratios 1 : 2 : 3, and 100 is not divisible by 3. On 0&ndash;99 the same question gives 33, 66, 99 and the table is a metric. The reference playground asks for integers on a fixed scale in exactly this way, so this is a property of the method rather than of this run &mdash; and without the gate it would have become a plate with a confident number under it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <div class="prose reveal">
+      <h2 class="t2">The pair that matters</h2>
+      <p>Six points on a circle, measured two ways. Straight through the middle they are a hexagon; round the rim they are the graph metric of a six-cycle. The two tables have the <em>same</em> closing ratio, because both close in a single step. They have the <em>same</em> exact signature, because quantisation gives both of them the same full-rank triple. And they are not remotely the same object: one carries no negative mass at all and the other carries 22.9% of it, which is the exact statement that no arrangement of points in any Euclidean space has those distances.</p>
+      <p>That is the argument for reporting three numbers instead of one. A page that printed only the closure ratio would have called them identical. A page that printed only the exact signature would have called them identical too. The reference playground prints the ratio and the triple; the negative mass is what this pass adds, and it is the only thing on the page that could tell the two apart.</p>
+      <p>The rest went as written, with one thing that was not predicted at all. Two snapshots of the same five dishes, 2.1 hours apart, come back exactly planar both times — one rigid object, two flat shadows — and not one of their ten distances survives the rotation unchanged. But the cheapest tree through them is the <em>same tree</em> both times. Nobody asked for that: it says the array's nearest-neighbour structure is more robust than its geometry, which is a fact about the dishes rather than about the night. A certified band traces a curve and does not close. A proof&rsquo;s covering traces a rougher curve. Nine points thrown into seven dimensions refuse to be low-dimensional, and a table that is not a distance is refused before it can be drawn.</p>
+    </div>
+  </div>
+</section>
+<footer class="foot"><div class="container"><div class="line">
+  <span>cert-machine / playground</span>
+  <a href="../index.html">the playground</a>
+  <a href="../neural-geometry/index.html">the same instrument, pointed at a model</a>
+  <a href="../plates/index.html">the plates</a>
+  <span>crossed from the bench 2026-09-04</span>
+</div></div></footer>
+<style>/* shell.css — the navbar, and nothing else. Everything a /playground page looks
+   like beyond this is that page's own business. */
+.pg-nav { position: relative; z-index: 30; }
+.pg-nav-in {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-5);
+  padding: var(--s-5) var(--gutter);
+  max-width: none;
+}
+.pg-mark {
+  font-family: var(--font-mono); font-size: var(--text-small); letter-spacing: 0.14em;
+  text-transform: lowercase; color: var(--ink); text-decoration: none;
+}
+.pg-mark .sl { color: var(--ink-5); }
+.pg-mark:hover { color: var(--ink); }
+.pg-links { display: flex; gap: var(--s-5); }
+.pg-links a {
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase; color: var(--ink-4); text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.pg-links a:hover { color: var(--ink-2); }
+
+/* bench.css — the structural shim for every page crossed from the bench.
+
+   Three pages here (plates, exact-geometry, affect) carry markup that came over
+   byte-for-byte, so they carry the bench's structural class names. Rather than
+   rewrite them and risk moving a number, those classes are declared ONCE here,
+   in this repository's tokens. Declared three times they would diverge, and the
+   divergence would be invisible: all three would still look like pages.
+
+   The plate BODY was crossed from the bench verbatim, so it carries the bench's
+   structural class names. Rather than rewrite eight plates' worth of markup and
+   risk moving a number, those classes are re-declared here in THIS repository's
+   tokens. Nothing bench-side is imported; every value below is one of ours.
+
+   ONE DELIBERATE DIFFERENCE. The bench's `.reveal` parks an element at
+   opacity 0 and waits for an observer. A page whose first frame is blank is a
+   page that shows nothing to a thumbnail, a shared link, or a reader who
+   scrolls fast — so here `.reveal` is a no-op and everything is visible at rest. */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body); line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; } a { color: inherit; }
+.reveal { opacity: 1; transform: none; }
+
+.container { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
+.container.narrow { max-width: 70ch; }
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(1.5rem, 4vh, 3rem); }
+h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); }
+.lede { max-width: 66ch; font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
+.hero-meta .item { display: grid; gap: 3px; }
+.hero-meta .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-5); }
+.hero-meta .v { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); }
+
+.section { padding: clamp(2rem, 5vh, 3.6rem) 0; }
+.section + .section { border-top: 1px solid var(--border); }
+h2.t2, h3.t2 { font-size: clamp(1.4rem, 1rem + 1.4vw, 2rem); }
+.prose { color: var(--ink-3); display: grid; gap: var(--s-4); }
+.prose h2 { margin-bottom: var(--s-2); }
+.prose em { color: var(--ink-2); font-style: italic; }
+
+svg { display: block; width: 100%; height: auto; }
+img { max-width: 100%; }
+
+/* the grammar's own classes, so a plate can say what it is standing on */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+.legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5); grid-template-columns: 1fr; }
+@media (min-width: 700px) { .legend { grid-template-columns: repeat(3, 1fr); } }
+.legend .item { display: grid; grid-template-columns: 46px 1fr; gap: var(--s-3); align-items: center; }
+.legend svg { width: 46px; height: 14px; overflow: visible; }
+.legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+
+.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
+.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono);
+  font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+.foot a { color: var(--ink-4); text-decoration: none; } .foot a:hover { color: var(--ink-2); }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ---- flow spacing ---------------------------------------------------------
+   The crossed bodies rely on the bench's base stylesheet for the space between
+   a heading and the paragraph under it. That stylesheet is not imported here —
+   the port rule is that no bench CSS crosses — so the flow is re-declared, in
+   our spacing scale, as adjacency rules rather than per-element margins. */
+.section h1 + *, .section h2 + *, .section h3 + * { margin-top: var(--s-4); }
+.section .eyebrow + h1, .section .eyebrow + h2, .section .eyebrow + h3 { margin-top: var(--s-2); }
+.section h2 + .eyebrow, .section h1 + .eyebrow, .section h3 + .eyebrow { margin-top: var(--s-2); }
+.section p + p, .section p + .nums, .section p + .pred, .section p + table,
+.section p + .lede, .section .lede + p { margin-top: var(--s-4); }
+.section ul, .section ol { margin: var(--s-4) 0 0; padding-left: 1.15em; color: var(--ink-3); }
+.section li + li { margin-top: var(--s-2); }
+.section table { width: 100%; border-collapse: collapse; margin-top: var(--s-5);
+  font-family: var(--font-mono); font-size: var(--text-mono); }
+.section th, .section td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.section th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.section code { font-family: var(--font-mono); font-size: 0.86em; color: var(--ink-2); }
+.section b, .section strong { color: var(--ink); font-weight: var(--weight-medium); }
+h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); }
+.wide .container { max-width: 1320px; }
+
+
+.exg { display:grid; grid-template-columns: minmax(0,520px) minmax(0,1fr); gap: var(--s-6); align-items:start; }
+@media (max-width: 940px) { .exg { grid-template-columns: 1fr; } }
+.exg .art { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--s-3); }
+svg.plate { width: 100%; height: auto; display:block; border-radius: var(--radius-s); }
+svg.plate .ch { stroke: #f6f6f8; }
+svg.plate .ord { fill:none; stroke:#f6f6f8; stroke-opacity:.85; stroke-width:1.6; }
+svg.plate .clo { fill:none; stroke:#f6f6f8; stroke-opacity:.9; stroke-width:1.6; stroke-dasharray:5 4; }
+svg.plate .mst { fill:none; stroke:#f6f6f8; stroke-opacity:.6; stroke-width:1.3; }
+svg.plate .pt { fill:#0a0a0c; stroke:#f6f6f8; stroke-width:1.3; }
+svg.plate .pt.first { fill:#f6f6f8; }
+svg.plate .lb { fill:#9a9aa6; font-family:var(--font-mono); font-size:9px; }
+svg.plate .lb.first { fill:#f6f6f8; }
+svg.plate .ref { fill:#f6f6f8; font-family:var(--font-mono); font-size:15px; letter-spacing:.18em; }
+svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
+.nums { display:grid; grid-template-columns:repeat(auto-fit,minmax(104px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; margin-top:var(--s-4); }
+.nums div { background:var(--bg-raised); padding:var(--s-3) var(--s-4); }
+.nums .k { font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-5); }
+.nums .v { font-family:var(--font-mono); font-size:var(--text-small); color:var(--ink); font-variant-numeric:tabular-nums; margin-top:2px; }
+.pred { font-family:var(--font-mono); font-size:var(--text-eyebrow); line-height:1.7; color:var(--ink-4); background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-s); padding:var(--s-4); margin-top:var(--s-4); }
+.pred b { color:var(--ink-2); font-weight:500; }
+.scoreline { display:flex; gap:var(--s-6); flex-wrap:wrap; font-family:var(--font-mono); font-size:var(--text-eyebrow); color:var(--ink-4); margin-top:var(--s-5); }</style>
+</body>
+</html>

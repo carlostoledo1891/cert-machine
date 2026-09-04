@@ -197,6 +197,45 @@ privileged point.
 - **Are they even distances?** Planets and scales of size never once violate the
   triangle inequality. The wheels do, and the smallest model does it most.
 
+### Four pages crossed from the bench, 2026-09-04
+
+`plates/`, `exact-geometry/`, `answer-shape/` and `affect/` came over from the
+operator's own bench with `PROVENANCE.json` recording the sha256 of every file at
+both ends. **Science, drawing code and records crossed byte-for-byte; every page
+was rebuilt here.** The one patched file in each folder is `page.js` — require
+paths repointed and the bench's page-writing tail replaced by an export — and
+that patch is declared in the provenance so it can never be mistaken for drift.
+No bench CSS, no bench HTML, no ECharts. The structural class names those bodies
+carry are re-declared once, in our tokens, in `design/bench.css`.
+
+The records carry model calls already paid for on the bench. **Nothing here
+re-spends and no page in this repository issues a call at build time.**
+
+- **`plates/` — eight figures, geometry stated rather than found.** Interpretability
+  pulls geometry out of a working model and asks what it means; these are stated
+  as a rule and its parameters and then drawn. Two of the eight are not
+  illustrations but certificates at their own resolution: Plate VII tiles our
+  own Erdős lower bound — 86 a-boxes, 1,350 b-boxes — shaded so that the bright
+  seams are where the argument nearly ran out. **Plate V is where the grammar was
+  already being used before it had a name.**
+- **`exact-geometry/` — the control, and it is meant to be boring.** Point sets
+  whose shape is fixed by construction, run through the same instrument. The
+  prediction is written first and never edited. 8 of 8 held; one set is refused
+  at the metric gate rather than scored.
+- **`answer-shape/` — seven subjects, every pair asked both ways round.** Not the
+  same experiment as `neural-geometry/`, which is ours: this one spends its budget
+  on asymmetry rather than breadth. Here for its components as much as its result.
+- **`affect/` — twelve feelings, and the control that catches the finding.** The
+  circumplex axes recovered from a second question set with no words in common,
+  landing on the plane the pairwise table had already fixed (1°, 6°, 0° off it).
+  Then the same twelve under six moods, with twelve clock hours through the
+  identical pipeline as a control — and the smallest model's clock moves by 85%.
+
+`design/COMPONENTS.md` catalogues what those pages made available, and records the
+one real conflict the port surfaced: the grammar reserves stroke for standing,
+and the comparison plates use stroke for model identity. The rule that survives
+both is written there and in `warrant.js`.
+
 ### `curveset/` — the line they published, and the lines that fit
 
 **Crossed from the operator's bench 2026-09-04** (`experiments/curveset`), with

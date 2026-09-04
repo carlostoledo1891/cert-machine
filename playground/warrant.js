@@ -63,6 +63,15 @@ const throughFloat = (s) => meet(s, COMPUTED);
 const throughChoice = (s) => meet(s, CHOSEN);
 const refuse = () => REFUSED;
 
+/* THE CHANNEL RULE, found by porting four pages rather than by reasoning.
+   Stroke pattern carries STANDING whenever a figure holds marks of more than one
+   standing. In a figure whose marks all share a standing — three model answers
+   on one axis, say — the channel is free, and the figure must say what it is
+   carrying instead. The comparison plates on /playground/answer-shape use stroke
+   for model identity under exactly that licence, and a comparison plate that
+   later gains a decided reference line has to give the channel back.
+   See design/COMPONENTS.md, which is where this was written down first. */
+
 /* one stroke per standing. Dash patterns are ours; any consistent set obeying
    the redundancy rule conforms. A REFUSED mark has no stroke at all — asking
    for one is a bug at the call site, so it returns null rather than a style. */
