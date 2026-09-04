@@ -30,194 +30,108 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
 THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
 
-  ══ THE ENVIRONMENT REVIEW IS DONE (2026-09-04). THE PACKAGE IS RENAMED,
-     THE BINDINGS ARE REAL, AND THE ONLY THING LEFT BEFORE THE HUB IS THE
-     OPERATOR'S `prime login`. ══
+  ══ SESSION OF 2026-09-04 CLOSED. THE ENVIRONMENT IS PUBLISHED, THE SITE IS
+     CURRENT, AND /playground EXISTS WITH FOUR PROJECTS IN IT.
+     NEXT SESSION: WAIT FOR THE OPERATOR'S INSTRUCTIONS BEFORE BUILDING. ══
 
-  RENAMED: environments/certificate_band_gym → environments/break_the_grader,
-  distribution `break-the-grader`. "Band" was internal jargon nobody searches;
-  the top of the Hub is short legible verb-phrases (reverse-text, alphabet-sort,
-  2048) and `grader` puts us in a search bucket of eleven rather than nowhere.
-  The name is free on the Hub and is the README's own headline sentence.
+  SHIPPED THIS SESSION, all pushed and live:
 
-  THE FIVE RISKS, as they now stand:
-   1. THE BINDINGS ARE VERIFIED — v0 (`load_environment` → SingleTurnEnv) AND
-      v1 (`Taskset`/`Task`/`@reward`), both run against a live install. THE
-      VERSION THAT MATTERS IS verifiers 0.2.0, because `prime` 0.6.31 PINS IT;
-      0.3.1 exists and moves the v1 surface again. The v0/v1 "disagreement" was
-      not a doc problem: BOTH APIs ship in 0.2.0, v0 at top level (and it is
-      what the Hub's own install text prints) and v1 under `verifiers.v1`.
-      THREE DEFECTS the doc-written binding had, two of them SILENT:
-        · `load_environment` was never exported from the package __init__, so
-          the exact command the Hub prints would have raised on arrival;
-        · a plain-string `task` column aborts every rollout in 0.2.0;
-        · scoring is handed pydantic message objects, not dicts, so a
-          `.get("content")` misses and EVERY reply reads as unparseable — a
-          whole eval printing 0.000 with no error raised anywhere. That one was
-          watched happening, three policies over 40 tasks, a clean table of
-          zeros.
-      All three are pinned by tests/test_verifiers_binding.py (skips when the
-      framework is absent). tests/test_framework_free.py proves the
-      zero-dependency claim in a SUBPROCESS with every third-party import
-      blocked. 13 package tests green.
-   2. THE RESULTS TABLE EXISTS, and most of it cost nothing. FOUR REFERENCE
-      POLICIES now ship in break_the_grader/policies.py — never / always /
-      naive / careful — each reading ONLY THE PROMPT, the same string a model
-      sees. `python -m break_the_grader.cli baseline` prints the table in about
-      four seconds with no key. It gives every model row a floor (a one-line
-      policy) and a ceiling (the arithmetic done properly), and `careful` is
-      published on purpose: the environment does not claim to be hard for a
-      program that checks, it claims to measure whether the answer checks.
-      THE PAID ROW IS RUN (2026-09-04, tools/run-grader-pilot.js): 360 calls,
-      $1.92 of a $4.00 cap, 120 tasks x 3 models, MODELS ON THE SAME SEEDS AS
-      THE POLICIES so the columns are the same tasks and not a comparable
-      sample. certs/grader-pilot.json.
-        careful  +1.000 100%   0 false  39/39 impossible  21/21 razor
-        opus-5   +0.950  97%   2 false  37/39            20/21
-        sonnet-5 +0.670  81%  16 false  34/37            14/20   (5 truncated, excluded)
-        always   +0.558  56%   0 false   0/39            14/21
-        haiku-45 +0.317  51%  23 false  25/39             5/21
-        naive    +0.258  49%  28 false   0/39            11/21
-        never    -0.350  33%  81 false  39/39             0/21
-      TWO FINDINGS. (a) THE LADDER NO LONGER SATURATES — risk 3 as it was
-      written is closed: three frontier models land at +0.950 / +0.670 / +0.317
-      where the JS environments had Opus and Sonnet both at 8/8. The rebalanced
-      rung mix is what did it. (b) HAIKU 4.5 SCORES BELOW THE ONE-LINE BLIND
-      POLICY, and the false-claim column says why: the blind policy makes ZERO
-      false claims and Haiku makes 23. Confidence is what costs here, and it is
-      priced in a column of its own.
-   3. THE LADDER WAS REBALANCED, and the baseline is what caught it. A one-line
-      always-attack policy scored 71%, because half of every batch was a gift.
-      Two defects underneath:
-        · THE UNIT WAS WRONG. Rungs were measured in certificate widths, so the
-          52 exact-integer facts — width zero — divided by zero and ALL landed
-          on "wide", the easiest label, when a 1e-16 tolerance around an integer
-          is the sharpest rung there is. Rungs are now measured in ROOM: how
-          many representable doubles fit in the band. One unit, correct at both
-          ends, and it is the unit the task is actually in.
-        · THE MIX WAS AN ACCIDENT. The README claimed "known proportions" from a
-          log-uniform τ over seven decades, in which the razor band is a
-          0.3-decade sliver — razors were 4% of the draw. The generator now
-          DRAWS THE ROOM IT WANTS and SOLVES tol = (w + room·u)/2 for it, from a
-          declared RUNG_MIX. Realized 30/23/33/14 against a 25/35/25/15 target,
-          and the target is documented as a target because keys sit at five
-          positions and only the midpoint gives the closed form exactly.
-      Blind play now scores +0.588 against careful's +0.998, and the build
-      REFUSES to publish reports/gym.html if that gap falls under 0.25 or if a
-      blind policy ever solves an impossible rung.
-   4. THE CORPUS IS STILL ONE LAB'S. Unchanged, and now stated on the page as a
-      limit in its own right. The strongest single upgrade left.
-   5. COST DISCIPLINE KEPT. tools/run-grader-pilot.js reserves worst case before
-      every call; the cap is PER PROCESS; ordering is BY TASK so a budget stop
-      leaves every model measured on the same tasks; truncations and refusals
-      are recorded and EXCLUDED from rates.
+  1. break-the-grader IS ON THE ENVIRONMENTS HUB.
+     carlos-toledo/break-the-grader, PUBLIC, v0.1.2, all ten tags.
+       install: prime env install carlos-toledo/break-the-grader
+       use:     vf.load_environment('break-the-grader')
+     Renamed from certificate-band-gym ("band" was jargon nobody searches; the
+     Hub's starred end is short legible verb-phrases). VERIFIED FROM THE HUB in
+     a clean 3.12 venv — gate green, load_environment returns a SingleTurnEnv,
+     the console script reproduces the published baseline to the digit. That
+     install pulled VERIFIERS 0.3.1, not the 0.2.0 prime pins, so both adapters
+     are exercised on both versions.
+     THREE DEFECTS the doc-written binding had, two of them silent, all now
+     pinned by tests: load_environment was never exported from __init__ (the
+     Hub's own command would have raised on arrival); a plain-string `task`
+     column aborts every rollout in 0.2.0; and scoring is handed pydantic
+     message objects, not dicts, so a .get("content") misses and EVERY reply
+     reads as unparseable — a whole eval printing 0.000 with no error raised.
+     THE BASELINE IS FREE: four reference policies ship in the package and
+     `python -m break_the_grader.cli baseline` prints the table with no key.
+     Running them caught two real generator defects — the rung unit was
+     certificate widths, which divides by zero on the 52 exact-integer facts
+     and sent all of them to "wide", the easiest label; and the mix was an
+     accident of a log-uniform tau. Rungs are now measured in ROOM (how many
+     doubles fit in the band) and the generator solves for the tolerance it
+     wants. THE PAID ROW: 360 calls, $1.92 of a $4.00 cap, models on the same
+     120 seeds as the policies. careful +1.000 / opus +0.950 / sonnet +0.670 /
+     always +0.558 / haiku +0.317 / naive +0.258 / never −0.350. The ladder no
+     longer saturates, and haiku scores BELOW the one-line blind policy because
+     the blind policy makes zero false claims and haiku makes 23.
 
-  ALSO CORRECTED: the scoring table in the README and on the page claimed "a
-  claimed break that does not verify → −1". The code has always had SIX
-  outcomes, and the distinction is the good part: a value outside the
-  certificate that the grader rejects is a MISS (0, UNSUPPORTED), while a value
-  the grader accepts and the certificate CONTAINS is a false claim of
-  unsoundness (−1, WRONG). Both tables now say what the code does.
+  2. THE SITE. Playground is in the navbar on every page (all 48 report pages
+     rebuilt for it). The lead paragraph's reading measure was running ~110
+     characters against the site's 70 — a `wide: true` section hands its whole
+     body the full track and the prose has to ask for `.col` back; fixed here
+     and at nine more sites across terra and ember. The published environment
+     gets ONE SENTENCE above the lead cards carrying the install command, not a
+     fifth card: the lead has four slots by a decision that still holds.
 
-  THE HUB, SCOUTED (`prime env list`, 2026-09-04): 1,610 environments, the most
-  starred has 33, the median has 0. Default sort is created_at desc, so the push
-  itself is the distribution and every version bump re-lists. What gets starred:
-  recognizable benchmark names (AIME-25, HLE, ARC-AGI, tau2-bench,
-  terminal-bench, KernelBench), games (2048 twice), and infrastructure adapters.
-  COMPETITORS: "reward hack" returns 42 environments, all ≤1 star, nearly all
-  designer-embedded hacks from a community sprint; the nearest neighbour is
-  gkartik/assay-hackword, 0 stars. "certificate" returns ONE result and
-  "interval" returns none that are related. Nobody on the Hub grades against
-  certified enclosures.
+  3. /playground — FOUR PROJECTS, and the place has no gates in it.
+     Built by playground/build.js alone; tools/build-site.js neither writes nor
+     prunes under site/playground/ (the same arrangement site/apps/ has) and
+     lists its pages in the sitemap. `make playground`. The one rule kept: NO
+     GATES, BUT NO FICTION — every number comes from a record in the folder and
+     every record from running the code beside it.
+       · interferometer — ported from frontier-apps with its mathematics, the
+         24 released EHT CSVs under their own licence, and all six reds fired
+         from the ported copy (out/reds-2026-09-04.txt). THE SOUND BRACKET IS
+         1.67–1.82x, not the 1.05–1.09x first shown: perstation=1 divides the
+         gain allowance instead of adding it, because a residual station gain
+         TAKES amplitude away. A tighter bracket against an error model that
+         cannot cover the error is a worse result wearing a better number.
+         STILL OPEN: page-data.json predates that correction, so the render's
+         amplitude extremes are stale and a conditional paragraph on the page
+         says so — it deletes itself when make-page-data.js is re-run.
+       · simplex — an attention row is a point in a simplex, on the frozen
+         GPT fixture from sin-mfg's attention-geometry pack, re-derived (our
+         softmax matches its stored rows to 1.4e-14). 9 exact checks.
+       · neural-geometry — 18 sets x 3 models, 527 calls, $0.78. Structure is
+         curvature (all 6 control cells PSD, 38 of 39 structured cells not);
+         THE FRAME IS THE PARAMETER (the same ten numerals close into a ring as
+         "residues mod 10" at 0.97x and lie on a line as "digits" at 5.48x)
+         AND IT IS BOUNDED (as "keypad keys" the layout fails BELOW a shuffled
+         null); octave equivalence is not in there; and the directional
+         asymmetry we were binning points at the prototype — all three models
+         make EARTH the reference among the planets.
+       · shape-hunt — 16,165,266 exact tests, no model calls. THE POLYGONS ARE
+         NOT THERE (0 of 54 collinear, 2 of 54 pentagons). What survives is the
+         GROUPS: 40 of 54 keep a dihedral symmetry under a matched null that
+         all six controls fail, including rotation-by-four on the compass,
+         which is the antipodal map. NO POLYHEDRA: a perfect 12-gon clears its
+         catalogue null by 47x and the best model case by 1.35x.
+         THREE NULLS WERE THROWN AWAY on this page, each caught by a shape
+         whose answer was known — the Ptolemy floor was counting its own
+         rounding, the symmetry null was a minimum against a typical value, and
+         the spectrum null was numerically incapable of failing. That is why
+         the perfect 12-gon and the pure noise sit at the TOP of the page.
 
-  PUBLISHED 2026-09-04, in the order that keeps the links alive: the repo first
-  (6750a59 -> the site deploys from site/ on Vercel, so reports/gym.html went
-  live and the README's link resolves), then the Hub.
-    LIVE: app.primeintellect.ai/dashboard/environments/carlos-toledo/break-the-grader
-    INSTALL: prime env install carlos-toledo/break-the-grader
-             pip install break_the_grader --extra-index-url https://hub.primeintellect.ai/carlos-toledo/simple/
-    USE: vf.load_environment('break-the-grader')
-  VERIFIED FROM THE HUB, not from disk: a clean 3.12 venv, `pip install
-  break_the_grader` off the Hub index, gate green, `vf.load_environment` returns
-  a SingleTurnEnv, the console script reproduces the published baseline to the
-  digit. THAT INSTALL PULLED VERIFIERS 0.3.1, NOT 0.2.0 — so both adapters are
-  now exercised on both versions and the README says so. All ten tags carried
-  through; the listing reads PUBLIC v0.1.0.
+  PROPOSED AND NOT BUILT, for /playground/shape-hunt, ranked (operator has the
+  list; nothing started):
+    3. NAME THE GROUP ELEMENTS IN WORDS — cheapest, and it is hiding a result.
+       "reflection 9" on ten ordered items is REVERSE THE SEQUENCE, which is
+       exactly a line's symmetry, and all three models find it for `floors`.
+       The table shows indices, so agreement reads as disagreement.
+    1. CAYLEY–MENGER — turn the page's best statistic into a proof. The sign of
+       the determinant is fixed for any Euclidean configuration, so a wrong
+       sign is a certificate of impossibility rather than "84% violate an
+       inequality". Exact on the same integer data.
+    2. THE NOISE LADDER — add noise to the perfect 12-gon until each test loses
+       it, so every defect on the page gets a reading in "percent noise".
+    4. FULL AUTOMORPHISM SEARCH for the 8-item sets (40,320 permutations, and
+       only the 2n dihedral ones are tried now) — the one test that could find
+       a symmetry nobody predicted.
+    5. RATIO HUNTING against phi, sqrt2, sqrt3 — the "perfectly sized" question,
+       and the purest numerology on offer, so it belongs only as a demonstration
+       of the failure mode run beside the same hunt on noise.
 
-  WHAT IS LEFT ON THIS FRONT, in order of value:
-   · a second, independent source of certificates (risk 4, untouched);
-   · the razor tier wants more room than max_tokens 2000 for Sonnet — 5 of 120
-     replies truncated and were excluded, which is honest but is 4% of a column;
-   · stars are the only ranking signal and the default sort is newest-first, so
-     a version bump re-lists; do not bump for nothing, but a real improvement is
-     worth pushing rather than sitting on.
-
-  MEASURED THIS SESSION, $5.88 of an $11.80 cap, 360 real-model calls:
-   · THE EFFORT TRAP. At default effort the 5-family spends an entire
-     4096-token reply on adaptive thinking and emits nothing parseable — 100%
-     truncation at $0.105/call for zero information. At effort=low the same
-     task answers in 311 tokens for a cent. Haiku 4.5 takes NO effort parameter
-     (it errors) and has no thinking. Any table must record effort and
-     max_tokens per row or it is noise.
-   · THE ATTACKER LADDER (k=8): c0-c3 all three models ~8/8 — sound but
-     undiscriminating. The three rungs added this session (c4 razor, c5
-     one-sided key, c6 empty-in-float): Opus and Sonnet 8/8 everywhere; Haiku
-     0/8 with 8 WRONG on c4 and c6, 3/8 on c5.
-   · THE UNIFORMITY GYM (k=8, max_tokens 8000 after the first run truncated):
-     Opus 29/32, Sonnet 18/32, Haiku 11/32. The shape of the failures is the
-     finding — Haiku answers WRONG (no thinking, guesses), Sonnet and Opus run
-     out of tokens. Sonnet still truncates 5/8 at r3; the razor tier wants more
-     room than 8000.
-   · c6 IS THE RUNG THAT CAUGHT US FIRST. Haiku claims a break 8/8 times where
-     no representable double exists — the identical bug our own generator had
-     hours earlier (hi + tol/2 rounding back to hi), caught by battery check
-     E4 before it shipped.
-
-
-  POSITIONING — DECIDED 2026-09-03 (operator: "do the changes you suggest and
-  decide the options by keeping us honest"). Full memo, with the measured
-  facts behind each call: notes/positioning-decisions-2026-09-03.md; the
-  operator's note pinned verbatim at notes/positioning-brainstorm-2026-09-03.md.
-    D1 THE NAME — DONE. One sentence, held for a year:
-       "Independent exact certification of machine-generated mathematics —
-       exact arithmetic, no code shared with the claimant, refusal as a
-       verdict." Widened from the note's AI-only version because half the
-       site's weight (λ(4), λ(5), #1038 both ends, #290, K(11), terra/MFG)
-       is OUR mathematics, not audits of AI claims. Stamped in ALL SIX
-       places at once — site <title> + meta, README H1, CLAUDE.md, HANDOFF,
-       CITATION.cff, .zenodo.json — because shipping three names was the
-       actual defect. OPERATOR ACTION OWED: edit the Zenodo metadata title
-       for v2026.09.1 (10.5281/zenodo.22285003) and the concept record so
-       the DOI landing page matches CITATION.cff. Until then that is the one
-       documented lag, and it is deliberate.
-    D2 THE REFUSAL COUNTER — DONE, as a measurement. The tile now reads
-       REFUSED · IN THE LOOP with its true denominator (1 of 16,943), and
-       reports/refusals.html counts every refusal in the lab BY KIND with its
-       own denominator: 8 rows, 5 kinds, no total on purpose. The note's
-       "fold NEEDS DATA in" was DECLINED — it breaks the three-valued
-       doctrine and the deflate-to-truth rule. Headline number recovered
-       from a record nobody was reading: the grader's refusal rate on
-       submitted claims is 13% (39 of 301), with model-declines and our own
-       output-cap artifacts excluded from both ends of the fraction.
-    D3 THE CALIBRATION SENTENCE — DONE, verbatim, and the LEAD reordered so
-       the catches lead: erdos852 → ai-claims-audit → ember → lambda4.
-    D4 "NO SHARED CODE" — DONE. Independence is now stated as independence
-       from the CLAIMANT, and the limits section discloses the two places
-       code crosses the producer/checker line (mfgcap imports the frozen
-       verifier; lemniscate shares the certifier with the bench it came
-       from) — both ours, both deliberate. The unqualified phrase would not
-       have survived a check.
-    D5 INTAKE — NOT BUILT, deliberately; the ruling it needed is adopted:
-       PUBLISHING A DECISION ON OUR OWN SITE IS A BUILD; POSTING IT INTO
-       SOMEONE ELSE'S THREAD, REPO OR INBOX IS A SEND. GitHub-native intake
-       (issue template + labels + a ledger page generated from the issues)
-       is queued as a 1-2 session build, not started.
-    D6 MONTHLY LEDGER — ADOPTED, first instance at the end of September
-       2026. The page is a build; announcing it is a send.
-    D7 SEQUENCE — λ(5) shipped under the calibration framing rather than as
-       a headline. The grader benchmark is closer than the note thought: the
-       audits exist, only the aggregate error-rate-per-source table is
-       missing.
+  SPEND THIS SESSION: $2.70 total — $1.92 grader pilot, $0.78 neural geometry.
 
   NEXT SESSION, IN ORDER
   1. PUBLISH LAMBDA(5) — DONE 2026-09-03. reports/lambda5.html is live,
