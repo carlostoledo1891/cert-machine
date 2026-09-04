@@ -128,9 +128,7 @@ const red = (n, fn) => {
   /* a REAL attack, minted the way the environment intends */
   let solvedByAttack = 0, mislabelled = 0;
   for (const t of tasks) {
-    const tol = t.grader.tol;
-    const c = tol ? L.toleranceInterior(t.fact, tol, 1) : null;
-    const v = c ? c.value : (t.fact.lo + t.fact.hi) / 2;      /* no attack exists: the naive move */
+    const v = EC.mintAttack(t) ?? (t.fact.lo + t.fact.hi) / 2;  /* no attack exists: the naive move */
     const g = EC.grade(t, { attack: v });
     if (g.verdict === 'RUNG_MISLABELLED') mislabelled++;
     if (g.score >= 1) solvedByAttack++;

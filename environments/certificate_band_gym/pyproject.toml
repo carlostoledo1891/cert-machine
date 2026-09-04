@@ -1,0 +1,24 @@
+[project]
+name = "certificate-band-gym"
+version = "0.1.0"
+description = "Break a grader, or prove it cannot be broken. Adversarial submissions generated from certified enclosures — provably wrong, infinite, and no answer key anywhere."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Carlos Toledo" }]
+keywords = ["rl-environment", "verifier", "reward-hacking", "exact-arithmetic", "certificates", "evaluation"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://carlostoledo.co/reports/envs.html"
+Source = "https://github.com/carlostoledo1891/cert-machine"
+
+[project.scripts]
+certificate-band-gym = "certificate_band_gym.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["certificate_band_gym*"]
