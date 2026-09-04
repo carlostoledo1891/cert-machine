@@ -45,7 +45,13 @@ M87 release, and the question *what do these data actually determine?*
   method uses them directly instead of smoothing them. The multiplier on each
   pointwise constraint *is* a mass at that point, so the dual variable
   Chambolle–Pock already carries is the primal witness, converging alongside the
-  ceiling at no cost. That is what took a 73× gap down to 5–9%.
+  ceiling at no cost. That took a 73× gap down to under a factor of two — and
+  the sound bracket is **1.67–1.82×**, not the 1.05–1.09× an earlier run showed,
+  because the error model had to be corrected first: an additive 5% allowance
+  cannot cover a multiplicative LOSS, and a residual station gain in VLBI takes
+  amplitude away rather than adding it. `perstation=1` divides instead, station
+  by station, and every ceiling moved up. A tighter bracket against an error
+  model that cannot cover the error is not a better result.
 - `cert-sos.js` — the sum-of-squares kernel that should have won and did not.
   Kept, because on an array with full station cliques the argument reverses.
 - `make-page-data.js` — the 18-member ensemble the page draws
