@@ -169,7 +169,7 @@ ${[['cycle', 'the wheels'], ['line', 'the lines'], ['tree', 'the branching one']
     ? `<div class="band"><div class="wrap"><span class="eyebrow">${label}</span></div></div>` + byShape(k).map(setBlock).join('')
     : '').join('')}
 
-<section class="method"><div class="wrap narrow">
+<section class="method"><div class="wrap">
   <div class="eyebrow">the method</div>
   <h2 style="margin-top:var(--s-4)">How the answers were taken, and what was decided</h2>
 

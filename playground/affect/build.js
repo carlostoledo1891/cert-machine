@@ -29,7 +29,7 @@ const moods = (M.moods || []).map((m) => m.id || m);
 const head = `
 <header class="hero"><div class="container">
   <div class="eyebrow">playground · affect · ${moods.length} moods × ${M.models.length} models · $${spend.toFixed(2)}, already spent</div>
-  <h1 class="display" style="margin-top:var(--s-4);max-width:19ch;">The geometry of feeling</h1>
+  <h1 class="display" style="margin-top:var(--s-4)">The geometry of feeling</h1>
   <p class="lede" style="margin-top:var(--s-6);">Twelve feelings, placed by asking only how different each pair is. Then the two axes psychology has used for fifty years — <b>pleasantness and activation</b> — asked separately, in a question set with no words in common with the first, and checked against the plane the pairwise table already fixed. Then the whole thing again under six moods, with twelve clock hours carried through the identical pipeline as a control that has no business moving.</p>
   <div class="hero-meta">
     <span class="item"><span class="k">moods</span><span class="v">${moods.join(' · ')}</span></span>

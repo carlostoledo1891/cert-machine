@@ -118,7 +118,7 @@ const body = `
   <p class="why" style="margin-top:var(--s-7)"><b>That pair is the point.</b> The method does not say everyone is overconfident. It says you can tell which case you are in, and by how much — and the two cases look identical until somebody computes the set. Both reports are competent, both are standard practice, and one of them is carried almost entirely by a choice of curve.</p>
 </div></section>
 
-<section class="sec"><div class="wrap narrow">
+<section class="sec"><div class="wrap">
   <div class="eyebrow">the mathematics, and why there is no optimiser</div>
   <h2 style="margin-top:var(--s-3)">The envelope is closed form</h2>
   <p class="why">A curve is admissible when it passes within the stated error of every standard and its slope stays in <code>[m, M]</code>. Every standard then bounds the curve from both sides through the slope limits, so the extreme admissible curves are a minimum and a maximum of straight lines:</p>

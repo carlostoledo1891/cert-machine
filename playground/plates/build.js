@@ -39,12 +39,12 @@ const grammar = `
   <div class="container">
     <div class="eyebrow">the grammar, found rather than imposed</div>
     <h2 class="t2" style="margin-top:var(--s-3)">Plate V was already drawn this way.</h2>
-    <div class="prose" style="max-width:70ch;margin-top:var(--s-5)">
+    <div class="prose" style="margin-top:var(--s-5)">
       <p>Its own caption reads <em>solid: a bound on every sky. dashed: a sky that exists.</em> One line is a statement about every brightness distribution consistent with ${fmt(P.counts.visibilities)} measurements; the other is a single distribution that was exhibited and checked. Those are different kinds of claim, and the plate distinguished them with a stroke because there was no other honest way to put both on one axis.</p>
       <p>That was drawn by hand, on that plate, before anything in this repository was called a grammar. It is the best evidence available that the distinction is real rather than a convention somebody invented: it got reached for under pressure, by someone trying to avoid lying on an axis.</p>
     </div>
     ${legend}
-    <div class="prose" style="max-width:70ch;margin-top:var(--s-5)">
+    <div class="prose" style="margin-top:var(--s-5)">
       <p><b>Standing is not confidence.</b> The dashed curve on Plate V is not less certain than the solid one — the witness is exhibited and checked, so it is as certain as anything on the page. It is a different <em>kind</em> of thing: one member, rather than a bound over all of them. The band between them is not error and not uncertainty in the statistical sense; it is the set of answers that survive.</p>
     </div>
   </div>

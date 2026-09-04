@@ -1280,7 +1280,7 @@
   </div></div>
 </div></section>
 
-<section class="method"><div class="wrap narrow">
+<section class="method"><div class="wrap">
   <div class="eyebrow">the method</div>
   <h2 style="margin-top:var(--s-4)">How the answers were taken, and what was decided</h2>
 
@@ -1336,6 +1336,36 @@ node playground/build.js</pre>
 }
 .pg-links a:hover { color: var(--ink-2); }
 
+/* ---- ONE MEASURE SCALE FOR THE WHOLE PLAYGROUND ---------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The audit found SEVEN container widths (1180, 1240, 1320, 1560,
+   1200) and EIGHT reading measures (56, 60, 62, 64, 66, 68, 70, 72, 74, 78ch)
+   across those nine pages, which is not a style, it is an accident.
+
+   So: three widths, declared once, used by everything.
+
+   AND THE READING MEASURE IS DELIBERATELY WIDER THAN THE REPORTS'. Those pages
+   are argument first and figure second, and 68ch is right for them. These are
+   figure first: the prose sits BESIDE and BENEATH components that run the full
+   container, and at 68ch it reads as a leftover column with dead space to its
+   right rather than as a column. A component is never put in the reading
+   measure — tables, plates, panels and grids take the container. */
+:root {
+  --pg-container: 1320px;   /* every page's normal column */
+  --pg-wide:      1560px;   /* figure sections that earn the extra width */
+  --pg-read:      82ch;     /* running prose, and nothing else */
+}
+.wrap, .container { max-width: var(--pg-container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container { max-width: var(--pg-wide); }
+/* THERE IS NO NARROW CONTAINER HERE, and that is the point. A narrow container
+   is centred, so a section using one steps inward from every other section on
+   the page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap.narrow, .container.narrow { max-width: var(--pg-container); }
+.lede, .prose, .prose > p, .why { max-width: var(--pg-read); }
+
 /* page.css — plates. A reading page with renders in it, not an instrument. */
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--ink-2);
@@ -1343,12 +1373,10 @@ body { margin: 0; background: var(--bg); color: var(--ink-2);
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
 .eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
-.wrap { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
-.narrow { max-width: 68ch; }
 
 .hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
-.hero h1 { font-size: clamp(2.1rem, 1rem + 4.2vw, 4rem); max-width: 20ch; margin-top: var(--s-4); }
-.hero .lede { margin-top: var(--s-6); max-width: 64ch; font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4.2vw, 4rem); max-width: 24ch; margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--pg-read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 .finding { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: var(--s-7) 0; }

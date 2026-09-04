@@ -124,12 +124,12 @@ r ≤ 28 µas   [0.4531, 0.7580] Jy   1.67×</pre>
   <div class="container">
     <div class="eyebrow">the grammar, found rather than imposed</div>
     <h2 class="t2" style="margin-top:var(--s-3)">Plate V was already drawn this way.</h2>
-    <div class="prose" style="max-width:70ch;margin-top:var(--s-5)">
+    <div class="prose" style="margin-top:var(--s-5)">
       <p>Its own caption reads <em>solid: a bound on every sky. dashed: a sky that exists.</em> One line is a statement about every brightness distribution consistent with 838 measurements; the other is a single distribution that was exhibited and checked. Those are different kinds of claim, and the plate distinguished them with a stroke because there was no other honest way to put both on one axis.</p>
       <p>That was drawn by hand, on that plate, before anything in this repository was called a grammar. It is the best evidence available that the distinction is real rather than a convention somebody invented: it got reached for under pressure, by someone trying to avoid lying on an axis.</p>
     </div>
     <div class="legend"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="7.68 5.28"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="0.96 5.04" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div>
-    <div class="prose" style="max-width:70ch;margin-top:var(--s-5)">
+    <div class="prose" style="margin-top:var(--s-5)">
       <p><b>Standing is not confidence.</b> The dashed curve on Plate V is not less certain than the solid one — the witness is exhibited and checked, so it is as certain as anything on the page. It is a different <em>kind</em> of thing: one member, rather than a bound over all of them. The band between them is not error and not uncertainty in the statistical sense; it is the set of answers that survive.</p>
     </div>
   </div>
@@ -219,6 +219,36 @@ brightness = mean weight, normalised per row</pre>
 }
 .pg-links a:hover { color: var(--ink-2); }
 
+/* ---- ONE MEASURE SCALE FOR THE WHOLE PLAYGROUND ---------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The audit found SEVEN container widths (1180, 1240, 1320, 1560,
+   1200) and EIGHT reading measures (56, 60, 62, 64, 66, 68, 70, 72, 74, 78ch)
+   across those nine pages, which is not a style, it is an accident.
+
+   So: three widths, declared once, used by everything.
+
+   AND THE READING MEASURE IS DELIBERATELY WIDER THAN THE REPORTS'. Those pages
+   are argument first and figure second, and 68ch is right for them. These are
+   figure first: the prose sits BESIDE and BENEATH components that run the full
+   container, and at 68ch it reads as a leftover column with dead space to its
+   right rather than as a column. A component is never put in the reading
+   measure — tables, plates, panels and grids take the container. */
+:root {
+  --pg-container: 1320px;   /* every page's normal column */
+  --pg-wide:      1560px;   /* figure sections that earn the extra width */
+  --pg-read:      82ch;     /* running prose, and nothing else */
+}
+.wrap, .container { max-width: var(--pg-container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container { max-width: var(--pg-wide); }
+/* THERE IS NO NARROW CONTAINER HERE, and that is the point. A narrow container
+   is centred, so a section using one steps inward from every other section on
+   the page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap.narrow, .container.narrow { max-width: var(--pg-container); }
+.lede, .prose, .prose > p, .why { max-width: var(--pg-read); }
+
 /* bench.css — the structural shim for every page crossed from the bench.
 
    Three pages here (plates, exact-geometry, affect) carry markup that came over
@@ -243,22 +273,24 @@ h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); l
 p { margin: 0; } a { color: inherit; }
 .reveal { opacity: 1; transform: none; }
 
-.container { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
-.container.narrow { max-width: 70ch; }
 .eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
 .hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(1.5rem, 4vh, 3rem); }
-h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); }
-.lede { max-width: 66ch; font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 24ch; text-wrap: balance; }
+.lede { max-width: var(--pg-read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
 .hero-meta .item { display: grid; gap: 3px; }
 .hero-meta .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--ink-5); }
 .hero-meta .v { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); }
 
-.section { padding: clamp(2rem, 5vh, 3.6rem) 0; }
-.section + .section { border-top: 1px solid var(--border); }
-h2.t2, h3.t2 { font-size: clamp(1.4rem, 1rem + 1.4vw, 2rem); }
-.prose { color: var(--ink-3); display: grid; gap: var(--s-4); }
+/* the section rhythm is the one our own pages use — same padding, same rule —
+   so that a reader moving between a page written here and a page crossed from
+   the bench cannot feel the seam. Before this the crossed pages were a third
+   tighter and drew a rule only BETWEEN sections. */
+.section { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
+.hero + .section, .section:first-of-type { border-top: 0; }
+h2.t2, h3.t2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); text-wrap: balance; }
+.prose { color: var(--ink-3); display: grid; gap: var(--s-4); max-width: var(--pg-read); }
 .prose h2 { margin-bottom: var(--s-2); }
 .prose em { color: var(--ink-2); font-style: italic; }
 
@@ -300,8 +332,8 @@ img { max-width: 100%; }
 .section th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
 .section code { font-family: var(--font-mono); font-size: 0.86em; color: var(--ink-2); }
 .section b, .section strong { color: var(--ink); font-weight: var(--weight-medium); }
-h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); }
-.wide .container { max-width: 1320px; }
+h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: 28ch; text-wrap: balance; }
+.wide .container { max-width: var(--pg-wide); }
 
 
 .plate { margin-top: var(--s-8); }

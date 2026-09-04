@@ -175,7 +175,7 @@
   <p class="why" style="margin-top:var(--s-7)"><b>This section is on the page because it is the failure mode with the best public relations.</b> Every ingredient of a convincing result is present — an exact ratio of two answers, a famous constant, agreement to one part in 10,945 — and it is worth nothing, which can be demonstrated in one line beside a matrix of random numbers. The tests above it survive that treatment. That is the only difference between them, and it is the whole page.</p>
 </div></section>
 
-<section class="sec"><div class="wrap narrow">
+<section class="sec"><div class="wrap">
   <div class="eyebrow">the method</div>
   <h2 style="margin-top:var(--s-3)">Screen in floats, decide in rationals</h2>
   <p class="why">The 2D pictures on these pages are a float shadow of something living in four to ten dimensions, so a pentagon spotted in a drawing may not be in the data at all. Every test here is a statement about the distance matrix, which arrived as whole numbers and halves: three points are collinear when the longest side equals the sum of the other two; four are concyclic exactly when Ptolemy's inequality is tight; a subset is a regular k-gon when its distances depend only on how far apart the two items sit around the ring.</p>
@@ -217,6 +217,36 @@ node playground/build.js</pre>
 }
 .pg-links a:hover { color: var(--ink-2); }
 
+/* ---- ONE MEASURE SCALE FOR THE WHOLE PLAYGROUND ---------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The audit found SEVEN container widths (1180, 1240, 1320, 1560,
+   1200) and EIGHT reading measures (56, 60, 62, 64, 66, 68, 70, 72, 74, 78ch)
+   across those nine pages, which is not a style, it is an accident.
+
+   So: three widths, declared once, used by everything.
+
+   AND THE READING MEASURE IS DELIBERATELY WIDER THAN THE REPORTS'. Those pages
+   are argument first and figure second, and 68ch is right for them. These are
+   figure first: the prose sits BESIDE and BENEATH components that run the full
+   container, and at 68ch it reads as a leftover column with dead space to its
+   right rather than as a column. A component is never put in the reading
+   measure — tables, plates, panels and grids take the container. */
+:root {
+  --pg-container: 1320px;   /* every page's normal column */
+  --pg-wide:      1560px;   /* figure sections that earn the extra width */
+  --pg-read:      82ch;     /* running prose, and nothing else */
+}
+.wrap, .container { max-width: var(--pg-container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container { max-width: var(--pg-wide); }
+/* THERE IS NO NARROW CONTAINER HERE, and that is the point. A narrow container
+   is centred, so a section using one steps inward from every other section on
+   the page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap.narrow, .container.narrow { max-width: var(--pg-container); }
+.lede, .prose, .prose > p, .why { max-width: var(--pg-read); }
+
 /* page.css — the shape hunt. A reading page whose figures are the argument. */
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--ink-2);
@@ -224,17 +254,15 @@ body { margin: 0; background: var(--bg); color: var(--ink-2);
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
 .eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
-.wrap { max-width: 1240px; margin: 0 auto; padding: 0 var(--gutter); }
-.narrow { max-width: 68ch; }
 
 .hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
-.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 18ch; margin-top: var(--s-4); }
-.hero .lede { margin-top: var(--s-6); max-width: 64ch; font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 24ch; margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--pg-read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 .sec { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
 .sec h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); margin-top: var(--s-3); }
-.sec .why { margin-top: var(--s-5); max-width: 70ch; color: var(--ink-3); }
+.sec .why { margin-top: var(--s-5); max-width: var(--pg-read); color: var(--ink-3); }
 .sec .why b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 .two { display: grid; gap: clamp(1.25rem, 3vw, 2.5rem); grid-template-columns: 1fr; margin-top: var(--s-7); }
@@ -260,7 +288,7 @@ svg.shape { display: block; width: 100%; height: auto; margin: var(--s-2) 0; ove
    scrolls inside its own box; the page body never scrolls sideways. */
 .wide-scroll {
   margin-top: var(--s-6);
-  width: min(1240px, calc(100vw - 2 * var(--gutter)));
+  width: min(var(--pg-wide), calc(100vw - 2 * var(--gutter)));
   position: relative; left: 50%; transform: translateX(-50%);
   overflow-x: auto; -webkit-overflow-scrolling: touch;
   border: 1px solid var(--border); border-radius: var(--radius-m);
@@ -335,6 +363,9 @@ svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s-6); o
 .cll.s0 { fill: var(--series-1, var(--ink)); stroke: none; }
 .cll.s1 { fill: var(--series-2, var(--ink-3)); stroke: none; }
 .cll.s2 { fill: var(--series-3, var(--ink-5)); stroke: none; }
+
+.sec .why, .sec ul.why, .sec p.note { max-width: var(--pg-read); }
+.sec table, .sec pre, .sec .grid3, .sec .two, .sec .three, .sec .words, .sec .cert { max-width: none; }
 </style>
 </body>
 </html>

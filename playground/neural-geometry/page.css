@@ -5,12 +5,10 @@ body { margin: 0; background: var(--bg); color: var(--ink-2);
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
 .eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
-.wrap { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
-.narrow { max-width: 68ch; }
 
 .hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
-.hero h1 { font-size: clamp(2.1rem, 1rem + 4.2vw, 4rem); max-width: 20ch; margin-top: var(--s-4); }
-.hero .lede { margin-top: var(--s-6); max-width: 64ch; font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4.2vw, 4rem); max-width: 24ch; margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--pg-read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 .finding { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: var(--s-7) 0; }

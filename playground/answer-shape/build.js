@@ -30,7 +30,7 @@ const calls = (G.subjects || []).reduce((a, s) => a + (s.items ? s.items.length 
 const head = `
 <header class="hero"><div class="container">
   <div class="eyebrow">playground · answer shape · ${G.subjects.length} subjects × ${G.models.length} models · $${spend.toFixed(2)}, already spent</div>
-  <h1 class="display" style="margin-top:var(--s-4);max-width:20ch;">The shape of an answer</h1>
+  <h1 class="display" style="margin-top:var(--s-4)">The shape of an answer</h1>
   <p class="lede" style="margin-top:var(--s-6);">Ask a model how different two things are, one pair at a time, and you get a table of numbers. A table of distances is a shape — or it is not one, and the difference is decidable. <b>Every pair is asked both ways round</b>, so the asymmetry is measured rather than averaged away, and the two halves of each pair come from calls that never see each other.</p>
   <div class="hero-meta">
     <span class="item"><span class="k">subjects</span><span class="v">${G.subjects.map((s) => s.id).join(' · ')}</span></span>

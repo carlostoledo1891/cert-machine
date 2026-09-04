@@ -5,17 +5,15 @@ body { margin: 0; background: var(--bg); color: var(--ink-2);
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
 .eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
-.wrap { max-width: 1240px; margin: 0 auto; padding: 0 var(--gutter); }
-.narrow { max-width: 68ch; }
 
 .hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
-.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 18ch; margin-top: var(--s-4); }
-.hero .lede { margin-top: var(--s-6); max-width: 64ch; font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 24ch; margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--pg-read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 .sec { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
 .sec h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); margin-top: var(--s-3); }
-.sec .why { margin-top: var(--s-5); max-width: 70ch; color: var(--ink-3); }
+.sec .why { margin-top: var(--s-5); max-width: var(--pg-read); color: var(--ink-3); }
 .sec .why b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 .two { display: grid; gap: clamp(1.25rem, 3vw, 2.5rem); grid-template-columns: 1fr; margin-top: var(--s-7); }
@@ -41,7 +39,7 @@ svg.shape { display: block; width: 100%; height: auto; margin: var(--s-2) 0; ove
    scrolls inside its own box; the page body never scrolls sideways. */
 .wide-scroll {
   margin-top: var(--s-6);
-  width: min(1240px, calc(100vw - 2 * var(--gutter)));
+  width: min(var(--pg-wide), calc(100vw - 2 * var(--gutter)));
   position: relative; left: 50%; transform: translateX(-50%);
   overflow-x: auto; -webkit-overflow-scrolling: touch;
   border: 1px solid var(--border); border-radius: var(--radius-m);
@@ -116,3 +114,6 @@ svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s-6); o
 .cll.s0 { fill: var(--series-1, var(--ink)); stroke: none; }
 .cll.s1 { fill: var(--series-2, var(--ink-3)); stroke: none; }
 .cll.s2 { fill: var(--series-3, var(--ink-5)); stroke: none; }
+
+.sec .why, .sec ul.why, .sec p.note { max-width: var(--pg-read); }
+.sec table, .sec pre, .sec .grid3, .sec .two, .sec .three, .sec .words, .sec .cert { max-width: none; }

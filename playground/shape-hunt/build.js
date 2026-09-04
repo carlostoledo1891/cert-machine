@@ -326,7 +326,7 @@ const body = `
   <p class="why" style="margin-top:var(--s-7)"><b>This section is on the page because it is the failure mode with the best public relations.</b> Every ingredient of a convincing result is present — an exact ratio of two answers, a famous constant, agreement to one part in ${fmt(Math.round(1 / phiOf(rtBest).err))} — and it is worth nothing, which can be demonstrated in one line beside a matrix of random numbers. The tests above it survive that treatment. That is the only difference between them, and it is the whole page.</p>
 </div></section>
 
-<section class="sec"><div class="wrap narrow">
+<section class="sec"><div class="wrap">
   <div class="eyebrow">the method</div>
   <h2 style="margin-top:var(--s-3)">Screen in floats, decide in rationals</h2>
   <p class="why">The 2D pictures on these pages are a float shadow of something living in four to ten dimensions, so a pentagon spotted in a drawing may not be in the data at all. Every test here is a statement about the distance matrix, which arrived as whole numbers and halves: three points are collinear when the longest side equals the sum of the other two; four are concyclic exactly when Ptolemy's inequality is tight; a subset is a regular k-gon when its distances depend only on how far apart the two items sit around the ring.</p>

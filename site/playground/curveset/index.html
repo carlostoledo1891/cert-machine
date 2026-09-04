@@ -119,7 +119,7 @@
   <p class="why" style="margin-top:var(--s-7)"><b>That pair is the point.</b> The method does not say everyone is overconfident. It says you can tell which case you are in, and by how much — and the two cases look identical until somebody computes the set. Both reports are competent, both are standard practice, and one of them is carried almost entirely by a choice of curve.</p>
 </div></section>
 
-<section class="sec"><div class="wrap narrow">
+<section class="sec"><div class="wrap">
   <div class="eyebrow">the mathematics, and why there is no optimiser</div>
   <h2 style="margin-top:var(--s-3)">The envelope is closed form</h2>
   <p class="why">A curve is admissible when it passes within the stated error of every standard and its slope stays in <code>[m, M]</code>. Every standard then bounds the curve from both sides through the slope limits, so the extreme admissible curves are a minimum and a maximum of straight lines:</p>
@@ -177,6 +177,36 @@ node playground/build.js</pre>
 }
 .pg-links a:hover { color: var(--ink-2); }
 
+/* ---- ONE MEASURE SCALE FOR THE WHOLE PLAYGROUND ---------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The audit found SEVEN container widths (1180, 1240, 1320, 1560,
+   1200) and EIGHT reading measures (56, 60, 62, 64, 66, 68, 70, 72, 74, 78ch)
+   across those nine pages, which is not a style, it is an accident.
+
+   So: three widths, declared once, used by everything.
+
+   AND THE READING MEASURE IS DELIBERATELY WIDER THAN THE REPORTS'. Those pages
+   are argument first and figure second, and 68ch is right for them. These are
+   figure first: the prose sits BESIDE and BENEATH components that run the full
+   container, and at 68ch it reads as a leftover column with dead space to its
+   right rather than as a column. A component is never put in the reading
+   measure — tables, plates, panels and grids take the container. */
+:root {
+  --pg-container: 1320px;   /* every page's normal column */
+  --pg-wide:      1560px;   /* figure sections that earn the extra width */
+  --pg-read:      82ch;     /* running prose, and nothing else */
+}
+.wrap, .container { max-width: var(--pg-container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container { max-width: var(--pg-wide); }
+/* THERE IS NO NARROW CONTAINER HERE, and that is the point. A narrow container
+   is centred, so a section using one steps inward from every other section on
+   the page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap.narrow, .container.narrow { max-width: var(--pg-container); }
+.lede, .prose, .prose > p, .why { max-width: var(--pg-read); }
+
 /* page.css — curveset. A reading page whose figures are the argument.
 
    THE GRAMMAR'S CLASSES LIVE HERE, not in each figure: `.w-decided`,
@@ -188,17 +218,15 @@ body { margin: 0; background: var(--bg); color: var(--ink-2);
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
 .eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
-.wrap { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
-.narrow { max-width: 68ch; }
 
 .hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(1.6rem, 4vh, 3rem); }
-.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 17ch; margin-top: var(--s-4); }
-.hero .lede { margin-top: var(--s-6); max-width: 64ch; font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 24ch; margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--pg-read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 .sec { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
 .sec h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); margin-top: var(--s-3); }
-.sec .why { margin-top: var(--s-5); max-width: 70ch; color: var(--ink-3); }
+.sec .why { margin-top: var(--s-5); max-width: var(--pg-read); color: var(--ink-3); }
 .sec .why b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 /* ---- the grammar, once ---------------------------------------------------- */
@@ -222,7 +250,7 @@ p { margin: 0; } a { color: inherit; }
 .panel .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s-3) var(--s-5); }
 .panel .head .t { font-size: var(--text-2); color: var(--ink); font-weight: var(--weight-medium); }
 .panel .head .s { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-5); }
-.panel .src { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); max-width: 78ch; line-height: 1.55; }
+.panel .src { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); max-width: var(--pg-read); line-height: 1.55; }
 svg.cs-plot { display: block; width: 100%; height: auto; margin-top: var(--s-4); overflow: visible; }
 
 .cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
@@ -277,6 +305,11 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
 .foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); }
 .foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
 .foot a { color: var(--ink-4); text-decoration: none; } .foot a:hover { color: var(--ink-2); }
+
+/* a section that holds a component runs the full container; the prose inside it
+   keeps the reading measure, so the two never fight over the same width */
+.sec .why, .sec ul.why, .sec p { max-width: var(--pg-read); }
+.sec table, .sec pre, .sec .panel, .sec .grid3, .sec .legend, .sec .cert { max-width: none; }
 </style>
 <script>
 const __M={};function require(n){if(!(n in __M))throw new Error('no module '+n);return __M[n];}
@@ -345,6 +378,15 @@ const meet = (...s) => s.reduce((a, b) => (b < a ? b : a), DECIDED);
 const throughFloat = (s) => meet(s, COMPUTED);
 const throughChoice = (s) => meet(s, CHOSEN);
 const refuse = () => REFUSED;
+
+/* THE CHANNEL RULE, found by porting four pages rather than by reasoning.
+   Stroke pattern carries STANDING whenever a figure holds marks of more than one
+   standing. In a figure whose marks all share a standing — three model answers
+   on one axis, say — the channel is free, and the figure must say what it is
+   carrying instead. The comparison plates on /playground/answer-shape use stroke
+   for model identity under exactly that licence, and a comparison plate that
+   later gains a decided reference line has to give the channel back.
+   See design/COMPONENTS.md, which is where this was written down first. */
 
 /* one stroke per standing. Dash patterns are ours; any consistent set obeying
    the redundancy rule conforms. A REFUSED mark has no stroke at all — asking
