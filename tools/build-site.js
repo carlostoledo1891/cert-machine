@@ -781,6 +781,91 @@ B.push(C.section({
     + '</div>'
 }));
 
+/* every figure in the section below is READ FROM A RECORD, not typed. This page
+   refuses to ship when a number drifts from the certificate underneath it, and
+   prose is not exempt from the reason that rule exists. */
+const rjq = (rel) => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8')); } catch (e) { return null; } };
+const CURVESET = (() => {
+  const P = rjq('playground/curveset/out/page.json');
+  if (!P) return null;
+  const s = P.sets.find(x => x.id === 'pontius');
+  const r = i => s.rungs[i].r && s.rungs[i].r.bounded ? s.rungs[i].r.width / (2 * s.reported.uFit) : null;
+  return { n: s.x.length, mono: r(0), dots: r(s.rungs.length - 1) };
+})();
+const IFMSWEEP = (() => {
+  const W = rjq('playground/interferometer/out/cp-sweep.json');
+  if (!W || !W.rows || !W.rows.length) return null;
+  return { worst: Math.max(...W.rows.map(r => r.ratio)), best: Math.min(...W.rows.map(r => r.ratio)), radii: W.rows.length };
+})();
+const SHAPES = (() => {
+  const S = rjq('playground/shape-hunt/out/shapes.json'), T = rjq('playground/shape-hunt/out/studies.json');
+  if (!S) return null;
+  const real = S.rows.filter(r => !r.synthetic);
+  const cm = T ? T.cm.rows.filter(r => !r.synthetic) : [];
+  return { cases: real.length, sym: real.filter(r => r.symmetry.beatsBoth).length,
+           collinear: real.filter(r => r.found.collinear.beats).length,
+           refuted: cm.filter(r => r.refuted).length };
+})();
+const FORCECERT = (() => {
+  const F = rjq('certs/erdos1038-forcing-1.828.json');
+  return F ? { boxes: F.summary.bBoxes, worst: F.summary.worstCertifiedMargin } : null;
+})();
+
+/* THE COMPLEMENT, and it is one section rather than a card wall on purpose.
+   This page argues that the machine decides things. The instruments argue that a
+   decided number still has to be legible, which is the same claim pointed at a
+   different audience — so it belongs here, once, after the certificates and
+   before the limits, and not scattered through the page. */
+B.push(C.section({
+  lab: 'the other half', title: 'A certificate settles a number. It does not make anyone look at it.',
+  bodyRaw: [
+    C.pRaw('<strong>Charts and graders both assert things, and neither distinguishes what the data forces from '
+      + 'what the renderer or the tolerance chose.</strong> Everything above is the grader half. '
+      + '<a href="/instruments/">The instruments</a> are the other one: nine of them, the same arithmetic, '
+      + 'none of the gates.'),
+    C.pRaw('They are not illustrations of the results above. The famous black-hole image is an <span class="m">argmax</span> '
+      + 'under a prior whose optimum is not unique — one sky chosen from the set the data still allow, and the set is '
+      + 'drawn. A published calibration line is one curve out of the set ' + (CURVESET ? CURVESET.n : 20) + ' NIST standards admit: assuming only that '
+      + 'the response is monotone, the honest interval is <strong>' + (CURVESET ? CURVESET.mono.toFixed(0) : '132') + '×</strong> '
+      + 'the reported ±; joining the dots it is <strong>' + (CURVESET ? CURVESET.dots.toFixed(1) : '1.0') + '×</strong>, '
+      + 'which says that precision was earned by the experiment and not by the model. And one '
+      + 'plate is a picture of this repository’s own lower-bound certificate, shaded so the bright seams are where the '
+      + 'argument nearly ran out.'),
+    C.pRaw('<strong>Every mark on those pages says what it is standing on.</strong> Solid where an exact decision backs '
+      + 'it, dashed where the arithmetic was not verified, dotted where something other than the data chose it, and no '
+      + 'mark at all where the instrument declined — stroke rather than colour, so it survives greyscale. One rule '
+      + 'composes them: a mark’s standing is the weakest standing on its path to the pixel. The consequence that does '
+      + 'the work is that an <span class="m">argmax</span> over a non-unique optimum yields <em>chosen</em>, not '
+      + '<em>decided</em>, which is the shape of every regularised inverse problem ever published.'),
+    C.cards([
+      { href: '/instruments/interferometer/', k: 'the black hole as a set',
+        title: 'Not the picture. The set of pictures.',
+        desc: 'The famous image is one sky chosen by an imaging prior from the infinitely many the data allow. This draws the set instead, and brackets how bright the source can be without any prior at all.',
+        n: IFMSWEEP ? (100 * (IFMSWEEP.worst - 1)).toFixed(0) + '% prior-free bracket' : 'prior-free bracket' },
+      { href: '/instruments/curveset/', k: 'the everyday version',
+        title: 'The line they published, and the lines that fit.',
+        desc: 'A calibration is run forwards and used backwards, and the backwards number always comes off a fitted curve. The fit is an assumption and it is never priced. This prices it, on a NIST load cell and a clinical assay.',
+        n: CURVESET ? CURVESET.mono.toFixed(0) + '\u00d7 the reported \u00b1' : 'the reported \u00b1' },
+      { href: '/instruments/shape-hunt/', k: 'and the page that debunks the others',
+        title: 'Nothing here is a perfect circle.',
+        desc: 'Sixteen million exact tests for hidden polygons in the geometries the pages next door report \u2014 then the identical search on the same numbers with the geometry shuffled out. Almost nothing survives that, and the count of what does is the headline.',
+        n: SHAPES ? SHAPES.collinear + ' of ' + SHAPES.cases + ' collinear triples' : 'nulls, matched' },
+      { href: '/instruments/plates/', k: 'a certificate, at its own resolution',
+        title: 'A proof has a shape.',
+        desc: 'Proving the lower bound above meant covering a rectangle with boxes and forcing an inequality inside each one. Brightness is how little room each box had, so the bright seams are where the argument nearly ran out.',
+        n: FORCECERT ? fmt(FORCECERT.boxes) + ' boxes drawn' : 'the covering, drawn' }
+    ]),
+    C.note({ lab: 'what is not claimed there', bodyRaw: C.pRaw('Nothing on those pages is <em>gated</em>: no number has '
+      + 'a certificate row this build checks, none of them can refuse a deploy, and <span class="m">make test</span> '
+      + 'does not cover them. That is a fact about ceremony rather than about the mathematics — two of the nine draw a '
+      + 'certificate straight from the shelf above, and five decide their headline number in exact integer or rational '
+      + 'arithmetic — so each page states which of the two it is claiming, beside the number rather than at the bottom. '
+      + 'The encoding itself is narrowed against real prior art and says so: uncertainty visualization, provenance '
+      + 'visualization, verifiable visualization, and the lineup protocol, which one of those pages reinvented before '
+      + 'it knew the name.') })
+  ].join('\n')
+}));
+
 B.push(C.section({
   lab: 'why you can trust this', title: 'One rule, and what it costs',
   bodyRaw: [
@@ -939,55 +1024,6 @@ B.push(C.section({
     + '<div class="col">' + C.pRaw('Code, corpus, and full provenance: <a href="' + GITHUB + '">'
       + C.esc(GITHUB.replace('https://', '')) + '</a> — MIT, no dependencies. Instruments lifted from a private '
       + 'source lab are hash-pinned in PROVENANCE.json; patches are declared so they can never be mistaken for drift.') + '</div>'
-}));
-
-/* the two calibration figures below are READ FROM THE RECORD, not typed. This
-   page refuses to ship when a number drifts from the certificate underneath it,
-   and prose is not exempt from the reason that rule exists. */
-const CURVESET = (() => {
-  try {
-    const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'playground/curveset/out/page.json'), 'utf8'));
-    const s = P.sets.find(x => x.id === 'pontius');
-    const r = i => s.rungs[i].r && s.rungs[i].r.bounded ? s.rungs[i].r.width / (2 * s.reported.uFit) : null;
-    return { n: s.x.length, mono: r(0), dots: r(s.rungs.length - 1) };
-  } catch (e) { return null; }
-})();
-
-/* THE COMPLEMENT, and it is one section rather than a card wall on purpose.
-   This page argues that the machine decides things. The instruments argue that a
-   decided number still has to be legible, which is the same claim pointed at a
-   different audience — so it belongs here, once, after the certificates and
-   before the limits, and not scattered through the page. */
-B.push(C.section({
-  lab: 'the other half', title: 'A certificate settles a number. It does not make anyone look at it.',
-  bodyRaw: [
-    C.pRaw('<strong>Charts and graders both assert things, and neither distinguishes what the data forces from '
-      + 'what the renderer or the tolerance chose.</strong> Everything above is the grader half. '
-      + '<a href="/instruments/">The instruments</a> are the other one: nine of them, the same arithmetic, '
-      + 'none of the gates.'),
-    C.pRaw('They are not illustrations of the results above. The famous black-hole image is an <span class="m">argmax</span> '
-      + 'under a prior whose optimum is not unique — one sky chosen from the set the data still allow, and the set is '
-      + 'drawn. A published calibration line is one curve out of the set ' + (CURVESET ? CURVESET.n : 20) + ' NIST standards admit: assuming only that '
-      + 'the response is monotone, the honest interval is <strong>' + (CURVESET ? CURVESET.mono.toFixed(0) : '132') + '×</strong> '
-      + 'the reported ±; joining the dots it is <strong>' + (CURVESET ? CURVESET.dots.toFixed(1) : '1.0') + '×</strong>, '
-      + 'which says that precision was earned by the experiment and not by the model. And one '
-      + 'plate is a picture of this repository’s own lower-bound certificate, shaded so the bright seams are where the '
-      + 'argument nearly ran out.'),
-    C.pRaw('<strong>Every mark on those pages says what it is standing on.</strong> Solid where an exact decision backs '
-      + 'it, dashed where the arithmetic was not verified, dotted where something other than the data chose it, and no '
-      + 'mark at all where the instrument declined — stroke rather than colour, so it survives greyscale. One rule '
-      + 'composes them: a mark’s standing is the weakest standing on its path to the pixel. The consequence that does '
-      + 'the work is that an <span class="m">argmax</span> over a non-unique optimum yields <em>chosen</em>, not '
-      + '<em>decided</em>, which is the shape of every regularised inverse problem ever published.'),
-    C.note({ lab: 'what is not claimed there', bodyRaw: C.pRaw('Nothing on those pages is <em>gated</em>: no number has '
-      + 'a certificate row this build checks, none of them can refuse a deploy, and <span class="m">make test</span> '
-      + 'does not cover them. That is a fact about ceremony rather than about the mathematics — two of the nine draw a '
-      + 'certificate straight from the shelf above, and five decide their headline number in exact integer or rational '
-      + 'arithmetic — so each page states which of the two it is claiming, beside the number rather than at the bottom. '
-      + 'The encoding itself is narrowed against real prior art and says so: uncertainty visualization, provenance '
-      + 'visualization, verifiable visualization, and the lineup protocol, which one of those pages reinvented before '
-      + 'it knew the name.') })
-  ].join('\n')
 }));
 
 B.push(C.section({

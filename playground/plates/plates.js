@@ -202,20 +202,32 @@ function plateSplitting() {
 function plateContraction() {
   const W = 980, H = 620, L = 80, R = W - 60, T = 70, B = H - 80;
   const cells = BAND.cells.filter(c => c.ok);
-  const rmax = Math.max(...cells.map(c => c.rMax));
-  const X = (r) => L + (Math.log10(Math.max(r, 1e-12)) - Math.log10(1e-12)) / (Math.log10(rmax) - Math.log10(1e-12)) * (R - L);
+  /* PATCH (declared in PROVENANCE.json). The axis used to run from 1e-12 to the
+     largest rMax, which is two decades past the last verified radius — so every
+     curve's zero crossing, which is the entire subject, was squeezed into a
+     hairline at the bottom while the right quarter of the plate held nothing but
+     the parabolas climbing out of range. The range is now set by the DECISIONS:
+     a decade below the smallest verified radius, four times above the largest. */
+  const rLo = Math.min(...cells.map(c => c.r)) / 10;
+  const rmax = Math.max(...cells.map(c => c.r)) * 4;
+  const lo10 = Math.log10(rLo), hi10 = Math.log10(rmax);
+  const X = (r) => L + (Math.log10(Math.min(Math.max(r, rLo), rmax)) - lo10) / (hi10 - lo10) * (R - L);
   const pAt = (c, r) => 0.5 * c.Z2 * r * r - (1 - c.Z1) * r + c.Y0;
-  let pmin = 0, pmax = 0;
-  for (const c of cells) for (let k = 0; k <= 60; k++) {
-    const r = Math.pow(10, -12 + (Math.log10(rmax) + 12) * (k / 60));
-    pmin = Math.min(pmin, pAt(c, r)); pmax = Math.max(pmax, pAt(c, r));
-  }
-  const Y = (p) => B - ((p - pmin) / (pmax - pmin)) * (B - T);
+  /* PATCH (declared): the vertical range used to be the parabolas' own extremes,
+     and those run four orders of magnitude below zero at the right-hand end — so
+     the whole subject, the crossings, was pressed into a hairline at the top
+     while the plate spent its height drawing curves diving out of frame. The
+     range is now SYMMETRIC ABOUT ZERO and scaled to the defect Y0, which is what
+     each curve has to be driven below. Curves that plunge past it are clipped at
+     the frame, and the footer says so rather than letting the clip pass as data. */
+  const yTop = Math.max(...cells.map((c) => c.Y0)) * 1.6;
+  const pmin = -yTop, pmax = yTop;
+  const Y = (p) => B - ((Math.min(Math.max(p, pmin), pmax) - pmin) / (pmax - pmin)) * (B - T);
   const parts = [`<line x1="${L}" y1="${Y(0).toFixed(1)}" x2="${R}" y2="${Y(0).toFixed(1)}" stroke="${ink(0.22)}" stroke-dasharray="3 4"/>`];
   cells.forEach((c, i) => {
     const d = [];
     for (let k = 0; k <= 120; k++) {
-      const r = Math.pow(10, -12 + (Math.log10(rmax) + 12) * (k / 120));
+      const r = Math.pow(10, lo10 + (hi10 - lo10) * (k / 120));
       d.push((k ? 'L' : 'M') + X(r).toFixed(1) + ' ' + Y(pAt(c, r)).toFixed(1));
     }
     parts.push(`<path d="${d.join(' ')}" fill="none" stroke="${ink(0.13 + 0.5 * (i / cells.length))}" stroke-width="0.8"/>`);
@@ -225,6 +237,7 @@ function plateContraction() {
   parts.push(txt(L, B + 30, 'radius r, log scale  →', 0.3));
   parts.push(txt(L, Y(0) - 8, 'p(r) = 0 — above this line nothing is proved', 0.35));
   parts.push(txt(R, B + 30, 'dots: the radius at which p(r) < 0 was verified in interval arithmetic', 0.42, 9, 'end'));
+  parts.push(txt(L, T - 10, 'vertical range is ±1.6 × the largest defect; curves that plunge further are clipped at the frame', 0.32, 8));
   return svg(W, H, parts.join(''));
 }
 
@@ -352,23 +365,42 @@ function plateProof() {
 /* -------------------------------------------------------------- PLATE VIII */
 /* The certificate's actual content: the forcing weights, as a texture. */
 function plateWeights() {
-  const rows = FORCE.boxes.length, cols = 61, SCALE = 2;
-  const W = cols * 14, H = rows * SCALE;
+  /* PATCH (declared in PROVENANCE.json). This drew all 61 teeth at 14px and 2px
+     a row, and the linear programme never reaches past the first handful — so
+     92% of the picture was black by construction and the rest was a 172px strip.
+     The plate now measures how many teeth are ever used, crops to those, and
+     says the count in its own footer, because "the programme used three of
+     sixty-one" is the finding rather than an excuse for the crop. */
+  const rows = FORCE.boxes.length;
+  const ROWSUM = FORCE.boxes.map((A) => {
+    const acc = new Float64Array(61); let cnt = 0;
+    for (const b of A.bboxes) { for (let i = 0; i < Math.min(61, b.w.length); i++) acc[i] += b.w[i]; cnt++; }
+    let mx = 0; for (let i = 0; i < 61; i++) { acc[i] /= (cnt || 1); mx = Math.max(mx, acc[i]); }
+    return { acc, mx, used: acc.reduce((n, v) => n + (v > 1e-9 * mx ? 1 : 0), 0) };
+  });
+  const lastLit = Math.max(...ROWSUM.map((r) => {
+    let last = 0; for (let i = 0; i < 61; i++) if (r.mx > 0 && r.acc[i] / r.mx > 0.005) last = i;
+    return last;
+  }));
+  const cols = Math.min(61, lastLit + 2);
+  const CELL = Math.max(14, Math.round(840 / cols)), SCALE = 6;
+  const W = cols * CELL, H = rows * SCALE;
   const rgb = new Float64Array(W * H * 3).fill(0.03);
-  FORCE.boxes.forEach((A, r) => {
-    const acc = new Float64Array(cols); let cnt = 0;
-    for (const b of A.bboxes) { for (let i = 0; i < Math.min(cols, b.w.length); i++) acc[i] += b.w[i]; cnt++; }
-    let mx = 0; for (let i = 0; i < cols; i++) { acc[i] /= (cnt || 1); mx = Math.max(mx, acc[i]); }
+  ROWSUM.forEach((row, r) => {
     for (let c = 0; c < cols; c++) {
-      const g = mx > 0 ? 0.03 + 0.95 * Math.pow(acc[c] / mx, 0.42) : 0.03;
-      for (let dy = 0; dy < SCALE; dy++) for (let dx = 0; dx < 14; dx++) {
-        const x = c * 14 + dx, y = r * SCALE + dy;
+      const g = row.mx > 0 ? 0.03 + 0.95 * Math.pow(row.acc[c] / row.mx, 0.42) : 0.03;
+      for (let dy = 0; dy < SCALE; dy++) for (let dx = 0; dx < CELL; dx++) {
+        const x = c * CELL + dx, y = r * SCALE + dy;
         if (x < W && y < H) { const o = (y * W + x) * 3; rgb[o] = rgb[o + 1] = rgb[o + 2] = g; }
       }
     }
   });
+  const used = ROWSUM.map((r) => r.used);
+  used.sort((a, b) => a - b);
   return framed(dataURI(W, H, rgb), 900, Math.round(900 * H / W), 'PLATE VIII',
-    `${rows} rows, one per a-box, top to bottom. ${cols} columns, one per tooth. brightness is the mean forcing weight the linear programme put there.`);
+    `${rows} rows, one per a-box, top to bottom. 61 teeth were available and the programme never used more than `
+    + `${used[used.length - 1]}, usually ${used[Math.floor(used.length / 2)]} — so the plate is cropped to the first ${cols} `
+    + `and the rest would be black by construction. brightness is the mean forcing weight, normalised per row.`);
 }
 
 const CSS = `
