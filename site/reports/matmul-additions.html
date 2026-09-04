@@ -63,6 +63,7 @@
   --c-s3:#8b8b97;
   --c-s4:#a9a9b4;
   --c-s5:#f6f6f8;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
   --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
   --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
   --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -199,6 +200,22 @@ section{margin:clamp(5rem,12vh,9rem) 0 0}
 .stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
 .stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
 
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:999px;padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
 .scope{margin:24px auto 0;max-width:68ch;border-left:2px solid var(--rule-strong);padding-left:18px;
   color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
 
@@ -223,7 +240,7 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 .cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
   background:var(--surface);border:1px solid var(--rule-strong);border-radius:6px;
   padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
-  color:var(--ink);box-shadow:0 8px 28px rgba(0,0,0,.55);max-width:280px}
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
 .cm-tip span{display:block;color:var(--ink-3)}
 .figbox [data-cm]{cursor:crosshair}
@@ -435,7 +452,7 @@ footer a:hover{color:var(--ink)}
 ::-webkit-scrollbar-track{background:transparent}
 </style>
 
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/playground/">Playground</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/instruments/">Instruments</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
@@ -482,7 +499,7 @@ footer a:hover{color:var(--ink)}
 <p>No new mathematics. We found no error, no miscount and no counterexample — the certificate held everywhere we attacked it, and a page that could only ever have agreed would not have been worth writing, which is why the 8 red controls are listed above and all of them fire. Three limits, stated rather than buried. We verified the certificate the authors published, not the search that produced it, and not their claim of local optimality — proving that no 13-gate circuit exists for that map is a different computation and this instrument does not do it. We take Laderman's rank 23 and the source tensor as given. And 55 is an upper bound on a quantity whose true minimum nobody knows. Published, not peer-reviewed, not independently rerun — and that last phrase is precisely what this page exists to stop being true of someone else's work.</p>
 </div>
 
-<footer class="col"><p>Generated by tools/build-report-add55.js @ git 2b9ef4e. Gates at this build: the slp battery (16 checks, 8 red controls, all fired), the audited bytes matched against sha256 91c36b1165a71d4b…, and the full audit re-run — 729 Brent equations and all 55 gates re-evaluated here. A refuted node would refuse this page.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-add55.js @ git 6492c97. Gates at this build: the slp battery (16 checks, 8 red controls, all fired), the audited bytes matched against sha256 91c36b1165a71d4b…, and the full audit re-run — 729 Brent equations and all 55 gates re-evaluated here. A refuted node would refuse this page.</p></footer>
 
 </div>
 </html>

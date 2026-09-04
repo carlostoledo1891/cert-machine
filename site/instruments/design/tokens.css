@@ -1,8 +1,14 @@
-/* tokens.css — frontier design tokens · v1 · 2026-08-31
-   Dark-first, grayscale-only (accent hues reserved for a future version).
-   Two typefaces: Inter (sans, variable) and JetBrains Mono (mono, variable).
-   Chart categorical grays validated 2026-08-31 (CVD ΔE 19.6, all ≥3:1 on chart
-   surface); identity is never color-alone — direct labels + legend always. */
+/* tokens.css — GENERATED from design/tokens.js. Do not edit.
+   Every value here is emitted from that file; the frontier names below and
+   the house names the reports use are two spellings of ONE palette, mapped
+   in its FRONTIER table. Editing this file changes nothing: the next
+   `make playground` overwrites it. Change design/tokens.js.
+
+   Dark-first, grayscale-only. Identity is never colour-alone — the chart
+   series are three greys, so the legend rule, the direct labels and the
+   stroke pattern are what separate them. design/battery.js re-derives the
+   contrast and CVD facts at every run, because a measurement that is not
+   re-run is a memory. */
 
 @font-face {
   font-family: 'Inter var';
@@ -21,80 +27,68 @@
 
 :root {
   color-scheme: dark;
-
-  /* ---- surfaces (darkest → lightest) ---- */
-  --bg:            #0a0a0c;   /* page ground */
-  --bg-raised:     #101014;   /* charts, panels */
-  --surface:       #141419;   /* cards */
-  --surface-2:     #1a1a20;   /* hover / nested */
-  --border:        #232329;   /* hairlines */
-  --border-strong: #32323c;   /* emphasized hairlines, hover borders */
-
-  /* ---- ink (brightest → dimmest) ---- */
-  --ink:        #f6f6f8;      /* headlines, primary values */
-  --ink-2:      #c9c9d2;      /* body */
-  --ink-3:      #9a9aa6;      /* secondary, axis labels */
-  --ink-4:      #6e6e7a;      /* muted, eyebrows at rest */
-  --ink-5:      #4a4a55;      /* disabled, watermark numerals */
-
-  /* ---- chart palette (validated; fixed order, never cycled) ---- */
+  --bg: #0a0a0c;
+  --bg-raised: #101014;
+  --surface: #141419;
+  --surface-2: #1a1a20;
+  --border: #232329;
+  --border-strong: #32323c;
+  --ink: #f6f6f8;
+  --ink-2: #c9c9d2;
+  --ink-3: #9a9aa6;
+  --ink-4: #6e6e7a;
+  --ink-5: #4a4a55;
   --series-1: #f6f6f8;
   --series-2: #a9a9b4;
   --series-3: #6e6e7a;
-  --chart-grid:   #1c1c22;    /* split lines — recessive */
-  --chart-axis:   #2a2a32;
-  --band-fill:    rgba(246, 246, 248, 0.07);  /* interval bands, area fills */
-
-  /* ---- verdict styles (grayscale: weight + shape, never color-alone) ---- */
-  --verdict-certified-bg:  #f6f6f8;  /* filled chip, dark text */
+  --chart-grid: #1c1c22;
+  --chart-axis: #2a2a32;
+  --band-fill: rgba(246,246,248,0.07);
+  --verdict-certified-bg: #f6f6f8;
   --verdict-certified-ink: #0a0a0c;
-  --verdict-refuted-ink:   #f6f6f8;  /* outlined chip */
-  --verdict-refused-ink:   #9a9aa6;  /* dim, dashed border */
-
-  /* ---- typography ---- */
-  --font-sans: 'Inter var', 'Inter', -apple-system, 'Helvetica Neue', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono var', 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
-
-  --text-display: clamp(2.75rem, 1.2rem + 6vw, 5.5rem);   /* hero */
-  --text-1: clamp(1.9rem, 1.2rem + 2.4vw, 3rem);          /* section titles */
-  --text-2: clamp(1.35rem, 1.1rem + 1vw, 1.75rem);        /* card titles */
-  --text-3: 1.125rem;                                     /* lede */
+  --verdict-refuted-ink: #f6f6f8;
+  --verdict-refused-ink: #9a9aa6;
+  --font-sans: 'Inter var',"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --font-mono: 'JetBrains Mono var',"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --text-display: clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1: clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2: clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3: 1.125rem;
   --text-body: 0.9375rem;
   --text-small: 0.8125rem;
-  --text-mono: 0.8125rem;                                 /* data, tables */
+  --text-mono: 0.8125rem;
   --text-eyebrow: 0.6875rem;
-
   --leading-tight: 1.04;
   --leading-snug: 1.25;
   --leading-body: 1.65;
-
   --track-display: -0.035em;
   --track-title: -0.02em;
   --track-eyebrow: 0.16em;
-
   --weight-display: 550;
   --weight-title: 530;
   --weight-medium: 480;
   --weight-body: 400;
-
-  /* ---- space (4px base) ---- */
-  --s-1: 0.25rem;  --s-2: 0.5rem;  --s-3: 0.75rem; --s-4: 1rem;
-  --s-5: 1.5rem;   --s-6: 2rem;    --s-7: 3rem;    --s-8: 4rem;
-  --s-9: 6rem;     --s-10: 8rem;
-  --section-pad: clamp(5rem, 12vh, 9rem);
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --s-10: 8rem;
+  --section-pad: clamp(5rem,12vh,9rem);
   --container: 1200px;
   --container-narrow: 820px;
-  --gutter: clamp(1.25rem, 4vw, 3rem);
-
-  /* ---- shape ---- */
+  --gutter: clamp(1.25rem,4vw,3rem);
   --radius-s: 6px;
   --radius-m: 10px;
   --radius-l: 16px;
   --radius-pill: 999px;
-
-  /* ---- motion ---- */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-fast: 160ms;
   --dur-med: 280ms;
   --dur-slow: 520ms;
+  --shadow: 0 8px 28px rgba(0,0,0,.55);
 }

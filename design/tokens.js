@@ -35,19 +35,16 @@
 'use strict';
 
 /* ---------------------------------------------------------------- palette --
-   Frontier's values under the house names. Mapping recorded pair by pair so
-   the correspondence is checkable against frontier's tokens.css:
-     --paper   = --bg            --surface = --surface (cards)
-     --sunk    = --bg-raised     --surface2= --surface-2 (hover/nested)
-     --ink..3  = --ink..3        --ink-4/5 = --ink-4/5 (new, frontier)
-     --rule    = --border        --rule-strong = --border-strong
-     --rule-soft = --chart-grid  (recessive internal hairlines)
-     --sig     = --ink (links/eyebrows carry ink, not a hue)
-     --sig-2   = --ink-4 (the link underline at rest)
-     --sig-soft= --surface-2 (washes)
-     --held    = --ink   / --held-soft = --surface-2   (certified: WEIGHT)
-     --warn    = --ink-3 / --warn-soft = --surface     (open: DIMNESS)
-     --mark    = --border-strong (inert figure marks)                       */
+   Frontier's values under the house names. The correspondence used to be
+   written out here as a comment, pair by pair — the hand-copied relation
+   DESIGN.md warns about. It is the FRONTIER table further down now, it is
+   executable, and site/instruments/design/tokens.css is generated from it, so the
+   two name sets cannot disagree. The pairs it does NOT carry, because only the
+   report side has names for them, are the ones below: --sig/--sig-2/--sig-soft
+   (links and washes carry ink, not a hue), --held/--held-soft (the certified
+   voice: BRIGHT, weight not hue), --warn/--warn-soft (the open voice: DIM),
+   and --mark (inert marks in figures). Those are the voice tokens, and phase 4
+   is where they meet warrant.js's four standings.                          */
 const DARKONLY = {
   '--paper':        '#0a0a0c',   /* page ground            (frontier --bg) */
   '--surface':      '#141419',   /* cards                  (--surface)     */
@@ -136,6 +133,56 @@ const SCALE = {
    figures and tables get the wide track. */
 const MEASURE = { prose: '68ch', wide: '900px', page: '1200px', narrow: '820px' };
 
+/* The one drop shadow. It was written three times — a literal in template.js,
+   a --shadow token in app-shell.js's light block and another in its dark
+   block — so it is data here and every one of them derives it. */
+const SHADOW = '0 8px 28px rgba(0,0,0,.55)';
+
+/* ------------------------------------------- the rest of the scale, once ---
+   Rhythm, shape and motion were declared ONLY in the instruments stylesheet
+   and therefore governed only /instruments; the report side had no names for
+   any of them and hand-wrote every value. They live here now because the
+   generated instruments stylesheet is emitted from this file (2026-09-04,
+   phase 1 of the one-seed pass) and because a component shared by both sides
+   cannot be written while half the scale exists on one side only. */
+const RHYTHM = {
+  leading: { tight: '1.04', snug: '1.25', body: '1.65' },
+  track:   { display: '-0.035em', title: '-0.02em', eyebrow: '0.16em' },
+  weight:  { display: '550', title: '530', medium: '480', body: '400' },
+};
+/* 4px base. The names are the steps, not the pixels, so a step can be retuned
+   in one place without a search for "1.5rem". */
+const SPACE = { 1: '0.25rem', 2: '0.5rem', 3: '0.75rem', 4: '1rem', 5: '1.5rem',
+  6: '2rem', 7: '3rem', 8: '4rem', 9: '6rem', 10: '8rem' };
+const SHAPE = { s: '6px', m: '10px', l: '16px', pill: '999px' };
+const MOTION = { ease: 'cubic-bezier(0.22, 1, 0.36, 1)', fast: '160ms', med: '280ms', slow: '520ms' };
+
+/* ------------------------------------------ the instruments' name table ---
+   /instruments carries frontier's ORIGINAL token names (--bg, --border,
+   --series-1) and the reports carry the house names (--paper, --rule, --c-1)
+   for the same values. That correspondence used to live in a COMMENT at the
+   top of this file — "the hand-copied relation that goes stale the first time
+   a colour changes", which is the exact thing DESIGN.md warns about. It is a
+   table now, and the instruments stylesheet is GENERATED from it, so the two
+   name sets cannot drift: there is one value and two ways to say it.
+
+   The audit that forced this (2026-09-04): 15 of the 16 mapped pairs were
+   already byte-identical and the 16th differed only in the whitespace inside
+   an rgba(). Nothing was wrong yet. Nothing was stopping it, either.
+
+   The four verdict-chip colours are aliases too — every one of them is a
+   palette value under another name, so the chip introduces no colour.       */
+const FRONTIER = {
+  '--bg': '--paper', '--bg-raised': '--sunk', '--surface': '--surface',
+  '--surface-2': '--surface2', '--border': '--rule', '--border-strong': '--rule-strong',
+  '--ink': '--ink', '--ink-2': '--ink-2', '--ink-3': '--ink-3',
+  '--ink-4': '--ink-4', '--ink-5': '--ink-5',
+  '--series-1': '--c-1', '--series-2': '--c-2', '--series-3': '--c-3',
+  '--chart-grid': '--c-grid', '--chart-axis': '--c-axis', '--band-fill': '--band-fill',
+  '--verdict-certified-bg': '--ink', '--verdict-certified-ink': '--paper',
+  '--verdict-refuted-ink': '--ink', '--verdict-refused-ink': '--ink-3',
+};
+
 /* ------------------------------------------------------------- emitters --- */
 
 function block(vars, indent) {
@@ -161,6 +208,7 @@ function rootCss() {
     ':root{',
     '  color-scheme:dark;',
     block(DARKONLY),
+    '  --shadow:' + SHADOW + ';',
     fontBlock(),
     '}'
   ].join('\n');
@@ -186,7 +234,74 @@ const CHART = {
   CTX: 'var(--c-ctx)', GRID: 'var(--c-grid)', AXIS: 'var(--c-axis)', SURFACE: 'var(--sunk)'
 };
 
+/* -------------------------------------------- the instruments stylesheet --
+   playground/design/tokens.css USED TO BE A HAND-WRITTEN SECOND COPY of the
+   palette under frontier's names. It is generated from the table above now, so
+   the file on disk is an artifact: playground/build.js writes it into
+   site/instruments/design/ at build time and there is no source copy to drift.
+
+   Two things here are genuinely the instruments' own and not the reports':
+   the VENDORED variable fonts (the pages ship woff2 beside themselves rather
+   than asking Google, so a plate renders identically offline), and the local
+   @font-face blocks that declare them. The FALLBACK STACK behind them is
+   TYPE's, not a restatement — which is the one visible change this generation
+   makes: the pre-webfont fallback order is now the same on both sides of the
+   site instead of two orderings nobody chose.                               */
+const VENDORED = { sans: "'Inter var'", mono: "'JetBrains Mono var'" };
+
+function instrumentsCss() {
+  const v = {};
+  for (const [frontier, house] of Object.entries(FRONTIER)) {
+    if (DARKONLY[house] === undefined) throw new Error('FRONTIER maps ' + frontier + ' to ' + house + ', which is not a palette name');
+    v[frontier] = DARKONLY[house];
+  }
+  Object.assign(v, {
+    '--font-sans': VENDORED.sans + ',' + TYPE.body,
+    '--font-mono': VENDORED.mono + ',' + TYPE.mono,
+    '--text-display': SCALE.h1, '--text-1': SCALE.h2, '--text-2': SCALE.h3,
+    '--text-3': SCALE.deck, '--text-body': SCALE.body, '--text-small': SCALE.small,
+    '--text-mono': SCALE.small, '--text-eyebrow': SCALE.eyebrow,
+    '--leading-tight': RHYTHM.leading.tight, '--leading-snug': RHYTHM.leading.snug,
+    '--leading-body': RHYTHM.leading.body,
+    '--track-display': RHYTHM.track.display, '--track-title': RHYTHM.track.title,
+    '--track-eyebrow': RHYTHM.track.eyebrow,
+    '--weight-display': RHYTHM.weight.display, '--weight-title': RHYTHM.weight.title,
+    '--weight-medium': RHYTHM.weight.medium, '--weight-body': RHYTHM.weight.body,
+  });
+  for (const [k, val] of Object.entries(SPACE)) v['--s-' + k] = val;
+  v['--section-pad'] = SCALE.section;
+  v['--container'] = MEASURE.page;
+  v['--container-narrow'] = MEASURE.narrow;
+  v['--gutter'] = SCALE.pagePadX;
+  for (const [k, val] of Object.entries(SHAPE)) v['--radius-' + k] = val;
+  v['--ease-out'] = MOTION.ease;
+  v['--dur-fast'] = MOTION.fast; v['--dur-med'] = MOTION.med; v['--dur-slow'] = MOTION.slow;
+  v['--shadow'] = SHADOW;
+
+  const face = (family, file, wRange) =>
+    `@font-face {\n  font-family: ${family};\n  src: url('../assets/fonts/${file}') format('woff2');\n`
+    + `  font-weight: ${wRange};\n  font-style: normal;\n  font-display: swap;\n}`;
+
+  return ['/* tokens.css — GENERATED from design/tokens.js. Do not edit.',
+    '   Every value here is emitted from that file; the frontier names below and',
+    '   the house names the reports use are two spellings of ONE palette, mapped',
+    '   in its FRONTIER table. Editing this file changes nothing: the next',
+    '   `make playground` overwrites it. Change design/tokens.js.',
+    '',
+    '   Dark-first, grayscale-only. Identity is never colour-alone — the chart',
+    '   series are three greys, so the legend rule, the direct labels and the',
+    '   stroke pattern are what separate them. design/battery.js re-derives the',
+    '   contrast and CVD facts at every run, because a measurement that is not',
+    '   re-run is a memory. */',
+    '', face(VENDORED.sans, 'inter-var.woff2', '100 900'),
+    face(VENDORED.mono, 'jetbrains-mono-var.woff2', '100 800'),
+    '', ':root {', '  color-scheme: dark;',
+    Object.entries(v).map(([k, val]) => '  ' + k + ': ' + val + ';').join('\n'),
+    '}', ''].join('\n');
+}
+
 /* Kept exports: LIGHT/DARK aliases point at the one palette so any consumer
    still importing them keeps working while it migrates. */
 module.exports = { LIGHT: DARKONLY, DARK: DARKONLY, DARKONLY, TYPE, GOOGLE_FONTS,
-  SCALE, MEASURE, FIGURE_TOKENS, CHART, rootCss, fontBlock };
+  SCALE, MEASURE, SHADOW, RHYTHM, SPACE, SHAPE, MOTION, FRONTIER, VENDORED,
+  FIGURE_TOKENS, CHART, rootCss, fontBlock, instrumentsCss };

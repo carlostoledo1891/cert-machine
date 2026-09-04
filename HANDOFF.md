@@ -30,13 +30,14 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
 THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
 
-  ══ SESSION OF 2026-09-04 (THIRD): THE DESIGN REVIEW, AND PHASE 0 OF ITS FIX.
+  ══ SESSION OF 2026-09-04 (THIRD): THE DESIGN REVIEW, AND PHASES 0 AND 1.
      $0.00 spent, 57/57 batteries green. The operator sent screenshots of
      sliced tables and paragraphs that do not share a left edge with the figure
      under them and asked whether the whole site could sit on ONE seed. It was
      measured rather than argued: tools/check-measure.js drives headless Chrome
      over all 66 built pages at 1440 and 390 and records four geometric facts
-     per page. THE RULER IS BUILT AND GATED; NOTHING HAS BEEN RESTYLED YET. ══
+     per page. THE RULER IS BUILT AND GATED, THE PALETTE HAS ONE SOURCE, AND
+     ALL 528 GEOMETRY NUMBERS ARE UNCHANGED — nothing has been restyled. ══
 
   WHAT THE MEASUREMENT FOUND (the evidence behind phases 1-4 below):
 
@@ -97,12 +98,52 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
     2 exists to catch, sitting just outside its battery-name pattern. The check
     is now over every tools/check-*.js gate, found on disk, with a red control.
 
-  THE PLAN FOR PHASES 1-4 (agreed with the operator; nothing started):
+  PHASE 1 SHIPPED — ONE TOKEN SOURCE:
 
-  · PHASE 1 — ONE TOKEN SOURCE. Generate playground/design/tokens.css from
-    design/tokens.js; add a check-wiring check that no built page declares a
-    colour or a max-width outside the generated :root, shaped like the existing
-    font-stack check. The 15/16 identity means this is a rename, not a restyle.
+  · design/tokens.js IS the palette now, and site/instruments/design/tokens.css
+    is GENERATED from it by playground/build.js. The hand-written source copy is
+    DELETED — there is no second file to drift. The correspondence between the
+    two name sets (frontier's --bg/--border/--series-1 on /instruments, the
+    house --paper/--rule/--c-1 on the reports) was a COMMENT at the top of
+    tokens.js, pair by pair, which is the hand-copied relation DESIGN.md warns
+    about; it is the executable FRONTIER table now and the CSS is emitted from
+    it. Rhythm, space, shape and motion — declared only on the instruments side
+    and hand-written on the report side — moved into tokens.js as RHYTHM /
+    SPACE / SHAPE / MOTION.
+  · PROOF IT WAS A RENAME AND NOT A RESTYLE: 61 of 64 emitted names are
+    byte-identical to the hand-written file. The three that are not are the two
+    font stacks, whose FALLBACK order now comes from TYPE instead of being
+    restated (both webfont families unchanged and still first), and --shadow,
+    which is new. And the layout gate held all 528 geometry numbers across a
+    full rebuild of reports, site and instruments.
+  · THE GATE: check-wiring check 5 — NO BUILT PAGE PAINTS WITH A COLOUR NO
+    TOKEN NAMES, over 62 pages, with three red controls. ALPHA IS FREE and that
+    is the design: /instruments/plates paints 4,051 marks as rgba(246,246,248,a)
+    across hundreds of opacities and every one of them is --ink, so the check is
+    on the RGB. Demanding a named token per opacity step would be a gate
+    refusing a direction, which CLAUDE.md says to delete.
+  · WHAT IT CAUGHT, and it is the reason the check exists: /instruments/affect
+    and /instruments/answer-shape were painting labels #8e8e9a, #5a5a66 and
+    #1a1a1f — ONE AND TWO HEX DIGITS off --ink-3, --ink-4 and --surface-2, which
+    is exactly why nobody saw them. One was reached through
+    `var(--ink-6, #5a5a66)`, a fallback to a token this repository has never
+    declared, so the literal won every time. The gathering page washed with
+    WHITE where the palette's ink is #f6f6f8. All fixed at source.
+  · --shadow is a token on both sides now: template.js had the literal,
+    app-shell.js had two more. NOT UNIFIED: app-shell still carries a LIGHT
+    palette and the three-state media-query machinery that tokens.js retired.
+    That is a whole-theme decision, not a token one, and it is left standing.
+  · SMELL FOUND, NOT FIXED: certs/erdos1038-inf.json embeds `builtAt`
+    timestamps, so its sha256 changes on EVERY build and every pin to it churns
+    (envs-record.json followed it this run). A content pin that is not
+    content-stable. Pre-existing, out of this pass's scope, worth a look.
+  · `make reports` rebuilt 49 pages, which also picked up template changes
+    pending since git 2b9ef4e (the disclosure-fold styles). Every record diff
+    was a timestamp, a git stamp or a wall-clock ms. NO CERTIFIED NUMBER MOVED,
+    which is the sequencing rule holding.
+
+  THE PLAN FOR PHASES 2-4 (agreed with the operator; nothing started):
+
   · PHASE 2 — ONE LAYOUT CONTRACT. LAYOUT = { container, read } in tokens.js.
     ONE container, TWO tracks (`read`: prose capped in ch, LEFT-ALIGNED, never
     centred; `full`: the container width). Retire MEASURE.wide, MEASURE.narrow,

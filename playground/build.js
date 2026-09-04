@@ -287,8 +287,11 @@ fs.writeFileSync(path.join(OUT, 'index.html'), html);
 /* the design assets the browser needs, copied rather than linked out of the
    repository: /instruments owns its look and cannot be restyled from elsewhere */
 const copy = (from, to) => { fs.mkdirSync(path.dirname(to), { recursive: true }); fs.copyFileSync(from, to); };
-for (const f of ['tokens.css', 'base.css'])
-  copy(path.join(HERE, 'design', f), path.join(OUT, 'design', f));
+/* tokens.css is GENERATED from design/tokens.js — there is no source copy
+   to drift from the palette. base.css is still a file (phase 2 retires it). */
+fs.mkdirSync(path.join(OUT, 'design'), { recursive: true });
+fs.writeFileSync(path.join(OUT, 'design', 'tokens.css'), require(path.join(ROOT, 'design', 'tokens.js')).instrumentsCss());
+copy(path.join(HERE, 'design', 'base.css'), path.join(OUT, 'design', 'base.css'));
 for (const f of ['inter-var.woff2', 'jetbrains-mono-var.woff2'])
   copy(path.join(HERE, 'assets', 'fonts', f), path.join(OUT, 'assets', 'fonts', f));
 

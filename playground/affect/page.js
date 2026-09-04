@@ -46,10 +46,10 @@ svg.pl .mst { fill:none; stroke:#f6f6f8; stroke-opacity:.55; stroke-width:1.2; }
 svg.pl .pt { fill:#0a0a0c; stroke:#f6f6f8; stroke-width:1.2; }
 svg.pl .pt.first { fill:#f6f6f8; }
 svg.pl .ptb { fill:#f6f6f8; }
-svg.pl .lb { fill:#8e8e9a; font-family:var(--font-mono); font-size:8.5px; }
+svg.pl .lb { fill:var(--ink-3); font-family:var(--font-mono); font-size:8.5px; }
 svg.pl .lb.first { fill:#f6f6f8; }
 svg.pl .ax line { stroke:#f6f6f8; stroke-opacity:.13; }
-svg.pl .ax text { fill:#5a5a66; font-family:var(--font-mono); font-size:7.5px; letter-spacing:.08em; }
+svg.pl .ax text { fill:var(--ink-4); font-family:var(--font-mono); font-size:7.5px; letter-spacing:.08em; }
 svg.pl .tie { stroke:#f6f6f8; stroke-opacity:.42; stroke-width:1; }
 svg.pl .ghost { fill:none; stroke:#f6f6f8; stroke-opacity:.22; stroke-width:1; }
 svg.pl .arr { stroke:#f6f6f8; stroke-opacity:.8; stroke-width:1.1; }
@@ -77,9 +77,9 @@ svg.pl .arr { stroke:#f6f6f8; stroke-opacity:.8; stroke-width:1.1; }
 .bg { border:1px solid var(--border); border-radius:var(--radius-m); background:var(--bg-raised); padding:var(--s-4); }
 .bl { font-family:var(--font-mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-4); margin-bottom:var(--s-3); }
 .brow { display:grid; gap:var(--s-3); align-items:center; font-family:var(--font-mono); font-size:9.5px; color:var(--ink-5); margin-top:6px; }
-.bm { color:var(--ink-2); } .bt { color:#5a5a66; font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; }
+.bm { color:var(--ink-2); } .bt { color:var(--ink-4); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; }
 .bcell { display:grid; grid-template-columns:1fr 38px; gap:6px; align-items:center; }
-.btr { position:relative; height:5px; background:#1a1a1f; border-radius:2px; }
+.btr { position:relative; height:5px; background:var(--surface-2); border-radius:2px; }
 .btr i { display:block; height:100%; background:#f6f6f8; opacity:.72; border-radius:2px; }
 .btr b { position:absolute; top:-2px; bottom:-2px; width:1px; background:#f6f6f8; opacity:.9; }
 .bv { color:var(--ink-3); text-align:right; font-variant-numeric:tabular-nums; }`;

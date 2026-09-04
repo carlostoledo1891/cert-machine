@@ -63,6 +63,7 @@
   --c-s3:#8b8b97;
   --c-s4:#a9a9b4;
   --c-s5:#f6f6f8;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
   --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
   --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
   --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -239,7 +240,7 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 .cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
   background:var(--surface);border:1px solid var(--rule-strong);border-radius:6px;
   padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
-  color:var(--ink);box-shadow:0 8px 28px rgba(0,0,0,.55);max-width:280px}
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
 .cm-tip span{display:block;color:var(--ink-3)}
 .figbox [data-cm]{cursor:crosshair}

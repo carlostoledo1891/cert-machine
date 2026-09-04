@@ -176,6 +176,78 @@ red('a literal font stack outside :root is caught',
 red('a stack INSIDE :root is not flagged (or the check would be unusable)',
   fontOffences('<style>:root{--f-sans:"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif}</style>', 'planted').length === 0);
 
+/* ---------------------------------------------------------------- 5 -----
+   No built page PAINTS with a colour no token names. The sibling of check 4,
+   and it found what check 4's shape predicted it would: /instruments/affect
+   and /instruments/answer-shape were filling labels with #8e8e9a, #5a5a66 and
+   #1a1a1f — one and two hex digits off --ink-3, --ink-4 and --surface-2, which
+   is precisely why nobody saw them. One of the three was reached through
+   `var(--ink-6, #5a5a66)`, a fallback to a token this repository has never
+   declared, so the literal won every time.
+
+   ALPHA IS FREE, AND THAT IS THE WHOLE DESIGN OF THIS CHECK. A wash is a token
+   at an opacity: /instruments/plates paints 4,051 marks as rgba(246,246,248,a)
+   over hundreds of values of a, and every one of them is --ink. Demanding a
+   named token per opacity step would be a gate refusing a direction rather
+   than measuring a fact, and CLAUDE.md says to delete those. So the check is
+   on the RGB, and the RGB must be one some token declares.                 */
+console.log('-- the palette');
+
+const rgbOf = (c) => {
+  c = String(c).trim().toLowerCase();
+  let m = /^#([0-9a-f]{3})$/.exec(c);
+  if (m) return [0, 1, 2].map((i) => parseInt(m[1][i] + m[1][i], 16)).join(',');
+  m = /^#([0-9a-f]{6})$/.exec(c);
+  if (m) return [0, 2, 4].map((i) => parseInt(m[1].substr(i, 2), 16)).join(',');
+  m = /^rgba?\(([^)]+)\)$/.exec(c);
+  if (m) return m[1].split(/[,\/ ]+/).filter(Boolean).slice(0, 3).map(Number).join(',');
+  return null;
+};
+const COLOUR = /#[0-9a-fA-F]{3}\b|#[0-9a-fA-F]{6}\b|rgba?\([0-9 ,.%\/]+\)/g;
+/* the declared palette: this file's tokens plus the app shell's verdict
+   colours, which are a real product palette and are declared in ITS block */
+const APP = require(path.join(ROOT, 'design', 'app-shell.js'));
+const declared = new Set();
+for (const src of [T.DARKONLY, APP.APP_LIGHT, APP.APP_DARK, { s: T.SHADOW }])
+  for (const v of Object.values(src)) for (const c of String(v).match(COLOUR) || []) {
+    const r = rgbOf(c); if (r) declared.add(r);
+  }
+
+function colourOffences(html, label) {
+  const clean = String(html).replace(/data:[a-z/+;=-]*base64,[A-Za-z0-9+/=]+/g, '');
+  /* a page may also declare its own tokens; those blocks are the one place a
+     literal belongs, exactly as :root is for a font stack */
+  const own = new Set();
+  for (const m of clean.matchAll(/:root(?:\[[^\]]*\])?(?::not\([^)]*\))?\s*\{([^}]*)\}/g))
+    for (const c of m[1].match(COLOUR) || []) { const r = rgbOf(c); if (r) own.add(r); }
+  const body = clean.replace(/:root(?:\[[^\]]*\])?(?::not\([^)]*\))?\s*\{[^}]*\}/g, '');
+  /* look ONLY where a colour can be. "Erdos #290" is prose, not a colour. */
+  const ctx = [/<style[^>]*>([\s\S]*?)<\/style>/g, /style="([^"]*)"/g,
+    /(?:fill|stroke|stop-color|flood-color|color)="([^"]*)"/g];
+  const out = [];
+  for (const re of ctx) { re.lastIndex = 0; let m;
+    while ((m = re.exec(body))) for (const c of m[1].match(COLOUR) || []) {
+      const r = rgbOf(c);
+      if (r && !declared.has(r) && !own.has(r)) out.push(label + ': ' + c);
+    } }
+  return out;
+}
+
+walk('site/instruments');
+const paint = [];
+for (const p of pages) paint.push(...colourOffences(read(p), p));
+const uniq = [...new Set(paint)];
+if (paint.length) bad('no built page paints with a colour outside the palette',
+  paint.length + ' use(s) of ' + uniq.length + ' colour(s):\n        ' + uniq.slice(0, 8).join('\n        '));
+else ok('no built page paints with a colour outside the palette', '[' + pages.length + ' pages]');
+
+red('a colour no token names is caught',
+  colourOffences('<style>.x{color:#8e8e9a}</style>', 'planted').length === 1);
+red('a palette colour at any opacity is NOT flagged (a wash is a token)',
+  colourOffences('<style>.x{fill:rgba(246,246,248,0.037)}</style>', 'planted').length === 0);
+red('a colour the page itself declares is not flagged',
+  colourOffences('<style>:root{--x:#123456}\n.y{color:#123456}</style>', 'planted').length === 0);
+
 /* ------------------------------------------------------------------------ */
 console.log('    every falsifier turned its target red   [' + reds + '/' + redTotal + ']');
 console.log('\n' + (fails === 0 ? 'ALL PASS' : fails + ' FAILED')

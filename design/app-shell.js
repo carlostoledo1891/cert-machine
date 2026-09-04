@@ -315,4 +315,4 @@ ${(o.scripts || []).map((s) => `<script src="${s}"></script>`).join('\n')}
 </body></html>`;
 }
 
-module.exports = { renderApp, appCss };
+module.exports = { renderApp, appCss, APP_LIGHT, APP_DARK };

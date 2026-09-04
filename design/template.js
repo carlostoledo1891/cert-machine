@@ -222,7 +222,7 @@ figcaption{color:var(--ink-4);font-size:${SCALE.small};line-height:1.55;margin-t
 .cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
   background:var(--surface);border:1px solid var(--rule-strong);border-radius:6px;
   padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
-  color:var(--ink);box-shadow:0 8px 28px rgba(0,0,0,.55);max-width:280px}
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
 .cm-tip span{display:block;color:var(--ink-3)}
 .figbox [data-cm]{cursor:crosshair}
