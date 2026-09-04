@@ -1,0 +1,46 @@
+[project]
+name = "break-the-grader"
+version = "0.1.0"
+description = "Break the grader, or prove it cannot be broken — adversarial submissions minted from exact certificates, no answer key anywhere, and rungs where refusing is the only right answer."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Carlos Toledo" }]
+tags = [
+    "eval",
+    "train",
+    "single-turn",
+    "reward-hacking",
+    "verifier-soundness",
+    "math",
+    "exact-arithmetic",
+    "synthetic",
+    "procedural",
+    "v1",
+]
+keywords = ["rl-environment", "verifier", "reward-hack", "exact-arithmetic", "certificates", "evaluation"]
+# The adapters need the framework. Nothing else does: the graders, the band
+# geometry and the 104-fact corpus import only the standard library, and
+# tests/test_framework_free.py proves it by blocking every third-party import.
+dependencies = ["verifiers>=0.2.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://carlostoledo.co/reports/gym.html"
+Source = "https://github.com/carlostoledo1891/cert-machine"
+
+[project.scripts]
+break-the-grader = "break_the_grader.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["break_the_grader"]
+
+[tool.verifiers.eval]
+num_examples = 40
+rollouts_per_example = 4

@@ -30,39 +30,109 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
 THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
 
-  ══ NEXT SESSION, FIRST ACTION: REVIEW THE ENVIRONMENTS IMPLEMENTATION ══
-  Before anything else, read and criticise what was built on 2026-09-03:
-  environments/certificate_band_gym/ (the shippable package), instruments/envs/
-  (the JS environments it came from), and reports/gym.html + reports/envs.html.
-  The review is the gate on pushing anything to the Environments Hub.
+  ══ THE ENVIRONMENT REVIEW IS DONE (2026-09-04). THE PACKAGE IS RENAMED,
+     THE BINDINGS ARE REAL, AND THE ONLY THING LEFT BEFORE THE HUB IS THE
+     OPERATOR'S `prime login`. ══
 
-  WHAT TO CHECK, in the order the risk sits:
-   1. THE VERIFIERS BINDING IS UNVERIFIED. taskset.py is written from the
-      published v1 API description and has NEVER been run against a live
-      install. The docs for v0 and v1 disagree about what the Hub accepts.
-      Install `verifiers`, run both scaffolds, and make the binding real — or
-      delete it and ship the framework-free core with the CLI. It is marked
-      unverified at the top of the file, in the README and on the page; if that
-      marking is ever removed without the install being done, that is the
-      dishonesty this lab exists to prevent.
-   2. NO RESULTS TABLE. The package has never been run against a model. The
-      real-model numbers we hold are for the JS environments, different rungs
-      and a different generator, and must NOT be published under the package's
-      name. `python -m certificate_band_gym.cli eval --base-url … --model …`
-      produces a real one; budget ~$0.004/rollout at low effort.
-   3. THE ATTACKER LADDER SATURATES ON FRONTIER MODELS. Opus 5 and Sonnet 5
-      score 8/8 on every rung including the three hard ones added this session.
-      Only Haiku 4.5 falls through. If the table is to separate frontier
-      models, the razor needs to go finer (τ → 0.5001 is already unreachable in
-      float, so the next axis is grader SHAPE, not tolerance) — or accept that
-      the environment discriminates careful-vs-fast and say so.
-   4. THE CORPUS IS ONE LAB'S. 104 facts, all ours. That is the moat and also
-      the limit: a second source of certificates would make the environment
-      much harder to dismiss as self-referential.
-   5. COST AND HARNESS DISCIPLINE. tools/run-envs-pilot.js reserves each call's
-      worst case before making it, so spend cannot cross the cap. The cap is
-      PER PROCESS — two concurrent runs can jointly exceed it, and this session
-      handled that by sizing the second run so the sum still fit. Keep that.
+  RENAMED: environments/certificate_band_gym → environments/break_the_grader,
+  distribution `break-the-grader`. "Band" was internal jargon nobody searches;
+  the top of the Hub is short legible verb-phrases (reverse-text, alphabet-sort,
+  2048) and `grader` puts us in a search bucket of eleven rather than nowhere.
+  The name is free on the Hub and is the README's own headline sentence.
+
+  THE FIVE RISKS, as they now stand:
+   1. THE BINDINGS ARE VERIFIED — v0 (`load_environment` → SingleTurnEnv) AND
+      v1 (`Taskset`/`Task`/`@reward`), both run against a live install. THE
+      VERSION THAT MATTERS IS verifiers 0.2.0, because `prime` 0.6.31 PINS IT;
+      0.3.1 exists and moves the v1 surface again. The v0/v1 "disagreement" was
+      not a doc problem: BOTH APIs ship in 0.2.0, v0 at top level (and it is
+      what the Hub's own install text prints) and v1 under `verifiers.v1`.
+      THREE DEFECTS the doc-written binding had, two of them SILENT:
+        · `load_environment` was never exported from the package __init__, so
+          the exact command the Hub prints would have raised on arrival;
+        · a plain-string `task` column aborts every rollout in 0.2.0;
+        · scoring is handed pydantic message objects, not dicts, so a
+          `.get("content")` misses and EVERY reply reads as unparseable — a
+          whole eval printing 0.000 with no error raised anywhere. That one was
+          watched happening, three policies over 40 tasks, a clean table of
+          zeros.
+      All three are pinned by tests/test_verifiers_binding.py (skips when the
+      framework is absent). tests/test_framework_free.py proves the
+      zero-dependency claim in a SUBPROCESS with every third-party import
+      blocked. 13 package tests green.
+   2. THE RESULTS TABLE EXISTS, and most of it cost nothing. FOUR REFERENCE
+      POLICIES now ship in break_the_grader/policies.py — never / always /
+      naive / careful — each reading ONLY THE PROMPT, the same string a model
+      sees. `python -m break_the_grader.cli baseline` prints the table in about
+      four seconds with no key. It gives every model row a floor (a one-line
+      policy) and a ceiling (the arithmetic done properly), and `careful` is
+      published on purpose: the environment does not claim to be hard for a
+      program that checks, it claims to measure whether the answer checks.
+      THE PAID ROW IS RUN (2026-09-04, tools/run-grader-pilot.js): 360 calls,
+      $1.92 of a $4.00 cap, 120 tasks x 3 models, MODELS ON THE SAME SEEDS AS
+      THE POLICIES so the columns are the same tasks and not a comparable
+      sample. certs/grader-pilot.json.
+        careful  +1.000 100%   0 false  39/39 impossible  21/21 razor
+        opus-5   +0.950  97%   2 false  37/39            20/21
+        sonnet-5 +0.670  81%  16 false  34/37            14/20   (5 truncated, excluded)
+        always   +0.558  56%   0 false   0/39            14/21
+        haiku-45 +0.317  51%  23 false  25/39             5/21
+        naive    +0.258  49%  28 false   0/39            11/21
+        never    -0.350  33%  81 false  39/39             0/21
+      TWO FINDINGS. (a) THE LADDER NO LONGER SATURATES — risk 3 as it was
+      written is closed: three frontier models land at +0.950 / +0.670 / +0.317
+      where the JS environments had Opus and Sonnet both at 8/8. The rebalanced
+      rung mix is what did it. (b) HAIKU 4.5 SCORES BELOW THE ONE-LINE BLIND
+      POLICY, and the false-claim column says why: the blind policy makes ZERO
+      false claims and Haiku makes 23. Confidence is what costs here, and it is
+      priced in a column of its own.
+   3. THE LADDER WAS REBALANCED, and the baseline is what caught it. A one-line
+      always-attack policy scored 71%, because half of every batch was a gift.
+      Two defects underneath:
+        · THE UNIT WAS WRONG. Rungs were measured in certificate widths, so the
+          52 exact-integer facts — width zero — divided by zero and ALL landed
+          on "wide", the easiest label, when a 1e-16 tolerance around an integer
+          is the sharpest rung there is. Rungs are now measured in ROOM: how
+          many representable doubles fit in the band. One unit, correct at both
+          ends, and it is the unit the task is actually in.
+        · THE MIX WAS AN ACCIDENT. The README claimed "known proportions" from a
+          log-uniform τ over seven decades, in which the razor band is a
+          0.3-decade sliver — razors were 4% of the draw. The generator now
+          DRAWS THE ROOM IT WANTS and SOLVES tol = (w + room·u)/2 for it, from a
+          declared RUNG_MIX. Realized 30/23/33/14 against a 25/35/25/15 target,
+          and the target is documented as a target because keys sit at five
+          positions and only the midpoint gives the closed form exactly.
+      Blind play now scores +0.588 against careful's +0.998, and the build
+      REFUSES to publish reports/gym.html if that gap falls under 0.25 or if a
+      blind policy ever solves an impossible rung.
+   4. THE CORPUS IS STILL ONE LAB'S. Unchanged, and now stated on the page as a
+      limit in its own right. The strongest single upgrade left.
+   5. COST DISCIPLINE KEPT. tools/run-grader-pilot.js reserves worst case before
+      every call; the cap is PER PROCESS; ordering is BY TASK so a budget stop
+      leaves every model measured on the same tasks; truncations and refusals
+      are recorded and EXCLUDED from rates.
+
+  ALSO CORRECTED: the scoring table in the README and on the page claimed "a
+  claimed break that does not verify → −1". The code has always had SIX
+  outcomes, and the distinction is the good part: a value outside the
+  certificate that the grader rejects is a MISS (0, UNSUPPORTED), while a value
+  the grader accepts and the certificate CONTAINS is a false claim of
+  unsoundness (−1, WRONG). Both tables now say what the code does.
+
+  THE HUB, SCOUTED (`prime env list`, 2026-09-04): 1,610 environments, the most
+  starred has 33, the median has 0. Default sort is created_at desc, so the push
+  itself is the distribution and every version bump re-lists. What gets starred:
+  recognizable benchmark names (AIME-25, HLE, ARC-AGI, tau2-bench,
+  terminal-bench, KernelBench), games (2048 twice), and infrastructure adapters.
+  COMPETITORS: "reward hack" returns 42 environments, all ≤1 star, nearly all
+  designer-embedded hacks from a community sprint; the nearest neighbour is
+  gkartik/assay-hackword, 0 stars. "certificate" returns ONE result and
+  "interval" returns none that are related. Nobody on the Hub grades against
+  certified enclosures.
+
+  OPERATOR ACTION OWED: `prime login` (a Prime Intellect API key). Then
+  `prime env push --visibility PUBLIC` from environments/break_the_grader.
+  Decided this session: PUSH AFTER THE PAID MODEL ROW, not before.
 
   MEASURED THIS SESSION, $5.88 of an $11.80 cap, 360 real-model calls:
    · THE EFFORT TRAP. At default effort the 5-family spends an entire

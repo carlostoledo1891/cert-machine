@@ -23,3 +23,8 @@ certs/lab-logs/
 # few minutes and nothing on the site may quote them (see build-site's WORKING)
 certs/wip-*
 outreach/zenodo-bundles/
+
+# build artifacts of the shippable environment package (rebuilt by `python -m build`)
+environments/*/dist/
+environments/*/*.egg-info/
+environments/*/**/__pycache__/

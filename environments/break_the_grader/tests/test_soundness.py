@@ -3,13 +3,12 @@
 These are not unit tests of convenience. Each one is a way this environment
 could report a number that is not true, demonstrated failing.
 """
-import math
 from fractions import Fraction
 
-from certificate_band_gym.band import band_measure, key_at, mint_attack, verify_attack
-from certificate_band_gym.facts import FACTS, EXACT_INTEGER, NONDEGENERATE
-from certificate_band_gym.forgeries import gate
-from certificate_band_gym.task import grade, make_task
+from break_the_grader.band import band_measure, key_at, mint_attack, verify_attack
+from break_the_grader.facts import FACTS, EXACT_INTEGER
+from break_the_grader.forgeries import gate
+from break_the_grader.task import grade, make_task
 
 SEEDS = range(256)
 

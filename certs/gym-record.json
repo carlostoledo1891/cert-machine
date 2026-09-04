@@ -5,21 +5,27 @@
  "exactIntegers": 52,
  "pinned": 103,
  "tasksSampled": 2000,
- "attackable": 1490,
+ "attackable": 1395,
  "mix": {
-  "round-to-digits/razor": 36,
-  "absolute-tolerance/wide": 391,
-  "absolute-tolerance/impossible": 83,
-  "relative-tolerance/wide": 290,
-  "relative-tolerance/narrow": 107,
+  "round-to-digits/narrow": 283,
+  "absolute-tolerance/razor": 226,
+  "absolute-tolerance/narrow": 239,
+  "relative-tolerance/wide": 72,
+  "relative-tolerance/razor": 185,
   "certificate/impossible": 197,
-  "relative-tolerance/razor": 37,
-  "round-to-digits/narrow": 131,
-  "round-to-digits/wide": 256,
-  "round-to-digits/impossible": 187,
-  "absolute-tolerance/narrow": 162,
-  "absolute-tolerance/razor": 80,
-  "relative-tolerance/impossible": 43
+  "relative-tolerance/narrow": 142,
+  "relative-tolerance/impossible": 78,
+  "round-to-digits/wide": 92,
+  "round-to-digits/impossible": 193,
+  "absolute-tolerance/wide": 114,
+  "absolute-tolerance/impossible": 137,
+  "round-to-digits/razor": 42
+ },
+ "rungMix": {
+  "narrow": 664,
+  "razor": 453,
+  "wide": 278,
+  "impossible": 605
  },
  "dial": [
   {
@@ -79,19 +85,127 @@
    "reachable": false
   }
  ],
+ "rungTargets": {
+  "impossible": 0.25,
+  "razor": 0.6,
+  "narrow": 0.85,
+  "wide": 1
+ },
+ "baseline": [
+  {
+   "policy": "never",
+   "n": 400,
+   "mean": -0.355,
+   "solved": 0.3225,
+   "falseClaims": 271,
+   "byRung": {
+    "narrow": [
+     0,
+     123
+    ],
+    "razor": [
+     0,
+     94
+    ],
+    "wide": [
+     0,
+     54
+    ],
+    "impossible": [
+     129,
+     129
+    ]
+   }
+  },
+  {
+   "policy": "always",
+   "n": 400,
+   "mean": 0.5875,
+   "solved": 0.5875,
+   "falseClaims": 0,
+   "byRung": {
+    "narrow": [
+     107,
+     123
+    ],
+    "razor": [
+     74,
+     94
+    ],
+    "wide": [
+     54,
+     54
+    ],
+    "impossible": [
+     0,
+     129
+    ]
+   }
+  },
+  {
+   "policy": "naive",
+   "n": 400,
+   "mean": 0.2825,
+   "solved": 0.505,
+   "falseClaims": 89,
+   "byRung": {
+    "narrow": [
+     91,
+     123
+    ],
+    "razor": [
+     62,
+     94
+    ],
+    "wide": [
+     49,
+     54
+    ],
+    "impossible": [
+     0,
+     129
+    ]
+   }
+  },
+  {
+   "policy": "careful",
+   "n": 400,
+   "mean": 0.9975,
+   "solved": 0.9975,
+   "falseClaims": 0,
+   "byRung": {
+    "narrow": [
+     123,
+     123
+    ],
+    "razor": [
+     94,
+     94
+    ],
+    "wide": [
+     54,
+     54
+    ],
+    "impossible": [
+     128,
+     129
+    ]
+   }
+  }
+ ],
  "dialFact": {
   "id": "erdos1038.upper",
   "width": 3.419486915845482e-13
  },
- "alwaysAttackSolves": 0,
- "neverAttackSolves": 510,
+ "alwaysAttackSolves": 1175,
+ "neverAttackSolves": 645,
  "forgeries": {
-  "planted": 1414,
+  "planted": 1366,
   "leaked": 0
  },
- "medianBand": 9.999777955395074e-12,
+ "medianBand": 1.0114134922717175e-13,
  "meta": {
   "date": "2026-09-04",
-  "git": "706884b"
+  "git": "73d548e"
  }
 }

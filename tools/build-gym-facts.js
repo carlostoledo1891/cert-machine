@@ -106,7 +106,7 @@ py.push('NONDEGENERATE = [f for f in FACTS if f.width > 0]');
 py.push('EXACT_INTEGER = [f for f in FACTS if f.width == 0]');
 py.push('');
 
-const out = path.join(ROOT, 'environments/certificate_band_gym/certificate_band_gym/facts.py');
+const out = path.join(ROOT, 'environments/break_the_grader/break_the_grader/facts.py');
 fs.writeFileSync(out, py.join('\n'));
 console.log('facts.py written: ' + rows.length + ' facts ('
   + rows.filter(r => r.tier === 'named').length + ' named, '

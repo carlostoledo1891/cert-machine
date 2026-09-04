@@ -52,28 +52,80 @@ class Task:
 
     @property
     def rung(self) -> str:
-        if not self.attackable:
+        """The rung, measured in ROOM: how many representable doubles fit in the
+        band.
+
+        One unit, at both ends of the corpus, and it is the unit the task is
+        actually in — a model does not submit a real number, it submits a double,
+        so the room that matters is counted in doubles and not in certificate
+        widths. Measuring in widths broke on the half of the corpus whose
+        certificates have width zero (an exact integer: every band is infinitely
+        many widths), and it flattered the other half — a band of five thousand
+        doubles and a band of one and a half are not the same problem, and
+        "0.9 certificate widths" calls them both a razor.
+        """
+        if not self.attackable or self.band <= 0:
             return "impossible"
-        if self.band <= 0:
-            return "impossible"
-        widths = self.band / float(self.fact.width) if self.fact.width > 0 else float("inf")
-        if widths < 1:
+        if self.room < ROOM_RAZOR:
             return "razor"
-        if widths < 1e3:
+        if self.room < ROOM_NARROW:
             return "narrow"
         return "wide"
 
+    @property
+    def room(self) -> float:
+        """The band in representable doubles: band / (one ulp at this magnitude)."""
+        u = math.ulp(float(self.fact.midpoint)) or math.ulp(1.0)
+        return self.band / u
 
-def _tau_schedule(rnd: random.Random) -> float:
-    """tau on a log schedule from a gift to below the impossibility threshold.
+# The rung edges, in ROOM (representable doubles that fit in the band), and the
+# mix the generator aims at. band = 2*tol - w for a midpoint key, so a target
+# room R is reached at tol = (w + R*u)/2 — the tolerance is SOLVED FOR rather
+# than sampled and hoped over, which is what makes the mix a declared property
+# instead of a measured accident.
+ROOM_RAZOR, ROOM_NARROW = 16.0, 1e6
+RUNG_MIX = ((0.25, "impossible"), (0.60, "razor"), (0.85, "narrow"), (1.00, "wide"))
 
-    A fifth of the mass sits at tau <= 1/2, where no attack exists at all: an
-    environment that never asks an unanswerable question teaches models to
-    always answer.
+
+def _room_schedule(rnd: random.Random) -> float:
+    """Target room, in doubles. Zero means the band must be empty.
+
+    A quarter of the mass sits where NO value can be submitted at all: an
+    environment that never asks an unanswerable question teaches models to always
+    answer. Another 35% sits on the razor — under sixteen doubles of room — which
+    is where careful and fast part company.
+
+    THE MIX IS A TARGET, NOT A MEASUREMENT. Keys sit at five positions across the
+    certificate and only the midpoint gives band = 2*tol - w exactly; the
+    certificate grader has no tolerance at all. So the realized mix drifts from
+    this one, and the shipped baseline prints what it actually was rather than
+    repeating what it was asked for.
     """
-    if rnd.random() < 0.20:
-        return rnd.uniform(0.30, 0.50)                 # impossible by geometry
-    return 10 ** rnd.uniform(math.log10(0.5001), 7.0)  # razor to gift
+    r = rnd.random()
+    rung = next(name for edge, name in RUNG_MIX if r < edge)
+    if rung == "impossible":
+        return 0.0
+    if rung == "razor":
+        return rnd.uniform(1.0, ROOM_RAZOR)
+    if rung == "narrow":
+        return 10 ** rnd.uniform(math.log10(ROOM_RAZOR), math.log10(ROOM_NARROW))
+    return 10 ** rnd.uniform(math.log10(ROOM_NARROW), 12.0)
+
+
+def _tolerance_for(fact: Fact, rnd: random.Random) -> Fraction:
+    """The tolerance that puts this fact's band at the drawn room.
+
+    Exact rationals throughout: the ulp is a double, the width is a Fraction, and
+    the tolerance that comes out is the one the grader is built with. An empty
+    band is produced by construction (tol strictly under w/2, or under half an
+    ulp when the certificate has no width), never by sampling until one appears.
+    """
+    u = Fraction(math.ulp(float(fact.midpoint)) or math.ulp(1.0))
+    room = _room_schedule(rnd)
+    if room <= 0:
+        return (fact.width / 2 if fact.width > 0 else u) * Fraction(
+            rnd.randint(30, 90), 100)
+    return (fact.width + Fraction(room).limit_denominator(10 ** 9) * u) / 2
 
 
 def make_task(seed: int) -> Task:
@@ -94,17 +146,12 @@ def make_task(seed: int) -> Task:
     kappa = Fraction(rnd.choice([0, 1, 2, 3, 4]), 4)     # 0 and 1 put the key at an endpoint
     key = key_at(fact, kappa)
 
-    if fact.width == 0:
-        # an exact integer: tau is meaningless, so the tolerance is absolute and
-        # swept across the range where the real band is non-empty but the
-        # MACHINE band may not be. This is where careful and fast part company.
-        tol = Fraction(1, 10 ** rnd.randint(6, 16))
-        tau = None
-    else:
-        tau = _tau_schedule(rnd)
-        tol = Fraction(tau).limit_denominator(10 ** 12) * fact.width
-        if tol <= 0:
-            tol = fact.width / 2
+    # One tolerance path for both halves of the corpus. An exact integer is not a
+    # special case here, it is the case where the certificate width is zero and
+    # the ulp does all the work — which is the sharpest rung there is, and used
+    # to be mislabelled the easiest.
+    tol = _tolerance_for(fact, rnd)
+    tau = float(tol / fact.width) if fact.width > 0 else None
 
     if kind == "absolute":
         g = G.absolute(fact, tol, key)

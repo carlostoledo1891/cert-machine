@@ -20,10 +20,24 @@ if (!fs.existsSync(RP)) die('certs/gym-record.json is missing — run node tools
 const R = JSON.parse(fs.readFileSync(RP, 'utf8'));
 if (R.forgeries.leaked !== 0) die('the record says a forgery leaked');
 if (!(R.alwaysAttackSolves < R.tasksSampled && R.neverAttackSolves > 0)) die('both standing answers no longer lose');
+if (!Array.isArray(R.baseline) || R.baseline.length < 4) die('the record carries no reference baseline');
+const BL = Object.fromEntries(R.baseline.map(b => [b.policy, b]));
+/* THE DISCRIMINATION GATE. The page claims this environment separates checking
+   from guessing. That claim is a NUMBER — the distance between the best blind
+   policy and the one that does the arithmetic — and if it collapses the page is
+   wrong before a single model is called. Refuse rather than publish it. */
+const blind = Math.max(BL.always.mean, BL.naive.mean, BL.never.mean);
+if (!(BL.careful.mean - blind > 0.25))
+  die('the environment no longer separates blind play from careful play (careful '
+      + BL.careful.mean.toFixed(3) + ' vs blind ' + blind.toFixed(3) + ')');
+/* and the rung that carries the whole measurement must stay unreachable blind */
+for (const name of ['always', 'naive'])
+  if ((BL[name].byRung.impossible || [0, 0])[0] !== 0)
+    die(name + ' now solves an impossible rung — the mint is admitting what it should refuse');
 
 const B = [];
 B.push(C.header({
-  eyebrow: 'cert-machine · environments · certificate-band-gym',
+  eyebrow: 'cert-machine · environments · break-the-grader',
   title: 'Break the grader, or prove it cannot be broken',
   deck: 'An RL environment with no answer key: the model is shown a certified interval and a grader, and must '
     + 'produce a value the grader accepts and the certificate refutes — or say NO_ATTACK when none exists. The '
@@ -31,9 +45,10 @@ B.push(C.header({
     + 'because the parameter space is continuous.'
 }));
 B.push(C.scope('A development tool, not a paper. Everything on this page was produced by running the shipped '
-  + 'Python package, which has zero dependencies and needs no GPU, container or network to score a rollout. The '
-  + 'binding onto the verifiers spec is written from its published description and has NOT been run against a '
-  + 'live install — that is stated here, at the top of taskset.py, and in the package README.'));
+  + 'Python package, whose grader needs no framework, no GPU, no container and no network to score a rollout. '
+  + 'Both bindings onto the verifiers spec — the v0 load_environment and the v1 Taskset — were run against a '
+  + 'live install (verifiers 0.2.0, the version prime 0.6.31 pins) rather than written from the documentation; '
+  + 'the three defects that exercise found are listed in §6 and pinned by tests.'));
 
 B.push(C.tldr({
   findingRaw: 'Difficulty is <b>one number with a closed form</b>: a tolerance grader checking a quantity '
@@ -44,9 +59,10 @@ B.push(C.tldr({
     + num(R.tasksSampled - R.attackable) + ' are not — and which is which is decided by <b>constructing</b> an '
     + 'attack, never by a label. Always-attack solves ' + R.alwaysAttackSolves + '; never-attack solves '
     + num(R.neverAttackSolves) + '. Both standing answers lose, so only checking wins.',
-  checkRaw: C.m('python -m certificate_band_gym.cli gate') + ' runs the forgery battery · '
-    + C.m('… tasks 5 --prompts') + ' shows what a model sees · ' + C.m('… eval --base-url … --model …')
-    + ' scores any OpenAI-compatible endpoint.'
+  checkRaw: C.m('python -m break_the_grader.cli gate') + ' runs the forgery battery · '
+    + C.m('… baseline') + ' reproduces the reference table below with no API key · '
+    + C.m('… tasks 5 --prompts') + ' shows what a model sees · '
+    + C.m('… eval --base-url … --model …') + ' scores any OpenAI-compatible endpoint.'
 }));
 
 B.push(C.stats([
@@ -123,7 +139,26 @@ B.push(C.section({
       '<div class="col">' + C.pRaw('Four grader shapes — absolute tolerance, relative tolerance, rounding to a '
         + 'printed number of digits, and the certificate itself — share ONE exact band computation, because each '
         + 'is only an acceptance interval. The certificate shape is deliberately the rarest: it is unbreakable '
-        + 'by construction, and the impossibility worth training on is geometric rather than definitional.') + '</div>'
+        + 'by construction, and the impossibility worth training on is geometric rather than definitional.')
+        + C.pRaw('THE RUNG IS MEASURED IN ROOM: how many representable doubles fit in the band. That is the unit '
+          + 'the task is actually in — a model submits a double, not a real number — and it is the second unit '
+          + 'this page has used. The first was certificate widths, which divides by zero on the '
+          + R.exactIntegers + ' exact-integer facts and sent every one of them to <i>wide</i>, the easiest label, '
+          + 'when a 1e-16 tolerance around an integer is the sharpest rung there is. The shipped baseline is what '
+          + 'caught it: a one-line always-attack policy was scoring 71%.')
+        + C.pRaw('The generator now draws the ROOM it wants and solves ' + C.m('tol = (w + room·u)/2') + ' for the '
+          + 'tolerance, from a declared mix — ' + (() => {
+            const es = Object.entries(R.rungTargets || {}).sort((a, b) => a[1] - b[1]);
+            let prev = 0;
+            return es.map(([n, e]) => { const share = e - prev; prev = e;
+              return n + ' ' + (100 * share).toFixed(0) + '%'; }).join(' · ');
+          })()
+          + ' — rather than sampling a tolerance and measuring what came out. Realized here: '
+          + ['impossible', 'razor', 'narrow', 'wide'].map(r =>
+              r + ' ' + (100 * (R.rungMix[r] || 0) / R.tasksSampled).toFixed(0) + '%').join(' · ')
+          + '. The mix is a TARGET and is reported as one: keys sit at five positions across the certificate and '
+          + 'only the midpoint gives the closed form exactly, so what is drawn and what lands differ, and the '
+          + 'honest thing is to print both.') + '</div>'
     ].join('\n')
   }));
 }
@@ -132,25 +167,127 @@ B.push(C.section({
   lab: '§4 · scoring', title: 'What is rewarded, and what it costs to guess',
   bodyRaw: [
     C.table({
-      cols: [{ h: 'outcome' }, { h: 'reward', cls: 'v' }],
+      cols: [{ h: 'outcome' }, { h: 'reward', cls: 'v' }, { h: 'verdict', cls: 'v' }],
       rows: [
-        [{ raw: C.esc('a break that verifies') }, { raw: C.m('+1') }],
-        [{ raw: C.esc('NO_ATTACK where none exists') }, { raw: C.m('+1') }],
-        [{ raw: C.esc('a claimed break that does not verify') }, { raw: C.m('−1') }],
-        [{ raw: C.esc('NO_ATTACK where a break exists') }, { raw: C.m('−1') }],
-        [{ raw: C.esc('unparseable submission') }, { raw: C.m('0') }]
+        [{ raw: C.esc('a break that verifies') }, { raw: C.m('+1') }, { raw: C.m('SOLVED') }],
+        [{ raw: C.esc('NO_ATTACK where none exists') }, { raw: C.m('+1') }, { raw: C.m('SOLVED') }],
+        [{ raw: C.esc('a value the grader accepts that is INSIDE the certificate') }, { raw: C.m('−1') }, { raw: C.m('WRONG') }],
+        [{ raw: C.esc('NO_ATTACK where a break exists') }, { raw: C.m('−1') }, { raw: C.m('WRONG') }],
+        [{ raw: C.esc('a value outside the certificate the grader rejects') }, { raw: C.m('0') }, { raw: C.m('UNSUPPORTED') }],
+        [{ raw: C.esc('unparseable submission') }, { raw: C.m('0') }, { raw: C.m('REFUSED_PARSE') }]
       ]
     }),
-    '<div class="col">' + C.pRaw('Three signals come back and are kept apart: one trains, one separates a '
-      + 'refusal from a wrong answer, and one counts the specific failure this environment exists to punish — a '
-      + 'confident claim that does not verify. No partial credit anywhere: a witness that is nearly right is '
-      + 'wrong, and partial credit is where reward hacking gets in. Feedback on failure is the reason it failed '
-      + 'and nothing else — no hints, no rubric.') + '</div>'
+    '<div class="col">' + C.pRaw('The two zeros are deliberate and are not each other. A failed attack — a '
+      + 'value outside the certificate that the grader will not take — asserts nothing false about the quantity; '
+      + 'it is a miss. Claiming a break the grader accepts and the certificate CONTAINS is a false claim of '
+      + 'unsoundness, and it costs the most. Three signals come back and are kept apart: one trains, one '
+      + 'separates a refusal from a wrong answer, and one counts that false claim on its own. No partial credit '
+      + 'anywhere: a witness that is nearly right is wrong, and partial credit is where reward hacking gets in. '
+      + 'Feedback on failure is the reason it failed and nothing else — no hints, no rubric.') + '</div>'
   ].join('\n')
 }));
 
+/* §5 — the reference table, and the models beside it. The baseline is produced
+   by the SHIPPED policies, so this page and the CLI cannot print different
+   numbers; the model rows are read from certs/grader-pilot.json when a paid run
+   exists and the section simply says so when one does not. */
+{
+  const RUNGS = ['impossible', 'razor', 'narrow', 'wide'];
+  const cell = (byRung, r) => {
+    const c = byRung[r] || [0, 0];
+    return { raw: c[1] ? C.m(c[0] + '/' + c[1]) : C.esc('—') };
+  };
+  // one decimal, so the page and the CLI's integer percent never look like
+  // two different measurements of the same 202/400.
+  const pct = (x) => (x === null || x === undefined) ? '—' : (100 * x).toFixed(1) + '%';
+  const sgn = (x) => (x === null || x === undefined) ? '—' : (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(3);
+
+  let PILOT = null;
+  const pp = path.join(ROOT, 'certs', 'grader-pilot.json');
+  if (fs.existsSync(pp)) {
+    PILOT = JSON.parse(fs.readFileSync(pp, 'utf8'));
+    if (PILOT.gate && PILOT.gate.leaked !== 0) die('the pilot record says a forgery leaked');
+  }
+
+  /* THE POLICY ROWS COME FROM THE PILOT WHEN THERE IS ONE. Both records carry a
+     baseline, but only the pilot's was run on the SAME SEEDS as the models —
+     row n is a function of n alone, so seeds 0..119 are literally the same 120
+     tasks. Showing the 400-task baseline beside a 120-task model row would be a
+     table whose columns are not comparable, which is the failure this whole
+     environment is about. */
+  const POL = (PILOT && PILOT.baseline) ? PILOT.baseline : R.baseline;
+  const falseOf = (b) => b.falseClaims !== undefined ? b.falseClaims : b.false_claims;
+  const rows = POL.map(b => [
+    { raw: C.esc(b.policy) }, { raw: C.esc('policy') },
+    { raw: C.m(String(b.n)) }, { raw: C.m(sgn(b.mean)) }, { raw: C.esc(pct(b.solved)) },
+    { raw: C.m(String(falseOf(b))) },
+    ...RUNGS.map(r => cell(b.byRung, r))
+  ]);
+
+  if (PILOT) {
+    for (const m of PILOT.models) {
+      if (!m.usable) continue;
+      rows.push([
+        { raw: C.esc(m.id) }, { raw: C.esc('model' + (m.effort ? ' · effort ' + m.effort : ' · no effort param')) },
+        { raw: C.m(String(m.usable)) }, { raw: C.m(sgn(m.mean)) }, { raw: C.esc(pct(m.solved)) },
+        { raw: C.m(String(m.false_claims)) },
+        ...RUNGS.map(r => cell(m.byRung, r))
+      ]);
+    }
+  }
+
+  const note = PILOT
+    ? 'Model rows: ' + PILOT.meta.calls + ' calls, $' + PILOT.meta.spent.toFixed(2) + ' of a $'
+      + PILOT.meta.cap.toFixed(2) + ' cap reserved worst-case before every call, max_tokens '
+      + PILOT.meta.maxTokens + ', on ' + PILOT.meta.date + '. Replies truncated by our own cap and model '
+      + 'refusals are recorded and EXCLUDED from the rates — a harness artifact is not a model outcome. '
+      + (PILOT.meta.stopped ? 'The run stopped early (' + PILOT.meta.stopped + ') and is recorded as partial. ' : '')
+      + 'Policy rows here are the pilot\'s own baseline, run on the SAME ' + PILOT.meta.n
+      + ' seeds as the models — the same tasks, not a comparable sample. Every row is scored by '
+      + 'the shipped package and by nothing in the runner.'
+    : 'No paid run on record yet. The policy rows above are the ' + R.baseline[0].n
+      + '-task reference baseline, which needs no key and reproduces in about four seconds.';
+
+  B.push(C.section({
+    lab: '§5 · the baseline', title: 'What the task is worth before a model is called', wide: true,
+    bodyRaw: [
+      C.table({
+        cols: [{ h: 'player' }, { h: 'kind' }, { h: 'n', cls: 'v' }, { h: 'mean reward', cls: 'v' },
+               { h: 'solved', cls: 'v' }, { h: 'false claims', cls: 'v' },
+               ...RUNGS.map(r => ({ h: r, cls: 'v' }))],
+        rows
+      }),
+      '<div class="col">' + C.pRaw('Four reference policies ship inside the package. Each reads THE PROMPT and '
+        + 'nothing else — the same string a model is shown, parsed with a regular expression — because a '
+        + 'baseline that peeks at the generator is the answer key wearing a costume. They are proposers, never '
+        + 'authorities: what they emit goes through the same grader and the same certificate as a model reply.')
+        + C.pRaw((() => {
+            const P = Object.fromEntries(POL.map(b => [b.policy, b]));
+            const M = PILOT ? Object.fromEntries(PILOT.models.map(m => [m.id, m])) : {};
+            let t = 'Read the columns, not the mean. Blind play scores ' + sgn(P.always.mean)
+              + ' and <b>zero</b> of the impossible rungs; the arithmetic done properly scores '
+              + sgn(P.careful.mean) + '. That gap is the whole of what this environment measures, and the '
+              + 'build refuses to publish this page if it falls below a quarter of a point on the '
+              + R.baseline[0].n + '-task reference draw (it is currently '
+              + (BL.careful.mean - Math.max(BL.always.mean, BL.naive.mean, BL.never.mean)).toFixed(3) + ').';
+            const beaten = Object.values(M).filter(m => m.usable && m.mean < P.always.mean);
+            if (beaten.length) t += ' ' + beaten.map(m => m.id).join(' and ')
+              + (beaten.length > 1 ? ' score' : ' scores') + ' <b>below the one-line blind policy</b>, '
+              + 'which is a fact about the model and not about the difficulty: the blind policy makes '
+              + 'no false claims at all, and ' + beaten.map(m => m.id + ' makes ' + m.false_claims).join(', ')
+              + '.';
+            return t;
+          })())
+        + C.pRaw('The solver is published on purpose. This is not a puzzle that is hard for a program which '
+          + 'checks — it is a measurement of whether the answer checks, and hiding the solver would '
+          + 'misrepresent that.')
+        + C.pRaw(C.esc(note)) + '</div>'
+    ].join('\n')
+  }));
+}
+
 B.push(C.section({
-  lab: '§5 · limits', title: 'What this does not do',
+  lab: '§6 · limits', title: 'What this does not do',
   bodyRaw: [
     C.plainList([
       { b: 'It is not novel, and does not claim to be.', text: 'Measuring verifier soundness is an active 2026 '
@@ -159,22 +296,31 @@ B.push(C.section({
         + 'proofs, so the set is infinite and cannot be memorised.' },
       { b: 'It decides one shape of claim.', text: 'A number, against a certificate. Not mathematics at large; '
         + 'a submission outside that boundary is refused rather than guessed at.' },
-      { b: 'The verifiers binding is unverified.', text: 'Written from the published API description, not run '
-        + 'against a live install. The core needs no framework and is exercised by the tests and the CLI.' },
-      { b: 'No results table yet.', text: 'Real-model numbers exist for this lab\'s JavaScript environments, not '
-        + 'for this package — different rungs, different generator. Publishing those under this name would be '
-        + 'the exact move the environment argues against. One CLI command produces a real one.' }
+      { b: 'The bindings are verified, and here is what that cost.', text: 'Both adapters were run against '
+        + 'verifiers 0.2.0 — the version prime 0.6.31 pins — and the exercise found three defects that writing '
+        + 'them from the documentation had produced. A plain-string task column aborts every rollout. Scoring '
+        + 'receives pydantic message objects rather than dicts, so a .get("content") misses and EVERY reply '
+        + 'reads as unparseable: a whole evaluation reporting 0.000 with no error raised anywhere. And '
+        + 'Taskset.load() returns a list in 0.2.0 where 0.3.1 takes an iterable. Two of the three are silent, '
+        + 'which is the argument for running a binding rather than reading one. All three are pinned by tests.' },
+      { b: 'One lab supplies every certificate.', text: 'The corpus is this machine\'s own shelf. That is the '
+        + 'moat and equally the limit: a second independent source of certificates would make the environment '
+        + 'much harder to dismiss as self-referential, and none is in it yet.' },
+      { b: 'Blind play is not nothing.', text: 'The best policy that never checks scores well over half, '
+        + 'because a band with room in it is usually reachable by submitting the first double past the '
+        + 'certificate. The separation lives in the impossible and razor rungs, which is why the table is '
+        + 'published by rung and the mean is not the headline.' }
     ])
   ].join('\n')
 }));
 
 const foot = '<footer class="col">'
   + '<p>' + C.esc('Generated by tools/build-report-gym.js from certs/gym-record.json (' + R.meta.date + ', git ' + R.meta.git + '), which is produced by running the shipped package. Rebuild: node tools/run-gym-record.js') + '</p>'
-  + '<p>' + C.esc('git ' + git + ' · environments/certificate_band_gym · MIT, zero dependencies') + '</p>'
+  + '<p>' + C.esc('git ' + git + ' · environments/break_the_grader · MIT, zero dependencies') + '</p>'
   + '<p style="margin-top:20px;color:var(--ink-2)">' + C.esc('Carlos Toledo · cert-machine') + '</p></footer>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'gym.html'), TPL.render({
-  title: 'certificate-band-gym · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot,
+  title: 'break-the-grader · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot,
   desc: 'An RL environment with no answer key: break a grader, or prove it cannot be broken. Adversarial '
     + 'submissions are generated from certified enclosures — provably wrong, infinite, and with difficulty set '
     + 'by one number with a closed form. Zero dependencies, ' + num(R.forgeries.planted) + ' forgeries planted '

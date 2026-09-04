@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
-const PKG = path.join(ROOT, 'environments/certificate_band_gym');
+const PKG = path.join(ROOT, 'environments/break_the_grader');
 const die = (m) => { console.error('GYM RECORD REFUSED: ' + m); process.exit(1); };
 
 const PY = `
@@ -16,17 +16,20 @@ import json, sys
 sys.path.insert(0, ${JSON.stringify(PKG)})
 from collections import Counter
 from fractions import Fraction as F
-from certificate_band_gym.facts import FACTS, NAMED, EXACT_INTEGER, BY_ID
-from certificate_band_gym.band import key_at, mint_attack, band_measure, tau_for_band
-from certificate_band_gym.forgeries import gate
-from certificate_band_gym.task import make_task, grade
-from certificate_band_gym import __version__
+from break_the_grader.facts import FACTS, NAMED, EXACT_INTEGER, BY_ID
+from break_the_grader.band import key_at, mint_attack, band_measure, tau_for_band
+from break_the_grader.forgeries import gate
+from break_the_grader.task import make_task, grade, render_prompt, RUNG_MIX
+from break_the_grader.api import score
+from break_the_grader.policies import POLICIES
+from break_the_grader import __version__
 
 N = 2000
-mix = Counter(); attackable = 0; bands = []
+mix = Counter(); rungMix = Counter(); attackable = 0; bands = []
 for s in range(N):
     t = make_task(s)
     mix[t.grader.kind + "/" + t.rung] += 1
+    rungMix[t.rung] += 1
     if t.attackable:
         attackable += 1
         assert grade(t, {"attack": t.witness})["score"] == 1
@@ -34,8 +37,23 @@ for s in range(N):
     else:
         assert grade(t, {"verdict": "NO_ATTACK"})["score"] == 1
 
-always = sum(grade(make_task(s), {"attack": float(make_task(s).fact.hi) + 1e-30})["score"] >= 1 for s in range(N))
-never = sum(grade(make_task(s), {"verdict": "NO_ATTACK"})["score"] >= 1 for s in range(N))
+# THE BASELINE, from the SHIPPED policies — not from a definition written here.
+# The page and the CLI's own baseline command must print the same
+# numbers, which they can only do if there is one definition of each policy.
+BN = 400
+baseline = []
+for name, policy in POLICIES.items():
+    tally = Counter(); solved = Counter(); total = 0.0; false = 0
+    for s in range(BN):
+        t = make_task(s)
+        r = score(s, policy(render_prompt(t)))
+        total += r["reward"]; false += int(r["false_claim"])
+        tally[t.rung] += 1; solved[t.rung] += 1 if r["reward"] >= 1 else 0
+    baseline.append({"policy": name, "n": BN, "mean": total / BN,
+                     "solved": sum(solved.values()) / BN, "falseClaims": false,
+                     "byRung": {k: [solved[k], tally[k]] for k in tally}})
+always = int(round(next(b["solved"] for b in baseline if b["policy"] == "always") * N))
+never = int(round(next(b["solved"] for b in baseline if b["policy"] == "never") * N))
 
 f = BY_ID["erdos1038.upper"]; w = f.width; k = key_at(f, F(1, 2))
 dial = []
@@ -52,7 +70,9 @@ print(json.dumps({
     "facts": len(FACTS), "named": len(NAMED), "exactIntegers": len(EXACT_INTEGER),
     "pinned": sum(1 for x in FACTS if x.sha256),
     "tasksSampled": N, "attackable": attackable,
-    "mix": dict(mix), "dial": dial,
+    "mix": dict(mix), "rungMix": dict(rungMix), "dial": dial,
+    "rungTargets": {name: edge for edge, name in RUNG_MIX},
+    "baseline": baseline,
     "dialFact": {"id": f.id, "width": float(w)},
     "alwaysAttackSolves": always, "neverAttackSolves": never,
     "forgeries": {"planted": g["planted"], "leaked": g["leaked"]},
