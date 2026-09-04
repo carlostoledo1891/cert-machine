@@ -47,8 +47,9 @@ B.push(C.header({
 B.push(C.scope('A development tool, not a paper. Everything on this page was produced by running the shipped '
   + 'Python package, whose grader needs no framework, no GPU, no container and no network to score a rollout. '
   + 'Both bindings onto the verifiers spec — the v0 load_environment and the v1 Taskset — were run against a '
-  + 'live install (verifiers 0.2.0, the version prime 0.6.31 pins) rather than written from the documentation; '
-  + 'the three defects that exercise found are listed in §6 and pinned by tests.'));
+  + 'live install rather than written from the documentation, on verifiers 0.2.0 (what prime 0.6.31 pins) AND '
+  + '0.3.1 (what the published install command resolves); the three defects that exercise found are listed in '
+  + '§6 and pinned by tests.'));
 
 B.push(C.tldr({
   findingRaw: 'Difficulty is <b>one number with a closed form</b>: a tolerance grader checking a quantity '
@@ -297,7 +298,8 @@ B.push(C.section({
       { b: 'It decides one shape of claim.', text: 'A number, against a certificate. Not mathematics at large; '
         + 'a submission outside that boundary is refused rather than guessed at.' },
       { b: 'The bindings are verified, and here is what that cost.', text: 'Both adapters were run against '
-        + 'verifiers 0.2.0 — the version prime 0.6.31 pins — and the exercise found three defects that writing '
+        + 'verifiers 0.2.0 — the version prime 0.6.31 pins — and again against 0.3.1, which is what the '
+        + 'published install command actually resolves; the exercise found three defects that writing '
         + 'them from the documentation had produced. A plain-string task column aborts every rollout. Scoring '
         + 'receives pydantic message objects rather than dicts, so a .get("content") misses and EVERY reply '
         + 'reads as unparseable: a whole evaluation reporting 0.000 with no error raised anywhere. And '

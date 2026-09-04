@@ -130,9 +130,27 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
   "interval" returns none that are related. Nobody on the Hub grades against
   certified enclosures.
 
-  OPERATOR ACTION OWED: `prime login` (a Prime Intellect API key). Then
-  `prime env push --visibility PUBLIC` from environments/break_the_grader.
-  Decided this session: PUSH AFTER THE PAID MODEL ROW, not before.
+  PUBLISHED 2026-09-04, in the order that keeps the links alive: the repo first
+  (6750a59 -> the site deploys from site/ on Vercel, so reports/gym.html went
+  live and the README's link resolves), then the Hub.
+    LIVE: app.primeintellect.ai/dashboard/environments/carlos-toledo/break-the-grader
+    INSTALL: prime env install carlos-toledo/break-the-grader
+             pip install break_the_grader --extra-index-url https://hub.primeintellect.ai/carlos-toledo/simple/
+    USE: vf.load_environment('break-the-grader')
+  VERIFIED FROM THE HUB, not from disk: a clean 3.12 venv, `pip install
+  break_the_grader` off the Hub index, gate green, `vf.load_environment` returns
+  a SingleTurnEnv, the console script reproduces the published baseline to the
+  digit. THAT INSTALL PULLED VERIFIERS 0.3.1, NOT 0.2.0 — so both adapters are
+  now exercised on both versions and the README says so. All ten tags carried
+  through; the listing reads PUBLIC v0.1.0.
+
+  WHAT IS LEFT ON THIS FRONT, in order of value:
+   · a second, independent source of certificates (risk 4, untouched);
+   · the razor tier wants more room than max_tokens 2000 for Sonnet — 5 of 120
+     replies truncated and were excluded, which is honest but is 4% of a column;
+   · stars are the only ranking signal and the default sort is newest-first, so
+     a version bump re-lists; do not bump for nothing, but a real improvement is
+     worth pushing rather than sitting on.
 
   MEASURED THIS SESSION, $5.88 of an $11.80 cap, 360 real-model calls:
    · THE EFFORT TRAP. At default effort the 5-family spends an entire

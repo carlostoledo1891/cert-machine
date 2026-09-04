@@ -167,15 +167,17 @@ That is what the environment is about: not a hypothetical, a reproduction.
 
 `break_the_grader/adapters_v0.py` exposes `load_environment` (a `SingleTurnEnv`
 with a `Rubric`); `adapters_v1.py` exposes `BreakTheGraderTaskset` (`Task` /
-`TaskData` / `@reward`). **Both were run against a live install — `verifiers`
-0.2.0, the version `prime` 0.6.31 pins — not written from a doc.** Writing them
-from the doc had already produced three defects, two of which are silent:
+`TaskData` / `@reward`). **Both were run against a live install — on `verifiers`
+0.2.0, the version `prime` 0.6.31 pins, and on 0.3.1, the version this package's
+own Hub install command resolves — not written from a doc.** Writing them from
+the doc had already produced three defects, two of which are silent:
 
 - a plain-string `task` column aborts every rollout in 0.2.0;
 - scoring receives pydantic message objects, not dicts, so a `.get("content")`
   misses and **every reply reads as unparseable — a whole eval reporting 0.000
   with no error raised anywhere**;
-- `Taskset.load()` returns a list in 0.2.0 and an iterable in 0.3.1.
+- `Taskset.load()` returns a list in 0.2.0 and takes an iterable in 0.3.1 — a
+  list satisfies both, which is only knowable by running both.
 
 Nothing else in the package imports `verifiers`. The graders, the band geometry
 and the corpus are standard library only, and `tests/test_framework_free.py`

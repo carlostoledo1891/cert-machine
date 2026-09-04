@@ -19,7 +19,11 @@ import verifiers.v1 as vf
 from .api import preflight, score
 from .task import make_task, render_prompt
 
-TESTED_AGAINST = "verifiers 0.2.0"      # the version pinned by prime 0.6.31
+TESTED_AGAINST = ("verifiers 0.2.0", "verifiers 0.3.1")
+"""0.2.0 is what `prime` 0.6.31 pins; 0.3.1 is what the Hub's own install
+command resolves. The two disagree about the v1 surface — `Taskset.load()`
+returns a list in one and takes an iterable in the other — so both were run,
+and a list satisfies both."""
 
 
 class BreakTheGraderData(vf.TaskData):
