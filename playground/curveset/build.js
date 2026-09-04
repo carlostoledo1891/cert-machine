@@ -138,9 +138,9 @@ L(x) = max&#8202;<sub>i</sub> [ lo&#8202;<sub>i</sub> + (x ≥ x&#8202;<sub>i</s
     </ul>
   </div>
 
-  <table><thead><tr><th>assuming</th><th>from</th><th>to</th><th>width</th><th>vs reported ±</th></tr></thead>
+  <div class="tw"><table><thead><tr><th>assuming</th><th>from</th><th>to</th><th>width</th><th>vs reported ±</th></tr></thead>
     <tbody><tr><td colspan="5" style="color:var(--ink-4);border-bottom:1px solid var(--border-strong)">${pontius.title} — reading ${pontius.ask}</td></tr>${rows(pontius)}
-    <tr><td colspan="5" style="color:var(--ink-4);border-bottom:1px solid var(--border-strong);padding-top:var(--s-5)">${il6.title} — reading ${il6.ask}</td></tr>${rows(il6)}</tbody></table>
+    <tr><td colspan="5" style="color:var(--ink-4);border-bottom:1px solid var(--border-strong);padding-top:var(--s-5)">${il6.title} — reading ${il6.ask}</td></tr>${rows(il6)}</tbody></table></div>
 
   <pre>node playground/curveset/envelope.test.js     # the mathematics
 node playground/curveset/make-page-data.js    # the record

@@ -10,7 +10,7 @@
 <meta property="og:description" content="Every sky the Event Horizon Telescope data allow for M87, drawn at once: agreement as ink, disagreement as texture.">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="../design/tokens.css">
-<link rel="stylesheet" href="../design/base.css">
+
 </head>
 <body>
 <nav class="pg-nav"><div class="pg-nav-in">
@@ -161,37 +161,111 @@
 }
 .pg-links a:hover { color: var(--ink-2); }
 
-/* ---- ONE MEASURE SCALE FOR THE WHOLE PLAYGROUND ---------------------------
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
    Nine pages arrived by four routes — written here, ported from the bench,
    crossed with declared patches — and each brought its own idea of how wide a
-   page is. The audit found SEVEN container widths (1180, 1240, 1320, 1560,
-   1200) and EIGHT reading measures (56, 60, 62, 64, 66, 68, 70, 72, 74, 78ch)
-   across those nine pages, which is not a style, it is an accident.
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
 
-   So: three widths, declared once, used by everything.
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
 
-   AND THE READING MEASURE IS DELIBERATELY WIDER THAN THE REPORTS'. Those pages
-   are argument first and figure second, and 68ch is right for them. These are
-   figure first: the prose sits BESIDE and BENEATH components that run the full
-   container, and at 68ch it reads as a leftover column with dead space to its
-   right rather than as a column. A component is never put in the reading
-   measure — tables, plates, panels and grids take the container. */
-:root {
-  --pg-container: 1320px;   /* every page's normal column */
-  --pg-wide:      1560px;   /* figure sections that earn the extra width */
-  --pg-read:      82ch;     /* running prose, and nothing else */
-}
-.wrap, .container { max-width: var(--pg-container); margin: 0 auto; padding: 0 var(--gutter); }
-.wrap.wide, .container.wide, .wide > .container { max-width: var(--pg-wide); }
-/* THERE IS NO NARROW CONTAINER HERE, and that is the point. A narrow container
-   is centred, so a section using one steps inward from every other section on
-   the page and the left edge stops being a line. The reading measure belongs to
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
    the PROSE — .lede, .prose, .why cap themselves and stay left — while the
    container keeps its width for whatever component comes next. */
-.wrap.narrow, .container.narrow { max-width: var(--pg-container); }
-.lede, .prose, .prose > p, .why { max-width: var(--pg-read); }
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
 
-/* full-viewport instrument — page-only styles.  Everything else is tokens.css + base.css. */
+/* ---- THE TABLE RULE, once ------------------------------------------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. Four /instruments pages scrolled the whole document sideways
+   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
+   answer-shape 78 — every one of them a nowrap table sitting in a container
+   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
+   rule that made it scroll lived in base.css and that page never linked it.
+   One class, one rule, declared where every page already inlines it. */
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
+     table sliced mid-character with nothing to indicate there was more; a box
+     that hides a column without saying so is the same defect as a number
+     without its units. The four layers are the standard scroll-shadow: two
+     ground-coloured covers pinned to the CONTENT (background-attachment:local,
+     so they slide away as you scroll) over two shadows pinned to the BOX, so a
+     shadow shows exactly when there is something past that edge and vanishes
+     when there is not. No script, and nothing to keep in sync. */
+  background:
+    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--bg-raised); }
+.tw > table { margin: 0; }
+.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }
+
+/* full-viewport instrument — page-only styles.
+
+   THE BASE SHEET IS GONE (2026-09-04, phase 2). base.css declared 79 classes
+   and shipped to exactly one page — this one — which used FOUR of them, and it
+   also carried a second container scale (1200px) and a second reading measure
+   (68ch) competing with the ones design/tokens.js now emits. The rules this
+   page actually needed are inlined below, from the same tokens; everything
+   else went with the file.  What is left above this line is tokens.css. */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+img, svg, canvas { display: block; max-width: 100%; }
+button, input, select { font: inherit; color: inherit; }
+
+body {
+  background: var(--bg);
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: var(--weight-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+::selection { background: var(--ink); color: var(--bg); }
+
+a { color: var(--ink); text-decoration: none; }
+p a, li a, td a {
+  background-image: linear-gradient(var(--ink-4), var(--ink-4));
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-image var(--dur-fast);
+}
+p a:hover, li a:hover, td a:hover { background-image: linear-gradient(var(--ink), var(--ink)); }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
 html, body { height: 100%; overflow: hidden; }
 body { background: var(--bg); }
 .pg-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 30; background: linear-gradient(var(--bg), rgba(10,10,12,0)); border: 0; }

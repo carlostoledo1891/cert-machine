@@ -11,10 +11,13 @@ a { color: inherit; }
 .eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
 
 .stage { display: grid; gap: clamp(1.25rem, 3vw, 2.5rem); padding: var(--s-5) var(--gutter) var(--s-8);
-  grid-template-columns: 1fr; max-width: var(--pg-wide); margin: 0 auto; align-items: start; }
+  /* minmax(0,1fr), not 1fr: a bare 1fr track floors at the content's
+     MIN-CONTENT, and the control row below is a nowrap label plus a slider
+     plus a 7ch readout — 428px of it, which pushed a 390px phone sideways. */
+  grid-template-columns: minmax(0, 1fr); max-width: var(--container); margin: 0 auto; align-items: start; }
 @media (min-width: 1100px) { .stage { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); } }
 
-.hd { grid-column: 1 / -1; max-width: 62ch; padding-bottom: var(--s-4); }
+.hd { grid-column: 1 / -1; max-width: var(--read); padding-bottom: var(--s-4); }
 .hd h1 { font-size: clamp(2rem, 1rem + 3.4vw, 3.3rem); margin-top: var(--s-3); }
 .hd p { margin-top: var(--s-5); color: var(--ink-3); font-size: var(--text-3); line-height: 1.55; }
 .hd b { color: var(--ink-2); font-weight: var(--weight-medium); }
@@ -49,7 +52,7 @@ svg { display: block; width: 100%; height: auto; overflow: visible; }
 .sx-knot { fill: var(--ink); }
 
 /* the control and the readout */
-.ctl { display: flex; align-items: center; gap: var(--s-4); margin-top: var(--s-5); }
+.ctl { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4); margin-top: var(--s-5); }
 .ctl label { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); white-space: nowrap; }
 .ctl output { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); min-width: 7ch; }
 input[type=range] { -webkit-appearance: none; appearance: none; flex: 1; height: 2px; background: var(--border-strong); border-radius: 2px; }

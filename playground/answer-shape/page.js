@@ -84,6 +84,12 @@ const exactLine = (r, n) => {
 const EL = exactLine(digits.byModel[bestDigit.M.id], digits.n);
 
 const CSS = `
+/* A grid track with a definite max is sized to that max and OVERFLOWS its
+   container — only fr tracks flex. minmax(0,480px) beside a 1fr therefore
+   held 480px on a 390px phone and pushed the document 78px sideways. One
+   column until there is room for two. */
+.ovsec { margin-top:var(--s-6); display:grid; grid-template-columns:minmax(0,1fr); gap:var(--s-6); align-items:start; }
+@media (min-width:880px){ .ovsec { grid-template-columns:minmax(0,480px) minmax(0,1fr); } }
 .trip { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); }
 .fields { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--s-4); }
 @media (max-width:900px){ .trip,.fields{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
@@ -160,7 +166,7 @@ const subjectSection = (sub, extra = '') => `
   </div>
 </section>`;
 
-const overlaySection = (sub, tail = '') => `<div class="reveal" style="margin-top:var(--s-6); display:grid; grid-template-columns:minmax(0,480px) minmax(0,1fr); gap:var(--s-6); align-items:start;">
+const overlaySection = (sub, tail = '') => `<div class="reveal ovsec">
   <div class="art">${overlay(MODELS.map(M => sub.byModel[M.id]), sub.items, sub.order, { short: SHORT(sub) })}</div>
   <div>
     <div class="eyebrow">all three on one frame</div>

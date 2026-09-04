@@ -12,12 +12,12 @@ p { margin: 0; } a { color: inherit; }
 
 .hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(1.6rem, 4vh, 3rem); }
 .hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 24ch; margin-top: var(--s-4); text-wrap: balance; }
-.hero .lede { margin-top: var(--s-6); max-width: var(--pg-read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 .sec { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
 .sec h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); margin-top: var(--s-3); }
-.sec .why { margin-top: var(--s-5); max-width: var(--pg-read); color: var(--ink-3); }
+.sec .why { margin-top: var(--s-5); max-width: var(--read); color: var(--ink-3); }
 .sec .why b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
 /* ---- the grammar, once ---------------------------------------------------- */
@@ -41,7 +41,7 @@ p { margin: 0; } a { color: inherit; }
 .panel .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s-3) var(--s-5); }
 .panel .head .t { font-size: var(--text-2); color: var(--ink); font-weight: var(--weight-medium); }
 .panel .head .s { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-5); }
-.panel .src { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); max-width: var(--pg-read); line-height: 1.55; }
+.panel .src { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); max-width: var(--read); line-height: 1.55; }
 svg.cs-plot { display: block; width: 100%; height: auto; margin-top: var(--s-4); overflow: visible; }
 
 .cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
@@ -99,5 +99,5 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
 
 /* a section that holds a component runs the full container; the prose inside it
    keeps the reading measure, so the two never fight over the same width */
-.sec .why, .sec ul.why, .sec p { max-width: var(--pg-read); }
+.sec .why, .sec ul.why, .sec p { max-width: var(--read); }
 .sec table, .sec pre, .sec .panel, .sec .grid3, .sec .legend, .sec .cert { max-width: none; }

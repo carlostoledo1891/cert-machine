@@ -336,7 +336,7 @@ const body = `
 
   <p class="why" style="margin-top:var(--s-4)"><b>What this is not.</b> It is not a claim that models have no geometry — the pages next door measure plenty. It is a claim about a specific and seductive kind of finding: that a beautiful subset picked out of five hundred is not evidence, and that the way to tell is to run the identical search on the same numbers with the structure removed. Most of what looked like a shape here did not survive that, and the page leads with the count of what did.</p>
 
-  <div class="wide-scroll"><table><thead><tr><th>set</th><th>model</th><th>concyclic</th><th>null</th><th>4-gon</th><th>5-gon</th><th>symmetry</th><th>shuffled null</th><th>configured null</th><th>ratio, both</th><th>element</th><th>predicted</th><th>exact verdict</th><th>impossible 4s</th><th>ptolemy</th><th>all n!</th><th>nearest shape</th><th>margin</th></tr></thead><tbody>${tbl}</tbody></table></div>
+  <div class="tw"><table><thead><tr><th>set</th><th>model</th><th>concyclic</th><th>null</th><th>4-gon</th><th>5-gon</th><th>symmetry</th><th>shuffled null</th><th>configured null</th><th>ratio, both</th><th>element</th><th>predicted</th><th>exact verdict</th><th>impossible 4s</th><th>ptolemy</th><th>all n!</th><th>nearest shape</th><th>margin</th></tr></thead><tbody>${tbl}</tbody></table></div>
 
   <pre>node playground/shape-hunt/run.js            # ${fmt(S.meta.totalTests)} tests, no network
 node playground/shape-hunt/run-studies.js   # the five studies, ${fmt(ST.meta.tests)} more, ${ST.meta.seconds} s

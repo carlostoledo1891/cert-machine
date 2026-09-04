@@ -74,7 +74,7 @@ function statsGridRules() {
 }
 
 function css() {
-  const { SCALE, MEASURE } = T;
+  const { SCALE, LAYOUT } = T;
   return `
 ${T.rootCss()}
 
@@ -84,7 +84,7 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
   font-family:var(--f-sans);font-size:${SCALE.body};line-height:1.65;font-weight:400;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 ::selection{background:var(--ink);color:var(--paper)}
-.page{max-width:${MEASURE.page};margin:0 auto;padding:calc(${SCALE.pagePadY} + 60px) ${SCALE.pagePadX} 96px}
+.page{max-width:${LAYOUT.container};margin:0 auto;padding:calc(${SCALE.pagePadY} + 60px) ${SCALE.pagePadX} 96px}
 
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
   background:color-mix(in srgb, var(--paper) 82%, transparent);
@@ -132,15 +132,23 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
   .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
 }
 [id]{scroll-margin-top:84px}
-.col{max-width:${MEASURE.prose};margin-left:auto;margin-right:auto}
-.wide{max-width:${MEASURE.wide};margin-left:auto;margin-right:auto}
-/* A wide element (table, card grid, figure) emitted inside a prose column
-   breaks out to the page-wide track: .col and .page are both centered, so
-   centering on the viewport IS centering on the page. Width never exceeds
-   the viewport minus the page padding, so the body never scrolls sideways —
-   anything wider (a table) scrolls inside its own .tw container. */
-.col .wide{position:relative;left:50%;transform:translateX(-50%);
-  width:min(${MEASURE.wide},calc(100vw - 2*${SCALE.pagePadX}))}
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:${LAYOUT.read}}
+.col .wide{position:static;left:auto;transform:none;width:auto}
 
 h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
 h1{font-size:${SCALE.h1};line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
@@ -151,7 +159,7 @@ h3{font-size:${SCALE.h3};line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;f
 .eyebrow{color:var(--ink-4)}
 .lab{color:var(--ink-4)}
 .deck{font-size:${SCALE.deck};line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
-  max-width:56ch;text-wrap:pretty}
+  max-width:${LAYOUT.read};text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -198,7 +206,7 @@ details.more[open] > summary::after{content:'\u2212'}
 details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
 details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
 details.more[open] > summary{margin-bottom:24px}
-.scope{margin:24px auto 0;max-width:${MEASURE.prose};border-left:2px solid var(--rule-strong);padding-left:18px;
+.scope{margin:24px 0 0;max-width:${LAYOUT.read};border-left:2px solid var(--rule-strong);padding-left:18px;
   color:var(--ink-3);font-size:${SCALE.small};line-height:1.6}
 
 figure{margin:0}

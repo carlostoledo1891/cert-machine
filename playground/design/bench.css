@@ -24,8 +24,8 @@ p { margin: 0; } a { color: inherit; }
 
 .eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
 .hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(1.5rem, 4vh, 3rem); }
-h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 24ch; text-wrap: balance; }
-.lede { max-width: var(--pg-read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title); text-wrap: balance; }
+.lede { max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
 .hero-meta .item { display: grid; gap: 3px; }
 .hero-meta .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.12em;
@@ -39,7 +39,7 @@ h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 24ch; text
 .section { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
 .hero + .section, .section:first-of-type { border-top: 0; }
 h2.t2, h3.t2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); text-wrap: balance; }
-.prose { color: var(--ink-3); display: grid; gap: var(--s-4); max-width: var(--pg-read); }
+.prose { color: var(--ink-3); display: grid; gap: var(--s-4); max-width: var(--read); }
 .prose h2 { margin-bottom: var(--s-2); }
 .prose em { color: var(--ink-2); font-style: italic; }
 
@@ -50,6 +50,12 @@ img { max-width: 100%; }
 .w-decided { stroke: var(--ink); }
 .w-computed { stroke: var(--ink-3); }
 .w-chosen { stroke: var(--ink-2); }
+/* THE LEGEND IS STILL DECLARED THREE TIMES — here, in curveset/page.css and as
+   a flex variant on neural-geometry — and it holds 3, 3, 4, 5 and 7 items on
+   five pages while declaring three columns on four of them. Deriving the count
+   with auto-fit was tried in phase 2 and MEASURED WORSE: seven items in five
+   columns is 5+2, four more left edges than 3+3+1. The component needs
+   designing, not a one-line selector change. Phase 3. */
 .legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5); grid-template-columns: 1fr; }
 @media (min-width: 700px) { .legend { grid-template-columns: repeat(3, 1fr); } }
 .legend .item { display: grid; grid-template-columns: 46px 1fr; gap: var(--s-3); align-items: center; }
@@ -81,5 +87,5 @@ img { max-width: 100%; }
 .section th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
 .section code { font-family: var(--font-mono); font-size: 0.86em; color: var(--ink-2); }
 .section b, .section strong { color: var(--ink); font-weight: var(--weight-medium); }
-h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: 28ch; text-wrap: balance; }
-.wide .container { max-width: var(--pg-wide); }
+h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(--title); text-wrap: balance; }
+.wide .container { max-width: var(--container); }

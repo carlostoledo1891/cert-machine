@@ -284,7 +284,7 @@
       <p>Everything above was arithmetic on objects. The reference this borrows from does something else: it asks a language model for the distance between every pair of things and decides what shape the answers have. That method cannot be checked, because nobody knows the true geometry of a model&rsquo;s beliefs. Here it can be, because two of these subjects have an answer.</p>
       <p>So claude-opus-5 was asked for every pair of the six points twice, once in each order, in 60 calls that never saw one another. No mention of dimension, embedding, Euclidean anything &mdash; just &ldquo;how far apart are these two, as an integer&rdquo;.</p>
     </div>
-    <div class="table-wrap reveal" style="margin-top:var(--s-5);">
+    <div class="tw reveal" style="margin-top:var(--s-5);">
       <table><thead><tr><th>subject</th><th></th><th>effective rank</th><th>negative mass</th><th>closure</th><th>δ / diam</th><th>asymmetry</th></tr></thead><tbody>
       <tr><td class="mono" rowspan="2">hex-chord</td><td class="mono dim">model</td><td class="mono">2</td><td class="mono">0.45%</td><td class="mono">1.00×</td><td class="mono">0.250</td><td class="mono">0 max over 15 pairs</td></tr><tr><td class="mono dim">exact</td><td class="mono">2</td><td class="mono">0.00%</td><td class="mono">1.00×</td><td class="mono">0.250</td><td class="mono dim">—</td></tr><tr><td class="mono" rowspan="2">hex-cycle</td><td class="mono dim">model</td><td class="mono">5</td><td class="mono">22.86%</td><td class="mono">1.00×</td><td class="mono">0.333</td><td class="mono">0 max over 15 pairs</td></tr><tr><td class="mono dim">exact</td><td class="mono">5</td><td class="mono">22.86%</td><td class="mono">1.00×</td><td class="mono">0.333</td><td class="mono dim">—</td></tr>
       </tbody></table>
@@ -336,35 +336,61 @@
 }
 .pg-links a:hover { color: var(--ink-2); }
 
-/* ---- ONE MEASURE SCALE FOR THE WHOLE PLAYGROUND ---------------------------
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
    Nine pages arrived by four routes — written here, ported from the bench,
    crossed with declared patches — and each brought its own idea of how wide a
-   page is. The audit found SEVEN container widths (1180, 1240, 1320, 1560,
-   1200) and EIGHT reading measures (56, 60, 62, 64, 66, 68, 70, 72, 74, 78ch)
-   across those nine pages, which is not a style, it is an accident.
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
 
-   So: three widths, declared once, used by everything.
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
 
-   AND THE READING MEASURE IS DELIBERATELY WIDER THAN THE REPORTS'. Those pages
-   are argument first and figure second, and 68ch is right for them. These are
-   figure first: the prose sits BESIDE and BENEATH components that run the full
-   container, and at 68ch it reads as a leftover column with dead space to its
-   right rather than as a column. A component is never put in the reading
-   measure — tables, plates, panels and grids take the container. */
-:root {
-  --pg-container: 1320px;   /* every page's normal column */
-  --pg-wide:      1560px;   /* figure sections that earn the extra width */
-  --pg-read:      82ch;     /* running prose, and nothing else */
-}
-.wrap, .container { max-width: var(--pg-container); margin: 0 auto; padding: 0 var(--gutter); }
-.wrap.wide, .container.wide, .wide > .container { max-width: var(--pg-wide); }
-/* THERE IS NO NARROW CONTAINER HERE, and that is the point. A narrow container
-   is centred, so a section using one steps inward from every other section on
-   the page and the left edge stops being a line. The reading measure belongs to
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
    the PROSE — .lede, .prose, .why cap themselves and stay left — while the
    container keeps its width for whatever component comes next. */
-.wrap.narrow, .container.narrow { max-width: var(--pg-container); }
-.lede, .prose, .prose > p, .why { max-width: var(--pg-read); }
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
+
+/* ---- THE TABLE RULE, once ------------------------------------------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. Four /instruments pages scrolled the whole document sideways
+   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
+   answer-shape 78 — every one of them a nowrap table sitting in a container
+   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
+   rule that made it scroll lived in base.css and that page never linked it.
+   One class, one rule, declared where every page already inlines it. */
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
+     table sliced mid-character with nothing to indicate there was more; a box
+     that hides a column without saying so is the same defect as a number
+     without its units. The four layers are the standard scroll-shadow: two
+     ground-coloured covers pinned to the CONTENT (background-attachment:local,
+     so they slide away as you scroll) over two shadows pinned to the BOX, so a
+     shadow shows exactly when there is something past that edge and vanishes
+     when there is not. No script, and nothing to keep in sync. */
+  background:
+    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--bg-raised); }
+.tw > table { margin: 0; }
+.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }
 
 /* bench.css — the structural shim for every page crossed from the bench.
 
@@ -392,8 +418,8 @@ p { margin: 0; } a { color: inherit; }
 
 .eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
 .hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(1.5rem, 4vh, 3rem); }
-h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 24ch; text-wrap: balance; }
-.lede { max-width: var(--pg-read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title); text-wrap: balance; }
+.lede { max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
 .hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
 .hero-meta .item { display: grid; gap: 3px; }
 .hero-meta .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.12em;
@@ -407,7 +433,7 @@ h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 24ch; text
 .section { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
 .hero + .section, .section:first-of-type { border-top: 0; }
 h2.t2, h3.t2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); text-wrap: balance; }
-.prose { color: var(--ink-3); display: grid; gap: var(--s-4); max-width: var(--pg-read); }
+.prose { color: var(--ink-3); display: grid; gap: var(--s-4); max-width: var(--read); }
 .prose h2 { margin-bottom: var(--s-2); }
 .prose em { color: var(--ink-2); font-style: italic; }
 
@@ -418,6 +444,12 @@ img { max-width: 100%; }
 .w-decided { stroke: var(--ink); }
 .w-computed { stroke: var(--ink-3); }
 .w-chosen { stroke: var(--ink-2); }
+/* THE LEGEND IS STILL DECLARED THREE TIMES — here, in curveset/page.css and as
+   a flex variant on neural-geometry — and it holds 3, 3, 4, 5 and 7 items on
+   five pages while declaring three columns on four of them. Deriving the count
+   with auto-fit was tried in phase 2 and MEASURED WORSE: seven items in five
+   columns is 5+2, four more left edges than 3+3+1. The component needs
+   designing, not a one-line selector change. Phase 3. */
 .legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5); grid-template-columns: 1fr; }
 @media (min-width: 700px) { .legend { grid-template-columns: repeat(3, 1fr); } }
 .legend .item { display: grid; grid-template-columns: 46px 1fr; gap: var(--s-3); align-items: center; }
@@ -449,8 +481,8 @@ img { max-width: 100%; }
 .section th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
 .section code { font-family: var(--font-mono); font-size: 0.86em; color: var(--ink-2); }
 .section b, .section strong { color: var(--ink); font-weight: var(--weight-medium); }
-h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: 28ch; text-wrap: balance; }
-.wide .container { max-width: var(--pg-wide); }
+h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(--title); text-wrap: balance; }
+.wide .container { max-width: var(--container); }
 
 
 .exg { display:grid; grid-template-columns: minmax(0,520px) minmax(0,1fr); gap: var(--s-6); align-items:start; }

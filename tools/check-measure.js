@@ -114,7 +114,15 @@ const PROBE = `(() => {
     if (r.width < 280) continue;
     /* 8px, not 1px: a hairline of sub-pixel overflow on an inline-block is
        text-metric noise that flips between runs and would make the ratchet
-       flap. 8px is a hidden character, which is the thing worth counting. */
+       flap. 8px is a hidden character, which is the thing worth counting.
+
+       AND NOT INSIDE SVG. scrollWidth on an SVG element does not mean what it
+       means on an HTML one — an <svg><text> 300px wide reports a scrollWidth
+       of 700 with nothing clipped and nothing scrollable. Phase 2 widened the
+       figure track from 900px to the container, which pushed a handful of axis
+       labels past the 280px floor and turned three pages "worse" for a reason
+       that was entirely this probe's. Corrected 2026-09-04. */
+    if (el.ownerSVGElement || el.tagName.toLowerCase() === 'svg') continue;
     if (el.scrollWidth - el.clientWidth >= 8) clipped++;
     if ((r.left < -1 || r.right > vw + 1) && !scrolls(el)) escapes++;
     if (r.width >= vw - 1) continue;                 /* full-bleed is the ground, not the spine */

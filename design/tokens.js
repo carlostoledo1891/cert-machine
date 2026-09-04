@@ -129,9 +129,42 @@ const SCALE = {
   figPad:  '1.5rem'                                   /* --s-5 */
 };
 
-/* Measure: frontier's containers. Prose capped in characters (reading limit);
-   figures and tables get the wide track. */
-const MEASURE = { prose: '68ch', wide: '900px', page: '1200px', narrow: '820px' };
+/* ------------------------------------------------------------ THE LAYOUT --
+   ONE CONTAINER, TWO TRACKS, NO BREAKOUTS. Adopted 2026-09-04 (phase 2 of the
+   one-seed pass) after the layout ruler measured three left spines across one
+   domain: /instruments at 108, the landing and all 50 reports at 398 because
+   `.col` CENTRED the prose inside a wider figure track, and a third for the
+   app-shaped pages. The front page and /instruments shared no line.
+
+     container   the page track. Everything sits in it and nothing escapes it.
+     read        prose, and NOTHING else. Capped in characters because it is a
+                 reading limit. LEFT-ALIGNED — never centred, because a centred
+                 column steps inward from every component around it and the
+                 left edge stops being a line. playground/design/shell.css
+                 worked this out for /instruments first; this is that ruling
+                 applied to the engine the reports are built by.
+     title       headline balance. Two values were in use, 24ch and 28ch.
+
+   WHY 1200 AND NOT 1320. Both were in service — 1200 on 56 pages, 1320 on ten.
+   The smaller number is the majority, and it is the more forgiving reading
+   width now that prose sits BESIDE full-track components instead of centred
+   inside them. The 1560px "wide" track is gone entirely: it is what produced
+   the 1849px table that ran off the screen in the screenshots that started
+   this pass.
+
+   THERE IS NO NARROW CONTAINER AND NO WIDE ONE. A component wider than the
+   container scrolls INSIDE it (see `.tw`), sheds columns, or becomes a
+   different component. It never breaks out, because the breakout is what
+   makes the left edge move.                                                 */
+const LAYOUT = { container: '1200px', read: '82ch', title: '28ch' };
+
+/* MEASURE is the retired three-track scale, kept ONLY so an unmigrated
+   consumer fails loudly rather than silently laying out at a stale width.
+   Nothing in this repository reads it; delete it when that stays true. */
+const MEASURE = { get prose() { throw new Error('MEASURE.prose is retired — use LAYOUT.read'); },
+  get wide() { throw new Error('MEASURE.wide is retired — there is no wide track; a component scrolls inside the container'); },
+  get page() { throw new Error('MEASURE.page is retired — use LAYOUT.container'); },
+  get narrow() { throw new Error('MEASURE.narrow is retired — there is no narrow container'); } };
 
 /* The one drop shadow. It was written three times — a literal in template.js,
    a --shadow token in app-shell.js's light block and another in its dark
@@ -209,6 +242,9 @@ function rootCss() {
     '  color-scheme:dark;',
     block(DARKONLY),
     '  --shadow:' + SHADOW + ';',
+    '  --container:' + LAYOUT.container + ';',
+    '  --read:' + LAYOUT.read + ';',
+    '  --title:' + LAYOUT.title + ';',
     fontBlock(),
     '}'
   ].join('\n');
@@ -270,8 +306,9 @@ function instrumentsCss() {
   });
   for (const [k, val] of Object.entries(SPACE)) v['--s-' + k] = val;
   v['--section-pad'] = SCALE.section;
-  v['--container'] = MEASURE.page;
-  v['--container-narrow'] = MEASURE.narrow;
+  v['--container'] = LAYOUT.container;
+  v['--read'] = LAYOUT.read;
+  v['--title'] = LAYOUT.title;
   v['--gutter'] = SCALE.pagePadX;
   for (const [k, val] of Object.entries(SHAPE)) v['--radius-' + k] = val;
   v['--ease-out'] = MOTION.ease;
@@ -303,5 +340,5 @@ function instrumentsCss() {
 /* Kept exports: LIGHT/DARK aliases point at the one palette so any consumer
    still importing them keeps working while it migrates. */
 module.exports = { LIGHT: DARKONLY, DARK: DARKONLY, DARKONLY, TYPE, GOOGLE_FONTS,
-  SCALE, MEASURE, SHADOW, RHYTHM, SPACE, SHAPE, MOTION, FRONTIER, VENDORED,
+  SCALE, LAYOUT, MEASURE, SHADOW, RHYTHM, SPACE, SHAPE, MOTION, FRONTIER, VENDORED,
   FIGURE_TOKENS, CHART, rootCss, fontBlock, instrumentsCss };

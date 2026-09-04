@@ -30,14 +30,16 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
 THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
 
-  ══ SESSION OF 2026-09-04 (THIRD): THE DESIGN REVIEW, AND PHASES 0 AND 1.
+  ══ SESSION OF 2026-09-04 (THIRD): THE DESIGN REVIEW, AND PHASES 0, 1 AND 2.
      $0.00 spent, 57/57 batteries green. The operator sent screenshots of
      sliced tables and paragraphs that do not share a left edge with the figure
      under them and asked whether the whole site could sit on ONE seed. It was
      measured rather than argued: tools/check-measure.js drives headless Chrome
      over all 66 built pages at 1440 and 390 and records four geometric facts
      per page. THE RULER IS BUILT AND GATED, THE PALETTE HAS ONE SOURCE, AND
-     ALL 528 GEOMETRY NUMBERS ARE UNCHANGED — nothing has been restyled. ══
+     THE WHOLE SITE NOW SITS ON ONE LEFT EDGE: x=168 on the landing, on every
+     report, on /instruments and on every instrument page. Spines 979 -> 667,
+     clipped blocks 86 -> 5, and MOBILE SIDE-SCROLL 720px -> 0. ══
 
   WHAT THE MEASUREMENT FOUND (the evidence behind phases 1-4 below):
 
@@ -142,17 +144,59 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
     was a timestamp, a git stamp or a wall-clock ms. NO CERTIFIED NUMBER MOVED,
     which is the sequencing rule holding.
 
-  THE PLAN FOR PHASES 2-4 (agreed with the operator; nothing started):
+  PHASE 2 SHIPPED — ONE CONTAINER, TWO TRACKS, NO BREAKOUTS:
 
-  · PHASE 2 — ONE LAYOUT CONTRACT. LAYOUT = { container, read } in tokens.js.
-    ONE container, TWO tracks (`read`: prose capped in ch, LEFT-ALIGNED, never
-    centred; `full`: the container width). Retire MEASURE.wide, MEASURE.narrow,
-    --pg-wide, --container-narrow, `.col{margin-inline:auto}`, `.col .wide` and
-    `.wide-scroll`. Delete base.css and unlink it. Sweep the per-page px and ch
-    measures. NO BREAKOUTS: a component wider than the container scrolls inside
-    it with a visible affordance, sheds columns, or becomes a different
-    component — it never escapes the page. The five mobile side-scrolls are
-    part of this, not a separate task.
+  · THE CONTRACT is design/tokens.js LAYOUT = { container: 1200px, read: 82ch,
+    title: 28ch }, emitted as --container / --read / --title into BOTH page
+    shells so the two sides can finally ask for the track by the same name.
+    1200 because it was already in service on 56 of 66 pages against 1320 on
+    ten, and because prose now sits BESIDE full-track components rather than
+    centred inside them. MEASURE is retired to four getters that THROW, so an
+    unmigrated consumer fails loudly instead of laying out at a stale width.
+  · THE CENTRING IS GONE. '.col' used to be a centred 68ch box inside a centred
+    900px track — prose at x=398, tables at x=270. It now runs the full
+    container and caps only its READING children, which is what shell.css had
+    already worked out for /instruments. There is nothing left for a breakout
+    to break out of, so '.col .wide' and its translateX are no-ops, and the
+    1560px --pg-wide track that produced the 1849px table is deleted.
+  · THE RESULT, measured: EVERY SURFACE SHARES x=168 — landing, /machine,
+    /about, all 50 reports, /instruments and the instrument pages. Spines
+    979 -> 667. Clipped blocks at 1440: 86 -> 5.
+  · ONE TABLE RULE, and it fixed every mobile side-scroll. Four pages pushed
+    the document sideways on a phone (neural-geometry 252px, curveset 176,
+    exact-geometry 156, answer-shape 78) and every one was a nowrap table in a
+    container with overflow-x: visible. exact-geometry even HAD a .table-wrap —
+    the rule that made it scroll lived in base.css, which that page never
+    linked. One '.tw' in shell.css now, where every page already inlines it,
+    WITH A SCROLL AFFORDANCE: the standard four-layer scroll shadow, so a table
+    that is hiding a column says so. That was the screenshot that started this.
+  · TWO MORE MOBILE BUGS, one mechanism: A GRID TRACK WITH A DEFINITE MAX IS
+    SIZED TO THAT MAX AND OVERFLOWS — only fr tracks flex, and a bare '1fr'
+    floors at MIN-CONTENT. answer-shape held a 480px column on a 390px phone;
+    simplex's stage floored at its control row's 428px min-content;
+    neural-geometry's four plates held 1164px in a 1104px container. All three
+    are minmax(0, ...) now. Worth knowing: this is the single most common way a
+    grid overflows and it is invisible until something is measured.
+  · base.css IS DELETED. It declared 79 classes and shipped to exactly one page
+    — interferometer — which used FOUR of them, while carrying a second
+    container scale (1200px) and a second reading measure (68ch) competing with
+    the tokens. The rules that page needed are inlined in its own sheet. EVERY
+    /instruments PAGE NOW LINKS EXACTLY ONE STYLESHEET, the generated tokens.
+  · THE RULER CORRECTED ITSELF, and this is the part worth remembering:
+    scrollWidth on an SVG element does not mean what it means on an HTML one —
+    an svg text node 300px wide reports scrollWidth 700 with nothing clipped.
+    Widening the figure track pushed a few axis labels past the 280px floor and
+    turned three report pages "worse" for a reason that was entirely the
+    probe's. SVG is excluded from the clipped count now, with the reason in the
+    file. The ratchet caught it as a regression, which is what it is for.
+  · ONE CHANGE WAS REVERTED BY MEASUREMENT. Deriving the legend's column count
+    with auto-fit made plates WORSE — seven items in five columns is 5+2, four
+    more left edges than the 3+3+1 it had. The legend is still declared three
+    times and still holds 3, 3, 4, 5 and 7 items against three declared
+    columns. It needs designing, not a selector change. PHASE 3.
+
+  THE PLAN FOR PHASES 3-4 (agreed with the operator; nothing started):
+
   · PHASE 3 — ONE COMPONENT SET. Move `.legend`, the table, the stat strip, the
     card and the plate frame out of nine private <style> blocks into the shared
     emitter, with column counts DERIVED from item counts. design/COMPONENTS.md

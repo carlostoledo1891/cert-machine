@@ -167,7 +167,6 @@ function build(OUT) {
     title: 'Not the picture — the set of pictures · instruments',
     desc: 'Every sky the Event Horizon Telescope data allow for M87, drawn at once: agreement as ink, disagreement as texture.',
     root: '../', here: 'interferometer', body,
-    head: '<link rel="stylesheet" href="../design/base.css">',
     script: `<style>${SHELLCSS}\n${CSS}</style>\n<script>${APP}</script>\n<script>(function(){document.getElementById('aboutOpen').onclick=function(){document.body.classList.add('sheet-open');};document.getElementById('aboutClose').onclick=function(){document.body.classList.remove('sheet-open');};document.addEventListener('keydown',function(e){if(e.key==='Escape')document.body.classList.remove('sheet-open');});})();</script>`,
   });
   const dir = path.join(OUT, 'interferometer');

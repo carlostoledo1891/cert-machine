@@ -190,7 +190,7 @@ ${[['cycle', 'the wheels'], ['line', 'the lines'], ['tree', 'the branching one']
   <h3>What this is not</h3>
   <p>It is not interpretability. Nothing here says how the model computes anything, and nothing here opens it. It is a measurement of what its <em>answers</em> are shaped like, on five small sets, with two of them present only to fail. Five sets is not a survey; the sets were chosen before the calls were made and all five are on the page, including the one whose prediction was wrong.</p>
 
-  <table><thead><tr><th>set</th><th>model</th><th>closure</th><th>closing step</th><th>δ/diam</th><th>triangle</th><th>signature</th><th>2D</th><th>asym</th></tr></thead><tbody>${rows}</tbody></table>
+  <div class="tw"><table><thead><tr><th>set</th><th>model</th><th>closure</th><th>closing step</th><th>δ/diam</th><th>triangle</th><th>signature</th><th>2D</th><th>asym</th></tr></thead><tbody>${rows}</tbody></table></div>
 
   <pre>ENVS_ALLOW_NETWORK=1 node playground/neural-geometry/probe.js --cap 2.00
 node playground/neural-geometry/decide.js

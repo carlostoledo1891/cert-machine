@@ -129,7 +129,7 @@ ${CMP ? `
       <p>Everything above was arithmetic on objects. The reference this borrows from does something else: it asks a language model for the distance between every pair of things and decides what shape the answers have. That method cannot be checked, because nobody knows the true geometry of a model&rsquo;s beliefs. Here it can be, because two of these subjects have an answer.</p>
       <p>So ${CMP.model} was asked for every pair of the six points twice, once in each order, in ${2 * 15 * 2} calls that never saw one another. No mention of dimension, embedding, Euclidean anything &mdash; just &ldquo;how far apart are these two, as an integer&rdquo;.</p>
     </div>
-    <div class="table-wrap reveal" style="margin-top:var(--s-5);">
+    <div class="tw reveal" style="margin-top:var(--s-5);">
       <table><thead><tr><th>subject</th><th></th><th>effective rank</th><th>negative mass</th><th>closure</th><th>δ / diam</th><th>asymmetry</th></tr></thead><tbody>
       ${CMP.rows.map(r => [
         `<tr><td class="mono" rowspan="2">${r.id}</td><td class="mono dim">model</td><td class="mono">${r.model.spectrum.effRank}</td><td class="mono">${(100 * r.model.spectrum.negMass).toFixed(2)}%</td><td class="mono">${r.model.closure.ratio.toFixed(2)}×</td><td class="mono">${r.model.hyper.relative.toFixed(3)}</td><td class="mono">${r.asym.max} max over ${r.asym.pairs} pairs</td></tr>`,
