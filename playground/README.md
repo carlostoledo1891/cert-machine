@@ -139,6 +139,29 @@ a kinship grid, and two controls that are there to fail.
   path where there is one, the minimum spanning tree where there is not), plus
   `mapPlate`, which puts all 44 cells in the plane of the two numbers
 
+**The frame experiment.** Ten numerals, four frames, and nothing changes but one
+sentence in front of the question — which names what they are *for* and never
+what shape they make. Fit is Procrustes against the layout the frame implies,
+against a 1,000-shuffle permutation null:
+
+| frame | predicted | fit | null p95 | |
+|---|---|---:|---:|---|
+| bare digits | a line | 0.856 | 0.648 | holds |
+| floors of a building | a line | 0.898 | 0.648 | holds — the frame that should do nothing does nothing |
+| residues modulo 10 | a circle | **0.949** | 0.636 | holds — the line closes |
+| keys on a telephone keypad | a 3×3 grid | **0.549** | 0.619 | **fails, below the null** |
+
+So the frame is a real parameter and a bounded one: it bends a structure the
+model already carries (an order into a cycle) and cannot conjure one it lacks.
+The models have the keypad as a thing; they do not have it as a place.
+
+**The pull.** Directional asymmetry, which the first pass symmetrised away and
+called noise. `pull[i] = Σ(d(i,j) − d(j,i))` is high for an item everything else
+is measured against — Tversky's direction, pointing at the prototype. All three
+models independently make **Earth** the reference among the planets. On the seven
+wheels it points at nothing (ρ ≈ 0.08), which is exactly right: a circle has no
+privileged point.
+
 **What it found**
 
 - **Structure is curvature.** All 6 control cells have a positive semidefinite

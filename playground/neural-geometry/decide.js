@@ -192,6 +192,83 @@ function signature(Gin, n) {
   return { p, q, z, n };
 }
 
+/* THE PULL — directional asymmetry, and the thing this page was throwing away.
+
+   D[i][j] and D[j][i] came from calls that never saw each other, and the page
+   has been averaging them and calling the difference noise. Its DIRECTION is
+   not noise. Tversky's observation is that similarity is asymmetric and the
+   asymmetry points at the prototype: a variant is judged more similar to the
+   prototype than the prototype is to the variant. So
+
+       pull[i] = Σ_j ( d(i,j) − d(j,i) )
+
+   is high for an item everything else is measured against and low for one that
+   measures itself against everything else. Integers in, integer out.
+
+   And it has a built-in null: on a CYCLE no point is privileged — every
+   position is equivalent under rotation — so a wheel should show no consistent
+   pull at all, and the wheels are on the page to check that it doesn't. */
+function pull(raw, n) {
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    let s = 0;
+    for (let j = 0; j < n; j++) if (i !== j) s += raw[i][j] - raw[j][i];
+    out.push(s);
+  }
+  return out;
+}
+
+const rankOf = (a) => { const s = a.map((v, i) => [v, i]).sort((x, y) => x[0] - y[0]); const r = []; s.forEach((p, k) => { r[p[1]] = k; }); return r; };
+function spearman(a, b) {
+  const ra = rankOf(a), rb = rankOf(b), n = a.length;
+  let d = 0; for (let i = 0; i < n; i++) d += (ra[i] - rb[i]) ** 2;
+  return 1 - (6 * d) / (n * (n * n - 1));
+}
+
+/* PROCRUSTES — how much of one configuration the other explains after the only
+   transformations that carry no information: translation, uniform scale,
+   rotation, reflection. 1 is the same shape. Used two ways: against another
+   MODEL (do they find the same thing?) and against the KNOWN layout, where one
+   exists (did they find the right thing?). */
+function procrustes(A, B) {
+  const n = A.length;
+  const centre = (X) => {
+    const mx = X.reduce((a, q) => a + q[0], 0) / n, my = X.reduce((a, q) => a + q[1], 0) / n;
+    return X.map((q) => [q[0] - mx, q[1] - my]);
+  };
+  const norm = (X) => { const k = Math.sqrt(X.reduce((a, q) => a + q[0] * q[0] + q[1] * q[1], 0)) || 1; return X.map((q) => [q[0] / k, q[1] / k]); };
+  const a = norm(centre(A)), b = norm(centre(B));
+  let best = -2;
+  for (const flip of [1, -1]) for (let k = 0; k < 1440; k++) {
+    const t = (k * Math.PI) / 720, c = Math.cos(t), sn = Math.sin(t);
+    let s = 0;
+    for (let i = 0; i < n; i++) { const x = flip * b[i][0], y = b[i][1]; s += a[i][0] * (c * x - sn * y) + a[i][1] * (sn * x + c * y); }
+    if (s > best) best = s;
+  }
+  return best;
+}
+
+/* THE NULL for a Procrustes fit. "0.55 against the true keypad" means nothing
+   until you know what an unrelated configuration scores, and for ten points in
+   two dimensions that is not close to zero. So the labels are shuffled and the
+   fit recomputed a thousand times: the 95th percentile of THAT is the number a
+   real fit has to beat. Deterministic — a fixed generator, so the null is the
+   same on every run and is part of the record rather than a mood. */
+function procrustesNull(truth, trials = 1000) {
+  const n = truth.length;
+  let seed = 12345;
+  const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+  const pts = truth.map((p) => p.slice());
+  const out = [];
+  for (let t = 0; t < trials; t++) {
+    const q = pts.slice();
+    for (let i = n - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [q[i], q[j]] = [q[j], q[i]]; }
+    out.push(procrustes(q, truth));
+  }
+  out.sort((a, b) => a - b);
+  return { p95: out[Math.floor(0.95 * trials)], p50: out[Math.floor(0.5 * trials)], trials };
+}
+
 /* --- float, and said so: the coordinates the page draws ------------------- */
 function eigenJacobi(Ain, n, sweeps = 100) {
   const A = Ain.map((r) => r.map(R.toNumber));
@@ -262,10 +339,40 @@ for (const S of SETS) {
     row.models.push({
       id: M.id, n, asym: asymmetry(rec.raw, n), closure: S.order ? c : null, signature: sig,
       tri: triangles(D, n), hyp: hyperbolicity(D, n), mst: mst(D, n),
+      pull: pull(rec.raw, n),
+      fit: S.truth ? procrustes(xy.pts, S.truth) : null,
       pts: xy.pts, captured: xy.captured, cyclic: S.order ? angularOrder(xy.pts) : null,
       D: D.map((r) => r.map(R.toNumber)),
     });
   }
+  /* set-level: do the models agree with each other, and does the pull point the
+     same way for all of them? Both are cross-model facts, so they live on the
+     set and not on any one model. */
+  const done = row.models.filter((m) => !m.incomplete);
+  const pairs = [];
+  const rhos = [];
+  for (let i = 0; i < done.length; i++) for (let j = i + 1; j < done.length; j++) {
+    pairs.push({ a: done[i].id, b: done[j].id, fit: procrustes(done[i].pts, done[j].pts) });
+    rhos.push(spearman(done[i].pull, done[j].pull));
+  }
+  row.agree = pairs.length ? pairs.reduce((a, x) => a + x.fit, 0) / pairs.length : null;
+  row.agreePairs = pairs;
+  row.pullRho = rhos.length ? rhos.reduce((a, x) => a + x, 0) / rhos.length : null;
+  /* the item every model points at, when they point the same way */
+  /* THE REFERENCE is the item with the HIGHEST pull. Tversky's direction:
+     d(variant, prototype) < d(prototype, variant) — a variant is judged more
+     similar to the prototype than the other way round — so the prototype is the
+     one whose outgoing distances are large and whose incoming are small. */
+  row.anchor = done.length
+    ? { reference: [...new Set(done.map((m) => S.items[m.pull.indexOf(Math.max(...m.pull))]))],
+        outlier: [...new Set(done.map((m) => S.items[m.pull.indexOf(Math.min(...m.pull))]))],
+        unanimous: new Set(done.map((m) => m.pull.indexOf(Math.max(...m.pull)))).size === 1 }
+    : null;
+  row.truth = S.truth || null;
+  row.fitNull = S.truth ? procrustesNull(S.truth) : null;
+  row.family = S.family || null;
+  row.frameLabel = S.frameLabel || null;
+  row.frame = S.frame || null;
   out.sets.push(row);
 }
 
@@ -273,6 +380,15 @@ fs.mkdirSync(path.join(HERE, 'out'), { recursive: true });
 fs.writeFileSync(path.join(HERE, 'out', 'geometry.json'), JSON.stringify(out) + '\n');
 
 const H = (x) => (x === null ? '  —  ' : x.toFixed(3));
+console.log(`${'set'.padEnd(12)} ${'shape'.padEnd(6)} ${'agree'.padStart(6)} ${'pull ρ'.padStart(7)} ${'fit'.padStart(6)}  anchor`);
+for (const s of out.sets) {
+  console.log(`${s.id.padEnd(12)} ${s.shape.padEnd(6)} ${(s.agree === null ? '—' : s.agree.toFixed(3)).padStart(6)} `
+    + `${(s.pullRho === null ? '—' : s.pullRho.toFixed(2)).padStart(7)} `
+    + `${(() => { const f = s.models.filter((m) => !m.incomplete && m.fit !== null); return f.length ? (f.reduce((a, m) => a + m.fit, 0) / f.length).toFixed(3) : '—'; })().padStart(6)}  `
+    + (s.fitNull ? `[null p95 ${s.fitNull.p95.toFixed(3)}] ` : '')
+    + (s.anchor && s.pullRho > 0.25 ? 'reference: ' + s.anchor.reference.join(' / ') + (s.anchor.unanimous ? '  (unanimous)' : '') : ''));
+}
+console.log();
 console.log(`${'set'.padEnd(12)} ${'shape'.padEnd(6)} ${'model'.padEnd(9)} ${'closure'.padStart(8)} ${'delta/diam'.padStart(10)} ${'tri viol'.padStart(9)} ${'q'.padStart(3)} ${'2D'.padStart(5)} ${'asym'.padStart(5)}`);
 for (const s of out.sets) for (const m of s.models) {
   if (m.incomplete) { console.log(`${s.id.padEnd(12)} ${s.shape.padEnd(6)} ${m.id.replace('claude-', '').padEnd(9)}   (incomplete)`); continue; }

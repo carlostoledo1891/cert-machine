@@ -34,7 +34,11 @@ const MODELS = [
   { id: 'claude-haiku-4-5', model: 'claude-haiku-4-5', effort: null },
 ];
 
-const PROMPT = (item, others) => `Rate how DIFFERENT each of the following is from "${item}".
+/* the FRAME goes in front of the question and nowhere else. It names the
+   context and never the geometry — "these are keypad keys", not "these are
+   arranged in a grid" — because a frame that describes the answer is not an
+   experiment. */
+const PROMPT = (item, others, frame) => `${frame ? frame + '\n\n' : ''}Rate how DIFFERENT each of the following is from "${item}".
 
 Use a whole number from 0 to 100, where 0 means identical and 100 means maximally different — as different as any two things in this list could be.
 
@@ -74,6 +78,10 @@ function parseRow(text, k) {
    four hundred calls, and quietly dropping the cell would leave a hole in the
    table that reads like a finding. */
 const REPAIR = argv.includes('--repair');
+/* --only <ids>  probe just these sets and MERGE into the record on disk. Adding
+   a set should not cost 435 calls for the answers already sitting there. */
+const onlyArg = argv.indexOf('--only');
+const ONLY = onlyArg >= 0 ? argv[onlyArg + 1].split(',') : null;
 
 (async () => {
   if (REPAIR) {
@@ -91,7 +99,7 @@ const REPAIR = argv.includes('--repair');
           tried++;
           const others = S.items.filter((_, j) => j !== i);
           let r;
-          try { r = await call(PROMPT(S.items[i], others)); } catch (e) { continue; }
+          try { r = await call(PROMPT(S.items[i], others, S.frame)); } catch (e) { continue; }
           const vals = parseRow(r.text, S.items.length - 1);
           if (!vals) { console.log(`  still unparseable: ${M.id} · ${S.id} · row ${i}`); continue; }
           let k = 0;
@@ -115,13 +123,14 @@ const REPAIR = argv.includes('--repair');
     const call = budgeted(spec);
     const rec = { id: spec.id, model: spec.model, effort: spec.effort, sets: {} };
     for (const S of SETS) {
+      if (ONLY && !ONLY.includes(S.id)) continue;
       const n = S.items.length;
       const raw = Array.from({ length: n }, () => Array(n).fill(null));
       let refused = 0;
       for (let i = 0; i < n; i++) {
         const others = S.items.filter((_, j) => j !== i);
         let r;
-        try { r = await call(PROMPT(S.items[i], others)); }
+        try { r = await call(PROMPT(S.items[i], others, S.frame)); }
         catch (e) { if (e.budget || e.outOfCredit) { state.stopped = state.stopped || 'credit'; break outer; } refused++; continue; }
         const vals = parseRow(r.text, n - 1);
         if (!vals) { refused++; continue; }
@@ -134,10 +143,23 @@ const REPAIR = argv.includes('--repair');
     out.models.push(rec);
   }
   process.stdout.write('\n');
-  out.meta.spent = Number(state.spent.toFixed(4));
-  out.meta.calls = state.calls;
-  out.meta.stopped = state.stopped;
-  fs.writeFileSync(path.join(HERE, 'out', 'probe.json'), JSON.stringify(out) + '\n');
+  if (ONLY) {                                  /* merge, never clobber */
+    const prev = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'probe.json'), 'utf8'));
+    for (const M of out.models) {
+      const old = prev.models.find((x) => x.id === M.id);
+      if (old) Object.assign(old.sets, M.sets); else prev.models.push(M);
+    }
+    prev.meta.spent = Number(((prev.meta.spent || 0) + state.spent).toFixed(4));
+    prev.meta.calls = (prev.meta.calls || 0) + state.calls;
+    prev.meta.date = out.meta.date;
+    out.meta = prev.meta;
+    fs.writeFileSync(path.join(HERE, 'out', 'probe.json'), JSON.stringify(prev) + '\n');
+  } else {
+    out.meta.spent = Number(state.spent.toFixed(4));
+    out.meta.calls = state.calls;
+    out.meta.stopped = state.stopped;
+    fs.writeFileSync(path.join(HERE, 'out', 'probe.json'), JSON.stringify(out) + '\n');
+  }
   console.log(`$${state.spent.toFixed(4)} of $${CAP.toFixed(2)} over ${state.calls} calls`
     + (state.stopped ? ` · STOPPED: ${state.stopped}` : '') + ` → out/probe.json`);
 })();

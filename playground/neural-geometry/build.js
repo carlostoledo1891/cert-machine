@@ -41,6 +41,10 @@ const closeOf = (s) => done(s).map((m) => m.closure.ratio);
 const hypOf = (s) => done(s).map((m) => m.hyp.norm);
 const byShape = (k) => sets.filter((s) => s.shape === k);
 const meanHyp = (s) => mean(hypOf(s));
+const fitOf = (s) => done(s).filter((m) => m.fit !== null).map((m) => m.fit);
+const meanFit = (s) => (fitOf(s).length ? mean(fitOf(s)) : null);
+const family = sets.filter((s) => s.family === 'ten');
+const beats = (s) => s.fitNull && meanFit(s) !== null && meanFit(s) > s.fitNull.p95;
 const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length;
 
 const plateBlock = (s, m) => `
@@ -51,7 +55,7 @@ const plateBlock = (s, m) => `
       <span><span class="k">${s.order ? 'closure' : 'tri viol'}</span><span class="v ${s.order ? (m.closure.ratio < 1.6 ? 'hit' : '') : (m.tri.violations === 0 ? 'hit' : '')}">${s.order ? n(m.closure.ratio) + '×' : m.tri.violations}</span></span>
       <span><span class="k">δ / diam</span><span class="v ${m.hyp.norm !== null && m.hyp.norm < 0.14 ? 'hit' : ''}">${m.hyp.norm === null ? '—' : n(m.hyp.norm, 3)}</span></span>
       <span><span class="k">curved dirs</span><span class="v ${m.signature.q > 0 ? 'hit' : ''}">${m.signature.q}</span></span>
-      <span><span class="k">2D holds</span><span class="v ${m.captured > 0.8 ? 'hit' : ''}">${(100 * m.captured).toFixed(0)}%</span></span>
+      <span><span class="k">${m.fit === null ? '2D holds' : 'fit to truth'}</span><span class="v ${m.fit === null ? (m.captured > 0.8 ? 'hit' : '') : (s.fitNull && m.fit > s.fitNull.p95 ? 'hit' : '')}">${m.fit === null ? (100 * m.captured).toFixed(0) + '%' : n(m.fit, 3)}</span></span>
     </div>
   </div>`;
 
@@ -64,7 +68,8 @@ const setBlock = (s) => `
       <div class="verdict">${s.order ? `<span class="tag">closure ratio</span> ${closeOf(s).map((c) => n(c)).join(' · ')}<br>
       <span class="tag">cyclic order</span> ${s.models.map((m) => (m.cyclic ? 'kept' : 'broken')).join(' · ')}<br>` : ''}
       <span class="tag">δ / diameter</span> ${s.models.map((m) => n(m.hyp.norm, 3)).join(' · ')}<br>
-      <span class="tag">curved directions</span> ${s.models.map((m) => m.signature.q).join(' · ')} of ${s.models[0].n - 1}</div>
+      <span class="tag">curved directions</span> ${done(s).map((m) => m.signature.q).join(' · ')} of ${s.models[0].n - 1}<br>
+      <span class="tag">models agree</span> ${n(s.agree, 3)}${s.fitNull ? `<br><span class="tag">fit to the known layout</span> ${n(meanFit(s), 3)} <span class="tag">against a shuffled null of ${n(s.fitNull.p95, 3)}</span>` : ''}${s.anchor && s.pullRho > 0.25 ? `<br><span class="tag">reference item</span> ${s.anchor.reference.join(' · ')}${s.anchor.unanimous ? ' <span class="tag">(all three)</span>' : ''}` : ''}</div>
     </div>
     <p class="why">${s.why}</p>
   </div>
@@ -98,12 +103,13 @@ const body = `
   </div>
   <div>
     <h3><span class="big">${n(mean(closeOf(setOf('digits'))))}× → ${n(mean(closeOf(setOf('clockhours'))))}×</span>The frame moves the geometry.</h3>
-    <p>The same twelve numerals, asked twice. As <b>digits</b> they lie on a line and nine is nowhere near zero. Named as <b>hours on a clock face</b> they close into a ring — in all three models, one of them at exactly 1.00. Nothing about the tokens changed, only what they are for. Whatever these models store, it is not the numeral.</p>
+    <p>The same numerals, asked under different frames. As <b>digits</b> they lie on a line; named as <b>hours on a clock face</b> or as <b>residues modulo ten</b> they close into a ring. Nothing about the tokens changed, only what they are for. But the frame is bounded: asked as <b>keypad keys</b> the models do not produce the keypad's layout at all, and fail <em>below</em> a shuffled null. The frame bends a structure the model has. It does not create one it lacks.</p>
   </div>
   <div>
-    <h3><span class="big">${n(mean(closeOf(setOf('chromatic'))))}×</span>And octave equivalence is not in there.</h3>
-    <p>B is one semitone below C, which is the oldest cycle in music. The models do not close it — the scale comes back as a line at ${closeOf(setOf('chromatic')).map((c) => n(c)).join(', ')}, and it is the worst-fitting set on the page in two dimensions. They have the note NAMES, in the order the alphabet gives them, and not the pitch class.</p>
+    <h3><span class="big">Earth</span>The asymmetry knows the reference.</h3>
+    <p>D(i,j) and D(j,i) came from calls that never met, and the page was averaging them and calling the difference noise. Its <em>direction</em> is not noise: things are judged closer to Earth than Earth is to them, in <b>all three models independently</b>. That is Tversky's asymmetry, and it points at the prototype. On the seven wheels it points at nothing — ρ ≈ ${n(mean(byShape('cycle').map((x) => x.pullRho)), 2)} — which is exactly right, because a circle has no privileged point.</p>
   </div>
+</div>
 </div></div></section>
 
 <section class="mapsec"><div class="wrap">
@@ -120,6 +126,41 @@ const body = `
   </div>
   <p class="why" style="margin-top:var(--s-5);max-width:70ch">
     <b>What δ does and does not do.</b> It was brought in to tell a tree from a wheel, and it half works: the cycles average ${n(mean(byShape('cycle').map(meanHyp)), 3)} and the taxonomy ${n(meanHyp(setOf('carnivores')), 3)}. But the controls are <em>lower still</em> at ${n(mean(byShape('none').map(meanHyp)), 3)}, because answers with no structure are near-equilateral and near-equilateral is near-tree by this measure. So δ is not a tree detector. It measures how CLOSED a structure is, and it only means anything once curvature has already said there is one. The prediction was sharper than the result and the result is what is drawn.
+  </p>
+</div></section>
+
+
+<section class="frames"><div class="wrap">
+  <div class="maphead">
+    <div>
+      <div class="eyebrow">the same ten tokens, four times</div>
+      <h2>The frame is the parameter.</h2>
+    </div>
+    <p class="why">Ten numerals, unchanged. What changes is one sentence in front of the question, naming what they are <em>for</em> — and never what shape they make. Each plate below is the same model answering about the same items under a different frame, with its distance to the layout that frame implies, against the fit a <b>shuffled</b> configuration would reach.</p>
+  </div>
+  <div class="fplates">${family.map((s) => {
+    const m = done(s)[0];
+    const good = s.fitNull && meanFit(s) > s.fitNull.p95;
+    return `<div class="pl">
+      <div class="who"><span class="m">${s.frameLabel}</span><span class="c">${short(m.id)}</span></div>
+      ${plate(m, s.items, { hasOrder: s.order })}
+      <p class="fq">${s.frame ? `&ldquo;${s.frame}&rdquo;` : 'no frame — the items alone'}</p>
+      <div class="nums">
+        <span><span class="k">predicted</span><span class="v" style="font-size:.78rem">${s.predict}</span></span>
+        <span><span class="k">fit</span><span class="v ${good ? 'hit' : 'miss'}">${n(meanFit(s), 3)}</span></span>
+        <span><span class="k">shuffled null</span><span class="v">${n(s.fitNull.p95, 3)}</span></span>
+        <span><span class="k">verdict</span><span class="v ${good ? 'hit' : 'miss'}">${good ? 'holds' : 'fails'}</span></span>
+      </div>
+    </div>`;
+  }).join('')}</div>
+  <p class="why" style="margin-top:var(--s-6);max-width:74ch">
+    <b>Two of these work, one correctly does nothing, and one fails below chance.</b>
+    Named as <b>residues modulo ten</b> the line closes into a ring — ${n(mean(closeOf(setOf('mod10'))))}× against ${n(mean(closeOf(setOf('digits'))))}× for the bare digits, and a fit of ${n(meanFit(setOf('mod10')), 3)} to the true circle where shuffling reaches ${n(setOf('mod10').fitNull.p95, 3)}. Nothing in the frame mentions that nine and zero are neighbours; the model brought that.
+    Named as <b>floors of a building</b> — as concrete a frame as the others, and one that should change nothing — nothing changes: ${n(mean(closeOf(setOf('floors'))))}× against ${n(mean(closeOf(setOf('digits'))))}×. That is the control inside the experiment and it behaves.
+    And named as <b>keys on a telephone keypad</b>, the layout does not appear at all: ${n(meanFit(setOf('keypad')), 3)} against a shuffled null of ${n(setOf('keypad').fitNull.p95, 3)} — <b>worse than permuting the labels</b>. The models have the keypad as a thing; they do not have it as a place.
+  </p>
+  <p class="why" style="margin-top:var(--s-4);max-width:74ch">
+    So the frame is a real parameter and a bounded one. It moves the geometry along an axis the model already carries — an order can be bent into a cycle — and it cannot conjure one the model does not have. Asking for a grid does not produce a grid.
   </p>
 </div></section>
 

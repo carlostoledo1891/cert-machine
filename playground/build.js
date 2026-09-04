@@ -113,8 +113,8 @@ const body = `
       <div class="facts">
         ${fact('curved directions', ngQ, 'in the unrelated control, in all three models — while every structured set carries several. Structure shows up as the refusal to be flat.')}
         ${fact('the hue wheel', ngClose('hues') + '×', 'the step home against the median step along the way — red really is next to rose')}
-        ${fact('the digits', ngClose('digits') + '×', 'the control that must not close, and does not')}
-        ${fact('the week', ngClose('weekdays') + '×', 'predicted a circle — and the answers say otherwise. The weekend is a real edge.')}
+        ${fact('as bare digits', ngClose('digits') + '×', 'a line: nine is nowhere near zero, and the control frame “floors of a building” changes nothing')}
+        ${fact('as residues mod 10', ngClose('mod10') + '×', 'the same ten numerals the model lays on a line as digits — renamed, they close into a ring')}
       </div>
       <span class="go">read the plates <span class="arw">&rarr;</span></span>
     </div>
