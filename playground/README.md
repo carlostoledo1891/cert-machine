@@ -185,6 +185,74 @@ privileged point.
 - **Are they even distances?** Planets and scales of size never once violate the
   triangle inequality. The wheels do, and the smallest model does it most.
 
+### `shape-hunt/` — every triple, every quadruple, and what survives a null
+
+Built 2026-09-04 on the geometries next door, extended the same day with five
+studies. **No model calls at all**: everything here is arithmetic on answers
+already on disk, plus two synthetic matrices whose answers are known — a perfect
+regular 12-gon rounded onto the same 0–100 grid the models reply on, and pure
+noise on that grid. A hunter that cannot find the ring in the first, or that
+finds one in the second, has nothing to say about anything in between.
+
+- `hunt.js` — the defects. Collinearity is the triangle equality, concyclicity is
+  Ptolemy tight, a regular k-gon is a circulant restriction, a symmetry is a
+  permutation preserving D. Floats enumerate and may only **prune**; every
+  survivor is recomputed in exact rationals and it is the exact number reported.
+- `engine.js` — the hunt itself, **defined once**, shared by `run.js` and
+  `ladder.js`. It is a module because the ladder calibrates these tests and two
+  copies of "what the concyclic defect is" would drift.
+- `solids.js` — the catalogue, as scale-normalised distance **spectra**, which do
+  not care how vertices are labelled. Flat and degenerate shapes sit beside the
+  solids, or a genuine ring gets scored as a poor icosahedron.
+- `run.js` — the hunt over 54 model cases and the two synthetic ones.
+
+The five studies (`run-studies.js` → `out/studies.json`), in the order they were
+ranked before any was built:
+
+1. `naming.js` — **say what the element is.** `reflection 9`, `reflection 11`,
+   `reflection 7` are three labels and one fact: on ordered items *i* ↦ *n*−1−*i*
+   is reverse-the-sequence, the only symmetry a line has. And the bar changes
+   with the claim: a **search** over 2*n*−1 candidates is judged against the best
+   of 2*n*−1 random permutations; a **prediction** named before looking is judged
+   against a single draw, because only one permutation was ever tried.
+2. `cm.js` — **the exact obstruction.** Cayley–Menger determinants in exact
+   integers by Bareiss, plus the Schoenberg form's exact inertia, plus a witness:
+   a whole-number vector *v* with Σ*v* = 0 and Σ*v*ᵢ*v*ⱼ*d*ᵢⱼ² > 0, which refutes
+   every Euclidean embedding in every dimension because that sum equals
+   −2|Σ*v*ᵢ*p*ᵢ|². **The floor here is proved, not sampled**: on a grid of step
+   *h* nothing above (4*h*·diam + *h*²)/4·diam² can be a rounding of a Euclidean
+   configuration. The classical determinant alone is fooled — it calls 276 of 495
+   quadruples of a *perfect 12-gon* impossible, all of it rounding.
+3. `ladder.js` — **every defect in percent noise.** Pour noise into the 12-gon
+   until each test loses a shape that is still, by construction, there. Noise
+   goes into the **points**, so the configuration stays Euclidean and only the
+   shape tests are being measured; the exactness test gets its own ladder where
+   the distances are damaged instead.
+4. `autos.js` — **every permutation**, 7!, 8! and 10! exhaustively. It found
+   nothing, and that is its result: the controls survive at a higher rate than
+   any structured family. Its value was breaking something else — see below.
+5. `ratios.js` — **the numerology control.** Every distance is rational, φ is
+   not, so no ratio here is φ and that is a theorem rather than a measurement.
+   The matched null for a constant is other targets.
+
+**The null that came back up the page.** The exhaustive search showed what a
+shuffled null cannot catch: a shuffled matrix is the distance matrix of *nothing*
+— no triangle inequality, no embedding — so any matrix that behaves like a real
+one can beat it for reasons unrelated to symmetry. So a **configuration null**
+was added (random genuine configurations of the same size, rounded onto the same
+grid) and wired back into the main symmetry test in `engine.js`, where it cut the
+surviving count from 40 of 54 to 24. The two nulls fail in opposite directions —
+five of the six controls clear the configuration null and two clear the shuffle,
+and **no control clears both** — so a finding has to clear both.
+
+Re-run it:
+
+```
+node playground/shape-hunt/run.js            # the hunt, no network
+node playground/shape-hunt/run-studies.js    # the five studies, ~9 min
+node playground/build.js
+```
+
 ### `uv-art.js`, `index.css`, `build.js` — the gathering page
 
 The card art is the real u–v coverage of 21 April 2018, read from the released

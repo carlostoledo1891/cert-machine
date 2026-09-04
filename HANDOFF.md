@@ -30,9 +30,12 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
 THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
 
-  ══ SESSION OF 2026-09-04 CLOSED. THE ENVIRONMENT IS PUBLISHED, THE SITE IS
-     CURRENT, AND /playground EXISTS WITH FOUR PROJECTS IN IT.
-     NEXT SESSION: WAIT FOR THE OPERATOR'S INSTRUCTIONS BEFORE BUILDING. ══
+  ══ SESSION OF 2026-09-04 (SECOND): ALL FIVE SHAPE-HUNT STUDIES BUILT, $0.00
+     SPENT, 56/56 BATTERIES GREEN. The exhaustive search found nothing and in
+     finding nothing broke the page's own headline null — the symmetry count
+     fell from 40 of 54 to 24 of 54 and no control clears the new double bar.
+     The environment is published, the site is current, /playground has four
+     projects. NEXT SESSION: WAIT FOR THE OPERATOR'S INSTRUCTIONS. ══
 
   SHIPPED THIS SESSION, all pushed and live:
 
@@ -106,32 +109,96 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
          all six controls fail, including rotation-by-four on the compass,
          which is the antipodal map. NO POLYHEDRA: a perfect 12-gon clears its
          catalogue null by 47x and the best model case by 1.35x.
+         >> SUPERSEDED THE SAME DAY: the 40 became 24 when a CONFIGURATION null
+         >> was added beside the shuffle (see the five studies below). The
+         >> compass, the antipodal map and the polyhedra result all stand.
          THREE NULLS WERE THROWN AWAY on this page, each caught by a shape
          whose answer was known — the Ptolemy floor was counting its own
          rounding, the symmetry null was a minimum against a typical value, and
          the spectrum null was numerically incapable of failing. That is why
          the perfect 12-gon and the pure noise sit at the TOP of the page.
 
-  PROPOSED AND NOT BUILT, for /playground/shape-hunt, ranked (operator has the
-  list; nothing started):
-    3. NAME THE GROUP ELEMENTS IN WORDS — cheapest, and it is hiding a result.
-       "reflection 9" on ten ordered items is REVERSE THE SEQUENCE, which is
-       exactly a line's symmetry, and all three models find it for `floors`.
-       The table shows indices, so agreement reads as disagreement.
-    1. CAYLEY–MENGER — turn the page's best statistic into a proof. The sign of
-       the determinant is fixed for any Euclidean configuration, so a wrong
-       sign is a certificate of impossibility rather than "84% violate an
-       inequality". Exact on the same integer data.
-    2. THE NOISE LADDER — add noise to the perfect 12-gon until each test loses
-       it, so every defect on the page gets a reading in "percent noise".
-    4. FULL AUTOMORPHISM SEARCH for the 8-item sets (40,320 permutations, and
-       only the 2n dihedral ones are tried now) — the one test that could find
-       a symmetry nobody predicted.
-    5. RATIO HUNTING against phi, sqrt2, sqrt3 — the "perfectly sized" question,
-       and the purest numerology on offer, so it belongs only as a demonstration
-       of the failure mode run beside the same hunt on noise.
+  ALL FIVE SHAPE-HUNT STUDIES ARE BUILT (2026-09-04, operator: "Build the 5
+  suggestions"). They ran in the ranked order and every one of them is on
+  /playground/shape-hunt. NO MODEL CALLS: 308,976,661 shape tests and
+  45,898,801,200 permutations, all arithmetic on answers already on disk.
+  `node playground/shape-hunt/run-studies.js` (618 s) writes out/studies.json.
 
-  SPEND THIS SESSION: $2.70 total — $1.92 grader pilot, $0.78 neural geometry.
+    1. NAME THE ELEMENT (naming.js) — the result was there. `reflection 9`,
+       `reflection 11`, `reflection 7` are THREE LABELS AND ONE FACT: i -> n-1-i
+       is REVERSE THE SEQUENCE, and reversal wins 9 of the 15 ordered-set cases
+       under three different index labels. AND THE BAR HAD TO SPLIT: a SEARCH
+       over 2n-1 candidates is judged against the best of 2n-1 random
+       permutations; a PREDICTION named before looking is judged against a
+       SINGLE draw. Pre-registered, reversal-on-lines holds 13/15 and
+       successor-on-cycles 14/24 — the ordered/cyclic gap as a named element.
+    2. CAYLEY-MENGER (cm.js) — the strongest object built this session.
+       Exact integer Bareiss determinants, exact Schoenberg inertia, and a
+       WITNESS: whole numbers v with SUM v = 0 and SUM v_i v_j d_ij^2 > 0, which
+       refutes every Euclidean embedding in every dimension because that sum is
+       identically -2|SUM v_i p_i|^2. The published one is clockhours-opus:
+       +3 o'clock -6 o'clock +9 o'clock -12 o'clock, the two diagonals of the
+       clock face, jointly impossible.
+       THE FLOOR IS PROVED, NOT SAMPLED — on a grid of step h nothing above
+       (4h*diam + h^2)/4*diam^2 can be the rounding of a Euclidean configuration.
+       Everywhere else on this page the floor is measured; here it is derived.
+       VERDICT IS THREE-VALUED: 41 refuted / 7 exactly Euclidean (all six
+       controls, plus planets-haiku at dim 7) / 6 UNDECIDED — and the undecided
+       are exactly the strongly-ordered sets (scales, planets, carnivores).
+       A FOURTH NULL DIED HERE: the classical CM determinant alone calls 276 of
+       495 quadruples of a PERFECT 12-GON impossible, all of it rounding. Under
+       the proved floor the same instrument reports 0.
+    3. THE NOISE LADDER (ladder.js, chart.js) — every defect on the page in one
+       unit. Noise into the POINTS (so the configuration stays Euclidean and only
+       the shape tests are measured); the exactness test gets its own ladder with
+       the DISTANCES damaged. Breaking points: symmetry >44%, catalogue 30%,
+       pentagon NEVER (it does not see the ring even at zero noise), Euclidean
+       2%. Ten real cases land on a ladder of their own size.
+    4. FULL AUTOMORPHISM SEARCH (autos.js) — 7!, 8!, 10! exhaustively.
+       IT FOUND NOTHING AND THAT IS THE RESULT: 6 of 36 survive, 2 of them
+       controls, and the nonsense controls survive at a HIGHER rate (2/6) than
+       any structured family (4/30). More search, less knowledge — the small
+       predicted search separates the same data cleanly and this one does not.
+       ** ITS REAL OUTPUT WAS BREAKING SOMETHING ELSE. ** It showed that a
+       SHUFFLED null is beatable by any matrix that merely behaves like a real
+       distance matrix (a shuffle is the distance matrix of nothing — no triangle
+       inequality, no embedding). So a CONFIGURATION NULL was added — random
+       genuine configurations of the same size, rounded onto the same grid — and
+       WIRED BACK INTO THE MAIN SYMMETRY TEST in engine.js. The headline count
+       fell from 40 of 54 to 24 of 54. The two nulls are hard in opposite places
+       (on controls the shuffle is brutal, 0/6; on model sets the configurations
+       are), so a finding must clear BOTH, and no control does.
+    5. RATIO HUNTING (ratios.js) — the control that is supposed to fail, and
+       does, twice over. Every distance is rational and phi is not, so NO ratio
+       here is phi and that is a theorem, not a measurement. The best phi hit in
+       the elicited data is hues-opus 89/55 to 0.0091% — and PURE NOISE contains
+       the identical ratio to the identical accuracy (89 and 55 are consecutive
+       Fibonacci numbers and both matrices contain them). phi lands at the 38th
+       percentile against 1,000 arbitrary targets.
+
+  ALSO THIS SESSION, and it is the part that matters for the rest of the repo:
+    · engine.js was EXTRACTED from run.js so the hunt is defined ONCE and shared
+      with the ladder (the corpus.js lesson, applied before it bit). Verified by
+      re-running: shapes.json came back byte-identical.
+    · The configuration null was added to symmetry() on its own seeded stream, so
+      adding it moved NO number that was already on the page — verified field by
+      field against the previous record.
+    · run-studies.js was re-run after every module move; studies.json came back
+      identical, which is what "every record comes out of running the code beside
+      it" is supposed to mean.
+
+  STILL OPEN ON SHAPE-HUNT (nothing started):
+    · n = 12 is out of reach exhaustively (479M permutations per search, and the
+      null needs thousands of searches). A randomised or branch-and-bound
+      automorphism search would close it.
+    · The undecided six. Their witness is real and below the proved floor; a
+      sharper floor, or a search for a stronger witness (the page publishes the
+      strongest FOUND, and does not solve the maximisation), would decide them.
+    · The catalogue null still admits 2 of 6 controls at the 5% bar. It is the
+      one null on the page that has not been rebuilt twice.
+
+  SPEND: $2.70 in the session of 2026-09-04 (grader pilot $1.92, neural
+  geometry $0.78). THE FIVE-STUDIES SESSION SPENT $0.00 — no model calls at all.
 
   NEXT SESSION, IN ORDER
   1. PUBLISH LAMBDA(5) — DONE 2026-09-03. reports/lambda5.html is live,

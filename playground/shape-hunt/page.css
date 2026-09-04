@@ -73,3 +73,46 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
 .foot a { color: var(--ink-4); text-decoration: none; } .foot a:hover { color: var(--ink-2); }
 
 .sya { fill: none; stroke: var(--ink-3); stroke-width: 1.5; opacity: 0.8; }
+
+/* ---- the studies ---------------------------------------------------------- */
+/* A CERTIFICATE IS NOT A STATISTIC and must not be set like one. The witness
+   box is the only monospaced block on the page that is meant to be read as a
+   claim rather than scanned as a number, so it gets the width of the prose and
+   a rule down its left edge. */
+.cert { margin-top: var(--s-6); border: 1px solid var(--border); border-left: 3px solid var(--ink-3);
+  border-radius: var(--radius-m); background: var(--bg-raised); padding: var(--s-5) var(--s-5) var(--s-4); }
+.cert .ct { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-4); }
+.cert .cw { margin-top: var(--s-4); font-family: var(--font-mono); font-size: var(--text-mono);
+  color: var(--ink); line-height: 2; }
+.cert .cw .pos { color: var(--ink); }
+.cert .cw .neg { color: var(--ink-3); }
+.cert .cq { margin-top: var(--s-4); font-size: var(--text-small); color: var(--ink-4); line-height: 1.6; }
+.cert .cq b { color: var(--ink-2); font-weight: var(--weight-medium); }
+.cert code { font-family: var(--font-mono); color: var(--ink-2); }
+
+.words { margin-top: var(--s-6); display: grid; gap: var(--s-4); }
+.words .w { display: grid; grid-template-columns: 1fr; gap: var(--s-2);
+  border-top: 1px solid var(--border); padding-top: var(--s-4); }
+@media (min-width: 760px) { .words .w { grid-template-columns: 13rem 1fr; gap: var(--s-5); } }
+.words .wk { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-5); }
+.words .wk b { color: var(--ink); font-weight: 400; }
+.words .wv { font-size: var(--text-small); color: var(--ink-3); line-height: 1.6; }
+.words .wv b { color: var(--ink); font-weight: var(--weight-medium); }
+
+svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s-6); overflow: visible; }
+.cg { stroke: var(--chart-grid, var(--border)); stroke-width: 1; }
+.cax { stroke: var(--chart-axis, var(--border-strong)); stroke-width: 1; }
+.cone { stroke: var(--ink-2); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.conel, .cll { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-4); }
+.cyl, .cxl { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-5); }
+.cyl { text-anchor: end; } .cxl { text-anchor: middle; }
+.cxt { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-5); text-anchor: middle; letter-spacing: 0.08em; }
+.cl { fill: none; stroke-width: 2; stroke-linejoin: round; }
+.cl.s0, .cd.s0, .cll.s0 { stroke: var(--series-1, var(--ink)); fill: none; }
+.cl.s1, .cd.s1, .cll.s1 { stroke: var(--series-2, var(--ink-3)); fill: none; }
+.cl.s2, .cd.s2, .cll.s2 { stroke: var(--series-3, var(--ink-5)); fill: none; }
+.cd.s0 { fill: var(--series-1, var(--ink)); } .cd.s1 { fill: var(--series-2, var(--ink-3)); } .cd.s2 { fill: var(--series-3, var(--ink-5)); }
+.cll.s0 { fill: var(--series-1, var(--ink)); stroke: none; }
+.cll.s1 { fill: var(--series-2, var(--ink-3)); stroke: none; }
+.cll.s2 { fill: var(--series-3, var(--ink-5)); stroke: none; }

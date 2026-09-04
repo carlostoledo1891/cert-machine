@@ -123,18 +123,18 @@ const body = `
 
   <a class="card" href="shape-hunt/index.html">
     <figure class="card-art">
-      <div class="plate">${SH.cardArt()}<span class="uv-scale">${fmt(SH.S.meta.totalTests)} tests</span></div>
+      <div class="plate">${SH.cardArt()}<span class="uv-scale">${fmt(SH.SHAPETESTS)} shape tests &middot; ${fmt(SH.PERMTESTS)} permutations</span></div>
       <figcaption><b>A symmetry, recovered from a model&rsquo;s own answers.</b> Each chord joins an item to where the permutation sends it, so a rotation reads as a fan and a reflection as rungs across an axis. Nobody asked about symmetry; it is what survived when everything else did not.</figcaption>
     </figure>
     <div class="card-body">
-      <div class="eyebrow">shape hunt &middot; ${fmt(SH.S.meta.totalTests)} tests &middot; no model calls</div>
+      <div class="eyebrow">shape hunt &middot; five studies &middot; no model calls</div>
       <h2>Nothing here is a perfect circle.</h2>
-      <p class="sub">The elicited geometries look like they hold shapes &mdash; a pentagon here, four points on a circle there. So this looks exhaustively, at every triple and quadruple and five-subset of every set from every model, and then runs the identical search on the same numbers with the geometry shuffled out. Almost nothing survives that. What does is not a polygon.</p>
+      <p class="sub">The elicited geometries look like they hold shapes &mdash; a pentagon here, four points on a circle there. So this looks exhaustively, at every triple and quadruple and five-subset of every set from every model, and then runs the identical search on the same numbers with the geometry shuffled out. Almost nothing survives that. What does is not a polygon &mdash; and for most of the sets the verdict is not a margin at all but a certificate in whole numbers that no such points exist.</p>
       <div class="facts">
         ${fact('collinear triples found', SH.beats('collinear') + ' of ' + SH.real.length, 'not one, in any set, better than shuffling the same distances would give')}
         ${fact('regular pentagons', SH.beats('r5') + ' of ' + SH.real.length, 'and the roundest pentagon in pure noise looks exactly as convincing')}
-        ${fact('symmetries that hold', SH.real.filter((r) => r.symmetry.best.defect < r.symmetry.nullMatched).length + ' of ' + SH.real.length, 'under a matched null that every one of the six controls fails — including the antipodal map on the compass, which nobody asked about')}
-        ${fact('polyhedra found', '0', 'the catalogue finds a perfect 12-gon at 47× its null and the best model case at 1.35× — with two of six controls clearing the same bar')}
+        ${fact('symmetries that hold', SH.real.filter((r) => r.symmetry.beatsBoth).length + ' of ' + SH.real.length, 'under two nulls of opposite bias that no control clears — including the antipodal map on the compass, which nobody asked about')}
+        ${fact('provably not distances', SH.ST.cm.rows.filter((r) => !r.synthetic && r.refuted).length + ' of ' + SH.ST.cm.rows.filter((r) => !r.synthetic).length, 'refuted above a floor that is proved rather than sampled, each with a four-item witness — while the nonsense controls embed exactly')}
       </div>
       <span class="go">read the hunt <span class="arw">&rarr;</span></span>
     </div>
