@@ -119,13 +119,17 @@ p { margin: 0; }
 .card:hover .sxtrail.cert { stroke: var(--ink); }
 .card:hover .sxv.hi { fill: var(--ink); }
 
-/* the neural-geometry card art — the same plate marks as the page */
-.card-art .plate { position: absolute; inset: 0; width: 100%; height: 100%; }
-.card-art .ch { stroke: var(--ink-2); }
-.card-art .ord { fill: none; stroke: var(--ink-2); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.card-art .clo { fill: none; stroke: var(--ink-4); stroke-width: 2; stroke-dasharray: 6 6; }
-.card-art .pt { fill: var(--ink-2); }
-.card-art .lb { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-5); }
-.card:hover .card-art .ord { stroke: var(--ink); }
-.card:hover .card-art .pt { fill: var(--ink); }
-.card:hover .card-art .lb { fill: var(--ink-3); }
+/* the neural-geometry card art — the same marks as the page.
+   NOT `.plate`: that name already belonged to the art FRAME above, and giving
+   it to the SVG as well made `.card-art .plate` match both, so the later rule
+   absolutely-positioned every card's frame out of the flow and collapsed all
+   three cards to the top of the page. One name, two meanings, in CSS. */
+.card-art .ngp { position: absolute; inset: 0; width: 100%; height: 100%; }
+.card-art .ngp .ch { stroke: var(--ink-2); }
+.card-art .ngp .ord { fill: none; stroke: var(--ink-2); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.card-art .ngp .clo { fill: none; stroke: var(--ink-4); stroke-width: 2; stroke-dasharray: 6 6; }
+.card-art .ngp .pt { fill: var(--ink-2); }
+.card-art .ngp .lb { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-5); }
+.card:hover .card-art .ngp .ord { stroke: var(--ink); }
+.card:hover .card-art .ngp .pt { fill: var(--ink); }
+.card:hover .card-art .ngp .lb { fill: var(--ink-3); }

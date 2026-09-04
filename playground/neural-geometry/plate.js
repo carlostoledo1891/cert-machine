@@ -58,7 +58,7 @@ function plate(m, items, { size = 560, pad = 66, hasOrder = true } = {}) {
       + `<text x="${lx.toFixed(1)}" y="${(ly + 4.6).toFixed(1)}" class="lb${first ? ' first' : ''}" text-anchor="${anchor}">${label}</text>`;
   }).join('');
 
-  return `<svg viewBox="0 0 ${size} ${size}" class="plate" role="img" aria-label="${items.length} items placed by one model's own dissimilarity judgements; every pair drawn as a chord, the item order as a path, and the closing step drawn apart.">
+  return `<svg viewBox="0 0 ${size} ${size}" class="ngp" role="img" aria-label="${items.length} items placed by one model's own dissimilarity judgements; every pair drawn as a chord, the item order as a path, and the closing step drawn apart.">
 <g class="chords">${chords.join('')}</g>
 ${pathD ? `<path d="${pathD}" class="ord"/>` : ''}
 ${closeD ? `<path d="${closeD}" class="clo"/>` : ''}
