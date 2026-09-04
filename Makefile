@@ -103,6 +103,8 @@ reports:
 	@$(NODE) tools/run-claims-ledger.js
 	@$(NODE) tools/build-report-claims.js
 	@$(NODE) tools/build-paper-grading.js
+	@$(NODE) tools/run-gym-record.js
+	@$(NODE) tools/build-report-gym.js
 	@$(NODE) tools/build-report-erdos1038-sup.js
 	@$(NODE) tools/build-report-tensorlb.js
 	@$(NODE) tools/build-report-bilinear.js

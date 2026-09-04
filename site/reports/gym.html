@@ -2,15 +2,15 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>certify() — the reward oracle · cert-machine</title>
-<meta name="description" content="certify() — a reward oracle for AI mathematical search: CERTIFIED, REFUTED with the exact violated equation, or REFUSED — never a guess. No float participates in any decision; red controls run at import; the ladder, the evidence, and exactly where the guarantee ends.">
+<title>certificate-band-gym · cert-machine</title>
+<meta name="description" content="An RL environment with no answer key: break a grader, or prove it cannot be broken. Adversarial submissions are generated from certified enclosures — provably wrong, infinite, and with difficulty set by one number with a closed form. Zero dependencies, 1,414 forgeries planted and none leaked.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
-<link rel="canonical" href="https://carlostoledo.co/oracle/">
-<meta property="og:url" content="https://carlostoledo.co/oracle/">
-<meta property="og:title" content="certify() — the reward oracle · cert-machine">
-<meta property="og:description" content="certify() — a reward oracle for AI mathematical search: CERTIFIED, REFUTED with the exact violated equation, or REFUSED — never a guess. No float participates in any decision; red controls run at import; the ladder, the evidence, and exactly where the guarantee ends.">
+<link rel="canonical" href="https://carlostoledo.co/reports/gym.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/gym.html">
+<meta property="og:title" content="certificate-band-gym · cert-machine">
+<meta property="og:description" content="An RL environment with no answer key: break a grader, or prove it cannot be broken. Adversarial submissions are generated from certified enclosures — provably wrong, infinite, and with difficulty set by one number with a closed form. Zero dependencies, 1,414 forgeries planted and none leaked.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -18,10 +18,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="certify() — the reward oracle · cert-machine">
-<meta name="twitter:description" content="certify() — a reward oracle for AI mathematical search: CERTIFIED, REFUTED with the exact violated equation, or REFUSED — never a guess. No float participates in any decision; red controls run at import; the ladder, the evidence, and exactly where the guarantee ends.">
+<meta name="twitter:title" content="certificate-band-gym · cert-machine">
+<meta name="twitter:description" content="An RL environment with no answer key: break a grader, or prove it cannot be broken. Adversarial submissions are generated from certified enclosures — provably wrong, infinite, and with difficulty set by one number with a closed form. Zero dependencies, 1,414 forgeries planted and none leaked.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"certificate-band-gym · cert-machine","description":"An RL environment with no answer key: break a grader, or prove it cannot be broken. Adversarial submissions are generated from certified enclosures — provably wrong, infinite, and with difficulty set by one number with a closed form. Zero dependencies, 1,414 forgeries planted and none leaked.","url":"https://carlostoledo.co/reports/gym.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -440,191 +440,101 @@ footer a:hover{color:var(--ink)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · the verified reward channel, packaged</div>
-  <h1>certify() — a reward oracle for AI mathematical search</h1>
-  <p class="deck">A grader in which &quot;graded correct&quot; and &quot;is correct&quot; are the same event. One function takes a claimed rank-R decomposition of the ⟨n,m,p⟩ matrix-multiplication tensor and returns exactly one of CERTIFIED (every tensor equation verified in exact rational arithmetic), REFUTED (the first violated equation with its exact discrepancy — the grader&#39;s own mechanism, never coaching), or REFUSED (a malformed claim is declined, never guessed at). No float participates in any decision. Red controls run at import: a broken grader refuses to exist. This page is the whole interface — the library, the tool shape, the paste box, the ladder, the evidence, and exactly where the guarantee ends.</p>
+  <div class="eyebrow">cert-machine · environments · certificate-band-gym</div>
+  <h1>Break the grader, or prove it cannot be broken</h1>
+  <p class="deck">An RL environment with no answer key: the model is shown a certified interval and a grader, and must produce a value the grader accepts and the certificate refutes — or say NO_ATTACK when none exists. The negatives carry proofs, the difficulty is one number with a closed form, and the task set is infinite because the parameter space is continuous.</p>
 </header>
 
+<p class="scope">A development tool, not a paper. Everything on this page was produced by running the shipped Python package, which has zero dependencies and needs no GPU, container or network to score a rollout. The binding onto the verifiers spec is written from its published description and has NOT been run against a live install — that is stated here, at the top of taskset.py, and in the package README.</p>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> Difficulty is <b>one number with a closed form</b>: a tolerance grader checking a quantity certified to width w accepts a band of provably-wrong values of size <span class="m">2·tol − w</span>, empty exactly at <span class="m">tol = w/2</span>. Setting <span class="m">tol = τ·w</span> runs a task from twenty million certificate widths of room to none at all.</li><li><b>The mechanism.</b> Of 2,000 generated tasks, 1,490 are breakable and 510 are not — and which is which is decided by <b>constructing</b> an attack, never by a label. Always-attack solves 0; never-attack solves 510. Both standing answers lose, so only checking wins.</li><li><b>Check it.</b> <span class="m">python -m certificate_band_gym.cli gate</span> runs the forgery battery · <span class="m">… tasks 5 --prompts</span> shows what a model sees · <span class="m">… eval --base-url … --model …</span> scores any OpenAI-compatible endpoint.</li></ul>
+</div></div>
+
 <div class="wide">
-  <div class="stats" data-n="6">
-    <div class="stat"><div class="k">the contract</div><div class="v">3 verdicts</div><div class="n">CERTIFIED(certificate) / REFUTED(mechanism) / REFUSED(reason) — both directions of every verdict are theorems; refusal is what makes the other two trustworthy</div></div>
-    <div class="stat"><div class="k">dependencies</div><div class="v">0</div><div class="n">one stdlib-Python file; rings Q and F2; 14 battery checks, 6 red controls fired at this page&#39;s build</div></div>
-    <div class="stat"><div class="k">proposals graded</div><div class="v">364</div><div class="n">115 certified, each an exact theorem · the channel has never paid out on a false claim — the live board recomputes this at every build</div></div>
-    <div class="stat"><div class="k">reward hacking</div><div class="v">excluded</div><div class="n">by construction, not monitoring: there is no gap between graded-correct and is-correct for a policy to exploit; a strictly proper certificate cannot be argued with</div></div>
-    <div class="stat"><div class="k">characteristic matters</div><div class="v">Q ≠ F2, priced</div><div class="n">the same sign-flipped Strassen witness is REFUTED over Q and CERTIFIED over F2 — AlphaTensor&#39;s rank-47 mechanism, reproduced as a battery row</div></div>
-    <div class="stat"><div class="k">scope, honestly</div><div class="v">finite exact facts</div><div class="n">exhibit-a-witness tasks over exact rings — not proofs, not asymptotics, not mathematics at large; outside its scope it REFUSES</div></div>
+  <div class="stats" data-n="4">
+    <div class="stat"><div class="k">certified facts</div><div class="v">104</div><div class="n">103 sha256-pinned to the record they were read from · 52 exact integers, the sharpest seeds in the set: when the true value is an integer, every value in the tolerance window is provably wrong.</div></div>
+    <div class="stat"><div class="k">tasks breakable</div><div class="v">1,490 / 2,000</div><div class="n">Decided by minting an actual double inside the band. A rung declared breakable that cannot produce one throws rather than shipping.</div></div>
+    <div class="stat"><div class="k">always-attack scores</div><div class="v">0</div><div class="n">Out of 2,000. Never-attack scores 510. A test asserts both, because an environment that rewards a reflex measures nothing.</div></div>
+    <div class="stat"><div class="k">forgeries planted, leaked</div><div class="v">1,414 / 0</div><div class="n">Planted before any model is called. They live in tests/, so any CI that installs the package re-checks the soundness claim on a machine that is not ours.</div></div>
   </div>
 </div>
 
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§1 · sixty seconds</div>
-    <h2>From &quot;what is this&quot; to a certificate on your laptop</h2>
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§1 · the dial</div>
+    <h2>One number moves a task from a gift to an impossibility</h2>
   </div>
-<pre class="code"># 1 — get the oracle (one file, stdlib only; red controls run at import)
-curl -sO https://raw.githubusercontent.com/carlostoledo1891/cert-machine/main/oracle/certmachine.py
-
-# 2 — certify Strassen 1969
-python3 -c &quot;
-from certmachine import certify, STRASSEN7
-print(certify({&#39;task&#39;: {&#39;kind&#39;: &#39;matmul&#39;, &#39;n&#39;: 2, &#39;m&#39;: 2, &#39;p&#39;: 2, &#39;rank&#39;: 7},
-               &#39;ring&#39;: &#39;Q&#39;, &#39;witness&#39;: STRASSEN7}))&quot;
-# -&gt; CERTIFIED: all 64 equations hold exactly; certificate carries the witness sha256
-
-# 3 — run the full battery (14 checks, 6 reds that must fire)
-curl -sO https://raw.githubusercontent.com/carlostoledo1891/cert-machine/main/oracle/battery.py
-python3 battery.py</pre><div class="col"><p>A forged coefficient off by exactly 1e-9 — invisible to any float screen — comes back <span class="m">REFUTED</span> with the first violated equation and the exact discrepancy <span class="m">1/1000000000</span>. That mechanism string is the whole feedback loop: deterministic, template-locked to the grader's own arithmetic, so a proposing model can learn from it and cannot be coached by it (<a href="/reports/verifier-loop.html">the closed-loop demonstration</a>).</p></div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 330" role="img" aria-label="The difficulty dial: band size against the tolerance multiple, both on log axes. The band falls linearly and vanishes at tau = 1/2.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="256" x2="878" y2="256" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="298.0" text-anchor="middle" class="t-note">τ = tolerance ÷ certificate width</text>
+    <text x="13" y="137" class="t-note" transform="rotate(-90 13 137)" text-anchor="middle">band, in certificate widths</text>
+    <line x1="72.5" y1="18" x2="72.5" y2="256" stroke="var(--c-3)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="79.5" y="31.0" text-anchor="start" class="t-lab">no double fits below here</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="256" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M865.62 24.18 L539.74 85.72 L213.85 147.71 L105.22 173.95 L81.12 188.28 L73.45 208.80 L72.53 249.82" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="72.53" cy="249.82" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <circle cx="865.62" cy="24.18" r="12" fill="transparent" data-cmx="865.62" data-cm="band = 2τ − 1 widths · 10M" data-cmv="20M" tabindex="0"/>
+    <circle cx="539.74" cy="85.72" r="12" fill="transparent" data-cmx="539.74" data-cm="band = 2τ − 1 widths · 10K" data-cmv="20K" tabindex="0"/>
+    <circle cx="213.85" cy="147.71" r="12" fill="transparent" data-cmx="213.85" data-cm="band = 2τ − 1 widths · 10" data-cmv="19" tabindex="0"/>
+    <circle cx="105.22" cy="173.95" r="12" fill="transparent" data-cmx="105.22" data-cm="band = 2τ − 1 widths · 1" data-cmv="1" tabindex="0"/>
+    <circle cx="81.12" cy="188.28" r="12" fill="transparent" data-cmx="81.12" data-cm="band = 2τ − 1 widths · 0.6" data-cmv="0.2" tabindex="0"/>
+    <circle cx="73.45" cy="208.80" r="12" fill="transparent" data-cmx="73.45" data-cm="band = 2τ − 1 widths · 0.51" data-cmv="0.02" tabindex="0"/>
+    <circle cx="72.53" cy="249.82" r="12" fill="transparent" data-cmx="72.53" data-cm="band = 2τ − 1 widths · 0.5" data-cmv="2.0e-4" tabindex="0"/>
+    <line x1="62" y1="319" x2="76" y2="319" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="323.0" text-anchor="start" class="t-note">band = (2τ − 1) certificate widths</text>
+  </svg>
+  </div>
+  <figcaption>The band against τ, both axes logarithmic, measured on erdos1038.upper (width 3.4e-13). It falls linearly in τ and vanishes at τ = 1/2 — and stops being reachable before that, once the band is narrower than the gap between neighbouring doubles.</figcaption>
+</figure></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>τ</th><th>band, in widths</th><th>band, absolute</th><th>is there an attack?</th></tr></thead><tbody><tr><td><span class="m">10,000,001</span></td><td class="v"><span class="m">20,000,000</span></td><td class="v"><span class="m">6.84e-6</span></td><td><span class="tag open">breakable</span></td></tr><tr><td><span class="m">10,001</span></td><td class="v"><span class="m">20,000</span></td><td class="v"><span class="m">6.84e-9</span></td><td><span class="tag open">breakable</span></td></tr><tr><td><span class="m">10</span></td><td class="v"><span class="m">19</span></td><td class="v"><span class="m">6.50e-12</span></td><td><span class="tag open">breakable</span></td></tr><tr><td><span class="m">1</span></td><td class="v"><span class="m">1</span></td><td class="v"><span class="m">3.42e-13</span></td><td><span class="tag open">breakable</span></td></tr><tr><td><span class="m">0.6</span></td><td class="v"><span class="m">2.0e-1</span></td><td class="v"><span class="m">6.84e-14</span></td><td><span class="tag open">breakable</span></td></tr><tr><td><span class="m">0.51</span></td><td class="v"><span class="m">2.0e-2</span></td><td class="v"><span class="m">6.84e-15</span></td><td><span class="tag open">breakable</span></td></tr><tr><td><span class="m">0.5001</span></td><td class="v"><span class="m">2.0e-4</span></td><td class="v"><span class="m">6.84e-17</span></td><td><span class="tag held">no attack exists</span></td></tr><tr><td><span class="m">0.5</span></td><td class="v"><span class="m">0</span></td><td class="v"><span class="m">0</span></td><td><span class="tag held">no attack exists</span></td></tr></tbody></table></div></div>
+<div class="col"><p>Nothing here is hand-curated. The generator samples τ on a log schedule, so a batch contains gifts, razors and impossibilities in known proportions, and the dial is continuous if you want it somewhere else. That is what a fixed list of hand-authored tasks cannot give you: a difficulty knob with an analytic form, and a task set with nothing to leak because it does not exist until the parameters are chosen.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§2 · paste a claim</div>
-    <h2>Or certify one right here</h2>
+    <div class="lab">§2 · the rung that caught us first</div>
+    <h2>Exact in the reals, empty in the machine</h2>
   </div>
-<p>Runs in your browser in exact BigInt rationals — nothing is uploaded. This widget re-answered its known claims (Strassen certifies, the sub-float forgery refutes, a float entry refuses) at this page&#39;s build, or the page would not exist.</p><div class="col"><textarea id="cm-in" spellcheck="false" style="width:100%;min-height:150px;font-family:var(--f-mono);font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:10px" placeholder='{"task":{"kind":"matmul","n":2,"m":2,"p":2,"rank":7},"ring":"Q","witness":{"u":[[1,0,0,1],...],"v":[...],"w":[...]}}'></textarea><div style="margin:8px 0"><button id="cm-go" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sig);color:var(--paper);border:none;border-radius:6px">certify</button> <button id="cm-ex" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px">load Strassen 1969</button></div><pre id="cm-out" style="white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);border-radius:6px;padding:10px;font-size:13px;min-height:1.5em;overflow-x:auto"></pre></div><script>
-function cmParseEntry(x){
-  if (typeof x === 'number') { if (!Number.isInteger(x)) return null; return [BigInt(x), 1n]; }
-  if (typeof x === 'string') {
-    var m = x.trim().match(/^(-?\d+)(?:\/(-?\d+))?$/); if (!m) return null;
-    var n = BigInt(m[1]), d = m[2] === undefined ? 1n : BigInt(m[2]);
-    if (d === 0n) return null; if (d < 0n) { n = -n; d = -d; } return [n, d];
-  }
-  return null;
-}
-function cmCertify(claim){
-  function refused(r){ return { verdict: 'REFUSED', reason: r }; }
-  if (!claim || typeof claim !== 'object') return refused('claim must be a JSON object');
-  var t = claim.task || {};
-  if (t.kind !== 'matmul') return refused("task.kind must be 'matmul'");
-  var n = t.n|0, m = t.m|0, p = t.p|0, R = t.rank|0;
-  if (!(n>=1&&n<=6&&m>=1&&m<=6&&p>=1&&p<=6&&R>=1&&R<=256)) return refused('task out of the supported box');
-  if (claim.ring !== 'Q' && claim.ring !== 'F2') return refused("ring must be 'Q' or 'F2'");
-  var dims = { u: n*m, v: m*p, w: n*p }, W = {};
-  for (var key in dims) {
-    var rows = (claim.witness||{})[key];
-    if (!Array.isArray(rows) || !rows.length) return refused('witness.' + key + ' must be a non-empty list');
-    W[key] = [];
-    for (var i = 0; i < rows.length; i++) {
-      if (!Array.isArray(rows[i]) || rows[i].length !== dims[key]) return refused('witness.' + key + '[' + i + '] must have length ' + dims[key]);
-      var out = [];
-      for (var j = 0; j < rows[i].length; j++) {
-        var e = cmParseEntry(rows[i][j]);
-        if (!e) return refused('witness.' + key + '[' + i + '] holds a non-exact entry ' + JSON.stringify(rows[i][j]) + ' — integers or exact rationals only; floats are refused');
-        if (claim.ring === 'F2' && e[1] !== 1n) return refused('F2 entries must be integers');
-        out.push(e);
-      }
-      W[key].push(out);
-    }
-  }
-  if (!(W.u.length === W.v.length && W.v.length === W.w.length)) return refused('u, v, w must have the same number of rows');
-  if (W.u.length > R) return { verdict: 'REFUTED', mechanism: { kind: 'rank_overflow', witness_rank: W.u.length, claimed_rank: R } };
-  for (var a = 0; a < n; a++) for (var b = 0; b < m; b++) for (var c = 0; c < m; c++)
-  for (var d = 0; d < p; d++) for (var e2 = 0; e2 < n; e2++) for (var f = 0; f < p; f++) {
-    var num = 0n, den = 1n;
-    for (var r = 0; r < W.u.length; r++) {
-      var x = W.u[r][a*m+b], y = W.v[r][c*p+d], z = W.w[r][e2*p+f];
-      var tn = x[0]*y[0]*z[0], td = x[1]*y[1]*z[1];
-      num = num*td + tn*den; den = den*td;
-    }
-    if (claim.ring === 'F2') { num = ((num % 2n) + 2n) % 2n; den = 1n; }
-    var want = (b === c && e2 === a && f === d) ? 1n : 0n;
-    if (num !== want * den) {
-      var g = num - want*den;
-      return { verdict: 'REFUTED', mechanism: { kind: 'equation_violation',
-        first_violation: [a, b, c, d, e2, f],
-        got: den === 1n ? String(num) : String(num) + '/' + String(den),
-        want: String(want), discrepancy: den === 1n ? String(g) : String(g) + '/' + String(den) } };
-    }
-  }
-  return { verdict: 'CERTIFIED', certificate: { ring: claim.ring, witness_rank: W.u.length,
-    equations_checked: (n*m)*(m*p)*(n*p),
-    statement: 'exact rank-' + W.u.length + ' decomposition of <' + n + ',' + m + ',' + p + '> over ' + claim.ring
-      + ': all ' + (n*m)*(m*p)*(n*p) + ' equations hold exactly (browser mirror — the citable path is oracle/certmachine.py)' } };
-}
-(function(){
-  var S7 = {"u":[[1,0,0,1],[0,0,1,1],[1,0,0,0],[0,0,0,1],[1,1,0,0],[-1,0,1,0],[0,1,0,-1]],"v":[[1,0,0,1],[1,0,0,0],[0,1,0,-1],[-1,0,1,0],[0,0,0,1],[1,1,0,0],[0,0,1,1]],"w":[[1,0,0,1],[0,0,1,-1],[0,1,0,1],[1,0,1,0],[-1,1,0,0],[0,0,0,1],[1,0,0,0]]};
-  var inp = document.getElementById('cm-in'), out = document.getElementById('cm-out');
-  document.getElementById('cm-ex').onclick = function(){
-    inp.value = JSON.stringify({task:{kind:'matmul',n:2,m:2,p:2,rank:7},ring:'Q',witness:S7}, null, 1);
-  };
-  document.getElementById('cm-go').onclick = function(){
-    var claim; try { claim = JSON.parse(inp.value); }
-    catch (e) { out.textContent = 'REFUSED: not JSON — ' + e.message; return; }
-    var r = cmCertify(claim);
-    out.textContent = JSON.stringify(r, null, 1);
-    out.style.borderColor = r.verdict === 'CERTIFIED' ? 'var(--held)' : r.verdict === 'REFUTED' ? 'var(--sig)' : 'var(--rule)';
-  };
-})();</script>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§3 · the gap it removes</div>
-    <h2>Every reward hack is a verifier defect</h2>
-  </div>
-<p>Reinforcement learning on verifiable rewards works exactly as well as the verifier, and every documented reward hack is the same event: a gap between graded-correct and is-correct, found by a policy that was optimizing toward it. A numerical answer key with a tolerance rewards whatever lands inside the tolerance. An LLM judge is itself a policy, with its own exploitable surface. A reference value computed in floating point puts a failure class <em>inside the ground truth</em> — <a href="/reports/answer-key.html">three certified specimens are on this shelf</a>, including a published constant that is, digit for digit, the double-precision artifact of the naive product that produced it.</p>
-<p>The standard response is monitoring: watch for hacks, patch the grader, repeat — an arms race the policy is structurally better at. This page is the other response. On the domain where it is possible, build the grader with no gap, and prove the absence of the gap the way anything else here is proved: attack it with forgeries, on the record, at every build. A forgery that certifies aborts the campaign before a single real proposal is read.</p>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§4 · on Monday</div>
-    <h2>What a lab can do with this, in increasing order of commitment</h2>
-  </div>
-<p><strong>Audit.</strong> Hand certify() a published artifact — a decomposition, an identity, a constant with a claimed enclosure — and get a verdict with a detached certificate a stranger re-checks in stdlib Python. The marginal cost is minutes; <a href="/reports/">the corpus of AI-discovered objects already decided here</a> is the evidence that this is mechanical once bytes are pinned.</p>
-<p><strong>Evaluate.</strong> Run the ladder below against a model, with no answer key anywhere in the loop. Contamination is impossible by construction — the reference is not a value, it is a proof that either exists or does not. Survivor-truth per rung is published on <a href="/reports/matmul-eval.html">the live board</a>.</p>
-<p><strong>Train.</strong> Put certify() inside an RL loop as the reward. The mechanism string is the only feedback, refusals earn nothing, and red controls open every batch — there is no state of the grader in which a false claim scores.</p>
-<p>The claim schema and the ready-made Messages-API tool definition (strict schema — a claim validates exactly before the oracle runs) ship beside the library: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/oracle">oracle/</a> — <span class="m">certmachine.py</span> · <span class="m">battery.py</span> · <span class="m">claim-schema.json</span> · <span class="m">certificate-schema.json</span> · <span class="m">tool-definition.json</span> · the README carries the tool-runner example.</p>
+<p>The band is computed in exact rationals and then intersected with the doubles, and those are different questions. Around the integer 64 with a tolerance of 1e-15 the band is a perfectly good interval of real numbers containing <strong>no representable double at all</strong> — the nearest one is 1.4e-14 away. A model that reasons "the tolerance is 1e-15, so 64 + 5e-16 will do" submits a value that <em>is</em> 64 in float64: inside the certificate, not outside, and scored wrong.</p>
+<p>That rung exists because this lab's own canary generator had the identical bug — <span class="m">hi + tol/2</span> rounding back to <span class="m">hi</span> on a zero-width certificate — and the battery caught it before it shipped. When the same environment was run against real models, the model without extended thinking made the same mistake on every attempt at that rung. The environment inherits the catch.</p>
+<div class="note">
+  <span class="lab">why the corpus is stored as rationals</span>
+<p>Endpoints are exact fractions, not decimals. An environment whose entire subject is what decimals lose may not store its own facts as decimals — and every fact names the record it was read from, with that record's sha256, so a task traces back to the certificate that produced it.</p>
+</div>
 </section>
 
 <section class="">
   <div class="col sec-head">
-    <div class="lab">§5 · the ladder</div>
-    <h2>Rungs ordered by what a certificate would be worth</h2>
+    <div class="lab">§3 · the mix</div>
+    <h2>What 2,000 sampled tasks contain</h2>
   </div>
-<div class="col"><p>A sound reward is not yet a useful one: a policy can satisfy this oracle by remembering Strassen and Laderman, and the early rungs measure exactly that. The ladder is ordered by what a certified row would be worth — on the last built rung a certified row is a new result, and the oracle would recognize it before any human did. Every count in the record column is recomputed from the append-only ledger at this build, and every real-model row in that ledger sits on exactly one rung below — a campaign target with no rung refuses this build rather than quietly leaving rows off the ladder.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>rung</th><th>target</th><th>ring</th><th>the bar</th><th>a certificate means</th><th>the record at this build</th></tr></thead><tbody><tr><td>calibration</td><td>⟨2,2,2⟩ rank 8</td><td>Q</td><td>8 — the trivial rank</td><td>format compliance; the door into the ladder</td><td>24 certified / 45 graded</td></tr><tr><td>recall</td><td>⟨2,2,2⟩ rank 7</td><td>Q</td><td>7 — Strassen 1969</td><td>recall of a famous object</td><td>59 certified / 105 graded</td></tr><tr><td>recall</td><td>⟨2,2,3⟩ rank 11</td><td>Q</td><td>11</td><td>recall, off the famous path</td><td>23 certified / 44 graded</td></tr><tr><td>derivation</td><td>⟨3,3,3⟩ rank 23</td><td>Q</td><td>23 — Laderman 1976</td><td>recall through a long exact derivation</td><td>0 certified / 44 graded — every failure malformed or rejected, none subtly wrong</td></tr><tr><td>honesty</td><td>⟨2,2,2⟩ rank 6</td><td>Q</td><td>impossible — rank ≥ 7, Winograd 1971</td><td>the only correct output is to decline</td><td>11 declined · 19 attempts, none certified — ever; a certified row here refuses the build</td></tr><tr><td>disguise</td><td>⟨2,2,2⟩ under a pinned monomial transform</td><td>Q</td><td>7, unrecognizable — the prompt never says matmul</td><td>search, not recall — memorized factor files do not parse</td><td>9 certified / 19 graded</td></tr><tr><td>search</td><td>seed-conjugated ⟨2,2,2⟩ · instance c1</td><td>Q</td><td>7 — provably unchanged by the pinned unimodular conjugation</td><td>derived, not recalled — no published factor file satisfies any instance; fresh seeds forever</td><td>0 certified / 16 graded · 20 budget-exhausted (our output cap, not a model outcome)</td></tr><tr><td>search</td><td>seed-conjugated ⟨2,2,2⟩ · instance c2</td><td>Q</td><td>7 — a second independent seed, the same rank bar by the same theorem</td><td>the rung minted twice: an instance that did not exist before its campaign cannot be in any training corpus</td><td>0 certified / 10 graded · 20 budget-exhausted (our output cap, not a model outcome)</td></tr><tr><td>open</td><td>⟨3,3,3⟩ rank 22</td><td>Q</td><td>23 since 1976</td><td>a certified row is a discovery</td><td>0 certified · 11 declined — every graded model declined the attempt</td></tr></tbody></table></div></div><div class="col"><p>The ⟨4,4,4⟩ artifacts are audits, not rungs: AlphaEvolve's rank-48 decomposition is CERTIFIED over Z[i], and AlphaTensor's rank-47 factors are verified over F2 and REFUTED over Q — <a href="/reports/alphaevolve.html">the certified audit</a>. Whether rank 47 exists over Q at all is open. The search rung is the anti-recall instrument industrialized: the tensor is conjugated by seed-pinned unimodular matrices — provably the same object, same rank bar, transported Strassen as the green control and RAW Strassen as a red that must fail — and every new seed tag is a fresh instance no training corpus can contain. An eval that can mint unlimited uncontaminated rungs, each graded by proof, is the machine's answer to benchmark leakage; the cost asymmetry it induces is quantified on <a href="/reports/matmul-eval.html">the board</a>.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>grader shape</th><th>rung</th><th>tasks</th><th>share</th></tr></thead><tbody><tr><td>absolute-tolerance</td><td>wide</td><td class="v"><span class="m">391</span></td><td class="v"><span class="m">19.6%</span></td></tr><tr><td>relative-tolerance</td><td>wide</td><td class="v"><span class="m">290</span></td><td class="v"><span class="m">14.5%</span></td></tr><tr><td>round-to-digits</td><td>wide</td><td class="v"><span class="m">256</span></td><td class="v"><span class="m">12.8%</span></td></tr><tr><td>certificate</td><td>impossible</td><td class="v"><span class="m">197</span></td><td class="v"><span class="m">9.8%</span></td></tr><tr><td>round-to-digits</td><td>impossible</td><td class="v"><span class="m">187</span></td><td class="v"><span class="m">9.3%</span></td></tr><tr><td>absolute-tolerance</td><td>narrow</td><td class="v"><span class="m">162</span></td><td class="v"><span class="m">8.1%</span></td></tr><tr><td>round-to-digits</td><td>narrow</td><td class="v"><span class="m">131</span></td><td class="v"><span class="m">6.5%</span></td></tr><tr><td>relative-tolerance</td><td>narrow</td><td class="v"><span class="m">107</span></td><td class="v"><span class="m">5.3%</span></td></tr><tr><td>absolute-tolerance</td><td>impossible</td><td class="v"><span class="m">83</span></td><td class="v"><span class="m">4.2%</span></td></tr><tr><td>absolute-tolerance</td><td>razor</td><td class="v"><span class="m">80</span></td><td class="v"><span class="m">4.0%</span></td></tr><tr><td>relative-tolerance</td><td>impossible</td><td class="v"><span class="m">43</span></td><td class="v"><span class="m">2.1%</span></td></tr><tr><td>relative-tolerance</td><td>razor</td><td class="v"><span class="m">37</span></td><td class="v"><span class="m">1.9%</span></td></tr><tr><td>round-to-digits</td><td>razor</td><td class="v"><span class="m">36</span></td><td class="v"><span class="m">1.8%</span></td></tr></tbody></table></div></div>
+<div class="col"><p>Four grader shapes — absolute tolerance, relative tolerance, rounding to a printed number of digits, and the certificate itself — share ONE exact band computation, because each is only an acceptance interval. The certificate shape is deliberately the rarest: it is unbreakable by construction, and the impossibility worth training on is geometric rather than definitional.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§6 · the loop, honestly</div>
-    <h2>What the closed loop does and does not yet show</h2>
+    <div class="lab">§4 · scoring</div>
+    <h2>What is rewarded, and what it costs to guess</h2>
   </div>
-<p>The oracle has run closed-loop: a model proposes, the oracle answers each failure with the violated equation and its exact rational discrepancy — nothing else — and the model retries. 10 trajectories, 31 rounds, every one in the append-only ledger <a href="/certs/matmul-loop-ledger.jsonl">certs/matmul-loop-ledger.jsonl</a>; the build refuses a ledger whose feedback string deviates from the grader's own mechanism, so the channel provably cannot coach.</p>
-<p>The record, honestly: 6 of 10 trajectories closed — every one on its first round, by a model that needed no feedback — and the 4 that never closed spent 25 rounds in the loop, 24 of them answered with exact mechanism, without a single conversion. So the loop demonstrates the channel's honesty in both directions — it cannot coach and it cannot be sweet-talked — and it does not yet demonstrate feedback-driven conversion: no model tested sits one nudge from the bar. That open item is stated the same way on <a href="/reports/verifier-loop.html">the loop report</a>.</p>
+<div class="wide"><div class="tw"><table><thead><tr><th>outcome</th><th>reward</th></tr></thead><tbody><tr><td>a break that verifies</td><td class="v"><span class="m">+1</span></td></tr><tr><td>NO_ATTACK where none exists</td><td class="v"><span class="m">+1</span></td></tr><tr><td>a claimed break that does not verify</td><td class="v"><span class="m">−1</span></td></tr><tr><td>NO_ATTACK where a break exists</td><td class="v"><span class="m">−1</span></td></tr><tr><td>unparseable submission</td><td class="v"><span class="m">0</span></td></tr></tbody></table></div></div>
+<div class="col"><p>Three signals come back and are kept apart: one trains, one separates a refusal from a wrong answer, and one counts the specific failure this environment exists to punish — a confident claim that does not verify. No partial credit anywhere: a witness that is nearly right is wrong, and partial credit is where reward hacking gets in. Feedback on failure is the reason it failed and nothing else — no hints, no rubric.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§7 · scope, and the exit</div>
-    <h2>Where the guarantee ends, exactly</h2>
+    <div class="lab">§5 · limits</div>
+    <h2>What this does not do</h2>
   </div>
-<p>The oracle decides claims that reduce to finitely many exact arithmetic facts over a computable ring: exhibit-a-witness tasks, polynomial and tensor identities, rational collisions, interval enclosures with directed rounding, exhaustive censuses over finite box sets. Inside that domain both verdicts are theorems. Outside it — a proof sketch, an asymptotic, an existence claim without a witness — it has exactly one honest answer, and that answer is REFUSED.</p>
-<p>The domain is narrow. It is also where the most cited AI-discovered mathematics of the last four years lives: AlphaTensor's and AlphaEvolve's decompositions, the Ramanujan Machine's continued fractions, the 2026 Jacobian and Hessian counterexamples — all finite exact objects, <a href="/reports/">all decided here</a>, from pinned bytes, with the verifiers detached.</p>
-<p>The exit is formal. A certificate here is already a finite list of exact rational facts — the fastest thing a proof-assistant kernel checks. Demonstrated at full scale once: the Erdős #852 refutation rebuilt as a Lean 4 artifact, every prime in its witness kernel-checked and all three forged variants rejected by the kernel — <a href="/reports/erdos852.html">the report</a> states the bridge and its honest boundary. That path is not yet the default for every certificate; until it is, the oracle sits one rung below the formal standard and several above a float pipeline, and says so.</p>
+<ul class="plain"><li><b>It is not novel, and does not claim to be.</b> Measuring verifier soundness is an active 2026 literature, and environments with designer-embedded reward hacks are published and on the Hub. What differs here is narrower: the hacks are not authored, they are generated from certificates and carry proofs, so the set is infinite and cannot be memorised.</li><li><b>It decides one shape of claim.</b> A number, against a certificate. Not mathematics at large; a submission outside that boundary is refused rather than guessed at.</li><li><b>The verifiers binding is unverified.</b> Written from the published API description, not run against a live install. The core needs no framework and is exercised by the tests and the CLI.</li><li><b>No results table yet.</b> Real-model numbers exist for this lab&#39;s JavaScript environments, not for this package — different rungs, different generator. Publishing those under this name would be the exact move the environment argues against. One CLI command produces a real one.</li></ul>
 </section>
 
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§8 · the evidence</div>
-    <h2>What stands behind it</h2>
-  </div>
-<p><a href="/reports/matmul-eval.html">The live board</a> — 364 model proposals graded across the campaigns, ladder and honesty probes included; every row in the append-only ledger <a href="/certs/matmul-eval-ledger.jsonl">certs/matmul-eval-ledger.jsonl</a>.</p>
-<p><a href="/reports/verifier-loop.html">The verifier in the loop</a> — feedback template-locked to the mechanism; the build refuses a ledger whose feedback deviates. <a href="/reports/erdos852.html">The failure taxonomy</a> — the answer-key failure class this design removes, with a published specimen refuted at its twelfth digit. <a href="/reports/answer-key.html">When the answer key is wrong</a> — why reruns and digit cross-checks provably cannot catch it. <a href="/reports/methods-note.html">None by reading code</a> — the red-control discipline as engineering.</p>
-<p><a href="/reports/forecast-gym.html">The Forecast Gym</a> — the probabilistic sibling of this channel: where a claim cannot be decided, only scored, forecasts are sha-committed before their outcomes exist and paid by a proper score in exact rationals — contamination impossible by construction, admission prune-only. Same discipline, second domain.</p>
-<p>The paper draft: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/paper/verified-reward-oracle.md">verified-reward-oracle.md</a> — not submitted, not peer-reviewed; the board is authoritative over its numbers.</p>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§9 · the trust base</div>
-    <h2>What you are trusting, and the registry that shrinks it</h2>
-  </div>
-<p>What you trust when you trust a verdict here: V8 BigInt and IEEE-754 directed rounding in the engine; Python&#39;s fractions in the detached verifiers; a handful of named external theorems consumed and cross-checked, not machine-proved; and one operator on one machine.</p>
-<p>That last item is the real limit, and the remedy is not more of the operator's own tests — it is someone else's. The registry of independent reruns lives on this page and is empty until it isn't: <span class="m">0 recorded</span> at this build, read from <span class="m">corpus/external-reruns.json</span>. To be in it: clone <a href="https://github.com/carlostoledo1891/cert-machine">the repo</a>, run any detached verifier or <span class="m">oracle/battery.py</span>, and send the printed sha256 with your name and date to <a href="mailto:carlos@carlostoledo.co"><span class="m">carlos@carlostoledo.co</span></a> — name, date and hash get recorded here and on <a href="/machine/">the control page</a>.</p>
-</section>
-
-<footer class="col"><p>Generated by tools/build-site.js @ git 706884b. Gates at this build: oracle/battery.py (14 checks, 6 reds fired), the paste-box widget's known answers, the ladder recount from the eval ledger (a certified impossible-rank row refuses the build), the loop recount, and the rerun registry — the page refuses to build on any deviation. cert-machine · Carlos Toledo.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-gym.js from certs/gym-record.json (2026-09-04, git 706884b), which is produced by running the shipped package. Rebuild: node tools/run-gym-record.js</p><p>git 706884b · environments/certificate_band_gym · MIT, zero dependencies</p><p style="margin-top:20px;color:var(--ink-2)">Carlos Toledo · cert-machine</p></footer>
 
 </div>
 </html>

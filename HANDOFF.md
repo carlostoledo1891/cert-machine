@@ -30,6 +30,62 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
 THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
 
+  ══ NEXT SESSION, FIRST ACTION: REVIEW THE ENVIRONMENTS IMPLEMENTATION ══
+  Before anything else, read and criticise what was built on 2026-09-03:
+  environments/certificate_band_gym/ (the shippable package), instruments/envs/
+  (the JS environments it came from), and reports/gym.html + reports/envs.html.
+  The review is the gate on pushing anything to the Environments Hub.
+
+  WHAT TO CHECK, in the order the risk sits:
+   1. THE VERIFIERS BINDING IS UNVERIFIED. taskset.py is written from the
+      published v1 API description and has NEVER been run against a live
+      install. The docs for v0 and v1 disagree about what the Hub accepts.
+      Install `verifiers`, run both scaffolds, and make the binding real — or
+      delete it and ship the framework-free core with the CLI. It is marked
+      unverified at the top of the file, in the README and on the page; if that
+      marking is ever removed without the install being done, that is the
+      dishonesty this lab exists to prevent.
+   2. NO RESULTS TABLE. The package has never been run against a model. The
+      real-model numbers we hold are for the JS environments, different rungs
+      and a different generator, and must NOT be published under the package's
+      name. `python -m certificate_band_gym.cli eval --base-url … --model …`
+      produces a real one; budget ~$0.004/rollout at low effort.
+   3. THE ATTACKER LADDER SATURATES ON FRONTIER MODELS. Opus 5 and Sonnet 5
+      score 8/8 on every rung including the three hard ones added this session.
+      Only Haiku 4.5 falls through. If the table is to separate frontier
+      models, the razor needs to go finer (τ → 0.5001 is already unreachable in
+      float, so the next axis is grader SHAPE, not tolerance) — or accept that
+      the environment discriminates careful-vs-fast and say so.
+   4. THE CORPUS IS ONE LAB'S. 104 facts, all ours. That is the moat and also
+      the limit: a second source of certificates would make the environment
+      much harder to dismiss as self-referential.
+   5. COST AND HARNESS DISCIPLINE. tools/run-envs-pilot.js reserves each call's
+      worst case before making it, so spend cannot cross the cap. The cap is
+      PER PROCESS — two concurrent runs can jointly exceed it, and this session
+      handled that by sizing the second run so the sum still fit. Keep that.
+
+  MEASURED THIS SESSION, $5.88 of an $11.80 cap, 360 real-model calls:
+   · THE EFFORT TRAP. At default effort the 5-family spends an entire
+     4096-token reply on adaptive thinking and emits nothing parseable — 100%
+     truncation at $0.105/call for zero information. At effort=low the same
+     task answers in 311 tokens for a cent. Haiku 4.5 takes NO effort parameter
+     (it errors) and has no thinking. Any table must record effort and
+     max_tokens per row or it is noise.
+   · THE ATTACKER LADDER (k=8): c0-c3 all three models ~8/8 — sound but
+     undiscriminating. The three rungs added this session (c4 razor, c5
+     one-sided key, c6 empty-in-float): Opus and Sonnet 8/8 everywhere; Haiku
+     0/8 with 8 WRONG on c4 and c6, 3/8 on c5.
+   · THE UNIFORMITY GYM (k=8, max_tokens 8000 after the first run truncated):
+     Opus 29/32, Sonnet 18/32, Haiku 11/32. The shape of the failures is the
+     finding — Haiku answers WRONG (no thinking, guesses), Sonnet and Opus run
+     out of tokens. Sonnet still truncates 5/8 at r3; the razor tier wants more
+     room than 8000.
+   · c6 IS THE RUNG THAT CAUGHT US FIRST. Haiku claims a break 8/8 times where
+     no representable double exists — the identical bug our own generator had
+     hours earlier (hi + tol/2 rounding back to hi), caught by battery check
+     E4 before it shipped.
+
+
   POSITIONING — DECIDED 2026-09-03 (operator: "do the changes you suggest and
   decide the options by keeping us honest"). Full memo, with the measured
   facts behind each call: notes/positioning-decisions-2026-09-03.md; the
