@@ -29,6 +29,18 @@ on this machine. Freedom from ceremony is not freedom from arithmetic. Where a
 thing is a float and not a proof, the page says so in the same breath as the
 number — the interferometer's own limits section leads with it.
 
+## The grammar
+
+`warrant.js` — four standings on a lattice, `REFUSED < CHOSEN < COMPUTED <
+DECIDED`, combining by **minimum**: a mark's standing is the weakest standing on
+its path to the pixel. Solid, dashed, dotted, and no-mark-with-a-drawn-void.
+Stroke carries it, never colour, so it survives greyscale. Three rules do the
+work — the arithmetic demotes and never the author; `REFUSED` is absorbing; and
+**argmax over a non-unique optimum yields `CHOSEN`**, which is what dots the
+published calibration curve on `curveset/`. It is deliberately tiny, and it is
+narrowed against real prior art — read the `vis-*` rows in
+`corpus/targets.json` before claiming anything about it.
+
 ## What is here
 
 ### `interferometer/` — the black hole as a set, not a photograph
@@ -184,6 +196,54 @@ privileged point.
   what is drawn.**
 - **Are they even distances?** Planets and scales of size never once violate the
   triangle inequality. The wheels do, and the smallest model does it most.
+
+### `curveset/` — the line they published, and the lines that fit
+
+**Crossed from the operator's bench 2026-09-04** (`experiments/curveset`), with
+`PROVENANCE.json` recording the sha256 of every lifted file at both ends. The
+mathematics and the data came over byte-for-byte and re-derive here; **the page
+is rebuilt in this design system** — no bench CSS, no bench HTML, no ECharts.
+
+A calibration is run forwards (known standards in, response out) and used
+backwards (response in, unknown out). The backwards number always comes off a
+fitted curve, the fit is an assumption, and it is never priced. This computes
+what the standards allow instead.
+
+- `envelope.js` — the set, in **closed form**. A curve is admissible when it
+  passes within the stated error of every standard and its slope stays in
+  `[m, M]`, so the extreme admissible curves are a min and a max of straight
+  lines. Both are nondecreasing, so reading backwards is a bisection. No LP, no
+  sampling, nothing to tune. 24 tests in `envelope.test.js`.
+- `data.js`, `data/Pontius.dat` — two real calibrations at opposite ends of the
+  same problem. NIST StRD **Pontius** (US Government, public domain; 20 loads
+  applied twice, so repeatability is *measured*) and a published rat IL-6 ELISA
+  standard curve (no replicates, so the error budget is an *assertion* and stays
+  a control on the page). See `data/LICENSE-DATA.md`.
+- `plot.js` — the figures, **required by `build.js` and inlined into the page**,
+  so the SVG the server ships and the SVG the slider redraws come out of one
+  function. `envelope.js` is inlined the same way: the page runs the file the
+  tests run.
+- `app.js` — the dial, and nothing else. The page is complete without it.
+
+**The result goes both ways, which is what makes it a method rather than a
+scold.** On the load cell, monotone-only gives an interval **132×** the reported
+± — and it is exactly the ladder spacing, because without a functional form you
+can say which two standards you are between and nothing finer. Joining the dots
+lands at **1.0×**: on a fine ladder with measured repeatability the functional
+form buys *nothing*. On the assay the opposite holds — even linear interpolation
+is **3.6×** wider than the four-parameter fit reports, so that precision is
+unreachable without the form itself. You can tell which case you are in.
+
+**This is the first page drawn in the WARRANT grammar** (`../warrant.js`): the
+envelope is solid because it is *decided*, the published curve is dotted because
+it is *chosen* — an argmin over a family nobody derived from the data — and an
+over-range reading gets no mark at all, only a drawn void.
+
+```
+node playground/curveset/envelope.test.js     # the mathematics
+node playground/curveset/make-page-data.js    # the record
+node playground/build.js
+```
 
 ### `shape-hunt/` — every triple, every quadruple, and what survives a null
 

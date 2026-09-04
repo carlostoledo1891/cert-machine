@@ -187,7 +187,40 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
       identical, which is what "every record comes out of running the code beside
       it" is supposed to mean.
 
-  ══ THE VISUAL-GRAMMAR DIRECTION IS SCOUTED AND PLANNED, NOT STARTED (2026-09-04,
+  ══ THE VERTICAL IS STARTED (2026-09-04, operator: "let's start building" +
+     "go to the frontier-apps, bring what we need"). BUILT THIS SESSION:
+     playground/warrant.js (the grammar, ~110 lines) and /playground/curveset —
+     the fifth project — CROSSED FROM THE BENCH with sha at both ends. ══
+
+    THE BENCH DIG, and one premise inverted. The operator's read was that the
+    bench's charts discipline is better than ours. IT IS NOT: the bench draws
+    with vendored ECharts through a 70-line grayscale theme; design/charts.js
+    HERE is 747 lines, eleven chart forms, colour assigned BY JOB, CVD-checked,
+    with hover readouts — and design/DESIGN.md already says "dashes are reserved
+    for predicted/uncertified marks, never grid". THE WARRANT GRAMMAR WAS
+    ALREADY HALF-WRITTEN IN OUR OWN CHART KIT. Nothing to port on charts.
+    WHAT THE BENCH DID HAVE, and it is the big one: experiments/curveset.
+    STILL ON THE BENCH, UNPORTED: oss/certsplat (certified pruning for 3D
+    Gaussian splats, with a stdlib-Python verifier and a DRAFTED gsplat RFC
+    that is an outward-facing action) — parked on the data licence, and the
+    single most visually spectacular thing available.
+
+    CURVESET, and it re-derives here exactly: 24 tests green; NIST StRD Pontius
+    load cell 132x the reported +/- assuming only monotone (the interval IS the
+    ladder spacing), 1.0x joining the dots (on a fine ladder the functional form
+    buys NOTHING and linear interpolation lands on NIST's own precision); the
+    IL-6 assay the OPPOSITE, 3.6x even joining the dots (on a coarse ladder the
+    4PL form does the work). That pair is why it is a method and not a scold.
+    The page runs the file the tests run — envelope.js, warrant.js and plot.js
+    are inlined verbatim behind a four-line require shim, so the slider and the
+    server render from one function.
+
+    THE GRAMMAR IS NOW APPLIED, NOT PROPOSED: envelope solid (DECIDED), the
+    published fit dotted (CHOSEN, by rule 3 — argmax over a non-unique optimum),
+    over-range drawn as a hatched void (REFUSED). That is instrument #5 and the
+    first real application in one build.
+
+  ══ THE VISUAL-GRAMMAR DIRECTION IS SCOUTED AND PLANNED (2026-09-04,
      operator: "Read the writing below, I want to move on this direction").
      THE CONCEPT AND THE FULL TODO LIST: notes/warrant-concept-2026-09-04.md.
      Seven vis-* rows are in target memory — READ THEM BEFORE BUILDING, they

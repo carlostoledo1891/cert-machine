@@ -1,0 +1,100 @@
+/* page.css — curveset. A reading page whose figures are the argument.
+
+   THE GRAMMAR'S CLASSES LIVE HERE, not in each figure: `.w-decided`,
+   `.w-computed`, `.w-chosen`, `.w-void`. warrant.js emits the class and the
+   dash pattern; this file decides what those look like in this theme, once. */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body); line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; } a { color: inherit; }
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
+.narrow { max-width: 68ch; }
+
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(1.6rem, 4vh, 3rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: 17ch; margin-top: var(--s-4); }
+.hero .lede { margin-top: var(--s-6); max-width: 64ch; font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+.sec { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
+.sec h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); margin-top: var(--s-3); }
+.sec .why { margin-top: var(--s-5); max-width: 70ch; color: var(--ink-3); }
+.sec .why b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+/* ---- the grammar, once ---------------------------------------------------- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+.w-void { fill: url(#wvoid); stroke: var(--border-strong); stroke-width: 1; }
+
+.legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-6);
+  grid-template-columns: 1fr; }
+@media (min-width: 700px) { .legend { grid-template-columns: repeat(4, 1fr); } }
+.legend .item { display: grid; grid-template-columns: 46px 1fr; gap: var(--s-3); align-items: center; }
+.legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink); }
+.legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+
+/* ---- the instrument panel ------------------------------------------------- */
+.panel { margin-top: var(--s-7); background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-l); padding: var(--s-5) var(--s-5) var(--s-6); }
+.panel .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s-3) var(--s-5); }
+.panel .head .t { font-size: var(--text-2); color: var(--ink); font-weight: var(--weight-medium); }
+.panel .head .s { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-5); }
+.panel .src { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); max-width: 78ch; line-height: 1.55; }
+svg.cs-plot { display: block; width: 100%; height: auto; margin-top: var(--s-4); overflow: visible; }
+
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+.cs-std { fill: var(--ink); stroke: var(--bg-raised); stroke-width: 1.5; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 4; }
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 4; }
+.cs-fitdot { fill: var(--ink-2); }
+.cs-tick { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-5); }
+.cs-tick.tx { text-anchor: middle; } .cs-tick.ty { text-anchor: end; }
+.cs-tick.on { fill: var(--ink); }
+.cs-val { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-4); }
+.cs-val.on { fill: var(--ink); font-size: 12px; }
+.cs-axname { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-5); letter-spacing: 0.08em; }
+.cs-axname.tx { text-anchor: end; } .cs-axname.ty { text-anchor: end; }
+.cs-asklab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); }
+.cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); }
+
+/* ---- the dial ------------------------------------------------------------- */
+.dial { margin-top: var(--s-5); display: grid; gap: var(--s-4); }
+.dial .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4); }
+.dial label { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-4); }
+.dial input[type=range] { flex: 1 1 260px; min-width: 200px; accent-color: var(--ink); height: 22px; }
+.dial input[type=range]:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 3px; }
+.dial .state { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); }
+.readout { display: grid; gap: var(--s-4) var(--s-6); grid-template-columns: 1fr; margin-top: var(--s-2); }
+@media (min-width: 720px) { .readout { grid-template-columns: repeat(3, 1fr); } }
+.readout .r { border-top: 1px solid var(--border); padding-top: var(--s-3); }
+.readout .rk { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-5); }
+.readout .rv { font-family: var(--font-mono); font-size: 1.35rem; color: var(--ink); margin-top: var(--s-2);
+  font-variant-numeric: tabular-nums; }
+.readout .rn { font-size: var(--text-small); color: var(--ink-4); margin-top: var(--s-2); line-height: 1.5; }
+
+.grid3 { display: grid; gap: var(--s-6) clamp(1.5rem, 4vw, 3rem); grid-template-columns: 1fr; margin-top: var(--s-6); }
+@media (min-width: 820px) { .grid3 { grid-template-columns: repeat(3, 1fr); } }
+.grid3 h3 { font-size: 1rem; letter-spacing: var(--track-title); }
+.grid3 p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); line-height: 1.6; }
+.big { font-family: var(--font-mono); font-size: 1.7rem; color: var(--ink); display: block; margin-bottom: var(--s-2); font-variant-numeric: tabular-nums; }
+
+table { width: 100%; border-collapse: collapse; margin-top: var(--s-6); font-family: var(--font-mono); font-size: var(--text-mono); }
+th, td { text-align: right; padding: 7px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+td.hit { color: var(--ink); }
+td.dim { color: var(--ink-5); }
+
+pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-m); overflow-x: auto; font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); }
+.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); }
+.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+.foot a { color: var(--ink-4); text-decoration: none; } .foot a:hover { color: var(--ink-2); }

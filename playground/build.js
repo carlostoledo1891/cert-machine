@@ -24,6 +24,7 @@ const { uvSVG } = require(path.join(HERE, 'uv-art.js'));
 const SIMPLEX = require(path.join(HERE, 'simplex', 'build.js'));
 const NG = require(path.join(HERE, 'neural-geometry', 'build.js'));
 const SH = require(path.join(HERE, 'shape-hunt', 'build.js'));
+const CS = require(path.join(HERE, 'curveset', 'build.js'));
 
 const n = (x, d = 2) => Number(x).toFixed(d);
 const fmt = (x) => Number(x).toLocaleString('en-US');
@@ -61,7 +62,7 @@ const body = `
 <section class="projects"><div class="wrap">
   <div class="count">
     <span class="eyebrow">the projects</span>
-    <span class="eyebrow">four, so far</span>
+    <span class="eyebrow">five, so far</span>
   </div>
 
   <a class="card" href="interferometer/index.html">
@@ -80,6 +81,25 @@ const body = `
         ${SWEEP ? fact('bracket', n(100 * (worst - 1), 0) + '%', `worst of ${SWEEP.rows.length} radii — a prior-free, phase-free enclosure, best ${n(100 * (best - 1), 0)}%`) : ''}
       </div>
       <span class="go">open the instrument <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+  <a class="card" href="curveset/index.html">
+    <figure class="card-art">
+      <div class="plate">${CS.cardArt()}<span class="uv-scale">${n(CS.monoR(CS.pontius), 0)}&times; the reported &plusmn;, assuming only monotone</span></div>
+      <figcaption><b>The same question, on something everyday.</b> Twenty loads applied twice at NIST, and the whole set of calibration curves those standards allow &mdash; solid, because it is what the data forces. The published quadratic is the dotted line inside it: one member of that set, chosen by a fitting criterion rather than by the measurements.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">curveset &middot; ${CS.P.sets.length} real calibrations &middot; no model calls</div>
+      <h2>The line they published, and the lines that fit.</h2>
+      <p class="sub">A calibration is run forwards and used backwards, and the backwards number always comes off a fitted curve. The fit is an assumption and it is never priced. This computes what the standards allow instead &mdash; in closed form, no optimiser, no sampling &mdash; under assumptions you can dial one at a time, from <em>monotone only</em> to <em>join the dots</em>, with the parametric fit past the end of the dial.</p>
+      <div class="facts">
+        ${fact('load cell, monotone only', n(CS.monoR(CS.pontius), 0) + '\u00d7', 'the honest interval is exactly the ladder spacing &mdash; which two standards you are between, and nothing finer')}
+        ${fact('and joining the dots', n(CS.dotsR(CS.pontius), 1) + '\u00d7', 'linear interpolation lands on the reported precision: on a fine ladder the functional form buys nothing')}
+        ${fact('the assay, joining the dots', n(CS.dotsR(CS.il6), 1) + '\u00d7', 'the opposite verdict &mdash; on a coarse ladder the four-parameter form is doing the work')}
+        ${fact('the mathematics', 'closed form', 'U and L are a min and a max of straight lines, so reading backwards is a bisection and the page runs the file the tests run')}
+      </div>
+      <span class="go">turn the dial <span class="arw">&rarr;</span></span>
     </div>
   </a>
 
@@ -192,6 +212,7 @@ const ifm = require(path.join(IFM, 'build.js')).build(OUT);
 const sx = SIMPLEX.build(OUT);
 const ng = NG.build(OUT);
 const sh = SH.build(OUT);
+const cs = CS.build(OUT);
 
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
 console.log(`site/playground/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
@@ -200,4 +221,5 @@ console.log(`site/playground/interferometer/       ${(ifm.bytes / 1024).toFixed(
 console.log(`site/playground/simplex/            ${(sx.bytes / 1024).toFixed(0)} KB  ·  ${sx.checks}/${sx.checks} exact checks, ${sx.positions} positions, PR down to ${n(sx.endPR, 2)} at the far end`);
 console.log(`site/playground/neural-geometry/     ${(ng.bytes / 1024).toFixed(0)} KB  ·  ${ng.sets} sets × ${ng.models} models, ${ng.calls} calls, $${ng.spent.toFixed(2)}`);
 console.log(`site/playground/shape-hunt/         ${(sh.bytes / 1024).toFixed(0)} KB  ·  ${fmt(sh.tests)} shape tests over ${sh.cases} cases`);
+console.log(`site/playground/curveset/          ${(cs.bytes / 1024).toFixed(0)} KB  ·  ${cs.sets} calibrations · load cell ${n(cs.mono, 0)}× monotone, ${n(cs.dots, 1)}× joining the dots; assay ${n(cs.assay, 1)}×`);
 console.log(`@ git ${git}`);
