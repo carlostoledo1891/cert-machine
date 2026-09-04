@@ -23,6 +23,7 @@ const { page } = require(path.join(HERE, 'design', 'shell.js'));
 const { uvSVG } = require(path.join(HERE, 'uv-art.js'));
 const SIMPLEX = require(path.join(HERE, 'simplex', 'build.js'));
 const NG = require(path.join(HERE, 'neural-geometry', 'build.js'));
+const SH = require(path.join(HERE, 'shape-hunt', 'build.js'));
 
 const n = (x, d = 2) => Number(x).toFixed(d);
 const fmt = (x) => Number(x).toLocaleString('en-US');
@@ -60,7 +61,7 @@ const body = `
 <section class="projects"><div class="wrap">
   <div class="count">
     <span class="eyebrow">the projects</span>
-    <span class="eyebrow">three, so far</span>
+    <span class="eyebrow">four, so far</span>
   </div>
 
   <a class="card" href="interferometer/index.html">
@@ -120,6 +121,26 @@ const body = `
     </div>
   </a>
 
+  <a class="card" href="shape-hunt/index.html">
+    <figure class="card-art">
+      <div class="plate">${SH.cardArt()}<span class="uv-scale">${fmt(SH.S.meta.totalTests)} tests</span></div>
+      <figcaption><b>A symmetry, recovered from a model&rsquo;s own answers.</b> Each chord joins an item to where the permutation sends it, so a rotation reads as a fan and a reflection as rungs across an axis. Nobody asked about symmetry; it is what survived when everything else did not.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">shape hunt &middot; ${fmt(SH.S.meta.totalTests)} tests &middot; no model calls</div>
+      <h2>Nothing here is a perfect circle.</h2>
+      <p class="sub">The elicited geometries look like they hold shapes &mdash; a pentagon here, four points on a circle there. So this looks exhaustively, at every triple and quadruple and five-subset of every set from every model, and then runs the identical search on the same numbers with the geometry shuffled out. Almost nothing survives that. What does is not a polygon.</p>
+      <div class="facts">
+        ${fact('collinear triples found', SH.beats('collinear') + ' of ' + SH.real.length, 'not one, in any set, better than shuffling the same distances would give')}
+        ${fact('regular pentagons', SH.beats('r5') + ' of ' + SH.real.length, 'and the roundest pentagon in pure noise looks exactly as convincing')}
+        ${fact('symmetries that hold', SH.real.filter((r) => SH.ratio(r) > 3).length + ' of ' + SH.real.length, 'beating their null threefold — including the antipodal map on the compass, which nobody asked about')}
+        ${fact('the calibration', n(SH.S.meta.eps, 5), 'the floor a perfect 12-gon produces from rounding alone — the instrument was counting its own grid until it was measured')}
+      </div>
+      <span class="go">read the hunt <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+
 </div></section>
 
 <section class="rules"><div class="wrap">
@@ -170,6 +191,7 @@ for (const f of ['inter-var.woff2', 'jetbrains-mono-var.woff2'])
 const ifm = require(path.join(IFM, 'build.js')).build(OUT);
 const sx = SIMPLEX.build(OUT);
 const ng = NG.build(OUT);
+const sh = SH.build(OUT);
 
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
 console.log(`site/playground/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
@@ -177,4 +199,5 @@ console.log(`site/playground/interferometer/       ${(ifm.bytes / 1024).toFixed(
   + (ifm.bracket ? `, bracket ${n(100 * (ifm.bracket - 1), 0)}% over ${ifm.sweep} radii` : ''));
 console.log(`site/playground/simplex/            ${(sx.bytes / 1024).toFixed(0)} KB  ·  ${sx.checks}/${sx.checks} exact checks, ${sx.positions} positions, PR down to ${n(sx.endPR, 2)} at the far end`);
 console.log(`site/playground/neural-geometry/     ${(ng.bytes / 1024).toFixed(0)} KB  ·  ${ng.sets} sets × ${ng.models} models, ${ng.calls} calls, $${ng.spent.toFixed(2)}`);
+console.log(`site/playground/shape-hunt/         ${(sh.bytes / 1024).toFixed(0)} KB  ·  ${fmt(sh.tests)} shape tests over ${sh.cases} cases`);
 console.log(`@ git ${git}`);
