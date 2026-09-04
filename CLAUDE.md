@@ -30,13 +30,18 @@ instruments/          the certifiers
   interval/           eqcert: intervals, exact rationals, falsifier-required certificates
   trigmin/            certified minima of integer cosine polynomials + the Newman envelope
   sos/                exact rational sum-of-squares
-design/               tokens, components, template — every page is generated
+design/               tokens, components, template — every page is generated;
+                      cdp.js is THE headless-Chrome client (it was written out
+                      three times before 2026-09-04)
 playground/           the source of /instruments — nine ungated instruments and
                       plate series. THE FOLDER AND THE URL DIFFER ON PURPOSE:
                       instruments/ at the root is already taken by the
                       certifiers, which are a different thing and are never
                       served. Renamed from /playground 2026-09-04, 301 in place.
 tools/                run-engine · build-control · test-engine · lift
+                      check-measure · the layout ruler: every built page driven
+                      in Chrome at 1440 and 390, ratcheted against
+                      design/measure-baseline.json, which only turns down
 ```
 
 ## Adding a family

@@ -30,6 +30,103 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
 THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
 
+  ══ SESSION OF 2026-09-04 (THIRD): THE DESIGN REVIEW, AND PHASE 0 OF ITS FIX.
+     $0.00 spent, 57/57 batteries green. The operator sent screenshots of
+     sliced tables and paragraphs that do not share a left edge with the figure
+     under them and asked whether the whole site could sit on ONE seed. It was
+     measured rather than argued: tools/check-measure.js drives headless Chrome
+     over all 66 built pages at 1440 and 390 and records four geometric facts
+     per page. THE RULER IS BUILT AND GATED; NOTHING HAS BEEN RESTYLED YET. ══
+
+  WHAT THE MEASUREMENT FOUND (the evidence behind phases 1-4 below):
+
+  · THREE LEFT SPINES ACROSS ONE DOMAIN. The seven document-shaped instrument
+    pages sit at x=108 (--pg-container 1320, prose left-aligned). The landing
+    and all 50 reports sit at x=398 — `.col{max-width:68ch;margin-inline:auto}`
+    CENTRES the prose inside a 900px figure track, so a table sticks out 128px
+    on both sides of the paragraph above it. simplex and interferometer's sheet
+    are a third. THE FRONT PAGE AND /instruments SHARE NO LINE. shell.css
+    already wrote down, in prose, why the centred column is wrong; that ruling
+    was applied to /instruments last session and never carried back to
+    design/template.js, which is where the centring actually lives.
+  · ONE PALETTE, TWO TOKEN FILES, NOTHING CHECKING. design/tokens.js (32 names)
+    and playground/design/tokens.css (63 names): 15 of 16 mapped colour pairs
+    are BYTE-IDENTICAL and the 16th differs only in whitespace inside an
+    rgba(). This is the corpus.js lesson applied to the design system itself.
+  · THREE CONTAINER SCALES ALIVE AT ONCE. MEASURE{68ch/900/1200/820} in
+    tokens.js, {1200/820} in base.css, {1320/1560/82ch} in shell.css. The third
+    was meant to replace the second; base.css still ships and interferometer
+    still links it. Under all three, per-page hardcoded measures survived last
+    session's "one measure scale" commit: 560/760/820/860/900/940/1320px and
+    24/28/32/40/46/62/68ch.
+  · THE SAME COMPONENT, FIVE OPINIONS. `.legend` is declared at 4 columns on
+    curveset and 3 everywhere else, while holding 4, 7, 5, 3 and 3 items.
+    plates puts seven items into three columns.
+  · MEASURED BREAKAGE, NOT TASTE. FIVE /instruments pages scroll sideways on a
+    phone — neural-geometry 252px, curveset 176, exact-geometry 156,
+    answer-shape 78, simplex 58, 720px in total. shape-hunt's `.wide-scroll` is
+    1849px wide inside a 1440px viewport and drops its left edge to 49 while
+    the prose above sits at 108: that is the sliced table in the screenshots.
+    Site-wide debt at the baseline: 979 spines and 86 clipped blocks at 1440.
+
+  PHASE 0 SHIPPED — THE RULER:
+
+  · tools/check-measure.js. Four facts per page per viewport: spines (distinct
+    CONTENT-left edges, full-bleed excluded — an element as wide as the
+    viewport is the ground, not the spine), pageOverflow, escapes (blocks that
+    leave the viewport and are NOT inside a horizontal scroller), clipped
+    (content wider than its box, at an 8px floor so text-metric noise cannot
+    make the gate flap — verified deterministic over three consecutive runs).
+    design/measure-baseline.json records all 66 pages; the gate REFUSES any
+    number that grows, and `--accept` refuses to record a worse one without
+    --accept-worse. A page missing from the baseline fails, and so does a
+    baseline row with no page: the registry is complete by construction.
+    SEVEN RED CONTROLS — three planted layouts, a scroll table that must read
+    as clipped and NOT as an escape, a clean fixture that must measure exactly
+    one spine, and the ratchet itself attacked three ways. Verified end to end
+    by planting a 2000px block in reports/kissing.html: seven regressions
+    named, exit 1, tree restored.
+  · design/cdp.js. The headless-Chrome client was written out in full THREE
+    times (design/paper.js, tools/build-og.js, playground/shot.js) and the gate
+    would have made a fourth. One module now; all three callers repointed and
+    each verified by its own output — og.png re-rendered at 1200x630, a 2x
+    screenshot, and two papers printed and read.
+  · A REAL GAP FOUND BY WIDENING check-wiring: tools/check-stale-claims.js ran
+    in `make test` and NOT in build-control, so the control build printed a
+    green battery count over a set that excluded it — exactly the defect check
+    2 exists to catch, sitting just outside its battery-name pattern. The check
+    is now over every tools/check-*.js gate, found on disk, with a red control.
+
+  THE PLAN FOR PHASES 1-4 (agreed with the operator; nothing started):
+
+  · PHASE 1 — ONE TOKEN SOURCE. Generate playground/design/tokens.css from
+    design/tokens.js; add a check-wiring check that no built page declares a
+    colour or a max-width outside the generated :root, shaped like the existing
+    font-stack check. The 15/16 identity means this is a rename, not a restyle.
+  · PHASE 2 — ONE LAYOUT CONTRACT. LAYOUT = { container, read } in tokens.js.
+    ONE container, TWO tracks (`read`: prose capped in ch, LEFT-ALIGNED, never
+    centred; `full`: the container width). Retire MEASURE.wide, MEASURE.narrow,
+    --pg-wide, --container-narrow, `.col{margin-inline:auto}`, `.col .wide` and
+    `.wide-scroll`. Delete base.css and unlink it. Sweep the per-page px and ch
+    measures. NO BREAKOUTS: a component wider than the container scrolls inside
+    it with a visible affordance, sheds columns, or becomes a different
+    component — it never escapes the page. The five mobile side-scrolls are
+    part of this, not a separate task.
+  · PHASE 3 — ONE COMPONENT SET. Move `.legend`, the table, the stat strip, the
+    card and the plate frame out of nine private <style> blocks into the shared
+    emitter, with column counts DERIVED from item counts. design/COMPONENTS.md
+    is the spec and already catalogues thirteen of them.
+  · PHASE 4 — STANDING GOES PAGE-WIDE. warrant.js's lattice currently reaches
+    exactly one CSS channel: stroke pattern inside SVG. It is general and it is
+    being spent on dashes. Extend it to a render contract every component
+    takes, so a DECIDED number and a COMPUTED number never look alike anywhere
+    on the site. Grayscale is what FORCES this: with no hue to spend, standing
+    has to live in weight, stroke and shape. That is the seed, and per the
+    vis-* rows it is the one thing the occupied prior art does not do.
+  · SEQUENCING RULE: phases 1-3 MUST NOT MOVE A NUMBER. The pages carry
+    certified values; run the full battery between phases and treat any moved
+    digit as a defect in the restyle, not as a new fact.
+
   ══ SESSION OF 2026-09-04 (SECOND): ALL FIVE SHAPE-HUNT STUDIES BUILT, $0.00
      SPENT, 56/56 BATTERIES GREEN. The exhaustive search found nothing and in
      finding nothing broke the page's own headline null — the symmetry count

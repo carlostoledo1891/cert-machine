@@ -94,12 +94,25 @@ red('a battery in one registry and not the other is caught',
 
 /* ---------------------------------------------------------------- 3 -----
    This file is itself registered in both places. A wiring check that nothing
-   runs is the defect it was written to prevent.                           */
-const selfInMake = /check-wiring\.js/.test(MAKE);
-const selfInControl = /check-wiring\.js/.test(CONTROL);
-if (selfInMake && selfInControl) ok('this check is registered in both `make test` and build-control');
-else bad('this check is registered in both `make test` and build-control',
-  'make test: ' + (selfInMake ? 'yes' : 'NO') + ' · build-control: ' + (selfInControl ? 'yes' : 'NO'));
+   runs is the defect it was written to prevent.
+
+   GENERALISED 2026-09-04. Checking only THIS file left a hole the size of the
+   defect: check 2's pattern matches files named battery/selftest/test-engine,
+   and the gates in tools/ are named check-*.js, so tools/check-stale-claims.js
+   ran in `make test` and nowhere else — build-control printed a green count
+   over a set that did not include it. The rule is now the same rule check 2
+   applies to batteries: every gate in tools/ is registered in BOTH places, and
+   the list is FOUND on disk rather than written down.                       */
+const gates = fs.readdirSync(path.join(ROOT, 'tools'))
+  .filter((f) => /^check-.*\.js$/.test(f)).sort();
+const unregistered = gates.filter((g) => !(MAKE.includes(g) && CONTROL.includes(g)));
+if (unregistered.length) bad('every tools/check-*.js gate is in both `make test` and build-control',
+  unregistered.map((g) => g + ' — make test: ' + (MAKE.includes(g) ? 'yes' : 'NO')
+    + ' · build-control: ' + (CONTROL.includes(g) ? 'yes' : 'NO')).join('\n        '));
+else ok('every tools/check-*.js gate is in both `make test` and build-control', '[' + gates.length + ' gates]');
+
+red('a gate registered in only one place is caught',
+  ['check-planted.js'].filter((g) => !(MAKE.includes(g) && CONTROL.includes(g))).length === 1);
 
 /* ---------------------------------------------------------------- 4 -----
    No built page declares a literal font stack outside the :root block.

@@ -12,26 +12,22 @@
    vertical), display equations centered and unboxed, shell blocks in
    mono, page numbers centered in the footer.
 
-   ONE module: the markdown-subset parser and the raw-socket CDP client
-   used to live duplicated in build-terra-pdf.js and build-ember-pdf.js —
-   a rule defined twice WILL diverge. Both builders are thin wrappers now,
-   and tools/build-paper-pdf.js prints any paper/*.md.
+   ONE module: the markdown-subset parser used to live duplicated in
+   build-terra-pdf.js and build-ember-pdf.js — a rule defined twice WILL
+   diverge. Both builders are thin wrappers now, and tools/build-paper-pdf.js
+   prints any paper/*.md.
 
-   The CDP gotchas, learned the hard way and preserved: Node's global
-   WebSocket sends an Origin header the CDP endpoint refuses, and a frame
-   sent before the 101 handshake makes Chrome drop the socket silently —
-   hence the raw net socket and the handshake gate.  MIT. */
+   The CDP transport moved out on 2026-09-04 for the same reason, one level
+   up: it was written out in full here, in tools/build-og.js and in
+   playground/shot.js, three identical copies of the same handshake. It is
+   design/cdp.js now, and the gotchas it was carrying are documented there —
+   Node's global WebSocket sends an Origin header the endpoint refuses, and a
+   frame sent before the 101 makes Chrome drop the socket silently.  MIT. */
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
-const net = require('net');
-const http = require('http');
-const cp = require('child_process');
-const crypto = require('crypto');
 const os = require('os');
-
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
 /* ---------------- the markdown subset our writeup builders emit ---------- */
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -175,86 +171,34 @@ function articleHtml(md, name) {
     + '<style>' + ARTICLE_CSS + '</style><body>' + mdToArticle(md) + '</body></html>';
 }
 
-/* ---------------- minimal raw-socket CDP client ---------------- */
-function frame(payload) {
-  const data = Buffer.from(payload);
-  const mask = crypto.randomBytes(4);
-  let head;
-  if (data.length < 126) head = Buffer.from([0x81, 0x80 | data.length]);
-  else if (data.length < 65536) { head = Buffer.alloc(4); head[0] = 0x81; head[1] = 0xFE; head.writeUInt16BE(data.length, 2); }
-  else { head = Buffer.alloc(10); head[0] = 0x81; head[1] = 0xFF; head.writeBigUInt64BE(BigInt(data.length), 2); }
-  for (let j = 0; j < data.length; j++) data[j] ^= mask[j & 3];
-  return Buffer.concat([head, mask, data]);
-}
-const getJson = (p, port) => new Promise((res, rej) => {
-  http.get({ host: '127.0.0.1', port, path: p }, r => {
-    let b = ''; r.on('data', c => b += c); r.on('end', () => res(JSON.parse(b)));
-  }).on('error', rej);
-});
+/* ---------------- printing ----------------
+   The raw-socket CDP client used to live here in full, and identically in
+   tools/build-og.js and playground/shot.js. It is design/cdp.js now: one
+   handshake, one frame writer, one dispatch loop. Everything below is this
+   file's own intent — the page size, the margins, the footer. */
+const { withChrome, settle } = require(path.join(__dirname, 'cdp.js'));
 
 async function printPdf(html, outPath, opts) {
   const port = (opts && opts.port) || 9224;
   const tmp = path.join(os.tmpdir(), 'paper-print-' + process.pid + '-' + Date.now() + '.html');
   fs.writeFileSync(tmp, html);
-  const chrome = cp.spawn(CHROME, ['--headless=new', '--remote-debugging-port=' + port, '--hide-scrollbars',
-    '--user-data-dir=' + fs.mkdtempSync(path.join(os.tmpdir(), 'paper-pdf-'))], { stdio: 'ignore' });
   try {
-    for (let t = 0; t < 60; t++) {
-      try { await getJson('/json', port); break; } catch (e) { await new Promise(r => setTimeout(r, 500)); }
-    }
-    const targets = await getJson('/json', port);
-    const tg = targets.find(x => x.type === 'page');
-    const wsUrl = new URL(tg.webSocketDebuggerUrl);
-    const sock = net.connect(port, '127.0.0.1');
-    let buf = Buffer.alloc(0), handshaken = false, idc = 0;
-    const pending = {};
-    let onHs = null;
-    const hs = new Promise(res => { onHs = res; });
-    const send = (method, params) => new Promise((res) => {
-      const id = ++idc; pending[id] = res;
-      sock.write(frame(JSON.stringify({ id, method, params: params || {} })));
-    });
-    sock.on('data', (c) => {
-      buf = Buffer.concat([buf, c]);
-      if (!handshaken) {
-        const i = buf.indexOf('\r\n\r\n');
-        if (i < 0) return;
-        handshaken = true; buf = buf.slice(i + 4); onHs();
-      }
-      for (;;) {
-        if (buf.length < 2) return;
-        let len = buf[1] & 0x7f, off = 2;
-        if (len === 126) { if (buf.length < 4) return; len = buf.readUInt16BE(2); off = 4; }
-        else if (len === 127) { if (buf.length < 10) return; len = Number(buf.readBigUInt64BE(2)); off = 10; }
-        if (buf.length < off + len) return;
-        const payload = buf.slice(off, off + len).toString();
-        buf = buf.slice(off + len);
-        try { const m = JSON.parse(payload); if (m.id && pending[m.id]) { pending[m.id](m.result); delete pending[m.id]; } } catch (e) { /* event */ }
-      }
-    });
-    await new Promise(res => sock.on('connect', () => {
-      sock.write('GET ' + wsUrl.pathname + ' HTTP/1.1\r\nHost: 127.0.0.1:' + port + '\r\nUpgrade: websocket\r\n'
-        + 'Connection: Upgrade\r\nSec-WebSocket-Key: ' + crypto.randomBytes(16).toString('base64')
-        + '\r\nSec-WebSocket-Version: 13\r\n\r\n');
-      res();
-    }));
-    await hs;                                                      /* gate every send on the 101 */
-    await send('Page.enable');
-    await send('Page.navigate', { url: 'file://' + tmp });
-    await new Promise(r => setTimeout(r, 2800));                   /* real wait: fonts */
-    const pdf = await send('Page.printToPDF', {
-      printBackground: true,
-      displayHeaderFooter: true,
-      headerTemplate: '<span></span>',
-      footerTemplate: '<div style="font-size:9px;width:100%;text-align:center;'
-        + 'font-family:\'Times New Roman\',serif;color:#000;"><span class="pageNumber"></span></div>',
-      marginTop: 0.95, marginBottom: 0.95, marginLeft: 1.1, marginRight: 1.1,
-      preferCSSPageSize: false,
-    });
-    fs.writeFileSync(outPath, Buffer.from(pdf.data, 'base64'));
-    sock.destroy();
+    await withChrome(async (send) => {
+      await send('Page.enable');
+      await send('Page.navigate', { url: 'file://' + tmp });
+      await settle(2800);                                          /* real wait: fonts */
+      const pdf = await send('Page.printToPDF', {
+        printBackground: true,
+        displayHeaderFooter: true,
+        headerTemplate: '<span></span>',
+        footerTemplate: '<div style="font-size:9px;width:100%;text-align:center;'
+          + 'font-family:\'Times New Roman\',serif;color:#000;"><span class="pageNumber"></span></div>',
+        marginTop: 0.95, marginBottom: 0.95, marginLeft: 1.1, marginRight: 1.1,
+        preferCSSPageSize: false,
+      });
+      fs.writeFileSync(outPath, Buffer.from(pdf.data, 'base64'));
+    }, { port });
   } finally {
-    chrome.kill();
     fs.unlinkSync(tmp);
   }
   return outPath;
