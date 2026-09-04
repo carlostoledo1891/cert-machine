@@ -16,6 +16,17 @@ const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const runBatteries = !process.argv.includes('--no-batteries');
+/* the shelf module needs three counts that are themselves read off records;
+   they are computed here rather than typed, the same as everywhere else */
+const CERTCOUNTS = (() => {
+  const j = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', f), 'utf8'));
+  const rungs = Object.keys(j('mercer-mu5.json').rows).map(Number).sort((a, b) => a - b);
+  return {
+    strassenN: j('strassen-certificate.json').entries.length,
+    bilinearN: j('bilinear-certificate.json').entries.length,
+    topM: rungs[rungs.length - 1],
+  };
+})();
 
 const rj = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const exists = (p) => fs.existsSync(path.join(ROOT, p));
@@ -433,6 +444,41 @@ if (ledger.conjectures.length) {
         + C.m(prov.counts.patched + ' patched') + ' on the way in, each patch declared. Drift now: ' + C.m(drift) + '. '
         + '<strong>The source lab (' + C.esc(require('path').basename(rj('LIFT.json').source_root)) + ') is read-only, permanently</strong> — read anything, '
         + 'never write, and report an error there rather than repair it.') + '</div>'
+  }));
+}
+
+/* §9 — the full certificate shelf. It used to sit on the landing page, where a
+   sixty-eight-row table was the last thing a stranger met and nobody reached the
+   end of it. The three that carry a detached verifier stayed there; everything
+   else is here, where a reader has already chosen to look at the machinery.
+
+   COLLAPSED AFTER THE FIRST HANDFUL, with <details> and no script: a reader who
+   wants the shelf opens it, and one who does not is not made to scroll past it.
+   The count is in the summary so the disclosure says what it is hiding. */
+{
+  const CERTS = require(path.join(__dirname, 'certs-shelf.js'))(ROOT, CERTCOUNTS);
+  const row = ([f, what, v]) => [
+    { raw: '<a href="/certs/' + f + '"><span class="m">' + C.esc(f) + '</span></a>' },
+    what,
+    { raw: !v ? C.tag('battery-gated', 'dep')
+      : v.tag ? C.tag(v.tag, 'dep') + ' <a href="/' + v.href + '">' + C.esc(v.label) + '</a>'
+        : '<a href="/' + v.href + '"><span class="m">' + C.esc(v.label) + '</span></a>' }
+  ];
+  const cols = [{ h: 'certificate' }, { h: 'what it holds' }, { h: 're-verify', cls: 'v' }];
+  const SHOWN = 6;
+  B.push(C.section({
+    lab: '§10 · the shelf', title: 'Every certificate, and what it holds', wide: true,
+    bodyRaw: '<div id="certificates"></div>'
+      + C.table({ cols, rows: CERTS.slice(0, SHOWN).map(row) })
+      + '<div class="wide"><details class="more"><summary>the remaining ' + (CERTS.length - SHOWN)
+      + ' of ' + CERTS.length + '</summary>'
+      + C.table({ cols, rows: CERTS.slice(SHOWN).map(row) })
+      + '</details></div>'
+      + '<div class="col">' + C.pRaw('Three of these carry a <strong>detached verifier</strong> — standard library '
+        + 'Python, nothing to install, zero code shared with the engine, and each one must refute a deliberately '
+        + 'forged value before it will exit green. The rest are gated by a battery instead: re-derived at every '
+        + 'build, with planted forgeries that must fire. A record with neither is not on this list, because the '
+        + 'build refuses when certs/ holds a file this table cannot describe.') + '</div>'
   }));
 }
 
