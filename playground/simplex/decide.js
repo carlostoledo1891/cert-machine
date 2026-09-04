@@ -9,7 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const R = require('./rational.js');
+const R = require('../rational.js');
 const A = require('./attn.js');
 
 const HERE = __dirname;

@@ -31,7 +31,7 @@
    than quoted.
 */
 'use strict';
-const R = require('./rational.js');
+const R = require('../rational.js');
 
 const P_PRIMARY = 2;
 

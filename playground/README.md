@@ -117,6 +117,38 @@ against the source pack's own stored rows to 1.4e-14 and labelled as a view.
 runs to β = 400 and PR 1.08 — essentially a vertex. Almost the whole journey you
 can see is the part that is only drawn.
 
+### `neural-geometry/` — the shapes a model will admit to from the outside
+
+Built 2026-09-04, after reading what Goodfire actually does. They find geometry
+by **opening** the model: decompose the activations and days of the week come
+out as a circle, colours as a surface. That needs the weights.
+
+This asks from outside. Every pair of items, one integer 0–100, **one row at a
+time** — because asked as a whole matrix the model can enforce its own symmetry
+by reading what it just wrote, and asked row by row the two halves of every pair
+come from calls that never see each other. Their agreement is then a consistency
+test nobody requested, and it turns out to be the sharpest separator on the page.
+
+- `sets.js` — five sets, each a prediction, two of them controls that must fail
+- `probe.js` — the elicitation, budget-capped, worst case reserved per call
+- `decide.js` — asymmetry, closure ratio and Gram **signature**, all exact on
+  integers; then float coordinates for drawing, labelled as a view
+- `plate.js` — one plate per set per model: every pair as a chord, the item
+  order as a path, the closing step drawn apart because everything hangs on it
+
+**What it found**, 144 calls, $0.18, three models:
+
+- **Structure is curvature.** Every structured set produces answers that are not
+  Euclidean — the Gram matrix carries 1–5 negative directions, in all three
+  models. The unrelated-noun control produces **zero**, in all three. Squeezing a
+  cycle into pairwise distances cannot be done flatly, and by Schoenberg that
+  failure is exactly what a cycle looks like from the outside.
+- **The hue wheel closes** (1.16× on average) and **the digits do not** (5.24×) —
+  the control that must not be a circle isn't one.
+- **The week does not close** (3.14×), against the prediction. Monday and Sunday
+  sit further apart than any adjacent pair. The year closes and the hue wheel
+  closes; the week is bent but open. The failed prediction is on the page.
+
 ### `uv-art.js`, `index.css`, `build.js` — the gathering page
 
 The card art is the real u–v coverage of 21 April 2018, read from the released

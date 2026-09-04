@@ -22,6 +22,7 @@ const OUT = path.join(ROOT, 'site', 'playground');
 const { page } = require(path.join(HERE, 'design', 'shell.js'));
 const { uvSVG } = require(path.join(HERE, 'uv-art.js'));
 const SIMPLEX = require(path.join(HERE, 'simplex', 'build.js'));
+const NG = require(path.join(HERE, 'neural-geometry', 'build.js'));
 
 const n = (x, d = 2) => Number(x).toFixed(d);
 const fmt = (x) => Number(x).toLocaleString('en-US');
@@ -41,6 +42,11 @@ const UV = uvSVG(BEST_NIGHT, { size: 900 });
 const CSS = fs.readFileSync(path.join(HERE, 'index.css'), 'utf8');
 const SHELLCSS = fs.readFileSync(path.join(HERE, 'design', 'shell.css'), 'utf8');
 
+/* the neural-geometry headlines, averaged over the models rather than picked */
+const ngSet = (id) => NG.G.sets.find((s) => s.id === id);
+const ngClose = (id) => n(ngSet(id).models.reduce((a, m) => a + m.closure.ratio, 0) / ngSet(id).models.length, 2);
+const ngQ = [...new Set(ngSet('unrelated').models.map((m) => m.signature.q))].join('/');
+
 const fact = (k, v, note) =>
   `<div class="f"><span class="fk">${k}</span><span class="fv">${v}</span>${note ? `<span class="fn">${note}</span>` : ''}</div>`;
 
@@ -54,7 +60,7 @@ const body = `
 <section class="projects"><div class="wrap">
   <div class="count">
     <span class="eyebrow">the projects</span>
-    <span class="eyebrow">two, so far</span>
+    <span class="eyebrow">three, so far</span>
   </div>
 
   <a class="card" href="interferometer/index.html">
@@ -94,6 +100,26 @@ const body = `
       <span class="go">open the instrument <span class="arw">&rarr;</span></span>
     </div>
   </a>
+
+  <a class="card" href="neural-geometry/index.html">
+    <figure class="card-art">
+      <div class="plate">${NG.cardArt()}<span class="uv-scale">${NG.G.meta.calls} calls &middot; $${NG.G.meta.spent.toFixed(2)}</span></div>
+      <figcaption><b>Twelve colour words, placed by a model that has never seen a colour.</b> Every chord is one pairwise judgement, weighted by how similar the model called the pair; the solid path walks red &rarr; orange &rarr; &hellip; &rarr; rose and the dashed step is the way home. It closes. Nobody asked for a wheel.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">neural geometry &middot; ${NG.G.models.length} models &middot; no weights</div>
+      <h2>The shapes a model will admit to from the outside.</h2>
+      <p class="sub">Goodfire finds circles and colour surfaces by opening the model and decomposing its activations, which needs the weights. This asks from outside instead &mdash; every pair, one integer, one row at a time &mdash; and then decides exactly what those answers can be. If the circle is real it should survive being asked about; a shape that lives only in the activations was never a shape the model uses.</p>
+      <div class="facts">
+        ${fact('curved directions', ngQ, 'in the unrelated control, in all three models — while every structured set carries several. Structure shows up as the refusal to be flat.')}
+        ${fact('the hue wheel', ngClose('hues') + '×', 'the step home against the median step along the way — red really is next to rose')}
+        ${fact('the digits', ngClose('digits') + '×', 'the control that must not close, and does not')}
+        ${fact('the week', ngClose('weekdays') + '×', 'predicted a circle — and the answers say otherwise. The weekend is a real edge.')}
+      </div>
+      <span class="go">read the plates <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
 </div></section>
 
 <section class="rules"><div class="wrap">
@@ -143,10 +169,12 @@ for (const f of ['inter-var.woff2', 'jetbrains-mono-var.woff2'])
 
 const ifm = require(path.join(IFM, 'build.js')).build(OUT);
 const sx = SIMPLEX.build(OUT);
+const ng = NG.build(OUT);
 
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
 console.log(`site/playground/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
 console.log(`site/playground/interferometer/       ${(ifm.bytes / 1024).toFixed(0)} KB  ·  ${ifm.members} members + ${ifm.extremes} extremes, ${fmt(ifm.K)} rows`
   + (ifm.bracket ? `, bracket ${n(100 * (ifm.bracket - 1), 0)}% over ${ifm.sweep} radii` : ''));
 console.log(`site/playground/simplex/            ${(sx.bytes / 1024).toFixed(0)} KB  ·  ${sx.checks}/${sx.checks} exact checks, ${sx.positions} positions, PR down to ${n(sx.endPR, 2)} at the far end`);
+console.log(`site/playground/neural-geometry/     ${(ng.bytes / 1024).toFixed(0)} KB  ·  ${ng.sets} sets × ${ng.models} models, ${ng.calls} calls, $${ng.spent.toFixed(2)}`);
 console.log(`@ git ${git}`);

@@ -1,0 +1,66 @@
+/* page.css — plates. A reading page with renders in it, not an instrument. */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body); line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; } a { color: inherit; }
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+.wrap { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+.narrow { max-width: 68ch; }
+
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4.2vw, 4rem); max-width: 20ch; margin-top: var(--s-4); }
+.hero .lede { margin-top: var(--s-6); max-width: 64ch; font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+.finding { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: var(--s-7) 0; }
+.finding .grid { display: grid; gap: var(--s-6) clamp(1.5rem, 4vw, 3rem); grid-template-columns: 1fr; }
+@media (min-width: 820px) { .finding .grid { grid-template-columns: repeat(3, 1fr); } }
+.finding h3 { font-size: 1rem; letter-spacing: var(--track-title); }
+.finding p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); line-height: 1.6; }
+.finding .big { font-family: var(--font-mono); font-size: 1.6rem; color: var(--ink); display: block; margin-bottom: var(--s-2); font-variant-numeric: tabular-nums; }
+
+.set { padding: clamp(3rem, 7vh, 5rem) 0; border-bottom: 1px solid var(--border); }
+.set .head { display: grid; gap: var(--s-5) clamp(1.5rem, 4vw, 3rem); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 900px) { .set .head { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); } }
+.set h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); }
+.set .why { color: var(--ink-4); font-size: var(--text-small); line-height: 1.65; }
+.set .verdict { margin-top: var(--s-4); font-family: var(--font-mono); font-size: var(--text-small); color: var(--ink-2); }
+.set .verdict .tag { color: var(--ink-5); }
+
+.plates { display: grid; gap: clamp(1rem, 2.4vw, 2rem); grid-template-columns: 1fr; margin-top: var(--s-7); }
+@media (min-width: 760px) { .plates { grid-template-columns: repeat(3, 1fr); } }
+.pl { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-l); padding: var(--s-4) var(--s-4) var(--s-5); }
+.pl .who { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-3); }
+.pl .who .m { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.08em; color: var(--ink-3); }
+.pl .who .c { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-5); }
+svg.plate { display: block; width: 100%; height: auto; overflow: visible; margin: var(--s-2) 0 var(--s-3); }
+.ch { stroke: var(--ink-2); }
+.ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-dasharray: 6 6; stroke-linecap: round; }
+.pt { fill: var(--ink); }
+.pt.first { fill: var(--ink); stroke: var(--bg-raised); stroke-width: 2.5; }
+.lb { font-family: var(--font-mono); font-size: 13.5px; fill: var(--ink-4); }
+.lb.first { fill: var(--ink-2); }
+.pl .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-3); margin-top: var(--s-3); border-top: 1px solid var(--border); padding-top: var(--s-3); }
+.pl .nums .k { display: block; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-5); }
+.pl .nums .v { display: block; font-family: var(--font-mono); font-size: 0.9rem; color: var(--ink-2); font-variant-numeric: tabular-nums; margin-top: 1px; }
+.pl .nums .v.hit { color: var(--ink); }
+
+.legend { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5); margin-top: var(--s-5); font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-5); letter-spacing: 0.06em; }
+.legend i { display: inline-block; width: 22px; height: 0; border-top: 1.6px solid var(--ink); vertical-align: middle; margin-right: 7px; font-style: normal; }
+.legend i.d { border-top-style: dashed; border-color: var(--ink-3); }
+.legend i.c { border-top: 1px solid var(--ink-4); }
+
+.method { padding: clamp(3rem, 7vh, 5rem) 0 clamp(4rem, 10vh, 7rem); }
+.method h3 { font-size: 1.05rem; margin-top: var(--s-7); }
+.method p { margin-top: var(--s-4); color: var(--ink-3); }
+.method table { width: 100%; border-collapse: collapse; margin-top: var(--s-5); font-family: var(--font-mono); font-size: var(--text-mono); }
+.method th, .method td { text-align: right; padding: 6px 10px; border-bottom: 1px solid var(--border); }
+.method th:first-child, .method td:first-child, .method th:nth-child(2), .method td:nth-child(2) { text-align: left; }
+.method th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.method pre { margin-top: var(--s-4); padding: var(--s-4); background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-m); overflow-x: auto; font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); }
+.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); }
+.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+.foot a { color: var(--ink-4); text-decoration: none; } .foot a:hover { color: var(--ink-2); }
