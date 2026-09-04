@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-/* build.js — the whole of /playground, into site/playground/.
+/* build.js — the whole of /playground, into site/instruments/.
    node playground/build.js
 
    WHAT THIS DOES NOT DO, deliberately. It does not call tools/build-site.js and
    is not called by it. None of this repository's gates apply here: no scope
    line, no certificate table that must agree with disk, no stale-claim sweep.
    Those gates exist because those pages make claims. This place makes none —
-   nothing under /playground is certified and every page here says so out loud.
+   nothing under /instruments is certified and every page here says so out loud.
 
    What it still does is read. Every number on these pages comes out of a record
    in this folder, and every record comes out of running the code beside it.
@@ -18,7 +18,7 @@ const path = require('path');
 const cp = require('child_process');
 const HERE = __dirname;
 const ROOT = path.join(HERE, '..');
-const OUT = path.join(ROOT, 'site', 'playground');
+const OUT = path.join(ROOT, 'site', 'instruments');
 const { page } = require(path.join(HERE, 'design', 'shell.js'));
 const { uvSVG } = require(path.join(HERE, 'uv-art.js'));
 const SIMPLEX = require(path.join(HERE, 'simplex', 'build.js'));
@@ -77,7 +77,7 @@ const fact = (k, v, note) =>
 
 const body = `
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">cert-machine &middot; playground</div>
+  <div class="eyebrow">cert-machine &middot; instruments</div>
   <h1>Nothing here is certified. That is the entire permission.</h1>
   <p class="lede">The rest of this repository proves things, and gates itself accordingly &mdash; a page there cannot ship if a number on it has drifted from the record underneath. This place is for the other half of the work: <b>the instruments made touchable</b>, the mathematics dressed so that you would want to look at it. Everything here is real and computed on this machine from data on disk. None of it is a proof, and none of it will pretend to be.</p>
 </div></header>
@@ -280,7 +280,7 @@ const body = `
 </div></section>
 
 <footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / playground</span>
+  <span>cert-machine / instruments</span>
   <a href="../index.html">the machine</a>
   <a href="https://github.com/carlostoledo1891/cert-machine">source</a>
   <span>built ${new Date().toISOString().slice(0, 10)}</span>
@@ -288,7 +288,7 @@ const body = `
 `;
 
 const html = page({
-  title: 'playground · cert-machine',
+  title: 'instruments · cert-machine',
   desc: 'Instruments made touchable. Nothing here is certified — that is the entire permission.',
   root: '', here: 'home', body,
   script: `<style>${SHELLCSS}\n${CSS}</style>`,
@@ -299,7 +299,7 @@ fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 
 /* the design assets the browser needs, copied rather than linked out of the
-   repository: /playground owns its look and cannot be restyled from elsewhere */
+   repository: /instruments owns its look and cannot be restyled from elsewhere */
 const copy = (from, to) => { fs.mkdirSync(path.dirname(to), { recursive: true }); fs.copyFileSync(from, to); };
 for (const f of ['tokens.css', 'base.css'])
   copy(path.join(HERE, 'design', f), path.join(OUT, 'design', f));
@@ -317,15 +317,15 @@ const as = AS.build(OUT);
 const af = AF.build(OUT);
 
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
-console.log(`site/playground/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
-console.log(`site/playground/interferometer/       ${(ifm.bytes / 1024).toFixed(0)} KB  ·  ${ifm.members} members + ${ifm.extremes} extremes, ${fmt(ifm.K)} rows`
+console.log(`site/instruments/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
+console.log(`site/instruments/interferometer/       ${(ifm.bytes / 1024).toFixed(0)} KB  ·  ${ifm.members} members + ${ifm.extremes} extremes, ${fmt(ifm.K)} rows`
   + (ifm.bracket ? `, bracket ${n(100 * (ifm.bracket - 1), 0)}% over ${ifm.sweep} radii` : ''));
-console.log(`site/playground/simplex/            ${(sx.bytes / 1024).toFixed(0)} KB  ·  ${sx.checks}/${sx.checks} exact checks, ${sx.positions} positions, PR down to ${n(sx.endPR, 2)} at the far end`);
-console.log(`site/playground/neural-geometry/     ${(ng.bytes / 1024).toFixed(0)} KB  ·  ${ng.sets} sets × ${ng.models} models, ${ng.calls} calls, $${ng.spent.toFixed(2)}`);
-console.log(`site/playground/shape-hunt/         ${(sh.bytes / 1024).toFixed(0)} KB  ·  ${fmt(sh.tests)} shape tests over ${sh.cases} cases`);
-console.log(`site/playground/curveset/          ${(cs.bytes / 1024).toFixed(0)} KB  ·  ${cs.sets} calibrations · load cell ${n(cs.mono, 0)}× monotone, ${n(cs.dots, 1)}× joining the dots; assay ${n(cs.assay, 1)}×`);
-console.log(`site/playground/plates/            ${(pl.bytes / 1024).toFixed(0)} KB  ·  ${pl.plates} plates · ${fmt(pl.visibilities)} visibilities, ${pl.cells} certified cells, ${fmt(pl.bBoxes)} proof boxes`);
-console.log(`site/playground/exact-geometry/    ${(xg.bytes / 1024).toFixed(0)} KB  ·  ${xg.sets} sets whose shape is known, ${xg.agreed} predictions held, ${xg.refused} refused at the gate`);
-console.log(`site/playground/answer-shape/      ${(as.bytes / 1024).toFixed(0)} KB  ·  ${as.subjects} subjects × ${as.models} models, every pair both ways, $${as.spend.toFixed(2)}`);
-console.log(`site/playground/affect/            ${(af.bytes / 1024).toFixed(0)} KB  ·  ${af.moods} moods × ${af.models} models, clock hours as the control, $${af.spend.toFixed(2)}`);
+console.log(`site/instruments/simplex/            ${(sx.bytes / 1024).toFixed(0)} KB  ·  ${sx.checks}/${sx.checks} exact checks, ${sx.positions} positions, PR down to ${n(sx.endPR, 2)} at the far end`);
+console.log(`site/instruments/neural-geometry/     ${(ng.bytes / 1024).toFixed(0)} KB  ·  ${ng.sets} sets × ${ng.models} models, ${ng.calls} calls, $${ng.spent.toFixed(2)}`);
+console.log(`site/instruments/shape-hunt/         ${(sh.bytes / 1024).toFixed(0)} KB  ·  ${fmt(sh.tests)} shape tests over ${sh.cases} cases`);
+console.log(`site/instruments/curveset/          ${(cs.bytes / 1024).toFixed(0)} KB  ·  ${cs.sets} calibrations · load cell ${n(cs.mono, 0)}× monotone, ${n(cs.dots, 1)}× joining the dots; assay ${n(cs.assay, 1)}×`);
+console.log(`site/instruments/plates/            ${(pl.bytes / 1024).toFixed(0)} KB  ·  ${pl.plates} plates · ${fmt(pl.visibilities)} visibilities, ${pl.cells} certified cells, ${fmt(pl.bBoxes)} proof boxes`);
+console.log(`site/instruments/exact-geometry/    ${(xg.bytes / 1024).toFixed(0)} KB  ·  ${xg.sets} sets whose shape is known, ${xg.agreed} predictions held, ${xg.refused} refused at the gate`);
+console.log(`site/instruments/answer-shape/      ${(as.bytes / 1024).toFixed(0)} KB  ·  ${as.subjects} subjects × ${as.models} models, every pair both ways, $${as.spend.toFixed(2)}`);
+console.log(`site/instruments/affect/            ${(af.bytes / 1024).toFixed(0)} KB  ·  ${af.moods} moods × ${af.models} models, clock hours as the control, $${af.spend.toFixed(2)}`);
 console.log(`@ git ${git}`);

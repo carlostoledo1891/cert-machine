@@ -1,10 +1,10 @@
-/* shell.js — the whole page shell for /playground, and deliberately the whole of it.
+/* shell.js — the whole page shell for /instruments, and deliberately the whole of it.
 
    The rest of this repository generates every page from design/template.js with
    gates around it: a scope line, a certificate table that must agree with disk,
    a stale-claim check. Those exist because those pages make claims.
 
-   THIS PLACE MAKES NONE. Nothing under /playground is certified, nothing here is
+   THIS PLACE MAKES NONE. Nothing under /instruments is certified, nothing here is
    gated, and the point is to be free enough to show mathematics as something you
    can touch. So the shell is thirty lines, it imports nothing, and if a page
    wants to throw it away and write its own <html> it can.
@@ -16,7 +16,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 function nav(root, here) {
   const at = (k) => (k === here ? ' aria-current="page"' : '');
   return `<nav class="pg-nav"><div class="pg-nav-in">
-  <a class="pg-mark" href="${root}index.html"${at('home')}>playground<span class="sl">/</span></a>
+  <a class="pg-mark" href="${root}index.html"${at('home')}>instruments<span class="sl">/</span></a>
   <div class="pg-links">
     <a href="${root}../index.html">cert-machine</a>
   </div>

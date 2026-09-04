@@ -1,5 +1,5 @@
 /* decide.js — what an integer distance table can and cannot be, decided exactly.
-   node experiments/exact-geometry/decide.js  ->  out/geometry.json
+   node playground/exact-geometry/decide.js  ->  out/geometry.json
 
    Nothing here is a threshold. The tables are integers by construction, so every
    question below is a question about signs of exact rationals, and lib/eqcert's
@@ -53,7 +53,11 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const Q = require('../../lib/eqcert/rational.js');
+/* PATCH (declared in PROVENANCE.json): the bench's lib/eqcert/rational.js is
+   this repository's instruments/interval/rational.js — the port note records the
+   two as byte-identical apart from ours being newer and larger. Repointed so the
+   folder is actually re-runnable here, which is the whole rule. */
+const Q = require('../../instruments/interval/rational.js');
 const SETS = require('./sets.js');
 
 const { R, add, sub, mul, div, cmp, sign, toDouble } = Q;

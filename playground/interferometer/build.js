@@ -164,7 +164,7 @@ const body = `
 
 function build(OUT) {
   const html = page({
-    title: 'Not the picture — the set of pictures · playground',
+    title: 'Not the picture — the set of pictures · instruments',
     desc: 'Every sky the Event Horizon Telescope data allow for M87, drawn at once: agreement as ink, disagreement as texture.',
     root: '../', here: 'interferometer', body,
     head: '<link rel="stylesheet" href="../design/base.css">',

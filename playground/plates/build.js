@@ -62,8 +62,8 @@ const body = (() => {
 
 const foot = `
 <footer class="foot"><div class="container"><div class="line">
-  <span>cert-machine / playground</span>
-  <a href="../index.html">the playground</a>
+  <span>cert-machine / instruments</span>
+  <a href="../index.html">all nine instruments</a>
   <a href="../interferometer/index.html">the instrument behind plates II, V and VI</a>
   <a href="../curveset/index.html">the same question, on a calibration</a>
   <span>crossed from the bench ${PROV.liftedOn}</span>
@@ -71,7 +71,7 @@ const foot = `
 
 function build(OUT) {
   const html = page({
-    title: 'Manifolds we are handed · playground',
+    title: 'Manifolds we are handed · instruments',
     desc: 'Eight plates. Interpretability pulls geometry out of a working model and asks what it means; these are stated as a rule and its parameters, then drawn — including two that are certificates rendered at their own resolution.',
     root: '../', here: 'plates',
     body: body + foot,

@@ -31,6 +31,11 @@ instruments/          the certifiers
   trigmin/            certified minima of integer cosine polynomials + the Newman envelope
   sos/                exact rational sum-of-squares
 design/               tokens, components, template — every page is generated
+playground/           the source of /instruments — nine ungated instruments and
+                      plate series. THE FOLDER AND THE URL DIFFER ON PURPOSE:
+                      instruments/ at the root is already taken by the
+                      certifiers, which are a different thing and are never
+                      served. Renamed from /playground 2026-09-04, 301 in place.
 tools/                run-engine · build-control · test-engine · lift
 ```
 

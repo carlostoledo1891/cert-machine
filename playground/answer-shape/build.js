@@ -29,7 +29,7 @@ const calls = (G.subjects || []).reduce((a, s) => a + (s.items ? s.items.length 
 
 const head = `
 <header class="hero"><div class="container">
-  <div class="eyebrow">playground · answer shape · ${G.subjects.length} subjects × ${G.models.length} models · $${spend.toFixed(2)}, already spent</div>
+  <div class="eyebrow">instruments · answer shape · ${G.subjects.length} subjects × ${G.models.length} models · $${spend.toFixed(2)}, already spent</div>
   <h1 class="display" style="margin-top:var(--s-4)">The shape of an answer</h1>
   <p class="lede" style="margin-top:var(--s-6);">Ask a model how different two things are, one pair at a time, and you get a table of numbers. A table of distances is a shape — or it is not one, and the difference is decidable. <b>Every pair is asked both ways round</b>, so the asymmetry is measured rather than averaged away, and the two halves of each pair come from calls that never see each other.</p>
   <div class="hero-meta">
@@ -41,8 +41,8 @@ const head = `
 
 const foot = `
 <footer class="foot"><div class="container"><div class="line">
-  <span>cert-machine / playground</span>
-  <a href="../index.html">the playground</a>
+  <span>cert-machine / instruments</span>
+  <a href="../index.html">all nine instruments</a>
   <a href="../exact-geometry/index.html">the control this is judged against</a>
   <a href="../affect/index.html">the same twelve, asked under six moods</a>
   <a href="../shape-hunt/index.html">and what survives a null</a>
@@ -53,7 +53,7 @@ const sections = (() => { const i = A.body.indexOf('<section class="section'); r
 
 function build(OUT) {
   const html = page({
-    title: 'The shape of an answer · playground',
+    title: 'The shape of an answer · instruments',
     desc: 'Seven subjects, three models, every pair asked both ways round — and the exact decision of whether the answers are a shape at all: effective rank, negative mass, the exact signature, and where the triangle inequality fails.',
     root: '../', here: 'answer-shape', body: head + sections + foot,
     script: `<style>${SHELLCSS}\n${BENCHCSS}\n${A.CSS}</style>`,

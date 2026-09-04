@@ -187,6 +187,28 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
       identical, which is what "every record comes out of running the code beside
       it" is supposed to mean.
 
+  ══ /playground IS NOW /instruments (2026-09-04, operator approved the rename).
+     The section was called the playground while it held one interferometer; it
+     now holds NINE instruments, a NIST calibration result and two certificates
+     rendered at their own resolution, and the word was telling readers to skip
+     the most hireable material on the site.
+       · SOURCE FOLDER STAYS playground/ — instruments/ at the root is the
+         CERTIFIERS and is never served. The mapping is documented in CLAUDE.md
+         and playground/README.md; do not "fix" it by renaming either one.
+       · vercel.json carries /playground and /playground/:path* -> 301.
+       · design/template.js nav says Instruments; the sitemap lists 10
+         /instruments/ URLs and zero /playground ones.
+     ALSO THIS PASS: one measure scale for all nine pages (the audit found SEVEN
+     container widths and TEN reading measures), and THERE IS NO NARROW
+     CONTAINER — a narrow container is centred, so a section using one stepped
+     inward and the left edge stopped being a line. The reading measure belongs
+     to the prose; components take the container.
+     AND exact-geometry NOW RUNS HERE: decide.js was repointed at
+     instruments/interval/rational.js and our own records, and re-run. The
+     proof-walk set therefore reports OUR covering (86 a-boxes, 1,350 b-boxes,
+     signature (8,3,1), closure 11.67x) rather than the bench's (332 / 40,000,
+     (6,5,1), 6.97x). 8 of 8 predictions still hold. ══
+
   ══ THE VERTICAL IS STARTED (2026-09-04, operator: "let's start building" +
      "go to the frontier-apps, bring what we need"). BUILT THIS SESSION:
      playground/warrant.js (the grammar, ~110 lines) and /playground/curveset —

@@ -30,7 +30,7 @@ const euclid = rows.filter((x) => x.r.gate.ok && x.r.spectrum.negMass < 0.01).le
 
 const head = `
 <header class="hero"><div class="container">
-  <div class="eyebrow">playground · exact geometry · the control, and it is meant to be boring</div>
+  <div class="eyebrow">instruments · exact geometry · the control, and it is meant to be boring</div>
   <h1 class="display" style="margin-top:var(--s-4)">Point the instrument at something whose shape is already known</h1>
   <p class="lede" style="margin-top:var(--s-6);">Every other geometry page here asks a model for a table of dissimilarities and decides what shape its answers have. <b>This one asks nothing.</b> Each set below is points whose shape is fixed by construction, and the same exact instrument is pointed at them. If it does not return the shape that is there, every number on every other page is worthless — so this page is built first and its result is supposed to be dull.</p>
   <div class="hero-meta">
@@ -53,8 +53,8 @@ const head = `
 
 const foot = `
 <footer class="foot"><div class="container"><div class="line">
-  <span>cert-machine / playground</span>
-  <a href="../index.html">the playground</a>
+  <span>cert-machine / instruments</span>
+  <a href="../index.html">all nine instruments</a>
   <a href="../neural-geometry/index.html">the same instrument, pointed at a model</a>
   <a href="../plates/index.html">the plates</a>
   <span>crossed from the bench ${PROV.liftedOn}</span>
@@ -69,7 +69,7 @@ const sections = (() => {
 
 function build(OUT) {
   const html = page({
-    title: 'Exact geometry · playground',
+    title: 'Exact geometry · instruments',
     desc: 'The control page: an instrument that decides what shape a table of distances has, pointed at point sets whose shape is fixed by construction — so that its answers on the pages that ask a model mean something.',
     root: '../', here: 'exact-geometry',
     body: head + sections + foot,

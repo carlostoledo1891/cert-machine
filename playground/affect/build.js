@@ -28,7 +28,7 @@ const moods = (M.moods || []).map((m) => m.id || m);
 
 const head = `
 <header class="hero"><div class="container">
-  <div class="eyebrow">playground · affect · ${moods.length} moods × ${M.models.length} models · $${spend.toFixed(2)}, already spent</div>
+  <div class="eyebrow">instruments · affect · ${moods.length} moods × ${M.models.length} models · $${spend.toFixed(2)}, already spent</div>
   <h1 class="display" style="margin-top:var(--s-4)">The geometry of feeling</h1>
   <p class="lede" style="margin-top:var(--s-6);">Twelve feelings, placed by asking only how different each pair is. Then the two axes psychology has used for fifty years — <b>pleasantness and activation</b> — asked separately, in a question set with no words in common with the first, and checked against the plane the pairwise table already fixed. Then the whole thing again under six moods, with twelve clock hours carried through the identical pipeline as a control that has no business moving.</p>
   <div class="hero-meta">
@@ -40,8 +40,8 @@ const head = `
 
 const foot = `
 <footer class="foot"><div class="container"><div class="line">
-  <span>cert-machine / playground</span>
-  <a href="../index.html">the playground</a>
+  <span>cert-machine / instruments</span>
+  <a href="../index.html">all nine instruments</a>
   <a href="../answer-shape/index.html">the same instrument, seven other subjects</a>
   <a href="../exact-geometry/index.html">the control it is judged against</a>
   <span>crossed from the bench ${PROV.liftedOn}</span>
@@ -51,7 +51,7 @@ const sections = (() => { const i = A.body.indexOf('<section class="section'); r
 
 function build(OUT) {
   const html = page({
-    title: 'The geometry of feeling · playground',
+    title: 'The geometry of feeling · instruments',
     desc: 'Twelve feelings placed by pairwise questions, the circumplex axes recovered from a question set with no words in common, and the same twelve asked again under six moods — with twelve clock hours as the control that has no business moving.',
     root: '../', here: 'affect', body: head + sections + foot,
     script: `<style>${SHELLCSS}\n${BENCHCSS}\n${A.CSS}</style>`,

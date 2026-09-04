@@ -4,9 +4,24 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.carlostoledo.co" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.carlostoledo.co"
+        }
+      ],
       "destination": "https://carlostoledo.co/:path*",
       "statusCode": 308
+    },
+    {
+      "source": "/playground",
+      "destination": "/instruments/",
+      "statusCode": 301
+    },
+    {
+      "source": "/playground/:path*",
+      "destination": "/instruments/:path*",
+      "statusCode": 301
     },
     {
       "source": "/research/mfg-lab/mfg-lab",

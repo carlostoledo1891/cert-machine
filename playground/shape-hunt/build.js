@@ -165,7 +165,7 @@ const tbl = real.slice().sort((a, b) => ratio(b) - ratio(a)).map((r) => {
 
 const body = `
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">playground · shape hunt · exact arithmetic, no model calls</div>
+  <div class="eyebrow">instruments · shape hunt · exact arithmetic, no model calls</div>
   <h1>Nothing here is a perfect circle. Some things are closer than luck.</h1>
   <p class="lede">The elicited geometries look like they contain shapes — a pentagon here, four points that fall on a circle there. So this looks, exhaustively: every triple, every quadruple, every five-subset, of every set, from every model, and then every relabelling of the small ones, up to ${fmt(Math.max(...auReal.map((r) => r.perms)))} apiece. <b>${fmt(SHAPETESTS)} shape tests and ${fmt(PERMTESTS)} permutations.</b> At that volume something will be perfect, so nothing counts until it beats the same hunt run on the same numbers with the geometry shuffled out of them — and for ${refuted.length} of the ${cmReal.length} cases the verdict is not a margin at all but <b>a certificate in whole numbers that no such points exist</b>.</p>
 </div></header>
@@ -341,15 +341,15 @@ node playground/build.js</pre>
 </div></section>
 
 <footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / playground</span>
-  <a href="../index.html">the playground</a>
+  <span>cert-machine / instruments</span>
+  <a href="../index.html">all nine instruments</a>
   <a href="../neural-geometry/index.html">where the geometries came from</a>
   <span>hunted ${S.meta.date} · studies ${ST.meta.date}</span>
 </div></div></footer>`;
 
 function build(OUT) {
   const html = page({
-    title: 'Nothing here is a perfect circle · playground',
+    title: 'Nothing here is a perfect circle · instruments',
     desc: 'Exhaustive exact tests for hidden polygons in geometries elicited from language models — the nulls that had to be rebuilt, the group elements named in words, and a whole-number certificate that some of the answers came from no arrangement of points anywhere.',
     root: '../', here: 'shape-hunt', body,
     script: `<style>${SHELLCSS}\n${CSS}</style>`,

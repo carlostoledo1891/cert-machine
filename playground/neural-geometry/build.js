@@ -91,7 +91,7 @@ const rows = sets.map((s) => s.models.map((m) => {
 
 const body = `
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">playground · neural geometry · ${G.meta.calls} calls, $${G.meta.spent.toFixed(2)}</div>
+  <div class="eyebrow">instruments · neural geometry · ${G.meta.calls} calls, $${G.meta.spent.toFixed(2)}</div>
   <h1>The shapes a model will admit to from the outside.</h1>
   <p class="lede">Goodfire finds geometry by opening the model: decompose the activations and days of the week come out as a circle, colours as a surface. That needs the weights. <b>This asks from outside instead.</b> Every pair of items, one integer, one row at a time — and then the question is what those answers <em>can</em> be. A shape that only exists inside the activations was never a shape the model uses; if the circle is real, it should survive being asked about.</p>
 </div></header>
@@ -198,15 +198,15 @@ node playground/build.js</pre>
 </div></section>
 
 <footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / playground</span>
-  <a href="../index.html">the playground</a>
+  <span>cert-machine / instruments</span>
+  <a href="../index.html">all nine instruments</a>
   <a href="https://www.goodfire.com/research/neural-geometry">Goodfire · neural geometry</a>
   <span>probed ${G.meta.date} · ${G.meta.calls} calls · $${G.meta.spent.toFixed(2)}</span>
 </div></div></footer>`;
 
 function build(OUT) {
   const html = page({
-    title: 'The shapes a model will admit to from the outside · playground',
+    title: 'The shapes a model will admit to from the outside · instruments',
     desc: 'Neural geometry without the weights: elicit every pairwise dissimilarity from three working models, then decide exactly what those answers can be. The hue wheel closes, the digits do not, and the week is bent but open.',
     root: '../', here: 'neural-geometry', body,
     script: `<style>${SHELLCSS}\n${CSS}</style>`,

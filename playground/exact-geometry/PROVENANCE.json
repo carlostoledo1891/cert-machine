@@ -5,65 +5,77 @@
   "why": "The control cards: predicted shape, decided shape, and whether they agreed — on point sets whose answer is known by construction. This is the positive control the rest of the geometry work is judged against.",
   "rule": "Mathematics, drawing code and records are crossed byte-for-byte. Every PAGE is rebuilt in this repository’s design system — no bench CSS, no bench HTML, no ECharts. Patches are declared here so they can never be mistaken for drift.",
   "patches": [
-    "page.js: kept for reference and superseded by build.js, which renders the same content in this repository's design system."
+    "page.js: kept for reference and superseded by build.js, which renders the same content in this repository's design system.",
+    "page.js and sets.js: prose references to \"the reference playground\" — this repository's own section, as the bench knew it — updated to \"the reference instruments shelf\" when the section moved from /playground to /instruments on 2026-09-04. Prose only; no number, no rule and no decision was touched. The same phrase survives untouched in decide.js and probe.js, which are comments and are never rendered.",
+    "decide.js: the exact-rational require repointed from the bench's lib/eqcert/rational.js to instruments/interval/rational.js, which is this repository's copy of the same library. Without it the folder crosses but does not run, and a record that cannot be regenerated is a record nobody can check.",
+    "sets.js: the four record paths repointed at THIS repository — playground/interferometer/out/page-data.json and vis.js, playground/plates/data/band-sigma-*.json, and certs/erdos1038-forcing-1.828.json, which is OUR forcing certificate (86 a-boxes, 1,350 b-boxes) rather than the bench's (332 and 40,000). The proof-walk set is therefore drawn from our own covering and its numbers differ from the bench's by design."
   ],
   "files": [
     {
       "file": "sets.js",
       "sourcePath": "experiments/exact-geometry/sets.js",
-      "sha256": "a3892251bec054ea423e356a1938bc0a2f293a32f1b9b369e94c56ffc49c4990",
+      "sha256": "fc5650bf52cff3aca3c531ae29423290ef11cd31ba1d72de39abb66d436db71f",
       "sourceSha256": "a3892251bec054ea423e356a1938bc0a2f293a32f1b9b369e94c56ffc49c4990",
-      "bytes": 15557
+      "bytes": 15549,
+      "state": "patched, declared above"
     },
     {
       "file": "decide.js",
       "sourcePath": "experiments/exact-geometry/decide.js",
-      "sha256": "0ff6bd9561072534d58e659330bbadd24c6e89dbc75d363416d34fee276e61e7",
+      "sha256": "572629dad3e13722e5ceb8ebb3bbcf3db85d3cb79f014cf4a915b8ca7c376f18",
       "sourceSha256": "0ff6bd9561072534d58e659330bbadd24c6e89dbc75d363416d34fee276e61e7",
-      "bytes": 11975
+      "bytes": 12296,
+      "state": "patched, declared above"
     },
     {
       "file": "probe.js",
       "sourcePath": "experiments/exact-geometry/probe.js",
       "sha256": "9e1a00fc87382f10c4f30cbbd6b20beb1363250cc636f861894a583b16162594",
       "sourceSha256": "9e1a00fc87382f10c4f30cbbd6b20beb1363250cc636f861894a583b16162594",
-      "bytes": 8019
+      "bytes": 8019,
+      "state": "crossed byte-for-byte"
     },
     {
       "file": "compare.js",
       "sourcePath": "experiments/exact-geometry/compare.js",
       "sha256": "1d228da88050db9e3433dd4952d8ab227dc50fde72919c1c773c1327b614a864",
       "sourceSha256": "1d228da88050db9e3433dd4952d8ab227dc50fde72919c1c773c1327b614a864",
-      "bytes": 2568
+      "bytes": 2568,
+      "state": "crossed byte-for-byte"
     },
     {
       "file": "plate.js",
       "sourcePath": "experiments/exact-geometry/plate.js",
       "sha256": "108e804ae19c1ff3fb661f02813cddf81504a6f07edac526accf2c8bcb922c4f",
       "sourceSha256": "108e804ae19c1ff3fb661f02813cddf81504a6f07edac526accf2c8bcb922c4f",
-      "bytes": 3895
+      "bytes": 3895,
+      "state": "crossed byte-for-byte"
     },
     {
       "file": "out/geometry.json",
       "sourcePath": "experiments/exact-geometry/out/geometry.json",
-      "sha256": "6f78bd7c69d825d626a5cadece04ad89fad97edd2f072211fd421fcf64e9f5f8",
+      "sha256": "a503ae6c861b87ea8772902241253384cfd7289fc32b08fd85a0781f50edcbdf",
       "sourceSha256": "6f78bd7c69d825d626a5cadece04ad89fad97edd2f072211fd421fcf64e9f5f8",
-      "bytes": 15120
+      "bytes": 15124,
+      "state": "REGENERATED HERE from our own records — see the patches"
     },
     {
       "file": "out/compare.json",
       "sourcePath": "experiments/exact-geometry/out/compare.json",
       "sha256": "f11cb76a22d112088d74b3421921511a913380cadbb6b24ea9581e230c85aeb4",
       "sourceSha256": "f11cb76a22d112088d74b3421921511a913380cadbb6b24ea9581e230c85aeb4",
-      "bytes": 2435
+      "bytes": 2435,
+      "state": "crossed byte-for-byte"
     },
     {
       "file": "page.js",
       "sourcePath": "tools/build-exact-geometry.js",
-      "sha256": "7e8ca709a128fbe3592fa3c9b650b31073e80c5741166d952cc8dc01130005da",
+      "sha256": "919f6f958bf0fd6ccd9cfc32af6f244844e970e27b8c1bf11694afccf2f37c26",
       "sourceSha256": "7e8ca709a128fbe3592fa3c9b650b31073e80c5741166d952cc8dc01130005da",
-      "bytes": 16631
+      "bytes": 16140,
+      "state": "patched, declared above"
     }
   ],
-  "crossed": true
+  "crossed": "4 of 8 byte-for-byte; the rest carry declared patches",
+  "note": "out/geometry.json is no longer the bench record. decide.js was made runnable here and re-run, so the page reports OUR forcing certificate rather than theirs — the proof-walk set moves from signature (6,5,1) and closure 6.97x to (8,3,1) and 11.67x because our covering is 86 a-boxes and 1,350 b-boxes against their 332 and 40,000. Every other set is identical."
 }

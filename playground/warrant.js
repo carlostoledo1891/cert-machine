@@ -34,7 +34,7 @@
         is NOT unique yields CHOSEN — and so does every tie-break, default
         parameter and seed. Every regularised inverse problem is this shape, and
         this is the rule that dots the published calibration curve on
-        /playground/curveset.
+        /instruments/curveset.
 
    WHAT THIS IS NOT. It is not a confidence encoding and must not be read as one.
    A value can be known to fourteen decimals and still be undecided; a value can
@@ -67,7 +67,7 @@ const refuse = () => REFUSED;
    Stroke pattern carries STANDING whenever a figure holds marks of more than one
    standing. In a figure whose marks all share a standing — three model answers
    on one axis, say — the channel is free, and the figure must say what it is
-   carrying instead. The comparison plates on /playground/answer-shape use stroke
+   carrying instead. The comparison plates on /instruments/answer-shape use stroke
    for model identity under exactly that licence, and a comparison plate that
    later gains a decided reference line has to give the channel back.
    See design/COMPONENTS.md, which is where this was written down first. */

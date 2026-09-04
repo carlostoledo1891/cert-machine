@@ -25,7 +25,7 @@ const exactRows = D.exact.map((r) => `<tr><td>${r.beta}</td><td>${n(r.PR, 9)}</t
 const body = `
 <div class="stage">
   <div class="hd">
-    <div class="eyebrow">playground · attention geometry · ${M.positions} positions</div>
+    <div class="eyebrow">instruments · attention geometry · ${M.positions} positions</div>
     <h1>An attention row is a point. Nobody draws it that way.</h1>
     <p>Attention weights are nonnegative and sum to one, so a row is <b>a point in a simplex</b> — and a bar chart throws that away. Here is one real row from a tiny GPT, drawn where it actually lives, with the one thing about it that is <b>decided rather than drawn</b>: sharpening the temperature must move the point toward a vertex, and that is proved in exact arithmetic.</p>
   </div>
@@ -101,7 +101,7 @@ node playground/build.js            # the pages</pre>
 
 function build(OUT) {
   const html = page({
-    title: 'An attention row is a point · playground',
+    title: 'An attention row is a point · instruments',
     desc: 'Attention weights sum to one, so a row is a point in a simplex. One real row from a tiny GPT, drawn where it lives, with its concentration decided in exact arithmetic.',
     root: '../', here: 'simplex', body,
     script: `<style>${SHELLCSS}\n${CSS}</style>\n<script>${APP}</script>`,

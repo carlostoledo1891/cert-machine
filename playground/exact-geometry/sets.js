@@ -51,11 +51,11 @@ const intMatrix = (n, f, scale) => {
    metric at all — both were REFUSED at the gate, correctly, and the gate is the
    only reason that did not become a plate with a confident number under it. */
 function ehtSets() {
-  const IFM = load('experiments/interferometer/out/page-data.json');
+  const IFM = load('playground/interferometer/out/page-data.json');
   const names = IFM.meta.stations;
   /* the shipped page-data carries the snapshots already merged, so rebuild them
      from the source rows, where the timestamp is still present */
-  const V = require(path.join(ROOT, 'experiments/interferometer/vis.js'));
+  const V = require(path.join(ROOT, 'playground/interferometer/vis.js'));
   const day = Object.keys(V.DAYS).find(k => V.DAYS[k] === IFM.meta.date);
   const file = V.loadFile(day, IFM.meta.band, IFM.meta.pipe);
   const kept = file.rows.filter(r => Math.hypot(r.u, r.v) >= IFM.meta.bcut * 1e9);
@@ -148,7 +148,7 @@ function hexSets() {
 
 /* ---- 5: a certified band, as a curve ----------------------------------- */
 function bandSet() {
-  const B = load('experiments/mfg-terra/band-sigma-0.0008-0.008.json');
+  const B = load('playground/plates/data/band-sigma-0.0008-0.008.json');
   const all = B.cells.filter(c => c.ok);
   const step = Math.max(1, Math.floor(all.length / 12));
   const cells = all.filter((_, i) => i % step === 0).slice(0, 12);
@@ -168,7 +168,7 @@ function bandSet() {
 
 /* ---- 6: a proof's own subdivision --------------------------------------- */
 function proofSet() {
-  const F = load('experiments/erdos1038/data/cert-force-1.828.json');
+  const F = load('certs/erdos1038-forcing-1.828.json');
   const step = Math.max(1, Math.floor(F.boxes.length / 12));
   const bx = F.boxes.filter((_, i) => i % step === 0).slice(0, 12);
   const f = (A) => {
@@ -198,7 +198,7 @@ function controlSets() {
   return [
     { id: 'random', title: 'nine points thrown into seven dimensions', shape: 'none', order: false,
       predict: 'no low dimension and no cycle — effective rank near the ceiling',
-      why: 'The floor everything else has to clear. These points have no structure beyond being points, so their distances should need every dimension available and no shape should survive. A method that finds a tidy circle here is drawing its own assumptions, which is the reference playground’s warning and it applies unchanged.',
+      why: 'The floor everything else has to clear. These points have no structure beyond being points, so their distances should need every dimension available and no shape should survive. A method that finds a tidy circle here is drawing its own assumptions, which is the reference instruments shelf’s warning and it applies unchanged.',
       items: Array.from({ length: 9 }, (_, i) => 'p' + (i + 1)), D: Drand, scale: '1000 × Euclidean distance in ℝ⁷, fixed seed' },
     { id: 'nonmetric', title: 'a table that is not a distance at all', shape: 'none', order: true,
       predict: 'refused — the triangle inequality fails, so nothing downstream is meaningful',

@@ -86,7 +86,7 @@ const body = `
 </defs></svg>
 
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">playground · curveset · ${P.sets.length} real calibrations, no model calls</div>
+  <div class="eyebrow">instruments · curveset · ${P.sets.length} real calibrations, no model calls</div>
   <h1>The line they published, and the lines that fit.</h1>
   <p class="lede">A calibration is run forwards — known standards in, response out — and used backwards, response in, unknown out. Everyone reports the backwards number by fitting a curve and inverting it. <b>The fit is an assumption, and it is never priced.</b> This computes what the standards allow instead, under assumptions stated one at a time, and puts the published answer inside it.</p>
 </div></header>
@@ -134,7 +134,7 @@ L(x) = max&#8202;<sub>i</sub> [ lo&#8202;<sub>i</sub> + (x ≥ x&#8202;<sub>i</s
       <li>It says nothing about whether either <em>report</em> is wrong. Both are competent and both are standard practice.</li>
       <li>The error budget on the assay is <b>asserted</b>, not measured — there are no replicates — so that panel prices an assumption using another assumption, and says so.</li>
       <li>The local bound is outer, so the intervals are conservative. A tighter envelope would only make the argument stronger.</li>
-      <li>Nothing here is certified in this repository's sense. It is exact arithmetic on floats, in the playground, where nothing is gated.</li>
+      <li>Nothing here is certified in this repository's sense. It is exact arithmetic on floats, on the side of the site where nothing is gated.</li>
     </ul>
   </div>
 
@@ -148,8 +148,8 @@ node playground/build.js</pre>
 </div></section>
 
 <footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / playground</span>
-  <a href="../index.html">the playground</a>
+  <span>cert-machine / instruments</span>
+  <a href="../index.html">all nine instruments</a>
   <a href="../interferometer/index.html">the same question, on a telescope</a>
   <span>data: NIST StRD Pontius (US Government, public domain)</span>
   <span>built ${P.builtAt.slice(0, 10)}</span>
@@ -168,7 +168,7 @@ ${inline('plot.js', './plot.js')}
 
 function build(OUT) {
   const html = page({
-    title: 'The line they published, and the lines that fit · playground',
+    title: 'The line they published, and the lines that fit · instruments',
     desc: 'Two real calibrations — a NIST load cell and a rat IL-6 assay — with the whole set of curves the standards allow, computed in closed form, and the published fit drawn inside it as one member chosen by a criterion rather than by the data.',
     root: '../', here: 'curveset', body,
     script: `<style>${SHELLCSS}\n${CSS}</style>\n${runtime}`,

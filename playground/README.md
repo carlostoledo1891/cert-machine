@@ -1,4 +1,13 @@
-# /playground
+# /instruments — the ungated side of the machine
+
+**The folder is `playground/` and the URL is `/instruments/`, on purpose.** The
+section was called the playground while it held one interferometer. It now holds
+nine instruments, a NIST calibration result and two certificates rendered at
+their own resolution, and the word was telling readers to skip the most
+defensible work on the site. The source folder keeps its name because
+`instruments/` at the repository root is already taken — by the certifiers,
+which are a different thing and are never served at that path. Renamed
+2026-09-04; `vercel.json` carries the 301.
 
 Instruments made touchable. **Nothing here is certified, and that is the entire
 permission.**
@@ -15,9 +24,9 @@ This folder makes none. So it has none of them.
 node playground/build.js        # or: make playground
 ```
 
-That script writes `site/playground/` and calls nothing else in this
+That script writes `site/instruments/` and calls nothing else in this
 repository. `tools/build-site.js` neither writes nor prunes under
-`site/playground/` — the same arrangement `site/apps/` has, for the opposite
+`site/instruments/` — the same arrangement `site/apps/` has, for the opposite
 reason — and lists the pages in the sitemap, because a page nobody can find is
 not free, it is hidden.
 
@@ -362,7 +371,7 @@ pictures rather than a picture.
 ### `shot.js` — look at it
 
 ```
-node playground/shot.js site/playground/index.html /tmp/pg.png 1440 2400
+node playground/shot.js site/instruments/index.html /tmp/pg.png 1440 2400
 ```
 
 Raw-socket CDP, because Node's `WebSocket` sends an `Origin` header the endpoint

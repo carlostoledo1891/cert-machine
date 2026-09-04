@@ -422,7 +422,7 @@ function render({ title, bodyRaw, footRaw, desc, path: pagePath }) {
   const CO = require('./components.js');
   const NAV = CO.nav({
     brand: 'Carlos Toledo', brandHref: '/',
-    links: [{ t: 'Reports', href: '/reports/' }, { t: 'Machine', href: '/machine/' }, { t: 'Playground', href: '/playground/' }, { t: 'About', href: '/about/' }],
+    links: [{ t: 'Reports', href: '/reports/' }, { t: 'Machine', href: '/machine/' }, { t: 'Instruments', href: '/instruments/' }, { t: 'About', href: '/about/' }],
     github: 'https://github.com/carlostoledo1891/cert-machine'
   });
   const d = desc || DEFAULT_DESC;
