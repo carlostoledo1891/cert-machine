@@ -9,6 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 const H = require('./hunt.js');
+const SOL = require('./solids.js');
 const R = require('../rational.js');
 const HERE = __dirname;
 
@@ -80,15 +81,75 @@ function hunt(D) {
   return out;
 }
 
+/* WHICH KNOWN SHAPE IS THIS NEAREST? Compared by distance SPECTRUM, which does
+   not care how the vertices are labelled — so an icosahedron can be tested
+   against twelve items without trying 479 million labellings. The catalogue
+   holds flat shapes and degenerate ones beside the solids, because scoring a
+   genuine ring only against polyhedra would report it as a poor icosahedron
+   when the true answer is that it is an excellent 12-gon. */
+function nearestShape(D, rnd) {
+  const cat = SOL.catalogue(D.length);
+  if (!cat.length) return null;
+  const spec = SOL.spectrumOfD(D);
+  const scored = cat.map((c) => ({ name: c.name, kind: c.kind, d: SOL.spectrumDistance(spec, c.spectrum) }))
+    .sort((a, b) => a.d - b.d);
+  /* THE NULL HAD TO BE THROWN AWAY AND REBUILT. The first one shuffled the
+     distances into new positions, which is the right null everywhere else on
+     this page and is worthless here: a spectrum IS the multiset of distances,
+     and shuffling their positions leaves it identical. It scored the perfect
+     12-gon at 0.0020 against a null of 0.0020 — the same number twice, a test
+     that could never pass or fail.
+
+     What the question actually needs is other CONFIGURATIONS, not other
+     labellings: how near does a random cloud of n points get to the closest
+     member of this catalogue? Uniform in a ball, in two and three dimensions,
+     because that is where the catalogue lives. */
+  const nulls = [];
+  for (let t = 0; t < 400; t++) {
+    const dim = t % 2 ? 2 : 3;
+    const pts = [];
+    while (pts.length < D.length) {
+      const q = [rnd() * 2 - 1, rnd() * 2 - 1, dim === 3 ? rnd() * 2 - 1 : 0];
+      if (q[0] * q[0] + q[1] * q[1] + q[2] * q[2] <= 1) pts.push(q);
+    }
+    const sp = SOL.spectrum(pts);
+    nulls.push(Math.min(...cat.map((c) => SOL.spectrumDistance(sp, c.spectrum))));
+  }
+  nulls.sort((a, b) => a - b);
+  return { best: scored[0], top: scored.slice(0, 3), all: scored, nullP05: nulls[Math.floor(0.05 * nulls.length)], trials: nulls.length };
+}
+
 /* the symmetry test: the 2n dihedral candidates against random permutations */
 function symmetry(D, rnd) {
   const n = D.length;
   const cands = H.dihedral(n).map((c) => ({ ...c, defect: H.permDefect(D, c.perm) }))
     .sort((a, b) => a.defect - b.defect);
-  const nulls = [];
-  for (let t = 0; t < 2000; t++) nulls.push(H.permDefect(D, H.randPerm(n, rnd)));
-  nulls.sort((a, b) => a - b);
-  return { best: cands[0], top: cands.slice(0, 3), nullP05: nulls[Math.floor(0.05 * nulls.length)], nullMin: nulls[0], trials: nulls.length };
+  const k = cands.length;                       /* 2n − 1 candidates are tried */
+
+  /* THE OLD NULL WAS THE WRONG SHAPE and every case cleared it. It compared the
+     BEST of 2n−1 dihedral permutations against the 5th percentile of single
+     random draws — a minimum against a typical value. The matched null takes
+     the same number of random permutations, takes ITS minimum, and repeats: the
+     question is whether the dihedral group beats any 2n−1 permutations at all,
+     which is a far harder thing to clear. Both are reported, because the change
+     moved the answer and the page has to show that it did. */
+  const single = [];
+  for (let t = 0; t < 2000; t++) single.push(H.permDefect(D, H.randPerm(n, rnd)));
+  single.sort((a, b) => a - b);
+
+  const bestOf = [];
+  for (let t = 0; t < 400; t++) {
+    let m = Infinity;
+    for (let i = 0; i < k; i++) m = Math.min(m, H.permDefect(D, H.randPerm(n, rnd)));
+    bestOf.push(m);
+  }
+  bestOf.sort((a, b) => a - b);
+
+  return { best: cands[0], top: cands.slice(0, 3), candidates: k,
+           nullP05: single[Math.floor(0.05 * single.length)],
+           nullMatched: bestOf[Math.floor(0.05 * bestOf.length)],
+           nullMatchedMedian: bestOf[Math.floor(0.5 * bestOf.length)],
+           trials: single.length, matchedTrials: bestOf.length };
 }
 
 /* the null for a best-of-many defect: same distances, no geometry */
@@ -192,6 +253,7 @@ for (const c of cases) {
   const h = hunt(c.D);
   const nl = nullHunt(c.D, rnd);
   const sym = symmetry(c.D, rnd);
+  const near = nearestShape(c.D, rnd);
   const ex = certify(c.D, h);
   rows.push({
     set: c.set, shape: c.shape, model: c.model, synthetic: c.synthetic, items: c.items,
@@ -206,7 +268,7 @@ for (const c of cases) {
     },
     ringWhole: h.ring_whole,
     ptolemy: h.ptolemy, triangle: h.triangle,
-    symmetry: sym,
+    symmetry: sym, nearest: near,
     nullTrials: nl.trials,
   });
   process.stdout.write(`\r  hunted ${rows.length}/${cases.length}  ${c.set} · ${c.model.replace('claude-','')}          `);
@@ -225,6 +287,8 @@ for (const r of rows) {
     + `${f(r.found.concyclic.exact)} ${f(r.found.concyclic.null).padStart(8)} `
     + `${(rk ? f(rk[1].exact) : '—').padStart(9)} ${(rk ? f(rk[1].null) : '—').padStart(8)} `
     + `${f(r.symmetry.best.defect).padStart(9)} ${f(r.symmetry.nullP05).padStart(8)}  `
-    + `${(r.ptolemy.violations + '/' + r.ptolemy.of).padStart(9)}  ${r.symmetry.best.defect < r.symmetry.nullP05 ? r.symmetry.best.kind : ''}`);
+    + `${(r.ptolemy.violations + '/' + r.ptolemy.of).padStart(9)}  `
+    + `${(r.nearest ? r.nearest.best.name + ' ' + r.nearest.best.d.toFixed(3) + (r.nearest.best.d < r.nearest.nullP05 ? ' ✓' : ' ✗') : '').padEnd(30)}`
+    + `${r.symmetry.best.defect < r.symmetry.nullMatched ? 'SYM ' + r.symmetry.best.kind : ''}`);
 }
 console.log(`\n${totalTests.toLocaleString('en-US')} shape tests · ${NULLS} shuffles per case · out/shapes.json`);

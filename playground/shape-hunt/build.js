@@ -20,7 +20,20 @@ const real = rows.filter((r) => !r.synthetic);
 const gon = rows.find((r) => r.set === 'a perfect 12-gon');
 const noise = rows.find((r) => r.set === 'pure noise');
 const beats = (k) => real.filter((r) => (k === 'r4' || k === 'r5' ? (r.found.rings[k[1]] || {}).beats : r.found[k].beats)).length;
-const ratio = (r) => r.symmetry.nullP05 / Math.max(r.symmetry.best.defect, 1e-9);
+/* the ratio is against the MATCHED null — best of the same number of random
+   permutations — because that is the bar the dihedral candidates actually have
+   to clear. The old one compared a minimum against a typical value. */
+const ratio = (r) => r.symmetry.nullMatched / Math.max(r.symmetry.best.defect, 1e-9);
+const holdsSym = (r) => r.symmetry.best.defect < r.symmetry.nullMatched;
+const cat = (r) => r.nearest;
+const catMargin = (r) => r.nearest.nullP05 / r.nearest.best.d;
+const catHolds = (r) => catMargin(r) > 1;
+const FAM = (name) => (/-gon$/.test(name) && !/bipyramid/.test(name) ? 'cycle'
+  : /on a line/.test(name) ? 'line' : /grid/.test(name) ? 'grid'
+  : /equidistant/.test(name) ? 'none' : 'solid');
+const NG = JSON.parse(fs.readFileSync(path.join(PG, 'neural-geometry', 'out', 'geometry.json'), 'utf8'));
+const wanted = Object.fromEntries(NG.sets.map((x) => [x.id, x.shape]));
+const famHits = real.filter((r) => wanted[r.set] === FAM(r.nearest.best.name)).length;
 const topSym = real.slice().sort((a, b) => ratio(b) - ratio(a));
 const ctl = real.filter((r) => r.shape === 'none');
 const ptol = (r) => (100 * r.ptolemy.violations) / r.ptolemy.of;
@@ -35,9 +48,10 @@ const tbl = real.slice().sort((a, b) => ratio(b) - ratio(a)).map((r) => {
     + `<td class="${r.found.concyclic.beats ? 'hit' : 'dim'}">${n(r.found.concyclic.exact)}</td><td class="dim">${n(r.found.concyclic.null)}</td>`
     + `<td class="${r4.beats ? 'hit' : 'dim'}">${n(r4.exact)}</td>`
     + `<td class="${r5.beats ? 'hit' : 'dim'}">${n(r5.exact)}</td>`
-    + `<td class="${ratio(r) > 3 ? 'hit' : 'dim'}">${n(r.symmetry.best.defect)}</td><td class="dim">${n(r.symmetry.nullP05)}</td>`
+    + `<td class="${ratio(r) > 3 ? 'hit' : 'dim'}">${n(r.symmetry.best.defect)}</td><td class="dim">${n(r.symmetry.nullMatched)}</td>`
     + `<td class="${ratio(r) > 3 ? 'hit' : 'dim'}">${ratio(r).toFixed(1)}×</td><td>${r.symmetry.best.kind}</td>`
-    + `<td class="${ptol(r) > 30 ? 'hit' : 'dim'}">${ptol(r).toFixed(0)}%</td></tr>`;
+    + `<td class="${ptol(r) > 30 ? 'hit' : 'dim'}">${ptol(r).toFixed(0)}%</td>`
+    + `<td class="dim">${r.nearest.best.name}</td><td class="${catHolds(r) ? 'hit' : 'dim'}">${catMargin(r).toFixed(2)}×</td></tr>`;
 }).join('');
 
 const body = `
@@ -75,18 +89,29 @@ const body = `
 <section class="sec"><div class="wrap">
   <div class="eyebrow">what survives</div>
   <h2>Not the polygons. The groups.</h2>
-  <p class="why">One test is different in kind. Instead of searching hundreds of subsets for a shape, it asks whether the <em>whole</em> configuration is preserved by a symmetry: a permutation π with D[π(i)][π(j)] = D[i][j]. There are only ${'2n'} candidates to try — the rotations and reflections — so there is almost nothing to overfit, and the answer is a named group element rather than a lucky subset.</p>
+  <p class="why">One test is different in kind. Instead of searching hundreds of subsets for a shape, it asks whether the <em>whole</em> configuration is preserved by a symmetry: a permutation π with D[π(i)][π(j)] = D[i][j]. Only the rotations and reflections are tried, so there is almost nothing to overfit, and the answer is a named group element rather than a lucky subset.</p>
+  <p class="why" style="margin-top:var(--s-4)"><b>The first null for it was the wrong shape and every case cleared it.</b> It compared the BEST of ${real[0].symmetry.candidates} dihedral permutations against the 5th percentile of single random draws — a minimum against a typical value, which is not a fair fight. The matched null takes the same number of random permutations, takes <em>its</em> minimum, and repeats. Under that bar ${real.filter(holdsSym).length} of ${real.length} survive instead of all ${real.length} — and <b>every one of the ${ctl.length} controls now fails</b>, which is what a null is for.</p>
   <div class="three">
     ${topSym.slice(0, 3).map((r) => fig(r.set + ' · ' + short(r.model), r.symmetry.best.kind,
       symPlate(r.pts, r.items, r.symmetry.best.perm, { label: r.set + ' with the recovered symmetry drawn as chords.' }),
-      `Defect <b>${n(r.symmetry.best.defect)}</b> against a random-permutation null of ${n(r.symmetry.nullP05, 3)} — <b>${ratio(r).toFixed(0)}× better</b>.`)).join('')}
+      `Defect <b>${n(r.symmetry.best.defect)}</b> against a matched null of ${n(r.symmetry.nullMatched, 3)} — <b>${ratio(r).toFixed(0)}× better</b>.`)).join('')}
   </div>
   <p class="why" style="margin-top:var(--s-6)">
-    <b>The compass one is worth stopping on.</b> The element the hunt recovers there is <em>rotation by four</em> on eight points — which is the antipodal map, north↔south and east↔west. Nobody asked about opposites; the model was asked how different each direction is from each other one, one row at a time, and the answers turn out to be invariant under swapping every direction for its opposite.
+    <b>The compass one is worth stopping on.</b> The element recovered there is <em>rotation by four</em> on eight points — the antipodal map, north↔south and east↔west. Nobody asked about opposites; the model was asked how different each direction is from each other one, one row at a time, and the answers turn out to be invariant under swapping every direction for its opposite.
   </p>
-  <p class="why" style="margin-top:var(--s-4)">
-    And the bar has to be read carefully: all ${real.length} cases beat the 5th percentile of random permutations, which is a weak thing to beat. Only <b>${real.filter((r) => ratio(r) > 3).length}</b> beat it threefold and <b>${real.filter((r) => ratio(r) > 5).length}</b> fivefold. The controls sit at ${ctl.map((r) => ratio(r).toFixed(1) + '×').join(', ')} — they clear the bar and clear it by nothing.
-  </p>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="eyebrow">and the polyhedra</div>
+  <h2>Which known shape is this, actually?</h2>
+  <p class="why">Several of these sets fit two dimensions poorly, which means real structure in a third — so: a catalogue of shapes with known answers, matched by <b>distance spectrum</b>, which does not care how the vertices are labelled and so can test an icosahedron against twelve items without trying 479 million labellings. The catalogue holds the flat shapes and the degenerate ones beside the solids, because scoring a genuine ring only against polyhedra would report it as a poor icosahedron when the honest answer is that it is an excellent ${gon.n}-gon.</p>
+  <p class="why" style="margin-top:var(--s-4)"><b>This null had to be rebuilt too, and thrown away first.</b> Shuffling the distances into new positions is the right null everywhere else here and is worthless for a spectrum: a spectrum <em>is</em> the multiset of distances, so shuffling leaves it identical. It scored the perfect 12-gon at ${n(gon.nearest.best.d)} against a null of ${n(gon.nearest.best.d)} — the same number twice, a test that could never pass or fail. What the question needs is other <em>configurations</em>, not other labellings: how near does a random cloud of the same size get to the closest catalogue member?</p>
+  <div class="grid3" style="margin-top:var(--s-7)">
+    <div><h3><span class="big">${catMargin(gon).toFixed(0)}×</span>the instrument works</h3><p>The perfect 12-gon is nearest to <b>${gon.nearest.best.name}</b> at ${n(gon.nearest.best.d)}, clearing a random-configuration null of ${n(gon.nearest.nullP05)} by ${catMargin(gon).toFixed(0)} times. Pure noise clears nothing.</p></div>
+    <div><h3><span class="big">${Math.max(...real.map(catMargin)).toFixed(2)}×</span>the best a model manages</h3><p>${real.slice().sort((a, b) => catMargin(b) - catMargin(a))[0].set} · ${short(real.slice().sort((a, b) => catMargin(b) - catMargin(a))[0].model)}, nearest to <b>${real.slice().sort((a, b) => catMargin(b) - catMargin(a))[0].nearest.best.name}</b>. Forty-seven times against one and a third: that is the whole answer.</p></div>
+    <div><h3><span class="big">${famHits} of ${real.length}</span>even the family is wrong</h3><p>Setting the null aside entirely and asking only whether the nearest catalogue entry is the right <em>kind</em> — a ring for a cycle, a line for a line — it is right ${((100 * famHits) / real.length).toFixed(0)}% of the time. Four families; chance is 25%.</p></div>
+  </div>
+  <p class="why" style="margin-top:var(--s-7)"><b>So: no polyhedra.</b> ${real.filter(catHolds).length} of the ${real.length} cases clear a 5% bar where ${(0.05 * real.length).toFixed(1)} are expected by chance — and <b>${real.filter((r) => r.shape === 'none' && catHolds(r)).length} of the ${ctl.length} controls clear it too</b>, which settles it. The models' geometries are not Platonic solids, not antiprisms, not grids, and not regular polygons either — not at any margin worth the word. The instrument can find a shape when one is there, by a factor of ${catMargin(gon).toFixed(0)}. There is not one here.</p>
 </div></section>
 
 <section class="sec"><div class="wrap">
@@ -108,7 +133,7 @@ const body = `
   <p class="why" style="margin-top:var(--s-4)">Floats enumerate the candidates — hundreds of subsets per set, fast, and allowed only to <em>prune</em>. Every survivor is then recomputed in exact rationals, and it is the exact number that is printed. That is the same screen-then-certify split the rest of this repository runs on, applied to a question about shapes.</p>
   <p class="why" style="margin-top:var(--s-4)"><b>What this is not.</b> It is not a claim that models have no geometry — the pages next door measure plenty. It is a claim about a specific and seductive kind of finding: that a beautiful subset picked out of five hundred is not evidence, and that the way to tell is to run the identical search on the same numbers with the structure removed. Most of what looked like a shape here did not survive that, and the page leads with the count of what did.</p>
 
-  <table><thead><tr><th>set</th><th>model</th><th>concyclic</th><th>null</th><th>4-gon</th><th>5-gon</th><th>symmetry</th><th>null</th><th>ratio</th><th>element</th><th>ptolemy</th></tr></thead><tbody>${tbl}</tbody></table>
+  <table><thead><tr><th>set</th><th>model</th><th>concyclic</th><th>null</th><th>4-gon</th><th>5-gon</th><th>symmetry</th><th>matched null</th><th>ratio</th><th>element</th><th>ptolemy</th><th>nearest shape</th><th>margin</th></tr></thead><tbody>${tbl}</tbody></table>
 
   <pre>node playground/shape-hunt/run.js    # ${fmt(S.meta.totalTests)} tests, no network
 node playground/build.js</pre>

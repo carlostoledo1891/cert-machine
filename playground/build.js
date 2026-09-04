@@ -133,8 +133,8 @@ const body = `
       <div class="facts">
         ${fact('collinear triples found', SH.beats('collinear') + ' of ' + SH.real.length, 'not one, in any set, better than shuffling the same distances would give')}
         ${fact('regular pentagons', SH.beats('r5') + ' of ' + SH.real.length, 'and the roundest pentagon in pure noise looks exactly as convincing')}
-        ${fact('symmetries that hold', SH.real.filter((r) => SH.ratio(r) > 3).length + ' of ' + SH.real.length, 'beating their null threefold — including the antipodal map on the compass, which nobody asked about')}
-        ${fact('the calibration', n(SH.S.meta.eps, 5), 'the floor a perfect 12-gon produces from rounding alone — the instrument was counting its own grid until it was measured')}
+        ${fact('symmetries that hold', SH.real.filter((r) => r.symmetry.best.defect < r.symmetry.nullMatched).length + ' of ' + SH.real.length, 'under a matched null that every one of the six controls fails — including the antipodal map on the compass, which nobody asked about')}
+        ${fact('polyhedra found', '0', 'the catalogue finds a perfect 12-gon at 47× its null and the best model case at 1.35× — with two of six controls clearing the same bar')}
       </div>
       <span class="go">read the hunt <span class="arw">&rarr;</span></span>
     </div>
