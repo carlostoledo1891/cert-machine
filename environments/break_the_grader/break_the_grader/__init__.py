@@ -11,7 +11,14 @@ from .facts import FACTS, BY_ID
 from .forgeries import gate
 from .task import Task, grade, make_task, parse, render_prompt
 
-__version__ = "0.1.0"
+# ONE version. `prime env push --auto-bump` rewrites pyproject.toml and nothing
+# else, so a literal here goes stale on the first bump and the package starts
+# reporting a version it is not — a number defined twice diverges, always.
+try:                                            # installed: read the metadata
+    from importlib.metadata import PackageNotFoundError, version as _version
+    __version__ = _version("break-the-grader")
+except Exception:                               # a source tree with no install
+    __version__ = "0+unknown"
 __all__ = [
     "FACTS", "BY_ID", "Task", "make_task", "render_prompt", "parse", "grade",
     "band_measure", "mint_attack", "verify_attack", "key_at", "tau_for_band", "gate",

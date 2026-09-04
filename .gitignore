@@ -28,3 +28,7 @@ outreach/zenodo-bundles/
 environments/*/dist/
 environments/*/*.egg-info/
 environments/*/**/__pycache__/
+
+# the Hub publication record is evidence, not a secret: it pins the pushed
+# wheel by sha256 and is caught by the .env* rule above only by accident.
+!environments/*/.prime/.env-metadata.json
