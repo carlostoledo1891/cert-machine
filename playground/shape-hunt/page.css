@@ -36,8 +36,23 @@ svg.shape { display: block; width: 100%; height: auto; margin: var(--s-2) 0; ove
 .shd.on { fill: var(--ink); }
 .shl { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-3); }
 
+/* THE TABLE IS WIDER THAN THE PROSE and must say so rather than run off the
+   page. It breaks out of the reading column to the full width available and
+   scrolls inside its own box; the page body never scrolls sideways. */
+.wide-scroll {
+  margin-top: var(--s-6);
+  width: min(1240px, calc(100vw - 2 * var(--gutter)));
+  position: relative; left: 50%; transform: translateX(-50%);
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+}
+.wide-scroll table { margin-top: 0; min-width: 1080px; }
+.wide-scroll th:first-child, .wide-scroll td:first-child {
+  position: sticky; left: 0; background: var(--bg); }
+.wide-scroll tbody tr:hover td { background: var(--bg-raised); }
+.wide-scroll tbody tr:hover td:first-child { background: var(--bg-raised); }
 table { width: 100%; border-collapse: collapse; margin-top: var(--s-6); font-family: var(--font-mono); font-size: var(--text-mono); }
-th, td { text-align: right; padding: 6px 9px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th, td { text-align: right; padding: 7px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
 th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
 th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
 td.hit { color: var(--ink); }

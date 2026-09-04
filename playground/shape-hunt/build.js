@@ -133,7 +133,7 @@ const body = `
   <p class="why" style="margin-top:var(--s-4)">Floats enumerate the candidates — hundreds of subsets per set, fast, and allowed only to <em>prune</em>. Every survivor is then recomputed in exact rationals, and it is the exact number that is printed. That is the same screen-then-certify split the rest of this repository runs on, applied to a question about shapes.</p>
   <p class="why" style="margin-top:var(--s-4)"><b>What this is not.</b> It is not a claim that models have no geometry — the pages next door measure plenty. It is a claim about a specific and seductive kind of finding: that a beautiful subset picked out of five hundred is not evidence, and that the way to tell is to run the identical search on the same numbers with the structure removed. Most of what looked like a shape here did not survive that, and the page leads with the count of what did.</p>
 
-  <table><thead><tr><th>set</th><th>model</th><th>concyclic</th><th>null</th><th>4-gon</th><th>5-gon</th><th>symmetry</th><th>matched null</th><th>ratio</th><th>element</th><th>ptolemy</th><th>nearest shape</th><th>margin</th></tr></thead><tbody>${tbl}</tbody></table>
+  <div class="wide-scroll"><table><thead><tr><th>set</th><th>model</th><th>concyclic</th><th>null</th><th>4-gon</th><th>5-gon</th><th>symmetry</th><th>matched null</th><th>ratio</th><th>element</th><th>ptolemy</th><th>nearest shape</th><th>margin</th></tr></thead><tbody>${tbl}</tbody></table></div>
 
   <pre>node playground/shape-hunt/run.js    # ${fmt(S.meta.totalTests)} tests, no network
 node playground/build.js</pre>
