@@ -21,6 +21,7 @@ const ROOT = path.join(HERE, '..');
 const OUT = path.join(ROOT, 'site', 'playground');
 const { page } = require(path.join(HERE, 'design', 'shell.js'));
 const { uvSVG } = require(path.join(HERE, 'uv-art.js'));
+const SIMPLEX = require(path.join(HERE, 'simplex', 'build.js'));
 
 const n = (x, d = 2) => Number(x).toFixed(d);
 const fmt = (x) => Number(x).toLocaleString('en-US');
@@ -53,7 +54,7 @@ const body = `
 <section class="projects"><div class="wrap">
   <div class="count">
     <span class="eyebrow">the projects</span>
-    <span class="eyebrow">one, so far</span>
+    <span class="eyebrow">two, so far</span>
   </div>
 
   <a class="card" href="interferometer/index.html">
@@ -70,6 +71,25 @@ const body = `
         ${fact('stations', M.stations.length, `${UV.baselines} baselines, ${M.triangles} closure triangles`)}
         ${fact('skies drawn', D.members.length + ' + ' + D.ceiling.length, 'fitted members, plus extremes that push the data’s limits')}
         ${SWEEP ? fact('bracket', n(100 * (worst - 1), 0) + '%', `worst of ${SWEEP.rows.length} radii — a prior-free, phase-free enclosure, best ${n(100 * (best - 1), 0)}%`) : ''}
+      </div>
+      <span class="go">open the instrument <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+  <a class="card" href="simplex/index.html">
+    <figure class="card-art">
+      <div class="plate">${SIMPLEX.cardArt()}<span class="uv-scale">${SIMPLEX.M.positions} positions</span></div>
+      <figcaption><b>One attention row, drawn where it lives.</b> The ${SIMPLEX.M.positions} vertices are the ${SIMPLEX.M.positions} positions the head can attend to; the row is the point. It starts at dead centre &mdash; attending to everything equally &mdash; and the trail is where sharpening the temperature takes it. Solid while the claim is decided, dashed once it is only drawn.</figcaption>
+    </figure>
+    <div class="card-body">
+      <div class="eyebrow">attention geometry &middot; one frozen row &middot; exact</div>
+      <h2>An attention row is a point. Nobody draws it that way.</h2>
+      <p class="sub">Attention weights are nonnegative and sum to one, which makes a row a point in a simplex &mdash; and a bar chart throws that away. Focus is distance from the centre; concentration has contours; temperature is a path. One real row from a tiny GPT, in the room it actually lives in, with the one claim about it that is decided rather than drawn: sharpening must move the point toward a vertex, proved in exact rational arithmetic because consecutive values differ in the fourteenth decimal.</p>
+      <div class="facts">
+        ${fact('positions', SIMPLEX.M.positions, `layer 0, head 0, seed 0 — frozen once and sha-pinned`)}
+        ${fact('checks, exact', SIMPLEX.D.checks.length + '/' + SIMPLEX.D.checks.length, 'including two planted mutants that must fail to concentrate')}
+        ${fact('effective positions', n(SIMPLEX.D.exact[0].PR, 2) + ' → ' + n(SIMPLEX.D.exact[SIMPLEX.D.exact.length - 1].PR, 2), `across the decided grid, out of ${SIMPLEX.M.positions}`)}
+        ${fact('drawn past it', n(SIMPLEX.D.view[SIMPLEX.D.view.length - 1].PR, 2), 'at β 400, essentially a vertex — and dashed, because it is not decided')}
       </div>
       <span class="go">open the instrument <span class="arw">&rarr;</span></span>
     </div>
@@ -122,9 +142,11 @@ for (const f of ['inter-var.woff2', 'jetbrains-mono-var.woff2'])
   copy(path.join(HERE, 'assets', 'fonts', f), path.join(OUT, 'assets', 'fonts', f));
 
 const ifm = require(path.join(IFM, 'build.js')).build(OUT);
+const sx = SIMPLEX.build(OUT);
 
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
 console.log(`site/playground/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
 console.log(`site/playground/interferometer/       ${(ifm.bytes / 1024).toFixed(0)} KB  ·  ${ifm.members} members + ${ifm.extremes} extremes, ${fmt(ifm.K)} rows`
   + (ifm.bracket ? `, bracket ${n(100 * (ifm.bracket - 1), 0)}% over ${ifm.sweep} radii` : ''));
+console.log(`site/playground/simplex/            ${(sx.bytes / 1024).toFixed(0)} KB  ·  ${sx.checks}/${sx.checks} exact checks, ${sx.positions} positions, PR down to ${n(sx.endPR, 2)} at the far end`);
 console.log(`@ git ${git}`);

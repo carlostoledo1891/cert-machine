@@ -435,7 +435,7 @@ footer a:hover{color:var(--ink)}
 ::-webkit-scrollbar-track{background:transparent}
 </style>
 
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="/">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="/reports/">Reports</a><a href="/machine/">Machine</a><a href="/playground/">Playground</a><a href="/about/">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
@@ -447,7 +447,7 @@ footer a:hover{color:var(--ink)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <strong>CONFIRMED</strong> — the explicit counterexample. What a machine can decide about this claim, it decided, and it held. What it cannot decide is stated below rather than left to the reader to notice.</li><li><b>The mechanism.</b> Written against the manuscript. The author's code was never executed. Verification that existed at source: The author’s own scripts, which we neither derived from nor executed.</li><li><b>Check it.</b> <span class="m">node legacy/research/challenges/lane/laneb-poisson/verify.js</span> — 300 ms at this build, a summary report and 2 mutation controls, every control rejected.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <strong>CONFIRMED</strong> — the explicit counterexample. What a machine can decide about this claim, it decided, and it held. What it cannot decide is stated below rather than left to the reader to notice.</li><li><b>The mechanism.</b> Written against the manuscript. The author's code was never executed. Verification that existed at source: The author’s own scripts, which we neither derived from nor executed.</li><li><b>Check it.</b> <span class="m">node legacy/research/challenges/lane/laneb-poisson/verify.js</span> — 200 ms at this build, a summary report and 2 mutation controls, every control rejected.</li></ul>
 </div></div>
 
 <div class="wide">
@@ -456,7 +456,7 @@ footer a:hover{color:var(--ink)}
     <div class="stat"><div class="k">named checks</div><div class="v">—</div><div class="n">this verifier reports a summary, not named rows — see below</div></div>
     <div class="stat"><div class="k">the verifier&#39;s own total</div><div class="v">—</div><div class="n">this verifier prints no total of its own</div></div>
     <div class="stat"><div class="k">mutation controls</div><div class="v">2</div><div class="n">deliberate corruptions of the claim — every one rejected, or this page would not build</div></div>
-    <div class="stat"><div class="k">runtime</div><div class="v">300 ms</div><div class="n">plain Node, no packages, no author code</div></div>
+    <div class="stat"><div class="k">runtime</div><div class="v">200 ms</div><div class="n">plain Node, no packages, no author code</div></div>
     <div class="stat"><div class="k">analytic core</div><div class="v">not audited</div><div class="n">true of all six claims in this set, and the reason the flagship exists</div></div>
   </div>
 </div>
@@ -477,7 +477,7 @@ footer a:hover{color:var(--ink)}
 <div class="col"><p>All six bracket relations ({D,R} = 1, {S,T} = 1 and the four vanishing ones) hold identically and exactly; the 4×4 symbolic Jacobian determinant is identically 1; and the three claimed points each map exactly to their stated image. A counterexample is an existence claim, so certifying the exhibit IS certifying the claim — the only lane in this set where that is true.</p></div><div class="col"><p><strong>This verifier reports a summary rather than named rows.</strong> It states its own totals and its mutation-control outcome and stops there, so there is no per-check ledger to show and this page does not manufacture one. Its complete output at this build is reproduced verbatim:</p><pre class="code">All claimed identities hold exactly (bracket relations, det J = 1, three-point fiber).
 Mutation control 1 (R -&gt; R + 1/7): rejected, 3 failing checks. OK
 Mutation control 2 (bracket sign swapped): rejected, 2 failing checks. OK
-Elapsed: 0.3s
+Elapsed: 0.2s
 VERDICT: CONFIRMED</pre></div>
 </section>
 
@@ -540,7 +540,7 @@ node legacy/research/challenges/lane/laneb-poisson/verify.js</pre><p>Plain Node,
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-claim.js @ git b8360ab. Every row on this page was printed by legacy/research/challenges/lane/laneb-poisson/verify.js during this build and parsed by instruments/laneaudit/audit.js — the same module the flagship reads, so the two pages cannot quote different numbers. A failing check or a mutation control that stopped firing would refuse this page.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-claim.js @ git 2b9ef4e. Every row on this page was printed by legacy/research/challenges/lane/laneb-poisson/verify.js during this build and parsed by instruments/laneaudit/audit.js — the same module the flagship reads, so the two pages cannot quote different numbers. A failing check or a mutation control that stopped firing would refuse this page.</p></footer>
 
 </div>
 </html>

@@ -1,0 +1,91 @@
+/* page.css — the simplex instrument. Its own layout; tokens.css is all it borrows. */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body); line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; }
+a { color: inherit; }
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+
+.stage { display: grid; gap: clamp(1.25rem, 3vw, 2.5rem); padding: var(--s-5) var(--gutter) var(--s-8);
+  grid-template-columns: 1fr; max-width: 1560px; margin: 0 auto; align-items: start; }
+@media (min-width: 1100px) { .stage { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); } }
+
+.hd { grid-column: 1 / -1; max-width: 62ch; padding-bottom: var(--s-4); }
+.hd h1 { font-size: clamp(2rem, 1rem + 3.4vw, 3.3rem); margin-top: var(--s-3); }
+.hd p { margin-top: var(--s-5); color: var(--ink-3); font-size: var(--text-3); line-height: 1.55; }
+.hd b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+.panel { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-l); padding: var(--s-5); }
+.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
+.panel .cap { margin-top: var(--s-4); font-size: var(--text-small); color: var(--ink-4); line-height: 1.55; }
+.panel .cap b { color: var(--ink-3); font-weight: var(--weight-medium); }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* the simplex marks */
+.sx-hull { fill: none; stroke: var(--border); stroke-width: 1; }
+.sx-vert { fill: var(--ink-5); }
+.sx-vert.hi { fill: var(--ink-2); }
+.sx-vlab { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-5); }
+.sx-vlab.hi { fill: var(--ink-3); }
+.sx-bary { fill: var(--ink-4); }
+.sx-tri { fill: none; stroke: var(--border-strong); stroke-width: 1; }
+.sx-iso { fill: none; stroke: var(--border-strong); stroke-width: 1; opacity: 0.85; }
+.sx-isolab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-5); }
+.sx-trail { fill: none; stroke-width: 2; stroke-linecap: round; }
+.sx-trail.cert { stroke: var(--ink); opacity: 0.95; }
+.sx-trail.ext { stroke: var(--ink-4); stroke-dasharray: 3 5; }
+.sx-dot { fill: var(--ink); stroke: var(--bg); stroke-width: 2; }
+.sx-edge { fill: none; stroke: var(--ink-3); stroke-width: 1.5; }
+.sx-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.sx-ax, .sx-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-5); }
+.sx-lab.real { fill: var(--ink-2); }
+.sx-lab.mut { fill: var(--ink-5); }
+.sx-real { fill: none; stroke: var(--ink); stroke-width: 2; }
+.sx-mut { fill: none; stroke: var(--ink-5); stroke-width: 1.4; stroke-dasharray: 4 4; }
+.sx-knot { fill: var(--ink); }
+
+/* the control and the readout */
+.ctl { display: flex; align-items: center; gap: var(--s-4); margin-top: var(--s-5); }
+.ctl label { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); white-space: nowrap; }
+.ctl output { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); min-width: 7ch; }
+input[type=range] { -webkit-appearance: none; appearance: none; flex: 1; height: 2px; background: var(--border-strong); border-radius: 2px; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: var(--ink); cursor: pointer; }
+input[type=range]::-moz-range-thumb { width: 15px; height: 15px; border: 0; border-radius: 50%; background: var(--ink); cursor: pointer; }
+
+.rd { display: grid; grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); gap: var(--s-4) var(--s-5); margin-top: var(--s-5); }
+.rd .k { display: block; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-5); }
+.rd .v { display: block; font-family: var(--font-mono); font-size: 1.05rem; color: var(--ink); font-variant-numeric: tabular-nums; margin-top: 2px; }
+.state { margin-top: var(--s-4); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-4); }
+body.beyond .state { color: var(--ink-2); }
+body.beyond .state::before { content: '— '; }
+
+.checks { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-3); margin-top: var(--s-4); }
+.chk { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--ink-4);
+  border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 3px 9px; }
+.chk.ok { color: var(--ink-2); border-color: var(--border-strong); }
+
+.btn { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-3); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill);
+  padding: 7px 14px; cursor: pointer; transition: color var(--dur-fast), border-color var(--dur-fast); }
+.btn:hover { color: var(--ink); border-color: var(--border-strong); }
+
+/* the argument, behind a button */
+.sheet { position: fixed; inset: 0; z-index: 60; background: var(--bg); overflow-y: auto;
+  opacity: 0; pointer-events: none; transition: opacity var(--dur-med) var(--ease-out); }
+body.sheet-open .sheet { opacity: 1; pointer-events: auto; }
+.sheet .inner { max-width: 68ch; margin: 0 auto; padding: var(--s-9) var(--gutter) var(--s-10); }
+.sheet h2 { font-size: var(--text-1); }
+.sheet h3 { font-size: 1.05rem; margin-top: var(--s-7); }
+.sheet p { margin-top: var(--s-4); color: var(--ink-3); }
+.sheet pre { margin-top: var(--s-4); padding: var(--s-4); background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-m); overflow-x: auto; font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); }
+.sheet table { width: 100%; border-collapse: collapse; margin-top: var(--s-5); font-family: var(--font-mono); font-size: var(--text-mono); }
+.sheet th, .sheet td { text-align: right; padding: 6px 10px; border-bottom: 1px solid var(--border); }
+.sheet th:first-child, .sheet td:first-child { text-align: left; }
+.sheet th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.sheet .close { position: fixed; top: var(--s-5); right: var(--gutter); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

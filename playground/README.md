@@ -86,6 +86,37 @@ node playground/interferometer/make-page-data.js
 node playground/build.js
 ```
 
+### `simplex/` — an attention row is a point
+
+Built 2026-09-04 on the frozen fixture from `sin-mfg/research/ml/attention-geometry`,
+carried with its sha256 and **re-derived rather than quoted**.
+
+Attention weights are nonnegative and sum to one, so a row is a point in Δⁿ⁻¹.
+Everyone draws it as bars, which throws the geometry away. Three views of the
+same point:
+
+- **the fan** — the whole simplex affinely, 31 vertices on a regular 31-gon, the
+  row as Σ pᵢvᵢ. A linear map, so uniform lands dead centre and a focused row
+  lands on the position it attends to. No contours here, because a projection
+  this lossy would make any contour a lie.
+- **the face** — the row restricted to its three most-attended positions and
+  renormalised: a genuine 2-face, where PR = 1/Σpᵢ² really is that, so its level
+  sets are circles and can be drawn. They break into arcs where the circle
+  leaves the triangle, which is why the corners look the way they do.
+- **the ladder** — PR against β, the row against two planted mutants.
+
+`decide.js` runs 9 checks and writes `out/decision.json`; the page reads it and
+refuses to build if the record is red. The rational-kernel monotonicity is
+decided on BigInt fractions in `rational.js` — not pedantry, since consecutive
+PRs on this row differ in the fourteenth decimal and a float comparison of them
+decides nothing. Softmax is transcendental and is drawn in float, calibrated
+against the source pack's own stored rows to 1.4e-14 and labelled as a view.
+
+**The honest proportion, and the page leads with it:** the decided grid reaches
+β = 8, where the row still has 29.8 of 31 effective positions. The dashed trail
+runs to β = 400 and PR 1.08 — essentially a vertex. Almost the whole journey you
+can see is the part that is only drawn.
+
 ### `uv-art.js`, `index.css`, `build.js` — the gathering page
 
 The card art is the real u–v coverage of 21 April 2018, read from the released

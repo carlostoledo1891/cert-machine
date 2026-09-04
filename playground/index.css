@@ -105,3 +105,16 @@ p { margin: 0; }
 .foot a:hover { color: var(--ink-2); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* the simplex card art — the same marks as the instrument, smaller */
+.sx { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sxhull { fill: none; stroke: var(--border); stroke-width: 2; }
+.sxv { fill: var(--ink-5); }
+.sxv.hi { fill: var(--ink-3); }
+.sxbary { fill: var(--ink-4); }
+.sxtrail { fill: none; stroke-width: 3; stroke-linecap: round; }
+.sxtrail.cert { stroke: var(--ink-2); }
+.sxtrail.ext { stroke: var(--ink-4); stroke-dasharray: 6 9; }
+.sxdot { fill: var(--ink); }
+.card:hover .sxtrail.cert { stroke: var(--ink); }
+.card:hover .sxv.hi { fill: var(--ink); }
