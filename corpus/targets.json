@@ -336,6 +336,71 @@
       "killedBy": "Nothing — the niche is open, and that is the finding. 1,610 environments on the Hub; the most starred has 33 stars and the median has 0, so the constraint is DISCOVERY, not quality. Searching the Hub itself: \"reward hack\" returns 42 environments, all at 0-1 stars and nearly all designer-embedded hacks from a community sprint (nearest neighbour gkartik/assay-hackword, \"a deliberately hackable grader that pays for a designated word\", 0 stars); \"certificate\" returns ONE result and it is a document-QA env; \"interval\" returns nothing related; \"proof\" returns Lean provers only. Nobody on the Hub grades against certified enclosures.",
       "note": "WHAT GETS STARRED, read off the top 40: recognizable benchmark names wrapped for verifiers (AIME-25 13*, HLE 8*, ARC-AGI 7*, math500 6*, IFEval 28*, tau2-bench 11*, terminal-bench 15*, KernelBench 10*), games (hud-text-2048 33*, hud-browser-2048 17*), and infrastructure adapters (vf-openbench 17*, hud-vf-gym 15*, dojo 8*). Legible short names, one-line concrete descriptions, and train/eval tags. DEFAULT LIST SORT IS created_at DESC — the push itself is the distribution and every version bump re-lists you. MECHANICS: prime 0.6.31 pins verifiers==0.2.0 (0.3.1 exists and moves the v1 surface again, and primeintellect/aime2025 is itself written against a vf.Taskset that no longer exists at top level in 0.2.0 — pin your version and say which one you tested). Hub metadata rides in pyproject [project] as a non-standard tags = [...] array plus [tool.verifiers.eval]. Distribution is a PyPI-compatible index at hub.primeintellect.ai. Environment Actions are Hub-run CI whose status is filterable in the listing, which is a trust signal almost nobody has.",
       "cost": "one session of scouting, no spend"
+    },
+    {
+      "id": "vis-warrant-grammar",
+      "name": "A visual grammar for what a mark is standing on (solid = decided, dashed = computed, dotted = chosen)",
+      "verdict": "OPEN — but only after three narrowings, and each one is a real prior art",
+      "scouted": "2026-09-04",
+      "finding": "The broad claim \"nobody encodes epistemic status in line style\" is FALSE and would be dismissed in one sentence. Three mature bodies of work sit on top of it. (1) UNCERTAINTY VISUALIZATION is a whole field — Padilla, Kay & Hullman 2022 survey; hypothetical outcome plots (Hullman, Resnick & Adar 2015; Kale et al. 2018); Hullman 2019 \"Why Authors Don't Visualize Uncertainty\" even measures why practitioners omit it. (2) PROVENANCE VISUALIZATION has a taxonomy — Ragan, Endert et al., VAST 2015 / TVCG 2016, covering data, visualization, interaction, insight and rationale provenance. (3) IMPUTED-VALUE ENCODING is studied directly — Song & Szafir, \"Where's My Data? Evaluating Visualizations with Missing Data\" (VIS 2018), and the Northwestern 2022 study of uncertainty visualisations for imputations, which classifies encodings as highlight, downplay, annotation and removal.",
+      "why": "What survives all three is narrow and real: VERIFICATION STANDING IS NOT PROBABILISTIC UNCERTAINTY. Ragan's provenance is about the analysis PROCESS, not the truth-status of a value. Uncertainty vis encodes a distribution; a value can be known to fourteen decimals and still be undecided, and a value can be certified with a wide bracket — the two axes are orthogonal and no published grammar separates them. The imputation work marks NOT-MEASURED, which is our CHOSEN state only in the special case of missing data; it does not cover \"one member of a solution set that a regulariser picked\", which is where every inverse problem lives.",
+      "structure": "The claim that can be defended: a mark's standing is the WEAKEST standing on its path to the pixel; a float operation demotes DECIDED to COMPUTED; and argmax over a non-unique optimum yields CHOSEN, not DECIDED. That last rule is the one nobody has written down and it is the one that redraws the M87 image.",
+      "note": "DO NOT publish the spec before the case where the grammar changed a reading exists in writing. A spec with no finding is a proposal. Venue reality: VIS and CHI want a user study and we have none — the realistic paths are a design study over our own instrument corpus, or a self-published essay with the instruments as live evidence.",
+      "cost": "~1 hour of scouting, and it saved the position from a one-sentence dismissal"
+    },
+    {
+      "id": "vis-verifiable-visualization",
+      "name": "Certified/verified visualization as a research area",
+      "verdict": "OCCUPIED — it is a named subfield with a founding paper",
+      "scouted": "2026-09-04",
+      "killedBy": "Kirby & Silva, \"The Need for Verifiable Visualization\", IEEE CG&A 2008 — visualization as part of the V&V pipeline. Then Etiene et al., \"Verifiable Visualization for Isosurface Extraction\" (TVCG 2009) and \"Verifying Volume Rendering Using Discretization Error Analysis\". And on the plotting side, Melquiond, \"Plotting in a Formally Verified Way\", F-IDE 2021 (EPTCS 338) — Coq + CoqInterval + reliable polynomial approximations for correct 1D function plots; Sollya plots at 165 bits for the same reason.",
+      "why": "Their verification is of the ALGORITHM — convergence order, discretization error, whether an anomaly is physics or an artifact of the extraction code. It is not a per-mark statement handed to the reader. Nobody in that line asks what the individual stroke on the page is standing on, and nobody renders the cells the algorithm could not decide.",
+      "note": "Cite Kirby & Silva as the ancestor rather than pretending the ground is empty. The distinction to hold: they verify the pipeline, we mark the mark. Melquiond is the closest single paper to a \"certified plot\" and it is 1D functions only."
+    },
+    {
+      "id": "vis-certified-contour",
+      "name": "A certified contour: proved-sign regions plus explicitly undecided cells",
+      "verdict": "OCCUPIED mathematically, OPEN as a display convention",
+      "scouted": "2026-09-04",
+      "killedBy": "Plantinga & Vegter, \"Isotopic Approximation of Implicit Curves and Surfaces\" (SGP 2004) — interval arithmetic on a subdivision, guaranteeing a piecewise-linear approximation isotopic to the true curve. Extended by Lin & Yap 2009, and by recent certified isotopic subdivision work (arXiv:2302.04908, arXiv:2407.16911, arXiv:1412.3290). Marching-squares/cubes ambiguity and topology correctness has its own literature going back to Nielson & Hamann 1991 and Dual Contouring variants that guarantee topology.",
+      "why": "The mathematics of a topologically correct contour from interval arithmetic is thirty years old and done well. What is NOT there is the FIGURE: those algorithms refine until every cell is decided and then draw a clean curve. Nobody ships a contour at a fixed budget that renders the cells it could not decide AS undecided — which is exactly a REFUSED state in the grammar.",
+      "note": "Do not build this as a standalone research claim; it would be scored against Plantinga-Vegter and lose. Build it as the worked example of the grammar's REFUSED state, on a function we already certify, and cite PV as the method."
+    },
+    {
+      "id": "vis-lineup-protocol",
+      "name": "Annotating a plot or an embedding with what survives a matched null",
+      "verdict": "OCCUPIED — and it is the method /playground/shape-hunt already reinvented",
+      "scouted": "2026-09-04",
+      "killedBy": "The LINEUP PROTOCOL. Buja, Cook, Hofmann, Lawrence, Lee, Swayne & Wickham, \"Statistical inference for exploratory data analysis and model diagnostics\", Phil. Trans. R. Soc. A 2009; and Wickham, Cook, Hofmann & Buja, \"Graphical Inference for Infovis\", InfoVis 2010. The real plot is hidden among null plots and the reader must pick it out; plots are test statistics and human cognition is the test. Shipped as the R package `nullabor`. Follow-on work measures its power against conventional tests.",
+      "why": "This is precisely shape-hunt's argument — a pattern does not count until the same search on structure-free data fails to find it. We built it independently and did not know the name. Claiming it as new would be the exact error the page is about.",
+      "note": "THE HONEST MOVE, and it costs nothing: cite Buja 2009 and Wickham 2010 on the shape-hunt page and in any essay, and state what IS ours — the observer is a machine rather than a human panel, the statistic is decided in exact rationals rather than judged by eye, and the nulls are matched to the size of the search. An automated lineup with an exact test statistic is a defensible contribution; \"we invented null-controlled visual inference\" is not."
+    },
+    {
+      "id": "vis-interferometer-family",
+      "name": "Showing the family of images the interferometric data allows, rather than the one the prior chose",
+      "verdict": "OPEN but narrowed hard — the prior-dependence is published, the ENCLOSURE is not",
+      "scouted": "2026-09-04",
+      "killedBy": "Not killed, but the ground is more occupied than the pitch assumes. EHT Collaboration Paper IV (2019) already reconstructs with three independent pipelines and averages over a top set of parameter combinations. Feng, Bouman et al., \"Event-horizon-scale Imaging of M87* under Different Assumptions via Deep Generative Image Priors\" (ApJ 975, 201, 2024; arXiv:2406.02785) explicitly sweeps priors from weak to strong and MEASURES which features move: diameter, orientation and asymmetry agree across priors; ring width and fractional central brightness change with the prior.",
+      "why": "So \"nobody shows the family\" is false and must not be said. What is ours and appears genuinely unheld: a PRIOR-FREE ENCLOSURE — a certified bracket on a quantity over every image consistent with the data and the error model, decided rather than sampled. Their ensembles are posterior draws under a chosen prior; ours is a bound with no prior in it at all. That is also the sharpest possible demonstration of the CHOSEN state, because their own paper names the features that a prior moves.",
+      "note": "The page must cite Feng et al. 2024 and Paper IV, and state the difference in one sentence: a sampled ensemble under a prior versus a bracket over the whole admissible set. The 2024 paper is a gift, not a threat — it is independent published evidence that the third state is doing real work in the most famous scientific image of the decade."
+    },
+    {
+      "id": "vis-colormap-monotonicity",
+      "name": "Proving a colormap monotone in lightness rather than measuring it",
+      "verdict": "OPEN but low-yield",
+      "scouted": "2026-09-04",
+      "measured": "Viridis and the matplotlib perceptually-uniform family were CONSTRUCTED for monotone lightness in CAM02-UCS and are checked numerically — the working definition in practice is that cumulative lightness and cumulative colour difference fit a line with R-squared above 0.99, and `viscm` plots the profile and its derivative interactively.",
+      "why": "An exact statement — this spline is strictly monotone on its whole domain, or here is the interval where it is not — is a small true theorem that nobody has bothered to state. It is also worth very little: the maps in use were designed to satisfy it, so the expected finding is \"yes, as designed\".",
+      "note": "Park it. It is a good half-day if a colour argument ever needs settling, and a bad choice for a headline."
+    },
+    {
+      "id": "vis-figure-resolution-claim",
+      "name": "A computed statement of what a figure can and cannot resolve",
+      "verdict": "OPEN — scouted and nothing found holding it",
+      "scouted": "2026-09-04",
+      "finding": "Searched for a convention that annotates a chart with the smallest difference it can support. Found the neighbouring literatures — Tufte's lie factor, Cleveland's banking, aliasing in scientific visualization, and the trust-in-visualization line (Trustworthy by Design, CHI 2025) — but no computable per-figure claim of the form \"this figure distinguishes differences above X and no smaller\".",
+      "why": "It is genuinely computable from the axis transform, the pixel pitch and the mark geometry, and it is the natural companion to the grammar: standing says what backs a value, resolution says whether the page can show it. It is also the smallest of the ideas and should ride along with the spec rather than be built alone.",
+      "note": "OPEN is not a licence — the search was one pass and the phrasing was mine. Re-scout with the perception vocabulary (just-noticeable difference, discriminability) before any claim of novelty is written down."
     }
   ]
 }

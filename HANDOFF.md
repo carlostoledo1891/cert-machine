@@ -187,6 +187,52 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
       identical, which is what "every record comes out of running the code beside
       it" is supposed to mean.
 
+  ══ THE VISUAL-GRAMMAR DIRECTION IS SCOUTED AND PLANNED, NOT STARTED (2026-09-04,
+     operator: "Read the writing below, I want to move on this direction").
+     THE CONCEPT AND THE FULL TODO LIST: notes/warrant-concept-2026-09-04.md.
+     Seven vis-* rows are in target memory — READ THEM BEFORE BUILDING, they
+     killed the first version of the pitch. ══
+
+    THE NAME: WARRANT. Four standings on a lattice —
+      REFUSED < CHOSEN < COMPUTED < DECIDED
+    solid / dashed / dotted / no-mark-and-an-explicit-void. A mark's standing is
+    the WEAKEST standing on its path to the pixel; combination is the minimum.
+    Three rules carry it: the arithmetic demotes and never the author (a float
+    step takes DECIDED to COMPUTED); REFUSED is absorbing; and ARGMAX OVER A
+    NON-UNIQUE OPTIMUM YIELDS CHOSEN. That third rule is the unwritten one and
+    it is what redraws the M87 image.
+
+    WHAT THE SCOUTING KILLED. "Nobody encodes epistemic status in line style" is
+    FALSE and would end the claim in one sentence: uncertainty visualization
+    (Padilla/Kay/Hullman), provenance visualization (Ragan et al.), and
+    imputed-value encoding (Song & Szafir) are all mature. Verifiable
+    visualization is a named subfield (Kirby & Silva 2008) — they verify the
+    ALGORITHM. And the lineup protocol (Buja 2009, Wickham 2010, `nullabor`) is
+    EXACTLY what shape-hunt reinvented; cite it, do not claim it.
+    WHAT SURVIVES: verification standing is not probabilistic uncertainty. A
+    value can be known to fourteen decimals and undecided; certified and wide.
+    No published grammar separates those axes.
+
+    SEQUENCING, and it is an order not a menu: two more instruments (PHANTOM
+    BIFURCATIONS, then THE EVERYDAY INVERSE PROBLEM) -> the spec + reference
+    implementation, repo-first -> the case where the grammar CHANGED A READING
+    -> the essay. Do not publish the spec before the finding: a spec with no
+    finding is a proposal. Do not chase a venue.
+
+    THE CASE, and we already hold both halves: the published M87 image is an
+    argmax under a prior with a non-unique optimum, so it is CHOSEN and dotted —
+    and Feng et al. 2024 (arXiv:2406.02785) independently MEASURED which of its
+    features move with the prior. Second case, better because it is ours: this
+    page published 40 of 54 symmetries against one null and it became 24 of 54
+    when a second null was added. Under the grammar that 40 was a CHOSEN number
+    printed as a DECIDED one.
+
+    CHEAP AND FIRST (structural, from the same review): promote the
+    interferometer to its own URL and a FRONT-PAGE card; put shape-hunt first in
+    /playground or make it the front matter; the playground is currently a nav
+    item plus one sentence below sixty certificate rows.
+    ALSO CHEAP AND OWED: shape-hunt must cite Buja/Wickham.
+
   STILL OPEN ON SHAPE-HUNT (nothing started):
     · n = 12 is out of reach exhaustively (479M permutations per search, and the
       null needs thousands of searches). A randomised or branch-and-bound
