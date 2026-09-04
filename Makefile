@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help engine control test drift lift clean reports site papers
+.PHONY: help engine control test drift lift clean reports site papers playground
 
 help:
 	@echo "cert-machine — the conjecture engine"
@@ -29,6 +29,10 @@ control:
 site: control
 	@$(NODE) tools/build-site.js
 	@$(NODE) apps/skyaudit/build.js
+	@$(NODE) playground/build.js
+
+playground:
+	@$(NODE) playground/build.js
 
 test:
 	@printf "%-30s " "engine + families"; $(NODE) tools/test-engine.js >/dev/null 2>&1 && echo PASS || echo FAIL

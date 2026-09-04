@@ -1,0 +1,107 @@
+/* index.css — the gathering page. Its own styles, on purpose: /playground
+   borrows the design tokens and nothing else, so a page here can look like
+   whatever it needs to look like. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body);
+  line-height: var(--leading-body); font-weight: var(--weight-body);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+a { color: inherit; }
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; }
+
+.wrap { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.eyebrow {
+  font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4);
+}
+
+/* ---- hero ---- */
+.hero { padding: clamp(3rem, 11vh, 8rem) 0 clamp(3rem, 8vh, 6rem); }
+.hero h1 {
+  font-size: clamp(2.4rem, 1rem + 5.4vw, 4.6rem);
+  max-width: 19ch; margin-top: var(--s-4);
+}
+.hero .lede {
+  margin-top: var(--s-6); max-width: 60ch;
+  font-size: var(--text-3); color: var(--ink-3); line-height: 1.55;
+}
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+.rule { height: 1px; background: var(--border); border: 0; margin: 0; }
+
+/* ---- the project ---- */
+.projects { padding: clamp(2.5rem, 7vh, 5rem) 0 0; }
+.count { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-5); padding-bottom: var(--s-5); }
+
+.card {
+  display: grid; gap: clamp(1.5rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr;
+  align-items: center;
+  padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(2.5rem, 6vw, 4rem);
+  text-decoration: none;
+  border-top: 1px solid var(--border);
+}
+@media (min-width: 880px) { .card { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); } }
+
+.card-art { margin: 0; }
+.card-art .plate {
+  position: relative; aspect-ratio: 1; width: 100%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.028) 0%, rgba(255,255,255,0) 62%),
+    var(--bg-raised);
+  border: 1px solid var(--border); border-radius: var(--radius-l); overflow: hidden;
+}
+.uv { position: absolute; inset: 0; width: 100%; height: 100%; }
+.uv-rings circle { fill: none; stroke: var(--border-strong); stroke-width: 1; opacity: 0.7; }
+.uv-tracks path {
+  fill: none; stroke: var(--ink-2); stroke-width: 2.4; stroke-linecap: round;
+  opacity: 0.8; transition: opacity var(--dur-slow) var(--ease-out), stroke var(--dur-slow) var(--ease-out);
+}
+.card:hover .uv-tracks path { opacity: 1; stroke: var(--ink); }
+/* the scale, written where the rings are, not in a legend somewhere else */
+.uv-scale { position: absolute; right: var(--s-3); bottom: var(--s-3);
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; color: var(--ink-4);
+  background: var(--bg-raised); padding: 3px 7px; border-radius: var(--radius-pill);
+  border: 1px solid var(--border); }
+.card-art figcaption {
+  margin-top: var(--s-4);
+  font-size: var(--text-small); color: var(--ink-4); line-height: 1.55; max-width: 52ch;
+}
+.card-art figcaption b { color: var(--ink-3); font-weight: var(--weight-medium); }
+
+.card-body h2 { font-size: clamp(1.6rem, 1rem + 1.9vw, 2.5rem); max-width: 16ch; }
+.card-body .sub { margin-top: var(--s-4); color: var(--ink-3); max-width: 46ch; }
+.card-body .go {
+  display: inline-flex; align-items: center; gap: var(--s-3); margin-top: var(--s-6);
+  font-family: var(--font-mono); font-size: var(--text-small); letter-spacing: 0.08em;
+  color: var(--ink); border-bottom: 1px solid var(--border-strong); padding-bottom: 4px;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.card:hover .go { border-color: var(--ink); }
+.go .arw { transition: transform var(--dur-med) var(--ease-out); }
+.card:hover .go .arw { transform: translateX(4px); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: var(--s-5) var(--s-6); margin-top: var(--s-7); }
+.facts .f { display: flex; flex-direction: column; gap: 3px; }
+.facts .fk { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-5); }
+.facts .fv { font-family: var(--font-mono); font-size: 1.05rem; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.facts .fn { font-size: 11px; color: var(--ink-4); line-height: 1.45; }
+
+/* ---- the rule of the place ---- */
+.rules { padding: clamp(3rem, 8vh, 6rem) 0 clamp(4rem, 10vh, 7rem); border-top: 1px solid var(--border); }
+.rules .grid { display: grid; gap: var(--s-6) clamp(1.5rem, 4vw, 3.5rem); grid-template-columns: 1fr; margin-top: var(--s-6); }
+@media (min-width: 760px) { .rules .grid { grid-template-columns: repeat(3, 1fr); } }
+.rules h3 { font-size: 1rem; letter-spacing: var(--track-title); }
+.rules p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); line-height: 1.6; max-width: 40ch; }
+
+.foot { padding: var(--s-6) 0 var(--s-8); border-top: 1px solid var(--border); }
+.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+.foot a { color: var(--ink-4); text-decoration: none; }
+.foot a:hover { color: var(--ink-2); }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

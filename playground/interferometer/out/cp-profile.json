@@ -1,0 +1,19 @@
+{
+  "note": "CORRECTED concentration profile, measured with cert-cp.js (Chambolle-Pock + second-order scan margin + witness read off the dual variable). Supersedes out/profile.json, which was produced by the Polyak subgradient dual and a SEPARATE FISTA primal search. sub=1 here, so ALL 6677 rows constrain BOTH sides: the witness is valid for the full problem, not a thinned one. The 73x ratio in profile.json was a FISTA primal failure, not a property of the mathematics.",
+  "data": { "day": 111, "band": "b3", "pipe": "hops", "K": 6677, "bcut": 0.4, "nsig": 3, "gain": 0.05, "F": 2, "fov": 64, "sub": 1, "N": 40, "Nf": 320, "rounds": 2, "iters": 1000 },
+  "rows": [
+    { "r0": 4,  "witness": 0.19981, "ceiling": 0.40262, "ratio": 2.02, "old_witness": 0.006612, "old_ceiling": 0.484578, "old_ratio": 73.3, "secs": 94 },
+    { "r0": 12, "witness": 0.49696, "ceiling": 0.66411, "ratio": 1.34, "old_witness": 0.085589, "old_ceiling": 0.837855, "old_ratio": 9.79, "secs": 106 },
+    { "r0": 20, "witness": 0.46494, "ceiling": 0.99761, "ratio": 2.15, "old_witness": 0.214225, "old_ceiling": 1.193826, "old_ratio": 5.57, "secs": 131,
+      "witness_note": "round-1 value; round 2 fell to 0.39974, i.e. the witness is UNDER-converged at this radius. Best valid witness = max over rounds and over the old FISTA run." },
+    { "r0": 32, "witness": 0.55086, "ceiling": 1.34385, "ratio": 2.44, "old_witness": 0.550857, "old_ceiling": 1.578080, "old_ratio": 2.86, "secs": 118,
+      "witness_note": "CP witness reached only 0.51172 here; the old FISTA witness 0.550857 is higher and equally valid (it was computed against all rows), so it is the one quoted." }
+  ],
+  "findings": [
+    "The ceiling improved 15-20% at every radius. The WITNESS improved 30x at r=4 and 5.8x at r=12.",
+    "The looseness profile is now FLAT in r at 1.3-2.4x, not divergent (73x -> 2.9x). The bench is as tight on a 4 uas disk as on a 32 uas disk.",
+    "Thinning to sub=4 and sub=2 gave ceilings of 0.3878 and 0.3906 at r=4, against 0.4026 at sub=1 - i.e. the ceiling had already converged, so the residual gap is NOT constraint count and NOT solver slack. LP duality leaves no gap, so ~0.40 Jy is close to the true supremum and the remaining 2x is the witness search, which is the cheap side.",
+    "CONSEQUENCE FOR DOMAIN CHOICE: the rule 'fine-scale functionals come back vacuous, only aggregates survive' is void. It was an artifact of the primal solver. Localized 'how much can lie HERE' statements - attribution to a lease, void in a region, mass at one equipment group - are back on the table, and those are the functionals people pay for.",
+    "The binding looseness term in every candidate domain is now the MEASUREMENT ENVELOPE (how far the data constraint must be inflated to be sure the truth is inside), not the dual optimiser."
+  ]
+}
