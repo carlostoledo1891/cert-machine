@@ -201,8 +201,11 @@ now rewires here.
 
 ## The contact sheet — the read-only payoff
 
-`make-contact.mjs` → `out/contact.svg`, inlined by `tools/build-lattice-env.js`.
-135 rollouts in one image, nine rows of fifteen.
+`make-contact.mjs` → `out/contact.svg`. 135 rollouts in one image, nine rows of
+fifteen. In frontier-apps `tools/build-lattice-env.js` inlined it; in this
+repository no page carries it yet — the record it reads was ported 2026-09-05 to
+`instruments/wiring/eval/` (sha256-pinned in `PROVENANCE.json` there) and
+`test.mjs` draws it from that record on every run.
 
 A full node graph is unreadable at thumbnail size, so a rollout reduces to the
 only topology that matters: the verdicts an instrument can fire, with the one
@@ -267,9 +270,11 @@ not magnified to fill a 1400px page.
 
 ## Refutation as a subgraph — `make-refutations.mjs`
 
-`environments/lattice-claims/eval/refutations.py` rebuilds four real failures
-from the seed the eval ran, `refutation.mjs` turns each into the smallest graph
-that refutes it, and the lattice-claims page renders them.
+frontier's `environments/lattice-claims/eval/refutations.py` rebuilt four real
+failures from the seed the eval ran (the four facts are the ported
+`instruments/wiring/eval/refutations.json`), `refutation.mjs` turns each into
+the smallest graph that refutes it, and the lattice-claims page rendered them
+there. Here they are built and tested, not yet on a page.
 
 "Verdict ADMISSIBLE, decided REFUSED" is a fact without a reason. The subgraph
 carries the reason, in the same grammar as everything else: what was DERIVED
@@ -292,10 +297,13 @@ now widens the viewBox, and `toSVG` takes a `minWidth` floor.
 
 ## Reproduce, end to end
 
+    # the rollouts and the four refutation facts are records, ported from
+    # frontier-apps (which has no git) and pinned by sha256:
+    #   instruments/wiring/eval/{results,refutations,PROVENANCE}.json
+    node instruments/cert-unit/make-contact.mjs        # -> out/contact.svg
+    node instruments/cert-unit/make-refutations.mjs    # -> out/refutations.json
+    node instruments/cert-unit/test.mjs                # draws both from the record
+
+    # to regenerate the records themselves (frontier-apps, live model calls):
     python3 environments/lattice-claims/eval/run_models.py --n 15 --live
-    python3 environments/lattice-claims/eval/page_data.py
     python3 environments/lattice-claims/eval/refutations.py
-    python3 environments/lattice-claims/eval/rewire_data.py
-    node experiments/cert-unit/make-contact.mjs
-    node experiments/cert-unit/make-refutations.mjs
-    node tools/build-lattice-env.js && node tools/build-rewire.js

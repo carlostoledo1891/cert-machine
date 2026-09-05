@@ -109,13 +109,37 @@ const BATTERIES = [
   ['mfg-cap census (EXACTLY-n)', ['labs/mfg/census-battery.js'], 'Krawczyk exhaustion census of the even Galerkin mfg-cap system: EXACTLY 3 solutions at c=-12 re-proved live at N=2 every run, records walked for N=2..5, honest box-bounded truncation scope asserted · 3 red controls (midpoint split refuses at the constant solution’s exact coordinates, starved budget, corrupted kernel)'],
   ['erdos290 lean battery', ['tools/erdos290-lean-battery.js'], 'closed forms equal enumeration exactly for l <= 12; the broken-EGF red must fire'],
   ['critcount (certified peak counts)', ['instruments/critcount/battery.js'], 'critical-point counts of even cosine series over an enclosure ball — count derived from CERTIFIED region signs only, outward coefficient products, ball Lipschitz folded into the cell pad; closed-form two/three-harmonic calibrations and the terra record walk · 4 red controls (mutated boundary, zeroed ball pad, degenerate curvature, two critical points in one region — each fires)'],
-  ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier']
+  ['engine + families', ['tools/test-engine.js'], 'red controls on screen and certifier'],
+  /* SEVEN ROWS `make test` RAN AND THIS PAGE NEVER DID (2026-09-05). check-wiring's
+     registry check matched only files named battery/selftest/test-engine, so
+     everything named otherwise — the cert-unit suite, one interval test, two
+     Python verifiers — could sit in one registry and not the other while the
+     check printed "the same batteries". The check compares every script in the
+     test target now, and these are the rows it found missing here. */
+  ['interval · transcendental enclosure', ['instruments/interval/tests/test-transcendental-enclosure.js'], 'the enclosure form of exp/log/sin/cos: every bracket contains the true value'],
+  ['cert-unit port + wiring', ['instruments/cert-unit/test.mjs'], 'the typed wire: a float is refused at a deciding port, a hypothesis mismatch is refused at the boundary, and the two read-only renderers draw the pinned lattice-claims record — 135 rollouts, four refutations · 15 checks'],
+  ['cert-unit reds (6 declared)', ['instruments/cert-unit/reds.mjs'], 'six declared forgeries the runtime must refuse, each one a real failure the bench made'],
+  ['cert-unit editor = engine', ['instruments/cert-unit/editor.test.mjs'], 'the rewirable editor enforces exactly the rules node test.mjs runs: a refused wire in the page is the same refusal, in the same words'],
+  ['cert-unit replay (TERRA 39)', ['instruments/cert-unit/replay.mjs'], 'every certified sigma-band cell on disk re-derived through the typed runtime: 39 cells identically, 0 disagreed, worst relative difference 0.00e+0; the process exits non-zero on any disagreement'],
+  /* IN THE NODE LIST, where it was not (2026-09-05). It was registered under PY
+     beside the pytest row it verifies, so the control build handed a .mjs file
+     to python3, which refused it at line 1 ("/**") — RED on every control build
+     since it was added, and readable only once the runner stopped discarding
+     output. bat() now refuses an entry whose file does not match its
+     interpreter, so a misfiled battery fails the BUILD instead of the row. */
+  ['wiring concord (JS vs Python)', ['instruments/wiring/concord.mjs'], 'cert-machine holds TWO independent implementations of the same wiring rules — instruments/cert-unit/graph.mjs in JavaScript and instruments/wiring/lattice_claims/wiring.py in Python, written for different jobs and neither derived from the other. The Python carries the comment \'THE FLOAT FIREBREAK, in the same words the other engine uses\', which is a claim, and a claim is the kind of thing this repository checks rather than repeats. So the same violation is planted in both and both must REFUSE, in the same words. The planted wiring is built from the Python CATALOGUE rather than from memory — the first version guessed a port name and got a refusal for the wrong reason, which would have read as disagreement when it was a mistake in the question · 1 red control']
 ];
 const PY = [
+  ['skyaudit stdlib verifier', ['apps/skyaudit/audit/verify_skyaudit.py'], 'the pinned ADS-B day re-audited in the Python standard library, no code from the app in the trust path'],
+  ['tensorlb (lower-bound audit)', ['instruments/tensorlb/battery.py'], 'tensor-rank lower bounds re-decided exactly; the red control must fire'],
   ['oracle claim library', ['oracle/battery.py'],
     'certify() for AI math search: Strassen calibrates, the characteristic-2 pair reproduced, the sub-float forgery refuted with its exact mechanism; red controls also run at import — a broken grader refuses to exist · 6 red controls'],
-  ['wiring (graph as submission)', ['instruments/wiring/test_wiring.py'], 'the lattice-claims wiring task, ported from frontier-apps 2026-09-05: a model answers with a WIRING rather than a verdict — which instruments, in what order, and what may reach the port that decides — and BUILDING THE GRAPH IS THE GRADING. There is no separate rubric because the two rules that matter are already conditions on a wire: a value that came from floating point may not enter a deciding port, and a deciding port with nothing wired to it cannot produce a verdict. A submission that violates either does not score badly, it does not BUILD, and the message it gets back is the one the engine raises. It mirrors instruments/cert-unit/graph.mjs, so the same rules are stated in two languages and the tests check the same wirings are refused for the same reasons · 8 cases'],
-  ['wiring concord (JS vs Python)', ['instruments/wiring/concord.mjs'], 'cert-machine holds TWO independent implementations of the same wiring rules — instruments/cert-unit/graph.mjs in JavaScript and instruments/wiring/lattice_claims/wiring.py in Python, written for different jobs and neither derived from the other. The Python carries the comment \'THE FLOAT FIREBREAK, in the same words the other engine uses\', which is a claim, and a claim is the kind of thing this repository checks rather than repeats. So the same violation is planted in both and both must REFUSE, in the same words. The planted wiring is built from the Python CATALOGUE rather than from memory — the first version guessed a port name and got a refusal for the wrong reason, which would have read as disagreement when it was a mistake in the question · 1 red control'],
+  /* THROUGH PYTEST, not as a script (2026-09-05): `python3 test_wiring.py` defines
+     eight test functions and runs none of them, so this row was green on every
+     control build while executing nothing — the same file passes 8/8 under
+     pytest in `make test`. The file is hash-pinned from frontier-apps and is
+     not edited; the invocation is. */
+  ['wiring (graph as submission)', ['-m', 'pytest', 'instruments/wiring/test_wiring.py', '-q'], 'the lattice-claims wiring task, ported from frontier-apps 2026-09-05: a model answers with a WIRING rather than a verdict — which instruments, in what order, and what may reach the port that decides — and BUILDING THE GRAPH IS THE GRADING. There is no separate rubric because the two rules that matter are already conditions on a wire: a value that came from floating point may not enter a deciding port, and a deciding port with nothing wired to it cannot produce a verdict. A submission that violates either does not score badly, it does not BUILD, and the message it gets back is the one the engine raises. It mirrors instruments/cert-unit/graph.mjs, so the same rules are stated in two languages and the tests check the same wirings are refused for the same reasons · 8 cases'],
   ['keller · standalone re-verifier', ['tools/verify_keller.py', 'certs/keller-certificate.json', '--sources', 'corpus/sources'],
     'the detached certificate re-audited from scratch — stdlib fractions, no code from this repo; red control must fire'],
   ['strassen · standalone re-verifier', ['tools/verify_strassen.py', 'certs/strassen-certificate.json', '--sources', 'corpus/sources'],
@@ -134,13 +158,24 @@ const PY = [
   ['llm harness — the eval\'s dry-run gate', ['tools/llm-harness.py', '--dry-run', '--n', '20', '--ledger', '/dev/null'],
     'a FAKE proposer gates the pipeline, not an LLM result; live model campaigns are separate, in the append-only certs/matmul-eval-ledger.jsonl and on reports/matmul-eval.html · aborts if a red control certifies']
 ];
-function bat(argv, py) {
+/* A RED SAYS WHY (2026-09-05). The runner discarded every battery's output, so
+   the one time a row came back RED on a control build — wiring concord, once,
+   green on the next ten runs — there was nothing to read. A failing battery's
+   last lines are printed now; a green one stays silent. */
+function bat(name, argv, py) {
   if (!runBatteries) return null;
-  const r = cp.spawnSync(py ? 'python3' : process.execPath, argv, { cwd: ROOT, stdio: 'ignore' });
+  const file = argv.find((a) => /\.(m?js|py)$/.test(a)) || '';
+  if (py ? /\.m?js$/.test(file) : /\.py$/.test(file))
+    die('battery "' + name + '" is filed under the wrong interpreter: ' + file + (py ? ' would be run by python3' : ' would be run by node'));
+  const r = cp.spawnSync(py ? 'python3' : process.execPath, argv, { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8' });
+  if (r.status !== 0) {
+    const tail = ((r.stdout || '') + (r.stderr || '')).trim().split('\n').slice(-8).join('\n      ');
+    console.error('  RED  ' + name + '  (exit ' + r.status + (r.error ? ', ' + r.error.message : '') + ')\n      ' + tail);
+  }
   return r.status === 0;
 }
-const bats = BATTERIES.map(([n, c, note]) => ({ n, note, ok: bat(c, false) }))
-  .concat(PY.map(([n, c, note]) => ({ n, note, ok: bat(c, true) })));
+const bats = BATTERIES.map(([n, c, note]) => ({ n, note, ok: bat(n, c, false) }))
+  .concat(PY.map(([n, c, note]) => ({ n, note, ok: bat(n, c, true) })));
 const green = bats.filter(b => b.ok === true).length, ran = bats.filter(b => b.ok !== null).length;
 
 let drift = 'not run';

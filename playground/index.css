@@ -2,14 +2,10 @@
    borrows the design tokens and nothing else, so a page here can look like
    whatever it needs to look like. */
 
-*, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0; background: var(--bg); color: var(--ink-2);
-  font-family: var(--font-sans); font-size: var(--text-body);
-  line-height: var(--leading-body); font-weight: var(--weight-body);
-  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-}
+/* box model, ground, ink, face, size, leading and smoothing come from the shell
+   (2026-09-05); only what this page adds on top is declared here. */
+body { font-weight: var(--weight-body); text-rendering: optimizeLegibility; }
 a { color: inherit; }
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; }

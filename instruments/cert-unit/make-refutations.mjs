@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { build } from './refutation.mjs';
 
-const SRC = new URL('../../environments/lattice-claims/eval/refutations.json', import.meta.url);
+const SRC = new URL('../wiring/eval/refutations.json', import.meta.url);
 const R = JSON.parse(readFileSync(SRC, 'utf8'));
 const TITLE = {
   wrong_verdict: 'a verdict the arithmetic refutes',

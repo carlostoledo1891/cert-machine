@@ -39,6 +39,13 @@ for (const c of cells) {
 console.log(`\nre-derived ${agree} cells identically, ${disagree} disagreed, ${refusedN} refused`);
 console.log(`worst relative difference: ${rel.length ? Math.max(...rel).toExponential(2) : 'n/a'}`);
 
+/* A BATTERY EXITS (cert-machine patch, 2026-09-05). Frontier's replay only
+   printed; `make test` grepped the summary line and the control build, which
+   reads exit codes, could not run it at all. A disagreement is now an exit
+   status, so both registries can run this file as it is. Diagnostic mode
+   (--reds) keeps going. */
+if (!process.argv.includes('--reds')) process.exit(disagree ? 1 : 0);
+
 if (process.argv.includes('--reds')) {
   console.log('\nnow break it on purpose:');
   const c = cells[0];

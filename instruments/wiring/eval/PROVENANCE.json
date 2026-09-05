@@ -1,0 +1,21 @@
+{
+  "what": "lattice-claims eval — 135 rollouts of three models on the Gauss–Hermite lattice predicate (results.json), and the four real failures rebuilt as refutation facts (refutations.json).",
+  "liftedFrom": "/Users/carlostoledo/Documents/frontier-apps/environments/lattice-claims/eval",
+  "liftedOn": "2026-09-05",
+  "why": "instruments/cert-unit/make-contact.mjs and make-refutations.mjs were ported without the record they read, so contact.mjs and refutation.mjs were tested and unused. The record lives beside the port that owns it: instruments/wiring/ is lattice-claims here.",
+  "rule": "Copied byte-for-byte and pinned by sha256; frontier-apps has no git, so the hash is the only pin. The source tree is read-only. Nothing on the site quotes this record yet; when a page does, it is a re-derivation from this file and says so.",
+  "files": [
+    {
+      "file": "results.json",
+      "sha256": "daaac4700d394d55ab230ac57838600e05f43a4e53768e4708fb0374511a3995",
+      "sourceSha256": "daaac4700d394d55ab230ac57838600e05f43a4e53768e4708fb0374511a3995",
+      "bytes": 101239
+    },
+    {
+      "file": "refutations.json",
+      "sha256": "e447189bedf317644c182223ccda6f81af0b033bc87f5b8b2fb113ba329fa75b",
+      "sourceSha256": "e447189bedf317644c182223ccda6f81af0b033bc87f5b8b2fb113ba329fa75b",
+      "bytes": 1416
+    }
+  ]
+}

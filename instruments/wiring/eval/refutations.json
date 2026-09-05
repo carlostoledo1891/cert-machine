@@ -1,0 +1,69 @@
+[
+ {
+  "kind": "wrong_verdict",
+  "model": "Sonnet 5",
+  "rung": "declared",
+  "said": "ADMISSIBLE",
+  "truth": "REFUSED",
+  "why": "verdict ADMISSIBLE, decided REFUSED",
+  "facts": {
+   "rung": "declared",
+   "n": 16,
+   "missing": null,
+   "qDigits": 48,
+   "normSq": 1290111,
+   "roundedNormSq": 1290496
+  }
+ },
+ {
+  "kind": "straddle_called_definite",
+  "model": "Sonnet 5",
+  "rung": "printed",
+  "said": "NEEDS_DATA",
+  "truth": "STRADDLES",
+  "why": "verdict NEEDS_DATA, decided STRADDLES",
+  "facts": {
+   "rung": "printed",
+   "n": 16,
+   "missing": null,
+   "qDigits": 48,
+   "printed": 1137,
+   "loVerdict": "ADMISSIBLE",
+   "hiVerdict": "REFUSED",
+   "loRatio": 1.049124,
+   "hiRatio": 1.050047
+  }
+ },
+ {
+  "kind": "confident_on_missing",
+  "model": "Opus 5",
+  "rung": "underspecified",
+  "said": "ADMISSIBLE",
+  "truth": "NEEDS_DATA",
+  "why": "verdict ADMISSIBLE, decided NEEDS_DATA",
+  "facts": {
+   "rung": "underspecified",
+   "n": 16,
+   "missing": "conventions.relation",
+   "qDigits": 49,
+   "normSq": 1324958,
+   "roundedNormSq": 1324801
+  }
+ },
+ {
+  "kind": "reference_slip",
+  "model": "Haiku 4.5",
+  "rung": "declared",
+  "said": "ADMISSIBLE",
+  "truth": "ADMISSIBLE",
+  "why": "reference slippage: decided against 1337868, task states 1338468",
+  "facts": {
+   "rung": "declared",
+   "n": 16,
+   "missing": null,
+   "qDigits": 49,
+   "normSq": 1338468,
+   "roundedNormSq": 1338649
+  }
+ }
+]

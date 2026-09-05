@@ -72,14 +72,48 @@ red('a builder missing from `make reports` is caught',
    their own list; the control build prints a green count over ITS list, so a
    battery present in one and absent from the other makes that count a claim
    about a set the reader does not have.                                   */
+/* EVERY SCRIPT, NOT ONLY THE ONES NAMED battery (2026-09-05). The pattern used
+   to match files named battery/selftest/test-engine and nothing else, so the
+   cert-unit suite (test.mjs, reds.mjs, editor.test.mjs, replay.mjs), one
+   interval test and two Python verifiers ran in `make test` and never on the
+   control page while this check printed "the same batteries" — and the one
+   row that WAS registered on both sides, concord.mjs, sat in build-control's
+   Python list and was handed to python3, which nothing here could see either.
+   Now: every $(NODE)/$(PY)/python3 script in the Makefile's test target (for-
+   loops expanded, `cd dir && pytest file` resolved) against every script path
+   in build-control's two registries. */
 const batteriesIn = (text) => {
   const out = new Set();
-  const re = /([A-Za-z0-9/_.-]*(?:battery|selftest|test-engine)[A-Za-z0-9/_.-]*\.js)/g;
+  /* one-level for-loop expansion: `for t in a b c; do ... $$t ... done` */
+  let expanded = text;
+  const loop = /for (\w+) in ([^;]+); do([\s\S]*?)done/g;
+  let l;
+  while ((l = loop.exec(text))) for (const it of l[2].trim().split(/\s+/)) expanded += '\n' + l[3].split('$$' + l[1]).join(it);
+  const add = (p) => { if (p && !p.includes('$$')) out.add(p.replace(/^\.\//, '')); };
   let m;
-  while ((m = re.exec(text))) out.add(m[1].replace(/^\.\//, ''));
+  /* `cd dir && python3 -m pytest file` names the file relative to dir: resolve
+     it first, and take the form out of the text so it is not read twice */
+  expanded = expanded.replace(/cd\s+([A-Za-z0-9/_.-]+)\s*&&\s*python3\s+-m\s+pytest\s+([A-Za-z0-9/_.-]+\.py)/g,
+    (_, d, f) => { add(d + '/' + f); return ''; });
+  const run = /(?:\$\((?:NODE|PY)\)|(?<![\w/])python3|(?<![\w/])node)\s+(?:-m\s+pytest\s+)?([A-Za-z0-9/_.$-]+\.(?:m?js|py))/g;
+  while ((m = run.exec(expanded))) add(m[1]);
   return out;
 };
-const inMake = batteriesIn(MAKE), inControl = batteriesIn(CONTROL);
+/* build-control's registries: the script path inside each entry's argv array,
+   and nothing from its note — a note that says "node test.mjs" is prose */
+const controlScripts = (text) => {
+  const out = new Set();
+  const entry = /\[\s*'(?:[^'\\]|\\.)*',\s*\[([^\]]*)\]/g;   /* the name may carry an escaped quote */
+  let e;
+  while ((e = entry.exec(text))) {
+    const m = /'((?:[A-Za-z0-9_./-]+\/)?[A-Za-z0-9_.-]+\.(?:m?js|py))'/.exec(e[1]);
+    if (m) out.add(m[1].replace(/^\.\//, ''));
+  }
+  return out;
+};
+const testTarget = (() => { const i = MAKE.indexOf('\ntest:'); const rest = MAKE.slice(i + 1); const j = rest.search(/\n[a-z-]+:/); return j < 0 ? rest : rest.slice(0, j); })();
+const registries = (() => { const a = CONTROL.indexOf('const BATTERIES'); const b = CONTROL.indexOf('function bat('); return CONTROL.slice(a, b); })();
+const inMake = batteriesIn(testTarget), inControl = controlScripts(registries);
 const onlyMake = [...inMake].filter((b) => !inControl.has(b)).sort();
 const onlyControl = [...inControl].filter((b) => !inMake.has(b)).sort();
 if (onlyMake.length || onlyControl.length) {

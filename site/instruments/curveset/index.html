@@ -37,7 +37,13 @@
   display:inline-flex;align-items:center;justify-content:center;
   color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
 .navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
-.navlinks .ghbtn svg{display:block}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
 .gh-t{display:none}
 
 /* the drawer: pure CSS state — a checkbox the burger label toggles */
@@ -91,8 +97,11 @@
    TIMES ROMAN while every other page on the site is Inter. A foundation
    declared six times is not a foundation.
 
-   The page-local copies are still there and still win where they agree; taking
-   them out is a separate change, written down in HANDOFF. */
+   The page-local copies came out later the same day, one file at a time, each
+   page pixel-diffed at 1440 and 390 before the next: curveset, neural-geometry,
+   shape-hunt, simplex, bench.css (four pages) and index.css were byte-identical
+   to the two rules above and went entirely; interferometer keeps its own
+   margin/padding zeroing and the three body properties the shell does not set. */
 body { margin: 0; background: var(--bg); color: var(--ink-2);
   font-family: var(--font-sans); font-size: var(--text-body);
   line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
@@ -473,9 +482,6 @@ node playground/build.js</pre>
    THE GRAMMAR'S CLASSES LIVE HERE, not in each figure: `.w-decided`,
    `.w-computed`, `.w-chosen`, `.w-void`. warrant.js emits the class and the
    dash pattern; this file decides what those look like in this theme, once. */
-*, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink-2);
-  font-family: var(--font-sans); font-size: var(--text-body); line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
 

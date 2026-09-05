@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { contactSheet } from './contact.mjs';
 
-const SRC = new URL('../../environments/lattice-claims/eval/results.json', import.meta.url);
+const SRC = new URL('../wiring/eval/results.json', import.meta.url);
 const R = JSON.parse(readFileSync(SRC, 'utf8'));
 const PORTS = ['ADMISSIBLE', 'REFUSED', 'STRADDLES', 'NEEDS_DATA', 'no answer'];
 const MODELS = ['Opus 5', 'Sonnet 5', 'Haiku 4.5'];

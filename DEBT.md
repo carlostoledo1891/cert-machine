@@ -13,6 +13,18 @@ being shown not to be a defect — never by going quiet.
 
 ---
 
+## PAID — 2026-09-05 (third pass: the foundation declared once)
+
+| what | how it was closed |
+|---|---|
+| `body` and the box-sizing reset declared in **seven** files under `playground/` and in the shell | deleted one file at a time, each page rebuilt and pixel-diffed at 1440 and 390 against a capture from before the first deletion: ten pages identical, interferometer inside its measured capture jitter. The shell's two rules are the only copy now; interferometer keeps the margin/padding zeroing and three body properties the shell does not set |
+| the GitHub mark in the nav rendered at **17px, 32px or 292px** depending on the page | it carried width/height attributes only, and five pages have a page-wide `svg{width:100%;height:auto}` for their figures. `design/nav.js` pins the size; found by driving the phone drawer, which no closed-state screenshot could see |
+| `contact.mjs` / `refutation.mjs` ported without the record they read | the record is `instruments/wiring/eval/`, sha256-pinned; `test.mjs` draws the sheet and builds the four refutations from it every run |
+| the control build's "wiring (graph as submission)" row was **green while executing nothing** | it ran the pytest file as a script, which defines eight tests and runs none. Through pytest now, 8/8; the hash-pinned file is untouched |
+| a RED battery on the control build gave **no reason** | the runner discarded stdout and stderr. A failing battery prints its last eight lines now |
+| the control build ran **`python3 instruments/wiring/concord.mjs`** | the concord battery was registered in the Python list. RED on every control build it had been in, unreadable until the row above. Moved to the node list, and the runner now refuses a battery whose file extension does not match its interpreter |
+| check-wiring's registry check printed "the same batteries" over **a subset** | it matched only files named battery/selftest/test-engine. Seven `make test` rows had never run on the control page: the four cert-unit files, the interval enclosure test, the skyaudit and tensorlb Python verifiers. The check now compares every script in the test target against every argv in build-control (for-loops expanded, the pytest `cd` form resolved); all seven are registered; `replay.mjs` exits non-zero on a disagreement, declared as a patch in `corpus/frontier-port.json` |
+
 ## PAID — 2026-09-05 (second pass: what a page SHOWS)
 
 | what | how it was closed |

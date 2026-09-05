@@ -37,7 +37,13 @@
   display:inline-flex;align-items:center;justify-content:center;
   color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
 .navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
-.navlinks .ghbtn svg{display:block}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
 .gh-t{display:none}
 
 /* the drawer: pure CSS state — a checkbox the burger label toggles */
@@ -91,8 +97,11 @@
    TIMES ROMAN while every other page on the site is Inter. A foundation
    declared six times is not a foundation.
 
-   The page-local copies are still there and still win where they agree; taking
-   them out is a separate change, written down in HANDOFF. */
+   The page-local copies came out later the same day, one file at a time, each
+   page pixel-diffed at 1440 and 390 before the next: curveset, neural-geometry,
+   shape-hunt, simplex, bench.css (four pages) and index.css were byte-identical
+   to the two rules above and went entirely; interferometer keeps its own
+   margin/padding zeroing and the three body properties the shell does not set. */
 body { margin: 0; background: var(--bg); color: var(--ink-2);
   font-family: var(--font-sans); font-size: var(--text-body);
   line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
@@ -458,7 +467,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
    (68ch) competing with the ones design/tokens.js now emits. The rules this
    page actually needed are inlined below, from the same tokens; everything
    else went with the file.  What is left above this line is tokens.css. */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* box-sizing comes from the shell (2026-09-05); the margin/padding zeroing is this
+   page's own reset and stays. */
+*, *::before, *::after { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -467,17 +478,9 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 img, svg, canvas { display: block; max-width: 100%; }
 button, input, select { font: inherit; color: inherit; }
 
-body {
-  background: var(--bg);
-  color: var(--ink-2);
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  font-weight: var(--weight-body);
-  line-height: var(--leading-body);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  min-height: 100vh;
-}
+/* ground, ink, face, size, leading and smoothing come from the shell's body rule;
+   only what this page adds on top is declared here. */
+body { font-weight: var(--weight-body); text-rendering: optimizeLegibility; min-height: 100vh; }
 ::selection { background: var(--ink); color: var(--bg); }
 
 a { color: var(--ink); text-decoration: none; }
@@ -492,7 +495,6 @@ p a:hover, li a:hover, td a:hover { background-image: linear-gradient(var(--ink)
 
 
 html, body { height: 100%; overflow: hidden; }
-body { background: var(--bg); }
 /* the app is full-viewport and the site nav floats over it */
 .topnav { background: linear-gradient(var(--bg), rgba(10,10,12,0)); border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
 body { padding-top: 0; }

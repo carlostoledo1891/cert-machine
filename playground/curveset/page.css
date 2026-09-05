@@ -3,9 +3,6 @@
    THE GRAMMAR'S CLASSES LIVE HERE, not in each figure: `.w-decided`,
    `.w-computed`, `.w-chosen`, `.w-void`. warrant.js emits the class and the
    dash pattern; this file decides what those look like in this theme, once. */
-*, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink-2);
-  font-family: var(--font-sans); font-size: var(--text-body); line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; } a { color: inherit; }
 

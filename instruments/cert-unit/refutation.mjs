@@ -79,7 +79,7 @@ export function build(r, { minWidth = 560 } = {}) {
     g.wire('task', 'value', 'gh', 'norm');
     g.wires.push({ fromId: 'used', fromPort: 'value', toId: 'gh', toPort: 'norm' });
     fired.set('gh', V[r.truth]);
-    caption = `the verdict happened to be right; it was reached against the norm rounded to a whole number, `
+    caption = `the verdict, ${r.said}, happened to be right; it was reached against the norm rounded to a whole number, `
       + `which is a different quantity from the one the task stated`;
   }
   return { svg: toSVG(g, { fired, title: '', minWidth }), caption };

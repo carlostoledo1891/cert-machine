@@ -29,6 +29,97 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
 
 ══════════════════════════════════════════════════════════════════════════
+  SESSION OF 2026-09-05 (FIFTH). THE FOUR THINGS THE FOURTH LEFT, DONE — AND
+  THE CONTROL PAGE WAS FOUND TO BE RUNNING 57 OF THE 65 BATTERIES IT CLAIMED.
+  make test 65/65 · control page 65/65 · $0.00 spent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── THE SIX COPIES ARE OUT ── one file at a time, each page rebuilt and
+    PIXEL-DIFFED against a capture taken before the first deletion, at 1440
+    and 390. The noise floor was measured first (two captures of the untouched
+    site: ten pages byte-identical, interferometer's CONTROLS button jitters
+    between any two captures of the SAME build). Then:
+      curveset, neural-geometry, shape-hunt, simplex   identical, both widths
+      bench.css (affect, answer-shape, exact-geometry, plates)   identical
+      index.css                                        identical
+      interferometer   differs only inside the known jitter box; it KEEPS its
+                       own margin/padding zeroing and the three body
+                       properties the shell does not set (weight, rendering,
+                       min-height). Its duplicate body background went.
+    Seven files carried the rule, not six: index.css was the seventh.
+
+  ── THE OTHER SIX PAGES ARE STATIC, AND IT WAS CHECKED BY DRIVING THEM ──
+    affect, answer-shape, exact-geometry, neural-geometry, plates, shape-hunt:
+    zero <script>, zero listeners. The ONE control each carries is the shared
+    nav's phone drawer, so that was driven (a real click on the burger at 390)
+    on two pages: the checkbox flips, the links lay out, five of them. No hook
+    needed. The drive found what the closed-state screenshots never could:
+
+  ── THE GITHUB MARK WAS THREE SIZES ── 17px on the reports and four
+    instrument pages, 32px on the five pages that carry a page-wide
+    svg{width:100%;height:auto} for their figures (bench.css ×4, simplex), and
+    292px TALL inside the open phone drawer on those five — a cat the width of
+    the screen over the menu. The mark shipped with width/height ATTRIBUTES
+    only, which any stylesheet rule beats. design/nav.js pins the size now;
+    at 1440 the only pixels that moved on those five pages are the 31×30 box
+    of the mark itself, and the other six pages are byte-identical.
+
+  ── cert-unit's contact.mjs AND refutation.mjs HAVE THEIR RECORD ──
+    instruments/wiring/eval/{results,refutations}.json, copied from
+    frontier-apps and sha256-pinned in PROVENANCE.json beside them (frontier
+    has no git; the hash is the only pin). make-contact / make-refutations
+    point there and run: 135 rollouts in nine rows, four subgraphs.
+    test.mjs now checks the pin, draws the sheet (135 fills, 135 rings, 38
+    dashed references) and builds all four refutations from the record —
+    15/15. One caption fixed on the way: the reference-slip subgraph said
+    "the verdict happened to be right" without saying which verdict.
+    STILL NOT ON A PAGE. Putting three named models' rollouts on
+    /instruments/graph is public, claim-bearing content and wants the
+    operator's call; the outputs sit in instruments/cert-unit/out/.
+
+  ── LOOKED AT BETWEEN 768 AND 1440, AND ABOVE ── every instrument page at
+    1024, 1280, 1920 and 2560: zero horizontal overflow at all four (measured),
+    tops looked at at all four, mid- and bottom-page slices looked at at 1024.
+    Nothing broke. The ruler still drives 1440/768/390 only; adding 1024 is
+    ~20 s a run and an --accept, and is a choice, not a defect.
+
+  ── THREE THINGS THE CONTROL BUILD WAS DOING WRONG, found by rebuilding ──
+    The first control build of the session came back 57/58. The committed
+    batteries.json said 56/56, so the two rows the fourth session registered
+    had never been through a control build.
+    · "wiring concord (JS vs Python)" was filed in build-control's PYTHON list,
+      beside the pytest row it verifies. The control build handed a .mjs file
+      to python3, which refused it at line 1 — RED on every control build it
+      had ever been in, and it would have shipped RED on the front page. It is
+      in the node list now, and bat() refuses an entry whose file does not
+      match its interpreter, so the next misfiling fails the build, not a row.
+    · That RED had no reason: the runner discarded every battery's output. It
+      took a runner that prints a failing battery's last lines to read the
+      Python traceback naming concord.mjs. Kept.
+    · "wiring (graph as submission)" ran as `python3 test_wiring.py`, which
+      defines eight tests and executes none — green while running nothing. It
+      goes through pytest now (8/8); the hash-pinned file is untouched.
+    · And the check meant to catch all of this, check-wiring's "the two battery
+      registries agree", matched only files NAMED battery/selftest/test-engine.
+      Everything named otherwise could sit in one registry and not the other
+      while it printed "[N each]". Compared honestly — every $(NODE)/$(PY)
+      script in the test target against every argv in build-control — the
+      control page had never run SEVEN of `make test`'s rows: the four
+      cert-unit files, the interval enclosure test, the skyaudit and tensorlb
+      Python verifiers. All seven are registered on the control page now;
+      check 2 compares every script; replay.mjs exits non-zero on a
+      disagreement so a control build can run it (the patch is declared in
+      corpus/frontier-port.json with the new pin). 65 rows in both, and the
+      front page's "batteries green" now covers the same set `make test` does.
+    The nav fix is a shared-module change, so `make site` and `make reports`
+    were run: 49 reports, the landing, about, machine and oracle pages
+    rebuilt. Every record diff is a git stamp, a timestamp or a wall-clock
+    ms — the sequencing rule held, no certified number moved.
+
+  ── STILL OWED BY THE OPERATOR ── the Zenodo titles (unchanged, below).
+  ── λ(6) ── pid 90265 still alive, 43+ hours, untouched.
+
+══════════════════════════════════════════════════════════════════════════
   SESSION OF 2026-09-05 (FOURTH). THE PORT LANDED AND THE SITE WAS LOOKED AT.
   make test 65/65 · pushed to e1d5e39 · $0.00 spent.
 ══════════════════════════════════════════════════════════════════════════

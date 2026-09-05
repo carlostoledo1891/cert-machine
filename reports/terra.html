@@ -107,7 +107,13 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
   display:inline-flex;align-items:center;justify-content:center;
   color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
 .navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
-.navlinks .ghbtn svg{display:block}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
 .gh-t{display:none}
 
 /* the drawer: pure CSS state — a checkbox the burger label toggles */
@@ -1770,7 +1776,7 @@ node labs/mfg/multiplicity.js                     # &gt;= 3 solutions per coupli
 make test                                         # every battery, every red control</pre><p>The write-up: <span class="m">paper/terra-peaks.md</span> · PDF: <span class="m">paper/terra-peaks.pdf</span> — generated from the same certificates as this page. Refutations and independent re-runs are invited: carlos@carlostoledo.co.</p>
 </section>
 
-<footer><p>cert-machine · built 2026-09-05 · git b1b5bcc · every number from a VERIFIED certificate · phase-map floats pinned sha256 30b3cfe49514… · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p></footer>
+<footer><p>cert-machine · built 2026-09-05 · git 87a4c85 · every number from a VERIFIED certificate · phase-map floats pinned sha256 30b3cfe49514… · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p></footer>
 
 
 

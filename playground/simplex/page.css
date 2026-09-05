@@ -1,10 +1,4 @@
 /* page.css — the simplex instrument. Its own layout; tokens.css is all it borrows. */
-*, *::before, *::after { box-sizing: border-box; }
-body {
-  margin: 0; background: var(--bg); color: var(--ink-2);
-  font-family: var(--font-sans); font-size: var(--text-body); line-height: var(--leading-body);
-  -webkit-font-smoothing: antialiased;
-}
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
 p { margin: 0; }
 a { color: inherit; }

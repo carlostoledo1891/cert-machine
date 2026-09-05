@@ -4,7 +4,7 @@
  "sourceRepo": "~/Documents/frontier-apps",
  "declaredPatches": {
   "instruments/cert-unit/nodes.mjs": "lib/eqcert/{interval,radii,transcendental}.js -> ../interval/ (cert-machine's eqcert lives in instruments/interval/)",
-  "instruments/cert-unit/replay.mjs": "../mfg-terra/band-sigma-0.0008-0.008.json -> ../../playground/plates/data/ (cert-machine's own copy of the same band)",
+  "instruments/cert-unit/replay.mjs": "../mfg-terra/band-sigma-0.0008-0.008.json -> ../../playground/plates/data/ (cert-machine's own copy of the same band); and (2026-09-05) exits non-zero on any disagreement, so the control build can run it as a battery",
   "instruments/cert-unit/reds.mjs": "same band repoint as replay.mjs",
   "instruments/cert-unit/trace.mjs": "same band repoint, plus ../interferometer/cert-cp.js -> ../../playground/interferometer/cert-cp.js",
   "instruments/cert-unit/render.mjs": "the CSS block's literal hex was frontier's palette; three values (#111114, #e8e8ee, #83838f) are on no scale this site owns and check-wiring caught them. Replaced with house tokens, each keeping the original as its var() fallback so the module still draws outside a page that defines them."
@@ -126,7 +126,7 @@
    "source": "experiments/cert-unit/replay.mjs",
    "dest": "instruments/cert-unit/replay.mjs",
    "sourceSha256": "f2ce75bdc0b53a126f9982975086fb1367bce0129200adbaf5c66d0cfee5d1cb",
-   "destSha256": "0a50227a7c13fcac3e0ca638e780fadeceda9b46ea7246509c21212e6774d355",
+   "destSha256": "923cbc907c4912ba00dfe43fa42113edc54ba5be87658fd8314429e8af4fdab9",
    "patched": true
   },
   {

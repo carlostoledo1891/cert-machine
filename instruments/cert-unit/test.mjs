@@ -3,6 +3,10 @@
 import { CERTIFIED, REFUSED, REFUTED, WiringRefused, graph } from './graph.mjs';
 import { FLOAT, HypothesisMismatch, INTERVAL, KindRefused, Val, flt, hyp, ivl } from './port.mjs';
 import { assertMonotone, bracket, concord, floatScreen, intervalEval, IV, MONOTONE, naiveGrader } from './nodes.mjs';
+import { contactSheet } from './contact.mjs';
+import { build as refute } from './refutation.mjs';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 
 const IVsqr = (x) => IV.sqr(x);
 
@@ -93,6 +97,55 @@ check('translating the region AND the field may not move the ceiling', () => {
 check('translating only the region MAY move it — and the naive red fails here', () => {
   const r = assertMonotone({ name: 'translate region only', before: 0.2995, after: 0.3711, direction: MONOTONE.INVARIANT });
   if (r.held) throw new Error('the ill-founded red should not hold; that was the false alarm');
+});
+
+/* ---- the two read-only renderers, against the record they were ported for ----
+   contact.mjs and refutation.mjs arrived without eval/results.json and sat
+   unused. The record lives at instruments/wiring/eval now, pinned by sha256
+   because frontier-apps has no git; these checks read the pin, the record and
+   the renderers together, so a record that drifts or a renderer that stops
+   drawing every rollout fails here rather than on a page. */
+const EVAL = new URL('../wiring/eval/', import.meta.url);
+const sha = (u) => createHash('sha256').update(readFileSync(u)).digest('hex');
+const PROV = JSON.parse(readFileSync(new URL('PROVENANCE.json', EVAL), 'utf8'));
+check('the lattice-claims eval record matches its provenance pin', () => {
+  for (const f of PROV.files) {
+    const got = sha(new URL(f.file, EVAL));
+    if (got !== f.sha256) throw new Error(`${f.file}: sha256 ${got.slice(0, 12)}… but PROVENANCE pins ${f.sha256.slice(0, 12)}…`);
+  }
+});
+const RESULTS = JSON.parse(readFileSync(new URL('results.json', EVAL), 'utf8'));
+const REFUTATIONS = JSON.parse(readFileSync(new URL('refutations.json', EVAL), 'utf8'));
+check('the contact sheet draws every rollout: one fill, one ring, one reference mark each', () => {
+  const PORTS = ['ADMISSIBLE', 'REFUSED', 'STRADDLES', 'NEEDS_DATA', 'no answer'];
+  const rows = [];
+  for (const m of ['Opus 5', 'Sonnet 5', 'Haiku 4.5']) for (const rg of ['declared', 'printed', 'underspecified'])
+    rows.push({ label: `${m} ${rg}`, cells: RESULTS.filter((x) => x.model === m && x.rung === rg)
+      .map((x) => ({ fired: x.verdict || 'no answer', truth: x.truth, wellFormed: x.wf === 1 })) });
+  const n = rows.reduce((a, r) => a + r.cells.length, 0);
+  if (n !== RESULTS.length) throw new Error(`${n} cells drawn for ${RESULTS.length} rollouts — a model or rung name drifted`);
+  const svg = contactSheet(rows, PORTS);
+  const count = (re) => (svg.match(re) || []).length;
+  const fills = count(/class="cs fired"/g), rings = count(/class="ck"/g), solid = count(/class="cr solid"/g), dashed = count(/class="cr dashed"/g);
+  if (fills !== n) throw new Error(`${fills} fills for ${n} rollouts`);
+  if (rings !== n) throw new Error(`${rings} truth rings for ${n} rollouts`);
+  const slipped = RESULTS.filter((x) => x.wf !== 1).length;
+  if (dashed !== slipped || solid !== n - slipped) throw new Error(`${dashed} dashed / ${solid} solid marks for ${slipped} slipped references`);
+});
+check('every recorded refutation builds as a subgraph that names its own facts', () => {
+  const kinds = new Set(REFUTATIONS.map((r) => r.kind));
+  for (const k of ['wrong_verdict', 'straddle_called_definite', 'confident_on_missing', 'reference_slip'])
+    if (!kinds.has(k)) throw new Error(`the record has no ${k} failure`);
+  for (const r of REFUTATIONS) {
+    const { svg, caption } = refute(r);
+    if (!/<svg/.test(svg)) throw new Error(`${r.kind}: no drawing`);
+    if (!caption.includes(r.said)) throw new Error(`${r.kind}: the caption does not say what the model answered (${r.said})`);
+    if (!svg.includes(`it answered ${r.said}`) && r.kind !== 'reference_slip') throw new Error(`${r.kind}: the claim node is missing`);
+  }
+  /* the third shape's finding is a deciding port with no wire: the port must be drawn */
+  const missing = REFUTATIONS.find((r) => r.kind === 'confident_on_missing');
+  const port = String(missing.facts.missing).split('.').pop();
+  if (!refute(missing).svg.includes(`>${port}<`)) throw new Error(`the unwired port "${port}" is not drawn, so the finding is invisible`);
 });
 
 console.log(`\n${fail === 0 ? 'ALL GREEN' : fail + ' FAILED'} — ${pass} passed, ${fail} failed`);
