@@ -12,7 +12,8 @@
   "the marks": "circumplex plate, envelope ruler, contact-sheet glyph, deformation field, ensemble renderer \u2014 designed for their own data; generalising them early makes them worse (operator instruction).",
   "template.js": "cert-machine's design/template.js + nav.js win: they carry the nav, SEO, OG and the gates, and frontier's 72-line shell carries none of that.",
   "tokens.css / base.css": "already ported 2026-09-01 into design/tokens.js under house names; the reference bytes are the frontier-ref rows below and still match.",
-  "frontier-theme.js + echarts": "deferred. Operator correction 2026-09-05: only 4 of 14 frontier pages load ECharts, all older; the chart engine is 'write the mark, derive its ink, emit a string'."
+  "frontier-theme.js + echarts": "deferred. Operator correction 2026-09-05: only 4 of 14 frontier pages load ECharts, all older; the chart engine is 'write the mark, derive its ink, emit a string'.",
+  "the eval harness": "environments/lattice-claims/eval/ is the origin's runner; cert-machine has its own in instruments/envs. The package and its tests came across; the runner did not."
  },
  "files": [
   {
@@ -153,6 +154,69 @@
    "dest": "design/frontier-ref/base.css",
    "sourceSha256": "91d8172f51788d8ec5fb7723044c5e6b8dab923d1f5b33733f06a5251e418f7f",
    "destSha256": "91d8172f51788d8ec5fb7723044c5e6b8dab923d1f5b33733f06a5251e418f7f",
+   "patched": false
+  },
+  {
+   "source": "environments/lattice-claims/lattice_claims/__init__.py",
+   "dest": "instruments/wiring/lattice_claims/__init__.py",
+   "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "destSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "patched": false
+  },
+  {
+   "source": "environments/lattice-claims/lattice_claims/forgeries.py",
+   "dest": "instruments/wiring/lattice_claims/forgeries.py",
+   "sourceSha256": "5601338bb686413e2c25738782130695d4456e61dda5ce383978973ea1fb91f7",
+   "destSha256": "5601338bb686413e2c25738782130695d4456e61dda5ce383978973ea1fb91f7",
+   "patched": false
+  },
+  {
+   "source": "environments/lattice-claims/lattice_claims/generate.py",
+   "dest": "instruments/wiring/lattice_claims/generate.py",
+   "sourceSha256": "a7b2ec9b9a76ed1cbb4d2a8a8b124b04575e635af4b1e8e54ba562bdd25533a6",
+   "destSha256": "a7b2ec9b9a76ed1cbb4d2a8a8b124b04575e635af4b1e8e54ba562bdd25533a6",
+   "patched": false
+  },
+  {
+   "source": "environments/lattice-claims/lattice_claims/taskset.py",
+   "dest": "instruments/wiring/lattice_claims/taskset.py",
+   "sourceSha256": "35b3490037393f763fe6bc7e695ef5119d811ca6b953b314f16dbe4d175e781d",
+   "destSha256": "35b3490037393f763fe6bc7e695ef5119d811ca6b953b314f16dbe4d175e781d",
+   "patched": false
+  },
+  {
+   "source": "environments/lattice-claims/lattice_claims/wiring.py",
+   "dest": "instruments/wiring/lattice_claims/wiring.py",
+   "sourceSha256": "3fd98b25454a9fedb76d4f7235f3c14ae53234a57e2e553bf0035cea251fd437",
+   "destSha256": "3fd98b25454a9fedb76d4f7235f3c14ae53234a57e2e553bf0035cea251fd437",
+   "patched": false
+  },
+  {
+   "source": "environments/lattice-claims/lattice_claims/certify/__init__.py",
+   "dest": "instruments/wiring/lattice_claims/certify/__init__.py",
+   "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "destSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "patched": false
+  },
+  {
+   "source": "environments/lattice-claims/lattice_claims/certify/exact.py",
+   "dest": "instruments/wiring/lattice_claims/certify/exact.py",
+   "sourceSha256": "f5a8ff133952c353cc98e1764c73260837e7070b564924231b3912422d860d4e",
+   "destSha256": "f5a8ff133952c353cc98e1764c73260837e7070b564924231b3912422d860d4e",
+   "patched": false
+  },
+  {
+   "source": "environments/lattice-claims/lattice_claims/certify/naive.py",
+   "dest": "instruments/wiring/lattice_claims/certify/naive.py",
+   "sourceSha256": "97e565e8d6d1a6d170f4e4d422e7c1d39003079a8d7942bdb8ebfc30f7cf90a4",
+   "destSha256": "97e565e8d6d1a6d170f4e4d422e7c1d39003079a8d7942bdb8ebfc30f7cf90a4",
+   "patched": false
+  },
+  {
+   "source": "environments/lattice-claims/tests/test_wiring.py",
+   "dest": "instruments/wiring/test_wiring.py",
+   "sourceSha256": "47e03d941d7a9f3ce039c11bd890759ed6a3382b831d94521d10020d04be6784",
+   "destSha256": "47e03d941d7a9f3ce039c11bd890759ed6a3382b831d94521d10020d04be6784",
    "patched": false
   }
  ]
