@@ -46,6 +46,15 @@ being shown not to be a defect — never by going quiet.
 
 ---
 
+## THE STANDING DEBT OF THIS WHOLE PASS (2026-09-05)
+
+**Nothing in the 2026-09-05 sessions was confirmed by looking at a page.** The
+gates are green; that is not the same claim. Every row marked PAID below was
+verified by measurement only, and the operator found defects after two of those
+rows were written. Treat the PAID list as *changed*, not as *right*, until
+someone opens the pages. That re-review is the first item of work, ahead of
+everything else in this file.
+
 ## OPEN
 
 ### 0 · THE GATE THAT DID NOT EXIST — now it does
