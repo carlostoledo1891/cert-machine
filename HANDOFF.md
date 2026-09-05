@@ -29,170 +29,71 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
 
 ══════════════════════════════════════════════════════════════════════════
-  THIS SESSION FAILED. READ THIS BEFORE ANYTHING ELSE. (2026-09-05)
+  SESSION OF 2026-09-05 (FOURTH). THE PORT LANDED AND THE SITE WAS LOOKED AT.
+  make test 65/65 · pushed to e1d5e39 · $0.00 spent.
 ══════════════════════════════════════════════════════════════════════════
 
-  THE OPERATOR'S VERDICT: "This session has failed." It is the correct call
-  and the reason is one sentence: A DESIGN SESSION RAN FOR HOURS WITHOUT
-  LOOKING AT THE PAGES.
+  The session before this one failed for one reason: it shipped a redesign
+  without opening a page. This one opened them. Sixteen defects were written
+  down first (VISUAL-REVIEW-2026-09-05.md), then fixed, then looked at again.
 
-  WHAT WENT WRONG, so the next session does not repeat it:
+  ── WHAT IS TRUE NOW ──
+    · THE DASH CENSUS IS AT ZERO. It opened at 25 distinct patterns and 133
+      drifting uses. tools/check-grammar.js, blessed at zero, so the next stray
+      pattern fails on sight. design/grammar.js holds the only dash literals.
+    · THE SHAPE SCALE IS GATED. Containers take radius tokens; marks at or
+      below 5px keep literals. check-wiring, all 66 pages.
+    · DARK IS LOCKED. design/battery.js T3b asks all 7 CSS surfaces for
+      prefers-color-scheme, data-theme and any light color-scheme branch.
+      The vendored maplibre light blocks are neutralised (declared patch).
+    · THE RULER DRIVES 1440, 768 AND 390. 792 numbers. Zero horizontal
+      overflow at every width.
+    · check-render splits DEAD marks (no paint, or a paint server not on the
+      page — hard fail) from FAINT ones (under 1.35:1 — ratcheted), with two
+      red controls that plant a dangling paint server in a real browser.
+    · cert-unit is ported, proven (39/39 TERRA cells, 0.00e+0) AND USED:
+      /instruments/graph. lattice-claims is ported as instruments/wiring/,
+      and concord.mjs requires both engines to refuse the same wiring in the
+      same words.
 
-  1. I SHIPPED A REDESIGN I COULD NOT SEE. Image reading stopped working part
-     way through (the conversation exhausted its image budget) and I KEPT
-     GOING on measurement alone — ink percentages, bounding boxes, spine
-     counts. Numbers are not a substitute for looking. The correct move the
-     moment the screenshots stopped rendering was to STOP and say so.
-  2. THE OPERATOR FOUND DEFECTS I HAD ALREADY DECLARED FIXED, TWICE. After
-     "the cards are fixed" they reported black charts and a lost text block.
-     After that, more. Every one of those was findable by opening the page.
-  3. I CHURNED THE SAME DECISION FOUR TIMES. The card plate went 4/3 -> the
-     art's own ratio -> square with a crop -> square, letterboxed, no fill.
-     Each step was reasoned from a metric and none was checked by eye. Three
-     of those four shapes reached a commit.
-  4. I CORRUPTED TWO CERTIFICATE FILES with a regex rewrite of code that
-     WRITES certificates (the comma operator turned the argument into 1, and
-     both files were written as "1"). Restored from git within the minute,
-     but it should never have been attempted that way.
-  5. I ANSWERED "is it fixed?" WITH A MEASUREMENT instead of a screenshot,
-     repeatedly, and the measurements were sometimes wrong about their own
-     subject — check-render's first run called four figures on
-     reports/glide-band.html blank when one of them has 314 elements in it.
+  ── THE THREE DEAD CONTROLS THIS SESSION FOUND, AND HOW ──
+    None was visible to a screenshot of the initial state. All three came from
+    trying to give a page the #hash dev hook design/CONTRACT.md asks for.
+      1 interferometer's panel toggle flipped a class no stylesheet listened
+        for. It also laid the sky out across the full viewport because
+        panelW() queried `.panel` when the page calls it `.ov-panel`.
+      2 curveset's DIAL WAS DEAD on the page whose headline is "Drag the
+        assumption. Watch the answer pay for it." The data block was emitted
+        AFTER the code that reads it, so the IIFE returned on line two. And I
+        had broken its require shim the same morning by adding a dependency to
+        warrant.js without adding it to the shim's manual list.
+      3 (not a control, same family) /instruments/graph shipped in Times Roman
+        and at the wrong left edge, because `body` and `*{box-sizing}` were
+        declared in six page.css files each and in the shell in neither.
 
-  WHAT IS ACTUALLY TRUE RIGHT NOW: the batteries are green (58/58), the gates
-  are green, and NONE OF THAT IS EVIDENCE THE SITE LOOKS RIGHT. Everything
-  below was changed and pushed WITHOUT VISUAL CONFIRMATION.
+  ── WHAT IS ACTUALLY LEFT ──
+    · REMOVE THE SIX COPIES. playground/design/shell.css now declares `body`
+      and the box-sizing reset. Six page.css files still declare their own;
+      they agree today. Deleting them is the fix, one file at a time, looking
+      at each page after.
+    · THE #hash HOOK IS ON FOUR PAGES (interferometer, simplex, curveset,
+      graph). The other six instrument pages are static and have nothing to
+      drive — confirm that before assuming it.
+    · cert-unit's contact.mjs and refutation.mjs are ported and UNUSED. They
+      need frontier's eval/results.json, which was deliberately not ported.
+      Either port that record or point them at a record this repo owns.
+    · NOTHING HAS BEEN LOOKED AT BETWEEN 768 AND 1440, or above 1440.
+    · The lattice-claims result worth knowing before investing: two models
+      produced 15/15 legal graphs and then routed "certified" all 15 times,
+      scoring exactly the base rate. Composing a verifier is easy for them.
 
-  ── CHANGED AND UNVERIFIED BY EYE (a57afcd and the four commits before it) ──
-    · design/nav.js — ONE nav for the whole site, now on /instruments too;
-      order Reports · Instruments · Machine · About; links made RELATIVE so a
-      file:// preview resolves. Every page's header changed.
-    · /instruments cards — stripped to title + description + art (four text
-      blocks removed per card), plate made SQUARE with NO FILL, arts stretched
-      to the plate and letterboxed. The gathering page is materially redrawn.
-    · Figure primitives (.ch .ord .clo .mst .pt .lb .ax .cs-*) moved into the
-      shared component layer. This changes how figures paint on EVERY page
-      that embeds one, not only the index.
-    · playground/design/shell.css — .pg-nav removed, body padded 60px under
-      the fixed nav. interferometer's full-viewport stage re-anchored.
-    · design/app-shell.js — the light palette deleted (it was rendering at
-      2.73:1 on a dark ground). The skyaudit app has not been looked at since.
-    · Plate IV's label moved; three plate.js files had ground rects removed.
-    · reports/refusals.html null cells, /machine backticks, 1,337 stray commas.
-
-  ── WHAT THE NEXT SESSION MUST DO FIRST ──
-    OPEN THE PAGES. In a fresh session, screenshots work. Look at, at minimum:
-      site/index.html · site/instruments/index.html · three instrument pages
-      including curveset and plates · two reports · site/apps/skyaudit
-    at 1440 AND at 390. Compare against what the operator says is wrong.
-    DO NOT START FIXING until the list is written down from looking.
-
-  ── THE GATES THAT NOW EXIST (they are green and they are not enough) ──
-    make test runs 58. The design-relevant ones:
-      tools/check-measure.js  layout geometry, 66 pages, ratcheted
-      tools/check-render.js   markers, invisible marks, INK per figure
-      tools/check-wiring.js   registries, type, palette, grammar, archive
-    check-render was written this session and its first run DID find real
-    defects. It also mismeasured three figures. Trust it as a floor, never as
-    a verdict, and never in place of opening the page.
-
-  ── STILL OWED BY THE OPERATOR, unchanged ──
+  ── STILL OWED BY THE OPERATOR ──
     THE ZENODO TITLE on 10.5281/zenodo.22285003 and the concept record
     ...22225860 (and 22257596). corpus/zenodo.json titleLag.howToClose has the
     clicks. Metadata edits mint no new DOI. check-wiring prints it every run.
 
-  ── λ(6) ── pid 90265, now 28+ hours, still nothing past node 119. Three runs
+  ── λ(6) ── pid 90265, now 30+ hours, still nothing past node 119. Three runs
     have died there. THE FIX IS MATHEMATICAL. Do not restart it hoping.
-
-══════════════════════════════════════════════════════════════════════════
-  SESSION OF 2026-09-05 (SECOND): THE LOOK, THEN THE PORT. $0.00 spent.
-══════════════════════════════════════════════════════════════════════════
-
-  PART 1 — THE VISUAL REVIEW THAT THE LAST SESSION OWED. Eleven pages opened
-  at 1440 and 390, captured in scrolled slices so nothing sat below a capture
-  fold. The list is VISUAL-REVIEW-2026-09-05.md, 16 rows, each with the shot
-  that shows it. NOT YET RULED ON BY THE OPERATOR — do not start fixing.
-  The headline rows:
-    · /instruments' grammar legend is a grid child of `.cards`, so it lands in
-      ONE card column at x=216 while the site sits at x=168, text crushed.
-    · Its REFUSED swatch is a SOLID BLACK RECT — `.w-void` is deliberately
-      given no paint (the hatch is a <pattern> whose id lives in a figure that
-      this page does not have), so it falls to SVG's default black.
-    · The affect card overprints and clips its own labels.
-    · Three different card grounds are in use across the site.
-    · interferometer's u-v inset is cut in half by the control rail.
-  TWO THINGS MEASUREMENT GOT WRONG that looking settled: glide-band's figures
-  render FULLY (check-render calling them blank is the gate lying), and
-  exact-geometry's 0.41% ink is a genuinely sparse 4-point drawing.
-  AND: skyaudit CANNOT be reviewed from file:// — it loads its style/bundle
-  from absolute /apps/ paths, so the map is blank on disk and correct over
-  HTTP. Serve before judging it.
-
-  PART 2 — THE FRONTIER PORT, ordered by the operator ("this legacy must end
-  now"). Source ~/Documents/frontier-apps is READ-ONLY and is NOT a git repo,
-  so sha256 is the pin: corpus/frontier-port.json records 20 files, 4 with a
-  declared import patch.
-
-    ALREADY DONE, 2026-09-01, and nobody had recorded it findably: tokens.css
-    and base.css are in design/tokens.js under house names, reference bytes in
-    design/frontier-ref/. Re-verified matching. THE CSS WAS HERE; THE
-    CONTRACTS WERE NOT. That inverted the plan.
-
-    NEW: design/grammar.js — the closed set of dash patterns.
-         design/CONTRACT.md — both invariants, merged with what was here.
-         tools/check-grammar.js — the ratcheted dash census, in make test.
-         instruments/cert-unit/ — the whole 1,745-line runtime, ported.
-
-    WHAT THE CENSUS FOUND ON FIRST CONTACT: 25 distinct dash patterns where
-    the contract permits five. Cause was TWO LINES in playground/warrant.js
-    deriving the dash from the STROKE WIDTH, so every width minted a pattern —
-    including "1.04 5.460000000000001", a float artifact in published HTML.
-    It also found `6 4` and `1.6 3.4` live on /instruments/answer-shape: the
-    exact pair frontier's own contract records as the one time dash was used
-    for IDENTITY. The violation had travelled with the CSS; the contract that
-    forbade it had not. Both deleted — the page was already carrying
-    grammar.js's IDENTITY ladder underneath them, value for value.
-    25 -> 17 patterns, conforming uses 13 -> 89. warrant.js's licence to use
-    dash for identity in single-standing figures is WITHDRAWN.
-
-    CERT-UNIT REPLAY, run first as instructed: TERRA's certified sigma-band
-    re-derived through the graph, 39 of 39 cells IDENTICAL, worst relative
-    difference exactly 0.00e+0 — matching the origin result. test.mjs 12/12,
-    reds.mjs 6/6 including the deliberately-failing control, editor.test.mjs
-    green. All five wired into make test.
-
-  ── THE PORT IS CLOSED ──
-    · THE DASH CENSUS IS AT ZERO. It opened at 25 distinct patterns and 133
-      drifting uses; it reads 129 conforming uses and NO drift, blessed at zero
-      so the next stray pattern fails on sight. Every one was classified by
-      what the mark STANDS ON. Two legends disagreed with the lines they
-      describe. The simplex trail carried one pattern on its page and another
-      on its card. The plates witness was dashed against a solid ceiling when
-      both are DECIDED and opacity already separated them.
-    · THE SHAPE SCALE now has the gate the palette already had: tokens.js
-      offers four radii and the site shipped SEVEN container values against
-      them, including 378 literal 10px — the token's own value, by hand.
-      Containers take tokens; marks at or below 5px keep their literals.
-      check-wiring gates it over all 66 pages (its walk had been 62).
-    · ECHARTS IS NOT PORTED, AND THAT IS THE FINISHED STATE. This repository
-      has zero ECharts pages; charts.js already IS the engine the operator
-      described. The doctrine landed, the library was not needed. Written down
-      in design/CONTRACT.md so nobody re-opens it.
-    · THE #hash DEV HOOK IS LIVE on /instruments/interferometer:
-          #set=panel:hidden,mode:field,ring:0
-      It found nothing new — it PROVED the panel fix through the interaction
-      path, which a screenshot of the initial state cannot reach. The other
-      eight instruments do not carry one yet; that is the next thing.
-    · B-1 IS CLOSED AS NOT-A-DEFECT. /instruments cards and report figures keep
-      different grounds on purpose — both from tokens, a card tile is not an
-      exhibit in prose, and the transparent plate was arrived at by measurement.
-
-  ── WHAT IS ACTUALLY LEFT ──
-    · The #hash hook on the other eight instrument pages.
-    · cert-unit's editor/render/contact/refutation are ported and tested but
-      nothing on the site USES them yet. The runtime is proven (39/39 TERRA
-      cells, 0.00e+0) and unemployed.
-    · No visual review has been done at any width between 390 and 1440.
 
 ══════════════════════════════════════════════════════════════════════════
 
