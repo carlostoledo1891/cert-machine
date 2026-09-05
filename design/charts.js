@@ -126,6 +126,27 @@ const open = ({ w, h, alt, cls }) =>
   '  <svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + escAttr(alt) + '"'
   + (cls ? ' class="' + cls + '"' : '') + '>';
 const close = '  </svg>';
+/* KEEP A LABEL'S OWN EXTENT INSIDE THE DRAWING, 2026-09-05. txt() places an
+   anchor; the glyphs run out from it, so a middle-anchored tick label sitting on
+   the frame's first or last gridline puts half its width outside the figure. It
+   never showed at 1440 because the frames are wide there — it showed the moment
+   the layout ruler was given 768, on six report pages, as SVG text with
+   overflow:visible spilling past its own box. Same bug as the affect card's
+   clipped labels, in the other renderer.
+
+   The advance width is a BOUND, not a measurement — measuring text needs a
+   browser, and erring wide costs a couple of px of margin while erring narrow
+   costs a cut word. A label wider than the whole drawing is centred rather than
+   pinned to an edge, so it is cut evenly instead of losing one end. */
+const CH_ADV = 5.6;
+function clampX(f, x, s, anchor) {
+  const w = String(s).length * CH_ADV;
+  const reachL = anchor === 'start' ? 0 : anchor === 'end' ? w : w / 2;
+  const reachR = anchor === 'start' ? w : anchor === 'end' ? 0 : w / 2;
+  const lo = 2 + reachL, hi = f.w - 2 - reachR;
+  return hi >= lo ? Math.max(lo, Math.min(hi, x)) : f.w / 2;
+}
+
 const txt = (x, y, s, cls, anchor, extra) =>
   '    <text x="' + (+x).toFixed(1) + '" y="' + (+y).toFixed(1) + '"'
   + (anchor ? ' text-anchor="' + anchor + '"' : '') + ' class="' + (cls || 't-ax') + '"'
@@ -147,7 +168,7 @@ function axes(f, o) {
     const lab = t.t !== undefined ? t.t : compact(t.v !== undefined ? t.v : t);
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (f.T + f.ph) + '" x2="' + x.toFixed(1)
       + '" y2="' + (f.T + f.ph + 5) + '" stroke="' + AXIS + '" stroke-width="1"/>');
-    out.push(txt(x, f.T + f.ph + 20, lab, 't-ax', 'middle'));
+    out.push(txt(clampX(f, x, lab, 'middle'), f.T + f.ph + 20, lab, 't-ax', 'middle'));
   }
   out.push('    <line x1="' + f.L + '" y1="' + (f.T + f.ph) + '" x2="' + (f.L + f.pw)
     + '" y2="' + (f.T + f.ph) + '" stroke="' + AXIS + '" stroke-width="1"/>');
@@ -352,7 +373,7 @@ function band(o) {
     const x = f.px(m.x);
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + f.T + '" x2="' + x.toFixed(1) + '" y2="' + (f.T + f.ph)
       + '" stroke="' + (m.token || CTX) + '" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"/>');
-    out.push(txt(x, f.T + 13, m.t, 't-note', m.anchor || 'middle'));
+    out.push(txt(clampX(f, x, m.t, m.anchor || 'middle'), f.T + 13, m.t, 't-note', m.anchor || 'middle'));
   }
   if (o.hover !== false) for (const p of pts) {
     out.push('    <rect ' + hit('x="' + (f.px(p[0]) - 6).toFixed(1) + '" y="' + f.T + '" width="12" height="' + f.ph
@@ -743,7 +764,7 @@ function sparkline(vals, o) {
     + '" r="3.5" fill="' + CAT[0] + '" stroke="' + SURFACE + '" stroke-width="2"/></svg>';
 }
 
-module.exports = {
+module.exports = { clampX,
   frame, axes, open, close, txt, legend, legendLines, hit, script, HATCH_DEF,
   lines, band, bars, dist, dumbbell, strip, intervals, segments, scatter, lines2, sparkline,
   compact, decades, nf, CAT, SEQ, CTX, GRID, AXIS, SURFACE
