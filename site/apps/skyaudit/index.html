@@ -243,7 +243,13 @@ button{font-family:inherit}
 .as-btn:hover{border-color:var(--sig);color:var(--sig)}
 .as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
 select.as-sel{font-family:var(--f-mono);font-size:11px;background:var(--sunk);color:var(--ink);
-  border:1px solid var(--rule);border-radius:8px;padding:6px 8px;color-scheme:light dark;max-width:100%}
+  border:1px solid var(--rule);border-radius:8px;padding:6px 8px;color-scheme:dark;max-width:100%}
+/* This select said color-scheme:light dark until 2026-09-05, and it was the last of the
+   light theme still breathing. It tells the browser this <select> supports
+   BOTH schemes, so on a light-OS machine the native dropdown POPUP — the part
+   the page cannot style — rendered light inside a dark app. The palette above
+   it was deleted on 2026-09-04; this line survived because design/battery.js's
+   one-theme check only reads tokens.js's :root block and never saw this file. */
 select.as-sel:hover{border-color:var(--sig)}
 .as-seg{display:inline-flex;background:var(--sunk);border:1px solid var(--rule);border-radius:9px;padding:2px;gap:2px}
 .as-seg button{border:0;background:transparent;font-family:var(--f-mono);font-size:10.5px;
@@ -271,6 +277,32 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
 .as-scrub::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--sig);border:2px solid var(--paper)}
 
 .maplibregl-ctrl-attrib{font-size:10px}
+/* THE MAP CONTROLS WERE THE LAST WHITE THING IN A DARK APP (2026-09-05).
+   src/app.js adds a NavigationControl at top-left, and maplibre styles its own
+   controls for a light page: the ctrl-group background is hard-coded white in
+   the vendored stylesheet, with dark glyphs to sit on it. Nothing here
+   ever overrode it, so a white rounded box with a dark compass needle sat on the
+   dark map — the defect logged as D-1 in VISUAL-REVIEW-2026-09-05.md, which I
+   had guessed was a stray element and which turns out to be third-party CSS
+   assuming a light ground.
+
+   The group takes app tokens; the glyphs are inverted rather than re-encoded,
+   because both of maplibre's icon sets are dark-on-transparent (the default
+   fills a dark grey, the light-scheme branch fills black by omission).
+   Inverting either gives a light glyph, so the control is dark on every OS.
+   The only residue is a shade of glyph brightness by system — both correct for
+   a dark app, and not worth forking a vendor file over.
+
+   AND NO LITERAL COLOURS IN HERE: this comment ships INTO the page, because it
+   sits inside a template literal, and check-wiring reads built pages for hex
+   outside the palette. It caught this comment on its first run. */
+.maplibregl-ctrl-group{background:var(--sunk);border:1px solid var(--rule);
+  border-radius:8px;box-shadow:none;overflow:hidden}
+.maplibregl-ctrl-group button{background:transparent}
+.maplibregl-ctrl-group button+button{border-top:1px solid var(--rule)}
+.maplibregl-ctrl-group button:hover{background:var(--surface)}
+.maplibregl-ctrl-group button:not(:disabled) .maplibregl-ctrl-icon{filter:invert(1) opacity(.78)}
+.maplibregl-ctrl-group button:disabled .maplibregl-ctrl-icon{filter:invert(1) opacity(.3)}
 .as-panel::-webkit-scrollbar{width:6px}
 .as-panel::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
 

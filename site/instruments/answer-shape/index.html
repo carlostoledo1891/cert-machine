@@ -11,9 +11,18 @@
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="../design/tokens.css">
 <style>
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
-  background:color-mix(in srgb, var(--paper) 82%, transparent);
-  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--rule)}
 .topnav-in{padding:0 var(--gutter);height:60px;
   display:flex;align-items:center;justify-content:space-between;gap:24px}

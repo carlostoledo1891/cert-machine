@@ -92,6 +92,46 @@ const CHART_SURFACE = PAL['--sunk'];
     && !/prefers-color-scheme/.test(css) && !/data-theme/.test(css);
   check('T3 the cascade is ONE deliberate theme state — dark by declaration, no dead branches', ok);
 }
+{
+  /* T3b — THE SAME QUESTION, ASKED OF EVERY SURFACE THAT SHIPS CSS.
+     T3 above reads tokens.js's :root block and nothing else, so on 2026-09-05 it
+     was green while design/app-shell.js still declared `color-scheme:light dark`
+     on its <select> — the last of the deleted light theme, telling the browser to
+     render the native dropdown popup light on a light-OS machine. A one-theme
+     gate that only inspects one file is a gate over an incomplete set, which is
+     the defect check-wiring exists to name.
+
+     Every generator that emits CSS is concatenated and asked the same three
+     questions. Static .css files are read from disk for the same reason. */
+  const path = require('path');
+  const fs = require('fs');
+  const R = path.resolve(__dirname, '..');
+  const surfaces = [];
+  /* PROSE IS NOT A DECLARATION. These files explain, at length, the light theme
+     they deleted — so a gate that greps the raw text flags its own documentation.
+     CSS comments are stripped before the questions are asked, the same respect
+     check-render pays to prose in a sentence. */
+  const decls = (t) => String(t).replace(/\/\*[\s\S]*?\*\//g, '');
+  const add = (name, fn) => { try { surfaces.push([name, decls(fn())]); } catch (e) { surfaces.push([name, 'THREW: ' + e.message]); } };
+  add('tokens.rootCss', () => T.rootCss());
+  add('nav.navCss', () => require(path.join(R, 'design/nav.js')).navCss());
+  add('app-shell.appCss', () => require(path.join(R, 'design/app-shell.js')).appCss());
+  add('template.css', () => require(path.join(R, 'design/template.js')).css());
+  add('components.sharedCss', () => require(path.join(R, 'playground/design/components.js')).sharedCss());
+  for (const f of ['playground/design/shell.css', 'playground/design/bench.css']) {
+    add(f, () => fs.readFileSync(path.join(R, f), 'utf8'));
+  }
+  global.__lightLeak = (t) => /prefers-color-scheme/.test(t) || /data-theme/.test(t)
+    || /color-scheme\s*:\s*(light\b|[^;}]*\blight\s+dark)/.test(t);
+  const leaks = [];
+  for (const [name, text] of surfaces) {
+    if (/prefers-color-scheme/.test(text)) leaks.push(name + ': prefers-color-scheme');
+    if (/data-theme/.test(text)) leaks.push(name + ': data-theme');
+    if (/color-scheme\s*:\s*(light\b|[^;}]*\blight\s+dark)/.test(text)) leaks.push(name + ': color-scheme with a light branch');
+  }
+  check('T3b no CSS surface offers a light theme — ' + surfaces.length + ' surfaces'
+    + (leaks.length ? ' — ' + leaks.join(' · ') : ''), leaks.length === 0);
+}
 
 /* ================= P · the chart palette, recomputed =====================
    The frontier skin's categorical marks are near-neutral GRAYS: identity is
@@ -301,7 +341,7 @@ function statsGridViolations(html, file) {
 
 /* ================= X · falsifiers ======================================== */
 console.log('\n    executing falsifiers');
-let reds = 0; const redTotal = 13;
+let reds = 0; const redTotal = 14;
 {
   /* the grayscale palette gate has teeth: a planted near-identical gray pair
      must fail the ΔE-15 separation the real trio passes */
@@ -406,6 +446,17 @@ let reds = 0; const redTotal = 13;
   try { C.stats(Array.from({ length: 13 }, (_, i) => ({ k: 'k' + i, v: 'v' }))); } catch (e) { threw = /1\.\.12/.test(e.message); }
   if (threw) { reds++; console.log('       RED ok  X12 a 13-cell stats row is REFUSED at the component (the balanced grid is defined for 1..12)'); }
   else console.log('       RED FAIL  X12 an out-of-range stats count was accepted');
+}
+{
+  /* X13 — the light-theme gate must be able to SEE a leak, or T3b is decoration.
+     Attacks the same predicate T3b runs, with the exact declaration that was
+     live in design/app-shell.js until 2026-09-05. */
+  const L = global.__lightLeak;
+  const caught = L('select.as-sel{color-scheme:light dark}')
+    && L('@media (prefers-color-scheme: light){.x{color:#000}}')
+    && !L('select.as-sel{color-scheme:dark}');
+  if (caught) { reds++; console.log('       RED ok  X13 a planted light-dark select and a light media query are caught, a dark one is not'); }
+  else console.log('       RED FAIL  X13 the light-theme gate cannot see a leak');
 }
 console.log('    every falsifier turned its target red   [' + reds + '/' + redTotal + ']');
 if (reds !== redTotal) fails++;
