@@ -1,24 +1,10 @@
 /* shell.css — the navbar and the measure scale, and nothing else. Everything an
    /instruments page looks like beyond this is that page's own business. */
-.pg-nav { position: relative; z-index: 30; }
-.pg-nav-in {
-  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-5);
-  padding: var(--s-5) var(--gutter);
-  max-width: none;
-}
-.pg-mark {
-  font-family: var(--font-mono); font-size: var(--text-small); letter-spacing: 0.14em;
-  text-transform: lowercase; color: var(--ink); text-decoration: none;
-}
-.pg-mark .sl { color: var(--ink-5); }
-.pg-mark:hover { color: var(--ink); }
-.pg-links { display: flex; gap: var(--s-5); }
-.pg-links a {
-  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow);
-  text-transform: uppercase; color: var(--ink-4); text-decoration: none;
-  transition: color var(--dur-fast) var(--ease-out);
-}
-.pg-links a:hover { color: var(--ink-2); }
+/* THE SECTION'S OWN NAV IS GONE (2026-09-05) — design/nav.js is the site's
+   one nav and this section carries it like every other page. What is left here
+   is the consequence: the site nav is FIXED at 60px, so the page has to start
+   below it. The reports' shell does the same thing with its own padding. */
+body { padding-top: 60px; }
 
 /* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
    Nine pages arrived by four routes — written here, ported from the bench,

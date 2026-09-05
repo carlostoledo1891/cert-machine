@@ -92,7 +92,7 @@ function label(X, Y, p, size, i, text, cls, base) {
 
 function plate(rec, { size = 360, pad = 62, labels = true, short = null } = {}) {
   const n = rec.n, items = (short || rec.items);
-  if (!rec.pts) return `<svg viewBox="0 0 ${size} ${size}" class="pl"><rect width="${size}" height="${size}" fill="#0a0a0c"/>`
+  if (!rec.pts) return `<svg viewBox="0 0 ${size} ${size}" class="pl"><rect width="${size}" height="${size}" fill="var(--bg-raised)"/>`
     + `<text x="${size / 2}" y="${size / 2}" text-anchor="middle" class="ref">REFUSED</text></svg>`;
   const { X, Y } = frame(rec.pts, size, pad);
   let dmax = 0;
@@ -117,7 +117,7 @@ function plate(rec, { size = 360, pad = 62, labels = true, short = null } = {}) 
     return `<circle cx="${X(p).toFixed(1)}" cy="${Y(p).toFixed(1)}" r="${first ? 4 : 2.7}" class="pt${first ? ' first' : ''}"/>`
       + (labels ? label(X, Y, p, size, i, lab, 'lb' + (first ? ' first' : '')) : '');
   }).join('');
-  return `<svg viewBox="0 0 ${size} ${size}" class="pl"><rect width="${size}" height="${size}" fill="#0a0a0c"/><g class="chords">${ch}</g>${over}${dots}</svg>`;
+  return `<svg viewBox="0 0 ${size} ${size}" class="pl"><rect width="${size}" height="${size}" fill="var(--bg-raised)"/><g class="chords">${ch}</g>${over}${dots}</svg>`;
 }
 
 function overlay(recs, itemsIn, order, { size = 520, pad = 92, short = null } = {}) {
@@ -141,7 +141,7 @@ function overlay(recs, itemsIn, order, { size = 520, pad = 92, short = null } = 
   });
   out += consensus.map((p, i) => label(X, Y, p, size, i,
     String(items[i]).length > 12 ? String(items[i]).slice(0, 11) + '·' : items[i], 'lb', 26)).join('');
-  return `<svg viewBox="0 0 ${size} ${size}" class="pl"><rect width="${size}" height="${size}" fill="#0a0a0c"/>${out}</svg>`;
+  return `<svg viewBox="0 0 ${size} ${size}" class="pl"><rect width="${size}" height="${size}" fill="var(--bg-raised)"/>${out}</svg>`;
 }
 
 /* a matrix as a raster: cell (i,j) shaded by value / max */

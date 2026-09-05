@@ -13,6 +13,16 @@ being shown not to be a defect — never by going quiet.
 
 ---
 
+## PAID — 2026-09-05
+
+| what | how it was closed |
+|---|---|
+| the site had TWO navigations, and /instruments carried the smaller one | `design/nav.js` — links, markup and CSS in one module, emitted by both shells. A reader landing on an instrument page could not reach the reports, the machine or the about page without going home first, and that section holds the most hireable material on the site |
+| the nav order was Reports · Machine · Instruments · About | Reports · **Instruments** · Machine · About — the audits, then the things you can turn, then the engine, then the person. It also marks the current section with `aria-current` now, which it never did |
+| two of the nine cards on /instruments painted `#0a0a0c` inside a `#101014` plate | measured, not guessed: `affect` and `answer-shape` painted the PAGE ground over the plate ground, so two cards were visibly darker than the other seven. No art paints its own ground now |
+| card arts filled between 52% and 131% of their plate | the plate takes the art's OWN aspect ratio, read off its viewBox at build time. SEVEN of the nine arts are square and every plate was 4/3, so each was letterboxed into 75% of the width — a drawing floating in a dark box. Now 69–102% wide, 67–99% tall, and `affect`'s 131% overflow (it was being clipped) is gone |
+| every card carried seven text blocks and 1,200–1,750 characters | title, description and the art. The eyebrow, the "what decides it" strip, the figcaption and the four fact cells are gone: 3 blocks, 408–642 characters |
+
 ## PAID — 2026-09-04
 
 | what | how it was closed |
@@ -60,16 +70,25 @@ site's numbers live. The honest test is a report that genuinely mixes standings.
 against exact decisions, which is exactly the COMPUTED/DECIDED pair.
 
 ### 4 · `app-shell.js` is still a second page shell
-Collapsing its palette fixed the colour defect, not the duplication: the app
-pages are built by a different shell from every other page on the site, with
-their own layout rules. Phases 2 and 3 unified the reports and /instruments and
-left `apps/` alone.
+Collapsing its palette fixed the colour defect and `design/nav.js` fixed the
+navigation, but not the duplication: the app pages are still built by a
+different shell, with their own layout rules. Phases 2 and 3 unified the reports
+and /instruments and left `apps/` alone.
 **Cost:** moderate. **Risk of leaving it:** the next layout decision has two
 places to land and only one of them is gated.
 
+### 4b · The card arts do not fill their own viewBoxes
+The plate now matches each art's aspect ratio, which closed most of the gap.
+What is left is per-art: measured at 1440px the arts fill **69–102%** of the
+plate's width and **67–99%** of its height, because each drawing carries its own
+margin inside its viewBox. Tightening nine viewBoxes to their content is nine
+bespoke figure edits and each one needs eyes on the result.
+**Cost:** an afternoon with a browser open. **Not urgent:** the spread is now
+narrow enough that no card reads as empty.
+
 ### 5 · The remaining geometry debt
-673 spines and 5 clipped blocks at 1440px, from `design/measure-baseline.json`.
-Most of the 673 are legitimate grid columns and card interiors. The metric
+679 spines and 5 clipped blocks at 1440px, from `design/measure-baseline.json`.
+Most of the 679 are legitimate grid columns and card interiors. The metric
 cannot currently tell "a component's columns" from "an accidental new spine",
 which is why it has twice flagged its own counting floor rather than a
 regression. **Chasing the number further is not worth much without a sharper

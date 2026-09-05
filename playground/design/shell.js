@@ -19,21 +19,19 @@ const path = require('path');
    have to remember; interferometer had already forgotten a different one and
    linked base.css instead. page() emits it now, and a builder passes only what
    is its own. */
-const BASE = fs.readFileSync(path.join(__dirname, 'shell.css'), 'utf8')
+const NAV = require(path.join(__dirname, '..', '..', 'design', 'nav.js'));
+const BASE = NAV.navCss('var(--gutter)')
+  + fs.readFileSync(path.join(__dirname, 'shell.css'), 'utf8')
   + '\n' + require(path.join(__dirname, 'components.js')).sharedCss();
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-function nav(root, here) {
-  const at = (k) => (k === here ? ' aria-current="page"' : '');
-  return `<nav class="pg-nav"><div class="pg-nav-in">
-  <a class="pg-mark" href="${root}index.html"${at('home')}>instruments<span class="sl">/</span></a>
-  <div class="pg-links">
-    <a href="${root}../index.html">cert-machine</a>
-  </div>
-</div></nav>`;
-}
-
+/* THE NAV IS THE SITE'S NAV (2026-09-05). This section used to carry its own:
+   the word "instruments/" and one link home. A reader who landed on an
+   instrument page — and these are the pages most likely to be landed on
+   directly — could not reach the reports, the machine or the about page
+   without going home first. design/nav.js is the one nav now, markup and CSS
+   together, so the two shells cannot drift apart again. */
 function page({ title, desc = '', root = '', here = 'home', body, head = '', script = '', bodyClass = '' }) {
   return `<!doctype html>
 <html lang="en">
@@ -51,11 +49,11 @@ function page({ title, desc = '', root = '', here = 'home', body, head = '', scr
 ${head}
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
-${nav(root, here)}
+${NAV.navHtml({ here: here === 'home' ? 'instruments' : here })}
 ${body}
 ${script}
 </body>
 </html>`;
 }
 
-module.exports = { page, nav, esc };
+module.exports = { page, esc };

@@ -33,6 +33,13 @@ const T = require('./tokens.js');
 /* the balanced n-item grid lives in design/grid.js so /instruments can reach it
    too — the legend there was declaring its column count by hand on four pages */
 const { balancedGrid } = require('./grid.js');
+const NAVJS = require('./nav.js');
+
+/* which nav link is the current one, from the page's own path */
+function sectionOf(p) {
+  const m = /^\/(reports|instruments|machine|about)\b/.exec(p || '');
+  return m ? m[1] : '';
+}
 
 /* ---- THE FULL-ROW RULE (2026-09-02, standing) --------------------------
    A grid must never expose an empty track. The fused stats grid paints its
@@ -53,6 +60,7 @@ const { balancedGrid } = require('./grid.js');
 
 function css() {
   const { SCALE, LAYOUT } = T;
+  const NAVCSS = NAVJS.navCss(SCALE.pagePadX);
   return `
 ${T.rootCss()}
 
@@ -64,52 +72,7 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
 ::selection{background:var(--ink);color:var(--paper)}
 .page{max-width:${LAYOUT.container};margin:0 auto;padding:calc(${SCALE.pagePadY} + 60px) ${SCALE.pagePadX} 96px}
 
-.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
-  background:color-mix(in srgb, var(--paper) 82%, transparent);
-  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--rule)}
-.topnav-in{padding:0 ${SCALE.pagePadX};height:60px;
-  display:flex;align-items:center;justify-content:space-between;gap:24px}
-.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
-.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-.navlinks a{font-family:var(--f-mono);font-size:${SCALE.eyebrow};letter-spacing:.12em;text-transform:uppercase;
-  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
-.navlinks a:hover{color:var(--ink)}
-.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
-  display:inline-flex;align-items:center;justify-content:center;
-  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
-.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
-.navlinks .ghbtn svg{display:block}
-.gh-t{display:none}
-
-/* the drawer: pure CSS state — a checkbox the burger label toggles */
-.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
-.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
-  cursor:pointer;margin-right:-8px;border-radius:6px}
-.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
-  border-radius:1px;transition:transform .18s ease}
-.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
-  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
-.nav-burger .nb::before{top:-6px}
-.nav-burger .nb::after{top:6px}
-.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
-@media (max-width:680px){
-  .nav-burger{display:flex}
-  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
-    flex-direction:column;align-items:stretch;gap:0;
-    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 28px 16px}
-  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
-  .navlinks a:last-child{border-bottom:none}
-  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
-    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
-  .gh-t{display:inline}
-  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
-  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
-  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
-  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
-}
-[id]{scroll-margin-top:84px}
+${NAVCSS}
 /* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
    '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
    which put the prose at x=398 and every table at x=270 — a figure standing
@@ -422,11 +385,9 @@ function ldJson(pagePath, title, d, canon) {
 
 function render({ title, bodyRaw, footRaw, desc, path: pagePath }) {
   const CO = require('./components.js');
-  const NAV = CO.nav({
-    brand: 'Carlos Toledo', brandHref: '/',
-    links: [{ t: 'Reports', href: '/reports/' }, { t: 'Machine', href: '/machine/' }, { t: 'Instruments', href: '/instruments/' }, { t: 'About', href: '/about/' }],
-    github: 'https://github.com/carlostoledo1891/cert-machine'
-  });
+  /* the nav — links, markup and CSS — is design/nav.js, so /instruments can
+     carry the same one. It used to be a link list inline in this function. */
+  const NAV = NAVJS.navHtml({ here: sectionOf(pagePath) });
   const d = desc || DEFAULT_DESC;
   const canon = pagePath ? SITE_ORIGIN + pagePath : null;
   return `<!doctype html>

@@ -337,6 +337,42 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
   because nothing pins the sub-certificates. CODE THAT WRITES CERTIFICATES GETS
   EDITED BY HAND, ONE FILE AT A TIME, WITH THE SHA CHECKED BEFORE AND AFTER.
 
+  ══ SESSION OF 2026-09-05: ONE NAV, AND THE GATHERING PAGE STOPS SHOUTING ══
+
+  · THE SITE HAD TWO NAVIGATIONS and /instruments carried the smaller one — the
+    word "instruments/" and one link home. A reader landing on an instrument
+    page, and these are the pages most likely to be landed on directly, could
+    not reach the reports, the machine or the about page without going home
+    first. design/nav.js is the one nav now: links, markup AND CSS in one
+    module, emitted by both shells, so they cannot drift apart again. The link
+    list used to live inline in template.js's render().
+  · THE ORDER IS REPORTS · INSTRUMENTS · MACHINE · ABOUT (operator). The audits
+    first, the things you can turn second, the engine third, the person last.
+    The nav also marks the current section with aria-current, which it never
+    did on any page.
+  · THE COST, and it was accepted deliberately: +1 spine on each of the nine
+    /instruments pages, because the link block is one more left edge. The
+    gathering page went the other way, 12 -> 9 at 1440. Recorded in
+    design/measure-baseline.json with the reason.
+  · THE INDEX CARDS, all three defects MEASURED before being touched:
+      - TWO DIFFERENT GROUNDS. affect and answer-shape painted a full-bleed
+        rect of #0a0a0c — the PAGE ground — inside a plate whose ground is
+        #101014, so two of nine cards were visibly darker. No art paints its
+        own ground now, and eleven literal #0a0a0c fills became var().
+      - THE "BLACK CHARTS" WERE LETTERBOXING. Every plate was 4/3 and SEVEN of
+        the nine arts are square, so each square art was letterboxed into 75%
+        of the plate's width — a drawing floating in a dark box. The plate
+        takes the art's OWN aspect ratio now, read off its viewBox at build
+        time, so nothing knows which instrument it is framing. Arts filled
+        52-131% of their plate before and 69-102% after, and affect's 131%
+        (it was being CLIPPED) is gone.
+      - SEVEN TEXT BLOCKS PER CARD, 1,200-1,750 characters. A gathering page
+        whose job is to get a reader INTO an instrument was making them read
+        the instrument first. Title, description and art: 3 blocks, 408-642.
+  · DEBT.md has a PAID section for the day and two new rows: 4b (the arts still
+    carry their own margin inside their viewBoxes — 69-102%, nine bespoke
+    figure edits that each need eyes) and the refreshed geometry figure.
+
   WHAT PHASE 4 DID NOT DO, and it is the next real piece of work:
 
   · THE EXACT ENVELOPE. curveset is honest now but it is honest about being

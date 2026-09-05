@@ -1,6 +1,6 @@
 {
-  "note": "Recorded layout geometry per built page. tools/check-measure.js refuses any number that grows. Lower these by fixing the page, never by editing this file. 2026-09-04, phase 4: three spine counts were accepted UPWARD with --accept-worse and the reason belongs here. /instruments/index.html +1 and +1: the gathering page now prints the standing legend, because check-wiring refuses a page that draws a grammar mark without one. /instruments/curveset +5: a THRESHOLD ARTIFACT, not a regression — the legend went from four items to three, each item grew past the 280px floor this probe counts at, and five columns that were always there began to be counted. The floor was not moved to flatter the number.",
-  "recorded": "2026-09-04",
+  "note": "Recorded layout geometry per built page. tools/check-measure.js refuses any number that grows. Lower these by fixing the page, never by editing this file. 2026-09-05: +1 spine on each of the nine /instruments pages, accepted with --accept-worse. The section carried its own two-item nav and now carries the SITE nav, like every other page; the link block is one more left edge. The gathering page went the other way, 12 -> 9 at 1440 and 6 -> 4 at 390, because the cards lost four text blocks each.",
+  "recorded": "2026-09-05",
   "viewports": [
     1440,
     390
@@ -76,7 +76,7 @@
         "clipped": 8
       },
       "1440": {
-        "spines": 19,
+        "spines": 20,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -90,7 +90,7 @@
         "clipped": 0
       },
       "1440": {
-        "spines": 18,
+        "spines": 19,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -104,7 +104,7 @@
         "clipped": 3
       },
       "1440": {
-        "spines": 18,
+        "spines": 19,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -118,7 +118,7 @@
         "clipped": 1
       },
       "1440": {
-        "spines": 6,
+        "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -126,13 +126,13 @@
     },
     "site/instruments/index.html": {
       "390": {
-        "spines": 6,
+        "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 12,
+        "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -146,7 +146,7 @@
         "clipped": 0
       },
       "1440": {
-        "spines": 3,
+        "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -160,7 +160,7 @@
         "clipped": 2
       },
       "1440": {
-        "spines": 12,
+        "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -174,7 +174,7 @@
         "clipped": 4
       },
       "1440": {
-        "spines": 12,
+        "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -188,7 +188,7 @@
         "clipped": 3
       },
       "1440": {
-        "spines": 15,
+        "spines": 16,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 1
@@ -202,7 +202,7 @@
         "clipped": 1
       },
       "1440": {
-        "spines": 10,
+        "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0

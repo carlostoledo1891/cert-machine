@@ -44,7 +44,7 @@ function circumplex(cell, items, { size = 340, pad = 76, axes = true } = {}) {
   const { X, Y } = frameOf(pts, size, pad);
   let dmax = 0;
   for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) dmax = Math.max(dmax, cell.D[i][j]);
-  let out = `<rect width="${size}" height="${size}" fill="#0a0a0c"/>`;
+  let out = `<rect width="${size}" height="${size}" fill="var(--bg-raised)"/>`;
   /* the axes sit behind the ring; their captions go in the corners, where no
      feeling ever lands */
   if (axes) out += `<g class="ax"><line x1="14" y1="${size / 2}" x2="${size - 14}" y2="${size / 2}"/>`
@@ -66,7 +66,7 @@ function circumplex(cell, items, { size = 340, pad = 76, axes = true } = {}) {
 function tether(cv, items, { size = 380, pad = 76 } = {}) {
   const B = cv.base, A = cv.aligned, n = B.length;
   const { X, Y } = frameOf(B.concat(A), size, pad);
-  let out = `<rect width="${size}" height="${size}" fill="#0a0a0c"/>`;
+  let out = `<rect width="${size}" height="${size}" fill="var(--bg-raised)"/>`;
   for (let i = 0; i < n; i++) {
     out += `<line x1="${X(B[i]).toFixed(1)}" y1="${Y(B[i]).toFixed(1)}" x2="${X(A[i]).toFixed(1)}" y2="${Y(A[i]).toFixed(1)}" class="tie"/>`;
     out += `<circle cx="${X(B[i]).toFixed(1)}" cy="${Y(B[i]).toFixed(1)}" r="3.2" class="pt"/>`;
@@ -79,7 +79,7 @@ function tether(cv, items, { size = 380, pad = 76 } = {}) {
 function deformation(from, to, items, { size = 300, pad = 52 } = {}) {
   const n = from.length;
   const { X, Y } = frameOf(from.concat(to), size, pad);
-  let out = `<rect width="${size}" height="${size}" fill="#0a0a0c"/>`
+  let out = `<rect width="${size}" height="${size}" fill="var(--bg-raised)"/>`
     + `<defs><marker id="ah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">`
     + `<path d="M0,0.6 L5,3 L0,5.4" fill="none" stroke="#f6f6f8" stroke-width="1"/></marker></defs>`;
   out += `<path d="${from.map((p, i) => (i ? 'L' : 'M') + X(p).toFixed(1) + ',' + Y(p).toFixed(1)).join('')}Z" class="ghost"/>`;

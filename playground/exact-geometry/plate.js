@@ -19,7 +19,7 @@
 function plate(rec, { size = 520, pad = 62 } = {}) {
   const n = rec.n, items = rec.items;
   if (!rec.pts) {
-    return `<svg viewBox="0 0 ${size} ${size}" class="plate"><rect width="${size}" height="${size}" fill="#0a0a0c"/>`
+    return `<svg viewBox="0 0 ${size} ${size}" class="plate"><rect width="${size}" height="${size}" fill="var(--bg-raised)"/>`
       + `<text x="${size / 2}" y="${size / 2 - 8}" text-anchor="middle" class="ref">REFUSED</text>`
       + `<text x="${size / 2}" y="${size / 2 + 14}" text-anchor="middle" class="refsub">this table is not a distance, so there is nothing to place</text></svg>`;
   }
@@ -62,7 +62,7 @@ function plate(rec, { size = 520, pad = 62 } = {}) {
   }).join('');
 
   return `<svg viewBox="0 0 ${size} ${size}" class="plate" role="img" aria-label="${n} items placed by their own distance table; every pair drawn as a chord.">`
-    + `<rect width="${size}" height="${size}" fill="#0a0a0c"/><g class="chords">${chords}</g>${over}${dots}</svg>`;
+    + `<rect width="${size}" height="${size}" fill="var(--bg-raised)"/><g class="chords">${chords}</g>${over}${dots}</svg>`;
 }
 
 module.exports = { plate };
