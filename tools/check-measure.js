@@ -71,7 +71,13 @@ const SITE = path.join(ROOT, 'site');
 const BASELINE = path.join(ROOT, 'design', 'measure-baseline.json');
 const { withChrome, settle } = require(path.join(ROOT, 'design', 'cdp.js'));
 
-const VIEWPORTS = [1440, 390];
+/* 768 ADDED 2026-09-05, and it earned its place the same day. The ruler drove
+   1440 and 390 and nothing between, so the whole tablet range was unmeasured —
+   and a breakpoint sitting in the middle of that gap (min-width:681px) put six
+   stat tiles in three columns at 768, about 235px of cell for a headline
+   number, which broke "604 <= K(11) <= 868" across two lines in the middle of
+   the relation. Two widths do not bracket a layout; they bracket its ends. */
+const VIEWPORTS = [1440, 768, 390];
 const METRICS = ['spines', 'pageOverflow', 'escapes', 'clipped'];
 
 const MODE = process.argv.includes('--accept') ? 'accept'

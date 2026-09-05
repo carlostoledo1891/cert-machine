@@ -128,7 +128,15 @@ section{margin:${SCALE.section} 0 0}
 .stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
 .stats .stat:last-child:nth-child(odd){grid-column:1/-1}
-@media (min-width:681px){
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
 ${balancedGrid('.stats', '.stat')}
 }
 .stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
