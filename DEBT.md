@@ -46,14 +46,28 @@ being shown not to be a defect — never by going quiet.
 
 ---
 
-## THE STANDING DEBT OF THIS WHOLE PASS (2026-09-05)
+## THE STANDING DEBT OF THIS WHOLE PASS — DISCHARGED 2026-09-05 (second session)
 
-**Nothing in the 2026-09-05 sessions was confirmed by looking at a page.** The
-gates are green; that is not the same claim. Every row marked PAID below was
-verified by measurement only, and the operator found defects after two of those
-rows were written. Treat the PAID list as *changed*, not as *right*, until
-someone opens the pages. That re-review is the first item of work, ahead of
-everything else in this file.
+It read: *nothing in the 2026-09-05 sessions was confirmed by looking at a page.*
+Eleven pages have now been opened at 1440 and 390, captured in scrolled slices so
+nothing sat below a capture fold. The result is **`VISUAL-REVIEW-2026-09-05.md`,
+16 rows**, each naming the page, the defect and the shot that shows it. Awaiting
+the operator's ruling; nothing on that list has been fixed.
+
+Two rows of the PAID list below are now known to have been verified against a
+lying measurement, and looking settled both: `reports/glide-band.html`'s figures
+**render fully** (check-render reporting them blank/unmeasured is the gate's
+limit, not the page's defect), and `exact-geometry`'s 0.41% ink — thinnest on the
+site — is a genuinely sparse four-point drawing, not a blank.
+
+### The new standing debt, and it is smaller and named
+
+`VISUAL-REVIEW-2026-09-05.md` §A–§G. The two that are grammar rather than layout
+are already understood: the black REFUSED swatch on `/instruments` is `.w-void`
+resolving to no paint (§F-1 also records that `check-render` **passes** it,
+because black *is* a paint on a near-black ground — the test needs to be
+contrast-against-ground), and `interferometer`'s clipped u−v inset is the
+`#stage{width:100%}` gotcha now written down in `design/CONTRACT.md`.
 
 ## OPEN
 

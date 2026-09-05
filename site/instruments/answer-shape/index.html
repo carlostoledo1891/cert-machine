@@ -758,8 +758,10 @@ svg.pl .lb { fill:var(--ink-3); font-family:var(--font-mono); font-size:8.5px; }
 svg.pl .lb.first { fill:#f6f6f8; }
 svg.pl .ov { fill:none; stroke:#f6f6f8; }
 svg.pl .ov.m0 { stroke-opacity:.95; stroke-width:1.7; }
-svg.pl .ov.m1 { stroke-opacity:.62; stroke-width:1.3; stroke-dasharray:6 4; }
-svg.pl .ov.m2 { stroke-opacity:.42; stroke-width:1.1; stroke-dasharray:1.6 3.4; }
+/* m0/m1/m2 are grammar.js's IDENTITY ladder, value for value. Identity is
+   weight and opacity; dash is reserved for standing. See design/CONTRACT.md. */
+svg.pl .ov.m1 { stroke-opacity:.62; stroke-width:1.3; }
+svg.pl .ov.m2 { stroke-opacity:.42; stroke-width:1.1; }
 svg.pl .ovp { fill:#f6f6f8; }
 svg.pl .ovp.m1 { fill-opacity:.62; } svg.pl .ovp.m2 { fill-opacity:.42; }
 .gate { display:grid; grid-template-columns:120px repeat(3,minmax(0,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; }

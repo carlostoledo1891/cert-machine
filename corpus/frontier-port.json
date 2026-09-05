@@ -1,0 +1,159 @@
+{
+ "what": "Ports out of ~/Documents/frontier-apps, which is READ-ONLY and is NOT a git repository \u2014 sha256 is the only pin available, so it is the pin.",
+ "portedOn": "2026-09-05",
+ "sourceRepo": "~/Documents/frontier-apps",
+ "declaredPatches": {
+  "instruments/cert-unit/nodes.mjs": "lib/eqcert/{interval,radii,transcendental}.js -> ../interval/ (cert-machine's eqcert lives in instruments/interval/)",
+  "instruments/cert-unit/replay.mjs": "../mfg-terra/band-sigma-0.0008-0.008.json -> ../../playground/plates/data/ (cert-machine's own copy of the same band)",
+  "instruments/cert-unit/reds.mjs": "same band repoint as replay.mjs",
+  "instruments/cert-unit/trace.mjs": "same band repoint, plus ../interferometer/cert-cp.js -> ../../playground/interferometer/cert-cp.js"
+ },
+ "notPorted": {
+  "the marks": "circumplex plate, envelope ruler, contact-sheet glyph, deformation field, ensemble renderer \u2014 designed for their own data; generalising them early makes them worse (operator instruction).",
+  "template.js": "cert-machine's design/template.js + nav.js win: they carry the nav, SEO, OG and the gates, and frontier's 72-line shell carries none of that.",
+  "tokens.css / base.css": "already ported 2026-09-01 into design/tokens.js under house names; the reference bytes are the frontier-ref rows below and still match.",
+  "frontier-theme.js + echarts": "deferred. Operator correction 2026-09-05: only 4 of 14 frontier pages load ECharts, all older; the chart engine is 'write the mark, derive its ink, emit a string'."
+ },
+ "files": [
+  {
+   "source": "experiments/cert-unit/CONCEPT.md",
+   "dest": "instruments/cert-unit/CONCEPT.md",
+   "sourceSha256": "e344cc158a02887d95c1a217f6978cd777b66dce2f4ca87775bcd16d1415265a",
+   "destSha256": "e344cc158a02887d95c1a217f6978cd777b66dce2f4ca87775bcd16d1415265a",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/bundle.mjs",
+   "dest": "instruments/cert-unit/bundle.mjs",
+   "sourceSha256": "600c84933e9d547d6c5b70048a8cd751928265c948e1d6a2479667091518b95e",
+   "destSha256": "600c84933e9d547d6c5b70048a8cd751928265c948e1d6a2479667091518b95e",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/contact.mjs",
+   "dest": "instruments/cert-unit/contact.mjs",
+   "sourceSha256": "9e398c4126602d5395662db90ceed46307ec978f785d77bac8db7acd9348fd97",
+   "destSha256": "9e398c4126602d5395662db90ceed46307ec978f785d77bac8db7acd9348fd97",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/demo.mjs",
+   "dest": "instruments/cert-unit/demo.mjs",
+   "sourceSha256": "dc4cf1388ac47a71ec740cb199cae50d5358a6214a1445a9569d6dec369fc7a8",
+   "destSha256": "dc4cf1388ac47a71ec740cb199cae50d5358a6214a1445a9569d6dec369fc7a8",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/editor-demo.html",
+   "dest": "instruments/cert-unit/editor-demo.html",
+   "sourceSha256": "be5eab44a72db26c4e193a074b8876c4560a8f513beaf418c6d30e7f40ecbf96",
+   "destSha256": "be5eab44a72db26c4e193a074b8876c4560a8f513beaf418c6d30e7f40ecbf96",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/editor.mjs",
+   "dest": "instruments/cert-unit/editor.mjs",
+   "sourceSha256": "1555a5e0098cb5cec3463c83a9aacb648d5e9b0296f034108097a79b69341f77",
+   "destSha256": "1555a5e0098cb5cec3463c83a9aacb648d5e9b0296f034108097a79b69341f77",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/editor.test.mjs",
+   "dest": "instruments/cert-unit/editor.test.mjs",
+   "sourceSha256": "9d1d21b7dd045432801edd5a37336df6637e3befd15bb884068befc6333f7cc3",
+   "destSha256": "9d1d21b7dd045432801edd5a37336df6637e3befd15bb884068befc6333f7cc3",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/graph.mjs",
+   "dest": "instruments/cert-unit/graph.mjs",
+   "sourceSha256": "0042073aad88125a12dcfb04879b1922f5a1fc7f5de89b89269af103c50808e0",
+   "destSha256": "0042073aad88125a12dcfb04879b1922f5a1fc7f5de89b89269af103c50808e0",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/make-contact.mjs",
+   "dest": "instruments/cert-unit/make-contact.mjs",
+   "sourceSha256": "356fbee0c00878100ca3e5f1de4413821d96fe1c8d26ad473e110f02d65cf5ae",
+   "destSha256": "356fbee0c00878100ca3e5f1de4413821d96fe1c8d26ad473e110f02d65cf5ae",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/make-refutations.mjs",
+   "dest": "instruments/cert-unit/make-refutations.mjs",
+   "sourceSha256": "189d2885460708eb29c59923171f4cf2a34a773b3b0fddf5d065b9c375dc0a8e",
+   "destSha256": "189d2885460708eb29c59923171f4cf2a34a773b3b0fddf5d065b9c375dc0a8e",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/nodes.mjs",
+   "dest": "instruments/cert-unit/nodes.mjs",
+   "sourceSha256": "4346d6a5dd236270c5e8570795ee3766feef3de024c65376c836dbe1a56ed0cb",
+   "destSha256": "8ef2fc01ed1228756b7261d7f58f6e7a34625778fa66807d2223f3b83edcf34b",
+   "patched": true
+  },
+  {
+   "source": "experiments/cert-unit/port.mjs",
+   "dest": "instruments/cert-unit/port.mjs",
+   "sourceSha256": "56925d71b461b81cbe53f120f9a151e7fafdd7f1ce5bd9fac57f9c3aedd14f96",
+   "destSha256": "56925d71b461b81cbe53f120f9a151e7fafdd7f1ce5bd9fac57f9c3aedd14f96",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/reds.mjs",
+   "dest": "instruments/cert-unit/reds.mjs",
+   "sourceSha256": "aeec5dc1486609729d56da4546f59802d3b5301c2f2671b41ce3cca89ddda97b",
+   "destSha256": "3d01cbb253384b59de4df3d670c68b9bf15e1f92280eb46d32964a4c214b08d1",
+   "patched": true
+  },
+  {
+   "source": "experiments/cert-unit/refutation.mjs",
+   "dest": "instruments/cert-unit/refutation.mjs",
+   "sourceSha256": "7a25cbfd7be92b494b2591201b670d7708be2acc131135a19e74fd9d3caf868d",
+   "destSha256": "7a25cbfd7be92b494b2591201b670d7708be2acc131135a19e74fd9d3caf868d",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/render.mjs",
+   "dest": "instruments/cert-unit/render.mjs",
+   "sourceSha256": "fd1d1b6807c46d5a4d5a993badb2dd6254cebf0d5c163dfc7320f41491429242",
+   "destSha256": "fd1d1b6807c46d5a4d5a993badb2dd6254cebf0d5c163dfc7320f41491429242",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/replay.mjs",
+   "dest": "instruments/cert-unit/replay.mjs",
+   "sourceSha256": "f2ce75bdc0b53a126f9982975086fb1367bce0129200adbaf5c66d0cfee5d1cb",
+   "destSha256": "0a50227a7c13fcac3e0ca638e780fadeceda9b46ea7246509c21212e6774d355",
+   "patched": true
+  },
+  {
+   "source": "experiments/cert-unit/test.mjs",
+   "dest": "instruments/cert-unit/test.mjs",
+   "sourceSha256": "bc823a60841912f35b679da569c42f863398f92cb77ab675fd54df594e4ae4a2",
+   "destSha256": "bc823a60841912f35b679da569c42f863398f92cb77ab675fd54df594e4ae4a2",
+   "patched": false
+  },
+  {
+   "source": "experiments/cert-unit/trace.mjs",
+   "dest": "instruments/cert-unit/trace.mjs",
+   "sourceSha256": "da4bd81b18f512830ab597ed770c20a86b699c5e559b29e7e07954e7863c0301",
+   "destSha256": "e1eb10ac8f342e4d813f2f0fb7de6680c9853a74df4c514daee43d0aa76de5b1",
+   "patched": true
+  },
+  {
+   "source": "site/design/tokens.css",
+   "dest": "design/frontier-ref/tokens.css",
+   "sourceSha256": "15eb6f28cdd1e2e4deaf8826e8417c841a4aff8809340f42d7f0b06c711479b8",
+   "destSha256": "15eb6f28cdd1e2e4deaf8826e8417c841a4aff8809340f42d7f0b06c711479b8",
+   "patched": false
+  },
+  {
+   "source": "site/design/base.css",
+   "dest": "design/frontier-ref/base.css",
+   "sourceSha256": "91d8172f51788d8ec5fb7723044c5e6b8dab923d1f5b33733f06a5251e418f7f",
+   "destSha256": "91d8172f51788d8ec5fb7723044c5e6b8dab923d1f5b33733f06a5251e418f7f",
+   "patched": false
+  }
+ ]
+}

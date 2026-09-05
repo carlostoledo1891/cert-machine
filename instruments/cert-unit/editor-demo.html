@@ -1,0 +1,55 @@
+<!doctype html><meta charset="utf-8">
+<style>
+  html,body{margin:0;height:100%;background:#0a0a0c;color:#e8e8ee;
+    font-family:ui-monospace,Menlo,monospace;overflow:hidden}
+  #wrap{position:fixed;inset:0;display:flex;flex-direction:column}
+  #stage{flex:1;min-height:0}
+  #bar{padding:10px 18px;border-top:1px solid rgba(246,246,248,.14);font-size:11px;color:#9a9aa6;min-height:18px}
+  #bar.bad{color:#f6f6f8}
+  #bar.bad::before{content:"refused  ";color:#6e6e7a}
+</style>
+<div id="wrap"><div id="stage"></div><div id="bar">drag a node by its title; drag from a port to another port</div></div>
+<script type="module">
+import { graph, node } from './graph.mjs';
+import { FLOAT, INTERVAL } from './port.mjs';
+import { mount } from './editor.mjs';
+const mk=(id,t,i,o={})=>node({id,title:t,inputs:i,instrument:o.inst,emits:o.emits,
+  outputs:o.outputs,deciding:o.deciding,run:()=>({port:'certified',value:null})});
+const g = graph('decide a lattice claim, or refuse it');
+g.add(mk('basis','basis + det proof',['file'],{emits:INTERVAL,outputs:['q','xs']}))
+ .add(mk('pi','pi bracket (Machin)',['digits'],{emits:INTERVAL,outputs:['bracket']}))
+ .add(mk('screen','float screen',['q'],{emits:FLOAT,outputs:['shortlist']}))
+ .add(mk('gh','GH predicate',['q','pi','norm'],{inst:true,emits:INTERVAL,deciding:['q','pi','norm']}));
+g.wire('basis','q','gh','q');
+g.wire('pi','bracket','gh','pi');
+g.wire('basis','q','screen','q');
+const bar = document.getElementById('bar');
+window.__view = mount(document.getElementById('stage'), g, {
+  fired: new Map([['gh','certified']]),
+  onChange: (msg, bad) => { bar.textContent = msg || ''; bar.className = bad ? 'bad' : ''; },
+});
+window.__g = g;
+
+/* End-to-end check of the DOM layer: #sim=from.port>to.port drives a real
+   pointer drag, so the wiring path the reader uses is the path under test. */
+if (location.hash.startsWith('#sim=')) try {
+  const [a, b] = decodeURIComponent(location.hash.slice(5)).split('>');
+  const [fn, fp] = a.split('.'), [tn, tp] = b.split('.');
+  const view = window.__view;
+  const screenOf = (nodeId, port, side) => {
+    const box = view.pos.get(nodeId), n = g.nodes.get(nodeId);
+    const list = side === 'out' ? n.outputs : n.inputs;
+    const pt = view.svg.createSVGPoint();
+    pt.x = side === 'out' ? box.x + box.w : box.x;
+    pt.y = box.y + 30 + 10 + list.indexOf(port) * 19;
+    const m = view.svg.getScreenCTM();
+    const q = pt.matrixTransform(m);
+    return { x: q.x, y: q.y };
+  };
+  const P = screenOf(fn, fp, 'out'), Q = screenOf(tn, tp, 'in');
+  const ev = (t, p) => view.svg.dispatchEvent(new PointerEvent(t, {
+    clientX: p.x, clientY: p.y, bubbles: true, pointerId: 1, isPrimary: true }));
+  view.svg.setPointerCapture = () => {};
+  ev('pointerdown', P); ev('pointermove', Q); ev('pointerup', Q);
+} catch (e) { bar.textContent = 'SIM ERROR: ' + e.message; bar.className = 'bad'; }
+</script>

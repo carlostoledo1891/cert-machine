@@ -62,6 +62,18 @@
 */
 'use strict';
 
+/* THE DASH PATTERNS ARE NOT OURS TO INVENT, 2026-09-05. This file used to
+   derive them from the stroke width — `${3.2 * width} ${2.2 * width}` — so
+   every width minted a new pattern and the site accumulated TWENTY-FIVE of
+   them, one carrying a float artifact ("1.04 5.460000000000001") into
+   published HTML. Two marks of the SAME standing at two weights were being
+   given two different patterns, which is the exact confusion this grammar
+   exists to prevent. The permitted set is now a closed list in
+   design/grammar.js, ported from frontier-apps, and gated by
+   tools/check-grammar.js. Size is handled by one alternate pattern, chosen
+   from the width THERE, never by scaling. */
+const G = require('../design/grammar.js');
+
 /* the lattice, weakest first. The numbers ARE the order. */
 const REFUSED = 0, CHOSEN = 1, COMPUTED = 2, DECIDED = 3;
 const NAME = ['REFUSED', 'CHOSEN', 'COMPUTED', 'DECIDED'];
@@ -74,14 +86,23 @@ const throughFloat = (s) => meet(s, COMPUTED);
 const throughChoice = (s) => meet(s, CHOSEN);
 const refuse = () => REFUSED;
 
-/* THE CHANNEL RULE, found by porting four pages rather than by reasoning.
-   Stroke pattern carries STANDING whenever a figure holds marks of more than one
-   standing. In a figure whose marks all share a standing — three model answers
-   on one axis, say — the channel is free, and the figure must say what it is
-   carrying instead. The comparison plates on /instruments/answer-shape use stroke
-   for model identity under exactly that licence, and a comparison plate that
-   later gains a decided reference line has to give the channel back.
-   See design/COMPONENTS.md, which is where this was written down first. */
+/* THE CHANNEL RULE — AND THE LICENCE IT USED TO GRANT IS WITHDRAWN, 2026-09-05.
+   This note used to say that in a figure whose marks all share a standing the
+   stroke channel is free, so identity may borrow it; /instruments/answer-shape
+   drew its three models as three dash patterns under exactly that licence.
+
+   The ported contract (design/CONTRACT.md, from frontier-apps) refuses it, and
+   is right: DASH IS RESERVED FOR STANDING SITE-WIDE, not per figure. A licence
+   that depends on what else is in the same figure cannot be read off the mark,
+   so the same pattern meant epistemics on one page and a category two clicks
+   away — and a reader who has learnt "dashed means assumed" is simply misled by
+   the second page. Frontier had made this exact mistake, on `6 4` and
+   `1.6 3.4`, and both patterns were found live here.
+
+   IDENTITY USES WEIGHT AND OPACITY — design/grammar.js's IDENTITY ladder. It
+   does not overload, and it costs nothing: answer-shape was already carrying
+   the ladder underneath the dashes, value for value. Stroke pattern now carries
+   STANDING and nothing else, in every figure, without exception. */
 
 /* one stroke per standing. Dash patterns are ours; any consistent set obeying
    the redundancy rule conforms. A REFUSED mark has no stroke at all — asking
@@ -89,8 +110,8 @@ const refuse = () => REFUSED;
 function stroke(standing, { width = 2 } = {}) {
   switch (standing) {
     case DECIDED: return { class: 'w-decided', dash: null, width };
-    case COMPUTED: return { class: 'w-computed', dash: `${3.2 * width} ${2.2 * width}`, width };
-    case CHOSEN: return { class: 'w-chosen', dash: `${0.4 * width} ${2.1 * width}`, width, cap: 'round' };
+    case COMPUTED: return { class: 'w-computed', dash: G.claim(width), width };
+    case CHOSEN: return { class: 'w-chosen', dash: G.pick(width), width, cap: 'round' };
     default: return null;
   }
 }

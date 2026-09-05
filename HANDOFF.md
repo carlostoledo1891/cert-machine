@@ -105,6 +105,78 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     have died there. THE FIX IS MATHEMATICAL. Do not restart it hoping.
 
 ══════════════════════════════════════════════════════════════════════════
+  SESSION OF 2026-09-05 (SECOND): THE LOOK, THEN THE PORT. $0.00 spent.
+══════════════════════════════════════════════════════════════════════════
+
+  PART 1 — THE VISUAL REVIEW THAT THE LAST SESSION OWED. Eleven pages opened
+  at 1440 and 390, captured in scrolled slices so nothing sat below a capture
+  fold. The list is VISUAL-REVIEW-2026-09-05.md, 16 rows, each with the shot
+  that shows it. NOT YET RULED ON BY THE OPERATOR — do not start fixing.
+  The headline rows:
+    · /instruments' grammar legend is a grid child of `.cards`, so it lands in
+      ONE card column at x=216 while the site sits at x=168, text crushed.
+    · Its REFUSED swatch is a SOLID BLACK RECT — `.w-void` is deliberately
+      given no paint (the hatch is a <pattern> whose id lives in a figure that
+      this page does not have), so it falls to SVG's default black.
+    · The affect card overprints and clips its own labels.
+    · Three different card grounds are in use across the site.
+    · interferometer's u-v inset is cut in half by the control rail.
+  TWO THINGS MEASUREMENT GOT WRONG that looking settled: glide-band's figures
+  render FULLY (check-render calling them blank is the gate lying), and
+  exact-geometry's 0.41% ink is a genuinely sparse 4-point drawing.
+  AND: skyaudit CANNOT be reviewed from file:// — it loads its style/bundle
+  from absolute /apps/ paths, so the map is blank on disk and correct over
+  HTTP. Serve before judging it.
+
+  PART 2 — THE FRONTIER PORT, ordered by the operator ("this legacy must end
+  now"). Source ~/Documents/frontier-apps is READ-ONLY and is NOT a git repo,
+  so sha256 is the pin: corpus/frontier-port.json records 20 files, 4 with a
+  declared import patch.
+
+    ALREADY DONE, 2026-09-01, and nobody had recorded it findably: tokens.css
+    and base.css are in design/tokens.js under house names, reference bytes in
+    design/frontier-ref/. Re-verified matching. THE CSS WAS HERE; THE
+    CONTRACTS WERE NOT. That inverted the plan.
+
+    NEW: design/grammar.js — the closed set of dash patterns.
+         design/CONTRACT.md — both invariants, merged with what was here.
+         tools/check-grammar.js — the ratcheted dash census, in make test.
+         instruments/cert-unit/ — the whole 1,745-line runtime, ported.
+
+    WHAT THE CENSUS FOUND ON FIRST CONTACT: 25 distinct dash patterns where
+    the contract permits five. Cause was TWO LINES in playground/warrant.js
+    deriving the dash from the STROKE WIDTH, so every width minted a pattern —
+    including "1.04 5.460000000000001", a float artifact in published HTML.
+    It also found `6 4` and `1.6 3.4` live on /instruments/answer-shape: the
+    exact pair frontier's own contract records as the one time dash was used
+    for IDENTITY. The violation had travelled with the CSS; the contract that
+    forbade it had not. Both deleted — the page was already carrying
+    grammar.js's IDENTITY ladder underneath them, value for value.
+    25 -> 17 patterns, conforming uses 13 -> 89. warrant.js's licence to use
+    dash for identity in single-standing figures is WITHDRAWN.
+
+    CERT-UNIT REPLAY, run first as instructed: TERRA's certified sigma-band
+    re-derived through the graph, 39 of 39 cells IDENTICAL, worst relative
+    difference exactly 0.00e+0 — matching the origin result. test.mjs 12/12,
+    reds.mjs 6/6 including the deliberately-failing control, editor.test.mjs
+    green. All five wired into make test.
+
+  ── WHAT IS LEFT OF THE PORT ──
+    · 12 drifting dash patterns remain, ratcheted in design/grammar-baseline.
+      `2 4` (22 uses) and `6 6` (12) come from playground/design/components.js
+      (.cs-drop, .cs-ask, .clo). MAPPING THEM NEEDS THE AUTHOR: "ink is read,
+      never chosen" means only someone who knows what those marks are standing
+      on may say which permitted pattern they take. Do not guess.
+    · frontier-theme.js + ECharts: DEFERRED, and the operator's own correction
+      is why — only 4 of 14 frontier pages load ECharts, all older. The chart
+      engine is "write the mark, derive its ink, emit a string".
+    · report.css / instrument.css: cert-machine has equivalents. What is worth
+      taking is the CONTRACT HEADERS, and the #stage one is already in
+      CONTRACT.md because interferometer is failing that exact bug.
+    · The #hash dev hook on instrument pages. Screenshotting the initial state
+      finds no interaction bugs — this session is the proof.
+
+══════════════════════════════════════════════════════════════════════════
 
 THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
 

@@ -74,6 +74,11 @@ test:
 	@printf "%-30s " "stale claims (record→page)"; $(NODE) tools/check-stale-claims.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "wiring"; $(NODE) tools/check-wiring.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "measure (layout ruler)"; $(NODE) tools/check-measure.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "grammar (the dash census)"; $(NODE) tools/check-grammar.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "cert-unit port + wiring"; $(NODE) instruments/cert-unit/test.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "cert-unit reds (6 declared)"; $(NODE) instruments/cert-unit/reds.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "cert-unit editor = engine"; $(NODE) instruments/cert-unit/editor.test.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "cert-unit replay (TERRA 39)"; $(NODE) instruments/cert-unit/replay.mjs 2>/dev/null | grep -q "39 cells identically, 0 disagreed" && echo PASS || echo FAIL
 	@printf "%-30s " "render (what a page shows)"; $(NODE) tools/check-render.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit app"; $(NODE) apps/skyaudit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "glide band"; $(NODE) apps/glide-band/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
