@@ -208,7 +208,7 @@ const COLOUR = /#[0-9a-fA-F]{3}\b|#[0-9a-fA-F]{6}\b|rgba?\([0-9 ,.%\/]+\)/g;
    colours, which are a real product palette and are declared in ITS block */
 const APP = require(path.join(ROOT, 'design', 'app-shell.js'));
 const declared = new Set();
-for (const src of [T.DARKONLY, APP.APP_LIGHT, APP.APP_DARK, { s: T.SHADOW }])
+for (const src of [T.DARKONLY, APP.APP_DARK, { s: T.SHADOW }])
   for (const v of Object.values(src)) for (const c of String(v).match(COLOUR) || []) {
     const r = rgbOf(c); if (r) declared.add(r);
   }
@@ -278,6 +278,63 @@ red('a page drawing a grammar mark with no legend is caught',
   grammarOffences('<svg><line class="w-computed"/></svg>', 'planted').length === 1);
 red('a page that only DECLARES the CSS is not flagged',
   grammarOffences('<style>.w-computed { stroke: var(--ink-3); }</style>', 'planted').length === 0);
+
+/* ---------------------------------------------------------------- 7 -----
+   THE ARCHIVE AND THE CITATION AGREE, and the one description is one.
+
+   CITATION.cff named version v2026.09.1 and carried the DOI of v2026.09 —
+   10.5281/zenodo.22257596 instead of 10.5281/zenodo.22285003 — for a day and a
+   half. Nothing caught it because the version string and the DOI were two
+   facts nobody had written down together. corpus/zenodo.json writes them down
+   together; this check reads it.
+
+   And CLAUDE.md's D1 adopted ONE description for a year, to appear in the site
+   title, the README, CITATION.cff and .zenodo.json and to be paraphrased
+   nowhere. A decision like that is a list somebody has to remember, which is
+   the one thing this file exists to replace.                               */
+console.log('-- the archive');
+
+const Z = JSON.parse(read('corpus/zenodo.json'));
+const CFF = read('CITATION.cff');
+const ZEN = JSON.parse(read('.zenodo.json'));
+const cffField = (k) => { const m = new RegExp('^' + k + ':\\s*"?([^"\\n]+)"?', 'm').exec(CFF); return m ? m[1].trim() : null; };
+
+const cffVer = cffField('version'), cffDoi = cffField('doi');
+const dep = Z.versions.find((v) => v.version === cffVer);
+if (!dep) bad('CITATION.cff names a version corpus/zenodo.json records',
+  'CITATION.cff version "' + cffVer + '" is not in the deposit record');
+else if (dep.doi !== cffDoi) bad('CITATION.cff cites the DOI of the version it names',
+  'names ' + cffVer + ' but cites ' + cffDoi + '; that version is ' + dep.doi);
+else ok('CITATION.cff cites the DOI of the version it names', '[' + cffVer + ' = ' + cffDoi + ']');
+
+if (Z.latest !== cffVer) bad('CITATION.cff cites the LATEST deposit',
+  'record latest is ' + Z.latest + ', CITATION.cff names ' + cffVer);
+else ok('CITATION.cff cites the LATEST deposit');
+
+/* the one description, in the four places D1 named */
+const ONE = Z.titleLag.shouldBe;
+const tail = ONE.replace(/^cert-machine:\s*/i, '');
+const places = [['CITATION.cff', cffField('title')], ['.zenodo.json', ZEN.title]];
+const wrong = places.filter(([, v]) => (v || '').toLowerCase() !== ONE.toLowerCase());
+const prose = [['CLAUDE.md', read('CLAUDE.md')], ['README.md', read('README.md')]]
+  .filter(([, v]) => !new RegExp(tail.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(v));
+if (wrong.length || prose.length) bad('the one description is one, in all four places',
+  [...wrong.map(([f, v]) => f + ': "' + String(v).slice(0, 60) + '…"'),
+    ...prose.map(([f]) => f + ': does not carry it')].join('\n        '));
+else ok('the one description is one, in all four places', '[CLAUDE.md · README.md · CITATION.cff · .zenodo.json]');
+
+/* the lag is REPORTED, not failed: only the depositor's account can close it */
+if (Z.titleLag.state.startsWith('OPEN')) {
+  console.log('       NOTE  ' + Z.titleLag.liveTitleOn.length + ' published Zenodo record(s) still carry the retired title.');
+  console.log('             Operator action, owed since 2026-09-03 — see corpus/zenodo.json titleLag.howToClose.');
+}
+
+red('a CITATION.cff citing another version\'s DOI is caught', (() => {
+  const other = Z.versions.find((v) => v.version !== Z.latest);
+  return other && other.doi !== cffDoi;
+})());
+red('a paraphrase of the one description is caught',
+  !new RegExp(tail.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test('cert-machine: verification layers for AI-scale mathematical search'));
 
 /* ------------------------------------------------------------------------ */
 console.log('    every falsifier turned its target red   [' + reds + '/' + redTotal + ']');

@@ -1,13 +1,24 @@
 # Zenodo deposits for the two ported theorem programs (staged 2026-09-02)
 
-STATUS 2026-09-02 (after the v2026.09 release): THE PRIORITY STAMP
-EXISTS. The GitHub→Zenodo integration was on, so the tagged release
-minted a repo-snapshot DOI automatically with the updated .zenodo.json
-metadata: **10.5281/zenodo.22257596** (version v2026.09), under the same
-concept as the lambda(4) deposit — concept DOI **10.5281/zenodo.22225860**
-(resolves to latest). Both theorem programs — papers, records, code —
-are inside that immutable archive, and CITATION.cff + both report-page
-footers now carry the DOIs.
+STATUS 2026-09-04: THE PRIORITY STAMP EXISTS AND HAS MOVED ON ONCE. The
+GitHub→Zenodo integration is on, so each tagged release mints a
+repo-snapshot DOI automatically from .zenodo.json. The current archive is
+**10.5281/zenodo.22285003** (version v2026.09.1, 2026-09-03); the first,
+**10.5281/zenodo.22257596** (v2026.09, 2026-09-02), is superseded. Both sit
+under concept DOI **10.5281/zenodo.22225860**, which resolves to the latest
+and is what the site pages and the papers cite. Both theorem programs —
+papers, records, code — are inside the archive.
+
+THE DEPOSIT RECORD IS corpus/zenodo.json and check-wiring gates
+CITATION.cff against it. It exists because CITATION.cff named v2026.09.1
+and carried v2026.09's DOI for a day and a half: the version string and
+the DOI were two facts nobody had written down together.
+
+STILL OWED BY THE OPERATOR, since 2026-09-03: the three published records
+carry the RETIRED title. .zenodo.json governs a new deposit; it does not
+rewrite a published one. Metadata edits on a published record are allowed
+and mint no new DOI — corpus/zenodo.json titleLag.howToClose has the
+clicks.
 
 WHAT REMAINS OPTIONAL: the two standalone per-result deposits below,
 which buy citation granularity (their own titles, their own DOIs to

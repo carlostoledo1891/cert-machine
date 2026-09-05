@@ -1,0 +1,44 @@
+{
+  "what": "THE deposit record. Every Zenodo archive of this repository, its DOI and its date, in one place. tools/check-wiring.js gates CITATION.cff against it.",
+  "why": "CITATION.cff named version v2026.09.1 and carried the DOI of v2026.09 for a day and a half — 10.5281/zenodo.22257596 instead of 10.5281/zenodo.22285003. Nothing caught it, because the version string and the DOI were two facts nobody had written down together. They are written down together here.",
+  "recorded": "2026-09-04",
+  "observedFrom": "https://zenodo.org/api/records/<id>, read 2026-09-04",
+
+  "conceptDoi": "10.5281/zenodo.22225860",
+  "conceptNote": "Resolves to the latest archived version. This is the DOI the site pages and the papers cite, and it is the only one that should appear in prose that outlives a release.",
+
+  "latest": "v2026.09.1",
+  "versions": [
+    {
+      "version": "lambda4-v1.0.1",
+      "doi": "10.5281/zenodo.22225861",
+      "date": "2026-09-01",
+      "note": "The lambda(4) release — archive version 1 of this concept, not a separate concept. Its report is at /reports/lambda4.html."
+    },
+    {
+      "version": "v2026.09",
+      "doi": "10.5281/zenodo.22257596",
+      "date": "2026-09-02",
+      "note": "The first whole-repository snapshot, minted by the GitHub integration on the tagged release. SUPERSEDED — do not cite; cite the concept DOI or v2026.09.1."
+    },
+    {
+      "version": "v2026.09.1",
+      "doi": "10.5281/zenodo.22285003",
+      "date": "2026-09-03",
+      "note": "Current. The LaTeX/DOI session's release."
+    }
+  ],
+
+  "titleLag": {
+    "state": "OPEN — operator action, owed since 2026-09-03",
+    "shouldBe": "cert-machine: independent exact certification of machine-generated mathematics",
+    "liveTitleOn": [
+      "10.5281/zenodo.22285003",
+      "10.5281/zenodo.22257596",
+      "10.5281/zenodo.22225860"
+    ],
+    "liveTitleIs": "cert-machine: verification layers for AI-scale mathematical search (certified audits, proof-grounded evals, verified reward channels)",
+    "note": "The repository adopted ONE description on 2026-09-03 (CLAUDE.md D1) and it is correct in CLAUDE.md, README.md, .zenodo.json and CITATION.cff. The three published Zenodo records still carry the retired title, because .zenodo.json only governs a NEW deposit — it does not rewrite a published one. Metadata edits on a published record are allowed and mint no new DOI. Only the depositor's account can make them, so this cannot be closed from here.",
+    "howToClose": "zenodo.org -> Upload -> the record -> Edit -> Title -> paste shouldBe -> Publish. Repeat for each id in liveTitleOn. The concept record inherits the title of its latest version, so editing 22285003 may be enough; check 22225860 afterwards and edit it only if it still shows the old title."
+  }
+}

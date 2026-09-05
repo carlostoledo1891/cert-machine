@@ -235,7 +235,15 @@ function plateContraction() {
   });
   parts.push(txt(28, 30, 'PLATE IV', 0.3, 9));
   parts.push(txt(L, B + 30, 'radius r, log scale  →', 0.3));
-  parts.push(txt(L, Y(0) - 8, 'p(r) = 0 — above this line nothing is proved', 0.35));
+  /* PATCH (declared): this label sat at the LEFT end of the zero line, which is
+     the middle of the plate and exactly where every curve is crossing it — the
+     one place on the plate that is never empty. The range is symmetric about
+     zero, every curve starts flat and high on the left and every one of them
+     has crossed by the middle, so the quadrant BELOW the line and LEFT of the
+     crossings is the one large empty field on the plate. The right end is not
+     empty: the parabolas turn back up before rmax, which is visible and was
+     the first place this label was moved to. */
+  parts.push(txt(L, Y(0) + 17, 'p(r) = 0 — above this line nothing is proved', 0.35));
   parts.push(txt(R, B + 30, 'dots: the radius at which p(r) < 0 was verified in interval arithmetic', 0.42, 9, 'end'));
   parts.push(txt(L, T - 10, 'vertical range is ±1.6 × the largest defect; curves that plunge further are clipped at the frame', 0.32, 8));
   return svg(W, H, parts.join(''));

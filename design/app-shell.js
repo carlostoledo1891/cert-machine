@@ -16,19 +16,37 @@
    renderApp({ title, description, panelHtml, dockHtml, brand, appName,
                homeHref, navLinks, configJson, scripts, styles }) -> document.
 
-   App verdict tokens (--v-cert / --v-refu / --v-refd) are defined HERE in
-   both palettes with the standard three-state guards; WebGL clients read
-   the computed values at runtime — no literal colour leaves this block.   */
+   App verdict tokens (--v-cert / --v-refu / --v-refd) are defined HERE, in
+   ONE palette on bare :root, matching design/tokens.js's one-theme decision;
+   WebGL clients read the computed values at runtime — no literal colour
+   leaves this block.                                                       */
 'use strict';
 
 const T = require('./tokens.js');
 
-const APP_LIGHT = { '--v-cert': '#2C6142', '--v-refu': '#C64B42', '--v-refd': '#8F8798',
-  '--v-cert-soft': '#DEEBE3', '--v-refu-soft': '#F4DEDC', '--v-refd-soft': '#E8E5EC',
-  '--shadow': '0 10px 30px rgba(22,18,26,.14)' };
-const APP_DARK  = { '--v-cert': '#79C79B', '--v-refu': '#E06B62', '--v-refd': '#8E8499',
-  '--v-cert-soft': '#16281E', '--v-refu-soft': '#2E1917', '--v-refd-soft': '#211C29',
-  '--shadow': '0 12px 34px rgba(0,0,0,.5)' };
+/* ONE THEME, and it took a measurement to notice it was two. design/tokens.js
+   retired the three-state light/dark machinery on 2026-09-01 — one palette on
+   bare :root with color-scheme:dark, no media queries — and this file kept its
+   own. The page therefore emitted the DARK ground unconditionally and the
+   LIGHT verdict colours unconditionally, with the dark ones behind a
+   prefers-color-scheme query. On a light-OS machine the app rendered
+   --v-cert = #2C6142 at 2.73:1 against #0a0a0c — under the 3:1 floor
+   design/battery.js enforces everywhere else — and the *-soft washes, which
+   the dark theme expects to be near-black, came out near-white.
+
+   There was never a theme toggle: nothing in this repository has ever set
+   data-theme. The light half was serving a switch that does not exist and
+   breaking the app for everyone whose system is set to light.
+
+   THE VERDICT COLOURS ARE THE ONE PLACE HUE IS SPENT on this site, and they
+   are a PRODUCT palette, not a chart palette: annunciator green and red for
+   states an operator must not confuse. They stay, in one set, and severity is
+   never colour alone — the chips carry a word too (the Garmin grammar in
+   CLAUDE.md's app doctrine). */
+const APP_DARK = { '--v-cert': '#79C79B', '--v-refu': '#E06B62', '--v-refd': '#8E8499',
+  '--v-cert-soft': '#16281E', '--v-refu-soft': '#2E1917', '--v-refd-soft': '#211C29' };
+/* --shadow is NOT redeclared here: design/tokens.js emits it, once, for the
+   whole site. This file used to carry two more. */
 
 /* the SAME request the reports make — derived, never restated */
 const APP_FONTS =
@@ -39,9 +57,7 @@ function vars(o) { return Object.entries(o).map(([k, v]) => k + ':' + v).join(';
 
 function appCss() {
   return `
-:root{${vars(APP_LIGHT)}}   /* --f-sans/--f-display/--f-mono come from T.rootCss(), emitted just above */
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){${vars(APP_DARK)}}}
-:root[data-theme="dark"]{${vars(APP_DARK)}}
+:root{${vars(APP_DARK)}}   /* --f-sans/--f-display/--f-mono and --shadow come from T.rootCss(), emitted just above */
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink)}
 body{font-family:var(--f-sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
@@ -315,4 +331,4 @@ ${(o.scripts || []).map((s) => `<script src="${s}"></script>`).join('\n')}
 </body></html>`;
 }
 
-module.exports = { renderApp, appCss, APP_LIGHT, APP_DARK };
+module.exports = { renderApp, appCss, APP_DARK };

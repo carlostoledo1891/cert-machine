@@ -116,6 +116,12 @@ const out = {
   generated: new Date().toISOString(),
   git: (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })(),
 };
-fs.writeFileSync(path.join(ROOT, 'certs', 'erdos1038-inf.json'), JSON.stringify(out, null, 1) + '\n');
-console.log('wrote certs/erdos1038-inf.json — bracket ['
+/* writeStable, not writeFileSync: this record carries builtAt timestamps from
+   four sub-certificates, so its bytes and therefore its sha256 changed on every
+   run even when no certified number moved — and certs/envs-record.json PINS
+   that sha, so the pin churned with it. A pin that changes every build is not
+   pinning anything. Unchanged content is left on disk untouched. */
+const { writeStable } = require(path.join(ROOT, 'tools', 'stable-json.js'));
+const rewrote = writeStable(path.join(ROOT, 'certs', 'erdos1038-inf.json'), out, ['git']);
+console.log((rewrote ? 'wrote' : 'unchanged') + ' certs/erdos1038-inf.json — bracket ['
   + (t4 ? t4.cap : '?') + ', ' + t1.lenUp + ']');

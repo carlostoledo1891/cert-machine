@@ -113,11 +113,16 @@ are named; six have drafts that have never been sent; of those six, three are
 ready now (1a, 1b, 1c) and three are held on merit until the #290 merge.
 
 ### 5. Zenodo: the two port deposits — PARTIALLY DONE 2026-09-02
-THE STAMP EXISTS: the v2026.09 release auto-minted the repo-snapshot
-DOI 10.5281/zenodo.22257596 (concept 10.5281/zenodo.22225860 — same
-concept as lambda(4)'s deposit) via the GitHub integration, archiving
-both theorem programs whole. CITATION.cff and both report-page footers
-carry it. STILL OPTIONAL: the two standalone per-result deposits for
+THE STAMP EXISTS. The current archive is v2026.09.1, DOI
+10.5281/zenodo.22285003 (2026-09-03), under concept DOI
+10.5281/zenodo.22225860 — the same concept as lambda(4)'s deposit, which
+is archive version 1 of it rather than a separate record. v2026.09
+(10.5281/zenodo.22257596) is SUPERSEDED and must not be cited. Every
+deposit is recorded in corpus/zenodo.json and check-wiring gates
+CITATION.cff against it, because CITATION.cff named v2026.09.1 while
+carrying v2026.09's DOI for a day and a half and nothing caught it.
+The site pages and the papers cite the CONCEPT DOI, which resolves to
+the latest version and does not go stale. STILL OPTIONAL: the two standalone per-result deposits for
 citation granularity — metadata in `outreach/zenodo-ports.md`, upload
 bundles prebuilt in `outreach/zenodo-bundles/` (gitignored). Needs the
 operator's account: the clicks, or a personal access token

@@ -294,6 +294,49 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
     counts at, and five columns that were always there began to be counted.
     The floor was not moved to flatter the number.
 
+  AFTER THE FOUR PHASES (2026-09-04, "finish the design tasks · fix zenodo"):
+
+  · ZENODO, REPO-SIDE, IS CLEAN AND GATED. CITATION.cff named v2026.09.1 and
+    carried the DOI OF v2026.09 — 22257596 instead of 22285003 — for a day and
+    a half, because the version string and the DOI were two facts nobody had
+    written down together. corpus/zenodo.json writes them down together, and
+    check-wiring checks 7-9 gate CITATION.cff against it AND assert the one
+    description is identical in CLAUDE.md, README.md, CITATION.cff and
+    .zenodo.json. .zenodo.json also declared the lambda(4) deposit
+    isSupplementTo when it is a PRIOR VERSION OF THE SAME CONCEPT; it is
+    isNewVersionOf now. Both outreach notes were describing the superseded
+    deposit as current.
+  · THE ZENODO TITLE IS STILL OPERATOR-OWED and cannot be closed from here:
+    .zenodo.json governs a NEW deposit, it does not rewrite a published one.
+    check-wiring prints it as a NOTE every run rather than failing, because a
+    gate that fails on something the machine cannot fix is a gate nobody keeps
+    green. The clicks are in corpus/zenodo.json titleLag.howToClose.
+  · THE SKYAUDIT APP WAS SHIPPING A LIGHT PALETTE ON A DARK GROUND. tokens.js
+    retired the three-state machinery on 2026-09-01 and app-shell.js kept its
+    own, so the page emitted the dark ground unconditionally and the LIGHT
+    verdict colours unconditionally. MEASURED: --v-cert rendered #2C6142 at
+    2.73:1 against #0a0a0c on any light-OS machine — under the 3:1 floor the
+    design battery enforces everywhere else — and the *-soft washes came out
+    near-white where the dark theme expects near-black. Nothing in this
+    repository has ever set data-theme, so the light half was serving a switch
+    that does not exist. One palette now.
+  · THE PIN THAT CHURNED. certs/erdos1038-inf.json embeds builtAt, so its
+    sha256 moved on every build and certs/envs-record.json's pin to it moved
+    too — a pin that changes every run is not pinning anything.
+    tools/stable-json.js writes a record only when its CONTENT changed, so
+    builtAt now means when the content was first produced. Verified by a full
+    re-run of all four #1038 theorems: the sha held.
+  · DEBT.md EXISTS. Six open rows, three "not debt, decided" rows, and the rule
+    that a row leaves only by being fixed or disproved — never by going quiet.
+
+  A METHOD NOTE WORTH KEEPING: converting four certificate writers to the
+  stable-write helper BY REGEX corrupted two certificate files — the rewrite
+  left `writeStable(p, ({...}, null, 1))`, the comma operator evaluated the
+  argument to 1, and both files were written as "1". Restored from git within
+  the minute. The surgical single-file fix was done instead, and it was enough
+  because nothing pins the sub-certificates. CODE THAT WRITES CERTIFICATES GETS
+  EDITED BY HAND, ONE FILE AT A TIME, WITH THE SHA CHECKED BEFORE AND AFTER.
+
   WHAT PHASE 4 DID NOT DO, and it is the next real piece of work:
 
   · THE EXACT ENVELOPE. curveset is honest now but it is honest about being
@@ -584,7 +627,11 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
       the legend re-promote on their own.
     · The catalogue null on shape-hunt still admits 2 of 6 controls at the 5%
       bar. It is the one null on that page that has not been rebuilt twice.
-    · PLATE IV's "p(r) = 0" label sits on top of the zero line and the dots.
+    · PLATE IV's label: DONE 2026-09-04. It sat at the LEFT end of the zero
+      line, which is the middle of the plate and the one place that is never
+      empty. Moved below-left; the check was numeric, not visual — zero curve
+      points and zero dots inside the label's box. (The right end is NOT empty:
+      the parabolas turn back up before rmax, which is where it went first.)
 
   ══ /playground IS NOW /instruments (2026-09-04, operator approved the rename).
      The section was called the playground while it held one interferometer; it
