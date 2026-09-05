@@ -237,7 +237,73 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
   · 528/528 geometry numbers unchanged across the whole pass — consolidating
     the components moved nothing, which is what it had to do.
 
-  THE PLAN FOR PHASE 4 (agreed with the operator; nothing started):
+  PHASE 4 SHIPPED — STANDING GOES PAGE-WIDE:
+
+  · THE DISTINCTION THE PHASE HAD TO GET RIGHT, and the repository had never
+    written down: a VERDICT is what an instrument CONCLUDED (certified,
+    refuted, refused, needs data); a STANDING is what a mark is RESTING ON.
+    They are orthogonal, and the proof is that A REFUTED VERDICT HAS DECIDED
+    STANDING — a refutation here is proved, so its mark is solid. Verdicts wear
+    the chip grammar, standings wear the stroke grammar, and they never share a
+    channel. In warrant.js and in COMPONENTS.md now.
+  · THE HTML HALF. One class set, two media: in an <svg> it is a stroke, on a
+    word it is a voice using THE SAME PATTERN — a computed value underlined
+    dashed exactly as a computed line is dashed, a chosen value dotted, a
+    decided value unmarked. Brightness only supports it, because dimness reads
+    as low confidence and standing is not confidence. W.value(text, standing)
+    and W.textClass(); the CSS is in the shared component layer.
+  · THE GRAMMAR AUDITED ITS OWN FLAGSHIP PAGE AND FAILED IT. /instruments/
+    curveset drew its envelope SOLID — decided — while evaluating it in floats
+    and reading it back by bisection. warrant.js's first composition rule is
+    that a float step takes decided to computed automatically, and it applies
+    to the page the grammar is defined on. THERE IS NO SOLID LINE ON THAT PAGE
+    ANY MORE, and the page says so. This was the open menu item from the
+    2026-09-03 handoff, resolved the honest way rather than by redrawing.
+  · IT IS DERIVED, NOT RETYPED. envelope.js declares ARITHMETIC = 'float' next
+    to the arithmetic it describes; plot.js and build.js both compute the band's
+    standing from it through W.throughFloat(). Flipping it to 'exact' after the
+    piecewise-linear solve replaces the bisection re-promotes every mark AND
+    the legend, because nothing on that page names a standing by hand. The
+    route is written out in envelope.js: the standards are half-integers and
+    both envelopes are a min/max of LINEAR functions, so the bisection becomes
+    one exact solve on one piece.
+  · A RULE FOUND BY BREAKING A FIGURE. Demoting the envelope also demoted the
+    ladder's horizontal BARS, and a 7px bar with a width-proportional dash is
+    not a computed bar, it is a row of dashes. LINES CARRY THE PATTERN; EXTENTS
+    DO NOT — a bar, a bracket or a band carries a quantity in its length, so
+    its body stays solid and standing is carried by shape (a body vs a hatched
+    void). W.extentAttrs() for a bar, W.attrs() for a curve. Written into
+    COMPONENTS.md, because it was found by building rather than by reasoning.
+  · THE LATTICE DOES VISIBLE WORK. curveset's "price of the form" is a ratio of
+    a computed width and a chosen ±, and its standing is not typed on the page —
+    it is W.meet() of the two numbers above it, and comes out CHOSEN.
+  · check-wiring check 6: A PAGE THAT DRAWS THE GRAMMAR PRINTS THE GRAMMAR.
+    warrant.js has said "a grammar nobody is told about is a decoration" since
+    its first line, in a comment. It caught one page on its first run —
+    /instruments itself, whose curveset card draws dashed and dotted marks and
+    said nothing about them. The gathering page prints the legend now, and its
+    card caption, which said the envelope was drawn "solid, because it is what
+    the data forces", says what is actually true.
+  · A PRE-EXISTING FIGURE BUG FOUND ON THE WAY: the ladder's bars started 65px
+    LEFT of the axis and ran through their own row labels. Every ratio there is
+    >= 1, so there was never anything out there to show.
+  · THREE SPINE COUNTS WERE ACCEPTED UPWARD, with the reason recorded in
+    design/measure-baseline.json: +1/+1 for the legend the gathering page now
+    prints, and +5 on curveset which is a THRESHOLD ARTIFACT — the legend went
+    from four items to three, each item grew past the 280px floor the probe
+    counts at, and five columns that were always there began to be counted.
+    The floor was not moved to flatter the number.
+
+  WHAT PHASE 4 DID NOT DO, and it is the next real piece of work:
+
+  · THE EXACT ENVELOPE. curveset is honest now but it is honest about being
+    computed. Replacing the bisection with the exact piecewise-linear solve in
+    playground/rational.js earns the solid line back and is written up in
+    envelope.js. It is the one place on /instruments where DECIDED is available
+    and not taken.
+  · THE REPORT SIDE still has no HTML standing marks. Its numbers come from
+    certificates and are DECIDED, which renders unmarked — correct, but it
+    means the contract is only exercised on one side of the site so far.
 
   · PHASE 3 — ONE COMPONENT SET. Move `.legend`, the table, the stat strip, the
     card and the plate frame out of nine private <style> blocks into the shared

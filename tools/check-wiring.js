@@ -248,6 +248,37 @@ red('a palette colour at any opacity is NOT flagged (a wash is a token)',
 red('a colour the page itself declares is not flagged',
   colourOffences('<style>:root{--x:#123456}\n.y{color:#123456}</style>', 'planted').length === 0);
 
+/* ---------------------------------------------------------------- 6 -----
+   A PAGE THAT DRAWS THE GRAMMAR PRINTS THE GRAMMAR. warrant.js has said from
+   its first line that "a grammar nobody is told about is a decoration" — and
+   said it in a comment, which is exactly the kind of rule that holds until
+   somebody is in a hurry. It is a check now.
+
+   The marks are what count, not the stylesheet: every page inlines the shared
+   component layer, so the CSS rule `.w-computed { stroke: … }` is on all of
+   them. What makes a page a CONSUMER of the grammar is a mark that carries the
+   class — class="w-decided", a w-val span — and any page with one of those
+   must also carry a w-legend saying what the patterns mean.                */
+console.log('-- the grammar');
+
+const MARK = /class="[^"]*\bw-(?:decided|computed|chosen|void|val)\b/;
+const LEG = /class="[^"]*\bw-legend\b/;
+function grammarOffences(html, label) {
+  return MARK.test(html) && !LEG.test(html) ? [label] : [];
+}
+const undeclared = [];
+for (const p of pages) undeclared.push(...grammarOffences(read(p), p));
+const drawing = pages.filter((p) => MARK.test(read(p)));
+if (undeclared.length) bad('every page that draws the grammar prints its legend',
+  undeclared.length + ' draw it silently:\n        ' + undeclared.join('\n        '));
+else ok('every page that draws the grammar prints its legend',
+  '[' + drawing.length + ' of ' + pages.length + ' pages draw it]');
+
+red('a page drawing a grammar mark with no legend is caught',
+  grammarOffences('<svg><line class="w-computed"/></svg>', 'planted').length === 1);
+red('a page that only DECLARES the CSS is not flagged',
+  grammarOffences('<style>.w-computed { stroke: var(--ink-3); }</style>', 'planted').length === 0);
+
 /* ------------------------------------------------------------------------ */
 console.log('    every falsifier turned its target red   [' + reds + '/' + redTotal + ']');
 console.log('\n' + (fails === 0 ? 'ALL PASS' : fails + ' FAILED')

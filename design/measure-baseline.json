@@ -1,5 +1,5 @@
 {
-  "note": "Recorded layout geometry per built page. tools/check-measure.js refuses any number that grows. Lower these by fixing the page, never by editing this file.",
+  "note": "Recorded layout geometry per built page. tools/check-measure.js refuses any number that grows. Lower these by fixing the page, never by editing this file. 2026-09-04, phase 4: three spine counts were accepted UPWARD with --accept-worse and the reason belongs here. /instruments/index.html +1 and +1: the gathering page now prints the standing legend, because check-wiring refuses a page that draws a grammar mark without one. /instruments/curveset +5: a THRESHOLD ARTIFACT, not a regression — the legend went from four items to three, each item grew past the 280px floor this probe counts at, and five columns that were always there began to be counted. The floor was not moved to flatter the number.",
   "recorded": "2026-09-04",
   "viewports": [
     1440,
@@ -104,7 +104,7 @@
         "clipped": 3
       },
       "1440": {
-        "spines": 13,
+        "spines": 18,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -126,13 +126,13 @@
     },
     "site/instruments/index.html": {
       "390": {
-        "spines": 5,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 11,
+        "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0

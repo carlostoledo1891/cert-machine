@@ -39,6 +39,42 @@ the difference. That is the best evidence available that the distinction is real
 
 ---
 
+## Standing is not a verdict (added 2026-09-04, phase 4)
+
+The site carries **two** grammars and they must never share a channel.
+
+A **verdict** is what an instrument CONCLUDED about a claim — CERTIFIED,
+REFUTED, REFUSED, NEEDS DATA — and it is what the report pages publish. A
+**standing** is what a mark is RESTING ON. The cleanest proof that they are
+orthogonal: **a REFUTED verdict has DECIDED standing.** A refutation here is
+proved, so the mark carrying it is solid. A verdict reached by a float screen
+would have COMPUTED standing whatever it concluded.
+
+So verdicts wear the chip grammar (filled / outlined / dashed) and standings
+wear the stroke grammar, and a reader can always ask the two questions apart.
+
+## Lines and extents (added 2026-09-04, phase 4, found by breaking a figure)
+
+The grammar reached exactly one channel until this phase: stroke pattern inside
+an `<svg>`. Extending it found a gap the first time it was applied honestly.
+
+> **A LINE carries standing in its stroke pattern. An EXTENT — a bar, a
+> bracket, a band — carries a quantity in its LENGTH, so its body stays solid
+> and standing is carried by SHAPE: a body means a value, a hatched void means
+> refused. A figure of extents says in words what its bodies are standing on.**
+
+It was found by demoting curveset's envelope from decided to computed, which
+also demoted the horizontal bars in its ladder — and a seven-pixel bar with a
+width-proportional dash is not a computed bar, it is a row of dashes. Use
+`W.extentAttrs()` for a bar and `W.attrs()` for a curve.
+
+**In HTML the same class is a voice**, and it uses the same pattern: a computed
+value is underlined *dashed* exactly as a computed line is dashed, a chosen
+value dotted, a decided value not at all — decided is the voice the rest of the
+site is written in, and marking it would make the exception the rule.
+Brightness only supports the underline; it never carries the standing alone,
+because dimness reads as low confidence and standing is not confidence.
+
 ## Where a component lives (added 2026-09-04, phase 3)
 
 Until this pass the catalogue said what each component was FOR and left where

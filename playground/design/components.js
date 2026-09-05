@@ -79,6 +79,24 @@ function sharedCss() {
 .w-decided { stroke: var(--ink); }
 .w-computed { stroke: var(--ink-3); }
 .w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML. In an <svg> these set a stroke; on a word they set
+   a voice, and the voice uses THE SAME DASH PATTERN as the line — a computed
+   value is underlined dashed exactly as a computed curve is dashed, a chosen
+   value dotted. Decided carries no mark: it is the voice the rest of the site
+   is written in, and marking it would make the exception the rule.
+
+   The underline does the work and brightness only supports it, because
+   dimness alone reads as low confidence and standing is not confidence — the
+   page that defines the grammar says so in as many words. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+/* a REFUSED value is not printed dim — it is NOT PRINTED. What the page shows
+   instead is the reason, and this is the voice it says it in. */
+span.w-refused::before { content: "\\2205\\00a0"; color: var(--ink-5); }
+
 /* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG
    <pattern>, and a pattern is addressed by an id that lives in the figure that
    defines it. A shared rule would point every page at one page's id. */

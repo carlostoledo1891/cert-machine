@@ -10,6 +10,15 @@
 */
 'use strict';
 const W = require('../warrant.js');
+const { ARITHMETIC } = require('./envelope.js');
+
+/* WHAT THE ENVELOPE IS STANDING ON, derived rather than typed. The formula is
+   closed form; the evaluation is float, and warrant.js's first composition rule
+   says a float step takes DECIDED to COMPUTED automatically. It applies to this
+   file too. Flip envelope.js's ARITHMETIC to 'exact' once the piecewise-linear
+   solve replaces the bisection and every mark below re-promotes on its own —
+   including the legend, which is rendered from the same lattice. */
+const BAND = ARITHMETIC === 'exact' ? W.DECIDED : W.throughFloat(W.DECIDED);
 
 const PAD = { l: 74, r: 26, t: 20, b: 54 };
 const fmt = (v, d = 4) => (Math.abs(v) >= 1e4 ? Math.round(v).toLocaleString('en-US') : Number(v).toPrecision(d));
@@ -119,9 +128,9 @@ function calibrationPlot(E, set, ri, { w = 900, h = 460 } = {}) {
   let readMark = '';
   if (r && r.bounded) {
     const a = S.X(r.lo), b = S.X(r.hi), yb = h - PAD.b;
-    readMark = `<line x1="${a.toFixed(1)}" y1="${yb}" x2="${b.toFixed(1)}" y2="${yb}" ${W.attrs(W.DECIDED, { width: 5 })} stroke-linecap="butt"/>`
-      + `<line x1="${a.toFixed(1)}" y1="${(yb - 7).toFixed(1)}" x2="${a.toFixed(1)}" y2="${(yb + 7).toFixed(1)}" ${W.attrs(W.DECIDED, { width: 2 })}/>`
-      + `<line x1="${b.toFixed(1)}" y1="${(yb - 7).toFixed(1)}" x2="${b.toFixed(1)}" y2="${(yb + 7).toFixed(1)}" ${W.attrs(W.DECIDED, { width: 2 })}/>`
+    readMark = `<line x1="${a.toFixed(1)}" y1="${yb}" x2="${b.toFixed(1)}" y2="${yb}" ${W.extentAttrs(BAND, { width: 5 })} stroke-linecap="butt"/>`
+      + `<line x1="${a.toFixed(1)}" y1="${(yb - 7).toFixed(1)}" x2="${a.toFixed(1)}" y2="${(yb + 7).toFixed(1)}" ${W.extentAttrs(BAND, { width: 2 })}/>`
+      + `<line x1="${b.toFixed(1)}" y1="${(yb - 7).toFixed(1)}" x2="${b.toFixed(1)}" y2="${(yb + 7).toFixed(1)}" ${W.extentAttrs(BAND, { width: 2 })}/>`
       + `<line x1="${a.toFixed(1)}" y1="${yAsk.toFixed(1)}" x2="${a.toFixed(1)}" y2="${yb}" class="cs-drop"/>`
       + `<line x1="${b.toFixed(1)}" y1="${yAsk.toFixed(1)}" x2="${b.toFixed(1)}" y2="${yb}" class="cs-drop"/>`;
   } else {
@@ -153,8 +162,8 @@ function calibrationPlot(E, set, ri, { w = 900, h = 460 } = {}) {
   return `<svg viewBox="0 0 ${w} ${h}" class="cs-plot" role="img" aria-label="${esc(set.title)}: the envelope of calibration curves the standards allow, with the published fit drawn inside it.">
 <g class="cs-grids">${gx}${gy}</g>
 ${fill}
-<path d="${pathU}" ${W.attrs(W.DECIDED, { width: 2 })}/>
-<path d="${pathL}" ${W.attrs(W.DECIDED, { width: 2 })}/>
+<path d="${pathU}" ${W.attrs(BAND, { width: 2 })}/>
+<path d="${pathL}" ${W.attrs(BAND, { width: 2 })}/>
 ${fitPath}${askLine}${pts}${readMark}${repMark}
 <text x="${(w - PAD.r).toFixed(1)}" y="${h - 6}" class="cs-axname tx">${esc(set.xName)}${set.xUnit ? ' (' + esc(set.xUnit) + ')' : ''}${S.LOG ? ', log scale' : ''}</text>
 <text x="${PAD.l - 10}" y="${PAD.t - 6}" class="cs-axname ty">${esc(set.yName)}${set.yUnit ? ' (' + esc(set.yUnit) + ')' : ''}</text>
@@ -180,7 +189,10 @@ function ladderPlot(set, ri, { w = 900, h = 250 } = {}) {
     }
     const v = g.r.width / (2 * set.reported.uFit);
     return lab
-      + `<line x1="${X(0.6).toFixed(1)}" y1="${y.toFixed(1)}" x2="${X(v).toFixed(1)}" y2="${y.toFixed(1)}" ${W.attrs(W.DECIDED, { width: i === ri ? 7 : 4 })} stroke-linecap="butt"${i === ri ? '' : ' opacity="0.5"'}/>`
+      /* the bar starts AT the axis. X(0.6) puts it 65px to the LEFT of it, which
+         ran every bar through its own row label — every ratio here is >= 1, so
+         there was never anything out there to show. */
+      + `<line x1="${P.l}" y1="${y.toFixed(1)}" x2="${X(v).toFixed(1)}" y2="${y.toFixed(1)}" ${W.extentAttrs(BAND, { width: i === ri ? 7 : 4 })} stroke-linecap="butt"${i === ri ? '' : ' opacity="0.5"'}/>`
       + `<text x="${(X(v) + 10).toFixed(1)}" y="${(y + 3.5).toFixed(1)}" class="cs-val${i === ri ? ' on' : ''}">${v >= 10 ? v.toFixed(0) : v.toFixed(1)}×</text>`;
   }).join('');
 

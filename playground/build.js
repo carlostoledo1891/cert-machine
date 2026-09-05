@@ -25,6 +25,7 @@ const SIMPLEX = require(path.join(HERE, 'simplex', 'build.js'));
 const NG = require(path.join(HERE, 'neural-geometry', 'build.js'));
 const SH = require(path.join(HERE, 'shape-hunt', 'build.js'));
 const CS = require(path.join(HERE, 'curveset', 'build.js'));
+const W = require(path.join(HERE, 'warrant.js'));
 const PL = require(path.join(HERE, 'plates', 'build.js'));
 const XG = require(path.join(HERE, 'exact-geometry', 'build.js'));
 const AS = require(path.join(HERE, 'answer-shape', 'build.js'));
@@ -129,10 +130,18 @@ const body = `
     </div>
   </a>
 
+  <!-- THE GRAMMAR, once, where the marks first appear. check-wiring refuses any
+       page that draws a w-* mark without printing this: "a grammar nobody is
+       told about is a decoration" was a comment in warrant.js for a week. -->
+  <div class="wrap" style="margin-top:var(--s-8)">
+    <div class="eyebrow">what the marks below mean</div>
+    ${W.legendHtml({ exclude: [W.DECIDED] })}
+  </div>
+
   <a class="card" href="curveset/index.html">
     <figure class="card-art">
       <div class="plate">${CS.cardArt()}<span class="uv-scale">${n(CS.monoR(CS.pontius), 0)}&times; the reported &plusmn;, assuming only monotone</span></div>
-      <figcaption><b>The same question, on something everyday.</b> Twenty loads applied twice at NIST, and the whole set of calibration curves those standards allow &mdash; solid, because it is what the data forces. The published quadratic is the dotted line inside it: one member of that set, chosen by a fitting criterion rather than by the measurements.</figcaption>
+      <figcaption><b>The same question, on something everyday.</b> Twenty loads applied twice at NIST, and the whole set of calibration curves those standards allow &mdash; dashed, because the formula is closed form but the arithmetic is float, and the grammar demotes for that. The published quadratic is the dotted line inside it: one member of that set, chosen by a fitting criterion rather than by the measurements.</figcaption>
     </figure>
     <div class="card-body">
       <div class="eyebrow">curveset &middot; ${CS.P.sets.length} real calibrations &middot; no model calls</div>

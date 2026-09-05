@@ -36,6 +36,17 @@
         this is the rule that dots the published calibration curve on
         /instruments/curveset.
 
+   STANDING IS NOT A VERDICT, AND THE SITE CARRIES BOTH. A VERDICT is what an
+   instrument CONCLUDED about a claim — CERTIFIED, REFUTED, REFUSED, NEEDS DATA
+   — and it is the thing the report pages publish. A STANDING is what a mark is
+   RESTING ON. They are orthogonal, and the clearest proof is that a REFUTED
+   verdict has DECIDED standing: a refutation here is proved, so the mark
+   carrying it is solid. A CERTIFIED verdict also has DECIDED standing. A
+   verdict reached by a float screen would have COMPUTED standing whatever it
+   concluded. So the two axes never share a channel: verdicts wear the chip
+   grammar (filled / outlined / dashed, weight and shape), standings wear the
+   stroke grammar, and a reader can always ask both questions separately.
+
    WHAT THIS IS NOT. It is not a confidence encoding and must not be read as one.
    A value can be known to fourteen decimals and still be undecided; a value can
    be certified and have a wide bracket. Width is drawn separately, as an extent,
@@ -92,6 +103,66 @@ function attrs(standing, opts) {
     + (s.cap ? ` stroke-linecap="${s.cap}"` : '');
 }
 
+/* ------------------------------------------------- LINES AND EXTENTS ------
+   FOUND BY BUILDING, 2026-09-04, the moment the grammar was first applied to a
+   page that had been lying about itself. Demoting curveset's envelope from
+   decided to computed also demoted the horizontal BARS in its ladder figure —
+   and a 7px bar with a width-proportional dash is not a computed bar, it is a
+   row of dashes. The pattern is defined for a LINE. A bar is not a line.
+
+     A LINE carries standing in its stroke pattern.
+     AN EXTENT — a bar, a bracket, a band — carries a QUANTITY in its length,
+     so its body stays solid and standing is carried by SHAPE: a body means a
+     value, a hatched void means refused. A figure of extents must say in
+     words what standing its bodies have, because the pattern channel is not
+     available to it.
+
+   That is not a loophole, it is the same rule the channel note already makes:
+   the stroke channel carries standing when a figure holds more than one
+   standing IN THAT CHANNEL. In a ladder of computed bars and refused voids the
+   voids are drawn as a different SHAPE, so the pattern channel holds exactly
+   one standing and is free — and the figure has to say what it is doing
+   instead, which is what the caption is for. */
+function extentAttrs(standing, opts) {
+  const s = stroke(standing, opts);
+  if (!s) return 'class="w-void" fill="none"';
+  return `class="${s.class}" fill="none" stroke-width="${s.width}"`;   /* no dasharray: an extent is not a line */
+}
+
+/* ------------------------------------------------------- the HTML half ----
+   ONE CLASS SET, TWO MEDIA. Until 2026-09-04 the grammar reached exactly one
+   channel: stroke pattern inside an <svg>. Everywhere else — a number in a
+   table, a value in a readout, a figure caption — a decided quantity and a
+   float looked identical, and pages that cared had rolled their own dimming by
+   hand. The lattice was general and was being spent on dashes.
+
+   So the same class carries the standing in both media. In SVG it is a stroke;
+   in HTML it is a voice: brightness plus THE SAME DASH PATTERN, drawn as the
+   underline. A computed value is underlined dashed exactly as a computed line
+   is dashed; a chosen value is underlined dotted; a decided value carries no
+   mark at all, because decided is the voice the rest of the site is written in
+   and marking it would make the exception the rule.
+
+   BRIGHTNESS ALONE WOULD BE WRONG and the page that defines the grammar says
+   why: "a dotted line here is not less precise — it is often far more precise".
+   Dimness reads as low confidence, so the underline does the work and the
+   brightness only supports it. Never colour alone, never brightness alone. */
+function textClass(standing) {
+  switch (standing) {
+    case DECIDED: return 'w-decided';
+    case COMPUTED: return 'w-computed';
+    case CHOSEN: return 'w-chosen';
+    default: return 'w-refused';
+  }
+}
+
+/* a value with its standing on it. The title is not decoration — it is the
+   only affordance a reader has on a phone, where nothing hovers. */
+function value(text, standing, { title } = {}) {
+  const t = title || GLOSS[standing];
+  return `<span class="w-val ${textClass(standing)}" title="${String(t).replace(/"/g, '&quot;')}">${text}</span>`;
+}
+
 /* the legend, in the page's own words rather than the spec's. Every page that
    uses the grammar prints this, because a grammar nobody is told about is a
    decoration. */
@@ -131,5 +202,9 @@ function legendHtml({ exclude = [], width = 2.4 } = {}) {
     + `</div>`;
 }
 
+/* one gloss per standing, derived from LEGEND so the tooltip and the legend
+   cannot say different things */
+const GLOSS = LEGEND.reduce((o, L) => { o[L.s] = L.label + ' — ' + L.gloss; return o; }, {});
+
 module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice,
-  refuse, stroke, attrs, LEGEND, legendHtml };
+  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS };

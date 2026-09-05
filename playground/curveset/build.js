@@ -14,6 +14,9 @@ const PG = path.join(HERE, '..');
 const { page } = require(path.join(PG, 'design', 'shell.js'));
 const W = require(path.join(PG, 'warrant.js'));
 const PLOT = require('./plot.js');
+/* the same derivation the plot makes, from the same declaration — see
+   envelope.js. Two consumers, one rule; naming it twice is how they diverge. */
+const BAND = require('./envelope.js').ARITHMETIC === 'exact' ? W.DECIDED : W.throughFloat(W.DECIDED);
 const E = require('./envelope.js');
 
 const P = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'page.json'), 'utf8'));
@@ -35,7 +38,10 @@ const monoR = (s) => ratio(s, 0), dotsR = (s) => ratio(s, lastIdx(s));
 
 /* the legend is RENDERED BY warrant.js, not described here: the page cannot
    disagree with the grammar it is using, and the markup existed twice. */
-const legend = W.legendHtml();
+/* the standings this page actually uses. DECIDED is excluded because nothing
+   here is decided — see the paragraph above — and a legend that teaches a mark
+   the page never draws is the decoration the grammar exists to avoid. */
+const legend = W.legendHtml({ exclude: [W.DECIDED] });
 
 const panel = (s) => {
   const start = 0;                       /* open on bare monotonicity — the widest true answer */
@@ -53,9 +59,9 @@ const panel = (s) => {
       <span class="state" data-state="${s.id}">${rungLabel(s.rungs[start])}</span>
     </div>
     <div class="readout">
-      <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="${s.id}">${s.rungs[start].r && s.rungs[start].r.bounded ? fmt(s.rungs[start].r.lo) + ' – ' + fmt(s.rungs[start].r.hi) : 'unbounded'}</div><div class="rn">decided in closed form from the standards and the stated assumption — no optimiser, no sampling.</div></div>
-      <div class="r"><div class="rk">what was reported</div><div class="rv">${fmt(s.reported.xHat)} ± ${fmt(s.reported.uFit)}</div><div class="rn">${s.reported.kind}. One member of the set on the left, chosen by a fitting criterion.</div></div>
-      <div class="r"><div class="rk">the price of the form</div><div class="rv" data-ratio="${s.id}">${monoR(s) ? n(monoR(s)) + '×' : '∞'}</div><div class="rn">how much wider the honest answer is than the reported ±, at this assumption.</div></div>
+      <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="${s.id}">${W.value(s.rungs[start].r && s.rungs[start].r.bounded ? fmt(s.rungs[start].r.lo) + ' – ' + fmt(s.rungs[start].r.hi) : 'unbounded', BAND)}</div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
+      <div class="r"><div class="rk">what was reported</div><div class="rv">${W.value(fmt(s.reported.xHat) + ' ± ' + fmt(s.reported.uFit), W.CHOSEN)}</div><div class="rn">${s.reported.kind}. One member of the set on the left, chosen by a fitting criterion.</div></div>
+      <div class="r"><div class="rk">the price of the form</div><div class="rv" data-ratio="${s.id}">${W.value(monoR(s) ? n(monoR(s)) + '×' : '∞', W.meet(BAND, W.CHOSEN))}</div><div class="rn">how much wider the honest answer is than the reported ±, at this assumption. Its standing is not typed here — it is the <em>meet</em> of the two numbers above it, which the lattice works out on its own.</div></div>
     </div>
   </div>
   <div class="fig" data-ladder="${s.id}">${PLOT.ladderPlot(s, start)}</div>
@@ -87,8 +93,10 @@ const body = `
 <section class="sec"><div class="wrap">
   <div class="eyebrow">the grammar this page is drawn in</div>
   <h2>Every mark says what it is standing on.</h2>
-  <p class="why">The envelope is <b>decided</b>: it is what the standards and the stated assumption force, in closed form, and it is drawn solid. The published curve is <b>chosen</b> — an <code>argmin</code> of a fitting criterion over a family nobody derived from the data — and it is drawn dotted. Where a reading is over range and no admissible curve bounds it, there is <b>no mark at all</b> and the void is drawn, because "over range" is a fact about the ladder rather than a number to interpolate.</p>
+  <p class="why">The envelope is <b>computed</b>: the formula is closed form — no optimiser, no sampling — but it is <em>evaluated</em> in floating point, and the backwards read is a bisection. The grammar's first rule is that a float step takes decided to computed automatically, and it applies to this page as readily as to anybody else's, so the envelope is drawn dashed. The published curve is <b>chosen</b> — an <code>argmin</code> of a fitting criterion over a family nobody derived from the data — and it is drawn dotted. Where a reading is over range and no admissible curve bounds it, there is <b>no mark at all</b> and the void is drawn, because "over range" is a fact about the ladder rather than a number to interpolate.</p>
+  <p class="why" style="margin-top:var(--s-4)"><b>There is no solid line anywhere on this page, and that is the finding.</b> It was drawn solid for a week: the formula looks decided, and the page said so. The grammar disagreed with the page it is defined on, which is the most useful thing it has done. The route to earning solid back is not large and is written down in <code>envelope.js</code> — the standards are half-integers and both envelopes are a min/max of <em>linear</em> functions, so the bisection can be replaced by one exact solve on one piece. <code>ARITHMETIC = 'exact'</code> then re-promotes every mark here and this legend with it, because nothing on this page names a standing by hand.</p>
   ${legend}
+  <p class="why" style="margin-top:var(--s-4)"><b>Lines carry the pattern; extents do not.</b> A bar, a bracket and a band show a <em>quantity in their length</em>, so their bodies stay solid — a seven-pixel bar chopped into dashes is not a computed bar, it is a row of dashes. In the ladder below, every body is computed and the rungs with no admissible answer are hatched voids instead, so shape carries the difference and the pattern channel is left alone. This rule was found by applying the grammar to this page and watching it break the figure.</p>
   <p class="why" style="margin-top:var(--s-6)"><b>Standing is not confidence.</b> A dotted line here is not less precise — it is often far more precise, which is exactly the problem. It is precise <em>because</em> something other than the data chose it. Width is drawn separately, as an extent, so the two never collapse into one channel.</p>
 </div></section>
 

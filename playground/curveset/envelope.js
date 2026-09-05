@@ -32,6 +32,23 @@
  *
  * With m = 0 and M = infinity the answer collapses to something worth saying
  * out loud: the two standards that bracket the reading, and nothing finer.
+ *
+ * WHAT ARITHMETIC THIS RUNS IN, and the page is drawn from the answer.
+ * The FORMULAS above are closed form. The EVALUATION is float: U and L are
+ * min/max over float sums, and the backwards read is a bisection ('first x with
+ * f(x) >= want'). warrant.js's first composition rule is that a float step
+ * takes DECIDED to COMPUTED automatically, and it applies to this file as
+ * readily as to anybody else's — so ARITHMETIC is declared here, the page
+ * derives its marks' standing from it, and the envelope is drawn as the
+ * COMPUTED thing it is rather than the decided thing the formula looks like.
+ *
+ * THE EXACT ROUTE IS OPEN AND IT IS NOT LARGE. The standards are half-integers
+ * and both envelopes are a min/max of LINEAR functions of x, so U and L are
+ * piecewise linear with breakpoints at the standards; the backwards read is
+ * then the solution of one linear equation on one piece, exactly, instead of a
+ * bisection. Doing that in playground/rational.js and flipping ARITHMETIC to
+ * 'exact' re-promotes every mark on the page and its legend with it, because
+ * nothing downstream names a standing by hand.
  */
 'use strict';
 
@@ -186,4 +203,9 @@ function band(C, m, M, N = 320, opts = {}) {
   return { x: xs, u, l };
 }
 
-module.exports = { prepare, secantBand, upper, lower, readBack, band, localBounds, readBackLocal };
+/* 'float' | 'exact' — read by the page to decide what its marks are standing
+   on. Changing it without changing the arithmetic is a lie the legend will
+   repeat, so it lives beside the arithmetic it describes. */
+const ARITHMETIC = 'float';
+
+module.exports = { prepare, secantBand, upper, lower, readBack, band, localBounds, readBackLocal, ARITHMETIC };
