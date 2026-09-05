@@ -72,9 +72,15 @@ const UV = uvSVG(BEST_NIGHT, { size: 900 });
    Nothing here knows which instrument it is drawing; it reads the number the
    art already declares. */
 function plate(art, scaleLabel) {
-  const m = /viewBox="\s*[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)/.exec(art || '');
-  const ar = m && +m[2] ? Math.min(2.4, Math.max(0.8, +m[1] / +m[2])) : 4 / 3;
-  return '<div class="plate" style="aspect-ratio:' + ar.toFixed(4) + '">' + art
+  /* An art whose viewBox is not square is CROPPED to the square plate instead
+     of letterboxed into it — 'slice' fills the box and takes the overflow off
+     the long edge, which is what a thumbnail does. Letterboxing is what made
+     these read as black boxes in the first place, and matching the plate to
+     each art instead made the grid ragged: a half-height card looks broken. */
+  /* wide arts are LETTERBOXED into the square, never cropped — a figure is not
+     a photograph and its edges carry the argument. The plate has no fill, so
+     the band above and below reads as the page. */
+  return '<div class="plate">' + art
     + (scaleLabel ? '<span class="uv-scale">' + scaleLabel + '</span>' : '') + '</div>';
 }
 

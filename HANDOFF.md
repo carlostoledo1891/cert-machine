@@ -337,7 +337,49 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
   because nothing pins the sub-certificates. CODE THAT WRITES CERTIFICATES GETS
   EDITED BY HAND, ONE FILE AT A TIME, WITH THE SHA CHECKED BEFORE AND AFTER.
 
-  ══ SESSION OF 2026-09-05: ONE NAV, AND THE GATHERING PAGE STOPS SHOUTING ══
+  ══ SESSION OF 2026-09-05 (SECOND): THE GATE THAT LOOKS AT THE PAGE ══
+
+  THE OPERATOR'S QUESTION WAS THE RIGHT ONE: "lots of svg elements are black,
+  there is a text block lost on the page — the system should not allow that,
+  agree?" Agreed. Every gate here read the SOURCE. None of them looked at what
+  a reader sees, so a figure could render as an empty rectangle with the whole
+  battery green. tools/check-render.js is that gate, and its FIRST RUN found
+  every defect below on pages that were already live.
+
+  · 1,337 STRAY COMMAS across five pages. An array interpolated into a template
+    literal stringifies with COMMAS between its elements — ${ch} where ch is an
+    array of <line> — so 892 landed inside one figure and 66 on the gathering
+    page. THREE missing .join('') calls. Note the near miss: a scanner found 12
+    candidates and FOUR of them were false (a count in prose, three variables
+    already joined), so each was verified by building rather than by pattern.
+  · 12 KINDS OF INVISIBLE SVG ELEMENT, and this is the real "black charts".
+    The gathering page embeds each instrument's card art but NOT the stylesheet
+    that colours it, and SVG's default stroke is none — so 63 chords on the
+    affect card and 60 on answer-shape painted nothing at all. Measured: those
+    two plates were at 1.47% and 1.22% INK. A figure vocabulary used by more
+    than one page is a shared component, the same as a hero; the primitives
+    (.ch .ord .clo .mst .pt .lb .ax .cs-*) live in the component layer now.
+    affect measures 6.97% after.
+  · TWO CELLS READING "null" in a published table, from String(null), and
+    literal backticks in a /machine cell from a markdown habit in a JS string.
+  · THE NAV WAS DEAD IN A file:// PREVIEW — every link absolute. The site is
+    reviewed from disk before it is pushed, so a nav that only works after
+    deploy is a nav nobody can check. Relative now, on both shells.
+
+  THE GATE ITSELF, and its two honest limits are in the file:
+    · MARKERS are checked outside script/style and only in VALUE positions —
+      "reward hacking is undefined" is a sentence and <th>null</th> is a column
+      named after the null model. Both are red controls.
+    · INK RATCHETS against design/render-baseline.json rather than setting a
+      bar, because only the author can say whether a sparse drawing is empty or
+      exact. What the machine can say is that it got thinner.
+    · THREE FIGURES ARE UNMEASURED. captureBeyondViewport returns a blank clip
+      for boxes far below the fold, which read four glide-band figures — one
+      with 314 elements in it — as 0% on the first run. THE GATE WAS WRONG, NOT
+      THE PAGE. A clean zero now means "not measured" and is reported as such.
+      Fixing that capture is the next thing this gate needs.
+
+  ══ SESSION OF 2026-09-05 (FIRST): ONE NAV, AND THE GATHERING PAGE STOPS SHOUTING ══
 
   · THE SITE HAD TWO NAVIGATIONS and /instruments carried the smaller one — the
     word "instruments/" and one link home. A reader landing on an instrument

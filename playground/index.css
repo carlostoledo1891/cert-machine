@@ -48,12 +48,24 @@ p { margin: 0; }
 
 .card-art { margin: 0; }
 .card-art .plate {
-  position: relative; aspect-ratio: 4 / 3; width: 100%;
-  background:
-    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--ink) 2.8%, transparent) 0%, color-mix(in srgb, var(--ink) 0%, transparent) 62%),
-    var(--bg-raised);
+  /* square, because seven of the nine arts are. A wide art is cropped to it
+     by preserveAspectRatio in build.js, not letterboxed into it. */
+  position: relative; aspect-ratio: 1 / 1; width: 100%;
+  /* NO FILL. The plate used to be a --bg-raised box, so a square art in a 4/3
+     box — seven of the nine are square — read as a small drawing floating in a
+     dark rectangle, and two arts that painted their own ground made a second,
+     darker rectangle beside it. A hairline is enough to say "figure"; the
+     letterbox band above a wide art is now the page, not an empty box. */
   border: 1px solid var(--border); border-radius: var(--radius-l); overflow: hidden;
 }
+/* EVERY art fills the plate, not just the one that happened to carry .uv.
+   This is why the arts read as drawings floating in black boxes: bench.css
+   sizes a bare <svg> at width:100%;height:auto, so a 900x420 figure in a
+   524-wide plate rendered 524x244 and left 280px of empty ground beneath it.
+   Stretched to the box, preserveAspectRatio governs instead — square arts
+   meet it exactly, wide ones are cropped to it by build.js. */
+.card-art .plate > svg,
+.card-art .plate > img,
 .uv { position: absolute; inset: 0; width: 100%; height: 100%; }
 .uv-rings circle { fill: none; stroke: var(--border-strong); stroke-width: 1; opacity: 0.7; }
 .uv-tracks path {

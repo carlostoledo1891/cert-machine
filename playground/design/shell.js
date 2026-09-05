@@ -49,7 +49,7 @@ function page({ title, desc = '', root = '', here = 'home', body, head = '', scr
 ${head}
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
-${NAV.navHtml({ here: here === 'home' ? 'instruments' : here })}
+${NAV.navHtml({ here: here === 'home' ? 'instruments' : here, root: root + '../' })}
 ${body}
 ${script}
 </body>

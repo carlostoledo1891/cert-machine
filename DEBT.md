@@ -13,7 +13,17 @@ being shown not to be a defect — never by going quiet.
 
 ---
 
-## PAID — 2026-09-05
+## PAID — 2026-09-05 (second pass: what a page SHOWS)
+
+| what | how it was closed |
+|---|---|
+| **1,337 stray commas** on five live pages | an array interpolated into a template literal stringifies with COMMAS between its elements. `${ch}` where `ch` is an array of `<line>` put 892 of them inside one figure and 66 on the gathering page. Three missing `.join('')` calls |
+| **12 kinds of invisible SVG element** | the gathering page embeds each instrument's card art but not the stylesheet that colours it, and SVG's default stroke is `none` — so 63 chords on the affect card and 60 on answer-shape painted nothing. Those two plates measured **1.47% and 1.22% ink** and read as black boxes. The figure primitives are shared components now; affect measures **6.97%** |
+| two cells reading `null` in a published table | `String(null)` is the four-character word. An absent count is an em dash |
+| literal backticks in a `/machine` table cell | a markdown habit inside a JS description string |
+| the nav was dead in a `file://` preview | every link was absolute. The site is reviewed from disk before it is pushed, so a nav that only works after deploy is a nav nobody can check |
+
+## PAID — 2026-09-05 (first pass)
 
 | what | how it was closed |
 |---|---|
@@ -37,6 +47,24 @@ being shown not to be a defect — never by going quiet.
 ---
 
 ## OPEN
+
+### 0 · THE GATE THAT DID NOT EXIST — now it does
+`tools/check-render.js`. The repository gated the registries, the type system,
+the palette, the layout geometry and the grammar, and had **nothing that looked
+at what a reader sees** — so a figure could render as an empty rectangle with
+every gate green. Three checks: builder leaks (markers, outside script/style,
+in value positions only so prose is respected), every classed mark inside a
+figure resolving to a paint, and INK — each figure screenshotted and its
+non-ground pixels counted, ratcheted against `design/render-baseline.json`.
+Four red controls. **Its first run found every defect listed above.**
+
+Two honest limits, both in the file: ink RATCHETS rather than setting a bar,
+because only the author can say whether a sparse drawing is empty or exact; and
+three figures on `reports/glide-band.html` sit far enough below the fold that
+`captureBeyondViewport` returns a blank clip, so they are reported as
+**unmeasured** rather than counted as blank. Fixing that capture is the next
+thing this gate needs.
+
 
 ### 1 · The Zenodo titles — OPERATOR ACTION, and the only one here that is not mine to close
 Three published records still carry the retired title. `.zenodo.json` governs a

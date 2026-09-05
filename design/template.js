@@ -35,6 +35,13 @@ const T = require('./tokens.js');
 const { balancedGrid } = require('./grid.js');
 const NAVJS = require('./nav.js');
 
+/* the relative prefix back to the site root, from the page's own path, so the
+   nav resolves in a file:// preview as well as on the domain */
+function rootOf(p) {
+  const depth = String(p || '/').replace(/^\/|[^/]*$/g, '').split('/').filter(Boolean).length;
+  return '../'.repeat(depth);
+}
+
 /* which nav link is the current one, from the page's own path */
 function sectionOf(p) {
   const m = /^\/(reports|instruments|machine|about)\b/.exec(p || '');
@@ -387,7 +394,7 @@ function render({ title, bodyRaw, footRaw, desc, path: pagePath }) {
   const CO = require('./components.js');
   /* the nav — links, markup and CSS — is design/nav.js, so /instruments can
      carry the same one. It used to be a link list inline in this function. */
-  const NAV = NAVJS.navHtml({ here: sectionOf(pagePath) });
+  const NAV = NAVJS.navHtml({ here: sectionOf(pagePath), root: rootOf(pagePath) });
   const d = desc || DEFAULT_DESC;
   const canon = pagePath ? SITE_ORIGIN + pagePath : null;
   return `<!doctype html>

@@ -73,6 +73,33 @@ function sharedCss() {
   border-radius: var(--radius-l); padding: var(--s-5); }
 .panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
 
+/* ---- FIGURE PRIMITIVES ----------------------------------------------------
+   THE DEFECT THIS CLOSES, and it is the one the operator saw as "lots of svg
+   elements are black". The gathering page embeds each instrument's card art
+   but NOT the stylesheet that colours it, and an SVG element whose class
+   resolves to nothing paints nothing — the default stroke is 'none'. Measured
+   on /instruments before this: 12 kinds of classed element painting nothing,
+   including 63 chords on the affect card and 60 on answer-shape, which is why
+   those two plates measured 1.4% and 1.2% ink and read as black boxes.
+
+   A figure vocabulary used by more than one page is a shared component, the
+   same as a hero or a footer. Phase 3 moved the furniture and left these.  */
+.ch { stroke: var(--ink-2); }
+.ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-dasharray: 6 6; stroke-linecap: round; }
+.mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
+.pt { fill: var(--ink-2); }
+.lb { fill: var(--ink-4); font-family: var(--font-mono); }
+.ax line { stroke: var(--border-strong); }
+.ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 4; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 4; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-std { fill: var(--ink); }
+.cs-tick { fill: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
+
 /* ---- THE GRAMMAR. Stroke pattern carries standing; see ../warrant.js for the
    rule about when the channel is free. A REFUSED mark has no stroke at all —
    the void is a hatched field, never a line. ---- */

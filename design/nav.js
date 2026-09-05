@@ -33,10 +33,10 @@ const GITHUB = 'https://github.com/carlostoledo1891/cert-machine';
 /* the order, and it is the site's argument: what was decided, what you can
    turn, what does the deciding, who did it */
 const LINKS = [
-  { t: 'Reports', href: '/reports/', here: 'reports' },
-  { t: 'Instruments', href: '/instruments/', here: 'instruments' },
-  { t: 'Machine', href: '/machine/', here: 'machine' },
-  { t: 'About', href: '/about/', here: 'about' },
+  { t: 'Reports', to: 'reports/', here: 'reports' },
+  { t: 'Instruments', to: 'instruments/', here: 'instruments' },
+  { t: 'Machine', to: 'machine/', here: 'machine' },
+  { t: 'About', to: 'about/', here: 'about' },
 ];
 
 const GH_ICON = '<svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">'
@@ -47,18 +47,24 @@ const GH_ICON = '<svg width="17" height="17" viewBox="0 0 16 16" fill="currentCo
   + '1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 '
   + '1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>';
 
-/* `here` marks the current section so the nav says where you are.
-   `root` is the relative prefix a page needs; the served site is absolute-path
-   safe, so it is '' everywhere and exists for local file:// previews. */
+/* `here` marks the current section so the nav says where you are. `root` is
+   the relative prefix from this page back to the site root — '' at the top,
+   '../' one level down — so the nav resolves BOTH on the served site and in a
+   file:// preview. It used to be absolute, which is correct on the domain and
+   dead on disk, and the site is reviewed on disk before it is pushed.
+
+   A directory link needs its index.html spelled out for file://; a served host
+   would add it. Harmless on the domain, load-bearing off it. */
 function navHtml({ here = '', root = '' } = {}) {
   const at = (k) => (k && k === here ? ' aria-current="page"' : '');
   return '<nav class="topnav">'
     + '<input type="checkbox" id="navdrawer" class="nav-ck">'
     + '<div class="topnav-in">'
-    + '<a class="brand" href="' + escAttr(root || '/') + '">' + esc(BRAND) + '</a>'
+    + '<a class="brand" href="' + escAttr(root + 'index.html') + '">' + esc(BRAND) + '</a>'
     + '<label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label>'
     + '<div class="navlinks">'
-    + LINKS.map((l) => '<a href="' + escAttr(l.href) + '"' + at(l.here) + '>' + esc(l.t) + '</a>').join('')
+    + LINKS.map((l) => '<a href="' + escAttr(root + l.to + 'index.html')
+      + '"' + at(l.here) + '>' + esc(l.t) + '</a>').join('')
     + '<a class="ghbtn" href="' + escAttr(GITHUB) + '" aria-label="GitHub">' + GH_ICON + '<span class="gh-t">GitHub</span></a>'
     + '</div></div></nav>';
 }

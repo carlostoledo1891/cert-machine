@@ -218,7 +218,10 @@ B.push(C.section({
 {
   const rows = ai.verdicts.map((v) => [
     { raw: C.esc(v.short) }, { raw: C.tag(v.verdict, v.verdict === 'PARTIAL' ? 'open' : 'held') },
-    { raw: C.esc(v.scope || '—') }, { raw: C.m(String(v.namedChecks)) }
+    { raw: C.esc(v.scope || '—') },
+    /* String(null) is the four-character word 'null', and it reached two cells
+       of a published table. An absent count is an em dash. */
+    { raw: v.namedChecks == null ? '—' : C.m(String(v.namedChecks)) }
   ]);
   B.push(C.section({
     lab: '§3 · scope', title: 'The audits, and exactly how far each one reached', wide: true,
