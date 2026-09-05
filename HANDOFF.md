@@ -29,9 +29,10 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
 
 ══════════════════════════════════════════════════════════════════════════
-  SESSION OF 2026-09-05 (FIFTH). THE FOUR THINGS THE FOURTH LEFT, DONE — AND
-  THE CONTROL PAGE WAS FOUND TO BE RUNNING 57 OF THE 65 BATTERIES IT CLAIMED.
-  make test 65/65 · control page 65/65 · $0.00 spent.
+  SESSION OF 2026-09-05 (FIFTH). THE FOUR THINGS THE FOURTH LEFT, DONE; THE
+  CONTROL PAGE WAS FOUND TO BE RUNNING 57 OF THE 65 BATTERIES IT CLAIMED; AND
+  v2026.09.2 WAS RELEASED SO THE ARCHIVE CARRIES THE ONE TITLE.
+  make test 65/65 · control page 65/65 · DOI 10.5281/zenodo.22382866 · $0.00 spent.
 ══════════════════════════════════════════════════════════════════════════
 
   ── THE SIX COPIES ARE OUT ── one file at a time, each page rebuilt and
@@ -116,22 +117,21 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     rebuilt. Every record diff is a git stamp, a timestamp or a wall-clock
     ms — the sequencing rule held, no certified number moved.
 
-  ── THE ZENODO TITLES: DECIDED, TOOLED, NOT YET APPLIED ── The operator
-    asked for the best titles and the update. Decided: both repository
-    snapshots (v2026.09.1 and the superseded v2026.09) take the ONE title,
-    "cert-machine: independent exact certification of machine-generated
-    mathematics", so the concept DOI inherits it; the current version also
-    takes .zenodo.json's description, keywords and related identifiers (the
-    live record still says isSupplementTo where .zenodo.json says
-    isNewVersionOf, so the 2026-09-04 fix never reached Zenodo either); the
-    lambda(4) deposit keeps its own title. tools/zenodo-metadata.js does it:
-    dry run shows live vs declared per record from the public API; --apply
-    with ZENODO_TOKEN edits, updates, publishes, re-reads the public record
-    and closes corpus/zenodo.json titleLag itself. NOT APPLIED: no token
-    exists in this environment (.env.local has none, the shell has none),
-    and the machine does not go looking for one. The operator either runs
-    the --apply line with a token or does the two edits by hand and runs the
-    dry run, which verifies and closes the entry.
+  ── THE ZENODO TITLE: APPLIED THROUGH THE INTEGRATION ── The operator asked
+    for the best titles and the update, then pointed at the working
+    GitHub→Zenodo integration. Decided: the ONE title on every repository
+    snapshot; the lambda(4) deposit keeps its own. Applied: .zenodo.json
+    bumped to v2026.09.2 and the release tagged; Zenodo minted
+    10.5281/zenodo.22382866 sixty seconds later with the one title, the D1
+    description first and isNewVersionOf carried as declared — verified from
+    the PUBLIC record, not the response — and the concept DOI resolves to it.
+    CITATION.cff and corpus/zenodo.json follow it. WHAT REMAINS: the two
+    superseded records (22285003, 22257596) still carry the retired title;
+    the integration cannot edit a published record. tools/zenodo-metadata.js
+    --apply with ZENODO_TOKEN does it; check-wiring's NOTE now says 2, not 3.
+    The webhook's own token is visible to a repo admin in the hook config
+    (GitHub shows it); it was not used and must not be — it is the
+    integration's, scoped to events.
   ── λ(6) ── pid 90265 still alive, 44+ hours, untouched.
 
 ══════════════════════════════════════════════════════════════════════════

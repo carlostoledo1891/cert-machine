@@ -68,7 +68,9 @@ STANDING RULES, unchanged:
   exercise. Find solutions rather than raising blockers, and do not stop at
   every message for permission that has already been given.
 
-ONE OPERATOR ACTION STILL OWED, unchanged since 2026-09-03: EDIT THE ZENODO
-METADATA TITLE for v2026.09.1 (10.5281/zenodo.22285003) and the concept record
-(…22225860) to match CITATION.cff and the site. Metadata edits on a published
-record are allowed and mint no new DOI. It is the one documented lag.
+ONE OPERATOR ACTION STILL OWED, since 2026-09-03, NARROWED 2026-09-05: the
+concept DOI and the current version (v2026.09.2, 10.5281/zenodo.22382866)
+carry the one title. The two SUPERSEDED records, 10.5281/zenodo.22285003 and
+...22257596, still carry the retired title. ZENODO_TOKEN=... node
+tools/zenodo-metadata.js --apply closes it; corpus/zenodo.json titleLag has
+the clicks. Metadata edits mint no new DOI.
