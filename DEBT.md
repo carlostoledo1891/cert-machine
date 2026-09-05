@@ -101,14 +101,19 @@ three figures on `reports/glide-band.html` sit far enough below the fold that
 thing this gate needs.
 
 
-### 1 · The Zenodo titles — OPERATOR ACTION, and the only one here that is not mine to close
-Three published records still carry the retired title. `.zenodo.json` governs a
-*new* deposit; it does not rewrite a published one, and only the depositor's
-account can. Metadata edits on a published record are allowed and mint no new
-DOI. The clicks are in `corpus/zenodo.json` → `titleLag.howToClose`.
-check-wiring reports it as a NOTE on every run rather than failing, because a
-gate that fails on something the machine cannot fix is a gate nobody can keep
-green. **Owed since 2026-09-03.**
+### 1 · The Zenodo titles — decided and tooled 2026-09-05, still needs the depositor's token
+Two repository snapshots (`10.5281/zenodo.22285003`, current, and `…22257596`,
+superseded) still carry the retired title, and the concept DOI inherits it from
+the current one. Decided: both take the ONE title; the current version also
+takes `.zenodo.json`'s description, keywords and related identifiers (the live
+record still says `isSupplementTo` where the declared file says
+`isNewVersionOf`); the lambda(4) deposit keeps its own title.
+`tools/zenodo-metadata.js` shows live-versus-declared from the public API and,
+with `ZENODO_TOKEN` and `--apply`, edits, publishes, verifies from the public
+record and closes the entry in `corpus/zenodo.json`. No token exists in this
+environment and the machine does not go looking for one. check-wiring keeps
+printing the NOTE until the dry run finds the records in agreement.
+**Owed since 2026-09-03; one command away.**
 
 ### 2 · The exact envelope on curveset
 `/instruments/curveset` is honest now — the envelope is drawn COMPUTED because

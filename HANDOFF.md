@@ -116,8 +116,23 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     rebuilt. Every record diff is a git stamp, a timestamp or a wall-clock
     ms — the sequencing rule held, no certified number moved.
 
-  ── STILL OWED BY THE OPERATOR ── the Zenodo titles (unchanged, below).
-  ── λ(6) ── pid 90265 still alive, 43+ hours, untouched.
+  ── THE ZENODO TITLES: DECIDED, TOOLED, NOT YET APPLIED ── The operator
+    asked for the best titles and the update. Decided: both repository
+    snapshots (v2026.09.1 and the superseded v2026.09) take the ONE title,
+    "cert-machine: independent exact certification of machine-generated
+    mathematics", so the concept DOI inherits it; the current version also
+    takes .zenodo.json's description, keywords and related identifiers (the
+    live record still says isSupplementTo where .zenodo.json says
+    isNewVersionOf, so the 2026-09-04 fix never reached Zenodo either); the
+    lambda(4) deposit keeps its own title. tools/zenodo-metadata.js does it:
+    dry run shows live vs declared per record from the public API; --apply
+    with ZENODO_TOKEN edits, updates, publishes, re-reads the public record
+    and closes corpus/zenodo.json titleLag itself. NOT APPLIED: no token
+    exists in this environment (.env.local has none, the shell has none),
+    and the machine does not go looking for one. The operator either runs
+    the --apply line with a token or does the two edits by hand and runs the
+    dry run, which verifies and closes the entry.
+  ── λ(6) ── pid 90265 still alive, 44+ hours, untouched.
 
 ══════════════════════════════════════════════════════════════════════════
   SESSION OF 2026-09-05 (FOURTH). THE PORT LANDED AND THE SITE WAS LOOKED AT.
