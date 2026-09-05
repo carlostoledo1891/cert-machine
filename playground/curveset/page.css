@@ -26,18 +26,17 @@ svg.cs-plot { display: block; width: 100%; height: auto; margin-top: var(--s-4);
 .cs-fill { fill: var(--band-fill); stroke: none; }
 .cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
 .cs-std { fill: var(--ink); stroke: var(--bg-raised); stroke-width: 1.5; }
-.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 4; }
-.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 4; }
-.cs-fitdot { fill: var(--ink-2); }
-.cs-tick { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-5); }
+/* THE PAINT FOR .cs-* MOVED TO playground/design/components.js on 2026-09-05.
+   It was defined in both places and had already diverged — .cs-tick was --ink-5
+   here and --ink-4 there, so the same tick was two colours on two pages — and
+   four of them (fitdot, axname, asklab, void-lab) existed ONLY here, so the
+   gathering page painted them black. Paint is shared; only anchoring and the
+   .on states are page-local, and those are what is left below. */
 .cs-tick.tx { text-anchor: middle; } .cs-tick.ty { text-anchor: end; }
 .cs-tick.on { fill: var(--ink); }
 .cs-val { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-4); }
 .cs-val.on { fill: var(--ink); font-size: 12px; }
-.cs-axname { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-5); letter-spacing: 0.08em; }
 .cs-axname.tx { text-anchor: end; } .cs-axname.ty { text-anchor: end; }
-.cs-asklab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); }
-.cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); }
 
 /* ---- the dial ------------------------------------------------------------- */
 .dial { margin-top: var(--s-5); display: grid; gap: var(--s-4); }
