@@ -194,5 +194,30 @@
   $('sheetOpen').onclick = () => document.body.classList.add('sheet-open');
   $('sheetClose').onclick = () => document.body.classList.remove('sheet-open');
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.body.classList.remove('sheet-open'); });
+
+  /* THE #hash DEV HOOK — see design/CONTRACT.md.
+         #set=v:12            the position slider
+         #set=sheet:open      the panel a screenshot never sees
+     Drives the same slider and the same paint() the control does. */
+  function applyHash() {
+    const raw = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+    const m = /(?:^|[&;])set=([^&;]*)/.exec(raw);
+    if (!m) return;
+    for (const pair of m[1].split(',')) {
+      const [k, val] = pair.split(':');
+      if (!k || val === undefined) continue;
+      if (k === 'sheet') { document.body.classList.toggle('sheet-open', val === 'open'); continue; }
+      if (k === 'v') {
+        const n = Number(val);
+        if (Number.isNaN(n)) continue;
+        slider.value = String(Math.max(0, Math.min(D.view.length - 1, n)));
+        vi = +slider.value;
+      }
+    }
+    paint();
+  }
+  window.addEventListener('hashchange', applyHash);
+
+  applyHash();
   paint();
 })();

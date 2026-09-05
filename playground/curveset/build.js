@@ -156,16 +156,38 @@ node playground/build.js</pre>
   <span>built ${P.builtAt.slice(0, 10)}</span>
 </div></div></footer>`;
 
-/* the runtime: the same three files, behind a require shim */
+/* the runtime: the same three files, behind a require shim.
+
+   THE DATA GOES FIRST, AND IT DID NOT UNTIL 2026-09-05. app.js opens with
+
+       var node = document.getElementById('curveset-data');
+       if (!node) return;
+
+   and the data block was emitted AFTER it, so the node did not exist yet, the
+   IIFE returned on its second line, and the dial listener was never attached.
+   THE SLIDER ON THIS PAGE HAS BEEN DEAD — on the page whose headline is "Drag
+   the assumption. Watch the answer pay for it."
+
+   Nothing errored and no gate could see it: the bail-out is deliberate and
+   graceful ("the static page stands on its own"), so a dead dial and a
+   correctly-degrading one are the same picture. It was found by trying to give
+   this page the #hash dev hook that design/CONTRACT.md asks for, which is the
+   second dead control that practice has turned up in one day. */
 const inline = (rel, name) => `__M[${JSON.stringify(name)}]=(function(){const module={exports:{}};const exports=module.exports;\n${src(rel)}\nreturn module.exports;})();`;
 const runtime = `<script>
 const __M={};function require(n){if(!(n in __M))throw new Error('no module '+n);return __M[n];}
+/* grammar.js FIRST: warrant.js requires it, and the shim throws on an
+   unregistered name. Adding that require on 2026-09-05 killed this whole
+   block — one throw aborts the script, so all three modules went missing at
+   once and app.js's catch returned. A shim is a module system with a manual
+   dependency list, and the list has to be kept. */
+${inline('../../design/grammar.js', '../design/grammar.js')}
 ${inline('../warrant.js', '../warrant.js')}
 ${inline('envelope.js', './envelope.js')}
 ${inline('plot.js', './plot.js')}
 </script>
-<script>${fs.readFileSync(path.join(HERE, 'app.js'), 'utf8')}</script>
-<script id="curveset-data" type="application/json">${JSON.stringify(P).replace(/</g, '\\u003c')}</script>`;
+<script id="curveset-data" type="application/json">${JSON.stringify(P).replace(/</g, '\\u003c')}</script>
+<script>${fs.readFileSync(path.join(HERE, 'app.js'), 'utf8')}</script>`;
 
 function build(OUT) {
   const html = page({

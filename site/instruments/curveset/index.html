@@ -524,6 +524,109 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
 </style>
 <script>
 const __M={};function require(n){if(!(n in __M))throw new Error('no module '+n);return __M[n];}
+/* grammar.js FIRST: warrant.js requires it, and the shim throws on an
+   unregistered name. Adding that require on 2026-09-05 killed this whole
+   block — one throw aborts the script, so all three modules went missing at
+   once and app.js's catch returned. A shim is a module system with a manual
+   dependency list, and the list has to be kept. */
+__M["../design/grammar.js"]=(function(){const module={exports:{}};const exports=module.exports;
+/* grammar.js — the only place a dash pattern is written down.
+   design/ · cert-machine
+
+   PORTED from frontier-apps/site/design/grammar.js (2026-09-05), which states
+   the rule this repository had been breaking:
+
+       Ink is READ, never CHOSEN. Renderers derive it from the data's own type
+       and take NO STYLE ARGUMENT, so an author cannot draw a float as though
+       it were proved.
+
+   WHY THIS FILE EXISTS HERE, measured rather than argued. The audit in
+   CONTRACT.md, run against site/ on 2026-09-05, returned TWENTY-FIVE distinct
+   dash patterns. The cause was not carelessness at the call sites; it was two
+   lines in playground/warrant.js, which derived the dash from the STROKE WIDTH:
+
+       dash: `${3.2 * width} ${2.2 * width}`     width 2.4 -> "7.68 5.28"
+                                                 width 2   -> "6.4 4.4"
+       dash: `${0.4 * width} ${2.1 * width}`     width 2.6 -> "1.04 5.460000000000001"
+
+   So every stroke width minted a new pattern, one of them carrying a float
+   artifact into published HTML. A pattern that varies with width is not a
+   grammar — two marks of the same STANDING drawn at two weights were being
+   given two different patterns, which is precisely the confusion the standing
+   grammar exists to prevent.
+
+   THE PATTERNS ARE CONSTANTS. Size is handled by ONE alternate pattern per
+   standing, selected from the width by this file, never by scaling. Frontier's
+   two are kept verbatim; cert-machine needs two more because its lattice has
+   four standings where frontier's has two (see playground/warrant.js), and
+   those two are declared here so the permitted set stays closed and countable.
+
+   DASH IS RESERVED FOR STANDING. It must never carry identity — "the second of
+   three models" — because the same mark would then mean epistemics on one page
+   and a category two clicks away. frontier's CONTRACT.md records that exact
+   violation (`6 4` and `1.6 3.4` on a neural-geometry overlay), and the audit
+   found BOTH of those patterns live in this repository, on
+   site/instruments/answer-shape/index.html. Identity uses weight and opacity,
+   which do not overload. IDENTITY below is that ladder. */
+'use strict';
+
+/* ---------------------------------------------------------- the patterns --
+   The complete permitted set. tools/check-grammar.js gates it; anything not on
+   this list appearing in a built page is drift. */
+
+const CLAIM     = '5 4';     /* asserted, not decided — a float, a fit, a heuristic */
+const CLAIM_SM  = '1.5 2';   /* the same statement under ~10px, where 5 4 is mush */
+const PICK      = '1 5';     /* one member of a set the data admits. Round-capped. */
+const PICK_SM   = '1 3';     /* the same, small */
+const GUIDE     = '2 3';     /* an axis, a ruler, a ghost. Says nothing. */
+const SOLID     = null;      /* decided. Not a pattern: the absence of one. */
+
+/* Every pattern this repository is allowed to emit, for the gate to read. */
+const PERMITTED = [CLAIM, CLAIM_SM, PICK, PICK_SM, GUIDE];
+
+/* Below this stroke width the long patterns read as mush, so the small variant
+   is used. It is chosen HERE, from the width the renderer already has — not
+   passed in, and not scaled. */
+const SMALL_BELOW = 1.5;
+
+const claim = (width = 2) => (width < SMALL_BELOW ? CLAIM_SM : CLAIM);
+const pick  = (width = 2) => (width < SMALL_BELOW ? PICK_SM : PICK);
+
+/* --------------------------------------------------------------- identity --
+   The channel to reach for when a figure needs to separate SERIES rather than
+   standings. Never dash. Weight and opacity do not overload, so a decided line
+   and an assumed line stay distinguishable inside any one series. */
+const IDENTITY = [
+  { weight: 1.7, opacity: 0.95 },
+  { weight: 1.3, opacity: 0.62 },
+  { weight: 1.1, opacity: 0.42 },
+];
+
+/* ------------------------------------------------------------------- css --
+   For pages that want the grammar as classes rather than attributes. The
+   class names match playground/warrant.js's textClass() so one vocabulary
+   covers SVG strokes and HTML underlines. */
+const css = (sel = '') => `
+${sel} .ink-decided  { stroke-dasharray: none; }
+${sel} .ink-assumed  { stroke-dasharray: ${CLAIM}; }
+${sel} .ink-assumed-sm { stroke-dasharray: ${CLAIM_SM}; }
+${sel} .ink-chosen   { stroke-dasharray: ${PICK}; stroke-linecap: round; }
+${sel} .ink-chosen-sm { stroke-dasharray: ${PICK_SM}; stroke-linecap: round; }
+${sel} .ink-guide    { stroke-dasharray: ${GUIDE}; }`;
+
+/* canvas: setLineDash takes an array, and takes it from here too */
+const dash = {
+  claim: [5, 4], claimSm: [1.5, 2],
+  pick: [1, 5], pickSm: [1, 3],
+  guide: [2, 3], none: [],
+};
+
+module.exports = {
+  CLAIM, CLAIM_SM, PICK, PICK_SM, GUIDE, SOLID,
+  PERMITTED, SMALL_BELOW, claim, pick, IDENTITY, css, dash,
+};
+
+return module.exports;})();
 __M["../warrant.js"]=(function(){const module={exports:{}};const exports=module.exports;
 /* warrant.js — what a mark is standing on, and how it is drawn.
 
@@ -1205,6 +1308,7 @@ module.exports = { calibrationPlot, ladderPlot, scales, envelopeBand, PAD, fmt }
 
 return module.exports;})();
 </script>
+<script id="curveset-data" type="application/json">{"builtAt":"2026-09-04T17:24:11.983Z","k":2,"sets":[{"id":"pontius","title":"a load cell, calibrated at NIST","source":"NIST Statistical Reference Datasets — Pontius. 40 observations, 20 loads applied twice.","xName":"load","xUnit":"lb","yName":"deflection","yUnit":"","sense":1,"xScale":"linear","x":[150000,300000,450000,600000,750000,900000,1050000,1200000,1350000,1500000,1650000,1800000,1950000,2100000,2250000,2400000,2550000,2700000,2850000,3000000],"y":[0.110355,0.21987,0.32944,0.438925,0.5480050000000001,0.657165,0.76579,0.874805,0.9829600000000001,1.09148,1.2000250000000001,1.3081999999999998,1.41606,1.524035,1.6317650000000001,1.73956,1.8467099999999999,1.954185,2.061525,2.1683649999999997],"reps":[[0.11019,0.11052],[0.21956,0.22018],[0.32949,0.32939],[0.43899,0.43886],[0.54803,0.54798],[0.65694,0.65739],[0.76562,0.76596],[0.87487,0.87474],[0.98292,0.983],[1.09146,1.0915],[1.20001,1.20004],[1.30822,1.30818],[1.41599,1.41613],[1.52399,1.52408],[1.63194,1.63159],[1.73947,1.73965],[1.84646,1.84696],[1.95392,1.95445],[2.06128,2.06177],[2.16844,2.16829]],"errs":[0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557],"errKind":"measured","sPooled":0.00021472657031675779,"cv":null,"floor":null,"secant":{"lo":7.12266666666664e-7,"hi":7.304666666666666e-7},"reported":{"kind":"NIST certified quadratic","note":"Certified by NIST to 15 digits — as arithmetic. The dataset exists to test regression software, and certifying a fit is not a claim that the model is right.","form":{"form":"poly","c":[0.000673565789473684,7.32059160401003e-7,-3.16081871345029e-15]},"residSD":0.000205177424076185,"xHat":1580780.5749849314,"uFit":568.3065344831654},"ask":1.15,"askLabel":"a measured deflection of","rungs":[{"tol":null,"kind":"monotone","r":{"lo":1500000,"hi":1650000,"width":150000,"bounded":true}},{"tol":2,"kind":"local","r":{"lo":1526758.739167795,"hi":1627154.3844214994,"width":100395.6452537044,"bounded":true}},{"tol":1,"kind":"local","r":{"lo":1540138.1087516923,"hi":1615731.5766322492,"width":75593.46788055683,"bounded":true}},{"tol":0.5,"kind":"local","r":{"lo":1553517.47833559,"hi":1604308.768842999,"width":50791.29050740879,"bounded":true}},{"tol":0.25,"kind":"local","r":{"lo":1564220.9740027082,"hi":1595170.522611599,"width":30949.548608890735,"bounded":true}},{"tol":0.1,"kind":"local","r":{"lo":1572978.379548532,"hi":1587693.7756949984,"width":14715.39614646649,"bounded":true}},{"tol":0.05,"kind":"local","r":{"lo":1576606.5447404054,"hi":1584726.8126328555,"width":8120.267892450094,"bounded":true}},{"tol":0.02,"kind":"local","r":{"lo":1578853.2831667196,"hi":1582807.01300441,"width":3953.72983769048,"bounded":true}},{"tol":0,"kind":"interpolate","r":{"lo":1580276.2175033852,"hi":1581463.1532644983,"width":1186.9357611131854,"bounded":true}}]},{"id":"il6","title":"a rat IL-6 assay, calibrated on a dilution ladder","source":"Published example standard curve, rat IL-6 sandwich ELISA (Abbexa abx155737). Absorbance at 450 nm, zero standard included.","xName":"concentration","xUnit":"pg/mL","yName":"absorbance","yUnit":"OD","sense":1,"xScale":"log","x":[0,1.56,3.12,6.25,12.5,25,50,100],"y":[0.115,0.296,0.372,0.459,0.684,1.14,1.917,3.148],"reps":null,"errs":[0.02,0.04736,0.05952,0.07344,0.10944000000000001,0.18239999999999998,0.30672,0.50368],"errKind":"stated","sPooled":null,"cv":0.08,"floor":0.01,"secant":{"lo":0.2524665352114396,"hi":4.089293484806342},"reported":{"kind":"four-parameter logistic","note":"The standard practice for a sandwich ELISA. Fitted here to the eight standards.","form":{"form":"4pl","p":[0.25284788331835095,9.185411668999052,197.95446893610512,1.0724729853601516]},"residSD":0.013958541294716307,"xHat":18.36895953684742,"uFit":0.7965698892630003},"ask":0.9,"askLabel":"a measured absorbance of","rungs":[{"tol":null,"kind":"monotone","r":{"lo":12.500000000000007,"hi":24.999999999999993,"width":12.499999999999986,"bounded":true}},{"tol":2,"kind":"local","r":{"lo":13.193458802853309,"hi":24.280915718827327,"width":11.087456915974018,"bounded":true}},{"tol":1,"kind":"local","r":{"lo":13.554484068449373,"hi":23.929167400788426,"width":10.374683332339053,"bounded":true}},{"tol":0.5,"kind":"local","r":{"lo":13.925388414606989,"hi":23.58251472579182,"width":9.657126311184832,"bounded":true}},{"tol":0.25,"kind":"local","r":{"lo":14.229406244871162,"hi":23.308811806610585,"width":9.079405561739422,"bounded":true}},{"tol":0.1,"kind":"local","r":{"lo":14.483078442855101,"hi":21.658158034871374,"width":7.175079592016273,"bounded":true}},{"tol":0.05,"kind":"local","r":{"lo":14.584990897652851,"hi":21.04058230563354,"width":6.4555914079806875,"bounded":true}},{"tol":0.02,"kind":"local","r":{"lo":14.651316069899872,"hi":20.707843057191944,"width":6.056526987292072,"bounded":true}},{"tol":0,"kind":"interpolate","r":{"lo":14.697923068947835,"hi":20.499835108920518,"width":5.801912039972683,"bounded":true}}]}]}</script>
 <script>/* app.js — the dial, and nothing else.
 
    The page is complete without this file: the server rendered the plots, the
@@ -1256,8 +1360,35 @@ return module.exports;})();
   Array.prototype.forEach.call(document.querySelectorAll('[data-dial]'), function (el) {
     el.addEventListener('input', function () { render(el.getAttribute('data-dial'), +el.value); });
   });
+
+  /* THE #hash DEV HOOK — see design/CONTRACT.md. A screenshot only ever sees
+     the state a page loads in, and every dial here loads at the same end of its
+     range, so the interesting half of this instrument is unreachable to a
+     reviewer with a camera.
+
+         #set=dial:4            every dial to step 4
+         #set=<data-dial>:4     one dial by name
+
+     It moves the real input and dispatches the real event, so it exercises the
+     listener above rather than a parallel path. Decoded first: location.hash
+     keeps URL encoding. */
+  function applyHash() {
+    var raw = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+    var m = /(?:^|[&;])set=([^&;]*)/.exec(raw);
+    if (!m) return;
+    m[1].split(',').forEach(function (pair) {
+      var kv = pair.split(':'), k = kv[0], v = Number(kv[1]);
+      if (!k || kv[1] === undefined || isNaN(v)) return;
+      var sel = k === 'dial' ? '[data-dial]' : '[data-dial="' + k + '"]';
+      Array.prototype.forEach.call(document.querySelectorAll(sel), function (el) {
+        el.value = v;
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+    });
+  }
+  window.addEventListener('hashchange', applyHash);
+  applyHash();
 })();
 </script>
-<script id="curveset-data" type="application/json">{"builtAt":"2026-09-04T17:24:11.983Z","k":2,"sets":[{"id":"pontius","title":"a load cell, calibrated at NIST","source":"NIST Statistical Reference Datasets — Pontius. 40 observations, 20 loads applied twice.","xName":"load","xUnit":"lb","yName":"deflection","yUnit":"","sense":1,"xScale":"linear","x":[150000,300000,450000,600000,750000,900000,1050000,1200000,1350000,1500000,1650000,1800000,1950000,2100000,2250000,2400000,2550000,2700000,2850000,3000000],"y":[0.110355,0.21987,0.32944,0.438925,0.5480050000000001,0.657165,0.76579,0.874805,0.9829600000000001,1.09148,1.2000250000000001,1.3081999999999998,1.41606,1.524035,1.6317650000000001,1.73956,1.8467099999999999,1.954185,2.061525,2.1683649999999997],"reps":[[0.11019,0.11052],[0.21956,0.22018],[0.32949,0.32939],[0.43899,0.43886],[0.54803,0.54798],[0.65694,0.65739],[0.76562,0.76596],[0.87487,0.87474],[0.98292,0.983],[1.09146,1.0915],[1.20001,1.20004],[1.30822,1.30818],[1.41599,1.41613],[1.52399,1.52408],[1.63194,1.63159],[1.73947,1.73965],[1.84646,1.84696],[1.95392,1.95445],[2.06128,2.06177],[2.16844,2.16829]],"errs":[0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557,0.00042945314063351557],"errKind":"measured","sPooled":0.00021472657031675779,"cv":null,"floor":null,"secant":{"lo":7.12266666666664e-7,"hi":7.304666666666666e-7},"reported":{"kind":"NIST certified quadratic","note":"Certified by NIST to 15 digits — as arithmetic. The dataset exists to test regression software, and certifying a fit is not a claim that the model is right.","form":{"form":"poly","c":[0.000673565789473684,7.32059160401003e-7,-3.16081871345029e-15]},"residSD":0.000205177424076185,"xHat":1580780.5749849314,"uFit":568.3065344831654},"ask":1.15,"askLabel":"a measured deflection of","rungs":[{"tol":null,"kind":"monotone","r":{"lo":1500000,"hi":1650000,"width":150000,"bounded":true}},{"tol":2,"kind":"local","r":{"lo":1526758.739167795,"hi":1627154.3844214994,"width":100395.6452537044,"bounded":true}},{"tol":1,"kind":"local","r":{"lo":1540138.1087516923,"hi":1615731.5766322492,"width":75593.46788055683,"bounded":true}},{"tol":0.5,"kind":"local","r":{"lo":1553517.47833559,"hi":1604308.768842999,"width":50791.29050740879,"bounded":true}},{"tol":0.25,"kind":"local","r":{"lo":1564220.9740027082,"hi":1595170.522611599,"width":30949.548608890735,"bounded":true}},{"tol":0.1,"kind":"local","r":{"lo":1572978.379548532,"hi":1587693.7756949984,"width":14715.39614646649,"bounded":true}},{"tol":0.05,"kind":"local","r":{"lo":1576606.5447404054,"hi":1584726.8126328555,"width":8120.267892450094,"bounded":true}},{"tol":0.02,"kind":"local","r":{"lo":1578853.2831667196,"hi":1582807.01300441,"width":3953.72983769048,"bounded":true}},{"tol":0,"kind":"interpolate","r":{"lo":1580276.2175033852,"hi":1581463.1532644983,"width":1186.9357611131854,"bounded":true}}]},{"id":"il6","title":"a rat IL-6 assay, calibrated on a dilution ladder","source":"Published example standard curve, rat IL-6 sandwich ELISA (Abbexa abx155737). Absorbance at 450 nm, zero standard included.","xName":"concentration","xUnit":"pg/mL","yName":"absorbance","yUnit":"OD","sense":1,"xScale":"log","x":[0,1.56,3.12,6.25,12.5,25,50,100],"y":[0.115,0.296,0.372,0.459,0.684,1.14,1.917,3.148],"reps":null,"errs":[0.02,0.04736,0.05952,0.07344,0.10944000000000001,0.18239999999999998,0.30672,0.50368],"errKind":"stated","sPooled":null,"cv":0.08,"floor":0.01,"secant":{"lo":0.2524665352114396,"hi":4.089293484806342},"reported":{"kind":"four-parameter logistic","note":"The standard practice for a sandwich ELISA. Fitted here to the eight standards.","form":{"form":"4pl","p":[0.25284788331835095,9.185411668999052,197.95446893610512,1.0724729853601516]},"residSD":0.013958541294716307,"xHat":18.36895953684742,"uFit":0.7965698892630003},"ask":0.9,"askLabel":"a measured absorbance of","rungs":[{"tol":null,"kind":"monotone","r":{"lo":12.500000000000007,"hi":24.999999999999993,"width":12.499999999999986,"bounded":true}},{"tol":2,"kind":"local","r":{"lo":13.193458802853309,"hi":24.280915718827327,"width":11.087456915974018,"bounded":true}},{"tol":1,"kind":"local","r":{"lo":13.554484068449373,"hi":23.929167400788426,"width":10.374683332339053,"bounded":true}},{"tol":0.5,"kind":"local","r":{"lo":13.925388414606989,"hi":23.58251472579182,"width":9.657126311184832,"bounded":true}},{"tol":0.25,"kind":"local","r":{"lo":14.229406244871162,"hi":23.308811806610585,"width":9.079405561739422,"bounded":true}},{"tol":0.1,"kind":"local","r":{"lo":14.483078442855101,"hi":21.658158034871374,"width":7.175079592016273,"bounded":true}},{"tol":0.05,"kind":"local","r":{"lo":14.584990897652851,"hi":21.04058230563354,"width":6.4555914079806875,"bounded":true}},{"tol":0.02,"kind":"local","r":{"lo":14.651316069899872,"hi":20.707843057191944,"width":6.056526987292072,"bounded":true}},{"tol":0,"kind":"interpolate","r":{"lo":14.697923068947835,"hi":20.499835108920518,"width":5.801912039972683,"bounded":true}}]}]}</script>
 </body>
 </html>

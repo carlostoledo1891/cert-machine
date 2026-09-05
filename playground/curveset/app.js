@@ -49,4 +49,32 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-dial]'), function (el) {
     el.addEventListener('input', function () { render(el.getAttribute('data-dial'), +el.value); });
   });
+
+  /* THE #hash DEV HOOK — see design/CONTRACT.md. A screenshot only ever sees
+     the state a page loads in, and every dial here loads at the same end of its
+     range, so the interesting half of this instrument is unreachable to a
+     reviewer with a camera.
+
+         #set=dial:4            every dial to step 4
+         #set=<data-dial>:4     one dial by name
+
+     It moves the real input and dispatches the real event, so it exercises the
+     listener above rather than a parallel path. Decoded first: location.hash
+     keeps URL encoding. */
+  function applyHash() {
+    var raw = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+    var m = /(?:^|[&;])set=([^&;]*)/.exec(raw);
+    if (!m) return;
+    m[1].split(',').forEach(function (pair) {
+      var kv = pair.split(':'), k = kv[0], v = Number(kv[1]);
+      if (!k || kv[1] === undefined || isNaN(v)) return;
+      var sel = k === 'dial' ? '[data-dial]' : '[data-dial="' + k + '"]';
+      Array.prototype.forEach.call(document.querySelectorAll(sel), function (el) {
+        el.value = v;
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+    });
+  }
+  window.addEventListener('hashchange', applyHash);
+  applyHash();
 })();
