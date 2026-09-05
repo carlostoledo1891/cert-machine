@@ -48,7 +48,7 @@ const ink = (a) => `rgba(246,246,248,${a})`;
    viewBox rather than move the text into the art. */
 const CAP = 26;
 const svg = (w, h, body, extra = '') =>
-  `<svg viewBox="0 0 ${w} ${h}" width="100%" preserveAspectRatio="xMidYMid meet" ${extra}>${body}</svg>`;
+  `<svg viewBox="0 0 ${w} ${h}" width="100%" preserveAspectRatio="xMidYMid meet" class="plt" ${extra}>${body}</svg>`;
 const txt = (x, y, s, o = 0.42, size = 9, anchor = 'start') =>
   `<text x="${x}" y="${y}" fill="${ink(o)}" font-family="ui-monospace,monospace" font-size="${size}" text-anchor="${anchor}">${s}</text>`;
 

@@ -83,7 +83,13 @@ function build(OUT) {
 /* the card art is Plate I, the hinge plate: the one object that is read both
    ways, found inside a model and stated from a definition */
 function cardArt() {
-  const m = P.body.match(/<svg viewBox="0 0 980 560"[\s\S]*?<\/svg>/);
+  /* MATCHED BY WIDTH, NOT BY EXACT SIZE (2026-09-05). This pinned the height at
+     560, so the moment Plate I reserved a caption band and became 586 tall the
+     regex stopped matching and the card art silently vanished — the gathering
+     page shipped an empty plate with only its caption pill. A builder that
+     selects a figure by its exact pixel dimensions breaks on any change to the
+     figure, without erroring. Width is the stable part; the height is not. */
+  const m = P.body.match(/<svg viewBox="0 0 980 \d+"[\s\S]*?<\/svg>/);
   return m ? m[0] : '';
 }
 

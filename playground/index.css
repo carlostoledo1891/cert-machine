@@ -147,6 +147,16 @@ p { margin: 0; }
 .card-art .sya { fill: none; stroke: var(--ink-3); stroke-width: 1.6; opacity: 0.75; }
 .card-art .shd { fill: var(--ink-2); }
 .card-art .shl { font-family: var(--font-mono); font-size: 12px; fill: var(--ink-5); }
+
+/* THE PLATES CARD IS A THUMBNAIL, AND ITS TEXT WAS NEVER READABLE IN IT.
+   That art is drawn 980 units wide and shown in a card about 520px across on
+   the desktop grid and about 350px at 390 — so its 9px internal labels
+   rendered near 4.8px and 3.2px. Illegible at both, which is review row A-5,
+   and it was never a mobile-only problem. The card already carries the same
+   words in its own caption pill, so the micro-text is redundant as well as
+   unreadable. Hidden HERE ONLY: the plates page itself shows every label at
+   full size, which is where they are meant to be read. */
+.card-art .plt text { display: none; }
 .card:hover .card-art .sya { stroke: var(--ink); opacity: 1; }
 .card:hover .card-art .shd { fill: var(--ink); }
 
