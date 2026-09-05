@@ -170,7 +170,15 @@ body { padding-top: 60px; }
    same as a hero or a footer. Phase 3 moved the furniture and left these.  */
 .ch { stroke: var(--ink-2); }
 .ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
-.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-dasharray: 6 6; stroke-linecap: round; }
+/* .clo CLOSES THE WALK .ord DRAWS, and it is the SAME data at the SAME
+   standing — the step from the last item back to the first, computed exactly
+   the way every other step is. It was dashed to mark that ROLE, which is the
+   forbidden use: dash carries standing, never identity or role. The legitimate
+   channel was already doing the work — .ord is --ink at 0.9, .clo is --ink-3 —
+   so dropping the dash costs nothing, exactly as it did on answer-shape.
+   See design/CONTRACT.md. (No backticks in this comment on purpose: it lives
+   inside a template literal, and one backtick ends the literal.) */
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-linecap: round; }
 .mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
 .pt { fill: var(--ink-2); }
 .lb { fill: var(--ink-4); font-family: var(--font-mono); }
@@ -178,8 +186,12 @@ body { padding-top: 60px; }
 .ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
 .cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
 .cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
-.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 4; }
-.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 4; }
+/* a horizontal reference line at the asked value, and the two drop lines from
+   it to the baseline. "an axis, a ruler, a ghost, a reference circle" is the
+   contract's own definition of a GUIDE, so they take the guide pattern rather
+   than a fourth invented one. */
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
 .cs-fill { fill: var(--band-fill); stroke: none; }
 .cs-std { fill: var(--ink); }
 .cs-tick { fill: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
@@ -1605,7 +1617,8 @@ p { margin: 0; } a { color: inherit; }
 svg.ngp { display: block; width: 100%; height: auto; overflow: visible; margin: var(--s-2) 0 var(--s-3); }
 .ch { stroke: var(--ink-2); }
 .ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
-.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-dasharray: 6 6; stroke-linecap: round; }
+/* .clo is the shared figure primitive (playground/design/components.js). It was
+   declared here identically, so the two could only ever drift apart. */
 .mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
 .pt { fill: var(--ink); }
 .pt.first { fill: var(--ink); stroke: var(--bg-raised); stroke-width: 2.5; }
