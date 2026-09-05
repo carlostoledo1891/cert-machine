@@ -164,6 +164,13 @@ const walk = (dir) => {
 walk('reports');
 walk('site/apps');
 if (fs.existsSync(path.join(ROOT, 'index.html'))) pages.push('index.html');
+/* the four standing sections were in no walk, so the palette and shape checks
+   below were running over an incomplete set — the same defect this file exists
+   to name, and the same one it caught in make test on 2026-09-05. */
+for (const d of ['site/about', 'site/machine', 'site/oracle']) {
+  if (fs.existsSync(path.join(ROOT, d))) walk(d);
+}
+if (fs.existsSync(path.join(ROOT, 'site/index.html'))) pages.push('site/index.html');
 
 const offences = [];
 for (const p of pages) offences.push(...fontOffences(read(p), p));
@@ -240,6 +247,48 @@ const uniq = [...new Set(paint)];
 if (paint.length) bad('no built page paints with a colour outside the palette',
   paint.length + ' use(s) of ' + uniq.length + ' colour(s):\n        ' + uniq.slice(0, 8).join('\n        '));
 else ok('no built page paints with a colour outside the palette', '[' + pages.length + ' pages]');
+
+/* ------------------------------------------------- the shape scale --------
+   THE SIBLING OF THE PALETTE CHECK, 2026-09-05. design/tokens.js offers four
+   radii — s 6, m 10, l 16, pill 999 — and the site was shipping SEVEN distinct
+   container values against them, because the tokens existed and almost nobody
+   referenced them: 378 literal 10px (the token's own value, written by hand),
+   plus 8px, 9px and 12px that are on no scale at all. A token nobody uses is
+   not a design system, it is a suggestion.
+
+   MARKS ARE NOT CONTAINERS and keep their literals. A 4px-tall progress bar, a
+   scrollbar thumb, a 2px focus ring: their radius is a shape detail of the mark,
+   not container geometry, and forcing them onto a container scale would be the
+   gate refusing a direction rather than measuring a fact. The ceiling is stated
+   here and it is the whole rule: at or below 5px is a mark, above it is a
+   container and comes from a token. Vendored stylesheets are somebody else's. */
+const MARK_RADIUS_MAX = 5;
+const radiusOffences = (body, label) => {
+  const out = [];
+  const re = /border-radius:\s*(\d+)px/g;
+  let m;
+  while ((m = re.exec(body))) {
+    const px = Number(m[1]);
+    if (px > MARK_RADIUS_MAX) out.push(label + ': ' + px + 'px');
+  }
+  return out;
+};
+const shape = [];
+for (const p of pages) { if (!/\/vendor\//.test(p)) shape.push(...radiusOffences(read(p), p)); }
+const shapeUniq = [...new Set(shape)];
+if (shape.length) bad('no built page sets a container radius outside the shape scale',
+  shape.length + ' use(s):\n        ' + shapeUniq.slice(0, 8).join('\n        ')
+  + '\n        the scale is design/tokens.js SHAPE; at or below '
+  + MARK_RADIUS_MAX + 'px is a mark and keeps its literal');
+else ok('no built page sets a container radius outside the shape scale',
+  '[' + pages.length + ' pages, marks at or below ' + MARK_RADIUS_MAX + 'px exempt]');
+
+red('a container radius off the scale is caught',
+  radiusOffences('<style>.x{border-radius:12px}</style>', 'planted').length === 1);
+red('a mark radius at or below the ceiling is NOT flagged',
+  radiusOffences('<style>.bar{border-radius:3px}</style>', 'planted').length === 0);
+red('a tokenised radius is NOT flagged',
+  radiusOffences('<style>.card{border-radius:var(--radius-m)}</style>', 'planted').length === 0);
 
 red('a colour no token names is caught',
   colourOffences('<style>.x{color:#8e8e9a}</style>', 'planted').length === 1);

@@ -46,6 +46,9 @@
    build on one. */
 'use strict';
 
+
+/* the dash patterns are a closed set — see design/CONTRACT.md */
+const G = require(require('path').join(__dirname, 'grammar.js'));
 const T = require('./tokens.js');
 const CO = require('./components.js');
 const esc = CO.esc, escAttr = CO.escAttr;
@@ -190,7 +193,7 @@ function legend(items, x, y, gap, avail) {
     const y2 = cy;
     if (it.kind === 'dash') {
       out.push('    <line x1="' + cx + '" y1="' + (y2 - 4) + '" x2="' + (cx + 14) + '" y2="' + (y2 - 4)
-        + '" stroke="' + it.token + '" stroke-width="2" stroke-dasharray="4 3"/>');
+        + '" stroke="' + it.token + '" stroke-width="2" stroke-dasharray="' + G.CLAIM + '"/>');
     } else if (it.kind === 'line') {
       out.push('    <line x1="' + cx + '" y1="' + (y2 - 4) + '" x2="' + (cx + 14) + '" y2="' + (y2 - 4)
         + '" stroke="' + it.token + '" stroke-width="2" stroke-linecap="round"/>');
@@ -285,7 +288,7 @@ function lines(o) {
   for (const r of (o.rules || [])) {
     const y = f.py(r.v);
     out.push('    <line x1="' + f.L + '" y1="' + y.toFixed(1) + '" x2="' + (f.L + f.pw) + '" y2="' + y.toFixed(1)
-      + '" stroke="' + (r.token || CTX) + '" stroke-width="1"' + (r.dashed ? ' stroke-dasharray="4 3"' : '') + '/>');
+      + '" stroke="' + (r.token || CTX) + '" stroke-width="1"' + (r.dashed ? ' stroke-dasharray="' + G.claim(1) + '"' : '') + '/>');
     if (r.t) out.push(txt(f.L + f.pw - 4, y - 6, r.t, 't-note', 'end'));
   }
   /* vertical callouts: a named x, the way `rules` names a y. m.row stacks them. */
@@ -348,7 +351,7 @@ function band(o) {
   for (const m of (o.marks || [])) {
     const x = f.px(m.x);
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + f.T + '" x2="' + x.toFixed(1) + '" y2="' + (f.T + f.ph)
-      + '" stroke="' + (m.token || CTX) + '" stroke-width="1" stroke-dasharray="3 3"/>');
+      + '" stroke="' + (m.token || CTX) + '" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"/>');
     out.push(txt(x, f.T + 13, m.t, 't-note', m.anchor || 'middle'));
   }
   if (o.hover !== false) for (const p of pts) {
@@ -635,13 +638,13 @@ function scatter(o) {
   for (const l of (o.vlines || [])) {
     const x = f.px(l.x);
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + f.T + '" x2="' + x.toFixed(1) + '" y2="' + (f.T + f.ph)
-      + '" stroke="' + (l.token || CTX) + '" stroke-width="1.5"' + (l.dashed ? ' stroke-dasharray="4 3"' : '') + '/>');
+      + '" stroke="' + (l.token || CTX) + '" stroke-width="1.5"' + (l.dashed ? ' stroke-dasharray="' + G.claim(1.5) + '"' : '') + '/>');
     if (l.t) out.push(txt(x + 6, f.T + 13, l.t, 't-lab', 'start'));
   }
   for (const l of (o.hlines || [])) {
     const y = f.py(l.y);
     out.push('    <line x1="' + f.L + '" y1="' + y.toFixed(1) + '" x2="' + (f.L + f.pw) + '" y2="' + y.toFixed(1)
-      + '" stroke="' + (l.token || CTX) + '" stroke-width="1.5"' + (l.dashed ? ' stroke-dasharray="4 3"' : '') + '/>');
+      + '" stroke="' + (l.token || CTX) + '" stroke-width="1.5"' + (l.dashed ? ' stroke-dasharray="' + G.claim(1.5) + '"' : '') + '/>');
     if (l.t) out.push(txt(f.L + f.pw - 6, y - 6, l.t, 't-lab', 'end'));
   }
   for (const c of (o.curves || [])) {

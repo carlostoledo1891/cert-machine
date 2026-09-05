@@ -97,7 +97,7 @@ function navCss(gutter) {
   color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
 .navlinks a:hover{color:var(--ink)}
 .navlinks a[aria-current="page"]{color:var(--ink)}
-.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
   display:inline-flex;align-items:center;justify-content:center;
   color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
 .navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
@@ -107,7 +107,7 @@ function navCss(gutter) {
 /* the drawer: pure CSS state — a checkbox the burger label toggles */
 .nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
 .nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
-  cursor:pointer;margin-right:-8px;border-radius:6px}
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
 .nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
   border-radius:1px;transition:transform .18s ease}
 .nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;

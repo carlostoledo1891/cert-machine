@@ -81,9 +81,18 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
 .page{max-width:1200px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 60px) clamp(1.25rem,4vw,3rem) 96px}
 
 
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
-  background:color-mix(in srgb, var(--paper) 82%, transparent);
-  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--rule)}
 .topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:60px;
   display:flex;align-items:center;justify-content:space-between;gap:24px}
@@ -94,7 +103,7 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
   color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
 .navlinks a:hover{color:var(--ink)}
 .navlinks a[aria-current="page"]{color:var(--ink)}
-.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
   display:inline-flex;align-items:center;justify-content:center;
   color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
 .navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
@@ -104,7 +113,7 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
 /* the drawer: pure CSS state — a checkbox the burger label toggles */
 .nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
 .nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
-  cursor:pointer;margin-right:-8px;border-radius:6px}
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
 .nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
   border-radius:1px;transition:transform .18s ease}
 .nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
@@ -175,7 +184,7 @@ section{margin:clamp(5rem,12vh,9rem) 0 0}
    both; the balanced per-count desktop layouts (see statsGridRules) live
    in the min-width query below, keyed on data-n. */
 .stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
 .stats .stat:last-child:nth-child(odd){grid-column:1/-1}
 @media (min-width:681px){
 .stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
@@ -222,7 +231,7 @@ details.more{margin-top:24px}
 .wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
 details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
   font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:999px;padding:7px 16px;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
   transition:color .15s ease,border-color .15s ease}
 details.more > summary::-webkit-details-marker{display:none}
 details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
@@ -234,7 +243,7 @@ details.more[open] > summary{margin-bottom:24px}
   color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
 
 figure{margin:0}
-.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:1.5rem;overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px}
@@ -252,7 +261,7 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
    in a direct label, an axis tick, or the prose beside it, so with scripts off
    nothing is gated — the charts simply stop following the pointer. */
 .cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
-  background:var(--surface);border:1px solid var(--rule-strong);border-radius:6px;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
   padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
   color:var(--ink);box-shadow:var(--shadow);max-width:280px}
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
@@ -267,17 +276,17 @@ svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
   line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
 .pull b{color:var(--ink);font-weight:550}
 
-.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 22px;margin:22px 0;text-align:center;
   font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
 
-pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 22px;margin:22px 0;
   font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
 
 .after-fig{margin-top:26px}
 
-.note{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
 .note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
 .note p:last-child{margin-bottom:0}
@@ -287,7 +296,7 @@ blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-stro
 blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
   font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
 
-.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--sunk);margin:0 0 26px}
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--sunk);margin:0 0 26px}
 table{border-collapse:collapse;width:100%;min-width:560px;
   font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
 th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
@@ -304,7 +313,7 @@ td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
    certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
-  border-radius:999px;white-space:nowrap}
+  border-radius:var(--radius-pill);white-space:nowrap}
 .tag.held{background:var(--ink);color:var(--paper)}
 .tag.cert{background:var(--ink);color:var(--paper)}
 .tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
@@ -314,7 +323,7 @@ td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 .cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
 @media (max-width:680px){.cards{grid-template-columns:1fr}}
 a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
-  border:1px solid var(--rule);border-radius:10px;padding:24px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
   color:inherit;text-decoration:none;
   transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
 a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
@@ -334,7 +343,7 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
 .pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
-  border:1px solid var(--rule);border-radius:8px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
   transition:border-color .16s ease,background .16s ease}
 .pk-t:hover{border-color:var(--rule-strong)}
 .pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
@@ -347,7 +356,7 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
 .pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
 @media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
-.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:8px;padding:18px 20px}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
 .pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
   letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
 .pk-box.warn .lab{color:var(--ink-3)}
@@ -483,7 +492,7 @@ footer a:hover{color:var(--ink)}
 <path d="M250.0 84.3L268.1 77.6L287.8 73.9L308.6 73.6L329.8 76.9L350.6 84.0L370.2 94.8L387.8 109.2L403.0 126.7L415.1 146.6L423.4 168.5L428.3 191.5L430.1 215.0L428.8 238.5L424.4 261.7L416.5 284.0L404.8 304.4L389.6 322.1L371.7 336.7L351.9 347.7L330.8 354.9L309.3 358.3L288.3 357.9L268.3 354.1L250.0 347.4L233.8 338.3L219.6 328.4L206.4 320.1L194.8 310.6L184.7 300.1L176.2 288.8L169.2 277.0L164.0 264.7L160.3 252.2L158.0 239.6L157.1 227.2L157.4 215.0L157.4 202.8L158.6 190.5L161.2 178.2L165.1 166.0L170.4 153.9L177.3 142.3L185.7 131.1L195.6 120.8L207.1 111.4L220.1 103.3L234.0 93.3Z M250.0 147.7L259.5 142.9L270.4 138.9L281.5 139.0L293.1 140.4L305.0 143.3L317.0 148.0L328.0 155.1L338.1 164.1L347.1 174.8L354.4 187.0L359.6 200.6L362.5 215.0L360.1 229.5L355.3 243.2L348.4 255.8L339.7 266.8L329.6 276.1L318.1 283.1L305.9 287.9L293.8 290.9L282.0 292.3L270.7 292.3L259.7 288.3L250.0 283.4L241.7 278.0L234.7 272.2L228.7 266.4L223.6 260.7L219.3 255.0L215.7 249.3L212.5 243.7L209.9 238.2L207.7 232.5L206.0 226.8L204.9 220.9L204.6 215.0L205.1 209.1L206.3 203.3L208.2 197.7L210.5 192.2L213.1 186.7L216.2 181.2L219.8 175.7L224.1 170.1L229.0 164.4L234.9 158.7L241.8 153.1Z" fill-rule="evenodd" fill="url(#h1)"/>
 <path d="M250.0 147.7L259.5 142.9L270.4 138.9L281.5 139.0L293.1 140.4L305.0 143.3L317.0 148.0L328.0 155.1L338.1 164.1L347.1 174.8L354.4 187.0L359.6 200.6L362.5 215.0L360.1 229.5L355.3 243.2L348.4 255.8L339.7 266.8L329.6 276.1L318.1 283.1L305.9 287.9L293.8 290.9L282.0 292.3L270.7 292.3L259.7 288.3L250.0 283.4L241.7 278.0L234.7 272.2L228.7 266.4L223.6 260.7L219.3 255.0L215.7 249.3L212.5 243.7L209.9 238.2L207.7 232.5L206.0 226.8L204.9 220.9L204.6 215.0L205.1 209.1L206.3 203.3L208.2 197.7L210.5 192.2L213.1 186.7L216.2 181.2L219.8 175.7L224.1 170.1L229.0 164.4L234.9 158.7L241.8 153.1Z" fill="var(--held-soft)" stroke="var(--c-2)" stroke-width="2.4"/>
 <path d="M250.0 84.3L268.1 77.6L287.8 73.9L308.6 73.6L329.8 76.9L350.6 84.0L370.2 94.8L387.8 109.2L403.0 126.7L415.1 146.6L423.4 168.5L428.3 191.5L430.1 215.0L428.8 238.5L424.4 261.7L416.5 284.0L404.8 304.4L389.6 322.1L371.7 336.7L351.9 347.7L330.8 354.9L309.3 358.3L288.3 357.9L268.3 354.1L250.0 347.4L233.8 338.3L219.6 328.4L206.4 320.1L194.8 310.6L184.7 300.1L176.2 288.8L169.2 277.0L164.0 264.7L160.3 252.2L158.0 239.6L157.1 227.2L157.4 215.0L157.4 202.8L158.6 190.5L161.2 178.2L165.1 166.0L170.4 153.9L177.3 142.3L185.7 131.1L195.6 120.8L207.1 111.4L220.1 103.3L234.0 93.3Z" fill="none" stroke="var(--c-1)" stroke-width="2.4"/>
-<path d="M250.0 110.9L264.2 106.8L279.6 104.6L295.7 104.6L312.3 107.1L328.8 112.3L344.7 120.3L359.4 131.1L372.5 144.3L383.6 159.7L392.0 176.9L397.3 195.6L399.3 215.0L397.8 234.5L393.0 253.3L385.0 270.9L374.2 286.7L361.0 300.2L346.1 311.1L330.0 319.2L313.2 324.5L296.4 327.0L280.0 327.1L264.5 324.8L250.0 320.7L236.8 315.0L225.1 308.0L214.7 300.1L205.8 291.5L198.2 282.5L191.9 273.1L186.7 263.6L182.6 253.9L179.7 244.1L177.7 234.4L176.6 224.7L176.3 215.0L176.8 205.4L178.2 195.8L180.4 186.2L183.5 176.6L187.6 167.1L192.7 157.7L199.0 148.5L206.5 139.6L215.3 131.2L225.4 123.4L237.0 116.5Z" fill="none" stroke="var(--ink-2)" stroke-width="2.6" stroke-dasharray="9 6"/>
+<path d="M250.0 110.9L264.2 106.8L279.6 104.6L295.7 104.6L312.3 107.1L328.8 112.3L344.7 120.3L359.4 131.1L372.5 144.3L383.6 159.7L392.0 176.9L397.3 195.6L399.3 215.0L397.8 234.5L393.0 253.3L385.0 270.9L374.2 286.7L361.0 300.2L346.1 311.1L330.0 319.2L313.2 324.5L296.4 327.0L280.0 327.1L264.5 324.8L250.0 320.7L236.8 315.0L225.1 308.0L214.7 300.1L205.8 291.5L198.2 282.5L191.9 273.1L186.7 263.6L182.6 253.9L179.7 244.1L177.7 234.4L176.6 224.7L176.3 215.0L176.8 205.4L178.2 195.8L180.4 186.2L183.5 176.6L187.6 167.1L192.7 157.7L199.0 148.5L206.5 139.6L215.3 131.2L225.4 123.4L237.0 116.5Z" fill="none" stroke="var(--ink-2)" stroke-width="2.6" stroke-dasharray="5 4"/>
 <circle cx="250" cy="215" r="5.5" fill="var(--ink)"/>
 <path d="M305.6 143.8 L494 92 L508 92" fill="none" stroke="var(--rule)" stroke-width="1.2"/>
 <rect x="512" y="79" width="16" height="16" fill="var(--held-soft)" stroke="var(--c-2)" stroke-width="2"/>
@@ -498,7 +507,7 @@ footer a:hover{color:var(--ink)}
 <text x="542" y="259" font-size="15.5" font-weight="600" fill="var(--c-1)">YOU WILL NOT</text>
 <text x="542" y="278" font-size="13.5" fill="var(--ink-2)">true for no value in the envelope</text>
 <path d="M301.3 324.9 L494 352 L508 352" fill="none" stroke="var(--rule)" stroke-width="1.2"/>
-<line x1="512" y1="347" x2="532" y2="347" stroke="var(--ink-2)" stroke-width="2.6" stroke-dasharray="7 5"/>
+<line x1="512" y1="347" x2="532" y2="347" stroke="var(--ink-2)" stroke-width="2.6" stroke-dasharray="5 4"/>
 <text x="542" y="351" font-size="15.5" font-weight="600" fill="var(--ink-2)">THE LINE YOUR PANEL DRAWS</text>
 <text x="542" y="370" font-size="13.5" fill="var(--ink-2)">one value per input, and it runs</text>
 <text x="542" y="387" font-size="13.5" fill="var(--ink-2)">through the middle zone</text>
@@ -984,7 +993,7 @@ draw();
 <path d="M111.0 63.5L117.1 59.9L124.0 57.3L131.7 56.1L139.7 56.3L147.8 58.1L155.5 61.5L162.5 66.5L168.6 72.8L173.4 80.2L176.6 88.4L178.4 97.1L179.1 106.0L178.6 114.9L177.0 123.7L173.9 132.1L169.2 139.6L163.2 146.0L156.1 151.1L148.2 154.5L140.1 156.4L131.9 156.6L124.2 155.3L117.1 152.7L111.0 149.1L105.9 145.1L101.7 140.8L97.8 137.7L94.6 134.4L91.9 130.8L89.8 127.2L88.1 123.6L86.9 119.9L86.2 116.3L85.8 112.8L85.7 109.3L86.0 106.0L85.8 102.7L86.0 99.3L86.4 95.8L87.3 92.3L88.5 88.7L90.1 85.1L92.2 81.5L94.9 78.0L98.1 74.7L101.8 71.7L105.9 67.5Z M111.0 93.2L113.0 90.8L115.7 88.3L118.7 87.3L122.3 86.4L126.4 85.9L131.0 86.0L135.7 87.0L140.4 89.1L144.1 92.3L147.3 96.3L149.7 100.9L151.1 106.0L149.9 111.1L147.6 115.8L144.6 119.9L140.9 123.2L136.1 125.3L131.3 126.3L126.7 126.5L122.5 125.9L118.9 125.0L115.8 123.9L113.0 121.4L111.0 119.0L109.6 117.0L108.5 115.3L107.8 113.8L107.2 112.6L106.7 111.6L106.3 110.7L105.9 109.9L105.5 109.2L105.2 108.4L105.0 107.6L104.8 106.8L104.8 106.0L104.8 105.2L105.0 104.4L105.3 103.6L105.6 102.9L106.0 102.1L106.4 101.4L106.8 100.5L107.2 99.5L107.8 98.3L108.6 96.9L109.6 95.2Z" fill-rule="evenodd" fill="url(#h3)"/>
 <path d="M111.0 93.2L113.0 90.8L115.7 88.3L118.7 87.3L122.3 86.4L126.4 85.9L131.0 86.0L135.7 87.0L140.4 89.1L144.1 92.3L147.3 96.3L149.7 100.9L151.1 106.0L149.9 111.1L147.6 115.8L144.6 119.9L140.9 123.2L136.1 125.3L131.3 126.3L126.7 126.5L122.5 125.9L118.9 125.0L115.8 123.9L113.0 121.4L111.0 119.0L109.6 117.0L108.5 115.3L107.8 113.8L107.2 112.6L106.7 111.6L106.3 110.7L105.9 109.9L105.5 109.2L105.2 108.4L105.0 107.6L104.8 106.8L104.8 106.0L104.8 105.2L105.0 104.4L105.3 103.6L105.6 102.9L106.0 102.1L106.4 101.4L106.8 100.5L107.2 99.5L107.8 98.3L108.6 96.9L109.6 95.2Z" fill="var(--held-soft)" stroke="var(--c-2)" stroke-width="1.8"/>
 <path d="M111.0 63.5L117.1 59.9L124.0 57.3L131.7 56.1L139.7 56.3L147.8 58.1L155.5 61.5L162.5 66.5L168.6 72.8L173.4 80.2L176.6 88.4L178.4 97.1L179.1 106.0L178.6 114.9L177.0 123.7L173.9 132.1L169.2 139.6L163.2 146.0L156.1 151.1L148.2 154.5L140.1 156.4L131.9 156.6L124.2 155.3L117.1 152.7L111.0 149.1L105.9 145.1L101.7 140.8L97.8 137.7L94.6 134.4L91.9 130.8L89.8 127.2L88.1 123.6L86.9 119.9L86.2 116.3L85.8 112.8L85.7 109.3L86.0 106.0L85.8 102.7L86.0 99.3L86.4 95.8L87.3 92.3L88.5 88.7L90.1 85.1L92.2 81.5L94.9 78.0L98.1 74.7L101.8 71.7L105.9 67.5Z" fill="none" stroke="var(--c-1)" stroke-width="1.8"/>
-<path d="M111.0 77.1L115.1 75.0L119.8 73.3L125.0 72.3L130.5 72.2L136.3 73.0L142.1 74.9L147.5 78.0L152.5 82.0L156.8 87.0L160.1 92.9L162.1 99.3L162.9 106.0L162.3 112.8L160.4 119.2L157.3 125.2L153.1 130.3L148.1 134.5L142.6 137.6L136.7 139.5L130.8 140.4L125.2 140.2L119.9 139.2L115.2 137.5L111.0 135.4L107.5 132.9L104.5 130.2L102.1 127.5L100.1 124.8L98.6 122.2L97.3 119.7L96.4 117.2L95.7 114.9L95.2 112.6L94.8 110.3L94.7 108.1L94.6 106.0L94.7 103.9L95.0 101.7L95.3 99.5L95.9 97.3L96.6 94.9L97.5 92.5L98.8 90.0L100.3 87.5L102.2 84.8L104.6 82.1L107.5 79.5Z" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="7 5"/>
+<path d="M111.0 77.1L115.1 75.0L119.8 73.3L125.0 72.3L130.5 72.2L136.3 73.0L142.1 74.9L147.5 78.0L152.5 82.0L156.8 87.0L160.1 92.9L162.1 99.3L162.9 106.0L162.3 112.8L160.4 119.2L157.3 125.2L153.1 130.3L148.1 134.5L142.6 137.6L136.7 139.5L130.8 140.4L125.2 140.2L119.9 139.2L115.2 137.5L111.0 135.4L107.5 132.9L104.5 130.2L102.1 127.5L100.1 124.8L98.6 122.2L97.3 119.7L96.4 117.2L95.7 114.9L95.2 112.6L94.8 110.3L94.7 108.1L94.6 106.0L94.7 103.9L95.0 101.7L95.3 99.5L95.9 97.3L96.6 94.9L97.5 92.5L98.8 90.0L100.3 87.5L102.2 84.8L104.6 82.1L107.5 79.5Z" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="5 4"/>
 <circle cx="111" cy="106" r="3" fill="var(--ink)"/>
 <text x="111" y="206" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--ink)">Trainer</text>
 <text x="111" y="223" text-anchor="middle" font-size="12" fill="var(--ink-2)">fixed-pitch, prop windmilling</text>
@@ -992,7 +1001,7 @@ draw();
 <path d="M333.0 56.8L339.9 53.7L347.5 51.8L355.7 51.3L364.1 52.2L372.4 54.7L380.2 58.8L387.3 64.3L393.5 71.1L398.4 78.9L401.7 87.6L403.6 96.7L404.4 106.0L403.9 115.3L402.2 124.5L399.0 133.3L394.3 141.4L388.1 148.3L380.9 153.9L372.9 158.0L364.5 160.6L356.0 161.5L347.7 160.9L340.0 159.0L333.0 155.9L326.9 152.0L321.8 147.9L317.0 144.7L312.8 141.0L309.3 136.9L306.3 132.7L303.9 128.3L302.1 123.8L301.0 119.3L300.3 114.8L300.0 110.3L300.2 106.0L300.2 101.7L300.5 97.3L301.3 92.9L302.6 88.5L304.4 84.1L306.7 79.7L309.6 75.6L313.1 71.6L317.3 68.0L322.0 64.8L327.0 60.7Z M333.0 83.1L336.3 80.9L340.2 79.0L344.3 78.6L348.8 78.7L353.4 79.4L358.2 80.8L363.0 83.0L367.1 86.3L370.9 90.3L374.0 95.0L376.3 100.3L377.6 106.0L376.5 111.7L374.4 117.1L371.5 121.9L367.8 126.1L363.6 129.5L358.7 131.7L353.8 133.1L349.0 133.8L344.5 133.9L340.4 133.5L336.4 131.5L333.0 129.3L330.2 127.0L328.0 124.7L326.1 122.6L324.6 120.5L323.3 118.6L322.3 116.7L321.3 114.9L320.6 113.2L319.9 111.4L319.3 109.7L319.0 107.8L318.9 106.0L319.1 104.2L319.4 102.4L320.0 100.6L320.7 98.9L321.5 97.2L322.5 95.5L323.5 93.6L324.8 91.7L326.3 89.7L328.1 87.6L330.3 85.4Z" fill-rule="evenodd" fill="url(#h3)"/>
 <path d="M333.0 83.1L336.3 80.9L340.2 79.0L344.3 78.6L348.8 78.7L353.4 79.4L358.2 80.8L363.0 83.0L367.1 86.3L370.9 90.3L374.0 95.0L376.3 100.3L377.6 106.0L376.5 111.7L374.4 117.1L371.5 121.9L367.8 126.1L363.6 129.5L358.7 131.7L353.8 133.1L349.0 133.8L344.5 133.9L340.4 133.5L336.4 131.5L333.0 129.3L330.2 127.0L328.0 124.7L326.1 122.6L324.6 120.5L323.3 118.6L322.3 116.7L321.3 114.9L320.6 113.2L319.9 111.4L319.3 109.7L319.0 107.8L318.9 106.0L319.1 104.2L319.4 102.4L320.0 100.6L320.7 98.9L321.5 97.2L322.5 95.5L323.5 93.6L324.8 91.7L326.3 89.7L328.1 87.6L330.3 85.4Z" fill="var(--held-soft)" stroke="var(--c-2)" stroke-width="1.8"/>
 <path d="M333.0 56.8L339.9 53.7L347.5 51.8L355.7 51.3L364.1 52.2L372.4 54.7L380.2 58.8L387.3 64.3L393.5 71.1L398.4 78.9L401.7 87.6L403.6 96.7L404.4 106.0L403.9 115.3L402.2 124.5L399.0 133.3L394.3 141.4L388.1 148.3L380.9 153.9L372.9 158.0L364.5 160.6L356.0 161.5L347.7 160.9L340.0 159.0L333.0 155.9L326.9 152.0L321.8 147.9L317.0 144.7L312.8 141.0L309.3 136.9L306.3 132.7L303.9 128.3L302.1 123.8L301.0 119.3L300.3 114.8L300.0 110.3L300.2 106.0L300.2 101.7L300.5 97.3L301.3 92.9L302.6 88.5L304.4 84.1L306.7 79.7L309.6 75.6L313.1 71.6L317.3 68.0L322.0 64.8L327.0 60.7Z" fill="none" stroke="var(--c-1)" stroke-width="1.8"/>
-<path d="M333.0 69.6L338.0 67.8L343.5 66.7L349.4 66.3L355.6 66.9L361.8 68.5L367.8 71.2L373.4 75.0L378.5 79.7L382.8 85.4L386.1 91.8L388.2 98.7L389.0 106.0L388.4 113.3L386.6 120.3L383.4 126.9L379.2 132.7L374.1 137.6L368.4 141.4L362.3 144.2L356.0 145.8L349.7 146.4L343.7 146.0L338.1 144.8L333.0 143.0L328.4 140.6L324.4 137.9L321.0 134.9L318.1 131.8L315.7 128.6L313.7 125.3L312.1 122.1L310.8 118.8L310.0 115.5L309.4 112.3L309.0 109.2L309.0 106.0L309.1 102.9L309.6 99.7L310.2 96.6L311.2 93.4L312.4 90.2L314.0 87.0L316.0 83.8L318.4 80.6L321.2 77.5L324.6 74.6L328.5 71.9Z" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="7 5"/>
+<path d="M333.0 69.6L338.0 67.8L343.5 66.7L349.4 66.3L355.6 66.9L361.8 68.5L367.8 71.2L373.4 75.0L378.5 79.7L382.8 85.4L386.1 91.8L388.2 98.7L389.0 106.0L388.4 113.3L386.6 120.3L383.4 126.9L379.2 132.7L374.1 137.6L368.4 141.4L362.3 144.2L356.0 145.8L349.7 146.4L343.7 146.0L338.1 144.8L333.0 143.0L328.4 140.6L324.4 137.9L321.0 134.9L318.1 131.8L315.7 128.6L313.7 125.3L312.1 122.1L310.8 118.8L310.0 115.5L309.4 112.3L309.0 109.2L309.0 106.0L309.1 102.9L309.6 99.7L310.2 96.6L311.2 93.4L312.4 90.2L314.0 87.0L316.0 83.8L318.4 80.6L321.2 77.5L324.6 74.6L328.5 71.9Z" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="5 4"/>
 <circle cx="333" cy="106" r="3" fill="var(--ink)"/>
 <text x="333" y="206" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--ink)">High-performance single</text>
 <text x="333" y="223" text-anchor="middle" font-size="12" fill="var(--ink-2)">prop windmilling</text>
@@ -1000,7 +1009,7 @@ draw();
 <path d="M555.0 41.7L563.9 38.5L573.6 36.6L583.8 36.5L594.2 38.1L604.4 41.6L614.1 46.9L622.8 54.0L630.2 62.6L636.2 72.4L640.3 83.1L642.7 94.5L643.5 106.0L642.9 117.6L640.8 129.0L636.9 139.9L631.1 149.9L623.7 158.7L614.9 165.9L605.1 171.3L594.7 174.8L584.2 176.4L573.8 176.3L564.0 174.4L555.0 171.1L547.0 166.6L540.1 161.7L533.6 157.7L527.9 153.0L522.9 147.8L518.7 142.3L515.3 136.5L512.7 130.4L510.9 124.3L509.8 118.1L509.3 112.0L509.5 106.0L509.5 100.0L510.1 94.0L511.3 87.9L513.2 81.9L515.9 76.0L519.2 70.2L523.4 64.8L528.3 59.7L533.9 55.1L540.3 51.1L547.1 46.2Z M555.0 72.9L559.7 70.5L565.0 68.6L570.5 68.6L576.2 69.3L582.1 70.7L587.9 73.1L593.4 76.6L598.3 81.0L602.8 86.2L606.3 92.2L608.9 98.9L610.3 106.0L609.1 113.1L606.8 119.9L603.4 126.0L599.1 131.5L594.1 136.0L588.5 139.5L582.5 141.8L576.5 143.3L570.7 144.0L565.2 144.0L559.7 142.1L555.0 139.6L550.9 137.0L547.5 134.1L544.5 131.3L542.0 128.5L539.9 125.6L538.1 122.9L536.6 120.1L535.3 117.4L534.2 114.6L533.4 111.8L532.8 108.9L532.7 106.0L532.9 103.1L533.5 100.2L534.4 97.5L535.6 94.8L536.9 92.1L538.4 89.4L540.2 86.7L542.2 83.9L544.7 81.1L547.6 78.3L551.0 75.6Z" fill-rule="evenodd" fill="url(#h3)"/>
 <path d="M555.0 72.9L559.7 70.5L565.0 68.6L570.5 68.6L576.2 69.3L582.1 70.7L587.9 73.1L593.4 76.6L598.3 81.0L602.8 86.2L606.3 92.2L608.9 98.9L610.3 106.0L609.1 113.1L606.8 119.9L603.4 126.0L599.1 131.5L594.1 136.0L588.5 139.5L582.5 141.8L576.5 143.3L570.7 144.0L565.2 144.0L559.7 142.1L555.0 139.6L550.9 137.0L547.5 134.1L544.5 131.3L542.0 128.5L539.9 125.6L538.1 122.9L536.6 120.1L535.3 117.4L534.2 114.6L533.4 111.8L532.8 108.9L532.7 106.0L532.9 103.1L533.5 100.2L534.4 97.5L535.6 94.8L536.9 92.1L538.4 89.4L540.2 86.7L542.2 83.9L544.7 81.1L547.6 78.3L551.0 75.6Z" fill="var(--held-soft)" stroke="var(--c-2)" stroke-width="1.8"/>
 <path d="M555.0 41.7L563.9 38.5L573.6 36.6L583.8 36.5L594.2 38.1L604.4 41.6L614.1 46.9L622.8 54.0L630.2 62.6L636.2 72.4L640.3 83.1L642.7 94.5L643.5 106.0L642.9 117.6L640.8 129.0L636.9 139.9L631.1 149.9L623.7 158.7L614.9 165.9L605.1 171.3L594.7 174.8L584.2 176.4L573.8 176.3L564.0 174.4L555.0 171.1L547.0 166.6L540.1 161.7L533.6 157.7L527.9 153.0L522.9 147.8L518.7 142.3L515.3 136.5L512.7 130.4L510.9 124.3L509.8 118.1L509.3 112.0L509.5 106.0L509.5 100.0L510.1 94.0L511.3 87.9L513.2 81.9L515.9 76.0L519.2 70.2L523.4 64.8L528.3 59.7L533.9 55.1L540.3 51.1L547.1 46.2Z" fill="none" stroke="var(--c-1)" stroke-width="1.8"/>
-<path d="M555.0 54.8L562.0 52.8L569.5 51.7L577.5 51.7L585.6 53.0L593.7 55.5L601.5 59.5L608.8 64.7L615.2 71.2L620.7 78.8L624.8 87.3L627.4 96.5L628.4 106.0L627.7 115.6L625.3 124.8L621.4 133.5L616.0 141.2L609.6 147.9L602.2 153.2L594.3 157.2L586.1 159.8L577.8 161.1L569.8 161.1L562.1 160.0L555.0 158.0L548.5 155.2L542.7 151.7L537.7 147.8L533.3 143.6L529.5 139.2L526.4 134.6L523.9 129.9L521.9 125.1L520.4 120.3L519.5 115.5L518.9 110.8L518.8 106.0L519.0 101.3L519.7 96.5L520.8 91.8L522.3 87.1L524.3 82.5L526.8 77.8L529.9 73.3L533.6 68.9L537.9 64.8L542.9 60.9L548.6 57.6Z" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="7 5"/>
+<path d="M555.0 54.8L562.0 52.8L569.5 51.7L577.5 51.7L585.6 53.0L593.7 55.5L601.5 59.5L608.8 64.7L615.2 71.2L620.7 78.8L624.8 87.3L627.4 96.5L628.4 106.0L627.7 115.6L625.3 124.8L621.4 133.5L616.0 141.2L609.6 147.9L602.2 153.2L594.3 157.2L586.1 159.8L577.8 161.1L569.8 161.1L562.1 160.0L555.0 158.0L548.5 155.2L542.7 151.7L537.7 147.8L533.3 143.6L529.5 139.2L526.4 134.6L523.9 129.9L521.9 125.1L520.4 120.3L519.5 115.5L518.9 110.8L518.8 106.0L519.0 101.3L519.7 96.5L520.8 91.8L522.3 87.1L524.3 82.5L526.8 77.8L529.9 73.3L533.6 68.9L537.9 64.8L542.9 60.9L548.6 57.6Z" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="5 4"/>
 <circle cx="555" cy="106" r="3" fill="var(--ink)"/>
 <text x="555" y="206" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--ink)">Turboprop</text>
 <text x="555" y="223" text-anchor="middle" font-size="12" fill="var(--ink-2)">propeller FEATHERED</text>
@@ -1008,7 +1017,7 @@ draw();
 <path d="M777.0 63.1L782.9 61.0L789.4 59.8L796.2 59.7L803.1 60.8L809.8 63.2L816.2 66.8L822.0 71.5L826.9 77.2L830.9 83.7L833.7 90.8L835.3 98.3L835.9 106.0L835.5 113.7L834.2 121.3L831.6 128.6L827.8 135.3L822.8 141.2L817.0 146.0L810.5 149.7L803.6 152.1L796.5 153.2L789.6 153.1L783.0 151.9L777.0 149.7L771.6 146.7L767.0 143.4L762.6 140.8L758.7 137.6L755.4 134.2L752.5 130.5L750.2 126.5L748.5 122.5L747.3 118.3L746.6 114.2L746.3 110.0L746.4 106.0L746.4 102.0L746.9 97.9L747.7 93.9L749.0 89.8L750.8 85.9L753.1 82.1L755.9 78.4L759.1 75.1L762.9 72.0L767.2 69.4L771.7 66.1Z M777.0 85.3L779.9 83.8L783.3 82.6L786.7 82.7L790.2 83.1L793.8 84.0L797.5 85.5L800.7 87.8L803.8 90.5L806.6 93.7L808.8 97.5L810.5 101.6L811.4 106.0L810.7 110.4L809.3 114.7L807.2 118.5L804.6 121.9L801.5 124.8L798.0 127.0L794.3 128.5L790.6 129.5L786.9 129.9L783.4 130.0L780.0 128.8L777.0 127.3L774.4 125.6L772.2 123.8L770.4 122.0L768.8 120.3L767.4 118.5L766.3 116.7L765.3 115.0L764.4 113.3L763.8 111.5L763.2 109.7L762.9 107.9L762.8 106.0L763.0 104.2L763.4 102.4L764.0 100.6L764.7 98.9L765.6 97.2L766.5 95.5L767.7 93.8L769.0 92.1L770.5 90.4L772.3 88.6L774.5 86.9Z" fill-rule="evenodd" fill="url(#h3)"/>
 <path d="M777.0 85.3L779.9 83.8L783.3 82.6L786.7 82.7L790.2 83.1L793.8 84.0L797.5 85.5L800.7 87.8L803.8 90.5L806.6 93.7L808.8 97.5L810.5 101.6L811.4 106.0L810.7 110.4L809.3 114.7L807.2 118.5L804.6 121.9L801.5 124.8L798.0 127.0L794.3 128.5L790.6 129.5L786.9 129.9L783.4 130.0L780.0 128.8L777.0 127.3L774.4 125.6L772.2 123.8L770.4 122.0L768.8 120.3L767.4 118.5L766.3 116.7L765.3 115.0L764.4 113.3L763.8 111.5L763.2 109.7L762.9 107.9L762.8 106.0L763.0 104.2L763.4 102.4L764.0 100.6L764.7 98.9L765.6 97.2L766.5 95.5L767.7 93.8L769.0 92.1L770.5 90.4L772.3 88.6L774.5 86.9Z" fill="var(--held-soft)" stroke="var(--c-2)" stroke-width="1.8"/>
 <path d="M777.0 63.1L782.9 61.0L789.4 59.8L796.2 59.7L803.1 60.8L809.8 63.2L816.2 66.8L822.0 71.5L826.9 77.2L830.9 83.7L833.7 90.8L835.3 98.3L835.9 106.0L835.5 113.7L834.2 121.3L831.6 128.6L827.8 135.3L822.8 141.2L817.0 146.0L810.5 149.7L803.6 152.1L796.5 153.2L789.6 153.1L783.0 151.9L777.0 149.7L771.6 146.7L767.0 143.4L762.6 140.8L758.7 137.6L755.4 134.2L752.5 130.5L750.2 126.5L748.5 122.5L747.3 118.3L746.6 114.2L746.3 110.0L746.4 106.0L746.4 102.0L746.9 97.9L747.7 93.9L749.0 89.8L750.8 85.9L753.1 82.1L755.9 78.4L759.1 75.1L762.9 72.0L767.2 69.4L771.7 66.1Z" fill="none" stroke="var(--c-1)" stroke-width="1.8"/>
-<path d="M777.0 54.8L784.0 52.8L791.5 51.7L799.5 51.7L807.6 53.0L815.7 55.5L823.5 59.5L830.8 64.7L837.2 71.2L842.7 78.8L846.8 87.3L849.4 96.5L850.4 106.0L849.7 115.6L847.3 124.8L843.4 133.5L838.0 141.2L831.6 147.9L824.2 153.2L816.3 157.2L808.1 159.8L799.8 161.1L791.8 161.1L784.1 160.0L777.0 158.0L770.5 155.2L764.7 151.7L759.7 147.8L755.3 143.6L751.5 139.2L748.4 134.6L745.9 129.9L743.9 125.1L742.4 120.3L741.5 115.5L740.9 110.8L740.8 106.0L741.0 101.3L741.7 96.5L742.8 91.8L744.3 87.1L746.3 82.5L748.8 77.8L751.9 73.3L755.6 68.9L759.9 64.8L764.9 60.9L770.6 57.6Z" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="7 5"/>
+<path d="M777.0 54.8L784.0 52.8L791.5 51.7L799.5 51.7L807.6 53.0L815.7 55.5L823.5 59.5L830.8 64.7L837.2 71.2L842.7 78.8L846.8 87.3L849.4 96.5L850.4 106.0L849.7 115.6L847.3 124.8L843.4 133.5L838.0 141.2L831.6 147.9L824.2 153.2L816.3 157.2L808.1 159.8L799.8 161.1L791.8 161.1L784.1 160.0L777.0 158.0L770.5 155.2L764.7 151.7L759.7 147.8L755.3 143.6L751.5 139.2L748.4 134.6L745.9 129.9L743.9 125.1L742.4 120.3L741.5 115.5L740.9 110.8L740.8 106.0L741.0 101.3L741.7 96.5L742.8 91.8L744.3 87.1L746.3 82.5L748.8 77.8L751.9 73.3L755.6 68.9L759.9 64.8L764.9 60.9L770.6 57.6Z" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="5 4"/>
 <circle cx="777" cy="106" r="3" fill="var(--ink)"/>
 <text x="777" y="206" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--c-1)">Turboprop</text>
 <text x="777" y="223" text-anchor="middle" font-size="12" fill="var(--ink-2)">propeller did NOT feather</text>
@@ -1171,7 +1180,7 @@ draw();
 })();
 </script>
 
-<footer class="col"><p>Generated by tools/build-report-glide-band.js @ git 4f2d44c. The app’s battery ran as this page’s gate (20 checks, 4 reds fired), the data pins were re-hashed, and all 480 states — 16 cruise positions × 5 scenarios × 3 winds × 2 forecast modes over 320 airfields — were decided during this build. The build refuses on any deviation, and refuses if either failure scenario stops biting. Flight: N412JS, adsb.lol 2026-08-26, pinned through apps/skyaudit — ADS-B data © adsb.lol, ODbL. Airfields: OurAirports (public domain), sha256 e56b20ecaa18…. Instrument: apps/glide-band/kernel.js.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-glide-band.js @ git d97a7bd. The app’s battery ran as this page’s gate (20 checks, 4 reds fired), the data pins were re-hashed, and all 480 states — 16 cruise positions × 5 scenarios × 3 winds × 2 forecast modes over 320 airfields — were decided during this build. The build refuses on any deviation, and refuses if either failure scenario stops biting. Flight: N412JS, adsb.lol 2026-08-26, pinned through apps/skyaudit — ADS-B data © adsb.lol, ODbL. Airfields: OurAirports (public domain), sha256 e56b20ecaa18…. Instrument: apps/glide-band/kernel.js.</p></footer>
 
 </div>
 </html>

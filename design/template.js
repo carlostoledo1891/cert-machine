@@ -126,7 +126,7 @@ section{margin:${SCALE.section} 0 0}
    both; the balanced per-count desktop layouts (see statsGridRules) live
    in the min-width query below, keyed on data-n. */
 .stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
 .stats .stat:last-child:nth-child(odd){grid-column:1/-1}
 @media (min-width:681px){
 ${balancedGrid('.stats', '.stat')}
@@ -146,7 +146,7 @@ details.more{margin-top:24px}
 .wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
 details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
   font-family:var(--f-mono);font-size:${SCALE.eyebrow};letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:999px;padding:7px 16px;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
   transition:color .15s ease,border-color .15s ease}
 details.more > summary::-webkit-details-marker{display:none}
 details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
@@ -158,7 +158,7 @@ details.more[open] > summary{margin-bottom:24px}
   color:var(--ink-3);font-size:${SCALE.small};line-height:1.6}
 
 figure{margin:0}
-.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:${SCALE.figPad};overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:${SCALE.small};line-height:1.55;margin-top:16px}
@@ -176,7 +176,7 @@ figcaption{color:var(--ink-4);font-size:${SCALE.small};line-height:1.55;margin-t
    in a direct label, an axis tick, or the prose beside it, so with scripts off
    nothing is gated — the charts simply stop following the pointer. */
 .cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
-  background:var(--surface);border:1px solid var(--rule-strong);border-radius:6px;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
   padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
   color:var(--ink);box-shadow:var(--shadow);max-width:280px}
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
@@ -191,17 +191,17 @@ svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
   line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
 .pull b{color:var(--ink);font-weight:550}
 
-.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 22px;margin:22px 0;text-align:center;
   font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
 
-pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 22px;margin:22px 0;
   font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
 
 .after-fig{margin-top:26px}
 
-.note{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 24px;margin:24px 0;font-size:${SCALE.body};line-height:1.6;color:var(--ink-3)}
 .note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
 .note p:last-child{margin-bottom:0}
@@ -211,7 +211,7 @@ blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-stro
 blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:${SCALE.eyebrow};
   font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
 
-.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--sunk);margin:0 0 26px}
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--sunk);margin:0 0 26px}
 table{border-collapse:collapse;width:100%;min-width:560px;
   font-family:var(--f-mono);font-size:${SCALE.small};font-variant-numeric:tabular-nums}
 th{font-family:var(--f-mono);font-size:${SCALE.eyebrow};letter-spacing:.1em;text-transform:uppercase;
@@ -228,7 +228,7 @@ td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
    certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
-  border-radius:999px;white-space:nowrap}
+  border-radius:var(--radius-pill);white-space:nowrap}
 .tag.held{background:var(--ink);color:var(--paper)}
 .tag.cert{background:var(--ink);color:var(--paper)}
 .tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
@@ -238,7 +238,7 @@ td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 .cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
 @media (max-width:680px){.cards{grid-template-columns:1fr}}
 a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
-  border:1px solid var(--rule);border-radius:10px;padding:24px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
   color:inherit;text-decoration:none;
   transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
 a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
@@ -258,7 +258,7 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
 .pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
-  border:1px solid var(--rule);border-radius:8px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
   transition:border-color .16s ease,background .16s ease}
 .pk-t:hover{border-color:var(--rule-strong)}
 .pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
@@ -271,7 +271,7 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
 .pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
 @media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
-.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:8px;padding:18px 20px}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
 .pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
   letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
 .pk-box.warn .lab{color:var(--ink-3)}

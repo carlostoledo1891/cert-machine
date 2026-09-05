@@ -67,7 +67,8 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 .mg { stroke: var(--chart-grid); stroke-width: 1; }
 .max { font-family: var(--font-mono); font-size: 12px; fill: var(--ink-5); }
 .max.ax { font-size: 12px; fill: var(--ink-4); letter-spacing: 0.06em; }
-.mb { fill: none; stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 4 5; }
+/* a fitted blob boundary: assumed, and under 1.5px, so the small claim. */
+.mb { fill: none; stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 1.5 2; }
 .ml.ctl { fill: var(--ink-2); }
 .mp { fill: var(--ink-3); }
 .mp.k-cycle { fill: var(--ink); }

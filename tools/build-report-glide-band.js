@@ -18,6 +18,9 @@
    usage: node tools/build-report-glide-band.js                              */
 'use strict';
 
+
+/* the dash patterns are a closed set — see design/CONTRACT.md */
+const G = require(require('path').join(__dirname, '..', 'design', 'grammar.js'));
 const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
@@ -262,7 +265,7 @@ function figIdea() {
   o.push('<path d="' + ringPath(s.rlo, cx, cy, sc) + '" fill="var(--held-soft)" stroke="' + V_G + '" stroke-width="2.4"/>');
   o.push('<path d="' + ringPath(s.rhi, cx, cy, sc) + '" fill="none" stroke="' + V_R + '" stroke-width="2.4"/>');
   o.push('<path d="' + ringPath(s.rnom, cx, cy, sc) + '" fill="none" stroke="' + V_LINE
-    + '" stroke-width="2.6" stroke-dasharray="9 6"/>');
+    + '" stroke-width="2.6" stroke-dasharray="' + G.CLAIM + '"/>');
   o.push('<circle cx="' + cx + '" cy="' + cy + '" r="5.5" fill="var(--ink)"/>');
 
   /* label column on the right; each block connects to its ring at its own
@@ -287,7 +290,7 @@ function figIdea() {
       + ' L' + (CX - 12) + ' ' + b.y + '" fill="none" stroke="var(--rule)" stroke-width="1.2"/>');
     if (b.line) {
       o.push('<line x1="' + (CX - 8) + '" y1="' + (b.y - 5) + '" x2="' + (CX + 12) + '" y2="' + (b.y - 5)
-        + '" stroke="' + V_LINE + '" stroke-width="2.6" stroke-dasharray="7 5"/>');
+        + '" stroke="' + V_LINE + '" stroke-width="2.6" stroke-dasharray="' + G.CLAIM + '"/>');
     } else {
       o.push('<rect x="' + (CX - 8) + '" y="' + (b.y - 13) + '" width="16" height="16" ' + b.sw + '/>');
     }
@@ -386,7 +389,7 @@ function figPacks() {
     o.push('<path d="' + ringPath(s.rlo, cx, cy, sc) + '" fill="var(--held-soft)" stroke="' + V_G + '" stroke-width="1.8"/>');
     o.push('<path d="' + ringPath(s.rhi, cx, cy, sc) + '" fill="none" stroke="' + V_R + '" stroke-width="1.8"/>');
     o.push('<path d="' + ringPath(s.rnom, cx, cy, sc) + '" fill="none" stroke="' + V_LINE
-      + '" stroke-width="2" stroke-dasharray="7 5"/>');
+      + '" stroke-width="2" stroke-dasharray="' + G.CLAIM + '"/>');
     o.push('<circle cx="' + cx + '" cy="' + cy + '" r="3" fill="var(--ink)"/>');
     const outside = pk.panelLD > pk.LD[1];
     o.push('<text x="' + cx + '" y="' + (CH - 8) + '" text-anchor="middle" font-size="13.5" font-weight="600" fill="'

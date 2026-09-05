@@ -33,7 +33,7 @@
   color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
 .navlinks a:hover{color:var(--ink)}
 .navlinks a[aria-current="page"]{color:var(--ink)}
-.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
   display:inline-flex;align-items:center;justify-content:center;
   color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
 .navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
@@ -43,7 +43,7 @@
 /* the drawer: pure CSS state — a checkbox the burger label toggles */
 .nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
 .nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
-  cursor:pointer;margin-right:-8px;border-radius:6px}
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
 .nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
   border-radius:1px;transition:transform .18s ease}
 .nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
@@ -421,7 +421,9 @@ svg { display: block; width: 100%; height: auto; overflow: visible; }
 .sx-isolab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-5); }
 .sx-trail { fill: none; stroke-width: 2; stroke-linecap: round; }
 .sx-trail.cert { stroke: var(--ink); opacity: 0.95; }
-.sx-trail.ext { stroke: var(--ink-4); stroke-dasharray: 3 5; }
+/* the extrapolated tail past the certified cut: assumed, so it takes the
+   claim pattern from design/grammar.js. .sx-trail.cert stays solid. */
+.sx-trail.ext { stroke: var(--ink-4); stroke-dasharray: 5 4; }
 .sx-dot { fill: var(--ink); stroke: var(--bg); stroke-width: 2; }
 .sx-edge { fill: none; stroke: var(--ink-3); stroke-width: 1.5; }
 .sx-grid { stroke: var(--chart-grid); stroke-width: 1; }
@@ -429,7 +431,9 @@ svg { display: block; width: 100%; height: auto; overflow: visible; }
 .sx-lab.real { fill: var(--ink-2); }
 .sx-lab.mut { fill: var(--ink-5); }
 .sx-real { fill: none; stroke: var(--ink); stroke-width: 2; }
-.sx-mut { fill: none; stroke: var(--ink-5); stroke-width: 1.4; stroke-dasharray: 4 4; }
+/* the two mutant models. Assumed, not decided — and under 1.5px, so the
+   grammar's small claim pattern rather than the full one. */
+.sx-mut { fill: none; stroke: var(--ink-5); stroke-width: 1.4; stroke-dasharray: 1.5 2; }
 .sx-knot { fill: var(--ink); }
 
 /* the control and the readout */

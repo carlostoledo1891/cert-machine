@@ -73,7 +73,7 @@ a{color:inherit}
 .as-top .sep{width:1px;height:20px;background:var(--rule)}
 .as-top .appname{font-family:var(--f-display);font-weight:700;letter-spacing:-.01em;font-size:14px;letter-spacing:.01em;color:var(--ink)}
 .as-top .meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-3);
-  border:1px solid var(--rule);border-radius:999px;padding:3px 10px;white-space:nowrap}
+  border:1px solid var(--rule);border-radius:var(--radius-pill);padding:3px 10px;white-space:nowrap}
 .as-top .spacer{flex:1}
 .as-top a.navx{color:var(--ink-2);text-decoration:none;font-family:var(--f-mono);font-size:10.5px;
   letter-spacing:.12em;text-transform:uppercase;padding:6px 2px;transition:color .12s}
@@ -90,15 +90,15 @@ a{color:inherit}
 .as-lhead{display:flex;align-items:center;gap:8px;margin:-2px 0 8px}
 .as-left.min .as-lhead{margin:0}
 .as-lhead .t{font-family:var(--f-mono);font-weight:600;font-size:12px;letter-spacing:.06em;flex:1}
-.as-lhead button{width:24px;height:24px;border-radius:6px;border:1px solid var(--rule);
+.as-lhead button{width:24px;height:24px;border-radius:var(--radius-s);border:1px solid var(--rule);
   background:var(--sunk);color:var(--ink-2);cursor:pointer;font-size:12px;line-height:1;padding:0}
 .as-lhead button:hover{border-color:var(--sig);color:var(--sig)}
 
 /* ---- tab bar (right panel) ---- */
 .as-tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--rule);
-  border-radius:12px;padding:4px;box-shadow:var(--shadow);flex:none}
+  border-radius:var(--radius-m);padding:4px;box-shadow:var(--shadow);flex:none}
 .as-tabs button{flex:1;border:0;background:transparent;font-family:var(--f-mono);font-weight:600;
-  font-size:11px;letter-spacing:.12em;color:var(--ink-3);padding:8px 0;border-radius:9px;
+  font-size:11px;letter-spacing:.12em;color:var(--ink-3);padding:8px 0;border-radius:var(--radius-m);
   cursor:pointer;transition:all .15s}
 .as-tabs button:hover{color:var(--sig)}
 .as-tabs button[data-on="1"]{background:var(--sig-soft);color:var(--sig)}
@@ -108,7 +108,7 @@ a{color:inherit}
 /* ---- annunciators (cockpit lozenge: binary states) ---- */
 .as-ann{display:inline-flex;align-items:center;justify-content:center;min-width:64px;
   font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.14em;
-  padding:5px 10px;border-radius:6px;border:1px solid}
+  padding:5px 10px;border-radius:var(--radius-s);border:1px solid}
 .as-ann.go{color:var(--v-cert);border-color:var(--v-cert);background:var(--v-cert-soft)}
 .as-ann.no{color:var(--v-refu);border-color:var(--v-refu);background:var(--v-refu-soft)}
 .as-ann.na{color:var(--v-refd);border-color:var(--v-refd);background:var(--v-refd-soft)}
@@ -140,7 +140,7 @@ a{color:inherit}
 
 /* ---- live mission ---- */
 .as-dispatch{font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.12em;
-  color:var(--sig);border:1px solid var(--sig);background:var(--sig-soft);border-radius:6px;
+  color:var(--sig);border:1px solid var(--sig);background:var(--sig-soft);border-radius:var(--radius-s);
   padding:5px 12px;cursor:pointer;transition:all .15s}
 .as-dispatch:hover{filter:brightness(1.15);transform:translateY(-1px)}
 .as-dispatch[disabled]{opacity:.35;cursor:not-allowed;transform:none}
@@ -152,7 +152,7 @@ a{color:inherit}
 .as-datablocks>:nth-last-child(2):nth-child(4n+1),
 .as-datablocks>:last-child:nth-child(4n+2),
 .as-datablocks>:nth-last-child(3):nth-child(4n+1){grid-column:span 2}
-.as-db{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:8px;padding:7px 9px}
+.as-db{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:var(--radius-m);padding:7px 9px}
 .as-db span{display:block;font-family:var(--f-mono);font-size:8.5px;letter-spacing:.14em;
   color:var(--ink-3);text-transform:uppercase}
 .as-db b{font-family:var(--f-mono);font-weight:600;font-size:15px;color:var(--ink);white-space:nowrap}
@@ -164,7 +164,7 @@ a{color:inherit}
 .as-journey .bar i{display:block;height:100%;background:var(--sig);border-radius:3px;
   transition:width .3s linear}
 .as-missions{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;color:var(--sig)}
-.as-card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+.as-card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:14px 16px;box-shadow:var(--shadow)}
 .as-h{font-family:var(--f-mono);font-weight:600;font-size:10px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--ink-3);margin:0 0 10px}
@@ -180,7 +180,7 @@ details.as-more[open] summary{margin-bottom:6px}
 .as-mx{display:grid;grid-template-columns:1fr auto auto;gap:7px 8px;align-items:center}
 .as-mx .name{font-weight:500;font-size:12.5px;color:var(--ink)}
 .as-cell{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;padding:5px 10px;
-  border-radius:7px;border:1px solid var(--rule);background:var(--sunk);color:var(--ink-2);
+  border-radius:var(--radius-s);border:1px solid var(--rule);background:var(--sunk);color:var(--ink-2);
   cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:6px}
 .as-cell:hover{border-color:var(--sig-2);color:var(--sig)}
 .as-cell[data-on="1"]{border-color:var(--sig);background:var(--sig-soft);color:var(--sig);font-weight:600}
@@ -194,7 +194,7 @@ details.as-more[open] summary{margin-bottom:6px}
 /* FULL-ROW RULE: remainder 1 -> last tile spans 3; remainder 2 -> first of the two spans 2 */
 .as-stats>:last-child:nth-child(3n+1){grid-column:span 3}
 .as-stats>:nth-last-child(2):nth-child(3n+1){grid-column:span 2}
-.as-stat{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:9px;
+.as-stat{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:var(--radius-m);
   padding:9px 11px;border-left-width:3px}
 /* the big number is always the signature pink (operator ruling 2026-08-31);
    the verdict stays on the tile's left border, never on the number */
@@ -214,7 +214,7 @@ details.as-more[open] summary{margin-bottom:6px}
 /* ---- selected flight ---- */
 .as-kv{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:12px;color:var(--ink-3)}
 .as-kv b{color:var(--ink);font-weight:600;font-family:var(--f-mono);font-size:12px}
-.as-verdict{border-left:3px solid var(--rule);background:var(--sunk);border-radius:9px;
+.as-verdict{border-left:3px solid var(--rule);background:var(--sunk);border-radius:var(--radius-m);
   padding:10px 13px;margin:12px 0 10px}
 .as-verdict .w{font-family:var(--f-mono);font-weight:700;font-size:14px;letter-spacing:.08em}
 .as-verdict .e{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.5}
@@ -226,7 +226,7 @@ details.as-more[open] summary{margin-bottom:6px}
 .as-enc{margin:10px 0 4px}
 .as-encrow{display:grid;grid-template-columns:64px 1fr;gap:8px;align-items:center;margin:5px 0}
 .as-encrow .lbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;text-align:right}
-.as-encrow .track{position:relative;height:12px;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:6px}
+.as-encrow .track{position:relative;height:12px;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:var(--radius-s)}
 .as-encrow .band{position:absolute;top:1px;bottom:1px;border-radius:5px;min-width:4px}
 .as-encrow .band.u{background:var(--v-cert)} .as-encrow .band.d{background:var(--v-refu)}
 .as-encscale{display:grid;grid-template-columns:64px 1fr;gap:8px;font-family:var(--f-mono);font-size:9.5px;color:var(--ink-3)}
@@ -236,11 +236,11 @@ details.as-more[open] summary{margin-bottom:6px}
 /* ---- buttons + segmented ---- */
 button{font-family:inherit}
 .as-btn{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;background:var(--sunk);
-  color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:7px 12px;cursor:pointer;transition:all .12s}
+  color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-m);padding:7px 12px;cursor:pointer;transition:all .12s}
 .as-btn:hover{border-color:var(--sig);color:var(--sig)}
 .as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
 select.as-sel{font-family:var(--f-mono);font-size:11px;background:var(--sunk);color:var(--ink);
-  border:1px solid var(--rule);border-radius:8px;padding:6px 8px;color-scheme:dark;max-width:100%}
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:6px 8px;color-scheme:dark;max-width:100%}
 /* This select said color-scheme:light dark until 2026-09-05, and it was the last of the
    light theme still breathing. It tells the browser this <select> supports
    BOTH schemes, so on a light-OS machine the native dropdown POPUP — the part
@@ -248,9 +248,9 @@ select.as-sel{font-family:var(--f-mono);font-size:11px;background:var(--sunk);co
    it was deleted on 2026-09-04; this line survived because design/battery.js's
    one-theme check only reads tokens.js's :root block and never saw this file. */
 select.as-sel:hover{border-color:var(--sig)}
-.as-seg{display:inline-flex;background:var(--sunk);border:1px solid var(--rule);border-radius:9px;padding:2px;gap:2px}
+.as-seg{display:inline-flex;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:2px;gap:2px}
 .as-seg button{border:0;background:transparent;font-family:var(--f-mono);font-size:10.5px;
-  letter-spacing:.04em;color:var(--ink-2);padding:5px 10px;border-radius:7px;cursor:pointer;transition:all .12s}
+  letter-spacing:.04em;color:var(--ink-2);padding:5px 10px;border-radius:var(--radius-s);cursor:pointer;transition:all .12s}
 .as-seg button:hover{color:var(--sig)}
 .as-seg button[data-on="1"]{background:var(--sig-soft);color:var(--sig);font-weight:600}
 
@@ -294,7 +294,7 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
    sits inside a template literal, and check-wiring reads built pages for hex
    outside the palette. It caught this comment on its first run. */
 .maplibregl-ctrl-group{background:var(--sunk);border:1px solid var(--rule);
-  border-radius:8px;box-shadow:none;overflow:hidden}
+  border-radius:var(--radius-m);box-shadow:none;overflow:hidden}
 .maplibregl-ctrl-group button{background:transparent}
 .maplibregl-ctrl-group button+button{border-top:1px solid var(--rule)}
 .maplibregl-ctrl-group button:hover{background:var(--surface)}
@@ -309,7 +309,7 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
   .as-top .meta,.as-top .navx{display:none}
   .as-panel{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:44dvh;gap:8px}
   .as-left{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:52dvh;z-index:24}
-  .as-card{padding:12px 13px;border-radius:11px}
+  .as-card{padding:12px 13px;border-radius:var(--radius-m)}
   .as-dock{gap:9px;padding:0 10px;height:64px}
   .as-play{width:36px;height:36px}
   .as-clock{min-width:78px;font-size:12.5px}

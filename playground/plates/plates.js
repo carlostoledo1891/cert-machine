@@ -19,6 +19,9 @@
      experiments/interferometer/out/cp-sweep.json    the certified brackets
      experiments/mfg-terra/band-sigma-0.0008-0.008.json  39 certified cells   */
 'use strict';
+
+/* the dash patterns are a closed set — see design/CONTRACT.md */
+const G = require(require('path').join(__dirname, '..', '..', 'design', 'grammar.js'));
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
@@ -193,7 +196,7 @@ function plateSplitting() {
   const iStar = rows.findIndex(r => r.s >= SIG_STAR);
   if (iStar > 0) {
     const yS = yOf(iStar);
-    parts.push(`<line x1="${L}" y1="${yS.toFixed(1)}" x2="${R}" y2="${yS.toFixed(1)}" stroke="${ink(0.3)}" stroke-dasharray="2 5"/>`);
+    parts.push(`<line x1="${L}" y1="${yS.toFixed(1)}" x2="${R}" y2="${yS.toFixed(1)}" stroke="${ink(0.3)}" stroke-dasharray="${G.GUIDE}"/>`);
     parts.push(txt(R, yS - 6, 'σ* = 1/(8π²) — where the second harmonic stops being amplified', 0.42, 9, 'end'));
   }
   const iSplit = rows.map((r, i) => (r.split ? i : -1)).filter(i => i >= 0).pop();
@@ -235,7 +238,7 @@ function plateContraction() {
   const yTop = Math.max(...cells.map((c) => c.Y0)) * 1.6;
   const pmin = -yTop, pmax = yTop;
   const Y = (p) => B - ((Math.min(Math.max(p, pmin), pmax) - pmin) / (pmax - pmin)) * (B - T);
-  const parts = [`<line x1="${L}" y1="${Y(0).toFixed(1)}" x2="${R}" y2="${Y(0).toFixed(1)}" stroke="${ink(0.22)}" stroke-dasharray="3 4"/>`];
+  const parts = [`<line x1="${L}" y1="${Y(0).toFixed(1)}" x2="${R}" y2="${Y(0).toFixed(1)}" stroke="${ink(0.22)}" stroke-dasharray="${G.GUIDE}"/>`];
   cells.forEach((c, i) => {
     const d = [];
     for (let k = 0; k <= 120; k++) {
@@ -279,8 +282,12 @@ function plateEnclosure() {
     parts.push(txt(L - 10, Y(f) + 3, f.toFixed(2), 0.28, 8, 'end'));
   }
   parts.push(`<path d="${up} ${dn} Z" fill="${ink(0.1)}" stroke="none"/>`);
+  /* the ceiling and the witness are BOTH decided — a certified bound and the
+   value that attains it — so neither is dashed. They were separated by a dash
+   AND by opacity; the dash was redundant identity, which the contract reserves
+   against. Opacity alone now, 0.85 against 0.5. */
   parts.push(`<path d="${up}" fill="none" stroke="${ink(0.85)}" stroke-width="1.4"/>`);
-  parts.push(`<path d="${rows.map((r, i) => (i ? 'L' : 'M') + X(r.r0).toFixed(1) + ' ' + Y(r.witness).toFixed(1)).join(' ')}" fill="none" stroke="${ink(0.5)}" stroke-width="1.4" stroke-dasharray="4 3"/>`);
+  parts.push(`<path d="${rows.map((r, i) => (i ? 'L' : 'M') + X(r.r0).toFixed(1) + ' ' + Y(r.witness).toFixed(1)).join(' ')}" fill="none" stroke="${ink(0.5)}" stroke-width="1.4"/>`);
   rows.forEach(r => {
     parts.push(`<circle cx="${X(r.r0).toFixed(1)}" cy="${Y(r.ceiling).toFixed(1)}" r="2.6" fill="${ink(0.9)}"/>`);
     parts.push(`<circle cx="${X(r.r0).toFixed(1)}" cy="${Y(r.witness).toFixed(1)}" r="2.6" fill="var(--bg-raised)" stroke="${ink(0.6)}"/>`);

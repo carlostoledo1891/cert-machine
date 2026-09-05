@@ -295,7 +295,11 @@
       }
     }
     if (st.ring) {
-      ctx.setLineDash([3, 5]); ctx.strokeStyle = ink(0.32); ctx.lineWidth = 1;
+      /* the published ring is a REFERENCE CIRCLE, which design/CONTRACT.md names
+         as a guide in so many words. Guide pattern, written as a literal because
+         this file is a browser script and cannot require the module; the census
+         in tools/check-grammar.js is what keeps it honest. */
+      ctx.setLineDash([2, 3]); ctx.strokeStyle = ink(0.32); ctx.lineWidth = 1;
       ctx.beginPath(); ctx.arc(c[0], c[1], (M.ringDiamUas / 2) * scale, 0, 7); ctx.stroke();
       ctx.setLineDash([]);
       ctx.fillStyle = ink(0.4); ctx.font = '10px ui-monospace, monospace';

@@ -9,6 +9,9 @@
 
    usage: node tools/build-report-envs.js */
 'use strict';
+
+/* a marker line is a guide; the patterns are a closed set — design/CONTRACT.md */
+const G = require(require('path').join(__dirname, '..', 'design', 'grammar.js'));
 const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
@@ -108,7 +111,7 @@ B.push(C.stats([
   const encW = Math.max(1, px(encHalfU) - px(-encHalfU));
   g.push('    <rect x="' + (px(0) - encW / 2).toFixed(1) + '" y="' + (midY - 34) + '" width="' + encW.toFixed(1)
     + '" height="68" fill="var(--c-2)"/>');
-  g.push('    <line x1="' + px(0).toFixed(1) + '" y1="' + (midY - 44) + '" x2="' + px(0).toFixed(1) + '" y2="' + (midY + 44) + '" stroke="var(--c-axis)" stroke-width="1" stroke-dasharray="3 3"/>');
+  g.push('    <line x1="' + px(0).toFixed(1) + '" y1="' + (midY - 44) + '" x2="' + px(0).toFixed(1) + '" y2="' + (midY + 44) + '" stroke="var(--c-axis)" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"/>');
   const t = (x, y, s2, cls, an) => '    <text x="' + x.toFixed(1) + '" y="' + y + '"' + (an ? ' text-anchor="' + an + '"' : '') + ' class="' + cls + '">' + C.esc(s2) + '</text>';
   g.push(t(px(0), midY - 52, 'the stored key', 't-lab', 'middle'));
   g.push(t(px(-1), midY + 46, '− tol', 't-ax', 'middle'));

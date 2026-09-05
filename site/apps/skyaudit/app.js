@@ -548,7 +548,7 @@ function altSvg(f) {
     pts.push(((tr[i][0] - t0) / span * 100).toFixed(2) + ',' + (24 - tr[i][3] / maxAlt * 21).toFixed(2));
   }
   return `<svg id="altsvg" viewBox="0 0 100 26" preserveAspectRatio="none"
-    style="width:100%;height:54px;display:block;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:8px;margin:10px 0 2px">
+    style="width:100%;height:54px;display:block;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:var(--radius-m);margin:10px 0 2px">
     <polyline points="${pts.join(' ')}" fill="none" stroke="var(--sig-2)" stroke-width="1" vector-effect="non-scaling-stroke"/>
     <line id="altcur" x1="0" x2="0" y1="1" y2="25" stroke="var(--sig)" stroke-width="1" vector-effect="non-scaling-stroke"/>
   </svg>

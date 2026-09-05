@@ -127,7 +127,10 @@ p { margin: 0; }
 .sxbary { fill: var(--ink-4); }
 .sxtrail { fill: none; stroke-width: 3; stroke-linecap: round; }
 .sxtrail.cert { stroke: var(--ink-2); }
-.sxtrail.ext { stroke: var(--ink-4); stroke-dasharray: 6 9; }
+/* the card copy of simplex's extrapolated tail. It carried a DIFFERENT
+   pattern from the page copy of the same mark, which is the drift the dash
+   census exists to find. Both are the claim pattern now. */
+.sxtrail.ext { stroke: var(--ink-4); stroke-dasharray: 5 4; }
 .sxdot { fill: var(--ink); }
 .card:hover .sxtrail.cert { stroke: var(--ink); }
 .card:hover .sxv.hi { fill: var(--ink); }

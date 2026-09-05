@@ -81,9 +81,18 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
 .page{max-width:1200px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 60px) clamp(1.25rem,4vw,3rem) 96px}
 
 
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
-  background:color-mix(in srgb, var(--paper) 82%, transparent);
-  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--rule)}
 .topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:60px;
   display:flex;align-items:center;justify-content:space-between;gap:24px}
@@ -94,7 +103,7 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
   color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
 .navlinks a:hover{color:var(--ink)}
 .navlinks a[aria-current="page"]{color:var(--ink)}
-.navlinks .ghbtn{border:1px solid var(--rule);border-radius:999px;width:34px;height:34px;
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
   display:inline-flex;align-items:center;justify-content:center;
   color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
 .navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
@@ -104,7 +113,7 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
 /* the drawer: pure CSS state — a checkbox the burger label toggles */
 .nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
 .nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
-  cursor:pointer;margin-right:-8px;border-radius:6px}
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
 .nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
   border-radius:1px;transition:transform .18s ease}
 .nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
@@ -175,7 +184,7 @@ section{margin:clamp(5rem,12vh,9rem) 0 0}
    both; the balanced per-count desktop layouts (see statsGridRules) live
    in the min-width query below, keyed on data-n. */
 .stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
 .stats .stat:last-child:nth-child(odd){grid-column:1/-1}
 @media (min-width:681px){
 .stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
@@ -222,7 +231,7 @@ details.more{margin-top:24px}
 .wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
 details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
   font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:999px;padding:7px 16px;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
   transition:color .15s ease,border-color .15s ease}
 details.more > summary::-webkit-details-marker{display:none}
 details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
@@ -234,7 +243,7 @@ details.more[open] > summary{margin-bottom:24px}
   color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
 
 figure{margin:0}
-.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:1.5rem;overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px}
@@ -252,7 +261,7 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
    in a direct label, an axis tick, or the prose beside it, so with scripts off
    nothing is gated — the charts simply stop following the pointer. */
 .cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
-  background:var(--surface);border:1px solid var(--rule-strong);border-radius:6px;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
   padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
   color:var(--ink);box-shadow:var(--shadow);max-width:280px}
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
@@ -267,17 +276,17 @@ svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
   line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
 .pull b{color:var(--ink);font-weight:550}
 
-.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 22px;margin:22px 0;text-align:center;
   font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
 
-pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:10px;
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 22px;margin:22px 0;
   font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
 
 .after-fig{margin-top:26px}
 
-.note{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
 .note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
 .note p:last-child{margin-bottom:0}
@@ -287,7 +296,7 @@ blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-stro
 blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
   font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
 
-.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--sunk);margin:0 0 26px}
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--sunk);margin:0 0 26px}
 table{border-collapse:collapse;width:100%;min-width:560px;
   font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
 th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
@@ -304,7 +313,7 @@ td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
    certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
-  border-radius:999px;white-space:nowrap}
+  border-radius:var(--radius-pill);white-space:nowrap}
 .tag.held{background:var(--ink);color:var(--paper)}
 .tag.cert{background:var(--ink);color:var(--paper)}
 .tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
@@ -314,7 +323,7 @@ td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 .cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
 @media (max-width:680px){.cards{grid-template-columns:1fr}}
 a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
-  border:1px solid var(--rule);border-radius:10px;padding:24px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
   color:inherit;text-decoration:none;
   transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
 a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
@@ -334,7 +343,7 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
 .pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
-  border:1px solid var(--rule);border-radius:8px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
   transition:border-color .16s ease,background .16s ease}
 .pk-t:hover{border-color:var(--rule-strong)}
 .pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
@@ -347,7 +356,7 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
 .pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
 @media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
-.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:8px;padding:18px 20px}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
 .pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
   letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
 .pk-box.warn .lab{color:var(--ink-3)}
@@ -478,7 +487,7 @@ footer a:hover{color:var(--ink)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <strong>5 of 6 held; 1 came back PARTIAL; 0 were refuted.</strong> But the number that matters is the other one: in <strong>6 of 6 cases the computational fragment certified and the analytic core did not</strong> — the identities, enclosures and exhibits are machine-checkable and they all held, while the surrounding argument is prose in every single one. That split is the finding.</li><li><b>The mechanism.</b> Each verifier was written against the <em>manuscript</em>, never derived from and never executing the author's scripts — no Arb, no SymPy, no Mathematica, no code from anybody's archive was run. (In one lane, Mathieu, the author's Python was <em>read</em> to cross-check which identities the TeX meant; it was not executed, and that is stated on the lane.) Exact rationals where the claim is algebraic, outward-rounded intervals and the Krawczyk operator where it is analytic. Each carries <strong>mutation controls</strong>: deliberate corruptions of the claim that the verifier must reject. A verifier that cannot fail is not evidence.</li><li><b>Check it.</b> <span class="m">node instruments/laneaudit/audit.js</span> — all six, 4.3 s end to end on a laptop. 92 individually named checks and 21 mutation controls, every control rejected. This page is built from that run and refuses if any of it goes red.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <strong>5 of 6 held; 1 came back PARTIAL; 0 were refuted.</strong> But the number that matters is the other one: in <strong>6 of 6 cases the computational fragment certified and the analytic core did not</strong> — the identities, enclosures and exhibits are machine-checkable and they all held, while the surrounding argument is prose in every single one. That split is the finding.</li><li><b>The mechanism.</b> Each verifier was written against the <em>manuscript</em>, never derived from and never executing the author's scripts — no Arb, no SymPy, no Mathematica, no code from anybody's archive was run. (In one lane, Mathieu, the author's Python was <em>read</em> to cross-check which identities the TeX meant; it was not executed, and that is stated on the lane.) Exact rationals where the claim is algebraic, outward-rounded intervals and the Krawczyk operator where it is analytic. Each carries <strong>mutation controls</strong>: deliberate corruptions of the claim that the verifier must reject. A verifier that cannot fail is not evidence.</li><li><b>Check it.</b> <span class="m">node instruments/laneaudit/audit.js</span> — all six, 6.4 s end to end on a laptop. 92 individually named checks and 21 mutation controls, every control rejected. This page is built from that run and refuses if any of it goes red.</li></ul>
 </div></div>
 
 <div class="wide">
@@ -514,16 +523,16 @@ footer a:hover{color:var(--ink)}
     <text x="693.0" y="134.0" text-anchor="middle" class="t-ax">30</text>
     <line x1="840.0" y1="10" x2="840.0" y2="114" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="840.0" y="134.0" text-anchor="middle" class="t-ax">40</text>
-    <path d="M252 14 h554.6 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-554.6 Z" fill="var(--c-s2)" data-cm="Ran–Teng Conjecture 20" data-cmv="38 named checks · 5 mutation controls · 39 ms · PARTIAL" tabindex="0"/>
+    <path d="M252 14 h554.6 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-554.6 Z" fill="var(--c-s2)" data-cm="Ran–Teng Conjecture 20" data-cmv="38 named checks · 5 mutation controls · 58 ms · PARTIAL" tabindex="0"/>
     <text x="242.0" y="27.0" text-anchor="end" class="t-ax">Ran–Teng Conjecture 20</text>
     <text x="818.6" y="27.0" text-anchor="start" class="t-lab">38</text>
     <path d="M252 40 h319.4000000000001 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-319.4000000000001 Z" fill="var(--c-1)" data-cm="Erdős Problem #1038" data-cmv="22 named checks · 4 mutation controls · 0 ms · CONFIRMED" tabindex="0"/>
     <text x="242.0" y="53.0" text-anchor="end" class="t-ax">Erdős Problem #1038</text>
     <text x="583.4" y="53.0" text-anchor="start" class="t-lab">22</text>
-    <path d="M252 66 h245.89999999999998 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-245.89999999999998 Z" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound" data-cmv="17 named checks · 3 mutation controls · 0 ms · CONFIRMED" tabindex="0"/>
+    <path d="M252 66 h245.89999999999998 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-245.89999999999998 Z" fill="var(--c-1)" data-cm="Maxwell&#39;s point-charge bound" data-cmv="17 named checks · 3 mutation controls · 100 ms · CONFIRMED" tabindex="0"/>
     <text x="242.0" y="79.0" text-anchor="end" class="t-ax">Maxwell&#39;s point-charge bound</text>
     <text x="509.9" y="79.0" text-anchor="start" class="t-lab">17</text>
-    <path d="M252 92 h216.5 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-216.5 Z" fill="var(--c-1)" data-cm="The Korenblum constant" data-cmv="15 named checks · 4 mutation controls · 4000 ms · CONFIRMED" tabindex="0"/>
+    <path d="M252 92 h216.5 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-216.5 Z" fill="var(--c-1)" data-cm="The Korenblum constant" data-cmv="15 named checks · 4 mutation controls · 5800 ms · CONFIRMED" tabindex="0"/>
     <text x="242.0" y="105.0" text-anchor="end" class="t-ax">The Korenblum constant</text>
     <text x="480.5" y="105.0" text-anchor="start" class="t-lab">15</text>
     <text x="546.0" y="156.0" text-anchor="middle" class="t-note">individually named checks the verifier printed at build time (hover for controls and runtime)</text>
@@ -691,7 +700,7 @@ node legacy/research/challenges/lane/laneb-poisson/verify.js</pre><p>To confirm 
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git 4f2d44c. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 92 named checks, 0 failures, 21 mutation controls all rejected, 4.3 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-ai-claims.js @ git d97a7bd. Gate at this build: all six verifiers executed live by instruments/laneaudit/audit.js — 92 named checks, 0 failures, 21 mutation controls all rejected, 6.4 s. Every count on this page is parsed from that run. A failing check, a mutation control that stops firing, or a verifier that stops printing its own totals refuses the page rather than publishing a stale number.</p></footer>
 
 </div>
 </html>

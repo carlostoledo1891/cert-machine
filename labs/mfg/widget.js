@@ -187,16 +187,16 @@ function boxHtml(opts) {
   };
   const btn = (id, label, primary) => '<button id="' + id + '" style="font:inherit;padding:6px 14px;cursor:pointer;'
     + (primary ? 'background:var(--sig);color:var(--paper);border:none' : 'background:var(--sunk);color:var(--ink);border:1px solid var(--rule)')
-    + ';border-radius:6px;margin:0 6px 6px 0">' + label + '</button>';
+    + ';border-radius:var(--radius-s);margin:0 6px 6px 0">' + label + '</button>';
   return '<div class="col"><textarea id="mfg-in" spellcheck="false" rows="6" style="width:100%;font-family:var(--f-mono);'
-    + 'font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:10px" '
+    + 'font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s);padding:10px" '
     + 'placeholder=\'{"sigma":0.5,"c":[-16.03,-15.97],"A":[0.288,0.313],"N":16,"nu":1.02}\'>'
     + JSON.stringify(examples.multiple) + '</textarea>'
     + '<div style="margin:8px 0">' + btn('mfg-go', 'decide this cell', true)
     + btn('mfg-ex1', 'a multiplicity cell') + btn('mfg-ex2', 'a monotone cell') + btn('mfg-ex3', 'the bifurcation')
     + btn('mfg-ex4', 'refute a candidate') + '</div>'
     + '<pre id="mfg-out" style="white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);'
-    + 'border-radius:6px;padding:10px;font-size:13px;min-height:1.5em;overflow-x:auto"></pre>'
+    + 'border-radius:var(--radius-s);padding:10px;font-size:13px;min-height:1.5em;overflow-x:auto"></pre>'
     + '<p class="scope">Runs in this tab. Nothing is uploaded, nothing is logged; the certifier is the repository\'s own '
     + 'code, assembled from ' + sources.map(s => s.file).join(', ') + '. A cell takes about a tenth of a second.</p></div>'
     + '<script>' + code + `
