@@ -161,20 +161,38 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     reds.mjs 6/6 including the deliberately-failing control, editor.test.mjs
     green. All five wired into make test.
 
-  ── WHAT IS LEFT OF THE PORT ──
-    · 12 drifting dash patterns remain, ratcheted in design/grammar-baseline.
-      `2 4` (22 uses) and `6 6` (12) come from playground/design/components.js
-      (.cs-drop, .cs-ask, .clo). MAPPING THEM NEEDS THE AUTHOR: "ink is read,
-      never chosen" means only someone who knows what those marks are standing
-      on may say which permitted pattern they take. Do not guess.
-    · frontier-theme.js + ECharts: DEFERRED, and the operator's own correction
-      is why — only 4 of 14 frontier pages load ECharts, all older. The chart
-      engine is "write the mark, derive its ink, emit a string".
-    · report.css / instrument.css: cert-machine has equivalents. What is worth
-      taking is the CONTRACT HEADERS, and the #stage one is already in
-      CONTRACT.md because interferometer is failing that exact bug.
-    · The #hash dev hook on instrument pages. Screenshotting the initial state
-      finds no interaction bugs — this session is the proof.
+  ── THE PORT IS CLOSED ──
+    · THE DASH CENSUS IS AT ZERO. It opened at 25 distinct patterns and 133
+      drifting uses; it reads 129 conforming uses and NO drift, blessed at zero
+      so the next stray pattern fails on sight. Every one was classified by
+      what the mark STANDS ON. Two legends disagreed with the lines they
+      describe. The simplex trail carried one pattern on its page and another
+      on its card. The plates witness was dashed against a solid ceiling when
+      both are DECIDED and opacity already separated them.
+    · THE SHAPE SCALE now has the gate the palette already had: tokens.js
+      offers four radii and the site shipped SEVEN container values against
+      them, including 378 literal 10px — the token's own value, by hand.
+      Containers take tokens; marks at or below 5px keep their literals.
+      check-wiring gates it over all 66 pages (its walk had been 62).
+    · ECHARTS IS NOT PORTED, AND THAT IS THE FINISHED STATE. This repository
+      has zero ECharts pages; charts.js already IS the engine the operator
+      described. The doctrine landed, the library was not needed. Written down
+      in design/CONTRACT.md so nobody re-opens it.
+    · THE #hash DEV HOOK IS LIVE on /instruments/interferometer:
+          #set=panel:hidden,mode:field,ring:0
+      It found nothing new — it PROVED the panel fix through the interaction
+      path, which a screenshot of the initial state cannot reach. The other
+      eight instruments do not carry one yet; that is the next thing.
+    · B-1 IS CLOSED AS NOT-A-DEFECT. /instruments cards and report figures keep
+      different grounds on purpose — both from tokens, a card tile is not an
+      exhibit in prose, and the transparent plate was arrived at by measurement.
+
+  ── WHAT IS ACTUALLY LEFT ──
+    · The #hash hook on the other eight instrument pages.
+    · cert-unit's editor/render/contact/refutation are ported and tested but
+      nothing on the site USES them yet. The runtime is proven (39/39 TERRA
+      cells, 0.00e+0) and unemployed.
+    · No visual review has been done at any width between 390 and 1440.
 
 ══════════════════════════════════════════════════════════════════════════
 

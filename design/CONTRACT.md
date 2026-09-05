@@ -122,19 +122,51 @@ truncated to "u−v cov". Same bug, second repository. It is written down here n
 - **`#stage{width:100%}` beats a `right:` inset.** Use `width:auto`.
 - **Text drawn inside an SVG viewBox sized for the boxes is SILENTLY CLIPPED.**
   Widen the viewBox for captions, and give a set of subgraphs a `minWidth` floor
-  or they render at different scales in equal cells. (The affect card on
-  `/instruments` is failing exactly this: "astonished" and "excited" overprint,
-  "miserable" is cut to "serable".)
+  or they render at different scales in equal cells. The affect card failed
+  exactly this and is fixed: the clamp held the ANCHOR rather than the text, the
+  shared `.lb` rule had no font-size so card art fell back to 16px in viewBox
+  units, and nothing kept two labels off each other. All three live in
+  `playground/design/marklabel.js` now, which is one module because `label()`
+  had been copy-pasted three times.
 - **A status callback firing on `pointerdown` must not trigger a re-mount** — it
   replaces the element the pointer is captured on and every drag dies on its
   first move.
 - **`location.hash` keeps URL encoding** (`>` arrives as `%3E`).
-- **Every instrument page should carry a `#hash` dev hook** (`#view=wall`,
-  `#preset=ring`, `#sim=from.port>to.port`) that drives the REAL interaction
-  path. This is how the pointer bugs above were found. **Screenshotting the
-  initial state finds none of them** — and the session of 2026-09-05 is the
-  proof: a full visual review at two widths across eleven pages found layout and
-  paint defects and could not have found a single interaction defect.
+- **Every instrument page should carry a `#hash` dev hook** that drives the REAL
+  interaction path. **Screenshotting the initial state finds no interaction bug**
+  — and this repository supplied the proof: `/instruments/interferometer`'s panel
+  toggle was dead for an unknown length of time because it flipped a class no
+  stylesheet listened for, and a full visual review at two widths across eleven
+  pages could not see it. The hook is live on that page:
+
+      #set=panel:hidden,mode:field,ring:0
+
+  Any key on the page's own state object, plus `panel`. It drives the same state
+  and the same redraw the controls use, so a hook that renders proves the control
+  would too. Unknown keys are ignored rather than thrown — a dev hook that breaks
+  the page it inspects is worse than none. The other instruments do not carry one
+  yet; that is the next thing this practice needs.
+
+## The two port decisions, made rather than left open
+
+**ECharts and `frontier-theme.js` are NOT ported, and that is the finished
+state.** cert-machine has zero ECharts pages: it draws with hand-written SVG
+through `design/charts.js`, which is exactly the engine the operator's own
+correction describes — "write the mark, derive its ink, emit a string". Only 4 of
+14 frontier pages load ECharts at all, all of them older. Porting a theme for a
+library this repository does not use would be dead weight. What was worth having
+from that strand is the DOCTRINE, and it landed: charts.js now reads every dash
+from `grammar.js`, its categorical greys are fixed in order, and its legend
+refuses a swatch without a word beside it.
+
+**`/instruments` cards and report figures keep different grounds, deliberately.**
+`.plate` is transparent with `--radius-l`; `.figbox` is `--bg-raised` with
+`--radius-m`. That is not the drift the review suspected: both grounds and both
+radii come from tokens, and a card tile is a different component from an exhibit
+sitting in running prose — a larger surface takes the larger radius. The
+transparent plate was arrived at by measurement (a filled box made a square
+drawing float in a rectangle, and arts painting their own ground made a second
+rectangle beside it); unifying them would undo that finding.
 
 ## What is deliberately NOT shared
 

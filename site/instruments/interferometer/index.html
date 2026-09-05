@@ -972,6 +972,45 @@ body.sheet-open .sheet { opacity: 1; visibility: visible; }
      which is the argument design/CONTRACT.md makes for the #hash dev hook. */
   $('panelToggle').onclick = () => { document.body.classList.toggle('ov-panel-hidden'); setTimeout(() => { layout(); draw(); }, 300); };
   window.addEventListener('resize', resize);
+
+  /* ---------------------------------------------- THE #hash DEV HOOK -------
+     Ported from frontier-apps' practice, and this page is the argument for it:
+     its panel toggle was dead for an unknown length of time because it flipped
+     a class no stylesheet listened for, and a full visual review at two widths
+     across eleven pages could not find that, because a screenshot only ever
+     sees the state the page loads in.
+
+         #set=mode:field,ring:0,phase:0.4     any key on the state object
+         #set=panel:hidden                    and the one thing that is not
+
+     It drives the REAL path — the same st object and the same reduce/draw the
+     controls use — so a hook that renders proves the control would too. Values
+     parse as numbers when they look like numbers, so 0 and 1 reach the flags as
+     flags. Unknown keys are ignored rather than thrown, because a dev hook that
+     breaks the page it is meant to inspect is worse than none.
+
+     location.hash keeps URL encoding, so it is decoded before it is split —
+     a gotcha the contract records and this reads back out. */
+  function applyHash() {
+    const raw = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+    const m = /(?:^|[&;])set=([^&;]*)/.exec(raw);
+    if (!m) return false;
+    let touched = false;
+    for (const pair of m[1].split(',')) {
+      const [k, v] = pair.split(':');
+      if (!k || v === undefined) continue;
+      if (k === 'panel') { document.body.classList.toggle('ov-panel-hidden', v === 'hidden'); touched = true; continue; }
+      if (!(k in st)) continue;
+      const n = Number(v);
+      st[k] = (v !== '' && !Number.isNaN(n)) ? n : v;
+      touched = true;
+    }
+    if (touched) { chips(); modes(); toggles(); }
+    return touched;
+  }
+  window.addEventListener('hashchange', () => { applyHash(); reduce(); resize(); });
+
+  applyHash();
   reduce(); resize();
 })();
 </script>
