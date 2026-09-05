@@ -13,7 +13,7 @@ not pick something off the menu, do not spend on model calls. The previous
 session closed clean on purpose.
 
 STATE YOU INHERIT: EVERYTHING IS PUSHED AND EVERYTHING IS LIVE.
-Working tree clean, no unpushed commits, 67/67 batteries in BOTH registries
+Working tree clean, no unpushed commits, 68/68 batteries in BOTH registries
 (make test and the control page run the same set since 2026-09-05).
 carlostoledo.co is current with the repository.
 
@@ -24,13 +24,12 @@ carlostoledo.co is current with the repository.
         prime env install carlos-toledo/break-the-grader
     The `prime` CLI is installed at ~/.local/bin/prime and IS logged in.
   · /instruments (source: playground/, the folder and the URL differ on
-    purpose) has TWELVE pages, the last two ported 2026-09-05 from frontier's
-    lattice-claims environment: /instruments/lattice-claims and
-    /instruments/rewire. `make playground` rebuilds it; the layout ruler, the
+    purpose) has THIRTEEN pages, the last three ported 2026-09-05 from frontier:
+    /instruments/lattice-claims, /instruments/rewire and /instruments/pqc. `make playground` rebuilds it; the layout ruler, the
     render gate, the palette and the dash census all read it. The one rule
     there: no gates on the mathematics, but no fiction.
-  · THE NEXT PORTS, in frontier's PORT-TO-CERT-MACHINE.md order: PQC geometry
-    (its cross-check imports instruments/wiring), occultation, transit.
+  · THE NEXT PORTS, in frontier's PORT-TO-CERT-MACHINE.md order: occultation,
+    transit (lattice-claims and PQC landed 2026-09-05; thirteen pages).
     certifier-core + blind-spot deferred one frontier session (HANDOFF says why).
   · THE LAMBDA(6) RUN IS STILL ALIVE — 45+ hours as of 2026-09-05 evening,
     pid 90265, sitting on NODE 119 exactly as two earlier runs did. Node 119 IS the wall and the fix

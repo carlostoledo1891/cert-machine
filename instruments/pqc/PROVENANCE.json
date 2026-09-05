@@ -1,0 +1,154 @@
+{
+  "what": "PQC geometry — an AUDIT of published SVP-challenge records in exact arithmetic: pi bracketed by Machin, det = q read from the Goldstein-Mayer basis, the acceptance predicate ||v|| <= f*GH raised to the n-th power decided in BigInt. 37 records decided, 0 inconsistent with a true norm that rounds to the printed one, 1 undecidable from the printed norm (dim 119 seed 0). Plus Cohen integral LLL on the dimension-40 challenge basis, 141 snapshots.",
+  "charter": "AUDIT ONLY, NEVER DESIGN A PRIMITIVE. CHARTER.md travels with the code and binds every session that touches this folder.",
+  "liftedFrom": "/Users/carlostoledo/Documents/frontier-apps/experiments/pqc-geometry",
+  "liftedOn": "2026-09-05",
+  "declaredPatches": {
+    "gh.test.js": "the Python cross-check inserted ../../environments/lattice-claims on sys.path; here the package lives at ../wiring (instruments/wiring/lattice_claims). One path string changed, nothing else."
+  },
+  "rule": "Copied byte-for-byte and pinned by sha256; frontier-apps has no git. fetch-bases.js talks to latticechallenge.org and is NEVER run by a battery: out/dets.json is the pinned result of the 14 fetches, each determinant proved entry by entry before the basis was discarded. Every other script is offline and deterministic up to wall-clock ms fields; battery.js re-runs them in a scratch copy and compares with ms ignored, so the pinned outputs never churn.",
+  "acceptance": {
+    "node pi.test.js": "all green",
+    "node gh.test.js": "32 cases across 8 real lattices, two implementations, all green",
+    "node hof.js": "out/hof.json byte-identical to the pin (926 records)",
+    "node audit.js": "37 decided, 0 inconsistent, 1 flip (dim 119 seed 0: ADMISSIBLE at N, REFUSED at N+1/2); identical to the pin up to ms",
+    "node reduce.js": "0.22 s; identical to the pin up to ms",
+    "node decide-record.js": "exact ratio in [1.049851339, 1.049851340]; 2905 REFUSED",
+    "verifiedOn": "2026-09-05"
+  },
+  "files": [
+    {
+      "file": "CHARTER.md",
+      "sha256": "5d1fae8ff80c5fcf7cf5203f04332af5d86b7f739686e22cc488829cff914829",
+      "sourceSha256": "5d1fae8ff80c5fcf7cf5203f04332af5d86b7f739686e22cc488829cff914829",
+      "bytes": 4206,
+      "patched": false
+    },
+    {
+      "file": "RESULTS.md",
+      "sha256": "d340d1883174cb1fb552b9812d0d4b68e21433f4e12a92402c78a3f7d9fe1209",
+      "sourceSha256": "d340d1883174cb1fb552b9812d0d4b68e21433f4e12a92402c78a3f7d9fe1209",
+      "bytes": 11864,
+      "patched": false
+    },
+    {
+      "file": "audit.js",
+      "sha256": "8e52f2edc6c80d0e9f206c43067e9dc9ebe29d5a98fdd92982c489314087daeb",
+      "sourceSha256": "8e52f2edc6c80d0e9f206c43067e9dc9ebe29d5a98fdd92982c489314087daeb",
+      "bytes": 4134,
+      "patched": false
+    },
+    {
+      "file": "basis.js",
+      "sha256": "9207f29170efdf595b7b34fca8405274eeb75dbc31b1f37e217a7000164c721d",
+      "sourceSha256": "9207f29170efdf595b7b34fca8405274eeb75dbc31b1f37e217a7000164c721d",
+      "bytes": 1839,
+      "patched": false
+    },
+    {
+      "file": "decide-record.js",
+      "sha256": "b77689066d10f482019ef109e5eab38f5ae55c3d37cc6694c234e31c22629ab8",
+      "sourceSha256": "b77689066d10f482019ef109e5eab38f5ae55c3d37cc6694c234e31c22629ab8",
+      "bytes": 2648,
+      "patched": false
+    },
+    {
+      "file": "fetch-bases.js",
+      "sha256": "a4250bb2c9bc64786adfd96d5befbef7908a6bc60ab0776f7983628ac2565eb0",
+      "sourceSha256": "a4250bb2c9bc64786adfd96d5befbef7908a6bc60ab0776f7983628ac2565eb0",
+      "bytes": 3708,
+      "patched": false
+    },
+    {
+      "file": "gh.js",
+      "sha256": "0697c9f1970ed453bdd00ecfd28203943a8c6589d82d05ac61563e0246c49497",
+      "sourceSha256": "0697c9f1970ed453bdd00ecfd28203943a8c6589d82d05ac61563e0246c49497",
+      "bytes": 4461,
+      "patched": false
+    },
+    {
+      "file": "gh.test.js",
+      "sha256": "012b812f890fc4ee7e6b10ca3e79f858ea5ead7dc39e086c0d06ad1704241888",
+      "sourceSha256": "a62b10e1a916c7193968ec4e4916c48c8fb671f58f3d48e4ec1ea39e6917a932",
+      "bytes": 6626,
+      "patched": true
+    },
+    {
+      "file": "hof.js",
+      "sha256": "082887fbe96b7228a1f94ab624f12630c43988133c4783aec68a905028da5378",
+      "sourceSha256": "082887fbe96b7228a1f94ab624f12630c43988133c4783aec68a905028da5378",
+      "bytes": 2934,
+      "patched": false
+    },
+    {
+      "file": "pi.js",
+      "sha256": "bae78eaeed677f3241beb3922ec6f2769dfa8882aefe9da5a2e6f2ef327a8243",
+      "sourceSha256": "bae78eaeed677f3241beb3922ec6f2769dfa8882aefe9da5a2e6f2ef327a8243",
+      "bytes": 2755,
+      "patched": false
+    },
+    {
+      "file": "pi.test.js",
+      "sha256": "f744cffc3146ac2b3fe8a0b48f2ad5f749bb7b33ccac8c48dbc895d7c1cef4c3",
+      "sourceSha256": "f744cffc3146ac2b3fe8a0b48f2ad5f749bb7b33ccac8c48dbc895d7c1cef4c3",
+      "bytes": 3227,
+      "patched": false
+    },
+    {
+      "file": "reduce.js",
+      "sha256": "ea264c067039078eef7815eb01f9a8ad863af482bef1c25aee584a9b01ffdbe2",
+      "sourceSha256": "ea264c067039078eef7815eb01f9a8ad863af482bef1c25aee584a9b01ffdbe2",
+      "bytes": 7046,
+      "patched": false
+    },
+    {
+      "file": "data/halloffame.html",
+      "sha256": "bf0c00056e2d4be1b0f5461d6884d0458319423d2bf973ed48a363d791996d57",
+      "sourceSha256": "bf0c00056e2d4be1b0f5461d6884d0458319423d2bf973ed48a363d791996d57",
+      "bytes": 380838,
+      "patched": false
+    },
+    {
+      "file": "data/svp-dim119-seed0.txt",
+      "sha256": "beede4e161e1e509fed15c1747cda025599e7f2f6400942be8781fe75ec4aa1a",
+      "sourceSha256": "beede4e161e1e509fed15c1747cda025599e7f2f6400942be8781fe75ec4aa1a",
+      "bytes": 71070,
+      "patched": false
+    },
+    {
+      "file": "data/svp-dim40-seed0.txt",
+      "sha256": "b54effba7cc5070c8b014e65b17c98fac639aab3d4687ce63e0e157eca62bf2e",
+      "sourceSha256": "b54effba7cc5070c8b014e65b17c98fac639aab3d4687ce63e0e157eca62bf2e",
+      "bytes": 8060,
+      "patched": false
+    },
+    {
+      "file": "out/audit.json",
+      "sha256": "da83720c1ed77b3ced6c81860a3a8027ee2c54abe34904787f96beff1379fe5e",
+      "sourceSha256": "da83720c1ed77b3ced6c81860a3a8027ee2c54abe34904787f96beff1379fe5e",
+      "bytes": 16446,
+      "patched": false
+    },
+    {
+      "file": "out/dets.json",
+      "sha256": "6904b77eac2467753c74a02efa303a08b83639f177c92fd393aa998ed89e11df",
+      "sourceSha256": "6904b77eac2467753c74a02efa303a08b83639f177c92fd393aa998ed89e11df",
+      "bytes": 9387,
+      "patched": false
+    },
+    {
+      "file": "out/hof.json",
+      "sha256": "61a9f6012d5c2b3f7304ac1bca6f1b8e675b5770d4955824b820e28172c4ebe2",
+      "sourceSha256": "61a9f6012d5c2b3f7304ac1bca6f1b8e675b5770d4955824b820e28172c4ebe2",
+      "bytes": 192296,
+      "patched": false
+    },
+    {
+      "file": "out/reduce-40.json",
+      "sha256": "e3a93ff6fe4a4de86a933e229215a3400cc675e62051224d31c2921122169ebc",
+      "sourceSha256": "e3a93ff6fe4a4de86a933e229215a3400cc675e62051224d31c2921122169ebc",
+      "bytes": 43664,
+      "patched": false
+    }
+  ]
+}

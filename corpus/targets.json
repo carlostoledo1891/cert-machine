@@ -410,6 +410,15 @@
    "finding": "frontier's PORT-TO-CERT-MACHINE.md (session 17) named it first in dependency order and for a reason this repository could verify: the rollout record pinned here that afternoon was the RE-GRADED file, and the grader beside it was one session older (taskset.py and forgeries.py stale, policies.py and __main__.py absent). Re-diffed before porting: design refs identical, record identical, four package files stale or absent. Acceptance reproduced exactly: 18 tests, 10 forgeries caught, exact 45/45, careful 26/45, admissible 14/45, refused 12/45, regrade 76 -> 76 with 0 rows moved.",
    "why": "A pinned record graded by a grader the repository does not hold is a claim about a different set. The regrade is the check that closes that gap, and it costs nothing because the raws are stored.",
    "note": "Two pages travel with it — the eval page (contact sheet, four refutations, baseline, forgeries, the canary cliff) and the rewirable graders page — built under /instruments in the house shell with body and CSS kept verbatim. Model calls are never made by a battery; eval/run_models.py is the origin's runner and stays unused here. Next in the same order: PQC (its cross-check imports this package), then occultation and transit."
+  },
+  {
+   "id": "pqc-geometry-audit-port",
+   "name": "PQC geometry: the SVP-challenge hall of fame audited exactly — ported from frontier-apps",
+   "verdict": "BUILT 2026-09-05 — instruments/pqc (19 files pinned, one declared patch) with a battery that re-decides all 37 records offline; /instruments/pqc is the page",
+   "scouted": "2026-09-05",
+   "finding": "Second in frontier's port order because its cross-check imports the lattice-claims package. Reproduced: pi.test and gh.test green (32 cross-implementation cases agree with the Python engine in instruments/wiring), hof.json byte-identical, audit.json and reduce-40.json identical up to wall-clock ms, decide-record: exact ratio in [1.049851339, 1.049851340], 2905 refused. The audit decides the ARITHMETIC of each claim, not the claim: the winning vectors are not published.",
+   "why": "The charter (CHARTER.md, copied first) is the reason this folder exists and the reason it is safe: audit only, never design a primitive. Published security numbers are bare floats; re-deciding them exactly is open ground and low risk.",
+   "note": "The near-miss RESULTS.md records must survive every re-implementation: compare the published ratio to the WINDOW [ratio(N-1/2), ratio(N+1/2)], never to the ratio at the printed norm, or 32 of 37 will look wrong at 1e-4. Open, per the charter: the dim-119 vector needs the winning vector; core-SVP cost models are outside it."
   }
  ]
 }

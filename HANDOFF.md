@@ -152,12 +152,34 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
       — it listens to hashchange now, like the graph page; and the contact
       sheet's two greys were frontier's palette (declared patch in
       corpus/frontier-port.json, like render.mjs before it).
-    · NOT PORTED YET, in the document's order: PQC (its cross-check imports
-      this package), occultation, transit — each a published number re-
-      decided exactly with reds. certifier-core + blind-spot DEFERRED one
-      frontier session: 12 MB, a 75-minute formal run in a battery, records
-      that copy but cannot be regenerated, and an identity control found
-      vacuous a day ago. The toolchain for it is already installed here.
+  ── THE PORT, SECOND: PQC GEOMETRY, THE SVP-RECORD AUDIT ── instruments/pqc,
+    19 files pinned, one declared patch (gh.test.js's cross-check imports
+    instruments/wiring). The charter came first and binds: AUDIT ONLY, NEVER
+    DESIGN A PRIMITIVE. Reproduced to the digit: pi.test and gh.test green
+    (32 cases agree with the Python engine), hof.json byte-identical, the
+    37-record audit and the dim-40 LLL identical up to wall-clock ms —
+    0 published ratios inconsistent with a true norm that rounds to the
+    printed one, ONE row undecidable from it (dim 119 seed 0: 2904 admissible,
+    2905 refused). battery.js re-runs every offline script in a SCRATCH COPY
+    and compares with ms ignored, so the pinned outputs never churn (the
+    DEBT-6 pattern, avoided rather than inherited); the network fetch is
+    never run. 68 rows in both registries. /instruments/pqc is the page —
+    the LLL reduction animated and the wall — body and app verbatim, the app
+    pinned beside its builder; the card is house code (the wall, from the
+    same records). Looked at at 1440 and 390; driven: play advances the
+    reduction, the panel toggles, the canvas paints, and the #view=wall and
+    #t=40&gsa=0 hooks work ON A FRESH LOAD — like frontier's other
+    instruments the hook runs at load only, so drive it with a fresh
+    navigation, not a hash change from the page (the rewire lesson, again;
+    the app is pinned verbatim, so it was not patched to listen).
+    THE NEAR-MISS THAT MUST SURVIVE (RESULTS.md): compare a published ratio
+    to the WINDOW [ratio(N-1/2), ratio(N+1/2)], never to the ratio at the
+    printed norm, or 32 of 37 look wrong at 1e-4.
+    · NOT PORTED YET, in the document's order: occultation, transit — each a
+      published number re-decided exactly with reds. certifier-core +
+      blind-spot DEFERRED one frontier session: 12 MB, a 75-minute formal
+      run in a battery, records that copy but cannot be regenerated, and an
+      identity control found vacuous a day ago. The toolchain is installed.
 
   ── THE ZENODO TITLE: APPLIED THROUGH THE INTEGRATION ── The operator asked
     for the best titles and the update, then pointed at the working
