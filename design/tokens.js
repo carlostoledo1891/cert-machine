@@ -304,6 +304,24 @@ function instrumentsCss() {
     '--weight-display': RHYTHM.weight.display, '--weight-title': RHYTHM.weight.title,
     '--weight-medium': RHYTHM.weight.medium, '--weight-body': RHYTHM.weight.body,
   });
+  /* BOTH SPELLINGS, 2026-09-05. The header of the generated file has always said
+     the frontier names here and the house names the reports use are "two
+     spellings of ONE palette" — but only the frontier half was ever emitted, so
+     on /instruments the house names simply did not exist. design/nav.js is
+     SHARED by both shells and is written in house names, and five of its ten
+     tokens (--paper, --rule, --rule-soft, --rule-strong, --f-mono) resolved to
+     nothing across the whole section: the bar had no background, no bottom
+     border and no mono face, and content scrolled visibly under it. That is what
+     the review called a blur smear — the blur was the only thing the bar had.
+     Emitting the house names as well costs a few lines and makes any shared
+     component resolve in either shell, which is what one palette means. */
+  for (const [frontier, house] of Object.entries(FRONTIER)) v[house] = DARKONLY[house];
+  /* --rule-soft is a palette name that the FRONTIER table reaches under a
+     different frontier spelling (--chart-grid), so the loop above misses it. */
+  v['--rule-soft'] = DARKONLY['--rule-soft'];
+  v['--f-mono'] = VENDORED.mono + ',' + TYPE.mono;
+  v['--f-sans'] = VENDORED.sans + ',' + TYPE.body;
+
   for (const [k, val] of Object.entries(SPACE)) v['--s-' + k] = val;
   v['--section-pad'] = SCALE.section;
   v['--container'] = LAYOUT.container;

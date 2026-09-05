@@ -540,7 +540,15 @@ p { margin: 0; }
 }
 .card:hover .uv-tracks path { opacity: 1; stroke: var(--ink); }
 /* the scale, written where the rings are, not in a legend somewhere else */
+/* THE PILL HAD NO LEFT BOUND. It is absolutely positioned against the plate's
+   bottom-right, so its width is shrink-to-fit up to the whole containing
+   block — and at 390 the longer captions grew leftward until they touched the
+   plate's opposite edge, sitting on the rounded corner with no inset at all,
+   while the short ones floated free. That is review row A-6: not three
+   different pills, one pill with one missing constraint. Bounded symmetrically
+   now, so a long caption wraps inside the same inset a short one keeps. */
 .uv-scale { position: absolute; right: var(--s-3); bottom: var(--s-3);
+  max-width: calc(100% - var(--s-3) * 2); text-align: right;
   font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; color: var(--ink-4);
   background: var(--bg-raised); padding: 3px 7px; border-radius: var(--radius-pill);
   border: 1px solid var(--border); }

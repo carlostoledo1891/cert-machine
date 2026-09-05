@@ -39,7 +39,20 @@ because 13 is the site's norm (neural-geometry 13, plates 13, eight report pages
 13) and the page measured 9 *because* its legend was crushed into one column.
 The ratchet was recording a defect as a virtue.
 
-**The rest of this list is unchanged and unruled-on.**
+### Then the rest of it, later the same day
+
+| row | what it turned out to be |
+|---|---|
+| **A-3 / A-4** | One missing declaration. The shared `.lb` rule had **no font-size**, so card art on the gathering page — which inlines no page stylesheet — fell back to the browser default 16px *in viewBox units*. That caused both the clipping and the mismatched label sizes. Plus a clamp that held the anchor rather than the text, and no collision pass. `label()` was copy-pasted **three** times; all three share `playground/design/marklabel.js` now. |
+| **A-5** | The plates thumbnail's 9px internal labels render near 4.8px in a desktop card and 3.2px at 390 — illegible at both, never mobile-only. Hidden in the card context; the plates page still draws all 58 at full size. |
+| **A-6** | Not three different pills — **one pill with one missing constraint**. `.uv-scale` is absolutely positioned bottom-right with no left bound, so long captions grew until they touched the opposite edge. Bounded symmetrically. |
+| **C-1** | Plate I's caption was drawn at `H - 22`, inside the viewBox the threading fills. A reserved caption band under the drawing, per the contract's rule. |
+| **C-2** | `svg()` painted a full-bleed rect of the *page* ground inside a figure already painting `--bg-raised` — two grounds nested, one value apart. The SVG is transparent now, which also puts plates on the same ground as every other figure (part of B-1). |
+| **D-1** | Not a stray element: maplibre's `NavigationControl`, wearing the vendored stylesheet's hard-coded white `ctrl-group`. Third-party CSS assuming a light page. |
+| **E-1** | **The blur was not the bug — it was the only thing the bar had.** `design/nav.js` is shared by both shells and written in house token names, but `/instruments` links a `tokens.css` that emitted only the *frontier* spellings. Five of the nav's ten tokens (`--paper`, `--rule`, `--rule-soft`, `--rule-strong`, `--f-mono`) resolved to **nothing** across the whole section, so the bar had no background, no bottom border and no mono face. tokens.js emits both spellings now, and the glass is retired for an opaque bar under the dark lock. |
+| **F-1** | `check-render` check 2 split in two: dead marks (no paint, or a paint server not on the page) hard-fail; faint marks ratchet. Two red controls plant a dangling paint server in a real browser. |
+
+**Still open:** B-1 in its remaining half — `/instruments` cards are transparent with a 16px radius, `.figbox` elsewhere is filled with 10px, which is a deliberate documented choice for a card versus an in-prose exhibit rather than a defect. And a newly measured one: **1,200+ literal `border-radius` values ship** against two radius tokens — seven distinct values for "a box with rounded corners". That is real drift and wants a census like the dash one.
 
 ---
 
