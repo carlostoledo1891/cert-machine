@@ -28,6 +28,7 @@ function frameOf(pts, size, pad) {
    clamped by where the TEXT ends rather than where its anchor sits — an
    end-anchored word runs leftward off the canvas while its x is still positive,
    which is how "miserable" became "iserable". 8.5px mono is ~5.1px per glyph. */
+const ML = require('../design/marklabel.js');
 const W = (t) => String(t).length * 5.1;
 function ring(X, Y, p, size, text, cls) {
   const a = Math.atan2(Y(p) - size / 2, X(p) - size / 2) || 0;
@@ -36,7 +37,15 @@ function ring(X, Y, p, size, text, cls) {
   const hi = size - (anchor === 'start' ? w + 3 : anchor === 'end' ? 3 : w / 2 + 3);
   const x = Math.max(lo, Math.min(hi, X(p) + Math.cos(a) * 15));
   const y = Math.max(10, Math.min(size - 4, Y(p) + Math.sin(a) * 15 + 3.4));
-  return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" class="${cls}" text-anchor="${anchor}">${text}</text>`;
+  /* A SPEC, NOT A STRING, since 2026-09-05. The clamp above already kept each
+     label inside the canvas — it is the fix that turned "iserable" back into
+     "miserable" — but nothing kept two labels off EACH OTHER, so "astonished"
+     and "excited" printed straight through one another on the affect card.
+     Returning the spec lets playground/design/marklabel.js push overlapping
+     pairs apart once every position in the ring is known. */
+  const reachL = anchor === 'start' ? 0 : anchor === 'end' ? w : w / 2;
+  const reachR = anchor === 'start' ? w : anchor === 'end' ? 0 : w / 2;
+  return { x, y, w, reachL, reachR, anchor, text, cls, fontSize: 8.5, size, edge: 3 };
 }
 
 function circumplex(cell, items, { size = 340, pad = 76, axes = true } = {}) {
@@ -58,8 +67,8 @@ function circumplex(cell, items, { size = 340, pad = 76, axes = true } = {}) {
       + ` stroke-opacity="${(0.03 + 0.6 * Math.pow(close, 2.4)).toFixed(3)}" stroke-width="${(0.5 + 2 * Math.pow(close, 3)).toFixed(2)}"/>`;
   }
   out += `<path d="${pts.map((p, i) => (i ? 'L' : 'M') + X(p).toFixed(1) + ',' + Y(p).toFixed(1)).join('')}Z" class="ord"/>`;
-  out += pts.map((p, i) => `<circle cx="${X(p).toFixed(1)}" cy="${Y(p).toFixed(1)}" r="2.8" class="pt"/>`
-    + ring(X, Y, p, size, items[i], 'lb')).join('');
+  out += pts.map((p) => `<circle cx="${X(p).toFixed(1)}" cy="${Y(p).toFixed(1)}" r="2.8" class="pt"/>`).join('');
+  out += ML.labels(pts.map((p, i) => ring(X, Y, p, size, items[i], 'lb')));
   return `<svg viewBox="0 0 ${size} ${size}" class="pl">${out}</svg>`;
 }
 
@@ -71,8 +80,8 @@ function tether(cv, items, { size = 380, pad = 76 } = {}) {
     out += `<line x1="${X(B[i]).toFixed(1)}" y1="${Y(B[i]).toFixed(1)}" x2="${X(A[i]).toFixed(1)}" y2="${Y(A[i]).toFixed(1)}" class="tie"/>`;
     out += `<circle cx="${X(B[i]).toFixed(1)}" cy="${Y(B[i]).toFixed(1)}" r="3.2" class="pt"/>`;
     out += `<circle cx="${X(A[i]).toFixed(1)}" cy="${Y(A[i]).toFixed(1)}" r="1.9" class="ptb"/>`;
-    out += ring(X, Y, B[i], size, items[i], 'lb');
   }
+  out += ML.labels(B.map((b, i) => ring(X, Y, b, size, items[i], 'lb')));
   return `<svg viewBox="0 0 ${size} ${size}" class="pl">${out}</svg>`;
 }
 

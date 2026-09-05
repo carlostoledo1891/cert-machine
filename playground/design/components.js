@@ -101,7 +101,16 @@ function sharedCss() {
 .clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-linecap: round; }
 .mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
 .pt { fill: var(--ink-2); }
-.lb { fill: var(--ink-4); font-family: var(--font-mono); }
+/* .lb HAD NO FONT-SIZE, and that is two review defects in one line. Each
+   instrument page sets 8.5px on its own svg.pl .lb; the GATHERING page inlines
+   no page stylesheet, so every embedded card art fell back to the browser
+   default of 16px — in viewBox units, on a plate scaled about 1.5x. So the
+   affect card's labels rendered near 24px and ran clean out of the card
+   ("delighted" sliced at the right edge, "miserable" cut to "serable"), and
+   adjacent cards showed wildly different label sizes because each viewBox
+   scales differently. The pages' own 8.5px rules are more specific and still
+   win; this is the floor that was missing. */
+.lb { fill: var(--ink-4); font-family: var(--font-mono); font-size: 8.5px; }
 .ax line { stroke: var(--border-strong); }
 .ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
 .cs-grid { stroke: var(--chart-grid); stroke-width: 1; }

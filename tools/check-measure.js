@@ -298,6 +298,23 @@ async function main() {
   }
 
   if (MODE === 'accept') {
+    /* A PAGE THAT MEASURED AS NOTHING IS NOT A MEASUREMENT, 2026-09-05 — the
+       same lesson check-render already carries about a clean zero, learned here
+       the expensive way. A built page always sits on at least a container edge
+       and a text edge, so `spines: 1` at BOTH viewports means the page did not
+       render before it was read: on 2026-09-05 the 1 MB plates page timed out
+       under Chrome contention and was recorded as 1/1/0/0/0. That row is worse
+       than useless — it is a FALSE GREEN, because a page recorded at one spine
+       passes every future run whatever it does. Refuse to write it, and say
+       which page, rather than quietly baking a blind spot into the ratchet. */
+    const blind = list.filter((r) => VIEWPORTS.every((v) => now[r][v].spines <= 1));
+    if (blind.length) {
+      console.log('\nREFUSED to record ' + blind.length + ' page(s) that measured as NOTHING'
+        + ' (one spine at every viewport — the page did not render):\n  '
+        + blind.slice(0, 8).join('\n  ')
+        + '\n  Re-run when the machine is quiet. A row like this passes forever and gates nothing.');
+      process.exit(1);
+    }
     if (worse.length && !ACCEPT_WORSE) {
       console.log('\nREFUSED to record ' + worse.length + ' worse number(s). The ratchet only turns one way.\n  '
         + worse.slice(0, 8).join('\n  ') + (worse.length > 8 ? '\n  …' : '')

@@ -25,6 +25,9 @@
  */
 'use strict';
 
+const ML = require('../design/marklabel.js');
+const label = ML.label;
+
 /* ---- Procrustes: the freedoms a distance matrix leaves undetermined --------
    Move P onto Q using only rotation, reflection and uniform scale, which are
    exactly the transformations a table of distances does not determine. What is
@@ -80,15 +83,9 @@ function frame(pts, size, pad) {
    layout puts every label on one horizontal line where they overlap outright.
    So: names are shortened by the caller, the offset alternates by index to
    split neighbours apart, and the text is clamped inside the frame. */
-function label(X, Y, p, size, i, text, cls, base) {
-  const a = Math.atan2(Y(p) - size / 2, X(p) - size / 2);
-  const anchor = Math.cos(a) > 0.34 ? 'start' : Math.cos(a) < -0.34 ? 'end' : 'middle';
-  const rad = (base || 13) + (i % 2) * 9;
-  let x = X(p) + Math.cos(a) * rad, y = Y(p) + Math.sin(a) * rad + 3.6;
-  if (Math.abs(Math.sin(a)) < 0.34) y += (i % 2 ? 9 : -6);          // split a flat run
-  x = Math.max(5, Math.min(size - 5, x));
-  return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" class="${cls}" text-anchor="${anchor}">${text}</text>`;
-}
+/* label() moved to playground/design/marklabel.js on 2026-09-05: it was
+   byte-identical here and in the sibling plate.js, and its clamp held the
+   ANCHOR inside the viewBox while letting the glyphs run out of it. */
 
 function plate(rec, { size = 360, pad = 62, labels = true, short = null } = {}) {
   const n = rec.n, items = (short || rec.items);
@@ -111,13 +108,17 @@ function plate(rec, { size = 360, pad = 62, labels = true, short = null } = {}) 
   } else if (rec.mst) {
     over += `<path d="${rec.mst.map(([i, j]) => `M${X(rec.pts[i]).toFixed(1)},${Y(rec.pts[i]).toFixed(1)}L${X(rec.pts[j]).toFixed(1)},${Y(rec.pts[j]).toFixed(1)}`).join('')}" class="mst"/>`;
   }
+  const specs = [];
   const dots = rec.pts.map((p, i) => {
     const lab = String(items[i]).length > 12 ? String(items[i]).slice(0, 11) + '·' : items[i];
     const first = rec.order && i === 0;
-    return `<circle cx="${X(p).toFixed(1)}" cy="${Y(p).toFixed(1)}" r="${first ? 4 : 2.7}" class="pt${first ? ' first' : ''}"/>`
-      + (labels ? label(X, Y, p, size, i, lab, 'lb' + (first ? ' first' : '')) : '');
+    if (labels) specs.push(ML.spec(X, Y, p, size, i, lab, 'lb' + (first ? ' first' : '')));
+    return `<circle cx="${X(p).toFixed(1)}" cy="${Y(p).toFixed(1)}" r="${first ? 4 : 2.7}" class="pt${first ? ' first' : ''}"/>`;
   }).join('');
-  return `<svg viewBox="0 0 ${size} ${size}" class="pl"><g class="chords">${ch.join('')}</g>${over}${dots}</svg>`;
+  /* the labels are emitted AFTER every position is known, so overlapping pairs
+     can be pushed apart. Drawn last so they sit over the chords, as before. */
+  const texts = specs.length ? ML.labels(specs) : '';
+  return `<svg viewBox="0 0 ${size} ${size}" class="pl"><g class="chords">${ch.join('')}</g>${over}${dots}${texts}</svg>`;
 }
 
 function overlay(recs, itemsIn, order, { size = 520, pad = 92, short = null } = {}) {
@@ -139,8 +140,8 @@ function overlay(recs, itemsIn, order, { size = 520, pad = 92, short = null } = 
     out += `<path d="${d}" class="ov ${cls[k]}"/>`;
     out += P.map(p => `<circle cx="${X(p).toFixed(1)}" cy="${Y(p).toFixed(1)}" r="1.9" class="ovp ${cls[k]}"/>`).join('');
   });
-  out += consensus.map((p, i) => label(X, Y, p, size, i,
-    String(items[i]).length > 12 ? String(items[i]).slice(0, 11) + '·' : items[i], 'lb', 26)).join('');
+  out += ML.labels(consensus.map((p, i) => ML.spec(X, Y, p, size, i,
+    String(items[i]).length > 12 ? String(items[i]).slice(0, 11) + '·' : items[i], 'lb', 26)));
   return `<svg viewBox="0 0 ${size} ${size}" class="pl">${out}</svg>`;
 }
 
