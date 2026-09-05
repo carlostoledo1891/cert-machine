@@ -102,19 +102,25 @@ export function toSVG(g, { fired = new Map(), title = g.name, minWidth = 0 } = {
 ${parts.join('\n')}</svg>`;
 }
 
+/* DECLARED PATCH, cert-machine 2026-09-05: the literal hex here was frontier's
+   palette, and three of its values (#111114, #e8e8ee, #83838f) are on no scale
+   this site owns — tools/check-wiring.js caught them on the first build of
+   /instruments/graph. They are house tokens now, each with the original as its
+   fallback so the module still draws outside a page that defines them. This is
+   exactly what design/tokens.js means by "two spellings of ONE palette". */
 export const CSS = `
-.ug .bg { fill:#0a0a0c; }
-.ug .nd { fill:#111114; stroke:#f6f6f8; stroke-opacity:.22; }
+.ug .bg { fill:var(--paper,#0a0a0c); }
+.ug .nd { fill:var(--bg-raised,#101014); stroke:var(--ink,#f6f6f8); stroke-opacity:.22; }
 .ug .nd.inst { stroke-opacity:.45; }
-.ug .sep { stroke:#f6f6f8; stroke-opacity:.14; }
-.ug .nt { fill:#e8e8ee; font-family:ui-monospace,Menlo,monospace; font-size:8px; }
-.ug .pl { fill:#83838f; font-family:ui-monospace,Menlo,monospace; font-size:6.5px; }
-.ug .pl.fired { fill:#f6f6f8; }
-.ug .cap { fill:#6e6e7a; font-family:ui-monospace,Menlo,monospace; font-size:7px; letter-spacing:.12em; }
-.ug .pt { fill:#0a0a0c; stroke:#f6f6f8; stroke-opacity:.6; stroke-width:1.2; }
-.ug .pt.dec { fill:#f6f6f8; fill-opacity:.75; stroke:none; }
+.ug .sep { stroke:var(--ink,#f6f6f8); stroke-opacity:.14; }
+.ug .nt { fill:var(--ink-2,#c9c9d2); font-family:ui-monospace,Menlo,monospace; font-size:8px; }
+.ug .pl { fill:var(--ink-3,#9a9aa6); font-family:ui-monospace,Menlo,monospace; font-size:6.5px; }
+.ug .pl.fired { fill:var(--ink,#f6f6f8); }
+.ug .cap { fill:var(--ink-4,#6e6e7a); font-family:ui-monospace,Menlo,monospace; font-size:7px; letter-spacing:.12em; }
+.ug .pt { fill:var(--paper,#0a0a0c); stroke:var(--ink,#f6f6f8); stroke-opacity:.6; stroke-width:1.2; }
+.ug .pt.dec { fill:var(--ink,#f6f6f8); fill-opacity:.75; stroke:none; }
 .ug .pt.idle { stroke-opacity:.28; }
-.ug .pt.fired { fill:#f6f6f8; stroke:#f6f6f8; }
-.ug .w { fill:none; stroke:#f6f6f8; stroke-width:1.2; }
+.ug .pt.fired { fill:var(--ink,#f6f6f8); stroke:var(--ink,#f6f6f8); }
+.ug .w { fill:none; stroke:var(--ink,#f6f6f8); stroke-width:1.2; }
 .ug .w.solid { stroke-opacity:.75; }
 .ug .w.dashed { stroke-opacity:.42; stroke-dasharray:5 4; }   /* grammar.js CLAIM */`;

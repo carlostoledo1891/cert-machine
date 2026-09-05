@@ -1,0 +1,21 @@
+/* page.css — only what this page uses once. The furniture is in
+   playground/design/components.js; the graph's own marks come from
+   render.mjs's CSS, which the editor injects into its own <svg>. */
+.ug-wrap { margin-top: var(--s-5); }
+.ug-host { position: relative; width: 100%; min-height: 320px;
+  border: 1px solid var(--border); border-radius: var(--radius-l); overflow: hidden; }
+.ug-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3);
+  margin-top: var(--s-4); }
+.ug-btn { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);
+  background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-s); padding: 8px 12px; cursor: pointer; }
+.ug-btn:hover { border-color: var(--border-strong); color: var(--ink); }
+/* the engine's sentence, and the two states it can be in. Severity is never
+   colour alone here either: a refusal gets a rule down its left edge as well. */
+.ug-say { font-family: var(--font-mono); font-size: var(--text-small);
+  color: var(--ink-4); line-height: 1.5; }
+.ug-say.refused { color: var(--ink-2); border-left: 2px solid var(--border-strong);
+  padding-left: var(--s-3); }
+.ug-say.ok { color: var(--ink-4); }
+.refusal { white-space: pre-wrap; }

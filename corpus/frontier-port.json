@@ -6,7 +6,8 @@
   "instruments/cert-unit/nodes.mjs": "lib/eqcert/{interval,radii,transcendental}.js -> ../interval/ (cert-machine's eqcert lives in instruments/interval/)",
   "instruments/cert-unit/replay.mjs": "../mfg-terra/band-sigma-0.0008-0.008.json -> ../../playground/plates/data/ (cert-machine's own copy of the same band)",
   "instruments/cert-unit/reds.mjs": "same band repoint as replay.mjs",
-  "instruments/cert-unit/trace.mjs": "same band repoint, plus ../interferometer/cert-cp.js -> ../../playground/interferometer/cert-cp.js"
+  "instruments/cert-unit/trace.mjs": "same band repoint, plus ../interferometer/cert-cp.js -> ../../playground/interferometer/cert-cp.js",
+  "instruments/cert-unit/render.mjs": "the CSS block's literal hex was frontier's palette; three values (#111114, #e8e8ee, #83838f) are on no scale this site owns and check-wiring caught them. Replaced with house tokens, each keeping the original as its var() fallback so the module still draws outside a page that defines them."
  },
  "notPorted": {
   "the marks": "circumplex plate, envelope ruler, contact-sheet glyph, deformation field, ensemble renderer \u2014 designed for their own data; generalising them early makes them worse (operator instruction).",

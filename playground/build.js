@@ -28,6 +28,7 @@ const CS = require(path.join(HERE, 'curveset', 'build.js'));
 const W = require(path.join(HERE, 'warrant.js'));
 const PL = require(path.join(HERE, 'plates', 'build.js'));
 const XG = require(path.join(HERE, 'exact-geometry', 'build.js'));
+const UG = require(path.join(HERE, 'graph', 'build.js'));
 const AS = require(path.join(HERE, 'answer-shape', 'build.js'));
 const AF = require(path.join(HERE, 'affect', 'build.js'));
 /* the affect card's numbers, read out of the record rather than typed. A card
@@ -98,7 +99,7 @@ const fact = (k, v, note) =>
 const body = `
 <header class="hero"><div class="wrap">
   <div class="eyebrow">cert-machine &middot; instruments</div>
-  <h1>Nine instruments, and each one says what decides it.</h1>
+  <h1>Ten instruments, and each one says what decides it.</h1>
   <p class="lede">This page used to open by saying that nothing here was certified. That was the wrong claim and it had stopped being true: two of these pages draw a certificate straight from the shelf the rest of the site gates, and five of them decide their headline number in exact integer or rational arithmetic. <b>What is true is that nothing here is gated</b> &mdash; no number on these pages has a certificate row the build checks, no page here can refuse a deploy, and none of them is covered by <code>make test</code>. That is a fact about ceremony, not about the mathematics, and the two are not the same thing.</p>
   <p class="lede" style="margin-top:var(--s-5)">So instead of one disclaimer at the door, <b>every card below says what backs its headline number</b>, in the same words the pages use: exact rationals, exact integers, a record from the certificate shelf, or floats. Where it is floats, the page says so beside the number rather than at the bottom.</p>
 </div></header>
@@ -106,7 +107,7 @@ const body = `
 <section class="projects"><div class="wrap">
   <div class="count">
     <span class="eyebrow">the projects</span>
-    <span class="eyebrow">nine, so far</span>
+    <span class="eyebrow">ten, so far</span>
   </div>
 
   <div class="cards">
@@ -214,6 +215,17 @@ const body = `
     </div>
   </a>
 
+  <a class="card" href="graph/index.html">
+    <figure class="card-art">
+      ${plate(UG.cardArt(), `${UG.facts.reDerivedIdentically} cells re-derived &middot; worst ${UG.facts.worstRelativeDifference}`)}
+    </figure>
+    <div class="card-body">
+      <h2>The rule is a wire you cannot draw.</h2>
+      <p class="sub">Every verifier has rules about what may decide what, and they are almost always prose in a README. Here two of them are conditions on a <em>connection</em>: a value that came from floating point has no wire into a port that decides. Break it and nothing scores badly &mdash; it does not build, and what comes back is the sentence the engine raised. Drag the forbidden wire and the engine answers you itself.</p>
+      <span class="go">wire it wrong <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
   <a class="card" href="simplex/index.html">
     <figure class="card-art">
       ${plate(SIMPLEX.cardArt(), `${SIMPLEX.M.positions} positions`)}
@@ -257,6 +269,7 @@ const ng = NG.build(OUT);
 const sh = SH.build(OUT);
 const cs = CS.build(OUT);
 const pl = PL.build(OUT);
+const ug = UG.build(OUT);
 const xg = XG.build(OUT);
 const as = AS.build(OUT);
 const af = AF.build(OUT);

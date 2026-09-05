@@ -73,6 +73,29 @@
    one nav and this section carries it like every other page. What is left here
    is the consequence: the site nav is FIXED at 60px, so the page has to start
    below it. The reports' shell does the same thing with its own padding. */
+/* THE BOX MODEL, SHARED — and it was not, until 2026-09-05. The
+   `*{box-sizing:border-box}` reset was declared in SIX page.css files and in
+   bench.css, and in the shell not at all. A page that did not carry its own copy
+   got content-box, so `.wrap`'s max-width:1200 became 1200 PLUS its 48px
+   gutters: /instruments/graph rendered 1296 wide and sat its whole column at
+   x=120 while every other page on the site sits at x=168. The site's one-left-
+   edge claim was being upheld by six identical copies of a reset, any one of
+   which could have gone missing — and the seventh page proved it. */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* THE PAGE'S OWN TYPOGRAPHY, SHARED — and it was not, until 2026-09-05.
+   Six page.css files under playground/ declared their own `body` rule, four of
+   them with different bodies, and the shell declared none. Every page that
+   happened to carry one looked right and any page that did not fell back to the
+   browser default — which is how /instruments/graph shipped its first build in
+   TIMES ROMAN while every other page on the site is Inter. A foundation
+   declared six times is not a foundation.
+
+   The page-local copies are still there and still win where they agree; taking
+   them out is a separate change, written down in HANDOFF. */
+body { margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body);
+  line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
 body { padding-top: 60px; }
 
 /* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
