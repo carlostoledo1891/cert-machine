@@ -34,7 +34,7 @@ function bundle() {
     + strip(fs.readFileSync(path.join(CU, f), 'utf8'), f));
   return '(function(){\n"use strict";\n' + parts.join('\n')
     + '\nwindow.CERTUNIT = { node: node, graph: graph, mount: mount, tryWire: tryWire,'
-    + ' FLOAT: FLOAT, INTERVAL: INTERVAL, WiringRefused: WiringRefused, CSS: CSS };\n})();';
+    + ' FLOAT: FLOAT, INTERVAL: INTERVAL, RATIONAL: RATIONAL, GEOM: GEOM, WiringRefused: WiringRefused, CSS: CSS };\n})();';
 }
 
 module.exports = { bundle, ORDER };

@@ -25,6 +25,7 @@ verdict from the wrong reference is not a pass; it is the thing we are hunting.
 
 import hashlib
 import random
+import re
 from fractions import Fraction
 
 from .certify.exact import ADMISSIBLE, REFUSED, decide, in_lattice, norm_sq
@@ -154,15 +155,43 @@ def _pick(d, aliases):
     return None
 
 
+def _find_missing(submission):
+    """The `missing` field, wherever a model put it: at the top level, under
+    any key that reads as `missing`/`absent` (missing_quantity, ...), or inside
+    the `reference` block, which is where one model consistently placed it."""
+    for scope in (submission, submission.get("reference")):
+        if not isinstance(scope, dict):
+            continue
+        for k, v in scope.items():
+            nk = _norm_key(k)
+            if nk == "missing" or "missing" in nk or "absent" in nk:
+                return v
+    return None
+
+
 def _names_gap(submission, field):
-    """Did the submission name the quantity that is absent, however spelled?"""
+    """Did the submission name the quantity that is absent, however spelled?
+
+    Only the `missing` field counts (see _find_missing), and only its HEAD --
+    the words before any parenthesis, colon or dash -- because models write
+    "q (the lattice modulus for the Gaussian heuristic ...)" and the parenthesis
+    is explanation, not the name.  The first grader searched the whole reply as
+    prose, and that was a hole: a reply naming the WRONG gap while carrying an
+    ordinary `reference` block scored as right on a `claim.factor` task, because
+    "factor" appears in its own schema.  `gap_named_in_own_schema` holds it.
+    """
     ok = _MISSING_ALIASES.get(field, {_norm_key(field)})
-    said = submission.get("missing")
-    if said is not None and _norm_key(said) in ok:
-        return True
-    # some models put it in prose rather than a field; accept an exact mention
-    blob = _norm_key(json_dumps_safe(submission))
-    return any(a in blob for a in ok if len(a) > 2)
+    said = _find_missing(submission)
+    if said is None:
+        return False
+    names = said if isinstance(said, (list, tuple)) else [said]
+    for n in names:
+        head = re.split(r"[\(\[:;\u2013\u2014]|\s-\s", str(n).lower(), maxsplit=1)[0]
+        toks = re.findall(r"[a-z0-9]+", head)
+        cands = set(toks) | {a + b for a, b in zip(toks, toks[1:])} | {"".join(toks)}
+        if any(c in ok for c in cands):
+            return True
+    return False
 
 
 def json_dumps_safe(obj):
@@ -221,8 +250,11 @@ def grade(task, submission):
         if verdict == NEEDS_DATA and not named:
             out["certified"] = 0.0
             out["why"] = f"named {submission.get('missing')!r}, missing was {d.missing}"
-    elif isinstance(ref, dict) and _pick(ref, _NORM_ALIASES) is not None \
-            and _pick(ref, _FACTOR_ALIASES) is not None:
+    elif isinstance(ref, dict) and _pick(ref, _FACTOR_ALIASES) is not None \
+            and (_pick(ref, _NORM_ALIASES) is not None or exp["norm_squared"] is None):
+        # on the `printed` rung the exact norm is not stated, so a reference
+        # that carries no single integer for it (null, or an interval) is the
+        # honest declaration and is not penalised for saying so
         raw_f, raw_n = _pick(ref, _FACTOR_ALIASES), _pick(ref, _NORM_ALIASES)
         try:
             ok_f = Fraction(str(raw_f).strip()) == exp["factor"]

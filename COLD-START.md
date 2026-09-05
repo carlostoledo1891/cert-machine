@@ -13,8 +13,9 @@ not pick something off the menu, do not spend on model calls. The previous
 session closed clean on purpose.
 
 STATE YOU INHERIT: EVERYTHING IS PUSHED AND EVERYTHING IS LIVE.
-Working tree clean, no unpushed commits, 56/56 batteries. carlostoledo.co is
-current with the repository.
+Working tree clean, no unpushed commits, 67/67 batteries in BOTH registries
+(make test and the control page run the same set since 2026-09-05).
+carlostoledo.co is current with the repository.
 
   · THE ENVIRONMENT IS PUBLISHED. carlos-toledo/break-the-grader, PUBLIC,
     v0.1.2, on the Prime Intellect Environments Hub. Verified from the Hub in a
@@ -22,12 +23,17 @@ current with the repository.
     a stranger can check in a single command:
         prime env install carlos-toledo/break-the-grader
     The `prime` CLI is installed at ~/.local/bin/prime and IS logged in.
-  · /playground IS NEW and has four projects: interferometer, simplex,
-    neural-geometry, shape-hunt. It is built by playground/build.js alone, none
-    of the repository's gates apply to it, and `make playground` rebuilds it.
-    The one rule there: no gates, but no fiction.
-  · THE LAMBDA(6) RUN IS STILL ALIVE — 17+ hours, pid 90265, sitting on
-    NODE 119 exactly as two earlier runs did. Node 119 IS the wall and the fix
+  · /instruments (source: playground/, the folder and the URL differ on
+    purpose) has TWELVE pages, the last two ported 2026-09-05 from frontier's
+    lattice-claims environment: /instruments/lattice-claims and
+    /instruments/rewire. `make playground` rebuilds it; the layout ruler, the
+    render gate, the palette and the dash census all read it. The one rule
+    there: no gates on the mathematics, but no fiction.
+  · THE NEXT PORTS, in frontier's PORT-TO-CERT-MACHINE.md order: PQC geometry
+    (its cross-check imports instruments/wiring), occultation, transit.
+    certifier-core + blind-spot deferred one frontier session (HANDOFF says why).
+  · THE LAMBDA(6) RUN IS STILL ALIVE — 45+ hours as of 2026-09-05 evening,
+    pid 90265, sitting on NODE 119 exactly as two earlier runs did. Node 119 IS the wall and the fix
     is mathematical, not more hours. Do not restart it hoping.
 
 FIRST ACTION:  node tools/sweep-claims.js && node tools/check-stale-claims.js

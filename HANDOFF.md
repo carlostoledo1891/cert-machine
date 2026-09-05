@@ -117,6 +117,48 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     rebuilt. Every record diff is a git stamp, a timestamp or a wall-clock
     ms — the sequencing rule held, no certified number moved.
 
+  ── THE PORT: lattice-claims, WHOLE, AND ITS TWO PAGES ── The operator asked
+    whether it was time to port from frontier-apps (a new environment and
+    more since the last port; frontier's PORT-TO-CERT-MACHINE.md, session 17,
+    is the list). Assessed, then done in the document's order, first item:
+    · THE MISMATCH IT FIXED. The rollout record pinned here that afternoon was
+      the RE-GRADED file, and the grader beside it was one session older
+      (taskset.py, forgeries.py stale; policies.py, __main__.py absent). The
+      package, tests, eval scripts and all records are in instruments/wiring/
+      now, mirrored to frontier's layout, 24 files pinned in ONE file,
+      instruments/wiring/PROVENANCE.json (the eval pin and the lattice rows in
+      corpus/frontier-port.json folded into it — one file, one pin).
+      Acceptance reproduced to the digit: 18 tests, 10 forgeries caught,
+      exact 45/45 · careful 26/45 · admissible 14/45 · refused 12/45, and
+      the regrade of 135 stored replies: 76 -> 76, 0 rows moved.
+    · THE BATTERY. instruments/wiring/battery.py: pins re-hashed, the forgery
+      gate, the exact ceiling, the 0-rows-moved regrade, one red. Three rows
+      in both registries (67 each; check 2 agrees). Model calls are never
+      made by a battery.
+    · THE PAGES. /instruments/lattice-claims (the eval: ruler, grids, the
+      135-rollout contact sheet, four refutations, forgeries, the canary
+      cliff) and /instruments/rewire (the graph is the page: three graders,
+      one deciding socket). Bodies and CSS verbatim from frontier's builders
+      under the house shell; report.css and instrument.css pinned in
+      design/frontier-ref/. Twelve cards on /instruments. Both looked at at
+      1440 and 390; the rewire page DRIVEN with real mouse drags: the float
+      grader onto the verdict socket is refused in the engine's words, onto
+      the report socket the count moves to 17, careful float to 12.
+    · THREE THINGS FOUND BY DRIVING, all fixed: the readout showed the FIRST
+      grader wired to the report socket under a caption naming the SECOND
+      (the engine allows two reporters; the number follows the caption now);
+      the #sim hook looked dead because it ran only at load and my driver
+      navigated to the hash from the page itself, a same-document navigation
+      — it listens to hashchange now, like the graph page; and the contact
+      sheet's two greys were frontier's palette (declared patch in
+      corpus/frontier-port.json, like render.mjs before it).
+    · NOT PORTED YET, in the document's order: PQC (its cross-check imports
+      this package), occultation, transit — each a published number re-
+      decided exactly with reds. certifier-core + blind-spot DEFERRED one
+      frontier session: 12 MB, a 75-minute formal run in a battery, records
+      that copy but cannot be regenerated, and an identity control found
+      vacuous a day ago. The toolchain for it is already installed here.
+
   ── THE ZENODO TITLE: APPLIED THROUGH THE INTEGRATION ── The operator asked
     for the best titles and the update, then pointed at the working
     GitHub→Zenodo integration. Decided: the ONE title on every repository

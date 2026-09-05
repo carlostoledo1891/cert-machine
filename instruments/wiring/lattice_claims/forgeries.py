@@ -85,6 +85,19 @@ def build(seed=99):
                 {"verdict": NEEDS_DATA, "missing": wrong},
                 "certified", "refusing is right, naming the wrong quantity is not"))
 
+    # 7b. THE SECOND ONE THAT CAUGHT US: the right verdict, the wrong gap named,
+    #     and the true gap's name present only as a key of the submission's own
+    #     reference block.  The first grader searched the whole reply as prose
+    #     and accepted this.
+    for i in range(60):
+        t7b = ts.sample(i, rung="underspecified")
+        if t7b.data.missing == "claim.factor":
+            out.append(("gap_named_in_own_schema", t7b,
+                        {"verdict": NEEDS_DATA, "missing": "q",
+                         "reference": {"norm_squared": 1, "factor": "21/20"}},
+                        "certified", "names q as missing; 'factor' appears only as its own key"))
+            break
+
     # 8. a straddle called definite
     for i in range(60):
         t8 = ts.sample(i, rung="printed")

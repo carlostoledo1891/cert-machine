@@ -31,6 +31,8 @@ const XG = require(path.join(HERE, 'exact-geometry', 'build.js'));
 const UG = require(path.join(HERE, 'graph', 'build.js'));
 const AS = require(path.join(HERE, 'answer-shape', 'build.js'));
 const AF = require(path.join(HERE, 'affect', 'build.js'));
+const LC = require(path.join(HERE, 'lattice-claims', 'build.js'));
+const RW = require(path.join(HERE, 'rewire', 'build.js'));
 /* the affect card's numbers, read out of the record rather than typed. A card
    that repeats a page's figures by hand is a second copy, and a second copy
    drifts. */
@@ -99,7 +101,7 @@ const fact = (k, v, note) =>
 const body = `
 <header class="hero"><div class="wrap">
   <div class="eyebrow">cert-machine &middot; instruments</div>
-  <h1>Ten instruments, and each one says what decides it.</h1>
+  <h1>Twelve instruments, and each one says what decides it.</h1>
   <p class="lede">This page used to open by saying that nothing here was certified. That was the wrong claim and it had stopped being true: two of these pages draw a certificate straight from the shelf the rest of the site gates, and five of them decide their headline number in exact integer or rational arithmetic. <b>What is true is that nothing here is gated</b> &mdash; no number on these pages has a certificate row the build checks, no page here can refuse a deploy, and none of them is covered by <code>make test</code>. That is a fact about ceremony, not about the mathematics, and the two are not the same thing.</p>
   <p class="lede" style="margin-top:var(--s-5)">So instead of one disclaimer at the door, <b>every card below says what backs its headline number</b>, in the same words the pages use: exact rationals, exact integers, a record from the certificate shelf, or floats. Where it is floats, the page says so beside the number rather than at the bottom.</p>
 </div></header>
@@ -107,7 +109,7 @@ const body = `
 <section class="projects"><div class="wrap">
   <div class="count">
     <span class="eyebrow">the projects</span>
-    <span class="eyebrow">ten, so far</span>
+    <span class="eyebrow">twelve, so far</span>
   </div>
 
   <div class="cards">
@@ -226,6 +228,28 @@ const body = `
     </div>
   </a>
 
+  <a class="card" href="lattice-claims/index.html">
+    <figure class="card-art">
+      ${plate(LC.cardArt(), `${LC.facts.rollouts} rollouts &middot; ${LC.facts.caught} of ${LC.facts.forgeries} forgeries caught`)}
+    </figure>
+    <div class="card-body">
+      <h2>Decide it, or say what is missing.</h2>
+      <p class="sub">An environment built out of a grader bug. Three models, ${LC.facts.rollouts} rollouts, one dial: how much of the reference is stated &mdash; every quantity, a norm printed as a whole number, or a quantity missing. The grader is exact and the answer it exists to train against is the confident verdict on a task with a hole in it. Ten forgeries were planted before any model was called; all ten are caught, at every build.</p>
+      <span class="go">read the environment <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+  <a class="card" href="rewire/index.html">
+    <figure class="card-art">
+      ${plate(RW.cardArt(), `${RW.facts.instances} instances &middot; exact ${RW.facts.exact}, tolerance ${RW.facts.tol}`)}
+    </figure>
+    <div class="card-body">
+      <h2>Rewire it yourself.</h2>
+      <p class="sub">${RW.facts.instances} lattice claims with exact answers and three graders. Only one may reach the socket that decides. Drag a different one onto it and the engine refuses in its own words; drag it onto the socket that only reports and the admitted count moves in front of you &mdash; the tolerance grader admits ${RW.facts.tol} where the exact predicate admits ${RW.facts.exact}, because past dimension ${RW.facts.cliff} the determinant is Infinity to a double.</p>
+      <span class="go">rewire it <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
   <a class="card" href="simplex/index.html">
     <figure class="card-art">
       ${plate(SIMPLEX.cardArt(), `${SIMPLEX.M.positions} positions`)}
@@ -273,6 +297,8 @@ const ug = UG.build(OUT);
 const xg = XG.build(OUT);
 const as = AS.build(OUT);
 const af = AF.build(OUT);
+const lc = LC.build(OUT);
+const rw = RW.build(OUT);
 
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
 console.log(`site/instruments/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
@@ -286,4 +312,6 @@ console.log(`site/instruments/plates/            ${(pl.bytes / 1024).toFixed(0)}
 console.log(`site/instruments/exact-geometry/    ${(xg.bytes / 1024).toFixed(0)} KB  ·  ${xg.sets} sets whose shape is known, ${xg.agreed} predictions held, ${xg.refused} refused at the gate`);
 console.log(`site/instruments/answer-shape/      ${(as.bytes / 1024).toFixed(0)} KB  ·  ${as.subjects} subjects × ${as.models} models, every pair both ways, $${as.spend.toFixed(2)}`);
 console.log(`site/instruments/affect/            ${(af.bytes / 1024).toFixed(0)} KB  ·  ${af.moods} moods × ${af.models} models, clock hours as the control, $${af.spend.toFixed(2)}`);
+console.log(`site/instruments/lattice-claims/    ${(lc.bytes / 1024).toFixed(0)} KB  ·  ${lc.rollouts} rollouts × ${lc.models} models, ${lc.caught}/${lc.forgeries} forgeries caught`);
+console.log(`site/instruments/rewire/            ${(rw.bytes / 1024).toFixed(0)} KB  ·  ${rw.instances} instances, exact ${rw.exact} · tolerance ${rw.tol} · careful ${rw.careful}, cliff at dim ${rw.cliff}`);
 console.log(`@ git ${git}`);

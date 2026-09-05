@@ -1,0 +1,52 @@
+/* report.css — the shell for a scrolling report page.
+ *
+ * WHAT THIS FILE CLAIMS:
+ *   .note              the boxed monospace aside that carries a page's findings
+ *   .grid              a grid of shaded cells; `--f` on a cell shades it 0..1
+ *   .figrow .figcap    figure rows and their captions
+ *
+ * `.grid-t` and `.gr` are the two names three builders independently invented
+ * for the same grid. They are aliased here rather than renamed, so the
+ * definition lives in one place without rewriting markup that works; new pages
+ * use `.grid`.
+ *
+ * Inlined by the builders that need it, not linked: a published page here is one
+ * self-contained file. Everything else is tokens.css + base.css. */
+
+.note {
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); line-height: 1.75;
+  color: var(--ink-4); background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius-s);
+  padding: var(--s-4); margin-top: var(--s-4);
+}
+.note b { color: var(--ink-2); font-weight: 500; }
+.note em { color: var(--ink-3); font-style: italic; }
+
+.grid, .grid-t, .gr {
+  display: grid; gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  overflow: hidden; margin-top: var(--s-5);
+}
+.grid > div, .grid-t > div, .gr > div {
+  background: var(--bg-raised); padding: 8px var(--s-4);
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.grid .h, .grid-t .h, .gr .h {
+  color: var(--ink-5); font-size: 9px; letter-spacing: .11em; text-transform: uppercase;
+  display: flex; align-items: center;
+}
+.grid .ml, .gr .ml { color: var(--ink-3); }
+.grid .hit, .grid-t .hit { color: var(--ink); }
+/* a shaded cell: set --f in [0,1] inline; the shade is the only thing it means */
+.grid .c, .gr .c { background: color-mix(in srgb, #f6f6f8 calc(var(--f) * 13%), var(--bg-raised)); }
+.grid .c b, .gr .c b { color: var(--ink); font-weight: 500; }
+
+.figrow { display: grid; gap: var(--s-4); }
+.figrow figure { margin: 0; }
+.figcap {
+  display: flex; justify-content: space-between; gap: var(--s-3); margin-top: 6px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+}
+.figcap .k { color: var(--ink-2); }
+.figcap .v { color: var(--ink-5); text-transform: none; letter-spacing: .04em; }

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The rule is a wire you cannot draw — cert-machine</title>
-<meta name="description" content="Two verification rules as conditions on a connection: a float has no wire into a port that decides. 39 certified cells re-derived through the graph, worst relative difference 0.00e+0.">
+<title>Rewire it yourself — cert-machine</title>
+<meta name="description" content="Twenty-four lattice claims with exact answers, three graders, and one socket that only an exact one may reach. Drag a different certifier and watch the admitted count move.">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="The rule is a wire you cannot draw — cert-machine">
-<meta property="og:description" content="Two verification rules as conditions on a connection: a float has no wire into a port that decides. 39 certified cells re-derived through the graph, worst relative difference 0.00e+0.">
+<meta property="og:title" content="Rewire it yourself — cert-machine">
+<meta property="og:description" content="Twenty-four lattice claims with exact answers, three graders, and one socket that only an exact one may reach. Drag a different certifier and watch the admitted count move.">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="../design/tokens.css">
 <style>
@@ -335,157 +335,169 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
 }
 </style>
-<style>/* page.css — only what this page uses once. The furniture is in
-   playground/design/components.js; the graph's own marks come from
-   render.mjs's CSS, which the editor injects into its own <svg>. */
-.ug-wrap { margin-top: var(--s-5); }
-.ug-host { position: relative; width: 100%; min-height: 320px;
-  border: 1px solid var(--border); border-radius: var(--radius-l); overflow: hidden; }
-.ug-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3);
-  margin-top: var(--s-4); }
-.ug-btn { font-family: var(--font-mono); font-size: var(--text-eyebrow);
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);
-  background: var(--bg-raised); border: 1px solid var(--border);
-  border-radius: var(--radius-s); padding: 8px 12px; cursor: pointer; }
-.ug-btn:hover { border-color: var(--border-strong); color: var(--ink); }
-/* the engine's sentence, and the two states it can be in. Severity is never
-   colour alone here either: a refusal gets a rule down its left edge as well. */
-.ug-say { font-family: var(--font-mono); font-size: var(--text-small);
-  color: var(--ink-4); line-height: 1.5; }
-.ug-say.refused { color: var(--ink-2); border-left: 2px solid var(--border-strong);
-  padding-left: var(--s-3); }
-.ug-say.ok { color: var(--ink-4); }
-.refusal { white-space: pre-wrap; }
-</style>
+<style>/* instrument.css — the shell for a full-viewport instrument.
+ *
+ * WHAT THIS FILE CLAIMS, so a page that borrows it knows what it inherited:
+ *   #stage         the canvas. position, inset, AND width:100%.
+ *   .panel .pt     the control panel and its toggle
+ *   .ov .rd .cap   the floating overlays and readouts
+ *   .ctrl .row-btns .chip .grp .hr-thin .note-sm   the controls inside the panel
+ *
+ * `#stage` carries `width:100%`. A page that wants to inset the canvas with a
+ * `right:` rule must also set `width:auto`, because a percentage width beats an
+ * inset — the canvas otherwise runs underneath the panel and the last thing in
+ * it is invisible. That cost an afternoon once; it is written down now.
+ *
+ * Everything else is tokens.css + base.css. */
+html, body { height: 100%; overflow: hidden; }
+body { background: var(--bg); }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 30; background: linear-gradient(var(--bg), rgba(10,10,12,0)); border: 0; }
+.footer { display: none; }
+main { position: fixed; inset: 0; width: 100vw; height: 100vh; }
+
+#stage { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.ov { position: absolute; z-index: 10; pointer-events: none; }
+.ov * { pointer-events: auto; }
+
+.ov-title { left: clamp(1rem, 3vw, 2.5rem); top: clamp(4.5rem, 9vh, 6.5rem); max-width: 32ch; }
+.ov-title h1 { font-size: clamp(1.6rem, 1rem + 1.9vw, 2.7rem); line-height: 1.06; letter-spacing: var(--track-display); font-weight: var(--weight-display); }
+.ov-title p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-3); max-width: 40ch; }
+
+.ov-foot { left: clamp(1rem, 3vw, 2.5rem); bottom: clamp(1rem, 3vh, 2rem); max-width: 46ch; }
+.ov-foot .cap { font-size: var(--text-small); color: var(--ink-3); line-height: 1.5; }
+.ov-foot .src { margin-top: var(--s-3); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+
+.rd { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-6); margin-bottom: var(--s-3); }
+.rd .item { display: flex; flex-direction: column; gap: 2px; }
+.rd .k { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-5); }
+.rd .v { font-family: var(--font-mono); font-size: var(--text-small); color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* ---- control panel ---- */
+.panel { position: absolute; z-index: 20; right: 0; top: 0; bottom: 0; width: min(330px, 88vw);
+  background: rgba(16,16,20,0.86); backdrop-filter: blur(14px); border-left: 1px solid var(--border);
+  padding: clamp(4.5rem, 9vh, 6rem) var(--s-5) var(--s-5); overflow-y: auto; transition: transform var(--dur-med) var(--ease-out); }
+body.panel-hidden .panel { transform: translateX(100%); }
+.panel::-webkit-scrollbar { width: 6px; }
+.panel::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+.pt { position: absolute; z-index: 25; bottom: clamp(1rem, 3vh, 2rem); right: min(330px, 88vw); transform: none;
+  margin-right: var(--s-4); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  background: var(--surface); border: 1px solid var(--border-strong); color: var(--ink-3); border-radius: var(--radius-s);
+  padding: 0.5em 0.8em; cursor: pointer; transition: all var(--dur-med) var(--ease-out); }
+body.panel-hidden .pt { right: 0; margin-right: var(--gutter); }
+.pt:hover { color: var(--ink); border-color: var(--ink-3); }
+
+.grp { margin-bottom: var(--s-5); }
+.grp > .eyebrow { display: block; margin-bottom: var(--s-3); font-size: 9px; }
+.hr-thin { border: 0; border-top: 1px solid var(--border); margin: var(--s-5) 0; }
+
+.ctrl { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 2px var(--s-3); margin-bottom: var(--s-3); }
+.ctrl label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-4); }
+.ctrl output { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.ctrl input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--ink-2); background: transparent; height: 18px; }
+
+.row-btns { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.row-btns button, .chip {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.5em 0.75em; border-radius: var(--radius-s); background: transparent;
+  border: 1px solid var(--border-strong); color: var(--ink-4); cursor: pointer; transition: all var(--dur-fast); }
+.row-btns button:hover, .chip:hover { color: var(--ink-2); border-color: var(--ink-4); }
+.row-btns button.on, .chip.on { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.chip { border-radius: var(--radius-pill); }
+.chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+
+.note-sm { margin-top: var(--s-3); font-family: var(--font-mono); font-size: 9px; line-height: 1.6; color: var(--ink-5); }
+.note-sm a { color: var(--ink-3); border-bottom: 1px solid var(--border-strong); }
+
+/* ---- about sheet ---- */
+.sheet { position: absolute; z-index: 40; inset: 0; background: rgba(10,10,12,0.96); backdrop-filter: blur(18px);
+  overflow-y: auto; padding: clamp(5rem, 11vh, 8rem) var(--gutter) var(--s-8); opacity: 0; visibility: hidden; transition: opacity var(--dur-med); }
+body.sheet-open .sheet { opacity: 1; visibility: visible; }
+.sheet .inner { max-width: 68ch; margin-inline: auto; }
+.sheet h2 { font-size: var(--text-2); margin-bottom: var(--s-4); }
+.sheet h3 { font-size: 1rem; margin-top: var(--s-6); margin-bottom: var(--s-2); }
+.sheet p { font-size: var(--text-small); line-height: 1.7; color: var(--ink-3); margin-top: var(--s-3); }
+.sheet code, .sheet pre { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-2); }
+.sheet pre { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--s-4); margin-top: var(--s-4); overflow-x: auto; }
+.sheet table { width: 100%; margin-top: var(--s-4); font-family: var(--font-mono); font-size: var(--text-eyebrow); }
+.sheet th { text-align: left; color: var(--ink-4); font-weight: 500; padding: var(--s-2) var(--s-3) var(--s-2) 0; border-bottom: 1px solid var(--border); }
+.sheet td { padding: var(--s-2) var(--s-3) var(--s-2) 0; border-bottom: 1px solid var(--border); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.sheet .close { position: fixed; top: clamp(4.6rem, 9vh, 6.1rem); right: var(--gutter); bottom: auto; }
+
+@media (max-width: 760px) {
+  .ov-title { top: 4.2rem; }
+  .ov-title p { display: none; }
+  .ov-foot .cap { display: none; }
+}
+
+/* the site nav floats over a full-viewport instrument, as on /instruments/interferometer */
+.topnav { background: linear-gradient(var(--bg), rgba(10,10,12,0)); border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
+body { padding-top: 0; }
+/* the stage stops where the panel starts, or the last node in the graph sits
+   underneath it */
+/* width:auto is load-bearing: instrument.css sets #stage{width:100%}, and a
+   percentage width beats the right inset, so the canvas ran under the panel */
+#stage{position:absolute;top:0;bottom:0;left:0;right:min(330px,88vw);width:auto;height:auto;transition:right var(--dur-med) var(--ease-out);}
+body.panel-hidden #stage{right:0;}
+#stage svg{width:100%;height:100%;}
+.cap.bad{color:var(--ink);}
+.note-sm b{color:var(--ink-2);font-weight:500;}</style>
 </head>
 <body>
 <nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<main>
+<div class="ov ov-title">
+  <div class="eyebrow">environment &middot; the certifier is a wire</div>
+  <h1 style="margin-top:var(--s-3); max-width:14ch;">Rewire it yourself</h1>
+  <p style="max-width:36ch;">24 lattice claims, each with an exact answer. Three graders are offered and only one may reach the verdict socket. Drag a different one and watch the number move &mdash; or find out why it is refused.</p>
+</div>
 
-<header class="hero"><div class="wrap">
-  <div class="eyebrow">instruments &middot; graph &middot; 39 cells re-derived at build time</div>
-  <h1>The rule is a wire you cannot draw.</h1>
-  <p class="lede">Every verifier has rules about what may decide what, and they are
-  almost always prose in a README. Here two of them are <b>conditions on a
-  connection</b>: a value that came from floating point has no wire into a port
-  that decides, and a hypothesis stamp may not meet a different one. Break either
-  and nothing scores badly &mdash; <b>it does not build</b>, and what you get back
-  is the sentence the engine raised.</p>
-</div></header>
+<div id="stage"></div>
 
-<section class="wrap">
-  <h2>One certified cell, wired</h2>
-  <p>This is a real cell of TERRA's certified sigma-band, drawn as the graph that
-  decides it. The band hands three exact intervals to the radii polynomial; the
-  polynomial is the only thing here that may conclude anything, and its three
-  verdict ports are drawn whether or not they fire. <b>That is the point of
-  drawing them:</b> a one-sided method that can certify and refuse but never
-  refute has a dark port, and the picture says so instead of the caption.</p>
-  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 194" class="ug">
-<style>
-.ug .bg { fill:var(--paper,#0a0a0c); }
-.ug .nd { fill:var(--bg-raised,#101014); stroke:var(--ink,#f6f6f8); stroke-opacity:.22; }
-.ug .nd.inst { stroke-opacity:.45; }
-.ug .sep { stroke:var(--ink,#f6f6f8); stroke-opacity:.14; }
-.ug .nt { fill:var(--ink-2,#c9c9d2); font-family:ui-monospace,Menlo,monospace; font-size:8px; }
-.ug .pl { fill:var(--ink-3,#9a9aa6); font-family:ui-monospace,Menlo,monospace; font-size:6.5px; }
-.ug .pl.fired { fill:var(--ink,#f6f6f8); }
-.ug .cap { fill:var(--ink-4,#6e6e7a); font-family:ui-monospace,Menlo,monospace; font-size:7px; letter-spacing:.12em; }
-.ug .pt { fill:var(--paper,#0a0a0c); stroke:var(--ink,#f6f6f8); stroke-opacity:.6; stroke-width:1.2; }
-.ug .pt.dec { fill:var(--ink,#f6f6f8); fill-opacity:.75; stroke:none; }
-.ug .pt.idle { stroke-opacity:.28; }
-.ug .pt.fired { fill:var(--ink,#f6f6f8); stroke:var(--ink,#f6f6f8); }
-.ug .w { fill:none; stroke:var(--ink,#f6f6f8); stroke-width:1.2; }
-.ug .w.solid { stroke-opacity:.75; }
-.ug .w.dashed { stroke-opacity:.42; stroke-dasharray:5 4; }   /* grammar.js CLAIM */</style><rect width="560" height="194" class="bg"/>
-<text x="18" y="184" class="cap">the wiring that builds</text>
-<path d="M130,46 C160,46 162,110 192,110" class="w solid"/>
-<path d="M130,59 C160,59 162,123 192,123" class="w solid"/>
-<path d="M130,72 C160,72 162,136 192,136" class="w solid"/>
-<path d="M130,46 C160,46 162,46 192,46" class="w solid"/>
-<rect x="18" y="18" width="112" height="68" rx="4" class="nd"/>
-<text x="26" y="32" class="nt">the sigma band</text>
-<line x1="18" y1="33" x2="130" y2="33" class="sep"/>
-<circle cx="130" cy="46" r="2.4" class="pt"/>
-<text x="122" y="48.6" class="pl" text-anchor="end">Y0</text>
-<circle cx="130" cy="59" r="2.4" class="pt"/>
-<text x="122" y="61.6" class="pl" text-anchor="end">Z1</text>
-<circle cx="130" cy="72" r="2.4" class="pt"/>
-<text x="122" y="74.6" class="pl" text-anchor="end">Z2</text>
-<rect x="192" y="18" width="112" height="42" rx="4" class="nd"/>
-<text x="200" y="32" class="nt">float screen</text>
-<line x1="192" y1="33" x2="304" y2="33" class="sep"/>
-<circle cx="192" cy="46" r="2.4" class="pt"/>
-<text x="200" y="48.6" class="pl">Y0</text>
-<circle cx="304" cy="46" r="2.4" class="pt"/>
-<text x="296" y="48.6" class="pl" text-anchor="end">shortlist</text>
-<rect x="192" y="82" width="112" height="68" rx="4" class="nd inst"/>
-<text x="200" y="96" class="nt">radii polynomial</text>
-<line x1="192" y1="97" x2="304" y2="97" class="sep"/>
-<rect x="189.4" y="107.4" width="5.2" height="5.2" class="pt dec"/>
-<text x="200" y="112.6" class="pl">Y0</text>
-<rect x="189.4" y="120.4" width="5.2" height="5.2" class="pt dec"/>
-<text x="200" y="125.6" class="pl">Z1</text>
-<rect x="189.4" y="133.4" width="5.2" height="5.2" class="pt dec"/>
-<text x="200" y="138.6" class="pl">Z2</text>
-<circle cx="304" cy="110" r="2.4" class="pt idle"/>
-<text x="296" y="112.6" class="pl" text-anchor="end">certified</text>
-<circle cx="304" cy="123" r="2.4" class="pt idle"/>
-<text x="296" y="125.6" class="pl" text-anchor="end">refuted</text>
-<circle cx="304" cy="136" r="2.4" class="pt idle"/>
-<text x="296" y="138.6" class="pl" text-anchor="end">refused</text></svg>
-    <figcaption>Solid means the source emits a deciding kind; dashed means it
-    emits floats. The ink is read off the port type, never chosen &mdash; see
-    <span class="mono">design/CONTRACT.md</span> in the repository.</figcaption>
-  </figure>
-</section>
+<div class="ov ov-foot">
+  <div class="rd">
+    <span class="item"><span class="k">wired to verdict</span><span class="v" id="rWho">—</span></span>
+    <span class="item"><span class="k">admitted</span><span class="v" id="rV">—</span></span>
+    <span class="item"><span class="k">reported only</span><span class="v" id="rR">—</span></span>
+    <span class="item"><span class="k">difference</span><span class="v" id="rDelta">—</span></span>
+  </div>
+  <div class="cap" id="rCap">&nbsp;</div>
+  <div class="src">24 instances, dimensions 60, 90, 104, 120 &middot; the determinant overflows a double past dimension 102</div>
+</div>
 
-<section class="wrap">
-  <h2>Now try to break it</h2>
-  <p>Drag from the float screen's output to any input on the radii polynomial.
-  The editor implements no validity rule of its own: it calls the same
-  <span class="mono">wire()</span> the pipeline calls, inside a try, and shows
-  you whatever came back. It cannot disagree with the engine, because it has no
-  opinion.</p>
-  <div class="ug-wrap">
-    <div id="ug-host" class="ug-host"></div>
-    <div class="ug-bar">
-      <button id="ug-try" class="ug-btn" type="button">draw the forbidden wire</button>
-      <button id="ug-reset" class="ug-btn" type="button">reset</button>
-      <span id="ug-say" class="ug-say">drag a port to a port.</span>
+<button class="pt" id="panelToggle">controls</button>
+
+<aside class="panel">
+  <div class="grp">
+    <span class="eyebrow">the wiring</span>
+    <div class="row-btns">
+      <button id="cut">cut the verdict wire</button>
+      <button id="reset">restore the exact one</button>
+    </div>
+    <div class="note-sm">Square sockets are <b>deciding</b>: a value that came from floating point may not enter one. Round sockets only report. The rule is not in this page &mdash; it is in the engine, and the page shows whatever the engine says.</div>
+  </div>
+  <hr class="hr-thin">
+  <div class="grp">
+    <span class="eyebrow">what the numbers are</span>
+    <div class="note-sm">
+      <b>exact predicate</b> admits 12 of 24. Integers and a certified &pi; bracket; no floating point anywhere.<br><br>
+      <b>tolerance grader</b> admits 17. It converts the determinant to a double first, and past dimension 102 that is <span class="mono">Infinity</span> &mdash; so the Gaussian heuristic is infinite and every claim clears it.<br><br>
+      <b>careful float</b> admits 12. Log domain, never converts the determinant, and it agrees with the exact predicate on every one of these. <b>Precision was never the vulnerability here.</b>
     </div>
   </div>
-  <p class="note">With scripting off this page still says everything it claims;
-  the refusal below is captured at build time from the exception the engine
-  raises, not written by hand:</p>
-  <pre class="code refusal">THE FLOAT FIREBREAK: screen.shortlist carries floats and radii.Y0 decides.
-  A fast screen may prune. It may never reach a verdict.</pre>
-</section>
-
-<section class="wrap">
-  <h2>Why the runtime is worth trusting</h2>
-  <p>The graph is not a diagram of the arithmetic &mdash; it <em>is</em> the
-  arithmetic's wiring, and it was checked against work this repository already
-  holds. <span class="mono">replay.mjs</span> pushes every certified cell of the
-  sigma-band back through the radii node, so the certificate re-derives itself
-  instead of being quoted.</p>
-  <div class="stats" data-n="4">
-    <div class="stat"><div class="k">cells re-derived identically</div><div class="v">39 of 39</div>
-      <div class="g">every certified cell on disk, pushed back through the graph</div></div>
-    <div class="stat"><div class="k">worst relative difference</div><div class="v">0.00e+0</div>
-      <div class="g">not &ldquo;within tolerance&rdquo; &mdash; identical</div></div>
-    <div class="stat"><div class="k">disagreed</div><div class="v">0</div>
-      <div class="g">disagreement is the headline; a pass rate says nothing</div></div>
-    <div class="stat"><div class="k">verdict ports, always drawn</div><div class="v">3</div>
-      <div class="g">certified &middot; refuted &middot; refused &mdash; abstention as topology</div></div>
+  <hr class="hr-thin">
+  <div class="grp">
+    <span class="eyebrow">the same bug, two languages</span>
+    <div class="note-sm">In JavaScript <span class="mono">Number(q)</span> is <span class="mono">Infinity</span> and the grader admits everything. In Python <span class="mono">float(q)</span> <em>raises</em>, and the same grader admits 5 instead &mdash; it refuses everything above the cliff. Both are wrong, in opposite directions, and only the crash gets noticed.</div>
   </div>
-  <p class="note">Ported from frontier-apps and pinned by sha256 in
-  <span class="mono">corpus/frontier-port.json</span>. The same two rules exist a
-  second time, in Python, as a grader where a model answers with a wiring and
-  building the graph <em>is</em> the grading &mdash;
-  <span class="mono">instruments/wiring/</span>. A cross-check requires both
-  engines to refuse the same wiring in the same words.</p>
-</section>
-<script id="ug-spec" type="application/json">{"nodes":[{"id":"band","title":"the sigma band","inputs":[],"outputs":["Y0","Z1","Z2"],"deciding":[],"instrument":false,"emits":"interval"},{"id":"screen","title":"float screen","inputs":["Y0"],"outputs":["shortlist"],"deciding":[],"instrument":false,"emits":"float"},{"id":"radii","title":"radii polynomial","inputs":["Y0","Z1","Z2"],"outputs":["certified","refuted","refused"],"deciding":["Y0","Z1","Z2"],"instrument":true,"emits":"interval"}],"wires":[["band","Y0","radii","Y0"],["band","Z1","radii","Z1"],["band","Z2","radii","Z2"],["band","Y0","screen","Y0"]],"forbidden":["screen","shortlist","radii","Y0"]}</script>
+  <hr class="hr-thin">
+  <div class="grp">
+    <div class="note-sm">The graph runtime, the port types and this editor are <a href="../lattice-claims/index.html">the same source the tests run</a>, inlined rather than re-implemented.</div>
+  </div>
+</aside>
+
+<script id="rw-data" type="application/json">{"instances":[{"n":60,"qDigits":181,"ratio":1.1292,"exact":"REFUSED","naive":"REFUSED","careful":"REFUSED","overflows":false,"naiveJS":"REFUSED"},{"n":60,"qDigits":181,"ratio":1.11146,"exact":"REFUSED","naive":"REFUSED","careful":"REFUSED","overflows":false,"naiveJS":"REFUSED"},{"n":60,"qDigits":181,"ratio":1.04405,"exact":"ADMISSIBLE","naive":"ADMISSIBLE","careful":"ADMISSIBLE","overflows":false,"naiveJS":"ADMISSIBLE"},{"n":60,"qDigits":181,"ratio":0.94128,"exact":"ADMISSIBLE","naive":"ADMISSIBLE","careful":"ADMISSIBLE","overflows":false,"naiveJS":"ADMISSIBLE"},{"n":60,"qDigits":181,"ratio":1.11771,"exact":"REFUSED","naive":"REFUSED","careful":"REFUSED","overflows":false,"naiveJS":"REFUSED"},{"n":60,"qDigits":181,"ratio":1.07248,"exact":"REFUSED","naive":"REFUSED","careful":"REFUSED","overflows":false,"naiveJS":"REFUSED"},{"n":90,"qDigits":271,"ratio":0.94299,"exact":"ADMISSIBLE","naive":"ADMISSIBLE","careful":"ADMISSIBLE","overflows":false,"naiveJS":"ADMISSIBLE"},{"n":90,"qDigits":271,"ratio":1.06744,"exact":"REFUSED","naive":"REFUSED","careful":"REFUSED","overflows":false,"naiveJS":"REFUSED"},{"n":90,"qDigits":271,"ratio":1.04827,"exact":"ADMISSIBLE","naive":"ADMISSIBLE","careful":"ADMISSIBLE","overflows":false,"naiveJS":"ADMISSIBLE"},{"n":90,"qDigits":271,"ratio":0.99007,"exact":"ADMISSIBLE","naive":"ADMISSIBLE","careful":"ADMISSIBLE","overflows":false,"naiveJS":"ADMISSIBLE"},{"n":90,"qDigits":271,"ratio":1.09498,"exact":"REFUSED","naive":"REFUSED","careful":"REFUSED","overflows":false,"naiveJS":"REFUSED"},{"n":90,"qDigits":271,"ratio":1.06904,"exact":"REFUSED","naive":"REFUSED","careful":"REFUSED","overflows":false,"naiveJS":"REFUSED"},{"n":104,"qDigits":313,"ratio":1.01158,"exact":"ADMISSIBLE","naive":"OVERFLOW","careful":"ADMISSIBLE","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":104,"qDigits":313,"ratio":1.02393,"exact":"ADMISSIBLE","naive":"OVERFLOW","careful":"ADMISSIBLE","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":104,"qDigits":313,"ratio":1.04494,"exact":"ADMISSIBLE","naive":"OVERFLOW","careful":"ADMISSIBLE","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":104,"qDigits":314,"ratio":1.05127,"exact":"REFUSED","naive":"OVERFLOW","careful":"REFUSED","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":104,"qDigits":313,"ratio":1.02113,"exact":"ADMISSIBLE","naive":"OVERFLOW","careful":"ADMISSIBLE","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":104,"qDigits":314,"ratio":1.00855,"exact":"ADMISSIBLE","naive":"OVERFLOW","careful":"ADMISSIBLE","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":120,"qDigits":362,"ratio":1.15408,"exact":"REFUSED","naive":"OVERFLOW","careful":"REFUSED","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":120,"qDigits":362,"ratio":1.14017,"exact":"REFUSED","naive":"OVERFLOW","careful":"REFUSED","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":120,"qDigits":362,"ratio":1.08664,"exact":"REFUSED","naive":"OVERFLOW","careful":"REFUSED","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":120,"qDigits":362,"ratio":1.13495,"exact":"REFUSED","naive":"OVERFLOW","careful":"REFUSED","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":120,"qDigits":362,"ratio":0.93989,"exact":"ADMISSIBLE","naive":"OVERFLOW","careful":"ADMISSIBLE","overflows":true,"naiveJS":"ADMISSIBLE"},{"n":120,"qDigits":362,"ratio":1.0104,"exact":"ADMISSIBLE","naive":"OVERFLOW","careful":"ADMISSIBLE","overflows":true,"naiveJS":"ADMISSIBLE"}],"dims":[60,90,104,120],"exactAdmits":12,"naiveAdmits":5,"carefulAdmits":12,"naiveJSAdmits":17,"naiveAgrees":12,"cliff":102}</script>
 <script>(function(){
 "use strict";
 /* ---- port.mjs ---- */
@@ -1048,85 +1060,113 @@ const EXTRA = `
 
 window.CERTUNIT = { node: node, graph: graph, mount: mount, tryWire: tryWire, FLOAT: FLOAT, INTERVAL: INTERVAL, RATIONAL: RATIONAL, GEOM: GEOM, WiringRefused: WiringRefused, CSS: CSS };
 })();</script>
-<script>/* app.js — the browser half. The page is complete without it: the builder drew
-   the graph server-side and the refusal is printed in the prose. This makes the
-   graph a thing you can pull on, and the ONLY thing it adds is that the engine
-   answers you itself.
+<script>(function(){ 'use strict';
+var CU = window.CERTUNIT; var graph = CU.graph, node = CU.node, mount = CU.mount, GEOM = CU.GEOM,
+  FLOAT = CU.FLOAT, INTERVAL = CU.INTERVAL, RATIONAL = CU.RATIONAL;
 
-   IT IMPLEMENTS NO VALIDITY RULE. Every attempted wire goes to graph.wire()
-   inside a try, and whatever came back is what the page shows — verbatim, not
-   paraphrased. That is the property editor.test.mjs checks over in
-   instruments/cert-unit: the UI cannot disagree with the engine about what is
-   legal, because it does not have an opinion. */
-(function () {
-  'use strict';
-  var CU = window.CERTUNIT;
-  var host = document.getElementById('ug-host');
-  var node = document.getElementById('ug-spec');
-  if (!CU || !host || !node) return;              /* the static page stands on its own */
 
-  var S = JSON.parse(node.textContent);
-  var say = document.getElementById('ug-say');
-  var positions = null;
+const D = JSON.parse(document.getElementById('rw-data').textContent);
+const $ = (id) => document.getElementById(id);
 
-  function build() {
-    var g = CU.graph('one certified cell');
-    S.nodes.forEach(function (n) { g.add(CU.node(n)); });
-    S.wires.forEach(function (w) { g.wire(w[0], w[1], w[2], w[3]); });
-    return g;
-  }
+const g = graph('does this certifier deserve the verdict port?');
+g.add(node({ id: 'src', title: 'instances', inputs: ['seed'], outputs: ['q', 'norm'],
+  emits: INTERVAL, run: () => ({ port: 'q', value: null }) }));
+g.add(node({ id: 'exact', title: 'exact predicate', instrument: true, inputs: ['q', 'norm'],
+  deciding: ['q', 'norm'], emits: RATIONAL, run: () => ({ port: 'certified', value: null }) }));
+g.add(node({ id: 'tol', title: 'tolerance grader', inputs: ['q', 'norm'], outputs: ['verdict'],
+  deciding: [], emits: FLOAT, run: () => ({ port: 'verdict', value: null }) }));
+g.add(node({ id: 'careful', title: 'careful float', inputs: ['q', 'norm'], outputs: ['verdict'],
+  deciding: [], emits: FLOAT, run: () => ({ port: 'verdict', value: null }) }));
+g.add(node({ id: 'tally', title: 'admitted', inputs: ['verdict', 'report'], outputs: ['count'],
+  deciding: ['verdict'], emits: RATIONAL, run: () => ({ port: 'count', value: null }) }));
+g.wire('src', 'q', 'exact', 'q'); g.wire('src', 'norm', 'exact', 'norm');
+g.wire('src', 'q', 'tol', 'q');   g.wire('src', 'norm', 'tol', 'norm');
+g.wire('src', 'q', 'careful', 'q'); g.wire('src', 'norm', 'careful', 'norm');
+g.wire('exact', 'certified', 'tally', 'verdict');
 
-  var g = build();
+/* the tally reads the wiring; nothing is precomputed for a particular answer */
+const KEY = { exact: 'exact', tol: 'naiveJS', careful: 'careful' };
+const admits = (k) => D.instances.filter((i) => i[KEY[k]] === 'ADMISSIBLE').length;
+/* THE LAST WIRE IN, not the first (cert-machine, 2026-09-05). The report socket
+   only reports, so the engine lets a second grader be wired onto it; the
+   readout then showed the FIRST grader's count under a caption naming the
+   second. Found by dragging: tol -> report read 17, careful -> report still
+   read 17. The number now follows the caption. */
+const sourceInto = (port) => {
+  const ws = g.wires.filter((x) => x.toId === 'tally' && x.toPort === port);
+  return ws.length ? ws[ws.length - 1].fromId : null;
+};
 
-  function report(msg, refused) {
-    if (!say) return;
-    say.textContent = msg;
-    say.className = 'ug-say' + (refused ? ' refused' : ' ok');
-  }
+function readout() {
+  const v = sourceInto('verdict'), r = sourceInto('report');
+  const N = D.instances.length;
+  const base = admits('exact');
+  $('rV').textContent = v ? `${admits(v)} of ${N}` : 'nothing wired';
+  $('rR').textContent = r ? `${admits(r)} of ${N}` : 'nothing wired';
+  const shown = r || v;
+  $('rDelta').textContent = shown && shown !== 'exact'
+    ? `${admits(shown) - base > 0 ? '+' : ''}${admits(shown) - base} against the exact predicate`
+    : (v === 'exact' ? 'this is the exact answer' : '—');
+  $('rWho').textContent = v ? ({ exact: 'exact predicate', careful: 'careful float', tol: 'tolerance grader' })[v] : '—';
+  const fired = new Map();
+  if (v) fired.set(v, v === 'exact' ? 'certified' : 'verdict');
+  return fired;
+}
 
-  function draw() {
-    host.textContent = '';
-    /* mount returns { svg, pos, repaint, graph }; pos is what a redraw needs so
-       the reader's dragging is not undone every time the engine speaks */
-    var m = CU.mount(host, g, {
-      positions: positions,
-      /* mount calls onChange(msg, bad) — the engine's own message and whether
-         it was a refusal. The page repeats it and adds nothing. */
-      onChange: function (msg, bad) { if (msg) report(msg, !!bad); },
-    });
-    positions = (m && m.pos) || positions;
-  }
-
-  draw();
-
-  var btn = document.getElementById('ug-try');
-  if (btn) {
-    btn.addEventListener('click', function () {
-      var f = S.forbidden;
-      try {
-        g.wire(f[0], f[1], f[2], f[3]);
-        report('it built. That is a bug in the engine, not a feature of the page.', false);
-      } catch (e) {
-        report(e.message, true);                  /* the engine's words, not mine */
-      }
-      draw();
-    });
-  }
-
-  var reset = document.getElementById('ug-reset');
-  if (reset) reset.addEventListener('click', function () {
-    g = build(); positions = null; report('back to the wiring that builds.', false); draw();
+let view, keep = null;
+function draw(msg, bad) {
+  view = mount($('stage'), g, {
+    fired: readout, minSpan: 860, offsetX: 300, positions: keep,
+    /* a status message must NOT re-mount: doing so replaces the element the
+       pointer is captured on and the drag dies on its first move. */
+    onChange: (m, b) => { note(m, b); readout(); view.repaint(); },
   });
+  keep = view.pos;                 // a redraw must not undo a reader's drag
+  readout();
+  if (msg !== undefined) note(msg, bad);
+}
+function note(m, bad) {
+  const el = $('rCap');
+  el.textContent = m || 'Drag from a grader\u2019s output onto a socket on “admitted”. The square sockets decide; the round one only reports.';
+  el.className = 'cap' + (bad ? ' bad' : '');
+}
+draw();
 
-  /* THE #hash DEV HOOK — design/CONTRACT.md.  #set=try:1  fires the refusal on
-     load, so a screenshot can show the state a reader has to click to reach. */
-  function applyHash() {
-    var raw = decodeURIComponent((location.hash || '').replace(/^#/, ''));
-    if (/(?:^|[&;])set=([^&;]*)/.test(raw) && /try:1/.test(raw) && btn) btn.click();
-  }
-  window.addEventListener('hashchange', applyHash);
-  applyHash();
-})();
-</script>
+$('reset').onclick = () => {
+  g.wires = g.wires.filter((w) => w.toId !== 'tally');
+  try { g.wire('exact', 'certified', 'tally', 'verdict'); } catch (e) {}
+  draw('', false);
+};
+$('cut').onclick = () => { g.wires = g.wires.filter((w) => w.toId !== 'tally'); draw('every verdict wire cut — wire one yourself', false); };
+$('panelToggle').onclick = () => { document.body.classList.toggle('panel-hidden'); };
+
+/* #sim=from.port>to.port drives a real pointer drag, so the path under test is
+   the path a reader uses. ON hashchange TOO (cert-machine, 2026-09-05): a
+   navigation from the page to the same page with a hash is a same-document
+   navigation, so a hook that only runs at load looks dead to any driver that
+   opened the page first — which is how it was first reported dead here. */
+function applySim() { if (location.hash.startsWith('#sim=')) try {
+  const [a, b] = decodeURIComponent(location.hash.slice(5)).split('>');
+  const [fn, fp] = a.split('.'), [tn, tp] = b.split('.');
+  const at = (id, port, side) => {
+    const box = view.pos.get(id), n = g.nodes.get(id);
+    const list = side === 'out' ? n.outputs : n.inputs;
+    const pt = view.svg.createSVGPoint();
+    pt.x = side === 'out' ? box.x + box.w : box.x;
+    pt.y = box.y + GEOM.HEAD + 7 + list.indexOf(port) * GEOM.ROW;
+    const q2 = pt.matrixTransform(view.svg.getScreenCTM());
+    return { x: q2.x, y: q2.y };
+  };
+  const P = at(fn, fp, 'out'), Q = at(tn, tp, 'in');
+  view.svg.setPointerCapture = () => {};
+  const ev = (t, p) => view.svg.dispatchEvent(new PointerEvent(t, {
+    clientX: p.x, clientY: p.y, bubbles: true, pointerId: 1, isPrimary: true }));
+  ev('pointerdown', P); ev('pointermove', Q); ev('pointerup', Q);
+} catch (e) { note('SIM ERROR: ' + e.message, true); } }
+window.addEventListener('hashchange', applySim);
+applySim();
+
+})();</script></main>
+
 </body>
 </html>

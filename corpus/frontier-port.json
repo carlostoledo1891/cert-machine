@@ -7,14 +7,17 @@
   "instruments/cert-unit/replay.mjs": "../mfg-terra/band-sigma-0.0008-0.008.json -> ../../playground/plates/data/ (cert-machine's own copy of the same band); and (2026-09-05) exits non-zero on any disagreement, so the control build can run it as a battery",
   "instruments/cert-unit/reds.mjs": "same band repoint as replay.mjs",
   "instruments/cert-unit/trace.mjs": "same band repoint, plus ../interferometer/cert-cp.js -> ../../playground/interferometer/cert-cp.js",
-  "instruments/cert-unit/render.mjs": "the CSS block's literal hex was frontier's palette; three values (#111114, #e8e8ee, #83838f) are on no scale this site owns and check-wiring caught them. Replaced with house tokens, each keeping the original as its var() fallback so the module still draws outside a page that defines them."
+  "instruments/cert-unit/render.mjs": "the CSS block's literal hex was frontier's palette; three values (#111114, #e8e8ee, #83838f) are on no scale this site owns and check-wiring caught them. Replaced with house tokens, each keeping the original as its var() fallback so the module still draws outside a page that defines them.",
+  "instruments/cert-unit/contact.mjs": "two CSS literals were frontier's palette and on no scale this site owns: .cp #5f5f6b -> #6e6e7a (--ink-4), .ct #e8e8ee -> #f6f6f8 (--ink), so the contact sheet passes the palette gate when a page inlines it (2026-09-05)"
  },
  "notPorted": {
   "the marks": "circumplex plate, envelope ruler, contact-sheet glyph, deformation field, ensemble renderer \u2014 designed for their own data; generalising them early makes them worse (operator instruction).",
   "template.js": "cert-machine's design/template.js + nav.js win: they carry the nav, SEO, OG and the gates, and frontier's 72-line shell carries none of that.",
   "tokens.css / base.css": "already ported 2026-09-01 into design/tokens.js under house names; the reference bytes are the frontier-ref rows below and still match.",
   "frontier-theme.js + echarts": "deferred. Operator correction 2026-09-05: only 4 of 14 frontier pages load ECharts, all older; the chart engine is 'write the mark, derive its ink, emit a string'.",
-  "the eval harness": "environments/lattice-claims/eval/ is the origin's runner; cert-machine has its own in instruments/envs. The package and its tests came across; the runner did not."
+  "the eval harness": "environments/lattice-claims/eval/ is the origin's runner; cert-machine has its own in instruments/envs. The package and its tests came across; the runner did not.",
+  "environments/lattice-claims": "pinned in instruments/wiring/PROVENANCE.json since 2026-09-05 (the whole environment, updated to session 17); the rows that were here moved there so one file is not pinned in two places.",
+  "site/design/report.css + instrument.css": "ported 2026-09-05 as reference bytes in design/frontier-ref/, inlined by the two lattice-claims page builders under playground/. The site's shell, nav and gates stay cert-machine's own."
  },
  "files": [
   {
@@ -35,8 +38,8 @@
    "source": "experiments/cert-unit/contact.mjs",
    "dest": "instruments/cert-unit/contact.mjs",
    "sourceSha256": "9e398c4126602d5395662db90ceed46307ec978f785d77bac8db7acd9348fd97",
-   "destSha256": "9e398c4126602d5395662db90ceed46307ec978f785d77bac8db7acd9348fd97",
-   "patched": false
+   "destSha256": "23245a6750f0de9e964f4746f942118ebbead9b5f32c00bba1ca505c8d7ab00d",
+   "patched": true
   },
   {
    "source": "experiments/cert-unit/demo.mjs",
@@ -158,66 +161,17 @@
    "patched": false
   },
   {
-   "source": "environments/lattice-claims/lattice_claims/__init__.py",
-   "dest": "instruments/wiring/lattice_claims/__init__.py",
-   "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "destSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "source": "site/design/report.css",
+   "dest": "design/frontier-ref/report.css",
+   "sourceSha256": "b5d1c322795e58be4681dfe8df4e8a311b32f6c6abd4b05f4755c215f3f076b0",
+   "destSha256": "b5d1c322795e58be4681dfe8df4e8a311b32f6c6abd4b05f4755c215f3f076b0",
    "patched": false
   },
   {
-   "source": "environments/lattice-claims/lattice_claims/forgeries.py",
-   "dest": "instruments/wiring/lattice_claims/forgeries.py",
-   "sourceSha256": "5601338bb686413e2c25738782130695d4456e61dda5ce383978973ea1fb91f7",
-   "destSha256": "5601338bb686413e2c25738782130695d4456e61dda5ce383978973ea1fb91f7",
-   "patched": false
-  },
-  {
-   "source": "environments/lattice-claims/lattice_claims/generate.py",
-   "dest": "instruments/wiring/lattice_claims/generate.py",
-   "sourceSha256": "a7b2ec9b9a76ed1cbb4d2a8a8b124b04575e635af4b1e8e54ba562bdd25533a6",
-   "destSha256": "a7b2ec9b9a76ed1cbb4d2a8a8b124b04575e635af4b1e8e54ba562bdd25533a6",
-   "patched": false
-  },
-  {
-   "source": "environments/lattice-claims/lattice_claims/taskset.py",
-   "dest": "instruments/wiring/lattice_claims/taskset.py",
-   "sourceSha256": "35b3490037393f763fe6bc7e695ef5119d811ca6b953b314f16dbe4d175e781d",
-   "destSha256": "35b3490037393f763fe6bc7e695ef5119d811ca6b953b314f16dbe4d175e781d",
-   "patched": false
-  },
-  {
-   "source": "environments/lattice-claims/lattice_claims/wiring.py",
-   "dest": "instruments/wiring/lattice_claims/wiring.py",
-   "sourceSha256": "3fd98b25454a9fedb76d4f7235f3c14ae53234a57e2e553bf0035cea251fd437",
-   "destSha256": "3fd98b25454a9fedb76d4f7235f3c14ae53234a57e2e553bf0035cea251fd437",
-   "patched": false
-  },
-  {
-   "source": "environments/lattice-claims/lattice_claims/certify/__init__.py",
-   "dest": "instruments/wiring/lattice_claims/certify/__init__.py",
-   "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "destSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "patched": false
-  },
-  {
-   "source": "environments/lattice-claims/lattice_claims/certify/exact.py",
-   "dest": "instruments/wiring/lattice_claims/certify/exact.py",
-   "sourceSha256": "f5a8ff133952c353cc98e1764c73260837e7070b564924231b3912422d860d4e",
-   "destSha256": "f5a8ff133952c353cc98e1764c73260837e7070b564924231b3912422d860d4e",
-   "patched": false
-  },
-  {
-   "source": "environments/lattice-claims/lattice_claims/certify/naive.py",
-   "dest": "instruments/wiring/lattice_claims/certify/naive.py",
-   "sourceSha256": "97e565e8d6d1a6d170f4e4d422e7c1d39003079a8d7942bdb8ebfc30f7cf90a4",
-   "destSha256": "97e565e8d6d1a6d170f4e4d422e7c1d39003079a8d7942bdb8ebfc30f7cf90a4",
-   "patched": false
-  },
-  {
-   "source": "environments/lattice-claims/tests/test_wiring.py",
-   "dest": "instruments/wiring/test_wiring.py",
-   "sourceSha256": "47e03d941d7a9f3ce039c11bd890759ed6a3382b831d94521d10020d04be6784",
-   "destSha256": "47e03d941d7a9f3ce039c11bd890759ed6a3382b831d94521d10020d04be6784",
+   "source": "site/design/instrument.css",
+   "dest": "design/frontier-ref/instrument.css",
+   "sourceSha256": "05e0980cdc3884492b04e0f8b1656391c59af6a408f489ee17d0c46a3053d3b4",
+   "destSha256": "05e0980cdc3884492b04e0f8b1656391c59af6a408f489ee17d0c46a3053d3b4",
    "patched": false
   }
  ]

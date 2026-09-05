@@ -1,0 +1,13 @@
+[project]
+name = "lattice-claims"
+version = "0.1.0"
+description = "Decide claims about short lattice vectors exactly, or refuse them for naming the quantity they omit."
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["lattice", "post-quantum", "exact-arithmetic", "verification", "abstention", "certification"]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[tool.setuptools.packages.find]
+include = ["lattice_claims*"]

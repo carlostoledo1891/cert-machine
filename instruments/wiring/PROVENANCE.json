@@ -1,0 +1,185 @@
+{
+  "what": "lattice-claims, ported whole: the package (grader, taskset, forgeries, policies, CLI), its tests, the eval scripts, and the records — 135 rollouts, 45 wiring rollouts, the four refutation facts, the 24 overflow-cliff instances, and the page data.",
+  "liftedFrom": "/Users/carlostoledo/Documents/frontier-apps/environments/lattice-claims",
+  "liftedOn": "2026-09-05",
+  "history": "The records came first (the same afternoon; the eval PROVENANCE this file replaces pinned results.json and refutations.json). The package snapshot here was one session behind the grader that graded those records — taskset.py and forgeries.py stale, policies.py and __main__.py absent — which frontier's PORT-TO-CERT-MACHINE.md (session 17) named. This is the update.",
+  "why": "The pinned rollouts are the RE-GRADED record; a grader that is not the one that graded them is a claim about a different set. eval/regrade.py measures exactly that against the stored raws and must report 0 rows moved — instruments/wiring/battery.py runs it every build.",
+  "rule": "Copied byte-for-byte and pinned by sha256; frontier-apps has no git, so the hash is the only pin. The source tree is read-only. Nothing here is a lift from sin-mfg. Model calls (eval/run_models.py) are never made by a battery; the record is what was run there.",
+  "acceptance": {
+    "pytest tests": "18 passed",
+    "python3 -m lattice_claims gate": "10 planted, 0 accepted",
+    "python3 -m lattice_claims baseline --n 15": "exact 45/45 · careful 26/45 · admissible 14/45 · refused 12/45",
+    "python3 eval/regrade.py": "135 rows re-graded; certified 76 -> 76; 0 rows moved",
+    "verifiedOn": "2026-09-05"
+  },
+  "files": [
+    {
+      "file": "lattice_claims/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "patched": false
+    },
+    {
+      "file": "lattice_claims/__main__.py",
+      "sha256": "df0a52d71303ee7dc7b95a2a0e92891e789f3b9e8e108136efc30417c5f34a67",
+      "sourceSha256": "df0a52d71303ee7dc7b95a2a0e92891e789f3b9e8e108136efc30417c5f34a67",
+      "bytes": 1968,
+      "patched": false
+    },
+    {
+      "file": "lattice_claims/forgeries.py",
+      "sha256": "201b03e6532c3a2faab1a0b1d7303a29d7a3b60b9b9360e28718d4919db30af7",
+      "sourceSha256": "201b03e6532c3a2faab1a0b1d7303a29d7a3b60b9b9360e28718d4919db30af7",
+      "bytes": 5721,
+      "patched": false
+    },
+    {
+      "file": "lattice_claims/generate.py",
+      "sha256": "a7b2ec9b9a76ed1cbb4d2a8a8b124b04575e635af4b1e8e54ba562bdd25533a6",
+      "sourceSha256": "a7b2ec9b9a76ed1cbb4d2a8a8b124b04575e635af4b1e8e54ba562bdd25533a6",
+      "bytes": 5653,
+      "patched": false
+    },
+    {
+      "file": "lattice_claims/policies.py",
+      "sha256": "ca49b450b90fc2b1c969bf4b408a13c62241acf14b395e4567fd032158f5eba6",
+      "sourceSha256": "ca49b450b90fc2b1c969bf4b408a13c62241acf14b395e4567fd032158f5eba6",
+      "bytes": 3658,
+      "patched": false
+    },
+    {
+      "file": "lattice_claims/taskset.py",
+      "sha256": "0894f490c45e19daf5f49767bfce995a31db34e14145d7d11992be66e227ddc0",
+      "sourceSha256": "0894f490c45e19daf5f49767bfce995a31db34e14145d7d11992be66e227ddc0",
+      "bytes": 12476,
+      "patched": false
+    },
+    {
+      "file": "lattice_claims/wiring.py",
+      "sha256": "3fd98b25454a9fedb76d4f7235f3c14ae53234a57e2e553bf0035cea251fd437",
+      "sourceSha256": "3fd98b25454a9fedb76d4f7235f3c14ae53234a57e2e553bf0035cea251fd437",
+      "bytes": 8254,
+      "patched": false
+    },
+    {
+      "file": "lattice_claims/certify/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "patched": false
+    },
+    {
+      "file": "lattice_claims/certify/exact.py",
+      "sha256": "f5a8ff133952c353cc98e1764c73260837e7070b564924231b3912422d860d4e",
+      "sourceSha256": "f5a8ff133952c353cc98e1764c73260837e7070b564924231b3912422d860d4e",
+      "bytes": 5852,
+      "patched": false
+    },
+    {
+      "file": "lattice_claims/certify/naive.py",
+      "sha256": "97e565e8d6d1a6d170f4e4d422e7c1d39003079a8d7942bdb8ebfc30f7cf90a4",
+      "sourceSha256": "97e565e8d6d1a6d170f4e4d422e7c1d39003079a8d7942bdb8ebfc30f7cf90a4",
+      "bytes": 2034,
+      "patched": false
+    },
+    {
+      "file": "tests/test_forgeries.py",
+      "sha256": "668b7c4e9b034cc5bc0e5694d7f1829aa50f7674b7a3f4a5290b9d76bfe6c9b8",
+      "sourceSha256": "668b7c4e9b034cc5bc0e5694d7f1829aa50f7674b7a3f4a5290b9d76bfe6c9b8",
+      "bytes": 4619,
+      "patched": false
+    },
+    {
+      "file": "tests/test_wiring.py",
+      "sha256": "47e03d941d7a9f3ce039c11bd890759ed6a3382b831d94521d10020d04be6784",
+      "sourceSha256": "47e03d941d7a9f3ce039c11bd890759ed6a3382b831d94521d10020d04be6784",
+      "bytes": 3119,
+      "patched": false
+    },
+    {
+      "file": "eval/regrade.py",
+      "sha256": "a9975f937f68eaec2d89a6d2081d80863840a51d04e0eb00bcf82a0e744e3aa1",
+      "sourceSha256": "a9975f937f68eaec2d89a6d2081d80863840a51d04e0eb00bcf82a0e744e3aa1",
+      "bytes": 2060,
+      "patched": false
+    },
+    {
+      "file": "eval/page_data.py",
+      "sha256": "d55467bc41e7d85d940e49819e0fbdb9b45e3c2f585bba11f745679fd36aa2cc",
+      "sourceSha256": "d55467bc41e7d85d940e49819e0fbdb9b45e3c2f585bba11f745679fd36aa2cc",
+      "bytes": 3949,
+      "patched": false
+    },
+    {
+      "file": "eval/run_models.py",
+      "sha256": "dc96edf12344715bad91f1c4fc70534b2f2f1d7f029739fd6fd1851fb0956d13",
+      "sourceSha256": "dc96edf12344715bad91f1c4fc70534b2f2f1d7f029739fd6fd1851fb0956d13",
+      "bytes": 8950,
+      "patched": false
+    },
+    {
+      "file": "eval/rewire_data.py",
+      "sha256": "4b970105d1a6c601b68a34fa33164140489c4b378e74155113c1b6548ac4558a",
+      "sourceSha256": "4b970105d1a6c601b68a34fa33164140489c4b378e74155113c1b6548ac4558a",
+      "bytes": 2675,
+      "patched": false
+    },
+    {
+      "file": "eval/refutations.py",
+      "sha256": "4a8ab020482028b593404a446e695cd332d5af6e5a1a6f5b4e3f1d75d952a3e6",
+      "sourceSha256": "4a8ab020482028b593404a446e695cd332d5af6e5a1a6f5b4e3f1d75d952a3e6",
+      "bytes": 3027,
+      "patched": false
+    },
+    {
+      "file": "eval/results.json",
+      "sha256": "daaac4700d394d55ab230ac57838600e05f43a4e53768e4708fb0374511a3995",
+      "sourceSha256": "daaac4700d394d55ab230ac57838600e05f43a4e53768e4708fb0374511a3995",
+      "bytes": 101239,
+      "patched": false
+    },
+    {
+      "file": "eval/refutations.json",
+      "sha256": "e447189bedf317644c182223ccda6f81af0b033bc87f5b8b2fb113ba329fa75b",
+      "sourceSha256": "e447189bedf317644c182223ccda6f81af0b033bc87f5b8b2fb113ba329fa75b",
+      "bytes": 1416,
+      "patched": false
+    },
+    {
+      "file": "eval/results-wiring.json",
+      "sha256": "ad24f352c3aec2bfca23b833bc23999625f9645691dbcae9cbc53a2321ebba24",
+      "sourceSha256": "ad24f352c3aec2bfca23b833bc23999625f9645691dbcae9cbc53a2321ebba24",
+      "bytes": 29043,
+      "patched": false
+    },
+    {
+      "file": "eval/rewire.json",
+      "sha256": "b15906cc2c01eb033b94ab2c621a3768f87a61598a82eee95fdf474a2b1e5fa0",
+      "sourceSha256": "b15906cc2c01eb033b94ab2c621a3768f87a61598a82eee95fdf474a2b1e5fa0",
+      "bytes": 3879,
+      "patched": false
+    },
+    {
+      "file": "eval/page.json",
+      "sha256": "5e78db80a4c7b0fb12c3e0b10197e6d83341c9c25fe449bc8f981eaef5c0666a",
+      "sourceSha256": "5e78db80a4c7b0fb12c3e0b10197e6d83341c9c25fe449bc8f981eaef5c0666a",
+      "bytes": 25729,
+      "patched": false
+    },
+    {
+      "file": "README.md",
+      "sha256": "e0fddd39f645d514b5292fc82a75fcc5b31b3f1a9a30d8d0f31aee82cb2c8e41",
+      "sourceSha256": "e0fddd39f645d514b5292fc82a75fcc5b31b3f1a9a30d8d0f31aee82cb2c8e41",
+      "bytes": 16156,
+      "patched": false
+    },
+    {
+      "file": "pyproject.toml",
+      "sha256": "b194074f7b003a5ba2c009c655be3403aff81534b86e0db7eb8672d6cf84bcef",
+      "sourceSha256": "b194074f7b003a5ba2c009c655be3403aff81534b86e0db7eb8672d6cf84bcef",
+      "bytes": 436,
+      "patched": false
+    }
+  ]
+}

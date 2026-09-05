@@ -107,10 +107,10 @@ check('translating only the region MAY move it — and the naive red fails here'
    drawing every rollout fails here rather than on a page. */
 const EVAL = new URL('../wiring/eval/', import.meta.url);
 const sha = (u) => createHash('sha256').update(readFileSync(u)).digest('hex');
-const PROV = JSON.parse(readFileSync(new URL('PROVENANCE.json', EVAL), 'utf8'));
+const PROV = JSON.parse(readFileSync(new URL('../wiring/PROVENANCE.json', import.meta.url), 'utf8'));
 check('the lattice-claims eval record matches its provenance pin', () => {
-  for (const f of PROV.files) {
-    const got = sha(new URL(f.file, EVAL));
+  for (const f of PROV.files.filter((x) => /^eval\/(results|refutations)\.json$/.test(x.file))) {
+    const got = sha(new URL('../wiring/' + f.file, import.meta.url));
     if (got !== f.sha256) throw new Error(`${f.file}: sha256 ${got.slice(0, 12)}… but PROVENANCE pins ${f.sha256.slice(0, 12)}…`);
   }
 });

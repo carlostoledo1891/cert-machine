@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 284" class="ug">
+<style>
+.ug .bg { fill:var(--paper,#0a0a0c); }
+.ug .nd { fill:var(--bg-raised,#101014); stroke:var(--ink,#f6f6f8); stroke-opacity:.22; }
+.ug .nd.inst { stroke-opacity:.45; }
+.ug .sep { stroke:var(--ink,#f6f6f8); stroke-opacity:.14; }
+.ug .nt { fill:var(--ink-2,#c9c9d2); font-family:ui-monospace,Menlo,monospace; font-size:8px; }
+.ug .pl { fill:var(--ink-3,#9a9aa6); font-family:ui-monospace,Menlo,monospace; font-size:6.5px; }
+.ug .pl.fired { fill:var(--ink,#f6f6f8); }
+.ug .cap { fill:var(--ink-4,#6e6e7a); font-family:ui-monospace,Menlo,monospace; font-size:7px; letter-spacing:.12em; }
+.ug .pt { fill:var(--paper,#0a0a0c); stroke:var(--ink,#f6f6f8); stroke-opacity:.6; stroke-width:1.2; }
+.ug .pt.dec { fill:var(--ink,#f6f6f8); fill-opacity:.75; stroke:none; }
+.ug .pt.idle { stroke-opacity:.28; }
+.ug .pt.fired { fill:var(--ink,#f6f6f8); stroke:var(--ink,#f6f6f8); }
+.ug .w { fill:none; stroke:var(--ink,#f6f6f8); stroke-width:1.2; }
+.ug .w.solid { stroke-opacity:.75; }
+.ug .w.dashed { stroke-opacity:.42; stroke-dasharray:5 4; }   /* grammar.js CLAIM */</style><rect width="560" height="284" class="bg"/>
+<text x="18" y="274" class="cap"></text>
+<path d="M130,46 C160,46 162,46 192,46" class="w solid"/>
+<path d="M130,59 C160,59 162,59 192,59" class="w solid"/>
+<path d="M130,46 C160,46 162,136 192,136" class="w solid"/>
+<path d="M130,59 C160,59 162,149 192,149" class="w solid"/>
+<path d="M130,46 C160,46 162,213 192,213" class="w solid"/>
+<path d="M130,59 C160,59 162,226 192,226" class="w solid"/>
+<path d="M304,46 C334,46 336,46 366,46" class="w solid"/>
+<rect x="18" y="18" width="112" height="55" rx="4" class="nd"/>
+<text x="26" y="32" class="nt">instances</text>
+<line x1="18" y1="33" x2="130" y2="33" class="sep"/>
+<circle cx="18" cy="46" r="2.4" class="pt"/>
+<text x="26" y="48.6" class="pl">seed</text>
+<circle cx="130" cy="46" r="2.4" class="pt"/>
+<text x="122" y="48.6" class="pl" text-anchor="end">q</text>
+<circle cx="130" cy="59" r="2.4" class="pt"/>
+<text x="122" y="61.6" class="pl" text-anchor="end">norm</text>
+<rect x="192" y="18" width="112" height="68" rx="4" class="nd inst"/>
+<text x="200" y="32" class="nt">exact predicate</text>
+<line x1="192" y1="33" x2="304" y2="33" class="sep"/>
+<rect x="189.4" y="43.4" width="5.2" height="5.2" class="pt dec"/>
+<text x="200" y="48.6" class="pl">q</text>
+<rect x="189.4" y="56.4" width="5.2" height="5.2" class="pt dec"/>
+<text x="200" y="61.6" class="pl">norm</text>
+<circle cx="304" cy="46" r="3.4" class="pt fired"/>
+<text x="296" y="48.6" class="pl fired" text-anchor="end">certified</text>
+<circle cx="304" cy="59" r="2.4" class="pt idle"/>
+<text x="296" y="61.6" class="pl" text-anchor="end">refuted</text>
+<circle cx="304" cy="72" r="2.4" class="pt idle"/>
+<text x="296" y="74.6" class="pl" text-anchor="end">refused</text>
+<rect x="192" y="108" width="112" height="55" rx="4" class="nd"/>
+<text x="200" y="122" class="nt">tolerance grader</text>
+<line x1="192" y1="123" x2="304" y2="123" class="sep"/>
+<circle cx="192" cy="136" r="2.4" class="pt"/>
+<text x="200" y="138.6" class="pl">q</text>
+<circle cx="192" cy="149" r="2.4" class="pt"/>
+<text x="200" y="151.6" class="pl">norm</text>
+<circle cx="304" cy="136" r="2.4" class="pt"/>
+<text x="296" y="138.6" class="pl" text-anchor="end">verdict</text>
+<rect x="192" y="185" width="112" height="55" rx="4" class="nd"/>
+<text x="200" y="199" class="nt">careful float</text>
+<line x1="192" y1="200" x2="304" y2="200" class="sep"/>
+<circle cx="192" cy="213" r="2.4" class="pt"/>
+<text x="200" y="215.6" class="pl">q</text>
+<circle cx="192" cy="226" r="2.4" class="pt"/>
+<text x="200" y="228.6" class="pl">norm</text>
+<circle cx="304" cy="213" r="2.4" class="pt"/>
+<text x="296" y="215.6" class="pl" text-anchor="end">verdict</text>
+<rect x="366" y="18" width="112" height="55" rx="4" class="nd"/>
+<text x="374" y="32" class="nt">admitted</text>
+<line x1="366" y1="33" x2="478" y2="33" class="sep"/>
+<rect x="363.4" y="43.4" width="5.2" height="5.2" class="pt dec"/>
+<text x="374" y="48.6" class="pl">verdict</text>
+<circle cx="366" cy="59" r="2.4" class="pt"/>
+<text x="374" y="61.6" class="pl">report</text>
+<circle cx="478" cy="46" r="2.4" class="pt"/>
+<text x="470" y="48.6" class="pl" text-anchor="end">count</text></svg>
