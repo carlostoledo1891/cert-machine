@@ -35,8 +35,20 @@ const SWEEP = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'interferome
 const BAND = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'band-sigma-0.0008-0.008.json'), 'utf8'));
 
 const ink = (a) => `rgba(246,246,248,${a})`;
+/* NO GROUND RECT, 2026-09-05. This helper painted a full-bleed rect of the PAGE
+   ground inside every plate, while `.plate figure` around it paints --bg-raised.
+   Two grounds, one nested in the other, one value apart: that is the visible
+   inner panel inside the outer card reported as C-2 in the visual review. The
+   SVG is transparent now and the figure's own surface shows through, which also
+   puts plates on the same ground as every other figure on the site.
+
+   CAP is the band reserved UNDER the drawing for a bottom caption. It used to
+   be drawn at H - 22, inside the picture, so Plate I's threading ran straight
+   through its own caption (C-1). The contract's rule for this is to widen the
+   viewBox rather than move the text into the art. */
+const CAP = 26;
 const svg = (w, h, body, extra = '') =>
-  `<svg viewBox="0 0 ${w} ${h}" width="100%" preserveAspectRatio="xMidYMid meet" ${extra}><rect width="${w}" height="${h}" fill="#0a0a0c"/>${body}</svg>`;
+  `<svg viewBox="0 0 ${w} ${h}" width="100%" preserveAspectRatio="xMidYMid meet" ${extra}>${body}</svg>`;
 const txt = (x, y, s, o = 0.42, size = 9, anchor = 'start') =>
   `<text x="${x}" y="${y}" fill="${ink(o)}" font-family="ui-monospace,monospace" font-size="${size}" text-anchor="${anchor}">${s}</text>`;
 
@@ -77,12 +89,12 @@ function plateResidue() {
   });
   parts.push(`<path d="${seventeen.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ')}" fill="none" stroke="${ink(0.95)}" stroke-width="1.6"/>`);
   seventeen.forEach((p, i) => {
-    parts.push(`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.4" fill="#0a0a0c" stroke="${ink(0.95)}" stroke-width="1.4"/>`);
+    parts.push(`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.4" fill="var(--bg-raised)" stroke="${ink(0.95)}" stroke-width="1.4"/>`);
     parts.push(txt(p[0] + 7, p[1] - 6, `${17 % MODS[i]}`, 0.9, 10));
   });
   parts.push(txt(28, 30, 'PLATE I', 0.3, 9));
-  parts.push(txt(28, H - 22, 'n = 0 … 99 threaded across mod 2, 5, 10, 100.  the heavy thread is 17.', 0.3));
-  return svg(W, H, parts.join(''));
+  parts.push(txt(28, H + CAP - 9, 'n = 0 … 99 threaded across mod 2, 5, 10, 100.  the heavy thread is 17.', 0.3));
+  return svg(W, H + CAP, parts.join(''));
 }
 
 /* ---------------------------------------------------------------- PLATE 2 */
@@ -108,8 +120,8 @@ function platePhaseTorus() {
     }
   }
   parts.push(txt(28, 30, 'PLATE II', 0.3, 9));
-  parts.push(txt(28, H - 22, `${u.length} visibilities from M87. each ring is one measurement: the radius is known, the angle on it is not.`, 0.3));
-  return svg(W, H, parts.join(''));
+  parts.push(txt(28, H + CAP - 9, `${u.length} visibilities from M87. each ring is one measurement: the radius is known, the angle on it is not.`, 0.3));
+  return svg(W, H + CAP, parts.join(''));
 }
 
 /* ---------------------------------------------------------------- PLATE 3 */
@@ -271,7 +283,7 @@ function plateEnclosure() {
   parts.push(`<path d="${rows.map((r, i) => (i ? 'L' : 'M') + X(r.r0).toFixed(1) + ' ' + Y(r.witness).toFixed(1)).join(' ')}" fill="none" stroke="${ink(0.5)}" stroke-width="1.4" stroke-dasharray="4 3"/>`);
   rows.forEach(r => {
     parts.push(`<circle cx="${X(r.r0).toFixed(1)}" cy="${Y(r.ceiling).toFixed(1)}" r="2.6" fill="${ink(0.9)}"/>`);
-    parts.push(`<circle cx="${X(r.r0).toFixed(1)}" cy="${Y(r.witness).toFixed(1)}" r="2.6" fill="#0a0a0c" stroke="${ink(0.6)}"/>`);
+    parts.push(`<circle cx="${X(r.r0).toFixed(1)}" cy="${Y(r.witness).toFixed(1)}" r="2.6" fill="var(--bg-raised)" stroke="${ink(0.6)}"/>`);
     parts.push(txt(X(r.r0), B + 22, `${r.r0}`, 0.3, 9, 'middle'));
     parts.push(txt(X(r.r0), Y(r.ceiling) - 10, `${r.ratio.toFixed(2)}×`, 0.45, 8, 'middle'));
   });
