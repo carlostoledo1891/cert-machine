@@ -152,8 +152,17 @@
   /* the panel is opaque, so the sky is centred in what is LEFT of the screen —
      otherwise half the source sits behind the controls on a narrow window */
   function panelW() {
-    if (document.body.classList.contains('panel-hidden')) return 0;
-    const p = document.querySelector('.panel');
+    /* THESE TWO SELECTORS WERE STALE, 2026-09-05. page.css calls the control
+       rail `.ov-panel` and its hidden state `body.ov-panel-hidden`; this asked
+       for `.panel` and `panel-hidden`, which do not appear in the built page at
+       all. querySelector returned null, panelW() returned 0, and the sky was
+       laid out across the FULL viewport with the u-v coverage inset — drawn at
+       OX + SQ - s, the bottom-right of the sky — landing underneath the 330px
+       rail. That is the clipped inset in the visual review, and it is the same
+       family as the #stage gotcha in design/CONTRACT.md: the shell was borrowed
+       and its class renamed, and the code that reads the width was not. */
+    if (document.body.classList.contains('ov-panel-hidden')) return 0;
+    const p = document.querySelector('.ov-panel');
     return p ? Math.min(p.getBoundingClientRect().width, W * 0.5) : 0;
   }
   function layout() {
@@ -400,7 +409,10 @@
   bind('cBeam', 'beam', v => v.toFixed(0) + ' µas');
   bind('cZoom', 'zoom', v => v.toFixed(2) + '×', () => { layout(); draw(); });
   chips(); modes(); toggles();
-  $('panelToggle').onclick = () => { document.body.classList.toggle('panel-hidden'); setTimeout(() => { layout(); draw(); }, 300); };
+  /* and the toggle DID NOTHING: it flipped `panel-hidden`, page.css listens for
+     `ov-panel-hidden`. A screenshot of the initial state cannot find this —
+     which is the argument design/CONTRACT.md makes for the #hash dev hook. */
+  $('panelToggle').onclick = () => { document.body.classList.toggle('ov-panel-hidden'); setTimeout(() => { layout(); draw(); }, 300); };
   window.addEventListener('resize', resize);
   reduce(); resize();
 })();

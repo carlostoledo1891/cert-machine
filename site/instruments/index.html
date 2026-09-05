@@ -303,9 +303,17 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
   <!-- THE GRAMMAR, once, where the marks first appear. check-wiring refuses any
        page that draws a w-* mark without printing this: "a grammar nobody is
        told about is a decoration" was a comment in warrant.js for a week. -->
-  <div class="wrap" style="margin-top:var(--s-8)">
+  <!-- IT IS A GRID CHILD, SO IT MUST SAY SO, 2026-09-05. This block carried
+       class="wrap" and sat between two <a class="card"> inside <div
+       class="cards">, so it became a GRID ITEM in one card column: three
+       legend items crushed into ~150px, "float; nothing decided it" wrapping
+       to three lines. And .wrap adds its own gutter on top of the grid's, so
+       its left edge landed at x=216 while every other thing on the site sits
+       at x=168. That is the "text block lost on the page". It spans the grid
+       now and carries no second container. -->
+  <div style="grid-column:1/-1; margin-top:var(--s-8)">
     <div class="eyebrow">what the marks below mean</div>
-    <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><rect x="0" y="1" width="46" height="12" class="w-void"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
+    <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
   </div>
 
   <a class="card" href="curveset/index.html">

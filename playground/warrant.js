@@ -212,8 +212,27 @@ const LEGEND = [
    in the call is better than a filter copied into the page.                 */
 function legendHtml({ exclude = [], width = 2.4 } = {}) {
   const items = LEGEND.filter((L) => !exclude.includes(L.s));
+
+  /* THE SWATCH PAINTS ITSELF, 2026-09-05. It used to emit a bare
+     `class="w-void"` rect and trust the page to have a `.w-void` rule behind
+     it. The void is a hatch, a hatch is an SVG <pattern>, and a pattern is
+     addressed by an id that lives in the figure that defines it — so on
+     /instruments, which draws the legend but defines no figure, the class
+     resolved to nothing and the rect fell through to SVG's DEFAULT FILL, which
+     is black. A solid black rectangle on a #0a0a0c ground is invisible, and
+     that is what the operator was looking at when they reported "SVG elements
+     rendering black". check-render passed it, because black IS a paint.
+
+     So the swatch now carries its own <defs> inside its own <svg>. The class
+     stays, because a page that DOES define .w-void (curveset, plates) should
+     go on styling it — a CSS rule beats a presentation attribute, so those
+     pages are unchanged and every other page now paints. */
+  const HATCH = 'w-legend-hatch';
   const swatch = (s) => (s === REFUSED
-    ? `<rect x="0" y="1" width="46" height="12" class="w-void"/>`
+    ? `<defs><pattern id="${HATCH}" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">`
+      + `<line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs>`
+      + `<rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#${HATCH})"`
+      + ` stroke="var(--border-strong)" stroke-width="1"/>`
     : `<line x1="1" y1="7" x2="45" y2="7" ${attrs(s, { width })}/>`);
   return `<div class="w-legend" data-n="${items.length}">`
     + items.map((L) => `<div class="item">`

@@ -135,7 +135,15 @@ const body = `
   <!-- THE GRAMMAR, once, where the marks first appear. check-wiring refuses any
        page that draws a w-* mark without printing this: "a grammar nobody is
        told about is a decoration" was a comment in warrant.js for a week. -->
-  <div class="wrap" style="margin-top:var(--s-8)">
+  <!-- IT IS A GRID CHILD, SO IT MUST SAY SO, 2026-09-05. This block carried
+       class="wrap" and sat between two <a class="card"> inside <div
+       class="cards">, so it became a GRID ITEM in one card column: three
+       legend items crushed into ~150px, "float; nothing decided it" wrapping
+       to three lines. And .wrap adds its own gutter on top of the grid's, so
+       its left edge landed at x=216 while every other thing on the site sits
+       at x=168. That is the "text block lost on the page". It spans the grid
+       now and carries no second container. -->
+  <div style="grid-column:1/-1; margin-top:var(--s-8)">
     <div class="eyebrow">what the marks below mean</div>
     ${W.legendHtml({ exclude: [W.DECIDED] })}
   </div>

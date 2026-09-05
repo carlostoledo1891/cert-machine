@@ -278,7 +278,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
   <h2>Every mark says what it is standing on.</h2>
   <p class="why">The envelope is <b>computed</b>: the formula is closed form — no optimiser, no sampling — but it is <em>evaluated</em> in floating point, and the backwards read is a bisection. The grammar's first rule is that a float step takes decided to computed automatically, and it applies to this page as readily as to anybody else's, so the envelope is drawn dashed. The published curve is <b>chosen</b> — an <code>argmin</code> of a fitting criterion over a family nobody derived from the data — and it is drawn dotted. Where a reading is over range and no admissible curve bounds it, there is <b>no mark at all</b> and the void is drawn, because "over range" is a fact about the ladder rather than a number to interpolate.</p>
   <p class="why" style="margin-top:var(--s-4)"><b>There is no solid line anywhere on this page, and that is the finding.</b> It was drawn solid for a week: the formula looks decided, and the page said so. The grammar disagreed with the page it is defined on, which is the most useful thing it has done. The route to earning solid back is not large and is written down in <code>envelope.js</code> — the standards are half-integers and both envelopes are a min/max of <em>linear</em> functions, so the bisection can be replaced by one exact solve on one piece. <code>ARITHMETIC = 'exact'</code> then re-promotes every mark here and this legend with it, because nothing on this page names a standing by hand.</p>
-  <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><rect x="0" y="1" width="46" height="12" class="w-void"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
+  <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
   <p class="why" style="margin-top:var(--s-4)"><b>Lines carry the pattern; extents do not.</b> A bar, a bracket and a band show a <em>quantity in their length</em>, so their bodies stay solid — a seven-pixel bar chopped into dashes is not a computed bar, it is a row of dashes. In the ladder below, every body is computed and the rungs with no admissible answer are hatched voids instead, so shape carries the difference and the pattern channel is left alone. This rule was found by applying the grammar to this page and watching it break the figure.</p>
   <p class="why" style="margin-top:var(--s-6)"><b>Standing is not confidence.</b> A dotted line here is not less precise — it is often far more precise, which is exactly the problem. It is precise <em>because</em> something other than the data chose it. Width is drawn separately, as an extent, so the two never collapse into one channel.</p>
 </div></section>
@@ -693,8 +693,27 @@ const LEGEND = [
    in the call is better than a filter copied into the page.                 */
 function legendHtml({ exclude = [], width = 2.4 } = {}) {
   const items = LEGEND.filter((L) => !exclude.includes(L.s));
+
+  /* THE SWATCH PAINTS ITSELF, 2026-09-05. It used to emit a bare
+     `class="w-void"` rect and trust the page to have a `.w-void` rule behind
+     it. The void is a hatch, a hatch is an SVG <pattern>, and a pattern is
+     addressed by an id that lives in the figure that defines it — so on
+     /instruments, which draws the legend but defines no figure, the class
+     resolved to nothing and the rect fell through to SVG's DEFAULT FILL, which
+     is black. A solid black rectangle on a #0a0a0c ground is invisible, and
+     that is what the operator was looking at when they reported "SVG elements
+     rendering black". check-render passed it, because black IS a paint.
+
+     So the swatch now carries its own <defs> inside its own <svg>. The class
+     stays, because a page that DOES define .w-void (curveset, plates) should
+     go on styling it — a CSS rule beats a presentation attribute, so those
+     pages are unchanged and every other page now paints. */
+  const HATCH = 'w-legend-hatch';
   const swatch = (s) => (s === REFUSED
-    ? `<rect x="0" y="1" width="46" height="12" class="w-void"/>`
+    ? `<defs><pattern id="${HATCH}" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">`
+      + `<line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs>`
+      + `<rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#${HATCH})"`
+      + ` stroke="var(--border-strong)" stroke-width="1"/>`
     : `<line x1="1" y1="7" x2="45" y2="7" ${attrs(s, { width })}/>`);
   return `<div class="w-legend" data-n="${items.length}">`
     + items.map((L) => `<div class="item">`

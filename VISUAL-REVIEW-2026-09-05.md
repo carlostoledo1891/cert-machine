@@ -13,7 +13,33 @@ scrolled and captured in 1200px slices so nothing sits below a capture fold.
 1440 at dsf 1, 390 at dsf 2. `site/apps/skyaudit` was ALSO shot over a local
 HTTP server, because it cannot be judged from `file://` (see D-2).
 
-**Nothing has been changed. This is the list, for the operator to rule on.**
+**Original status: nothing changed, for the operator to rule on.**
+
+---
+
+## FIXED LATER THE SAME DAY — the three the ported contract diagnosed
+
+| row | what it turned out to be | verified |
+|---|---|---|
+| **A-1** | The legend block carried `class="wrap"` and sat between two `<a class="card">` **inside `<div class="cards">`**, so it became a grid ITEM in one card column, with `.wrap`'s own gutter on top of the grid's. It spans the grid now (`grid-column:1/-1`) and carries no second container. | by eye at 1440 and 390 |
+| **A-2** | `legendHtml()` emitted a bare `class="w-void"` rect and trusted the page to have a `.w-void` rule behind it. The void is a hatch, a hatch is a `<pattern>`, and the pattern id lives in a figure — which `/instruments` does not have. The class resolved to nothing and the rect fell to **SVG's default fill, which is black**. The swatch now carries its own `<defs>`; pages that *do* define `.w-void` are unchanged, because a CSS rule beats a presentation attribute. | by eye at 1440 and 390 — the hatch is visible in both |
+| **G-1** | **Not a CSS gotcha — two stale selectors.** `app.js` asked for `.panel` and `panel-hidden`; `page.css` calls them `.ov-panel` and `ov-panel-hidden`, and `.panel` appears **nowhere** in the built page. `querySelector` returned null, `panelW()` returned 0, the sky was laid out across the full viewport, and the u−v inset — drawn at the sky's bottom-right — landed under the 330px rail. | by eye at 1440 |
+
+### And one the screenshots could not have found
+
+`$('panelToggle').onclick` toggled `panel-hidden` while the stylesheet listens
+for `ov-panel-hidden`, so **the panel toggle button did nothing at all**. A
+screenshot of the initial state cannot find this. It is the argument
+`design/CONTRACT.md` makes for the `#hash` dev hook, and it was found only by
+reading the code the u−v defect pointed at.
+
+Gates after the three fixes: **63/63 green.** `check-measure` flagged
+`/instruments` going from 9 left edges to 13 — accepted with `--accept-worse`,
+because 13 is the site's norm (neural-geometry 13, plates 13, eight report pages
+13) and the page measured 9 *because* its legend was crushed into one column.
+The ratchet was recording a defect as a virtue.
+
+**The rest of this list is unchanged and unruled-on.**
 
 ---
 
