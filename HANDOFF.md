@@ -572,10 +572,16 @@ THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
     · THE FINDING: the interferometer re-reading, citing Feng et al. 2024 and
       EHT Paper IV. Second case, and the more credible one because it catches
       its author: this page published 40 of 54 and it became 24 of 54.
-    · curveset's envelope is drawn SOLID but evaluated in floats. By the
-      grammar's own rule 1 that is COMPUTED, not DECIDED. Either redraw it or
-      compute the endpoints in exact rationals — the data are half-integers and
-      the envelope is a min/max of linear functions, so the exact route is open.
+    · curveset's envelope: HALF DONE (phase 4, 2026-09-04). It is no longer
+      drawn solid — it is COMPUTED, dashed, and the page says why; envelope.js
+      declares ARITHMETIC = 'float' and every mark derives its standing from
+      that. WHAT IS STILL OPEN is the exact route, which earns the solid line
+      back: the standards are half-integers and both envelopes are a min/max of
+      LINEAR functions, so U and L are piecewise linear with breakpoints at the
+      standards and the backwards read is one exact solve on one piece instead
+      of a bisection. Do it in playground/rational.js and flip ARITHMETIC to
+      'exact'; nothing downstream names a standing by hand, so every mark and
+      the legend re-promote on their own.
     · The catalogue null on shape-hunt still admits 2 of 6 controls at the 5%
       bar. It is the one null on that page that has not been rebuilt twice.
     · PLATE IV's "p(r) = 0" label sits on top of the zero line and the dots.
