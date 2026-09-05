@@ -1,0 +1,103 @@
+{
+  "what": "The occultation without the ellipse: what five chords and 23 stations that saw nothing force on the size of (95626) 2002 GZ32 (2017 May 20, Santos-Sanz et al. 2021, arXiv:2012.06621), assuming only that the silhouette is convex. The chord-length function is concave on its support, so the floor is the concave hull of the chords and the ceiling is concavity read backwards, clipped at the nearest miss; every area is an exact rational and nothing converges.",
+  "liftedFrom": "/Users/carlostoledo/Documents/frontier-apps/experiments/occultation",
+  "liftedOn": "2026-09-05",
+  "declaredPatches": {
+    "chords.js, chords.test.js, make-page-data.js": "one require each: ../../lib/eqcert/rational.js -> ../interval/rational.js. The same module, lifted from sin-mfg into instruments/interval/ (the port document says lib/eqcert is the labs' code and never travels). Equivalence on this data is not assumed: page.json rebuilt here is byte-identical to the pin."
+  },
+  "rule": "Copied byte-for-byte and pinned by sha256; frontier-apps has no git. The paper is a pinned artifact (TeX, figures.tex and the PDF as typeset there with tectonic); figures.tex is regenerated from page.json by paper/make-figures.js and must reproduce. Data were transcribed by hand from the paper's Table A1 and Table 5 — data/gz32-2017-05-20.csv is the transcription, data/gz32-published.json the paper's own numbers.",
+  "acceptance": {
+    "node chords.test.js": "20 cases, all green",
+    "node reds.js": "6 reds fire (the control is a dumbbell, which must land OUTSIDE)",
+    "node make-page-data.js": "out/page.json byte-identical to the pin",
+    "node paper/make-figures.js": "figures.tex byte-identical to the pin",
+    "numbers": "1-sigma chord errors: Deq in [168.3, 267.5] km; published ellipse 206 +- 15 and radiometric 237 +- 8 both inside; at face value no convex silhouette (concave hull 5.5 km over Javalambre); negatives out of reach: ceiling 267.5 -> 577.0 km",
+    "verifiedOn": "2026-09-05"
+  },
+  "files": [
+    {
+      "file": "OCCULTATION.md",
+      "sha256": "b160d228e0c14a74e63e64da39205b320b7b2b362823557661f4dd61e039784e",
+      "sourceSha256": "b160d228e0c14a74e63e64da39205b320b7b2b362823557661f4dd61e039784e",
+      "bytes": 7254,
+      "patched": false
+    },
+    {
+      "file": "chords.js",
+      "sha256": "6c9ebcd1b5b47fc4366867e86f8aac6a3a15d9f8d1bda032bdec8d636f6a36c2",
+      "sourceSha256": "30c2053b75bb8de581d07aaed64d4a9bda3588452936e0dc4ea4108a670eff91",
+      "bytes": 11235,
+      "patched": true
+    },
+    {
+      "file": "chords.test.js",
+      "sha256": "291081f8b858c8d5eba9e14a4f7ec8b3a162771023d9c367c5f93396305ce355",
+      "sourceSha256": "37dcfeeff4904aa541fefa606a760b7d2d488c02162107dc6f0f721f0eb4042c",
+      "bytes": 7191,
+      "patched": true
+    },
+    {
+      "file": "reds.js",
+      "sha256": "e88a55f011163a38497d2154ca68b45e8af21b6e3fc0db81cad1e6eaec47d87c",
+      "sourceSha256": "e88a55f011163a38497d2154ca68b45e8af21b6e3fc0db81cad1e6eaec47d87c",
+      "bytes": 6175,
+      "patched": false
+    },
+    {
+      "file": "make-page-data.js",
+      "sha256": "234eeb0636911e297b96a3c908857cbf38182ee180605174a099b9bd236004a9",
+      "sourceSha256": "3e91c3d29c9df63f6708f0354e5c97492f1f058f4ee1b7f2778bee5aa141560e",
+      "bytes": 4772,
+      "patched": true
+    },
+    {
+      "file": "data/gz32-2017-05-20.csv",
+      "sha256": "eebfeb490b78dba472efe5c77d41bfb6d757d72a6b916e5592b37f4915fdee32",
+      "sourceSha256": "eebfeb490b78dba472efe5c77d41bfb6d757d72a6b916e5592b37f4915fdee32",
+      "bytes": 2667,
+      "patched": false
+    },
+    {
+      "file": "data/gz32-published.json",
+      "sha256": "67e894af5f614a2e943fefee8f2c62f21b6e361a792d7d58dfd00e9a218284b9",
+      "sourceSha256": "67e894af5f614a2e943fefee8f2c62f21b6e361a792d7d58dfd00e9a218284b9",
+      "bytes": 748,
+      "patched": false
+    },
+    {
+      "file": "out/page.json",
+      "sha256": "eeb8896afa8fb661e1ea68182ff55725066ff3977520e5d05d61bb6f2b1dc80a",
+      "sourceSha256": "eeb8896afa8fb661e1ea68182ff55725066ff3977520e5d05d61bb6f2b1dc80a",
+      "bytes": 164170,
+      "patched": false
+    },
+    {
+      "file": "paper/figures.tex",
+      "sha256": "23f35163a55589275430c74c535216422a157bad8ff4984dd08e68397458ec29",
+      "sourceSha256": "23f35163a55589275430c74c535216422a157bad8ff4984dd08e68397458ec29",
+      "bytes": 8134,
+      "patched": false
+    },
+    {
+      "file": "paper/make-figures.js",
+      "sha256": "322e319615552ba5e5fd8c132ea934fede7d695e3522f4042aa10fbb0abcf258",
+      "sourceSha256": "322e319615552ba5e5fd8c132ea934fede7d695e3522f4042aa10fbb0abcf258",
+      "bytes": 2863,
+      "patched": false
+    },
+    {
+      "file": "paper/occultation-paper.pdf",
+      "sha256": "40f326e23698bf16597006593452ada3a8a4f221d7f85823be50fdc61e71315a",
+      "sourceSha256": "40f326e23698bf16597006593452ada3a8a4f221d7f85823be50fdc61e71315a",
+      "bytes": 78675,
+      "patched": false
+    },
+    {
+      "file": "paper/occultation-paper.tex",
+      "sha256": "df3b1afe64a15aee381ff7e70337d33b09bb26282cb9ae3b2ea5948a2a7c5170",
+      "sourceSha256": "df3b1afe64a15aee381ff7e70337d33b09bb26282cb9ae3b2ea5948a2a7c5170",
+      "bytes": 9894,
+      "patched": false
+    }
+  ]
+}

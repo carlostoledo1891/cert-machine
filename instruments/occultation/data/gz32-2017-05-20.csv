@@ -1,0 +1,51 @@
+# (95626) 2002 GZ32 — stellar occultation of 2017 May 20, as published.
+# Source: Santos-Sanz et al., "The 2017 May 20th stellar occultation by the
+#   elongated centaur (95626) 2002 GZ32", MNRAS (2021); arXiv:2012.06621.
+#   Table A1 gives, per site, the projected distance on the sky plane to the
+#   reconstructed centerline in km (positive = north of it) and the detection
+#   status. Table 5 gives the ingress/egress times and the chord size in km.
+#   Shadow velocity 21.19 km/s (Table 4). Nothing here is recomputed.
+#
+# WHY THIS EVENT. The distance-to-centerline column is the cross-track
+# coordinate of each chord, already reduced by the authors, so the sky-plane
+# geometry needs no ephemeris, no station projection and no Earth rotation on
+# this bench. And the campaign published its NEGATIVE stations with their
+# distances, which is what bounds the body from outside.
+#
+# The chord LENGTH is invariant under the timing shifts the paper debates
+# (Table 6, "original" versus "shifted" chords): a shift moves a chord along
+# its own line and does not change how long it is. So this analysis does not
+# depend on which of the two fits one prefers.
+#
+# columns: site,status,y_km,len_km,err_km,note
+Borowiec Observatory,negative,730.9,,,
+Smithy Observatory,negative,656.7,,,
+Hamsey Green Observatory,negative,651.5,,,
+PDlink Observatory,negative,595.7,,,
+Skalnate Pleso Observatory,negative,584.4,,,
+Neutraubling Observatory,negative,574.1,,,
+Konkoly Observatory,negative,519.3,,,
+Landehen Observatory,negative,496.1,,,
+Valle d'Aosta Observatory,negative,396.8,,,
+Baronnies Provencales Observatory,negative,311.4,,,
+Monte Agliale Observatory,negative,300.3,,,
+Puimichel Observatory,negative,288.0,,,
+Telescope Leonard de Vinci,negative,268.6,,,
+Latrape Observatory (0.35 m),negative,224.6,,,
+Latrape Observatory (0.30 m),negative,224.6,,,
+Sabadell Observatory,negative,123.9,,,
+Forcarei Observatory,negative,123.6,,,
+Sant Esteve Observatory,negative,119.3,,,
+Allariz Observatory,positive,102.5,90.1,13.8,
+Javalambre Observatory,positive,11.8,172.7,3.8,
+Aras de los Olmos Observatory,positive,4.4,185.4,39.0,
+Nunki Observatory,bad,-6.4,,,bad data
+La Hita Observatory (0.77 m),positive,-34.1,170.2,40.9,
+La Hita Observatory (0.40 m),excluded,-34.1,179.3,33.7,authors excluded it from the limb fit; kept as a consistency check
+Kryoneri Observatory,technical,-84.5,,,technical failure
+Univ. of Athens Observatory,positive,-88.1,133.3,104.3,
+La Sagra Observatory,negative,-136.7,,,
+La Murta Observatory,negative,-138.7,,,
+Adiyaman University Observatory,negative,-182.0,,,
+Calar Alto Observatory,negative,-188.8,,,
+Sierra Nevada Observatory,negative,-205.1,,,

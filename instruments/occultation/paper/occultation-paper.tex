@@ -1,0 +1,204 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}[proposition]{Corollary}
+\newtheorem*{remark}{Remark}
+\newcommand{\R}{\mathbb{R}}
+
+\input{figures}
+
+\title{What a stellar occultation forces about a body's size\\
+when only its silhouette's convexity is assumed}
+\author{Carlos Toledo\thanks{Contact: carlos@carlostoledo.co.
+Preprint v1.0. % [OWNER: affiliation, acknowledgments and any AI-assistance
+% disclosure wording are yours to set before deposit.]
+}}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A stellar occultation gives a handful of parallel chords across a small body's
+silhouette, and the size that gets published is an ellipse fitted to them. We
+ask what the chords force on their own. Because occultation chords are parallel
+and a convex silhouette has a concave upper boundary and a convex lower one, the
+chord length $w(y)$ is a \emph{concave} function of the cross-track coordinate,
+vanishing outside the body's support; the silhouette's area is $\int w$. The
+problem is therefore one-dimensional and closed form, with no optimiser and no
+convergence, and on published decimal data every bound is an exact rational.
+Applied to the 2017 May 20 occultation by the centaur (95626)~2002~GZ$_{32}$,
+convexity alone forces the area-equivalent diameter into
+$[168.3,\,267.5]$\,km, against a published $206\pm15$\,km. Two facts fall out.
+At face value the five chords admit \emph{no} convex silhouette at all --- the
+concave hull of the measured lengths runs $5.5$\,km above one station's own
+chord --- and about half of one stated error bar is needed before one exists.
+And the bound is asymmetric by construction: the floor is bought by the chords,
+while the ceiling is bought entirely by the telescopes that recorded
+\emph{nothing}. Moving this campaign's 23 negative stations out of reach raises
+the ceiling from $267.5$ to $577.0$\,km.
+\end{abstract}
+
+\section{The chord-length function}
+
+Occultation chords are parallel: the shadow sweeps in one direction and every
+station cuts the silhouette along that direction. Take that direction as $x$ and
+let $y$ be the cross-track coordinate. Let $K\subset\R^2$ be the silhouette,
+assumed compact and convex, with slices
+$K\cap\{y\}=[L(y),R(y)]$ on its support $[Y^-,Y^+]$.
+
+\begin{proposition}\label{prop:concave}
+$R$ is concave and $L$ is convex on $[Y^-,Y^+]$, so the chord length
+$w=R-L$ is concave there and zero outside; and $\operatorname{area}(K)=\int w$.
+\end{proposition}
+
+\begin{proof}
+For $y_1,y_2$ in the support and $t\in[0,1]$, the points $(R(y_1),y_1)$ and
+$(R(y_2),y_2)$ lie in $K$, so their combination does too, giving
+$R(ty_1+(1-t)y_2)\ge tR(y_1)+(1-t)R(y_2)$; the same argument with $L$ reverses
+the inequality. The area statement is Fubini.
+\end{proof}
+
+\begin{remark}
+Convexity is weaker than the ellipse that occultation papers fit, and it is
+already asserted by the data: a single ingress and a single egress per station
+is what a convex silhouette produces. It is also capable of being wrong, which
+is what makes it an assumption worth naming --- a dumbbell has a chord-length
+function that is not concave, and the construction below excludes it.
+\end{remark}
+
+Write the measurements as $w(y_i)\in[\ell_i-\varepsilon_i,\,\ell_i+\varepsilon_i]$
+at $n$ cross-track positions, and let $y^-<\min_i y_i$ and $y^+>\max_i y_i$ be
+the nearest stations that observed and saw nothing, so that
+$[Y^-,Y^+]\subseteq[y^-,y^+]$.
+
+\section{The two bounds, and why they are asymmetric}
+
+\begin{proposition}[floor]\label{prop:floor}
+Let $\widehat{w}$ be the concave hull of the points $(y_i,\ell_i-\varepsilon_i)$
+on $[y_1,y_n]$. Then $\operatorname{area}(K)\ge\int_{y_1}^{y_n}\widehat{w}$, and
+the bound is attained.
+\end{proposition}
+
+\begin{proof}
+$w$ is concave on a support containing $[y_1,y_n]$ and satisfies
+$w(y_i)\ge\ell_i-\varepsilon_i$, so it dominates the smallest concave function
+through those points; and $w\ge0$ elsewhere. Attainment: the convex hull of the
+chords themselves is a convex body realising it.
+\end{proof}
+
+\begin{remark}
+The negative stations do not appear. Nothing forces the body past its outermost
+chord: it may end flush with it, giving a flat edge, which is a perfectly good
+convex body. In particular the polygon obtained by ``joining the dots'' down to
+the negative stations is \emph{not} a lower bound --- it already assumes the
+body reaches them.
+\end{remark}
+
+\begin{proposition}[ceiling]\label{prop:ceiling}
+For $y\notin[y_i,y_j]$ with $y_i<y_j$,
+\begin{equation}
+w(y)\;\le\;U_{ij}(y)\;:=\;
+\begin{cases}
+(\ell_j+\varepsilon_j)+\dfrac{(\ell_j+\varepsilon_j)-(\ell_i-\varepsilon_i)}{y_j-y_i}(y-y_j), & y>y_j,\\[2ex]
+(\ell_i+\varepsilon_i)+\dfrac{(\ell_i+\varepsilon_i)-(\ell_j-\varepsilon_j)}{y_i-y_j}(y-y_i), & y<y_i,
+\end{cases}
+\end{equation}
+and consequently
+$\operatorname{area}(K)\le\int_{y^-}^{y^+}\max\!\big(0,\min_{ij}U_{ij}\big)$.
+\end{proposition}
+
+\begin{proof}
+For $y_i<y_j<y$, concavity of $w$ on the support gives
+$w(y_j)\ge\frac{(y-y_j)w(y_i)+(y_j-y_i)w(y)}{y-y_i}$; solving for $w(y)$ gives a
+bound in which $w(y_j)$ carries a positive coefficient and $w(y_i)$ a negative
+one, so the largest admissible value uses $\ell_j+\varepsilon_j$ and
+$\ell_i-\varepsilon_i$. The other case is symmetric. Outside $[y^-,y^+]$ the
+body is absent, so $w=0$ there.
+\end{proof}
+
+\begin{remark}[the negatives are not samples]
+It is tempting to enter $y^\pm$ into the pair list as ordinary samples with
+$w=0$. That is unsound. $w$ is concave \emph{on its support} and zero outside;
+a function that is zero on two rays and concave between them is not concave. On
+a triangular silhouette, admitting the far cap as a sample produced a ceiling of
+$7529$ against a true area of $9000$, because the cap dragged the envelope down
+through the body itself. The negative stations clip the domain of integration
+and nothing else --- and that is already the whole of what they buy.
+\end{remark}
+
+\begin{remark}[the ceiling is discontinuous]
+The constraints anchored at a sample are valid only up to it, so
+$\min_{ij}U_{ij}$ jumps upward the instant $y$ passes a chord. Integrating it as
+a polyline through the sample points understates the area --- by $16\%$ on a
+circle --- and makes the ceiling \emph{fall} when chords are removed, which is
+the wrong direction and is how the error was found. Between breakpoints the
+envelope is affine, so the midpoint rule is exact and blind to the jumps.
+\end{remark}
+
+\section{(95626) 2002 GZ$_{32}$, 2017 May 20}
+
+The campaign of Santos-Sanz et al.\ (2021) is used because its site table
+publishes, for every station, the projected distance on the sky plane to the
+reconstructed centerline in kilometres together with the detection status. That
+column is the cross-track coordinate, already reduced, so no ephemeris, station
+projection or Earth-rotation model enters here. Five chords were positive and 23
+stations saw nothing. A timing shift slides a chord along its own line and does
+not change its length, so nothing below depends on which of the paper's two fits
+--- ``original'' ($\chi^2=29.5$) or ``shifted'' ($\chi^2=4.0$) --- one prefers.
+
+\begin{figure}[t]\centering\figEnvelope
+\caption{The five chords with their published errors, the 23 stations that saw
+nothing (ticks at zero), and the certified envelopes. Joining the dots is drawn
+dashed because it is an assumption, not a bound.}\end{figure}
+
+\begin{figure}[t]\centering\figLadder
+\caption{Certified area-equivalent diameter against the error budget. The top
+bar is dotted because at face value no convex silhouette fits the chords.
+Vertical lines: the published ellipse $206$\,km and the radiometric
+$237$\,km.}\end{figure}
+
+At the published $1\sigma$ chord errors, convexity alone gives
+\[
+D_{\mathrm{eq}}\in[168.3,\,267.5]\ \mathrm{km},
+\]
+against a published $206\pm15$\,km. Two consequences are worth stating.
+
+\emph{The chords are not consistent with convexity as published.} At zero error
+the concave hull of the measured lengths runs $5.5$\,km above the Javalambre
+chord; about half of one stated error bar admits a convex body. The published
+analysis meets the same fact from the other side and records it as
+$\chi^2=29.5$.
+
+\emph{A disagreement in the literature dissolves.} The paper reports its
+occultation diameter and notes that its mean three-dimensional estimate is not in
+agreement with the radiometric $237\pm8$\,km from Herschel, Spitzer and ALMA.
+Both values lie inside the certified interval. The tension is between two
+models, not between two measurements.
+
+\emph{What the misses are worth.} Moving the 23 negative stations out of reach
+raises the ceiling from $267.5$ to $577.0$\,km. The telescopes that recorded
+nothing are worth $309$\,km of upper bound --- more than the body's own diameter
+--- and they are the part of a campaign least often published.
+
+\section{Limitations}
+
+Only one event is analysed, because a second requires a campaign that publishes
+its cross-track distances; converting a timings-only campaign means redoing the
+station projection and Earth rotation, which has a built-in check (the computed
+chord lengths must reproduce the published ones) but is a real piece of geometry
+with a real chance of a silent error. The position of each chord along its own
+line is not used --- it is not published here, and the area bound does not need
+it --- but it would tighten the ceiling, because it constrains $L$ and $R$
+separately rather than only their difference. A central-symmetry rung, which
+would make $w$ symmetric about the centre, is a genuine further constraint and a
+genuine test; these bodies are not symmetric, and a refutation would be the
+informative outcome.
+
+\end{document}

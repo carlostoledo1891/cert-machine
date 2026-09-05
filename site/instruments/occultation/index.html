@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The occultation, without the ellipse — cert-machine</title>
+<meta name="description" content="What a stellar occultation forces about a small body’s size, assuming only that its silhouette is convex.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="The occultation, without the ellipse — cert-machine">
+<meta property="og:description" content="What a stellar occultation forces about a small body’s size, assuming only that its silhouette is convex.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../design/tokens.css">
+<style>
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 var(--gutter);height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px var(--gutter) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* shell.css — the navbar and the measure scale, and nothing else. Everything an
+   /instruments page looks like beyond this is that page's own business. */
+/* THE SECTION'S OWN NAV IS GONE (2026-09-05) — design/nav.js is the site's
+   one nav and this section carries it like every other page. What is left here
+   is the consequence: the site nav is FIXED at 60px, so the page has to start
+   below it. The reports' shell does the same thing with its own padding. */
+/* THE BOX MODEL, SHARED — and it was not, until 2026-09-05. The
+   `*{box-sizing:border-box}` reset was declared in SIX page.css files and in
+   bench.css, and in the shell not at all. A page that did not carry its own copy
+   got content-box, so `.wrap`'s max-width:1200 became 1200 PLUS its 48px
+   gutters: /instruments/graph rendered 1296 wide and sat its whole column at
+   x=120 while every other page on the site sits at x=168. The site's one-left-
+   edge claim was being upheld by six identical copies of a reset, any one of
+   which could have gone missing — and the seventh page proved it. */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* THE PAGE'S OWN TYPOGRAPHY, SHARED — and it was not, until 2026-09-05.
+   Six page.css files under playground/ declared their own `body` rule, four of
+   them with different bodies, and the shell declared none. Every page that
+   happened to carry one looked right and any page that did not fell back to the
+   browser default — which is how /instruments/graph shipped its first build in
+   TIMES ROMAN while every other page on the site is Inter. A foundation
+   declared six times is not a foundation.
+
+   The page-local copies came out later the same day, one file at a time, each
+   page pixel-diffed at 1440 and 390 before the next: curveset, neural-geometry,
+   shape-hunt, simplex, bench.css (four pages) and index.css were byte-identical
+   to the two rules above and went entirely; interferometer keeps its own
+   margin/padding zeroing and the three body properties the shell does not set. */
+body { margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body);
+  line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
+body { padding-top: 60px; }
+
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
+
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
+
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
+
+/* ---- THE TABLE RULE, once ------------------------------------------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. Four /instruments pages scrolled the whole document sideways
+   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
+   answer-shape 78 — every one of them a nowrap table sitting in a container
+   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
+   rule that made it scroll lived in base.css and that page never linked it.
+   One class, one rule, declared where every page already inlines it. */
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
+     table sliced mid-character with nothing to indicate there was more; a box
+     that hides a column without saying so is the same defect as a number
+     without its units. The four layers are the standard scroll-shadow: two
+     ground-coloured covers pinned to the CONTENT (background-attachment:local,
+     so they slide away as you scroll) over two shadows pinned to the BOX, so a
+     shadow shows exactly when there is something past that edge and vanishes
+     when there is not. No script, and nothing to keep in sync. */
+  background:
+    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--bg-raised); }
+.tw > table { margin: 0; }
+.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }
+
+
+/* ---- the eyebrow: seven declarations before this, and the weight was the
+   thing they disagreed about. The report engine sets 500, bench.css set none
+   at all, and interferometer set 500 on its own — so /instruments ran its
+   eyebrows a weight lighter than the reports on every page but one. 500, once,
+   on both sides of the site. ---- */
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); font-weight: 500;
+  letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+
+/* ---- the hero. The bottom padding is the LARGER of the two that were in
+   service; curveset's tighter one was not a decision, it was a copy that had
+   drifted. A page wanting a different hero (the gathering page does, and says
+   so) overrides these two properties and nothing else. ---- */
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title);
+  margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3);
+  color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+/* ---- the footer, with the margin-top the crossed pages had and the written
+   ones did not ---- */
+.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
+.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+.foot a { color: var(--ink-4); text-decoration: none; }
+.foot a:hover { color: var(--ink-2); }
+
+/* ---- the panel: a raised box with a hairline. Spacing between consecutive
+   panels is a sibling rule, so a page never adds a margin-top of its own and
+   the two versions cannot disagree about which edge carries the gap. ---- */
+.panel { background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-l); padding: var(--s-5); }
+.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
+
+/* ---- FIGURE PRIMITIVES ----------------------------------------------------
+   THE DEFECT THIS CLOSES, and it is the one the operator saw as "lots of svg
+   elements are black". The gathering page embeds each instrument's card art
+   but NOT the stylesheet that colours it, and an SVG element whose class
+   resolves to nothing paints nothing — the default stroke is 'none'. Measured
+   on /instruments before this: 12 kinds of classed element painting nothing,
+   including 63 chords on the affect card and 60 on answer-shape, which is why
+   those two plates measured 1.4% and 1.2% ink and read as black boxes.
+
+   A figure vocabulary used by more than one page is a shared component, the
+   same as a hero or a footer. Phase 3 moved the furniture and left these.  */
+.ch { stroke: var(--ink-2); }
+.ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
+/* .clo CLOSES THE WALK .ord DRAWS, and it is the SAME data at the SAME
+   standing — the step from the last item back to the first, computed exactly
+   the way every other step is. It was dashed to mark that ROLE, which is the
+   forbidden use: dash carries standing, never identity or role. The legitimate
+   channel was already doing the work — .ord is --ink at 0.9, .clo is --ink-3 —
+   so dropping the dash costs nothing, exactly as it did on answer-shape.
+   See design/CONTRACT.md. (No backticks in this comment on purpose: it lives
+   inside a template literal, and one backtick ends the literal.) */
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-linecap: round; }
+.mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
+.pt { fill: var(--ink-2); }
+/* .lb HAD NO FONT-SIZE, and that is two review defects in one line. Each
+   instrument page sets 8.5px on its own svg.pl .lb; the GATHERING page inlines
+   no page stylesheet, so every embedded card art fell back to the browser
+   default of 16px — in viewBox units, on a plate scaled about 1.5x. So the
+   affect card's labels rendered near 24px and ran clean out of the card
+   ("delighted" sliced at the right edge, "miserable" cut to "serable"), and
+   adjacent cards showed wildly different label sizes because each viewBox
+   scales differently. The pages' own 8.5px rules are more specific and still
+   win; this is the floor that was missing. */
+.lb { fill: var(--ink-4); font-family: var(--font-mono); font-size: 8.5px; }
+.ax line { stroke: var(--border-strong); }
+.ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+/* a horizontal reference line at the asked value, and the two drop lines from
+   it to the baseline. "an axis, a ruler, a ghost, a reference circle" is the
+   contract's own definition of a GUIDE, so they take the guide pattern rather
+   than a fourth invented one. */
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-std { fill: var(--ink); }
+.cs-tick { fill: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
+/* PAINT LIVES HERE; ANCHORING STAYS ON THE PAGE (2026-09-05). These four were
+   defined ONLY in playground/curveset/page.css, which curveset inlines and the
+   gathering page does not. /instruments embeds curveset's card art WITHOUT that
+   stylesheet, so all four fell through to SVG's default BLACK fill and measured
+   1.06:1 against the plate — the same family as the twelve invisible kinds
+   caught on 2026-09-05, of which these four were missed because they are text
+   and a dot rather than strokes.
+
+   And they were dim even where they DID paint: .cs-axname at --ink-5 is
+   2.24:1, under the 3:1 floor this repository enforces everywhere else. Each
+   is lifted one rung — axis names to --ink-4 (3.97:1), the two data labels,
+   which carry words a reader has to read ("reported ±550 lb", "unbounded above
+   — over range"), to --ink-3. */
+.cs-fitdot   { fill: var(--ink-2); }
+.cs-axname   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); letter-spacing: 0.08em; }
+.cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+.cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+
+/* ---- THE GRAMMAR. Stroke pattern carries standing; see ../warrant.js for the
+   rule about when the channel is free. A REFUSED mark has no stroke at all —
+   the void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML. In an <svg> these set a stroke; on a word they set
+   a voice, and the voice uses THE SAME DASH PATTERN as the line — a computed
+   value is underlined dashed exactly as a computed curve is dashed, a chosen
+   value dotted. Decided carries no mark: it is the voice the rest of the site
+   is written in, and marking it would make the exception the rule.
+
+   The underline does the work and brightness only supports it, because
+   dimness alone reads as low confidence and standing is not confidence — the
+   page that defines the grammar says so in as many words. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+/* a REFUSED value is not printed dim — it is NOT PRINTED. What the page shows
+   instead is the reason, and this is the voice it says it in. */
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG
+   <pattern>, and a pattern is addressed by an id that lives in the figure that
+   defines it. A shared rule would point every page at one page's id. */
+
+/* ---- the standing legend. Rendered by warrant.js, laid out by
+   design/grid.js: the column count is derived from data-n, not declared. ---- */
+/* align-items:start on the ROW, so every label sits on one line even when a
+   gloss wraps to two — the swatches were floating to the middle of whichever
+   item happened to be tallest. */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+</style>
+<style>/* bench.css — the structural shim for every page crossed from the bench.
+
+   Three pages here (plates, exact-geometry, affect) carry markup that came over
+   byte-for-byte, so they carry the bench's structural class names. Rather than
+   rewrite them and risk moving a number, those classes are declared ONCE here,
+   in this repository's tokens. Declared three times they would diverge, and the
+   divergence would be invisible: all three would still look like pages.
+
+   The plate BODY was crossed from the bench verbatim, so it carries the bench's
+   structural class names. Rather than rewrite eight plates' worth of markup and
+   risk moving a number, those classes are re-declared here in THIS repository's
+   tokens. Nothing bench-side is imported; every value below is one of ours.
+
+   ONE DELIBERATE DIFFERENCE. The bench's `.reveal` parks an element at
+   opacity 0 and waits for an observer. A page whose first frame is blank is a
+   page that shows nothing to a thumbnail, a shared link, or a reader who
+   scrolls fast — so here `.reveal` is a no-op and everything is visible at rest. */
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; } a { color: inherit; }
+.reveal { opacity: 1; transform: none; }
+h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title); text-wrap: balance; }
+.lede { max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
+.hero-meta .item { display: grid; gap: 3px; }
+.hero-meta .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-5); }
+.hero-meta .v { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); }
+
+/* the section rhythm is the one our own pages use — same padding, same rule —
+   so that a reader moving between a page written here and a page crossed from
+   the bench cannot feel the seam. Before this the crossed pages were a third
+   tighter and drew a rule only BETWEEN sections. */
+.section { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
+.hero + .section, .section:first-of-type { border-top: 0; }
+h2.t2, h3.t2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); text-wrap: balance; }
+.prose { color: var(--ink-3); display: grid; gap: var(--s-4); max-width: var(--read); }
+.prose h2 { margin-bottom: var(--s-2); }
+.prose em { color: var(--ink-2); font-style: italic; }
+
+svg { display: block; width: 100%; height: auto; }
+img { max-width: 100%; }
+/* THE LEGEND IS STILL DECLARED THREE TIMES — here, in curveset/page.css and as
+   a flex variant on neural-geometry — and it holds 3, 3, 4, 5 and 7 items on
+   five pages while declaring three columns on four of them. Deriving the count
+   with auto-fit was tried in phase 2 and MEASURED WORSE: seven items in five
+   columns is 5+2, four more left edges than 3+3+1. The component needs
+@media (min-width: 700px) { .legend { grid-template-columns: repeat(3, 1fr); } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ---- flow spacing ---------------------------------------------------------
+   The crossed bodies rely on the bench's base stylesheet for the space between
+   a heading and the paragraph under it. That stylesheet is not imported here —
+   the port rule is that no bench CSS crosses — so the flow is re-declared, in
+   our spacing scale, as adjacency rules rather than per-element margins. */
+.section h1 + *, .section h2 + *, .section h3 + * { margin-top: var(--s-4); }
+.section .eyebrow + h1, .section .eyebrow + h2, .section .eyebrow + h3 { margin-top: var(--s-2); }
+.section p + p, .section p + .nums, .section p + .pred, .section p + table,
+.section p + .lede, .section .lede + p { margin-top: var(--s-4); }
+.section ul, .section ol { margin: var(--s-4) 0 0; padding-left: 1.15em; color: var(--ink-3); }
+.section li + li { margin-top: var(--s-2); }
+.section table { width: 100%; border-collapse: collapse; margin-top: var(--s-5);
+  font-family: var(--font-mono); font-size: var(--text-mono); }
+.section th, .section td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.section th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.section code { font-family: var(--font-mono); font-size: 0.86em; color: var(--ink-2); }
+.section b, .section strong { color: var(--ink); font-weight: var(--weight-medium); }
+h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(--title); text-wrap: balance; }
+.wide .container { max-width: var(--container); }
+
+
+.section-head { display:flex; justify-content:space-between; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; margin-bottom:var(--s-4); }
+.mono { font-family:var(--font-mono); font-size:0.92em; color:var(--ink-2); }
+.t1 { font-size:clamp(1.5rem,1rem+1.6vw,2.1rem); line-height:1.12; } .t2 { font-size:clamp(1.25rem,1rem+1vw,1.6rem); }
+.section { padding:clamp(2.5rem,6vh,4.5rem) 0; border-top:1px solid var(--border); }
+.small { font-size:var(--text-small); color:var(--ink-3); } .dim { color:var(--ink-4); } .num { font-variant-numeric:tabular-nums; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; }
+.stat { background:var(--bg-raised); padding:var(--s-5); }
+.stat .num { font-family:var(--font-mono); font-size:clamp(1.3rem,1rem+1vw,1.9rem); color:var(--ink); }
+.stat .dim { margin-top:var(--s-2); font-family:var(--font-mono); font-size:var(--text-eyebrow); }
+
+/* report.css — the shell for a scrolling report page.
+ *
+ * WHAT THIS FILE CLAIMS:
+ *   .note              the boxed monospace aside that carries a page's findings
+ *   .grid              a grid of shaded cells; `--f` on a cell shades it 0..1
+ *   .figrow .figcap    figure rows and their captions
+ *
+ * `.grid-t` and `.gr` are the two names three builders independently invented
+ * for the same grid. They are aliased here rather than renamed, so the
+ * definition lives in one place without rewriting markup that works; new pages
+ * use `.grid`.
+ *
+ * Inlined by the builders that need it, not linked: a published page here is one
+ * self-contained file. Everything else is tokens.css + base.css. */
+
+.note {
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); line-height: 1.75;
+  color: var(--ink-4); background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius-s);
+  padding: var(--s-4); margin-top: var(--s-4);
+}
+.note b { color: var(--ink-2); font-weight: 500; }
+.note em { color: var(--ink-3); font-style: italic; }
+
+.grid, .grid-t, .gr {
+  display: grid; gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  overflow: hidden; margin-top: var(--s-5);
+}
+.grid > div, .grid-t > div, .gr > div {
+  background: var(--bg-raised); padding: 8px var(--s-4);
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.grid .h, .grid-t .h, .gr .h {
+  color: var(--ink-5); font-size: 9px; letter-spacing: .11em; text-transform: uppercase;
+  display: flex; align-items: center;
+}
+.grid .ml, .gr .ml { color: var(--ink-3); }
+.grid .hit, .grid-t .hit { color: var(--ink); }
+/* a shaded cell: set --f in [0,1] inline; the shade is the only thing it means */
+.grid .c, .gr .c { background: color-mix(in srgb, #f6f6f8 calc(var(--f) * 13%), var(--bg-raised)); }
+.grid .c b, .gr .c b { color: var(--ink); font-weight: 500; }
+
+.figrow { display: grid; gap: var(--s-4); }
+.figrow figure { margin: 0; }
+.figcap {
+  display: flex; justify-content: space-between; gap: var(--s-3); margin-top: 6px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+}
+.figcap .k { color: var(--ink-2); }
+.figcap .v { color: var(--ink-5); text-transform: none; letter-spacing: .04em; }
+
+
+ .ink-decided  { stroke-dasharray: none; }
+ .ink-assumed  { stroke-dasharray: 5 4; }
+ .ink-assumed-sm { stroke-dasharray: 1.5 2; }
+ .ink-chosen   { stroke-dasharray: 1 5; stroke-linecap: round; }
+ .ink-chosen-sm { stroke-dasharray: 1 3; stroke-linecap: round; }
+ .ink-guide    { stroke-dasharray: 2 3; }
+.fg{width:100%;height:auto;display:block;background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-m);}
+.fg .ax{font-family:var(--font-mono);font-size:8.5px;fill:var(--ink-5);}
+.fg .lb{font-family:var(--font-mono);font-size:9.5px;fill:var(--ink-3);}
+.prose p{margin-top:var(--s-4);color:var(--ink-3);line-height:var(--leading-body);}
+.prose b{color:var(--ink-2);font-weight:500;} .prose em{color:var(--ink-4);} .prose i{color:var(--ink-3);}
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<main>
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow reveal">(95626) 2002 GZ32 · 2017-05-20 · 5 chords, 23 stations that saw nothing</div>
+    <h1 class="display reveal" style="margin-top:var(--s-3);max-width:20ch;">The occultation, without the ellipse.</h1>
+    <p class="lede reveal" style="margin-top:var(--s-4);max-width:74ch;">
+      A star winks out behind a small body and a handful of telescopes each measure one chord across its silhouette. Every published
+      size is then an ellipse fitted to those chords. This asks what the chords force on their own — the silhouette is any convex
+      shape at all — and the whole question turns out to be one-dimensional and closed form.
+    </p>
+    <div class="stats reveal" style="margin-top:var(--s-6);">
+      <div class="stat"><div class="num">168–268</div><div class="dim">km, certified from convexity</div></div>
+      <div class="stat"><div class="num">206 ± 15</div><div class="dim">km, the published ellipse</div></div>
+      <div class="stat"><div class="num">309</div><div class="dim">km of ceiling bought by the misses</div></div>
+      <div class="stat"><div class="num">0</div><div class="dim">optimisers; every area is exact</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">why this is one-dimensional</div>
+      <h2 class="t1" style="margin-top:var(--s-2);max-width:30ch;">A convex silhouette has a concave chord.</h2>
+    </div>
+    <div class="prose reveal" style="margin-top:var(--s-4);max-width:74ch;">
+      <p>Occultation chords are parallel: the shadow sweeps one way and every station cuts the silhouette along that direction. Put the
+      chord direction along <i>x</i> and let <i>y</i> be the cross-track coordinate. A convex silhouette has slices
+      [<i>L</i>(y), <i>R</i>(y)] with <i>R</i> concave and <i>L</i> convex, so the chord length <b>w(y) = R(y) − L(y) is concave</b> on
+      the body's support and zero outside it. Every measured chord is a value of w, every station that saw nothing is a y where w
+      vanishes, and the silhouette's area is ∫w. That is the whole problem, and it is the calibration envelope again with
+      <em>concave</em> where that one had <em>monotone with a slope band</em>.</p>
+      <p>So the two bounds are read off, not searched for. The <b>floor</b> is the concave hull of the measured lengths between the
+      outermost chords — the negatives play no part in it, and nothing forces the body to extend past its outermost chord. The
+      <b>ceiling</b> is concavity read backwards: beyond two samples, w is capped by their extrapolated secant, taken with an upper
+      value at the near sample and a lower one at the far, and that envelope is then clipped where the nearest station saw nothing.</p>
+      <p><b>The asymmetry is structural.</b> The floor is bought by the chords; the ceiling is bought by the telescopes that recorded
+      nothing at all. Move this campaign's 23 negative stations out of reach and the ceiling goes from 267.5 km to
+      577.0 km — the misses are worth 309 km of upper bound, more than the object's own diameter, and
+      they are the part of a campaign least often published.</p>
+    </div>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 380" class="fg" role="img" aria-label="chord length against cross-track position, with the certified envelopes">
+    <line class="ink-guide" x1="52" x2="744" y1="346.0" y2="346.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="46" y="349.0" text-anchor="end" class="ax">0</text><line class="ink-guide" x1="52" x2="744" y1="288.9" y2="288.9" stroke="var(--chart-grid)" stroke-width="1"/><text x="46" y="291.9" text-anchor="end" class="ax">50</text><line class="ink-guide" x1="52" x2="744" y1="231.8" y2="231.8" stroke="var(--chart-grid)" stroke-width="1"/><text x="46" y="234.8" text-anchor="end" class="ax">100</text><line class="ink-guide" x1="52" x2="744" y1="174.7" y2="174.7" stroke="var(--chart-grid)" stroke-width="1"/><text x="46" y="177.7" text-anchor="end" class="ax">150</text><line class="ink-guide" x1="52" x2="744" y1="117.7" y2="117.7" stroke="var(--chart-grid)" stroke-width="1"/><text x="46" y="120.7" text-anchor="end" class="ax">200</text><line class="ink-guide" x1="52" x2="744" y1="60.6" y2="60.6" stroke="var(--chart-grid)" stroke-width="1"/><text x="46" y="63.6" text-anchor="end" class="ax">250</text><text x="172.4" y="368" text-anchor="middle" class="ax">-100</text><text x="295.9" y="368" text-anchor="middle" class="ax">-50</text><text x="419.5" y="368" text-anchor="middle" class="ax">0</text><text x="543.1" y="368" text-anchor="middle" class="ax">50</text><text x="666.6" y="368" text-anchor="middle" class="ax">100</text>
+    <polyline points="81.7,36.6 111.1,45.9 111.1,45.9 136.8,54.1 136.8,54.1 146.6,57.2 146.6,57.2 149.1,58.0 149.1,58.0 153.2,59.3 153.2,59.3 167.8,63.9 167.8,63.9 175.2,66.3 175.2,66.3 180.5,68.0 180.5,68.0 196.2,73.0 196.2,73.0 201.8,74.7 201.8,48.3 205.9,50.0 205.9,50.0 241.1,65.0 241.1,65.0 249.0,68.3 249.0,68.3 266.1,75.6 266.1,75.6 278.4,80.8 278.4,80.8 282.1,82.4 282.1,82.4 284.1,83.2 284.1,83.2 297.6,89.0 297.6,89.0 303.8,91.6 303.8,91.6 304.0,91.7 304.0,91.7 320.1,98.5 320.1,98.5 320.4,98.7 320.4,98.7 324.0,100.2 324.0,100.2 327.0,101.5 327.0,101.5 328.8,102.2 328.8,102.2 329.6,102.6 329.6,102.6 335.2,105.0 335.2,105.0 341.4,95.3 341.4,95.3 344.1,91.1 344.1,91.1 349.8,94.0 349.8,94.0 354.7,96.5 354.7,96.5 359.1,98.8 359.1,98.8 361.7,100.1 361.7,100.1 364.0,101.3 364.0,101.3 365.8,102.2 365.8,102.2 368.2,103.4 368.2,103.4 371.4,105.0 371.4,105.0 374.6,106.7 374.6,106.7 375.9,107.3 375.9,107.3 376.0,107.4 376.0,107.4 379.6,109.2 379.6,109.2 381.9,110.4 381.9,110.4 383.9,111.4 383.9,111.4 385.9,112.4 385.9,112.4 386.5,112.8 386.5,112.8 389.5,114.3 389.5,114.3 390.7,114.9 390.7,114.9 390.9,115.0 390.9,115.0 391.4,115.3 391.4,115.3 392.0,115.6 392.0,115.6 392.1,115.6 392.1,115.6 392.3,115.7 392.3,115.7 393.7,116.4 393.7,116.4 394.9,117.0 394.9,117.0 399.9,119.6 399.9,119.6 402.8,121.1 402.8,121.1 402.9,121.1 402.9,121.1 403.9,121.6 403.9,121.6 405.6,122.5 405.6,122.5 409.9,124.7 409.9,124.7 411.1,125.3 411.1,125.3 415.4,127.5 415.4,127.5 416.3,128.0 416.3,128.0 416.7,128.2 416.7,128.2 417.8,128.7 417.8,128.7 420.4,130.0 420.4,130.0 423.1,131.4 423.1,131.4 423.7,131.8 423.7,131.8 430.4,135.2 430.4,135.2 435.5,137.8 435.5,137.8 436.9,138.5 436.9,138.5 437.7,138.9 437.7,138.9 437.9,139.0 437.9,139.0 437.9,139.0 437.9,139.0 439.0,139.6 439.0,139.6 440.0,140.1 440.0,140.1 440.1,140.1 440.1,140.1 440.8,140.5 440.8,140.5 443.4,141.8 443.4,141.8 444.7,142.5 444.7,142.5 444.7,142.5 444.7,142.5 444.9,142.6 444.9,142.6 445.7,143.0 445.7,143.0 446.5,143.4 446.5,143.4 446.6,143.4 446.6,143.4 447.0,143.7 447.0,143.7 448.7,144.5 448.7,144.5 449.8,143.9 449.8,143.9 454.5,141.7 454.5,141.7 457.7,140.2 457.7,140.2 460.0,139.1 460.0,139.1 463.5,137.4 463.5,137.4 464.9,136.8 464.9,136.8 464.9,136.8 464.9,136.8 470.5,134.1 470.5,134.1 479.1,130.0 479.1,130.0 480.2,129.5 480.2,129.5 484.4,127.5 484.4,127.5 493.7,123.1 493.7,123.1 494.6,122.7 494.6,122.7 497.1,121.5 497.1,121.5 504.3,118.0 504.3,118.0 505.3,117.6 505.3,117.6 507.7,116.4 507.7,116.4 507.9,116.4 507.9,116.4 527.0,107.3 527.0,107.3 529.0,106.3 529.0,106.3 549.6,96.5 549.6,96.5 550.0,96.3 550.0,96.3 551.1,95.8 551.1,95.8 569.5,87.1 569.5,87.1 571.2,86.3 571.2,86.3 575.6,84.2 575.6,84.2 579.3,82.4 579.3,82.4 581.9,81.2 581.9,81.2 586.8,78.9 586.8,78.9 587.7,78.5 587.7,78.5 598.6,73.3 598.6,73.3 609.5,68.1 609.5,68.1 610.9,67.4 610.9,67.4 617.8,64.1 617.8,64.1 621.3,62.5 621.3,62.5 623.4,61.5 623.4,61.5 627.3,59.6 627.3,59.6 634.3,56.3 634.3,56.3 637.0,55.0 637.0,55.0 638.2,54.4 638.2,54.4 645.7,50.9 645.7,50.9 672.8,38.0 672.8,227.4 678.8,229.4 678.8,229.4 685.8,231.7 685.8,231.7 698.3,235.8 698.3,235.8 714.3,241.1" fill="none" stroke="var(--ink-3)" stroke-width="1.5" class="ink-decided"/>
+    <polyline points="201.8,312.9 335.2,198.4 448.7,153.2 672.8,258.9" fill="none" stroke="var(--ink-3)" stroke-width="1.5" class="ink-decided"/>
+    <polyline points="81.7,346.0 201.8,193.8 335.2,151.7 430.4,134.3 448.7,148.8 672.8,243.1 714.3,346.0" fill="none" stroke="var(--ink-4)" stroke-width="1.2" class="ink-assumed" opacity="0.85"/>
+    <line class="ink-decided" x1="725.7" x2="725.7" y1="339" y2="346.07" stroke="var(--ink-4)" stroke-width="1.4"/><line class="ink-decided" x1="725.0" x2="725.0" y1="339" y2="346.07" stroke="var(--ink-4)" stroke-width="1.4"/><line class="ink-decided" x1="714.3" x2="714.3" y1="339" y2="346.07" stroke="var(--ink-4)" stroke-width="1.4"/><line class="ink-decided" x1="81.7" x2="81.7" y1="339" y2="346.07" stroke="var(--ink-4)" stroke-width="1.4"/><line class="ink-decided" x1="76.7" x2="76.7" y1="339" y2="346.07" stroke="var(--ink-4)" stroke-width="1.4"/><g><line class="ink-decided" x1="672.8" x2="672.8" y1="258.9" y2="227.4" stroke="var(--ink-2)" stroke-width="1.3"/>
+      <circle cx="672.8" cy="243.1" r="2.6" fill="var(--ink)"/>
+      <text x="672.8" y="219.4" text-anchor="middle" class="lb">Allariz</text></g><g><line class="ink-decided" x1="448.7" x2="448.7" y1="153.2" y2="144.5" stroke="var(--ink-2)" stroke-width="1.3"/>
+      <circle cx="448.7" cy="148.8" r="2.6" fill="var(--ink)"/>
+      <text x="448.7" y="136.5" text-anchor="middle" class="lb">Javalambre</text></g><g><line class="ink-decided" x1="430.4" x2="430.4" y1="178.9" y2="89.8" stroke="var(--ink-2)" stroke-width="1.3"/>
+      <circle cx="430.4" cy="134.3" r="2.6" fill="var(--ink)"/>
+      <text x="430.4" y="81.8" text-anchor="middle" class="lb">Aras de los Olmos</text></g><g><line class="ink-decided" x1="335.2" x2="335.2" y1="198.4" y2="105.0" stroke="var(--ink-2)" stroke-width="1.3"/>
+      <circle cx="335.2" cy="151.7" r="2.6" fill="var(--ink)"/>
+      <text x="335.2" y="97" text-anchor="middle" class="lb">La Hita</text></g><g><line class="ink-decided" x1="201.8" x2="201.8" y1="312.9" y2="74.7" stroke="var(--ink-2)" stroke-width="1.3"/>
+      <circle cx="201.8" cy="193.8" r="2.6" fill="var(--ink)"/>
+      <text x="201.8" y="66.7" text-anchor="middle" class="lb">Univ. of Athens</text></g>
+    <text x="14" y="26" class="ax">chord, km</text>
+    <text x="744" y="378" text-anchor="end" class="ax">cross-track position on the sky plane, km</text>
+    <text x="81.7" y="346.022" text-anchor="middle" class="lb">saw nothing</text>
+    <text x="714.3" y="346.022" text-anchor="middle" class="lb">saw nothing</text>
+  </svg>
+      <figcaption class="figcap"><span class="k">the chords, and every concave function that fits them</span>
+      <span class="v">solid: the certified floor and ceiling · dashed: joining the dots, which is an assumption, not a bound</span></figcaption></figure>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 330" class="fg" role="img" aria-label="the smallest and largest silhouettes the chords allow">
+    <polygon points="207.5,210.8 233.6,182.7 243.9,158.9 219.8,111.7 180.2,111.7 156.1,158.9 166.4,182.7 192.5,210.8" fill="var(--band-fill)" stroke="var(--ink-2)" stroke-width="1.4" class="ink-decided"/>
+    <ellipse cx="200" cy="165" rx="75.9" ry="38.0" transform="rotate(-228 200 165)" fill="none" stroke="var(--ink-4)" stroke-width="1.2" class="ink-assumed"/>
+    <polygon points="615.5,236.1 613.3,229.9 613.3,229.9 611.5,224.5 611.5,224.5 610.8,222.4 610.8,222.4 610.6,221.9 610.6,221.9 610.3,221.0 610.3,221.0 609.2,218.0 609.2,218.0 608.7,216.4 608.7,216.4 608.3,215.3 608.3,215.3 607.2,212.0 607.2,212.0 606.8,210.8 612.8,210.8 612.4,210.0 612.4,210.0 609.0,202.5 609.0,202.5 608.2,200.9 608.2,200.9 606.6,197.3 606.6,197.3 605.4,194.7 605.4,194.7 605.0,193.9 605.0,193.9 604.8,193.5 604.8,193.5 603.5,190.6 603.5,190.6 602.9,189.3 602.9,189.3 602.9,189.3 602.9,189.3 601.4,185.9 601.4,185.9 601.3,185.8 601.3,185.8 601.0,185.1 601.0,185.1 600.7,184.5 600.7,184.5 600.5,184.1 600.5,184.1 600.4,183.9 600.4,183.9 599.9,182.7 599.9,182.7 602.1,181.4 602.1,181.4 603.0,180.9 603.0,180.9 602.4,179.7 602.4,179.7 601.8,178.6 601.8,178.6 601.3,177.7 601.3,177.7 601.0,177.2 601.0,177.2 600.7,176.7 600.7,176.7 600.5,176.3 600.5,176.3 600.2,175.8 600.2,175.8 599.9,175.1 599.9,175.1 599.5,174.4 599.5,174.4 599.4,174.2 599.4,174.2 599.3,174.2 599.3,174.2 598.9,173.4 598.9,173.4 598.7,172.9 598.7,172.9 598.4,172.5 598.4,172.5 598.2,172.1 598.2,172.1 598.1,171.9 598.1,171.9 597.8,171.3 597.8,171.3 597.6,171.1 597.6,171.1 597.6,171.0 597.6,171.0 597.5,170.9 597.5,170.9 597.5,170.8 597.5,170.8 597.5,170.8 597.5,170.8 597.4,170.7 597.4,170.7 597.3,170.4 597.3,170.4 597.1,170.2 597.1,170.2 596.6,169.1 596.6,169.1 596.2,168.5 596.2,168.5 596.2,168.5 596.2,168.5 596.1,168.3 596.1,168.3 595.9,167.9 595.9,167.9 595.4,167.0 595.4,167.0 595.3,166.8 595.3,166.8 594.8,165.9 594.8,165.9 594.7,165.7 594.7,165.7 594.6,165.6 594.6,165.6 594.5,165.4 594.5,165.4 594.2,164.8 594.2,164.8 593.9,164.2 593.9,164.2 593.8,164.1 593.8,164.1 593.0,162.7 593.0,162.7 592.4,161.6 592.4,161.6 592.3,161.3 592.3,161.3 592.2,161.2 592.2,161.2 592.1,161.1 592.1,161.1 592.1,161.1 592.1,161.1 592.0,160.9 592.0,160.9 591.9,160.7 591.9,160.7 591.9,160.7 591.9,160.7 591.8,160.5 591.8,160.5 591.5,160.0 591.5,160.0 591.3,159.7 591.3,159.7 591.3,159.7 591.3,159.7 591.3,159.7 591.3,159.7 591.2,159.5 591.2,159.5 591.1,159.3 591.1,159.3 591.1,159.3 591.1,159.3 591.1,159.2 591.1,159.2 590.9,158.9 590.9,158.9 591.0,158.6 591.0,158.6 591.5,157.6 591.5,157.6 591.9,157.0 591.9,157.0 592.1,156.5 592.1,156.5 592.5,155.7 592.5,155.7 592.6,155.4 592.6,155.4 592.7,155.4 592.7,155.4 593.3,154.3 593.3,154.3 594.2,152.5 594.2,152.5 594.3,152.2 594.3,152.2 594.8,151.3 594.8,151.3 595.8,149.4 595.8,149.4 595.9,149.2 595.9,149.2 596.1,148.7 596.1,148.7 596.9,147.2 596.9,147.2 597.0,146.9 597.0,146.9 597.3,146.4 597.3,146.4 597.3,146.4 597.3,146.4 599.4,142.4 599.4,142.4 599.6,142.0 599.6,142.0 601.8,137.6 601.8,137.6 601.9,137.5 601.9,137.5 602.0,137.3 602.0,137.3 604.0,133.4 604.0,133.4 604.2,133.1 604.2,133.1 604.6,132.1 604.6,132.1 605.0,131.4 605.0,131.4 605.3,130.8 605.3,130.8 605.8,129.8 605.8,129.8 605.9,129.6 605.9,129.6 607.1,127.3 607.1,127.3 608.3,125.0 608.3,125.0 608.4,124.7 608.4,124.7 609.2,123.3 609.2,123.3 609.6,122.5 609.6,122.5 609.8,122.1 609.8,122.1 610.2,121.3 610.2,121.3 611.0,119.8 611.0,119.8 611.3,119.2 611.3,119.2 611.4,119.0 611.4,119.0 612.2,117.4 612.2,117.4 615.1,111.7 572.0,111.7 571.6,110.4 571.6,110.4 571.0,109.0 571.0,109.0 570.1,106.3 570.1,106.3 568.9,103.0 521.1,103.0 519.9,106.3 519.9,106.3 519.0,109.0 519.0,109.0 518.4,110.4 518.4,110.4 518.0,111.7 474.9,111.7 477.8,117.4 477.8,117.4 478.6,119.0 478.6,119.0 478.7,119.2 478.7,119.2 479.0,119.8 479.0,119.8 479.8,121.3 479.8,121.3 480.2,122.1 480.2,122.1 480.4,122.5 480.4,122.5 480.8,123.3 480.8,123.3 481.6,124.7 481.6,124.7 481.7,125.0 481.7,125.0 482.9,127.3 482.9,127.3 484.1,129.6 484.1,129.6 484.2,129.8 484.2,129.8 484.7,130.8 484.7,130.8 485.0,131.4 485.0,131.4 485.4,132.1 485.4,132.1 485.8,133.1 485.8,133.1 486.0,133.4 486.0,133.4 488.0,137.3 488.0,137.3 488.1,137.5 488.1,137.5 488.2,137.6 488.2,137.6 490.4,142.0 490.4,142.0 490.6,142.4 490.6,142.4 492.7,146.4 492.7,146.4 492.7,146.4 492.7,146.4 493.0,146.9 493.0,146.9 493.1,147.2 493.1,147.2 493.9,148.7 493.9,148.7 494.1,149.2 494.1,149.2 494.2,149.4 494.2,149.4 495.2,151.3 495.2,151.3 495.7,152.2 495.7,152.2 495.8,152.5 495.8,152.5 496.7,154.3 496.7,154.3 497.3,155.4 497.3,155.4 497.4,155.4 497.4,155.4 497.5,155.7 497.5,155.7 497.9,156.5 497.9,156.5 498.1,157.0 498.1,157.0 498.5,157.6 498.5,157.6 499.0,158.6 499.0,158.6 499.1,158.9 499.1,158.9 498.9,159.2 498.9,159.2 498.9,159.3 498.9,159.3 498.9,159.3 498.9,159.3 498.8,159.5 498.8,159.5 498.7,159.7 498.7,159.7 498.7,159.7 498.7,159.7 498.7,159.7 498.7,159.7 498.5,160.0 498.5,160.0 498.2,160.5 498.2,160.5 498.1,160.7 498.1,160.7 498.1,160.7 498.1,160.7 498.0,160.9 498.0,160.9 497.9,161.1 497.9,161.1 497.9,161.1 497.9,161.1 497.8,161.2 497.8,161.2 497.7,161.3 497.7,161.3 497.6,161.6 497.6,161.6 497.0,162.7 497.0,162.7 496.2,164.1 496.2,164.1 496.1,164.2 496.1,164.2 495.8,164.8 495.8,164.8 495.5,165.4 495.5,165.4 495.4,165.6 495.4,165.6 495.3,165.7 495.3,165.7 495.2,165.9 495.2,165.9 494.7,166.8 494.7,166.8 494.6,167.0 494.6,167.0 494.1,167.9 494.1,167.9 493.9,168.3 493.9,168.3 493.8,168.5 493.8,168.5 493.8,168.5 493.8,168.5 493.4,169.1 493.4,169.1 492.9,170.2 492.9,170.2 492.7,170.4 492.7,170.4 492.6,170.7 492.6,170.7 492.5,170.8 492.5,170.8 492.5,170.8 492.5,170.8 492.5,170.9 492.5,170.9 492.4,171.0 492.4,171.0 492.4,171.1 492.4,171.1 492.2,171.3 492.2,171.3 491.9,171.9 491.9,171.9 491.8,172.1 491.8,172.1 491.6,172.5 491.6,172.5 491.3,172.9 491.3,172.9 491.1,173.4 491.1,173.4 490.7,174.2 490.7,174.2 490.6,174.2 490.6,174.2 490.5,174.4 490.5,174.4 490.1,175.1 490.1,175.1 489.8,175.8 489.8,175.8 489.5,176.3 489.5,176.3 489.3,176.7 489.3,176.7 489.0,177.2 489.0,177.2 488.7,177.7 488.7,177.7 488.2,178.6 488.2,178.6 487.6,179.7 487.6,179.7 487.0,180.9 487.0,180.9 487.9,181.4 487.9,181.4 490.1,182.7 490.1,182.7 489.6,183.9 489.6,183.9 489.5,184.1 489.5,184.1 489.3,184.5 489.3,184.5 489.0,185.1 489.0,185.1 488.7,185.8 488.7,185.8 488.6,185.9 488.6,185.9 487.1,189.3 487.1,189.3 487.1,189.3 487.1,189.3 486.5,190.6 486.5,190.6 485.2,193.5 485.2,193.5 485.0,193.9 485.0,193.9 484.6,194.7 484.6,194.7 483.4,197.3 483.4,197.3 481.8,200.9 481.8,200.9 481.0,202.5 481.0,202.5 477.6,210.0 477.6,210.0 477.2,210.8 483.2,210.8 482.8,212.0 482.8,212.0 481.7,215.3 481.7,215.3 481.3,216.4 481.3,216.4 480.8,218.0 480.8,218.0 479.7,221.0 479.7,221.0 479.4,221.9 479.4,221.9 479.2,222.4 479.2,222.4 478.5,224.5 478.5,224.5 476.7,229.9 476.7,229.9 474.5,236.1" fill="var(--band-fill)" stroke="var(--ink-2)" stroke-width="1.4" class="ink-decided"/>
+    <ellipse cx="545" cy="165" rx="75.9" ry="38.0" transform="rotate(-228 545 165)" fill="none" stroke="var(--ink-4)" stroke-width="1.2" class="ink-assumed"/>
+    <text x="200" y="290" text-anchor="middle" class="lb">the smallest allowed — 168.3 km</text>
+    <text x="545" y="290" text-anchor="middle" class="lb">the largest allowed — 267.5 km</text>
+    <text x="380" y="314" text-anchor="middle" class="lb">dashed: the published ellipse, 206 ± 15 km · drawn centred, because chords fix widths and not offsets</text>
+  </svg>
+      <figcaption class="figcap"><span class="k">two silhouettes the same five chords allow</span>
+      <span class="v">168.3 km and 267.5 km across</span></figcaption></figure>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 306" class="fg" role="img" aria-label="certified equivalent diameter against the error budget">
+    <line class="ink-assumed-sm" x1="375.2" x2="375.2" y1="28" y2="280" stroke="var(--ink-5)" stroke-width="1"/><text x="375.2" y="22" text-anchor="middle" class="lb">ellipse 206</text>
+    <line class="ink-assumed-sm" x1="474.4" x2="474.4" y1="28" y2="280" stroke="var(--ink-5)" stroke-width="1"/><text x="474.4" y="22" text-anchor="middle" class="lb">radiometric 237</text>
+    <g>
+      <text x="122" y="48" text-anchor="end" class="lb">as published</text>
+      <rect x="326.1" y="39" width="28.1" height="13" fill="var(--band-fill)" stroke="var(--verdict-refuted-ink)" stroke-width="1" class="ink-assumed"/>
+      <text x="320.1" y="49" text-anchor="end" class="ax">190.7</text>
+      <text x="354.36" y="49" class="ax">199.5</text>
+      <text x="354.346" y="49" class="lb">no convex body fits</text>
+    </g><g>
+      <text x="122" y="88" text-anchor="end" class="lb">0.5σ of chord error</text>
+      <rect x="288.2" y="79" width="224.0" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1" class="ink-decided"/>
+      <text x="282.2" y="89" text-anchor="end" class="ax">178.8</text>
+      <text x="512.16" y="89" class="ax">248.8</text>
+      
+    </g><g>
+      <text x="122" y="128" text-anchor="end" class="lb">1σ of chord error</text>
+      <rect x="254.5" y="119" width="317.7" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1" class="ink-decided"/>
+      <text x="248.5" y="129" text-anchor="end" class="ax">168.3</text>
+      <text x="572.16" y="129" class="ax">267.5</text>
+      
+    </g><g>
+      <text x="122" y="168" text-anchor="end" class="lb">1.5σ of chord error</text>
+      <rect x="226.5" y="159" width="398.1" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1" class="ink-decided"/>
+      <text x="220.5" y="169" text-anchor="end" class="ax">159.5</text>
+      <text x="624.66" y="169" class="ax">283.9</text>
+      
+    </g><g>
+      <text x="122" y="208" text-anchor="end" class="lb">2σ of chord error</text>
+      <rect x="208.0" y="199" width="441.0" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1" class="ink-decided"/>
+      <text x="202" y="209" text-anchor="end" class="ax">153.8</text>
+      <text x="649.16" y="209" class="ax">291.6</text>
+      
+    </g><g>
+      <text x="122" y="248" text-anchor="end" class="lb">3σ of chord error</text>
+      <rect x="194.8" y="239" width="478.2" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1" class="ink-decided"/>
+      <text x="188.8" y="249" text-anchor="end" class="ax">149.6</text>
+      <text x="673.06" y="249" class="ax">299.1</text>
+      
+    </g>
+    <line class="ink-guide" x1="132" x2="740" y1="282" y2="282" stroke="var(--chart-axis)" stroke-width="1"/>
+    <text x="196.0" y="296" text-anchor="middle" class="ax">150</text><text x="356.0" y="296" text-anchor="middle" class="ax">200</text><text x="516.0" y="296" text-anchor="middle" class="ax">250</text><text x="676.0" y="296" text-anchor="middle" class="ax">300</text>
+    <text x="740" y="296" text-anchor="end" class="ax">area-equivalent diameter, km</text>
+  </svg>
+      <figcaption class="figcap"><span class="k">what the error budget buys</span>
+      <span class="v">the top row is the chords at face value</span></figcaption></figure>
+
+    <div class="note reveal">
+      <b>At face value the chords are not consistent with any convex silhouette.</b> Taken with zero error, the concave hull of the
+      measured lengths runs 5.5 km above Javalambre's own chord — no convex body passes through all five.
+      About half of one stated error bar is enough to admit one, which is why the row above is drawn open. The published analysis meets the
+      same fact from the other side: its fit to the chords as timed scores χ² = 29.5, and only after shifting three chords in time does it
+      reach 4. <em>This page does not take a side in that debate: a timing shift slides a chord along its own line and does not change how
+      long it is, so nothing here depends on which fit one prefers.</em>
+    </div>
+
+    <div class="note reveal">
+      <b>And a disagreement in the literature dissolves.</b> The paper reports an occultation diameter of 206 ± 15 km and notes that its
+      mean 3-D estimate is <em>not in agreement</em> with the radiometric 237 ± 8 km from Herschel, Spitzer and ALMA. Both numbers sit
+      inside [168.3, 267.5] km. The tension is between two models, not between two measurements.
+    </div>
+
+    <div class="grid reveal" style="grid-template-columns:2fr 1fr 1fr 1.2fr;">
+      <div class="h">station</div><div class="h">cross-track, km</div><div class="h">chord, km</div><div class="h">status</div>
+      
+        <div class="ml">Latrape Observatory (0.35 m)</div><div>224.6</div>
+        <div>—</div>
+        <div class="">negative</div>
+        <div class="ml">Latrape Observatory (0.30 m)</div><div>224.6</div>
+        <div>—</div>
+        <div class="">negative</div>
+        <div class="ml">Sabadell Observatory</div><div>123.9</div>
+        <div>—</div>
+        <div class="">negative</div>
+        <div class="ml">Forcarei Observatory</div><div>123.6</div>
+        <div>—</div>
+        <div class="">negative</div>
+        <div class="ml">Sant Esteve Observatory</div><div>119.3</div>
+        <div>—</div>
+        <div class="">negative</div>
+        <div class="ml">Allariz Observatory</div><div>102.5</div>
+        <div>90.1 ± 13.8</div>
+        <div class="hit">positive</div>
+        <div class="ml">Javalambre Observatory</div><div>11.8</div>
+        <div>172.7 ± 3.8</div>
+        <div class="hit">positive</div>
+        <div class="ml">Aras de los Olmos Observatory</div><div>4.4</div>
+        <div>185.4 ± 39.0</div>
+        <div class="hit">positive</div>
+        <div class="ml">Nunki Observatory</div><div>-6.4</div>
+        <div>—</div>
+        <div class="">bad — bad data</div>
+        <div class="ml">La Hita Observatory (0.77 m)</div><div>-34.1</div>
+        <div>170.2 ± 40.9</div>
+        <div class="hit">positive</div>
+        <div class="ml">La Hita Observatory (0.40 m)</div><div>-34.1</div>
+        <div>179.3 ± 33.7</div>
+        <div class="">excluded — authors excluded it from the limb fit; kept as a consistency check</div>
+        <div class="ml">Kryoneri Observatory</div><div>-84.5</div>
+        <div>—</div>
+        <div class="">technical — technical failure</div>
+        <div class="ml">Univ. of Athens Observatory</div><div>-88.1</div>
+        <div>133.3 ± 104.3</div>
+        <div class="hit">positive</div>
+        <div class="ml">La Sagra Observatory</div><div>-136.7</div>
+        <div>—</div>
+        <div class="">negative</div>
+        <div class="ml">La Murta Observatory</div><div>-138.7</div>
+        <div>—</div>
+        <div class="">negative</div>
+        <div class="ml">Adiyaman University Observatory</div><div>-182.0</div>
+        <div>—</div>
+        <div class="">negative</div>
+        <div class="ml">Calar Alto Observatory</div><div>-188.8</div>
+        <div>—</div>
+        <div class="">negative</div>
+        <div class="ml">Sierra Nevada Observatory</div><div>-205.1</div>
+        <div>—</div>
+        <div class="">negative</div>
+    </div>
+    <p class="small reveal" style="margin-top:var(--s-3);color:var(--ink-5);">13 further negative stations between 268 and 731 km from the centerline are omitted from this table; they are in the data file and change nothing.</p>
+
+    <div class="note reveal">
+      <b>Every number on this page is exact.</b> The published values are decimals, so they are exact rationals, and the areas are
+      exact rationals too — there is no optimiser here and nothing converges. The envelope is discontinuous at every chord, because the
+      constraints anchored at a chord stop applying the moment you pass it; integrating it as a polyline understated the ceiling by 16%
+      and made it <em>fall</em> when chords were removed. Between breakpoints the envelope is affine, so the midpoint rule is exact and
+      blind to the jumps. Twenty cases and six reds, including a control that must fail: a dumbbell silhouette, which is not convex, has to
+      land outside the interval — and does.
+    </div>
+
+    <p class="small reveal" style="margin-top:var(--s-5);color:var(--ink-5);">
+      Data transcribed from Santos-Sanz et al. 2021, MNRAS; arXiv:2012.06621, Tables 4 and 6. Companion to the transit instrument (frontier-apps; not yet ported here),
+      which finds the same asymmetry in exoplanet photometry, and to <a href="../curveset/index.html" style="color:inherit;">the calibration envelope</a>,
+      whose closed form this is.
+    </p>
+  </div>
+</section></main>
+
+</body>
+</html>

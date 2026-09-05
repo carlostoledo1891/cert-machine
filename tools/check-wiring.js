@@ -26,6 +26,7 @@
 'use strict';
 
 const fs = require('fs');
+const cp = require('child_process');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -45,6 +46,53 @@ const MAKE = read('Makefile');
 const CONTROL = read('tools/build-control.js');
 
 console.log('wiring battery');
+
+/* ---------------------------------------------------------------- 0 -----
+   THE WORKING TREE IS ON DISK (2026-09-05). This repository lives under
+   ~/Documents, which is iCloud Drive, and "Optimize Mac Storage" EVICTS files
+   it has not seen opened for a while: the directory entry stays, `ls` and
+   `stat` still report the full size, git sees no change — and a read returns
+   ZERO BYTES. Found when playground/build.js died on JSON.parse of a record
+   that had been there since yesterday, and shasum reported the hash of the
+   empty string for a 9,894-byte TeX file. 365 tracked files were evicted at
+   the time. A gate that reads an evicted page counts nothing on it and
+   passes; the dash census went from 150 conforming uses to 115 and said "the
+   ratchet holds". So this runs FIRST: every tracked file that has a size must
+   read that size. If one does not, nothing else here is believed, and
+   `make materialize` is the fix (reading through the tree pulls it back). */
+{
+  const list = cp.execSync('git ls-files -z', { cwd: ROOT, maxBuffer: 1 << 26 }).toString().split('\0').filter(Boolean);
+  const evicted = [];
+  for (const f of list) {
+    const p = path.join(ROOT, f);
+    let st; try { st = fs.statSync(p); } catch (e) { continue; }
+    if (!st.isFile() || st.size === 0) continue;
+    if (fs.readFileSync(p).length !== st.size) evicted.push(f);
+  }
+  /* AND THE IGNORED CORPORA (later the same day): apps/skyaudit/data holds
+     2 GB of gitignored day files that its battery reads, and one of them was
+     evicted an hour after the tracked tree had been pulled back — 'sp union
+     corpus count' went RED with nothing in git to show for it. Ignored files
+     are not read through here (2 GB a run); they are checked by the flag
+     APFS sets on an evicted file, which clears once the file is back. Only
+     the trees a battery reads: apps/, certs/, corpus/, site/apps/. */
+  try {
+    const ign = cp.execSync('git ls-files -o --ignored --exclude-standard -z -- apps certs corpus site/apps', { cwd: ROOT, maxBuffer: 1 << 26 })
+      .toString().split('\0').filter((f) => f && !/node_modules|__pycache__|\.pytest_cache/.test(f));
+    if (ign.length) {
+      const flags = cp.execSync('xargs -0 stat -f "%f %N"', { cwd: ROOT, input: ign.join('\0') + '\0', maxBuffer: 1 << 26 }).toString().split('\n');
+      for (const line of flags) { const m = /^(\d+) (.*)$/.exec(line); if (m && (Number(m[1]) & 0x40000000)) evicted.push(m[2] + '  (ignored, evicted)'); }
+    }
+  } catch (e) { /* no ignored files, or no stat: nothing to check */ }
+  if (evicted.length) {
+    bad('every tracked file reads the size it has on disk',
+      evicted.length + ' file(s) read EMPTY — iCloud has evicted them. Run `make materialize`, then re-run.\n        '
+      + evicted.slice(0, 8).join('\n        ') + (evicted.length > 8 ? '\n        …' : ''));
+    console.log('\nREFUSED: the working tree is not on disk; no other check below is meaningful.');
+    process.exit(1);
+  } else ok('every tracked file reads the size it has on disk, and no corpus a battery reads is evicted', '[' + list.length + ' files]');
+}
+
 
 /* ---------------------------------------------------------------- 1 -----
    Every report builder is invoked by `make reports`. Without this, a builder

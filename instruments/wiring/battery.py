@@ -31,7 +31,7 @@ prov = json.load(open('PROVENANCE.json'))
 bad = []
 for f in prov['files']:
     got = hashlib.sha256(open(f['file'], 'rb').read()).hexdigest()
-    if got != f['sha256']: bad.append(f['file'])
+    if got != f['sha256'] or (f['bytes'] > 0 and got == 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'): bad.append(f['file'])   # the empty hash on a non-empty file is an evicted iCloud read
 check('every ported file hashes to its pin', not bad, f"{len(prov['files'])} files" if not bad else 'moved: ' + ', '.join(bad))
 
 # 2. the forgery gate

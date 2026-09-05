@@ -29,7 +29,8 @@ const run = (script, cwd = HERE) => execFileSync(process.execPath, [script], { c
 
 /* 1. the pins */
 const PROV = JSON.parse(fs.readFileSync(path.join(HERE, 'PROVENANCE.json'), 'utf8'));
-const moved = PROV.files.filter((f) => sha(path.join(HERE, f.file)) !== f.sha256).map((f) => f.file);
+const EMPTY = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';   /* the hash of nothing: an evicted iCloud file reads as this */
+const moved = PROV.files.filter((f) => { const h = sha(path.join(HERE, f.file)); return h !== f.sha256 || (f.bytes > 0 && h === EMPTY); }).map((f) => f.file);
 check('every ported file hashes to its pin', moved.length === 0, moved.length ? 'moved: ' + moved.join(', ') : PROV.files.length + ' files');
 
 /* 2. the two suites */

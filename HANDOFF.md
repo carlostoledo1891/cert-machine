@@ -175,11 +175,54 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     THE NEAR-MISS THAT MUST SURVIVE (RESULTS.md): compare a published ratio
     to the WINDOW [ratio(N-1/2), ratio(N+1/2)], never to the ratio at the
     printed norm, or 32 of 37 look wrong at 1e-4.
-    · NOT PORTED YET, in the document's order: occultation, transit — each a
-      published number re-decided exactly with reds. certifier-core +
-      blind-spot DEFERRED one frontier session: 12 MB, a 75-minute formal
-      run in a battery, records that copy but cannot be regenerated, and an
-      identity control found vacuous a day ago. The toolchain is installed.
+  ── THE PORT, THIRD: THE OCCULTATION WITHOUT THE ELLIPSE ── instruments/
+    occultation, 12 files pinned, three requires repointed at the house
+    rational library (instruments/interval/rational.js, the same module
+    lifted from sin-mfg; frontier's copy differs only in toDouble's big-
+    number path) — and the equivalence is not assumed: page.json rebuilt here
+    is BYTE-IDENTICAL to the pin, figures.tex too. 20 cases, 6 reds (the
+    dumbbell must land outside). Numbers: Deq in [168.3, 267.5] km at one
+    sigma from convexity alone; the published 206±15 and the radiometric
+    237±8 both inside, so the disagreement the paper reports is between two
+    models; at face value no convex silhouette fits; the 23 misses are worth
+    309 km of ceiling. The paper travels as a pinned artifact (TeX + PDF as
+    typeset there with tectonic). /instruments/occultation is the page under
+    design/grammar.js's css(); the transit link is prose until transit lands.
+    Looked at at 1440 and 390: one figure change — the envelope's x-axis
+    caption sat on the tick row and overprinted the 100 km tick, it sits a
+    line lower now — and the card strips the figure's labels, which are a
+    smear at card scale. 69 rows in both registries.
+
+  ── THE HAZARD FOUND ON THE WAY, AND IT IS THE WORST THING IN THIS FILE ──
+    THIS REPOSITORY LIVES IN iCLOUD DRIVE (~/Documents), and "Optimize Mac
+    Storage" EVICTS files: the entry stays, ls and stat report the full
+    size, git sees no change — and a read returns ZERO BYTES. playground/
+    build.js died on JSON.parse of a record that had been there since
+    yesterday; shasum reported the hash of the empty string for frontier's
+    9,894-byte TeX; 365 tracked files were evicted at that moment. Worse,
+    A GATE OVER EVICTED FILES PASSES: the dash census went from 150
+    conforming uses to 115 and printed "the ratchet holds". Done about it:
+    check-wiring now runs a check 0 FIRST — every tracked file must read the
+    size it has on disk, or it refuses everything and names `make
+    materialize` (reads through the tree, ~5 min when evicted, seconds when
+    not); the three new batteries refuse a pin that hashes to the empty
+    string on a non-empty file. Every pin written today was re-scanned
+    against the empty hash: none. THE REAL FIX IS THE OPERATOR'S: move the
+    repository out of iCloud Drive, or turn Optimize Mac Storage off for it.
+    Until then every session should run `make materialize` before it
+    believes a number. AND IT BIT AGAIN AN HOUR LATER: the skyaudit battery
+    went RED on 'sp union corpus count' — a gitignored day corpus
+    (apps/skyaudit/data/day-*/sp.heli.jsonl, 2 GB of ignored files in all)
+    had been evicted, `git ls-files` never saw it, and the union came up
+    short against the pinned record. Reading the file made it green again.
+    `make materialize` reads the ignored corpora too now, and check-wiring's
+    check 0 looks at them by the dataless flag.
+
+    · NOT PORTED YET: transit (the same shape, 2.3 MB of Kepler light
+      curves, two suites and 7 reds). certifier-core + blind-spot DEFERRED
+      one frontier session: 12 MB, a 75-minute formal run in a battery,
+      records that copy but cannot be regenerated, and an identity control
+      found vacuous a day ago. The toolchain is installed.
 
   ── THE ZENODO TITLE: APPLIED THROUGH THE INTEGRATION ── The operator asked
     for the best titles and the update, then pointed at the working

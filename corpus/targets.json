@@ -419,6 +419,15 @@
    "finding": "Second in frontier's port order because its cross-check imports the lattice-claims package. Reproduced: pi.test and gh.test green (32 cross-implementation cases agree with the Python engine in instruments/wiring), hof.json byte-identical, audit.json and reduce-40.json identical up to wall-clock ms, decide-record: exact ratio in [1.049851339, 1.049851340], 2905 refused. The audit decides the ARITHMETIC of each claim, not the claim: the winning vectors are not published.",
    "why": "The charter (CHARTER.md, copied first) is the reason this folder exists and the reason it is safe: audit only, never design a primitive. Published security numbers are bare floats; re-deciding them exactly is open ground and low risk.",
    "note": "The near-miss RESULTS.md records must survive every re-implementation: compare the published ratio to the WINDOW [ratio(N-1/2), ratio(N+1/2)], never to the ratio at the printed norm, or 32 of 37 will look wrong at 1e-4. Open, per the charter: the dim-119 vector needs the winning vector; core-SVP cost models are outside it."
+  },
+  {
+   "id": "occultation-convex-bracket-port",
+   "name": "The occultation without the ellipse: a convex bracket on 2002 GZ32 from five chords and 23 misses — ported from frontier-apps",
+   "verdict": "BUILT 2026-09-05 — instruments/occultation (12 files pinned, three requires repointed at the house rational library and proved equivalent by a byte-identical record); /instruments/occultation is the page",
+   "scouted": "2026-09-05",
+   "finding": "Third in frontier's port order. Reproduced: 20 cases green, 6 reds fire, page.json and figures.tex byte-identical to the pins. Numbers: Deq in [168.3, 267.5] km at one sigma; the published 206 +- 15 and the radiometric 237 +- 8 both inside, so the disagreement the paper reports is between two models, not two measurements; at face value no convex silhouette fits (the hull runs 5.5 km over Javalambre's chord); the 23 negatives are worth 309 km of ceiling.",
+   "why": "The same shape as curveset: a closed-form envelope under one weak assumption (convexity), where every published number is a fit under a stronger one (an ellipse). The data bound one side and the model buys the other.",
+   "note": "Two things that were unsound before the reds caught them and must not return: a negative station is a ZERO of w on its support, not a sample; the ceiling is DISCONTINUOUS at every chord, so integrate by the midpoint rule between breakpoints, never as a polyline. Open: a second event (needs a campaign that publishes cross-track distances), the central-symmetry rung, chord POSITION along its line."
   }
  ]
 }

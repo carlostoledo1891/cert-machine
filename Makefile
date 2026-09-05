@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help engine control test drift lift clean reports site papers playground
+.PHONY: help engine control test drift lift clean reports site papers playground materialize
 
 help:
 	@echo "cert-machine — the conjecture engine"
@@ -34,6 +34,14 @@ site: control
 playground:
 	@$(NODE) playground/build.js
 
+# ~/Documents is iCloud Drive and "Optimize Mac Storage" evicts files: the entry
+# stays, stat reports the size, git sees nothing, and a READ RETURNS EMPTY.
+# Reading through every tracked file pulls it back. check-wiring refuses a
+# tree where any file reads short, and names this target.
+materialize:
+	@git ls-files -z | xargs -0 -n 40 cat > /dev/null 2>/dev/null
+	@git ls-files -o --ignored --exclude-standard -z | grep -z -v node_modules | xargs -0 -n 40 cat > /dev/null 2>/dev/null; echo "materialized: every tracked AND ignored file read through (the skyaudit day corpora are ignored, 2 GB, and a battery reads them)"
+
 test:
 	@printf "%-30s " "engine + families"; $(NODE) tools/test-engine.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "funnel machine"; $(NODE) machine/funnel/selftest/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -52,6 +60,7 @@ test:
 	@printf "%-30s " "lattice-claims forgeries"; cd instruments/wiring && python3 -m pytest tests/test_forgeries.py -q >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lattice-claims (pins+gate+regrade)"; $(PY) instruments/wiring/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "pqc geometry (SVP audit)"; $(NODE) instruments/pqc/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "occultation (convex bracket)"; $(NODE) instruments/occultation/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "wiring concord (JS vs Python)"; $(NODE) instruments/wiring/concord.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "newman box sweep"; $(NODE) instruments/trigmin/sweep-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lambda4 campaign"; $(NODE) instruments/lambda4/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
