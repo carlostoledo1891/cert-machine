@@ -33,7 +33,7 @@ function write(stage, body) {
     generated: new Date().toISOString(),
     trustBase: TRUST_BASE,
     source: {
-      bench: '/Users/carlostoledo/Documents/frontier-apps/experiments/ember/',
+      bench: '/Users/carlostoledo/Projects/frontier-apps/experiments/ember/',
       note: 'frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial',
     },
     ...body,

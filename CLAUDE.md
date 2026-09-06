@@ -61,7 +61,7 @@ key(obj)     -> string          canonical identity for dedup
 
 ## The one rule
 
-`/Users/carlostoledo/Documents/sin-mfg` is **read-only, permanently.** Read anything —
+`/Users/carlostoledo/Projects/sin-mfg` is **read-only, permanently.** Read anything —
 numbers, literature, instruments, records. Never edit a file, never change the tree; if you
 find an error there, report it rather than repair it. That lab pins evidence by path and
 sha256, so an edit makes a pin resolve to nothing and demotes a certified claim.

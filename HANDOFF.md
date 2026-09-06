@@ -45,6 +45,10 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     the new location: run make drift (130 unchanged), check-wiring, make
     test, then commit them. The operator asked for the move; the folder name
     was mine.
+    → DONE 2026-09-06 (sixth session, cold start): the detached job had died
+    with sin-mfg re-evicted (636 git objects; the disk is at 92%). Read
+    through by hand, the script run, three trees now under ~/Projects; drift
+    130 unchanged, check-wiring ALL PASS, make test 70/70 from the new root.
 
   ── THE DAY IN ONE LINE EACH ──
     · lattice-claims ported whole; the grader now matches the pinned record.
