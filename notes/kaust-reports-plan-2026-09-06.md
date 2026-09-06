@@ -31,6 +31,8 @@ is additive BY INSTANCE and says so.
 
 ## Report 1 in detail — the first candidate
 
+**STATUS 2026-09-06: BUILT.** instruments/afg, certs/afg-enclosure.json, reports/afg.html. The numbers below were a float preview; the certified boxes are in the record and on the page. Not sent.
+
 **The instance.** AFG system (1.1) on the torus, first order:
 
 ```

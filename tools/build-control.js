@@ -105,6 +105,7 @@ const BATTERIES = [
   ['bilinear certifier', ['instruments/bilinear/battery.js'], 'bilinear identities over Q and F2'],
   ['slp additive circuits', ['instruments/slp/battery.js'], 'straight-line programs, additive cost'],
   ['mfg lab (box certifier)', ['labs/mfg/battery.js'], 'the box certifier for the MFG lab'],
+  ['afg (first-order MFG by the current)', ['instruments/afg/battery.js'], 'Almulla–Ferreira–Gomes (1.1), first order, in the case the paper says has no closed form: the record re-derived live (two Krawczyk boxes on (j, H̄), rigorous quadrature throughout) and compared byte for byte; the b = 0 control must contain the paper\'s closed form · 6 red controls'],
   ['mfg2p lab (two populations)', ['labs/mfg2p/battery.js'], 'two-population equilibria'],
   ['mfg-cap census (EXACTLY-n)', ['labs/mfg/census-battery.js'], 'Krawczyk exhaustion census of the even Galerkin mfg-cap system: EXACTLY 3 solutions at c=-12 re-proved live at N=2 every run, records walked for N=2..5, honest box-bounded truncation scope asserted · 3 red controls (midpoint split refuses at the constant solution’s exact coordinates, starved budget, corrupted kernel)'],
   ['erdos290 lean battery', ['tools/erdos290-lean-battery.js'], 'closed forms equal enumeration exactly for l <= 12; the broken-EGF red must fire'],
@@ -120,6 +121,7 @@ const BATTERIES = [
      check printed "the same batteries". The check compares every script in the
      test target now, and these are the rows it found missing here. */
   ['interval · transcendental enclosure', ['instruments/interval/tests/test-transcendental-enclosure.js'], 'the enclosure form of exp/log/sin/cos: every bracket contains the true value'],
+  ['interval · quadrature', ['instruments/interval/tests/test-quadrature.js'], 'the midpoint rule with its remainder as an interval on [0,1]: ∫x², ∫sin², ∫e^{sin} = I₀(1) contained; the remainder deleted must miss · 3 red controls'],
   ['cert-unit port + wiring', ['instruments/cert-unit/test.mjs'], 'the typed wire: a float is refused at a deciding port, a hypothesis mismatch is refused at the boundary, and the two read-only renderers draw the pinned lattice-claims record — 135 rollouts, four refutations · 15 checks'],
   ['cert-unit reds (6 declared)', ['instruments/cert-unit/reds.mjs'], 'six declared forgeries the runtime must refuse, each one a real failure the bench made'],
   ['cert-unit editor = engine', ['instruments/cert-unit/editor.test.mjs'], 'the rewirable editor enforces exactly the rules node test.mjs runs: a refused wire in the page is the same refusal, in the same words'],

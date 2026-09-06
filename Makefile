@@ -46,7 +46,7 @@ test:
 	@printf "%-30s " "engine + families"; $(NODE) tools/test-engine.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "funnel machine"; $(NODE) machine/funnel/selftest/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "detach"; $(NODE) machine/detach/selftest.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@for t in test-eqcert test-interval test-transcendental test-transcendental-enclosure; do \
+	@for t in test-eqcert test-interval test-transcendental test-transcendental-enclosure test-quadrature; do \
 	  printf "%-30s " "interval/$$t"; $(NODE) instruments/interval/tests/$$t.js >/dev/null 2>&1 && echo PASS || echo FAIL; done
 	@printf "%-30s " "trigmin certifier"; $(NODE) instruments/trigmin/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "forecast instrument"; $(NODE) instruments/forecast/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -82,6 +82,7 @@ test:
 	@printf "%-30s " "hotspots (ember chain)"; $(NODE) instruments/hotspots/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "afg (first-order MFG, current)"; $(NODE) instruments/afg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg lab (box certifier)"; $(NODE) labs/mfg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg-cap census (EXACTLY-n)"; $(NODE) labs/mfg/census-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg2p lab (two populations)"; $(NODE) labs/mfg2p/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -160,6 +161,7 @@ reports:
 	@$(NODE) tools/build-report-harbor-proof.js
 	@$(NODE) tools/build-report-water-value.js
 	@$(NODE) tools/build-report-mfg-cap.js
+	@$(NODE) tools/build-report-afg.js
 	@$(NODE) tools/build-report-mfg-lab.js
 	@$(NODE) tools/build-report-mfg-observatory.js
 	@$(NODE) tools/build-report-mfg2p.js

@@ -81,7 +81,16 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     Almulla–Ferreira–Gomes's first-order system in the case they say has no
     closed form (b = cos², ∫b = 1/2), enclosed by the current reduction —
     two scalars (flux, H̄), rigorous quadrature, 2-D Krawczyk; the b = 0
-    closed form is the control. Days, not weeks. Nothing built yet.
+    closed form is the control. → BUILT 2026-09-06, same session:
+    instruments/afg (certifier, record, battery: 19 checks, 6 red controls),
+    instruments/interval/quadrature.js (the rigorous integral the library
+    lacked, with its own test), reports/afg.html re-deriving the record at
+    every build, registered in make test, the control page, the shelf and
+    the certificate table. j ∈ [0.34611351, 0.34611354], H̄ ∈ [0.17116455,
+    0.17116459], density ≥ 0.4291; the b = 0 control contains ln ∫e^V.
+    NOT SENT — every send stays operator-gated; the roster is July's.
+    Next on the plan: report 2 (the monotonicity wall) or 3 (the empty
+    region), see notes/kaust-reports-plan-2026-09-06.md.
 
   ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
     the ember paper; the staged formal-conjectures issue and the letters.
