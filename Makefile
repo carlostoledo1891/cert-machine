@@ -83,6 +83,8 @@ test:
 	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "afg (first-order MFG, current)"; $(NODE) instruments/afg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "monoflow (not a gradient)"; $(NODE) instruments/monoflow/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "aag (the empty region)"; $(NODE) instruments/aag/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg lab (box certifier)"; $(NODE) labs/mfg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg-cap census (EXACTLY-n)"; $(NODE) labs/mfg/census-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg2p lab (two populations)"; $(NODE) labs/mfg2p/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -162,6 +164,8 @@ reports:
 	@$(NODE) tools/build-report-water-value.js
 	@$(NODE) tools/build-report-mfg-cap.js
 	@$(NODE) tools/build-report-afg.js
+	@$(NODE) tools/build-report-monoflow.js
+	@$(NODE) tools/build-report-aag.js
 	@$(NODE) tools/build-report-mfg-lab.js
 	@$(NODE) tools/build-report-mfg-observatory.js
 	@$(NODE) tools/build-report-mfg2p.js

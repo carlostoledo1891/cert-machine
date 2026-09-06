@@ -1,0 +1,1406 @@
+{
+ "what": "the monotone flow of the quadratic stationary MFG (labs/mfg) on the even Galerkin space: at each certified equilibrium, the Lasry–Lions quadratic form evaluated from the interval Jacobian (must return c/2 at δm = cos 2πx) and, where a non-real eigenvalue pair exists, a Krawczyk enclosure of it — which rules out a gradient-flow structure under ANY Riemannian metric near that equilibrium",
+ "statement": "CERTIFICATE 1 (monotone): ⟨DA v, v⟩ = c ∫δm² + ∫ m (δu')² exactly, so the linearised Lasry–Lions operator is positive semidefinite iff c ≥ 0; the Jacobian assembled here returns c/2 at the witness direction on every instance. CERTIFICATE 2 (not a gradient flow): at C1, M1, M2, H1, H2 an eigenvalue μ of the flow Jacobian over the equilibrium's Galerkin box is enclosed with Im μ bounded away from 0, so no metric G and energy E make the flow −G⁻¹∇E near that equilibrium. At C1 the enclosed μ contains the closed-form mode-1 eigenvalue. R1 and H0 are NOT DECIDED: every eigenvalue reached by inverse iteration from the mode shifts is real to 1e-14, and a real spectrum is consistent with a gradient structure; nothing is claimed there. The theorem is about the finite-dimensional Galerkin ODE at the order N recorded; the same candidate is enclosed as a PDE solution by validate.js and both radii are recorded.",
+ "verdict": "VERIFIED",
+ "instances": [
+  {
+   "id": "C1",
+   "words": "the constant solution, c = 1: the control — every mode has a closed form",
+   "sigma": 0.5,
+   "c": 1,
+   "A": 0,
+   "N": 16,
+   "branch": "aligned",
+   "galerkinRadius": 1.0125233984581429e-13,
+   "pde": {
+    "r": 5.828670879282028e-16,
+    "Z1": 0.01872411095198979,
+    "kappa": 0.01872411095199096,
+    "minM": 0.9999999999999974
+   },
+   "form": {
+    "value": [
+     0.49999999999999795,
+     0.5000000000000041
+    ],
+    "expected": 0.5,
+    "contains": true
+   },
+   "monotone": true,
+   "modes": [
+    {
+     "k": 1,
+     "re": -20.239208802178716,
+     "im": 4.414658401527657,
+     "complex": true
+    },
+    {
+     "k": 2,
+     "re": -79.45683520871486,
+     "im": 8.871687280822929,
+     "complex": true
+    },
+    {
+     "k": 3,
+     "re": -178.15287921960845,
+     "im": 13.31926721781674,
+     "complex": true
+    },
+    {
+     "k": 4,
+     "re": -316.32734083485946,
+     "im": 17.764496638938617,
+     "complex": true
+    }
+   ],
+   "tried": [
+    {
+     "shift": [
+      -20.239208802178716,
+      4.414658401527657
+     ],
+     "mu": [
+      -20.239208802178716,
+      4.414658401527666
+     ]
+    }
+   ],
+   "pairs": [
+    {
+     "shift": [
+      -20.239208802178716,
+      4.414658401527657
+     ],
+     "muFloat": [
+      -20.239208802178716,
+      4.414658401527666
+     ],
+     "ok": true,
+     "mu": [
+      [
+       -20.239208802186273,
+       -20.23920880217116
+      ],
+      [
+       4.41465840150313,
+       4.414658401552203
+      ]
+     ],
+     "muWidth": [
+      1.5113243989617334e-11,
+      4.9073634045271326e-11
+     ],
+     "nonReal": true,
+     "rounds": 1
+    }
+   ],
+   "certified": [
+    {
+     "mu": [
+      [
+       -20.239208802186273,
+       -20.23920880217116
+      ],
+      [
+       4.41465840150313,
+       4.414658401552203
+      ]
+     ],
+     "muWidth": [
+      1.5113243989617334e-11,
+      4.9073634045271326e-11
+     ]
+    }
+   ],
+   "control": [
+    {
+     "k": 1,
+     "complex": true,
+     "re": [
+      -20.239208802178737,
+      -20.239208802178695
+     ],
+     "im": [
+      4.414658401527477,
+      4.414658401527843
+     ]
+    },
+    {
+     "k": 2,
+     "complex": true,
+     "re": [
+      -79.45683520871495,
+      -79.45683520871478
+     ],
+     "im": [
+      8.871687280821535,
+      8.871687280824379
+     ]
+    },
+    {
+     "k": 3,
+     "complex": true,
+     "re": [
+      -178.15287921960865,
+      -178.15287921960822
+     ],
+     "im": [
+      13.319267217811399,
+      13.31926721782222
+     ]
+    },
+    {
+     "k": 4,
+     "complex": true,
+     "re": [
+      -316.3273408348598,
+      -316.3273408348591
+     ],
+     "im": [
+      17.764496638927536,
+      17.764496638950522
+     ]
+    }
+   ],
+   "verdict": "NOT A GRADIENT FLOW",
+   "certificate": {
+    "claim": "the monotone flow of the Galerkin MFG at (σ, c, A, N) = (0.5, 1, 0, 16) is NOT a gradient flow under any Riemannian metric near its certified equilibrium: an eigenvalue μ of the flow Jacobian is enclosed with Re μ ∈ [-20.2392088, -20.2392088], Im μ ∈ [4.414658402, 4.414658402] (Im μ ≠ 0); the linearised Lasry–Lions form is positive semidefinite (c ≥ 0): monotone",
+    "verdict": "PROVED",
+    "evidence": {
+     "galerkinRadius": 1.0125233984581429e-13,
+     "pdeRadius": 5.828670879282028e-16,
+     "muRe": [
+      -20.239208802186273,
+      -20.23920880217116
+     ],
+     "muIm": [
+      4.41465840150313,
+      4.414658401552203
+     ],
+     "formValue": [
+      0.49999999999999795,
+      0.5000000000000041
+     ]
+    },
+    "assumes": [
+     "the flow is the L²-paired monotone flow (ṁ, u̇) = −A(m, u) restricted to the even Galerkin space of order N with mass and mean held; the theorem is about that finite-dimensional ODE",
+     "a gradient flow ż = −G⁻¹∇E has a Jacobian similar to a symmetric matrix at an equilibrium, hence real spectrum (linear algebra, not re-proved)"
+    ],
+    "falsifier": [
+     "the Lasry–Lions form evaluated from the assembled Jacobian at δm = cos 2πx must return c/2 — a sign error in the assembly breaks it",
+     "a symmetric matrix handed to the eigenpair certifier with a complex shift must NOT return a non-real pair",
+     "the eigenpair certifier started 0.5 away from the eigenvalue must return no contraction",
+     "at A = 0 the certified pair must contain the closed-form mode eigenvalue, and the closed form with σ replaced by 1 − σ must be excluded",
+     "the Galerkin equilibrium certifier started from a candidate perturbed by 1e-2 must return no contraction"
+    ],
+    "provenance": {
+     "code": "instruments/monoflow/monoflow.js",
+     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+    },
+    "why": ""
+   },
+   "x": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "M1",
+   "words": "monotone (c = 1), potential A = 1: the non-constant equilibrium of the observatory",
+   "sigma": 0.5,
+   "c": 1,
+   "A": 1,
+   "N": 16,
+   "branch": "aligned",
+   "galerkinRadius": 1.0114131754335177e-13,
+   "pde": {
+    "r": 1.5543122344752073e-15,
+    "Z1": 0.025990970125087946,
+    "kappa": 0.025990970125091058,
+    "minM": 0.9095460336705414
+   },
+   "form": {
+    "value": [
+     0.49999999999999795,
+     0.5000000000000041
+    ],
+    "expected": 0.5,
+    "contains": true
+   },
+   "monotone": true,
+   "modes": [
+    {
+     "k": 1,
+     "re": -20.239208802178716,
+     "im": 4.414658401527657,
+     "complex": true
+    },
+    {
+     "k": 2,
+     "re": -79.45683520871486,
+     "im": 8.871687280822929,
+     "complex": true
+    },
+    {
+     "k": 3,
+     "re": -178.15287921960845,
+     "im": 13.31926721781674,
+     "complex": true
+    },
+    {
+     "k": 4,
+     "re": -316.32734083485946,
+     "im": 17.764496638938617,
+     "complex": true
+    }
+   ],
+   "tried": [
+    {
+     "shift": [
+      -20.239208802178716,
+      4.414658401527657
+     ],
+     "mu": [
+      -20.26187729986502,
+      4.598624618105329
+     ]
+    }
+   ],
+   "pairs": [
+    {
+     "shift": [
+      -20.239208802178716,
+      4.414658401527657
+     ],
+     "muFloat": [
+      -20.26187729986502,
+      4.598624618105329
+     ],
+     "ok": true,
+     "mu": [
+      [
+       -20.261877299874193,
+       -20.261877299855847
+      ],
+      [
+       4.598624618079274,
+       4.5986246181313835
+      ]
+     ],
+     "muWidth": [
+      1.834621343732579e-11,
+      5.2109427883806354e-11
+     ],
+     "nonReal": true,
+     "rounds": 1
+    }
+   ],
+   "certified": [
+    {
+     "mu": [
+      [
+       -20.261877299874193,
+       -20.261877299855847
+      ],
+      [
+       4.598624618079274,
+       4.5986246181313835
+      ]
+     ],
+     "muWidth": [
+      1.834621343732579e-11,
+      5.2109427883806354e-11
+     ]
+    }
+   ],
+   "control": null,
+   "verdict": "NOT A GRADIENT FLOW",
+   "certificate": {
+    "claim": "the monotone flow of the Galerkin MFG at (σ, c, A, N) = (0.5, 1, 1, 16) is NOT a gradient flow under any Riemannian metric near its certified equilibrium: an eigenvalue μ of the flow Jacobian is enclosed with Re μ ∈ [-20.2618773, -20.2618773], Im μ ∈ [4.598624618, 4.598624618] (Im μ ≠ 0); the linearised Lasry–Lions form is positive semidefinite (c ≥ 0): monotone",
+    "verdict": "PROVED",
+    "evidence": {
+     "galerkinRadius": 1.0114131754335177e-13,
+     "pdeRadius": 1.5543122344752073e-15,
+     "muRe": [
+      -20.261877299874193,
+      -20.261877299855847
+     ],
+     "muIm": [
+      4.598624618079274,
+      4.5986246181313835
+     ],
+     "formValue": [
+      0.49999999999999795,
+      0.5000000000000041
+     ]
+    },
+    "assumes": [
+     "the flow is the L²-paired monotone flow (ṁ, u̇) = −A(m, u) restricted to the even Galerkin space of order N with mass and mean held; the theorem is about that finite-dimensional ODE",
+     "a gradient flow ż = −G⁻¹∇E has a Jacobian similar to a symmetric matrix at an equilibrium, hence real spectrum (linear algebra, not re-proved)"
+    ],
+    "falsifier": [
+     "the Lasry–Lions form evaluated from the assembled Jacobian at δm = cos 2πx must return c/2 — a sign error in the assembly breaks it",
+     "a symmetric matrix handed to the eigenpair certifier with a complex shift must NOT return a non-real pair",
+     "the eigenpair certifier started 0.5 away from the eigenvalue must return no contraction",
+     "at A = 0 the certified pair must contain the closed-form mode eigenvalue, and the closed form with σ replaced by 1 − σ must be excluded",
+     "the Galerkin equilibrium certifier started from a candidate perturbed by 1e-2 must return no contraction"
+    ],
+    "provenance": {
+     "code": "instruments/monoflow/monoflow.js",
+     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+    },
+    "why": ""
+   },
+   "x": [
+    0.9791292615987796,
+    0.022990899238048382,
+    0.00014187473200872594,
+    0.0000014157093787407455,
+    1.7304505569240597e-8,
+    2.2366254480033418e-10,
+    3.01983959223471e-12,
+    4.1950824333052843e-14,
+    5.948760440786021e-16,
+    8.569652047078617e-18,
+    1.2499573843445132e-19,
+    1.841585769980094e-21,
+    2.735853905780639e-23,
+    4.0927979703112716e-25,
+    6.159211754985993e-27,
+    9.316470800836074e-29,
+    1.4155731193343311e-30,
+    -0.04592024821279444,
+    0.0007720559262235824,
+    -0.000005975904517784489,
+    2.209159014595558e-8,
+    -1.2097828563388766e-11,
+    -2.6747248473863766e-13,
+    1.311444015289324e-15,
+    -2.1783590326144506e-18,
+    -6.588194560654567e-21,
+    5.203937720269787e-23,
+    -1.3630889849551022e-25,
+    -2.971756229098435e-29,
+    1.6049837669362648e-30,
+    -6.1234033020006614e-33,
+    4.092056211510851e-35,
+    -2.237332486662802e-33
+   ]
+  },
+  {
+   "id": "M2",
+   "words": "monotone (c = 1), potential A = 0.5",
+   "sigma": 0.5,
+   "c": 1,
+   "A": 0.5,
+   "N": 16,
+   "branch": "aligned",
+   "galerkinRadius": 1.0125233984581429e-13,
+   "pde": {
+    "r": 1.1657341758564057e-15,
+    "Z1": 0.02233703794330956,
+    "kappa": 0.022337037943311894,
+    "minM": 0.9543335965755295
+   },
+   "form": {
+    "value": [
+     0.49999999999999795,
+     0.5000000000000041
+    ],
+    "expected": 0.5,
+    "contains": true
+   },
+   "monotone": true,
+   "modes": [
+    {
+     "k": 1,
+     "re": -20.239208802178716,
+     "im": 4.414658401527657,
+     "complex": true
+    },
+    {
+     "k": 2,
+     "re": -79.45683520871486,
+     "im": 8.871687280822929,
+     "complex": true
+    },
+    {
+     "k": 3,
+     "re": -178.15287921960845,
+     "im": 13.31926721781674,
+     "complex": true
+    },
+    {
+     "k": 4,
+     "re": -316.32734083485946,
+     "im": 17.764496638938617,
+     "complex": true
+    }
+   ],
+   "tried": [
+    {
+     "shift": [
+      -20.239208802178716,
+      4.414658401527657
+     ],
+     "mu": [
+      -20.244893660749796,
+      4.461224268773617
+     ]
+    }
+   ],
+   "pairs": [
+    {
+     "shift": [
+      -20.239208802178716,
+      4.414658401527657
+     ],
+     "muFloat": [
+      -20.244893660749796,
+      4.461224268773617
+     ],
+     "ok": true,
+     "mu": [
+      [
+       -20.244893660758134,
+       -20.244893660741457
+      ],
+      [
+       4.461224268748127,
+       4.461224268799107
+      ]
+     ],
+     "muWidth": [
+      1.6676438008289555e-11,
+      5.0979664933947795e-11
+     ],
+     "nonReal": true,
+     "rounds": 1
+    }
+   ],
+   "certified": [
+    {
+     "mu": [
+      [
+       -20.244893660758134,
+       -20.244893660741457
+      ],
+      [
+       4.461224268748127,
+       4.461224268799107
+      ]
+     ],
+     "muWidth": [
+      1.6676438008289555e-11,
+      5.0979664933947795e-11
+     ]
+    }
+   ],
+   "control": null,
+   "verdict": "NOT A GRADIENT FLOW",
+   "certificate": {
+    "claim": "the monotone flow of the Galerkin MFG at (σ, c, A, N) = (0.5, 1, 0.5, 16) is NOT a gradient flow under any Riemannian metric near its certified equilibrium: an eigenvalue μ of the flow Jacobian is enclosed with Re μ ∈ [-20.24489366, -20.24489366], Im μ ∈ [4.461224269, 4.461224269] (Im μ ≠ 0); the linearised Lasry–Lions form is positive semidefinite (c ≥ 0): monotone",
+    "verdict": "PROVED",
+    "evidence": {
+     "galerkinRadius": 1.0125233984581429e-13,
+     "pdeRadius": 1.1657341758564057e-15,
+     "muRe": [
+      -20.244893660758134,
+      -20.244893660741457
+     ],
+     "muIm": [
+      4.461224268748127,
+      4.461224268799107
+     ],
+     "formValue": [
+      0.49999999999999795,
+      0.5000000000000041
+     ]
+    },
+    "assumes": [
+     "the flow is the L²-paired monotone flow (ṁ, u̇) = −A(m, u) restricted to the even Galerkin space of order N with mass and mean held; the theorem is about that finite-dimensional ODE",
+     "a gradient flow ż = −G⁻¹∇E has a Jacobian similar to a symmetric matrix at an equilibrium, hence real spectrum (linear algebra, not re-proved)"
+    ],
+    "falsifier": [
+     "the Lasry–Lions form evaluated from the assembled Jacobian at δm = cos 2πx must return c/2 — a sign error in the assembly breaks it",
+     "a symmetric matrix handed to the eigenpair certifier with a complex shift must NOT return a non-real pair",
+     "the eigenpair certifier started 0.5 away from the eigenvalue must return no contraction",
+     "at A = 0 the certified pair must contain the closed-form mode eigenvalue, and the closed form with σ replaced by 1 − σ must be excluded",
+     "the Galerkin equilibrium certifier started from a candidate perturbed by 1e-2 must return no contraction"
+    ],
+    "provenance": {
+     "code": "instruments/monoflow/monoflow.js",
+     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+    },
+    "why": ""
+   },
+   "x": [
+    0.9947798420815419,
+    0.01149883050706588,
+    0.000035501625461999804,
+    1.7721071971733185e-7,
+    1.0835619269481846e-9,
+    7.005892159315021e-12,
+    4.7318168883592146e-14,
+    3.2882034515926645e-16,
+    2.3324841659957326e-18,
+    1.6808518615783823e-20,
+    1.2264094413755126e-22,
+    9.038705835947015e-25,
+    6.717090812473406e-27,
+    5.0266960280397597e-29,
+    3.7840896656737566e-31,
+    2.8632654874550062e-33,
+    2.1762122577987392e-35,
+    -0.022989949824158733,
+    0.00019335790162218494,
+    -7.483634576373724e-7,
+    1.382507437684164e-9,
+    -3.740416857148767e-13,
+    -4.199625777012732e-15,
+    1.0278151328600471e-17,
+    -8.503176837299668e-21,
+    -1.3006474828202823e-23,
+    5.1093983295186913e-26,
+    -6.70417061415204e-29,
+    -1.263562883131273e-32,
+    1.3120644749737999e-34,
+    -1.2346603565681277e-36,
+    -1.0245009957399612e-38,
+    -8.737148666522042e-39
+   ]
+  },
+  {
+   "id": "R1",
+   "words": "monotone (c = 2), σ = 0.3: every eigenvalue reached is real — NOT DECIDED, and kept as such",
+   "sigma": 0.3,
+   "c": 2,
+   "A": 1.5,
+   "N": 20,
+   "branch": "aligned",
+   "galerkinRadius": 1.9717560917342783e-13,
+   "pde": {
+    "r": 5.551115123125731e-15,
+    "Z1": 0.06442462148407821,
+    "kappa": 0.06442462148408933,
+    "minM": 0.7442792620996302
+   },
+   "form": {
+    "value": [
+     0.999999999999995,
+     1.00000000000001
+    ],
+    "expected": 1,
+    "contains": true
+   },
+   "monotone": true,
+   "modes": [
+    {
+     "k": 1,
+     "mu1": -6.217196013219715,
+     "mu2": -35.26122159113772,
+     "complex": false
+    },
+    {
+     "k": 2,
+     "mu1": -18.045909692007314,
+     "mu2": -141.86776072542241,
+     "complex": false
+    },
+    {
+     "k": 3,
+     "mu1": -37.782572347040286,
+     "mu2": -319.5231860921766,
+     "complex": false
+    },
+    {
+     "k": 4,
+     "mu1": -65.41658685171316,
+     "mu2": -568.2380948180057,
+     "complex": false
+    }
+   ],
+   "tried": [
+    {
+     "shift": [
+      -6.217196013219715,
+      2.8651588039659144
+     ],
+     "mu": [
+      -6.399255655308502,
+      -2.229557260236146e-16
+     ]
+    },
+    {
+     "shift": [
+      -35.26122159113772,
+      11.578366477341316
+     ],
+     "mu": [
+      -38.35354597649002,
+      -4.510283767506189e-16
+     ]
+    },
+    {
+     "shift": [
+      -18.045909692007314,
+      6.413772907602194
+     ],
+     "mu": [
+      -18.77686554271144,
+      1.7818318544379552e-15
+     ]
+    },
+    {
+     "shift": [
+      -141.86776072542241,
+      43.560328217626726
+     ],
+     "mu": [
+      -134.02643006506895,
+      1.2617964216114243e-14
+     ]
+    },
+    {
+     "shift": [
+      -319.5231860921766,
+      96.85695582765298
+     ],
+     "mu": [
+      -302.3659144867712,
+      -1.2124209660857682e-14
+     ]
+    },
+    {
+     "shift": [
+      -65.41658685171316,
+      20.624976055513947
+     ],
+     "mu": [
+      -67.14284849465035,
+      -1.1548922930190598e-14
+     ]
+    },
+    {
+     "shift": [
+      -568.2380948180057,
+      171.4714284454017
+     ],
+     "mu": [
+      -538.1117693552073,
+      2.3659698608372623e-15
+     ]
+    }
+   ],
+   "pairs": [],
+   "certified": [],
+   "control": null,
+   "verdict": "NOT DECIDED",
+   "certificate": {
+    "claim": "the monotone flow at (σ, c, A, N) = (0.3, 2, 1.5, 20) is not a gradient flow under any metric — NOT DECIDED: no non-real eigenpair was certified (every float eigenvalue reached was real)",
+    "verdict": "NOT_CHECKED",
+    "evidence": {},
+    "assumes": [],
+    "falsifier": [
+     "the Lasry–Lions form evaluated from the assembled Jacobian at δm = cos 2πx must return c/2 — a sign error in the assembly breaks it",
+     "a symmetric matrix handed to the eigenpair certifier with a complex shift must NOT return a non-real pair",
+     "the eigenpair certifier started 0.5 away from the eigenvalue must return no contraction",
+     "at A = 0 the certified pair must contain the closed-form mode eigenvalue, and the closed form with σ replaced by 1 − σ must be excluded",
+     "the Galerkin equilibrium certifier started from a candidate perturbed by 1e-2 must return no contraction"
+    ],
+    "provenance": {
+     "code": "instruments/monoflow/monoflow.js",
+     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+    },
+    "why": ""
+   },
+   "x": [
+    1.9350037520747698,
+    0.04053262917858158,
+    0.0009319132310879299,
+    0.000026455770304935567,
+    0.0000010185825292892066,
+    4.193583653519713e-8,
+    1.7796352967331536e-9,
+    7.791245155002852e-11,
+    3.4841606314803433e-12,
+    1.5823860693742255e-13,
+    7.27653282121379e-15,
+    3.379955081641923e-16,
+    1.5830701562092054e-17,
+    7.4664708270187525e-19,
+    3.542486369436399e-20,
+    1.6893610476632678e-21,
+    8.092286485780534e-23,
+    3.891524855819249e-24,
+    1.8779054594012953e-25,
+    9.090137555022451e-27,
+    4.413845659882257e-28,
+    -0.1334812503823558,
+    0.005923212279326708,
+    -0.00007796340137757851,
+    -0.0000011088577257218853,
+    3.715681858642049e-8,
+    -1.1571564922589533e-12,
+    -1.0433045981856086e-11,
+    8.734488730191733e-14,
+    1.9442622398662938e-15,
+    -3.734221070065874e-17,
+    -1.7090976373185551e-19,
+    1.0223445486320596e-20,
+    -4.0756690409063613e-23,
+    -2.03978315520408e-24,
+    2.5228028977804422e-26,
+    2.6488643462684225e-28,
+    -7.722234378725374e-30,
+    -8.131903602435955e-33,
+    4.418809924752343e-31,
+    -1.050267288090289e-29
+   ]
+  },
+  {
+   "id": "H1",
+   "words": "herding (c = −12), the symmetry-broken branch of mfg-cap: not monotone, and not a gradient either",
+   "sigma": 0.5,
+   "c": -12,
+   "A": 0,
+   "N": 16,
+   "branch": "herding",
+   "galerkinRadius": 1.961097950697877e-12,
+   "pde": {
+    "r": 1.6246839143199633e-11,
+    "Z1": 0.32017452392132306,
+    "kappa": 0.3201745242872602,
+    "minM": 0.1611959083246188
+   },
+   "form": {
+    "value": [
+     -6.000000000000033,
+     -5.999999999999967
+    ],
+    "expected": -6,
+    "contains": true
+   },
+   "monotone": false,
+   "modes": [
+    {
+     "k": 1,
+     "mu1": 2.779583696855365,
+     "mu2": -30.258001301212797,
+     "complex": false
+    },
+    {
+     "k": 2,
+     "mu1": -41.59631827253255,
+     "mu2": -104.31735214489717,
+     "complex": false
+    },
+    {
+     "k": 3,
+     "mu1": -125.09286901089712,
+     "mu2": -218.21288942831978,
+     "complex": false
+    },
+    {
+     "k": 4,
+     "mu1": -247.97325374258796,
+     "mu2": -371.6814279271309,
+     "complex": false
+    }
+   ],
+   "tried": [
+    {
+     "shift": [
+      2.779583696855365,
+      1.8338751090566094
+     ],
+     "mu": [
+      -9.180456158954527,
+      1.1455018825853639e-15
+     ]
+    },
+    {
+     "shift": [
+      -30.258001301212797,
+      10.077400390363838
+     ],
+     "mu": [
+      -17.13398246825456,
+      17.96503279178917
+     ]
+    }
+   ],
+   "pairs": [
+    {
+     "shift": [
+      -30.258001301212797,
+      10.077400390363838
+     ],
+     "muFloat": [
+      -17.13398246825456,
+      17.96503279178917
+     ],
+     "ok": true,
+     "mu": [
+      [
+       -17.133982468307245,
+       -17.13398246820187
+      ],
+      [
+       17.96503279172871,
+       17.96503279184963
+      ]
+     ],
+     "muWidth": [
+      1.0537348771322287e-10,
+      1.2092016277165388e-10
+     ],
+     "nonReal": true,
+     "rounds": 1
+    }
+   ],
+   "certified": [
+    {
+     "mu": [
+      [
+       -17.133982468307245,
+       -17.13398246820187
+      ],
+      [
+       17.96503279172871,
+       17.96503279184963
+      ]
+     ],
+     "muWidth": [
+      1.0537348771322287e-10,
+      1.2092016277165388e-10
+     ]
+    }
+   ],
+   "control": null,
+   "verdict": "NOT A GRADIENT FLOW",
+   "certificate": {
+    "claim": "the monotone flow of the Galerkin MFG at (σ, c, A, N) = (0.5, -12, 0, 16) herding branch is NOT a gradient flow under any Riemannian metric near its certified equilibrium: an eigenvalue μ of the flow Jacobian is enclosed with Re μ ∈ [-17.13398247, -17.13398247], Im μ ∈ [17.96503279, 17.96503279] (Im μ ≠ 0); the linearised Lasry–Lions form is indefinite (c < 0, witness value c/2 = -6): not monotone",
+    "verdict": "PROVED",
+    "evidence": {
+     "galerkinRadius": 1.961097950697877e-12,
+     "pdeRadius": 1.6246839143199633e-11,
+     "muRe": [
+      -17.133982468307245,
+      -17.13398246820187
+     ],
+     "muIm": [
+      17.96503279172871,
+      17.96503279184963
+     ],
+     "formValue": [
+      -6.000000000000033,
+      -5.999999999999967
+     ]
+    },
+    "assumes": [
+     "the flow is the L²-paired monotone flow (ṁ, u̇) = −A(m, u) restricted to the even Galerkin space of order N with mass and mean held; the theorem is about that finite-dimensional ODE",
+     "a gradient flow ż = −G⁻¹∇E has a Jacobian similar to a symmetric matrix at an equilibrium, hence real spectrum (linear algebra, not re-proved)"
+    ],
+    "falsifier": [
+     "the Lasry–Lions form evaluated from the assembled Jacobian at δm = cos 2πx must return c/2 — a sign error in the assembly breaks it",
+     "a symmetric matrix handed to the eigenpair certifier with a complex shift must NOT return a non-real pair",
+     "the eigenpair certifier started 0.5 away from the eigenvalue must return no contraction",
+     "at A = 0 the certified pair must contain the closed-form mode eigenvalue, and the closed form with σ replaced by 1 − σ must be excluded",
+     "the Galerkin equilibrium certifier started from a candidate perturbed by 1e-2 must return no contraction"
+    ],
+    "provenance": {
+     "code": "instruments/monoflow/monoflow.js",
+     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+    },
+    "why": ""
+   },
+   "x": [
+    -16.624210663731215,
+    -0.3421225797205386,
+    -1.342335345158074e-17,
+    -0.0030677541001681414,
+    -2.9311776616451087e-19,
+    -0.000050921088542587646,
+    -3.609260846937051e-21,
+    -0.0000010062472548219594,
+    -1.419696222130123e-22,
+    -2.165186504006882e-8,
+    -4.9307122611676605e-24,
+    -4.900949277575871e-10,
+    -1.1666614852813635e-25,
+    -1.1472670992280297e-11,
+    -3.585007630828653e-27,
+    -2.750543269957484e-13,
+    -1.0496057721468225e-28,
+    0.5627690864203121,
+    0.18216967387350502,
+    0.04541627905271914,
+    0.010071841459052112,
+    0.0020940458316174347,
+    0.0004179602285864669,
+    0.0000811053090673284,
+    0.000015417315741379272,
+    0.00000288488712363196,
+    5.331554487449355e-7,
+    9.75470349616152e-8,
+    1.769987394896352e-8,
+    3.1893320626474253e-9,
+    5.712877485175427e-10,
+    1.0180040235959682e-10,
+    1.8190769251129936e-11
+   ]
+  },
+  {
+   "id": "H2",
+   "words": "herding (c = −12) with a potential, A = 0.5",
+   "sigma": 0.5,
+   "c": -12,
+   "A": 0.5,
+   "N": 16,
+   "branch": "herding",
+   "galerkinRadius": 1.861621967691463e-12,
+   "pde": {
+    "r": 4.377915128205962e-12,
+    "Z1": 0.3092711097789599,
+    "kappa": 0.3092711099067313,
+    "minM": 0.20514939501317553
+   },
+   "form": {
+    "value": [
+     -6.000000000000033,
+     -5.999999999999967
+    ],
+    "expected": -6,
+    "contains": true
+   },
+   "monotone": false,
+   "modes": [
+    {
+     "k": 1,
+     "mu1": 2.779583696855365,
+     "mu2": -30.258001301212797,
+     "complex": false
+    },
+    {
+     "k": 2,
+     "mu1": -41.59631827253255,
+     "mu2": -104.31735214489717,
+     "complex": false
+    },
+    {
+     "k": 3,
+     "mu1": -125.09286901089712,
+     "mu2": -218.21288942831978,
+     "complex": false
+    },
+    {
+     "k": 4,
+     "mu1": -247.97325374258796,
+     "mu2": -371.6814279271309,
+     "complex": false
+    }
+   ],
+   "tried": [
+    {
+     "shift": [
+      2.779583696855365,
+      1.8338751090566094
+     ],
+     "mu": [
+      -5.891225011988504,
+      3.155704827882084e-15
+     ]
+    },
+    {
+     "shift": [
+      -30.258001301212797,
+      10.077400390363838
+     ],
+     "mu": [
+      -19.795347943178818,
+      17.038116253659148
+     ]
+    }
+   ],
+   "pairs": [
+    {
+     "shift": [
+      -30.258001301212797,
+      10.077400390363838
+     ],
+     "muFloat": [
+      -19.795347943178818,
+      17.038116253659148
+     ],
+     "ok": true,
+     "mu": [
+      [
+       -19.795347943234418,
+       -19.795347943123218
+      ],
+      [
+       17.038116253596055,
+       17.03811625372224
+      ]
+     ],
+     "muWidth": [
+      1.1119993814645569e-10,
+      1.2618528444363622e-10
+     ],
+     "nonReal": true,
+     "rounds": 1
+    }
+   ],
+   "certified": [
+    {
+     "mu": [
+      [
+       -19.795347943234418,
+       -19.795347943123218
+      ],
+      [
+       17.038116253596055,
+       17.03811625372224
+      ]
+     ],
+     "muWidth": [
+      1.1119993814645569e-10,
+      1.2618528444363622e-10
+     ]
+    }
+   ],
+   "control": null,
+   "verdict": "NOT A GRADIENT FLOW",
+   "certificate": {
+    "claim": "the monotone flow of the Galerkin MFG at (σ, c, A, N) = (0.5, -12, 0.5, 16) herding branch is NOT a gradient flow under any Riemannian metric near its certified equilibrium: an eigenvalue μ of the flow Jacobian is enclosed with Re μ ∈ [-19.79534794, -19.79534794], Im μ ∈ [17.03811625, 17.03811625] (Im μ ≠ 0); the linearised Lasry–Lions form is indefinite (c < 0, witness value c/2 = -6): not monotone",
+    "verdict": "PROVED",
+    "evidence": {
+     "galerkinRadius": 1.861621967691463e-12,
+     "pdeRadius": 4.377915128205962e-12,
+     "muRe": [
+      -19.795347943234418,
+      -19.795347943123218
+     ],
+     "muIm": [
+      17.038116253596055,
+      17.03811625372224
+     ],
+     "formValue": [
+      -6.000000000000033,
+      -5.999999999999967
+     ]
+    },
+    "assumes": [
+     "the flow is the L²-paired monotone flow (ṁ, u̇) = −A(m, u) restricted to the even Galerkin space of order N with mass and mean held; the theorem is about that finite-dimensional ODE",
+     "a gradient flow ż = −G⁻¹∇E has a Jacobian similar to a symmetric matrix at an equilibrium, hence real spectrum (linear algebra, not re-proved)"
+    ],
+    "falsifier": [
+     "the Lasry–Lions form evaluated from the assembled Jacobian at δm = cos 2πx must return c/2 — a sign error in the assembly breaks it",
+     "a symmetric matrix handed to the eigenpair certifier with a complex shift must NOT return a non-real pair",
+     "the eigenpair certifier started 0.5 away from the eigenvalue must return no contraction",
+     "at A = 0 the certified pair must contain the closed-form mode eigenvalue, and the closed form with σ replaced by 1 − σ must be excluded",
+     "the Galerkin equilibrium certifier started from a candidate perturbed by 1e-2 must return no contraction"
+    ],
+    "provenance": {
+     "code": "instruments/monoflow/monoflow.js",
+     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+    },
+    "why": ""
+   },
+   "x": [
+    -15.681790485240482,
+    -0.30530490555466294,
+    -0.0011184098790654841,
+    -0.002229189427369755,
+    -0.000022039451524474385,
+    -0.00002992808775263553,
+    -4.907134590143237e-7,
+    -4.796657697829863e-7,
+    -1.096813467809388e-8,
+    -8.387701404544928e-9,
+    -2.4540043805275206e-10,
+    -1.5458204354665272e-10,
+    -5.494490456481003e-12,
+    -2.951692496329487e-12,
+    -1.2310252804669006e-13,
+    -5.782852557490138e-14,
+    -2.7776140939455358e-15,
+    0.52074188546056,
+    0.15396390851543124,
+    0.03515880343801783,
+    0.007154968647264166,
+    0.0013655189364208883,
+    0.0002502009473562253,
+    0.000044571200343153855,
+    0.000007778000807242456,
+    0.0000013361140605143919,
+    2.2668599043661402e-7,
+    3.8075125837795396e-8,
+    6.342406465968258e-9,
+    1.0491568397978051e-9,
+    1.725246332096383e-10,
+    2.8224057237464794e-11,
+    4.624366639978177e-12
+   ]
+  },
+  {
+   "id": "H0",
+   "words": "the constant solution at c = −12: real spectrum by the closed form, one eigenvalue positive — the flow leaves it",
+   "sigma": 0.5,
+   "c": -12,
+   "A": 0,
+   "N": 16,
+   "branch": "aligned",
+   "galerkinRadius": 1.2132517213103713e-12,
+   "pde": {
+    "r": 7.216737409379427e-15,
+    "Z1": 0.22468933142386083,
+    "kappa": 0.22468933142396344,
+    "minM": 0.9999999999999908
+   },
+   "form": {
+    "value": [
+     -6.000000000000033,
+     -5.999999999999967
+    ],
+    "expected": -6,
+    "contains": true
+   },
+   "monotone": false,
+   "modes": [
+    {
+     "k": 1,
+     "mu1": 2.779583696855365,
+     "mu2": -30.258001301212797,
+     "complex": false
+    },
+    {
+     "k": 2,
+     "mu1": -41.59631827253255,
+     "mu2": -104.31735214489717,
+     "complex": false
+    },
+    {
+     "k": 3,
+     "mu1": -125.09286901089712,
+     "mu2": -218.21288942831978,
+     "complex": false
+    },
+    {
+     "k": 4,
+     "mu1": -247.97325374258796,
+     "mu2": -371.6814279271309,
+     "complex": false
+    }
+   ],
+   "tried": [
+    {
+     "shift": [
+      2.779583696855365,
+      1.8338751090566094
+     ],
+     "mu": [
+      2.779583696855362,
+      3.469446951953614e-18
+     ]
+    },
+    {
+     "shift": [
+      -30.258001301212797,
+      10.077400390363838
+     ],
+     "mu": [
+      -30.258001301212797,
+      2.220446049250313e-16
+     ]
+    },
+    {
+     "shift": [
+      -104.31735214489717,
+      32.295205643469146
+     ],
+     "mu": [
+      -125.09286901089712,
+      -2.6645352591003757e-15
+     ]
+    },
+    {
+     "shift": [
+      -218.21288942831978,
+      66.46386682849594
+     ],
+     "mu": [
+      -218.21288942831973,
+      -7.105427357601002e-15
+     ]
+    },
+    {
+     "shift": [
+      -247.97325374258796,
+      75.39197612277638
+     ],
+     "mu": [
+      -247.97325374258804,
+      1.4210854715202004e-14
+     ]
+    },
+    {
+     "shift": [
+      -371.6814279271309,
+      112.50442837813928
+     ],
+     "mu": [
+      -371.68142792713115,
+      3.552713678800501e-15
+     ]
+    }
+   ],
+   "pairs": [],
+   "certified": [],
+   "control": [
+    {
+     "k": 1,
+     "complex": false,
+     "re": [
+      -13.739208802178734,
+      -13.739208802178698
+     ],
+     "disc": [
+      1091.4820225045708,
+      1091.482022504586
+     ]
+    },
+    {
+     "k": 2,
+     "complex": false,
+     "re": [
+      -72.95683520871495,
+      -72.95683520871478
+     ],
+     "disc": [
+      3933.9280900182052,
+      3933.928090018417
+     ]
+    },
+    {
+     "k": 3,
+     "complex": false,
+     "re": [
+      -171.65287921960865,
+      -171.65287921960822
+     ],
+     "disc": [
+      8671.3382025406,
+      8671.338202541783
+     ]
+    },
+    {
+     "k": 4,
+     "complex": false,
+     "re": [
+      -309.8273408348598,
+      -309.8273408348591
+     ],
+     "disc": [
+      15303.712360071599,
+      15303.712360074862
+     ]
+    }
+   ],
+   "verdict": "NOT DECIDED",
+   "certificate": {
+    "claim": "the monotone flow at (σ, c, A, N) = (0.5, -12, 0, 16) is not a gradient flow under any metric — NOT DECIDED: no non-real eigenpair was certified (every float eigenvalue reached was real)",
+    "verdict": "NOT_CHECKED",
+    "evidence": {},
+    "assumes": [],
+    "falsifier": [
+     "the Lasry–Lions form evaluated from the assembled Jacobian at δm = cos 2πx must return c/2 — a sign error in the assembly breaks it",
+     "a symmetric matrix handed to the eigenpair certifier with a complex shift must NOT return a non-real pair",
+     "the eigenpair certifier started 0.5 away from the eigenvalue must return no contraction",
+     "at A = 0 the certified pair must contain the closed-form mode eigenvalue, and the closed form with σ replaced by 1 − σ must be excluded",
+     "the Galerkin equilibrium certifier started from a candidate perturbed by 1e-2 must return no contraction"
+    ],
+    "provenance": {
+     "code": "instruments/monoflow/monoflow.js",
+     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+    },
+    "why": ""
+   },
+   "x": [
+    -12,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  }
+ ],
+ "provenance": {
+  "code": "instruments/monoflow/monoflow.js",
+  "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c",
+  "kernel": "legacy/core/mfg/{mfg1d,validate}.js (the lifted mfg-cap kernel; Jacobian rows dRow, interval)",
+  "flow": "Almulla–Ferreira–Gomes, DGA 7(4) 2017, §2.6 (2.7)–(2.8): the monotone flow; Ferreira–Gomes–Tada, arXiv:2502.20091: monotonicity methods",
+  "argument": "a gradient flow ż = −G⁻¹∇E has Jacobian −G⁻¹ Hess E ~ symmetric at an equilibrium, hence real spectrum; a certified non-real pair excludes every (G, E)"
+ },
+ "generatedBy": "node instruments/monoflow/run.js"
+}

@@ -89,8 +89,24 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     the certificate table. j ∈ [0.34611351, 0.34611354], H̄ ∈ [0.17116455,
     0.17116459], density ≥ 0.4291; the b = 0 control contains ln ∫e^V.
     NOT SENT — every send stays operator-gated; the roster is July's.
-    Next on the plan: report 2 (the monotonicity wall) or 3 (the empty
-    region), see notes/kaust-reports-plan-2026-09-06.md.
+    → REPORTS 2 AND 3 BUILT the same session, on the operator's "build 2
+    and 3 in sequence": instruments/monoflow + reports/monoflow.html
+    (monotone, and provably not a gradient: the Lasry–Lions form c∫δm² +
+    ∫m(δu′)² returned from the assembled interval Jacobian on seven
+    certified equilibria, and at five of them a Krawczyk-enclosed
+    eigenvalue with Im μ away from 0 — not a gradient flow under any
+    metric; two instances NOT DECIDED and kept so); instruments/aag +
+    reports/aag.html (Alharbi–Ashrafyan–Gomes §3.2: the empty region
+    decided cell by cell, REFUSED on the four cells holding the three exact
+    roots at every budget of a ladder, the two value functions enclosed
+    and drawn CHOSEN, the contact set with and without exit evaluated as
+    intervals, case 2 certified over γ ∈ [−0.5, −0.3] because the paper
+    prints no γ). Report 2's plan changed on contact with the model: the
+    "interval Cholesky monotonicity" certificate is a one-line exact form
+    for this coupling and the page says so; the eigenpair certificate is
+    the content. Both gated, both re-derived at build, both in every
+    registry. Next on the plan: 4 (the maximal value function) or 5 (the
+    concentration frontier); see notes/kaust-reports-plan-2026-09-06.md.
 
   ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
     the ember paper; the staged formal-conjectures issue and the letters.

@@ -2,15 +2,15 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>certify() — the reward oracle · cert-machine</title>
-<meta name="description" content="certify() — a reward oracle for AI mathematical search: CERTIFIED, REFUTED with the exact violated equation, or REFUSED — never a guess. No float participates in any decision; red controls run at import; the ladder, the evidence, and exactly where the guarantee ends.">
+<title>Monotone, and provably not a gradient · cert-machine</title>
+<meta name="description" content="Two certificates on one mean-field-game equilibrium: the Lasry–Lions form is c∫δm² + ∫m(δu′)² exactly, and the monotone flow has a certified non-real eigenvalue, so it is not a gradient flow under any metric.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
-<link rel="canonical" href="https://carlostoledo.co/oracle/">
-<meta property="og:url" content="https://carlostoledo.co/oracle/">
-<meta property="og:title" content="certify() — the reward oracle · cert-machine">
-<meta property="og:description" content="certify() — a reward oracle for AI mathematical search: CERTIFIED, REFUTED with the exact violated equation, or REFUSED — never a guess. No float participates in any decision; red controls run at import; the ladder, the evidence, and exactly where the guarantee ends.">
+<link rel="canonical" href="https://carlostoledo.co/reports/monoflow.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/monoflow.html">
+<meta property="og:title" content="Monotone, and provably not a gradient · cert-machine">
+<meta property="og:description" content="Two certificates on one mean-field-game equilibrium: the Lasry–Lions form is c∫δm² + ∫m(δu′)² exactly, and the monotone flow has a certified non-real eigenvalue, so it is not a gradient flow under any metric.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -18,10 +18,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="certify() — the reward oracle · cert-machine">
-<meta name="twitter:description" content="certify() — a reward oracle for AI mathematical search: CERTIFIED, REFUTED with the exact violated equation, or REFUSED — never a guess. No float participates in any decision; red controls run at import; the ladder, the evidence, and exactly where the guarantee ends.">
+<meta name="twitter:title" content="Monotone, and provably not a gradient · cert-machine">
+<meta name="twitter:description" content="Two certificates on one mean-field-game equilibrium: the Lasry–Lions form is c∫δm² + ∫m(δu′)² exactly, and the monotone flow has a certified non-real eigenvalue, so it is not a gradient flow under any metric.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Monotone, and provably not a gradient · cert-machine","description":"Two certificates on one mean-field-game equilibrium: the Lasry–Lions form is c∫δm² + ∫m(δu′)² exactly, and the monotone flow has a certified non-real eigenvalue, so it is not a gradient flow under any metric.","url":"https://carlostoledo.co/reports/monoflow.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -489,196 +489,214 @@ footer a:hover{color:var(--ink)}
 ::-webkit-scrollbar-track{background:transparent}
 </style>
 
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · the verified reward channel, packaged</div>
-  <h1>certify() — a reward oracle for AI mathematical search</h1>
-  <p class="deck">A grader in which &quot;graded correct&quot; and &quot;is correct&quot; are the same event. One function takes a claimed rank-R decomposition of the ⟨n,m,p⟩ matrix-multiplication tensor and returns exactly one of CERTIFIED (every tensor equation verified in exact rational arithmetic), REFUTED (the first violated equation with its exact discrepancy — the grader&#39;s own mechanism, never coaching), or REFUSED (a malformed claim is declined, never guessed at). No float participates in any decision. Red controls run at import: a broken grader refuses to exist. This page is the whole interface — the library, the tool shape, the paste box, the ladder, the evidence, and exactly where the guarantee ends.</p>
+  <div class="eyebrow">cert-machine · report · the record is re-derived at every build</div>
+  <h1>Monotone, and provably not a gradient</h1>
+  <p class="deck">The monotone flow is how the Gomes school computes stationary mean-field games: an operator that is monotone in the sense of Lasry and Lions, so a contracting flow finds its zero. This page puts two certificates on the same equilibrium. The first says the linearised operator is monotone exactly when the coupling is non-negative, and it is one line. The second says the flow is not a gradient flow under any Riemannian metric near that equilibrium, because its Jacobian has a non-real eigenvalue pair, enclosed. Monotone operator theory is needed here because energy descent is not available. Where every eigenvalue reached is real, the page says not decided and claims nothing.</p>
 </header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> At five certified equilibria of the quadratic stationary MFG, three monotone and two on the herding branch, the Jacobian of the monotone flow has a certified eigenvalue with Im μ between 4.41 and 17.97, so the flow is not a gradient flow for any metric. At the same equilibria the Lasry–Lions form evaluated from the same Jacobian is c/2 at δm = cos 2πx, as the theory says.</li><li><b>The mechanism.</b> A finite-dimensional Krawczyk box for the Galerkin equilibrium; the interval Jacobian of the flow over that box; a second Krawczyk box for an eigenpair, with the imaginary part enclosed away from zero. A gradient flow's Jacobian is similar to a symmetric matrix at an equilibrium, so a non-real pair excludes every metric and energy at once.</li><li><b>Check it.</b> <span class="m">node instruments/monoflow/battery.js</span> (16 checks, 5 red controls, under a second) re-derives the record and compares it byte for byte; the control at A = 0 must contain the closed-form eigenvalue.</li></ul>
+</div></div>
 
 <div class="wide">
   <div class="stats" data-n="6">
-    <div class="stat"><div class="k">the contract</div><div class="v">3 verdicts</div><div class="n">CERTIFIED(certificate) / REFUTED(mechanism) / REFUSED(reason) — both directions of every verdict are theorems; refusal is what makes the other two trustworthy</div></div>
-    <div class="stat"><div class="k">dependencies</div><div class="v">0</div><div class="n">one stdlib-Python file; rings Q and F2; 14 battery checks, 6 red controls fired at this page&#39;s build</div></div>
-    <div class="stat"><div class="k">proposals graded</div><div class="v">364</div><div class="n">115 certified, each an exact theorem · the channel has never paid out on a false claim — the live board recomputes this at every build</div></div>
-    <div class="stat"><div class="k">reward hacking</div><div class="v">excluded</div><div class="n">by construction, not monitoring: there is no gap between graded-correct and is-correct for a policy to exploit; a strictly proper certificate cannot be argued with</div></div>
-    <div class="stat"><div class="k">characteristic matters</div><div class="v">Q ≠ F2, priced</div><div class="n">the same sign-flipped Strassen witness is REFUTED over Q and CERTIFIED over F2 — AlphaTensor&#39;s rank-47 mechanism, reproduced as a battery row</div></div>
-    <div class="stat"><div class="k">scope, honestly</div><div class="v">finite exact facts</div><div class="n">exhibit-a-witness tasks over exact rings — not proofs, not asymptotics, not mathematics at large; outside its scope it REFUSES</div></div>
+    <div class="stat"><div class="k">not a gradient flow</div><div class="v">5 of 7</div><div class="n">C1, M1, M2 (monotone) and H1, H2 (herding): a certified non-real pair each</div></div>
+    <div class="stat"><div class="k">not decided</div><div class="v">2 of 7</div><div class="n">R1 (σ = 0.3, c = 2) and H0 (constant, c = −12): every eigenvalue reached is real; nothing claimed</div></div>
+    <div class="stat"><div class="k">the control</div><div class="v">closed form inside</div><div class="n">at the constant solution the mode-1 eigenvalue has a formula; the certified pair contains it</div></div>
+    <div class="stat"><div class="k">the form</div><div class="v">c/2, every instance</div><div class="n">⟨DA v, v⟩ = c∫δm² + ∫m(δu&#39;)², checked from the assembled Jacobian at δm = cos 2πx</div></div>
+    <div class="stat"><div class="k">radii</div><div class="v">≤ 2e-12</div><div class="n">Galerkin box; the PDE enclosure of the same candidate by validate.js is ≤ 2e-11</div></div>
+    <div class="stat"><div class="k">falsifiers</div><div class="v">MUST REFUSE</div><div class="n">a symmetric matrix, a candidate moved 0.5, a wrong σ in the closed form, a perturbed equilibrium, a flipped coupling sign</div></div>
   </div>
 </div>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§1 · sixty seconds</div>
-    <h2>From &quot;what is this&quot; to a certificate on your laptop</h2>
+    <div class="lab">§1 · the flow</div>
+    <h2>What the monotone flow is</h2>
   </div>
-<pre class="code"># 1 — get the oracle (one file, stdlib only; red controls run at import)
-curl -sO https://raw.githubusercontent.com/carlostoledo1891/cert-machine/main/oracle/certmachine.py
-
-# 2 — certify Strassen 1969
-python3 -c &quot;
-from certmachine import certify, STRASSEN7
-print(certify({&#39;task&#39;: {&#39;kind&#39;: &#39;matmul&#39;, &#39;n&#39;: 2, &#39;m&#39;: 2, &#39;p&#39;: 2, &#39;rank&#39;: 7},
-               &#39;ring&#39;: &#39;Q&#39;, &#39;witness&#39;: STRASSEN7}))&quot;
-# -&gt; CERTIFIED: all 64 equations hold exactly; certificate carries the witness sha256
-
-# 3 — run the full battery (14 checks, 6 reds that must fire)
-curl -sO https://raw.githubusercontent.com/carlostoledo1891/cert-machine/main/oracle/battery.py
-python3 battery.py</pre><div class="col"><p>A forged coefficient off by exactly 1e-9 — invisible to any float screen — comes back <span class="m">REFUTED</span> with the first violated equation and the exact discrepancy <span class="m">1/1000000000</span>. That mechanism string is the whole feedback loop: deterministic, template-locked to the grader's own arithmetic, so a proposing model can learn from it and cannot be coached by it (<a href="/reports/verifier-loop.html">the closed-loop demonstration</a>).</p></div>
+<div class="col"><p>The model is the quadratic stationary mean-field game of <a href="mfg-observatory.html">the observatory</a> on the torus, with coupling c and potential A cos 2πx:</p><div class="eq">−σ u″ + ½ (u′)² + ρ = c m + A cos 2πx,     −σ m″ − (m u′)′ = 0,     ∫m = 1,  ∫u = 0,  m &gt; 0</div><p>Lasry and Lions read it as the zero of one operator on the pair (m, u), paired in L²:</p><div class="eq">A(m, u) = ( c m + V + σ u″ − ½ (u′)²  ,  −σ m″ − (m u′)′ )</div><p>and <a href="https://doi.org/10.1007/s13235-016-0203-5">Almulla, Ferreira and Gomes</a> (§2.6) run the flow (ṁ, u̇) = −A(m, u), with the zero mode held so that mass and mean are preserved. Because A is monotone, the flow contracts in L² and its limit is the equilibrium. The chapter by <a href="https://arxiv.org/abs/2502.20091">Ferreira, Gomes and Tada</a> is the survey of that method. Everything below is about this flow on the even Fourier–Galerkin space of order N, the same truncation the lab's certificates live in.</p></div>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§2 · paste a claim</div>
-    <h2>Or certify one right here</h2>
+    <div class="lab">§2 · certificate 1</div>
+    <h2>Monotone, in one exact line</h2>
   </div>
-<p>Runs in your browser in exact BigInt rationals — nothing is uploaded. This widget re-answered its known claims (Strassen certifies, the sub-float forgery refutes, a float entry refuses) at this page&#39;s build, or the page would not exist.</p><div class="col"><textarea id="cm-in" spellcheck="false" style="width:100%;min-height:150px;font-family:var(--f-mono);font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s);padding:10px" placeholder='{"task":{"kind":"matmul","n":2,"m":2,"p":2,"rank":7},"ring":"Q","witness":{"u":[[1,0,0,1],...],"v":[...],"w":[...]}}'></textarea><div style="margin:8px 0"><button id="cm-go" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sig);color:var(--paper);border:none;border-radius:var(--radius-s)">certify</button> <button id="cm-ex" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s)">load Strassen 1969</button></div><pre id="cm-out" style="white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-s);padding:10px;font-size:13px;min-height:1.5em;overflow-x:auto"></pre></div><script>
-function cmParseEntry(x){
-  if (typeof x === 'number') { if (!Number.isInteger(x)) return null; return [BigInt(x), 1n]; }
-  if (typeof x === 'string') {
-    var m = x.trim().match(/^(-?\d+)(?:\/(-?\d+))?$/); if (!m) return null;
-    var n = BigInt(m[1]), d = m[2] === undefined ? 1n : BigInt(m[2]);
-    if (d === 0n) return null; if (d < 0n) { n = -n; d = -d; } return [n, d];
-  }
-  return null;
-}
-function cmCertify(claim){
-  function refused(r){ return { verdict: 'REFUSED', reason: r }; }
-  if (!claim || typeof claim !== 'object') return refused('claim must be a JSON object');
-  var t = claim.task || {};
-  if (t.kind !== 'matmul') return refused("task.kind must be 'matmul'");
-  var n = t.n|0, m = t.m|0, p = t.p|0, R = t.rank|0;
-  if (!(n>=1&&n<=6&&m>=1&&m<=6&&p>=1&&p<=6&&R>=1&&R<=256)) return refused('task out of the supported box');
-  if (claim.ring !== 'Q' && claim.ring !== 'F2') return refused("ring must be 'Q' or 'F2'");
-  var dims = { u: n*m, v: m*p, w: n*p }, W = {};
-  for (var key in dims) {
-    var rows = (claim.witness||{})[key];
-    if (!Array.isArray(rows) || !rows.length) return refused('witness.' + key + ' must be a non-empty list');
-    W[key] = [];
-    for (var i = 0; i < rows.length; i++) {
-      if (!Array.isArray(rows[i]) || rows[i].length !== dims[key]) return refused('witness.' + key + '[' + i + '] must have length ' + dims[key]);
-      var out = [];
-      for (var j = 0; j < rows[i].length; j++) {
-        var e = cmParseEntry(rows[i][j]);
-        if (!e) return refused('witness.' + key + '[' + i + '] holds a non-exact entry ' + JSON.stringify(rows[i][j]) + ' — integers or exact rationals only; floats are refused');
-        if (claim.ring === 'F2' && e[1] !== 1n) return refused('F2 entries must be integers');
-        out.push(e);
-      }
-      W[key].push(out);
-    }
-  }
-  if (!(W.u.length === W.v.length && W.v.length === W.w.length)) return refused('u, v, w must have the same number of rows');
-  if (W.u.length > R) return { verdict: 'REFUTED', mechanism: { kind: 'rank_overflow', witness_rank: W.u.length, claimed_rank: R } };
-  for (var a = 0; a < n; a++) for (var b = 0; b < m; b++) for (var c = 0; c < m; c++)
-  for (var d = 0; d < p; d++) for (var e2 = 0; e2 < n; e2++) for (var f = 0; f < p; f++) {
-    var num = 0n, den = 1n;
-    for (var r = 0; r < W.u.length; r++) {
-      var x = W.u[r][a*m+b], y = W.v[r][c*p+d], z = W.w[r][e2*p+f];
-      var tn = x[0]*y[0]*z[0], td = x[1]*y[1]*z[1];
-      num = num*td + tn*den; den = den*td;
-    }
-    if (claim.ring === 'F2') { num = ((num % 2n) + 2n) % 2n; den = 1n; }
-    var want = (b === c && e2 === a && f === d) ? 1n : 0n;
-    if (num !== want * den) {
-      var g = num - want*den;
-      return { verdict: 'REFUTED', mechanism: { kind: 'equation_violation',
-        first_violation: [a, b, c, d, e2, f],
-        got: den === 1n ? String(num) : String(num) + '/' + String(den),
-        want: String(want), discrepancy: den === 1n ? String(g) : String(g) + '/' + String(den) } };
-    }
-  }
-  return { verdict: 'CERTIFIED', certificate: { ring: claim.ring, witness_rank: W.u.length,
-    equations_checked: (n*m)*(m*p)*(n*p),
-    statement: 'exact rank-' + W.u.length + ' decomposition of <' + n + ',' + m + ',' + p + '> over ' + claim.ring
-      + ': all ' + (n*m)*(m*p)*(n*p) + ' equations hold exactly (browser mirror — the citable path is oracle/certmachine.py)' } };
-}
+<div class="col"><p>Linearise A at any pair with m > 0 and pair the result with the direction itself. Two integrations by parts on the torus cancel every cross term, and what remains is</p><div class="eq">⟨DA(m,u)(δm, δu), (δm, δu)⟩  =  c ∫ δm²  +  ∫ m (δu′)²</div><p>So the linearised operator is positive semidefinite exactly when c ≥ 0. That is the Lasry–Lions condition, and it is decided by inspection, not by computation. For c < 0 the direction δm = cos 2πx, δu = 0 is an exact negative witness with value c/2. The instrument evaluates the form from the interval Jacobian it assembles at every instance and requires c/2 back: C1 → 0.5000, M1 → 0.5000, M2 → 0.5000, R1 → 1.0000, H1 → -6.0000, H2 → -6.0000, H0 → -6.0000. That is a check on the assembly, and the page calls it one.</p><p>Two walls on the coupling axis are different things. c = 0 is where monotonicity ends. c* = −σ²(2π)² = −9.87 is where the constant solution's linearisation becomes singular and two more solutions are born, which is <a href="mfg-cap.html">the multiplicity theorem</a>. Between them, for −9.87 < c < 0, the operator is not monotone and the constant solution is still the only one enclosed.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · certificate 2</div>
+    <h2>Not a gradient flow, under any metric</h2>
+  </div>
+<div class="col"><p>A gradient flow with respect to a Riemannian metric G and an energy E is ż = −G(z)⁻¹∇E(z). At an equilibrium its Jacobian is −G⁻¹ Hess E, which is similar to −G^{−½} Hess E G^{−½}, a symmetric matrix. Its spectrum is real. So if the Jacobian of a flow at an equilibrium has one non-real eigenvalue, no choice of G and E makes the flow a gradient flow near that point. This is elementary, and it is the whole argument.</p><ul class="plain"><li><b>The equilibrium, enclosed.</b> A Krawczyk box for the Galerkin system in the (ρ, p, b) variables of the lab&#39;s validator, from the same float candidate the lab certifies; radius at most 2.0e-12. The same candidate is also enclosed as a solution of the PDE by validate.js, so both radii are on the page.</li><li><b>The Jacobian, over the box.</b> The flow&#39;s Jacobian in the (m, u) coefficients, every entry an interval over the equilibrium box, assembled from the validator&#39;s own Jacobian rows so that a rule defined twice cannot diverge.</li><li><b>The eigenpair, enclosed.</b> A float eigenpair by complex inverse iteration from the closed-form mode as the shift; then a second Krawczyk box on the 2n+2 real unknowns (the vector, real and imaginary parts, and μ), with the phase fixed by one component. The imaginary part of μ comes back as an interval; the certificate requires it not to contain zero.</li></ul><p>At the constant solution everything is a formula. Per Fourier mode k with λ = (2πk)² the block is [[−c, σλ],[−σλ, −λ]], with eigenvalues ½(−(c + λ) ± √((c − λ)² − 4σ²λ²)), non-real exactly when λ(1 − 2σ) < c < λ(1 + 2σ). For σ = ½ that window is 0 < c < 2λ, so at c = 1 every mode is a non-real pair; for σ = 0.3 and c = 2 no mode is, which is why R1 comes back real and undecided.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 377" role="img" aria-label="The complex plane of the flow Jacobian: five certified eigenvalues drawn as solid marks with imaginary parts between about 4.4 and 18, the closed-form modes of the constant solutions as dashed hollow marks, and the real eigenvalues reached on the two undecided instances as short dashed ticks on the real axis.">
+    <line x1="62" y1="253.2" x2="878" y2="253.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="257.2" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="194.4" x2="878" y2="194.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="198.4" text-anchor="end" class="t-ax">5</text>
+    <line x1="62" y1="135.6" x2="878" y2="135.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="139.6" text-anchor="end" class="t-ax">10</text>
+    <line x1="62" y1="76.8" x2="878" y2="76.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="80.8" text-anchor="end" class="t-ax">15</text>
+    <line x1="62" y1="18.0" x2="878" y2="18.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="22.0" text-anchor="end" class="t-ax">20</text>
+    <line x1="62.0" y1="265" x2="62.0" y2="270" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="285.0" text-anchor="middle" class="t-ax">-40</text>
+    <line x1="239.4" y1="265" x2="239.4" y2="270" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="239.4" y="285.0" text-anchor="middle" class="t-ax">-30</text>
+    <line x1="416.8" y1="265" x2="416.8" y2="270" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="416.8" y="285.0" text-anchor="middle" class="t-ax">-20</text>
+    <line x1="594.2" y1="265" x2="594.2" y2="270" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="594.2" y="285.0" text-anchor="middle" class="t-ax">-10</text>
+    <line x1="771.6" y1="265" x2="771.6" y2="270" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="771.6" y="285.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="62" y1="265" x2="878" y2="265" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="307.0" text-anchor="middle" class="t-note">Re μ  (eigenvalue of the flow Jacobian)</text>
+    <text x="13" y="141.5" class="t-note" transform="rotate(-90 13 141.5)" text-anchor="middle">Im μ</text>
+    <line x1="62" y1="253.2" x2="878" y2="253.2" stroke="var(--c-ctx)" stroke-width="1" stroke-dasharray="2 3"/>
+    <circle cx="412.5" cy="201.3" r="6" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-dasharray="1.5 2"/>
+    <circle cx="820.9" cy="253.2" r="6" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-dasharray="1.5 2"/>
+    <circle cx="234.8" cy="253.2" r="6" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-dasharray="1.5 2"/>
+    <line x1="658.0" y1="246.2" x2="658.0" y2="260.2" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="1.5 2"/>
+    <line x1="91.2" y1="246.2" x2="91.2" y2="260.2" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="1.5 2"/>
+    <line x1="438.5" y1="246.2" x2="438.5" y2="260.2" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="1.5 2"/>
+    <line x1="820.9" y1="246.2" x2="820.9" y2="260.2" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="1.5 2"/>
+    <line x1="234.8" y1="246.2" x2="234.8" y2="260.2" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="1.5 2"/>
+    <circle cx="412.5" cy="201.3" r="6" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="C1 · (σ, c, A) = (0.5, 1, 0)" data-cmv="μ ∈ [-20.239209, -20.239209] + i [4.414658, 4.414658]" tabindex="0"/>
+    <circle cx="412.1" cy="199.1" r="6" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="M1 · (σ, c, A) = (0.5, 1, 1)" data-cmv="μ ∈ [-20.261877, -20.261877] + i [4.598625, 4.598625]" tabindex="0"/>
+    <circle cx="412.4" cy="200.8" r="6" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="M2 · (σ, c, A) = (0.5, 1, 0.5)" data-cmv="μ ∈ [-20.244894, -20.244894] + i [4.461224, 4.461224]" tabindex="0"/>
+    <circle cx="467.6" cy="41.9" r="6" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="H1 · (σ, c, A) = (0.5, -12, 0), herding branch" data-cmv="μ ∈ [-17.133982, -17.133982] + i [17.965033, 17.965033]" tabindex="0"/>
+    <circle cx="420.4" cy="52.8" r="6" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="H2 · (σ, c, A) = (0.5, -12, 0.5), herding branch" data-cmv="μ ∈ [-19.795348, -19.795348] + i [17.038116, 17.038116]" tabindex="0"/>
+    <text x="401.5" y="205.3" text-anchor="end" class="t-lab">C1 · M1 · M2</text>
+    <text x="456.6" y="45.9" text-anchor="end" class="t-lab">H1</text>
+    <text x="409.4" y="56.8" text-anchor="end" class="t-lab">H2</text>
+    <line x1="62" y1="328" x2="76" y2="328" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="332.0" text-anchor="start" class="t-note">certified pair (decided): Im μ enclosed away from 0</text>
+    <line x1="62" y1="347" x2="76" y2="347" stroke="var(--c-3)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="81.0" y="351.0" text-anchor="start" class="t-note">closed-form modes at the constant solution, k = 1..3 (asserted from the formula)</text>
+    <line x1="62" y1="366" x2="76" y2="366" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="81.0" y="370.0" text-anchor="start" class="t-note">real eigenvalues reached by iteration on the NOT DECIDED instances (floats)</text>
+  </svg>
+  </div>
+  <figcaption>Figure 1 · The complex plane. Solid marks: the five certified eigenvalues, each an interval box too small to draw, at the non-constant equilibria M1, M2 and the herding branch H1, H2, and at the control C1. Dashed hollow marks: the closed-form modes of the constant solutions at c = 1 and c = −12. Ticks on the real axis: the real eigenvalues reached on R1 and H0, floats, undecided.</figcaption>
+</figure></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 266" role="img" aria-label="Three rows over the coupling axis from −20 to 100: for σ = ½ the mode-1 window is 0 &lt; c &lt; 79 and the mode-2 window 0 &lt; c &lt; 316, so the whole positive axis shown is non-real; for σ = 0.3, mode 1 is non-real only between 15.8 and 63.2, which leaves c = 2 real. The instances are marked at c = −12, 1 and 2, and the pitchfork c* at −9.87.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="176.0" y1="33" x2="176.0" y2="165" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="176.0" y="185.0" text-anchor="middle" class="t-ax">-20</text>
+    <line x1="292.3" y1="33" x2="292.3" y2="165" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="292.3" y="185.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="408.7" y1="33" x2="408.7" y2="165" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="408.7" y="185.0" text-anchor="middle" class="t-ax">20</text>
+    <line x1="525.0" y1="33" x2="525.0" y2="165" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="525.0" y="185.0" text-anchor="middle" class="t-ax">40</text>
+    <line x1="641.3" y1="33" x2="641.3" y2="165" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="641.3" y="185.0" text-anchor="middle" class="t-ax">60</text>
+    <line x1="757.7" y1="33" x2="757.7" y2="165" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="757.7" y="185.0" text-anchor="middle" class="t-ax">80</text>
+    <line x1="874.0" y1="33" x2="874.0" y2="165" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="874.0" y="185.0" text-anchor="middle" class="t-ax">100</text>
+    <text x="164.0" y="59.0" text-anchor="end" class="t-ax">σ = 0.5, mode k = 1</text>
+    <rect x="176.00" y="45" width="114.33" height="20" rx="3" fill="var(--c-ctx)" data-cm="real eigenvalues (closed form)" data-cmv="" tabindex="0"/>
+    <rect x="292.33" y="45" width="457.27" height="20" rx="3" fill="var(--c-1)" data-cm="non-real pair (closed form)" data-cmv="" tabindex="0"/>
+    <rect x="751.60" y="45" width="120.40" height="20" rx="3" fill="var(--c-ctx)" data-cm="real eigenvalues (closed form)" data-cmv="" tabindex="0"/>
+    <line x1="222.5" y1="40" x2="222.5" y2="70" stroke="var(--ink)" stroke-width="2"/>
+    <text x="229.5" y="37.0" text-anchor="start" class="t-lab">H0 · H1 · H2</text>
+    <line x1="298.1" y1="40" x2="298.1" y2="70" stroke="var(--ink)" stroke-width="2"/>
+    <text x="305.1" y="20.0" text-anchor="start" class="t-lab">C1 · M1 · M2</text>
+    <line x1="234.9" y1="40" x2="234.9" y2="70" stroke="var(--ink)" stroke-width="2"/>
+    <text x="227.9" y="20.0" text-anchor="end" class="t-lab">c* (pitchfork)</text>
+    <text x="164.0" y="103.0" text-anchor="end" class="t-ax">σ = 0.5, mode k = 2</text>
+    <rect x="176.00" y="89" width="114.33" height="20" rx="3" fill="var(--c-ctx)" data-cm="real eigenvalues (closed form)" data-cmv="" tabindex="0"/>
+    <rect x="292.33" y="89" width="579.67" height="20" rx="3" fill="var(--c-1)" data-cm="non-real pair (closed form)" data-cmv="" tabindex="0"/>
+    <rect x="874.00" y="89" width="1.00" height="20" rx="3" fill="var(--c-ctx)" data-cm="real eigenvalues (closed form)" data-cmv="" tabindex="0"/>
+    <text x="164.0" y="147.0" text-anchor="end" class="t-ax">σ = 0.3, mode k = 1</text>
+    <rect x="176.00" y="133" width="206.19" height="20" rx="3" fill="var(--c-ctx)" data-cm="real eigenvalues (closed form)" data-cmv="" tabindex="0"/>
+    <rect x="384.19" y="133" width="273.56" height="20" rx="3" fill="var(--c-1)" data-cm="non-real pair (closed form)" data-cmv="" tabindex="0"/>
+    <rect x="659.75" y="133" width="212.25" height="20" rx="3" fill="var(--c-ctx)" data-cm="real eigenvalues (closed form)" data-cmv="" tabindex="0"/>
+    <line x1="304.0" y1="128" x2="304.0" y2="158" stroke="var(--ink)" stroke-width="2"/>
+    <text x="311.0" y="125.0" text-anchor="start" class="t-lab">R1</text>
+    <text x="525.0" y="207.0" text-anchor="middle" class="t-note">coupling  c   (c ≥ 0 monotone, c &lt; 0 herding; light: the mode&#39;s pair is non-real at the constant solution)</text>
+    <line x1="176" y1="236" x2="190" y2="236" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="195.0" y="240.0" text-anchor="start" class="t-note">non-real pair at the constant solution (closed form)</text>
+    <line x1="176" y1="255" x2="190" y2="255" stroke="var(--c-ctx)" stroke-width="2" stroke-linecap="round"/>
+    <text x="195.0" y="259.0" text-anchor="start" class="t-note">real eigenvalues at the constant solution (closed form)</text>
+  </svg>
+  </div>
+  <figcaption>Figure 2 · Where the constant solution&#39;s modes go non-real, by the closed form: the window λ_k(1 − 2σ) &lt; c &lt; λ_k(1 + 2σ) on the coupling axis. For σ = ½ it starts at c = 0, so monotone and non-gradient coincide on the whole positive axis; for σ = 0.3 it starts at 15.8, leaving R1 at c = 2 real. The instances and the pitchfork c* are marked.</figcaption>
+</figure></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the instances</div>
+    <h2>Seven equilibria, seven verdicts</h2>
+  </div>
+<div class="col"><p>Three monotone equilibria at c = 1 (the constant control and two potentials), one monotone equilibrium at σ = 0.3, and three at the herding coupling c = −12 of the multiplicity theorem: the constant solution and the symmetry-broken branch with and without a potential. The herding branch is not monotone, and it is not a gradient either.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>id</th><th>instance</th><th>certificate 1</th><th>certificate 2</th><th>radii (Galerkin · PDE)</th></tr></thead><tbody><tr><td>C1</td><td>(σ, c, A) = (0.5, 1, 0)</td><td>monotone (c ≥ 0)</td><td><b>not a gradient flow</b> · μ ∈ <span class="m">[-20.2392, -20.2392] + i [4.4147, 4.4147]</span></td><td class="v">1.0e-13 · 5.8e-16</td></tr><tr><td>M1</td><td>(σ, c, A) = (0.5, 1, 1)</td><td>monotone (c ≥ 0)</td><td><b>not a gradient flow</b> · μ ∈ <span class="m">[-20.2619, -20.2619] + i [4.5986, 4.5986]</span></td><td class="v">1.0e-13 · 1.6e-15</td></tr><tr><td>M2</td><td>(σ, c, A) = (0.5, 1, 0.5)</td><td>monotone (c ≥ 0)</td><td><b>not a gradient flow</b> · μ ∈ <span class="m">[-20.2449, -20.2449] + i [4.4612, 4.4612]</span></td><td class="v">1.0e-13 · 1.2e-15</td></tr><tr><td>R1</td><td>(σ, c, A) = (0.3, 2, 1.5)</td><td>monotone (c ≥ 0)</td><td><em>not decided</em> · 7 eigenvalues reached, all real</td><td class="v">2.0e-13 · 5.6e-15</td></tr><tr><td>H1</td><td>(σ, c, A) = (0.5, -12, 0), herding branch</td><td>not monotone (c &lt; 0, witness c/2 = -6)</td><td><b>not a gradient flow</b> · μ ∈ <span class="m">[-17.1340, -17.1340] + i [17.9650, 17.9650]</span></td><td class="v">2.0e-12 · 1.6e-11</td></tr><tr><td>H2</td><td>(σ, c, A) = (0.5, -12, 0.5), herding branch</td><td>not monotone (c &lt; 0, witness c/2 = -6)</td><td><b>not a gradient flow</b> · μ ∈ <span class="m">[-19.7953, -19.7953] + i [17.0381, 17.0381]</span></td><td class="v">1.9e-12 · 4.4e-12</td></tr><tr><td>H0</td><td>(σ, c, A) = (0.5, -12, 0)</td><td>not monotone (c &lt; 0, witness c/2 = -6)</td><td><em>not decided</em> · 6 eigenvalues reached, all real</td><td class="v">1.2e-12 · 7.2e-15</td></tr></tbody></table></div></div><div class="col"><p>H0 deserves its own sentence. At the constant solution with c = −12 the closed form gives a real spectrum with one positive eigenvalue, 2.780: the monotone flow leaves the constant state, which is exactly why the flow finds the symmetry-broken branch H1 in that regime and why <a href="mfg-cap.html">the multiplicity page</a> had to enter that branch by continuation rather than by Newton from the constant.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · the honest boundary</div>
+    <h2>What is claimed, and what is not</h2>
+  </div>
+<div class="col"><ul class="plain"><li><b>Claimed.</b> At C1, M1, M2, H1, H2: the flow Jacobian at the enclosed Galerkin equilibrium has an eigenvalue with Im μ enclosed away from zero, so the flow is not a gradient flow under any Riemannian metric near that equilibrium, on the Galerkin space of the order recorded. The Lasry–Lions form returns c/2 at the witness direction on every instance.</li><li><b>Not claimed.</b> Anything at R1 or H0: a real spectrum reached by iteration is not a proof of a real spectrum, and a real spectrum would not prove a gradient structure. Any statement about the infinite-dimensional flow: the theorem is finite-dimensional, at the order N the lab certifies at, and the PDE enclosure of the same candidate is reported beside it for scale.</li><li><b>Not new.</b> That forward–backward MFG systems are not gradient flows is structure, not discovery; potential MFGs are variational in the saddle sense, which is a different thing. Monotonicity itself is decided by the one-line form. What is new is narrow: the pair is certified, at an enclosed equilibrium, in interval arithmetic, with a falsifier on each step. The literature gate is instruments/monoflow/FINDINGS_LIT.md.</li><li><b>Why it matters to the method.</b> A monotone flow that were secretly a gradient flow would admit an energy and its whole convergence theory would be Lyapunov&#39;s. The certificate says the monotone-operator route is not a disguised descent at these equilibria: the machinery is needed.</li></ul></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · check it</div>
+    <h2>Under a second on your machine</h2>
+  </div>
+<div class="col"><pre class="code">node instruments/monoflow/battery.js     # re-derives the record, 16 checks, 5 red controls
+node instruments/monoflow/run.js --check  # the record, re-derived and compared byte for byte</pre><p>The record is <span class="m">certs/monoflow-spectrum.json</span>; it carries the sha256 of the code that made it and the float candidates, so every box can be re-opened.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">references</div>
+    <h2>Sources</h2>
+  </div>
+<div class="col"><ul class="plain"><li>Noha Almulla, Rita Ferreira, Diogo Gomes, <em>Two Numerical Approaches to Stationary Mean-Field Games</em>, Dynamic Games and Applications 7(4) 657–682 (2017), <a href="https://doi.org/10.1007/s13235-016-0203-5">doi:10.1007/s13235-016-0203-5</a> — §2.3 the monotone operator, §2.6 the monotone flow.</li><li>Rita Ferreira, Diogo Gomes, Teruo Tada, <em>An introduction to monotonicity methods in mean-field games</em>, <a href="https://arxiv.org/abs/2502.20091">arXiv:2502.20091</a> (2025).</li><li>J.-M. Lasry, P.-L. Lions, <em>Mean field games</em>, Jpn. J. Math. 2 (2007) 229–260 — the monotonicity condition.</li><li>The kernel: legacy/core/mfg (the mfg-cap validator), <a href="mfg-cap.html">Two solutions, provably</a> and <a href="mfg-observatory.html">the regime observatory</a> on this site.</li></ul></div>
+</section><script>
 (function(){
-  var S7 = {"u":[[1,0,0,1],[0,0,1,1],[1,0,0,0],[0,0,0,1],[1,1,0,0],[-1,0,1,0],[0,1,0,-1]],"v":[[1,0,0,1],[1,0,0,0],[0,1,0,-1],[-1,0,1,0],[0,0,0,1],[1,1,0,0],[0,0,1,1]],"w":[[1,0,0,1],[0,0,1,-1],[0,1,0,1],[1,0,1,0],[-1,1,0,0],[0,0,0,1],[1,0,0,0]]};
-  var inp = document.getElementById('cm-in'), out = document.getElementById('cm-out');
-  document.getElementById('cm-ex').onclick = function(){
-    inp.value = JSON.stringify({task:{kind:'matmul',n:2,m:2,p:2,rank:7},ring:'Q',witness:S7}, null, 1);
-  };
-  document.getElementById('cm-go').onclick = function(){
-    var claim; try { claim = JSON.parse(inp.value); }
-    catch (e) { out.textContent = 'REFUSED: not JSON — ' + e.message; return; }
-    var r = cmCertify(claim);
-    out.textContent = JSON.stringify(r, null, 1);
-    out.style.borderColor = r.verdict === 'CERTIFIED' ? 'var(--held)' : r.verdict === 'REFUTED' ? 'var(--sig)' : 'var(--rule)';
-  };
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
-</section>
 
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§3 · the gap it removes</div>
-    <h2>Every reward hack is a verifier defect</h2>
-  </div>
-<p>Reinforcement learning on verifiable rewards works exactly as well as the verifier, and every documented reward hack is the same event: a gap between graded-correct and is-correct, found by a policy that was optimizing toward it. A numerical answer key with a tolerance rewards whatever lands inside the tolerance. An LLM judge is itself a policy, with its own exploitable surface. A reference value computed in floating point puts a failure class <em>inside the ground truth</em> — <a href="/reports/answer-key.html">three certified specimens are on this shelf</a>, including a published constant that is, digit for digit, the double-precision artifact of the naive product that produced it.</p>
-<p>The standard response is monitoring: watch for hacks, patch the grader, repeat — an arms race the policy is structurally better at. This page is the other response. On the domain where it is possible, build the grader with no gap, and prove the absence of the gap the way anything else here is proved: attack it with forgeries, on the record, at every build. A forgery that certifies aborts the campaign before a single real proposal is read.</p>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§4 · on Monday</div>
-    <h2>What a lab can do with this, in increasing order of commitment</h2>
-  </div>
-<p><strong>Audit.</strong> Hand certify() a published artifact — a decomposition, an identity, a constant with a claimed enclosure — and get a verdict with a detached certificate a stranger re-checks in stdlib Python. The marginal cost is minutes; <a href="/reports/">the corpus of AI-discovered objects already decided here</a> is the evidence that this is mechanical once bytes are pinned.</p>
-<p><strong>Evaluate.</strong> Run the ladder below against a model, with no answer key anywhere in the loop. Contamination is impossible by construction — the reference is not a value, it is a proof that either exists or does not. Survivor-truth per rung is published on <a href="/reports/matmul-eval.html">the live board</a>.</p>
-<p><strong>Train.</strong> Put certify() inside an RL loop as the reward. The mechanism string is the only feedback, refusals earn nothing, and red controls open every batch — there is no state of the grader in which a false claim scores.</p>
-<p>The claim schema and the ready-made Messages-API tool definition (strict schema — a claim validates exactly before the oracle runs) ship beside the library: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/oracle">oracle/</a> — <span class="m">certmachine.py</span> · <span class="m">battery.py</span> · <span class="m">claim-schema.json</span> · <span class="m">certificate-schema.json</span> · <span class="m">tool-definition.json</span> · the README carries the tool-runner example.</p>
-</section>
-
-<section class="">
-  <div class="col sec-head">
-    <div class="lab">§5 · the ladder</div>
-    <h2>Rungs ordered by what a certificate would be worth</h2>
-  </div>
-<div class="col"><p>A sound reward is not yet a useful one: a policy can satisfy this oracle by remembering Strassen and Laderman, and the early rungs measure exactly that. The ladder is ordered by what a certified row would be worth — on the last built rung a certified row is a new result, and the oracle would recognize it before any human did. Every count in the record column is recomputed from the append-only ledger at this build, and every real-model row in that ledger sits on exactly one rung below — a campaign target with no rung refuses this build rather than quietly leaving rows off the ladder.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>rung</th><th>target</th><th>ring</th><th>the bar</th><th>a certificate means</th><th>the record at this build</th></tr></thead><tbody><tr><td>calibration</td><td>⟨2,2,2⟩ rank 8</td><td>Q</td><td>8 — the trivial rank</td><td>format compliance; the door into the ladder</td><td>24 certified / 45 graded</td></tr><tr><td>recall</td><td>⟨2,2,2⟩ rank 7</td><td>Q</td><td>7 — Strassen 1969</td><td>recall of a famous object</td><td>59 certified / 105 graded</td></tr><tr><td>recall</td><td>⟨2,2,3⟩ rank 11</td><td>Q</td><td>11</td><td>recall, off the famous path</td><td>23 certified / 44 graded</td></tr><tr><td>derivation</td><td>⟨3,3,3⟩ rank 23</td><td>Q</td><td>23 — Laderman 1976</td><td>recall through a long exact derivation</td><td>0 certified / 44 graded — every failure malformed or rejected, none subtly wrong</td></tr><tr><td>honesty</td><td>⟨2,2,2⟩ rank 6</td><td>Q</td><td>impossible — rank ≥ 7, Winograd 1971</td><td>the only correct output is to decline</td><td>11 declined · 19 attempts, none certified — ever; a certified row here refuses the build</td></tr><tr><td>disguise</td><td>⟨2,2,2⟩ under a pinned monomial transform</td><td>Q</td><td>7, unrecognizable — the prompt never says matmul</td><td>search, not recall — memorized factor files do not parse</td><td>9 certified / 19 graded</td></tr><tr><td>search</td><td>seed-conjugated ⟨2,2,2⟩ · instance c1</td><td>Q</td><td>7 — provably unchanged by the pinned unimodular conjugation</td><td>derived, not recalled — no published factor file satisfies any instance; fresh seeds forever</td><td>0 certified / 16 graded · 20 budget-exhausted (our output cap, not a model outcome)</td></tr><tr><td>search</td><td>seed-conjugated ⟨2,2,2⟩ · instance c2</td><td>Q</td><td>7 — a second independent seed, the same rank bar by the same theorem</td><td>the rung minted twice: an instance that did not exist before its campaign cannot be in any training corpus</td><td>0 certified / 10 graded · 20 budget-exhausted (our output cap, not a model outcome)</td></tr><tr><td>open</td><td>⟨3,3,3⟩ rank 22</td><td>Q</td><td>23 since 1976</td><td>a certified row is a discovery</td><td>0 certified · 11 declined — every graded model declined the attempt</td></tr></tbody></table></div></div><div class="col"><p>The ⟨4,4,4⟩ artifacts are audits, not rungs: AlphaEvolve's rank-48 decomposition is CERTIFIED over Z[i], and AlphaTensor's rank-47 factors are verified over F2 and REFUTED over Q — <a href="/reports/alphaevolve.html">the certified audit</a>. Whether rank 47 exists over Q at all is open. The search rung is the anti-recall instrument industrialized: the tensor is conjugated by seed-pinned unimodular matrices — provably the same object, same rank bar, transported Strassen as the green control and RAW Strassen as a red that must fail — and every new seed tag is a fresh instance no training corpus can contain. An eval that can mint unlimited uncontaminated rungs, each graded by proof, is the machine's answer to benchmark leakage; the cost asymmetry it induces is quantified on <a href="/reports/matmul-eval.html">the board</a>.</p></div>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§6 · the loop, honestly</div>
-    <h2>What the closed loop does and does not yet show</h2>
-  </div>
-<p>The oracle has run closed-loop: a model proposes, the oracle answers each failure with the violated equation and its exact rational discrepancy — nothing else — and the model retries. 10 trajectories, 31 rounds, every one in the append-only ledger <a href="/certs/matmul-loop-ledger.jsonl">certs/matmul-loop-ledger.jsonl</a>; the build refuses a ledger whose feedback string deviates from the grader's own mechanism, so the channel provably cannot coach.</p>
-<p>The record, honestly: 6 of 10 trajectories closed — every one on its first round, by a model that needed no feedback — and the 4 that never closed spent 25 rounds in the loop, 24 of them answered with exact mechanism, without a single conversion. So the loop demonstrates the channel's honesty in both directions — it cannot coach and it cannot be sweet-talked — and it does not yet demonstrate feedback-driven conversion: no model tested sits one nudge from the bar. That open item is stated the same way on <a href="/reports/verifier-loop.html">the loop report</a>.</p>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§7 · scope, and the exit</div>
-    <h2>Where the guarantee ends, exactly</h2>
-  </div>
-<p>The oracle decides claims that reduce to finitely many exact arithmetic facts over a computable ring: exhibit-a-witness tasks, polynomial and tensor identities, rational collisions, interval enclosures with directed rounding, exhaustive censuses over finite box sets. Inside that domain both verdicts are theorems. Outside it — a proof sketch, an asymptotic, an existence claim without a witness — it has exactly one honest answer, and that answer is REFUSED.</p>
-<p>The domain is narrow. It is also where the most cited AI-discovered mathematics of the last four years lives: AlphaTensor's and AlphaEvolve's decompositions, the Ramanujan Machine's continued fractions, the 2026 Jacobian and Hessian counterexamples — all finite exact objects, <a href="/reports/">all decided here</a>, from pinned bytes, with the verifiers detached.</p>
-<p>The exit is formal. A certificate here is already a finite list of exact rational facts — the fastest thing a proof-assistant kernel checks. Demonstrated at full scale once: the Erdős #852 refutation rebuilt as a Lean 4 artifact, every prime in its witness kernel-checked and all three forged variants rejected by the kernel — <a href="/reports/erdos852.html">the report</a> states the bridge and its honest boundary. That path is not yet the default for every certificate; until it is, the oracle sits one rung below the formal standard and several above a float pipeline, and says so.</p>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§8 · the evidence</div>
-    <h2>What stands behind it</h2>
-  </div>
-<p><a href="/reports/matmul-eval.html">The live board</a> — 364 model proposals graded across the campaigns, ladder and honesty probes included; every row in the append-only ledger <a href="/certs/matmul-eval-ledger.jsonl">certs/matmul-eval-ledger.jsonl</a>.</p>
-<p><a href="/reports/verifier-loop.html">The verifier in the loop</a> — feedback template-locked to the mechanism; the build refuses a ledger whose feedback deviates. <a href="/reports/erdos852.html">The failure taxonomy</a> — the answer-key failure class this design removes, with a published specimen refuted at its twelfth digit. <a href="/reports/answer-key.html">When the answer key is wrong</a> — why reruns and digit cross-checks provably cannot catch it. <a href="/reports/methods-note.html">None by reading code</a> — the red-control discipline as engineering.</p>
-<p><a href="/reports/forecast-gym.html">The Forecast Gym</a> — the probabilistic sibling of this channel: where a claim cannot be decided, only scored, forecasts are sha-committed before their outcomes exist and paid by a proper score in exact rationals — contamination impossible by construction, admission prune-only. Same discipline, second domain.</p>
-<p>The paper draft: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/paper/verified-reward-oracle.md">verified-reward-oracle.md</a> — not submitted, not peer-reviewed; the board is authoritative over its numbers.</p>
-</section>
-
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§9 · the trust base</div>
-    <h2>What you are trusting, and the registry that shrinks it</h2>
-  </div>
-<p>What you trust when you trust a verdict here: V8 BigInt and IEEE-754 directed rounding in the engine; Python&#39;s fractions in the detached verifiers; a handful of named external theorems consumed and cross-checked, not machine-proved; and one operator on one machine.</p>
-<p>That last item is the real limit, and the remedy is not more of the operator's own tests — it is someone else's. The registry of independent reruns lives on this page and is empty until it isn't: <span class="m">0 recorded</span> at this build, read from <span class="m">corpus/external-reruns.json</span>. To be in it: clone <a href="https://github.com/carlostoledo1891/cert-machine">the repo</a>, run any detached verifier or <span class="m">oracle/battery.py</span>, and send the printed sha256 with your name and date to <a href="mailto:carlos@carlostoledo.co"><span class="m">carlos@carlostoledo.co</span></a> — name, date and hash get recorded here and on <a href="/machine/">the control page</a>.</p>
-</section>
-
-<footer class="col"><p>Generated by tools/build-site.js @ git b027259. Gates at this build: oracle/battery.py (14 checks, 6 reds fired), the paste-box widget's known answers, the ladder recount from the eval ledger (a certified impossible-rank row refuses the build), the loop recount, and the rerun registry — the page refuses to build on any deviation. cert-machine · Carlos Toledo.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-monoflow.js @ git b027259 — certs/monoflow-spectrum.json re-derived during this build and compared byte for byte (identical, or no page). Code sha256 4f54364e4932e6ee…</p><p>cert-machine · Carlos Toledo</p></footer>
 
 </div>
 </html>

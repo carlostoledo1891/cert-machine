@@ -1,0 +1,1079 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The empty region, painted by standing · cert-machine</title>
+<meta name="description" content="A first-order mean-field game with an entry and an exit, its empty region decided cell by cell and refused where the budget cannot decide, its two value functions enclosed, and contact without exit evaluated as an interval.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/aag.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/aag.html">
+<meta property="og:title" content="The empty region, painted by standing · cert-machine">
+<meta property="og:description" content="A first-order mean-field game with an entry and an exit, its empty region decided cell by cell and refused where the budget cannot decide, its two value functions enclosed, and contact without exit evaluated as an interval.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The empty region, painted by standing · cert-machine">
+<meta name="twitter:description" content="A first-order mean-field game with an entry and an exit, its empty region decided cell by cell and refused where the budget cannot decide, its two value functions enclosed, and contact without exit evaluated as an interval.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The empty region, painted by standing · cert-machine","description":"A first-order mean-field game with an entry and an exit, its empty region decided cell by cell and refused where the budget cannot decide, its two value functions enclosed, and contact without exit evaluated as an interval.","url":"https://carlostoledo.co/reports/aag.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:0.9375rem;line-height:1.65;font-weight:400;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+.page{max-width:1200px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 60px) clamp(1.25rem,4vw,3rem) 96px}
+
+
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.eyebrow,.lab{font-family:var(--f-mono);font-size:0.6875rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase}
+.eyebrow{color:var(--ink-4)}
+.lab{color:var(--ink-4)}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--sunk);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+footer{margin:clamp(5rem,12vh,9rem) 0 0;padding-top:32px;border-top:1px solid var(--rule);
+  color:var(--ink-5);font-size:0.6875rem;letter-spacing:.08em;line-height:1.9;font-family:var(--f-mono);text-transform:uppercase}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-3);border-bottom-color:var(--rule-strong);text-transform:none;letter-spacing:.04em}
+footer a:hover{color:var(--ink)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · the record is re-derived at every build</div>
+  <h1>The empty region, painted by standing</h1>
+  <p class="deck">A first-order mean-field game on an interval with an entry at one end and an exit at the other, from Alharbi, Ashrafyan and Gomes (Applied Mathematics &amp; Optimization, 2026). Where the potential is negative the density vanishes: an empty region, and inside it the value function is not unique. This page takes the paper&#39;s own explicit solutions and decides them cell by cell: occupied, empty, or refused where the cell holds the free boundary at the budget chosen. The refused cells are drawn as refused. The two value functions are drawn as two members of a set. And the sentence from the paper&#39;s abstract, that contact with the exit does not imply exit, is evaluated as an interval, twice.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> On 256 cells, the density of case 1 is decided zero on the runs (0.086, 0.414) and (0.754, 1.000), decided positive and enclosed on the two occupied runs, and refused on 4 cells that hold the exact roots 1/12, 5/12 and 3/4. The refused length is 4/K at every budget from 16 to 1024. Both value functions are enclosed; they differ by 0.91 at x = 0 and meet at x = 1. x = 1 is in the contact set with exit flux exactly zero in case 1 and exactly −j₀ in case 2.</li><li><b>The mechanism.</b> An interval enclosure of the sine on each cell decides the sign of V; the density is V on the positive cells and zero on the negative ones; a cell whose enclosure straddles zero is refused, and a refused cell must contain a root. The value functions are Riemann brackets from the exit. Case 2 inverts the paper's cubic on every cell for every γ in a box, because the paper prints no γ.</li><li><b>Check it.</b> <span class="m">node instruments/aag/battery.js</span> (18 checks, 5 red controls, under a second) re-derives the record and compares it byte for byte.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats" data-n="6">
+    <div class="stat"><div class="k">refused cells</div><div class="v">4 of 256</div><div class="n">length 0.015625 — each holds one of the three exact roots; at K = 1024 the length is 0.00390625</div></div>
+    <div class="stat"><div class="k">the empty region</div><div class="v">{V &lt; 0}</div><div class="n">m = 0 exactly on 2 runs, m = V enclosed on 2 runs</div></div>
+    <div class="stat"><div class="k">two value functions</div><div class="v">u₊ ≠ u₋</div><div class="n">u₊(0) ∈ [0.454, 0.466], u₋(0) its negative; Theorem 1.3 gives uniqueness of Du only where m &gt; 0</div></div>
+    <div class="stat"><div class="k">contact without exit</div><div class="v">flux 0</div><div class="n">case 1: u(1) = ψ and m(1) = 0, so nobody leaves through the exit they touch</div></div>
+    <div class="stat"><div class="k">case 2 floor</div><div class="v">m ≥ 0.068</div><div class="n">for every γ ∈ [-0.5,-0.3] and every x — a positive current keeps the density positive, as the paper says</div></div>
+    <div class="stat"><div class="k">falsifiers</div><div class="v">MUST REFUSE</div><div class="n">the float sign rule paints the root cells; a deleted root; a raised exit cost; a shifted cubic bracket; a zero current</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the instance</div>
+    <h2>An entry, an exit, and a place nobody stands</h2>
+  </div>
+<div class="col"><p><a href="https://arxiv.org/abs/2305.15952">Alharbi, Ashrafyan and Gomes</a> study first-order stationary mean-field games on bounded domains where part of the boundary is an entry, with a prescribed inflow, and part is an exit, with a cost and a relaxed Dirichlet condition: agents may leave, and pay, but nothing forces them to. Their one-dimensional example (§3.2) on (0, 1) is</p><div class="eq">½ u_x² + V(x) = m,     −(m u_x)_x = 0,     −m(0) u_x(0) = j₀,     u(1) ≤ 0,     u(1) m(1) u_x(1) = 0</div><p>with V(x) = γ + ½ sin(3π(x + ¼)). With no inflow (j₀ = 0) the current vanishes and at every point either the velocity is zero or the density is: the solution they exhibit is m = V₊, zero wherever V is negative, with the value function u(x) = ±√2 ∫ₓ¹ √(V₋) — two of them. With inflow j₀ = 1/10 the current is −j₀ everywhere, the density is the positive root of a cubic, and it is positive everywhere whatever V does.</p><blockquote>However, as our examples show, contact does not necessarily imply that exit occurs.<cite>Alharbi, Ashrafyan &amp; Gomes, abstract</cite></blockquote><p>Their figures are made with a finite-difference discretisation of the variational problem and Mathematica's FindMinimum, and carry no error bound. γ for the second figure is read from the plot; it is not in the text.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · the vanishing set</div>
+    <h2>Decided where it can be, refused where it cannot</h2>
+  </div>
+<div class="col"><p>The domain is cut into K cells. On each, an interval enclosure of the sine gives an enclosure of V. If it lies above zero the cell is OCCUPIED and the density is V, enclosed; below zero the cell is EMPTY and the density is exactly zero; straddling zero, the cell is REFUSED: at this budget the arithmetic cannot say. The three roots of V are exact, x = 1/12, 5/12 and 3/4, and the certificate requires every refused cell to contain one and every root to lie in a refused cell. The root 3/4 sits on a cell edge at every power-of-two budget and takes two cells; so the refused count is four at every K and the refused length is 4/K.</p><p>The mathematics of a topologically correct sign map from interval arithmetic is thirty years old: Plantinga and Vegter refine until every cell is decided and then draw a clean curve. What is drawn here is the other thing, and it is the point: the cells the budget could not decide, drawn as what they are.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 340" role="img" aria-label="The density of case 1 over the unit interval: two solid humps on the occupied runs (0, 1/12) and (5/12, 3/4), nothing drawn but the zero line on the empty runs (1/12, 5/12) and (3/4, 1), and three narrow hatched bands at 1/12, 5/12 and 3/4 where the cells are refused.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="227.9" x2="878" y2="227.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="231.9" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="189.8" x2="878" y2="189.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="193.8" text-anchor="end" class="t-ax">0.1</text>
+    <line x1="62" y1="151.6" x2="878" y2="151.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="155.6" text-anchor="end" class="t-ax">0.2</text>
+    <line x1="62" y1="113.4" x2="878" y2="113.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="117.4" text-anchor="end" class="t-ax">0.3</text>
+    <line x1="62" y1="75.3" x2="878" y2="75.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="79.3" text-anchor="end" class="t-ax">0.4</text>
+    <line x1="62" y1="37.1" x2="878" y2="37.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="41.1" text-anchor="end" class="t-ax">0.5</text>
+    <line x1="62.0" y1="247" x2="62.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="267.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="130.0" y1="247" x2="130.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="130.0" y="267.0" text-anchor="middle" class="t-ax">1/12</text>
+    <line x1="266.0" y1="247" x2="266.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="266.0" y="267.0" text-anchor="middle" class="t-ax">0.25</text>
+    <line x1="402.0" y1="247" x2="402.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="402.0" y="267.0" text-anchor="middle" class="t-ax">5/12</text>
+    <line x1="470.0" y1="247" x2="470.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="267.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="674.0" y1="247" x2="674.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="674.0" y="267.0" text-anchor="middle" class="t-ax">3/4</text>
+    <line x1="878.0" y1="247" x2="878.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="267.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="62" y1="247" x2="878" y2="247" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="289.0" text-anchor="middle" class="t-note">x on (0, 1)</text>
+    <text x="13" y="132.5" class="t-note" transform="rotate(-90 13 132.5)" text-anchor="middle">density m = V₊</text>
+    <rect x="128.9" y="18" width="3.2" height="229" fill="url(#cmHatch)" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="399.9" y="18" width="3.2" height="229" fill="url(#cmHatch)" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="670.8" y="18" width="6.4" height="229" fill="url(#cmHatch)" stroke="var(--c-ctx)" stroke-width="1"/>
+    <line x1="132.1" y1="227.9" x2="399.9" y2="227.9" stroke="var(--c-1)" stroke-width="3"/>
+    <line x1="677.2" y1="227.9" x2="878.0" y2="227.9" stroke="var(--c-1)" stroke-width="3"/>
+    <path d="M63.59 92.98 L66.78 98.04 L69.97 103.27 L73.16 108.67 L76.34 114.24 L79.53 119.96 L82.72 125.82 L85.91 131.82 L89.09 137.96 L92.28 144.21 L95.47 150.58 L98.66 157.06 L101.84 163.63 L105.03 170.28 L108.22 177.02 L111.41 183.82 L114.59 190.69 L117.78 197.60 L120.97 204.56 L124.16 211.54 L127.34 218.55 L127.34 225.57 L124.16 218.55 L120.97 211.54 L117.78 204.56 L114.59 197.60 L111.41 190.69 L108.22 183.82 L105.03 177.02 L101.84 170.28 L98.66 163.63 L95.47 157.06 L92.28 150.58 L89.09 144.21 L85.91 137.96 L82.72 131.82 L79.53 125.82 L76.34 119.96 L73.16 114.24 L69.97 108.67 L66.78 103.27 L63.59 98.04 Z" fill="var(--c-1)" opacity="0.14"/>
+    <path d="M63.59 98.04 L66.78 103.27 L69.97 108.67 L73.16 114.24 L76.34 119.96 L79.53 125.82 L82.72 131.82 L85.91 137.96 L89.09 144.21 L92.28 150.58 L95.47 157.06 L98.66 163.63 L101.84 170.28 L105.03 177.02 L108.22 183.82 L111.41 190.69 L114.59 197.60 L117.78 204.56 L120.97 211.54 L124.16 218.55 L127.34 225.57" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M63.59 92.98 L66.78 98.04 L69.97 103.27 L73.16 108.67 L76.34 114.24 L79.53 119.96 L82.72 125.82 L85.91 131.82 L89.09 137.96 L92.28 144.21 L95.47 150.58 L98.66 157.06 L101.84 163.63 L105.03 170.28 L108.22 177.02 L111.41 183.82 L114.59 190.69 L117.78 197.60 L120.97 204.56 L124.16 211.54 L127.34 218.55" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M404.66 218.55 L407.84 211.54 L411.03 204.56 L414.22 197.60 L417.41 190.69 L420.59 183.82 L423.78 177.02 L426.97 170.28 L430.16 163.63 L433.34 157.06 L436.53 150.58 L439.72 144.21 L442.91 137.96 L446.09 131.82 L449.28 125.82 L452.47 119.96 L455.66 114.24 L458.84 108.67 L462.03 103.27 L465.22 98.04 L468.41 92.98 L471.59 88.10 L474.78 83.42 L477.97 78.93 L481.16 74.64 L484.34 70.56 L487.53 66.69 L490.72 63.04 L493.91 59.62 L497.09 56.42 L500.28 53.45 L503.47 50.73 L506.66 48.24 L509.84 45.99 L513.03 44.00 L516.22 42.25 L519.41 40.75 L522.59 39.51 L525.78 38.52 L528.97 37.79 L532.16 37.31 L535.34 37.10 L538.53 37.08 L541.72 37.14 L544.91 37.44 L548.09 38.00 L551.28 38.82 L554.47 39.89 L557.66 41.22 L560.84 42.80 L564.03 44.63 L567.22 46.72 L570.41 49.04 L573.59 51.61 L576.78 54.42 L579.97 57.46 L583.16 60.73 L586.34 64.23 L589.53 67.96 L592.72 71.89 L595.91 76.04 L599.09 80.40 L602.28 84.96 L605.47 89.71 L608.66 94.64 L611.84 99.76 L615.03 105.05 L618.22 110.51 L621.41 116.13 L624.59 121.90 L627.78 127.81 L630.97 133.86 L634.16 140.03 L637.34 146.32 L640.53 152.73 L643.72 159.24 L646.91 165.84 L650.09 172.52 L653.28 179.28 L656.47 186.10 L659.66 192.99 L662.84 199.92 L666.03 206.88 L669.22 213.88 L669.22 220.89 L666.03 213.88 L662.84 206.88 L659.66 199.92 L656.47 192.99 L653.28 186.10 L650.09 179.28 L646.91 172.52 L643.72 165.84 L640.53 159.24 L637.34 152.73 L634.16 146.32 L630.97 140.03 L627.78 133.86 L624.59 127.81 L621.41 121.90 L618.22 116.13 L615.03 110.51 L611.84 105.05 L608.66 99.76 L605.47 94.64 L602.28 89.71 L599.09 84.96 L595.91 80.40 L592.72 76.04 L589.53 71.89 L586.34 67.96 L583.16 64.23 L579.97 60.73 L576.78 57.46 L573.59 54.42 L570.41 51.61 L567.22 49.04 L564.03 46.72 L560.84 44.63 L557.66 42.80 L554.47 41.22 L551.28 39.89 L548.09 38.82 L544.91 38.00 L541.72 37.44 L538.53 37.14 L535.34 37.31 L532.16 37.79 L528.97 38.52 L525.78 39.51 L522.59 40.75 L519.41 42.25 L516.22 44.00 L513.03 45.99 L509.84 48.24 L506.66 50.73 L503.47 53.45 L500.28 56.42 L497.09 59.62 L493.91 63.04 L490.72 66.69 L487.53 70.56 L484.34 74.64 L481.16 78.93 L477.97 83.42 L474.78 88.10 L471.59 92.98 L468.41 98.04 L465.22 103.27 L462.03 108.67 L458.84 114.24 L455.66 119.96 L452.47 125.82 L449.28 131.82 L446.09 137.96 L442.91 144.21 L439.72 150.58 L436.53 157.06 L433.34 163.63 L430.16 170.28 L426.97 177.02 L423.78 183.82 L420.59 190.69 L417.41 197.60 L414.22 204.56 L411.03 211.54 L407.84 218.55 L404.66 225.57 Z" fill="var(--c-1)" opacity="0.14"/>
+    <path d="M404.66 225.57 L407.84 218.55 L411.03 211.54 L414.22 204.56 L417.41 197.60 L420.59 190.69 L423.78 183.82 L426.97 177.02 L430.16 170.28 L433.34 163.63 L436.53 157.06 L439.72 150.58 L442.91 144.21 L446.09 137.96 L449.28 131.82 L452.47 125.82 L455.66 119.96 L458.84 114.24 L462.03 108.67 L465.22 103.27 L468.41 98.04 L471.59 92.98 L474.78 88.10 L477.97 83.42 L481.16 78.93 L484.34 74.64 L487.53 70.56 L490.72 66.69 L493.91 63.04 L497.09 59.62 L500.28 56.42 L503.47 53.45 L506.66 50.73 L509.84 48.24 L513.03 45.99 L516.22 44.00 L519.41 42.25 L522.59 40.75 L525.78 39.51 L528.97 38.52 L532.16 37.79 L535.34 37.31 L538.53 37.14 L541.72 37.44 L544.91 38.00 L548.09 38.82 L551.28 39.89 L554.47 41.22 L557.66 42.80 L560.84 44.63 L564.03 46.72 L567.22 49.04 L570.41 51.61 L573.59 54.42 L576.78 57.46 L579.97 60.73 L583.16 64.23 L586.34 67.96 L589.53 71.89 L592.72 76.04 L595.91 80.40 L599.09 84.96 L602.28 89.71 L605.47 94.64 L608.66 99.76 L611.84 105.05 L615.03 110.51 L618.22 116.13 L621.41 121.90 L624.59 127.81 L627.78 133.86 L630.97 140.03 L634.16 146.32 L637.34 152.73 L640.53 159.24 L643.72 165.84 L646.91 172.52 L650.09 179.28 L653.28 186.10 L656.47 192.99 L659.66 199.92 L662.84 206.88 L666.03 213.88 L669.22 220.89" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M404.66 218.55 L407.84 211.54 L411.03 204.56 L414.22 197.60 L417.41 190.69 L420.59 183.82 L423.78 177.02 L426.97 170.28 L430.16 163.63 L433.34 157.06 L436.53 150.58 L439.72 144.21 L442.91 137.96 L446.09 131.82 L449.28 125.82 L452.47 119.96 L455.66 114.24 L458.84 108.67 L462.03 103.27 L465.22 98.04 L468.41 92.98 L471.59 88.10 L474.78 83.42 L477.97 78.93 L481.16 74.64 L484.34 70.56 L487.53 66.69 L490.72 63.04 L493.91 59.62 L497.09 56.42 L500.28 53.45 L503.47 50.73 L506.66 48.24 L509.84 45.99 L513.03 44.00 L516.22 42.25 L519.41 40.75 L522.59 39.51 L525.78 38.52 L528.97 37.79 L532.16 37.31 L535.34 37.10 L538.53 37.08 L541.72 37.14 L544.91 37.44 L548.09 38.00 L551.28 38.82 L554.47 39.89 L557.66 41.22 L560.84 42.80 L564.03 44.63 L567.22 46.72 L570.41 49.04 L573.59 51.61 L576.78 54.42 L579.97 57.46 L583.16 60.73 L586.34 64.23 L589.53 67.96 L592.72 71.89 L595.91 76.04 L599.09 80.40 L602.28 84.96 L605.47 89.71 L608.66 94.64 L611.84 99.76 L615.03 105.05 L618.22 110.51 L621.41 116.13 L624.59 121.90 L627.78 127.81 L630.97 133.86 L634.16 140.03 L637.34 146.32 L640.53 152.73 L643.72 159.24 L646.91 165.84 L650.09 172.52 L653.28 179.28 L656.47 186.10 L659.66 192.99 L662.84 199.92 L666.03 206.88 L669.22 213.88" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="62.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="62.0" data-cm="x ∈ [0.0000, 0.0039)" data-cmv="OCCUPIED · m ∈ [0.3403, 0.3536]" tabindex="0"/>
+    <rect x="65.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="65.2" data-cm="x ∈ [0.0039, 0.0078)" data-cmv="OCCUPIED · m ∈ [0.3266, 0.3403]" tabindex="0"/>
+    <rect x="68.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="68.4" data-cm="x ∈ [0.0078, 0.0117)" data-cmv="OCCUPIED · m ∈ [0.3124, 0.3266]" tabindex="0"/>
+    <rect x="71.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="71.6" data-cm="x ∈ [0.0117, 0.0156)" data-cmv="OCCUPIED · m ∈ [0.2978, 0.3124]" tabindex="0"/>
+    <rect x="74.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="74.8" data-cm="x ∈ [0.0156, 0.0195)" data-cmv="OCCUPIED · m ∈ [0.2829, 0.2978]" tabindex="0"/>
+    <rect x="77.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="77.9" data-cm="x ∈ [0.0195, 0.0234)" data-cmv="OCCUPIED · m ∈ [0.2675, 0.2829]" tabindex="0"/>
+    <rect x="81.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="81.1" data-cm="x ∈ [0.0234, 0.0273)" data-cmv="OCCUPIED · m ∈ [0.2518, 0.2675]" tabindex="0"/>
+    <rect x="84.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="84.3" data-cm="x ∈ [0.0273, 0.0313)" data-cmv="OCCUPIED · m ∈ [0.2357, 0.2518]" tabindex="0"/>
+    <rect x="87.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="87.5" data-cm="x ∈ [0.0313, 0.0352)" data-cmv="OCCUPIED · m ∈ [0.2193, 0.2357]" tabindex="0"/>
+    <rect x="90.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="90.7" data-cm="x ∈ [0.0352, 0.0391)" data-cmv="OCCUPIED · m ∈ [0.2026, 0.2193]" tabindex="0"/>
+    <rect x="93.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="93.9" data-cm="x ∈ [0.0391, 0.0430)" data-cmv="OCCUPIED · m ∈ [0.1857, 0.2026]" tabindex="0"/>
+    <rect x="97.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="97.1" data-cm="x ∈ [0.0430, 0.0469)" data-cmv="OCCUPIED · m ∈ [0.1684, 0.1857]" tabindex="0"/>
+    <rect x="100.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="100.3" data-cm="x ∈ [0.0469, 0.0508)" data-cmv="OCCUPIED · m ∈ [0.1510, 0.1684]" tabindex="0"/>
+    <rect x="103.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="103.4" data-cm="x ∈ [0.0508, 0.0547)" data-cmv="OCCUPIED · m ∈ [0.1334, 0.1510]" tabindex="0"/>
+    <rect x="106.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="106.6" data-cm="x ∈ [0.0547, 0.0586)" data-cmv="OCCUPIED · m ∈ [0.1155, 0.1334]" tabindex="0"/>
+    <rect x="109.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="109.8" data-cm="x ∈ [0.0586, 0.0625)" data-cmv="OCCUPIED · m ∈ [0.0975, 0.1155]" tabindex="0"/>
+    <rect x="113.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="113.0" data-cm="x ∈ [0.0625, 0.0664)" data-cmv="OCCUPIED · m ∈ [0.0794, 0.0975]" tabindex="0"/>
+    <rect x="116.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="116.2" data-cm="x ∈ [0.0664, 0.0703)" data-cmv="OCCUPIED · m ∈ [0.0612, 0.0794]" tabindex="0"/>
+    <rect x="119.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="119.4" data-cm="x ∈ [0.0703, 0.0742)" data-cmv="OCCUPIED · m ∈ [0.0429, 0.0612]" tabindex="0"/>
+    <rect x="122.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="122.6" data-cm="x ∈ [0.0742, 0.0781)" data-cmv="OCCUPIED · m ∈ [0.0245, 0.0429]" tabindex="0"/>
+    <rect x="125.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="125.8" data-cm="x ∈ [0.0781, 0.0820)" data-cmv="OCCUPIED · m ∈ [0.0061, 0.0245]" tabindex="0"/>
+    <rect x="128.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="128.9" data-cm="x ∈ [0.0820, 0.0859)" data-cmv="REFUSED · the cell holds a root of V" tabindex="0"/>
+    <rect x="132.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="132.1" data-cm="x ∈ [0.0859, 0.0898)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="135.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="135.3" data-cm="x ∈ [0.0898, 0.0938)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="138.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="138.5" data-cm="x ∈ [0.0938, 0.0977)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="141.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="141.7" data-cm="x ∈ [0.0977, 0.1016)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="144.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="144.9" data-cm="x ∈ [0.1016, 0.1055)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="148.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="148.1" data-cm="x ∈ [0.1055, 0.1094)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="151.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="151.3" data-cm="x ∈ [0.1094, 0.1133)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="154.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="154.4" data-cm="x ∈ [0.1133, 0.1172)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="157.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="157.6" data-cm="x ∈ [0.1172, 0.1211)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="160.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="160.8" data-cm="x ∈ [0.1211, 0.1250)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="164.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="164.0" data-cm="x ∈ [0.1250, 0.1289)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="167.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="167.2" data-cm="x ∈ [0.1289, 0.1328)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="170.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="170.4" data-cm="x ∈ [0.1328, 0.1367)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="173.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="173.6" data-cm="x ∈ [0.1367, 0.1406)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="176.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="176.8" data-cm="x ∈ [0.1406, 0.1445)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="179.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="179.9" data-cm="x ∈ [0.1445, 0.1484)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="183.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="183.1" data-cm="x ∈ [0.1484, 0.1523)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="186.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="186.3" data-cm="x ∈ [0.1523, 0.1563)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="189.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="189.5" data-cm="x ∈ [0.1563, 0.1602)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="192.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="192.7" data-cm="x ∈ [0.1602, 0.1641)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="195.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="195.9" data-cm="x ∈ [0.1641, 0.1680)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="199.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="199.1" data-cm="x ∈ [0.1680, 0.1719)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="202.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="202.3" data-cm="x ∈ [0.1719, 0.1758)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="205.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="205.4" data-cm="x ∈ [0.1758, 0.1797)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="208.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="208.6" data-cm="x ∈ [0.1797, 0.1836)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="211.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="211.8" data-cm="x ∈ [0.1836, 0.1875)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="215.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="215.0" data-cm="x ∈ [0.1875, 0.1914)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="218.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="218.2" data-cm="x ∈ [0.1914, 0.1953)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="221.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="221.4" data-cm="x ∈ [0.1953, 0.1992)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="224.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="224.6" data-cm="x ∈ [0.1992, 0.2031)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="227.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="227.8" data-cm="x ∈ [0.2031, 0.2070)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="230.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="230.9" data-cm="x ∈ [0.2070, 0.2109)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="234.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="234.1" data-cm="x ∈ [0.2109, 0.2148)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="237.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="237.3" data-cm="x ∈ [0.2148, 0.2188)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="240.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="240.5" data-cm="x ∈ [0.2188, 0.2227)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="243.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="243.7" data-cm="x ∈ [0.2227, 0.2266)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="246.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="246.9" data-cm="x ∈ [0.2266, 0.2305)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="250.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="250.1" data-cm="x ∈ [0.2305, 0.2344)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="253.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="253.3" data-cm="x ∈ [0.2344, 0.2383)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="256.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="256.4" data-cm="x ∈ [0.2383, 0.2422)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="259.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="259.6" data-cm="x ∈ [0.2422, 0.2461)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="262.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="262.8" data-cm="x ∈ [0.2461, 0.2500)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="266.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="266.0" data-cm="x ∈ [0.2500, 0.2539)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="269.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="269.2" data-cm="x ∈ [0.2539, 0.2578)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="272.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="272.4" data-cm="x ∈ [0.2578, 0.2617)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="275.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="275.6" data-cm="x ∈ [0.2617, 0.2656)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="278.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="278.8" data-cm="x ∈ [0.2656, 0.2695)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="281.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="281.9" data-cm="x ∈ [0.2695, 0.2734)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="285.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="285.1" data-cm="x ∈ [0.2734, 0.2773)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="288.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="288.3" data-cm="x ∈ [0.2773, 0.2813)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="291.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="291.5" data-cm="x ∈ [0.2813, 0.2852)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="294.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="294.7" data-cm="x ∈ [0.2852, 0.2891)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="297.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="297.9" data-cm="x ∈ [0.2891, 0.2930)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="301.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="301.1" data-cm="x ∈ [0.2930, 0.2969)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="304.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="304.3" data-cm="x ∈ [0.2969, 0.3008)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="307.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="307.4" data-cm="x ∈ [0.3008, 0.3047)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="310.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="310.6" data-cm="x ∈ [0.3047, 0.3086)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="313.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="313.8" data-cm="x ∈ [0.3086, 0.3125)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="317.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="317.0" data-cm="x ∈ [0.3125, 0.3164)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="320.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="320.2" data-cm="x ∈ [0.3164, 0.3203)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="323.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="323.4" data-cm="x ∈ [0.3203, 0.3242)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="326.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="326.6" data-cm="x ∈ [0.3242, 0.3281)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="329.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="329.8" data-cm="x ∈ [0.3281, 0.3320)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="332.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="332.9" data-cm="x ∈ [0.3320, 0.3359)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="336.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="336.1" data-cm="x ∈ [0.3359, 0.3398)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="339.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="339.3" data-cm="x ∈ [0.3398, 0.3438)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="342.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="342.5" data-cm="x ∈ [0.3438, 0.3477)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="345.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="345.7" data-cm="x ∈ [0.3477, 0.3516)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="348.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="348.9" data-cm="x ∈ [0.3516, 0.3555)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="352.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="352.1" data-cm="x ∈ [0.3555, 0.3594)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="355.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="355.3" data-cm="x ∈ [0.3594, 0.3633)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="358.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="358.4" data-cm="x ∈ [0.3633, 0.3672)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="361.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="361.6" data-cm="x ∈ [0.3672, 0.3711)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="364.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="364.8" data-cm="x ∈ [0.3711, 0.3750)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="368.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="368.0" data-cm="x ∈ [0.3750, 0.3789)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="371.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="371.2" data-cm="x ∈ [0.3789, 0.3828)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="374.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="374.4" data-cm="x ∈ [0.3828, 0.3867)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="377.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="377.6" data-cm="x ∈ [0.3867, 0.3906)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="380.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="380.8" data-cm="x ∈ [0.3906, 0.3945)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="383.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="383.9" data-cm="x ∈ [0.3945, 0.3984)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="387.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="387.1" data-cm="x ∈ [0.3984, 0.4023)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="390.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="390.3" data-cm="x ∈ [0.4023, 0.4063)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="393.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="393.5" data-cm="x ∈ [0.4063, 0.4102)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="396.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="396.7" data-cm="x ∈ [0.4102, 0.4141)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="399.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="399.9" data-cm="x ∈ [0.4141, 0.4180)" data-cmv="REFUSED · the cell holds a root of V" tabindex="0"/>
+    <rect x="403.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="403.1" data-cm="x ∈ [0.4180, 0.4219)" data-cmv="OCCUPIED · m ∈ [0.0061, 0.0245]" tabindex="0"/>
+    <rect x="406.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="406.3" data-cm="x ∈ [0.4219, 0.4258)" data-cmv="OCCUPIED · m ∈ [0.0245, 0.0429]" tabindex="0"/>
+    <rect x="409.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="409.4" data-cm="x ∈ [0.4258, 0.4297)" data-cmv="OCCUPIED · m ∈ [0.0429, 0.0612]" tabindex="0"/>
+    <rect x="412.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="412.6" data-cm="x ∈ [0.4297, 0.4336)" data-cmv="OCCUPIED · m ∈ [0.0612, 0.0794]" tabindex="0"/>
+    <rect x="415.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="415.8" data-cm="x ∈ [0.4336, 0.4375)" data-cmv="OCCUPIED · m ∈ [0.0794, 0.0975]" tabindex="0"/>
+    <rect x="419.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="419.0" data-cm="x ∈ [0.4375, 0.4414)" data-cmv="OCCUPIED · m ∈ [0.0975, 0.1155]" tabindex="0"/>
+    <rect x="422.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="422.2" data-cm="x ∈ [0.4414, 0.4453)" data-cmv="OCCUPIED · m ∈ [0.1155, 0.1334]" tabindex="0"/>
+    <rect x="425.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="425.4" data-cm="x ∈ [0.4453, 0.4492)" data-cmv="OCCUPIED · m ∈ [0.1334, 0.1510]" tabindex="0"/>
+    <rect x="428.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="428.6" data-cm="x ∈ [0.4492, 0.4531)" data-cmv="OCCUPIED · m ∈ [0.1510, 0.1684]" tabindex="0"/>
+    <rect x="431.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="431.8" data-cm="x ∈ [0.4531, 0.4570)" data-cmv="OCCUPIED · m ∈ [0.1684, 0.1857]" tabindex="0"/>
+    <rect x="434.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="434.9" data-cm="x ∈ [0.4570, 0.4609)" data-cmv="OCCUPIED · m ∈ [0.1857, 0.2026]" tabindex="0"/>
+    <rect x="438.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="438.1" data-cm="x ∈ [0.4609, 0.4648)" data-cmv="OCCUPIED · m ∈ [0.2026, 0.2193]" tabindex="0"/>
+    <rect x="441.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="441.3" data-cm="x ∈ [0.4648, 0.4688)" data-cmv="OCCUPIED · m ∈ [0.2193, 0.2357]" tabindex="0"/>
+    <rect x="444.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="444.5" data-cm="x ∈ [0.4688, 0.4727)" data-cmv="OCCUPIED · m ∈ [0.2357, 0.2518]" tabindex="0"/>
+    <rect x="447.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="447.7" data-cm="x ∈ [0.4727, 0.4766)" data-cmv="OCCUPIED · m ∈ [0.2518, 0.2675]" tabindex="0"/>
+    <rect x="450.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="450.9" data-cm="x ∈ [0.4766, 0.4805)" data-cmv="OCCUPIED · m ∈ [0.2675, 0.2829]" tabindex="0"/>
+    <rect x="454.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="454.1" data-cm="x ∈ [0.4805, 0.4844)" data-cmv="OCCUPIED · m ∈ [0.2829, 0.2978]" tabindex="0"/>
+    <rect x="457.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="457.3" data-cm="x ∈ [0.4844, 0.4883)" data-cmv="OCCUPIED · m ∈ [0.2978, 0.3124]" tabindex="0"/>
+    <rect x="460.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="460.4" data-cm="x ∈ [0.4883, 0.4922)" data-cmv="OCCUPIED · m ∈ [0.3124, 0.3266]" tabindex="0"/>
+    <rect x="463.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="463.6" data-cm="x ∈ [0.4922, 0.4961)" data-cmv="OCCUPIED · m ∈ [0.3266, 0.3403]" tabindex="0"/>
+    <rect x="466.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="466.8" data-cm="x ∈ [0.4961, 0.5000)" data-cmv="OCCUPIED · m ∈ [0.3403, 0.3536]" tabindex="0"/>
+    <rect x="470.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="470.0" data-cm="x ∈ [0.5000, 0.5039)" data-cmv="OCCUPIED · m ∈ [0.3536, 0.3663]" tabindex="0"/>
+    <rect x="473.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="473.2" data-cm="x ∈ [0.5039, 0.5078)" data-cmv="OCCUPIED · m ∈ [0.3663, 0.3786]" tabindex="0"/>
+    <rect x="476.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="476.4" data-cm="x ∈ [0.5078, 0.5117)" data-cmv="OCCUPIED · m ∈ [0.3786, 0.3904]" tabindex="0"/>
+    <rect x="479.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="479.6" data-cm="x ∈ [0.5117, 0.5156)" data-cmv="OCCUPIED · m ∈ [0.3904, 0.4016]" tabindex="0"/>
+    <rect x="482.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="482.8" data-cm="x ∈ [0.5156, 0.5195)" data-cmv="OCCUPIED · m ∈ [0.4016, 0.4123]" tabindex="0"/>
+    <rect x="485.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="485.9" data-cm="x ∈ [0.5195, 0.5234)" data-cmv="OCCUPIED · m ∈ [0.4123, 0.4224]" tabindex="0"/>
+    <rect x="489.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="489.1" data-cm="x ∈ [0.5234, 0.5273)" data-cmv="OCCUPIED · m ∈ [0.4224, 0.4320]" tabindex="0"/>
+    <rect x="492.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="492.3" data-cm="x ∈ [0.5273, 0.5313)" data-cmv="OCCUPIED · m ∈ [0.4320, 0.4410]" tabindex="0"/>
+    <rect x="495.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="495.5" data-cm="x ∈ [0.5313, 0.5352)" data-cmv="OCCUPIED · m ∈ [0.4410, 0.4493]" tabindex="0"/>
+    <rect x="498.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="498.7" data-cm="x ∈ [0.5352, 0.5391)" data-cmv="OCCUPIED · m ∈ [0.4493, 0.4571]" tabindex="0"/>
+    <rect x="501.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="501.9" data-cm="x ∈ [0.5391, 0.5430)" data-cmv="OCCUPIED · m ∈ [0.4571, 0.4643]" tabindex="0"/>
+    <rect x="505.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="505.1" data-cm="x ∈ [0.5430, 0.5469)" data-cmv="OCCUPIED · m ∈ [0.4643, 0.4708]" tabindex="0"/>
+    <rect x="508.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="508.3" data-cm="x ∈ [0.5469, 0.5508)" data-cmv="OCCUPIED · m ∈ [0.4708, 0.4767]" tabindex="0"/>
+    <rect x="511.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="511.4" data-cm="x ∈ [0.5508, 0.5547)" data-cmv="OCCUPIED · m ∈ [0.4767, 0.4819]" tabindex="0"/>
+    <rect x="514.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="514.6" data-cm="x ∈ [0.5547, 0.5586)" data-cmv="OCCUPIED · m ∈ [0.4819, 0.4865]" tabindex="0"/>
+    <rect x="517.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="517.8" data-cm="x ∈ [0.5586, 0.5625)" data-cmv="OCCUPIED · m ∈ [0.4865, 0.4904]" tabindex="0"/>
+    <rect x="521.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="521.0" data-cm="x ∈ [0.5625, 0.5664)" data-cmv="OCCUPIED · m ∈ [0.4904, 0.4937]" tabindex="0"/>
+    <rect x="524.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="524.2" data-cm="x ∈ [0.5664, 0.5703)" data-cmv="OCCUPIED · m ∈ [0.4937, 0.4962]" tabindex="0"/>
+    <rect x="527.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="527.4" data-cm="x ∈ [0.5703, 0.5742)" data-cmv="OCCUPIED · m ∈ [0.4962, 0.4982]" tabindex="0"/>
+    <rect x="530.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="530.6" data-cm="x ∈ [0.5742, 0.5781)" data-cmv="OCCUPIED · m ∈ [0.4982, 0.4994]" tabindex="0"/>
+    <rect x="533.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="533.8" data-cm="x ∈ [0.5781, 0.5820)" data-cmv="OCCUPIED · m ∈ [0.4994, 0.5000]" tabindex="0"/>
+    <rect x="536.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="536.9" data-cm="x ∈ [0.5820, 0.5859)" data-cmv="OCCUPIED · m ∈ [0.4998, 0.5000]" tabindex="0"/>
+    <rect x="540.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="540.1" data-cm="x ∈ [0.5859, 0.5898)" data-cmv="OCCUPIED · m ∈ [0.4991, 0.4998]" tabindex="0"/>
+    <rect x="543.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="543.3" data-cm="x ∈ [0.5898, 0.5938)" data-cmv="OCCUPIED · m ∈ [0.4976, 0.4991]" tabindex="0"/>
+    <rect x="546.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="546.5" data-cm="x ∈ [0.5938, 0.5977)" data-cmv="OCCUPIED · m ∈ [0.4955, 0.4976]" tabindex="0"/>
+    <rect x="549.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="549.7" data-cm="x ∈ [0.5977, 0.6016)" data-cmv="OCCUPIED · m ∈ [0.4926, 0.4955]" tabindex="0"/>
+    <rect x="552.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="552.9" data-cm="x ∈ [0.6016, 0.6055)" data-cmv="OCCUPIED · m ∈ [0.4892, 0.4926]" tabindex="0"/>
+    <rect x="556.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="556.1" data-cm="x ∈ [0.6055, 0.6094)" data-cmv="OCCUPIED · m ∈ [0.4850, 0.4892]" tabindex="0"/>
+    <rect x="559.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="559.3" data-cm="x ∈ [0.6094, 0.6133)" data-cmv="OCCUPIED · m ∈ [0.4802, 0.4850]" tabindex="0"/>
+    <rect x="562.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="562.4" data-cm="x ∈ [0.6133, 0.6172)" data-cmv="OCCUPIED · m ∈ [0.4748, 0.4802]" tabindex="0"/>
+    <rect x="565.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="565.6" data-cm="x ∈ [0.6172, 0.6211)" data-cmv="OCCUPIED · m ∈ [0.4687, 0.4748]" tabindex="0"/>
+    <rect x="568.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="568.8" data-cm="x ∈ [0.6211, 0.6250)" data-cmv="OCCUPIED · m ∈ [0.4619, 0.4687]" tabindex="0"/>
+    <rect x="572.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="572.0" data-cm="x ∈ [0.6250, 0.6289)" data-cmv="OCCUPIED · m ∈ [0.4546, 0.4619]" tabindex="0"/>
+    <rect x="575.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="575.2" data-cm="x ∈ [0.6289, 0.6328)" data-cmv="OCCUPIED · m ∈ [0.4466, 0.4546]" tabindex="0"/>
+    <rect x="578.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="578.4" data-cm="x ∈ [0.6328, 0.6367)" data-cmv="OCCUPIED · m ∈ [0.4380, 0.4466]" tabindex="0"/>
+    <rect x="581.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="581.6" data-cm="x ∈ [0.6367, 0.6406)" data-cmv="OCCUPIED · m ∈ [0.4289, 0.4380]" tabindex="0"/>
+    <rect x="584.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="584.8" data-cm="x ∈ [0.6406, 0.6445)" data-cmv="OCCUPIED · m ∈ [0.4191, 0.4289]" tabindex="0"/>
+    <rect x="587.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="587.9" data-cm="x ∈ [0.6445, 0.6484)" data-cmv="OCCUPIED · m ∈ [0.4088, 0.4191]" tabindex="0"/>
+    <rect x="591.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="591.1" data-cm="x ∈ [0.6484, 0.6523)" data-cmv="OCCUPIED · m ∈ [0.3979, 0.4088]" tabindex="0"/>
+    <rect x="594.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="594.3" data-cm="x ∈ [0.6523, 0.6563)" data-cmv="OCCUPIED · m ∈ [0.3865, 0.3979]" tabindex="0"/>
+    <rect x="597.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="597.5" data-cm="x ∈ [0.6563, 0.6602)" data-cmv="OCCUPIED · m ∈ [0.3746, 0.3865]" tabindex="0"/>
+    <rect x="600.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="600.7" data-cm="x ∈ [0.6602, 0.6641)" data-cmv="OCCUPIED · m ∈ [0.3621, 0.3746]" tabindex="0"/>
+    <rect x="603.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="603.9" data-cm="x ∈ [0.6641, 0.6680)" data-cmv="OCCUPIED · m ∈ [0.3492, 0.3621]" tabindex="0"/>
+    <rect x="607.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="607.1" data-cm="x ∈ [0.6680, 0.6719)" data-cmv="OCCUPIED · m ∈ [0.3358, 0.3492]" tabindex="0"/>
+    <rect x="610.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="610.3" data-cm="x ∈ [0.6719, 0.6758)" data-cmv="OCCUPIED · m ∈ [0.3219, 0.3358]" tabindex="0"/>
+    <rect x="613.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="613.4" data-cm="x ∈ [0.6758, 0.6797)" data-cmv="OCCUPIED · m ∈ [0.3076, 0.3219]" tabindex="0"/>
+    <rect x="616.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="616.6" data-cm="x ∈ [0.6797, 0.6836)" data-cmv="OCCUPIED · m ∈ [0.2929, 0.3076]" tabindex="0"/>
+    <rect x="619.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="619.8" data-cm="x ∈ [0.6836, 0.6875)" data-cmv="OCCUPIED · m ∈ [0.2778, 0.2929]" tabindex="0"/>
+    <rect x="623.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="623.0" data-cm="x ∈ [0.6875, 0.6914)" data-cmv="OCCUPIED · m ∈ [0.2623, 0.2778]" tabindex="0"/>
+    <rect x="626.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="626.2" data-cm="x ∈ [0.6914, 0.6953)" data-cmv="OCCUPIED · m ∈ [0.2464, 0.2623]" tabindex="0"/>
+    <rect x="629.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="629.4" data-cm="x ∈ [0.6953, 0.6992)" data-cmv="OCCUPIED · m ∈ [0.2303, 0.2464]" tabindex="0"/>
+    <rect x="632.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="632.6" data-cm="x ∈ [0.6992, 0.7031)" data-cmv="OCCUPIED · m ∈ [0.2138, 0.2303]" tabindex="0"/>
+    <rect x="635.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="635.8" data-cm="x ∈ [0.7031, 0.7070)" data-cmv="OCCUPIED · m ∈ [0.1970, 0.2138]" tabindex="0"/>
+    <rect x="638.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="638.9" data-cm="x ∈ [0.7070, 0.7109)" data-cmv="OCCUPIED · m ∈ [0.1799, 0.1970]" tabindex="0"/>
+    <rect x="642.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="642.1" data-cm="x ∈ [0.7109, 0.7148)" data-cmv="OCCUPIED · m ∈ [0.1627, 0.1799]" tabindex="0"/>
+    <rect x="645.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="645.3" data-cm="x ∈ [0.7148, 0.7188)" data-cmv="OCCUPIED · m ∈ [0.1451, 0.1627]" tabindex="0"/>
+    <rect x="648.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="648.5" data-cm="x ∈ [0.7188, 0.7227)" data-cmv="OCCUPIED · m ∈ [0.1274, 0.1451]" tabindex="0"/>
+    <rect x="651.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="651.7" data-cm="x ∈ [0.7227, 0.7266)" data-cmv="OCCUPIED · m ∈ [0.1096, 0.1274]" tabindex="0"/>
+    <rect x="654.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="654.9" data-cm="x ∈ [0.7266, 0.7305)" data-cmv="OCCUPIED · m ∈ [0.0915, 0.1096]" tabindex="0"/>
+    <rect x="658.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="658.1" data-cm="x ∈ [0.7305, 0.7344)" data-cmv="OCCUPIED · m ∈ [0.0734, 0.0915]" tabindex="0"/>
+    <rect x="661.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="661.3" data-cm="x ∈ [0.7344, 0.7383)" data-cmv="OCCUPIED · m ∈ [0.0551, 0.0734]" tabindex="0"/>
+    <rect x="664.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="664.4" data-cm="x ∈ [0.7383, 0.7422)" data-cmv="OCCUPIED · m ∈ [0.0368, 0.0551]" tabindex="0"/>
+    <rect x="667.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="667.6" data-cm="x ∈ [0.7422, 0.7461)" data-cmv="OCCUPIED · m ∈ [0.0184, 0.0368]" tabindex="0"/>
+    <rect x="670.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="670.8" data-cm="x ∈ [0.7461, 0.7500)" data-cmv="REFUSED · the cell holds a root of V" tabindex="0"/>
+    <rect x="674.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="674.0" data-cm="x ∈ [0.7500, 0.7539)" data-cmv="REFUSED · the cell holds a root of V" tabindex="0"/>
+    <rect x="677.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="677.2" data-cm="x ∈ [0.7539, 0.7578)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="680.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="680.4" data-cm="x ∈ [0.7578, 0.7617)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="683.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="683.6" data-cm="x ∈ [0.7617, 0.7656)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="686.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="686.8" data-cm="x ∈ [0.7656, 0.7695)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="689.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="689.9" data-cm="x ∈ [0.7695, 0.7734)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="693.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="693.1" data-cm="x ∈ [0.7734, 0.7773)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="696.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="696.3" data-cm="x ∈ [0.7773, 0.7813)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="699.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="699.5" data-cm="x ∈ [0.7813, 0.7852)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="702.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="702.7" data-cm="x ∈ [0.7852, 0.7891)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="705.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="705.9" data-cm="x ∈ [0.7891, 0.7930)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="709.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="709.1" data-cm="x ∈ [0.7930, 0.7969)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="712.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="712.3" data-cm="x ∈ [0.7969, 0.8008)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="715.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="715.4" data-cm="x ∈ [0.8008, 0.8047)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="718.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="718.6" data-cm="x ∈ [0.8047, 0.8086)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="721.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="721.8" data-cm="x ∈ [0.8086, 0.8125)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="725.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="725.0" data-cm="x ∈ [0.8125, 0.8164)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="728.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="728.2" data-cm="x ∈ [0.8164, 0.8203)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="731.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="731.4" data-cm="x ∈ [0.8203, 0.8242)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="734.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="734.6" data-cm="x ∈ [0.8242, 0.8281)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="737.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="737.8" data-cm="x ∈ [0.8281, 0.8320)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="740.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="740.9" data-cm="x ∈ [0.8320, 0.8359)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="744.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="744.1" data-cm="x ∈ [0.8359, 0.8398)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="747.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="747.3" data-cm="x ∈ [0.8398, 0.8438)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="750.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="750.5" data-cm="x ∈ [0.8438, 0.8477)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="753.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="753.7" data-cm="x ∈ [0.8477, 0.8516)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="756.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="756.9" data-cm="x ∈ [0.8516, 0.8555)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="760.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="760.1" data-cm="x ∈ [0.8555, 0.8594)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="763.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="763.3" data-cm="x ∈ [0.8594, 0.8633)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="766.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="766.4" data-cm="x ∈ [0.8633, 0.8672)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="769.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="769.6" data-cm="x ∈ [0.8672, 0.8711)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="772.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="772.8" data-cm="x ∈ [0.8711, 0.8750)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="776.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="776.0" data-cm="x ∈ [0.8750, 0.8789)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="779.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="779.2" data-cm="x ∈ [0.8789, 0.8828)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="782.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="782.4" data-cm="x ∈ [0.8828, 0.8867)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="785.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="785.6" data-cm="x ∈ [0.8867, 0.8906)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="788.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="788.8" data-cm="x ∈ [0.8906, 0.8945)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="791.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="791.9" data-cm="x ∈ [0.8945, 0.8984)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="795.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="795.1" data-cm="x ∈ [0.8984, 0.9023)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="798.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="798.3" data-cm="x ∈ [0.9023, 0.9063)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="801.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="801.5" data-cm="x ∈ [0.9063, 0.9102)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="804.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="804.7" data-cm="x ∈ [0.9102, 0.9141)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="807.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="807.9" data-cm="x ∈ [0.9141, 0.9180)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="811.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="811.1" data-cm="x ∈ [0.9180, 0.9219)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="814.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="814.3" data-cm="x ∈ [0.9219, 0.9258)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="817.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="817.4" data-cm="x ∈ [0.9258, 0.9297)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="820.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="820.6" data-cm="x ∈ [0.9297, 0.9336)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="823.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="823.8" data-cm="x ∈ [0.9336, 0.9375)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="827.0" y="18" width="3.2" height="229" fill="transparent" data-cmx="827.0" data-cm="x ∈ [0.9375, 0.9414)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="830.2" y="18" width="3.2" height="229" fill="transparent" data-cmx="830.2" data-cm="x ∈ [0.9414, 0.9453)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="833.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="833.4" data-cm="x ∈ [0.9453, 0.9492)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="836.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="836.6" data-cm="x ∈ [0.9492, 0.9531)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="839.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="839.8" data-cm="x ∈ [0.9531, 0.9570)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="842.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="842.9" data-cm="x ∈ [0.9570, 0.9609)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="846.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="846.1" data-cm="x ∈ [0.9609, 0.9648)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="849.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="849.3" data-cm="x ∈ [0.9648, 0.9688)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="852.5" y="18" width="3.2" height="229" fill="transparent" data-cmx="852.5" data-cm="x ∈ [0.9688, 0.9727)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="855.7" y="18" width="3.2" height="229" fill="transparent" data-cmx="855.7" data-cm="x ∈ [0.9727, 0.9766)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="858.9" y="18" width="3.2" height="229" fill="transparent" data-cmx="858.9" data-cm="x ∈ [0.9766, 0.9805)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="862.1" y="18" width="3.2" height="229" fill="transparent" data-cmx="862.1" data-cm="x ∈ [0.9805, 0.9844)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="865.3" y="18" width="3.2" height="229" fill="transparent" data-cmx="865.3" data-cm="x ∈ [0.9844, 0.9883)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="868.4" y="18" width="3.2" height="229" fill="transparent" data-cmx="868.4" data-cm="x ∈ [0.9883, 0.9922)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="871.6" y="18" width="3.2" height="229" fill="transparent" data-cmx="871.6" data-cm="x ∈ [0.9922, 0.9961)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <rect x="874.8" y="18" width="3.2" height="229" fill="transparent" data-cmx="874.8" data-cm="x ∈ [0.9961, 1.0000)" data-cmv="EMPTY · m = 0 exactly" tabindex="0"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="247" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <line x1="62" y1="310" x2="76" y2="310" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="314.0" text-anchor="start" class="t-note">OCCUPIED: m = V enclosed on the cell (decided)</text>
+    <line x1="425" y1="310" x2="439" y2="310" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="444.0" y="314.0" text-anchor="start" class="t-note">EMPTY: m = 0 exactly (decided) — the zero line</text>
+    <rect x="62" y="323" width="14" height="10" fill="url(#cmHatch)"/>
+    <text x="81.0" y="333.0" text-anchor="start" class="t-note">REFUSED: the cell holds a root of V at this budget</text>
+  </svg>
+  </div>
+  <figcaption>Figure 1 · Case 1 on 256 cells. The occupied runs carry the density tube m = V; the empty runs carry the decided zero line; the hatched bands are the refused cells at the three roots. The free boundary is not located by this figure; it is exact, and the hatch is the width of the budget.</figcaption>
+</figure></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 258" role="img" aria-label="Four strips, one per budget K = 16, 64, 256, 1024, each showing the unit interval painted occupied, empty or refused; the refused bands at 1/12, 5/12 and 3/4 shrink from a quarter of the interval at K = 16 to four thousandths at K = 1024 while the occupied and empty runs keep their edges.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="176.0" y1="16" x2="176.0" y2="176" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="176.0" y="196.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="234.2" y1="16" x2="234.2" y2="176" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="234.2" y="196.0" text-anchor="middle" class="t-ax">1/12</text>
+    <line x1="350.5" y1="16" x2="350.5" y2="176" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="350.5" y="196.0" text-anchor="middle" class="t-ax">0.25</text>
+    <line x1="466.8" y1="16" x2="466.8" y2="176" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="466.8" y="196.0" text-anchor="middle" class="t-ax">5/12</text>
+    <line x1="525.0" y1="16" x2="525.0" y2="176" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="525.0" y="196.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="699.5" y1="16" x2="699.5" y2="176" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="699.5" y="196.0" text-anchor="middle" class="t-ax">3/4</text>
+    <line x1="874.0" y1="16" x2="874.0" y2="176" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="874.0" y="196.0" text-anchor="middle" class="t-ax">1</text>
+    <text x="164.0" y="40.0" text-anchor="end" class="t-ax">K = 16 · 0.25</text>
+    <rect x="176.00" y="26" width="41.63" height="20" rx="3" fill="var(--c-1)" data-cm="OCCUPIED" data-cmv="[0.0000, 0.0625]" tabindex="0"/>
+    <rect x="219.63" y="26" width="41.63" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.0625, 0.1250]" tabindex="0"/>
+    <rect x="219.63" y="26" width="41.63" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="263.25" y="26" width="172.50" height="20" rx="3" fill="var(--c-grid)" data-cm="EMPTY" data-cmv="[0.1250, 0.3750]" tabindex="0"/>
+    <rect x="437.75" y="26" width="41.63" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.3750, 0.4375]" tabindex="0"/>
+    <rect x="437.75" y="26" width="41.63" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="481.38" y="26" width="172.50" height="20" rx="3" fill="var(--c-1)" data-cm="OCCUPIED" data-cmv="[0.4375, 0.6875]" tabindex="0"/>
+    <rect x="655.88" y="26" width="85.25" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.6875, 0.8125]" tabindex="0"/>
+    <rect x="655.88" y="26" width="85.25" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="743.13" y="26" width="128.88" height="20" rx="3" fill="var(--c-grid)" data-cm="EMPTY" data-cmv="[0.8125, 1.0000]" tabindex="0"/>
+    <text x="164.0" y="80.0" text-anchor="end" class="t-ax">K = 64 · 0.0625</text>
+    <rect x="176.00" y="66" width="52.53" height="20" rx="3" fill="var(--c-1)" data-cm="OCCUPIED" data-cmv="[0.0000, 0.0781]" tabindex="0"/>
+    <rect x="230.53" y="66" width="8.91" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.0781, 0.0938]" tabindex="0"/>
+    <rect x="230.53" y="66" width="8.91" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="241.44" y="66" width="216.13" height="20" rx="3" fill="var(--c-grid)" data-cm="EMPTY" data-cmv="[0.0938, 0.4063]" tabindex="0"/>
+    <rect x="459.56" y="66" width="8.91" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.4063, 0.4219]" tabindex="0"/>
+    <rect x="459.56" y="66" width="8.91" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="470.47" y="66" width="216.13" height="20" rx="3" fill="var(--c-1)" data-cm="OCCUPIED" data-cmv="[0.4219, 0.7344]" tabindex="0"/>
+    <rect x="688.59" y="66" width="19.81" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.7344, 0.7656]" tabindex="0"/>
+    <rect x="688.59" y="66" width="19.81" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="710.41" y="66" width="161.59" height="20" rx="3" fill="var(--c-grid)" data-cm="EMPTY" data-cmv="[0.7656, 1.0000]" tabindex="0"/>
+    <text x="164.0" y="120.0" text-anchor="end" class="t-ax">K = 256 · 0.015625</text>
+    <rect x="176.00" y="106" width="55.26" height="20" rx="3" fill="var(--c-1)" data-cm="OCCUPIED" data-cmv="[0.0000, 0.0820]" tabindex="0"/>
+    <rect x="233.26" y="106" width="1.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.0820, 0.0859]" tabindex="0"/>
+    <rect x="233.26" y="106" width="1.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="235.98" y="106" width="227.03" height="20" rx="3" fill="var(--c-grid)" data-cm="EMPTY" data-cmv="[0.0859, 0.4141]" tabindex="0"/>
+    <rect x="465.02" y="106" width="1.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.4141, 0.4180]" tabindex="0"/>
+    <rect x="465.02" y="106" width="1.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="467.74" y="106" width="227.03" height="20" rx="3" fill="var(--c-1)" data-cm="OCCUPIED" data-cmv="[0.4180, 0.7461]" tabindex="0"/>
+    <rect x="696.77" y="106" width="3.45" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.7461, 0.7539]" tabindex="0"/>
+    <rect x="696.77" y="106" width="3.45" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="702.23" y="106" width="169.77" height="20" rx="3" fill="var(--c-grid)" data-cm="EMPTY" data-cmv="[0.7539, 1.0000]" tabindex="0"/>
+    <text x="164.0" y="160.0" text-anchor="end" class="t-ax">K = 1024 · 3.9e-3</text>
+    <rect x="176.00" y="146" width="55.94" height="20" rx="3" fill="var(--c-1)" data-cm="OCCUPIED" data-cmv="[0.0000, 0.0830]" tabindex="0"/>
+    <rect x="233.94" y="146" width="1.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.0830, 0.0840]" tabindex="0"/>
+    <rect x="233.94" y="146" width="1.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="234.62" y="146" width="229.76" height="20" rx="3" fill="var(--c-grid)" data-cm="EMPTY" data-cmv="[0.0840, 0.4160]" tabindex="0"/>
+    <rect x="466.38" y="146" width="1.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.4160, 0.4170]" tabindex="0"/>
+    <rect x="466.38" y="146" width="1.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="467.06" y="146" width="229.76" height="20" rx="3" fill="var(--c-1)" data-cm="OCCUPIED" data-cmv="[0.4170, 0.7490]" tabindex="0"/>
+    <rect x="698.82" y="146" width="1.00" height="20" rx="3" fill="url(#cmHatch)" data-cm="REFUSED" data-cmv="[0.7490, 0.7510]" tabindex="0"/>
+    <rect x="698.82" y="146" width="1.00" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <rect x="700.18" y="146" width="171.82" height="20" rx="3" fill="var(--c-grid)" data-cm="EMPTY" data-cmv="[0.7510, 1.0000]" tabindex="0"/>
+    <text x="525.0" y="218.0" text-anchor="middle" class="t-note">x on (0, 1) — the refused length is 4/K at every budget; the roots never move</text>
+    <line x1="176" y1="247" x2="190" y2="247" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="195.0" y="251.0" text-anchor="start" class="t-note">OCCUPIED (decided)</text>
+    <line x1="346" y1="247" x2="360" y2="247" stroke="var(--c-grid)" stroke-width="2" stroke-linecap="round"/>
+    <text x="365.0" y="251.0" text-anchor="start" class="t-note">EMPTY (decided)</text>
+    <rect x="495" y="241" width="14" height="10" fill="url(#cmHatch)"/>
+    <text x="514.0" y="251.0" text-anchor="start" class="t-note">REFUSED (a root inside)</text>
+  </svg>
+  </div>
+  <figcaption>Figure 2 · The budget ladder. The same interval painted at K = 16, 64, 256 and 1024. The refused length is 4/K each time and the decided runs keep their edges to within a cell.</figcaption>
+</figure></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · the value function</div>
+    <h2>Two solutions, both enclosed, neither chosen for you</h2>
+  </div>
+<div class="col"><p>Where the density vanishes the Hamilton–Jacobi equation only bounds the velocity, ½u_x² ≤ −V, and the paper's Theorem 1.3 proves the gradient of u unique only on the support of m. So there are two value functions, u₊ and u₋, and picking one is a choice the data does not make. In this machine's grammar that is the CHOSEN standing, drawn dotted. Both are enclosed here by a Riemann bracket from the exit, which is rigorous and about 1/K wide, wider than the density's tube and said so. They differ at x = 0 by 0.908 and meet at x = 1, where both are zero.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 338" role="img" aria-label="Two dotted curves, mirror images about zero: u plus descends from about 0.46 at x = 0 to 0 at x = 1 in two steps, flat on the occupied runs and falling on the empty ones; u minus is its negative. Each is a thin enclosed tube.">
+    <line x1="62" y1="234.7" x2="878" y2="234.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="238.7" text-anchor="end" class="t-ax">-0.5</text>
+    <line x1="62" y1="183.1" x2="878" y2="183.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="187.1" text-anchor="end" class="t-ax">-0.25</text>
+    <line x1="62" y1="131.5" x2="878" y2="131.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="135.5" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="79.9" x2="878" y2="79.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="83.9" text-anchor="end" class="t-ax">0.25</text>
+    <line x1="62" y1="28.3" x2="878" y2="28.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="32.3" text-anchor="end" class="t-ax">0.5</text>
+    <line x1="62.0" y1="245" x2="62.0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="265.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="130.0" y1="245" x2="130.0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="130.0" y="265.0" text-anchor="middle" class="t-ax">1/12</text>
+    <line x1="266.0" y1="245" x2="266.0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="266.0" y="265.0" text-anchor="middle" class="t-ax">0.25</text>
+    <line x1="402.0" y1="245" x2="402.0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="402.0" y="265.0" text-anchor="middle" class="t-ax">5/12</text>
+    <line x1="470.0" y1="245" x2="470.0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="265.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="674.0" y1="245" x2="674.0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="674.0" y="265.0" text-anchor="middle" class="t-ax">3/4</text>
+    <line x1="878.0" y1="245" x2="878.0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="265.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="62" y1="245" x2="878" y2="245" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="287.0" text-anchor="middle" class="t-note">x on (0, 1)</text>
+    <text x="13" y="131.5" class="t-note" transform="rotate(-90 13 131.5)" text-anchor="middle">value function u  (u(1) = 0)</text>
+    <rect x="132.1" y="18" width="267.8" height="227" fill="var(--c-grid)"/>
+    <rect x="677.2" y="18" width="200.8" height="227" fill="var(--c-grid)"/>
+    <path d="M62.00 35.26 L65.19 35.26 L68.38 35.26 L71.56 35.26 L74.75 35.26 L77.94 35.26 L81.13 35.26 L84.31 35.26 L87.50 35.26 L90.69 35.26 L93.88 35.26 L97.06 35.26 L100.25 35.26 L103.44 35.26 L106.63 35.26 L109.81 35.26 L113.00 35.26 L116.19 35.26 L119.38 35.26 L122.56 35.26 L125.75 35.26 L128.94 35.26 L132.13 35.39 L135.31 35.59 L138.50 35.84 L141.69 36.14 L144.88 36.47 L148.06 36.84 L151.25 37.23 L154.44 37.66 L157.63 38.11 L160.81 38.59 L164.00 39.08 L167.19 39.60 L170.38 40.14 L173.56 40.70 L176.75 41.28 L179.94 41.88 L183.13 42.49 L186.31 43.12 L189.50 43.76 L192.69 44.41 L195.88 45.08 L199.06 45.77 L202.25 46.46 L205.44 47.17 L208.63 47.88 L211.81 48.61 L215.00 49.34 L218.19 50.09 L221.38 50.84 L224.56 51.60 L227.75 52.36 L230.94 53.14 L234.13 53.91 L237.31 54.70 L240.50 55.49 L243.69 56.28 L246.88 57.08 L250.06 57.88 L253.25 58.68 L256.44 59.48 L259.63 60.29 L262.81 61.09 L266.00 61.90 L269.19 62.70 L272.38 63.51 L275.56 64.31 L278.75 65.12 L281.94 65.92 L285.13 66.72 L288.31 67.52 L291.50 68.31 L294.69 69.10 L297.88 69.88 L301.06 70.66 L304.25 71.43 L307.44 72.20 L310.63 72.96 L313.81 73.71 L317.00 74.45 L320.19 75.19 L323.38 75.91 L326.56 76.63 L329.75 77.34 L332.94 78.03 L336.13 78.71 L339.31 79.38 L342.50 80.04 L345.69 80.68 L348.88 81.31 L352.06 81.92 L355.25 82.51 L358.44 83.09 L361.63 83.65 L364.81 84.19 L368.00 84.71 L371.19 85.21 L374.38 85.69 L377.56 86.14 L380.75 86.56 L383.94 86.96 L387.13 87.33 L390.31 87.66 L393.50 87.96 L396.69 88.21 L399.88 88.41 L403.06 88.53 L406.25 88.53 L409.44 88.53 L412.63 88.53 L415.81 88.53 L419.00 88.53 L422.19 88.53 L425.38 88.53 L428.56 88.53 L431.75 88.53 L434.94 88.53 L438.13 88.53 L441.31 88.53 L444.50 88.53 L447.69 88.53 L450.88 88.53 L454.06 88.53 L457.25 88.53 L460.44 88.53 L463.63 88.53 L466.81 88.53 L470.00 88.53 L473.19 88.53 L476.38 88.53 L479.56 88.53 L482.75 88.53 L485.94 88.53 L489.13 88.53 L492.31 88.53 L495.50 88.53 L498.69 88.53 L501.88 88.53 L505.06 88.53 L508.25 88.53 L511.44 88.53 L514.63 88.53 L517.81 88.53 L521.00 88.53 L524.19 88.53 L527.38 88.53 L530.56 88.53 L533.75 88.53 L536.94 88.53 L540.13 88.53 L543.31 88.53 L546.50 88.53 L549.69 88.53 L552.88 88.53 L556.06 88.53 L559.25 88.53 L562.44 88.53 L565.63 88.53 L568.81 88.53 L572.00 88.53 L575.19 88.53 L578.38 88.53 L581.56 88.53 L584.75 88.53 L587.94 88.53 L591.13 88.53 L594.31 88.53 L597.50 88.53 L600.69 88.53 L603.88 88.53 L607.06 88.53 L610.25 88.53 L613.44 88.53 L616.63 88.53 L619.81 88.53 L623.00 88.53 L626.19 88.53 L629.38 88.53 L632.56 88.53 L635.75 88.53 L638.94 88.53 L642.13 88.53 L645.31 88.53 L648.50 88.53 L651.69 88.53 L654.88 88.53 L658.06 88.53 L661.25 88.53 L664.44 88.53 L667.63 88.53 L670.81 88.53 L674.00 88.53 L677.19 88.69 L680.38 88.91 L683.56 89.18 L686.75 89.48 L689.94 89.83 L693.13 90.21 L696.31 90.61 L699.50 91.05 L702.69 91.51 L705.88 91.99 L709.06 92.50 L712.25 93.02 L715.44 93.57 L718.63 94.14 L721.81 94.72 L725.00 95.32 L728.19 95.94 L731.38 96.57 L734.56 97.22 L737.75 97.88 L740.94 98.55 L744.13 99.24 L747.31 99.94 L750.50 100.64 L753.69 101.36 L756.88 102.09 L760.06 102.83 L763.25 103.58 L766.44 104.33 L769.63 105.09 L772.81 105.86 L776.00 106.64 L779.19 107.42 L782.38 108.20 L785.56 108.99 L788.75 109.79 L791.94 110.58 L795.13 111.38 L798.31 112.19 L801.50 112.99 L804.69 113.80 L807.88 114.60 L811.06 115.41 L814.25 116.21 L817.44 117.02 L820.63 117.82 L823.81 118.63 L827.00 119.43 L830.19 120.23 L833.38 121.02 L836.56 121.81 L839.75 122.60 L842.94 123.38 L846.13 124.16 L849.31 124.93 L852.50 125.69 L855.69 126.45 L858.88 127.20 L862.06 127.94 L865.25 128.67 L868.44 129.40 L871.63 130.11 L874.81 130.81 L878.00 131.50 L878.00 131.50 L874.81 130.82 L871.63 130.13 L868.44 129.43 L865.25 128.72 L862.06 128.00 L858.88 127.26 L855.69 126.52 L852.50 125.77 L849.31 125.02 L846.13 124.25 L842.94 123.48 L839.75 122.71 L836.56 121.92 L833.38 121.14 L830.19 120.34 L827.00 119.55 L823.81 118.75 L820.63 117.95 L817.44 117.15 L814.25 116.34 L811.06 115.54 L807.88 114.73 L804.69 113.93 L801.50 113.12 L798.31 112.32 L795.13 111.52 L791.94 110.72 L788.75 109.93 L785.56 109.14 L782.38 108.35 L779.19 107.57 L776.00 106.80 L772.81 106.03 L769.63 105.27 L766.44 104.51 L763.25 103.77 L760.06 103.03 L756.88 102.30 L753.69 101.58 L750.50 100.87 L747.31 100.17 L744.13 99.49 L740.94 98.81 L737.75 98.15 L734.56 97.51 L731.38 96.87 L728.19 96.26 L725.00 95.66 L721.81 95.07 L718.63 94.51 L715.44 93.96 L712.25 93.43 L709.06 92.93 L705.88 92.44 L702.69 91.98 L699.50 91.55 L696.31 91.14 L693.13 90.76 L689.94 90.42 L686.75 90.11 L683.56 89.84 L680.38 89.62 L677.19 89.47 L674.00 89.47 L670.81 89.47 L667.63 89.47 L664.44 89.47 L661.25 89.47 L658.06 89.47 L654.88 89.47 L651.69 89.47 L648.50 89.47 L645.31 89.47 L642.13 89.47 L638.94 89.47 L635.75 89.47 L632.56 89.47 L629.38 89.47 L626.19 89.47 L623.00 89.47 L619.81 89.47 L616.63 89.47 L613.44 89.47 L610.25 89.47 L607.06 89.47 L603.88 89.47 L600.69 89.47 L597.50 89.47 L594.31 89.47 L591.13 89.47 L587.94 89.47 L584.75 89.47 L581.56 89.47 L578.38 89.47 L575.19 89.47 L572.00 89.47 L568.81 89.47 L565.63 89.47 L562.44 89.47 L559.25 89.47 L556.06 89.47 L552.88 89.47 L549.69 89.47 L546.50 89.47 L543.31 89.47 L540.13 89.47 L536.94 89.47 L533.75 89.47 L530.56 89.47 L527.38 89.47 L524.19 89.47 L521.00 89.47 L517.81 89.47 L514.63 89.47 L511.44 89.47 L508.25 89.47 L505.06 89.47 L501.88 89.47 L498.69 89.47 L495.50 89.47 L492.31 89.47 L489.13 89.47 L485.94 89.47 L482.75 89.47 L479.56 89.47 L476.38 89.47 L473.19 89.47 L470.00 89.47 L466.81 89.47 L463.63 89.47 L460.44 89.47 L457.25 89.47 L454.06 89.47 L450.88 89.47 L447.69 89.47 L444.50 89.47 L441.31 89.47 L438.13 89.47 L434.94 89.47 L431.75 89.47 L428.56 89.47 L425.38 89.47 L422.19 89.47 L419.00 89.47 L415.81 89.47 L412.63 89.47 L409.44 89.47 L406.25 89.47 L403.06 89.47 L399.88 89.47 L396.69 89.34 L393.50 89.14 L390.31 88.89 L387.13 88.59 L383.94 88.26 L380.75 87.89 L377.56 87.50 L374.38 87.07 L371.19 86.62 L368.00 86.14 L364.81 85.65 L361.63 85.13 L358.44 84.59 L355.25 84.03 L352.06 83.45 L348.88 82.85 L345.69 82.24 L342.50 81.61 L339.31 80.97 L336.13 80.32 L332.94 79.65 L329.75 78.96 L326.56 78.27 L323.38 77.56 L320.19 76.85 L317.00 76.12 L313.81 75.39 L310.63 74.64 L307.44 73.89 L304.25 73.13 L301.06 72.37 L297.88 71.59 L294.69 70.82 L291.50 70.03 L288.31 69.24 L285.13 68.45 L281.94 67.65 L278.75 66.85 L275.56 66.05 L272.38 65.25 L269.19 64.44 L266.00 63.64 L262.81 62.83 L259.63 62.03 L256.44 61.22 L253.25 60.42 L250.06 59.62 L246.88 58.83 L243.69 58.03 L240.50 57.25 L237.31 56.46 L234.13 55.68 L230.94 54.91 L227.75 54.14 L224.56 53.38 L221.38 52.63 L218.19 51.89 L215.00 51.15 L211.81 50.43 L208.63 49.71 L205.44 49.01 L202.25 48.31 L199.06 47.63 L195.88 46.96 L192.69 46.31 L189.50 45.66 L186.31 45.04 L183.13 44.42 L179.94 43.83 L176.75 43.25 L173.56 42.69 L170.38 42.15 L167.19 41.63 L164.00 41.13 L160.81 40.66 L157.63 40.20 L154.44 39.78 L151.25 39.38 L148.06 39.02 L144.88 38.68 L141.69 38.39 L138.50 38.13 L135.31 37.93 L132.13 37.81 L128.94 37.81 L125.75 37.81 L122.56 37.81 L119.38 37.81 L116.19 37.81 L113.00 37.81 L109.81 37.81 L106.63 37.81 L103.44 37.81 L100.25 37.81 L97.06 37.81 L93.88 37.81 L90.69 37.81 L87.50 37.81 L84.31 37.81 L81.13 37.81 L77.94 37.81 L74.75 37.81 L71.56 37.81 L68.38 37.81 L65.19 37.81 L62.00 37.81 Z" fill="var(--c-1)" opacity="0.14"/>
+    <path d="M62.00 36.53 L65.19 36.53 L68.38 36.53 L71.56 36.53 L74.75 36.53 L77.94 36.53 L81.13 36.53 L84.31 36.53 L87.50 36.53 L90.69 36.53 L93.88 36.53 L97.06 36.53 L100.25 36.53 L103.44 36.53 L106.63 36.53 L109.81 36.53 L113.00 36.53 L116.19 36.53 L119.38 36.53 L122.56 36.53 L125.75 36.53 L128.94 36.53 L132.13 36.60 L135.31 36.76 L138.50 36.99 L141.69 37.26 L144.88 37.58 L148.06 37.93 L151.25 38.31 L154.44 38.72 L157.63 39.16 L160.81 39.62 L164.00 40.11 L167.19 40.62 L170.38 41.15 L173.56 41.70 L176.75 42.27 L179.94 42.85 L183.13 43.46 L186.31 44.08 L189.50 44.71 L192.69 45.36 L195.88 46.02 L199.06 46.70 L202.25 47.39 L205.44 48.09 L208.63 48.80 L211.81 49.52 L215.00 50.25 L218.19 50.99 L221.38 51.73 L224.56 52.49 L227.75 53.25 L230.94 54.02 L234.13 54.80 L237.31 55.58 L240.50 56.37 L243.69 57.16 L246.88 57.95 L250.06 58.75 L253.25 59.55 L256.44 60.35 L259.63 61.16 L262.81 61.96 L266.00 62.77 L269.19 63.57 L272.38 64.38 L275.56 65.18 L278.75 65.99 L281.94 66.79 L285.13 67.58 L288.31 68.38 L291.50 69.17 L294.69 69.96 L297.88 70.74 L301.06 71.51 L304.25 72.28 L307.44 73.05 L310.63 73.80 L313.81 74.55 L317.00 75.29 L320.19 76.02 L323.38 76.74 L326.56 77.45 L329.75 78.15 L332.94 78.84 L336.13 79.51 L339.31 80.18 L342.50 80.83 L345.69 81.46 L348.88 82.08 L352.06 82.68 L355.25 83.27 L358.44 83.84 L361.63 84.39 L364.81 84.92 L368.00 85.43 L371.19 85.92 L374.38 86.38 L377.56 86.82 L380.75 87.23 L383.94 87.61 L387.13 87.96 L390.31 88.28 L393.50 88.55 L396.69 88.78 L399.88 88.94 L403.06 89.00 L406.25 89.00 L409.44 89.00 L412.63 89.00 L415.81 89.00 L419.00 89.00 L422.19 89.00 L425.38 89.00 L428.56 89.00 L431.75 89.00 L434.94 89.00 L438.13 89.00 L441.31 89.00 L444.50 89.00 L447.69 89.00 L450.88 89.00 L454.06 89.00 L457.25 89.00 L460.44 89.00 L463.63 89.00 L466.81 89.00 L470.00 89.00 L473.19 89.00 L476.38 89.00 L479.56 89.00 L482.75 89.00 L485.94 89.00 L489.13 89.00 L492.31 89.00 L495.50 89.00 L498.69 89.00 L501.88 89.00 L505.06 89.00 L508.25 89.00 L511.44 89.00 L514.63 89.00 L517.81 89.00 L521.00 89.00 L524.19 89.00 L527.38 89.00 L530.56 89.00 L533.75 89.00 L536.94 89.00 L540.13 89.00 L543.31 89.00 L546.50 89.00 L549.69 89.00 L552.88 89.00 L556.06 89.00 L559.25 89.00 L562.44 89.00 L565.63 89.00 L568.81 89.00 L572.00 89.00 L575.19 89.00 L578.38 89.00 L581.56 89.00 L584.75 89.00 L587.94 89.00 L591.13 89.00 L594.31 89.00 L597.50 89.00 L600.69 89.00 L603.88 89.00 L607.06 89.00 L610.25 89.00 L613.44 89.00 L616.63 89.00 L619.81 89.00 L623.00 89.00 L626.19 89.00 L629.38 89.00 L632.56 89.00 L635.75 89.00 L638.94 89.00 L642.13 89.00 L645.31 89.00 L648.50 89.00 L651.69 89.00 L654.88 89.00 L658.06 89.00 L661.25 89.00 L664.44 89.00 L667.63 89.00 L670.81 89.00 L674.00 89.00 L677.19 89.08 L680.38 89.27 L683.56 89.51 L686.75 89.80 L689.94 90.12 L693.13 90.48 L696.31 90.88 L699.50 91.30 L702.69 91.74 L705.88 92.22 L709.06 92.71 L712.25 93.23 L715.44 93.76 L718.63 94.32 L721.81 94.90 L725.00 95.49 L728.19 96.10 L731.38 96.72 L734.56 97.36 L737.75 98.02 L740.94 98.68 L744.13 99.36 L747.31 100.05 L750.50 100.76 L753.69 101.47 L756.88 102.20 L760.06 102.93 L763.25 103.67 L766.44 104.42 L769.63 105.18 L772.81 105.95 L776.00 106.72 L779.19 107.49 L782.38 108.28 L785.56 109.07 L788.75 109.86 L791.94 110.65 L795.13 111.45 L798.31 112.25 L801.50 113.06 L804.69 113.86 L807.88 114.67 L811.06 115.47 L814.25 116.28 L817.44 117.08 L820.63 117.89 L823.81 118.69 L827.00 119.49 L830.19 120.29 L833.38 121.08 L836.56 121.87 L839.75 122.65 L842.94 123.43 L846.13 124.21 L849.31 124.97 L852.50 125.73 L855.69 126.49 L858.88 127.23 L862.06 127.97 L865.25 128.70 L868.44 129.41 L871.63 130.12 L874.81 130.82 L878.00 131.50" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 5"/>
+    <text x="108.3" y="28.5" text-anchor="start" class="t-lab">u₊</text>
+    <path d="M62.00 225.19 L65.19 225.19 L68.38 225.19 L71.56 225.19 L74.75 225.19 L77.94 225.19 L81.13 225.19 L84.31 225.19 L87.50 225.19 L90.69 225.19 L93.88 225.19 L97.06 225.19 L100.25 225.19 L103.44 225.19 L106.63 225.19 L109.81 225.19 L113.00 225.19 L116.19 225.19 L119.38 225.19 L122.56 225.19 L125.75 225.19 L128.94 225.19 L132.13 225.19 L135.31 225.07 L138.50 224.87 L141.69 224.61 L144.88 224.32 L148.06 223.98 L151.25 223.62 L154.44 223.22 L157.63 222.80 L160.81 222.34 L164.00 221.87 L167.19 221.37 L170.38 220.85 L173.56 220.31 L176.75 219.75 L179.94 219.17 L183.13 218.58 L186.31 217.96 L189.50 217.34 L192.69 216.69 L195.88 216.04 L199.06 215.37 L202.25 214.69 L205.44 213.99 L208.63 213.29 L211.81 212.57 L215.00 211.85 L218.19 211.11 L221.38 210.37 L224.56 209.62 L227.75 208.86 L230.94 208.09 L234.13 207.32 L237.31 206.54 L240.50 205.75 L243.69 204.97 L246.88 204.17 L250.06 203.38 L253.25 202.58 L256.44 201.78 L259.63 200.97 L262.81 200.17 L266.00 199.36 L269.19 198.56 L272.38 197.75 L275.56 196.95 L278.75 196.15 L281.94 195.35 L285.13 194.55 L288.31 193.76 L291.50 192.97 L294.69 192.18 L297.88 191.41 L301.06 190.63 L304.25 189.87 L307.44 189.11 L310.63 188.36 L313.81 187.61 L317.00 186.88 L320.19 186.15 L323.38 185.44 L326.56 184.73 L329.75 184.04 L332.94 183.35 L336.13 182.68 L339.31 182.03 L342.50 181.39 L345.69 180.76 L348.88 180.15 L352.06 179.55 L355.25 178.97 L358.44 178.41 L361.63 177.87 L364.81 177.35 L368.00 176.86 L371.19 176.38 L374.38 175.93 L377.56 175.50 L380.75 175.11 L383.94 174.74 L387.13 174.41 L390.31 174.11 L393.50 173.86 L396.69 173.66 L399.88 173.53 L403.06 173.53 L406.25 173.53 L409.44 173.53 L412.63 173.53 L415.81 173.53 L419.00 173.53 L422.19 173.53 L425.38 173.53 L428.56 173.53 L431.75 173.53 L434.94 173.53 L438.13 173.53 L441.31 173.53 L444.50 173.53 L447.69 173.53 L450.88 173.53 L454.06 173.53 L457.25 173.53 L460.44 173.53 L463.63 173.53 L466.81 173.53 L470.00 173.53 L473.19 173.53 L476.38 173.53 L479.56 173.53 L482.75 173.53 L485.94 173.53 L489.13 173.53 L492.31 173.53 L495.50 173.53 L498.69 173.53 L501.88 173.53 L505.06 173.53 L508.25 173.53 L511.44 173.53 L514.63 173.53 L517.81 173.53 L521.00 173.53 L524.19 173.53 L527.38 173.53 L530.56 173.53 L533.75 173.53 L536.94 173.53 L540.13 173.53 L543.31 173.53 L546.50 173.53 L549.69 173.53 L552.88 173.53 L556.06 173.53 L559.25 173.53 L562.44 173.53 L565.63 173.53 L568.81 173.53 L572.00 173.53 L575.19 173.53 L578.38 173.53 L581.56 173.53 L584.75 173.53 L587.94 173.53 L591.13 173.53 L594.31 173.53 L597.50 173.53 L600.69 173.53 L603.88 173.53 L607.06 173.53 L610.25 173.53 L613.44 173.53 L616.63 173.53 L619.81 173.53 L623.00 173.53 L626.19 173.53 L629.38 173.53 L632.56 173.53 L635.75 173.53 L638.94 173.53 L642.13 173.53 L645.31 173.53 L648.50 173.53 L651.69 173.53 L654.88 173.53 L658.06 173.53 L661.25 173.53 L664.44 173.53 L667.63 173.53 L670.81 173.53 L674.00 173.53 L677.19 173.53 L680.38 173.38 L683.56 173.16 L686.75 172.89 L689.94 172.58 L693.13 172.24 L696.31 171.86 L699.50 171.45 L702.69 171.02 L705.88 170.56 L709.06 170.07 L712.25 169.57 L715.44 169.04 L718.63 168.49 L721.81 167.93 L725.00 167.34 L728.19 166.74 L731.38 166.13 L734.56 165.49 L737.75 164.85 L740.94 164.19 L744.13 163.51 L747.31 162.83 L750.50 162.13 L753.69 161.42 L756.88 160.70 L760.06 159.97 L763.25 159.23 L766.44 158.49 L769.63 157.73 L772.81 156.97 L776.00 156.20 L779.19 155.43 L782.38 154.65 L785.56 153.86 L788.75 153.07 L791.94 152.28 L795.13 151.48 L798.31 150.68 L801.50 149.88 L804.69 149.07 L807.88 148.27 L811.06 147.46 L814.25 146.66 L817.44 145.85 L820.63 145.05 L823.81 144.25 L827.00 143.45 L830.19 142.66 L833.38 141.86 L836.56 141.08 L839.75 140.29 L842.94 139.52 L846.13 138.75 L849.31 137.98 L852.50 137.23 L855.69 136.48 L858.88 135.74 L862.06 135.00 L865.25 134.28 L868.44 133.57 L871.63 132.87 L874.81 132.18 L878.00 131.50 L878.00 131.50 L874.81 132.19 L871.63 132.89 L868.44 133.60 L865.25 134.33 L862.06 135.06 L858.88 135.80 L855.69 136.55 L852.50 137.31 L849.31 138.07 L846.13 138.84 L842.94 139.62 L839.75 140.40 L836.56 141.19 L833.38 141.98 L830.19 142.77 L827.00 143.57 L823.81 144.37 L820.63 145.18 L817.44 145.98 L814.25 146.79 L811.06 147.59 L807.88 148.40 L804.69 149.20 L801.50 150.01 L798.31 150.81 L795.13 151.62 L791.94 152.42 L788.75 153.21 L785.56 154.01 L782.38 154.80 L779.19 155.58 L776.00 156.36 L772.81 157.14 L769.63 157.91 L766.44 158.67 L763.25 159.42 L760.06 160.17 L756.88 160.91 L753.69 161.64 L750.50 162.36 L747.31 163.06 L744.13 163.76 L740.94 164.45 L737.75 165.12 L734.56 165.78 L731.38 166.43 L728.19 167.06 L725.00 167.68 L721.81 168.28 L718.63 168.86 L715.44 169.43 L712.25 169.98 L709.06 170.50 L705.88 171.01 L702.69 171.49 L699.50 171.95 L696.31 172.39 L693.13 172.79 L689.94 173.17 L686.75 173.52 L683.56 173.82 L680.38 174.09 L677.19 174.31 L674.00 174.47 L670.81 174.47 L667.63 174.47 L664.44 174.47 L661.25 174.47 L658.06 174.47 L654.88 174.47 L651.69 174.47 L648.50 174.47 L645.31 174.47 L642.13 174.47 L638.94 174.47 L635.75 174.47 L632.56 174.47 L629.38 174.47 L626.19 174.47 L623.00 174.47 L619.81 174.47 L616.63 174.47 L613.44 174.47 L610.25 174.47 L607.06 174.47 L603.88 174.47 L600.69 174.47 L597.50 174.47 L594.31 174.47 L591.13 174.47 L587.94 174.47 L584.75 174.47 L581.56 174.47 L578.38 174.47 L575.19 174.47 L572.00 174.47 L568.81 174.47 L565.63 174.47 L562.44 174.47 L559.25 174.47 L556.06 174.47 L552.88 174.47 L549.69 174.47 L546.50 174.47 L543.31 174.47 L540.13 174.47 L536.94 174.47 L533.75 174.47 L530.56 174.47 L527.38 174.47 L524.19 174.47 L521.00 174.47 L517.81 174.47 L514.63 174.47 L511.44 174.47 L508.25 174.47 L505.06 174.47 L501.88 174.47 L498.69 174.47 L495.50 174.47 L492.31 174.47 L489.13 174.47 L485.94 174.47 L482.75 174.47 L479.56 174.47 L476.38 174.47 L473.19 174.47 L470.00 174.47 L466.81 174.47 L463.63 174.47 L460.44 174.47 L457.25 174.47 L454.06 174.47 L450.88 174.47 L447.69 174.47 L444.50 174.47 L441.31 174.47 L438.13 174.47 L434.94 174.47 L431.75 174.47 L428.56 174.47 L425.38 174.47 L422.19 174.47 L419.00 174.47 L415.81 174.47 L412.63 174.47 L409.44 174.47 L406.25 174.47 L403.06 174.47 L399.88 174.59 L396.69 174.79 L393.50 175.04 L390.31 175.34 L387.13 175.67 L383.94 176.04 L380.75 176.44 L377.56 176.86 L374.38 177.31 L371.19 177.79 L368.00 178.29 L364.81 178.81 L361.63 179.35 L358.44 179.91 L355.25 180.49 L352.06 181.08 L348.88 181.69 L345.69 182.32 L342.50 182.96 L339.31 183.62 L336.13 184.29 L332.94 184.97 L329.75 185.66 L326.56 186.37 L323.38 187.09 L320.19 187.81 L317.00 188.55 L313.81 189.29 L310.63 190.04 L307.44 190.80 L304.25 191.57 L301.06 192.34 L297.88 193.12 L294.69 193.90 L291.50 194.69 L288.31 195.48 L285.13 196.28 L281.94 197.08 L278.75 197.88 L275.56 198.69 L272.38 199.49 L269.19 200.30 L266.00 201.10 L262.81 201.91 L259.63 202.71 L256.44 203.52 L253.25 204.32 L250.06 205.12 L246.88 205.92 L243.69 206.72 L240.50 207.51 L237.31 208.30 L234.13 209.09 L230.94 209.86 L227.75 210.64 L224.56 211.40 L221.38 212.16 L218.19 212.91 L215.00 213.66 L211.81 214.39 L208.63 215.12 L205.44 215.83 L202.25 216.54 L199.06 217.23 L195.88 217.92 L192.69 218.59 L189.50 219.24 L186.31 219.88 L183.13 220.51 L179.94 221.12 L176.75 221.72 L173.56 222.30 L170.38 222.86 L167.19 223.40 L164.00 223.92 L160.81 224.41 L157.63 224.89 L154.44 225.34 L151.25 225.77 L148.06 226.16 L144.88 226.53 L141.69 226.86 L138.50 227.16 L135.31 227.41 L132.13 227.61 L128.94 227.74 L125.75 227.74 L122.56 227.74 L119.38 227.74 L116.19 227.74 L113.00 227.74 L109.81 227.74 L106.63 227.74 L103.44 227.74 L100.25 227.74 L97.06 227.74 L93.88 227.74 L90.69 227.74 L87.50 227.74 L84.31 227.74 L81.13 227.74 L77.94 227.74 L74.75 227.74 L71.56 227.74 L68.38 227.74 L65.19 227.74 L62.00 227.74 Z" fill="var(--c-1)" opacity="0.14"/>
+    <path d="M62.00 226.47 L65.19 226.47 L68.38 226.47 L71.56 226.47 L74.75 226.47 L77.94 226.47 L81.13 226.47 L84.31 226.47 L87.50 226.47 L90.69 226.47 L93.88 226.47 L97.06 226.47 L100.25 226.47 L103.44 226.47 L106.63 226.47 L109.81 226.47 L113.00 226.47 L116.19 226.47 L119.38 226.47 L122.56 226.47 L125.75 226.47 L128.94 226.47 L132.13 226.40 L135.31 226.24 L138.50 226.01 L141.69 225.74 L144.88 225.42 L148.06 225.07 L151.25 224.69 L154.44 224.28 L157.63 223.84 L160.81 223.38 L164.00 222.89 L167.19 222.38 L170.38 221.85 L173.56 221.30 L176.75 220.73 L179.94 220.15 L183.13 219.54 L186.31 218.92 L189.50 218.29 L192.69 217.64 L195.88 216.98 L199.06 216.30 L202.25 215.61 L205.44 214.91 L208.63 214.20 L211.81 213.48 L215.00 212.75 L218.19 212.01 L221.38 211.27 L224.56 210.51 L227.75 209.75 L230.94 208.98 L234.13 208.20 L237.31 207.42 L240.50 206.63 L243.69 205.84 L246.88 205.05 L250.06 204.25 L253.25 203.45 L256.44 202.65 L259.63 201.84 L262.81 201.04 L266.00 200.23 L269.19 199.43 L272.38 198.62 L275.56 197.82 L278.75 197.01 L281.94 196.21 L285.13 195.42 L288.31 194.62 L291.50 193.83 L294.69 193.04 L297.88 192.26 L301.06 191.49 L304.25 190.72 L307.44 189.95 L310.63 189.20 L313.81 188.45 L317.00 187.71 L320.19 186.98 L323.38 186.26 L326.56 185.55 L329.75 184.85 L332.94 184.16 L336.13 183.49 L339.31 182.82 L342.50 182.17 L345.69 181.54 L348.88 180.92 L352.06 180.32 L355.25 179.73 L358.44 179.16 L361.63 178.61 L364.81 178.08 L368.00 177.57 L371.19 177.08 L374.38 176.62 L377.56 176.18 L380.75 175.77 L383.94 175.39 L387.13 175.04 L390.31 174.72 L393.50 174.45 L396.69 174.22 L399.88 174.06 L403.06 174.00 L406.25 174.00 L409.44 174.00 L412.63 174.00 L415.81 174.00 L419.00 174.00 L422.19 174.00 L425.38 174.00 L428.56 174.00 L431.75 174.00 L434.94 174.00 L438.13 174.00 L441.31 174.00 L444.50 174.00 L447.69 174.00 L450.88 174.00 L454.06 174.00 L457.25 174.00 L460.44 174.00 L463.63 174.00 L466.81 174.00 L470.00 174.00 L473.19 174.00 L476.38 174.00 L479.56 174.00 L482.75 174.00 L485.94 174.00 L489.13 174.00 L492.31 174.00 L495.50 174.00 L498.69 174.00 L501.88 174.00 L505.06 174.00 L508.25 174.00 L511.44 174.00 L514.63 174.00 L517.81 174.00 L521.00 174.00 L524.19 174.00 L527.38 174.00 L530.56 174.00 L533.75 174.00 L536.94 174.00 L540.13 174.00 L543.31 174.00 L546.50 174.00 L549.69 174.00 L552.88 174.00 L556.06 174.00 L559.25 174.00 L562.44 174.00 L565.63 174.00 L568.81 174.00 L572.00 174.00 L575.19 174.00 L578.38 174.00 L581.56 174.00 L584.75 174.00 L587.94 174.00 L591.13 174.00 L594.31 174.00 L597.50 174.00 L600.69 174.00 L603.88 174.00 L607.06 174.00 L610.25 174.00 L613.44 174.00 L616.63 174.00 L619.81 174.00 L623.00 174.00 L626.19 174.00 L629.38 174.00 L632.56 174.00 L635.75 174.00 L638.94 174.00 L642.13 174.00 L645.31 174.00 L648.50 174.00 L651.69 174.00 L654.88 174.00 L658.06 174.00 L661.25 174.00 L664.44 174.00 L667.63 174.00 L670.81 174.00 L674.00 174.00 L677.19 173.92 L680.38 173.73 L683.56 173.49 L686.75 173.20 L689.94 172.88 L693.13 172.52 L696.31 172.12 L699.50 171.70 L702.69 171.26 L705.88 170.78 L709.06 170.29 L712.25 169.77 L715.44 169.24 L718.63 168.68 L721.81 168.10 L725.00 167.51 L728.19 166.90 L731.38 166.28 L734.56 165.64 L737.75 164.98 L740.94 164.32 L744.13 163.64 L747.31 162.95 L750.50 162.24 L753.69 161.53 L756.88 160.80 L760.06 160.07 L763.25 159.33 L766.44 158.58 L769.63 157.82 L772.81 157.05 L776.00 156.28 L779.19 155.51 L782.38 154.72 L785.56 153.93 L788.75 153.14 L791.94 152.35 L795.13 151.55 L798.31 150.75 L801.50 149.94 L804.69 149.14 L807.88 148.33 L811.06 147.53 L814.25 146.72 L817.44 145.92 L820.63 145.11 L823.81 144.31 L827.00 143.51 L830.19 142.71 L833.38 141.92 L836.56 141.13 L839.75 140.35 L842.94 139.57 L846.13 138.79 L849.31 138.03 L852.50 137.27 L855.69 136.51 L858.88 135.77 L862.06 135.03 L865.25 134.30 L868.44 133.59 L871.63 132.88 L874.81 132.18 L878.00 131.50" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 5"/>
+    <text x="108.3" y="218.5" text-anchor="start" class="t-lab">u₋</text>
+    <line x1="62" y1="308" x2="76" y2="308" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="81.0" y="312.0" text-anchor="start" class="t-note">u₊ and u₋: each one member of the solution set (CHOSEN) — the fill is its enclosure</text>
+    <line x1="62" y1="327" x2="76" y2="327" stroke="var(--c-grid)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="331.0" text-anchor="start" class="t-note">the empty region, where u is not unique</text>
+  </svg>
+  </div>
+  <figcaption>Figure 3 · The two value functions of case 1, each dotted because it is one member of the solution set, each with its enclosure as fill. On the occupied runs u is flat (u_x = 0); on the empty runs, shaded, the two branches move apart.</figcaption>
+</figure></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the boundary</div>
+    <h2>Contact without exit, and contact with it</h2>
+  </div>
+<div class="col"><p>The mixed boundary conditions are four relations, and each is evaluated as an interval from the enclosed solution. In case 1, V(1) < 0 so m(1) = 0: the point x = 1 is in the contact set, u(1) = ψ, and the exit flux is exactly zero. Nobody leaves through the exit they touch. In case 2 the current is −j₀ at every point by the transport equation, so the same contact carries exit flux −j₀: everybody leaves. The paper's sentence is a theorem about these two cases, and here it is a table.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>condition of (3.6)</th><th>case 1 (j₀ = 0)</th><th>standing</th><th>case 2 (j₀ = 1/10)</th><th>standing</th></tr></thead><tbody><tr><td>inflow at x = 0: −m(0) u_x(0) = j₀</td><td class="v"><span class="m">0 = 0</span>, m(0) ∈ <span class="m">[0.3536, 0.3536]</span></td><td>decided</td><td class="v"><span class="m">[0.100, 0.100]</span> identically</td><td>exact by the current</td></tr><tr><td>relaxed exit at x = 1: u(1) ≤ ψ = 0</td><td class="v"><span class="m">u(1) = 0</span></td><td>contact</td><td class="v"><span class="m">u(1) = 0</span></td><td>contact</td></tr><tr><td>no entry at x = 1: m(1) u_x(1) ≤ 0</td><td class="v"><span class="m">m(1) = 0</span> since V(1) ∈ <span class="m">[-0.354, -0.354]</span></td><td>decided: flux 0</td><td class="v"><span class="m">−j₀ = [-0.10, -0.10]</span></td><td>decided: flux &lt; 0</td></tr><tr><td>contact product (ψ − u(1)) · m(1) u_x(1) = 0</td><td class="v"><span class="m">0 · 0</span></td><td>holds — no exit</td><td class="v"><span class="m">0 · (−j₀)</span></td><td>holds — exit</td></tr></tbody></table></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · case 2</div>
+    <h2>A positive current keeps the density positive, for every γ in a box</h2>
+  </div>
+<div class="col"><p>With inflow the density is the unique positive root of m³ − V m² − j₀²/2 = 0 at every x. The root is enclosed on each cell by a verified bracket (the cubic is increasing past 2V/3, and the positive root lies there), and because the root is increasing in V and V in γ, the two corners of a cell-and-γ box enclose every root inside it. The paper does not print γ; its Figure 2 shows a line near −0.4. So case 2 is certified for every γ in [-0.5,-0.3] at once, and the band in the figure is wide because it holds them all.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 300" role="img" aria-label="The density of case 2 as a wide band over the unit interval, between about 0.07 and 0.27, a single hump near x = 0.55; the band is wide because it holds every γ in the box; a floor line at the certified minimum.">
+    <line x1="62" y1="226.0" x2="878" y2="226.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="230.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="156.7" x2="878" y2="156.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="160.7" text-anchor="end" class="t-ax">0.1</text>
+    <line x1="62" y1="87.3" x2="878" y2="87.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="91.3" text-anchor="end" class="t-ax">0.2</text>
+    <line x1="62" y1="18.0" x2="878" y2="18.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="22.0" text-anchor="end" class="t-ax">0.3</text>
+    <line x1="62.0" y1="226" x2="62.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="246.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="130.0" y1="226" x2="130.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="130.0" y="246.0" text-anchor="middle" class="t-ax">1/12</text>
+    <line x1="266.0" y1="226" x2="266.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="266.0" y="246.0" text-anchor="middle" class="t-ax">0.25</text>
+    <line x1="402.0" y1="226" x2="402.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="402.0" y="246.0" text-anchor="middle" class="t-ax">5/12</text>
+    <line x1="470.0" y1="226" x2="470.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="246.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="674.0" y1="226" x2="674.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="674.0" y="246.0" text-anchor="middle" class="t-ax">3/4</text>
+    <line x1="878.0" y1="226" x2="878.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="246.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="62" y1="226" x2="878" y2="226" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="268.0" text-anchor="middle" class="t-note">x on (0, 1)</text>
+    <text x="13" y="122" class="t-note" transform="rotate(-90 13 122)" text-anchor="middle">density m, every γ ∈ [-0.5,-0.3]</text>
+    <path d="M63.59 93.68 L66.78 97.36 L69.97 100.97 L73.16 104.50 L76.34 107.94 L79.53 111.27 L82.72 114.50 L85.91 117.61 L89.09 120.59 L92.28 123.46 L95.47 126.20 L98.66 128.82 L101.84 131.32 L105.03 133.70 L108.22 135.96 L111.41 138.12 L114.59 140.17 L117.78 142.11 L120.97 143.96 L124.16 145.72 L127.34 147.38 L130.53 148.96 L133.72 150.46 L136.91 151.88 L140.09 153.24 L143.28 154.52 L146.47 155.73 L149.66 156.89 L152.84 157.99 L156.03 159.03 L159.22 160.01 L162.41 160.95 L165.59 161.84 L168.78 162.68 L171.97 163.48 L175.16 164.24 L178.34 164.96 L181.53 165.64 L184.72 166.28 L187.91 166.89 L191.09 167.47 L194.28 168.01 L197.47 168.53 L200.66 169.01 L203.84 169.47 L207.03 169.89 L210.22 170.29 L213.41 170.67 L216.59 171.02 L219.78 171.34 L222.97 171.64 L226.16 171.92 L229.34 172.17 L232.53 172.41 L235.72 172.62 L238.91 172.81 L242.09 172.98 L245.28 173.13 L248.47 173.25 L251.66 173.36 L254.84 173.45 L258.03 173.52 L261.22 173.57 L264.41 173.60 L267.59 173.60 L270.78 173.57 L273.97 173.52 L277.16 173.45 L280.34 173.36 L283.53 173.25 L286.72 173.13 L289.91 172.98 L293.09 172.81 L296.28 172.62 L299.47 172.41 L302.66 172.17 L305.84 171.92 L309.03 171.64 L312.22 171.34 L315.41 171.02 L318.59 170.67 L321.78 170.29 L324.97 169.89 L328.16 169.47 L331.34 169.01 L334.53 168.53 L337.72 168.01 L340.91 167.47 L344.09 166.89 L347.28 166.28 L350.47 165.64 L353.66 164.96 L356.84 164.24 L360.03 163.48 L363.22 162.68 L366.41 161.84 L369.59 160.95 L372.78 160.01 L375.97 159.03 L379.16 157.99 L382.34 156.89 L385.53 155.73 L388.72 154.52 L391.91 153.24 L395.09 151.88 L398.28 150.46 L401.47 148.96 L404.66 147.38 L407.84 145.72 L411.03 143.96 L414.22 142.11 L417.41 140.17 L420.59 138.12 L423.78 135.96 L426.97 133.70 L430.16 131.32 L433.34 128.82 L436.53 126.20 L439.72 123.46 L442.91 120.59 L446.09 117.61 L449.28 114.50 L452.47 111.27 L455.66 107.94 L458.84 104.50 L462.03 100.97 L465.22 97.36 L468.41 93.68 L471.59 89.96 L474.78 86.22 L477.97 82.46 L481.16 78.72 L484.34 75.03 L487.53 71.40 L490.72 67.86 L493.91 64.43 L497.09 61.14 L500.28 58.02 L503.47 55.08 L506.66 52.34 L509.84 49.83 L513.03 47.56 L516.22 45.54 L519.41 43.80 L522.59 42.33 L525.78 41.16 L528.97 40.29 L532.16 39.72 L535.34 39.47 L538.53 39.45 L541.72 39.52 L544.91 39.88 L548.09 40.55 L551.28 41.52 L554.47 42.79 L557.66 44.35 L560.84 46.18 L564.03 48.29 L567.22 50.64 L570.41 53.23 L573.59 56.03 L576.78 59.04 L579.97 62.22 L583.16 65.56 L586.34 69.02 L589.53 72.60 L592.72 76.25 L595.91 79.97 L599.09 83.71 L602.28 87.47 L605.47 91.21 L608.66 94.91 L611.84 98.57 L615.03 102.15 L618.22 105.66 L621.41 109.06 L624.59 112.36 L627.78 115.55 L630.97 118.61 L634.16 121.56 L637.34 124.39 L640.53 127.09 L643.72 129.67 L646.91 132.12 L650.09 134.47 L653.28 136.70 L656.47 138.81 L659.66 140.83 L662.84 142.74 L666.03 144.56 L669.22 146.28 L672.41 147.92 L675.59 149.47 L678.78 150.94 L681.97 152.34 L685.16 153.67 L688.34 154.93 L691.53 156.13 L694.72 157.26 L697.91 158.34 L701.09 159.36 L704.28 160.33 L707.47 161.25 L710.66 162.13 L713.84 162.95 L717.03 163.74 L720.22 164.48 L723.41 165.19 L726.59 165.86 L729.78 166.49 L732.97 167.09 L736.16 167.65 L739.34 168.19 L742.53 168.69 L745.72 169.17 L748.91 169.61 L752.09 170.03 L755.28 170.42 L758.47 170.79 L761.66 171.13 L764.84 171.44 L768.03 171.74 L771.22 172.01 L774.41 172.25 L777.59 172.48 L780.78 172.68 L783.97 172.87 L787.16 173.03 L790.34 173.17 L793.53 173.29 L796.72 173.39 L799.91 173.48 L803.09 173.54 L806.28 173.58 L809.47 173.60 L812.66 173.59 L815.84 173.55 L819.03 173.50 L822.22 173.42 L825.41 173.33 L828.59 173.21 L831.78 173.08 L834.97 172.92 L838.16 172.75 L841.34 172.55 L844.53 172.33 L847.72 172.09 L850.91 171.83 L854.09 171.54 L857.28 171.24 L860.47 170.90 L863.66 170.55 L866.84 170.16 L870.03 169.75 L873.22 169.32 L876.41 168.85 L876.41 175.41 L873.22 175.73 L870.03 176.03 L866.84 176.31 L863.66 176.57 L860.47 176.81 L857.28 177.04 L854.09 177.25 L850.91 177.44 L847.72 177.62 L844.53 177.78 L841.34 177.93 L838.16 178.06 L834.97 178.18 L831.78 178.28 L828.59 178.36 L825.41 178.43 L822.22 178.49 L819.03 178.53 L815.84 178.56 L812.66 178.57 L809.47 178.57 L806.28 178.57 L803.09 178.55 L799.91 178.52 L796.72 178.47 L793.53 178.41 L790.34 178.33 L787.16 178.24 L783.97 178.14 L780.78 178.02 L777.59 177.88 L774.41 177.73 L771.22 177.56 L768.03 177.38 L764.84 177.18 L761.66 176.96 L758.47 176.73 L755.28 176.48 L752.09 176.21 L748.91 175.93 L745.72 175.63 L742.53 175.30 L739.34 174.96 L736.16 174.60 L732.97 174.22 L729.78 173.82 L726.59 173.40 L723.41 172.96 L720.22 172.49 L717.03 172.00 L713.84 171.49 L710.66 170.95 L707.47 170.39 L704.28 169.80 L701.09 169.18 L697.91 168.54 L694.72 167.87 L691.53 167.17 L688.34 166.43 L685.16 165.67 L681.97 164.87 L678.78 164.04 L675.59 163.18 L672.41 162.28 L669.22 161.34 L666.03 160.36 L662.84 159.35 L659.66 158.29 L656.47 157.20 L653.28 156.06 L650.09 154.88 L646.91 153.65 L643.72 152.38 L640.53 151.07 L637.34 149.72 L634.16 148.31 L630.97 146.87 L627.78 145.38 L624.59 143.85 L621.41 142.28 L618.22 140.68 L615.03 139.04 L611.84 137.36 L608.66 135.66 L605.47 133.94 L602.28 132.20 L599.09 130.45 L595.91 128.69 L592.72 126.94 L589.53 125.21 L586.34 123.49 L583.16 121.81 L579.97 120.17 L576.78 118.58 L573.59 117.06 L570.41 115.62 L567.22 114.26 L564.03 113.00 L560.84 111.84 L557.66 110.81 L554.47 109.90 L551.28 109.12 L548.09 108.48 L544.91 108.00 L541.72 107.66 L538.53 107.48 L535.34 107.58 L532.16 107.87 L528.97 108.30 L525.78 108.89 L522.59 109.62 L519.41 110.49 L516.22 111.48 L513.03 112.60 L509.84 113.83 L506.66 115.15 L503.47 116.57 L500.28 118.07 L497.09 119.64 L493.91 121.26 L490.72 122.93 L487.53 124.63 L484.34 126.36 L481.16 128.11 L477.97 129.86 L474.78 131.62 L471.59 133.36 L468.41 135.09 L465.22 136.80 L462.03 138.48 L458.84 140.13 L455.66 141.75 L452.47 143.33 L449.28 144.88 L446.09 146.38 L442.91 147.84 L439.72 149.25 L436.53 150.62 L433.34 151.95 L430.16 153.23 L426.97 154.47 L423.78 155.67 L420.59 156.82 L417.41 157.93 L414.22 159.00 L411.03 160.03 L407.84 161.02 L404.66 161.97 L401.47 162.88 L398.28 163.76 L395.09 164.60 L391.91 165.41 L388.72 166.18 L385.53 166.93 L382.34 167.64 L379.16 168.32 L375.97 168.97 L372.78 169.60 L369.59 170.20 L366.41 170.77 L363.22 171.31 L360.03 171.83 L356.84 172.33 L353.66 172.80 L350.47 173.26 L347.28 173.68 L344.09 174.09 L340.91 174.48 L337.72 174.85 L334.53 175.19 L331.34 175.52 L328.16 175.83 L324.97 176.12 L321.78 176.39 L318.59 176.65 L315.41 176.89 L312.22 177.11 L309.03 177.31 L305.84 177.50 L302.66 177.68 L299.47 177.83 L296.28 177.97 L293.09 178.10 L289.91 178.21 L286.72 178.31 L283.53 178.39 L280.34 178.45 L277.16 178.50 L273.97 178.54 L270.78 178.56 L267.59 178.57 L264.41 178.57 L261.22 178.56 L258.03 178.54 L254.84 178.50 L251.66 178.45 L248.47 178.39 L245.28 178.31 L242.09 178.21 L238.91 178.10 L235.72 177.97 L232.53 177.83 L229.34 177.68 L226.16 177.50 L222.97 177.31 L219.78 177.11 L216.59 176.89 L213.41 176.65 L210.22 176.39 L207.03 176.12 L203.84 175.83 L200.66 175.52 L197.47 175.19 L194.28 174.85 L191.09 174.48 L187.91 174.09 L184.72 173.68 L181.53 173.26 L178.34 172.80 L175.16 172.33 L171.97 171.83 L168.78 171.31 L165.59 170.77 L162.41 170.20 L159.22 169.60 L156.03 168.97 L152.84 168.32 L149.66 167.64 L146.47 166.93 L143.28 166.18 L140.09 165.41 L136.91 164.60 L133.72 163.76 L130.53 162.88 L127.34 161.97 L124.16 161.02 L120.97 160.03 L117.78 159.00 L114.59 157.93 L111.41 156.82 L108.22 155.67 L105.03 154.47 L101.84 153.23 L98.66 151.95 L95.47 150.62 L92.28 149.25 L89.09 147.84 L85.91 146.38 L82.72 144.88 L79.53 143.33 L76.34 141.75 L73.16 140.13 L69.97 138.48 L66.78 136.80 L63.59 135.09 Z" fill="var(--c-1)" opacity="0.14"/>
+    <path d="M63.59 135.09 L66.78 136.80 L69.97 138.48 L73.16 140.13 L76.34 141.75 L79.53 143.33 L82.72 144.88 L85.91 146.38 L89.09 147.84 L92.28 149.25 L95.47 150.62 L98.66 151.95 L101.84 153.23 L105.03 154.47 L108.22 155.67 L111.41 156.82 L114.59 157.93 L117.78 159.00 L120.97 160.03 L124.16 161.02 L127.34 161.97 L130.53 162.88 L133.72 163.76 L136.91 164.60 L140.09 165.41 L143.28 166.18 L146.47 166.93 L149.66 167.64 L152.84 168.32 L156.03 168.97 L159.22 169.60 L162.41 170.20 L165.59 170.77 L168.78 171.31 L171.97 171.83 L175.16 172.33 L178.34 172.80 L181.53 173.26 L184.72 173.68 L187.91 174.09 L191.09 174.48 L194.28 174.85 L197.47 175.19 L200.66 175.52 L203.84 175.83 L207.03 176.12 L210.22 176.39 L213.41 176.65 L216.59 176.89 L219.78 177.11 L222.97 177.31 L226.16 177.50 L229.34 177.68 L232.53 177.83 L235.72 177.97 L238.91 178.10 L242.09 178.21 L245.28 178.31 L248.47 178.39 L251.66 178.45 L254.84 178.50 L258.03 178.54 L261.22 178.56 L264.41 178.57 L267.59 178.57 L270.78 178.56 L273.97 178.54 L277.16 178.50 L280.34 178.45 L283.53 178.39 L286.72 178.31 L289.91 178.21 L293.09 178.10 L296.28 177.97 L299.47 177.83 L302.66 177.68 L305.84 177.50 L309.03 177.31 L312.22 177.11 L315.41 176.89 L318.59 176.65 L321.78 176.39 L324.97 176.12 L328.16 175.83 L331.34 175.52 L334.53 175.19 L337.72 174.85 L340.91 174.48 L344.09 174.09 L347.28 173.68 L350.47 173.26 L353.66 172.80 L356.84 172.33 L360.03 171.83 L363.22 171.31 L366.41 170.77 L369.59 170.20 L372.78 169.60 L375.97 168.97 L379.16 168.32 L382.34 167.64 L385.53 166.93 L388.72 166.18 L391.91 165.41 L395.09 164.60 L398.28 163.76 L401.47 162.88 L404.66 161.97 L407.84 161.02 L411.03 160.03 L414.22 159.00 L417.41 157.93 L420.59 156.82 L423.78 155.67 L426.97 154.47 L430.16 153.23 L433.34 151.95 L436.53 150.62 L439.72 149.25 L442.91 147.84 L446.09 146.38 L449.28 144.88 L452.47 143.33 L455.66 141.75 L458.84 140.13 L462.03 138.48 L465.22 136.80 L468.41 135.09 L471.59 133.36 L474.78 131.62 L477.97 129.86 L481.16 128.11 L484.34 126.36 L487.53 124.63 L490.72 122.93 L493.91 121.26 L497.09 119.64 L500.28 118.07 L503.47 116.57 L506.66 115.15 L509.84 113.83 L513.03 112.60 L516.22 111.48 L519.41 110.49 L522.59 109.62 L525.78 108.89 L528.97 108.30 L532.16 107.87 L535.34 107.58 L538.53 107.48 L541.72 107.66 L544.91 108.00 L548.09 108.48 L551.28 109.12 L554.47 109.90 L557.66 110.81 L560.84 111.84 L564.03 113.00 L567.22 114.26 L570.41 115.62 L573.59 117.06 L576.78 118.58 L579.97 120.17 L583.16 121.81 L586.34 123.49 L589.53 125.21 L592.72 126.94 L595.91 128.69 L599.09 130.45 L602.28 132.20 L605.47 133.94 L608.66 135.66 L611.84 137.36 L615.03 139.04 L618.22 140.68 L621.41 142.28 L624.59 143.85 L627.78 145.38 L630.97 146.87 L634.16 148.31 L637.34 149.72 L640.53 151.07 L643.72 152.38 L646.91 153.65 L650.09 154.88 L653.28 156.06 L656.47 157.20 L659.66 158.29 L662.84 159.35 L666.03 160.36 L669.22 161.34 L672.41 162.28 L675.59 163.18 L678.78 164.04 L681.97 164.87 L685.16 165.67 L688.34 166.43 L691.53 167.17 L694.72 167.87 L697.91 168.54 L701.09 169.18 L704.28 169.80 L707.47 170.39 L710.66 170.95 L713.84 171.49 L717.03 172.00 L720.22 172.49 L723.41 172.96 L726.59 173.40 L729.78 173.82 L732.97 174.22 L736.16 174.60 L739.34 174.96 L742.53 175.30 L745.72 175.63 L748.91 175.93 L752.09 176.21 L755.28 176.48 L758.47 176.73 L761.66 176.96 L764.84 177.18 L768.03 177.38 L771.22 177.56 L774.41 177.73 L777.59 177.88 L780.78 178.02 L783.97 178.14 L787.16 178.24 L790.34 178.33 L793.53 178.41 L796.72 178.47 L799.91 178.52 L803.09 178.55 L806.28 178.57 L809.47 178.57 L812.66 178.57 L815.84 178.56 L819.03 178.53 L822.22 178.49 L825.41 178.43 L828.59 178.36 L831.78 178.28 L834.97 178.18 L838.16 178.06 L841.34 177.93 L844.53 177.78 L847.72 177.62 L850.91 177.44 L854.09 177.25 L857.28 177.04 L860.47 176.81 L863.66 176.57 L866.84 176.31 L870.03 176.03 L873.22 175.73 L876.41 175.41" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M63.59 93.68 L66.78 97.36 L69.97 100.97 L73.16 104.50 L76.34 107.94 L79.53 111.27 L82.72 114.50 L85.91 117.61 L89.09 120.59 L92.28 123.46 L95.47 126.20 L98.66 128.82 L101.84 131.32 L105.03 133.70 L108.22 135.96 L111.41 138.12 L114.59 140.17 L117.78 142.11 L120.97 143.96 L124.16 145.72 L127.34 147.38 L130.53 148.96 L133.72 150.46 L136.91 151.88 L140.09 153.24 L143.28 154.52 L146.47 155.73 L149.66 156.89 L152.84 157.99 L156.03 159.03 L159.22 160.01 L162.41 160.95 L165.59 161.84 L168.78 162.68 L171.97 163.48 L175.16 164.24 L178.34 164.96 L181.53 165.64 L184.72 166.28 L187.91 166.89 L191.09 167.47 L194.28 168.01 L197.47 168.53 L200.66 169.01 L203.84 169.47 L207.03 169.89 L210.22 170.29 L213.41 170.67 L216.59 171.02 L219.78 171.34 L222.97 171.64 L226.16 171.92 L229.34 172.17 L232.53 172.41 L235.72 172.62 L238.91 172.81 L242.09 172.98 L245.28 173.13 L248.47 173.25 L251.66 173.36 L254.84 173.45 L258.03 173.52 L261.22 173.57 L264.41 173.60 L267.59 173.60 L270.78 173.57 L273.97 173.52 L277.16 173.45 L280.34 173.36 L283.53 173.25 L286.72 173.13 L289.91 172.98 L293.09 172.81 L296.28 172.62 L299.47 172.41 L302.66 172.17 L305.84 171.92 L309.03 171.64 L312.22 171.34 L315.41 171.02 L318.59 170.67 L321.78 170.29 L324.97 169.89 L328.16 169.47 L331.34 169.01 L334.53 168.53 L337.72 168.01 L340.91 167.47 L344.09 166.89 L347.28 166.28 L350.47 165.64 L353.66 164.96 L356.84 164.24 L360.03 163.48 L363.22 162.68 L366.41 161.84 L369.59 160.95 L372.78 160.01 L375.97 159.03 L379.16 157.99 L382.34 156.89 L385.53 155.73 L388.72 154.52 L391.91 153.24 L395.09 151.88 L398.28 150.46 L401.47 148.96 L404.66 147.38 L407.84 145.72 L411.03 143.96 L414.22 142.11 L417.41 140.17 L420.59 138.12 L423.78 135.96 L426.97 133.70 L430.16 131.32 L433.34 128.82 L436.53 126.20 L439.72 123.46 L442.91 120.59 L446.09 117.61 L449.28 114.50 L452.47 111.27 L455.66 107.94 L458.84 104.50 L462.03 100.97 L465.22 97.36 L468.41 93.68 L471.59 89.96 L474.78 86.22 L477.97 82.46 L481.16 78.72 L484.34 75.03 L487.53 71.40 L490.72 67.86 L493.91 64.43 L497.09 61.14 L500.28 58.02 L503.47 55.08 L506.66 52.34 L509.84 49.83 L513.03 47.56 L516.22 45.54 L519.41 43.80 L522.59 42.33 L525.78 41.16 L528.97 40.29 L532.16 39.72 L535.34 39.47 L538.53 39.45 L541.72 39.52 L544.91 39.88 L548.09 40.55 L551.28 41.52 L554.47 42.79 L557.66 44.35 L560.84 46.18 L564.03 48.29 L567.22 50.64 L570.41 53.23 L573.59 56.03 L576.78 59.04 L579.97 62.22 L583.16 65.56 L586.34 69.02 L589.53 72.60 L592.72 76.25 L595.91 79.97 L599.09 83.71 L602.28 87.47 L605.47 91.21 L608.66 94.91 L611.84 98.57 L615.03 102.15 L618.22 105.66 L621.41 109.06 L624.59 112.36 L627.78 115.55 L630.97 118.61 L634.16 121.56 L637.34 124.39 L640.53 127.09 L643.72 129.67 L646.91 132.12 L650.09 134.47 L653.28 136.70 L656.47 138.81 L659.66 140.83 L662.84 142.74 L666.03 144.56 L669.22 146.28 L672.41 147.92 L675.59 149.47 L678.78 150.94 L681.97 152.34 L685.16 153.67 L688.34 154.93 L691.53 156.13 L694.72 157.26 L697.91 158.34 L701.09 159.36 L704.28 160.33 L707.47 161.25 L710.66 162.13 L713.84 162.95 L717.03 163.74 L720.22 164.48 L723.41 165.19 L726.59 165.86 L729.78 166.49 L732.97 167.09 L736.16 167.65 L739.34 168.19 L742.53 168.69 L745.72 169.17 L748.91 169.61 L752.09 170.03 L755.28 170.42 L758.47 170.79 L761.66 171.13 L764.84 171.44 L768.03 171.74 L771.22 172.01 L774.41 172.25 L777.59 172.48 L780.78 172.68 L783.97 172.87 L787.16 173.03 L790.34 173.17 L793.53 173.29 L796.72 173.39 L799.91 173.48 L803.09 173.54 L806.28 173.58 L809.47 173.60 L812.66 173.59 L815.84 173.55 L819.03 173.50 L822.22 173.42 L825.41 173.33 L828.59 173.21 L831.78 173.08 L834.97 172.92 L838.16 172.75 L841.34 172.55 L844.53 172.33 L847.72 172.09 L850.91 171.83 L854.09 171.54 L857.28 171.24 L860.47 170.90 L863.66 170.55 L866.84 170.16 L870.03 169.75 L873.22 169.32 L876.41 168.85" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
+    <line x1="62" y1="178.6" x2="878" y2="178.6" stroke="var(--c-3)" stroke-width="1"/>
+    <text x="68.0" y="172.6" text-anchor="start" class="t-note">certified floor m ≥ 0.0684</text>
+    <line x1="62" y1="289" x2="76" y2="289" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="293.0" text-anchor="start" class="t-note">m over the cell AND over the γ box (decided)</text>
+    <line x1="411" y1="289" x2="425" y2="289" stroke="var(--c-3)" stroke-width="2" stroke-linecap="round"/>
+    <text x="430.0" y="293.0" text-anchor="start" class="t-note">the density floor, every x and every γ</text>
+  </svg>
+  </div>
+  <figcaption>Figure 4 · Case 2, j₀ = 1/10: the density enclosed over every cell and every γ in the box, with its certified floor. The band is the price of not knowing γ, and it is paid in the open.</figcaption>
+</figure></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · the honest boundary</div>
+    <h2>What is claimed, and what is not</h2>
+  </div>
+<div class="col"><ul class="plain"><li><b>Claimed.</b> The paper&#39;s explicit solutions satisfy its weak-solution conditions (Definition 2.11) and its boundary conditions (3.6) cell by cell, in intervals; the vanishing set is exactly {V &lt; 0} with the three roots exact; the two value functions are enclosed and distinct; case 2 is positive for every γ in the box.</li><li><b>Not claimed.</b> That the free boundary was found — it is exact, and the refusal is a display of budget. That anything was reproduced to a printed digit — the figures carry none and γ is unprinted. That a certified contour is new mathematics — it is not (Plantinga–Vegter 2004); the display of the undecided cells is the contribution, as the target memory ruled before this page was built.</li><li><b>The width you see.</b> The value functions are Riemann brackets, first order in the cell width, because √(V₋) has no bounded second derivative at a root. The density&#39;s tube is the sine enclosure itself. The two widths are different and are drawn as they are.</li></ul></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§7 · check it</div>
+    <h2>Under a second on your machine</h2>
+  </div>
+<div class="col"><pre class="code">node instruments/aag/battery.js     # re-derives the record, 18 checks, 5 red controls
+node instruments/aag/run.js --check  # the record, re-derived and compared byte for byte</pre><p>The record is <span class="m">certs/aag-empty-region.json</span>; it carries the sha256 of the code that made it, every cell's standing, both value-function tubes and the ladder.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">references</div>
+    <h2>Sources</h2>
+  </div>
+<div class="col"><ul class="plain"><li>AbdulRahman M. Alharbi, Yuri Ashrafyan, Diogo Gomes, <em>A First-Order Mean-Field Game on a Bounded Domain with Mixed Boundary Conditions</em>, Applied Mathematics & Optimization 93, Art. 40 (2026); <a href="https://arxiv.org/abs/2305.15952">arXiv:2305.15952v4</a> — §3.2 Cases 1 and 2, (3.5)–(3.6), Definition 2.11, Theorem 1.3, Figures 1–2.</li><li>S. Plantinga, G. Vegter, <em>Isotopic approximation of implicit curves and surfaces</em>, SGP 2004 — the certified sign map, refined until decided; cited as the method this page deliberately stops short of.</li><li>The grammar: playground/warrant.js and design/grammar.js on this site — DECIDED, COMPUTED, CHOSEN, REFUSED, as stroke.</li></ul></div>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
+
+<footer class="col"><p>Generated by tools/build-report-aag.js @ git b027259 — certs/aag-empty-region.json re-derived during this build and compared byte for byte (identical, or no page). Code sha256 0448eb66afae8091…</p><p>cert-machine · Carlos Toledo</p></footer>
+
+</div>
+</html>
