@@ -428,6 +428,15 @@
    "finding": "Third in frontier's port order. Reproduced: 20 cases green, 6 reds fire, page.json and figures.tex byte-identical to the pins. Numbers: Deq in [168.3, 267.5] km at one sigma; the published 206 +- 15 and the radiometric 237 +- 8 both inside, so the disagreement the paper reports is between two models, not two measurements; at face value no convex silhouette fits (the hull runs 5.5 km over Javalambre's chord); the 23 negatives are worth 309 km of ceiling.",
    "why": "The same shape as curveset: a closed-form envelope under one weak assumption (convexity), where every published number is a fit under a stronger one (an ellipse). The data bound one side and the model buys the other.",
    "note": "Two things that were unsound before the reds caught them and must not return: a negative station is a ZERO of w on its support, not a sample; the ceiling is DISCONTINUOUS at every chord, so integrate by the midpoint rule between breakpoints, never as a polyline. Open: a second event (needs a campaign that publishes cross-track distances), the central-symmetry rung, chord POSITION along its line."
+  },
+  {
+   "id": "transit-enclosure-port",
+   "name": "The transit without a law for the star: a certified one-sided enclosure on Rp/R* from Kepler photometry — ported from frontier-apps",
+   "verdict": "BUILT 2026-09-05 — instruments/transit (22 files pinned, two requires repointed at the byte-identical house interval library); /instruments/transit is the page",
+   "scouted": "2026-09-05",
+   "finding": "Fourth and last of the light ports. Reproduced: 36 + 22 cases green, 7 reds fire. The photometry bounds the planet tightly from below and loosely from above; the entire upper bound is bought by an assumption about the star (not brightening outward), never by the data. TrES-2 b: 19 published values disagree by 25x a typical quoted bar; the certified interval contains all of them. THE PIN WAS MIXED: reproducing it here gave Kepler-7 b to the digit and TrES-2 b with a 4.3σ budget where the pin said 3.6σ (frontier changed the budget rule after that block was produced and its builder merges per planet). The record here is the code's own full run; frontier's is kept beside it for the diff.",
+   "why": "Third instance of the interferometer's instrument: the family of stars the data allow instead of the one a limb-darkening law chose. The same shape as curveset and occultation — the data bound one side and the model buys the other.",
+   "note": "Gotchas that must survive (TRANSIT.md): an enclosure can be loose in a variable you are not subdividing (subdivide z as well as r); a clamp goes on each endpoint separately; plain Frank-Wolfe's 1/t stalls on a feasibility question — fully corrective steps; the error budget is MEASURED as the smallest that admits the conventional fit. Open, stated in code: the l2-ball budget (Stage 2) is refused rather than faked; the Venus metered truth is blocked on a 2900 ppm HMI drift."
   }
  ]
 }

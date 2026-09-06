@@ -13,7 +13,7 @@ not pick something off the menu, do not spend on model calls. The previous
 session closed clean on purpose.
 
 STATE YOU INHERIT: EVERYTHING IS PUSHED AND EVERYTHING IS LIVE.
-Working tree clean, no unpushed commits, 69/69 batteries in BOTH registries
+Working tree clean, no unpushed commits, 70/70 batteries in BOTH registries
 (make test and the control page run the same set since 2026-09-05).
 carlostoledo.co is current with the repository.
 
@@ -24,13 +24,14 @@ carlostoledo.co is current with the repository.
         prime env install carlos-toledo/break-the-grader
     The `prime` CLI is installed at ~/.local/bin/prime and IS logged in.
   · /instruments (source: playground/, the folder and the URL differ on
-    purpose) has FOURTEEN pages, the last four ported 2026-09-05 from frontier:
-    /instruments/lattice-claims, /instruments/rewire, /instruments/pqc and
-    /instruments/occultation. `make playground` rebuilds it; the layout ruler, the
+    purpose) has FIFTEEN pages, the last five ported 2026-09-05 from frontier:
+    /instruments/lattice-claims, /instruments/rewire, /instruments/pqc,
+    /instruments/occultation and /instruments/transit. `make playground` rebuilds it; the layout ruler, the
     render gate, the palette and the dash census all read it. The one rule
     there: no gates on the mathematics, but no fiction.
-  · THE NEXT PORT, in frontier's PORT-TO-CERT-MACHINE.md order: transit
-    (lattice-claims, PQC and occultation landed 2026-09-05; fourteen pages).
+  · THE FOUR LIGHT PORTS LANDED 2026-09-05 (lattice-claims, PQC, occultation,
+    transit; fifteen pages). certifier-core + blind-spot are deferred one
+    frontier session; HANDOFF says why.
   · RUN `make materialize` FIRST. The repository lives in iCloud Drive and
     evicted files READ AS EMPTY while ls, stat and git say they are there;
     check-wiring refuses such a tree. Moving the repository out of iCloud is

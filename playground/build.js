@@ -35,6 +35,7 @@ const LC = require(path.join(HERE, 'lattice-claims', 'build.js'));
 const RW = require(path.join(HERE, 'rewire', 'build.js'));
 const PQ = require(path.join(HERE, 'pqc', 'build.js'));
 const OC = require(path.join(HERE, 'occultation', 'build.js'));
+const TR = require(path.join(HERE, 'transit', 'build.js'));
 /* the affect card's numbers, read out of the record rather than typed. A card
    that repeats a page's figures by hand is a second copy, and a second copy
    drifts. */
@@ -103,7 +104,7 @@ const fact = (k, v, note) =>
 const body = `
 <header class="hero"><div class="wrap">
   <div class="eyebrow">cert-machine &middot; instruments</div>
-  <h1>Fourteen instruments, and each one says what decides it.</h1>
+  <h1>Fifteen instruments, and each one says what decides it.</h1>
   <p class="lede">This page used to open by saying that nothing here was certified. That was the wrong claim and it had stopped being true: two of these pages draw a certificate straight from the shelf the rest of the site gates, and five of them decide their headline number in exact integer or rational arithmetic. <b>What is true is that nothing here is gated</b> &mdash; no number on these pages has a certificate row the build checks, no page here can refuse a deploy, and none of them is covered by <code>make test</code>. That is a fact about ceremony, not about the mathematics, and the two are not the same thing.</p>
   <p class="lede" style="margin-top:var(--s-5)">So instead of one disclaimer at the door, <b>every card below says what backs its headline number</b>, in the same words the pages use: exact rationals, exact integers, a record from the certificate shelf, or floats. Where it is floats, the page says so beside the number rather than at the bottom.</p>
 </div></header>
@@ -111,7 +112,7 @@ const body = `
 <section class="projects"><div class="wrap">
   <div class="count">
     <span class="eyebrow">the projects</span>
-    <span class="eyebrow">fourteen, so far</span>
+    <span class="eyebrow">fifteen, so far</span>
   </div>
 
   <div class="cards">
@@ -274,6 +275,17 @@ const body = `
     </div>
   </a>
 
+  <a class="card" href="transit/index.html">
+    <figure class="card-art">
+      ${plate(TR.cardArt(), `${TR.facts.name} &middot; ${TR.facts.lo !== null ? TR.facts.lo.toFixed(3) : '&mdash;'}&ndash;${TR.facts.hi !== null ? (TR.facts.hi >= 0.999 ? '1' : TR.facts.hi.toFixed(3)) : '&mdash;'}`)}
+    </figure>
+    <div class="card-body">
+      <h2>The transit, without a law for the star.</h2>
+      <p class="sub">Every published planet radius is a statement about a star&rsquo;s atmosphere as much as about a planet: how much light sits where the planet passes is decided by a limb-darkening law nobody measured for that star. This asks what the photometry forces on its own &mdash; the star is any nonnegative brightness profile at all &mdash; and the answer is one-sided: the data bound the planet tightly from below and the whole upper bound is bought by the assumption. ${TR.facts.published} published values across ${TR.facts.targets} planets, all inside; nothing in the optimiser is trusted.</p>
+      <span class="go">read the enclosure <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
   <a class="card" href="simplex/index.html">
     <figure class="card-art">
       ${plate(SIMPLEX.cardArt(), `${SIMPLEX.M.positions} positions`)}
@@ -325,6 +337,7 @@ const lc = LC.build(OUT);
 const rw = RW.build(OUT);
 const pq = PQ.build(OUT);
 const oc = OC.build(OUT);
+const tr = TR.build(OUT);
 
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
 console.log(`site/instruments/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
@@ -342,4 +355,5 @@ console.log(`site/instruments/lattice-claims/    ${(lc.bytes / 1024).toFixed(0)}
 console.log(`site/instruments/rewire/            ${(rw.bytes / 1024).toFixed(0)} KB  ·  ${rw.instances} instances, exact ${rw.exact} · tolerance ${rw.tol} · careful ${rw.careful}, cliff at dim ${rw.cliff}`);
 console.log(`site/instruments/pqc/               ${(pq.bytes / 1024).toFixed(0)} KB  ·  ${pq.records} records, ${pq.decided} decided exactly, ${pq.open} undecidable from the printed norm; LLL dim ${pq.dim}, ${pq.snaps} snapshots`);
 console.log(`site/instruments/occultation/       ${(oc.bytes / 1024).toFixed(0)} KB  ·  ${oc.chords} chords, ${oc.misses} misses, Deq in [${oc.lo}, ${oc.hi}] km, the misses worth ${oc.worth.toFixed(1)} km`);
+console.log(`site/instruments/transit/           ${(tr.bytes / 1024).toFixed(0)} KB  ·  ${tr.targets} planets, ${tr.published} published values inside, intervals ${JSON.stringify(tr.intervals)}`);
 console.log(`@ git ${git}`);

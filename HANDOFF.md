@@ -217,12 +217,63 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     short against the pinned record. Reading the file made it green again.
     `make materialize` reads the ignored corpora too now, and check-wiring's
     check 0 looks at them by the dataless flag.
+    OPERATOR ACTION, same evening: the three folders (cert-machine, sin-mfg,
+    frontier-apps) are marked "Keep Downloaded" in Finder, which tells iCloud
+    never to evict inside them. At that moment 71,641 / 20,073 / 2,297 files
+    were still evicted (cert-machine's are almost all lean/.lake), and the
+    background download takes a while; check 0 was green because the tracked
+    tree and the battery corpora had already been read back. The guard stays.
+    Moving the working trees out of iCloud Drive remains the durable fix.
+    THEN THE SLOWNESS: after Keep Downloaded the file provider daemon sat at
+    100% CPU on its consistency check with the network at 4 KB/s — it was
+    reconciling ~190,000 items, not downloading — and every read or stat of
+    an evicted file joined that one serial queue (two reads of frontier-apps
+    blocked for over an hour). 71,641 of the evicted files were
+    lean/erdos852/.lake, Mathlib compiled as tens of thousands of tiny files:
+    gitignored build state, declared not a record. With the operator's yes
+    they were DELETED (rm -rf, two passes; the daemon held a few directories
+    on the first). Lake rebuilds them when a lean battery next needs them.
+    THE MOVE OUT OF iCLOUD IS THE OPERATOR'S NEXT INSTRUCTION, after transit:
+    the script is staged in the session scratchpad and refuses while any
+    file is still evicted, because a dataless file moved out of the iCloud
+    domain can never be hydrated again.
 
-    · NOT PORTED YET: transit (the same shape, 2.3 MB of Kepler light
-      curves, two suites and 7 reds). certifier-core + blind-spot DEFERRED
-      one frontier session: 12 MB, a 75-minute formal run in a battery,
-      records that copy but cannot be regenerated, and an identity control
-      found vacuous a day ago. The toolchain is installed.
+  ── THE PORT, FOURTH AND LAST OF THE LIGHT ONES: THE TRANSIT ── instruments/
+    transit, 22 files pinned, two requires repointed at the house interval
+    library — byte-identical to frontier's, so only the path changed. 36 + 22
+    cases green, 7 reds fire (28 s) including the deliberately broken control.
+    The interval is ONE-SIDED and the reason is exact: light can hide in the
+    core the planet never reaches and cannot un-hide, so the photometry bounds
+    the planet tightly from below and the whole ceiling is bought by an
+    assumption about the star. 29 published values across two planets all
+    inside; TrES-2 b's 19 disagree by 25x a typical bar. battery.js checks the
+    pins, the suites, the reds, figures.tex from the records and the numbers
+    off the record; make-page-data.js (Frank-Wolfe + interval subdivision
+    over 1.5 MB of light curve) is reproduced once at port time, not per
+    build. /instruments/transit is the page; the occultation page links to it
+    now. Fifteen cards. 70 rows in both registries.
+    THE RECORD WAS MIXED, AND THE PORT FOUND IT. Reproducing frontier's
+    page.json with the pinned code and data (10-12 min a run) gave Kepler-7 b
+    to the digit and TrES-2 b NOT: same fit, same worst residual 3.5327σ,
+    but the pin's budget said 3.6σ where the code's rule says 4.3σ — the ×1.2
+    headroom in TRANSIT.md's own gotcha list was added after that block was
+    produced, and frontier's builder merges one planet's run into the
+    previous file, so the stale block survived. Two full runs here agree with
+    each other exactly. So the record beside this code is its OWN full run
+    (both planets, one rule); frontier's files sit beside it as *.frontier.*
+    for the diff and are never built from. The headline TrES-2 interval is
+    unchanged ([0.1095, 0.3260], monotone rung); under nonnegativity alone the
+    ceiling now reads "does not close below 1" (1.2859) instead of 0.978.
+    FOR FRONTIER'S NEXT SESSION (report, do not edit): its site/transit page
+    shows the stale TrES-2 block.
+    Looked at at 1440 and 390 on the derived record: the TrES-2 section now
+    reads 4.3σ and "does not close below 1"; one figure change from looking —
+    the folded-curve figure's axis captions sat on the tick rows (the same
+    collision the occultation figure had) and sit clear now.
+    · THE LIGHT PORTS ARE DONE. certifier-core + blind-spot stay DEFERRED one
+      frontier session: 12 MB, a 75-minute formal run in a battery, records
+      that copy but cannot be regenerated, and an identity control found
+      vacuous a day ago. The toolchain is installed.
 
   ── THE ZENODO TITLE: APPLIED THROUGH THE INTEGRATION ── The operator asked
     for the best titles and the update, then pointed at the working

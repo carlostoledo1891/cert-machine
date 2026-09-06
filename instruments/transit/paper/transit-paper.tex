@@ -1,0 +1,276 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}[proposition]{Corollary}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+
+\input{figures}
+
+\title{What a transit light curve forces about a planet's radius\\
+when nothing is assumed about the star}
+\author{Carlos Toledo\thanks{Contact: carlos@carlostoledo.co.
+Preprint v1.0. % [OWNER: affiliation, acknowledgments and any AI-assistance
+% disclosure wording are yours to set before deposit.]
+}}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The depth of a planetary transit measures the stellar light blocked, and how
+much light sits where the planet passes is fixed by a limb-darkening law that is
+not measured for the star in question. Published radius ratios therefore carry an
+atmosphere model inside them. We ask instead what the photometry forces on its
+own. Writing the stellar surface brightness as an arbitrary nonnegative measure
+$\mu$ on the unit disc, normalised so that the out-of-transit flux is one, every
+photometric datum becomes a two-sided \emph{linear} constraint on $\mu$, and the
+set of radius ratios consistent with the light curve is decided exactly: a value
+is admitted by exhibiting an atomic measure and refuted by a Farkas certificate
+verified over the continuum in interval arithmetic. On Kepler short-cadence
+photometry of TrES-2\,b and Kepler-7\,b the resulting intervals contain every
+published value for each planet and are strongly one-sided. We give the reason
+in closed form: for $k<b$ the circle of radius $r<b-k$ is never occulted, so any
+amount of light may hide there and only the normalisation notices, which makes
+the set of achievable depth vectors star-shaped about the origin. Light can hide
+and cannot un-hide, so the photometry bounds the planet tightly from below and
+loosely from above --- and the upper bound quoted in the literature is bought
+almost entirely by the assumption that the star does not brighten outward.
+\end{abstract}
+
+\section{The constraint set}
+
+Let the star have unit radius and circularly symmetric specific intensity
+$I(r)\ge 0$ on $r\in[0,1]$. Write the flux emitted between $r$ and $r+dr$ as
+$d\mu(r)=2\pi r I(r)\,dr$, so that $\mu$ is a nonnegative measure and the
+statement that the light curve equals one outside transit is exactly
+\begin{equation}
+\int_0^1 d\mu = 1 .
+\label{eq:norm}
+\end{equation}
+A planet of radius $k=R_p/R_\star$ whose centre lies at sky-plane distance $z$
+from the stellar centre covers a fraction
+\begin{equation}
+w(r;z,k)\;=\;\frac{1}{\pi}\arccos\!\Big(\mathrm{clamp}\Big[\frac{z^2+r^2-k^2}{2zr},-1,1\Big]\Big)
+\label{eq:kernel}
+\end{equation}
+of the circle of radius $r$, so the missing flux at that epoch is
+$\int_0^1 w(r;z,k)\,d\mu(r)$.
+
+\begin{remark}
+The clamp in \eqref{eq:kernel} is the entire case analysis. The argument is
+$\le -1$ exactly when $z+r\le k$, which is when the circle lies wholly behind the
+planet and the covered fraction is $1$; it is $\ge 1$ exactly when $r+k\le z$ or
+$r\ge z+k$, which is when the two do not meet. So \eqref{eq:kernel} \emph{is} the
+function on all of its domain, not an approximation valid on one regime, and an
+interval enclosure of it requires no branching --- which matters, because
+$w$ has a square-root kink in $r$ at $r=|z-k|$ and $r=z+k$ where $\partial_r w$
+is unbounded, so a Lipschitz or second-order margin cannot close the continuum
+here and interval subdivision must.
+\end{remark}
+
+For a circular orbit of period $P$, scaled semi-major axis $a/R_\star$ and impact
+parameter $b$, $z(t)=\sqrt{(a/R_\star)^2\sin^2\theta+b^2\cos^2\theta}$ with
+$\theta=2\pi t/P$, so $z(0)=b$. Grouping the folded photometry into $m$ bins with
+measured depths $d_j$ and a stated allowance $\varepsilon_j$, define
+\begin{equation}
+S(k)\;=\;\Big\{\mu\ge 0 \ \text{on}\ [0,1]\ :\ \int d\mu=1,\quad
+l_j\le \int W_j\,d\mu \le u_j,\ j=1,\dots,m\Big\},
+\label{eq:S}
+\end{equation}
+$W_j(r)=w(r;z(t_j),k)$ and $[l_j,u_j]=[d_j-\varepsilon_j,\,d_j+\varepsilon_j]$.
+No limb-darkening law, no smoothness, no monotonicity, no pixel basis and no
+prior enter \eqref{eq:S}.
+
+\section{Feasibility is a hull question}
+
+\begin{proposition}\label{prop:hull}
+$S(k)\neq\emptyset$ if and only if
+$\operatorname{conv}\{W(r):r\in[0,1]\}\cap\prod_j[l_j,u_j]\neq\emptyset$, where
+$W(r)=(W_1(r),\dots,W_m(r))$.
+\end{proposition}
+
+\begin{proof}
+By \eqref{eq:norm} $\mu$ is a probability measure, so $\int W\,d\mu$ is a
+barycentre of $\{W(r)\}$ and lies in its convex hull; conversely every point of
+the hull is $\int W\,d\mu$ for a finitely supported $\mu\ge0$ of unit mass, by
+Carath\'eodory.
+\end{proof}
+
+Proposition~\ref{prop:hull} makes both verdicts constructive. When the hull meets
+the box, the meeting point is a finite convex combination, i.e.\ an atomic
+measure that can be exhibited and re-checked bin by bin. When it misses, a
+separating direction certifies it:
+
+\begin{proposition}[refutation certificate]\label{prop:farkas}
+Suppose the kernel is only known to lie between $W^{\mathrm{lo}}_j$ and
+$W^{\mathrm{hi}}_j$ pointwise (as it is when the orbit is a box rather than a
+point, and when a bin spans a range of epochs). If there exist
+$\alpha,\beta\in\R_{\ge0}^m$ with
+\begin{equation}
+\min_{r\in[0,1]}\ \Big[\sum_j \alpha_j W^{\mathrm{lo}}_j(r)-\sum_j \beta_j W^{\mathrm{hi}}_j(r)\Big]
+\;>\;\sum_j \alpha_j u_j-\sum_j \beta_j l_j ,
+\label{eq:cert}
+\end{equation}
+then $S(k)=\emptyset$.
+\end{proposition}
+
+\begin{proof}
+Let $\mu\in S(k)$ and write $h$ for the bracketed function and $c=-\min_r h$.
+Since $\mu\ge0$ and $\int d\mu=1$, $\int (h+c)\,d\mu\ge0$, i.e.\
+$\int h\,d\mu\ge -c=\min_r h$. Because $\mu\ge0$ we also have
+$\int W^{\mathrm{lo}}_j d\mu\le\int W_j d\mu\le u_j$ and
+$\int W^{\mathrm{hi}}_j d\mu\ge \int W_j d\mu\ge l_j$, so
+$\int h\,d\mu\le\sum\alpha_j u_j-\sum\beta_j l_j$, contradicting \eqref{eq:cert}.
+\end{proof}
+
+The minimum in \eqref{eq:cert} is over a continuum. It is bounded below by
+subdividing $[0,1]$ and enclosing $h$ on each cell in outward-rounded interval
+arithmetic; the subdivision is adaptive and is refined in $z$ as well as in $r$,
+because the closed form \eqref{eq:kernel} mentions $z$ five times and over a
+$z$-interval of width $10^{-2}$ the naive enclosure of the area kernel of
+Section~\ref{sec:ladder} returned $[0.16,1.00]$ where the true value was $0.997$.
+Whatever multipliers are proposed, \eqref{eq:cert} is checked against the
+definition; the optimiser is never trusted.
+
+\section{The ladder is a change of kernel}\label{sec:ladder}
+
+An assumption about the star enters as a different kernel on the same machinery.
+
+\begin{proposition}\label{prop:mono}
+$I$ is nonnegative and non-increasing on $[0,1]$ if and only if
+$I(r)=\int_0^1 \mathbf 1\{r\le s\}\,d\nu(s)$ for a nonnegative measure $\nu$.
+Writing $d\nu'(s)=s^2\,d\nu(s)$, the constraint set becomes \eqref{eq:S} with
+$\mu$ replaced by $\nu'$ and $W_j(r)$ replaced by
+$\widetilde W_j(s)=A(s;z_j,k)/\pi s^2$, where $A(s;z,k)$ is the area of
+intersection of the disc of radius $s$ with the planet disc.
+\end{proposition}
+
+\begin{proof}
+The representation is the Lebesgue--Stieltjes decomposition of the non-increasing
+function $I$. Then
+$\int_0^1 w\,d\mu=\int_0^1\!\big[\int_0^s w(r;z,k)2\pi r\,dr\big]d\nu(s)
+=\int_0^1 A(s;z,k)\,d\nu(s)$ by Fubini, and $\int d\mu=\int \pi s^2 d\nu$, so
+normalising by $\pi$ gives the stated form.
+\end{proof}
+
+So ``the star does not brighten outward'' costs one substitution and no new code.
+Its price is read off in the units of the answer.
+
+\section{Why the answer is one-sided}
+
+\begin{proposition}[invisible core]\label{prop:core}
+Let $k<b$ and $r<b-k$. Then $w(r;z(t),k)=0$ for every $t$.
+\end{proposition}
+
+\begin{proof}
+$z(t)^2=(a/R_\star)^2\sin^2\theta+b^2\cos^2\theta\ge b^2$ because
+$a/R_\star\ge b$, so $z(t)\ge b$. If $r+k\le b\le z(t)$ the circle of radius $r$
+and the planet disc are disjoint and the covered fraction is zero.
+\end{proof}
+
+\begin{corollary}\label{cor:star}
+Fix $k<b$ and let $\mathcal D(k)=\{(\int W_j d\mu)_j : \mu\ge0,\ \int d\mu=1\}$
+be the set of achievable depth vectors. Then $\mathcal D(k)$ is star-shaped about
+the origin: if $d\in\mathcal D(k)$ then $\lambda d\in\mathcal D(k)$ for every
+$\lambda\in(0,1]$.
+\end{corollary}
+
+\begin{proof}
+Fix $r_0<b-k$ and put $\mu_\lambda=\lambda\mu+(1-\lambda)\delta_{r_0}$. It is
+nonnegative of unit mass, and by Proposition~\ref{prop:core} the added atom
+contributes nothing to any $\int W_j d\mu_\lambda$, which is therefore
+$\lambda\int W_j d\mu$.
+\end{proof}
+
+Corollary~\ref{cor:star} says the amplitude of a transit carries no information
+that the geometry does not already fix: a larger planet blocking a smaller share
+of a dimmer visible annulus reproduces the same depths exactly. What it cannot
+reproduce is the same \emph{duration} --- a larger planet reaches the limb
+earlier, and the visible annulus cannot be silent then. Light can hide and cannot
+un-hide, and that asymmetry is what the computed intervals show.
+
+\section{Photometry, and what was checked before anything was believed}
+
+Kepler short-cadence PDCSAP photometry is masked on the mission's own quality
+flag, cut into transits, and divided by a straight line fitted to each transit's
+out-of-transit baseline; the root-mean-square disagreement between the two
+baseline halves is carried into every error bar as a common-mode allowance.
+Three checks precede any enclosure.
+
+\emph{Are the stated errors honest?} The out-of-transit scatter of the binned
+curve is $1.02$ times the propagated PDCSAP errors. They are.
+
+\emph{Is the fold centred?} The archive ephemeris leaves Kepler-7\,b asymmetric
+under time reversal by $135$\,ppm against a $56$\,ppm floor; its mid-transit is
+$248$\,s out. A mis-centred fold is a systematic that looks exactly like a
+limb-darkening residual, so the fold is re-centred by minimising
+$\sum_t [F(+t)-F(-t)]^2$ over a shift and a period correction --- using the
+mirror symmetry of a transit and nothing else, with no law, no radius and no
+impact parameter.
+
+\emph{Does the pipeline reproduce the field?} A conventional quadratic
+limb-darkening fit of the same extracted curve gives $k=0.1253$ for TrES-2\,b,
+inside the published cluster $0.1239$--$0.1278$, at $\chi^2/\mathrm{dof}\approx0.9$.
+It does. The per-bin error budget used for the enclosure is then \emph{measured}
+rather than chosen: it is the smallest allowance that does not refuse that fit.
+
+\section{Results}
+
+\begin{figure}[t]\centering\figCurve
+\caption{TrES-2\,b, folded Kepler short-cadence photometry, with two exhibited
+witnesses. Both are nonnegative measures satisfying every stated constraint;
+their radius ratios differ by more than a factor of $1.6$.}\end{figure}
+
+\begin{figure}[t]\centering\figLadder
+\caption{Certified intervals for TrES-2\,b. Heavy bars: every value outside
+carries a verified refutation. Grey cores: a verified witness exists. Fine
+dashed lines: the published values, all of which lie inside.}\end{figure}
+
+\begin{figure}[t]\centering\figProfiles
+\caption{The two extreme witnesses, as the fraction of the star's light enclosed
+inside radius $r$. The shaded strip is the invisible core of
+Proposition~\ref{prop:core}. The small-planet witness places $1.1\%$ of the
+star's light there; the large-planet witness places $56.0\%$ --- the hiding of
+Corollary~\ref{cor:star}, exhibited rather than argued.}\end{figure}
+
+The intervals contain every published value for each planet, and are markedly
+one-sided in the direction Corollary~\ref{cor:star} predicts. The lower edge sits
+close beneath the conventional fit; the upper edge is far above it under
+nonnegativity alone and is pulled in substantially by the monotone rung of
+Proposition~\ref{prop:mono}. The quantity a published error bar reports is
+therefore not the width the photometry supports: it is the width the atmosphere
+model supports, and the two differ by a factor that this construction measures
+rather than assumes.
+
+\section{Limitations}
+
+The error budget is a per-bin box at $n\sigma$, which permits
+$\chi^2/\mathrm{dof}$ up to $n^2$ and is looser than the likelihood set behind a
+published bar; the like-for-like budget is the $\ell^2$ ball
+$\sum_j((v_j-d_j)/\sigma_j)^2\le \chi^2 m$, which is convex and needs no new
+machinery but does need a point-valued kernel, whereas a bin spanning a range of
+epochs makes every kernel interval-valued. The orbit is carried as a box handled
+by Proposition~\ref{prop:farkas}, which lets each bin's geometry vary
+independently and is therefore a relaxation --- wider than the truth, never
+narrower. Eccentricity is not carried. The star is taken circularly symmetric;
+spots and gravity darkening would replace the measure on $[0,1]$ by a measure on
+the disc, which changes the kernel and not the argument.
+
+Finally, one metered test exists and is not yet run. SDO/HMI watched Venus cross
+the Sun in June 2012: a real transit of a real star for which the apparent radius
+ratio is known from the ephemeris to about $0.1\%$ and the intensity profile is
+measured by the same instrument. The disc-integrated HMI keyword does contain the
+transit, under a $2900$\,ppm instrumental drift over the nine-hour window that is
+three times the $1000$\,ppm signal; forming the blocked-to-total ratio within
+each image cancels a global gain exactly and is the way in.
+
+\end{document}

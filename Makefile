@@ -61,6 +61,7 @@ test:
 	@printf "%-30s " "lattice-claims (pins+gate+regrade)"; $(PY) instruments/wiring/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "pqc geometry (SVP audit)"; $(NODE) instruments/pqc/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "occultation (convex bracket)"; $(NODE) instruments/occultation/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "transit (one-sided enclosure)"; $(NODE) instruments/transit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "wiring concord (JS vs Python)"; $(NODE) instruments/wiring/concord.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "newman box sweep"; $(NODE) instruments/trigmin/sweep-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lambda4 campaign"; $(NODE) instruments/lambda4/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL

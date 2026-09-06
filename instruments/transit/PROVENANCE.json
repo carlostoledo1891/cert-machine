@@ -1,0 +1,207 @@
+{
+  "what": "The transit without a law for the star: a certified enclosure on Rp/R* from Kepler short-cadence photometry (Kepler-7 b, TrES-2 b), assuming only that the stellar brightness profile is a nonnegative measure — and on the monotone rung, that it does not brighten outward. Feasibility is a hull question (Frank-Wolfe proposes a witness or a Farkas certificate; nothing in the optimiser is trusted: the witness is re-checked bin by bin, the certificate closed by interval subdivision). The interval is ONE-SIDED: light can hide in the core the planet never reaches and cannot un-hide.",
+  "liftedFrom": "/Users/carlostoledo/Documents/frontier-apps/experiments/transit",
+  "liftedOn": "2026-09-05",
+  "declaredPatches": {
+    "transit.js, enclose.js": "one require each: ../../lib/eqcert/interval.js -> ../interval/interval.js. The two files are byte-identical (the labs' interval library, lifted from sin-mfg into instruments/interval/); only the path changed."
+  },
+  "rule": "Copied byte-for-byte and pinned by sha256; frontier-apps has no git. fetch.js talks to archive.stsci.edu and is NEVER run by a battery: data/*.csv are the pinned extractions. The paper is a pinned artifact (TeX + PDF as typeset there with tectonic); figures.tex is regenerated from the records by paper/make-figures.js and must reproduce.",
+  "acceptance": {
+    "node transit.test.js": "36 cases, all green (0.2 s)",
+    "node enclose.test.js": "22 cases, all green (3 s)",
+    "node reds.js": "7 reds fire (28 s), including the deliberately broken control — the true k judged under the wrong impact parameter — refused",
+    "verifiedOn": "2026-09-05",
+    "make-page-data.js": "10.4 min; reproduces Kepler-7 b to the digit and refutes the pinned TrES-2 b budget — see record"
+  },
+  "files": [
+    {
+      "file": "TRANSIT.md",
+      "sha256": "5d867df32df6de8dc4ac4ce99bb33a6728e0dadb42a41169dd800dd69ee87ebf",
+      "sourceSha256": "5d867df32df6de8dc4ac4ce99bb33a6728e0dadb42a41169dd800dd69ee87ebf",
+      "bytes": 10005,
+      "patched": false
+    },
+    {
+      "file": "bins.js",
+      "sha256": "ea2d96257fad800bf59dfc9cbd6b8ee14e1e44cea78affde99e268e42ef256cc",
+      "sourceSha256": "ea2d96257fad800bf59dfc9cbd6b8ee14e1e44cea78affde99e268e42ef256cc",
+      "bytes": 2089,
+      "patched": false
+    },
+    {
+      "file": "centre.js",
+      "sha256": "0fc6f8cd7aa995371dfaa3ac121f13f447cee35773cc3c41e8eef2d7776875fd",
+      "sourceSha256": "0fc6f8cd7aa995371dfaa3ac121f13f447cee35773cc3c41e8eef2d7776875fd",
+      "bytes": 2751,
+      "patched": false
+    },
+    {
+      "file": "enclose.js",
+      "sha256": "686f944c935baf83b83e2669e23b76ae3f899606efa09d25ff85b73951373a9f",
+      "sourceSha256": "738ad59fa5e862281683bbd94452a7e7c984bf9184a651a3388ebb58aec4ade5",
+      "bytes": 23732,
+      "patched": true
+    },
+    {
+      "file": "enclose.test.js",
+      "sha256": "7a78542efe1989a405c8975ff2bb2bff08f69009fb980f975a95cac4aecceb29",
+      "sourceSha256": "7a78542efe1989a405c8975ff2bb2bff08f69009fb980f975a95cac4aecceb29",
+      "bytes": 7285,
+      "patched": false
+    },
+    {
+      "file": "fetch.js",
+      "sha256": "ddf13f39011974d6ba506b9b74c620e6774a09d1daaa643f9d768eadf469fd05",
+      "sourceSha256": "ddf13f39011974d6ba506b9b74c620e6774a09d1daaa643f9d768eadf469fd05",
+      "bytes": 6928,
+      "patched": false
+    },
+    {
+      "file": "fit.js",
+      "sha256": "2b3d2357926b8ce740353ed98a9590d0fbda9c60aec385dc7bdcba59922221fe",
+      "sourceSha256": "2b3d2357926b8ce740353ed98a9590d0fbda9c60aec385dc7bdcba59922221fe",
+      "bytes": 2705,
+      "patched": false
+    },
+    {
+      "file": "fits.js",
+      "sha256": "1d59bc2d2a6114d91ef46dc9280b819961ccd5bff0520ab541a4b2a90777c999",
+      "sourceSha256": "1d59bc2d2a6114d91ef46dc9280b819961ccd5bff0520ab541a4b2a90777c999",
+      "bytes": 4446,
+      "patched": false
+    },
+    {
+      "file": "make-page-data.js",
+      "sha256": "b22fd062fef027e60bd11d6cdd1fdc20d5bdd8b1fafe4ebaba5c171965af2ab4",
+      "sourceSha256": "b22fd062fef027e60bd11d6cdd1fdc20d5bdd8b1fafe4ebaba5c171965af2ab4",
+      "bytes": 8260,
+      "patched": false
+    },
+    {
+      "file": "reds.js",
+      "sha256": "86efafbe4032850972e5fa57dfea27a2d68440d9f3a1218b75d3d4ed7cc070e6",
+      "sourceSha256": "86efafbe4032850972e5fa57dfea27a2d68440d9f3a1218b75d3d4ed7cc070e6",
+      "bytes": 7984,
+      "patched": false
+    },
+    {
+      "file": "transit.js",
+      "sha256": "be4888608065e556d27d175e21ffcdae77f420681d6a77c74e6a8cd292485899",
+      "sourceSha256": "9bf7da54ab6d8284c71d0014a68f9e354487918656abcd0e06ef625e6e570ea0",
+      "bytes": 10055,
+      "patched": true
+    },
+    {
+      "file": "transit.test.js",
+      "sha256": "cc323ef88825b50b5f13cfce8c8903882879101812fb16b588b3c66ed154368d",
+      "sourceSha256": "cc323ef88825b50b5f13cfce8c8903882879101812fb16b588b3c66ed154368d",
+      "bytes": 8101,
+      "patched": false
+    },
+    {
+      "file": "witness-curves.js",
+      "sha256": "b4c9886272d2ed5dce1a4fbf0f6df3b412e1780dc5d54e6def65e2bf366ad056",
+      "sourceSha256": "b4c9886272d2ed5dce1a4fbf0f6df3b412e1780dc5d54e6def65e2bf366ad056",
+      "bytes": 3021,
+      "patched": false
+    },
+    {
+      "file": "data/kepler7-sc.csv",
+      "sha256": "ee2dfef1e87c01b545d9d56912370480b4e1176994b5129fc6b5b590a7700bb4",
+      "sourceSha256": "ee2dfef1e87c01b545d9d56912370480b4e1176994b5129fc6b5b590a7700bb4",
+      "bytes": 1529226,
+      "patched": false
+    },
+    {
+      "file": "data/published.csv",
+      "sha256": "8c34dc835745e0c80138541745ed91ebce33f8727e43e88b04e9c7f94c865701",
+      "sourceSha256": "8c34dc835745e0c80138541745ed91ebce33f8727e43e88b04e9c7f94c865701",
+      "bytes": 8160,
+      "patched": false
+    },
+    {
+      "file": "data/tres2-sc.csv",
+      "sha256": "368d689056809a697a3dc29d410004c8f6e586784d6810df19ff1264f0d4f751",
+      "sourceSha256": "368d689056809a697a3dc29d410004c8f6e586784d6810df19ff1264f0d4f751",
+      "bytes": 447656,
+      "patched": false
+    },
+    {
+      "file": "out/page.frontier.json",
+      "sha256": "47864678c4593664870bce9c4be73fd3cf02e81bf50f611925af835b54e0ca40",
+      "sourceSha256": "47864678c4593664870bce9c4be73fd3cf02e81bf50f611925af835b54e0ca40",
+      "bytes": 97191,
+      "patched": false,
+      "note": "frontier's record as it was ported, kept for the diff"
+    },
+    {
+      "file": "out/page.json",
+      "sha256": "4ff3059674bbfde8c372a0a42fa74ee7ccf72c48f81b8bfc500001875f7c8cbd",
+      "sourceSha256": null,
+      "bytes": 95473,
+      "patched": false,
+      "derivedHere": true,
+      "note": "produced here by the pinned code from the pinned data (make-page-data.js, 10.4 min; witness-curves.js; paper/make-figures.js)"
+    },
+    {
+      "file": "out/witness.frontier.json",
+      "sha256": "103a14cd77c859be9928f2059944313c98d43ab2967c86b52e47906e8f802c99",
+      "sourceSha256": "103a14cd77c859be9928f2059944313c98d43ab2967c86b52e47906e8f802c99",
+      "bytes": 68865,
+      "patched": false,
+      "note": "frontier's record as it was ported, kept for the diff"
+    },
+    {
+      "file": "out/witness.json",
+      "sha256": "ad765f3c18847c7f9cf723fe347eec98684c4901b204d5b8ab6ca1cde5d5f3c1",
+      "sourceSha256": null,
+      "bytes": 68191,
+      "patched": false,
+      "derivedHere": true,
+      "note": "produced here by the pinned code from the pinned data (make-page-data.js, 10.4 min; witness-curves.js; paper/make-figures.js)"
+    },
+    {
+      "file": "paper/figures.frontier.tex",
+      "sha256": "6bf1b1489741928cd23f0089245af2dcb8a1cbcdc88da201a95fe2590646ad9a",
+      "sourceSha256": "6bf1b1489741928cd23f0089245af2dcb8a1cbcdc88da201a95fe2590646ad9a",
+      "bytes": 19823,
+      "patched": false,
+      "note": "frontier's record as it was ported, kept for the diff"
+    },
+    {
+      "file": "paper/figures.tex",
+      "sha256": "e037ec13982403e116872ae016d6122df62e2f5a016c99a08d8246377d3ed328",
+      "sourceSha256": null,
+      "bytes": 19381,
+      "patched": false,
+      "derivedHere": true,
+      "note": "produced here by the pinned code from the pinned data (make-page-data.js, 10.4 min; witness-curves.js; paper/make-figures.js)"
+    },
+    {
+      "file": "paper/make-figures.js",
+      "sha256": "b50b1ac413d7d871820d0e967ed5abadb76d9ddc3b95c5d13e394432f5f3fabf",
+      "sourceSha256": "b50b1ac413d7d871820d0e967ed5abadb76d9ddc3b95c5d13e394432f5f3fabf",
+      "bytes": 4375,
+      "patched": false
+    },
+    {
+      "file": "paper/transit-paper.pdf",
+      "sha256": "fcd4debf9046824137e51d0cc2482e1614ad544d92c073e410babf12a9b27709",
+      "sourceSha256": "fcd4debf9046824137e51d0cc2482e1614ad544d92c073e410babf12a9b27709",
+      "bytes": 131237,
+      "patched": false
+    },
+    {
+      "file": "paper/transit-paper.tex",
+      "sha256": "793d79337d7c2c1c70afc0f78d379b707dec27bf9fbcfee35a9823ede2c32bf9",
+      "sourceSha256": "793d79337d7c2c1c70afc0f78d379b707dec27bf9fbcfee35a9823ede2c32bf9",
+      "bytes": 13526,
+      "patched": false
+    }
+  ],
+  "record": {
+    "what": "THE PINNED RECORD WAS MIXED, AND THE PIPELINE PROVED IT. frontier's out/page.json carried a Kepler-7 b block the pinned code reproduces to the digit and a TrES-2 b block it does not: same fit, same worstSigma 3.5327, but budget nsig 3.6 where the code says ceil(3.5327 x 1.2 x 10)/10 = 4.3 — the 1.2 headroom (TRANSIT.md: 'calibrating the error budget to exactly the worst bin leaves no headroom') was added after that block was produced, and frontier's builder MERGES a single-planet run into the previous file, so the older block survived. Two full runs here (under heavy and light load) agree with each other exactly and disagree with the pin only where the pin is stale: TrES-2 b nonnegativity-only outer [0.0898, 1.2859] against the pin's [0.0882, 0.9780]; every other rung of both planets identical.",
+    "resolution": "The record beside this code is the code's own full run, both planets, one budget rule (out/page.json, out/witness.json, paper/figures.tex). frontier's files are kept beside it as *.frontier.* for the diff and never built from. Numbers the page states come from the derived record. Reported to the operator for frontier's next session: their site/transit page shows the stale TrES-2 block.",
+    "determinism": "run 1 (2026-09-05, under a battery + Chrome + iCloud load, 11.6 min) and run 2 (2026-09-06, 10.4 min) produced identical results; no Math.random, no time bound (iteration limits fixed: grid 900, iters 260, inner 45, maxCells 120000)."
+  }
+}

@@ -7,7 +7,7 @@
    the same names with the same permitted patterns. THE BUILDER ONLY READS:
    instruments/occultation/out/page.json, pinned there and rebuilt byte for
    byte by its battery. The link to the transit page is prose until that page
-   is ported — a link to a page that does not exist is fiction. ONE figure
+   is ported (it is, since later the same evening). ONE figure
    change, found by looking: the x-axis caption of the envelope figure sat on
    the tick row (y = h - 12) and overprinted the 100 km tick and the right
    'saw nothing' label; it sits one line lower now. */
@@ -214,7 +214,7 @@ const body = `
     </div>
 
     <p class="small reveal" style="margin-top:var(--s-5);color:var(--ink-5);">
-      Data transcribed from ${esc(D.source)}. Companion to the transit instrument (frontier-apps; not yet ported here),
+      Data transcribed from ${esc(D.source)}. Companion to <a href="../transit/index.html" style="color:inherit;">the transit page</a>,
       which finds the same asymmetry in exoplanet photometry, and to <a href="../curveset/index.html" style="color:inherit;">the calibration envelope</a>,
       whose closed form this is.
     </p>

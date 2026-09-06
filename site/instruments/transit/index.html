@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The transit, without a law for the star — cert-machine</title>
+<meta name="description" content="A certified enclosure on the planet-to-star radius ratio from Kepler short-cadence photometry, assuming only that the stellar brightness profile is nonnegative.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="The transit, without a law for the star — cert-machine">
+<meta property="og:description" content="A certified enclosure on the planet-to-star radius ratio from Kepler short-cadence photometry, assuming only that the stellar brightness profile is nonnegative.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../design/tokens.css">
+<style>
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 var(--gutter);height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px var(--gutter) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* shell.css — the navbar and the measure scale, and nothing else. Everything an
+   /instruments page looks like beyond this is that page's own business. */
+/* THE SECTION'S OWN NAV IS GONE (2026-09-05) — design/nav.js is the site's
+   one nav and this section carries it like every other page. What is left here
+   is the consequence: the site nav is FIXED at 60px, so the page has to start
+   below it. The reports' shell does the same thing with its own padding. */
+/* THE BOX MODEL, SHARED — and it was not, until 2026-09-05. The
+   `*{box-sizing:border-box}` reset was declared in SIX page.css files and in
+   bench.css, and in the shell not at all. A page that did not carry its own copy
+   got content-box, so `.wrap`'s max-width:1200 became 1200 PLUS its 48px
+   gutters: /instruments/graph rendered 1296 wide and sat its whole column at
+   x=120 while every other page on the site sits at x=168. The site's one-left-
+   edge claim was being upheld by six identical copies of a reset, any one of
+   which could have gone missing — and the seventh page proved it. */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* THE PAGE'S OWN TYPOGRAPHY, SHARED — and it was not, until 2026-09-05.
+   Six page.css files under playground/ declared their own `body` rule, four of
+   them with different bodies, and the shell declared none. Every page that
+   happened to carry one looked right and any page that did not fell back to the
+   browser default — which is how /instruments/graph shipped its first build in
+   TIMES ROMAN while every other page on the site is Inter. A foundation
+   declared six times is not a foundation.
+
+   The page-local copies came out later the same day, one file at a time, each
+   page pixel-diffed at 1440 and 390 before the next: curveset, neural-geometry,
+   shape-hunt, simplex, bench.css (four pages) and index.css were byte-identical
+   to the two rules above and went entirely; interferometer keeps its own
+   margin/padding zeroing and the three body properties the shell does not set. */
+body { margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body);
+  line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
+body { padding-top: 60px; }
+
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
+
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
+
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
+
+/* ---- THE TABLE RULE, once ------------------------------------------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. Four /instruments pages scrolled the whole document sideways
+   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
+   answer-shape 78 — every one of them a nowrap table sitting in a container
+   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
+   rule that made it scroll lived in base.css and that page never linked it.
+   One class, one rule, declared where every page already inlines it. */
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
+     table sliced mid-character with nothing to indicate there was more; a box
+     that hides a column without saying so is the same defect as a number
+     without its units. The four layers are the standard scroll-shadow: two
+     ground-coloured covers pinned to the CONTENT (background-attachment:local,
+     so they slide away as you scroll) over two shadows pinned to the BOX, so a
+     shadow shows exactly when there is something past that edge and vanishes
+     when there is not. No script, and nothing to keep in sync. */
+  background:
+    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--bg-raised); }
+.tw > table { margin: 0; }
+.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }
+
+
+/* ---- the eyebrow: seven declarations before this, and the weight was the
+   thing they disagreed about. The report engine sets 500, bench.css set none
+   at all, and interferometer set 500 on its own — so /instruments ran its
+   eyebrows a weight lighter than the reports on every page but one. 500, once,
+   on both sides of the site. ---- */
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); font-weight: 500;
+  letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+
+/* ---- the hero. The bottom padding is the LARGER of the two that were in
+   service; curveset's tighter one was not a decision, it was a copy that had
+   drifted. A page wanting a different hero (the gathering page does, and says
+   so) overrides these two properties and nothing else. ---- */
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title);
+  margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3);
+  color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+/* ---- the footer, with the margin-top the crossed pages had and the written
+   ones did not ---- */
+.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
+.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+.foot a { color: var(--ink-4); text-decoration: none; }
+.foot a:hover { color: var(--ink-2); }
+
+/* ---- the panel: a raised box with a hairline. Spacing between consecutive
+   panels is a sibling rule, so a page never adds a margin-top of its own and
+   the two versions cannot disagree about which edge carries the gap. ---- */
+.panel { background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-l); padding: var(--s-5); }
+.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
+
+/* ---- FIGURE PRIMITIVES ----------------------------------------------------
+   THE DEFECT THIS CLOSES, and it is the one the operator saw as "lots of svg
+   elements are black". The gathering page embeds each instrument's card art
+   but NOT the stylesheet that colours it, and an SVG element whose class
+   resolves to nothing paints nothing — the default stroke is 'none'. Measured
+   on /instruments before this: 12 kinds of classed element painting nothing,
+   including 63 chords on the affect card and 60 on answer-shape, which is why
+   those two plates measured 1.4% and 1.2% ink and read as black boxes.
+
+   A figure vocabulary used by more than one page is a shared component, the
+   same as a hero or a footer. Phase 3 moved the furniture and left these.  */
+.ch { stroke: var(--ink-2); }
+.ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
+/* .clo CLOSES THE WALK .ord DRAWS, and it is the SAME data at the SAME
+   standing — the step from the last item back to the first, computed exactly
+   the way every other step is. It was dashed to mark that ROLE, which is the
+   forbidden use: dash carries standing, never identity or role. The legitimate
+   channel was already doing the work — .ord is --ink at 0.9, .clo is --ink-3 —
+   so dropping the dash costs nothing, exactly as it did on answer-shape.
+   See design/CONTRACT.md. (No backticks in this comment on purpose: it lives
+   inside a template literal, and one backtick ends the literal.) */
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-linecap: round; }
+.mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
+.pt { fill: var(--ink-2); }
+/* .lb HAD NO FONT-SIZE, and that is two review defects in one line. Each
+   instrument page sets 8.5px on its own svg.pl .lb; the GATHERING page inlines
+   no page stylesheet, so every embedded card art fell back to the browser
+   default of 16px — in viewBox units, on a plate scaled about 1.5x. So the
+   affect card's labels rendered near 24px and ran clean out of the card
+   ("delighted" sliced at the right edge, "miserable" cut to "serable"), and
+   adjacent cards showed wildly different label sizes because each viewBox
+   scales differently. The pages' own 8.5px rules are more specific and still
+   win; this is the floor that was missing. */
+.lb { fill: var(--ink-4); font-family: var(--font-mono); font-size: 8.5px; }
+.ax line { stroke: var(--border-strong); }
+.ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+/* a horizontal reference line at the asked value, and the two drop lines from
+   it to the baseline. "an axis, a ruler, a ghost, a reference circle" is the
+   contract's own definition of a GUIDE, so they take the guide pattern rather
+   than a fourth invented one. */
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-std { fill: var(--ink); }
+.cs-tick { fill: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
+/* PAINT LIVES HERE; ANCHORING STAYS ON THE PAGE (2026-09-05). These four were
+   defined ONLY in playground/curveset/page.css, which curveset inlines and the
+   gathering page does not. /instruments embeds curveset's card art WITHOUT that
+   stylesheet, so all four fell through to SVG's default BLACK fill and measured
+   1.06:1 against the plate — the same family as the twelve invisible kinds
+   caught on 2026-09-05, of which these four were missed because they are text
+   and a dot rather than strokes.
+
+   And they were dim even where they DID paint: .cs-axname at --ink-5 is
+   2.24:1, under the 3:1 floor this repository enforces everywhere else. Each
+   is lifted one rung — axis names to --ink-4 (3.97:1), the two data labels,
+   which carry words a reader has to read ("reported ±550 lb", "unbounded above
+   — over range"), to --ink-3. */
+.cs-fitdot   { fill: var(--ink-2); }
+.cs-axname   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); letter-spacing: 0.08em; }
+.cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+.cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+
+/* ---- THE GRAMMAR. Stroke pattern carries standing; see ../warrant.js for the
+   rule about when the channel is free. A REFUSED mark has no stroke at all —
+   the void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML. In an <svg> these set a stroke; on a word they set
+   a voice, and the voice uses THE SAME DASH PATTERN as the line — a computed
+   value is underlined dashed exactly as a computed curve is dashed, a chosen
+   value dotted. Decided carries no mark: it is the voice the rest of the site
+   is written in, and marking it would make the exception the rule.
+
+   The underline does the work and brightness only supports it, because
+   dimness alone reads as low confidence and standing is not confidence — the
+   page that defines the grammar says so in as many words. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+/* a REFUSED value is not printed dim — it is NOT PRINTED. What the page shows
+   instead is the reason, and this is the voice it says it in. */
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG
+   <pattern>, and a pattern is addressed by an id that lives in the figure that
+   defines it. A shared rule would point every page at one page's id. */
+
+/* ---- the standing legend. Rendered by warrant.js, laid out by
+   design/grid.js: the column count is derived from data-n, not declared. ---- */
+/* align-items:start on the ROW, so every label sits on one line even when a
+   gloss wraps to two — the swatches were floating to the middle of whichever
+   item happened to be tallest. */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+</style>
+<style>/* bench.css — the structural shim for every page crossed from the bench.
+
+   Three pages here (plates, exact-geometry, affect) carry markup that came over
+   byte-for-byte, so they carry the bench's structural class names. Rather than
+   rewrite them and risk moving a number, those classes are declared ONCE here,
+   in this repository's tokens. Declared three times they would diverge, and the
+   divergence would be invisible: all three would still look like pages.
+
+   The plate BODY was crossed from the bench verbatim, so it carries the bench's
+   structural class names. Rather than rewrite eight plates' worth of markup and
+   risk moving a number, those classes are re-declared here in THIS repository's
+   tokens. Nothing bench-side is imported; every value below is one of ours.
+
+   ONE DELIBERATE DIFFERENCE. The bench's `.reveal` parks an element at
+   opacity 0 and waits for an observer. A page whose first frame is blank is a
+   page that shows nothing to a thumbnail, a shared link, or a reader who
+   scrolls fast — so here `.reveal` is a no-op and everything is visible at rest. */
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; } a { color: inherit; }
+.reveal { opacity: 1; transform: none; }
+h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title); text-wrap: balance; }
+.lede { max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
+.hero-meta .item { display: grid; gap: 3px; }
+.hero-meta .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-5); }
+.hero-meta .v { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); }
+
+/* the section rhythm is the one our own pages use — same padding, same rule —
+   so that a reader moving between a page written here and a page crossed from
+   the bench cannot feel the seam. Before this the crossed pages were a third
+   tighter and drew a rule only BETWEEN sections. */
+.section { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
+.hero + .section, .section:first-of-type { border-top: 0; }
+h2.t2, h3.t2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); text-wrap: balance; }
+.prose { color: var(--ink-3); display: grid; gap: var(--s-4); max-width: var(--read); }
+.prose h2 { margin-bottom: var(--s-2); }
+.prose em { color: var(--ink-2); font-style: italic; }
+
+svg { display: block; width: 100%; height: auto; }
+img { max-width: 100%; }
+/* THE LEGEND IS STILL DECLARED THREE TIMES — here, in curveset/page.css and as
+   a flex variant on neural-geometry — and it holds 3, 3, 4, 5 and 7 items on
+   five pages while declaring three columns on four of them. Deriving the count
+   with auto-fit was tried in phase 2 and MEASURED WORSE: seven items in five
+   columns is 5+2, four more left edges than 3+3+1. The component needs
+@media (min-width: 700px) { .legend { grid-template-columns: repeat(3, 1fr); } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ---- flow spacing ---------------------------------------------------------
+   The crossed bodies rely on the bench's base stylesheet for the space between
+   a heading and the paragraph under it. That stylesheet is not imported here —
+   the port rule is that no bench CSS crosses — so the flow is re-declared, in
+   our spacing scale, as adjacency rules rather than per-element margins. */
+.section h1 + *, .section h2 + *, .section h3 + * { margin-top: var(--s-4); }
+.section .eyebrow + h1, .section .eyebrow + h2, .section .eyebrow + h3 { margin-top: var(--s-2); }
+.section p + p, .section p + .nums, .section p + .pred, .section p + table,
+.section p + .lede, .section .lede + p { margin-top: var(--s-4); }
+.section ul, .section ol { margin: var(--s-4) 0 0; padding-left: 1.15em; color: var(--ink-3); }
+.section li + li { margin-top: var(--s-2); }
+.section table { width: 100%; border-collapse: collapse; margin-top: var(--s-5);
+  font-family: var(--font-mono); font-size: var(--text-mono); }
+.section th, .section td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.section th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.section code { font-family: var(--font-mono); font-size: 0.86em; color: var(--ink-2); }
+.section b, .section strong { color: var(--ink); font-weight: var(--weight-medium); }
+h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(--title); text-wrap: balance; }
+.wide .container { max-width: var(--container); }
+
+
+.section-head { display:flex; justify-content:space-between; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; margin-bottom:var(--s-4); }
+.mono { font-family:var(--font-mono); font-size:0.92em; color:var(--ink-2); }
+.t1 { font-size:clamp(1.5rem,1rem+1.6vw,2.1rem); line-height:1.12; } .t2 { font-size:clamp(1.25rem,1rem+1vw,1.6rem); }
+.section { padding:clamp(2.5rem,6vh,4.5rem) 0; border-top:1px solid var(--border); }
+.small { font-size:var(--text-small); color:var(--ink-3); } .dim { color:var(--ink-4); } .num { font-variant-numeric:tabular-nums; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; }
+.stat { background:var(--bg-raised); padding:var(--s-5); }
+.stat .num { font-family:var(--font-mono); font-size:clamp(1.3rem,1rem+1vw,1.9rem); color:var(--ink); }
+.stat .dim { margin-top:var(--s-2); font-family:var(--font-mono); font-size:var(--text-eyebrow); }
+
+/* report.css — the shell for a scrolling report page.
+ *
+ * WHAT THIS FILE CLAIMS:
+ *   .note              the boxed monospace aside that carries a page's findings
+ *   .grid              a grid of shaded cells; `--f` on a cell shades it 0..1
+ *   .figrow .figcap    figure rows and their captions
+ *
+ * `.grid-t` and `.gr` are the two names three builders independently invented
+ * for the same grid. They are aliased here rather than renamed, so the
+ * definition lives in one place without rewriting markup that works; new pages
+ * use `.grid`.
+ *
+ * Inlined by the builders that need it, not linked: a published page here is one
+ * self-contained file. Everything else is tokens.css + base.css. */
+
+.note {
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); line-height: 1.75;
+  color: var(--ink-4); background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius-s);
+  padding: var(--s-4); margin-top: var(--s-4);
+}
+.note b { color: var(--ink-2); font-weight: 500; }
+.note em { color: var(--ink-3); font-style: italic; }
+
+.grid, .grid-t, .gr {
+  display: grid; gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  overflow: hidden; margin-top: var(--s-5);
+}
+.grid > div, .grid-t > div, .gr > div {
+  background: var(--bg-raised); padding: 8px var(--s-4);
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.grid .h, .grid-t .h, .gr .h {
+  color: var(--ink-5); font-size: 9px; letter-spacing: .11em; text-transform: uppercase;
+  display: flex; align-items: center;
+}
+.grid .ml, .gr .ml { color: var(--ink-3); }
+.grid .hit, .grid-t .hit { color: var(--ink); }
+/* a shaded cell: set --f in [0,1] inline; the shade is the only thing it means */
+.grid .c, .gr .c { background: color-mix(in srgb, #f6f6f8 calc(var(--f) * 13%), var(--bg-raised)); }
+.grid .c b, .gr .c b { color: var(--ink); font-weight: 500; }
+
+.figrow { display: grid; gap: var(--s-4); }
+.figrow figure { margin: 0; }
+.figcap {
+  display: flex; justify-content: space-between; gap: var(--s-3); margin-top: 6px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+}
+.figcap .k { color: var(--ink-2); }
+.figcap .v { color: var(--ink-5); text-transform: none; letter-spacing: .04em; }
+
+
+ .ink-decided  { stroke-dasharray: none; }
+ .ink-assumed  { stroke-dasharray: 5 4; }
+ .ink-assumed-sm { stroke-dasharray: 1.5 2; }
+ .ink-chosen   { stroke-dasharray: 1 5; stroke-linecap: round; }
+ .ink-chosen-sm { stroke-dasharray: 1 3; stroke-linecap: round; }
+ .ink-guide    { stroke-dasharray: 2 3; }
+.fg{width:100%;height:auto;display:block;background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-m);}
+.fg .ax{font-family:var(--font-mono);font-size:8.5px;fill:var(--ink-5);}
+.fg .lb{font-family:var(--font-mono);font-size:9.5px;fill:var(--ink-3);}
+.prose p{margin-top:var(--s-4);color:var(--ink-3);line-height:var(--leading-body);}
+.prose b{color:var(--ink-2);font-weight:500;} .prose em{color:var(--ink-4);}
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<main>
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow reveal">Kepler short cadence · a certified enclosure · no limb-darkening law anywhere</div>
+    <h1 class="display reveal" style="margin-top:var(--s-3);max-width:19ch;">The transit, without a law for the star.</h1>
+    <p class="lede reveal" style="margin-top:var(--s-4);max-width:74ch;">
+      Every published planet radius is a statement about a star's atmosphere as much as about a planet. The depth of a transit is
+      the light blocked, and how much light sits where the planet passes is decided by a limb-darkening law nobody measured for that star.
+      This asks what the photometry forces on its own: the star is any nonnegative brightness profile at all, the measurement is a
+      circle crossing a disc, and the answer is the set of radius ratios that survive. A quadratic law is fitted here too — but only to
+      answer two questions about the harness, and never inside the enclosure.
+    </p>
+    <div class="stats reveal" style="margin-top:var(--s-6);">
+      <div class="stat"><div class="num">0.110–0.326</div><div class="dim">TrES-2 b, certified</div></div><div class="stat"><div class="num">0.072–0.242</div><div class="dim">Kepler-7 b, certified</div></div>
+      <div class="stat"><div class="num">29</div><div class="dim">published values, all inside</div></div>
+      <div class="stat"><div class="num">0</div><div class="dim">limb-darkening laws in the enclosure</div></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">TrES-2 b · Kepler-1 b · 11,920 short-cadence points · 390 bins</div>
+      <h2 class="t1" style="margin-top:var(--s-2);max-width:26ch;">a grazing transit: the planet never comes near the middle of the star</h2>
+      <p class="lede" style="margin-top:var(--s-4);max-width:72ch;font-size:var(--text-body);color:var(--ink-3);">
+        19 published values of R<sub>p</sub>/R<sub>*</sub> span 0.12385 to 0.12780 — a spread of 3.2% — while a typical one quotes ±0.00008.
+        Granting the orbit exactly and assuming only that the star is nowhere negative and does not brighten outward, this light curve forces
+        R<sub>p</sub>/R<sub>*</sub> into <b>[0.1095, 0.3260]</b>.
+      </p>
+    </div>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="folded light curve of TrES-2 b with two admissible models">
+  <line class="ink-guide" x1="46" x2="746" y1="270.0" y2="270.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="273.0" text-anchor="end" class="ax">-15152</text><line class="ink-guide" x1="46" x2="746" y1="206.0" y2="206.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="209.0" text-anchor="end" class="ax">-11214</text><line class="ink-guide" x1="46" x2="746" y1="142.0" y2="142.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="145.0" text-anchor="end" class="ax">-7276</text><line class="ink-guide" x1="46" x2="746" y1="78.0" y2="78.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="81.0" text-anchor="end" class="ax">-3338</text><line class="ink-guide" x1="46" x2="746" y1="14.0" y2="14.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="17.0" text-anchor="end" class="ax">600</text><text x="46.0" y="290" text-anchor="middle" class="ax">-2.61</text><text x="162.7" y="290" text-anchor="middle" class="ax">-1.74</text><text x="279.3" y="290" text-anchor="middle" class="ax">-0.87</text><text x="396.0" y="290" text-anchor="middle" class="ax">-0.00</text><text x="512.7" y="290" text-anchor="middle" class="ax">0.87</text><text x="629.3" y="290" text-anchor="middle" class="ax">1.74</text><text x="746.0" y="290" text-anchor="middle" class="ax">2.60</text>
+  <text x="12" y="10" class="ax">ppm</text>
+  <text x="746" y="299" text-anchor="end" class="ax">hours from mid-transit</text>
+  <circle cx="46.0" cy="23.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="48.5" cy="23.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="52.8" cy="23.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="63.4" cy="23.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="72.4" cy="23.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="76.4" cy="23.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="80.3" cy="23.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="84.1" cy="24.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="87.2" cy="22.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="88.6" cy="23.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="90.9" cy="23.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="95.1" cy="23.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="105.1" cy="23.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="114.6" cy="24.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="119.0" cy="24.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="122.6" cy="23.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="125.6" cy="23.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="134.6" cy="23.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="144.5" cy="23.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="154.1" cy="24.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="162.9" cy="23.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="164.9" cy="24.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="166.4" cy="22.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="169.7" cy="23.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="175.9" cy="23.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="181.3" cy="23.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="184.5" cy="24.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="186.8" cy="23.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="190.5" cy="24.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="195.6" cy="23.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="199.9" cy="23.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="202.8" cy="23.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="204.5" cy="24.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="207.8" cy="23.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="214.5" cy="23.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="220.7" cy="24.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="230.0" cy="23.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="241.0" cy="24.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="252.2" cy="24.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="261.2" cy="24.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="267.5" cy="23.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="279.8" cy="29.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="287.7" cy="43.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="288.3" cy="45.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="288.9" cy="47.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="289.5" cy="47.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="289.9" cy="51.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="290.3" cy="49.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="290.8" cy="52.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="291.1" cy="52.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="291.6" cy="53.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="291.9" cy="55.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="292.4" cy="58.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="292.9" cy="60.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="293.2" cy="59.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="293.7" cy="59.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="294.1" cy="62.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="294.6" cy="64.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="295.1" cy="65.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="295.5" cy="66.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="295.9" cy="67.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="296.3" cy="68.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="296.7" cy="72.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="297.0" cy="71.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="297.4" cy="73.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="297.7" cy="75.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="298.2" cy="77.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="298.5" cy="73.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="298.9" cy="77.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="299.2" cy="77.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="299.6" cy="80.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="299.8" cy="80.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="300.3" cy="84.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="300.6" cy="86.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="301.0" cy="85.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="301.2" cy="89.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="301.7" cy="85.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="302.0" cy="91.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="302.7" cy="91.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="303.2" cy="95.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="303.5" cy="95.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="304.0" cy="96.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="304.4" cy="99.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="304.8" cy="96.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="305.1" cy="99.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="305.5" cy="101.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="306.2" cy="105.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="306.5" cy="104.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="307.0" cy="103.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="307.4" cy="109.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="307.8" cy="110.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="308.2" cy="112.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="308.6" cy="111.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="309.1" cy="112.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="309.4" cy="112.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="309.7" cy="116.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="310.0" cy="114.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="310.7" cy="118.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="311.3" cy="122.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="311.6" cy="120.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="312.0" cy="128.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="312.3" cy="126.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="312.7" cy="129.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="313.0" cy="128.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="313.5" cy="130.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="313.8" cy="131.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="314.3" cy="131.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="314.6" cy="134.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="315.0" cy="134.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="315.3" cy="134.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="315.7" cy="138.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="316.1" cy="138.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="316.5" cy="142.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="316.9" cy="142.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="317.3" cy="144.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="317.7" cy="146.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="318.1" cy="146.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="318.4" cy="148.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="318.8" cy="145.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="319.1" cy="151.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="319.5" cy="150.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="319.8" cy="151.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="320.1" cy="156.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="320.5" cy="154.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="320.9" cy="156.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="321.4" cy="158.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="321.8" cy="158.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="322.2" cy="159.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="322.5" cy="161.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="323.0" cy="164.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="323.3" cy="164.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="323.8" cy="168.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="324.0" cy="167.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="324.5" cy="168.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="324.8" cy="165.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="325.8" cy="171.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="326.1" cy="174.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="326.7" cy="180.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="327.1" cy="178.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="327.6" cy="180.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="328.3" cy="179.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="328.9" cy="183.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="329.4" cy="183.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="329.9" cy="186.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="330.4" cy="186.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="330.9" cy="186.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="331.3" cy="189.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="331.9" cy="191.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="332.6" cy="194.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="332.9" cy="191.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="333.3" cy="198.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="333.6" cy="194.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="334.1" cy="198.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="334.6" cy="200.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="335.0" cy="200.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="335.5" cy="201.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="336.4" cy="204.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="337.0" cy="204.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="337.7" cy="209.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="338.1" cy="207.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="338.6" cy="209.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="339.3" cy="209.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="339.9" cy="212.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="340.5" cy="213.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="340.9" cy="213.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="341.4" cy="217.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="341.8" cy="220.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="342.2" cy="218.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="342.7" cy="220.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="343.3" cy="221.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="344.2" cy="222.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="345.1" cy="223.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="345.8" cy="225.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="346.4" cy="227.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="346.9" cy="228.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="347.6" cy="229.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="348.5" cy="230.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="349.4" cy="232.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="350.2" cy="234.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="350.9" cy="234.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="351.6" cy="235.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="352.4" cy="238.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="353.3" cy="237.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="354.3" cy="240.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="355.4" cy="240.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="356.7" cy="243.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="358.2" cy="244.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="359.7" cy="244.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="361.0" cy="245.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="362.0" cy="248.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="363.1" cy="248.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="365.6" cy="249.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="371.6" cy="252.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="376.5" cy="255.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="383.2" cy="256.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="396.3" cy="257.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="411.2" cy="255.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="421.6" cy="251.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="427.6" cy="249.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="432.3" cy="246.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="434.6" cy="244.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="435.9" cy="244.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="437.2" cy="241.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="438.6" cy="241.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="439.7" cy="237.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="440.4" cy="238.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="441.1" cy="234.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="441.6" cy="237.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="442.3" cy="234.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="442.9" cy="230.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="443.6" cy="231.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="444.2" cy="228.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="444.9" cy="229.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="445.6" cy="228.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="446.4" cy="225.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="447.2" cy="225.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="447.9" cy="222.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="448.6" cy="219.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="449.3" cy="221.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="449.9" cy="219.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="450.4" cy="219.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="450.9" cy="214.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="451.3" cy="215.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="451.8" cy="214.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="452.4" cy="213.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="452.9" cy="212.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="453.5" cy="211.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="454.1" cy="210.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="454.7" cy="204.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="455.1" cy="205.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="455.6" cy="206.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="456.1" cy="202.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="456.5" cy="201.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="457.0" cy="199.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="457.6" cy="199.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="457.9" cy="197.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="458.5" cy="197.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="459.3" cy="196.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="459.7" cy="191.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="460.1" cy="191.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="460.5" cy="192.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="460.8" cy="188.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="461.3" cy="188.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="461.8" cy="186.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="462.3" cy="186.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="462.9" cy="184.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="463.7" cy="181.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="464.1" cy="178.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="464.5" cy="180.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="464.9" cy="175.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="465.2" cy="176.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="465.7" cy="174.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="466.3" cy="171.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="466.8" cy="174.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="467.3" cy="171.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="468.1" cy="168.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="468.7" cy="164.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="469.3" cy="163.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="469.6" cy="164.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="470.1" cy="159.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="470.4" cy="158.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="471.0" cy="159.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="471.4" cy="157.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="471.8" cy="157.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="472.5" cy="153.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="472.9" cy="147.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="473.2" cy="149.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="473.8" cy="147.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="474.1" cy="147.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="474.6" cy="141.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="475.1" cy="142.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="475.4" cy="142.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="475.9" cy="141.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="476.3" cy="139.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="476.7" cy="139.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="477.4" cy="134.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="477.7" cy="132.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="478.2" cy="132.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="478.4" cy="137.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="478.8" cy="129.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="479.1" cy="130.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="479.5" cy="127.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="479.8" cy="126.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="480.3" cy="124.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="480.6" cy="123.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="481.0" cy="124.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="481.3" cy="124.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="481.7" cy="118.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="482.0" cy="121.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="482.6" cy="117.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="482.8" cy="118.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="483.5" cy="112.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="483.9" cy="110.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="484.3" cy="111.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="484.7" cy="108.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="485.1" cy="108.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="485.8" cy="102.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="486.1" cy="102.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="486.4" cy="102.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="486.9" cy="98.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="487.1" cy="99.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="487.8" cy="100.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="488.3" cy="96.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="488.7" cy="94.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="489.2" cy="96.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="489.6" cy="90.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="490.0" cy="89.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="490.5" cy="89.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="490.8" cy="90.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="491.2" cy="85.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="491.4" cy="85.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="491.7" cy="83.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="492.1" cy="82.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="492.4" cy="81.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="492.8" cy="78.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="493.2" cy="78.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="493.6" cy="76.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="494.0" cy="77.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="494.4" cy="72.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="494.8" cy="73.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="495.2" cy="72.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="495.9" cy="67.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="496.6" cy="67.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="497.2" cy="66.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="497.7" cy="64.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="498.2" cy="62.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="498.8" cy="61.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="499.3" cy="59.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="499.6" cy="60.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="499.9" cy="56.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="500.2" cy="55.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="500.5" cy="53.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="500.9" cy="53.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="501.3" cy="51.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="501.8" cy="51.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="502.3" cy="48.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="502.7" cy="46.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="503.2" cy="50.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="503.8" cy="46.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="504.3" cy="44.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="504.8" cy="42.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="505.4" cy="42.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="505.9" cy="39.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="506.5" cy="40.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="507.0" cy="38.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="507.5" cy="37.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="508.2" cy="35.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="508.7" cy="34.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="509.2" cy="33.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="509.7" cy="31.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="510.9" cy="30.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="512.8" cy="28.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="514.1" cy="24.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="515.6" cy="25.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="520.7" cy="24.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="532.2" cy="24.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="542.7" cy="24.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="547.6" cy="24.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="551.5" cy="23.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="561.2" cy="23.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="575.5" cy="23.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="584.5" cy="24.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="592.0" cy="24.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="598.5" cy="23.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="607.2" cy="23.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="615.8" cy="24.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="618.1" cy="24.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="620.8" cy="24.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="629.9" cy="24.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="641.1" cy="23.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="646.0" cy="23.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="654.6" cy="23.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="663.0" cy="23.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="664.8" cy="23.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="669.4" cy="23.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="674.7" cy="23.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="677.1" cy="24.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="679.0" cy="23.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="680.7" cy="24.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="682.5" cy="25.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="685.2" cy="23.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="689.7" cy="24.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="694.0" cy="23.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="702.9" cy="23.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="717.6" cy="23.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="726.3" cy="24.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="729.8" cy="23.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="733.9" cy="24.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="740.2" cy="23.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="746.0" cy="23.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/>
+  <polyline points="154.4,23.8 156.4,23.8 158.4,23.8 160.5,23.8 162.5,23.8 164.5,23.8 166.5,23.8 168.5,23.8 170.5,23.8 172.5,23.8 174.6,23.8 176.6,23.8 178.6,23.8 180.6,23.8 182.6,23.8 184.6,23.8 186.6,23.8 188.7,23.8 190.7,23.8 192.7,23.8 194.7,23.8 196.7,23.8 198.7,23.8 200.8,23.8 202.8,23.8 204.8,23.8 206.8,23.8 208.8,23.8 210.8,23.8 212.8,23.8 214.9,23.8 216.9,23.8 218.9,23.8 220.9,23.8 222.9,23.8 224.9,23.8 226.9,23.8 229.0,23.8 231.0,23.8 233.0,23.8 235.0,23.8 237.0,23.8 239.0,23.8 241.0,23.8 243.1,23.8 245.1,23.8 247.1,23.8 249.1,23.8 251.1,23.8 253.1,23.8 255.1,23.8 257.2,23.8 259.2,23.8 261.2,23.8 263.2,23.8 265.2,23.8 267.2,23.8 269.3,23.8 271.3,23.8 273.3,23.8 275.3,23.8 277.3,25.3 279.3,28.9 281.3,33.6 283.4,39.1 285.4,45.2 287.4,51.7 289.4,58.7 291.4,66.0 293.4,73.4 295.4,81.1 297.5,88.9 299.5,96.7 301.5,104.6 303.5,112.5 305.5,120.3 307.5,128.2 309.5,136.0 311.6,143.8 313.6,151.4 315.6,158.9 317.6,166.2 319.6,173.4 321.6,180.3 323.6,187.0 325.7,193.4 327.7,199.6 329.7,205.4 331.7,210.9 333.7,216.1 335.7,220.9 337.8,225.2 339.8,229.1 341.8,232.6 343.8,235.5 345.8,237.8 347.8,239.2 349.8,239.8 351.9,240.4 353.9,240.9 355.9,241.4 357.9,241.9 359.9,242.4 361.9,242.8 363.9,243.3 366.0,243.7 368.0,244.0 370.0,244.4 372.0,244.7 374.0,245.0 376.0,245.3 378.0,245.5 380.1,245.8 382.1,246.0 384.1,246.1 386.1,246.3 388.1,246.4 390.1,246.5 392.1,246.6 394.2,246.6 396.2,246.6 398.2,246.6 400.2,246.6 402.2,246.5 404.2,246.4 406.3,246.3 408.3,246.1 410.3,246.0 412.3,245.8 414.3,245.5 416.3,245.3 418.3,245.0 420.4,244.7 422.4,244.4 424.4,244.0 426.4,243.7 428.4,243.3 430.4,242.8 432.4,242.4 434.5,241.9 436.5,241.4 438.5,240.9 440.5,240.4 442.5,239.8 444.5,239.2 446.5,237.8 448.6,235.5 450.6,232.6 452.6,229.1 454.6,225.2 456.6,220.9 458.6,216.1 460.6,210.9 462.7,205.4 464.7,199.6 466.7,193.4 468.7,187.0 470.7,180.3 472.7,173.4 474.8,166.2 476.8,158.9 478.8,151.4 480.8,143.8 482.8,136.0 484.8,128.2 486.8,120.3 488.9,112.5 490.9,104.6 492.9,96.7 494.9,88.9 496.9,81.1 498.9,73.4 500.9,66.0 503.0,58.7 505.0,51.7 507.0,45.2 509.0,39.1 511.0,33.6 513.0,28.9 515.0,25.3 517.1,23.8 519.1,23.8 521.1,23.8 523.1,23.8 525.1,23.8 527.1,23.8 529.1,23.8 531.2,23.8 533.2,23.8 535.2,23.8 537.2,23.8 539.2,23.8 541.2,23.8 543.3,23.8 545.3,23.8 547.3,23.8 549.3,23.8 551.3,23.8 553.3,23.8 555.3,23.8 557.4,23.8 559.4,23.8 561.4,23.8 563.4,23.8 565.4,23.8 567.4,23.8 569.4,23.8 571.5,23.8 573.5,23.8 575.5,23.8 577.5,23.8 579.5,23.8 581.5,23.8 583.5,23.8 585.6,23.8 587.6,23.8 589.6,23.8 591.6,23.8 593.6,23.8 595.6,23.8 597.6,23.8 599.7,23.8 601.7,23.8 603.7,23.8 605.7,23.8 607.7,23.8 609.7,23.8 611.8,23.8 613.8,23.8 615.8,23.8 617.8,23.8 619.8,23.8 621.8,23.8 623.8,23.8 625.9,23.8 627.9,23.8 629.9,23.8 631.9,23.8 633.9,23.8 635.9,23.8 637.9,23.8" fill="none" stroke="var(--ink)" stroke-width="1.7" opacity="0.95" class="ink-decided"/>
+  <polyline points="154.4,23.8 156.4,23.8 158.4,23.8 160.5,23.8 162.5,23.8 164.5,23.8 166.5,23.8 168.5,23.8 170.5,23.8 172.5,23.8 174.6,23.8 176.6,23.8 178.6,23.8 180.6,23.8 182.6,23.8 184.6,23.8 186.6,23.8 188.7,23.8 190.7,23.8 192.7,23.8 194.7,23.8 196.7,23.8 198.7,23.8 200.8,23.8 202.8,23.8 204.8,23.8 206.8,23.8 208.8,23.8 210.8,23.8 212.8,23.8 214.9,23.8 216.9,23.8 218.9,23.8 220.9,23.8 222.9,23.8 224.9,23.8 226.9,23.8 229.0,23.8 231.0,23.8 233.0,23.8 235.0,23.8 237.0,23.8 239.0,23.8 241.0,23.8 243.1,23.8 245.1,23.8 247.1,23.8 249.1,23.8 251.1,23.8 253.1,23.8 255.1,23.8 257.2,23.8 259.2,24.1 261.2,25.1 263.2,26.4 265.2,28.1 267.2,29.9 269.3,31.9 271.3,34.1 273.3,36.4 275.3,38.8 277.3,41.3 279.3,43.9 281.3,46.6 283.4,49.6 285.4,52.9 287.4,56.6 289.4,60.7 291.4,65.4 293.4,70.5 295.4,75.8 297.5,81.3 299.5,87.0 301.5,92.8 303.5,98.7 305.5,104.6 307.5,110.7 309.5,116.7 311.6,122.8 313.6,128.8 315.6,134.8 317.6,140.8 319.6,146.7 321.6,152.5 323.6,158.3 325.7,164.0 327.7,169.6 329.7,175.1 331.7,180.4 333.7,185.6 335.7,190.7 337.8,195.7 339.8,200.5 341.8,205.1 343.8,209.6 345.8,213.9 347.8,218.1 349.8,222.1 351.9,225.9 353.9,229.5 355.9,233.0 357.9,236.3 359.9,239.4 361.9,242.3 363.9,245.0 366.0,247.6 368.0,250.0 370.0,252.2 372.0,254.2 374.0,256.1 376.0,257.8 378.0,259.3 380.1,260.7 382.1,261.8 384.1,262.9 386.1,263.7 388.1,264.4 390.1,265.0 392.1,265.4 394.2,265.6 396.2,265.7 398.2,265.6 400.2,265.4 402.2,265.0 404.2,264.4 406.3,263.7 408.3,262.9 410.3,261.8 412.3,260.7 414.3,259.3 416.3,257.8 418.3,256.1 420.4,254.2 422.4,252.2 424.4,250.0 426.4,247.6 428.4,245.0 430.4,242.3 432.4,239.4 434.5,236.3 436.5,233.0 438.5,229.5 440.5,225.9 442.5,222.1 444.5,218.1 446.5,213.9 448.6,209.6 450.6,205.1 452.6,200.5 454.6,195.7 456.6,190.7 458.6,185.6 460.6,180.4 462.7,175.1 464.7,169.6 466.7,164.0 468.7,158.3 470.7,152.5 472.7,146.7 474.8,140.8 476.8,134.8 478.8,128.8 480.8,122.8 482.8,116.7 484.8,110.7 486.8,104.6 488.9,98.7 490.9,92.8 492.9,87.0 494.9,81.3 496.9,75.8 498.9,70.5 500.9,65.4 503.0,60.7 505.0,56.6 507.0,52.9 509.0,49.6 511.0,46.6 513.0,43.9 515.0,41.3 517.1,38.8 519.1,36.4 521.1,34.1 523.1,31.9 525.1,29.9 527.1,28.1 529.1,26.4 531.2,25.1 533.2,24.1 535.2,23.8 537.2,23.8 539.2,23.8 541.2,23.8 543.3,23.8 545.3,23.8 547.3,23.8 549.3,23.8 551.3,23.8 553.3,23.8 555.3,23.8 557.4,23.8 559.4,23.8 561.4,23.8 563.4,23.8 565.4,23.8 567.4,23.8 569.4,23.8 571.5,23.8 573.5,23.8 575.5,23.8 577.5,23.8 579.5,23.8 581.5,23.8 583.5,23.8 585.6,23.8 587.6,23.8 589.6,23.8 591.6,23.8 593.6,23.8 595.6,23.8 597.6,23.8 599.7,23.8 601.7,23.8 603.7,23.8 605.7,23.8 607.7,23.8 609.7,23.8 611.8,23.8 613.8,23.8 615.8,23.8 617.8,23.8 619.8,23.8 621.8,23.8 623.8,23.8 625.9,23.8 627.9,23.8 629.9,23.8 631.9,23.8 633.9,23.8 635.9,23.8 637.9,23.8" fill="none" stroke="var(--ink)" stroke-width="1.3" opacity="0.62" class="ink-decided"/>
+</svg>
+      <figcaption class="figcap"><span class="k">the folded curve, and two stars that both fit it</span>
+      <span class="v">heavy: R<sub>p</sub>/R<sub>*</sub> = 0.1194 · light: 0.1971</span></figcaption></figure>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 238" class="fg" role="img" aria-label="certified intervals for TrES-2 b">
+    <line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.9" x2="240.9" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="241.6" x2="241.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="241.6" x2="241.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.6" x2="240.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.6" x2="239.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.6" x2="240.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="241.5" x2="241.5" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/>
+    <line class="ink-guide" x1="168" x2="744" y1="218" y2="218" stroke="var(--chart-axis)" stroke-width="1"/>
+    <text x="168.0" y="230" text-anchor="middle" class="ax">0</text><text x="225.6" y="230" text-anchor="middle" class="ax">0.1</text><text x="283.2" y="230" text-anchor="middle" class="ax">0.2</text><text x="340.8" y="230" text-anchor="middle" class="ax">0.3</text><text x="398.4" y="230" text-anchor="middle" class="ax">0.4</text><text x="456.0" y="230" text-anchor="middle" class="ax">0.5</text><text x="513.6" y="230" text-anchor="middle" class="ax">0.6</text><text x="628.8" y="230" text-anchor="middle" class="ax">0.8</text><text x="744.0" y="230" text-anchor="middle" class="ax">1</text>
+    <text x="158" y="24" text-anchor="end" class="lb">assuming</text>
+    <text x="240.2" y="24" text-anchor="middle" class="ax">published, all 19</text>
+    <g>
+      <text x="158" y="52" text-anchor="end" class="lb">exact · nonneg only</text>
+      <rect x="219.7" y="43" width="524.3" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1"/>
+      <rect x="225.4" y="43" width="150.3" height="13" fill="var(--ink-5)" opacity="0.5"/>
+      <text x="219.7" y="69" class="ax">0.0898</text>
+      <text x="744.0" y="69" text-anchor="end" class="ax">not closed below 1</text>
+    </g><g>
+      <text x="158" y="98" text-anchor="end" class="lb">exact · not brightening out</text>
+      <rect x="231.1" y="89" width="124.7" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1"/>
+      <rect x="236.8" y="89" width="44.8" height="13" fill="var(--ink-5)" opacity="0.5"/>
+      <text x="231.1" y="115" class="ax">0.1095</text>
+      <text x="355.8" y="115" text-anchor="end" class="ax">0.3260</text>
+    </g><g>
+      <text x="158" y="144" text-anchor="end" class="lb">stated · nonneg only</text>
+      <rect x="220.7" y="135" width="435.1" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1"/>
+      <rect x="221.7" y="135" width="401.6" height="13" fill="var(--ink-5)" opacity="0.5"/>
+      <text x="220.7" y="161" class="ax">0.0915</text>
+      <text x="655.8" y="161" text-anchor="end" class="ax">0.8469</text>
+    </g><g>
+      <text x="158" y="190" text-anchor="end" class="lb">stated · not brightening out</text>
+      <rect x="222.1" y="181" width="521.9" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1"/>
+      <rect x="228.8" y="181" width="166.4" height="13" fill="var(--ink-5)" opacity="0.5"/>
+      <text x="222.1" y="207" class="ax">0.0939</text>
+      <text x="744.0" y="207" text-anchor="end" class="ax">not closed below 1</text>
+    </g>
+  </svg>
+      <figcaption class="figcap"><span class="k">what each assumption buys</span>
+      <span class="v">outer bar: every value outside carries a verified refutation · inner: a verified witness exists · fine ticks: the 19 published values</span></figcaption></figure>
+
+    <div class="note reveal">
+      <b>The asymmetry is the result.</b> Under nonnegativity alone the lower edge is
+      0.0898 — only 28% below the conventional fit — while the upper edge
+      does not close below 1 at all.
+      Adding <em>the star does not brighten outward</em> pulls the ceiling to 0.3260.
+      The whole upper bound on a planet's radius is bought by an assumption about the star's atmosphere, not by the photometry.
+      Two scales for it. The 19 papers already disagree with each other by <b>25×</b> a typical quoted error bar — that needs no enclosure to see. The certified interval is <b>55×</b> wider again than that disagreement, and it contains every one of them.
+    </div>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="the region of the star the planet never occults">
+    <circle cx="150" cy="150" r="118" fill="var(--surface)" stroke="var(--border-strong)" stroke-width="1"/>
+    <circle cx="150" cy="150" r="82.6" fill="var(--ink-5)" opacity="0.18"/>
+    <circle class="ink-guide" cx="150" cy="150" r="82.6" fill="none" stroke="var(--ink-3)" stroke-width="1"/>
+    <line class="ink-guide" x1="18" x2="282" y1="52.6" y2="52.6" stroke="var(--ink-4)" stroke-width="1"/>
+    <circle cx="-32.9" cy="52.6" r="14.8" fill="none" stroke="var(--ink-2)" stroke-width="1.2" opacity="0.4"/><circle cx="55.6" cy="52.6" r="14.8" fill="none" stroke="var(--ink-2)" stroke-width="1.2" opacity="0.4"/><circle cx="150.0" cy="52.6" r="14.8" fill="none" stroke="var(--ink-2)" stroke-width="1.2" opacity="0.95"/><circle cx="244.4" cy="52.6" r="14.8" fill="none" stroke="var(--ink-2)" stroke-width="1.2" opacity="0.4"/><circle cx="332.9" cy="52.6" r="14.8" fill="none" stroke="var(--ink-2)" stroke-width="1.2" opacity="0.4"/>
+    <text x="150" y="248.6" text-anchor="middle" class="lb">r &lt; b − k : never occulted</text>
+    <g transform="translate(330,44)">
+      <text x="0" y="0" class="lb">b = 0.826   k = 0.1253   b − k = 0.7003</text>
+      <text x="0" y="22" class="lb">the shaded disc is 49.0% of the star's area,</text>
+      <text x="0" y="40" class="lb">and it can hold any fraction of the star's light.</text>
+      <text x="0" y="66" class="lb">Flux there changes the NORMALISATION and nothing else,</text>
+      <text x="0" y="84" class="lb">so a larger planet blocking a smaller share of a</text>
+      <text x="0" y="102" class="lb">dimmer annulus reproduces the same depth.</text>
+      <text x="0" y="128" class="lb">That is why the interval is wide upward and</text>
+      <text x="0" y="146" class="lb">tight downward: light can hide, but it cannot un-hide.</text>
+      <text x="0" y="176" class="lb">Measured in the two witnesses this run exhibited:</text>
+      <text x="0" y="194" class="lb">the k = 0.1194 star hides 1.2% of its light there,</text>
+      <text x="0" y="212" class="lb">the k = 0.1971 star hides 57.6%.</text>
+    </g>
+  </svg>
+      <figcaption class="figcap"><span class="k">why the interval is one-sided</span><span class="v">the planet's disc at five epochs, and the circle it never reaches</span></figcaption></figure>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 260" class="fg" role="img" aria-label="cumulative brightness of the two extreme admissible stars">
+    <rect x="46.0" y="16" width="488.8" height="214" fill="var(--ink-5)" opacity="0.12"/>
+    <line class="ink-guide" x1="46" x2="744" y1="230.0" y2="230.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="233.0" text-anchor="end" class="ax">0</text><line class="ink-guide" x1="46" x2="744" y1="176.5" y2="176.5" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="179.5" text-anchor="end" class="ax">0.25</text><line class="ink-guide" x1="46" x2="744" y1="123.0" y2="123.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="126.0" text-anchor="end" class="ax">0.5</text><line class="ink-guide" x1="46" x2="744" y1="69.5" y2="69.5" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="72.5" text-anchor="end" class="ax">0.75</text><line class="ink-guide" x1="46" x2="744" y1="16.0" y2="16.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" class="ax">1</text>
+    <text x="46.0" y="250" text-anchor="middle" class="ax">0</text><text x="185.6" y="250" text-anchor="middle" class="ax">0.2</text><text x="325.2" y="250" text-anchor="middle" class="ax">0.4</text><text x="464.8" y="250" text-anchor="middle" class="ax">0.6</text><text x="604.4" y="250" text-anchor="middle" class="ax">0.8</text><text x="744.0" y="250" text-anchor="middle" class="ax">1</text>
+    <polyline points="46.0,230.0 46.4,230.0 46.4,227.5 540.4,227.5 540.4,225.1 545.8,225.1 545.8,223.3 619.5,223.3 619.5,220.9 635.8,220.9 635.8,215.4 662.2,215.4 662.2,205.3 735.9,205.3 735.9,203.1 743.6,203.1 743.6,16.0 744.0,16.0" fill="none" stroke="var(--ink)" stroke-width="1.7" opacity="0.95" class="ink-decided"/>
+    <polyline points="46.0,230.0 46.4,230.0 46.4,106.7 653.7,106.7 653.7,89.6 657.5,89.6 657.5,80.7 663.0,80.7 663.0,74.8 669.9,74.8 669.9,70.0 672.3,70.0 672.3,65.9 673.0,65.9 673.0,64.4 673.8,64.4 673.8,60.9 674.6,60.9 674.6,58.6 683.1,58.6 683.1,58.0 684.7,58.0 684.7,57.4 685.4,57.4 685.4,57.0 701.7,57.0 701.7,56.9 708.7,56.9 708.7,56.7 712.6,56.7 712.6,56.5 713.4,56.5 713.4,56.4 716.5,56.4 716.5,56.4 743.6,56.4 743.6,16.0 744.0,16.0" fill="none" stroke="var(--ink)" stroke-width="1.3" opacity="0.62" class="ink-decided"/>
+    <text x="744" y="250" text-anchor="end" class="ax">radius, in stellar radii</text>
+    <text x="12" y="24" class="ax">light inside r</text>
+    <text x="540.8" y="30" class="lb">the invisible core</text>
+  </svg>
+      <figcaption class="figcap"><span class="k">the two witnesses, as light enclosed inside radius r</span><span class="v">both are exhibited measures, re-checked bin by bin</span></figcaption></figure>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 363" class="fg" role="img" aria-label="published radius ratios for TrES-2 b"><rect x="250.0" y="18" width="420.0" height="329" fill="var(--band-fill)"/><g><text x="240" y="33" text-anchor="end" class="lb">Q1-Q16 KOI Table</text>
+      <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="30" y2="30" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="351.0" cy="30" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="33" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="50" text-anchor="end" class="lb">Q1-Q17 DR24 KOI Table</text>
+      <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="47" y2="47" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="351.0" cy="47" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="50" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="67" text-anchor="end" class="lb">Q1-Q12 KOI Table</text>
+      <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="64" y2="64" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="351.0" cy="64" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="67" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="84" text-anchor="end" class="lb">Morton et al. 2016</text>
+      <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="81" y2="81" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="351.0" cy="81" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="84" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="101" text-anchor="end" class="lb">Fulton &amp;amp; Petigura 2018</text>
+      <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="98" y2="98" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="351.0" cy="98" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="101" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="118" text-anchor="end" class="lb">Q1-Q17 DR25 KOI Table</text>
+      <line class="ink-assumed-sm" x1="349.3" x2="354.9" y1="115" y2="115" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="352.1" cy="115" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="118" class="ax">0.12387 ± 0.00005</text></g><g><text x="240" y="135" text-anchor="end" class="lb">Q1-Q8 KOI Table</text>
+      <line class="ink-assumed-sm" x1="374.9" x2="383.6" y1="132" y2="132" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="379.2" cy="132" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="135" class="ax">0.12437 ± 0.00008</text></g><g><text x="240" y="152" text-anchor="end" class="lb">Holman et al. 2007</text>
+      <line class="ink-assumed-sm" x1="375.4" x2="484.2" y1="149" y2="149" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="429.8" cy="149" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="152" class="ax">0.12530 ± 0.00100</text></g><g><text x="240" y="169" text-anchor="end" class="lb">Torres et al. 2008</text>
+      <line class="ink-assumed-sm" x1="375.4" x2="484.2" y1="166" y2="166" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="429.8" cy="166" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="169" class="ax">0.12530 ± 0.00100</text></g><g><text x="240" y="186" text-anchor="end" class="lb">Turner et al. 2016</text>
+      <line class="ink-assumed-sm" x1="431.9" x2="434.0" y1="183" y2="183" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="433.0" cy="183" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="186" class="ax">0.12536 ± 0.00002</text></g><g><text x="240" y="203" text-anchor="end" class="lb">Barclay et al. 2012</text>
+      <line class="ink-assumed-sm" x1="431.9" x2="434.0" y1="200" y2="200" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="433.0" cy="200" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="203" class="ax">0.12536 ± 0.00002</text></g><g><text x="240" y="220" text-anchor="end" class="lb">Esteves et al. 2015</text>
+      <line class="ink-assumed-sm" x1="408.1" x2="461.4" y1="217" y2="217" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="434.7" cy="217" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="220" class="ax">0.12539 ± 0.00049</text></g><g><text x="240" y="237" text-anchor="end" class="lb">Kokori et al. 2023</text>
+      <line class="ink-assumed-sm" x1="408.1" x2="462.4" y1="234" y2="234" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="435.3" cy="234" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="237" class="ax">0.12540 ± 0.00050</text></g><g><text x="240" y="254" text-anchor="end" class="lb">Rabus et al. 2009</text>
+      <line class="ink-assumed-sm" x1="467.8" x2="467.9" y1="251" y2="251" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="467.9" cy="251" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="254" class="ax">0.12600 ± —</text></g><g><text x="240" y="271" text-anchor="end" class="lb">&amp;Ouml;zt&amp;uuml;rk &amp;amp; Erdem 2019</text>
+      <line class="ink-assumed-sm" x1="304.7" x2="631.0" y1="268" y2="268" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="467.9" cy="268" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="271" class="ax">0.12600 ± 0.00300</text></g><g><text x="240" y="288" text-anchor="end" class="lb">Raetz et al. 2014</text>
+      <line class="ink-assumed-sm" x1="490.2" x2="506.5" y1="285" y2="285" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="498.3" cy="285" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="288" class="ax">0.12656 ± 0.00015</text></g><g><text x="240" y="305" text-anchor="end" class="lb">Schr&amp;ouml;ter et al. 2012</text>
+      <line class="ink-assumed-sm" x1="552.7" x2="556.0" y1="302" y2="302" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="554.3" cy="302" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="305" class="ax">0.12759 ± 0.00003</text></g><g><text x="240" y="322" text-anchor="end" class="lb">Christiansen et al. 2011</text>
+      <line class="ink-assumed-sm" x1="54.6" x2="1076.9" y1="319" y2="319" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="565.8" cy="319" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="322" class="ax">0.12780 ± 0.00940</text></g><g><text x="240" y="339" text-anchor="end" class="lb">Kipping &amp;amp; Bakos 2011</text>
+      <line class="ink-assumed-sm" x1="408.1" x2="723.5" y1="336" y2="336" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="565.8" cy="336" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="339" class="ax">0.12780 ± 0.00290</text></g></svg>
+      <figcaption class="figcap"><span class="k">the published values, on their own error bars</span><span class="v">shaded: the certified interval</span></figcaption></figure>
+
+    <div class="grid reveal" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
+      <div class="h">harness check</div><div class="h">measured</div><div class="h">stated</div><div class="h">verdict</div>
+      <div class="ml">out-of-transit scatter, 64 bins</div><div>29 ppm</div><div>31 ppm</div><div class="hit">errors honest (0.94×)</div>
+      <div class="ml">fold asymmetry, before → after centring</div><div>49 → 45 ppm</div><div>shift -66 s</div><div class="hit">already centred</div>
+      <div class="ml">conventional quadratic-law fit</div><div>k = 0.12526</div><div>papers 0.1239–0.1278</div><div class="hit">reproduces the field</div>
+      <div class="ml">error budget, per bin</div><div>4.3σ + 11 ppm</div><div>χ²/dof 0.91</div><div class="hit">smallest that admits that fit</div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Kepler-7 b · 40,757 short-cadence points · 388 bins</div>
+      <h2 class="t1" style="margin-top:var(--s-2);max-width:26ch;">the planet whose published radius ratio moves 3.7% between papers</h2>
+      <p class="lede" style="margin-top:var(--s-4);max-width:72ch;font-size:var(--text-body);color:var(--ink-3);">
+        10 published values of R<sub>p</sub>/R<sub>*</sub> span 0.07990 to 0.08294 — a spread of 3.8% — while a typical one quotes ±0.00005.
+        Granting the orbit exactly and assuming only that the star is nowhere negative and does not brighten outward, this light curve forces
+        R<sub>p</sub>/R<sub>*</sub> into <b>[0.0719, 0.2424]</b>.
+      </p>
+    </div>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="folded light curve of Kepler-7 b with two admissible models">
+  <line class="ink-guide" x1="46" x2="746" y1="270.0" y2="270.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="273.0" text-anchor="end" class="ax">-8467</text><line class="ink-guide" x1="46" x2="746" y1="206.0" y2="206.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="209.0" text-anchor="end" class="ax">-6200</text><line class="ink-guide" x1="46" x2="746" y1="142.0" y2="142.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="145.0" text-anchor="end" class="ax">-3933</text><line class="ink-guide" x1="46" x2="746" y1="78.0" y2="78.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="81.0" text-anchor="end" class="ax">-1667</text><line class="ink-guide" x1="46" x2="746" y1="14.0" y2="14.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="17.0" text-anchor="end" class="ax">600</text><text x="46.0" y="290" text-anchor="middle" class="ax">-7.88</text><text x="162.7" y="290" text-anchor="middle" class="ax">-5.26</text><text x="279.3" y="290" text-anchor="middle" class="ax">-2.65</text><text x="396.0" y="290" text-anchor="middle" class="ax">-0.04</text><text x="512.7" y="290" text-anchor="middle" class="ax">2.57</text><text x="629.3" y="290" text-anchor="middle" class="ax">5.19</text><text x="746.0" y="290" text-anchor="middle" class="ax">7.80</text>
+  <text x="12" y="10" class="ax">ppm</text>
+  <text x="746" y="299" text-anchor="end" class="ax">hours from mid-transit</text>
+  <circle cx="46.0" cy="24.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="46.7" cy="30.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="47.0" cy="33.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="49.6" cy="32.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="52.9" cy="33.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="54.4" cy="29.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="55.4" cy="27.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="55.7" cy="27.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="56.2" cy="35.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="57.6" cy="33.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="59.3" cy="32.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="61.0" cy="30.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="62.7" cy="34.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="63.2" cy="29.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="63.7" cy="26.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="64.3" cy="33.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="65.4" cy="32.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="67.8" cy="33.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="69.7" cy="30.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="70.3" cy="27.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="70.9" cy="33.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="71.6" cy="27.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="72.2" cy="33.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="73.3" cy="29.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="76.3" cy="29.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="81.3" cy="31.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="84.7" cy="30.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="86.2" cy="29.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="87.0" cy="34.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="87.7" cy="26.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="88.4" cy="30.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="89.9" cy="30.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="91.8" cy="29.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="93.9" cy="29.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="96.4" cy="31.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="98.1" cy="29.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="98.8" cy="34.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="99.9" cy="31.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="101.3" cy="30.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="103.1" cy="30.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="106.3" cy="31.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="109.0" cy="30.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="110.5" cy="30.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="114.0" cy="30.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="116.8" cy="29.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="117.7" cy="33.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="118.4" cy="27.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="119.3" cy="29.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="120.3" cy="30.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="123.3" cy="31.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="126.3" cy="30.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="127.9" cy="29.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="129.8" cy="29.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="130.8" cy="32.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="131.8" cy="29.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="135.0" cy="31.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="138.2" cy="33.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="141.5" cy="30.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="144.4" cy="28.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="146.0" cy="31.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="147.7" cy="32.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="150.8" cy="30.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="155.7" cy="31.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="158.9" cy="32.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="161.4" cy="31.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="163.9" cy="28.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="165.2" cy="29.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="166.2" cy="30.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="166.7" cy="26.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="167.7" cy="28.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="169.5" cy="29.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="171.2" cy="28.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="172.1" cy="31.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="174.8" cy="30.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="178.6" cy="31.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="182.5" cy="30.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="187.5" cy="30.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="191.5" cy="31.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="194.8" cy="31.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="197.3" cy="32.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="198.6" cy="31.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="201.6" cy="31.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="206.7" cy="30.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="211.7" cy="30.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="214.7" cy="30.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="217.7" cy="30.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="220.6" cy="32.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="221.6" cy="31.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="222.7" cy="34.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="223.4" cy="30.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="226.4" cy="31.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="229.9" cy="30.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="231.9" cy="31.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="233.1" cy="27.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="233.7" cy="33.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="234.3" cy="30.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="235.1" cy="32.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="236.1" cy="27.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="239.0" cy="32.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="244.0" cy="30.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="247.1" cy="31.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="249.1" cy="30.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="250.8" cy="32.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="251.3" cy="31.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="252.4" cy="31.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="253.8" cy="30.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="254.8" cy="35.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="255.4" cy="31.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="258.0" cy="31.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="261.5" cy="31.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="263.5" cy="33.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="265.5" cy="30.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="267.0" cy="31.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="269.0" cy="32.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="272.3" cy="31.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="275.6" cy="30.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="277.4" cy="31.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="277.8" cy="33.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="278.9" cy="31.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="280.6" cy="32.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="282.1" cy="32.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="284.8" cy="42.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="287.0" cy="55.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="287.3" cy="55.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="287.8" cy="63.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="288.7" cy="67.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="289.3" cy="76.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="290.3" cy="76.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="291.3" cy="84.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="291.7" cy="90.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="294.3" cy="105.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="297.2" cy="131.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="297.8" cy="136.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="298.5" cy="139.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="299.3" cy="149.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="299.9" cy="151.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="300.7" cy="156.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="301.7" cy="161.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="302.8" cy="170.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="303.2" cy="173.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="303.7" cy="178.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="304.3" cy="183.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="304.9" cy="182.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="305.5" cy="182.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="305.9" cy="188.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="306.5" cy="192.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="307.4" cy="190.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="308.2" cy="195.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="308.8" cy="192.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="309.4" cy="191.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="311.0" cy="197.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="314.8" cy="202.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="319.8" cy="210.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="324.8" cy="215.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="327.4" cy="225.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="327.8" cy="219.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="328.4" cy="217.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="331.1" cy="223.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="334.9" cy="224.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="336.6" cy="221.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="337.3" cy="228.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="338.7" cy="226.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="340.3" cy="229.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="341.8" cy="228.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="343.9" cy="226.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="345.3" cy="230.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="346.8" cy="230.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="348.4" cy="232.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="350.3" cy="232.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="353.0" cy="234.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="354.9" cy="237.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="356.2" cy="234.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="358.4" cy="234.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="360.8" cy="235.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="362.2" cy="236.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="363.7" cy="237.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="365.5" cy="235.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="366.8" cy="235.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="368.1" cy="237.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="369.2" cy="234.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="370.0" cy="238.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="371.4" cy="239.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="373.0" cy="238.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="373.8" cy="238.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="374.4" cy="244.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="375.4" cy="242.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="378.7" cy="239.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="381.6" cy="241.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="382.8" cy="241.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="386.1" cy="242.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="389.0" cy="240.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="391.9" cy="242.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="394.7" cy="242.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="395.2" cy="241.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="395.9" cy="243.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="396.6" cy="238.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="397.3" cy="245.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="398.3" cy="241.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="399.6" cy="240.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="401.3" cy="243.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="405.0" cy="241.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="408.8" cy="240.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="411.9" cy="241.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="414.3" cy="240.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="416.0" cy="240.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="417.2" cy="240.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="417.7" cy="247.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="418.3" cy="240.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="418.9" cy="241.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="421.8" cy="239.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="424.8" cy="239.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="426.2" cy="239.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="427.5" cy="240.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="428.6" cy="241.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="429.4" cy="235.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="431.1" cy="238.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="433.2" cy="236.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="436.5" cy="234.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="439.5" cy="235.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="440.8" cy="234.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="442.0" cy="233.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="442.7" cy="231.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="443.1" cy="228.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="443.5" cy="239.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="444.2" cy="231.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="445.1" cy="229.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="445.8" cy="231.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="447.3" cy="231.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="449.4" cy="229.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="451.3" cy="229.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="454.8" cy="226.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="458.1" cy="223.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="459.4" cy="223.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="462.3" cy="222.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="465.1" cy="219.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="466.3" cy="219.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="467.7" cy="217.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="469.0" cy="215.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="470.9" cy="216.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="472.4" cy="210.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="473.1" cy="213.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="475.9" cy="210.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="480.6" cy="205.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="483.2" cy="204.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="483.9" cy="193.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="486.5" cy="194.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="489.2" cy="189.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="489.9" cy="183.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="492.9" cy="169.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="495.6" cy="149.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="496.4" cy="144.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="497.2" cy="139.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="497.7" cy="134.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="498.7" cy="128.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="500.0" cy="117.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="500.7" cy="108.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="501.0" cy="111.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="501.5" cy="103.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="502.2" cy="99.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="503.0" cy="93.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="503.7" cy="89.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="504.5" cy="86.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="505.2" cy="78.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="505.8" cy="71.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="506.2" cy="70.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="506.6" cy="62.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="509.3" cy="52.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="512.6" cy="35.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="513.7" cy="31.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="514.7" cy="29.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="515.8" cy="32.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="517.0" cy="30.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="520.3" cy="31.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="524.0" cy="33.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="525.5" cy="25.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="526.3" cy="32.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="527.2" cy="31.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="528.2" cy="31.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="529.2" cy="26.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="529.8" cy="32.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="532.5" cy="31.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="537.4" cy="30.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="540.7" cy="28.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="541.8" cy="31.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="543.2" cy="31.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="546.8" cy="30.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="550.3" cy="29.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="552.1" cy="30.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="554.4" cy="28.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="556.2" cy="29.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="557.8" cy="29.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="561.4" cy="31.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="564.3" cy="32.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="565.3" cy="32.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="566.3" cy="30.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="567.4" cy="30.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="568.5" cy="32.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="569.5" cy="30.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="570.3" cy="33.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="570.8" cy="29.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="571.5" cy="28.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="574.5" cy="30.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="577.6" cy="31.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="578.7" cy="33.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="581.4" cy="30.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="584.3" cy="31.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="586.0" cy="31.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="587.6" cy="30.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="588.5" cy="28.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="589.5" cy="32.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="591.4" cy="32.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="593.2" cy="32.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="596.3" cy="31.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="599.2" cy="32.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="600.1" cy="31.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="600.8" cy="29.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="603.7" cy="32.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="606.9" cy="32.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="608.0" cy="26.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="608.8" cy="32.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="610.0" cy="30.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="613.2" cy="30.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="617.9" cy="29.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="621.2" cy="31.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="622.7" cy="26.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="624.8" cy="30.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="628.8" cy="30.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="632.5" cy="32.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="634.6" cy="31.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="635.8" cy="30.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="636.5" cy="34.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="637.1" cy="29.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="639.0" cy="31.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="641.0" cy="32.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="642.0" cy="29.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="644.2" cy="31.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="648.3" cy="31.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="651.5" cy="30.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="652.7" cy="31.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="653.7" cy="30.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="654.4" cy="36.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="654.8" cy="27.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="655.5" cy="34.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="657.3" cy="32.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="659.6" cy="28.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="660.8" cy="31.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="661.7" cy="30.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="662.6" cy="28.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="663.2" cy="31.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="663.9" cy="30.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="667.0" cy="31.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="670.0" cy="31.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="671.2" cy="28.6" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="672.8" cy="31.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="674.4" cy="30.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="675.8" cy="28.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="678.5" cy="30.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="681.3" cy="32.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="682.3" cy="31.5" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="683.9" cy="31.9" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="685.2" cy="34.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="685.5" cy="35.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="686.1" cy="29.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="687.5" cy="30.3" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="689.4" cy="34.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="690.2" cy="26.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="690.6" cy="24.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="692.0" cy="29.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="695.8" cy="30.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="698.9" cy="32.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="699.6" cy="25.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="700.5" cy="31.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="702.5" cy="30.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="704.3" cy="31.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="705.6" cy="28.8" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="707.3" cy="34.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="710.1" cy="33.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="714.6" cy="31.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="718.2" cy="31.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="721.8" cy="30.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="725.3" cy="35.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="728.4" cy="31.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="732.8" cy="30.0" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="737.8" cy="29.7" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="741.1" cy="31.2" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="742.9" cy="30.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="744.4" cy="32.1" r="1.15" fill="var(--ink-4)" opacity="0.75"/><circle cx="746.0" cy="30.4" r="1.15" fill="var(--ink-4)" opacity="0.75"/>
+  <polyline points="183.4,30.9 185.2,30.9 187.0,30.9 188.8,30.9 190.5,30.9 192.3,30.9 194.1,30.9 195.9,30.9 197.7,30.9 199.5,30.9 201.3,30.9 203.0,30.9 204.8,30.9 206.6,30.9 208.4,30.9 210.2,30.9 212.0,30.9 213.8,30.9 215.6,30.9 217.3,30.9 219.1,30.9 220.9,30.9 222.7,30.9 224.5,30.9 226.3,30.9 228.1,30.9 229.8,30.9 231.6,30.9 233.4,30.9 235.2,30.9 237.0,30.9 238.8,30.9 240.6,30.9 242.3,30.9 244.1,30.9 245.9,30.9 247.7,30.9 249.5,30.9 251.3,30.9 253.1,30.9 254.8,30.9 256.6,30.9 258.4,30.9 260.2,30.9 262.0,30.9 263.8,30.9 265.6,30.9 267.3,30.9 269.1,30.9 270.9,30.9 272.7,30.9 274.5,30.9 276.3,30.9 278.1,30.9 279.8,30.9 281.6,30.9 283.4,30.9 285.2,31.0 287.0,31.0 288.8,32.6 290.6,35.2 292.4,39.1 294.1,44.1 295.9,50.3 297.7,57.5 299.5,68.5 301.3,81.9 303.1,96.5 304.9,111.5 306.6,126.4 308.4,140.7 310.2,153.1 312.0,164.5 313.8,174.5 315.6,183.0 317.4,190.1 319.1,195.6 320.9,198.5 322.7,198.9 324.5,199.6 326.3,200.4 328.1,201.5 329.9,202.9 331.6,204.3 333.4,205.8 335.2,207.4 337.0,209.1 338.8,210.8 340.6,212.5 342.4,214.1 344.1,215.6 345.9,217.2 347.7,218.9 349.5,220.4 351.3,222.0 353.1,223.6 354.9,225.1 356.6,226.6 358.4,228.0 360.2,229.4 362.0,230.7 363.8,231.9 365.6,233.1 367.4,234.1 369.1,235.0 370.9,235.9 372.7,236.7 374.5,237.4 376.3,238.0 378.1,238.6 379.9,239.1 381.7,239.5 383.4,239.8 385.2,240.1 387.0,240.3 388.8,240.5 390.6,240.6 392.4,240.7 394.2,240.8 395.9,240.8 397.7,240.8 399.5,240.8 401.3,240.8 403.1,240.7 404.9,240.6 406.7,240.5 408.4,240.3 410.2,240.1 412.0,239.8 413.8,239.5 415.6,239.1 417.4,238.6 419.2,238.0 420.9,237.4 422.7,236.7 424.5,235.9 426.3,235.0 428.1,234.1 429.9,233.1 431.7,231.9 433.4,230.7 435.2,229.4 437.0,228.0 438.8,226.6 440.6,225.1 442.4,223.6 444.2,222.0 445.9,220.4 447.7,218.9 449.5,217.2 451.3,215.6 453.1,214.1 454.9,212.5 456.7,210.8 458.4,209.1 460.2,207.4 462.0,205.8 463.8,204.3 465.6,202.9 467.4,201.5 469.2,200.4 471.0,199.6 472.7,198.9 474.5,198.5 476.3,195.6 478.1,190.1 479.9,183.0 481.7,174.5 483.5,164.5 485.2,153.1 487.0,140.7 488.8,126.4 490.6,111.5 492.4,96.5 494.2,81.9 496.0,68.5 497.7,57.5 499.5,50.3 501.3,44.1 503.1,39.1 504.9,35.2 506.7,32.6 508.5,31.0 510.2,31.0 512.0,30.9 513.8,30.9 515.6,30.9 517.4,30.9 519.2,30.9 521.0,30.9 522.7,30.9 524.5,30.9 526.3,30.9 528.1,30.9 529.9,30.9 531.7,30.9 533.5,30.9 535.2,30.9 537.0,30.9 538.8,30.9 540.6,30.9 542.4,30.9 544.2,30.9 546.0,30.9 547.8,30.9 549.5,30.9 551.3,30.9 553.1,30.9 554.9,30.9 556.7,30.9 558.5,30.9 560.3,30.9 562.0,30.9 563.8,30.9 565.6,30.9 567.4,30.9 569.2,30.9 571.0,30.9 572.8,30.9 574.5,30.9 576.3,30.9 578.1,30.9 579.9,30.9 581.7,30.9 583.5,30.9 585.3,30.9 587.0,30.9 588.8,30.9 590.6,30.9 592.4,30.9 594.2,30.9 596.0,30.9 597.8,30.9 599.5,30.9 601.3,30.9 603.1,30.9 604.9,30.9 606.7,30.9 608.5,30.9 610.3,30.9 612.0,30.9" fill="none" stroke="var(--ink)" stroke-width="1.7" opacity="0.95" class="ink-decided"/>
+  <polyline points="183.4,30.9 185.2,30.9 187.0,30.9 188.8,30.9 190.5,30.9 192.3,30.9 194.1,30.9 195.9,30.9 197.7,30.9 199.5,30.9 201.3,30.9 203.0,30.9 204.8,30.9 206.6,30.9 208.4,30.9 210.2,30.9 212.0,30.9 213.8,30.9 215.6,30.9 217.3,30.9 219.1,30.9 220.9,30.9 222.7,30.9 224.5,30.9 226.3,30.9 228.1,30.9 229.8,30.9 231.6,30.9 233.4,30.9 235.2,30.9 237.0,30.9 238.8,30.9 240.6,30.9 242.3,30.9 244.1,30.9 245.9,30.9 247.7,30.9 249.5,30.9 251.3,30.9 253.1,30.9 254.8,30.9 256.6,30.9 258.4,30.9 260.2,30.9 262.0,30.9 263.8,30.9 265.6,31.2 267.3,32.7 269.1,35.0 270.9,37.7 272.7,40.9 274.5,44.4 276.3,48.1 278.1,52.2 279.8,56.8 281.6,62.2 283.4,67.9 285.2,74.0 287.0,80.5 288.8,87.1 290.6,93.9 292.4,100.8 294.1,107.9 295.9,115.1 297.7,122.2 299.5,129.4 301.3,136.6 303.1,143.7 304.9,150.9 306.6,158.0 308.4,165.1 310.2,172.0 312.0,178.8 313.8,185.3 315.6,191.6 317.4,197.5 319.1,203.0 320.9,208.0 322.7,212.2 324.5,215.1 326.3,217.7 328.1,220.1 329.9,222.4 331.6,224.6 333.4,226.6 335.2,228.4 337.0,230.0 338.8,231.3 340.6,232.3 342.4,232.9 344.1,233.4 345.9,233.9 347.7,234.5 349.5,235.0 351.3,235.5 353.1,236.0 354.9,236.5 356.6,237.0 358.4,237.5 360.2,238.0 362.0,238.4 363.8,238.8 365.6,239.2 367.4,239.5 369.1,239.9 370.9,240.2 372.7,240.4 374.5,240.7 376.3,240.9 378.1,241.1 379.9,241.3 381.7,241.4 383.4,241.5 385.2,241.6 387.0,241.7 388.8,241.8 390.6,241.8 392.4,241.8 394.2,241.8 395.9,241.8 397.7,241.8 399.5,241.8 401.3,241.8 403.1,241.8 404.9,241.8 406.7,241.8 408.4,241.7 410.2,241.6 412.0,241.5 413.8,241.4 415.6,241.3 417.4,241.1 419.2,240.9 420.9,240.7 422.7,240.4 424.5,240.2 426.3,239.9 428.1,239.5 429.9,239.2 431.7,238.8 433.4,238.4 435.2,238.0 437.0,237.5 438.8,237.0 440.6,236.5 442.4,236.0 444.2,235.5 445.9,235.0 447.7,234.5 449.5,233.9 451.3,233.4 453.1,232.9 454.9,232.3 456.7,231.3 458.4,230.0 460.2,228.4 462.0,226.6 463.8,224.6 465.6,222.4 467.4,220.1 469.2,217.7 471.0,215.1 472.7,212.2 474.5,208.0 476.3,203.0 478.1,197.5 479.9,191.6 481.7,185.3 483.5,178.8 485.2,172.0 487.0,165.1 488.8,158.0 490.6,150.9 492.4,143.7 494.2,136.6 496.0,129.4 497.7,122.2 499.5,115.1 501.3,107.9 503.1,100.8 504.9,93.9 506.7,87.1 508.5,80.5 510.2,74.0 512.0,67.9 513.8,62.2 515.6,56.8 517.4,52.2 519.2,48.1 521.0,44.4 522.7,40.9 524.5,37.7 526.3,35.0 528.1,32.7 529.9,31.2 531.7,30.9 533.5,30.9 535.2,30.9 537.0,30.9 538.8,30.9 540.6,30.9 542.4,30.9 544.2,30.9 546.0,30.9 547.8,30.9 549.5,30.9 551.3,30.9 553.1,30.9 554.9,30.9 556.7,30.9 558.5,30.9 560.3,30.9 562.0,30.9 563.8,30.9 565.6,30.9 567.4,30.9 569.2,30.9 571.0,30.9 572.8,30.9 574.5,30.9 576.3,30.9 578.1,30.9 579.9,30.9 581.7,30.9 583.5,30.9 585.3,30.9 587.0,30.9 588.8,30.9 590.6,30.9 592.4,30.9 594.2,30.9 596.0,30.9 597.8,30.9 599.5,30.9 601.3,30.9 603.1,30.9 604.9,30.9 606.7,30.9 608.5,30.9 610.3,30.9 612.0,30.9" fill="none" stroke="var(--ink)" stroke-width="1.3" opacity="0.62" class="ink-decided"/>
+</svg>
+      <figcaption class="figcap"><span class="k">the folded curve, and two stars that both fit it</span>
+      <span class="v">heavy: R<sub>p</sub>/R<sub>*</sub> = 0.0755 · light: 0.1979</span></figcaption></figure>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 238" class="fg" role="img" aria-label="certified intervals for Kepler-7 b">
+    <line class="ink-assumed-sm" x1="236.2" x2="236.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="235.7" x2="235.7" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="236.1" x2="236.1" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="236.2" x2="236.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="233.7" x2="233.7" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/>
+    <line class="ink-guide" x1="168" x2="744" y1="218" y2="218" stroke="var(--chart-axis)" stroke-width="1"/>
+    <text x="168.0" y="230" text-anchor="middle" class="ax">0</text><text x="250.2" y="230" text-anchor="middle" class="ax">0.1</text><text x="332.3" y="230" text-anchor="middle" class="ax">0.2</text><text x="414.5" y="230" text-anchor="middle" class="ax">0.3</text><text x="496.7" y="230" text-anchor="middle" class="ax">0.4</text><text x="578.9" y="230" text-anchor="middle" class="ax">0.5</text><text x="661.0" y="230" text-anchor="middle" class="ax">0.6</text>
+    <text x="158" y="24" text-anchor="end" class="lb">assuming</text>
+    <text x="235.3" y="24" text-anchor="middle" class="ax">published, all 10</text>
+    <g>
+      <text x="158" y="52" text-anchor="end" class="lb">exact · nonneg only</text>
+      <rect x="211.0" y="43" width="350.3" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1"/>
+      <rect x="216.3" y="43" width="189.6" height="13" fill="var(--ink-5)" opacity="0.5"/>
+      <text x="211.0" y="69" class="ax">0.0523</text>
+      <text x="561.3" y="69" text-anchor="end" class="ax">0.4786</text>
+    </g><g>
+      <text x="158" y="98" text-anchor="end" class="lb">exact · not brightening out</text>
+      <rect x="227.1" y="89" width="140.0" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1"/>
+      <rect x="230.0" y="89" width="100.6" height="13" fill="var(--ink-5)" opacity="0.5"/>
+      <text x="227.1" y="115" class="ax">0.0719</text>
+      <text x="367.2" y="115" text-anchor="end" class="ax">0.2424</text>
+    </g><g>
+      <text x="158" y="144" text-anchor="end" class="lb">stated · nonneg only</text>
+      <rect x="207.9" y="135" width="503.5" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1"/>
+      <rect x="214.2" y="135" width="186.5" height="13" fill="var(--ink-5)" opacity="0.5"/>
+      <text x="207.9" y="161" class="ax">0.0485</text>
+      <text x="711.4" y="161" text-anchor="end" class="ax">0.6613</text>
+    </g><g>
+      <text x="158" y="190" text-anchor="end" class="lb">stated · not brightening out</text>
+      <rect x="226.9" y="181" width="203.0" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1"/>
+      <rect x="228.7" y="181" width="74.8" height="13" fill="var(--ink-5)" opacity="0.5"/>
+      <text x="226.9" y="207" class="ax">0.0716</text>
+      <text x="429.8" y="207" text-anchor="end" class="ax">0.3186</text>
+    </g>
+  </svg>
+      <figcaption class="figcap"><span class="k">what each assumption buys</span>
+      <span class="v">outer bar: every value outside carries a verified refutation · inner: a verified witness exists · fine ticks: the 10 published values</span></figcaption></figure>
+
+    <div class="note reveal">
+      <b>The asymmetry is the result.</b> Under nonnegativity alone the lower edge is
+      0.0523 — only 36% below the conventional fit — while the upper edge
+      reaches 0.4786.
+      Adding <em>the star does not brighten outward</em> pulls the ceiling to 0.2424.
+      The whole upper bound on a planet's radius is bought by an assumption about the star's atmosphere, not by the photometry.
+      Two scales for it. The 10 papers already disagree with each other by <b>28×</b> a typical quoted error bar — that needs no enclosure to see. The certified interval is <b>56×</b> wider again than that disagreement, and it contains every one of them.
+    </div>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="the region of the star the planet never occults">
+    <circle cx="150" cy="150" r="118" fill="var(--surface)" stroke="var(--border-strong)" stroke-width="1"/>
+    <circle cx="150" cy="150" r="52.8" fill="var(--ink-5)" opacity="0.18"/>
+    <circle class="ink-guide" cx="150" cy="150" r="52.8" fill="none" stroke="var(--ink-3)" stroke-width="1"/>
+    <line class="ink-guide" x1="18" x2="282" y1="87.5" y2="87.5" stroke="var(--ink-4)" stroke-width="1"/>
+    <circle cx="-32.9" cy="87.5" r="9.7" fill="none" stroke="var(--ink-2)" stroke-width="1.2" opacity="0.4"/><circle cx="55.6" cy="87.5" r="9.7" fill="none" stroke="var(--ink-2)" stroke-width="1.2" opacity="0.4"/><circle cx="150.0" cy="87.5" r="9.7" fill="none" stroke="var(--ink-2)" stroke-width="1.2" opacity="0.95"/><circle cx="244.4" cy="87.5" r="9.7" fill="none" stroke="var(--ink-2)" stroke-width="1.2" opacity="0.4"/><circle cx="332.9" cy="87.5" r="9.7" fill="none" stroke="var(--ink-2)" stroke-width="1.2" opacity="0.4"/>
+    <text x="150" y="218.8" text-anchor="middle" class="lb">r &lt; b − k : never occulted</text>
+    <g transform="translate(330,44)">
+      <text x="0" y="0" class="lb">b = 0.529   k = 0.0819   b − k = 0.4474</text>
+      <text x="0" y="22" class="lb">the shaded disc is 20.0% of the star's area,</text>
+      <text x="0" y="40" class="lb">and it can hold any fraction of the star's light.</text>
+      <text x="0" y="66" class="lb">Flux there changes the NORMALISATION and nothing else,</text>
+      <text x="0" y="84" class="lb">so a larger planet blocking a smaller share of a</text>
+      <text x="0" y="102" class="lb">dimmer annulus reproduces the same depth.</text>
+      <text x="0" y="128" class="lb">That is why the interval is wide upward and</text>
+      <text x="0" y="146" class="lb">tight downward: light can hide, but it cannot un-hide.</text>
+      <text x="0" y="176" class="lb">Measured in the two witnesses this run exhibited:</text>
+      <text x="0" y="194" class="lb">the k = 0.0755 star hides 0.0% of its light there,</text>
+      <text x="0" y="212" class="lb">the k = 0.1979 star hides 82.8%.</text>
+    </g>
+  </svg>
+      <figcaption class="figcap"><span class="k">why the interval is one-sided</span><span class="v">the planet's disc at five epochs, and the circle it never reaches</span></figcaption></figure>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 260" class="fg" role="img" aria-label="cumulative brightness of the two extreme admissible stars">
+    <rect x="46.0" y="16" width="312.3" height="214" fill="var(--ink-5)" opacity="0.12"/>
+    <line class="ink-guide" x1="46" x2="744" y1="230.0" y2="230.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="233.0" text-anchor="end" class="ax">0</text><line class="ink-guide" x1="46" x2="744" y1="176.5" y2="176.5" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="179.5" text-anchor="end" class="ax">0.25</text><line class="ink-guide" x1="46" x2="744" y1="123.0" y2="123.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="126.0" text-anchor="end" class="ax">0.5</text><line class="ink-guide" x1="46" x2="744" y1="69.5" y2="69.5" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="72.5" text-anchor="end" class="ax">0.75</text><line class="ink-guide" x1="46" x2="744" y1="16.0" y2="16.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" class="ax">1</text>
+    <text x="46.0" y="250" text-anchor="middle" class="ax">0</text><text x="185.6" y="250" text-anchor="middle" class="ax">0.2</text><text x="325.2" y="250" text-anchor="middle" class="ax">0.4</text><text x="464.8" y="250" text-anchor="middle" class="ax">0.6</text><text x="604.4" y="250" text-anchor="middle" class="ax">0.8</text><text x="744.0" y="250" text-anchor="middle" class="ax">1</text>
+    <polyline points="46.0,230.0 450.4,230.0 450.4,226.4 469.1,226.4 469.1,222.5 476.0,222.5 476.0,222.1 483.8,222.1 483.8,221.1 487.7,221.1 487.7,220.7 504.0,220.7 504.0,220.1 511.7,220.1 511.7,217.6 538.1,217.6 538.1,215.3 543.5,215.3 543.5,212.0 559.8,212.0 559.8,207.8 580.7,207.8 580.7,205.1 600.9,205.1 600.9,203.7 669.9,203.7 669.9,113.2 677.7,113.2 677.7,107.6 683.9,107.6 683.9,100.7 686.2,100.7 686.2,93.7 698.6,93.7 698.6,80.3 704.1,80.3 704.1,62.2 721.1,62.2 721.1,16.6 736.6,16.6 736.6,16.0 744.0,16.0" fill="none" stroke="var(--ink)" stroke-width="1.7" opacity="0.95" class="ink-decided"/>
+    <polyline points="46.0,230.0 46.4,230.0 46.4,52.8 385.3,52.8 385.3,52.5 556.7,52.5 556.7,50.7 663.0,50.7 663.0,50.6 671.5,50.6 671.5,48.7 672.3,48.7 672.3,46.8 677.7,46.8 677.7,45.0 678.5,45.0 678.5,43.2 679.2,43.2 679.2,41.3 689.3,41.3 689.3,40.3 743.6,40.3 743.6,16.0 744.0,16.0" fill="none" stroke="var(--ink)" stroke-width="1.3" opacity="0.62" class="ink-decided"/>
+    <text x="744" y="250" text-anchor="end" class="ax">radius, in stellar radii</text>
+    <text x="12" y="24" class="ax">light inside r</text>
+    <text x="364.3" y="30" class="lb">the invisible core</text>
+  </svg>
+      <figcaption class="figcap"><span class="k">the two witnesses, as light enclosed inside radius r</span><span class="v">both are exhibited measures, re-checked bin by bin</span></figcaption></figure>
+
+    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 210" class="fg" role="img" aria-label="published radius ratios for Kepler-7 b"><rect x="250.0" y="18" width="420.0" height="176" fill="var(--band-fill)"/><g><text x="240" y="33" text-anchor="end" class="lb">Q1-Q17 DR25 KOI Table</text>
+      <line class="ink-assumed-sm" x1="334.6" x2="349.0" y1="30" y2="30" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="341.8" cy="30" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="33" class="ax">0.07990 ± 0.00009</text></g><g><text x="240" y="50" text-anchor="end" class="lb">Fulton &amp;amp; Petigura 2018</text>
+      <line class="ink-assumed-sm" x1="397.4" x2="405.6" y1="47" y2="47" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="401.5" cy="47" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="50" class="ax">0.08068 ± 0.00005</text></g><g><text x="240" y="67" text-anchor="end" class="lb">Morton et al. 2016</text>
+      <line class="ink-assumed-sm" x1="397.4" x2="405.6" y1="64" y2="64" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="401.5" cy="64" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="67" class="ax">0.08068 ± 0.00005</text></g><g><text x="240" y="84" text-anchor="end" class="lb">Q1-Q12 KOI Table</text>
+      <line class="ink-assumed-sm" x1="397.4" x2="405.6" y1="81" y2="81" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="401.5" cy="81" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="84" class="ax">0.08068 ± 0.00005</text></g><g><text x="240" y="101" text-anchor="end" class="lb">Q1-Q17 DR24 KOI Table</text>
+      <line class="ink-assumed-sm" x1="397.4" x2="405.6" y1="98" y2="98" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="401.5" cy="98" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="101" class="ax">0.08068 ± 0.00005</text></g><g><text x="240" y="118" text-anchor="end" class="lb">Q1-Q16 KOI Table</text>
+      <line class="ink-assumed-sm" x1="397.4" x2="405.6" y1="115" y2="115" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="401.5" cy="115" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="118" class="ax">0.08068 ± 0.00005</text></g><g><text x="240" y="135" text-anchor="end" class="lb">Latham et al. 2010</text>
+      <line class="ink-assumed-sm" x1="511.2" x2="557.1" y1="132" y2="132" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="534.1" cy="132" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="135" class="ax">0.08241 ± 0.00030</text></g><g><text x="240" y="152" text-anchor="end" class="lb">Q1-Q8 KOI Table</text>
+      <line class="ink-assumed-sm" x1="564.8" x2="569.4" y1="149" y2="149" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="567.1" cy="149" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="152" class="ax">0.08284 ± 0.00003</text></g><g><text x="240" y="169" text-anchor="end" class="lb">Esteves et al. 2015</text>
+      <line class="ink-assumed-sm" x1="566.3" x2="583.2" y1="166" y2="166" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="574.7" cy="166" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="169" class="ax">0.08294 ± 0.00011</text></g><g><text x="240" y="186" text-anchor="end" class="lb">Kokori et al. 2023</text>
+      <line class="ink-assumed-sm" x1="566.3" x2="583.2" y1="183" y2="183" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <circle cx="574.7" cy="183" r="2.1" fill="var(--ink-2)"/>
+      <text x="678" y="186" class="ax">0.08294 ± 0.00011</text></g></svg>
+      <figcaption class="figcap"><span class="k">the published values, on their own error bars</span><span class="v">shaded: the certified interval</span></figcaption></figure>
+
+    <div class="grid reveal" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
+      <div class="h">harness check</div><div class="h">measured</div><div class="h">stated</div><div class="h">verdict</div>
+      <div class="ml">out-of-transit scatter, 196 bins</div><div>72 ppm</div><div>62 ppm</div><div class="hit">errors honest (1.16×)</div>
+      <div class="ml">fold asymmetry, before → after centring</div><div>135 → 56 ppm</div><div>shift 248 s</div><div class="hit">the archive ephemeris was out</div>
+      <div class="ml">conventional quadratic-law fit</div><div>k = 0.08193</div><div>papers 0.0799–0.0829</div><div class="hit">reproduces the field</div>
+      <div class="ml">error budget, per bin</div><div>3.3σ + 11 ppm</div><div>χ²/dof 0.80</div><div class="hit">smallest that admits that fit</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal"><div class="eyebrow">how a value is refused</div>
+    <h2 class="t1" style="margin-top:var(--s-2);max-width:28ch;">Nothing here trusts the optimiser.</h2></div>
+    <div class="prose reveal" style="margin-top:var(--s-4);max-width:74ch;">
+      <p>The star is a nonnegative measure μ on [0,1] with ∫dμ = 1 — the normalisation <em>is</em> the statement that the curve is 1 out of transit.
+      A planet of radius k at sky-plane distance z covers a fraction w(r; z, k) = arccos(clamp g)/π of the circle of radius r, so every datum is a
+      two-sided <b>linear</b> constraint on μ. Because μ is a probability measure, the reachable depths are exactly the convex hull of the kernel's
+      moment curve, and the whole question is whether a curve in R<sup>m</sup> meets a box.</p>
+      <p>When it meets it, the meeting point is a finite convex combination — an atomic measure, exhibited, and re-checked bin by bin from scratch.
+      When it misses it, the separating direction is a Farkas certificate: multipliers α, β ≥ 0 with
+      min<sub>r</sub> h(r) &gt; Σ α<sub>j</sub>u<sub>j</sub> − Σ β<sub>j</sub>l<sub>j</sub>, which refutes k for every μ at once. That minimum is over a
+      continuum, so it is closed by interval arithmetic over an adaptive partition — of r <b>and</b> of the geometry, because the kernel's closed form
+      mentions z five times and a naive enclosure over a z-box 0.01 wide once returned [0.16, 1.00] where the true value was 0.997, which had let a
+      planet the size of its star pass as admissible.</p>
+      <p>The optimiser only proposes. Whatever it hands over is checked against the definition, and a value is reported only when the check passes;
+      everything else is left undecided and shown as the gap between the inner and outer bars.</p>
+    </div>
+    <div class="note reveal">
+      <b>Seven reds fire.</b> Synthetic truth is admitted for four different profiles — a solar-like quadratic, a uniform disc, a
+      <em>limb-brightened</em> star and a bright ring — at two impact parameters each. The monotone rung refuses a limb-brightened truth, so it is a
+      real restriction rather than a decoration. A wider budget never refutes what a tighter one admitted; the monotone rung never admits what
+      nonnegativity refutes; reversing the light curve changes no verdict; the kernel is exactly zero inside r &lt; b − k at 1,446 tested pairs;
+      and the deliberately broken control — the true k judged under the wrong impact parameter — is refused, as it must be.
+      <em>An earlier RED 6 claimed the ceiling was b itself. It failed: a planet that large reaches the limb far too early, and the visible annulus
+      cannot be silent then. Hiding buys an amplitude, not a duration. The claim on this page is the one that survived.</em>
+    </div>
+  </div>
+</section></main>
+
+</body>
+</html>

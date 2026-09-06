@@ -3,7 +3,8 @@
      1. the pins        every ported file hashes to PROVENANCE.json
      2. the suites      chords.test.js (20 cases) green; reds.js: every red fires
      3. the record      make-page-data.js, run in a SCRATCH COPY, reproduces out/page.json
-                        byte for byte; paper/make-figures.js reproduces figures.tex
+                        value for value (its `built` date is a stamp); make-figures.js
+                        reproduces figures.tex
      4. the numbers     read off the reproduced record, not remembered: the 1-sigma
                         bracket, the face-value infeasibility, the misses' worth
      RED                a forged pin is caught                                        */
@@ -35,7 +36,11 @@ fs.mkdirSync(path.join(tmp, '..', path.basename(tmp) + '-interval'), { recursive
 fs.symlinkSync(path.join(HERE, '..', 'interval'), path.join(tmp, 'interval-link'));
 for (const f of ['chords.js', 'make-page-data.js']) fs.writeFileSync(path.join(tmp, f), fs.readFileSync(path.join(tmp, f), 'utf8').replace("require('../interval/rational.js')", "require('./interval-link/rational.js')"));
 const p = run(path.join(tmp, 'make-page-data.js'), tmp);
-check('make-page-data.js reproduces the pinned page.json byte for byte', p.ok && sha(path.join(tmp, 'out/page.json')) === sha(path.join(HERE, 'out/page.json')), p.ok ? '' : p.out.slice(-160));
+/* the record carries the DATE it was built (`built`), so byte-for-byte holds
+   only on the day of the port — the first run after midnight found that. Every
+   number must match; the stamp is the one field allowed to differ. */
+const sansBuilt = (f) => { const j = JSON.parse(fs.readFileSync(f, 'utf8')); delete j.built; return JSON.stringify(j); };
+check('make-page-data.js reproduces the pinned page.json (every value; the build date is a stamp)', p.ok && sansBuilt(path.join(tmp, 'out/page.json')) === sansBuilt(path.join(HERE, 'out/page.json')), p.ok ? '' : p.out.slice(-160));
 const g = run(path.join(tmp, 'paper/make-figures.js'), path.join(tmp, 'paper'));
 check('paper/make-figures.js reproduces figures.tex', g.ok && sha(path.join(tmp, 'paper/figures.tex')) === sha(path.join(HERE, 'paper/figures.tex')));
 fs.rmSync(tmp, { recursive: true, force: true }); fs.rmSync(path.join(tmp, '..', path.basename(tmp) + '-interval'), { recursive: true, force: true });
