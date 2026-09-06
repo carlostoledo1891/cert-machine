@@ -105,8 +105,26 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     "interval Cholesky monotonicity" certificate is a one-line exact form
     for this coupling and the page says so; the eigenpair certificate is
     the content. Both gated, both re-derived at build, both in every
-    registry. Next on the plan: 4 (the maximal value function) or 5 (the
-    concentration frontier); see notes/kaust-reports-plan-2026-09-06.md.
+    registry. → REPORT 4 BUILT on "continue": instruments/maxval +
+    reports/maxval.html — Gomes–Üçer's Theorem 1.8 drawn on an explicit
+    first-order game with a vacuum BUILT HERE (the paper has no example): a
+    parabolic bump of shrinking support in closed form through r = 2 sin²θ,
+    the pair verified cell by cell (residuals enclose 0 on the support, a
+    corner bound decides the strict subsolution off it), the maximal
+    solution enclosed on every vacuum cell between the free Hopf–Lax value
+    (rigorous branch-and-bound) and the cheapest path proved clear of the
+    crowd, u* ≥ u wherever decided, the gap proved positive on 786 of 1150
+    vacuum cells. 18 checks, 5 red controls. → REPORT 5 BUILT the same
+    session: instruments/frontier + reports/frontier.html — the congestion
+    certifier's refusal frontier as a MEASUREMENT over three data files
+    lifted and sha-pinned from sin-mfg (corpus/refusal-frontier/, with the
+    source note beside them): six monotone σ ladders at N = 14 with bisected
+    A⋆ brackets and named refusals, A⋆ rising 5–10 % from N = 14 to 40 (so
+    the fixed-N map is a lower bound, said first), the N-free ceiling A_rec
+    bit-identical across N, ratios below 1, slopes drawn dashed. Nothing
+    re-run: the kernel stays in the source lab; the pins are re-hashed at
+    every build and make drift. Five of the ten reports are built; the plan
+    continues with 6 (the network census playground) and 7 (the price band).
 
   ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
     the ember paper; the staged formal-conjectures issue and the letters.

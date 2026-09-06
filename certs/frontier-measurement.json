@@ -1,0 +1,1441 @@
+{
+ "what": "the concentration frontier of the congestion-MFG enclosure (reports/mfg-congest.html), MEASURED in the source lab on 2026-07-28 and re-derived on 2026-08-21: where the certifier stops certifying as the potential amplitude A grows, at six viscosities and four truncation orders, and the N-free ceiling behind it",
+ "statement": "At N = 14 every σ ladder is monotone (certified up to A⋆, refused beyond, the first refusal always Z1 ≥ 1); A⋆ is bracketed by the last certified and first refused amplitude and bisected to ≤ 0.1 %. A⋆ RISES with N at every σ (σ = 0.1: +10.3% from N = 14 to 40; σ = 0.5: +5.8% from N = 14 to 40; σ = 1.2: +5.6% from N = 14 to 40), so the fixed-N boundary is a lower bound on the method's frontier, not the frontier. The N-free ceiling A_rec(σ), where the one N-independent coefficient of the Z1 tail bound reaches 1, is bit-identical across N at every σ, and A⋆(N)/A_rec rises toward but stays below 1 at every N evaluated. Whether A⋆(N) → A_rec is NOT established; the a-axis is unevaluated; nothing here bounds where solutions exist.",
+ "verdict": "VERIFIED",
+ "pins": {
+  "sigma-N14.json": {
+   "pinned": "e2c676c1599afc3b234c0f00f51f01eeb55a77818843705934e30eeb45379a36",
+   "local": "e2c676c1599afc3b234c0f00f51f01eeb55a77818843705934e30eeb45379a36",
+   "ok": true
+  },
+  "refine-N.json": {
+   "pinned": "b667e2b8690c5cad5e60a6e62fc7da09f22074f66e4e1cbc5552dbb593444357",
+   "local": "b667e2b8690c5cad5e60a6e62fc7da09f22074f66e4e1cbc5552dbb593444357",
+   "ok": true
+  },
+  "arec.json": {
+   "pinned": "3a44eba4dff6e91389904eb56348c170c90a25c7a72e33f8920aeadc5f632fd9",
+   "local": "3a44eba4dff6e91389904eb56348c170c90a25c7a72e33f8920aeadc5f632fd9",
+   "ok": true
+  }
+ },
+ "instance": {
+  "system": "discounted Gomes–Mitake congestion, a = 1/2",
+  "V": "A cos 2πx + γ m, γ = 0.5",
+  "nu": 1.05,
+  "rCap": 0.01,
+  "N14grid": [
+   0.05,
+   0.1,
+   0.2,
+   0.3,
+   0.5,
+   0.8,
+   1.2,
+   2,
+   3,
+   4,
+   6,
+   8,
+   12,
+   16,
+   24,
+   32
+  ]
+ },
+ "ladders": [
+  {
+   "sigma": 0.1,
+   "N": 14,
+   "grid": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.8,
+    1.2,
+    2,
+    3,
+    4,
+    6,
+    8,
+    12,
+    16,
+    24,
+    32
+   ],
+   "pattern": "CCCCRRRRRRRRRRRR",
+   "monotone": true,
+   "gridBracket": [
+    0.3,
+    0.5
+   ],
+   "bisected": [
+    0.48320312499999996,
+    0.48359375
+   ],
+   "bisectRelWidth": 0.0008077544426495035,
+   "firstMode": "Z1_GE_1",
+   "firstZ1": 1.0001388949167938,
+   "lastMinM": 0.7379134833924164,
+   "lastMinW": 0.8876580765297198,
+   "pointsOK": true,
+   "certified": 4,
+   "refused": 12,
+   "ladder": [
+    {
+     "A": 0.05,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5815175356892459,
+     "minM": 0.955433096438263
+    },
+    {
+     "A": 0.1,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.6125892394787668,
+     "minM": 0.9111241977139264
+    },
+    {
+     "A": 0.2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.6847861477648539,
+     "minM": 0.8235662857494952
+    },
+    {
+     "A": 0.3,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.7736863691502139,
+     "minM": 0.7379134833924164
+    },
+    {
+     "A": 0.5,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 1.0257433885178258,
+     "minM": null
+    },
+    {
+     "A": 0.8,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 1.7694910280538143,
+     "minM": null
+    },
+    {
+     "A": 1.2,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 5.005108485805652,
+     "minM": null
+    },
+    {
+     "A": 2,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 118.58704913508856,
+     "minM": null
+    },
+    {
+     "A": 3,
+     "status": "REFUSE",
+     "mode": "SBAR0_NONPOSITIVE",
+     "minM": null
+    },
+    {
+     "A": 4,
+     "status": "REFUSE",
+     "mode": "SBAR0_NONPOSITIVE",
+     "minM": null
+    },
+    {
+     "A": 6,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    },
+    {
+     "A": 8,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    },
+    {
+     "A": 12,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    },
+    {
+     "A": 16,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    },
+    {
+     "A": 24,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    },
+    {
+     "A": 32,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    }
+   ]
+  },
+  {
+   "sigma": 0.2,
+   "N": 14,
+   "grid": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.8,
+    1.2,
+    2,
+    3,
+    4,
+    6,
+    8,
+    12,
+    16,
+    24,
+    32
+   ],
+   "pattern": "CCCCCCRRRRRRRRRR",
+   "monotone": true,
+   "gridBracket": [
+    0.8,
+    1.2
+   ],
+   "bisected": [
+    1.1445312499999998,
+    1.1453124999999997
+   ],
+   "bisectRelWidth": 0.0006821282401091019,
+   "firstMode": "Z1_GE_1",
+   "firstZ1": 1.0002890488552318,
+   "lastMinM": 0.6918602511514901,
+   "lastMinW": 0.8703247298243697,
+   "pointsOK": true,
+   "certified": 6,
+   "refused": 10,
+   "ladder": [
+    {
+     "A": 0.05,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5387915833856668,
+     "minM": 0.9800447030237028
+    },
+    {
+     "A": 0.1,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5515382735455133,
+     "minM": 0.9601436492933324
+    },
+    {
+     "A": 0.2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.578521088389487,
+     "minM": 0.9205376218359624
+    },
+    {
+     "A": 0.3,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.6076554695321575,
+     "minM": 0.8812485625928155
+    },
+    {
+     "A": 0.5,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.6743131337011156,
+     "minM": 0.80388649503385
+    },
+    {
+     "A": 0.8,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.8005948551955759,
+     "minM": 0.6918602511514901
+    },
+    {
+     "A": 1.2,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 1.038976610641528,
+     "minM": null
+    },
+    {
+     "A": 2,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 1.9901345596725468,
+     "minM": null
+    },
+    {
+     "A": 3,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 5.976619072965108,
+     "minM": null
+    },
+    {
+     "A": 4,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 25.69387141779177,
+     "minM": null
+    },
+    {
+     "A": 6,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 657.7743057839938,
+     "minM": null
+    },
+    {
+     "A": 8,
+     "status": "REFUSE",
+     "mode": "SBAR0_NONPOSITIVE",
+     "minM": null
+    },
+    {
+     "A": 12,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    },
+    {
+     "A": 16,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    },
+    {
+     "A": 24,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    },
+    {
+     "A": 32,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    }
+   ]
+  },
+  {
+   "sigma": 0.3,
+   "N": 14,
+   "grid": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.8,
+    1.2,
+    2,
+    3,
+    4,
+    6,
+    8,
+    12,
+    16,
+    24,
+    32
+   ],
+   "pattern": "CCCCCCCCRRRRRRRR",
+   "monotone": true,
+   "gridBracket": [
+    2,
+    3
+   ],
+   "bisected": [
+    2.17578125,
+    2.177734375
+   ],
+   "bisectRelWidth": 0.0008968609865470852,
+   "firstMode": "Z1_GE_1",
+   "firstZ1": 1.0001137644528744,
+   "lastMinM": 0.5975814200096967,
+   "lastMinW": 0.8377552415217036,
+   "pointsOK": true,
+   "certified": 8,
+   "refused": 8,
+   "ladder": [
+    {
+     "A": 0.05,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5241629903560444,
+     "minM": 0.9893114613413432
+    },
+    {
+     "A": 0.1,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.53077853241529,
+     "minM": 0.97863805185874
+    },
+    {
+     "A": 0.2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5444119754916115,
+     "minM": 0.9573421839934404
+    },
+    {
+     "A": 0.3,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5586044272558596,
+     "minM": 0.9361235098984415
+    },
+    {
+     "A": 0.5,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5887816775351306,
+     "minM": 0.8939620182587731
+    },
+    {
+     "A": 0.8,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.6392951580059872,
+     "minM": 0.8315738600956807
+    },
+    {
+     "A": 1.2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.7194594647820637,
+     "minM": 0.7504343071477975
+    },
+    {
+     "A": 2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.9376916759246793,
+     "minM": 0.5975814200096967
+    },
+    {
+     "A": 3,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 1.3868744754359352,
+     "minM": null
+    },
+    {
+     "A": 4,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 2.210907391443778,
+     "minM": null
+    },
+    {
+     "A": 6,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 7.237254610357289,
+     "minM": null
+    },
+    {
+     "A": 8,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 34.71849989788569,
+     "minM": null
+    },
+    {
+     "A": 12,
+     "status": "REFUSE",
+     "mode": "SBAR0_NONPOSITIVE",
+     "minM": null
+    },
+    {
+     "A": 16,
+     "status": "REFUSE",
+     "mode": "SBAR0_NONPOSITIVE",
+     "minM": null
+    },
+    {
+     "A": 24,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    },
+    {
+     "A": 32,
+     "status": "REFUSE",
+     "mode": "CANDIDATE_NONFINITE",
+     "minM": null
+    }
+   ]
+  },
+  {
+   "sigma": 0.5,
+   "N": 14,
+   "grid": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.8,
+    1.2,
+    2,
+    3,
+    4,
+    6,
+    8,
+    12,
+    16,
+    24,
+    32
+   ],
+   "pattern": "CCCCCCCCCCRRRRRR",
+   "monotone": true,
+   "gridBracket": [
+    4,
+    6
+   ],
+   "bisected": [
+    5.3671875,
+    5.37109375
+   ],
+   "bisectRelWidth": 0.0007272727272727272,
+   "firstMode": "Z1_GE_1",
+   "firstZ1": 1.0002671203140345,
+   "lastMinM": 0.6646942687726711,
+   "lastMinW": 0.8604433127465646,
+   "pointsOK": true,
+   "certified": 10,
+   "refused": 6,
+   "ladder": [
+    {
+     "A": 0.05,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5132449073690635,
+     "minM": 0.9956099220202189
+    },
+    {
+     "A": 0.1,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5159033525816726,
+     "minM": 0.9912223157629271
+    },
+    {
+     "A": 0.2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5212855327713771,
+     "minM": 0.9824549236503876
+    },
+    {
+     "A": 0.3,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5267562117334962,
+     "minM": 0.9736986337005548
+    },
+    {
+     "A": 0.5,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5379701833263262,
+     "minM": 0.9562225959549373
+    },
+    {
+     "A": 0.8,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5555004419061511,
+     "minM": 0.9301119952112338
+    },
+    {
+     "A": 1.2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5802804521848914,
+     "minM": 0.8955246734603581
+    },
+    {
+     "A": 2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.6354559459331303,
+     "minM": 0.8273175562482462
+    },
+    {
+     "A": 3,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.7183875377683555,
+     "minM": 0.7443790762856901
+    },
+    {
+     "A": 4,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.8201166002952687,
+     "minM": 0.6646942687726711
+    },
+    {
+     "A": 6,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 1.1032620369359178,
+     "minM": null
+    },
+    {
+     "A": 8,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 1.5535155786641808,
+     "minM": null
+    },
+    {
+     "A": 12,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 3.5767642206479944,
+     "minM": null
+    },
+    {
+     "A": 16,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 10.307590447853451,
+     "minM": null
+    },
+    {
+     "A": 24,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 145.29113431799894,
+     "minM": null
+    },
+    {
+     "A": 32,
+     "status": "REFUSE",
+     "mode": "SBAR0_NONPOSITIVE",
+     "minM": null
+    }
+   ]
+  },
+  {
+   "sigma": 0.8,
+   "N": 14,
+   "grid": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.8,
+    1.2,
+    2,
+    3,
+    4,
+    6,
+    8,
+    12,
+    16,
+    24,
+    32
+   ],
+   "pattern": "CCCCCCCCCCCCCRRR",
+   "monotone": true,
+   "gridBracket": [
+    12,
+    16
+   ],
+   "bisected": [
+    12.9609375,
+    12.96875
+   ],
+   "bisectRelWidth": 0.0006024096385542169,
+   "firstMode": "Z1_GE_1",
+   "firstZ1": 1.0000681144094037,
+   "lastMinM": 0.5898235970965167,
+   "lastMinW": 0.8350095942424146,
+   "pointsOK": true,
+   "certified": 13,
+   "refused": 3,
+   "ladder": [
+    {
+     "A": 0.05,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5077224922380194,
+     "minM": 0.9981734253801056
+    },
+    {
+     "A": 0.1,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5088181504998762,
+     "minM": 0.9963472718081308
+    },
+    {
+     "A": 0.2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5110205939968975,
+     "minM": 0.9926962575196232
+    },
+    {
+     "A": 0.3,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5132379745422118,
+     "minM": 0.989047016545294
+    },
+    {
+     "A": 0.5,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5177180370317753,
+     "minM": 0.9817540920676943
+    },
+    {
+     "A": 0.8,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5245532526451864,
+     "minM": 0.9708294890269245
+    },
+    {
+     "A": 1.2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5338871215921259,
+     "minM": 0.9562934361692741
+    },
+    {
+     "A": 2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5533418253924205,
+     "minM": 0.9273386494433848
+    },
+    {
+     "A": 3,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5792285844207875,
+     "minM": 0.8914038524317418
+    },
+    {
+     "A": 4,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.6069995459684044,
+     "minM": 0.8558105978618321
+    },
+    {
+     "A": 6,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.6702203644235045,
+     "minM": 0.7858750209408556
+    },
+    {
+     "A": 8,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.7451376174410694,
+     "minM": 0.7179687339773367
+    },
+    {
+     "A": 12,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.9408925185354873,
+     "minM": 0.5898235970965167
+    },
+    {
+     "A": 16,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 1.2248305961093475,
+     "minM": null
+    },
+    {
+     "A": 24,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 2.2902008209094515,
+     "minM": null
+    },
+    {
+     "A": 32,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 4.929791037927896,
+     "minM": null
+    }
+   ]
+  },
+  {
+   "sigma": 1.2,
+   "N": 14,
+   "grid": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.8,
+    1.2,
+    2,
+    3,
+    4,
+    6,
+    8,
+    12,
+    16,
+    24,
+    32
+   ],
+   "pattern": "CCCCCCCCCCCCCCCR",
+   "monotone": true,
+   "gridBracket": [
+    24,
+    32
+   ],
+   "bisected": [
+    28.296875,
+    28.3125
+   ],
+   "bisectRelWidth": 0.0005518763796909492,
+   "firstMode": "Z1_GE_1",
+   "firstZ1": 1.0001140437838036,
+   "lastMinM": 0.6209371136721527,
+   "lastMinW": 0.8453584422019511,
+   "pointsOK": true,
+   "certified": 15,
+   "refused": 1,
+   "ladder": [
+    {
+     "A": 0.05,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5049198778806168,
+     "minM": 0.9991629215373087
+    },
+    {
+     "A": 0.1,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5054199720831007,
+     "minM": 0.9983259309108171
+    },
+    {
+     "A": 0.2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5064224829771145,
+     "minM": 0.9966522160425494
+    },
+    {
+     "A": 0.3,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5074281001442811,
+     "minM": 0.994978861146923
+    },
+    {
+     "A": 0.5,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5094486996978733,
+     "minM": 0.9916332542758552
+    },
+    {
+     "A": 0.8,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5125031873596878,
+     "minM": 0.986617687500913
+    },
+    {
+     "A": 1.2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5166203651105704,
+     "minM": 0.979935814383308
+    },
+    {
+     "A": 2,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5250102719222902,
+     "minM": 0.9665924716898068
+    },
+    {
+     "A": 3,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.535797462002835,
+     "minM": 0.9499553309226507
+    },
+    {
+     "A": 4,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5469296909677213,
+     "minM": 0.9333702288190434
+    },
+    {
+     "A": 6,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5702830440633153,
+     "minM": 0.9003788453764504
+    },
+    {
+     "A": 8,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.5951838717672804,
+     "minM": 0.8676633534644267
+    },
+    {
+     "A": 12,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.6510776499868496,
+     "minM": 0.8032362323893055
+    },
+    {
+     "A": 16,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.7165511853239245,
+     "minM": 0.7404305486169231
+    },
+    {
+     "A": 24,
+     "status": "CERTIFIED",
+     "mode": null,
+     "Z1": 0.8837722513393771,
+     "minM": 0.6209371136721527
+    },
+    {
+     "A": 32,
+     "status": "REFUSE",
+     "mode": "Z1_GE_1",
+     "Z1": 1.118520793022767,
+     "minM": null
+    }
+   ]
+  }
+ ],
+ "refine": [
+  {
+   "sigma": 0.1,
+   "N": 14,
+   "G": 1024,
+   "pattern": "CCCCCRRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    0.4834,
+    0.50757
+   ],
+   "bisected": [
+    0.4834,
+    0.48358882812500004
+   ],
+   "cMrecipLastC": 0.8790702769514468,
+   "cMrecipFirstR": 0.9104335351275143
+  },
+  {
+   "sigma": 0.1,
+   "N": 20,
+   "G": 1024,
+   "pattern": "CCCCCRRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    0.4834,
+    0.50757
+   ],
+   "bisected": [
+    0.505870546875,
+    0.506059375
+   ],
+   "cMrecipLastC": 0.8790702769869264,
+   "cMrecipFirstR": 0.9104335352052668
+  },
+  {
+   "sigma": 0.1,
+   "N": 28,
+   "G": 1024,
+   "pattern": "CCCCCCRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    0.50757,
+    0.55591
+   ],
+   "bisected": [
+    0.5213544531250001,
+    0.52154328125
+   ],
+   "cMrecipLastC": 0.9104335352052777,
+   "cMrecipFirstR": 0.9788143913833449
+  },
+  {
+   "sigma": 0.1,
+   "N": 40,
+   "G": 1024,
+   "pattern": "CCCCCCRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    0.50757,
+    0.55591
+   ],
+   "bisected": [
+    0.533250625,
+    0.533439453125
+   ],
+   "cMrecipLastC": 0.9104335352052826,
+   "cMrecipFirstR": 0.9788143913833499
+  },
+  {
+   "sigma": 0.5,
+   "N": 14,
+   "G": 1024,
+   "pattern": "CCCCRRRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    5.100645,
+    5.3691
+   ],
+   "bisected": [
+    5.3670026953125,
+    5.3691
+   ],
+   "cMrecipLastC": 0.8892041153503232,
+   "cMrecipFirstR": 0.9222404401840905
+  },
+  {
+   "sigma": 0.5,
+   "N": 20,
+   "G": 1024,
+   "pattern": "CCCCCRRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    5.3691,
+    5.637555
+   ],
+   "bisected": [
+    5.5075221093749995,
+    5.5096194140625
+   ],
+   "cMrecipLastC": 0.9222404402238215,
+   "cMrecipFirstR": 0.9571198076986116
+  },
+  {
+   "sigma": 0.5,
+   "N": 28,
+   "G": 1024,
+   "pattern": "CCCCCRRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    5.3691,
+    5.637555
+   ],
+   "bisected": [
+    5.603998125,
+    5.6060954296875005
+   ],
+   "cMrecipLastC": 0.9222404402238275,
+   "cMrecipFirstR": 0.9571198076986239
+  },
+  {
+   "sigma": 0.5,
+   "N": 40,
+   "G": 1024,
+   "pattern": "CCCCCCRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    5.637555,
+    6.174465
+   ],
+   "bisected": [
+    5.67950109375,
+    5.6815983984375
+   ],
+   "cMrecipLastC": 0.9571198076986287,
+   "cMrecipFirstR": 1.0328869950852428
+  },
+  {
+   "sigma": 1.2,
+   "N": 14,
+   "G": 1024,
+   "pattern": "CCCCRRRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    26.88785,
+    28.303
+   ],
+   "bisected": [
+    28.291944140625,
+    28.303
+   ],
+   "cMrecipLastC": 0.8914708944231761,
+   "cMrecipFirstR": 0.9246897454315635
+  },
+  {
+   "sigma": 1.2,
+   "N": 20,
+   "G": 1024,
+   "pattern": "CCCCCRRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    28.303,
+    29.71815
+   ],
+   "bisected": [
+    28.999519140625004,
+    29.010575000000003
+   ],
+   "cMrecipLastC": 0.9246897454697766,
+   "cMrecipFirstR": 0.9597568587331722
+  },
+  {
+   "sigma": 1.2,
+   "N": 28,
+   "G": 1024,
+   "pattern": "CCCCCRRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    28.303,
+    29.71815
+   ],
+   "bisected": [
+    29.497032812500002,
+    29.508088671875
+   ],
+   "cMrecipLastC": 0.924689745469783,
+   "cMrecipFirstR": 0.9597568587331813
+  },
+  {
+   "sigma": 1.2,
+   "N": 40,
+   "G": 1024,
+   "pattern": "CCCCCCRRR",
+   "monotone": true,
+   "patternAgrees": true,
+   "gridBracket": [
+    29.71815,
+    32.54845
+   ],
+   "bisected": [
+    29.87293203125,
+    29.883987890625
+   ],
+   "cMrecipLastC": 0.9597568587331873,
+   "cMrecipFirstR": 1.0359134787814992
+  }
+ ],
+ "rise": [
+  {
+   "sigma": 0.1,
+   "N": [
+    14,
+    20,
+    28,
+    40
+   ],
+   "AstarLo": [
+    0.4834,
+    0.505870546875,
+    0.5213544531250001,
+    0.533250625
+   ],
+   "rising": true,
+   "movePct": 10.312499999999996
+  },
+  {
+   "sigma": 0.5,
+   "N": [
+    14,
+    20,
+    28,
+    40
+   ],
+   "AstarLo": [
+    5.3670026953125,
+    5.5075221093749995,
+    5.603998125,
+    5.67950109375
+   ],
+   "rising": true,
+   "movePct": 5.822586948026565
+  },
+  {
+   "sigma": 1.2,
+   "N": [
+    14,
+    20,
+    28,
+    40
+   ],
+   "AstarLo": [
+    28.291944140625,
+    28.999519140625004,
+    29.497032812500002,
+    29.87293203125
+   ],
+   "rising": true,
+   "movePct": 5.588120359515435
+  }
+ ],
+ "ceiling": [
+  {
+   "sigma": 0.1,
+   "Arec": [
+    0.5697509765625,
+    0.56982421875
+   ],
+   "sameAcrossN": true,
+   "ratios": [
+    {
+     "N": 14,
+     "Astar": [
+      0.4834,
+      0.483589
+     ],
+     "ratio": 0.8483317909168809,
+     "recomputed": 0.8483317909168809,
+     "agrees": true
+    },
+    {
+     "N": 20,
+     "Astar": [
+      0.505871,
+      0.506059
+     ],
+     "ratio": 0.8877667592116537,
+     "recomputed": 0.8877667592116537,
+     "agrees": true
+    },
+    {
+     "N": 28,
+     "Astar": [
+      0.521354,
+      0.521543
+     ],
+     "ratio": 0.9149382964867181,
+     "recomputed": 0.9149382964867181,
+     "agrees": true
+    },
+    {
+     "N": 40,
+     "Astar": [
+      0.533251,
+      0.533439
+     ],
+     "ratio": 0.9358166649528706,
+     "recomputed": 0.9358166649528706,
+     "agrees": true
+    }
+   ],
+   "slopes": [
+    {
+     "N0": 14,
+     "N1": 20,
+     "slope": -0.844231119132775
+    },
+    {
+     "N0": 20,
+     "N1": 28,
+     "slope": -0.8238489418464364
+    },
+    {
+     "N0": 28,
+     "N1": 40,
+     "slope": -0.7896078020406881
+    }
+   ],
+   "ratiosRising": true,
+   "allBelowOne": true
+  },
+  {
+   "sigma": 0.5,
+   "Arec": [
+    5.948486328125,
+    5.94921875
+   ],
+   "sameAcrossN": true,
+   "ratios": [
+    {
+     "N": 14,
+     "Astar": [
+      5.367003,
+      5.3691
+     ],
+     "ratio": 0.9021357636244255,
+     "recomputed": 0.9021357636244255,
+     "agrees": true
+    },
+    {
+     "N": 20,
+     "Astar": [
+      5.507522,
+      5.509619
+     ],
+     "ratio": 0.9257555036112934,
+     "recomputed": 0.9257555036112934,
+     "agrees": true
+    },
+    {
+     "N": 28,
+     "Astar": [
+      5.603998,
+      5.606095
+     ],
+     "ratio": 0.9419720866710439,
+     "recomputed": 0.9419720866710439,
+     "agrees": true
+    },
+    {
+     "N": 40,
+     "Astar": [
+      5.679501,
+      5.681598
+     ],
+     "ratio": 0.9546633328956008,
+     "recomputed": 0.9546633328956008,
+     "agrees": true
+    }
+   ],
+   "slopes": [
+    {
+     "N0": 14,
+     "N1": 20,
+     "slope": -0.774423680605252
+    },
+    {
+     "N0": 20,
+     "N1": 28,
+     "slope": -0.7324214789042034
+    },
+    {
+     "N0": 28,
+     "N1": 40,
+     "slope": -0.6919690598702007
+    }
+   ],
+   "ratiosRising": true,
+   "allBelowOne": true
+  },
+  {
+   "sigma": 1.2,
+   "Arec": [
+    31.24951171875,
+    31.25390625
+   ],
+   "sameAcrossN": true,
+   "ratios": [
+    {
+     "N": 14,
+     "Astar": [
+      28.291944,
+      28.303
+     ],
+     "ratio": 0.905229054368204,
+     "recomputed": 0.905229054368204,
+     "agrees": true
+    },
+    {
+     "N": 20,
+     "Astar": [
+      28.999519,
+      29.010575
+     ],
+     "ratio": 0.9278686244219473,
+     "recomputed": 0.9278686244219473,
+     "agrees": true
+    },
+    {
+     "N": 28,
+     "Astar": [
+      29.497033,
+      29.508089
+     ],
+     "ratio": 0.9437870826146731,
+     "recomputed": 0.9437870826146731,
+     "agrees": true
+    },
+    {
+     "N": 40,
+     "Astar": [
+      29.872932,
+      29.883988
+     ],
+     "ratio": 0.9558143472065991,
+     "recomputed": 0.9558143472065991,
+     "agrees": true
+    }
+   ],
+   "slopes": [
+    {
+     "N0": 14,
+     "N1": 20,
+     "slope": -0.765329241923874
+    },
+    {
+     "N0": 20,
+     "N1": 28,
+     "slope": -0.7410493729050528
+    },
+    {
+     "N0": 28,
+     "N1": 40,
+     "slope": -0.674974349440586
+    }
+   ],
+   "ratiosRising": true,
+   "allBelowOne": true
+  }
+ ],
+ "provenance": {
+  "code": "instruments/frontier/frontier.js",
+  "sha256": "5e5086358702b9b29fe429f659ba4c3c6cb73f5a7c8dc24cf051395683faa77f",
+  "data": "corpus/refusal-frontier/ — lifted from sin-mfg research/mfg-congest/docs/refusal-frontier/ (LIFT.json, PROVENANCE.json, make drift); the note REFUSAL_FRONTIER.md travels beside the files",
+  "kernel": "sin-mfg research/mfg-congest/kernel/validate-congest.js (sha256 3fb85f00…, printed by every script that produced the data) — NOT re-run here; the one published point is re-run by reports/mfg-congest.html"
+ },
+ "generatedBy": "node instruments/frontier/run.js"
+}

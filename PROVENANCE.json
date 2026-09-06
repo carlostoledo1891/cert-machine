@@ -1,9 +1,9 @@
 {
  "source_root": "/Users/carlostoledo/Projects/sin-mfg",
- "lifted_at_utc": "2026-08-31T18:02:38.641Z",
+ "lifted_at_utc": "2026-09-06T11:06:53.390Z",
  "policy": "READ-ONLY. The lift copies OUT of sin-mfg and never writes back. `make drift` re-hashes both ends and names what moved.",
  "counts": {
-  "files": 130,
+  "files": 137,
   "patched": 7,
   "missing_in_source": 0
  },
@@ -917,6 +917,55 @@
    "src_sha256": "5ccedfc958514b8ce722187aab2fa49324ebca664f76b5fe95310ab00e7e3d74",
    "patched": false,
    "local_sha256": "5ccedfc958514b8ce722187aab2fa49324ebca664f76b5fe95310ab00e7e3d74"
+  },
+  {
+   "src": "research/mfg-congest/docs/refusal-frontier/sigma-N14.json",
+   "dst": "corpus/refusal-frontier/sigma-N14.json",
+   "src_sha256": "e2c676c1599afc3b234c0f00f51f01eeb55a77818843705934e30eeb45379a36",
+   "patched": false,
+   "local_sha256": "e2c676c1599afc3b234c0f00f51f01eeb55a77818843705934e30eeb45379a36"
+  },
+  {
+   "src": "research/mfg-congest/docs/refusal-frontier/refine-N.json",
+   "dst": "corpus/refusal-frontier/refine-N.json",
+   "src_sha256": "b667e2b8690c5cad5e60a6e62fc7da09f22074f66e4e1cbc5552dbb593444357",
+   "patched": false,
+   "local_sha256": "b667e2b8690c5cad5e60a6e62fc7da09f22074f66e4e1cbc5552dbb593444357"
+  },
+  {
+   "src": "research/mfg-congest/docs/refusal-frontier/arec.json",
+   "dst": "corpus/refusal-frontier/arec.json",
+   "src_sha256": "3a44eba4dff6e91389904eb56348c170c90a25c7a72e33f8920aeadc5f632fd9",
+   "patched": false,
+   "local_sha256": "3a44eba4dff6e91389904eb56348c170c90a25c7a72e33f8920aeadc5f632fd9"
+  },
+  {
+   "src": "research/mfg-congest/docs/refusal-frontier/sweep-sigma-N14.log",
+   "dst": "corpus/refusal-frontier/sweep-sigma-N14.log",
+   "src_sha256": "2f46ba7545c5228a866d04b4599942787e2c1510c0731d658e7d5aa7539e09bb",
+   "patched": false,
+   "local_sha256": "2f46ba7545c5228a866d04b4599942787e2c1510c0731d658e7d5aa7539e09bb"
+  },
+  {
+   "src": "research/mfg-congest/docs/refusal-frontier/refine-N.log",
+   "dst": "corpus/refusal-frontier/refine-N.log",
+   "src_sha256": "d3b05179d7c2e43c3078e71545db25d7a279c79e4d228d75bbab6f5a3cd4ebb3",
+   "patched": false,
+   "local_sha256": "d3b05179d7c2e43c3078e71545db25d7a279c79e4d228d75bbab6f5a3cd4ebb3"
+  },
+  {
+   "src": "research/mfg-congest/docs/refusal-frontier/arec-2026-08-21.log",
+   "dst": "corpus/refusal-frontier/arec-2026-08-21.log",
+   "src_sha256": "b48094ddfea349475ddef6d002754f5134ab3a1c025e534b66e6b62570bf8be2",
+   "patched": false,
+   "local_sha256": "b48094ddfea349475ddef6d002754f5134ab3a1c025e534b66e6b62570bf8be2"
+  },
+  {
+   "src": "research/mfg-congest/docs/REFUSAL_FRONTIER.md",
+   "dst": "corpus/refusal-frontier/REFUSAL_FRONTIER.md",
+   "src_sha256": "0af42be5d7b4c5c6f4a3950996ca2996330b57acdb44bef6598f62258c97a49c",
+   "patched": false,
+   "local_sha256": "0af42be5d7b4c5c6f4a3950996ca2996330b57acdb44bef6598f62258c97a49c"
   }
  ]
 }

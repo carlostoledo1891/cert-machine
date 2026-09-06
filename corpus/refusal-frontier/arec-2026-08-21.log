@@ -1,0 +1,22 @@
+PASS  KA2 s0bar agrees with an INDEPENDENT pointwise mean sqrt(m)   [rel dev = 0.000e+0]
+PASS  KA3 validate.js reports the same cMrecip this file recomputes (wiring is real)   [validate = 0.514191757560, here = 0.514191757560]
+PASS  KA4 with the reciprocal built WRONG (dropped 1/m^{a+1}) the same check goes RED   [rel dev = 5.000e-1 (honest was 5.77e-15)]
+       margin audit: the mutation signal is 2.7e+11x the derived bound, so the bound cannot be hiding a defect of this class.
+       kill-control green: cMrecip is corroborated by an independent route that can go red.
+
+--- A_rec(sigma): the A at which cMrecip = ||w*w||_nu/(2 s0bar) reaches 1 ---
+    Z1 >= analytic-tail >= cMrecip, so cMrecip >= 1 forces refusal AT EVERY N.
+  sigma=0.1  N=14  A_rec in [0.56975, 0.56982]   measured A* in [0.48340, 0.48359]   A*/A_rec = 0.8483   (3159 ms)
+  sigma=0.1  N=20  A_rec in [0.56975, 0.56982]   measured A* in [0.50587, 0.50606]   A*/A_rec = 0.8878   (6522 ms)
+  sigma=0.1  N=28  A_rec in [0.56975, 0.56982]   measured A* in [0.52135, 0.52154]   A*/A_rec = 0.9149   (13017 ms)
+  sigma=0.1  N=40  A_rec in [0.56975, 0.56982]   measured A* in [0.53325, 0.53344]   A*/A_rec = 0.9358   (28256 ms)
+  sigma=0.5  N=14  A_rec in [5.94849, 5.94922]   measured A* in [5.36700, 5.36910]   A*/A_rec = 0.9021   (3251 ms)
+  sigma=0.5  N=20  A_rec in [5.94849, 5.94922]   measured A* in [5.50752, 5.50962]   A*/A_rec = 0.9258   (6774 ms)
+  sigma=0.5  N=28  A_rec in [5.94849, 5.94922]   measured A* in [5.60400, 5.60609]   A*/A_rec = 0.9420   (13476 ms)
+  sigma=0.5  N=40  A_rec in [5.94849, 5.94922]   measured A* in [5.67950, 5.68160]   A*/A_rec = 0.9547   (29063 ms)
+  sigma=1.2  N=14  A_rec in [31.24951, 31.25391]   measured A* in [28.29194, 28.30300]   A*/A_rec = 0.9052   (3298 ms)
+  sigma=1.2  N=20  A_rec in [31.24951, 31.25391]   measured A* in [28.99952, 29.01057]   A*/A_rec = 0.9279   (6992 ms)
+  sigma=1.2  N=28  A_rec in [31.24951, 31.25391]   measured A* in [29.49703, 29.50809]   A*/A_rec = 0.9438   (13787 ms)
+  sigma=1.2  N=40  A_rec in [31.24951, 31.25391]   measured A* in [29.87293, 29.88399]   A*/A_rec = 0.9558   (29697 ms)
+
+wrote arec.json

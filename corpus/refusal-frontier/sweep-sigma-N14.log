@@ -1,0 +1,144 @@
+=== KERNEL SHA256 ===
+  416955a131775a045a43f8fc995c1e52da376f2e3c35781f0cd257f1d04628d4  kernel/candidate-congest.js
+  3fb85f009487ec7ded83a27b1b76f186f0b4dcfa6cdd270a15fad3a9a72d4130  kernel/validate-congest.js
+  903c59f83b3665010772619a58c6c51d4f22dd22ef5940a979f2c829da53fd79  kernel/model.js
+  909f0ed32053d414b393f99407b4a12eaa723fc993b1b97c911783175c541e2c  eqcert/interval.js
+  327a289daaa62515b2bea45d25218fa98e65cb4f53071dd26c05b25107b2b62b  eqcert/sequence.js
+  34aba8496a28940cf74a247ebe64d22f3998b3a94d65a9b9f68a9efa147ff8ad  eqcert/radii.js
+  dd4f6edb91cf156deb49e5cc673b0286144d207dfc7a8579184b91eb9b789c99  THIS_FILE
+N=14  gamma=0.5  nu=1.05  rCap=1e-2  a=1/2
+A grid actually evaluated: 0.05,0.1,0.2,0.3,0.5,0.8,1.2,2,3,4,6,8,12,16,24,32
+
+sigma=0.1   ladder(16 evaluated) = CCCCRRRRRRRRRRRR
+   A=0.05  CERT -                      Z1=5.82e-1 r=9.35e-15 minM=9.554e-1 minW=9.78e-1 res=1.7e-16
+   A=0.1   CERT -                      Z1=6.13e-1 r=1.18e-14 minM=9.111e-1 minW=9.58e-1 res=1.9e-16
+   A=0.2   CERT -                      Z1=6.85e-1 r=8.11e-14 minM=8.236e-1 minW=9.21e-1 res=4.9e-14
+   A=0.3   CERT -                      Z1=7.74e-1 r=3.30e-13 minM=7.379e-1 minW=8.88e-1 res=5.1e-14
+   A=0.5   REF  Z1_GE_1                Z1=1.03e+0 r=   -    minM=  -   minW=  -   res=7.5e-17
+   A=0.8   REF  Z1_GE_1                Z1=1.77e+0 r=   -    minM=  -   minW=  -   res=2.0e-16
+   A=1.2   REF  Z1_GE_1                Z1=5.01e+0 r=   -    minM=  -   minW=  -   res=2.1e-16
+   A=2     REF  Z1_GE_1                Z1=1.19e+2 r=   -    minM=  -   minW=  -   res=4.0e-16
+   A=3     REF  SBAR0_NONPOSITIVE      Z1=   -    r=   -    minM=  -   minW=  -   res=6.3e-16
+   A=4     REF  SBAR0_NONPOSITIVE      Z1=   -    r=   -    minM=  -   minW=  -   res=2.6e-14
+   A=6     REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   A=8     REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   A=12    REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   A=16    REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   A=24    REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   A=32    REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   -> BRACKET  A* in [0.48320, 0.48359]  (rel width 0.08%, 9 bisection evaluations)
+      last CERTIFIED : A=0.48320  Z1=0.9995  r=1.00e-7  minM=5.880e-1  minW=8.360e-1
+      first REFUSED  : A=0.48359  mode=Z1_GE_1  Z1=1.0001
+   (39108 ms)
+
+sigma=0.2   ladder(16 evaluated) = CCCCCCRRRRRRRRRR
+   A=0.05  CERT -                      Z1=5.39e-1 r=7.84e-15 minM=9.800e-1 minW=9.90e-1 res=4.1e-17
+   A=0.1   CERT -                      Z1=5.52e-1 r=8.45e-15 minM=9.601e-1 minW=9.81e-1 res=3.1e-17
+   A=0.2   CERT -                      Z1=5.79e-1 r=1.11e-14 minM=9.205e-1 minW=9.62e-1 res=9.0e-17
+   A=0.3   CERT -                      Z1=6.08e-1 r=1.38e-14 minM=8.812e-1 minW=9.45e-1 res=9.9e-17
+   A=0.5   CERT -                      Z1=6.74e-1 r=5.08e-14 minM=8.039e-1 minW=9.13e-1 res=3.7e-14
+   A=0.8   CERT -                      Z1=8.01e-1 r=1.33e-12 minM=6.919e-1 minW=8.70e-1 res=1.5e-16
+   A=1.2   REF  Z1_GE_1                Z1=1.04e+0 r=   -    minM=  -   minW=  -   res=5.6e-16
+   A=2     REF  Z1_GE_1                Z1=1.99e+0 r=   -    minM=  -   minW=  -   res=3.0e-16
+   A=3     REF  Z1_GE_1                Z1=5.98e+0 r=   -    minM=  -   minW=  -   res=1.0e-15
+   A=4     REF  Z1_GE_1                Z1=2.57e+1 r=   -    minM=  -   minW=  -   res=9.0e-16
+   A=6     REF  Z1_GE_1                Z1=6.58e+2 r=   -    minM=  -   minW=  -   res=5.1e-15
+   A=8     REF  SBAR0_NONPOSITIVE      Z1=   -    r=   -    minM=  -   minW=  -   res=2.6e-14
+   A=12    REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   A=16    REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   A=24    REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   A=32    REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   -> BRACKET  A* in [1.14453, 1.14531]  (rel width 0.07%, 9 bisection evaluations)
+      last CERTIFIED : A=1.14453  Z1=0.9998  r=2.38e-7  minM=5.711e-1  minW=8.294e-1
+      first REFUSED  : A=1.14531  mode=Z1_GE_1  Z1=1.0003
+   (35879 ms)
+
+sigma=0.3   ladder(16 evaluated) = CCCCCCCCRRRRRRRR
+   A=0.05  CERT -                      Z1=5.24e-1 r=6.99e-15 minM=9.893e-1 minW=9.95e-1 res=4.3e-17
+   A=0.1   CERT -                      Z1=5.31e-1 r=7.48e-15 minM=9.786e-1 minW=9.89e-1 res=3.4e-17
+   A=0.2   CERT -                      Z1=5.44e-1 r=8.62e-15 minM=9.573e-1 minW=9.79e-1 res=4.4e-17
+   A=0.3   CERT -                      Z1=5.59e-1 r=1.03e-14 minM=9.361e-1 minW=9.69e-1 res=5.4e-17
+   A=0.5   CERT -                      Z1=5.89e-1 r=1.25e-14 minM=8.940e-1 minW=9.50e-1 res=3.0e-16
+   A=0.8   CERT -                      Z1=6.39e-1 r=2.56e-14 minM=8.316e-1 minW=9.24e-1 res=1.1e-14
+   A=1.2   CERT -                      Z1=7.19e-1 r=6.91e-14 minM=7.504e-1 minW=8.92e-1 res=7.1e-17
+   A=2     CERT -                      Z1=9.38e-1 r=3.11e-10 minM=5.976e-1 minW=8.38e-1 res=2.0e-16
+   A=3     REF  Z1_GE_1                Z1=1.39e+0 r=   -    minM=  -   minW=  -   res=6.7e-16
+   A=4     REF  Z1_GE_1                Z1=2.21e+0 r=   -    minM=  -   minW=  -   res=7.9e-16
+   A=6     REF  Z1_GE_1                Z1=7.24e+0 r=   -    minM=  -   minW=  -   res=7.5e-16
+   A=8     REF  Z1_GE_1                Z1=3.47e+1 r=   -    minM=  -   minW=  -   res=1.0e-15
+   A=12    REF  SBAR0_NONPOSITIVE      Z1=   -    r=   -    minM=  -   minW=  -   res=4.1e-15
+   A=16    REF  SBAR0_NONPOSITIVE      Z1=   -    r=   -    minM=  -   minW=  -   res=1.5e-14
+   A=24    REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   A=32    REF  CANDIDATE_NONFINITE    Z1=   -    r=   -    minM=  -   minW=  -   res=NaN
+   -> BRACKET  A* in [2.17578, 2.17773]  (rel width 0.09%, 9 bisection evaluations)
+      last CERTIFIED : A=2.17578  Z1=0.9994  r=1.14e-7  minM=5.660e-1  minW=8.275e-1
+      first REFUSED  : A=2.17773  mode=Z1_GE_1  Z1=1.0001
+   (20230 ms)
+
+sigma=0.5   ladder(16 evaluated) = CCCCCCCCCCRRRRRR
+   A=0.05  CERT -                      Z1=5.13e-1 r=6.53e-15 minM=9.956e-1 minW=9.98e-1 res=2.1e-17
+   A=0.1   CERT -                      Z1=5.16e-1 r=6.72e-15 minM=9.912e-1 minW=9.96e-1 res=3.4e-17
+   A=0.2   CERT -                      Z1=5.21e-1 r=7.26e-15 minM=9.825e-1 minW=9.91e-1 res=3.3e-17
+   A=0.3   CERT -                      Z1=5.27e-1 r=7.75e-15 minM=9.737e-1 minW=9.87e-1 res=4.1e-17
+   A=0.5   CERT -                      Z1=5.38e-1 r=8.78e-15 minM=9.562e-1 minW=9.79e-1 res=5.8e-17
+   A=0.8   CERT -                      Z1=5.56e-1 r=1.04e-14 minM=9.301e-1 minW=9.67e-1 res=5.1e-17
+   A=1.2   CERT -                      Z1=5.80e-1 r=1.29e-14 minM=8.955e-1 minW=9.51e-1 res=1.9e-16
+   A=2     CERT -                      Z1=6.35e-1 r=5.14e-14 minM=8.273e-1 minW=9.22e-1 res=4.1e-14
+   A=3     CERT -                      Z1=7.18e-1 r=9.07e-14 minM=7.444e-1 minW=8.89e-1 res=3.3e-16
+   A=4     CERT -                      Z1=8.20e-1 r=6.29e-12 minM=6.647e-1 minW=8.60e-1 res=2.0e-16
+   A=6     REF  Z1_GE_1                Z1=1.10e+0 r=   -    minM=  -   minW=  -   res=9.9e-16
+   A=8     REF  Z1_GE_1                Z1=1.55e+0 r=   -    minM=  -   minW=  -   res=4.8e-16
+   A=12    REF  Z1_GE_1                Z1=3.58e+0 r=   -    minM=  -   minW=  -   res=7.7e-16
+   A=16    REF  Z1_GE_1                Z1=1.03e+1 r=   -    minM=  -   minW=  -   res=2.0e-15
+   A=24    REF  Z1_GE_1                Z1=1.45e+2 r=   -    minM=  -   minW=  -   res=5.1e-15
+   A=32    REF  SBAR0_NONPOSITIVE      Z1=   -    r=   -    minM=  -   minW=  -   res=1.7e-14
+   -> BRACKET  A* in [5.36719, 5.37109]  (rel width 0.07%, 9 bisection evaluations)
+      last CERTIFIED : A=5.36719  Z1=0.9997  r=2.89e-7  minM=5.622e-1  minW=8.261e-1
+      first REFUSED  : A=5.37109  mode=Z1_GE_1  Z1=1.0003
+   (4560 ms)
+
+sigma=0.8   ladder(16 evaluated) = CCCCCCCCCCCCCRRR
+   A=0.05  CERT -                      Z1=5.08e-1 r=6.13e-15 minM=9.982e-1 minW=9.99e-1 res=2.3e-17
+   A=0.1   CERT -                      Z1=5.09e-1 r=6.21e-15 minM=9.963e-1 minW=9.98e-1 res=2.1e-17
+   A=0.2   CERT -                      Z1=5.11e-1 r=6.62e-15 minM=9.927e-1 minW=9.96e-1 res=1.8e-17
+   A=0.3   CERT -                      Z1=5.13e-1 r=6.55e-15 minM=9.890e-1 minW=9.95e-1 res=5.8e-17
+   A=0.5   CERT -                      Z1=5.18e-1 r=6.90e-15 minM=9.818e-1 minW=9.91e-1 res=3.5e-17
+   A=0.8   CERT -                      Z1=5.25e-1 r=8.02e-15 minM=9.708e-1 minW=9.86e-1 res=5.2e-17
+   A=1.2   CERT -                      Z1=5.34e-1 r=8.43e-15 minM=9.563e-1 minW=9.79e-1 res=9.2e-17
+   A=2     CERT -                      Z1=5.53e-1 r=1.09e-14 minM=9.273e-1 minW=9.65e-1 res=7.5e-17
+   A=3     CERT -                      Z1=5.79e-1 r=1.45e-14 minM=8.914e-1 minW=9.49e-1 res=2.7e-16
+   A=4     CERT -                      Z1=6.07e-1 r=1.99e-14 minM=8.558e-1 minW=9.34e-1 res=4.6e-16
+   A=6     CERT -                      Z1=6.70e-1 r=4.01e-14 minM=7.859e-1 minW=9.05e-1 res=5.6e-16
+   A=8     CERT -                      Z1=7.45e-1 r=4.17e-13 minM=7.180e-1 minW=8.80e-1 res=1.3e-15
+   A=12    CERT -                      Z1=9.41e-1 r=6.62e-10 minM=5.898e-1 minW=8.35e-1 res=4.0e-16
+   A=16    REF  Z1_GE_1                Z1=1.22e+0 r=   -    minM=  -   minW=  -   res=7.2e-16
+   A=24    REF  Z1_GE_1                Z1=2.29e+0 r=   -    minM=  -   minW=  -   res=1.5e-15
+   A=32    REF  Z1_GE_1                Z1=4.93e+0 r=   -    minM=  -   minW=  -   res=1.3e-15
+   -> BRACKET  A* in [12.96094, 12.96875]  (rel width 0.06%, 9 bisection evaluations)
+      last CERTIFIED : A=12.96094  Z1=0.9996  r=2.97e-7  minM=5.608e-1  minW=8.256e-1
+      first REFUSED  : A=12.96875  mode=Z1_GE_1  Z1=1.0001
+   (4094 ms)
+
+sigma=1.2   ladder(16 evaluated) = CCCCCCCCCCCCCCCR
+   A=0.05  CERT -                      Z1=5.05e-1 r=6.28e-15 minM=9.992e-1 minW=1.00e+0 res=2.1e-17
+   A=0.1   CERT -                      Z1=5.05e-1 r=6.08e-15 minM=9.983e-1 minW=9.99e-1 res=2.6e-17
+   A=0.2   CERT -                      Z1=5.06e-1 r=6.40e-15 minM=9.967e-1 minW=9.98e-1 res=2.4e-17
+   A=0.3   CERT -                      Z1=5.07e-1 r=6.51e-15 minM=9.950e-1 minW=9.97e-1 res=3.2e-17
+   A=0.5   CERT -                      Z1=5.09e-1 r=6.44e-15 minM=9.916e-1 minW=9.96e-1 res=1.8e-17
+   A=0.8   CERT -                      Z1=5.13e-1 r=6.68e-15 minM=9.866e-1 minW=9.93e-1 res=1.0e-16
+   A=1.2   CERT -                      Z1=5.17e-1 r=7.20e-15 minM=9.799e-1 minW=9.90e-1 res=5.0e-17
+   A=2     CERT -                      Z1=5.25e-1 r=8.46e-15 minM=9.666e-1 minW=9.84e-1 res=1.2e-16
+   A=3     CERT -                      Z1=5.36e-1 r=9.87e-15 minM=9.500e-1 minW=9.76e-1 res=9.2e-17
+   A=4     CERT -                      Z1=5.47e-1 r=1.17e-14 minM=9.334e-1 minW=9.68e-1 res=1.9e-16
+   A=6     CERT -                      Z1=5.70e-1 r=1.55e-14 minM=9.004e-1 minW=9.53e-1 res=5.3e-16
+   A=8     CERT -                      Z1=5.95e-1 r=2.41e-14 minM=8.677e-1 minW=9.39e-1 res=6.9e-16
+   A=12    CERT -                      Z1=6.51e-1 r=1.72e-13 minM=8.032e-1 minW=9.12e-1 res=7.3e-14
+   A=16    CERT -                      Z1=7.17e-1 r=4.94e-13 minM=7.404e-1 minW=8.88e-1 res=8.9e-14
+   A=24    CERT -                      Z1=8.84e-1 r=1.19e-10 minM=6.209e-1 minW=8.45e-1 res=7.7e-16
+   A=32    REF  Z1_GE_1                Z1=1.12e+0 r=   -    minM=  -   minW=  -   res=1.9e-15
+   -> BRACKET  A* in [28.29688, 28.31250]  (rel width 0.06%, 9 bisection evaluations)
+      last CERTIFIED : A=28.29688  Z1=0.9997  r=5.22e-7  minM=5.607e-1  minW=8.255e-1
+      first REFUSED  : A=28.31250  mode=Z1_GE_1  Z1=1.0001
+   (3954 ms)
+
+wrote sigma-N14.json

@@ -11,6 +11,12 @@ not debt; it is a wish, and wishes belong in the HANDOFF menu. Debt is
 something that is *wrong now*. A row leaves this file only by being fixed or by
 being shown not to be a defect — never by going quiet.
 
+## OPEN — 2026-09-06 (seventh session)
+
+| what | why it is not done | what closing it costs |
+|---|---|---|
+| **the layout ruler and the render gate FLAKE inside `make test` when it runs right after `make site`** — twice on 2026-09-06 (`measure (layout ruler)` FAIL, once with `render` too), each time passing alone immediately afterwards and passing 76/76 on an unchanged re-run | not diagnosed; the two gates drive headless Chrome on ports derived from the pid, so a port collision or an unsettled page after the control build are the first suspects; a gate that fails without a reason and then passes is worse than a slow one | an hour with the CDP client: log the port and the settle time on failure, retry once with a reason printed, or serialise the two Chrome gates behind one launcher |
+
 ---
 
 ## PAID — 2026-09-05 (third pass: the foundation declared once)

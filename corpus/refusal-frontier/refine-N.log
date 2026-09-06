@@ -1,0 +1,65 @@
+=== KERNEL SHA256 ===
+  416955a131775a045a43f8fc995c1e52da376f2e3c35781f0cd257f1d04628d4  kernel/candidate-congest.js
+  3fb85f009487ec7ded83a27b1b76f186f0b4dcfa6cdd270a15fad3a9a72d4130  kernel/validate-congest.js
+  903c59f83b3665010772619a58c6c51d4f22dd22ef5940a979f2c829da53fd79  kernel/model.js
+  909f0ed32053d414b393f99407b4a12eaa723fc993b1b97c911783175c541e2c  eqcert/interval.js
+  327a289daaa62515b2bea45d25218fa98e65cb4f53071dd26c05b25107b2b62b  eqcert/sequence.js
+  34aba8496a28940cf74a247ebe64d22f3998b3a94d65a9b9f68a9efa147ff8ad  eqcert/radii.js
+  65c973ec9fe83a7c16ab88b53c6ddb84f50200cf99e2abb35510d746d9ffd12b  THIS_FILE
+gamma=0.5 nu=1.05 rCap=1e-2 a=1/2   G=1024 (FIXED across N)   N in {14,20,28,40}
+
+################  sigma = 0.1  ################
+  N=14  pattern=CCCCCRRRR  A* in [0.483400, 0.483589]   binding=Z1_GE_1  worstCol@lastCERT=m_15   (7670 ms)
+        last CERTIFIED: minM=0.587838 minW=0.835940 r=3.05e-7 Z1=0.999843
+        analytic Z1 tail split:  cMrecip=0.879070  cWrecip=0.235829  cMgrow=1.008e-1  cWgrow=4.964e-2   [mM=0.979861 mW=0.285469]
+        denominators: growing-tail=9.435 (grows with N)  reciprocal-tail=1.976998 (N-free)
+  N=20  pattern=CCCCCRRRR  A* in [0.505871, 0.506059]   binding=Z1_GE_1  worstCol@lastCERT=m_21   (16029 ms)
+        last CERTIFIED: minM=0.570228 minW=0.830302 r=1.45e-9 Z1=0.999982
+        analytic Z1 tail split:  cMrecip=0.908170  cWrecip=0.247280  cMgrow=7.410e-2  cWgrow=3.752e-2   [mM=0.982269 mW=0.284799]
+        denominators: growing-tail=13.202 (grows with N)  reciprocal-tail=1.974843 (N-free)
+  N=28  pattern=CCCCCCRRR  A* in [0.521354, 0.521543]   binding=Z1_GE_1  worstCol@lastCERT=m_29   (35745 ms)
+        last CERTIFIED: minM=0.558206 minW=0.826498 r=2.26e-9 Z1=0.999989
+        analytic Z1 tail split:  cMrecip=0.929136  cWrecip=0.255196  cMgrow=5.473e-2  cWgrow=2.821e-2   [mM=0.983864 mW=0.283405]
+        denominators: growing-tail=18.227 (grows with N)  reciprocal-tail=1.973304 (N-free)
+  N=40  pattern=CCCCCCRRR  A* in [0.533251, 0.533439]   binding=Z1_GE_1  worstCol@lastCERT=m_41   (125969 ms)
+        last CERTIFIED: minM=0.549035 minW=0.823619 r=1.01e-9 Z1=0.999966
+        analytic Z1 tail split:  cMrecip=0.945776  cWrecip=0.261291  cMgrow=3.930e-2  cWgrow=2.052e-2   [mM=0.985075 mW=0.281813]
+        denominators: growing-tail=25.765 (grows with N)  reciprocal-tail=1.972093 (N-free)
+
+################  sigma = 0.5  ################
+  N=14  pattern=CCCCRRRRR  A* in [5.367003, 5.369100]   binding=DISCRIMINANT_LE_0  worstCol@lastCERT=m_15   (19050 ms)
+        last CERTIFIED: minM=0.562202 minW=0.826071 r=2.65e-7 Z1=0.999644
+        analytic Z1 tail split:  cMrecip=0.921975  cWrecip=0.252321  cMgrow=5.356e-2  cWgrow=6.805e-2   [mM=0.975531 mW=0.320367]
+        denominators: growing-tail=47.135 (grows with N)  reciprocal-tail=1.973503 (N-free)
+  N=20  pattern=CCCCCRRRR  A* in [5.507522, 5.509619]   binding=Z1_GE_1  worstCol@lastCERT=m_21   (35595 ms)
+        last CERTIFIED: minM=0.552139 minW=0.822843 r=3.30e-10 Z1=0.999862
+        analytic Z1 tail split:  cMrecip=0.939988  cWrecip=0.258974  cMgrow=3.926e-2  cWgrow=5.049e-2   [mM=0.979251 mW=0.309463]
+        denominators: growing-tail=65.981 (grows with N)  reciprocal-tail=1.972164 (N-free)
+  N=28  pattern=CCCCCRRRR  A* in [5.603998, 5.606095]   binding=Z1_GE_1  worstCol@lastCERT=m_29   (77870 ms)
+        last CERTIFIED: minM=0.545283 minW=0.820657 r=2.29e-10 Z1=0.999803
+        analytic Z1 tail split:  cMrecip=0.952655  cWrecip=0.263540  cMgrow=2.894e-2  cWgrow=3.751e-2   [mM=0.981594 mW=0.301048]
+        denominators: growing-tail=91.112 (grows with N)  reciprocal-tail=1.971229 (N-free)
+  N=40  pattern=CCCCCCRRR  A* in [5.679501, 5.681598]   binding=Z1_GE_1  worstCol@lastCERT=m_41   (175249 ms)
+        last CERTIFIED: minM=0.539949 minW=0.818964 r=7.83e-10 Z1=0.999876
+        analytic Z1 tail split:  cMrecip=0.962744  cWrecip=0.267112  cMgrow=2.075e-2  cWgrow=2.706e-2   [mM=0.983495 mW=0.294171]
+        denominators: growing-tail=128.809 (grows with N)  reciprocal-tail=1.970488 (N-free)
+
+################  sigma = 1.2  ################
+  N=14  pattern=CCCCRRRRR  A* in [28.291944, 28.303000]   binding=DISCRIMINANT_LE_0  worstCol@lastCERT=m_15   (9345 ms)
+        last CERTIFIED: minM=0.560809 minW=0.825554 r=3.46e-7 Z1=0.999506
+        analytic Z1 tail split:  cMrecip=0.924423  cWrecip=0.253227  cMgrow=4.626e-2  cWgrow=1.041e-1   [mM=0.970681 mW=0.357318]
+        denominators: growing-tail=113.108 (grows with N)  reciprocal-tail=1.973305 (N-free)
+  N=20  pattern=CCCCCRRRR  A* in [28.999519, 29.010575]   binding=Z1_GE_1  worstCol@lastCERT=m_21   (17157 ms)
+        last CERTIFIED: minM=0.551192 minW=0.822470 r=3.17e-10 Z1=0.999723
+        analytic Z1 tail split:  cMrecip=0.941711  cWrecip=0.259590  cMgrow=3.397e-2  cWgrow=7.746e-2   [mM=0.975686 mW=0.337053]
+        denominators: growing-tail=158.344 (grows with N)  reciprocal-tail=1.972020 (N-free)
+  N=28  pattern=CCCCCRRRR  A* in [29.497033, 29.508089]   binding=Z1_GE_1  worstCol@lastCERT=m_29   (37334 ms)
+        last CERTIFIED: minM=0.544482 minW=0.820331 r=7.67e-9 Z1=0.999987
+        analytic Z1 tail split:  cMrecip=0.954151  cWrecip=0.264062  cMgrow=2.508e-2  cWgrow=5.770e-2   [mM=0.979233 mW=0.321764]
+        denominators: growing-tail=218.660 (grows with N)  reciprocal-tail=1.971102 (N-free)
+  N=40  pattern=CCCCCCRRR  A* in [29.872932, 29.883988]   binding=Z1_GE_1  worstCol@lastCERT=m_41   (81727 ms)
+        last CERTIFIED: minM=0.539441 minW=0.818731 r=1.29e-9 Z1=0.999901
+        analytic Z1 tail split:  cMrecip=0.963709  cWrecip=0.267440  cMgrow=1.800e-2  cWgrow=4.168e-2   [mM=0.981708 mW=0.309121]
+        denominators: growing-tail=309.137 (grows with N)  reciprocal-tail=1.970400 (N-free)
+
+wrote refine-N.json
