@@ -1,32 +1,15 @@
 cert-machine — cold start. READ FIRST, LOOK SECOND, BUILD LAST.
 
-Working dir: /Users/carlostoledo/Projects/cert-machine IF THE MOVE HAPPENED,
-else /Users/carlostoledo/Documents/cert-machine. Find out before anything:
-
-  ls -d ~/Projects/cert-machine ~/Documents/cert-machine 2>&1
-  pgrep -fl 'move-out-of-icloud|python3 -' | head
-
-══ FIRST: WAIT FOR THE iCLOUD TASK. ══
-The last session left a detached job running (pid 74153 at handoff). It reads
-back every file iCloud still held evicted in the three trees (cert-machine,
-sin-mfg, frontier-apps — the last were git objects) and, when all three read
-clean, runs tools/move-out-of-icloud.sh /Users/carlostoledo/Projects, which
-MOVES the three folders out of iCloud Drive, repoints the four path-bound
-places in this repo and renames the ~/.claude/projects memory directories.
-  · If ~/Projects/cert-machine EXISTS: the move happened. cd there. The four
-    path edits are uncommitted: run `make drift` (expect 130 unchanged),
-    `node tools/check-wiring.js`, `make test` (70/70), then commit them and
-    push. Then proceed to the menu.
-  · If it does NOT exist and the job is still running: WAIT. Do not build,
-    edit or run a gate in ~/Documents/cert-machine — the folder will move
-    under you. Check every few minutes with the two commands above.
-  · If it does not exist and NO such job is running: the job died. Run
-    `zsh tools/move-out-of-icloud.sh /Users/carlostoledo/Projects` from
-    ~/Documents/cert-machine. It refuses while any file is still evicted
-    (that refusal is correct — a dataless file moved out of iCloud can never
-    be hydrated); read the named files through (cat > /dev/null) and re-run.
-After the move the three folders are outside iCloud; Keep Downloaded no
-longer applies and check-wiring's check 0 stays as a harmless guard.
+Working dir: /Users/carlostoledo/Projects/cert-machine — the move out of
+iCloud Drive HAPPENED 2026-09-06 (9b0acbb): cert-machine, sin-mfg and
+frontier-apps all live under ~/Projects now; nothing under ~/Documents is
+current. Verified from the new root on 2026-09-06, seventh session: drift 130
+unchanged, check-wiring ALL PASS, make test 70/70. Old-path strings survive
+only as LABELS inside pinned records (certs/, corpus/emberband/, the
+instruments' PROVENANCE.json liftedFrom) — they say where a thing was lifted
+from at the time and no tool reads them; do not rewrite a record to tidy them.
+check-wiring's check 0 (every tracked file reads its own size) stays as a
+harmless guard.
 
 Then read CLAUDE.md, the TOP OF HANDOFF.md (the 2026-09-06 close-of-session
 block, then the fifth-session block), DEBT.md. Tip: git log --oneline -1
