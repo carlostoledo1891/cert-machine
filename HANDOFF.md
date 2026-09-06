@@ -29,6 +29,56 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
 
 ══════════════════════════════════════════════════════════════════════════
+  CLOSE OF THE FIFTH SESSION, 2026-09-06 — HANDED OFF WITH THE MOVE IN FLIGHT.
+  Pushed through c23c8ee and this commit · four light ports live · 70/70 both sides.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHAT IS RUNNING WHEN YOU START ── A detached zsh (pid 74153 at handoff)
+    is reading back the last evicted files in sin-mfg's .git (1500 of 2451
+    at 44 min; then frontier-apps), and when every tree reads clean it runs
+    tools/move-out-of-icloud.sh /Users/carlostoledo/Projects — which MOVES
+    all three folders out of ~/Documents, repoints LIFT.json, PROVENANCE.json,
+    instruments/hotspots/record.js and CLAUDE.md, and renames the three
+    ~/.claude/projects memory directories. DO NOT BUILD, EDIT OR RUN A GATE IN
+    THE TREE UNTIL THE MOVE HAS HAPPENED OR THE JOB IS DEAD. The cold start
+    says how to tell. After the move the four path edits are UNCOMMITTED in
+    the new location: run make drift (130 unchanged), check-wiring, make
+    test, then commit them. The operator asked for the move; the folder name
+    was mine.
+
+  ── THE DAY IN ONE LINE EACH ──
+    · lattice-claims ported whole; the grader now matches the pinned record.
+    · PQC geometry: 37 SVP records re-decided offline every build, charter first.
+    · occultation: the convex bracket, the paper pinned, the record byte-identical.
+    · transit: the one-sided enclosure — and the pin was two runs stitched
+      together; the record here is the code's own run.
+    · the control page had been running 57 of 65 batteries; 70/70 now, both
+      registries compared script by script, a red battery prints its reason.
+    · Zenodo: v2026.09.2 minted through the integration with the one title;
+      two superseded records still carry the old one (tools/zenodo-metadata.js
+      --apply with a token closes it).
+    · iCloud: the working tree read as EMPTY under eviction; check-wiring
+      check 0 refuses such a tree; Keep Downloaded set by the operator; the
+      lean .lake caches deleted with the operator's yes; the move is the fix.
+    · c23c8ee's message promised this block and the cold start; a stale
+      anchor in the edit script skipped both. They are in the commit after it.
+
+  ── NEXT FRONT, SCOUTED AND WRITTEN DOWN ── corpus/targets.json
+    gr-integral-table-audit: Gradshteyn & Ryzhik as a mass audit. The first
+    job is a YIELD MEASUREMENT — ~100 entries transcribed with double entry,
+    a rigorous quadrature (python-flint's ball arithmetic behind our own
+    reds, or a Petras integrator in instruments/interval), count refuted /
+    held / undecidable. Prior art in the row. Every erratum is a send.
+
+  ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
+    the ember paper; the staged formal-conjectures issue and the letters.
+    The machine: certifier-core + blind-spot (deferred one frontier session);
+    λ(6) (pid 90265, 51+ hours at node 119, the fix is mathematical; its cwd
+    is a scratch folder, the move does not touch it, and if it ever finishes
+    it will fail to write to the old path — nothing is lost that was not
+    already lost).
+
+══════════════════════════════════════════════════════════════════════════
   SESSION OF 2026-09-05 (FIFTH). THE FOUR THINGS THE FOURTH LEFT, DONE; THE
   CONTROL PAGE WAS FOUND TO BE RUNNING 57 OF THE 65 BATTERIES IT CLAIMED; AND
   v2026.09.2 WAS RELEASED SO THE ARCHIVE CARRIES THE ONE TITLE.
