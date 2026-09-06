@@ -74,6 +74,15 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     reds, or a Petras integrator in instruments/interval), count refuted /
     held / undecidable. Prior art in the row. Every erratum is a send.
 
+  ── SECOND FRONT, SCOUTED 2026-09-06 (seventh session) ── the KAUST MFG group
+    revisited against the certifiers we now hold: corpus/targets.json
+    kaust-mfg-revisit, and the ordered ten-report plan with the first
+    candidate worked out in notes/kaust-reports-plan-2026-09-06.md. Report 1:
+    Almulla–Ferreira–Gomes's first-order system in the case they say has no
+    closed form (b = cos², ∫b = 1/2), enclosed by the current reduction —
+    two scalars (flux, H̄), rigorous quadrature, 2-D Krawczyk; the b = 0
+    closed form is the control. Days, not weeks. Nothing built yet.
+
   ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
     the ember paper; the staged formal-conjectures issue and the letters.
     The machine: certifier-core + blind-spot (deferred one frontier session);
