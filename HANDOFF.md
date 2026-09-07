@@ -182,7 +182,21 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     doubly-proved cell: ≈ ε at small ε, a third of ε at ε = 1. The plan's
     feasibility worry (non-analytic nonlinearity) does not arise: γ̄ = 4 is
     polynomial. 17 checks, 5 red controls, ~25 s. Battery row 79. Next: 10
-    (the effective Hamiltonian band), then the plan is done.
+    (the effective Hamiltonian band), then the plan is done. → REPORT 10 BUILT 2026-09-07 on "continue": instruments/hbar +
+    reports/hbar.html — the one-dimensional effective Hamiltonian of Gomes–
+    Yang's test case (arXiv:1810.03483 §6) enclosed as a band: P₀ = ∫√(2(1 −
+    V)) enclosed around 4/π (the cusp cells by a Riemann bound), FLAT values
+    decided exactly, ROTATING values bracketed to ~2e−6 by bisection on the
+    midpoint-rule enclosure of ∫√(2(c − V)) closed by the mean value theorem
+    with the period as Q′, the point P = 4/π left UNDECIDED (inside the P₀
+    enclosure), the Mather density enclosed where rotating. Their Table 1
+    (separable 2-D cosine, P = (1.5, 2.5)): H̄ ∈ [4.40996523, 4.40996529];
+    the 4.4099660 the paper quotes from Gomes–Oberman 2004 is ABOVE it by
+    7e−7 (its seventh digit is not the value's), their own k-sequence BELOW
+    as H̄^k ≤ H̄ requires; Table 2's exact value decided as 1 with the
+    printed 0.96476 an entropy-penalization gap of 0.035. 18 checks, 5 red
+    controls, ~25 s. Battery row 80. THE TEN-REPORT PLAN IS COMPLETE: 1–5
+    and 7–10 as reports, 6 as a playground; every send still operator-gated.
 
   ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
     the ember paper; the staged formal-conjectures issue and the letters.

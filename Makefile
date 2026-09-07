@@ -90,6 +90,7 @@ test:
 	@printf "%-30s " "price (the clearing band)"; $(NODE) instruments/price/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "agtable (their tables)"; $(NODE) instruments/agtable/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "regatlas (the regularization)"; $(NODE) instruments/regatlas/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "hbar (the effective band)"; $(NODE) instruments/hbar/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg lab (box certifier)"; $(NODE) labs/mfg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg-cap census (EXACTLY-n)"; $(NODE) labs/mfg/census-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mfg2p lab (two populations)"; $(NODE) labs/mfg2p/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -176,6 +177,7 @@ reports:
 	@$(NODE) tools/build-report-price.js
 	@$(NODE) tools/build-report-agtable.js
 	@$(NODE) tools/build-report-regatlas.js
+	@$(NODE) tools/build-report-hbar.js
 	@$(NODE) tools/build-report-mfg-lab.js
 	@$(NODE) tools/build-report-mfg-observatory.js
 	@$(NODE) tools/build-report-mfg2p.js
