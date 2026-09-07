@@ -19,6 +19,7 @@ const cp = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
 const C = require(path.join(ROOT, 'design', 'components.js'));
+const G = require(path.join(ROOT, 'design', 'grammar.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 
 /* set when the public repo exists; the landing's "code" link points here */
@@ -568,6 +569,24 @@ const WORKING = /^(?:erdos290-tail-shard-\d+\.json|wip-.*)$/;
    quote counts those tables gate (the number of reports, the Keller objects) —
    a landing that says "31 write-ups" while reports/ holds another number is
    exactly the drift the shelf gate exists to catch. */
+/* ---- the instruments, read from the manifest playground/build.js wrote ------
+   One engine, two faces. The manifest is the single source for every count
+   and every plate about /instruments on this page and on the machine page;
+   make site builds the instruments first so it is never stale. */
+const INSTR = (() => {
+  const p = path.join(ROOT, 'playground', 'out', 'manifest.json');
+  if (!fs.existsSync(p)) fail('playground/out/manifest.json missing — run node playground/build.js (make site does, first)');
+  const m = JSON.parse(fs.readFileSync(p, 'utf8'));
+  if (!m.cards || m.cards.length < 10 || !m.count) fail('the instruments manifest is short or shapeless');
+  for (const c of m.cards) if (!fs.existsSync(path.join(ROOT, 'site', c.href))) fail('the instruments manifest lists ' + c.href + ', which is not built');
+  return m;
+})();
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+const NUMWORD = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+const numword = (k) => NUMWORD[k] || String(k);
+const gatesRec = (() => { const p = path.join(ROOT, 'batteries.json'); return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : null; })();
+const gatesCount = gatesRec && gatesRec.ran !== undefined ? { ran: gatesRec.ran, green: gatesRec.green } : null;
+
 const B = [];
 B.push(C.header({
   eyebrow: 'Carlos Toledo · cert-machine',
@@ -578,11 +597,51 @@ B.push(C.header({
     + 'what an ordinary tolerance grader actually accepts ('
     + (100 * envsTol.falseAccept).toFixed(1) + '% of submissions that are provably wrong), and settled two values '
     + 'of a sequence conjectured open since 2019. Every verdict is a re-runnable certificate: proved, disproved, or '
-    + 'honestly refused — never a probability argument.'
+    + 'honestly refused — never a probability argument. It is one engine with two faces: the reports, where a '
+    + 'claim gets a verdict a build can refuse to ship, and the instruments, where the same arithmetic runs in your '
+    + 'tab and every mark says what decided it.'
 }));
 B.push(C.scope('No probability arguments and no digit-matching. A claim is admitted only by exact arithmetic on whole '
   + 'numbers, and an instrument that cannot decide refuses instead of guessing. When a page here says REFUTED, that '
   + 'is a proof, and the falsifying witness is printed beside it.'));
+
+/* ---- one power system, drawn ----------------------------------------------
+   The same certifiers feed both faces; the counts are read off the catalogue,
+   the manifest and batteries.json, never typed. A static drawing: the
+   interactive machine figure below has its own script and one figure.mach
+   per page is all it binds. */
+const GENERATED = (ledger.totals || {}).generated || 0;
+if (!GENERATED) fail('the ledger carries no generated count — the one-system drawing would say 0');
+const SYS = (() => {
+  const box = (x, y, w, h, k, v, strong) => '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="5" fill="var(--surface)" stroke="' + (strong ? 'var(--ink-3)' : 'var(--rule-strong)') + '" stroke-width="1"/>'
+    + '<rect x="' + x + '" y="' + y + '" width="3" height="' + h + '" rx="1.5" fill="' + (strong ? 'var(--ink)' : 'var(--ink-4)') + '"/>'
+    + '<text x="' + (x + 14) + '" y="' + (y + 19) + '" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">' + C.esc(k) + '</text>'
+    + '<text x="' + (x + 14) + '" y="' + (y + h - 12) + '" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">' + C.esc(v) + '</text>';
+  const arrow = (d) => '<path d="' + d + '" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/>';
+  const lab = (x, y, t, anchor) => '<text x="' + x + '" y="' + y + '" text-anchor="' + (anchor || 'middle') + '" font-family="var(--f-mono)" font-size="10" fill="var(--ink-4)">' + C.esc(t) + '</text>';
+  return '<svg viewBox="0 0 900 250" role="img" aria-label="One engine feeds one set of certifiers, which feed two faces: the reports, which the gates can refuse to ship, and the instruments, which run in the reader\'s tab.">'
+    + '<defs><marker id="sysarr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-4)"/></marker></defs>'
+    + box(10, 97, 150, 56, 'THE ENGINE', fmt(GENERATED) + ' objects', false)
+    + box(210, 97, 220, 56, 'THE CERTIFIERS', 'exact · interval · radii', true)
+    + box(520, 22, 230, 56, 'THE REPORTS · GATED', REPORTS.length + ' pages, verdicts', true)
+    + box(520, 172, 230, 56, 'THE INSTRUMENTS · OPEN', INSTR.count.all + ' pages, in your tab', true)
+    + box(800, 97, 90, 56, 'THE GATES', (gatesCount ? gatesCount.green + ' / ' + gatesCount.ran : 'batteries'), false)
+    + arrow('M160 125 L206 125') + lab(183, 143, 'screen')
+    + arrow('M430 118 C 480 118, 470 50, 516 50') + arrow('M430 132 C 480 132, 470 200, 516 200')
+    + arrow('M750 50 C 780 50, 775 125, 796 125') + arrow('M750 200 C 780 200, 775 125, 796 125')
+    + lab(635, 95, 'every page re-derives its record at build') + lab(635, 162, INSTR.count.battery + ' of ' + INSTR.count.all + ' run a battery in make test')
+    + '</svg>';
+})();
+B.push(C.section({
+  lab: 'one power system', title: 'One engine, two faces', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('Everything on this site is one system. The engine generates objects and screens them in '
+    + 'float; the certifiers decide the survivors in exact arithmetic and refuse what they cannot decide; and the same '
+    + 'certifiers face two ways. <a href="reports/">The reports</a> are the gated face: every page re-derives its record '
+    + 'at build and a number that moves stops the deploy. <a href="instruments/">The instruments</a> are the open face: '
+    + 'the same arithmetic drawn, and pulled on, in your tab, with every mark saying what decided it. Neither is an '
+    + 'illustration of the other.') + '</div>'
+    + C.figure({ svgRaw: SYS, caption: 'One engine, one set of certifiers, two faces. The counts are read off the catalogue, the instruments manifest and the battery record at build; the gates run every battery and refuse a build that drifts.', wide: true })
+}));
 
 /* the four results a stranger should meet first — two theorems, then the two
    strongest audits (2026-09-02: the theorems earned the front). Files are
@@ -665,27 +724,88 @@ B.push(C.section({
     + C.cards(LEAD.map((l) => ({ href: 'reports/' + l.f, k: l.k, title: l.title, desc: l.desc, n: l.n })))
 }));
 
+/* ---- the instruments, half the front ------------------------------------
+   Operator instruction 2026-09-07: the instruments carry half the attention
+   of the front. Six plates drawn from the manifest (the art is the pages'
+   own), the standing legend once, and a note that says what is and is not
+   claimed there — with every count computed. */
+const GALLERY_IDS = ['interferometer', 'shape-hunt', 'census', 'plates', 'occultation', 'curveset'];
+const backingLabel = (c) => (c.backing === 'certificate' ? 'a certificate from the shelf' : c.backing === 'exact' ? 'exact arithmetic' : 'floats, and says so') + (c.battery ? ' · in make test' : '');
+const gallery = GALLERY_IDS.map((id) => { const c = INSTR.cards.find((x) => x.id === id); if (!c) fail('the gallery names ' + id + ', which is not in the instruments manifest'); return c; });
+/* the arts are the pages' own SVG and lean on the instruments' CSS classes; pull exactly the rules
+   their classes use out of the instruments' stylesheets, map the instruments' token names to the
+   house names, and scope every selector under .hg so nothing else on this page can be restyled */
+function artCss(cards) {
+  const PC = require(path.join(ROOT, 'playground', 'design', 'components.js'));
+  const srcs = [fs.readFileSync(path.join(ROOT, 'playground', 'index.css'), 'utf8'), PC.sharedCss()];
+  for (const c of cards) { const p = path.join(ROOT, 'playground', c.id, 'page.css'); if (fs.existsSync(p)) srcs.push(fs.readFileSync(p, 'utf8')); }
+  const classes = new Set();
+  for (const c of cards) for (const m of c.art.matchAll(/class="([^"]+)"/g)) m[1].split(/\s+/).forEach((x) => { if (x) classes.add(x); });
+  const rules = [];
+  const walk = (css) => {
+    css = css.replace(/\/\*[\s\S]*?\*\//g, '');
+    let i = 0;
+    while (i < css.length) {
+      const ob = css.indexOf('{', i); if (ob < 0) break;
+      const sel = css.slice(i, ob).trim();
+      let depth = 1, j = ob + 1;
+      while (j < css.length && depth) { if (css[j] === '{') depth++; else if (css[j] === '}') depth--; j++; }
+      const body = css.slice(ob + 1, j - 1);
+      if (sel.startsWith('@')) { if (/^@media/.test(sel)) walk(body); } else if (sel) rules.push([sel, body]);
+      i = j;
+    }
+  };
+  srcs.forEach(walk);
+  const hit = (sel) => [...classes].some((c) => new RegExp('\\.' + c.replace(/[-]/g, '\\-') + '(?![\\w-])').test(sel));
+  const mapTok = (t) => t.replace(/var\(--font-mono\)/g, 'var(--f-mono)').replace(/var\(--bg-raised\)/g, 'var(--sunk)').replace(/var\(--bg\)/g, 'var(--paper)')
+    .replace(/var\(--border-strong\)/g, 'var(--rule-strong)').replace(/var\(--border\)/g, 'var(--rule)').replace(/var\(--s-(\d)\)/g, (m, d) => (4 * d) + 'px');
+  return rules.filter(([sel]) => hit(sel)).map(([sel, body]) => sel.split(',').map((x) => '.hg ' + x.trim()).join(',') + '{' + mapTok(body.trim()) + '}').join('');
+}
+const GALLERY_CSS = '<style>' + artCss(gallery) + G.css('.hg')
+  + '.hg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:8px 0 0}'
+  + '@media(max-width:900px){.hg{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.hg{grid-template-columns:1fr}}'
+  + 'a.hg-card{display:flex;flex-direction:column;color:inherit;text-decoration:none;background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden;transition:border-color .15s,transform .15s}'
+  + 'a.hg-card:hover{border-color:var(--rule-strong);transform:translateY(-3px)}'
+  + '.hg-card .plate{position:relative;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;padding:14px;background:var(--paper);border-bottom:1px solid var(--rule)}'
+  + '.hg-card .plate svg{width:100%;height:100%;display:block}'
+  + '.hg-body{padding:14px 16px 16px}.hg-k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)}'
+  + '.hg-t{font-size:17px;line-height:1.3;margin:6px 0 6px;color:var(--ink)}.hg-d{font-size:14px;color:var(--ink-3);line-height:1.5}'
+  + '.hg .w-decided,.w-legend .w-decided{stroke:var(--ink)}.hg .w-computed,.w-legend .w-computed{stroke:var(--ink-3)}.hg .w-chosen,.w-legend .w-chosen{stroke:var(--ink-2)}'
+  + '.w-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 28px;margin-top:22px;align-items:start}'
+  + '@media(max-width:700px){.w-legend{grid-template-columns:1fr}}'
+  + '.w-legend .item{display:grid;grid-template-columns:46px minmax(0,1fr);gap:12px;align-items:center}.w-legend svg{display:block;width:46px;height:14px;overflow:visible}'
+  + '.w-legend .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}.w-legend .g{font-size:13px;color:var(--ink-4);line-height:1.4;margin-top:2px}'
+  + '</style>';
 B.push(C.section({
-  lab: 'the theorem, in full', title: 'How a trapezoid got a theorem',
-  bodyRaw: [
-    C.p('The domain is deliberately inconvenient: a convex trapezoid with side slopes 6 and 18/5, no symmetry '
-      + 'axis, nothing any existing proof technique can grab. The machine proves its second Neumann eigenvalue is '
-      + 'simple by certifying a spectral gap — upper bounds from an interval Galerkin method, lower bounds from '
-      + 'exact-rational finite elements with eigenvalue counts by interval inertia. It then builds a trial '
-      + 'function that solves the eigenvalue equation EXACTLY — a sum of Bessel fans anchored at the four corners '
-      + '— and certifies that its boundary defect is a hundred-thousandth, which pins the true eigenfunction '
-      + 'within an explicit distance of the trial.'),
-    C.p('Then the geography: every interior point is assigned, in exact rational arithmetic, to a deep core, a '
-      + 'boundary collar, or a corner sector — and each region is killed by its own argument. Core and collar '
-      + 'cells die by comparison against certified interior witnesses; the corner sectors die by certified '
-      + 'series expansions, where the delicate corner needs a Bessel ladder identity to tame a divergent second '
-      + 'derivative whose singular part arrives, provably, with the helpful sign. Zero cells survive. The '
-      + 'extremes are on the boundary, the hottest point is vertex A and nowhere else, and the whole chain — '
-      + 'eight records, every red control firing — re-runs from one command in about two minutes. '
-      + 'The full account: '),
-    C.pRaw('<a href="reports/ember.html">the report</a> · <a href="https://doi.org/10.5281/zenodo.22225860">the archived release</a>.'),
-  ].join('\n')
+  lab: 'the instruments · the other face', title: 'The same arithmetic, in your tab.', wide: true,
+  bodyRaw: GALLERY_CSS + '<div class="col">'
+    + C.pRaw('<strong>A certificate settles a number. It does not make anyone look at it.</strong> Charts and graders both '
+      + 'assert things, and neither distinguishes what the data forces from what the renderer or the tolerance chose. '
+      + 'The instruments are the same certifiers pointed the other way: ' + numword(INSTR.count.all) + ' pages that draw '
+      + 'the set the data admit instead of the one answer a prior picked, and let you pull on it. The black-hole image '
+      + 'as the set of skies the data allow; a calibration line as the set the standards admit (' + C.esc(INSTR.cards.find((c) => c.id === 'curveset').scale)
+      + ', assuming only monotone); a two-population equilibrium\'s split as a face whose dimension is decided in exact '
+      + 'rationals while you drag it.')
+    + C.pRaw('<strong>Every mark on those pages says what it is standing on.</strong> Solid where an exact decision backs '
+      + 'it, dashed where the arithmetic was not verified, dotted where something other than the data chose it, and no mark '
+      + 'at all where the instrument declined — stroke rather than colour, so it survives greyscale. A mark\'s standing is '
+      + 'the weakest standing on its path to the pixel, so an argmax over a non-unique optimum yields <em>chosen</em>, '
+      + 'not <em>decided</em>.') + '</div>'
+    + '<div class="hg">' + gallery.map((c) => '<a class="hg-card" href="' + C.escAttr(c.href) + '"><div class="plate">' + c.art + '</div>'
+      + '<div class="hg-body"><div class="hg-k">' + C.esc(backingLabel(c)) + ' · ' + C.esc(c.scale) + '</div><div class="hg-t">' + C.esc(c.title) + '</div><div class="hg-d">' + C.esc(c.blurb) + '</div></div></a>').join('') + '</div>'
+    + W.legendHtml({ exclude: [W.DECIDED] })
+    + '<div class="col" style="margin-top:28px">' + C.pRaw('<a href="instruments/">All ' + numword(INSTR.count.all) + ' instruments →</a> — the geometry a model will admit to from the outside, '
+      + 'a grader you can rewire wrong, the SVP records re-decided, a transit without a law for the star, an attention row as a point.') + '</div>'
+    + C.note({ lab: 'what is and is not claimed there', bodyRaw: C.pRaw('No number on those pages has a certificate row this build '
+      + 'checks, and none of them can refuse a deploy. ' + numword(INSTR.count.battery).charAt(0).toUpperCase() + numword(INSTR.count.battery).slice(1)
+      + ' of the ' + numword(INSTR.count.all) + ' run a battery in <span class="m">make test</span> all the same; '
+      + numword(INSTR.count.certificate) + ' draws a certificate straight from the shelf below; ' + numword(INSTR.count.exact)
+      + ' decide their headline number in exact integer or rational arithmetic; ' + numword(INSTR.count.float) + ' are floats and say '
+      + 'so beside the number rather than at the bottom. Those counts are read off the instruments\' own manifest at build, '
+      + 'and a page listed there that is not built stops this one.') })
 }));
+
+/* the trapezoid essay left the front on 2026-09-07 (the instruments took half of it); ember.html keeps its shelf card */
 
 B.push(C.section({
   lab: 'the refutation, in full', title: 'How a floating-point bug became a published constant',
@@ -768,55 +888,7 @@ const FORCECERT = (() => {
    decided number still has to be legible, which is the same claim pointed at a
    different audience — so it belongs here, once, after the certificates and
    before the limits, and not scattered through the page. */
-B.push(C.section({
-  lab: 'the other half', title: 'A certificate settles a number. It does not make anyone look at it.',
-  bodyRaw: [
-    C.pRaw('<strong>Charts and graders both assert things, and neither distinguishes what the data forces from '
-      + 'what the renderer or the tolerance chose.</strong> Everything above is the grader half. '
-      + '<a href="/instruments/">The instruments</a> are the other one: nine of them, the same arithmetic, '
-      + 'none of the gates.'),
-    C.pRaw('They are not illustrations of the results above. The famous black-hole image is an <span class="m">argmax</span> '
-      + 'under a prior whose optimum is not unique — one sky chosen from the set the data still allow, and the set is '
-      + 'drawn. A published calibration line is one curve out of the set ' + (CURVESET ? CURVESET.n : 20) + ' NIST standards admit: assuming only that '
-      + 'the response is monotone, the honest interval is <strong>' + (CURVESET ? CURVESET.mono.toFixed(0) : '132') + '×</strong> '
-      + 'the reported ±; joining the dots it is <strong>' + (CURVESET ? CURVESET.dots.toFixed(1) : '1.0') + '×</strong>, '
-      + 'which says that precision was earned by the experiment and not by the model. And one '
-      + 'plate is a picture of this repository’s own lower-bound certificate, shaded so the bright seams are where the '
-      + 'argument nearly ran out.'),
-    C.pRaw('<strong>Every mark on those pages says what it is standing on.</strong> Solid where an exact decision backs '
-      + 'it, dashed where the arithmetic was not verified, dotted where something other than the data chose it, and no '
-      + 'mark at all where the instrument declined — stroke rather than colour, so it survives greyscale. One rule '
-      + 'composes them: a mark’s standing is the weakest standing on its path to the pixel. The consequence that does '
-      + 'the work is that an <span class="m">argmax</span> over a non-unique optimum yields <em>chosen</em>, not '
-      + '<em>decided</em>, which is the shape of every regularised inverse problem ever published.'),
-    C.cards([
-      { href: '/instruments/interferometer/', k: 'the black hole as a set',
-        title: 'Not the picture. The set of pictures.',
-        desc: 'The famous image is one sky chosen by an imaging prior from the infinitely many the data allow. This draws the set instead, and brackets how bright the source can be without any prior at all.',
-        n: IFMSWEEP ? (100 * (IFMSWEEP.worst - 1)).toFixed(0) + '% prior-free bracket' : 'prior-free bracket' },
-      { href: '/instruments/curveset/', k: 'the everyday version',
-        title: 'The line they published, and the lines that fit.',
-        desc: 'A calibration is run forwards and used backwards, and the backwards number always comes off a fitted curve. The fit is an assumption and it is never priced. This prices it, on a NIST load cell and a clinical assay.',
-        n: CURVESET ? CURVESET.mono.toFixed(0) + '\u00d7 the reported \u00b1' : 'the reported \u00b1' },
-      { href: '/instruments/shape-hunt/', k: 'and the page that debunks the others',
-        title: 'Nothing here is a perfect circle.',
-        desc: 'Sixteen million exact tests for hidden polygons in the geometries the pages next door report \u2014 then the identical search on the same numbers with the geometry shuffled out. Almost nothing survives that, and the count of what does is the headline.',
-        n: SHAPES ? SHAPES.collinear + ' of ' + SHAPES.cases + ' collinear triples' : 'nulls, matched' },
-      { href: '/instruments/plates/', k: 'a certificate, at its own resolution',
-        title: 'A proof has a shape.',
-        desc: 'Proving the lower bound above meant covering a rectangle with boxes and forcing an inequality inside each one. Brightness is how little room each box had, so the bright seams are where the argument nearly ran out.',
-        n: FORCECERT ? fmt(FORCECERT.boxes) + ' boxes drawn' : 'the covering, drawn' }
-    ]),
-    C.note({ lab: 'what is not claimed there', bodyRaw: C.pRaw('Nothing on those pages is <em>gated</em>: no number has '
-      + 'a certificate row this build checks, none of them can refuse a deploy, and <span class="m">make test</span> '
-      + 'does not cover them. That is a fact about ceremony rather than about the mathematics — two of the nine draw a '
-      + 'certificate straight from the shelf above, and five decide their headline number in exact integer or rational '
-      + 'arithmetic — so each page states which of the two it is claiming, beside the number rather than at the bottom. '
-      + 'The encoding itself is narrowed against real prior art and says so: uncertainty visualization, provenance '
-      + 'visualization, verifiable visualization, and the lineup protocol, which one of those pages reinvented before '
-      + 'it knew the name.') })
-  ].join('\n')
-}));
+/* 'the other half' moved up beside the lead on 2026-09-07: see 'the instruments · the other face' above */
 
 B.push(C.section({
   lab: 'why you can trust this', title: 'One rule, and what it costs',

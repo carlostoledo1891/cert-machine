@@ -37,6 +37,9 @@ const commas = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 const ledger = exists('ledger.json') ? rj('ledger.json') : { families: [], conjectures: [], relations: [], totals: {} };
 const prov = rj('PROVENANCE.json');
 const ENV = require(path.join(ROOT, 'instruments/trigmin/envelope.js'));
+/* the two faces, counted: report pages on disk, instrument pages from the manifest the instruments build wrote */
+const reportPages = fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => /\.html$/.test(f)).length;
+const instrCount = (() => { const p = path.join(ROOT, 'playground', 'out', 'manifest.json'); if (!fs.existsSync(p)) die('playground/out/manifest.json missing — make site builds the instruments first'); return JSON.parse(fs.readFileSync(p, 'utf8')).count; })();
 
 /* ---- the records the concept band reads ----------------------------------
    Every number in §0-§2 comes from one of these. The build REFUSES rather
@@ -242,6 +245,11 @@ B.push(C.section({
       + 'people\'s and its own — in exact arithmetic, and publishes the refusals beside the verdicts. Five '
       + 'rules do all the work — the first is the one everything else pays for — and each is a measurement '
       + 'rather than a promise.'),
+    C.pRaw('It is one system with two faces. The same certifiers feed <a href="../reports/">the reports</a> — '
+      + reportPages + ' pages, each re-deriving its record at build, refused by the gates below when a number moves — and '
+      + '<a href="../instruments/">the instruments</a> — ' + instrCount.all + ' pages where the same arithmetic runs in the reader\'s '
+      + 'tab and every mark says what decided it; ' + instrCount.battery + ' of those run a battery in this build\'s test as well. '
+      + 'Neither face illustrates the other; both are read off the records this page counts.'),
     C.plainList([
       { b: 'A fast check may only rule things out.',
         raw: 'Floating point screens by the million and is never allowed to admit anything: of '

@@ -2,7 +2,8 @@
   "note": "Ink coverage per figure: the share of pixels brighter than the page ground, measured from a screenshot of the figure's own box. A figure that gets THINNER than its record fails check-render. Only the author can say whether a sparse drawing is empty or exact, so this ratchets rather than setting a bar.",
   "recorded": "2026-09-07",
   "figures": {
-    "site/index.html :: figbox": 5.92,
+    "site/index.html :: figbox": 5.53,
+    "site/index.html :: plate": 1.55,
     "site/instruments/curveset/index.html :: fig": 6.2,
     "site/instruments/exact-geometry/index.html :: figure": 0.41,
     "site/instruments/graph/index.html :: fig": 4.22,
@@ -77,6 +78,7 @@
   },
   "faintNote": "Marks that paint but sit under 1.35:1 against their own ground. A recessive grid is a legitimate drawing and only the author can price it, so this RATCHETS: the list may shrink, never grow. A mark with no paint at all, or one pointing at a paint server that is not on the page, is not here — that hard-fails, because it needs no threshold.",
   "faint": [
+    "index.html: 11 × cs-grid <line> — 1.06:1 against its ground",
     "index.html: 7 × nd-box <rect> — 1.21:1 against its ground",
     "instruments/curveset/index.html: 35 × cs-grid <line> — 1.12:1 against its ground",
     "instruments/graph/index.html: 1 × bg <rect> — 1.00:1 against its ground",

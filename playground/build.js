@@ -102,18 +102,48 @@ const ngQ = [...new Set(ngSet('unrelated').models.map((m) => m.signature.q))].jo
 const fact = (k, v, note) =>
   `<div class="f"><span class="fk">${k}</span><span class="fv">${v}</span>${note ? `<span class="fn">${note}</span>` : ''}</div>`;
 
+/* ---- THE MANIFEST: one row per card, the single source the homepage and the
+   machine page read (playground/out/manifest.json). The cards below are still
+   written by hand; the build refuses if a manifest row has no card or a card
+   has no row, so the two cannot drift apart. `backing` is what decides the
+   headline number, in the words the pages use; `battery` is whether a battery
+   in make test covers the page, decided by the file's existence, not typed. */
+const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py' };
+const MANIFEST = [
+  { id: 'shape-hunt', title: 'Nothing here is a perfect circle.', blurb: 'Sixteen million exact tests for hidden polygons in the geometries the pages next door report, then the same search with the geometry shuffled out.', backing: 'exact', art: () => SH.cardArt(), scale: `${fmt(SH.SHAPETESTS)} shape tests` },
+  { id: 'interferometer', title: 'Not the picture. The set of pictures.', blurb: 'The black-hole image is one sky chosen by a prior from the many the data allow. This draws the set, and brackets the source without any prior at all.', backing: 'float', art: () => UV.svg, scale: `longest baseline ${n(UV.maxUV, 2)} Gλ` },
+  { id: 'curveset', title: 'The line they published, and the lines that fit.', blurb: 'A calibration used backwards comes off a fitted curve. This prices the fit: what the standards allow, assuming only monotone.', backing: 'float', art: () => CS.cardArt(), scale: `${n(CS.monoR(CS.pontius), 0)}× the reported ±` },
+  { id: 'plates', title: 'Manifolds we are handed.', blurb: 'Eight stated manifolds drawn from their rule; two of them are certificates rendered at their own resolution.', backing: 'certificate', art: () => PL.cardArt(), scale: `plate I of ${PL.counts.plates}` },
+  { id: 'affect', title: 'The geometry of feeling, and the control that catches it.', blurb: 'Twelve feelings under six moods, and twelve clock hours through the same pipeline as the control that must not move.', backing: 'float', art: () => AF.cardArt(), scale: 'twelve feelings, pairwise' },
+  { id: 'answer-shape', title: 'The shape of an answer.', blurb: 'A table of pairwise distances is a shape or it is not, and the difference is decidable in exact integers; every pair asked both ways round.', backing: 'exact', art: () => AS.cardArt(), scale: 'every pair both ways' },
+  { id: 'neural-geometry', title: 'The shapes a model will admit to from the outside.', blurb: 'Every pair, one integer, one row at a time, and then an exact decision on what shape the answers have.', backing: 'exact', art: () => NG.cardArt(), scale: `${NG.G.meta.calls} calls` },
+  { id: 'exact-geometry', title: 'Point it at something whose shape is already known.', blurb: 'The prediction is written first, in the source, and never edited: the control the other geometry pages are measured against.', backing: 'exact', art: () => XG.cardArt(), scale: `${XG.n} sets` },
+  { id: 'graph', title: 'The rule is a wire you cannot draw.', blurb: 'A verifier\'s rules as conditions on a connection: a float has no wire into a port that decides. Break the rule and the engine refuses.', backing: 'exact', art: () => UG.cardArt(), scale: `${UG.facts.reDerivedIdentically} cells re-derived` },
+  { id: 'lattice-claims', title: 'Decide it, or say what is missing.', blurb: 'An environment built out of a grader bug: three models, one dial for how much of the reference is stated, an exact grader that says what is missing.', backing: 'exact', art: () => LC.cardArt(), scale: `${LC.facts.rollouts} rollouts` },
+  { id: 'rewire', title: 'Rewire it yourself.', blurb: 'Lattice claims with exact answers and three graders; only one may reach the socket that decides. Drag the wrong one there and the engine refuses.', backing: 'exact', art: () => RW.cardArt(), scale: `${RW.facts.instances} instances` },
+  { id: 'pqc', title: 'Solid where it was proved.', blurb: 'The SVP challenge\'s records as six-figure floats with no error bound, re-decided in exact arithmetic from the published vectors.', backing: 'exact', art: () => PQ.cardArt(), scale: `${PQ.facts.records} records` },
+  { id: 'occultation', title: 'The occultation, without the ellipse.', blurb: 'Chords across a silhouette and stations that saw nothing: what they force on the size of a small body, assuming only convexity.', backing: 'exact', art: () => OC.cardArt(), scale: `${OC.facts.chords} chords · ${OC.facts.misses} misses` },
+  { id: 'census', title: 'Unique totals, and the split nobody can see.', blurb: 'Two populations on one network: the equilibrium fixes the totals and not the split. The face of splits it cannot tell apart, its dimension decided in your tab.', backing: 'exact', art: () => CE.cardArt(), scale: `k = ${CE.facts.paper.face.k}` },
+  { id: 'transit', title: 'The transit, without a law for the star.', blurb: 'What a planet\'s transit photometry forces on the radius ratio, assuming only that the star darkens toward its limb.', backing: 'exact', art: () => TR.cardArt(), scale: TR.facts.name },
+  { id: 'simplex', title: 'An attention row is a point. Nobody draws it that way.', blurb: 'A row of attention weights is a point in a simplex; focus is distance from the centre, temperature is a path.', backing: 'exact', art: () => SIMPLEX.cardArt(), scale: `${SIMPLEX.M.positions} positions` },
+].map((m) => Object.assign(m, { href: m.id + '/index.html', battery: !!(BATTERY_FOR[m.id] && fs.existsSync(path.join(ROOT, BATTERY_FOR[m.id]))) }));
+const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+const word = (k) => (WORDS[k] || String(k));
+const COUNT = { all: MANIFEST.length, battery: MANIFEST.filter((m) => m.battery).length, certificate: MANIFEST.filter((m) => m.backing === 'certificate').length, exact: MANIFEST.filter((m) => m.backing === 'exact').length, float: MANIFEST.filter((m) => m.backing === 'float').length };
+
 const body = `
 <header class="hero"><div class="wrap">
   <div class="eyebrow">cert-machine &middot; instruments</div>
-  <h1>Fifteen instruments, and each one says what decides it.</h1>
-  <p class="lede">This page used to open by saying that nothing here was certified. That was the wrong claim and it had stopped being true: two of these pages draw a certificate straight from the shelf the rest of the site gates, and five of them decide their headline number in exact integer or rational arithmetic. <b>What is true is that nothing here is gated</b> &mdash; no number on these pages has a certificate row the build checks, no page here can refuse a deploy, and none of them is covered by <code>make test</code>. That is a fact about ceremony, not about the mathematics, and the two are not the same thing.</p>
+  <h1>${word(COUNT.all).charAt(0).toUpperCase() + word(COUNT.all).slice(1)} instruments, and each one says what decides it.</h1>
+  <p class="lede">The same arithmetic as the reports, without the gates. One engine feeds both: the reports are where a claim gets a verdict that a build can refuse to ship; these pages are where that arithmetic runs in your tab and every mark says what decided it. Of the ${word(COUNT.all)}, <b>${word(COUNT.battery)} run a battery in <code>make test</code></b>, ${word(COUNT.certificate)} draws a certificate straight from the shelf the rest of the site gates, ${word(COUNT.exact)} decide their headline number in exact integer or rational arithmetic, and ${word(COUNT.float)} are floats and say so beside the number. None of them can refuse a deploy, and that is the permission: a fact about ceremony, not about the mathematics.</p>
+  <p class="lede" style="display:none">This page used to open by saying that nothing here was certified. That was the wrong claim and it had stopped being true: two of these pages draw a certificate straight from the shelf the rest of the site gates, and five of them decide their headline number in exact integer or rational arithmetic. <b>What is true is that nothing here is gated</b> &mdash; no number on these pages has a certificate row the build checks, no page here can refuse a deploy, and none of them is covered by <code>make test</code>. That is a fact about ceremony, not about the mathematics, and the two are not the same thing.</p>
   <p class="lede" style="margin-top:var(--s-5)">So instead of one disclaimer at the door, <b>every card below says what backs its headline number</b>, in the same words the pages use: exact rationals, exact integers, a record from the certificate shelf, or floats. Where it is floats, the page says so beside the number rather than at the bottom.</p>
 </div></header>
 
 <section class="projects"><div class="wrap">
   <div class="count">
     <span class="eyebrow">the projects</span>
-    <span class="eyebrow">fifteen, so far</span>
+    <span class="eyebrow">${word(COUNT.all)}, so far</span>
   </div>
 
   <div class="cards">
@@ -323,6 +353,18 @@ const html = page({
 /* ---- write ---------------------------------------------------------------- */
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
+
+/* the manifest must match the cards, row for row */
+{
+  const hrefs = [...body.matchAll(/<a class="card" href="([^"]+)"/g)].map((m) => m[1]);
+  if (hrefs.length !== MANIFEST.length) { console.error('instruments: ' + hrefs.length + ' cards on the page, ' + MANIFEST.length + ' rows in the manifest — no page'); process.exit(1); }
+  for (const m of MANIFEST) if (!hrefs.includes(m.href)) { console.error('instruments: manifest row ' + m.id + ' has no card'); process.exit(1); }
+  fs.mkdirSync(path.join(HERE, 'out'), { recursive: true });
+  fs.writeFileSync(path.join(HERE, 'out', 'manifest.json'), JSON.stringify({
+    generatedBy: 'node playground/build.js', count: COUNT,
+    cards: MANIFEST.map((m) => ({ id: m.id, href: 'instruments/' + m.href, title: m.title, blurb: m.blurb, backing: m.backing, battery: m.battery, scale: m.scale, art: m.art() }))
+  }, null, 1) + '\n');
+}
 
 /* the design assets the browser needs, copied rather than linked out of the
    repository: /instruments owns its look and cannot be restyled from elsewhere */

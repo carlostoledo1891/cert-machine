@@ -26,10 +26,9 @@ engine:
 control:
 	@$(NODE) tools/build-control.js
 
-site: control
+site: playground control
 	@$(NODE) tools/build-site.js
 	@$(NODE) apps/skyaudit/build.js
-	@$(NODE) playground/build.js
 
 playground:
 	@$(NODE) playground/build.js
