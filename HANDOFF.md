@@ -134,7 +134,24 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     max-flow and centred; six sliders along the null space; a click drops an
     edge and k is re-decided. Driven in headless Chrome (sliders, preset,
     edge drop) before accepting. Six of ten built; next 7 (the price band,
-    needs the MPR kernel lifted) and 8 (their tables re-decided).
+    needs the MPR kernel lifted) and 8 (their tables re-decided). → REPORT 7 BUILT 2026-09-07 on "continue": instruments/price +
+    reports/price.html — Gomes–Saúde price formation closed in exact
+    rationals (Π(T) = γ(Ξ(T) − ζ) makes the paper's Volterra/Laplace route
+    a three-line closed form; affine in the supply with non-positive
+    coefficients, so a ±15 % forecast box is a price band attained at its
+    corners, decided: Θ = −1.6564, widest 2.7747, 89 % of it the day's
+    total energy; the box that buys a one-unit band is 5.41 %). The
+    plan's 'Krawczyk on the clearing residual' was not needed: the
+    balance is linear and the closed form exact. The lab's MPR kernel was
+    PORTED BIT FOR BIT (fd.js, 49 iterations, same residual, same price)
+    and MEASURED: it clears in the controls to 1e−14 while 12.4 % of the
+    day's energy vanishes at its wall (Ξ(T) = 0.9032 vs 0.9880) — the wall
+    cell may buy into the wall and the FP wall discards it; state-
+    constraint walls halve the loss, clearing on the FP flux removes it
+    and converges to the closed form at first order, the lab's walls do
+    not converge. sin-mfg NOT edited (report, don't repair): the finding
+    is in instruments/price/FINDINGS_LIT.md. 23 checks, 5 red controls,
+    ~20 s. Battery row 77.
 
   ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
     the ember paper; the staged formal-conjectures issue and the letters.
