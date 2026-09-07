@@ -123,8 +123,18 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     the fixed-N map is a lower bound, said first), the N-free ceiling A_rec
     bit-identical across N, ratios below 1, slopes drawn dashed. Nothing
     re-run: the kernel stays in the source lab; the pins are re-hashed at
-    every build and make drift. Five of the ten reports are built; the plan
-    continues with 6 (the network census playground) and 7 (the price band).
+    every build and make drift. → REPORT 6 BUILT 2026-09-07 as a PLAYGROUND,
+    /instruments/census (playground/census/): the face law made touchable —
+    engine.js decides k = |shared| − cons + z in exact BigInt rationals in
+    the tab, cross-checked at build against certs/facelaw-theorem.json
+    (make-facts.mjs refuses on any disagreement); the paper's 15-edge
+    network with Table I, whose printed totals do NOT conserve (residuals
+    −1, +2, +1, −1, −1 at nodes 3–7) and are repaired to the nearest
+    conserving flow (≤ 21/37 per edge, CHOSEN); a split found by exact
+    max-flow and centred; six sliders along the null space; a click drops an
+    edge and k is re-decided. Driven in headless Chrome (sliders, preset,
+    edge drop) before accepting. Six of ten built; next 7 (the price band,
+    needs the MPR kernel lifted) and 8 (their tables re-decided).
 
   ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
     the ember paper; the staged formal-conjectures issue and the letters.

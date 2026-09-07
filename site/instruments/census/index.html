@@ -1,0 +1,1004 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unique totals, and the split nobody can see — cert-machine</title>
+<meta name="description" content="Two populations on one network: the equilibrium fixes the totals and not the split. The face of splits it cannot tell apart has dimension 6 on the published network, decided in exact rationals in your tab.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Unique totals, and the split nobody can see — cert-machine">
+<meta property="og:description" content="Two populations on one network: the equilibrium fixes the totals and not the split. The face of splits it cannot tell apart has dimension 6 on the published network, decided in exact rationals in your tab.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../design/tokens.css">
+<style>
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 var(--gutter);height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px var(--gutter) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* shell.css — the navbar and the measure scale, and nothing else. Everything an
+   /instruments page looks like beyond this is that page's own business. */
+/* THE SECTION'S OWN NAV IS GONE (2026-09-05) — design/nav.js is the site's
+   one nav and this section carries it like every other page. What is left here
+   is the consequence: the site nav is FIXED at 60px, so the page has to start
+   below it. The reports' shell does the same thing with its own padding. */
+/* THE BOX MODEL, SHARED — and it was not, until 2026-09-05. The
+   `*{box-sizing:border-box}` reset was declared in SIX page.css files and in
+   bench.css, and in the shell not at all. A page that did not carry its own copy
+   got content-box, so `.wrap`'s max-width:1200 became 1200 PLUS its 48px
+   gutters: /instruments/graph rendered 1296 wide and sat its whole column at
+   x=120 while every other page on the site sits at x=168. The site's one-left-
+   edge claim was being upheld by six identical copies of a reset, any one of
+   which could have gone missing — and the seventh page proved it. */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* THE PAGE'S OWN TYPOGRAPHY, SHARED — and it was not, until 2026-09-05.
+   Six page.css files under playground/ declared their own `body` rule, four of
+   them with different bodies, and the shell declared none. Every page that
+   happened to carry one looked right and any page that did not fell back to the
+   browser default — which is how /instruments/graph shipped its first build in
+   TIMES ROMAN while every other page on the site is Inter. A foundation
+   declared six times is not a foundation.
+
+   The page-local copies came out later the same day, one file at a time, each
+   page pixel-diffed at 1440 and 390 before the next: curveset, neural-geometry,
+   shape-hunt, simplex, bench.css (four pages) and index.css were byte-identical
+   to the two rules above and went entirely; interferometer keeps its own
+   margin/padding zeroing and the three body properties the shell does not set. */
+body { margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body);
+  line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
+body { padding-top: 60px; }
+
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
+
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
+
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
+
+/* ---- THE TABLE RULE, once ------------------------------------------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. Four /instruments pages scrolled the whole document sideways
+   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
+   answer-shape 78 — every one of them a nowrap table sitting in a container
+   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
+   rule that made it scroll lived in base.css and that page never linked it.
+   One class, one rule, declared where every page already inlines it. */
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
+     table sliced mid-character with nothing to indicate there was more; a box
+     that hides a column without saying so is the same defect as a number
+     without its units. The four layers are the standard scroll-shadow: two
+     ground-coloured covers pinned to the CONTENT (background-attachment:local,
+     so they slide away as you scroll) over two shadows pinned to the BOX, so a
+     shadow shows exactly when there is something past that edge and vanishes
+     when there is not. No script, and nothing to keep in sync. */
+  background:
+    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--bg-raised); }
+.tw > table { margin: 0; }
+.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }
+
+
+/* ---- the eyebrow: seven declarations before this, and the weight was the
+   thing they disagreed about. The report engine sets 500, bench.css set none
+   at all, and interferometer set 500 on its own — so /instruments ran its
+   eyebrows a weight lighter than the reports on every page but one. 500, once,
+   on both sides of the site. ---- */
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); font-weight: 500;
+  letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+
+/* ---- the hero. The bottom padding is the LARGER of the two that were in
+   service; curveset's tighter one was not a decision, it was a copy that had
+   drifted. A page wanting a different hero (the gathering page does, and says
+   so) overrides these two properties and nothing else. ---- */
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title);
+  margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3);
+  color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+/* ---- the footer, with the margin-top the crossed pages had and the written
+   ones did not ---- */
+.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
+.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+.foot a { color: var(--ink-4); text-decoration: none; }
+.foot a:hover { color: var(--ink-2); }
+
+/* ---- the panel: a raised box with a hairline. Spacing between consecutive
+   panels is a sibling rule, so a page never adds a margin-top of its own and
+   the two versions cannot disagree about which edge carries the gap. ---- */
+.panel { background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-l); padding: var(--s-5); }
+.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
+
+/* ---- FIGURE PRIMITIVES ----------------------------------------------------
+   THE DEFECT THIS CLOSES, and it is the one the operator saw as "lots of svg
+   elements are black". The gathering page embeds each instrument's card art
+   but NOT the stylesheet that colours it, and an SVG element whose class
+   resolves to nothing paints nothing — the default stroke is 'none'. Measured
+   on /instruments before this: 12 kinds of classed element painting nothing,
+   including 63 chords on the affect card and 60 on answer-shape, which is why
+   those two plates measured 1.4% and 1.2% ink and read as black boxes.
+
+   A figure vocabulary used by more than one page is a shared component, the
+   same as a hero or a footer. Phase 3 moved the furniture and left these.  */
+.ch { stroke: var(--ink-2); }
+.ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
+/* .clo CLOSES THE WALK .ord DRAWS, and it is the SAME data at the SAME
+   standing — the step from the last item back to the first, computed exactly
+   the way every other step is. It was dashed to mark that ROLE, which is the
+   forbidden use: dash carries standing, never identity or role. The legitimate
+   channel was already doing the work — .ord is --ink at 0.9, .clo is --ink-3 —
+   so dropping the dash costs nothing, exactly as it did on answer-shape.
+   See design/CONTRACT.md. (No backticks in this comment on purpose: it lives
+   inside a template literal, and one backtick ends the literal.) */
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-linecap: round; }
+.mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
+.pt { fill: var(--ink-2); }
+/* .lb HAD NO FONT-SIZE, and that is two review defects in one line. Each
+   instrument page sets 8.5px on its own svg.pl .lb; the GATHERING page inlines
+   no page stylesheet, so every embedded card art fell back to the browser
+   default of 16px — in viewBox units, on a plate scaled about 1.5x. So the
+   affect card's labels rendered near 24px and ran clean out of the card
+   ("delighted" sliced at the right edge, "miserable" cut to "serable"), and
+   adjacent cards showed wildly different label sizes because each viewBox
+   scales differently. The pages' own 8.5px rules are more specific and still
+   win; this is the floor that was missing. */
+.lb { fill: var(--ink-4); font-family: var(--font-mono); font-size: 8.5px; }
+.ax line { stroke: var(--border-strong); }
+.ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+/* a horizontal reference line at the asked value, and the two drop lines from
+   it to the baseline. "an axis, a ruler, a ghost, a reference circle" is the
+   contract's own definition of a GUIDE, so they take the guide pattern rather
+   than a fourth invented one. */
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-std { fill: var(--ink); }
+.cs-tick { fill: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
+/* PAINT LIVES HERE; ANCHORING STAYS ON THE PAGE (2026-09-05). These four were
+   defined ONLY in playground/curveset/page.css, which curveset inlines and the
+   gathering page does not. /instruments embeds curveset's card art WITHOUT that
+   stylesheet, so all four fell through to SVG's default BLACK fill and measured
+   1.06:1 against the plate — the same family as the twelve invisible kinds
+   caught on 2026-09-05, of which these four were missed because they are text
+   and a dot rather than strokes.
+
+   And they were dim even where they DID paint: .cs-axname at --ink-5 is
+   2.24:1, under the 3:1 floor this repository enforces everywhere else. Each
+   is lifted one rung — axis names to --ink-4 (3.97:1), the two data labels,
+   which carry words a reader has to read ("reported ±550 lb", "unbounded above
+   — over range"), to --ink-3. */
+.cs-fitdot   { fill: var(--ink-2); }
+.cs-axname   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); letter-spacing: 0.08em; }
+.cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+.cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+
+/* ---- THE GRAMMAR. Stroke pattern carries standing; see ../warrant.js for the
+   rule about when the channel is free. A REFUSED mark has no stroke at all —
+   the void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML. In an <svg> these set a stroke; on a word they set
+   a voice, and the voice uses THE SAME DASH PATTERN as the line — a computed
+   value is underlined dashed exactly as a computed curve is dashed, a chosen
+   value dotted. Decided carries no mark: it is the voice the rest of the site
+   is written in, and marking it would make the exception the rule.
+
+   The underline does the work and brightness only supports it, because
+   dimness alone reads as low confidence and standing is not confidence — the
+   page that defines the grammar says so in as many words. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+/* a REFUSED value is not printed dim — it is NOT PRINTED. What the page shows
+   instead is the reason, and this is the voice it says it in. */
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG
+   <pattern>, and a pattern is addressed by an id that lives in the figure that
+   defines it. A shared rule would point every page at one page's id. */
+
+/* ---- the standing legend. Rendered by warrant.js, laid out by
+   design/grid.js: the column count is derived from data-n, not declared. ---- */
+/* align-items:start on the ROW, so every label sits on one line even when a
+   gloss wraps to two — the swatches were floating to the middle of whichever
+   item happened to be tallest. */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+</style>
+<style>.ce-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: var(--s-5); align-items: start; }
+@media (max-width: 760px) { .ce-wrap { grid-template-columns: minmax(0, 1fr); } }
+.ce-fig { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: var(--s-3); }
+.ce-fig svg { width: 100%; height: auto; display: block; }
+.ce-panel { display: grid; gap: var(--s-3); font-family: var(--mono); font-size: 12.5px; }
+.ce-panel label { display: block; color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; font-size: 10.5px; margin-bottom: 4px; }
+.ce-panel select, .ce-panel input[type=range] { width: 100%; }
+.ce-read { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); }
+.ce-read .k { color: var(--ink-3); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
+.ce-read .v { font-size: 22px; line-height: 1.1; }
+.ce-read .v.w-decided { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.ce-note { color: var(--ink-2); font-size: 12px; line-height: 1.45; }
+.ce-sl { display: grid; gap: 2px; }
+.ce-sl .r { display: flex; justify-content: space-between; color: var(--ink-3); font-size: 10.5px; }
+.ce-gal { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--s-4); }
+.ce-gal figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: var(--s-2); }
+.ce-gal figcaption { font-family: var(--mono); font-size: 11.5px; color: var(--ink-2); margin-top: 6px; line-height: 1.4; }
+.w-decided { stroke: var(--ink); color: var(--ink); }
+.w-chosen { stroke: var(--ink-2); color: var(--ink-2); }
+.w-computed { stroke: var(--ink-2); }
+.ce-edge:hover { filter: brightness(1.4); cursor: pointer; }
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">instruments &middot; census &middot; k decided over &#8474; in your tab</div>
+  <h1>Unique totals, and the split nobody can see.</h1>
+  <p class="lede">Two populations cross the same network and pay the same price per edge.
+  The equilibrium fixes how much flows on every edge, and cannot say <em>whose</em>
+  flow it is: the set of splits it cannot tell apart is a face, and its dimension is a
+  number this page decides in exact rationals &mdash; 6 on the network of
+  <a href="https://arxiv.org/abs/2504.16028">Bakaryan, Aoun, de Lima Ribeiro, Hovakimyan and Gomes</a>.
+  Drag a direction of that face and watch the two populations trade an edge while every
+  total holds. Drop an edge and watch the dimension re-decided.</p>
+</div></header>
+
+<section class="wrap">
+  <div class="ce-wrap">
+    <div>
+      <div class="ce-fig" id="ce-host"><svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="the fifteen-edge network with two dotted strokes on every edge, one per population">
+<line x1="47" y1="255.775" x2="104.8" y2="255.775" stroke="var(--ink)" stroke-width="12.5" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="47" y1="246.225" x2="104.8" y2="246.225" stroke="var(--ink-2)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="107.15461800355438" y1="252.56974533570292" x2="168.35461800355438" y2="160.7697453357029" stroke="var(--ink)" stroke-width="4.7" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="102.44538199644562" y1="249.43025466429708" x2="163.64538199644562" y2="157.63025466429707" stroke="var(--ink-2)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="45.014747144721284" y1="109.1427406209222" x2="164.01474714472127" y2="163.5427406209222" stroke="var(--ink)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="48.985252855278716" y1="100.4572593790778" x2="167.98525285527873" y2="154.8572593790778" stroke="var(--ink-2)" stroke-width="12.5" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="102.69510211867069" y1="253.9144739895329" x2="163.8951021186707" y2="298.1144739895329" stroke="var(--ink)" stroke-width="7.8" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="106.9048978813293" y1="248.0855260104671" x2="168.1048978813293" y2="292.2855260104671" stroke="var(--ink-2)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="163.63167229729729" y1="159.2" x2="163.63167229729729" y2="295.2" stroke="var(--ink)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="168.36832770270271" y1="159.2" x2="168.36832770270271" y2="295.2" stroke="var(--ink-2)" stroke-width="2.9" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="164.99607895822834" y1="161.78151125027" x2="226.19607895822833" y2="185.58151125026998" stroke="var(--ink)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="167.00392104177166" y1="156.61848874972998" x2="228.20392104177165" y2="180.41848874972996" stroke="var(--ink-2)" stroke-width="4.5" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="167.72597186067333" y1="296.1414391967309" x2="228.92597186067331" y2="183.94143919673087" stroke="var(--ink)" stroke-width="1.3" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="164.27402813932667" y1="294.25856080326906" x2="225.47402813932666" y2="182.05856080326907" stroke="var(--ink-2)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="166" y1="297.4672156531531" x2="227.2" y2="297.4672156531531" stroke="var(--ink)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="166" y1="292.93278434684686" x2="227.2" y2="292.93278434684686" stroke="var(--ink-2)" stroke-width="2.5" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="225.29738175675675" y1="182.99999999999997" x2="225.29738175675675" y2="295.2" stroke="var(--ink)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="229.10261824324323" y1="182.99999999999997" x2="229.10261824324323" y2="295.2" stroke="var(--ink-2)" stroke-width="1.0" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="164.11911805302978" y1="162.58558750454637" x2="286.5191180530298" y2="230.5855875045464" stroke="var(--ink)" stroke-width="4.3" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="167.88088194697022" y1="155.8144124954536" x2="290.28088194697017" y2="223.81441249545364" stroke="var(--ink-2)" stroke-width="5.1" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="167.58970127396032" y1="298.06146229312856" x2="289.9897012739603" y2="230.0614622931286" stroke="var(--ink)" stroke-width="6.5" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="164.41029872603968" y1="292.3385377068714" x2="286.81029872603966" y2="224.33853770687142" stroke="var(--ink-2)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="225.59721960885105" y1="185.21923438774465" x2="286.79721960885104" y2="229.4192343877447" stroke="var(--ink)" stroke-width="1.3" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="228.80278039114893" y1="180.7807656122553" x2="290.0027803911489" y2="224.98076561225534" stroke="var(--ink-2)" stroke-width="3.7" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="229.0729777847066" y1="296.88568000623593" x2="290.2729777847066" y2="228.885680006236" stroke="var(--ink)" stroke-width="0.6" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="225.32702221529337" y1="293.51431999376405" x2="286.52702221529336" y2="225.51431999376405" stroke="var(--ink-2)" stroke-width="3.5" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="285.5605246624935" y1="230.85075400536553" x2="346.7605246624935" y2="278.45075400536547" stroke="var(--ink)" stroke-width="7.3" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="291.23947533750646" y1="223.5492459946345" x2="352.43947533750645" y2="271.14924599463444" stroke="var(--ink-2)" stroke-width="5.2" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="291.47268275458833" y1="230.65676809891195" x2="352.6726827545883" y2="176.25676809891195" stroke="var(--ink)" stroke-width="5.2" stroke-dasharray="1 5" stroke-linecap="round"/>
+<line x1="285.3273172454116" y1="223.74323190108808" x2="346.5273172454116" y2="169.34323190108807" stroke="var(--ink-2)" stroke-width="7.3" stroke-dasharray="1 5" stroke-linecap="round"/>
+<circle cx="47" cy="251" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="104.8" cy="251" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="166" cy="159.2" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="166" cy="295.2" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="227.2" cy="182.99999999999997" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="227.2" cy="295.2" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="288.4" cy="227.20000000000002" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="349.59999999999997" cy="274.79999999999995" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="47" cy="104.8" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="349.59999999999997" cy="172.8" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+</svg></div>
+      <p class="ce-note" id="ce-note">Dotted strokes are one member of the face: population a in ink, population b in the second ink, their sum the total on the edge. Filled nodes are exits; the two larger nodes are the entrances a and b.</p>
+      <div class="w-legend" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div>
+    </div>
+    <div class="ce-panel">
+      <div><label for="ce-preset">network</label><select id="ce-preset"></select></div>
+      <div class="ce-read" id="ce-read">
+        <div><div class="k">k, exact over &#8474;</div><div class="v w-decided">6</div></div>
+        <div><div class="k">shortcut |shared| &minus; cons</div><div class="v w-decided">6</div></div>
+        <div><div class="k">z, exit-free shared components</div><div class="v w-decided">0</div></div>
+        <div><div class="k">|shared| &middot; cons</div><div class="v">11 &middot; 5</div></div>
+      </div>
+      <div id="ce-sliders" class="ce-panel"></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>What backs what</h2>
+  <p><b>k is decided.</b> The two populations&rsquo; conservation systems are stacked, restricted
+  to the 11 edges both can reach, and their null space is computed over
+  the rationals: dimension 6, rank 5. The same arithmetic runs in this
+  tab. It is the theorem of <a href="../../reports/terra.html">the face law</a>,
+  k = |shared| &minus; cons + z, decided in Python on 7,850 networks and recorded in
+  <span class="mono">certs/facelaw-theorem.json</span>; the JavaScript engine here is a
+  second copy of that rule, and the page refuses to build unless the two agree on every
+  k, z and shortcut they share (6 cycle rows, 3
+  failing instances, the paper&rsquo;s network).</p>
+  <p><b>The totals are chosen.</b> Table I of the paper prints rounded integers, and rounded
+  integers are not a flow: at nodes 3 (-1), 4 (+2), 5 (+1), 6 (-1), 7 (-1)
+  the printed outflow does not equal the inflow. The totals drawn are the nearest conserving
+  flow to Table I in the least-squares sense, solved exactly &mdash; no edge moves by more than
+  21/37 (0.568), inside the rounding. That is one member of
+  the rounding box, so it is drawn dotted. The totals themselves are reproduced within their
+  rounding and proved on <a href="../../reports/wardrop-repro.html">the Wardrop page</a>; this
+  page does not re-prove them.</p>
+  <p><b>The split is chosen.</b> Population a&rsquo;s share of each shared edge is one point of the
+  face, found by exact max-flow and centred so that no flow sits at zero (smallest slack
+  3/2). The sliders move it along the 6 directions of the null space;
+  the ranges are where a flow would turn negative. Nothing decides which point the players
+  actually chose &mdash; the paper&rsquo;s own scenario S1 has unique totals and a split that
+  moves across re-seeds, which is exactly the non-uniqueness this face measures.</p>
+</section>
+
+<section class="wrap">
+  <h2>The census</h2>
+  <p>The shortcut k = |shared| &minus; cons is what one would guess and what the paper&rsquo;s
+  network makes look like a law (z = 0 there). It is wrong exactly when the shared subgraph has
+  a component with no exit, and then it undercounts by that number of components. Across
+  3,925 random networks the theorem was tested on
+  (seed 5320260901), the shortcut failed 571 times and
+  z was positive 571 times &mdash; the same 571
+  networks. Three of them, from the record, and the constructed family that forces it:</p>
+  <div class="ce-gal">
+    <figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="21.755046147272353" y1="105.57646537694201" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="59.628138261770935" y1="153.06782075316934" x2="35.27179622723791" y2="46.35571386988866" stroke="var(--ink-3)" stroke-width="1"/><line x1="158.24495385272763" y1="105.57646537694201" x2="90" y2="20" stroke="var(--ink-3)" stroke-width="1"/><line x1="144.72820377276207" y1="46.35571386988865" x2="120.37186173822907" y2="153.06782075316934" stroke="var(--ink)" stroke-width="2.2"/><line x1="120.37186173822907" y1="153.06782075316934" x2="144.72820377276207" y2="46.35571386988865" stroke="var(--ink)" stroke-width="2.2"/><line x1="59.628138261770935" y1="153.06782075316934" x2="144.72820377276207" y2="46.35571386988865" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="20" x2="120.37186173822907" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><circle cx="90" cy="20" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="144.72820377276207" cy="46.35571386988865" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="158.24495385272763" cy="105.57646537694201" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="120.37186173822907" cy="153.06782075316934" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="59.628138261770935" cy="153.06782075316934" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="21.755046147272353" cy="105.57646537694201" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="35.27179622723791" cy="46.35571386988866" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption>#1 &middot; k = 1, shortcut 0, z = 1. The heavy edges are the exit-free shared component.</figcaption></figure>
+<figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="90" y1="20" x2="21.063457289145433" y2="77.8446275633149" stroke="var(--ink-3)" stroke-width="1"/><line x1="21.063457289145433" y1="77.8446275633149" x2="158.93654271085455" y2="77.84462756331487" stroke="var(--ink)" stroke-width="2.2"/><line x1="134.99513267805776" y1="36.37688898167154" x2="66.05858996720319" y2="155.7784834550136" stroke="var(--ink-3)" stroke-width="1"/><line x1="45.004867321942235" y1="36.37688898167155" x2="113.94141003279682" y2="155.7784834550136" stroke="var(--ink-3)" stroke-width="1"/><line x1="134.99513267805776" y1="36.37688898167154" x2="150.62177826491072" y2="124.99999999999999" stroke="var(--ink-3)" stroke-width="1"/><line x1="29.378221735089305" y1="125.00000000000003" x2="45.004867321942235" y2="36.37688898167155" stroke="var(--ink-3)" stroke-width="1"/><line x1="150.62177826491072" y1="124.99999999999999" x2="66.05858996720319" y2="155.7784834550136" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="20" x2="150.62177826491072" y2="124.99999999999999" stroke="var(--ink-3)" stroke-width="1"/><line x1="134.99513267805776" y1="36.37688898167154" x2="21.063457289145433" y2="77.8446275633149" stroke="var(--ink-3)" stroke-width="1"/><line x1="45.004867321942235" y1="36.37688898167155" x2="134.99513267805776" y2="36.37688898167154" stroke="var(--ink-3)" stroke-width="1"/><circle cx="90" cy="20" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="134.99513267805776" cy="36.37688898167154" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="158.93654271085455" cy="77.84462756331487" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="150.62177826491072" cy="124.99999999999999" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="113.94141003279682" cy="155.7784834550136" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="66.05858996720319" cy="155.7784834550136" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="29.378221735089305" cy="125.00000000000003" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="21.063457289145433" cy="77.8446275633149" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="45.004867321942235" cy="36.37688898167155" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption>#2 &middot; k = 0, shortcut -1, z = 1. The heavy edges are the exit-free shared component.</figcaption></figure>
+<figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="20" y1="90.00000000000001" x2="90" y2="20" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="160" x2="139.49747468305833" y2="139.49747468305833" stroke="var(--ink)" stroke-width="2.2"/><line x1="139.49747468305833" y1="40.50252531694168" x2="160" y2="90" stroke="var(--ink)" stroke-width="2.2"/><line x1="40.502525316941664" y1="40.50252531694168" x2="160" y2="90" stroke="var(--ink-3)" stroke-width="1"/><line x1="40.502525316941664" y1="40.50252531694168" x2="90" y2="160" stroke="var(--ink-3)" stroke-width="1"/><line x1="40.50252531694168" y1="139.49747468305833" x2="139.49747468305833" y2="139.49747468305833" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="160" x2="139.49747468305833" y2="40.50252531694168" stroke="var(--ink)" stroke-width="2.2"/><line x1="90" y1="20" x2="90" y2="160" stroke="var(--ink-3)" stroke-width="1"/><circle cx="90" cy="20" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="139.49747468305833" cy="40.50252531694168" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="160" cy="90" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="139.49747468305833" cy="139.49747468305833" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="90" cy="160" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="40.50252531694168" cy="139.49747468305833" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="20" cy="90.00000000000001" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="40.502525316941664" cy="40.50252531694168" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption>#3 &middot; k = 0, shortcut -1, z = 1. The heavy edges are the exit-free shared component.</figcaption></figure>
+    <figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="90" y1="20" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="144.72820377276207" y1="46.35571386988865" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="20" x2="158.24495385272763" y2="105.57646537694201" stroke="var(--ink-3)" stroke-width="1"/><line x1="144.72820377276207" y1="46.35571386988865" x2="158.24495385272763" y2="105.57646537694201" stroke="var(--ink-3)" stroke-width="1"/><line x1="158.24495385272763" y1="105.57646537694201" x2="120.37186173822907" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="59.628138261770935" y1="153.06782075316934" x2="21.755046147272353" y2="105.57646537694201" stroke="var(--ink)" stroke-width="2.2"/><line x1="21.755046147272353" y1="105.57646537694201" x2="35.27179622723791" y2="46.35571386988866" stroke="var(--ink)" stroke-width="2.2"/><line x1="35.27179622723791" y1="46.35571386988866" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink)" stroke-width="2.2"/><circle cx="90" cy="20" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="144.72820377276207" cy="46.35571386988865" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="158.24495385272763" cy="105.57646537694201" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="120.37186173822907" cy="153.06782075316934" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="59.628138261770935" cy="153.06782075316934" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="21.755046147272353" cy="105.57646537694201" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="35.27179622723791" cy="46.35571386988866" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption>the shared 3-cycle with no exit &middot; k = 1, shortcut 0, z = 1; the same for every cycle length from 3 to 8.</figcaption></figure>
+  </div>
+  <p class="note">Every network in the gallery is a preset above. The engine that decided them
+  is <span class="mono">playground/census/engine.js</span>, written fresh in JavaScript with
+  BigInt rationals against the Python record, and the facts on this page were written by
+  <span class="mono">make-facts.mjs</span> after that cross-check passed.</p>
+</section>
+<script id="ce-spec" type="application/json">{"paper":{"edges":[[1,2],[2,3],[9,3],[2,4],[3,4],[3,5],[4,5],[4,6],[5,6],[3,7],[4,7],[5,7],[6,7],[7,8],[7,10]],"exits":[8,10],"ea":1,"eb":9,"table1":[100,38,100,62,24,37,12,22,10,76,54,40,31,100,100],"pos":{"1":[0.05,0.35],"2":[0.22,0.35],"3":[0.4,0.62],"4":[0.4,0.22],"5":[0.58,0.55],"6":[0.58,0.22],"7":[0.76,0.42],"8":[0.94,0.28],"9":[0.05,0.78],"10":[0.94,0.58]},"q1":100,"q2":100,"face":{"k":6,"shortcut":6,"z":0,"cons":5,"shared":[4,5,6,7,8,9,10,11,12,13,14],"rank":5,"basis":[["1","-1","1","0","0","0","0","0","0","0","0"],["-1","1","0","-1","1","0","0","0","0","0","0"],["1","0","0","0","0","-1","1","0","0","0","0"],["0","1","0","0","0","-1","0","1","0","0","0"],["1","0","0","1","0","-1","0","0","1","0","0"],["0","0","0","0","0","0","0","0","0","-1","1"]]},"repair":{"T":["100","1397/37","100","2303/37","906/37","6907/185","2192/185","793/37","1773/185","14048/185","9888/185","198/5","5738/185","100","100"],"Tnum":[100,37.75675675675676,100,62.24324324324324,24.486486486486488,37.33513513513513,11.848648648648648,21.43243243243243,9.583783783783783,75.93513513513514,53.44864864864865,39.6,31.016216216216215,100,100],"correction":["0","-9/37","0","9/37","18/37","62/185","-28/185","-21/37","-77/185","-12/185","-102/185","-2/5","3/185","0","0"],"residualBefore":["0","0","-1","2","1","-1","-1","0"],"rows":[1,2,3,4,5,6,7,9],"maxDev":"21/37","maxDevNum":0.5675675675675675},"split":{"base":["100","1397/37","0","2303/37","3/2","3/2","22451/2220","3733/2220","3/2","1286/37","19221/370","22451/2220","7063/2220","175/3","125/3"],"baseNum":[100,37.75675675675676,0,62.24324324324324,1.5,1.5,10.113063063063063,1.6815315315315316,1.5,34.75675675675676,51.94864864864865,10.113063063063063,3.1815315315315313,58.333333333333336,41.666666666666664],"basis":[["1","-1","1","0","0","0","0","0","0","0","0"],["-1","1","0","-1","1","0","0","0","0","0","0"],["1","0","0","0","0","-1","1","0","0","0","0"],["0","1","0","0","0","-1","0","1","0","0","0"],["1","0","0","1","0","-1","0","0","1","0","0"],["0","0","0","0","0","0","0","0","0","-1","1"]],"shared":[4,5,6,7,8,9,10,11,12,13,14],"ranges":[{"lo":"-3/2","hi":"3/2","loNum":-1.5,"hiNum":1.5},{"lo":"-3/2","hi":"3/2","loNum":-1.5,"hiNum":1.5},{"lo":"-3/2","hi":"3/2","loNum":-1.5,"hiNum":1.5},{"lo":"-3/2","hi":"65461/2220","loNum":-1.5,"hiNum":29.486936936936935},{"lo":"-3/2","hi":"43847/2220","loNum":-1.5,"hiNum":19.750900900900902},{"lo":"-125/3","hi":"175/3","loNum":-41.666666666666664,"hiNum":58.333333333333336}],"minSlack":"3/2","minSlackNum":1.5}},"cycle":[{"L":3,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,100]],"exits":[4],"ea":1,"eb":2},{"L":4,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,100]],"exits":[4],"ea":1,"eb":2},{"L":5,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,100]],"exits":[4],"ea":1,"eb":2},{"L":6,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,105],[105,100]],"exits":[4],"ea":1,"eb":2},{"L":7,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,105],[105,106],[106,100]],"exits":[4],"ea":1,"eb":2},{"L":8,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,105],[105,106],[106,107],[107,100]],"exits":[4],"ea":1,"eb":2}],"failing":[{"edges":[[7,6],[6,8],[3,1],[2,4],[4,2],[6,2],[1,4]],"exits":[3],"ea":1,"eb":4,"k":1,"shortcut":0,"z":1,"components":[[2,4]]},{"edges":[[2,9],[9,4],[3,7],[10,6],[3,5],[8,10],[5,7],[2,5],[3,9],[10,3]],"exits":[2],"ea":10,"eb":9,"k":0,"shortcut":-1,"z":1,"components":[[4,9]]},{"edges":[[8,1],[5,4],[2,3],[9,3],[9,5],[6,4],[5,2],[1,5]],"exits":[6],"ea":1,"eb":9,"k":0,"shortcut":-1,"z":1,"components":[[2,3,4,5]]}],"census":{"origin":{"seed":20260901,"draws":4000,"tested":3933,"shortcutFailures":572,"zPositive":572,"note":"the frontier bench generator replayed call-for-call — its published count is re-derived here, not quoted"},"fresh":{"seed":5320260901,"draws":4000,"tested":3925,"shortcutFailures":571,"zPositive":571},"failingTotal":572},"record":"certs/facelaw-theorem.json","checks":{"paperK":true,"cycleFamily":6,"failingInstances":3},"generatedBy":"node playground/census/make-facts.mjs"}</script>
+<script>/* engine.js — the network census, in exact rationals, for Node and the browser.
+   playground/census/ · cert-machine · 2026-09-07
+
+   THE OBJECT. Two populations enter a directed network at entrances a and b
+   and drain at the exit nodes. When the edge cost depends only on the TOTAL
+   flow, the equilibrium conditions fix the totals but cannot see how two
+   populations share an edge: the set of per-population splits compatible with
+   one total is a FACE, and its dimension is
+
+       k = |shared| − rank(M) = |shared| − cons + z,
+
+   `shared` the edges both populations can reach, M their two conservation
+   systems stacked and restricted to those edges, cons the non-exit nodes the
+   shared edges touch, z the number of components of the shared subgraph that
+   contain no exit. That theorem is instruments/facelaw (Python, exact over
+   Fractions, 7,850 networks); this file is the same arithmetic written again
+   in JavaScript with BigInt rationals so a browser can decide k while you
+   edit the network, and make-facts.mjs checks it against the record before a
+   page is built on it. A rule written twice is a rule that can diverge, so
+   the second copy is gated against the first.
+
+   What is decided here: the dimension of the set the equilibrium lives in,
+   and the directions that span it. What is NOT: the equilibrium itself — the
+   totals on the published network come from the paper's Table I, reproduced
+   and proved within rounding on the Wardrop page; the split shown is ONE
+   member of the face, and is drawn as one.
+
+   No fiction on /instruments: every number on the page is produced by this
+   code; make-facts.mjs writes them; build.js only reads. */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.CENSUS = factory();
+}(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  /* ---------------- rationals over BigInt ---------------- */
+  const gcd = (a, b) => { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { [a, b] = [b, a % b]; } return a; };
+  function Q(n, d) {
+    n = BigInt(n); d = d === undefined ? 1n : BigInt(d);
+    if (d === 0n) throw new Error('rational: zero denominator');
+    if (d < 0n) { n = -n; d = -d; }
+    const g = gcd(n, d) || 1n;
+    return { n: n / g, d: d / g };
+  }
+  const q0 = Q(0), q1 = Q(1);
+  const add = (a, b) => Q(a.n * b.d + b.n * a.d, a.d * b.d);
+  const sub = (a, b) => Q(a.n * b.d - b.n * a.d, a.d * b.d);
+  const mul = (a, b) => Q(a.n * b.n, a.d * b.d);
+  const div = (a, b) => { if (b.n === 0n) throw new Error('rational: division by zero'); return Q(a.n * b.d, a.d * b.n); };
+  const neg = (a) => Q(-a.n, a.d);
+  const isZero = (a) => a.n === 0n;
+  const cmp = (a, b) => { const l = a.n * b.d, r = b.n * a.d; return l < r ? -1 : l > r ? 1 : 0; };
+  const toNum = (a) => Number(a.n) / Number(a.d);
+  const str = (a) => (a.d === 1n ? a.n.toString() : a.n.toString() + '/' + a.d.toString());
+  const fromNum = (x) => {                        /* a float that is really an integer or a short decimal */
+    if (Number.isInteger(x)) return Q(x);
+    const s = x.toString();
+    if (/e/i.test(s)) throw new Error('rational: use integers or short decimals');
+    const [i, f] = s.split('.');
+    return Q(BigInt(i + f), 10n ** BigInt(f.length));
+  };
+
+  /* ---------------- the graph ---------------- */
+  function reach(edges, entrance) {
+    const out = {};
+    edges.forEach((e, i) => { (out[e[0]] = out[e[0]] || []).push(i); });
+    const act = [], seen = new Set(), nodes = new Set([entrance]), stack = [entrance];
+    while (stack.length) {
+      const u = stack.pop();
+      for (const i of (out[u] || [])) {
+        if (seen.has(i)) continue;
+        seen.add(i); act.push(i);
+        const v = edges[i][1];
+        if (!nodes.has(v)) { nodes.add(v); stack.push(v); }
+      }
+    }
+    return act.sort((a, b) => a - b);
+  }
+  /* conservation rows (one per non-exit node touched) over the active edges: +1 out, −1 in */
+  function kirchhoff(edges, act, exits) {
+    const nodes = new Set();
+    for (const i of act) { nodes.add(edges[i][0]); nodes.add(edges[i][1]); }
+    const rows = [...nodes].filter(n => !exits.has(n)).sort((a, b) => a - b);
+    const ri = new Map(rows.map((n, r) => [n, r]));
+    const K = rows.map(() => act.map(() => q0));
+    act.forEach((i, c) => {
+      const [u, v] = edges[i];
+      if (ri.has(u)) K[ri.get(u)][c] = q1;
+      if (ri.has(v)) K[ri.get(v)][c] = Q(-1);
+    });
+    return { K, rows };
+  }
+  /* reduced row echelon form over Q: returns the rank, the pivot columns and the reduced matrix */
+  function rref(M, ncols) {
+    const A = M.map(r => r.slice());
+    let r = 0; const piv = [];
+    for (let c = 0; c < ncols && r < A.length; c++) {
+      let p = -1;
+      for (let i = r; i < A.length; i++) if (!isZero(A[i][c])) { p = i; break; }
+      if (p < 0) continue;
+      [A[r], A[p]] = [A[p], A[r]];
+      const inv = div(q1, A[r][c]);
+      A[r] = A[r].map(x => mul(x, inv));
+      for (let i = 0; i < A.length; i++) {
+        if (i === r || isZero(A[i][c])) continue;
+        const f = A[i][c];
+        A[i] = A[i].map((x, j) => sub(x, mul(f, A[r][j])));
+      }
+      piv.push(c); r++;
+    }
+    return { rank: r, piv, A };
+  }
+  /* a basis of the null space, from the rref: one vector per free column */
+  function nullspace(M, ncols) {
+    const { rank, piv, A } = rref(M, ncols);
+    const free = [];
+    for (let c = 0; c < ncols; c++) if (!piv.includes(c)) free.push(c);
+    const basis = free.map(fc => {
+      const v = Array.from({ length: ncols }, () => q0);
+      v[fc] = q1;
+      piv.forEach((pc, r) => { v[pc] = neg(A[r][fc]); });
+      return v;
+    });
+    return { rank, nullity: ncols - rank, basis };
+  }
+  function components(edgeList) {
+    const adj = new Map();
+    for (const [u, v] of edgeList) {
+      if (!adj.has(u)) adj.set(u, new Set()); if (!adj.has(v)) adj.set(v, new Set());
+      adj.get(u).add(v); adj.get(v).add(u);
+    }
+    const seen = new Set(), comps = [];
+    for (const s of adj.keys()) {
+      if (seen.has(s)) continue;
+      const comp = new Set(), stack = [s];
+      while (stack.length) { const n = stack.pop(); if (comp.has(n)) continue; comp.add(n); seen.add(n); for (const m of adj.get(n)) if (!comp.has(m)) stack.push(m); }
+      comps.push(comp);
+    }
+    return comps;
+  }
+
+  /* the face: exact k by the null space, the shortcut, and the theorem's k with z */
+  function face(edges, exitsArr, ea, eb) {
+    const exits = new Set(exitsArr);
+    const a1 = reach(edges, ea), a2 = reach(edges, eb);
+    const shared = a1.filter(i => a2.includes(i));
+    const base = { shared, a1, a2 };
+    if (!shared.length) return Object.assign(base, { k: 0, rank: 0, cons: 0, shortcut: 0, z: 0, theoremK: 0, agree: true, basis: [], components: [] });
+    const K1 = kirchhoff(edges, a1, exits), K2 = kirchhoff(edges, a2, exits);
+    const i1 = new Map(a1.map((e, c) => [e, c])), i2 = new Map(a2.map((e, c) => [e, c]));
+    const M = K1.K.map(row => shared.map(e => row[i1.get(e)])).concat(K2.K.map(row => shared.map(e => row[i2.get(e)])));
+    const ns = nullspace(M, shared.length);
+    const nodes = new Set();
+    for (const i of shared) { nodes.add(edges[i][0]); nodes.add(edges[i][1]); }
+    const cons = [...nodes].filter(n => !exits.has(n)).length;
+    const comps = components(shared.map(i => edges[i]));
+    const z = comps.filter(c => ![...c].some(n => exits.has(n))).length;
+    const shortcut = shared.length - cons;
+    return Object.assign(base, { k: ns.nullity, rank: ns.rank, cons, shortcut, z, theoremK: shared.length - cons + z,
+      agree: ns.nullity === shortcut, basis: ns.basis, components: comps.map(c => [...c].sort((a, b) => a - b)) });
+  }
+
+  /* Edmonds–Karp over rationals on the shared edges. Supplies: the entrance's inflow
+     Q1 plus what the private (population-1-only) edges deliver at their heads, minus
+     what they draw at their tails; sinks: the exits. Returns population 1's flow on
+     the shared edges, or null when the total routed falls short of the supply. */
+  function flowRoute(edges, exits, ea, a1, sh, fixed, T, Q1, seed) {
+    const supply = new Map();
+    const addS = (n, v) => supply.set(n, add(supply.get(n) || q0, v));
+    addS(ea, Q1);
+    a1.forEach(e => { if (fixed[e] !== null && !isZero(fixed[e])) { addS(edges[e][1], fixed[e]); addS(edges[e][0], neg(fixed[e])); } });
+    /* residual graph on the shared edges: forward capacity T − x, backward x */
+    const x = sh.map(() => q0);
+    const cap = (c, fwd) => (fwd ? sub(T[sh[c]], x[c]) : x[c]);
+    const nbrs = new Map();
+    sh.forEach((e, c) => { const [u, v] = edges[e]; if (!nbrs.has(u)) nbrs.set(u, []); if (!nbrs.has(v)) nbrs.set(v, []); nbrs.get(u).push({ c, fwd: true, to: v }); nbrs.get(v).push({ c, fwd: false, to: u }); });
+    /* a deterministic permutation of every arc list, so different seeds reach different
+       vertices of the face. The key is a pure function of (seed, arc): no comparator with
+       state, so Node and every browser order the arcs identically. */
+    if (seed) for (const [, arr] of nbrs) {
+      const key = (a) => { let h = (seed * 2654435761 + a.c * 40503 + (a.fwd ? 97 : 0)) >>> 0; h ^= h >>> 13; h = (h * 1274126177) >>> 0; return h ^ (h >>> 16); };
+      arr.sort((a, b) => key(a) - key(b));
+    }
+    const sources = [...supply.entries()].filter(([n, v]) => cmp(v, q0) > 0 && !exits.has(n));
+    let total = q0, need = q0;
+    for (const [, v] of sources) need = add(need, v);
+    const left = new Map(sources);
+    for (;;) {
+      /* BFS from any source with supply left to any exit */
+      const prev = new Map(); const queue = [];
+      for (const [n, v] of left) if (cmp(v, q0) > 0) { prev.set(n, { src: n }); queue.push(n); }
+      let hit = null;
+      while (queue.length && hit === null) {
+        const u = queue.shift();
+        for (const a of (nbrs.get(u) || [])) {
+          if (cmp(cap(a.c, a.fwd), q0) <= 0 || prev.has(a.to)) continue;
+          prev.set(a.to, { from: u, c: a.c, fwd: a.fwd });
+          if (exits.has(a.to)) { hit = a.to; break; }
+          queue.push(a.to);
+        }
+      }
+      if (hit === null) break;
+      /* bottleneck along the path, capped by the source's remaining supply */
+      const pathArcs = []; let n = hit;
+      while (prev.get(n).from !== undefined) { const p = prev.get(n); pathArcs.push(p); n = p.from; }
+      const src = n;
+      let bott = left.get(src);
+      for (const p of pathArcs) { const cp = cap(p.c, p.fwd); if (cmp(cp, bott) < 0) bott = cp; }
+      for (const p of pathArcs) x[p.c] = p.fwd ? add(x[p.c], bott) : sub(x[p.c], bott);
+      left.set(src, sub(left.get(src), bott));
+      total = add(total, bott);
+    }
+    return cmp(total, need) === 0 ? x : null;
+  }
+
+  /* ---------------- the split family on a network with published totals ----------------
+     Given totals T (one per edge) and population 1's inflow Q1 at its entrance, the
+     per-population splits compatible with T form an affine set: population 1's flow j¹
+     satisfies its own conservation with inflow Q1, equals T on edges population 2 cannot
+     reach, is 0 on edges population 1 cannot reach, and 0 ≤ j¹ ≤ T; population 2 takes
+     the rest. Its dimension is k, its directions the null-space basis. A base point is
+     found as the least-norm solution of the equality part, pushed inside the box by a
+     deterministic search along the basis when it lands outside. */
+  function splitFamily(edges, exitsArr, ea, eb, totals, Q1) {
+    const exits = new Set(exitsArr);
+    const f = face(edges, exitsArr, ea, eb);
+    const T = totals.map(t => (typeof t === 'object' && t.n !== undefined) ? t : fromNum(t));
+    const n = edges.length;
+    const a1 = new Set(f.a1), a2 = new Set(f.a2);
+    /* unknowns: j¹ on the shared edges; fixed: T on a1\a2, 0 elsewhere */
+    const fixed = Array.from({ length: n }, (_, i) => (a1.has(i) && !a2.has(i)) ? T[i] : (!a1.has(i) ? q0 : null));
+    const sh = f.shared;
+    if (!sh.length) return null;
+    const K = kirchhoff(edges, f.a1, exits);
+    const i1 = new Map(f.a1.map((e, c) => [e, c]));
+    /* rows: conservation at population 1's non-exit nodes; rhs: Q1 at the entrance, 0 elsewhere, minus the fixed part */
+    const rows = K.rows;
+    const A = rows.map(() => sh.map(() => q0));
+    const b = rows.map((node) => (node === ea ? fromNum(Q1) : q0));
+    rows.forEach((node, r) => {
+      f.a1.forEach((e) => {
+        const coef = K.K[r][i1.get(e)];
+        if (isZero(coef)) return;
+        const sc = sh.indexOf(e);
+        if (sc >= 0) A[r][sc] = coef;
+        else b[r] = sub(b[r], mul(coef, fixed[e]));
+      });
+    });
+    /* consistency of the equality part: a zero row with nonzero rhs means no split exists */
+    const { rank, A: R } = rref(A.map((row, r) => row.concat([b[r]])), sh.length);
+    for (let r = rank; r < R.length; r++) if (!isZero(R[r][sh.length])) return { face: f, feasible: false, why: 'the totals admit no population-1 flow' };
+    /* a feasible particular solution by max-flow: population 1's forced arrivals at the
+       heads of its private edges are pushed to the exits through the shared edges
+       under the capacities T; if the max flow falls short, no split exists */
+    const vertices = [];
+    for (let seed = 0; seed < 12; seed++) { const v = flowRoute(edges, exits, ea, f.a1, sh, fixed, T, fromNum(Q1), seed); if (v) vertices.push(v); }
+    if (!vertices.length) return { face: f, feasible: false, why: 'the totals admit no population-1 flow within the capacities' };
+    /* the average of the vertices reached is feasible (the box is convex) and interior in every direction they differ */
+    const x = sh.map((_, c) => div(vertices.reduce((acc, v) => add(acc, v[c]), q0), Q(vertices.length)));
+    const basis = nullspace(A, sh.length).basis;
+    const box = (v) => v.every((val, c) => cmp(val, q0) >= 0 && cmp(val, T[sh[c]]) <= 0);
+    const slack = (v) => { let m = null; v.forEach((val, c) => { for (const s of [val, sub(T[sh[c]], val)]) if (m === null || cmp(s, m) < 0) m = s; }); return m; };
+    /* push inside: try the base and rational steps along each basis direction, keep the largest minimum slack */
+    /* centring: a coordinate search that maximises the minimum slack, along single
+       basis directions and along pairs (a face vertex is often blocked in every single
+       direction and open along a sum), until no step of any size improves it */
+    /* the objective is lexicographic: first the number of bounds that are TIGHT (to be
+       minimised — a vertex is tight in many), then the smallest slack (to be maximised) */
+    const tight = (v) => { let n = 0; v.forEach((val, c) => { if (isZero(val) || isZero(sub(T[sh[c]], val))) n++; }); return n; };
+    const better = (cand, candSlack, refTight, refSlack) => { const ct = tight(cand); return ct < refTight || (ct === refTight && cmp(candSlack, refSlack) > 0); };
+    let best = x, bestSlack = slack(x), bestTight = tight(x);
+    const steps = [Q(1, 8), Q(1, 4), Q(1, 2), Q(1), Q(2), Q(4), Q(8), Q(16)];
+    const dirs = basis.slice();
+    for (let i = 0; i < basis.length; i++) for (let j = i + 1; j < basis.length; j++) {
+      dirs.push(basis[i].map((v, c) => add(v, basis[j][c])));
+      dirs.push(basis[i].map((v, c) => sub(v, basis[j][c])));
+    }
+    /* weighted pairs and triples, so bounds that only lift together can be lifted together */
+    for (let i = 0; i < basis.length; i++) for (let j = 0; j < basis.length; j++) {
+      if (i === j) continue;
+      for (const w of [2, 3]) dirs.push(basis[i].map((v, c) => add(mul(Q(w), v), basis[j][c])));
+    }
+    if (basis.length <= 7) for (let i = 0; i < basis.length; i++) for (let j = i + 1; j < basis.length; j++) for (let l = j + 1; l < basis.length; l++) {
+      for (const [a, b2, c2] of [[1, 1, 1], [2, 1, 1], [1, 2, 1], [1, 1, 2], [1, -1, 1], [1, 1, -1], [-1, 1, 1]]) {
+        dirs.push(basis[i].map((v, c) => add(add(mul(Q(a), v), mul(Q(b2), basis[j][c])), mul(Q(c2), basis[l][c]))));
+      }
+    }
+    /* every ±1 combination of the whole basis (k ≤ 8), so several bounds can lift at once */
+    if (basis.length <= 8 && basis.length >= 3) {
+      for (let mask = 0; mask < (1 << basis.length); mask++) {
+        dirs.push(basis[0].map((_, c) => basis.reduce((acc, v, i) => ((mask >> i) & 1) ? add(acc, v[c]) : sub(acc, v[c]), q0)));
+      }
+    }
+    /* the lift: a direction in the span of the basis that moves EVERY binding bound
+       inward at once (+1 at a lower bound, −1 at an upper bound), found by solving the
+       small linear system over Q; then the longest step that keeps the box */
+    const liftDir = (pt) => {
+      const rows = [], rhs = [];
+      pt.forEach((val, c) => {
+        const lo = val, hi = sub(T[sh[c]], val);
+        const m = cmp(lo, hi) < 0 ? lo : hi;
+        if (cmp(m, bestSlack) <= 0) { rows.push(basis.map(v => v[c])); rhs.push(cmp(lo, hi) < 0 ? q1 : Q(-1)); }
+      });
+      if (!rows.length) return null;
+      const { rank, piv, A: R } = rref(rows.map((row, r) => row.concat([rhs[r]])), basis.length);
+      for (let r = rank; r < R.length; r++) if (!isZero(R[r][basis.length])) return null;
+      const a = basis.map(() => q0);
+      piv.forEach((pc, r) => { a[pc] = R[r][basis.length]; });
+      return pt.map((_, c) => basis.reduce((acc, v, i) => add(acc, mul(a[i], v[c])), q0));
+    };
+    for (let round = 0; round < 40; round++) {
+      let improved = false;
+      const lift = liftDir(best);
+      if (lift) dirs.push(lift);
+      for (const v of dirs) for (const s of steps) for (const sg of [1, -1]) {
+        const cand = best.map((val, c) => add(val, mul(Q(sg), mul(s, v[c]))));
+        const sl = slack(cand);
+        if (cmp(sl, q0) < 0) continue;                                    /* stay inside the box */
+        if (better(cand, sl, bestTight, bestSlack)) { best = cand; bestSlack = sl; bestTight = tight(cand); improved = true; }
+      }
+      if (!improved) break;
+    }
+    const feasible = box(best);
+    /* the slider range along each basis direction from the base point, keeping 0 ≤ j¹ ≤ T */
+    const ranges = basis.map(v => {
+      let lo = null, hi = null;
+      v.forEach((vc, c) => {
+        if (isZero(vc)) return;
+        const room0 = div(neg(best[c]), vc), roomT = div(sub(T[sh[c]], best[c]), vc);   /* t where j¹ hits 0 and T */
+        const a = cmp(room0, roomT) < 0 ? room0 : roomT, bnd = cmp(room0, roomT) < 0 ? roomT : room0;
+        if (lo === null || cmp(a, lo) > 0) lo = a;
+        if (hi === null || cmp(bnd, hi) < 0) hi = bnd;
+      });
+      return { lo, hi };
+    });
+    const full = Array.from({ length: n }, (_, i) => fixed[i] !== null ? fixed[i] : best[sh.indexOf(i)]);
+    return { face: f, feasible, base: best, baseFull: full, basis, ranges, T, shared: sh, minSlack: bestSlack };
+  }
+
+  /* ---------------- repairing published totals ----------------
+     A printed table of rounded flows is not a flow: conservation fails by units at
+     several nodes. The nearest conserving totals in the least-squares sense are
+     T′ = T + Kᵀ y with (K Kᵀ) y = −(K T − b), solved exactly over Q on the total
+     network (every edge active, inflows at both entrances). The result is one
+     conserving flow inside the rounding box — CHOSEN, and drawn as such. */
+  function solveSquare(A, b) {
+    const n = b.length;
+    const { rank, A: R } = rref(A.map((row, r) => row.concat([b[r]])), n);
+    if (rank < n) return null;
+    return R.map(row => row[n]);
+  }
+  function repairTotals(edges, exitsArr, inflows, totals) {
+    const exits = new Set(exitsArr);
+    const all = edges.map((_, i) => i);
+    const K = kirchhoff(edges, all, exits);
+    const T = totals.map(fromNum);
+    const b = K.rows.map(node => (inflows[node] !== undefined ? fromNum(inflows[node]) : q0));
+    const r = K.K.map((row, i) => sub(row.reduce((acc, kij, j) => add(acc, mul(kij, T[j])), q0), b[i]));
+    const KKt = K.K.map(ri => K.K.map(rj => ri.reduce((acc, v, j) => add(acc, mul(v, rj[j])), q0)));
+    const y = solveSquare(KKt, r.map(neg));
+    if (!y) return null;
+    const corr = all.map(j => K.K.reduce((acc, row, i) => add(acc, mul(row[j], y[i])), q0));
+    const Tp = T.map((t, j) => add(t, corr[j]));
+    const residual = r.map(str);
+    let maxDev = q0;
+    corr.forEach(c => { const a = cmp(c, q0) < 0 ? neg(c) : c; if (cmp(a, maxDev) > 0) maxDev = a; });
+    return { T: Tp, correction: corr, residualBefore: residual, maxDev, rows: K.rows };
+  }
+
+  return { Q, q0, q1, add, sub, mul, div, neg, cmp, isZero, toNum, str, fromNum,
+    reach, kirchhoff, rref, nullspace, components, face, splitFamily, repairTotals };
+}));
+</script>
+<script>/* app.js — the census in your tab. The page is complete without it: the network
+   and every number were written by make-facts.mjs. This makes the network a thing
+   you can pull on: pick a preset, drag a direction of the face and watch the two
+   populations trade an edge while the totals hold; click an edge to drop it and
+   watch k, the shortcut and z re-decided in exact rationals by the same engine.
+
+   IT DECIDES NOTHING ITSELF. Every k, z and split comes from CENSUS (engine.js);
+   the app only draws what it returns. Standings: k is DECIDED (exact over Q, the
+   readout is underlined solid); the flows are CHOSEN (one member of the face,
+   dotted) — the same strokes the static page carries. */
+(function () {
+  'use strict';
+  var E = window.CENSUS;
+  var host = document.getElementById('ce-host');
+  var spec = document.getElementById('ce-spec');
+  if (!E || !host || !spec) return;
+  var F = JSON.parse(spec.textContent);
+  var sel = document.getElementById('ce-preset');
+  var sliders = document.getElementById('ce-sliders');
+  var read = document.getElementById('ce-read');
+  var note = document.getElementById('ce-note');
+
+  var presets = [{ id: 'paper', name: 'the paper’s network (15 edges, Table I)', edges: F.paper.edges, exits: F.paper.exits, ea: F.paper.ea, eb: F.paper.eb, pos: F.paper.pos, totals: true }];
+  F.cycle.forEach(function (c) { presets.push({ id: 'cycle' + c.L, name: 'an exit-free shared ' + c.L + '-cycle (z = 1)', edges: c.edges, exits: c.exits, ea: c.ea, eb: c.eb }); });
+  F.failing.forEach(function (f, i) { presets.push({ id: 'fail' + i, name: 'a network that fools the shortcut #' + (i + 1), edges: f.edges, exits: f.exits, ea: f.ea, eb: f.eb }); });
+  presets.forEach(function (p) { var o = document.createElement('option'); o.value = p.id; o.textContent = p.name; sel.appendChild(o); });
+
+  var st = { preset: presets[0], active: null, t: null, base: null, family: null };
+  var Q = E.fromNum;
+
+  function layout(p) {
+    if (p.pos) return p.pos;
+    var nodes = {}; p.edges.forEach(function (e) { nodes[e[0]] = 1; nodes[e[1]] = 1; });
+    var ids = Object.keys(nodes).map(Number).sort(function (a, b) { return a - b; });
+    var pos = {};
+    ids.forEach(function (n, i) { var a = -Math.PI / 2 + 2 * Math.PI * i / ids.length; pos[n] = [0.5 + 0.42 * Math.cos(a), 0.5 + 0.42 * Math.sin(a)]; });
+    return pos;
+  }
+
+  function activeEdges() { return st.preset.edges.filter(function (_, i) { return st.active[i]; }); }
+  function activeIndex() { var m = []; st.active.forEach(function (a, i) { if (a) m.push(i); }); return m; }
+
+  function recompute() {
+    var edges = activeEdges();
+    var face = E.face(edges, st.preset.exits, st.preset.ea, st.preset.eb);
+    st.face = face;
+    st.family = null;
+    if (st.preset.totals && st.active.every(Boolean)) {
+      var rp = E.repairTotals(edges, st.preset.exits, (function () { var o = {}; o[st.preset.ea] = F.paper.q1; o[st.preset.eb] = F.paper.q2; return o; })(), F.paper.table1);
+      var fam = E.splitFamily(edges, st.preset.exits, st.preset.ea, st.preset.eb, rp.T, F.paper.q1);
+      if (fam && fam.feasible) { st.family = fam; st.t = fam.basis.map(function () { return E.q0; }); }
+    }
+  }
+
+  function currentSplit() {
+    var fam = st.family; if (!fam) return null;
+    var j1 = fam.base.slice();
+    fam.basis.forEach(function (v, i) { v.forEach(function (vc, c) { j1[c] = E.add(j1[c], E.mul(st.t[i], vc)); }); });
+    return j1;
+  }
+  function rangeAt(i) {
+    var fam = st.family, j1 = currentSplit(), lo = null, hi = null;
+    fam.basis[i].forEach(function (vc, c) {
+      if (E.isZero(vc)) return;
+      var a = E.div(E.neg(j1[c]), vc), b = E.div(E.sub(fam.T[fam.shared[c]], j1[c]), vc);
+      var l = E.cmp(a, b) < 0 ? a : b, h = E.cmp(a, b) < 0 ? b : a;
+      if (lo === null || E.cmp(l, lo) > 0) lo = l;
+      if (hi === null || E.cmp(h, hi) < 0) hi = h;
+    });
+    return [lo, hi];
+  }
+
+  function draw() {
+    var p = st.preset, pos = layout(p), W = 560, H = 380, pad = 34;
+    var P = function (n) { return [pad + pos[n][0] * (W - 2 * pad), pad + (1 - pos[n][1]) * (H - 2 * pad)]; };
+    var fam = st.family, j1 = fam ? currentSplit() : null;
+    var s = ['<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="the network">'];
+    s.push('<defs><marker id="ce-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-3)"/></marker></defs>');
+    p.edges.forEach(function (e, i) {
+      var a = P(e[0]), b = P(e[1]);
+      var dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L;
+      var on = st.active[i];
+      var shared = on && st.face.shared.indexOf(activeIndex().indexOf(i)) >= 0;
+      s.push('<line class="ce-edge" data-i="' + i + '" x1="' + a[0] + '" y1="' + a[1] + '" x2="' + (b[0] - dx / L * 9) + '" y2="' + (b[1] - dy / L * 9) + '" stroke="' + (on ? (shared ? 'var(--ink-2)' : 'var(--line)') : 'transparent') + '" stroke-width="' + (on ? 1.2 : 8) + '" ' + (on ? '' : 'stroke-dasharray="2 3" stroke="var(--line)"') + ' marker-end="url(#ce-arr)"/>');
+      if (fam && on) {
+        var c = fam.shared.indexOf(activeIndex().indexOf(i));
+        var v1 = c >= 0 ? j1[c] : (st.face.a1.indexOf(i) >= 0 ? fam.T[i] : E.q0);
+        var v2 = E.sub(fam.T[i], v1);
+        var w1 = Math.max(0, E.toNum(v1) / 7), w2 = Math.max(0, E.toNum(v2) / 7);
+        var off = (w1 + w2) / 4 + 2;
+        if (w1 > 0.05) s.push('<line class="w-chosen" x1="' + (a[0] + nx * off) + '" y1="' + (a[1] + ny * off) + '" x2="' + (b[0] + nx * off) + '" y2="' + (b[1] + ny * off) + '" stroke="var(--ink)" stroke-width="' + w1.toFixed(2) + '" stroke-dasharray="1 5" stroke-linecap="round"><title>population 1 on edge ' + e[0] + '→' + e[1] + ': ' + E.str(v1) + '</title></line>');
+        if (w2 > 0.05) s.push('<line class="w-chosen" x1="' + (a[0] - nx * off) + '" y1="' + (a[1] - ny * off) + '" x2="' + (b[0] - nx * off) + '" y2="' + (b[1] - ny * off) + '" stroke="var(--ink-2)" stroke-width="' + w2.toFixed(2) + '" stroke-dasharray="1 5" stroke-linecap="round"><title>population 2 on edge ' + e[0] + '→' + e[1] + ': ' + E.str(v2) + '</title></line>');
+      }
+    });
+    Object.keys(pos).forEach(function (n) {
+      var q = P(+n), exit = p.exits.indexOf(+n) >= 0, ent = (+n === p.ea || +n === p.eb);
+      s.push('<circle cx="' + q[0] + '" cy="' + q[1] + '" r="' + (ent ? 9 : 7) + '" fill="' + (exit ? 'var(--ink)' : 'var(--paper)') + '" stroke="var(--ink)" stroke-width="1.5"/>');
+      s.push('<text x="' + (q[0] + 11) + '" y="' + (q[1] - 8) + '" font-size="11" fill="var(--ink-2)" font-family="var(--mono)">' + n + (ent ? (+n === p.ea ? ' · a' : ' · b') : '') + (exit ? ' · exit' : '') + '</text>');
+    });
+    s.push('</svg>');
+    host.innerHTML = s.join('');
+    Array.prototype.forEach.call(host.querySelectorAll('.ce-edge'), function (el) {
+      el.addEventListener('click', function () { var i = +el.getAttribute('data-i'); st.active[i] = !st.active[i]; recompute(); render(); });
+    });
+  }
+
+  function render() {
+    draw();
+    var f = st.face;
+    read.innerHTML = '<div><div class="k">k, exact over Q</div><div class="v w-decided">' + f.k + '</div></div>'
+      + '<div><div class="k">shortcut |shared| − cons</div><div class="v ' + (f.agree ? 'w-decided' : 'w-chosen') + '">' + f.shortcut + '</div></div>'
+      + '<div><div class="k">z, exit-free shared components</div><div class="v w-decided">' + f.z + '</div></div>'
+      + '<div><div class="k">|shared| · cons</div><div class="v">' + f.shared.length + ' · ' + f.cons + '</div></div>';
+    sliders.innerHTML = '';
+    if (st.family) {
+      st.family.basis.forEach(function (v, i) {
+        var r = rangeAt(i);
+        var box = document.createElement('div'); box.className = 'ce-sl';
+        var lab = document.createElement('label'); lab.textContent = 'direction ' + (i + 1) + ' of ' + st.family.basis.length; box.appendChild(lab);
+        /* the grid is quarters, and only quarters inside the range are offered, so t = 0 sits on it and every stop is feasible */
+        var lo = Math.ceil((E.toNum(r[0]) + E.toNum(st.t[i])) * 4) / 4, hi = Math.floor((E.toNum(r[1]) + E.toNum(st.t[i])) * 4) / 4;
+        var inp = document.createElement('input'); inp.type = 'range'; inp.min = lo; inp.max = hi; inp.step = 0.25; inp.value = E.toNum(st.t[i]);
+        inp.addEventListener('input', function () { st.t[i] = Q(Math.round(+inp.value * 4) / 4); render(); });
+        box.appendChild(inp);
+        var rr = document.createElement('div'); rr.className = 'r'; rr.innerHTML = '<span>' + (E.toNum(r[0]) + E.toNum(st.t[i])).toFixed(2) + '</span><span>t = ' + E.str(st.t[i]) + '</span><span>' + (E.toNum(r[1]) + E.toNum(st.t[i])).toFixed(2) + '</span>';
+        box.appendChild(rr);
+        sliders.appendChild(box);
+      });
+      note.textContent = 'Every slider moves the split along one direction of the face while every total holds and both populations conserve; the range shown is how far that direction goes before a flow would turn negative. Rationals throughout.';
+    } else if (st.preset.totals) {
+      note.textContent = 'An edge is dropped: Table I no longer applies, so no flow is drawn. k, the shortcut and z are re-decided on the network as it stands.';
+    } else {
+      note.textContent = f.z > 0 ? 'z = ' + f.z + ': the shared subgraph has ' + f.z + ' component' + (f.z > 1 ? 's' : '') + ' with no exit, and the shortcut undercounts k by exactly that.' : 'z = 0: the shortcut and the exact k agree here.';
+    }
+  }
+
+  function load(id) {
+    st.preset = presets.filter(function (p) { return p.id === id; })[0];
+    st.active = st.preset.edges.map(function () { return true; });
+    recompute(); render();
+  }
+  sel.addEventListener('change', function () { load(sel.value); });
+  load('paper');
+})();
+</script>
+</body>
+</html>

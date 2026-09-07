@@ -36,6 +36,7 @@ const RW = require(path.join(HERE, 'rewire', 'build.js'));
 const PQ = require(path.join(HERE, 'pqc', 'build.js'));
 const OC = require(path.join(HERE, 'occultation', 'build.js'));
 const TR = require(path.join(HERE, 'transit', 'build.js'));
+const CE = require(path.join(HERE, 'census', 'build.js'));
 /* the affect card's numbers, read out of the record rather than typed. A card
    that repeats a page's figures by hand is a second copy, and a second copy
    drifts. */
@@ -275,6 +276,17 @@ const body = `
     </div>
   </a>
 
+  <a class="card" href="census/index.html">
+    <figure class="card-art">
+      ${plate(CE.cardArt(), `k = ${CE.facts.paper.face.k} &middot; ${CE.facts.census.fresh.tested.toLocaleString('en-US')} networks`)}
+    </figure>
+    <div class="card-body">
+      <h2>Unique totals, and the split nobody can see.</h2>
+      <p class="sub">Two populations pay the same price per edge, so the equilibrium fixes every total and not whose flow it is. The set of splits it cannot tell apart is a face; its dimension is decided in exact rationals in your tab &mdash; ${CE.facts.paper.face.k} on the published network &mdash; and a drag moves the split while every total holds. Backed by: the face law over ${CE.facts.census.fresh.tested.toLocaleString('en-US')} networks, the engine cross-checked against its record at build.</p>
+      <span class="go">pull on the split <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
   <a class="card" href="transit/index.html">
     <figure class="card-art">
       ${plate(TR.cardArt(), `${TR.facts.name} &middot; ${TR.facts.lo !== null ? TR.facts.lo.toFixed(3) : '&mdash;'}&ndash;${TR.facts.hi !== null ? (TR.facts.hi >= 0.999 ? '1' : TR.facts.hi.toFixed(3)) : '&mdash;'}`)}
@@ -338,6 +350,7 @@ const rw = RW.build(OUT);
 const pq = PQ.build(OUT);
 const oc = OC.build(OUT);
 const tr = TR.build(OUT);
+const ce = CE.build(OUT);
 
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
 console.log(`site/instruments/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
@@ -356,4 +369,5 @@ console.log(`site/instruments/rewire/            ${(rw.bytes / 1024).toFixed(0)}
 console.log(`site/instruments/pqc/               ${(pq.bytes / 1024).toFixed(0)} KB  ·  ${pq.records} records, ${pq.decided} decided exactly, ${pq.open} undecidable from the printed norm; LLL dim ${pq.dim}, ${pq.snaps} snapshots`);
 console.log(`site/instruments/occultation/       ${(oc.bytes / 1024).toFixed(0)} KB  ·  ${oc.chords} chords, ${oc.misses} misses, Deq in [${oc.lo}, ${oc.hi}] km, the misses worth ${oc.worth.toFixed(1)} km`);
 console.log(`site/instruments/transit/           ${(tr.bytes / 1024).toFixed(0)} KB  ·  ${tr.targets} planets, ${tr.published} published values inside, intervals ${JSON.stringify(tr.intervals)}`);
+console.log(`site/instruments/census/            ${(ce.bytes / 1024).toFixed(0)} KB  ·  k = ${ce.k} on the published network, ${ce.tested} networks in the census, ${ce.failures} fool the shortcut`);
 console.log(`@ git ${git}`);

@@ -15,7 +15,7 @@ being shown not to be a defect — never by going quiet.
 
 | what | why it is not done | what closing it costs |
 |---|---|---|
-| **the layout ruler and the render gate FLAKE inside `make test` when it runs right after `make site`** — twice on 2026-09-06 (`measure (layout ruler)` FAIL, once with `render` too), each time passing alone immediately afterwards and passing 76/76 on an unchanged re-run | not diagnosed; the two gates drive headless Chrome on ports derived from the pid, so a port collision or an unsettled page after the control build are the first suspects; a gate that fails without a reason and then passes is worse than a slow one | an hour with the CDP client: log the port and the settle time on failure, retry once with a reason printed, or serialise the two Chrome gates behind one launcher |
+| **the layout ruler and the render gate FLAKE inside `make test` when it runs right after `make site`** — twice on 2026-09-06 (`measure (layout ruler)` FAIL, once with `render` too), each time passing alone immediately afterwards and passing 76/76 on an unchanged re-run. **2026-09-07: it HUNG** — `check-measure.js --accept` sat 14 minutes with its headless Chrome alive and no output, was killed, and completed in 78 s on the next run. The headless binary had changed under the session: the Chrome helpers were version 151.0.7922 on 2026-09-06 and 152.0.7977 on 2026-09-07 (an auto-update), which is the first suspect now | not diagnosed beyond that; the CDP client has no watchdog, so a Chrome that never settles is a gate that never returns | an hour with the CDP client: a per-page timeout that REFUSES with the page named, the Chrome version printed in every run, and the two Chrome gates serialised behind one launcher |
 
 ---
 

@@ -52,6 +52,18 @@ narrowed against real prior art — read the `vis-*` rows in
 
 ## What is here
 
+### `census/` — unique totals, and the split nobody can see
+
+Added 2026-09-07. The face law of `instruments/facelaw` made touchable: two
+populations on one network, the equilibrium fixes every total and not whose
+flow it is, and the dimension of the set of splits it cannot tell apart is
+decided in exact BigInt rationals in the tab. `engine.js` is a second copy of
+the Python rule and `make-facts.mjs` refuses to write a fact unless the two
+agree on every k, z and shortcut in `certs/facelaw-theorem.json`. The paper's
+Table I is found not to conserve and is repaired within its rounding (chosen,
+dotted); the split is one point of the face (chosen, dotted); six sliders move
+it; a click on an edge drops it and re-decides k.
+
 ### `interferometer/` — the black hole as a set, not a photograph
 
 Ported from the frontier bench, 2026-09-04. The Event Horizon Telescope's public
