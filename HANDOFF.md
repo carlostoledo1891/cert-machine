@@ -167,7 +167,22 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     integrable bump is what the digits rest on. Printed numbers pinned in
     corpus/ashrafyan-gomes-2403.02785/tables.json. 24 checks, 5 red
     controls, ~10 s. Battery row 78. Next: 9 (regularization atlas), 10
-    (effective Hamiltonian band).
+    (effective Hamiltonian band). → REPORT 9 BUILT 2026-09-07 on "continue": instruments/regatlas +
+    reports/regatlas.html — Ferreira–Gomes–Üçer's p-Laplacian regularization
+    (arXiv:2506.21212, operator (3.1)) on the 1-D discounted first-order MFG
+    with H = |p|²/2 − m: a NEW KERNEL (kernel.js) — after eliminating m the
+    game is a second-order elliptic equation −(c h′)′ + e h with c ≥ m, so a
+    radii polynomial in the derivative-weighted ℓ¹ space X_2 (explicit
+    columns to 6N, analytic tail, algebra property for Z2) certifies ε = 0
+    as readily as ε > 0. Atlas 10 × 5: 34 PROVED (unique classical even
+    solution, m > 0 on the ball), 16 REFUSED by name (all Z1 — the diagonal
+    tail against a varying c; the density is still 0.2 at the frontier).
+    ε = 0 reaches A = 0.7, ε = 1 only 0.4: the regularization costs the
+    certificate its contraction. ‖u_ε − u_0‖_2 DECIDED as a bracket at every
+    doubly-proved cell: ≈ ε at small ε, a third of ε at ε = 1. The plan's
+    feasibility worry (non-analytic nonlinearity) does not arise: γ̄ = 4 is
+    polynomial. 17 checks, 5 red controls, ~25 s. Battery row 79. Next: 10
+    (the effective Hamiltonian band), then the plan is done.
 
   ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
     the ember paper; the staged formal-conjectures issue and the letters.
