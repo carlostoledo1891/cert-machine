@@ -18,4 +18,5 @@
 .w-decided { stroke: var(--ink); color: var(--ink); }
 .w-chosen { stroke: var(--ink-2); color: var(--ink-2); }
 .w-computed { stroke: var(--ink-2); }
-.ce-edge:hover { filter: brightness(1.4); cursor: pointer; }
+.ce-edge:hover, .ce-band:hover { filter: brightness(1.4); cursor: pointer; }
+.ce-band { stroke: var(--ink-2); }

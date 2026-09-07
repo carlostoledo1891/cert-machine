@@ -60,7 +60,7 @@ const body = `
   <div class="ce-wrap">
     <div>
       <div class="ce-fig" id="ce-host">${CARD}</div>
-      <p class="ce-note" id="ce-note">Dotted strokes are one member of the face: population a in ink, population b in the second ink, their sum the total on the edge. Filled nodes are exits; the two larger nodes are the entrances a and b.</p>
+      <p class="ce-note" id="ce-note">Every band is one member of the face, drawn as such: its width is the flow, population a the brighter side, population b the darker, and the dotted outline says it was chosen, not decided. Filled nodes are exits; the two larger nodes are the entrances a and b. Click an edge to drop it.</p>
       ${W.legendHtml({ exclude: [W.COMPUTED, W.REFUSED] })}
     </div>
     <div class="ce-panel">

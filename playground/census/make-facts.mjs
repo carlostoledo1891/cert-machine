@@ -78,15 +78,16 @@ fs.writeFileSync(path.join(HERE, 'out', 'facts.json'), JSON.stringify(facts, nul
 function cardSVG() {
   const W = 400, H = 400, pad = 30;
   const P = (n) => [pad + POS[n][0] * (W - 2 * pad), pad + (1 - POS[n][1]) * (H - 2 * pad)];
-  const out = ['<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="the fifteen-edge network with two dotted strokes on every edge, one per population">'];
+  const band = (a, b, nx, ny, o0, o1, fill) => '<polygon class="w-chosen" points="' + [[a[0] + nx * o0, a[1] + ny * o0], [b[0] + nx * o0, b[1] + ny * o0], [b[0] + nx * o1, b[1] + ny * o1], [a[0] + nx * o1, a[1] + ny * o1]].map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1)).join(' ') + '" fill="' + fill + '" fill-opacity="0.32" stroke="var(--ink-2)" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/>';
+  const out = ['<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="the fifteen-edge network with a band on every edge, its width the total flow, split between the two populations, each band outlined dotted because it is one member of the face">'];
   EDGES.forEach(([u, v], i) => {
     const a = P(u), b = P(v);
     const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L;
-    const j1 = split.baseFull[i], j2 = E.sub(repair.T[i], j1);
-    const w1 = Math.max(0.6, qn(j1) / 8), w2 = Math.max(0.6, qn(j2) / 8);
-    const off = (w1 + w2) / 4 + 1.5;
-    out.push('<line x1="' + (a[0] + nx * off) + '" y1="' + (a[1] + ny * off) + '" x2="' + (b[0] + nx * off) + '" y2="' + (b[1] + ny * off) + '" stroke="var(--ink)" stroke-width="' + w1.toFixed(1) + '" stroke-dasharray="1 5" stroke-linecap="round"/>');
-    out.push('<line x1="' + (a[0] - nx * off) + '" y1="' + (a[1] - ny * off) + '" x2="' + (b[0] - nx * off) + '" y2="' + (b[1] - ny * off) + '" stroke="var(--ink-2)" stroke-width="' + w2.toFixed(1) + '" stroke-dasharray="1 5" stroke-linecap="round"/>');
+    const T = qn(repair.T[i]), t1 = Math.max(0, qn(split.baseFull[i]));
+    const Wb = Math.min(14, T / 7), wa = T > 0 ? Wb * t1 / T : 0;
+    if (wa > 0.3) out.push(band(a, b, nx, ny, -Wb / 2, -Wb / 2 + wa, 'var(--ink)'));
+    if (Wb - wa > 0.3) out.push(band(a, b, nx, ny, -Wb / 2 + wa, Wb / 2, 'var(--ink-3)'));
+    out.push('<line x1="' + a[0].toFixed(1) + '" y1="' + a[1].toFixed(1) + '" x2="' + b[0].toFixed(1) + '" y2="' + b[1].toFixed(1) + '" stroke="var(--ink-4)" stroke-width="0.8"/>');
   });
   for (const n of Object.keys(POS)) { const p = P(+n); out.push('<circle cx="' + p[0] + '" cy="' + p[1] + '" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>'); }
   out.push('</svg>');
