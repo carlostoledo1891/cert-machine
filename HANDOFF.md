@@ -151,7 +151,23 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     and converges to the closed form at first order, the lab's walls do
     not converge. sin-mfg NOT edited (report, don't repair): the finding
     is in instruments/price/FINDINGS_LIT.md. 23 checks, 5 red controls,
-    ~20 s. Battery row 77.
+    ~20 s. Battery row 77. → REPORT 8 BUILT 2026-09-07 on "continue": instruments/agtable +
+    reports/agtable.html — Ashrafyan–Gomes Tables 1 and 2 (arXiv:2403.02785,
+    the semi-Lagrangian price scheme) re-decided: both analytic test
+    solutions enclosed (a NEW second-order interval jet,
+    instruments/interval/taylor2.js, bounds every integral's remainder; a
+    verified cube root), the clearing identity decided at 21 times, the
+    scheme written from the paper with its inner infimum solved exactly and
+    run on the paper's meshes at its tolerance and at 1e−8: 13 of 24 cells
+    REPRODUCED to their two digits (the price of test 1 at every mesh), 5
+    within 15 %, 6 differ (u, m of test 1 at fine meshes — the two choices
+    the paper leaves open). Two findings the tables could not show: the
+    tolerance ε = 0.004 is 39 % of the finest printed price error, and the
+    printed initial density (support |x| < 1) has no finite integral — the
+    integrable bump is what the digits rest on. Printed numbers pinned in
+    corpus/ashrafyan-gomes-2403.02785/tables.json. 24 checks, 5 red
+    controls, ~10 s. Battery row 78. Next: 9 (regularization atlas), 10
+    (effective Hamiltonian band).
 
   ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
     the ember paper; the staged formal-conjectures issue and the letters.

@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Their tables, re-decided · cert-machine</title>
+<meta name="description" content="The two error tables of the Ashrafyan–Gomes semi-Lagrangian scheme met by intervals: the analytic solutions enclosed, the scheme rewritten from the paper, every printed cell given a verdict.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/agtable.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/agtable.html">
+<meta property="og:title" content="Their tables, re-decided · cert-machine">
+<meta property="og:description" content="The two error tables of the Ashrafyan–Gomes semi-Lagrangian scheme met by intervals: the analytic solutions enclosed, the scheme rewritten from the paper, every printed cell given a verdict.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Their tables, re-decided · cert-machine">
+<meta name="twitter:description" content="The two error tables of the Ashrafyan–Gomes semi-Lagrangian scheme met by intervals: the analytic solutions enclosed, the scheme rewritten from the paper, every printed cell given a verdict.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Their tables, re-decided · cert-machine","description":"The two error tables of the Ashrafyan–Gomes semi-Lagrangian scheme met by intervals: the analytic solutions enclosed, the scheme rewritten from the paper, every printed cell given a verdict.","url":"https://carlostoledo.co/reports/agtable.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:0.9375rem;line-height:1.65;font-weight:400;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+.page{max-width:1200px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 60px) clamp(1.25rem,4vw,3rem) 96px}
+
+
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.eyebrow,.lab{font-family:var(--f-mono);font-size:0.6875rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase}
+.eyebrow{color:var(--ink-4)}
+.lab{color:var(--ink-4)}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--sunk);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+footer{margin:clamp(5rem,12vh,9rem) 0 0;padding-top:32px;border-top:1px solid var(--rule);
+  color:var(--ink-5);font-size:0.6875rem;letter-spacing:.08em;line-height:1.9;font-family:var(--f-mono);text-transform:uppercase}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-3);border-bottom-color:var(--rule-strong);text-transform:none;letter-spacing:.04em}
+footer a:hover{color:var(--ink)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · a replication with intervals, re-derived at every build</div>
+  <h1>Their tables, re-decided</h1>
+  <p class="deck">A numerical-analysis paper ends with a table: the scheme&#39;s error against an exact solution, at four meshes, to two digits. The exact solution is a formula with π and e in it, evaluated in floating point; the error is a float minus a float; the digits are trusted because the authors are. This page takes the two tables of Ashrafyan and Gomes&#39;s semi-Lagrangian scheme for the price-formation game and does the other thing: the exact solutions are enclosed in interval arithmetic, the scheme is written again from the paper&#39;s own description with its inner minimisation solved exactly, and every printed cell is met by an interval and given a verdict. Most cells survive. Where they do not, the page says which choice the paper left open. And two things the tables could not show are found: the printed tolerance is a large part of the finest printed number, and the printed initial density, read as printed, is not a density.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> Of the 24 printed cells, 13 are reproduced to their two digits, 5 fall within 15 %, 6 differ. The price column of test 1 is reproduced at every mesh; test 2 is reproduced in the value function and the density at every mesh. The paper's tolerance ε = 0.004 is 39 % of the finest printed price error of test 1. The initial density as printed has a mass above 3.9e+95 on a sliver of width 0.001.</li><li><b>The mechanism.</b> The exact solutions (§8.1.1, §8.2.1 of the paper) evaluated as intervals — a second-order interval jet bounds the remainder of every integral — and the scheme of §4 run on the paper's meshes at the paper's tolerance and at 1e−8; each error is the scheme's float against an enclosure, so it is an interval, and a printed cell is REPRODUCED when its rounding box meets it.</li><li><b>Check it.</b> <span class="m">node instruments/agtable/battery.js</span> (24 checks, 5 red controls, about 10 s) re-derives the record, checks the enclosures against float routes, decides the clearing identity, and re-runs the scheme.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats" data-n="6">
+    <div class="stat"><div class="k">cells reproduced</div><div class="v">13 of 24</div><div class="n">to the two printed digits, by an implementation written from the paper; 5 more within 15 %</div></div>
+    <div class="stat"><div class="k">the price of test 1</div><div class="v">4 of 4</div><div class="n">reproduced at every mesh: 1.2e-2, 6.0e-3, 3.3e-3, 2.1e-3 against 1.2e-2, 6.0e-3, 3.3e-3, 2.1e-3</div></div>
+    <div class="stat"><div class="k">the tolerance inside the number</div><div class="v">39 %</div><div class="n">the finest printed price error of test 1 at ε = 0.004 exceeds the same run at ε = 1e−8 by this much; test 2 is immune (its implicit update converges to 1e−12 in three steps)</div></div>
+    <div class="stat"><div class="k">clearing identity</div><div class="v">21 of 21</div><div class="n">ϖ + a₁ + 2a₂K + Q encloses 0 at every sampled time: the exact price clears the exact market, decided</div></div>
+    <div class="stat"><div class="k">the density as printed</div><div class="v">&gt; 3.9e+95</div><div class="n">its mass on 0.910 &lt; x &lt; 0.911 alone, read literally (support |x| &lt; 1); the integrable reading, support |x| &lt; 1/λ, is the one used</div></div>
+    <div class="stat"><div class="k">where the port differs</div><div class="v">u, m of test 1</div><div class="n">at the fine meshes the port&#39;s errors are 2.4× and 1.6× the printed ones; the paper&#39;s inner minimiser and its treatment of feet leaving [−1, 1] are not specified to the digit</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the exact solutions</div>
+    <h2>Two formulas, enclosed</h2>
+  </div>
+<div class="col"><p>Both tests share a supply that solves Q̇ = 5 sin 3πt − 4Q from Q(0) = −½: a sinusoid with a decaying start, in closed form with π and e. Test 1 is the linear-quadratic game with a set-point potential (x − ¼)²/2, and its price is the paper's semi-explicit formula, which with a symmetric initial density reads ϖ₁ = −Q + (1 − t)/4 − ∫ₜ¹∫₀ˢQ — the same closed form as <a href="price.html">the clearing-price page</a> with γ = 0, η = 1. Test 2 has the cost 3|α|^{4/3}/4 and a linear potential, and its price is ϖ₂ = −Q^{1/3} − (1 − t). Everything the tables measure against is one of these two prices, the value function at t = 0, or the density at t = 1.</p><p>Every one of them is evaluated as an interval. The prices need π, e, sines, cosines and a cube root (verified by cubing). The value function of test 1 is a₀ + a₁x + a₂x² with a₂ = ½ tanh(1 − t) and a₁ read off the clearing identity, but a₀(0) is an integral of a squared combination of Q, K and tanh, and the density of test 2 needs ∫|Q|^{4/3}, which has a cusp at every zero of Q. Those integrals are done by the midpoint rule with its remainder w³/24 · sup|f″| — and sup|f″| comes from a second-order interval jet, a value with its first two derivatives carried through every operation, so nobody differentiates by hand and the bound is rigorous on each cell. At the cusps a plain Riemann bound takes over. The densities are the initial bump carried by an affine flow (test 1: contracted by cosh(1)⁻¹ and shifted by the day's energy; test 2: shifted only), with the bump's mass enclosed the same way.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>quantity</th><th>enclosure</th><th>width</th><th>how</th></tr></thead><tbody><tr><td>Q(1)</td><td class="v"><span class="m">[0.448617853670, 0.448617853670]</span></td><td class="v">5.8e-15</td><td>closed form with π, e enclosed</td></tr><tr><td>K(1) = ∫₀¹Q, the day&#39;s energy</td><td class="v"><span class="m">[0.028103775069, 0.028103775069]</span></td><td class="v">1.4e-15</td><td>closed form</td></tr><tr><td>a₀(0), test 1</td><td class="v"><span class="m">[-0.029123124, -0.029123055]</span></td><td class="v">6.9e-8</td><td>midpoint rule, 4096 cells, the remainder from an interval f″</td></tr><tr><td>a₁(0), a₂(0), test 1</td><td class="v"><span class="m">-0.2494, 0.3808</span></td><td class="v">6.7e-15</td><td>closed: a₂ = ½ tanh(1 − t), a₁ = Π − 2a₂K</td></tr><tr><td>∫m̂, the bump&#39;s mass (λ = 1.1; 1.2)</td><td class="v"><span class="m">0.4036; 0.3700</span></td><td class="v">2.4e-7</td><td>midpoint rule with f″ on the core, a sliver bound at the edges</td></tr><tr><td>∫₀¹|Q|^{4/3}/4, test 2</td><td class="v"><span class="m">[0.055882988, 0.055883364]</span></td><td class="v">3.8e-7</td><td>midpoint with f″ off the zeros of Q, a Riemann bound on the cells through them</td></tr><tr><td>ϖ₁ on the finest grid</td><td class="v">201 values</td><td class="v">1.5e-14</td><td>closed form</td></tr><tr><td>ϖ₂ on the finest grid</td><td class="v">201 values</td><td class="v">1.2e-13</td><td>a cube root near a zero of Q is where the width lives</td></tr></tbody></table></div></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 320" role="img" aria-label="Three oscillating curves over one unit of time: the supply from minus one half up through zero and back, the test-1 price mirroring it, the test-2 price lower and sharper at the zeros of the supply; a dashed staircase follows the test-1 price closely.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="182.2" x2="878" y2="182.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="186.2" text-anchor="end" class="t-ax">-1.5</text>
+    <line x1="62" y1="148.0" x2="878" y2="148.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="152.0" text-anchor="end" class="t-ax">-1</text>
+    <line x1="62" y1="113.8" x2="878" y2="113.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="117.8" text-anchor="end" class="t-ax">-0.5</text>
+    <line x1="62" y1="79.6" x2="878" y2="79.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="83.6" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="45.4" x2="878" y2="45.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="49.4" text-anchor="end" class="t-ax">0.5</text>
+    <line x1="62.0" y1="189" x2="62.0" y2="194" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="209.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="266.0" y1="189" x2="266.0" y2="194" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="266.0" y="209.0" text-anchor="middle" class="t-ax">0.25</text>
+    <line x1="470.0" y1="189" x2="470.0" y2="194" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="209.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="674.0" y1="189" x2="674.0" y2="194" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="674.0" y="209.0" text-anchor="middle" class="t-ax">0.75</text>
+    <line x1="878.0" y1="189" x2="878.0" y2="194" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="209.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="62" y1="189" x2="878" y2="189" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="231.0" text-anchor="middle" class="t-note">t</text>
+    <text x="13" y="103.5" class="t-note" transform="rotate(-90 13 103.5)" text-anchor="middle">supply and price</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="189" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M62.00 113.76 L66.08 113.04 L70.16 112.26 L74.24 111.41 L78.32 110.50 L82.40 109.54 L86.48 108.51 L90.56 107.42 L94.64 106.29 L98.72 105.10 L102.80 103.86 L106.88 102.57 L110.96 101.24 L115.04 99.87 L119.12 98.47 L123.20 97.02 L127.28 95.55 L131.36 94.04 L135.44 92.51 L139.52 90.96 L143.60 89.39 L147.68 87.80 L151.76 86.20 L155.84 84.59 L159.92 82.98 L164.00 81.36 L168.08 79.75 L172.16 78.14 L176.24 76.54 L180.32 74.95 L184.40 73.37 L188.48 71.82 L192.56 70.29 L196.64 68.78 L200.72 67.30 L204.80 65.85 L208.88 64.44 L212.96 63.06 L217.04 61.73 L221.12 60.44 L225.20 59.20 L229.28 58.00 L233.36 56.86 L237.44 55.77 L241.52 54.74 L245.60 53.77 L249.68 52.86 L253.76 52.01 L257.84 51.23 L261.92 50.51 L266.00 49.86 L270.08 49.28 L274.16 48.77 L278.24 48.33 L282.32 47.97 L286.40 47.67 L290.48 47.45 L294.56 47.31 L298.64 47.24 L302.72 47.24 L306.80 47.32 L310.88 47.48 L314.96 47.70 L319.04 48.00 L323.12 48.38 L327.20 48.82 L331.28 49.34 L335.36 49.92 L339.44 50.58 L343.52 51.30 L347.60 52.08 L351.68 52.93 L355.76 53.84 L359.84 54.81 L363.92 55.84 L368.00 56.92 L372.08 58.05 L376.16 59.23 L380.24 60.46 L384.32 61.74 L388.40 63.05 L392.48 64.41 L396.56 65.79 L400.64 67.22 L404.72 68.67 L408.80 70.14 L412.88 71.64 L416.96 73.16 L421.04 74.70 L425.12 76.24 L429.20 77.80 L433.28 79.36 L437.36 80.92 L441.44 82.48 L445.52 84.04 L449.60 85.59 L453.68 87.12 L457.76 88.64 L461.84 90.14 L465.92 91.62 L470.00 93.08 L474.08 94.50 L478.16 95.89 L482.24 97.25 L486.32 98.57 L490.40 99.85 L494.48 101.08 L498.56 102.27 L502.64 103.41 L506.72 104.50 L510.80 105.53 L514.88 106.51 L518.96 107.42 L523.04 108.28 L527.12 109.07 L531.20 109.80 L535.28 110.46 L539.36 111.06 L543.44 111.58 L547.52 112.04 L551.60 112.42 L555.68 112.73 L559.76 112.97 L563.84 113.14 L567.92 113.23 L572.00 113.25 L576.08 113.19 L580.16 113.06 L584.24 112.85 L588.32 112.58 L592.40 112.23 L596.48 111.81 L600.56 111.31 L604.64 110.75 L608.72 110.12 L612.80 109.42 L616.88 108.66 L620.96 107.83 L625.04 106.94 L629.12 105.99 L633.20 104.98 L637.28 103.92 L641.36 102.80 L645.44 101.63 L649.52 100.41 L653.60 99.15 L657.68 97.84 L661.76 96.50 L665.84 95.11 L669.92 93.70 L674.00 92.25 L678.08 90.77 L682.16 89.27 L686.24 87.75 L690.32 86.21 L694.40 84.65 L698.48 83.09 L702.56 81.52 L706.64 79.94 L710.72 78.36 L714.80 76.79 L718.88 75.22 L722.96 73.67 L727.04 72.12 L731.12 70.60 L735.20 69.09 L739.28 67.61 L743.36 66.15 L747.44 64.72 L751.52 63.33 L755.60 61.98 L759.68 60.66 L763.76 59.38 L767.84 58.15 L771.92 56.97 L776.00 55.84 L780.08 54.76 L784.16 53.74 L788.24 52.77 L792.32 51.87 L796.40 51.02 L800.48 50.24 L804.56 49.53 L808.64 48.88 L812.72 48.30 L816.80 47.79 L820.88 47.35 L824.96 46.98 L829.04 46.69 L833.12 46.46 L837.20 46.32 L841.28 46.24 L845.36 46.24 L849.44 46.31 L853.52 46.46 L857.60 46.68 L861.68 46.98 L865.76 47.35 L869.84 47.79 L873.92 48.30 L878.00 48.87" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="48.87" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 28.30 L66.08 29.10 L70.16 29.97 L74.24 30.91 L78.32 31.91 L82.40 32.96 L86.48 34.08 L90.56 35.26 L94.64 36.48 L98.72 37.77 L102.80 39.10 L106.88 40.48 L110.96 41.90 L115.04 43.36 L119.12 44.87 L123.20 46.40 L127.28 47.98 L131.36 49.58 L135.44 51.20 L139.52 52.85 L143.60 54.52 L147.68 56.20 L151.76 57.90 L155.84 59.61 L159.92 61.32 L164.00 63.03 L168.08 64.75 L172.16 66.45 L176.24 68.15 L180.32 69.84 L184.40 71.51 L188.48 73.17 L192.56 74.80 L196.64 76.40 L200.72 77.98 L204.80 79.52 L208.88 81.03 L212.96 82.50 L217.04 83.93 L221.12 85.32 L225.20 86.65 L229.28 87.94 L233.36 89.18 L237.44 90.36 L241.52 91.48 L245.60 92.55 L249.68 93.55 L253.76 94.49 L257.84 95.36 L261.92 96.17 L266.00 96.91 L270.08 97.57 L274.16 98.17 L278.24 98.69 L282.32 99.14 L286.40 99.52 L290.48 99.82 L294.56 100.05 L298.64 100.20 L302.72 100.28 L306.80 100.28 L310.88 100.21 L314.96 100.06 L319.04 99.84 L323.12 99.54 L327.20 99.17 L331.28 98.73 L335.36 98.22 L339.44 97.64 L343.52 97.00 L347.60 96.28 L351.68 95.51 L355.76 94.67 L359.84 93.77 L363.92 92.82 L368.00 91.80 L372.08 90.74 L376.16 89.63 L380.24 88.46 L384.32 87.26 L388.40 86.01 L392.48 84.72 L396.56 83.40 L400.64 82.04 L404.72 80.66 L408.80 79.25 L412.88 77.81 L416.96 76.36 L421.04 74.89 L425.12 73.41 L429.20 71.92 L433.28 70.42 L437.36 68.92 L441.44 67.42 L445.52 65.93 L449.60 64.45 L453.68 62.98 L457.76 61.52 L461.84 60.09 L465.92 58.67 L470.00 57.29 L474.08 55.93 L478.16 54.60 L482.24 53.31 L486.32 52.06 L490.40 50.85 L494.48 49.68 L498.56 48.56 L502.64 47.49 L506.72 46.48 L510.80 45.52 L514.88 44.61 L518.96 43.77 L523.04 42.98 L527.12 42.26 L531.20 41.61 L535.28 41.02 L539.36 40.50 L543.44 40.06 L547.52 39.68 L551.60 39.37 L555.68 39.14 L559.76 38.98 L563.84 38.90 L567.92 38.88 L572.00 38.95 L576.08 39.09 L580.16 39.30 L584.24 39.59 L588.32 39.95 L592.40 40.39 L596.48 40.90 L600.56 41.48 L604.64 42.13 L608.72 42.85 L612.80 43.64 L616.88 44.50 L620.96 45.42 L625.04 46.40 L629.12 47.44 L633.20 48.54 L637.28 49.70 L641.36 50.92 L645.44 52.18 L649.52 53.50 L653.60 54.86 L657.68 56.26 L661.76 57.70 L665.84 59.19 L669.92 60.70 L674.00 62.25 L678.08 63.82 L682.16 65.42 L686.24 67.05 L690.32 68.69 L694.40 70.34 L698.48 72.00 L702.56 73.68 L706.64 75.35 L710.72 77.03 L714.80 78.70 L718.88 80.37 L722.96 82.03 L727.04 83.67 L731.12 85.30 L735.20 86.91 L739.28 88.49 L743.36 90.04 L747.44 91.57 L751.52 93.06 L755.60 94.51 L759.68 95.93 L763.76 97.30 L767.84 98.63 L771.92 99.90 L776.00 101.13 L780.08 102.31 L784.16 103.42 L788.24 104.48 L792.32 105.48 L796.40 106.42 L800.48 107.29 L804.56 108.10 L808.64 108.83 L812.72 109.50 L816.80 110.10 L820.88 110.63 L824.96 111.08 L829.04 111.47 L833.12 111.77 L837.20 112.01 L841.28 112.16 L845.36 112.25 L849.44 112.25 L853.52 112.19 L857.60 112.05 L861.68 111.83 L865.76 111.54 L869.84 111.18 L873.92 110.75 L878.00 110.25" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="110.25" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 93.67 L66.08 93.71 L70.16 93.79 L74.24 93.92 L78.32 94.08 L82.40 94.30 L86.48 94.55 L90.56 94.86 L94.64 95.22 L98.72 95.63 L102.80 96.10 L106.88 96.62 L110.96 97.22 L115.04 97.88 L119.12 98.62 L123.20 99.44 L127.28 100.35 L131.36 101.38 L135.44 102.52 L139.52 103.82 L143.60 105.29 L147.68 106.99 L151.76 109.00 L155.84 111.43 L159.92 114.55 L164.00 119.05 L168.08 129.47 L172.16 157.53 L176.24 162.56 L180.32 165.88 L184.40 168.40 L188.48 170.44 L192.56 172.16 L196.64 173.62 L200.72 174.90 L204.80 176.02 L208.88 177.01 L212.96 177.88 L217.04 178.66 L221.12 179.34 L225.20 179.95 L229.28 180.49 L233.36 180.95 L237.44 181.35 L241.52 181.70 L245.60 181.98 L249.68 182.22 L253.76 182.40 L257.84 182.53 L261.92 182.62 L266.00 182.66 L270.08 182.65 L274.16 182.60 L278.24 182.50 L282.32 182.37 L286.40 182.19 L290.48 181.97 L294.56 181.70 L298.64 181.40 L302.72 181.06 L306.80 180.67 L310.88 180.24 L314.96 179.78 L319.04 179.27 L323.12 178.71 L327.20 178.12 L331.28 177.48 L335.36 176.80 L339.44 176.08 L343.52 175.31 L347.60 174.49 L351.68 173.62 L355.76 172.71 L359.84 171.74 L363.92 170.71 L368.00 169.63 L372.08 168.48 L376.16 167.27 L380.24 165.99 L384.32 164.63 L388.40 163.19 L392.48 161.65 L396.56 160.00 L400.64 158.23 L404.72 156.31 L408.80 154.21 L412.88 151.88 L416.96 149.26 L421.04 146.20 L425.12 142.46 L429.20 137.38 L433.28 126.63 L437.36 97.95 L441.44 92.24 L445.52 88.24 L449.60 85.03 L453.68 82.30 L457.76 79.89 L461.84 77.72 L465.92 75.74 L470.00 73.92 L474.08 72.22 L478.16 70.64 L482.24 69.15 L486.32 67.75 L490.40 66.43 L494.48 65.18 L498.56 64.00 L502.64 62.88 L506.72 61.82 L510.80 60.81 L514.88 59.86 L518.96 58.95 L523.04 58.10 L527.12 57.29 L531.20 56.52 L535.28 55.80 L539.36 55.13 L543.44 54.49 L547.52 53.90 L551.60 53.35 L555.68 52.84 L559.76 52.37 L563.84 51.94 L567.92 51.55 L572.00 51.19 L576.08 50.88 L580.16 50.61 L584.24 50.38 L588.32 50.19 L592.40 50.03 L596.48 49.92 L600.56 49.85 L604.64 49.83 L608.72 49.84 L612.80 49.90 L616.88 50.01 L620.96 50.16 L625.04 50.35 L629.12 50.60 L633.20 50.90 L637.28 51.26 L641.36 51.67 L645.44 52.14 L649.52 52.68 L653.60 53.28 L657.68 53.97 L661.76 54.73 L665.84 55.60 L669.92 56.56 L674.00 57.65 L678.08 58.89 L682.16 60.29 L686.24 61.92 L690.32 63.84 L694.40 66.17 L698.48 69.14 L702.56 73.34 L706.64 81.80 L710.72 111.33 L714.80 116.73 L718.88 120.17 L722.96 122.77 L727.04 124.86 L731.12 126.61 L735.20 128.12 L739.28 129.43 L743.36 130.58 L747.44 131.60 L751.52 132.51 L755.60 133.31 L759.68 134.03 L763.76 134.67 L767.84 135.23 L771.92 135.73 L776.00 136.17 L780.08 136.54 L784.16 136.86 L788.24 137.13 L792.32 137.34 L796.40 137.51 L800.48 137.63 L804.56 137.70 L808.64 137.73 L812.72 137.72 L816.80 137.66 L820.88 137.56 L824.96 137.42 L829.04 137.24 L833.12 137.02 L837.20 136.76 L841.28 136.46 L845.36 136.12 L849.44 135.73 L853.52 135.31 L857.60 134.85 L861.68 134.35 L865.76 133.80 L869.84 133.22 L873.92 132.59 L878.00 131.92" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="131.92" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 28.34 L94.64 36.53 L127.28 48.07 L159.92 61.46 L192.56 74.92 L225.20 86.85 L257.84 95.58 L290.48 100.06 L323.12 99.80 L355.76 94.94 L388.40 86.32 L421.04 75.24 L453.68 63.28 L486.32 52.46 L518.96 44.22 L551.60 39.81 L584.24 40.05 L616.88 45.04 L649.52 54.02 L682.16 65.88 L714.80 79.30 L747.44 92.14 L780.08 102.87 L812.72 110.09 L845.36 112.88" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <circle cx="845.36" cy="112.88" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="62" y1="252" x2="76" y2="252" stroke="var(--c-ctx)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="256.0" text-anchor="start" class="t-note">Q(t), the supply of both tests: Q̇ = 5 sin 3πt − 4Q, Q(0) = −½ (closed form, enclosed)</text>
+    <line x1="62" y1="271" x2="76" y2="271" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="275.0" text-anchor="start" class="t-note">ϖ₁(t), test 1: −Q + (1 − t)/4 − ∫ₜ¹∫₀ˢQ (enclosed to 1e−13)</text>
+    <line x1="62" y1="290" x2="76" y2="290" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="294.0" text-anchor="start" class="t-note">ϖ₂(t), test 2: −Q^{1/3} − (1 − t) (enclosed; a verified cube root)</text>
+    <line x1="62" y1="309" x2="76" y2="309" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="81.0" y="313.0" text-anchor="start" class="t-note">the scheme&#39;s ϖ₁ at the coarsest mesh, ρ = 0.02, h = 0.04 (computed)</text>
+  </svg>
+  </div>
+  <figcaption>Figure 1 · The supply and the two exact prices over the day, enclosed (the widths are below the stroke). Dashed: the scheme&#39;s price of test 1 at the paper&#39;s coarsest mesh, a staircase of 25 steps that already follows the exact price to about a percent.</figcaption>
+</figure></div><div class="col"><p>One identity is decided outright: the exact price of test 1 must clear the exact market, ϖ + a₁ + 2a₂K = −Q. Evaluated as intervals at 21 times, the residual encloses zero every time, to a half-width of 2.5e-14. Shift the price by 0.1 — the size the paper's ∫x m̄ term would have if the bump were not symmetric — and the identity fails at every time. That is the red control on the formula.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 300" role="img" aria-label="A convex parabola from 0.6 at the left edge down to near zero around x = 0.3 and up to 0.15 at the right; the dashed scheme lies just above it.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="200.0" x2="878" y2="200.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="204.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="148.0" x2="878" y2="148.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="152.0" text-anchor="end" class="t-ax">0.2</text>
+    <line x1="62" y1="96.0" x2="878" y2="96.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="100.0" text-anchor="end" class="t-ax">0.4</text>
+    <line x1="62" y1="44.0" x2="878" y2="44.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="48.0" text-anchor="end" class="t-ax">0.6</text>
+    <line x1="62.0" y1="226" x2="62.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="246.0" text-anchor="middle" class="t-ax">-1</text>
+    <line x1="266.0" y1="226" x2="266.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="266.0" y="246.0" text-anchor="middle" class="t-ax">-0.5</text>
+    <line x1="470.0" y1="226" x2="470.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="246.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="674.0" y1="226" x2="674.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="674.0" y="246.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="878.0" y1="226" x2="878.0" y2="231" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="246.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="62" y1="226" x2="878" y2="226" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="268.0" text-anchor="middle" class="t-note">x</text>
+    <text x="13" y="122" class="t-note" transform="rotate(-90 13 122)" text-anchor="middle">u(x, 0), test 1</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="226" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M62.00 43.72 L63.02 44.38 L64.04 45.03 L65.06 45.69 L66.08 46.34 L67.10 46.99 L68.12 47.64 L69.14 48.29 L70.16 48.94 L71.18 49.59 L72.20 50.23 L73.22 50.88 L74.24 51.52 L75.26 52.16 L76.28 52.80 L77.30 53.44 L78.32 54.08 L79.34 54.71 L80.36 55.35 L81.38 55.98 L82.40 56.62 L83.42 57.25 L84.44 57.88 L85.46 58.51 L86.48 59.14 L87.50 59.76 L88.52 60.39 L89.54 61.01 L90.56 61.64 L91.58 62.26 L92.60 62.88 L93.62 63.50 L94.64 64.12 L95.66 64.73 L96.68 65.35 L97.70 65.96 L98.72 66.58 L99.74 67.19 L100.76 67.80 L101.78 68.41 L102.80 69.02 L103.82 69.62 L104.84 70.23 L105.86 70.83 L106.88 71.44 L107.90 72.04 L108.92 72.64 L109.94 73.24 L110.96 73.84 L111.98 74.44 L113.00 75.03 L114.02 75.63 L115.04 76.22 L116.06 76.81 L117.08 77.40 L118.10 77.99 L119.12 78.58 L120.14 79.17 L121.16 79.75 L122.18 80.34 L123.20 80.92 L124.22 81.50 L125.24 82.09 L126.26 82.67 L127.28 83.24 L128.30 83.82 L129.32 84.40 L130.34 84.97 L131.36 85.55 L132.38 86.12 L133.40 86.69 L134.42 87.26 L135.44 87.83 L136.46 88.40 L137.48 88.96 L138.50 89.53 L139.52 90.09 L140.54 90.65 L141.56 91.21 L142.58 91.77 L143.60 92.33 L144.62 92.89 L145.64 93.45 L146.66 94.00 L147.68 94.56 L148.70 95.11 L149.72 95.66 L150.74 96.21 L151.76 96.76 L152.78 97.31 L153.80 97.85 L154.82 98.40 L155.84 98.94 L156.86 99.48 L157.88 100.03 L158.90 100.57 L159.92 101.10 L160.94 101.64 L161.96 102.18 L162.98 102.71 L164.00 103.25 L165.02 103.78 L166.04 104.31 L167.06 104.84 L168.08 105.37 L169.10 105.90 L170.12 106.43 L171.14 106.95 L172.16 107.48 L173.18 108.00 L174.20 108.52 L175.22 109.04 L176.24 109.56 L177.26 110.08 L178.28 110.59 L179.30 111.11 L180.32 111.62 L181.34 112.14 L182.36 112.65 L183.38 113.16 L184.40 113.67 L185.42 114.18 L186.44 114.68 L187.46 115.19 L188.48 115.69 L189.50 116.20 L190.52 116.70 L191.54 117.20 L192.56 117.70 L193.58 118.20 L194.60 118.69 L195.62 119.19 L196.64 119.68 L197.66 120.18 L198.68 120.67 L199.70 121.16 L200.72 121.65 L201.74 122.14 L202.76 122.62 L203.78 123.11 L204.80 123.59 L205.82 124.08 L206.84 124.56 L207.86 125.04 L208.88 125.52 L209.90 126.00 L210.92 126.47 L211.94 126.95 L212.96 127.42 L213.98 127.90 L215.00 128.37 L216.02 128.84 L217.04 129.31 L218.06 129.78 L219.08 130.25 L220.10 130.71 L221.12 131.18 L222.14 131.64 L223.16 132.10 L224.18 132.56 L225.20 133.02 L226.22 133.48 L227.24 133.94 L228.26 134.40 L229.28 134.85 L230.30 135.30 L231.32 135.76 L232.34 136.21 L233.36 136.66 L234.38 137.11 L235.40 137.55 L236.42 138.00 L237.44 138.44 L238.46 138.89 L239.48 139.33 L240.50 139.77 L241.52 140.21 L242.54 140.65 L243.56 141.09 L244.58 141.52 L245.60 141.96 L246.62 142.39 L247.64 142.82 L248.66 143.26 L249.68 143.69 L250.70 144.11 L251.72 144.54 L252.74 144.97 L253.76 145.39 L254.78 145.82 L255.80 146.24 L256.82 146.66 L257.84 147.08 L258.86 147.50 L259.88 147.92 L260.90 148.34 L261.92 148.75 L262.94 149.16 L263.96 149.58 L264.98 149.99 L266.00 150.40 L267.02 150.81 L268.04 151.22 L269.06 151.62 L270.08 152.03 L271.10 152.43 L272.12 152.83 L273.14 153.24 L274.16 153.64 L275.18 154.04 L276.20 154.43 L277.22 154.83 L278.24 155.23 L279.26 155.62 L280.28 156.01 L281.30 156.40 L282.32 156.79 L283.34 157.18 L284.36 157.57 L285.38 157.96 L286.40 158.34 L287.42 158.73 L288.44 159.11 L289.46 159.49 L290.48 159.87 L291.50 160.25 L292.52 160.63 L293.54 161.01 L294.56 161.38 L295.58 161.76 L296.60 162.13 L297.62 162.50 L298.64 162.87 L299.66 163.24 L300.68 163.61 L301.70 163.98 L302.72 164.34 L303.74 164.71 L304.76 165.07 L305.78 165.43 L306.80 165.79 L307.82 166.15 L308.84 166.51 L309.86 166.87 L310.88 167.22 L311.90 167.58 L312.92 167.93 L313.94 168.28 L314.96 168.63 L315.98 168.98 L317.00 169.33 L318.02 169.68 L319.04 170.03 L320.06 170.37 L321.08 170.71 L322.10 171.06 L323.12 171.40 L324.14 171.74 L325.16 172.08 L326.18 172.41 L327.20 172.75 L328.22 173.08 L329.24 173.42 L330.26 173.75 L331.28 174.08 L332.30 174.41 L333.32 174.74 L334.34 175.07 L335.36 175.39 L336.38 175.72 L337.40 176.04 L338.42 176.36 L339.44 176.68 L340.46 177.00 L341.48 177.32 L342.50 177.64 L343.52 177.96 L344.54 178.27 L345.56 178.58 L346.58 178.90 L347.60 179.21 L348.62 179.52 L349.64 179.83 L350.66 180.13 L351.68 180.44 L352.70 180.75 L353.72 181.05 L354.74 181.35 L355.76 181.65 L356.78 181.95 L357.80 182.25 L358.82 182.55 L359.84 182.85 L360.86 183.14 L361.88 183.44 L362.90 183.73 L363.92 184.02 L364.94 184.31 L365.96 184.60 L366.98 184.89 L368.00 185.17 L369.02 185.46 L370.04 185.74 L371.06 186.03 L372.08 186.31 L373.10 186.59 L374.12 186.87 L375.14 187.14 L376.16 187.42 L377.18 187.70 L378.20 187.97 L379.22 188.24 L380.24 188.51 L381.26 188.78 L382.28 189.05 L383.30 189.32 L384.32 189.59 L385.34 189.85 L386.36 190.12 L387.38 190.38 L388.40 190.64 L389.42 190.90 L390.44 191.16 L391.46 191.42 L392.48 191.68 L393.50 191.93 L394.52 192.19 L395.54 192.44 L396.56 192.69 L397.58 192.94 L398.60 193.19 L399.62 193.44 L400.64 193.69 L401.66 193.93 L402.68 194.18 L403.70 194.42 L404.72 194.66 L405.74 194.90 L406.76 195.14 L407.78 195.38 L408.80 195.62 L409.82 195.85 L410.84 196.09 L411.86 196.32 L412.88 196.55 L413.90 196.78 L414.92 197.01 L415.94 197.24 L416.96 197.47 L417.98 197.70 L419.00 197.92 L420.02 198.14 L421.04 198.37 L422.06 198.59 L423.08 198.81 L424.10 199.02 L425.12 199.24 L426.14 199.46 L427.16 199.67 L428.18 199.89 L429.20 200.10 L430.22 200.31 L431.24 200.52 L432.26 200.73 L433.28 200.93 L434.30 201.14 L435.32 201.35 L436.34 201.55 L437.36 201.75 L438.38 201.95 L439.40 202.15 L440.42 202.35 L441.44 202.55 L442.46 202.74 L443.48 202.94 L444.50 203.13 L445.52 203.32 L446.54 203.52 L447.56 203.71 L448.58 203.89 L449.60 204.08 L450.62 204.27 L451.64 204.45 L452.66 204.64 L453.68 204.82 L454.70 205.00 L455.72 205.18 L456.74 205.36 L457.76 205.54 L458.78 205.71 L459.80 205.89 L460.82 206.06 L461.84 206.24 L462.86 206.41 L463.88 206.58 L464.90 206.75 L465.92 206.91 L466.94 207.08 L467.96 207.25 L468.98 207.41 L470.00 207.57 L471.02 207.73 L472.04 207.89 L473.06 208.05 L474.08 208.21 L475.10 208.37 L476.12 208.52 L477.14 208.68 L478.16 208.83 L479.18 208.98 L480.20 209.13 L481.22 209.28 L482.24 209.43 L483.26 209.57 L484.28 209.72 L485.30 209.86 L486.32 210.01 L487.34 210.15 L488.36 210.29 L489.38 210.43 L490.40 210.57 L491.42 210.70 L492.44 210.84 L493.46 210.97 L494.48 211.11 L495.50 211.24 L496.52 211.37 L497.54 211.50 L498.56 211.63 L499.58 211.75 L500.60 211.88 L501.62 212.00 L502.64 212.13 L503.66 212.25 L504.68 212.37 L505.70 212.49 L506.72 212.61 L507.74 212.72 L508.76 212.84 L509.78 212.95 L510.80 213.07 L511.82 213.18 L512.84 213.29 L513.86 213.40 L514.88 213.51 L515.90 213.61 L516.92 213.72 L517.94 213.82 L518.96 213.93 L519.98 214.03 L521.00 214.13 L522.02 214.23 L523.04 214.33 L524.06 214.43 L525.08 214.52 L526.10 214.62 L527.12 214.71 L528.14 214.80 L529.16 214.89 L530.18 214.98 L531.20 215.07 L532.22 215.16 L533.24 215.24 L534.26 215.33 L535.28 215.41 L536.30 215.49 L537.32 215.58 L538.34 215.66 L539.36 215.73 L540.38 215.81 L541.40 215.89 L542.42 215.96 L543.44 216.04 L544.46 216.11 L545.48 216.18 L546.50 216.25 L547.52 216.32 L548.54 216.39 L549.56 216.45 L550.58 216.52 L551.60 216.58 L552.62 216.64 L553.64 216.70 L554.66 216.76 L555.68 216.82 L556.70 216.88 L557.72 216.94 L558.74 216.99 L559.76 217.05 L560.78 217.10 L561.80 217.15 L562.82 217.20 L563.84 217.25 L564.86 217.30 L565.88 217.34 L566.90 217.39 L567.92 217.43 L568.94 217.47 L569.96 217.52 L570.98 217.56 L572.00 217.59 L573.02 217.63 L574.04 217.67 L575.06 217.70 L576.08 217.74 L577.10 217.77 L578.12 217.80 L579.14 217.83 L580.16 217.86 L581.18 217.89 L582.20 217.92 L583.22 217.94 L584.24 217.97 L585.26 217.99 L586.28 218.01 L587.30 218.03 L588.32 218.05 L589.34 218.07 L590.36 218.08 L591.38 218.10 L592.40 218.11 L593.42 218.13 L594.44 218.14 L595.46 218.15 L596.48 218.16 L597.50 218.17 L598.52 218.17 L599.54 218.18 L600.56 218.18 L601.58 218.19 L602.60 218.19 L603.62 218.19 L604.64 218.19 L605.66 218.19 L606.68 218.18 L607.70 218.18 L608.72 218.17 L609.74 218.17 L610.76 218.16 L611.78 218.15 L612.80 218.14 L613.82 218.13 L614.84 218.11 L615.86 218.10 L616.88 218.08 L617.90 218.07 L618.92 218.05 L619.94 218.03 L620.96 218.01 L621.98 217.99 L623.00 217.97 L624.02 217.94 L625.04 217.92 L626.06 217.89 L627.08 217.86 L628.10 217.83 L629.12 217.80 L630.14 217.77 L631.16 217.74 L632.18 217.70 L633.20 217.67 L634.22 217.63 L635.24 217.59 L636.26 217.55 L637.28 217.51 L638.30 217.47 L639.32 217.43 L640.34 217.39 L641.36 217.34 L642.38 217.29 L643.40 217.25 L644.42 217.20 L645.44 217.15 L646.46 217.10 L647.48 217.04 L648.50 216.99 L649.52 216.94 L650.54 216.88 L651.56 216.82 L652.58 216.76 L653.60 216.70 L654.62 216.64 L655.64 216.58 L656.66 216.51 L657.68 216.45 L658.70 216.38 L659.72 216.32 L660.74 216.25 L661.76 216.18 L662.78 216.11 L663.80 216.03 L664.82 215.96 L665.84 215.89 L666.86 215.81 L667.88 215.73 L668.90 215.65 L669.92 215.57 L670.94 215.49 L671.96 215.41 L672.98 215.33 L674.00 215.24 L675.02 215.16 L676.04 215.07 L677.06 214.98 L678.08 214.89 L679.10 214.80 L680.12 214.71 L681.14 214.61 L682.16 214.52 L683.18 214.42 L684.20 214.33 L685.22 214.23 L686.24 214.13 L687.26 214.03 L688.28 213.92 L689.30 213.82 L690.32 213.72 L691.34 213.61 L692.36 213.50 L693.38 213.40 L694.40 213.29 L695.42 213.18 L696.44 213.06 L697.46 212.95 L698.48 212.84 L699.50 212.72 L700.52 212.60 L701.54 212.48 L702.56 212.37 L703.58 212.24 L704.60 212.12 L705.62 212.00 L706.64 211.88 L707.66 211.75 L708.68 211.62 L709.70 211.49 L710.72 211.37 L711.74 211.23 L712.76 211.10 L713.78 210.97 L714.80 210.84 L715.82 210.70 L716.84 210.56 L717.86 210.42 L718.88 210.29 L719.90 210.15 L720.92 210.00 L721.94 209.86 L722.96 209.72 L723.98 209.57 L725.00 209.42 L726.02 209.28 L727.04 209.13 L728.06 208.98 L729.08 208.83 L730.10 208.67 L731.12 208.52 L732.14 208.36 L733.16 208.21 L734.18 208.05 L735.20 207.89 L736.22 207.73 L737.24 207.57 L738.26 207.40 L739.28 207.24 L740.30 207.08 L741.32 206.91 L742.34 206.74 L743.36 206.57 L744.38 206.40 L745.40 206.23 L746.42 206.06 L747.44 205.88 L748.46 205.71 L749.48 205.53 L750.50 205.36 L751.52 205.18 L752.54 205.00 L753.56 204.82 L754.58 204.63 L755.60 204.45 L756.62 204.26 L757.64 204.08 L758.66 203.89 L759.68 203.70 L760.70 203.51 L761.72 203.32 L762.74 203.13 L763.76 202.93 L764.78 202.74 L765.80 202.54 L766.82 202.35 L767.84 202.15 L768.86 201.95 L769.88 201.75 L770.90 201.54 L771.92 201.34 L772.94 201.13 L773.96 200.93 L774.98 200.72 L776.00 200.51 L777.02 200.30 L778.04 200.09 L779.06 199.88 L780.08 199.67 L781.10 199.45 L782.12 199.24 L783.14 199.02 L784.16 198.80 L785.18 198.58 L786.20 198.36 L787.22 198.14 L788.24 197.91 L789.26 197.69 L790.28 197.46 L791.30 197.24 L792.32 197.01 L793.34 196.78 L794.36 196.55 L795.38 196.32 L796.40 196.08 L797.42 195.85 L798.44 195.61 L799.46 195.37 L800.48 195.14 L801.50 194.90 L802.52 194.66 L803.54 194.41 L804.56 194.17 L805.58 193.93 L806.60 193.68 L807.62 193.43 L808.64 193.19 L809.66 192.94 L810.68 192.69 L811.70 192.43 L812.72 192.18 L813.74 191.93 L814.76 191.67 L815.78 191.41 L816.80 191.16 L817.82 190.90 L818.84 190.64 L819.86 190.37 L820.88 190.11 L821.90 189.85 L822.92 189.58 L823.94 189.31 L824.96 189.05 L825.98 188.78 L827.00 188.51 L828.02 188.24 L829.04 187.96 L830.06 187.69 L831.08 187.41 L832.10 187.14 L833.12 186.86 L834.14 186.58 L835.16 186.30 L836.18 186.02 L837.20 185.73 L838.22 185.45 L839.24 185.17 L840.26 184.88 L841.28 184.59 L842.30 184.30 L843.32 184.01 L844.34 183.72 L845.36 183.43 L846.38 183.13 L847.40 182.84 L848.42 182.54 L849.44 182.24 L850.46 181.95 L851.48 181.65 L852.50 181.34 L853.52 181.04 L854.54 180.74 L855.56 180.43 L856.58 180.13 L857.60 179.82 L858.62 179.51 L859.64 179.20 L860.66 178.89 L861.68 178.58 L862.70 178.26 L863.72 177.95 L864.74 177.63 L865.76 177.31 L866.78 177.00 L867.80 176.68 L868.82 176.35 L869.84 176.03 L870.86 175.71 L871.88 175.38 L872.90 175.06 L873.92 174.73 L874.94 174.40 L875.96 174.07 L876.98 173.74 L878.00 173.41" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="173.41" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 39.56 L70.16 44.89 L78.32 50.13 L86.48 55.30 L94.64 60.39 L102.80 65.40 L110.96 70.33 L119.12 75.18 L127.28 79.95 L135.44 84.63 L143.60 89.24 L151.76 93.77 L159.92 98.22 L168.08 102.58 L176.24 106.87 L184.40 111.08 L192.56 115.21 L200.72 119.25 L208.88 123.22 L217.04 127.10 L225.20 130.90 L233.36 134.63 L241.52 138.27 L249.68 141.83 L257.84 145.31 L266.00 148.71 L274.16 152.03 L282.32 155.27 L290.48 158.43 L298.64 161.51 L306.80 164.51 L314.96 167.44 L323.12 170.28 L331.28 173.03 L339.44 175.71 L347.60 178.31 L355.76 180.82 L363.92 183.26 L372.08 185.62 L380.24 187.89 L388.40 190.09 L396.56 192.20 L404.72 194.24 L412.88 196.20 L421.04 198.07 L429.20 199.87 L437.36 201.58 L445.52 203.21 L453.68 204.76 L461.84 206.23 L470.00 207.62 L478.16 208.93 L486.32 210.16 L494.48 211.31 L502.64 212.38 L510.80 213.37 L518.96 214.27 L527.12 215.10 L535.28 215.85 L543.44 216.52 L551.60 217.10 L559.76 217.61 L567.92 218.03 L576.08 218.38 L584.24 218.64 L592.40 218.82 L600.56 218.93 L608.72 218.95 L616.88 218.89 L625.04 218.76 L633.20 218.54 L641.36 218.24 L649.52 217.86 L657.68 217.41 L665.84 216.87 L674.00 216.25 L682.16 215.55 L690.32 214.77 L698.48 213.91 L706.64 212.97 L714.80 211.95 L722.96 210.85 L731.12 209.67 L739.28 208.41 L747.44 207.07 L755.60 205.65 L763.76 204.14 L771.92 202.56 L780.08 200.89 L788.24 199.15 L796.40 197.32 L804.56 195.42 L812.72 193.43 L820.88 191.36 L829.04 189.22 L837.20 186.99 L845.36 184.68 L853.52 182.29 L861.68 179.82 L869.84 177.27 L878.00 174.64" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <circle cx="878.00" cy="174.64" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="62" y1="289" x2="76" y2="289" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="293.0" text-anchor="start" class="t-note">exact: a₀ + a₁x + a₂x², a₀ enclosed to 6.9e-8 (decided)</text>
+    <line x1="487" y1="289" x2="501" y2="289" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="506.0" y="293.0" text-anchor="start" class="t-note">the scheme at ρ = 0.02, h = 0.04 (computed)</text>
+  </svg>
+  </div>
+  <figcaption>Figure 2 · Test 1, the value function at t = 0: the exact parabola and the scheme at the coarsest mesh. The scheme sits above the exact function everywhere by about the size of its time step; a semi-Lagrangian value is an upper bound on a convex problem&#39;s infimum.</figcaption>
+</figure></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 300" role="img" aria-label="A narrow bump centred near zero, 1.4 high, with a dashed bump of the same height spreading slightly wider at its feet.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="207.0" x2="878" y2="207.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="211.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="147.9" x2="878" y2="147.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="151.9" text-anchor="end" class="t-ax">0.5</text>
+    <line x1="62" y1="88.9" x2="878" y2="88.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="92.9" text-anchor="end" class="t-ax">1</text>
+    <line x1="62" y1="29.8" x2="878" y2="29.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="33.8" text-anchor="end" class="t-ax">1.5</text>
+    <line x1="62.0" y1="207" x2="62.0" y2="212" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="227.0" text-anchor="middle" class="t-ax">-1</text>
+    <line x1="266.0" y1="207" x2="266.0" y2="212" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="266.0" y="227.0" text-anchor="middle" class="t-ax">-0.5</text>
+    <line x1="470.0" y1="207" x2="470.0" y2="212" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="227.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="674.0" y1="207" x2="674.0" y2="212" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="674.0" y="227.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="878.0" y1="207" x2="878.0" y2="212" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="227.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="62" y1="207" x2="878" y2="207" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="249.0" text-anchor="middle" class="t-note">x</text>
+    <text x="13" y="112.5" class="t-note" transform="rotate(-90 13 112.5)" text-anchor="middle">m(x, T), test 1</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="207" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <path d="M62.00 207.00 L63.02 207.00 L64.04 207.00 L65.06 207.00 L66.08 207.00 L67.10 207.00 L68.12 207.00 L69.14 207.00 L70.16 207.00 L71.18 207.00 L72.20 207.00 L73.22 207.00 L74.24 207.00 L75.26 207.00 L76.28 207.00 L77.30 207.00 L78.32 207.00 L79.34 207.00 L80.36 207.00 L81.38 207.00 L82.40 207.00 L83.42 207.00 L84.44 207.00 L85.46 207.00 L86.48 207.00 L87.50 207.00 L88.52 207.00 L89.54 207.00 L90.56 207.00 L91.58 207.00 L92.60 207.00 L93.62 207.00 L94.64 207.00 L95.66 207.00 L96.68 207.00 L97.70 207.00 L98.72 207.00 L99.74 207.00 L100.76 207.00 L101.78 207.00 L102.80 207.00 L103.82 207.00 L104.84 207.00 L105.86 207.00 L106.88 207.00 L107.90 207.00 L108.92 207.00 L109.94 207.00 L110.96 207.00 L111.98 207.00 L113.00 207.00 L114.02 207.00 L115.04 207.00 L116.06 207.00 L117.08 207.00 L118.10 207.00 L119.12 207.00 L120.14 207.00 L121.16 207.00 L122.18 207.00 L123.20 207.00 L124.22 207.00 L125.24 207.00 L126.26 207.00 L127.28 207.00 L128.30 207.00 L129.32 207.00 L130.34 207.00 L131.36 207.00 L132.38 207.00 L133.40 207.00 L134.42 207.00 L135.44 207.00 L136.46 207.00 L137.48 207.00 L138.50 207.00 L139.52 207.00 L140.54 207.00 L141.56 207.00 L142.58 207.00 L143.60 207.00 L144.62 207.00 L145.64 207.00 L146.66 207.00 L147.68 207.00 L148.70 207.00 L149.72 207.00 L150.74 207.00 L151.76 207.00 L152.78 207.00 L153.80 207.00 L154.82 207.00 L155.84 207.00 L156.86 207.00 L157.88 207.00 L158.90 207.00 L159.92 207.00 L160.94 207.00 L161.96 207.00 L162.98 207.00 L164.00 207.00 L165.02 207.00 L166.04 207.00 L167.06 207.00 L168.08 207.00 L169.10 207.00 L170.12 207.00 L171.14 207.00 L172.16 207.00 L173.18 207.00 L174.20 207.00 L175.22 207.00 L176.24 207.00 L177.26 207.00 L178.28 207.00 L179.30 207.00 L180.32 207.00 L181.34 207.00 L182.36 207.00 L183.38 207.00 L184.40 207.00 L185.42 207.00 L186.44 207.00 L187.46 207.00 L188.48 207.00 L189.50 207.00 L190.52 207.00 L191.54 207.00 L192.56 207.00 L193.58 207.00 L194.60 207.00 L195.62 207.00 L196.64 207.00 L197.66 207.00 L198.68 207.00 L199.70 207.00 L200.72 207.00 L201.74 207.00 L202.76 207.00 L203.78 207.00 L204.80 207.00 L205.82 207.00 L206.84 207.00 L207.86 207.00 L208.88 207.00 L209.90 207.00 L210.92 207.00 L211.94 207.00 L212.96 207.00 L213.98 207.00 L215.00 207.00 L216.02 207.00 L217.04 207.00 L218.06 207.00 L219.08 207.00 L220.10 207.00 L221.12 207.00 L222.14 207.00 L223.16 207.00 L224.18 207.00 L225.20 207.00 L226.22 207.00 L227.24 207.00 L228.26 207.00 L229.28 207.00 L230.30 207.00 L231.32 207.00 L232.34 207.00 L233.36 207.00 L234.38 207.00 L235.40 207.00 L236.42 207.00 L237.44 207.00 L238.46 207.00 L239.48 207.00 L240.50 207.00 L241.52 207.00 L242.54 207.00 L243.56 207.00 L244.58 207.00 L245.60 207.00 L246.62 207.00 L247.64 207.00 L248.66 207.00 L249.68 207.00 L250.70 207.00 L251.72 207.00 L252.74 206.99 L253.76 206.97 L254.78 206.95 L255.80 206.90 L256.82 206.83 L257.84 206.73 L258.86 206.60 L259.88 206.42 L260.90 206.20 L261.92 205.92 L262.94 205.58 L263.96 205.19 L264.98 204.74 L266.00 204.22 L267.02 203.64 L268.04 203.00 L269.06 202.29 L270.08 201.53 L271.10 200.70 L272.12 199.82 L273.14 198.88 L274.16 197.89 L275.18 196.85 L276.20 195.76 L277.22 194.63 L278.24 193.45 L279.26 192.24 L280.28 190.99 L281.30 189.70 L282.32 188.39 L283.34 187.04 L284.36 185.67 L285.38 184.28 L286.40 182.86 L287.42 181.42 L288.44 179.97 L289.46 178.50 L290.48 177.02 L291.50 175.53 L292.52 174.03 L293.54 172.52 L294.56 171.00 L295.58 169.48 L296.60 167.95 L297.62 166.42 L298.64 164.89 L299.66 163.36 L300.68 161.84 L301.70 160.31 L302.72 158.78 L303.74 157.26 L304.76 155.75 L305.78 154.23 L306.80 152.73 L307.82 151.23 L308.84 149.74 L309.86 148.25 L310.88 146.78 L311.90 145.31 L312.92 143.85 L313.94 142.40 L314.96 140.96 L315.98 139.53 L317.00 138.11 L318.02 136.70 L319.04 135.30 L320.06 133.92 L321.08 132.54 L322.10 131.18 L323.12 129.82 L324.14 128.48 L325.16 127.15 L326.18 125.84 L327.20 124.53 L328.22 123.24 L329.24 121.96 L330.26 120.69 L331.28 119.44 L332.30 118.19 L333.32 116.96 L334.34 115.74 L335.36 114.54 L336.38 113.34 L337.40 112.16 L338.42 110.99 L339.44 109.84 L340.46 108.69 L341.48 107.56 L342.50 106.44 L343.52 105.34 L344.54 104.24 L345.56 103.16 L346.58 102.09 L347.60 101.03 L348.62 99.98 L349.64 98.95 L350.66 97.92 L351.68 96.91 L352.70 95.91 L353.72 94.93 L354.74 93.95 L355.76 92.99 L356.78 92.03 L357.80 91.09 L358.82 90.16 L359.84 89.24 L360.86 88.33 L361.88 87.44 L362.90 86.55 L363.92 85.68 L364.94 84.81 L365.96 83.96 L366.98 83.11 L368.00 82.28 L369.02 81.46 L370.04 80.65 L371.06 79.85 L372.08 79.06 L373.10 78.27 L374.12 77.50 L375.14 76.74 L376.16 75.99 L377.18 75.25 L378.20 74.52 L379.22 73.80 L380.24 73.09 L381.26 72.38 L382.28 71.69 L383.30 71.01 L384.32 70.33 L385.34 69.67 L386.36 69.01 L387.38 68.36 L388.40 67.73 L389.42 67.10 L390.44 66.48 L391.46 65.87 L392.48 65.26 L393.50 64.67 L394.52 64.09 L395.54 63.51 L396.56 62.94 L397.58 62.38 L398.60 61.83 L399.62 61.29 L400.64 60.75 L401.66 60.23 L402.68 59.71 L403.70 59.20 L404.72 58.70 L405.74 58.20 L406.76 57.72 L407.78 57.24 L408.80 56.77 L409.82 56.30 L410.84 55.85 L411.86 55.40 L412.88 54.96 L413.90 54.53 L414.92 54.10 L415.94 53.68 L416.96 53.27 L417.98 52.87 L419.00 52.48 L420.02 52.09 L421.04 51.71 L422.06 51.33 L423.08 50.97 L424.10 50.61 L425.12 50.25 L426.14 49.91 L427.16 49.57 L428.18 49.24 L429.20 48.91 L430.22 48.59 L431.24 48.28 L432.26 47.98 L433.28 47.68 L434.30 47.39 L435.32 47.11 L436.34 46.83 L437.36 46.56 L438.38 46.29 L439.40 46.04 L440.42 45.78 L441.44 45.54 L442.46 45.30 L443.48 45.07 L444.50 44.84 L445.52 44.63 L446.54 44.41 L447.56 44.21 L448.58 44.01 L449.60 43.81 L450.62 43.63 L451.64 43.45 L452.66 43.27 L453.68 43.10 L454.70 42.94 L455.72 42.79 L456.74 42.64 L457.76 42.49 L458.78 42.36 L459.80 42.22 L460.82 42.10 L461.84 41.98 L462.86 41.87 L463.88 41.76 L464.90 41.66 L465.92 41.57 L466.94 41.48 L467.96 41.39 L468.98 41.32 L470.00 41.25 L471.02 41.18 L472.04 41.12 L473.06 41.07 L474.08 41.03 L475.10 40.99 L476.12 40.95 L477.14 40.92 L478.16 40.90 L479.18 40.88 L480.20 40.87 L481.22 40.87 L482.24 40.87 L483.26 40.88 L484.28 40.89 L485.30 40.91 L486.32 40.94 L487.34 40.97 L488.36 41.01 L489.38 41.05 L490.40 41.10 L491.42 41.15 L492.44 41.22 L493.46 41.28 L494.48 41.36 L495.50 41.44 L496.52 41.52 L497.54 41.61 L498.56 41.71 L499.58 41.81 L500.60 41.92 L501.62 42.04 L502.64 42.16 L503.66 42.29 L504.68 42.43 L505.70 42.57 L506.72 42.71 L507.74 42.87 L508.76 43.02 L509.78 43.19 L510.80 43.36 L511.82 43.54 L512.84 43.72 L513.86 43.91 L514.88 44.11 L515.90 44.31 L516.92 44.52 L517.94 44.74 L518.96 44.96 L519.98 45.19 L521.00 45.42 L522.02 45.67 L523.04 45.91 L524.06 46.17 L525.08 46.43 L526.10 46.70 L527.12 46.97 L528.14 47.25 L529.16 47.54 L530.18 47.83 L531.20 48.14 L532.22 48.44 L533.24 48.76 L534.26 49.08 L535.28 49.41 L536.30 49.74 L537.32 50.09 L538.34 50.43 L539.36 50.79 L540.38 51.15 L541.40 51.52 L542.42 51.90 L543.44 52.29 L544.46 52.68 L545.48 53.08 L546.50 53.49 L547.52 53.90 L548.54 54.32 L549.56 54.75 L550.58 55.19 L551.60 55.63 L552.62 56.08 L553.64 56.54 L554.66 57.01 L555.68 57.48 L556.70 57.97 L557.72 58.46 L558.74 58.95 L559.76 59.46 L560.78 59.98 L561.80 60.50 L562.82 61.03 L563.84 61.57 L564.86 62.11 L565.88 62.67 L566.90 63.23 L567.92 63.81 L568.94 64.39 L569.96 64.98 L570.98 65.58 L572.00 66.18 L573.02 66.80 L574.04 67.42 L575.06 68.06 L576.08 68.70 L577.10 69.35 L578.12 70.01 L579.14 70.68 L580.16 71.36 L581.18 72.05 L582.20 72.75 L583.22 73.45 L584.24 74.17 L585.26 74.90 L586.28 75.63 L587.30 76.38 L588.32 77.14 L589.34 77.90 L590.36 78.68 L591.38 79.46 L592.40 80.26 L593.42 81.07 L594.44 81.88 L595.46 82.71 L596.48 83.55 L597.50 84.40 L598.52 85.26 L599.54 86.13 L600.56 87.01 L601.58 87.90 L602.60 88.80 L603.62 89.72 L604.64 90.64 L605.66 91.58 L606.68 92.52 L607.70 93.48 L608.72 94.45 L609.74 95.44 L610.76 96.43 L611.78 97.43 L612.80 98.45 L613.82 99.48 L614.84 100.52 L615.86 101.57 L616.88 102.64 L617.90 103.72 L618.92 104.80 L619.94 105.91 L620.96 107.02 L621.98 108.15 L623.00 109.28 L624.02 110.43 L625.04 111.60 L626.06 112.77 L627.08 113.96 L628.10 115.16 L629.12 116.37 L630.14 117.60 L631.16 118.83 L632.18 120.08 L633.20 121.35 L634.22 122.62 L635.24 123.91 L636.26 125.21 L637.28 126.52 L638.30 127.84 L639.32 129.17 L640.34 130.52 L641.36 131.88 L642.38 133.25 L643.40 134.63 L644.42 136.02 L645.44 137.43 L646.46 138.84 L647.48 140.27 L648.50 141.70 L649.52 143.15 L650.54 144.60 L651.56 146.07 L652.58 147.54 L653.60 149.02 L654.62 150.51 L655.64 152.00 L656.66 153.51 L657.68 155.02 L658.70 156.53 L659.72 158.05 L660.74 159.57 L661.76 161.10 L662.78 162.63 L663.80 164.16 L664.82 165.69 L665.84 167.21 L666.86 168.74 L667.88 170.27 L668.90 171.79 L669.92 173.30 L670.94 174.81 L671.96 176.30 L672.98 177.79 L674.00 179.26 L675.02 180.73 L676.04 182.17 L677.06 183.60 L678.08 185.00 L679.10 186.38 L680.12 187.74 L681.14 189.07 L682.16 190.37 L683.18 191.64 L684.20 192.87 L685.22 194.07 L686.24 195.22 L687.26 196.33 L688.28 197.39 L689.30 198.41 L690.32 199.37 L691.34 200.28 L692.36 201.13 L693.38 201.93 L694.40 202.66 L695.42 203.34 L696.44 203.95 L697.46 204.49 L698.48 204.98 L699.50 205.40 L700.52 205.76 L701.54 206.07 L702.56 206.32 L703.58 206.52 L704.60 206.67 L705.62 206.79 L706.64 206.87 L707.66 206.93 L708.68 206.96 L709.70 206.98 L710.72 206.99 L711.74 207.00 L712.76 207.00 L713.78 207.00 L714.80 207.00 L715.82 207.00 L716.84 207.00 L717.86 207.00 L718.88 207.00 L719.90 207.00 L720.92 207.00 L721.94 207.00 L722.96 207.00 L723.98 207.00 L725.00 207.00 L726.02 207.00 L727.04 207.00 L728.06 207.00 L729.08 207.00 L730.10 207.00 L731.12 207.00 L732.14 207.00 L733.16 207.00 L734.18 207.00 L735.20 207.00 L736.22 207.00 L737.24 207.00 L738.26 207.00 L739.28 207.00 L740.30 207.00 L741.32 207.00 L742.34 207.00 L743.36 207.00 L744.38 207.00 L745.40 207.00 L746.42 207.00 L747.44 207.00 L748.46 207.00 L749.48 207.00 L750.50 207.00 L751.52 207.00 L752.54 207.00 L753.56 207.00 L754.58 207.00 L755.60 207.00 L756.62 207.00 L757.64 207.00 L758.66 207.00 L759.68 207.00 L760.70 207.00 L761.72 207.00 L762.74 207.00 L763.76 207.00 L764.78 207.00 L765.80 207.00 L766.82 207.00 L767.84 207.00 L768.86 207.00 L769.88 207.00 L770.90 207.00 L771.92 207.00 L772.94 207.00 L773.96 207.00 L774.98 207.00 L776.00 207.00 L777.02 207.00 L778.04 207.00 L779.06 207.00 L780.08 207.00 L781.10 207.00 L782.12 207.00 L783.14 207.00 L784.16 207.00 L785.18 207.00 L786.20 207.00 L787.22 207.00 L788.24 207.00 L789.26 207.00 L790.28 207.00 L791.30 207.00 L792.32 207.00 L793.34 207.00 L794.36 207.00 L795.38 207.00 L796.40 207.00 L797.42 207.00 L798.44 207.00 L799.46 207.00 L800.48 207.00 L801.50 207.00 L802.52 207.00 L803.54 207.00 L804.56 207.00 L805.58 207.00 L806.60 207.00 L807.62 207.00 L808.64 207.00 L809.66 207.00 L810.68 207.00 L811.70 207.00 L812.72 207.00 L813.74 207.00 L814.76 207.00 L815.78 207.00 L816.80 207.00 L817.82 207.00 L818.84 207.00 L819.86 207.00 L820.88 207.00 L821.90 207.00 L822.92 207.00 L823.94 207.00 L824.96 207.00 L825.98 207.00 L827.00 207.00 L828.02 207.00 L829.04 207.00 L830.06 207.00 L831.08 207.00 L832.10 207.00 L833.12 207.00 L834.14 207.00 L835.16 207.00 L836.18 207.00 L837.20 207.00 L838.22 207.00 L839.24 207.00 L840.26 207.00 L841.28 207.00 L842.30 207.00 L843.32 207.00 L844.34 207.00 L845.36 207.00 L846.38 207.00 L847.40 207.00 L848.42 207.00 L849.44 207.00 L850.46 207.00 L851.48 207.00 L852.50 207.00 L853.52 207.00 L854.54 207.00 L855.56 207.00 L856.58 207.00 L857.60 207.00 L858.62 207.00 L859.64 207.00 L860.66 207.00 L861.68 207.00 L862.70 207.00 L863.72 207.00 L864.74 207.00 L865.76 207.00 L866.78 207.00 L867.80 207.00 L868.82 207.00 L869.84 207.00 L870.86 207.00 L871.88 207.00 L872.90 207.00 L873.92 207.00 L874.94 207.00 L875.96 207.00 L876.98 207.00 L878.00 207.00" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="207.00" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 207.00 L70.16 207.00 L78.32 207.00 L86.48 207.00 L94.64 207.00 L102.80 207.00 L110.96 207.00 L119.12 207.00 L127.28 207.00 L135.44 207.00 L143.60 207.00 L151.76 207.00 L159.92 207.00 L168.08 207.00 L176.24 207.00 L184.40 207.00 L192.56 207.00 L200.72 207.00 L208.88 206.99 L217.04 206.94 L225.20 206.77 L233.36 206.23 L241.52 204.93 L249.68 202.31 L257.84 197.86 L266.00 191.33 L274.16 182.86 L282.32 172.92 L290.48 162.11 L298.64 151.02 L306.80 140.10 L314.96 129.66 L323.12 119.87 L331.28 110.78 L339.44 102.41 L347.60 94.73 L355.76 87.70 L363.92 81.27 L372.08 75.42 L380.24 70.14 L388.40 65.45 L396.56 61.35 L404.72 57.78 L412.88 54.65 L421.04 51.92 L429.20 49.58 L437.36 47.62 L445.52 46.06 L453.68 44.94 L461.84 44.25 L470.00 43.96 L478.16 44.00 L486.32 44.37 L494.48 45.11 L502.64 46.25 L510.80 47.78 L518.96 49.69 L527.12 52.00 L535.28 54.77 L543.44 58.00 L551.60 61.67 L559.76 65.80 L567.92 70.43 L576.08 75.65 L584.24 81.50 L592.40 87.96 L600.56 95.04 L608.72 102.76 L616.88 111.18 L625.04 120.31 L633.20 130.16 L641.36 140.64 L649.52 151.60 L657.68 162.77 L665.84 173.69 L674.00 183.77 L682.16 192.32 L690.32 198.81 L698.48 203.07 L706.64 205.43 L714.80 206.49 L722.96 206.87 L731.12 206.98 L739.28 207.00 L747.44 207.00 L755.60 207.00 L763.76 207.00 L771.92 207.00 L780.08 207.00 L788.24 207.00 L796.40 207.00 L804.56 207.00 L812.72 207.00 L820.88 207.00 L829.04 207.00 L837.20 207.00 L845.36 207.00 L853.52 207.00 L861.68 207.00 L869.84 207.00 L878.00 207.00" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <circle cx="878.00" cy="207.00" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="62" y1="270" x2="76" y2="270" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="274.0" text-anchor="start" class="t-note">exact: the initial bump carried by the affine flow, scale cosh(1)⁻¹ = 0.6481, mean K(1) = 0.0281 (decided)</text>
+    <line x1="62" y1="289" x2="76" y2="289" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="81.0" y="293.0" text-anchor="start" class="t-note">the scheme at ρ = 0.02, h = 0.04 (computed): the disagreement sits at the edge of the support, as the paper says</text>
+  </svg>
+  </div>
+  <figcaption>Figure 3 · Test 1, the density at t = T: the bump contracted by cosh(1)⁻¹ and carried to the day&#39;s energy, against the scheme at the coarsest mesh. The scheme&#39;s P1 transport diffuses the feet; the paper&#39;s own remark that the disagreement is at the boundary of the support is what one sees.</figcaption>
+</figure></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · the tables</div>
+    <h2>Twenty-four cells, each met by an interval</h2>
+  </div>
+<div class="col"><p>The scheme is the paper's: P1 interpolation of the value function, the backward step u_{i,k} = inf_α { I[u_{k+1}](x_i + hα) + h(l₀(α) + ϖ_k α + V_i) }, the forward push of the density by the minimising feet, the price corrected by the imbalance (explicitly for test 1, through an implicit cubic for test 2), stop when the price moves by less than ε. Two things the paper leaves to the reader are fixed here and said: the infimum is taken exactly — on each interpolation cell the objective is a convex function of α with a closed-form stationary point, so the least of the cell minima and the node values is the infimum, with no inner tolerance — and a foot that would leave [−1, 1] is held at the wall rather than given a shorter time step. The relative errors are sup norms on the grid: the price over the time grid, u at t = 0 and m at t = T over the space grid, each divided by the sup norm of the exact quantity. Because the exact quantity is an interval, so is each error; the tables print the interval, and a cell is REPRODUCED when the printed number's two-digit rounding box meets it.</p></div><p><b>Table 1 of the paper (test 1, ε = 0.004).</b></p><div class="wide"><div class="tw"><table><thead><tr><th>mesh</th><th>quantity</th><th>printed (ε = 0.004)</th><th>this port at that ε, as an interval</th><th>at ε = 1e−8</th><th>verdict</th></tr></thead><tbody><tr><td><span class="m">ρ = 0.02, h = 0.04</span></td><td>ϖ, the price</td><td class="v">1.2e-2</td><td class="v"><span class="m">[1.23e-2, 1.23e-2]</span></td><td class="v">1.23e-2</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.02, h = 0.04</span></td><td>u at t = 0</td><td class="v">2.5e-2</td><td class="v"><span class="m">[2.67e-2, 2.67e-2]</span></td><td class="v">2.72e-2</td><td><span class="tag dep">NEAR</span> ×1.07</td></tr><tr><td><span class="m">ρ = 0.02, h = 0.04</span></td><td>m at t = T</td><td class="v">8.8e-2</td><td class="v"><span class="m">[9.31e-2, 9.31e-2]</span></td><td class="v">9.49e-2</td><td><span class="tag dep">NEAR</span> ×1.06</td></tr><tr><td><span class="m">ρ = 0.01, h = 0.02</span></td><td>ϖ, the price</td><td class="v">6.0e-3</td><td class="v"><span class="m">[6.04e-3, 6.04e-3]</span></td><td class="v">6.04e-3</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.01, h = 0.02</span></td><td>u at t = 0</td><td class="v">1.1e-2</td><td class="v"><span class="m">[1.32e-2, 1.32e-2]</span></td><td class="v">1.38e-2</td><td><span class="tag dep">DIFFERS</span> ×1.20</td></tr><tr><td><span class="m">ρ = 0.01, h = 0.02</span></td><td>m at t = T</td><td class="v">4.2e-2</td><td class="v"><span class="m">[4.69e-2, 4.69e-2]</span></td><td class="v">4.88e-2</td><td><span class="tag dep">NEAR</span> ×1.12</td></tr><tr><td><span class="m">ρ = 0.005, h = 0.01</span></td><td>ϖ, the price</td><td class="v">3.3e-3</td><td class="v"><span class="m">[3.27e-3, 3.27e-3]</span></td><td class="v">2.99e-3</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.005, h = 0.01</span></td><td>u at t = 0</td><td class="v">4.7e-3</td><td class="v"><span class="m">[6.31e-3, 6.31e-3]</span></td><td class="v">6.96e-3</td><td><span class="tag dep">DIFFERS</span> ×1.34</td></tr><tr><td><span class="m">ρ = 0.005, h = 0.01</span></td><td>m at t = T</td><td class="v">1.8e-2</td><td class="v"><span class="m">[2.28e-2, 2.28e-2]</span></td><td class="v">2.48e-2</td><td><span class="tag dep">DIFFERS</span> ×1.27</td></tr><tr><td><span class="m">ρ = 0.0025, h = 0.005</span></td><td>ϖ, the price</td><td class="v">2.1e-3</td><td class="v"><span class="m">[2.07e-3, 2.07e-3]</span></td><td class="v">1.49e-3</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.0025, h = 0.005</span></td><td>u at t = 0</td><td class="v">1.2e-3</td><td class="v"><span class="m">[2.83e-3, 2.83e-3]</span></td><td class="v">3.49e-3</td><td><span class="tag dep">DIFFERS</span> ×2.36</td></tr><tr><td><span class="m">ρ = 0.0025, h = 0.005</span></td><td>m at t = T</td><td class="v">6.7e-3</td><td class="v"><span class="m">[1.06e-2, 1.06e-2]</span></td><td class="v">1.25e-2</td><td><span class="tag dep">DIFFERS</span> ×1.58</td></tr></tbody></table></div></div><p><b>Table 2 of the paper (test 2, ε = 0.0002).</b></p><div class="wide"><div class="tw"><table><thead><tr><th>mesh</th><th>quantity</th><th>printed (ε = 0.0002)</th><th>this port at that ε, as an interval</th><th>at ε = 1e−8</th><th>verdict</th></tr></thead><tbody><tr><td><span class="m">ρ = 0.02, h = 0.04</span></td><td>ϖ, the price</td><td class="v">2.6e-2</td><td class="v"><span class="m">[2.66e-2, 2.66e-2]</span></td><td class="v">2.66e-2</td><td><span class="tag dep">NEAR</span> ×1.02</td></tr><tr><td><span class="m">ρ = 0.02, h = 0.04</span></td><td>u at t = 0</td><td class="v">8.5e-3</td><td class="v"><span class="m">[8.53e-3, 8.53e-3]</span></td><td class="v">8.53e-3</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.02, h = 0.04</span></td><td>m at t = T</td><td class="v">5.3e-2</td><td class="v"><span class="m">[5.27e-2, 5.27e-2]</span></td><td class="v">5.27e-2</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.01, h = 0.02</span></td><td>ϖ, the price</td><td class="v">1.3e-2</td><td class="v"><span class="m">[1.33e-2, 1.33e-2]</span></td><td class="v">1.33e-2</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.01, h = 0.02</span></td><td>u at t = 0</td><td class="v">7.4e-3</td><td class="v"><span class="m">[7.38e-3, 7.38e-3]</span></td><td class="v">7.38e-3</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.01, h = 0.02</span></td><td>m at t = T</td><td class="v">2.6e-2</td><td class="v"><span class="m">[2.64e-2, 2.64e-2]</span></td><td class="v">2.64e-2</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.005, h = 0.01</span></td><td>ϖ, the price</td><td class="v">6.7e-3</td><td class="v"><span class="m">[6.63e-3, 6.63e-3]</span></td><td class="v">6.63e-3</td><td><span class="tag dep">NEAR</span> ×0.99</td></tr><tr><td><span class="m">ρ = 0.005, h = 0.01</span></td><td>u at t = 0</td><td class="v">6.8e-3</td><td class="v"><span class="m">[6.78e-3, 6.78e-3]</span></td><td class="v">6.78e-3</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.005, h = 0.01</span></td><td>m at t = T</td><td class="v">1.3e-2</td><td class="v"><span class="m">[1.32e-2, 1.32e-2]</span></td><td class="v">1.32e-2</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.0025, h = 0.005</span></td><td>ϖ, the price</td><td class="v">3.9e-3</td><td class="v"><span class="m">[3.32e-3, 3.32e-3]</span></td><td class="v">3.32e-3</td><td><span class="tag dep">DIFFERS</span> ×0.85</td></tr><tr><td><span class="m">ρ = 0.0025, h = 0.005</span></td><td>u at t = 0</td><td class="v">6.5e-3</td><td class="v"><span class="m">[6.45e-3, 6.45e-3]</span></td><td class="v">6.45e-3</td><td><span class="tag dep">REPRODUCED</span></td></tr><tr><td><span class="m">ρ = 0.0025, h = 0.005</span></td><td>m at t = T</td><td class="v">6.6e-3</td><td class="v"><span class="m">[6.62e-3, 6.62e-3]</span></td><td class="v">6.62e-3</td><td><span class="tag dep">REPRODUCED</span></td></tr></tbody></table></div></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 338" role="img" aria-label="Relative error of ϖ, the price against the mesh for both tests on logarithmic axes: the port&#39;s dashed lines fall at first order; the printed hollow circles sit on them for the price and below them for the other columns of test 1.">
+    <line x1="62" y1="231.6" x2="878" y2="231.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="235.6" text-anchor="end" class="t-ax">0.001</text>
+    <line x1="62" y1="164.9" x2="878" y2="164.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="168.9" text-anchor="end" class="t-ax"></text>
+    <line x1="62" y1="98.1" x2="878" y2="98.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="102.1" text-anchor="end" class="t-ax">0.01</text>
+    <line x1="62" y1="31.4" x2="878" y2="31.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="35.4" text-anchor="end" class="t-ax"></text>
+    <line x1="159.7" y1="245" x2="159.7" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="159.7" y="265.0" text-anchor="middle" class="t-ax">0.0025</text>
+    <line x1="365.8" y1="245" x2="365.8" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="365.8" y="265.0" text-anchor="middle" class="t-ax">0.005</text>
+    <line x1="571.9" y1="245" x2="571.9" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="571.9" y="265.0" text-anchor="middle" class="t-ax">0.01</text>
+    <line x1="778.0" y1="245" x2="778.0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="778.0" y="265.0" text-anchor="middle" class="t-ax">0.02</text>
+    <line x1="62" y1="245" x2="878" y2="245" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="287.0" text-anchor="middle" class="t-note">ρ (h = 2ρ), logarithmic — the relative error of ϖ, the price</text>
+    <text x="13" y="131.5" class="t-note" transform="rotate(-90 13 131.5)" text-anchor="middle">error, log</text>
+    <path d="M778.0 85.9 L571.9 127.3 L365.8 162.9 L159.7 189.4" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <circle cx="778.0" cy="85.9" r="4" fill="var(--c-1)"/>
+    <circle cx="778.0" cy="87.5" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.02" data-cmv="printed 1.2e-2 · this port 1.23e-2 · REPRODUCED" tabindex="0"/>
+    <circle cx="571.9" cy="127.3" r="4" fill="var(--c-1)"/>
+    <circle cx="571.9" cy="127.7" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.01" data-cmv="printed 6.0e-3 · this port 6.04e-3 · REPRODUCED" tabindex="0"/>
+    <circle cx="365.8" cy="162.9" r="4" fill="var(--c-1)"/>
+    <circle cx="365.8" cy="162.4" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.005" data-cmv="printed 3.3e-3 · this port 3.27e-3 · REPRODUCED" tabindex="0"/>
+    <circle cx="159.7" cy="189.4" r="4" fill="var(--c-1)"/>
+    <circle cx="159.7" cy="188.6" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.0025" data-cmv="printed 2.1e-3 · this port 2.07e-3 · REPRODUCED" tabindex="0"/>
+    <path d="M778.0 41.4 L571.9 81.7 L365.8 121.9 L159.7 162.1" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-dasharray="5 4"/>
+    <circle cx="778.0" cy="41.4" r="4" fill="var(--c-2)"/>
+    <circle cx="778.0" cy="42.7" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.02" data-cmv="printed 2.6e-2 · this port 2.66e-2 · NEAR" tabindex="0"/>
+    <circle cx="571.9" cy="81.7" r="4" fill="var(--c-2)"/>
+    <circle cx="571.9" cy="82.9" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.01" data-cmv="printed 1.3e-2 · this port 1.33e-2 · REPRODUCED" tabindex="0"/>
+    <circle cx="365.8" cy="121.9" r="4" fill="var(--c-2)"/>
+    <circle cx="365.8" cy="121.3" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.005" data-cmv="printed 6.7e-3 · this port 6.63e-3 · NEAR" tabindex="0"/>
+    <circle cx="159.7" cy="162.1" r="4" fill="var(--c-2)"/>
+    <circle cx="159.7" cy="152.7" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.0025" data-cmv="printed 3.9e-3 · this port 3.32e-3 · DIFFERS" tabindex="0"/>
+    <line x1="62" y1="308" x2="76" y2="308" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="81.0" y="312.0" text-anchor="start" class="t-note">test 1, this port at the paper&#39;s ε (computed)</text>
+    <line x1="418" y1="308" x2="432" y2="308" stroke="var(--c-2)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="437.0" y="312.0" text-anchor="start" class="t-note">test 2, this port at the paper&#39;s ε (computed)</text>
+    <line x1="62" y1="327" x2="76" y2="327" stroke="var(--c-ctx)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="331.0" text-anchor="start" class="t-note">printed in Tables 1 and 2 (hollow)</text>
+  </svg>
+  </div>
+  <figcaption>Figure 4 · The price error against the mesh. The port&#39;s dashed lines halve as ρ halves (ratios 2.04, 2.02, 2.01 for test 1, 2.00, 2.00, 2.00 for test 2, at ε = 1e−8); the printed circles sit on the test-1 line at every mesh and on the test-2 line at three of four.</figcaption>
+</figure></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 338" role="img" aria-label="Relative error of u at t = 0 against the mesh for both tests on logarithmic axes: the port&#39;s dashed lines fall at first order; the printed hollow circles sit on them for the price and below them for the other columns of test 1.">
+    <line x1="62" y1="231.6" x2="878" y2="231.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="235.6" text-anchor="end" class="t-ax">0.001</text>
+    <line x1="62" y1="164.9" x2="878" y2="164.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="168.9" text-anchor="end" class="t-ax"></text>
+    <line x1="62" y1="98.1" x2="878" y2="98.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="102.1" text-anchor="end" class="t-ax">0.01</text>
+    <line x1="62" y1="31.4" x2="878" y2="31.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="35.4" text-anchor="end" class="t-ax"></text>
+    <line x1="159.7" y1="245" x2="159.7" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="159.7" y="265.0" text-anchor="middle" class="t-ax">0.0025</text>
+    <line x1="365.8" y1="245" x2="365.8" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="365.8" y="265.0" text-anchor="middle" class="t-ax">0.005</text>
+    <line x1="571.9" y1="245" x2="571.9" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="571.9" y="265.0" text-anchor="middle" class="t-ax">0.01</text>
+    <line x1="778.0" y1="245" x2="778.0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="778.0" y="265.0" text-anchor="middle" class="t-ax">0.02</text>
+    <line x1="62" y1="245" x2="878" y2="245" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="287.0" text-anchor="middle" class="t-note">ρ (h = 2ρ), logarithmic — the relative error of u at t = 0</text>
+    <text x="13" y="131.5" class="t-note" transform="rotate(-90 13 131.5)" text-anchor="middle">error, log</text>
+    <path d="M778.0 41.3 L571.9 82.0 L365.8 124.8 L159.7 171.3" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <circle cx="778.0" cy="41.3" r="4" fill="var(--c-1)"/>
+    <circle cx="778.0" cy="45.0" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.02" data-cmv="printed 2.5e-2 · this port 2.67e-2 · NEAR" tabindex="0"/>
+    <circle cx="571.9" cy="82.0" r="4" fill="var(--c-1)"/>
+    <circle cx="571.9" cy="92.6" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.01" data-cmv="printed 1.1e-2 · this port 1.32e-2 · DIFFERS" tabindex="0"/>
+    <circle cx="365.8" cy="124.8" r="4" fill="var(--c-1)"/>
+    <circle cx="365.8" cy="141.9" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.005" data-cmv="printed 4.7e-3 · this port 6.31e-3 · DIFFERS" tabindex="0"/>
+    <circle cx="159.7" cy="171.3" r="4" fill="var(--c-1)"/>
+    <circle cx="159.7" cy="221.1" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.0025" data-cmv="printed 1.2e-3 · this port 2.83e-3 · DIFFERS" tabindex="0"/>
+    <path d="M778.0 107.3 L571.9 115.7 L365.8 120.7 L159.7 123.5" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-dasharray="5 4"/>
+    <circle cx="778.0" cy="107.3" r="4" fill="var(--c-2)"/>
+    <circle cx="778.0" cy="107.5" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.02" data-cmv="printed 8.5e-3 · this port 8.53e-3 · REPRODUCED" tabindex="0"/>
+    <circle cx="571.9" cy="115.7" r="4" fill="var(--c-2)"/>
+    <circle cx="571.9" cy="115.6" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.01" data-cmv="printed 7.4e-3 · this port 7.38e-3 · REPRODUCED" tabindex="0"/>
+    <circle cx="365.8" cy="120.7" r="4" fill="var(--c-2)"/>
+    <circle cx="365.8" cy="120.5" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.005" data-cmv="printed 6.8e-3 · this port 6.78e-3 · REPRODUCED" tabindex="0"/>
+    <circle cx="159.7" cy="123.5" r="4" fill="var(--c-2)"/>
+    <circle cx="159.7" cy="123.1" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.0025" data-cmv="printed 6.5e-3 · this port 6.45e-3 · REPRODUCED" tabindex="0"/>
+    <line x1="62" y1="308" x2="76" y2="308" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="81.0" y="312.0" text-anchor="start" class="t-note">test 1, this port at the paper&#39;s ε (computed)</text>
+    <line x1="418" y1="308" x2="432" y2="308" stroke="var(--c-2)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="437.0" y="312.0" text-anchor="start" class="t-note">test 2, this port at the paper&#39;s ε (computed)</text>
+    <line x1="62" y1="327" x2="76" y2="327" stroke="var(--c-ctx)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="331.0" text-anchor="start" class="t-note">printed in Tables 1 and 2 (hollow)</text>
+  </svg>
+  </div>
+  <figcaption>Figure 5 · The value-function error. Test 2 is reproduced throughout; test 1 parts from the printed values at the finer meshes, the port&#39;s errors larger by a growing factor — the fingerprint of the two open choices, not of the analytic solution, which both sides share.</figcaption>
+</figure></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 338" role="img" aria-label="Relative error of m at t = T against the mesh for both tests on logarithmic axes: the port&#39;s dashed lines fall at first order; the printed hollow circles sit on them for the price and below them for the other columns of test 1.">
+    <line x1="62" y1="231.6" x2="878" y2="231.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="235.6" text-anchor="end" class="t-ax"></text>
+    <line x1="62" y1="164.9" x2="878" y2="164.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="168.9" text-anchor="end" class="t-ax">0.01</text>
+    <line x1="62" y1="98.1" x2="878" y2="98.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="102.1" text-anchor="end" class="t-ax"></text>
+    <line x1="62" y1="31.4" x2="878" y2="31.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="35.4" text-anchor="end" class="t-ax">0.1</text>
+    <line x1="159.7" y1="245" x2="159.7" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="159.7" y="265.0" text-anchor="middle" class="t-ax">0.0025</text>
+    <line x1="365.8" y1="245" x2="365.8" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="365.8" y="265.0" text-anchor="middle" class="t-ax">0.005</text>
+    <line x1="571.9" y1="245" x2="571.9" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="571.9" y="265.0" text-anchor="middle" class="t-ax">0.01</text>
+    <line x1="778.0" y1="245" x2="778.0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="778.0" y="265.0" text-anchor="middle" class="t-ax">0.02</text>
+    <line x1="62" y1="245" x2="878" y2="245" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="287.0" text-anchor="middle" class="t-note">ρ (h = 2ρ), logarithmic — the relative error of m at t = T</text>
+    <text x="13" y="131.5" class="t-note" transform="rotate(-90 13 131.5)" text-anchor="middle">error, log</text>
+    <path d="M778.0 35.5 L571.9 75.3 L365.8 117.0 L159.7 161.6" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <circle cx="778.0" cy="35.5" r="4" fill="var(--c-1)"/>
+    <circle cx="778.0" cy="38.8" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.02" data-cmv="printed 8.8e-2 · this port 9.31e-2 · NEAR" tabindex="0"/>
+    <circle cx="571.9" cy="75.3" r="4" fill="var(--c-1)"/>
+    <circle cx="571.9" cy="81.7" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.01" data-cmv="printed 4.2e-2 · this port 4.69e-2 · NEAR" tabindex="0"/>
+    <circle cx="365.8" cy="117.0" r="4" fill="var(--c-1)"/>
+    <circle cx="365.8" cy="130.8" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.005" data-cmv="printed 1.8e-2 · this port 2.28e-2 · DIFFERS" tabindex="0"/>
+    <circle cx="159.7" cy="161.6" r="4" fill="var(--c-1)"/>
+    <circle cx="159.7" cy="188.1" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 1 · ρ = 0.0025" data-cmv="printed 6.7e-3 · this port 1.06e-2 · DIFFERS" tabindex="0"/>
+    <path d="M778.0 68.5 L571.9 108.6 L365.8 148.7 L159.7 188.8" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-dasharray="5 4"/>
+    <circle cx="778.0" cy="68.5" r="4" fill="var(--c-2)"/>
+    <circle cx="778.0" cy="68.2" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.02" data-cmv="printed 5.3e-2 · this port 5.27e-2 · REPRODUCED" tabindex="0"/>
+    <circle cx="571.9" cy="108.6" r="4" fill="var(--c-2)"/>
+    <circle cx="571.9" cy="109.5" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.01" data-cmv="printed 2.6e-2 · this port 2.64e-2 · REPRODUCED" tabindex="0"/>
+    <circle cx="365.8" cy="148.7" r="4" fill="var(--c-2)"/>
+    <circle cx="365.8" cy="149.7" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.005" data-cmv="printed 1.3e-2 · this port 1.32e-2 · REPRODUCED" tabindex="0"/>
+    <circle cx="159.7" cy="188.8" r="4" fill="var(--c-2)"/>
+    <circle cx="159.7" cy="189.0" r="6" fill="none" stroke="var(--c-ctx)" stroke-width="2" data-cm="test 2 · ρ = 0.0025" data-cmv="printed 6.6e-3 · this port 6.62e-3 · REPRODUCED" tabindex="0"/>
+    <line x1="62" y1="308" x2="76" y2="308" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="81.0" y="312.0" text-anchor="start" class="t-note">test 1, this port at the paper&#39;s ε (computed)</text>
+    <line x1="418" y1="308" x2="432" y2="308" stroke="var(--c-2)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="437.0" y="312.0" text-anchor="start" class="t-note">test 2, this port at the paper&#39;s ε (computed)</text>
+    <line x1="62" y1="327" x2="76" y2="327" stroke="var(--c-ctx)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="331.0" text-anchor="start" class="t-note">printed in Tables 1 and 2 (hollow)</text>
+  </svg>
+  </div>
+  <figcaption>Figure 6 · The density error. The same pattern: test 2 reproduced, test 1 within 15 % at the coarse meshes and larger at the fine ones.</figcaption>
+</figure></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · what the tables could not show</div>
+    <h2>The tolerance, and the density as printed</h2>
+  </div>
+<div class="col"><p><b>The tolerance is inside the finest number.</b> The paper stops when the price moves by less than ε = 0.004 and reports that every case converges in four iterations. Run the same four meshes to ε = 1e−8 (fourteen or fifteen iterations) and the coarse errors do not move, but at the finest mesh the price error of test 1 falls from 2.07e-3 to 1.49e-3: the printed 2.1e−3 is 39 % tolerance and the rest mesh. The convergence order the table suggests for the price (ratios 2.00, 1.82, 1.57 between printed rows) is therefore blunted at the end by ε, and is 2.04, 2.02, 2.01 — clean first order — once ε is out of the way. Test 2 is immune: its implicit price update reaches 1e−12 in three iterations at every mesh, and its errors at ε = 0.0002 and 1e−8 coincide.</p><p><b>The density as printed is not one.</b> Both tests start from m̂(x) = exp(−1/(1 − (λx)²)) "for |x| < 1, 0 otherwise", λ = 1.1 and 1.2. For 1/λ < |x| < 1 the exponent −1/(1 − (λx)²) is positive and unbounded as |x| ↓ 1/λ, so the printed function has no finite integral: on the sliver 1/λ + 0.001 ≤ x ≤ 1/λ + 0.002 alone its mass is at least 3.9e+95 (λ = 1.1) and 2.3e+87 (λ = 1.2), decided by a one-cell Riemann bound. The only integrable reading is the standard bump with support |x| < 1/λ, which is what the paper's figures show and what this page encloses. A typo, almost certainly; but a table of digits rests on it, and the digits survived, which says the authors' code used the bump and not the sentence.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the honest boundary</div>
+    <h2>What is claimed, and what is not</h2>
+  </div>
+<div class="col"><ul class="plain"><li><b>Decided.</b> The enclosures of the two exact solutions and their widths; the clearing identity at 21 times; the bump&#39;s masses; the divergence of the density as printed. All interval statements, re-derived at every build.</li><li><b>Measured.</b> Every error of the port at every mesh and tolerance, as an interval around a float scheme; the verdicts on the printed cells; the convergence ratios; the tolerance&#39;s share. A REPRODUCED cell means an independent implementation of the described scheme lands in the printed rounding box; a DIFFERS cell means it does not, and for the fine-mesh u and m of test 1 the port&#39;s two fixed choices are the likeliest reason. Nothing here says a printed number is wrong.</li><li><b>Assumed.</b> The analytic solutions are the paper&#39;s (§8.1.1, §8.2.1); their derivation is not re-proved beyond the clearing identity. The relative error is the sup-norm ratio on the grid, which the paper&#39;s wording supports but does not spell out. The initial density is the integrable reading of the printed formula.</li><li><b>Not done.</b> The paper&#39;s comparisons with the variational and the recurrent-network methods; the authors&#39; own code, which is not published; the meshes between the four printed rows.</li></ul></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · check it</div>
+    <h2>Ten seconds on your machine</h2>
+  </div>
+<div class="col"><pre class="code">node instruments/agtable/battery.js       # 24 checks, 5 red controls: enclosures vs float routes, the clearing identity, the scheme, the verdicts
+node instruments/agtable/run.js --check   # the record, re-derived and compared byte for byte</pre><p>The instrument is <span class="m">instruments/agtable/exact.js</span> (the enclosures) with <span class="m">sl.js</span> (the scheme) and <span class="m">derive.js</span>; the interval jet is <span class="m">instruments/interval/taylor2.js</span>; the printed numbers are pinned in <span class="m">corpus/ashrafyan-gomes-2403.02785/tables.json</span>; the record is <span class="m">certs/agtable-redecided.json</span>.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">references</div>
+    <h2>Sources</h2>
+  </div>
+<div class="col"><ul class="plain"><li>Y. Ashrafyan, D. A. Gomes, <em>A fully-discrete semi-Lagrangian scheme for a price formation MFG model</em>, arXiv:2403.02785v2 (30 Jan 2025) — §4 (the scheme), §8 (the tests, the analytic solutions, Tables 1 and 2 on pp. 24 and 27).</li><li>D. A. Gomes, J. Saúde, <em>A mean-field game approach to price formation in electricity markets</em>, arXiv:1807.07088; Dyn. Games Appl. 11 (2021) — the model and the linear-quadratic solutions the tests rest on.</li><li><a href="price.html">The clearing price, as a proved band</a> — the same closed form, exact in rationals, on the source lab's scenario.</li></ul></div>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
+
+<footer class="col"><p>Generated by tools/build-report-agtable.js @ git 65fb8b7 — certs/agtable-redecided.json re-derived during this build (enclosures and the scheme) and compared byte for byte (identical, or no page). Code sha256 623ced42d2512792…</p><p>cert-machine · Carlos Toledo</p></footer>
+
+</div>
+</html>
