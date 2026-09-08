@@ -29,6 +29,112 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
 
 ══════════════════════════════════════════════════════════════════════════
+  TENTH SESSION, 2026-09-08 — THE TWO PLATFORMS' 604s DECIDED CONGRUENT, WITH A
+  CERTIFICATE; THE LINEAGE READ OFF THE BYTES; THE OPEN RUNGS MEASURED.
+  Pushed through bcba445 · live · 80/80 batteries · 58 reports · 16 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator, on the drafted reply to vinid: "can we dig more on
+    this before sending? What more can we push?" Three pushes, all from the
+    bytes already pinned, plus one fetch.
+
+  ── 1 · CONGRUENCE, DECIDED ── instruments/kissing/congruence.js (new): two
+    configurations at one rational shell norm each are congruent iff a
+    bijection matches every normalised inner product — isomorphism of
+    edge-coloured complete graphs, decided by individualisation-refinement
+    (colour refinement as the invariant, backtracking over the smallest cell;
+    nauty's procedure, no nauty). A found bijection is checked on all
+    n(n−1)/2 edges and turned into a CERTIFICATE: π plus an orthogonal T over
+    Q(√2) solved on 11 independent vectors and verified on all 604 with
+    TᵀT = I, in exact (p + q√2)/d arithmetic; verifyCertificate re-checks it
+    without the search. Refuses (null) without one shell norm or when the
+    norm ratio is not a rational square (a √2 scale is outside it — noted).
+    RESULT: EinsteinArena 604 ≅ Station configuration 1 by a SIGNED
+    COORDINATE PERMUTATION (11 nodes, ~1.2 s; coordinates 1 9 4 7 3 5 11 8
+    10 2 6, ten signs flipped, scale 2). NOT congruent to configurations 2
+    and 3 (the search exhausts at its first node; their contact counts
+    already said so). certs/kissing-congruence.json holds (π, T, scale) and
+    both source digests; the battery verifies it exactly at every run.
+    Controls: D4 vs a signed permutation of itself ×3 relisted (CONGRUENT,
+    named), vs a 3-4-5 rotation (CONGRUENT, 'orthogonal over Q'), vs a 45°
+    rotation in Z[√2] (CONGRUENT, 'orthogonal over Q(√2)'); E8 with one root
+    replaced (NOT, exhausted); a mixed-norm set (refused); a certificate
+    with two π entries swapped (fails). Battery 46 checks, 12 reds.
+  ── 2 · LINEAGE, FROM THE BYTES ── the 604 keeps EXACTLY the 594 rung
+    winner's 496 integer vectors and replaces its 98 decimal-valued ones with
+    108 Z[√2] vectors (integerVectors = sharedDirectionsWith ea-594-winner =
+    496, gated); 176 directions are the 582 shell's; nearest non-contact
+    (3+2√2)/12 = 60.94° on 4,608 pairs (nearestNonContact, decided in Z[√2]).
+    The repo's ours_2026.json 594 and the API's #1492 are the same 594
+    (594/594 shared directions; measured, not on the page). DATES AS DATA:
+    EA file public 2026-04-12 (d97e89d1 'add n=604'), paper 2026-06-09;
+    Station repo + artifact + paper 2026-08-24. Stated neutrally on the page
+    and in the draft; the priority conclusion is left to the two groups.
+  ── 3 · THE OPEN RUNGS, MEASURED ── K.measure(): every pair decided, every
+    violation counted, coincident directions and zero vectors named, the
+    worst angle reported; a distance, not a verdict (slip ≠ refutation). The
+    platform's three open rungs fetched (corpus/kissing/ea-open-rungs.json:
+    best submission per rung, response sha-pinned, decimals as literals):
+    n=605 best #2560 → 9,510 violating pairs, worst 40.24°; n=842 best
+    #2561 → 237, worst 57.09°; n=841 best #2081 → ONE violating pair and it
+    is a repeated vector (entries 0 and 840): 840 distinct directions,
+    41,128 contacts — an 840-point configuration handed in as 841; the
+    platform's score of 2 is that pair. Kept OUT of the claim rows (ledger
+    field openRungs; the runner refuses if one ever measures as a witness —
+    that would be a record and belongs in a row).
+  ── THE PAGE ── reports/kissing.html: tl;dr and a stat cell on the
+    congruence, §1 with the certificate paragraph (the permutation listed
+    from the certificate, not typed), the lineage paragraph, the dates
+    paragraph, a new §3 · the open rungs (table + prose), the note updated.
+    Paper: a theorem (congruence, with the proof sketch and the certificate),
+    a corollary (2 and 3), the lineage remark, a section on the open rungs.
+    Shelf: kissing-congruence.json added. Card: one clause. Looked at in six
+    slices at 1440.
+  ── 4 · CHARTS AND THE HOOK (operator: "too simple", "the right hook?") ──
+    four figures on reports/kissing.html, every mark a ledger field, drawn
+    with design/charts.js under the dataviz rules (greys by job, legend for
+    2+ series, dashes only for the uncertified, hover readouts, alt text):
+    (a) the record as a STEP FUNCTION of time in two panels — 1980–2026 and
+    the eighteen months — the run dashed while the level rests on the queued
+    592, six dated markers (dates now on the ledger rows with their
+    sources); (b) the ANGLE SPECTRA of the three distinct 604s as small
+    multiples on a log axis (EA 604 and config 1 share a panel — gated on
+    identical multisets, now carried in the ledger's gram field; configs 2
+    and 3 have 14 and 15 angles); (c) THE CERTIFICATE DRAWN: T as an 11×11
+    grid, +1 filled, −1 hatched, hover for the coordinate map; (d) the
+    LINEAGE as stacked bars (594 = 496 integer + 98 decimal; 604 = the same
+    496 + 108 in Z[√2]; the 582 shell's 176 shared). The hook: title 'Two
+    platforms announced 604. It is one configuration.', the deck and tl;dr
+    lead with the congruence, §1 retitled 'Thirty years at 582. Then
+    eighteen months.', the homepage card's line likewise, the paper's title
+    'Two platforms, one configuration: …'. Looked at in eight slices at 1440
+    and eleven at 390 (the figures shrink at 390 like every figure on the
+    site — legible at 768+, a thumbnail at 390; not new, not fixed).
+    design/template.js: figcaption gained margin-bottom 24px — prose after a
+    caption was jammed against it (visible on this page, latent on others);
+    make reports re-emitted every page with it. Gates: check-render
+    --accept (74 figures), check-measure --accept-worse for exactly two
+    numbers, kissing @768 clipped 0→1 and @390 1→2 — the new §3 table
+    scrolling inside its own box, the probe's 'clipped, not an escape'
+    (audited: nothing else moved). The paper compiles with tectonic
+    (/opt/homebrew/bin/tectonic; make papers writes only the .tex) — the PDF
+    was sent to the operator as the preprint candidate.
+
+  ── THE REPLY ── outreach/einstein-arena-604-reply.md REWRITTEN around the
+    decided finding: the verdict with the digest; (1) congruence, stated as
+    bytes and dates; (2) lineage; (3) the open rungs read exactly, with the
+    duplicate in #2081 pointed out ("you may want a duplicate check in the
+    scorer"). STILL NOT SENT. Operator-gated.
+  ── NOT DONE ── the √2-scale refusal in congruence.js (a Q(√2) isqrt would
+    lift it; no case needs it); a PDF target in the Makefile (tectonic is
+    here; one line); figures in the paper; the Chrome gate serialisation and
+    the ratchet blind spot (DEBT, open); the three drafts; the plan
+    follow-ups. PREPRINT: the operator's call — arXiv (math.MG, needs an
+    endorsement for a first submission) or Zenodo under the concept DOI;
+    the reply to vinid first, the preprint second, so the issue thread can
+    cite it.
+
+══════════════════════════════════════════════════════════════════════════
   NINTH SESSION, 2026-09-07 — THE NEEDS DATA ROW CLOSED: EINSTEINARENA'S 604
   CERTIFIED FROM BYTES PUBLISHED ON REQUEST, FOUR DAYS AFTER THE LEDGER ASKED.
   Pushed through d871749 · live · 80/80 batteries · 58 reports · 16 instruments.
