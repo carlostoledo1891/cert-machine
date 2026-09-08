@@ -73,11 +73,25 @@ ok(e8.contacts > 0, 'E8 has exact contacts (60-degree pairs decided as equality,
   ok(q.num === 25n && q.k === 4, 'scientific notation parses exactly (2.5e-3 = 25/10^4)');
 }
 
+/* ---- red 7: the flat sqrt2 adapter refuses a malformed row ---- */
+{
+  let threw = false; try { K.fromSqrt2Flat([[1, 0, 0]]); } catch (e) { threw = true; }
+  red(threw, 'a flat sqrt2 row of odd length is refused');
+}
+
+/* ---- red 8: the Gram profile refuses non-uniform norms and separates non-congruent sets ---- */
+{
+  red(K.gramProfile(K.fromIntegers([[1, 0], [0, 2]])) === null, 'the Gram profile refuses a configuration without one shell norm');
+  const a = K.gramProfile(K.d4()), b = K.gramProfile(K.d4().reverse());
+  ok(a && a.multiset === '-1,0/1x12 -1,0/2x96 0,0/1x72 1,0/2x96', 'D4 profile is the textbook one (12 antipodal, 96 at 120°, 72 orthogonal, 96 contacts)');
+  ok(b && b.sha256 === a.sha256, 'the profile is a function of the configuration, not of its listing');
+}
+
 /* ---- the shipped record, re-walked ---- */
 const CERT = path.join(ROOT, 'certs', 'kissing-ledger.json');
 if (fs.existsSync(CERT)) {
   const led = JSON.parse(fs.readFileSync(CERT, 'utf8'));
-  ok(Array.isArray(led.rows) && led.rows.length >= 8, 'ledger has its rows');
+  ok(Array.isArray(led.rows) && led.rows.length >= 9, 'ledger has its rows');
   const byId = Object.fromEntries(led.rows.map((r) => [r.id, r]));
   ok(byId['alphaevolve-593'] && byId['alphaevolve-593'].verdict === 'CERTIFIED' && byId['alphaevolve-593'].n === 593, 'ledger: AlphaEvolve 593 certified');
   ok(byId['ea-594-winner'] && byId['ea-594-winner'].verdict === 'CERTIFIED' && byId['ea-594-winner'].n === 594, 'ledger: EinsteinArena 594 winner certified');
@@ -85,12 +99,26 @@ if (fs.existsSync(CERT)) {
     ok(byId[c] && byId[c].verdict === 'CERTIFIED' && byId[c].n === 604 && byId[c].uniformNorm === true, 'ledger: ' + c + ' certified at shell norm 4');
   }
   ok(byId['station-shell-582'] && byId['station-shell-582'].verdict === 'CERTIFIED' && byId['station-shell-582'].n === 582, 'ledger: the classical 582 shell certified');
-  ok(byId['ea-604'] && byId['ea-604'].verdict === 'NEEDS DATA', 'ledger: the EinsteinArena 604 is honestly NEEDS DATA');
+  ok(byId['ea-604'] && byId['ea-604'].verdict === 'CERTIFIED' && byId['ea-604'].n === 604 && byId['ea-604'].uniformNorm === true,
+    'ledger: the EinsteinArena 604 certified at shell norm 36 (NEEDS DATA until its bytes were published, 2026-09-07)');
+  ok(byId['ea-604'] && byId['ea-604'].gram && byId['station-604-1'].gram && byId['ea-604'].gram.sha256 === byId['station-604-1'].gram.sha256
+    && byId['ea-604'].gram.sha256 !== byId['station-604-2'].gram.sha256 && byId['ea-604'].gram.sha256 !== byId['station-604-3'].gram.sha256,
+    'ledger: the EinsteinArena 604 shares its exact Gram profile with Station configuration 1 and with neither other');
   /* live re-certification of one full record row from the pinned corpus bytes */
   const st = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'kissing', 'station-d11-604.json'), 'utf8'));
   const r1 = K.certify(K.fromSqrt2Pairs(st.configs[0]), { uniformNorm: [144, 0] });
   ok(r1.verdict === 'CERTIFIED' && r1.n === 604 && r1.uniformNorm === true, 'live: station config 1 re-certifies from the pinned bytes');
   ok(r1.contacts === byId['station-604-1'].contacts, 'live contact count matches the record');
+  /* the EinsteinArena 604: the pinned file must hash to its upstream digest and re-decide */
+  const meta = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'kissing', 'ea-d11-604.meta.json'), 'utf8'));
+  const raw = fs.readFileSync(path.join(ROOT, 'corpus', 'kissing', meta.file));
+  ok(require('crypto').createHash('sha256').update(raw).digest('hex') === meta.upstream_sha256, 'live: the EinsteinArena file hashes to its pinned upstream sha256');
+  const eaV = K.fromSqrt2Flat(JSON.parse(raw.toString('utf8')).vectors);
+  const r6 = K.certify(eaV, { uniformNorm: [36, 0] });
+  ok(r6.verdict === 'CERTIFIED' && r6.n === 604 && r6.uniformNorm === true && r6.contacts === byId['ea-604'].contacts, 'live: the EinsteinArena 604 re-certifies from the pinned bytes with the recorded contact count');
+  const gE = K.gramProfile(eaV), g1 = K.gramProfile(K.fromSqrt2Pairs(st.configs[0]));
+  ok(gE && g1 && gE.sha256 === g1.sha256 && gE.vertexSha256 === g1.vertexSha256, 'live: Gram profile (multiset and per-vector) identical to Station configuration 1');
+  ok(K.sharedDirections(eaV, K.fromSqrt2Pairs(st.configs[0])) === byId['ea-604'].sharedDirectionsWith['station-604-1'], 'live: shared-direction count with configuration 1 matches the record');
 } else {
   console.error('note: certs/kissing-ledger.json not present yet (pre-ledger run)');
 }

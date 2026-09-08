@@ -24,6 +24,7 @@ if (R.rows.length !== R.count) die('the ledger disagrees with its own count');
 if (R.decided + R.pending !== R.count) die('decided + pending does not equal the row count');
 if (R.rows.filter(r => r.verdict === 'QUEUED').length !== R.pending) die('the pending count does not match the QUEUED rows');
 const submittedRows = R.rows.filter(r => r.origin === 'submitted').length;
+const needsData = R.rows.filter((r) => r.verdict === 'NEEDS DATA').length;
 if (submittedRows !== R.submitted) die('the submitted count does not match the rows carrying that origin');
 for (const r of R.rows) if (!r.decidedFrom) die('a row names no record: ' + r.id);
 
@@ -126,9 +127,14 @@ B.push(C.section({
       }),
       '<div class="col">' + C.pRaw('The scope column is the load-bearing one. "CERTIFIED" without it says '
         + 'something the record does not: several of these rows certify a computational fragment of a claim '
-        + 'whose analytic core was never touched, and the row says which. One row is '
-        + C.m('NEEDS DATA') + ' — a headline result whose coordinates have never been published, so it cannot '
-        + 'be decided by anyone but its authors. That verdict measures the claimant, not the claim.') + '</div>'
+        + 'whose analytic core was never touched, and the row says which. '
+        + (needsData
+          ? needsData + ' row' + (needsData > 1 ? 's are ' : ' is ') + C.m('NEEDS DATA') + ' — a headline result whose '
+            + 'coordinates have never been published, so it cannot be decided by anyone but its authors. That verdict '
+            + 'measures the claimant, not the claim.'
+          : 'No row is ' + C.m('NEEDS DATA') + ' today: the one that was — a headline kissing configuration whose '
+            + 'coordinates were not public — decided the day its authors published them on request. That verdict '
+            + 'measures the claimant, not the claim, and only the claimant can clear it.')) + '</div>'
     ].join('\n')
   }));
 }

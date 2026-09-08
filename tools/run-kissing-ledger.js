@@ -5,11 +5,13 @@
    Rows come only from corpus/kissing/*.json (fetched bytes, upstream sha256
    recorded at fetch time) or from generators in the instrument (calibration
    witnesses). A claimant with no public bytes gets a NEEDS DATA row that
-   states exactly what is missing and what would decide it. */
+   states exactly what is missing and what would decide it — and when the
+   bytes arrive the row decides (the EinsteinArena 604 did, 2026-09-07). */
 'use strict';
 const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
+const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..');
 const K = require(path.join(ROOT, 'instruments', 'kissing', 'kissing.js'));
 const die = (m) => { console.error('KISSING LEDGER REFUSED: ' + m); process.exit(1); };
@@ -66,18 +68,43 @@ console.log('dimension 11:');
     { upstream_sha256: st.upstream_sha256, form: 'integer vectors in R^12' });
 }
 
+/* ---- the EinsteinArena headline 604: NEEDS DATA 2026-09-03 → bytes published on request 2026-09-07 ---- */
+{
+  const meta = corpus('ea-d11-604.meta.json');
+  const raw = fs.readFileSync(path.join(ROOT, 'corpus', 'kissing', meta.file));
+  const sha = crypto.createHash('sha256').update(raw).digest('hex');
+  if (sha !== meta.upstream_sha256) die('corpus/kissing/' + meta.file + ' does not hash to its pinned upstream sha256');
+  const ea6 = JSON.parse(raw.toString('utf8'));
+  const vecs = K.fromSqrt2Flat(ea6.vectors);
+  const r = K.certify(vecs, { uniformNorm: [36, 0] });
+  if (r.n !== 604 || r.dim !== 11) die('ea-604 row shape');
+  /* exact isometry invariants against the three Station configurations:
+     equal Gram profiles are NECESSARY for congruence, never sufficient */
+  const st = corpus('station-d11-604.json');
+  const stVecs = st.configs.map((c) => K.fromSqrt2Pairs(c));
+  const gram = K.gramProfile(vecs);
+  if (!gram) die('ea-604: the Gram profile refused (norms not uniform)');
+  const sameProfile = [], shared = {};
+  stVecs.forEach((sv, i) => {
+    const g = K.gramProfile(sv);
+    const id = 'station-604-' + (i + 1);
+    rows.find((x) => x.id === id).gram = { distinct: g.distinct, sha256: g.sha256, vertexSha256: g.vertexSha256 };
+    if (g.sha256 === gram.sha256 && g.vertexSha256 === gram.vertexSha256) sameProfile.push(id);
+    shared[id] = K.sharedDirections(vecs, sv);
+  });
+  push('ea-604', 'EinsteinArena (Bianchi, Kwon, Pappu, Zou — arXiv:2606.10402)',
+    'K(11) >= 604 — the paper\'s headline result, credited by Cohn\'s reference table (2026-06-22)', meta.source, r, {
+      upstream_sha256: meta.upstream_sha256, upstream_commit: meta.upstream_commit,
+      form: 'p + q*sqrt2 integer pairs (22 integers per vector), shell norm exactly 36',
+      gram: { distinct: gram.distinct, sha256: gram.sha256, vertexSha256: gram.vertexSha256 },
+      sameGramProfileAs: sameProfile, sharedDirectionsWith: shared,
+      needsDataFrom: meta.needs_data_from, bytesPublished: meta.published,
+      history: 'NEEDS DATA from ' + meta.needs_data_from + ' (the public API served the solved 594 rung and the open 605 rung, never the 604 itself; the row named the bytes that would decide it) until '
+        + meta.published + ', when the platform maintainer answered vinid/einstein-arena#64 with the repository holding the file. Decided the same day.',
+    });
+}
+
 /* ---- claims with no public bytes: measured, not assumed ---- */
-rows.push({
-  id: 'ea-604', claimant: 'EinsteinArena (Bianchi, Kwon, Pappu, Zou — arXiv:2606.10402)',
-  claim: 'K(11) >= 604 — the paper\'s headline result, credited by Cohn\'s reference table (2026-06-22)',
-  source: 'https://einsteinarena.com/api (queried 2026-09-03)',
-  verdict: 'NEEDS DATA',
-  detail: 'The public API exposes the solved n=594 rung (bytes certified above) and the open n=605 rung; '
-    + 'no rung or endpoint serves the 604-point configuration itself. Platform threads (#241) describe the '
-    + 'frozen 604 as a Q(sqrt2) norm-4 object — the same family as the Station configurations certified above. '
-    + 'The threshold: publish the 604 vectors in any exact or decimal form and this row decides in minutes.',
-});
-console.log('  ea-604             NEEDS DATA');
 rows.push({
   id: 'ganzhinov-592', claimant: 'M. Ganzhinov (arXiv:2207.08266, Highly symmetric lines)',
   claim: 'K(11) >= 592 — the 2022 record the AI ladder started from',
@@ -101,6 +128,7 @@ const out = {
     'corpus/kissing/alphaevolve-d11-593.json': corpus('alphaevolve-d11-593.json').upstream_sha256,
     'corpus/kissing/ea-d11-594-winner.json': corpus('ea-d11-594-winner.json').upstream_sha256,
     'corpus/kissing/station-d11-604.json': corpus('station-d11-604.json').upstream_sha256,
+    'corpus/kissing/ea-d11-604.json': corpus('ea-d11-604.meta.json').upstream_sha256,
   },
   generated: new Date().toISOString(),
   git: (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })(),

@@ -73,6 +73,18 @@ function fromSqrt2Pairs(rows) {
   return rows.map((r) => ({ P: r.map((e) => BigInt(e[0])), Q: r.map((e) => BigInt(e[1])) }));
 }
 
+
+/* flat rows of 2d integers [p0,q0,p1,q1,...] meaning coordinate k = p_k + q_k*sqrt2
+   (the EinsteinArena 604 file's encoding); a row of odd length is refused */
+function fromSqrt2Flat(rows) {
+  return rows.map((r, i) => {
+    if (r.length % 2) throw new Error('flat sqrt2 row ' + i + ' has odd length ' + r.length);
+    const P = [], Q = [];
+    for (let k = 0; k < r.length; k += 2) { P.push(BigInt(r[k])); Q.push(BigInt(r[k + 1])); }
+    return { P, Q };
+  });
+}
+
 /* ---------------- the certifier ---------------- */
 function dot(x, y) {
   let acc = Z.zero;
@@ -157,4 +169,58 @@ function e8() {
   return fromIntegers(rows);
 }
 
-module.exports = { Z, fromIntegers, fromDecimals, fromSqrt2Pairs, certify, d4, e8, parseDecimal };
+
+/* ---------------- exact invariants under isometry ---------------- */
+const crypto = require('crypto');
+const sha = (t) => crypto.createHash('sha256').update(t).digest('hex');
+const gcdN = (a, b) => { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { [a, b] = [b, a % b]; } return a; };
+
+/* gramProfile(vectors) — for a configuration whose cleared vectors share ONE
+   exact rational norm N (a Z[sqrt2] norm with no sqrt2 part), the multiset of
+   all pairwise inner products <x,y>/N as reduced triples, and the multiset of
+   per-vector profiles. An isometry preserves both, so equal profiles are
+   NECESSARY for congruence — never sufficient; this function decides nothing
+   about congruence and says so in its name. Returns null (a refusal) when the
+   norms are not uniform or carry a sqrt2 part, because then the normalisation
+   is not a single integer. */
+function gramProfile(vectors) {
+  const n = vectors.length;
+  if (!n) return null;
+  const norms = vectors.map((v) => dot(v, v));
+  if (!norms.every((N) => Z.eq(N, norms[0])) || norms[0][1] !== 0n || norms[0][0] <= 0n) return null;
+  const g = norms[0][0];
+  const key = (s) => { const d = gcdN(gcdN(s[0], s[1]), g); return (s[0] / d) + ',' + (s[1] / d) + '/' + (g / d); };
+  const global = new Map();
+  const per = vectors.map(() => new Map());
+  const bump = (m, k) => m.set(k, (m.get(k) || 0) + 1);
+  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
+    const k = key(dot(vectors[i], vectors[j]));
+    bump(global, k); bump(per[i], k); bump(per[j], k);
+  }
+  const canon = (m) => [...m.entries()].sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0)).map(([k, c]) => k + 'x' + c).join(' ');
+  const multiset = canon(global);
+  const vertex = per.map(canon).sort().join(' | ');
+  return { distinct: global.size, multiset, sha256: sha(multiset), vertexSha256: sha(vertex) };
+}
+
+/* directionKey(v) — the primitive representative of a direction: all 2d
+   integers divided by their gcd, sign fixed by the first nonzero entry. Two
+   vectors have the same key iff they are positive rational multiples of each
+   other. sharedDirections(A, B) counts the directions the two sets share,
+   exactly. */
+function directionKey(v) {
+  const ints = [];
+  for (let i = 0; i < v.P.length; i++) { ints.push(v.P[i], v.Q[i]); }
+  let d = 0n; for (const x of ints) d = gcdN(d, x);
+  if (d === 0n) throw new Error('directionKey: zero vector');
+  const first = ints.find((x) => x !== 0n);
+  const sg = first < 0n ? -1n : 1n;
+  return ints.map((x) => String((x / d) * sg)).join(',');
+}
+function sharedDirections(A, B) {
+  const keys = new Set(A.map(directionKey));
+  let shared = 0; for (const v of B) if (keys.has(directionKey(v))) shared++;
+  return shared;
+}
+
+module.exports = { Z, fromIntegers, fromDecimals, fromSqrt2Pairs, fromSqrt2Flat, certify, gramProfile, directionKey, sharedDirections, d4, e8, parseDecimal };

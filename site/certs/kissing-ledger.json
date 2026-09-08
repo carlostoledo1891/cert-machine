@@ -4,10 +4,11 @@
  "provenance": {
   "corpus/kissing/alphaevolve-d11-593.json": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
   "corpus/kissing/ea-d11-594-winner.json": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
-  "corpus/kissing/station-d11-604.json": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37"
+  "corpus/kissing/station-d11-604.json": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
+  "corpus/kissing/ea-d11-604.json": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761"
  },
- "generated": "2026-09-05T18:04:14.017Z",
- "git": "87a4c85",
+ "generated": "2026-09-08T01:42:45.274Z",
+ "git": "aeffdb5",
  "rows": [
   {
    "id": "cal-d4-24",
@@ -43,7 +44,7 @@
     "j": 4,
     "cos2Approx": 0.25
    },
-   "ms": 11
+   "ms": 12
   },
   {
    "id": "alphaevolve-593",
@@ -61,7 +62,7 @@
     "j": 325,
     "cos2Approx": 0.2499999999997728
    },
-   "ms": 118,
+   "ms": 112,
    "upstream_sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
    "form": "integer vectors, entries up to ~8.7e12"
   },
@@ -81,7 +82,7 @@
     "j": 22,
     "cos2Approx": 0.25
    },
-   "ms": 73,
+   "ms": 69,
    "upstream_sha256": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
    "form": "decimal literals read as exact rationals"
   },
@@ -101,9 +102,14 @@
     "j": 15,
     "cos2Approx": 0.25
    },
-   "ms": 70,
+   "ms": 67,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
-   "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4"
+   "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
+   "gram": {
+    "distinct": 22,
+    "sha256": "bc11bd62f673b651fc79f15509903bceaff38bf7e884209b8120e98eb84a6507",
+    "vertexSha256": "e5c7445ea541cc935637cc1bbc2bef9bb8c14c9ea0ed6d49a538b7f69db99065"
+   }
   },
   {
    "id": "station-604-2",
@@ -121,9 +127,14 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 67,
+   "ms": 63,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
-   "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4"
+   "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
+   "gram": {
+    "distinct": 14,
+    "sha256": "8f7465ebef06ee170355b1dd3d646735ce897f117d4e5010f71ad6d6d8dcc57a",
+    "vertexSha256": "caf34ab7dd815f7b99398dfce0aeead13c3efea751e50f67281395b1e93c2c03"
+   }
   },
   {
    "id": "station-604-3",
@@ -141,9 +152,14 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 69,
+   "ms": 62,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
-   "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4"
+   "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
+   "gram": {
+    "distinct": 15,
+    "sha256": "e943318d751a361df424463dde0aa8d5e1f83644d42f426e802d7c3239d8838d",
+    "vertexSha256": "3a67c142235395fb81ea7d73d77b2ab7c6a87e7ed383a23f2307c4c9d0aa01ea"
+   }
   },
   {
    "id": "station-shell-582",
@@ -161,7 +177,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 61,
+   "ms": 55,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors"
   },
@@ -181,7 +197,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 75,
+   "ms": 69,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors in R^12"
   },
@@ -189,9 +205,38 @@
    "id": "ea-604",
    "claimant": "EinsteinArena (Bianchi, Kwon, Pappu, Zou — arXiv:2606.10402)",
    "claim": "K(11) >= 604 — the paper's headline result, credited by Cohn's reference table (2026-06-22)",
-   "source": "https://einsteinarena.com/api (queried 2026-09-03)",
-   "verdict": "NEEDS DATA",
-   "detail": "The public API exposes the solved n=594 rung (bytes certified above) and the open n=605 rung; no rung or endpoint serves the 604-point configuration itself. Platform threads (#241) describe the frozen 604 as a Q(sqrt2) norm-4 object — the same family as the Station configurations certified above. The threshold: publish the 604 vectors in any exact or decimal form and this row decides in minutes."
+   "source": "github.com/togethercomputer/EinsteinArena-new-SOTA kissing-number/solutions/solution_n=604_d=11.json",
+   "verdict": "CERTIFIED",
+   "n": 604,
+   "dim": 11,
+   "pairs": 182106,
+   "contacts": 19704,
+   "uniformNorm": true,
+   "worst": {
+    "i": 0,
+    "j": 16,
+    "cos2Approx": 0.25
+   },
+   "ms": 69,
+   "upstream_sha256": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761",
+   "upstream_commit": "c388c6f7408c886311940896713339a1a70c2394",
+   "form": "p + q*sqrt2 integer pairs (22 integers per vector), shell norm exactly 36",
+   "gram": {
+    "distinct": 22,
+    "sha256": "bc11bd62f673b651fc79f15509903bceaff38bf7e884209b8120e98eb84a6507",
+    "vertexSha256": "e5c7445ea541cc935637cc1bbc2bef9bb8c14c9ea0ed6d49a538b7f69db99065"
+   },
+   "sameGramProfileAs": [
+    "station-604-1"
+   ],
+   "sharedDirectionsWith": {
+    "station-604-1": 108,
+    "station-604-2": 118,
+    "station-604-3": 118
+   },
+   "needsDataFrom": "2026-09-03",
+   "bytesPublished": "2026-09-07",
+   "history": "NEEDS DATA from 2026-09-03 (the public API served the solved 594 rung and the open 605 rung, never the 604 itself; the row named the bytes that would decide it) until 2026-09-07, when the platform maintainer answered vinid/einstein-arena#64 with the repository holding the file. Decided the same day."
   },
   {
    "id": "ganzhinov-592",

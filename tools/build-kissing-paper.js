@@ -18,7 +18,10 @@ const s1 = row('station-604-1'), s2 = row('station-604-2'), s3 = row('station-60
 const sh = row('station-shell-582'), lift = row('station-d12-lift');
 const d4 = row('cal-d4-24'), e8 = row('cal-e8-240'), nd = row('ea-604');
 if (new Set([s1.contacts, s2.contacts, s3.contacts]).size !== 3) die('the three 604 contact counts are not distinct — the non-congruence corollary would be false');
-if (nd.verdict !== 'NEEDS DATA') die('the byteless claim is no longer NEEDS DATA');
+if (nd.verdict !== 'CERTIFIED' || nd.uniformNorm !== true) die('the EinsteinArena 604 row is not CERTIFIED at its shell norm');
+if (!nd.sameGramProfileAs || nd.sameGramProfileAs.join() !== 'station-604-1') die('the Gram-profile remark (EinsteinArena 604 ~ configuration 1 only) would be false');
+const daysToBytes = Math.round((Date.parse(nd.bytesPublished) - Date.parse(nd.needsDataFrom)) / 86400000);
+const sharedS1 = nd.sharedDirectionsWith['station-604-1'];
 
 const tex = `\\documentclass[11pt]{article}
 \\usepackage{certmachine}
@@ -37,12 +40,14 @@ stood near $582$ for decades and then moved three times in eighteen months, each
 time by an AI system, and each configuration was validated by the verifier of
 the group that produced it. We re-decide every publicly available witness in
 exact arithmetic over $\\Z[\\sqrt2]$ on arbitrary-precision integers, sharing no
-code with any producer, and confirm $K(11) \\ge 604$. The three $604$-point
-configurations have distinct exact contact counts
-(${n(s1.contacts)}, ${n(s2.contacts)}, ${n(s3.contacts)}), which certifies
-that they are pairwise non-congruent. One claim resists certification for a
-reason worth recording: the configuration behind the headline $604$ of one
-platform is not published, so its row measures opacity rather than geometry.
+code with any producer, and confirm $K(11) \\ge 604$ from four published
+$604$-point configurations. Three, from one platform, have distinct exact
+contact counts (${n(s1.contacts)}, ${n(s2.contacts)}, ${n(s3.contacts)}),
+which certifies that they are pairwise non-congruent. The fourth, the headline
+configuration of the other platform, was unpublished when this ledger first
+ran: its row measured opacity for ${daysToBytes} days, naming the bytes that
+would decide it, and decided the day they were published on request. Its exact
+Gram profile coincides with the first of the three; congruence is not decided.
 No new bound is claimed and no upper bound is touched.
 \\end{abstract}
 
@@ -101,15 +106,17 @@ $594$ & platform rung winner, decimal coordinates & CERTIFIED & ${n(ea.contacts)
 $604$ & configuration 1, $(a+b\\sqrt2)/6$ & CERTIFIED & ${n(s1.contacts)} \\\\
 $604$ & configuration 2, $(a+b\\sqrt2)/6$ & CERTIFIED & ${n(s2.contacts)} \\\\
 $604$ & configuration 3, $(a+b\\sqrt2)/6$ & CERTIFIED & ${n(s3.contacts)} \\\\
-$604$ & headline claim, coordinates unpublished & NEEDS DATA & --- \\\\
+$604$ & headline claim, $p+q\\sqrt2$ pairs, published on request & CERTIFIED & ${n(nd.contacts)} \\\\
 \\midrule
 $604$ in $\\R^{12}$ & integral $D_{12}$ lift of configuration 3 & CERTIFIED & ${n(lift.contacts)} \\\\
 \\bottomrule
 \\end{tabular}
 \\end{table}
 
-Each certified row is decided at shell norm exactly four where the producer
-states one, and every enclosure is an exact comparison rather than a tolerance.
+Each certified row is decided at the shell norm its producer states (four for
+the three configurations given over six, thirty-six for the headline
+configuration), and every enclosure is an exact comparison rather than a
+tolerance.
 
 \\begin{corollary}
 The three $604$-point configurations are pairwise non-congruent.
@@ -133,17 +140,35 @@ clear. High-precision decimal is not proof; here it happened to be reporting a
 true statement.
 \\end{remark}
 
-\\section{What could not be certified, and why that is the sharpest row}
+\\section{The row that measured opacity, and how it closed}
 
-One row of the ledger is not a geometric verdict. The configuration behind the
-headline $604$ of one platform, which the field's reference tables credit, is
-not published: the public interface serves the solved $594$ rung and an open
-$605$ rung, and discussion of the $604$ describes it without carrying its
-coordinates. The claim is very likely true. It is also, today, not checkable by
-anyone outside that platform, and the ledger says so rather than assuming it.
+One row of the ledger was not, at first, a geometric verdict. On
+${nd.needsDataFrom} the configuration behind the headline $604$ of one
+platform, which the field's reference tables credit, was not published: the
+public interface served the solved $594$ rung and an open $605$ rung, and
+discussion of the $604$ described it without carrying its coordinates. The row
+read NEEDS DATA, with the threshold stated in one sentence: publish the vectors
+in any exact or decimal form and the row is decided in minutes.
 
-The threshold is explicit and small: publish the $604$ vectors in any exact or
-decimal form and the row is decided in minutes.
+The ledger asked. On ${nd.bytesPublished}, ${daysToBytes} days later, the
+platform's maintainer answered with the repository holding the file: $604$
+vectors as pairs of integers $(p,q)$ per coordinate, standing for $p+q\\sqrt2$,
+every vector at shell norm exactly $36$. Pinned by its digest, the file decided
+CERTIFIED in ${nd.ms} milliseconds with ${n(nd.contacts)} exact contacts.
+A row of this kind measures the claim-maker rather than the geometry, and the
+measurement here is favourable: the price of checkability was one request.
+
+\\begin{remark}
+${n(nd.contacts)} is also the contact count of configuration~1, and the
+coincidence goes further. Normalising every inner product by the shell norm,
+the multiset of all ${n(nd.pairs)} pairwise inner products of the headline
+configuration is identical to that of configuration~1, and so is the multiset
+of per-vector profiles; both differ from configurations 2 and 3. The two
+published lists are not the same list: ${n(sharedS1)} of the $604$ directions
+coincide exactly. Equal Gram profiles are necessary for congruence and never
+sufficient, so whether the two platforms reached one configuration or two is
+recorded here and not decided.
+\\end{remark}
 
 \\section{Scope}
 
@@ -155,10 +180,11 @@ different language, different arithmetic, and no shared line with the producer.
 
 \\cmrepro{The instrument is \\texttt{instruments/kissing}; the ledger is
 \\texttt{certs/kissing-ledger.json}; the pinned coordinates are in
-\\texttt{corpus/kissing} with the upstream digest of each source recorded.
+\\texttt{corpus/kissing} with the upstream digest of each source recorded (the
+headline $604$ file is held byte for byte and re-hashed at every run).
 Running \\texttt{node instruments/kissing/battery.js} re-derives the $D_4$ and
-$E_8$ calibrations from their definitions, re-certifies one $604$-point
-configuration live, and requires every red control to
+$E_8$ calibrations from their definitions, re-certifies two $604$-point
+configurations live from their pinned bytes, and requires every red control to
 fire, among them the mixed-sign $\\sqrt2$ comparator and the exactness of
 decimal-literal parsing.}
 

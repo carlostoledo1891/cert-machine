@@ -108,7 +108,7 @@ const ROWS = [
   { kind: 'REFUSED', what: 'A submitted claim carried no parseable proposal, so there was nothing to decide. The grader returns a reason, never a guess.',
     where: 'the matmul eval board', count: ev.malformed, denom: ev.claims,
     denomWhat: 'claims submitted', record: 'certs/matmul-eval-ledger.jsonl' },
-  { kind: 'NEEDS DATA', what: 'The claim is decidable and the claimant has published no bytes to decide it on. This measures the claim-maker, not the instrument.',
+  { kind: 'NEEDS DATA', what: 'The claim is decidable and the claimant has published no bytes to decide it on. This measures the claim-maker, not the instrument — and it is the one kind that can go to zero by the claimant\'s act: the kissing ledger\'s count was 1 from 2026-09-03 until 2026-09-07, when the platform published the coordinates on request and the row decided.',
     where: 'the kissing ledger, dimension 11', count: kNeeds, denom: kRows.length,
     denomWhat: 'ledger rows', record: 'certs/kissing-ledger.json' },
   { kind: 'OPEN', what: 'Attempted, budget exhausted, and RECORDED as attempted rather than dropped — the degree that did not close in the branch-and-bound.',
