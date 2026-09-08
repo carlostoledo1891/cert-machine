@@ -1,69 +1,71 @@
 cert-machine — cold start. READ FIRST, LOOK SECOND, BUILD LAST.
 
-Working dir: /Users/carlostoledo/Projects/cert-machine — the move out of
-iCloud Drive HAPPENED 2026-09-06 (9b0acbb): cert-machine, sin-mfg and
-frontier-apps all live under ~/Projects now; nothing under ~/Documents is
-current. Verified from the new root on 2026-09-06, seventh session: drift 130
-unchanged, check-wiring ALL PASS, make test 70/70. Old-path strings survive
-only as LABELS inside pinned records (certs/, corpus/emberband/, the
-instruments' PROVENANCE.json liftedFrom) — they say where a thing was lifted
-from at the time and no tool reads them; do not rewrite a record to tidy them.
-check-wiring's check 0 (every tracked file reads its own size) stays as a
-harmless guard.
+Working dir: /Users/carlostoledo/Projects/cert-machine (out of iCloud since
+2026-09-06; sin-mfg and frontier-apps beside it under ~/Projects, both
+READ-ONLY). Then read CLAUDE.md, the TOP OF HANDOFF.md (the 2026-09-07
+eighth-session block first), DEBT.md. Tip: git log --oneline -1
 
-Then read CLAUDE.md, the TOP OF HANDOFF.md (the 2026-09-06 close-of-session
-block, then the fifth-session block), DEBT.md. Tip: git log --oneline -1
+STATE YOU INHERIT (2026-09-07, 33e4f44, pushed, LIVE): 80/80 batteries,
+58 reports, 16 instruments. The ten-report KAUST plan is COMPLETE (reports
+1–5 and 7–10 under /reports, 6 as /instruments/census). The front is one
+power system: the engine → certifiers → {reports, instruments} → gates
+drawing under the deck, the instruments carrying half the front, every
+count read at build from playground/out/manifest.json (the instruments'
+single source — make site builds the instruments first). New library:
+instruments/interval/taylor2.js (a second-order interval jet + midpoint
+rule with remainder). Census sliders and grammar fixed; every instrument
+page has the shell's footer.
 
-STATE YOU INHERIT: pushed, live, 70/70 batteries in BOTH registries and on
-carlostoledo.co/machine. Fifteen instrument pages; the last five ported
-2026-09-05 from frontier-apps (lattice-claims, rewire, pqc, occultation,
-transit). Zenodo v2026.09.2 carries the one title; the concept DOI resolves
-to it. The dash census is at zero, dark is locked, the ruler drives
-1440/768/390, the render gate reads what a page shows.
-
-ORIENTATION (after the move, from the new root):
+ORIENTATION:
   git log --oneline -1 && git status -sb
   node tools/check-grammar.js && node tools/check-wiring.js | tail -2
-  ps -p 90265 -o pid,etime   (λ(6): 51+ hours at node 119. THE FIX IS
-    MATHEMATICAL. Do not restart it hoping.)
-  node tools/targets.js gr    (the newest row: the G&R integral-table audit)
+  ps -p 90265 -o pid,etime   (λ(6), if it still lives; the fix is
+    mathematical — see the 2026-09-06 cold start in git history)
+  node tools/targets.js kaust   (the plan's row: built 1–10, next = follow-ups)
 
 THE MENU, in the order I would take it:
-  1. The G&R audit's YIELD MEASUREMENT (targets row gr-integral-table-audit):
-     ~100 entries transcribed with double entry from sections Moll has not
-     proved, a rigorous quadrature (python-flint's acb_calc behind our own
-     red controls is the hour-long route; a Petras integrator in
-     instruments/interval the session-long one), count refuted / held /
-     undecidable. The known errata (mathtable.com/errata/gr8_errata.pdf) are
-     the calibration set: refute every known-wrong entry and certify its
-     correction before believing a new refutation. Every erratum is a SEND.
-  2. λ(6): the tenth family, a+2e=2f, needs a closing shape the auto-closer
-     lacks (instruments/lambda56/close.js). Kill the 51-hour run on purpose
-     and rerun that family alone with AUTOCLOSE_TRACE=1 to see where it stalls.
-  3. certifier-core + blind-spot from frontier, after one more frontier
-     session (HANDOFF says why). The toolchain is installed.
-  4. Terrain for the glide band, after the TAWS scout nobody has done.
+  1. THE THREE DRAFTS, for the operator's eyes only: Ashrafyan–Gomes (the
+     printed density is not integrable as printed; the finest printed error
+     is 39 % tolerance), Gomes–Yang/Gomes–Oberman (4.4099660 is wrong in its
+     seventh digit), and the KAUST bundle. Draft, do not send; re-verify the
+     July roster at source on the day of any send.
+  2. THE CHROME GATE HANG (DEBT, open): the layout ruler and the render gate
+     hung THREE times today in chained runs, each a Chrome with a second of
+     CPU that never returned, each clean on rerun. Serialise the two gates
+     with a per-page timeout that names the page and print the Chrome
+     version. An hour. It has eaten two chained runs and a chunk of three
+     sessions.
+  3. Follow-ups from the plan, none started: an inf–max upper bound for the
+     non-separable 2-D effective Hamiltonian (a rigorous ceiling for
+     Gomes–Yang Fig. 7); a banded tail inverse for the regularization atlas;
+     the m = 0 free-boundary regime.
+  4. The older menu still stands: the G&R integral-table audit (targets row
+     gr-integral-table-audit), λ(6)'s tenth family, certifier-core from
+     frontier, terrain for the glide band.
 
 STANDING RULES, unchanged:
-  · ALL SENDS ARE OPERATOR-GATED. Repository pushes are fine.
-  · sin-mfg is READ-ONLY, permanently. frontier-apps is READ-ONLY too and
-    has NO git — sha256 is the only pin. Both moved with this repo.
+  · ALL SENDS ARE OPERATOR-GATED. Repository pushes are fine, and a push to
+    main IS the deploy (Vercel; no CLI here).
+  · sin-mfg is READ-ONLY, permanently — report its bugs (the MPR wall leak is
+    in instruments/price/FINDINGS_LIT.md), never repair them. frontier-apps
+    likewise, and it has no git.
   · SCOUT BEFORE CLAIMING — node tools/targets.js; write the row, even OPEN.
-  · NO FICTION ON /instruments. No gates there; that is the whole obligation.
-  · A MEASUREMENT IS NOT A LOOK. If you cannot see the page, say so and stop.
-  · NEVER put a backtick or a literal hex inside a comment that sits in a
-    template literal.
-  · When a gate and your own throwaway probe disagree, THE GATE IS PROBABLY
-    RIGHT — twice this session it was (the layout ruler on SVG; the move
-    script on .git objects the walks had skipped).
-  · A pinned record is a claim about the code that produced it. Re-run it
-    once at port time; two of five ports this session had records their own
-    code did not reproduce.
+  · NO FICTION ON /instruments; every count there is computed (the manifest).
+  · A MEASUREMENT IS NOT A LOOK. Screenshot the page (scratchpad fullshot.js
+    pattern: design/cdp.js, full-page capture, crop, Read) before saying it
+    is fine; the ruler ratchets, and a worse number needs --accept-worse and
+    a reason in the commit.
+  · When a gate hangs, it is the Chrome flake: kill it, rerun it alone, and
+    trust the rerun. When a gate and a throwaway probe disagree, THE GATE IS
+    PROBABLY RIGHT.
+  · A rule defined twice WILL diverge: one manifest, one catalogue, one
+    battery record; read them, never retype a count.
 
-OWED BY THE OPERATOR: the two superseded Zenodo titles (22285003, 22257596)
-— ZENODO_TOKEN=... node tools/zenodo-metadata.js --apply; the ember paper
-read; the staged formal-conjectures issue and the letters.
+OWED BY THE OPERATOR: the three drafts above, once written; the two
+superseded Zenodo titles; the ember paper read; the staged formal-conjectures
+issue and the letters.
 
-Spent last session: $0.00.
+Spent this session: $0.00 (no paid API calls; every instrument page rebuilt
+from its records).
 
 Wait for instructions.

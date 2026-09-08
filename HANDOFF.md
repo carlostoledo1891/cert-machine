@@ -29,6 +29,70 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
 
 ══════════════════════════════════════════════════════════════════════════
+  CLOSE OF THE EIGHTH SESSION, 2026-09-07 — THE KAUST PLAN COMPLETE, THE FRONT REBUILT.
+  Pushed through 33e4f44 · live · 80/80 batteries · 58 reports · 16 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── THE DAY IN ONE LINE EACH ──
+    · Reports 7–10 of the KAUST plan built, gated, pushed (65fb8b7, b26bc71,
+      46df3a3, 4004efe): the clearing price as a proved band (and sin-mfg's
+      MPR kernel found losing 12 % of the day's energy at its wall — report,
+      don't repair; instruments/price/FINDINGS_LIT.md); Ashrafyan–Gomes's two
+      error tables met by intervals (13/24 reproduced, their tolerance 39 % of
+      the finest number, their printed density not integrable as printed); the
+      p-Laplacian regularization measured by a NEW radii-polynomial kernel in a
+      derivative-weighted ℓ¹ space (ε = 0 certifies as far as any ε > 0);
+      the effective Hamiltonian band (the 4.4099660 Gomes–Yang quote from
+      Gomes–Oberman is ABOVE the enclosure by 7e−7). THE TEN-REPORT PLAN IS
+      COMPLETE: 1–5, 7–10 as reports, 6 as the census playground.
+    · A new library piece: instruments/interval/taylor2.js — a second-order
+      interval jet (value, f′, f″ through every op) and the midpoint rule with
+      its remainder. Used by agtable and hbar.
+    · The front rebuilt as ONE POWER SYSTEM on the operator's instruction
+      (c6f3dcc): a static engine → certifiers → {reports (gated), instruments
+      (open)} → gates drawing under the deck, every count read at build; the
+      instruments carry half the front (six plates from the pages' own art,
+      the standing legend, a note with computed counts); the trapezoid essay
+      and the old late 'other half' left the front. playground/build.js now
+      writes playground/out/manifest.json — THE single source for every
+      instrument count and plate on the homepage and the machine page; the
+      build refuses on a card/manifest mismatch. make site builds the
+      instruments FIRST. The instruments hero counts itself (it said fifteen
+      with sixteen cards) and no longer claims make test covers none of them
+      (four have batteries).
+    · Census (29131c1): the split re-encoded as bands with dotted outlines
+      (the thick dotted strokes were beads — CHOSEN unreadable at the widths
+      that carried the numbers); the sliders were rebuilt on every input event
+      and died mid-drag — built once per family now, verified headlessly.
+    · Footers (33e4f44): the instruments shell closes every page unless the
+      page carries its own; nine had none, the index closed one it never
+      opened, seven said 'all nine instruments'.
+
+  ── WHAT IS TRUE OF THE TREE ── clean at 33e4f44; live at carlostoledo.co
+    (Vercel auto-deploys on push to main; there is no vercel CLI here).
+    make test: 80 rows. The layout ruler / render gate hang HAPPENED THREE
+    TIMES TODAY inside chained runs (a Chrome with 1 s of CPU that never
+    returns); each time it passed alone on rerun. DEBT row updated. Fix:
+    serialise the two Chrome gates with a per-page timeout that names the
+    page, print the Chrome version — an hour, and it stops eating sessions.
+
+  ── OWED TO PEOPLE, ALL OPERATOR-GATED, NONE SENT ──
+    · Ashrafyan–Gomes: the printed initial density has no finite integral as
+      printed (support |x| < 1 with a positive exponent beyond 1/λ); their
+      finest printed price error is 39 % tolerance. instruments/agtable.
+    · Gomes–Yang / Gomes–Oberman: the quoted 4.4099660 is wrong in its
+      seventh significant digit (enclosure [4.40996523, 4.40996529]).
+    · The KAUST bundle: nine pages on the group's work. RE-VERIFY THE JULY
+      ROSTER AT SOURCE on the day of any send (targets row kaust-mfg-revisit).
+    · sin-mfg's own MPR wall leak: a note for that lab's backlog next time
+      you work there (read-only from here).
+
+  ── FOLLOW-UPS, none started ── an inf–max upper bound for the non-separable
+    2-D effective Hamiltonian by a trial corrector (Gomes–Yang Fig. 7 would
+    get a rigorous ceiling); a banded tail inverse to push the regularization
+    atlas past its Z1 frontier; the m = 0 free-boundary regime.
+
+══════════════════════════════════════════════════════════════════════════
   CLOSE OF THE FIFTH SESSION, 2026-09-06 — HANDED OFF WITH THE MOVE IN FLIGHT.
   Pushed through c23c8ee and this commit · four light ports live · 70/70 both sides.
 ══════════════════════════════════════════════════════════════════════════
