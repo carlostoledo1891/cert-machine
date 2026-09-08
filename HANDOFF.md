@@ -29,6 +29,86 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
 
 ══════════════════════════════════════════════════════════════════════════
+  NINTH SESSION, 2026-09-07 — THE NEEDS DATA ROW CLOSED: EINSTEINARENA'S 604
+  CERTIFIED FROM BYTES PUBLISHED ON REQUEST, FOUR DAYS AFTER THE LEDGER ASKED.
+  Pushed through d871749 · live · 80/80 batteries · 58 reports · 16 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHAT HAPPENED ── vinid (Federico Bianchi, the EinsteinArena maintainer)
+    answered vinid/einstein-arena#64 at 14:54 UTC: the 604 was never on the
+    API; the vectors are kissing-number/solutions/solution_n=604_d=11.json in
+    github.com/togethercomputer/EinsteinArena-new-SOTA (commit c388c6f7,
+    2026-04-12, Yongchan Kwon — a co-author of arXiv:2606.10402). 604 rows of
+    22 integers, p + q√2 per coordinate, shell norm 36: the field the
+    instrument already reads. The other five GitHub outreaches, checked live
+    the same hour: NO replies (erdosproblems #179, #164 — Woett subscribed
+    08-31 and silent —, #392; pipeline-math#5; automated-w2s-research#2).
+
+  ── THE FLIP, on the operator's "Proceed" ──
+    · corpus/kissing/ea-d11-604.json — the upstream file BYTE FOR BYTE
+      (sha256 0bde9ca2…7761), ea-d11-604.meta.json beside it (source,
+      commit, the two dates, the pointer, no licence file upstream). The
+      ledger runner AND the battery re-hash it at every run; one changed
+      byte refuses. The first corpus row here whose upstream bytes are held
+      verbatim, not transcribed.
+    · instruments/kissing/kissing.js grew three exact pieces: fromSqrt2Flat
+      (the 22-integer row, odd length refused), gramProfile (the multiset
+      of all normalised inner products AND the per-vector profiles, for a
+      configuration with one rational shell norm; returns null — a refusal —
+      otherwise) and sharedDirections (primitive-representative equality).
+      Battery 32 checks, 8 reds (was 24 / 6).
+    · certs/kissing-ledger.json: 11 rows, 10 CERTIFIED, 0 NEEDS DATA, 1
+      QUEUED. ea-604: CERTIFIED at uniform norm 36, 19,704 exact contacts,
+      69 ms; needsDataFrom 2026-09-03, bytesPublished 2026-09-07; Gram
+      profiles on all four 604s; sameGramProfileAs = [station-604-1];
+      sharedDirectionsWith 108 / 118 / 118.
+    · THE FINDING, inside its limit: the EinsteinArena 604's exact Gram
+      profile is IDENTICAL to Station configuration 1's (multiset and
+      per-vector) and to neither other; the two lists share 108 of 604
+      directions. Equal profiles are NECESSARY for congruence, never
+      sufficient — whether the two platforms reached one configuration or
+      two is RECORDED, NOT DECIDED, and the report, the paper and the reply
+      draft say exactly that. (Congruence itself is an edge-coloured graph
+      isomorphism on 604 vertices; colour refinement + backtracking would
+      probably decide it in seconds. Not attempted — a menu item.)
+    · Rebuilt: reports/kissing.html (deck, tl;dr, the 'needs data →
+      certified · 4 days' stat computed from the row's two dates, the table
+      row, a new §1 paragraph, §2's opacity paragraph now told as history
+      with the dates from the record, the note), paper/tex/kissing-ledger.tex
+      (abstract, table, §4 renamed 'The row that measured opacity, and how
+      it closed', the Gram remark), the certs shelf line, the homepage card,
+      the refusals page (NEEDS DATA now 0 of 11, and the kind's own text says
+      why it can go to zero), the claims page (its 'one row is NEEDS DATA'
+      sentence was HARD-CODED; computed from the ledger now). Every builder
+      refuses if the row is not CERTIFIED, if the Gram sentence would be
+      false, or if the NEEDS DATA interval is not positive. The page was
+      looked at in five slices at 1440.
+    · corpus/targets.json kissing11-604-audit: verdict updated,
+      update_2026_09_07 written (the memory rule: write the row).
+
+  ── OWED, OPERATOR-GATED, NOT SENT ── outreach/einstein-arena-604-reply.md,
+    the reply on #64: thanks, the verdict with the digest, the Gram-profile
+    observation stated carefully, the d = 12 / 16 offer restated. The issue
+    promised a same-day flip in your name; the flip is live, the reply is
+    yours. Post with the body below the rule in that file, on your yes.
+
+  ── THE RULER, AND A NEW DEBT ROW ── make control and make test both came
+    back 79/80: measure (the layout ruler) refusing site/reports/zeta3-audit
+    .html — a page untouched since 2026-09-05 — as 3 → 7 spines. Not the
+    flip's doing, and not a flake THIS time: the --accept at 33e4f44 had
+    recorded a degraded read (3 / 3 / 1 spines, nothing clipped) over twelve
+    consecutive baselines of 7 / 7 / 5, and the ratchet, which only turns
+    down, locked the false improvement in. The probe run by hand names every
+    edge; the row was restored to the twelve-build value by hand (a worse
+    number, on purpose, reason in the commit) and the ruler passes 984
+    numbers. DEBT row written: --accept cannot tell an improvement from a
+    half-laid-out page. Fix with the Chrome serialisation: an hour.
+
+  ── NOT DONE ── the Chrome gate serialisation and the ratchet's blind spot
+    (DEBT, open, one hour together); the three drafts; the plan follow-ups;
+    congruence of the two 604s (above). The menu is otherwise unchanged.
+
+══════════════════════════════════════════════════════════════════════════
   CLOSE OF THE EIGHTH SESSION, 2026-09-07 — THE KAUST PLAN COMPLETE, THE FRONT REBUILT.
   Pushed through 33e4f44 · live · 80/80 batteries · 58 reports · 16 instruments.
 ══════════════════════════════════════════════════════════════════════════
