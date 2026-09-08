@@ -200,10 +200,19 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     "proceed", after bcba445 was live and the page and the certificate URL
     were verified: https://github.com/vinid/einstein-arena/issues/64#issuecomment-5587738318
     Watch the thread; a reply from vinid or Kwon is the next event.
+  ── 7 · THE DEBT HOUR, PAID ── design/cdp.js: one Chrome at a time (a pid
+    lock, a live holder waited for and named, a dead one cleared), a 30 s
+    watchdog on every CDP call that rejects with the METHOD named, the
+    Chrome version printed per launch; both gates refuse with the PAGE
+    named. check-measure.js --accept carries a sha256 per page and refuses
+    to LOWER a row whose bytes did not change (--accept-better overrides),
+    with three red controls; the baseline gained 83 digests, no number
+    moved. DEBT.md: both rows PAID. Exercised in the scratchpad: a 1 ms
+    budget rejects naming the method; two concurrent drivers serialise.
+
   ── NOT DONE ── the √2-scale refusal in congruence.js (a Q(√2) isqrt would
     lift it; no case needs it); a PDF target in the Makefile (tectonic is
-    here; one line); figures in the paper; the Chrome gate serialisation and
-    the ratchet blind spot (DEBT, open); the three drafts; the plan
+    here; one line); figures in the paper; the three drafts; the plan
     follow-ups. PREPRINT: the operator's call — arXiv (math.MG, needs an
     endorsement for a first submission) or Zenodo under the concept DOI;
     the reply to vinid first, the preprint second, so the issue thread can

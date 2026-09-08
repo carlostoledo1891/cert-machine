@@ -83,6 +83,9 @@ const METRICS = ['spines', 'pageOverflow', 'escapes', 'clipped'];
 const MODE = process.argv.includes('--accept') ? 'accept'
   : process.argv.includes('--report') ? 'report' : 'gate';
 const ACCEPT_WORSE = process.argv.includes('--accept-worse');
+const ACCEPT_BETTER = process.argv.includes('--accept-better');
+const crypto = require('crypto');
+const shaOf = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
 
 let checks = 0, fails = 0, reds = 0, redTotal = 0;
 const ok = (name, detail) => { checks++; console.log('  ok  ' + String(checks).padStart(2) + '  ' + name + (detail ? '   ' + detail : '')); };
@@ -218,6 +221,31 @@ function diff(list, now, base) {
   return { worse, better, missing, stale };
 }
 
+/* THE RATCHET'S BLIND SPOT, 2026-09-07/08: a page measured half-laid-out
+   reads BETTER — fewer spines, nothing clipped — and --accept locked such a
+   read in as an improvement, after which the honest measurement failed as a
+   regression three times. An improvement on a page whose BYTES did not change
+   is not an improvement; it is a degraded read. So the baseline carries a
+   digest per page, and --accept keeps the old row wherever the digest is
+   unchanged and the new numbers are lower, unless --accept-better says the
+   author looked. Pure, so it can be red-controlled without a browser. */
+function acceptMerge(list, now, base, shas, allowBetter) {
+  const pages = {}, kept = [];
+  for (const rel of list) {
+    const fresh = Object.fromEntries(VIEWPORTS.map((v) => [v, Object.fromEntries(METRICS.map((m) => [m, now[rel][v][m]]))]));
+    const old = base[rel];
+    const unchanged = old && old.sha && shas[rel] === old.sha;
+    const lower = old && VIEWPORTS.some((v) => METRICS.some((m) => old[v] && old[v][m] !== undefined && fresh[v][m] < old[v][m]));
+    if (unchanged && lower && !allowBetter) {
+      pages[rel] = Object.assign({}, Object.fromEntries(VIEWPORTS.map((v) => [v, old[v]])), { sha: old.sha });
+      kept.push(rel);
+    } else {
+      pages[rel] = Object.assign(fresh, { sha: shas[rel] });
+    }
+  }
+  return { pages, kept };
+}
+
 /* the ratchet's own red controls: synthetic pages, no browser, no site/ */
 function redRatchet() {
   const cell = (v) => Object.fromEntries(METRICS.map((m) => [m, v]));
@@ -233,6 +261,17 @@ function redRatchet() {
   const same = diff(['a.html'], { 'a.html': page(3) }, clean);
   if (!same.worse.length && !same.missing.length && !same.stale.length) ok('an unchanged page passes the ratchet');
   else bad('an unchanged page passes the ratchet', JSON.stringify(same));
+  /* the blind spot: a lower number on unchanged bytes is a degraded read, not an improvement */
+  const withSha = { 'a.html': Object.assign(page(3), { sha: 'x' }) };
+  const r1 = acceptMerge(['a.html'], { 'a.html': page(2) }, withSha, { 'a.html': 'x' }, false);
+  red('a lower number on a page whose bytes did not change is NOT recorded',
+    r1.kept.length === 1 && r1.pages['a.html'][1440].spines === 3);
+  const r2 = acceptMerge(['a.html'], { 'a.html': page(2) }, withSha, { 'a.html': 'y' }, false);
+  if (r2.kept.length === 0 && r2.pages['a.html'][1440].spines === 2) ok('a lower number on a page whose bytes changed is recorded');
+  else bad('a lower number on a page whose bytes changed is recorded', JSON.stringify(r2));
+  const r3 = acceptMerge(['a.html'], { 'a.html': page(2) }, withSha, { 'a.html': 'x' }, true);
+  if (r3.kept.length === 0 && r3.pages['a.html'][1440].spines === 2) ok('--accept-better records it after the author looked');
+  else bad('--accept-better records it after the author looked', JSON.stringify(r3));
 }
 
 async function runReds(send, dir) {
@@ -276,7 +315,10 @@ async function main() {
     await send('Page.enable');
     await runReds(send, tmp);
     console.log('-- the site');
-    for (const rel of list) now[rel] = await measure(send, 'file://' + path.join(ROOT, rel));
+    for (const rel of list) {
+      try { now[rel] = await measure(send, 'file://' + path.join(ROOT, rel)); }
+      catch (e) { throw new Error('page ' + rel.replace(/^site\//, '') + ' — ' + e.message + ' (a hung Chrome: kill it and rerun this gate alone)'); }
+    }
   }, { port: 9233 });
   for (const f of fs.readdirSync(tmp)) fs.unlinkSync(path.join(tmp, f));
   fs.rmdirSync(tmp);
@@ -327,17 +369,21 @@ async function main() {
         + '\n  Fix them, or pass --accept-worse and say why in the commit.');
       process.exit(1);
     }
+    const shas = Object.fromEntries(list.map((r) => [r, shaOf(r)]));
+    const merged = acceptMerge(list, now, base.pages || {}, shas, ACCEPT_BETTER);
     const out = {
-      note: 'Recorded layout geometry per built page. tools/check-measure.js refuses any number that grows. '
+      note: 'Recorded layout geometry per built page, with the page\'s sha256 at recording. tools/check-measure.js refuses any number that grows, '
+        + 'and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. '
         + 'Lower these by fixing the page, never by editing this file.',
       recorded: new Date().toISOString().slice(0, 10),
       viewports: VIEWPORTS, metrics: METRICS,
-      pages: Object.fromEntries(list.map((r) => [r, Object.fromEntries(VIEWPORTS.map((v) =>
-        [v, Object.fromEntries(METRICS.map((m) => [m, now[r][v][m]]))]))])),
+      pages: merged.pages,
     };
     fs.writeFileSync(BASELINE, JSON.stringify(out, null, 2) + '\n');
     console.log('\nrecorded ' + list.length + ' pages to ' + path.relative(ROOT, BASELINE)
       + (better.length ? '  (' + better.length + ' number(s) improved)' : ''));
+    if (merged.kept.length) console.log('  KEPT the old row on ' + merged.kept.length + ' page(s) whose bytes did not change but measured lower — a degraded read, not an improvement:\n    '
+      + merged.kept.slice(0, 8).join('\n    ') + (merged.kept.length > 8 ? '\n    …' : '') + '\n  Look at the page and pass --accept-better if the improvement is real.');
     return;
   }
 

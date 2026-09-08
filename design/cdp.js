@@ -68,9 +68,43 @@ const settle = (ms) => new Promise((r) => setTimeout(r, ms));
 /* Spawn Chrome, open the socket, hand `send` to the caller, and always clean
    up — the process is killed in a finally, so a throwing caller does not leave
    a headless Chrome running. Returns whatever the caller returns. */
+/* ONE CHROME AT A TIME, 2026-09-08. Three sessions lost chained runs to a
+   headless Chrome that took a second of CPU and never answered again — the
+   ruler and the render gate each spawn their own, and make test runs them
+   back to back on a machine that may still be tearing the previous one down.
+   So: a pid lock in the temp dir serialises every caller of this file; a
+   caller that finds the lock held by a LIVE process waits (up to lockWait ms,
+   default three minutes) and says so; a dead holder is cleared. And every CDP
+   call carries a watchdog: a reply that does not come within callTimeout ms
+   (default 30 s) rejects with the METHOD named, so a hung page becomes a
+   named refusal instead of a gate that never returns. The Chrome version is
+   printed once per launch, because 2026-09-07's hangs began with an
+   auto-update nobody saw. */
+const LOCK = path.join(os.tmpdir(), 'cert-machine-cdp.lock');
+async function acquireLock(waitMs) {
+  const t0 = Date.now();
+  let said = false;
+  for (;;) {
+    try { fs.writeFileSync(LOCK, String(process.pid), { flag: 'wx' }); return true; } catch (e) { if (e.code !== 'EEXIST') throw e; }
+    let holder = 0;
+    try { holder = Number(fs.readFileSync(LOCK, 'utf8')); } catch (e) { holder = 0; }
+    let alive = false;
+    if (holder) { try { process.kill(holder, 0); alive = true; } catch (e) { alive = false; } }
+    if (!alive) { try { fs.unlinkSync(LOCK); } catch (e) { /* raced */ } continue; }
+    if (!said) { console.log('  [cdp] another Chrome driver (pid ' + holder + ') holds the lock — waiting'); said = true; }
+    if (Date.now() - t0 > waitMs) { console.log('  [cdp] waited ' + Math.round(waitMs / 1000) + ' s; proceeding anyway'); return false; }
+    await settle(500);
+  }
+}
+function releaseLock() {
+  try { if (fs.readFileSync(LOCK, 'utf8') === String(process.pid)) fs.unlinkSync(LOCK); } catch (e) { /* not ours, or gone */ }
+}
+
 async function withChrome(fn, opts) {
   const o = opts || {};
   const port = o.port || (9300 + (process.pid % 200));
+  const callTimeout = o.callTimeout || 30000;
+  const held = await acquireLock(o.lockWait || 180000);
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'cdp-'));
   const args = ['--headless=new', '--remote-debugging-port=' + port, '--hide-scrollbars',
     '--user-data-dir=' + profile].concat(o.args || []);
@@ -82,14 +116,18 @@ async function withChrome(fn, opts) {
     }
     const tg = (await getJson('/json', port)).find((x) => x.type === 'page');
     if (!tg) throw new Error('no page target on port ' + port);
+    try { const v = await getJson('/json/version', port); console.log('  [cdp] ' + (v.Browser || 'Chrome ?') + ' on port ' + port); } catch (e) { console.log('  [cdp] Chrome version unknown (' + e.message + ')'); }
     const wsUrl = new URL(tg.webSocketDebuggerUrl);
     sock = net.connect(port, '127.0.0.1');
     let buf = Buffer.alloc(0), handshaken = false, idc = 0;
     const pending = {};
     let onHs = null;
     const hs = new Promise((res) => { onHs = res; });
-    const send = (method, params) => new Promise((res) => {
-      const id = ++idc; pending[id] = res;
+    const send = (method, params, timeoutMs) => new Promise((res, rej) => {
+      const id = ++idc;
+      const ms = timeoutMs || callTimeout;
+      const timer = setTimeout(() => { delete pending[id]; rej(new Error('CDP ' + method + ' did not return within ' + ms + ' ms')); }, ms);
+      pending[id] = (r) => { clearTimeout(timer); res(r); };
       sock.write(frame(JSON.stringify({ id, method, params: params || {} })));
     });
     sock.on('data', (c) => {
@@ -124,6 +162,7 @@ async function withChrome(fn, opts) {
   } finally {
     if (sock) sock.destroy();
     chrome.kill();
+    if (held) releaseLock(); else releaseLock();
   }
 }
 

@@ -253,6 +253,7 @@ async function main() {
     red('a bright mark beside it is NOT caught',
       !planted.some((k) => /^brightline/.test(k)));
     for (const rel of list) {
+      try {
       await send('Page.navigate', { url: 'file://' + path.join(ROOT, rel) });
       await send('Runtime.evaluate', { expression: 'document.fonts ? document.fonts.ready.then(()=>1) : 1', awaitPromise: true, timeout: 8000 });
       await settle(500);
@@ -283,6 +284,7 @@ async function main() {
         if (figs[key] === undefined || pct < figs[key]) figs[key] = pct;   /* worst wins */
       }
       now[rel] = { invisible: inv, figures: figs };
+      } catch (e) { throw new Error('page ' + rel.replace(/^site\//, '') + ' — ' + e.message + ' (a hung Chrome: kill it and rerun this gate alone)'); }
     }
   }, { port: 9291 });
 

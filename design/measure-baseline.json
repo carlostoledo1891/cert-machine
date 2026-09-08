@@ -1,5 +1,5 @@
 {
-  "note": "Recorded layout geometry per built page. tools/check-measure.js refuses any number that grows. Lower these by fixing the page, never by editing this file.",
+  "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file.",
   "recorded": "2026-09-08",
   "viewports": [
     1440,
@@ -31,7 +31,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "f2dc6c3b290f42c1300f52201d198229fc9646d190f04a9756ec48912741e5d7"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -51,7 +52,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "80b775b7379ecb91b95387ad5fdd8290ef94b838cdb53ad5fe2a5639b2215921"
     },
     "site/apps/skyaudit/sp/index.html": {
       "390": {
@@ -71,7 +73,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "d442f8f43acc668890f0a1e96740c3bc749aa5a54ef1852690983c52d9eb5a70"
     },
     "site/index.html": {
       "390": {
@@ -91,7 +94,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "63a030d2dfeaa7ba8dee6f4f48a32ea5ecf9522f56541de581efcbca9e1c41cd"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -111,7 +115,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "47878cbbfa1536812add41f6f56733f21149dbfc0ff7556556c508db8474d5a6"
     },
     "site/instruments/answer-shape/index.html": {
       "390": {
@@ -131,7 +136,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "20b6727beed4d9da6d7a2ada1af0afae96943e82d1f47e95c3b3e9c3f095d20d"
     },
     "site/instruments/census/index.html": {
       "390": {
@@ -151,7 +157,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "bc5fd0eeb66003917b5340ec2aea5954b4cabb56290f2cb4cd214e17ae646b80"
     },
     "site/instruments/curveset/index.html": {
       "390": {
@@ -171,7 +178,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "84d32761fe0dc15a55116854c2976dc6e32c20639b674c3cb8d64246f15207f5"
     },
     "site/instruments/exact-geometry/index.html": {
       "390": {
@@ -191,7 +199,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "e29fb2dcfbecb925d778dd73fc4c3965b0f5b544b9c6da3f72b9e9c57f7ad3d8"
     },
     "site/instruments/graph/index.html": {
       "390": {
@@ -211,7 +220,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "245b006f8eaf723fdc850b9a2963dae8b482c9d5217104321be90ce4fc89ca1b"
     },
     "site/instruments/index.html": {
       "390": {
@@ -231,7 +241,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "f80e4e3e9dbf637bdc27ae8980130aa958e5a8fded5ecf02844d93e5ec2a16fc"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -251,7 +262,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "b537f4887ea00c1b0de49f3b1602fa172c74c9b505a379a17c0ea4ed11feca20"
     },
     "site/instruments/lattice-claims/index.html": {
       "390": {
@@ -271,7 +283,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "bef36db8583e9960ccad66b17264604ca575bd31666a85276d2a333a9558b53a"
     },
     "site/instruments/neural-geometry/index.html": {
       "390": {
@@ -291,7 +304,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "71e9600c1d7eebe7832d5ca70effd753653daa43ad18b02ecd15341f921463f9"
     },
     "site/instruments/occultation/index.html": {
       "390": {
@@ -311,7 +325,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "e78da7a9cab5c134de5152402719be0f2fe38f2084e888624649e761786db74a"
     },
     "site/instruments/plates/index.html": {
       "390": {
@@ -331,7 +346,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "13d3ab5b21c09a3c90dc801f3424ed7f3ef2046f472695d028e62a2367282972"
     },
     "site/instruments/pqc/index.html": {
       "390": {
@@ -351,7 +367,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "19b6270cea7858705ff604c6bbf9560231de62d25c7de405e6a2e14452b6bf34"
     },
     "site/instruments/rewire/index.html": {
       "390": {
@@ -371,7 +388,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "b9e56e441d8b58a28bac835d8ba3b076bb9894607de366ffea482ad226214fa6"
     },
     "site/instruments/shape-hunt/index.html": {
       "390": {
@@ -391,7 +409,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 1
-      }
+      },
+      "sha": "f5469135807d420b7ce91d907b628db3f318604fb79e41328d6e70404895a336"
     },
     "site/instruments/simplex/index.html": {
       "390": {
@@ -411,7 +430,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "91e43ce590c10f80bf1dab89ea0c7c526ac8928529224e249bf4db36261bf5c6"
     },
     "site/instruments/transit/index.html": {
       "390": {
@@ -431,7 +451,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "c3a382fe66059b05bec06df44cb301a2fc1f4b96d8edb2a0db9c37754fe726b8"
     },
     "site/machine/index.html": {
       "390": {
@@ -451,7 +472,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "a24606a0e4dd3ab58f040c7c1c416bc963b9dfb154513e45d4686a01ec91cda7"
     },
     "site/oracle/index.html": {
       "390": {
@@ -471,7 +493,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "7e5ef14ddab9969b35ed1489f6c277e5c9de4358149a7ddafeafff4b9dc2db17"
     },
     "site/reports/aag.html": {
       "390": {
@@ -491,7 +514,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "57e897ce597b4162902d5be5aec7e7463706c7e19a5f0d382acf2606d939867f"
     },
     "site/reports/afg.html": {
       "390": {
@@ -511,7 +535,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "584006319716cc27eec0d44b2cc4a73539f4b12b16516173121d037f41af7afa"
     },
     "site/reports/agtable.html": {
       "390": {
@@ -531,7 +556,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "0f242c2d0376ef771a636dddaba5fee766c9dbb136a30ef4f341003ff1a043df"
     },
     "site/reports/ai-claims-audit.html": {
       "390": {
@@ -551,7 +577,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "b8ebd954228b693ade64dc40535c4a01a9e514cbc8ff1331152047b1f436a4a2"
     },
     "site/reports/alien-science.html": {
       "390": {
@@ -571,7 +598,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "33dbd94a278dff98a3fbdf2d1929102429c4ba3e5c12d61b1ded5b6d6664c9ae"
     },
     "site/reports/alphaevolve.html": {
       "390": {
@@ -591,7 +619,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "64ac6b2813a9f1efb41621022b7009f338a9ae692f143d9191d67e207c031471"
     },
     "site/reports/answer-key.html": {
       "390": {
@@ -611,7 +640,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "bdb32d23794da9df87ea077b9c3408770a1a691776734dc20e1bdc6c8bcce581"
     },
     "site/reports/claim-korenblum.html": {
       "390": {
@@ -631,7 +661,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "9ee68cdb47b5b1d51c2fdbd0ed96d87a6bfeb30d1590ed213f729e8eccc1c898"
     },
     "site/reports/claim-lemniscate.html": {
       "390": {
@@ -651,7 +682,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "49d63a3be1c053c54f2aa3399bb95a0111248552a2419de839bbbc5d0c1c249f"
     },
     "site/reports/claim-mathieu.html": {
       "390": {
@@ -671,7 +703,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "32d92cdb3eb1918a518f220953d1d9add7b2c19693b506bc26ef14633c9546ec"
     },
     "site/reports/claim-maxwell.html": {
       "390": {
@@ -691,7 +724,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "b2a2d338c8684ae934270c7eb93d17d4c916bb94cdf331233ade24a3d631404b"
     },
     "site/reports/claim-poisson.html": {
       "390": {
@@ -711,7 +745,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "9695ced74b8207215271d485729951a13f6e24ed9a6cbccee81603ae93235770"
     },
     "site/reports/claim-ranteng.html": {
       "390": {
@@ -731,7 +766,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "46c4eb97d3faa0f303e7fdfcd90295e93d3db353b4e39d2cd743e7ff6520c1e1"
     },
     "site/reports/claims.html": {
       "390": {
@@ -751,7 +787,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "a49d9040c4dc1628fa4a354b2af48e1128f8873cb177cc1c25c7ba6e91fbc86f"
     },
     "site/reports/easota.html": {
       "390": {
@@ -771,7 +808,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "5f2636acda50c9c145a4124a0c9b842a801f10828efda77bde42ed7b1de97a12"
     },
     "site/reports/ember.html": {
       "390": {
@@ -791,7 +829,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "c59a428ed7ab7f3084f6bc43dbf19378bb655ceb472231b3e3fb43f047e43b76"
     },
     "site/reports/entropy.html": {
       "390": {
@@ -811,7 +850,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "8fe71df8c432ab318b95adaf16d99892ee0af2cf6557d2cef106073ade4f7815"
     },
     "site/reports/envs.html": {
       "390": {
@@ -831,7 +871,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "965fd4b375394cc4523b259015b8e56f90e50675c9870a2ea4130e64c28c0888"
     },
     "site/reports/erdos1038-inf.html": {
       "390": {
@@ -851,7 +892,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "5be19edb47e5b992adee32ad24f122696d2cbc8684a889fe4d6d19682708a5e7"
     },
     "site/reports/erdos1038-sup.html": {
       "390": {
@@ -871,7 +913,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "0d32d8b2b51692daeec3eb3076dc8c1ca58ad35d8a2b0681568ee4a32be9985e"
     },
     "site/reports/erdos290.html": {
       "390": {
@@ -891,7 +934,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "1f2317b13d8dc6da32fe9dcbd36904d74184c76f46f507a81349a305fcbaac0f"
     },
     "site/reports/erdos852-h.html": {
       "390": {
@@ -911,7 +955,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "053e978cf744e62fbdeadfa684ea25612d549a5b25aa90d229df802fd2d40cce"
     },
     "site/reports/erdos852.html": {
       "390": {
@@ -931,7 +976,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "e1983f5a8f1330288d06926779e4ae0285bb81dd469c652f6411e1d2dd310664"
     },
     "site/reports/evtol-energy.html": {
       "390": {
@@ -951,7 +997,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "deae34dbccec603aa4ab6bd95278d13b7164f992aab22bc37f5856b30b04ec65"
     },
     "site/reports/forecast-gym.html": {
       "390": {
@@ -971,7 +1018,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "7d86c5e42b78ade20724203a356aabcd0a6d9b991a749f8e40b2f6d2aac3fb8f"
     },
     "site/reports/frontier.html": {
       "390": {
@@ -991,7 +1039,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "8131f312d2ca3b87d526f6a4dae40e271b9354887e1d6766c310654d714badd9"
     },
     "site/reports/glide-band.html": {
       "390": {
@@ -1011,7 +1060,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "f38d3ac3e43d774c67fe5ad943a85defd4e7f606628ecab32a58632805a320c2"
     },
     "site/reports/gym.html": {
       "390": {
@@ -1031,7 +1081,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "e01d6df7c3ded8116dff1e5517f097f47c6923156bf739caf5c1d763109ad153"
     },
     "site/reports/harbor-proof.html": {
       "390": {
@@ -1051,7 +1102,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 1
-      }
+      },
+      "sha": "1d66cf2ea722e1ed3851ef68feb5ce70d24cf9e6d12d1c7a7f4effc8880b7f9b"
     },
     "site/reports/hbar.html": {
       "390": {
@@ -1071,7 +1123,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "99845e7235bc888984b1eb3541c1be8403891eb4499f292357b0a2d58961c5fd"
     },
     "site/reports/impostors.html": {
       "390": {
@@ -1091,7 +1144,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "56835b202ebf369ed8cf42f927e57a4cdecdbb6106230d696c79b8cae2731555"
     },
     "site/reports/index.html": {
       "390": {
@@ -1111,7 +1165,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "2eadcb7591abf4ac19b86cd2c65054c733de873872a986bc0eb55d883ba4c25f"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1131,7 +1186,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "2e6093511de2091ec33fb017ae2697fe873eb4ef964e6b5a20c34044b7e27c71"
     },
     "site/reports/kissing.html": {
       "390": {
@@ -1151,7 +1207,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "b752a2008d2b8a38969f664f5776f75f2c7712bcfde68d78defd02babb85f129"
     },
     "site/reports/lambda4.html": {
       "390": {
@@ -1171,7 +1228,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "90c14a7b3b4b3571456660344ec83d60c919521c0510ed929f524c451732fa08"
     },
     "site/reports/lambda5.html": {
       "390": {
@@ -1191,7 +1249,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "c63fb86b43f5d6f09f0fb2f7beb034db207a77bba90bd900f459ff9770a6f496"
     },
     "site/reports/matmul-additions.html": {
       "390": {
@@ -1211,7 +1270,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "af858883fdf338f601b50083c8531efa9c6d10f32dfc902c2a53c4a8443c8e23"
     },
     "site/reports/matmul-eval.html": {
       "390": {
@@ -1231,7 +1291,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 2
-      }
+      },
+      "sha": "b6bc860c3d35871be783997b42cd02715a4dba4fbaf7ee872b81093242dd497e"
     },
     "site/reports/maxval.html": {
       "390": {
@@ -1251,7 +1312,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "95540e036df6f76f6020c560809a7bd586e5e8296124ba0fa36acfc8c1ff239b"
     },
     "site/reports/mercer-program.html": {
       "390": {
@@ -1271,7 +1333,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "f1737528fa4c6e5bc9adff8dcf35ed01cbaebc8be1ed1997046ce09a7c22e563"
     },
     "site/reports/methods-note.html": {
       "390": {
@@ -1291,7 +1354,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "56dda04d4a6e22ac3979809fe713811875056b9fdf666e1e1e9836d1050f1ea6"
     },
     "site/reports/mfg-cap.html": {
       "390": {
@@ -1311,7 +1375,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "5e4b7ba430df76d1a24514bdd1ff17eff4de0979b64419bfd3ccd0ddd661b44a"
     },
     "site/reports/mfg-congest.html": {
       "390": {
@@ -1331,7 +1396,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "6259048e87ffcdfb57a2e3532f1feb89291cfbf8b6e14ae8ac9bf48a8bb6dfc6"
     },
     "site/reports/mfg-lab.html": {
       "390": {
@@ -1351,7 +1417,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "05e629adee8dba5043dd109a1465f9c929d8e768258fe9029c22f8dd47bd3376"
     },
     "site/reports/mfg-observatory.html": {
       "390": {
@@ -1371,7 +1438,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "dde4c31760380d63a265337a5de69dc5c745e50706ed046ab0fac0c4c1054483"
     },
     "site/reports/mfg-two-population.html": {
       "390": {
@@ -1391,7 +1459,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "21fdb4aed3220ba9ed0ac23b444ec31d0eed8fcb76013d53eb15f40c6d75e2e3"
     },
     "site/reports/monoflow.html": {
       "390": {
@@ -1411,7 +1480,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "ca353caa0b68a6158760bab1bd3c4fd0cf10d1de050fad99b9f4b9fe45387847"
     },
     "site/reports/polynomial-multiplication.html": {
       "390": {
@@ -1431,7 +1501,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "4889ca17b8481076d63138011b4455d0d06011f65c54fd399f1ba174f240ebc7"
     },
     "site/reports/price.html": {
       "390": {
@@ -1451,7 +1522,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "fa4571c749ff592e9cc907de85e1eefa9e2e00892c8b5530fe625c694357fa57"
     },
     "site/reports/refusals.html": {
       "390": {
@@ -1471,7 +1543,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "3de9cd92abaec543b7ea195f34b76662077d43ea88bf9e8a9b9077dccf2978f2"
     },
     "site/reports/regatlas.html": {
       "390": {
@@ -1491,7 +1564,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "2c74c7f2a9180c46030859bc14385d2c54b621240e02349b3b6c2dd002369214"
     },
     "site/reports/rm-audit.html": {
       "390": {
@@ -1511,7 +1585,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 1
-      }
+      },
+      "sha": "1183029806d97611767a99777f463eb06dfd1b32bbc8a5e308f383ab9cdf93ac"
     },
     "site/reports/skyaudit.html": {
       "390": {
@@ -1531,7 +1606,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "b4aa1c6b6d5a2258c9b8c583c2eadcc152e196ce99007080eb724cdfb84bb873"
     },
     "site/reports/tensor-rank-bounds.html": {
       "390": {
@@ -1551,7 +1627,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "da703ad4bd44ff5f70f9b4c4326be8ff7d83b91c69bd2a168f174053926be457"
     },
     "site/reports/terra.html": {
       "390": {
@@ -1571,7 +1648,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "4a7da4cb6cea9163da6f459276fbea81696444493b273e5ad45407801764a9f8"
     },
     "site/reports/verifier-loop.html": {
       "390": {
@@ -1591,7 +1669,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "dce3c848d72e5fc3444ef9e351633336561190d70fd2855c4d74883e40fd4a58"
     },
     "site/reports/verify-lemniscate.html": {
       "390": {
@@ -1611,7 +1690,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "79bf5a63849c44102581a69e7b4d5c7e3570de5f7308143ab6a9ff81fccdc19c"
     },
     "site/reports/wardrop-repro.html": {
       "390": {
@@ -1631,7 +1711,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "217b093aa9110050cbb94963f4d85526fe41b02615d41599331fa84796b90def"
     },
     "site/reports/water-value.html": {
       "390": {
@@ -1651,7 +1732,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "6b60d17c68dac43756c5f9fdc5279c8f3dd62302c638f6597d95790d19a469ad"
     },
     "site/reports/zeta3-audit.html": {
       "390": {
@@ -1671,7 +1753,8 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
-      }
+      },
+      "sha": "28ef75e0f9172f219d8fdd6b5946d02da798ca78899a6a8ebe323de2d35c266d"
     }
   }
 }
