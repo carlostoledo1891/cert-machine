@@ -50,6 +50,7 @@ test:
 	@printf "%-30s " "trigmin certifier"; $(NODE) instruments/trigmin/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "forecast instrument"; $(NODE) instruments/forecast/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "kissing ledger"; $(NODE) instruments/kissing/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "easota (the SOTA table)"; $(NODE) instruments/easota/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lemniscate (erdős 1038 inf)"; $(NODE) instruments/lemniscate/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "covering (the shared module)"; $(NODE) instruments/covering/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "ember band (P3a audit)"; $(NODE) instruments/emberband/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -161,6 +162,7 @@ reports:
 	@$(NODE) tools/build-report-methods.js
 	@$(NODE) tools/build-report-alphaevolve.js
 	@$(NODE) tools/build-report-kissing.js
+	@$(NODE) tools/build-report-easota.js
 	@$(NODE) tools/build-report-lemniscate-inf.js
 	@$(NODE) tools/build-report-answer-key.js
 	@$(NODE) tools/build-report-loop.js

@@ -120,6 +120,65 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     (/opt/homebrew/bin/tectonic; make papers writes only the .tex) — the PDF
     was sent to the operator as the preprint candidate.
 
+  ── 5 · THE EINSTEINARENA AUDIT (operator: "proceed the EinsteinArena
+    audit") ── the kissing pattern applied to the rest of the repository
+    vinid pointed at. instruments/easota: lib.js reads every solution file
+    (JSON or a Python np.array literal) as the exact rationals its decimals
+    denote; decide.js decides seven objectives with NO tolerance — circles
+    in a rectangle (Σr; pairwise (xᵢ−xⱼ)²+(yᵢ−yⱼ)² ≥ (rᵢ+rⱼ)² and the box
+    w+h ≤ 2 as exact signs; a REPAIR scales every radius by one rational λ),
+    Heilbronn (min triangle / hull, exact), min-distance ratio (a ratio of
+    squared distances), Erdős minimum overlap (max correlation over all lags
+    as integer sums; Σh = n/2 exactly or renormalised), edges vs triangles
+    (the platform's envelope score, exactly), the first autocorrelation
+    inequality (for a step function the discrete max IS sup f∗f; n = 30,000
+    → n² products screened in float64 with a stated forward-error bound,
+    every candidate index decided in BigInt), and the FLAT POLYNOMIAL, whose
+    platform score is a grid maximum: the supremum of |g|² was CERTIFIED
+    through trigmin's certifyPoly on the Chebyshev reduction (degree 69, 43
+    critical points, 0.4 s). Battery 32 checks / 11 reds. corpus/easota: 36
+    files pinned verbatim at c388c6f7 with digests, re-hashed every run.
+    certs/easota-ledger.json: 18 rows — 14 WITNESSED, 4 REPAIRED, none
+    UNWITNESSED; 7/7 improvements over the previous best REAL as exact signs.
+    FINDINGS: Together's 21-circle packing is a witness only within the 1e-9
+    tolerance (44 of 210 pairs overlap by ≤ 3.09e-12 in d², the box over by
+    4.2e-14); repaired by λ = 1 − 3.66e-11, exact witness Σr =
+    2.36583237583…, so the printed 2.3658323759 is NOT the witness's
+    rounding — the tenth digit is the tolerance's; the improvement over
+    AlphaEvolve (an exact witness) stands at 2.42e-7. Three step functions
+    miss Σh = n/2 by float noise (1e-15..1e-14); renormalised, every printed
+    ceiling stands. The flat polynomial: C⁺ ∈ [1.2809320528750416,
+    1.2809320528750417], the grid short by 7.6e-11; printed 1.280932 stands;
+    AlphaEvolve's likewise (grid short by 9.5e-10); improvement decided by
+    disjoint enclosures. reports/easota.html (title 'Their table, re-decided
+    to the last digit.'; one figure: the seven improvements on a log axis,
+    9.06e-9 to 6e-2), the homepage card, the shelf, the control-page
+    battery, the Makefile rows — all registered; check-wiring ALL PASS;
+    measure/render baselines record the new page (audited: nothing else
+    moved). NOT decided, said on the page: hexagon packing (interval SAT with
+    certified trig — next), the PNT Monte Carlo score (refused on
+    principle), four README rows without files. targets row
+    easota-table-audit BUILT. NOTHING SENT: a note to the repository (the
+    tolerance digit, the grid-vs-supremum) is a send and is yours.
+
+  ── 6 · WOETT ANSWERED ON #290 (teorth/erdosproblems#164, 2026-09-08
+    16:49 UTC) ── "I only just saw your comments"; his preprint of
+    2026-08-31 (arXiv:2609.00104, math.NT, a key step found by ChatGPT 5.6
+    and written up by him) proves liminf (b(a)−a)/log a = 1/(1+c) EXACTLY,
+    so the 1/(2c) endpoint our third comment still treated as live is
+    retired. HOW IT LANDS: reports/erdos290.html already carries the
+    theorem (§3b, since 09-01); our unconditional bracket is now the
+    LIMINF'S OWN — [0.546083759260, 0.546323774021], three digits proved by
+    his identity plus our enclosure; he writes "approximately 0.546, no
+    effort to calculate it precisely" — our work is that calculation.
+    DONE: outreach/erdos290-issue164-reply-2026-09-08.md drafted (thanks,
+    the two-line consequence, the OEIS offer with his name on the
+    definition or his own submission, a fourth digit offered conditionally
+    — horizon l ≈ 750–1,000 against today's 310, since the tail's width is
+    ≈ 1/(4l) in c and 0.3 of that in 1/(1+c)); outreach/oeis-erdos290-pack.md
+    PACK 4 renamed to the liminf itself with the preprint in LINKS (digits
+    and failure semantics unchanged). NOT SENT, NOT SUBMITTED — both yours.
+
   ── THE REPLY ── outreach/einstein-arena-604-reply.md REWRITTEN around the
     decided finding: the verdict with the digest; (1) congruence, stated as
     bytes and dates; (2) lineage; (3) the open rungs read exactly, with the

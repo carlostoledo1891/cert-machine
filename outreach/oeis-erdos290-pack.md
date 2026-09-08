@@ -152,11 +152,18 @@ produced by tools/erdos290-cstar-precision.js and rewritten at each horizon
 extension; the b-file is outreach/b-oeis-c0.txt (110 terms).
 
 NAME
-  Decimal expansion of 1/(1+c), where c = Sum_{d>=1} delta(f_d)/(d*(d+1))
-  and delta(f_d) is the density of primes p for which the derivative of
-  x*(x-1)*...*(x-d) has a root mod p; conjecturally the optimal constant
-  in van Doorn's lower bound b(a) > a + (c_0+o(1))*log(a) for Erdos
-  problem #290.
+  Decimal expansion of liminf_{a->oo} (b(a)-a)/log(a), where b(a) is the
+  least b > a such that the denominator of 1/a + 1/(a+1) + ... + 1/b is
+  smaller than the denominator of 1/a + ... + 1/(b-1) (Erdos problem #290);
+  equal to 1/(1+c) with c = Sum_{d>=1} delta(f_d)/(d*(d+1)) and delta(f_d)
+  the density of primes p for which the derivative of x*(x-1)*...*(x-d) has
+  a root mod p (van Doorn, arXiv:2609.00104, Theorem 1).
+
+  [REVISED 2026-09-08: the NAME led with "conjecturally the optimal constant
+  in van Doorn's lower bound" until his preprint of 2026-08-31 proved the
+  liminf EQUALS 1/(1+c). The entry now names the liminf itself; the identity
+  is cited to the preprint (not yet peer-reviewed — say so in COMMENTS if an
+  editor asks). He confirmed on issue #164 on 2026-09-08.]
 
 OFFSET
   0, 1
@@ -199,7 +206,9 @@ EXAMPLE
   0.54622931040010458741266058543836314273483317015360...
 
 LINKS
-  W. van Doorn, arXiv:2411.03073
+  W. van Doorn, The shortest harmonic sums with decreasing denominator,
+    arXiv:2609.00104 (2026) — liminf (b(a)-a)/log a = 1/(1+c).
+  W. van Doorn, arXiv:2411.03073 (2024) — c, the Galois-density sum.
   teorth/erdosproblems, issue #164
   Independent certification and the full method, re-run at every build:
   https://www.carlostoledo.co/reports/erdos290.html

@@ -1,0 +1,632 @@
+{
+ "what": "The EinsteinArena / Together AI \"new state-of-the-art\" table (github.com/togethercomputer/EinsteinArena-new-SOTA, commit c388c6f7), every published construction re-decided in exact rational arithmetic from its own bytes read as the decimals they print. Per row: the exact value of the platform's objective, every constraint's exact slack, whether the printed digits are the exact value's (rounding, or ceiling for an upper bound), and a REPAIR where the bytes are a witness only up to the platform's tolerance.",
+ "grammar": {
+  "WITNESSED": "the bytes are an exact witness of the value stated",
+  "REPAIRED": "a witness only up to the platform's tolerance; an exact witness built from the same bytes, its deficit printed",
+  "UNWITNESSED": "the bytes fail exactly and no repair was built — a finding about the bytes, never a refutation of the bound"
+ },
+ "scope": "constructions only; no upper-bound theorem, no optimality claim, and no search for better constructions. The \"improvement over the previous best\" rows are exact signs between two published constructions.",
+ "provenance": {
+  "repo": "github.com/togethercomputer/EinsteinArena-new-SOTA",
+  "commit": "c388c6f7408c886311940896713339a1a70c2394",
+  "fetched": "2026-09-08",
+  "files": {
+   "circles-rectangle/alphaevolve_2025.json": "ede505bcbca6dbcc420e646a25ec8af8190b6370ff3aa26e2a8e9524f92d7604",
+   "circles-rectangle/ours_2026.json": "6060cc9f78f9d3ad2b035b6f1c15c3bfaac36f4e75532e9a94e1f804387d2307",
+   "circles-rectangle/README.md": "ab45150d68d567e2596b62f2ac6c065fe4d6dede7b5cc07b6143da406e2cd54e",
+   "circles-rectangle/verifier.py": "025424cd6ea2d979d9f0d53512e158c00579ba9ed9099c89a4ad543c89625cc9",
+   "heilbronn-convex/alphaevolve_2025.json": "0006a49a12e12a4d5a941967aa0b65db79a74c879d44e3c5b66158b97422e8ae",
+   "heilbronn-convex/ours_2026.json": "2b16263e299479b6a4c0b63991c73654456e3e2235d783b13942c8c6c3af46f7",
+   "heilbronn-convex/README.md": "602bbf5a3254087236f6345c5c04889347065fc8e58d1db31ea5741a9d4ecd1d",
+   "heilbronn-convex/verifier.py": "2390b0d5654ee0e68ad7a3060c6901cbfee1d466c2f3c52260bcefd6d8e14fc7",
+   "min-distance-ratio-2d/alphaevolve_2025.json": "07c7449a55b94f7c0c55600161f376c31b541c89c4bbff856396d61fba37b94e",
+   "min-distance-ratio-2d/ours_2026.json": "9236e69edf32372938f59d99ae3f8b21b57d64662dedcaf80cec4b4e900e6492",
+   "min-distance-ratio-2d/README.md": "d950cbcc7964fa05d8c782045de9d9b9e49521ca027c6a69a6daa8ac3371cb95",
+   "min-distance-ratio-2d/verifier.py": "06a6d1c9cdaced5aba8035ab4fcebc7c817316c6a00f4918824c9f7f8b3bbd51",
+   "erdos-minimum-overlap/haugland_2016.py": "93bce13461a18cc1924512a685416359174cffa9a235f222e6d23703a3ab071a",
+   "erdos-minimum-overlap/alphaevolve_2025.py": "11f33879398ee8069125aecc588792cf3c049615c7af6d9613997374668b5301",
+   "erdos-minimum-overlap/ttt_discover_2026.py": "586e77b49e07ace63ddf73e69137802d24d63c1231625448a77c9ef6fad7c82f",
+   "erdos-minimum-overlap/together_ai_2026.py": "3a2d93e27438df87cd8894a9a671cb0c074ca27ffa37cf62f75f445d8b67c091",
+   "erdos-minimum-overlap/README.md": "4cf4a145c6780abcc0bb8492cd2dd382579915e27002c6b739d7d8bd8cf8fbf8",
+   "erdos-minimum-overlap/verifier.py": "80e01567480a9d0b1b30b7decd98c0c7c091c17e6ffac888ad19aaaafce7c89a",
+   "edges-vs-triangles/alphaevolve_2025.py": "7be8fc9111819694c1a3626bcdc214d435caca128a8f0f052007b317e1520b88",
+   "edges-vs-triangles/ours_2026.py": "350cbf63494f853979e9736916b6a1d40db279d9ae20461c66d0194c13abf0f3",
+   "edges-vs-triangles/README.md": "1bff66581a26bfb847fa91339840bac217cced95d43d13eea501aae3b22cd2f9",
+   "edges-vs-triangles/verifier.py": "23cb1d0cbe055b03fbf5077c226efc7c0d541b386ba8bb0729090330a20cfcb7",
+   "first-autocorrelation/alphaevolve_2025.py": "dea4517da3763e82c314606269718404c7b0f6d29c5522c0bc2033d3e894cb35",
+   "first-autocorrelation/alphaevolve_v2_2025.json": "92a023d37ea89c98b37a0778585dedafaf8acee540610b2afef922b39f51c430",
+   "first-autocorrelation/ttt_discover_2026.json": "4f24a0ef2515171617e3be99bc58e3ea8d350ff6b299775c029c5dc2971f413d",
+   "first-autocorrelation/ours_2026.json": "6cc34889cb40a4e2579c078b08c39d71fd29f07ab7f14f2417f770038e9c0caf",
+   "first-autocorrelation/README.md": "da935213ff3e3e33324803c52ee1ca60e4079312905b6540da1421328c1d2b60",
+   "first-autocorrelation/verifier.py": "6aea603e229b8d821e26d85378f5a651e210e9bd5ba11084f10c90ae00c45501",
+   "flat-polynomials/alphaevolve_2025.py": "c403c792b1793cf618990e6b8e82fc174b1a001b8daa57f854a572f4ab26c07a",
+   "flat-polynomials/ours_2026.py": "d2a51b1c92cfb53de3b379e7599f00975e15e97876bb61d4b5ac9c485590d6a1",
+   "flat-polynomials/README.md": "09572167550dd0d07bd26096d29224fbc53964451b91d270f42c07df7aa75387",
+   "flat-polynomials/verifier.py": "00370dd430119ca69e95d4ffc4ba00c7cb832eaa0493e6a3b1be5c17dd9fb856",
+   "hexagon-packing/alphaevolve_2025.json": "daa887e9ba08b64bf405cf38a56cde2429ef07782db24f08c69bc91a2a250df0",
+   "hexagon-packing/ours_2026.json": "1d83e40b77862c0f46ec9891b3bbea16b4b303b644007207824acef9dbd6b693",
+   "hexagon-packing/README.md": "f6f7474396e9b33f3550a33fb5a2e2ee308a3a8ea6d924ca3a3579b9bb29c891",
+   "hexagon-packing/verifier.py": "9b6be2f470f859fa0ad14c5d3097565187a901b0c712cca82e40c2aabd7833d5"
+  }
+ },
+ "generated": "2026-09-08T16:50:13.077Z",
+ "git": "924d209",
+ "rows": [
+  {
+   "id": "circles/alphaevolve_2025",
+   "problem": "circles-rectangle",
+   "claim": "n = 21 circles in a rectangle of perimeter 4 (bounding box w + h ≤ 2), no overlaps: Σ r = 2.3658321334",
+   "claimant": "AlphaEvolve V2 (Georgiev, Gómez-Serrano, Tao, Wagner — arXiv:2511.02864)",
+   "date": "2025-11",
+   "file": "corpus/easota/circles-rectangle/alphaevolve_2025.json",
+   "sha256": "ede505bcbca6dbcc420e646a25ec8af8190b6370ff3aa26e2a8e9524f92d7604",
+   "verdict": "WITNESSED",
+   "exact": "2.3658321334167631",
+   "exactRational": "236583213341676313/100000000000000000",
+   "asPublished": {
+    "sumR": "2.3658321334167631",
+    "boxSlack": "0.00000003196477496000",
+    "overlappingPairs": 0,
+    "worstPairSlackSquared": "0.00000000503645825579",
+    "worstPair": [
+     8,
+     9
+    ]
+   },
+   "repair": null,
+   "printed": "2.3658321334",
+   "printedConvention": "rounding",
+   "printedAgrees": true,
+   "platformTolerance": "overlap allowed to 1e-9 in distance, box to 1e-9 in w + h",
+   "ms": 0
+  },
+  {
+   "id": "circles/ours_2026",
+   "problem": "circles-rectangle",
+   "claim": "n = 21 circles in a rectangle of perimeter 4 (bounding box w + h ≤ 2), no overlaps: Σ r = 2.3658323759",
+   "claimant": "Together AI agents, this repository",
+   "date": "2026-04",
+   "file": "corpus/easota/circles-rectangle/ours_2026.json",
+   "sha256": "6060cc9f78f9d3ad2b035b6f1c15c3bfaac36f4e75532e9a94e1f804387d2307",
+   "verdict": "REPAIRED",
+   "exact": "2.3658323758318174",
+   "exactRational": "1182916187915908726997634896610790569/500000000000000000000000000000000000",
+   "asPublished": {
+    "sumR": "2.3658323759185154",
+    "boxSlack": "-0.00000000000004204000",
+    "overlappingPairs": 44,
+    "worstPairSlackSquared": "-0.00000000000309437342",
+    "worstPair": [
+     3,
+     17
+    ]
+   },
+   "repair": {
+    "lambda": "0.999999999963354125",
+    "sumR": "2.3658323758318174",
+    "deficit": "0.000000000086697996",
+    "how": "every radius scaled by λ, the largest rational with λ² ≤ d²/(rᵢ+rⱼ)² on every pair and the box inside w + h ≤ 2"
+   },
+   "printed": "2.3658323759",
+   "printedConvention": "rounding",
+   "printedAgrees": false,
+   "platformTolerance": "overlap allowed to 1e-9 in distance, box to 1e-9 in w + h",
+   "ms": 0
+  },
+  {
+   "id": "heilbronn/alphaevolve_2025",
+   "problem": "heilbronn-convex",
+   "claim": "n = 14 points, min triangle area / convex-hull area = 0.0278355715",
+   "claimant": "AlphaEvolve V2 (arXiv:2511.02864)",
+   "date": "2025-11",
+   "file": "corpus/easota/heilbronn-convex/alphaevolve_2025.json",
+   "sha256": "0006a49a12e12a4d5a941967aa0b65db79a74c879d44e3c5b66158b97422e8ae",
+   "verdict": "WITNESSED",
+   "exact": "0.0278355714584821",
+   "exactRational": "26639300491813812188679511595248/957023660590097468704754145567911",
+   "detail": {
+    "hullVertices": 10,
+    "hullArea": "0.4785118302950487",
+    "minTriangle": [
+     1,
+     6,
+     9
+    ],
+    "minArea": "0.013319650245906906"
+   },
+   "printed": "0.0278355715",
+   "printedConvention": "rounding",
+   "printedAgrees": true
+  },
+  {
+   "id": "heilbronn/ours_2026",
+   "problem": "heilbronn-convex",
+   "claim": "n = 14 points, min triangle area / convex-hull area = 0.0278355805",
+   "claimant": "Together AI agents, this repository",
+   "date": "2026-04",
+   "file": "corpus/easota/heilbronn-convex/ours_2026.json",
+   "sha256": "2b16263e299479b6a4c0b63991c73654456e3e2235d783b13942c8c6c3af46f7",
+   "verdict": "WITNESSED",
+   "exact": "0.0278355805175536",
+   "exactRational": "1384426006618788439263350119322750000000000000000/49735840994792336683887689749880203672217096263811",
+   "detail": {
+    "hullVertices": 10,
+    "hullArea": "1.9894336397916934",
+    "minTriangle": [
+     4,
+     7,
+     11
+    ],
+    "minArea": "0.055377040264751537"
+   },
+   "printed": "0.0278355805",
+   "printedConvention": "rounding",
+   "printedAgrees": true
+  },
+  {
+   "id": "mindist/alphaevolve_2025",
+   "problem": "min-distance-ratio-2d",
+   "claim": "n = 16 points, (max distance / min distance)² = 12.889266",
+   "claimant": "AlphaEvolve (Novikov et al. — arXiv:2506.13131)",
+   "date": "2025-06",
+   "file": "corpus/easota/min-distance-ratio-2d/alphaevolve_2025.json",
+   "sha256": "07c7449a55b94f7c0c55600161f376c31b541c89c4bbff856396d61fba37b94e",
+   "verdict": "WITNESSED",
+   "exact": "12.8892661120346322",
+   "exactRational": "7781143280293750506132898656205994/603691724001923014244446165636925",
+   "detail": {
+    "minPair": [
+     2,
+     7
+    ],
+    "maxPair": [
+     1,
+     7
+    ],
+    "minD2": "0.2414766896007692",
+    "maxD2": "3.1124573121175002"
+   },
+   "printed": "12.889266",
+   "printedConvention": "rounding",
+   "printedAgrees": true
+  },
+  {
+   "id": "mindist/ours_2026",
+   "problem": "min-distance-ratio-2d",
+   "claim": "n = 16 points, (max distance / min distance)² = 12.889230",
+   "claimant": "Together AI agents, this repository",
+   "date": "2026-03",
+   "file": "corpus/easota/min-distance-ratio-2d/ours_2026.json",
+   "sha256": "9236e69edf32372938f59d99ae3f8b21b57d64662dedcaf80cec4b4e900e6492",
+   "verdict": "WITNESSED",
+   "exact": "12.8892299077175173",
+   "exactRational": "12889229912794890279267185/1000000000393923687498148",
+   "detail": {
+    "minPair": [
+     5,
+     7
+    ],
+    "maxPair": [
+     2,
+     15
+    ],
+    "minD2": "1.0000000003939236",
+    "maxD2": "12.8892299127948902"
+   },
+   "printed": "12.889230",
+   "printedConvention": "rounding",
+   "printedAgrees": true
+  },
+  {
+   "id": "overlap/haugland_2016",
+   "problem": "erdos-minimum-overlap",
+   "claim": "a step function h with 51 steps, 0 ≤ h ≤ 1, Σh = n/2: upper bound 0.380927",
+   "claimant": "J. K. Haugland (arXiv:1609.08000)",
+   "date": "2016",
+   "file": "corpus/easota/erdos-minimum-overlap/haugland_2016.py",
+   "sha256": "93bce13461a18cc1924512a685416359174cffa9a235f222e6d23703a3ab071a",
+   "verdict": "WITNESSED",
+   "exact": "0.3809268534330869",
+   "exactRational": "64757565083624785688821235069923/170000000000000000000000000000000",
+   "asPublished": {
+    "steps": 51,
+    "inRange": true,
+    "sumMinusHalfN": "0.00000000000000000000",
+    "bound": "0.3809268534330869",
+    "lag": -2
+   },
+   "repair": null,
+   "printed": "0.380927",
+   "printedConvention": "ceiling",
+   "printedAgrees": true,
+   "platformTolerance": "Σh = n/2 within 1e-6"
+  },
+  {
+   "id": "overlap/alphaevolve_2025",
+   "problem": "erdos-minimum-overlap",
+   "claim": "a step function h with 95 steps, 0 ≤ h ≤ 1, Σh = n/2: upper bound 0.380924",
+   "claimant": "AlphaEvolve (arXiv:2506.13131)",
+   "date": "2025-06",
+   "file": "corpus/easota/erdos-minimum-overlap/alphaevolve_2025.py",
+   "sha256": "11f33879398ee8069125aecc588792cf3c049615c7af6d9613997374668b5301",
+   "verdict": "REPAIRED",
+   "exact": "0.3809230351084501",
+   "exactRational": "5371609987271504817817482291257635482317212504/14101562500000001428177037500000036160702944129",
+   "asPublished": {
+    "steps": 95,
+    "inRange": true,
+    "sumMinusHalfN": "-0.00000000000000240535",
+    "bound": "0.3809230351084501",
+    "lag": -8
+   },
+   "repair": {
+    "how": "1 − h scaled down to Σh = n/2",
+    "bound": "0.3809230351084501",
+    "delta": "0.00000000000000000353"
+   },
+   "printed": "0.380924",
+   "printedConvention": "ceiling",
+   "printedAgrees": true,
+   "platformTolerance": "Σh = n/2 within 1e-6"
+  },
+  {
+   "id": "overlap/ttt_discover_2026",
+   "problem": "erdos-minimum-overlap",
+   "claim": "a step function h with 600 steps, 0 ≤ h ≤ 1, Σh = n/2: upper bound 0.380876",
+   "claimant": "TTT-Discover (Yuksekgonul et al. — arXiv:2601.16175)",
+   "date": "2026-01",
+   "file": "corpus/easota/erdos-minimum-overlap/ttt_discover_2026.py",
+   "sha256": "586e77b49e07ace63ddf73e69137802d24d63c1231625448a77c9ef6fad7c82f",
+   "verdict": "REPAIRED",
+   "exact": "0.3808753232177187",
+   "exactRational": "9521883080442969477300115378908169777846167402266502084359558277768/25000000000000002462481828411956030638167552590897642919340412186409",
+   "asPublished": {
+    "steps": 600,
+    "inRange": true,
+    "sumMinusHalfN": "-0.00000000000001477489",
+    "bound": "0.3808753232177187",
+    "lag": 186
+   },
+   "repair": {
+    "how": "1 − h scaled down to Σh = n/2",
+    "bound": "0.3808753232177187",
+    "delta": "-0.00000000000000000831"
+   },
+   "printed": "0.380876",
+   "printedConvention": "ceiling",
+   "printedAgrees": true,
+   "platformTolerance": "Σh = n/2 within 1e-6"
+  },
+  {
+   "id": "overlap/together_ai_2026",
+   "problem": "erdos-minimum-overlap",
+   "claim": "a step function h with 600 steps, 0 ≤ h ≤ 1, Σh = n/2: upper bound 0.380871",
+   "claimant": "Together AI agents, this repository",
+   "date": "2026-03",
+   "file": "corpus/easota/erdos-minimum-overlap/together_ai_2026.py",
+   "sha256": "3a2d93e27438df87cd8894a9a671cb0c074ca27ffa37cf62f75f445d8b67c091",
+   "verdict": "REPAIRED",
+   "exact": "0.3808703105862199",
+   "exactRational": "3427832795275979167185429287784725940947646053877435053487195/9000000000000000059930144815938000099767284934980564886078329",
+   "asPublished": {
+    "steps": 600,
+    "inRange": true,
+    "sumMinusHalfN": "-0.00000000000000099883",
+    "bound": "0.3808703105862199",
+    "lag": 33
+   },
+   "repair": {
+    "how": "1 − h scaled down to Σh = n/2",
+    "bound": "0.3808703105862199",
+    "delta": "0.00000000000000000042"
+   },
+   "printed": "0.380871",
+   "printedConvention": "ceiling",
+   "printedAgrees": true,
+   "platformTolerance": "Σh = n/2 within 1e-6"
+  },
+  {
+   "id": "edges/alphaevolve_2025",
+   "problem": "edges-vs-triangles",
+   "claim": "100 rows of 20 weights → (edge density, triangle density) points; the platform's envelope score = -0.712494",
+   "claimant": "AlphaEvolve V2 (arXiv:2511.02864)",
+   "date": "2025-11",
+   "file": "corpus/easota/edges-vs-triangles/alphaevolve_2025.py",
+   "sha256": "7be8fc9111819694c1a3626bcdc214d435caca128a8f0f052007b317e1520b88",
+   "verdict": "WITNESSED",
+   "exact": "-0.7124938782214395",
+   "exactRational": "-5151826973432834953278794255485564014595406296502385263471398825959195845982508818967268681585491364049770384461455590147369789080930579647401200936698852866506728078431622023073352955884433581274717383874098640355502978132760641672107081556607427359946069207721237778762326667211206648090803030433977943388917004320780729450547690632890875090786835145015590555936115057601235726623792594709394093484331882084203728409484984832922959411549692983099650393483615667430797742543390603140056769254814344210027048085123387685586379263170438955242896782343505827028747578515699824314041552373138285167003320216437163323420428272937682237490370839892722155645013639562454177341981272121994675700691891963565531390932703364373409797224783541587330816835992393560708147856380979617075103267754446545183420004184671147529311675300423630014261154370524520622574723051309373957155858383957254234492674231478064268270390460460557288369413211538567118112953809524771669626624350450132162128004428324622829702801007640344170695871739547707954716094731880648847618688108449646658360325011430513419639800865464311351837159147570448016019983926065464748750236696116746276009364805844548990523636089502733919113392002181539829004172846397661691712798092133750675524933659700407865804286173805782936229111498544686958201077125569821377057980944549958709848096751853743646725555120150069658719464043366532295145086841623300895943514610035048792909930228252965553288428909070682723654560134993796253398629157611775201772584638333350896345691522693696163318622904737330105902932776680864444101067028770846091419062705753893351163624253622071334789430056496584531282098582078149179220457638872186872640263061654022668933050261337954607449086951540962585274590201368848341218380951430864817460813997905148684046591484438405073063504714815185955266669419062669732607333331476520603256908454656581366001570138777102999649466485254846208019061634035461398623375236436822308648359359995447272101183526790782717328287895273109793200611355520782794253514837725795644344825789511710845166264176538999046384297279057726106577572385956458584756731497680887738222836266524145747726057861985537600061443522407108161919643204136391179187716667630733037067637151869560295849211926068710378867029581727483510702792930559443356993314292335147626111894584703073309415296319346754305407867219937995785024473264839023685953865801133555224031552456659084096141888942363055923079224760341038328563527699803602740166528899580036208457087714347965483949399479498554030862023071294158898337387345141130658870450009270643365218099126684773465301524511291596703036942915015845465164870918588174596794554041783222307686446301393826737088324745524486136900658783891470589729307564456619906233802445411777089704668760121547989543459329637415884135595775132437963744541947074963592014985024994950168470401898477955743048821052392915194673534284077482581329202123903520804809281046140423224967739042532787561404083164492794091479194422759752398477242840216297991685832735902003079070184224780975876387028985887052271209253882871656659501994110696340898533692341428430389271963008746141687977013450838556697739048000204762411206048026089164899462670595400411853190667207681512214649353807444684850132875289499260723347338644092347438394741120444745801464330914686911421769616379444917699188677900615306506614288932501057366585080635515528593922144323818177894098960535225041250942281476365474976434246019227827893456386668905662588955572770875279220535990226548350182224678336276093567634610750074131340871016238909356718723884076716686120375324694498044665855751433913031604122099481627513032923138644767976670214170469268722334741556489663397794909246167048096480162384129666076849605952733494066143200529749544137134206975988069899489026953187346811491941033998360828406807626701038022320505932479659383728240618642736881345496879192694094777907496557584910993464685716491320259977490306899/7230696474604196793071524282495573172199092604781093029175275417356576445025198946822004464158710936169637804000916058551295461916818092359413845565981720229548495148172565301708985679397962082005466366693405215043588117394414098802786293783927853226753546456847616318008501564125210891402373940359404204378314910072570979158198266342934690358523451240841694917821652598744824677999020087387096767904629328614922259363954760936850693697780096824471345145771994701870888661417546020993987097031104259756065740843801159674588066270412077958067317117825077562918700987730184367287751355798354203114677705102612932083365983627179682808815126085209357218528589534594664485060716507551300544808132265893219843344454551691668025802022472358309051819962141352063765627029832685716289087143623143079581791641463923767576885679668909365349128148140246550551601334017715842693439821522777779786680932035812464236172349162027995911549839415994294167666641736415482347699911587382397385913204647119343599323857154035690602981259815267007635698463601488248771396331798830156948533525208560589549633435509953138302272592277879396318407878524017912345997048992190098922735845980244238789756220298497818282570523267909093610775358589931992903156963473584513260789436337914006343343034061677306564270927041808430395637186996192331804776963088770082428945280739516801854356119254652137464656930260436318600950950010813709922381196834934891930980274993799780628376392086497566946905719026418634028004565065558994315193266390657167261555295765738972432882853378485510782519821635415969491914388867353519268232537735748229710956213896262151914993146806319112842494274009937018218822616414855780451453645049033633360128335401085207108057463307088983123686214586424240911767081310188403207394475401444482291588763068782907509407638964796059335181507461316223276302792105831188758015382367599869810956201039232341594326340765731468605511143012825691411850859104855914095381468774445599809459758919964371559881398078329496057083392642878773335906693076004769972095303099708080226631230201311203034554645206088296564371955492647472320331798103357439215260804337138304612915453489346869265643126467073625452567457595791050793907570916574827952305826139771555197712236843022435589264895025193610160697408890689996618634262006002363056525290195631866376707525529838245887234820351014667825533397444683945095906815964854483136616873051903582147836150752405409097286793783408735547975621280012505968274113464360071843212585785798775566054641373305084458923220792429321363231939494543885943007837801062304637162793903348786930378568083089128143324144825693466559910153038539853462261840538843474376412565596162580194442818343032300595965392837430921260282273116707392707057241481486985599681341089066365330664201752016672453054086299205135598407628674043961062158391111115393356656687158005229234283221535430446688093041597579611374077151816355400821730540135006913151156115969235831395350364344844383323570010725736489894540354478241764381964781235882368344939176551846674649102233785993737778614705174594171799112657592778081773207197909576885617643138224646781986590369398826297737549206726563095102437970727833205369564005363134311528405962065122335633411790171836095575353395012319202787808743121428222224965864866488653695766188160898450976121885417496578006001942276996415132770339683188889598209895833710350808266210649658774231305334578756785828857736087133545262472515159710460913321075541648130766316343827886552398057512680963659191383851618919505288338901445145713737416803269972021888695210162614752446647217497426009664300757200277311355863186158312072001500820473244592809475404865244062808263981394280551820950237105315470674998229998990359084150552614607170277066217376842305861446694296801054515591543050153201337380732324357458356889869561636783839257324218750000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+   "detail": {
+    "area": "0.2124934484447972",
+    "maxGap": "0.0500000429776642",
+    "distinctRho": 100,
+    "note": "a benchmark score, not a theorem: the area under the platform's slope-3 envelope plus 10 × the largest gap in edge density, recomputed exactly (its 1e-9 branches are exact comparisons here)"
+   },
+   "printed": "-0.712494",
+   "printedConvention": "rounding",
+   "printedAgrees": true
+  },
+  {
+   "id": "edges/ours_2026",
+   "problem": "edges-vs-triangles",
+   "claim": "100 rows of 20 weights → (edge density, triangle density) points; the platform's envelope score = -0.712256",
+   "claimant": "Together AI agents, this repository",
+   "date": "2026-03",
+   "file": "corpus/easota/edges-vs-triangles/ours_2026.py",
+   "sha256": "350cbf63494f853979e9736916b6a1d40db279d9ae20461c66d0194c13abf0f3",
+   "verdict": "WITNESSED",
+   "exact": "-0.7122563326979318",
+   "exactRational": "-77647527571073068135100948143629121826397974390021301035610952510234172171337945386979475337241310032404566545789175686580248310663816725098523256417155582155776166843352754992077883796644621011155811089946370819106835282601887989806547320536899224139652946787528758565471469654588990449434141449292931988735535139131110115296599519132943409742242515871365584041188644841934793765400585869686971769223586058030492027004693657015273829695856480502608868167905365746477118395458534719742072420543596860992721462727184212168250007041504187271791664015393953981767335719201984494320728124381170213696934865793718458139329910356120080203653829042681199508031407658382381332906557187364938505037809366482027508764140178579415131775808779257522522496346590262905628427825796041534632500647645555986810152210725818387089903906184973419366925431366807589725673475549465093793861760769504095107/109016268450649786496958233342521747716441849567708110059112950880123046256659725348784529132607546058026851449931910766005025143538819964095583861813678243624639637567265374969646817859442405432066674298547593885087117563538137233491602640375850392419280386799517735491494284437788057348393978066618212643997421162033127818229088010133212502582916070189536474382401549513258487086896832147198730982869386475125496036963819280193565322120062457456323498879572297554127430228190500324425816764079201889932946967111432835030063942398638492569939455196246644246497060892731738697785433687983433638186743868360728324819715788274244461677121165935289993794955003429041587939983512331603892904311149965104440743301720989231653673938369588297431095685976503251093735945253169531252067576131250001786794187500000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+   "detail": {
+    "area": "0.2122563326979293",
+    "maxGap": "0.0500000000000002",
+    "distinctRho": 99,
+    "note": "a benchmark score, not a theorem: the area under the platform's slope-3 envelope plus 10 × the largest gap in edge density, recomputed exactly (its 1e-9 branches are exact comparisons here)"
+   },
+   "printed": "-0.712256",
+   "printedConvention": "rounding",
+   "printedAgrees": true
+  },
+  {
+   "id": "autocorr/alphaevolve_2025",
+   "problem": "first-autocorrelation",
+   "claim": "f ≥ 0 as 600 values on [−1/4, 1/4]: C₁ ≤ 1.50529397",
+   "claimant": "AlphaEvolve (arXiv:2506.13131)",
+   "date": "2025-06",
+   "file": "corpus/easota/first-autocorrelation/alphaevolve_2025.py",
+   "sha256": "dea4517da3763e82c314606269718404c7b0f6d29c5522c0bc2033d3e894cb35",
+   "verdict": "WITNESSED",
+   "exact": "1.5052939684401608",
+   "exactRational": "232137593339762332394128908075248066605881087348524259456000000000000/154214125750009859130178856148859502365769023151443785629054507630809",
+   "detail": {
+    "n": 600,
+    "argmax": 769,
+    "candidatesDecidedExactly": 1,
+    "screenErrorBound": 5.329070518200751e-13,
+    "decimalDigits": 32,
+    "note": "for a step function the discrete maximum IS the supremum of f∗f; n² products screened in float64, every index within the forward-error bound of the float maximum decided exactly"
+   },
+   "printed": "1.50529397",
+   "printedConvention": "ceiling",
+   "printedAgrees": true,
+   "ms": 3
+  },
+  {
+   "id": "autocorr/alphaevolve_v2_2025",
+   "problem": "first-autocorrelation",
+   "claim": "f ≥ 0 as 1319 values on [−1/4, 1/4]: C₁ ≤ (no value printed for this file)",
+   "claimant": "AlphaEvolve V2 (arXiv:2511.02864)",
+   "date": "2025-11",
+   "file": "corpus/easota/first-autocorrelation/alphaevolve_v2_2025.json",
+   "sha256": "92a023d37ea89c98b37a0778585dedafaf8acee540610b2afef922b39f51c430",
+   "verdict": "WITNESSED",
+   "exact": "1.5031635546815609",
+   "exactRational": "925266108971129172015049350003168641445336690037048/615545863980944528771286708404495389967980829685049",
+   "detail": {
+    "n": 1319,
+    "argmax": 1279,
+    "candidatesDecidedExactly": 1,
+    "screenErrorBound": 1.1715073355844652e-12,
+    "decimalDigits": 23,
+    "note": "for a step function the discrete maximum IS the supremum of f∗f; n² products screened in float64, every index within the forward-error bound of the float maximum decided exactly"
+   },
+   "printed": null,
+   "printedConvention": "ceiling",
+   "printedAgrees": null,
+   "ms": 4
+  },
+  {
+   "id": "autocorr/ttt_discover_2026",
+   "problem": "first-autocorrelation",
+   "claim": "f ≥ 0 as 30000 values on [−1/4, 1/4]: C₁ ≤ 1.50286290",
+   "claimant": "TTT-Discover (arXiv:2601.16175)",
+   "date": "2026-01",
+   "file": "corpus/easota/first-autocorrelation/ttt_discover_2026.json",
+   "sha256": "4f24a0ef2515171617e3be99bc58e3ea8d350ff6b299775c029c5dc2971f413d",
+   "verdict": "WITNESSED",
+   "exact": "1.5028628982558265",
+   "exactRational": "9017177389534960453073255343945818186531611658165103644880000/6000000000000000717612319644499700914825151864452703446981849",
+   "detail": {
+    "n": 30000,
+    "argmax": 33235,
+    "candidatesDecidedExactly": 1,
+    "screenErrorBound": 2.6645352591003757e-11,
+    "decimalDigits": 28,
+    "note": "for a step function the discrete maximum IS the supremum of f∗f; n² products screened in float64, every index within the forward-error bound of the float maximum decided exactly"
+   },
+   "printed": "1.50286290",
+   "printedConvention": "ceiling",
+   "printedAgrees": true,
+   "ms": 891
+  },
+  {
+   "id": "autocorr/ours_2026",
+   "problem": "first-autocorrelation",
+   "claim": "f ≥ 0 as 30000 values on [−1/4, 1/4]: C₁ ≤ 1.50286286",
+   "claimant": "Together AI agents, this repository",
+   "date": "2026-03",
+   "file": "corpus/easota/first-autocorrelation/ours_2026.json",
+   "sha256": "6cc34889cb40a4e2579c078b08c39d71fd29f07ab7f14f2417f770038e9c0caf",
+   "verdict": "WITNESSED",
+   "exact": "1.5028628587049711",
+   "exactRational": "1502862858704110049736338328792230205046928615747268712036800/999999999999427044848111787787401518834592685139973858473881",
+   "detail": {
+    "n": 30000,
+    "argmax": 28879,
+    "candidatesDecidedExactly": 10,
+    "screenErrorBound": 2.6645352591003757e-11,
+    "decimalDigits": 30,
+    "note": "for a step function the discrete maximum IS the supremum of f∗f; n² products screened in float64, every index within the forward-error bound of the float maximum decided exactly"
+   },
+   "printed": "1.50286286",
+   "printedConvention": "ceiling",
+   "printedAgrees": true,
+   "ms": 696
+  },
+  {
+   "id": "flat/alphaevolve_2025",
+   "problem": "flat-polynomials",
+   "claim": "70 coefficients ±1: C⁺ = max_{|z|=1} |g(z)| / √71 = 1.340925",
+   "claimant": "AlphaEvolve V2 (arXiv:2511.02864)",
+   "date": "2025-11",
+   "file": "corpus/easota/flat-polynomials/alphaevolve_2025.py",
+   "sha256": "c403c792b1793cf618990e6b8e82fc174b1a001b8daa57f854a572f4ab26c07a",
+   "verdict": "WITNESSED",
+   "exact": "1.3409252804007615",
+   "exactRational": null,
+   "enclosure": {
+    "lo": "1.34092528040076154302",
+    "hi": "1.34092528040076161766",
+    "width": "0.00000000000000007464",
+    "maxSqLo": "127.6637231408681287",
+    "maxSqHi": "127.6637231408681429"
+   },
+   "detail": {
+    "degree": 69,
+    "gridScore": "1.3409252794557085",
+    "gridShortfall": "0.0000000009450530",
+    "argCosTheta": [
+     {
+      "kind": "critical",
+      "cosTheta": [
+       0.6087949790870701,
+       0.6087949790870703
+      ]
+     }
+    ],
+    "method": "chebyshev reduction → sturm isolation (grid+sturm-total) → interval-newton/bisection refinement → exact taylor value enclosures, outward-rounded",
+    "counts": {
+     "degree": 69,
+     "sfDeg": 68,
+     "nCrit": 39,
+     "nCandidates": 41,
+     "isolation": "grid+sturm-total"
+    },
+    "ms": 359,
+    "note": "the platform's score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall"
+   },
+   "printed": "1.340925",
+   "printedConvention": "rounding",
+   "printedAgrees": true
+  },
+  {
+   "id": "flat/ours_2026",
+   "problem": "flat-polynomials",
+   "claim": "70 coefficients ±1: C⁺ = max_{|z|=1} |g(z)| / √71 = 1.280932",
+   "claimant": "Together AI agents, this repository",
+   "date": "2026-03",
+   "file": "corpus/easota/flat-polynomials/ours_2026.py",
+   "sha256": "d2a51b1c92cfb53de3b379e7599f00975e15e97876bb61d4b5ac9c485590d6a1",
+   "verdict": "WITNESSED",
+   "exact": "1.2809320528750416",
+   "exactRational": null,
+   "enclosure": {
+    "lo": "1.28093205287504167568",
+    "hi": "1.28093205287504175382",
+    "width": "0.00000000000000007814",
+    "maxSqLo": "116.4958716098694679",
+    "maxSqHi": "116.4958716098694821"
+   },
+   "detail": {
+    "degree": 69,
+    "gridScore": "1.2809320527987995",
+    "gridShortfall": "0.0000000000762421",
+    "argCosTheta": [
+     {
+      "kind": "critical",
+      "cosTheta": [
+       -0.7901917400320739,
+       -0.7901917400320738
+      ]
+     }
+    ],
+    "method": "chebyshev reduction → sturm isolation (grid+sturm-total) → interval-newton/bisection refinement → exact taylor value enclosures, outward-rounded",
+    "counts": {
+     "degree": 69,
+     "sfDeg": 68,
+     "nCrit": 43,
+     "nCandidates": 44,
+     "isolation": "grid+sturm-total"
+    },
+    "ms": 492,
+    "note": "the platform's score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall"
+   },
+   "printed": "1.280932",
+   "printedConvention": "rounding",
+   "printedAgrees": true
+  }
+ ],
+ "improvements": [
+  {
+   "problem": "circles-rectangle",
+   "direction": "maximise",
+   "previous": "AlphaEvolve V2",
+   "delta": "0.0000002424150543",
+   "sign": 1,
+   "note": "ours taken as its REPAIRED exact witness"
+  },
+  {
+   "problem": "heilbronn-convex",
+   "direction": "maximise",
+   "previous": "AlphaEvolve V2",
+   "delta": "0.0000000090590715",
+   "sign": 1
+  },
+  {
+   "problem": "min-distance-ratio-2d",
+   "direction": "minimise",
+   "previous": "AlphaEvolve",
+   "delta": "0.0000362043171149",
+   "sign": 1
+  },
+  {
+   "problem": "erdos-minimum-overlap",
+   "direction": "minimise",
+   "previous": "TTT-Discover",
+   "delta": "0.0000050126314988",
+   "sign": 1
+  },
+  {
+   "problem": "edges-vs-triangles",
+   "direction": "maximise",
+   "previous": "AlphaEvolve V2",
+   "delta": "0.0002375455235076",
+   "sign": 1
+  },
+  {
+   "problem": "first-autocorrelation",
+   "direction": "minimise",
+   "previous": "TTT-Discover",
+   "delta": "0.0000000395508554",
+   "sign": 1
+  },
+  {
+   "problem": "flat-polynomials",
+   "direction": "minimise",
+   "previous": "AlphaEvolve V2",
+   "delta": "0.0599932275257197",
+   "sign": 1,
+   "note": "a lower bound on the difference: the two certified enclosures are disjoint"
+  }
+ ],
+ "undecided": [
+  {
+   "problem": "hexagon-packing",
+   "claim": "12 unit hexagons inside a hexagon of side 3.9416523 (AlphaEvolve V2: 3.9419123)",
+   "status": "QUEUED",
+   "why": "the constructions carry rotation angles in degrees, so every vertex involves cos and sin; the separating-axis tests need interval arithmetic with certified trigonometry rather than exact rationals. Decidable; not built in this pass."
+  },
+  {
+   "problem": "prime-number-theorem",
+   "claim": "S(f) = 0.994179 (AlphaEvolve: 0.921292)",
+   "status": "NOT DECIDABLE AS STATED",
+   "why": "the platform's score is estimated from 10,000,000 random samples; a Monte Carlo score is not a mathematical claim about the construction and this ledger does not certify it."
+  },
+  {
+   "problem": "tammes / second & third autocorrelation / uncertainty (README rows)",
+   "claim": "four further table rows",
+   "status": "NEEDS DATA",
+   "why": "the repository README lists them; no solution files are published in the repository at the pinned commit."
+  }
+ ]
+}
