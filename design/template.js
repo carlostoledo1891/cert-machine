@@ -169,7 +169,7 @@ figure{margin:0}
 .figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:${SCALE.figPad};overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
-figcaption{color:var(--ink-4);font-size:${SCALE.small};line-height:1.55;margin-top:16px}
+figcaption{color:var(--ink-4);font-size:${SCALE.small};line-height:1.55;margin-top:16px;margin-bottom:24px}
 .figbox svg text{font-family:var(--f-mono)}
 .t-ax{font-size:12px;fill:var(--ink-3)}
 .t-lab{font-size:13px;fill:var(--ink)}

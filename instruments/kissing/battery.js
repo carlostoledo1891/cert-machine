@@ -9,6 +9,7 @@
 const path = require('path');
 const fs = require('fs');
 const K = require('./kissing.js');
+const CG = require('./congruence.js');
 const ROOT = path.resolve(__dirname, '..', '..');
 
 let pass = 0, fail = 0, reds = 0, redsFired = 0;
@@ -87,6 +88,38 @@ ok(e8.contacts > 0, 'E8 has exact contacts (60-degree pairs decided as equality,
   ok(b && b.sha256 === a.sha256, 'the profile is a function of the configuration, not of its listing');
 }
 
+/* ---- red 9: congruence — found where it exists, refused where it does not, certificate tamper caught ---- */
+{
+  const d4 = K.d4();
+  const perm = [2, 0, 3, 1], sg = [1n, -1n, -1n, 1n];
+  const moved = d4.map((v) => ({ P: perm.map((p, i) => sg[i] * v.P[p] * 3n), Q: perm.map(() => 0n) })).reverse();
+  const a = CG.congruent(d4, moved);
+  ok(a && a.verdict === 'CONGRUENT' && a.isometry === 'signed coordinate permutation' && a.certificate.scale.join('/') === '3/0/1', 'D4 vs a signed coordinate permutation of itself, scaled and relisted: CONGRUENT, the isometry named');
+  /* a rational rotation: (x,y) -> (3x+4y, -4x+3y)/5, scaled by 5 */
+  const rot = d4.map((v) => ({ P: [3n * v.P[0] + 4n * v.P[1], -4n * v.P[0] + 3n * v.P[1], 5n * v.P[2], 5n * v.P[3]], Q: [0n, 0n, 0n, 0n] }));
+  const b = CG.congruent(d4, rot);
+  ok(b && b.verdict === 'CONGRUENT' && b.isometry === 'orthogonal over Q', 'D4 vs a 3-4-5 rotation of itself: CONGRUENT with a rational orthogonal matrix');
+  /* a 45-degree rotation over Z[sqrt2]: (x,y) -> ((x-y)sqrt2, (x+y)sqrt2), z,w doubled: norm x4 */
+  const r45 = d4.map((v) => ({ P: [0n, 0n, 2n * v.P[2], 2n * v.P[3]], Q: [v.P[0] - v.P[1], v.P[0] + v.P[1], 0n, 0n] }));
+  const c = CG.congruent(d4, r45);
+  ok(c && c.verdict === 'CONGRUENT' && c.isometry === 'orthogonal over Q(sqrt2)' && c.certificate.scale.join('/') === '2/0/1', 'D4 vs a 45-degree rotation over Z[sqrt2]: CONGRUENT, the matrix carries sqrt2');
+  const e8 = K.e8(), e8b = K.e8(); e8b[100] = { P: [1n, 1n, 1n, 1n, 1n, 1n, 1n, -1n], Q: e8b[100].Q };
+  const d = CG.congruent(e8, e8b);
+  red(d && d.verdict === 'NOT CONGRUENT', 'E8 vs E8 with one root replaced by a non-root of the same norm: NOT CONGRUENT, proved by exhaustion');
+  const mixed = K.d4(); mixed[5] = { P: [2n, 0n, 0n, 0n], Q: [0n, 0n, 0n, 0n] };
+  red(CG.congruent(d4, mixed) === null, 'a configuration without one shell norm is refused, not decided');
+  const bad = JSON.parse(JSON.stringify(a.certificate)); [bad.pi[0], bad.pi[1]] = [bad.pi[1], bad.pi[0]];
+  red(!CG.verifyCertificate(d4, moved, bad).ok && CG.verifyCertificate(d4, moved, a.certificate).ok, 'a certificate with two entries of pi swapped fails verification; the honest one passes');
+}
+
+/* ---- red 10: measure() — an attempt that is not a witness is measured, not refuted ---- */
+{
+  const m = K.measure(K.fromIntegers([[1, 0], [3, 5], [1, 0], [0, 0]]));
+  red(m.violations === 3 && m.coincident === 1 && m.zero === 1 && m.worstAngleDeg < 1e-9, 'measure counts every violating pair, the repeated direction and the zero vector');
+  const ok8 = K.measure(K.e8());
+  ok(ok8.violations === 0 && ok8.contacts === 6720, 'measure on E8: no violation, the textbook contact count');
+}
+
 /* ---- the shipped record, re-walked ---- */
 const CERT = path.join(ROOT, 'certs', 'kissing-ledger.json');
 if (fs.existsSync(CERT)) {
@@ -119,6 +152,18 @@ if (fs.existsSync(CERT)) {
   const gE = K.gramProfile(eaV), g1 = K.gramProfile(K.fromSqrt2Pairs(st.configs[0]));
   ok(gE && g1 && gE.sha256 === g1.sha256 && gE.vertexSha256 === g1.vertexSha256, 'live: Gram profile (multiset and per-vector) identical to Station configuration 1');
   ok(K.sharedDirections(eaV, K.fromSqrt2Pairs(st.configs[0])) === byId['ea-604'].sharedDirectionsWith['station-604-1'], 'live: shared-direction count with configuration 1 matches the record');
+  /* the congruence certificate: re-verified exactly, no search */
+  const cg = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'kissing-congruence.json'), 'utf8'));
+  ok(cg.a_sha256 === meta.upstream_sha256 && cg.b_sha256 === st.upstream_sha256, 'certificate names both pinned sources by digest');
+  const c1 = byId['ea-604'].congruence;
+  ok(c1 && c1['station-604-1'].verdict === 'CONGRUENT' && c1['station-604-1'].isometry === 'signed coordinate permutation'
+    && c1['station-604-2'].verdict === 'NOT CONGRUENT' && c1['station-604-3'].verdict === 'NOT CONGRUENT', 'ledger: ea-604 congruent to Station configuration 1 by a signed coordinate permutation, to neither other');
+  const v1 = CG.verifyCertificate(eaV, K.fromSqrt2Pairs(st.configs[0]), cg.certificates['station-604-1']);
+  ok(v1.ok, 'live: the congruence certificate (pi, T, scale) verifies exactly on every vector — ' + (v1.reason || 'ok'));
+  ok(!cg.certificates['station-604-2'] && !cg.certificates['station-604-3'], 'no certificate is carried for the non-congruent pairs');
+  ok(Array.isArray(led.openRungs) && led.openRungs.length === 3 && led.openRungs.every((r) => r.measured.violations > 0), 'ledger: the three open rungs are measured, none a witness');
+  const r841 = led.openRungs.find((r) => r.slug === 'kissing-number-d12');
+  ok(r841 && r841.measured.violations === 1 && r841.measured.coincident === 1, 'ledger: the best n=841 attempt fails by exactly one pair, a repeated vector');
 } else {
   console.error('note: certs/kissing-ledger.json not present yet (pre-ledger run)');
 }

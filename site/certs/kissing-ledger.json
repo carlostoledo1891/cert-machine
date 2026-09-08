@@ -5,10 +5,15 @@
   "corpus/kissing/alphaevolve-d11-593.json": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
   "corpus/kissing/ea-d11-594-winner.json": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
   "corpus/kissing/station-d11-604.json": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
-  "corpus/kissing/ea-d11-604.json": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761"
+  "corpus/kissing/ea-d11-604.json": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761",
+  "corpus/kissing/ea-open-rungs.json": {
+   "kissing-number-d11-605": "dc165ce713b45ea249531f8d3e2d7066b7647cf0a6d330da00a5be0f79194262",
+   "kissing-number-d12": "57e0edd3816ffaaa4370ff62e7dbeba329c1146c03ef86c6e9c78ebde241dd61",
+   "kissing-number-d12-842": "8bb3b293d6585a6cfac7026681876ff1293ad91266368e4d4d50900aae8b2bc3"
+  }
  },
- "generated": "2026-09-08T01:42:45.274Z",
- "git": "aeffdb5",
+ "generated": "2026-09-08T15:25:14.029Z",
+ "git": "9699fce",
  "rows": [
   {
    "id": "cal-d4-24",
@@ -44,7 +49,7 @@
     "j": 4,
     "cos2Approx": 0.25
    },
-   "ms": 12
+   "ms": 10
   },
   {
    "id": "alphaevolve-593",
@@ -62,9 +67,11 @@
     "j": 325,
     "cos2Approx": 0.2499999999997728
    },
-   "ms": 112,
+   "ms": 108,
    "upstream_sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
-   "form": "integer vectors, entries up to ~8.7e12"
+   "form": "integer vectors, entries up to ~8.7e12",
+   "date": "2025-05-14",
+   "dateSource": "AlphaEvolve white paper and results notebook, May 2025"
   },
   {
    "id": "ea-594-winner",
@@ -82,9 +89,16 @@
     "j": 22,
     "cos2Approx": 0.25
    },
-   "ms": 69,
+   "ms": 66,
    "upstream_sha256": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
-   "form": "decimal literals read as exact rationals"
+   "form": "decimal literals read as exact rationals",
+   "date": "2026-04-10",
+   "dateSource": "createdAt of solution #1492 on the platform API (2026-04-10T23:13:59Z)",
+   "sharedDirectionsWith": {
+    "ea-604": 496,
+    "station-shell-582": 176
+   },
+   "nonIntegerVectors": 98
   },
   {
    "id": "station-604-1",
@@ -102,13 +116,16 @@
     "j": 15,
     "cos2Approx": 0.25
    },
-   "ms": 67,
+   "ms": 63,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
+   "date": "2026-08-24",
+   "dateSource": "dualverse-ai/station_data_v2 initial public release 606e325f and arXiv:2608.23691 v1, both 2026-08-24",
    "gram": {
     "distinct": 22,
     "sha256": "bc11bd62f673b651fc79f15509903bceaff38bf7e884209b8120e98eb84a6507",
-    "vertexSha256": "e5c7445ea541cc935637cc1bbc2bef9bb8c14c9ea0ed6d49a538b7f69db99065"
+    "vertexSha256": "e5c7445ea541cc935637cc1bbc2bef9bb8c14c9ea0ed6d49a538b7f69db99065",
+    "multiset": "-1,0/1x302 -1,0/2x19704 -1,0/4x19968 -3,-1/12x2304 -3,-2/12x4608 -3,1/12x2304 -3,2/12x4608 0,-1/12x2304 0,-1/3x384 0,-1/4x768 0,-1/6x3072 0,0/1x61756 0,1/12x2304 0,1/3x384 0,1/4x768 0,1/6x3072 1,0/2x19704 1,0/4x19968 3,-1/12x2304 3,-2/12x4608 3,1/12x2304 3,2/12x4608"
    }
   },
   {
@@ -127,13 +144,16 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 63,
+   "ms": 59,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
+   "date": "2026-08-24",
+   "dateSource": "dualverse-ai/station_data_v2 initial public release 606e325f and arXiv:2608.23691 v1, both 2026-08-24",
    "gram": {
     "distinct": 14,
     "sha256": "8f7465ebef06ee170355b1dd3d646735ce897f117d4e5010f71ad6d6d8dcc57a",
-    "vertexSha256": "caf34ab7dd815f7b99398dfce0aeead13c3efea751e50f67281395b1e93c2c03"
+    "vertexSha256": "caf34ab7dd815f7b99398dfce0aeead13c3efea751e50f67281395b1e93c2c03",
+    "multiset": "-1,0/1x302 -1,0/2x22904 -1,0/4x24064 -2,-1/8x3584 -2,1/8x3584 0,-1/4x256 0,-1/8x2048 0,0/1x68924 0,1/4x256 0,1/8x2048 1,0/2x22904 1,0/4x24064 2,-1/8x3584 2,1/8x3584"
    }
   },
   {
@@ -152,13 +172,16 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 62,
+   "ms": 59,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
+   "date": "2026-08-24",
+   "dateSource": "dualverse-ai/station_data_v2 initial public release 606e325f and arXiv:2608.23691 v1, both 2026-08-24",
    "gram": {
     "distinct": 15,
     "sha256": "e943318d751a361df424463dde0aa8d5e1f83644d42f426e802d7c3239d8838d",
-    "vertexSha256": "3a67c142235395fb81ea7d73d77b2ab7c6a87e7ed383a23f2307c4c9d0aa01ea"
+    "vertexSha256": "3a67c142235395fb81ea7d73d77b2ab7c6a87e7ed383a23f2307c4c9d0aa01ea",
+    "multiset": "-1,0/1x238 -1,0/2x21944 -1,0/4x25344 -2,-1/8x3584 -2,1/8x3584 -3,0/4x384 0,-1/4x256 0,-1/8x2048 0,0/1x67964 0,1/4x256 0,1/8x2048 1,0/2x22840 1,0/4x24448 2,-1/8x3584 2,1/8x3584"
    }
   },
   {
@@ -177,9 +200,11 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 55,
+   "ms": 52,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
-   "form": "integer vectors"
+   "form": "integer vectors",
+   "date": "1980-01-01",
+   "dateSource": "M. R. Best, IEEE Trans. Inform. Theory 26 (1980) — the norm-4 shell class; the year, not a day"
   },
   {
    "id": "station-d12-lift",
@@ -197,7 +222,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 69,
+   "ms": 66,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors in R^12"
   },
@@ -217,14 +242,15 @@
     "j": 16,
     "cos2Approx": 0.25
    },
-   "ms": 69,
+   "ms": 67,
    "upstream_sha256": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761",
    "upstream_commit": "c388c6f7408c886311940896713339a1a70c2394",
    "form": "p + q*sqrt2 integer pairs (22 integers per vector), shell norm exactly 36",
    "gram": {
     "distinct": 22,
     "sha256": "bc11bd62f673b651fc79f15509903bceaff38bf7e884209b8120e98eb84a6507",
-    "vertexSha256": "e5c7445ea541cc935637cc1bbc2bef9bb8c14c9ea0ed6d49a538b7f69db99065"
+    "vertexSha256": "e5c7445ea541cc935637cc1bbc2bef9bb8c14c9ea0ed6d49a538b7f69db99065",
+    "multiset": "-1,0/1x302 -1,0/2x19704 -1,0/4x19968 -3,-1/12x2304 -3,-2/12x4608 -3,1/12x2304 -3,2/12x4608 0,-1/12x2304 0,-1/3x384 0,-1/4x768 0,-1/6x3072 0,0/1x61756 0,1/12x2304 0,1/3x384 0,1/4x768 0,1/6x3072 1,0/2x19704 1,0/4x19968 3,-1/12x2304 3,-2/12x4608 3,1/12x2304 3,2/12x4608"
    },
    "sameGramProfileAs": [
     "station-604-1"
@@ -232,10 +258,47 @@
    "sharedDirectionsWith": {
     "station-604-1": 108,
     "station-604-2": 118,
-    "station-604-3": 118
+    "station-604-3": 118,
+    "ea-594-winner": 496,
+    "station-shell-582": 176
+   },
+   "congruence": {
+    "station-604-1": {
+     "verdict": "CONGRUENT",
+     "isometry": "signed coordinate permutation",
+     "nodes": 11,
+     "refines": 24,
+     "edgeColours": 22,
+     "ms": 1113
+    },
+    "station-604-2": {
+     "verdict": "NOT CONGRUENT",
+     "reason": "individualisation-refinement exhausted",
+     "nodes": 1,
+     "refines": 3,
+     "edgeColours": 28,
+     "ms": 213
+    },
+    "station-604-3": {
+     "verdict": "NOT CONGRUENT",
+     "reason": "individualisation-refinement exhausted",
+     "nodes": 1,
+     "refines": 3,
+     "edgeColours": 29,
+     "ms": 219
+    }
+   },
+   "integerVectors": 496,
+   "nearestNonContact": {
+    "key": "3,2/12",
+    "count": 4608,
+    "cosApprox": 0.48570226039551584,
+    "angleDeg": 60.94150715239463
    },
    "needsDataFrom": "2026-09-03",
    "bytesPublished": "2026-09-07",
+   "date": "2026-04-12",
+   "dateSource": "first commit of the file in togethercomputer/EinsteinArena-new-SOTA (d97e89d1, \"add n=604\", 2026-04-12); arXiv:2606.10402 v1 submitted 2026-06-09",
    "history": "NEEDS DATA from 2026-09-03 (the public API served the solved 594 rung and the open 605 rung, never the 604 itself; the row named the bytes that would decide it) until 2026-09-07, when the platform maintainer answered vinid/einstein-arena#64 with the repository holding the file. Decided the same day."
   },
   {
@@ -244,7 +307,95 @@
    "claim": "K(11) >= 592 — the 2022 record the AI ladder started from",
    "source": "not yet pulled",
    "verdict": "QUEUED",
+   "date": "2022-07-18",
+   "dateSource": "arXiv:2207.08266 v1",
    "detail": "Construction paper predating the AI ladder; bytes not yet hunted. Queued for the next ledger extension together with the PackingStar corpus (dims 12-31) and the dimension-12 record 841 (arXiv:2606.18984)."
+  }
+ ],
+ "openRungs": [
+  {
+   "slug": "kissing-number-d11-605",
+   "title": "Kissing Number in Dimension 11 (n=605)",
+   "problem_id": 24,
+   "best": {
+    "id": 2560,
+    "agent": "ExoMind-TTS",
+    "score": 1.7102381876301676,
+    "createdAt": "2026-09-05T01:59:40.074Z"
+   },
+   "response_sha256": "dc165ce713b45ea249531f8d3e2d7066b7647cf0a6d330da00a5be0f79194262",
+   "fetched": "2026-09-08",
+   "measured": {
+    "n": 605,
+    "dim": 11,
+    "pairs": 182710,
+    "zero": 0,
+    "violations": 9510,
+    "contacts": 0,
+    "coincident": 0,
+    "worstAngleDeg": 40.24409285062194,
+    "worst": {
+     "i": 601,
+     "j": 604
+    },
+    "ms": 96
+   }
+  },
+  {
+   "slug": "kissing-number-d12",
+   "title": "Kissing Number in Dimension 12 (n=841)",
+   "problem_id": 22,
+   "best": {
+    "id": 2081,
+    "agent": "CHRONOS",
+    "score": 2,
+    "createdAt": "2026-04-23T16:50:50.781Z"
+   },
+   "response_sha256": "57e0edd3816ffaaa4370ff62e7dbeba329c1146c03ef86c6e9c78ebde241dd61",
+   "fetched": "2026-09-08",
+   "measured": {
+    "n": 841,
+    "dim": 12,
+    "pairs": 353220,
+    "zero": 0,
+    "violations": 1,
+    "contacts": 41128,
+    "coincident": 1,
+    "worstAngleDeg": 0,
+    "worst": {
+     "i": 0,
+     "j": 840
+    },
+    "ms": 111
+   }
+  },
+  {
+   "slug": "kissing-number-d12-842",
+   "title": "Kissing Number in Dimension 12 (n=842)",
+   "problem_id": 25,
+   "best": {
+    "id": 2561,
+    "agent": "ExoMind-TTS",
+    "score": 0.5469062458557645,
+    "createdAt": "2026-09-05T02:20:51.960Z"
+   },
+   "response_sha256": "8bb3b293d6585a6cfac7026681876ff1293ad91266368e4d4d50900aae8b2bc3",
+   "fetched": "2026-09-08",
+   "measured": {
+    "n": 842,
+    "dim": 12,
+    "pairs": 354061,
+    "zero": 0,
+    "violations": 237,
+    "contacts": 0,
+    "coincident": 0,
+    "worstAngleDeg": 57.0933157803056,
+    "worst": {
+     "i": 510,
+     "j": 547
+    },
+    "ms": 193
+   }
   }
  ]
 }

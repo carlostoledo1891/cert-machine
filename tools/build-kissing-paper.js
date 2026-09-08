@@ -22,11 +22,17 @@ if (nd.verdict !== 'CERTIFIED' || nd.uniformNorm !== true) die('the EinsteinAren
 if (!nd.sameGramProfileAs || nd.sameGramProfileAs.join() !== 'station-604-1') die('the Gram-profile remark (EinsteinArena 604 ~ configuration 1 only) would be false');
 const daysToBytes = Math.round((Date.parse(nd.bytesPublished) - Date.parse(nd.needsDataFrom)) / 86400000);
 const sharedS1 = nd.sharedDirectionsWith['station-604-1'];
+const cg = nd.congruence || {};
+if (!cg['station-604-1'] || cg['station-604-1'].verdict !== 'CONGRUENT' || cg['station-604-1'].isometry !== 'signed coordinate permutation') die('the congruence theorem would be false');
+if (cg['station-604-2'].verdict !== 'NOT CONGRUENT' || cg['station-604-3'].verdict !== 'NOT CONGRUENT') die('the non-congruence statement would be false');
+const OR = L.openRungs || []; if (OR.length !== 3) die('open rungs missing');
+const r841 = OR.find((r) => r.slug === 'kissing-number-d12'); if (!r841 || r841.measured.coincident !== 1 || r841.measured.violations !== 1) die('the n=841 sentence would be false');
+const r605 = OR.find((r) => r.slug === 'kissing-number-d11-605'), r842 = OR.find((r) => r.slug === 'kissing-number-d12-842');
 
 const tex = `\\documentclass[11pt]{article}
 \\usepackage{certmachine}
 
-\\title{Independent exact certification of the dimension-eleven kissing records}
+\\title{Two platforms, one configuration:\\\\ independent exact certification of the dimension-eleven kissing records}
 \\author{\\cmauthor}
 \\date{September 2026}
 
@@ -46,9 +52,11 @@ contact counts (${n(s1.contacts)}, ${n(s2.contacts)}, ${n(s3.contacts)}),
 which certifies that they are pairwise non-congruent. The fourth, the headline
 configuration of the other platform, was unpublished when this ledger first
 ran: its row measured opacity for ${daysToBytes} days, naming the bytes that
-would decide it, and decided the day they were published on request. Its exact
-Gram profile coincides with the first of the three; congruence is not decided.
-No new bound is claimed and no upper bound is touched.
+would decide it, and decided the day they were published on request. It is
+congruent to the first of the three: a signed permutation of the coordinates
+carries one onto the other, and the certificate is verified exactly. The three
+open rungs of the platform are measured as distances to a witness. No new
+bound is claimed and no upper bound is touched.
 \\end{abstract}
 
 \\section{The decision procedure}
@@ -119,7 +127,7 @@ configuration), and every enclosure is an exact comparison rather than a
 tolerance.
 
 \\begin{corollary}
-The three $604$-point configurations are pairwise non-congruent.
+The Station's three $604$-point configurations are pairwise non-congruent.
 \\end{corollary}
 
 \\begin{proof}
@@ -158,17 +166,64 @@ CERTIFIED in ${nd.ms} milliseconds with ${n(nd.contacts)} exact contacts.
 A row of this kind measures the claim-maker rather than the geometry, and the
 measurement here is favourable: the price of checkability was one request.
 
+\\section{The two platforms' $604$s are one configuration}
+
+\\begin{theorem}
+The EinsteinArena $604$-point configuration and configuration~1 of the Station
+are congruent. Explicitly, there is a bijection $\\pi$ of the $604$ vectors and a
+signed permutation matrix $T$ of the eleven coordinates with $T\\,(2a_i) =
+b_{\\pi(i)}$ for every $i$.
+\\end{theorem}
+
+\\begin{proof}
+Two configurations at one shell norm each are congruent exactly when a bijection
+matches every pairwise inner product up to the ratio of norms. Each
+configuration is therefore a complete graph on $604$ vertices whose edges carry
+the exact normalised inner product (${cg['station-604-1'].edgeColours} distinct
+values here), and congruence is isomorphism of edge-coloured graphs. It was
+decided by individualisation--refinement: colour refinement as the invariant,
+backtracking over the smallest cell, the procedure inside \\textsc{nauty},
+implemented independently. The search found $\\pi$ in
+${n(cg['station-604-1'].nodes)} nodes. From $\\pi$ the matrix $T$ was solved on
+eleven independent vectors in exact $\\Q(\\sqrt2)$ arithmetic and verified on all
+$604$, together with $T^{\\mathsf T}T = I$; the certificate $(\\pi, T)$ is stored
+beside the ledger and re-verified at every build without repeating the search.
+$T$ has entries in $\\{0, \\pm1\\}$ with one non-zero per row.
+\\end{proof}
+
+\\begin{corollary}
+Configurations 2 and 3 of the Station are congruent neither to configuration~1
+nor to each other. (Their contact counts differ; independently, the same
+search exhausts at its first node for each pair.)
+\\end{corollary}
+
 \\begin{remark}
-${n(nd.contacts)} is also the contact count of configuration~1, and the
-coincidence goes further. Normalising every inner product by the shell norm,
-the multiset of all ${n(nd.pairs)} pairwise inner products of the headline
-configuration is identical to that of configuration~1, and so is the multiset
-of per-vector profiles; both differ from configurations 2 and 3. The two
-published lists are not the same list: ${n(sharedS1)} of the $604$ directions
-coincide exactly. Equal Gram profiles are necessary for congruence and never
-sufficient, so whether the two platforms reached one configuration or two is
-recorded here and not decided.
+The lineage of the headline configuration is in its bytes. Of its $604$
+directions, ${n(nd.sharedDirectionsWith['ea-594-winner'])} are those of the same
+platform's $594$ rung winner --- exactly its ${n(nd.integerVectors)} integer
+vectors --- and the winner's ${n(ea.nonIntegerVectors)} decimal-valued vectors were
+replaced by ${n(nd.n - nd.sharedDirectionsWith['ea-594-winner'])} vectors with a
+$\\sqrt2$ part; ${n(nd.sharedDirectionsWith['station-shell-582'])} directions are
+the classical $582$ shell's. Its slack is small: ${n(nd.nearestNonContact.count)}
+pairs sit at ${nd.nearestNonContact.angleDeg.toFixed(2)}$^\\circ$. As data: the
+EinsteinArena file entered a public repository on 2026-04-12 and its paper was
+submitted 2026-06-09; the Station's artifacts and paper are dated 2026-08-24.
 \\end{remark}
+
+\\section{The open rungs, measured}
+
+The platform lists three open rungs --- $n = 605$ in dimension eleven, $n = 841$
+and $n = 842$ in dimension twelve --- each with a best submission it scores above
+zero. The instrument reads those too, as a distance rather than a verdict:
+every pair decided exactly, every violation counted, the worst named. The best
+$605$ has ${n(r605.measured.violations)} violating pairs, the worst at
+${r605.measured.worstAngleDeg.toFixed(2)}$^\\circ$; the best $842$ has
+${n(r842.measured.violations)}, the worst at
+${r842.measured.worstAngleDeg.toFixed(2)}$^\\circ$; the best $841$ fails by exactly
+one pair, and that pair is a vector repeated: ${n(r841.measured.n - 1)} distinct
+directions with ${n(r841.measured.contacts)} exact contacts, an $840$-point
+configuration submitted as $841$. None of this refutes anything: an attempt that
+fails is not a bound that fails.
 
 \\section{Scope}
 

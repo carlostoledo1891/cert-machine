@@ -143,6 +143,55 @@ function certify(vectors, opts = {}) {
   };
 }
 
+/* measure(vectors) — for an ATTEMPT that need not be a witness: every pair
+   decided, nothing stops at the first failure. Counts the violating pairs
+   (angle < 60°), the exact contacts, the coincident directions (cos = 1, a
+   vector repeated) and the zero vectors, and reports the worst violation as
+   an approximate angle. A failed attempt on an open rung refutes nothing:
+   this is a distance, not a verdict. */
+function measure(vectors) {
+  const n = vectors.length, dim = vectors[0].P.length, t0 = Date.now();
+  const norms = vectors.map((v) => dot(v, v));
+  let zero = 0, violations = 0, contacts = 0, coincident = 0, worst = null;
+  for (let i = 0; i < n; i++) if (Z.sign(norms[i]) <= 0) zero++;
+  for (let i = 0; i < n; i++) {
+    if (Z.sign(norms[i]) <= 0) continue;
+    for (let j = i + 1; j < n; j++) {
+      if (Z.sign(norms[j]) <= 0) continue;
+      const s = dot(vectors[i], vectors[j]);
+      if (Z.sign(s) <= 0) continue;
+      const s2 = Z.mul(s, s), NN = Z.mul(norms[i], norms[j]);
+      const sg = Z.sign(Z.sub(NN, Z.mul([4n, 0n], s2)));
+      if (sg === 0) { contacts++; continue; }
+      if (sg > 0) continue;
+      violations++;
+      if (Z.eq(s2, NN)) coincident++;
+      const c2 = Z.approx(s2) / Z.approx(NN);
+      if (!worst || c2 > worst.cos2) worst = { i, j, cos2: c2 };
+    }
+  }
+  return { n, dim, pairs: n * (n - 1) / 2, zero, violations, contacts, coincident,
+    worstAngleDeg: worst ? Math.acos(Math.sqrt(Math.min(1, worst.cos2))) * 180 / Math.PI : null,
+    worst: worst ? { i: worst.i, j: worst.j } : null, ms: Date.now() - t0 };
+}
+
+/* nearestNonContact(profile) — from a Gram profile's multiset, the largest
+   normalised inner product strictly below 1/2, decided in Z[sqrt2]; the
+   configuration's slack to its next contact. */
+function nearestNonContact(profile) {
+  let best = null;
+  for (const e of profile.multiset.split(' ')) {
+    const [k, c] = e.split('x'); const [ab, N] = k.split('/'); const [a, b] = ab.split(',').map(BigInt); const g = BigInt(N);
+    /* value (a + b sqrt2)/g  vs 1/2: compare 2(a + b sqrt2) with g */
+    const below = Z.sign(Z.sub([g, 0n], [2n * a, 2n * b])) > 0;
+    if (!below) continue;
+    if (!best || Z.sign(Z.sub(Z.mul([a, b], [best.g, 0n]), Z.mul([best.a, best.b], [g, 0n]))) > 0) best = { a, b, g, count: Number(c), key: k };
+  }
+  if (!best) return null;
+  const v = Z.approx([best.a, best.b]) / Number(best.g);
+  return { key: best.key, count: best.count, cosApprox: v, angleDeg: Math.acos(v) * 180 / Math.PI };
+}
+
 /* ---------------- calibration generators (known witnesses) ---------------- */
 /* D4 root directions: all permutations of (+-1, +-1, 0, 0) — K(4) >= 24 */
 function d4() {
@@ -223,4 +272,4 @@ function sharedDirections(A, B) {
   return shared;
 }
 
-module.exports = { Z, fromIntegers, fromDecimals, fromSqrt2Pairs, fromSqrt2Flat, certify, gramProfile, directionKey, sharedDirections, d4, e8, parseDecimal };
+module.exports = { Z, fromIntegers, fromDecimals, fromSqrt2Pairs, fromSqrt2Flat, certify, measure, gramProfile, nearestNonContact, directionKey, sharedDirections, d4, e8, parseDecimal };
