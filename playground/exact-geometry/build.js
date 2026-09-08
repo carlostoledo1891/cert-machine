@@ -53,7 +53,7 @@ const head = `
 const foot = `
 <footer class="foot"><div class="container"><div class="line">
   <span>cert-machine / instruments</span>
-  <a href="../index.html">all nine instruments</a>
+  <a href="../index.html">all instruments</a>
   <a href="../neural-geometry/index.html">the same instrument, pointed at a model</a>
   <a href="../plates/index.html">the plates</a>
   <span>crossed from the bench ${PROV.liftedOn}</span>

@@ -485,6 +485,14 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
   <span class="mono">instruments/wiring/</span>. A cross-check requires both
   engines to refuse the same wiring in the same words.</p>
 </section>
+<footer class="foot"><div class="wrap"><div class="line">
+  <span>cert-machine / instruments</span>
+  <a href="../index.html">all instruments</a>
+  <a href="../../reports/index.html">the reports</a>
+  <a href="../../machine/index.html">the machine</a>
+  <span>nothing here is gated · every number came out of the record beside the page</span>
+  <span>Carlos Toledo</span>
+</div></div></footer>
 <script id="ug-spec" type="application/json">{"nodes":[{"id":"band","title":"the sigma band","inputs":[],"outputs":["Y0","Z1","Z2"],"deciding":[],"instrument":false,"emits":"interval"},{"id":"screen","title":"float screen","inputs":["Y0"],"outputs":["shortlist"],"deciding":[],"instrument":false,"emits":"float"},{"id":"radii","title":"radii polynomial","inputs":["Y0","Z1","Z2"],"outputs":["certified","refuted","refused"],"deciding":["Y0","Z1","Z2"],"instrument":true,"emits":"interval"}],"wires":[["band","Y0","radii","Y0"],["band","Z1","radii","Z1"],["band","Z2","radii","Z2"],["band","Y0","screen","Y0"]],"forbidden":["screen","shortlist","radii","Y0"]}</script>
 <script>(function(){
 "use strict";

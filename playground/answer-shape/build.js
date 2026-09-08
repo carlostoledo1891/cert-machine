@@ -41,7 +41,7 @@ const head = `
 const foot = `
 <footer class="foot"><div class="container"><div class="line">
   <span>cert-machine / instruments</span>
-  <a href="../index.html">all nine instruments</a>
+  <a href="../index.html">all instruments</a>
   <a href="../exact-geometry/index.html">the control this is judged against</a>
   <a href="../affect/index.html">the same twelve, asked under six moods</a>
   <a href="../shape-hunt/index.html">and what survives a null</a>

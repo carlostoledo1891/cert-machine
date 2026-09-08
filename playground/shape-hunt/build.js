@@ -344,7 +344,7 @@ node playground/build.js</pre>
 
 <footer class="foot"><div class="wrap"><div class="line">
   <span>cert-machine / instruments</span>
-  <a href="../index.html">all nine instruments</a>
+  <a href="../index.html">all instruments</a>
   <a href="../neural-geometry/index.html">where the geometries came from</a>
   <span>hunted ${S.meta.date} · studies ${ST.meta.date}</span>
 </div></div></footer>`;

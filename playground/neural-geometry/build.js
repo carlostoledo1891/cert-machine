@@ -198,7 +198,7 @@ node playground/build.js</pre>
 
 <footer class="foot"><div class="wrap"><div class="line">
   <span>cert-machine / instruments</span>
-  <a href="../index.html">all nine instruments</a>
+  <a href="../index.html">all instruments</a>
   <a href="https://www.goodfire.com/research/neural-geometry">Goodfire · neural geometry</a>
   <span>probed ${G.meta.date} · ${G.meta.calls} calls · $${G.meta.spent.toFixed(2)}</span>
 </div></div></footer>`;

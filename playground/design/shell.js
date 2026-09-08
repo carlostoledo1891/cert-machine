@@ -32,6 +32,20 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
    directly — could not reach the reports, the machine or the about page
    without going home first. design/nav.js is the one nav now, markup and CSS
    together, so the two shells cannot drift apart again. */
+/* THE FOOTER, once. Nine of the seventeen pages under /instruments had none — each page
+   wrote its own or forgot to — so the shell now closes every page the same way unless the
+   page carries a footer of its own. */
+function footer(root) {
+  return `<footer class="foot"><div class="wrap"><div class="line">
+  <span>cert-machine / instruments</span>
+  <a href="${root}index.html">all instruments</a>
+  <a href="${root}../reports/index.html">the reports</a>
+  <a href="${root}../machine/index.html">the machine</a>
+  <span>nothing here is gated · every number came out of the record beside the page</span>
+  <span>Carlos Toledo</span>
+</div></div></footer>`;
+}
+
 function page({ title, desc = '', root = '', here = 'home', body, head = '', script = '', bodyClass = '' }) {
   return `<!doctype html>
 <html lang="en">
@@ -51,6 +65,7 @@ ${head}
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
 ${NAV.navHtml({ here: here === 'home' ? 'instruments' : here, root: root + '../' })}
 ${body}
+${/<footer[\s>]/.test(body) ? '' : footer(root)}
 ${script}
 </body>
 </html>`;

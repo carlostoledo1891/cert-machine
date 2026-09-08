@@ -60,7 +60,7 @@ const body = (() => {
 const foot = `
 <footer class="foot"><div class="container"><div class="line">
   <span>cert-machine / instruments</span>
-  <a href="../index.html">all nine instruments</a>
+  <a href="../index.html">all instruments</a>
   <a href="../interferometer/index.html">the instrument behind plates II, V and VI</a>
   <a href="../curveset/index.html">the same question, on a calibration</a>
   <span>crossed from the bench ${PROV.liftedOn}</span>

@@ -340,7 +340,7 @@ const body = `
   </a>
   </div>
   <span>built ${new Date().toISOString().slice(0, 10)}</span>
-</div></div></footer>
+</div></section>
 `;
 
 const html = page({

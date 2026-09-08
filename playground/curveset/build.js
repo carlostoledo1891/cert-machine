@@ -150,7 +150,7 @@ node playground/build.js</pre>
 
 <footer class="foot"><div class="wrap"><div class="line">
   <span>cert-machine / instruments</span>
-  <a href="../index.html">all nine instruments</a>
+  <a href="../index.html">all instruments</a>
   <a href="../interferometer/index.html">the same question, on a telescope</a>
   <span>data: NIST StRD Pontius (US Government, public domain)</span>
   <span>built ${P.builtAt.slice(0, 10)}</span>
