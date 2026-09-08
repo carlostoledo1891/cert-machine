@@ -124,7 +124,10 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     decided finding: the verdict with the digest; (1) congruence, stated as
     bytes and dates; (2) lineage; (3) the open rungs read exactly, with the
     duplicate in #2081 pointed out ("you may want a duplicate check in the
-    scorer"). STILL NOT SENT. Operator-gated.
+    scorer"). SENT 2026-09-08 on the operator's "drive the response" and
+    "proceed", after bcba445 was live and the page and the certificate URL
+    were verified: https://github.com/vinid/einstein-arena/issues/64#issuecomment-5587738318
+    Watch the thread; a reply from vinid or Kwon is the next event.
   ── NOT DONE ── the √2-scale refusal in congruence.js (a Q(√2) isqrt would
     lift it; no case needs it); a PDF target in the Makefile (tectonic is
     here; one line); figures in the paper; the Chrome gate serialisation and

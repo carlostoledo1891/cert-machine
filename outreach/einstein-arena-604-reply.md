@@ -1,4 +1,7 @@
-# Reply on vinid/einstein-arena#64 — DRAFT, operator-gated, NOT SENT
+# Reply on vinid/einstein-arena#64 — SENT 2026-09-08 on the operator's "drive the response" / "proceed"
+
+Posted as https://github.com/vinid/einstein-arena/issues/64#issuecomment-5587738318
+from the operator's account, after bcba445 was live (the page and the certificate URL verified first).
 
 Written 2026-09-07 after vinid's reply of 14:54 UTC that day (pointing to
 github.com/togethercomputer/EinsteinArena-new-SOTA for the 604 vectors), and
