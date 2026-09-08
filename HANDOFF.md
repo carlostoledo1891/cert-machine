@@ -31,7 +31,7 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ══════════════════════════════════════════════════════════════════════════
   TENTH SESSION, 2026-09-08 — THE TWO PLATFORMS' 604s DECIDED CONGRUENT, WITH A
   CERTIFICATE; THE LINEAGE READ OFF THE BYTES; THE OPEN RUNGS MEASURED.
-  Pushed through bcba445, the audit at 3bbcce5 · live · 81/81 batteries · 59 reports · 16 instruments.
+  Pushed through bcba445, the audit at 3bbcce5, the hexagons at c67c8e8, the debt hour at 9c2b3e9 · live · 81/81 batteries · 59 reports · 16 instruments.
 ══════════════════════════════════════════════════════════════════════════
 
   ── WHY ── the operator, on the drafted reply to vinid: "can we dig more on
