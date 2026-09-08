@@ -49,8 +49,8 @@
    "hexagon-packing/verifier.py": "9b6be2f470f859fa0ad14c5d3097565187a901b0c712cca82e40c2aabd7833d5"
   }
  },
- "generated": "2026-09-08T16:50:13.077Z",
- "git": "924d209",
+ "generated": "2026-09-08T17:43:09.324Z",
+ "git": "ce8d0fd",
  "rows": [
   {
    "id": "circles/alphaevolve_2025",
@@ -389,7 +389,7 @@
    "printed": "1.50529397",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 3
+   "ms": 4
   },
   {
    "id": "autocorr/alphaevolve_v2_2025",
@@ -413,7 +413,7 @@
    "printed": null,
    "printedConvention": "ceiling",
    "printedAgrees": null,
-   "ms": 4
+   "ms": 3
   },
   {
    "id": "autocorr/ttt_discover_2026",
@@ -437,7 +437,7 @@
    "printed": "1.50286290",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 891
+   "ms": 881
   },
   {
    "id": "autocorr/ours_2026",
@@ -461,7 +461,7 @@
    "printed": "1.50286286",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 696
+   "ms": 699
   },
   {
    "id": "flat/alphaevolve_2025",
@@ -502,7 +502,7 @@
      "nCandidates": 41,
      "isolation": "grid+sturm-total"
     },
-    "ms": 359,
+    "ms": 351,
     "note": "the platform's score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall"
    },
    "printed": "1.340925",
@@ -548,12 +548,94 @@
      "nCandidates": 44,
      "isolation": "grid+sturm-total"
     },
-    "ms": 492,
+    "ms": 383,
     "note": "the platform's score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall"
    },
    "printed": "1.280932",
    "printedConvention": "rounding",
    "printedAgrees": true
+  },
+  {
+   "id": "hexagons/alphaevolve_2025",
+   "problem": "hexagon-packing",
+   "claim": "12 unit hexagons inside a hexagon of side 3.9419123, no overlaps, all inside: score = the outer side",
+   "claimant": "AlphaEvolve V2 (arXiv:2511.02864)",
+   "date": "2025-11",
+   "file": "corpus/easota/hexagon-packing/alphaevolve_2025.json",
+   "sha256": "daa887e9ba08b64bf405cf38a56cde2429ef07782db24f08c69bc91a2a250df0",
+   "verdict": "WITNESSED",
+   "exact": "3.9419123000000000",
+   "exactRational": "39419123/10000000",
+   "detail": {
+    "pairs": {
+     "SEPARATED": 66
+    },
+    "vertices": {
+     "INSIDE": 72
+    },
+    "closestPair": {
+     "i": 4,
+     "j": 5,
+     "gapAtLeast": 0.000006934900789179368
+    },
+    "tightestVertex": {
+     "hexagon": 3,
+     "vertex": 2,
+     "crossAtLeast": 0.000002672621224775184
+    },
+    "enclosureWidth": 5.773159728050814e-15,
+    "intersecting": [],
+    "outside": [],
+    "undecidedPairs": [],
+    "undecidedVertices": [],
+    "ms": 8,
+    "note": "every vertex is a cosine and a sine of a published decimal, so the decision runs in outward-rounded interval arithmetic with a certified π and certified sin/cos (instruments/interval): a pair is SEPARATED when some edge normal has certainly disjoint projections, a vertex INSIDE when every edge cross product is certainly non-negative. gapAtLeast and crossAtLeast are certain lower bounds; the platform separates only past 1e-9 and admits a vertex outside by up to 1e-9"
+   },
+   "printed": "3.9419123",
+   "printedConvention": "exact",
+   "printedAgrees": true,
+   "platformTolerance": "a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9"
+  },
+  {
+   "id": "hexagons/ours_2026",
+   "problem": "hexagon-packing",
+   "claim": "12 unit hexagons inside a hexagon of side 3.9416523, no overlaps, all inside: score = the outer side",
+   "claimant": "Together AI agents, this repository",
+   "date": "2026-04",
+   "file": "corpus/easota/hexagon-packing/ours_2026.json",
+   "sha256": "1d83e40b77862c0f46ec9891b3bbea16b4b303b644007207824acef9dbd6b693",
+   "verdict": "WITNESSED",
+   "exact": "3.9416523000000000",
+   "exactRational": "39416523/10000000",
+   "detail": {
+    "pairs": {
+     "SEPARATED": 66
+    },
+    "vertices": {
+     "INSIDE": 72
+    },
+    "closestPair": {
+     "i": 4,
+     "j": 7,
+     "gapAtLeast": 3.616782695559057e-8
+    },
+    "tightestVertex": {
+     "hexagon": 1,
+     "vertex": 4,
+     "crossAtLeast": 4.059266311973175e-7
+    },
+    "enclosureWidth": 6.217248937900877e-15,
+    "intersecting": [],
+    "outside": [],
+    "undecidedPairs": [],
+    "undecidedVertices": [],
+    "ms": 3,
+    "note": "every vertex is a cosine and a sine of a published decimal, so the decision runs in outward-rounded interval arithmetic with a certified π and certified sin/cos (instruments/interval): a pair is SEPARATED when some edge normal has certainly disjoint projections, a vertex INSIDE when every edge cross product is certainly non-negative. gapAtLeast and crossAtLeast are certain lower bounds; the platform separates only past 1e-9 and admits a vertex outside by up to 1e-9"
+   },
+   "printed": "3.9416523",
+   "printedConvention": "exact",
+   "printedAgrees": true,
+   "platformTolerance": "a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9"
   }
  ],
  "improvements": [
@@ -607,15 +689,17 @@
    "delta": "0.0599932275257197",
    "sign": 1,
    "note": "a lower bound on the difference: the two certified enclosures are disjoint"
+  },
+  {
+   "problem": "hexagon-packing",
+   "direction": "minimise",
+   "previous": "AlphaEvolve V2",
+   "delta": "0.0002600000000000",
+   "sign": 1,
+   "note": "both outer sides are exact decimals; both packings certified as witnesses"
   }
  ],
  "undecided": [
-  {
-   "problem": "hexagon-packing",
-   "claim": "12 unit hexagons inside a hexagon of side 3.9416523 (AlphaEvolve V2: 3.9419123)",
-   "status": "QUEUED",
-   "why": "the constructions carry rotation angles in degrees, so every vertex involves cos and sin; the separating-axis tests need interval arithmetic with certified trigonometry rather than exact rationals. Decidable; not built in this pass."
-  },
   {
    "problem": "prime-number-theorem",
    "claim": "S(f) = 0.994179 (AlphaEvolve: 0.921292)",

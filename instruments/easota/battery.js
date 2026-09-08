@@ -7,6 +7,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const L = require('./lib.js');
 const D = require('./decide.js');
+const H = require('./hexagons.js');
 const Q = L.Q;
 const ROOT = path.resolve(__dirname, '..', '..');
 const r = (s) => L.parseDecimal(s);
@@ -89,14 +90,34 @@ red((() => { try { L.pyLiteral('x = np.array([1, 2', 'x'); return false; } catch
   red(!D.flat([1n, 2n]).witnessed, 'a coefficient that is not ±1 is refused');
 }
 
+/* ---- hexagons: certified intervals ---- */
+{
+  const q = (x) => r(String(x));
+  const far = H.decide({ hexagons: [[q(0), q(0), q(0)], [q(3), q(0), q(0)]], outer: { center: [q(1.5), q(0)], side: q(10), angleDeg: q(0) } });
+  ok(far.verdict === 'WITNESSED' && far.pairTally.SEPARATED === 1 && far.vertexTally.INSIDE === 12 && far.closestPair.gapAtLeast > 0.866 && far.closestPair.gapAtLeast < 0.8661, 'two unit hexagons 3 apart in a big container: WITNESSED, the certified gap encloses √3/2 from below');
+  const ov = H.decide({ hexagons: [[q(0), q(0), q(0)], [q(1), q(0), q(0)]], outer: { center: [q(0.5), q(0)], side: q(10), angleDeg: q(0) } });
+  red(ov.verdict === 'UNWITNESSED' && ov.pairTally.INTERSECTING === 1, 'centres 1 apart: certified INTERSECTING on every axis');
+  const touch = H.decide({ hexagons: [[q(0), q(0), q(0)], [q(2), q(0), q(0)]], outer: { center: [q(1), q(0)], side: q(10), angleDeg: q(0) } });
+  red(touch.verdict === 'UNDECIDED' && touch.pairTally.UNDECIDED === 1 && Math.abs(touch.closestPair.gapAtLeast) < 1e-12, 'vertex touching vertex: UNDECIDED at the enclosure\'s width, never SEPARATED');
+  const out = H.decide({ hexagons: [[q(0), q(0), q(0)]], outer: { center: [q(0), q(0)], side: q(0.9), angleDeg: q(0) } });
+  red(out.verdict === 'UNWITNESSED' && out.vertexTally.OUTSIDE === 6, 'a container smaller than the hexagon: every vertex certified OUTSIDE');
+  const rot = H.decide({ hexagons: [[q(0), q(0), q(0)]], outer: { center: [q(0), q(0)], side: q(1), angleDeg: q(60) } });
+  ok(rot.verdict === 'WITNESSED' || rot.verdict === 'UNDECIDED', 'a hexagon in an identical container rotated by 60°: coincident edges are INSIDE or UNDECIDED, never OUTSIDE');
+  ok(rot.vertexTally.OUTSIDE === undefined, 'coincident edges are never certified OUTSIDE');
+  const e = H.encloseQ(r('219.59740708331'));
+  ok(Q.cmp(Q.fromDouble(e[0]), r('219.59740708331')) <= 0 && Q.cmp(Q.fromDouble(e[1]), r('219.59740708331')) >= 0 && e[1] - e[0] <= 2 * 2.9e-14, 'a decimal literal is enclosed by its two neighbouring doubles');
+}
+
 /* ---- the shipped record ---- */
 const CERT = path.join(ROOT, 'certs', 'easota-ledger.json');
 if (fs.existsSync(CERT)) {
   const led = JSON.parse(fs.readFileSync(CERT, 'utf8'));
-  ok(Array.isArray(led.rows) && led.rows.length === 18, 'ledger has its 18 rows');
+  ok(Array.isArray(led.rows) && led.rows.length === 20, 'ledger has its 20 rows');
   const tally = {}; for (const x of led.rows) tally[x.verdict] = (tally[x.verdict] || 0) + 1;
-  ok(tally.WITNESSED === 14 && tally.REPAIRED === 4 && !tally.UNWITNESSED, 'ledger: 14 WITNESSED, 4 REPAIRED, none UNWITNESSED');
-  ok(led.improvements.length === 7 && led.improvements.every((i) => i.sign > 0), 'ledger: all seven improvements over the previous best are real (exact positive signs)');
+  ok(tally.WITNESSED === 16 && tally.REPAIRED === 4 && !tally.UNWITNESSED && !tally.UNDECIDED, 'ledger: 16 WITNESSED, 4 REPAIRED, none UNWITNESSED or UNDECIDED');
+  ok(led.improvements.length === 8 && led.improvements.every((i) => i.sign > 0), 'ledger: all eight improvements over the previous best are real (exact positive signs)');
+  const hx = led.rows.filter((x) => x.problem === 'hexagon-packing');
+  ok(hx.length === 2 && hx.every((x) => x.verdict === 'WITNESSED' && x.detail.pairs.SEPARATED === 66 && x.detail.vertices.INSIDE === 72 && x.detail.closestPair.gapAtLeast > 1e-9), 'ledger: both hexagon packings certified — 66 pairs separated, 72 vertices inside, the closest pair past the platform\'s margin');
   const flt = led.rows.filter((x) => x.problem === 'flat-polynomials');
   ok(flt.length === 2 && flt.every((x) => Number(x.detail.gridShortfall) > 0 && x.printedAgrees), 'ledger: both flat-polynomial grid scores fall short of the certified supremum, and both printed roundings stand');
   const cir = led.rows.find((x) => x.id === 'circles/ours_2026');

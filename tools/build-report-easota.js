@@ -50,11 +50,13 @@ const fmt = (x) => Number(x).toLocaleString('en-US');
 const sci = (s) => { const v = Number(s); return v.toExponential(2).replace('e-', ' × 10⁻').replace('e+', ' × 10'); };
 const smallest = L.improvements.reduce((m, i) => (Number(i.delta) < Number(m.delta) ? i : m));
 const largest = L.improvements.reduce((m, i) => (Number(i.delta) > Number(m.delta) ? i : m));
-const PROBLEM = { 'circles-rectangle': 'circles in a rectangle (n = 21)', 'heilbronn-convex': 'Heilbronn, convex region (n = 14)', 'min-distance-ratio-2d': 'min distance ratio, 2-D (n = 16)', 'erdos-minimum-overlap': 'Erdős minimum overlap', 'edges-vs-triangles': 'edges vs triangles', 'first-autocorrelation': 'first autocorrelation inequality', 'flat-polynomials': 'flat polynomial (degree 69)' };
+const PROBLEM = { 'circles-rectangle': 'circles in a rectangle (n = 21)', 'heilbronn-convex': 'Heilbronn, convex region (n = 14)', 'min-distance-ratio-2d': 'min distance ratio, 2-D (n = 16)', 'erdos-minimum-overlap': 'Erdős minimum overlap', 'edges-vs-triangles': 'edges vs triangles', 'first-autocorrelation': 'first autocorrelation inequality', 'flat-polynomials': 'flat polynomial (degree 69)', 'hexagon-packing': 'hexagons in a hexagon (n = 12)' };
 const nProblems = new Set(L.rows.map((r) => r.problem)).size;
 const flt = row('flat/ours_2026'), fltAE = row('flat/alphaevolve_2025');
 if (!(Number(flt.detail.gridShortfall) > 0 && Number(fltAE.detail.gridShortfall) > 0)) die('the grid-shortfall sentence would be false');
 const WORDS = { 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen', 19: 'Nineteen', 20: 'Twenty' };
+const hex = row('hexagons/ours_2026'), hexAE = row('hexagons/alphaevolve_2025');
+if (hex.verdict !== 'WITNESSED' || hexAE.verdict !== 'WITNESSED') die('the hexagon sentences assume both packings certified');
 
 /* ---- figure: the six improvements on a log axis ---- */
 const imps = L.improvements.slice().sort((a, b) => Number(b.delta) - Number(a.delta));
@@ -64,7 +66,7 @@ const FIG = CH.bars({
     hover: 'over ' + i.previous + ' (' + i.direction + '): exact difference ' + i.delta + (i.note ? ' — ' + i.note : '') })),
   xTicks: [1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1].map((v) => ({ v, t: v.toExponential(0).replace('e-', 'e−') })),
   xLabel: 'improvement over the previous best, decided as an exact difference (log axis)',
-  alt: 'Seven horizontal bars on a log axis from one billionth to one tenth: the exact improvement of each Together AI construction over the previous best, all positive, from ' + sci(smallest.delta) + ' on ' + PROBLEM[smallest.problem] + ' to ' + sci(largest.delta) + ' on ' + PROBLEM[largest.problem] + '.',
+  alt: 'Eight horizontal bars on a log axis from one billionth to one tenth: the exact improvement of each Together AI construction over the previous best, all positive, from ' + sci(smallest.delta) + ' on ' + PROBLEM[smallest.problem] + ' to ' + sci(largest.delta) + ' on ' + PROBLEM[largest.problem] + '.',
 });
 
 const B = [];
@@ -72,7 +74,7 @@ B.push(C.header({
   eyebrow: 'cert-machine · the registry · every construction re-decided at this build',
   title: 'Their table, re-decided to the last digit.',
   deck: 'Together AI\'s repository claims a new state of the art over AlphaEvolve on thirteen problems — circle '
-    + 'packings, Heilbronn configurations, step functions for two open inequalities, a flat polynomial — every one '
+    + 'and hexagon packings, Heilbronn configurations, step functions for two open inequalities, a flat polynomial — every one '
     + 'a construction checked by the platform\'s own floating-point verifier, with tolerances. This page reads the '
     + 'published bytes as the exact rationals they print and decides each objective with no tolerance at all: '
     + 'what the construction is worth exactly, whether the digits in the table are its digits, and whether the '
@@ -87,7 +89,8 @@ B.push(C.tldr({
     + 'and their box exceeds the perimeter by ' + sci(Math.abs(Number(cir.asPublished.boxSlack))) + '; the exact witness built by shrinking every radius '
     + 'sums to ' + cir.repair.sumR.slice(0, 13) + '…, and the printed ' + cir.printed + ' is not its rounding — the improvement over AlphaEvolve stands, at '
     + sci(L.improvements.find((i) => i.problem === 'circles-rectangle').delta) + '. And the flat polynomial\'s score, a maximum over a million grid points, is replaced by a '
-    + '<strong>certified supremum</strong>: C⁺ ∈ [' + flt.enclosure.lo.slice(0, 18) + ', ' + flt.enclosure.hi.slice(0, 18) + ']; the grid under-reads it by ' + sci(flt.detail.gridShortfall) + ' and the printed ' + flt.printed + ' stands.',
+    + '<strong>certified supremum</strong>: C⁺ ∈ [' + flt.enclosure.lo.slice(0, 18) + ', ' + flt.enclosure.hi.slice(0, 18) + ']; the grid under-reads it by ' + sci(flt.detail.gridShortfall) + ' and the printed ' + flt.printed + ' stands. '
+    + 'The hexagon packing, whose vertices are sines and cosines of published angles, is decided in certified interval arithmetic: all 66 pairs separated, the closest by at least ' + sci(hex.detail.closestPair.gapAtLeast) + ', all 72 vertices inside.',
   mechanismRaw: 'Every coordinate is read as the rational its decimal literal denotes (0.1 is 1/10) and every objective '
     + 'is a rational function of the coordinates: Σr with (xᵢ−xⱼ)² + (yᵢ−yⱼ)² ≥ (rᵢ+rⱼ)² decided as signs; a '
     + 'triangle area over a hull area; a ratio of squared distances; the maximum of a discrete correlation over all '
@@ -100,12 +103,12 @@ B.push(C.tldr({
     + C.m('node tools/run-easota-ledger.js') + ' re-hashes every pinned file and rebuilds every verdict.'
 }));
 B.push(C.stats([
-  { k: 'constructions decided', v: String(L.rows.length), role: 'held', n: nProblems + ' problems, every file the repository publishes, read from sha-pinned bytes; two values are certified enclosures of a supremum' },
+  { k: 'constructions decided', v: String(L.rows.length), role: 'held', n: nProblems + ' problems, every file the repository publishes, read from sha-pinned bytes; two values are certified enclosures of a supremum, two packings certified in interval arithmetic' },
   { k: 'exact witnesses', v: String(nW), role: 'held', n: 'the bytes as published satisfy every constraint exactly and attain the value stated' },
   { k: 'repaired', v: String(nR), role: 'open', n: 'witnesses only within the platform\'s tolerance — an exact witness built from the same bytes, deficit printed' },
   { k: 'improvements real', v: L.improvements.filter((i) => i.sign > 0).length + ' of ' + L.improvements.length, role: 'held', n: 'each an exact difference between two published constructions; the smallest ' + sci(smallest.delta) },
   { k: 'printed digits confirmed', v: (L.rows.filter((r) => r.printed && r.printedAgrees).length) + ' of ' + L.rows.filter((r) => r.printed).length, role: 'held', n: 'rounding for a score, ceiling for an upper bound — the one exception is the tolerance\'s digit' },
-  { k: 'not decided here', v: String(L.undecided.length), role: 'open', n: 'a grid maximum, a packing with rotations, a Monte Carlo score, four rows without files — each named below' },
+  { k: 'not decided here', v: String(L.undecided.length), role: 'open', n: 'a Monte Carlo score, and four README rows without files — each named below' },
 ]));
 
 B.push(C.section({
@@ -115,6 +118,7 @@ B.push(C.section({
     cols: [{ h: 'problem' }, { h: 'construction' }, { h: 'printed', cls: 'n' }, { h: 'exact, 16 digits', cls: 'n' }, { h: 'verdict', cls: 'n' }, { h: 'the printed digits' }],
     rows: L.rows.map((r) => [PROBLEM[r.problem], r.claimant.replace(/ \(.*\)| —.*$/, '') + ' · ' + r.date, r.printed || '—', r.exact, { raw: C.tag(r.verdict, r.verdict === 'WITNESSED' ? 'cert' : 'open') },
       r.enclosure ? (r.printedAgrees ? 'the certified supremum\'s rounding; the platform\'s grid maximum falls short of the supremum by ' + sci(r.detail.gridShortfall) : 'NOT the supremum\'s rounding')
+        : r.problem === 'hexagon-packing' ? 'the outer side as published; ' + r.detail.pairs.SEPARATED + ' pairs certified separated (closest ≥ ' + sci(r.detail.closestPair.gapAtLeast) + '), ' + r.detail.vertices.INSIDE + ' vertices certified inside (tightest ≥ ' + sci(r.detail.tightestVertex.crossAtLeast) + ')'
         : r.printed ? (r.printedAgrees ? 'the exact value\'s ' + r.printedConvention : 'NOT the exact witness\'s ' + r.printedConvention + ' (' + (r.repair ? 'repaired value ' + r.repair.sumR.slice(0, 12) : '') + ')') : 'no value printed for this file'])
   }) + C.figure({ svgRaw: FIG, caption: 'Every improvement over the previous best, decided as an exact difference of two rationals (for the flat polynomial, the gap between two disjoint certified enclosures) and drawn on a log axis. All ' + L.improvements.length + ' are positive. The largest is a benchmark score (edges vs triangles); the smallest, ' + sci(smallest.delta) + ' on the Heilbronn configuration, is nine digits in — and real.' })
   + '<div class="col">'
@@ -145,8 +149,10 @@ B.push(C.section({
     + 'Together\'s 30,000-value function attains its maximum on a plateau: ' + fmt(ac.detail.candidatesDecidedExactly) + ' indices lie within the screen\'s error bound (' + ac.detail.screenErrorBound.toExponential(1) + ', relative) of the float maximum, and every one was decided in exact integers; the maximum sits at index ' + fmt(ac.detail.argmax) + ' and '
     + 'C₁ = ' + ac.exact + ', whose ceiling to eight digits is the printed ' + ac.printed + '. TTT-Discover\'s function gives ' + acT.exact.slice(0, 14) + '…, ceiling ' + acT.printed + '; the difference, ' + sci(L.improvements.find((i) => i.problem === 'first-autocorrelation').delta) + ', is real.')
   + C.pRaw('One file in that folder carries no printed number: AlphaEvolve V2\'s 1,319-value function decides to C₁ = ' + acV2.exact.slice(0, 12) + '…, above the 30,000-value constructions by three parts in ten thousand — the repository ships it as a baseline and prints only the others.')
-  + C.pRaw('The flat polynomial is the row where the platform\'s verifier is not the mathematics. It scores a ±1 polynomial by the largest |g| over a million equally spaced points on the unit circle — a lower bound on the supremum, however fine the grid. Here |g(e^{iθ})|² is written as the integer cosine polynomial its autocorrelations define, reduced to a degree-' + flt.detail.degree + ' polynomial in cos θ, and its maximum on [−1, 1] is certified by the same Sturm-chain and interval-Newton instrument that decides the Chowla cosine minima on this site: '
+  + C.pRaw('The flat polynomial is the row where the platform\'s verifier is not the mathematics. It scores a ±1 polynomial by the largest |g| over a million equally spaced points on the unit circle — a lower bound on the supremum, however fine the grid. Here |g(z)|² on the circle is written as the integer cosine polynomial its autocorrelations define, reduced to a degree-' + flt.detail.degree + ' polynomial in cos θ, and its maximum on [−1, 1] is certified by the same Sturm-chain and interval-Newton instrument that decides the Chowla cosine minima on this site: '
     + fmt(flt.detail.counts.nCrit) + ' critical points isolated and enclosed, the value at each bounded exactly, all in ' + fmt(flt.detail.ms) + ' ms. The supremum is C⁺ ∈ [' + flt.enclosure.lo.slice(0, 20) + ', ' + flt.enclosure.hi.slice(0, 20) + ']; the grid score the repository prints to sixteen digits, ' + flt.detail.gridScore + ', falls short of it by ' + sci(flt.detail.gridShortfall) + ' — the grid missed the peak by that much — and the six printed digits, ' + flt.printed + ', are the supremum\'s. AlphaEvolve\'s polynomial certifies to [' + fltAE.enclosure.lo.slice(0, 18) + ', ' + fltAE.enclosure.hi.slice(0, 18) + '] (its grid short by ' + sci(fltAE.detail.gridShortfall) + '); the two enclosures are disjoint, so the improvement is decided at ' + sci(L.improvements.find((i) => i.problem === 'flat-polynomials').delta) + ' or more.')
+  + C.pRaw('The hexagon packings are the rows exact rationals cannot reach: each of the twelve unit hexagons is rotated by a published angle in degrees, so every vertex is a cosine and a sine of a decimal. They are decided instead in outward-rounded interval arithmetic with a certified π and certified sin and cos — every literal enters as the two doubles around the exact rational it denotes, and every operation widens outward — so a SEPARATED pair or an INSIDE vertex holds for the exact real configuration, not for a float reading of it. '
+    + 'Together\'s packing: all ' + hex.detail.pairs.SEPARATED + ' pairs certified separated by the separating-axis theorem, the closest (hexagons ' + hex.detail.closestPair.i + ' and ' + hex.detail.closestPair.j + ') by at least ' + sci(hex.detail.closestPair.gapAtLeast) + '; all ' + hex.detail.vertices.INSIDE + ' vertices certified inside the container, the tightest with a cross product of at least ' + sci(hex.detail.tightestVertex.crossAtLeast) + '. The platform declares a pair intersecting unless it is separated by more than 10⁻⁹ and forgives a vertex outside by up to 10⁻⁹; neither margin was needed. AlphaEvolve\'s packing certifies the same way (closest pair at least ' + sci(hexAE.detail.closestPair.gapAtLeast) + ' apart), and the two outer sides are exact decimals, so the improvement, ' + sci(L.improvements.find((i) => i.problem === 'hexagon-packing').delta) + ', is exact. The enclosures are ' + sci(hex.detail.enclosureWidth) + ' wide; a pair touching exactly would come back UNDECIDED at that width, never SEPARATED — the battery plants one.')
   + C.pRaw('Edges vs triangles is a benchmark score rather than a theorem: rows of twenty weights become (edge density, triangle density) points by the Newton identities, and the score is the area under the platform\'s slope-3 envelope plus ten times the largest gap in edge density. Recomputed exactly, both scores agree with the printed sixteen-digit values to fifteen digits — the sixteenth is float64 — and the improvement, ' + sci(L.improvements.find((i) => i.problem === 'edges-vs-triangles').delta) + ', is the largest in the table because it is a score, not a bound.') + '</div>'
 }));
 
@@ -156,7 +162,7 @@ B.push(C.section({
   bodyRaw: C.table({
     cols: [{ h: 'problem' }, { h: 'the claim' }, { h: 'status', cls: 'n' }, { h: 'why' }],
     rows: L.undecided.map((u) => [u.problem, u.claim, { raw: C.tag(u.status, u.status === 'QUEUED' ? 'dep' : 'open') }, u.why])
-  }) + '<div class="col">' + C.pRaw('The hexagon packing is the row worth returning for: its twelve unit hexagons carry rotation angles, so every vertex is a cosine and a sine of a published decimal, and the separating-axis tests want interval arithmetic with certified trigonometry — this site\'s interval library has it. The Monte Carlo score is refused on principle: a number estimated from ten million random samples is not a claim about the construction that exact arithmetic can decide.') + '</div>'
+  }) + '<div class="col">' + C.pRaw('Every construction the repository publishes is now decided. The Monte Carlo score is refused on principle: a number estimated from ten million random samples is not a claim about the construction that exact arithmetic can decide. The four remaining README rows have no files at the pinned commit; the day they do, they are rows.') + '</div>'
 }));
 
 B.push(C.note({
@@ -170,5 +176,5 @@ const foot = '<footer class="col"><p>Generated by tools/build-report-easota.js @
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'easota.html'),
   TPL.render({ title: 'The EinsteinArena table, decided', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/easota.html',
-    desc: 'Together AI\'s "new SOTA" table over AlphaEvolve re-decided in exact arithmetic from its own bytes: 18 constructions on seven problems, 14 exact witnesses, 4 repaired within the platform\'s tolerance, every improvement real, one printed digit that is the tolerance\'s, and a grid maximum replaced by a certified supremum.' }));
+    desc: 'Together AI\'s "new SOTA" table over AlphaEvolve re-decided in exact and certified-interval arithmetic from its own bytes: 20 constructions on eight problems, 16 exact witnesses, 4 repaired within the platform\'s tolerance, every improvement real, one printed digit that is the tolerance\'s, and a grid maximum replaced by a certified supremum.' }));
 console.log('reports/easota.html written: ' + L.rows.length + ' rows (' + nW + ' witnessed, ' + nR + ' repaired), battery ' + nChecks + ' checks / ' + nReds + ' reds @ git ' + git);

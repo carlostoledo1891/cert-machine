@@ -18,6 +18,7 @@ const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..');
 const L = require(path.join(ROOT, 'instruments', 'easota', 'lib.js'));
 const D = require(path.join(ROOT, 'instruments', 'easota', 'decide.js'));
+const H = require(path.join(ROOT, 'instruments', 'easota', 'hexagons.js'));
 const Q = L.Q;
 const die = (m) => { console.error('EASOTA LEDGER REFUSED: ' + m); process.exit(1); };
 
@@ -177,9 +178,28 @@ for (const [file, who, printed, gridScore, date] of [['alphaevolve_2025.py', 'Al
 /* the improvement is decided between two enclosures: real iff they are disjoint in the right order */
 const fltImprove = Q.sub(FLT['alphaevolve_2025.py'][0], FLT['ours_2026.py'][1]);
 
+/* ================= hexagon packing: certified intervals with certified trigonometry ================= */
+console.log('hexagon-packing:');
+const HEX = {};
+for (const [file, who, printed, date] of [['alphaevolve_2025.json', 'AlphaEvolve V2 (arXiv:2511.02864)', '3.9419123', '2025-11'], ['ours_2026.json', 'Together AI agents, this repository', '3.9416523', '2026-04']]) {
+  if (!printedInReadme('hexagon-packing', printed)) die('printed value ' + printed + ' is not in the hexagon README');
+  const j = L.readJson('hexagon-packing/' + file);
+  const data = { hexagons: j.hexagons.map((h) => h.map(L.fromJsonNumber)), outer: { center: j.outer_center.map(L.fromJsonNumber), side: L.fromJsonNumber(j.outer_side_length), angleDeg: L.fromJsonNumber(j.outer_angle_deg) } };
+  if (data.hexagons.length !== 12) die('hexagons: ' + file + ' has ' + data.hexagons.length);
+  const r = H.decide(data);
+  HEX[file] = r.score;
+  push({ id: 'hexagons/' + file.replace('.json', ''), problem: 'hexagon-packing', claim: '12 unit hexagons inside a hexagon of side ' + printed + ', no overlaps, all inside: score = the outer side', claimant: who, date,
+    file: 'corpus/easota/hexagon-packing/' + file, sha256: meta.files['hexagon-packing/' + file].sha256,
+    verdict: r.verdict, exact: dec(r.score, 16), exactRational: Q.toString(r.score),
+    detail: { pairs: r.pairTally, vertices: r.vertexTally, closestPair: r.closestPair, tightestVertex: r.tightestVertex, enclosureWidth: r.enclosureWidth, intersecting: r.intersecting, outside: r.outside, undecidedPairs: r.undecidedPairs, undecidedVertices: r.undecidedVertices, ms: r.ms,
+      note: 'every vertex is a cosine and a sine of a published decimal, so the decision runs in outward-rounded interval arithmetic with a certified π and certified sin/cos (instruments/interval): a pair is SEPARATED when some edge normal has certainly disjoint projections, a vertex INSIDE when every edge cross product is certainly non-negative. gapAtLeast and crossAtLeast are certain lower bounds; the platform separates only past 1e-9 and admits a vertex outside by up to 1e-9' },
+    printed, printedConvention: 'exact', printedAgrees: r.witnessed && Q.cmp(r.score, L.parseDecimal(printed)) === 0,
+    platformTolerance: 'a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9' });
+}
+const hexImprove = Q.sub(HEX['alphaevolve_2025.json'], HEX['ours_2026.json']);   /* minimise the outer side */
+
 /* ================= not decided here, and why ================= */
 const undecided = [
-  { problem: 'hexagon-packing', claim: '12 unit hexagons inside a hexagon of side 3.9416523 (AlphaEvolve V2: 3.9419123)', status: 'QUEUED', why: 'the constructions carry rotation angles in degrees, so every vertex involves cos and sin; the separating-axis tests need interval arithmetic with certified trigonometry rather than exact rationals. Decidable; not built in this pass.' },
   { problem: 'prime-number-theorem', claim: 'S(f) = 0.994179 (AlphaEvolve: 0.921292)', status: 'NOT DECIDABLE AS STATED', why: 'the platform\'s score is estimated from 10,000,000 random samples; a Monte Carlo score is not a mathematical claim about the construction and this ledger does not certify it.' },
   { problem: 'tammes / second & third autocorrelation / uncertainty (README rows)', claim: 'four further table rows', status: 'NEEDS DATA', why: 'the repository README lists them; no solution files are published in the repository at the pinned commit.' },
 ];
@@ -193,6 +213,7 @@ const improvements = [
   { problem: 'edges-vs-triangles', direction: 'maximise', previous: 'AlphaEvolve V2', delta: dec(evtImprove, 16), sign: Q.sign(evtImprove) },
   { problem: 'first-autocorrelation', direction: 'minimise', previous: 'TTT-Discover', delta: dec(acImprove, 16), sign: Q.sign(acImprove) },
   { problem: 'flat-polynomials', direction: 'minimise', previous: 'AlphaEvolve V2', delta: dec(fltImprove, 16), sign: Q.sign(fltImprove), note: 'a lower bound on the difference: the two certified enclosures are disjoint' },
+  { problem: 'hexagon-packing', direction: 'minimise', previous: 'AlphaEvolve V2', delta: dec(hexImprove, 16), sign: Q.sign(hexImprove), note: 'both outer sides are exact decimals; both packings certified as witnesses' },
 ];
 for (const im of improvements) console.log('  improvement ' + im.problem.padEnd(24) + (im.sign > 0 ? 'REAL  ' : im.sign < 0 ? 'REVERSED ' : 'TIE ') + im.delta);
 if (rows.some((r) => r.verdict === 'UNWITNESSED')) console.log('  note: an UNWITNESSED row is a finding about the bytes, never about the bound');

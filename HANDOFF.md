@@ -155,10 +155,23 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     9.06e-9 to 6e-2), the homepage card, the shelf, the control-page
     battery, the Makefile rows — all registered; check-wiring ALL PASS;
     measure/render baselines record the new page (audited: nothing else
-    moved). NOT decided, said on the page: hexagon packing (interval SAT with
-    certified trig — next), the PNT Monte Carlo score (refused on
-    principle), four README rows without files. targets row
-    easota-table-audit BUILT. NOTHING SENT: a note to the repository (the
+    moved). THEN, while the operator held the sends, THE HEXAGONS
+    (instruments/easota/hexagons.js): twelve unit hexagons with published
+    rotation angles — every vertex a sine and cosine of a decimal — decided
+    in outward-rounded interval arithmetic with certified π and sin/cos
+    (instruments/interval/transcendental.js), every literal enclosed by its
+    two neighbouring doubles (encloseQ walks from Q.toDouble, which is NOT
+    correctly rounded); the separating-axis theorem with certified
+    SEPARATED / INTERSECTING / UNDECIDED, containment by certified cross
+    products. Both packings WITNESSED: 66 pairs separated (Together's
+    closest ≥ 3.6e-8, AlphaEvolve's ≥ 6.9e-6), 72 vertices inside (tightest
+    ≥ 4.1e-7), the platform's 1e-9 margins not needed, the improvement
+    2.6e-4 exact. Battery 40 checks / 14 reds — a planted touching pair
+    comes back UNDECIDED at 3e-14, never SEPARATED. Ledger now 20 rows, 16
+    WITNESSED, 4 REPAIRED, 8/8 improvements real: EVERY construction the
+    repository publishes is decided. NOT decided, said on the page: the PNT
+    Monte Carlo score (refused on principle), four README rows without
+    files. targets row easota-table-audit BUILT. NOTHING SENT: a note to the repository (the
     tolerance digit, the grid-vs-supremum) is a send and is yours.
 
   ── 6 · WOETT ANSWERED ON #290 (teorth/erdosproblems#164, 2026-09-08
