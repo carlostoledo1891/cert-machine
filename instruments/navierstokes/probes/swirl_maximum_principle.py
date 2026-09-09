@@ -66,6 +66,15 @@ report(sp.simplify(Gamma_lead - sp.sqrt(2 * X) * q**(-h) * E) == 0, "the paper's
 # the exponent of q in Γ is −h < 0 for every h > 0
 report(sp.limit(Gamma_lead.subs({X: 1, E: 1, h: sp.Rational(1, 100)}), q, 0) == sp.oo, 'Γ → ∞ along q ↓ 0 at h = 1/100 (so no axisymmetric forced flow from rest with bounded force can have this core)')
 
+# red control: the test must NOT fire for a swirl the maximum principle allows. A type-I core with uθ = q^{−1/2+h}E has
+# Γ = √(2X) q^{+h} E → 0 as q ↓ 0 — bounded — and the unboundedness check must come back false for it.
+Gamma_typeI = sp.simplify(r_of * q**(-(sp.Rational(1, 2) - h)) * E)
+fires_on_typeI = sp.limit(Gamma_typeI.subs({X: 1, E: 1, h: sp.Rational(1, 100)}), q, 0) == sp.oo
+report(not fires_on_typeI, 'RED CONTROL: a type-I core (uθ = q^{−1/2+h}E, Γ = √(2X) q^{h}E → 0) does NOT trip the unbounded-swirl test — the test discriminates', 'Γ_typeI = ' + str(Gamma_typeI))
+# red control 2: a θ-equation WITH a zeroth-order term (e.g. a damping −Γ/r² left in by mistake) must be caught by the no-zeroth-order check
+bad = claimed + G / r**2
+report(sp.simplify(sp.expand(bad).coeff(G)) != 0, 'RED CONTROL: a zeroth-order term planted in the swirl equation is detected (coefficient of Γ nonzero)')
+
 # (3) type II: |u| ≍ τ^{−1/2−h} exceeds the type-I rate τ^{−1/2} by τ^{−h}
 tau = sp.symbols('tau', positive=True)
 ratio = sp.simplify(tau**(-(sp.Rational(1, 2) + h)) / tau**(-sp.Rational(1, 2)))
