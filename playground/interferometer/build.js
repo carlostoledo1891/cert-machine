@@ -20,7 +20,12 @@ const { page } = require(path.join(PG, 'design', 'shell.js'));
 
 const D = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'page-data.json'), 'utf8'));
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
-const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
+/* THE OVERLAY GRAMMAR IS SHARED, 2026-09-09. This file's page.css was the only description of
+   what a full-viewport instrument looks like here — the stage, the title over the drawing, the
+   readout, the right-hand panel and its toggle, the controls. The Navier–Stokes instrument
+   needed the same grammar, and a rule defined twice diverges, so it moved to
+   playground/design/overlay.css and both pages read it. The bytes are unchanged. */
+const CSS = fs.readFileSync(path.join(HERE, '..', 'design', 'overlay.css'), 'utf8');
 const M = D.meta;
 const n = (x, d) => Number(x).toFixed(d === undefined ? 3 : d);
 const readOut = (f) => { try { return JSON.parse(fs.readFileSync(path.join(HERE, 'out', f), 'utf8')); } catch (e) { return null; } };

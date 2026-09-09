@@ -22,150 +22,80 @@ const HERE = __dirname;
 const PG = path.join(HERE, '..');
 const ROOT = path.join(PG, '..');
 const { esc } = require(path.join(PG, 'design', 'shell.js'));
+const NAV = require(path.join(ROOT, 'design', 'nav.js'));
 
 const SCENE = path.join(HERE, 'out', 'scene.json');
 if (!fs.existsSync(SCENE)) { console.error('navier-stokes: no scene.json — run node playground/navier-stokes/scene.js'); process.exit(1); }
 const S = JSON.parse(fs.readFileSync(SCENE, 'utf8'));
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
+const OVERLAY = fs.readFileSync(path.join(PG, 'design', 'overlay.css'), 'utf8');
 const nf = (x) => Number(x).toLocaleString('en-US');
 const MONO = "'JetBrains Mono var','JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace";
 
-const CSS = `
-*{box-sizing:border-box;}
-html,body{margin:0;padding:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);
-  font-family:'Inter var',Inter,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
-body{opacity:0;transition:opacity .5s ease;} body.ready{opacity:1;}
-canvas{position:fixed;inset:0;display:block;}
-.mono{font-family:${MONO};}
+/* THE OVERLAY GRAMMAR IS THE INTERFEROMETER'S, and it is now shared rather than copied:
+   playground/design/overlay.css defines #stage, .ov, .ov-title, .ov-foot, .rd, .ov-panel, .pt,
+   .grp, .eyebrow, .hr-thin, .ctrl, .row-btns, .chip, .note-sm, .sheet. What follows is only
+   what this instrument adds. A rule defined twice diverges. */
+/* The base layer the shell would have given us. This page does not use the shell (it is a
+   viewport, not a document), so it declares the same three things the shell declares and
+   nothing more: the reset, the ground and the type. */
+const CSS = OVERLAY + `
+*,*::before,*::after{box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+/* THE PANEL HIDES WITHOUT LEAVING THE PAGE. The shared grammar slides it out with
+   translateX(100%), which is fine on a page that never starts hidden — the interferometer
+   never does. This one starts hidden on a phone, and a translated box outside the viewport
+   extends the document: the layout ruler read 330px of page overflow at 1440 and a whole
+   viewport at 390, and was right to. So here it fades and steps 8px instead, which overflows
+   nothing and needs no clipping wrapper. */
+body.ov-panel-hidden .ov-panel{transform:none;opacity:0;visibility:hidden;pointer-events:none;}
+body{margin:0;background:var(--bg);color:var(--ink-2);font-family:var(--font-sans);
+  font-size:var(--text-body);line-height:var(--leading-body);-webkit-font-smoothing:antialiased;}
+h1{margin:0;font-family:var(--font-sans);}
+#stage{background:var(--bg);}
+.ov-title h1{color:var(--ink);}
+.ov-verdict{left:50%;transform:translateX(-50%);top:clamp(4.6rem,9vh,6.4rem);max-width:min(62ch,66vw);text-align:center;
+  opacity:0;transition:opacity var(--dur-med) var(--ease-out);}
+.ov-verdict.on{opacity:1;}
+.ov-verdict .tag{display:inline-block;font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;background:var(--ink);color:var(--bg);border-radius:var(--radius-s);padding:2px 9px;margin-bottom:var(--s-2);}
+.ov-verdict p{font-size:var(--text-small);line-height:1.6;color:var(--ink-2);background:color-mix(in srgb,var(--bg) 82%,transparent);
+  padding:var(--s-2) var(--s-3);border-radius:var(--radius-s);display:inline-block;margin:0;}
+.ov-transport{left:50%;transform:translateX(-50%);bottom:clamp(1rem,3vh,2rem);display:flex;align-items:center;gap:var(--s-3);
+  background:color-mix(in srgb,var(--bg-raised) 86%,transparent);border:1px solid var(--border);
+  border-radius:var(--radius-pill);padding:6px 12px;backdrop-filter:blur(14px);}
+.ov-transport input[type=range]{width:min(34vw,340px);accent-color:var(--ink-2);}
+.ov-transport .k{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-5);}
+#play{width:30px;height:26px;padding:0;font-size:11px;font-family:var(--font-mono);background:transparent;
+  border:1px solid var(--border-strong);color:var(--ink-3);border-radius:var(--radius-pill);cursor:pointer;}
+#play:hover{color:var(--ink);}
+.ov-chips{left:34%;right:min(330px,88vw);bottom:clamp(4.2rem,9vh,5.4rem);display:flex;
+  flex-wrap:wrap;gap:var(--s-2);justify-content:flex-end;}
+body.ov-panel-hidden .ov-chips{right:clamp(1rem,3vw,2.5rem);}
+.ov-foot{max-width:40ch;}
+.ov-foot .rd{gap:var(--s-2) var(--s-5);}
 
-.nav-wrap{position:fixed;top:0;left:0;right:0;z-index:40;padding:14px 22px;display:flex;
-  justify-content:space-between;align-items:center;pointer-events:none;
-  background:linear-gradient(180deg,color-mix(in srgb, var(--bg) 72%, transparent),transparent);transition:opacity .6s ease;}
-.nav-wrap a{pointer-events:auto;font-family:${MONO};text-decoration:none;}
-body.faded .nav-wrap{opacity:.3;}
-.brand{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);}
-.brand:hover{color:var(--ink);}
-.navlinks{display:flex;gap:16px;}
-.navlinks a{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);}
-.navlinks a:hover{color:var(--ink);}
-
-.title{position:fixed;top:62px;left:26px;z-index:30;max-width:min(30ch,44vw);pointer-events:none;
-  transition:opacity .8s ease;}
-body.faded .title{opacity:.22;}
-.title h1{margin:0;font-size:clamp(1.6rem,1rem+2.2vw,2.9rem);font-weight:550;letter-spacing:-.025em;line-height:1.03;}
-.title p{margin:10px 0 0;font-size:12.5px;line-height:1.55;color:var(--ink-3);max-width:34ch;}
-.title p b{color:var(--ink-2);font-weight:500;}
-
-.hud{position:fixed;left:26px;bottom:150px;z-index:30;display:grid;grid-template-columns:auto auto;
-  gap:2px 12px;font-family:${MONO};font-size:11px;color:var(--ink-4);pointer-events:none;transition:opacity .6s ease;}
-body.faded .hud{opacity:.35;}
-.hud b{color:var(--ink);font-weight:400;text-align:right;font-variant-numeric:tabular-nums;}
-
-.transport{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:35;
-  display:flex;align-items:center;gap:12px;padding:9px 14px;border-radius:var(--radius-pill);
-  background:color-mix(in srgb, var(--bg-raised) 82%, transparent);border:1px solid var(--border);backdrop-filter:blur(14px);}
-.transport input[type=range]{width:min(44vw,400px);accent-color:var(--ink);}
-button{font-family:${MONO};background:transparent;color:var(--ink-3);border:1px solid var(--border);
-  border-radius:var(--radius-pill);font-size:11px;letter-spacing:.06em;padding:5px 11px;cursor:pointer;
-  transition:color .15s,border-color .15s,background .15s;}
-button:hover{color:var(--ink);border-color:var(--border-strong);}
-button.on{background:var(--ink);color:var(--bg);border-color:var(--ink);}
-#play{width:34px;height:30px;padding:0;font-size:12px;}
-.tlab{font-family:${MONO};font-size:10.5px;color:var(--ink-5);white-space:nowrap;}
-button .tlab{color:inherit;opacity:.55;}
-
-.rail{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:35;display:flex;
-  flex-direction:column;gap:8px;align-items:stretch;transition:opacity .6s ease;width:218px;}
-body.faded .rail{opacity:.42;}
-.grp{background:color-mix(in srgb, var(--bg-raised) 82%, transparent);border:1px solid var(--border);border-radius:var(--radius-m);padding:12px;backdrop-filter:blur(14px);}
-.grp label{display:flex;justify-content:space-between;font-family:${MONO};font-size:10.5px;color:var(--ink-4);margin-bottom:7px;}
-.grp label b{color:var(--ink);font-weight:400;}
-.grp input[type=range]{width:100%;accent-color:var(--ink);}
-.pills{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap;}
-.pills button{font-size:10px;padding:3px 7px;}
-.stack{display:flex;flex-direction:column;gap:6px;}
-.stack button{text-align:left;}
-
-.chips{position:fixed;left:26px;right:26px;bottom:64px;z-index:32;display:flex;gap:5px;flex-wrap:wrap;
-  justify-content:center;pointer-events:none;transition:opacity .6s ease;}
-body.faded .chips{opacity:.25;}
-.chip{pointer-events:auto;font-size:10px;letter-spacing:.04em;padding:3px 8px;border-radius:var(--radius-pill);
-  border:1px solid var(--border);color:var(--ink-4);background:color-mix(in srgb, var(--bg-raised) 70%, transparent);backdrop-filter:blur(8px);cursor:pointer;}
-.chip.ok{color:var(--ink-2);border-color:var(--border-strong);}
-.chip.bad{color:var(--bg);background:var(--ink);border-color:var(--ink);}
-.chip.off{opacity:.32;}
-
-.verdict{position:fixed;left:50%;top:104px;transform:translateX(-50%);z-index:33;
-  max-width:min(64ch,88vw);text-align:center;opacity:0;pointer-events:none;transition:opacity .45s ease;}
-.verdict.on{opacity:1;}
-.verdict b{display:block;font-family:${MONO};font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--bg);background:var(--ink);border-radius:3px;padding:3px 10px;margin:0 auto 9px;width:max-content;}
-.verdict em{font-style:normal;font-size:12.5px;line-height:1.6;color:var(--ink-2);background:color-mix(in srgb, var(--bg) 78%, transparent);
-  padding:7px 13px;border-radius:var(--radius-s);display:inline-block;backdrop-filter:blur(8px);}
-
-.why{position:fixed;left:50%;bottom:104px;transform:translateX(-50%);z-index:36;width:min(62ch,90vw);
-  background:color-mix(in srgb, var(--bg-raised) 94%, transparent);border:1px solid var(--border-strong);border-radius:var(--radius-m);padding:14px 16px;
-  opacity:0;pointer-events:none;transition:opacity .25s ease;backdrop-filter:blur(16px);cursor:pointer;}
-.why.on{opacity:1;pointer-events:auto;}
-.why b{display:block;font-size:13px;margin-bottom:6px;}
-.why span{display:block;font-size:12px;line-height:1.55;color:var(--ink-3);margin-bottom:4px;}
-.why code{display:block;margin-top:8px;font-family:${MONO};font-size:11.5px;color:var(--ink);
-  background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-s);padding:7px 9px;}
-
-.panel{position:fixed;right:22px;top:62px;bottom:76px;width:min(430px,90vw);z-index:38;
-  background:color-mix(in srgb, var(--bg-raised) 96%, transparent);border:1px solid var(--border-strong);border-radius:var(--radius-l);padding:20px;
-  overflow:auto;opacity:0;pointer-events:none;transform:translateX(12px);
-  transition:opacity .28s ease,transform .28s ease;backdrop-filter:blur(20px);}
-.panel.on{opacity:1;pointer-events:auto;transform:none;}
-.panel h2{margin:0 0 6px;font-size:16px;font-weight:550;letter-spacing:-.01em;}
-.panel h3{margin:18px 0 6px;font-family:${MONO};font-size:10px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--ink-4);font-weight:400;}
-.panel p{margin:0 0 10px;font-size:12.5px;line-height:1.62;color:var(--ink-3);}
-.panel p b{color:var(--ink);font-weight:500;} .panel p em{color:var(--ink-2);font-style:italic;}
-.panel a{color:var(--ink-2);}
-.erow{display:grid;grid-template-columns:62px 76px 60px 1fr;gap:6px;padding:4px 0;border-top:1px solid var(--chart-grid);
-  font-family:${MONO};font-size:10.5px;align-items:baseline;}
-.erow span{color:var(--ink-2);} .erow b{color:var(--ink-3);font-weight:400;}
-.erow i{color:var(--ink);font-style:normal;text-align:right;}
-.erow em{color:var(--ink-5);font-style:normal;font-family:'Inter var',Inter,sans-serif;font-size:10px;}
-.ins{display:flex;gap:10px;align-items:center;margin:6px 0 2px;}
-.ins svg{flex:0 0 190px;height:46px;background:var(--bg);border:1px solid var(--chart-grid);border-radius:var(--radius-s);}
-.ins div{font-size:11px;line-height:1.5;color:var(--ink-4);}
-.tag{display:inline-block;font-family:${MONO};font-size:9px;letter-spacing:.12em;text-transform:uppercase;
-  border:1px solid var(--border-strong);border-radius:var(--radius-pill);padding:1px 7px;color:var(--ink-4);margin-right:5px;}
-.tag.d{background:var(--ink);color:var(--bg);border-color:var(--ink);}
-
+.ov-why{left:50%;transform:translateX(-50%);bottom:clamp(4.2rem,9vh,5.4rem);width:min(60ch,72vw);
+  background:color-mix(in srgb,var(--bg-raised) 96%,transparent);border:1px solid var(--border-strong);
+  border-radius:var(--radius-m);padding:var(--s-4);opacity:0;transition:opacity var(--dur-fast) var(--ease-out);cursor:pointer;}
+.ov-why.on{opacity:1;}
+.ov-why b{display:block;font-size:var(--text-small);color:var(--ink);margin-bottom:var(--s-2);}
+.ov-why span{display:block;font-size:var(--text-eyebrow);line-height:1.6;color:var(--ink-4);}
+.ov-why code{display:block;margin-top:var(--s-2);font-family:var(--font-mono);font-size:var(--text-eyebrow);
+  color:var(--ink);background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-s);padding:6px 8px;}
+.erow{display:grid;grid-template-columns:58px 70px 56px;gap:var(--s-2);padding:3px 0;border-top:1px solid var(--border);
+  font-family:var(--font-mono);font-size:9.5px;align-items:baseline;}
+.erow .s{color:var(--ink-2);} .erow .e{color:var(--ink-4);} .erow .v{color:var(--ink);text-align:right;}
+.spk{width:100%;height:40px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-s);margin-top:var(--s-2);}
 @media (max-width:820px){
-  /* THE PHONE IS A DIFFERENT INSTRUMENT. Nine chips wrap to four lines and eat the picture,
-     so on a phone the verdicts live in the panel and the HUD keeps three rows in the corner. */
-  .title{top:52px;left:16px;max-width:88vw;}
-  .title p{display:none;}
-  .title h1{font-size:1.7rem;}
-  .chips{display:none;}
-  .hud{left:auto;right:14px;top:52px;bottom:auto;font-size:10px;gap:1px 10px;}
-  .hud span:nth-of-type(n+5),.hud b:nth-of-type(n+5){display:none;}
-  .rail{right:8px;left:8px;top:auto;bottom:70px;transform:none;width:auto;flex-direction:column;gap:6px;}
-  .grp{padding:9px 10px;}
-  .grp label{margin-bottom:5px;}
-  .stack{flex-direction:row;gap:6px;}
-  .stack button{flex:1;text-align:center;padding:6px 4px;font-size:10px;}
-  .stack button .tlab{display:none;}
-  .pills{margin-top:7px;}
-  .transport{bottom:10px;gap:8px;padding:7px 11px;}
-  .transport input[type=range]{width:46vw;}
-  .transport .tlab{display:none;}
-  .verdict{top:auto;bottom:270px;max-width:94vw;}
-  .verdict em{font-size:11.5px;padding:6px 10px;}
-  .why{bottom:70px;width:94vw;padding:11px 12px;}
-  .why span{font-size:11px;}
-  .panel{right:8px;left:8px;width:auto;top:52px;bottom:60px;padding:15px;}
+  .ov-title{max-width:88vw;} .ov-title p{display:none;}
+  .ov-foot{display:none;}
+  .ov-chips{display:none;}
+  .ov-verdict{top:auto;bottom:calc(7.5rem + 90px);max-width:92vw;}
+  .ov-why{width:94vw;bottom:5.2rem;}
+  .ov-transport input[type=range]{width:44vw;}
+  .ov-panel{width:100vw;padding-top:4.4rem;}
 }
-@media (max-width:820px) and (orientation:landscape){
-  .rail{flex-direction:row;flex-wrap:wrap;}
-  .grp{flex:1 1 46%;}
-  .verdict{bottom:200px;}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 `;
 
 const D = S.dichotomy;
@@ -175,7 +105,7 @@ const html = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Turn the singularity — cert-machine</title>
-<meta name="description" content="${esc('The object OpenAI\u2019s Navier\u2013Stokes proof constructs, drawn at full size and turned: a self-similar vortex core collapsing in real time, every verdict about the parameter it hangs on decided in your tab in exact integer arithmetic.')}">
+<meta name="description" content="${esc('The object OpenAI\u2019s Navier\u2013Stokes proof constructs, drawn at full size and turned: iso-speed contours of a self-similar vortex core collapsing in real time, with every verdict about the parameter it hangs on decided in your tab in exact integer arithmetic.')}">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="Turn the singularity">
 <meta property="og:description" content="A Millennium proof\u2019s singularity, drawn as the object it is rather than simulated.">
@@ -184,109 +114,124 @@ const html = `<!doctype html>
 <style>${CSS}</style>
 </head>
 <body>
-<canvas id="ns-cv" aria-label="A self-similar vortex core collapsing toward a point: thousands of tracers spiral inward and are flung along the axis while the swirl glows out of the page, the core's box shrinking as the time remaining falls."></canvas>
+${NAV.navHtml({ here: 'instruments', root: '../../' })}
+<canvas id="stage" aria-label="Iso-speed contours of a self-similar vortex core collapsing toward a point, with the meridional streamlines, the core's box and the dotted pulse annulus, all shrinking as the time remaining falls."></canvas>
 
-<div class="nav-wrap">
-  <a class="brand" href="../../index.html">Carlos Toledo</a>
-  <div class="navlinks">
-    <a href="../../reports/navier-stokes.html">the audit</a>
-    <a href="../index.html">instruments</a>
-  </div>
-</div>
-
-<div class="title">
+<div class="ov ov-title">
+  <div class="eyebrow">cert-machine / instruments &nbsp;·&nbsp; the object a Millennium proof constructs</div>
   <h1>Turn the singularity.</h1>
-  <p>A Millennium proof says a smooth force can drive a fluid from rest to infinite speed in finite time.
-  This is <b>the object it constructs</b>, not a simulation of it.</p>
+  <p>A smooth force drives a fluid from rest to infinite speed in finite time. This is the object
+  the proof builds, drawn — not a simulation of it. Nothing here is gated.</p>
 </div>
 
-<div class="chips" id="chips"></div>
-<div class="verdict" id="verdict"></div>
-<div class="why" id="why"></div>
+<div class="ov ov-verdict" id="verdict"></div>
+<div class="ov ov-why" id="why"></div>
+<div class="ov ov-chips" id="chips"></div>
 
-<div class="hud mono">
-  <span>τ</span><b id="h-tau">—</b>
-  <span>zoom</span><b id="h-zoom">—</b>
-  <span>speed |u|</span><b id="h-u">—</b>
-  <span>ℓz/ℓr</span><b id="h-asp">—</b>
-  <span>h</span><b id="h-h">—</b>
-  <span>criteria met</span><b id="h-met">—</b>
-  <span>10× longer at τ</span><b id="h-10">—</b>
-  <span>fps</span><b id="h-fps">—</b>
+<div class="ov ov-foot">
+  <div class="rd">
+    <div class="item"><span class="k">time left</span><span class="v" id="h-tau">—</span></div>
+    <div class="item"><span class="k">zoom</span><span class="v" id="h-zoom">—</span></div>
+    <div class="item"><span class="k">speed |u|</span><span class="v" id="h-u">—</span></div>
+    <div class="item"><span class="k">ℓz / ℓr</span><span class="v" id="h-asp">—</span></div>
+  </div>
+  <div class="rd">
+    <div class="item"><span class="k">h</span><span class="v" id="h-h">—</span></div>
+    <div class="item"><span class="k">criteria met</span><span class="v" id="h-met">—</span></div>
+    <div class="item"><span class="k">ten times longer at</span><span class="v" id="h-10">—</span></div>
+    <div class="item"><span class="k">fps</span><span class="v" id="h-fps">—</span></div>
+  </div>
+  <div class="cap">Every contour is a level of |u| in the construction's own coordinates, mapped
+  to this τ exactly. Click a verdict to see the arithmetic that decided it.</div>
+  <div class="src">nothing here is gated · the audit that is: <a href="../../reports/navier-stokes.html">/reports/navier-stokes.html</a></div>
 </div>
 
-<div class="rail">
-  <div class="grp">
-    <label>h, the parameter it hangs on <b id="h-h2"></b></label>
-    <input id="hs" type="range" min="0" max="300" step="1" value="10" aria-label="the smallness parameter h">
-    <div class="pills">
-      <button data-h="0">0</button>
-      <button data-h="10">1/100</button>
-      <button data-h="60">3/50</button>
-      <button data-h="167">past 1/6</button>
-    </div>
-  </div>
-  <div class="grp stack">
-    <button id="follow">follow the core <span class="tlab">f</span></button>
-    <button id="axi">make it axisymmetric <span class="tlab">a</span></button>
-    <button id="trace">tracers <span class="tlab">t</span></button>
-  </div>
-  <div class="stack">
-    <button data-panel="exact">every scale, exactly</button>
-    <button data-panel="about">what this is</button>
-  </div>
-</div>
-
-<div class="transport">
+<div class="ov ov-transport">
   <button id="play" aria-label="play or pause">❚❚</button>
-  <span class="tlab">τ = 1 − t</span>
+  <span class="k">τ = 1 − t</span>
   <input id="sc" type="range" min="-13" max="-0.15" step="0.005" value="-1" aria-label="time remaining before the singularity">
-  <span class="tlab">→ 0</span>
+  <span class="k">→ 0</span>
 </div>
 
-<div class="panel" id="p-exact">
-  <h2>Every scale, exactly</h2>
-  <p><span class="tag d">decided</span> Each exponent is a rational in h with integer numerators, evaluated at the h you
-  have set. The chips along the top are the same arithmetic: your tab compares them with BigInt and never with a float,
-  so h = 0 and h = 1/6 are decided as equalities rather than approached. Click any chip for its comparison.</p>
-  <div id="exact-body"></div>
-  <h3>the exterior, integrated here <span class="tag">computed</span></h3>
-  <div class="ins"><svg id="sp-ext" role="img" aria-label="The exterior swirl profile falling with Z."></svg>
-    <div>H(Z) — the one closed form in the construction. The exterior solves the radial heat equation exactly.
-    Residual of (A.37) at Z = 1: <b id="ext-res">—</b>.</div></div>
-  <h3>the pulse <span class="tag">computed</span></h3>
-  <div class="ins"><svg id="sp-pulse" role="img" aria-label="The pulse amplitude rising then falling."></svg>
-    <div>The shear feeds the oscillation, then shortens its wavelength until viscosity wins.
-    Peak amplification <b id="pulse-pk">—</b>.</div></div>
-</div>
+<button class="pt" id="pt">controls</button>
 
-<div class="panel" id="p-about">
-  <h2>What this is</h2>
-  <p>On 2026-09-08 OpenAI published a proof that the Navier–Stokes equations can break down in finite time under a
-  smooth force, with a machine-checked certificate. Everyone will render a fluid simulation of that. A simulation is
-  the one thing here nobody can certify, so this page renders <b>the object the proof constructs</b>: a vortex whose
-  core shrinks like τ<sup>1/2</sup> across and τ<sup>1/2−h</sup> along while its speed grows like τ<sup>−1/2−h</sup>.</p>
-  <p>Press <em>follow the core</em> and the camera dives with the collapse. The picture stops moving — that is what
-  self-similar means, and no still figure can show it.</p>
-  <h3>the dichotomy this instrument exists for</h3>
-  <p>${esc(D.claim)} Press <em>make it axisymmetric</em> and move h. ${esc(D.atZero)} ${esc(D.above)}</p>
-  <p>${esc(D.so)}</p>
-  <p style="font-size:11.5px">${esc(D.hypotheses)}</p>
-  <h3>what backs each mark</h3>
-  <p><span class="tag d">decided</span> ${esc(S.backing.criteria.how)}</p>
-  <p><span class="tag">computed</span> ${esc(S.backing.exterior.how)}</p>
-  <p><span class="tag">drawn</span> ${esc(S.backing.core.how)}</p>
-  <h3>the asymptotics, said out loud</h3>
-  <p>At the paper's h = 1/100 the core is ten times longer than wide only at τ = 10<sup>−100</sup>, and the pulse count
-  grows by two per cent per hundred decades. Slide h up to see the mechanism — and note that past 1/6 you have left the
-  window where the dissipation stays integrable.</p>
-  <h3>provenance</h3>
-  <p>The construction is OpenAI's, <i>Finite time blowup for Navier–Stokes</i>, ${nf(S.paper.pages)} pages,
-  sha256 ${esc(S.paper.sha256.slice(0, 12))}…. The audit next door built its ${nf(S.build.modules)}-module Lean proof on
-  one laptop in ${nf(S.build.minutes)} minutes, asked the kernel what it rests on, and had Comparator and a second,
-  independently written kernel accept both theorems. Nothing on <em>this</em> page is certified —
-  <b>a drawing is not a proof</b>. <a href="../../reports/navier-stokes.html">What is certified is next door.</a></p>
-</div>
+<aside class="ov-panel">
+  <div class="grp">
+    <span class="eyebrow">the one control that matters</span>
+    <div class="ctrl"><label for="hs">h, the smallness parameter</label><output id="hsOut">1/100</output>
+      <input type="range" id="hs" min="0" max="300" step="1" value="10"></div>
+    <div class="row-btns">
+      <button data-h="0">0</button><button data-h="10">1/100</button>
+      <button data-h="60">3/50</button><button data-h="167">past 1/6</button>
+    </div>
+    <div class="note-sm">The paper prints 0 &lt; h &lt; 1/100 and never says where the bound comes
+    from. It comes from two places: below zero the axisymmetric Liouville theorems exclude the flow,
+    at 1/6 the dissipation stops being integrable. Every verdict along the foot is a rational
+    inequality in h, decided here in integers.</div>
+  </div>
+  <hr class="hr-thin">
+
+  <div class="grp">
+    <span class="eyebrow">render</span>
+    <div class="row-btns">
+      <button data-mode="both">both</button>
+      <button data-mode="contour">contour</button>
+      <button data-mode="stream">stream</button>
+      <button data-mode="stipple">stipple</button>
+    </div>
+    <div class="ctrl" style="margin-top:var(--s-3)"><label for="sp">time speed</label><output id="spOut">0.17</output>
+      <input type="range" id="sp" min="0" max="0.6" step="0.01" value="0.17"></div>
+    <div class="row-btns" style="margin-top:var(--s-2)">
+      <button id="follow">follow the core</button>
+      <button id="trace">travelling marks</button>
+    </div>
+    <div class="note-sm">Follow the core and the camera dives with the collapse; the picture stops
+    moving, which is what self-similar means. Let it go and watch the thing vanish instead.</div>
+  </div>
+  <hr class="hr-thin">
+
+  <div class="grp">
+    <span class="eyebrow">the dichotomy</span>
+    <div class="row-btns"><button id="axi">make it axisymmetric</button></div>
+    <div class="note-sm">${esc(D.claim)} At h = 0 the swirl is bounded and the flow is exactly type I,
+    which the axisymmetric Liouville theorems exclude. Above zero it is type II and escapes them —
+    and the swirl diverges, which the maximum principle forbids for a flow driven from rest by a
+    bounded force. The construction survives only by leaving the axisymmetric class, and the paper
+    never says so.</div>
+  </div>
+  <hr class="hr-thin">
+
+  <div class="grp">
+    <span class="eyebrow">every scale, exactly</span>
+    <div id="exact-body"></div>
+    <div class="note-sm">Rational exponents of τ in h, evaluated at the τ on screen. Decided with
+    BigInt, so h = 0 and h = 1/6 are equalities rather than limits.</div>
+  </div>
+  <hr class="hr-thin">
+
+  <div class="grp">
+    <span class="eyebrow">computed here</span>
+    <svg class="spk" id="sp-ext" role="img" aria-label="The exterior swirl profile falling with Z."></svg>
+    <div class="note-sm">H(Z), the one closed form in the construction: the exterior solves the
+    radial heat equation exactly. Residual of (A.37) at Z = 1: <b id="ext-res">—</b>.</div>
+    <svg class="spk" id="sp-pulse" role="img" aria-label="The pulse amplitude rising then falling."></svg>
+    <div class="note-sm">The shear feeds the oscillation, then shortens its wavelength until
+    viscosity wins. Peak amplification <b id="pulse-pk">—</b>.</div>
+  </div>
+  <hr class="hr-thin">
+
+  <div class="grp">
+    <span class="eyebrow">what backs each mark</span>
+    <div class="note-sm"><b>Decided.</b> ${esc(S.backing.criteria.how)}</div>
+    <div class="note-sm"><b>Computed.</b> ${esc(S.backing.exterior.how)}</div>
+    <div class="note-sm"><b>Drawn.</b> ${esc(S.backing.core.how)}</div>
+    <div class="note-sm">The construction is OpenAI's, <i>Finite time blowup for Navier–Stokes</i>,
+    ${nf(S.paper.pages)} pages, sha256 ${esc(S.paper.sha256.slice(0, 12))}…. The audit next door built its
+    ${nf(S.build.modules)}-module Lean proof on one laptop in ${nf(S.build.minutes)} minutes and had
+    Comparator and a second, independently written kernel accept both theorems.
+    <a href="../../reports/navier-stokes.html">What is certified is next door.</a></div>
+  </div>
+</aside>
 
 <script type="application/json" id="ns-scene">${JSON.stringify(S).replace(/</g, '\\u003c')}</script>
 <script>${APP}</script>

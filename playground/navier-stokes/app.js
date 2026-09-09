@@ -31,7 +31,7 @@
   /* ------------------------------------------------------------------ state */
   const st = {
     hn: 10n, logTau: -0.6, playing: true, speed: 0.17,
-    follow: true, axisym: false, tracers: true, panel: null, zoom: 0,
+    follow: true, axisym: false, tracers: true, panel: null, zoom: 0, mode: 'both',
   };
   const h = () => Number(st.hn) / 1000;
   const tau = () => Math.pow(10, st.logTau);
@@ -80,170 +80,297 @@
   }
 
   /* ------------------------------------------------------------------ canvas */
-  const cv = $('ns-cv'), ctx = cv.getContext('2d', { alpha: false });
-  /* THE TRAILS LIVE ON THEIR OWN LAYER. Painting the glow over the main canvas every frame
-     erased them; the trail canvas fades on its own and is composited with 'lighter', so the
-     tracers add light to the glow instead of being wiped by it. */
-  const tcv = document.createElement('canvas');
-  let tctx = tcv.getContext('2d');
-  let W = 0, H = 0, DPR = 1, glow = null, glowKey = '';
+  const cv = $('stage'), ctx = cv.getContext('2d', { alpha: false });
+  let W = 0, H = 0, DPR = 1;
   function fit() {
     DPR = Math.min(2, window.devicePixelRatio || 1);
     W = window.innerWidth; H = window.innerHeight;
     cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
     cv.style.width = W + 'px'; cv.style.height = H + 'px';
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    tcv.width = cv.width; tcv.height = cv.height;
-    tctx = tcv.getContext('2d');
-    tctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    tctx.clearRect(0, 0, W, H);
     ctx.fillStyle = '#0a0a0c'; ctx.fillRect(0, 0, W, H);
-    glowKey = '';
   }
 
-  /* ------------------------------------------------------------------ tracers */
-  const NP = 4600;
-  const pr = new Float32Array(NP), pz = new Float32Array(NP), pa = new Float32Array(NP);
-  /* seeds are placed in the CORE'S OWN units, so the swarm follows the collapse instead of
-     being left behind by it — and biased inward, because that is where the picture is. */
-  function seed(i, wide) {
-    const e = ext(tau()), u = Math.random();
-    const rr = e.lr * (wide ? (0.8 + 2.6 * u * u) : (0.12 + 1.5 * u));
-    pr[i] = rr * (Math.random() < 0.5 ? 1 : -1);
-    pz[i] = e.lz * (Math.random() * 2 - 1) * (wide ? 2.2 : 1.0);
-    pa[i] = Math.random() * 0.85;
-  }
-  for (let i = 0; i < NP; i++) seed(i, true);
+  /* ------------------------------------------------------------------ the drawing
+     THE PICTURE IS A DRAWING, not a bloom. Iso-speed contours and streamlines, both hairline,
+     both computed ONCE per h in the construction's own coordinates (X, η) and mapped to the
+     screen each frame — which is exact, because the field is self-similar: a point (X, η)
+     sits at q = τ/(1−η²), r = √(2qX), z = q^D·η, and the SHAPE never changes. That is why
+     this holds sixty frames a second while thirteen decades go by. */
+  let geo = null, geoH = -1;
+  /* |η| < 1 is the core's own range: at η → ±1 the coordinate q = τ/(1−η²) runs to infinity and
+   the picture there is not the core at all but the far field at t = 1. An earlier lattice ran to
+   1.22 and drew the whole frame full of sweeping tails. */
+  const CN = 200, CM = 150, CXMAX = 2.15, CYMAX = 0.92;
 
-  /* ------------------------------------------------------------------ the glow */
-  function paintGlow(scale) {
-    const key = [h(), W, H, Math.round(Math.log10(scale) * 30), Math.round(st.logTau * 30)].join('|');
-    if (glowKey !== key) {
-      const NX = 190, NY = Math.max(90, Math.round(190 * H / W));
-      const off = document.createElement('canvas'); off.width = NX; off.height = NY;
-      const octx = off.getContext('2d'), img = octx.createImageData(NX, NY);
-      const halfW = W / 2 / scale, halfH = H / 2 / scale;
-      const t = tau(), hh = h(), D = Dexp(), A = Aexp();
-      let vmax = 0; const buf = new Float32Array(NX * NY);
-      for (let j = 0; j < NY; j++) {
-        const z = halfH - (j + 0.5) / NY * 2 * halfH;
-        const q = qOf(z, t, hh, D), qA = Math.pow(q, -A), qD = Math.pow(q, D), sq = Math.sqrt(2 * q);
-        for (let i = 0; i < NX; i++) {
-          const r = Math.abs((i + 0.5) / NX * 2 * halfW - halfW);
-          const sx = Math.min(GX, r / sq), et = Math.max(-GY, Math.min(GY, z / qD));
-          const a1 = sample(F.fs, sx, et), a2 = sample(F.fz, sx, et), a3 = sample(F.fr, sx, et);
-          const v = qA * Math.sqrt(a1 * a1 + a2 * a2 + a3 * a3);
-          buf[j * NX + i] = v; if (v > vmax && isFinite(v)) vmax = v;
-        }
+  function buildGeometry() {
+    const hh = h();
+    /* the speed field on the lattice, in profile units */
+    const g = new Float32Array(CN * CM);
+    let vmax = 0;
+    for (let j = 0; j < CM; j++) {
+      const eta = -CYMAX + 2 * CYMAX * j / (CM - 1);
+      for (let i = 0; i < CN; i++) {
+        const sx = -CXMAX + 2 * CXMAX * i / (CN - 1), X = sx * sx;
+        const a1 = sample(F.fs, Math.min(GX, Math.abs(sx)), Math.max(-GY, Math.min(GY, eta)));
+        const a2 = sample(F.fz, Math.min(GX, Math.abs(sx)), Math.max(-GY, Math.min(GY, eta)));
+        const a3 = sample(F.fr, Math.min(GX, Math.abs(sx)), Math.max(-GY, Math.min(GY, eta)));
+        /* the physical speed at (X, η) is τ^{−A}(1−η²)^A·|F|, so the SHAPE of every contour
+           is the shape of G = (1−η²)^A|F| — one field, every τ, no per-frame marching. */
+        const v = Math.pow(Math.max(1e-9, 1 - eta * eta), 0.5 + hh) * Math.sqrt(a1 * a1 + a2 * a2 + a3 * a3);
+        g[j * CN + i] = v; if (v > vmax) vmax = v;
       }
-      for (let k = 0; k < NX * NY; k++) {
-        /* a steep curve: the 1/r tail of the swirl is real and reaches the whole frame, but
-           at a gentle exponent it reads as fog. 2.6 keeps the tail visible and lets the core
-           dominate, which is what the eye needs and what the mathematics says. */
-        const u = vmax > 0 ? Math.pow(Math.min(1, buf[k] / vmax), 2.3) : 0;
-        img.data[4 * k] = 228; img.data[4 * k + 1] = 232; img.data[4 * k + 2] = 242;
-        img.data[4 * k + 3] = Math.round(178 * u);
-      }
-      octx.putImageData(img, 0, 0);
-      glow = off; glowKey = key;
     }
-    ctx.save(); ctx.globalAlpha = 0.95; ctx.drawImage(glow, 0, 0, W, H); ctx.restore();
+    /* marching squares, one closed set per level; levels geometric so the eye reads decades */
+    const NL = 16, contours = [];
+    for (let L = 0; L < NL; L++) {
+      const frac = Math.pow(0.70, NL - 1 - L);
+      contours.push({ level: frac * vmax, frac, segs: march(g, frac * vmax) });
+    }
+    /* STREAMLINES. Integrated in PHYSICAL (r, z) at one reference τ and stored in (√X, η):
+       by self-similarity that curve is every τ's curve. An earlier version integrated a made-up
+       rule directly in (X, η) and drew nonsense, because the coordinate change is not separable
+       — q depends on z. */
+    const TREF = 1e-2, DD = 0.5 - hh, AA = 0.5 + hh;
+    const lines = [];
+    const lrRef = Math.sqrt(2 * Xc * TREF);
+    for (let k = 0; k < 21; k++) {
+      const eta0 = -0.86 + 1.72 * (k + 0.5) / 21;
+      const q0 = TREF / Math.max(1e-6, 1 - eta0 * eta0);
+      for (const side of [1, -1]) {
+        const pts = [];
+        let r = 1.92 * Math.sqrt(2 * q0), z = Math.pow(q0, DD) * eta0;
+        for (let n = 0; n < 900; n++) {
+          const q = qOf(z, TREF, hh, DD);
+          const sxa = r / Math.sqrt(2 * q), et = z / Math.pow(q, DD);
+          if (!(sxa <= GX) || !(Math.abs(et) <= GY)) break;
+          const qA = Math.pow(q, -AA);
+          const ur = qA * sample(F.fr, sxa, et), uz = qA * sample(F.fz, sxa, et);
+          const nn = Math.hypot(ur, uz) || 1e-30;
+          r += ur / nn * lrRef * 0.012; z += uz / nn * lrRef * 0.012;
+          if (!(r > lrRef * 0.004)) break;
+          const q2 = qOf(z, TREF, hh, DD);
+          const sx2 = r / Math.sqrt(2 * q2), e2 = z / Math.pow(q2, DD);
+          if (!(sx2 <= CXMAX) || !(Math.abs(e2) <= CYMAX)) break;
+          pts.push(side * sx2, e2);
+        }
+        if (pts.length > 20) lines.push(new Float32Array(pts));
+      }
+    }
+    /* stipple: points with density following the speed */
+    const dots = [];
+    for (let n = 0; n < 2600; n++) {
+      const sx = (Math.random() * 2 - 1) * CXMAX, eta = (Math.random() * 2 - 1) * CYMAX;
+      const i = Math.round((sx + CXMAX) / (2 * CXMAX) * (CN - 1)), j = Math.round((eta + CYMAX) / (2 * CYMAX) * (CM - 1));
+      const v = g[j * CN + i] / vmax;
+      if (Math.random() < Math.pow(v, 1.5)) dots.push(sx, eta);
+    }
+    geo = { contours, lines, dots: new Float32Array(dots), vmax }; geoH = hh;
+  }
+
+  /* marching squares on the lattice, returning flat segment pairs in (√X, η) */
+  function march(g, lev) {
+    const out = [];
+    const at = (i, j) => g[j * CN + i];
+    const sxOf = (i) => -CXMAX + 2 * CXMAX * i / (CN - 1);
+    const etOf = (j) => -CYMAX + 2 * CYMAX * j / (CM - 1);
+    for (let j = 0; j < CM - 1; j++) for (let i = 0; i < CN - 1; i++) {
+      const a = at(i, j), b = at(i + 1, j), c = at(i + 1, j + 1), d = at(i, j + 1);
+      let k = 0;
+      if (a > lev) k |= 1; if (b > lev) k |= 2; if (c > lev) k |= 4; if (d > lev) k |= 8;
+      if (k === 0 || k === 15) continue;
+      const lerp = (v1, v2, p1, p2) => { const t = (lev - v1) / ((v2 - v1) || 1e-30); return p1 + t * (p2 - p1); };
+      const P = {
+        b: [lerp(a, b, sxOf(i), sxOf(i + 1)), etOf(j)],
+        r: [sxOf(i + 1), lerp(b, c, etOf(j), etOf(j + 1))],
+        t: [lerp(d, c, sxOf(i), sxOf(i + 1)), etOf(j + 1)],
+        l: [sxOf(i), lerp(a, d, etOf(j), etOf(j + 1))],
+      };
+      const push = (p, q) => out.push(p[0], p[1], q[0], q[1]);
+      switch (k) {
+        case 1: case 14: push(P.l, P.b); break;
+        case 2: case 13: push(P.b, P.r); break;
+        case 3: case 12: push(P.l, P.r); break;
+        case 4: case 11: push(P.r, P.t); break;
+        case 6: case 9: push(P.b, P.t); break;
+        case 7: case 8: push(P.l, P.t); break;
+        case 5: push(P.l, P.b); push(P.r, P.t); break;
+        case 10: push(P.l, P.t); push(P.b, P.r); break;
+      }
+    }
+    return new Float32Array(out);
+  }
+
+  /* (√X, η) → screen at this τ, exactly */
+  function mapper(t, scale, cx, cy) {
+    const D = Dexp();
+    return (sx, eta) => {
+      const q = t / Math.max(1e-12, 1 - eta * eta);
+      const r = Math.sign(sx) * Math.abs(sx) * Math.sqrt(2 * q);
+      const z = Math.pow(q, D) * eta;
+      return [cx + r * scale, cy - z * scale];
+    };
   }
 
   /* ------------------------------------------------------------------ the frame */
-  let last = 0, fps = 60, frames = 0, fpsT = 0, hudT = 0;
+  let last = 0, fps = 60, frames = 0, fpsT = 0, hudT = 0, phase = 0;
   const PULSES = 9;
   const pulseCount = (t) => Math.max(3, Math.min(190, Math.round(Math.SQRT2 * (Math.sqrt(Xb) - Math.sqrt(Xa)) * Math.pow(t, -h() / 2) * PULSES)));
 
   function draw(ts) {
     const dt = Math.min(0.05, (ts - last) / 1000 || 0.016); last = ts;
+    phase += dt;
     if (st.playing) {
       st.logTau -= st.speed * dt;
-      if (st.logTau < -13) { st.logTau = -0.15; for (let i = 0; i < NP; i++) seed(i, true); }
+      if (st.logTau < -13) st.logTau = -0.15;
       $('sc').value = st.logTau;
     }
-    if (Fh !== h()) { buildField(); glowKey = ''; }
-    const t = tau(), e = ext(t), hh = h(), A = Aexp(), D = Dexp();
+    if (Fh !== h()) buildField();
+    if (geoH !== h()) buildGeometry();
+    const t = tau(), e = ext(t);
 
-    const base = 0.34 * Math.min(W, H);
-    const target = st.follow ? base / e.lr : base / 1.0;
+    const base = 0.30 * Math.min(W - (W < 820 ? 0 : 330), H);
+    const target = st.follow ? base / e.lr : base;
     if (!st.zoom) st.zoom = target;
     st.zoom += (target - st.zoom) * Math.min(1, dt * 3.2);
-    const scale = st.zoom, cx = W / 2, cy = H / 2;
-    const PX = (r) => cx + r * scale, PY = (z) => cy - z * scale;
+    /* the drawing is centred in what is VISIBLE, not in the window: the panel takes the right
+       third and the title the top left, so a window-centred figure sits under both. */
+    const panelW = document.body.classList.contains('ov-panel-hidden') ? 0 : Math.min(330, W * 0.88);
+    const scale = st.zoom, cx = (W - panelW) / 2 + (W < 820 ? 0 : 40), cy = H / 2;
+    const M = mapper(t, scale, cx, cy);
 
     ctx.fillStyle = '#0a0a0c'; ctx.fillRect(0, 0, W, H);
-    paintGlow(scale);
 
-    /* the trail layer fades on its own */
-    tctx.globalCompositeOperation = 'destination-out';
-    tctx.fillStyle = 'rgba(0,0,0,' + (st.tracers ? 0.055 : 1) + ')';
-    tctx.fillRect(0, 0, W, H);
-    tctx.globalCompositeOperation = 'source-over';
-
-    if (st.tracers) {
-      const dtau = Math.max(1e-19, t * 0.013);
-      for (let i = 0; i < NP; i++) {
-        const r = pr[i], z = pz[i], ar = Math.abs(r), sg = r < 0 ? -1 : 1;
-        const q = qOf(z, t, hh, D);
-        const sx = ar / Math.sqrt(2 * q), eta = z / Math.pow(q, D);
-        if (!(sx <= GX) || !(Math.abs(eta) <= GY)) { pa[i] += dt * 0.6; if (pa[i] > 1) seed(i, true); continue; }
-        const qA = Math.pow(q, -A);
-        const ur = qA * sample(F.fr, sx, eta), uz = qA * sample(F.fz, sx, eta);
-        const nr = ar + ur * dtau, nz = z + uz * dtau;
-        pa[i] += dt * 0.30;
-        if (pa[i] > 1 || !(nr > e.lr * 0.004) || Math.abs(nz) > 8 * e.lz || nr > 8 * e.lr) { seed(i, Math.random() < 0.5); continue; }
-        const x0 = PX(sg * ar), y0 = PY(z), x1 = PX(sg * nr), y1 = PY(nz);
-        pr[i] = sg * nr; pz[i] = nz;
-        if (x1 < -30 || x1 > W + 30 || y1 < -30 || y1 > H + 30) continue;
-        const sp = Math.min(1, Math.hypot(ur, uz) * Math.pow(t, A) / 3.2);
-        const g = Math.round(210 + 46 * sp);
-        tctx.strokeStyle = 'rgba(' + g + ',' + g + ',' + Math.min(255, g + 6) + ','
-          + ((0.18 + 0.72 * sp) * (1 - pa[i] * pa[i])).toFixed(3) + ')';
-        tctx.lineWidth = 0.7 + 1.5 * sp;
-        tctx.beginPath(); tctx.moveTo(x0, y0); tctx.lineTo(x1, y1); tctx.stroke();
+    if (st.mode === 'contour' || st.mode === 'both') {
+      ctx.lineWidth = 1;
+      for (const c of geo.contours) {
+        ctx.strokeStyle = 'rgba(246,246,248,' + (0.10 + 0.62 * Math.pow(c.frac, 0.42)).toFixed(3) + ')';
+        ctx.beginPath();
+        const sg = c.segs;
+        for (let k = 0; k < sg.length; k += 4) {
+          const p = M(sg[k], sg[k + 1]), q = M(sg[k + 2], sg[k + 3]);
+          if (!isFinite(p[0]) || !isFinite(q[0])) continue;
+          if ((p[0] < -60 && q[0] < -60) || (p[0] > W + 60 && q[0] > W + 60)) continue;
+          ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]);
+        }
+        ctx.stroke();
       }
     }
 
-    /* the tracers, added as light */
-    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.drawImage(tcv, 0, 0, W, H); ctx.restore();
+    if (st.mode === 'stream' || st.mode === 'both') {
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(246,246,248,0.28)';
+      ctx.beginPath();
+      for (const L of geo.lines) {
+        let started = false;
+        for (let k = 0; k < L.length; k += 2) {
+          const p = M(L[k], L[k + 1]);
+          if (!isFinite(p[0])) { started = false; continue; }
+          if (started) ctx.lineTo(p[0], p[1]); else { ctx.moveTo(p[0], p[1]); started = true; }
+        }
+      }
+      ctx.stroke();
+      if (st.tracers) {
+        ctx.fillStyle = 'rgba(246,246,248,0.9)';
+        for (const L of geo.lines) {
+          const n = L.length / 2;
+          for (let m = 0; m < 3; m++) {
+            const u = ((phase * 0.19 + m / 3 + Math.abs(L[0] * 7.3 % 1)) % 1);
+            const idx = Math.min(n - 1, Math.floor(u * n)) * 2;
+            const p = M(L[idx], L[idx + 1]);
+            if (!isFinite(p[0]) || p[0] < 0 || p[0] > W || p[1] < 0 || p[1] > H) continue;
+            ctx.fillRect(p[0] - 1, p[1] - 1, 2, 2);
+          }
+        }
+      }
+    }
 
-    /* the geometry the exponents fix */
+    if (st.mode === 'stipple') {
+      ctx.fillStyle = 'rgba(246,246,248,0.5)';
+      const dd = geo.dots;
+      for (let k = 0; k < dd.length; k += 2) {
+        const p = M(dd[k], dd[k + 1]);
+        if (!isFinite(p[0]) || p[0] < 0 || p[0] > W || p[1] < 0 || p[1] > H) continue;
+        ctx.fillRect(p[0], p[1], 1, 1);
+      }
+    }
+
+    /* the references. The axis and the annulus are dotted because they are rulers; the core
+       box is solid because its two edges are exactly what the exponents fix. */
+    ctx.save();
+    ctx.setLineDash([1, 3]); ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(246,246,248,0.20)';
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
     const ra = Math.sqrt(2 * Xa * t), rb = Math.sqrt(2 * Xb * t);
-    ctx.strokeStyle = 'rgba(246,246,248,0.24)'; ctx.lineWidth = 1;
-    ctx.strokeRect(PX(-e.lr), PY(e.lz), 2 * e.lr * scale, 2 * e.lz * scale);
-    if (!st.axisym) {
-      const n = pulseCount(t); ctx.lineWidth = 0.8;
-      for (let k = 0; k < n; k++) for (const s of [1, -1]) {
-        const x = PX(s * (ra + (rb - ra) * (k + 0.5) / n));
-        if (x < -8 || x > W + 8) continue;
-        ctx.strokeStyle = 'rgba(226,230,240,' + (0.05 + 0.16 * Math.abs(Math.sin(k * 1.7 + ts * 0.004))).toFixed(3) + ')';
-        ctx.beginPath(); ctx.moveTo(x, PY(e.lz)); ctx.lineTo(x, PY(-e.lz)); ctx.stroke();
-      }
+    ctx.setLineDash([2, 3]); ctx.strokeStyle = 'rgba(246,246,248,0.28)';
+    for (const sg of [1, -1]) for (const rr of [ra, rb]) {
+      const x = cx + sg * rr * scale;
+      if (x < -20 || x > W + 20) continue;
+      ctx.beginPath(); ctx.moveTo(x, cy - e.lz * scale * 1.3); ctx.lineTo(x, cy + e.lz * scale * 1.3); ctx.stroke();
     }
-    ctx.fillStyle = '#f6f6f8'; ctx.beginPath(); ctx.arc(cx, cy, 2, 0, 6.284); ctx.fill();
-    scaleBar(scale);
+    ctx.setLineDash([]);
+    if (!st.axisym) {
+      const n = pulseCount(t);
+      ctx.strokeStyle = 'rgba(246,246,248,0.09)';
+      ctx.beginPath();
+      for (let k = 0; k < n; k++) for (const sg of [1, -1]) {
+        const x = cx + sg * (ra + (rb - ra) * (k + 0.5) / n) * scale;
+        if (x < -6 || x > W + 6) continue;
+        ctx.moveTo(x, cy - e.lz * scale); ctx.lineTo(x, cy + e.lz * scale);
+      }
+      ctx.stroke();
+    }
+    ctx.strokeStyle = 'rgba(246,246,248,0.26)'; ctx.lineWidth = 1;
+    ctx.strokeRect(cx - e.lr * scale, cy - e.lz * scale, 2 * e.lr * scale, 2 * e.lz * scale);
+    ctx.fillStyle = '#f6f6f8'; ctx.beginPath(); ctx.arc(cx, cy, 1.8, 0, 6.284); ctx.fill();
+    ctx.restore();
+
+    annotate(cx, cy, scale, e, t, ra, rb);
+    cxNow = cx; scaleBar(scale);
 
     frames++; if (ts - fpsT > 600) { fps = Math.round(frames * 1000 / (ts - fpsT)); frames = 0; fpsT = ts; }
-    if (ts - hudT > 100) { hudT = ts; hud(t, e, scale, base); }
+    if (ts - hudT > 110) { hudT = ts; hud(t, e, scale, base); }
     requestAnimationFrame(draw);
   }
 
+  function annotate(cx, cy, scale, e, t, ra, rb) {
+    ctx.font = '9.5px ui-monospace,SFMono-Regular,Menlo,monospace';
+    const lab = (x, y, s, anchor, col) => {
+      ctx.fillStyle = col || 'rgba(154,154,166,0.92)';
+      ctx.textAlign = anchor || 'left'; ctx.fillText(s, x, y); ctx.textAlign = 'left';
+    };
+    const rp = e.lr * scale, zp = e.lz * scale;
+    if (rp > 26 && cx - rp > 130) {
+      ctx.strokeStyle = 'rgba(154,154,166,0.32)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(cx - rp, cy + zp); ctx.lineTo(cx - rp - 16, cy + zp + 12); ctx.stroke();
+      lab(cx - rp - 20, cy + zp + 15, 'the core · ℓr = τ^1/2 · ℓz = τ^' + fmtExp(0.5 - h()), 'right');
+    }
+    const xb = cx - rb * scale;
+    if (xb > 150 && zp > 14) lab(xb - 8, cy + 4, st.axisym ? 'annulus · no pulses' : 'pulse annulus · ' + Xa + ' < X < ' + Xb, 'right');
+    lab(cx + 6, 16, 'axis', 'left', 'rgba(110,110,122,0.9)');
+  }
+  const fmtExp = (v) => String(Number(v.toFixed(4)));
+
+  let cxNow = 0;
   function scaleBar(scale) {
     const want = Math.min(200, W * 0.15);
     let world = want / scale;
     const p = Math.pow(10, Math.floor(Math.log10(world)));
     const m = [1, 2, 5, 10].find((k) => k * p >= world * 0.55) || 10;
     world = m * p;
-    const wpx = world * scale, x0 = W < 820 ? 16 : 26, y0 = H - (W < 820 ? 64 : 26);
+    /* the ruler goes where nothing else is: the top right of the stage, left of the panel */
+    const panelW = document.body.classList.contains('ov-panel-hidden') ? 0 : Math.min(330, W * 0.88);
+    const wpx = world * scale;
+    const x0 = W < 820 ? Math.max(14, W - 20 - wpx) : Math.max(20, W - panelW - 34 - wpx);
+    const y0 = W < 820 ? H - 120 : 74;
     ctx.strokeStyle = 'rgba(246,246,248,0.5)'; ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(x0, y0); ctx.lineTo(x0 + wpx, y0);
     ctx.moveTo(x0, y0 - 4); ctx.lineTo(x0, y0 + 4);
     ctx.moveTo(x0 + wpx, y0 - 4); ctx.lineTo(x0 + wpx, y0 + 4);
     ctx.stroke();
-    ctx.fillStyle = 'rgba(246,246,248,0.62)'; ctx.font = '10.5px ui-monospace,SFMono-Regular,monospace';
-    ctx.fillText(fmtE(world), x0, y0 - 9);
+    ctx.fillStyle = 'rgba(246,246,248,0.55)'; ctx.font = '9.5px ui-monospace,SFMono-Regular,monospace';
+    ctx.textAlign = 'right'; ctx.fillText(fmtE(world) + '  ·  in units of the initial core', x0 + wpx, y0 - 8); ctx.textAlign = 'left';
   }
   const fmtE = (v) => (!isFinite(v) ? '∞' : v === 0 ? '0' : (Math.abs(v) >= 1e-3 && Math.abs(v) < 1e4) ? String(Number(v.toPrecision(3))) : v.toExponential(1).replace('e+', 'e').replace('e', '·10^'));
 
@@ -266,39 +393,41 @@
       const live = !axisOnly || st.axisym;
       if (ok) met++;
       const b = document.createElement('button');
-      b.className = 'chip' + (live ? (ok ? ' ok' : ' bad') : ' off');
+      b.className = 'chip' + (live && !ok ? ' on' : '');
+      b.style.opacity = live ? '1' : '0.38';
       b.textContent = c.name.split(',')[0].split('(')[0].trim();
       b.addEventListener('click', () => {
         $('why').innerHTML = '<b>' + esc(c.name) + '</b>'
           + '<span>' + esc(c.needs) + '</span><span>' + esc(c.here) + '</span>'
           + '<code>' + esc(qtext(lhs)) + ' ' + esc(c.rule.cmp) + ' ' + esc(qtext(rhs)) + '  →  ' + (ok ? 'true' : 'false')
           + (live ? '' : '   · axisymmetric only, not live') + '</code>';
-        $('why').classList.add('on');
+        $('why').className = 'ov ov-why on';
       });
       chips.appendChild(b);
     }
     const sw = at(S.criteria.find((c) => c.id === 'swirl').rule.lhs, st.hn);
     const bounded = qcmp(sw, Q(0n, 1n)) >= 0;
     const v = $('verdict');
-    if (!st.axisym) v.className = 'verdict';
+    if (!st.axisym) { v.className = 'ov ov-verdict'; v.innerHTML = ''; }
     else {
-      v.className = 'verdict on';
+      v.className = 'ov ov-verdict on';
       v.innerHTML = st.hn === 0n
-        ? '<b>type I</b><em>h = 0 — the swirl stays bounded and the maximum principle is satisfied. And |u| ≍ τ<sup>−1/2</sup> is exactly type I, which the axisymmetric Liouville theorems exclude.</em>'
-        : '<b>swirl unbounded</b><em>h = ' + esc(qtext(Q(st.hn, HD))) + ' — type II, so those theorems do not reach it. And Γ = r·u<sub>θ</sub> ≍ τ<sup>−' + esc(qtext(Q(st.hn, HD))) + '</sup> diverges, which the maximum principle forbids for an axisymmetric flow driven from rest by a bounded force.</em>';
+        ? '<span class="tag">type I</span><p>h = 0 — the swirl stays bounded and the maximum principle is satisfied. And |u| ≍ τ<sup>−1/2</sup> is exactly type I, which the axisymmetric Liouville theorems exclude.</p>'
+        : '<span class="tag">swirl unbounded</span><p>h = ' + esc(qtext(Q(st.hn, HD))) + ' — type II, so those theorems do not reach it. And Γ = r·u<sub>θ</sub> ≍ τ<sup>−' + esc(qtext(Q(st.hn, HD))) + '</sup> diverges, which the maximum principle forbids for an axisymmetric flow driven from rest by a bounded force.</p>';
     }
     $('h-met').textContent = met + '/' + S.criteria.length;
     $('h-h').textContent = qtext(Q(st.hn, HD));
     $('h-10').textContent = st.hn === 0n ? 'never' : '10^−' + Math.round(1 / h());
-    if (st.panel === 'exact') exactTable();
+    exactTable();
   }
   function exactTable() {
     const box = $('exact-body'); box.innerHTML = '';
     for (const x of S.exponents) {
       const q = at(x.e, st.hn), row = document.createElement('div');
       row.className = 'erow';
-      row.innerHTML = '<span>' + esc(x.sym) + '</span><b>τ<sup>' + esc(qtext(q)) + '</sup></b><i>'
-        + esc(fmtE(Math.pow(10, qnum(q) * st.logTau))) + '</i><em>' + esc(x.what) + '</em>';
+      row.innerHTML = '<span class="s">' + esc(x.sym) + '</span><span class="e">τ<sup>' + esc(qtext(q)) + '</sup></span>'
+        + '<span class="v">' + esc(fmtE(Math.pow(10, qnum(q) * st.logTau))) + '</span>';
+      row.title = x.what;
       box.appendChild(row);
     }
   }
@@ -329,49 +458,51 @@
   }
 
   /* ------------------------------------------------------------------ wiring */
-  const sc = $('sc'), hs = $('hs');
+  let panelTouched = false;
+  const autoPanel = () => { if (!panelTouched) document.body.classList.toggle('ov-panel-hidden', window.innerWidth < 820); };
+  const sc = $('sc'), hs = $('hs'), spd = $('sp');
   sc.addEventListener('input', () => { st.logTau = Number(sc.value); st.playing = false; syncPlay(); });
-  hs.addEventListener('input', () => { st.hn = BigInt(hs.value); glowKey = ''; decide(); insets(); });
-  for (const b of document.querySelectorAll('[data-h]')) b.addEventListener('click', () => { st.hn = BigInt(b.dataset.h); hs.value = b.dataset.h; glowKey = ''; decide(); insets(); });
+  hs.addEventListener('input', () => { st.hn = BigInt(hs.value); $('hsOut').textContent = qtext(Q(st.hn, HD)); decide(); insets(); });
+  spd.addEventListener('input', () => { st.speed = Number(spd.value); $('spOut').textContent = st.speed.toFixed(2); });
+  for (const b of document.querySelectorAll('[data-h]')) b.addEventListener('click', () => {
+    st.hn = BigInt(b.dataset.h); hs.value = b.dataset.h; $('hsOut').textContent = qtext(Q(st.hn, HD)); decide(); insets();
+  });
+  for (const b of document.querySelectorAll('[data-mode]')) b.addEventListener('click', () => {
+    st.mode = b.dataset.mode;
+    for (const x of document.querySelectorAll('[data-mode]')) x.classList.toggle('on', x === b);
+  });
   function syncPlay() { $('play').textContent = st.playing ? '❚❚' : '▶'; }
+  $('play').addEventListener('click', () => { st.playing = !st.playing; syncPlay(); });
   const toggle = (id, key, after) => $(id).addEventListener('click', () => {
     st[key] = !st[key]; $(id).classList.toggle('on', st[key]); if (after) after();
   });
-  $('play').addEventListener('click', () => { st.playing = !st.playing; syncPlay(); });
-  toggle('follow', 'follow', () => { glowKey = ''; });
-  toggle('axi', 'axisym', () => { document.body.classList.toggle('axi', st.axisym); decide(); });
+  toggle('follow', 'follow');
   toggle('trace', 'tracers');
-  for (const b of document.querySelectorAll('[data-panel]')) b.addEventListener('click', () => {
-    const p = b.dataset.panel;
-    st.panel = st.panel === p ? null : p;
-    for (const el of document.querySelectorAll('.panel')) el.classList.toggle('on', el.id === 'p-' + st.panel);
-    for (const x of document.querySelectorAll('[data-panel]')) x.classList.toggle('on', x.dataset.panel === st.panel);
-    document.body.classList.remove('faded');
-    if (st.panel === 'exact') exactTable();
-  });
-  $('why').addEventListener('click', () => $('why').classList.remove('on'));
+  toggle('axi', 'axisym', decide);
+  $('pt').addEventListener('click', () => { panelTouched = true; document.body.classList.toggle('ov-panel-hidden'); });
+  $('why').addEventListener('click', () => { $('why').className = 'ov ov-why'; });
   document.addEventListener('keydown', (ev) => {
     if (ev.target.tagName === 'INPUT') return;
     if (ev.key === ' ') { ev.preventDefault(); $('play').click(); }
     else if (ev.key === 'f') $('follow').click();
     else if (ev.key === 'a') $('axi').click();
     else if (ev.key === 't') $('trace').click();
-    else if (ev.key === 'Escape') {
-      st.panel = null;
-      for (const el of document.querySelectorAll('.panel')) el.classList.remove('on');
-      for (const x of document.querySelectorAll('[data-panel]')) x.classList.remove('on');
-      $('why').classList.remove('on');
-    }
+    else if (ev.key === 'c') $('pt').click();
+    else if (ev.key === 'Escape') { $('why').className = 'ov ov-why'; }
   });
-  window.addEventListener('resize', () => { clearTimeout(window.__t); window.__t = setTimeout(fit, 120); });
+  window.addEventListener('resize', () => { clearTimeout(window.__t); window.__t = setTimeout(() => { autoPanel(); fit(); }, 120); });
 
   /* ------------------------------------------------------------------ go */
-  buildField(); fit(); decide(); insets(); syncPlay();
+  /* the panel is the whole screen on a phone, so it starts closed there and the drawing is
+     what you land on; the toggle is in the corner either way */
+  /* auto-closed on a phone, and re-evaluated on resize until the reader touches the toggle:
+     a class latched at one window size and carried to another is how the ruler caught this. */
+  autoPanel();
+  buildField(); buildGeometry(); fit(); decide(); insets(); syncPlay();
   hs.value = String(st.hn); sc.value = String(st.logTau);
+  $('hsOut').textContent = qtext(Q(st.hn, HD));
   $('trace').classList.add('on'); $('follow').classList.add('on');
+  document.querySelector('[data-mode="both"]').classList.add('on');
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { st.playing = false; st.tracers = false; $('trace').classList.remove('on'); syncPlay(); }
   requestAnimationFrame(draw);
-  setTimeout(() => document.body.classList.add('ready'), 30);
-  const fade = setTimeout(() => { if (!st.panel) document.body.classList.add('faded'); }, 7000);
-  document.addEventListener('pointerdown', () => { clearTimeout(fade); document.body.classList.remove('faded'); }, { once: true });
 })();
