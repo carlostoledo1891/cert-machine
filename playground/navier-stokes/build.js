@@ -1,252 +1,323 @@
 /* build.js — site/instruments/navier-stokes/index.html
    playground/navier-stokes/ · cert-machine · 2026-09-09
 
-   The instrument beside the report. /reports/navier-stokes.html decides whether OpenAI's
-   proof stands; this page lets you turn the object it is about.
+   ONE CANVAS, THE SIZE OF THE WINDOW. The instrument beside the report: /reports/navier-
+   stokes.html decides whether OpenAI's proof stands; this is the object it is about, turned.
 
-   THE MOVE, the interferometer's one door along: that page draws the black hole as the SET
-   of skies the data allow rather than the photograph a prior picked. This one draws the
-   singularity as the OBJECT THE PROOF CONSTRUCTS rather than the fluid simulation everyone
-   else renders — because a simulation is the one thing here that could not be certified,
-   and we do not show what we cannot back.
+   The interferometer draws the black hole as the SET of skies the data allow rather than the
+   photograph a prior picked. This is that move one door along — everyone else will render a
+   fluid simulation of the blowup, and a simulation is the one thing here nobody can certify,
+   so this renders the object the proof CONSTRUCTS. The prose that explains it is behind a
+   button; the default state of the page is the picture.
 
-   What the page does that no fluid demo can: every verdict about the smallness parameter h
-   is an exact rational inequality decided in the reader's tab with BigInt, and dragging h
-   walks the construction into and out of two classical exclusions that close on h = 0 from
-   opposite sides. That dichotomy is this audit's own finding and it is drawn here.
+   THE SHELL IS NOT USED, deliberately: design/shell.js opens a document flow with a nav band
+   and a footer, and this page is a viewport rather than a document. It carries the site's
+   links as an overlay so a reader can still leave, and nothing else.
 
-   Reads playground/navier-stokes/out/scene.json, which node scene.js writes from the audit's
-   records. Nothing on this page is retyped from the report. */
+   Reads playground/navier-stokes/out/scene.json (node scene.js), written from the audit's own
+   records. Nothing here is retyped from the report. */
 'use strict';
 const fs = require('fs'), path = require('path');
 const HERE = __dirname;
 const PG = path.join(HERE, '..');
 const ROOT = path.join(PG, '..');
-const { page, esc } = require(path.join(PG, 'design', 'shell.js'));
-const G = require(path.join(ROOT, 'design', 'grammar.js'));
+const { esc } = require(path.join(PG, 'design', 'shell.js'));
 
 const SCENE = path.join(HERE, 'out', 'scene.json');
 if (!fs.existsSync(SCENE)) { console.error('navier-stokes: no scene.json — run node playground/navier-stokes/scene.js'); process.exit(1); }
 const S = JSON.parse(fs.readFileSync(SCENE, 'utf8'));
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
+const nf = (x) => Number(x).toLocaleString('en-US');
+const MONO = "'JetBrains Mono var','JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace";
 
 const CSS = `
-.ns-wrap{max-width:min(1180px,94vw);margin:0 auto;padding:0 var(--gutter);}
-.ns-hero{padding:clamp(3rem,8vh,5.5rem) 0 1.5rem;}
-.ns-hero h1{font-family:var(--font-sans);font-size:var(--text-1);font-weight:var(--weight-display);letter-spacing:var(--track-title);line-height:var(--leading-tight);margin:0 0 var(--s-4);max-width:20ch;}
-.ns-hero .deck{color:var(--ink-3);font-size:var(--text-body);line-height:var(--leading-body);max-width:74ch;margin:0;}
-.ns-eyebrow{font-family:var(--font-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4);margin-bottom:var(--s-4);}
-.ns-grid{display:grid;grid-template-columns:1fr 340px;gap:var(--s-5);align-items:start;}
-@media (max-width:900px){.ns-grid{grid-template-columns:1fr;}}
-.ns-stage{position:relative;background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-m);overflow:hidden;}
-#ns-core{display:block;width:100%;height:min(60vh,520px);}
-.ns-side{display:flex;flex-direction:column;gap:var(--s-4);}
-.ns-card{background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-m);padding:var(--s-4);}
-.ns-card h3{font-family:var(--font-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4);margin:0 0 var(--s-3);font-weight:400;}
-.ctl{display:flex;flex-direction:column;gap:6px;margin-bottom:var(--s-4);}
-.ctl label{font-family:var(--font-mono);font-size:var(--text-small);color:var(--ink-3);display:flex;justify-content:space-between;gap:8px;}
-.ctl label b{color:var(--ink);font-weight:500;}
-input[type=range]{width:100%;accent-color:var(--ink);background:transparent;}
-.seg{display:flex;gap:0;border:1px solid var(--border);border-radius:var(--radius-m);overflow:hidden;}
-.seg button{flex:1;background:transparent;border:0;color:var(--ink-3);font-family:var(--font-mono);font-size:var(--text-small);padding:8px 6px;cursor:pointer;}
-.seg button.on{background:var(--ink);color:var(--bg);}
-.chk{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:var(--text-small);color:var(--ink-3);margin-bottom:6px;cursor:pointer;}
-.pill{display:inline-flex;gap:6px;flex-wrap:wrap;}
-.pill button{background:transparent;border:1px solid var(--border);color:var(--ink-3);font-family:var(--font-mono);font-size:11px;padding:3px 7px;border-radius:var(--radius-pill);cursor:pointer;}
-.pill button:hover{border-color:var(--border-strong);color:var(--ink);}
-.nrow{display:grid;grid-template-columns:74px 62px 1fr;gap:4px 8px;font-family:var(--font-mono);font-size:11px;padding:4px 0;border-top:1px solid var(--border);color:var(--ink-4);align-items:baseline;}
-.nrow .nw{grid-column:1/-1;font-size:10px;color:var(--ink-5);line-height:1.35;}
-.nrow:first-child{border-top:0;}
-.nrow .ns{color:var(--ink-2);} .nrow .ne{color:var(--ink-3);} .nrow .nv{color:var(--ink);text-align:right;}
-.nrow sup{font-size:9px;}
-.ns-sec{padding:clamp(2.5rem,6vh,4rem) 0;border-top:1px solid var(--border);}
-.ns-sec h2{font-family:var(--font-sans);font-size:var(--text-2);font-weight:var(--weight-title);letter-spacing:var(--track-title);margin:0 0 var(--s-3);}
-.ns-sec p{color:var(--ink-3);font-size:var(--text-body);line-height:var(--leading-body);max-width:74ch;margin:0 0 var(--s-4);}
-.ns-sec p b{color:var(--ink-2);font-weight:500;} .ns-sec p em{color:var(--ink-2);font-style:italic;}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-5);}
-@media (max-width:860px){.two{grid-template-columns:1fr;}}
-svg.fig{width:100%;height:auto;display:block;background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-m);}
-svg.fig .ax{font-family:var(--font-mono);font-size:9px;fill:var(--ink-5);}
-svg.fig .lb{font-family:var(--font-mono);font-size:10px;fill:var(--ink-3);}
-svg.fig .lb.strong{fill:var(--ink);}
-.crow{display:grid;grid-template-columns:150px 1fr;gap:2px 14px;padding:10px 0;border-top:1px solid var(--border);}
-.crow .cv{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--bg);background:var(--ink);border-radius:3px;padding:2px 6px;justify-self:start;align-self:start;}
-.crow.bad .cv{background:var(--ink-4);color:var(--bg);}
-.crow.off{opacity:.42;} .crow.off .cv{background:transparent;color:var(--ink-5);border:1px solid var(--border);}
-.crow .cn{font-size:var(--text-small);color:var(--ink-2);}
-.crow .cs,.crow .ch{grid-column:2;font-size:12px;color:var(--ink-4);line-height:1.5;}
-.crow .ch{color:var(--ink-3);}
-.crow .ex{font-family:var(--font-mono);font-size:11px;color:var(--ink-5);}
-.dich{border:1px solid var(--border);border-radius:var(--radius-m);padding:var(--s-4);margin:var(--s-4) 0;background:var(--surface);}
-.dich b{display:block;color:var(--ink);font-size:var(--text-body);font-weight:500;line-height:1.5;margin-bottom:6px;}
-.dich span{color:var(--ink-3);font-size:var(--text-small);line-height:1.6;}
-.dich.no{border-color:var(--border-strong);background:linear-gradient(180deg,rgba(246,246,248,0.05),transparent);}
-.badge{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);border:1px solid var(--border);border-radius:var(--radius-pill);padding:2px 8px;margin-right:6px;}
-.badge.dec{color:var(--bg);background:var(--ink);border-color:var(--ink);}
-.foot-note{color:var(--ink-4);font-size:var(--text-small);line-height:1.6;max-width:78ch;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);
+  font-family:'Inter var',Inter,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+body{opacity:0;transition:opacity .5s ease;} body.ready{opacity:1;}
+canvas{position:fixed;inset:0;display:block;}
+.mono{font-family:${MONO};}
+
+.nav-wrap{position:fixed;top:0;left:0;right:0;z-index:40;padding:14px 22px;display:flex;
+  justify-content:space-between;align-items:center;pointer-events:none;
+  background:linear-gradient(180deg,color-mix(in srgb, var(--bg) 72%, transparent),transparent);transition:opacity .6s ease;}
+.nav-wrap a{pointer-events:auto;font-family:${MONO};text-decoration:none;}
+body.faded .nav-wrap{opacity:.3;}
+.brand{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);}
+.brand:hover{color:var(--ink);}
+.navlinks{display:flex;gap:16px;}
+.navlinks a{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);}
+.navlinks a:hover{color:var(--ink);}
+
+.title{position:fixed;top:62px;left:26px;z-index:30;max-width:min(30ch,44vw);pointer-events:none;
+  transition:opacity .8s ease;}
+body.faded .title{opacity:.22;}
+.title h1{margin:0;font-size:clamp(1.6rem,1rem+2.2vw,2.9rem);font-weight:550;letter-spacing:-.025em;line-height:1.03;}
+.title p{margin:10px 0 0;font-size:12.5px;line-height:1.55;color:var(--ink-3);max-width:34ch;}
+.title p b{color:var(--ink-2);font-weight:500;}
+
+.hud{position:fixed;left:26px;bottom:150px;z-index:30;display:grid;grid-template-columns:auto auto;
+  gap:2px 12px;font-family:${MONO};font-size:11px;color:var(--ink-4);pointer-events:none;transition:opacity .6s ease;}
+body.faded .hud{opacity:.35;}
+.hud b{color:var(--ink);font-weight:400;text-align:right;font-variant-numeric:tabular-nums;}
+
+.transport{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:35;
+  display:flex;align-items:center;gap:12px;padding:9px 14px;border-radius:var(--radius-pill);
+  background:color-mix(in srgb, var(--bg-raised) 82%, transparent);border:1px solid var(--border);backdrop-filter:blur(14px);}
+.transport input[type=range]{width:min(44vw,400px);accent-color:var(--ink);}
+button{font-family:${MONO};background:transparent;color:var(--ink-3);border:1px solid var(--border);
+  border-radius:var(--radius-pill);font-size:11px;letter-spacing:.06em;padding:5px 11px;cursor:pointer;
+  transition:color .15s,border-color .15s,background .15s;}
+button:hover{color:var(--ink);border-color:var(--border-strong);}
+button.on{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+#play{width:34px;height:30px;padding:0;font-size:12px;}
+.tlab{font-family:${MONO};font-size:10.5px;color:var(--ink-5);white-space:nowrap;}
+button .tlab{color:inherit;opacity:.55;}
+
+.rail{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:35;display:flex;
+  flex-direction:column;gap:8px;align-items:stretch;transition:opacity .6s ease;width:218px;}
+body.faded .rail{opacity:.42;}
+.grp{background:color-mix(in srgb, var(--bg-raised) 82%, transparent);border:1px solid var(--border);border-radius:var(--radius-m);padding:12px;backdrop-filter:blur(14px);}
+.grp label{display:flex;justify-content:space-between;font-family:${MONO};font-size:10.5px;color:var(--ink-4);margin-bottom:7px;}
+.grp label b{color:var(--ink);font-weight:400;}
+.grp input[type=range]{width:100%;accent-color:var(--ink);}
+.pills{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap;}
+.pills button{font-size:10px;padding:3px 7px;}
+.stack{display:flex;flex-direction:column;gap:6px;}
+.stack button{text-align:left;}
+
+.chips{position:fixed;left:26px;right:26px;bottom:64px;z-index:32;display:flex;gap:5px;flex-wrap:wrap;
+  justify-content:center;pointer-events:none;transition:opacity .6s ease;}
+body.faded .chips{opacity:.25;}
+.chip{pointer-events:auto;font-size:10px;letter-spacing:.04em;padding:3px 8px;border-radius:var(--radius-pill);
+  border:1px solid var(--border);color:var(--ink-4);background:color-mix(in srgb, var(--bg-raised) 70%, transparent);backdrop-filter:blur(8px);cursor:pointer;}
+.chip.ok{color:var(--ink-2);border-color:var(--border-strong);}
+.chip.bad{color:var(--bg);background:var(--ink);border-color:var(--ink);}
+.chip.off{opacity:.32;}
+
+.verdict{position:fixed;left:50%;top:104px;transform:translateX(-50%);z-index:33;
+  max-width:min(64ch,88vw);text-align:center;opacity:0;pointer-events:none;transition:opacity .45s ease;}
+.verdict.on{opacity:1;}
+.verdict b{display:block;font-family:${MONO};font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--bg);background:var(--ink);border-radius:3px;padding:3px 10px;margin:0 auto 9px;width:max-content;}
+.verdict em{font-style:normal;font-size:12.5px;line-height:1.6;color:var(--ink-2);background:color-mix(in srgb, var(--bg) 78%, transparent);
+  padding:7px 13px;border-radius:var(--radius-s);display:inline-block;backdrop-filter:blur(8px);}
+
+.why{position:fixed;left:50%;bottom:104px;transform:translateX(-50%);z-index:36;width:min(62ch,90vw);
+  background:color-mix(in srgb, var(--bg-raised) 94%, transparent);border:1px solid var(--border-strong);border-radius:var(--radius-m);padding:14px 16px;
+  opacity:0;pointer-events:none;transition:opacity .25s ease;backdrop-filter:blur(16px);cursor:pointer;}
+.why.on{opacity:1;pointer-events:auto;}
+.why b{display:block;font-size:13px;margin-bottom:6px;}
+.why span{display:block;font-size:12px;line-height:1.55;color:var(--ink-3);margin-bottom:4px;}
+.why code{display:block;margin-top:8px;font-family:${MONO};font-size:11.5px;color:var(--ink);
+  background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-s);padding:7px 9px;}
+
+.panel{position:fixed;right:22px;top:62px;bottom:76px;width:min(430px,90vw);z-index:38;
+  background:color-mix(in srgb, var(--bg-raised) 96%, transparent);border:1px solid var(--border-strong);border-radius:var(--radius-l);padding:20px;
+  overflow:auto;opacity:0;pointer-events:none;transform:translateX(12px);
+  transition:opacity .28s ease,transform .28s ease;backdrop-filter:blur(20px);}
+.panel.on{opacity:1;pointer-events:auto;transform:none;}
+.panel h2{margin:0 0 6px;font-size:16px;font-weight:550;letter-spacing:-.01em;}
+.panel h3{margin:18px 0 6px;font-family:${MONO};font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-4);font-weight:400;}
+.panel p{margin:0 0 10px;font-size:12.5px;line-height:1.62;color:var(--ink-3);}
+.panel p b{color:var(--ink);font-weight:500;} .panel p em{color:var(--ink-2);font-style:italic;}
+.panel a{color:var(--ink-2);}
+.erow{display:grid;grid-template-columns:62px 76px 60px 1fr;gap:6px;padding:4px 0;border-top:1px solid var(--chart-grid);
+  font-family:${MONO};font-size:10.5px;align-items:baseline;}
+.erow span{color:var(--ink-2);} .erow b{color:var(--ink-3);font-weight:400;}
+.erow i{color:var(--ink);font-style:normal;text-align:right;}
+.erow em{color:var(--ink-5);font-style:normal;font-family:'Inter var',Inter,sans-serif;font-size:10px;}
+.ins{display:flex;gap:10px;align-items:center;margin:6px 0 2px;}
+.ins svg{flex:0 0 190px;height:46px;background:var(--bg);border:1px solid var(--chart-grid);border-radius:var(--radius-s);}
+.ins div{font-size:11px;line-height:1.5;color:var(--ink-4);}
+.tag{display:inline-block;font-family:${MONO};font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--border-strong);border-radius:var(--radius-pill);padding:1px 7px;color:var(--ink-4);margin-right:5px;}
+.tag.d{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+
+@media (max-width:820px){
+  /* THE PHONE IS A DIFFERENT INSTRUMENT. Nine chips wrap to four lines and eat the picture,
+     so on a phone the verdicts live in the panel and the HUD keeps three rows in the corner. */
+  .title{top:52px;left:16px;max-width:88vw;}
+  .title p{display:none;}
+  .title h1{font-size:1.7rem;}
+  .chips{display:none;}
+  .hud{left:auto;right:14px;top:52px;bottom:auto;font-size:10px;gap:1px 10px;}
+  .hud span:nth-of-type(n+5),.hud b:nth-of-type(n+5){display:none;}
+  .rail{right:8px;left:8px;top:auto;bottom:70px;transform:none;width:auto;flex-direction:column;gap:6px;}
+  .grp{padding:9px 10px;}
+  .grp label{margin-bottom:5px;}
+  .stack{flex-direction:row;gap:6px;}
+  .stack button{flex:1;text-align:center;padding:6px 4px;font-size:10px;}
+  .stack button .tlab{display:none;}
+  .pills{margin-top:7px;}
+  .transport{bottom:10px;gap:8px;padding:7px 11px;}
+  .transport input[type=range]{width:46vw;}
+  .transport .tlab{display:none;}
+  .verdict{top:auto;bottom:270px;max-width:94vw;}
+  .verdict em{font-size:11.5px;padding:6px 10px;}
+  .why{bottom:70px;width:94vw;padding:11px 12px;}
+  .why span{font-size:11px;}
+  .panel{right:8px;left:8px;width:auto;top:52px;bottom:60px;padding:15px;}
+}
+@media (max-width:820px) and (orientation:landscape){
+  .rail{flex-direction:row;flex-wrap:wrap;}
+  .grp{flex:1 1 46%;}
+  .verdict{bottom:200px;}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 `;
 
-const nf = (x) => Number(x).toLocaleString('en-US');
 const D = S.dichotomy;
+const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Turn the singularity — cert-machine</title>
+<meta name="description" content="${esc('The object OpenAI\u2019s Navier\u2013Stokes proof constructs, drawn at full size and turned: a self-similar vortex core collapsing in real time, every verdict about the parameter it hangs on decided in your tab in exact integer arithmetic.')}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Turn the singularity">
+<meta property="og:description" content="A Millennium proof\u2019s singularity, drawn as the object it is rather than simulated.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../design/tokens.css">
+<style>${CSS}</style>
+</head>
+<body>
+<canvas id="ns-cv" aria-label="A self-similar vortex core collapsing toward a point: thousands of tracers spiral inward and are flung along the axis while the swirl glows out of the page, the core's box shrinking as the time remaining falls."></canvas>
 
-const body = `
-<main>
-<div class="ns-wrap ns-hero">
-  <div class="ns-eyebrow">cert-machine · instruments · the object a Millennium proof constructs</div>
+<div class="nav-wrap">
+  <a class="brand" href="../../index.html">Carlos Toledo</a>
+  <div class="navlinks">
+    <a href="../../reports/navier-stokes.html">the audit</a>
+    <a href="../index.html">instruments</a>
+  </div>
+</div>
+
+<div class="title">
   <h1>Turn the singularity.</h1>
-  <p class="deck">On 2026-09-08 OpenAI published a proof that a smooth force can drive a viscous fluid from rest to
-  infinite speed in finite time. Everyone else will render a fluid simulation of it. A simulation is the one thing
-  here that cannot be certified, so this page does not show one. It shows <b>the object the proof actually builds</b> —
-  a vortex whose core shrinks like τ<sup>1/2</sup> across and τ<sup>1/2−h</sup> along while its speed grows like
-  τ<sup>−1/2−h</sup> — and it lets you move the one number the whole construction hangs on. Every verdict below about
-  that number is an exact rational inequality, decided in your tab in integer arithmetic.
-  <a href="../../reports/navier-stokes.html">The audit that backs it is next door.</a></p>
+  <p>A Millennium proof says a smooth force can drive a fluid from rest to infinite speed in finite time.
+  This is <b>the object it constructs</b>, not a simulation of it.</p>
 </div>
 
-<div class="ns-wrap ns-grid">
-  <div class="ns-stage"><canvas id="ns-core" aria-label="The collapsing core of the constructed singularity, drawn in the physical plane with its streamlines, its pulse annulus and the funnel it traces in space-time."></canvas></div>
-  <div class="ns-side">
-    <div class="ns-card">
-      <h3>the two dials</h3>
-      <div class="ctl">
-        <label>τ = 1 − t, time left <b id="ns-tau">10^-3.00</b></label>
-        <input id="ns-tau-r" type="range" min="-12" max="-0.05" step="0.01" value="-3">
-      </div>
-      <div class="ctl">
-        <label>h, the smallness parameter <b id="ns-h">1/100</b></label>
-        <input id="ns-h-r" type="range" min="0" max="300" step="1" value="10">
-        <div class="pill">
-          <button data-seth="0">h = 0</button>
-          <button data-seth="10">1/100 (the paper)</button>
-          <button data-seth="167">just past 1/6</button>
-          <button data-seth="60">3/50</button>
-        </div>
-      </div>
-      <div class="seg" id="ns-view">
-        <button data-view="physical" class="on">physical</button>
-        <button data-view="similarity">similarity</button>
-      </div>
-      <div style="height:10px"></div>
-      <label class="chk"><input type="checkbox" id="ns-axisym"> pretend the flow is axisymmetric</label>
-      <label class="chk"><input type="checkbox" id="ns-trails" checked> draw the funnel it traces</label>
-      <label class="chk"><input type="checkbox" id="ns-spin" checked> animate the pulses</label>
+<div class="chips" id="chips"></div>
+<div class="verdict" id="verdict"></div>
+<div class="why" id="why"></div>
+
+<div class="hud mono">
+  <span>τ</span><b id="h-tau">—</b>
+  <span>zoom</span><b id="h-zoom">—</b>
+  <span>speed |u|</span><b id="h-u">—</b>
+  <span>ℓz/ℓr</span><b id="h-asp">—</b>
+  <span>h</span><b id="h-h">—</b>
+  <span>criteria met</span><b id="h-met">—</b>
+  <span>10× longer at τ</span><b id="h-10">—</b>
+  <span>fps</span><b id="h-fps">—</b>
+</div>
+
+<div class="rail">
+  <div class="grp">
+    <label>h, the parameter it hangs on <b id="h-h2"></b></label>
+    <input id="hs" type="range" min="0" max="300" step="1" value="10" aria-label="the smallness parameter h">
+    <div class="pills">
+      <button data-h="0">0</button>
+      <button data-h="10">1/100</button>
+      <button data-h="60">3/50</button>
+      <button data-h="167">past 1/6</button>
     </div>
-    <div class="ns-card">
-      <h3>every scale, at this τ and this h</h3>
-      <div id="ns-nums"></div>
-      <p class="foot-note" id="ns-el10" style="margin:var(--s-3) 0 0;font-size:11.5px"></p>
-    </div>
+  </div>
+  <div class="grp stack">
+    <button id="follow">follow the core <span class="tlab">f</span></button>
+    <button id="axi">make it axisymmetric <span class="tlab">a</span></button>
+    <button id="trace">tracers <span class="tlab">t</span></button>
+  </div>
+  <div class="stack">
+    <button data-panel="exact">every scale, exactly</button>
+    <button data-panel="about">what this is</button>
   </div>
 </div>
 
-<div class="ns-wrap ns-sec">
-  <h2>The window h has to live in</h2>
-  <p>The paper prints <b>0 &lt; h &lt; 1/100</b> and never says where the bound comes from. It comes from two places,
-  and they are not the same place. Below, the line is h; the two shaded regions are what forbids it.</p>
-  <svg class="fig" id="ns-window" role="img" aria-label="A number line for h from 0 to 0.3, with the type-I exclusion closing it at zero and the loss of integrable dissipation closing it at one sixth."></svg>
-  <p style="margin-top:var(--s-4)"><span class="badge dec">decided</span> Each row below is a rational inequality in h with integer
-  numerators. Your tab decides it with BigInt and never with a float, so the boundary cases — h = 0 and h = 1/6 exactly —
-  are decided as equalities rather than approached. <b id="ns-met">—</b> of the classical conditions are met at the h you have set.</p>
-  <div id="ns-criteria"></div>
+<div class="transport">
+  <button id="play" aria-label="play or pause">❚❚</button>
+  <span class="tlab">τ = 1 − t</span>
+  <input id="sc" type="range" min="-13" max="-0.15" step="0.005" value="-1" aria-label="time remaining before the singularity">
+  <span class="tlab">→ 0</span>
 </div>
 
-<div class="ns-wrap ns-sec">
-  <h2>The dichotomy the paper never states</h2>
-  <p>${esc(D.claim)} Switch the flow to axisymmetric in the panel above and move h: at zero, one exclusion fires; anywhere
-  above it, the other does.</p>
-  <div id="ns-dich" class="dich"></div>
-  <div class="two">
-    <div>
-      <svg class="fig" id="ns-swirl" role="img" aria-label="The swirl of the construction against the ceiling the maximum principle puts on a forced axisymmetric flow started from rest: a rising line crossing a flat one."></svg>
-      <p class="foot-note" style="margin-top:8px"><b>At h = 0</b> ${esc(D.atZero)} <b>Above it</b> ${esc(D.above)}</p>
-    </div>
-    <div>
-      <svg class="fig" id="ns-ext" role="img" aria-label="The exterior swirl profile H of Z, computed by quadrature in the browser, falling monotonically."></svg>
-      <p class="foot-note" style="margin-top:8px"><span class="badge">computed</span> The one field in the whole construction with a closed form: the
-      exterior swirl solves the radial heat equation exactly. H(Z) is integrated in your tab and the residual of its
-      differential equation (A.37) at Z = 1 is <b id="ns-res">—</b>. The battery beside the report checks the same
-      integral to 25 digits.</p>
-    </div>
-  </div>
-  <p style="margin-top:var(--s-5)">${esc(D.so)}</p>
-  <p class="foot-note">${esc(D.hypotheses)}</p>
+<div class="panel" id="p-exact">
+  <h2>Every scale, exactly</h2>
+  <p><span class="tag d">decided</span> Each exponent is a rational in h with integer numerators, evaluated at the h you
+  have set. The chips along the top are the same arithmetic: your tab compares them with BigInt and never with a float,
+  so h = 0 and h = 1/6 are decided as equalities rather than approached. Click any chip for its comparison.</p>
+  <div id="exact-body"></div>
+  <h3>the exterior, integrated here <span class="tag">computed</span></h3>
+  <div class="ins"><svg id="sp-ext" role="img" aria-label="The exterior swirl profile falling with Z."></svg>
+    <div>H(Z) — the one closed form in the construction. The exterior solves the radial heat equation exactly.
+    Residual of (A.37) at Z = 1: <b id="ext-res">—</b>.</div></div>
+  <h3>the pulse <span class="tag">computed</span></h3>
+  <div class="ins"><svg id="sp-pulse" role="img" aria-label="The pulse amplitude rising then falling."></svg>
+    <div>The shear feeds the oscillation, then shortens its wavelength until viscosity wins.
+    Peak amplification <b id="pulse-pk">—</b>.</div></div>
 </div>
 
-<div class="ns-wrap ns-sec">
-  <h2>The pulse, and why it has to stop growing</h2>
-  <p>The core alone cannot balance its own momentum. The missing stress is supplied by two families of oscillatory
-  pulses which the background shear amplifies — and the same shear tilts their wavevectors, shortening the radial
-  wavelength until viscosity overtakes the amplification. The paper chooses the initial wavelength so that growth wins
-  first and damping wins later. <span class="badge">computed</span> Below, that competition is integrated in your tab by
-  fourth-order Runge–Kutta from the WKB amplitude equation; drag the wavenumber and watch the window open and close.</p>
-  <div class="two">
-    <div><svg class="fig" id="ns-pulse" role="img" aria-label="The pulse amplitude against slot time: a rise while the shear feeds it, then a fall once the shortening wavelength lets viscosity win."></svg></div>
-    <div>
-      <div class="ns-card">
-        <h3>the pulse</h3>
-        <div class="ctl"><label>initial radial wavenumber k₀ <b id="ns-k0-v">26</b></label><input id="ns-k0" type="range" min="6" max="60" step="1" value="26"></div>
-        <div class="ctl"><label>background shear σ <b id="ns-shear-v">1.00</b></label><input id="ns-shear" type="range" min="0.3" max="2.5" step="0.05" value="1"></div>
-        <p class="foot-note" style="margin:0">peak amplification <b id="ns-peak">—</b></p>
-      </div>
-      <p class="foot-note" style="margin-top:var(--s-4)">This reproduces the shape of the paper's own Figure 3(b) from the
-      mechanism rather than copying the figure. It is the honest minimum: one wavevector, one amplitude, a shear that
-      tilts and a viscosity that damps. The paper's construction is this competition carried out on infinitely many
-      pulses at once, on scales that shrink with the core.</p>
-    </div>
-  </div>
+<div class="panel" id="p-about">
+  <h2>What this is</h2>
+  <p>On 2026-09-08 OpenAI published a proof that the Navier–Stokes equations can break down in finite time under a
+  smooth force, with a machine-checked certificate. Everyone will render a fluid simulation of that. A simulation is
+  the one thing here nobody can certify, so this page renders <b>the object the proof constructs</b>: a vortex whose
+  core shrinks like τ<sup>1/2</sup> across and τ<sup>1/2−h</sup> along while its speed grows like τ<sup>−1/2−h</sup>.</p>
+  <p>Press <em>follow the core</em> and the camera dives with the collapse. The picture stops moving — that is what
+  self-similar means, and no still figure can show it.</p>
+  <h3>the dichotomy this instrument exists for</h3>
+  <p>${esc(D.claim)} Press <em>make it axisymmetric</em> and move h. ${esc(D.atZero)} ${esc(D.above)}</p>
+  <p>${esc(D.so)}</p>
+  <p style="font-size:11.5px">${esc(D.hypotheses)}</p>
+  <h3>what backs each mark</h3>
+  <p><span class="tag d">decided</span> ${esc(S.backing.criteria.how)}</p>
+  <p><span class="tag">computed</span> ${esc(S.backing.exterior.how)}</p>
+  <p><span class="tag">drawn</span> ${esc(S.backing.core.how)}</p>
+  <h3>the asymptotics, said out loud</h3>
+  <p>At the paper's h = 1/100 the core is ten times longer than wide only at τ = 10<sup>−100</sup>, and the pulse count
+  grows by two per cent per hundred decades. Slide h up to see the mechanism — and note that past 1/6 you have left the
+  window where the dissipation stays integrable.</p>
+  <h3>provenance</h3>
+  <p>The construction is OpenAI's, <i>Finite time blowup for Navier–Stokes</i>, ${nf(S.paper.pages)} pages,
+  sha256 ${esc(S.paper.sha256.slice(0, 12))}…. The audit next door built its ${nf(S.build.modules)}-module Lean proof on
+  one laptop in ${nf(S.build.minutes)} minutes, asked the kernel what it rests on, and had Comparator and a second,
+  independently written kernel accept both theorems. Nothing on <em>this</em> page is certified —
+  <b>a drawing is not a proof</b>. <a href="../../reports/navier-stokes.html">What is certified is next door.</a></p>
 </div>
 
-<div class="ns-wrap ns-sec">
-  <h2>What backs each mark</h2>
-  <p>The house rule is that a page says what decides it. Three kinds of mark appear above and the page never mixes them.</p>
-  <div class="crow"><div class="cv">DECIDED</div><div class="cn">the criteria board, the window on h, the dichotomy</div><div class="ch">${esc(S.backing.criteria.how)}</div></div>
-  <div class="crow"><div class="cv">COMPUTED</div><div class="cn">the exterior profile, the pulse, the axis profile</div><div class="ch">${esc(S.backing.exterior.how)} — ${esc(S.backing.pulse.how)}</div></div>
-  <div class="crow bad"><div class="cv">DRAWN</div><div class="cn">the core picture and its streamlines</div><div class="ch">${esc(S.backing.core.how)}</div></div>
-  <p style="margin-top:var(--s-5)" class="foot-note">The construction is OpenAI's, <i>Finite time blowup for Navier–Stokes</i>,
-  2026-09-08, ${nf(S.paper.pages)} pages, sha256 ${esc(S.paper.sha256.slice(0, 16))}…. The audit next door built its
-  ${nf(S.build.modules)}-module Lean proof on one laptop in ${nf(S.build.minutes)} minutes, asked the kernel what it rests
-  on (${esc(S.build.axioms.join(', '))}), and had Comparator and a second, independently written kernel accept both
-  theorems. The probe battery behind these curves is ${esc(S.probes.scripts)} scripts with ${esc(String(S.probes.reds))} red
-  controls, all firing. Nothing on this page is certified — <b>a drawing is not a proof, and a decided inequality about an
-  exponent is not a decided theorem about a fluid.</b> What is certified is next door, and it says so there.</p>
-</div>
-</main>`;
+<script type="application/json" id="ns-scene">${JSON.stringify(S).replace(/</g, '\\u003c')}</script>
+<script>${APP}</script>
+</body>
+</html>`;
 
 function build() {
   const dir = path.join(ROOT, 'site', 'instruments', 'navier-stokes');
   fs.mkdirSync(dir, { recursive: true });
-  const html = page({
-    title: 'Turn the singularity — cert-machine',
-    desc: 'The object OpenAI\'s Navier–Stokes proof constructs, drawn and turned: a self-similar core that collapses as you move time, the smallness parameter h on a line with the two classical exclusions that close on it from opposite sides, every verdict an exact rational inequality decided in your tab.',
-    root: '../', here: 'instruments',
-    head: `<style>${G.css()}${CSS}</style>`,
-    body,
-    script: `<script type="application/json" id="ns-scene">${JSON.stringify(S).replace(/</g, '\\u003c')}</script>\n<script>${APP}</script>`,
-  });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   return { bytes: html.length };
 }
 
-/* the card: the core's funnel, static, at the paper's h */
+/* the card: the funnel the core traces, with the spiral drawn into it */
 function cardArt() {
   const w = 560, hh = 560, cx = w / 2, cy = hh / 2, out = [];
-  out.push(`<svg viewBox="0 0 ${w} ${hh}" class="shape" role="img" aria-label="The funnel a self-similar collapsing vortex core traces in space-time: nested rectangles shrinking toward a point, wider than they are tall by a ratio that grows.">`);
-  for (let k = 0; k < 22; k++) {
-    const t = Math.pow(10, -0.16 * k);
-    const lr = Math.sqrt(2 * 2.6 * t) * 150, lz = Math.pow(t, 0.49) * 210;
-    if (lr < 0.4) break;
-    if (lz > 262 || lr > 262) continue;   /* the first few rectangles are larger than the frame */
-    const o = (0.10 + 0.62 * (1 - k / 22)).toFixed(3);
-    out.push(`<rect x="${(cx - lr).toFixed(1)}" y="${(cy - lz).toFixed(1)}" width="${(2 * lr).toFixed(1)}" height="${(2 * lz).toFixed(1)}" fill="none" stroke="currentColor" stroke-opacity="${o}" stroke-width="1.2"/>`);
+  out.push(`<svg viewBox="0 0 ${w} ${hh}" class="shape" role="img" aria-label="The funnel a self-similar collapsing vortex traces in space-time: nested rectangles shrinking to a point, with spiral tracers drawn into them.">`);
+  for (let k = 0; k < 26; k++) {
+    const t = Math.pow(10, -0.15 * k);
+    const lr = Math.sqrt(2 * 2.6 * t) * 152, lz = Math.pow(t, 0.49) * 214;
+    if (lr < 0.5) break;
+    if (lr > 258 || lz > 258) continue;
+    out.push(`<rect x="${(cx - lr).toFixed(1)}" y="${(cy - lz).toFixed(1)}" width="${(2 * lr).toFixed(1)}" height="${(2 * lz).toFixed(1)}" fill="none" stroke="currentColor" stroke-opacity="${(0.09 + 0.55 * (1 - k / 26)).toFixed(3)}" stroke-width="1.1"/>`);
   }
-  for (let i = 0; i < 26; i++) {
-    const a = i / 26 * Math.PI * 2, r0 = 236;
-    const x0 = cx + Math.cos(a) * r0, y0 = cy + Math.sin(a) * r0 * 0.86;
-    const x1 = cx + Math.cos(a + 1.5) * r0 * 0.10, y1 = cy + Math.sin(a + 1.5) * r0 * 0.10;
-    out.push(`<path d="M${x0.toFixed(1)},${y0.toFixed(1)} Q${(cx + Math.cos(a + 0.8) * r0 * 0.55).toFixed(1)},${(cy + Math.sin(a + 0.8) * r0 * 0.48).toFixed(1)} ${x1.toFixed(1)},${y1.toFixed(1)}" fill="none" stroke="currentColor" stroke-opacity="0.30" stroke-width="1"/>`);
+  for (let i = 0; i < 30; i++) {
+    const a = i / 30 * Math.PI * 2, r0 = 244;
+    const x0 = cx + Math.cos(a) * r0, y0 = cy + Math.sin(a) * r0 * 0.84;
+    const x1 = cx + Math.cos(a + 1.6) * 11, y1 = cy + Math.sin(a + 1.6) * 11;
+    out.push(`<path d="M${x0.toFixed(1)},${y0.toFixed(1)} Q${(cx + Math.cos(a + 0.85) * r0 * 0.54).toFixed(1)},${(cy + Math.sin(a + 0.85) * r0 * 0.46).toFixed(1)} ${x1.toFixed(1)},${y1.toFixed(1)}" fill="none" stroke="currentColor" stroke-opacity="0.26" stroke-width="1"/>`);
   }
-  out.push(`<circle cx="${cx}" cy="${cy}" r="3" fill="currentColor"/>`);
-  out.push('</svg>');
+  out.push(`<circle cx="${cx}" cy="${cy}" r="3" fill="currentColor"/></svg>`);
   return out.join('');
 }
 
