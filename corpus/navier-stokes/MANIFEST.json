@@ -1,0 +1,150 @@
+{
+  "what": "Everything public on the OpenAI Navier–Stokes claim of 2026-09-08, pinned verbatim for the audit: the two OpenAI papers, the Clay statement they cite, the Lean repository bridge files at its single commit, the DeepMind Formal Conjectures reference statement at the revision OpenAI pinned, the Alpöge–Buckmaster papers and statement, the Córdoba–Martínez-Zoroa IPM paper they all build on, the announcement text, and Tao's posts.",
+  "fetched": "2026-09-09",
+  "lean_repo_commit": "8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538",
+  "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+  "mathlib_rev": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+  "comparator_rev": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+  "formal_conjectures_pinned_rev": "8bf45ed70d48b2b2a501de9c00b26bfa38c573ee (2026-07-27; the file is byte-identical to main on 2026-09-09; the statement was added 2026-05-15 in #1457)",
+  "license": "papers and posts redistributed for verification only under their own terms; the Lean files are Apache-2.0 (OpenAI) and Apache-2.0 (Formal Conjectures); the Clay statement is © CMI",
+  "files": [
+    {
+      "path": "lean/README.md",
+      "sha256": "2ca277a62b6bb6ce34686303c9c777e56d5b460160004a49a28e4e72086d781e",
+      "bytes": 2018,
+      "source": "https://github.com/openai/NavierStokesAndEuler @ 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538 (the only commit, 2026-09-08T10:57:25Z, author Boris Alexeev)"
+    },
+    {
+      "path": "lean/formal-conjectures-NavierStokes-8bf45ed.lean",
+      "sha256": "f446284f2aa54375f558c263a580b34e2e7bc9f44a28829637199cc72257d25d",
+      "bytes": 13691,
+      "source": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/8bf45ed70d48b2b2a501de9c00b26bfa38c573ee/FormalConjectures/Millenium/NavierStokes.lean"
+    },
+    {
+      "path": "lean/formalization.yaml",
+      "sha256": "6c6d30c58c70a0a04fa41a08a50ba7eb7e8a96a7f604a30b4bec6b921ea87dc3",
+      "bytes": 4379,
+      "source": "https://github.com/openai/NavierStokesAndEuler @ 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538 (the only commit, 2026-09-08T10:57:25Z, author Boris Alexeev)"
+    },
+    {
+      "path": "lean/lake-manifest.json",
+      "sha256": "5ec1dc8e009008d0efb9601cd38f6ba54e753fd538b0e5f8c3e6c5ec72ee1e09",
+      "bytes": 3810,
+      "source": "https://github.com/openai/NavierStokesAndEuler @ 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538 (the only commit, 2026-09-08T10:57:25Z, author Boris Alexeev)"
+    },
+    {
+      "path": "lean/lakefile.toml",
+      "sha256": "97b2804da5b9a2cd0aaf44ce42b7c39e9947beff9d2ac01a11e0d3d867af1c09",
+      "bytes": 662,
+      "source": "https://github.com/openai/NavierStokesAndEuler @ 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538 (the only commit, 2026-09-08T10:57:25Z, author Boris Alexeev)"
+    },
+    {
+      "path": "lean/lean-toolchain",
+      "sha256": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "bytes": 29,
+      "source": "https://github.com/openai/NavierStokesAndEuler @ 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538 (the only commit, 2026-09-08T10:57:25Z, author Boris Alexeev)"
+    },
+    {
+      "path": "lean/openai-ComparatorChallenges-Euler.lean",
+      "sha256": "b11e9bafc220c8126142a9c9281cfeab4872d8f74a7d4899fed206f7f6e1d4f7",
+      "bytes": 9210,
+      "source": "https://github.com/openai/NavierStokesAndEuler @ 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538 (the only commit, 2026-09-08T10:57:25Z, author Boris Alexeev)"
+    },
+    {
+      "path": "lean/openai-ComparatorChallenges-NavierStokes.json",
+      "sha256": "7610ecead7b390d80ff7f4229a3ff8f18d630e046f7ad1de4f92c7e8e76845b8",
+      "bytes": 375,
+      "source": "https://github.com/openai/NavierStokesAndEuler @ 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538 (the only commit, 2026-09-08T10:57:25Z, author Boris Alexeev)"
+    },
+    {
+      "path": "lean/openai-ComparatorChallenges-NavierStokes.lean",
+      "sha256": "0cd193b8d5cbd0266e6e2f72e68dd5abcdcf2430ebd435dd9289737e9aa7da61",
+      "bytes": 13031,
+      "source": "https://github.com/openai/NavierStokesAndEuler @ 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538 (the only commit, 2026-09-08T10:57:25Z, author Boris Alexeev)"
+    },
+    {
+      "path": "lean/openai-NavierStokes-ComparatorSolution.lean",
+      "sha256": "52950d5d618a8d34c9bfbdb16641c81c276e97b6d7fd2a76c08577353f0b0227",
+      "bytes": 1359,
+      "source": "https://github.com/openai/NavierStokesAndEuler @ 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538 (the only commit, 2026-09-08T10:57:25Z, author Boris Alexeev)"
+    },
+    {
+      "path": "posts/buckmaster-statement-2026-09-08.pdf",
+      "sha256": "8d7723941bcda2fa55c1e74faa6298e04c706d17ff8abd2ad01878039c621f9d",
+      "bytes": 53497,
+      "source": "https://cims.nyu.edu/~tristanb/statement.pdf"
+    },
+    {
+      "path": "posts/openai-announcement-2026-09-08.txt",
+      "sha256": "b622dfc2658581eecf6bbd41523abbb28c4118c7e3cbeb6513593772c9acfaaa",
+      "bytes": 9986,
+      "source": "https://openai.com/index/navier-stokes-solution/ (text via web.archive.org/web/20260909052611; the live page returns 403 to non-browser clients)"
+    },
+    {
+      "path": "posts/tao-117207849921390904-context.json",
+      "sha256": "820a58a70c512df908e9df37b69bd229e9c1e283b470eca8be196a1489b90b35",
+      "bytes": 150562,
+      "source": "https://mathstodon.xyz/api/v1/statuses/<id>[/context] (Terence Tao, 2026-09-03 thread 1/6–6/6 and the 2026-09-05 clarification)"
+    },
+    {
+      "path": "posts/tao-117207849921390904.json",
+      "sha256": "09fe32cd81d3c4ee7b72e4a9c45fd47fe08821b2c6fbed6c605b7eeff32b470b",
+      "bytes": 4682,
+      "source": "https://mathstodon.xyz/api/v1/statuses/<id>[/context] (Terence Tao, 2026-09-03 thread 1/6–6/6 and the 2026-09-05 clarification)"
+    },
+    {
+      "path": "posts/tao-117219101339291693-context.json",
+      "sha256": "2c4f145d0e15a8262b4024f7f91fe3436f0dea71df555fb5a09dd4492ba43f4b",
+      "bytes": 53521,
+      "source": "https://mathstodon.xyz/api/v1/statuses/<id>[/context] (Terence Tao, 2026-09-03 thread 1/6–6/6 and the 2026-09-05 clarification)"
+    },
+    {
+      "path": "posts/tao-117219101339291693.json",
+      "sha256": "5e89c0fff9064678a49748d6ab36e09e1d6a8dfd44559b4412be4995d60b9665",
+      "bytes": 3942,
+      "source": "https://mathstodon.xyz/api/v1/statuses/<id>[/context] (Terence Tao, 2026-09-03 thread 1/6–6/6 and the 2026-09-05 clarification)"
+    },
+    {
+      "path": "papers/alpoge-buckmaster-boussinesq.pdf",
+      "sha256": "895a628d1783bcb039374686f50b895b5f450f53b8ef8aa173523487a7a4a21b",
+      "bytes": 846615,
+      "source": "https://cims.nyu.edu/~tristanb/boussinesq.pdf"
+    },
+    {
+      "path": "papers/alpoge-buckmaster-euler.pdf",
+      "sha256": "97ef408bff09b4f6ed9f3867734d1eb2245f3f34e6334b28136c84c02d0ae8d8",
+      "bytes": 1105306,
+      "source": "https://cims.nyu.edu/~tristanb/euler.pdf"
+    },
+    {
+      "path": "papers/alpoge-buckmaster-ipm.pdf",
+      "sha256": "b3ebdbb8d9a93dcca5f3b3f8796e63f7f28b48e0b0e258b909110a4b69c72a12",
+      "bytes": 704785,
+      "source": "https://cims.nyu.edu/~tristanb/ipm.pdf"
+    },
+    {
+      "path": "papers/cordoba-martinez-zoroa-2410.22920v3.pdf",
+      "sha256": "14c3a2423cbcec2d6ca5c54258ae4bd978f66631165fdb6217248bda280d45e8",
+      "bytes": 549167,
+      "source": "https://arxiv.org/pdf/2410.22920v3"
+    },
+    {
+      "path": "papers/openai-euler.pdf",
+      "sha256": "a0c234518e6c489e16996805023eb2e75c00b7c03455f7a3a5be2c124954bfdd",
+      "bytes": 535142,
+      "source": "https://cdn.openai.com/pdf/315b36cd-ec98-4023-8342-93345194ece1/euler.pdf"
+    },
+    {
+      "path": "papers/openai-navier-stokes.pdf",
+      "sha256": "0e779481c4da40bd28d1e642e1d8ca57447d129610df28dfa5a11e9af8ae228f",
+      "bytes": 2959204,
+      "source": "https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf"
+    },
+    {
+      "path": "statements/clay-fefferman-navierstokes.pdf",
+      "sha256": "c1b5f27b1a64705cfaf1afceea513db5deedca8a18ca56ab32e7f86445a06d0c",
+      "bytes": 203736,
+      "source": "https://www.claymath.org/wp-content/uploads/2022/06/navierstokes.pdf"
+    }
+  ]
+}

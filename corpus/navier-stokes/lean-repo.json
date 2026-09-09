@@ -1,0 +1,103 @@
+{
+  "what": "Counts and facts about github.com/openai/NavierStokesAndEuler computed from a clone at the pinned commit by tools/pin-navierstokes-lean.js; the Navier–Stokes report reads this record and retypes nothing.",
+  "commit": "8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538",
+  "commits": [
+    {
+      "sha": "8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538",
+      "date": "2026-09-08T06:57:25-04:00",
+      "author": "Boris Alexeev",
+      "msg": "."
+    }
+  ],
+  "toolchain": "leanprover/lean4:v4.34.0-rc2",
+  "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+  "comparator": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+  "lean4export": "cacf989bd75f608700820f6afc595f32e7a99a4d",
+  "files": 2486,
+  "lines": 618762,
+  "byLibrary": {
+    "ComparatorChallenges": {
+      "files": 2,
+      "lines": 474
+    },
+    "Euler": {
+      "files": 1840,
+      "lines": 213419
+    },
+    "NavierStokes": {
+      "files": 644,
+      "lines": 404869
+    }
+  },
+  "heartbeatMax": null,
+  "hygiene": {
+    "sorry": 0,
+    "sorry_in_challenges": 4,
+    "axiom": 0,
+    "native_decide": 0,
+    "unsafe": 0,
+    "opaque": 0,
+    "partial_def": 0,
+    "implemented_by": 0,
+    "macro_elab_syntax": 0,
+    "maxHeartbeats": 0,
+    "maxRecDepth": 0,
+    "print_axioms": 4,
+    "maxHeartbeats_mentions_in_comments": 5
+  },
+  "hygieneMethod": "code lines only — block comments, docstrings and line comments blanked before matching, except the *_mentions_in_comments rows",
+  "hygieneHits": {
+    "sorry_in_challenges": [
+      "ComparatorChallenges/Euler.lean:88: sorry",
+      "ComparatorChallenges/Euler.lean:184: sorry",
+      "ComparatorChallenges/NavierStokes.lean:277: sorry",
+      "ComparatorChallenges/NavierStokes.lean:284: sorry"
+    ],
+    "print_axioms": [
+      "Euler/Solution.lean:73: #print axioms Euler.euler_breakdown_R3",
+      "Euler/Solution.lean:75: #print axioms Euler.exists_compact_smooth_euler_singularity",
+      "NavierStokes/ComparatorSolution.lean:31: #print axioms NavierStokes.Comparator.navier_stokes_breakdown_R3",
+      "NavierStokes/ComparatorSolution.lean:32: #print axioms NavierStokes.Comparator.navier_stokes_breakdown_periodic"
+    ],
+    "maxHeartbeats_mentions_in_comments": [
+      "Euler/BaseFirstPacketChoiceNoOptions.lean:13: The original file has two `maxHeartbeats 3200000` overrides:",
+      "Euler/GevreyGeneratingDerivativesNoOptions.lean:10: Simply removing the original `maxHeartbeats 1800000` override makes",
+      "Euler/ParentGeometryForwardChoiceNoOptions.lean:13: Removing the original `maxHeartbeats 3200000` override alone exceeds the default",
+      "Euler/ParentGeometryJoinedChoiceInvestigation.lean:17: Remove the `maxHeartbeats 3200000` override on `exists_geometryJoinedChoice`",
+      "NavierStokes/ActualParticularDynamicsNoOptions.lean:7: use `maxHeartbeats 1000000`. The imported module supplies the definitions and"
+    ]
+  },
+  "lakefile": {
+    "navierStokesOptions": null,
+    "eulerOptions": "leanOptions = { autoImplicit = false, warningAsError = true }"
+  },
+  "formalizationYaml": {
+    "mainResults": [
+      "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+      "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+      "Euler.euler_breakdown_R3",
+      "Euler.exists_compact_smooth_euler_singularity"
+    ],
+    "review": "self-assessed",
+    "automation": "GPT-6 Astra",
+    "sorryCount": 0
+  },
+  "challengeVsSolutionDefinitions": {
+    "identical": true,
+    "firstDifference": null,
+    "method": "comments, docstrings and blank lines stripped; the two theorem blocks removed from the challenge; remaining lines compared verbatim"
+  },
+  "challengeVsUpstream": {
+    "upstreamRev": "8bf45ed70d48b2b2a501de9c00b26bfa38c573ee",
+    "onlyInChallenge": [
+      "open ContDiff Set InnerProductSpace MeasureTheory",
+      "notation \"ℝ^\" n:65 => EuclideanSpace ℝ (Fin n)",
+      "notation \"ℝ³\" => EuclideanSpace ℝ (Fin 3)"
+    ],
+    "onlyInUpstream": [
+      "open ContDiff Set InnerProductSpace MeasureTheory EuclideanGeometry"
+    ],
+    "method": "comments stripped; attributes, namespace, local-notation and import lines normalised; (A),(B) removed from upstream; remaining lines compared as sets"
+  },
+  "pinnedAt": "2026-09-09T14:52:44.140Z"
+}

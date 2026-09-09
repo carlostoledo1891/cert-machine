@@ -1,0 +1,24 @@
+fig-axis-profile.png -- numerical illustration of the writeup's equations, NOT a certified object.
+Made by instruments/navierstokes/probes/axis_profile.py (check C14 of the Section 4 / Appendix B memo) for
+"Finite time blowup for Navier-Stokes" (OpenAI, 2026-09-08), Appendix B, pp. 144-150.
+
+What is plotted: the solution of the axis initial-value problem (4.13) with (4.7), i.e.
+  -2L(X phi_XX + 2 phi_X)/phi = Sq,  -2L(X U_XX + U_X) = Sn,  Pi_X = E^2/(2X),  E = sqrt(2X) phi/C,
+integrated from the axis X=0 in the rescaled radius Y = Lambda X with the axis data of Section B.1,
+phi = phi* Phi, U = U* + u/Lambda.  Top left: Phi against Y for six values of eta (solid) and the
+closed form f0(Y chi) = sqrt(2/(Y chi)) J_1(sqrt(2 Y chi)) that Proposition B.2 says it approaches as
+Lambda -> infinity (dotted).  Top right: u and -Y Z*/(2L).  Bottom left: the shear a = p1 = -2 D_X log E
+(solid) and ns = Ns/L = -2 U_X (dashed); on this stress-free rectangle p1 = a and Pc = vs, Jc = 0.
+Bottom right: at the exit radius Y = 4 (X0 = 4/Lambda), p1(eta), the exit quantity
+v = p1 + p2^2/p1 (clipped at 12; it is astronomically large away from eta0 because E is exponentially
+small there), chi(eta), and the line 2 + c_ex = 2.2 of (B.19); inset: zoom on the sigma*-wide feature at
+eta0, the zero of H*.
+
+Data used (the paper fixes no numbers; these are representative and are stated in the script header):
+  h = 0.01, j0 = 0.05, P* = 2.0, Pi0(eta) = -3 P*^2 (1+eta^2)^-2, delta* = 0.1, sigma* = 0.00310 from (B.2),
+  eta0 = -0.011136, C = 1e4 * max_[-1,1] phi*, Lambda = 1e+04 for the three Y-panels and 1e+07 for the exit panel,
+  eta grid: 561 mapped Chebyshev points on [-1.02, 1.02] concentrated at eta0; DOP853 in s = log Y, rtol 1e-10.
+The paper's P* is astronomically large (P* > e^{Td}) and its C must exceed the supremum of phi* over a complex
+neighbourhood; the values here are chosen so that the argument's inputs (Z*(eta0) > 0, chi > .99 where |Z*| <= delta*,
+g = phi*/C <= 1e-4) hold, and nothing about the theorem is decided by this figure.
+Rerun: python3 instruments/navierstokes/probes/axis_profile.py  (under ten seconds; deterministic; exit 0 iff every check passes).

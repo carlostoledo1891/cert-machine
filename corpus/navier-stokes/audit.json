@@ -1,0 +1,267 @@
+{
+  "what": "The qualitative findings of the 2026-09-09 audit of OpenAI's Navier–Stokes claim, as records the report reads: the statement-fidelity rows (Clay ↔ Formal Conjectures ↔ Mathlib), the paper-versus-Lean alignment, the weak points of the writeup ranked, and what was verified by hand. Every count on the page comes from lean-repo.json, probes.json and build.json, never from here.",
+  "sources": {
+    "paper": "papers/openai-navier-stokes.pdf (sha256 0e779481c4da40bd28d1e642e1d8ca57447d129610df28dfa5a11e9af8ae228f, 166 pages)",
+    "memos": "five section memos (§3+§10, §4+App B, §5+App A, §6+§7, §8+§9+App C) and one Lean map, written 2026-09-09 by six independent readers; consolidated in dissection.md",
+    "fidelity": "fidelity-clay-vs-lean.md, Mathlib file:line at 85e3a25e"
+  },
+  "claim": {
+    "theorem": "For every ν > 0 there exist a force f ∈ C_c^∞(R³×(0,∞)), a compact K, and smooth (u,p) on R³×[0,1) supported in K, solving Navier–Stokes from rest, with sup_{t<1} ‖u(t)‖_{L²} < ∞ and lim sup_{t↑1} ‖u(t)‖_{L^∞} = ∞; consequently no smooth global solution with uniformly bounded energy exists — Clay alternative (C). Corollary 10.6: alternative (D) on the torus.",
+    "mechanism": "A self-similar axisymmetric core (ℓr ≍ τ^{1/2}, ℓz ≍ τ^{1/2−h}, |uθ|,|uz| ≍ τ^{−1/2−h}, |ur| = O(τ^{−1/2}), 0 < h < 1/100) whose annular momentum residual is unbounded, cancelled by the averaged Reynolds stress of two families of shear-amplified oscillatory pulses carried on an auxiliary torus, corrected at every order in q^{2h} to a flat remainder, joined to an exact radial-heat exterior and cut off; the force is defined as the residual and shown to extend smoothly through t = 1; uniqueness with no growth condition on the pressure transfers the growth to any competitor.",
+    "lineage": "Descends from Córdoba–Martínez-Zoroa's forced-blowup program (the paper's refs [6]–[8], arXiv:2410.22920 for IPM), with a different role for the amplified waves: they supply a mean momentum flux rather than the singular field itself."
+  },
+  "fidelity": [
+    {
+      "clay": "(1) ∂ₜu + (u·∇)u = νΔu − ∇p + f on R³×[0,∞)",
+      "lean": "derivWithin (v x ·) (Ici 0) t + fderiv ℝ (v · t) x (v x t) = nu • Δ (v · t) x − gradient (p · t) x + f x t, ∀ x, ∀ t ≥ 0",
+      "mathlib": "derivWithin = fderivWithin applied to 1 (Deriv/Basic.lean:145); Δ = the second derivative contracted with the canonical covariant tensor, Σᵢ D²f[eᵢ,eᵢ] in any orthonormal basis (InnerProductSpace/Laplacian.lean:139,173); gradient = the Riesz dual of fderiv (Gradient/Basic.lean:82)",
+      "direction": "same"
+    },
+    {
+      "clay": "(2) div u = 0",
+      "lean": "∇⬝ (v · t) x = 0, divergence := trace of fderiv",
+      "mathlib": "trace of the Jacobian",
+      "direction": "same"
+    },
+    {
+      "clay": "(3) u(x,0) = u°",
+      "lean": "v x 0 = u₀ x",
+      "mathlib": "—",
+      "direction": "same"
+    },
+    {
+      "clay": "(6) p, u ∈ C^∞(R³×[0,∞))",
+      "lean": "ContDiffOn ℝ ∞ (↿v) (univ ×ˢ Ici 0), likewise ↿p",
+      "mathlib": "∞ is ((⊤ : ℕ∞) : WithTop ℕ∞) under open ContDiff — C^∞, not analytic (FTaylorSeries.lean:120); ContDiffOn = a Taylor series of every finite order on a neighbourhood within the set at each point (ContDiff/Defs.lean:131,472), i.e. smooth up to t = 0",
+      "direction": "same"
+    },
+    {
+      "clay": "(7) ∫|u|² dx < C for all t",
+      "lean": "integrable : ∀ t ≥ 0, MemLp (‖v · t‖) 2; globally_bounded_energy : ∃ E, ∀ t ≥ 0, ∫ ‖v x t‖² < E",
+      "mathlib": "the Bochner integral of a non-integrable function is 0 (integral_undef, Bochner/Basic.lean:202); the integrable field closes that door",
+      "direction": "same"
+    },
+    {
+      "clay": "(10) u periodic; errata: p periodic; (11) smooth",
+      "lean": "IsOnePeriodic (v · t), IsOnePeriodic (p · t) for t ≥ 0; smoothness as (6)",
+      "mathlib": "EuclideanSpace.single i 1 = toLp 2 (Pi.single i 1) (PiLp.lean:150): the unit vectors",
+      "direction": "same as Clay plus the errata"
+    },
+    {
+      "clay": "(4) u° smooth, div-free, |∂ᵅu°| ≤ C(1+|x|)^{−K} ∀α,K",
+      "lean": "InitialVelocityConditionDecay: div-free, ContDiff ℝ ∞ u₀, ∀ m K, ∃ C, ‖iteratedFDeriv ℝ m u₀ x‖ ≤ C/(1+‖x‖)^K",
+      "mathlib": "iteratedFDeriv (FTaylorSeries.lean:398); its norm is comparable to the largest order-m partial up to dimensional constants absorbed by C; K real",
+      "direction": "equivalent; the paper takes u° = 0"
+    },
+    {
+      "clay": "(5) f smooth on R³×[0,∞), |∂ₓᵅ∂ₜᵐf| ≤ C(1+|x|+t)^{−K} ∀α,m,K",
+      "lean": "ForceConditionDecay: ContDiffOn ℝ ∞ (↿f) (univ ×ˢ Ici 0) and ∀ m K, ∃ C, ∀ x, ∀ t ≥ 0, ‖iteratedFDerivWithin ℝ m (↿f) (univ ×ˢ Ici 0) (x,t)‖ ≤ C/(1+‖x‖+t)^K",
+      "mathlib": "one total space-time order m instead of the split (α, m): equivalent",
+      "direction": "equivalent; a C_c^∞ force satisfies it trivially"
+    },
+    {
+      "clay": "(8) u°, f periodic in x; (9) |∂ᵅ∂ᵐf| ≤ C(1+t)^{−K}",
+      "lean": "InitialVelocityConditionPeriodic; ForceConditionPeriodic with the time-decay bound on iteratedFDerivWithin",
+      "mathlib": "—",
+      "direction": "same"
+    }
+  ],
+  "fidelityVerdict": "The formal statement is Clay's (C) and (D) with nothing added to the competitor class and nothing dropped from the data conditions. The definitions were written by DeepMind's Formal Conjectures project on 2026-05-15 (#1457), last touched 2026-07-27, byte-identical to main on 2026-09-09; OpenAI's copy differs in imports, attributes, namespace and local notation only. The direction rule: the theorem is a negation, so a weak or junk-valued solution notion only strengthens it; a gap could hide only in a competitor class stronger than Clay's or a data hypothesis weaker than Clay's, and neither occurs.",
+  "paperVsLean": [
+    {
+      "item": "the two Comparator theorems",
+      "paper": "Theorem 1.1 (C) and Corollary 10.6 (D)",
+      "lean": "NavierStokes.Comparator.navier_stokes_breakdown_R3 and _periodic, proved by exact ComparatorBridge.… adapters; the solution-side definitions byte-identical to the challenge (lean-repo.json)",
+      "status": "proved (subject to the build record)"
+    },
+    {
+      "item": "uniqueness with no growth condition on the pressure (Lemma 10.5)",
+      "paper": "v smooth on R³×[0,T], v ∈ L^∞_t L²_x, zero datum, same force ⇒ v = u; π recovered as ΣRᵢRⱼgᵢⱼ plus a vanishing harmonic part, the flux through expanding balls bounded, Gronwall",
+      "lean": "NavierStokesR3.WholeSpaceUniqueness.classical_uniqueness_on_Icc (R3/WholeSpaceUniqueness.lean:30): competitor only smooth, divergence-free, UniformFiniteEnergy on [0,T], pressure only smooth; PressureRecovery.pressure_gradient_recovery (R3/PressureRecovery.lean:419); PressureFlux.exists_uniform_actual_pressure_flux_bound (R3/PressureFlux.lean:576); WholeSpaceComparisonClosure.eq_of_pressure_flux_bound",
+      "status": "covers every competitor Clay admits"
+    },
+    {
+      "item": "the viscosity rescaling",
+      "paper": "(10.22): space rescaled, u_ν(x,t) = √ν u(x/√ν, t), singular time 1 for every ν",
+      "lean": "time rescaled, f_ν(x,t) = ν² f(νt, x) from the viscosity-one candidate (ComparatorR3Theorem.lean:19), singular time 1/ν",
+      "status": "equivalent; the formal statement names no time"
+    },
+    {
+      "item": "the candidate's uniform energy bound sup_{t<1} ‖u(t)‖_{L²} < ∞",
+      "paper": "Theorem 1.1's second display; Lemma 10.4; the announcement's 'its energy remains finite through the entire dynamics'",
+      "lean": "NavierStokesR3.CompactEnergy.uniform_finite_energy (R3/CompactEnergy.lean:343) proves it for any smooth compactly supported force and is used by nothing; the structure carrying energy_bounded (R3/ProblemStatement.lean:108) has no producer; breakdownStatement, the file's own 'full assertion of Theorem 1.1', is never proved",
+      "status": "NOT among the formal conclusions — Clay (C) does not need it (energy on each [0,T], T < 1, follows from compact support); it rests on the paper's Lemma 10.4, verified by hand"
+    },
+    {
+      "item": "the force's support in time",
+      "paper": "f ∈ C_c^∞(R³×(0,∞)): zero near t = 0 and for t ≥ 2",
+      "lean": "smooth for t ≥ 0, spatial support in a compact K', zero for t ≥ T; no field states f = 0 near t = 0 (CompactPositiveTimeSupport has no producer)",
+      "status": "weaker in Lean; the comparator's ForceConditionDecay does not require it"
+    },
+    {
+      "item": "the growth",
+      "paper": "(10.20)–(10.21): uθ(xτ, 1−τ) = τ^{−A}(e₀ + O(τ^{2h})) along a named path",
+      "lean": "SpeedUnboundedAtOne u := ∀ M > 0, ∀ δ > 0, ∃ t x, t ∈ (0,1) ∧ 1−δ < t ∧ M < ‖u(t,x)‖; on the torus also Tendsto ‖u(t,0)‖ → ∞ on the axis",
+      "status": "the pointwise form of lim sup ‖u‖_∞ = ∞; no rate"
+    },
+    {
+      "item": "the paper's numbering",
+      "paper": "Propositions 5.5, 7.5, 9.6, 9.9, Theorem 3.1",
+      "lean": "docstrings cite a manuscript numbering (Lemma 3.3, Prop 3.2, Prop 11.4, Lemma 8.3, …) absent from the published paper",
+      "status": "the section-to-Lean map is by content, not by number"
+    }
+  ],
+  "weakPoints": [
+    {
+      "rank": 1,
+      "where": "Prop 9.9, pp. 114–116, Step 3",
+      "what": "Endpoint regularity of the local field up to τ = 0 for q ≥ c: one paragraph ('differentiating its fixed linear ODE gives the bounds at every derivative order'), no estimate displayed. Lemma 10.2 region (a), hence the force's smoothness at t = 1 away from the origin, rests on it."
+    },
+    {
+      "rank": 2,
+      "where": "(3.4) p. 15 → (10.9) p. 119",
+      "what": "Flatness is stated for 0 ≤ X ≤ X₁ as q ↓ 0 without explicit uniformity in η ∈ (−1,1); (10.9) needs it on a full neighbourhood of (0,1) including η → ±1. Plausible, not displayed."
+    },
+    {
+      "rank": 3,
+      "where": "Prop 9.3(i), pp. 103–105",
+      "what": "Admissibility of next-cycle sources for the pulse inverse after temporal inverses that spread over the torus: 'the pulse cutoff ψ restores the fixed enlarged local torus rectangle support' is asserted. The only unstated induction hypothesis in §9."
+    },
+    {
+      "rank": 4,
+      "where": "throughout; Lemma 4.8, §6 (6.2)–(6.6), Lemma 7.1, Lemma 8.2",
+      "what": "Every constant is 'sufficiently small/large' and none is numeric: h < 1/100 is printed but Lemma 4.8 needs h < min{λ, e^{−T_d}} with T_d = e^{M_d}+10; the §6 derivative scale exceeds 1 only for dyadic level ℓ ≳ 3×10⁸; flatness to order N needs more than 1000(N+K_m) cycles; the cutoff flatness costs ~10⁷N integrations by parts. Not a gap in logic; the proof is entirely asymptotic."
+    },
+    {
+      "rank": 5,
+      "where": "Prop B.2, p. 147",
+      "what": "The Lipschitz bounds of (Φ,u) ↦ J_νR_i on the weighted analytic space are asserted in one sentence; every constant of the inner construction descends from them; the η-analyticity radius is O(σ_*), never said."
+    },
+    {
+      "rank": 6,
+      "where": "Lemma 4.9, pp. 36/44",
+      "what": "'2 + h < a' on the terminal collar holds for Z = 2d/X ≲ 1.5 and fails for Z ≥ 3 at h = 0.01 (a = 2 + 2h + 2Z𝓗′/𝓗); it holds on the collar only because X_tail ≫ 1, a dependence that belongs in Appendix A's choice of X_tail."
+    },
+    {
+      "rank": 7,
+      "where": "Prop B.5, p. 153",
+      "what": "Continuation to X_i = 110 is a prose sketch: unspecified interpolation lengths, 'p₁ > 2 by continuity'."
+    },
+    {
+      "rank": 8,
+      "where": "Lemma 5.1 vs Theorem 4.6(i), pp. 33, 47–50",
+      "what": "Lemma 5.1 needs the leading profile η-analytic on [0, a²] with a² > X_cut; Theorem 4.6(i) gives analyticity on [0, X_an]; that a² ≤ X_an and that the non-analytic edits (B.8 bumps, C.2/C.3 patch, A.7 patch) lie beyond X_an is never stated where needed."
+    },
+    {
+      "rank": 9,
+      "where": "(5.3)–(5.6), pp. 46–47",
+      "what": "The order-n coefficient equations were stated with sample terms derived (pp. 46–47). DISCHARGED by computer algebra at this build: instruments/navierstokes/probes/coefficient_equations.py substitutes (5.1) into the axisymmetric operator and recovers (5.2)–(5.6), the sparsity of A₁ in (5.7) and the divisibility of Ω_k by X exactly as printed (69 identities). Kept in the list as the record of a check, not a gap."
+    },
+    {
+      "rank": 10,
+      "where": "§7 → §8.5, pp. 71–72, 81–84, 95–96",
+      "what": "The zero-Haar-mean part of the pulse covariance is larger than its mean by ≍ S_*^{1/2}/(4r₀²(1+b_g²)) and is never quantified in §6–7; its cancellation is the fast-time inverse of §8.5, whose derivative cost is never tabulated against the mean route."
+    },
+    {
+      "rank": 11,
+      "where": "§9 Step 2, p. 109 / (C.19), p. 164",
+      "what": "Class preservation of the signed-amplitude map at every cycle needs |T₀| ≥ cζ on the modulated profile; proved in Prop C.3, never cited in §9."
+    },
+    {
+      "rank": 12,
+      "where": "pp. 111/114",
+      "what": "q_* overloaded: Lemma 9.7 chooses q_big ≤ an earlier q_*; Theorem 3.1 then defines q_* := q_big. Not circular; the reader supplies the disambiguation."
+    }
+  ],
+  "slips": [
+    "Prop 9.5 and §9 Steps 1–2: the −κ_s that Lemma 9.2 attaches to the zero harmonic of a two-wave product is dropped (M_{C*−κ_s} should be M_{C*−2κ_s}); margins 0.08 and 0.4 against κ_s = 10⁻⁵",
+    "Lemma 9.2's proof: 'axial transport gains one through D_z' is false for the phase (D_zΦ = p_z = O(1)); the conclusion is unaffected",
+    "p. 51: ∂_RΠ_n misses a factor 1/R on Ω_{n−1}",
+    "p. 123: 'every power of A_R at most 3/2' is 7/4 as displayed; Young still closes",
+    "p. 122, a trap for text extraction: the cutoff family reads φ_{4R}, φ_{8R} in extracted text (dilations, under which three inequalities are false) and φ_R⁴, φ_R⁸ in the PDF glyphs (powers of one bump, under which every step is exact)"
+  ],
+  "verifiedByHand": [
+    {
+      "where": "§10",
+      "what": "(10.3) with C₀ = 2^{1/(2D)}; Lemma 10.5's difference equation, localized energy identity, commutator kernel, the H⁻³ tempered-pressure step, the Hölder and Young chains; (10.12); (10.22)–(10.23); the competitor rescaling; the λ³ periodic rescaling; disjoint translates; smoothness across t₀ and t = 1; Clay (5) and (9)",
+      "result": "all hold as printed"
+    },
+    {
+      "where": "§4 + App B",
+      "what": "the leading tangential equations re-derived from axisymmetric Navier–Stokes in (X, η, q): (4.14), (4.9), (4.11), (4.13); Prop 4.2 an exact identity; (4.16); Lemma 4.5; (4.23); (A.25); the B.2 remainders; Φ₀ = √(2/z)J₁(√(2z)); (B.11), (B.19)",
+      "result": "all hold; the only dropped tangential term is axial viscosity at relative order q^{2h}"
+    },
+    {
+      "where": "§5 + App A",
+      "what": "the heat exterior solves the swirl heat equation iff (A.37); H solves (A.37); H′(0) = −h(1+h); H = Z^{−1−h}U(1+h,2,1/Z); conservative forms of r²R_θ and rR_z; nondegeneracy at η = ±1; the A.4 pulse numerics; Lemma A.1's determinants; (A.17); the two zero-integral identities of Lemma A.8 are proved, not asserted",
+      "result": "all hold"
+    },
+    {
+      "where": "§6 + §7",
+      "what": "the (6.4) chain rule; Lemma 6.1's lattice avoidance; (7.1) ⟺ (4.22); λ₀² = 2aF₀²(1−2/v_s); the reference-matrix eigenstructure; (7.13), (7.18)–(7.19), (7.27)–(7.30), (7.38)–(7.40)",
+      "result": "all hold; the covariance identity is a statement about the double average"
+    },
+    {
+      "where": "§8 + §9 + App C",
+      "what": "the 5×5 moment system decouples into a 3×3 and a 2×2 generalized Vandermonde with explicit nonzero determinants; Lemma C.1's loop on 371 random relaxed-cone data; the cycle's exponent table with corrected κ_s bookkeeping",
+      "result": "holds; 'δ_L after μ_max, uniformly' is load-bearing — choosing δ_L from the base point alone breaks the cone in about 7 % of trials"
+    },
+    {
+      "where": "§5 (5.2)–(5.7), by computer",
+      "what": "the expansion (5.1) substituted into the axisymmetric Navier–Stokes operator in (q, X, η) with Lemma 4.1's derivatives, expanded by exact q-exponent; the order-n coefficient equations, the A₁ sparsity and block nilpotency behind the sideways Cauchy–Kovalevskaya step (5.8), and Ω_k/X regular",
+      "result": "69 of 69 identities hold as printed (a probe script in the battery)"
+    }
+  ],
+  "processDates": [
+    {
+      "date": "2026-05-15",
+      "event": "DeepMind's Formal Conjectures adds the Lean statement of the four Clay alternatives (#1457)"
+    },
+    {
+      "date": "2026-07-27",
+      "event": "last change to that file (#4643, divergence lemmas); the revision OpenAI pinned"
+    },
+    {
+      "date": "2026-08-15",
+      "event": "Alpöge–Buckmaster obtain smooth-forcing blowup for Boussinesq and Euler (their statement)"
+    },
+    {
+      "date": "2026-08-22",
+      "event": "Alpöge–Buckmaster's Lean verification (their statement)"
+    },
+    {
+      "date": "2026-08-28",
+      "event": "OpenAI begins training the internal model used (the announcement)"
+    },
+    {
+      "date": "2026-09-01",
+      "event": "OpenAI launches the agent effort after 'a rumor that two Millennium Prize problems had been resolved' (the announcement)"
+    },
+    {
+      "date": "2026-09-03",
+      "event": "Tao's six-part post on the opportunity cost of an autonomous solution; Buckmaster writes to OpenAI (his statement)"
+    },
+    {
+      "date": "2026-09-05",
+      "event": "OpenAI's agents 'arrive at their resolution', 88 hours in (the announcement); Tao's clarification: 'not aware of any significant developments'"
+    },
+    {
+      "date": "2026-09-06",
+      "event": "Lean formalization complete, 17 hours later (the announcement); the two calls with Buckmaster (his statement)"
+    },
+    {
+      "date": "2026-09-08 03:58 UTC",
+      "event": "Alpöge–Buckmaster publish IPM, Boussinesq and Euler with smooth forcing, Lean at tristanbuckmaster/fluid_lean (repository created 04:03 UTC)"
+    },
+    {
+      "date": "2026-09-08 10:53 UTC",
+      "event": "openai/NavierStokesAndEuler created; its single commit at 10:57 UTC; the announcement the same day"
+    }
+  ],
+  "refusals": [
+    "No verdict on the theorem is issued by the paper reading; the verdict is the Lean build's and the independent kernel's, recorded in build.json.",
+    "No numerical solution of the profile equations is a certification: the paper contains no numerics and none of its constants is a number.",
+    "The priority dispute is recorded as dates from the three parties' own documents and adjudicated nowhere on this site.",
+    "The Euler paper is audited separately and its result is not folded into the Navier–Stokes verdict."
+  ]
+}
