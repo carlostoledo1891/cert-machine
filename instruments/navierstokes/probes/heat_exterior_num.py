@@ -18,3 +18,20 @@ for m in range(5):
     print(f"H^({m})(0) = {mp.nstr(val,14)}  (A.35) claims {mp.nstr(claim,14)}  diff {mp.nstr(val-claim,3)}")
 # monotone decay of |H^(m)| in Z (for the sup bound): sample
 print("|H''(Z)| at Z=0,1,10,100:",[mp.nstr(abs(Hd(mp.mpf(z),hv,2)),6) for z in (0,1,10,100)])
+
+# ---- RED CONTROLS ----
+reds=[]
+def red(name,fired):
+    print(("RED FIRED " if fired else "RED DID NOT FIRE ")+name); reds.append(fired)
+def Hd_bad(Zv,hv,m):
+    f=lambda vv: mp.e**(-vv)*vv**hv*mp.rf(-hv,m)*vv**m*(1+Zv*vv)**(-hv-m)
+    return mp.quad(f,[0,1,10,mp.inf])/mp.gamma(1+hv)
+hv,Zv=mp.mpf('0.0099'),mp.mpf(1)
+bad=abs(Zv**2*Hd_bad(Zv,hv,2)+(1+2*(1+hv)*Zv)*Hd_bad(Zv,hv,1)+hv*(1+hv)*Hd_bad(Zv,hv,0))/abs(Hd_bad(Zv,hv,0))
+red("the (-h)_m derivative factor (this battery's own first bug) fails the ODE: relative residual %s"%mp.nstr(bad,3), bad>mp.mpf('1e-10'))
+wrong=Zv**2*Hd(Zv,hv,2)+(1+2*(1+hv)*Zv)*Hd(Zv,hv,1)+hv*(2+hv)*Hd(Zv,hv,0)
+red("the ODE with the coefficient h(2+h) is rejected by the same integral: residual %s"%mp.nstr(abs(wrong),3), abs(wrong)>mp.mpf('1e-10'))
+claim_bad=mp.rf(hv,2)*mp.rf(1+hv,2)*2
+red("(A.35) with the Pochhammer product doubled is rejected", abs(Hd(mp.mpf(0),hv,2)-claim_bad)>mp.mpf('1e-10'))
+print(("ALL REDS FIRED" if all(reds) else "A RED DID NOT FIRE")+" (%d/%d)"%(sum(reds),len(reds)))
+import sys; sys.exit(0 if all(reds) else 1)

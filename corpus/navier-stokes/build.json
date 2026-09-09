@@ -1,0 +1,128 @@
+{
+  "what": "The Lean repository openai/NavierStokesAndEuler @ 8937a8f4 built on this machine with its pinned toolchain, and the axioms the kernel reports for the four main declarations.",
+  "machine": {
+    "model": "Mac14,2",
+    "cpus": 8,
+    "memoryGB": 16,
+    "os": "darwin 25.4.0",
+    "arch": "arm64"
+  },
+  "toolchain": "Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+  "commit": "8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538",
+  "started": "Wed Sep  9 11:12:12 -03 2026",
+  "finished": "Wed Sep  9 14:29:40 -03 2026",
+  "jobsBuilt": 2486,
+  "jobsTotal": 11251,
+  "buildSeconds": 8401.305,
+  "legs": [
+    {
+      "log": "build2.log",
+      "threads": "8 (default)",
+      "built": 681
+    },
+    {
+      "log": "build3.log",
+      "threads": "4",
+      "built": 1805
+    }
+  ],
+  "exitCode": 0,
+  "errors": [],
+  "slowest": [
+    {
+      "module": "Euler.HeatRegularizedPaths",
+      "seconds": 843
+    },
+    {
+      "module": "Euler.DuhamelPasting",
+      "seconds": 835
+    },
+    {
+      "module": "Euler.LpSmoothCoefficientProduct",
+      "seconds": 829
+    },
+    {
+      "module": "Euler.EulerCorrectionLocal",
+      "seconds": 828
+    },
+    {
+      "module": "Euler.EulerProof",
+      "seconds": 444
+    },
+    {
+      "module": "Euler.SolutionDefinitions",
+      "seconds": 322
+    },
+    {
+      "module": "NavierStokes.ComparatorBridge",
+      "seconds": 310
+    },
+    {
+      "module": "NavierStokes.R3PressureCutoff",
+      "seconds": 273
+    }
+  ],
+  "verdict": "PASS",
+  "axioms": {
+    "NavierStokes.Comparator.navier_stokes_breakdown_R3": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NavierStokes.Comparator.navier_stokes_breakdown_periodic": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Euler.euler_breakdown_R3": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Euler.exists_compact_smooth_euler_singularity": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "onlyStandardAxioms": true,
+  "standardAxioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "comparator": {
+    "ran": true,
+    "configs": [
+      "ComparatorChallenges/NavierStokes.json",
+      "ComparatorChallenges/Euler.json"
+    ],
+    "exits": [
+      {
+        "config": "ComparatorChallenges/NavierStokes.json",
+        "exit": 0
+      }
+    ],
+    "solutionsAccepted": 1,
+    "kernels": [
+      "nanoda: accepts",
+      "Lean default: accepts"
+    ],
+    "secondsPerConfig": [
+      783.005
+    ],
+    "landrun": "pass-through stand-in (bin/landrun): Landlock is Linux-only; statement equality, the axiom walk and both kernel replays were performed, the process isolation was not",
+    "nanoda": "ammkrn/nanoda_lib built from source at this build — a kernel written independently of Lean's, in Rust",
+    "lines": [
+      "Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, NavierStokes.Comparator.navier_stokes_breakdown_R3, NavierStokes.Comparator.navier_stokes_breakdown_periodic, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from ComparatorChallenges.NavierStokes",
+      "Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, NavierStokes.Comparator.navier_stokes_breakdown_R3, NavierStokes.Comparator.navier_stokes_breakdown_periodic, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from NavierStokes.ComparatorSolution",
+      "nanoda kernel accepts the solution",
+      "Lean default kernel accepts the solution",
+      "Your solution is okay!",
+      "COMPARATOR EXIT 0 for ComparatorChallenges/NavierStokes.json",
+      "Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Euler.euler_breakdown_R3, Euler.exists_compact_smooth_euler_singularity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from ComparatorChallenges.Euler",
+      "Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Euler.euler_breakdown_R3, Euler.exists_compact_smooth_euler_singularity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from Euler.Solution"
+    ]
+  },
+  "recorded": "2026-09-09T20:26:44.294Z"
+}

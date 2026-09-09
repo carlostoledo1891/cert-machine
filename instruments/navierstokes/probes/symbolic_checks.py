@@ -73,3 +73,39 @@ for zz in [mp.mpf('1e-6'),mp.mpf('1e-3'),mp.mpf('0.1'),mp.mpf(1)]:
         lo=zz**(1/Dv); qq=mp.findroot(lambda Q: Q - zz**2*Q**(2*hv) - tt, lo*1.000001+tt)
         ratio=qq/(C0*(tt+lo)); worst=max(worst,ratio)
 print('C2 worst q/(C0(tau+|z|^{1/D})) on grid =',mp.nstr(worst,6),'(<=1 required); C0 =',mp.nstr(C0,6))
+
+# ---- RED CONTROLS ----
+reds=[]
+def red(name,fired):
+    print(("RED FIRED " if fired else "RED DID NOT FIRE ")+name); reds.append(fired)
+# The viscosity rescaling (10.22), re-derived from scratch: the correct exponent 1/2 must pass
+# the same test that the planted exponent 1/3 must fail.
+if True:
+    xs=sp.symbols('x1 x2 x3',real=True); tt=sp.Symbol('t',real=True); nn=sp.Symbol('nu',positive=True)
+    U=[sp.Function('u%d'%i)(*xs,tt) for i in range(3)]; P=sp.Function('p')(*xs,tt)
+    F=[sp.Function('f%d'%i)(*xs,tt) for i in range(3)]
+    def resid(vel,pr,frc,visc,coords,time):
+        out=[]
+        for i in range(3):
+            e=sp.diff(vel[i],time)+sum(vel[j]*sp.diff(vel[i],coords[j]) for j in range(3)) \
+              - visc*sum(sp.diff(vel[i],coords[j],2) for j in range(3)) + sp.diff(pr,coords[i]) - frc[i]
+            out.append(sp.expand(e))
+        return out
+    ys=[x/sp.sqrt(nn) for x in xs]
+    def scaled(power):
+        sub={xs[k]:ys[k] for k in range(3)}
+        v=[nn**power*U[i].subs(sub) for i in range(3)]
+        pp=nn*P.subs(sub); ff=[sp.sqrt(nn)*F[i].subs(sub) for i in range(3)]
+        return v,pp,ff
+    base=resid(U,P,F,1,xs,tt)
+    for power,name in [(sp.Rational(1,2),'correct 1/2'),(sp.Rational(1,3),'planted 1/3')]:
+        v,pp,ff=scaled(power)
+        rs=resid(v,pp,ff,nn,xs,tt)
+        # substitute the base equations: the correct scaling gives sqrt(nu) * base at the scaled point
+        red_ok = all(sp.simplify(rs[i]-sp.sqrt(nn)*base[i].subs({xs[k]:ys[k] for k in range(3)}))==0 for i in range(3))
+        if power==sp.Rational(1,2):
+            red("the rescaling check itself passes at the correct exponent 1/2", red_ok)
+        else:
+            red("the same check rejects the planted exponent 1/3", not red_ok)
+print(("ALL REDS FIRED" if all(reds) else "A RED DID NOT FIRE")+" (%d/%d)"%(sum(reds),len(reds)))
+import sys as _sys; _sys.exit(0 if all(reds) else 1)

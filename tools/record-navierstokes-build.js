@@ -60,9 +60,25 @@ for (const d of DECLS) if (!axioms[d]) die('no axiom line for ' + d + ' in:\n' +
 const STANDARD = ['Classical.choice', 'Quot.sound', 'propext'];
 const onlyStandard = DECLS.every((d) => axioms[d].every((a) => STANDARD.includes(a)));
 
-const comparator = process.env.COMPARATOR_LOG && fs.existsSync(process.env.COMPARATOR_LOG)
-  ? { ran: true, log: fs.readFileSync(process.env.COMPARATOR_LOG, 'utf8').split('\n').filter(Boolean).slice(-40), note: 'run with a pass-through stand-in for landrun (Landlock is Linux-only): statement equality, the axiom walk and the kernel replays were performed; the sandbox was not' }
-  : { ran: false, note: 'not recorded at this build' };
+/* Comparator: the Lean FRO's judge. It exports the challenge and the solution with lean4export,
+   compares every constant reachable from the theorem's type for EXACT equality, walks the axioms,
+   and replays the proof through Lean's kernel and (here) nanoda, an independent Rust kernel.
+   On macOS its landrun sandbox (Linux Landlock) does not exist, so bin/landrun is a pass-through:
+   the comparison, the axiom walk and both kernel replays are performed; the isolation is not. */
+const CLOG = process.env.COMPARATOR_LOG || path.join(HOME, 'Projects', 'navier-stokes-lean', 'comparator.log');
+const comparator = (() => {
+  if (!fs.existsSync(CLOG)) return { ran: false, note: 'not recorded at this build' };
+  const t = fs.readFileSync(CLOG, 'utf8');
+  const cfgs = [...t.matchAll(/== lake exe comparator (\S+) ==/g)].map((m) => m[1]);
+  const exits = [...t.matchAll(/COMPARATOR EXIT (\d+) for (\S+)/g)].map((m) => ({ config: m[2], exit: Number(m[1]) }));
+  const okLines = (t.match(/Your solution is okay!/g) || []).length;
+  const kernels = [...t.matchAll(/^(?:Running )?(.+?) kernel (accepts|rejects) the solution/gim)].map((m) => m[1].replace(/^Running /, '').trim() + ': ' + m[2]);
+  const times = [...t.matchAll(/^real\s+(\d+)m([\d.]+)s/gm)].map((m) => Number(m[1]) * 60 + Number(m[2]));
+  return { ran: true, configs: cfgs, exits, solutionsAccepted: okLines, kernels, secondsPerConfig: times,
+    landrun: 'pass-through stand-in (bin/landrun): Landlock is Linux-only; statement equality, the axiom walk and both kernel replays were performed, the process isolation was not',
+    nanoda: 'ammkrn/nanoda_lib built from source at this build — a kernel written independently of Lean\'s, in Rust',
+    lines: t.split('\n').filter((l) => /kernel (accepts|rejects)|Your solution is okay|COMPARATOR EXIT|Exporting|Illegal axiom|do not match|Const not found/.test(l)).slice(-24) };
+})();
 
 const rec = {
   what: 'The Lean repository openai/NavierStokesAndEuler @ ' + PIN.slice(0, 8) + ' built on this machine with its pinned toolchain, and the axioms the kernel reports for the four main declarations.',

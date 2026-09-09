@@ -338,5 +338,32 @@ report("Omega_2 / X has no X in its denominator after V_j = X v_j (divisibility 
 check("sample term V_i(V_j' - V_j/(2X)) = X v_i (v_j/2 + X v_j') (p. 47)",
       (V(1)*(dX(V(2)) - V(2)/(2*X))).subs({V(1): X*vfun[1], V(2): X*vfun[2]}) - X*vfun[1]*(vfun[2]/2 + X*dX(vfun[2])))
 
-print("elapsed %.1fs; %d/%d passed" % (time.time() - T0, sum(RESULTS), len(RESULTS)))
-sys.exit(0 if all(RESULTS) else 1)
+# ---------------------------------------------------------------- RED CONTROLS
+# A check that cannot fail is not a check.  Each red plants a deliberate error and the
+# same comparison must reject it.
+REDS = []
+def red(name, fired):
+    print(("RED FIRED " + name) if fired else ("RED DID NOT FIRE " + name), flush=True)
+    REDS.append(fired)
+
+# (a) the same comparison, with one printed coefficient deliberately wrong, must reject
+def is_zero_quiet(e):
+    return is_zero(e)[0]
+red("Lemma 4.1's d_t identity with the coefficient 2 planted in T_b is rejected",
+    not is_zero_quiet((Dt(q**bb*f) - q**(bb-1)*T(bb, f)*2)*q**(1-bb)))
+red("the d_z identity with D replaced by D+h in the power is rejected",
+    not is_zero_quiet((Dz(q**bb*f) - q**(bb-D-h)*Z(bb, f))*q**(D-bb)))
+# (b) the block nilpotency is not an accident of an all-zero matrix
+red("A_1 is not the zero matrix (so A_1 D A_1 = 0 is nilpotency, not triviality)",
+    A1 != sp.zeros(6, 6))
+# (c) a perturbed A_1 with one entry moved into the forbidden position loses nilpotency
+A1bad = A1.copy(); A1bad[0, 0] = sp.Integer(1)
+red("A_1 with a diagonal entry planted is no longer nilpotent",
+    sp.expand(A1bad*Dg*A1bad) != sp.zeros(6, 6))
+# (d) Omega_k/X divisibility is not vacuous: without V_j = X v_j the denominator does carry X
+quot_bad = sp.cancel(jetsub(Omega(2)/X))
+red("without the regularity substitution V_j = X v_j the same test finds X in the denominator",
+    sp.fraction(quot_bad)[1].has(X))
+
+print("elapsed %.1fs; %d/%d passed; %d/%d reds fired" % (time.time() - T0, sum(RESULTS), len(RESULTS), sum(REDS), len(REDS)))
+sys.exit(0 if (all(RESULTS) and all(REDS)) else 1)

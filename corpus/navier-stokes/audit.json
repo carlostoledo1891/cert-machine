@@ -89,8 +89,9 @@
     {
       "item": "the candidate's uniform energy bound sup_{t<1} ‖u(t)‖_{L²} < ∞",
       "paper": "Theorem 1.1's second display; Lemma 10.4; the announcement's 'its energy remains finite through the entire dynamics'",
-      "lean": "NavierStokesR3.CompactEnergy.uniform_finite_energy (R3/CompactEnergy.lean:343) proves it for any smooth compactly supported force and is used by nothing; the structure carrying energy_bounded (R3/ProblemStatement.lean:108) has no producer; breakdownStatement, the file's own 'full assertion of Theorem 1.1', is never proved",
-      "status": "NOT among the formal conclusions — Clay (C) does not need it (energy on each [0,T], T < 1, follows from compact support); it rests on the paper's Lemma 10.4, verified by hand"
+      "lean": "NavierStokesR3.CompactEnergy.uniform_finite_energy (R3/CompactEnergy.lean:343) proves it for any smooth compactly supported force and is used by nothing; the structure carrying energy_bounded (R3/ProblemStatement.lean:108) has no producer; breakdownStatement, the file's own 'full assertion of Theorem 1.1', is never proved. The candidate that IS produced, R3CompactCandidate.selected_compact_candidate (R3ActualCandidate.lean:18), satisfies a Properties structure (R3CompactCandidate.lean:24) with ten fields — smooth velocity and pressure on the pre-singular domain, smooth force on the future domain, compact spatial supports for all three, zero initial velocity, compact future time support for the force, divergence-free, the equation on (0,1), and SpeedUnboundedAtOne — and NO energy field.",
+      "status": "NOT among the formal conclusions — every other clause of Theorem 1.1 is. Clay (C) does not need it (energy on each [0,T], T < 1, follows from compact support), so the Millennium result stands; the announcement's physical headline rests on the paper's Lemma 10.4, verified by hand here.",
+      "contrast": "The Euler theorem in the same repository DOES carry it: Euler.exists_compact_smooth_euler_singularity (Euler/Solution.lean:43) asserts, for a nonzero compactly supported smooth datum, a solution on [0,T*) with 0 < T* ≤ 1, a uniform energy bound ∃ E, ∀ t ∈ [0,T*), ∫‖v‖² < E, maximality as an IFF (a solution on [0,T] exists iff T < T*), the C¹ norm bounded on every shorter interval, limsup of the C¹ norm = ⊤ at T*, the Beale–Kato–Majda integral = ⊤, and no global smooth finite-energy solution. Same team, same week, same repository — so the omission on the Navier–Stokes side reads as an oversight, not an obstacle."
     },
     {
       "item": "the force's support in time",
@@ -327,5 +328,116 @@
         "verdict": "met"
       }
     ]
+  },
+  "weakPointsInLean": {
+    "what": "Every weak point of the writeup traced into the Lean library (source read at the pinned commit, 2026-09-09). The question asked of each was adversarial: not only 'is it discharged' but 'is the Lean statement WEAKER than what the paper claims at that point'.",
+    "dischargedAtFullStrength": [
+      {
+        "weakPoint": 1,
+        "what": "endpoint regularity of the local field up to τ = 0",
+        "lean": "OneSidedExtension (NavierStokes/JointResidualLimits.lean:72) is a genuine C^∞ extension across t = 1, produced for the actual sums by GermEndpointInputs.actual_germ_stage_endpoints_of_estimates (:436)",
+        "note": "stronger than the paper's per-order bounds; stated for z ≠ 0 inside the local domain, the rest covered by SublevelShrinkingSupport"
+      },
+      {
+        "weakPoint": 2,
+        "what": "η-uniformity of the flatness (3.4) → (10.9)",
+        "lean": "VanishingJointJets (JointResidualLimits.lean:84) is a joint space-time limit at (1,0), η-uniform by construction; produced by GermCandidateAssembly.exists_candidate_witness_of_finite_stages (:164)",
+        "note": "the paper's asymmetry between a q-statement and a neighbourhood statement does not exist in Lean"
+      },
+      {
+        "weakPoint": 3,
+        "what": "admissibility of next-cycle sources for the pulse inverse",
+        "lean": "Invariant.source_carrier (ActualCycleResidualBounds.lean:68), an exact carrier equality, with the induction ActualCyclePreservation.state_invariant (:835)",
+        "note": "the paper's one asserted line is a proved invariant"
+      },
+      {
+        "weakPoint": 9,
+        "what": "the order-n coefficient equations (5.2)–(5.6)",
+        "lean": "SlowExpansionResidual.navierStokesResidual_slowVelocity_of_coefficients (:1016), exact algebra",
+        "note": "also re-derived independently here by computer algebra, 69 identities"
+      },
+      {
+        "weakPoint": 11,
+        "what": "|T₀| ≥ cζ on the modulated profile, needed for class preservation",
+        "lean": "LeadingStressWeights.stress_lower_bound (:1121); FullTrueCone supplied by FinalSlowBase.exists_final_base (:639)",
+        "note": "the dependency the paper never cites in §9 is an explicit hypothesis in Lean"
+      },
+      {
+        "weakPoint": 12,
+        "what": "the q_* overloading",
+        "lean": "one constant, qbig := ChartScales.Q (firstBand B N0) (ActualCandidateConstruction.lean:155)",
+        "note": "the ambiguity is the paper's prose only"
+      }
+    ],
+    "reducedOrAltered": [
+      {
+        "weakPoint": 4,
+        "what": "the smallness parameters",
+        "lean": "h is NOT a number: FinalSlowBase.actualProfile := Classical.choice profileData_nonempty (:634), h := outgoing.data.h, constrained only by 2h < lam < 1/10 (OutgoingTail.lean:103, OutgoingSchedule.lean:297) and the hypothesis h ≤ 1/1000 (NaturalAxisData.lean:41). N is geometricThreshold := ….choose; Λ and C appear as ∃ M, ∀ Λ ≥ M, ∃ C0 …; q_* likewise; the cycle schedule is ∃ a : ℕ → ℕ with no finite J. Numeric constants that do appear: κ = 10⁻⁵, Λ_chart = 4 − √2, X_big = 100, X_i = 110.",
+        "note": "the printed h < 1/100 is not the operative bound in either artifact; the proof is asymptotic in a parameter no one has bounded"
+      },
+      {
+        "weakPoint": 7,
+        "what": "Prop B.5's continuation to X_i",
+        "lean": "exists_activation_continuation (ActivationContinuation.lean:1945) and frozen_through_Xi (ReferencePath.lean:820), proved, but with existential thresholds and one witness per (N, ε)"
+      },
+      {
+        "weakPoint": 5,
+        "what": "the Lipschitz bounds of Prop B.2",
+        "lean": "AxisContraction.Controlled / exists_fixedPoint_of_controlled (:35, :227) with the Lipschitz constant and radius explicit; UnitHolomorphic (AnalyticCoefficientBounds.lean:38)",
+        "note": "proved machinery; the instantiation for the actual profile was not traced to a line"
+      },
+      {
+        "weakPoint": 8,
+        "what": "the analyticity region (Lemma 5.1 vs Theorem 4.6(i))",
+        "lean": "same machinery as weak point 5; the region hypothesis is carried, the instantiation not traced"
+      },
+      {
+        "weakPoint": 10,
+        "what": "the two correction routes never tabulated",
+        "lean": "TemporalMeanUpdate.absoluteInverse_solves/_zeroMean (:238, :227) proved; no quantified comparison of the two routes exists in Lean either"
+      }
+    ],
+    "notLocated": [
+      {
+        "weakPoint": 6,
+        "what": "Lemma 4.9's '2 + h < a' on the terminal collar",
+        "note": "Lean's tail is a different plateau construction; the inequality has no counterpart to check"
+      },
+      {
+        "weakPoint": "slips 2, 3, 5",
+        "what": "the D_z sentence, the missing 1/R, the φ_R⁴ extraction trap",
+        "note": "prose only; no Lean counterpart"
+      }
+    ],
+    "slipsFixedInLean": [
+      {
+        "slip": "the κ_s bookkeeping of Prop 9.5",
+        "lean": "the exponent ledger already carries −2κ (ExponentLedger.lean:30)",
+        "note": "the paper's arithmetic slip is not in the formal object"
+      },
+      {
+        "slip": "'every power of A_R at most 3/2' (p. 123)",
+        "lean": "R^(−7/4) (R3/WholeSpaceComparisonClosure.lean:25)",
+        "note": "Lean uses the exponent the displayed chain actually gives"
+      }
+    ],
+    "threeQuestions": [
+      {
+        "q": "Are the 'sufficiently small/large' parameters explicit numbers in Lean?",
+        "a": "No. h, N, Λ, C, q_* and the cycle schedule are all existentials or Classical.choice; the only numeric constants are κ = 10⁻⁵, Λ_chart = 4 − √2, X_big = 100, X_i = 110. Nothing in either artifact bounds h numerically."
+      },
+      {
+        "q": "Is the constructed field non-axisymmetric in Lean (the pulses' nonzero angular frequency)?",
+        "a": "Yes, and it is proved rather than assumed: the angular mode enters at HarmonicFields.field … (kp : ℤ) (:107); the actual construction fixes angularMode l n : ℤ with the theorem angularMode_ne_zero (ActualInitialization.lean:52). There is no literal ¬Axisymmetric theorem, but the nonzero angular mode is exactly what the swirl maximum principle requires the field to have — the formal object does evade the obstruction the paper never names."
+      },
+      {
+        "q": "Which theorem asserts the growth, and along what path?",
+        "a": "ConstructedSlowBase.origin (:892) gives u(t,0) = (1−t)^{−(1/2+h)}·j·e_z and FinalSlowBase.axis_tendsto (:373) sends it to infinity along t ↦ (t,0): the AXIAL component ON the axis. The paper's (10.20)–(10.21) uses a different path, off-axis at r = √(2X_in τ), where the AZIMUTHAL component diverges. Both give lim sup ‖u‖_∞ = ∞; the formal witness is the simpler one, and no Lean theorem bounds the swirl r·u_θ from below."
+      }
+    ]
+  },
+  "findings": {
+    "energyAsymmetry": "For Euler the positive content is formalized in full, energy bound included; for Navier–Stokes — the Millennium problem, and the one the announcement leads with — the energy clause is the single missing field of an otherwise complete candidate structure, and the lemma that would supply it sits unused in the same library."
   }
 }

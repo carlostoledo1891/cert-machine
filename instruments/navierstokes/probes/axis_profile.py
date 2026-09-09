@@ -338,6 +338,32 @@ try:
 except Exception as ex:
     print(f"# curves NOT written: {ex!r}")
 
+# ----------------------------------------------------------------------------- RED CONTROLS
+# A numerical check that cannot fail is decoration.  Each red plants a deliberate error
+# and the same test must reject it.
+REDS = []
+def red(name, fired, value=''):
+    print(("RED FIRED " if fired else "RED DID NOT FIRE ") + name + (' ' + str(value) if value else ''), flush=True)
+    REDS.append(fired)
+
+# (a) the 1/Lambda convergence test must reject a planted 1/Lambda^2 law
+errs = [errPhi[L_] for L_ in LAMBDAS]
+ratios = [errs[i+1]/errs[i] for i in range(len(errs)-1)]
+red("the 1/Lambda scaling test rejects a planted 1/Lambda^2 law",
+    not all(abs(rr - 0.01) < 0.003 for rr in ratios), f"observed ratios per decade {['%.3f' % rr for rr in ratios]}")
+# (b) the closed-form comparison must reject the wrong Bessel argument
+bad = float(np.max(np.abs(np.array([t['Phi'] for t in results[1e4]])[:, m]
+                         - f0(np.array([t['Y'] for t in results[1e4]])[:, None]*2*G.chi[m]))))
+red("the comparison with f0(2 Y chi) instead of f0(Y chi) is rejected", bad > 1e-3, f"max|dPhi|={bad:.3e}")
+# (c) the exit inequality is not trivially true: a line at 12 is violated
+red("the exit test is not vacuous: the same comparison rejects a line placed at v > 1e5",
+    not (minVexit[LAMBDA_MAIN] > 1e5), f"min v over the grid = {minVexit[LAMBDA_MAIN]:.4g} (the (B.19) line is 2.2)")
+# (d) grid convergence is not vacuous: a coarse grid does move the answer
+G3 = Grid(80)
+out3, _ = solve(G3, 1e4, Ys)
+d80 = float(np.max(np.abs(interp(G, results[1e4][kexit]['Phi'], etest) - interp(G3, out3[kexit]['Phi'], etest))))
+red("an 80-point grid does move the solution, so the N560-vs-N400 agreement is a convergence claim", d80 > 1e-7, f"max|dPhi| vs N80 = {d80:.2e}")
+
 # ----------------------------------------------------------------------------- figure
 try:
     import matplotlib; matplotlib.use('Agg')
@@ -402,5 +428,5 @@ try:
 except Exception as ex:  # the figure is illustration; a plotting failure must be visible but is not a mathematical FAIL
     print(f"# figure NOT written: {ex!r}")
 
-print(f"# total {time.time()-T0:.1f}s; {len(FAILS)} FAIL" + (": " + ", ".join(FAILS) if FAILS else ""))
-sys.exit(1 if FAILS else 0)
+print(f"# total {time.time()-T0:.1f}s; {len(FAILS)} FAIL" + (": " + ", ".join(FAILS) if FAILS else "") + f"; {sum(REDS)}/{len(REDS)} reds fired")
+sys.exit(1 if (FAILS or not all(REDS)) else 0)

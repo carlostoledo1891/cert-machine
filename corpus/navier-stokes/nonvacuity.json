@@ -1,0 +1,20 @@
+{
+  "what": "An adversarial check written here, not part of OpenAI's repository: the competitor classes the two Comparator theorems negate are inhabited. With zero datum and zero force, the fluid at rest satisfies every field of NavierStokesExistenceAndSmoothnessRn and NavierStokesExistenceAndSmoothnessPeriodic, and the zero data satisfy the four data conditions; so the negations are not vacuous consequences of an unsatisfiable definition.",
+  "file": "lean/cert-machine-NonVacuity.lean",
+  "sha256": "b79cd3000f89b4d96469ec2c27fc62b6f63a30f60f6a826090f6ae08fadc8a08",
+  "compiled_against": "ComparatorChallenges.NavierStokes at openai/NavierStokesAndEuler 8937a8f4 (Lean 4.34.0-rc2, Mathlib 85e3a25e), via `lake env lean NonVacuity.lean` in the built workspace, 2026-09-09",
+  "declarations": [
+    "zero_datum_decay",
+    "zero_datum_periodic",
+    "zero_force_decay",
+    "zero_force_periodic",
+    "rest_is_a_solution_Rn",
+    "rest_is_a_solution_periodic",
+    "classes_inhabited"
+  ],
+  "kernel_output": "'NavierStokes.Comparator.classes_inhabited' depends on axioms: [propext, Classical.choice, Quot.sound]",
+  "errors": 0,
+  "warnings": "one style hint (simpa \u2192 simp)",
+  "limit": "inhabitation by the rest state only; it shows the definitions are satisfiable, not that they admit every classical solution \u2014 that is the fidelity table's job",
+  "recorded": "2026-09-09T17:07:46-0300"
+}

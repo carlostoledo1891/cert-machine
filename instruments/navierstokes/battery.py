@@ -33,36 +33,43 @@ def run(script):
     r = subprocess.run([sys.executable, os.path.join(HERE, 'probes', script)], capture_output=True, text=True, timeout=1800)
     return r.returncode, r.stdout + r.stderr, time.time() - t0
 
+def reds_ok(lines):
+    """Every probe must carry red controls that fire: a check that cannot fail is not a check."""
+    fired = [l for l in lines if l.startswith('RED FIRED') or l.startswith('PASS RED CONTROL')]
+    dead = [l for l in lines if l.startswith('RED DID NOT FIRE') or l.startswith('FAIL RED CONTROL')]
+    return bool(fired) and not dead, len(fired), len(dead)
+
 def judge(script, out):
     """Return (verdict, lines) from a script's stdout."""
     lines = [l for l in out.splitlines() if l.strip()]
+    rok, nfired, ndead = reds_ok(lines)
     if script == 'symbolic_checks.py':
         fails = [l for l in lines if l.split()[1:2] == ['FAIL']]
         passes = [l for l in lines if l.split()[1:2] == ['PASS']]
         m = re.search(r'C2 worst q/\(C0\(tau\+\|z\|\^\{1/D\}\)\) on grid = ([0-9.]+)', out)
         c2ok = m is not None and float(m.group(1)) <= 1.0
-        return ('PASS' if not fails and passes and c2ok else 'FAIL'), lines
+        return ('PASS' if not fails and passes and c2ok and rok else 'FAIL'), lines
     if script == 'heat_exterior_ode.py':
-        return ('PASS' if 'matches (A.37): True' in out else 'FAIL'), [l for l in lines if l.startswith('(1)')]
+        return ('PASS' if 'matches (A.37): True' in out and rok else 'FAIL'), [l for l in lines if l.startswith(('(1)', 'RED'))]
     if script == 'swirl_maximum_principle.py':
         n_fail = len([l for l in lines if l.startswith('FAIL ')]); n_pass = len([l for l in lines if l.startswith('PASS ')])
-        ok = n_fail == 0 and n_pass > 0 and '# 0 FAIL' in out
+        ok = n_fail == 0 and n_pass > 0 and '# 0 FAIL' in out and rok
         return ('PASS' if ok else 'FAIL'), [l for l in lines if l.startswith(('PASS ', 'FAIL ', '# '))]
     if script == 'axis_profile.py':
         n_pass = len([l for l in lines if l.startswith('PASS ')]); n_fail = len([l for l in lines if l.startswith('FAIL ')])
         m = re.search(r'# total [0-9.]+s; (\d+) FAIL', out)
-        ok = n_fail == 0 and n_pass > 0 and m is not None and m.group(1) == '0'
-        return ('PASS' if ok else 'FAIL'), [l for l in lines if l.startswith(('PASS ', 'FAIL ', '# total'))]
+        ok = n_fail == 0 and n_pass > 0 and m is not None and m.group(1) == '0' and rok
+        return ('PASS' if ok else 'FAIL'), [l for l in lines if l.startswith(('PASS ', 'FAIL ', 'RED', '# total'))]
     if script == 'coefficient_equations.py':
         n_pass = len([l for l in lines if l.startswith('PASS ')]); n_fail = len([l for l in lines if l.startswith('FAIL ')])
         m = re.search(r'(\d+)/(\d+) passed', out)
-        ok = n_fail == 0 and n_pass > 0 and m is not None and m.group(1) == m.group(2)
-        return ('PASS' if ok else 'FAIL'), [l for l in lines if l.startswith('FAIL ') or 'passed' in l or l.startswith('PASS ')]
+        ok = n_fail == 0 and n_pass > 0 and m is not None and m.group(1) == m.group(2) and rok
+        return ('PASS' if ok else 'FAIL'), [l for l in lines if l.startswith(('FAIL ', 'RED')) or 'passed' in l or l.startswith('PASS ')]
     if script == 'heat_exterior_num.py':
         m = re.search(r'worst relative residual: ([0-9.e+-]+)', out)
         ok = m is not None and float(m.group(1)) < 1e-15
         diffs = re.findall(r'diff (-?[0-9.e+-]+)', out)
-        ok = ok and all(abs(float(d)) < 1e-20 for d in diffs)
+        ok = ok and all(abs(float(d)) < 1e-20 for d in diffs) and rok
         return ('PASS' if ok else 'FAIL'), lines
     return 'FAIL', lines
 
@@ -75,11 +82,14 @@ def main():
             verdict = 'FAIL'
         allok = allok and verdict == 'PASS'
         checks.append({'script': 'instruments/navierstokes/probes/' + script, 'sha256': sha(os.path.join(HERE, 'probes', script)),
-                       'what': what, 'verdict': verdict, 'seconds': round(dt, 1), 'output': lines})
+                       'what': what, 'verdict': verdict, 'seconds': round(dt, 1),
+                       'redsFired': len([l for l in out.splitlines() if l.startswith('RED FIRED') or l.startswith('PASS RED CONTROL')]),
+                       'redsDead': len([l for l in out.splitlines() if l.startswith('RED DID NOT FIRE') or l.startswith('FAIL RED CONTROL')]), 'output': lines})
         print(f'{verdict}  {script}  ({dt:.0f}s)')
     rec = {
         'what': 'Computable checks of the printed formulas in OpenAI, "Finite time blowup for Navier–Stokes" (2026-09-08), re-run by this battery; a probe of the writeup, not a certification of the theorem (the Lean certificate is the claim).',
         'paper_sha256': '0e779481c4da40bd28d1e642e1d8ca57447d129610df28dfa5a11e9af8ae228f',
+        'discipline': 'every probe carries red controls — a deliberately wrong variant of the same test that must be rejected; a script whose reds do not all fire is FAIL, whatever its checks say.',
         'method': 'sympy symbolic identities; mpmath quadrature at 25 digits for the heat exterior (residuals reported, not interval-certified); the cutoff bound (10.3) is also proved exactly by the two-case argument: 1−η² ≥ 1/2 gives q ≤ 2τ, otherwise |η| > 2^{-1/2} gives q ≤ (√2|z|)^{1/D}, so q ≤ 2^{1/(2D)}(τ + |z|^{1/D}) since 1/(2D) > 1.',
         'note': 'A first run on 2026-09-09 reported the integral H failing (A.37) and (A.35); that was this battery\'s own bug — the m-th Z-derivative of (1+Zv)^{-h} carries (−1)^m (h)_m, not (−h)_m. Recorded so a later reader of the scratch logs does not mistake it for a finding.',
         'ran': time.strftime('%Y-%m-%d %H:%M:%S %z'),

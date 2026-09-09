@@ -1,17 +1,20 @@
 {
   "what": "Computable checks of the printed formulas in OpenAI, \"Finite time blowup for Navier–Stokes\" (2026-09-08), re-run by this battery; a probe of the writeup, not a certification of the theorem (the Lean certificate is the claim).",
   "paper_sha256": "0e779481c4da40bd28d1e642e1d8ca57447d129610df28dfa5a11e9af8ae228f",
+  "discipline": "every probe carries red controls — a deliberately wrong variant of the same test that must be rejected; a script whose reds do not all fire is FAIL, whatever its checks say.",
   "method": "sympy symbolic identities; mpmath quadrature at 25 digits for the heat exterior (residuals reported, not interval-certified); the cutoff bound (10.3) is also proved exactly by the two-case argument: 1−η² ≥ 1/2 gives q ≤ 2τ, otherwise |η| > 2^{-1/2} gives q ≤ (√2|z|)^{1/D}, so q ≤ 2^{1/(2D)}(τ + |z|^{1/D}) since 1/(2D) > 1.",
   "note": "A first run on 2026-09-09 reported the integral H failing (A.37) and (A.35); that was this battery's own bug — the m-th Z-derivative of (1+Zv)^{-h} carries (−1)^m (h)_m, not (−h)_m. Recorded so a later reader of the scratch logs does not mistake it for a finding.",
-  "ran": "2026-09-09 12:42:47 -0300",
+  "ran": "2026-09-09 17:21:03 -0300",
   "verdict": "PASS",
   "checks": [
     {
       "script": "instruments/navierstokes/probes/symbolic_checks.py",
-      "sha256": "8259d77a0b9afb2804fbe8714ae4bc56b54e2b6f75db4c6595ac5287aa2257c4",
+      "sha256": "be9c98f3c760b86bd6c2bfcc1c0f5d708c115b27cd27f2f5ed5e596eb8165e86",
       "what": "C2–C6, C11: similarity-coordinate derivatives (Lemma 4.1), the commutator kernel norm (Lemma 10.5), the derivative count (10.12), the viscosity rescaling (10.22)–(10.23), the periodic λ-rescaling (Cor. 10.6), the exterior q-cancellation (3.1), and a numeric spot check of the cutoff bound (10.3)",
       "verdict": "PASS",
-      "seconds": 1.7,
+      "seconds": 3.6,
+      "redsFired": 2,
+      "redsDead": 0,
       "output": [
         "C3 PASS q_tau = 1/L (paper: q_t = -1/L with t=1-tau) ",
         "C3 PASS eta_tau = -D eta/(qL) ",
@@ -27,25 +30,36 @@
         "C6 PASS (10.23) energy factor nu * nu^{3/2} = nu^{5/2} ",
         "C11 PASS q-dependence cancels: u_theta exterior = c (r^2/2)^{-A} H(4 tau/r^2) ",
         "C5 PASS (10.12) with j=3,m=5: expression/b^(m-j) at sigma=s/b is b-free ",
-        "C2 worst q/(C0(tau+|z|^{1/D})) on grid = 0.496555 (<=1 required); C0 = 2.0282"
+        "C2 worst q/(C0(tau+|z|^{1/D})) on grid = 0.496555 (<=1 required); C0 = 2.0282",
+        "RED FIRED the rescaling check itself passes at the correct exponent 1/2",
+        "RED FIRED the same check rejects the planted exponent 1/3",
+        "ALL REDS FIRED (2/2)"
       ]
     },
     {
       "script": "instruments/navierstokes/probes/heat_exterior_ode.py",
-      "sha256": "70aa3d30591cf01542f3897ae481d1b5bdbf203f18cfc4d8def56c7a81f59228",
+      "sha256": "5928d617356d367a90a8c26e78675eebf41012e6d4edd109df3353c5bdc8c2af",
       "what": "C1a: K = (r²/2)^{-A} H(4τ/r²) solves the radial swirl heat equation iff Z²H″ + (1+2(1+h)Z)H′ + h(1+h)H = 0, i.e. (A.37)",
       "verdict": "PASS",
-      "seconds": 2.0,
+      "seconds": 2.7,
+      "redsFired": 4,
+      "redsDead": 0,
       "output": [
-        "(1) heat residual = (-4) [Z^2 H'' + (2*Z*h + 2*Z + 1) H' + (h*(h + 1)) H]"
+        "(1) heat residual = (-4) [Z^2 H'' + (2*Z*h + 2*Z + 1) H' + (h*(h + 1)) H]",
+        "RED FIRED (A.37) with the zeroth-order coefficient h(2+h) is rejected",
+        "RED FIRED the ansatz with exponent A+1 does not satisfy (A.37)",
+        "RED FIRED the total-derivative step with the exponent -h instead of -1-h is rejected",
+        "RED FIRED the (-h)_m derivative factor (this battery's own first bug) fails the ODE, residual 0.00418"
       ]
     },
     {
       "script": "instruments/navierstokes/probes/coefficient_equations.py",
-      "sha256": "d763d82726b68233050a0a92d86c649005db70e001a7f6c1626afcc46603127b",
+      "sha256": "f12b1b9980aaa889189b3e609840e3ff2ffd153ccf0c1ca210bba4fca46532ef",
       "what": "C1 of the §5 memo: the expansion (5.1) substituted into the axisymmetric Navier–Stokes operator in (q, X, η) with the derivatives of Lemma 4.1, expanded by exact q-exponent, and compared term by term with the printed order-n coefficient equations (5.2)–(5.6), the sparsity of A₁ in (5.7) (no ∂²_η, no mixed derivatives, A₁D₀A₁ = 0 — the block nilpotency behind (5.8)), and the divisibility of Ω_k by X",
       "verdict": "PASS",
-      "seconds": 4.6,
+      "seconds": 3.7,
+      "redsFired": 5,
+      "redsDead": 0,
       "output": [
         "PASS primitives q_z,eta_z,q_t,eta_t,X_z,X_t from implicit differentiation of q - z^2 q^{2h} = 1-t",
         "PASS Lemma 4.1: d_t(q^b f) = q^{b-1} T_b f",
@@ -116,15 +130,22 @@
         "PASS A_1 D_0 (d_eta A_1) = 0",
         "PASS Omega_2 / X has no X in its denominator after V_j = X v_j (divisibility claim, p. 47); denominator = 2*F17**3",
         "PASS sample term V_i(V_j' - V_j/(2X)) = X v_i (v_j/2 + X v_j') (p. 47)",
-        "elapsed 4.3s; 69/69 passed"
+        "RED FIRED Lemma 4.1's d_t identity with the coefficient 2 planted in T_b is rejected",
+        "RED FIRED the d_z identity with D replaced by D+h in the power is rejected",
+        "RED FIRED A_1 is not the zero matrix (so A_1 D A_1 = 0 is nilpotency, not triviality)",
+        "RED FIRED A_1 with a diagonal entry planted is no longer nilpotent",
+        "RED FIRED without the regularity substitution V_j = X v_j the same test finds X in the denominator",
+        "elapsed 3.5s; 69/69 passed; 5/5 reds fired"
       ]
     },
     {
       "script": "instruments/navierstokes/probes/axis_profile.py",
-      "sha256": "bc8c59416308a29569e2926ddc53f2b1e1e86c2d1e2a4c9dc4f41a0fe9f3a641",
+      "sha256": "c5747587ecb9315111d2a66b4fbd69efc37d7711c6e3de914f09f92d82325016",
       "what": "C14 of the §4 memo: the axis initial-value problem (4.13)+(4.7) of Appendix B integrated numerically in Y = ΛX at representative data the paper never fixes (h = 0.01, j0 = 0.05, P* = 2, δ* = 0.1, σ* from (B.2)); Φ, u and the shear scale as 1/Λ toward the closed form f0(Yχ) as Proposition B.2 claims, Φ > 0, (B.17) holds from Λ = 10⁶ on, the exit inequality holds — a consistency check of the transcription at these data, decided in floating point, never a certification",
       "verdict": "PASS",
-      "seconds": 3.4,
+      "seconds": 2.9,
+      "redsFired": 4,
+      "redsDead": 0,
       "output": [
         "PASS B1_Zstar_positive_at_eta0 Z*(eta0)=0.8040",
         "PASS B2_chi_gt_0.99_where_Zstar_small min chi=0.99188, separation from eta0 = 0.0076 = 2.5 sigma*",
@@ -144,8 +165,12 @@
         "PASS B19_routeA_p1>2.3_where_chi>.99 min p1=3.3273  (paper: -2zf0'/f0 > 2.36 at z=4chi)",
         "PASS B19_routeB_p2^2/p1>2.3_where_chi<=.99 min=7.437e+03 on 104 grid points",
         "PASS p1=XQs/L_consistent_with_a=-2D_XlogE max rel diff for Y>=0.3 (trapezoid on 381 radii) = 3.96e-05",
-        "PASS grid_convergence_N560_vs_N400_at_Lambda=1e4 max|dPhi|=3.55e-09 max|du|=1.24e-08 (0.2s)",
-        "# total 2.8s; 0 FAIL"
+        "PASS grid_convergence_N560_vs_N400_at_Lambda=1e4 max|dPhi|=3.55e-09 max|du|=1.24e-08 (0.1s)",
+        "RED FIRED the 1/Lambda scaling test rejects a planted 1/Lambda^2 law observed ratios per decade ['0.102', '0.100', '0.100', '0.100']",
+        "RED FIRED the comparison with f0(2 Y chi) instead of f0(Y chi) is rejected max|dPhi|=3.320e-01",
+        "RED FIRED the exit test is not vacuous: the same comparison rejects a line placed at v > 1e5 min v over the grid = 7437 (the (B.19) line is 2.2)",
+        "RED FIRED an 80-point grid does move the solution, so the N560-vs-N400 agreement is a convergence claim max|dPhi| vs N80 = 1.78e-02",
+        "# total 2.2s; 0 FAIL; 4/4 reds fired"
       ]
     },
     {
@@ -153,7 +178,9 @@
       "sha256": "20d140f1cff53c90cd47519ee75509cda2e97b24d7ae719364d5d9aa234de4f5",
       "what": "The obstruction the paper never names: for an axisymmetric flow the swirl Γ = r·uθ obeys a drift–diffusion equation with no zeroth-order term (derived here symbolically from the θ-momentum equation), so a bounded compactly supported force from rest gives a bounded swirl and |uθ| ≤ C/r — while the paper's leading field has Γ = √(2X) q^{−h} E → ∞ (its own r·uθ = q^{−h}H, p. 27). The axisymmetric background alone is impossible; the theorem lives on the pulses' nonzero angular frequencies (p. 12). Also: the blowup is type II (outside the axisymmetric type-I exclusions of KNSS/CSYT), and every classical necessary condition for a singularity — Serrin, ESS, BKM, Leray's two lower bounds, finite energy and dissipation — is met by the stated exponents",
       "verdict": "PASS",
-      "seconds": 0.8,
+      "seconds": 0.5,
+      "redsFired": 2,
+      "redsDead": 0,
       "output": [
         "PASS swirl equation: r × (θ-momentum) with uθ = Γ/r is  ∂_tΓ + u_r∂_rΓ + u_z∂_zΓ = Γ_rr − Γ_r/r + Γ_zz + r f_θ",
         "PASS no zeroth-order term in Γ (the maximum principle applies)  coefficient of Γ = 0",
@@ -175,10 +202,12 @@
     },
     {
       "script": "instruments/navierstokes/probes/heat_exterior_num.py",
-      "sha256": "a37bc4487d436988de29f558095beb4a27198902f7d82d47f346780fc9863ce6",
+      "sha256": "bba23116b83c974bc325b5642cd1ca5d74a8f06db93eb2157577f365a3616f7e",
       "what": "C1b: the integral H(Z) = Γ(1+h)⁻¹∫₀^∞ e^{-v} v^h (1+Zv)^{-h} dv of (A.32) satisfies (A.37) and H^{(m)}(0) = (−1)^m (h)_m (1+h)_m of (A.35)",
       "verdict": "PASS",
-      "seconds": 2.6,
+      "seconds": 2.4,
+      "redsFired": 3,
+      "redsDead": 0,
       "output": [
         "h=0.0099 Z=0.01: H=0.9999010147 ODE residual/H=4.04e-28",
         "h=0.0099 Z=1.0: H=0.9940755585 ODE residual/H=2.03e-28",
@@ -198,7 +227,11 @@
         "H^(2)(0) = 0.02029394080196  (A.35) claims 0.02029394080196  diff -4.04e-28",
         "H^(3)(0) = -0.1227701838906  (A.35) claims -0.1227701838906  diff 1.62e-27",
         "H^(4)(0) = 1.4817622131365  (A.35) claims 1.4817622131365  diff 0.0",
-        "|H''(Z)| at Z=0,1,10,100: ['0.0202939', '0.00210895', '6.64292e-5', '8.91224e-7']"
+        "|H''(Z)| at Z=0,1,10,100: ['0.0202939', '0.00210895', '6.64292e-5', '8.91224e-7']",
+        "RED FIRED the (-h)_m derivative factor (this battery's own first bug) fails the ODE: relative residual 0.0042",
+        "RED FIRED the ODE with the coefficient h(2+h) is rejected by the same integral: residual 0.00984",
+        "RED FIRED (A.35) with the Pochhammer product doubled is rejected",
+        "ALL REDS FIRED (3/3)"
       ]
     }
   ]
