@@ -37,6 +37,7 @@ const PQ = require(path.join(HERE, 'pqc', 'build.js'));
 const OC = require(path.join(HERE, 'occultation', 'build.js'));
 const TR = require(path.join(HERE, 'transit', 'build.js'));
 const CE = require(path.join(HERE, 'census', 'build.js'));
+const NS = require(path.join(HERE, 'navier-stokes', 'build.js'));
 /* the affect card's numbers, read out of the record rather than typed. A card
    that repeats a page's figures by hand is a second copy, and a second copy
    drifts. */
@@ -111,6 +112,7 @@ const fact = (k, v, note) =>
 const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py' };
 const MANIFEST = [
   { id: 'shape-hunt', title: 'Nothing here is a perfect circle.', blurb: 'Sixteen million exact tests for hidden polygons in the geometries the pages next door report, then the same search with the geometry shuffled out.', backing: 'exact', art: () => SH.cardArt(), scale: `${fmt(SH.SHAPETESTS)} shape tests` },
+  { id: 'navier-stokes', title: 'Turn the singularity.', blurb: 'The object a Millennium proof constructs, not a simulation of it: a self-similar core you collapse by hand, and the one parameter it hangs on, with the two classical exclusions that close on it from opposite sides — decided in your tab in exact integers.', backing: 'exact', art: () => NS.cardArt(), scale: `${NS.facts.criteria} criteria, decided live` },
   { id: 'interferometer', title: 'Not the picture. The set of pictures.', blurb: 'The black-hole image is one sky chosen by a prior from the many the data allow. This draws the set, and brackets the source without any prior at all.', backing: 'float', art: () => UV.svg, scale: `longest baseline ${n(UV.maxUV, 2)} Gλ` },
   { id: 'curveset', title: 'The line they published, and the lines that fit.', blurb: 'A calibration used backwards comes off a fitted curve. This prices the fit: what the standards allow, assuming only monotone.', backing: 'float', art: () => CS.cardArt(), scale: `${n(CS.monoR(CS.pontius), 0)}× the reported ±` },
   { id: 'plates', title: 'Manifolds we are handed.', blurb: 'Eight stated manifolds drawn from their rule; two of them are certificates rendered at their own resolution.', backing: 'certificate', art: () => PL.cardArt(), scale: `plate I of ${PL.counts.plates}` },
@@ -155,6 +157,17 @@ const body = `
       <h2>Nothing here is a perfect circle.</h2>
       <p class="sub">The elicited geometries look like they hold shapes &mdash; a pentagon here, four points on a circle there. So this looks exhaustively, at every triple and quadruple and five-subset of every set from every model, and then runs the identical search on the same numbers with the geometry shuffled out. Almost nothing survives that. What does is not a polygon &mdash; and for most of the sets the verdict is not a margin at all but a certificate in whole numbers that no such points exist.</p>
       <span class="go">read the hunt <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+  <a class="card" href="navier-stokes/index.html">
+    <figure class="card-art">
+      ${plate(NS.cardArt(), `${NS.facts.criteria} criteria &middot; decided in your tab`)}
+    </figure>
+    <div class="card-body">
+      <h2>Turn the singularity.</h2>
+      <p class="sub">A Millennium proof says a smooth force can drive a fluid from rest to infinite speed in finite time. Everyone else will render a simulation of that; a simulation is the one thing here nobody can certify, so this draws <em>the object the proof constructs</em> instead &mdash; a core that collapses as you move time, its aspect ratio diverging. One dial is the smallness parameter the whole argument hangs on. Move it and two classical exclusions close on it from opposite sides, each verdict an exact rational inequality decided in integers as you drag.</p>
+      <span class="go">open the instrument <span class="arw">&rarr;</span></span>
     </div>
   </a>
 
@@ -393,7 +406,9 @@ const pq = PQ.build(OUT);
 const oc = OC.build(OUT);
 const tr = TR.build(OUT);
 const ce = CE.build(OUT);
+const ns = NS.build(OUT);
 
+console.log(`site/instruments/navier-stokes/     ${(ns.bytes / 1024).toFixed(0)} KB  ·  ${NS.facts.criteria} criteria and ${NS.facts.exponents} exponents decided live in exact rationals, paper ${NS.facts.paper}`);
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
 console.log(`site/instruments/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);
 console.log(`site/instruments/interferometer/       ${(ifm.bytes / 1024).toFixed(0)} KB  ·  ${ifm.members} members + ${ifm.extremes} extremes, ${fmt(ifm.K)} rows`
