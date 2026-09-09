@@ -113,6 +113,11 @@
   ],
   "weakPoints": [
     {
+      "rank": 0,
+      "where": "pp. 12, 27 — unstated",
+      "what": "The swirl maximum principle: the axisymmetric background alone (r·uθ = q^{−h}H, unbounded) is impossible for a forced flow from rest with bounded force; the non-axisymmetric pulses are the only reason the theorem is not false, and the paper never says so. Not a gap in the proof — the Lean candidate is whatever it is — but the single sentence a referee would demand in the introduction, and the reason h > 0 (type II) is forced rather than chosen."
+    },
+    {
       "rank": 1,
       "where": "Prop 9.9, pp. 114–116, Step 3",
       "what": "Endpoint regularity of the local field up to τ = 0 for q ≥ c: one paragraph ('differentiating its fixed linear ODE gives the bounds at every derivative order'), no estimate displayed. Lemma 10.2 region (a), hence the force's smoothness at t = 1 away from the origin, rests on it."
@@ -263,5 +268,64 @@
     "No numerical solution of the profile equations is a certification: the paper contains no numerics and none of its constants is a number.",
     "The priority dispute is recorded as dates from the three parties' own documents and adjudicated nowhere on this site.",
     "The Euler paper is audited separately and its result is not folded into the Navier–Stokes verdict."
-  ]
+  ],
+  "obstructions": {
+    "what": "The adversarial pass: every known theorem that forbids a Navier–Stokes singularity of some kind, tested against the construction. A construction that violated one would be refuted; this one evades each, and one evasion is load-bearing and unstated.",
+    "rows": [
+      {
+        "obstruction": "the swirl maximum principle (axisymmetric flows)",
+        "statement": "for axisymmetric u the swirl Γ = r·uθ satisfies ∂ₜΓ + u_r∂_rΓ + u_z∂_zΓ = Γ_rr − Γ_r/r + Γ_zz + r·f_θ, a drift–diffusion equation with no zeroth-order term; hence sup|Γ(t)| ≤ ∫₀ᵗ sup|r f_θ| for Γ(0) = 0, so a bounded compactly supported force from rest gives a BOUNDED swirl and |uθ| ≤ C/r for all t",
+        "construction": "the leading field has uθ = q^{−1/2−h}E at r = √(2qX), i.e. Γ = √(2X) q^{−h} E → ∞ — the paper writes r·uθ⁽⁰⁾ = q^{−h}H itself (p. 27)",
+        "verdict": "the axisymmetric background ALONE is impossible as a forced flow from rest; the theorem survives only because the physical field is not axisymmetric — the pulses carry nonzero integer angular frequencies (p. 12) and their Reynolds flux breaks the maximum principle for the angular mean. Load-bearing, and nowhere stated in the paper. Derived and checked symbolically in the battery."
+      },
+      {
+        "obstruction": "type-I exclusion for axisymmetric flows (Chen–Strain–Yau–Tsai 2008; Koch–Nadirashvili–Seregin–Šverák 2009)",
+        "statement": "an axisymmetric solution with |u| ≤ C/√(T−t) (or C/r) does not blow up; a bounded force rescales to zero, so the exclusion covers forced flows",
+        "construction": "|u| ≍ τ^{−1/2−h}: type II by the factor τ^{−h}; and the flow is not axisymmetric",
+        "verdict": "evaded twice — h > 0 is what the type-I theorems force, and the paper never says so"
+      },
+      {
+        "obstruction": "no-swirl axisymmetric global regularity (Ladyzhenskaya; Ukhovskii–Yudovich)",
+        "statement": "axisymmetric flows without swirl are globally regular",
+        "construction": "the core has swirl, injected by f_θ (the unforced flow from rest would have Γ ≡ 0 by the maximum principle)",
+        "verdict": "evaded; the force is essential"
+      },
+      {
+        "obstruction": "Serrin–Prodi–Ladyzhenskaya (p = ∞, q = 2)",
+        "statement": "a singularity at T requires ∫₀ᵀ‖u‖_∞² dt = ∞",
+        "construction": "‖u‖_∞² ≍ τ^{−1−2h}",
+        "verdict": "met"
+      },
+      {
+        "obstruction": "Escauriaza–Seregin–Šverák",
+        "statement": "a singularity requires ‖u(t)‖_{L³} → ∞",
+        "construction": "‖u‖_{L³} ≍ τ^{−4h/3}",
+        "verdict": "met (slowly: h = 1/100 gives τ^{−1/75})"
+      },
+      {
+        "obstruction": "Beale–Kato–Majda-type",
+        "statement": "∫‖ω‖_∞ dt = ∞",
+        "construction": "ω ≍ u/ℓ_r ≍ τ^{−1−h}",
+        "verdict": "met"
+      },
+      {
+        "obstruction": "Leray's lower bounds",
+        "statement": "‖u‖_∞ ≥ cτ^{−1/2}, ‖∇u‖₂ ≥ cτ^{−1/4} near a singularity",
+        "construction": "τ^{−1/2−h} and τ^{−1/4−3h/2}",
+        "verdict": "met"
+      },
+      {
+        "obstruction": "finite energy and finite dissipation",
+        "statement": "a Leray solution has sup‖u‖₂ < ∞ and ∫‖∇u‖₂² < ∞",
+        "construction": "core energy τ^{1/2−3h} → 0; dissipation rate τ^{−1/2−3h}, integrable iff h < 1/6",
+        "verdict": "met, and h < 1/6 is a real constraint the printed h < 1/100 satisfies"
+      },
+      {
+        "obstruction": "Caffarelli–Kohn–Nirenberg; Leray's singular times",
+        "statement": "the singular set has parabolic 1-Hausdorff measure zero; singular times have 1/2-Hausdorff measure zero",
+        "construction": "one point, one time",
+        "verdict": "met"
+      }
+    ]
+  }
 }

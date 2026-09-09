@@ -21,6 +21,7 @@ SCRIPTS = [
     ('heat_exterior_ode.py', 'C1a: K = (r²/2)^{-A} H(4τ/r²) solves the radial swirl heat equation iff Z²H″ + (1+2(1+h)Z)H′ + h(1+h)H = 0, i.e. (A.37)'),
     ('coefficient_equations.py', 'C1 of the §5 memo: the expansion (5.1) substituted into the axisymmetric Navier–Stokes operator in (q, X, η) with the derivatives of Lemma 4.1, expanded by exact q-exponent, and compared term by term with the printed order-n coefficient equations (5.2)–(5.6), the sparsity of A₁ in (5.7) (no ∂²_η, no mixed derivatives, A₁D₀A₁ = 0 — the block nilpotency behind (5.8)), and the divisibility of Ω_k by X'),
     ('axis_profile.py', 'C14 of the §4 memo: the axis initial-value problem (4.13)+(4.7) of Appendix B integrated numerically in Y = ΛX at representative data the paper never fixes (h = 0.01, j0 = 0.05, P* = 2, δ* = 0.1, σ* from (B.2)); Φ, u and the shear scale as 1/Λ toward the closed form f0(Yχ) as Proposition B.2 claims, Φ > 0, (B.17) holds from Λ = 10⁶ on, the exit inequality holds — a consistency check of the transcription at these data, decided in floating point, never a certification'),
+    ('swirl_maximum_principle.py', 'The obstruction the paper never names: for an axisymmetric flow the swirl Γ = r·uθ obeys a drift–diffusion equation with no zeroth-order term (derived here symbolically from the θ-momentum equation), so a bounded compactly supported force from rest gives a bounded swirl and |uθ| ≤ C/r — while the paper\'s leading field has Γ = √(2X) q^{−h} E → ∞ (its own r·uθ = q^{−h}H, p. 27). The axisymmetric background alone is impossible; the theorem lives on the pulses\' nonzero angular frequencies (p. 12). Also: the blowup is type II (outside the axisymmetric type-I exclusions of KNSS/CSYT), and every classical necessary condition for a singularity — Serrin, ESS, BKM, Leray\'s two lower bounds, finite energy and dissipation — is met by the stated exponents'),
     ('heat_exterior_num.py', 'C1b: the integral H(Z) = Γ(1+h)⁻¹∫₀^∞ e^{-v} v^h (1+Zv)^{-h} dv of (A.32) satisfies (A.37) and H^{(m)}(0) = (−1)^m (h)_m (1+h)_m of (A.35)'),
 ]
 
@@ -43,6 +44,10 @@ def judge(script, out):
         return ('PASS' if not fails and passes and c2ok else 'FAIL'), lines
     if script == 'heat_exterior_ode.py':
         return ('PASS' if 'matches (A.37): True' in out else 'FAIL'), [l for l in lines if l.startswith('(1)')]
+    if script == 'swirl_maximum_principle.py':
+        n_fail = len([l for l in lines if l.startswith('FAIL ')]); n_pass = len([l for l in lines if l.startswith('PASS ')])
+        ok = n_fail == 0 and n_pass > 0 and '# 0 FAIL' in out
+        return ('PASS' if ok else 'FAIL'), [l for l in lines if l.startswith(('PASS ', 'FAIL ', '# '))]
     if script == 'axis_profile.py':
         n_pass = len([l for l in lines if l.startswith('PASS ')]); n_fail = len([l for l in lines if l.startswith('FAIL ')])
         m = re.search(r'# total [0-9.]+s; (\d+) FAIL', out)

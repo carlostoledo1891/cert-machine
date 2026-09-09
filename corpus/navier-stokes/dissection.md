@@ -147,3 +147,30 @@ the PDF glyphs are φ_R⁴, φ_R⁸ (powers of one bump), under which every step
 - No numerical solution of the profile equations was attempted; the paper contains no numerics
   and none of its constants is a number a computer could test.
 - The Euler paper is a separate record (`euler.md`).
+
+## 6 · The adversarial pass: every known obstruction, tested (added 2026-09-09, afternoon)
+
+The implacable question is not "is the paper well written" but "is there a theorem that says
+this cannot happen". Every classical obstruction to a Navier–Stokes singularity was set against
+the construction's own exponents (`instruments/navierstokes/probes/swirl_maximum_principle.py`,
+symbolic). One is load-bearing and unstated:
+
+- **The swirl maximum principle.** For an axisymmetric flow the swirl Γ = r·uθ satisfies
+  ∂ₜΓ + u_r∂_rΓ + u_z∂_zΓ = Γ_rr − Γ_r/r + Γ_zz + r·f_θ — derived here from the θ-momentum
+  equation, no zeroth-order term — so from rest with a bounded compactly supported force,
+  sup|Γ(t)| ≤ ∫₀ᵗ sup|r f_θ| and |uθ| ≤ C/r for every t < 1. The paper's leading field has
+  r·uθ⁽⁰⁾ = q^{−h}H (its own words, p. 27), unbounded. **The axisymmetric background alone is
+  impossible.** The theorem survives only because the physical field is not axisymmetric: the
+  pulses carry "nonzero integer angular frequencies" (p. 12), and it is their Reynolds flux that
+  breaks the maximum principle for the angular mean of Γ. The paper never says this. It is the one
+  sentence a referee would demand in the introduction, and it is why h > 0 is forced rather than
+  chosen.
+- **Type-I exclusion for axisymmetric flows** (Chen–Strain–Yau–Tsai 2008; Koch–Nadirashvili–
+  Seregin–Šverák 2009): evaded twice — the flow is type II (|u| ≍ τ^{−1/2−h}) and not axisymmetric.
+- **No-swirl regularity** (Ladyzhenskaya; Ukhovskii–Yudovich): the swirl is injected by f_θ.
+- Serrin (∫‖u‖_∞² = ∞), ESS (‖u‖_{L³} → ∞, here τ^{−4h/3}), BKM (∫‖ω‖_∞ = ∞), Leray's two lower
+  bounds, finite energy and finite dissipation (h < 1/6 — a real constraint), CKN and Leray's
+  singular-time measure: all met by the stated exponents.
+
+No obstruction refutes the construction. The finding is that its evasion of the first one is the
+physics of the whole paper, and the paper does not name it.

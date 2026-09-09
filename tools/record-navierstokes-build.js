@@ -21,19 +21,26 @@ const os = require('os');
 const ROOT = path.resolve(__dirname, '..');
 const HOME = os.homedir();
 const CLONE = process.env.LEAN_CLONE || path.join(HOME, 'Projects', 'navier-stokes-lean', 'NavierStokesAndEuler');
-const LOG = process.env.BUILD_LOG || path.join(HOME, 'Projects', 'navier-stokes-lean', 'build2.log');
+/* The build ran in two legs on 2026-09-09: build2.log (8 parallel lean processes, ~14 GB resident,
+   9 GB of swap, ~1 file per minute) and build3.log (restarted with LEAN_NUM_THREADS=4 after the
+   swap thrash; Lake resumed from the artifacts already built). Both legs are read; the exit code
+   and the end time come from the last one. */
+const LOGS = (process.env.BUILD_LOGS || ['build2.log', 'build3.log'].map((f) => path.join(HOME, 'Projects', 'navier-stokes-lean', f)).join(',')).split(',');
+const LOG = LOGS[LOGS.length - 1];
 const PIN = '8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538';
 const die = (m) => { console.error('BUILD RECORD REFUSED: ' + m); process.exit(1); };
-if (!fs.existsSync(LOG)) die('no build log at ' + LOG);
-const raw = fs.readFileSync(LOG, 'latin1').replace(/\r/g, '\n');
-const exitLine = /^EXIT (\d+)$/m.exec(raw);
-if (!exitLine) die('the build has not finished (no EXIT line)');
+for (const l of LOGS) if (!fs.existsSync(l)) die('no build log at ' + l);
+const raw = LOGS.map((l) => fs.readFileSync(l, 'latin1').replace(/\r/g, '\n')).join('\n');
+const lastRaw = fs.readFileSync(LOG, 'latin1').replace(/\r/g, '\n');
+const exitLine = /^EXIT (\d+)$/m.exec(lastRaw);
+if (!exitLine) die('the build has not finished (no EXIT line in ' + LOG + ')');
 const head = cp.execSync('git rev-parse HEAD', { cwd: CLONE, encoding: 'utf8' }).trim();
 if (head !== PIN) die('clone at ' + head + ', not ' + PIN);
 const lines = raw.split('\n');
 const built = lines.filter((l) => /Built /.test(l)).length;
 const total = (() => { const m = [...raw.matchAll(/\[(\d+)\/(\d+)\]/g)]; return m.length ? Number(m[m.length - 1][2]) : null; })();
 const errors = lines.filter((l) => /error:|✖/.test(l) && !/unknown (short|long) option/.test(l));
+const legs = LOGS.map((l) => ({ log: path.basename(l), threads: (/LEAN_NUM_THREADS=(\d+)/.exec(fs.readFileSync(l, 'latin1')) || [])[1] || String(os.cpus().length) + ' (default)', built: fs.readFileSync(l, 'latin1').replace(/\r/g, '\n').split('\n').filter((x) => /Built /.test(x)).length }));
 const dates = lines.filter((l) => /^\w{3} \w{3} +\d+ \d\d:\d\d:\d\d/.test(l));
 const real = [...raw.matchAll(/^real\s+(\d+)m([\d.]+)s/gm)].map((m) => Number(m[1]) * 60 + Number(m[2]));
 const buildSeconds = real.length ? real[real.length - 1] : null;
@@ -62,7 +69,7 @@ const rec = {
   machine: { model: (() => { try { return cp.execSync('sysctl -n hw.model', { encoding: 'utf8' }).trim(); } catch (e) { return os.platform(); } })(), cpus: os.cpus().length, memoryGB: Math.round(os.totalmem() / 2 ** 30), os: os.platform() + ' ' + os.release(), arch: os.arch() },
   toolchain: /toolchain: (.*)/.exec(raw)?.[1] || null,
   commit: head, started: dates[0] || null, finished: dates[dates.length - 1] || null,
-  jobsBuilt: built, jobsTotal: total, buildSeconds, exitCode: Number(exitLine[1]), errors: errors.slice(0, 20), slowest,
+  jobsBuilt: built, jobsTotal: total, buildSeconds, legs, exitCode: Number(exitLine[1]), errors: errors.slice(0, 20), slowest,
   verdict: Number(exitLine[1]) === 0 && errors.length === 0 ? 'PASS' : 'FAIL',
   axioms, onlyStandardAxioms: onlyStandard, standardAxioms: STANDARD,
   comparator,

@@ -34,6 +34,7 @@ if (P.verdict !== 'PASS') die('the probe battery did not pass');
 if (!['PASS', 'FAIL'].includes(B.verdict)) die('build.json has no verdict');
 const nDecls = Object.keys(B.axioms).length;
 if (nDecls !== 4) die('expected four declarations in the axiom report, found ' + nDecls);
+if (!A.obstructions || !A.obstructions.rows.some((o) => /swirl maximum principle/.test(o.obstruction) && /impossible/.test(o.verdict))) die('the swirl-maximum-principle finding is not in the record');
 const energyRow = A.paperVsLean.find((r) => /uniform energy bound/.test(r.item));
 if (!energyRow || !/NOT among/.test(energyRow.status)) die('the energy-clause finding is not in the record as stated');
 const upstreamOnlyNotation = R.challengeVsUpstream.onlyInChallenge.every((l) => /^(open|notation)/.test(l)) && R.challengeVsUpstream.onlyInUpstream.every((l) => /^(open|notation)/.test(l));
@@ -131,7 +132,7 @@ B_.push(C.header({
 }));
 B_.push(C.tldr({
   findingRaw: '<strong>The theorem the Lean proof targets is Clay\'s (C) and (D) with nothing added to the competitor class and nothing dropped from the data — written by a third party months before the proof existed. The proof ' + buildVerb + ' here' + (mins ? ' in ' + fmt(mins) + ' minutes' : '') + ', and ' + axiomsSentence + '.</strong> '
-    + 'Read as mathematics, the writeup holds together wherever six independent readings looked: the closing argument re-derived term by term, the profile equations re-derived from the equations of motion, the iteration shown to close on one domain, every printed identity a computer can test passing. No error and no counterexample were found. What was found is one gap between the paper and its certificate: the paper\'s Theorem 1.1 and the announcement say the blowing-up fluid keeps <em>finite energy through the singularity</em>, and that clause is not among the Lean\'s conclusions — the lemma that would give it is proved in the repository and used by nothing. Clay\'s (C) does not need it. And a list of ' + A.weakPoints.length + ' places where the paper asserts what a referee would want displayed, ranked by how much rests on them.',
+    + 'Read as mathematics, the writeup holds together wherever six independent readings looked: the closing argument re-derived term by term, the profile equations re-derived from the equations of motion, the iteration shown to close on one domain, every printed identity a computer can test passing. No error and no counterexample were found; every classical obstruction to a Navier–Stokes singularity was set against the construction and each is evaded — one of them, the swirl maximum principle, by the single feature the paper never names: its axisymmetric core is <em>impossible</em> on its own, and the theorem lives on the non-axisymmetric pulses. What was found besides is one gap between the paper and its certificate: the paper\'s Theorem 1.1 and the announcement say the blowing-up fluid keeps <em>finite energy through the singularity</em>, and that clause is not among the Lean\'s conclusions — the lemma that would give it is proved in the repository and used by nothing. Clay\'s (C) does not need it. And a list of ' + A.weakPoints.length + ' places where the paper asserts what a referee would want displayed, ranked by how much rests on them.',
   mechanismRaw: 'A self-similar axisymmetric vortex whose core shrinks as τ^{1/2} radially and τ^{1/2−h} axially while its speed grows as τ^{−1/2−h}, for a fixed h under 1/100. Its momentum residual is unbounded in an annulus around the core; two families of shear-amplified oscillatory pulses, carried on an auxiliary torus so distinct pulses never interact, supply the missing stress through their averaged quadratic flux; corrections at every order in q^{2h} leave a remainder flat at the singular point; an exact solution of the radial heat equation is the exterior; cutoffs localise. The force is <em>defined</em> as the residual of the constructed flow and shown to extend smoothly through t = 1; uniqueness in the class of smooth finite-energy solutions with a merely smooth pressure then transfers the growth to any competitor.',
   checkRaw: C.m('node tools/pin-navierstokes-lean.js') + ' recomputes every count from the pinned clone; ' + C.m('node tools/record-navierstokes-build.js') + ' records the build and asks the kernel; ' + C.m('python3 instruments/navierstokes/battery.py') + ' re-runs the ' + nProbeScripts + ' probe scripts; the corpus is sha-pinned in ' + C.m('corpus/navier-stokes/MANIFEST.json') + ' (' + M.files.length + ' files).'
 }));
@@ -202,6 +203,18 @@ B_.push(C.section({
     + '<div class="col">' + C.pRaw('<strong>Asserted, not displayed — ranked.</strong>') + '</div>'
     + C.table({ cols: [{ h: '#', cls: 'n' }, { h: 'where' }, { h: 'what' }], rows: A.weakPoints.map((w) => [String(w.rank), w.where, w.what]) })
     + '<div class="col">' + C.pRaw('<strong>Slips, each harmless with its margin:</strong> ' + A.slips.map((s) => C.esc(s)).join('; ') + '.') + '</div>'
+}));
+
+B_.push(C.section({
+  lab: '§5b · the adversarial pass', title: 'Every theorem that forbids a singularity, set against this one',
+  wide: true,
+  bodyRaw: '<div class="col">'
+    + C.pRaw('The implacable question is not whether the paper reads well but whether a theorem says this cannot happen. The classical obstructions were each set against the construction\'s own exponents, symbolically, in the battery. None refutes it. One is load-bearing and unstated: for an axisymmetric flow the swirl Γ = r·uθ obeys a drift–diffusion equation with no zeroth-order term, so from rest with a bounded force the swirl stays bounded and |uθ| ≤ C/r; the paper\'s core has r·uθ = q^{−h}H, unbounded, in its own notation. The axisymmetric background alone is impossible. The theorem survives because the pulses carry nonzero angular frequencies and their Reynolds flux breaks the maximum principle for the angular mean — the physics of the whole construction, and the paper never says so.')
+    + '</div>'
+    + C.table({
+      cols: [{ h: 'obstruction' }, { h: 'what it says' }, { h: 'this construction' }, { h: 'verdict' }],
+      rows: A.obstructions.rows.map((o) => [o.obstruction, o.statement, o.construction, { raw: C.tag(/impossible|load-bearing/i.test(o.verdict) ? 'EVADED, UNSTATED' : /evaded/i.test(o.verdict) ? 'EVADED' : 'MET', /unstated/i.test(o.verdict) ? 'open' : 'held') + ' ' + C.esc(o.verdict) }])
+    })
 }));
 
 B_.push(C.section({
