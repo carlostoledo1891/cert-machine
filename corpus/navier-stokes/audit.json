@@ -439,5 +439,40 @@
   },
   "findings": {
     "energyAsymmetry": "For Euler the positive content is formalized in full, energy bound included; for Navier–Stokes — the Millennium problem, and the one the announcement leads with — the energy clause is the single missing field of an otherwise complete candidate structure, and the lemma that would supply it sits unused in the same library."
+  },
+  "euler": {
+    "what": "The companion theorem in the same repository: unforced finite-time blowup for 3D incompressible Euler from smooth, compactly supported, finite-energy data. Read in full 2026-09-09; the record is euler.md.",
+    "theorem": "There exists u₀ ∈ C^∞_{c,σ}(R³) with 0 < T*(u₀) < ∞, whose smooth Euler solution has lim sup ‖∇u‖_{L^∞} = ∞ and ∫₀^{T*} ‖curl u‖_{L^∞} dt = ∞.",
+    "whyHarder": "The Navier–Stokes result is a FORCED breakdown — the force is defined as the residual of a constructed flow. Euler here is unforced: nothing to hide behind. If it stands it is the first finite-time blowup for smooth compactly supported finite-energy 3D Euler.",
+    "transferStep": {
+      "risk": "The solution of the limiting datum is not the limit of the approximants, and Euler's stability constant is exp(C∫‖∇U_j‖_∞) — exactly the quantity that diverges. This is where such arguments usually die.",
+      "whatThePaperDoes": "Section 6.2 never compares U_j with U_j'. It compares each U_j with the hypothetical smooth solution u of the limiting datum, under the contradiction hypothesis T*(u₀) > T_∞. For w = U_j − u the only linear coefficient is ∇u (bounded by that hypothesis), the transport by (u+w)·∇ is skew at every derivative order, the cubic term closes under a bootstrap; the Gronwall constant is C·sup‖u‖_{H⁴}, one number fixed before j is chosen. Nothing about U_j enters — not ‖∇U_j‖_∞, not the frequency, not the Gevrey radius. Only the initial difference depends on j, and it tends to zero.",
+      "verdict": "complete as written; the contradiction hypothesis is used exactly once, to make the constant finite, and never to control the approximants"
+    },
+    "loadBearing": "The one-sided Hessian bound λ_max ≤ K_B + 1 of (4.29), which makes every displacement boundary-value problem coercive: it needs the sign m·Mv > 0 at every label for τ ≥ 1, and a failure anywhere gives a non-summable increment. The novel analytic device is Claim 2's Gevrey bound on the new particle map, obtained without exponentiating a Lipschitz norm; that is where a flaw would be if there is one.",
+    "withdrawnFinding": {
+      "candidate": "(3.16), p. 13: the growth constant appeared to read (k·C∗)^{n+1} with C∗ = 80, false at n = 0, while §5 uses K_h = k_{j−1}^{C∗}",
+      "resolution": "WITHDRAWN. The page was rendered at 150 dpi and read: the glyphs are (k^{C∗})^{n+1}(n!)², with C∗ in the exponent. pdftotext flattens the superscript and manufactures the error.",
+      "lesson": "The second text-extraction artifact in this audit — the first was the cutoff family φ_R⁴, φ_R⁸ on p. 122 of the Navier–Stokes paper, which extracts as dilations φ_{4R}, φ_{8R} and makes three inequalities false. No inequality is a finding until its glyphs have been seen. An audit that reports a manufactured error against a Millennium claim has done worse than no audit."
+    },
+    "leanForms": [
+      {
+        "name": "Euler.exists_compact_smooth_euler_singularity",
+        "file": "Euler/Solution.lean:43",
+        "says": "a nonzero smooth compactly supported datum, 0 < T* ≤ 1, a solution on [0,T*), a uniform energy bound on the whole lifespan, maximality as an equivalence (a solution on [0,T] exists iff T < T*), the C¹ norm finite on every shorter interval, its lim sup infinite at T*, the Beale–Kato–Majda integral infinite, and no global smooth finite-energy solution",
+        "note": "matches Theorem 1.1 and is in one respect more precise than the paper: it pins down the solution class that makes T* well defined"
+      },
+      {
+        "name": "Euler.euler_breakdown_R3",
+        "file": "Euler/Solution.lean:33",
+        "says": "no global smooth finite-energy solution for some smooth decaying datum",
+        "note": "strictly weaker; equating it with blowup needs uniqueness of finite-energy C¹ solutions (the same integration by parts that gives energy conservation) plus Beale–Kato–Majda. That uniqueness FAILS without a decay condition, and the Lean class does impose square integrability and bounded energy — so the two are equivalent for these data. A formalization that dropped the energy fields would make the non-existence true for a reason that has nothing to do with fluids."
+      }
+    ],
+    "checksNotRun": [
+      "the frozen-frame WKB model as an exact ODE system (the sign of m·Mv, the exponential growth, a₂ ≈ a, β₂x_tar² ≈ 1, p₂·Mp₂ < 0)",
+      "every scale inequality of §5.5 and (6.1)–(6.2) in exact logarithmic arithmetic",
+      "the symbolic identities of §3, including the trace check fixing the −2 in (3.14)"
+    ]
   }
 }

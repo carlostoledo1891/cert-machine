@@ -101,15 +101,22 @@
       {
         "config": "ComparatorChallenges/NavierStokes.json",
         "exit": 0
+      },
+      {
+        "config": "ComparatorChallenges/Euler.json",
+        "exit": 0
       }
     ],
-    "solutionsAccepted": 1,
+    "solutionsAccepted": 2,
     "kernels": [
+      "nanoda: accepts",
+      "Lean default: accepts",
       "nanoda: accepts",
       "Lean default: accepts"
     ],
     "secondsPerConfig": [
-      783.005
+      783.005,
+      1026.98
     ],
     "landrun": "pass-through stand-in (bin/landrun): Landlock is Linux-only; statement equality, the axiom walk and both kernel replays were performed, the process isolation was not",
     "nanoda": "ammkrn/nanoda_lib built from source at this build — a kernel written independently of Lean's, in Rust",
@@ -121,8 +128,12 @@
       "Your solution is okay!",
       "COMPARATOR EXIT 0 for ComparatorChallenges/NavierStokes.json",
       "Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Euler.euler_breakdown_R3, Euler.exists_compact_smooth_euler_singularity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from ComparatorChallenges.Euler",
-      "Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Euler.euler_breakdown_R3, Euler.exists_compact_smooth_euler_singularity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from Euler.Solution"
+      "Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Euler.euler_breakdown_R3, Euler.exists_compact_smooth_euler_singularity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from Euler.Solution",
+      "nanoda kernel accepts the solution",
+      "Lean default kernel accepts the solution",
+      "Your solution is okay!",
+      "COMPARATOR EXIT 0 for ComparatorChallenges/Euler.json"
     ]
   },
-  "recorded": "2026-09-09T20:26:44.294Z"
+  "recorded": "2026-09-09T20:45:03.748Z"
 }

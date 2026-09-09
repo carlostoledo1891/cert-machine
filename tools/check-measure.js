@@ -311,8 +311,10 @@ async function main() {
   redRatchet();
   const tmp = fs.mkdtempSync(path.join(require('os').tmpdir(), 'measure-red-'));
   const now = {};
+  let browser = null;
   await withChrome(async (send) => {
     await send('Page.enable');
+    try { browser = (await send('Browser.getVersion')).product; } catch (e) { browser = null; }
     await runReds(send, tmp);
     console.log('-- the site');
     for (const rel of list) {
@@ -374,8 +376,9 @@ async function main() {
     const out = {
       note: 'Recorded layout geometry per built page, with the page\'s sha256 at recording. tools/check-measure.js refuses any number that grows, '
         + 'and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. '
-        + 'Lower these by fixing the page, never by editing this file.',
+        + 'Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.',
       recorded: new Date().toISOString().slice(0, 10),
+      browser: browser || (base.browser || null),
       viewports: VIEWPORTS, metrics: METRICS,
       pages: merged.pages,
     };
@@ -388,6 +391,18 @@ async function main() {
   }
 
   console.log('-- the ratchet');
+  /* A LAYOUT RULER IS A BROWSER MEASUREMENT. Chrome auto-updates; its text metrics and
+     flex rounding move with it, so a whole-baseline shift on pages whose BYTES DID NOT
+     CHANGE is the browser, not the pages. The gate cannot decide which it is, so it
+     states the fact and leaves the ruling to the author (2026-09-09: 152.0.7977.77 →
+     .83 moved two skyaudit app pages from 4/4/5 to 6/6/7 spines, stable over three runs
+     on identical bytes). */
+  if (base.browser && browser && base.browser !== browser) {
+    console.log('  NOTE  the baseline was recorded under ' + base.browser + ' and this run is ' + browser
+      + ' — a difference on pages whose bytes did not change is the browser, not the page');
+  } else if (!base.browser && browser) {
+    console.log('  NOTE  the baseline records no browser version; this run is ' + browser + ' (--accept records it)');
+  }
   if (missing.length) bad('every built page is in the baseline',
     missing.length + ' unrecorded: ' + missing.slice(0, 6).join(', ') + (missing.length > 6 ? ' …' : '')
     + '\n        run: node tools/check-measure.js --accept');

@@ -1,6 +1,7 @@
 {
-  "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file.",
-  "recorded": "2026-09-08",
+  "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
+  "recorded": "2026-09-09",
+  "browser": "Chrome/152.0.7977.83",
   "viewports": [
     1440,
     768,
@@ -36,19 +37,19 @@
     },
     "site/apps/skyaudit/index.html": {
       "390": {
-        "spines": 4,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "768": {
-        "spines": 4,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 5,
+        "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -57,19 +58,19 @@
     },
     "site/apps/skyaudit/sp/index.html": {
       "390": {
-        "spines": 4,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "768": {
-        "spines": 4,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 5,
+        "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -95,7 +96,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "63a030d2dfeaa7ba8dee6f4f48a32ea5ecf9522f56541de581efcbca9e1c41cd"
+      "sha": "034de3361300a34766314cf539ff2e73ea8f6941dcecf5b2efd7417f990fdede"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -494,7 +495,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "7e5ef14ddab9969b35ed1489f6c277e5c9de4358149a7ddafeafff4b9dc2db17"
+      "sha": "9a19662a85a2ed55631b08e89ce10ae5e0b66a2325e5a101b536816318b715e4"
     },
     "site/reports/aag.html": {
       "390": {
@@ -1166,7 +1167,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "2eadcb7591abf4ac19b86cd2c65054c733de873872a986bc0eb55d883ba4c25f"
+      "sha": "9a99df4eefcc38db28ee22d142afb109a14b20137d8d8710328f912507dbb0af"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1482,6 +1483,27 @@
         "clipped": 0
       },
       "sha": "ca353caa0b68a6158760bab1bd3c4fd0cf10d1de050fad99b9f4b9fe45387847"
+    },
+    "site/reports/navier-stokes.html": {
+      "390": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 8
+      },
+      "768": {
+        "spines": 14,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 4
+      },
+      "1440": {
+        "spines": 19,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "55d59d6b370ba7aef523286fd51da49911d13810248cddfe1c3034e9f68b91de"
     },
     "site/reports/polynomial-multiplication.html": {
       "390": {

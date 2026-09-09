@@ -93,6 +93,33 @@ contrast-against-ground), and `interferometer`'s clipped u−v inset is the
 
 ## OPEN
 
+### THE LAYOUT RULER MEASURES APP PAGES BEFORE THEY RENDER (found 2026-09-09)
+
+`site/apps/skyaudit/index.html` and its `sp/` twin read **4/4/5 spines** in the baseline
+recorded 2026-09-05 and **6/6/7** when measured now, on bytes that have not changed
+(sha256 identical to the baseline's). Three consecutive runs of the probe alone, driven
+through the same CDP client with the same fonts-ready wait, gave 6/6/7 every time; the
+full 84-page gate gave 6/6/7 on two runs and 4/4/5 on a third. The low read is the page
+measured before its app lays out — the same failure as the zeta3-audit incident of
+2026-09-07, in the other direction: the ratchet's guard catches a flaky LOW offered as an
+improvement (and did, naming the page), but nothing catches a flaky low being *recorded in
+the first place*, which is what happened on 2026-09-05 and left two rows FALSE GREEN for
+four days. The rows are now recorded at 6/6/7 with `--accept-worse` and the reason here.
+
+What it costs to close: the ruler's per-page wait is `document.fonts.ready` plus 180 ms,
+which is a document measurement, not an application one. An app page needs a settled-DOM
+condition — no mutation for N ms, or an explicit readiness signal the app emits — before
+the probe runs. Half a day, and it also removes the run-to-run flap. Until then the two
+skyaudit rows are the only known unstable pair, and they are recorded at their rendered
+value, which is the conservative one.
+
+**A related fact, now measured rather than guessed:** the baseline records the Chrome that
+produced it (`browser` in `design/measure-baseline.json`), and the gate prints a line when
+the running Chrome differs. A layout ruler is a browser measurement; Chrome auto-updated
+from 152.0.7977.77 to .83 between the tenth session and this one, and without that field a
+whole-baseline shift is indistinguishable from a page regression.
+
+
 ### 0 · THE GATE THAT DID NOT EXIST — now it does
 `tools/check-render.js`. The repository gated the registries, the type system,
 the palette, the layout geometry and the grammar, and had **nothing that looked

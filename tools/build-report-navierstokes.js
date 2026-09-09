@@ -39,6 +39,8 @@ const nDecls = Object.keys(B.axioms).length;
 if (nDecls !== 4) die('expected four declarations in the axiom report, found ' + nDecls);
 if (!A.obstructions || !A.obstructions.rows.some((o) => /swirl maximum principle/.test(o.obstruction) && /impossible/.test(o.verdict))) die('the swirl-maximum-principle finding is not in the record');
 if (!A.weakPointsInLean || !A.weakPointsInLean.threeQuestions || A.weakPointsInLean.threeQuestions.length !== 3) die('the Lean weak-point map is not in the record');
+if (!A.euler || !A.euler.withdrawnFinding || !/WITHDRAWN/.test(A.euler.withdrawnFinding.resolution)) die('the Euler record, including the withdrawn finding, is not present');
+const E = A.euler;
 const WL = A.weakPointsInLean;
 const nFull = WL.dischargedAtFullStrength.length, nRed = WL.reducedOrAltered.length, nNot = WL.notLocated.length;
 const energyRow = A.paperVsLean.find((r) => /uniform energy bound/.test(r.item));
@@ -200,7 +202,7 @@ B_.push(C.section({
   wide: true,
   bodyRaw: '<div class="col">'
     + C.pRaw('The paper is an LLM-written account of a machine-found proof; the Lean is the claim. Where the two differ, the page reports the difference and nothing more. One difference matters to the announcement: OpenAI\'s page says "its energy remains finite through the entire dynamics, from rest to the formation of the singularity". Theorem 1.1 states it; Lemma 10.4 proves it on paper in three lines that were re-derived here and hold; the repository contains the general lemma (a smooth compactly supported force gives a uniform L² bound on [0,1)) and nothing invokes it, and the structure that would carry the bound has no producer. The Millennium alternatives do not need it — a global smooth competitor is excluded by uniqueness on every [0,T] with T < 1, where the candidate\'s energy is finite by compact support alone — so the formal result stands and the physical headline is a paper claim.')
-    + C.pRaw('What makes that omission legible is the Euler theorem in the same repository. <code>Euler.exists_compact_smooth_euler_singularity</code> asserts, for a nonzero smooth compactly supported datum: a solution on [0, T*) with 0 &lt; T* ≤ 1, <em>a uniform energy bound on the whole lifespan</em>, maximality as an equivalence (a solution on [0, T] exists if and only if T &lt; T*), the C¹ norm finite on every shorter interval, its limsup infinite at T*, the Beale–Kato–Majda integral infinite, and no global smooth finite-energy solution. That is the positive content of a blowup theorem, formalized. The Navier–Stokes candidate carries nine of those ten kinds of clause; the missing one is the energy. Same team, same week, same repository — which is why this reads as an oversight rather than an obstacle, and why the unused lemma in <code>R3/CompactEnergy.lean</code> is the tell.')
+    + C.pRaw('What makes that omission legible is the Euler theorem in the same repository. the Euler singularity theorem asserts, for a nonzero smooth compactly supported datum: a solution on [0, T*) with 0 &lt; T* ≤ 1, <em>a uniform energy bound on the whole lifespan</em>, maximality as an equivalence (a solution on [0, T] exists if and only if T &lt; T*), the C¹ norm finite on every shorter interval, its limsup infinite at T*, the Beale–Kato–Majda integral infinite, and no global smooth finite-energy solution. That is the positive content of a blowup theorem, formalized. The Navier–Stokes candidate carries nine of those ten kinds of clause; the missing one is the energy. Same team, same week, same repository — which is why this reads as an oversight rather than an obstacle, and why the unused lemma in <code>R3/CompactEnergy.lean</code> is the tell.')
     + '</div>'
     + C.table({
       cols: [{ h: 'item' }, { h: 'the paper' }, { h: 'the Lean' }, { h: 'status' }],
@@ -263,6 +265,20 @@ B_.push(C.section({
     + '<div class="col">'
     + C.pRaw('What was not done, and why: no interval arithmetic on the profile equations of Section 4 — every constant in them is "sufficiently small", so the numerical solve above illustrates the paper\'s description of its own object and certifies nothing. The closed forms are exact identities decided symbolically; the quadratures are pictures with 25-digit residuals, not enclosures.')
     + '</div>'
+}));
+
+B_.push(C.section({
+  lab: '§6b · the companion theorem', title: 'Euler, unforced — the harder claim, and the one we nearly got wrong',
+  wide: true,
+  bodyRaw: '<div class="col">'
+    + C.pRaw('The same repository carries a second theorem, and it is the more exposed of the two. ' + C.esc(E.theorem) + ' ' + C.esc(E.whyHarder))
+    + C.pRaw('<strong>The step where such arguments die.</strong> ' + C.esc(E.transferStep.risk) + ' ' + C.esc(E.transferStep.whatThePaperDoes) + ' Verdict: ' + C.esc(E.transferStep.verdict) + '.')
+    + C.pRaw('<strong>Where a flaw would be.</strong> ' + C.esc(E.loadBearing))
+    + '</div>'
+    + C.note({ lab: 'the finding this audit withdrew, and why the withdrawal is the point', bodyRaw:
+        C.pRaw('The sharpest candidate error found anywhere in either paper was this: ' + C.esc(E.withdrawnFinding.candidate) + '. ' + C.esc(E.withdrawnFinding.resolution))
+      + C.pRaw(C.esc(E.withdrawnFinding.lesson)) })
+    + '<div class="col">' + C.pRaw('<strong>The two formal shapes.</strong> ' + E.leanForms.map((f) => '<code>' + C.esc(f.name.replace('Euler.', '').replace('exists_compact_smooth_euler_singularity', 'exists_compact_…_singularity')) + '</code> ' + C.esc(f.note)).join(' ') + ' Note which one carries the energy bound.') + '</div>'
 }));
 
 B_.push(C.section({
