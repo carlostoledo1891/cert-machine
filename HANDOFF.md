@@ -21,12 +21,182 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-09 (the eleventh session). In the order I would take it:
+
+  1. THE INSTRUMENT — /instruments/navier-stokes/ is in the house grammar now
+     and the operator's close was "the path is good but needs improvement".
+     That is the live task. Candidates, cheapest first: the streamlines read as
+     short broken pieces (they break at the lattice edge — carry them further and
+     seed them where the flow enters); the contour set is fixed at sixteen
+     geometric levels and could be a control; there is no legend saying what a
+     contour IS; "stipple" and "stream" are thin next to "both"; the h slider
+     changes the picture very little at the paper's h and the page says so but
+     does not dramatise it; nothing yet shows the pulses doing their job (the
+     Reynolds stress cancelling the residual) — that is the one piece of the
+     mechanism the drawing still asserts rather than shows.
+  2. NOTHING IS PUSHED. The audit and the instrument are eight local commits
+     (e78d65e … adbabcb). A push to main IS the deploy.
+  3. THE THREE OLDER DRAFTS, still operator-gated and unsent: Woett's reply
+     (outreach/erdos290-issue164-reply-2026-09-08.md), OEIS PACK 4, and the
+     undrafted note to togethercomputer/EinsteinArena-new-SOTA.
+  4. A FOURTH POSSIBLE SEND, now that the audit exists: a note to OpenAI on the
+     energy clause (the lemma is proved and unused) and on the swirl maximum
+     principle. Not drafted. A send, so yours.
+  5. THE EULER CHECKS, listed in corpus/navier-stokes/euler.md and unrun: the WKB
+     frozen-frame ODE, §5.5's scale inequalities in exact log arithmetic, the §3
+     symbolic identities.
+  6. THE DEBT ROW opened this session: the layout ruler measures app pages before
+     they render (two skyaudit rows were false green for four days). Half a day.
+  7. Everything below is the older menu and is unchanged.
+
+────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-02 (the release day). Session logs follow below;
 this is the part to read first. `node tools/targets.js` is the memory
 behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  ELEVENTH SESSION, 2026-09-09 — OPENAI'S NAVIER–STOKES CLAIM AUDITED END TO END:
+  THE CERTIFICATE HOLDS ON THIS MACHINE, AND THE PAPER'S HEADLINE CLAUSE IS NOT IN IT.
+  Pushed through adbabcb · NOT PUSHED at the close (local) · 82/82 batteries · 60 reports · 17 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator, cold: "focus the next big effort on verifying the
+    Navier-Stokes resolution from OpenAI … dissect the math and try to find gaps
+    or counter-examples", then "an implacable adversarial review", then an
+    instrument, twice rebuilt on his notes.
+
+  ── 1 · WHAT WAS AUDITED ── OpenAI, 2026-09-08: *Finite time blowup for
+    Navier–Stokes* (166 pp) and *…for the Euler equation* (57 pp), plus
+    github.com/openai/NavierStokesAndEuler @ 8937a8f4 (one commit, 2,486 modules,
+    618,762 lines, Lean 4.34.0-rc2 / Mathlib 85e3a25). corpus/navier-stokes holds
+    24 files with a sha256 manifest: both papers, the Clay statement, the Lean
+    challenge and solution bridges, the Formal Conjectures original, Tao's posts,
+    Buckmaster's statement, Alpöge–Buckmaster's three papers, Córdoba–Martínez-Zoroa.
+
+  ── 2 · THE CERTIFICATE HOLDS, THREE WAYS ── every one of the 2,486 modules
+    compiled here (Mac14,2, 8 cores, 16 GB) in 140 minutes, exit 0, no errors —
+    in two legs, because eight parallel Lean processes drove a 16 GB machine into
+    9 GB of swap at one module a minute; LEAN_NUM_THREADS=4 fixed it. `#print
+    axioms` on the four main declarations: propext, Classical.choice, Quot.sound
+    and nothing else. Then COMPARATOR, the Lean FRO's judge, on both configs:
+    statement equality by exact term comparison, the axiom walk, and replay
+    through Lean's kernel AND nanoda (an independent Rust kernel, built here) —
+    "Your solution is okay!", exit 0, 13 min for Navier–Stokes and 17 for Euler.
+    Its Landlock sandbox is Linux-only; bin/landrun is a pass-through, so the
+    isolation did not run and both sides came from one pinned commit.
+    tools/record-navierstokes-build.js writes corpus/navier-stokes/build.json.
+
+  ── 3 · THE STATEMENT IS CLAY'S ── the theorem the proof targets is DeepMind's
+    Formal Conjectures encoding of alternatives (C) and (D), added 2026-05-15,
+    last touched 2026-07-27, byte-identical to main today; OpenAI's copy differs
+    only in imports, attributes, namespace and notation (diffed by
+    tools/pin-navierstokes-lean.js), and the solution side re-declares the same
+    definitions byte-identically. Read against Clay's prose and Mathlib's own
+    source hypothesis by hypothesis (corpus/navier-stokes/fidelity-clay-vs-lean.md):
+    nothing added to the competitor class, nothing dropped from the data. The
+    direction rule is stated — the theorem is a NEGATION, so a weak or junk-valued
+    solution notion only strengthens it. A non-vacuity witness written here and
+    compiled against their challenge module (lean/cert-machine-NonVacuity.lean,
+    7 declarations, standard axioms) shows both competitor classes are inhabited.
+
+  ── 4 · THE FINDINGS ──
+    (a) THE ENERGY CLAUSE. The paper's Theorem 1.1 and the announcement say the
+        blowing-up fluid keeps FINITE ENERGY through the singularity. The Lean
+        candidate satisfies a ten-field Properties structure — smooth velocity and
+        pressure, three compact supports, zero initial velocity, divergence-free,
+        the equation on (0,1), speed unbounded at one — and there is NO energy
+        field. R3/CompactEnergy.lean:343 proves the lemma and nothing uses it;
+        breakdownStatement is never proved. Clay (C) does not need it. The EULER
+        theorem in the same repository DOES carry its energy bound, alongside
+        maximality as an iff and the BKM integral — same team, same week, same
+        repo, so this reads as an oversight, not an obstacle.
+    (b) THE SWIRL MAXIMUM PRINCIPLE, unstated. For an axisymmetric flow Γ = r·uθ
+        obeys a drift–diffusion equation with no zeroth-order term, so from rest
+        with a bounded compactly supported force sup|Γ| ≤ ∫|r f_θ|. The paper's
+        core has Γ = q^{−h}H (its own words, p. 27), unbounded. THE AXISYMMETRIC
+        BACKGROUND ALONE IS IMPOSSIBLE; the theorem lives on the pulses' nonzero
+        angular frequencies, which Lean proves (angularMode_ne_zero) and the paper
+        never says. And the dichotomy: at h = 0 the flow is exactly type I, which
+        the axisymmetric Liouville theorems exclude; above zero the swirl diverges.
+        The two exclusions close on h = 0 from opposite sides.
+    (c) NO NUMERIC SMALLNESS ANYWHERE. h is Classical.choice in Lean, constrained
+        only by 2h < lam < 1/10 and h ≤ 1/1000; the printed h < 1/100 is not the
+        operative bound in either artifact. Lemma 4.8 needs h < min{λ, e^{−T_d}}
+        with T_d = e^{M_d}+10.
+    (d) THE LEAN GROWTH WITNESS is the axial speed ON the axis, not the paper's
+        off-axis azimuthal path (10.20)–(10.21).
+
+  ── 5 · THE DISSECTION ── six readers took the papers apart section by section
+    (§3+§10, §4+App B, §5+App A, §6+§7, §8+§9+App C, the Lean map, then Euler).
+    No error and no circularity found. Thirteen asserted-not-displayed points
+    ranked and then TRACED INTO THE KERNEL: six discharged by a proved theorem at
+    full strength — two of them STRONGER than the paper (the endpoint regularity
+    is a genuine smooth extension across t = 1; the flatness is a joint space-time
+    limit, exactly the uniformity the reading found missing) — five altered, two
+    with no counterpart. Two of the paper's arithmetic slips are absent from the
+    formal object. EULER: the transfer step of §6, where such arguments die, is
+    COMPLETE — §6.2 compares each approximant with the hypothetical limit solution
+    under the contradiction hypothesis, so the Gronwall constant is sup‖u‖_{H⁴},
+    fixed before j, and the diverging ‖∇U_j‖_∞ never enters.
+
+  ── 6 · TWO EXTRACTION ARTIFACTS, BOTH CAUGHT BY LOOKING ── the sharpest candidate
+    error in either paper — (3.16) on p. 13 of Euler reading (k·C∗)^{n+1} with
+    C∗ = 80, false at n = 0 — is a pdftotext artifact: the glyphs are (k^{C∗})^{n+1},
+    rendered at 150 dpi and read. The first was the cutoff family φ_R⁴, φ_R⁸ on
+    p. 122 of Navier–Stokes, which extracts as the dilations φ_{4R}, φ_{8R} and
+    makes three inequalities false. NO INEQUALITY IS A FINDING UNTIL ITS GLYPHS
+    HAVE BEEN SEEN.
+
+  ── 7 · THE ARTEFACTS ── /reports/navier-stokes.html ("Their theorem, read to the
+    last hypothesis"), nine sections, four figures, every count read from
+    lean-repo.json / build.json / probes.json / audit.json and none retyped; the
+    page refuses without a finished build, four kernel axiom lines, a passing
+    battery with live reds, byte-identical solution definitions and the energy
+    finding in the record. instruments/navierstokes/battery.py: six probe scripts,
+    20 RED CONTROLS all firing (a check that cannot fail is not a check) — the
+    coefficient equations (5.2)–(5.7) recovered from the operator in 69 identities,
+    the exact heat exterior against (A.37) and (A.35) at 25 digits, the axis IVP of
+    App B solved, the rescalings, the commutator kernel, the swirl obstruction.
+    Registered in the Makefile and the control page: 82/82.
+
+  ── 8 · THE INSTRUMENT, REBUILT TWICE ON THE OPERATOR'S NOTES ──
+    /instruments/navier-stokes/ "Turn the singularity". First pass was a report
+    with a canvas in it ("the focus is visualization … 100vw 100vh"); second was a
+    full-viewport particle bloom ("reproduce at least this in our grammar style" —
+    the interferometer, which I had never looked at rendered, only read). It is now
+    written in that language: sixteen hairline iso-speed contours by marching
+    squares, streamlines, a stipple mode, dotted references, annotations on leaders,
+    a ruler with a number, and the interferometer's own right-hand rail. THE
+    GRAMMAR IS NOW SHARED, not copied: playground/interferometer/page.css →
+    playground/design/overlay.css, both pages read it, the interferometer's bytes
+    unchanged. Everything is computed ONCE per h in the paper's coordinates and
+    mapped exactly, because the physical speed is τ^{−A}(1−η²)^A·|F| and the
+    contour SHAPES do not depend on τ — thirteen decades of collapse cost nothing.
+    Nine verdict chips re-decided with BigInt as you drag h; "make it axisymmetric"
+    fires both exclusions with the banner.
+
+  ── 9 · THE GATES, AND ONE FOUND LYING ── the layout ruler refused two skyaudit
+    app pages whose BYTES HAVE NOT CHANGED: 4/4/5 spines in the baseline against
+    6/6/7 measured now, stable over three dedicated runs. The low read is the page
+    measured before its app lays out — the zeta3 incident in the other direction,
+    and the 2026-09-05 baseline had been FALSE GREEN for four days. Recorded at the
+    rendered value; DEBT row written. The ruler now also records the CHROME that
+    produced its numbers and says so when the running Chrome differs (it went
+    152.0.7977.77 → .83 between sessions). It then caught a real bug in the new
+    instrument: the panel auto-closes on a phone and the shared grammar hides it
+    with translateX(100%), which extended the document by 330px at 1440 and a whole
+    viewport at 390. It fades in place now.
+
+  ── NOT DONE, AND THE OPERATOR'S WORD IS OWED ── the instrument "needs
+    improvement" (his close). NOTHING IS PUSHED. No send drafted or made to
+    OpenAI, Buckmaster, Tao or Clay. The Euler paper's own checks (the WKB
+    frozen-frame ODE, §5.5's scale inequalities in exact log arithmetic) are
+    listed and unrun. Weak points 6 and slips 2/3/5 were not located in Lean.
+    The three older drafts (Woett's reply, OEIS PACK 4, the EinsteinArena note)
+    are still unsent.
 
 ══════════════════════════════════════════════════════════════════════════
   TENTH SESSION, 2026-09-08 — THE TWO PLATFORMS' 604s DECIDED CONGRUENT, WITH A
