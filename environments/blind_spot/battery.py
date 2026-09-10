@@ -76,8 +76,9 @@ t0 = time.time()
 # ---------------------------------------------------------------- 1 · the pins
 prov = json.load(open(os.path.join(HERE, "PROVENANCE.json")))
 moved = [r["file"] for r in prov["files"] if sha(os.path.join(ROOT, r["file"])) != r["sha256"]]
+npatch = sum(1 for r in prov["files"] if r.get("patched"))
 report(not moved, f"the {len(prov['files'])} lifted files re-hash to their pins",
-       "moved: " + ", ".join(moved) if moved else "1 declared patch (design.py's repoint)")
+       "moved: " + ", ".join(moved) if moved else f"{npatch} declared patches, each with its reason")
 if moved:
     print("# refusing: the design under mutation moved")
     sys.exit(1)

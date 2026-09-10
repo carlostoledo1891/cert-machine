@@ -161,10 +161,11 @@
   },
   {
    "file": "environments/blind_spot/eval/page.json",
-   "sha256": "7eef9bd9d942b59a8aa8ff1339c8765b24a4341e522229111f703ebfa1fee62b",
+   "sha256": "e49365aeaed6d6b49f70e938f2fba1ec7de712529ac2390ffd009f27606f1e26",
    "sourceSha256": "7eef9bd9d942b59a8aa8ff1339c8765b24a4341e522229111f703ebfa1fee62b",
-   "bytes": 565651,
-   "patched": false
+   "bytes": 565682,
+   "patched": true,
+   "patch": "REGENERATED on this machine by `PYTHONPATH=. python3 eval/page_data.py`, so the instrument page reports this machine's run rather than the source lab's. Diffed leaf by leaf against the lifted copy: 398 leaves differ and EVERY ONE of them is a SAT timing (397 per-mutant `sat_secs` plus the pool total, 494.2 s there against 355.7 s here). Every label, class, region, profile, witness, control, baseline row and model result is identical."
   },
   {
    "file": "environments/blind_spot/README.md",

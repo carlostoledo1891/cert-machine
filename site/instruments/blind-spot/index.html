@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fourteen million verdicts could not see this mutant — cert-machine</title>
+<meta name="description" content="A chip-task environment: one mutant of a comparator, or the unmutated design. Name the input pair whose pins differ, or prove there is none. Kills verified by simulating the netlist, equivalence by SAT, and no answer key anywhere.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Fourteen million verdicts could not see this mutant — cert-machine">
+<meta property="og:description" content="A chip-task environment: one mutant of a comparator, or the unmutated design. Name the input pair whose pins differ, or prove there is none. Kills verified by simulating the netlist, equivalence by SAT, and no answer key anywhere.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../design/tokens.css">
+<style>
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 var(--gutter);height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px var(--gutter) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* shell.css — the navbar and the measure scale, and nothing else. Everything an
+   /instruments page looks like beyond this is that page's own business. */
+/* THE SECTION'S OWN NAV IS GONE (2026-09-05) — design/nav.js is the site's
+   one nav and this section carries it like every other page. What is left here
+   is the consequence: the site nav is FIXED at 60px, so the page has to start
+   below it. The reports' shell does the same thing with its own padding. */
+/* THE BOX MODEL, SHARED — and it was not, until 2026-09-05. The
+   `*{box-sizing:border-box}` reset was declared in SIX page.css files and in
+   bench.css, and in the shell not at all. A page that did not carry its own copy
+   got content-box, so `.wrap`'s max-width:1200 became 1200 PLUS its 48px
+   gutters: /instruments/graph rendered 1296 wide and sat its whole column at
+   x=120 while every other page on the site sits at x=168. The site's one-left-
+   edge claim was being upheld by six identical copies of a reset, any one of
+   which could have gone missing — and the seventh page proved it. */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* THE PAGE'S OWN TYPOGRAPHY, SHARED — and it was not, until 2026-09-05.
+   Six page.css files under playground/ declared their own `body` rule, four of
+   them with different bodies, and the shell declared none. Every page that
+   happened to carry one looked right and any page that did not fell back to the
+   browser default — which is how /instruments/graph shipped its first build in
+   TIMES ROMAN while every other page on the site is Inter. A foundation
+   declared six times is not a foundation.
+
+   The page-local copies came out later the same day, one file at a time, each
+   page pixel-diffed at 1440 and 390 before the next: curveset, neural-geometry,
+   shape-hunt, simplex, bench.css (four pages) and index.css were byte-identical
+   to the two rules above and went entirely; interferometer keeps its own
+   margin/padding zeroing and the three body properties the shell does not set. */
+body { margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body);
+  line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
+body { padding-top: 60px; }
+
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
+
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
+
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
+
+/* ---- THE TABLE RULE, once ------------------------------------------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. Four /instruments pages scrolled the whole document sideways
+   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
+   answer-shape 78 — every one of them a nowrap table sitting in a container
+   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
+   rule that made it scroll lived in base.css and that page never linked it.
+   One class, one rule, declared where every page already inlines it. */
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
+     table sliced mid-character with nothing to indicate there was more; a box
+     that hides a column without saying so is the same defect as a number
+     without its units. The four layers are the standard scroll-shadow: two
+     ground-coloured covers pinned to the CONTENT (background-attachment:local,
+     so they slide away as you scroll) over two shadows pinned to the BOX, so a
+     shadow shows exactly when there is something past that edge and vanishes
+     when there is not. No script, and nothing to keep in sync. */
+  background:
+    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--bg-raised); }
+.tw > table { margin: 0; }
+.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }
+
+
+/* ---- the eyebrow: seven declarations before this, and the weight was the
+   thing they disagreed about. The report engine sets 500, bench.css set none
+   at all, and interferometer set 500 on its own — so /instruments ran its
+   eyebrows a weight lighter than the reports on every page but one. 500, once,
+   on both sides of the site. ---- */
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); font-weight: 500;
+  letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+
+/* ---- the hero. The bottom padding is the LARGER of the two that were in
+   service; curveset's tighter one was not a decision, it was a copy that had
+   drifted. A page wanting a different hero (the gathering page does, and says
+   so) overrides these two properties and nothing else. ---- */
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title);
+  margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3);
+  color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+/* ---- the footer, with the margin-top the crossed pages had and the written
+   ones did not ---- */
+.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
+.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+.foot a { color: var(--ink-4); text-decoration: none; }
+.foot a:hover { color: var(--ink-2); }
+
+/* ---- the panel: a raised box with a hairline. Spacing between consecutive
+   panels is a sibling rule, so a page never adds a margin-top of its own and
+   the two versions cannot disagree about which edge carries the gap. ---- */
+.panel { background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-l); padding: var(--s-5); }
+.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
+
+/* ---- FIGURE PRIMITIVES ----------------------------------------------------
+   THE DEFECT THIS CLOSES, and it is the one the operator saw as "lots of svg
+   elements are black". The gathering page embeds each instrument's card art
+   but NOT the stylesheet that colours it, and an SVG element whose class
+   resolves to nothing paints nothing — the default stroke is 'none'. Measured
+   on /instruments before this: 12 kinds of classed element painting nothing,
+   including 63 chords on the affect card and 60 on answer-shape, which is why
+   those two plates measured 1.4% and 1.2% ink and read as black boxes.
+
+   A figure vocabulary used by more than one page is a shared component, the
+   same as a hero or a footer. Phase 3 moved the furniture and left these.  */
+.ch { stroke: var(--ink-2); }
+.ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
+/* .clo CLOSES THE WALK .ord DRAWS, and it is the SAME data at the SAME
+   standing — the step from the last item back to the first, computed exactly
+   the way every other step is. It was dashed to mark that ROLE, which is the
+   forbidden use: dash carries standing, never identity or role. The legitimate
+   channel was already doing the work — .ord is --ink at 0.9, .clo is --ink-3 —
+   so dropping the dash costs nothing, exactly as it did on answer-shape.
+   See design/CONTRACT.md. (No backticks in this comment on purpose: it lives
+   inside a template literal, and one backtick ends the literal.) */
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-linecap: round; }
+.mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
+.pt { fill: var(--ink-2); }
+/* .lb HAD NO FONT-SIZE, and that is two review defects in one line. Each
+   instrument page sets 8.5px on its own svg.pl .lb; the GATHERING page inlines
+   no page stylesheet, so every embedded card art fell back to the browser
+   default of 16px — in viewBox units, on a plate scaled about 1.5x. So the
+   affect card's labels rendered near 24px and ran clean out of the card
+   ("delighted" sliced at the right edge, "miserable" cut to "serable"), and
+   adjacent cards showed wildly different label sizes because each viewBox
+   scales differently. The pages' own 8.5px rules are more specific and still
+   win; this is the floor that was missing. */
+.lb { fill: var(--ink-4); font-family: var(--font-mono); font-size: 8.5px; }
+.ax line { stroke: var(--border-strong); }
+.ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+/* a horizontal reference line at the asked value, and the two drop lines from
+   it to the baseline. "an axis, a ruler, a ghost, a reference circle" is the
+   contract's own definition of a GUIDE, so they take the guide pattern rather
+   than a fourth invented one. */
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-std { fill: var(--ink); }
+.cs-tick { fill: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
+/* PAINT LIVES HERE; ANCHORING STAYS ON THE PAGE (2026-09-05). These four were
+   defined ONLY in playground/curveset/page.css, which curveset inlines and the
+   gathering page does not. /instruments embeds curveset's card art WITHOUT that
+   stylesheet, so all four fell through to SVG's default BLACK fill and measured
+   1.06:1 against the plate — the same family as the twelve invisible kinds
+   caught on 2026-09-05, of which these four were missed because they are text
+   and a dot rather than strokes.
+
+   And they were dim even where they DID paint: .cs-axname at --ink-5 is
+   2.24:1, under the 3:1 floor this repository enforces everywhere else. Each
+   is lifted one rung — axis names to --ink-4 (3.97:1), the two data labels,
+   which carry words a reader has to read ("reported ±550 lb", "unbounded above
+   — over range"), to --ink-3. */
+.cs-fitdot   { fill: var(--ink-2); }
+.cs-axname   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); letter-spacing: 0.08em; }
+.cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+.cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+
+/* ---- THE GRAMMAR. Stroke pattern carries standing; see ../warrant.js for the
+   rule about when the channel is free. A REFUSED mark has no stroke at all —
+   the void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML. In an <svg> these set a stroke; on a word they set
+   a voice, and the voice uses THE SAME DASH PATTERN as the line — a computed
+   value is underlined dashed exactly as a computed curve is dashed, a chosen
+   value dotted. Decided carries no mark: it is the voice the rest of the site
+   is written in, and marking it would make the exception the rule.
+
+   The underline does the work and brightness only supports it, because
+   dimness alone reads as low confidence and standing is not confidence — the
+   page that defines the grammar says so in as many words. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+/* a REFUSED value is not printed dim — it is NOT PRINTED. What the page shows
+   instead is the reason, and this is the voice it says it in. */
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG
+   <pattern>, and a pattern is addressed by an id that lives in the figure that
+   defines it. A shared rule would point every page at one page's id. */
+
+/* ---- the standing legend. Rendered by warrant.js, laid out by
+   design/grid.js: the column count is derived from data-n, not declared. ---- */
+/* align-items:start on the ROW, so every label sits on one line even when a
+   gloss wraps to two — the swatches were floating to the middle of whichever
+   item happened to be tallest. */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+</style>
+<style>/* bench.css — the structural shim for every page crossed from the bench.
+
+   Three pages here (plates, exact-geometry, affect) carry markup that came over
+   byte-for-byte, so they carry the bench's structural class names. Rather than
+   rewrite them and risk moving a number, those classes are declared ONCE here,
+   in this repository's tokens. Declared three times they would diverge, and the
+   divergence would be invisible: all three would still look like pages.
+
+   The plate BODY was crossed from the bench verbatim, so it carries the bench's
+   structural class names. Rather than rewrite eight plates' worth of markup and
+   risk moving a number, those classes are re-declared here in THIS repository's
+   tokens. Nothing bench-side is imported; every value below is one of ours.
+
+   ONE DELIBERATE DIFFERENCE. The bench's `.reveal` parks an element at
+   opacity 0 and waits for an observer. A page whose first frame is blank is a
+   page that shows nothing to a thumbnail, a shared link, or a reader who
+   scrolls fast — so here `.reveal` is a no-op and everything is visible at rest. */
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; } a { color: inherit; }
+.reveal { opacity: 1; transform: none; }
+h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title); text-wrap: balance; }
+.lede { max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
+.hero-meta .item { display: grid; gap: 3px; }
+.hero-meta .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-5); }
+.hero-meta .v { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); }
+
+/* the section rhythm is the one our own pages use — same padding, same rule —
+   so that a reader moving between a page written here and a page crossed from
+   the bench cannot feel the seam. Before this the crossed pages were a third
+   tighter and drew a rule only BETWEEN sections. */
+.section { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
+.hero + .section, .section:first-of-type { border-top: 0; }
+h2.t2, h3.t2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); text-wrap: balance; }
+.prose { color: var(--ink-3); display: grid; gap: var(--s-4); max-width: var(--read); }
+.prose h2 { margin-bottom: var(--s-2); }
+.prose em { color: var(--ink-2); font-style: italic; }
+
+svg { display: block; width: 100%; height: auto; }
+img { max-width: 100%; }
+/* THE LEGEND IS STILL DECLARED THREE TIMES — here, in curveset/page.css and as
+   a flex variant on neural-geometry — and it holds 3, 3, 4, 5 and 7 items on
+   five pages while declaring three columns on four of them. Deriving the count
+   with auto-fit was tried in phase 2 and MEASURED WORSE: seven items in five
+   columns is 5+2, four more left edges than 3+3+1. The component needs
+@media (min-width: 700px) { .legend { grid-template-columns: repeat(3, 1fr); } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ---- flow spacing ---------------------------------------------------------
+   The crossed bodies rely on the bench's base stylesheet for the space between
+   a heading and the paragraph under it. That stylesheet is not imported here —
+   the port rule is that no bench CSS crosses — so the flow is re-declared, in
+   our spacing scale, as adjacency rules rather than per-element margins. */
+.section h1 + *, .section h2 + *, .section h3 + * { margin-top: var(--s-4); }
+.section .eyebrow + h1, .section .eyebrow + h2, .section .eyebrow + h3 { margin-top: var(--s-2); }
+.section p + p, .section p + .nums, .section p + .pred, .section p + table,
+.section p + .lede, .section .lede + p { margin-top: var(--s-4); }
+.section ul, .section ol { margin: var(--s-4) 0 0; padding-left: 1.15em; color: var(--ink-3); }
+.section li + li { margin-top: var(--s-2); }
+.section table { width: 100%; border-collapse: collapse; margin-top: var(--s-5);
+  font-family: var(--font-mono); font-size: var(--text-mono); }
+.section th, .section td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.section th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.section code { font-family: var(--font-mono); font-size: 0.86em; color: var(--ink-2); }
+.section b, .section strong { color: var(--ink); font-weight: var(--weight-medium); }
+h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(--title); text-wrap: balance; }
+.wide .container { max-width: var(--container); }
+
+
+.section-head { display:flex; justify-content:space-between; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; margin-bottom:var(--s-4); }
+.mono { font-family:var(--font-mono); font-size:0.92em; color:var(--ink-2); }
+.t1 { font-size:clamp(1.5rem,1rem+1.6vw,2.1rem); } .t2 { font-size:clamp(1.25rem,1rem+1vw,1.6rem); }
+.section { padding:clamp(2.5rem,6vh,4.5rem) 0; border-top:1px solid var(--border); }
+
+/* report.css — the shell for a scrolling report page.
+ *
+ * WHAT THIS FILE CLAIMS:
+ *   .note              the boxed monospace aside that carries a page's findings
+ *   .grid              a grid of shaded cells; `--f` on a cell shades it 0..1
+ *   .figrow .figcap    figure rows and their captions
+ *
+ * `.grid-t` and `.gr` are the two names three builders independently invented
+ * for the same grid. They are aliased here rather than renamed, so the
+ * definition lives in one place without rewriting markup that works; new pages
+ * use `.grid`.
+ *
+ * Inlined by the builders that need it, not linked: a published page here is one
+ * self-contained file. Everything else is tokens.css + base.css. */
+
+.note {
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); line-height: 1.75;
+  color: var(--ink-4); background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius-s);
+  padding: var(--s-4); margin-top: var(--s-4);
+}
+.note b { color: var(--ink-2); font-weight: 500; }
+.note em { color: var(--ink-3); font-style: italic; }
+
+.grid, .grid-t, .gr {
+  display: grid; gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  overflow: hidden; margin-top: var(--s-5);
+}
+.grid > div, .grid-t > div, .gr > div {
+  background: var(--bg-raised); padding: 8px var(--s-4);
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.grid .h, .grid-t .h, .gr .h {
+  color: var(--ink-5); font-size: 9px; letter-spacing: .11em; text-transform: uppercase;
+  display: flex; align-items: center;
+}
+.grid .ml, .gr .ml { color: var(--ink-3); }
+.grid .hit, .grid-t .hit { color: var(--ink); }
+/* a shaded cell: set --f in [0,1] inline; the shade is the only thing it means */
+.grid .c, .gr .c { background: color-mix(in srgb, #f6f6f8 calc(var(--f) * 13%), var(--bg-raised)); }
+.grid .c b, .gr .c b { color: var(--ink); font-weight: 500; }
+
+.figrow { display: grid; gap: var(--s-4); }
+.figrow figure { margin: 0; }
+.figcap {
+  display: flex; justify-content: space-between; gap: var(--s-3); margin-top: 6px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+}
+.figcap .k { color: var(--ink-2); }
+.figcap .v { color: var(--ink-5); text-transform: none; letter-spacing: .04em; }
+
+
+.fig { width:100%; height:auto; display:block; color:var(--ink); }
+.fig .rl { font-family:var(--font-mono); font-size:9.5px; fill:var(--ink-4); }
+.legend { display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-5); margin-top:var(--s-3); }
+.legend .li { display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:var(--text-eyebrow); color:var(--ink-4); }
+.legend .li svg { width:14px; height:14px; color:var(--ink); flex:none; }
+.legend .li b { color:var(--ink-2); font-weight:500; }
+.legend .li i { color:var(--ink-5); font-style:normal; }
+.gr .c b { color:var(--ink); }
+.win { color:var(--ink); font-weight:500; }
+.dim { color:var(--ink-5); }
+
+.fig .ink-decided  { stroke-dasharray: none; }
+.fig .ink-assumed  { stroke-dasharray: 5 4; }
+.fig .ink-assumed-sm { stroke-dasharray: 1.5 2; }
+.fig .ink-chosen   { stroke-dasharray: 1 5; stroke-linecap: round; }
+.fig .ink-chosen-sm { stroke-dasharray: 1 3; stroke-linecap: round; }
+.fig .ink-guide    { stroke-dasharray: 2 3; }
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<main>
+<section class="section" style="border-top:0;">
+  <div class="container">
+    <div class="prose reveal" style="max-width:74ch;">
+      <div class="eyebrow">environment &middot; mutation blind spots</div>
+      <h1 class="t1">Fourteen million certified verdicts could not see this mutant.</h1>
+      <p>A hardware comparator decides whether one integer vector is longer than another. A test
+      corpus of <strong>14.95&nbsp;million pairs</strong> exercises it and reports full coverage. Then MCY
+      mutates the netlist 400 ways, and for 46 of those
+      mutations <em>every one of those pairs returns the same answer as the unmutated design.</em>
+      The task is to name a pair that does not.</p>
+      <p>There is no answer key, no judge and no tolerance. A kill is checked by
+      <strong>simulating the actual netlist under the actual mutation</strong>; EQUIVALENT is checked
+      against a <strong>SAT proof</strong> on a hand-written miter. 348 mutations carry a
+      verified witness, 51 are proved equivalent, and the identity mutation is in the
+      pool as a control that must be recognised rather than killed.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal"><h2 class="t1">Where the corpus cannot look</h2><span class="eyebrow">400 mutations, by region of the netlist</span></div>
+    <div class="reveal"><svg viewBox="0 0 940 348" class="fig" role="img" aria-label="Every one of MCY's 400 mutations of the comparator, placed in the region of the netlist it sits in, and marked by which testbench family can see it."><text x="140" y="46.5" class="rl" text-anchor="end">p = u.v</text><line x1="152" y1="43" x2="916" y2="43" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/><circle cx="158" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="169" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="180" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="191" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="202" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="213" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="224" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="235" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="246" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="257" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="268" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="279" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="290" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="301" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="312" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="323" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="334" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="345" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="356" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="367" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="378" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="389" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="400" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="411" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="422" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="433" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="444" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="455" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="466" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="477" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="488" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="499" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="510" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="521" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="532" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="543" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="554" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="565" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="576" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="587" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="598" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="609" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="620" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="631" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="642" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="653" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="664" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="675" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="686" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="697" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="708" cy="43" r="3.1" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="719" cy="43" r="3.1" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="730" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="741" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="752" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="763" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="774" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="785" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M793.8,40.8 l4.4,4.4 M798.2,40.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="807" cy="43" r="3.1" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="818" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="829" cy="43" r="1.9" fill="currentColor" fill-opacity="0.42"/><text x="916" y="32" class="rl" text-anchor="end" opacity="0.55">62</text><text x="140" y="80.5" class="rl" text-anchor="end">s = u.u</text><line x1="152" y1="77" x2="916" y2="77" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/><circle cx="158" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="169" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="180" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="191" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="202" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M210.8,74.8 l4.4,4.4 M215.2,74.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="224" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="235" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="246" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="257" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="268" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="279" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="290" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="301" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="312" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="323" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="334" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="345" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="356" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M364.8,74.8 l4.4,4.4 M369.2,74.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="378" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="389" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="400" cy="77" r="3.1" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="411" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="422" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="433" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="444" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="455" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="466" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="477" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="488" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="499" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="510" cy="77" r="3.1" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="521" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="532" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="543" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="554" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="565" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="576" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="587" cy="77" r="3.1" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="598" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="609" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="620" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="631" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="642" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="653" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="664" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="675" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="686" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="697" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="708" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M716.8,74.8 l4.4,4.4 M721.2,74.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="730" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="741" cy="77" r="1.9" fill="currentColor" fill-opacity="0.42"/><text x="916" y="66" class="rl" text-anchor="end" opacity="0.55">54</text><text x="140" y="114.5" class="rl" text-anchor="end">t = v.v</text><line x1="152" y1="111" x2="916" y2="111" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/><circle cx="158" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="169" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="180" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M188.8,108.8 l4.4,4.4 M193.2,108.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="202" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="213" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="224" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="235" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="246" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="257" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="268" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="279" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M287.8,108.8 l4.4,4.4 M292.2,108.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="301" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="312" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="323" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="334" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="345" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M353.8,108.8 l4.4,4.4 M358.2,108.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="367" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M375.8,108.8 l4.4,4.4 M380.2,108.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="389" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="400" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="411" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><rect x="419.2" y="108.2" width="5.6" height="5.6" fill="currentColor" fill-opacity="0.95"/><path d="M430.8,108.8 l4.4,4.4 M435.2,108.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="444" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="455" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="466" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="477" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><rect x="485.2" y="108.2" width="5.6" height="5.6" fill="currentColor" fill-opacity="0.95"/><circle cx="499" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="510" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="521" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="532" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M540.8,108.8 l4.4,4.4 M545.2,108.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="554" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="565" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="576" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="587" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="598" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M606.8,108.8 l4.4,4.4 M611.2,108.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="620" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="631" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="642" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="653" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="664" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="675" cy="111" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M683.8,108.8 l4.4,4.4 M688.2,108.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><text x="916" y="100" class="rl" text-anchor="end" opacity="0.55">49</text><text x="140" y="148.5" class="rl" text-anchor="end">trivial branch</text><line x1="152" y1="145" x2="916" y2="145" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/><circle cx="158" cy="145" r="3.1" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="169" cy="145" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="180" cy="145" r="1.9" fill="currentColor" fill-opacity="0.42"/><text x="916" y="134" class="rl" text-anchor="end" opacity="0.55">3</text><text x="140" y="182.5" class="rl" text-anchor="end">box check</text><line x1="152" y1="179" x2="916" y2="179" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/><circle cx="158" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="162.56969696969696" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="167.13939393939393" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="167.13939393939393" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="171.70909090909092" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="176.27878787878788" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="176.27878787878788" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="180.84848484848484" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="185.4181818181818" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M187.7878787878788,176.8 l4.4,4.4 M192.1878787878788,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="194.55757575757576" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="199.12727272727273" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="199.12727272727273" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="203.6969696969697" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="208.26666666666665" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="212.83636363636361" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="212.83636363636361" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="217.4060606060606" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M219.77575757575758,176.8 l4.4,4.4 M224.17575757575756,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><g><circle cx="226.54545454545456" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="226.54545454545456" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="231.11515151515152" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="235.6848484848485" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="240.25454545454545" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="244.8242424242424" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="249.39393939393938" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="249.39393939393938" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="253.96363636363634" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="258.5333333333333" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="258.5333333333333" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><g><circle cx="263.1030303030303" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="263.1030303030303" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><path d="M265.47272727272724,176.8 l4.4,4.4 M269.8727272727272,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="272.24242424242425" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="276.8121212121212" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="281.3818181818182" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="285.95151515151514" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="285.95151515151514" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="290.5212121212121" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M292.89090909090913,176.8 l4.4,4.4 M297.2909090909091,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M297.46060606060604,176.8 l4.4,4.4 M301.860606060606,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M302.03030303030306,176.8 l4.4,4.4 M306.43030303030304,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="308.79999999999995" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M311.169696969697,176.8 l4.4,4.4 M315.56969696969696,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="317.93939393939394" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="322.5090909090909" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="327.07878787878786" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="327.07878787878786" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="331.6484848484848" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M334.01818181818186,176.8 l4.4,4.4 M338.41818181818184,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="340.78787878787875" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M343.1575757575758,176.8 l4.4,4.4 M347.55757575757576,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="349.9272727272727" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="354.4969696969697" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="354.4969696969697" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="359.06666666666666" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="363.6363636363636" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="368.2060606060606" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="372.77575757575755" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="372.77575757575755" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="377.3454545454545" cy="179" r="3.1" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="381.9151515151515" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M384.2848484848485,176.8 l4.4,4.4 M388.6848484848485,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="391.0545454545454" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="395.6242424242424" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M397.9939393939394,176.8 l4.4,4.4 M402.3939393939394,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><g><circle cx="404.76363636363635" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="404.76363636363635" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="409.3333333333333" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="413.9030303030303" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="418.47272727272724" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="423.0424242424242" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="427.61212121212117" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="427.61212121212117" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><path d="M429.9818181818182,176.8 l4.4,4.4 M434.3818181818182,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><g><circle cx="436.75151515151515" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="436.75151515151515" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="441.3212121212121" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="445.8909090909091" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="450.46060606060604" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="450.46060606060604" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="455.030303030303" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="459.59999999999997" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="464.16969696969693" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="468.7393939393939" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="473.3090909090909" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="477.8787878787879" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M480.24848484848485,176.8 l4.4,4.4 M484.6484848484848,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M484.8181818181818,176.8 l4.4,4.4 M489.2181818181818,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="491.58787878787876" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="496.1575757575757" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="500.7272727272727" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="505.29696969696965" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="509.8666666666666" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="514.4363636363637" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="519.0060606060606" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="523.5757575757575" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="528.1454545454545" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="532.7151515151515" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M535.0848484848484,176.8 l4.4,4.4 M539.4848484848485,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><g><circle cx="541.8545454545454" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="541.8545454545454" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><g><circle cx="546.4242424242424" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="546.4242424242424" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="550.9939393939394" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="555.5636363636363" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="560.1333333333333" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="564.7030303030303" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="569.2727272727273" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="573.8424242424242" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="573.8424242424242" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="578.4121212121212" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="582.9818181818182" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="587.5515151515151" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="592.121212121212" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="592.121212121212" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><path d="M594.490909090909,176.8 l4.4,4.4 M598.8909090909091,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="601.260606060606" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="605.830303030303" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="610.4" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="614.969696969697" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="614.969696969697" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><path d="M617.3393939393939,176.8 l4.4,4.4 M621.739393939394,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M621.9090909090908,176.8 l4.4,4.4 M626.3090909090909,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="628.6787878787878" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="633.2484848484848" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="637.8181818181818" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="642.3878787878788" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="646.9575757575758" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="651.5272727272727" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="656.0969696969696" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="660.6666666666666" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="665.2363636363636" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="669.8060606060606" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="674.3757575757576" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="678.9454545454545" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="683.5151515151515" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="688.0848484848484" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="688.0848484848484" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="692.6545454545454" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="697.2242424242423" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="701.7939393939394" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="706.3636363636364" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="706.3636363636364" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><g><circle cx="710.9333333333333" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="710.9333333333333" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="715.5030303030303" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="720.0727272727272" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="724.6424242424242" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="729.2121212121211" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="729.2121212121211" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><path d="M731.5818181818181,176.8 l4.4,4.4 M735.9818181818182,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="738.3515151515151" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="742.9212121212121" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="747.4909090909091" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="752.060606060606" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="756.630303030303" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="761.1999999999999" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="765.769696969697" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="765.769696969697" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="770.3393939393939" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="774.9090909090909" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="779.4787878787878" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="779.4787878787878" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="784.0484848484848" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M786.4181818181818,176.8 l4.4,4.4 M790.8181818181819,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="793.1878787878787" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="797.7575757575758" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="797.7575757575758" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="802.3272727272727" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="806.8969696969697" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M809.2666666666665,176.8 l4.4,4.4 M813.6666666666666,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="816.0363636363636" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="820.6060606060605" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="825.1757575757575" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="825.1757575757575" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="829.7454545454545" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="834.3151515151515" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="838.8848484848485" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M841.2545454545453,176.8 l4.4,4.4 M845.6545454545454,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="848.0242424242424" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="852.5939393939393" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="857.1636363636363" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="861.7333333333332" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="866.3030303030303" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="866.3030303030303" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><g><circle cx="870.8727272727273" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="870.8727272727273" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="875.4424242424242" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="880.0121212121212" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="884.5818181818181" cy="179" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="884.5818181818181" cy="179" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="889.1515151515151" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="893.721212121212" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M896.090909090909,176.8 l4.4,4.4 M900.4909090909091,176.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="902.860606060606" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="907.430303030303" cy="179" r="1.9" fill="currentColor" fill-opacity="0.42"/><text x="916" y="168" class="rl" text-anchor="end" opacity="0.55">165</text><text x="140" y="216.5" class="rl" text-anchor="end">verdict logic</text><line x1="152" y1="213" x2="916" y2="213" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/><circle cx="158" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="169" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M177.8,210.8 l4.4,4.4 M182.2,210.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M188.8,210.8 l4.4,4.4 M193.2,210.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M199.8,210.8 l4.4,4.4 M204.2,210.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M210.8,210.8 l4.4,4.4 M215.2,210.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="224" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="235" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="246" cy="213" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="246" cy="213" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><g><circle cx="257" cy="213" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="257" cy="213" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="268" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><g><circle cx="279" cy="213" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="279" cy="213" r="1.3" fill="currentColor" fill-opacity="0.95"/></g><circle cx="290" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="301" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="312" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="323" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="334" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="345" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="356" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="367" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="378" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="389" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="400" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="411" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="422" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="433" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="444" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="455" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="466" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="477" cy="213" r="1.9" fill="currentColor" fill-opacity="0.42"/><text x="916" y="202" class="rl" text-anchor="end" opacity="0.55">30</text><text x="140" y="250.5" class="rl" text-anchor="end">cmp width guard</text><line x1="152" y1="247" x2="916" y2="247" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/><path d="M155.8,244.8 l4.4,4.4 M160.2,244.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="169" cy="247" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="180" cy="247" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="191" cy="247" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="202" cy="247" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="213" cy="247" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M221.8,244.8 l4.4,4.4 M226.2,244.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M232.8,244.8 l4.4,4.4 M237.2,244.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M243.8,244.8 l4.4,4.4 M248.2,244.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="257" cy="247" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M265.8,244.8 l4.4,4.4 M270.2,244.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M276.8,244.8 l4.4,4.4 M281.2,244.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M287.8,244.8 l4.4,4.4 M292.2,244.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="301" cy="247" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="312" cy="247" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M320.8,244.8 l4.4,4.4 M325.2,244.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><path d="M331.8,244.8 l4.4,4.4 M336.2,244.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="345" cy="247" r="1.9" fill="currentColor" fill-opacity="0.42"/><text x="916" y="236" class="rl" text-anchor="end" opacity="0.55">18</text><text x="140" y="284.5" class="rl" text-anchor="end">cmp multipliers</text><line x1="152" y1="281" x2="916" y2="281" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/><circle cx="158" cy="281" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="169" cy="281" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="180" cy="281" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M188.8,278.8 l4.4,4.4 M193.2,278.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><rect x="199.2" y="278.2" width="5.6" height="5.6" fill="currentColor" fill-opacity="0.95"/><circle cx="213" cy="281" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="224" cy="281" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M232.8,278.8 l4.4,4.4 M237.2,278.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><circle cx="246" cy="281" r="1.9" fill="currentColor" fill-opacity="0.42"/><path d="M254.8,278.8 l4.4,4.4 M259.2,278.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><text x="916" y="270" class="rl" text-anchor="end" opacity="0.55">10</text><text x="140" y="318.5" class="rl" text-anchor="end">cmp compare</text><line x1="152" y1="315" x2="916" y2="315" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/><circle cx="158" cy="315" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="169" cy="315" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="180" cy="315" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="191" cy="315" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="202" cy="315" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="213" cy="315" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="224" cy="315" r="1.9" fill="currentColor" fill-opacity="0.42"/><circle cx="235" cy="315" r="1.9" fill="currentColor" fill-opacity="0.42"/><text x="916" y="304" class="rl" text-anchor="end" opacity="0.55">8</text></svg><div class="legend"><span class="li"><svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="1.9" fill="currentColor" fill-opacity="0.42"/></svg><b>covered</b> the 14.95M-pair corpus sees it <i>302</i></span><span class="li"><svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="3.1" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/></svg><b>mint only</b> only the minted family sees it <i>8</i></span><span class="li"><svg viewBox="0 0 14 14" aria-hidden="true"><g><circle cx="7" cy="7" r="3.4" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/><circle cx="7" cy="7" r="1.3" fill="currentColor" fill-opacity="0.95"/></g></svg><b>outbox only</b> only out-of-box inputs see it <i>35</i></span><span class="li"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="4.2" y="4.2" width="5.6" height="5.6" fill="currentColor" fill-opacity="0.95"/></svg><b>aligned only</b> only aligned inputs see it <i>3</i></span><span class="li"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4.8,4.8 l4.4,4.4 M9.2,4.8 l-4.4,4.4" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/></svg><b>nochange</b> proved equivalent — nothing to see <i>51</i></span><span class="li"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7,3.4 L10.6,7 L7,10.6 L3.4,7 Z" fill="none" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.2"/></svg><b>identity</b> the unmutated design <i>1</i></span></div></div>
+    <div class="note reveal" style="max-width:84ch;">
+<b>read the shapes, not the shade</b> a filled dot is a mutation the corpus catches; a ring is one only
+another family catches; a cross is one a proof says changes nothing. The blind spots are not scattered
+&mdash; they sit in the <span class="mono">box check</span>, the part of the design no <em>valid</em> input
+exercises, which is precisely where a corpus of valid inputs cannot go.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal"><h2 class="t1">Knowing the family is not the pair</h2><span class="eyebrow">the reference policies, by class</span></div>
+    <div class="reveal"><div class="gr" style="grid-template-columns:190px repeat(6,minmax(0,1fr));">
+      <div class="h">eight pairs from &hellip;</div><div class="h">covered</div><div class="h">mint only</div><div class="h">outbox only</div><div class="h">aligned only</div><div class="h">nochange</div><div class="h">identity</div>
+      <div class="ml">corpus8</div><div class="c" style="--f:0.86"><b>31</b>/36</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="c" style="--f:0.00"><b>0</b>/20</div><div class="c" style="--f:0.00"><b>0</b>/8</div><div class="c" style="--f:0.00"><b>0</b>/22</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="ml">mint8</div><div class="c" style="--f:0.94"><b>34</b>/36</div><div class="c" style="--f:0.47"><b>8</b>/17</div><div class="c" style="--f:0.00"><b>0</b>/20</div><div class="c" style="--f:0.00"><b>0</b>/8</div><div class="c" style="--f:0.00"><b>0</b>/22</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="ml">outbox8</div><div class="c" style="--f:0.03"><b>1</b>/36</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="c" style="--f:0.15"><b>3</b>/20</div><div class="c" style="--f:0.00"><b>0</b>/8</div><div class="c" style="--f:0.00"><b>0</b>/22</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="ml">aligned8</div><div class="c" style="--f:0.58"><b>21</b>/36</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="c" style="--f:0.00"><b>0</b>/20</div><div class="c" style="--f:0.00"><b>0</b>/8</div><div class="c" style="--f:0.00"><b>0</b>/22</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="ml">union8</div><div class="c" style="--f:0.83"><b>30</b>/36</div><div class="c" style="--f:0.18"><b>3</b>/17</div><div class="c" style="--f:0.10"><b>2</b>/20</div><div class="c" style="--f:0.00"><b>0</b>/8</div><div class="c" style="--f:0.00"><b>0</b>/22</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="ml">sat</div><div class="c" style="--f:1.00"><b>36</b>/36</div><div class="c" style="--f:1.00"><b>17</b>/17</div><div class="c" style="--f:1.00"><b>20</b>/20</div><div class="c" style="--f:1.00"><b>8</b>/8</div><div class="c" style="--f:1.00"><b>22</b>/22</div><div class="c" style="--f:1.00"><b>17</b>/17</div>
+    </div></div>
+    <div class="note reveal" style="max-width:84ch;">
+<b>the out-of-box family kills 96.8% of these mutants</b> as a family of 4,000 pairs. Eight random members
+of it kill <strong>3 of 20</strong> of the mutants only it can see, and every eight-pair
+shotgun kills <strong>0 of 8</strong> of the aligned-only ones. A mutant on the box check of ONE
+coordinate is killed only by pairs that spoil THAT coordinate &mdash; about one in ten of the family.
+<b>so the class names the family and the defect names the member</b> and only the member is a kill. That is
+the whole environment: the <span class="mono">profile</span> rung hands the model the family and watches
+what it does with it.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal"><h2 class="t1">The reference table</h2><span class="eyebrow">40 tasks per rung, seed 2026, no API key</span></div>
+    <div class="reveal"><div class="gr" style="grid-template-columns:250px repeat(4,minmax(0,1fr)) 90px 90px;">
+      <div class="h">policy</div><div class="h">located</div><div class="h">profile</div><div class="h">blind</div><div class="h">all</div><div class="h">solved</div><div class="h">false claims</div>
+      <div class="ml">abstain <span class="dim">&middot; answers UNDECIDED to everything</span></div><div class="c" style="--f:0.50">+0.000</div><div class="c" style="--f:0.50">+0.000</div><div class="c" style="--f:0.50">+0.000</div><div class="c " style="--f:0.50"><b>+0.000</b></div><div class="c">0/120</div><div class="c">0</div><div class="ml">never <span class="dim">&middot; answers EQUIVALENT to everything</span></div><div class="c" style="--f:0.40">−0.200</div><div class="c" style="--f:0.28">−0.450</div><div class="c" style="--f:0.30">−0.400</div><div class="c " style="--f:0.33"><b>−0.350</b></div><div class="c">39/120</div><div class="c">81</div><div class="ml">random8 <span class="dim">&middot; eight random pairs</span></div><div class="c" style="--f:0.39">−0.225</div><div class="c" style="--f:0.44">−0.125</div><div class="c" style="--f:0.42">−0.150</div><div class="c " style="--f:0.42"><b>−0.167</b></div><div class="c">19/120</div><div class="c">39</div><div class="ml">corpus8 <span class="dim">&middot; eight pairs drawn from the corpus</span></div><div class="c" style="--f:0.44">−0.125</div><div class="c" style="--f:0.50">+0.000</div><div class="c" style="--f:0.46">−0.075</div><div class="c " style="--f:0.47"><b>−0.067</b></div><div class="c">31/120</div><div class="c">39</div><div class="ml">mint8 <span class="dim">&middot; eight from the minted family</span></div><div class="c" style="--f:0.44">−0.125</div><div class="c" style="--f:0.55">+0.100</div><div class="c" style="--f:0.55">+0.100</div><div class="c " style="--f:0.51"><b>+0.025</b></div><div class="c">42/120</div><div class="c">39</div><div class="ml">outbox8 <span class="dim">&middot; eight from the out-of-box family</span></div><div class="c" style="--f:0.33">−0.350</div><div class="c" style="--f:0.38">−0.250</div><div class="c" style="--f:0.36">−0.275</div><div class="c " style="--f:0.35"><b>−0.292</b></div><div class="c">4/120</div><div class="c">39</div><div class="ml">aligned8 <span class="dim">&middot; eight from the aligned family</span></div><div class="c" style="--f:0.39">−0.225</div><div class="c" style="--f:0.42">−0.150</div><div class="c" style="--f:0.46">−0.075</div><div class="c " style="--f:0.42"><b>−0.150</b></div><div class="c">21/120</div><div class="c">39</div><div class="ml">union8 <span class="dim">&middot; eight drawn from all four</span></div><div class="c" style="--f:0.45">−0.100</div><div class="c" style="--f:0.53">+0.050</div><div class="c" style="--f:0.47">−0.050</div><div class="c " style="--f:0.48"><b>−0.033</b></div><div class="c">35/120</div><div class="c">39</div><div class="ml">profile <span class="dim">&middot; reads the profile rung, then eight from the first family that sees it</span></div><div class="c" style="--f:0.45">−0.100</div><div class="c" style="--f:0.81">+0.625</div><div class="c" style="--f:0.47">−0.050</div><div class="c " style="--f:0.58"><b>+0.158</b></div><div class="c">47/120</div><div class="c">28</div><div class="ml">sat <span class="dim">&middot; the SAT witness, or the proof</span></div><div class="c" style="--f:1.00">+1.000</div><div class="c" style="--f:1.00">+1.000</div><div class="c" style="--f:1.00">+1.000</div><div class="c win" style="--f:1.00"><b>+1.000</b></div><div class="c">120/120</div><div class="c">0</div>
+    </div></div>
+    <div class="note reveal" style="max-width:84ch;">
+<b>+1</b> a pair that flips a pin, or EQUIVALENT on a design the miter proved unchanged. <b>0</b> a miss, an
+UNDECIDED, or a reply that could not be read. <b>&minus;1</b> a false claim either way &mdash; a kill declared on
+a design that cannot change, or a gap declared closed on one that can.
+<b>the ceiling is published</b> <span class="mono">sat</span> scores +1.000 on every rung, because the environment
+knows the answer it will not tell you.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal"><h2 class="t1">Three models</h2><span class="eyebrow">108 calls &middot; refusals counted apart, never reworded</span></div>
+    <div class="reveal"><div class="gr" style="grid-template-columns:150px repeat(4,minmax(0,1fr)) 80px 80px 90px;">
+      <div class="h">model</div><div class="h">located</div><div class="h">profile</div><div class="h">blind</div><div class="h">all</div><div class="h">solved</div><div class="h">wrong</div><div class="h">declined</div>
+      <div class="ml">Opus 5</div><div class="c" style="--f:1.00">+1.000</div><div class="c dim">&mdash;</div><div class="c" style="--f:0.55">+0.091</div><div class="c" style="--f:0.75"><b>+0.500</b></div><div class="c">13</div><div class="c">3</div><div class="c ">16</div><div class="ml">Sonnet 5</div><div class="c" style="--f:0.88">+0.750</div><div class="c" style="--f:0.58">+0.167</div><div class="c" style="--f:0.50">+0.000</div><div class="c" style="--f:0.65"><b>+0.306</b></div><div class="c">15</div><div class="c">4</div><div class="c dim">0</div><div class="ml">Haiku 4.5</div><div class="c" style="--f:0.71">+0.417</div><div class="c" style="--f:0.29">−0.417</div><div class="c" style="--f:0.50">+0.000</div><div class="c" style="--f:0.50"><b>+0.000</b></div><div class="c">10</div><div class="c">10</div><div class="c dim">0</div>
+    </div></div>
+    <div class="note reveal" style="max-width:84ch;">
+<b>the profile rung cannot evaluate Opus as written</b> it declined all twelve of them on a content policy,
+plus three <span class="mono">located</span> tasks. That is recorded as a fact and the prompt was not
+reworded to get past the classifier &mdash; a rung that only scores the models willing to answer it is not
+measuring what it claims to.
+<b>half of every kill went outside the box</b> 16 of the 32 kills used a &minus;4 coordinate, which the
+declared input box excludes. The thesis, showing up as a diagnostic rather than as a score.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal"><h2 class="t1">The controls run before any model does</h2><span class="eyebrow">11 planted, 0 misbehaved</span></div>
+    <div class="reveal"><div class="gr" style="grid-template-columns:250px 110px 1fr;">
+      <div class="h">planted submission</div><div class="h">must grade</div><div class="h">why it is there</div>
+      <div class="ml">identity_declared_killed</div><div class="c ">WRONG −1.000</div><div class="ml dim" style="text-align:left;">eight certified pairs against the unmutated design: nothing can flip, and claiming it costs</div><div class="ml">equivalent_declared_killed</div><div class="c ">WRONG −1.000</div><div class="ml dim" style="text-align:left;">the miter proved this mutant changes nothing</div><div class="ml">killable_declared_equivalent</div><div class="c ">WRONG −1.000</div><div class="ml dim" style="text-align:left;">a witness exists and the grader names it</div><div class="ml">miss_is_not_a_kill</div><div class="c ">MISSED +0.000</div><div class="ml dim" style="text-align:left;">the corpus cannot see this mutant; a miss scores zero, not one and not minus one</div><div class="ml">nine_pairs</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim" style="text-align:left;">the budget is eight</div><div class="ml">coordinate_out_of_range</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim" style="text-align:left;">4 is not a 3-bit value; masking it to -4 would test a pair the model did not name</div><div class="ml">wrong_dimension</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim" style="text-align:left;">the design has eleven coordinates</div><div class="ml">flat_pair</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim" style="text-align:left;">a pair is {u, v}, not one list</div><div class="ml">sat_witness_kills</div><div class="c win">SOLVED +1.000</div><div class="ml dim" style="text-align:left;">the SAT counterexample, re-run through the netlist</div><div class="ml">identity_declared_equivalent</div><div class="c win">SOLVED +1.000</div><div class="ml dim" style="text-align:left;">the unmutated design is equivalent to itself</div><div class="ml">outbox_kill_uses_validity</div><div class="c win">SOLVED +1.000</div><div class="ml dim" style="text-align:left;">a mutant only the out-of-box family sees, killed by an invalid input, and the grader says so</div>
+    </div></div>
+    <div class="note reveal" style="max-width:84ch;">
+<b>what each one pins</b> the grade shown is what the control actually graded; every one matched, and
+three of the eleven deliberately pin only the outcome and leave the reward to follow from it.
+<b>three of them must SCORE</b> and that is the half people leave out. A simulator that is not live scores
+every submission as a miss and reports perfect refusal discipline; a suite that fails everything reports
+perfect coverage. Those are the same mistake, and it is the one this environment is named for.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <div class="prose reveal">
+      <h2 class="t2">How a verdict is reached, and what it is worth</h2>
+      <p>One control design carries all 400 mutations under a select input, so a kill is
+      four thousand simulated records a second rather than four hundred rebuilds. EQUIVALENT is a
+      <span class="mono">yosys sat</span> proof on a hand-written miter &mdash; 356&nbsp;seconds for the whole
+      pool on this laptop &mdash; and every witness the prover returns is re-run through the simulator before
+      it is believed.</p>
+      <p><strong>This environment was ported into this repository and its labels were re-derived here, not
+      copied.</strong> The SAT run was repeated on this machine and compared against the source lab's own
+      record: every mutation id, label, class, profile, mutation text, witness pair and witness pin-pair is
+      identical, 400 of 400 on each. The only fields that differ anywhere in the record are the
+      SAT <em>timings</em>, which are the machine and not the mathematics.</p>
+      <p>What it certifies is arithmetic about one elaborated netlist and one mutation set.
+      <strong>It is not a claim about any shipped chip, and it does not say a corpus that misses these
+      mutants is a bad corpus</strong> &mdash; it says a coverage number computed from valid inputs cannot see a
+      defect that only invalid inputs reach, which is a statement about the measurement, not about the
+      people who took it.</p>
+      <p class="mono" style="font-size:var(--text-eyebrow); color:var(--ink-4); line-height:2; margin-top:var(--s-5);">
+      cd environments/blind_spot &amp;&amp; python3 -m pytest tests -q<br>
+      python3 -m blind_spot gate<br>
+      python3 -m blind_spot baseline --n 40<br>
+      python3 environments/blind_spot/battery.py<br>
+      node playground/build.js</p>
+    </div>
+  </div>
+</section></main>
+<footer class="foot"><div class="wrap"><div class="line">
+  <span>cert-machine / instruments</span>
+  <a href="../index.html">all instruments</a>
+  <a href="../../reports/index.html">the reports</a>
+  <a href="../../machine/index.html">the machine</a>
+  <span>nothing here is gated · every number came out of the record beside the page</span>
+  <span>Carlos Toledo</span>
+</div></div></footer>
+
+</body>
+</html>

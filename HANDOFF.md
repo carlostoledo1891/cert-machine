@@ -23,14 +23,11 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-10 (the thirteenth session). In the order I would take it:
 
-  0. BLIND-SPOT IS IN THE MACHINE BUT NOT ON THE HUB. The port is done and gated
-     (83/83); what it lacks is the publishing layer: a `verifiers` adapter with
-     `load_environment`, the hub tags/license/urls/scripts/hatchling in
-     pyproject, `.prime/` and a wheel. THE ADAPTER MUST BE WRITTEN AGAINST A LIVE
-     INSTALL, never from the doc — that is how break_the_grader got three silent
-     defects, two of which printed a whole eval as 0.000 with no error. So:
-     `pip install verifiers`, write it, verify from the hub in a clean 3.12 venv.
-     Publishing itself is a send, so the operator's. Half a day.
+  0. BLIND-SPOT IS READY TO PUBLISH AND HAS NOT BEEN. The port, the adapter, the
+     wheel and the page are all done and gated (83/83); the wheel was installed
+     into a clean 3.12 venv and `load_environment` scored a truthful reply +1.0
+     through the actual netlist. What remains is `prime env push`, which is a
+     SEND and therefore the operator's. The `prime` CLI is not installed here.
   1. NOTHING IS PUSHED. The audit, the instrument, the mechanism and now the
      second environment are FOURTEEN local commits (e78d65e … HEAD). A push to
      main IS the deploy. Everything below is downstream of it.
@@ -58,16 +55,12 @@ THE MENU, as of 2026-09-10 (the thirteenth session). In the order I would take i
   5. THE EULER CHECKS, listed in corpus/navier-stokes/euler.md and unrun: the WKB
      frozen-frame ODE, §5.5's scale inequalities in exact log arithmetic, the §3
      symbolic identities.
-  6. THE BLIND-SPOT PAGE is not built (frontier's tools/build-blind-spot.js reads
-     eval/page.json, which was lifted; the page is a REBUILD in our design system,
-     never an import). Unblocked, and it is the only environment here with an
-     interactive artefact waiting.
-  7. TWO DEBT ROWS on the layout ruler, both open: it measures app pages before
+  6. TWO DEBT ROWS on the layout ruler, both open: it measures app pages before
      they render (two skyaudit rows were false green for four days), and it
      counts a bordered box as two spines. Half a day and an hour, separately —
      the second one re-measures every page, so it does not ride along with
      anything else.
-  8. Everything below is the older menu and is unchanged.
+  7. Everything below is the older menu and is unchanged.
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-02 (the release day). Session logs follow below;
@@ -144,16 +137,55 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     another's witness cannot kill, and 400 random pairs that cannot tell the
     identity from the design. 83/83, exit 0.
 
-  ── NOT DONE, AND IT IS THE WHOLE POINT OF THE QUESTION ── THIS IS NOT YET
-    PUBLISHABLE. blind-spot has no `verifiers` adapter and no `load_environment`;
-    its pyproject is twelve lines where break-the-grader's is forty (tags,
-    license, urls, scripts, hatchling, `.prime/`, a wheel). The adapter must NOT
-    be written from documentation — frontier's own open list records that doing
-    so produced THREE silent defects in break_the_grader, two of which printed a
-    whole eval as 0.000 with no error raised, and all three were caught only by
-    installing from the hub into a clean venv. `verifiers` and the `prime` CLI
-    are not installed here. The site page is also not built (frontier's
-    tools/build-blind-spot.js reads eval/page.json) and is unblocked.
+  ── 5 · THE PUBLISHING LAYER, WRITTEN AGAINST A LIVE INSTALL ── `verifiers`
+    0.3.1 in a venv, then `blind_spot/api.py` (the stdlib surface every consumer
+    shares) and `blind_spot/adapters_v0.py` (`load_environment`). The three
+    defects a doc-written binding produced in break-the-grader are each designed
+    out and each has a test. FOUR OF MY OWN TESTS FAILED ON FIRST RUN and every
+    one was a real fact about the framework: SingleTurnEnv does not keep the
+    Rubric it is handed (it wraps it in a RubricGroup whose own `.funcs` is EMPTY
+    because it delegates to `.rubrics`); the lazy resolver goes through
+    `importlib.import_module`, which does not route via `builtins.__import__`, so
+    an import-trapping fixture cannot see it; and the prompt legitimately
+    contains the word KILL, because that is the response format the model is
+    given — the label is the class.
+
+  ── 6 · THEN THE WHEEL FOUND A FOURTH DEFECT, NEW ── installed into a clean
+    venv, EVERY VERDICT CAME BACK "xxx". `sim.simulate` passed the case file by
+    ABSOLUTE path and the testbench holds that plusarg in `reg [1023:0] f`, which
+    is 128 characters. The source lab sits ~70 characters deep so it always
+    worked; a site-packages path 200 characters deep truncated it, `$readmemh`
+    read nothing, the memory stayed X, and nothing raised — a whole environment
+    scoring every submission as unparseable, silently, because of the length of a
+    directory name. It runs vvp from the pool directory with basenames now, and
+    `tests/test_long_path.py` was checked to FAIL against the old call. Two more
+    things an install needs and a source tree never asks for: the design and
+    pool.json ride in the wheel (force-included from where they live, not
+    duplicated), and `pool.ensure_sim()` compiles in ~40 s from the shipped
+    labels instead of re-proving 400 SAT problems for a binary. THE PARSER also
+    moved out of eval/run_models.py into the package — it was where the adapter
+    could not reach it — and the battery re-grades all 92 gradable rollouts from
+    their stored raws every build: 0 rows moved. VERIFIED: pip install of the
+    wheel into a fresh 3.12 venv from /tmp, load_environment returns a
+    SingleTurnEnv, 6/6 rows across three rungs, no answer column, no task column,
+    disjoint seeds, a truthful reply +1.0 through the actual netlist.
+
+  ── 7 · THE PAGE ── /instruments/blind-spot, a REBUILD in the house design
+    system reading eval/page.json regenerated here (nothing imported from
+    frontier's builder). The blind-spot map — 400 mutations by region of the
+    netlist, THE MARK CARRYING THE CLASS BY SHAPE so a reader who cannot separate
+    two greys can still separate a mutant the corpus sees from one it does not —
+    and the map shows the finding: the blind spots are not scattered, they sit in
+    the box check, the part no VALID input exercises. Then the
+    family-is-not-the-pair table, the reference table, three models with refusals
+    counted apart, and the eleven controls. Two bugs found by looking: three
+    control cells read "−NaN" (those controls pin only the outcome, so the reward
+    is not in `expect`), and the card art passed coordinates as STRINGS so
+    `${x + 3.6}` concatenated — "26.73.6" — and drew a malformed diamond as a
+    stray vertical bar.
+
+  ── NOT DONE ── `prime env push` has not been run and is a send, so it is the
+    operator's. Nothing else blocks it.
 
 ══════════════════════════════════════════════════════════════════════════
   TWELFTH SESSION, 2026-09-09 — THE ONE THING THE DRAWING ASSERTED, NOW DECIDED:

@@ -32,6 +32,7 @@ const UG = require(path.join(HERE, 'graph', 'build.js'));
 const AS = require(path.join(HERE, 'answer-shape', 'build.js'));
 const AF = require(path.join(HERE, 'affect', 'build.js'));
 const LC = require(path.join(HERE, 'lattice-claims', 'build.js'));
+const BS = require(path.join(HERE, 'blind-spot', 'build.js'));
 const RW = require(path.join(HERE, 'rewire', 'build.js'));
 const PQ = require(path.join(HERE, 'pqc', 'build.js'));
 const OC = require(path.join(HERE, 'occultation', 'build.js'));
@@ -109,7 +110,7 @@ const fact = (k, v, note) =>
    has no row, so the two cannot drift apart. `backing` is what decides the
    headline number, in the words the pages use; `battery` is whether a battery
    in make test covers the page, decided by the file's existence, not typed. */
-const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py' };
+const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py' };
 const MANIFEST = [
   { id: 'shape-hunt', title: 'Nothing here is a perfect circle.', blurb: 'Sixteen million exact tests for hidden polygons in the geometries the pages next door report, then the same search with the geometry shuffled out.', backing: 'exact', art: () => SH.cardArt(), scale: `${fmt(SH.SHAPETESTS)} shape tests` },
   { id: 'navier-stokes', title: 'Turn the singularity.', blurb: 'The object a Millennium proof constructs, not a simulation of it: a self-similar core you collapse by hand, and the one parameter it hangs on, with the two classical exclusions that close on it from opposite sides — decided in your tab in exact integers.', backing: 'exact', art: () => NS.cardArt(), scale: `${NS.facts.criteria} criteria, decided live` },
@@ -122,6 +123,7 @@ const MANIFEST = [
   { id: 'exact-geometry', title: 'Point it at something whose shape is already known.', blurb: 'The prediction is written first, in the source, and never edited: the control the other geometry pages are measured against.', backing: 'exact', art: () => XG.cardArt(), scale: `${XG.n} sets` },
   { id: 'graph', title: 'The rule is a wire you cannot draw.', blurb: 'A verifier\'s rules as conditions on a connection: a float has no wire into a port that decides. Break the rule and the engine refuses.', backing: 'exact', art: () => UG.cardArt(), scale: `${UG.facts.reDerivedIdentically} cells re-derived` },
   { id: 'lattice-claims', title: 'Decide it, or say what is missing.', blurb: 'An environment built out of a grader bug: three models, one dial for how much of the reference is stated, an exact grader that says what is missing.', backing: 'exact', art: () => LC.cardArt(), scale: `${LC.facts.rollouts} rollouts` },
+  { id: 'blind-spot', title: 'Fourteen million verdicts could not see it.', blurb: 'One mutant of a comparator, or the unmutated design. Name the input pair whose pins differ, or prove there is none \u2014 kills verified by simulating the netlist, equivalence by SAT, no answer key.', backing: 'exact', art: () => BS.cardArt(), scale: `${BS.facts.blind} of ${BS.facts.mutations} unseen` },
   { id: 'rewire', title: 'Rewire it yourself.', blurb: 'Lattice claims with exact answers and three graders; only one may reach the socket that decides. Drag the wrong one there and the engine refuses.', backing: 'exact', art: () => RW.cardArt(), scale: `${RW.facts.instances} instances` },
   { id: 'pqc', title: 'Solid where it was proved.', blurb: 'The SVP challenge\'s records as six-figure floats with no error bound, re-decided in exact arithmetic from the published vectors.', backing: 'exact', art: () => PQ.cardArt(), scale: `${PQ.facts.records} records` },
   { id: 'occultation', title: 'The occultation, without the ellipse.', blurb: 'Chords across a silhouette and stations that saw nothing: what they force on the size of a small body, assuming only convexity.', backing: 'exact', art: () => OC.cardArt(), scale: `${OC.facts.chords} chords · ${OC.facts.misses} misses` },
@@ -275,6 +277,16 @@ const body = `
     </div>
   </a>
 
+  <a class="card" href="blind-spot/index.html">
+    <figure class="card-art">
+      ${plate(BS.cardArt(), `${BS.facts.mutations} mutations &middot; ${BS.facts.blind} no valid input can see`)}
+    </figure>
+    <div class="card-body">
+      <h2>Fourteen million verdicts could not see it.</h2>
+      <p>One mutant of a comparator, or the unmutated design. Name the input pair whose pins differ, or prove there is none &mdash; kills verified by simulating the netlist, equivalence by SAT, no answer key.</p>
+    </div>
+  </a>
+
   <a class="card" href="lattice-claims/index.html">
     <figure class="card-art">
       ${plate(LC.cardArt(), `${LC.facts.rollouts} rollouts &middot; ${LC.facts.caught} of ${LC.facts.forgeries} forgeries caught`)}
@@ -401,6 +413,7 @@ const xg = XG.build(OUT);
 const as = AS.build(OUT);
 const af = AF.build(OUT);
 const lc = LC.build(OUT);
+const bs = BS.build(OUT);
 const rw = RW.build(OUT);
 const pq = PQ.build(OUT);
 const oc = OC.build(OUT);
@@ -421,6 +434,7 @@ console.log(`site/instruments/plates/            ${(pl.bytes / 1024).toFixed(0)}
 console.log(`site/instruments/exact-geometry/    ${(xg.bytes / 1024).toFixed(0)} KB  ·  ${xg.sets} sets whose shape is known, ${xg.agreed} predictions held, ${xg.refused} refused at the gate`);
 console.log(`site/instruments/answer-shape/      ${(as.bytes / 1024).toFixed(0)} KB  ·  ${as.subjects} subjects × ${as.models} models, every pair both ways, $${as.spend.toFixed(2)}`);
 console.log(`site/instruments/affect/            ${(af.bytes / 1024).toFixed(0)} KB  ·  ${af.moods} moods × ${af.models} models, clock hours as the control, $${af.spend.toFixed(2)}`);
+console.log(`site/instruments/blind-spot/        ${(bs.bytes / 1024).toFixed(0)} KB  \u00b7  ${bs.mutations} mutations, ${bs.killable} killable, ${bs.equivalent} proved equivalent`);
 console.log(`site/instruments/lattice-claims/    ${(lc.bytes / 1024).toFixed(0)} KB  ·  ${lc.rollouts} rollouts × ${lc.models} models, ${lc.caught}/${lc.forgeries} forgeries caught`);
 console.log(`site/instruments/rewire/            ${(rw.bytes / 1024).toFixed(0)} KB  ·  ${rw.instances} instances, exact ${rw.exact} · tolerance ${rw.tol} · careful ${rw.careful}, cliff at dim ${rw.cliff}`);
 console.log(`site/instruments/pqc/               ${(pq.bytes / 1024).toFixed(0)} KB  ·  ${pq.records} records, ${pq.decided} decided exactly, ${pq.open} undecidable from the printed norm; LLL dim ${pq.dim}, ${pq.snaps} snapshots`);

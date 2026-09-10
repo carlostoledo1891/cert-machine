@@ -59,6 +59,12 @@ PATCHES = {
         "Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and "
         "a requires-python floor of 3.11 — which is the floor of the WHEEL (verifiers needs it), not "
         "of the grader, which is stdlib and runs on 3.9 in this repository's battery.",
+    "environments/blind_spot/eval/page.json":
+        "REGENERATED on this machine by `PYTHONPATH=. python3 eval/page_data.py`, so the instrument "
+        "page reports this machine's run rather than the source lab's. Diffed leaf by leaf against "
+        "the lifted copy: 398 leaves differ and EVERY ONE of them is a SAT timing (397 per-mutant "
+        "`sat_secs` plus the pool total, 494.2 s there against 355.7 s here). Every label, class, "
+        "region, profile, witness, control, baseline row and model result is identical.",
     "environments/blind_spot/blind_spot/pool.py":
         "`ensure_sim()` added, and POOL_JSON now reads design.POOL_RECORD. An installed copy has "
         "the 400 SAT labels (they ship in the wheel) but not the compiled simulator, which is this "
