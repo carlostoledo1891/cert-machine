@@ -173,10 +173,11 @@
     },
     {
       "file": "README.md",
-      "sha256": "e0fddd39f645d514b5292fc82a75fcc5b31b3f1a9a30d8d0f31aee82cb2c8e41",
+      "sha256": "9b8dea457b9449efd86bbb95bbd35c11370ff9877ee9571e20ec6b29340e0f24",
       "sourceSha256": "e0fddd39f645d514b5292fc82a75fcc5b31b3f1a9a30d8d0f31aee82cb2c8e41",
       "bytes": 16156,
-      "patched": false
+      "patched": true,
+      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run."
     },
     {
       "file": "pyproject.toml",
@@ -264,6 +265,19 @@
       },
       "finding": "HAIKU 4.5 SCORED 4 of 12 CERTIFIED ON THE `declared` RUNG AND 0 OF 12 WELL FORMED — every verdict it got right came from a reference it never properly declared. That is the environment's whole thesis appearing as a measurement: exactness without naming what you were exact about.",
       "opusNotRun": "claude-opus-5 was not run: the account's credit balance ran out. The 400 arrives before any generation, so nothing was billed for it, and the 24-rollout record it produced was DELETED rather than kept — those were billing failures, not model results."
+    },
+    "published": {
+      "state": "PUBLISHED 2026-09-10 to the Prime Intellect Environments Hub as carlos-toledo/lattice-claims v0.1.0, PUBLIC, on the operator's word. The THIRD environment there.",
+      "slug": "carlos-toledo/lattice-claims",
+      "version": "0.1.0",
+      "environment_id": "tpczhvy40rae2ed8i821w06u",
+      "wheel_sha256": "87c99702312c93fb7eecbf0e1cd0723af47bf681f8548f2926f90b7581615863",
+      "pushed_at": "2026-09-10T20:18:46.557402",
+      "cli": "prime 0.6.31",
+      "install": "prime env install carlos-toledo/lattice-claims",
+      "url": "https://app.primeintellect.ai/dashboard/environments/carlos-toledo/lattice-claims",
+      "reviewCaught": "The README had no install section, said 18 tests where there are 27, invoked a builder that does not exist in this repository, and pointed the Page section at site/lattice-claims built by tools/build-lattice-env.js when it is /instruments/lattice-claims built by playground/build.js. All four corrected before the push, because that file becomes the environment's front page on the Hub.",
+      "verifiedFromTheHub": "pip install from the hub index into a clean 3.12 venv, then loaded from /tmp with no source tree present: SingleTurnEnv, 6 train / 6 eval across all three rungs, no answer column, no task column, disjoint seeds — and the thesis reaches the framework layer, where a right verdict from a reference the task did not state scores reward 1.0 and well_formed 0.0."
     }
   }
 }

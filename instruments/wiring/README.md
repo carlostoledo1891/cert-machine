@@ -1,5 +1,24 @@
 # lattice-claims
 
+```bash
+pip install lattice-claims
+```
+
+```python
+import verifiers as vf
+env = vf.load_environment("lattice-claims")      # a SingleTurnEnv over the generator
+```
+
+Standard library only, no external tools, no data files: every instance is minted
+from a seed and every verdict is decided in exact rational arithmetic. **There is
+no answer key** — the environment decides submissions rather than matching them,
+so there is nothing to leak.
+
+And it asks for more than a verdict. A submission must declare the reference it
+decided against, and **a right verdict reached from a reference the task did not
+state does not score as right**. That is the whole point, and the reason the
+environment exists.
+
 Decide a claim about a short lattice vector exactly — or refuse it, naming the
 quantity it left out.
 
@@ -167,10 +186,21 @@ lattice_claims/
 ├── forgeries.py        planted, with the abort gate
 ├── policies.py         four reference policies: the floor and the ceiling, no API key
 ├── wiring.py           the second taskset, where the graph is the submission
+├── api.py              the framework-free surface every consumer shares: parse_reply,
+│                       task_row, sample, score, preflight
+├── adapters_v0.py      load_environment — the ONLY module that imports verifiers
 └── __main__.py         gate / baseline / tasks
-tests/                  18 tests
-eval/                   run_models.py, regrade.py, page_data.py, the stored runs
+tests/                  27 tests across four files. Twenty run without verifiers
+                        installed; the seven binding tests SKIP rather than pass,
+                        because a binding test that passes without the framework is
+                        the same lie as a control that cannot fire.
+eval/                   run_models.py (direct API), run_verifiers.py (through the
+                        framework), regrade.py, page_data.py, the stored runs
 ```
+
+`import lattice_claims` is standard library only; `verifiers` is imported lazily
+and only by `adapters_v0`, which `tests/test_framework_free.py` proves by blocking
+every third-party import and grading a submission anyway.
 
 ```bash
 python3 -m pytest tests/ -q
@@ -185,6 +215,55 @@ odd `n` clears its leftover √π against `π^(n/2)`. A certified π bracket (Ma
 with the truncation error accumulated rather than assumed) decides both.
 
 ---
+
+---
+
+## The framework binding is verified, not written from a doc
+
+`lattice_claims/adapters_v0.py` exposes `load_environment` (a `SingleTurnEnv`
+with a `Rubric`). **It was written against a live `verifiers` install and then run
+against live models — not written from documentation.** Writing one from the doc
+had already produced three defects in a sibling environment, two of them silent:
+`load_environment` never exported from `__init__` (the Hub's own command would
+have raised on arrival); a plain-string `task` column aborting every rollout; and
+scoring handed pydantic message objects, so a `.get("content")` missed and **a
+whole eval printed 0.000 with no error raised**. Each is designed out here and
+each has a test. `tests/test_verifiers_binding.py` SKIPS when `verifiers` is
+absent rather than passing without it.
+
+The rubric reports four numbers and keeps them apart on purpose: `reward` is the
+verdict, `well_formed` is whether the reference was declared and was the one the
+task stated, `not_hacked` catches a submission that smuggles the answer in, and
+`refused_parse` separates a reply that could not be read from a wrong answer.
+
+## Run against live models
+
+`eval/run_verifiers.py` runs the real path — dataset, prompt, live model,
+completion, rubric — and then re-scores the framework's own completions offline.
+**72 rollouts across two models, 0 disagreements**: the framework's reward is this
+package's reward on every one, so the framework layer owns no scoring of its own.
+`battery.py` re-scores all 72 from their stored replies on every build.
+
+| rung | Sonnet 5 · certified | · well-formed | Haiku 4.5 · certified | · well-formed |
+|---|---|---|---|---|
+| `declared` | 10/12 | 11/12 | 4/12 | **0/12** |
+| `printed` | 2/12 | 11/12 | 2/12 | 12/12 |
+| `underspecified` | 4/12 | 4/12 | 4/12 | 4/12 |
+
+36 rollouts each, effort `low` (Haiku 4.5 rejects the `effort` parameter outright,
+so it runs without it).
+
+**Read the `declared` row.** Haiku answered four of twelve correctly and declared
+a usable reference on none of them. Every verdict it got right came from a
+reference it never properly stated — which is this environment's entire thesis
+appearing as a measurement rather than as a paragraph. Exactness did not save the
+grader that started all this, and it does not save a model either: naming what you
+were exact about is the part that carries the claim.
+
+The `printed` rung is where both models are weakest and both are well formed —
+they declare a reference and still miss, because the published norm is rounded and
+often does not determine the verdict at all. `STRADDLES` is the right answer there
+and it is the hardest one to say.
 
 ## What this does not do
 
@@ -326,20 +405,26 @@ bug, not a result.**
 ## Reproduce
 
 ```bash
-python3 -m pytest tests/ -q                       # 18 tests
+python3 -m pytest tests/ -q                       # 27 with verifiers; 20 + 7 skipped without
+python3 -m lattice_claims gate                    # the ten planted forgeries
 python3 -m lattice_claims baseline --n 15         # the reference table
-python3 eval/run_models.py --n 15 --live          # the verdict tasks
-python3 eval/run_models.py --wiring --n 5 --live  # the graph as the submission
 python3 eval/regrade.py [--write]                 # re-grade the stored replies, no API call
+python3 instruments/wiring/battery.py             # the whole thing, gated
+
+# spends money, never called by a battery:
+python3 eval/run_models.py --n 15 --live          # the verdict tasks, direct API
+python3 eval/run_models.py --wiring --n 5 --live  # the graph as the submission
+python3 eval/run_verifiers.py --n 36 --model claude-sonnet-5 --effort low
 ```
 
 ## Page
 
-A report page for this environment is generated at `site/lattice-claims/`:
+`/instruments/lattice-claims`, built by `playground/lattice-claims/build.js` from
+`eval/page.json`. Every number on it is read from that record; none is typed.
 
 ```bash
-python3 eval/page_data.py            # emits eval/page.json from the suite and the run
-node ../../tools/build-lattice-env.js
+PYTHONPATH=. python3 eval/page_data.py    # emits eval/page.json from the suite and the run
+(cd ../.. && node playground/build.js)
 ```
 
 It carries the two-instance diagram that explains why `STRADDLES` is a correct

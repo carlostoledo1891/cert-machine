@@ -23,7 +23,16 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-10 (the thirteenth session). In the order I would take it:
 
-  0. THE THIRD ENVIRONMENT IS BUILT AND WAITING ON ONE COMMAND. lattice-claims
+  0. THREE ENVIRONMENTS ARE ON THE HUB. break-the-grader (2026-09-04),
+     blind-spot and lattice-claims (both 2026-09-10), each verified FROM THE
+     REGISTRY in a clean venv after publishing, which is the step that catches
+     what a source tree hides. Nothing is outstanding on this front.
+     THE REVIEW BEFORE EACH PUSH EARNED ITS PLACE BOTH TIMES: blind-spot's README
+     claimed 13 tests where there are 17, and lattice-claims' claimed 18 where
+     there are 27, had no install section at all, and pointed at a builder that
+     does not exist in this repository. A README is the Hub's front page.
+
+  0a. THE THIRD ENVIRONMENT, AS BUILT. lattice-claims
      now has the same publishing layer blind-spot proved out: api.py,
      adapters_v0.py, lazy exports, the publishable pyproject, and the two binding
      tests — all NINE of which passed on the first run, because the four
