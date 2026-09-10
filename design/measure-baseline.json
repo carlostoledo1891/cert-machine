@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-09-09",
+  "recorded": "2026-09-10",
   "browser": "Chrome/152.0.7977.83",
   "viewports": [
     1440,
@@ -243,7 +243,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f2ff69216befdecef1fe73adac18a88d88d0dc543d6bef1606bdc9c8f8e8bbce"
+      "sha": "ef572d38ec0ca9de0075c251e4695862fd67c83c4ac839d9b0c9f54024bceb79"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -301,12 +301,12 @@
         "clipped": 0
       },
       "1440": {
-        "spines": 7,
+        "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "49764d58126c5a84a122d0bd5de0fe4cfaf953e8df18647b9e82b20a0d287bcd"
+      "sha": "9f54fc40b79bdc808f7770d09ff97d5e4f8fc283c824aa856d9c6da87b232d7e"
     },
     "site/instruments/neural-geometry/index.html": {
       "390": {

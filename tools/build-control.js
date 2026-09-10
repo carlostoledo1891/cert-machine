@@ -146,6 +146,15 @@ const BATTERIES = [
      interpreter, so a misfiled battery fails the BUILD instead of the row. */
   ['wiring concord (JS vs Python)', ['instruments/wiring/concord.mjs'], 'cert-machine holds TWO independent implementations of the same wiring rules — instruments/cert-unit/graph.mjs in JavaScript and instruments/wiring/lattice_claims/wiring.py in Python, written for different jobs and neither derived from the other. The Python carries the comment \'THE FLOAT FIREBREAK, in the same words the other engine uses\', which is a claim, and a claim is the kind of thing this repository checks rather than repeats. So the same violation is planted in both and both must REFUSE, in the same words. The planted wiring is built from the Python CATALOGUE rather than from memory — the first version guessed a port name and got a refusal for the wrong reason, which would have read as disagreement when it was a mistake in the question · 1 red control']
 ];
+/* read, not retyped: this row said "3 scripts" through two sessions that added four more,
+   and a count that has to be remembered is a count that goes stale. */
+const NSPROBES = (() => {
+  try {
+    const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'navier-stokes', 'probes.json'), 'utf8'));
+    return P.checks.length + ' scripts, ' + P.checks.reduce((n, c) => n + (c.redsFired || 0), 0) + ' red controls';
+  } catch (e) { return 'scripts'; }
+})();
+
 const PY = [
   ['skyaudit stdlib verifier', ['apps/skyaudit/audit/verify_skyaudit.py'], 'the pinned ADS-B day re-audited in the Python standard library, no code from the app in the trust path'],
   ['tensorlb (lower-bound audit)', ['instruments/tensorlb/battery.py'], 'tensor-rank lower bounds re-decided exactly; the red control must fire'],
@@ -172,7 +181,7 @@ const PY = [
   ['sos · global bound', ['instruments/sos/sos_verify.py'], 'stdlib fractions only'],
   ['sos · lyapunov', ['instruments/sos/lyapunov_cert.py'], 'stdlib fractions only'],
   ['sos · re-verify AI result', ['instruments/sos/reverify_ai_lyapunov.py'], 'stdlib fractions only'],
-  ['navier-stokes probes', ['instruments/navierstokes/battery.py'], 'the computable checks of OpenAI\'s 2026-09-08 Navier–Stokes writeup, re-run from the formulas as printed: the similarity-coordinate derivatives of Lemma 4.1, the commutator kernel norm and the Hölder chain of Lemma 10.5, the derivative count (10.12), the viscosity rescaling (10.22)–(10.23), the periodic λ³ rescaling of Corollary 10.6, the exterior q-cancellation, the cutoff bound (10.3), and the exact heat exterior against its differential equation (A.37) and its Taylor coefficients (A.35) at 25 digits — probes of the writeup, never a certification of the theorem, whose authority is the Lean certificate built and asked separately · 3 scripts'],
+  ['navier-stokes probes', ['instruments/navierstokes/battery.py'], 'the computable checks of OpenAI\'s 2026-09-08 Navier\u2013Stokes writeup, re-run from the formulas as printed: the similarity-coordinate derivatives of Lemma 4.1, the commutator kernel norm and the H\u00f6lder chain of Lemma 10.5, the derivative count (10.12), the viscosity rescaling (10.22)\u2013(10.23), the periodic \u03bb\u00b3 rescaling of Corollary 10.6, the exterior q-cancellation, the cutoff bound (10.3), the exact heat exterior against its differential equation (A.37) and its Taylor coefficients (A.35) at 25 digits, and the mechanism the pulses exist for \u2014 Lemma 4.5\'s equivalence of the relaxed cone condition (4.21) with the square-root-free (4.22) on a rational sweep, the stress-coordinate form (4.23), and Proposition 7.5\'s two squared amplitudes, positive exactly on the reference cone and negative just outside it. Probes of the writeup, never a certification of the theorem, whose authority is the Lean certificate built and asked separately \u00b7 ' + NSPROBES],
   ['lattice-claims forgeries', ['-m', 'pytest', 'instruments/wiring/tests/test_forgeries.py', '-q'], 'the ten planted forgeries of the lattice-claims environment, each one a way a grader can be fooled — the rounded norm that does not determine the claim, the overflow canary, the gap named in the model\'s own schema — and the exact grader must refuse every one · 10 tests'],
   ['lattice-claims (pins+gate+regrade)', ['instruments/wiring/battery.py'], 'the environment ported whole from frontier-apps on 2026-09-05 and gated four ways at every build: every ported file re-hashed against instruments/wiring/PROVENANCE.json, the forgery gate (10 planted, 0 accepted), the exact reference policy at its ceiling (45/45), and the 135 stored model replies RE-GRADED with this grader — 0 rows may move, which is what makes the pinned record a record of this grader · 1 red control'],
   ['llm harness — the eval\'s dry-run gate', ['tools/llm-harness.py', '--dry-run', '--n', '20', '--ledger', '/dev/null'],

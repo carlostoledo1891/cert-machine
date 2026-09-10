@@ -21,32 +21,40 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
-THE MENU, as of 2026-09-09 (the eleventh session). In the order I would take it:
+THE MENU, as of 2026-09-09 (the twelfth session). In the order I would take it:
 
-  1. THE INSTRUMENT — /instruments/navier-stokes/ is in the house grammar now
-     and the operator's close was "the path is good but needs improvement".
-     That is the live task. Candidates, cheapest first: the streamlines read as
-     short broken pieces (they break at the lattice edge — carry them further and
-     seed them where the flow enters); the contour set is fixed at sixteen
-     geometric levels and could be a control; there is no legend saying what a
-     contour IS; "stipple" and "stream" are thin next to "both"; the h slider
-     changes the picture very little at the paper's h and the page says so but
-     does not dramatise it; nothing yet shows the pulses doing their job (the
-     Reynolds stress cancelling the residual) — that is the one piece of the
-     mechanism the drawing still asserts rather than shows.
-  2. NOTHING IS PUSHED. The audit and the instrument are eight local commits
-     (e78d65e … adbabcb). A push to main IS the deploy.
+  1. NOTHING IS PUSHED. The audit, the instrument and the mechanism are now ELEVEN
+     local commits (e78d65e … HEAD). A push to main IS the deploy. This is the
+     first thing on the menu because everything below is downstream of it.
+  2. THE INSTRUMENT, still open but on a different question. The mechanism is
+     drawn now — the cone (4.22)/(4.23), the two positive amplitudes of
+     Prop. 7.5, the two pulse trains at the amplitudes the stress decides — and
+     the four cheap candidates from the eleventh session's menu are done
+     (streamlines carried both ways from each seed, the contour count a control,
+     a legend drawn in the marks it names, "the stress" as a fifth mode worth
+     switching to). WHAT IS STILL OPEN: the h slider changes the picture very
+     little at the paper's h and the page still says so rather than dramatising
+     it; the mechanism plate is hidden below 1180px or 790px of height, so a
+     phone reader gets the pulses without the diagram that explains them; and
+     the stress PATH across the annulus is drawn rather than derived — the test
+     applied to it is the paper's and exact, the path is a legible bump.
   3. THE THREE OLDER DRAFTS, still operator-gated and unsent: Woett's reply
      (outreach/erdos290-issue164-reply-2026-09-08.md), OEIS PACK 4, and the
      undrafted note to togethercomputer/EinsteinArena-new-SOTA.
-  4. A FOURTH POSSIBLE SEND, now that the audit exists: a note to OpenAI on the
+  4. A FOURTH POSSIBLE SEND, now stronger than it was: a note to OpenAI on the
      energy clause (the lemma is proved and unused) and on the swirl maximum
-     principle. Not drafted. A send, so yours.
+     principle — and the stress-cone probe now gives the third leg, since the
+     k ≠ 0 that Prop. 7.5 Step 1 turns on is the same nonzero angular mode the
+     swirl argument needs and the paper never connects the two. Not drafted.
+     A send, so yours.
   5. THE EULER CHECKS, listed in corpus/navier-stokes/euler.md and unrun: the WKB
      frozen-frame ODE, §5.5's scale inequalities in exact log arithmetic, the §3
      symbolic identities.
-  6. THE DEBT ROW opened this session: the layout ruler measures app pages before
-     they render (two skyaudit rows were false green for four days). Half a day.
+  6. TWO DEBT ROWS on the layout ruler, both open: it measures app pages before
+     they render (two skyaudit rows were false green for four days), and it
+     counts a bordered box as two spines. Half a day and an hour, separately —
+     the second one re-measures every page, so it does not ride along with
+     anything else.
   7. Everything below is the older menu and is unchanged.
 
 ────────────────────────────────────────────────────────────────────────────
@@ -56,6 +64,111 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  TWELFTH SESSION, 2026-09-09 — THE ONE THING THE DRAWING ASSERTED, NOW DECIDED:
+  THE CONE THAT LETS THE PULSES CANCEL THE CORE'S RESIDUAL, IN EXACT INTEGERS.
+  Pushed through 097bb48 · NOT PUSHED at the close (local) · 82/82 batteries · 60 reports · 17 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator's close on the eleventh session: "the path is good but
+    needs improvement", against a menu whose last and largest item read *nothing
+    yet shows the pulses doing their job — that is the one piece of the mechanism
+    the drawing still asserts rather than shows.*
+
+  ── 1 · WHAT THE PULSES ARE FOR, READ OUT OF THE PAPER ── the core alone does not
+    solve Navier–Stokes: §5 writes the base field's residual as −div(annular
+    stress) + a flat remainder (5.1)–(5.5), and that annular stress T0, supported
+    in Xa < X < Xb, is what the WAVES must produce. Two printed facts make it
+    possible, and BOTH ARE INEQUALITIES RATHER THAN ESTIMATES, which is why a
+    browser can re-decide them:
+      · §4.3, (4.20)–(4.23). With ts = −bs/a and vs = a(1+ts²), Lemma 4.5 says the
+        admissible cone condition is equivalent (for vs > 2) to the SQUARE-ROOT-FREE
+        pair Pc > vs, (vs−2)Jc² < 2(Pc−vs)² — and in stress coordinates to
+        T0,θ + ts·T0,z > 0 and (vs−2)(T0,z − ts T0,θ)² < 2(T0,θ + ts T0,z)².
+        Homogeneous: a WEDGE, tilted by ts, half-angle arctan(√(2/(vs−2))).
+      · §7, Prop. 7.5. Two pulse families with DISJOINT auxiliary supports give
+        C(a₊b₊ + a₋b₋) = H(a₊², a₋²)ᵀ, so the reachable set is exactly the
+        nonnegative span of two covariance columns; the printed solve
+        h±y± = ½(−T_N/Ac ∓ T_K/u*) is positive exactly on T_N < 0,
+        |T_K| < (u*/Ac)(−T_N), where a± = √y± are REAL. Outside it, no real pair.
+
+  ── 2 · THE PROBE FIRST, THE DRAWING SECOND ──
+    `instruments/navierstokes/probes/stress_cone.py`, 22 checks, SIX RED CONTROLS,
+    1.8 s. It re-derives the roots behind Lemma 4.5 and checks the printed v± both
+    against the polynomial and against the quadratic formula; it decides the
+    equivalence (4.21)+vs>2 ⟺ (4.22) on a 25,200-point rational sweep (7,234
+    admissible, 17,966 not — the test discriminates); it checks (4.23)'s frame
+    change has determinant 1+ts² (so ts rotates the wedge and cannot fold it) and
+    that F > 0 cancels out of the stress form; it verifies Prop. 7.5's printed
+    solve, det H = −2h₊h₋Ac·u*, and that positivity coincides with the reference
+    cone on 1,640 rational points; and it does the covariance on an explicit
+    two-family model. The reds: a planted sign flip in (4.22) disagrees at 10,456
+    points; relaxed-but-vs≤2 data exist and are refused; a stress 1/10 past the
+    cone edge forces y₊ = −1/16; T_N > 0 makes both negative; AT k = 0 BOTH
+    AVERAGES OF PROP. 7.5 STEP 1 FAIL; overlapping supports leave a cross term.
+    Battery now 7 scripts, 26 reds, PASS. THE TRANSCRIPTION WAS PINNED BEFORE A
+    PIXEL WAS DRAWN — the drawing is only as good as the formulas under it.
+
+  ── 3 · WHAT THE PAGE DOES NOW ── the wedge is parametrised by its SLOPE m rather
+    than by vs, because m = √(2/(vs−2)) is what the drawing shows and
+    vs = 2 + 2/m² is then exactly rational — so both cone crossings are equalities
+    in BigInt, not limits. The wave cone is the same wedge opened by Prop. 7.5's
+    margin ηc = 1/10. Three dials, all exact: the stress direction s, the cone
+    slope m, the shear tilt ts. Drag s out and you cross TWO named thresholds:
+    out of the admissible cone (the margin that absorbs (7.28)'s errors is gone)
+    and then out of what two real amplitudes reach (a squared amplitude is
+    negative). A mechanism plate in the left gutter carries the cone with its
+    head-to-tail decomposition y₊H₊ then y₋H₋ closing on T0, the exact arithmetic
+    printed beside it (|s| = 153/310, cone |s| < 9/10 holds, waves |s| < 1 holds),
+    and a strip showing the two families' shares stacking to exactly the stress
+    the core needs. In the canvas the annulus is no longer uniform hairlines: two
+    wave trains at envelopes √y±, spaced on the paper's own N log X phase, that
+    vanish where the stress vanishes and BREAK where no real amplitude exists.
+    "Make it axisymmetric" now collapses the whole plate with the reason: at k = 0
+    the families are part of the mean and supply nothing to it.
+
+  ── 4 · THE FOUR CHEAP ONES, DONE ── streamlines are integrated BOTH WAYS from
+    every seed and joined, so a line ends only at the lattice edge (they were
+    stubs that began in the middle of nowhere); the contour count is a control,
+    6–26, and sixteen turned out to have been a choice rather than a constant; a
+    legend hangs under the ruler drawn IN THE MARKS IT NAMES; and "the stress" is
+    a fifth render mode that dims the field to a ghost and gives the mechanism the
+    page. Points per streamline thinned 3× — script cost measured at 1.8–2.1 % of
+    wall in the heaviest mode, so the 30 fps a headless capture reports is the
+    harness's rAF cap, not the page.
+
+  ── 5 · TWO GATES CAUGHT ME, AND BOTH WERE RIGHT ── the grammar gate refused a new
+    dash "3.5 2.5" I had invented to mean "the second family", which is exactly the
+    overload design/grammar.js exists to prevent: DASH CARRIES STANDING, NEVER
+    IDENTITY. Two cones and two pulse families are SERIES, so they are separated on
+    the weight/opacity ladder now, read from grammar.js at build time rather than
+    retyped — and while fixing it I found the axis had been drawn with the PICK
+    pattern ("one member of a set the data admits"), which is not what an axis is;
+    it takes GUIDE now. The palette gate refused an rgba I had invented for a label;
+    it is var(--ink-3). A runtime-built dasharray is invisible to a static gate, so
+    the zero rule uses the grammar's own `.ink-guide` class, emitted from its one
+    definition.
+
+  ── 6 · THE RULER, AND A NEW DEBT ROW ── the instrument went 7 → 9 spines. One is
+    real (a new plate is a new alignment); the other is the probe counting a
+    bordered box's outer and inner edge as two spines one pixel apart — the panel
+    has shown 1134/1135 for as long as it has had a border. Recorded at 9 with
+    `--accept-worse`; DEBT row written with the one-term fix and the reason it is
+    not being made in this session (it re-measures every page). The ruler ALSO did
+    its job unprompted: it offered the two skyaudit rows as "improvements" again
+    and its own digest guard KEPT the old rows, naming them as a degraded read.
+    Ink of the new figure: 6.78 %, beside `affect`'s healthy 6.97 %.
+
+  ── 7 · ONE COUNT STOPPED BEING REMEMBERED ── the control page's navier row had
+    said "3 scripts" through two sessions that added four more. It reads
+    probes.json now: "7 scripts, 26 red controls".
+
+  ── NOT DONE ── nothing pushed, nothing sent. The h dial still does not dramatise
+    how little it does at the paper's h. The mechanism plate hides below 1180px or
+    790px, so a phone gets the pulses without the diagram. The stress path across
+    the annulus is DRAWN — the test applied to it is the paper's and exact, but the
+    path is a legible bump, not a solved profile. The Euler checks are still unrun.
 
 ══════════════════════════════════════════════════════════════════════════
   ELEVENTH SESSION, 2026-09-09 — OPENAI'S NAVIER–STOKES CLAIM AUDITED END TO END:

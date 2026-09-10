@@ -23,6 +23,7 @@ const PG = path.join(HERE, '..');
 const ROOT = path.join(PG, '..');
 const { esc } = require(path.join(PG, 'design', 'shell.js'));
 const NAV = require(path.join(ROOT, 'design', 'nav.js'));
+const GRAMMAR = require(path.join(ROOT, 'design', 'grammar.js'));
 
 const SCENE = path.join(HERE, 'out', 'scene.json');
 if (!fs.existsSync(SCENE)) { console.error('navier-stokes: no scene.json — run node playground/navier-stokes/scene.js'); process.exit(1); }
@@ -87,6 +88,29 @@ body.ov-panel-hidden .ov-chips{right:clamp(1rem,3vw,2.5rem);}
   font-family:var(--font-mono);font-size:9.5px;align-items:baseline;}
 .erow .s{color:var(--ink-2);} .erow .e{color:var(--ink-4);} .erow .v{color:var(--ink);text-align:right;}
 .spk{width:100%;height:40px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-s);margin-top:var(--s-2);}
+
+/* THE MECHANISM, in the left gutter between the title and the foot — the one column of the
+   drawing where nothing else sits. It is the only overlay on this page that is a DIAGRAM
+   rather than a readout, so it is SVG in the document (crisp type, real tokens, measurable by
+   the ruler) and not canvas: it changes when you turn a dial, never when the clock ticks. */
+.ov-mech{left:clamp(1rem,3vw,2.5rem);top:clamp(18.5rem,35vh,22rem);width:318px;
+  background:color-mix(in srgb,var(--bg) 90%,transparent);border:1px solid var(--border);
+  border-radius:var(--radius-m);padding:8px;backdrop-filter:blur(9px);}
+.ov-mech .hd{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s-2);margin-bottom:4px;}
+.ov-mech .key{font-family:var(--font-mono);font-size:8px;letter-spacing:.04em;line-height:1.5;color:var(--ink-5);margin:3px 0 5px;}
+.ov-mech .hd .eyebrow{font-size:9px;}
+.tagx{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
+  border:1px solid var(--border-strong);border-radius:var(--radius-pill);padding:1px 7px;color:var(--ink-3);}
+.tagx.on{background:var(--ink);border-color:var(--ink);color:var(--bg);}
+.ov-mech .fig svg{display:block;width:100%;height:auto;}
+.ov-mech .lb,.ov-mech .lb2{paint-order:stroke;stroke:var(--bg);stroke-width:2.5px;stroke-linejoin:round;}
+.ov-mech .lb{font-family:var(--font-mono);font-size:7.5px;fill:var(--ink-3);}
+.ov-mech .lb2{font-family:var(--font-mono);font-size:9px;fill:#f6f6f8;}
+.ov-mech .cap{margin-top:5px;min-height:27px;font-family:var(--font-mono);font-size:9px;line-height:1.5;color:var(--ink-4);}
+.ov-mech .cap b{color:var(--ink-2);font-weight:500;}
+${GRAMMAR.css('.ov-mech')}
+/* it needs its own column and 300px of height; below either it hides rather than collide */
+@media (max-width:1180px),(max-height:790px){.ov-mech{display:none;}}
 @media (max-width:820px){
   .ov-title{max-width:88vw;} .ov-title p{display:none;}
   .ov-foot{display:none;}
@@ -121,12 +145,21 @@ ${NAV.navHtml({ here: 'instruments', root: '../../' })}
   <div class="eyebrow">cert-machine / instruments &nbsp;·&nbsp; the object a Millennium proof constructs</div>
   <h1>Turn the singularity.</h1>
   <p>A smooth force drives a fluid from rest to infinite speed in finite time. This is the object
-  the proof builds, drawn — not a simulation of it. Nothing here is gated.</p>
+  the proof builds — drawn, not simulated.</p>
 </div>
 
 <div class="ov ov-verdict" id="verdict"></div>
 <div class="ov ov-why" id="why"></div>
 <div class="ov ov-chips" id="chips"></div>
+
+<div class="ov ov-mech" id="mech">
+  <div class="hd"><span class="eyebrow">what the pulses are for</span><span class="tagx" id="mech-verdict">—</span></div>
+  <div class="fig" id="mech-cone"></div>
+  <div class="key">hatched: the cone (4.22) &nbsp;·&nbsp; faint rim: what the waves reach</div>
+  <div class="fig" id="mech-supply"></div>
+  <div class="key">curve: the stress needed &nbsp;·&nbsp; bands: the two shares</div>
+  <div class="cap" id="mech-line"></div>
+</div>
 
 <div class="ov ov-foot">
   <div class="rd">
@@ -141,8 +174,7 @@ ${NAV.navHtml({ here: 'instruments', root: '../../' })}
     <div class="item"><span class="k">ten times longer at</span><span class="v" id="h-10">—</span></div>
     <div class="item"><span class="k">fps</span><span class="v" id="h-fps">—</span></div>
   </div>
-  <div class="cap">Every contour is a level of |u| in the construction's own coordinates, mapped
-  to this τ exactly. Click a verdict to see the arithmetic that decided it.</div>
+  <div class="cap">Click any verdict to see the arithmetic that decided it.</div>
   <div class="src">nothing here is gated · the audit that is: <a href="../../reports/navier-stokes.html">/reports/navier-stokes.html</a></div>
 </div>
 
@@ -172,14 +204,47 @@ ${NAV.navHtml({ here: 'instruments', root: '../../' })}
   <hr class="hr-thin">
 
   <div class="grp">
+    <span class="eyebrow">what the pulses are for</span>
+    <div class="note-sm" style="margin-top:0">The core alone does not solve Navier–Stokes. §5 leaves a
+    residual equal to −div(annular stress) plus a flat remainder; that stress is what the WAVES must
+    produce. It is producible only if it lies in a cone (4.22)/(4.23), and then Proposition 7.5 turns it
+    into two <b>positive</b> squared amplitudes whose square roots are the real wave amplitudes. Turn the
+    stress out of the cone and one of them goes negative: no real pair supplies it, and nothing cancels
+    the residual.</div>
+    <div class="ctrl" style="margin-top:var(--s-3)"><label for="m-d">stress direction s</label><output id="m-dOut">3/10</output>
+      <input type="range" id="m-d" min="-1600" max="1600" step="5" value="300"></div>
+    <div class="ctrl"><label for="m-s">cone slope m</label><output id="m-sOut">9/10</output>
+      <input type="range" id="m-s" min="150" max="2000" step="5" value="900"></div>
+    <div class="ctrl"><label for="m-t">shear tilt ts</label><output id="m-tOut">1/4</output>
+      <input type="range" id="m-t" min="-900" max="900" step="5" value="250"></div>
+    <div class="rd" style="margin-top:var(--s-3)">
+      <div class="item"><span class="k">vs = 2 + 2/m²</span><span class="v" id="m-vs">—</span></div>
+      <div class="item"><span class="k">cone: |s| &lt;</span><span class="v" id="m-slope">—</span></div>
+      <div class="item"><span class="k">waves reach</span><span class="v" id="m-wave">—</span></div>
+    </div>
+    <div class="note-sm">The wedge is turned by its slope m rather than by the paper's vs, because
+    m = √(2/(vs − 2)) is what the drawing shows and vs = 2 + 2/m² is then an exact rational — so both
+    crossings are equalities, not limits. ts rotates the wedge (the frame change of (4.23) has
+    determinant 1 + ts², so it cannot fold it). The outer, faint wedge is what two real amplitudes
+    reach; the gap to the hatched one is the margin η<sub>c</sub> = ${esc(S.mechanism.etaC.n + '/' + S.mechanism.etaC.d)} of Proposition 7.5's
+    proof, which absorbs the errors of (7.28). <b>Decided</b> in integers. The stress path itself is
+    drawn: a bump vanishing at both annular edges with a direction that turns across them.
+    <a href="../../reports/navier-stokes.html">The audit is next door.</a></div>
+  </div>
+  <hr class="hr-thin">
+
+  <div class="grp">
     <span class="eyebrow">render</span>
     <div class="row-btns">
       <button data-mode="both">both</button>
+      <button data-mode="stress">the stress</button>
       <button data-mode="contour">contour</button>
       <button data-mode="stream">stream</button>
       <button data-mode="stipple">stipple</button>
     </div>
-    <div class="ctrl" style="margin-top:var(--s-3)"><label for="sp">time speed</label><output id="spOut">0.17</output>
+    <div class="ctrl" style="margin-top:var(--s-3)"><label for="m-l">contour levels</label><output id="m-lOut">16</output>
+      <input type="range" id="m-l" min="6" max="26" step="1" value="16"></div>
+    <div class="ctrl"><label for="sp">time speed</label><output id="spOut">0.17</output>
       <input type="range" id="sp" min="0" max="0.6" step="0.01" value="0.17"></div>
     <div class="row-btns" style="margin-top:var(--s-2)">
       <button id="follow">follow the core</button>
@@ -223,6 +288,10 @@ ${NAV.navHtml({ here: 'instruments', root: '../../' })}
   <div class="grp">
     <span class="eyebrow">what backs each mark</span>
     <div class="note-sm"><b>Decided.</b> ${esc(S.backing.criteria.how)}</div>
+    <div class="note-sm"><b>Decided.</b> ${esc(S.backing.mechanism.how)}. Every formula is re-derived
+    from the paper by <code>instruments/navierstokes/probes/stress_cone.py</code>, which carries six red
+    controls — among them that a stress just outside the cone forces a negative squared amplitude, and
+    that at angular mode zero the averages of Proposition 7.5 Step 1 both fail.</div>
     <div class="note-sm"><b>Computed.</b> ${esc(S.backing.exterior.how)}</div>
     <div class="note-sm"><b>Drawn.</b> ${esc(S.backing.core.how)}</div>
     <div class="note-sm">The construction is OpenAI's, <i>Finite time blowup for Navier–Stokes</i>,
@@ -233,6 +302,7 @@ ${NAV.navHtml({ here: 'instruments', root: '../../' })}
   </div>
 </aside>
 
+<script type="application/json" id="ns-grammar">${JSON.stringify({ identity: GRAMMAR.IDENTITY, guide: GRAMMAR.dash.guide, none: GRAMMAR.dash.none })}</script>
 <script type="application/json" id="ns-scene">${JSON.stringify(S).replace(/</g, '\\u003c')}</script>
 <script>${APP}</script>
 </body>

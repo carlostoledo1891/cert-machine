@@ -93,6 +93,25 @@ contrast-against-ground), and `interferometer`'s clipped u−v inset is the
 
 ## OPEN
 
+### THE LAYOUT RULER COUNTS A BORDERED BOX AS TWO SPINES (found 2026-09-09, twelfth session)
+
+`tools/check-measure.js`'s probe records a spine as `Math.round(r.left + paddingLeft)`. For a box
+with a border it therefore records the box's own edge at `left + padding` and its children's at
+`left + border + padding` — two spines one pixel apart for one alignment. The baseline has carried
+the pattern for as long as the panel has had a left border (`1134` and `1135` on
+`/instruments/navier-stokes/`), and adding one bordered plate to that page this session moved it
+from 7 spines to 9 when only one new alignment was introduced. The row was recorded at 9 with
+`--accept-worse`, which is the honest number for the probe as written and the wrong number for the
+page.
+
+What it costs to close: one term — `+ parseFloat(cs.borderLeftWidth || 0)` — in the PROBE string,
+which is deliberately a single shared definition so the red controls exercise the same rule. It is
+not done here because it re-measures **every** page: any bordered box on the site collapses two
+edges into one, so the whole baseline reads better at once and would have to go in under
+`--accept-better` with "the probe changed, not the pages" in the commit. That is a gate change, and
+a gate change inside a session about an instrument is how a baseline stops meaning anything. An
+hour, on its own, with the before/after diff read page by page.
+
 ### THE LAYOUT RULER MEASURES APP PAGES BEFORE THEY RENDER (found 2026-09-09)
 
 `site/apps/skyaudit/index.html` and its `sp/` twin read **4/4/5 spines** in the baseline

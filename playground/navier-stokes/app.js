@@ -15,6 +15,11 @@
 (function () {
   'use strict';
   const S = JSON.parse(document.getElementById('ns-scene').textContent);
+  /* THE INK GRAMMAR, from design/grammar.js and not retyped: dash carries STANDING and never
+     identity, so two cones and two pulse families — which are series, not standings — are told
+     apart by the weight/opacity ladder. The grammar gate caught this page inventing "3.5 2.5"
+     to mean "the second family", which is exactly the overload the ladder exists to prevent. */
+  const GR = JSON.parse(document.getElementById('ns-grammar').textContent);
   const $ = (id) => document.getElementById(id);
   const HD = 1000n;
 
@@ -27,11 +32,21 @@
   const CMP = { '<': (a, b) => qcmp(a, b) < 0, '<=': (a, b) => qcmp(a, b) <= 0, '>': (a, b) => qcmp(a, b) > 0, '>=': (a, b) => qcmp(a, b) >= 0 };
   const qtext = (q) => (q.d === 1n ? String(q.n) : String(q.n) + '/' + String(q.d));
   const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  /* the field operations the cone needs. Every one stays in BigInt: the stress either is in
+     the cone or is not, and that is decided by comparing two integers, never two floats. */
+  const qadd = (a, b) => Q(a.n * b.d + b.n * a.d, a.d * b.d);
+  const qsub = (a, b) => Q(a.n * b.d - b.n * a.d, a.d * b.d);
+  const qmul = (a, b) => Q(a.n * b.n, a.d * b.d);
+  const qdiv = (a, b) => Q(a.n * b.d, a.d * b.n);
+  const qabs = (a) => (a.n < 0n ? Q(-a.n, a.d) : a);
+  const Q1 = Q(1n, 1n), Q2 = Q(2n, 1n);
 
   /* ------------------------------------------------------------------ state */
   const st = {
     hn: 10n, logTau: -0.6, playing: true, speed: 0.17,
     follow: true, axisym: false, tracers: true, panel: null, zoom: 0, mode: 'both',
+    /* the mechanism's three exact dials, as integer numerators over 1000 */
+    mSlope: 900n, tilt: 250n, sDir: 300n, levels: 16,
   };
   const h = () => Number(st.hn) / 1000;
   const tau = () => Math.pow(10, st.logTau);
@@ -97,11 +112,11 @@
      screen each frame — which is exact, because the field is self-similar: a point (X, η)
      sits at q = τ/(1−η²), r = √(2qX), z = q^D·η, and the SHAPE never changes. That is why
      this holds sixty frames a second while thirteen decades go by. */
-  let geo = null, geoH = -1;
+  let geo = null, geoH = -1, geoL = -1;
   /* |η| < 1 is the core's own range: at η → ±1 the coordinate q = τ/(1−η²) runs to infinity and
    the picture there is not the core at all but the far field at t = 1. An earlier lattice ran to
    1.22 and drew the whole frame full of sweeping tails. */
-  const CN = 200, CM = 150, CXMAX = 2.15, CYMAX = 0.92;
+  const CN = 200, CM = 150, CXMAX = 2.15, CYMAX = 0.92, RATIO = 0.70;
 
   function buildGeometry() {
     const hh = h();
@@ -121,40 +136,66 @@
         g[j * CN + i] = v; if (v > vmax) vmax = v;
       }
     }
-    /* marching squares, one closed set per level; levels geometric so the eye reads decades */
-    const NL = 16, contours = [];
+    /* marching squares, one closed set per level; levels geometric so the eye reads decades.
+       The count is a control: each level down is another factor of RATIO in speed, so asking
+       for more levels asks to see further out into the slow field, where the contours sweep
+       the whole frame. Sixteen was a constant here until it turned out to be a choice. */
+    const NL = st.levels, contours = [];
     for (let L = 0; L < NL; L++) {
-      const frac = Math.pow(0.70, NL - 1 - L);
+      const frac = Math.pow(RATIO, NL - 1 - L);
       contours.push({ level: frac * vmax, frac, segs: march(g, frac * vmax) });
     }
     /* STREAMLINES. Integrated in PHYSICAL (r, z) at one reference τ and stored in (√X, η):
        by self-similarity that curve is every τ's curve. An earlier version integrated a made-up
        rule directly in (X, η) and drew nonsense, because the coordinate change is not separable
-       — q depends on z. */
+       — q depends on z.
+       EVERY SEED IS INTEGRATED BOTH WAYS and the halves joined, so a line ends only where it
+       leaves the lattice. The earlier version marched forward from one radius and drew short
+       broken pieces that began in the middle of nowhere: a streamline that starts inside the
+       frame is not a streamline, it is a stub. */
     const TREF = 1e-2, DD = 0.5 - hh, AA = 0.5 + hh;
     const lines = [];
     const lrRef = Math.sqrt(2 * Xc * TREF);
-    for (let k = 0; k < 21; k++) {
-      const eta0 = -0.86 + 1.72 * (k + 0.5) / 21;
+    const STEP = lrRef * 0.011, NSTEP = 1700;
+    const march1 = (r0, z0, dir) => {
+      const pts = []; let r = r0, z = z0;
+      for (let n = 0; n < NSTEP; n++) {
+        const q = qOf(z, TREF, hh, DD);
+        const sxa = r / Math.sqrt(2 * q), et = z / Math.pow(q, DD);
+        if (!(sxa <= GX) || !(Math.abs(et) <= GY)) break;
+        const qA = Math.pow(q, -AA);
+        const ur = qA * sample(F.fr, sxa, et), uz = qA * sample(F.fz, sxa, et);
+        const nn = Math.hypot(ur, uz) || 1e-30;
+        r += dir * ur / nn * STEP; z += dir * uz / nn * STEP;
+        if (!(r > lrRef * 0.002)) break;
+        const q2 = qOf(z, TREF, hh, DD);
+        const sx2 = r / Math.sqrt(2 * q2), e2 = z / Math.pow(q2, DD);
+        if (!(sx2 <= CXMAX) || !(Math.abs(e2) <= CYMAX)) break;
+        pts.push(sx2, e2);
+      }
+      return pts;
+    };
+    /* seeds where the flow ENTERS: the outer radial edge across η, plus two inner rings so the
+       near-core turn is drawn too. Each becomes one line through the whole frame. */
+    const seeds = [];
+    for (let k = 0; k < 22; k++) seeds.push([2.02, -0.88 + 1.76 * (k + 0.5) / 22]);
+    for (let k = 0; k < 5; k++) { const e = -0.76 + 1.52 * (k + 0.5) / 5; seeds.push([1.10, e]); seeds.push([0.52, e]); }
+    for (const [sxSeed, eta0] of seeds) {
       const q0 = TREF / Math.max(1e-6, 1 - eta0 * eta0);
+      const r0 = sxSeed * Math.sqrt(2 * q0), z0 = Math.pow(q0, DD) * eta0;
+      const back = march1(r0, z0, -1), fwd = march1(r0, z0, +1);
+      const pts = [];
+      for (let i = back.length - 2; i >= 0; i -= 2) pts.push(back[i], back[i + 1]);
+      pts.push(sxSeed, eta0);
+      for (let i = 0; i < fwd.length; i += 2) pts.push(fwd[i], fwd[i + 1]);
+      if (pts.length < 44) continue;
+      const thin = [];
+      for (let i = 0; i < pts.length; i += 6) thin.push(pts[i], pts[i + 1]);
+      thin.push(pts[pts.length - 2], pts[pts.length - 1]);
       for (const side of [1, -1]) {
-        const pts = [];
-        let r = 1.92 * Math.sqrt(2 * q0), z = Math.pow(q0, DD) * eta0;
-        for (let n = 0; n < 900; n++) {
-          const q = qOf(z, TREF, hh, DD);
-          const sxa = r / Math.sqrt(2 * q), et = z / Math.pow(q, DD);
-          if (!(sxa <= GX) || !(Math.abs(et) <= GY)) break;
-          const qA = Math.pow(q, -AA);
-          const ur = qA * sample(F.fr, sxa, et), uz = qA * sample(F.fz, sxa, et);
-          const nn = Math.hypot(ur, uz) || 1e-30;
-          r += ur / nn * lrRef * 0.012; z += uz / nn * lrRef * 0.012;
-          if (!(r > lrRef * 0.004)) break;
-          const q2 = qOf(z, TREF, hh, DD);
-          const sx2 = r / Math.sqrt(2 * q2), e2 = z / Math.pow(q2, DD);
-          if (!(sx2 <= CXMAX) || !(Math.abs(e2) <= CYMAX)) break;
-          pts.push(side * sx2, e2);
-        }
-        if (pts.length > 20) lines.push(new Float32Array(pts));
+        const m2 = new Float32Array(thin.length);
+        for (let i = 0; i < thin.length; i += 2) { m2[i] = side * thin[i]; m2[i + 1] = thin[i + 1]; }
+        lines.push(m2);
       }
     }
     /* stipple: points with density following the speed */
@@ -165,7 +206,7 @@
       const v = g[j * CN + i] / vmax;
       if (Math.random() < Math.pow(v, 1.5)) dots.push(sx, eta);
     }
-    geo = { contours, lines, dots: new Float32Array(dots), vmax }; geoH = hh;
+    geo = { contours, lines, dots: new Float32Array(dots), vmax }; geoH = hh; geoL = st.levels;
   }
 
   /* marching squares on the lattice, returning flat segment pairs in (√X, η) */
@@ -226,7 +267,7 @@
       $('sc').value = st.logTau;
     }
     if (Fh !== h()) buildField();
-    if (geoH !== h()) buildGeometry();
+    if (geoH !== h() || geoL !== st.levels) buildGeometry();
     const t = tau(), e = ext(t);
 
     const base = 0.30 * Math.min(W - (W < 820 ? 0 : 330), H);
@@ -241,10 +282,13 @@
 
     ctx.fillStyle = '#0a0a0c'; ctx.fillRect(0, 0, W, H);
 
-    if (st.mode === 'contour' || st.mode === 'both') {
+    /* in the stress mode the flow field steps back to a ghost so the mechanism has the page:
+       the contours are still there, still exact, just no longer the subject */
+    const dim = st.mode === 'stress' ? 0.30 : 1;
+    if (st.mode === 'contour' || st.mode === 'both' || st.mode === 'stress') {
       ctx.lineWidth = 1;
       for (const c of geo.contours) {
-        ctx.strokeStyle = 'rgba(246,246,248,' + (0.10 + 0.62 * Math.pow(c.frac, 0.42)).toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(246,246,248,' + (dim * (0.10 + 0.62 * Math.pow(c.frac, 0.42))).toFixed(3) + ')';
         ctx.beginPath();
         const sg = c.segs;
         for (let k = 0; k < sg.length; k += 4) {
@@ -257,9 +301,9 @@
       }
     }
 
-    if (st.mode === 'stream' || st.mode === 'both') {
+    if (st.mode === 'stream' || st.mode === 'both' || st.mode === 'stress') {
       ctx.lineWidth = 1;
-      ctx.strokeStyle = 'rgba(246,246,248,0.28)';
+      ctx.strokeStyle = 'rgba(246,246,248,' + (0.28 * dim).toFixed(3) + ')';
       ctx.beginPath();
       for (const L of geo.lines) {
         let started = false;
@@ -271,7 +315,7 @@
       }
       ctx.stroke();
       if (st.tracers) {
-        ctx.fillStyle = 'rgba(246,246,248,0.9)';
+        ctx.fillStyle = 'rgba(246,246,248,' + (0.9 * dim).toFixed(3) + ')';
         for (const L of geo.lines) {
           const n = L.length / 2;
           for (let m = 0; m < 3; m++) {
@@ -298,39 +342,93 @@
     /* the references. The axis and the annulus are dotted because they are rulers; the core
        box is solid because its two edges are exactly what the exponents fix. */
     ctx.save();
-    ctx.setLineDash([1, 3]); ctx.lineWidth = 1;
+    /* the axis is a ruler, so it takes GUIDE like the annulus edges — it had been drawn with
+       the PICK pattern, which means "one member of a set the data admits" and is not what an
+       axis is. Canvas dashes are not scanned by the grammar gate; the rule applies anyway. */
+    ctx.setLineDash(GR.guide); ctx.lineWidth = 1;
     ctx.strokeStyle = 'rgba(246,246,248,0.20)';
     ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
     const ra = Math.sqrt(2 * Xa * t), rb = Math.sqrt(2 * Xb * t);
-    ctx.setLineDash([2, 3]); ctx.strokeStyle = 'rgba(246,246,248,0.28)';
+    ctx.setLineDash(GR.guide); ctx.strokeStyle = 'rgba(246,246,248,0.28)';
     for (const sg of [1, -1]) for (const rr of [ra, rb]) {
       const x = cx + sg * rr * scale;
       if (x < -20 || x > W + 20) continue;
       ctx.beginPath(); ctx.moveTo(x, cy - e.lz * scale * 1.3); ctx.lineTo(x, cy + e.lz * scale * 1.3); ctx.stroke();
     }
     ctx.setLineDash([]);
-    if (!st.axisym) {
-      const n = pulseCount(t);
-      ctx.strokeStyle = 'rgba(246,246,248,0.09)';
-      ctx.beginPath();
-      for (let k = 0; k < n; k++) for (const sg of [1, -1]) {
-        const x = cx + sg * (ra + (rb - ra) * (k + 0.5) / n) * scale;
-        if (x < -6 || x > W + 6) continue;
-        ctx.moveTo(x, cy - e.lz * scale); ctx.lineTo(x, cy + e.lz * scale);
-      }
-      ctx.stroke();
-    }
+    if (!st.axisym) drawPulses(cx, cy, scale, e, t);
     ctx.strokeStyle = 'rgba(246,246,248,0.26)'; ctx.lineWidth = 1;
     ctx.strokeRect(cx - e.lr * scale, cy - e.lz * scale, 2 * e.lr * scale, 2 * e.lz * scale);
     ctx.fillStyle = '#f6f6f8'; ctx.beginPath(); ctx.arc(cx, cy, 1.8, 0, 6.284); ctx.fill();
     ctx.restore();
 
     annotate(cx, cy, scale, e, t, ra, rb);
-    cxNow = cx; scaleBar(scale);
+    cxNow = cx; const xR = scaleBar(scale); legend(xR);
 
     frames++; if (ts - fpsT > 600) { fps = Math.round(frames * 1000 / (ts - fpsT)); frames = 0; fpsT = ts; }
     if (ts - hudT > 110) { hudT = ts; hud(t, e, scale, base); }
     requestAnimationFrame(draw);
+  }
+
+  /* THE TWO PULSE FAMILIES, AT THE AMPLITUDES THE STRESS DECIDES. Each family is one wave
+     train across the annulus. Its envelope is a_σ = √y_σ — the real amplitude of Prop. 7.5 —
+     so a family whose squared amplitude has gone negative HAS no wave, and the drawing says
+     so with a broken rule where its curve would have been rather than drawing a wave that
+     does not exist. The radial phase is 2πN·log(X/Xa)/log(Xb/Xa), which is the paper's own
+     N log X modulation (Appendix C), so the pulses crowd where the paper says they crowd.
+     The two families are told apart by line style and phase, never by colour alone. */
+  function drawPulses(cx, cy, scale, e, t) {
+    const md = mechData(), rows = md.rows;
+    const n = pulseCount(t);
+    const emph = st.mode === 'stress';
+    const zTop = e.lz * scale * (emph ? 0.80 : 0.56);
+    const lg = Math.log(Xb / Xa);
+    let amax = 0;
+    for (const r of rows) amax = Math.max(amax, Math.sqrt(Math.max(0, r.yp)), Math.sqrt(Math.max(0, r.ym)));
+    if (!(amax > 0)) amax = 1;
+    const NPT = 260;
+    const rOf = (u) => Math.sqrt(2 * t * Xa * Math.exp(u * lg));
+    if (emph) {
+      const xa2 = cx + Math.sqrt(2 * Xa * t) * scale, xb2 = cx + Math.sqrt(2 * Xb * t) * scale;
+      ctx.fillStyle = 'rgba(246,246,248,0.028)';
+      for (const sg of [1, -1]) ctx.fillRect(cx + sg * (xa2 - cx), cy - zTop, sg * (xb2 - xa2), 2 * zTop);
+    }
+    for (const fam of [{ sig: 1, id: GR.identity[0], k: emph ? 1 : 0.56, ph: 0 },
+                       { sig: -1, id: GR.identity[1], k: emph ? 1 : 0.56, ph: Math.PI / 2 }]) {
+      ctx.setLineDash(GR.none);
+      ctx.strokeStyle = 'rgba(246,246,248,' + (fam.id.opacity * 0.78 * fam.k).toFixed(3) + ')';
+      ctx.lineWidth = fam.id.weight * 0.8;
+      for (const sg of [1, -1]) {
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i <= NPT; i++) {
+          const u = i / NPT, rr = rOf(u);
+          const X = Xa * Math.exp(u * lg), y = fam.sig > 0 ? rowAtX(rows, X).yp : rowAtX(rows, X).ym;
+          const x = cx + sg * rr * scale;
+          if (!(y > 0) || x < -8 || x > W + 8) { started = false; continue; }
+          const env = Math.sqrt(y) / amax;
+          const zz = env * zTop * Math.cos(2 * Math.PI * n * u + fam.ph - fam.sig * phase * 1.6);
+          if (started) ctx.lineTo(x, cy - zz); else { ctx.moveTo(x, cy - zz); started = true; }
+        }
+        ctx.stroke();
+      }
+    }
+    ctx.setLineDash([]);
+    /* where a squared amplitude is negative there is no wave to draw: mark the radius */
+    if (md.outWave > 0) {
+      ctx.strokeStyle = 'rgba(246,246,248,0.5)'; ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (const r of rows) {
+        if (r.inWave) continue;
+        const u = Math.log(r.X / Xa) / lg, x0 = cx + rOf(u) * scale;
+        for (const sg of [1, -1]) {
+          const x = cx + sg * (x0 - cx);
+          if (x < -6 || x > W + 6) continue;
+          ctx.moveTo(x, cy - zTop * 0.24); ctx.lineTo(x, cy + zTop * 0.24);
+        }
+      }
+      ctx.stroke();
+    }
   }
 
   function annotate(cx, cy, scale, e, t, ra, rb) {
@@ -340,13 +438,20 @@
       ctx.textAlign = anchor || 'left'; ctx.fillText(s, x, y); ctx.textAlign = 'left';
     };
     const rp = e.lr * scale, zp = e.lz * scale;
-    if (rp > 26 && cx - rp > 130) {
+    /* the left gutter belongs to the mechanism plate when it is showing; a leader that runs
+       under it is a leader nobody can follow */
+    const gutter = (W > 1180 && H > 790) ? 380 : 130;
+    if (rp > 26 && cx - rp > gutter) {
       ctx.strokeStyle = 'rgba(154,154,166,0.32)'; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(cx - rp, cy + zp); ctx.lineTo(cx - rp - 16, cy + zp + 12); ctx.stroke();
       lab(cx - rp - 20, cy + zp + 15, 'the core · ℓr = τ^1/2 · ℓz = τ^' + fmtExp(0.5 - h()), 'right');
     }
     const xb = cx - rb * scale;
-    if (xb > 150 && zp > 14) lab(xb - 8, cy + 4, st.axisym ? 'annulus · no pulses' : 'pulse annulus · ' + Xa + ' < X < ' + Xb, 'right');
+    if (xb > 150 && zp > 14) {
+      const md = mechData();
+      lab(xb - 8, cy + 4, st.axisym ? 'annulus · no pulses, the residual stands'
+        : 'pulse annulus · ' + Xa + ' < X < ' + Xb + (md.outWave ? ' · ' + md.outWave + ' radii with no real amplitude' : ' · both amplitudes real'), 'right');
+    }
     lab(cx + 6, 16, 'axis', 'left', 'rgba(110,110,122,0.9)');
   }
   const fmtExp = (v) => String(Number(v.toFixed(4)));
@@ -371,6 +476,45 @@
     ctx.stroke();
     ctx.fillStyle = 'rgba(246,246,248,0.55)'; ctx.font = '9.5px ui-monospace,SFMono-Regular,monospace';
     ctx.textAlign = 'right'; ctx.fillText(fmtE(world) + '  ·  in units of the initial core', x0 + wpx, y0 - 8); ctx.textAlign = 'left';
+    return { x: x0 + wpx, y: y0 };
+  }
+
+  /* THE LEGEND, because a hairline is not self-explanatory. Every entry is drawn in the mark
+     it names — a legend that describes a stroke it does not draw is a caption, and captions
+     drift from the picture. It hangs under the ruler, which is the one place nothing else is. */
+  function legend(bar) {
+    if (W < 980 || !bar) return;
+    const md = mechData();
+    const rows = [
+      ['contour', 'a level of |u| · ×' + RATIO + ' a step, ' + st.levels + ' of them', 'solid', 0.62],
+      ['stream', 'a meridional streamline (r, z)', 'solid', 0.28],
+      ['ref', 'axis · annulus edges · core box', 'dot', 0.3],
+    ];
+    if (!st.axisym) {
+      rows.push(['wave', 'pulse family + · envelope √y₊', 'wave', GR.identity[0].opacity * 0.78]);
+      rows.push(['wave2', 'pulse family − · envelope √y₋' + (md.outWave ? ' (gaps: none real)' : ''), 'wave', GR.identity[1].opacity * 0.78]);
+    }
+    ctx.font = '9.5px ui-monospace,SFMono-Regular,Menlo,monospace';
+    const right = bar.x, sw = 26;
+    let y = bar.y + 20;
+    for (const [, text, kind, al] of rows) {
+      ctx.fillStyle = 'rgba(154,154,166,0.86)';
+      ctx.textAlign = 'right';
+      ctx.fillText(text, right - sw - 8, y + 3);
+      ctx.textAlign = 'left';
+      ctx.strokeStyle = 'rgba(246,246,248,' + al + ')';
+      ctx.lineWidth = kind === 'wave' ? (al > 0.5 ? GR.identity[0].weight : GR.identity[1].weight) * 0.8 : 1;
+      ctx.setLineDash(kind === 'dot' ? GR.guide : GR.none);
+      ctx.beginPath();
+      if (kind === 'wave') {
+        for (let i = 0; i <= 26; i++) {
+          const x = right - sw + i, zz = Math.sin(i / 26 * Math.PI * 3) * 3.2 * (0.35 + 0.65 * Math.sin(i / 26 * Math.PI));
+          if (i) ctx.lineTo(x, y - zz); else ctx.moveTo(x, y - zz);
+        }
+      } else { ctx.moveTo(right - sw, y); ctx.lineTo(right, y); }
+      ctx.stroke(); ctx.setLineDash([]);
+      y += 15;
+    }
   }
   const fmtE = (v) => (!isFinite(v) ? '∞' : v === 0 ? '0' : (Math.abs(v) >= 1e-3 && Math.abs(v) < 1e4) ? String(Number(v.toPrecision(3))) : v.toExponential(1).replace('e+', 'e').replace('e', '·10^'));
 
@@ -415,6 +559,7 @@
         ? '<span class="tag">type I</span><p>h = 0 — the swirl stays bounded and the maximum principle is satisfied. And |u| ≍ τ<sup>−1/2</sup> is exactly type I, which the axisymmetric Liouville theorems exclude.</p>'
         : '<span class="tag">swirl unbounded</span><p>h = ' + esc(qtext(Q(st.hn, HD))) + ' — type II, so those theorems do not reach it. And Γ = r·u<sub>θ</sub> ≍ τ<sup>−' + esc(qtext(Q(st.hn, HD))) + '</sup> diverges, which the maximum principle forbids for an axisymmetric flow driven from rest by a bounded force.</p>';
     }
+    mechRender();
     $('h-met').textContent = met + '/' + S.criteria.length;
     $('h-h').textContent = qtext(Q(st.hn, HD));
     $('h-10').textContent = st.hn === 0n ? 'never' : '10^−' + Math.round(1 / h());
@@ -457,6 +602,234 @@
     el.innerHTML = '<path d="' + d + '" fill="none" stroke="rgba(246,246,248,0.8)" stroke-width="1.4"/>';
   }
 
+  /* ------------------------------------------------------- the mechanism, decided
+     WHAT THE PULSES ARE FOR, which this page used to assert and now shows. The core alone
+     does not solve Navier–Stokes: §5 leaves a residual equal to −div(annular stress) plus a
+     flat remainder (5.1)–(5.5), and that annular stress T0 is what the WAVES must produce.
+     §4.3 says when that is possible — T0 must lie in a cone — and Proposition 7.5 says how,
+     by turning T0 into two POSITIVE squared amplitudes whose square roots are the real wave
+     amplitudes. Both are inequalities, so both are decided here in BigInt.
+
+     The wedge is parametrised by its SLOPE m rather than by the paper's vs, because
+     m = √(2/(vs − 2)) is the quantity the drawing shows and vs = 2 + 2/m² is then exactly
+     rational — so the two crossings below are equalities, not limits. The wave cone is the
+     same wedge opened by the margin ηc of Prop. 7.5's proof: leave the inner wedge and the
+     paper's estimate no longer covers you; leave the outer one and a squared amplitude is
+     negative, which means no real pair of amplitudes can supply that stress at all.
+
+     The stress PATH is drawn — a bump vanishing to second order at both annular edges, with a
+     direction that turns slowly across the annulus. What is decided is the paper's test. */
+  const MK = S.mechanism;
+  const RQ = (r) => Q(BigInt(r.n), BigInt(r.d));
+  const XAq = RQ(MK.annulus.Xa), XBq = RQ(MK.annulus.Xb), ETAC = RQ(MK.etaC);
+  const STURN = Q(2n, 5n);
+  const NSAMP = 61;
+  let mechCache = null, mechKey = '';
+
+  function mechData() {
+    const key = st.mSlope + ',' + st.tilt + ',' + st.sDir;
+    if (mechKey === key) return mechCache;
+    const m = Q(st.mSlope, HD);
+    const M = qdiv(m, qsub(Q1, ETAC));                       /* the wave cone, opened by ηc */
+    const ts = Q(st.tilt, HD), s0 = Q(st.sDir, HD);
+    const vs = qadd(Q2, qdiv(Q2, qmul(m, m)));               /* vs = 2 + 2/m², exact */
+    const width = qsub(XBq, XAq), mid = qdiv(qadd(XAq, XBq), Q2);
+    const half = qdiv(width, Q2), umax = qmul(half, half);
+    const den = qadd(Q1, qmul(ts, ts));                      /* det of the (4.23) frame change */
+    const rows = []; let outCone = 0, outWave = 0, worst = 0;
+    for (let i = 0; i < NSAMP; i++) {
+      /* strictly inside the annulus: at the edges the stress is zero and the condition is
+         about its DIRECTION alone (Theorem 4.6(iii)), which is drawn but not counted */
+      const X = qadd(XAq, qmul(width, Q(BigInt(i + 1), BigInt(NSAMP + 1))));
+      const u = qmul(qsub(X, XAq), qsub(XBq, X));
+      const g0 = qdiv(u, umax), A = qmul(g0, g0);            /* the drawn bump, peak 1 at mid */
+      const s = qadd(s0, qmul(STURN, qdiv(qsub(X, mid), width)));
+      const P = A, Jc = qmul(A, s);                          /* T0 in the (P, J) frame */
+      const inCone = qcmp(qabs(s), m) < 0;                   /* (4.22)/(4.23), P > 0: |J| < m·P */
+      const inWave = qcmp(qabs(s), M) < 0;
+      const yp = qdiv(qmul(A, qadd(Q1, qdiv(s, M))), Q2);    /* Prop. 7.5's half-sum ± half-difference */
+      const ym = qdiv(qmul(A, qsub(Q1, qdiv(s, M))), Q2);
+      const Tth = qdiv(qsub(P, qmul(ts, Jc)), den);          /* back to (T0,θ, T0,z) */
+      const Tz = qdiv(qadd(Jc, qmul(ts, P)), den);
+      if (!inCone) outCone++;
+      if (!inWave) outWave++;
+      const row = { X: qnum(X), A: qnum(A), s: qnum(s), sq: s, yp: qnum(yp), ym: qnum(ym),
+                    ypq: yp, ymq: ym, inCone, inWave, Tth: qnum(Tth), Tz: qnum(Tz) };
+      if (Math.abs(row.s) > Math.abs(rows[worst] ? rows[worst].s : -1)) worst = i;
+      rows.push(row);
+    }
+    mechCache = { rows, m, M, ts, vs, outCone, outWave, worst, n: NSAMP,
+                  peak: rows.reduce((b, r, i) => (r.A > rows[b].A ? i : b), 0) };
+    mechKey = key;
+    return mechCache;
+  }
+  const rowAtX = (rows, X) => {
+    const f = (X - rows[0].X) / (rows[rows.length - 1].X - rows[0].X) * (rows.length - 1);
+    const i = Math.min(rows.length - 2, Math.max(0, Math.floor(f))), b = Math.min(1, Math.max(0, f - i));
+    const A = rows[i], B = rows[i + 1];
+    return { yp: A.yp + (B.yp - A.yp) * b, ym: A.ym + (B.ym - A.ym) * b, A: A.A + (B.A - A.A) * b };
+  };
+
+  /* ---- the cone, drawn in the stress plane (T0,θ, T0,z) --------------------
+     Two wedges and a path. The inner wedge is the paper's admissible cone; the outer is what
+     the two reference waves can actually reach; the gap between them is the margin ηc that
+     absorbs the errors e± of (7.28). The decomposition is drawn head to tail at the radius
+     where the stress is largest: y+·H+ then y−·H−, arriving exactly at T0. That closing of
+     the parallelogram IS the pulses doing their job. */
+  const NS = 'http://www.w3.org/2000/svg';
+  function coneSvg() {
+    const md = mechData(), rows = md.rows;
+    const ts = qnum(md.ts), m = qnum(md.m), M = qnum(md.M);
+    const BW = 300, BH = 138, PAD = 14, FW = 152;   /* the sector fits FW; the rest is the arithmetic */
+    /* the (P, J) frame back to the stress plane — the inverse of (4.23) */
+    const toT = (P, J) => [(P - ts * J) / (1 + ts * ts), (J + ts * P) / (1 + ts * ts)];
+    const unit = (P, J) => { const [a, b] = toT(P, J); const n = Math.hypot(a, b) || 1; return [a / n, b / n]; };
+    let rad = 0;
+    for (const r of rows) rad = Math.max(rad, Math.hypot(r.Tth, r.Tz));
+    const R = (rad || 1) * 1.14;
+    const arc = (slope, n) => {                       /* the sector rim, sampled so it can be fitted */
+      const out = [];
+      for (let i = 0; i <= n; i++) { const J = -slope + 2 * slope * i / n; const u = unit(1, J); out.push([u[0] * R, u[1] * R]); }
+      return out;
+    };
+    const rimW = arc(M, 26), rimA = arc(m, 26);
+    /* FIT THE DRAWING TO ITS BOX. The wedge is tilted by ts and its aperture follows m, so a
+       fixed origin and a fixed scale put it off the edge at the ends of either dial. Every
+       point that will be drawn is bounded first, then one scale and one offset are chosen. */
+    const all = [[0, 0]].concat(rimW, rows.map((r) => [r.Tth, r.Tz]));
+    let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+    for (const [x, y] of all) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+    const sc = Math.min((FW - 2 * PAD) / Math.max(1e-9, x1 - x0), (BH - 2 * PAD) / Math.max(1e-9, y1 - y0));
+    const ox = PAD + (FW - 2 * PAD - (x1 - x0) * sc) / 2 - x0 * sc;
+    const oy = BH - PAD - (BH - 2 * PAD - (y1 - y0) * sc) / 2 - (-y0) * sc;
+    const px = (x, y) => [(ox + x * sc).toFixed(1), (oy - y * sc).toFixed(1)];
+    const O = px(0, 0);
+    const sector = (rim) => 'M' + O.join(',') + rim.map((p) => 'L' + px(p[0], p[1]).join(',')).join('') + 'Z';
+    const o = [];
+    o.push('<svg viewBox="0 0 ' + BW + ' ' + BH + '" role="img" aria-label="The stress plane: the admissible cone of (4.22), the wider cone the two wave families can reach, the stress path across the annulus, and the two positive contributions closing head to tail on it.">');
+    o.push('<defs><pattern id="hatchC" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
+      + '<line x1="0" y1="0" x2="0" y2="4" stroke="rgba(246,246,248,0.30)" stroke-width="0.7"/></pattern></defs>');
+    /* what two real amplitudes reach — dotted rim, no fill, so it cannot be confused with the cone inside it */
+    o.push('<path d="' + sector(rimW) + '" fill="none" stroke="rgba(246,246,248,' + GR.identity[2].opacity * 0.55 + ')" stroke-width="' + GR.identity[2].weight + '"/>');
+    /* the admissible cone (4.22), strictly inside it; the gap between the two IS the margin ηc */
+    o.push('<path d="' + sector(rimA) + '" fill="url(#hatchC)" fill-opacity="0.55" stroke="rgba(246,246,248,' + GR.identity[0].opacity * 0.72 + ')" stroke-width="' + GR.identity[0].weight + '"/>');
+    /* the stress path: T0(X) as X runs across the annulus, vanishing at both edges */
+    o.push('<path d="M' + O.join(',') + rows.map((r) => 'L' + px(r.Tth, r.Tz).join(',')).join('') + 'L' + O.join(',')
+      + '" fill="none" stroke="rgba(246,246,248,0.9)" stroke-width="1.2"/>');
+    /* a radius whose stress has left the wave cone has no real amplitude: cross it out. AT MOST
+       FIVE, evenly spaced — one mark per radius is a white blob the moment the whole annulus
+       fails, and a mark that hides the thing it marks is not a mark. */
+    const outRows = rows.filter((r) => !r.inWave);
+    for (let k = 0; k < Math.min(5, outRows.length); k++) {
+      const r = outRows[Math.round(k * (outRows.length - 1) / Math.max(1, Math.min(4, outRows.length - 1)))];
+      const p = px(r.Tth, r.Tz);
+      o.push('<path d="M' + (+p[0] - 3).toFixed(1) + ',' + (+p[1] - 3).toFixed(1) + ' l6,6 M' + (+p[0] + 3).toFixed(1) + ',' + (+p[1] - 3).toFixed(1) + ' l-6,6" stroke="rgba(246,246,248,0.92)" stroke-width="1.1"/>');
+    }
+    /* THE DECOMPOSITION, head to tail, at the radius carrying the most stress: y+H+ then y−H−,
+       arriving exactly at T0. That closing is the two families doing the core's work. */
+    const pk = rows[md.peak];
+    const h1 = toT(pk.yp, pk.yp * M), h2 = toT(pk.ym, -pk.ym * M);
+    const A1 = px(h1[0], h1[1]), A2 = px(h1[0] + h2[0], h1[1] + h2[1]);
+    o.push('<line x1="' + O[0] + '" y1="' + O[1] + '" x2="' + A1[0] + '" y2="' + A1[1] + '" stroke="rgba(246,246,248,' + GR.identity[0].opacity + ')" stroke-width="' + (GR.identity[0].weight * 1.4).toFixed(2) + '"/>');
+    o.push('<line x1="' + A1[0] + '" y1="' + A1[1] + '" x2="' + A2[0] + '" y2="' + A2[1] + '" stroke="rgba(246,246,248,' + GR.identity[1].opacity + ')" stroke-width="' + (GR.identity[1].weight * 1.4).toFixed(2) + '"/>');
+    o.push('<circle cx="' + A2[0] + '" cy="' + A2[1] + '" r="2.6" fill="#f6f6f8"/>');
+    o.push('<circle cx="' + O[0] + '" cy="' + O[1] + '" r="1.7" fill="rgba(246,246,248,0.75)"/>');
+    /* THE ARITHMETIC THAT DECIDED IT, beside the picture of it. The stress direction s and the
+       two slopes are small rationals by construction, so the whole test prints exactly — this
+       is the same discipline as the verdict chips, applied to the mechanism. */
+    const wr = rows[md.worst], as = qabs(wr.sq);
+    const okC = qcmp(as, md.m) < 0, okW = qcmp(as, md.M) < 0;
+    const tx = FW + 6;
+    let ty = 26;
+    const line = (t, cls) => { o.push('<text x="' + tx + '" y="' + ty + '" class="' + (cls || 'lb') + '">' + esc(t) + '</text>'); ty += 15; };
+    line('at the radius furthest out', 'lb');
+    line('|s| = ' + qtext(as), 'lb2');
+    ty += 3;
+    line('cone   |s| < ' + qtext(md.m) + '   ' + (okC ? 'holds' : 'fails'), 'lb');
+    line('waves  |s| < ' + qtext(md.M) + '   ' + (okW ? 'holds' : 'fails'), 'lb');
+    ty += 3;
+    line(okW ? 'y\u208A > 0 and y\u208B > 0' : (wr.s > 0 ? 'y\u208B < 0 \u2014 not real' : 'y\u208A < 0 \u2014 not real'), 'lb2');
+    const mid = (p, q) => [(+p[0] + +q[0]) / 2, (+p[1] + +q[1]) / 2];
+    const nrm = (p, q, d) => { const dx = +q[0] - +p[0], dy = +q[1] - +p[1], n = Math.hypot(dx, dy) || 1; return [-dy / n * d, dx / n * d]; };
+    const l1 = mid(O, A1), n1 = nrm(O, A1, 11);
+    const l2 = mid(A1, A2), n2 = nrm(A1, A2, -11);
+    o.push('<text x="' + (l1[0] + n1[0]).toFixed(1) + '" y="' + (l1[1] + n1[1]).toFixed(1) + '" class="lb" text-anchor="middle">y₊H₊</text>');
+    o.push('<text x="' + (l2[0] + n2[0]).toFixed(1) + '" y="' + (l2[1] + n2[1]).toFixed(1) + '" class="lb" text-anchor="middle">y₋H₋</text>');
+    o.push('<text x="' + (+A2[0] + 6).toFixed(1) + '" y="' + (+A2[1] - 4).toFixed(1) + '" class="lb2">T₀</text>');
+    o.push('</svg>');
+    return o.join('');
+  }
+
+  /* ---- what the two families supply, radius by radius ----------------------
+     The stack always closes on the demand curve, because y+ + y− = A identically — that is
+     the content of the representation. What the picture shows is WHETHER it closes with two
+     positive parts: past the wave cone one band hangs below the zero line while the other
+     overshoots the curve, and there is no pair of real amplitudes at that radius. */
+  function supplySvg() {
+    const md = mechData(), rows = md.rows;
+    const W0 = 300, H0 = 88, x0 = 16, x1 = 292, zero = 66;
+    let top = 0, bot = 0;
+    for (const r of rows) { top = Math.max(top, r.A, r.yp, r.yp + Math.max(0, r.ym)); bot = Math.min(bot, r.yp, r.ym, 0); }
+    const sc = Math.min(52 / (top || 1), bot < 0 ? 16 / -bot : 1e9);
+    const X0 = rows[0].X, XW = rows[rows.length - 1].X - X0;
+    const px = (r, y) => [x0 + (r.X - X0) / XW * (x1 - x0), zero - y * sc];
+    const poly = (f) => rows.map((r, i) => (i ? 'L' : 'M') + px(r, f(r)).map((v) => v.toFixed(1)).join(',')).join('');
+    const o = [];
+    o.push('<svg viewBox="0 0 ' + W0 + ' ' + H0 + '" role="img" aria-label="Across the pulse annulus: the stress the core needs, and the two wave families\' contributions stacked to exactly meet it.">');
+    o.push('<defs><pattern id="hatchS" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
+      + '<line x1="0" y1="0" x2="0" y2="4" stroke="rgba(246,246,248,0.3)" stroke-width="0.8"/></pattern></defs>');
+    /* the first family: 0 up to y+ */
+    o.push('<path d="' + poly((r) => r.yp) + 'L' + px(rows[rows.length - 1], 0)[0].toFixed(1) + ',' + zero
+      + 'L' + px(rows[0], 0)[0].toFixed(1) + ',' + zero + 'Z" fill="rgba(246,246,248,0.10)"/>');
+    o.push('<path d="' + poly((r) => r.yp) + '" fill="none" stroke="rgba(246,246,248,0.55)" stroke-width="1"/>');
+    /* the second family: y+ up to y+ + y− = A — hatched, and it goes the other way when y− < 0 */
+    const up = poly((r) => r.yp + r.ym);
+    const down = rows.slice().reverse().map((r, i) => (i ? 'L' : 'L') + px(r, r.yp).map((v) => v.toFixed(1)).join(',')).join('');
+    o.push('<path d="' + up + down + 'Z" fill="url(#hatchS)" fill-opacity="0.75"/>');
+    /* the demand: the stress the core needs at this radius */
+    o.push('<path d="' + poly((r) => r.A) + '" fill="none" stroke="rgba(246,246,248,0.92)" stroke-width="1.4"/>');
+    o.push('<line x1="' + x0 + '" y1="' + zero + '" x2="' + x1 + '" y2="' + zero + '" class="ink-guide" stroke="rgba(246,246,248,0.35)" stroke-width="1"/>');
+    const bad = rows.filter((r) => !r.inWave);
+    for (let k = 0; k < bad.length; k += Math.max(1, Math.ceil(bad.length / 12))) {
+      const r = bad[k], p = px(r, Math.min(r.yp, r.ym));
+      o.push('<line x1="' + p[0].toFixed(1) + '" y1="' + zero + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="rgba(246,246,248,0.8)" stroke-width="1"/>');
+    }
+    o.push('<text x="' + x0 + '" y="' + (H0 - 3) + '" class="lb">X = ' + rows[0].X.toFixed(2) + '</text>');
+    o.push('<text x="' + x1 + '" y="' + (H0 - 3) + '" class="lb" text-anchor="end">' + rows[rows.length - 1].X.toFixed(2) + '</text>');
+    o.push('</svg>');
+    return o.join('');
+  }
+
+  function mechRender() {
+    const md = mechData();
+    const el = $('mech-cone'), el2 = $('mech-supply');
+    if (!el) return;
+    if (st.axisym) {
+      el.innerHTML = ''; el2.innerHTML = '';
+      $('mech-verdict').textContent = 'no pulses';
+      $('mech-line').innerHTML = 'Angular mode zero: ⟨cos kΦ⟩<sub>θ</sub> = 1, not 0 — the families are part of the mean and supply <b>no</b> stress to it.';
+      $('mech-cone').classList.add('void'); $('mech-supply').classList.add('void');
+    } else {
+      $('mech-cone').classList.remove('void'); $('mech-supply').classList.remove('void');
+      el.innerHTML = coneSvg(); el2.innerHTML = supplySvg();
+      const v = $('mech-verdict');
+      if (md.outWave > 0) { v.textContent = 'no real amplitude'; v.className = 'tagx on'; }
+      else if (md.outCone > 0) { v.textContent = 'outside the cone'; v.className = 'tagx on'; }
+      else { v.textContent = 'representable'; v.className = 'tagx'; }
+      const lo = qtext(md.m), lw = qtext(md.M);
+      $('mech-line').innerHTML = md.outWave > 0
+        ? '<b>' + md.outWave + ' of ' + md.n + '</b> radii past what the waves reach (|s| ≥ ' + esc(lw)
+          + '): a squared amplitude is <b>negative</b>.'
+        : md.outCone > 0
+          ? '<b>' + md.outCone + ' of ' + md.n + '</b> outside the cone (4.22) (|s| ≥ ' + esc(lo)
+            + '): reachable, but the margin η<sub>c</sub> of (7.28) is gone.'
+          : 'All ' + md.n + ' radii inside the cone (4.22): two <b>positive</b> amplitudes, summing to exactly what the core needs.';
+    }
+    $('m-vs').textContent = qtext(mechData().vs);
+    $('m-slope').textContent = qtext(mechData().m);
+    $('m-wave').textContent = qtext(mechData().M);
+  }
+
   /* ------------------------------------------------------------------ wiring */
   let panelTouched = false;
   const autoPanel = () => { if (!panelTouched) document.body.classList.toggle('ov-panel-hidden', window.innerWidth < 820); };
@@ -467,6 +840,14 @@
   for (const b of document.querySelectorAll('[data-h]')) b.addEventListener('click', () => {
     st.hn = BigInt(b.dataset.h); hs.value = b.dataset.h; $('hsOut').textContent = qtext(Q(st.hn, HD)); decide(); insets();
   });
+  const mslope = $('m-s'), mtilt = $('m-t'), mdir = $('m-d'), mlev = $('m-l');
+  const mechIn = (el, key, out) => el.addEventListener('input', () => {
+    st[key] = BigInt(el.value); $(out).textContent = qtext(Q(st[key], HD)); mechRender();
+  });
+  mechIn(mdir, 'sDir', 'm-dOut');
+  mechIn(mslope, 'mSlope', 'm-sOut');
+  mechIn(mtilt, 'tilt', 'm-tOut');
+  mlev.addEventListener('input', () => { st.levels = Number(mlev.value); $('m-lOut').textContent = st.levels; });
   for (const b of document.querySelectorAll('[data-mode]')) b.addEventListener('click', () => {
     st.mode = b.dataset.mode;
     for (const x of document.querySelectorAll('[data-mode]')) x.classList.toggle('on', x === b);
@@ -501,6 +882,9 @@
   buildField(); buildGeometry(); fit(); decide(); insets(); syncPlay();
   hs.value = String(st.hn); sc.value = String(st.logTau);
   $('hsOut').textContent = qtext(Q(st.hn, HD));
+  mslope.value = String(st.mSlope); mtilt.value = String(st.tilt); mdir.value = String(st.sDir); mlev.value = String(st.levels);
+  $('m-sOut').textContent = qtext(Q(st.mSlope, HD)); $('m-tOut').textContent = qtext(Q(st.tilt, HD));
+  $('m-dOut').textContent = qtext(Q(st.sDir, HD)); $('m-lOut').textContent = st.levels;
   $('trace').classList.add('on'); $('follow').classList.add('on');
   document.querySelector('[data-mode="both"]').classList.add('on');
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { st.playing = false; st.tracers = false; $('trace').classList.remove('on'); syncPlay(); }

@@ -369,10 +369,58 @@
    "kind": "COMPUTED",
    "how": "the WKB amplitude equation integrated by fourth-order Runge–Kutta in the tab: the wavevector is carried by the background shear, the amplitude grows on the shear and is damped by ν|ξ|², and the shortening radial wavelength is what ends the growth"
   },
+  "mechanism": {
+   "kind": "DECIDED",
+   "how": "the cone test (4.22)/(4.23) and the two squared amplitudes of Proposition 7.5 are exact rational arithmetic in the tab — the wedge is parametrised by its slope m so that vs = 2 + 2/m² stays rational, and both cone crossings are equalities rather than limits. The stress path they are applied to is drawn"
+  },
   "profile": {
    "kind": "COMPUTED",
    "how": "the axis initial-value problem (4.13)+(4.7) of Appendix B, solved by instruments/navierstokes/probes/axis_profile.py at representative data and read from its record"
   }
+ },
+ "mechanism": {
+  "what": "The annular stress the core needs, and the two pulse families that supply it.",
+  "chain": "core residual = −div T0 + flat remainder (5.1)–(5.5)  →  T0 must lie in the admissible cone (4.22)/(4.23)  →  Prop. 7.5 turns T0 into two positive squared amplitudes y± with C(W0) = ε·T0,* (7.26)",
+  "cone": {
+   "test": "(4.23), stress coordinates: T0,θ + ts·T0,z > 0 and (vs − 2)(T0,z − ts·T0,θ)² < 2(T0,θ + ts·T0,z)²",
+   "equivalent": "(4.22): Pc > vs and (vs − 2)Jc² < 2(Pc − vs)², for vs > 2 — Lemma 4.5",
+   "slope": "in the (P, J) frame the wedge is |J| < m·P with m = √(2/(vs − 2)); the instrument turns m and prints vs = 2 + 2/m² exactly",
+   "tilt": "the frame change (T0,θ, T0,z) ↦ (T0,θ + ts T0,z, T0,z − ts T0,θ) has determinant 1 + ts² > 0 — ts rotates the wedge, it does not fold it",
+   "edges": "homogeneous in T0, so the stress may vanish at both annular edges with its direction still strictly inside (Theorem 4.6(iii))"
+  },
+  "waves": {
+   "columns": "H± = h±(−Ac·N − σ·u*·K + e±), Ac = −c0√(1 + u*²) > 0; the two signs have disjoint auxiliary supports, so C(a+b+ + a−b−) = H(a+², a−²)ᵀ",
+   "solve": "h+y+ = ½(−T_N/Ac − T_K/u*), h−y− = ½(−T_N/Ac + T_K/u*); a± = √y±, real exactly on the reference cone",
+   "margin": "ηc > 0 of Prop. 7.5: |T_K|/u* ≤ (1 − ηc)(−T_N/Ac), so the wave cone strictly contains the admissible one and absorbs the errors e± of (7.28)",
+   "angular": "the angular frequency k·p is a nonzero integer, so ⟨cos²(kΦσ)⟩_θ = 1/2 exactly and ⟨cos(kΦσ)⟩_θ = 0 — the pulse is a fluctuation about the angular mean, which is what makes its covariance a Reynolds stress. At k = 0 both fail: an axisymmetric pulse is part of the mean and supplies nothing to it. Lean: angularMode_ne_zero (ActualInitialization.lean:52)"
+  },
+  "etaC": {
+   "n": 1,
+   "d": 10
+  },
+  "mDefault": {
+   "n": 900,
+   "d": 1000
+  },
+  "tiltDefault": {
+   "n": 250,
+   "d": 1000
+  },
+  "sDefault": {
+   "n": 300,
+   "d": 1000
+  },
+  "annulus": {
+   "Xa": {
+    "n": 55,
+    "d": 100
+   },
+   "Xb": {
+    "n": 190,
+    "d": 100
+   }
+  },
+  "drawn": "The stress PATH across the annulus is drawn, not read from the paper: a smooth positive bump vanishing at both edges, carrying a direction that turns slowly across the annulus. What is decided is the paper's: whether that stress lies in the cone, and the two squared amplitudes that represent it."
  },
  "hPaper": {
   "n": 1,
@@ -822,8 +870,8 @@
  },
  "probes": {
   "verdict": "PASS",
-  "scripts": 6,
-  "reds": 20
+  "scripts": 7,
+  "reds": 26
  },
  "build": {
   "verdict": "PASS",
@@ -836,5 +884,5 @@
   ],
   "comparator": 2
  },
- "recorded": "2026-09-09"
+ "recorded": "2026-09-10"
 }

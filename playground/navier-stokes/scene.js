@@ -88,12 +88,63 @@ const DICHOTOMY = {
   hypotheses: 'The maximum-principle half needs r·f_θ bounded (it is: f ∈ C_c^∞) and the flow axisymmetric. The type-I half is the hypothesis of the cited Liouville theorems, which are stated for axisymmetric solutions. Neither half is a theorem proved here; both are classical results applied to the exponents the paper states.',
 };
 
+/* ---- the mechanism: what the pulses are FOR ------------------------------
+   The core alone does not solve Navier–Stokes. §5 writes the base field's residual as
+   −div(annular stress) + a flat remainder (5.1)–(5.5); the annular stress T0, supported in
+   Xa < X < Xb, is what the WAVES must produce. Two printed facts make that possible, and
+   both are inequalities rather than estimates, which is why a browser can re-decide them:
+
+     (4.20)–(4.23)  the cone imposed on the leading stress. With ts = −bs/a and
+                    vs = a(1 + ts²), the admissible condition is equivalent (Lemma 4.5,
+                    for vs > 2) to the square-root-free pair Pc > vs and
+                    (vs − 2)Jc² < 2(Pc − vs)², and in stress coordinates to
+                    T0,θ + ts·T0,z > 0 and (vs−2)(T0,z − ts T0,θ)² < 2(T0,θ + ts T0,z)².
+                    Homogeneous: a WEDGE, tilted by ts, half-angle arctan(√(2/(vs−2))).
+     Prop. 7.5      two pulse families with disjoint auxiliary supports have covariance
+                    columns H±, and C(a+b+ + a−b−) = H(a+², a−²)ᵀ — so the reachable set is
+                    exactly the NONNEGATIVE span of two columns. The printed solve
+                    h±y± = ½(−T_N/Ac ∓ T_K/u*) is positive exactly on T_N < 0,
+                    |T_K| < (u* / Ac)(−T_N), where a± = √y± are REAL.
+
+   The instrument parametrises the wedge by its SLOPE m rather than by vs, because
+   m = √(2/(vs−2)) is the quantity that appears in the drawing and vs = 2 + 2/m² is then an
+   exact rational whenever m is — so every verdict below stays in BigInt and never touches a
+   float. The wave cone is the admissible one opened by the margin ηc of Prop. 7.5's proof,
+   slope M = m/(1−ηc): a stress may leave the profile cone and still be representable, until
+   it leaves the wave cone too and the squared amplitude goes negative. Two thresholds, both
+   exact. `instruments/navierstokes/probes/stress_cone.py` re-derives every formula here from
+   the paper and carries six red controls. */
+const MECHANISM = {
+  what: 'The annular stress the core needs, and the two pulse families that supply it.',
+  chain: 'core residual = −div T0 + flat remainder (5.1)–(5.5)  →  T0 must lie in the admissible cone (4.22)/(4.23)  →  Prop. 7.5 turns T0 into two positive squared amplitudes y± with C(W0) = ε·T0,* (7.26)',
+  cone: {
+    test: '(4.23), stress coordinates: T0,θ + ts·T0,z > 0 and (vs − 2)(T0,z − ts·T0,θ)² < 2(T0,θ + ts·T0,z)²',
+    equivalent: '(4.22): Pc > vs and (vs − 2)Jc² < 2(Pc − vs)², for vs > 2 — Lemma 4.5',
+    slope: 'in the (P, J) frame the wedge is |J| < m·P with m = √(2/(vs − 2)); the instrument turns m and prints vs = 2 + 2/m² exactly',
+    tilt: 'the frame change (T0,θ, T0,z) ↦ (T0,θ + ts T0,z, T0,z − ts T0,θ) has determinant 1 + ts² > 0 — ts rotates the wedge, it does not fold it',
+    edges: 'homogeneous in T0, so the stress may vanish at both annular edges with its direction still strictly inside (Theorem 4.6(iii))',
+  },
+  waves: {
+    columns: 'H± = h±(−Ac·N − σ·u*·K + e±), Ac = −c0√(1 + u*²) > 0; the two signs have disjoint auxiliary supports, so C(a+b+ + a−b−) = H(a+², a−²)ᵀ',
+    solve: 'h+y+ = ½(−T_N/Ac − T_K/u*), h−y− = ½(−T_N/Ac + T_K/u*); a± = √y±, real exactly on the reference cone',
+    margin: 'ηc > 0 of Prop. 7.5: |T_K|/u* ≤ (1 − ηc)(−T_N/Ac), so the wave cone strictly contains the admissible one and absorbs the errors e± of (7.28)',
+    angular: 'the angular frequency k·p is a nonzero integer, so ⟨cos²(kΦσ)⟩_θ = 1/2 exactly and ⟨cos(kΦσ)⟩_θ = 0 — the pulse is a fluctuation about the angular mean, which is what makes its covariance a Reynolds stress. At k = 0 both fail: an axisymmetric pulse is part of the mean and supplies nothing to it. Lean: angularMode_ne_zero (ActualInitialization.lean:52)',
+  },
+  etaC: { n: 1, d: 10 },
+  mDefault: { n: 900, d: 1000 },
+  tiltDefault: { n: 250, d: 1000 },
+  sDefault: { n: 300, d: 1000 },
+  annulus: { Xa: { n: 55, d: 100 }, Xb: { n: 190, d: 100 } },
+  drawn: 'The stress PATH across the annulus is drawn, not read from the paper: a smooth positive bump vanishing at both edges, carrying a direction that turns slowly across the annulus. What is decided is the paper\'s: whether that stress lies in the cone, and the two squared amplitudes that represent it.',
+};
+
 /* ---- what backs each panel ---------------------------------------------- */
 const BACKING = {
   criteria: { kind: 'DECIDED', how: 'every row is a rational inequality in h with integer numerators; the tab decides it with BigInt, and the boundary cases (h = 0, h = 1/6) are decided as equalities rather than approached' },
   core: { kind: 'DRAWN', how: 'the exponents and incompressibility are the paper’s and are exact; the radial profile shapes are chosen to be legible and claim nothing. No fluid is integrated anywhere on this page' },
   exterior: { kind: 'COMPUTED', how: 'H(Z) = Γ(1+h)⁻¹∫₀^∞ e^{−v} v^h (1+Zv)^{−h} dv by Simpson in the tab; the residual of its differential equation (A.37) is printed beside it, and the battery checks the same integral to 25 digits' },
   pulse: { kind: 'COMPUTED', how: 'the WKB amplitude equation integrated by fourth-order Runge–Kutta in the tab: the wavevector is carried by the background shear, the amplitude grows on the shear and is damped by ν|ξ|², and the shortening radial wavelength is what ends the growth' },
+  mechanism: { kind: 'DECIDED', how: 'the cone test (4.22)/(4.23) and the two squared amplitudes of Proposition 7.5 are exact rational arithmetic in the tab — the wedge is parametrised by its slope m so that vs = 2 + 2/m² stays rational, and both cone crossings are equalities rather than limits. The stress path they are applied to is drawn' },
   profile: { kind: 'COMPUTED', how: 'the axis initial-value problem (4.13)+(4.7) of Appendix B, solved by instruments/navierstokes/probes/axis_profile.py at representative data and read from its record' },
 };
 
@@ -110,7 +161,7 @@ const scene = {
   generatedBy: 'node playground/navier-stokes/scene.js',
   paper: { title: 'Finite time blowup for Navier–Stokes', author: 'OpenAI', date: '2026-09-08', pages: 166, sha256: paper.sha256 },
   report: '/reports/navier-stokes.html',
-  exponents: EXPONENTS, criteria: CRITERIA, dichotomy: DICHOTOMY, backing: BACKING,
+  exponents: EXPONENTS, criteria: CRITERIA, dichotomy: DICHOTOMY, backing: BACKING, mechanism: MECHANISM,
   hPaper: { n: 1, d: 100, note: 'the paper prints 0 < h < 1/100; the operative bound is nowhere numeric, in the paper or in the Lean (h is Classical.choice there, constrained by 2h < lam < 1/10 and h ≤ 1/1000)' },
   hWindow: { loExclusive: { n: 0, d: 1 }, hiExclusive: { n: 1, d: 6 }, why: 'below and at 0 the axisymmetric type-I theorems exclude it; at and above 1/6 the dissipation stops being integrable and it is no longer a Leray solution' },
   axisProfile: { Y: thin(AX.Y, 120), Phi: thin(AX.Phi_eta0, 120), f0: thin(AX.f0_eta0, 120), data: AX.data },
@@ -125,6 +176,6 @@ const txt = JSON.stringify(scene, null, 1) + '\n';
 const prev = fs.existsSync(out) ? fs.readFileSync(out, 'utf8') : '';
 const same = prev && JSON.parse(prev).recorded && JSON.stringify({ ...JSON.parse(prev), recorded: 0 }) === JSON.stringify({ ...scene, recorded: 0 });
 if (!same) fs.writeFileSync(out, txt);
-console.log('scene.json: ' + EXPONENTS.length + ' exponents, ' + CRITERIA.length + ' criteria, '
+console.log('scene.json: ' + EXPONENTS.length + ' exponents, ' + CRITERIA.length + ' criteria, ' + Object.keys(MECHANISM.cone).length + ' cone facts, '
   + scene.axisProfile.Y.length + ' profile samples, paper ' + paper.sha256.slice(0, 8) + (same ? ' (unchanged)' : ''));
 module.exports = { scene };

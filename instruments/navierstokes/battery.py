@@ -23,6 +23,7 @@ SCRIPTS = [
     ('axis_profile.py', 'C14 of the §4 memo: the axis initial-value problem (4.13)+(4.7) of Appendix B integrated numerically in Y = ΛX at representative data the paper never fixes (h = 0.01, j0 = 0.05, P* = 2, δ* = 0.1, σ* from (B.2)); Φ, u and the shear scale as 1/Λ toward the closed form f0(Yχ) as Proposition B.2 claims, Φ > 0, (B.17) holds from Λ = 10⁶ on, the exit inequality holds — a consistency check of the transcription at these data, decided in floating point, never a certification'),
     ('swirl_maximum_principle.py', 'The obstruction the paper never names: for an axisymmetric flow the swirl Γ = r·uθ obeys a drift–diffusion equation with no zeroth-order term (derived here symbolically from the θ-momentum equation), so a bounded compactly supported force from rest gives a bounded swirl and |uθ| ≤ C/r — while the paper\'s leading field has Γ = √(2X) q^{−h} E → ∞ (its own r·uθ = q^{−h}H, p. 27). The axisymmetric background alone is impossible; the theorem lives on the pulses\' nonzero angular frequencies (p. 12). Also: the blowup is type II (outside the axisymmetric type-I exclusions of KNSS/CSYT), and every classical necessary condition for a singularity — Serrin, ESS, BKM, Leray\'s two lower bounds, finite energy and dissipation — is met by the stated exponents'),
     ('heat_exterior_num.py', 'C1b: the integral H(Z) = Γ(1+h)⁻¹∫₀^∞ e^{-v} v^h (1+Zv)^{-h} dv of (A.32) satisfies (A.37) and H^{(m)}(0) = (−1)^m (h)_m (1+h)_m of (A.35)'),
+    ('stress_cone.py', 'The mechanism by which the pulses cancel the core\'s momentum residual, re-derived from the printed formulas: the roots behind Lemma 4.5 and the equivalence of the relaxed cone condition (4.21)+vs>2 with the square-root-free (4.22) on a rational sweep; the stress-coordinate form (4.23), whose frame change has determinant 1+ts² so the shear tilt rotates the wedge and its half-angle is arctan(sqrt(2/(vs−2))); Proposition 7.5 Step 2 — the printed h±y± = ½(−T_N/Ac ∓ T_K/u*) solve H(y+,y−)ᵀ = T, det H = −2h+h−Ac·u*, and both squared amplitudes are positive EXACTLY on the reference cone T_N < 0, |T_K| < (u*/Ac)(−T_N), so outside it no real wave amplitude exists; ⟨cos²(kΦ)⟩_θ = 1/2 and ⟨cos(kΦ)⟩_θ = 0 for nonzero integer k, both false at k = 0 — an axisymmetric pulse is part of the mean and supplies no stress to it; and the disjointness identity C(a+b+ + a−b−) = H(a+²,a−²)ᵀ, which overlapping supports break'),
 ]
 
 def sha(p):
@@ -65,6 +66,10 @@ def judge(script, out):
         m = re.search(r'(\d+)/(\d+) passed', out)
         ok = n_fail == 0 and n_pass > 0 and m is not None and m.group(1) == m.group(2) and rok
         return ('PASS' if ok else 'FAIL'), [l for l in lines if l.startswith(('FAIL ', 'RED')) or 'passed' in l or l.startswith('PASS ')]
+    if script == 'stress_cone.py':
+        n_fail = len([l for l in lines if l.startswith('FAIL ')]); n_pass = len([l for l in lines if l.startswith('PASS ')])
+        ok = n_fail == 0 and n_pass > 0 and '# 0 FAIL' in out and rok
+        return ('PASS' if ok else 'FAIL'), [l for l in lines if l.startswith(('PASS ', 'FAIL ', '# '))]
     if script == 'heat_exterior_num.py':
         m = re.search(r'worst relative residual: ([0-9.e+-]+)', out)
         ok = m is not None and float(m.group(1)) < 1e-15
