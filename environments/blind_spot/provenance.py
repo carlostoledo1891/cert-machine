@@ -27,13 +27,52 @@ SRC_MUT = os.path.join(SRC, "experiments", "certifier-core", "mut")
 
 # (path relative to ROOT, path at the source, why it differs if it does)
 PKG = ["design.py", "families.py", "sim.py", "pool.py", "taskset.py",
-       "policies.py", "baseline.py", "forgeries.py", "__main__.py", "__init__.py"]
+       "policies.py", "baseline.py", "forgeries.py", "__main__.py", "__init__.py",
+       "api.py", "adapters_v0.py"]
 EVAL = ["run_models.py", "page_data.py", "baseline.json", "results.json",
         "results-run1.json", "page.json"]
 MUT = ["corpus.hex", "mint.hex", "outbox.hex", "aligned.hex", "core_euclid_strict.v",
        "database/design.il", "database/db.sqlite3", "database/mutations.txt"]
 
+# The adapter files are NOT lifts — they were written here, against a live
+# `verifiers` install, and are pinned only so the battery notices if they change.
+NEW_HERE = ["blind_spot/api.py", "blind_spot/adapters_v0.py",
+            "tests/test_framework_free.py", "tests/test_verifiers_binding.py",
+            "battery.py", "provenance.py"]
+
 PATCHES = {
+    "environments/blind_spot/blind_spot/__init__.py":
+        "was empty (0 bytes). Now the package docstring, the stdlib re-exports, the version read "
+        "from installed metadata rather than written twice, and the LAZY resolver for "
+        "`load_environment` — the Hub's entry point, which the sibling environment once shipped "
+        "without exporting at all.",
+    "environments/blind_spot/blind_spot/__main__.py":
+        "a three-line `cli()` added so the console script declared in pyproject and the "
+        "`python -m blind_spot` form share one body.",
+    "environments/blind_spot/eval/run_models.py":
+        "its private `parse()` replaced by `from blind_spot.api import parse_reply as parse`. The "
+        "function moved into the package unchanged so the framework adapter and this runner cannot "
+        "read a model's reply by two rules; the battery re-parses and re-grades all 92 gradable "
+        "recorded rollouts with the package's copy every build and no row may move.",
+    "environments/blind_spot/pyproject.toml":
+        "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the "
+        "Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and "
+        "a requires-python floor of 3.11 — which is the floor of the WHEEL (verifiers needs it), not "
+        "of the grader, which is stdlib and runs on 3.9 in this repository's battery.",
+    "environments/blind_spot/blind_spot/pool.py":
+        "`ensure_sim()` added, and POOL_JSON now reads design.POOL_RECORD. An installed copy has "
+        "the 400 SAT labels (they ship in the wheel) but not the compiled simulator, which is this "
+        "machine's binary; `build()` would re-prove all four hundred SAT problems to get it -- six "
+        "minutes for a forty-second compile. ensure_sim() elaborates and compiles from the labels "
+        "already on disk and is what `api.preflight` calls, so a fresh install pays forty seconds "
+        "once. `python -m blind_spot sim` exposes it.",
+    "environments/blind_spot/blind_spot/sim.py":
+        "`simulate` runs vvp with cwd=pool_dir and passes BASENAMES. It passed an absolute path, "
+        "and the testbench holds that plusarg in `reg [1023:0] f` -- 128 characters. In the source "
+        "lab the tree sits ~70 characters deep so it always worked; installed into a site-packages "
+        "directory 200 characters deep the path was truncated, $readmemh read nothing, the memory "
+        "stayed X and EVERY verdict came back 'xxx' with no error raised. Found by installing the "
+        "wheel; tests/test_long_path.py holds the fix and was checked to fail against the old call.",
     "environments/blind_spot/blind_spot/design.py":
         "MUT repointed from experiments/certifier-core/mut (not in this repository) to "
         "corpus/blindspot/mut, and the docstring rewritten to say that the seven files are "
@@ -48,7 +87,9 @@ def sha(p):
 def rows():
     out = []
     pairs = ([(f"environments/blind_spot/blind_spot/{f}", os.path.join(SRC_ENV, "blind_spot", f)) for f in PKG]
-             + [("environments/blind_spot/tests/test_environment.py", os.path.join(SRC_ENV, "tests", "test_environment.py"))]
+             + [(f"environments/blind_spot/tests/{f}", os.path.join(SRC_ENV, "tests", f))
+                for f in ("test_environment.py", "test_framework_free.py",
+                          "test_verifiers_binding.py", "test_long_path.py")]
              + [(f"environments/blind_spot/eval/{f}", os.path.join(SRC_ENV, "eval", f)) for f in EVAL]
              + [(f"environments/blind_spot/{f}", os.path.join(SRC_ENV, f)) for f in ("README.md", "pyproject.toml")]
              + [(f"corpus/blindspot/mut/{f}", os.path.join(SRC_MUT, f)) for f in MUT])

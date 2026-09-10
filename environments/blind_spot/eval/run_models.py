@@ -49,24 +49,12 @@ def ask(model, prompt, tok, max_tokens=6000):
     return "__ERROR__", {}, "error"
 
 
-def parse(txt):
-    """The last JSON object carrying a verdict.  Pairs nest, so brace-match."""
-    best, depth, start = None, 0, None
-    for i, c in enumerate(txt):
-        if c == "{":
-            if depth == 0:
-                start = i
-            depth += 1
-        elif c == "}" and depth:
-            depth -= 1
-            if depth == 0:
-                try:
-                    d = json.loads(txt[start:i + 1])
-                except Exception:
-                    continue
-                if isinstance(d, dict) and "verdict" in d:
-                    best = d
-    return best
+# THE PARSER MOVED INTO THE PACKAGE on the port (2026-09-09). It lived here, where
+# the framework adapter could not reach it, so training would have read a model's
+# reply by one rule and this record by another -- and a rule defined twice diverges.
+# environments/blind_spot/battery.py re-parses and re-grades all 108 stored raws
+# with the package's copy on every build; no row may move.
+from blind_spot.api import parse_reply as parse
 
 
 def main():

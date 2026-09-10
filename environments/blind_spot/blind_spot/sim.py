@@ -109,8 +109,18 @@ def simulate(records, pool_dir=POOL_DIR):
             f.write(format(_record(sel, u, v), f"0{HEX_DIGITS}x") + "\n")
         path = f.name
     try:
-        r = subprocess.run(["vvp", "-n", sim, f"+cases={path}", f"+n={len(records)}"],
-                           capture_output=True, text=True)
+        # THE CASE FILE IS PASSED BY BASENAME, FROM ITS OWN DIRECTORY. The
+        # testbench holds the plusarg in `reg [1023:0] f`, which is 128
+        # characters; an absolute path longer than that is TRUNCATED, $readmemh
+        # then reads nothing, the memory stays X and every verdict comes back
+        # "xxx" — with no error raised anywhere. It never showed up in the source
+        # lab because the tree sits at a short path; it appeared the moment the
+        # wheel was installed into a site-packages directory 200 characters deep.
+        # A silent dependency on the length of an absolute path is exactly the
+        # kind of defect that only a clean install finds.
+        r = subprocess.run(["vvp", "-n", "./" + os.path.basename(sim),
+                            f"+cases={os.path.basename(path)}", f"+n={len(records)}"],
+                           capture_output=True, text=True, cwd=pool_dir)
     finally:
         os.unlink(path)
     out = []

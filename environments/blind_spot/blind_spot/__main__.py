@@ -1,4 +1,5 @@
 """    python -m blind_spot pool                    import MCY's mutations, label each by SAT, build the simulator
+    python -m blind_spot sim                     build ONLY the simulator, from labels already on disk (~40 s)
     python -m blind_spot gate                    the planted controls (both kinds)
     python -m blind_spot baseline [--n N]        reference policies by rung and by class, no API key
     python -m blind_spot tasks N [--prompts]     sample tasks"""
@@ -13,6 +14,9 @@ def main(argv):
     cmd = argv[0] if argv else "gate"
     if cmd == "pool":
         _pool.build()
+        return 0
+    if cmd == "sim":
+        print("  simulator at", _pool.ensure_sim(verbose=True))
         return 0
     if cmd == "gate":
         from .forgeries import run
@@ -40,6 +44,13 @@ def main(argv):
         return 0
     print(__doc__)
     return 2
+
+
+def cli():
+    """Console-script entry point (`blind-spot ...`), added on the port so the
+    module form and the installed form share one body: `main` takes argv, a
+    console script is called with none."""
+    sys.exit(main(sys.argv[1:]))
 
 
 if __name__ == "__main__":

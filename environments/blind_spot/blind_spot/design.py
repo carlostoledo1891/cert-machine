@@ -18,12 +18,48 @@ import shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
-MUT = os.path.join(ROOT, "corpus", "blindspot", "mut")
+def _first_existing(*cands):
+    for c in cands:
+        if c and os.path.isdir(c):
+            return c
+    return cands[-1]                    # so the error names a path rather than None
+
+
+# WHERE THE DESIGN LIVES, decided once and in one order. An INSTALLED copy has it
+# beside the package (the wheel force-includes corpus/blindspot/mut as
+# blind_spot/mut); a source checkout of cert-machine has it in the corpus, pinned
+# and gated. The environment variable is the escape hatch for pointing at a
+# freshly mutated tree without reinstalling. Without this the wheel installs
+# cleanly and then cannot find a single file, which is the shape of defect a
+# publishing step is supposed to catch and usually does not.
+MUT = _first_existing(os.environ.get("BLIND_SPOT_MUT"),
+                      os.path.join(HERE, "mut"),
+                      os.path.join(ROOT, "corpus", "blindspot", "mut"))
 DESIGN_IL = os.path.join(MUT, "database", "design.il")
 NETLIST_V = os.path.join(MUT, "core_euclid_strict.v")
 MCY_DB = os.path.join(MUT, "database", "db.sqlite3")
 MUTATIONS_TXT = os.path.join(MUT, "database", "mutations.txt")
-POOL_DIR = os.path.join(HERE, "..", "pool")
+# THE RECORD AND THE WORKSHOP ARE TWO DIFFERENT PLACES. pool.json is 400 SAT
+# labels and ships with the wheel; the simulator is a compiled binary that does
+# not and must be built locally. An installed package may sit in a read-only
+# site-packages, so the record is READ from wherever it is and the simulator is
+# BUILT in the first writable of: that same directory, or a cache directory.
+_POOL_HOME = _first_existing(os.environ.get("BLIND_SPOT_POOL"),
+                             os.path.join(HERE, "pool"),
+                             os.path.join(HERE, "..", "pool"))
+POOL_RECORD = os.path.join(_POOL_HOME, "pool.json")
+
+
+def _workdir():
+    if os.access(_POOL_HOME, os.W_OK):
+        return _POOL_HOME
+    d = os.path.join(os.environ.get("XDG_CACHE_HOME") or os.path.expanduser("~/.cache"),
+                     "blind-spot", "pool")
+    os.makedirs(d, exist_ok=True)
+    return d
+
+
+POOL_DIR = _workdir()
 
 TOP = "core_euclid_strict"
 D, W = 11, 3                       # eleven coordinates of three bits

@@ -25,10 +25,30 @@ import subprocess
 import tempfile
 
 from . import sim
+from . import design
 from .design import (CTRL_BITS, D, MCY_DB, MUTATIONS_TXT, NETLIST_V, POOL_DIR, TOP,
                      FAMILIES, require_tools, to_signed)
 
-POOL_JSON = os.path.join(POOL_DIR, "pool.json")
+POOL_JSON = design.POOL_RECORD          # read from where it ships; built into POOL_DIR
+
+
+def ensure_sim(verbose=False):
+    """Build the control design and simulator if they are absent, FROM THE LABELS
+    ALREADY ON DISK.
+
+    `build()` re-proves four hundred SAT problems and takes about six minutes;
+    this only elaborates and compiles, which takes about forty seconds, because
+    the labels are a record and do not need re-proving to be simulated against.
+    An installed copy of this environment hits exactly this path on first use."""
+    from . import sim as _sim
+    if os.path.exists(os.path.join(design.POOL_DIR, "simpool")):
+        return design.POOL_DIR
+    require_tools()
+    muts = {m["id"]: m["mutation"] for m in load()["mutants"]}
+    if verbose:
+        print(f"  building the control design for {len(muts)} mutations ...", flush=True)
+    _sim.build_pool_design(muts, design.POOL_DIR)
+    return design.POOL_DIR
 IDENTITY = "IDENTITY"
 CLASSES = ("COVERED", "MINT_ONLY", "OUTBOX_ONLY", "ALIGNED_ONLY", "CORPUS_ONLY",
            "SURVIVED_ALL", "NOCHANGE", IDENTITY)

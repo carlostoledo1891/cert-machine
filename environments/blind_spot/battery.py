@@ -34,6 +34,7 @@ import hashlib
 import json
 import os
 import random
+import re
 import subprocess
 import sys
 import time
@@ -152,8 +153,31 @@ report(len(positives) == 3 and all(r[2] for r in positives),
 # ------------------------------------------------------------- 6 · the test suite
 r = subprocess.run([sys.executable, "-m", "pytest", "tests/", "-q"], cwd=HERE,
                    capture_output=True, text=True, timeout=1800)
-passed = "7 passed" in r.stdout
-report(passed, "the environment's own 7 tests", r.stdout.strip().splitlines()[-1] if r.stdout.strip() else "")
+tail = r.stdout.strip().splitlines()[-1] if r.stdout.strip() else ""
+npass = int(re.search(r"(\d+) passed", tail).group(1)) if re.search(r"(\d+) passed", tail) else 0
+report(r.returncode == 0 and npass >= 9,
+       "the environment's own tests, including the framework-free import and the binding "
+       "(which SKIPS rather than guesses when verifiers is absent)", tail)
+
+# --------------------------------- 6b · the recorded rollouts, re-graded
+# The parser moved into the package on the port so the adapter and the eval could
+# not read a reply by two rules. This is what makes that safe: every stored raw
+# re-parsed and re-graded with the package's copy, and no row may move. The 16
+# rows Opus declined on a content policy are the runner's label, not the grader's,
+# and are counted apart rather than quietly dropped.
+from blind_spot import api                                            # noqa: E402
+rollouts = json.load(open(os.path.join(HERE, "eval", "results.json")))
+declined = [x for x in rollouts if x.get("outcome") == "REFUSED_BY_POLICY"]
+graded = [x for x in rollouts if x.get("outcome") != "REFUSED_BY_POLICY"]
+movedrows = []
+for x in graded:
+    g = api.score_task(api.task_for(x["mutant"], x["rung"]), x["raw"])
+    if g["outcome"] != x["outcome"] or float(g["reward"]) != float(x["reward"]):
+        movedrows.append((x["model"], x["rung"], x["mutant"], x["outcome"], g["outcome"]))
+report(not movedrows and len(graded) == 92 and len(declined) == 16,
+       f"all {len(graded)} recorded rollouts re-parsed and re-graded with the package's own "
+       f"parser and grader; 0 rows moved ({len(declined)} declined on a content policy, counted apart)",
+       f"moved: {movedrows[:3]}" if movedrows else "")
 
 # ------------------------------------------------------------ 7 · the red controls
 # (a) THE VACUITY THAT BIT FRONTIER FOR A SESSION, planted permanently.

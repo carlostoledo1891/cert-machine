@@ -1,13 +1,60 @@
 [project]
 name = "blind-spot"
 version = "0.1.0"
-description = "Fourteen million certified verdicts could not see this mutant. Name the pair that does, or prove there is none."
-requires-python = ">=3.9"
-dependencies = []
+description = "Fourteen million certified verdicts could not see this mutant. Name the pair that does, or prove there is none — kills verified by simulating the netlist, equivalence by SAT, and no answer key anywhere."
+readme = "README.md"
+# The FLOOR OF THE WHEEL, not of the code: `verifiers` needs 3.11, and a package
+# cannot declare a floor its dependencies do not allow. The grader itself is
+# stdlib and 3.9-clean — cert-machine's battery imports and runs it on the system
+# interpreter every build without the framework anywhere near it.
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Carlos Toledo" }]
+tags = [
+    "eval",
+    "train",
+    "single-turn",
+    "verifier-soundness",
+    "mutation-testing",
+    "formal-verification",
+    "rtl",
+    "abstention",
+    "no-answer-key",
+    "v1",
+]
 keywords = ["rl-environment", "mutation-testing", "formal-verification", "rtl", "yosys", "abstention", "verifier-soundness"]
+# The adapter needs the framework. Nothing else does: the design, the simulator,
+# the pool and the grader import only the standard library (they shell out to
+# yosys/iverilog, which are tools, not packages), and tests/test_framework_free.py
+# proves it by blocking every third-party import and grading a submission anyway.
+dependencies = ["verifiers>=0.2.0"]
 
 [project.optional-dependencies]
-test = ["pytest>=7"]
+dev = ["pytest>=7"]
 
-[tool.setuptools.packages.find]
-include = ["blind_spot*"]
+[project.urls]
+Homepage = "https://carlostoledo.co/"
+Source = "https://github.com/carlostoledo1891/cert-machine"
+
+[project.scripts]
+blind-spot = "blind_spot.__main__:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["blind_spot"]
+
+# THE DESIGN AND THE POOL RIDE IN THE WHEEL. They are not in the package tree —
+# the design under mutation is pinned in cert-machine's corpus and the SAT record
+# is written by `python -m blind_spot pool` — so they are force-included from
+# where they actually live, one copy, at build time. Without them an install
+# succeeds and then cannot find a single file: `design.py` resolves
+# BLIND_SPOT_MUT, then the package-local copy, then the repository's corpus.
+[tool.hatch.build.targets.wheel.force-include]
+"../../corpus/blindspot/mut" = "blind_spot/mut"
+"pool/pool.json" = "blind_spot/pool/pool.json"
+
+[tool.hatch.build.targets.sdist]
+include = ["blind_spot", "tests", "README.md"]
