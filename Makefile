@@ -59,6 +59,7 @@ test:
 	@printf "%-30s " "wiring (graph as submission)"; cd instruments/wiring && python3 -m pytest tests/test_wiring.py -q >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lattice-claims forgeries"; cd instruments/wiring && python3 -m pytest tests/test_forgeries.py -q >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lattice-claims (pins+gate+regrade)"; $(PY) instruments/wiring/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "blind-spot (chip mutants)"; $(PY) environments/blind_spot/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "navier-stokes probes"; $(PY) instruments/navierstokes/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "pqc geometry (SVP audit)"; $(NODE) instruments/pqc/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "occultation (convex bracket)"; $(NODE) instruments/occultation/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL

@@ -1,0 +1,215 @@
+{
+ "what": "blind-spot, the chip-task environment, ported whole: the package (design, families, simulator, pool builder, taskset, policies, baseline, planted controls, CLI), its seven tests, the two eval scripts and the four eval records, and the eight files of the design under mutation that the package reads.",
+ "liftedFrom": "/Users/carlostoledo/Projects/frontier-apps/environments/blind-spot  +  /Users/carlostoledo/Projects/frontier-apps/experiments/certifier-core/mut",
+ "liftedOn": "2026-09-09",
+ "history": "Deferred on 2026-09-05 for four reasons: 12 MB, a 75-minute formal run inside a battery, records that copy but cannot be regenerated, and an identity control found vacuous the day before. Three of the four are answered here — only the eight files the package actually reads were lifted (2.8 MB, not 12); the SAT labelling runs ONCE on the port and its output is a pinned record while the simulation is re-run on every build; and the vacuous control was fixed in frontier's own session 17 (the identity is found by `-mode none`, which is MCY's mutation 1, never by id 0) and is planted here as a standing red control so it cannot go quiet again.",
+ "why": "The environment reads MCY's own mutation database and the elaborated design it mutated. In frontier those were read in place, so a task could not drift from the published coverage measurement. Here they are copies, so the battery re-hashes all eight every run and refuses if a byte moved: the same guarantee, caught rather than impossible.",
+ "rule": "Copied byte-for-byte and pinned by sha256; frontier-apps has no git, so the hash is the only pin. The source tree is read-only and nothing was written to it. Nothing here is a lift from sin-mfg. Model calls (eval/run_models.py) are never made by a battery; the eval records are what was run there.",
+ "files": [
+  {
+   "file": "environments/blind_spot/blind_spot/design.py",
+   "sha256": "0b2a4f5524bd88aad5e324216c5cb9f3324e60bd1894fee31c152db3bbd55915",
+   "sourceSha256": "6a50c1973691a82687c7ff8a4599aaeb908fde82003e211eb8a23e07d003864a",
+   "bytes": 5000,
+   "patched": true,
+   "patch": "MUT repointed from experiments/certifier-core/mut (not in this repository) to corpus/blindspot/mut, and the docstring rewritten to say that the seven files are copied and sha-pinned here rather than read in place."
+  },
+  {
+   "file": "environments/blind_spot/blind_spot/families.py",
+   "sha256": "26e1864bbc4b5a866d7f224ea3ea9b6ad8044f304e6333f7d672de42bb949d69",
+   "sourceSha256": "26e1864bbc4b5a866d7f224ea3ea9b6ad8044f304e6333f7d672de42bb949d69",
+   "bytes": 1405,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/blind_spot/sim.py",
+   "sha256": "1b4e93e944ceb4ce3c0840840ca21bbd4365ea8fa5bc00238cfe2238e67b942b",
+   "sourceSha256": "1b4e93e944ceb4ce3c0840840ca21bbd4365ea8fa5bc00238cfe2238e67b942b",
+   "bytes": 5974,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/blind_spot/pool.py",
+   "sha256": "fd817cf851b484c61b96e1e8988391100f2d7e39ff687e19982496eb37ae1c91",
+   "sourceSha256": "fd817cf851b484c61b96e1e8988391100f2d7e39ff687e19982496eb37ae1c91",
+   "bytes": 10043,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/blind_spot/taskset.py",
+   "sha256": "e8cbe96429c3f58ee9ed1d2f53fdcd1d80a7888939726c9049c2b6d6a2afed3a",
+   "sourceSha256": "e8cbe96429c3f58ee9ed1d2f53fdcd1d80a7888939726c9049c2b6d6a2afed3a",
+   "bytes": 14799,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/blind_spot/policies.py",
+   "sha256": "fce2fdc9366e3afe13e03bdf5a821df2094a1ac15c5a2630124aa02b68a31528",
+   "sourceSha256": "fce2fdc9366e3afe13e03bdf5a821df2094a1ac15c5a2630124aa02b68a31528",
+   "bytes": 3047,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/blind_spot/baseline.py",
+   "sha256": "502d25954284abe38b7494a32232eac270136236eb8387ca6075df1ed70eee08",
+   "sourceSha256": "502d25954284abe38b7494a32232eac270136236eb8387ca6075df1ed70eee08",
+   "bytes": 4267,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/blind_spot/forgeries.py",
+   "sha256": "624c3d9c4c2a822127caf85c0e0eb9abe6a735e565a1727b61aee9f6565837a3",
+   "sourceSha256": "624c3d9c4c2a822127caf85c0e0eb9abe6a735e565a1727b61aee9f6565837a3",
+   "bytes": 6236,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/blind_spot/__main__.py",
+   "sha256": "226242c8cda77d3fa42b30305d19737d55b5d675dc819f163dd80966ce2b1e11",
+   "sourceSha256": "226242c8cda77d3fa42b30305d19737d55b5d675dc819f163dd80966ce2b1e11",
+   "bytes": 1789,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/blind_spot/__init__.py",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/tests/test_environment.py",
+   "sha256": "80b012f7f31cc5bb100cf4cbb765176ff38dd6e67a529e87736ca9744e7fb4b1",
+   "sourceSha256": "80b012f7f31cc5bb100cf4cbb765176ff38dd6e67a529e87736ca9744e7fb4b1",
+   "bytes": 3173,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/eval/run_models.py",
+   "sha256": "05104b84693364d397bb6280ffc7e86765e53c1b6b71c8c065be8438d0f38995",
+   "sourceSha256": "05104b84693364d397bb6280ffc7e86765e53c1b6b71c8c065be8438d0f38995",
+   "bytes": 7257,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/eval/page_data.py",
+   "sha256": "fca01a4bb0c53d5459d8f2d1a9af14f44bad669f2f50952a1c4b54b70b860fde",
+   "sourceSha256": "fca01a4bb0c53d5459d8f2d1a9af14f44bad669f2f50952a1c4b54b70b860fde",
+   "bytes": 3581,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/eval/baseline.json",
+   "sha256": "06a915ad86c9c4e382a6acd8946d5188982ce092d179963afb458ccdc36a1e98",
+   "sourceSha256": "06a915ad86c9c4e382a6acd8946d5188982ce092d179963afb458ccdc36a1e98",
+   "bytes": 247184,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/eval/results.json",
+   "sha256": "035cbc3c1b6a695e94a14e4ab95d108fa45d7763ffa1964a5b3db7abdf7dab18",
+   "sourceSha256": "035cbc3c1b6a695e94a14e4ab95d108fa45d7763ffa1964a5b3db7abdf7dab18",
+   "bytes": 186765,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/eval/results-run1.json",
+   "sha256": "bb04d658f82dbd0825284d6e05fd4867fb8fea847ddb4cf48f3ad2639e7f87c9",
+   "sourceSha256": "bb04d658f82dbd0825284d6e05fd4867fb8fea847ddb4cf48f3ad2639e7f87c9",
+   "bytes": 185806,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/eval/page.json",
+   "sha256": "7eef9bd9d942b59a8aa8ff1339c8765b24a4341e522229111f703ebfa1fee62b",
+   "sourceSha256": "7eef9bd9d942b59a8aa8ff1339c8765b24a4341e522229111f703ebfa1fee62b",
+   "bytes": 565651,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/README.md",
+   "sha256": "c89fe18bee03f460631d646f0404acc2a36fdeff35191ed5c968e28fc859929e",
+   "sourceSha256": "c89fe18bee03f460631d646f0404acc2a36fdeff35191ed5c968e28fc859929e",
+   "bytes": 17654,
+   "patched": false
+  },
+  {
+   "file": "environments/blind_spot/pyproject.toml",
+   "sha256": "a815f89f27fc302dfbb5889faf98b69a2855e76d300f2dfc9fc8e10321384659",
+   "sourceSha256": "a815f89f27fc302dfbb5889faf98b69a2855e76d300f2dfc9fc8e10321384659",
+   "bytes": 458,
+   "patched": false
+  },
+  {
+   "file": "corpus/blindspot/mut/corpus.hex",
+   "sha256": "cf27e9fba24310489e69d3e49832db31640b45f41b2077c7ff014e4f4b5f432a",
+   "sourceSha256": "cf27e9fba24310489e69d3e49832db31640b45f41b2077c7ff014e4f4b5f432a",
+   "bytes": 72000,
+   "patched": false
+  },
+  {
+   "file": "corpus/blindspot/mut/mint.hex",
+   "sha256": "cd0dfedb749b32510ee2c96aa89511ca273c7a616232f79a881b479d9f67b803",
+   "sourceSha256": "cd0dfedb749b32510ee2c96aa89511ca273c7a616232f79a881b479d9f67b803",
+   "bytes": 72000,
+   "patched": false
+  },
+  {
+   "file": "corpus/blindspot/mut/outbox.hex",
+   "sha256": "18437b9df052f4e810d37c320cba53b7ffc3efa28e9066d6121cddedff34edb5",
+   "sourceSha256": "18437b9df052f4e810d37c320cba53b7ffc3efa28e9066d6121cddedff34edb5",
+   "bytes": 72000,
+   "patched": false
+  },
+  {
+   "file": "corpus/blindspot/mut/aligned.hex",
+   "sha256": "ef630fd781eed0ef1447eb9aefe467c2fedb2030d024a20f26c687cd51544fea",
+   "sourceSha256": "ef630fd781eed0ef1447eb9aefe467c2fedb2030d024a20f26c687cd51544fea",
+   "bytes": 72000,
+   "patched": false
+  },
+  {
+   "file": "corpus/blindspot/mut/core_euclid_strict.v",
+   "sha256": "dc60b7f9efbc1349798be29bcbf4c418ad77f140820b79842c5e2654fce0c6a5",
+   "sourceSha256": "dc60b7f9efbc1349798be29bcbf4c418ad77f140820b79842c5e2654fce0c6a5",
+   "bytes": 32379,
+   "patched": false
+  },
+  {
+   "file": "corpus/blindspot/mut/database/design.il",
+   "sha256": "980305a37e6266aaa6d30eccf96f76f35c2c75f1371c7916abfa00079370d48e",
+   "sourceSha256": "980305a37e6266aaa6d30eccf96f76f35c2c75f1371c7916abfa00079370d48e",
+   "bytes": 69959,
+   "patched": false
+  },
+  {
+   "file": "corpus/blindspot/mut/database/db.sqlite3",
+   "sha256": "16fc6af5d0c187d793c0ad096411bb92c0cf651319fcb3c6e52b8c9f8af5b773",
+   "sourceSha256": "16fc6af5d0c187d793c0ad096411bb92c0cf651319fcb3c6e52b8c9f8af5b773",
+   "bytes": 679936,
+   "patched": false
+  },
+  {
+   "file": "corpus/blindspot/mut/database/mutations.txt",
+   "sha256": "559836c58967d5d423c1e2e80ad705899e0f547fa35f6e83721f0ed3f3642958",
+   "sourceSha256": "559836c58967d5d423c1e2e80ad705899e0f547fa35f6e83721f0ed3f3642958",
+   "bytes": 101629,
+   "patched": false
+  }
+ ],
+ "regenerated": {
+  "what": "pool/pool.json — MCY's 400 mutations imported, each labelled by a SAT proof against a hand-written miter, every witness re-run through the simulator. NOT lifted: produced on this machine by `python3 -m blind_spot pool`.",
+  "printed": "348 killable with a verified witness, 51 proved equivalent, identity = mutation 1; SAT total 355.7 s; valid0-only []; other disagreements []",
+  "comparedWithSource": "Every mutation id, label, class, profile, mutation text, witness pair and witness pin-pair is IDENTICAL to frontier's own pool.json (400/400 on each). Only sat_secs differs (355.7 s here, 494 s there), which is the machine, not the mathematics.",
+  "committed": "pool.json and pool.log only. pool.il / pool.v / pool.ys / tb_pool.v / simpool are build artefacts regenerated from the pinned design.il in ~40 s; the battery rebuilds them when absent and was verified doing so from a bare pool/.",
+  "ranOn": "2026-09-09"
+ },
+ "acceptance": {
+  "python3 -m pytest tests/ -q": "7 passed",
+  "python3 -m blind_spot gate": "11 controls, 0 failed (three POSITIVE controls scored)",
+  "python3 -m blind_spot baseline --n 40": "sat +1.000 on every rung 120/120 · profile +0.625 on its rung · never -0.350 with 81 false claims · corpus8 31/36 COVERED and 0 of every class it is blind to · outbox8 3/20 OUTBOX_ONLY · every 8-pair shotgun 0/8 ALIGNED_ONLY and 39 false claims",
+  "python3 environments/blind_spot/battery.py": "0 FAIL, 4 red controls fired, ~53 s",
+  "note": "Every number the port instruction predicted came out exactly, on a different machine.",
+  "verifiedOn": "2026-09-09"
+ }
+}

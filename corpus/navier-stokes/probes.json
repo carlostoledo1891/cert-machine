@@ -4,7 +4,7 @@
   "discipline": "every probe carries red controls — a deliberately wrong variant of the same test that must be rejected; a script whose reds do not all fire is FAIL, whatever its checks say.",
   "method": "sympy symbolic identities; mpmath quadrature at 25 digits for the heat exterior (residuals reported, not interval-certified); the cutoff bound (10.3) is also proved exactly by the two-case argument: 1−η² ≥ 1/2 gives q ≤ 2τ, otherwise |η| > 2^{-1/2} gives q ≤ (√2|z|)^{1/D}, so q ≤ 2^{1/(2D)}(τ + |z|^{1/D}) since 1/(2D) > 1.",
   "note": "A first run on 2026-09-09 reported the integral H failing (A.37) and (A.35); that was this battery's own bug — the m-th Z-derivative of (1+Zv)^{-h} carries (−1)^m (h)_m, not (−h)_m. Recorded so a later reader of the scratch logs does not mistake it for a finding.",
-  "ran": "2026-09-09 22:16:25 -0300",
+  "ran": "2026-09-10 00:21:51 -0300",
   "verdict": "PASS",
   "checks": [
     {
@@ -12,7 +12,7 @@
       "sha256": "be9c98f3c760b86bd6c2bfcc1c0f5d708c115b27cd27f2f5ed5e596eb8165e86",
       "what": "C2–C6, C11: similarity-coordinate derivatives (Lemma 4.1), the commutator kernel norm (Lemma 10.5), the derivative count (10.12), the viscosity rescaling (10.22)–(10.23), the periodic λ-rescaling (Cor. 10.6), the exterior q-cancellation (3.1), and a numeric spot check of the cutoff bound (10.3)",
       "verdict": "PASS",
-      "seconds": 2.9,
+      "seconds": 2.8,
       "redsFired": 2,
       "redsDead": 0,
       "output": [
@@ -41,7 +41,7 @@
       "sha256": "5928d617356d367a90a8c26e78675eebf41012e6d4edd109df3353c5bdc8c2af",
       "what": "C1a: K = (r²/2)^{-A} H(4τ/r²) solves the radial swirl heat equation iff Z²H″ + (1+2(1+h)Z)H′ + h(1+h)H = 0, i.e. (A.37)",
       "verdict": "PASS",
-      "seconds": 2.2,
+      "seconds": 1.8,
       "redsFired": 4,
       "redsDead": 0,
       "output": [
@@ -57,7 +57,7 @@
       "sha256": "f12b1b9980aaa889189b3e609840e3ff2ffd153ccf0c1ca210bba4fca46532ef",
       "what": "C1 of the §5 memo: the expansion (5.1) substituted into the axisymmetric Navier–Stokes operator in (q, X, η) with the derivatives of Lemma 4.1, expanded by exact q-exponent, and compared term by term with the printed order-n coefficient equations (5.2)–(5.6), the sparsity of A₁ in (5.7) (no ∂²_η, no mixed derivatives, A₁D₀A₁ = 0 — the block nilpotency behind (5.8)), and the divisibility of Ω_k by X",
       "verdict": "PASS",
-      "seconds": 4.0,
+      "seconds": 3.4,
       "redsFired": 5,
       "redsDead": 0,
       "output": [
@@ -135,7 +135,7 @@
         "RED FIRED A_1 is not the zero matrix (so A_1 D A_1 = 0 is nilpotency, not triviality)",
         "RED FIRED A_1 with a diagonal entry planted is no longer nilpotent",
         "RED FIRED without the regularity substitution V_j = X v_j the same test finds X in the denominator",
-        "elapsed 3.7s; 69/69 passed; 5/5 reds fired"
+        "elapsed 3.2s; 69/69 passed; 5/5 reds fired"
       ]
     },
     {
@@ -143,7 +143,7 @@
       "sha256": "c5747587ecb9315111d2a66b4fbd69efc37d7711c6e3de914f09f92d82325016",
       "what": "C14 of the §4 memo: the axis initial-value problem (4.13)+(4.7) of Appendix B integrated numerically in Y = ΛX at representative data the paper never fixes (h = 0.01, j0 = 0.05, P* = 2, δ* = 0.1, σ* from (B.2)); Φ, u and the shear scale as 1/Λ toward the closed form f0(Yχ) as Proposition B.2 claims, Φ > 0, (B.17) holds from Λ = 10⁶ on, the exit inequality holds — a consistency check of the transcription at these data, decided in floating point, never a certification",
       "verdict": "PASS",
-      "seconds": 3.0,
+      "seconds": 2.5,
       "redsFired": 4,
       "redsDead": 0,
       "output": [
@@ -170,7 +170,7 @@
         "RED FIRED the comparison with f0(2 Y chi) instead of f0(Y chi) is rejected max|dPhi|=3.320e-01",
         "RED FIRED the exit test is not vacuous: the same comparison rejects a line placed at v > 1e5 min v over the grid = 7437 (the (B.19) line is 2.2)",
         "RED FIRED an 80-point grid does move the solution, so the N560-vs-N400 agreement is a convergence claim max|dPhi| vs N80 = 1.78e-02",
-        "# total 2.4s; 0 FAIL; 4/4 reds fired"
+        "# total 1.9s; 0 FAIL; 4/4 reds fired"
       ]
     },
     {
@@ -178,7 +178,7 @@
       "sha256": "20d140f1cff53c90cd47519ee75509cda2e97b24d7ae719364d5d9aa234de4f5",
       "what": "The obstruction the paper never names: for an axisymmetric flow the swirl Γ = r·uθ obeys a drift–diffusion equation with no zeroth-order term (derived here symbolically from the θ-momentum equation), so a bounded compactly supported force from rest gives a bounded swirl and |uθ| ≤ C/r — while the paper's leading field has Γ = √(2X) q^{−h} E → ∞ (its own r·uθ = q^{−h}H, p. 27). The axisymmetric background alone is impossible; the theorem lives on the pulses' nonzero angular frequencies (p. 12). Also: the blowup is type II (outside the axisymmetric type-I exclusions of KNSS/CSYT), and every classical necessary condition for a singularity — Serrin, ESS, BKM, Leray's two lower bounds, finite energy and dissipation — is met by the stated exponents",
       "verdict": "PASS",
-      "seconds": 0.5,
+      "seconds": 0.4,
       "redsFired": 2,
       "redsDead": 0,
       "output": [
@@ -205,7 +205,7 @@
       "sha256": "bba23116b83c974bc325b5642cd1ca5d74a8f06db93eb2157577f365a3616f7e",
       "what": "C1b: the integral H(Z) = Γ(1+h)⁻¹∫₀^∞ e^{-v} v^h (1+Zv)^{-h} dv of (A.32) satisfies (A.37) and H^{(m)}(0) = (−1)^m (h)_m (1+h)_m of (A.35)",
       "verdict": "PASS",
-      "seconds": 2.4,
+      "seconds": 2.1,
       "redsFired": 3,
       "redsDead": 0,
       "output": [
@@ -239,7 +239,7 @@
       "sha256": "1d1b823207e050e01ca2ad638e9c07d0eda69e492fb0301850b26e7885cb0766",
       "what": "The mechanism by which the pulses cancel the core's momentum residual, re-derived from the printed formulas: the roots behind Lemma 4.5 and the equivalence of the relaxed cone condition (4.21)+vs>2 with the square-root-free (4.22) on a rational sweep; the stress-coordinate form (4.23), whose frame change has determinant 1+ts² so the shear tilt rotates the wedge and its half-angle is arctan(sqrt(2/(vs−2))); Proposition 7.5 Step 2 — the printed h±y± = ½(−T_N/Ac ∓ T_K/u*) solve H(y+,y−)ᵀ = T, det H = −2h+h−Ac·u*, and both squared amplitudes are positive EXACTLY on the reference cone T_N < 0, |T_K| < (u*/Ac)(−T_N), so outside it no real wave amplitude exists; ⟨cos²(kΦ)⟩_θ = 1/2 and ⟨cos(kΦ)⟩_θ = 0 for nonzero integer k, both false at k = 0 — an axisymmetric pulse is part of the mean and supplies no stress to it; and the disjointness identity C(a+b+ + a−b−) = H(a+²,a−²)ᵀ, which overlapping supports break",
       "verdict": "PASS",
-      "seconds": 2.2,
+      "seconds": 1.9,
       "redsFired": 6,
       "redsDead": 0,
       "output": [

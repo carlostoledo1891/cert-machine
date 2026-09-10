@@ -32,3 +32,12 @@ environments/*/**/__pycache__/
 # the Hub publication record is evidence, not a secret: it pins the pushed
 # wheel by sha256 and is caught by the .env* rule above only by accident.
 !environments/*/.prime/.env-metadata.json
+
+# blind-spot: pool.json is THE RECORD (six minutes of SAT proof) and is committed.
+# The rest of pool/ is a build artefact regenerated from the pinned design.il in
+# about forty seconds — a compiled simulator is not a record, and it is this
+# machine's binary, not a portable one. environments/blind_spot/battery.py
+# rebuilds whatever is missing before it re-runs the 348 witnesses.
+environments/blind_spot/pool/*
+!environments/blind_spot/pool/pool.json
+!environments/blind_spot/pool/pool.log

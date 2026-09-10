@@ -1,0 +1,1224 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.68+post (git sha1 c12172fbae8af5e20f6fb52e3d4e92d56ed587b6, Release, AppleClang clang++ 21.0.0.21000101)
+
+-- Executing script file `/Users/carlostoledo/Projects/cert-machine/environments/blind_spot/blind_spot/../pool/pool.ys' --
+
+1. Executing RTLIL frontend.
+Input filename: /Users/carlostoledo/Projects/cert-machine/corpus/blindspot/mut/database/design.il
+
+2. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:284$32.B[1].
+Adding ctrl port mutsel to module core_euclid_strict.
+
+3. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$mul$core_euclid_strict.v:304$52.Y[3,4].
+
+4. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$ge$core_euclid_strict.v:356$104.A[1].
+
+5. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$flatten\cmp.$le$core_euclid_strict.v:468$153.B[12,10].
+
+6. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$flatten\cmp.$ge$core_euclid_strict.v:463$148.B[8].
+
+7. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:254$2.Y[1].
+
+8. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:276$24.B[3].
+
+9. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$add$core_euclid_strict.v:309$57.Y[1].
+
+10. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:287$35.Y[0].
+
+11. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:290$38.B[3].
+
+12. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$mul$core_euclid_strict.v:295$43.Y[5,3].
+
+13. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$add$core_euclid_strict.v:276$24.A[4,3].
+
+14. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[12].
+
+15. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$ternary$core_euclid_strict.v:390$138.A[0].
+
+16. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$le$core_euclid_strict.v:345$93.Y[0].
+
+17. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:276$24.A[0].
+
+18. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:382$130.A[0].
+
+19. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:276$24.B[1].
+
+20. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$add$core_euclid_strict.v:273$21.Y[8].
+
+21. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:313$61.B[0].
+
+22. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$add$core_euclid_strict.v:269$17.Y[6,2].
+
+23. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$flatten\cmp.$ge$core_euclid_strict.v:459$144.Y[0].
+
+24. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:311$59.B[3].
+
+25. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[4].
+
+26. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:374$122.Y[0].
+
+27. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$mul$core_euclid_strict.v:308$56.Y[2].
+
+28. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$add$core_euclid_strict.v:276$24.Y[3].
+
+29. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:278$26.B[4].
+
+30. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$add$core_euclid_strict.v:299$47.Y[0,4].
+
+31. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:266$14.Y[0,1].
+
+32. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$mul$core_euclid_strict.v:312$60.Y[3].
+
+33. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:299$47.A[6].
+
+34. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:265$13.B[5].
+
+35. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:280$28.A[5].
+
+36. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$mul$core_euclid_strict.v:293$41.Y[5].
+
+37. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[11].
+
+38. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:343$91.A[0].
+
+39. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:337$85.B[0].
+
+40. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:258$6.Y[3,1].
+
+41. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:349$97.Y[0].
+
+42. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:322$70.A[0].
+
+43. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:334$82.A[0].
+
+44. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:367$115.B[0].
+
+45. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:307$55.A[5].
+
+46. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$mul$core_euclid_strict.v:281$29.Y[4].
+
+47. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:341$89.Y[0].
+
+48. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$add$core_euclid_strict.v:303$51.Y[1].
+
+49. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$add$core_euclid_strict.v:261$9.Y[0].
+
+50. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:260$8.Y[1,3].
+
+51. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:303$51.B[5].
+
+52. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$mul$core_euclid_strict.v:272$20.Y[3].
+
+53. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:278$26.A[5].
+
+54. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$le$core_euclid_strict.v:327$75.Y[0].
+
+55. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$add$core_euclid_strict.v:259$7.Y[2].
+
+56. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:299$47.B[5].
+
+57. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:373$121.B[0].
+
+58. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$and$core_euclid_strict.v:392$140.Y[0].
+
+59. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$or$core_euclid_strict.v:387$135.Y[0].
+
+60. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$and$core_euclid_strict.v:319$67.Y[0].
+
+61. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$flatten\cmp.$mul$core_euclid_strict.v:466$151.Y[8,11].
+
+62. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:286$34.B[3,2].
+
+63. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$add$core_euclid_strict.v:255$3.Y[0,5].
+
+64. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:358$106.B[0].
+
+65. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$le$core_euclid_strict.v:316$64.A[0].
+
+66. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:257$5.B[2].
+
+67. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[2,5].
+
+68. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:346$94.A[0].
+
+69. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:298$46.Y[2].
+
+70. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$add$core_euclid_strict.v:301$49.B[4,2].
+
+71. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:315$63.B[3,0].
+
+72. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[8,11].
+
+73. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:353$101.Y[0].
+
+74. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$and$core_euclid_strict.v:346$94.Y[0].
+
+75. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$add$core_euclid_strict.v:305$53.Y[1,0].
+
+76. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:373$121.B[0].
+
+77. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:276$24.A[2].
+
+78. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$mul$core_euclid_strict.v:281$29.Y[1,3].
+
+79. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$flatten\cmp.$ge$core_euclid_strict.v:461$146.Y[0].
+
+80. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:297$45.B[0,1].
+
+81. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$flatten\cmp.$mul$core_euclid_strict.v:465$150.Y[8,2].
+
+82. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$add$core_euclid_strict.v:292$40.Y[7,0].
+
+83. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:319$67.B[0].
+
+84. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:259$7.A[4].
+
+85. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$not$core_euclid_strict.v:384$132.Y[0].
+
+86. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[15].
+
+87. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:464$149.B[0].
+
+88. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$ge$core_euclid_strict.v:347$95.Y[0].
+
+89. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[7].
+
+90. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:290$38.A[2].
+
+91. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[18,2].
+
+92. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$add$core_euclid_strict.v:269$17.B[1,3].
+
+93. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:358$106.A[0].
+
+94. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:340$88.B[0].
+
+95. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$and$core_euclid_strict.v:328$76.Y[0].
+
+96. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:352$100.B[0].
+
+97. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$le$core_euclid_strict.v:321$69.Y[0].
+
+98. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:288$36.A[2].
+
+99. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$add$core_euclid_strict.v:263$11.B[5,4].
+
+100. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$and$core_euclid_strict.v:343$91.Y[0].
+
+101. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$mul$core_euclid_strict.v:256$4.Y[3,2].
+
+102. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$add$core_euclid_strict.v:267$15.Y[4,2].
+
+103. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:361$109.A[0].
+
+104. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:309$57.A[2].
+
+105. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:334$82.B[0].
+
+106. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$mul$core_euclid_strict.v:253$1.Y[3].
+
+107. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$ge$core_euclid_strict.v:362$110.Y[0].
+
+108. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$le$core_euclid_strict.v:369$117.Y[0].
+
+109. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$add$core_euclid_strict.v:284$32.Y[4].
+
+110. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[9,15].
+
+111. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$add$core_euclid_strict.v:292$40.Y[0].
+
+112. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$mul$core_euclid_strict.v:293$41.Y[3].
+
+113. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:292$40.B[1,2].
+
+114. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[5,20].
+
+115. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:307$55.B[4].
+
+116. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$le$core_euclid_strict.v:330$78.Y[0].
+
+117. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:273$21.A[8,3].
+
+118. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:271$19.B[5].
+
+119. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$le$core_euclid_strict.v:378$126.Y[0].
+
+120. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:264$12.Y[1,4].
+
+121. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$add$core_euclid_strict.v:315$63.Y[5,0].
+
+122. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$add$core_euclid_strict.v:284$32.Y[2].
+
+123. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$add$core_euclid_strict.v:257$5.Y[0].
+
+124. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:280$28.B[4,1].
+
+125. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:334$82.B[0].
+
+126. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$ge$core_euclid_strict.v:359$107.Y[0].
+
+127. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:335$83.Y[0].
+
+128. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:261$9.A[0].
+
+129. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:329$77.Y[0].
+
+130. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:352$100.Y[0].
+
+131. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$le$core_euclid_strict.v:360$108.Y[0].
+
+132. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$not$core_euclid_strict.v:385$133.Y[0].
+
+133. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[3].
+
+134. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:462$147.Y[0].
+
+135. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$flatten\cmp.$ge$core_euclid_strict.v:459$144.Y[0].
+
+136. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.Y[0].
+
+137. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[10,20].
+
+138. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$le$core_euclid_strict.v:381$129.Y[0].
+
+139. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$le$core_euclid_strict.v:354$102.Y[0].
+
+140. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:265$13.A[1].
+
+141. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:373$121.A[0].
+
+142. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:464$149.B[0].
+
+143. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:386$134.Y[0].
+
+144. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:275$23.A[2,0].
+
+145. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:320$68.Y[0].
+
+146. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$add$core_euclid_strict.v:255$3.Y[4,0].
+
+147. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$add$core_euclid_strict.v:288$36.Y[5].
+
+148. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$mul$core_euclid_strict.v:295$43.Y[3].
+
+149. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:255$3.A[4].
+
+150. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$ge$core_euclid_strict.v:359$107.A[0,1].
+
+151. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$le$core_euclid_strict.v:324$72.Y[0].
+
+152. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:460$145.Y[0].
+
+153. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[1].
+
+154. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$flatten\cmp.$and$core_euclid_strict.v:472$157.Y[0].
+
+155. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:460$145.A[0].
+
+156. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:388$136.Y[0].
+
+157. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$add$core_euclid_strict.v:261$9.Y[3].
+
+158. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:343$91.B[0].
+
+159. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:355$103.A[0].
+
+160. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$flatten\cmp.$and$core_euclid_strict.v:472$157.B[0].
+
+161. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:380$128.B[2].
+
+162. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:376$124.Y[0].
+
+163. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$flatten\cmp.$mul$core_euclid_strict.v:465$150.Y[11,8].
+
+164. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:273$21.B[0].
+
+165. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$ge$core_euclid_strict.v:335$83.A[1,0].
+
+166. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$le$core_euclid_strict.v:366$114.Y[0].
+
+167. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:326$74.Y[0].
+
+168. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$and$core_euclid_strict.v:392$140.Y[0].
+
+169. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:255$3.A[1].
+
+170. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$ternary$core_euclid_strict.v:390$138.A[0].
+
+171. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:312$60.Y[5,1].
+
+172. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$ge$core_euclid_strict.v:320$68.Y[0].
+
+173. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:343$91.Y[0].
+
+174. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$and$core_euclid_strict.v:394$142.Y[0].
+
+175. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$flatten\cmp.$ge$core_euclid_strict.v:459$144.Y[0].
+
+176. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$add$core_euclid_strict.v:292$40.Y[2,0].
+
+177. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:283$31.Y[3].
+
+178. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$ge$core_euclid_strict.v:365$113.Y[0].
+
+179. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:314$62.Y[5,2].
+
+180. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$and$core_euclid_strict.v:325$73.Y[0].
+
+181. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[6,8].
+
+182. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:269$17.B[5,2].
+
+183. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$ge$core_euclid_strict.v:350$98.Y[0].
+
+184. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:257$5.A[6].
+
+185. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:317$65.Y[0].
+
+186. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:349$97.B[0].
+
+187. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$add$core_euclid_strict.v:282$30.Y[0].
+
+188. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:276$24.B[1].
+
+189. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$flatten\cmp.$and$core_euclid_strict.v:472$157.B[0].
+
+190. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$add$core_euclid_strict.v:278$26.A[1,2].
+
+191. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:284$32.A[1].
+
+192. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$and$core_euclid_strict.v:334$82.Y[0].
+
+193. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$and$core_euclid_strict.v:373$121.Y[0].
+
+194. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$mul$core_euclid_strict.v:310$58.Y[0,5].
+
+195. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$le$core_euclid_strict.v:321$69.B[0].
+
+196. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$add$core_euclid_strict.v:278$26.B[0,2].
+
+197. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$le$core_euclid_strict.v:342$90.Y[0].
+
+198. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$and$core_euclid_strict.v:337$85.Y[0].
+
+199. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$ge$core_euclid_strict.v:377$125.Y[0].
+
+200. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:301$49.B[3].
+
+201. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$le$core_euclid_strict.v:363$111.Y[0].
+
+202. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$add$core_euclid_strict.v:307$55.Y[0].
+
+203. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:276$24.A[2].
+
+204. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$ternary$core_euclid_strict.v:390$138.Y[0].
+
+205. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$add$core_euclid_strict.v:290$38.Y[1].
+
+206. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:325$73.A[0].
+
+207. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:394$142.B[0].
+
+208. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$mul$core_euclid_strict.v:300$48.Y[1].
+
+209. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:359$107.A[0].
+
+210. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:263$11.A[1].
+
+211. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$add$core_euclid_strict.v:255$3.A[1,4].
+
+212. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$or$core_euclid_strict.v:387$135.B[0].
+
+213. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$add$core_euclid_strict.v:297$45.Y[2].
+
+214. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$flatten\cmp.$and$core_euclid_strict.v:469$154.B[0].
+
+215. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:256$4.Y[0,5].
+
+216. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:370$118.A[0].
+
+217. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:328$76.A[0].
+
+218. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$and$core_euclid_strict.v:391$139.Y[0].
+
+219. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$flatten\cmp.$mul$core_euclid_strict.v:466$151.Y[7].
+
+220. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$le$core_euclid_strict.v:351$99.A[1].
+
+221. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$le$core_euclid_strict.v:316$64.Y[0].
+
+222. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:265$13.A[6,2].
+
+223. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:306$54.Y[2].
+
+224. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$ge$core_euclid_strict.v:338$86.Y[0].
+
+225. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:464$149.Y[0].
+
+226. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$le$core_euclid_strict.v:375$123.Y[0].
+
+227. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$flatten\cmp.$not$core_euclid_strict.v:470$155.Y[0].
+
+228. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:364$112.A[0].
+
+229. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:386$134.A[0].
+
+230. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$ge$core_euclid_strict.v:326$74.Y[0].
+
+231. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$mul$core_euclid_strict.v:279$27.Y[4,0].
+
+232. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$mul$core_euclid_strict.v:260$8.Y[4].
+
+233. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:331$79.A[0].
+
+234. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[21,5].
+
+235. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:338$86.A[0].
+
+236. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$mul$core_euclid_strict.v:262$10.Y[1].
+
+237. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$add$core_euclid_strict.v:273$21.Y[9].
+
+238. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:255$3.B[2].
+
+239. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$and$core_euclid_strict.v:337$85.Y[0].
+
+240. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:368$116.B[2].
+
+241. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$flatten\cmp.$mul$core_euclid_strict.v:466$151.Y[14].
+
+242. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:301$49.A[0].
+
+243. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$le$core_euclid_strict.v:336$84.Y[0].
+
+244. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$add$core_euclid_strict.v:309$57.Y[1,5].
+
+245. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:288$36.B[1].
+
+246. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$ternary$core_euclid_strict.v:393$141.A[0].
+
+247. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$mul$core_euclid_strict.v:264$12.Y[0,5].
+
+248. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[20,16].
+
+249. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$add$core_euclid_strict.v:286$34.Y[3].
+
+250. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:271$19.B[1].
+
+251. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$mul$core_euclid_strict.v:291$39.Y[0].
+
+252. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:309$57.B[3].
+
+253. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$ge$core_euclid_strict.v:368$116.Y[0].
+
+254. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:343$91.A[0].
+
+255. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[16].
+
+256. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:352$100.B[0].
+
+257. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$add$core_euclid_strict.v:297$45.Y[3].
+
+258. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:337$85.A[0].
+
+259. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:337$85.A[0].
+
+260. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$and$core_euclid_strict.v:388$136.Y[0].
+
+261. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$le$core_euclid_strict.v:381$129.Y[0].
+
+262. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:280$28.A[5,4].
+
+263. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:376$124.B[0].
+
+264. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[14].
+
+265. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[1].
+
+266. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:287$35.Y[3,0].
+
+267. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[2].
+
+268. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[3].
+
+269. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$and$core_euclid_strict.v:394$142.Y[0].
+
+270. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:276$24.B[3].
+
+271. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:267$15.B[0,1].
+
+272. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:347$95.Y[0].
+
+273. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$not$core_euclid_strict.v:385$133.Y[0].
+
+274. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$flatten\cmp.$ge$core_euclid_strict.v:461$146.B[2].
+
+275. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$le$core_euclid_strict.v:324$72.Y[0].
+
+276. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$flatten\cmp.$mul$core_euclid_strict.v:466$151.Y[0].
+
+277. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:284$32.B[4].
+
+278. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:382$130.B[0].
+
+279. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:352$100.A[0].
+
+280. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$mul$core_euclid_strict.v:298$46.Y[3].
+
+281. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:315$63.B[4].
+
+282. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:303$51.B[2].
+
+283. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:290$38.B[0].
+
+284. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$ternary$core_euclid_strict.v:393$141.A[0].
+
+285. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$mul$core_euclid_strict.v:310$58.Y[3].
+
+286. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$le$core_euclid_strict.v:360$108.Y[0].
+
+287. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$flatten\cmp.$mul$core_euclid_strict.v:466$151.Y[6,5].
+
+288. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:462$147.B[0].
+
+289. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:285$33.Y[0,5].
+
+290. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$add$core_euclid_strict.v:267$15.Y[5].
+
+291. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$ge$core_euclid_strict.v:338$86.Y[0].
+
+292. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:259$7.B[0,2].
+
+293. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$ge$core_euclid_strict.v:371$119.Y[0].
+
+294. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:296$44.Y[2,1].
+
+295. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:370$118.B[0].
+
+296. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$add$core_euclid_strict.v:271$19.B[2,4].
+
+297. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:265$13.B[0,3].
+
+298. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$mul$core_euclid_strict.v:281$29.Y[0].
+
+299. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:304$52.Y[5,0].
+
+300. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$mul$core_euclid_strict.v:253$1.Y[4,5].
+
+301. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$and$core_euclid_strict.v:379$127.Y[0].
+
+302. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$and$core_euclid_strict.v:382$130.Y[0].
+
+303. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:367$115.A[0].
+
+304. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:462$147.A[0].
+
+305. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:311$59.B[0].
+
+306. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[5].
+
+307. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:391$139.B[0].
+
+308. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$add$core_euclid_strict.v:267$15.Y[4,5].
+
+309. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$le$core_euclid_strict.v:348$96.B[0].
+
+310. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$flatten\cmp.$le$core_euclid_strict.v:468$153.Y[0].
+
+311. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:309$57.B[0].
+
+312. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$add$core_euclid_strict.v:284$32.A[4,3].
+
+313. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:379$127.A[0].
+
+314. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:388$136.B[0].
+
+315. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:284$32.A[2].
+
+316. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:464$149.Y[0].
+
+317. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$ge$core_euclid_strict.v:374$122.Y[0].
+
+318. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$ge$core_euclid_strict.v:380$128.Y[0].
+
+319. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$add$core_euclid_strict.v:269$17.Y[8].
+
+320. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:346$94.B[0].
+
+321. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:379$127.A[0].
+
+322. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:325$73.B[0].
+
+323. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:355$103.B[0].
+
+324. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$add$core_euclid_strict.v:259$7.Y[6].
+
+325. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$ge$core_euclid_strict.v:323$71.Y[0].
+
+326. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:464$149.A[0].
+
+327. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$le$core_euclid_strict.v:333$81.A[0].
+
+328. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:392$140.A[0].
+
+329. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:364$112.B[0].
+
+330. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$and$core_euclid_strict.v:325$73.Y[0].
+
+331. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$not$core_euclid_strict.v:384$132.A[0].
+
+332. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$le$core_euclid_strict.v:318$66.Y[0].
+
+333. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:349$97.B[0].
+
+334. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[0,9].
+
+335. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$mul$core_euclid_strict.v:253$1.Y[0,5].
+
+336. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:322$70.B[0].
+
+337. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:391$139.Y[0].
+
+338. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:358$106.B[0].
+
+339. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$add$core_euclid_strict.v:261$9.Y[9,4].
+
+340. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:331$79.Y[0].
+
+341. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:379$127.B[0].
+
+342. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:268$16.Y[2].
+
+343. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:331$79.B[0].
+
+344. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$flatten\cmp.$mul$core_euclid_strict.v:466$151.Y[1].
+
+345. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:364$112.Y[0].
+
+346. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$mul$core_euclid_strict.v:270$18.Y[4].
+
+347. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:382$130.A[0].
+
+348. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:328$76.B[0].
+
+349. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[12].
+
+350. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$ge$core_euclid_strict.v:323$71.A[0].
+
+351. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:334$82.A[0].
+
+352. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:300$48.Y[2].
+
+353. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:376$124.A[0].
+
+354. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:275$23.Y[0].
+
+355. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$ge$core_euclid_strict.v:344$92.Y[0].
+
+356. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:392$140.B[0].
+
+357. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$add$core_euclid_strict.v:261$9.B[3,1].
+
+358. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$and$core_euclid_strict.v:328$76.B[0].
+
+359. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$flatten\cmp.$or$core_euclid_strict.v:464$149.A[0].
+
+360. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$mul$core_euclid_strict.v:254$2.Y[3].
+
+361. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$le$core_euclid_strict.v:339$87.Y[0].
+
+362. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[6].
+
+363. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:394$142.B[0].
+
+364. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:261$9.B[0].
+
+365. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$ge$core_euclid_strict.v:359$107.Y[0].
+
+366. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:313$61.A[1].
+
+367. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$le$core_euclid_strict.v:336$84.Y[0].
+
+368. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.Y[0].
+
+369. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$add$core_euclid_strict.v:278$26.A[6].
+
+370. Executing MUTATE pass.
+Add input cnot0 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[18,15].
+
+371. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$le$core_euclid_strict.v:316$64.Y[0].
+
+372. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$le$core_euclid_strict.v:333$81.Y[0].
+
+373. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:394$142.Y[0].
+
+374. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:285$33.Y[1].
+
+375. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:319$67.A[0].
+
+376. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:262$10.Y[5].
+
+377. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$add$core_euclid_strict.v:309$57.A[6].
+
+378. Executing MUTATE pass.
+Add input constant 1 at core_euclid_strict.$and$core_euclid_strict.v:358$106.A[0].
+
+379. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$or$core_euclid_strict.v:387$135.A[0].
+
+380. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$flatten\cmp.$not$core_euclid_strict.v:470$155.Y[0].
+
+381. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$add$core_euclid_strict.v:269$17.A[8,6].
+
+382. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$ternary$core_euclid_strict.v:390$138.Y[0].
+
+383. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$mul$core_euclid_strict.v:312$60.Y[4,1].
+
+384. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$mul$core_euclid_strict.v:254$2.Y[2].
+
+385. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:361$109.A[0].
+
+386. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$flatten\cmp.$mul$core_euclid_strict.v:465$150.B[2].
+
+387. Executing MUTATE pass.
+Add input constant 0 at core_euclid_strict.$add$core_euclid_strict.v:278$26.B[2].
+
+388. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$and$core_euclid_strict.v:361$109.Y[0].
+
+389. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:272$20.Y[1].
+
+390. Executing MUTATE pass.
+Add input cnot1 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.A[19,16].
+
+391. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$reduce_and$core_euclid_strict.v:383$131.Y[0].
+
+392. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$flatten\cmp.$mul$core_euclid_strict.v:465$150.Y[7,12].
+
+393. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$mul$core_euclid_strict.v:312$60.Y[1].
+
+394. Executing MUTATE pass.
+Add output cnot0 at core_euclid_strict.$add$core_euclid_strict.v:294$42.Y[2,0].
+
+395. Executing MUTATE pass.
+Add output constant 0 at core_euclid_strict.$flatten\cmp.$ge$core_euclid_strict.v:463$148.Y[0].
+
+396. Executing MUTATE pass.
+Add output cnot1 at core_euclid_strict.$mul$core_euclid_strict.v:298$46.Y[0,2].
+
+397. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:367$115.A[0].
+
+398. Executing MUTATE pass.
+Add output inverter at core_euclid_strict.$add$core_euclid_strict.v:309$57.Y[4].
+
+399. Executing MUTATE pass.
+Add output constant 1 at core_euclid_strict.$add$core_euclid_strict.v:263$11.Y[5].
+
+400. Executing MUTATE pass.
+Add input inverter at core_euclid_strict.$and$core_euclid_strict.v:361$109.B[0].
+
+401. Executing RTLIL backend.
+Output filename: /Users/carlostoledo/Projects/cert-machine/environments/blind_spot/blind_spot/../pool/pool.il
+
+402. Executing Verilog backend.
+
+402.1. Executing BMUXMAP pass.
+
+402.2. Executing DEMUXMAP pass.
+Dumping module `\core_euclid_strict'.
+
+End of script. Logfile hash: ce2d6aaddf, time: 0.14s, user: 0.12s, system: 0.02s, MEM: 15.11 MB peak
+Yosys 0.68+post (git sha1 c12172fbae8af5e20f6fb52e3d4e92d56ed587b6, Release, AppleClang clang++ 21.0.0.21000101)
+Time spent: 32% 399x mutate (0 sec), 29% 2x write_rtlil (0 sec), ...

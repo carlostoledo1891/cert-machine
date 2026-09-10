@@ -1,0 +1,39 @@
+{
+ "what": "The blind-spot environment re-derived on this machine: the lifted design re-hashed, every recorded SAT witness re-run through the actual netlist, the proved-equivalent mutants attacked, and the planted controls run. The SAT labelling itself is a pinned record (pool/pool.json), not re-proved here.",
+ "mutations": 400,
+ "killable": 348,
+ "equivalent": 51,
+ "identity": 1,
+ "witnessesResimulated": 348,
+ "controls": {
+  "planted": 11,
+  "failed": 0,
+  "positive": 3
+ },
+ "redControls": {
+  "fired": 4,
+  "dead": 0
+ },
+ "verdict": "PASS",
+ "seconds": 58.9,
+ "output": [
+  "PASS the 27 lifted files re-hash to their pins  1 declared patch (design.py's repoint)",
+  "PASS yosys, iverilog and vvp are on PATH",
+  "PASS MCY's 400 mutations are all in the pool  400",
+  "PASS the identity is found by `-mode none`, and it is MCY's mutation 1 (not 0)  id = 1",
+  "PASS 348 mutants carry a verified witness  348",
+  "PASS 51 are proved equivalent, the identity NOT counted among them  51",
+  "PASS the SAT labels agree with MCY on all 400  disagreements: []",
+  "PASS every mutation is killable, equivalent, or the identity",
+  "PASS all 348 recorded witnesses re-run through the netlist and every one flips a pin  348 simulations",
+  "PASS and each lands on the exact pin pair the record names",
+  "PASS 8 proved-equivalent mutants attacked with all four families (16,000 pairs each) and none is killed",
+  "PASS 11 planted controls, 0 failed",
+  "PASS three of them are POSITIVE controls that must SCORE — a suite that fails everything reports perfect coverage, which is the mistake this environment is named for  3 positive",
+  "PASS the environment's own 7 tests  7 passed in 6.41s",
+  "PASS RED CONTROL: asking MCY for the identity by `mutation_id = 0` returns NOTHING (the query that went quiet for a whole session), while `-mode none` returns exactly one  id 0 -> 0 rows, `-mode none` -> 1 row, which is mutation 1",
+  "PASS RED CONTROL: a witness with one coordinate changed stops killing its mutant — the witness names a specific pair, not a region  mutant 2: refuted vs refuted",
+  "PASS RED CONTROL: a mutant the miter proved equivalent cannot be killed by another mutant's witness — so a label swapped from equivalent to killable fails this check  mutant 3: refuted vs refuted",
+  "PASS RED CONTROL: 400 random pairs cannot tell the identity mutation from the unmutated design — if they could, the control design is not wired the way the pool thinks  400 pairs, 0 differences"
+ ]
+}

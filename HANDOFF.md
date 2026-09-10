@@ -21,11 +21,19 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
-THE MENU, as of 2026-09-09 (the twelfth session). In the order I would take it:
+THE MENU, as of 2026-09-10 (the thirteenth session). In the order I would take it:
 
-  1. NOTHING IS PUSHED. The audit, the instrument and the mechanism are now ELEVEN
-     local commits (e78d65e … HEAD). A push to main IS the deploy. This is the
-     first thing on the menu because everything below is downstream of it.
+  0. BLIND-SPOT IS IN THE MACHINE BUT NOT ON THE HUB. The port is done and gated
+     (83/83); what it lacks is the publishing layer: a `verifiers` adapter with
+     `load_environment`, the hub tags/license/urls/scripts/hatchling in
+     pyproject, `.prime/` and a wheel. THE ADAPTER MUST BE WRITTEN AGAINST A LIVE
+     INSTALL, never from the doc — that is how break_the_grader got three silent
+     defects, two of which printed a whole eval as 0.000 with no error. So:
+     `pip install verifiers`, write it, verify from the hub in a clean 3.12 venv.
+     Publishing itself is a send, so the operator's. Half a day.
+  1. NOTHING IS PUSHED. The audit, the instrument, the mechanism and now the
+     second environment are FOURTEEN local commits (e78d65e … HEAD). A push to
+     main IS the deploy. Everything below is downstream of it.
   2. THE INSTRUMENT, still open but on a different question. The mechanism is
      drawn now — the cone (4.22)/(4.23), the two positive amplitudes of
      Prop. 7.5, the two pulse trains at the amplitudes the stress decides — and
@@ -50,12 +58,16 @@ THE MENU, as of 2026-09-09 (the twelfth session). In the order I would take it:
   5. THE EULER CHECKS, listed in corpus/navier-stokes/euler.md and unrun: the WKB
      frozen-frame ODE, §5.5's scale inequalities in exact log arithmetic, the §3
      symbolic identities.
-  6. TWO DEBT ROWS on the layout ruler, both open: it measures app pages before
+  6. THE BLIND-SPOT PAGE is not built (frontier's tools/build-blind-spot.js reads
+     eval/page.json, which was lifted; the page is a REBUILD in our design system,
+     never an import). Unblocked, and it is the only environment here with an
+     interactive artefact waiting.
+  7. TWO DEBT ROWS on the layout ruler, both open: it measures app pages before
      they render (two skyaudit rows were false green for four days), and it
      counts a bordered box as two spines. Half a day and an hour, separately —
      the second one re-measures every page, so it does not ride along with
      anything else.
-  7. Everything below is the older menu and is unchanged.
+  8. Everything below is the older menu and is unchanged.
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-02 (the release day). Session logs follow below;
@@ -64,6 +76,84 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  THIRTEENTH SESSION, 2026-09-09/10 — THE SECOND ENVIRONMENT IS IN THE MACHINE:
+  BLIND-SPOT PORTED, AND EVERY NUMBER THE PORT PREDICTED CAME OUT ON A DIFFERENT MACHINE.
+  Pushed through 097bb48 · NOT PUSHED at the close (local) · 83/83 batteries · 60 reports · 17 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator asked whether a second environment was ready to
+    publish. It was not: `carlos-toledo/break-the-grader` has been the only one
+    on the hub since 2026-09-04, and frontier's two packages — lattice-claims
+    and blind-spot — carry no publishing layer at all. Then: "build blind spot".
+
+  ── 1 · WHAT IT IS ── one mutant of `core_euclid_strict` (MCY's 400, out of the
+    coverage run's own database) or the unmutated design; answer with 1–8 input
+    pairs on which the mutant's pins differ, or EQUIVALENT, or UNDECIDED. No
+    answer key, no judge, no tolerance: a kill is verified by SIMULATING the
+    actual netlist under the actual mutation, and EQUIVALENT is checked against a
+    SAT proof on a hand-written miter. Three rungs by how much of the defect is
+    stated — `located` / `profile` / `blind`. Its thesis is the sharpest instance
+    of frontier's unnamed five-instance pattern: KNOWING THE FAMILY IS NOT THE
+    PAIR. The out-of-box family kills 96.8 % of mutants; eight random members of
+    it kill 3 of 20 OUTBOX_ONLY, and every eight-pair shotgun kills 0 of 8
+    ALIGNED_ONLY.
+
+  ── 2 · THE PORT REPRODUCED, NOT COPIED ── the SAT labelling was re-run here and
+    printed the exact line the port instruction says it must: **348 killable with
+    a verified witness, 51 proved equivalent, identity = mutation 1; valid0-only
+    []; other disagreements []**. Diffed against frontier's own pool.json: every
+    mutation id, label, class, profile, mutation text, witness pair AND witness
+    pin-pair identical, 400/400 on each. Only `sat_secs` differs — 355.7 s here,
+    494 s there, which is the machine and not the mathematics. Acceptance, all
+    exact: 7 tests pass; 11 planted controls, 0 failed, all THREE POSITIVE
+    controls scoring; baseline `sat` +1.000 on every rung 120/120, `profile`
+    +0.625 on its rung, `never` −0.350 with 81 false claims, `corpus8` 31/36
+    COVERED and 0 of every class it is blind to, `outbox8` 3/20 OUTBOX_ONLY.
+
+  ── 3 · THE FOUR REASONS IT WAS DEFERRED ON 2026-09-05, ANSWERED ──
+    (a) "12 MB" — only the EIGHT files the package actually reads were lifted:
+        2.8 MB, not 12. corpus/blindspot/mut, 27 files pinned in one
+        PROVENANCE.json, one declared patch (design.py's repoint).
+    (b) "a 75-minute formal run in a battery" — the SAT labelling runs ONCE, on
+        the port, and pool.json is its record. The battery instead re-runs ALL
+        348 recorded witnesses through the actual netlist every build and
+        requires each to flip the exact pin pair the record names. ~53 s. So a
+        corrupted label cannot survive a build even though the proof is not
+        re-proved: the expensive thing is trusted, the cheap thing is re-derived,
+        and the cheap thing is enough to catch the expensive thing lying.
+    (c) "records that copy but cannot be regenerated" — pool.json is the only
+        one, and it was regenerated and diffed. Everything else in pool/ is a
+        build artefact and is gitignored; THE BATTERY WAS VERIFIED REBUILDING THE
+        WHOLE SIMULATOR FROM A BARE pool/ in the same 53 s, so a fresh clone
+        works.
+    (d) "an identity control found vacuous" — frontier fixed it in its own
+        session 17: MCY numbers `-mode none` as mutation **1**, not 0, and both
+        of its collectors had asked for `mutation_id = 0`, got an empty row set,
+        and said nothing while claiming to refuse. Planted here as a STANDING RED
+        CONTROL asserting both halves — id 0 returns nothing (the old query was
+        vacuous) and `-mode none` returns exactly one (the new one is not).
+
+  ── 4 · THE BATTERY ── environments/blind_spot/battery.py, the 83rd row: the 27
+    pins, the pool's invariants, all 348 witnesses re-simulated, eight proved-
+    equivalent mutants attacked with all four families (16,000 pairs each) and
+    required to survive, the 11 planted controls, the 7 tests, and FOUR red
+    controls of its own — the vacuous identity query, a witness with one
+    coordinate changed that stops killing, a proved-equivalent mutant that
+    another's witness cannot kill, and 400 random pairs that cannot tell the
+    identity from the design. 83/83, exit 0.
+
+  ── NOT DONE, AND IT IS THE WHOLE POINT OF THE QUESTION ── THIS IS NOT YET
+    PUBLISHABLE. blind-spot has no `verifiers` adapter and no `load_environment`;
+    its pyproject is twelve lines where break-the-grader's is forty (tags,
+    license, urls, scripts, hatchling, `.prime/`, a wheel). The adapter must NOT
+    be written from documentation — frontier's own open list records that doing
+    so produced THREE silent defects in break_the_grader, two of which printed a
+    whole eval as 0.000 with no error raised, and all three were caught only by
+    installing from the hub into a clean venv. `verifiers` and the `prime` CLI
+    are not installed here. The site page is also not built (frontier's
+    tools/build-blind-spot.js reads eval/page.json) and is unblocked.
 
 ══════════════════════════════════════════════════════════════════════════
   TWELFTH SESSION, 2026-09-09 — THE ONE THING THE DRAWING ASSERTED, NOW DECIDED:

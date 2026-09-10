@@ -1,0 +1,13 @@
+[project]
+name = "blind-spot"
+version = "0.1.0"
+description = "Fourteen million certified verdicts could not see this mutant. Name the pair that does, or prove there is none."
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["rl-environment", "mutation-testing", "formal-verification", "rtl", "yosys", "abstention", "verifier-soundness"]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[tool.setuptools.packages.find]
+include = ["blind_spot*"]
