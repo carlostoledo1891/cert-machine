@@ -447,7 +447,7 @@
       lab(cx - rp - 20, cy + zp + 15, 'the core · ℓr = τ^1/2 · ℓz = τ^' + fmtExp(0.5 - h()), 'right');
     }
     const xb = cx - rb * scale;
-    if (xb > 150 && zp > 14) {
+    if (xb > gutter && zp > 14) {
       const md = mechData();
       lab(xb - 8, cy + 4, st.axisym ? 'annulus · no pulses, the residual stands'
         : 'pulse annulus · ' + Xa + ' < X < ' + Xb + (md.outWave ? ' · ' + md.outWave + ' radii with no real amplitude' : ' · both amplitudes real'), 'right');
