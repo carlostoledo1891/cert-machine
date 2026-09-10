@@ -82,6 +82,15 @@ PATCHES = {
         "directory 200 characters deep the path was truncated, $readmemh read nothing, the memory "
         "stayed X and EVERY verdict came back 'xxx' with no error raised. Found by installing the "
         "wheel; tests/test_long_path.py holds the fix and was checked to fail against the old call.",
+    "environments/blind_spot/README.md":
+        "four sections rewritten on the port because the Hub renders this file as the environment's "
+        "front page and all four were false here: there was NO install section at all (no pip line, no "
+        "load_environment, nothing about the binding being verified); Layout described frontier's tree "
+        "(design.py pointing into experiments/certifier-core, 7 tests, pool/ 'not committed'); the "
+        "reproduce block invoked tools/build-blind-spot.js, which does not exist in this repository; and "
+        "'The page' promised click-through and name-a-pair interactivity that the page built here did "
+        "not have until it was added. Sections added: the verified binding with its four defects, and "
+        "the live run through verifiers.",
     "environments/blind_spot/blind_spot/design.py":
         "MUT repointed from experiments/certifier-core/mut (not in this repository) to "
         "corpus/blindspot/mut, and the docstring rewritten to say that the seven files are "

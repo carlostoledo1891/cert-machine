@@ -197,10 +197,11 @@
   },
   {
    "file": "environments/blind_spot/README.md",
-   "sha256": "c89fe18bee03f460631d646f0404acc2a36fdeff35191ed5c968e28fc859929e",
+   "sha256": "374e1bbcd6c87ce97075a4af686e0a870689c798080eb581d7b564d396f6549b",
    "sourceSha256": "c89fe18bee03f460631d646f0404acc2a36fdeff35191ed5c968e28fc859929e",
-   "bytes": 17654,
-   "patched": false
+   "bytes": 23704,
+   "patched": true,
+   "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all (no pip line, no load_environment, nothing about the binding being verified); Layout described frontier's tree (design.py pointing into experiments/certifier-core, 7 tests, pool/ 'not committed'); the reproduce block invoked tools/build-blind-spot.js, which does not exist in this repository; and 'The page' promised click-through and name-a-pair interactivity that the page built here did not have until it was added. Sections added: the verified binding with its four defects, and the live run through verifiers."
   },
   {
    "file": "environments/blind_spot/pyproject.toml",

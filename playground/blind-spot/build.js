@@ -82,7 +82,13 @@ function blindMap() {
     out.push(`<line x1="${LEFT}" y1="${y}" x2="${RIGHT}" y2="${y}" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/>`);
     const n = here.length || 1;
     const step = Math.min(11, (RIGHT - LEFT - 10) / n);
-    here.forEach((m, j) => out.push(mark(m.klass, LEFT + 6 + j * step, y)));
+    here.forEach((m, j) => {
+      const x = LEFT + 6 + j * step;
+      /* a transparent disc behind each mark so a 4px glyph has a 12px target —
+         the mark says what it is, the disc is what you can actually hit */
+      out.push(`<g class="mk" data-id="${m.id}" role="button" tabindex="-1" aria-label="mutation ${m.id}, ${esc(m.klass.toLowerCase().replace(/_/g, ' '))}, netlist line ${m.vline}">`
+        + `<circle cx="${x.toFixed(1)}" cy="${y}" r="6" fill="transparent"/>` + mark(m.klass, x, y) + '</g>');
+    });
     out.push(`<text x="${RIGHT}" y="${y - 11}" class="rl" text-anchor="end" opacity="0.55">${here.length}</text>`);
   });
   out.push('</svg>');
@@ -126,6 +132,17 @@ const POLICY_NOTE = {
   sat: 'the SAT witness, or the proof',
 };
 
+/* THE DETAIL PAYLOAD. Everything the card shows for one mutation, and nothing
+   else: 253 KB for 400 records, which is the price of the page being able to
+   answer "what IS this mark" without a round trip. */
+const CARD_KEYS = ['id', 'klass', 'region', 'vline', 'equivalent', 'described',
+                   'statement', 'bent', 'drivers', 'profile', 'witness'];
+const CARD_DATA = MUT.map((m) => {
+  const o = {};
+  for (const k of CARD_KEYS) if (m[k] !== undefined && m[k] !== null) o[k] = m[k];
+  return o;
+});
+
 const CSS = `
 .fig { width:100%; height:auto; display:block; color:var(--ink); }
 .fig .rl { font-family:var(--font-mono); font-size:9.5px; fill:var(--ink-4); }
@@ -135,9 +152,155 @@ const CSS = `
 .legend .li b { color:var(--ink-2); font-weight:500; }
 .legend .li i { color:var(--ink-5); font-style:normal; }
 .gr .c b { color:var(--ink); }
+.mk { cursor:pointer; }
+.mk:hover circle:last-of-type, .mk:hover rect, .mk:hover path { stroke:var(--ink); }
+.mk.sel { color:var(--ink); }
+.mk.sel circle:first-of-type { fill:color-mix(in srgb,var(--ink) 22%,transparent); }
+.picker { display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; margin-top:var(--s-4); }
+.picker select, .picker input { font-family:var(--font-mono); font-size:var(--text-eyebrow); color:var(--ink);
+  background:var(--bg); border:1px solid var(--border-strong); border-radius:var(--radius-s); padding:5px 8px; }
+.picker input { min-width:22ch; } .picker label { font-family:var(--font-mono); font-size:9px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-5); }
+.picker button { font-family:var(--font-mono); font-size:var(--text-eyebrow); color:var(--ink-3);
+  background:transparent; border:1px solid var(--border-strong); border-radius:var(--radius-pill);
+  padding:5px 12px; cursor:pointer; }
+.picker button:hover { color:var(--ink); border-color:var(--ink-3); }
+.card2 { margin-top:var(--s-4); border:1px solid var(--border); border-radius:var(--radius-m);
+  padding:var(--s-4); background:var(--bg-raised); }
+.card2 .hd { display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-4); align-items:baseline; margin-bottom:var(--s-3); }
+.card2 .hd b { font-size:var(--text-small); color:var(--ink); }
+.card2 .tag2 { font-family:var(--font-mono); font-size:8.5px; letter-spacing:.16em; text-transform:uppercase;
+  border:1px solid var(--border-strong); border-radius:var(--radius-pill); padding:1px 8px; color:var(--ink-3); }
+.card2 dl { display:grid; grid-template-columns:132px minmax(0,1fr); gap:5px var(--s-4); margin:0; }
+.card2 dt { font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-5); }
+.card2 dd { margin:0; font-family:var(--font-mono); font-size:var(--text-eyebrow); line-height:1.6; color:var(--ink-2);
+  overflow-wrap:anywhere; }
+.card2 dd .q { color:var(--ink-5); }
+.verd { font-family:var(--font-mono); font-size:var(--text-small); color:var(--ink); }
+.verd .why { display:block; font-size:var(--text-eyebrow); color:var(--ink-4); margin-top:4px; line-height:1.6; }
 .win { color:var(--ink); font-weight:500; }
 .dim { color:var(--ink-5); }
 ${GRAMMAR.css('.fig')}
+`;
+
+
+/* ------------------------------------------------------------------ the page's own script
+   Two things, and both refuse rather than guess: the detail card, which says what a mark IS,
+   and the specification box, which decides a pair YOU name the way the unmutated design would.
+   Neither grades a kill — a kill is a simulation of the netlist under the mutation, and that
+   runs offline. Saying so is the point; a box that looked like a grader would be a lie. */
+const SCRIPT = `
+(function () {
+  'use strict';
+  var M = JSON.parse(document.getElementById('bs-mutants').textContent);
+  var byId = {}; M.forEach(function (m) { byId[m.id] = m; });
+  var card = document.getElementById('card'), pick = document.getElementById('pick');
+  var sel = null;
+
+  M.slice().sort(function (a, b) { return a.id - b.id; }).forEach(function (m) {
+    var o = document.createElement('option');
+    o.value = m.id;
+    o.textContent = 'mutation ' + m.id + ' · ' + m.klass.toLowerCase().replace(/_/g, ' ') + ' · line ' + m.vline;
+    pick.appendChild(o);
+  });
+
+  var esc = function (t) { return String(t == null ? '' : t)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+  var row = function (k, v) { return v ? '<dt>' + esc(k) + '</dt><dd>' + v + '</dd>' : ''; };
+
+  function show(id) {
+    var m = byId[id]; if (!m) return;
+    sel = m;
+    document.querySelectorAll('.mk.sel').forEach(function (e) { e.classList.remove('sel'); });
+    var g = document.querySelector('.mk[data-id="' + id + '"]');
+    if (g) g.classList.add('sel');
+    if (pick.value !== String(id)) pick.value = String(id);
+    var prof = m.profile ? Object.keys(m.profile).map(function (f) {
+      return f + ' ' + (m.profile[f] ? 'KILLED' : 'survived');
+    }).join(' · ') : '';
+    var w = m.witness;
+    var wit = w
+      ? '[' + w.u.join(',') + ']  [' + w.v.join(',') + ']<br><span class="q">the unmutated design says ' +
+        esc(w.original) + '; the mutant says ' + esc(w.mutant) + '</span>'
+      : '<span class="q">none — the miter proved this design changes nothing</span>';
+    card.innerHTML =
+      '<div class="hd"><b>mutation ' + m.id + '</b>' +
+      '<span class="tag2">' + esc(m.klass.toLowerCase().replace(/_/g, ' ')) + '</span>' +
+      '<span class="tag2">' + (m.equivalent ? 'proved equivalent' : 'killable') + '</span></div>' +
+      '<dl>' +
+      row('what it does', esc(m.described)) +
+      row('region', esc(m.region) + ' · netlist line ' + m.vline) +
+      row('the statement', '<span class="q">' + esc(m.statement) + '</span>') +
+      row('the bent wire', '<span class="q">' + esc(m.bent) + '</span>') +
+      row('its drivers', (m.drivers || []).map(function (d) {
+        return '<span class="q">' + esc(d) + '</span>'; }).join('<br>')) +
+      row('who sees it', esc(prof)) +
+      row('SAT witness', wit) +
+      '</dl>';
+    card.hidden = false;
+  }
+
+  document.querySelectorAll('.mk').forEach(function (g) {
+    g.addEventListener('click', function () { show(Number(g.dataset.id)); });
+  });
+  pick.addEventListener('change', function () { show(Number(pick.value)); });
+  document.getElementById('pick-witness').addEventListener('click', function () {
+    if (!sel || !sel.witness) return;
+    document.getElementById('u').value = sel.witness.u.join(',');
+    document.getElementById('v').value = sel.witness.v.join(',');
+    decide();
+    document.getElementById('spec').scrollIntoView({ block: 'center', behavior: 'smooth' });
+  });
+
+  /* ---- the specification, exactly as design.py states it ---------------- */
+  var D = 11, CMAX = 3, LO = -4, HI = 3;
+  function parse(txt) {
+    var parts = String(txt).split(/[\\s,]+/).filter(function (x) { return x.length; });
+    if (parts.length !== D) throw new Error(parts.length + ' coordinates; the design has ' + D);
+    return parts.map(function (x) {
+      if (!/^-?\\d+$/.test(x)) throw new Error('"' + x + '" is not an integer');
+      var n = Number(x);
+      /* STRICT, NEVER MASKED: a 4 is not a 3-bit value, and silently folding it to
+         -4 would test a pair the reader did not name. */
+      if (n < LO || n > HI) throw new Error(n + ' is outside -4..3, and is refused rather than masked');
+      return n;
+    });
+  }
+  function decide() {
+    var out = document.getElementById('spec'), u, v;
+    try { u = parse(document.getElementById('u').value); v = parse(document.getElementById('v').value); }
+    catch (e) {
+      out.innerHTML = '<div class="verd">REFUSED TO READ<span class="why">' + esc(e.message) + '</span></div>';
+      return;
+    }
+    var inBox = u.concat(v).every(function (x) { return x >= -CMAX && x <= CMAX; });
+    var p = 0, s = 0, t = 0, i;
+    for (i = 0; i < D; i++) { p += u[i] * v[i]; s += u[i] * u[i]; t += v[i] * v[i]; }
+    var verdict, why;
+    if (!inBox) {
+      verdict = 'REFUSED';
+      why = 'a coordinate is -4, which is outside the declared box. The design refuses rather than ' +
+            'deciding — and this is the region no valid input exercises, where the blind spots live.';
+    } else if (p <= 0) {
+      verdict = 'CERTIFIED';
+      why = 'p = u·v = ' + p + ' ≤ 0, so the trivial branch certifies without the comparator.';
+    } else {
+      var l = 4 * p * p, r = s * t;
+      verdict = l <= r ? 'CERTIFIED' : 'REFUTED';
+      why = 'p = ' + p + ', s = ' + s + ', t = ' + t + ' → 4p² = ' + l + (l <= r ? ' ≤ ' : ' > ') +
+            s + '·' + t + ' = ' + r + ', so the comparator fires ' + (l <= r ? 'le' : 'gt') + '.';
+    }
+    out.innerHTML = '<div class="verd">' + verdict + '<span class="why">' + esc(why) +
+      ' <br>This is the specification. It does not grade a kill: that is a simulation of the netlist ' +
+      'under the mutation, and it runs offline.</span></div>';
+  }
+  document.getElementById('run').addEventListener('click', decide);
+  ['u', 'v'].forEach(function (id) {
+    document.getElementById(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') decide(); });
+  });
+  decide();
+  show(M.find(function (m) { return m.klass === 'OUTBOX_ONLY'; }) ? M.find(function (m) { return m.klass === 'OUTBOX_ONLY'; }).id : M[0].id);
+})();
 `;
 
 const body = `
@@ -164,11 +327,39 @@ const body = `
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Where the corpus cannot look</h2><span class="eyebrow">${nf(POOL.mutations)} mutations, by region of the netlist</span></div>
     <div class="reveal">${blindMap()}${mapLegend()}</div>
+    <div class="reveal picker">
+      <label for="pick">or pick one</label>
+      <select id="pick"></select>
+      <button id="pick-witness" type="button">load its witness below</button>
+    </div>
+    <div class="reveal card2" id="card" hidden></div>
     <div class="note reveal" style="max-width:84ch;">
 <b>read the shapes, not the shade</b> a filled dot is a mutation the corpus catches; a ring is one only
 another family catches; a cross is one a proof says changes nothing. The blind spots are not scattered
 &mdash; they sit in the <span class="mono">box check</span>, the part of the design no <em>valid</em> input
 exercises, which is precisely where a corpus of valid inputs cannot go.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal"><h2 class="t1">Name a pair yourself</h2><span class="eyebrow">the specification, run here &mdash; not the netlist</span></div>
+    <div class="reveal picker">
+      <label for="u">u</label><input id="u" spellcheck="false" value="0,0,0,0,1,1,-1,0,0,0,1">
+      <label for="v">v</label><input id="v" spellcheck="false" value="0,0,0,0,1,0,-1,0,-1,0,1">
+      <button id="run" type="button">decide it</button>
+    </div>
+    <div class="reveal card2" id="spec"></div>
+    <div class="note reveal" style="max-width:84ch;">
+<b>this is the specification, not the grader</b> it computes what the UNMUTATED design decides:
+in-box, then <span class="mono">p = u&middot;v</span>, then <span class="mono">4p&sup2;</span> against
+<span class="mono">s&middot;t</span>. <strong>It does not grade a kill.</strong> A kill is a simulation of the
+actual netlist under the actual mutation, and that runs offline &mdash; which is the whole point of the
+environment, and the reason this box cannot tell you whether your pair breaks anything.
+<b>coordinates are read strictly in &minus;4..3</b> and a 4 is refused rather than masked to &minus;4. Masking
+would silently test a pair you did not name, and &minus;4 is a legitimate out-of-box value that half of every
+recorded kill used.
     </div>
   </div>
 </section>
@@ -303,7 +494,12 @@ function build(OUTDIR) {
     desc: 'A chip-task environment: one mutant of a comparator, or the unmutated design. Name the input pair whose pins differ, or prove there is none. Kills verified by simulating the netlist, equivalence by SAT, and no answer key anywhere.',
     root: '../', here: 'instruments',
     head: `<style>${BENCHCSS}\n${BASE_EXTRA}\n${REPORT}\n${CSS}</style>`,
-    body: `<main>${body}</main>`,
+    body: `<main>${body}</main>\n<script type="application/json" id="bs-mutants">${JSON.stringify(CARD_DATA).replace(/</g, '\\u003c')}</script>`,
+    /* the shell emits `script` RAW, so the tags belong to the caller. Without them
+       the whole behaviour was dropped into the page as nothing at all and the
+       build still reported success — caught by parsing the built page's inline
+       scripts, which found zero. */
+    script: '<scr' + 'ipt>' + SCRIPT + '</scr' + 'ipt>',
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   return { bytes: html.length, mutations: POOL.mutations, killable: POOL.killable, equivalent: POOL.equivalent };

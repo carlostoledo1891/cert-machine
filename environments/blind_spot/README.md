@@ -3,6 +3,26 @@
 Fourteen million certified verdicts could not see this mutant. Name the input
 pair that does, or prove there is none.
 
+```bash
+pip install blind-spot
+```
+
+```python
+import verifiers as vf
+env = vf.load_environment("blind-spot")          # a SingleTurnEnv over the mutation pool
+```
+
+Needs `yosys`, `iverilog` and `vvp` on PATH (`brew install yosys icarus-verilog`);
+`design.tools_missing()` names them if they are absent rather than failing
+somewhere deeper. The four hundred SAT labels ship with the package; the
+simulator is a compiled binary and is built on first use, about forty seconds
+(`python -m blind_spot sim` does it explicitly).
+
+**There is no answer key.** A kill is verified by simulating the actual netlist
+under the actual mutation; EQUIVALENT is checked against a SAT proof on a
+hand-written miter. Nothing is matched against a stored string, so there is
+nothing to leak.
+
 ---
 
 ## The fact this environment is built from
@@ -193,30 +213,47 @@ it tests the grader and not the odds.
 
 ```
 blind_spot/
-├── design.py      paths into experiments/certifier-core, the pin map, the design described in words
-├── families.py    the four testbench families, read from the hex MCY ran
-├── sim.py         one control design for the whole pool; simulate (mutsel, u, v) batches
-├── pool.py        import MCY's mutations, label each by SAT, verify each witness
-├── taskset.py     Task / Taskset, three rungs, grade()
-├── policies.py    ten reference policies
-├── baseline.py    the reference table, one simulator run per task
-├── forgeries.py   the controls, both kinds
-└── __main__.py    pool / gate / baseline / tasks
-tests/             7 tests; the controls are the suite
-eval/              run_models.py, page_data.py, baseline.json, results.json
-pool/              pool.json, pool.il, pool.v, the compiled simulator (built, not committed)
+├── design.py       where the design lives (BLIND_SPOT_MUT, then the package copy, then
+│                   the repository's corpus), the pin map, the design described in words
+├── families.py     the four testbench families, read from the hex MCY ran
+├── sim.py          one control design for the whole pool; simulate (mutsel, u, v) batches
+├── pool.py         import MCY's mutations, label each by SAT, verify each witness; ensure_sim()
+├── taskset.py      Task / Taskset, three rungs, grade()
+├── policies.py     ten reference policies
+├── baseline.py     the reference table, one simulator run per task
+├── forgeries.py    the controls, both kinds
+├── api.py          the framework-free surface every consumer shares: parse_reply,
+│                   task_row, sample, score, preflight
+├── adapters_v0.py  load_environment — the ONLY module that imports verifiers
+└── __main__.py     pool / sim / gate / baseline / tasks
+tests/              13 tests across four files; the controls are the suite
+eval/               run_models.py (direct API), run_verifiers.py (through the framework),
+                    page_data.py, baseline.json, results.json, verifiers-*.json
+pool/               pool.json — the SAT record, committed. Everything else in here is a
+                    build artefact rebuilt from the pinned design in ~40 s.
 ```
+
+`import blind_spot` is standard library only; `verifiers` is imported lazily and
+only by `adapters_v0`, which `tests/test_framework_free.py` proves by blocking
+every third-party import and grading a submission anyway.
 
 Standard library only. The tools are `yosys`, `iverilog` and `vvp`; `design.py`
 names them if they are missing rather than failing somewhere else.
 
 ```bash
-python3 -m blind_spot pool                 # ~10 min: 400 SAT labels + 348 witness checks
-python3 -m blind_spot gate                 # the controls
+python3 -m blind_spot pool                 # ~6 min: 400 SAT labels + 348 witness checks
+python3 -m blind_spot sim                  # ~40 s: only the simulator, from labels on disk
+python3 -m blind_spot gate                 # the 11 controls, 3 of them positive
 python3 -m blind_spot baseline --n 40      # the reference table, ~1 min
-python3 -m pytest tests/ -q
-python3 eval/run_models.py --n 12 --live   # 108 calls; --rungs located --merge re-runs one rung in place
-python3 eval/page_data.py && (cd ../.. && node tools/build-blind-spot.js)
+python3 -m pytest tests/ -q                # 13 tests; the binding SKIPS without verifiers
+python3 ../../environments/blind_spot/battery.py   # the whole thing, gated, ~60 s
+
+# spends money, never called by a battery:
+python3 eval/run_models.py --n 12 --live           # the direct-API run
+python3 eval/run_verifiers.py --n 36 --model claude-opus-5 --effort low
+
+# the page:
+PYTHONPATH=. python3 eval/page_data.py && (cd ../.. && node playground/build.js)
 ```
 
 ## Results
@@ -300,24 +337,97 @@ the family, the record names the wire, and only the wire names the coordinate.
 
 ## The page
 
-`site/blind-spot/index.html`, built by `tools/build-blind-spot.js` from
+`/instruments/blind-spot`, built by `playground/blind-spot/build.js` from
 `eval/page.json`. Every number on it comes from the pool, the controls, the
-reference table and the stored run; none is typed.
+reference table and the stored runs; none is typed.
 
-The blind-spot map is the centrepiece: one mark per mutant, placed by the
-netlist region its cell was elaborated from, drawn by who sees it — filled when
-the certified corpus kills it, a ring when only a constructed family does,
-dashed when the miter proved it equivalent, a cross for the unmutated design.
-**Click a mark** and the card below shows the mutation record in words, the
-netlist statement, the bent wire and what drives it, the class, the four-family
-profile, and the SAT witness with the pin it flips.
+The blind-spot map is the centrepiece: one mark per mutation, placed in the
+region of the netlist its cell was elaborated from, and **the mark carries the
+class by SHAPE** — a filled dot when the certified corpus kills it, a ring when
+only a constructed family does, a cross when the miter proved it changes
+nothing. A reader who cannot separate two greys can still separate a mutation
+the corpus sees from one it does not. The map shows the finding rather than
+asserting it: the blind spots are not scattered, they sit in the `box check`.
 
-**Name a pair** runs the *specification* live — the predicate the unmutated
-design computes — on two vectors you type, and says which families the pair
-belongs to. It does not grade a kill: that is a simulation of the netlist and
-it runs offline. Load the selected mutant's witness and the page says what the
-solver found and what the simulator confirmed. Coordinates outside −4..3 are
-marked and refused, never masked, the same rule the grader applies.
+**Click a mark** (or pick from the list, which is what a keyboard reaches) and
+the card below gives that mutation in words, the netlist statement, the bent
+wire and its drivers, the class, the four-family profile, and the SAT witness
+with the pins it flips.
+
+**Name a pair** runs the *specification* — the predicate the unmutated design
+computes — on two vectors you type, and shows the arithmetic that decided it:
+in-box, then `p = u·v`, then `4p²` against `s·t`. **It does not grade a kill.**
+A kill is a simulation of the netlist under the mutation and runs offline, which
+is the whole point of the environment and the reason the box cannot tell you
+whether your pair breaks anything. Coordinates are read strictly in −4..3 and a
+4 is refused rather than masked, the same rule the grader applies.
+
+Load a selected mutant's witness into that box and the demonstration lands on
+its own: for an `OUTBOX_ONLY` mutation the specification answers **REFUSED**,
+because the witness uses a −4. The pair that kills the mutant is a pair the
+design declines to decide — which is exactly where a corpus of valid inputs
+cannot go.
+
+---
+
+## The framework binding is verified, not written from a doc
+
+`blind_spot/adapters_v0.py` exposes `load_environment` (a `SingleTurnEnv` with a
+`Rubric`). **It was written against a live `verifiers` install and then run
+against live models — not written from documentation.** Writing one from the doc
+had already produced three defects in the sibling environment, two of them
+silent: `load_environment` never exported from `__init__` (the Hub's own command
+would have raised on arrival); a plain-string `task` column aborting every
+rollout; and scoring handed pydantic message objects, so a `.get("content")`
+missed and **a whole eval printed 0.000 with no error raised**. Each is designed
+out here and each has a test. `tests/test_verifiers_binding.py` SKIPS when
+`verifiers` is absent rather than passing without it.
+
+A fourth defect turned up only when the wheel was installed: `sim.simulate`
+passed the case file by absolute path, and the testbench holds that plusarg in
+`reg [1023:0] f` — 128 characters. A source tree seventy characters deep always
+worked; a site-packages path two hundred deep truncated it, `$readmemh` read
+nothing, the memory stayed X and every verdict came back `xxx` with nothing
+raised. `tests/test_long_path.py` holds the fix and was checked to fail against
+the old call.
+
+## Run against live models
+
+`eval/run_verifiers.py` runs the real path — dataset, prompt, live model,
+completion, rubric — and then re-scores the framework's own completions offline.
+**108 rollouts across three models, 0 disagreements**: the framework's reward is
+this package's reward on every one, so the framework layer owns no scoring of
+its own. `battery.py` re-scores all 108 from their stored replies on every build.
+
+| model | `located` | `profile` | `blind` |
+|---|---|---|---|
+| Claude Opus 5 | **+0.833** | +0.500 | −0.083 |
+| Claude Sonnet 5 | +0.417 | +0.250 | −0.083 |
+| Claude Haiku 4.5 | +0.417 | −0.167 | −0.167 |
+
+36 rollouts each, eval seed 4243, effort `low` (Haiku 4.5 rejects the `effort`
+parameter outright, so it runs without it). The ladder is the same shape the
+direct-API run showed through an entirely different code path: `located` is
+solvable and separates the models, `blind` is **negative for all three** —
+every one of them claims a kill it cannot back — and `profile` splits them.
+
+Four things that run found and no amount of reading would have:
+
+- **Opus 5 declines the `profile` rung** — `stop_reason: refusal`, category
+  `cyber`, zero content blocks, zero output tokens. The direct-API run found the
+  same thing. The prompt was not reworded to get past the classifier, and a rung
+  that only scores the models willing to answer it is not measuring what it
+  claims to.
+- **verifiers 0.3.1 does not surface a refusal.** Its Anthropic client reports
+  `EmptyModelResponseError("Model returned no content and did not call any
+  tools")`, which reads as an infrastructure fault rather than a policy decline —
+  so a retry setting will pay to retry something that can never succeed. The
+  environment still scores it 0 with `well_formed` 0, which is right: a decline
+  is not a wrong answer.
+- Its `ANTHROPIC_ADAPTIVE_THINKING_MODELS` list predates Claude Opus 5, so
+  thinking depth has to be set through `output_config.effort` in `sampling_args`.
+- The client uses `messages.create` rather than streaming, so `max_tokens` above
+  roughly 16000 fails with "Streaming is required" before any call is made.
 
 ## What this does not claim
 

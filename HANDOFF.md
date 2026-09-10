@@ -23,16 +23,13 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-10 (the thirteenth session). In the order I would take it:
 
-  0. BLIND-SPOT: THE CODE IS READY, THE README IS NOT. The port, the adapter, the
-     wheel and the page are done and gated (83/83), and the environment has now
+  0. BLIND-SPOT IS READY TO PUBLISH. The port, the adapter, the wheel, the page
+     with its interactive layer, and the README are all done and gated (83/83);
+     the wheel installs clean into a fresh 3.12 venv, and the environment has
      been run against three live models through verifiers — 108 rollouts, 0
      disagreements between the framework's reward and this package's own scoring.
-     BEFORE IT CAN BE PUBLISHED: rewrite the README's four stale sections (no
-     install line, frontier's Layout, a dead reproduce command, and a "The page"
-     section promising interactivity this page does not have), and decide whether
-     the page gets its click-through and name-a-pair layers. Then push the repo —
-     pyproject's `Source` 404s until that lands — and then `prime env push`,
-     which is a SEND and the operator's. The `prime` CLI is not installed here.
+     THE ONLY THING LEFT IS `prime env push`, which is a SEND and therefore the
+     operator's; the `prime` CLI is not installed here.
   1. NOTHING IS PUSHED. The audit, the instrument, the mechanism and now the
      second environment are FOURTEEN local commits (e78d65e … HEAD). A push to
      main IS the deploy. Everything below is downstream of it.
@@ -222,13 +219,36 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
         its own seed gave the battery 75 false disagreements out of 108. Every
         row carries its seed now, and the battery re-scores all 108 every build.
 
+  ── 9 · THE TWO MISSING PIECES, FINISHED ── the operator: "Finish what is
+    missing."
+      · THE PAGE HAS ITS INTERACTIVE LAYER. Click any of the 400 marks (or use
+        the picker, which is what a keyboard reaches) and a card gives that
+        mutation in words, the netlist statement, the bent wire and its drivers,
+        the class, the four-family profile, and the SAT witness with the pins it
+        flips. A "name a pair" box runs the SPECIFICATION in the tab — in-box,
+        then p = u·v, then 4p² against s·t — and says plainly that it does NOT
+        grade a kill, because a kill is a simulation of the netlist and runs
+        offline. Coordinates are read strictly in −4..3; a 4 is REFUSED, never
+        masked. THE DEMONSTRATION LANDS ON ITS OWN: load an OUTBOX_ONLY mutant's
+        witness and the specification answers REFUSED, because the witness uses
+        a −4 — the pair that kills the mutant is a pair the design declines to
+        decide, which is exactly where a corpus of valid inputs cannot go.
+        397 KB, driven with real clicks at 1440 and 390, no overflow.
+      · THE README'S FOUR STALE SECTIONS ARE REWRITTEN, and it is the Hub's front
+        page so they mattered: an install section that did not exist (pip line,
+        load_environment, the tool requirement, "there is no answer key"); a
+        Layout that still described frontier's tree; a reproduce block invoking a
+        builder that does not exist here; and a "The page" section promising the
+        interactivity the page did not have. Two sections added: the verified
+        binding with its four defects, and the live run with its table.
+      · ONE MORE BUG CAUGHT BY LOOKING: the shell emits `script` RAW, so the
+        `<script>` tags belong to the caller. Without them the whole behaviour
+        was dropped into the page as nothing and the build still reported
+        success — found by parsing every inline script in the built page, which
+        found ZERO. frontier's own note warned about exactly this habit.
+
   ── NOT DONE ── `prime env push` has not been run and is a send, so it is the
-    operator's. THE README IS STALE and would be the environment's front page on
-    the Hub: no install section, a Layout that still describes frontier's tree, a
-    reproduce block pointing at a builder that does not exist here, and a "The
-    page" section promising click-through and name-a-pair interactivity THE PAGE
-    BUILT HERE DOES NOT HAVE. And `Source` in pyproject points at a GitHub repo
-    that does not contain blind_spot until this branch is pushed.
+    operator's. That is the only thing left.
 
 ══════════════════════════════════════════════════════════════════════════
   TWELFTH SESSION, 2026-09-09 — THE ONE THING THE DRAWING ASSERTED, NOW DECIDED:
