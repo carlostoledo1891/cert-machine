@@ -23,13 +23,12 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-10 (the thirteenth session). In the order I would take it:
 
-  0. BLIND-SPOT IS READY TO PUBLISH. The port, the adapter, the wheel, the page
-     with its interactive layer, and the README are all done and gated (83/83);
-     the wheel installs clean into a fresh 3.12 venv, and the environment has
-     been run against three live models through verifiers — 108 rollouts, 0
-     disagreements between the framework's reward and this package's own scoring.
-     THE ONLY THING LEFT IS `prime env push`, which is a SEND and therefore the
-     operator's; the `prime` CLI is not installed here.
+  0. THE SECOND ENVIRONMENT IS LIVE. carlos-toledo/blind-spot v0.1.0, PUBLIC,
+     published 2026-09-10 and verified from the registry in a clean venv. There
+     are TWO on the hub now (break-the-grader since 2026-09-04). Nothing is
+     outstanding on this front; the natural next moves are a v0.1.1 if anything
+     turns up in use, and lattice-claims as a third — it is already ported into
+     instruments/wiring and needs only the same publishing layer.
   1. NOTHING IS PUSHED. The audit, the instrument, the mechanism and now the
      second environment are FOURTEEN local commits (e78d65e … HEAD). A push to
      main IS the deploy. Everything below is downstream of it.
@@ -73,9 +72,10 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
 
 ══════════════════════════════════════════════════════════════════════════
-  THIRTEENTH SESSION, 2026-09-09/10 — THE SECOND ENVIRONMENT IS IN THE MACHINE:
-  BLIND-SPOT PORTED, AND EVERY NUMBER THE PORT PREDICTED CAME OUT ON A DIFFERENT MACHINE.
-  Pushed through 097bb48 · NOT PUSHED at the close (local) · 83/83 batteries · 60 reports · 17 instruments.
+  THIRTEENTH SESSION, 2026-09-09/10 — THE SECOND ENVIRONMENT IS PUBLISHED:
+  BLIND-SPOT PORTED, ITS BINDING WRITTEN AGAINST A LIVE INSTALL, RUN AGAINST LIVE
+  MODELS, AND PUSHED TO THE HUB AS carlos-toledo/blind-spot v0.1.0.
+  PUSHED to main (fe7464d and after) · 83/83 batteries · 61 pages · 18 instruments.
 ══════════════════════════════════════════════════════════════════════════
 
   ── WHY ── the operator asked whether a second environment was ready to
@@ -247,8 +247,29 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
         success — found by parsing every inline script in the built page, which
         found ZERO. frontier's own note warned about exactly this habit.
 
-  ── NOT DONE ── `prime env push` has not been run and is a send, so it is the
-    operator's. That is the only thing left.
+  ── 10 · PUBLISHED ── the operator: "prime integration is done in past chats.
+    Review and publish." The CLI was at ~/.local/bin/prime (not on my PATH),
+    prime 0.6.31, already authenticated. Reviewed first: pins unchanged, tests
+    green, the wheel builds, the metadata complete, and the name free hub-wide.
+    THE REVIEW CAUGHT ONE THING — the README said "13 tests" and there are 17
+    (11 run without verifiers; the six binding tests SKIP). Corrected before the
+    push, because it was about to become the Hub's front page.
+      **carlos-toledo/blind-spot v0.1.0, PUBLIC, 2026-09-10.**
+      environment_id irx8jesb80wr5mq0sqan7y0e · wheel sha256 dde50dde06a3b5f3…
+      `prime env install carlos-toledo/blind-spot`
+    THEN VERIFIED FROM THE REGISTRY, which is the step that caught the sibling's
+    three defects: pip install from the hub index into a clean 3.12 venv, loaded
+    from /tmp with no source tree present — load_environment IS exported (the
+    defect that would have made the Hub's own command raise on arrival),
+    SingleTurnEnv with 6 train / 6 eval across all three rungs, no answer column,
+    no task column, disjoint seeds, a truthful reply +1.0 through the actual
+    netlist and an unreadable one 0.0 with well_formed 0.0.
+    ONE MORE BUG, in my own tooling: provenance.py named the sections it carried
+    forward one at a time, so regenerating the pins silently DELETED `liveRun`
+    and `publishing` the first time either was written. It now carries forward
+    every section it does not generate.
+
+  ── NOT DONE ── nothing on this front. THE SECOND ENVIRONMENT IS LIVE.
 
 ══════════════════════════════════════════════════════════════════════════
   TWELFTH SESSION, 2026-09-09 — THE ONE THING THE DRAWING ASSERTED, NOW DECIDED:

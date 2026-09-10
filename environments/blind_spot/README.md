@@ -226,7 +226,10 @@ blind_spot/
 │                   task_row, sample, score, preflight
 ├── adapters_v0.py  load_environment — the ONLY module that imports verifiers
 └── __main__.py     pool / sim / gate / baseline / tasks
-tests/              13 tests across four files; the controls are the suite
+tests/              17 tests across four files; the controls are the suite. Eleven run
+                    without verifiers installed; the six binding tests SKIP rather than
+                    pass, because a binding test that passes without the framework is
+                    the same lie as a control that cannot fire.
 eval/               run_models.py (direct API), run_verifiers.py (through the framework),
                     page_data.py, baseline.json, results.json, verifiers-*.json
 pool/               pool.json — the SAT record, committed. Everything else in here is a
@@ -245,7 +248,7 @@ python3 -m blind_spot pool                 # ~6 min: 400 SAT labels + 348 witnes
 python3 -m blind_spot sim                  # ~40 s: only the simulator, from labels on disk
 python3 -m blind_spot gate                 # the 11 controls, 3 of them positive
 python3 -m blind_spot baseline --n 40      # the reference table, ~1 min
-python3 -m pytest tests/ -q                # 13 tests; the binding SKIPS without verifiers
+python3 -m pytest tests/ -q                # 17 with verifiers; 11 + 6 skipped without it
 python3 ../../environments/blind_spot/battery.py   # the whole thing, gated, ~60 s
 
 # spends money, never called by a battery:

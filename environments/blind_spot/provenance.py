@@ -163,10 +163,12 @@ def main():
         raise SystemExit("undeclared patch(es): " + ", ".join(undeclared))
     out = os.path.join(HERE, "PROVENANCE.json")
     prev = json.load(open(out)) if os.path.exists(out) else {}
-    if prev.get("regenerated"):
-        rec["regenerated"] = prev["regenerated"]
-    if prev.get("acceptance"):
-        rec["acceptance"] = prev["acceptance"]
+    # CARRY FORWARD EVERY SECTION THIS FILE DOES NOT GENERATE. Naming them one at a
+    # time silently dropped `liveRun` and `publishing` the first time either was
+    # written — a regenerator that forgets a hand-written section deletes it.
+    for k, v in prev.items():
+        if k not in rec and k != "files":
+            rec[k] = v
     json.dump(rec, open(out, "w"), indent=1, ensure_ascii=False)
     print(f"PROVENANCE.json: {len(rs)} files, {sum(1 for r in rs if r['patched'])} declared patch(es)")
     return 0

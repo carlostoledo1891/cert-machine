@@ -197,9 +197,9 @@
   },
   {
    "file": "environments/blind_spot/README.md",
-   "sha256": "374e1bbcd6c87ce97075a4af686e0a870689c798080eb581d7b564d396f6549b",
+   "sha256": "2cb6adab729faac11bac31ffda6a5be750e181e9d8ae6c206e693bdc1a598f0d",
    "sourceSha256": "c89fe18bee03f460631d646f0404acc2a36fdeff35191ed5c968e28fc859929e",
-   "bytes": 23704,
+   "bytes": 23953,
    "patched": true,
    "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all (no pip line, no load_environment, nothing about the binding being verified); Layout described frontier's tree (design.py pointing into experiments/certifier-core, 7 tests, pool/ 'not committed'); the reproduce block invoked tools/build-blind-spot.js, which does not exist in this repository; and 'The page' promised click-through and name-a-pair interactivity that the page built here did not have until it was added. Sections added: the verified binding with its four defects, and the live run through verifiers."
   },
@@ -283,5 +283,97 @@
   "note": "Every number the port instruction predicted came out exactly, on a different machine.",
   "verifiedOn": "2026-09-09",
   "clean-install load_environment": "SingleTurnEnv, 6/6 rows, truthful reply +1.0 through the netlist"
+ },
+ "liveRun": {
+  "what": "The environment run THROUGH verifiers 0.3.1 against three live models — dataset, prompt, real model, completion, rubric — and the framework's reward compared with this package's own scoring of the same completions. 108 rollouts, 0 disagreements. Everything verified before this used completions written by hand.",
+  "ranOn": "2026-09-10",
+  "script": "eval/run_verifiers.py (never called by a battery)",
+  "spendUsd": 1.4906,
+  "budgetUsd": 8.0,
+  "models": {
+   "claude-haiku-4-5": {
+    "rollouts": 36,
+    "disagreements": 0,
+    "outcomes": {
+     "MISSED": 14,
+     "SOLVED": 11,
+     "UNDECIDED": 2,
+     "WRONG": 9
+    },
+    "by_rung": {
+     "located": 0.5,
+     "profile": -0.25,
+     "blind": -0.083
+    },
+    "cost_usd": 0.2535,
+    "effort": "none",
+    "eval_seed": 4243
+   },
+   "claude-opus-5": {
+    "rollouts": 36,
+    "disagreements": 0,
+    "outcomes": {
+     "MISSED": 5,
+     "REFUSED_PARSE": 16,
+     "SOLVED": 12,
+     "WRONG": 3
+    },
+    "by_rung": {
+     "located": 0.833,
+     "profile": 0.083,
+     "blind": -0.167
+    },
+    "cost_usd": 0.6978,
+    "effort": "low",
+    "eval_seed": 4243
+   },
+   "claude-sonnet-5": {
+    "rollouts": 36,
+    "disagreements": 0,
+    "outcomes": {
+     "MISSED": 12,
+     "REFUSED_PARSE": 1,
+     "SOLVED": 15,
+     "UNDECIDED": 3,
+     "WRONG": 5
+    },
+    "by_rung": {
+     "located": 0.667,
+     "profile": 0.25,
+     "blind": -0.083
+    },
+    "cost_usd": 0.5393,
+    "effort": "low",
+    "eval_seed": 4243
+   }
+  },
+  "findings": [
+   "THE LADDER REPRODUCES through a different code path: `located` is solvable and separates the models; `blind` is NEGATIVE for all three (every one claims a kill it cannot back); `profile` splits them.",
+   "OPUS 5 DECLINES THE `profile` RUNG — stop_reason `refusal`, category `cyber`, zero content blocks, zero output tokens. The recorded direct-API run found exactly this. The prompt was NOT reworded.",
+   "VERIFIERS 0.3.1 DOES NOT SURFACE A REFUSAL: it reports EmptyModelResponseError, which reads as an infrastructure fault, so a retry setting pays to retry the impossible. The environment still scores it 0 with well_formed 0 — a decline is not a wrong answer.",
+   "Its ANTHROPIC_ADAPTIVE_THINKING_MODELS predates Opus 5, so depth must be set with output_config.effort; HAIKU 4.5 REJECTS `effort` outright (400); and the client is non-streaming, so max_tokens above ~16000 fails with 'Streaming is required' before any call is made."
+  ],
+  "threeBugsThisRunFound": [
+   "`Environment.evaluate` is a COROUTINE: unawaited it made no request and the script reported '0 rollouts, 0 disagreements, $0.0000' — a clean pass over nothing.",
+   "`metadata.usage` is a PER-ROLLOUT MEAN, not a total; reading it as the total under-reported a spend 36x.",
+   "`evaluate` runs the EVAL dataset, whose taskset seed is `seed + 1`; rows that did not carry their own seed gave the battery 75 false disagreements out of 108."
+  ]
+ },
+ "publishing": {
+  "state": "PUBLISHED 2026-09-10 to the Prime Intellect Environments Hub as carlos-toledo/blind-spot v0.1.0, PUBLIC, on the operator's explicit word.",
+  "adapter": "blind_spot/adapters_v0.py — load_environment, written against a LIVE verifiers 0.3.1 and then run against live models, never from documentation. The three defects a doc-written binding produced in break-the-grader are each designed out and each has a test.",
+  "foundByInstalling": "A FOURTH defect, new and not on frontier's list: sim.simulate passed the case file by ABSOLUTE path and the testbench holds that plusarg in `reg [1023:0] f` — 128 characters. The source lab sits ~70 characters deep so it always worked; a site-packages path 200 deep truncated it, $readmemh read nothing, the memory stayed X and every verdict came back 'xxx' with no error raised. Fixed by running vvp from the pool directory with basenames; tests/test_long_path.py was checked to FAIL against the old call.",
+  "hub": {
+   "slug": "carlos-toledo/blind-spot",
+   "version": "0.1.0",
+   "environment_id": "irx8jesb80wr5mq0sqan7y0e",
+   "wheel_sha256": "dde50dde06a3b5f350c3a72f5c059976911c7accfbb1bbbf31c72595131e441a",
+   "pushed_at": "2026-09-10T10:26:41.601769",
+   "cli": "prime 0.6.31",
+   "install": "prime env install carlos-toledo/blind-spot",
+   "url": "https://app.primeintellect.ai/dashboard/environments/carlos-toledo/blind-spot",
+   "verifiedFromTheHub": "pip install from the hub index into a clean 3.12 venv, then loaded from /tmp with no source tree present: load_environment IS exported (the defect that would have made the Hub's own command raise on arrival), SingleTurnEnv with 6 train / 6 eval across all three rungs, no answer column, no task column, disjoint seeds, a truthful reply scoring +1.0 through the actual netlist and an unreadable one 0.0 with well_formed 0.0."
+  },
+  "remaining": "Nothing. It is live and verified from the registry."
  }
 }
