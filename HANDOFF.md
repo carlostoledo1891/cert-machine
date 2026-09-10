@@ -23,11 +23,16 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-10 (the thirteenth session). In the order I would take it:
 
-  0. BLIND-SPOT IS READY TO PUBLISH AND HAS NOT BEEN. The port, the adapter, the
-     wheel and the page are all done and gated (83/83); the wheel was installed
-     into a clean 3.12 venv and `load_environment` scored a truthful reply +1.0
-     through the actual netlist. What remains is `prime env push`, which is a
-     SEND and therefore the operator's. The `prime` CLI is not installed here.
+  0. BLIND-SPOT: THE CODE IS READY, THE README IS NOT. The port, the adapter, the
+     wheel and the page are done and gated (83/83), and the environment has now
+     been run against three live models through verifiers — 108 rollouts, 0
+     disagreements between the framework's reward and this package's own scoring.
+     BEFORE IT CAN BE PUBLISHED: rewrite the README's four stale sections (no
+     install line, frontier's Layout, a dead reproduce command, and a "The page"
+     section promising interactivity this page does not have), and decide whether
+     the page gets its click-through and name-a-pair layers. Then push the repo —
+     pyproject's `Source` 404s until that lands — and then `prime env push`,
+     which is a SEND and the operator's. The `prime` CLI is not installed here.
   1. NOTHING IS PUSHED. The audit, the instrument, the mechanism and now the
      second environment are FOURTEEN local commits (e78d65e … HEAD). A push to
      main IS the deploy. Everything below is downstream of it.
@@ -184,8 +189,46 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     `${x + 3.6}` concatenated — "26.73.6" — and drew a malformed diamond as a
     stray vertical bar.
 
+  ── 8 · AND THEN IT WAS RUN AGAINST LIVE MODELS ── the operator: "is the
+    environment tested with api?" It was NOT — every check to that point fed the
+    rubric completions I had written myself, which tests my model of the
+    framework, not the framework. With $8 authorised, `eval/run_verifiers.py`
+    ran the real path (dataset → prompt → live model → completion → rubric) for
+    three models, 36 rollouts each, and re-scored the framework's own completions
+    offline. **108 rollouts, 0 disagreements**, $1.49 of the $8.
+      · THE LADDER REPRODUCES through a different code path: `located` is
+        solvable and separates the models, `blind` is NEGATIVE for all three
+        (every one claims a kill it cannot back), `profile` splits them.
+      · OPUS 5 DECLINES THE `profile` RUNG — stop_reason `refusal`, category
+        `cyber`, zero content blocks, zero output tokens. Exactly what the
+        recorded direct-API run found. The prompt was not reworded.
+      · VERIFIERS 0.3.1 DOES NOT SURFACE A REFUSAL: its Anthropic client reports
+        `EmptyModelResponseError('Model returned no content')`, which reads as an
+        infrastructure fault rather than a policy decline — and `--retries` then
+        pays to retry something that can never succeed. The environment still
+        scores it 0 with well_formed 0, which is right: a decline is not a wrong
+        answer.
+      · Three more framework facts: its ANTHROPIC_ADAPTIVE_THINKING_MODELS list
+        predates Opus 5, so depth must be set with output_config.effort; Haiku
+        4.5 REJECTS `effort` outright (400); and the client uses messages.create,
+        so max_tokens above ~16000 fails with "Streaming is required" before any
+        call is made.
+      · THREE BUGS OF MY OWN, each caught by running rather than reasoning:
+        `evaluate` is a COROUTINE and calling it unawaited made no request while
+        reporting "0 rollouts · 0 disagreements · $0.0000" — a clean pass over
+        nothing; `metadata.usage` is a PER-ROLLOUT MEAN, and reading it as the
+        total under-reported a spend by 36×; and `evaluate` runs the EVAL
+        dataset, whose taskset seed is `seed + 1`, so a record that did not carry
+        its own seed gave the battery 75 false disagreements out of 108. Every
+        row carries its seed now, and the battery re-scores all 108 every build.
+
   ── NOT DONE ── `prime env push` has not been run and is a send, so it is the
-    operator's. Nothing else blocks it.
+    operator's. THE README IS STALE and would be the environment's front page on
+    the Hub: no install section, a Layout that still describes frontier's tree, a
+    reproduce block pointing at a builder that does not exist here, and a "The
+    page" section promising click-through and name-a-pair interactivity THE PAGE
+    BUILT HERE DOES NOT HAVE. And `Source` in pyproject points at a GitHub repo
+    that does not contain blind_spot until this branch is pushed.
 
 ══════════════════════════════════════════════════════════════════════════
   TWELFTH SESSION, 2026-09-09 — THE ONE THING THE DRAWING ASSERTED, NOW DECIDED:

@@ -30,6 +30,7 @@ nothing (so the old query was vacuous) and that `-mode none` finds exactly one
 
 Exit 0 iff every check passes and every red control fires.
 """
+import glob
 import hashlib
 import json
 import os
@@ -179,6 +180,30 @@ report(not movedrows and len(graded) == 92 and len(declined) == 16,
        f"all {len(graded)} recorded rollouts re-parsed and re-graded with the package's own "
        f"parser and grader; 0 rows moved ({len(declined)} declined on a content policy, counted apart)",
        f"moved: {movedrows[:3]}" if movedrows else "")
+
+# ------------------------- 6c · the framework's own rewards, re-scored offline
+# `eval/run_verifiers.py` ran the environment THROUGH verifiers against three live
+# models. Its rows carry both the reward the FRAMEWORK computed and the reply that
+# produced it. Re-scoring those replies here every build is what keeps the claim
+# "the framework layer owns no scoring of its own" true rather than remembered.
+vfiles = sorted(glob.glob(os.path.join(HERE, "eval", "verifiers-*.json")))
+vrows = vmoved = 0
+for f in vfiles:
+    rec = json.load(open(f))
+    for x in rec["rows"]:
+        if x.get("index") is None or x.get("seed") is None:
+            continue
+        vrows += 1
+        # the seed the ROW carries, never the run's --seed: evaluate runs the eval
+        # dataset, whose taskset seed differs, and using the run's gave 75 of 108
+        # false disagreements
+        got = api.score(int(x["seed"]), int(x["index"]), x["raw"])
+        if abs(float(got["reward"]) - float(x["framework_reward"])) > 1e-9:
+            vmoved += 1
+report(vfiles and not vmoved,
+       f"the {vrows} live rollouts run through verifiers re-score to exactly the reward the "
+       f"framework gave them, across {len(vfiles)} models",
+       f"{vmoved} disagreed" if vmoved else "0 disagreements")
 
 # ------------------------------------------------------------ 7 · the red controls
 # (a) THE VACUITY THAT BIT FRONTIER FOR A SESSION, planted permanently.

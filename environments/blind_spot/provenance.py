@@ -30,7 +30,10 @@ PKG = ["design.py", "families.py", "sim.py", "pool.py", "taskset.py",
        "policies.py", "baseline.py", "forgeries.py", "__main__.py", "__init__.py",
        "api.py", "adapters_v0.py"]
 EVAL = ["run_models.py", "page_data.py", "baseline.json", "results.json",
-        "results-run1.json", "page.json"]
+        "results-run1.json", "page.json",
+        # written here, not lifted: the live run through verifiers and its records
+        "run_verifiers.py", "verifiers-claude-opus-5.json",
+        "verifiers-claude-sonnet-5.json", "verifiers-claude-haiku-4-5.json"]
 MUT = ["corpus.hex", "mint.hex", "outbox.hex", "aligned.hex", "core_euclid_strict.v",
        "database/design.il", "database/db.sqlite3", "database/mutations.txt"]
 
