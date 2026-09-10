@@ -51,6 +51,28 @@ line = (r.stdout.strip().splitlines() or [''])[-1] if r.returncode == 0 else ''
 summary = next((l for l in r.stdout.splitlines() if 'rows re-graded' in l), '')
 check('re-grading the stored replies moves 0 rows', r.returncode == 0 and summary.endswith('0 rows moved'), summary or r.stderr.strip()[-200:])
 
+
+# 5. the framework's own rewards, re-scored offline
+# eval/run_verifiers.py ran the environment THROUGH verifiers against live models.
+# Its rows carry both the reward the FRAMEWORK computed and the reply that produced
+# it. Re-scoring those replies here every build is what keeps "the framework layer
+# owns no scoring of its own" true rather than remembered.
+import glob, json as _json
+from lattice_claims import api as _api
+_vf = sorted(glob.glob(os.path.join(HERE, 'eval', 'verifiers-*.json')))
+_rows = _moved = 0
+for _f in _vf:
+    _rec = _json.load(open(_f))
+    for _x in _rec['rows']:
+        if _x.get('index') is None or _x.get('seed') is None:
+            continue
+        _rows += 1
+        _g = _api.score(int(_x['seed']), int(_x['index']), _x['raw'])
+        if abs(float(_g['certified']) - float(_x['framework_reward'])) > 1e-9:
+            _moved += 1
+check('the live rollouts run through verifiers re-score to the reward the framework gave',
+      bool(_vf) and not _moved,
+      f'{_rows} rollouts across {len(_vf)} models, {_moved} disagreements')
 # red control: a forged pin must be seen
 forged = dict(prov['files'][0]); forged['sha256'] = '0' * 64
 check('RED: a forged pin is caught', hashlib.sha256(open(forged['file'], 'rb').read()).hexdigest() != forged['sha256'])

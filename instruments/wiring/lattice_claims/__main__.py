@@ -45,5 +45,12 @@ def main(argv):
     return 2
 
 
+def cli():
+    """Console-script entry point (`lattice-claims ...`), added on the port so the
+    installed form and `python -m lattice_claims` share one body: `main` takes
+    argv, a console script is called with none."""
+    sys.exit(main(sys.argv[1:]))
+
+
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

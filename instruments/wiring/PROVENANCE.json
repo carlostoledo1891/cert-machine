@@ -15,17 +15,19 @@
   "files": [
     {
       "file": "lattice_claims/__init__.py",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256": "099a4d7af02879388779560734738f5842adc004d3c52ab7b088477e6cbba19a",
       "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0,
-      "patched": false
+      "patched": true,
+      "patch": "was empty (0 bytes). Now the package docstring, the stdlib re-exports, the version read from installed metadata rather than written twice, and the LAZY resolver for `load_environment` — the Hub's entry point, which the first environment of this family once shipped without exporting."
     },
     {
       "file": "lattice_claims/__main__.py",
-      "sha256": "df0a52d71303ee7dc7b95a2a0e92891e789f3b9e8e108136efc30417c5f34a67",
+      "sha256": "4473f87e5d4312076591ce06c0070a07d55fa59ca54029a12ce528cdda1ccbb2",
       "sourceSha256": "df0a52d71303ee7dc7b95a2a0e92891e789f3b9e8e108136efc30417c5f34a67",
       "bytes": 1968,
-      "patched": false
+      "patched": true,
+      "patch": "a three-line `cli()` added so the console script declared in pyproject and the `python -m lattice_claims` form share one body."
     },
     {
       "file": "lattice_claims/forgeries.py",
@@ -99,10 +101,11 @@
     },
     {
       "file": "eval/regrade.py",
-      "sha256": "a9975f937f68eaec2d89a6d2081d80863840a51d04e0eb00bcf82a0e744e3aa1",
+      "sha256": "d287ad1d4d42caf0d732becaa0ec93b90249de3b4741cded8971c42e81ec2922",
       "sourceSha256": "a9975f937f68eaec2d89a6d2081d80863840a51d04e0eb00bcf82a0e744e3aa1",
       "bytes": 2060,
-      "patched": false
+      "patched": true,
+      "patch": "imports the parser from the package rather than from run_models, so the regrade exercises the one definition directly instead of transitively."
     },
     {
       "file": "eval/page_data.py",
@@ -113,10 +116,11 @@
     },
     {
       "file": "eval/run_models.py",
-      "sha256": "dc96edf12344715bad91f1c4fc70534b2f2f1d7f029739fd6fd1851fb0956d13",
+      "sha256": "57f507308a7eda216f443f85c3065ef3cb52a5916568e8d3f539bb531ec2e33d",
       "sourceSha256": "dc96edf12344715bad91f1c4fc70534b2f2f1d7f029739fd6fd1851fb0956d13",
       "bytes": 8950,
-      "patched": false
+      "patched": true,
+      "patch": "its private `parse()` replaced by `from lattice_claims.api import parse_reply as parse`. The function moved into the package unchanged so the framework adapter and this runner cannot read a reply by two rules; the battery re-grades all 135 stored raws with the package's copy every build and no row may move."
     },
     {
       "file": "eval/rewire_data.py",
@@ -176,10 +180,90 @@
     },
     {
       "file": "pyproject.toml",
-      "sha256": "b194074f7b003a5ba2c009c655be3403aff81534b86e0db7eb8672d6cf84bcef",
+      "sha256": "ed3764d42dcd8ca1cbad628f14498d53b330fd1a718933cd6751fb1172fb167c",
       "sourceSha256": "b194074f7b003a5ba2c009c655be3403aff81534b86e0db7eb8672d6cf84bcef",
       "bytes": 436,
-      "patched": false
+      "patched": true,
+      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery."
+    },
+    {
+      "file": "lattice_claims/api.py",
+      "sha256": "2f25643ff95a68901db7da6d9aca2e1a1ca99350e84d5a2d2b5480cdb4e9077f",
+      "sourceSha256": null,
+      "bytes": 4764,
+      "patched": false,
+      "note": "written here: the framework-free surface every consumer shares."
+    },
+    {
+      "file": "lattice_claims/adapters_v0.py",
+      "sha256": "4b631d35bca968ffe2a9a0347fc0f4798ffd315dec35360f4382ff44e5aceda3",
+      "sourceSha256": null,
+      "bytes": 5954,
+      "patched": false,
+      "note": "written here, against a live verifiers 0.3.1: load_environment."
+    },
+    {
+      "file": "tests/test_framework_free.py",
+      "sha256": "3ae8b47ad3d9d420fb8e0aa1831aa6f791a0fdf860c491b953f7e4567aa89dc2",
+      "sourceSha256": null,
+      "bytes": 2637,
+      "patched": false,
+      "note": "written here: the package must import and grade with no framework."
+    },
+    {
+      "file": "tests/test_verifiers_binding.py",
+      "sha256": "8da67eb084f1409b0fa2a6302b1bbabcdde87843287c99805130938d902357e9",
+      "sourceSha256": null,
+      "bytes": 4882,
+      "patched": false,
+      "note": "written here: the binding, exercised live or SKIPPED."
+    },
+    {
+      "file": "eval/run_verifiers.py",
+      "sha256": "a9dbb3b11620122671fad5cabaa171b340d0f1e42e34e00881c6612ad1861917",
+      "sourceSha256": null,
+      "bytes": 13069,
+      "patched": false,
+      "note": "written here: the live run through the framework."
+    },
+    {
+      "file": "eval/verifiers-claude-sonnet-5.json",
+      "sha256": "7d1c86165a3e5cf984f198520d46b36e7febaecb1d4c1921b5eba09977e87f57",
+      "sourceSha256": null,
+      "bytes": 42369,
+      "patched": false,
+      "note": "written here: a live run record."
+    },
+    {
+      "file": "eval/verifiers-claude-haiku-4-5.json",
+      "sha256": "3bd4488a49e9da5afc72bc3fddba77a540cf284917cc15ff23c2ee3e4661c0f5",
+      "sourceSha256": null,
+      "bytes": 98585,
+      "patched": false,
+      "note": "written here: a live run record."
     }
-  ]
+  ],
+  "publishingLayer": {
+    "what": "The publishing layer added 2026-09-10, following the pattern blind-spot proved out: api.py (framework-free surface), adapters_v0.py (load_environment), lazy exports, the publishable pyproject, and the two binding tests.",
+    "adapter": "Written against a LIVE verifiers 0.3.1 and then run against live models. The three defects a doc-written binding produced in break-the-grader are each designed out and each has a test; all nine binding + framework-free tests passed on the first run, because the four framework facts were already known from the sibling port.",
+    "cleanInstall": "pip install of the built wheel into a fresh 3.12 venv, loaded from /tmp with no source tree: SingleTurnEnv, 6 train / 6 eval across all three rungs, no answer column, no task column, disjoint seeds. And the thesis reaches the framework layer: a right verdict from a reference the task did not state scores reward 1.0 and well_formed 0.0.",
+    "liveRun": {
+      "what": "72 rollouts through verifiers against two live models, 0 disagreements between the framework's reward and this package's own scoring of the same completions.",
+      "spendUsd": 1.8507,
+      "models": {
+        "claude-sonnet-5": {
+          "n": 36,
+          "certified": 16,
+          "wellFormed": 26
+        },
+        "claude-haiku-4-5": {
+          "n": 36,
+          "certified": 10,
+          "wellFormed": 16
+        }
+      },
+      "finding": "HAIKU 4.5 SCORED 4 of 12 CERTIFIED ON THE `declared` RUNG AND 0 OF 12 WELL FORMED — every verdict it got right came from a reference it never properly declared. That is the environment's whole thesis appearing as a measurement: exactness without naming what you were exact about.",
+      "opusNotRun": "claude-opus-5 was not run: the account's credit balance ran out. The 400 arrives before any generation, so nothing was billed for it, and the 24-rollout record it produced was DELETED rather than kept — those were billing failures, not model results."
+    }
+  }
 }

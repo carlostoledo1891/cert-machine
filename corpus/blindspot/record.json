@@ -15,7 +15,7 @@
   "dead": 0
  },
  "verdict": "PASS",
- "seconds": 57.8,
+ "seconds": 71.9,
  "output": [
   "PASS the 36 lifted files re-hash to their pins  9 declared patches, each with its reason",
   "PASS yosys, iverilog and vvp are on PATH",
@@ -30,7 +30,7 @@
   "PASS 8 proved-equivalent mutants attacked with all four families (16,000 pairs each) and none is killed",
   "PASS 11 planted controls, 0 failed",
   "PASS three of them are POSITIVE controls that must SCORE — a suite that fails everything reports perfect coverage, which is the mistake this environment is named for  3 positive",
-  "PASS the environment's own tests, including the framework-free import and the binding (which SKIPS rather than guesses when verifiers is absent)  11 passed, 1 skipped in 6.06s",
+  "PASS the environment's own tests, including the framework-free import and the binding (which SKIPS rather than guesses when verifiers is absent)  11 passed, 1 skipped in 7.52s",
   "PASS all 92 recorded rollouts re-parsed and re-graded with the package's own parser and grader; 0 rows moved (16 declined on a content policy, counted apart)",
   "PASS the 108 live rollouts run through verifiers re-score to exactly the reward the framework gave them, across 3 models  0 disagreements",
   "PASS RED CONTROL: asking MCY for the identity by `mutation_id = 0` returns NOTHING (the query that went quiet for a whole session), while `-mode none` returns exactly one  id 0 -> 0 rows, `-mode none` -> 1 row, which is mutation 1",

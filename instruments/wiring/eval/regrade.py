@@ -8,7 +8,9 @@ import json, sys
 sys.path.insert(0, __file__.rsplit("/", 2)[0])
 sys.path.insert(0, __file__.rsplit("/", 1)[0])
 from lattice_claims.taskset import RUNGS, Taskset, grade
-from run_models import parse
+# the PACKAGE's parser, not the runner's: the parser moved into lattice_claims/api.py
+# on the port so training and this record cannot read a reply by two rules
+from lattice_claims.api import parse_reply as parse
 
 rows = json.load(open("eval/results.json"))
 PER = sum(1 for r in rows if r["model"] == rows[0]["model"] and r["rung"] == "declared")

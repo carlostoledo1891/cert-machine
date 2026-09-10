@@ -1,13 +1,54 @@
 [project]
 name = "lattice-claims"
 version = "0.1.0"
-description = "Decide claims about short lattice vectors exactly, or refuse them for naming the quantity they omit."
-requires-python = ">=3.9"
-dependencies = []
-keywords = ["lattice", "post-quantum", "exact-arithmetic", "verification", "abstention", "certification"]
+description = "Decide claims about short lattice vectors exactly, or refuse them for naming the quantity they omit — built out of a grader bug where bit-exact arithmetic reported 32 of 37 published records as wrong, and was itself wrong."
+readme = "README.md"
+# The FLOOR OF THE WHEEL, not of the code: `verifiers` needs 3.11, and a package
+# cannot declare a floor its dependencies do not allow. The grader itself is
+# stdlib and 3.9-clean — cert-machine's battery imports and runs it on the system
+# interpreter every build without the framework anywhere near it.
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Carlos Toledo" }]
+tags = [
+    "eval",
+    "train",
+    "single-turn",
+    "verifier-soundness",
+    "abstention",
+    "exact-arithmetic",
+    "lattice",
+    "post-quantum",
+    "no-answer-key",
+    "v1",
+]
+keywords = ["rl-environment", "lattice", "post-quantum", "exact-arithmetic", "verification", "abstention", "certification"]
+# The adapter needs the framework. Nothing else does: the generator, the exact
+# certifier and the grader import only the standard library, and
+# tests/test_framework_free.py proves it by blocking every third-party import and
+# grading a submission anyway.
+dependencies = ["verifiers>=0.2.0"]
 
 [project.optional-dependencies]
-test = ["pytest>=7"]
+dev = ["pytest>=7"]
 
-[tool.setuptools.packages.find]
-include = ["lattice_claims*"]
+[project.urls]
+Homepage = "https://carlostoledo.co/instruments/lattice-claims/"
+Source = "https://github.com/carlostoledo1891/cert-machine"
+
+[project.scripts]
+lattice-claims = "lattice_claims.__main__:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["lattice_claims"]
+
+# NOTHING TO FORCE-INCLUDE. Unlike its sibling this environment carries no data:
+# every instance is minted from a seed, the certifier is exact rational
+# arithmetic, and there is no corpus, no netlist and no external tool. The wheel
+# is the package.
+[tool.hatch.build.targets.sdist]
+include = ["lattice_claims", "tests", "README.md"]

@@ -71,17 +71,12 @@ def parse_graph(txt):
     return best
 
 
-def parse(txt):
-    """Last JSON object in the reply. Models wrap answers in prose and fences."""
-    best = None
-    for m in re.finditer(r"\{(?:[^{}]|\{[^{}]*\})*\}", txt, re.S):
-        try:
-            d = json.loads(m.group(0))
-        except Exception:
-            continue
-        if isinstance(d, dict) and "verdict" in d:
-            best = d
-    return best
+# THE PARSER MOVED INTO THE PACKAGE on the port (2026-09-10). It lived here, where
+# the framework adapter could not reach it, so training would have read a model's
+# reply by one rule and this record by another -- and a rule defined twice
+# diverges. instruments/wiring/battery.py re-parses and re-grades all 135 stored
+# raws with the package's copy on every build; no row may move.
+from lattice_claims.api import parse_reply as parse
 
 
 def main():

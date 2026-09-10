@@ -23,7 +23,22 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-10 (the thirteenth session). In the order I would take it:
 
-  0. THE SECOND ENVIRONMENT IS LIVE. carlos-toledo/blind-spot v0.1.0, PUBLIC,
+  0. THE THIRD ENVIRONMENT IS BUILT AND WAITING ON ONE COMMAND. lattice-claims
+     now has the same publishing layer blind-spot proved out: api.py,
+     adapters_v0.py, lazy exports, the publishable pyproject, and the two binding
+     tests — all NINE of which passed on the first run, because the four
+     framework facts were already known. The parser moved into the package (135
+     stored replies re-parsed, 0 rows moved), the wheel installs clean into a
+     fresh 3.12 venv, and 72 live rollouts through verifiers across Sonnet 5 and
+     Haiku 4.5 gave 0 disagreements for $1.85. THE FINDING: Haiku scored 4 of 12
+     certified on the `declared` rung and 0 of 12 WELL FORMED — every verdict it
+     got right came from a reference it never properly declared, which is the
+     environment's whole thesis as a measurement. Opus 5 was not run: THE
+     ACCOUNT'S CREDIT BALANCE RAN OUT (the 400 arrives before any generation, so
+     nothing was billed, and the empty record was deleted rather than kept).
+     `prime env push` from instruments/wiring is a SEND and is the operator's.
+
+  0b. THE SECOND ENVIRONMENT IS LIVE. carlos-toledo/blind-spot v0.1.0, PUBLIC,
      published 2026-09-10 and verified from the registry in a clean venv. There
      are TWO on the hub now (break-the-grader since 2026-09-04). Nothing is
      outstanding on this front; the natural next moves are a v0.1.1 if anything
