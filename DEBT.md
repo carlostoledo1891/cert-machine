@@ -189,6 +189,20 @@ site's numbers live. The honest test is a report that genuinely mixes standings.
 `reports/rm-audit.html` is the candidate: it sets truncated-decimal collisions
 against exact decisions, which is exactly the COMPUTED/DECIDED pair.
 
+### 4c · THE VENDORED FONT SUBSETS ARE GONE, AND NOTHING REPLACES THEM YET (2026-09-15)
+`/instruments` used to ship its own `inter-var.woff2` and `jetbrains-mono-var.woff2`
+beside the pages. Measured with Chrome's `CSS.getPlatformFontsForNode` over the 39
+non-ASCII glyphs the site actually uses (η χ λ ∈ ≤ ≥ √ ₁ …): the vendored Inter drew
+**11**, Times drew **19** and Apple Symbols **9** — so Greek and the math signs
+rendered in Times on every instrument page, while Google's Inter drew **26** of the
+same set on a report page. The subsets went with the one shell and every page now
+makes the same Google Fonts request.
+**What is owed:** vendoring full-coverage subsets (Latin + Greek + the math and
+super/subscript blocks), sha-pinned, so the pages are legible with no network — which
+is how they are reviewed from disk. **Cost:** an afternoon with a subsetter and a
+pinned record. **Risk of leaving it:** a reader with no network sees fallback metrics;
+nothing is lost but the type.
+
 ### 4 · `app-shell.js` is still a second page shell
 Collapsing its palette fixed the colour defect and `design/nav.js` fixed the
 navigation, but not the duplication: the app pages are still built by a
@@ -196,6 +210,10 @@ different shell, with their own layout rules. Phases 2 and 3 unified the reports
 and /instruments and left `apps/` alone.
 **Cost:** moderate. **Risk of leaving it:** the next layout decision has two
 places to land and only one of them is gated.
+**PARTLY PAID 2026-09-15:** the app pages take `template.js`'s one head now, and
+`design/tokens.js` emits their scale. What is still their own is the BODY — the
+`.as-top` bar, the docked panels, `appCss()` — which is a product layout, not a
+document one, and the dock is their footer. The remaining duplication is that body.
 
 ### 4b · The card arts do not fill their own viewBoxes
 The plate now matches each art's aspect ratio, which closed most of the gap.

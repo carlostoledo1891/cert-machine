@@ -6,6 +6,7 @@
 <meta name="description" content="Real ADS-B helicopter traffic over NYC (2026-08-26), replayed — every flight audited against published eVTOL specs and energy-reserve rules with mathematically certified enclosures.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/apps/skyaudit/">
 <meta property="og:url" content="https://carlostoledo.co/apps/skyaudit/">
 <meta property="og:title" content="SkyAudit — one real day over New York, every flight decided">
@@ -15,8 +16,17 @@
 <meta property="og:image" content="https://carlostoledo.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<meta name="twitter:title" content="SkyAudit — one real day over New York, every flight decided">
+<meta name="twitter:description" content="Real ADS-B helicopter traffic over NYC (2026-08-26), replayed — every flight audited against published eVTOL specs and energy-reserve rules with mathematically certified enclosures.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
 <link rel="stylesheet" href="vendor/maplibre-gl.css">
 <style>:root{
   color-scheme:dark;
@@ -84,9 +94,12 @@
   --leading-tight:1.04;
   --leading-snug:1.25;
   --leading-body:1.65;
+  --leading-loose:1.9;
   --track-display:-0.035em;
   --track-title:-0.02em;
   --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
   --weight-display:550;
   --weight-title:530;
   --weight-medium:480;

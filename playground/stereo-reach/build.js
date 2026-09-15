@@ -108,8 +108,8 @@ function build(OUTDIR) {
   const html = page({
     title: 'How far can two cameras bound a wave? — cert-machine',
     desc: 'The error budget of a stereo-video wave rig as enclosures: the quantization cell, the synchronisation lag, the slope, computed in interval arithmetic in your tab for the Leme 2020 smartphone rig and any rig you dial in; the range at which the bound first exceeds a tolerance.',
-    root: '../', here: 'instruments',
-    head: `<style>${CSS}</style>`,
+    path: '/instruments/stereo-reach/',
+    css: `${CSS}`,
     body: `<main>${body}</main>`,
     script: `<script id="sr-spec" type="application/json">${json}</script>\n<script>window.IV = (function () { const module = { exports: {} }; ${IVSRC.replace(/'use strict';/, '')}\n return module.exports; })();</script>\n<script>${BUDGET}</script>\n<script>${PRESETS}</script>\n<script>${APP}</script>`,
   });

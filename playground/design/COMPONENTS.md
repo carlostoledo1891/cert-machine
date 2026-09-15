@@ -7,6 +7,12 @@ which standing its marks carry.
 
 **Read the conflict first.** It is the most useful thing on this page.
 
+**The furniture is not here any more (2026-09-15).** The nav is `design/nav.js`,
+the footer is `design/footer.js` and the page skeleton is `design/template.js` —
+one of each, for the whole site. `sharedCss()` keeps what is this section's own:
+the eyebrow, the hero family, `.panel`, the figure primitives and the standing
+legend.
+
 ---
 
 ## The conflict the port found

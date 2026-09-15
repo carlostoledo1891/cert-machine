@@ -196,19 +196,16 @@ node playground/neural-geometry/decide.js
 node playground/build.js</pre>
 </div></section>
 
-<footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">all instruments</a>
-  <a href="https://www.goodfire.com/research/neural-geometry">Goodfire · neural geometry</a>
-  <span>probed ${G.meta.date} · ${G.meta.calls} calls · $${G.meta.spent.toFixed(2)}</span>
-</div></div></footer>`;
+`;
 
 function build(OUT) {
+  const foot = `<p><a href="https://www.goodfire.com/research/neural-geometry">Goodfire · neural geometry</a> · probed ${G.meta.date} · ${G.meta.calls} calls · $${G.meta.spent.toFixed(2)}</p>`;
   const html = page({
+    foot,
     title: 'The shapes a model will admit to from the outside · instruments',
     desc: 'Neural geometry without the weights: elicit every pairwise dissimilarity from three working models, then decide exactly what those answers can be. The hue wheel closes, the digits do not, and the week is bent but open.',
-    root: '../', here: 'neural-geometry', body,
-    script: `<style>${CSS}</style>`,
+    path: '/instruments/neural-geometry/', body,
+    css: `${CSS}`,
   });
   const dir = path.join(OUT, 'neural-geometry');
   fs.mkdirSync(dir, { recursive: true });

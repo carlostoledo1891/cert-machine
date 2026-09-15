@@ -9,12 +9,52 @@ making it, because for a while it looked done.
 design/
   tokens.js       THE values — palette, type, scale, measure. Data, not CSS.
   components.js   every visual element, as (data) -> markup
-  template.js     the page shell: <head>, the stylesheet, <body>
+  template.js     THE page shell — one head, one stylesheet, one body, for
+                  every page on the site (2026-09-15)
+  nav.js          ONE navigation: links, markup and CSS
+  footer.js       ONE footer: markup and CSS
   DESIGN.md       this file — what exists and how to add to it
+playground/design/
+  shell.js        /instruments' thirty-line adapter INTO template.js
 tools/
   build-control.js  reads records → calls components → writes index.html
+  check-style.js    the gate: no inline style, every var() resolves, one
+                    stylesheet per page, and the literal census, ratcheted
   test-control.js   the gate: determinism, derivation, and the design invariants
 ```
+
+## ONE SHELL, ONE HEAD, ONE STYLESHEET, ONE FOOTER (2026-09-15)
+
+Until this date the site had **three** shells. `design/template.js` built the
+reports, the landing, `/machine`, `/about` and `/oracle`; `playground/design/
+shell.js` built the twenty instrument pages with a head of its own — no
+canonical URL, no favicon, no card image, no analytics — and a linked
+stylesheet carrying a vendored font SUBSET that drew 11 of the 39 glyphs this
+site uses, so Greek rendered in Times on every one of them; `design/
+app-shell.js` built the two app pages with a third. Ninety pages carried
+**twenty-five distinct footer markups**, one of them no footer at all.
+
+Now: `template.js` emits the skeleton for all ninety —
+
+    <html><head> ONE HEAD <style> ONE STYLESHEET </style></head>
+    <body> NAV · the page · ONE FOOTER · the page's scripts </body></html>
+
+`headHtml()` is the one head (description, author, theme-color, robots,
+canonical + og:url, the Open Graph and Twitter cards, JSON-LD by served path,
+favicon, fonts, analytics) and the app shell takes it too. `render()` takes
+two sheets: `report` (the tokens + this file's stylesheet, body inside
+`.page`) and `own` (the tokens + the footer rules, the page bringing its own
+containers and its own `cssRaw`). A builder passes only what is ITS OWN.
+
+**A page passes `path`, and it is the served path.** The canonical URL, the
+og:url, the JSON-LD type and the nav's relative root are all derived from it;
+`playground/design/shell.js` throws if an instrument builder omits it.
+
+**`footRaw: null` means a VIEWPORT page** — it carries its own closing line
+inside the viewport, and a document footer under an `overflow:hidden` body is
+a footer nobody can reach. One page uses it (`/instruments/navier-stokes`).
+Everything else takes `design/footer.js`, whose paragraphs the builder writes
+and whose site line — byline, home, source, DOI — is the component's.
 
 Build with `make control`. Gate with `make page`. Both are in `make selftest`'s
 NOT-COVERED list only in the sense that a *campaign* is — the page battery itself runs.

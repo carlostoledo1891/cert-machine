@@ -148,13 +148,7 @@ node playground/curveset/make-page-data.js    # the record
 node playground/build.js</pre>
 </div></section>
 
-<footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">all instruments</a>
-  <a href="../interferometer/index.html">the same question, on a telescope</a>
-  <span>data: NIST StRD Pontius (US Government, public domain)</span>
-  <span>built ${P.builtAt.slice(0, 10)}</span>
-</div></div></footer>`;
+`;
 
 /* the runtime: the same three files, behind a require shim.
 
@@ -190,11 +184,13 @@ ${inline('plot.js', './plot.js')}
 <script>${fs.readFileSync(path.join(HERE, 'app.js'), 'utf8')}</script>`;
 
 function build(OUT) {
+  const foot = `<p><a href="../interferometer/index.html">the same question, on a telescope</a> · data: NIST StRD Pontius (US Government, public domain) · built ${P.builtAt.slice(0, 10)}</p>`;
   const html = page({
+    foot,
     title: 'The line they published, and the lines that fit · instruments',
     desc: 'Two real calibrations — a NIST load cell and a rat IL-6 assay — with the whole set of curves the standards allow, computed in closed form, and the published fit drawn inside it as one member chosen by a criterion rather than by the data.',
-    root: '../', here: 'curveset', body,
-    script: `<style>${CSS}</style>\n${runtime}`,
+    path: '/instruments/curveset/', body,
+    css: `${CSS}`, script: `${runtime}`,
   });
   const dir = path.join(OUT, 'curveset');
   fs.mkdirSync(dir, { recursive: true });

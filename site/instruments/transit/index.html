@@ -2,15 +2,153 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The transit, without a law for the star — cert-machine</title>
 <meta name="description" content="A certified enclosure on the planet-to-star radius ratio from Kepler short-cadence photometry, assuming only that the stellar brightness profile is nonnegative.">
-<meta name="robots" content="index, follow">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/instruments/transit/">
+<meta property="og:url" content="https://carlostoledo.co/instruments/transit/">
 <meta property="og:title" content="The transit, without a law for the star — cert-machine">
 <meta property="og:description" content="A certified enclosure on the planet-to-star radius ratio from Kepler short-cadence photometry, assuming only that the stellar brightness profile is nonnegative.">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="../design/tokens.css">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The transit, without a law for the star — cert-machine">
+<meta name="twitter:description" content="A certified enclosure on the planet-to-star radius ratio from Kepler short-cadence photometry, assuming only that the stellar brightness profile is nonnegative.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+
 /* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
    glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
    ground — the blur mixes toward white and reads as frost. This site's ground
@@ -183,13 +321,7 @@ body { padding-top: 60px; }
   color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
-/* ---- the footer, with the margin-top the crossed pages had and the written
-   ones did not ---- */
-.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
-.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
-  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
-.foot a { color: var(--ink-4); text-decoration: none; }
-.foot a:hover { color: var(--ink-2); }
+/* the footer is design/footer.js now, emitted by the one shell (2026-09-15) */
 
 /* ---- the panel: a raised box with a hairline. Spacing between consecutive
    panels is a sibling rule, so a page never adds a margin-top of its own and
@@ -334,8 +466,8 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
 }
-</style>
-<style>/* bench.css — the structural shim for every page crossed from the bench.
+
+/* bench.css — the structural shim for every page crossed from the bench.
 
    Three pages here (plates, exact-geometry, affect) carry markup that came over
    byte-for-byte, so they carry the bench's structural class names. Rather than
@@ -480,10 +612,12 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
 .fg .lb{font-family:var(--font-mono);font-size:9.5px;fill:var(--ink-3);}
 .prose p{margin-top:var(--s-4);color:var(--ink-3);line-height:var(--leading-body);}
 .prose b{color:var(--ink-2);font-weight:500;} .prose em{color:var(--ink-4);}
+
 </style>
 </head>
 <body>
 <nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
 <main>
 <section class="hero">
   <div class="container">
@@ -850,14 +984,8 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
     </div>
   </div>
 </section></main>
-<footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">all instruments</a>
-  <a href="../../reports/index.html">the reports</a>
-  <a href="../../machine/index.html">the machine</a>
-  <span>nothing here is gated · every number came out of the record beside the page</span>
-  <span>Carlos Toledo</span>
-</div></div></footer>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>nothing here is gated · every number came out of the record beside the page</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

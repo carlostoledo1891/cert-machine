@@ -397,8 +397,8 @@ const body = `
 const html = page({
   title: 'instruments · cert-machine',
   desc: 'Instruments made touchable. Nothing here is certified — that is the entire permission.',
-  root: '', here: 'home', body,
-  script: `<style>${CSS}</style>`,
+  path: '/instruments/', body,
+  css: `${CSS}`,
 });
 
 /* ---- write ---------------------------------------------------------------- */
@@ -417,16 +417,7 @@ fs.writeFileSync(path.join(OUT, 'index.html'), html);
   }, null, 1) + '\n');
 }
 
-/* the design assets the browser needs, copied rather than linked out of the
-   repository: /instruments owns its look and cannot be restyled from elsewhere */
-const copy = (from, to) => { fs.mkdirSync(path.dirname(to), { recursive: true }); fs.copyFileSync(from, to); };
-/* tokens.css is GENERATED from design/tokens.js — there is no source copy to
-   drift from the palette, and it is the ONLY stylesheet a page links. base.css
-   was retired in phase 2: 79 classes shipped to one page that used four. */
-fs.mkdirSync(path.join(OUT, 'design'), { recursive: true });
-fs.writeFileSync(path.join(OUT, 'design', 'tokens.css'), require(path.join(ROOT, 'design', 'tokens.js')).instrumentsCss());
-for (const f of ['inter-var.woff2', 'jetbrains-mono-var.woff2'])
-  copy(path.join(HERE, 'assets', 'fonts', f), path.join(OUT, 'assets', 'fonts', f));
+/* no stylesheet is written beside the pages any more: the tokens are inlined by the one shell (2026-09-15) */
 
 const ifm = require(path.join(IFM, 'build.js')).build(OUT);
 const sx = SIMPLEX.build(OUT);

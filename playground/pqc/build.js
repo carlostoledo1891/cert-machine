@@ -112,12 +112,12 @@ function build(OUTDIR) {
   const html = page({
     title: 'Solid where it was proved — cert-machine',
     desc: 'Lattice reduction watched in exact integers, and every published SVP-challenge record near the acceptance wall decided exactly. Solid where certified, dashed where assumed.',
-    root: '../', here: 'instruments',
-    head: `<style>${CSS}
+    path: '/instruments/pqc/',
+    css: `${CSS}
 /* the site nav floats over a full-viewport instrument, as on /instruments/interferometer */
 .topnav { background: linear-gradient(var(--bg), rgba(10,10,12,0)); border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
 body { padding-top: 0; }
-.note-sm b { color: var(--ink-2); font-weight: 500; }</style>`,
+.note-sm b { color: var(--ink-2); font-weight: 500; }`,
     body: `<main>${body}</main>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);

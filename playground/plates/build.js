@@ -58,21 +58,17 @@ const body = (() => {
 })();
 
 const foot = `
-<footer class="foot"><div class="container"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">all instruments</a>
-  <a href="../interferometer/index.html">the instrument behind plates II, V and VI</a>
-  <a href="../curveset/index.html">the same question, on a calibration</a>
-  <span>crossed from the bench ${PROV.liftedOn}</span>
-</div></div></footer>`;
+`;
 
 function build(OUT) {
+  const foot = `<p><a href="../interferometer/index.html">the instrument behind plates II, V and VI</a> · <a href="../curveset/index.html">the same question, on a calibration</a> · crossed from the bench ${PROV.liftedOn}</p>`;
   const html = page({
+    foot,
     title: 'Manifolds we are handed · instruments',
     desc: 'Eight plates. Interpretability pulls geometry out of a working model and asks what it means; these are stated as a rule and its parameters, then drawn — including two that are certificates rendered at their own resolution.',
-    root: '../', here: 'plates',
+    path: '/instruments/plates/',
     body: body + foot,
-    script: `<style>${CSS}\n${P.CSS}</style>`,
+    css: `${CSS}\n${P.CSS}`,
   });
   const dir = path.join(OUT, 'plates');
   fs.mkdirSync(dir, { recursive: true });

@@ -342,19 +342,16 @@ node playground/shape-hunt/run-studies.js   # the five studies, ${fmt(ST.meta.te
 node playground/build.js</pre>
 </div></section>
 
-<footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">all instruments</a>
-  <a href="../neural-geometry/index.html">where the geometries came from</a>
-  <span>hunted ${S.meta.date} · studies ${ST.meta.date}</span>
-</div></div></footer>`;
+`;
 
 function build(OUT) {
+  const foot = `<p><a href="../neural-geometry/index.html">where the geometries came from</a> · hunted ${S.meta.date} · studies ${ST.meta.date}</p>`;
   const html = page({
+    foot,
     title: 'Nothing here is a perfect circle · instruments',
     desc: 'Exhaustive exact tests for hidden polygons in geometries elicited from language models — the nulls that had to be rebuilt, the group elements named in words, and a whole-number certificate that some of the answers came from no arrangement of points anywhere.',
-    root: '../', here: 'shape-hunt', body,
-    script: `<style>${CSS}</style>`,
+    path: '/instruments/shape-hunt/', body,
+    css: `${CSS}`,
   });
   const dir = path.join(OUT, 'shape-hunt');
   fs.mkdirSync(dir, { recursive: true });

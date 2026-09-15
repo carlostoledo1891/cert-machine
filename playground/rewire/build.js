@@ -194,8 +194,8 @@ function build(OUTDIR) {
   const html = page({
     title: 'Rewire it yourself — cert-machine',
     desc: 'Twenty-four lattice claims with exact answers, three graders, and one socket that only an exact one may reach. Drag a different certifier and watch the admitted count move.',
-    root: '../', here: 'instruments',
-    head: `<style>${CSS}
+    path: '/instruments/rewire/',
+    css: `${CSS}
 /* the site nav floats over a full-viewport instrument, as on /instruments/interferometer */
 .topnav { background: linear-gradient(var(--bg), rgba(10,10,12,0)); border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
 body { padding-top: 0; }
@@ -207,7 +207,7 @@ body { padding-top: 0; }
 body.panel-hidden #stage{right:0;}
 #stage svg{width:100%;height:100%;}
 .cap.bad{color:var(--ink);}
-.note-sm b{color:var(--ink-2);font-weight:500;}</style>`,
+.note-sm b{color:var(--ink-2);font-weight:500;}`,
     body: `<main>${body}</main>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);

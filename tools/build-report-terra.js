@@ -427,10 +427,10 @@ O.push(C.section({
       + ' — generated from the same certificates as this page. Refutations and independent re-runs are invited: carlos@carlostoledo.co.'),
 }));
 
-O.push('<footer><p>cert-machine · built ' + new Date().toISOString().slice(0, 10) + ' · git ' + gitrev
+O.push('<p>cert-machine · built ' + new Date().toISOString().slice(0, 10) + ' · git ' + gitrev
   + ' · every number from a VERIFIED certificate · phase-map floats pinned sha256 ' + PM_SHA.slice(0, 12) + '…'
   + ' · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p>'
-  + '<p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p></footer>');
+  + '<p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p>');
 
 /* ---- the overclaim gates ---- */
 const html = TPL.render({

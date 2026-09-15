@@ -2,15 +2,153 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>instruments · cert-machine</title>
 <meta name="description" content="Instruments made touchable. Nothing here is certified — that is the entire permission.">
-<meta name="robots" content="index, follow">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/instruments/">
+<meta property="og:url" content="https://carlostoledo.co/instruments/">
 <meta property="og:title" content="instruments · cert-machine">
 <meta property="og:description" content="Instruments made touchable. Nothing here is certified — that is the entire permission.">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="design/tokens.css">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="instruments · cert-machine">
+<meta name="twitter:description" content="Instruments made touchable. Nothing here is certified — that is the entire permission.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+
 /* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
    glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
    ground — the blur mixes toward white and reads as frost. This site's ground
@@ -183,13 +321,7 @@ body { padding-top: 60px; }
   color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
-/* ---- the footer, with the margin-top the crossed pages had and the written
-   ones did not ---- */
-.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
-.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
-  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
-.foot a { color: var(--ink-4); text-decoration: none; }
-.foot a:hover { color: var(--ink-2); }
+/* the footer is design/footer.js now, emitted by the one shell (2026-09-15) */
 
 /* ---- the panel: a raised box with a hairline. Spacing between consecutive
    panels is a sibling rule, so a page never adds a margin-top of its own and
@@ -334,11 +466,194 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
 }
-</style>
 
+/* index.css — the gathering page. Its own styles, on purpose: /instruments
+   borrows the design tokens and nothing else, so a page here can look like
+   whatever it needs to look like. */
+
+html { -webkit-text-size-adjust: 100%; }
+/* box model, ground, ink, face, size, leading and smoothing come from the shell
+   (2026-09-05); only what this page adds on top is declared here. */
+body { font-weight: var(--weight-body); text-rendering: optimizeLegibility; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; }
+
+/* ---- hero ---- */
+.hero { padding: clamp(3rem, 11vh, 8rem) 0 clamp(3rem, 8vh, 6rem); }
+.hero h1 {
+  font-size: clamp(2.4rem, 1rem + 5.4vw, 4.6rem);
+  max-width: 19ch; margin-top: var(--s-4);
+}
+.hero .lede {
+  margin-top: var(--s-6); max-width: 60ch;
+  font-size: var(--text-3); color: var(--ink-3); line-height: 1.55;
+}
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+.rule { height: 1px; background: var(--border); border: 0; margin: 0; }
+
+/* ---- the project ---- */
+.projects { padding: clamp(2.5rem, 7vh, 5rem) 0 0; }
+.count { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-5); padding-bottom: var(--s-5); }
+
+/* TWO PER ROW, ART ABOVE BODY. Nine cards stacked full-width with the art
+   beside the text ran to nine screens of scrolling, most of it plate. Two
+   columns with the plate on top halves the page and lets a reader see four
+   instruments at once, which is what an index is for. */
+.cards { display: grid; gap: 0 clamp(1.5rem, 4vw, 3.5rem); grid-template-columns: 1fr; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.card {
+  display: grid; gap: var(--s-5); grid-template-columns: 1fr;
+  align-content: start;
+  padding: var(--s-6) 0 var(--s-8);
+  text-decoration: none;
+  border-top: 1px solid var(--border);
+}
+
+.card-art { margin: 0; }
+.card-art .plate {
+  /* square, because seven of the nine arts are. A wide art is cropped to it
+     by preserveAspectRatio in build.js, not letterboxed into it. */
+  position: relative; aspect-ratio: 1 / 1; width: 100%;
+  /* NO FILL. The plate used to be a --bg-raised box, so a square art in a 4/3
+     box — seven of the nine are square — read as a small drawing floating in a
+     dark rectangle, and two arts that painted their own ground made a second,
+     darker rectangle beside it. A hairline is enough to say "figure"; the
+     letterbox band above a wide art is now the page, not an empty box. */
+  border: 1px solid var(--border); border-radius: var(--radius-l); overflow: hidden;
+}
+/* EVERY art fills the plate, not just the one that happened to carry .uv.
+   This is why the arts read as drawings floating in black boxes: bench.css
+   sizes a bare <svg> at width:100%;height:auto, so a 900x420 figure in a
+   524-wide plate rendered 524x244 and left 280px of empty ground beneath it.
+   Stretched to the box, preserveAspectRatio governs instead — square arts
+   meet it exactly, wide ones are cropped to it by build.js. */
+.card-art .plate > svg,
+.card-art .plate > img,
+.uv { position: absolute; inset: 0; width: 100%; height: 100%; }
+.uv-rings circle { fill: none; stroke: var(--border-strong); stroke-width: 1; opacity: 0.7; }
+.uv-tracks path {
+  fill: none; stroke: var(--ink-2); stroke-width: 2.4; stroke-linecap: round;
+  opacity: 0.8; transition: opacity var(--dur-slow) var(--ease-out), stroke var(--dur-slow) var(--ease-out);
+}
+.card:hover .uv-tracks path { opacity: 1; stroke: var(--ink); }
+/* the scale, written where the rings are, not in a legend somewhere else */
+/* THE PILL HAD NO LEFT BOUND. It is absolutely positioned against the plate's
+   bottom-right, so its width is shrink-to-fit up to the whole containing
+   block — and at 390 the longer captions grew leftward until they touched the
+   plate's opposite edge, sitting on the rounded corner with no inset at all,
+   while the short ones floated free. That is review row A-6: not three
+   different pills, one pill with one missing constraint. Bounded symmetrically
+   now, so a long caption wraps inside the same inset a short one keeps. */
+.uv-scale { position: absolute; right: var(--s-3); bottom: var(--s-3);
+  max-width: calc(100% - var(--s-3) * 2); text-align: right;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; color: var(--ink-4);
+  background: var(--bg-raised); padding: 3px 7px; border-radius: var(--radius-pill);
+  border: 1px solid var(--border); }
+.card-art figcaption {
+  margin-top: var(--s-4);
+  font-size: 12.5px; color: var(--ink-4); line-height: 1.5; max-width: none;
+}
+.card-art figcaption b { color: var(--ink-3); font-weight: var(--weight-medium); }
+
+.card-body h2 { font-size: clamp(1.35rem, 1rem + 1vw, 1.85rem); max-width: 22ch; margin-top: var(--s-3); text-wrap: balance; }
+.card-body .sub { margin-top: var(--s-3); color: var(--ink-3); max-width: none; font-size: var(--text-small); line-height: 1.6; }
+.card-body .go {
+  display: inline-flex; align-items: center; gap: var(--s-3); margin-top: var(--s-5);
+  font-family: var(--font-mono); font-size: var(--text-small); letter-spacing: 0.08em;
+  color: var(--ink); border-bottom: 1px solid var(--border-strong); padding-bottom: 4px;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.card:hover .go { border-color: var(--ink); }
+.go .arw { transition: transform var(--dur-med) var(--ease-out); }
+.card:hover .go .arw { transform: translateX(4px); }
+
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-5); margin-top: var(--s-5); }
+.facts .f { display: flex; flex-direction: column; gap: 3px; }
+.facts .fk { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-5); }
+.facts .fv { font-family: var(--font-mono); font-size: 0.95rem; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.facts .fn { font-size: 11px; color: var(--ink-4); line-height: 1.45; }
+
+/* ---- the rule of the place ---- */
+.rules { padding: clamp(3rem, 8vh, 6rem) 0 clamp(4rem, 10vh, 7rem); border-top: 1px solid var(--border); }
+.rules .grid { display: grid; gap: var(--s-6) clamp(1.5rem, 4vw, 3.5rem); grid-template-columns: 1fr; margin-top: var(--s-6); }
+@media (min-width: 760px) { .rules .grid { grid-template-columns: repeat(3, 1fr); } }
+.rules h3 { font-size: 1rem; letter-spacing: var(--track-title); }
+.rules p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); line-height: 1.6; max-width: 40ch; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* the simplex card art — the same marks as the instrument, smaller */
+.sx { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sxhull { fill: none; stroke: var(--border); stroke-width: 2; }
+.sxv { fill: var(--ink-5); }
+.sxv.hi { fill: var(--ink-3); }
+.sxbary { fill: var(--ink-4); }
+.sxtrail { fill: none; stroke-width: 3; stroke-linecap: round; }
+.sxtrail.cert { stroke: var(--ink-2); }
+/* the card copy of simplex's extrapolated tail. It carried a DIFFERENT
+   pattern from the page copy of the same mark, which is the drift the dash
+   census exists to find. Both are the claim pattern now. */
+.sxtrail.ext { stroke: var(--ink-4); stroke-dasharray: 5 4; }
+.sxdot { fill: var(--ink); }
+.card:hover .sxtrail.cert { stroke: var(--ink); }
+.card:hover .sxv.hi { fill: var(--ink); }
+
+/* the neural-geometry card art — the same marks as the page.
+   NOT `.plate`: that name already belonged to the art FRAME above, and giving
+   it to the SVG as well made `.card-art .plate` match both, so the later rule
+   absolutely-positioned every card's frame out of the flow and collapsed all
+   three cards to the top of the page. One name, two meanings, in CSS. */
+.card-art .ngp { position: absolute; inset: 0; width: 100%; height: 100%; }
+.card-art .ngp .ch { stroke: var(--ink-2); }
+.card-art .ngp .ord { fill: none; stroke: var(--ink-2); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+/* the card-art variant: a smaller plate wants a thinner, quieter closing edge.
+   That is a SIZE override, so it keeps the weight and the ink and drops the
+   dash with the shared rule — role belongs to weight and opacity. */
+.card-art .ngp .clo { fill: none; stroke: var(--ink-4); stroke-width: 2; }
+.card-art .ngp .pt { fill: var(--ink-2); }
+.card-art .ngp .lb { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-5); }
+.card:hover .card-art .ngp .ord { stroke: var(--ink); }
+.card:hover .card-art .ngp .pt { fill: var(--ink); }
+.card:hover .card-art .ngp .lb { fill: var(--ink-3); }
+
+/* the shape-hunt card art */
+.card-art .shape { position: absolute; inset: 0; width: 100%; height: 100%; }
+.card-art .sya { fill: none; stroke: var(--ink-3); stroke-width: 1.6; opacity: 0.75; }
+.card-art .shd { fill: var(--ink-2); }
+.card-art .shl { font-family: var(--font-mono); font-size: 12px; fill: var(--ink-5); }
+
+/* THE PLATES CARD IS A THUMBNAIL, AND ITS TEXT WAS NEVER READABLE IN IT.
+   That art is drawn 980 units wide and shown in a card about 520px across on
+   the desktop grid and about 350px at 390 — so its 9px internal labels
+   rendered near 4.8px and 3.2px. Illegible at both, which is review row A-5,
+   and it was never a mobile-only problem. The card already carries the same
+   words in its own caption pill, so the micro-text is redundant as well as
+   unreadable. Hidden HERE ONLY: the plates page itself shows every label at
+   full size, which is where they are meant to be read. */
+.card-art .plt text { display: none; }
+.card:hover .card-art .sya { stroke: var(--ink); opacity: 1; }
+.card:hover .card-art .shd { fill: var(--ink); }
+
+/* ---- what decides it -------------------------------------------------------
+   Replaces the blanket "nothing here is certified", which was false: two of
+   these pages draw a certificate from the shelf the rest of the site gates.
+   Every card states what backs its headline number instead, in one line, and
+   the reader can hold the whole index against it. */
+.backs { margin-top: var(--s-3); display: grid; gap: 2px;
+  border-left: 2px solid var(--border-strong); padding-left: var(--s-3); }
+.backs .bk { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-5); }
+.backs .bv { font-family: var(--font-mono); font-size: var(--text-small); color: var(--ink); }
+.backs .bn { font-size: 11px; color: var(--ink-4); line-height: 1.45; }
+.card:hover .backs { border-left-color: var(--ink-3); }
+
+</style>
 </head>
 <body>
 <nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html">Reports</a><a href="../instruments/index.html" aria-current="page">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
 
 <header class="hero"><div class="wrap">
   <div class="eyebrow">cert-machine &middot; instruments</div>
@@ -821,195 +1136,8 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
   <span>built 2026-09-15</span>
 </div></section>
 
-<footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="index.html">all instruments</a>
-  <a href="../reports/index.html">the reports</a>
-  <a href="../machine/index.html">the machine</a>
-  <span>nothing here is gated · every number came out of the record beside the page</span>
-  <span>Carlos Toledo</span>
-</div></div></footer>
-<style>/* index.css — the gathering page. Its own styles, on purpose: /instruments
-   borrows the design tokens and nothing else, so a page here can look like
-   whatever it needs to look like. */
 
-html { -webkit-text-size-adjust: 100%; }
-/* box model, ground, ink, face, size, leading and smoothing come from the shell
-   (2026-09-05); only what this page adds on top is declared here. */
-body { font-weight: var(--weight-body); text-rendering: optimizeLegibility; }
-a { color: inherit; }
-h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
-p { margin: 0; }
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>nothing here is gated · every number came out of the record beside the page</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
-/* ---- hero ---- */
-.hero { padding: clamp(3rem, 11vh, 8rem) 0 clamp(3rem, 8vh, 6rem); }
-.hero h1 {
-  font-size: clamp(2.4rem, 1rem + 5.4vw, 4.6rem);
-  max-width: 19ch; margin-top: var(--s-4);
-}
-.hero .lede {
-  margin-top: var(--s-6); max-width: 60ch;
-  font-size: var(--text-3); color: var(--ink-3); line-height: 1.55;
-}
-.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
-
-.rule { height: 1px; background: var(--border); border: 0; margin: 0; }
-
-/* ---- the project ---- */
-.projects { padding: clamp(2.5rem, 7vh, 5rem) 0 0; }
-.count { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-5); padding-bottom: var(--s-5); }
-
-/* TWO PER ROW, ART ABOVE BODY. Nine cards stacked full-width with the art
-   beside the text ran to nine screens of scrolling, most of it plate. Two
-   columns with the plate on top halves the page and lets a reader see four
-   instruments at once, which is what an index is for. */
-.cards { display: grid; gap: 0 clamp(1.5rem, 4vw, 3.5rem); grid-template-columns: 1fr; }
-@media (min-width: 900px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.card {
-  display: grid; gap: var(--s-5); grid-template-columns: 1fr;
-  align-content: start;
-  padding: var(--s-6) 0 var(--s-8);
-  text-decoration: none;
-  border-top: 1px solid var(--border);
-}
-
-.card-art { margin: 0; }
-.card-art .plate {
-  /* square, because seven of the nine arts are. A wide art is cropped to it
-     by preserveAspectRatio in build.js, not letterboxed into it. */
-  position: relative; aspect-ratio: 1 / 1; width: 100%;
-  /* NO FILL. The plate used to be a --bg-raised box, so a square art in a 4/3
-     box — seven of the nine are square — read as a small drawing floating in a
-     dark rectangle, and two arts that painted their own ground made a second,
-     darker rectangle beside it. A hairline is enough to say "figure"; the
-     letterbox band above a wide art is now the page, not an empty box. */
-  border: 1px solid var(--border); border-radius: var(--radius-l); overflow: hidden;
-}
-/* EVERY art fills the plate, not just the one that happened to carry .uv.
-   This is why the arts read as drawings floating in black boxes: bench.css
-   sizes a bare <svg> at width:100%;height:auto, so a 900x420 figure in a
-   524-wide plate rendered 524x244 and left 280px of empty ground beneath it.
-   Stretched to the box, preserveAspectRatio governs instead — square arts
-   meet it exactly, wide ones are cropped to it by build.js. */
-.card-art .plate > svg,
-.card-art .plate > img,
-.uv { position: absolute; inset: 0; width: 100%; height: 100%; }
-.uv-rings circle { fill: none; stroke: var(--border-strong); stroke-width: 1; opacity: 0.7; }
-.uv-tracks path {
-  fill: none; stroke: var(--ink-2); stroke-width: 2.4; stroke-linecap: round;
-  opacity: 0.8; transition: opacity var(--dur-slow) var(--ease-out), stroke var(--dur-slow) var(--ease-out);
-}
-.card:hover .uv-tracks path { opacity: 1; stroke: var(--ink); }
-/* the scale, written where the rings are, not in a legend somewhere else */
-/* THE PILL HAD NO LEFT BOUND. It is absolutely positioned against the plate's
-   bottom-right, so its width is shrink-to-fit up to the whole containing
-   block — and at 390 the longer captions grew leftward until they touched the
-   plate's opposite edge, sitting on the rounded corner with no inset at all,
-   while the short ones floated free. That is review row A-6: not three
-   different pills, one pill with one missing constraint. Bounded symmetrically
-   now, so a long caption wraps inside the same inset a short one keeps. */
-.uv-scale { position: absolute; right: var(--s-3); bottom: var(--s-3);
-  max-width: calc(100% - var(--s-3) * 2); text-align: right;
-  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; color: var(--ink-4);
-  background: var(--bg-raised); padding: 3px 7px; border-radius: var(--radius-pill);
-  border: 1px solid var(--border); }
-.card-art figcaption {
-  margin-top: var(--s-4);
-  font-size: 12.5px; color: var(--ink-4); line-height: 1.5; max-width: none;
-}
-.card-art figcaption b { color: var(--ink-3); font-weight: var(--weight-medium); }
-
-.card-body h2 { font-size: clamp(1.35rem, 1rem + 1vw, 1.85rem); max-width: 22ch; margin-top: var(--s-3); text-wrap: balance; }
-.card-body .sub { margin-top: var(--s-3); color: var(--ink-3); max-width: none; font-size: var(--text-small); line-height: 1.6; }
-.card-body .go {
-  display: inline-flex; align-items: center; gap: var(--s-3); margin-top: var(--s-5);
-  font-family: var(--font-mono); font-size: var(--text-small); letter-spacing: 0.08em;
-  color: var(--ink); border-bottom: 1px solid var(--border-strong); padding-bottom: 4px;
-  transition: border-color var(--dur-fast) var(--ease-out);
-}
-.card:hover .go { border-color: var(--ink); }
-.go .arw { transition: transform var(--dur-med) var(--ease-out); }
-.card:hover .go .arw { transform: translateX(4px); }
-
-.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-5); margin-top: var(--s-5); }
-.facts .f { display: flex; flex-direction: column; gap: 3px; }
-.facts .fk { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-5); }
-.facts .fv { font-family: var(--font-mono); font-size: 0.95rem; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
-.facts .fn { font-size: 11px; color: var(--ink-4); line-height: 1.45; }
-
-/* ---- the rule of the place ---- */
-.rules { padding: clamp(3rem, 8vh, 6rem) 0 clamp(4rem, 10vh, 7rem); border-top: 1px solid var(--border); }
-.rules .grid { display: grid; gap: var(--s-6) clamp(1.5rem, 4vw, 3.5rem); grid-template-columns: 1fr; margin-top: var(--s-6); }
-@media (min-width: 760px) { .rules .grid { grid-template-columns: repeat(3, 1fr); } }
-.rules h3 { font-size: 1rem; letter-spacing: var(--track-title); }
-.rules p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); line-height: 1.6; max-width: 40ch; }
-
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
-
-/* the simplex card art — the same marks as the instrument, smaller */
-.sx { position: absolute; inset: 0; width: 100%; height: 100%; }
-.sxhull { fill: none; stroke: var(--border); stroke-width: 2; }
-.sxv { fill: var(--ink-5); }
-.sxv.hi { fill: var(--ink-3); }
-.sxbary { fill: var(--ink-4); }
-.sxtrail { fill: none; stroke-width: 3; stroke-linecap: round; }
-.sxtrail.cert { stroke: var(--ink-2); }
-/* the card copy of simplex's extrapolated tail. It carried a DIFFERENT
-   pattern from the page copy of the same mark, which is the drift the dash
-   census exists to find. Both are the claim pattern now. */
-.sxtrail.ext { stroke: var(--ink-4); stroke-dasharray: 5 4; }
-.sxdot { fill: var(--ink); }
-.card:hover .sxtrail.cert { stroke: var(--ink); }
-.card:hover .sxv.hi { fill: var(--ink); }
-
-/* the neural-geometry card art — the same marks as the page.
-   NOT `.plate`: that name already belonged to the art FRAME above, and giving
-   it to the SVG as well made `.card-art .plate` match both, so the later rule
-   absolutely-positioned every card's frame out of the flow and collapsed all
-   three cards to the top of the page. One name, two meanings, in CSS. */
-.card-art .ngp { position: absolute; inset: 0; width: 100%; height: 100%; }
-.card-art .ngp .ch { stroke: var(--ink-2); }
-.card-art .ngp .ord { fill: none; stroke: var(--ink-2); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-/* the card-art variant: a smaller plate wants a thinner, quieter closing edge.
-   That is a SIZE override, so it keeps the weight and the ink and drops the
-   dash with the shared rule — role belongs to weight and opacity. */
-.card-art .ngp .clo { fill: none; stroke: var(--ink-4); stroke-width: 2; }
-.card-art .ngp .pt { fill: var(--ink-2); }
-.card-art .ngp .lb { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-5); }
-.card:hover .card-art .ngp .ord { stroke: var(--ink); }
-.card:hover .card-art .ngp .pt { fill: var(--ink); }
-.card:hover .card-art .ngp .lb { fill: var(--ink-3); }
-
-/* the shape-hunt card art */
-.card-art .shape { position: absolute; inset: 0; width: 100%; height: 100%; }
-.card-art .sya { fill: none; stroke: var(--ink-3); stroke-width: 1.6; opacity: 0.75; }
-.card-art .shd { fill: var(--ink-2); }
-.card-art .shl { font-family: var(--font-mono); font-size: 12px; fill: var(--ink-5); }
-
-/* THE PLATES CARD IS A THUMBNAIL, AND ITS TEXT WAS NEVER READABLE IN IT.
-   That art is drawn 980 units wide and shown in a card about 520px across on
-   the desktop grid and about 350px at 390 — so its 9px internal labels
-   rendered near 4.8px and 3.2px. Illegible at both, which is review row A-5,
-   and it was never a mobile-only problem. The card already carries the same
-   words in its own caption pill, so the micro-text is redundant as well as
-   unreadable. Hidden HERE ONLY: the plates page itself shows every label at
-   full size, which is where they are meant to be read. */
-.card-art .plt text { display: none; }
-.card:hover .card-art .sya { stroke: var(--ink); opacity: 1; }
-.card:hover .card-art .shd { fill: var(--ink); }
-
-/* ---- what decides it -------------------------------------------------------
-   Replaces the blanket "nothing here is certified", which was false: two of
-   these pages draw a certificate from the shelf the rest of the site gates.
-   Every card states what backs its headline number instead, in one line, and
-   the reader can hold the whole index against it. */
-.backs { margin-top: var(--s-3); display: grid; gap: 2px;
-  border-left: 2px solid var(--border-strong); padding-left: var(--s-3); }
-.backs .bk { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--ink-5); }
-.backs .bv { font-family: var(--font-mono); font-size: var(--text-small); color: var(--ink); }
-.backs .bn { font-size: 11px; color: var(--ink-4); line-height: 1.45; }
-.card:hover .backs { border-left-color: var(--ink-3); }
-</style>
 </body>
 </html>

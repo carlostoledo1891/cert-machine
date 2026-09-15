@@ -51,13 +51,7 @@ const head = `
 </div></section>`;
 
 const foot = `
-<footer class="foot"><div class="container"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">all instruments</a>
-  <a href="../neural-geometry/index.html">the same instrument, pointed at a model</a>
-  <a href="../plates/index.html">the plates</a>
-  <span>crossed from the bench ${PROV.liftedOn}</span>
-</div></div></footer>`;
+`;
 
 /* the crossed body opens with the bench's own hero; ours replaces it, so take
    the page from its first set section onward */
@@ -67,12 +61,14 @@ const sections = (() => {
 })();
 
 function build(OUT) {
+  const foot = `<p><a href="../neural-geometry/index.html">the same instrument, pointed at a model</a> · <a href="../plates/index.html">the plates</a> · crossed from the bench ${PROV.liftedOn}</p>`;
   const html = page({
+    foot,
     title: 'Exact geometry · instruments',
     desc: 'The control page: an instrument that decides what shape a table of distances has, pointed at point sets whose shape is fixed by construction — so that its answers on the pages that ask a model mean something.',
-    root: '../', here: 'exact-geometry',
+    path: '/instruments/exact-geometry/',
     body: head + sections + foot,
-    script: `<style>${BENCHCSS}\n${E.CSS}</style>`,
+    css: `${BENCHCSS}\n${E.CSS}`,
   });
   const dir = path.join(OUT, 'exact-geometry');
   fs.mkdirSync(dir, { recursive: true });

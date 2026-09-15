@@ -128,8 +128,8 @@ function build(OUTDIR) {
   const html = page({
     title: 'Unique totals, and the split nobody can see — cert-machine',
     desc: 'Two populations on one network: the equilibrium fixes the totals and not the split. The face of splits it cannot tell apart has dimension ' + P.face.k + ' on the published network, decided in exact rationals in your tab.',
-    root: '../', here: 'instruments',
-    head: `<style>${CSS}</style>`,
+    path: '/instruments/census/',
+    css: `${CSS}`,
     body,
     script: `<script id="ce-spec" type="application/json">${JSON.stringify(F).replace(/</g, '\\u003c')}</script>\n<script>${ENGINE}</script>\n<script>${APP}</script>`,
   });

@@ -167,8 +167,8 @@ function build(OUTDIR) {
   const html = page({
     title: 'Every hour of sea, against every contour — cert-machine',
     desc: 'The environmental-contour benchmark made touchable: every submitted contour over the hourly data it was scored on, the exact counts beside it, and a decider in the tab for any sea state you name.',
-    root: '../', here: 'instruments',
-    head: `<style>${CSS}</style>`,
+    path: '/instruments/contours/',
+    css: `${CSS}`,
     body: `<main>${body}</main>`,
     script: `<script id="ec-spec" type="application/json">${json}</script>\n<script>${GEO}</script>\n<script>${APP.replace(/\.ec-tbl tr\[data-id\]/g, '.ec-tbl td[data-id]')}</script>`,
   });

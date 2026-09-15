@@ -282,8 +282,8 @@ function build(OUTDIR) {
   const html = page({
     title: 'Decide it, or say what is missing — cert-machine',
     desc: 'An environment for lattice claims: decide exactly, declare what you decided against, or refuse and name the missing quantity. Built out of a grader bug, and it caught us twice more.',
-    root: '../', here: 'instruments',
-    head: `<style>${BENCHCSS}\n${BASE_EXTRA}\n${REPORT}\n${CSS}</style>`,
+    path: '/instruments/lattice-claims/',
+    css: `${BENCHCSS}\n${BASE_EXTRA}\n${REPORT}\n${CSS}`,
     body: `<main>${body}</main>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);

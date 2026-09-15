@@ -94,12 +94,26 @@ means assumed" is simply misled by the second page.
 
 ## 3. Style comes from named files, and each says what it owns
 
-    design/tokens.js        colour, type, spacing, radii. The only place a value is named.
+    design/tokens.js        colour, type, spacing, radii, motion. The only place a value
+                            is named — and rootCss() emits ALL of it, in both spellings,
+                            onto every page (2026-09-15; before that the radii and the
+                            scale reached /instruments only, and every report shipped
+                            square corners for ten days without a gate noticing).
     design/components.js    prose, cards, tables, sections, the figure primitives
     design/nav.js           ONE navigation, no per-page variants
-    design/template.js      the page shell; every page is born from it
+    design/footer.js        ONE footer, no per-page variants (2026-09-15; there were 25)
+    design/template.js      THE page shell — one head, one stylesheet, one body. Every
+                            page on the site is born from it, /instruments included.
+    playground/design/shell.js    /instruments' adapter into it: the section's base
+                            layer as the page's own sheet, and nothing else.
     design/grammar.js       the ink rule and the only dash
     playground/design/shell.css   full-viewport instruments: #stage, .panel, .ov, .rd, .pt
+
+**No page carries an inline style, and every `var()` on a page resolves.**
+`tools/check-style.js` measures both, per page, and ratchets. A per-element datum
+(a bar's fill fraction, a marker's position) is a MARK: it is drawn as SVG with
+geometry attributes, not as a style attribute. A rhythm or a measure is a CLASS
+with a rule in the one stylesheet.
 
 A page that links sideways does it inside its content, where the link can say
 why — not by growing a nav variant.

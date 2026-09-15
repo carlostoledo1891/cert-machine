@@ -2,15 +2,153 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The geometry of feeling · instruments</title>
 <meta name="description" content="Twelve feelings placed by pairwise questions, the circumplex axes recovered from a question set with no words in common, and the same twelve asked again under six moods — with twelve clock hours as the control that has no business moving.">
-<meta name="robots" content="index, follow">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/instruments/affect/">
+<meta property="og:url" content="https://carlostoledo.co/instruments/affect/">
 <meta property="og:title" content="The geometry of feeling · instruments">
 <meta property="og:description" content="Twelve feelings placed by pairwise questions, the circumplex axes recovered from a question set with no words in common, and the same twelve asked again under six moods — with twelve clock hours as the control that has no business moving.">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="../design/tokens.css">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The geometry of feeling · instruments">
+<meta name="twitter:description" content="Twelve feelings placed by pairwise questions, the circumplex axes recovered from a question set with no words in common, and the same twelve asked again under six moods — with twelve clock hours as the control that has no business moving.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+
 /* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
    glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
    ground — the blur mixes toward white and reads as frost. This site's ground
@@ -183,13 +321,7 @@ body { padding-top: 60px; }
   color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
-/* ---- the footer, with the margin-top the crossed pages had and the written
-   ones did not ---- */
-.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
-.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
-  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
-.foot a { color: var(--ink-4); text-decoration: none; }
-.foot a:hover { color: var(--ink-2); }
+/* the footer is design/footer.js now, emitted by the one shell (2026-09-15) */
 
 /* ---- the panel: a raised box with a hairline. Spacing between consecutive
    panels is a sibling rule, so a page never adds a margin-top of its own and
@@ -334,11 +466,133 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
 }
-</style>
 
+/* bench.css — the structural shim for every page crossed from the bench.
+
+   Three pages here (plates, exact-geometry, affect) carry markup that came over
+   byte-for-byte, so they carry the bench's structural class names. Rather than
+   rewrite them and risk moving a number, those classes are declared ONCE here,
+   in this repository's tokens. Declared three times they would diverge, and the
+   divergence would be invisible: all three would still look like pages.
+
+   The plate BODY was crossed from the bench verbatim, so it carries the bench's
+   structural class names. Rather than rewrite eight plates' worth of markup and
+   risk moving a number, those classes are re-declared here in THIS repository's
+   tokens. Nothing bench-side is imported; every value below is one of ours.
+
+   ONE DELIBERATE DIFFERENCE. The bench's `.reveal` parks an element at
+   opacity 0 and waits for an observer. A page whose first frame is blank is a
+   page that shows nothing to a thumbnail, a shared link, or a reader who
+   scrolls fast — so here `.reveal` is a no-op and everything is visible at rest. */
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; } a { color: inherit; }
+.reveal { opacity: 1; transform: none; }
+h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title); text-wrap: balance; }
+.lede { max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
+.hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
+.hero-meta .item { display: grid; gap: 3px; }
+.hero-meta .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-5); }
+.hero-meta .v { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); }
+
+/* the section rhythm is the one our own pages use — same padding, same rule —
+   so that a reader moving between a page written here and a page crossed from
+   the bench cannot feel the seam. Before this the crossed pages were a third
+   tighter and drew a rule only BETWEEN sections. */
+.section { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
+.hero + .section, .section:first-of-type { border-top: 0; }
+h2.t2, h3.t2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); text-wrap: balance; }
+.prose { color: var(--ink-3); display: grid; gap: var(--s-4); max-width: var(--read); }
+.prose h2 { margin-bottom: var(--s-2); }
+.prose em { color: var(--ink-2); font-style: italic; }
+
+svg { display: block; width: 100%; height: auto; }
+img { max-width: 100%; }
+/* THE LEGEND IS STILL DECLARED THREE TIMES — here, in curveset/page.css and as
+   a flex variant on neural-geometry — and it holds 3, 3, 4, 5 and 7 items on
+   five pages while declaring three columns on four of them. Deriving the count
+   with auto-fit was tried in phase 2 and MEASURED WORSE: seven items in five
+   columns is 5+2, four more left edges than 3+3+1. The component needs
+@media (min-width: 700px) { .legend { grid-template-columns: repeat(3, 1fr); } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ---- flow spacing ---------------------------------------------------------
+   The crossed bodies rely on the bench's base stylesheet for the space between
+   a heading and the paragraph under it. That stylesheet is not imported here —
+   the port rule is that no bench CSS crosses — so the flow is re-declared, in
+   our spacing scale, as adjacency rules rather than per-element margins. */
+.section h1 + *, .section h2 + *, .section h3 + * { margin-top: var(--s-4); }
+.section .eyebrow + h1, .section .eyebrow + h2, .section .eyebrow + h3 { margin-top: var(--s-2); }
+.section p + p, .section p + .nums, .section p + .pred, .section p + table,
+.section p + .lede, .section .lede + p { margin-top: var(--s-4); }
+.section ul, .section ol { margin: var(--s-4) 0 0; padding-left: 1.15em; color: var(--ink-3); }
+.section li + li { margin-top: var(--s-2); }
+.section table { width: 100%; border-collapse: collapse; margin-top: var(--s-5);
+  font-family: var(--font-mono); font-size: var(--text-mono); }
+.section th, .section td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.section th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.section code { font-family: var(--font-mono); font-size: 0.86em; color: var(--ink-2); }
+.section b, .section strong { color: var(--ink); font-weight: var(--weight-medium); }
+h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(--title); text-wrap: balance; }
+.wide .container { max-width: var(--container); }
+
+
+.trip { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); }
+@media (max-width:900px){ .trip{ grid-template-columns:1fr; } }
+figure { margin:0; }
+.art { background:var(--bg-raised); border:1px solid var(--border); border-radius:var(--radius-m); padding:var(--s-2); }
+figcaption { display:flex; justify-content:space-between; gap:var(--s-3); margin-top:6px; font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; }
+.mname { color:var(--ink-2); } .fit { color:var(--ink-5); text-transform:none; letter-spacing:.04em; }
+svg.pl { width:100%; height:auto; display:block; border-radius:var(--radius-s); }
+svg.pl .ch { stroke:#f6f6f8; }
+svg.pl .ord { fill:none; stroke:#f6f6f8; stroke-opacity:.78; stroke-width:1.5; }
+svg.pl .clo { fill:none; stroke:#f6f6f8; stroke-opacity:.9; stroke-width:1.5; stroke-dasharray:5 4; }
+svg.pl .mst { fill:none; stroke:#f6f6f8; stroke-opacity:.55; stroke-width:1.2; }
+svg.pl .pt { fill:#0a0a0c; stroke:#f6f6f8; stroke-width:1.2; }
+svg.pl .pt.first { fill:#f6f6f8; }
+svg.pl .ptb { fill:#f6f6f8; }
+svg.pl .lb { fill:var(--ink-3); font-family:var(--font-mono); font-size:8.5px; }
+svg.pl .lb.first { fill:#f6f6f8; }
+svg.pl .ax line { stroke:#f6f6f8; stroke-opacity:.13; }
+svg.pl .ax text { fill:var(--ink-4); font-family:var(--font-mono); font-size:7.5px; letter-spacing:.08em; }
+svg.pl .tie { stroke:#f6f6f8; stroke-opacity:.42; stroke-width:1; }
+svg.pl .ghost { fill:none; stroke:#f6f6f8; stroke-opacity:.22; stroke-width:1; }
+svg.pl .arr { stroke:#f6f6f8; stroke-opacity:.8; stroke-width:1.1; }
+.grid-t { display:grid; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; margin-top:var(--s-5); }
+.grid-t > div { background:var(--bg-raised); padding:6px var(--s-4); font-family:var(--font-mono); font-size:10px; color:var(--ink-2); font-variant-numeric:tabular-nums; }
+.grid-t .h { color:var(--ink-5); font-size:9px; letter-spacing:.1em; text-transform:uppercase; }
+.grid-t .hit { color:var(--ink); }
+.note { font-family:var(--font-mono); font-size:var(--text-eyebrow); line-height:1.75; color:var(--ink-4); background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-s); padding:var(--s-4); margin-top:var(--s-4); }
+.note b { color:var(--ink-2); font-weight:500; }
+.moods { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); margin-top:var(--s-5); }
+@media (max-width:820px){ .moods{ grid-template-columns:1fr; } }
+.mood { border:1px solid var(--border); border-radius:var(--radius-m); background:var(--bg-raised); padding:var(--s-4); }
+.mood .mk { font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); }
+.mood .mq { font-size:var(--text-small); color:var(--ink-2); line-height:1.6; margin-top:8px; font-style:italic; }
+.mood .mv { font-family:var(--font-mono); font-size:9px; color:var(--ink-5); margin-top:9px; }
+.pend { opacity:.62; }
+.wall { display:grid; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; }
+.wh,.wl,.wc { background:var(--bg-raised); padding:var(--s-3); }
+.wh,.wl { font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-5); display:flex; align-items:center; }
+.wl { color:var(--ink-3); }
+.wc .art { padding:0; border:0; background:none; }
+.wv { font-family:var(--font-mono); font-size:8.5px; color:var(--ink-5); margin-top:5px; text-align:center; }
+@media (max-width:900px){ .wall { grid-template-columns:1fr !important; } .wh { display:none; } }
+.bars { display:grid; gap:var(--s-4); }
+.bg { border:1px solid var(--border); border-radius:var(--radius-m); background:var(--bg-raised); padding:var(--s-4); }
+.bl { font-family:var(--font-mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-4); margin-bottom:var(--s-3); }
+.brow { display:grid; gap:var(--s-3); align-items:center; font-family:var(--font-mono); font-size:9.5px; color:var(--ink-5); margin-top:6px; }
+.bm { color:var(--ink-2); } .bt { color:var(--ink-4); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; }
+.bcell { display:grid; grid-template-columns:1fr 38px; gap:6px; align-items:center; }
+.btr { position:relative; height:5px; background:var(--surface-2); border-radius:2px; }
+.btr i { display:block; height:100%; background:#f6f6f8; opacity:.72; border-radius:2px; }
+.btr b { position:absolute; top:-2px; bottom:-2px; width:1px; background:#f6f6f8; opacity:.9; }
+.bv { color:var(--ink-3); text-align:right; font-variant-numeric:tabular-nums; }
+</style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
 
 <header class="hero"><div class="container">
   <div class="eyebrow">instruments · affect · 6 moods × 3 models · $3.71, already spent</div>
@@ -606,135 +860,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
       <p>Without <span class="mono">--live</span> the probe touches no network and prints the prompts it would send, mood by mood.</p>
     </div>
   </div>
-</section>
-<footer class="foot"><div class="container"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">all instruments</a>
-  <a href="../answer-shape/index.html">the same instrument, seven other subjects</a>
-  <a href="../exact-geometry/index.html">the control it is judged against</a>
-  <span>crossed from the bench 2026-09-04</span>
-</div></div></footer>
+</section><p><a href="../answer-shape/index.html">the same instrument, seven other subjects</a> · <a href="../exact-geometry/index.html">the control it is judged against</a> · crossed from the bench 2026-09-04</p>
 
-<style>/* bench.css — the structural shim for every page crossed from the bench.
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p><a href="../answer-shape/index.html">the same instrument, seven other subjects</a> · <a href="../exact-geometry/index.html">the control it is judged against</a> · crossed from the bench 2026-09-04</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
-   Three pages here (plates, exact-geometry, affect) carry markup that came over
-   byte-for-byte, so they carry the bench's structural class names. Rather than
-   rewrite them and risk moving a number, those classes are declared ONCE here,
-   in this repository's tokens. Declared three times they would diverge, and the
-   divergence would be invisible: all three would still look like pages.
-
-   The plate BODY was crossed from the bench verbatim, so it carries the bench's
-   structural class names. Rather than rewrite eight plates' worth of markup and
-   risk moving a number, those classes are re-declared here in THIS repository's
-   tokens. Nothing bench-side is imported; every value below is one of ours.
-
-   ONE DELIBERATE DIFFERENCE. The bench's `.reveal` parks an element at
-   opacity 0 and waits for an observer. A page whose first frame is blank is a
-   page that shows nothing to a thumbnail, a shared link, or a reader who
-   scrolls fast — so here `.reveal` is a no-op and everything is visible at rest. */
-h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
-p { margin: 0; } a { color: inherit; }
-.reveal { opacity: 1; transform: none; }
-h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title); text-wrap: balance; }
-.lede { max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }
-.hero-meta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
-.hero-meta .item { display: grid; gap: 3px; }
-.hero-meta .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--ink-5); }
-.hero-meta .v { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); }
-
-/* the section rhythm is the one our own pages use — same padding, same rule —
-   so that a reader moving between a page written here and a page crossed from
-   the bench cannot feel the seam. Before this the crossed pages were a third
-   tighter and drew a rule only BETWEEN sections. */
-.section { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
-.hero + .section, .section:first-of-type { border-top: 0; }
-h2.t2, h3.t2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); text-wrap: balance; }
-.prose { color: var(--ink-3); display: grid; gap: var(--s-4); max-width: var(--read); }
-.prose h2 { margin-bottom: var(--s-2); }
-.prose em { color: var(--ink-2); font-style: italic; }
-
-svg { display: block; width: 100%; height: auto; }
-img { max-width: 100%; }
-/* THE LEGEND IS STILL DECLARED THREE TIMES — here, in curveset/page.css and as
-   a flex variant on neural-geometry — and it holds 3, 3, 4, 5 and 7 items on
-   five pages while declaring three columns on four of them. Deriving the count
-   with auto-fit was tried in phase 2 and MEASURED WORSE: seven items in five
-   columns is 5+2, four more left edges than 3+3+1. The component needs
-@media (min-width: 700px) { .legend { grid-template-columns: repeat(3, 1fr); } }
-@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
-
-/* ---- flow spacing ---------------------------------------------------------
-   The crossed bodies rely on the bench's base stylesheet for the space between
-   a heading and the paragraph under it. That stylesheet is not imported here —
-   the port rule is that no bench CSS crosses — so the flow is re-declared, in
-   our spacing scale, as adjacency rules rather than per-element margins. */
-.section h1 + *, .section h2 + *, .section h3 + * { margin-top: var(--s-4); }
-.section .eyebrow + h1, .section .eyebrow + h2, .section .eyebrow + h3 { margin-top: var(--s-2); }
-.section p + p, .section p + .nums, .section p + .pred, .section p + table,
-.section p + .lede, .section .lede + p { margin-top: var(--s-4); }
-.section ul, .section ol { margin: var(--s-4) 0 0; padding-left: 1.15em; color: var(--ink-3); }
-.section li + li { margin-top: var(--s-2); }
-.section table { width: 100%; border-collapse: collapse; margin-top: var(--s-5);
-  font-family: var(--font-mono); font-size: var(--text-mono); }
-.section th, .section td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-.section th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
-.section code { font-family: var(--font-mono); font-size: 0.86em; color: var(--ink-2); }
-.section b, .section strong { color: var(--ink); font-weight: var(--weight-medium); }
-h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(--title); text-wrap: balance; }
-.wide .container { max-width: var(--container); }
-
-
-.trip { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); }
-@media (max-width:900px){ .trip{ grid-template-columns:1fr; } }
-figure { margin:0; }
-.art { background:var(--bg-raised); border:1px solid var(--border); border-radius:var(--radius-m); padding:var(--s-2); }
-figcaption { display:flex; justify-content:space-between; gap:var(--s-3); margin-top:6px; font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; }
-.mname { color:var(--ink-2); } .fit { color:var(--ink-5); text-transform:none; letter-spacing:.04em; }
-svg.pl { width:100%; height:auto; display:block; border-radius:var(--radius-s); }
-svg.pl .ch { stroke:#f6f6f8; }
-svg.pl .ord { fill:none; stroke:#f6f6f8; stroke-opacity:.78; stroke-width:1.5; }
-svg.pl .clo { fill:none; stroke:#f6f6f8; stroke-opacity:.9; stroke-width:1.5; stroke-dasharray:5 4; }
-svg.pl .mst { fill:none; stroke:#f6f6f8; stroke-opacity:.55; stroke-width:1.2; }
-svg.pl .pt { fill:#0a0a0c; stroke:#f6f6f8; stroke-width:1.2; }
-svg.pl .pt.first { fill:#f6f6f8; }
-svg.pl .ptb { fill:#f6f6f8; }
-svg.pl .lb { fill:var(--ink-3); font-family:var(--font-mono); font-size:8.5px; }
-svg.pl .lb.first { fill:#f6f6f8; }
-svg.pl .ax line { stroke:#f6f6f8; stroke-opacity:.13; }
-svg.pl .ax text { fill:var(--ink-4); font-family:var(--font-mono); font-size:7.5px; letter-spacing:.08em; }
-svg.pl .tie { stroke:#f6f6f8; stroke-opacity:.42; stroke-width:1; }
-svg.pl .ghost { fill:none; stroke:#f6f6f8; stroke-opacity:.22; stroke-width:1; }
-svg.pl .arr { stroke:#f6f6f8; stroke-opacity:.8; stroke-width:1.1; }
-.grid-t { display:grid; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; margin-top:var(--s-5); }
-.grid-t > div { background:var(--bg-raised); padding:6px var(--s-4); font-family:var(--font-mono); font-size:10px; color:var(--ink-2); font-variant-numeric:tabular-nums; }
-.grid-t .h { color:var(--ink-5); font-size:9px; letter-spacing:.1em; text-transform:uppercase; }
-.grid-t .hit { color:var(--ink); }
-.note { font-family:var(--font-mono); font-size:var(--text-eyebrow); line-height:1.75; color:var(--ink-4); background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-s); padding:var(--s-4); margin-top:var(--s-4); }
-.note b { color:var(--ink-2); font-weight:500; }
-.moods { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); margin-top:var(--s-5); }
-@media (max-width:820px){ .moods{ grid-template-columns:1fr; } }
-.mood { border:1px solid var(--border); border-radius:var(--radius-m); background:var(--bg-raised); padding:var(--s-4); }
-.mood .mk { font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); }
-.mood .mq { font-size:var(--text-small); color:var(--ink-2); line-height:1.6; margin-top:8px; font-style:italic; }
-.mood .mv { font-family:var(--font-mono); font-size:9px; color:var(--ink-5); margin-top:9px; }
-.pend { opacity:.62; }
-.wall { display:grid; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; }
-.wh,.wl,.wc { background:var(--bg-raised); padding:var(--s-3); }
-.wh,.wl { font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-5); display:flex; align-items:center; }
-.wl { color:var(--ink-3); }
-.wc .art { padding:0; border:0; background:none; }
-.wv { font-family:var(--font-mono); font-size:8.5px; color:var(--ink-5); margin-top:5px; text-align:center; }
-@media (max-width:900px){ .wall { grid-template-columns:1fr !important; } .wh { display:none; } }
-.bars { display:grid; gap:var(--s-4); }
-.bg { border:1px solid var(--border); border-radius:var(--radius-m); background:var(--bg-raised); padding:var(--s-4); }
-.bl { font-family:var(--font-mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-4); margin-bottom:var(--s-3); }
-.brow { display:grid; gap:var(--s-3); align-items:center; font-family:var(--font-mono); font-size:9.5px; color:var(--ink-5); margin-top:6px; }
-.bm { color:var(--ink-2); } .bt { color:var(--ink-4); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; }
-.bcell { display:grid; grid-template-columns:1fr 38px; gap:6px; align-items:center; }
-.btr { position:relative; height:5px; background:var(--surface-2); border-radius:2px; }
-.btr i { display:block; height:100%; background:#f6f6f8; opacity:.72; border-radius:2px; }
-.btr b { position:absolute; top:-2px; bottom:-2px; width:1px; background:#f6f6f8; opacity:.9; }
-.bv { color:var(--ink-3); text-align:right; font-variant-numeric:tabular-nums; }</style>
 </body>
 </html>

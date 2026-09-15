@@ -48,10 +48,7 @@ const APP_DARK = { '--v-cert': '#79C79B', '--v-refu': '#E06B62', '--v-refd': '#8
 /* --shadow is NOT redeclared here: design/tokens.js emits it, once, for the
    whole site. This file used to carry two more. */
 
-/* the SAME request the reports make — derived, never restated */
-const APP_FONTS =
-  '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
-  '<link rel="stylesheet" href="' + T.GOOGLE_FONTS + '">';
+/* the head — fonts included — is design/template.js headHtml(), the same block every page takes (2026-09-15) */
 
 function vars(o) { return Object.entries(o).map(([k, v]) => k + ':' + v).join(';'); }
 
@@ -323,23 +320,7 @@ function renderApp(o) {
   const cfg = o.configJson ? '<script>window.SKYAUDIT = ' + o.configJson + ';</script>' : '';
   return `<!doctype html>
 <html lang="en"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${o.title}</title>
-<meta name="description" content="${o.description || ''}">
-<meta name="author" content="Carlos Toledo">
-<meta name="theme-color" content="#0a0a0c">
-${o.path ? `<link rel="canonical" href="https://carlostoledo.co${o.path}">
-<meta property="og:url" content="https://carlostoledo.co${o.path}">
-<meta property="og:title" content="${o.title}">
-<meta property="og:description" content="${o.description || ''}">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="cert-machine · Carlos Toledo">
-<meta property="og:image" content="https://carlostoledo.co/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">` : ''}
-${APP_FONTS}
+${require('./template.js').headHtml({ title: o.title, desc: o.description || '', path: o.path })}
 ${(o.styles || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('\n')}
 <style>${T.rootCss()}${appCss()}</style>
 <script>/* ?theme=light|dark stamps the explicit theme state; absent = system */

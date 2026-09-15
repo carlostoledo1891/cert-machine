@@ -34,6 +34,7 @@ const T = require('./tokens.js');
    too — the legend there was declaring its column count by hand on four pages */
 const { balancedGrid } = require('./grid.js');
 const NAVJS = require('./nav.js');
+const FOOT = require('./footer.js');
 
 /* the relative prefix back to the site root, from the page's own path, so the
    nav resolves in a file:// preview as well as on the domain */
@@ -68,16 +69,16 @@ function sectionOf(p) {
 function css() {
   const { SCALE, LAYOUT } = T;
   const NAVCSS = NAVJS.navCss(SCALE.pagePadX);
+  /* the :root block is NOT here: render() prepends T.rootCss() to whichever
+     sheet a page takes, so the tokens are emitted exactly once per page */
   return `
-${T.rootCss()}
-
 *{box-sizing:border-box}
 html{color-scheme:dark;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink-2);
   font-family:var(--f-sans);font-size:${SCALE.body};line-height:1.65;font-weight:400;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 ::selection{background:var(--ink);color:var(--paper)}
-.page{max-width:${LAYOUT.container};margin:0 auto;padding:calc(${SCALE.pagePadY} + 60px) ${SCALE.pagePadX} 96px}
+.page{max-width:${LAYOUT.container};margin:0 auto;padding:calc(${SCALE.pagePadY} + 60px) ${SCALE.pagePadX} 0}
 
 ${NAVCSS}
 /* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
@@ -300,11 +301,7 @@ ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:${SCALE.bo
 ul.plain li:first-child{border-top:0}
 ul.plain b{color:var(--ink);font-weight:480}
 
-footer{margin:${SCALE.section} 0 0;padding-top:32px;border-top:1px solid var(--rule);
-  color:var(--ink-5);font-size:${SCALE.eyebrow};letter-spacing:.08em;line-height:1.9;font-family:var(--f-mono);text-transform:uppercase}
-footer p{margin:0 0 12px}
-footer a{color:var(--ink-3);border-bottom-color:var(--rule-strong);text-transform:none;letter-spacing:.04em}
-footer a:hover{color:var(--ink)}
+${FOOT.footerCss()}
 
 /* ---- the machine schematic (components.flow) ----
    Nodes are keyboard-focusable buttons; the readout above the drawing narrates
@@ -398,21 +395,22 @@ function ldJson(pagePath, title, d, canon) {
   return `<script type="application/ld+json">${json}</script>`;
 }
 
-function render({ title, bodyRaw, footRaw, desc, path: pagePath }) {
+/* THE ONE HEAD (2026-09-15). Every page — report, landing, instrument, app —
+   takes this block: description, author, theme-color, robots, canonical and
+   og:url when the builder passes `path`, the Open Graph and Twitter cards,
+   the JSON-LD by served path, the favicon, the fonts, the analytics tag.
+   /instruments carried a head of its own until today, with no canonical, no
+   favicon, no card image and no analytics; the app shell a third. */
+function headHtml({ title, desc, path: pagePath }) {
   const CO = require('./components.js');
-  /* the nav — links, markup and CSS — is design/nav.js, so /instruments can
-     carry the same one. It used to be a link list inline in this function. */
-  const NAV = NAVJS.navHtml({ here: sectionOf(pagePath), root: rootOf(pagePath) });
   const d = desc || DEFAULT_DESC;
   const canon = pagePath ? SITE_ORIGIN + pagePath : null;
-  return `<!doctype html>
-<html lang="en">
-<meta charset="utf-8">
+  return `<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${CO.esc(title)}</title>
 <meta name="description" content="${CO.escAttr(d)}">
 <meta name="author" content="Carlos Toledo">
-<meta name="theme-color" content="#0a0a0c">
+<meta name="theme-color" content="${T.DARKONLY['--paper']}">
 <meta name="robots" content="max-image-preview:large">
 ${canon ? `<link rel="canonical" href="${canon}">\n<meta property="og:url" content="${canon}">` : ''}
 <meta property="og:title" content="${CO.escAttr(title)}">
@@ -432,23 +430,48 @@ ${pagePath ? ldJson(pagePath, title, d, canon) : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${T.GOOGLE_FONTS}">
-<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>`;
+}
 
+/* THE ONE SHELL (2026-09-15). Two sheets, one skeleton:
+     sheet 'report'  — the tokens, this file's stylesheet, then `cssRaw`; the
+                       body sits in `.page` (the reports, the landing, /machine,
+                       /about, /oracle).
+     sheet 'own'     — the tokens, the footer rules, then `cssRaw` (which is
+                       the instruments' base layer plus the page's own sheet);
+                       the body brings its own containers.
+   Either way: <html><head>ONE HEAD<style>ONE STYLESHEET</style></head>
+   <body>NAV · body · ONE FOOTER · scripts</body></html>. A builder passes only
+   what is its own; a whole <footer> passed as footRaw is unwrapped, so the
+   older builders keep working while they migrate. */
+function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', scriptRaw = '', sheet = 'report', bodyClass = '' }) {
+  const root = rootOf(pagePath);
+  const NAV = NAVJS.navHtml({ here: sectionOf(pagePath), root });
+  /* footRaw === null: a VIEWPORT page, not a document — it carries its own
+     closing line inside the viewport and a document footer under an
+     overflow:hidden body would be a footer nobody can reach. One page uses
+     this (/instruments/navier-stokes). Everything else gets the one footer. */
+  const inner = String(footRaw || '').replace(/^\s*<footer[^>]*>/i, '').replace(/<\/footer>\s*$/i, '');
+  const style = T.rootCss() + '\n\n' + (sheet === 'report' ? css() : FOOT.footerCss()) + (cssRaw ? '\n' + cssRaw : '');
+  const body = sheet === 'report' ? '<div class="page">\n\n' + bodyRaw + '\n\n</div>' : bodyRaw;
+  return `<!doctype html>
+<html lang="en">
+<head>
+${headHtml({ title, desc, path: pagePath })}
 <style>
-${css()}
+${style}
 </style>
-
+</head>
+<body${bodyClass ? ' class="' + bodyClass + '"' : ''}>
 ${NAV}
 
-<div class="page">
+${body}
 
-${bodyRaw}
-
-${footRaw || ''}
-
-</div>
+${footRaw === null ? '' : FOOT.footerHtml({ innerRaw: inner, root })}
+${scriptRaw}
+</body>
 </html>
 `;
 }
 
-module.exports = { render, css, DEFAULT_DESC };
+module.exports = { render, css, headHtml, DEFAULT_DESC };

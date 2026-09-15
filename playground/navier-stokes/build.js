@@ -21,8 +21,7 @@ const fs = require('fs'), path = require('path');
 const HERE = __dirname;
 const PG = path.join(HERE, '..');
 const ROOT = path.join(PG, '..');
-const { esc } = require(path.join(PG, 'design', 'shell.js'));
-const NAV = require(path.join(ROOT, 'design', 'nav.js'));
+const { esc, page } = require(path.join(PG, 'design', 'shell.js'));
 const GRAMMAR = require(path.join(ROOT, 'design', 'grammar.js'));
 
 const SCENE = path.join(HERE, 'out', 'scene.json');
@@ -36,11 +35,12 @@ const nf = (x) => Number(x).toLocaleString('en-US');
    playground/design/overlay.css defines #stage, .ov, .ov-title, .ov-foot, .rd, .ov-panel, .pt,
    .grp, .eyebrow, .hr-thin, .ctrl, .row-btns, .chip, .note-sm, .sheet. What follows is only
    what this instrument adds. A rule defined twice diverges. */
-/* The base layer the shell would have given us. This page does not use the shell (it is a
-   viewport, not a document), so it declares the same three things the shell declares and
-   nothing more: the reset, the ground and the type. */
+/* THE PAGE IS ON THE ONE SHELL (2026-09-15) — the reset, the ground and the type come from
+   it, so the three rules this file used to restate are gone. What stays is the one thing a
+   VIEWPORT needs and a document must not have: the page itself does not scroll. Its closing
+   line lives in .ov-foot inside the viewport, so it passes foot: null and takes no document
+   footer — a <footer> under an overflow:hidden body is a footer nobody can reach. */
 const CSS = OVERLAY + `
-*,*::before,*::after{box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;}
 /* THE PANEL HIDES WITHOUT LEAVING THE PAGE. The shared grammar slides it out with
    translateX(100%), which is fine on a page that never starts hidden — the interferometer
@@ -122,23 +122,13 @@ ${GRAMMAR.css('.ov-mech')}
 `;
 
 const D = S.dichotomy;
-const html = `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Turn the singularity — cert-machine</title>
-<meta name="description" content="${esc('The object OpenAI\u2019s Navier\u2013Stokes proof constructs, drawn at full size and turned: iso-speed contours of a self-similar vortex core collapsing in real time, with every verdict about the parameter it hangs on decided in your tab in exact integer arithmetic.')}">
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="Turn the singularity">
-<meta property="og:description" content="A Millennium proof\u2019s singularity, drawn as the object it is rather than simulated.">
-<meta property="og:type" content="website">
-<link rel="stylesheet" href="../design/tokens.css">
-<style>${CSS}</style>
-</head>
-<body>
-${NAV.navHtml({ here: 'instruments', root: '../../' })}
-<canvas id="stage" aria-label="Iso-speed contours of a self-similar vortex core collapsing toward a point, with the meridional streamlines, the core's box and the dotted pulse annulus, all shrinking as the time remaining falls."></canvas>
+const html = page({
+  title: 'Turn the singularity — cert-machine',
+  desc: 'The object OpenAI\u2019s Navier\u2013Stokes proof constructs, drawn at full size and turned: iso-speed contours of a self-similar vortex core collapsing in real time, with every verdict about the parameter it hangs on decided in your tab in exact integer arithmetic.',
+  path: '/instruments/navier-stokes/',
+  css: CSS,
+  foot: null,
+  body: `<canvas id="stage" aria-label="Iso-speed contours of a self-similar vortex core collapsing toward a point, with the meridional streamlines, the core's box and the dotted pulse annulus, all shrinking as the time remaining falls."></canvas>
 
 <div class="ov ov-title">
   <div class="eyebrow">cert-machine / instruments &nbsp;·&nbsp; the object a Millennium proof constructs</div>
@@ -300,12 +290,11 @@ ${NAV.navHtml({ here: 'instruments', root: '../../' })}
     <a href="../../reports/navier-stokes.html">What is certified is next door.</a></div>
   </div>
 </aside>
-
-<script type="application/json" id="ns-grammar">${JSON.stringify({ identity: GRAMMAR.IDENTITY, guide: GRAMMAR.dash.guide, none: GRAMMAR.dash.none })}</script>
+`,
+  script: `<script type="application/json" id="ns-grammar">${JSON.stringify({ identity: GRAMMAR.IDENTITY, guide: GRAMMAR.dash.guide, none: GRAMMAR.dash.none })}</script>
 <script type="application/json" id="ns-scene">${JSON.stringify(S).replace(/</g, '\\u003c')}</script>
-<script>${APP}</script>
-</body>
-</html>`;
+<script>${APP}</script>`,
+});
 
 function build() {
   const dir = path.join(ROOT, 'site', 'instruments', 'navier-stokes');

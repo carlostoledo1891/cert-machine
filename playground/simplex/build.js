@@ -102,8 +102,8 @@ function build(OUT) {
   const html = page({
     title: 'An attention row is a point · instruments',
     desc: 'Attention weights sum to one, so a row is a point in a simplex. One real row from a tiny GPT, drawn where it lives, with its concentration decided in exact arithmetic.',
-    root: '../', here: 'simplex', body,
-    script: `<style>${CSS}</style>\n<script>${APP}</script>`,
+    path: '/instruments/simplex/', body,
+    css: `${CSS}`, script: `<script>${APP}</script>`,
   });
   const dir = path.join(OUT, 'simplex');
   fs.mkdirSync(dir, { recursive: true });

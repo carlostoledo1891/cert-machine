@@ -2,15 +2,153 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The line they published, and the lines that fit · instruments</title>
 <meta name="description" content="Two real calibrations — a NIST load cell and a rat IL-6 assay — with the whole set of curves the standards allow, computed in closed form, and the published fit drawn inside it as one member chosen by a criterion rather than by the data.">
-<meta name="robots" content="index, follow">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/instruments/curveset/">
+<meta property="og:url" content="https://carlostoledo.co/instruments/curveset/">
 <meta property="og:title" content="The line they published, and the lines that fit · instruments">
 <meta property="og:description" content="Two real calibrations — a NIST load cell and a rat IL-6 assay — with the whole set of curves the standards allow, computed in closed form, and the published fit drawn inside it as one member chosen by a criterion rather than by the data.">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="../design/tokens.css">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The line they published, and the lines that fit · instruments">
+<meta name="twitter:description" content="Two real calibrations — a NIST load cell and a rat IL-6 assay — with the whole set of curves the standards allow, computed in closed form, and the published fit drawn inside it as one member chosen by a criterion rather than by the data.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+
 /* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
    glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
    ground — the blur mixes toward white and reads as frost. This site's ground
@@ -183,13 +321,7 @@ body { padding-top: 60px; }
   color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
-/* ---- the footer, with the margin-top the crossed pages had and the written
-   ones did not ---- */
-.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
-.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
-  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
-.foot a { color: var(--ink-4); text-decoration: none; }
-.foot a:hover { color: var(--ink-2); }
+/* the footer is design/footer.js now, emitted by the one shell (2026-09-15) */
 
 /* ---- the panel: a raised box with a hairline. Spacing between consecutive
    panels is a sibling rule, so a page never adds a margin-top of its own and
@@ -334,11 +466,86 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
 }
-</style>
 
+/* page.css — curveset. A reading page whose figures are the argument.
+
+   THE GRAMMAR'S CLASSES LIVE HERE, not in each figure: `.w-decided`,
+   `.w-computed`, `.w-chosen`, `.w-void`. warrant.js emits the class and the
+   dash pattern; this file decides what those look like in this theme, once. */
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; } a { color: inherit; }
+
+.sec { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
+.sec h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); margin-top: var(--s-3); }
+.sec .why { margin-top: var(--s-5); max-width: var(--read); color: var(--ink-3); }
+.sec .why b { color: var(--ink-2); font-weight: var(--weight-medium); }
+.w-void { fill: url(#wvoid); stroke: var(--border-strong); stroke-width: 1; }
+@media (min-width: 700px) { .legend { grid-template-columns: repeat(4, 1fr); } }
+
+.panel .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s-3) var(--s-5); }
+.panel .head .t { font-size: var(--text-2); color: var(--ink); font-weight: var(--weight-medium); }
+.panel .head .s { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-5); }
+.panel .src { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); max-width: var(--read); line-height: 1.55; }
+svg.cs-plot { display: block; width: 100%; height: auto; margin-top: var(--s-4); overflow: visible; }
+
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+.cs-std { fill: var(--ink); stroke: var(--bg-raised); stroke-width: 1.5; }
+/* THE PAINT FOR .cs-* MOVED TO playground/design/components.js on 2026-09-05.
+   It was defined in both places and had already diverged — .cs-tick was --ink-5
+   here and --ink-4 there, so the same tick was two colours on two pages — and
+   four of them (fitdot, axname, asklab, void-lab) existed ONLY here, so the
+   gathering page painted them black. Paint is shared; only anchoring and the
+   .on states are page-local, and those are what is left below. */
+.cs-tick.tx { text-anchor: middle; } .cs-tick.ty { text-anchor: end; }
+.cs-tick.on { fill: var(--ink); }
+.cs-val { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-4); }
+.cs-val.on { fill: var(--ink); font-size: 12px; }
+.cs-axname.tx { text-anchor: end; } .cs-axname.ty { text-anchor: end; }
+
+/* ---- the dial ------------------------------------------------------------- */
+.dial { margin-top: var(--s-5); display: grid; gap: var(--s-4); }
+.dial .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4); }
+.dial label { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-4); }
+.dial input[type=range] { flex: 1 1 260px; min-width: 200px; accent-color: var(--ink); height: 22px; }
+.dial input[type=range]:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 3px; }
+.dial .state { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); }
+.readout { display: grid; gap: var(--s-4) var(--s-6); grid-template-columns: 1fr; margin-top: var(--s-2); }
+@media (min-width: 720px) { .readout { grid-template-columns: repeat(3, 1fr); } }
+.readout .r { border-top: 1px solid var(--border); padding-top: var(--s-3); }
+.readout .rk { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-5); }
+.readout .rv { font-family: var(--font-mono); font-size: 1.35rem; color: var(--ink); margin-top: var(--s-2);
+  font-variant-numeric: tabular-nums; }
+.readout .rn { font-size: var(--text-small); color: var(--ink-4); margin-top: var(--s-2); line-height: 1.5; }
+
+.grid3 { display: grid; gap: var(--s-6) clamp(1.5rem, 4vw, 3rem); grid-template-columns: 1fr; margin-top: var(--s-6); }
+@media (min-width: 820px) { .grid3 { grid-template-columns: repeat(3, 1fr); } }
+.grid3 h3 { font-size: 1rem; letter-spacing: var(--track-title); }
+.grid3 p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); line-height: 1.6; }
+.big { font-family: var(--font-mono); font-size: 1.7rem; color: var(--ink); display: block; margin-bottom: var(--s-2); font-variant-numeric: tabular-nums; }
+
+table { width: 100%; border-collapse: collapse; margin-top: var(--s-6); font-family: var(--font-mono); font-size: var(--text-mono); }
+th, td { text-align: right; padding: 7px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+td.hit { color: var(--ink); }
+td.dim { color: var(--ink-5); }
+
+pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-m); overflow-x: auto; font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); }
+
+/* a section that holds a component runs the full container; the prose inside it
+   keeps the reading measure, so the two never fight over the same width */
+.sec .why, .sec ul.why, .sec p { max-width: var(--read); }
+
+</style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <pattern id="wvoid" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -470,88 +677,9 @@ node playground/curveset/make-page-data.js    # the record
 node playground/build.js</pre>
 </div></section>
 
-<footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">all instruments</a>
-  <a href="../interferometer/index.html">the same question, on a telescope</a>
-  <span>data: NIST StRD Pontius (US Government, public domain)</span>
-  <span>built 2026-09-04</span>
-</div></div></footer>
 
-<style>/* page.css — curveset. A reading page whose figures are the argument.
 
-   THE GRAMMAR'S CLASSES LIVE HERE, not in each figure: `.w-decided`,
-   `.w-computed`, `.w-chosen`, `.w-void`. warrant.js emits the class and the
-   dash pattern; this file decides what those look like in this theme, once. */
-h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
-p { margin: 0; } a { color: inherit; }
-
-.sec { padding: clamp(2.5rem, 6vh, 4.5rem) 0; border-top: 1px solid var(--border); }
-.sec h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.1rem); margin-top: var(--s-3); }
-.sec .why { margin-top: var(--s-5); max-width: var(--read); color: var(--ink-3); }
-.sec .why b { color: var(--ink-2); font-weight: var(--weight-medium); }
-.w-void { fill: url(#wvoid); stroke: var(--border-strong); stroke-width: 1; }
-@media (min-width: 700px) { .legend { grid-template-columns: repeat(4, 1fr); } }
-
-.panel .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s-3) var(--s-5); }
-.panel .head .t { font-size: var(--text-2); color: var(--ink); font-weight: var(--weight-medium); }
-.panel .head .s { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-5); }
-.panel .src { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); max-width: var(--read); line-height: 1.55; }
-svg.cs-plot { display: block; width: 100%; height: auto; margin-top: var(--s-4); overflow: visible; }
-
-.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
-.cs-fill { fill: var(--band-fill); stroke: none; }
-.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
-.cs-std { fill: var(--ink); stroke: var(--bg-raised); stroke-width: 1.5; }
-/* THE PAINT FOR .cs-* MOVED TO playground/design/components.js on 2026-09-05.
-   It was defined in both places and had already diverged — .cs-tick was --ink-5
-   here and --ink-4 there, so the same tick was two colours on two pages — and
-   four of them (fitdot, axname, asklab, void-lab) existed ONLY here, so the
-   gathering page painted them black. Paint is shared; only anchoring and the
-   .on states are page-local, and those are what is left below. */
-.cs-tick.tx { text-anchor: middle; } .cs-tick.ty { text-anchor: end; }
-.cs-tick.on { fill: var(--ink); }
-.cs-val { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-4); }
-.cs-val.on { fill: var(--ink); font-size: 12px; }
-.cs-axname.tx { text-anchor: end; } .cs-axname.ty { text-anchor: end; }
-
-/* ---- the dial ------------------------------------------------------------- */
-.dial { margin-top: var(--s-5); display: grid; gap: var(--s-4); }
-.dial .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4); }
-.dial label { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--ink-4); }
-.dial input[type=range] { flex: 1 1 260px; min-width: 200px; accent-color: var(--ink); height: 22px; }
-.dial input[type=range]:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 3px; }
-.dial .state { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink); }
-.readout { display: grid; gap: var(--s-4) var(--s-6); grid-template-columns: 1fr; margin-top: var(--s-2); }
-@media (min-width: 720px) { .readout { grid-template-columns: repeat(3, 1fr); } }
-.readout .r { border-top: 1px solid var(--border); padding-top: var(--s-3); }
-.readout .rk { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--ink-5); }
-.readout .rv { font-family: var(--font-mono); font-size: 1.35rem; color: var(--ink); margin-top: var(--s-2);
-  font-variant-numeric: tabular-nums; }
-.readout .rn { font-size: var(--text-small); color: var(--ink-4); margin-top: var(--s-2); line-height: 1.5; }
-
-.grid3 { display: grid; gap: var(--s-6) clamp(1.5rem, 4vw, 3rem); grid-template-columns: 1fr; margin-top: var(--s-6); }
-@media (min-width: 820px) { .grid3 { grid-template-columns: repeat(3, 1fr); } }
-.grid3 h3 { font-size: 1rem; letter-spacing: var(--track-title); }
-.grid3 p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-4); line-height: 1.6; }
-.big { font-family: var(--font-mono); font-size: 1.7rem; color: var(--ink); display: block; margin-bottom: var(--s-2); font-variant-numeric: tabular-nums; }
-
-table { width: 100%; border-collapse: collapse; margin-top: var(--s-6); font-family: var(--font-mono); font-size: var(--text-mono); }
-th, td { text-align: right; padding: 7px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
-th:first-child, td:first-child { text-align: left; }
-th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
-td.hit { color: var(--ink); }
-td.dim { color: var(--ink-5); }
-
-pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised); border: 1px solid var(--border);
-  border-radius: var(--radius-m); overflow-x: auto; font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); }
-
-/* a section that holds a component runs the full container; the prose inside it
-   keeps the reading measure, so the two never fight over the same width */
-.sec .why, .sec ul.why, .sec p { max-width: var(--read); }
-</style>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p><a href="../interferometer/index.html">the same question, on a telescope</a> · data: NIST StRD Pontius (US Government, public domain) · built 2026-09-04</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 const __M={};function require(n){if(!(n in __M))throw new Error('no module '+n);return __M[n];}
 /* grammar.js FIRST: warrant.js requires it, and the shim throws on an

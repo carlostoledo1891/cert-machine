@@ -492,8 +492,8 @@ function build(OUTDIR) {
   const html = page({
     title: 'Fourteen million verdicts could not see this mutant — cert-machine',
     desc: 'A chip-task environment: one mutant of a comparator, or the unmutated design. Name the input pair whose pins differ, or prove there is none. Kills verified by simulating the netlist, equivalence by SAT, and no answer key anywhere.',
-    root: '../', here: 'instruments',
-    head: `<style>${BENCHCSS}\n${BASE_EXTRA}\n${REPORT}\n${CSS}</style>`,
+    path: '/instruments/blind-spot/',
+    css: `${BENCHCSS}\n${BASE_EXTRA}\n${REPORT}\n${CSS}`,
     body: `<main>${body}</main>\n<script type="application/json" id="bs-mutants">${JSON.stringify(CARD_DATA).replace(/</g, '\\u003c')}</script>`,
     /* the shell emits `script` RAW, so the tags belong to the caller. Without them
        the whole behaviour was dropped into the page as nothing at all and the

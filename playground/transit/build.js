@@ -294,14 +294,14 @@ function build(OUTDIR) {
   const html = page({
     title: 'The transit, without a law for the star — cert-machine',
     desc: 'A certified enclosure on the planet-to-star radius ratio from Kepler short-cadence photometry, assuming only that the stellar brightness profile is nonnegative.',
-    root: '../', here: 'instruments',
-    head: `<style>${BENCHCSS}\n${BASE_EXTRA}\n${REPORT}\n${G.css()}
+    path: '/instruments/transit/',
+    css: `${BENCHCSS}\n${BASE_EXTRA}\n${REPORT}\n${G.css()}
 .fg{width:100%;height:auto;display:block;background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-m);}
 .fg .ax{font-family:var(--font-mono);font-size:8.5px;fill:var(--ink-5);}
 .fg .lb{font-family:var(--font-mono);font-size:9.5px;fill:var(--ink-3);}
 .prose p{margin-top:var(--s-4);color:var(--ink-3);line-height:var(--leading-body);}
 .prose b{color:var(--ink-2);font-weight:500;} .prose em{color:var(--ink-4);}
-</style>`,
+`,
     body: `<main>${body}</main>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);

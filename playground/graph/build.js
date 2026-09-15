@@ -112,8 +112,8 @@ function build(OUTDIR) {
     desc: 'Two verification rules as conditions on a connection: a float has no wire into a port that decides. '
       + F.reDerivedIdentically + ' certified cells re-derived through the graph, worst relative difference '
       + F.worstRelativeDifference + '.',
-    root: '../', here: 'instruments',
-    head: `<style>${CSS}</style>`,
+    path: '/instruments/graph/',
+    css: `${CSS}`,
     body,
     script: `<script id="ug-spec" type="application/json">${SPEC.replace(/</g, '\\u003c')}</script>\n`
       + `<script>${bundle()}</script>\n<script>${APP}</script>`,

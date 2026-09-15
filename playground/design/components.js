@@ -62,13 +62,7 @@ function sharedCss() {
   color: var(--ink-3); line-height: 1.55; }
 .hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
 
-/* ---- the footer, with the margin-top the crossed pages had and the written
-   ones did not ---- */
-.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
-.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
-  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
-.foot a { color: var(--ink-4); text-decoration: none; }
-.foot a:hover { color: var(--ink-2); }
+/* the footer is design/footer.js now, emitted by the one shell (2026-09-15) */
 
 /* ---- the panel: a raised box with a hairline. Spacing between consecutive
    panels is a sibling rule, so a page never adds a margin-top of its own and

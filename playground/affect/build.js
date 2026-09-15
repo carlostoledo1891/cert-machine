@@ -38,22 +38,18 @@ const head = `
 </div></header>`;
 
 const foot = `
-<footer class="foot"><div class="container"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">all instruments</a>
-  <a href="../answer-shape/index.html">the same instrument, seven other subjects</a>
-  <a href="../exact-geometry/index.html">the control it is judged against</a>
-  <span>crossed from the bench ${PROV.liftedOn}</span>
-</div></div></footer>`;
+`;
 
 const sections = (() => { const i = A.body.indexOf('<section class="section'); return i < 0 ? A.body : A.body.slice(i); })();
 
 function build(OUT) {
+  const foot = `<p><a href="../answer-shape/index.html">the same instrument, seven other subjects</a> · <a href="../exact-geometry/index.html">the control it is judged against</a> · crossed from the bench ${PROV.liftedOn}</p>`;
   const html = page({
+    foot,
     title: 'The geometry of feeling · instruments',
     desc: 'Twelve feelings placed by pairwise questions, the circumplex axes recovered from a question set with no words in common, and the same twelve asked again under six moods — with twelve clock hours as the control that has no business moving.',
-    root: '../', here: 'affect', body: head + sections + foot,
-    script: `<style>${BENCHCSS}\n${A.CSS}</style>`,
+    path: '/instruments/affect/', body: head + sections + foot,
+    css: `${BENCHCSS}\n${A.CSS}`,
   });
   const dir = path.join(OUT, 'affect');
   fs.mkdirSync(dir, { recursive: true });

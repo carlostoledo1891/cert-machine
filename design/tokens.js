@@ -179,8 +179,8 @@ const SHADOW = '0 8px 28px rgba(0,0,0,.55)';
    phase 1 of the one-seed pass) and because a component shared by both sides
    cannot be written while half the scale exists on one side only. */
 const RHYTHM = {
-  leading: { tight: '1.04', snug: '1.25', body: '1.65' },
-  track:   { display: '-0.035em', title: '-0.02em', eyebrow: '0.16em' },
+  leading: { tight: '1.04', snug: '1.25', body: '1.65', loose: '1.9' },
+  track:   { display: '-0.035em', title: '-0.02em', eyebrow: '0.16em', loose: '0.08em', slight: '0.04em' },
   /* mono 500 and strong 600 added 2026-09-15: the site set them in 44 places
      (eyebrows, table heads, chips, the brand) with no name to set them by */
   weight:  { display: '550', title: '530', medium: '480', body: '400', mono: '500', strong: '600' },
@@ -253,9 +253,9 @@ function scaleVars() {
   v['--text-3'] = SCALE.deck; v['--text-body'] = SCALE.body; v['--text-small'] = SCALE.small;
   v['--text-mono'] = SCALE.small; v['--text-eyebrow'] = SCALE.eyebrow;
   v['--leading-tight'] = RHYTHM.leading.tight; v['--leading-snug'] = RHYTHM.leading.snug;
-  v['--leading-body'] = RHYTHM.leading.body;
+  v['--leading-body'] = RHYTHM.leading.body; v['--leading-loose'] = RHYTHM.leading.loose;
   v['--track-display'] = RHYTHM.track.display; v['--track-title'] = RHYTHM.track.title;
-  v['--track-eyebrow'] = RHYTHM.track.eyebrow;
+  v['--track-eyebrow'] = RHYTHM.track.eyebrow; v['--track-loose'] = RHYTHM.track.loose; v['--track-slight'] = RHYTHM.track.slight;
   for (const [k, val] of Object.entries(RHYTHM.weight)) v['--weight-' + k] = val;
   for (const [k, val] of Object.entries(SPACE)) v['--s-' + k] = val;
   v['--section-pad'] = SCALE.section;
@@ -314,93 +314,15 @@ const CHART = {
   CTX: 'var(--c-ctx)', GRID: 'var(--c-grid)', AXIS: 'var(--c-axis)', SURFACE: 'var(--sunk)'
 };
 
-/* -------------------------------------------- the instruments stylesheet --
-   playground/design/tokens.css USED TO BE A HAND-WRITTEN SECOND COPY of the
-   palette under frontier's names. It is generated from the table above now, so
-   the file on disk is an artifact: playground/build.js writes it into
-   site/instruments/design/ at build time and there is no source copy to drift.
-
-   Two things here are genuinely the instruments' own and not the reports':
-   the VENDORED variable fonts (the pages ship woff2 beside themselves rather
-   than asking Google, so a plate renders identically offline), and the local
-   @font-face blocks that declare them. The FALLBACK STACK behind them is
-   TYPE's, not a restatement — which is the one visible change this generation
-   makes: the pre-webfont fallback order is now the same on both sides of the
-   site instead of two orderings nobody chose.                               */
-const VENDORED = { sans: "'Inter var'", mono: "'JetBrains Mono var'" };
-
-function instrumentsCss() {
-  const v = {};
-  for (const [frontier, house] of Object.entries(FRONTIER)) {
-    if (DARKONLY[house] === undefined) throw new Error('FRONTIER maps ' + frontier + ' to ' + house + ', which is not a palette name');
-    v[frontier] = DARKONLY[house];
-  }
-  Object.assign(v, {
-    '--font-sans': VENDORED.sans + ',' + TYPE.body,
-    '--font-mono': VENDORED.mono + ',' + TYPE.mono,
-    '--text-display': SCALE.h1, '--text-1': SCALE.h2, '--text-2': SCALE.h3,
-    '--text-3': SCALE.deck, '--text-body': SCALE.body, '--text-small': SCALE.small,
-    '--text-mono': SCALE.small, '--text-eyebrow': SCALE.eyebrow,
-    '--leading-tight': RHYTHM.leading.tight, '--leading-snug': RHYTHM.leading.snug,
-    '--leading-body': RHYTHM.leading.body,
-    '--track-display': RHYTHM.track.display, '--track-title': RHYTHM.track.title,
-    '--track-eyebrow': RHYTHM.track.eyebrow,
-    '--weight-display': RHYTHM.weight.display, '--weight-title': RHYTHM.weight.title,
-    '--weight-medium': RHYTHM.weight.medium, '--weight-body': RHYTHM.weight.body,
-  });
-  /* BOTH SPELLINGS, 2026-09-05. The header of the generated file has always said
-     the frontier names here and the house names the reports use are "two
-     spellings of ONE palette" — but only the frontier half was ever emitted, so
-     on /instruments the house names simply did not exist. design/nav.js is
-     SHARED by both shells and is written in house names, and five of its ten
-     tokens (--paper, --rule, --rule-soft, --rule-strong, --f-mono) resolved to
-     nothing across the whole section: the bar had no background, no bottom
-     border and no mono face, and content scrolled visibly under it. That is what
-     the review called a blur smear — the blur was the only thing the bar had.
-     Emitting the house names as well costs a few lines and makes any shared
-     component resolve in either shell, which is what one palette means. */
-  for (const [frontier, house] of Object.entries(FRONTIER)) v[house] = DARKONLY[house];
-  /* --rule-soft is a palette name that the FRONTIER table reaches under a
-     different frontier spelling (--chart-grid), so the loop above misses it. */
-  v['--rule-soft'] = DARKONLY['--rule-soft'];
-  v['--f-mono'] = VENDORED.mono + ',' + TYPE.mono;
-  v['--f-sans'] = VENDORED.sans + ',' + TYPE.body;
-
-  for (const [k, val] of Object.entries(SPACE)) v['--s-' + k] = val;
-  v['--section-pad'] = SCALE.section;
-  v['--container'] = LAYOUT.container;
-  v['--read'] = LAYOUT.read;
-  v['--title'] = LAYOUT.title;
-  v['--gutter'] = SCALE.pagePadX;
-  for (const [k, val] of Object.entries(SHAPE)) v['--radius-' + k] = val;
-  v['--ease-out'] = MOTION.ease;
-  v['--dur-fast'] = MOTION.fast; v['--dur-med'] = MOTION.med; v['--dur-slow'] = MOTION.slow;
-  v['--shadow'] = SHADOW;
-
-  const face = (family, file, wRange) =>
-    `@font-face {\n  font-family: ${family};\n  src: url('../assets/fonts/${file}') format('woff2');\n`
-    + `  font-weight: ${wRange};\n  font-style: normal;\n  font-display: swap;\n}`;
-
-  return ['/* tokens.css — GENERATED from design/tokens.js. Do not edit.',
-    '   Every value here is emitted from that file; the frontier names below and',
-    '   the house names the reports use are two spellings of ONE palette, mapped',
-    '   in its FRONTIER table. Editing this file changes nothing: the next',
-    '   `make playground` overwrites it. Change design/tokens.js.',
-    '',
-    '   Dark-first, grayscale-only. Identity is never colour-alone — the chart',
-    '   series are three greys, so the legend rule, the direct labels and the',
-    '   stroke pattern are what separate them. design/battery.js re-derives the',
-    '   contrast and CVD facts at every run, because a measurement that is not',
-    '   re-run is a memory. */',
-    '', face(VENDORED.sans, 'inter-var.woff2', '100 900'),
-    face(VENDORED.mono, 'jetbrains-mono-var.woff2', '100 800'),
-    '', ':root {', '  color-scheme: dark;',
-    Object.entries(v).map(([k, val]) => '  ' + k + ': ' + val + ';').join('\n'),
-    '}', ''].join('\n');
-}
+/* THE INSTRUMENTS STYLESHEET IS GONE (2026-09-15). site/instruments/design/
+   tokens.css was generated here and linked by every instrument page, carrying a
+   vendored font SUBSET that drew 11 of 39 glyphs the site uses — Greek fell to
+   Times on every /instruments page. Every page now takes rootCss() inline from
+   the one shell and the same Google Fonts request the reports make. Vendoring
+   full-coverage subsets is a follow-up (DEBT.md).                          */
 
 /* Kept exports: LIGHT/DARK aliases point at the one palette so any consumer
    still importing them keeps working while it migrates. */
 module.exports = { LIGHT: DARKONLY, DARK: DARKONLY, DARKONLY, TYPE, GOOGLE_FONTS,
-  SCALE, LAYOUT, MEASURE, SHADOW, RHYTHM, SPACE, SHAPE, MOTION, FRONTIER, VENDORED,
-  FIGURE_TOKENS, CHART, rootCss, fontBlock, instrumentsCss, scaleVars, frontierVars };
+  SCALE, LAYOUT, MEASURE, SHADOW, RHYTHM, SPACE, SHAPE, MOTION, FRONTIER,
+  FIGURE_TOKENS, CHART, rootCss, fontBlock, scaleVars, frontierVars };

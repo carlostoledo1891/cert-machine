@@ -1,24 +1,25 @@
-/* shell.js — the whole page shell for /instruments, and deliberately the whole of it.
+/* shell.js — /instruments' entry to THE one shell, design/template.js.
+   playground/design · cert-machine
 
-   The rest of this repository generates every page from design/template.js with
-   gates around it: a scope line, a certificate table that must agree with disk,
-   a stale-claim check. Those exist because those pages make claims.
+   Until 2026-09-15 this file WAS a shell: its own <head> (no canonical, no
+   favicon, no card image, no analytics), its own footer, a linked stylesheet
+   the reports did not have, and a vendored font subset that drew Greek in
+   Times. Now it is thirty lines that map what a builder passes to what the
+   one shell takes. The base layer (the nav rules, shell.css, the shared
+   components) is still this section's own and still emitted here, as the
+   page's own sheet, until the two stylesheets become one.
 
-   THIS PLACE MAKES NONE. Nothing under /instruments is certified, nothing here is
-   gated, and the point is to be free enough to show mathematics as something you
-   can touch. So the shell is thirty lines, it imports nothing, and if a page
-   wants to throw it away and write its own <html> it can.
-*/
+   A builder passes: title, desc, path (the served path, for the canonical
+   URL — REQUIRED), body, css (its own rules, no <style> tags), script (its
+   own <script> tags, emitted after the footer), foot (its own footer
+   paragraphs, nothing for the section's default line, or null for a viewport
+   page that carries its own closing line and cannot show a document footer). */
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
 
-/* THE BASE LAYER IS THE SHELL'S JOB, not the caller's. Ten builders each read
-   shell.css and pasted it into their own <style>, which is a list ten people
-   have to remember; interferometer had already forgotten a different one and
-   linked base.css instead. page() emits it now, and a builder passes only what
-   is its own. */
+const TPL = require(path.join(__dirname, '..', '..', 'design', 'template.js'));
 const NAV = require(path.join(__dirname, '..', '..', 'design', 'nav.js'));
 const BASE = NAV.navCss('var(--gutter)')
   + fs.readFileSync(path.join(__dirname, 'shell.css'), 'utf8')
@@ -26,49 +27,13 @@ const BASE = NAV.navCss('var(--gutter)')
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-/* THE NAV IS THE SITE'S NAV (2026-09-05). This section used to carry its own:
-   the word "instruments/" and one link home. A reader who landed on an
-   instrument page — and these are the pages most likely to be landed on
-   directly — could not reach the reports, the machine or the about page
-   without going home first. design/nav.js is the one nav now, markup and CSS
-   together, so the two shells cannot drift apart again. */
-/* THE FOOTER, once. Nine of the seventeen pages under /instruments had none — each page
-   wrote its own or forgot to — so the shell now closes every page the same way unless the
-   page carries a footer of its own. */
-function footer(root) {
-  return `<footer class="foot"><div class="wrap"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="${root}index.html">all instruments</a>
-  <a href="${root}../reports/index.html">the reports</a>
-  <a href="${root}../machine/index.html">the machine</a>
-  <span>nothing here is gated · every number came out of the record beside the page</span>
-  <span>Carlos Toledo</span>
-</div></div></footer>`;
-}
+const DEFAULT_FOOT = '<p>nothing here is gated · every number came out of the record beside the page</p>';
 
-function page({ title, desc = '', root = '', here = 'home', body, head = '', script = '', bodyClass = '' }) {
-  return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="${esc(title)}">
-<meta property="og:description" content="${esc(desc)}">
-<meta property="og:type" content="website">
-<link rel="stylesheet" href="${root}design/tokens.css">
-<style>${BASE}</style>
-${head}
-</head>
-<body${bodyClass ? ` class="${bodyClass}"` : ''}>
-${NAV.navHtml({ here: here === 'home' ? 'instruments' : here, root: root + '../' })}
-${body}
-${/<footer[\s>]/.test(body) ? '' : footer(root)}
-${script}
-</body>
-</html>`;
+function page({ title, desc = '', path: served, body, css = '', script = '', bodyClass = '', foot }) {
+  if (!served || !/^\/instruments\//.test(served)) throw new Error('page(): pass the served path (/instruments/<id>/) — ' + title);
+  if (/<style[\s>]/i.test(css)) throw new Error('page(): `css` takes rules, not a <style> element — ' + title);
+  return TPL.render({ title, desc, path: served, bodyRaw: body, footRaw: foot === undefined ? DEFAULT_FOOT : foot,
+    cssRaw: BASE + '\n' + css, scriptRaw: script, sheet: 'own', bodyClass });
 }
 
 module.exports = { page, esc };

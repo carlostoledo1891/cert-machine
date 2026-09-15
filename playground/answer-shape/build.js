@@ -39,23 +39,18 @@ const head = `
 </div></header>`;
 
 const foot = `
-<footer class="foot"><div class="container"><div class="line">
-  <span>cert-machine / instruments</span>
-  <a href="../index.html">all instruments</a>
-  <a href="../exact-geometry/index.html">the control this is judged against</a>
-  <a href="../affect/index.html">the same twelve, asked under six moods</a>
-  <a href="../shape-hunt/index.html">and what survives a null</a>
-  <span>crossed from the bench ${PROV.liftedOn}</span>
-</div></div></footer>`;
+`;
 
 const sections = (() => { const i = A.body.indexOf('<section class="section'); return i < 0 ? A.body : A.body.slice(i); })();
 
 function build(OUT) {
+  const foot = `<p><a href="../exact-geometry/index.html">the control this is judged against</a> · <a href="../affect/index.html">the same twelve, asked under six moods</a> · <a href="../shape-hunt/index.html">and what survives a null</a> · crossed from the bench ${PROV.liftedOn}</p>`;
   const html = page({
+    foot,
     title: 'The shape of an answer · instruments',
     desc: 'Seven subjects, three models, every pair asked both ways round — and the exact decision of whether the answers are a shape at all: effective rank, negative mass, the exact signature, and where the triangle inequality fails.',
-    root: '../', here: 'answer-shape', body: head + sections + foot,
-    script: `<style>${BENCHCSS}\n${A.CSS}</style>`,
+    path: '/instruments/answer-shape/', body: head + sections + foot,
+    css: `${BENCHCSS}\n${A.CSS}`,
   });
   const dir = path.join(OUT, 'answer-shape');
   fs.mkdirSync(dir, { recursive: true });
