@@ -50,7 +50,7 @@ const body = `
 
 <div class="ov ov-title">
   <div class="eyebrow">M87 &middot; ${M.date} &middot; ${M.freqGHz.toFixed(0)} GHz</div>
-  <h1 style="margin-top:var(--s-3);">Not the picture.<br>The set of pictures.</h1>
+  <h1 class="mt3">Not the picture.<br>The set of pictures.</h1>
   <p>Every sky drawn here is one the Event Horizon Telescope&rsquo;s released data allow. What they agree on is ink. What they disagree on is texture.</p>
 </div>
 
@@ -97,7 +97,7 @@ const body = `
     <span class="eyebrow">filter the ensemble</span>
     ${slider('cChi', 'closure fit, worse than', 1, 60, 1)}
     ${slider('cFlux', 'compact flux at most', 0.4, 8, 0.1)}
-    <div class="row-btns" style="margin-top:var(--s-3);">
+    <div class="row-btns mt3">
       <button data-flag="extremes">include amplitude extremes</button>
     </div>
     <div class="note-sm">The extremes are the skies that push as much flux as the amplitudes allow into a small disk. They are legal and they look nothing like a black hole &mdash; which is the point.</div>

@@ -95,7 +95,7 @@ function profileFig(prof, title) {
   out.push('    <path d="' + prof.rows.map((r, k) => (k ? 'L' : 'M') + f.px(r.x).toFixed(2) + ' ' + f.py((r.u[0] + r.u[1]) / 2).toFixed(2)).join(' ') + '" fill="none" stroke="' + CAT[2] + '" stroke-width="2" stroke-linecap="round" stroke-dasharray="' + G.PICK + '"/>');
   for (const r of prof.rows) out.push('    <rect ' + CH.hit('x="' + (f.px(r.x) - 3).toFixed(1) + '" y="' + f.T + '" width="' + (f.px(L / NX) - f.px(0)).toFixed(1) + '" height="' + f.ph + '" fill="transparent" data-cmx="' + f.px(r.x).toFixed(1) + '"',
     'x = ' + r.x.toFixed(3) + ' · ' + r.standing, (r.ustar ? 'u* ∈ [' + r.ustar[0].toFixed(3) + ', ' + r.ustar[1].toFixed(3) + '] · ' : '') + 'u ∈ [' + r.u[0].toFixed(3) + ', ' + r.u[1].toFixed(3) + ']') + '/>');
-  out.push('    <line class="cm-cross" x1="0" y1="' + f.T + '" x2="0" y2="' + (f.T + f.ph) + '" stroke="' + TK.CHART.AXIS + '" stroke-width="1" style="opacity:0"/>');
+  out.push('    <line class="cm-cross" x1="0" y1="' + f.T + '" x2="0" y2="' + (f.T + f.ph) + '" stroke="' + TK.CHART.AXIS + '" stroke-width="1"/>');
   out.push(CH.legend(keys, f.L, f.h - 7, undefined, f.pw));
   out.push(CH.close);
   return out.join('\n');

@@ -375,6 +375,27 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
 .cm-tip span{display:block;color:var(--ink-3)}
 .figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-btn + .cmw-btn{margin-left:var(--s-2)}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
 .figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
 .figbox [data-cm]:focus:not(:focus-visible){outline:none}
 svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
@@ -708,7 +729,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <text x="13" y="124" class="t-note" transform="rotate(-90 13 124)" text-anchor="middle">bracket width, log</text>
     <line x1="72.5" y1="18" x2="72.5" y2="230" stroke="var(--c-3)" stroke-width="2" stroke-dasharray="5 4"/>
     <text x="79.5" y="31.0" text-anchor="start" class="t-lab">P₀</text>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="230" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="230" stroke="var(--c-axis)" stroke-width="1"/>
     <path d="M73.33 130.27 L75.60 129.88 L80.13 128.30 L84.67 127.22 L107.33 124.50 L130.00 123.21 L175.33 121.88 L288.67 120.60 L402.00 120.13 L515.33 119.91 L628.67 119.79 L855.33 119.69" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
     <circle cx="855.33" cy="119.69" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
   </svg>
@@ -749,7 +770,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <line x1="62" y1="207" x2="878" y2="207" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="470.0" y="249.0" text-anchor="middle" class="t-note">x</text>
     <text x="13" y="112.5" class="t-note" transform="rotate(-90 13 112.5)" text-anchor="middle">projected Mather density</text>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="207" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="207" stroke="var(--c-axis)" stroke-width="1"/>
     <path d="M62.00 135.59 L74.75 132.60 L87.50 129.23 L100.25 125.45 L113.00 121.19 L125.75 116.40 L138.50 111.02 L151.25 105.01 L164.00 98.33 L176.75 90.99 L189.50 83.05 L202.25 74.71 L215.00 66.33 L227.75 58.46 L240.50 51.90 L253.25 47.48 L266.00 45.92 L278.75 47.48 L291.50 51.90 L304.25 58.46 L317.00 66.33 L329.75 74.71 L342.50 83.05 L355.25 90.99 L368.00 98.33 L380.75 105.01 L393.50 111.02 L406.25 116.40 L419.00 121.19 L431.75 125.45 L444.50 129.23 L457.25 132.60 L470.00 135.59 L482.75 138.24 L495.50 140.60 L508.25 142.69 L521.00 144.55 L533.75 146.18 L546.50 147.62 L559.25 148.88 L572.00 149.97 L584.75 150.91 L597.50 151.71 L610.25 152.37 L623.00 152.90 L635.75 153.31 L648.50 153.59 L661.25 153.77 L674.00 153.82 L686.75 153.77 L699.50 153.59 L712.25 153.31 L725.00 152.90 L737.75 152.37 L750.50 151.71 L763.25 150.91 L776.00 149.97 L788.75 148.88 L801.50 147.62 L814.25 146.18 L827.00 144.55 L839.75 142.69 L852.50 140.60 L865.25 138.24 L878.00 135.59" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
     <circle cx="878.00" cy="135.59" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
     <path d="M62.00 125.24 L74.75 123.23 L87.50 121.08 L100.25 118.81 L113.00 116.41 L125.75 113.93 L138.50 111.36 L151.25 108.76 L164.00 106.16 L176.75 103.62 L189.50 101.20 L202.25 98.96 L215.00 96.99 L227.75 95.36 L240.50 94.14 L253.25 93.38 L266.00 93.13 L278.75 93.38 L291.50 94.14 L304.25 95.36 L317.00 96.99 L329.75 98.96 L342.50 101.20 L355.25 103.62 L368.00 106.16 L380.75 108.76 L393.50 111.36 L406.25 113.93 L419.00 116.41 L431.75 118.81 L444.50 121.08 L457.25 123.23 L470.00 125.24 L482.75 127.12 L495.50 128.85 L508.25 130.45 L521.00 131.91 L533.75 133.23 L546.50 134.43 L559.25 135.50 L572.00 136.44 L584.75 137.27 L597.50 137.97 L610.25 138.57 L623.00 139.05 L635.75 139.42 L648.50 139.69 L661.25 139.85 L674.00 139.90 L686.75 139.85 L699.50 139.69 L712.25 139.42 L725.00 139.05 L737.75 138.57 L750.50 137.97 L763.25 137.27 L776.00 136.44 L788.75 135.50 L801.50 134.43 L814.25 133.23 L827.00 131.91 L839.75 130.45 L852.50 128.85 L865.25 127.12 L878.00 125.24" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
@@ -825,7 +846,7 @@ node instruments/hbar/run.js --check   # the record, re-derived and compared byt
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-hbar.js @ git 324faf0 — certs/hbar-band.json re-derived during this build and compared byte for byte (identical, or no page). Code sha256 2070aca1c7d6d1e2…</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-hbar.js @ git a242434 — certs/hbar-band.json re-derived during this build and compared byte for byte (identical, or no page). Code sha256 2070aca1c7d6d1e2…</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

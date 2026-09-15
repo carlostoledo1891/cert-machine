@@ -72,6 +72,11 @@ a{color:inherit}
 .as-top .meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-3);
   border:1px solid var(--rule);border-radius:var(--radius-pill);padding:3px 10px;white-space:nowrap}
 .as-top .spacer{flex:1}
+/* the mono cell, and the mono cell at book weight. Forty elements in the app's
+   templates carried these two declarations inline; they are the app's type
+   contract and belong where a restyle can reach them (2026-09-15). */
+.as-mono{font-family:var(--f-mono)}
+.as-mono-400{font-family:var(--f-mono);font-weight:var(--weight-body)}
 .as-top a.navx{color:var(--ink-2);text-decoration:none;font-family:var(--f-mono);font-size:10.5px;
   letter-spacing:.12em;text-transform:uppercase;padding:6px 2px;transition:color .12s}
 .as-top a.navx:hover{color:var(--sig)}

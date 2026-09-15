@@ -15,10 +15,39 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-08-31, generation front BUILT)
+## TASKS BACKLOG — the standing menu (updated 2026-09-15, THE TEMPLATE IS ONE)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-15 (the fifteenth session). In the order I would take it:
+
+  0. THE SITE IS ON ONE TEMPLATE. Four commits today (fa5405e, 324faf0,
+     a242434, and the P3 one): one shell for all 90 pages, one head, one
+     stylesheet, one footer, one font path, and tools/check-style.js ratcheting
+     five facts per page. The plan and what shipped against it are in
+     notes/template-plan-2026-09-15.md. Nothing is pushed.
+  0a. THE ONE QUESTION THIS PASS LEAVES THE OPERATOR: **sixty-six bespoke
+     reading measures** (`max-width:19ch` … `84ch`) across twenty pages. The
+     tokens are --read (82ch) and --title (28ch). Putting all sixty-six onto
+     the two tokens is the last big slice of "no inline css" — and it RE-WRAPS
+     PROSE on twenty published pages, which is a look decision, not a template
+     one. Say the word and it is an hour; say no and they stay as they are,
+     recorded in design/style-baseline.json and going nowhere.
+  0b. WHAT THE PASS FOUND, all fixed, all measured — the list is worth reading
+     before trusting any gate: every report shipped SQUARE corners for ten days
+     (a token nothing declared, and the radius check read the NAME); three
+     instruments named tokens that do not exist; the vendored font subset drew
+     11 of 39 glyphs the site uses, so Greek was in Times on every instrument
+     page; four instrument pages had never taken the house heading typography;
+     three viewport instruments had a footer painted behind their overlays; and
+     /instruments/navier-stokes shipped the site nav with NO NAV CSS.
+  0c. STILL OPEN from the template pass: P4 (the app's BODY is still a second
+     layout — DEBT.md row 4), P5 (a visual-review document; the screenshots and
+     the diffs exist, the write-up does not), and two gate defects now written
+     down in DEBT.md — the render gate keys every figure on a page under one
+     row, and the ruler counts a bordered box as two spines.
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-12 (the fourteenth session). In the order I would take it:
@@ -41,10 +70,8 @@ THE MENU, as of 2026-09-12 (the fourteenth session). In the order I would take i
      question to him is what the corrigendum corrected; then 4 (Hs forecasts on
      PNBOIA buoys), 6 (waves against a current), 7B (weather-window Wardrop). Nothing has been sent to Pedro or to the
      benchmark's organizers; both are the operator's.
-  0a. NOTHING IS PUSHED from this session (the previous "fourteen local
-     commits" note is stale — everything through 77ba80d IS on main and live).
-     This session's work is uncommitted at the close: the operator did not ask
-     for a commit. `git status` lists it; the site bundle is rebuilt.
+  0a. COMMITTED 2026-09-15 as 6659a49 at the start of the fifteenth session, so
+     the template pass had clean boundaries. Not pushed.
   1. The layout ruler and render gate baselines were ACCEPTED for the two new
      pages only (see the log). The render gate then caught a PRE-EXISTING leak:
      two literal backticks on /machine, from the blind-spot battery description

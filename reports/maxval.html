@@ -375,6 +375,27 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
 .cm-tip span{display:block;color:var(--ink-3)}
 .figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-btn + .cmw-btn{margin-left:var(--s-2)}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
 .figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
 .figbox [data-cm]:focus:not(:focus-visible){outline:none}
 svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
@@ -3890,7 +3911,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <rect x="853.8" y="18" width="8.5" height="227" fill="transparent" data-cmx="856.8" data-cm="x = 2.844 · DECIDED" data-cmv="u* ∈ [1.073, 1.137] · u ∈ [0.623, 0.673]" tabindex="0"/>
     <rect x="862.3" y="18" width="8.5" height="227" fill="transparent" data-cmx="865.3" data-cm="x = 2.906 · DECIDED" data-cmv="u* ∈ [1.122, 1.187] · u ∈ [0.623, 0.673]" tabindex="0"/>
     <rect x="870.8" y="18" width="8.5" height="227" fill="transparent" data-cmx="873.8" data-cm="x = 2.969 · DECIDED" data-cmv="u* ∈ [1.171, 1.238] · u ∈ [0.623, 0.673]" tabindex="0"/>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="245" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="245" stroke="var(--c-axis)" stroke-width="1"/>
     <line x1="62" y1="308" x2="76" y2="308" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
     <text x="81.0" y="312.0" text-anchor="start" class="t-note">u* enclosed (decided; solid edges are the bracket)</text>
     <line x1="62" y1="327" x2="76" y2="327" stroke="var(--c-3)" stroke-width="2" stroke-dasharray="5 4"/>
@@ -4031,7 +4052,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <rect x="853.8" y="18" width="8.5" height="227" fill="transparent" data-cmx="856.8" data-cm="x = 2.844 · DECIDED" data-cmv="u* ∈ [1.362, 1.449] · u ∈ [0.843, 0.946]" tabindex="0"/>
     <rect x="862.3" y="18" width="8.5" height="227" fill="transparent" data-cmx="865.3" data-cm="x = 2.906 · DECIDED" data-cmv="u* ∈ [1.423, 1.512] · u ∈ [0.846, 0.951]" tabindex="0"/>
     <rect x="870.8" y="18" width="8.5" height="227" fill="transparent" data-cmx="873.8" data-cm="x = 2.969 · DECIDED" data-cmv="u* ∈ [1.486, 1.577] · u ∈ [0.846, 0.954]" tabindex="0"/>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="245" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="245" stroke="var(--c-axis)" stroke-width="1"/>
     <line x1="62" y1="308" x2="76" y2="308" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
     <text x="81.0" y="312.0" text-anchor="start" class="t-note">u* enclosed (decided; solid edges are the bracket)</text>
     <line x1="62" y1="327" x2="76" y2="327" stroke="var(--c-3)" stroke-width="2" stroke-dasharray="5 4"/>
@@ -4172,7 +4193,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <rect x="853.8" y="18" width="8.5" height="227" fill="transparent" data-cmx="856.8" data-cm="x = 2.844 · DECIDED" data-cmv="u* ∈ [1.564, 1.632] · u ∈ [1.414, 1.657]" tabindex="0"/>
     <rect x="862.3" y="18" width="8.5" height="227" fill="transparent" data-cmx="865.3" data-cm="x = 2.906 · DECIDED" data-cmv="u* ∈ [1.579, 1.646] · u ∈ [1.421, 1.670]" tabindex="0"/>
     <rect x="870.8" y="18" width="8.5" height="227" fill="transparent" data-cmx="873.8" data-cm="x = 2.969 · DECIDED" data-cmv="u* ∈ [1.588, 1.655] · u ∈ [1.424, 1.679]" tabindex="0"/>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="245" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="245" stroke="var(--c-axis)" stroke-width="1"/>
     <line x1="62" y1="308" x2="76" y2="308" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
     <text x="81.0" y="312.0" text-anchor="start" class="t-note">u* enclosed (decided; solid edges are the bracket)</text>
     <line x1="62" y1="327" x2="76" y2="327" stroke="var(--c-3)" stroke-width="2" stroke-dasharray="5 4"/>
@@ -4238,7 +4259,7 @@ node instruments/maxval/run.js --check  # the record, re-derived and compared by
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-maxval.js @ git 324faf0 — certs/maxval-cylinder.json re-derived during this build and compared byte for byte (identical, or no page). Code sha256 09ebda9daab5d8c2…</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-maxval.js @ git a242434 — certs/maxval-cylinder.json re-derived during this build and compared byte for byte (identical, or no page). Code sha256 09ebda9daab5d8c2…</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

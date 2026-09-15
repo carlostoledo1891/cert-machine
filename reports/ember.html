@@ -375,6 +375,27 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
 .cm-tip span{display:block;color:var(--ink-3)}
 .figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-btn + .cmw-btn{margin-left:var(--s-2)}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
 .figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
 .figbox [data-cm]:focus:not(:focus-visible){outline:none}
 svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
@@ -693,7 +714,7 @@ node instruments/ivspecial/battery.js    # the Γ/Bessel layer: 69 checks, 5 red
 make test                                # every battery in the machine</pre><p>Sources: <span class="m">instruments/hotspots/</span> + <span class="m">instruments/ivspecial/</span> · literature input pinned at <span class="m">corpus/sources/liu2018_arxiv-1808-08148.pdf</span> with its transcription beside it. Refutations and independent re-runs are invited: carlos@carlostoledo.co.</p>
 </section>
 
-<p>cert-machine · built 2026-09-15 · git 324faf0 · every number from a VERIFIED record · Liu pin fb867aa5ab93… · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p>
+<p>cert-machine · built 2026-09-15 · git a242434 · every number from a VERIFIED record · Liu pin fb867aa5ab93… · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p>
 
 </div>
 

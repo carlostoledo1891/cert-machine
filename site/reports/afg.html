@@ -375,6 +375,27 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
 .cm-tip span{display:block;color:var(--ink-3)}
 .figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-btn + .cmw-btn{margin-left:var(--s-2)}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
 .figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
 .figbox [data-cm]:focus:not(:focus-visible){outline:none}
 svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
@@ -924,7 +945,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <rect x="865.4" y="18" width="3.2" height="252" fill="transparent" data-cmx="868.4" data-cm="x ∈ [0.9883, 0.9922)" data-cmv="m ∈ [0.57173, 0.58341]" tabindex="0"/>
     <rect x="868.6" y="18" width="3.2" height="252" fill="transparent" data-cmx="871.6" data-cm="x ∈ [0.9922, 0.9961)" data-cmv="m ∈ [0.58135, 0.59282]" tabindex="0"/>
     <rect x="871.8" y="18" width="3.2" height="252" fill="transparent" data-cmx="874.8" data-cm="x ∈ [0.9961, 1.0000)" data-cmv="m ∈ [0.59176, 0.60300]" tabindex="0"/>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="270" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="270" stroke="var(--c-axis)" stroke-width="1"/>
   </svg>
   </div>
   <figcaption>Figure 1 · The density of the instance b = cos² 2πx as a certified tube: on each of 256 cells, the fill is the interval every m(x) in the cell provably lies in, for every (j, H̄) in the box. Solid edges: decided. Their Figure 8 is a picture of the same hump.</figcaption>
@@ -1214,7 +1235,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <rect x="868.6" y="18" width="3.2" height="232" fill="transparent" data-cmx="871.6" data-cm="x ∈ [0.9922, 0.9961)" data-cmv="u ∈ [0.05887, 0.05889]" tabindex="0"/>
     <rect x="871.8" y="18" width="3.2" height="232" fill="transparent" data-cmx="874.8" data-cm="x ∈ [0.9961, 1.0000)" data-cmv="u ∈ [0.05727, 0.05729]" tabindex="0"/>
     <rect x="875.0" y="18" width="3.2" height="232" fill="transparent" data-cmx="878.0" data-cm="x ∈ [1.0000, 1.0039)" data-cmv="u ∈ [0.05563, 0.05565]" tabindex="0"/>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="250" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
   </svg>
   </div>
   <figcaption>Figure 2 · The value function u of the instance, enclosed at 257 points with ∫u = 0. The paper&#39;s Figure 7 shows the same oscillation from the monotone flow; here its amplitude is 0.0775 and its closure is proved.</figcaption>
@@ -1553,7 +1574,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <rect x="865.4" y="18" width="3.2" height="231" fill="transparent" data-cmx="868.4" data-cm="x ∈ [0.9883, 0.9922)" data-cmv="m ∈ [0.73383, 0.75203]" tabindex="0"/>
     <rect x="868.6" y="18" width="3.2" height="231" fill="transparent" data-cmx="871.6" data-cm="x ∈ [0.9922, 0.9961)" data-cmv="m ∈ [0.75203, 0.77070]" tabindex="0"/>
     <rect x="871.8" y="18" width="3.2" height="231" fill="transparent" data-cmx="874.8" data-cm="x ∈ [0.9961, 1.0000)" data-cmv="m ∈ [0.77070, 0.78985]" tabindex="0"/>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="249" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="249" stroke="var(--c-axis)" stroke-width="1"/>
     <line x1="62" y1="309" x2="76" y2="309" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
     <text x="81.0" y="313.0" text-anchor="start" class="t-note">certified tube (decided)</text>
     <line x1="273" y1="309" x2="287" y2="309" stroke="var(--c-3)" stroke-width="2" stroke-dasharray="5 4"/>
@@ -1619,7 +1640,7 @@ node instruments/interval/tests/test-quadrature.js   # the rigorous integral, an
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-afg.js @ git 324faf0 — certs/afg-enclosure.json re-derived during this build and compared byte for byte (identical, or no page). Code sha256 ce5f0d0e5a18b105…</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-afg.js @ git a242434 — certs/afg-enclosure.json re-derived during this build and compared byte for byte (identical, or no page). Code sha256 ce5f0d0e5a18b105…</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

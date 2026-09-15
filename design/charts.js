@@ -320,7 +320,7 @@ function lines(o) {
     if (m.t) out.push(txt(x + (m.anchor === 'end' ? -7 : 7), f.T + 13 + (m.row || 0) * 17, m.t, 't-lab', m.anchor || 'start'));
   }
   out.push('    <line class="cm-cross" x1="0" y1="' + f.T + '" x2="0" y2="' + (f.T + f.ph)
-    + '" stroke="' + AXIS + '" stroke-width="1" style="opacity:0"/>');
+    + '" stroke="' + AXIS + '" stroke-width="1"/>');
   S.forEach((s, i) => {
     const tok = s.token || CAT[S.slice(0, i).filter(x => !x.token).length];
     const pts = s.pts.filter(p => p[1] !== null && p[1] !== undefined);
@@ -382,7 +382,7 @@ function band(o) {
       (o.vOf ? o.vOf(p) : compact(p[1]) + ' … ' + compact(p[2]))) + '/>');
   }
   out.push('    <line class="cm-cross" x1="0" y1="' + f.T + '" x2="0" y2="' + (f.T + f.ph)
-    + '" stroke="' + AXIS + '" stroke-width="1" style="opacity:0"/>');
+    + '" stroke="' + AXIS + '" stroke-width="1"/>');
   out.push(close);
   return out.join('\n');
 }

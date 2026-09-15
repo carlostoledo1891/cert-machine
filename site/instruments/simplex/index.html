@@ -299,6 +299,24 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+.mt2 { margin-top: var(--s-2); }
+.mt3 { margin-top: var(--s-3); }
+.mt4 { margin-top: var(--s-4); }
+.mt5 { margin-top: var(--s-5); }
+.mt6 { margin-top: var(--s-6); }
+.mt7 { margin-top: var(--s-7); }
+.mt8 { margin-top: var(--s-8); }
+
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -648,7 +666,7 @@ body.sheet-open .sheet { opacity: 1; pointer-events: auto; }
       <svg id="ladder" viewBox="0 0 620 320" role="img" aria-label="Participation ratio against inverse temperature: the real row descending, and two planted mutants failing to."></svg>
       <p class="cap"><b>PR against β on the decided grid.</b> The row descends strictly; the flat mutant sits at 31 forever and the (β−3)²·s mutant turns around, because its factor passes through zero. An instrument that cannot go red on those two is theatre.</p>
       <div class="checks"><span class="chk ok">✓ fixture sha256 matches the published pin</span><span class="chk ok">✓ rational-kernel PR strictly decreases over 9 betas (p=2)</span><span class="chk ok">✓ the dual Σpᵢ² strictly increases</span><span class="chk ok">✓ p = 1 decreases as well</span><span class="chk ok">✓ mutant "mutant · flat scores" fails strict decrease</span><span class="chk ok">✓ mutant "mutant · (β−3)²·s" fails strict decrease</span><span class="chk ok">✓ flat scores give PR = n exactly</span><span class="chk ok">✓ our softmax reproduces the fixture’s stored rows</span><span class="chk ok">✓ softmax PR decreases too (float view)</span></div>
-      <div style="margin-top:var(--s-5)"><button class="btn" id="sheetOpen">what is decided here</button></div>
+      <div class="mt5"><button class="btn" id="sheetOpen">what is decided here</button></div>
     </div>
   </div>
 </div>

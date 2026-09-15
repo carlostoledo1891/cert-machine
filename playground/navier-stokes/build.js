@@ -200,13 +200,13 @@ const html = page({
     into two <b>positive</b> squared amplitudes whose square roots are the real wave amplitudes. Turn the
     stress out of the cone and one of them goes negative: no real pair supplies it, and nothing cancels
     the residual.</div>
-    <div class="ctrl" style="margin-top:var(--s-3)"><label for="m-d">stress direction s</label><output id="m-dOut">3/10</output>
+    <div class="ctrl mt3"><label for="m-d">stress direction s</label><output id="m-dOut">3/10</output>
       <input type="range" id="m-d" min="-1600" max="1600" step="5" value="300"></div>
     <div class="ctrl"><label for="m-s">cone slope m</label><output id="m-sOut">9/10</output>
       <input type="range" id="m-s" min="150" max="2000" step="5" value="900"></div>
     <div class="ctrl"><label for="m-t">shear tilt ts</label><output id="m-tOut">1/4</output>
       <input type="range" id="m-t" min="-900" max="900" step="5" value="250"></div>
-    <div class="rd" style="margin-top:var(--s-3)">
+    <div class="rd mt3">
       <div class="item"><span class="k">vs = 2 + 2/m²</span><span class="v" id="m-vs">—</span></div>
       <div class="item"><span class="k">cone: |s| &lt;</span><span class="v" id="m-slope">—</span></div>
       <div class="item"><span class="k">waves reach</span><span class="v" id="m-wave">—</span></div>
@@ -231,11 +231,11 @@ const html = page({
       <button data-mode="stream">stream</button>
       <button data-mode="stipple">stipple</button>
     </div>
-    <div class="ctrl" style="margin-top:var(--s-3)"><label for="m-l">contour levels</label><output id="m-lOut">16</output>
+    <div class="ctrl mt3"><label for="m-l">contour levels</label><output id="m-lOut">16</output>
       <input type="range" id="m-l" min="6" max="26" step="1" value="16"></div>
     <div class="ctrl"><label for="sp">time speed</label><output id="spOut">0.17</output>
       <input type="range" id="sp" min="0" max="0.6" step="0.01" value="0.17"></div>
-    <div class="row-btns" style="margin-top:var(--s-2)">
+    <div class="row-btns mt2">
       <button id="follow">follow the core</button>
       <button id="trace">travelling marks</button>
     </div>

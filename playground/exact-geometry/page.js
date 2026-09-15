@@ -65,7 +65,7 @@ const section = ({ r, v }) => `
       <div class="eyebrow">${r.gate.ok ? r.shape : 'refused'} &middot; ${r.n} items</div>
       <h2 class="t1" style="margin-top:var(--s-2); max-width:26ch;">${r.title}</h2>
     </div>
-    <div class="exg reveal" style="margin-top:var(--s-5);">
+    <div class="exg reveal mt5">
       <div class="art">${plate(r)}</div>
       <div>
         <p class="lede" style="font-size:var(--text-body); color:var(--ink-3);">${r.why}</p>
@@ -92,7 +92,7 @@ const body = `
   <div class="container">
     <div class="eyebrow reveal">experiments &middot; geometry that can be checked</div>
     <h1 class="display reveal" style="margin-top:var(--s-5); max-width:19ch;">Eight tables, eight predictions</h1>
-    <p class="lede reveal" style="margin-top:var(--s-6);">Interpretability work asks a language model for the distance between every pair of things and decides what shape the answers have. The method is good and the answer is uncheckable: nobody knows what the true geometry of a model&rsquo;s beliefs is, so a circle can only ever be reported, never confirmed. These are the same experiments run on objects whose geometry is a fact — an array of telescopes, a certified band, a proof&rsquo;s own subdivision — with the prediction written down first.</p>
+    <p class="lede reveal mt6">Interpretability work asks a language model for the distance between every pair of things and decides what shape the answers have. The method is good and the answer is uncheckable: nobody knows what the true geometry of a model&rsquo;s beliefs is, so a circle can only ever be reported, never confirmed. These are the same experiments run on objects whose geometry is a fact — an array of telescopes, a certified band, a proof&rsquo;s own subdivision — with the prediction written down first.</p>
     <div class="hero-meta reveal">
       <span class="item"><span class="k">subjects</span><span class="v">${G.sets.length}</span></span>
       <span class="item"><span class="k">predictions upheld</span><span class="v">${agreed} of ${G.sets.length}</span></span>
@@ -129,7 +129,7 @@ ${CMP ? `
       <p>Everything above was arithmetic on objects. The reference this borrows from does something else: it asks a language model for the distance between every pair of things and decides what shape the answers have. That method cannot be checked, because nobody knows the true geometry of a model&rsquo;s beliefs. Here it can be, because two of these subjects have an answer.</p>
       <p>So ${CMP.model} was asked for every pair of the six points twice, once in each order, in ${2 * 15 * 2} calls that never saw one another. No mention of dimension, embedding, Euclidean anything &mdash; just &ldquo;how far apart are these two, as an integer&rdquo;.</p>
     </div>
-    <div class="tw reveal" style="margin-top:var(--s-5);">
+    <div class="tw reveal mt5">
       <table><thead><tr><th>subject</th><th></th><th>effective rank</th><th>negative mass</th><th>closure</th><th>δ / diam</th><th>asymmetry</th></tr></thead><tbody>
       ${CMP.rows.map(r => [
         `<tr><td class="mono" rowspan="2">${r.id}</td><td class="mono dim">model</td><td class="mono">${r.model.spectrum.effRank}</td><td class="mono">${(100 * r.model.spectrum.negMass).toFixed(2)}%</td><td class="mono">${r.model.closure.ratio.toFixed(2)}×</td><td class="mono">${r.model.hyper.relative.toFixed(3)}</td><td class="mono">${r.asym.max} max over ${r.asym.pairs} pairs</td></tr>`,
@@ -137,7 +137,7 @@ ${CMP ? `
       ].join('')).join('')}
       </tbody></table>
     </div>
-    <div class="prose reveal" style="margin-top:var(--s-6);">
+    <div class="prose reveal mt6">
       <p><strong>It reproduces both, to the digit.</strong> The straight-line hexagon comes back effective rank 2 with essentially nothing negative; the rim metric comes back with ${(100 * CMP.rows.find(r => r.id === 'hex-cycle').model.spectrum.negMass).toFixed(2)}% negative mass, which is the exact figure the arithmetic gives and the exact statement that no arrangement of points in any Euclidean space has those distances. Every pair was answered identically in both orders, in calls that could not see each other.</p>
       <p>What makes that worth writing down is where the fact lives. It is in none of the thirty answers. &ldquo;Vertex 0 and vertex 2 are 66 apart&rdquo; says nothing about embeddability; the non-Euclidean fact only exists in all thirty at once, and it survived being split into thirty independent questions and reassembled by a procedure the model never saw.</p>
       <p><strong>The first attempt failed, and the failure is the better half.</strong> Asked on a 0&ndash;100 scale, the model gave 33, 67 and 100 for one, two and three steps round the rim &mdash; which is correct to the nearest integer and <em>is not a distance</em>: 33 + 33 = 66 &lt; 67, so the triangle inequality fails by one unit and the gate refused the table before any geometry was computed. Nothing was wrong with the answers. The scale was wrong: a rim of six points contains the ratios 1 : 2 : 3, and 100 is not divisible by 3. On 0&ndash;99 the same question gives 33, 66, 99 and the table is a metric. The reference instruments shelf asks for integers on a fixed scale in exactly this way, so this is a property of the method rather than of this run &mdash; and without the gate it would have become a plate with a confident number under it.</p>

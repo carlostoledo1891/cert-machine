@@ -53,6 +53,13 @@ svg.pl .ax text { fill:var(--ink-4); font-family:var(--font-mono); font-size:7.5
 svg.pl .tie { stroke:#f6f6f8; stroke-opacity:.42; stroke-width:1; }
 svg.pl .ghost { fill:none; stroke:#f6f6f8; stroke-opacity:.22; stroke-width:1; }
 svg.pl .arr { stroke:#f6f6f8; stroke-opacity:.8; stroke-width:1.1; }
+.btr i { width: var(--w); }
+.btr b { left: var(--x); }
+/* the track SHAPE is the stylesheet's; the COUNT is the page's datum. These
+   three grids wrote a whole grid-template-columns on every row — 14 of them on
+   this page (2026-09-15). */
+.brow { grid-template-columns: 82px repeat(var(--cols), minmax(0, 1fr)); }
+.grid-t { grid-template-columns: var(--c1) repeat(var(--cols), minmax(0, 1fr)); }
 .grid-t { display:grid; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; margin-top:var(--s-5); }
 .grid-t > div { background:var(--bg-raised); padding:6px var(--s-4); font-family:var(--font-mono); font-size:10px; color:var(--ink-2); font-variant-numeric:tabular-nums; }
 .grid-t .h { color:var(--ink-5); font-size:9px; letter-spacing:.1em; text-transform:uppercase; }
@@ -103,11 +110,11 @@ const controls = `<div class="trip">${MODELS.map(m => {
   <figcaption><span class="mname">${m.label}</span><span class="fit">cycle ${pct(c.fits.cycle.resid)}</span></figcaption></figure>`;
 }).join('')}</div>`;
 
-const table = (rows, cols, head) => `<div class="grid-t" style="grid-template-columns:${head};">
+const table = (rows, cols, c1 = '90px') => `<div class="grid-t" style="--cols:${cols.length};--c1:${c1}">
   <div class="h"></div>${cols.map(c => `<div class="h">${c}</div>`).join('')}
   ${rows.map(([k, vals]) => `<div class="h">${k}</div>${vals.map(v => `<div${/^exact/.test(String(v)) ? ' class="hit"' : ''}>${v}</div>`).join('')}`).join('')}</div>`;
 
-const ratings = `<div class="grid-t" style="grid-template-columns:110px repeat(${AF.length},minmax(0,1fr));">
+const ratings = `<div class="grid-t" style="--cols:${AF.length};--c1:110px">
   <div class="h"></div>${AF.map(a => `<div class="h">${a.slice(0, 5)}</div>`).join('')}
   ${MODELS.flatMap(m => M.scalars.map(x => [`${m.short} · ${x.label}`, cx('neutral', m)[x.id === 'pleasant' ? 'pleasant' : 'activated']]))
     .map(([k, v]) => `<div class="h">${k}</div>${v.map(n => `<div>${n}</div>`).join('')}`).join('')}</div>`;
@@ -136,12 +143,12 @@ const gapBars = () => {
   const top = Math.max(...all, 0.01);
   return `<div class="bars">${M.subjects.map(S => `<div class="bg">
     <div class="bl">${S.id === 'clock' ? 'the control — twelve hours, which have no business moving' : 'the affect map'}</div>
-    ${MODELS.map(m => `<div class="brow" style="grid-template-columns:82px repeat(${moodsRun.length},minmax(0,1fr));">
+    ${MODELS.map(m => `<div class="brow" style="--cols:${moodsRun.length}">
       <span class="bm">${m.label}</span>
       ${moodsRun.map(x => { const e = M.effects[`${x.id}|${S.id}|${m.id}`], f = floorOf(m);
-        return `<span class="bcell"><span class="btr"><i style="width:${e ? (100 * e.gap / top).toFixed(1) : 0}%"></i>${f != null ? `<b style="left:${(100 * f / top).toFixed(1)}%"></b>` : ''}</span><span class="bv">${e ? pct(e.gap) : '—'}</span></span>`; }).join('')}
+        return `<span class="bcell"><span class="btr"><i style="--w:${e ? (100 * e.gap / top).toFixed(1) : 0}%"></i>${f != null ? `<b style="--x:${(100 * f / top).toFixed(1)}%"></b>` : ''}</span><span class="bv">${e ? pct(e.gap) : '—'}</span></span>`; }).join('')}
     </div>`).join('')}
-    <div class="brow" style="grid-template-columns:82px repeat(${moodsRun.length},minmax(0,1fr));">
+    <div class="brow" style="--cols:${moodsRun.length}">
       <span class="bt"></span>${moodsRun.map(x => `<span class="bt">${x.label}</span>`).join('')}
     </div>
   </div>`).join('')}</div>`;
@@ -173,7 +180,7 @@ const treatmentSections = moodsRun.length ? `
     <div class="prose reveal" style="max-width:70ch;">
       <p>Twelve hours, asked by six different people. Each arrow runs from where an hour sat when the question was put flatly to where it sits when the same question follows one sentence of ordinary feeling &mdash; after removing the rotation, reflection and scale a table of distances leaves undetermined, which is to say after removing everything that could move for nothing. The faint ring behind is the neutral position.</p>
     </div>
-    <div class="reveal" style="margin-top:var(--s-5);">${deformWall('clock')}</div>
+    <div class="reveal mt5">${deformWall('clock')}</div>
   </div>
 </section>
 
@@ -197,7 +204,7 @@ const treatmentSections = moodsRun.length ? `
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">And the feelings</h2><span class="eyebrow">the same treatment, the subject it might legitimately touch</span></div>
-    <div class="reveal" style="margin-top:var(--s-5);">${deformWall('affect')}</div>
+    <div class="reveal mt5">${deformWall('affect')}</div>
   </div>
 </section>
 
@@ -207,7 +214,7 @@ const treatmentSections = moodsRun.length ? `
     <div class="prose reveal" style="max-width:70ch;">
       <p>One bar per mood per model, on a scale shared between the two subjects so the control can be read directly against the affect map. The tick on each bar is that model&rsquo;s floor. A bar that does not clear its own tick is not showing you anything.</p>
     </div>
-    <div class="reveal" style="margin-top:var(--s-5);">${gapBars()}</div>
+    <div class="reveal mt5">${gapBars()}</div>
   </div>
 </section>
 
@@ -259,7 +266,7 @@ const body = `
     <div class="prose reveal" style="max-width:70ch;">
       <p>Twelve feelings, placed by classical scaling on the integer table and nothing else. The frame is shared: every map is rotated so that pleasantness runs to the right and activation upward. Rotation and reflection are exactly the freedoms a table of distances leaves undetermined, so spending them costs nothing &mdash; and the directions come from the scalar answers, which the pairwise questions never saw. <strong>Where each point lands is still entirely the pairwise table's doing.</strong> Only which way is up came from elsewhere.</p>
     </div>
-    <div class="reveal" style="margin-top:var(--s-5);">${maps}</div>
+    <div class="reveal mt5">${maps}</div>
     <div class="note reveal" style="max-width:80ch;">
 <b>the order</b>   ${allExact ? `all three models place the twelve feelings in exactly the circumplex order — 0 of 12 out of place, and none of the three reflected.` : MODELS.map(m => `${m.label} ${cx('neutral', m).order.outOfPlace}/12`).join(', ')}
 <b>the test</b>    that statistic is the angular order of the embedded points against the order the words were written in, up to the rotation and reflection a circle cannot fix. A scrambled control scores 6 of 12.
@@ -275,7 +282,7 @@ const body = `
     <div class="prose reveal" style="max-width:70ch;">
       <p>Each feeling is drawn twice. The open circle is where the pairwise table put it; the small dot is where its two scalar ratings put it, standardised and aligned onto the same frame by rotation, reflection and scale &mdash; no stretching, no per-axis fitting. The tether between them is the disagreement.</p>
     </div>
-    <div class="reveal" style="margin-top:var(--s-5);">${tethers}</div>
+    <div class="reveal mt5">${tethers}</div>
     ${table(
   [['pleasantness axis, r', MODELS.map(m => cx('neutral', m).rx.toFixed(2))],
   ['activation axis, r', MODELS.map(m => cx('neutral', m).ry.toFixed(2))],
@@ -283,7 +290,7 @@ const body = `
   ['effective rank of the table', MODELS.map(m => cell('neutral', 'affect', m).spectrum.effRank)],
   ['negative mass', MODELS.map(m => pct(cell('neutral', 'affect', m).spectrum.negMass, 1))],
   ['triples breaking the triangle', MODELS.map(m => { const g = cell('neutral', 'affect', m).gate; return `${pct(g.badTriples / g.totTriples, 1)}`; })]],
-  MODELS.map(m => m.label), '220px repeat(3,minmax(0,1fr))')}
+  MODELS.map(m => m.label), '220px')}
     <div class="note reveal" style="max-width:80ch;">
 <b>the axes</b>    line up at r = ${MODELS.map(m => cx('neutral', m).rx.toFixed(2)).join(', ')} for pleasantness and ${MODELS.map(m => cx('neutral', m).ry.toFixed(2)).join(', ')} for activation. Two question sets with no words in common, agreeing about where twelve feelings are.
 <b>and further</b> pleasantness does not merely appear in the pairwise plane — it lands on that plane's <em>leading</em> principal axis, ${MODELS.map(m => `${Math.abs(cx('neutral', m).leadingAxisAngle).toFixed(0)}°`).join(', ')} off it, for all three models independently. That axis was fixed by the pairwise table alone, before any scalar answer was read. The first thing a model's affect geometry is organised by is whether the feeling is nice.
@@ -306,7 +313,7 @@ const body = `
     <div class="prose reveal" style="max-width:70ch;">
       <p>The twelve hours of a clock, asked the same way in the same run. They are here for the experiment that follows, but they also do something immediately: this is an independent re-run of a measurement made earlier on <a href="../neural-geometry/index.html">the previous page</a>, from fresh calls on a different day.</p>
     </div>
-    <div class="reveal" style="margin-top:var(--s-5);">${controls}</div>
+    <div class="reveal mt5">${controls}</div>
     <p class="reveal" style="margin-top:var(--s-4); color:var(--ink-4); font-size:var(--text-small); max-width:70ch;">Cycle residuals then: 1%, 13%, 29%. Now: ${MODELS.map(m => pct(cell('neutral', 'clock', m).fits.cycle.resid)).join(', ')}. Nothing was carried over between the two runs but the question.</p>
   </div>
 </section>
@@ -345,7 +352,7 @@ ${treatmentSections}
         return `&ldquo;<em>${AF[i]}</em> and <em>${AF[j]}</em> are ${cell('neutral', 'affect', MODELS[0]).raw[i][j]} apart&rdquo;`;
       })()} — one real answer, quoted as given — carries no information about a circle, a valence axis, or a plane. The circumplex exists only in ${AF.length * (AF.length - 1)} answers at once; it survived being cut into ${AF.length * (AF.length - 1)} independent questions and reassembled by arithmetic no model saw; and it then agreed, at r = ${Math.min(...MODELS.map(m => cx('neutral', m).ry)).toFixed(2)}&ndash;${Math.max(...MODELS.map(m => cx('neutral', m).rx)).toFixed(2)}, with ${2 * AF.length} further answers that shared none of its words. Three models did this separately and produced nearly the same map.</p>
       <p>The honest caveat is the rank. These tables are not two-dimensional and not Euclidean, and the ring is the leading structure rather than the whole of it. The exact signature and the negative mass are printed above for that reason: a page showing only the plane would have been prettier and would have been claiming something the arithmetic does not support.</p>
-      <h2 class="t2" style="margin-top:var(--s-7);">Reproduce</h2>
+      <h2 class="t2 mt7">Reproduce</h2>
       <p class="mono" style="font-size:var(--text-eyebrow); color:var(--ink-4); line-height:2;">node experiments/neural-geometry/probe-mood.js --live<br>node experiments/neural-geometry/decide-mood.js<br>node tools/build-sentiment.js</p>
       <p>Without <span class="mono">--live</span> the probe touches no network and prints the prompts it would send, mood by mood.</p>
     </div>

@@ -299,6 +299,24 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+.mt2 { margin-top: var(--s-2); }
+.mt3 { margin-top: var(--s-3); }
+.mt4 { margin-top: var(--s-4); }
+.mt5 { margin-top: var(--s-5); }
+.mt6 { margin-top: var(--s-6); }
+.mt7 { margin-top: var(--s-7); }
+.mt8 { margin-top: var(--s-8); }
+
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -701,13 +719,13 @@ r ≤ 28 µas   [0.4531, 0.7580] Jy   1.67×</pre>
 <section class="section">
   <div class="container">
     <div class="eyebrow">the grammar, found rather than imposed</div>
-    <h2 class="t2" style="margin-top:var(--s-3)">Plate V was already drawn this way.</h2>
-    <div class="prose" style="margin-top:var(--s-5)">
+    <h2 class="t2 mt3">Plate V was already drawn this way.</h2>
+    <div class="prose mt5">
       <p>Its own caption reads <em>solid: a bound on every sky. dashed: a sky that exists.</em> One line is a statement about every brightness distribution consistent with 838 measurements; the other is a single distribution that was exhibited and checked. Those are different kinds of claim, and the plate distinguished them with a stroke because there was no other honest way to put both on one axis.</p>
       <p>That was drawn by hand, on that plate, before anything in this repository was called a grammar. It is the best evidence available that the distinction is real rather than a convention somebody invented: it got reached for under pressure, by someone trying to avoid lying on an axis.</p>
     </div>
     <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div>
-    <div class="prose" style="margin-top:var(--s-5)">
+    <div class="prose mt5">
       <p><b>Standing is not confidence.</b> The dashed curve on Plate V is not less certain than the solid one — the witness is exhibited and checked, so it is as certain as anything on the page. It is a different <em>kind</em> of thing: one member, rather than a bound over all of them. The band between them is not error and not uncertainty in the statistical sense; it is the set of answers that survive.</p>
     </div>
   </div>

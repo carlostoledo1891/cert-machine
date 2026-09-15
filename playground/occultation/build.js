@@ -136,7 +136,7 @@ const body = `
       size is then an ellipse fitted to those chords. This asks what the chords force on their own — the silhouette is any convex
       shape at all — and the whole question turns out to be one-dimensional and closed form.
     </p>
-    <div class="stats reveal" style="margin-top:var(--s-6);">
+    <div class="stats reveal mt6">
       <div class="stat"><div class="num">${f(R1.DeqLo, 0)}–${f(R1.DeqHi, 0)}</div><div class="dim">km, certified from convexity</div></div>
       <div class="stat"><div class="num">${E0.DeqKm} ± ${E0.DeqErrKm}</div><div class="dim">km, the published ellipse</div></div>
       <div class="stat"><div class="num">${f(NN.DeqHi - R1.DeqHi, 0)}</div><div class="dim">km of ceiling bought by the misses</div></div>
@@ -168,15 +168,15 @@ const body = `
       they are the part of a campaign least often published.</p>
     </div>
 
-    <figure class="reveal" style="margin-top:var(--s-6);">${figEnvelope()}
+    <figure class="reveal mt6">${figEnvelope()}
       <figcaption class="figcap"><span class="k">the chords, and every concave function that fits them</span>
       <span class="v">solid: the certified floor and ceiling · dashed: joining the dots, which is an assumption, not a bound</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);">${figSilhouettes()}
+    <figure class="reveal mt6">${figSilhouettes()}
       <figcaption class="figcap"><span class="k">two silhouettes the same five chords allow</span>
       <span class="v">${f(R1.DeqLo)} km and ${f(R1.DeqHi)} km across</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);">${figLadder()}
+    <figure class="reveal mt6">${figLadder()}
       <figcaption class="figcap"><span class="k">what the error budget buys</span>
       <span class="v">the top row is the chords at face value</span></figcaption></figure>
 

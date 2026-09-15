@@ -21,9 +21,17 @@
    Every one of those is a fact about bytes, and a fact about bytes is what a
    gate is for. FIVE FACTS, per built page:
 
-     attrs       style="…" attributes, HTML or SVG. The target is zero: a
-                 per-element datum is a MARK and is drawn as SVG geometry; a
-                 rhythm or a measure is a CLASS with a rule in the stylesheet.
+     attrs       style="…" attributes, HTML or SVG.
+     decls       those of them carrying a REAL declaration — anything but a
+                 custom property. THIS is the number with a target of zero.
+                 An inline `margin-top`, `max-width`, `font-family` or
+                 `grid-template-columns` is a design decision written where no
+                 stylesheet can see it, which is how a site grows a second
+                 stylesheet nobody can read. A `style="--f:0.42"` is not that:
+                 it is a DATUM, the one thing HTML has no other channel for,
+                 and the rule that consumes it lives in the stylesheet like
+                 every other rule. So: a style attribute may carry custom
+                 properties and nothing else.
      unresolved  var(--x) references to a name the page cannot see — not in
                  its own <style> blocks, not in a stylesheet it links, not set
                  by any element. An unresolved token silently takes the
@@ -64,7 +72,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
 const BASELINE = path.join(ROOT, 'design', 'style-baseline.json');
-const METRICS = ['attrs', 'unresolved', 'fallbacks', 'blocks', 'literals'];
+const METRICS = ['attrs', 'decls', 'unresolved', 'fallbacks', 'blocks', 'literals'];
 
 const argv = process.argv.slice(2);
 const MODE = argv.includes('--accept') ? 'accept' : argv.includes('--report') ? 'report' : 'gate';
@@ -113,10 +121,13 @@ function probe(html, pageAbs) {
   const text = stripData(html);
   const declared = declaredNames(text, pageAbs);
 
-  /* attrs: a style attribute on any element, outside <script> text */
+  /* attrs: a style attribute on any element, outside <script> text.
+     decls: those carrying anything but custom properties. */
   const noScript = text.replace(/<script[\s\S]*?<\/script>/gi, '');
-  const attrs = (noScript.match(/\sstyle="[^"]*"/g) || []).length
-    + (noScript.match(/\sstyle='[^']*'/g) || []).length;
+  const styleAttrs = (noScript.match(/\sstyle="[^"]*"/g) || []).map((a) => a.slice(8, -1))
+    .concat((noScript.match(/\sstyle='[^']*'/g) || []).map((a) => a.slice(8, -1)));
+  const attrs = styleAttrs.length;
+  const decls = styleAttrs.filter((v) => v.split(';').some((d) => d.trim() && !/^--[A-Za-z0-9_-]+\s*:/.test(d.trim()))).length;
 
   /* unresolved and fallbacks, over the whole page including inline scripts —
      a token a script will write at runtime has to exist too */
@@ -145,7 +156,7 @@ function probe(html, pageAbs) {
     .replace(/@font-face\s*\{[^}]*\}/g, '');
   const literals = literalCount(css);
 
-  return { attrs, unresolved: unresolvedNames.size, fallbacks: fallbackNames.size, blocks, literals,
+  return { attrs, decls, unresolved: unresolvedNames.size, fallbacks: fallbackNames.size, blocks, literals,
     detail: { unresolved: [...unresolvedNames], fallbacks: [...fallbackNames] } };
 }
 
@@ -213,6 +224,12 @@ function redControls() {
   red('a style attribute inside an SVG is counted', probe(doc('', '<svg><rect style="opacity:0"/></svg>')).attrs === 1);
   red('a style attribute inside a script is NOT counted (it is text)',
     probe(doc('', '<script>el.innerHTML=\'<b style="x:1">\'</script>')).attrs === 0);
+  red('a style attribute carrying a real declaration is a DECL',
+    probe(doc('', '<p style="margin-top:8px">x</p>')).decls === 1);
+  red('a style attribute carrying only custom properties is NOT a decl (it is a datum)',
+    probe(doc('', '<div style="--f:0.42"></div>')).decls === 0);
+  red('a datum beside a declaration is still a decl',
+    probe(doc('', '<div style="--f:0.42;width:10%"></div>')).decls === 1);
   red('a var() the page never declares is caught',
     probe(doc('<style>.x{border-radius:var(--radius-m)}</style>', '')).unresolved === 1);
   red('a var() the page declares in :root resolves',
@@ -264,7 +281,7 @@ function main() {
   const totals = Object.fromEntries(METRICS.map((m) => [m, tot(m)]));
 
   if (MODE === 'report') {
-    const rows = list.slice().sort((a, b) => (now[b].attrs + now[b].unresolved) - (now[a].attrs + now[a].unresolved));
+    const rows = list.slice().sort((a, b) => (now[b].decls + now[b].unresolved) - (now[a].decls + now[a].unresolved));
     for (const r of rows) {
       const n = now[r];
       console.log('  ' + r.replace(/^site\//, '').padEnd(44) + METRICS.map((m) => m + ' ' + String(n[m]).padStart(3)).join(' · ')

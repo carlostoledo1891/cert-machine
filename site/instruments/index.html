@@ -299,6 +299,24 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+.mt2 { margin-top: var(--s-2); }
+.mt3 { margin-top: var(--s-3); }
+.mt4 { margin-top: var(--s-4); }
+.mt5 { margin-top: var(--s-5); }
+.mt6 { margin-top: var(--s-6); }
+.mt7 { margin-top: var(--s-7); }
+.mt8 { margin-top: var(--s-8); }
+
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -706,7 +724,7 @@ p { margin: 0; }
   <h1>Twenty instruments, and each one says what decides it.</h1>
   <p class="lede">The same arithmetic as the reports, without the gates. One engine feeds both: the reports are where a claim gets a verdict that a build can refuse to ship; these pages are where that arithmetic runs in your tab and every mark says what decided it. Of the twenty, <b>seven run a battery in <code>make test</code></b>, one draws a certificate straight from the shelf the rest of the site gates, sixteen decide their headline number in exact integer or rational arithmetic, and three are floats and say so beside the number. None of them can refuse a deploy, and that is the permission: a fact about ceremony, not about the mathematics.</p>
   <p class="lede" style="display:none">This page used to open by saying that nothing here was certified. That was the wrong claim and it had stopped being true: two of these pages draw a certificate straight from the shelf the rest of the site gates, and five of them decide their headline number in exact integer or rational arithmetic. <b>What is true is that nothing here is gated</b> &mdash; no number on these pages has a certificate row the build checks, no page here can refuse a deploy, and none of them is covered by <code>make test</code>. That is a fact about ceremony, not about the mathematics, and the two are not the same thing.</p>
-  <p class="lede" style="margin-top:var(--s-5)">So instead of one disclaimer at the door, <b>every card below says what backs its headline number</b>, in the same words the pages use: exact rationals, exact integers, a record from the certificate shelf, or floats. Where it is floats, the page says so beside the number rather than at the bottom.</p>
+  <p class="lede mt5">So instead of one disclaimer at the door, <b>every card below says what backs its headline number</b>, in the same words the pages use: exact rationals, exact integers, a record from the certificate shelf, or floats. Where it is floats, the page says so beside the number rather than at the bottom.</p>
 </div></header>
 
 <section class="projects"><div class="wrap">

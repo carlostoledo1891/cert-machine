@@ -170,6 +170,28 @@ P6 · THE RECORDS
    for the full-coverage vendored fonts), HANDOFF menu + session log,
    batteries.json via `make control`. One commit per phase.
 
+## WHAT SHIPPED, 2026-09-15 (P0-P3 in one session)
+
+| phase | commit | what it closed |
+|---|---|---|
+| P0 | fa5405e | the stylesheet gate + the square corners + the undeclared tokens |
+| P1 | 324faf0 | one shell, one head, one footer, one font path |
+| P2 | a242434 | one stylesheet per page (extra blocks 56 -> 0), the shared foundation |
+| P3 | this one | inline declarations 537 -> 233, and the rule that decides them |
+
+The numbers, start to close: extra `<style>` blocks **56 -> 0** · unresolved
+`var()` **222 -> 2** · literal fallbacks **30 -> 0** · inline DECLARATIONS
+**537 -> 233** (inline data, which is allowed, 140) · literals where a token
+exists **16,180 -> 15,297** · footer markups **25 -> 1** (+2 app docks, +4
+viewport pages that carry their own line) · shells **3 -> 1**.
+
+P4 (the app's body), P5 (the visual review as a document) and P6 are open, and
+so is the biggest remaining slice of P3: **66 bespoke reading measures**
+(`max-width:19..84ch`) across twenty pages. Unifying them onto `--read` (82ch)
+and `--title` (28ch) would re-wrap prose on twenty published pages, which is a
+design decision for the operator rather than a template one. That is the next
+question to put to him.
+
 ## Effort (sessions, honest)
 
 P0 half a day · P1 half a day · P2 half a day · P3 a day and a half · P4 a

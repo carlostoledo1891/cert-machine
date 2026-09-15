@@ -79,7 +79,7 @@ function tube(o) {
       o.name + ' ∈ [' + p[1].toFixed(5) + ', ' + p[2].toFixed(5) + ']') + '/>');
   }
   out.push('    <line class="cm-cross" x1="0" y1="' + f.T + '" x2="0" y2="' + (f.T + f.ph)
-    + '" stroke="' + TK.CHART.AXIS + '" stroke-width="1" style="opacity:0"/>');
+    + '" stroke="' + TK.CHART.AXIS + '" stroke-width="1"/>');
   if (o.keys) out.push(CH.legend(o.keys, f.L, f.h - 7, undefined, f.pw));
   out.push(CH.close);
   return out.join('\n');

@@ -299,6 +299,24 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+.mt2 { margin-top: var(--s-2); }
+.mt3 { margin-top: var(--s-3); }
+.mt4 { margin-top: var(--s-4); }
+.mt5 { margin-top: var(--s-5); }
+.mt6 { margin-top: var(--s-6); }
+.mt7 { margin-top: var(--s-7); }
+.mt8 { margin-top: var(--s-8); }
+
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -676,7 +694,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       circle crossing a disc, and the answer is the set of radius ratios that survive. A quadratic law is fitted here too — but only to
       answer two questions about the harness, and never inside the enclosure.
     </p>
-    <div class="stats reveal" style="margin-top:var(--s-6);">
+    <div class="stats reveal mt6">
       <div class="stat"><div class="num">0.110–0.326</div><div class="dim">TrES-2 b, certified</div></div><div class="stat"><div class="num">0.072–0.242</div><div class="dim">Kepler-7 b, certified</div></div>
       <div class="stat"><div class="num">29</div><div class="dim">published values, all inside</div></div>
       <div class="stat"><div class="num">0</div><div class="dim">limb-darkening laws in the enclosure</div></div>
@@ -697,7 +715,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       </p>
     </div>
 
-    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="folded light curve of TrES-2 b with two admissible models">
+    <figure class="reveal mt6"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="folded light curve of TrES-2 b with two admissible models">
   <line class="ink-guide" x1="46" x2="746" y1="270.0" y2="270.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="273.0" text-anchor="end" class="ax">-15152</text><line class="ink-guide" x1="46" x2="746" y1="206.0" y2="206.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="209.0" text-anchor="end" class="ax">-11214</text><line class="ink-guide" x1="46" x2="746" y1="142.0" y2="142.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="145.0" text-anchor="end" class="ax">-7276</text><line class="ink-guide" x1="46" x2="746" y1="78.0" y2="78.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="81.0" text-anchor="end" class="ax">-3338</text><line class="ink-guide" x1="46" x2="746" y1="14.0" y2="14.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="17.0" text-anchor="end" class="ax">600</text><text x="46.0" y="290" text-anchor="middle" class="ax">-2.61</text><text x="162.7" y="290" text-anchor="middle" class="ax">-1.74</text><text x="279.3" y="290" text-anchor="middle" class="ax">-0.87</text><text x="396.0" y="290" text-anchor="middle" class="ax">-0.00</text><text x="512.7" y="290" text-anchor="middle" class="ax">0.87</text><text x="629.3" y="290" text-anchor="middle" class="ax">1.74</text><text x="746.0" y="290" text-anchor="middle" class="ax">2.60</text>
   <text x="12" y="10" class="ax">ppm</text>
   <text x="746" y="299" text-anchor="end" class="ax">hours from mid-transit</text>
@@ -708,7 +726,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       <figcaption class="figcap"><span class="k">the folded curve, and two stars that both fit it</span>
       <span class="v">heavy: R<sub>p</sub>/R<sub>*</sub> = 0.1194 · light: 0.1971</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 238" class="fg" role="img" aria-label="certified intervals for TrES-2 b">
+    <figure class="reveal mt6"><svg viewBox="0 0 760 238" class="fg" role="img" aria-label="certified intervals for TrES-2 b">
     <line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.9" x2="240.9" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="241.6" x2="241.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="241.6" x2="241.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.6" x2="240.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.6" x2="239.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.6" x2="240.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="241.5" x2="241.5" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/>
     <line class="ink-guide" x1="168" x2="744" y1="218" y2="218" stroke="var(--chart-axis)" stroke-width="1"/>
     <text x="168.0" y="230" text-anchor="middle" class="ax">0</text><text x="225.6" y="230" text-anchor="middle" class="ax">0.1</text><text x="283.2" y="230" text-anchor="middle" class="ax">0.2</text><text x="340.8" y="230" text-anchor="middle" class="ax">0.3</text><text x="398.4" y="230" text-anchor="middle" class="ax">0.4</text><text x="456.0" y="230" text-anchor="middle" class="ax">0.5</text><text x="513.6" y="230" text-anchor="middle" class="ax">0.6</text><text x="628.8" y="230" text-anchor="middle" class="ax">0.8</text><text x="744.0" y="230" text-anchor="middle" class="ax">1</text>
@@ -752,7 +770,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       Two scales for it. The 19 papers already disagree with each other by <b>25×</b> a typical quoted error bar — that needs no enclosure to see. The certified interval is <b>55×</b> wider again than that disagreement, and it contains every one of them.
     </div>
 
-    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="the region of the star the planet never occults">
+    <figure class="reveal mt6"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="the region of the star the planet never occults">
     <circle cx="150" cy="150" r="118" fill="var(--surface)" stroke="var(--border-strong)" stroke-width="1"/>
     <circle cx="150" cy="150" r="82.6" fill="var(--ink-5)" opacity="0.18"/>
     <circle class="ink-guide" cx="150" cy="150" r="82.6" fill="none" stroke="var(--ink-3)" stroke-width="1"/>
@@ -775,7 +793,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
   </svg>
       <figcaption class="figcap"><span class="k">why the interval is one-sided</span><span class="v">the planet's disc at five epochs, and the circle it never reaches</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 260" class="fg" role="img" aria-label="cumulative brightness of the two extreme admissible stars">
+    <figure class="reveal mt6"><svg viewBox="0 0 760 260" class="fg" role="img" aria-label="cumulative brightness of the two extreme admissible stars">
     <rect x="46.0" y="16" width="488.8" height="214" fill="var(--ink-5)" opacity="0.12"/>
     <line class="ink-guide" x1="46" x2="744" y1="230.0" y2="230.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="233.0" text-anchor="end" class="ax">0</text><line class="ink-guide" x1="46" x2="744" y1="176.5" y2="176.5" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="179.5" text-anchor="end" class="ax">0.25</text><line class="ink-guide" x1="46" x2="744" y1="123.0" y2="123.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="126.0" text-anchor="end" class="ax">0.5</text><line class="ink-guide" x1="46" x2="744" y1="69.5" y2="69.5" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="72.5" text-anchor="end" class="ax">0.75</text><line class="ink-guide" x1="46" x2="744" y1="16.0" y2="16.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" class="ax">1</text>
     <text x="46.0" y="250" text-anchor="middle" class="ax">0</text><text x="185.6" y="250" text-anchor="middle" class="ax">0.2</text><text x="325.2" y="250" text-anchor="middle" class="ax">0.4</text><text x="464.8" y="250" text-anchor="middle" class="ax">0.6</text><text x="604.4" y="250" text-anchor="middle" class="ax">0.8</text><text x="744.0" y="250" text-anchor="middle" class="ax">1</text>
@@ -787,7 +805,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
   </svg>
       <figcaption class="figcap"><span class="k">the two witnesses, as light enclosed inside radius r</span><span class="v">both are exhibited measures, re-checked bin by bin</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 363" class="fg" role="img" aria-label="published radius ratios for TrES-2 b"><rect x="250.0" y="18" width="420.0" height="329" fill="var(--band-fill)"/><g><text x="240" y="33" text-anchor="end" class="lb">Q1-Q16 KOI Table</text>
+    <figure class="reveal mt6"><svg viewBox="0 0 760 363" class="fg" role="img" aria-label="published radius ratios for TrES-2 b"><rect x="250.0" y="18" width="420.0" height="329" fill="var(--band-fill)"/><g><text x="240" y="33" text-anchor="end" class="lb">Q1-Q16 KOI Table</text>
       <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="30" y2="30" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="351.0" cy="30" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="33" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="50" text-anchor="end" class="lb">Q1-Q17 DR24 KOI Table</text>
@@ -868,7 +886,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       </p>
     </div>
 
-    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="folded light curve of Kepler-7 b with two admissible models">
+    <figure class="reveal mt6"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="folded light curve of Kepler-7 b with two admissible models">
   <line class="ink-guide" x1="46" x2="746" y1="270.0" y2="270.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="273.0" text-anchor="end" class="ax">-8467</text><line class="ink-guide" x1="46" x2="746" y1="206.0" y2="206.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="209.0" text-anchor="end" class="ax">-6200</text><line class="ink-guide" x1="46" x2="746" y1="142.0" y2="142.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="145.0" text-anchor="end" class="ax">-3933</text><line class="ink-guide" x1="46" x2="746" y1="78.0" y2="78.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="81.0" text-anchor="end" class="ax">-1667</text><line class="ink-guide" x1="46" x2="746" y1="14.0" y2="14.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="17.0" text-anchor="end" class="ax">600</text><text x="46.0" y="290" text-anchor="middle" class="ax">-7.88</text><text x="162.7" y="290" text-anchor="middle" class="ax">-5.26</text><text x="279.3" y="290" text-anchor="middle" class="ax">-2.65</text><text x="396.0" y="290" text-anchor="middle" class="ax">-0.04</text><text x="512.7" y="290" text-anchor="middle" class="ax">2.57</text><text x="629.3" y="290" text-anchor="middle" class="ax">5.19</text><text x="746.0" y="290" text-anchor="middle" class="ax">7.80</text>
   <text x="12" y="10" class="ax">ppm</text>
   <text x="746" y="299" text-anchor="end" class="ax">hours from mid-transit</text>
@@ -879,7 +897,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       <figcaption class="figcap"><span class="k">the folded curve, and two stars that both fit it</span>
       <span class="v">heavy: R<sub>p</sub>/R<sub>*</sub> = 0.0755 · light: 0.1979</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 238" class="fg" role="img" aria-label="certified intervals for Kepler-7 b">
+    <figure class="reveal mt6"><svg viewBox="0 0 760 238" class="fg" role="img" aria-label="certified intervals for Kepler-7 b">
     <line class="ink-assumed-sm" x1="236.2" x2="236.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="235.7" x2="235.7" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="236.1" x2="236.1" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="236.2" x2="236.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="233.7" x2="233.7" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/>
     <line class="ink-guide" x1="168" x2="744" y1="218" y2="218" stroke="var(--chart-axis)" stroke-width="1"/>
     <text x="168.0" y="230" text-anchor="middle" class="ax">0</text><text x="250.2" y="230" text-anchor="middle" class="ax">0.1</text><text x="332.3" y="230" text-anchor="middle" class="ax">0.2</text><text x="414.5" y="230" text-anchor="middle" class="ax">0.3</text><text x="496.7" y="230" text-anchor="middle" class="ax">0.4</text><text x="578.9" y="230" text-anchor="middle" class="ax">0.5</text><text x="661.0" y="230" text-anchor="middle" class="ax">0.6</text>
@@ -923,7 +941,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       Two scales for it. The 10 papers already disagree with each other by <b>28×</b> a typical quoted error bar — that needs no enclosure to see. The certified interval is <b>56×</b> wider again than that disagreement, and it contains every one of them.
     </div>
 
-    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="the region of the star the planet never occults">
+    <figure class="reveal mt6"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="the region of the star the planet never occults">
     <circle cx="150" cy="150" r="118" fill="var(--surface)" stroke="var(--border-strong)" stroke-width="1"/>
     <circle cx="150" cy="150" r="52.8" fill="var(--ink-5)" opacity="0.18"/>
     <circle class="ink-guide" cx="150" cy="150" r="52.8" fill="none" stroke="var(--ink-3)" stroke-width="1"/>
@@ -946,7 +964,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
   </svg>
       <figcaption class="figcap"><span class="k">why the interval is one-sided</span><span class="v">the planet's disc at five epochs, and the circle it never reaches</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 260" class="fg" role="img" aria-label="cumulative brightness of the two extreme admissible stars">
+    <figure class="reveal mt6"><svg viewBox="0 0 760 260" class="fg" role="img" aria-label="cumulative brightness of the two extreme admissible stars">
     <rect x="46.0" y="16" width="312.3" height="214" fill="var(--ink-5)" opacity="0.12"/>
     <line class="ink-guide" x1="46" x2="744" y1="230.0" y2="230.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="233.0" text-anchor="end" class="ax">0</text><line class="ink-guide" x1="46" x2="744" y1="176.5" y2="176.5" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="179.5" text-anchor="end" class="ax">0.25</text><line class="ink-guide" x1="46" x2="744" y1="123.0" y2="123.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="126.0" text-anchor="end" class="ax">0.5</text><line class="ink-guide" x1="46" x2="744" y1="69.5" y2="69.5" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="72.5" text-anchor="end" class="ax">0.75</text><line class="ink-guide" x1="46" x2="744" y1="16.0" y2="16.0" stroke="var(--chart-grid)" stroke-width="1"/><text x="40" y="19.0" text-anchor="end" class="ax">1</text>
     <text x="46.0" y="250" text-anchor="middle" class="ax">0</text><text x="185.6" y="250" text-anchor="middle" class="ax">0.2</text><text x="325.2" y="250" text-anchor="middle" class="ax">0.4</text><text x="464.8" y="250" text-anchor="middle" class="ax">0.6</text><text x="604.4" y="250" text-anchor="middle" class="ax">0.8</text><text x="744.0" y="250" text-anchor="middle" class="ax">1</text>
@@ -958,7 +976,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
   </svg>
       <figcaption class="figcap"><span class="k">the two witnesses, as light enclosed inside radius r</span><span class="v">both are exhibited measures, re-checked bin by bin</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);"><svg viewBox="0 0 760 210" class="fg" role="img" aria-label="published radius ratios for Kepler-7 b"><rect x="250.0" y="18" width="420.0" height="176" fill="var(--band-fill)"/><g><text x="240" y="33" text-anchor="end" class="lb">Q1-Q17 DR25 KOI Table</text>
+    <figure class="reveal mt6"><svg viewBox="0 0 760 210" class="fg" role="img" aria-label="published radius ratios for Kepler-7 b"><rect x="250.0" y="18" width="420.0" height="176" fill="var(--band-fill)"/><g><text x="240" y="33" text-anchor="end" class="lb">Q1-Q17 DR25 KOI Table</text>
       <line class="ink-assumed-sm" x1="334.6" x2="349.0" y1="30" y2="30" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="341.8" cy="30" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="33" class="ax">0.07990 ± 0.00009</text></g><g><text x="240" y="50" text-anchor="end" class="lb">Fulton &amp;amp; Petigura 2018</text>

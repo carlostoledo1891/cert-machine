@@ -170,7 +170,7 @@ ${[['cycle', 'the wheels'], ['line', 'the lines'], ['tree', 'the branching one']
 
 <section class="method"><div class="wrap">
   <div class="eyebrow">the method</div>
-  <h2 style="margin-top:var(--s-4)">How the answers were taken, and what was decided</h2>
+  <h2 class="mt4">How the answers were taken, and what was decided</h2>
 
   <p><b>One row at a time, on purpose.</b> Asking for the whole matrix in one call is cheaper and worse: the model can enforce its own symmetry by reading what it just wrote. Asked row by row, the two halves of every pair come from calls that never see each other — so their agreement is a consistency test nobody requested and none of them can be given for free. It is the sharpest separator on the page: worst disagreement ${asymBy.map((a) => short(a.id) + ' ' + a.worst).join(', ')} on a 0–100 scale, and the model least consistent with itself is also the only one that never keeps a cyclic order (${cyclicBy.map((c) => short(c.id) + ' ' + c.hits + '/' + sets.length).join(', ')}).</p>
 

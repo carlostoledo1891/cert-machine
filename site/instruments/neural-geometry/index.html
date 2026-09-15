@@ -299,6 +299,24 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+.mt2 { margin-top: var(--s-2); }
+.mt3 { margin-top: var(--s-3); }
+.mt4 { margin-top: var(--s-4); }
+.mt5 { margin-top: var(--s-5); }
+.mt6 { margin-top: var(--s-6); }
+.mt7 { margin-top: var(--s-7); }
+.mt8 { margin-top: var(--s-8); }
+
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -1886,7 +1904,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 
 <section class="method"><div class="wrap">
   <div class="eyebrow">the method</div>
-  <h2 style="margin-top:var(--s-4)">How the answers were taken, and what was decided</h2>
+  <h2 class="mt4">How the answers were taken, and what was decided</h2>
 
   <p><b>One row at a time, on purpose.</b> Asking for the whole matrix in one call is cheaper and worse: the model can enforce its own symmetry by reading what it just wrote. Asked row by row, the two halves of every pair come from calls that never see each other — so their agreement is a consistency test nobody requested and none of them can be given for free. It is the sharpest separator on the page: worst disagreement opus 5 65, sonnet 5 75, haiku 4.5 90 on a 0–100 scale, and the model least consistent with itself is also the only one that never keeps a cyclic order (opus 5 9/18, sonnet 5 7/18, haiku 4.5 2/18).</p>
 

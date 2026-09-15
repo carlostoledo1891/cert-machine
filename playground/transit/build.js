@@ -199,11 +199,11 @@ function section(t) {
       </p>
     </div>
 
-    <figure class="reveal" style="margin-top:var(--s-6);">${figCurve(t)}
+    <figure class="reveal mt6">${figCurve(t)}
       <figcaption class="figcap"><span class="k">the folded curve, and two stars that both fit it</span>
       <span class="v">heavy: R<sub>p</sub>/R<sub>*</sub> = ${ex && ex.ok ? f(ex.inner[0], 4) : '—'} · light: ${ex && ex.ok ? f(ex.inner[1], 4) : '—'}</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);">${figLadder(t)}
+    <figure class="reveal mt6">${figLadder(t)}
       <figcaption class="figcap"><span class="k">what each assumption buys</span>
       <span class="v">outer bar: every value outside carries a verified refutation · inner: a verified witness exists · fine ticks: the ${t.published.length} published values</span></figcaption></figure>
 
@@ -216,13 +216,13 @@ function section(t) {
       ${widen ? `Two scales for it. The ${t.published.length} papers already disagree with each other by <b>${overconf.toFixed(0)}×</b> a typical quoted error bar — that needs no enclosure to see. The certified interval is <b>${widen.toFixed(0)}×</b> wider again than that disagreement, and it contains every one of them.` : ''}
     </div>
 
-    <figure class="reveal" style="margin-top:var(--s-6);">${figCore(t)}
+    <figure class="reveal mt6">${figCore(t)}
       <figcaption class="figcap"><span class="k">why the interval is one-sided</span><span class="v">the planet's disc at five epochs, and the circle it never reaches</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);">${figProfiles(t)}
+    <figure class="reveal mt6">${figProfiles(t)}
       <figcaption class="figcap"><span class="k">the two witnesses, as light enclosed inside radius r</span><span class="v">both are exhibited measures, re-checked bin by bin</span></figcaption></figure>
 
-    <figure class="reveal" style="margin-top:var(--s-6);">${figPublished(t)}
+    <figure class="reveal mt6">${figPublished(t)}
       <figcaption class="figcap"><span class="k">the published values, on their own error bars</span><span class="v">shaded: the certified interval</span></figcaption></figure>
 
     <div class="grid reveal" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
@@ -248,7 +248,7 @@ const body = `
       circle crossing a disc, and the answer is the set of radius ratios that survive. A quadratic law is fitted here too — but only to
       answer two questions about the harness, and never inside the enclosure.
     </p>
-    <div class="stats reveal" style="margin-top:var(--s-6);">
+    <div class="stats reveal mt6">
       ${D.targets.map(t => { const r = res(t, 'exact', 'monotone'); return `<div class="stat"><div class="num">${r && r.ok ? f(r.outer[0], 3) + '–' + (r.outer[1] >= 0.999 ? '1' : f(r.outer[1], 3)) : '—'}</div><div class="dim">${esc(t.name)}, certified</div></div>`; }).join('')}
       <div class="stat"><div class="num">${D.targets.reduce((a, t) => a + t.published.length, 0)}</div><div class="dim">published values, all inside</div></div>
       <div class="stat"><div class="num">0</div><div class="dim">limb-darkening laws in the enclosure</div></div>

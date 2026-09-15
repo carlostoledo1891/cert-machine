@@ -375,6 +375,27 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
 .cm-tip span{display:block;color:var(--ink-3)}
 .figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-btn + .cmw-btn{margin-left:var(--s-2)}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
 .figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
 .figbox [data-cm]:focus:not(:focus-visible){outline:none}
 svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
@@ -771,7 +792,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§ paste a decomposition</div>
     <h2>Certify one right now, in this tab</h2>
   </div>
-<p>Paste a claim below — the JSON shape is {task: {kind: "matmul", n, m, p, rank}, ring: "Q"|"F2", witness: {u, v, w}} with integer or exact-rational ("1/2") entries — and get the verdict from the same arithmetic that grades the board: CERTIFIED with the equation count, REFUTED with the first violated equation and its exact discrepancy, or REFUSED with the reason. Everything runs in your browser in exact BigInt rationals; nothing is uploaded. This widget was executed at this page's build against Strassen, a sub-float forgery, and a float entry — the build refuses if any answer moves. The citable path is the zero-dependency library: <span class="m">oracle/certmachine.py</span> (red controls at import), with the ready-made tool definition in <span class="m">oracle/tool-definition.json</span> — the whole package at <a href="/oracle/">/oracle/</a>.</p><div class="col"><textarea id="cm-in" spellcheck="false" style="width:100%;min-height:150px;font-family:var(--f-mono);font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s);padding:10px" placeholder='{"task":{"kind":"matmul","n":2,"m":2,"p":2,"rank":7},"ring":"Q","witness":{"u":[[1,0,0,1],...],"v":[...],"w":[...]}}'></textarea><div style="margin:8px 0"><button id="cm-go" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sig);color:var(--paper);border:none;border-radius:var(--radius-s)">certify</button> <button id="cm-ex" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s)">load Strassen 1969</button></div><pre id="cm-out" style="white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-s);padding:10px;font-size:13px;min-height:1.5em;overflow-x:auto"></pre></div><script>
+<p>Paste a claim below — the JSON shape is {task: {kind: "matmul", n, m, p, rank}, ring: "Q"|"F2", witness: {u, v, w}} with integer or exact-rational ("1/2") entries — and get the verdict from the same arithmetic that grades the board: CERTIFIED with the equation count, REFUTED with the first violated equation and its exact discrepancy, or REFUSED with the reason. Everything runs in your browser in exact BigInt rationals; nothing is uploaded. This widget was executed at this page's build against Strassen, a sub-float forgery, and a float entry — the build refuses if any answer moves. The citable path is the zero-dependency library: <span class="m">oracle/certmachine.py</span> (red controls at import), with the ready-made tool definition in <span class="m">oracle/tool-definition.json</span> — the whole package at <a href="/oracle/">/oracle/</a>.</p><div class="col"><textarea id="cm-in" class="cmw-in" spellcheck="false" placeholder='{"task":{"kind":"matmul","n":2,"m":2,"p":2,"rank":7},"ring":"Q","witness":{"u":[[1,0,0,1],...],"v":[...],"w":[...]}}'></textarea><div class="cmw-row"><button id="cm-go" class="cmw-btn go">certify</button><button id="cm-ex" class="cmw-btn">load Strassen 1969</button></div><pre id="cm-out" class="cmw-out"></pre></div><script>
 function cmParseEntry(x){
   if (typeof x === 'number') { if (!Number.isInteger(x)) return null; return [BigInt(x), 1n]; }
   if (typeof x === 'string') {
@@ -875,7 +896,7 @@ function cmCertify(claim){
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-eval.js @ git 324faf0 — the harness calibration re-ran during this build (18 red controls, 2 refuted exactly, 0 certified — a control that certifies aborts everything). Ledger: certs/matmul-eval-ledger.jsonl.</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-eval.js @ git a242434 — the harness calibration re-ran during this build (18 red controls, 2 refuted exactly, 0 certified — a control that certifies aborts everything). Ledger: certs/matmul-eval-ledger.jsonl.</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

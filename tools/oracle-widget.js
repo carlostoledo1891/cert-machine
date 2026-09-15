@@ -91,15 +91,11 @@ function gate() {
 
 /* the interactive block (textarea + buttons + output), shared markup */
 function boxHtml() {
-  return '<div class="col"><textarea id="cm-in" spellcheck="false" style="width:100%;min-height:150px;font-family:var(--f-mono);'
-    + 'font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s);padding:10px" '
+  return '<div class="col"><textarea id="cm-in" class="cmw-in" spellcheck="false" '
     + 'placeholder=\'{"task":{"kind":"matmul","n":2,"m":2,"p":2,"rank":7},"ring":"Q","witness":{"u":[[1,0,0,1],...],"v":[...],"w":[...]}}\'></textarea>'
-    + '<div style="margin:8px 0"><button id="cm-go" style="font:inherit;padding:6px 14px;cursor:pointer;'
-    + 'background:var(--sig);color:var(--paper);border:none;border-radius:var(--radius-s)">certify</button> '
-    + '<button id="cm-ex" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);'
-    + 'border:1px solid var(--rule);border-radius:var(--radius-s)">load Strassen 1969</button></div>'
-    + '<pre id="cm-out" style="white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);'
-    + 'border-radius:var(--radius-s);padding:10px;font-size:13px;min-height:1.5em;overflow-x:auto"></pre></div>'
+    + '<div class="cmw-row"><button id="cm-go" class="cmw-btn go">certify</button>'
+    + '<button id="cm-ex" class="cmw-btn">load Strassen 1969</button></div>'
+    + '<pre id="cm-out" class="cmw-out"></pre></div>'
     + '<script>' + WIDGET_CORE + `
 (function(){
   var S7 = ${JSON.stringify(STRASSEN7)};

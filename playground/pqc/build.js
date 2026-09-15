@@ -63,7 +63,7 @@ const body = `
     <div class="grp">
       <span class="eyebrow">run it</span>
       <div class="row-btns"><button id="playBtn">play</button></div>
-      <div class="ctrl" style="margin-top:var(--s-3);"><label for="cT">step</label><output id="cTOut"></output><input type="range" id="cT" min="0" max="1" step="1"></div>
+      <div class="ctrl mt3"><label for="cT">step</label><output id="cTOut"></output><input type="range" id="cT" min="0" max="1" step="1"></div>
       <div class="note-sm">LLL on the real dimension-${R.dim} challenge basis, ${R.steps.toLocaleString()} steps and ${R.swaps.toLocaleString()} swaps in ${(R.ms / 1000).toFixed(1)} s. Every quantity is an integer: floating-point Gram&ndash;Schmidt does not survive a 121-digit modulus sitting beside unit entries, so there is none here. The lattice is checked unchanged at the end &mdash; det² = q², exactly.</div>
     </div>
     <hr class="hr-thin">

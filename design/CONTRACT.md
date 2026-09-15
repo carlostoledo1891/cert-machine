@@ -109,11 +109,17 @@ means assumed" is simply misled by the second page.
     design/grammar.js       the ink rule and the only dash
     playground/design/shell.css   full-viewport instruments: #stage, .panel, .ov, .rd, .pt
 
-**No page carries an inline style, and every `var()` on a page resolves.**
-`tools/check-style.js` measures both, per page, and ratchets. A per-element datum
-(a bar's fill fraction, a marker's position) is a MARK: it is drawn as SVG with
-geometry attributes, not as a style attribute. A rhythm or a measure is a CLASS
-with a rule in the one stylesheet.
+**A style attribute may carry custom properties and nothing else, and every
+`var()` on a page resolves.** `tools/check-style.js` measures both, per page,
+and ratchets.
+
+The distinction is the whole rule. `style="--f:0.42"` is a DATUM — the one
+thing HTML has no other channel for — and the rule that turns it into a width,
+a colour or a grid track lives in the stylesheet with every other rule.
+`style="margin-top:8px"` is a DESIGN DECISION written where no stylesheet can
+see it and no restyle can reach it; it is a class, or it is a rule for the
+component that keeps needing it. On 2026-09-15 there were 537 of the second
+kind across 90 pages and 140 of the first.
 
 A page that links sideways does it inside its content, where the link can say
 why — not by growing a nav variant.

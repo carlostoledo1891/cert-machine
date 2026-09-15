@@ -61,7 +61,7 @@ const body = `
       <svg id="ladder" viewBox="0 0 620 320" role="img" aria-label="Participation ratio against inverse temperature: the real row descending, and two planted mutants failing to."></svg>
       <p class="cap"><b>PR against β on the decided grid.</b> The row descends strictly; the flat mutant sits at ${M.positions} forever and the (β−3)²·s mutant turns around, because its factor passes through zero. An instrument that cannot go red on those two is theatre.</p>
       <div class="checks">${chips}</div>
-      <div style="margin-top:var(--s-5)"><button class="btn" id="sheetOpen">what is decided here</button></div>
+      <div class="mt5"><button class="btn" id="sheetOpen">what is decided here</button></div>
     </div>
   </div>
 </div>

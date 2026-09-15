@@ -375,6 +375,27 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 .cm-tip b{display:block;font-weight:600;color:var(--ink)}
 .cm-tip span{display:block;color:var(--ink-3)}
 .figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-btn + .cmw-btn{margin-left:var(--s-2)}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
 .figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
 .figbox [data-cm]:focus:not(:focus-visible){outline:none}
 svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
@@ -1108,7 +1129,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <line x1="62" y1="256" x2="878" y2="256" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="470.0" y="298.0" text-anchor="middle" class="t-note">c = ⟨cluster, cluster⟩</text>
     <text x="13" y="137" class="t-note" transform="rotate(-90 13 137)" text-anchor="middle">ċ</text>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="256" stroke="var(--c-axis)" stroke-width="1" style="opacity:0"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="256" stroke="var(--c-axis)" stroke-width="1"/>
     <path d="M70.16 255.69 L73.49 255.59 L76.82 255.50 L80.16 255.42 L83.49 255.36 L86.82 255.30 L90.15 255.26 L93.48 255.22 L96.82 255.20 L100.15 255.18 L103.48 255.17 L106.81 255.17 L110.14 255.17 L113.48 255.18 L116.81 255.20 L120.14 255.22 L123.47 255.25 L126.80 255.28 L130.14 255.32 L133.47 255.35 L136.80 255.39 L140.13 255.44 L143.46 255.48 L146.80 255.52 L150.13 255.57 L153.46 255.61 L156.79 255.66 L160.12 255.70 L163.46 255.75 L166.79 255.79 L170.12 255.83 L173.45 255.86 L176.78 255.89 L180.12 255.92 L183.45 255.95 L186.78 255.97 L190.11 255.98 L193.44 255.99 L196.78 256.00 L200.11 256.00 L203.44 255.99 L206.77 255.98 L210.10 255.96 L213.44 255.93 L216.77 255.89 L220.10 255.85 L223.43 255.80 L226.76 255.74 L230.10 255.67 L233.43 255.59 L236.76 255.51 L240.09 255.41 L243.42 255.30 L246.76 255.19 L250.09 255.06 L253.42 254.93 L256.75 254.78 L260.08 254.62 L263.42 254.45 L266.75 254.28 L270.08 254.09 L273.41 253.89 L276.74 253.67 L280.08 253.45 L283.41 253.22 L286.74 252.97 L290.07 252.71 L293.40 252.44 L296.74 252.16 L300.07 251.87 L303.40 251.57 L306.73 251.25 L310.06 250.93 L313.40 250.59 L316.73 250.24 L320.06 249.88 L323.39 249.51 L326.72 249.13 L330.06 248.73 L333.39 248.33 L336.72 247.91 L340.05 247.48 L343.38 247.05 L346.72 246.60 L350.05 246.14 L353.38 245.67 L356.71 245.19 L360.04 244.70 L363.38 244.21 L366.71 243.70 L370.04 243.18 L373.37 242.66 L376.70 242.12 L380.04 241.58 L383.37 241.03 L386.70 240.47 L390.03 239.90 L393.36 239.33 L396.70 238.74 L400.03 238.16 L403.36 237.56 L406.69 236.96 L410.02 236.35 L413.36 235.74 L416.69 235.12 L420.02 234.49 L423.35 233.86 L426.68 233.23 L430.02 232.59 L433.35 231.95 L436.68 231.30 L440.01 230.65 L443.34 230.00 L446.68 229.35 L450.01 228.69 L453.34 228.04 L456.67 227.38 L460.00 226.72 L463.34 226.06 L466.67 225.40 L470.00 224.74 L473.33 224.08 L476.66 223.42 L480.00 222.76 L483.33 222.10 L486.66 221.45 L489.99 220.80 L493.32 220.15 L496.66 219.50 L499.99 218.86 L503.32 218.22 L506.65 217.59 L509.98 216.96 L513.32 216.34 L516.65 215.72 L519.98 215.11 L523.31 214.51 L526.64 213.91 L529.98 213.32 L533.31 212.73 L536.64 212.16 L539.97 211.59 L543.30 211.03 L546.64 210.48 L549.97 209.95 L553.30 209.42 L556.63 208.90 L559.96 208.39 L563.30 207.89 L566.63 207.41 L569.96 206.93 L573.29 206.47 L576.62 206.02 L579.96 205.59 L583.29 205.16 L586.62 204.75 L589.95 204.36 L593.28 203.98 L596.62 203.61 L599.95 203.26 L603.28 202.93 L606.61 202.61 L609.94 202.31 L613.28 202.02 L616.61 201.75 L619.94 201.50 L623.27 201.26 L626.60 201.05 L629.94 200.85 L633.27 200.67 L636.60 200.51 L639.93 200.37 L643.26 200.25 L646.60 200.14 L649.93 200.06 L653.26 200.00 L656.59 199.96 L659.92 199.94 L663.26 199.94 L666.59 199.96 L669.92 200.01 L673.25 200.08 L676.58 200.17 L679.92 200.28 L683.25 200.41 L686.58 200.57 L689.91 200.75 L693.24 200.96 L696.58 201.19 L699.91 201.45 L703.24 201.72 L706.57 202.03 L709.90 202.36 L713.24 202.71 L716.57 203.09 L719.90 203.50 L723.23 203.93 L726.56 204.39 L729.90 204.87 L733.23 205.38 L736.56 205.92 L739.89 206.49 L743.22 207.08 L746.56 207.70 L749.89 208.35 L753.22 209.02 L756.55 209.73 L759.88 210.46 L763.22 211.22 L766.55 212.01 L769.88 212.83 L773.21 213.67 L776.54 214.55 L779.88 215.46 L783.21 216.39 L786.54 217.36 L789.87 218.35 L793.20 219.38 L796.54 220.43 L799.87 221.52 L803.20 222.63 L806.53 223.78 L809.86 224.96 L813.20 226.17 L816.53 227.40 L819.86 228.68 L823.19 229.98 L826.52 231.31 L829.86 232.68 L833.19 234.07 L836.52 235.50 L839.85 236.96 L843.18 238.46 L846.52 239.98 L849.85 241.54 L853.18 243.13 L856.51 244.75 L859.84 246.40 L863.18 248.09 L866.51 249.81 L869.84 251.57" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
     <circle cx="869.84" cy="251.57" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
     <circle cx="70.16" cy="255.69" r="12" fill="transparent" data-cmx="70.16" data-cm="β = 1.5 · -0.98" data-cmv="0.0027" tabindex="0"/>
@@ -1875,7 +1896,7 @@ node labs/mfg/multiplicity.js                     # &gt;= 3 solutions per coupli
 make test                                         # every battery, every red control</pre><p>The write-up: <span class="m">paper/terra-peaks.md</span> · PDF: <span class="m">paper/terra-peaks.pdf</span> — generated from the same certificates as this page. Refutations and independent re-runs are invited: carlos@carlostoledo.co.</p>
 </section>
 
-<p>cert-machine · built 2026-09-15 · git 324faf0 · every number from a VERIFIED certificate · phase-map floats pinned sha256 30b3cfe49514… · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p>
+<p>cert-machine · built 2026-09-15 · git a242434 · every number from a VERIFIED certificate · phase-map floats pinned sha256 30b3cfe49514… · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p>
 
 </div>
 

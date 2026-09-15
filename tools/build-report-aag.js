@@ -62,7 +62,7 @@ const FIG_PAINT = (() => {
     out.push('    <rect ' + CH.hit('x="' + f.px(p[0]).toFixed(1) + '" y="' + f.T + '" width="' + (f.px(p[0] + 1 / K) - f.px(p[0])).toFixed(1) + '" height="' + f.ph + '" fill="transparent" data-cmx="' + f.px(p[0]).toFixed(1) + '"',
       'x ∈ [' + p[0].toFixed(4) + ', ' + (p[0] + 1 / K).toFixed(4) + ')', p[3] + (p[3] === 'EMPTY' ? ' · m = 0 exactly' : p[3] === 'OCCUPIED' ? ' · m ∈ [' + p[1].toFixed(4) + ', ' + p[2].toFixed(4) + ']' : ' · the cell holds a root of V')) + '/>');
   }
-  out.push('    <line class="cm-cross" x1="0" y1="' + f.T + '" x2="0" y2="' + (f.T + f.ph) + '" stroke="' + TK.CHART.AXIS + '" stroke-width="1" style="opacity:0"/>');
+  out.push('    <line class="cm-cross" x1="0" y1="' + f.T + '" x2="0" y2="' + (f.T + f.ph) + '" stroke="' + TK.CHART.AXIS + '" stroke-width="1"/>');
   out.push(CH.legend([
     { token: CAT[0], t: 'OCCUPIED: m = V enclosed on the cell (decided)', kind: 'line' },
     { token: CAT[0], t: 'EMPTY: m = 0 exactly (decided) — the zero line', kind: 'line' },

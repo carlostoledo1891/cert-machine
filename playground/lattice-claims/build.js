@@ -155,7 +155,7 @@ const body = `
     <div class="prose reveal" style="max-width:70ch;">
       <p>Both lattices below have dimension ${P.straddle.n}, both norms are published as whole numbers, and both look identical on the page. The bar is every ratio consistent with a norm that prints as that integer &mdash; half a unit either way. One bar clears the wall. The other crosses it, and no arithmetic closes the gap, because the information needed was rounded away before publication.</p>
     </div>
-    <div class="reveal" style="margin-top:var(--s-5);">${ruler()}</div>
+    <div class="reveal mt5">${ruler()}</div>
     <div class="note reveal" style="max-width:80ch;">
 <b>decidable</b>  printed ${P.decidable.printed} &rarr; every consistent norm gives the same verdict. ADMISSIBLE, and that is a proof.
 <b>straddling</b> printed ${P.straddle.printed} &rarr; at N&minus;&frac12; it is ${P.straddle.verdict_lo}, at N+&frac12; it is ${P.straddle.verdict_hi}. The window is ${((P.straddle.ratio_hi - P.straddle.ratio_lo) * 1e4).toFixed(1)}&times;10&minus;&#8308; wide and the wall runs through it.
@@ -168,7 +168,7 @@ const body = `
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Results</h2><span class="eyebrow">${R.length} calls, dimensions 8&ndash;16</span></div>
     <div class="reveal">${grid()}</div>
-    ${P.baseline ? `<div class="reveal" style="margin-top:var(--s-5);">
+    ${P.baseline ? `<div class="reveal mt5">
       <div class="eyebrow">the same ${R.length / MODELS.length} tasks, four reference policies, no API key</div>
       <div class="gr" style="grid-template-columns:120px repeat(${RUNGS.length + 1},minmax(0,1fr));">
         <div class="h"></div>${RUNGS.map(r => `<div class="h">${r}</div>`).join('')}<div class="h">overall</div>
@@ -183,7 +183,7 @@ const body = `
 <b>the split</b>   the <span class="mono">printed</span> rung separates the models threefold. On the straddling instances alone: ${MODELS.map(m => `${m} ${straddle(m)[0]}/${straddle(m)[1]}`).join(', ')}.
 <b>reference</b>  declared correctly, and correctly: ${MODELS.map(m => `${m} ${wf(m)[0]}/${wf(m)[1]}`).join(', ')}. Diagnostic, weight zero &mdash; but it is the reward that says whether a pass was earned.
     </div>
-    <div class="reveal" style="margin-top:var(--s-6);">
+    <div class="reveal mt6">
       <div class="eyebrow">where the verdicts went</div>
       ${confusion()}
     </div>
@@ -200,7 +200,7 @@ const body = `
       <p>Every rollout reduced to the topology that matters: the verdicts an instrument can fire, with the one the model chose filled and the one that was true ringed. Fill inside a ring is right. A fill with no ring is a wrong answer. A ring with nothing in it is the answer it missed, and you can see which row it went to instead.</p>
       <p>The underline is the reference, and its ink is not chosen &mdash; solid when the rollout declared what it actually decided against, dashed when it slipped. A run of dashed underlines beneath correct verdicts is a model right for a reason it did not state.</p>
     </div>
-    <div class="reveal sheet" style="margin-top:var(--s-5);">${CONTACT}</div>
+    <div class="reveal sheet mt5">${CONTACT}</div>
     <div class="note reveal" style="max-width:80ch;">
 <b>read it</b>     the <span class="mono">underspecified</span> band is the clearest: where a ring sits empty in the <span class="mono">NEEDS_DATA</span> row and a fill appears in <span class="mono">ADMISSIBLE</span> above it, a model answered a question that had a quantity missing. That shape repeats for all three.
 <b>and the</b>     <span class="mono">printed</span> band separates them without a number: Opus&rsquo;s fills sit inside their rings, and the other two scatter into rows the truth was not in.

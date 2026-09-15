@@ -62,8 +62,8 @@ const fitBars = () => {
     <div class="bl">${s.id}</div>
     ${MODELS.map(M => { const f = s.byModel[M.id].fits; return `<div class="brow">
       <span class="bm">${M.label}</span>
-      <span class="bt">line</span><span class="btr"><i style="width:${(100 * Math.min(1, f.line.resid)).toFixed(1)}%"></i></span><span class="bv">${pct(f.line.resid)}</span>
-      <span class="bt">cycle</span><span class="btr"><i style="width:${(100 * Math.min(1, f.cycle.resid)).toFixed(1)}%"></i></span><span class="bv">${pct(f.cycle.resid)}</span>
+      <span class="bt">line</span><span class="btr"><i style="--w:${(100 * Math.min(1, f.line.resid)).toFixed(1)}%"></i></span><span class="bv">${pct(f.line.resid)}</span>
+      <span class="bt">cycle</span><span class="btr"><i style="--w:${(100 * Math.min(1, f.cycle.resid)).toFixed(1)}%"></i></span><span class="bv">${pct(f.cycle.resid)}</span>
     </div>`; }).join('')}
   </div>`).join('')}</div>`;
 };
@@ -129,6 +129,7 @@ svg.pl .ovp.m1 { fill-opacity:.62; } svg.pl .ovp.m2 { fill-opacity:.42; }
 .brow { display:grid; grid-template-columns:82px 30px 1fr 42px 34px 1fr 42px; gap:var(--s-3); align-items:center; font-family:var(--font-mono); font-size:9.5px; color:var(--ink-5); margin-top:5px; }
 .bm { color:var(--ink-2); } .bt { color:var(--ink-4); }
 .btr { height:4px; background:var(--surface-2); border-radius:2px; overflow:hidden; }
+.btr i { width: var(--w); }   /* the fill is a datum; the rule is here (2026-09-15) */
 .btr i { display:block; height:100%; background:#f6f6f8; opacity:.72; }
 .bv { color:var(--ink-3); text-align:right; font-variant-numeric:tabular-nums; }
 .stats { display:grid; grid-template-columns:150px repeat(3,minmax(0,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; margin-top:var(--s-5); }
@@ -154,11 +155,11 @@ const subjectSection = (sub, extra = '') => `
       </div>
     </div>
     <p class="lede reveal" style="margin-top:var(--s-4); max-width:70ch; font-size:var(--text-body); color:var(--ink-3);">${sub.note}</p>
-    <div class="reveal" style="margin-top:var(--s-5);">${triptych(sub)}</div>
+    <div class="reveal mt5">${triptych(sub)}</div>
     ${extra}
-    <div class="reveal" style="margin-top:var(--s-6);">
+    <div class="reveal mt6">
       <div class="eyebrow">the tables themselves, and where the three disagree</div>
-      <div style="margin-top:var(--s-3);">${fieldRow(sub)}</div>
+      <div class="mt3">${fieldRow(sub)}</div>
     </div>
     <div class="agree reveal">
       <div class="h">agreement</div>${sub.pairs.map(p => `<div class="h">${MODELS.find(m => m.id === p.a).label} · ${MODELS.find(m => m.id === p.b).label}</div>`).join('')}
@@ -225,8 +226,8 @@ const body = `
     <div class="prose reveal" style="max-width:70ch;">
       <p>The twelve hours of a clock and the ten digits are almost the same symbols, and they have opposite geometries. Eleven and one are neighbours; nine and one are eight apart. Nothing in either prompt says which frame is in play &mdash; only the phrase &ldquo;on a clock face&rdquo; or &ldquo;as digits&rdquo;. If a model is carrying the structure rather than a lookup of numeral similarity, the same numerals must come back as a circle in one and a line in the other.</p>
     </div>
-    <div class="reveal" style="margin-top:var(--s-5);">${triptych(clock, 300)}</div>
-    <div class="reveal" style="margin-top:var(--s-4);">${triptych(digits, 300)}</div>
+    <div class="reveal mt5">${triptych(clock, 300)}</div>
+    <div class="reveal mt4">${triptych(digits, 300)}</div>
     <div class="note reveal" style="max-width:78ch;">
 <b>${bestClock.M.label}</b>  holds the twelve hours as a circle to ${pct(bestClock.v)} residual, and the ten digits as a line to ${pct(digits.byModel[bestClock.M.id].fits.line.resid)}.
 <b>the line</b>   ${EL.hit === EL.tot ? `every one of ${bestDigit.M.label}'s ${EL.tot} digit answers is exactly ${EL.k}·|i−j| — 0, ${digits.byModel[bestDigit.M.id].raw[0].slice(1, 5).join(', ')}, … ${digits.byModel[bestDigit.M.id].raw[0][9]} — in ${EL.tot} calls that never saw each other, with not one exception.` : `closest is ${bestDigit.M.label} at ${pct(bestDigit.v)}; ${EL.hit} of ${EL.tot} answers land exactly on ${EL.k}·|i−j|.`}
@@ -243,7 +244,7 @@ const body = `
     <div class="prose reveal" style="max-width:70ch;">
       <p>For every set with an order, the same table is held against the two shapes it could have: <span class="mono">d&nbsp;&prop;&nbsp;|i&nbsp;&minus;&nbsp;j|</span> and <span class="mono">d&nbsp;&prop;&nbsp;min(|i&nbsp;&minus;&nbsp;j|,&nbsp;n&nbsp;&minus;&nbsp;|i&nbsp;&minus;&nbsp;j|)</span>. Each has exactly one free scale, fixed in closed form, so the residuals are comparable. Shorter is better.</p>
     </div>
-    <div class="reveal" style="margin-top:var(--s-5);">${fitBars()}</div>
+    <div class="reveal mt5">${fitBars()}</div>
   </div>
 </section>
 
@@ -253,7 +254,7 @@ const body = `
     <div class="prose reveal" style="max-width:70ch;">
       <p>A table of distances must satisfy <span class="mono">d(a,c) &le; d(a,b) + d(b,c)</span> for every triple, or no arrangement of points in any space has those distances. Each cell below is one model on one world: the share of triples that break, and by how much against the largest distance that model was willing to name.</p>
     </div>
-    <div class="reveal" style="margin-top:var(--s-5);">${gateGrid()}</div>
+    <div class="reveal mt5">${gateGrid()}</div>
     <div class="note reveal" style="max-width:78ch;">
 <b>passes</b>     ${metricPasses.join(', ')} — ${metricPasses.length} of ${G.subjects.length * MODELS.length}
 <b>and yet</b>    the set every model turns into a metric space is the one with no structure in it. Its distances all sit within a factor of ${Math.max(...MODELS.map(M => nons.byModel[M.id].contrast)).toFixed(1)}, and any table whose values lie within a factor of two is a metric for free: two of them can never fall short of the third.
@@ -279,7 +280,7 @@ ${subjectSection(S('nonsense'), overlaySection(S('nonsense'), ' Here there is no
       <p>It cannot say a model &ldquo;represents&rdquo; the week as a circle. Nothing here opens a model or reads a weight; the only evidence is what came back through the same interface anyone else has, and a shape in the answers is a fact about the answers.</p>
       <p>What it can say is sharper than it looks, because the facts on this page live in <em>no single answer</em>. &ldquo;Eleven and one are 22 apart&rdquo; carries no information about a circle. The circle exists only in ${clock.n * (clock.n - 1)} answers at once, and it survived being cut into ${clock.n * (clock.n - 1)} independent questions and reassembled by arithmetic no model saw. A model that produced these numbers one at a time, without memory between calls, and reconstructed a ${pct(bestClock.v)}-residual circle, was consulting something with that shape in it.</p>
       <p>The decisions are exact. Symmetrised tables are integers, the Gram matrix is built in rational arithmetic, the signature comes from symmetric congruence rather than an eigensolver, and the two shape fits have one parameter each. There is no threshold anywhere that was chosen after seeing the results. The float spectrum is printed beside the exact signature for the reason it always must be: an exact signature is infinitely sensitive, and a single unit of quantisation turns a rank-one table full-rank without changing anything anyone would care about.</p>
-      <h2 class="t2" style="margin-top:var(--s-7);">Reproduce</h2>
+      <h2 class="t2 mt7">Reproduce</h2>
       <p class="mono" style="font-size:var(--text-eyebrow); color:var(--ink-4); line-height:2;">node experiments/neural-geometry/probe.js --live<br>node experiments/neural-geometry/decide.js<br>node tools/build-neural-geometry.js</p>
       <p>Without <span class="mono">--live</span> the probe touches no network and prints the prompts it would send. ${G.spend ? `The run behind this page cost $${G.spend.reduce((t, s) => t + s.usd, 0).toFixed(2)}: ${G.spend.map(s => `${s.label} $${s.usd.toFixed(2)}`).join(', ')}.` : ''}</p>
     </div>

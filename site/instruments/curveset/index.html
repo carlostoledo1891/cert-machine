@@ -299,6 +299,24 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+.mt2 { margin-top: var(--s-2); }
+.mt3 { margin-top: var(--s-3); }
+.mt4 { margin-top: var(--s-4); }
+.mt5 { margin-top: var(--s-5); }
+.mt6 { margin-top: var(--s-6); }
+.mt7 { margin-top: var(--s-7); }
+.mt8 { margin-top: var(--s-8); }
+
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -611,10 +629,10 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
   <div class="eyebrow">the grammar this page is drawn in</div>
   <h2>Every mark says what it is standing on.</h2>
   <p class="why">The envelope is <b>computed</b>: the formula is closed form — no optimiser, no sampling — but it is <em>evaluated</em> in floating point, and the backwards read is a bisection. The grammar's first rule is that a float step takes decided to computed automatically, and it applies to this page as readily as to anybody else's, so the envelope is drawn dashed. The published curve is <b>chosen</b> — an <code>argmin</code> of a fitting criterion over a family nobody derived from the data — and it is drawn dotted. Where a reading is over range and no admissible curve bounds it, there is <b>no mark at all</b> and the void is drawn, because "over range" is a fact about the ladder rather than a number to interpolate.</p>
-  <p class="why" style="margin-top:var(--s-4)"><b>There is no solid line anywhere on this page, and that is the finding.</b> It was drawn solid for a week: the formula looks decided, and the page said so. The grammar disagreed with the page it is defined on, which is the most useful thing it has done. The route to earning solid back is not large and is written down in <code>envelope.js</code> — the standards are half-integers and both envelopes are a min/max of <em>linear</em> functions, so the bisection can be replaced by one exact solve on one piece. <code>ARITHMETIC = 'exact'</code> then re-promotes every mark here and this legend with it, because nothing on this page names a standing by hand.</p>
+  <p class="why mt4"><b>There is no solid line anywhere on this page, and that is the finding.</b> It was drawn solid for a week: the formula looks decided, and the page said so. The grammar disagreed with the page it is defined on, which is the most useful thing it has done. The route to earning solid back is not large and is written down in <code>envelope.js</code> — the standards are half-integers and both envelopes are a min/max of <em>linear</em> functions, so the bisection can be replaced by one exact solve on one piece. <code>ARITHMETIC = 'exact'</code> then re-promotes every mark here and this legend with it, because nothing on this page names a standing by hand.</p>
   <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
-  <p class="why" style="margin-top:var(--s-4)"><b>Lines carry the pattern; extents do not.</b> A bar, a bracket and a band show a <em>quantity in their length</em>, so their bodies stay solid — a seven-pixel bar chopped into dashes is not a computed bar, it is a row of dashes. In the ladder below, every body is computed and the rungs with no admissible answer are hatched voids instead, so shape carries the difference and the pattern channel is left alone. This rule was found by applying the grammar to this page and watching it break the figure.</p>
-  <p class="why" style="margin-top:var(--s-6)"><b>Standing is not confidence.</b> A dotted line here is not less precise — it is often far more precise, which is exactly the problem. It is precise <em>because</em> something other than the data chose it. Width is drawn separately, as an extent, so the two never collapse into one channel.</p>
+  <p class="why mt4"><b>Lines carry the pattern; extents do not.</b> A bar, a bracket and a band show a <em>quantity in their length</em>, so their bodies stay solid — a seven-pixel bar chopped into dashes is not a computed bar, it is a row of dashes. In the ladder below, every body is computed and the rungs with no admissible answer are hatched voids instead, so shape carries the difference and the pattern channel is left alone. This rule was found by applying the grammar to this page and watching it break the figure.</p>
+  <p class="why mt6"><b>Standing is not confidence.</b> A dotted line here is not less precise — it is often far more precise, which is exactly the problem. It is precise <em>because</em> something other than the data chose it. Width is drawn separately, as an extent, so the two never collapse into one channel.</p>
 </div></section>
 
 <section class="sec"><div class="wrap">
@@ -693,20 +711,20 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
     <div><h3><span class="big">1.0×</span>and joining the dots matches NIST</h3><p>On a fine ladder with small noise the functional form buys <em>nothing</em>: linear interpolation lands on the reported precision. That precision was earned by the experiment, not by the model.</p></div>
     <div><h3><span class="big">3.6×</span>the assay, even joining the dots</h3><p>The opposite conclusion. The tightest claim available without a functional form is still 3.6 times wider than the four-parameter fit reports. On a coarse ladder <b>the model is doing the work.</b></p></div>
   </div>
-  <p class="why" style="margin-top:var(--s-7)"><b>That pair is the point.</b> The method does not say everyone is overconfident. It says you can tell which case you are in, and by how much — and the two cases look identical until somebody computes the set. Both reports are competent, both are standard practice, and one of them is carried almost entirely by a choice of curve.</p>
+  <p class="why mt7"><b>That pair is the point.</b> The method does not say everyone is overconfident. It says you can tell which case you are in, and by how much — and the two cases look identical until somebody computes the set. Both reports are competent, both are standard practice, and one of them is carried almost entirely by a choice of curve.</p>
 </div></section>
 
 <section class="sec"><div class="wrap">
   <div class="eyebrow">the mathematics, and why there is no optimiser</div>
-  <h2 style="margin-top:var(--s-3)">The envelope is closed form</h2>
+  <h2 class="mt3">The envelope is closed form</h2>
   <p class="why">A curve is admissible when it passes within the stated error of every standard and its slope stays in <code>[m, M]</code>. Every standard then bounds the curve from both sides through the slope limits, so the extreme admissible curves are a minimum and a maximum of straight lines:</p>
   <pre>U(x) = min&#8202;<sub>i</sub> [ hi&#8202;<sub>i</sub> + (x ≥ x&#8202;<sub>i</sub> ?  M(x − x&#8202;<sub>i</sub>) : −m(x&#8202;<sub>i</sub> − x)) ]
 L(x) = max&#8202;<sub>i</sub> [ lo&#8202;<sub>i</sub> + (x ≥ x&#8202;<sub>i</sub> ?  m(x − x&#8202;<sub>i</sub>) : −M(x&#8202;<sub>i</sub> − x)) ]</pre>
-  <p class="why" style="margin-top:var(--s-4)">Both are nondecreasing, so reading backwards is a bisection rather than a search, and it is exact to machine precision. No linear program, no sampling, nothing to tune.</p>
-  <p class="why" style="margin-top:var(--s-4)"><b>A global slope band is the wrong assertion for a curve that bends.</b> On the assay the secants between adjacent standards already span sixteen-fold, so "the slope lies between the smallest and largest secant" constrains nothing and tightening it changes nothing. The claim people actually make is <em>local</em>: between two adjacent standards the response does not wander far from the line joining them. At <code>t = 0</code> that is linear interpolation. The bound used is an <b>outer</b> one — each endpoint taken with its own error bar independently — so it is conservative, wider than the truth and never narrower, which is the direction an argument like this has to err in.</p>
-  <p class="why" style="margin-top:var(--s-4)"><b>The page runs the file the tests run.</b> <code>envelope.js</code> is inlined verbatim behind a four-line require shim, so the curve the slider draws comes out of the same 8399 bytes that 24 tests exercise, and out of the same function that rendered this page on disk.</p>
+  <p class="why mt4">Both are nondecreasing, so reading backwards is a bisection rather than a search, and it is exact to machine precision. No linear program, no sampling, nothing to tune.</p>
+  <p class="why mt4"><b>A global slope band is the wrong assertion for a curve that bends.</b> On the assay the secants between adjacent standards already span sixteen-fold, so "the slope lies between the smallest and largest secant" constrains nothing and tightening it changes nothing. The claim people actually make is <em>local</em>: between two adjacent standards the response does not wander far from the line joining them. At <code>t = 0</code> that is linear interpolation. The bound used is an <b>outer</b> one — each endpoint taken with its own error bar independently — so it is conservative, wider than the truth and never narrower, which is the direction an argument like this has to err in.</p>
+  <p class="why mt4"><b>The page runs the file the tests run.</b> <code>envelope.js</code> is inlined verbatim behind a four-line require shim, so the curve the slider draws comes out of the same 8399 bytes that 24 tests exercise, and out of the same function that rendered this page on disk.</p>
 
-  <div style="margin-top:var(--s-7)">
+  <div class="mt7">
     <div class="eyebrow">what this does not claim</div>
     <ul class="why" style="padding-left:1.1em">
       <li>It says nothing about whether either <em>report</em> is wrong. Both are competent and both are standard practice.</li>
