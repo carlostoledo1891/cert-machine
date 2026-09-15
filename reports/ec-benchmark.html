@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The environmental-contour benchmark, re-decided</title>
+<meta name="description" content="The 2021 benchmarking exercise for environmental contours (Haselsteiner et al.) re-decided exactly: 150 submitted contours as exact polygons, 1.8 million hourly sea states classified inside / outside / on each, 173 of the paper&#39;s 176 printed counts reproduced to the integer, two traced to a rewritten file, 30 contours that cross themselves, two observations exactly on a contour, and the paper&#39;s expected numbers certified.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/ec-benchmark.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/ec-benchmark.html">
+<meta property="og:title" content="The environmental-contour benchmark, re-decided">
+<meta property="og:description" content="The 2021 benchmarking exercise for environmental contours (Haselsteiner et al.) re-decided exactly: 150 submitted contours as exact polygons, 1.8 million hourly sea states classified inside / outside / on each, 173 of the paper&#39;s 176 printed counts reproduced to the integer, two traced to a rewritten file, 30 contours that cross themselves, two observations exactly on a contour, and the paper&#39;s expected numbers certified.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The environmental-contour benchmark, re-decided">
+<meta name="twitter:description" content="The 2021 benchmarking exercise for environmental contours (Haselsteiner et al.) re-decided exactly: 150 submitted contours as exact polygons, 1.8 million hourly sea states classified inside / outside / on each, 173 of the paper&#39;s 176 printed counts reproduced to the integer, two traced to a rewritten file, 30 contours that cross themselves, two observations exactly on a contour, and the paper&#39;s expected numbers certified.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The environmental-contour benchmark, re-decided","description":"The 2021 benchmarking exercise for environmental contours (Haselsteiner et al.) re-decided exactly: 150 submitted contours as exact polygons, 1.8 million hourly sea states classified inside / outside / on each, 173 of the paper's 176 printed counts reproduced to the integer, two traced to a rewritten file, 30 contours that cross themselves, two observations exactly on a contour, and the paper's expected numbers certified.","url":"https://carlostoledo.co/reports/ec-benchmark.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:0.9375rem;line-height:1.65;font-weight:400;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+.page{max-width:1200px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 60px) clamp(1.25rem,4vw,3rem) 96px}
+
+
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.eyebrow,.lab{font-family:var(--f-mono);font-size:0.6875rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase}
+.eyebrow{color:var(--ink-4)}
+.lab{color:var(--ink-4)}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--sunk);margin:0 0 26px}
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+footer{margin:clamp(5rem,12vh,9rem) 0 0;padding-top:32px;border-top:1px solid var(--rule);
+  color:var(--ink-5);font-size:0.6875rem;letter-spacing:.08em;line-height:1.9;font-family:var(--f-mono);text-transform:uppercase}
+footer p{margin:0 0 12px}
+footer a{color:var(--ink-3);border-bottom-color:var(--rule-strong);text-transform:none;letter-spacing:.04em}
+footer a:hover{color:var(--ink)}
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+</style>
+
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · the registry · every contour re-decided at this build</div>
+  <h1>Their contours, re-decided to the last point.</h1>
+  <p class="deck">An environmental contour is the curve an offshore designer reads a 50-year sea state off: the line in the (wave height, wave period) plane that a structure must survive. In 2019–2021 nine groups submitted their contours for six metocean datasets to one benchmarking exercise, and the organizers scored each one by counting the hourly observations that fall outside it with a floating-point point-in-polygon test. This page reads every submitted contour as the exact polygon its vertices denote, classifies every one of the 1,840,824 hourly observations INSIDE, OUTSIDE or ON it in exact arithmetic, and reads the paper&#39;s printed counts against the exact ones.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> <strong>176 numbers printed in the benchmark's two tables read against the exact count: 173 are the exact count to the integer, one more agrees once two observations lying exactly ON a contour are counted outside, and two — the one-year sea-state row of contribution 3 — are not the count of the file the repository holds.</strong> Those three files were rewritten on 2020-09-25 to remove 53, 41 and 55 vertices with a NaN coordinate (the repository's own commit says so); the 20-year row of the same contribution, whose files were never touched, agrees to the integer on all three datasets. 30 of the 150 submitted contours are not simple polygons — they cross themselves, 21 times in the worst case — and 49 are not closed in the file, so the polygon that was scored includes a closing edge nobody drew. No observation changes side between the even-odd rule the benchmark used and the nonzero-winding rule, so the printed counts do not depend on that choice; the shape of what was counted does. The paper's expected numbers are certified: 197 and 11.5 for a one- and twenty-year IFORM contour on twenty years of hours are the roundings of 196.862 and 11.524, and the total-exceedance expectations are exactly 20 and 1 because twenty years of hourly states is exactly 20 × 8766 observations.</li><li><b>The mechanism.</b> Every coordinate is read as the decimal literal it is written — an hourly "0.2845; 4.7252", a vertex "4.283446918632201; 7.469377172830912" — never as the nearest double. Each polygon is closed from its last vertex to its first, as the benchmark's script closed it. A point is classified by the even-odd crossing count of a horizontal ray, every predicate a sign of a 2×2 determinant: computed first in float64 and trusted only when it clears a proved forward-error bound (48u·M², 8.7 × 10⁻¹¹ at these magnitudes), otherwise re-decided in BigInt at a fixed decimal scale. A point on an edge or a vertex is ON, a third answer the float test does not have. Self-crossings are decided the same way, pair of edges by pair of edges. The IFORM expectation needs Φ⁻¹, which is enclosed: erfc by Laplace's continued fraction, whose consecutive convergents bracket the value, β by bisection that tightens only on a certain sign.</li><li><b>Check it.</b> <span class="m">node instruments/ecbench/battery.js</span> — 218 checks, 14 red controls that must fire (a float determinant with the wrong sign, a bowtie, a square traced twice, a fold, a NaN, a column swap, a point 10⁻²⁰ off an edge). <span class="m">node tools/run-ecbench-ledger.js</span> re-hashes the 167 pinned files and re-decides all 150 contours in about six seconds; <span class="m">node tools/fetch-ec-benchmark.js</span> fetches the twelve datasets from the pinned commit and verifies them by digest.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats" data-n="6">
+    <div class="stat"><div class="k">contours decided</div><div class="v">150</div><div class="n">11 methods × 6 datasets × the return periods each group supplied; 1,840,824 hourly observations classified against each</div></div>
+    <div class="stat"><div class="k">printed numbers reproduced</div><div class="v">173 of 176</div><div class="n">to the integer; one more within the two boundary points; two are not the count of the file on record</div></div>
+    <div class="stat"><div class="k">contours that cross themselves</div><div class="v">30</div><div class="n">in 6 of the 11 methods; up to 26 crossings in one contour</div></div>
+    <div class="stat"><div class="k">observations exactly on a contour</div><div class="v">2</div><div class="n">the float test put both outside; the exact answer is ON, and the printed mean is consistent with either</div></div>
+    <div class="stat"><div class="k">expected numbers certified</div><div class="v">4 of 4</div><div class="n">Table 1&#39;s 197 · 11.5 · 492 · 12 are the roundings of certified enclosures; the total-exceedance 20 and 1 are exact</div></div>
+    <div class="stat"><div class="k">predicates that needed exact arithmetic</div><div class="v">237,173</div><div class="n">of 637,402,203: the float filter decided the rest under a proved bound, and every one of these was a sign a double could not certify</div></div>
+  </div>
+</div>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§1 · the table</div>
+    <h2>Two tables, 176 numbers, 173 of them the exact count</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 116" role="img" aria-label="One hundred and seventy-six cells, one per number printed in the paper&#39;s Tables 5 and 6: 173 green (the printed count is the exact count), one amber (contribution 2&#39;s wind-wave mean, which agrees once two observations lying exactly on the contour are counted outside), two plum (contribution 3&#39;s one-year sea-state row, which is not the count of the file in the repository).">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <rect x="6.00" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · A · 20-yr · points outside" data-cmv="printed 153 · exact 153" tabindex="0"/>
+    <rect x="26.23" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · A · 20-yr · outside above the threshold" data-cmv="printed 117 · exact 117" tabindex="0"/>
+    <rect x="46.45" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · B · 20-yr · points outside" data-cmv="printed 127 · exact 127" tabindex="0"/>
+    <rect x="66.68" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · B · 20-yr · outside above the threshold" data-cmv="printed 119 · exact 119" tabindex="0"/>
+    <rect x="86.91" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · C · 20-yr · points outside" data-cmv="printed 62 · exact 62" tabindex="0"/>
+    <rect x="107.14" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · C · 20-yr · outside above the threshold" data-cmv="printed 60 · exact 60" tabindex="0"/>
+    <rect x="127.36" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 256.3 · exact 256.3" tabindex="0"/>
+    <rect x="147.59" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 241 · exact 241" tabindex="0"/>
+    <rect x="167.82" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · A · 20-yr · points outside" data-cmv="printed 437 · exact 437" tabindex="0"/>
+    <rect x="188.05" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · A · 20-yr · outside above the threshold" data-cmv="printed 401 · exact 401" tabindex="0"/>
+    <rect x="208.27" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · B · 20-yr · points outside" data-cmv="printed 236 · exact 236" tabindex="0"/>
+    <rect x="228.50" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · B · 20-yr · outside above the threshold" data-cmv="printed 228 · exact 228" tabindex="0"/>
+    <rect x="248.73" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · C · 20-yr · points outside" data-cmv="printed 187 · exact 187" tabindex="0"/>
+    <rect x="268.95" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · C · 20-yr · outside above the threshold" data-cmv="printed 185 · exact 185" tabindex="0"/>
+    <rect x="289.18" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 406.7 · exact 406.7" tabindex="0"/>
+    <rect x="309.41" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 389.3 · exact 389.3" tabindex="0"/>
+    <rect x="329.64" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · A · 20-yr · points outside" data-cmv="printed 68 · exact 68" tabindex="0"/>
+    <rect x="349.86" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · A · 20-yr · outside above the threshold" data-cmv="printed 14 · exact 14" tabindex="0"/>
+    <rect x="370.09" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · B · 20-yr · points outside" data-cmv="printed 28 · exact 28" tabindex="0"/>
+    <rect x="390.32" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · B · 20-yr · outside above the threshold" data-cmv="printed 26 · exact 26" tabindex="0"/>
+    <rect x="410.55" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · C · 20-yr · points outside" data-cmv="printed 33 · exact 33" tabindex="0"/>
+    <rect x="430.77" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · C · 20-yr · outside above the threshold" data-cmv="printed 30 · exact 30" tabindex="0"/>
+    <rect x="451.00" y="6" width="18.23" height="16" rx="2" fill="var(--c-1)" data-cm="contribution 3 · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 82.3 · exact 104 — DOES NOT AGREE" tabindex="0"/>
+    <rect x="471.23" y="6" width="18.23" height="16" rx="2" fill="var(--c-1)" data-cm="contribution 3 · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 48.3 · exact 55 — DOES NOT AGREE" tabindex="0"/>
+    <rect x="491.45" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · A · 20-yr · points outside" data-cmv="printed 1 · exact 1" tabindex="0"/>
+    <rect x="511.68" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · A · 20-yr · outside above the threshold" data-cmv="printed 1 · exact 1" tabindex="0"/>
+    <rect x="531.91" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · B · 20-yr · points outside" data-cmv="printed 32 · exact 32" tabindex="0"/>
+    <rect x="552.14" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · B · 20-yr · outside above the threshold" data-cmv="printed 30 · exact 30" tabindex="0"/>
+    <rect x="572.36" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · C · 20-yr · points outside" data-cmv="printed 8 · exact 8" tabindex="0"/>
+    <rect x="592.59" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · C · 20-yr · outside above the threshold" data-cmv="printed 4 · exact 4" tabindex="0"/>
+    <rect x="612.82" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 75 · exact 75" tabindex="0"/>
+    <rect x="633.05" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 63 · exact 63" tabindex="0"/>
+    <rect x="653.27" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · A · 20-yr · points outside" data-cmv="printed 8503 · exact 8503" tabindex="0"/>
+    <rect x="673.50" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · A · 20-yr · outside above the threshold" data-cmv="printed 47 · exact 47" tabindex="0"/>
+    <rect x="693.73" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · B · 20-yr · points outside" data-cmv="printed 12573 · exact 12573" tabindex="0"/>
+    <rect x="713.95" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · B · 20-yr · outside above the threshold" data-cmv="printed 24 · exact 24" tabindex="0"/>
+    <rect x="734.18" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · C · 20-yr · points outside" data-cmv="printed 29216 · exact 29216" tabindex="0"/>
+    <rect x="754.41" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · C · 20-yr · outside above the threshold" data-cmv="printed 3 · exact 3" tabindex="0"/>
+    <rect x="774.64" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 18295.3 · exact 18295.3" tabindex="0"/>
+    <rect x="794.86" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 495.3 · exact 495.3" tabindex="0"/>
+    <rect x="815.09" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · A · 20-yr · points outside" data-cmv="printed 27 · exact 27" tabindex="0"/>
+    <rect x="835.32" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · A · 20-yr · outside above the threshold" data-cmv="printed 20 · exact 20" tabindex="0"/>
+    <rect x="855.55" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · B · 20-yr · points outside" data-cmv="printed 14 · exact 14" tabindex="0"/>
+    <rect x="875.77" y="6" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · B · 20-yr · outside above the threshold" data-cmv="printed 12 · exact 12" tabindex="0"/>
+    <rect x="6.00" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · C · 20-yr · points outside" data-cmv="printed 9 · exact 9" tabindex="0"/>
+    <rect x="26.23" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · C · 20-yr · outside above the threshold" data-cmv="printed 8 · exact 8" tabindex="0"/>
+    <rect x="46.45" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 154 · exact 154" tabindex="0"/>
+    <rect x="66.68" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 115.3 · exact 115.3" tabindex="0"/>
+    <rect x="86.91" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · A · 20-yr · points outside" data-cmv="printed 79 · exact 79" tabindex="0"/>
+    <rect x="107.14" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · A · 20-yr · outside above the threshold" data-cmv="printed 21 · exact 21" tabindex="0"/>
+    <rect x="127.36" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · B · 20-yr · points outside" data-cmv="printed 4 · exact 4" tabindex="0"/>
+    <rect x="147.59" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · B · 20-yr · outside above the threshold" data-cmv="printed 0 · exact 0" tabindex="0"/>
+    <rect x="167.82" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · C · 20-yr · points outside" data-cmv="printed 23 · exact 23" tabindex="0"/>
+    <rect x="188.05" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · C · 20-yr · outside above the threshold" data-cmv="printed 2 · exact 2" tabindex="0"/>
+    <rect x="208.27" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 281.3 · exact 281.3" tabindex="0"/>
+    <rect x="228.50" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 63 · exact 63" tabindex="0"/>
+    <rect x="248.73" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · A · 20-yr · points outside" data-cmv="printed 189 · exact 189" tabindex="0"/>
+    <rect x="268.95" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · A · 20-yr · outside above the threshold" data-cmv="printed 93 · exact 93" tabindex="0"/>
+    <rect x="289.18" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · B · 20-yr · points outside" data-cmv="printed 368 · exact 368" tabindex="0"/>
+    <rect x="309.41" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · B · 20-yr · outside above the threshold" data-cmv="printed 339 · exact 339" tabindex="0"/>
+    <rect x="329.64" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · C · 20-yr · points outside" data-cmv="printed 409 · exact 409" tabindex="0"/>
+    <rect x="349.86" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · C · 20-yr · outside above the threshold" data-cmv="printed 408 · exact 408" tabindex="0"/>
+    <rect x="370.09" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 762 · exact 762" tabindex="0"/>
+    <rect x="390.32" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 638 · exact 638" tabindex="0"/>
+    <rect x="410.55" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · A · 20-yr · points outside" data-cmv="printed 22504 · exact 22504" tabindex="0"/>
+    <rect x="430.77" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · A · 20-yr · outside above the threshold" data-cmv="printed 4 · exact 4" tabindex="0"/>
+    <rect x="451.00" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · B · 20-yr · points outside" data-cmv="printed 22933 · exact 22933" tabindex="0"/>
+    <rect x="471.23" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · B · 20-yr · outside above the threshold" data-cmv="printed 43 · exact 43" tabindex="0"/>
+    <rect x="491.45" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · C · 20-yr · points outside" data-cmv="printed 20462 · exact 20462" tabindex="0"/>
+    <rect x="511.68" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · C · 20-yr · outside above the threshold" data-cmv="printed 18 · exact 18" tabindex="0"/>
+    <rect x="531.91" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 22127.3 · exact 22127.3" tabindex="0"/>
+    <rect x="552.14" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 130.7 · exact 130.7" tabindex="0"/>
+    <rect x="572.36" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · A · 20-yr · points outside" data-cmv="printed 5096 · exact 5096" tabindex="0"/>
+    <rect x="592.59" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · A · 20-yr · outside above the threshold" data-cmv="printed 4 · exact 4" tabindex="0"/>
+    <rect x="612.82" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · B · 20-yr · points outside" data-cmv="printed 7716 · exact 7716" tabindex="0"/>
+    <rect x="633.05" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · B · 20-yr · outside above the threshold" data-cmv="printed 42 · exact 42" tabindex="0"/>
+    <rect x="653.27" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · C · 20-yr · points outside" data-cmv="printed 5376 · exact 5376" tabindex="0"/>
+    <rect x="673.50" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · C · 20-yr · outside above the threshold" data-cmv="printed 17 · exact 17" tabindex="0"/>
+    <rect x="693.73" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 12031.7 · exact 12031.7" tabindex="0"/>
+    <rect x="713.95" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 126.7 · exact 126.7" tabindex="0"/>
+    <rect x="734.18" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · A · 20-yr · points outside" data-cmv="printed 22514 · exact 22514" tabindex="0"/>
+    <rect x="754.41" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · A · 20-yr · outside above the threshold" data-cmv="printed 8 · exact 8" tabindex="0"/>
+    <rect x="774.64" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · B · 20-yr · points outside" data-cmv="printed 22990 · exact 22990" tabindex="0"/>
+    <rect x="794.86" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · B · 20-yr · outside above the threshold" data-cmv="printed 100 · exact 100" tabindex="0"/>
+    <rect x="815.09" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · C · 20-yr · points outside" data-cmv="printed 20480 · exact 20480" tabindex="0"/>
+    <rect x="835.32" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · C · 20-yr · outside above the threshold" data-cmv="printed 35 · exact 35" tabindex="0"/>
+    <rect x="855.55" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · ABC · 1-yr · mean outside (3 datasets)" data-cmv="printed 22207.7 · exact 22207.7" tabindex="0"/>
+    <rect x="875.77" y="24" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · ABC · 1-yr · mean outside above the threshold" data-cmv="printed 233.7 · exact 233.7" tabindex="0"/>
+    <rect x="6.00" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · D · 50-yr · points outside" data-cmv="printed 154 · exact 154" tabindex="0"/>
+    <rect x="26.23" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · D · 50-yr · outside above the threshold" data-cmv="printed 107 · exact 107" tabindex="0"/>
+    <rect x="46.45" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · E · 50-yr · points outside" data-cmv="printed 86 · exact 86" tabindex="0"/>
+    <rect x="66.68" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · E · 50-yr · outside above the threshold" data-cmv="printed 63 · exact 63" tabindex="0"/>
+    <rect x="86.91" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · F · 50-yr · points outside" data-cmv="printed 71 · exact 71" tabindex="0"/>
+    <rect x="107.14" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · F · 50-yr · outside above the threshold" data-cmv="printed 11 · exact 11" tabindex="0"/>
+    <rect x="127.36" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 424.3 · exact 424.3" tabindex="0"/>
+    <rect x="147.59" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 1 · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 268.3 · exact 268.3" tabindex="0"/>
+    <rect x="167.82" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · D · 50-yr · points outside" data-cmv="printed 514 · exact 514" tabindex="0"/>
+    <rect x="188.05" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · D · 50-yr · outside above the threshold" data-cmv="printed 304 · exact 304" tabindex="0"/>
+    <rect x="208.27" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · E · 50-yr · points outside" data-cmv="printed 720 · exact 720" tabindex="0"/>
+    <rect x="228.50" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · E · 50-yr · outside above the threshold" data-cmv="printed 388 · exact 388" tabindex="0"/>
+    <rect x="248.73" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · F · 50-yr · points outside" data-cmv="printed 355 · exact 355" tabindex="0"/>
+    <rect x="268.95" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · F · 50-yr · outside above the threshold" data-cmv="printed 236 · exact 236" tabindex="0"/>
+    <rect x="289.18" y="42" width="18.23" height="16" rx="2" fill="var(--c-3)" data-cm="contribution 2 · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 1186.3 · exact 1185.7" tabindex="0"/>
+    <rect x="309.41" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 2 · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 744 · exact 744" tabindex="0"/>
+    <rect x="329.64" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · D · 50-yr · points outside" data-cmv="printed 154 · exact 154" tabindex="0"/>
+    <rect x="349.86" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · D · 50-yr · outside above the threshold" data-cmv="printed 106 · exact 106" tabindex="0"/>
+    <rect x="370.09" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · E · 50-yr · points outside" data-cmv="printed 82 · exact 82" tabindex="0"/>
+    <rect x="390.32" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · E · 50-yr · outside above the threshold" data-cmv="printed 62 · exact 62" tabindex="0"/>
+    <rect x="410.55" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · F · 50-yr · points outside" data-cmv="printed 72 · exact 72" tabindex="0"/>
+    <rect x="430.77" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · F · 50-yr · outside above the threshold" data-cmv="printed 12 · exact 12" tabindex="0"/>
+    <rect x="451.00" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 524.7 · exact 524.7" tabindex="0"/>
+    <rect x="471.23" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 3 · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 341.3 · exact 341.3" tabindex="0"/>
+    <rect x="491.45" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · D · 50-yr · points outside" data-cmv="printed 3 · exact 3" tabindex="0"/>
+    <rect x="511.68" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · D · 50-yr · outside above the threshold" data-cmv="printed 3 · exact 3" tabindex="0"/>
+    <rect x="531.91" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · E · 50-yr · points outside" data-cmv="printed 8 · exact 8" tabindex="0"/>
+    <rect x="552.14" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · E · 50-yr · outside above the threshold" data-cmv="printed 8 · exact 8" tabindex="0"/>
+    <rect x="572.36" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · F · 50-yr · points outside" data-cmv="printed 0 · exact 0" tabindex="0"/>
+    <rect x="592.59" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · F · 50-yr · outside above the threshold" data-cmv="printed 0 · exact 0" tabindex="0"/>
+    <rect x="612.82" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 88 · exact 88" tabindex="0"/>
+    <rect x="633.05" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 4 · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 88 · exact 88" tabindex="0"/>
+    <rect x="653.27" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · D · 50-yr · points outside" data-cmv="printed 174 · exact 174" tabindex="0"/>
+    <rect x="673.50" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · D · 50-yr · outside above the threshold" data-cmv="printed 7 · exact 7" tabindex="0"/>
+    <rect x="693.73" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · E · 50-yr · points outside" data-cmv="printed 112 · exact 112" tabindex="0"/>
+    <rect x="713.95" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · E · 50-yr · outside above the threshold" data-cmv="printed 18 · exact 18" tabindex="0"/>
+    <rect x="734.18" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · F · 50-yr · points outside" data-cmv="printed 182 · exact 182" tabindex="0"/>
+    <rect x="754.41" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · F · 50-yr · outside above the threshold" data-cmv="printed 19 · exact 19" tabindex="0"/>
+    <rect x="774.64" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 2235 · exact 2235" tabindex="0"/>
+    <rect x="794.86" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 5 · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 860 · exact 860" tabindex="0"/>
+    <rect x="815.09" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · D · 50-yr · points outside" data-cmv="printed 3 · exact 3" tabindex="0"/>
+    <rect x="835.32" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · D · 50-yr · outside above the threshold" data-cmv="printed 3 · exact 3" tabindex="0"/>
+    <rect x="855.55" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · E · 50-yr · points outside" data-cmv="printed 17 · exact 17" tabindex="0"/>
+    <rect x="875.77" y="42" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · E · 50-yr · outside above the threshold" data-cmv="printed 17 · exact 17" tabindex="0"/>
+    <rect x="6.00" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · F · 50-yr · points outside" data-cmv="printed 5 · exact 5" tabindex="0"/>
+    <rect x="26.23" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · F · 50-yr · outside above the threshold" data-cmv="printed 5 · exact 5" tabindex="0"/>
+    <rect x="46.45" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 270.7 · exact 270.7" tabindex="0"/>
+    <rect x="66.68" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 6 · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 247.7 · exact 247.7" tabindex="0"/>
+    <rect x="86.91" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · D · 50-yr · points outside" data-cmv="printed 3 · exact 3" tabindex="0"/>
+    <rect x="107.14" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · D · 50-yr · outside above the threshold" data-cmv="printed 2 · exact 2" tabindex="0"/>
+    <rect x="127.36" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · E · 50-yr · points outside" data-cmv="printed 16 · exact 16" tabindex="0"/>
+    <rect x="147.59" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · E · 50-yr · outside above the threshold" data-cmv="printed 16 · exact 16" tabindex="0"/>
+    <rect x="167.82" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · F · 50-yr · points outside" data-cmv="printed 7 · exact 7" tabindex="0"/>
+    <rect x="188.05" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · F · 50-yr · outside above the threshold" data-cmv="printed 2 · exact 2" tabindex="0"/>
+    <rect x="208.27" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 371.3 · exact 371.3" tabindex="0"/>
+    <rect x="228.50" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 7 · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 258 · exact 258" tabindex="0"/>
+    <rect x="248.73" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · D · 50-yr · points outside" data-cmv="printed 509 · exact 509" tabindex="0"/>
+    <rect x="268.95" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · D · 50-yr · outside above the threshold" data-cmv="printed 449 · exact 449" tabindex="0"/>
+    <rect x="289.18" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · E · 50-yr · points outside" data-cmv="printed 110 · exact 110" tabindex="0"/>
+    <rect x="309.41" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · E · 50-yr · outside above the threshold" data-cmv="printed 108 · exact 108" tabindex="0"/>
+    <rect x="329.64" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · F · 50-yr · points outside" data-cmv="printed 167 · exact 167" tabindex="0"/>
+    <rect x="349.86" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · F · 50-yr · outside above the threshold" data-cmv="printed 159 · exact 159" tabindex="0"/>
+    <rect x="370.09" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 1729.7 · exact 1729.7" tabindex="0"/>
+    <rect x="390.32" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 8 · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 1442 · exact 1442" tabindex="0"/>
+    <rect x="410.55" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · D · 50-yr · points outside" data-cmv="printed 17460 · exact 17460" tabindex="0"/>
+    <rect x="430.77" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · D · 50-yr · outside above the threshold" data-cmv="printed 146 · exact 146" tabindex="0"/>
+    <rect x="451.00" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · E · 50-yr · points outside" data-cmv="printed 17226 · exact 17226" tabindex="0"/>
+    <rect x="471.23" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · E · 50-yr · outside above the threshold" data-cmv="printed 122 · exact 122" tabindex="0"/>
+    <rect x="491.45" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · F · 50-yr · points outside" data-cmv="printed 11217 · exact 11217" tabindex="0"/>
+    <rect x="511.68" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · F · 50-yr · outside above the threshold" data-cmv="printed 41 · exact 41" tabindex="0"/>
+    <rect x="531.91" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 18191.7 · exact 18191.7" tabindex="0"/>
+    <rect x="552.14" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 1941.3 · exact 1941.3" tabindex="0"/>
+    <rect x="572.36" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · D · 50-yr · points outside" data-cmv="printed 5092 · exact 5092" tabindex="0"/>
+    <rect x="592.59" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · D · 50-yr · outside above the threshold" data-cmv="printed 146 · exact 146" tabindex="0"/>
+    <rect x="612.82" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · E · 50-yr · points outside" data-cmv="printed 6782 · exact 6782" tabindex="0"/>
+    <rect x="633.05" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · E · 50-yr · outside above the threshold" data-cmv="printed 122 · exact 122" tabindex="0"/>
+    <rect x="653.27" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · F · 50-yr · points outside" data-cmv="printed 5440 · exact 5440" tabindex="0"/>
+    <rect x="673.50" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · F · 50-yr · outside above the threshold" data-cmv="printed 41 · exact 41" tabindex="0"/>
+    <rect x="693.73" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 12819.3 · exact 12819.3" tabindex="0"/>
+    <rect x="713.95" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 DS s. · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 1952.3 · exact 1952.3" tabindex="0"/>
+    <rect x="734.18" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · D · 50-yr · points outside" data-cmv="printed 17415 · exact 17415" tabindex="0"/>
+    <rect x="754.41" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · D · 50-yr · outside above the threshold" data-cmv="printed 123 · exact 123" tabindex="0"/>
+    <rect x="774.64" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · E · 50-yr · points outside" data-cmv="printed 17184 · exact 17184" tabindex="0"/>
+    <rect x="794.86" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · E · 50-yr · outside above the threshold" data-cmv="printed 107 · exact 107" tabindex="0"/>
+    <rect x="815.09" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · F · 50-yr · points outside" data-cmv="printed 11202 · exact 11202" tabindex="0"/>
+    <rect x="835.32" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · F · 50-yr · outside above the threshold" data-cmv="printed 29 · exact 29" tabindex="0"/>
+    <rect x="855.55" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · DEF · 1-yr · mean outside (3 datasets)" data-cmv="printed 16267.3 · exact 16267.3" tabindex="0"/>
+    <rect x="875.77" y="60" width="18.23" height="16" rx="2" fill="var(--c-2)" data-cm="contribution 9 IFORM · DEF · 1-yr · mean outside above the threshold" data-cmv="printed 686.7 · exact 686.7" tabindex="0"/>
+    <rect x="6" y="79" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="25.0" y="89.0" text-anchor="start" class="t-note">173 printed numbers are the exact count</text>
+    <rect x="321" y="79" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="340.0" y="89.0" text-anchor="start" class="t-note">1 agrees once two boundary points are counted outside</text>
+    <rect x="6" y="98" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="25.0" y="108.0" text-anchor="start" class="t-note">2 are not the count of the file the repository holds</text>
+  </svg>
+  </div>
+  <figcaption>Every number in the paper&#39;s Tables 5 and 6, one cell each: the three per-dataset counts outside each long-return-period contour, the same above the severity threshold (Hs &gt; 1 m; for the wind-wave sets also u₁₀ &gt; 1 m/s), and the two one-year means. Hover for the printed and exact values.</figcaption>
+</figure></div><div class="col"><p>Sea-state datasets A, B, C (NDBC buoys; 175,320, 175,320 and 175,320 hours, ten provided and ten retained years). Each cell: the exact count of observations outside the polygon for the 20-year contour (+n observations exactly on it), then the printed count in parentheses; T is a total-exceedance construction, M a marginal-exceedance one. † marks a contour that is not a simple polygon. "Above threshold" and "retained only" give the three datasets in order: the count outside with Hs > 1 m, and the count on the ten retained years alone — the out-of-sample number the paper did not print. The one-year rows, which the paper prints only as three-dataset means, are the cells of the figure above.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>contr. · method</th><th>A · 20-yr</th><th>B · 20-yr</th><th>C · 20-yr</th><th>above threshold</th><th>retained only</th></tr></thead><tbody><tr><td>1 · ISORM · T</td><td class="n">153 (153)</td><td class="n">127 (127)</td><td class="n">62 (62)</td><td class="n">117 · 119 · 60</td><td class="n">107 · 36 · 33</td></tr><tr><td>2 · DSCM · M</td><td class="n">437 (437) †</td><td class="n">236 (236) †</td><td class="n">187 (187)</td><td class="n">401 · 228 · 185</td><td class="n">275 · 84 · 86</td></tr><tr><td>3 · IDSCM · T</td><td class="n">68 (68)</td><td class="n">28 (28)</td><td class="n">33 (33)</td><td class="n">14 · 26 · 30</td><td class="n">57 · 4 · 14</td></tr><tr><td>4 · HDCM · T</td><td class="n">1 (1) †</td><td class="n">32 (32)</td><td class="n">8 (8)</td><td class="n">1 · 30 · 4</td><td class="n">1 · 2 · 2</td></tr><tr><td>5 · DIFORM · M</td><td class="n">8,503 (8,503) †</td><td class="n">12,573 (12,573)</td><td class="n">29,216 (29,216)</td><td class="n">47 · 24 · 3</td><td class="n">4,774 · 6,189 · 15,771</td></tr><tr><td>6 · IFORM · M</td><td class="n">27 (27)</td><td class="n">14 (14)</td><td class="n">9 (9)</td><td class="n">20 · 12 · 8</td><td class="n">27 · 9 · 3</td></tr><tr><td>7 · IFORM · M</td><td class="n">79 (79)</td><td class="n">4 (4) †</td><td class="n">23 (23)</td><td class="n">21 · 0 · 2</td><td class="n">62 · 3 · 11</td></tr><tr><td>8 · IFORM · M</td><td class="n">189 (189)</td><td class="n">368 (368)</td><td class="n">409 (409)</td><td class="n">93 · 339 · 408</td><td class="n">93 · 101 · 183</td></tr><tr><td>9 DS · DSCM · M</td><td class="n">22,504 (22,504) †</td><td class="n">22,933 (22,933) †</td><td class="n">20,462 (20,462) †</td><td class="n">4 · 43 · 18</td><td class="n">12,078 · 11,830 · 11,045</td></tr><tr><td>9 DS s. · DSCM, smoothed · M</td><td class="n">5,096 (5,096) †</td><td class="n">7,716 (7,716) †</td><td class="n">5,376 (5,376) †</td><td class="n">4 · 42 · 17</td><td class="n">2,976 · 3,667 · 3,086</td></tr><tr><td>9 IFORM · IFORM · M</td><td class="n">22,514 (22,514)</td><td class="n">22,990 (22,990)</td><td class="n">20,480 (20,480)</td><td class="n">8 · 100 · 35</td><td class="n">12,085 · 11,844 · 11,049</td></tr></tbody></table></div></div><div class="col"><p>Wind-wave datasets D, E, F (coastDat hindcast; 438,288 hours each, 25 provided and 25 retained years). The threshold column counts observations outside with both u₁₀ > 1 m/s and Hs > 1 m; the contours are the 50-year ones.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>contr. · method</th><th>D · 50-yr</th><th>E · 50-yr</th><th>F · 50-yr</th><th>above threshold</th><th>retained only</th></tr></thead><tbody><tr><td>1 · ISORM · T</td><td class="n">154 (154)</td><td class="n">86 (86)</td><td class="n">71 (71)</td><td class="n">107 · 63 · 11</td><td class="n">104 · 48 · 65</td></tr><tr><td>2 · DSCM · M</td><td class="n">514 (514) †</td><td class="n">720 (720)</td><td class="n">355 (355) †</td><td class="n">304 · 388 · 236</td><td class="n">276 · 346 · 206</td></tr><tr><td>3 · IDSCM · T</td><td class="n">154 (154)</td><td class="n">82 (82)</td><td class="n">72 (72)</td><td class="n">106 · 62 · 12</td><td class="n">104 · 45 · 66</td></tr><tr><td>4 · HDCM · T</td><td class="n">3 (3)</td><td class="n">8 (8)</td><td class="n">0 (0)</td><td class="n">3 · 8 · 0</td><td class="n">1 · 6 · 0</td></tr><tr><td>5 · DIFORM · M</td><td class="n">174 (174)</td><td class="n">112 (112)</td><td class="n">182 (182)</td><td class="n">7 · 18 · 19</td><td class="n">78 · 48 · 132</td></tr><tr><td>6 · IFORM · M</td><td class="n">3 (3)</td><td class="n">17 (17)</td><td class="n">5 (5)</td><td class="n">3 · 17 · 5</td><td class="n">0 · 14 · 3</td></tr><tr><td>7 · IFORM · M</td><td class="n">3 (3)</td><td class="n">16 (16)</td><td class="n">7 (7)</td><td class="n">2 · 16 · 2</td><td class="n">0 · 11 · 4</td></tr><tr><td>8 · IFORM · M</td><td class="n">509 (509)</td><td class="n">110 (110)</td><td class="n">167 (167)</td><td class="n">449 · 108 · 159</td><td class="n">263 · 59 · 91</td></tr><tr><td>9 DS · DSCM · M</td><td class="n">17,460 (17,460)</td><td class="n">17,226 (17,226) †</td><td class="n">11,217 (11,217)</td><td class="n">146 · 122 · 41</td><td class="n">7,586 · 7,502 · 5,310</td></tr><tr><td>9 DS s. · DSCM, smoothed · M</td><td class="n">5,092 (5,092)</td><td class="n">6,782 (6,782)</td><td class="n">5,440 (5,440)</td><td class="n">146 · 122 · 41</td><td class="n">1,954 · 2,846 · 2,577</td></tr><tr><td>9 IFORM · IFORM · M</td><td class="n">17,415 (17,415)</td><td class="n">17,184 (17,184)</td><td class="n">11,202 (11,202)</td><td class="n">123 · 107 · 29</td><td class="n">7,562 · 7,484 · 5,306</td></tr></tbody></table></div></div><div class="col"><p>The organizers' script (<span class="m">create_points_outside_table_abc.py</span>, <span class="m">_def.py</span>, held in the corpus) concatenated the provided and retained data, read each contour file in a column order hard-coded per participant, and asked matplotlib's <span class="m">Path.contains_points</span> which points fall inside. This page reads the column order from each file's header instead — the two readings agree on all 150 files — and decides the same question exactly. Where they disagree it is not the arithmetic: contribution 3's one-year files for A, B and C give 147, 106, 59 outside (mean 104.0) against a printed mean of 82.3, and 26, 100, 39 above the threshold (mean 55.0) against 48.3. The repository's history explains it: those three files were rewritten on 2020-09-25 (commit 07f0ecc3) to drop 53, 41 and 55 rows in which one coordinate was NaN — a vertex with no place in the plane — and a float path with NaN vertices answers something, version by version, that no polygon answers. The 20-year files of the same contribution were never rewritten and their counts (68, 28, 33) are the printed ones to the integer. Nothing is refuted here; a row's provenance is what the bytes cannot reproduce.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the polygons</div>
+    <h2>30 contours that cross themselves, and the edge nobody drew</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 420" role="img" aria-label="The 20-year direct-sampling contour for dataset A drawn as the polygon its file describes, vertex to vertex in file order: a closed loop of 60 points whose edges cross each other 21 times, each crossing marked with an open diamond. The crossings cluster where consecutive vertices double back on the loop.">
+    <line x1="62" y1="327.0" x2="878" y2="327.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="331.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="275.5" x2="878" y2="275.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="279.5" text-anchor="end" class="t-ax">2</text>
+    <line x1="62" y1="224.0" x2="878" y2="224.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="228.0" text-anchor="end" class="t-ax">4</text>
+    <line x1="62" y1="172.5" x2="878" y2="172.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="176.5" text-anchor="end" class="t-ax">6</text>
+    <line x1="62" y1="121.0" x2="878" y2="121.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="125.0" text-anchor="end" class="t-ax">8</text>
+    <line x1="62" y1="69.5" x2="878" y2="69.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="73.5" text-anchor="end" class="t-ax">10</text>
+    <line x1="62" y1="18.0" x2="878" y2="18.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="22.0" text-anchor="end" class="t-ax">12</text>
+    <line x1="178.6" y1="327" x2="178.6" y2="332" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="178.6" y="347.0" text-anchor="middle" class="t-ax">4</text>
+    <line x1="295.1" y1="327" x2="295.1" y2="332" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="295.1" y="347.0" text-anchor="middle" class="t-ax">6</text>
+    <line x1="411.7" y1="327" x2="411.7" y2="332" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="411.7" y="347.0" text-anchor="middle" class="t-ax">8</text>
+    <line x1="528.3" y1="327" x2="528.3" y2="332" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="528.3" y="347.0" text-anchor="middle" class="t-ax">10</text>
+    <line x1="644.9" y1="327" x2="644.9" y2="332" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="644.9" y="347.0" text-anchor="middle" class="t-ax">12</text>
+    <line x1="761.4" y1="327" x2="761.4" y2="332" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="761.4" y="347.0" text-anchor="middle" class="t-ax">14</text>
+    <line x1="62" y1="327" x2="878" y2="327" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="369.0" text-anchor="middle" class="t-note">zero-up-crossing period Tz (s)</text>
+    <text x="13" y="172.5" class="t-note" transform="rotate(-90 13 172.5)" text-anchor="middle">significant wave height Hs (m)</text>
+    <path d="M544.8 81.8 L539.8 81.7 L543.8 81.9 L544.4 82.0 L547.8 82.5 L546.2 82.2 L548.2 82.7 L556.2 85.4 L618.7 112.8 L760.1 196.6 L860.2 281.5 L880.4 309.2 L880.7 310.2 L880.6 312.2 L880.7 312.1 L881.8 310.6 L880.1 312.1 L880.0 312.2 L882.5 310.8 L879.2 312.3 L879.3 312.2 L879.2 312.3 L878.3 312.5 L877.8 312.6 L873.4 313.4 L873.0 313.5 L870.6 313.8 L867.4 314.1 L855.6 314.7 L806.8 316.2 L51.5 316.2 L43.8 316.0 L41.6 315.8 L40.0 315.7 L39.3 315.6 L39.1 315.5 L37.9 315.2 L38.0 315.2 L36.9 314.8 L37.1 314.9 L36.9 314.7 L36.9 314.8 L36.7 314.2 L36.8 313.7 L37.0 313.2 L37.8 312.2 L39.7 310.5 L45.2 306.9 L192.5 229.1 L512.1 90.4 L522.5 86.6 L531.9 83.7 L540.5 81.5 L533.1 83.1 L533.8 83.0 L540.1 82.0 L538.5 82.2 L543.9 81.7 L544.4 81.7 L541.1 81.8 L544.8 81.8" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M539.8 74.7 L546.8 81.7 L539.8 88.7 L532.8 81.7 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 1 of 21" data-cmv="Tz ≈ 10.20 s, Hs ≈ 9.53 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M543.6 74.8 L550.6 81.8 L543.6 88.8 L536.6 81.8 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 2 of 21" data-cmv="Tz ≈ 10.26 s, Hs ≈ 9.52 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M543.0 74.8 L550.0 81.8 L543.0 88.8 L536.0 81.8 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 3 of 21" data-cmv="Tz ≈ 10.25 s, Hs ≈ 9.52 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M539.8 74.7 L546.8 81.7 L539.8 88.7 L532.8 81.7 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 4 of 21" data-cmv="Tz ≈ 10.20 s, Hs ≈ 9.53 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M542.7 74.8 L549.7 81.8 L542.7 88.8 L535.7 81.8 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 5 of 21" data-cmv="Tz ≈ 10.25 s, Hs ≈ 9.52 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M541.9 74.8 L548.9 81.8 L541.9 88.8 L534.9 81.8 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 6 of 21" data-cmv="Tz ≈ 10.23 s, Hs ≈ 9.52 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M542.2 74.8 L549.2 81.8 L542.2 88.8 L535.2 81.8 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 7 of 21" data-cmv="Tz ≈ 10.24 s, Hs ≈ 9.52 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M546.9 75.3 L553.9 82.3 L546.9 89.3 L539.9 82.3 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 8 of 21" data-cmv="Tz ≈ 10.32 s, Hs ≈ 9.50 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M880.6 304.6 L887.6 311.6 L880.6 318.6 L873.6 311.6 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 9 of 21" data-cmv="Tz ≈ 16.05 s, Hs ≈ 0.60 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M880.6 304.8 L887.6 311.8 L880.6 318.8 L873.6 311.8 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 10 of 21" data-cmv="Tz ≈ 16.04 s, Hs ≈ 0.59 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M880.6 304.7 L887.6 311.7 L880.6 318.7 L873.6 311.7 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 11 of 21" data-cmv="Tz ≈ 16.05 s, Hs ≈ 0.60 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M881.0 304.6 L888.0 311.6 L881.0 318.6 L874.0 311.6 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 12 of 21" data-cmv="Tz ≈ 16.05 s, Hs ≈ 0.60 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M881.2 304.4 L888.2 311.4 L881.2 318.4 L874.2 311.4 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 13 of 21" data-cmv="Tz ≈ 16.05 s, Hs ≈ 0.61 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M880.6 304.7 L887.6 311.7 L880.6 318.7 L873.6 311.7 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 14 of 21" data-cmv="Tz ≈ 16.04 s, Hs ≈ 0.59 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M879.2 305.3 L886.2 312.3 L879.2 319.3 L872.2 312.3 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 15 of 21" data-cmv="Tz ≈ 16.02 s, Hs ≈ 0.57 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M37.9 308.2 L44.9 315.2 L37.9 322.2 L30.9 315.2 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 16 of 21" data-cmv="Tz ≈ 1.59 s, Hs ≈ 0.46 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M37.0 307.8 L44.0 314.8 L37.0 321.8 L30.0 314.8 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 17 of 21" data-cmv="Tz ≈ 1.57 s, Hs ≈ 0.47 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M36.9 307.8 L43.9 314.8 L36.9 321.8 L29.9 314.8 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 18 of 21" data-cmv="Tz ≈ 1.57 s, Hs ≈ 0.48 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M536.0 75.6 L543.0 82.6 L536.0 89.6 L529.0 82.6 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 19 of 21" data-cmv="Tz ≈ 10.13 s, Hs ≈ 9.49 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M539.3 75.1 L546.3 82.1 L539.3 89.1 L532.3 82.1 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 20 of 21" data-cmv="Tz ≈ 10.19 s, Hs ≈ 9.51 m (drawn in float; the count is exact)" tabindex="0"/>
+    <path d="M543.1 74.8 L550.1 81.8 L543.1 88.8 L536.1 81.8 Z" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="2" data-cm="self-crossing 21 of 21" data-cmv="Tz ≈ 10.25 s, Hs ≈ 9.52 m (drawn in float; the count is exact)" tabindex="0"/>
+    <rect x="62" y="384" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="81.0" y="394.0" text-anchor="start" class="t-note">contribution 9 DS · dataset A · 20-yr contour, 60 vertices in file order</text>
+    <rect x="62" y="403" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="81.0" y="413.0" text-anchor="start" class="t-note">21 self-crossings, decided exactly</text>
+  </svg>
+  </div>
+  <figcaption>Contribution 9&#39;s direct-sampling 20-year contour for dataset A, drawn vertex to vertex in the order the file lists them. The exact decider finds 21 proper crossings between non-adjacent edges (open diamonds; their positions are drawn in float, their number is decided). The loop is three-cornered because the direct-sampling construction returns one boundary point per sampling direction and most directions land on the same three extremes; the crossings cluster at those corners, where successive directions return nearly the same point and the listed order zigzags at the scale of centimetres.</figcaption>
+</figure></div><div class="col"><p>A point-in-polygon test presumes a polygon. 30 of the 150 files describe a closed polyline whose edges cross: 10 of contribution 2's 12 direct-sampling contours (24 vertices each, 44 consecutive duplicates among them), 9 of contribution 9's 18 direct-sampling contours and 6 of its 18 smoothed ones, 2 of the 12 declustered direct-IFORM contours, and — one crossing each — 2 IFORM contours of contribution 7 and the highest-density contour of contribution 4 for dataset A at 20 years. That last one is instructive: its 1,160 listed vertices trace a simple curve, and the one crossing is the implicit closing edge — 0.111 m long, the longest in the polygon — cutting across the curve's own tail. In 11 of the 30 the closing edge is one of the crossing edges. Under the even-odd rule a self-crossing polygon still has an inside; it is just not the region a reader sees when the curve is drawn, because the loops between crossings alternate. The nonzero-winding rule would fill them. Both were computed for every observation: no observation is classified differently by the two rules, on any contour, so the printed counts do not depend on the choice. What depends on it is what the number is a count of.</p><p>49 files do not repeat their first vertex, so the polygon that was counted has one edge the author never listed: the benchmark's test closes the path implicitly. For most it is short. For contributions 5 and 4 it is, on some datasets, the longest edge of the polygon; the counts above are for the closed polygon, which is what the benchmark counted.</p><p>Two hourly observations lie exactly on a submitted contour: in dataset E the 1989-06-17 20:00 state (Hs 0.1240 m, u₁₀ 2.4972 m/s) on contribution 2's one-year contour, and in dataset F the 1986-06-27 20:00 state (Hs 0.2280 m, u₁₀ 1.9572 m/s) on contribution 2's one-year contour. A vertex of that contour is given to three decimals and the observation to four, and they coincide. The float test counted both outside, which is how the printed mean 1186.3 arises from exact counts of 1,252, 1,477, 828 outside plus one boundary point each on E and F; the exact classification is ON, and the page says so rather than pick a side.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3 · the expected numbers</div>
+    <h2>Table 1, certified: 197 is 196.86, and 20 is exactly 20</h2>
+  </div>
+<div class="col"><p>The paper puts an expected number beside every count, E = n·α_t, with α = 1/(T × 365.25 × 24) the hourly exceedance probability of a T-year contour. For total-exceedance constructions (ISORM, inverse directional simulation, highest density) α_t = α and the expectation is a rational number: on the sea-state sets it is 20 for a one-year contour and 1 for twenty years, exactly, because the full datasets hold 175,320 = 20 × 8766 hourly states; on the wind-wave sets, with 438,288 hours, it is 73048/1461 = 49.9986 and 36524/36525. For IFORM the contour is the image of the circle of radius β = Φ⁻¹(1 − α), so α_t = exp(−β²/2), and Φ⁻¹ is not a rational number. It is enclosed here, and both ends of every enclosure agree to the digits printed: β = 3.6856114265 for the one-year contour and 4.3886106004 for twenty years, giving E = 196.862 and 11.524 — the paper's 197 and 11.5. On the wind-wave sets, 492.141 and 11.994 — its 492 and 12.</p><p>The out-of-sample expectation follows: a 20-year total-exceedance contour fitted on the ten provided years should be exceeded n_retained × α times in the retained years — 0.5276, 0.5213 and 0.5337 on A, B, C (the retained parts hold a little over ten years of hours), and 18262/36525 = 0.4999 on each of D, E, F; an IFORM contour about 6.0 and 5.9. The retained-years column of §1 is that test. The highest-density contours of contribution 4 are exceeded 1, 2, 2, 1, 6, 0 times on A–F; the ISORM contours of contribution 1, built for the same exceedance, 107, 36, 33, 104, 48, 65 times. The paper's own caution applies with more force here than to its full-data counts: hourly sea states are serially correlated, so a storm that crosses a contour is counted at every hour it stays outside, and these are counts, not tests.</p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§4 · the maxima</div>
+    <h2>How high each contour reaches, against how high the sea got</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 400" role="img" aria-label="For each of the six datasets, eleven dots give the highest significant wave height along each submitted long-return-period contour, and a diamond gives the highest wave height actually observed in the full dataset. In dataset A the diamond, 11.7976 m, sits above every dot.">
+    <line x1="62" y1="307.0" x2="878" y2="307.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="311.0" text-anchor="end" class="t-ax">4</text>
+    <line x1="62" y1="234.8" x2="878" y2="234.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="238.8" text-anchor="end" class="t-ax">8</text>
+    <line x1="62" y1="162.5" x2="878" y2="162.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="166.5" text-anchor="end" class="t-ax">12</text>
+    <line x1="62" y1="90.3" x2="878" y2="90.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="94.3" text-anchor="end" class="t-ax">16</text>
+    <line x1="62" y1="18.0" x2="878" y2="18.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="22.0" text-anchor="end" class="t-ax">20</text>
+    <line x1="141.0" y1="307" x2="141.0" y2="312" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="141.0" y="327.0" text-anchor="middle" class="t-ax">A · 20-yr</text>
+    <line x1="272.6" y1="307" x2="272.6" y2="312" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="272.6" y="327.0" text-anchor="middle" class="t-ax">B · 20-yr</text>
+    <line x1="404.2" y1="307" x2="404.2" y2="312" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="404.2" y="327.0" text-anchor="middle" class="t-ax">C · 20-yr</text>
+    <line x1="535.8" y1="307" x2="535.8" y2="312" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="535.8" y="327.0" text-anchor="middle" class="t-ax">D · 50-yr</text>
+    <line x1="667.4" y1="307" x2="667.4" y2="312" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="667.4" y="327.0" text-anchor="middle" class="t-ax">E · 50-yr</text>
+    <line x1="799.0" y1="307" x2="799.0" y2="312" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="799.0" y="327.0" text-anchor="middle" class="t-ax">F · 50-yr</text>
+    <line x1="62" y1="307" x2="878" y2="307" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="349.0" text-anchor="middle" class="t-note">dataset and the long return period the exercise asked for</text>
+    <text x="13" y="162.5" class="t-note" transform="rotate(-90 13 162.5)" text-anchor="middle">significant wave height Hs (m)</text>
+    <circle cx="111.4" cy="273.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 1 (ISORM) · A · 20-yr" data-cmv="max Hs along the contour 5.88 m — below the observed maximum" tabindex="0"/>
+    <circle cx="117.3" cy="290.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 2 (DSCM) · A · 20-yr" data-cmv="max Hs along the contour 4.93 m — below the observed maximum" tabindex="0"/>
+    <circle cx="123.2" cy="232.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 3 (IDSCM) · A · 20-yr" data-cmv="max Hs along the contour 8.13 m — below the observed maximum" tabindex="0"/>
+    <circle cx="129.1" cy="167.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 4 (HDCM) · A · 20-yr" data-cmv="max Hs along the contour 11.70 m — below the observed maximum" tabindex="0"/>
+    <circle cx="135.0" cy="250.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 5 (DIFORM) · A · 20-yr" data-cmv="max Hs along the contour 7.13 m — below the observed maximum" tabindex="0"/>
+    <circle cx="141.0" cy="241.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 6 (IFORM) · A · 20-yr" data-cmv="max Hs along the contour 7.61 m — below the observed maximum" tabindex="0"/>
+    <circle cx="146.9" cy="233.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 7 (IFORM) · A · 20-yr" data-cmv="max Hs along the contour 8.06 m — below the observed maximum" tabindex="0"/>
+    <circle cx="152.8" cy="203.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 8 (IFORM) · A · 20-yr" data-cmv="max Hs along the contour 9.71 m — below the observed maximum" tabindex="0"/>
+    <circle cx="158.7" cy="207.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS (DSCM) · A · 20-yr" data-cmv="max Hs along the contour 9.53 m — below the observed maximum" tabindex="0"/>
+    <circle cx="164.7" cy="207.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS s. (DSCM, smoothed) · A · 20-yr" data-cmv="max Hs along the contour 9.51 m — below the observed maximum" tabindex="0"/>
+    <circle cx="170.6" cy="207.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 IFORM (IFORM) · A · 20-yr" data-cmv="max Hs along the contour 9.53 m — below the observed maximum" tabindex="0"/>
+    <circle cx="243.0" cy="265.8" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 1 (ISORM) · B · 20-yr" data-cmv="max Hs along the contour 6.28 m — below the observed maximum" tabindex="0"/>
+    <circle cx="248.9" cy="277.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 2 (DSCM) · B · 20-yr" data-cmv="max Hs along the contour 5.65 m — below the observed maximum" tabindex="0"/>
+    <circle cx="254.8" cy="208.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 3 (IDSCM) · B · 20-yr" data-cmv="max Hs along the contour 9.47 m — below the observed maximum" tabindex="0"/>
+    <circle cx="260.7" cy="145.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 4 (HDCM) · B · 20-yr" data-cmv="max Hs along the contour 12.95 m — above the observed maximum" tabindex="0"/>
+    <circle cx="266.7" cy="194.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 5 (DIFORM) · B · 20-yr" data-cmv="max Hs along the contour 10.22 m — above the observed maximum" tabindex="0"/>
+    <circle cx="272.6" cy="164.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 6 (IFORM) · B · 20-yr" data-cmv="max Hs along the contour 11.90 m — above the observed maximum" tabindex="0"/>
+    <circle cx="278.5" cy="133.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 7 (IFORM) · B · 20-yr" data-cmv="max Hs along the contour 13.63 m — above the observed maximum" tabindex="0"/>
+    <circle cx="284.4" cy="259.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 8 (IFORM) · B · 20-yr" data-cmv="max Hs along the contour 6.65 m — below the observed maximum" tabindex="0"/>
+    <circle cx="290.3" cy="214.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS (DSCM) · B · 20-yr" data-cmv="max Hs along the contour 9.11 m — below the observed maximum" tabindex="0"/>
+    <circle cx="296.3" cy="214.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS s. (DSCM, smoothed) · B · 20-yr" data-cmv="max Hs along the contour 9.10 m — below the observed maximum" tabindex="0"/>
+    <circle cx="302.2" cy="214.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 IFORM (IFORM) · B · 20-yr" data-cmv="max Hs along the contour 9.11 m — below the observed maximum" tabindex="0"/>
+    <circle cx="374.6" cy="261.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 1 (ISORM) · C · 20-yr" data-cmv="max Hs along the contour 6.53 m — below the observed maximum" tabindex="0"/>
+    <circle cx="380.5" cy="280.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 2 (DSCM) · C · 20-yr" data-cmv="max Hs along the contour 5.49 m — below the observed maximum" tabindex="0"/>
+    <circle cx="386.4" cy="212.0" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 3 (IDSCM) · C · 20-yr" data-cmv="max Hs along the contour 9.26 m — below the observed maximum" tabindex="0"/>
+    <circle cx="392.3" cy="165.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 4 (HDCM) · C · 20-yr" data-cmv="max Hs along the contour 11.85 m — above the observed maximum" tabindex="0"/>
+    <circle cx="398.3" cy="162.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 5 (DIFORM) · C · 20-yr" data-cmv="max Hs along the contour 12.02 m — above the observed maximum" tabindex="0"/>
+    <circle cx="404.2" cy="191.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 6 (IFORM) · C · 20-yr" data-cmv="max Hs along the contour 10.40 m — below the observed maximum" tabindex="0"/>
+    <circle cx="410.1" cy="134.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 7 (IFORM) · C · 20-yr" data-cmv="max Hs along the contour 13.58 m — above the observed maximum" tabindex="0"/>
+    <circle cx="416.0" cy="272.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 8 (IFORM) · C · 20-yr" data-cmv="max Hs along the contour 5.90 m — below the observed maximum" tabindex="0"/>
+    <circle cx="422.0" cy="218.4" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS (DSCM) · C · 20-yr" data-cmv="max Hs along the contour 8.91 m — below the observed maximum" tabindex="0"/>
+    <circle cx="427.9" cy="218.6" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS s. (DSCM, smoothed) · C · 20-yr" data-cmv="max Hs along the contour 8.89 m — below the observed maximum" tabindex="0"/>
+    <circle cx="433.8" cy="218.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 IFORM (IFORM) · C · 20-yr" data-cmv="max Hs along the contour 8.91 m — below the observed maximum" tabindex="0"/>
+    <circle cx="506.2" cy="177.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 1 (ISORM) · D · 50-yr" data-cmv="max Hs along the contour 11.17 m — above the observed maximum" tabindex="0"/>
+    <circle cx="512.1" cy="212.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 2 (DSCM) · D · 50-yr" data-cmv="max Hs along the contour 9.22 m — below the observed maximum" tabindex="0"/>
+    <circle cx="518.0" cy="176.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 3 (IDSCM) · D · 50-yr" data-cmv="max Hs along the contour 11.23 m — above the observed maximum" tabindex="0"/>
+    <circle cx="524.0" cy="99.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 4 (HDCM) · D · 50-yr" data-cmv="max Hs along the contour 15.50 m — above the observed maximum" tabindex="0"/>
+    <circle cx="529.9" cy="182.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 5 (DIFORM) · D · 50-yr" data-cmv="max Hs along the contour 10.87 m — above the observed maximum" tabindex="0"/>
+    <circle cx="535.8" cy="135.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 6 (IFORM) · D · 50-yr" data-cmv="max Hs along the contour 13.52 m — above the observed maximum" tabindex="0"/>
+    <circle cx="541.7" cy="147.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 7 (IFORM) · D · 50-yr" data-cmv="max Hs along the contour 12.82 m — above the observed maximum" tabindex="0"/>
+    <circle cx="547.7" cy="213.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 8 (IFORM) · D · 50-yr" data-cmv="max Hs along the contour 9.16 m — below the observed maximum" tabindex="0"/>
+    <circle cx="553.6" cy="150.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS (DSCM) · D · 50-yr" data-cmv="max Hs along the contour 12.69 m — above the observed maximum" tabindex="0"/>
+    <circle cx="559.5" cy="150.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS s. (DSCM, smoothed) · D · 50-yr" data-cmv="max Hs along the contour 12.69 m — above the observed maximum" tabindex="0"/>
+    <circle cx="565.4" cy="149.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 IFORM (IFORM) · D · 50-yr" data-cmv="max Hs along the contour 12.74 m — above the observed maximum" tabindex="0"/>
+    <circle cx="637.8" cy="165.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 1 (ISORM) · E · 50-yr" data-cmv="max Hs along the contour 11.86 m — below the observed maximum" tabindex="0"/>
+    <circle cx="643.7" cy="212.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 2 (DSCM) · E · 50-yr" data-cmv="max Hs along the contour 9.26 m — below the observed maximum" tabindex="0"/>
+    <circle cx="649.7" cy="165.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 3 (IDSCM) · E · 50-yr" data-cmv="max Hs along the contour 11.83 m — below the observed maximum" tabindex="0"/>
+    <circle cx="655.6" cy="110.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 4 (HDCM) · E · 50-yr" data-cmv="max Hs along the contour 14.90 m — above the observed maximum" tabindex="0"/>
+    <circle cx="661.5" cy="181.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 5 (DIFORM) · E · 50-yr" data-cmv="max Hs along the contour 10.96 m — below the observed maximum" tabindex="0"/>
+    <circle cx="667.4" cy="168.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 6 (IFORM) · E · 50-yr" data-cmv="max Hs along the contour 11.69 m — below the observed maximum" tabindex="0"/>
+    <circle cx="673.3" cy="147.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 7 (IFORM) · E · 50-yr" data-cmv="max Hs along the contour 12.83 m — below the observed maximum" tabindex="0"/>
+    <circle cx="679.3" cy="202.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 8 (IFORM) · E · 50-yr" data-cmv="max Hs along the contour 9.77 m — below the observed maximum" tabindex="0"/>
+    <circle cx="685.2" cy="144.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS (DSCM) · E · 50-yr" data-cmv="max Hs along the contour 13.02 m — below the observed maximum" tabindex="0"/>
+    <circle cx="691.1" cy="144.2" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS s. (DSCM, smoothed) · E · 50-yr" data-cmv="max Hs along the contour 13.01 m — below the observed maximum" tabindex="0"/>
+    <circle cx="697.0" cy="143.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 IFORM (IFORM) · E · 50-yr" data-cmv="max Hs along the contour 13.06 m — below the observed maximum" tabindex="0"/>
+    <circle cx="769.4" cy="102.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 1 (ISORM) · F · 50-yr" data-cmv="max Hs along the contour 15.32 m — below the observed maximum" tabindex="0"/>
+    <circle cx="775.3" cy="150.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 2 (DSCM) · F · 50-yr" data-cmv="max Hs along the contour 12.66 m — below the observed maximum" tabindex="0"/>
+    <circle cx="781.3" cy="101.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 3 (IDSCM) · F · 50-yr" data-cmv="max Hs along the contour 15.39 m — below the observed maximum" tabindex="0"/>
+    <circle cx="787.2" cy="37.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 4 (HDCM) · F · 50-yr" data-cmv="max Hs along the contour 18.90 m — above the observed maximum" tabindex="0"/>
+    <circle cx="793.1" cy="97.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 5 (DIFORM) · F · 50-yr" data-cmv="max Hs along the contour 15.57 m — below the observed maximum" tabindex="0"/>
+    <circle cx="799.0" cy="58.8" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 6 (IFORM) · F · 50-yr" data-cmv="max Hs along the contour 17.74 m — above the observed maximum" tabindex="0"/>
+    <circle cx="805.0" cy="49.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 7 (IFORM) · F · 50-yr" data-cmv="max Hs along the contour 18.28 m — above the observed maximum" tabindex="0"/>
+    <circle cx="810.9" cy="150.1" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 8 (IFORM) · F · 50-yr" data-cmv="max Hs along the contour 12.69 m — below the observed maximum" tabindex="0"/>
+    <circle cx="816.8" cy="69.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS (DSCM) · F · 50-yr" data-cmv="max Hs along the contour 17.12 m — above the observed maximum" tabindex="0"/>
+    <circle cx="822.7" cy="70.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 DS s. (DSCM, smoothed) · F · 50-yr" data-cmv="max Hs along the contour 17.12 m — above the observed maximum" tabindex="0"/>
+    <circle cx="828.6" cy="68.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="contribution 9 IFORM (IFORM) · F · 50-yr" data-cmv="max Hs along the contour 17.18 m — above the observed maximum" tabindex="0"/>
+    <path d="M141.0 159.2 L148.0 166.2 L141.0 173.2 L134.0 166.2 Z" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="dataset A · observed maximum" data-cmv="11.7976 m at 2010-02-26-05 (retained years)" tabindex="0"/>
+    <path d="M272.6 195.3 L279.6 202.3 L272.6 209.3 L265.6 202.3 Z" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="dataset B · observed maximum" data-cmv="9.7975 m at 1999-09-15-07 (provided years)" tabindex="0"/>
+    <path d="M404.2 169.1 L411.2 176.1 L404.2 183.1 L397.2 176.1 Z" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="dataset C · observed maximum" data-cmv="11.2460 m at 2002-10-02-21 (provided years)" tabindex="0"/>
+    <path d="M535.8 177.1 L542.8 184.1 L535.8 191.1 L528.8 184.1 Z" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="dataset D · observed maximum" data-cmv="10.8044 m at 1993-01-24-11 (retained years)" tabindex="0"/>
+    <path d="M667.4 127.1 L674.4 134.1 L667.4 141.1 L660.4 134.1 Z" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="dataset E · observed maximum" data-cmv="13.5713 m at 1990-12-12-12 (retained years)" tabindex="0"/>
+    <path d="M799.0 72.6 L806.0 79.6 L799.0 86.6 L792.0 79.6 Z" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2" data-cm="dataset F · observed maximum" data-cmv="16.5892 m at 2005-01-12-10 (retained years)" tabindex="0"/>
+    <rect x="62" y="364" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="81.0" y="374.0" text-anchor="start" class="t-note">max Hs along a total-exceedance contour</text>
+    <rect x="377" y="364" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="396.0" y="374.0" text-anchor="start" class="t-note">max Hs along a marginal-exceedance contour</text>
+    <rect x="62" y="383" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="81.0" y="393.0" text-anchor="start" class="t-note">the highest Hs observed in the full dataset</text>
+  </svg>
+  </div>
+  <figcaption>The highest Hs along each long-return-period contour (a linear function of position on a polygon peaks at a vertex, so the maximum is a vertex&#39;s literal, exactly), against the highest Hs observed in the full dataset. Filled dots are total-exceedance contours, lighter dots marginal-exceedance ones; the diamond is the observation.</figcaption>
+</figure></div><div class="col"><p>In dataset A the highest observed sea state, 11.7976 m on 2010-02-26 05:00 — in the retained years, 4.70 m above anything in the provided ten (7.0994 m) — sits above the maximum of every one of the eleven 20-year contours, the highest of which reaches 11.70 m. The paper says as much from a figure; here each maximum is a literal read from the file. On the other five datasets between 1 and 9 of the eleven contours reach above the observed maximum.</p></div>
+</section>
+
+<div class="note">
+  <span class="lab">what this page does NOT claim</span>
+<p>No contour is called right or wrong: which construction an offshore designer should use is a modelling question this page does not touch, and a count of exceedances is the benchmark's own metric, taken here on its own terms. The two numbers that do not agree are not an error in the paper's arithmetic — the file they were computed from is not the file on record. A self-crossing polygon is a fact about a file, not necessarily about the method that produced the boundary it lists. The expected-number enclosures certify the paper's formula, not the independence it assumes. The counts compared are the PREPRINT's (2021-01-19, the version the repository holds); the published article (Ocean Engineering 236, 109504) was not read. The datasets are NDBC's and WDCC's and are not re-served here; the contours are held verbatim as the published record, for verification only.</p>
+</div><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
+
+<footer class="col"><p>Generated by tools/build-report-ecbench.js @ git 77ba80d. Gates at this build: the ledger re-derived live from the 167 pinned files (each re-hashed, the twelve datasets fetched from commit a1561fe7 of the benchmark's repository), the ecbench battery (218 checks, 14 red controls, all fired), every sentence above gated on the ledger field it reads. A moved count, a third disagreement, or a drawn crossing count that differs from the decided one refuses this page.</p></footer>
+
+</div>
+</html>

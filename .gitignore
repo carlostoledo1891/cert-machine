@@ -41,3 +41,8 @@ environments/*/**/__pycache__/
 environments/blind_spot/pool/*
 !environments/blind_spot/pool/pool.json
 !environments/blind_spot/pool/pool.log
+
+# ec-benchmark: the twelve hourly datasets are fetched from the pinned commit
+# and verified by digest (tools/fetch-ec-benchmark.js); the contours are committed.
+corpus/ec-benchmark/datasets/
+corpus/ec-benchmark/datasets-retained/

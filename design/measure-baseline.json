@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-09-10",
+  "recorded": "2026-09-12",
   "browser": "Chrome/152.0.7977.83",
   "viewports": [
     1440,
@@ -96,7 +96,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f87de0abea9110377da6d1bd18462fe08e42fd8ed2867e062bf921eeed7aba28"
+      "sha": "8f8e2d19efb3599a7a8b7e222690259867081a315576a731f7e0d79a02779708"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -182,6 +182,27 @@
       },
       "sha": "bc5fd0eeb66003917b5340ec2aea5954b4cabb56290f2cb4cd214e17ae646b80"
     },
+    "site/instruments/contours/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "768": {
+        "spines": 8,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 10,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "53420581e161f37df0469302fe596cfe384f3bb8f3ecb90b07fe3dbf5447c4e9"
+    },
     "site/instruments/curveset/index.html": {
       "390": {
         "spines": 7,
@@ -264,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8fa65e63e991ae55a50fb9f34dd28f8663ab3fd92cd57b8b3b7e68baee3fff29"
+      "sha": "4b23d30356df0a49c663d8783501b063a9f39e1750a3100b28a63c39ae91e31b"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -476,6 +497,27 @@
       },
       "sha": "91e43ce590c10f80bf1dab89ea0c7c526ac8928529224e249bf4db36261bf5c6"
     },
+    "site/instruments/stereo-reach/index.html": {
+      "390": {
+        "spines": 5,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 9,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 10,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "7e395f6deb9a12830d4adfb996a3f19f959f8e63f4c90ffbd262c4f1286597ae"
+    },
     "site/instruments/transit/index.html": {
       "390": {
         "spines": 3,
@@ -516,7 +558,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a24606a0e4dd3ab58f040c7c1c416bc963b9dfb154513e45d4686a01ec91cda7"
+      "sha": "b563f1e6f158922f30745aba207d9860c4fad329ea59e1a89ecd316140eeb9ea"
     },
     "site/oracle/index.html": {
       "390": {
@@ -537,7 +579,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "11d10c66c6c91048846ed1c37a8e8af324ffb9b62a844101b3efc3ca738b705c"
+      "sha": "d829c3921939e971e59660ca6d48744b5e02662f6f970839cd0dc6baa5e23d2d"
     },
     "site/reports/aag.html": {
       "390": {
@@ -685,6 +727,27 @@
         "clipped": 0
       },
       "sha": "bdb32d23794da9df87ea077b9c3408770a1a691776734dc20e1bdc6c8bcce581"
+    },
+    "site/reports/breaking-geometry.html": {
+      "390": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 2
+      },
+      "768": {
+        "spines": 6,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 8,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "cb95a56868a091a873256320ae18e5f1da151766b406bd4ef4a0adc78e050c95"
     },
     "site/reports/claim-korenblum.html": {
       "390": {
@@ -853,6 +916,27 @@
         "clipped": 0
       },
       "sha": "5f2636acda50c9c145a4124a0c9b842a801f10828efda77bde42ed7b1de97a12"
+    },
+    "site/reports/ec-benchmark.html": {
+      "390": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 2
+      },
+      "768": {
+        "spines": 5,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 2
+      },
+      "1440": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "7e7bbfc6d778c64d9bbacff55c728de8c931ca2f31ca3af3684276ad3f784008"
     },
     "site/reports/ember.html": {
       "390": {
@@ -1209,7 +1293,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "434b9c290302093f8f025c26afc93ba312664b0cfbc970f591ba9aaaa6d93c4e"
+      "sha": "0cf63d4c5391abaab21e65066c540305a5433b01c4762d71e32f1ef7a3b76695"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1545,7 +1629,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "9efd434426b6b050bce6067c783e8d46228da880055f3a1639ef97b2dfa30f47"
+      "sha": "7469a9de89cb8f8cef982242e260409a8c0d88c6715a5c8c9b3f40ddf5c852d2"
     },
     "site/reports/polynomial-multiplication.html": {
       "390": {

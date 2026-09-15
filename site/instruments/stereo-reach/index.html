@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How far can two cameras bound a wave? — cert-machine</title>
+<meta name="description" content="The error budget of a stereo-video wave rig as enclosures: the quantization cell, the synchronisation lag, the slope, computed in interval arithmetic in your tab for the Leme 2020 smartphone rig and any rig you dial in; the range at which the bound first exceeds a tolerance.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="How far can two cameras bound a wave? — cert-machine">
+<meta property="og:description" content="The error budget of a stereo-video wave rig as enclosures: the quantization cell, the synchronisation lag, the slope, computed in interval arithmetic in your tab for the Leme 2020 smartphone rig and any rig you dial in; the range at which the bound first exceeds a tolerance.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../design/tokens.css">
+<style>
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 var(--gutter);height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px var(--gutter) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* shell.css — the navbar and the measure scale, and nothing else. Everything an
+   /instruments page looks like beyond this is that page's own business. */
+/* THE SECTION'S OWN NAV IS GONE (2026-09-05) — design/nav.js is the site's
+   one nav and this section carries it like every other page. What is left here
+   is the consequence: the site nav is FIXED at 60px, so the page has to start
+   below it. The reports' shell does the same thing with its own padding. */
+/* THE BOX MODEL, SHARED — and it was not, until 2026-09-05. The
+   `*{box-sizing:border-box}` reset was declared in SIX page.css files and in
+   bench.css, and in the shell not at all. A page that did not carry its own copy
+   got content-box, so `.wrap`'s max-width:1200 became 1200 PLUS its 48px
+   gutters: /instruments/graph rendered 1296 wide and sat its whole column at
+   x=120 while every other page on the site sits at x=168. The site's one-left-
+   edge claim was being upheld by six identical copies of a reset, any one of
+   which could have gone missing — and the seventh page proved it. */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* THE PAGE'S OWN TYPOGRAPHY, SHARED — and it was not, until 2026-09-05.
+   Six page.css files under playground/ declared their own `body` rule, four of
+   them with different bodies, and the shell declared none. Every page that
+   happened to carry one looked right and any page that did not fell back to the
+   browser default — which is how /instruments/graph shipped its first build in
+   TIMES ROMAN while every other page on the site is Inter. A foundation
+   declared six times is not a foundation.
+
+   The page-local copies came out later the same day, one file at a time, each
+   page pixel-diffed at 1440 and 390 before the next: curveset, neural-geometry,
+   shape-hunt, simplex, bench.css (four pages) and index.css were byte-identical
+   to the two rules above and went entirely; interferometer keeps its own
+   margin/padding zeroing and the three body properties the shell does not set. */
+body { margin: 0; background: var(--bg); color: var(--ink-2);
+  font-family: var(--font-sans); font-size: var(--text-body);
+  line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
+body { padding-top: 60px; }
+
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
+
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
+
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
+
+/* ---- THE TABLE RULE, once ------------------------------------------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. Four /instruments pages scrolled the whole document sideways
+   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
+   answer-shape 78 — every one of them a nowrap table sitting in a container
+   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
+   rule that made it scroll lived in base.css and that page never linked it.
+   One class, one rule, declared where every page already inlines it. */
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius-m);
+  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
+     table sliced mid-character with nothing to indicate there was more; a box
+     that hides a column without saying so is the same defect as a number
+     without its units. The four layers are the standard scroll-shadow: two
+     ground-coloured covers pinned to the CONTENT (background-attachment:local,
+     so they slide away as you scroll) over two shadows pinned to the BOX, so a
+     shadow shows exactly when there is something past that edge and vanishes
+     when there is not. No script, and nothing to keep in sync. */
+  background:
+    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--bg-raised); }
+.tw > table { margin: 0; }
+.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }
+
+
+/* ---- the eyebrow: seven declarations before this, and the weight was the
+   thing they disagreed about. The report engine sets 500, bench.css set none
+   at all, and interferometer set 500 on its own — so /instruments ran its
+   eyebrows a weight lighter than the reports on every page but one. 500, once,
+   on both sides of the site. ---- */
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); font-weight: 500;
+  letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+
+/* ---- the hero. The bottom padding is the LARGER of the two that were in
+   service; curveset's tighter one was not a decision, it was a copy that had
+   drifted. A page wanting a different hero (the gathering page does, and says
+   so) overrides these two properties and nothing else. ---- */
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title);
+  margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3);
+  color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+/* ---- the footer, with the margin-top the crossed pages had and the written
+   ones did not ---- */
+.foot { border-top: 1px solid var(--border); padding: var(--s-6) 0 var(--s-8); margin-top: var(--s-7); }
+.foot .line { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6);
+  font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: 0.1em; color: var(--ink-5); }
+.foot a { color: var(--ink-4); text-decoration: none; }
+.foot a:hover { color: var(--ink-2); }
+
+/* ---- the panel: a raised box with a hairline. Spacing between consecutive
+   panels is a sibling rule, so a page never adds a margin-top of its own and
+   the two versions cannot disagree about which edge carries the gap. ---- */
+.panel { background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-l); padding: var(--s-5); }
+.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
+
+/* ---- FIGURE PRIMITIVES ----------------------------------------------------
+   THE DEFECT THIS CLOSES, and it is the one the operator saw as "lots of svg
+   elements are black". The gathering page embeds each instrument's card art
+   but NOT the stylesheet that colours it, and an SVG element whose class
+   resolves to nothing paints nothing — the default stroke is 'none'. Measured
+   on /instruments before this: 12 kinds of classed element painting nothing,
+   including 63 chords on the affect card and 60 on answer-shape, which is why
+   those two plates measured 1.4% and 1.2% ink and read as black boxes.
+
+   A figure vocabulary used by more than one page is a shared component, the
+   same as a hero or a footer. Phase 3 moved the furniture and left these.  */
+.ch { stroke: var(--ink-2); }
+.ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
+/* .clo CLOSES THE WALK .ord DRAWS, and it is the SAME data at the SAME
+   standing — the step from the last item back to the first, computed exactly
+   the way every other step is. It was dashed to mark that ROLE, which is the
+   forbidden use: dash carries standing, never identity or role. The legitimate
+   channel was already doing the work — .ord is --ink at 0.9, .clo is --ink-3 —
+   so dropping the dash costs nothing, exactly as it did on answer-shape.
+   See design/CONTRACT.md. (No backticks in this comment on purpose: it lives
+   inside a template literal, and one backtick ends the literal.) */
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-linecap: round; }
+.mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
+.pt { fill: var(--ink-2); }
+/* .lb HAD NO FONT-SIZE, and that is two review defects in one line. Each
+   instrument page sets 8.5px on its own svg.pl .lb; the GATHERING page inlines
+   no page stylesheet, so every embedded card art fell back to the browser
+   default of 16px — in viewBox units, on a plate scaled about 1.5x. So the
+   affect card's labels rendered near 24px and ran clean out of the card
+   ("delighted" sliced at the right edge, "miserable" cut to "serable"), and
+   adjacent cards showed wildly different label sizes because each viewBox
+   scales differently. The pages' own 8.5px rules are more specific and still
+   win; this is the floor that was missing. */
+.lb { fill: var(--ink-4); font-family: var(--font-mono); font-size: 8.5px; }
+.ax line { stroke: var(--border-strong); }
+.ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+/* a horizontal reference line at the asked value, and the two drop lines from
+   it to the baseline. "an axis, a ruler, a ghost, a reference circle" is the
+   contract's own definition of a GUIDE, so they take the guide pattern rather
+   than a fourth invented one. */
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-std { fill: var(--ink); }
+.cs-tick { fill: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
+/* PAINT LIVES HERE; ANCHORING STAYS ON THE PAGE (2026-09-05). These four were
+   defined ONLY in playground/curveset/page.css, which curveset inlines and the
+   gathering page does not. /instruments embeds curveset's card art WITHOUT that
+   stylesheet, so all four fell through to SVG's default BLACK fill and measured
+   1.06:1 against the plate — the same family as the twelve invisible kinds
+   caught on 2026-09-05, of which these four were missed because they are text
+   and a dot rather than strokes.
+
+   And they were dim even where they DID paint: .cs-axname at --ink-5 is
+   2.24:1, under the 3:1 floor this repository enforces everywhere else. Each
+   is lifted one rung — axis names to --ink-4 (3.97:1), the two data labels,
+   which carry words a reader has to read ("reported ±550 lb", "unbounded above
+   — over range"), to --ink-3. */
+.cs-fitdot   { fill: var(--ink-2); }
+.cs-axname   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); letter-spacing: 0.08em; }
+.cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+.cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+
+/* ---- THE GRAMMAR. Stroke pattern carries standing; see ../warrant.js for the
+   rule about when the channel is free. A REFUSED mark has no stroke at all —
+   the void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML. In an <svg> these set a stroke; on a word they set
+   a voice, and the voice uses THE SAME DASH PATTERN as the line — a computed
+   value is underlined dashed exactly as a computed curve is dashed, a chosen
+   value dotted. Decided carries no mark: it is the voice the rest of the site
+   is written in, and marking it would make the exception the rule.
+
+   The underline does the work and brightness only supports it, because
+   dimness alone reads as low confidence and standing is not confidence — the
+   page that defines the grammar says so in as many words. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+/* a REFUSED value is not printed dim — it is NOT PRINTED. What the page shows
+   instead is the reason, and this is the voice it says it in. */
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG
+   <pattern>, and a pattern is addressed by an id that lives in the figure that
+   defines it. A shared rule would point every page at one page's id. */
+
+/* ---- the standing legend. Rendered by warrant.js, laid out by
+   design/grid.js: the column count is derived from data-n, not declared. ---- */
+/* align-items:start on the ROW, so every label sits on one line even when a
+   gloss wraps to two — the swatches were floating to the middle of whichever
+   item happened to be tallest. */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+</style>
+<style>.sr-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-5); align-items: start; }
+@media (max-width: 900px) { .sr-wrap { grid-template-columns: minmax(0, 1fr); } }
+.sr-fig { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: var(--s-3); }
+.sr-fig svg { width: 100%; height: auto; display: block; }
+.sr-panel { display: grid; gap: var(--s-3); font-family: var(--mono); font-size: 12.5px; }
+.sr-panel label { display: block; color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; font-size: 10.5px; margin-bottom: 4px; }
+.sr-panel select, .sr-panel input[type=text] { width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: 5px 7px; }
+.sr-panel input[type=range] { width: 100%; }
+.sr-in { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2) var(--s-3); }
+.sr-in .f { display: grid; gap: 2px; }
+.sr-in .f .st { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-4); }
+.sr-in .f .st.chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.sr-in .f .st.box { color: var(--ink-3); }
+.sr-in .f.wide { grid-column: 1 / -1; }
+.sr-in .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.sr-read { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2) var(--s-3); border-top: 1px solid var(--line); padding-top: var(--s-3); }
+.sr-read .k { color: var(--ink-3); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
+.sr-read .v { font-size: 19px; line-height: 1.15; color: var(--ink); }
+.sr-read .v.w-decided { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.sr-read .v.w-chosen { text-decoration: underline dotted; text-decoration-thickness: 2px; text-underline-offset: 4px; color: var(--ink-2); }
+.sr-read .v.small { font-size: 14px; }
+.sr-read .full { grid-column: 1 / -1; }
+.sr-verdict { border: 1px solid var(--line); border-radius: var(--radius-s); padding: var(--s-3); display: grid; gap: 6px; }
+.sr-verdict .word { font-size: 22px; letter-spacing: .04em; color: var(--ink); }
+.sr-verdict .why { color: var(--ink-3); font-size: 11.5px; line-height: 1.45; }
+.sr-note { color: var(--ink-2); font-size: 12px; line-height: 1.45; margin-top: var(--s-3); }
+.sr-paper { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--s-4); margin-top: var(--s-4); }
+.sr-paper .c { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: var(--s-3); font-family: var(--mono); font-size: 12px; }
+.sr-paper .c .k { color: var(--ink-3); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
+.sr-paper .c .v { font-size: 20px; color: var(--ink); margin: 4px 0; }
+.sr-paper .c .n { color: var(--ink-3); line-height: 1.4; }
+.w-decided { stroke: var(--ink); color: var(--ink); }
+.w-chosen { stroke: var(--ink-2); color: var(--ink-2); }
+.w-computed { stroke: var(--ink-3); }
+.sr-axis { stroke: var(--ink-5); stroke-width: 1; }
+.sr-grid { stroke: var(--line); stroke-width: 1; }
+.sr-tick { font-family: var(--mono); font-size: 10.5px; fill: var(--ink-4); }
+.sr-lab { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
+.sr-thin { stroke-width: 1.2 !important; opacity: .75; }
+.sr-tol { stroke: var(--ink-4); stroke-width: 1; }
+.sr-mark { fill: var(--ink); }
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<main>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">instruments &middot; stereo reach &middot; the error budget of two cameras, as enclosures, in your tab</div>
+  <h1>How far can two cameras bound a wave?</h1>
+  <p class="lede">A stereo-video rig recovers the sea surface from the pixel offset between two images. Every pixel is a box &mdash; a disparity known to a fraction of a pixel, a vertical coordinate to half of one, a shutter that fired a few milliseconds late &mdash; and the set of elevations the rig cannot tell apart at a given range is a cell whose height is computed here exactly, in outward-rounded interval arithmetic, over inputs that may themselves be boxes. Turn the baseline, the height, the lens, the lag, the sea; read the bound at any range and the range at which the bound first exceeds a tolerance. Preset: the two-smartphone rig of
+  <a href="https://doi.org/10.3390/jmse8110831">Vieira, Guimar&atilde;es, Violante-Carvalho, Benetazzo, Bergamasco and Pereira (2020)</a> at Leme, with the paper's numbers as literals and the ones it does not state as boxes.</p>
+</div></header>
+
+<section class="wrap">
+  <div class="sr-wrap">
+    <div>
+      <div class="sr-fig"><svg id="sr-svg" viewBox="0 0 900 460" role="img" aria-label="The upper bound on the elevation error of the selected rig against horizontal range, on log axes, with its four terms, the tolerance line and the reach"></svg></div>
+      <p class="sr-note">Four curves, each the UPPER end of an enclosure: the quantization cell (disparity to &plusmn;&delta;d pixels, vertical coordinate to &plusmn;&frac12; pixel; tight, because each measured quantity enters once), the cell with the synchronisation lag's texture shift added to the disparity, the slope term (a horizontal misplacement read on the steepest slope of the wave), and their total with the surface's own motion over the lag. The shaded band is the preset's imaged range; the thin vertical is the range you chose; the vertical marker is the reach at the tolerance. Solid where every input is a literal or a box from a source; dotted where any input is a choice.</p>
+      <div class="w-legend" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div>
+      <p class="sr-note" id="sr-source"></p>
+    </div>
+    <div class="sr-panel">
+      <div><label for="sr-preset">rig</label><select id="sr-preset"><option value="leme2020">Leme 2020 (two smartphones)</option><option value="nazare">Nazaré scenario (chosen)</option></select></div>
+      <div class="sr-in" id="sr-inputs"></div>
+      <div><label for="sr-tol">tolerance, % of the wave height</label><input id="sr-tol" type="text" inputmode="decimal" value="10"></div>
+      <div><label for="sr-R">range <span id="sr-Rv"></span></label><input id="sr-R" type="range"></div>
+      <div class="sr-read">
+        <div><div class="k">quantization cell</div><div class="v" id="r-cell"></div><div class="k" id="r-cell-note"></div></div>
+        <div><div class="k">+ sync lag</div><div class="v" id="r-sync"></div><div class="k" id="r-sync-note"></div></div>
+        <div><div class="k">slope term</div><div class="v" id="r-slope"></div><div class="k" id="r-slope-note"></div></div>
+        <div><div class="k">surface motion</div><div class="v" id="r-vel"></div></div>
+        <div class="full"><div class="k">total bound at this range</div><div class="v" id="r-total"></div></div>
+      </div>
+      <div class="sr-verdict" id="sr-verdict"></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2 class="t2">The Leme rig, re-read</h2>
+  <p class="lede">Two Samsung Galaxy J5 Pro phones 0.98 m apart, 3.5 m above the water, imaging 10&ndash;35 m of surf with a pressure gauge at ~34 m; 12.8-second swell of 0.35 m. The paper gives the baseline, the height, the focal length and the sea; it does not give the pixel pitch of the 1080p video or the precision of its matches, so those are boxes, and the audio synchronisation is taken to the frame.</p>
+  <div class="sr-paper">
+    <div class="c"><div class="k">certified cell at the gauge, best corner</div><div class="v w-decided">2.9 cm</div><div class="n">pitch 1.12 &micro;m, &delta;d 0.25 px, perfect sync &mdash; nothing the geometry alone can beat at 34 m</div></div>
+    <div class="c"><div class="k">bound at the gauge, worst corner of the box</div><div class="v w-chosen">32.7 cm</div><div class="n">pitch 2.45 &micro;m, &delta;d 1 px, half a frame of lag with 1 m/s of texture (the lag and the texture speed are chosen)</div></div>
+    <div class="c"><div class="k">observed, Table 1</div><div class="v">10.0 cm &middot; 12.0 cm &middot; 12.0 cm &middot; 10.0 cm</div><div class="n">RMSE of the surface elevation against the pressure gauge over four 19-minute records; biases -4 cm, -5 cm, -6 cm, -1 cm</div></div>
+    <div class="c"><div class="k">quoted z-quantization</div><div class="v">1.1 mm</div><div class="n">&sect;4: "0.9 mm, 9.9 mm, and 1.1 mm for the x, y and z-axes"; the range it holds at is not stated. The best-case cell at the near edge (10 m) is 8.8 mm.</div></div>
+  </div>
+  <p class="sr-note">Read together: every observed RMSE lies between the best and worst corners of the budget, so the geometry with the paper's own numbers accounts for the deviation from the gauge without invoking anything else &mdash; and the disparity at the gauge is only 43&ndash;95 pixels, which is why a pixel of matching error is 32.7 cm of elevation there. The quoted quantization of 1.1 mm is below what this model gives for any corner of the box at any range in the imaged area; the paper takes it from a formula in its reference [42] that we do not hold, so this is a number we could not reproduce, not one we refute.</p>
+</section>
+
+<section class="section"><div class="wrap">
+  <div class="prose">
+    <h2 class="t2">What is decided, and what is assumed</h2>
+    <p>The model is the standard rectified pinhole pair with both cameras aimed at the surface point: Z = fB/d, Y = Zv/f, and a rotation by the pitch. Nothing in it is new; what is new is that the cell is an <em>enclosure</em> &mdash; each measured quantity appears once in the elevation and once in the range, so the interval evaluation over the pixel box is tight, and it holds over the whole of a box input such as an unstated pixel pitch. The three added terms are bounds, not cells: the texture the matcher correlates is taken to move with the water (its orbital speed) plus a texture speed you choose; the surface rises or falls by at most &omega;H/2 over the lag; a horizontal misplacement is read on the steepest slope, kH/2. Deep-water dispersion gives &omega; and k from the period. A total is an interval and its upper end is what the verdict uses.</p>
+    <p><strong>It bounds geometry, not matching.</strong> A matcher can fail outright on glare, foam or a textureless surface, and no error budget bounds a failed match; the disparity precision you enter is the precision of the matches that succeed. The pitch of the optical axis is set by aiming at the point &mdash; a point at the edge of a wide field of view sits off-axis and its cell differs. Lens distortion, calibration error and refraction are not in the budget. The Nazar&eacute; preset is a scenario with every number chosen, in the shape of the Big Wave Tracker, to be replaced by the rig's own.</p>
+    <p class="mono" style="font-size:var(--text-eyebrow); color:var(--ink-4); line-height:2; margin-top:var(--s-5);">
+    node instruments/stereo/battery.js<br>
+    node playground/build.js</p>
+  </div>
+</div></section></main>
+<footer class="foot"><div class="wrap"><div class="line">
+  <span>cert-machine / instruments</span>
+  <a href="../index.html">all instruments</a>
+  <a href="../../reports/index.html">the reports</a>
+  <a href="../../machine/index.html">the machine</a>
+  <span>nothing here is gated · every number came out of the record beside the page</span>
+  <span>Carlos Toledo</span>
+</div></div></footer>
+<script id="sr-spec" type="application/json">{"PI":[3.141592653589793,3.1415926535897936],"marks":{"decided":"class=\"w-decided\" fill=\"none\" stroke-width=\"2\"","chosen":"class=\"w-chosen\" fill=\"none\" stroke-width=\"2\" stroke-dasharray=\"1 5\" stroke-linecap=\"round\"","computed":"class=\"w-computed\" fill=\"none\" stroke-width=\"2\" stroke-dasharray=\"5 4\""},"presets":{"leme2020":{"name":"Leme, Rio de Janeiro — Vieira, Guimarães, Violante-Carvalho, Benetazzo, Bergamasco, Pereira (JMSE 2020)","short":"Leme 2020 (two smartphones)","source":"Vieira et al., A Low-Cost Stereo Video System for Measuring Directional Wind Waves, J. Mar. Sci. Eng. 8 (2020) 831, doi:10.3390/jmse8110831, §2.3, §3.3, §4 and Table 1","B":{"v":"0.98","standing":"paper","note":"the smartphones were deployed 0.98 m apart"},"Hc":{"v":"3.5","standing":"paper","note":"approximately 3.5 m above sea level"},"f":{"v":"0.00371","standing":"paper","note":"focal length 3.71 mm (Samsung Galaxy J5 Pro)"},"p":{"lo":"0.00000112","hi":"0.00000245","standing":"box","note":"not stated: 1.12 µm at the 13-megapixel native pitch, 2.45 µm if 1920 × 1080 video samples the full 4.7 mm sensor width"},"dd":{"lo":"0.25","hi":"1","standing":"box","note":"matching precision not stated; calibration errors of 0.21–0.45 px are; a quarter to a whole pixel"},"dt":{"v":"0.0166667","standing":"chosen","note":"audio cross-correlation synchronises to the frame at 30 fps: at most half a frame, 1/60 s"},"utex":{"v":"1","standing":"chosen","note":"texture speed of ripples and glitter, 1 m/s"},"T":{"v":"12.8","standing":"paper","note":"Tp = 12.8 s on every record of Table 1"},"H":{"v":"0.35","standing":"paper","note":"Hs 0.29–0.35 m; the largest"},"g":{"v":"9.80665","standing":"chosen","note":"standard gravity"},"rangeLo":"10","rangeHi":"35","gaugeRange":"34","best":{"p":"0.00000112","dd":"0.25"},"worst":{"p":"0.00000245","dd":"1"},"observed":{"rmse":[0.1,0.12,0.12,0.1],"bias":[-0.04,-0.05,-0.06,-0.01],"note":"Table 1: RMSE and bias of the surface elevation between the stereo system and the pressure gauge, four 19-minute records"},"quoted":{"zQuantization":0.0011,"xyQuantization":[0.0009,0.0099],"note":"§4: \"estimated root mean square quantization errors were 0.9 mm, 9.9 mm, and 1.1 mm for the x, y and z-axes\" — the range they hold at is not stated"}},"nazare":{"name":"A Nazaré-class scenario — every number chosen","short":"Nazaré scenario (chosen)","source":"no source: a scenario in the shape of the Big Wave Tracker (labECO / Colab+Atlantic; cameras on the Forte de São Miguel headland, waves of ten metres and more, ranges of hundreds of metres). Every number below is an assumption to be replaced by the rig's own.","B":{"v":"10","standing":"chosen","note":"a ten-metre baseline along the headland"},"Hc":{"v":"50","standing":"chosen","note":"fifty metres above the water"},"f":{"v":"0.05","standing":"chosen","note":"a 50 mm lens"},"p":{"v":"0.00000345","standing":"chosen","note":"3.45 µm, a common machine-vision sensor"},"dd":{"v":"0.5","standing":"chosen","note":"half a pixel"},"dt":{"v":"0.001","standing":"chosen","note":"a hardware trigger: one millisecond"},"utex":{"v":"2","standing":"chosen","note":"texture speed in a breaking sea, 2 m/s"},"T":{"v":"16","standing":"chosen","note":"a 16-second swell"},"H":{"v":"15","standing":"chosen","note":"a fifteen-metre wave"},"g":{"v":"9.80665","standing":"chosen","note":"standard gravity"},"rangeLo":"200","rangeHi":"2000","gaugeRange":null}}}</script>
+<script>window.IV = (function () { const module = { exports: {} }; /* interval.js — outward-rounded interval arithmetic over IEEE-754 doubles.
+
+   RIGOR MODEL, stated once and relied on everywhere downstream. JavaScript has
+   no access to the FPU rounding mode, so directed rounding is SIMULATED: every
+   IEEE-754 basic operation (+ − × ÷ and sqrt) returns the correctly rounded
+   nearest double, so the exact real result lies strictly within half an ulp of
+   the computed value. Widening the computed bounds outward by ONE ulp (nextDown
+   on the lower end, nextUp on the upper) therefore encloses the exact result.
+   This is conservative by a factor of ~2 in the last bit and costs nothing at
+   the accuracy we need.
+
+   The library is not trusted on assertion: tests/test-interval.js checks every
+   operation against EXACT BigInt rational arithmetic on thousands of random
+   operands, and mutation-tests the widening (removing it turns the check red).
+
+   That sentence was FALSE from the day it was written until 2026-07-28: the file it
+   names did not exist, and the battery that did cover intervals (test-eqcert.js I2)
+   exercises 4 of these exports. `pow` therefore had no coverage and was wrong —
+   it returned [1,1] for every negative exponent. The file now exists, runs first in
+   `make check-eqcert`, and covers every export. Left as a standing reminder that a cited
+   test is not a test: the citation was read as evidence for months.
+
+   Sequence algebra (weighted ell^1_nu, convolution, parity) lives in
+   src/sequence.js; this file is arithmetic only.
+
+   MIT licensed. Part of eqcert — the single source of truth for interval
+   arithmetic across every project here. Vendored copies are gated
+   byte-identical; never edit a copy. */
+
+
+const _buf = new ArrayBuffer(8);
+const _f64 = new Float64Array(_buf);
+const _u64 = new BigUint64Array(_buf);
+
+function nextUp(x) {
+  if (Number.isNaN(x) || x === Infinity) return x;
+  if (x === 0) return Number.MIN_VALUE;
+  _f64[0] = x; _u64[0] += (x > 0 ? 1n : -1n); return _f64[0];
+}
+function nextDown(x) { return -nextUp(-x); }
+
+/* an interval is a 2-array [lo, hi]; `iv(x)` is the thin (point) interval */
+const iv = (lo, hi) => [lo, hi === undefined ? lo : hi];
+const ZERO = iv(0), ONE = iv(1);
+
+function add(a, b) { return [nextDown(a[0] + b[0]), nextUp(a[1] + b[1])]; }
+function sub(a, b) { return [nextDown(a[0] - b[1]), nextUp(a[1] - b[0])]; }
+function mul(a, b) {
+  const p = [a[0] * b[0], a[0] * b[1], a[1] * b[0], a[1] * b[1]];
+  return [nextDown(Math.min(p[0], p[1], p[2], p[3])),
+          nextUp(Math.max(p[0], p[1], p[2], p[3]))];
+}
+function div(a, b) {
+  if (b[0] <= 0 && b[1] >= 0) throw new Error('interval division by an interval containing 0');
+  const q = [a[0] / b[0], a[0] / b[1], a[1] / b[0], a[1] / b[1]];
+  return [nextDown(Math.min(q[0], q[1], q[2], q[3])),
+          nextUp(Math.max(q[0], q[1], q[2], q[3]))];
+}
+function neg(a) { return [-a[1], -a[0]]; }
+/* A square is never negative, so the lower bound is clamped at 0. Without the clamp,
+   sqr([0,0]) returned [-5e-324, 5e-324] — nextDown(0) steps to the smallest negative
+   denormal — and a consumer testing `sqr(x)[0] >= 0` to prove non-negativity would be
+   defeated by the one case where non-negativity is certain. Clamping only TIGHTENS: 0 is
+   a true lower bound for x² always, so enclosure is preserved. The third branch below
+   already did this; the first two did not. (2026-07-28, found by tests/test-interval.js.) */
+function sqr(a) {                       /* tighter than mul(a,a) across 0 */
+  if (a[0] >= 0) return [Math.max(0, nextDown(a[0] * a[0])), nextUp(a[1] * a[1])];
+  if (a[1] <= 0) return [Math.max(0, nextDown(a[1] * a[1])), nextUp(a[0] * a[0])];
+  const m = Math.max(-a[0], a[1]);
+  return [0, nextUp(m * m)];
+}
+/* |a| as an interval of the modulus, and the scalar sup|a| */
+function abs(a) {
+  if (a[0] >= 0) return [a[0], a[1]];
+  if (a[1] <= 0) return [-a[1], -a[0]];
+  return [0, Math.max(-a[0], a[1])];
+}
+const mag = a => Math.max(Math.abs(a[0]), Math.abs(a[1]));   /* sup |a| */
+const mig = a => (a[0] > 0 ? a[0] : a[1] < 0 ? -a[1] : 0);   /* inf |a| */
+const contains = (a, x) => a[0] <= x && x <= a[1];
+const subset = (a, b) => b[0] <= a[0] && a[1] <= b[1];       /* a ⊆ b */
+const interior = (a, b) => b[0] < a[0] && a[1] < b[1];       /* a ⊂ int(b) */
+const width = a => nextUp(a[1] - a[0]);
+
+/* Integer power with a rigorous enclosure (repeated squaring).
+   NEGATIVE EXPONENTS: `while (e > 0)` never runs for n < 0, so this silently returned
+   ONE = [1,1] for every negative n — pow([2,2],-1) claimed to enclose 0.5 and did not.
+   A wrong enclosure is worse than a refusal, and this one was silent. n < 0 now goes
+   through div, which REFUSES a base straddling 0 (there 1/x is unbounded and no finite
+   interval encloses it). Non-integer n is refused rather than truncated: `e >>= 1` would
+   have quietly floored it. Found 2026-07-28 with 0 call sites in the tree — a loaded
+   trap, not a live wound; every certificate in `ledger/` predates and avoids it. */
+function pow(a, n) {
+  if (!Number.isInteger(n)) throw new Error('interval pow: exponent must be an integer, got ' + n);
+  if (n < 0) return div(ONE, pow(a, -n));
+  let r = ONE, base = a, e = n;
+  while (e > 0) { if (e & 1) r = mul(r, base); base = mul(base, base); e >>= 1; }
+  return r;
+}
+
+/* ---------- Stage 2.4 — thin floats and the trigonometric pad ----------
+   Math.cos / Math.sin are implementation-approximated with NO ECMAScript accuracy
+   bound. The positivity kernels used a remembered ±1e-15 pad that under-covered the
+   float mul-chain argument error by ≥16× on the Fourier grids in this monorepo
+   (TOPIC B6: measured 1.641e-14). Until a Taylor / Payne–Hanek interval cos ships
+   (sound interval exp/log: src/transcendental.js), enclose the float evaluation
+   by a DERIVED absolute pad: |d cos/dθ|≤1 and |d sin/dθ|≤1, so
+     pad(ang) = 2·ε·|ang| + ε
+   dominates a 2-ulp relative argument defect plus one ulp of the result.
+   encloseFloat widens a correctly-rounded image of a real (e.g. Math.PI) by one
+   ulp each side — the last-ulp thin-scalar hardening for 2π. */
+function trigAbsPad(ang) {
+  return nextUp(2 * Number.EPSILON * Math.abs(ang) + Number.EPSILON);
+}
+function encloseCos(ang) {
+  const cv = Math.cos(ang), p = trigAbsPad(ang);
+  return [nextDown(cv - p), nextUp(cv + p)];
+}
+function encloseSin(ang) {
+  const sv = Math.sin(ang), p = trigAbsPad(ang);
+  return [nextDown(sv - p), nextUp(sv + p)];
+}
+function encloseFloat(x) {
+  return [nextDown(x), nextUp(x)];
+}
+
+module.exports = {
+  nextUp, nextDown, iv, ZERO, ONE,
+  add, sub, mul, div, neg, sqr, abs, mag, mig,
+  contains, subset, interior, width, pow,
+  trigAbsPad, encloseCos, encloseSin, encloseFloat
+};
+
+ return module.exports; })();</script>
+<script>/* instruments/stereo/budget.js — the error budget of a stereo-video wave rig,
+   as enclosures.
+
+   THE OBJECT. Two cameras a baseline B apart, at height Hc above the mean
+   water level, both aimed at the surface point at horizontal range R; a
+   rectified pinhole pair with focal length f and pixel pitch p. A surface point
+   is recovered from its disparity d (the horizontal pixel offset between the
+   two images) and its vertical image coordinate v:
+       Z = f·B/d        (range along the optical axis)
+       Y = Z·v/f        (offset along the image's down direction)
+   and, with the axis pitched down by θ (tan θ = Hc/R),
+       η = Hc − Z·sin θ − Y·cos θ = Hc − (B/d)·(f·sin θ + v·cos θ)   elevation
+       r =      Z·cos θ − Y·sin θ =      (B/d)·(f·cos θ − v·sin θ)   horizontal range
+   [STANDARD: rectified stereo triangulation; the pitch is a rotation of the
+   camera frame. Benetazzo 2006, Bergamasco et al. 2017 give the same model
+   for WASS-type rigs. Nothing here is a new formula.]
+
+   WHAT IS DECIDED. Every measured pixel quantity is known only to a box: the
+   disparity to ±δd pixels (quantization plus matching), the vertical image
+   coordinate to ±½ pixel. Each variable appears ONCE in η and once in r, so
+   the natural interval extension of the two expressions over the box is
+   TIGHT: the enclosure is exactly the set of elevations and ranges the
+   measurement cannot tell apart — the quantization cell — and it is computed
+   in outward-rounded interval arithmetic (instruments/interval/interval.js)
+   over inputs that may themselves be boxes (a pixel pitch a paper does not
+   state). Three more terms are bounds, not cells:
+     · a synchronisation lag δt lets the surface texture the matcher
+       correlates move by s = (ω·H/2 + u_tex)·δt between the two exposures —
+       the water's own orbital speed plus a texture speed for the ripples and
+       glitter riding on it, which is a CHOICE the page exposes; in the worst
+       orientation that is a disparity error of f·s/Z, added to δd. (The swell
+       SHAPE travels at the phase speed c, but the matcher does not track the
+       shape; it tracks texture, and the shape's motion is the velocity term
+       below.)
+     · over the same δt the surface itself rises or falls by at most
+       ω·(H/2)·δt for a wave of height H and period T (ω = 2π/T);
+     · a horizontal misplacement of e_r reads the elevation at the wrong place
+       on a slope of at most k·(H/2), k = 2π/λ: an error of k·(H/2)·e_r.
+   Deep water is assumed for c = gT/2π and λ = gT²/2π; the page says so.
+
+   RIGOR MODEL. Inputs are decimal literals enclosed by their neighbouring
+   doubles; π enters as a certified enclosure (instruments/interval/
+   transcendental.js at build); every operation widens outward. A total is an
+   interval whose UPPER end is what the reach test uses: "within tolerance" is
+   asserted only when the upper end clears it.
+
+   ONE SOURCE, TWO HOSTS: this file has no require() so the instrument page
+   inlines it. It takes the interval module as an argument. */
+'use strict';
+function makeBudget(IV) {
+  const { iv, add, sub, mul, div, sqr, width, nextDown, nextUp } = IV;
+  const sqrtIv = (a) => { if (!(a[0] >= 0)) throw new Error('sqrt of an interval below zero'); return [nextDown(Math.sqrt(a[0])), nextUp(Math.sqrt(a[1]))]; };
+  const pos = (a, name) => { if (!(a[0] > 0)) throw new Error(name + ' must be strictly positive (got [' + a[0] + ', ' + a[1] + '])'); return a; };
+  const nonneg = (a, name) => { if (!(a[0] >= 0)) throw new Error(name + ' must be non-negative (got [' + a[0] + ', ' + a[1] + '])'); return a; };
+  /* a decimal literal -> the two doubles around it */
+  const lit = (s) => {
+    const x = Number(String(s).trim()); if (!Number.isFinite(x)) throw new Error('not a number: ' + s);
+    if (Number.isInteger(x) && Math.abs(x) < 2 ** 53) return [x, x];       /* an integer is its own double */
+    return [nextDown(x), nextUp(x)];                                        /* a decimal fraction is enclosed */
+  };
+  const box = (lo, hi) => { const a = lit(lo), b = lit(hi); if (!(a[0] <= b[1])) throw new Error('a box must have lo ≤ hi'); return [a[0], b[1]]; };
+
+  /* the cell at one range. inp: { B, Hc, f, p, dd, dt, T, H, g, PI } as intervals; R an interval */
+  function cell(inp, R) {
+    const B = pos(inp.B, 'baseline'), Hc = pos(inp.Hc, 'camera height'), f = pos(inp.f, 'focal length'), p = pos(inp.p, 'pixel pitch');
+    const dd = nonneg(inp.dd, 'disparity precision'), dt = nonneg(inp.dt, 'sync lag'), T = pos(inp.T, 'wave period'), H = nonneg(inp.H, 'wave height'), g = pos(inp.g, 'g'), PI = inp.PI;
+    pos(R, 'range');
+    const D = sqrtIv(add(sqr(Hc), sqr(R)));                   /* slant range: the axis is aimed at the point */
+    const sin = div(Hc, D), cos = div(R, D);
+    const Z = D;                                              /* Y = 0 at the aimed point */
+    const d = div(mul(f, B), Z);                              /* true disparity, metres on the sensor */
+    const half = mul(iv(0.5), p);
+    /* deep-water wave: phase speed, wavenumber, amplitude */
+    const twoPi = mul(iv(2), PI);
+    const c = div(mul(g, T), twoPi);                          /* gT/2π */
+    const k = div(mul(iv(4), sqr(PI)), mul(g, sqr(T)));       /* 2π/λ = 4π²/(gT²) */
+    const a = mul(iv(0.5), H);
+    const omega = div(twoPi, T);
+    /* disparity uncertainty: quantization + matching, then the sync lag's worst-case texture shift */
+    const eQuant = mul(dd, p);
+    const uTex = nonneg(inp.utex || iv(0), 'texture speed');
+    const s = mul(add(mul(omega, a), uTex), dt);              /* texture displacement during the lag: orbital speed + ripple speed */
+    const eSync = div(mul(f, s), Z);
+    const cellAt = (e) => {
+      const dBox = [nextDown(d[0] - e[1]), nextUp(d[1] + e[1])];
+      if (!(dBox[0] > 0)) return null;                       /* the box reaches d ≤ 0: the far side is unbounded — REFUSED */
+      const vBox = [-half[1], half[1]];
+      const eta = sub(Hc, mul(div(B, dBox), add(mul(f, sin), mul(vBox, cos))));
+      const r = mul(div(B, dBox), sub(mul(f, cos), mul(vBox, sin)));
+      return { eta, r, vert: width(eta), horiz: width(r) };
+    };
+    const q = cellAt(eQuant);
+    const qs = cellAt(add(eQuant, eSync));
+    const velocity = mul(mul(omega, a), dt);                  /* the surface's own motion over the lag */
+    const slope = qs ? mul(mul(k, a), iv(qs.horiz)) : null;   /* misplacement on the steepest slope */
+    const total = qs ? add(add(iv(qs.vert), slope), velocity) : null;
+    return {
+      R, slant: D, sin, cos, disparityPx: div(d, p),
+      quantization: q, withSync: qs,
+      terms: q && qs ? { cell: q.vert, cellWithSync: qs.vert, slope: slope[1], velocity: velocity[1] } : null,
+      total, refused: !qs ? 'the disparity box reaches zero: at this range the rig cannot bound the far side' : null,
+      wave: { c, k, lambda: div(twoPi, k), orbital: mul(omega, a), textureShift: s },
+    };
+  }
+  /* the reach: the largest grid range at which the total's UPPER end is within tol × H,
+     scanning outward and stopping at the first failure (so the answer is a prefix of the grid) */
+  function reach(inp, tol, grid) {
+    const limit = mul(tol, inp.H);
+    let last = null, first = null, rows = [];
+    for (const R of grid) {
+      const c = cell(inp, R);
+      const ok = !!(c.total && c.total[1] <= limit[0]);
+      rows.push({ R: R[0], ok, total: c.total ? c.total[1] : null });
+      if (!ok) { first = R[0]; break; }
+      last = R[0];
+    }
+    return { reach: last, firstFailure: first, limit, rows };
+  }
+  return { cell, reach, lit, box, sqrtIv };
+}
+if (typeof module !== 'undefined' && module.exports) module.exports = { makeBudget };
+else if (typeof window !== 'undefined') window.makeBudget = makeBudget;
+</script>
+<script>/* instruments/stereo/presets.js — the rigs the instrument knows, with every
+   number's standing written beside it.
+
+   A value marked `paper` is a literal from the source named; a value marked
+   `box` is one the source does not state, carried as an interval wide enough
+   to contain any plausible reading; a value marked `chosen` is a scenario
+   assumption and is drawn as such on the page. No require() here either. */
+'use strict';
+const PRESETS = {
+  leme2020: {
+    name: 'Leme, Rio de Janeiro — Vieira, Guimarães, Violante-Carvalho, Benetazzo, Bergamasco, Pereira (JMSE 2020)',
+    short: 'Leme 2020 (two smartphones)',
+    source: 'Vieira et al., A Low-Cost Stereo Video System for Measuring Directional Wind Waves, J. Mar. Sci. Eng. 8 (2020) 831, doi:10.3390/jmse8110831, §2.3, §3.3, §4 and Table 1',
+    B: { v: '0.98', standing: 'paper', note: 'the smartphones were deployed 0.98 m apart' },
+    Hc: { v: '3.5', standing: 'paper', note: 'approximately 3.5 m above sea level' },
+    f: { v: '0.00371', standing: 'paper', note: 'focal length 3.71 mm (Samsung Galaxy J5 Pro)' },
+    p: { lo: '0.00000112', hi: '0.00000245', standing: 'box', note: 'not stated: 1.12 µm at the 13-megapixel native pitch, 2.45 µm if 1920 × 1080 video samples the full 4.7 mm sensor width' },
+    dd: { lo: '0.25', hi: '1', standing: 'box', note: 'matching precision not stated; calibration errors of 0.21–0.45 px are; a quarter to a whole pixel' },
+    dt: { v: '0.0166667', standing: 'chosen', note: 'audio cross-correlation synchronises to the frame at 30 fps: at most half a frame, 1/60 s' },
+    utex: { v: '1', standing: 'chosen', note: 'texture speed of ripples and glitter, 1 m/s' },
+    T: { v: '12.8', standing: 'paper', note: 'Tp = 12.8 s on every record of Table 1' },
+    H: { v: '0.35', standing: 'paper', note: 'Hs 0.29–0.35 m; the largest' },
+    g: { v: '9.80665', standing: 'chosen', note: 'standard gravity' },
+    rangeLo: '10', rangeHi: '35', gaugeRange: '34',
+    best: { p: '0.00000112', dd: '0.25' }, worst: { p: '0.00000245', dd: '1' },
+    observed: { rmse: [0.10, 0.12, 0.12, 0.10], bias: [-0.04, -0.05, -0.06, -0.01], note: 'Table 1: RMSE and bias of the surface elevation between the stereo system and the pressure gauge, four 19-minute records' },
+    quoted: { zQuantization: 0.0011, xyQuantization: [0.0009, 0.0099], note: '§4: "estimated root mean square quantization errors were 0.9 mm, 9.9 mm, and 1.1 mm for the x, y and z-axes" — the range they hold at is not stated' },
+  },
+  nazare: {
+    name: 'A Nazaré-class scenario — every number chosen',
+    short: 'Nazaré scenario (chosen)',
+    source: 'no source: a scenario in the shape of the Big Wave Tracker (labECO / Colab+Atlantic; cameras on the Forte de São Miguel headland, waves of ten metres and more, ranges of hundreds of metres). Every number below is an assumption to be replaced by the rig\'s own.',
+    B: { v: '10', standing: 'chosen', note: 'a ten-metre baseline along the headland' },
+    Hc: { v: '50', standing: 'chosen', note: 'fifty metres above the water' },
+    f: { v: '0.05', standing: 'chosen', note: 'a 50 mm lens' },
+    p: { v: '0.00000345', standing: 'chosen', note: '3.45 µm, a common machine-vision sensor' },
+    dd: { v: '0.5', standing: 'chosen', note: 'half a pixel' },
+    dt: { v: '0.001', standing: 'chosen', note: 'a hardware trigger: one millisecond' },
+    utex: { v: '2', standing: 'chosen', note: 'texture speed in a breaking sea, 2 m/s' },
+    T: { v: '16', standing: 'chosen', note: 'a 16-second swell' },
+    H: { v: '15', standing: 'chosen', note: 'a fifteen-metre wave' },
+    g: { v: '9.80665', standing: 'chosen', note: 'standard gravity' },
+    rangeLo: '200', rangeHi: '2000', gaugeRange: null,
+  },
+};
+
+/* the preset's numbers as intervals for the budget */
+function toIntervals(P, Bd, PI) {
+  const iv = (x) => (x.lo !== undefined ? Bd.box(x.lo, x.hi) : Bd.lit(x.v));
+  return { B: iv(P.B), Hc: iv(P.Hc), f: iv(P.f), p: iv(P.p), dd: iv(P.dd), dt: iv(P.dt), utex: iv(P.utex), T: iv(P.T), H: iv(P.H), g: iv(P.g), PI };
+}
+/* the facts the page states about Leme 2020, computed once here so page and battery agree */
+function lemeFacts(Bd, PI) {
+  const P = PRESETS.leme2020;
+  const inp = toIntervals(P, Bd, PI);
+  const best = Object.assign({}, inp, { p: Bd.lit(P.best.p), dd: Bd.lit(P.best.dd), dt: Bd.lit('0') });
+  const worst = Object.assign({}, inp, { p: Bd.lit(P.worst.p), dd: Bd.lit(P.worst.dd) });
+  const at = (i, R) => Bd.cell(i, Bd.lit(R));
+  return {
+    bestAtGauge: at(best, P.gaugeRange).total[1], worstAtGauge: at(worst, P.gaugeRange).total[1], boxAtGauge: at(inp, P.gaugeRange).total[1],
+    bestAtNear: at(best, P.rangeLo).total[1], worstAtNear: at(worst, P.rangeLo).total[1],
+    bestCellAtGauge: at(best, P.gaugeRange).terms.cell, disparityAtGauge: at(inp, P.gaugeRange).disparityPx,
+  };
+}
+const API = { PRESETS, toIntervals, lemeFacts, leme2020: PRESETS.leme2020, nazare: PRESETS.nazare };
+if (typeof module !== 'undefined' && module.exports) module.exports = API;
+else if (typeof window !== 'undefined') window.STEREO_PRESETS = API;
+</script>
+<script>/* app.js — the stereo-reach instrument, in the tab.
+   playground/stereo-reach/ · cert-machine
+
+   Every number shown is computed here from the inputs in the panel by
+   instruments/stereo/budget.js over instruments/interval/interval.js — the
+   same bytes the battery ran — with π's certified enclosure handed in by the
+   builder. A curve's standing is the weakest standing of any input it depends
+   on: a literal from a paper is decided, a box is decided (the enclosure holds
+   over the whole box), a scenario value or an edited value is chosen. */
+(function () {
+  'use strict';
+  const S = JSON.parse(document.getElementById('sr-spec').textContent);
+  const IV = window.IV, Bd = window.makeBudget(IV), PR = window.STEREO_PRESETS;
+  const PI = S.PI;
+  const $ = (id) => document.getElementById(id);
+  const W = 900, H = 460, ML = 66, MR = 54, MT = 14, MB = 46, PW = W - ML - MR, PH = H - MT - MB;
+  const FIELDS = ['B', 'Hc', 'f', 'p', 'dd', 'dt', 'utex', 'T', 'H'];
+  const UNITS = { B: ['baseline B', 'm', 1], Hc: ['camera height Hc', 'm', 1], f: ['focal length f', 'mm', 1000], p: ['pixel pitch p', 'micron', 1e6], dd: ['disparity precision δd', 'px', 1], dt: ['sync lag δt', 'ms', 1000], utex: ['texture speed', 'm/s', 1], T: ['wave period T', 's', 1], H: ['wave height H', 'm', 1] };
+  const CELL_DEPS = ['B', 'Hc', 'f', 'p', 'dd'], ALL_DEPS = FIELDS;
+  let standing = {};      /* per field: 'paper' | 'box' | 'chosen' */
+  let preset = 'leme2020';
+
+  const fmtN = (x, d) => Number(x).toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: 0 });
+  const cm = (x) => (x >= 1 ? fmtN(x, 2) + ' m' : x >= 0.01 ? fmtN(x * 100, 1) + ' cm' : fmtN(x * 1000, 2) + ' mm');
+  const getR = () => Math.pow(10, Number($('sr-R').value));
+  const toUser = (k, v) => String(Number((Number(v) * UNITS[k][2]).toPrecision(12)));   /* the unit change is a display convenience; the literal the budget reads is what the box shows */
+  const fromUser = (k, s) => String(Number(s) / UNITS[k][2]);
+
+  function buildInputs() {
+    const host = $('sr-inputs'); host.innerHTML = '';
+    for (const k of FIELDS) {
+      const spec = S.presets[preset][k];
+      const isBox = spec.lo !== undefined;
+      const f = document.createElement('div'); f.className = 'f' + (isBox ? ' wide' : '');
+      f.innerHTML = '<label for="sr-' + k + '">' + UNITS[k][0] + ' (' + UNITS[k][1] + ')</label>'
+        + (isBox ? '<div class="pair"><input id="sr-' + k + '" type="text" inputmode="decimal" value="' + toUser(k, spec.lo) + '"><input id="sr-' + k + '-hi" type="text" inputmode="decimal" value="' + toUser(k, spec.hi) + '"></div>' : '<input id="sr-' + k + '" type="text" inputmode="decimal" value="' + toUser(k, spec.v) + '">')
+        + '<div class="st ' + spec.standing + '" id="sr-' + k + '-st" title="' + (spec.note || '').replace(/"/g, '&quot;') + '">' + (spec.standing === 'paper' ? 'from the paper' : spec.standing === 'box' ? 'not stated · a box' : 'chosen') + '</div>';
+      host.appendChild(f);
+      standing[k] = spec.standing;
+      const inputs = f.querySelectorAll('input');
+      for (const inp of inputs) inp.addEventListener('input', () => { standing[k] = 'chosen'; $('sr-' + k + '-st').textContent = 'chosen (edited)'; $('sr-' + k + '-st').className = 'st chosen'; render(); });
+    }
+  }
+  function readInputs() {
+    const o = { g: Bd.lit(S.presets[preset].g.v), PI: PI };
+    for (const k of FIELDS) {
+      const hi = $('sr-' + k + '-hi');
+      o[k] = hi ? Bd.box(fromUser(k, $('sr-' + k).value), fromUser(k, hi.value)) : Bd.lit(fromUser(k, $('sr-' + k).value));
+    }
+    return o;
+  }
+  const standingOf = (deps) => (deps.some((k) => standing[k] === 'chosen') ? 'chosen' : 'decided');
+  const attrs = (st) => S.marks[st];
+
+  function render() {
+    let inp;
+    try { inp = readInputs(); } catch (e) { $('sr-verdict').innerHTML = '<div class="word">REFUSED</div><div class="why">' + e.message + '</div>'; return; }
+    const P = S.presets[preset];
+    const lo = Number(P.rangeLo), hi = Number(P.rangeHi);
+    const x0 = lo / 2, x1 = hi * 2;
+    const grid = []; for (let x = x0; x <= x1 * 1.0001; x *= 1.04) grid.push(x);
+    const rows = [];
+    for (const R of grid) { try { rows.push({ R, c: Bd.cell(inp, Bd.lit(String(R))) }); } catch (e) { rows.push({ R, c: null }); } }
+    const tol = Number($('sr-tol').value) / 100;
+    const limit = IV.mul(Bd.lit(String(tol)), inp.H);
+    /* the reach on the same grid, from the near edge outward */
+    const rr = Bd.reach(inp, Bd.lit(String(tol)), grid.filter((x) => x >= lo).map((x) => Bd.lit(String(x))));
+    /* plot: log-log, y from 1 mm to 100 m */
+    const ys = (v) => Math.log10(Math.max(v, 1e-3)), y0 = ys(1e-3), y1 = ys(100);
+    const px = (R) => ML + (Math.log10(R) - Math.log10(x0)) / (Math.log10(x1) - Math.log10(x0)) * PW;
+    const py = (v) => MT + PH - (ys(v) - y0) / (y1 - y0) * PH;
+    const out = [];
+    for (const v of [1e-3, 1e-2, 1e-1, 1, 10, 100]) { const y = py(v); out.push('<line class="sr-grid" x1="' + ML + '" y1="' + y + '" x2="' + (ML + PW) + '" y2="' + y + '"/>', '<text class="sr-tick" x="' + (ML - 8) + '" y="' + (y + 4) + '" text-anchor="end">' + (v >= 1 ? v + ' m' : v >= 0.01 ? (v * 100) + ' cm' : '1 mm') + '</text>'); }
+    const xt = []; for (let d = 1; d <= 10000; d *= 10) for (const m of [1, 2, 5]) if (d * m >= x0 && d * m <= x1) xt.push(d * m);
+    for (const v of xt) { const x = px(v); out.push('<line class="sr-grid" x1="' + x + '" y1="' + MT + '" x2="' + x + '" y2="' + (MT + PH) + '"/>', '<text class="sr-tick" x="' + x + '" y="' + (MT + PH + 16) + '" text-anchor="middle">' + v + '</text>'); }
+    out.push('<line class="sr-axis" x1="' + ML + '" y1="' + (MT + PH) + '" x2="' + (ML + PW) + '" y2="' + (MT + PH) + '"/>');
+    out.push('<text class="sr-lab" x="' + (ML + PW / 2) + '" y="' + (H - 8) + '" text-anchor="middle">horizontal range to the surface point (m)</text>');
+    out.push('<text class="sr-lab" transform="rotate(-90 14 ' + (MT + PH / 2) + ')" x="14" y="' + (MT + PH / 2) + '" text-anchor="middle">elevation error bound (upper end)</text>');
+    /* the imaged range of the preset */
+    out.push('<rect x="' + px(lo) + '" y="' + MT + '" width="' + (px(hi) - px(lo)) + '" height="' + PH + '" fill="var(--ink)" fill-opacity="0.04"/>');
+    /* tolerance */
+    out.push('<line class="sr-tol" x1="' + ML + '" y1="' + py(limit[0]) + '" x2="' + (ML + PW) + '" y2="' + py(limit[0]) + '"/>', '<text class="sr-lab" x="' + (ML + PW - 4) + '" y="' + (py(limit[0]) - 5) + '" text-anchor="end">tolerance ' + (tol * 100) + '% of H = ' + cm(limit[0]) + '</text>');
+    const path = (pick) => rows.filter((r) => r.c && pick(r.c) !== null && pick(r.c) !== undefined).map((r, i) => (i ? 'L' : 'M') + px(r.R).toFixed(1) + ' ' + py(pick(r.c)).toFixed(1)).join(' ');
+    const stCell = standingOf(CELL_DEPS), stAll = standingOf(ALL_DEPS);
+    const thin = (st) => attrs(st).replace('class="', 'class="sr-thin ');   /* one class attribute, both names */
+    out.push('<path ' + thin(stCell) + ' d="' + path((c) => c.terms && c.terms.cell) + '"/>');
+    out.push('<path ' + thin(stAll) + ' d="' + path((c) => c.terms && c.terms.slope) + '"/>');
+    out.push('<path ' + thin(stAll) + ' d="' + path((c) => c.terms && c.terms.cellWithSync) + '"/>');
+    out.push('<path ' + attrs(stAll) + ' d="' + path((c) => c.total && c.total[1]) + '"/>');
+    /* labels at the right end */
+    const last = rows.filter((r) => r.c && r.c.total).slice(-1)[0];
+    if (last) {
+      /* labels at the right end, pushed apart when they would collide */
+      const labs = [[last.c.total[1], 'total'], [last.c.terms.slope, 'slope'], [last.c.terms.cell, 'cell'], [last.c.terms.cellWithSync, '+sync']].map(([v, t]) => ({ y: py(v), t })).sort((a, b) => a.y - b.y);
+      for (let i = 1; i < labs.length; i++) if (labs[i].y - labs[i - 1].y < 12) labs[i].y = labs[i - 1].y + 12;
+      for (const l of labs) out.push('<text class="sr-lab" x="' + (px(last.R) + 4) + '" y="' + (l.y + 4) + '" text-anchor="start">' + l.t + '</text>');
+    }
+    /* the reach marker */
+    if (rr.reach !== null) out.push('<line class="sr-axis" x1="' + px(rr.reach) + '" y1="' + MT + '" x2="' + px(rr.reach) + '" y2="' + (MT + PH) + '"/>', '<text class="sr-lab" x="' + (px(rr.reach) + 4) + '" y="' + (MT + 12) + '" text-anchor="start">reach ' + fmtN(rr.reach, 0) + ' m</text>');
+    /* the chosen range */
+    const R = getR();
+    out.push('<line class="sr-tol" x1="' + px(R) + '" y1="' + MT + '" x2="' + px(R) + '" y2="' + (MT + PH) + '"/>');
+    const cR = (() => { try { return Bd.cell(inp, Bd.lit(String(R))); } catch (e) { return null; } })();
+    if (cR && cR.total) out.push('<circle class="sr-mark" cx="' + px(R) + '" cy="' + py(cR.total[1]) + '" r="4.5"/>');
+    $('sr-svg').innerHTML = out.join('');
+    /* readout */
+    $('sr-Rv').textContent = fmtN(R, 0) + ' m';
+    if (cR && cR.total) {
+      const st = (deps) => 'v w-' + standingOf(deps);
+      $('r-cell').textContent = cm(cR.terms.cell); $('r-cell').className = st(CELL_DEPS);
+      $('r-cell-note').textContent = 'horizontal ' + cm(cR.quantization.horiz) + ' · disparity ' + fmtN(cR.disparityPx[0], 1) + (cR.disparityPx[1] - cR.disparityPx[0] > 0.05 ? '–' + fmtN(cR.disparityPx[1], 1) : '') + ' px';
+      $('r-sync').textContent = cm(cR.terms.cellWithSync - cR.terms.cell); $('r-sync').className = st(ALL_DEPS);
+      $('r-sync-note').textContent = 'texture moves ' + cm(cR.wave.textureShift[1]) + ' in the lag';
+      $('r-slope').textContent = cm(cR.terms.slope); $('r-slope').className = st(ALL_DEPS);
+      $('r-slope-note').textContent = 'a ' + cm(cR.withSync.horiz) + ' misplacement on a slope up to ' + fmtN(cR.wave.k[1] * Number(fromUser('H', $('sr-H').value)) / 2, 3);
+      $('r-vel').textContent = cm(cR.terms.velocity); $('r-vel').className = st(ALL_DEPS);
+      $('r-total').textContent = cm(cR.total[1]); $('r-total').className = st(ALL_DEPS);
+      const ok = cR.total[1] <= limit[0];
+      $('sr-verdict').innerHTML = '<div class="word ' + (standingOf(ALL_DEPS) === 'chosen' ? 'w-chosen' : 'w-decided') + '">' + (ok ? 'WITHIN TOLERANCE' : 'BEYOND TOLERANCE') + '</div><div class="why">At ' + fmtN(R, 0) + ' m the bound on the elevation error is ' + cm(cR.total[1]) + ' against ' + cm(limit[0]) + ' (' + (tol * 100) + '% of H). ' + (rr.reach !== null ? 'The reach at this tolerance is ' + fmtN(rr.reach, 0) + ' m: the last range on a 4% grid from the near edge before the bound first exceeds it' + (rr.firstFailure ? ' (it does at ' + fmtN(rr.firstFailure, 0) + ' m)' : '') + '.' : 'No range from the near edge is within tolerance.') + (standingOf(ALL_DEPS) === 'chosen' ? ' Dotted: at least one input is a choice, not a literal from a source.' : '') + '</div>';
+    } else {
+      $('sr-verdict').innerHTML = '<div class="word">REFUSED</div><div class="why">' + (cR && cR.refused ? cR.refused : 'no cell at this range') + '</div>';
+      for (const id of ['r-cell', 'r-sync', 'r-slope', 'r-vel', 'r-total']) $(id).textContent = '—';
+    }
+  }
+  function loadPreset() {
+    preset = $('sr-preset').value;
+    const P = S.presets[preset];
+    buildInputs();
+    const r = $('sr-R'); r.min = Math.log10(Number(P.rangeLo) / 2); r.max = Math.log10(Number(P.rangeHi) * 2); r.step = 0.01;
+    r.value = Math.log10(P.gaugeRange ? Number(P.gaugeRange) : Math.sqrt(Number(P.rangeLo) * Number(P.rangeHi)));
+    $('sr-source').textContent = P.source;
+    render();
+  }
+  /* the range slider is logarithmic: its value is log10(R) */
+  $('sr-tol').addEventListener('input', render);
+  $('sr-R').addEventListener('input', render);
+  $('sr-preset').addEventListener('change', loadPreset);
+  loadPreset();
+})();
+</script>
+</body>
+</html>

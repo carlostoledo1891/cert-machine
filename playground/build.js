@@ -38,6 +38,8 @@ const PQ = require(path.join(HERE, 'pqc', 'build.js'));
 const OC = require(path.join(HERE, 'occultation', 'build.js'));
 const TR = require(path.join(HERE, 'transit', 'build.js'));
 const CE = require(path.join(HERE, 'census', 'build.js'));
+const EC = require(path.join(HERE, 'contours', 'build.js'));
+const SR = require(path.join(HERE, 'stereo-reach', 'build.js'));
 const NS = require(path.join(HERE, 'navier-stokes', 'build.js'));
 /* the affect card's numbers, read out of the record rather than typed. A card
    that repeats a page's figures by hand is a second copy, and a second copy
@@ -110,7 +112,7 @@ const fact = (k, v, note) =>
    has no row, so the two cannot drift apart. `backing` is what decides the
    headline number, in the words the pages use; `battery` is whether a battery
    in make test covers the page, decided by the file's existence, not typed. */
-const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py' };
+const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py', contours: 'instruments/ecbench/battery.js', 'stereo-reach': 'instruments/stereo/battery.js' };
 const MANIFEST = [
   { id: 'shape-hunt', title: 'Nothing here is a perfect circle.', blurb: 'Sixteen million exact tests for hidden polygons in the geometries the pages next door report, then the same search with the geometry shuffled out.', backing: 'exact', art: () => SH.cardArt(), scale: `${fmt(SH.SHAPETESTS)} shape tests` },
   { id: 'navier-stokes', title: 'Turn the singularity.', blurb: 'The object a Millennium proof constructs, not a simulation of it: a self-similar core you collapse by hand, and the one parameter it hangs on, with the two classical exclusions that close on it from opposite sides — decided in your tab in exact integers.', backing: 'exact', art: () => NS.cardArt(), scale: `${NS.facts.criteria} criteria, decided live` },
@@ -127,6 +129,8 @@ const MANIFEST = [
   { id: 'rewire', title: 'Rewire it yourself.', blurb: 'Lattice claims with exact answers and three graders; only one may reach the socket that decides. Drag the wrong one there and the engine refuses.', backing: 'exact', art: () => RW.cardArt(), scale: `${RW.facts.instances} instances` },
   { id: 'pqc', title: 'Solid where it was proved.', blurb: 'The SVP challenge\'s records as six-figure floats with no error bound, re-decided in exact arithmetic from the published vectors.', backing: 'exact', art: () => PQ.cardArt(), scale: `${PQ.facts.records} records` },
   { id: 'occultation', title: 'The occultation, without the ellipse.', blurb: 'Chords across a silhouette and stations that saw nothing: what they force on the size of a small body, assuming only convexity.', backing: 'exact', art: () => OC.cardArt(), scale: `${OC.facts.chords} chords · ${OC.facts.misses} misses` },
+  { id: 'stereo-reach', title: 'How far can two cameras bound a wave?', blurb: 'The error budget of a stereo-video wave rig as enclosures \u2014 the pixel cell, the lag, the slope \u2014 computed in interval arithmetic in your tab; dial the rig and read the range at which the bound first exceeds a tolerance.', backing: 'exact', art: () => SR.cardArt(), scale: `${(SR.facts.bestAtGauge * 100).toFixed(1)}\u2013${(SR.facts.worstAtGauge * 100).toFixed(0)} cm at ${SR.facts.gauge} m` },
+  { id: 'contours', title: 'Every hour of sea, against every contour.', blurb: 'Nine groups\u2019 environmental contours over the hourly sea states they were scored on, every count re-decided exactly, and any sea state you click decided inside, outside or on \u2014 by the code that decided the ledger.', backing: 'exact', art: () => EC.cardArt(), scale: `${EC.facts.exact} of ${EC.facts.comparisons} printed counts exact` },
   { id: 'census', title: 'Unique totals, and the split nobody can see.', blurb: 'Two populations on one network: the equilibrium fixes the totals and not the split. The face of splits it cannot tell apart, its dimension decided in your tab.', backing: 'exact', art: () => CE.cardArt(), scale: `k = ${CE.facts.paper.face.k}` },
   { id: 'transit', title: 'The transit, without a law for the star.', blurb: 'What a planet\'s transit photometry forces on the radius ratio, assuming only that the star darkens toward its limb.', backing: 'exact', art: () => TR.cardArt(), scale: TR.facts.name },
   { id: 'simplex', title: 'An attention row is a point. Nobody draws it that way.', blurb: 'A row of attention weights is a point in a simplex; focus is distance from the centre, temperature is a path.', backing: 'exact', art: () => SIMPLEX.cardArt(), scale: `${SIMPLEX.M.positions} positions` },
@@ -331,6 +335,28 @@ const body = `
     </div>
   </a>
 
+  <a class="card" href="stereo-reach/index.html">
+    <figure class="card-art">
+      ${plate(SR.cardArt(), `Leme 2020 &middot; ${(SR.facts.bestAtGauge * 100).toFixed(1)}&ndash;${(SR.facts.worstAtGauge * 100).toFixed(0)} cm at the gauge`)}
+    </figure>
+    <div class="card-body">
+      <h2>How far can two cameras bound a wave?</h2>
+      <p class="sub">A stereo-video rig recovers the sea surface from the pixel offset between two images, and every pixel is a box. The set of elevations the rig cannot tell apart at a range is a cell computed here exactly, in interval arithmetic, over inputs that may themselves be boxes &mdash; a pixel pitch the paper does not state. Turn the baseline, the lens, the lag, the sea; read the bound at any range and the range at which it first exceeds a tolerance. Preset: the two-smartphone rig of Vieira, Guimar&atilde;es et al. (2020), whose observed error against a pressure gauge lands inside the budget its own numbers give.</p>
+      <span class="go">turn the rig <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+  <a class="card" href="contours/index.html">
+    <figure class="card-art">
+      ${plate(EC.cardArt(), `${EC.facts.contours} contours &middot; ${EC.facts.notSimple} cross themselves`)}
+    </figure>
+    <div class="card-body">
+      <h2>Every hour of sea, against every contour.</h2>
+      <p class="sub">An environmental contour is the line an offshore designer reads a fifty-year sea state off. Nine groups drew theirs for six metocean datasets in one benchmarking exercise, scored by counting the hourly observations outside each. Every contour drawn over the ${(1840824).toLocaleString('en-US')} hours it was scored on, the count re-decided exactly &mdash; ${EC.facts.exact} of ${EC.facts.comparisons} printed numbers reproduce, ${EC.facts.notSimple} of ${EC.facts.contours} contours cross themselves &mdash; and any sea state you click decided INSIDE, OUTSIDE or ON by the code that decided the ledger.</p>
+      <span class="go">decide a sea state <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
   <a class="card" href="census/index.html">
     <figure class="card-art">
       ${plate(CE.cardArt(), `k = ${CE.facts.paper.face.k} &middot; ${CE.facts.census.fresh.tested.toLocaleString('en-US')} networks`)}
@@ -419,6 +445,8 @@ const pq = PQ.build(OUT);
 const oc = OC.build(OUT);
 const tr = TR.build(OUT);
 const ce = CE.build(OUT);
+const ec = EC.build(OUT);
+const sr = SR.build(OUT);
 const ns = NS.build(OUT);
 
 console.log(`site/instruments/navier-stokes/     ${(ns.bytes / 1024).toFixed(0)} KB  ·  ${NS.facts.criteria} criteria and ${NS.facts.exponents} exponents decided live in exact rationals, paper ${NS.facts.paper}`);
@@ -440,5 +468,7 @@ console.log(`site/instruments/rewire/            ${(rw.bytes / 1024).toFixed(0)}
 console.log(`site/instruments/pqc/               ${(pq.bytes / 1024).toFixed(0)} KB  ·  ${pq.records} records, ${pq.decided} decided exactly, ${pq.open} undecidable from the printed norm; LLL dim ${pq.dim}, ${pq.snaps} snapshots`);
 console.log(`site/instruments/occultation/       ${(oc.bytes / 1024).toFixed(0)} KB  ·  ${oc.chords} chords, ${oc.misses} misses, Deq in [${oc.lo}, ${oc.hi}] km, the misses worth ${oc.worth.toFixed(1)} km`);
 console.log(`site/instruments/transit/           ${(tr.bytes / 1024).toFixed(0)} KB  ·  ${tr.targets} planets, ${tr.published} published values inside, intervals ${JSON.stringify(tr.intervals)}`);
+console.log(`site/instruments/stereo-reach/      ${(sr.bytes / 1024).toFixed(0)} KB  ·  Leme 2020 cell at the gauge ${(sr.bestAtGauge * 100).toFixed(1)} cm best, ${(sr.worstAtGauge * 100).toFixed(0)} cm worst corner`);
+console.log(`site/instruments/contours/          ${(ec.bytes / 1024).toFixed(0)} KB  ·  ${ec.contours} contours, ${ec.exact}/${ec.comparisons} printed counts exact, ${ec.notSimple} not simple, ${ec.clipped} hours clipped to the drawing's edge`);
 console.log(`site/instruments/census/            ${(ce.bytes / 1024).toFixed(0)} KB  ·  k = ${ce.k} on the published network, ${ce.tested} networks in the census, ${ce.failures} fool the shortcut`);
 console.log(`@ git ${git}`);

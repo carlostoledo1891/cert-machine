@@ -21,6 +21,38 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-12 (the fourteenth session). In the order I would take it:
+
+  0. THE UFSC LINE IS OPEN AND ITS FIRST ITEM IS BUILT. The operator has a
+     contact at UFSC Florianópolis — Pedro Veras Guimarães, labECO, ocean
+     engineering: extreme value analysis of Hs (Ocean Eng. 2026, with a
+     corrigendum), a Petrobras multivariate-extremes contract, low-cost stereo
+     video, wave breaking, the national buoy network. The menu is
+     notes/ufsc-labeco-menu-2026-09-12.md and the targets row `labeco`.
+     mare-farm (sin-mfg, class C, method lit-OCCUPIED, not his topic) is NOT
+     revived; its direction is, with the emphasis flipped: the metocean object
+     is what we certify. ITEM 1 SHIPPED THIS SESSION — the environmental-
+     contour benchmark re-decided (reports/ec-benchmark.html, /instruments/
+     contours) and ITEM 3 AFTER IT — the stereo rig's error budget as
+     enclosures (/instruments/stereo-reach; both in the fourteenth-session log
+     below) and ITEM 5 AFTER THAT — his 16,369 breaking waves decided against
+     the laboratory (reports/breaking-geometry.html). NEXT on that line: (2)
+     the return-level table as a certificate — needs his data, and the first
+     question to him is what the corrigendum corrected; then 4 (Hs forecasts on
+     PNBOIA buoys), 6 (waves against a current), 7B (weather-window Wardrop). Nothing has been sent to Pedro or to the
+     benchmark's organizers; both are the operator's.
+  0a. NOTHING IS PUSHED from this session (the previous "fourteen local
+     commits" note is stale — everything through 77ba80d IS on main and live).
+     This session's work is uncommitted at the close: the operator did not ask
+     for a commit. `git status` lists it; the site bundle is rebuilt.
+  1. The layout ruler and render gate baselines were ACCEPTED for the two new
+     pages only (see the log). The render gate then caught a PRE-EXISTING leak:
+     two literal backticks on /machine, from the blind-spot battery description
+     committed 2026-09-10 (`-mode none`) — fixed in tools/build-control.js; the
+     control page was rebuilt afterwards (see batteries.json for the final tally
+     this session left).
+
+────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-10 (the thirteenth session). In the order I would take it:
 
   0. THREE ENVIRONMENTS ARE ON THE HUB. break-the-grader (2026-09-04),
@@ -94,6 +126,223 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  FOURTEENTH SESSION, 2026-09-12 — THE UFSC LINE OPENED: A MENU FOR PEDRO VERAS
+  GUIMARÃES'S RESEARCH, AND THREE OF ITS ITEMS BUILT THE SAME DAY — THE ENVIRONMENTAL-
+  CONTOUR BENCHMARK RE-DECIDED TO THE LAST POINT (REPORT + INSTRUMENT), THE STEREO
+  RIG'S ERROR BUDGET AS ENCLOSURES (INSTRUMENT), AND HIS 16,369 BREAKING WAVES
+  DECIDED AGAINST THE LABORATORY (REPORT).
+  NOT PUSHED, NOT COMMITTED at the close · 86/86 batteries · 63 pages · 20 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "I have a contact on UFSC, Florianópolis. I want to
+    see if we can revive mare-farm or anything related to this from here or from
+    sin-mfg. The goal is to produce reports and playgrounds that fit his recent
+    research topics" — with the Lattes CV — then "go".
+
+  ── 1 · THE SCOUT ── target memory had nothing marine ("unknown, not open").
+    sin-mfg/research/mare-farm read whole: class C (41 files withheld, ships
+    empty), its Track A a one-shot aggregative game whose METHOD tier the lit
+    gate found OCCUPIED (Kubica–Woźniak 2010, Bordeaux–Pajot 2005), its sea-state
+    data never real (ERA5 blocked on a CDS account), and none of it his topic.
+    His actual line, read off OpenAlex (36 works) and the CV: extreme value
+    analysis of Hs (Reis, Guimarães, Farina et al., Ocean Eng. 2026, OA, with a
+    corrigendum 2026-05-30), climate change and design waves (Research Square
+    2026, code on Zenodo), the Petrobras/ANP contract on multivariate extremes of
+    wave, wind profile and current profile — i.e. ENVIRONMENTAL CONTOURS — low-
+    cost stereo video (Coastal Eng. 2024, Big Wave Tracker at Nazaré), a new
+    16,000-breaking-wave dataset (Zenodo, CC-BY, 8.9 GB), wave–current (SKIB),
+    ReNOMO. Seven ideas ranked in notes/ufsc-labeco-menu-2026-09-12.md; the row
+    written. The killer-app test passes for the first time on a scouted line: an
+    offshore operator is legally required to produce a defensible 100-year value
+    under DNV/ISO rules, which is his contract word for word.
+
+  ── 2 · THE OBJECT ── Haselsteiner et al. 2021, "A benchmarking exercise for
+    environmental contours" (Ocean Eng. 236, 109504): nine groups submitted 1-,
+    20- and 50-year contours for six hourly metocean datasets (NDBC buoys A–C,
+    coastDat D–F; ten/25 provided years, ten/25 RETAINED), and the organizers
+    scored each by counting observations outside it with matplotlib's float
+    Path.contains_points. Everything public at github.com/ec-benchmark-organizers/
+    ec-benchmark. corpus/ec-benchmark pins commit a1561fe7: the 150 contour files
+    verbatim (committed), the twelve datasets (55 MB, GITIGNORED and fetched by
+    tools/fetch-ec-benchmark.js with sha256 verification — exercised by moving a
+    file away and fetching it back), the organizers' two counting scripts and
+    settings.py, viroconcom 1.4.8's points_outside and readers (from the PyPI
+    sdist, its sha256 in the pin). claims.json transcribes the preprint's Tables
+    1, 5, 6 and 2 and the organizers' hand-coded column orders.
+
+  ── 3 · THE INSTRUMENT ── instruments/ecbench: lib.js reads every number as the
+    literal its digits denote (kept as string + double image) and the column
+    order FROM THE HEADER (one file spells it "heigth"); geometry.js has no
+    require() in it so the instrument page inlines the same bytes — the float
+    filter with its PROVED bound (48u·M², 8.7e-11 at M = 128; the derivation in
+    the comment) and BigInt fallback at scale 10^64, even-odd classification with
+    nonzero winding beside it, ON as a third answer, self-crossings pair by pair,
+    exact area, the implicit closing edge, maxima at vertices; decide.js is the
+    node face and checks the two literal readers agree; expected.js certifies
+    Table 1 — erfc by Laplace's continued fraction (consecutive convergents of a
+    positive fraction bracket the value), β = Φ⁻¹(1−α) by bisection that tightens
+    only on a certain sign, α_t = exp(−β²/2). Battery 218 checks, 14 reds — one
+    of them a case FOUND BY SEARCH (492 random trials) where float64 gives the
+    wrong determinant sign (+3.55e-15, exact −); the battery was MUTATION-TESTED:
+    loosening the filter to 1e-30 goes red, ignoring edge direction goes red (11
+    fails); flipping the half-open convention does NOT, correctly, because it is
+    an equivalent convention. isqrt by float seed hung for 1e54 iterations at
+    scale 10^128 — Newton now. The ledger runner decides 150 contours × 1,840,824
+    hours in 5.9 s: 637 M predicates, 237 k of them to exact arithmetic.
+
+  ── 4 · THE FINDINGS (certs/ecbench-ledger.json) ──
+    · 176 printed numbers read against the exact counts: 173 the exact count to
+      the integer; 1 (contribution 2's wind-wave 1-yr mean) agrees once two
+      observations lying EXACTLY ON the contour are counted outside — a 3-decimal
+      vertex coinciding with a 4-decimal observation, in E (1989-06-17 20:00) and
+      F (1986-06-27 20:00); 2 (contribution 3's 1-yr sea-state row: printed means
+      82.3 and 48.3, exact 104.0 and 55.0) are NOT the count of the file on
+      record. The repository's own history: those three files were rewritten on
+      2020-09-25 (07f0ecc3) to drop 53/41/55 rows with a NaN coordinate; the
+      20-yr files were never touched and agree to the integer. Recorded in
+      claims.json `lineage`, stated on the page as provenance, not refutation.
+    · 30 of 150 contours are NOT simple polygons: 10 of contribution 2's 12 (24
+      vertices, 44 consecutive duplicates), 9 of contribution 9's direct-sampling
+      and 6 of its smoothed, 2 of contribution 5's, and ONE crossing each in two
+      of contribution 7's IFORM contours and in contribution 4's HD contour for
+      A/20 — where the one crossing is the IMPLICIT CLOSING EDGE (0.11 m, the
+      longest in the polygon) cutting the curve's tail. 49 files not closed. In
+      11 of the 30 the closing edge is a crossing edge. NO observation changes
+      side between even-odd and winding, so the printed counts do not depend on
+      the rule; the shape of what was counted does.
+    · Table 1 certified: 197 / 11.5 / 492 / 12 are the roundings of 196.862 /
+      11.524 / 492.141 / 11.994; the total-exceedance 20 and 1 are EXACT because
+      175,320 = 20 × 8766 hours.
+    · New numbers the paper did not print: the out-of-sample counts on the
+      retained years alone (expected 0.5276/0.5213/0.5337 on A–C and 0.4999 on
+      D–F for a total-exceedance contour; HD contribution 4: 1, 2, 2, 1, 6, 0;
+      ISORM contribution 1: 107, 36, 33, 104, 48, 65), and every contour's max
+      Hs against the observed maximum (dataset A's 11.7976 m of 2010-02-26, in
+      the retained years, is above all eleven 20-yr contours).
+    · CROSS-CHECK OUTSIDE THE GATES: matplotlib 3.9.4's float count reproduces
+      the exact count on all 150 contours, the two boundary points counted
+      outside. The pre-rewrite NaN files give 129/89/26 (mean 81.3) under 3.9.4 —
+      near the printed 82.3 but not it; the benchmark ran 3.3.1. Not on the page
+      as a claim; in claims.json as COMPUTED.
+
+  ── 5 · THE PAGES ── reports/ec-benchmark.html ("Their contours, re-decided
+    to the last point."), applied lane, three figures: the 176 cells as a strip
+    (173 green, 1 amber, 2 plum), the 21-crossing direct-sampling contour drawn
+    in file order with its crossings (a three-cornered loop; the crossings are
+    centimetre zigzags at the corners), and every contour's max Hs against the
+    observed maximum. Every sentence gated; the float drawing must find the
+    decided crossing count or the page refuses. Tables shrunk to eight columns
+    after a screenshot showed the ninth clipped. /instruments/contours ("Every
+    hour of sea, against every contour."): the chosen contour over a 90×54
+    density of its dataset, the exact counts and polygon facts from the ledger,
+    the paper's printed number beside them, and ANY SEA STATE the reader clicks
+    or types decided INSIDE / OUTSIDE / ON in the tab by geometry.js inlined —
+    the same bytes as the ledger. 2.2 MB, because the vertices ride as literal
+    strings (exactness needs them). Driven at 1440 and 390 with real clicks:
+    the first desktop click landed below the fold and decided nothing, the
+    phone laid out at 651 px until the table got its own scroll box.
+
+  ── 6 · THE GATES ── the grammar gate refused two dash patterns I had typed
+    ("4 3" on the card, "3 2" in the tab) — the crossing marks take
+    W.attrs(COMPUTED) now, passed into the page's JSON at build so the runtime
+    never types a dash. check-wiring ALL PASS. Render and measure baselines
+    accepted for the two new pages (the ratchet kept the two skyaudit rows it
+    read low, as it should). The render gate then found a leak that predates
+    this session — two literal backticks on /machine from the blind-spot
+    battery description of 2026-09-10 — fixed at the source. The datasets are
+    fetched by the battery and the runner themselves when absent (a fresh clone
+    runs `make test` without a manual step; exercised by removing a file).
+    make site ran once (16 min) and make control twice more.
+
+  ── 7 · ITEM 3, ON "PROCEED" ── the operator asked whether every next task
+    still connects to Pedro; the honest ranking by fit was 2 → 3 → 5, with 4 and
+    6 as gifts and 7B the weakest; "proceed" — and 2 needs his data, so 3 was
+    built: THE STEREO RIG'S ERROR BUDGET AS ENCLOSURES. instruments/stereo/
+    budget.js is require-free and takes the interval module: the rectified
+    pinhole pair aimed at the surface point, η = Hc − (B/d)(f sinθ + v cosθ),
+    r = (B/d)(f cosθ − v sinθ); each measured quantity enters ONCE, so the
+    interval extension over the pixel box (disparity ±δd px, vertical ±½ px) is
+    TIGHT — the quantization cell is an exact enclosure, and it holds over
+    inputs that are themselves boxes. Three bound terms ride on it: the sync
+    lag's texture shift (the water's orbital speed plus a CHOSEN texture speed
+    — a first draft used the phase speed and produced three-metre cells, which
+    is wrong physics: the matcher tracks texture, not the wave shape), the
+    surface's own motion ωH/2·δt, and a horizontal misplacement read on the
+    steepest slope kH/2. The reach is the last grid range whose UPPER bound
+    clears tol·H. presets.js carries Leme 2020 (Vieira, Guimarães, Violante-
+    Carvalho, Benetazzo, Bergamasco, Pereira, JMSE 8:831 — fetched from
+    mdpi-res.com after mdpi.com refused; the paper's literals B 0.98 m, Hc
+    3.5 m, f 3.71 mm, T 12.8 s, H 0.35 m, the gauge at 34 m; boxes for the
+    pixel pitch, 1.12–2.45 µm, and the matching precision, 0.25–1 px, which it
+    does not state) and a Nazaré scenario with every number chosen. Battery 28
+    checks, 9 reds, mutation-tested twice (drop sinθ; mis-box the disparity).
+    THE FINDING: the certified cell at the gauge is 2.9 cm at the best corner
+    and 33 cm at the worst; the paper's observed RMSEs against the pressure
+    gauge, 10–12 cm, lie BETWEEN them — the geometry with the paper's own
+    numbers accounts for the deviation; and its quoted 1.1 mm z-quantization
+    is below the best-case cell at any range in the imaged area (8.8 mm at
+    10 m) — taken from its reference [42], which we do not hold: not
+    reproduced, not refuted, said so. /instruments/stereo-reach ("How far can
+    two cameras bound a wave?"): every input a dial carrying its standing
+    (paper / box / chosen; editing makes it chosen and the curves go dotted —
+    the grammar's stroke channel doing exactly its job), the four terms
+    against range on log axes, the tolerance line and the reach, all computed
+    in the tab by the inlined bytes; three defects found by looking: a
+    duplicate class attribute that hid three curves, labels clipped at the
+    right edge, and "µm" uppercased by CSS into a Greek mu. Driven at 1440 and
+    390; batteries 85.
+
+  ── 8 · ITEM 5, BUILT ── the operator: "see if we have space to download and
+    proceed". 12 GB free of 228; the archive is 8.9 GB and extracts to as much
+    again; NOT downloaded and not needed: its ZIP64 central directory (28.6 MB
+    at the tail) was read by HTTP range request and the seven files under
+    codes/ — the per-event table blacksea_data.pkl (6.5 MB) and six analysis
+    scripts — fetched by their own ranges and inflated, 35 MB in all, pinned in
+    corpus/blacksea-breaking/ with offsets, sha256s and the archive's md5. The
+    other 145,050 entries are per-event .mat files and PNG frames. The pickle
+    (a pandas DataFrame, 16,369 events × 46 columns, 20 stereo records,
+    2013-09-22..10-02) was converted ONCE, in a scratch venv, to a CSV whose
+    every literal is the shortest decimal that round-trips its double —
+    verified column by column with float_precision='round_trip', because
+    pandas' DEFAULT parser is not correctly rounded and disagreed on 2,864
+    values of one column; the CSV is the record the instrument reads.
+    THERE IS NO PAPER beside the record (the scripts cite a 2021 GRL
+    submission with no DOI; the concept DOI redirects to the dataset), so the
+    claims are the description's two sentences and the reference lines the
+    authors' own scripts draw: Duncan (1981)'s 10–14.7° band on the
+    inclination and 0.11 on the aspect ratio Ab/L²_D81. instruments/breaking
+    decides them in exact rationals: order statistics as the k-th smallest
+    value (never an average of two), average ranks doubled to integers so
+    Spearman ρ² is an exact rational with ρ enclosed by integer square roots,
+    Pearson on the raw literals by clearing denominators, π enclosed for cm/cp.
+    Battery 42 checks, 5 reds, mutation-tested (ties taking the first rank;
+    the quantile index rounded). THE FINDINGS, 1.6 s for the whole table: 5,648
+    of 16,369 events (34.5%) inside Duncan's inclination band, 4,280 flatter,
+    6,441 steeper, none on an edge; 16,194 above Duncan's aspect ratio, the
+    median 4.857× it, 263 within ±25% of it; the three self-similarity ratios
+    spread by 2.06×, 1.87×, 1.87× across the middle half of events and 5.77×,
+    4.26×, 5.43× across the central 90%; the rank correlation of breaking speed
+    with any geometric property at most 0.410 (with Dz) against 0.902 for area
+    with length; the median breaker at 0.284 of the peak phase speed, 127
+    faster than half of it. reports/breaking-geometry.html ("Sixteen thousand
+    breaking waves, decided against the laboratory."), applied lane, three
+    figures: the inclination histogram with Duncan's band, the aspect-ratio
+    histogram with Duncan's line and the median, the nine rank correlations as
+    bars in two colours with a legend. THE CAVEAT IS STATED: Duncan's 0.11
+    relates a vertical cross-section to a length; the table's Ab is a plan
+    view; the scripts draw the comparison and the page decides it as drawn.
+    The float procedures in the scripts (a lognormal fit, a K–S p, a tail
+    beyond 2σ, RANSAC lines) are named and not reproduced.
+
+  ── NOT DONE ── nothing committed or pushed (not asked). Nothing sent: the
+    two-number finding and the thirty polygons are a note to the benchmark's
+    organizers (ecbenchmark@gmail.com / a GitHub issue) and a first conversation
+    with Pedro, both the operator's. The IFORM-vs-HD "same fitted model" decision
+    from the menu was not built (needs a fitted joint model; the benchmark's
+    baseline fit is in organizers-code and could be the model). Items 2, 4, 6,
+    7 open; 2 waits on his data.
 
 ══════════════════════════════════════════════════════════════════════════
   THIRTEENTH SESSION, 2026-09-09/10 — THE SECOND ENVIRONMENT IS PUBLISHED:

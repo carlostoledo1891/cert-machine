@@ -1,0 +1,674 @@
+{
+ "what": "What the benchmark PRINTED, transcribed from the preprint held at the pinned commit (publications/2021-01-19_EC_Benchmark_Joint_Paper_WithFrontPages.pdf, sha256 aff4e739…e130): Tables 5 and 6 (points outside each contour on the full datasets), Table 1 (the expected number outside by construction method), Table 2 (who built what), and the column-order lists the organizers' counting scripts carry. These are the claims the ledger re-decides; nothing in this file is computed here.",
+ "source": "Haselsteiner, Coe, Manuel, Chai, Leira, Clarindo, Guedes Soares, Hannesdóttir, Dimitrov, Sander, Ohlendorf, Thoben, de Hauteclocque, Mackay, Jonathan, Qiao, Myers, Rode, Hildebrandt, Schmidt, Vanem, Huseby — A benchmarking exercise for environmental contours. Preprint 2021-01-19; Ocean Engineering 236 (2021) 109504.",
+ "procedure": "Table 5/6 counts were produced by results/exercise-1/create_points_outside_table_{abc,def}.py: the provided and retained datasets concatenated ('full'), each contour read as a polygon in the order the script assumes for that participant, and matplotlib.path.Path.contains_points (viroconcom 1.4.8 contour_analysis.points_outside) deciding inside/outside in float64. The threshold columns count points outside with Hs > 1 m (A–C) or with u10 > 1 m/s AND Hs > 1 m (D–F).",
+ "contributions": [
+  {
+   "key": "1",
+   "prefix": "Wei_Bernt",
+   "folder": "contribution-1",
+   "authors": "W. Chai, B. Leira",
+   "method": "ISORM",
+   "model": "GHM",
+   "class": "total"
+  },
+  {
+   "key": "2",
+   "prefix": "GC_CGS",
+   "folder": "contribution-2",
+   "authors": "G. Clarindo, C. Guedes Soares",
+   "method": "DSCM",
+   "model": "GHM",
+   "class": "marginal"
+  },
+  {
+   "key": "3",
+   "prefix": "hannesdottir_asta",
+   "folder": "contribution-3",
+   "authors": "Á. Hannesdóttir, N. Dimitrov",
+   "method": "IDSCM",
+   "model": "GHM",
+   "class": "total"
+  },
+  {
+   "key": "4",
+   "prefix": "haselsteiner_andreas",
+   "folder": "contribution-4",
+   "authors": "A. F. Haselsteiner, A. Sander, J.-H. Ohlendorf, K.-D. Thoben",
+   "method": "HDCM",
+   "model": "GHM",
+   "class": "total"
+  },
+  {
+   "key": "5",
+   "prefix": "BV",
+   "folder": "contribution-5",
+   "authors": "G. de Hauteclocque",
+   "method": "DIFORM",
+   "model": "PPOTM",
+   "class": "marginal",
+   "note": "declustered — the paper footnotes that its expected number outside is higher than the table's"
+  },
+  {
+   "key": "6",
+   "prefix": "mackay_ed",
+   "folder": "contribution-6",
+   "authors": "E. Mackay, P. Jonathan",
+   "method": "IFORM",
+   "model": "SRM",
+   "class": "marginal"
+  },
+  {
+   "key": "7",
+   "prefix": "qiao_chi",
+   "folder": "contribution-7",
+   "authors": "C. Qiao, A. Myers",
+   "method": "IFORM",
+   "model": "GHM",
+   "class": "marginal"
+  },
+  {
+   "key": "8",
+   "prefix": "rode_anna",
+   "folder": "contribution-8",
+   "authors": "A. Rode, A. Hildebrandt, B. Schmidt",
+   "method": "IFORM",
+   "model": "GHM",
+   "class": "marginal"
+  },
+  {
+   "key": "9 DS",
+   "prefix": "vanem_DirectSampling",
+   "folder": "contribution-9",
+   "authors": "E. Vanem, A. B. Huseby",
+   "method": "DSCM",
+   "model": "GHM",
+   "class": "marginal"
+  },
+  {
+   "key": "9 DS s.",
+   "prefix": "vanem_DirectSamplingsmoothed",
+   "folder": "contribution-9",
+   "authors": "E. Vanem, A. B. Huseby",
+   "method": "DSCM, smoothed",
+   "model": "GHM",
+   "class": "marginal"
+  },
+  {
+   "key": "9 IFORM",
+   "prefix": "vanem_IFORM",
+   "folder": "contribution-9",
+   "authors": "E. Vanem, A. B. Huseby",
+   "method": "IFORM",
+   "model": "GHM",
+   "class": "marginal"
+  }
+ ],
+ "organizersColumnOrder": {
+  "what": "which column the organizers' scripts read as Hs, by participant folder number — hand-coded in create_points_outside_table_abc.py (participants 8 and 9 read (tz, hs)) and create_points_outside_table_def.py (participants 1, 2, 3, 5, 6, 8 read (hs, v); the rest (v, hs)). The ledger reads the HEADER instead and records whether the two agree.",
+  "abc_hsSecond": [
+   8,
+   9
+  ],
+  "def_hsFirst": [
+   1,
+   2,
+   3,
+   5,
+   6,
+   8
+  ]
+ },
+ "table1": {
+  "what": "E[n_outside] = n × α_t, with α_t the probability the contour is exceeded ANYWHERE: α for total-exceedance constructions (ISORM, IDSCM, HDCM), 1 − χ²₂([Φ⁻¹(1 − α)]²) for IFORM, and 'ca. similar to IFORM' for direct sampling and direct IFORM. α = 1/(T × 365.25 × 24) per hourly state. The paper's printed values for its columns follow.",
+  "printed": {
+   "abc_1yr_total": "20",
+   "abc_1yr_marginal": "197",
+   "abc_20yr_total": "1",
+   "abc_20yr_marginal": "11.5",
+   "def_1yr_total": "50",
+   "def_1yr_marginal": "492",
+   "def_50yr_total": "1",
+   "def_50yr_marginal": "12"
+  }
+ },
+ "table5": {
+  "what": "Datasets A, B, C, full (provided + retained). 1-yr: mean over the three datasets of points outside, expected, mean outside with Hs > 1 m. 20-yr: mean (A, B, C), expected, mean with Hs > 1 m (A, B, C).",
+  "returnPeriods": {
+   "short": 1,
+   "long": 20
+  },
+  "rows": {
+   "1": {
+    "yr1": {
+     "outside": "256.3",
+     "expected": "20",
+     "above": "241"
+    },
+    "long": {
+     "outside": "114.0",
+     "each": [
+      153,
+      127,
+      62
+     ],
+     "expected": "1",
+     "above": "98.7",
+     "aboveEach": [
+      117,
+      119,
+      60
+     ]
+    }
+   },
+   "2": {
+    "yr1": {
+     "outside": "406.7",
+     "expected": "ca. 197",
+     "above": "389.3"
+    },
+    "long": {
+     "outside": "286.7",
+     "each": [
+      437,
+      236,
+      187
+     ],
+     "expected": "ca. 11.5",
+     "above": "271.3",
+     "aboveEach": [
+      401,
+      228,
+      185
+     ]
+    }
+   },
+   "3": {
+    "yr1": {
+     "outside": "82.3",
+     "expected": "20",
+     "above": "48.3"
+    },
+    "long": {
+     "outside": "43.0",
+     "each": [
+      68,
+      28,
+      33
+     ],
+     "expected": "1",
+     "above": "23.3",
+     "aboveEach": [
+      14,
+      26,
+      30
+     ]
+    }
+   },
+   "4": {
+    "yr1": {
+     "outside": "75",
+     "expected": "20",
+     "above": "63"
+    },
+    "long": {
+     "outside": "13.7",
+     "each": [
+      1,
+      32,
+      8
+     ],
+     "expected": "1",
+     "above": "11.7",
+     "aboveEach": [
+      1,
+      30,
+      4
+     ]
+    }
+   },
+   "5": {
+    "yr1": {
+     "outside": "18295.3",
+     "expected": "ca. 197",
+     "above": "495.3"
+    },
+    "long": {
+     "outside": "16764.0",
+     "each": [
+      8503,
+      12573,
+      29216
+     ],
+     "expected": "ca. 11.5",
+     "above": "24.7",
+     "aboveEach": [
+      47,
+      24,
+      3
+     ]
+    }
+   },
+   "6": {
+    "yr1": {
+     "outside": "154",
+     "expected": "197",
+     "above": "115.3"
+    },
+    "long": {
+     "outside": "16.7",
+     "each": [
+      27,
+      14,
+      9
+     ],
+     "expected": "11.5",
+     "above": "13.3",
+     "aboveEach": [
+      20,
+      12,
+      8
+     ]
+    }
+   },
+   "7": {
+    "yr1": {
+     "outside": "281.3",
+     "expected": "197",
+     "above": "63"
+    },
+    "long": {
+     "outside": "35.3",
+     "each": [
+      79,
+      4,
+      23
+     ],
+     "expected": "11.5",
+     "above": "7.7",
+     "aboveEach": [
+      21,
+      0,
+      2
+     ]
+    }
+   },
+   "8": {
+    "yr1": {
+     "outside": "762",
+     "expected": "197",
+     "above": "638"
+    },
+    "long": {
+     "outside": "322.0",
+     "each": [
+      189,
+      368,
+      409
+     ],
+     "expected": "11.5",
+     "above": "280.0",
+     "aboveEach": [
+      93,
+      339,
+      408
+     ]
+    }
+   },
+   "9 DS": {
+    "yr1": {
+     "outside": "22127.3",
+     "expected": "ca. 197",
+     "above": "130.7"
+    },
+    "long": {
+     "outside": "21966.3",
+     "each": [
+      22504,
+      22933,
+      20462
+     ],
+     "expected": "ca. 11.5",
+     "above": "21.7",
+     "aboveEach": [
+      4,
+      43,
+      18
+     ]
+    }
+   },
+   "9 DS s.": {
+    "yr1": {
+     "outside": "12031.7",
+     "expected": "ca. 197",
+     "above": "126.7"
+    },
+    "long": {
+     "outside": "6062.7",
+     "each": [
+      5096,
+      7716,
+      5376
+     ],
+     "expected": "ca. 11.5",
+     "above": "21.0",
+     "aboveEach": [
+      4,
+      42,
+      17
+     ]
+    }
+   },
+   "9 IFORM": {
+    "yr1": {
+     "outside": "22207.7",
+     "expected": "197",
+     "above": "233.7"
+    },
+    "long": {
+     "outside": "21994.7",
+     "each": [
+      22514,
+      22990,
+      20480
+     ],
+     "expected": "11.5",
+     "above": "47.7",
+     "aboveEach": [
+      8,
+      100,
+      35
+     ]
+    }
+   }
+  }
+ },
+ "table6": {
+  "what": "Datasets D, E, F, provided + retained. 1-yr: mean outside, expected, mean outside with u10 > 1 m/s and Hs > 1 m. 50-yr: mean (D, E, F), expected, mean above threshold (D, E, F).",
+  "returnPeriods": {
+   "short": 1,
+   "long": 50
+  },
+  "rows": {
+   "1": {
+    "yr1": {
+     "outside": "424.3",
+     "expected": "50",
+     "above": "268.3"
+    },
+    "long": {
+     "outside": "103.7",
+     "each": [
+      154,
+      86,
+      71
+     ],
+     "expected": "1",
+     "above": "60.3",
+     "aboveEach": [
+      107,
+      63,
+      11
+     ]
+    }
+   },
+   "2": {
+    "yr1": {
+     "outside": "1186.3",
+     "expected": "ca. 492",
+     "above": "744"
+    },
+    "long": {
+     "outside": "529.7",
+     "each": [
+      514,
+      720,
+      355
+     ],
+     "expected": "ca. 12",
+     "above": "309.3",
+     "aboveEach": [
+      304,
+      388,
+      236
+     ]
+    }
+   },
+   "3": {
+    "yr1": {
+     "outside": "524.7",
+     "expected": "50",
+     "above": "341.3"
+    },
+    "long": {
+     "outside": "102.7",
+     "each": [
+      154,
+      82,
+      72
+     ],
+     "expected": "1",
+     "above": "60.0",
+     "aboveEach": [
+      106,
+      62,
+      12
+     ]
+    }
+   },
+   "4": {
+    "yr1": {
+     "outside": "88",
+     "expected": "50",
+     "above": "88"
+    },
+    "long": {
+     "outside": "3.7",
+     "each": [
+      3,
+      8,
+      0
+     ],
+     "expected": "1",
+     "above": "3.7",
+     "aboveEach": [
+      3,
+      8,
+      0
+     ]
+    }
+   },
+   "5": {
+    "yr1": {
+     "outside": "2235",
+     "expected": "ca. 492",
+     "above": "860"
+    },
+    "long": {
+     "outside": "156.0",
+     "each": [
+      174,
+      112,
+      182
+     ],
+     "expected": "ca. 12",
+     "above": "14.7",
+     "aboveEach": [
+      7,
+      18,
+      19
+     ]
+    }
+   },
+   "6": {
+    "yr1": {
+     "outside": "270.7",
+     "expected": "492",
+     "above": "247.7"
+    },
+    "long": {
+     "outside": "8.3",
+     "each": [
+      3,
+      17,
+      5
+     ],
+     "expected": "12",
+     "above": "8.3",
+     "aboveEach": [
+      3,
+      17,
+      5
+     ]
+    }
+   },
+   "7": {
+    "yr1": {
+     "outside": "371.3",
+     "expected": "492",
+     "above": "258"
+    },
+    "long": {
+     "outside": "8.7",
+     "each": [
+      3,
+      16,
+      7
+     ],
+     "expected": "12",
+     "above": "6.7",
+     "aboveEach": [
+      2,
+      16,
+      2
+     ]
+    }
+   },
+   "8": {
+    "yr1": {
+     "outside": "1729.7",
+     "expected": "492",
+     "above": "1442"
+    },
+    "long": {
+     "outside": "262.0",
+     "each": [
+      509,
+      110,
+      167
+     ],
+     "expected": "12",
+     "above": "238.7",
+     "aboveEach": [
+      449,
+      108,
+      159
+     ]
+    }
+   },
+   "9 DS": {
+    "yr1": {
+     "outside": "18191.7",
+     "expected": "ca. 492",
+     "above": "1941.3"
+    },
+    "long": {
+     "outside": "15301.0",
+     "each": [
+      17460,
+      17226,
+      11217
+     ],
+     "expected": "ca. 12",
+     "above": "103.0",
+     "aboveEach": [
+      146,
+      122,
+      41
+     ]
+    }
+   },
+   "9 DS s.": {
+    "yr1": {
+     "outside": "12819.3",
+     "expected": "ca. 492",
+     "above": "1952.3"
+    },
+    "long": {
+     "outside": "5771.3",
+     "each": [
+      5092,
+      6782,
+      5440
+     ],
+     "expected": "ca. 12",
+     "above": "103.0",
+     "aboveEach": [
+      146,
+      122,
+      41
+     ]
+    }
+   },
+   "9 IFORM": {
+    "yr1": {
+     "outside": "16267.3",
+     "expected": "492",
+     "above": "686.7"
+    },
+    "long": {
+     "outside": "15267.0",
+     "each": [
+      17415,
+      17184,
+      11202
+     ],
+     "expected": "12",
+     "above": "86.3",
+     "aboveEach": [
+      123,
+      107,
+      29
+     ]
+    }
+   }
+  }
+ },
+ "lineage": {
+  "what": "What the repository's own history says about the files whose printed counts the ledger cannot reproduce. Read from the GitHub commits API on 2026-09-12 (api.github.com/repos/ec-benchmark-organizers/ec-benchmark/commits?path=…) and from the two versions of each file.",
+  "contribution3_1yr": {
+   "files": [
+    "hannesdottir_asta_dataset_a_1.txt",
+    "hannesdottir_asta_dataset_b_1.txt",
+    "hannesdottir_asta_dataset_c_1.txt"
+   ],
+   "added": {
+    "commit": "7eea939a",
+    "date": "2020-08-11",
+    "message": "Add submited contributions to git.",
+    "rows": [
+     360,
+     360,
+     360
+    ]
+   },
+   "rewritten": {
+    "commit": "07f0ecc3",
+    "date": "2020-09-25",
+    "message": "Remove pairs where on coordinate is nan from contribution 3 as these are not valid coordinates",
+    "rowsRemoved": [
+     53,
+     41,
+     55
+    ],
+    "rowsAfter": [
+     307,
+     319,
+     305
+    ]
+   },
+   "untouched": "the 20-yr files of the same contribution (hannesdottir_asta_dataset_{a,b,c}_20.txt) have a single commit, 7eea939a",
+   "note": "A NaN vertex has no place in a crossing test; what a float path returns for such a polygon depends on the library version. Run here with matplotlib 3.9.4 (the benchmark used 3.3.1), the pre-rewrite files give 129, 89, 26 outside (mean 81.3) — near the printed 82.3 but not it, and the point of recording this is that the printed row corresponds to no polygon anyone can now construct. COMPUTED, not decided; not a claim of the page."
+  }
+ }
+}

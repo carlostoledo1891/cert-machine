@@ -1,0 +1,84 @@
+{
+ "what": "The aggregated breaking-wave statistics and the analysis scripts of Guimar\u00e3es, Stringari, Leckler, Ardhuin \u2014 Geometry of breaking waves at natural sea (Zenodo, 2026-01-29, CC-BY-4.0): the seven files under codes/ of an 8.9 GB archive whose remaining 145,050 entries are per-event .mat files and .png frames. Extracted here WITHOUT downloading the archive: its ZIP64 central directory (28.6 MB at offset 8,883,533,609) was read by HTTP range request and each entry fetched by its own range and inflated. Every extracted file hashes below; the archive itself is pinned by the md5 Zenodo publishes.",
+ "record": {
+  "doi": "10.5281/zenodo.18408002",
+  "url": "https://zenodo.org/records/18408002",
+  "license": "cc-by-4.0",
+  "file": "Guimaraes_GRL2021_dataset.zip",
+  "bytes": 8912170233,
+  "md5": "9349b0c9fc0bd2de2ba5aea50423232a",
+  "entries": 145057,
+  "fetched": "2026-09-12"
+ },
+ "note": "blacksea_data.pkl is a pandas DataFrame pickle (the scripts read it with pickle.load); it was converted ONCE to blacksea_data.csv, whose literals round-trip every double exactly, and the CSV is what instruments/breaking reads. Columns and definitions in claims.json. Menu item 5 of notes/ufsc-labeco-menu-2026-09-12.md.",
+ "files": {
+  "plot_histograms.py": {
+   "bytes": 4944,
+   "sha256": "5cc5b1f98c6fe7b3a88ea35e5b2438f241e614e12a1736c1711fe11cacd1f220",
+   "archiveEntry": "Guimaraes_GRL2021_dataset/codes/plot_histograms.py",
+   "localHeaderOffset": 1024898382,
+   "compressedSize": 1779,
+   "method": "deflate"
+  },
+  "test_self_similarity.py": {
+   "bytes": 9097,
+   "sha256": "a572ab6eb45c21a10df725f93ca7878f283645b16e3511337f80d9cb1ff7e3bd",
+   "archiveEntry": "Guimaraes_GRL2021_dataset/codes/test_self_similarity.py",
+   "localHeaderOffset": 1024900289,
+   "compressedSize": 2895,
+   "method": "deflate"
+  },
+  "find_best_pdfs.py": {
+   "bytes": 8975,
+   "sha256": "5301709c0bd1b175540807ffc67c6420f6b1d395730df32d6180ebdedcf7bee8",
+   "archiveEntry": "Guimaraes_GRL2021_dataset/codes/find_best_pdfs.py",
+   "localHeaderOffset": 1024903317,
+   "compressedSize": 2189,
+   "method": "deflate"
+  },
+  "plot_linear_relation.py": {
+   "bytes": 38747,
+   "sha256": "ccf3711d8b971b10f98b9256ac516b5901ccd90f83cf65667a3af6bcf343beaf",
+   "archiveEntry": "Guimaraes_GRL2021_dataset/codes/plot_linear_relation.py",
+   "localHeaderOffset": 1024905633,
+   "compressedSize": 5850,
+   "method": "deflate"
+  },
+  "blacksea_data.pkl": {
+   "bytes": 6500306,
+   "sha256": "f09b43210de18315b1c6d113c6d32d9e53c76216114053d82854966d18339bad",
+   "archiveEntry": "Guimaraes_GRL2021_dataset/codes/blacksea_data.pkl",
+   "localHeaderOffset": 1024911616,
+   "compressedSize": 4377809,
+   "method": "deflate"
+  },
+  "compute_breaking_statistics.py": {
+   "bytes": 26396,
+   "sha256": "0f2a923f80cddd47e8fad46474345567292da1e7ef7f7b92ba99dd7263a2acb0",
+   "archiveEntry": "Guimaraes_GRL2021_dataset/codes/compute_breaking_statistics.py",
+   "localHeaderOffset": 1029289552,
+   "compressedSize": 7070,
+   "method": "deflate"
+  },
+  "load_breaking_statistics.py": {
+   "bytes": 10262,
+   "sha256": "d763c15bd5e6364ee9967914ce4fbad5272fb56fbd1732bf53b5b2722c873771",
+   "archiveEntry": "Guimaraes_GRL2021_dataset/codes/load_breaking_statistics.py",
+   "localHeaderOffset": 1029296762,
+   "compressedSize": 2931,
+   "method": "deflate"
+  },
+  "blacksea_data.csv": {
+   "bytes": 13783619,
+   "sha256": "2e47b3af872528b868b56a3ab4fb880bcf3e95974b3a448b45e849f9ab40eb4b",
+   "derived": true,
+   "how": "written from blacksea_data.pkl by pandas 3.0.5 in a scratch venv: every double as its shortest round-tripping decimal (Python repr), verified column by column against the pickle with float_precision=round_trip; the pickle is the archive's bytes, the CSV is THE RECORD the instrument reads"
+  },
+  "claims.json": {
+   "bytes": 4983,
+   "sha256": "7ea7b7655318eb344dc9ccfac00619b1820b0491b98876678f8556ed0cafccf0",
+   "derived": true,
+   "how": "the claims the ledger reads: the record's description and the reference lines the scripts draw; transcribed by hand"
+  }
+ }
+}

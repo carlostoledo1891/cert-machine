@@ -1,0 +1,1017 @@
+{
+ "what": "The environmental-contour benchmark (Haselsteiner et al., 2021): every contour submitted to Exercise 1, byte for byte, the six provided and six retained hourly datasets they were tested against, and the organizers' counting procedure — held at one commit of the benchmark's repository and re-hashed by the ledger runner at every run.",
+ "repo": "github.com/ec-benchmark-organizers/ec-benchmark",
+ "commit": "a1561fe739b1b74e1c7da76e8fcf555e3316c8a2",
+ "fetched": "2026-09-12",
+ "paper": {
+  "preprint": "2021-01-19_EC_Benchmark_Joint_Paper_WithFrontPages.pdf (publications/, same commit)",
+  "sha256": "aff4e73974488ac4992a78b9157299d17b835f045f60d1eeb68332ec06e0e130",
+  "bytes": 6899667,
+  "published": "Ocean Engineering 236 (2021) 109504, doi:10.1016/j.oceaneng.2021.109504 — the numbers compared on the page are the PREPRINT's Tables 5 and 6, which is the version the repository carries"
+ },
+ "license": "the repository carries no licence file; the submitted contours are redistributed verbatim as the published record, for verification only. Datasets A–C are NDBC's (ndbc.noaa.gov) and D–F are WDCC's (coastDat, cera-www.dkrz.de terms of use); they are NOT committed here — fetched from the pinned commit by tools/fetch-ec-benchmark.js and verified by digest.",
+ "files": {
+  "contours/contribution-1/Wei_Bernt_dataset_a_1.txt": {
+   "bytes": 2185,
+   "sha256": "410dfd49e970c5bde43778327d33e107663a8954c20e3361fa2e044a63c3a2d2",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_a_1.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_a_20.txt": {
+   "bytes": 2189,
+   "sha256": "ecd0aeac9dbfc5067380654484b12868d1d4497a40d9180eb6a9a18d51e01de4",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_a_20.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_b_1.txt": {
+   "bytes": 2178,
+   "sha256": "cf066870b7d4c2f2fdc242da9feb44a5250dd27b66c3744da0cb434df92be14a",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_b_1.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_b_20.txt": {
+   "bytes": 2182,
+   "sha256": "0606ffa66101d007378db486967a13ea41e86440baa459ea45fc1579f13b5ff4",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_b_20.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_c_1.txt": {
+   "bytes": 2157,
+   "sha256": "1acdf066452e59f1e5a5d4a9791fc3867c73a9efc0c61c9d24b686dcd8f862a9",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_c_1.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_c_20.txt": {
+   "bytes": 2157,
+   "sha256": "c256ae6b49472af5acc470c15cef79ab05638ff6dc1f0537c0cb58e130c3d80d",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_c_20.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_d_1.txt": {
+   "bytes": 2196,
+   "sha256": "8e4d2fb40592f1e8d462fd22539645b2a8af3fa41051e66d0fbedf46e6cd903d",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_d_1.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_d_50.txt": {
+   "bytes": 2212,
+   "sha256": "adbcd6b7982cc9ac1b2ec9ef042ab6c7cad0982e5232d2231da2c1988f94c655",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_d_50.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_e_1.txt": {
+   "bytes": 2190,
+   "sha256": "14c36974bba6702270981bb25645418c824b30b7fe579f09fd492c5c54855dfe",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_e_1.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_e_50.txt": {
+   "bytes": 2207,
+   "sha256": "a31e34693e7a337e9040484f84fd3be070a4b6ac34f6ebe00b521392576ad9dd",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_e_50.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_f_1.txt": {
+   "bytes": 2211,
+   "sha256": "31af942d6f71eab690bf05b1c034d04efc5d699e6c6e0052fd5c063bcb685fb0",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_f_1.txt",
+   "committed": true
+  },
+  "contours/contribution-1/Wei_Bernt_dataset_f_50.txt": {
+   "bytes": 2215,
+   "sha256": "08b30a8a6d7ef2766ab2d67adfc6b0f245585e169ddf23440e94c53e26fda2c7",
+   "upstream": "results/exercise-1/contribution-1/Wei_Bernt_dataset_f_50.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_a_1.txt": {
+   "bytes": 329,
+   "sha256": "7cdc1a3bf69fa03fad6cc69cd7fd13d06ddd8ca595ab717c56ef5524b61fb6c1",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_a_1.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_a_20.txt": {
+   "bytes": 329,
+   "sha256": "a626d6574f41d408e55fe13f900e3d844cc678d050f3c6920f13cd7e1a39ad0b",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_a_20.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_b_1.txt": {
+   "bytes": 327,
+   "sha256": "3d6d55a266acec42001847aecbc8a6de7f3d026ed9048460ae4c28e06b03b162",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_b_1.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_b_20.txt": {
+   "bytes": 328,
+   "sha256": "7337c861be8c23f88b01ae1416ed9b0effb9169e36f152ba11a29c3310c4a9f2",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_b_20.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_c_1.txt": {
+   "bytes": 319,
+   "sha256": "26945bdd36b1f18a860cadf73e63ea869ca2c2fcdc7d0eab55240ff4f55e96f5",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_c_1.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_c_20.txt": {
+   "bytes": 319,
+   "sha256": "24abc06b1eb4789189c93c2b36f247406078894617d344a98113b47620885d66",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_c_20.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_d_1.txt": {
+   "bytes": 333,
+   "sha256": "80a44d2ee99f1aef8e668d85b202ab23a87a0daba4169aa1bfe79df33b27f881",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_d_1.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_d_50.txt": {
+   "bytes": 333,
+   "sha256": "ede3309ce8dd78aff72694afa03e136f104c67569770cc7501bf9c67b77358ac",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_d_50.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_e_1.txt": {
+   "bytes": 332,
+   "sha256": "a138b8e26258af2c9325127d8363e71547758dff579448bc2d64ecab800a63ce",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_e_1.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_e_50.txt": {
+   "bytes": 331,
+   "sha256": "a89c562f11b95c1bd86f27f19395abddef29d661361d1663521c2236ee07c196",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_e_50.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_f_1.txt": {
+   "bytes": 336,
+   "sha256": "12b01f49202e8a05cbd3100942e744d0245c562d2b67c419bc052a4cf9c8e968",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_f_1.txt",
+   "committed": true
+  },
+  "contours/contribution-2/GC_CGS_dataset_f_50.txt": {
+   "bytes": 340,
+   "sha256": "3a049be6dfcc1a9fd825d452e7cb09210988012b474a23dc4964e4d08bd23971",
+   "upstream": "results/exercise-1/contribution-2/GC_CGS_dataset_f_50.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_a_1.txt": {
+   "bytes": 11883,
+   "sha256": "cce6b61a8dbf6fba0508708913016972c4b48d31b074e0c8ce68f4a241c29e13",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_a_1.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_a_20.txt": {
+   "bytes": 11007,
+   "sha256": "9e6a6814eaa17cebe168fd9324ff34bd33bc42f26cfbbee6f16aad1d1920645b",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_a_20.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_b_1.txt": {
+   "bytes": 12298,
+   "sha256": "7c7e73f5be91533220642b98107f1c53aaf64f3517f25c3bd9fcf8e569e17195",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_b_1.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_b_20.txt": {
+   "bytes": 11201,
+   "sha256": "0c5fbd5db550ff1f466adea9aef667b26a909a451510532614bd1f6c3c4481c2",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_b_20.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_c_1.txt": {
+   "bytes": 11743,
+   "sha256": "6679a4a3dd4c81ceb0e28317a7609bb4191836d14a8e15cfcf53e18a39f9edd7",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_c_1.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_c_20.txt": {
+   "bytes": 10818,
+   "sha256": "a35c63accb565fe4238ffdcc49521cf100f2f3611f86b2b40624b443d3479a86",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_c_20.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_d_1.txt": {
+   "bytes": 13973,
+   "sha256": "2691a5e53df1a6658c9bdb9430c2e445ecc18d0c2cf3a1856e59d539b61a0b02",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_d_1.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_d_50.txt": {
+   "bytes": 14094,
+   "sha256": "dba8fda1f5cde44785c19b1fecce33218861deffa49de14a8f825a75bb11c5e2",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_d_50.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_e_1.txt": {
+   "bytes": 13898,
+   "sha256": "8e54ce17a8e454d99cc69d6895e1a568c56cd9e793eb83cb34a34cf207575cb7",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_e_1.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_e_50.txt": {
+   "bytes": 14059,
+   "sha256": "e536238917ff6b9a0a5a0d44b104a68b0421b4d9ab73bca9764cf57da210aa0b",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_e_50.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_f_1.txt": {
+   "bytes": 13989,
+   "sha256": "5ccc18b7b3c76253f0c4478df2a2986a8883a4d3a477a488871ab935f71a4cfa",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_f_1.txt",
+   "committed": true
+  },
+  "contours/contribution-3/hannesdottir_asta_dataset_f_50.txt": {
+   "bytes": 14064,
+   "sha256": "091a3205a2d1fe0b6e93b4669940a1a4dcb15d0864588e91320881132c53f399",
+   "upstream": "results/exercise-1/contribution-3/hannesdottir_asta_dataset_f_50.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_a_1.txt": {
+   "bytes": 17670,
+   "sha256": "a50a806d99b0fe0149f5910bb1c4ee267cf6d0ba0e391f97a419a2409dccf6d7",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_a_1.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_a_20.txt": {
+   "bytes": 22381,
+   "sha256": "ced244d7be74e4cbdcab038ee7cfbf59a0f1c86f74d1cf1a09231bcdba630f61",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_a_20.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_b_1.txt": {
+   "bytes": 16236,
+   "sha256": "2aeff40999740a9c31eed2a686e398250aca3155a40b908c312ca9d3e0ba15cc",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_b_1.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_b_20.txt": {
+   "bytes": 20586,
+   "sha256": "6b98f555fbe6ba6e4c41768eeaaeaa26531520c8a9ec2573e70fcdd101efe8b3",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_b_20.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_c_1.txt": {
+   "bytes": 12215,
+   "sha256": "99802f7e830f51b2ef3c643121b35d73150bd8cbca47e94a4e0b66e89c7061f9",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_c_1.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_c_20.txt": {
+   "bytes": 16047,
+   "sha256": "c0633f79fa46565a0dcd87461b2cbfd2a986740d32e529578eabc1ac097cc1d8",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_c_20.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_d_1.txt": {
+   "bytes": 29827,
+   "sha256": "42a733834164e0fd1a352004e5d21aac5f43181cab4ee74067803f3d39668b27",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_d_1.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_d_50.txt": {
+   "bytes": 38268,
+   "sha256": "92bea683deb113748a4f4c839360e1f92a6e8aab2857de469803041c3fbbe877",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_d_50.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_e_1.txt": {
+   "bytes": 31313,
+   "sha256": "fa3b7c463838e06f93e358c1a65515a3cb2e47c7ec6be57787c64e1ad0f28b3c",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_e_1.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_e_50.txt": {
+   "bytes": 38029,
+   "sha256": "670c1b60b12d2036c8b31fdd440a0cb151bae7144274e6c716bd9fc6380e608a",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_e_50.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_f_1.txt": {
+   "bytes": 34333,
+   "sha256": "11829adcac7eeae2342eb05d3285b47ad357f224ba57da4e721926b97f4662a1",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_f_1.txt",
+   "committed": true
+  },
+  "contours/contribution-4/haselsteiner_andreas_dataset_f_50.txt": {
+   "bytes": 40867,
+   "sha256": "6c7ad63eed13b191bfd4ebb9ae950f44d1f93641d44f545cf579dfe31eb141bd",
+   "upstream": "results/exercise-1/contribution-4/haselsteiner_andreas_dataset_f_50.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_A_1.txt": {
+   "bytes": 1942,
+   "sha256": "66e4d45de2b38dbdc474d03305b3aa12ffd7ab35e76ec166fe1fdb7e60ecff36",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_A_1.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_A_20.txt": {
+   "bytes": 2474,
+   "sha256": "7febe6088b2ce3b92fecc7a8688f074a94c94b0d1f9cf10b109c13b03acfc8b0",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_A_20.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_B_1.txt": {
+   "bytes": 1068,
+   "sha256": "3383232ad975bf9deaca5a4d743474a61d8e143d5923f843c4365591cb0e21ad",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_B_1.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_B_20.txt": {
+   "bytes": 2310,
+   "sha256": "9e5e7e6ec99b213ab7c42c46b2187b0a76ff1c59a2b8ee9eb95c4a184b657aff",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_B_20.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_C_1.txt": {
+   "bytes": 951,
+   "sha256": "8badcf194a1cbc2e33f5b6c0934db86e8ea24b082632c7e032a7a1cd2019ace7",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_C_1.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_C_20.txt": {
+   "bytes": 2497,
+   "sha256": "65f393e4dbaced2efc7a1842d4940245f9ec912c8ed2d2e64040c5b04d5db04d",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_C_20.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_D_1.txt": {
+   "bytes": 2184,
+   "sha256": "4c62650ff42780311fd2f79e9c74d7098243e91f22bc0a8e490db581bc69fdce",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_D_1.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_D_50.txt": {
+   "bytes": 3152,
+   "sha256": "98d7fe20e69892c303c8459dac4eb08eb72ba2e3f54e930cb6588feee0652f1d",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_D_50.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_E_1.txt": {
+   "bytes": 2298,
+   "sha256": "dfd78a8631959a6109eef80527f3c33af9df6fca00ae5346986c03b1d1b3eb72",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_E_1.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_E_50.txt": {
+   "bytes": 3076,
+   "sha256": "219aa6e55b4e1ead94ab1c7ec61b81c5a1e086d5fa5d0e0af4e24e8e5a9bcf87",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_E_50.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_F_1.txt": {
+   "bytes": 2316,
+   "sha256": "1d2fcd6ac7713fb56620ed496b1b3dcd0cc68b43e4fee793502db3f6e5ccf1b5",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_F_1.txt",
+   "committed": true
+  },
+  "contours/contribution-5/BV_dataset_F_50.txt": {
+   "bytes": 2971,
+   "sha256": "73d551a7bdfac35f33cbe97436be2569249cf53882d0154a7731767045e920e9",
+   "upstream": "results/exercise-1/contribution-5/BV_dataset_F_50.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_a_1.txt": {
+   "bytes": 5300,
+   "sha256": "be50aec99f4dfbfeafacc5c3849d1174e39cffdeb1d35c86535a4117d784f230",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_a_1.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_a_20.txt": {
+   "bytes": 4930,
+   "sha256": "b18f61f547282001ebc3adb53ed52bec03a1b37947492657c262a5c15b39ae99",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_a_20.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_b_1.txt": {
+   "bytes": 5177,
+   "sha256": "fb5a81de78772ba9cedbf34168e66ba90e59a539aa4d3397c3b8bcfda64cdba7",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_b_1.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_b_20.txt": {
+   "bytes": 5246,
+   "sha256": "10733b19b701e39729a0e54c768ec6ceba47fe8a129271b6e49206f741f7edaf",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_b_20.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_c_1.txt": {
+   "bytes": 5188,
+   "sha256": "a11c12fce91bbb31988d09bb9e5f528969e96440fec47c0c1edab14c575bd38b",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_c_1.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_c_20.txt": {
+   "bytes": 5271,
+   "sha256": "31b351ffe519fe78a0bd886e15b55483d2bd8875b3f6d9d06593dfa97306f15f",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_c_20.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_d_1.txt": {
+   "bytes": 5180,
+   "sha256": "e9f3703f8698208e7a44248ea6d02102680806b6e632c6dfe715fc4dd4e393f3",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_d_1.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_d_50.txt": {
+   "bytes": 5188,
+   "sha256": "3c2481bf781ceb4beaebdbe1a6bb922f700a68ca6933103de46285af17089f17",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_d_50.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_e_1.txt": {
+   "bytes": 5190,
+   "sha256": "209c0024fcb2773df24805d2550cb57eff4ac3f153f8491adbfc2d4e58c5524f",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_e_1.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_e_50.txt": {
+   "bytes": 5161,
+   "sha256": "27aeb683cfdfd597accdd1edcb3e62a9ecff56cd73720ce31598ad2c05c57b6d",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_e_50.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_f_1.txt": {
+   "bytes": 5129,
+   "sha256": "285e0c1390836918291ade04ec640540723db5e743fd327b04e673170c42ec26",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_f_1.txt",
+   "committed": true
+  },
+  "contours/contribution-6/mackay_ed_dataset_f_50.txt": {
+   "bytes": 5258,
+   "sha256": "d10fba07ca888b95d131d98df8c2563f207921160114fbc960acaefc5e67936d",
+   "upstream": "results/exercise-1/contribution-6/mackay_ed_dataset_f_50.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_a_1.txt": {
+   "bytes": 33925,
+   "sha256": "ae30e1c4e7f43ca7a4ad216d28425e0c13ef34b2baaa2342d0dae0a88a0157de",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_a_1.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_a_20.txt": {
+   "bytes": 42602,
+   "sha256": "32a433c0d2487c1b427c8ec1ee386b2ed3baf4e2e96a331162f36866436d1a63",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_a_20.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_b_1.txt": {
+   "bytes": 32454,
+   "sha256": "7301819cc17eb62fe038b3bbf86b5bcba7903d8996c14623784800c757f893b0",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_b_1.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_b_20.txt": {
+   "bytes": 52033,
+   "sha256": "55e02d8bf83c91eb4e11ad407ab9572fa569a4f657a4c6e6021e5ae9a9879fcb",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_b_20.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_c_1.txt": {
+   "bytes": 26138,
+   "sha256": "830c9c096af5b85fb1310c16733b3b5bf60e41c47e3f53b3b9cdb3d6faf5e782",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_c_1.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_c_20.txt": {
+   "bytes": 45601,
+   "sha256": "a4e27a9f77d7f15ea8bdbba1b974cbdf9af6ceb0813fe4d1d61cf8dfd5fd524e",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_c_20.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_d_1.txt": {
+   "bytes": 32320,
+   "sha256": "c2f4eb09bacf9dcc60f674c2b9944fd35ab1826eb760d907ffe92bf507370363",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_d_1.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_d_50.txt": {
+   "bytes": 41278,
+   "sha256": "6cbdcb2fa3cd01ff0db48ab5b0f9de3a2306e36f19d604a67a219615729b957e",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_d_50.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_e_1.txt": {
+   "bytes": 30055,
+   "sha256": "1fcdd3c817f81be4f4c9446e5f72b9e54874cc1ce7e2d688974560c453ea48dd",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_e_1.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_e_50.txt": {
+   "bytes": 38550,
+   "sha256": "3be9a052fe0752b1c60db229a17227d420f36bbc41fab0f5ff77bfd07c9bd6c7",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_e_50.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_f_1.txt": {
+   "bytes": 34933,
+   "sha256": "6164ef5fadd6dc8f58c4ffc2545924d916d2793667a84a8f970dce24de1a7530",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_f_1.txt",
+   "committed": true
+  },
+  "contours/contribution-7/qiao_chi_dataset_f_50.txt": {
+   "bytes": 41475,
+   "sha256": "746fddc8ff037e0501a077091ee515b421e3ef76e3c31978d05f4854a60f045d",
+   "upstream": "results/exercise-1/contribution-7/qiao_chi_dataset_f_50.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_a_1.txt": {
+   "bytes": 47510,
+   "sha256": "331d26d0d90a0f5c84cef468a684fcc966b671ae794bbf2b7a5d4aac8a032da4",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_a_1.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_a_20.txt": {
+   "bytes": 52924,
+   "sha256": "76a54c47763197c9b50c54effa1ece863e57c54463a15430f04f5007e486066c",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_a_20.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_b_1.txt": {
+   "bytes": 49322,
+   "sha256": "be485247de8b17d0e2d96d7e6c1818e34412b7befa58a5bab1d232168b2e64ba",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_b_1.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_b_20.txt": {
+   "bytes": 54615,
+   "sha256": "52687467701a865cbcdf7c055dbbd2e88f093e473113b5dddf505b88112a6905",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_b_20.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_c_1.txt": {
+   "bytes": 52451,
+   "sha256": "0a2e0e835a92373d261ad3a2a78687657f07d2a234ae3220b673b016efdde8ff",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_c_1.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_c_20.txt": {
+   "bytes": 62904,
+   "sha256": "6b4614fcadaf273c6275bfd9d90f6a16e55f7a099fa70f685e445c0b4b25b050",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_c_20.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_d_1.txt": {
+   "bytes": 52606,
+   "sha256": "c5bc28f22e4a1c1b3858fe8e0539ae17807f0c84101429b4bdb8cf96d4a761f3",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_d_1.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_d_50.txt": {
+   "bytes": 66121,
+   "sha256": "bdec47aefb10bb6fb6700b98aacddcd3b8638272c7088776d8c07c0ccab2f11f",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_d_50.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_e_1.txt": {
+   "bytes": 52570,
+   "sha256": "cbcc2b1e514a07f104b4e8d3544a151621102d5fb9377e1eb7de249370a158c2",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_e_1.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_e_50.txt": {
+   "bytes": 66112,
+   "sha256": "598a647dd6f508e1289580fe741491c0c2ec9de59182d803ea336c29dc8514ac",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_e_50.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_f_1.txt": {
+   "bytes": 52692,
+   "sha256": "72695c7710471768c06c24a7fe4b533306208a2707189dc7ceb984288d4cc0fe",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_f_1.txt",
+   "committed": true
+  },
+  "contours/contribution-8/rode_anna_dataset_f_50.txt": {
+   "bytes": 66345,
+   "sha256": "37f5d969bc9cbf3133b962b923bc3856fa42542cd334df86b3dd695691cb7e63",
+   "upstream": "results/exercise-1/contribution-8/rode_anna_dataset_f_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_a_1.txt": {
+   "bytes": 2151,
+   "sha256": "56611dd009e384522e8330ada365aed453e92ab930627114f6f10ccdab376905",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_a_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_a_20.txt": {
+   "bytes": 2149,
+   "sha256": "d4d251bcfc205672053b0e4c6957ab45e511c9574de94f3de60ca6783f3c7b52",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_a_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_a_50.txt": {
+   "bytes": 2154,
+   "sha256": "ddd23a42e2472698d928f565978216239143719a9739744709426f0502082178",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_a_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_b_1.txt": {
+   "bytes": 2148,
+   "sha256": "815c3b9dac76cf9a5572e6e35aabf81cb0ba2c69c3abb127bed8ee3af5d2a666",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_b_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_b_20.txt": {
+   "bytes": 2161,
+   "sha256": "1c2b4e87eec17bbb6ed52a0eee089f1e1baa5ca6b2cd3d4596a523ac4688a40c",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_b_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_b_50.txt": {
+   "bytes": 2151,
+   "sha256": "eb0a5885aab10387c9e81d04f6e801af50e22db8d5ce998c6e145b2735812755",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_b_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_c_1.txt": {
+   "bytes": 2145,
+   "sha256": "f91330f2364775b486b219088eb4db9743bee0c43ae23fd9885676628b8334d9",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_c_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_c_20.txt": {
+   "bytes": 2147,
+   "sha256": "bd6b58a825a3a015eb19a6eefc981751d38b391ef13be5d6f3970f171a819bf3",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_c_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_c_50.txt": {
+   "bytes": 2148,
+   "sha256": "0fe4ea1a370abe3513c787317072b5aaf6dda113856190ee8fccd0b0726f3d55",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_c_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_d_1.txt": {
+   "bytes": 2128,
+   "sha256": "1ba3fc6a3042a3978104f787468c4ce6bab690ad36216a42abfd6eed44af5244",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_d_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_d_20.txt": {
+   "bytes": 2123,
+   "sha256": "afb198be4ffa139fa73585dfe9789985acb8516a4bdbb7aad0ff2def1be4b3d1",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_d_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_d_50.txt": {
+   "bytes": 2126,
+   "sha256": "ef1a52480cfc572dd67e3a92592c7dd202d682420101acfd1eb6f86a054a5dce",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_d_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_e_1.txt": {
+   "bytes": 2131,
+   "sha256": "c5205790b623fd3407ed672c5a9afe3b9ad70baf6d7398d0d3dccbfd1905f5e3",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_e_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_e_20.txt": {
+   "bytes": 2122,
+   "sha256": "53e297762ac2be73afe874994d42ac3dbc1132635b8aa1b4419f48ec2aecdb1f",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_e_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_e_50.txt": {
+   "bytes": 2129,
+   "sha256": "a51da9cbf8bba7919e826ae7bc8965232508f108c0be908ac5e4a7062e3a9564",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_e_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_f_1.txt": {
+   "bytes": 2125,
+   "sha256": "ac2f616629da18b37f26de4e819d8cca14c2fae1cd1201dc45e3676f93a940b8",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_f_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_f_20.txt": {
+   "bytes": 2127,
+   "sha256": "84d7097a647b9fd4216924725634f45ba4e087ad3eb09ffc619ffb5a4e20ddf4",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_f_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSampling_dataset_f_50.txt": {
+   "bytes": 2126,
+   "sha256": "8254442e1b929e1ce18f6e95e6d8f3fb2f7dbba308a9481ac46dbdb2f4f82713",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSampling_dataset_f_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_a_1.txt": {
+   "bytes": 4206,
+   "sha256": "bbf96653e06e91438250359680dfdf63859525f3d25abfdd3e1cfe48e2cf8480",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_a_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_a_20.txt": {
+   "bytes": 4220,
+   "sha256": "4c7f88132fecb9ee36e76d55ee12bc0e80aa9bebc1574007f0d462bc9d86ddb5",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_a_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_a_50.txt": {
+   "bytes": 4221,
+   "sha256": "5f3f16c3356ccea539085650c937b3b620eca1b7287b6bdf541c4097e4e33505",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_a_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_b_1.txt": {
+   "bytes": 4194,
+   "sha256": "91222ad2b28ca543608b19b7713c184300bfbe5840d5f6a178d4a60f5b10a50d",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_b_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_b_20.txt": {
+   "bytes": 4210,
+   "sha256": "dd9fab7b40a95b6ef77be050dd7625e4436561ee1417b6fb1d0dcb8b1bb00ffe",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_b_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_b_50.txt": {
+   "bytes": 4216,
+   "sha256": "1f63acda2ca7eb96e4fb8e6b3da5f03261827ce5a828e03adc039cfed7ba3a94",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_b_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_c_1.txt": {
+   "bytes": 4190,
+   "sha256": "6b0beaca6b8ecb34f0bb88bf158a9971c8372735759f88c1bfaf9d0a78eebbaf",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_c_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_c_20.txt": {
+   "bytes": 4206,
+   "sha256": "910d8159f17e6e2439cfbe1ef92dc1b07920e2a00aa763bc5164c460c3cd2f90",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_c_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_c_50.txt": {
+   "bytes": 4200,
+   "sha256": "e565baad89d43382bc6d48d8c08b8f1ad5528b665111ba59b8ae7ef62b9984ea",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_c_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_d_1.txt": {
+   "bytes": 4183,
+   "sha256": "cc7b37e6a5905ca9da7e290d4822b26647dc25944543aa05d5d3cb22f5790a42",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_d_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_d_20.txt": {
+   "bytes": 4165,
+   "sha256": "b8c22da49110c0cbbe79fbc99cd839f15afdced90f302daf0ce6033a4d4de2b3",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_d_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_d_50.txt": {
+   "bytes": 4169,
+   "sha256": "2e4e491fcb0a0e50a9b04357a257604496dac7664a68d7f6c458251782bc9fc5",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_d_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_e_1.txt": {
+   "bytes": 4167,
+   "sha256": "7d6efc63afa1bcfe05c856ea35a3c6451f69d00edbb040b17395ec110b3e7fce",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_e_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_e_20.txt": {
+   "bytes": 4166,
+   "sha256": "57a86886c7883afa48cd21c595c09f61cc03a0279390f95b3b134bfbf9e6af5c",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_e_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_e_50.txt": {
+   "bytes": 4175,
+   "sha256": "d51f9494d62a75e9c707058ec0d6062138e495aa2b870ccbd2df3413be38cd7f",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_e_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_f_1.txt": {
+   "bytes": 4169,
+   "sha256": "2e9f360e27acc5cef56d88eaeaf3f10b52c44654cb799e1cd7bfd02a715ee194",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_f_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_f_20.txt": {
+   "bytes": 4168,
+   "sha256": "259f4ff156ec4ee7156a1281e695ec1ee1a2000ec591a9621d2441d5f48ad8d8",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_f_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_DirectSamplingsmoothed_dataset_f_50.txt": {
+   "bytes": 4178,
+   "sha256": "675d25525139067665a4d04f5967a245449e6a70ef9e8d185d5f53af1fd3af41",
+   "upstream": "results/exercise-1/contribution-9/vanem_DirectSamplingsmoothed_dataset_f_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_a_1.txt": {
+   "bytes": 2145,
+   "sha256": "3b2142948e76d16a038738961a18d8abdbee41818f7915e10e495a7c3403fa72",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_a_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_a_20.txt": {
+   "bytes": 2140,
+   "sha256": "d09be5fcca6b59fb9b9496f39c4871542229e0992e123f8a16769bc7a51da55d",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_a_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_a_50.txt": {
+   "bytes": 2147,
+   "sha256": "925ac58919d6586366bbdf9f26603781291d9c840d67f19e593072aced5010af",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_a_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_b_1.txt": {
+   "bytes": 2145,
+   "sha256": "1a7cbac4d1cdec5a4daf0b5f7a82a98415544f05d35386095b267d8a7f7d6212",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_b_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_b_20.txt": {
+   "bytes": 2147,
+   "sha256": "8030321508cf33977586c03bdd5a363090b24b0cb104e8bef0337cd0addb135b",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_b_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_b_50.txt": {
+   "bytes": 2146,
+   "sha256": "3ad5a5d38eabfcce437687b8c7e03ab25a840da263c87438a7f5142e929b4424",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_b_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_c_1.txt": {
+   "bytes": 2153,
+   "sha256": "ebc99d8afd72a6f499feb07909b8758b01e7928de3e6dfdd15091125934c4506",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_c_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_c_20.txt": {
+   "bytes": 2149,
+   "sha256": "9db3df4b4d01686fd89f7320a15ceaeb4fd3f358455395311ae1ea46e959227b",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_c_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_c_50.txt": {
+   "bytes": 2144,
+   "sha256": "7614a5001bb5f0567608c5dad35246b32fc54fbcdbd5251271097c2c0b78bfd7",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_c_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_d_1.txt": {
+   "bytes": 2141,
+   "sha256": "f920b310893e73d60fc6c5d9dc9188ae7789c51c8a07803dbf0cb89cc18358e3",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_d_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_d_20.txt": {
+   "bytes": 2147,
+   "sha256": "2a4d7f3bd5b617e055ea37b83f79be43921d95f1951657616d86d10e2baf14a2",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_d_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_d_50.txt": {
+   "bytes": 2147,
+   "sha256": "388b85b6be0a162db866a645c1621f5b8bd842cf328f0da48088e4333901edf4",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_d_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_e_1.txt": {
+   "bytes": 2140,
+   "sha256": "5b6b08665db07258907850b4bf099a24680e1345504ede3f599eeee746569178",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_e_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_e_20.txt": {
+   "bytes": 2156,
+   "sha256": "dcb9fc4bef44c89e5468501164f4644594b7f9d70be73eebfeccc7ba068ee179",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_e_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_e_50.txt": {
+   "bytes": 2144,
+   "sha256": "2a8b43f3423d6695169881fa87645fe5a547966a8f36a99d6c1b256319301960",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_e_50.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_f_1.txt": {
+   "bytes": 2144,
+   "sha256": "0952b0d0954d309a91c6b56338e5dceae13f028a0d43c83c6a0688f152461f1a",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_f_1.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_f_20.txt": {
+   "bytes": 2159,
+   "sha256": "b4b523b7ac3a20545eccc44c9391edbc385aa7561b5310bcfa326722f65a0797",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_f_20.txt",
+   "committed": true
+  },
+  "contours/contribution-9/vanem_IFORM_dataset_f_50.txt": {
+   "bytes": 2158,
+   "sha256": "33c7d603adea4585ebf9cbbbff282028d6b83384e8654b61edcdb6d2686af5bc",
+   "upstream": "results/exercise-1/contribution-9/vanem_IFORM_dataset_f_50.txt",
+   "committed": true
+  },
+  "datasets-retained/Ar.txt": {
+   "bytes": 2868406,
+   "sha256": "a6b3ef3a66780d48c65a039e8f02cbf9b1c1687ee1e594f0c6cd9a384556e4b3",
+   "upstream": "datasets-retained/Ar.txt",
+   "committed": false
+  },
+  "datasets-retained/Br.txt": {
+   "bytes": 2833643,
+   "sha256": "12141c6ec02b7560bb3e3972bb8360d61e8a86644f94b87b233c64056d74e822",
+   "upstream": "datasets-retained/Br.txt",
+   "committed": false
+  },
+  "datasets-retained/Cr.txt": {
+   "bytes": 2900783,
+   "sha256": "e696c9acac7f4c1ce0264f53808948e135d989b2d83aff2a942908c578d883aa",
+   "upstream": "datasets-retained/Cr.txt",
+   "committed": false
+  },
+  "datasets-retained/Dr.txt": {
+   "bytes": 6863895,
+   "sha256": "d2654af7cce66e3892a7080d29d3efb0bea567fcf8803f75c0dc8e5a5f17b339",
+   "upstream": "datasets-retained/Dr.txt",
+   "committed": false
+  },
+  "datasets-retained/Er.txt": {
+   "bytes": 6870216,
+   "sha256": "e6463c644a91f8ebd7ee40122b142bff0428d6fd8c372347473d6c0867172d6c",
+   "upstream": "datasets-retained/Er.txt",
+   "committed": false
+  },
+  "datasets-retained/Fr.txt": {
+   "bytes": 6866381,
+   "sha256": "0903e1be4626285180d70b02df44086ed175e3633625b9b784ab05903bdb459e",
+   "upstream": "datasets-retained/Fr.txt",
+   "committed": false
+  },
+  "datasets/A.txt": {
+   "bytes": 2567390,
+   "sha256": "c99b0191da514d94b3ca7df6bd4545463726238746945718a4baf80e28e97ccc",
+   "upstream": "datasets/A.txt",
+   "committed": false
+  },
+  "datasets/B.txt": {
+   "bytes": 2601718,
+   "sha256": "15a6d9078cab8123bca63a3d70dc26c057988cc5a8ba0f2b8f5be7d99a88fa76",
+   "upstream": "datasets/B.txt",
+   "committed": false
+  },
+  "datasets/C.txt": {
+   "bytes": 2534302,
+   "sha256": "762cbc59fd5b730e0cb9f72223b9e5a428e6c1fbfee12db67609bf0518e160a2",
+   "upstream": "datasets/C.txt",
+   "committed": false
+  },
+  "datasets/D.txt": {
+   "bytes": 6859179,
+   "sha256": "0da3c74b5036c356d8f64970b465d1efc4d40c430269d0fa165aa9d4ea47e14e",
+   "upstream": "datasets/D.txt",
+   "committed": false
+  },
+  "datasets/E.txt": {
+   "bytes": 6865398,
+   "sha256": "4507a7ece182838a7010aad5d44023e821967e31d280aa1180cf426b61922f63",
+   "upstream": "datasets/E.txt",
+   "committed": false
+  },
+  "datasets/F.txt": {
+   "bytes": 6861758,
+   "sha256": "088f66c702d190d35f2c9547950859e5fdfdb10830819b2439b1f07f2b88f74c",
+   "upstream": "datasets/F.txt",
+   "committed": false
+  },
+  "procedure/create_points_outside_table_abc.py": {
+   "bytes": 5832,
+   "sha256": "a2c286114ecaee69e8e6245de6273b98ae0f476120d009441845a435cbf7fc3a",
+   "upstream": "results/exercise-1/create_points_outside_table_abc.py",
+   "committed": true
+  },
+  "procedure/create_points_outside_table_def.py": {
+   "bytes": 6103,
+   "sha256": "b3c660155729b5f798643d977bd7cbb505a411a9b84add4b6a211712a981af7e",
+   "upstream": "results/exercise-1/create_points_outside_table_def.py",
+   "committed": true
+  },
+  "procedure/settings.py": {
+   "bytes": 1443,
+   "sha256": "3b303783205e26d4bac43c7db0ffe4ffe0c43b58b46861b98e6f82dd9fd550b6",
+   "upstream": "results/exercise-1/settings.py",
+   "committed": true
+  },
+  "procedure/viroconcom-1.4.8-contour_analysis.py": {
+   "bytes": 1630,
+   "sha256": "dc42cbd985d2c5f291f0ce65ac953a4b49518b947f3545d1b3a0b114a3f0287e",
+   "upstream": "pypi:viroconcom-1.4.8.tar.gz (sha256 b9f82e4ff02342e7a2167a264fbb633e8810c7da4e306d78804840695010cb42) viroconcom/contour_analysis.py",
+   "committed": true
+  },
+  "procedure/viroconcom-1.4.8-read_write.py": {
+   "bytes": 3594,
+   "sha256": "9e1f04caa5bfe3d53d844b6eb2f176fec95346af08c2dd7a4af2e6f8de72d8d9",
+   "upstream": "pypi:viroconcom-1.4.8.tar.gz (sha256 b9f82e4ff02342e7a2167a264fbb633e8810c7da4e306d78804840695010cb42) viroconcom/read_write.py",
+   "committed": true
+  }
+ }
+}

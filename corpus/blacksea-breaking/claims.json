@@ -1,0 +1,106 @@
+{
+ "what": "What the dataset asserts and what its own scripts compare it against. The record (Zenodo 10.5281/zenodo.18408002, 2026-01-29) has no paper beside it — the scripts cite 'Waves breaking similarity at natural sea?, submitted to Geophysical Research Letters, 2021' with no DOI — so the claims are the record's description and the reference lines the scripts draw. Nothing in this file is computed here.",
+ "description": "Breaking wave geometry has historically been investigated through laboratory studies, with very limited open ocean observations. Understanding wave geometry is key for modeling air-sea gas exchange, energy dissipation, and satellite measurements. We measured the geometry—including area, length, height, duration, and speed—of over 16000 breaking waves in the Black Sea. Our analysis reveals that real-world breaking waves do not conform to a self-similar geometry, nor are there predictable relationships between a wave's breaking speed and its geometric properties. The results indicate that wave breaking geometry is complex and sea-state dependent.",
+ "sentences": {
+  "selfSimilar": "real-world breaking waves do not conform to a self-similar geometry",
+  "speedGeometry": "nor are there predictable relationships between a wave's breaking speed and its geometric properties",
+  "count": "over 16000 breaking waves in the Black Sea"
+ },
+ "table": {
+  "file": "blacksea_data.csv",
+  "rows": 16369,
+  "how": "the per-event table the scripts read from blacksea_data.pkl (a pandas DataFrame pickle), written out with every double as the shortest decimal that round-trips to it (Python repr) and verified column by column against the pickle with a correctly-rounded parser; the literal in the CSV IS the double the record holds",
+  "columnCount": 46,
+  "columns": {
+   "Rec": "the stereo-video record (20 records, Black Sea, 2013-09-22 to 2013-10-02, 10–15 Hz)",
+   "ev": "the event index within the record",
+   "DT": "breaking duration, s (multiples of the frame interval)",
+   "cm": "mean breaking speed over the event, m/s (the scripts' c_b)",
+   "c0": "initial breaking speed, m/s",
+   "Ab_max": "largest plan-view area of the aerated region during the event, m²",
+   "Pb_max": "largest perimeter of the aerated region, m — the scripts take Lb = Pb_max/2 as the breaking length",
+   "LD81": "the slanted length √(Dz² + B²) at the frame of largest minor axis B: the scripts' Duncan (1981) length",
+   "Dz_max": "largest vertical extent of the aerated region, m",
+   "theta": "arctan(Dz / LD81) at that frame, degrees: the scripts' Duncan (1981) inclination",
+   "sv_fp": "peak frequency of the wave spectrum of the record, Hz (constant within a record)",
+   "wnd": "wind speed of the record, m/s (constant within a record)",
+   "Hs": "significant wave height of the record, m (constant within a record)"
+  }
+ },
+ "references": {
+  "g": {
+   "value": "9.81",
+   "note": "the constant every script uses"
+  },
+  "Lb": {
+   "definition": "Pb_max / 2",
+   "note": "test_self_similarity.py and plot_linear_relation.py: 05Pr_max = Pb_max/2 is the breaking length L_b"
+  },
+  "duncanAngle": {
+   "lo": "10",
+   "hi": "14.7",
+   "unit": "degrees",
+   "note": "plot_histograms.py draws axvspan(10, 14.7, label='Duncan (1981)') on the histogram of theta; Duncan 1981 (Proc. R. Soc. Lond. A 377, 331–348) is not held here, and the band is taken as the scripts state it"
+  },
+  "duncanAspect": {
+   "value": "0.11",
+   "note": "plot_histograms.py draws axvline(0.11, label='Duncan (1981)') on the histogram of Ab_max / LD81²; Duncan's ratio relates the CROSS-SECTIONAL area of the breaking region to its length, while Ab here is a plan-view area — the comparison is the scripts' own, and is decided here as they drew it"
+  },
+  "selfSimilarity": {
+   "a": "cm² / (g · Lb)",
+   "b": "Ab_max / Lb²",
+   "c": "Ab_max / LD81²",
+   "note": "test_self_similarity.py: three dimensionless ratios that a self-similar geometry would hold constant; the script marks the tail beyond mean + 2σ"
+  },
+  "speedGeometry": {
+   "pairs": [
+    [
+     "cm",
+     "Lb"
+    ],
+    [
+     "cm",
+     "Ab_max"
+    ],
+    [
+     "cm",
+     "Dz_max"
+    ],
+    [
+     "cm",
+     "DT"
+    ],
+    [
+     "cm",
+     "LD81"
+    ],
+    [
+     "cm",
+     "theta"
+    ]
+   ],
+   "note": "plot_linear_relation.py fits Lb = a·cb and Lb = a·cb²/g by RANSAC and least squares (float; not reproduced); the decided quantity here is the rank correlation, an exact rational"
+  },
+  "geometryGeometry": {
+   "pairs": [
+    [
+     "Ab_max",
+     "Lb"
+    ],
+    [
+     "Dz_max",
+     "Lb"
+    ],
+    [
+     "Lb",
+     "DT"
+    ]
+   ],
+   "note": "the same statistic between geometric properties, as the control the speed–geometry numbers are read against"
+  },
+  "cmOverCp": {
+   "definition": "cm / cp with cp = g / (2π · sv_fp)",
+   "note": "plot_histograms.py, panel (f): the breaking speed as a fraction of the peak phase speed; needs π, so it is enclosed"
+  }
+ }
+}
