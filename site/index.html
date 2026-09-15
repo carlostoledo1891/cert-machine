@@ -63,13 +63,76 @@
   --c-s3:#8b8b97;
   --c-s4:#a9a9b4;
   --c-s5:#f6f6f8;
-  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
   --container:1200px;
   --read:82ch;
   --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
   --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
   --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
   --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
 }
 
 *{box-sizing:border-box}
@@ -508,7 +571,7 @@ footer a:hover{color:var(--ink)}
   </div>
 <div class="col"><p>Everything on this site is one system. The engine generates objects and screens them in float; the certifiers decide the survivors in exact arithmetic and refuse what they cannot decide; and the same certifiers face two ways. <a href="reports/">The reports</a> are the gated face: every page re-derives its record at build and a number that moves stops the deploy. <a href="instruments/">The instruments</a> are the open face: the same arithmetic drawn, and pulled on, in your tab, with every mark saying what decided it. Neither is an illustration of the other.</p></div><div class="wide"><figure>
   <div class="figbox">
-<svg viewBox="0 0 900 250" role="img" aria-label="One engine feeds one set of certifiers, which feed two faces: the reports, which the gates can refuse to ship, and the instruments, which run in the reader's tab."><defs><marker id="sysarr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-4)"/></marker></defs><rect x="10" y="97" width="150" height="56" rx="5" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1"/><rect x="10" y="97" width="3" height="56" rx="1.5" fill="var(--ink-4)"/><text x="24" y="116" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">THE ENGINE</text><text x="24" y="141" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">819,152 objects</text><rect x="210" y="97" width="220" height="56" rx="5" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1"/><rect x="210" y="97" width="3" height="56" rx="1.5" fill="var(--ink)"/><text x="224" y="116" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">THE CERTIFIERS</text><text x="224" y="141" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">exact · interval · radii</text><rect x="520" y="22" width="230" height="56" rx="5" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1"/><rect x="520" y="22" width="3" height="56" rx="1.5" fill="var(--ink)"/><text x="534" y="41" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">THE REPORTS · GATED</text><text x="534" y="66" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">62 pages, verdicts</text><rect x="520" y="172" width="230" height="56" rx="5" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1"/><rect x="520" y="172" width="3" height="56" rx="1.5" fill="var(--ink)"/><text x="534" y="191" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">THE INSTRUMENTS · OPEN</text><text x="534" y="216" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">20 pages, in your tab</text><rect x="800" y="97" width="90" height="56" rx="5" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1"/><rect x="800" y="97" width="3" height="56" rx="1.5" fill="var(--ink-4)"/><text x="814" y="116" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">THE GATES</text><text x="814" y="141" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">86 / 86</text><path d="M160 125 L206 125" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/><text x="183" y="143" text-anchor="middle" font-family="var(--f-mono)" font-size="10" fill="var(--ink-4)">screen</text><path d="M430 118 C 480 118, 470 50, 516 50" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/><path d="M430 132 C 480 132, 470 200, 516 200" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/><path d="M750 50 C 780 50, 775 125, 796 125" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/><path d="M750 200 C 780 200, 775 125, 796 125" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/><text x="635" y="95" text-anchor="middle" font-family="var(--f-mono)" font-size="10" fill="var(--ink-4)">every page re-derives its record at build</text><text x="635" y="162" text-anchor="middle" font-family="var(--f-mono)" font-size="10" fill="var(--ink-4)">7 of 20 run a battery in make test</text></svg>
+<svg viewBox="0 0 900 250" role="img" aria-label="One engine feeds one set of certifiers, which feed two faces: the reports, which the gates can refuse to ship, and the instruments, which run in the reader's tab."><defs><marker id="sysarr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-4)"/></marker></defs><rect x="10" y="97" width="150" height="56" rx="5" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1"/><rect x="10" y="97" width="3" height="56" rx="1.5" fill="var(--ink-4)"/><text x="24" y="116" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">THE ENGINE</text><text x="24" y="141" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">819,152 objects</text><rect x="210" y="97" width="220" height="56" rx="5" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1"/><rect x="210" y="97" width="3" height="56" rx="1.5" fill="var(--ink)"/><text x="224" y="116" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">THE CERTIFIERS</text><text x="224" y="141" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">exact · interval · radii</text><rect x="520" y="22" width="230" height="56" rx="5" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1"/><rect x="520" y="22" width="3" height="56" rx="1.5" fill="var(--ink)"/><text x="534" y="41" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">THE REPORTS · GATED</text><text x="534" y="66" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">62 pages, verdicts</text><rect x="520" y="172" width="230" height="56" rx="5" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1"/><rect x="520" y="172" width="3" height="56" rx="1.5" fill="var(--ink)"/><text x="534" y="191" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">THE INSTRUMENTS · OPEN</text><text x="534" y="216" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">20 pages, in your tab</text><rect x="800" y="97" width="90" height="56" rx="5" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1"/><rect x="800" y="97" width="3" height="56" rx="1.5" fill="var(--ink-4)"/><text x="814" y="116" font-family="var(--f-mono)" font-size="10.5" letter-spacing="0.1em" fill="var(--ink-4)">THE GATES</text><text x="814" y="141" font-family="var(--f-mono)" font-size="13" fill="var(--ink)">86 / 87</text><path d="M160 125 L206 125" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/><text x="183" y="143" text-anchor="middle" font-family="var(--f-mono)" font-size="10" fill="var(--ink-4)">screen</text><path d="M430 118 C 480 118, 470 50, 516 50" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/><path d="M430 132 C 480 132, 470 200, 516 200" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/><path d="M750 50 C 780 50, 775 125, 796 125" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/><path d="M750 200 C 780 200, 775 125, 796 125" fill="none" stroke="var(--ink-4)" stroke-width="1.2" marker-end="url(#sysarr)"/><text x="635" y="95" text-anchor="middle" font-family="var(--f-mono)" font-size="10" fill="var(--ink-4)">every page re-derives its record at build</text><text x="635" y="162" text-anchor="middle" font-family="var(--f-mono)" font-size="10" fill="var(--ink-4)">7 of 20 run a battery in make test</text></svg>
   </div>
   <figcaption>One engine, one set of certifiers, two faces. The counts are read off the catalogue, the instruments manifest and the battery record at build; the gates run every battery and refuse a build that drifts.</figcaption>
 </figure></div>
@@ -704,11 +767,11 @@ certified  0.0752403861783092455893…
         <text class="nd-k" x="554" y="278">REFUSED · IN THE LOOP</text>
         <text class="nd-v" x="554" y="299">1</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="the ledger, and the gates on every build" data-t="the ledger, and the gates on every build" data-d="Only certificates reach ledger.json, where the closed-form hunt interrogates every enclosure. Every battery is executed at every control build, never remembered — 86/86 green at this ledger&#39;s build — and red controls are deliberate forgeries the instruments must catch.">
+      <g class="nd" tabindex="0" role="button" aria-label="the ledger, and the gates on every build" data-t="the ledger, and the gates on every build" data-d="Only certificates reach ledger.json, where the closed-form hunt interrogates every enclosure. Every battery is executed at every control build, never remembered — 86/87 green at this ledger&#39;s build — and red controls are deliberate forgeries the instruments must catch.">
         <rect class="nd-box" x="8" y="352" width="784" height="50" rx="5"/>
         <rect class="acc-held" x="8" y="352" width="3" height="50" rx="1.5"/>
         <text class="nd-k" x="22" y="370">LEDGER · THE GATES</text>
-        <text class="nd-v" x="22" y="391">ledger.json · 86/86 batteries</text>
+        <text class="nd-v" x="22" y="391">ledger.json · 86/87 batteries</text>
       </g>
       <text class="ed-lab" x="410" y="160" text-anchor="start">dedup by key</text>
       <text class="ed-lab" x="143" y="336" text-anchor="start">only certificates</text>
@@ -790,7 +853,7 @@ python3 verify/verify_strassen.py certs/strassen-certificate.json</pre>
 <p><strong>What independence means here, exactly.</strong> Independence from the CLAIMANT: when this machine decides someone else's claim, it does not run their code and their code is never in the trust path. It does not mean every checker is a clean-room rewrite of every producer. Two instruments reuse code across the producer/checker line, both times this lab's own and both deliberately: <span class="m">instruments/mfgcap</span> IMPORTS the frozen verifier published with the congestion result rather than editing it — freezing those bytes is the point, and they are re-extracted from the sent page at every build — and <span class="m">instruments/lemniscate</span> was crossed from this lab's own bench with its require paths repointed at the certifier that bench already used. Where a page claims clean-room independence — the λ(4) clause walk, the #1038 forcing re-check, the band verifier — it says so on that page, and it means it.</p>
 </section>
 
-<footer class="col"><p>Generated by tools/build-site.js @ git 77ba80d from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
+<footer class="col"><p>Generated by tools/build-site.js @ git 6659a49 from ledger.json and the certificates — every number above was recomputed during this build, and the build refuses if any fails its own consistency identity. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></footer>
 
 </div>
 </html>

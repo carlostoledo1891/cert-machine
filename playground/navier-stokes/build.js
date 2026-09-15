@@ -31,7 +31,6 @@ const S = JSON.parse(fs.readFileSync(SCENE, 'utf8'));
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
 const OVERLAY = fs.readFileSync(path.join(PG, 'design', 'overlay.css'), 'utf8');
 const nf = (x) => Number(x).toLocaleString('en-US');
-const MONO = "'JetBrains Mono var','JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace";
 
 /* THE OVERLAY GRAMMAR IS THE INTERFEROMETER'S, and it is now shared rather than copied:
    playground/design/overlay.css defines #stage, .ov, .ov-title, .ov-foot, .rd, .ov-panel, .pt,

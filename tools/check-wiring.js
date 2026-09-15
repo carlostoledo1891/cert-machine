@@ -219,7 +219,9 @@ function fontOffences(html, label) {
   while ((m = re.exec(body))) {
     const v = m[1].trim().replace(/'/g, '"').replace(/\s*,\s*/g, ',');
     if (!v) continue;
-    if (/^var\(--f-(display|sans|mono)\)$/.test(v)) continue;
+    /* both spellings of the two faces: the house --f-* and the frontier
+       --font-* that /instruments was written in; tokens.js emits both */
+    if (/^var\(--(f-(display|sans|mono)|font-(sans|mono))\)$/.test(v)) continue;
     if (GENERIC.test(v)) continue;
     if (STACKS.has(v)) continue;                      /* a token stack, verbatim */
     out.push(label + ': ' + v.slice(0, 72));
@@ -253,6 +255,11 @@ for (const d of ['site/about', 'site/machine', 'site/oracle']) {
   if (fs.existsSync(path.join(ROOT, d))) walk(d);
 }
 if (fs.existsSync(path.join(ROOT, 'site/index.html'))) pages.push('site/index.html');
+/* AND /instruments (2026-09-15). The walk below used to be added only after
+   check 4 had run, so the type check covered 69 pages and the palette check
+   90 — and four instruments pages carried a literal ui-monospace stack in
+   their card art for ten days with this check green. One list, every page. */
+walk('site/instruments');
 
 const offences = [];
 for (const p of pages) offences.push(...fontOffences(read(p), p));
@@ -322,7 +329,6 @@ function colourOffences(html, label) {
   return out;
 }
 
-walk('site/instruments');
 const paint = [];
 for (const p of pages) paint.push(...colourOffences(read(p), p));
 const uniq = [...new Set(paint)];

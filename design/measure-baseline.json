@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-09-12",
+  "recorded": "2026-09-15",
   "browser": "Chrome/152.0.7977.83",
   "viewports": [
     1440,
@@ -33,49 +33,49 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f2dc6c3b290f42c1300f52201d198229fc9646d190f04a9756ec48912741e5d7"
+      "sha": "62e3a8ebe1a0f7f8a5b2b4c2ceab243cb0d1a7772271ef2e8fcb24300ee4ccc3"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
-        "spines": 6,
+        "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "768": {
-        "spines": 6,
+        "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 7,
+        "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "80b775b7379ecb91b95387ad5fdd8290ef94b838cdb53ad5fe2a5639b2215921"
+      "sha": "405acfd795fb4ff8c97d458424c56505cf8957b1689ef9e53e3b97b3d2a932ba"
     },
     "site/apps/skyaudit/sp/index.html": {
       "390": {
-        "spines": 6,
+        "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "768": {
-        "spines": 6,
+        "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 7,
+        "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d442f8f43acc668890f0a1e96740c3bc749aa5a54ef1852690983c52d9eb5a70"
+      "sha": "f5c7fec8209454f4f9b8fd926a0a89e4b1e43e238aad74e922ae5118fead985d"
     },
     "site/index.html": {
       "390": {
@@ -96,7 +96,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8f8e2d19efb3599a7a8b7e222690259867081a315576a731f7e0d79a02779708"
+      "sha": "9e7b8fa21c56432f09384962b03c4ff15a1f0344ac9d1e2bd0f25b1d2c4ea0e3"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -163,7 +163,7 @@
     },
     "site/instruments/census/index.html": {
       "390": {
-        "spines": 5,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -180,28 +180,28 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "bc5fd0eeb66003917b5340ec2aea5954b4cabb56290f2cb4cd214e17ae646b80"
+      "sha": "46fe3e7b361da1baae93be7cf23c2fe974eb4f7fd7f41df583a3bf83ba2a46d4"
     },
     "site/instruments/contours/index.html": {
       "390": {
-        "spines": 4,
+        "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 1
       },
       "768": {
-        "spines": 8,
+        "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0
+        "clipped": 1
       },
       "1440": {
-        "spines": 10,
+        "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "53420581e161f37df0469302fe596cfe384f3bb8f3ecb90b07fe3dbf5447c4e9"
+      "sha": "fb3f7215d62965121a8468e011fb4a1ea196fae8aab107115775c323103ea758"
     },
     "site/instruments/curveset/index.html": {
       "390": {
@@ -264,7 +264,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "245b006f8eaf723fdc850b9a2963dae8b482c9d5217104321be90ce4fc89ca1b"
+      "sha": "43d32a099fe511263cae094921c8fca1cff3eb8d4e8f9a5136888aeea324dce1"
     },
     "site/instruments/index.html": {
       "390": {
@@ -285,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "4b23d30356df0a49c663d8783501b063a9f39e1750a3100b28a63c39ae91e31b"
+      "sha": "48f2a10c0fce3035220321da411b3125ef075defa12c26e8348d407544420f35"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -327,7 +327,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "bef36db8583e9960ccad66b17264604ca575bd31666a85276d2a333a9558b53a"
+      "sha": "e5a21f9e4b0d14142167773c5f13b72db3f483ff3203e8094be9c2ee1a50283a"
     },
     "site/instruments/navier-stokes/index.html": {
       "390": {
@@ -453,7 +453,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b9e56e441d8b58a28bac835d8ba3b076bb9894607de366ffea482ad226214fa6"
+      "sha": "f1177001cae8eb79f6f8b082ec5927b0f17e39d171cd64981e7a43a3e73a0522"
     },
     "site/instruments/shape-hunt/index.html": {
       "390": {
@@ -474,7 +474,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "f5469135807d420b7ce91d907b628db3f318604fb79e41328d6e70404895a336"
+      "sha": "1bdcd60c386176b1087037b39f838981cea530ad5bd0fab14f4b9f077e1db048"
     },
     "site/instruments/simplex/index.html": {
       "390": {
@@ -499,24 +499,24 @@
     },
     "site/instruments/stereo-reach/index.html": {
       "390": {
-        "spines": 5,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "7e395f6deb9a12830d4adfb996a3f19f959f8e63f4c90ffbd262c4f1286597ae"
+      "1440": {
+        "spines": 11,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "370d393f9a079cb86778fb6b7cc66eb0afe2f54dc23ac22a7681b19b9648fec8"
     },
     "site/instruments/transit/index.html": {
       "390": {
@@ -558,7 +558,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b563f1e6f158922f30745aba207d9860c4fad329ea59e1a89ecd316140eeb9ea"
+      "sha": "23597357761514033ad0c7e7ce61f8a3b7d0fbde3c941edd3913b6899646729a"
     },
     "site/oracle/index.html": {
       "390": {
@@ -579,7 +579,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d829c3921939e971e59660ca6d48744b5e02662f6f970839cd0dc6baa5e23d2d"
+      "sha": "e72e62d6445347fe63bdeb73dd169d31ac77313bc09b6f8cb61453f0361ee13b"
     },
     "site/reports/aag.html": {
       "390": {
@@ -600,7 +600,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "57e897ce597b4162902d5be5aec7e7463706c7e19a5f0d382acf2606d939867f"
+      "sha": "604d9b6491ef2c7da8a57ee803e49435c75b71374bdbdc4574735b3a84876aa1"
     },
     "site/reports/afg.html": {
       "390": {
@@ -621,7 +621,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "584006319716cc27eec0d44b2cc4a73539f4b12b16516173121d037f41af7afa"
+      "sha": "ae195e5569d6ee87e96b55d93a27a5a16c4ee3c5b2e15afe62690a1e0869f2e6"
     },
     "site/reports/agtable.html": {
       "390": {
@@ -642,7 +642,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "0f242c2d0376ef771a636dddaba5fee766c9dbb136a30ef4f341003ff1a043df"
+      "sha": "41caad2d1a5f5821c97a006ae7283a11559a3b0788e8d2177e3fea704e394c13"
     },
     "site/reports/ai-claims-audit.html": {
       "390": {
@@ -663,7 +663,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b8ebd954228b693ade64dc40535c4a01a9e514cbc8ff1331152047b1f436a4a2"
+      "sha": "68ef07e106f0876c1eca9259f954cb02d23858ad83e9634032bf17da599232b0"
     },
     "site/reports/alien-science.html": {
       "390": {
@@ -684,7 +684,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "33dbd94a278dff98a3fbdf2d1929102429c4ba3e5c12d61b1ded5b6d6664c9ae"
+      "sha": "0898fb4d44bea771a7f87e427f70d9482ddbab551612e3b55d87a49ead2b36a7"
     },
     "site/reports/alphaevolve.html": {
       "390": {
@@ -705,7 +705,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "64ac6b2813a9f1efb41621022b7009f338a9ae692f143d9191d67e207c031471"
+      "sha": "95c0a831039bc24d13272843c04232df1871f50ddbd2a925e4d3cde86646782d"
     },
     "site/reports/answer-key.html": {
       "390": {
@@ -726,7 +726,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "bdb32d23794da9df87ea077b9c3408770a1a691776734dc20e1bdc6c8bcce581"
+      "sha": "5cce91f21681d03c8163a1a5c4c2cc8dc60238014f4600b456dd616add183357"
     },
     "site/reports/breaking-geometry.html": {
       "390": {
@@ -747,7 +747,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "cb95a56868a091a873256320ae18e5f1da151766b406bd4ef4a0adc78e050c95"
+      "sha": "70f31e5bd1fa47bbe0c166d787ce04563526ae1317c673fe6b3e1897eb308958"
     },
     "site/reports/claim-korenblum.html": {
       "390": {
@@ -768,7 +768,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "9ee68cdb47b5b1d51c2fdbd0ed96d87a6bfeb30d1590ed213f729e8eccc1c898"
+      "sha": "d1ce88afebe1e648672032a6d36578ea040f2c502e609d23297ccf3216707bff"
     },
     "site/reports/claim-lemniscate.html": {
       "390": {
@@ -789,7 +789,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "49d63a3be1c053c54f2aa3399bb95a0111248552a2419de839bbbc5d0c1c249f"
+      "sha": "82d7dacf5be825f20692630070a184fcbed67144c7abfb4bdd5aab991b5dc0ad"
     },
     "site/reports/claim-mathieu.html": {
       "390": {
@@ -810,7 +810,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "32d92cdb3eb1918a518f220953d1d9add7b2c19693b506bc26ef14633c9546ec"
+      "sha": "af78423f7c0f333daaa8c866428aa04299559d39202381d7617622085123c9dc"
     },
     "site/reports/claim-maxwell.html": {
       "390": {
@@ -831,7 +831,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b2a2d338c8684ae934270c7eb93d17d4c916bb94cdf331233ade24a3d631404b"
+      "sha": "ee221b51238db270a68504440cac8a54077bd9ddeb17237944c06e36c33ec925"
     },
     "site/reports/claim-poisson.html": {
       "390": {
@@ -852,7 +852,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "9695ced74b8207215271d485729951a13f6e24ed9a6cbccee81603ae93235770"
+      "sha": "4cc5e19064457fe7be4f6b243be5961342e3a46a372ac2f1b7e815e5e9486374"
     },
     "site/reports/claim-ranteng.html": {
       "390": {
@@ -873,7 +873,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "46c4eb97d3faa0f303e7fdfcd90295e93d3db353b4e39d2cd743e7ff6520c1e1"
+      "sha": "db0f8d43e9bd007d75cafec7379e1b54757ee6d7843dc17eaff2e7c1bcb15b19"
     },
     "site/reports/claims.html": {
       "390": {
@@ -894,7 +894,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a49d9040c4dc1628fa4a354b2af48e1128f8873cb177cc1c25c7ba6e91fbc86f"
+      "sha": "f371a9aba1910f1ad5c3b925a198a3965efd05cc955c2f9c00a5e18d26dbcb85"
     },
     "site/reports/easota.html": {
       "390": {
@@ -915,7 +915,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "5f2636acda50c9c145a4124a0c9b842a801f10828efda77bde42ed7b1de97a12"
+      "sha": "458283c1b357bbbf42d1a186a63bfcd43b32c1cf5f3fc88082d468faffbc4655"
     },
     "site/reports/ec-benchmark.html": {
       "390": {
@@ -936,7 +936,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "7e7bbfc6d778c64d9bbacff55c728de8c931ca2f31ca3af3684276ad3f784008"
+      "sha": "5273d706768d1215fdd757b5d5d315a33042cdda1d638016d8445456e8c4383d"
     },
     "site/reports/ember.html": {
       "390": {
@@ -957,7 +957,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "c59a428ed7ab7f3084f6bc43dbf19378bb655ceb472231b3e3fb43f047e43b76"
+      "sha": "d1cf77dc5a4f5d9182def8a0d44a087dd055941700bdccd3f240c214a9553e25"
     },
     "site/reports/entropy.html": {
       "390": {
@@ -978,7 +978,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8fe71df8c432ab318b95adaf16d99892ee0af2cf6557d2cef106073ade4f7815"
+      "sha": "9de562880cd74d7b26aba1be9852d624ff096738995d82b3058448c8fdb0b8ac"
     },
     "site/reports/envs.html": {
       "390": {
@@ -999,7 +999,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "965fd4b375394cc4523b259015b8e56f90e50675c9870a2ea4130e64c28c0888"
+      "sha": "ace19b181b0ea5882a8321c26ca1ef6ce9eb088a4de5cd84bffd648f831f080f"
     },
     "site/reports/erdos1038-inf.html": {
       "390": {
@@ -1020,7 +1020,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "5be19edb47e5b992adee32ad24f122696d2cbc8684a889fe4d6d19682708a5e7"
+      "sha": "c3f74af14165f0c63a344eaae8aaf6641b8fc45dd98b535246a7ba3c5101ff6a"
     },
     "site/reports/erdos1038-sup.html": {
       "390": {
@@ -1041,7 +1041,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "0d32d8b2b51692daeec3eb3076dc8c1ca58ad35d8a2b0681568ee4a32be9985e"
+      "sha": "e75a00265fabb1ebcf0c2ee75f2fe31b26090101d206d364c301037e807e7932"
     },
     "site/reports/erdos290.html": {
       "390": {
@@ -1062,7 +1062,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "1f2317b13d8dc6da32fe9dcbd36904d74184c76f46f507a81349a305fcbaac0f"
+      "sha": "5fed0c1edab62b25f5578428a0faa07a69a1ab4f3b91c92768c9c65a33fdd8e1"
     },
     "site/reports/erdos852-h.html": {
       "390": {
@@ -1083,7 +1083,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "053e978cf744e62fbdeadfa684ea25612d549a5b25aa90d229df802fd2d40cce"
+      "sha": "cfa81b007769564f4f9272585370e40d59208ef4cb793dac4ac5068f93a1802e"
     },
     "site/reports/erdos852.html": {
       "390": {
@@ -1104,7 +1104,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e1983f5a8f1330288d06926779e4ae0285bb81dd469c652f6411e1d2dd310664"
+      "sha": "e95c45e10ffbb2b398eec5648b8841896f642e42d2b21ec3608da4c8bda167ad"
     },
     "site/reports/evtol-energy.html": {
       "390": {
@@ -1125,7 +1125,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "deae34dbccec603aa4ab6bd95278d13b7164f992aab22bc37f5856b30b04ec65"
+      "sha": "5fd94a4d3c6aa59894400716162820e206e16dfa475635acef79d59fca9f8b67"
     },
     "site/reports/forecast-gym.html": {
       "390": {
@@ -1146,7 +1146,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "7d86c5e42b78ade20724203a356aabcd0a6d9b991a749f8e40b2f6d2aac3fb8f"
+      "sha": "c96a5f76ba932a360ab79bf5effc0bfe4bb462a1ae1afc3ceca770dd247d3b4c"
     },
     "site/reports/frontier.html": {
       "390": {
@@ -1167,7 +1167,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8131f312d2ca3b87d526f6a4dae40e271b9354887e1d6766c310654d714badd9"
+      "sha": "6f15125b0ef7cbfdb5f7e9e43b2cc6da127e4890f2bd3b6a95d6e55793e38430"
     },
     "site/reports/glide-band.html": {
       "390": {
@@ -1188,7 +1188,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f38d3ac3e43d774c67fe5ad943a85defd4e7f606628ecab32a58632805a320c2"
+      "sha": "5c405934cdf49bb9f4e208b5123e94c14619d2b7c1ff364545395a0a212306e3"
     },
     "site/reports/gym.html": {
       "390": {
@@ -1209,7 +1209,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e01d6df7c3ded8116dff1e5517f097f47c6923156bf739caf5c1d763109ad153"
+      "sha": "d6ed92166288e455f991d2cd0c3ba3889292da527bb1e7a38995f4bb5504e0f9"
     },
     "site/reports/harbor-proof.html": {
       "390": {
@@ -1230,7 +1230,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "1d66cf2ea722e1ed3851ef68feb5ce70d24cf9e6d12d1c7a7f4effc8880b7f9b"
+      "sha": "d3f69248b0259fdd1f7818f060b606521512c15041556e0e9989ff7612dab941"
     },
     "site/reports/hbar.html": {
       "390": {
@@ -1251,7 +1251,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "99845e7235bc888984b1eb3541c1be8403891eb4499f292357b0a2d58961c5fd"
+      "sha": "60f99c38d1fde6b250906fa3f401b1d2ff12ad047ef85119d40c00be219e380e"
     },
     "site/reports/impostors.html": {
       "390": {
@@ -1272,7 +1272,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "56835b202ebf369ed8cf42f927e57a4cdecdbb6106230d696c79b8cae2731555"
+      "sha": "b4ed229a2368d374a6654ff1eff71b68f831004dcef20ed4f182d114684a24b7"
     },
     "site/reports/index.html": {
       "390": {
@@ -1293,7 +1293,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "0cf63d4c5391abaab21e65066c540305a5433b01c4762d71e32f1ef7a3b76695"
+      "sha": "44257948b5f25410b32911f624bb1b8139424896b181ffa197cc44b9ce5aaa12"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1314,7 +1314,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "2e6093511de2091ec33fb017ae2697fe873eb4ef964e6b5a20c34044b7e27c71"
+      "sha": "219ced1732a18728a293fa670c6480630375795540a47ac39129f520bcca6718"
     },
     "site/reports/kissing.html": {
       "390": {
@@ -1335,7 +1335,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b752a2008d2b8a38969f664f5776f75f2c7712bcfde68d78defd02babb85f129"
+      "sha": "d48ebd84778dc5a99951842a75860b2357cf3a3720e2b3b0281cfdb9007665bf"
     },
     "site/reports/lambda4.html": {
       "390": {
@@ -1356,7 +1356,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "90c14a7b3b4b3571456660344ec83d60c919521c0510ed929f524c451732fa08"
+      "sha": "91533d9802019e3ea4a475dc2e4d5f35f242da32aaa8b679e49bd63046d98f78"
     },
     "site/reports/lambda5.html": {
       "390": {
@@ -1377,7 +1377,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "c63fb86b43f5d6f09f0fb2f7beb034db207a77bba90bd900f459ff9770a6f496"
+      "sha": "9abbc87d37e944e1963edf4baab5eda694529b0dd353cba999428ba56e37d320"
     },
     "site/reports/matmul-additions.html": {
       "390": {
@@ -1398,7 +1398,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "af858883fdf338f601b50083c8531efa9c6d10f32dfc902c2a53c4a8443c8e23"
+      "sha": "b53ea6d9450081b0845d50b40ec455038f12c6e7224a1765d59ab8df1369fa4e"
     },
     "site/reports/matmul-eval.html": {
       "390": {
@@ -1419,7 +1419,7 @@
         "escapes": 0,
         "clipped": 2
       },
-      "sha": "b6bc860c3d35871be783997b42cd02715a4dba4fbaf7ee872b81093242dd497e"
+      "sha": "2e942852af0f1423e38b7497cf2b9a1c45f718f1375278546174d8d031904fb8"
     },
     "site/reports/maxval.html": {
       "390": {
@@ -1440,7 +1440,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "95540e036df6f76f6020c560809a7bd586e5e8296124ba0fa36acfc8c1ff239b"
+      "sha": "f6af5f7a55af9d8c3357a85b214c41262d8a1c20d734a73139447935a814c758"
     },
     "site/reports/mercer-program.html": {
       "390": {
@@ -1461,7 +1461,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f1737528fa4c6e5bc9adff8dcf35ed01cbaebc8be1ed1997046ce09a7c22e563"
+      "sha": "7db5168fd0431027cb479554bd0164ec3a6659edfa0083d8ee4ce279f7b8c98c"
     },
     "site/reports/methods-note.html": {
       "390": {
@@ -1482,7 +1482,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "56dda04d4a6e22ac3979809fe713811875056b9fdf666e1e1e9836d1050f1ea6"
+      "sha": "8189e356d696a17e4b2f0d754fb7676969a380b6233bc77ee67c29d6fd7f6359"
     },
     "site/reports/mfg-cap.html": {
       "390": {
@@ -1503,7 +1503,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "5e4b7ba430df76d1a24514bdd1ff17eff4de0979b64419bfd3ccd0ddd661b44a"
+      "sha": "0616c6ead9bb1f730fd9ba2eced562a491ae11e3bb769a153a730b48f9830cf5"
     },
     "site/reports/mfg-congest.html": {
       "390": {
@@ -1524,7 +1524,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "6259048e87ffcdfb57a2e3532f1feb89291cfbf8b6e14ae8ac9bf48a8bb6dfc6"
+      "sha": "cc94216fcdd04ad6538e07f70809e0d02c27bac9aba852b9cbb3080826f58fef"
     },
     "site/reports/mfg-lab.html": {
       "390": {
@@ -1545,7 +1545,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "05e629adee8dba5043dd109a1465f9c929d8e768258fe9029c22f8dd47bd3376"
+      "sha": "993a4ecde123dd26a4164b70badfc20ce995882e90fca622e0b28700a52d1d14"
     },
     "site/reports/mfg-observatory.html": {
       "390": {
@@ -1566,7 +1566,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "dde4c31760380d63a265337a5de69dc5c745e50706ed046ab0fac0c4c1054483"
+      "sha": "986cee060a6b7cdc1334ee559da0a43fffc45244bcf9b532fdd5c32e577506fb"
     },
     "site/reports/mfg-two-population.html": {
       "390": {
@@ -1587,7 +1587,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "21fdb4aed3220ba9ed0ac23b444ec31d0eed8fcb76013d53eb15f40c6d75e2e3"
+      "sha": "06d54e38bff755a6955e80679ee715a05e5d699121655157902528ff9d4a5272"
     },
     "site/reports/monoflow.html": {
       "390": {
@@ -1608,7 +1608,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ca353caa0b68a6158760bab1bd3c4fd0cf10d1de050fad99b9f4b9fe45387847"
+      "sha": "c0de036cea0cd1a3ca51bfd3ce38c8f4bcdb86a47b413b46fc4e0caeb693c112"
     },
     "site/reports/navier-stokes.html": {
       "390": {
@@ -1629,7 +1629,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "7469a9de89cb8f8cef982242e260409a8c0d88c6715a5c8c9b3f40ddf5c852d2"
+      "sha": "63f80a5ab257a9d65b58bc363d075528825929c37860b93c5a6f326e164a61ff"
     },
     "site/reports/polynomial-multiplication.html": {
       "390": {
@@ -1650,7 +1650,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "4889ca17b8481076d63138011b4455d0d06011f65c54fd399f1ba174f240ebc7"
+      "sha": "86021e14686669a1241cce3efe4a8814cdffedcb4078a78a564317cd1757e3c9"
     },
     "site/reports/price.html": {
       "390": {
@@ -1671,7 +1671,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "fa4571c749ff592e9cc907de85e1eefa9e2e00892c8b5530fe625c694357fa57"
+      "sha": "49d75ac676bdb6d264ad7fca1a81b3c6b94a96f627acb9d86538072a3ea61d4e"
     },
     "site/reports/refusals.html": {
       "390": {
@@ -1692,7 +1692,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "3de9cd92abaec543b7ea195f34b76662077d43ea88bf9e8a9b9077dccf2978f2"
+      "sha": "1b62fb51d2875148c8ec63b603c303b079fa23ce8029305b6a18942c09a2be56"
     },
     "site/reports/regatlas.html": {
       "390": {
@@ -1713,7 +1713,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "2c74c7f2a9180c46030859bc14385d2c54b621240e02349b3b6c2dd002369214"
+      "sha": "1e07d8d34d08b430328eab042cffa43b2d8aaa64d5b75fd2bfafaa9248716bfd"
     },
     "site/reports/rm-audit.html": {
       "390": {
@@ -1734,7 +1734,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "1183029806d97611767a99777f463eb06dfd1b32bbc8a5e308f383ab9cdf93ac"
+      "sha": "abfa90979ba4515bb8da08b314c9375280335b90305ace750340eb2c9af9fc16"
     },
     "site/reports/skyaudit.html": {
       "390": {
@@ -1755,7 +1755,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b4aa1c6b6d5a2258c9b8c583c2eadcc152e196ce99007080eb724cdfb84bb873"
+      "sha": "f690003ab1a9d6822d311f87337107391499897078deb0147244cce000a05188"
     },
     "site/reports/tensor-rank-bounds.html": {
       "390": {
@@ -1776,7 +1776,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "da703ad4bd44ff5f70f9b4c4326be8ff7d83b91c69bd2a168f174053926be457"
+      "sha": "24ae8b7ef7dd538290bdf2dda155e43a27aa569d4075dea055573445db0f2201"
     },
     "site/reports/terra.html": {
       "390": {
@@ -1797,7 +1797,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "4a7da4cb6cea9163da6f459276fbea81696444493b273e5ad45407801764a9f8"
+      "sha": "ab6d6e58d511091398661724a37fb4c7f696e1dea632cb90aaa6b7bac2dadd34"
     },
     "site/reports/verifier-loop.html": {
       "390": {
@@ -1818,7 +1818,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "dce3c848d72e5fc3444ef9e351633336561190d70fd2855c4d74883e40fd4a58"
+      "sha": "0688b21b18f02f60323aea90d8298c7338e822132b13535f7959e6fc80bca0cb"
     },
     "site/reports/verify-lemniscate.html": {
       "390": {
@@ -1839,7 +1839,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "79bf5a63849c44102581a69e7b4d5c7e3570de5f7308143ab6a9ff81fccdc19c"
+      "sha": "5b0793664a658afa69d59de487d5aef56d72bafccb52ddf147759e148d74521e"
     },
     "site/reports/wardrop-repro.html": {
       "390": {
@@ -1860,7 +1860,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "217b093aa9110050cbb94963f4d85526fe41b02615d41599331fa84796b90def"
+      "sha": "a32ee26422f1ffa98f88318bfbf28afb0f2fb9bd48b8f9b683eabf8ec9870233"
     },
     "site/reports/water-value.html": {
       "390": {
@@ -1881,7 +1881,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "6b60d17c68dac43756c5f9fdc5279c8f3dd62302c638f6597d95790d19a469ad"
+      "sha": "d23aaef8c15ef6cf09ae4bebb28ce0d3aa00a5588767c4790420ec535247e95b"
     },
     "site/reports/zeta3-audit.html": {
       "390": {
@@ -1902,7 +1902,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "28ef75e0f9172f219d8fdd6b5946d02da798ca78899a6a8ebe323de2d35c266d"
+      "sha": "de5c7cacf38fcf1116e24738b21584b762d80390cae00e3ec64770982e356279"
     }
   }
 }

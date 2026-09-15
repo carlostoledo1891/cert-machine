@@ -104,13 +104,13 @@
           if (Wb - wa > 0.3) bands.push(band(a, b, nx, ny, -Wb / 2 + wa, Wb / 2, 'var(--ink-3)', 0.32, 'population b on ' + e[0] + '→' + e[1] + ': ' + E.str(E.sub(fam.T[i], v1)) + ' of ' + E.str(fam.T[i]), i));
         }
       }
-      wires.push('<line class="ce-edge" data-i="' + i + '" x1="' + a[0] + '" y1="' + a[1] + '" x2="' + (b[0] - dx / L * 9) + '" y2="' + (b[1] - dy / L * 9) + '" stroke="' + (on ? (shared ? 'var(--ink-2)' : 'var(--line)') : 'var(--line)') + '" stroke-width="' + (on ? 1.2 : 8) + '" ' + (on ? '' : 'stroke-dasharray="2 3" stroke-opacity="0.35"') + ' marker-end="url(#ce-arr)"><title>' + (on ? 'edge ' + e[0] + '→' + e[1] + (shared ? ' · shared by both populations' : ' · one population only') + ' — click to drop it' : 'edge ' + e[0] + '→' + e[1] + ' dropped — click to restore') + '</title></line>');
+      wires.push('<line class="ce-edge" data-i="' + i + '" x1="' + a[0] + '" y1="' + a[1] + '" x2="' + (b[0] - dx / L * 9) + '" y2="' + (b[1] - dy / L * 9) + '" stroke="' + (on ? (shared ? 'var(--ink-2)' : 'var(--border)') : 'var(--border)') + '" stroke-width="' + (on ? 1.2 : 8) + '" ' + (on ? '' : 'stroke-dasharray="2 3" stroke-opacity="0.35"') + ' marker-end="url(#ce-arr)"><title>' + (on ? 'edge ' + e[0] + '→' + e[1] + (shared ? ' · shared by both populations' : ' · one population only') + ' — click to drop it' : 'edge ' + e[0] + '→' + e[1] + ' dropped — click to restore') + '</title></line>');
     });
     s.push(bands.join('')); s.push(wires.join(''));
     Object.keys(pos).forEach(function (n) {
       var q = P(+n), exit = p.exits.indexOf(+n) >= 0, ent = (+n === p.ea || +n === p.eb);
       s.push('<circle cx="' + q[0] + '" cy="' + q[1] + '" r="' + (ent ? 9 : 7) + '" fill="' + (exit ? 'var(--ink)' : 'var(--paper)') + '" stroke="var(--ink)" stroke-width="1.5"/>');
-      s.push('<text x="' + (q[0] + 11) + '" y="' + (q[1] - 8) + '" font-size="11" fill="var(--ink-2)" font-family="var(--mono)">' + n + (ent ? (+n === p.ea ? ' · a' : ' · b') : '') + (exit ? ' · exit' : '') + '</text>');
+      s.push('<text x="' + (q[0] + 11) + '" y="' + (q[1] - 8) + '" font-size="11" fill="var(--ink-2)" font-family="var(--font-mono)">' + n + (ent ? (+n === p.ea ? ' · a' : ' · b') : '') + (exit ? ' · exit' : '') + '</text>');
     });
     s.push('</svg>');
     host.innerHTML = s.join('');

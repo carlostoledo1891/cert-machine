@@ -104,6 +104,7 @@ test:
 	@printf "%-30s " "wiring"; $(NODE) tools/check-wiring.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "measure (layout ruler)"; $(NODE) tools/check-measure.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "grammar (the dash census)"; $(NODE) tools/check-grammar.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "style (the stylesheet gate)"; $(NODE) tools/check-style.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "cert-unit port + wiring"; $(NODE) instruments/cert-unit/test.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "cert-unit reds (6 declared)"; $(NODE) instruments/cert-unit/reds.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "cert-unit editor = engine"; $(NODE) instruments/cert-unit/editor.test.mjs >/dev/null 2>&1 && echo PASS || echo FAIL

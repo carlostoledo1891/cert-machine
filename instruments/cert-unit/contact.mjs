@@ -60,20 +60,19 @@ export function contactSheet(rows, ports, { title = '', scale = 1, note = '' } =
   });
   if (note) parts.push(`<text x="${PAD}" y="${H - 6}" class="cn">${note}</text>`);
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${Math.round(W * scale)}" class="cg">
-<style>${CONTACT_CSS}</style><rect width="${W}" height="${H}" class="cbg"/>${parts.join('')}</svg>`;
+<style>${CONTACT_CSS}</style>${parts.join('')}</svg>`;
 }
 
 export const CONTACT_CSS = `
-.cg .cbg { fill:#0a0a0c; }
-.cg .cs { fill:#f6f6f8; fill-opacity:.05; stroke:none; }
+.cg .cs { fill:var(--ink); fill-opacity:.05; stroke:none; }
 .cg .cs.fired { fill-opacity:.92; }
 /* fill inside a ring is right; a fill with no ring is a wrong answer; a ring
    with no fill is the answer it missed. */
-.cg .ck { fill:none; stroke:#f6f6f8; stroke-opacity:.5; stroke-width:1; }
-.cg .cl { fill:#9a9aa6; font-family:ui-monospace,Menlo,monospace; font-size:9px; }
-.cg .cp { fill:#6e6e7a; font-family:ui-monospace,Menlo,monospace; font-size:6.5px; }
-.cg .ct { fill:#f6f6f8; font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:.1em; }
-.cg .cn { fill:#6e6e7a; font-family:ui-monospace,Menlo,monospace; font-size:8px; }
-.cg .cr { stroke:#f6f6f8; stroke-width:1.6; }
+.cg .ck { fill:none; stroke:var(--ink); stroke-opacity:.5; stroke-width:1; }
+.cg .cl { fill:var(--ink-3); font-family:var(--f-mono); font-size:9px; }
+.cg .cp { fill:var(--ink-4); font-family:var(--f-mono); font-size:6.5px; }
+.cg .ct { fill:var(--ink); font-family:var(--f-mono); font-size:10px; letter-spacing:.1em; }
+.cg .cn { fill:var(--ink-4); font-family:var(--f-mono); font-size:8px; }
+.cg .cr { stroke:var(--ink); stroke-width:1.6; }
 .cg .cr.solid { stroke-opacity:.55; }
 .cg .cr.dashed { stroke-opacity:.28; stroke-dasharray:1.5 2; }`;

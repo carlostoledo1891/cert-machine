@@ -181,7 +181,9 @@ const SHADOW = '0 8px 28px rgba(0,0,0,.55)';
 const RHYTHM = {
   leading: { tight: '1.04', snug: '1.25', body: '1.65' },
   track:   { display: '-0.035em', title: '-0.02em', eyebrow: '0.16em' },
-  weight:  { display: '550', title: '530', medium: '480', body: '400' },
+  /* mono 500 and strong 600 added 2026-09-15: the site set them in 44 places
+     (eyebrows, table heads, chips, the brand) with no name to set them by */
+  weight:  { display: '550', title: '530', medium: '480', body: '400', mono: '500', strong: '600' },
 };
 /* 4px base. The names are the steps, not the pixels, so a step can be retuned
    in one place without a search for "1.5rem". */
@@ -235,17 +237,59 @@ function fontBlock(indent) {
           pad + '--f-mono:' + TYPE.mono + ';'].join('\n');
 }
 
-/* ONE theme state: the full palette on bare :root, dark by declaration. */
+/* THE SCALE, ONCE, FOR BOTH SHELLS (2026-09-15). Until this date rootCss()
+   emitted the palette, the shadow, the layout and the faces — and NOT the
+   radii, the spacing steps, the motion or the type scale, which only
+   instrumentsCss() carried. Commit 02e5768 (2026-09-05) had rewritten every
+   container radius on the report side as var(--radius-m); nothing defined it
+   there, so every report, the landing, /machine, /about, /oracle and the app
+   pages rendered SQUARE corners for ten days while check-wiring's radius
+   check read the token NAME and passed. tools/check-style.js now asks whether
+   every var() on a built page RESOLVES. This block is what makes it resolve:
+   one scale, both spellings, on every page. */
+function scaleVars() {
+  const v = {};
+  v['--text-display'] = SCALE.h1; v['--text-1'] = SCALE.h2; v['--text-2'] = SCALE.h3;
+  v['--text-3'] = SCALE.deck; v['--text-body'] = SCALE.body; v['--text-small'] = SCALE.small;
+  v['--text-mono'] = SCALE.small; v['--text-eyebrow'] = SCALE.eyebrow;
+  v['--leading-tight'] = RHYTHM.leading.tight; v['--leading-snug'] = RHYTHM.leading.snug;
+  v['--leading-body'] = RHYTHM.leading.body;
+  v['--track-display'] = RHYTHM.track.display; v['--track-title'] = RHYTHM.track.title;
+  v['--track-eyebrow'] = RHYTHM.track.eyebrow;
+  for (const [k, val] of Object.entries(RHYTHM.weight)) v['--weight-' + k] = val;
+  for (const [k, val] of Object.entries(SPACE)) v['--s-' + k] = val;
+  v['--section-pad'] = SCALE.section;
+  v['--gutter'] = SCALE.pagePadX;
+  v['--container'] = LAYOUT.container; v['--read'] = LAYOUT.read; v['--title'] = LAYOUT.title;
+  for (const [k, val] of Object.entries(SHAPE)) v['--radius-' + k] = val;
+  v['--ease-out'] = MOTION.ease;
+  v['--dur-fast'] = MOTION.fast; v['--dur-med'] = MOTION.med; v['--dur-slow'] = MOTION.slow;
+  v['--shadow'] = SHADOW;
+  return v;
+}
+
+/* the frontier spellings of the palette, as a block: one value, two names */
+function frontierVars() {
+  const v = {};
+  for (const [frontier, house] of Object.entries(FRONTIER)) {
+    if (DARKONLY[house] === undefined) throw new Error('FRONTIER maps ' + frontier + ' to ' + house + ', which is not a palette name');
+    v[frontier] = DARKONLY[house];
+  }
+  return v;
+}
+
+/* ONE theme state: the full palette on bare :root, dark by declaration —
+   house names, frontier names, the scale, the faces. */
 function rootCss() {
   return [
     ':root{',
     '  color-scheme:dark;',
     block(DARKONLY),
-    '  --shadow:' + SHADOW + ';',
-    '  --container:' + LAYOUT.container + ';',
-    '  --read:' + LAYOUT.read + ';',
-    '  --title:' + LAYOUT.title + ';',
+    block(frontierVars()),
+    block(scaleVars()),
     fontBlock(),
+    '  --font-sans:var(--f-sans);',
+    '  --font-mono:var(--f-mono);',
     '}'
   ].join('\n');
 }
@@ -359,4 +403,4 @@ function instrumentsCss() {
    still importing them keeps working while it migrates. */
 module.exports = { LIGHT: DARKONLY, DARK: DARKONLY, DARKONLY, TYPE, GOOGLE_FONTS,
   SCALE, LAYOUT, MEASURE, SHADOW, RHYTHM, SPACE, SHAPE, MOTION, FRONTIER, VENDORED,
-  FIGURE_TOKENS, CHART, rootCss, fontBlock, instrumentsCss };
+  FIGURE_TOKENS, CHART, rootCss, fontBlock, instrumentsCss, scaleVars, frontierVars };

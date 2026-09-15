@@ -1,20 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 194" class="ug">
 <style>
-.ug .bg { fill:var(--paper,#0a0a0c); }
-.ug .nd { fill:var(--bg-raised,#101014); stroke:var(--ink,#f6f6f8); stroke-opacity:.22; }
+.ug .nd { fill:var(--bg-raised); stroke:var(--ink); stroke-opacity:.22; }
 .ug .nd.inst { stroke-opacity:.45; }
-.ug .sep { stroke:var(--ink,#f6f6f8); stroke-opacity:.14; }
-.ug .nt { fill:var(--ink-2,#c9c9d2); font-family:ui-monospace,Menlo,monospace; font-size:8px; }
-.ug .pl { fill:var(--ink-3,#9a9aa6); font-family:ui-monospace,Menlo,monospace; font-size:6.5px; }
-.ug .pl.fired { fill:var(--ink,#f6f6f8); }
-.ug .cap { fill:var(--ink-4,#6e6e7a); font-family:ui-monospace,Menlo,monospace; font-size:7px; letter-spacing:.12em; }
-.ug .pt { fill:var(--paper,#0a0a0c); stroke:var(--ink,#f6f6f8); stroke-opacity:.6; stroke-width:1.2; }
-.ug .pt.dec { fill:var(--ink,#f6f6f8); fill-opacity:.75; stroke:none; }
+.ug .sep { stroke:var(--ink); stroke-opacity:.14; }
+.ug .nt { fill:var(--ink-2); font-family:var(--f-mono); font-size:8px; }
+.ug .pl { fill:var(--ink-3); font-family:var(--f-mono); font-size:6.5px; }
+.ug .pl.fired { fill:var(--ink); }
+.ug .cap { fill:var(--ink-4); font-family:var(--f-mono); font-size:7px; letter-spacing:.12em; }
+.ug .pt { fill:var(--paper); stroke:var(--ink); stroke-opacity:.6; stroke-width:1.2; }
+.ug .pt.dec { fill:var(--ink); fill-opacity:.75; stroke:none; }
 .ug .pt.idle { stroke-opacity:.28; }
-.ug .pt.fired { fill:var(--ink,#f6f6f8); stroke:var(--ink,#f6f6f8); }
-.ug .w { fill:none; stroke:var(--ink,#f6f6f8); stroke-width:1.2; }
+.ug .pt.fired { fill:var(--ink); stroke:var(--ink); }
+.ug .w { fill:none; stroke:var(--ink); stroke-width:1.2; }
 .ug .w.solid { stroke-opacity:.75; }
-.ug .w.dashed { stroke-opacity:.42; stroke-dasharray:5 4; }   /* grammar.js CLAIM */</style><rect width="560" height="194" class="bg"/>
+.ug .w.dashed { stroke-opacity:.42; stroke-dasharray:5 4; }   /* grammar.js CLAIM */</style>
 <text x="18" y="184" class="cap">the wiring that builds</text>
 <path d="M130,46 C160,46 162,110 192,110" class="w solid"/>
 <path d="M130,59 C160,59 162,123 192,123" class="w solid"/>

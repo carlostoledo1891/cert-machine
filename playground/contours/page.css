@@ -1,27 +1,27 @@
 .ec-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s-5); align-items: start; }
 @media (max-width: 860px) { .ec-wrap { grid-template-columns: minmax(0, 1fr); } }
-.ec-fig { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: var(--s-3); }
+.ec-fig { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: var(--s-3); }
 .ec-stage { position: relative; width: 100%; aspect-ratio: 900 / 540; }
 .ec-stage canvas, .ec-stage svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .ec-stage svg { cursor: crosshair; }
-.ec-panel { display: grid; gap: var(--s-3); font-family: var(--mono); font-size: 12.5px; }
+.ec-panel { display: grid; gap: var(--s-3); font-family: var(--font-mono); font-size: 12.5px; }
 .ec-panel label { display: block; color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; font-size: 10.5px; margin-bottom: 4px; }
-.ec-panel select, .ec-panel input[type=text] { width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: 6px 8px; }
-.ec-panel button { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong, var(--line)); border-radius: var(--radius-s); padding: 6px 10px; cursor: pointer; }
+.ec-panel select, .ec-panel input[type=text] { width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: 6px 8px; }
+.ec-panel button { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-s); padding: 6px 10px; cursor: pointer; }
 .ec-read { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2) var(--s-3); }
 .ec-read .k { color: var(--ink-3); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
 .ec-read .v { font-size: 20px; line-height: 1.15; color: var(--ink); }
 .ec-read .v.w-decided { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .ec-read .v.small { font-size: 14px; }
 .ec-read .full { grid-column: 1 / -1; }
-.ec-verdict { border: 1px solid var(--line); border-radius: var(--radius-s); padding: var(--s-3); display: grid; gap: 6px; }
+.ec-verdict { border: 1px solid var(--border); border-radius: var(--radius-s); padding: var(--s-3); display: grid; gap: 6px; }
 .ec-verdict .word { font-size: 26px; letter-spacing: .04em; color: var(--ink); }
 .ec-verdict .word.on { color: var(--ink-2); }
 .ec-verdict .why { color: var(--ink-3); font-size: 11.5px; line-height: 1.45; }
 .ec-note { color: var(--ink-2); font-size: 12px; line-height: 1.45; margin-top: var(--s-3); }
 .ec-pair { display: grid; grid-template-columns: 1fr 1fr auto; gap: var(--s-2); align-items: end; }
-.ec-tbl { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin-top: var(--s-4); }
-.ec-tbl th, .ec-tbl td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.ec-tbl { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 12px; margin-top: var(--s-4); }
+.ec-tbl th, .ec-tbl td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; }
 .ec-tbl th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .ec-tbl td:first-child, .ec-tbl th:first-child { text-align: left; }
 .ec-tbl tr.sel td { color: var(--ink); background: var(--surface); }
@@ -32,7 +32,7 @@
 .ec-on { fill: none; stroke: var(--ink); stroke-width: 1.4; }
 .ec-pick { fill: var(--ink); }
 .ec-axis { stroke: var(--ink-5); stroke-width: 1; }
-.ec-grid { stroke: var(--line); stroke-width: 1; }
-.ec-tick { font-family: var(--mono); font-size: 10.5px; fill: var(--ink-4); }
-.ec-lab { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
+.ec-grid { stroke: var(--border); stroke-width: 1; }
+.ec-tick { font-family: var(--font-mono); font-size: 10.5px; fill: var(--ink-4); }
+.ec-lab { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-3); }
 .ec-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }

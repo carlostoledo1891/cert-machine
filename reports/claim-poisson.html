@@ -63,13 +63,76 @@
   --c-s3:#8b8b97;
   --c-s4:#a9a9b4;
   --c-s5:#f6f6f8;
-  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
   --container:1200px;
   --read:82ch;
   --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
   --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
   --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
   --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
 }
 
 *{box-sizing:border-box}
@@ -501,7 +564,7 @@ footer a:hover{color:var(--ink)}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <strong>CONFIRMED</strong> — the explicit counterexample. What a machine can decide about this claim, it decided, and it held. What it cannot decide is stated below rather than left to the reader to notice.</li><li><b>The mechanism.</b> Written against the manuscript. The author's code was never executed. Verification that existed at source: The author’s own scripts, which we neither derived from nor executed.</li><li><b>Check it.</b> <span class="m">node legacy/research/challenges/lane/laneb-poisson/verify.js</span> — 200 ms at this build, a summary report and 2 mutation controls, every control rejected.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <strong>CONFIRMED</strong> — the explicit counterexample. What a machine can decide about this claim, it decided, and it held. What it cannot decide is stated below rather than left to the reader to notice.</li><li><b>The mechanism.</b> Written against the manuscript. The author's code was never executed. Verification that existed at source: The author’s own scripts, which we neither derived from nor executed.</li><li><b>Check it.</b> <span class="m">node legacy/research/challenges/lane/laneb-poisson/verify.js</span> — 300 ms at this build, a summary report and 2 mutation controls, every control rejected.</li></ul>
 </div></div>
 
 <div class="wide">
@@ -510,7 +573,7 @@ footer a:hover{color:var(--ink)}
     <div class="stat"><div class="k">named checks</div><div class="v">—</div><div class="n">this verifier reports a summary, not named rows — see below</div></div>
     <div class="stat"><div class="k">the verifier&#39;s own total</div><div class="v">—</div><div class="n">this verifier prints no total of its own</div></div>
     <div class="stat"><div class="k">mutation controls</div><div class="v">2</div><div class="n">deliberate corruptions of the claim — every one rejected, or this page would not build</div></div>
-    <div class="stat"><div class="k">runtime</div><div class="v">200 ms</div><div class="n">plain Node, no packages, no author code</div></div>
+    <div class="stat"><div class="k">runtime</div><div class="v">300 ms</div><div class="n">plain Node, no packages, no author code</div></div>
     <div class="stat"><div class="k">analytic core</div><div class="v">not audited</div><div class="n">true of all six claims in this set, and the reason the flagship exists</div></div>
   </div>
 </div>
@@ -531,7 +594,7 @@ footer a:hover{color:var(--ink)}
 <div class="col"><p>All six bracket relations ({D,R} = 1, {S,T} = 1 and the four vanishing ones) hold identically and exactly; the 4×4 symbolic Jacobian determinant is identically 1; and the three claimed points each map exactly to their stated image. A counterexample is an existence claim, so certifying the exhibit IS certifying the claim — the only lane in this set where that is true.</p></div><div class="col"><p><strong>This verifier reports a summary rather than named rows.</strong> It states its own totals and its mutation-control outcome and stops there, so there is no per-check ledger to show and this page does not manufacture one. Its complete output at this build is reproduced verbatim:</p><pre class="code">All claimed identities hold exactly (bracket relations, det J = 1, three-point fiber).
 Mutation control 1 (R -&gt; R + 1/7): rejected, 3 failing checks. OK
 Mutation control 2 (bracket sign swapped): rejected, 2 failing checks. OK
-Elapsed: 0.2s
+Elapsed: 0.3s
 VERDICT: CONFIRMED</pre></div>
 </section>
 
@@ -594,7 +657,7 @@ node legacy/research/challenges/lane/laneb-poisson/verify.js</pre><p>Plain Node,
   addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
 })();</script>
 
-<footer class="col"><p>Generated by tools/build-report-claim.js @ git 9699fce. Every row on this page was printed by legacy/research/challenges/lane/laneb-poisson/verify.js during this build and parsed by instruments/laneaudit/audit.js — the same module the flagship reads, so the two pages cannot quote different numbers. A failing check or a mutation control that stopped firing would refuse this page.</p></footer>
+<footer class="col"><p>Generated by tools/build-report-claim.js @ git 6659a49. Every row on this page was printed by legacy/research/challenges/lane/laneb-poisson/verify.js during this build and parsed by instruments/laneaudit/audit.js — the same module the flagship reads, so the two pages cannot quote different numbers. A failing check or a mutation control that stopped firing would refuse this page.</p></footer>
 
 </div>
 </html>

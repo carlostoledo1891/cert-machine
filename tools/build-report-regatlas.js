@@ -39,7 +39,7 @@ function atlasFig() {
       if (c.ok) {
         const op = 0.12 + 0.6 * (1 - c.kappa);
         out.push('    <rect x="' + x + '" y="' + y + '" width="' + (cw - 3) + '" height="' + (chh - 3) + '" fill="' + CAT[0] + '" opacity="' + op.toFixed(2) + '" stroke="' + CAT[0] + '" stroke-width="1"/>');
-        out.push('    <text x="' + (x + (cw - 3) / 2) + '" y="' + (y + chh / 2 + 4) + '" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="' + (op >= 0.4 ? SURFACE : CAT[0]) + '">κ ' + f2(c.kappa) + '</text>');
+        out.push('    <text x="' + (x + (cw - 3) / 2) + '" y="' + (y + chh / 2 + 4) + '" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="' + (op >= 0.4 ? SURFACE : CAT[0]) + '">κ ' + f2(c.kappa) + '</text>');
       } else {
         out.push('    <rect x="' + x + '" y="' + y + '" width="' + (cw - 3) + '" height="' + (chh - 3) + '" fill="url(#hatch)" stroke="' + CTX + '" stroke-width="1"/>');
         out.push(CH.txt(x + (cw - 3) / 2, y + chh / 2 + 4, c.why.startsWith('Z1') ? 'Z1 ' + f2(c.Z1) : 'Z1 ≈ 1', 't-note', 'middle'));

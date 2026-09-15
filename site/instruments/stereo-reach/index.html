@@ -337,11 +337,11 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 </style>
 <style>.sr-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-5); align-items: start; }
 @media (max-width: 900px) { .sr-wrap { grid-template-columns: minmax(0, 1fr); } }
-.sr-fig { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: var(--s-3); }
+.sr-fig { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: var(--s-3); }
 .sr-fig svg { width: 100%; height: auto; display: block; }
-.sr-panel { display: grid; gap: var(--s-3); font-family: var(--mono); font-size: 12.5px; }
+.sr-panel { display: grid; gap: var(--s-3); font-family: var(--font-mono); font-size: 12.5px; }
 .sr-panel label { display: block; color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; font-size: 10.5px; margin-bottom: 4px; }
-.sr-panel select, .sr-panel input[type=text] { width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: 5px 7px; }
+.sr-panel select, .sr-panel input[type=text] { width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: 5px 7px; }
 .sr-panel input[type=range] { width: 100%; }
 .sr-in { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2) var(--s-3); }
 .sr-in .f { display: grid; gap: 2px; }
@@ -350,19 +350,19 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .sr-in .f .st.box { color: var(--ink-3); }
 .sr-in .f.wide { grid-column: 1 / -1; }
 .sr-in .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-.sr-read { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2) var(--s-3); border-top: 1px solid var(--line); padding-top: var(--s-3); }
+.sr-read { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2) var(--s-3); border-top: 1px solid var(--border); padding-top: var(--s-3); }
 .sr-read .k { color: var(--ink-3); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
 .sr-read .v { font-size: 19px; line-height: 1.15; color: var(--ink); }
 .sr-read .v.w-decided { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .sr-read .v.w-chosen { text-decoration: underline dotted; text-decoration-thickness: 2px; text-underline-offset: 4px; color: var(--ink-2); }
 .sr-read .v.small { font-size: 14px; }
 .sr-read .full { grid-column: 1 / -1; }
-.sr-verdict { border: 1px solid var(--line); border-radius: var(--radius-s); padding: var(--s-3); display: grid; gap: 6px; }
+.sr-verdict { border: 1px solid var(--border); border-radius: var(--radius-s); padding: var(--s-3); display: grid; gap: 6px; }
 .sr-verdict .word { font-size: 22px; letter-spacing: .04em; color: var(--ink); }
 .sr-verdict .why { color: var(--ink-3); font-size: 11.5px; line-height: 1.45; }
 .sr-note { color: var(--ink-2); font-size: 12px; line-height: 1.45; margin-top: var(--s-3); }
 .sr-paper { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--s-4); margin-top: var(--s-4); }
-.sr-paper .c { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: var(--s-3); font-family: var(--mono); font-size: 12px; }
+.sr-paper .c { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: var(--s-3); font-family: var(--font-mono); font-size: 12px; }
 .sr-paper .c .k { color: var(--ink-3); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
 .sr-paper .c .v { font-size: 20px; color: var(--ink); margin: 4px 0; }
 .sr-paper .c .n { color: var(--ink-3); line-height: 1.4; }
@@ -370,9 +370,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-chosen { stroke: var(--ink-2); color: var(--ink-2); }
 .w-computed { stroke: var(--ink-3); }
 .sr-axis { stroke: var(--ink-5); stroke-width: 1; }
-.sr-grid { stroke: var(--line); stroke-width: 1; }
-.sr-tick { font-family: var(--mono); font-size: 10.5px; fill: var(--ink-4); }
-.sr-lab { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
+.sr-grid { stroke: var(--border); stroke-width: 1; }
+.sr-tick { font-family: var(--font-mono); font-size: 10.5px; fill: var(--ink-4); }
+.sr-lab { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-3); }
 .sr-thin { stroke-width: 1.2 !important; opacity: .75; }
 .sr-tol { stroke: var(--ink-4); stroke-width: 1; }
 .sr-mark { fill: var(--ink); }
