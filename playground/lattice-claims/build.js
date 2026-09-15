@@ -21,7 +21,8 @@ const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'instruments/wiring/eval/pa
 /* the contact sheet is built by instruments/cert-unit/make-contact.mjs, which
    owns the grammar. The builder reads it, the way every builder here reads its
    pipeline's output rather than recomputing it. */
-const CONTACT = fs.readFileSync(path.join(ROOT, 'instruments/cert-unit/out/contact.svg'), 'utf8');
+const { embedArt } = require(path.join(PG, 'design', 'components.js'));
+const CONTACT = embedArt(fs.readFileSync(path.join(ROOT, 'instruments/cert-unit/out/contact.svg'), 'utf8'));
 const REFUT = JSON.parse(fs.readFileSync(path.join(ROOT, 'instruments/cert-unit/out/refutations.json'), 'utf8'));
 const REPORT = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/report.css'), 'utf8');
 const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
@@ -216,7 +217,7 @@ const body = `
     </div>
     <div class="refs reveal">${REFUT.map((r) => `<figure>
       <figcaption class="rh"><span>${r.title}</span><span class="dim">${r.model} &middot; ${r.rung}</span></figcaption>
-      <div class="rsvg">${r.svg}</div>
+      <div class="rsvg">${embedArt(r.svg)}</div>
       <figcaption class="rc">${r.caption}</figcaption>
     </figure>`).join('')}</div>
     <div class="note reveal" style="max-width:80ch;">

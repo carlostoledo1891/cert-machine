@@ -18,6 +18,7 @@ const PG = path.join(HERE, '..');
 const ROOT = path.join(PG, '..');
 const { page } = require(path.join(PG, 'design', 'shell.js'));
 const { bundle } = require(path.join(PG, 'graph', 'bundle.js'));
+const { embedArt } = require(path.join(PG, 'design', 'components.js'));
 const D = JSON.parse(fs.readFileSync(path.join(ROOT, 'instruments/wiring/eval/rewire.json'), 'utf8'));
 const CSS = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/instrument.css'), 'utf8');
 const pct = (a, b) => `${Math.round(100 * a / b)}%`;
@@ -192,6 +193,12 @@ function build(OUTDIR) {
   const dir = path.join(OUTDIR, 'rewire');
   fs.mkdirSync(dir, { recursive: true });
   const html = page({
+    /* A VIEWPORT, NOT A DOCUMENT (2026-09-15): html and body are height:100%
+       with overflow hidden, so a document footer renders in the flow BEHIND the
+       overlays — measured at top=108px on this page, its links showing through
+       the title. The closing line lives inside the viewport (.ov-foot / the
+       panel). Same ruling as /instruments/navier-stokes. */
+    foot: null,
     title: 'Rewire it yourself — cert-machine',
     desc: 'Twenty-four lattice claims with exact answers, three graders, and one socket that only an exact one may reach. Drag a different certifier and watch the admitted count move.',
     path: '/instruments/rewire/',
@@ -214,6 +221,6 @@ body.panel-hidden #stage{right:0;}
   return { bytes: html.length, instances: D.instances.length, exact: D.exactAdmits, tol: D.naiveJSAdmits, careful: D.carefulAdmits, cliff: D.cliff };
 }
 
-function cardArt() { return fs.readFileSync(path.join(HERE, 'out', 'graph.svg'), 'utf8'); }
+function cardArt() { return embedArt(fs.readFileSync(path.join(HERE, 'out', 'graph.svg'), 'utf8')); }
 
 module.exports = { build, cardArt, facts: { instances: D.instances.length, cliff: D.cliff, exact: D.exactAdmits, tol: D.naiveJSAdmits, careful: D.carefulAdmits } };

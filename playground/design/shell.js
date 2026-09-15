@@ -21,7 +21,11 @@ const path = require('path');
 
 const TPL = require(path.join(__dirname, '..', '..', 'design', 'template.js'));
 const NAV = require(path.join(__dirname, '..', '..', 'design', 'nav.js'));
-const BASE = NAV.navCss('var(--gutter)')
+/* the foundation (design/base.js) is shared with the report sheet; what
+   follows it is this section's own: the container, the two tracks, and the
+   components /instruments draws with. */
+const BASE = require(path.join(__dirname, '..', '..', 'design', 'base.js')).baseCss()
+  + NAV.navCss('var(--gutter)')
   + fs.readFileSync(path.join(__dirname, 'shell.css'), 'utf8')
   + '\n' + require(path.join(__dirname, 'components.js')).sharedCss();
 

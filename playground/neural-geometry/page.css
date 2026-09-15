@@ -1,6 +1,7 @@
+/* the base typography — h1/h2/h3, p and a — is the shared layer's
+   (playground/design/components.js, 2026-09-15). It was declared here and in
+   five sibling sheets, which is five chances to diverge. */
 /* page.css — neural-geometry. A reading page whose figures are the argument. */
-h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
-p { margin: 0; } a { color: inherit; }
 /* the only thing this page wants that the shared hero does not give it */
 .hero h1 { font-size: clamp(2.1rem, 1rem + 4.2vw, 4rem); }
 

@@ -777,7 +777,7 @@ function artCss(cards) {
     .replace(/var\(--border-strong\)/g, 'var(--rule-strong)').replace(/var\(--border\)/g, 'var(--rule)').replace(/var\(--s-(\d)\)/g, (m, d) => (4 * d) + 'px');
   return rules.filter(([sel]) => hit(sel)).map(([sel, body]) => sel.split(',').map((x) => '.hg ' + x.trim()).join(',') + '{' + mapTok(body.trim()) + '}').join('');
 }
-const GALLERY_CSS = '<style>' + artCss(gallery) + G.css('.hg')
+const GALLERY_CSS = artCss(gallery) + G.css('.hg')
   + '.hg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:8px 0 0}'
   + '@media(max-width:900px){.hg{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.hg{grid-template-columns:1fr}}'
   + 'a.hg-card{display:flex;flex-direction:column;color:inherit;text-decoration:none;background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden;transition:border-color .15s,transform .15s}'
@@ -791,10 +791,10 @@ const GALLERY_CSS = '<style>' + artCss(gallery) + G.css('.hg')
   + '@media(max-width:700px){.w-legend{grid-template-columns:1fr}}'
   + '.w-legend .item{display:grid;grid-template-columns:46px minmax(0,1fr);gap:12px;align-items:center}.w-legend svg{display:block;width:46px;height:14px;overflow:visible}'
   + '.w-legend .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}.w-legend .g{font-size:13px;color:var(--ink-4);line-height:1.4;margin-top:2px}'
-  + '</style>';
+  ;
 B.push(C.section({
   lab: 'the instruments · the other face', title: 'The same arithmetic, in your tab.', wide: true,
-  bodyRaw: GALLERY_CSS + '<div class="col">'
+  bodyRaw: '<div class="col">'
     + C.pRaw('<strong>A certificate settles a number. It does not make anyone look at it.</strong> Charts and graders both '
       + 'assert things, and neither distinguishes what the data forces from what the renderer or the tolerance chose. '
       + 'The instruments are the same certifiers pointed the other way: ' + numword(INSTR.count.all) + ' pages that draw '
@@ -1569,7 +1569,7 @@ const put = (rel, buf) => desired.set(rel, buf);
     fail('a priority claim reached the landing without its qualifier');
   }
 }
-put('index.html', Buffer.from(TPL.render({ title: 'cert-machine · independent exact certification', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/',
+put('index.html', Buffer.from(TPL.render({ title: 'cert-machine · independent exact certification', bodyRaw: B.join('\n\n'), cssRaw: GALLERY_CSS, footRaw: foot, path: '/',
   desc: 'Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict. Certified audits of published AI-generated mathematics, evals whose ground truth is a proof, and the theorems that calibrate the instruments.' })));
 put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports · cert-machine', bodyRaw: reportsIndexBody, footRaw: reportsIndexFoot, path: '/reports/',
   desc: 'The reports shelf: certified audits of AI-generated mathematics, evals whose ground truth is a proof, a verified reward channel — and the instruments, proven on hard classical ground. Every page recomputes its numbers at build.' })));

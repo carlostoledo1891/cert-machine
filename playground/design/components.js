@@ -43,13 +43,21 @@ const G = require(path.resolve(__dirname, '..', '..', 'design', 'grammar.js'));
 
 function sharedCss() {
   return `
+/* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
+   bench.css AND in five page sheets — six copies of three rules, and the
+   reason /instruments/graph once shipped in Times was exactly this kind of
+   foundation living everywhere and therefore nowhere. ---- */
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display);
+  letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; }
+a { color: inherit; }
+
 /* ---- the eyebrow: seven declarations before this, and the weight was the
    thing they disagreed about. The report engine sets 500, bench.css set none
    at all, and interferometer set 500 on its own — so /instruments ran its
    eyebrows a weight lighter than the reports on every page but one. 500, once,
    on both sides of the site. ---- */
-.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); font-weight: 500;
-  letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+/* .eyebrow is design/base.js's now — one rule for both sheets (2026-09-15) */
 
 /* ---- the hero. The bottom padding is the LARGER of the two that were in
    service; curveset's tighter one was not a decision, it was a copy that had
@@ -164,6 +172,22 @@ span.w-refused::before { content: "\\2205\\00a0"; color: var(--ink-5); }
    <pattern>, and a pattern is addressed by an id that lives in the figure that
    defines it. A shared rule would point every page at one page's id. */
 
+/* ---- THE CERT-UNIT ART VOCABULARIES (2026-09-15) --------------------------
+   The unit graph and the contact sheet are drawn by instruments/cert-unit, and
+   FOUR pages inline them: /instruments/graph, /instruments/rewire,
+   /instruments/lattice-claims and the gathering page. Each art carried its own
+   <style>, so each of those pages shipped a second stylesheet. The rules live
+   in instruments/cert-unit/art-css.js — one source, read here and by the
+   renderers — and embedArt() below strips the copy when a page inlines the
+   art. Same rule as the figure primitives above: a vocabulary used by more
+   than one page is a shared component.                                    */
+${require('../../instruments/cert-unit/art-css.js').GRAPH_CSS}
+${require('../../instruments/cert-unit/art-css.js').CONTACT_CSS}
+/* the pqc card's two marks, for the same reason: the gathering page inlines
+   that art and carries no page stylesheet of pqc's. */
+.pqc-card .lb { fill: var(--ink-3); font-family: var(--f-mono); font-size: 10px; }
+.pqc-card .ax { stroke: var(--ink); stroke-opacity: .16; }
+
 /* ---- the standing legend. Rendered by warrant.js, laid out by
    design/grid.js: the column count is derived from data-n, not declared. ---- */
 /* align-items:start on the ROW, so every label sits on one line even when a
@@ -183,4 +207,14 @@ ${balancedGrid('.w-legend', '.item')}
 `;
 }
 
-module.exports = { sharedCss };
+/* ---- EMBEDDING ART IN A PAGE (2026-09-15) --------------------------------
+   A generated .svg is a standalone artifact and carries its own <style>, which
+   is right when somebody opens the file. A PAGE that inlines it already has
+   the vocabulary — sharedCss() above — so the copy inside the art is a second
+   stylesheet on the page, and four pages were carrying up to five of them.
+   Strip it on the way in. The rules are not lost; they are shared.        */
+function embedArt(svg) {
+  return String(svg).replace(/<style[^>]*>[\s\S]*?<\/style>\s*/gi, '');
+}
+
+module.exports = { sharedCss, embedArt };

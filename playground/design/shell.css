@@ -12,25 +12,11 @@
    x=120 while every other page on the site sits at x=168. The site's one-left-
    edge claim was being upheld by six identical copies of a reset, any one of
    which could have gone missing — and the seventh page proved it. */
-*, *::before, *::after { box-sizing: border-box; }
-
-/* THE PAGE'S OWN TYPOGRAPHY, SHARED — and it was not, until 2026-09-05.
-   Six page.css files under playground/ declared their own `body` rule, four of
-   them with different bodies, and the shell declared none. Every page that
-   happened to carry one looked right and any page that did not fell back to the
-   browser default — which is how /instruments/graph shipped its first build in
-   TIMES ROMAN while every other page on the site is Inter. A foundation
-   declared six times is not a foundation.
-
-   The page-local copies came out later the same day, one file at a time, each
-   page pixel-diffed at 1440 and 390 before the next: curveset, neural-geometry,
-   shape-hunt, simplex, bench.css (four pages) and index.css were byte-identical
-   to the two rules above and went entirely; interferometer keeps its own
-   margin/padding zeroing and the three body properties the shell does not set. */
-body { margin: 0; background: var(--bg); color: var(--ink-2);
-  font-family: var(--font-sans); font-size: var(--text-body);
-  line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
-body { padding-top: 60px; }
+/* THE FOUNDATION IS design/base.js (2026-09-15) — the reset, the ground, the
+   type, the selection colour, the eyebrow and the table wrapper, shared with
+   the report sheet because they were two descriptions of the same four
+   things and they had already diverged. What is left here is this section's
+   own: the container and the two tracks. */
 
 /* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
    Nine pages arrived by four routes — written here, ported from the bench,
@@ -60,30 +46,3 @@ body { padding-top: 60px; }
 .wrap.wide, .container.wide, .wide > .container,
 .wrap.narrow, .container.narrow { max-width: var(--container); }
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
-
-/* ---- THE TABLE RULE, once ------------------------------------------------
-   A table is allowed to be wider than the page. It is not allowed to take the
-   page with it. Four /instruments pages scrolled the whole document sideways
-   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
-   answer-shape 78 — every one of them a nowrap table sitting in a container
-   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
-   rule that made it scroll lived in base.css and that page never linked it.
-   One class, one rule, declared where every page already inlines it. */
-.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
-  border: 1px solid var(--border); border-radius: var(--radius-m);
-  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
-     table sliced mid-character with nothing to indicate there was more; a box
-     that hides a column without saying so is the same defect as a number
-     without its units. The four layers are the standard scroll-shadow: two
-     ground-coloured covers pinned to the CONTENT (background-attachment:local,
-     so they slide away as you scroll) over two shadows pinned to the BOX, so a
-     shadow shows exactly when there is something past that edge and vanishes
-     when there is not. No script, and nothing to keep in sync. */
-  background:
-    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
-    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
-    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
-    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
-    var(--bg-raised); }
-.tw > table { margin: 0; }
-.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }

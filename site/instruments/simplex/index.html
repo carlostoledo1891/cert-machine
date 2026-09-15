@@ -149,6 +149,44 @@
 .foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
 
 
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.                                                                  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
 /* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
    glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
    ground — the blur mixes toward white and reads as frost. This site's ground
@@ -162,7 +200,7 @@
    tuned. The hairline border still separates the bar from the page. */
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
   border-bottom:1px solid var(--rule)}
-.topnav-in{padding:0 var(--gutter);height:60px;
+.topnav-in{padding:0 var(--gutter);height:var(--nav-h);
   display:flex;align-items:center;justify-content:space-between;gap:24px}
 .topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
   text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
@@ -197,7 +235,7 @@
 .nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
 @media (max-width:680px){
   .nav-burger{display:flex}
-  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
     flex-direction:column;align-items:stretch;gap:0;
     background:var(--paper);border-bottom:1px solid var(--rule);padding:6px var(--gutter) 16px}
   .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
@@ -225,25 +263,11 @@
    x=120 while every other page on the site sits at x=168. The site's one-left-
    edge claim was being upheld by six identical copies of a reset, any one of
    which could have gone missing — and the seventh page proved it. */
-*, *::before, *::after { box-sizing: border-box; }
-
-/* THE PAGE'S OWN TYPOGRAPHY, SHARED — and it was not, until 2026-09-05.
-   Six page.css files under playground/ declared their own `body` rule, four of
-   them with different bodies, and the shell declared none. Every page that
-   happened to carry one looked right and any page that did not fell back to the
-   browser default — which is how /instruments/graph shipped its first build in
-   TIMES ROMAN while every other page on the site is Inter. A foundation
-   declared six times is not a foundation.
-
-   The page-local copies came out later the same day, one file at a time, each
-   page pixel-diffed at 1440 and 390 before the next: curveset, neural-geometry,
-   shape-hunt, simplex, bench.css (four pages) and index.css were byte-identical
-   to the two rules above and went entirely; interferometer keeps its own
-   margin/padding zeroing and the three body properties the shell does not set. */
-body { margin: 0; background: var(--bg); color: var(--ink-2);
-  font-family: var(--font-sans); font-size: var(--text-body);
-  line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
-body { padding-top: 60px; }
+/* THE FOUNDATION IS design/base.js (2026-09-15) — the reset, the ground, the
+   type, the selection colour, the eyebrow and the table wrapper, shared with
+   the report sheet because they were two descriptions of the same four
+   things and they had already diverged. What is left here is this section's
+   own: the container and the two tracks. */
 
 /* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
    Nine pages arrived by four routes — written here, ported from the bench,
@@ -274,41 +298,22 @@ body { padding-top: 60px; }
 .wrap.narrow, .container.narrow { max-width: var(--container); }
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
-/* ---- THE TABLE RULE, once ------------------------------------------------
-   A table is allowed to be wider than the page. It is not allowed to take the
-   page with it. Four /instruments pages scrolled the whole document sideways
-   on a phone — neural-geometry by 252px, curveset 176, exact-geometry 156,
-   answer-shape 78 — every one of them a nowrap table sitting in a container
-   with overflow-x: visible. exact-geometry even HAD a .table-wrap, but the
-   rule that made it scroll lived in base.css and that page never linked it.
-   One class, one rule, declared where every page already inlines it. */
-.tw { overflow-x: auto; -webkit-overflow-scrolling: touch;
-  border: 1px solid var(--border); border-radius: var(--radius-m);
-  /* AND IT SAYS THAT IT SCROLLS. The screenshot that started this pass showed a
-     table sliced mid-character with nothing to indicate there was more; a box
-     that hides a column without saying so is the same defect as a number
-     without its units. The four layers are the standard scroll-shadow: two
-     ground-coloured covers pinned to the CONTENT (background-attachment:local,
-     so they slide away as you scroll) over two shadows pinned to the BOX, so a
-     shadow shows exactly when there is something past that edge and vanishes
-     when there is not. No script, and nothing to keep in sync. */
-  background:
-    linear-gradient(to right, var(--bg-raised) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
-    linear-gradient(to left,  var(--bg-raised) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
-    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
-    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
-    var(--bg-raised); }
-.tw > table { margin: 0; }
-.tw th:first-child, .tw td:first-child { position: sticky; left: 0; background: var(--bg-raised); }
 
+/* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
+   bench.css AND in five page sheets — six copies of three rules, and the
+   reason /instruments/graph once shipped in Times was exactly this kind of
+   foundation living everywhere and therefore nowhere. ---- */
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display);
+  letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; }
+a { color: inherit; }
 
 /* ---- the eyebrow: seven declarations before this, and the weight was the
    thing they disagreed about. The report engine sets 500, bench.css set none
    at all, and interferometer set 500 on its own — so /instruments ran its
    eyebrows a weight lighter than the reports on every page but one. 500, once,
    on both sides of the site. ---- */
-.eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); font-weight: 500;
-  letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+/* .eyebrow is design/base.js's now — one rule for both sheets (2026-09-15) */
 
 /* ---- the hero. The bottom padding is the LARGER of the two that were in
    service; curveset's tighter one was not a decision, it was a copy that had
@@ -423,6 +428,48 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
    <pattern>, and a pattern is addressed by an id that lives in the figure that
    defines it. A shared rule would point every page at one page's id. */
 
+/* ---- THE CERT-UNIT ART VOCABULARIES (2026-09-15) --------------------------
+   The unit graph and the contact sheet are drawn by instruments/cert-unit, and
+   FOUR pages inline them: /instruments/graph, /instruments/rewire,
+   /instruments/lattice-claims and the gathering page. Each art carried its own
+   <style>, so each of those pages shipped a second stylesheet. The rules live
+   in instruments/cert-unit/art-css.js — one source, read here and by the
+   renderers — and embedArt() below strips the copy when a page inlines the
+   art. Same rule as the figure primitives above: a vocabulary used by more
+   than one page is a shared component.                                    */
+
+.ug .nd { fill:var(--bg-raised); stroke:var(--ink); stroke-opacity:.22; }
+.ug .nd.inst { stroke-opacity:.45; }
+.ug .sep { stroke:var(--ink); stroke-opacity:.14; }
+.ug .nt { fill:var(--ink-2); font-family:var(--f-mono); font-size:8px; }
+.ug .pl { fill:var(--ink-3); font-family:var(--f-mono); font-size:6.5px; }
+.ug .pl.fired { fill:var(--ink); }
+.ug .cap { fill:var(--ink-4); font-family:var(--f-mono); font-size:7px; letter-spacing:.12em; }
+.ug .pt { fill:var(--paper); stroke:var(--ink); stroke-opacity:.6; stroke-width:1.2; }
+.ug .pt.dec { fill:var(--ink); fill-opacity:.75; stroke:none; }
+.ug .pt.idle { stroke-opacity:.28; }
+.ug .pt.fired { fill:var(--ink); stroke:var(--ink); }
+.ug .w { fill:none; stroke:var(--ink); stroke-width:1.2; }
+.ug .w.solid { stroke-opacity:.75; }
+.ug .w.dashed { stroke-opacity:.42; stroke-dasharray:5 4; }   /* grammar.js CLAIM */
+
+.cg .cs { fill:var(--ink); fill-opacity:.05; stroke:none; }
+.cg .cs.fired { fill-opacity:.92; }
+/* fill inside a ring is right; a fill with no ring is a wrong answer; a ring
+   with no fill is the answer it missed. */
+.cg .ck { fill:none; stroke:var(--ink); stroke-opacity:.5; stroke-width:1; }
+.cg .cl { fill:var(--ink-3); font-family:var(--f-mono); font-size:9px; }
+.cg .cp { fill:var(--ink-4); font-family:var(--f-mono); font-size:6.5px; }
+.cg .ct { fill:var(--ink); font-family:var(--f-mono); font-size:10px; letter-spacing:.1em; }
+.cg .cn { fill:var(--ink-4); font-family:var(--f-mono); font-size:8px; }
+.cg .cr { stroke:var(--ink); stroke-width:1.6; }
+.cg .cr.solid { stroke-opacity:.55; }
+.cg .cr.dashed { stroke-opacity:.28; stroke-dasharray:1.5 2; }
+/* the pqc card's two marks, for the same reason: the gathering page inlines
+   that art and carries no page stylesheet of pqc's. */
+.pqc-card .lb { fill: var(--ink-3); font-family: var(--f-mono); font-size: 10px; }
+.pqc-card .ax { stroke: var(--ink); stroke-opacity: .16; }
+
 /* ---- the standing legend. Rendered by warrant.js, laid out by
    design/grid.js: the column count is derived from data-n, not declared. ---- */
 /* align-items:start on the ROW, so every label sits on one line even when a
@@ -467,10 +514,10 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
 }
 
+/* the base typography — h1/h2/h3, p and a — is the shared layer's
+   (playground/design/components.js, 2026-09-15). It was declared here and in
+   five sibling sheets, which is five chances to diverge. */
 /* page.css — the simplex instrument. Its own layout; tokens.css is all it borrows. */
-h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
-p { margin: 0; }
-a { color: inherit; }
 
 .stage { display: grid; gap: clamp(1.25rem, 3vw, 2.5rem); padding: var(--s-5) var(--gutter) var(--s-8);
   /* minmax(0,1fr), not 1fr: a bare 1fr track floors at the content's

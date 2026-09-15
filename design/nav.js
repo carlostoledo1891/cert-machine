@@ -72,9 +72,16 @@ function navHtml({ here = '', root = '' } = {}) {
 /* `gutter` is the page's horizontal padding token — the two shells spell it
    differently (a SCALE value on the reports, var(--gutter) on /instruments),
    and that is the only thing this function is parameterised on. */
+const NAV_H = '60px';
+
 function navCss(gutter) {
   const g = gutter || 'var(--gutter)';
   return `
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:${NAV_H}}
 /* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
    glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
    ground — the blur mixes toward white and reads as frost. This site's ground
@@ -88,7 +95,7 @@ function navCss(gutter) {
    tuned. The hairline border still separates the bar from the page. */
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
   border-bottom:1px solid var(--rule)}
-.topnav-in{padding:0 ${g};height:60px;
+.topnav-in{padding:0 ${g};height:var(--nav-h);
   display:flex;align-items:center;justify-content:space-between;gap:24px}
 .topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
   text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
@@ -123,7 +130,7 @@ function navCss(gutter) {
 .nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
 @media (max-width:680px){
   .nav-burger{display:flex}
-  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
     flex-direction:column;align-items:stretch;gap:0;
     background:var(--paper);border-bottom:1px solid var(--rule);padding:6px ${g} 16px}
   .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
@@ -140,4 +147,4 @@ function navCss(gutter) {
 `;
 }
 
-module.exports = { navHtml, navCss, LINKS, BRAND, GITHUB, GH_ICON };
+module.exports = { navHtml, navCss, NAV_H, LINKS, BRAND, GITHUB, GH_ICON };

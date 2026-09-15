@@ -93,6 +93,19 @@ contrast-against-ground), and `interferometer`'s clipped u−v inset is the
 
 ## OPEN
 
+### THE RENDER GATE COLLAPSES A PAGE'S FIGURES INTO ONE ROW (found 2026-09-15)
+
+`tools/check-render.js` keys a figure by its first class name, so all four `.figbox`
+elements on `reports/glide-band.html` share the key `glide-band.html :: figbox` and the
+row keeps the WORST ink of whichever ones it managed to capture. Three of those four are
+usually unmeasurable (the `captureBeyondViewport` blank-clip limit the file documents),
+so the row has been the one measurable figure's 10.29%. On 2026-09-15 a two-pixel height
+change let all four be captured and the row fell to **3.59%** — reported as "a figure got
+thinner" when nothing about any figure had changed. The page was checked by eye and by
+pixel diff: the figures are identical.
+**What it costs to close:** key each figure by its index within the page as well as its
+class, so a row means one figure. Half a day, and it re-records the baseline.
+
 ### THE LAYOUT RULER COUNTS A BORDERED BOX AS TWO SPINES (found 2026-09-09, twelfth session)
 
 `tools/check-measure.js`'s probe records a spine as `Math.round(r.left + paddingLeft)`. For a box

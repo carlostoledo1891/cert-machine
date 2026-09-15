@@ -1,3 +1,9 @@
+/* the grammar's stroke and voice classes are the shared layer's
+   (playground/design/components.js). They were re-declared here — and on
+   census the copy drew a COMPUTED mark at the CHOSEN weight, which is the
+   grammar's own distinction broken by a duplicate nobody re-read. Deleted
+   2026-09-15; the page-local readout underline below is a different device
+   and is left standing. */
 .sr-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-5); align-items: start; }
 @media (max-width: 900px) { .sr-wrap { grid-template-columns: minmax(0, 1fr); } }
 .sr-fig { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: var(--s-3); }
@@ -29,9 +35,6 @@
 .sr-paper .c .k { color: var(--ink-3); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
 .sr-paper .c .v { font-size: 20px; color: var(--ink); margin: 4px 0; }
 .sr-paper .c .n { color: var(--ink-3); line-height: 1.4; }
-.w-decided { stroke: var(--ink); color: var(--ink); }
-.w-chosen { stroke: var(--ink-2); color: var(--ink-2); }
-.w-computed { stroke: var(--ink-3); }
 .sr-axis { stroke: var(--ink-5); stroke-width: 1; }
 .sr-grid { stroke: var(--border); stroke-width: 1; }
 .sr-tick { font-family: var(--font-mono); font-size: 10.5px; fill: var(--ink-4); }
@@ -39,3 +42,16 @@
 .sr-thin { stroke-width: 1.2 !important; opacity: .75; }
 .sr-tol { stroke: var(--ink-4); stroke-width: 1; }
 .sr-mark { fill: var(--ink); }
+
+/* ---- THE PROSE RHYTHM (2026-09-15) ---------------------------------------
+   This page writes bare <p> and <h2> inside <section class="wrap">, and until
+   today it took the BROWSER'S paragraph margins and the BODY's leading for its
+   headlines — the only pages on the site doing either, because the house
+   typography reached /instruments through bench.css and these pages do not
+   load it. The shared layer gives them the house h1/h2/h3 and `p{margin:0}`
+   now; the rhythm that has to come with that reset is here, in the section's
+   own spacing scale. Same values bench.css uses for a crossed body. */
+section p + p, section p + ul, section p + ol, section p + figure,
+section ul + p, section ol + p, section figure + p { margin-top: var(--s-4); }
+section h2, section h3 { margin-top: var(--s-7); }
+section h2 + *, section h3 + * { margin-top: var(--s-4); }

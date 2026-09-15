@@ -1,3 +1,9 @@
+/* the grammar's stroke and voice classes are the shared layer's
+   (playground/design/components.js). They were re-declared here — and on
+   census the copy drew a COMPUTED mark at the CHOSEN weight, which is the
+   grammar's own distinction broken by a duplicate nobody re-read. Deleted
+   2026-09-15; the page-local readout underline below is a different device
+   and is left standing. */
 .ce-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: var(--s-5); align-items: start; }
 @media (max-width: 760px) { .ce-wrap { grid-template-columns: minmax(0, 1fr); } }
 .ce-fig { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: var(--s-3); }
@@ -15,8 +21,18 @@
 .ce-gal { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--s-4); }
 .ce-gal figure { margin: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: var(--s-2); }
 .ce-gal figcaption { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-2); margin-top: 6px; line-height: 1.4; }
-.w-decided { stroke: var(--ink); color: var(--ink); }
-.w-chosen { stroke: var(--ink-2); color: var(--ink-2); }
-.w-computed { stroke: var(--ink-2); }
 .ce-edge:hover, .ce-band:hover { filter: brightness(1.4); cursor: pointer; }
 .ce-band { stroke: var(--ink-2); }
+
+/* ---- THE PROSE RHYTHM (2026-09-15) ---------------------------------------
+   This page writes bare <p> and <h2> inside <section class="wrap">, and until
+   today it took the BROWSER'S paragraph margins and the BODY's leading for its
+   headlines — the only pages on the site doing either, because the house
+   typography reached /instruments through bench.css and these pages do not
+   load it. The shared layer gives them the house h1/h2/h3 and `p{margin:0}`
+   now; the rhythm that has to come with that reset is here, in the section's
+   own spacing scale. Same values bench.css uses for a crossed body. */
+section p + p, section p + ul, section p + ol, section p + figure,
+section ul + p, section ol + p, section figure + p { margin-top: var(--s-4); }
+section h2, section h3 { margin-top: var(--s-7); }
+section h2 + *, section h3 + * { margin-top: var(--s-4); }

@@ -126,11 +126,17 @@ function probe(html, pageAbs) {
     if (m[2]) fallbackNames.add(m[1]);
   }
 
-  /* blocks: beyond the first, and any inside the body */
-  const all = styleBlocks(text);
-  const bodyAt = text.search(/<body[\s>]/i);
+  /* blocks: beyond the first, and any inside the body — counted over the page
+     with its SCRIPTS REMOVED. A <style> inside a <script> is TEXT, not an
+     element: the HTML parser in script data only stops at </script. Two pages
+     ship a renderer's source on the page for a reader to look at, and that
+     source contains the string that builds an SVG's own style block; counting
+     it made this gate report two stylesheets that do not exist. The same
+     respect check-render pays to a sentence containing the word "null". */
+  const all = styleBlocks(noScript);
+  const bodyAt = noScript.search(/<body[\s>]/i);
   let inBody = 0;
-  if (bodyAt >= 0) for (const m of text.matchAll(/<style[^>]*>/gi)) if (m.index > bodyAt) inBody++;
+  if (bodyAt >= 0) for (const m of noScript.matchAll(/<style[^>]*>/gi)) if (m.index > bodyAt) inBody++;
   const blocks = Math.max(0, (all.length - inBody) - 1) + inBody;   /* extra head blocks, plus every body block */
 
   /* literals: inside the stylesheet, outside :root and @font-face */
@@ -221,6 +227,8 @@ function redControls() {
   red('a literal fallback is caught', probe(doc('<style>:root{--paper:#000}.x{fill:var(--paper,#0a0a0c)}</style>', '')).fallbacks === 1);
   red('a second <style> block is counted', probe(doc('<style>a{}</style><style>b{}</style>', '')).blocks === 1);
   red('a <style> inside the body is counted', probe(doc('<style>a{}</style>', '<svg><style>b{}</style></svg>')).blocks === 1);
+  red('a <style> inside a <script> is NOT counted (it is text, not an element)',
+    probe(doc('<style>a{}</style>', '<script>const s = "<style>x{}</style>";</script>')).blocks === 0);
   red('one <style> in the head is the clean state', probe(doc('<style>a{}</style>', '')).blocks === 0);
   red('a literal spacing value is caught', literalCount('.x{margin-top:24px}') === 1);
   red('a hairline and a zero are NOT literals', literalCount('.x{margin:0;padding:1px 0}') === 0);

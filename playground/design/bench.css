@@ -15,8 +15,7 @@
    opacity 0 and waits for an observer. A page whose first frame is blank is a
    page that shows nothing to a thumbnail, a shared link, or a reader who
    scrolls fast — so here `.reveal` is a no-op and everything is visible at rest. */
-h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--leading-tight); }
-p { margin: 0; } a { color: inherit; }
+/* h1/h2/h3, p and a are the shared layer's (2026-09-15) */
 .reveal { opacity: 1; transform: none; }
 h1.display { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title); text-wrap: balance; }
 .lede { max-width: var(--read); font-size: var(--text-3); color: var(--ink-3); line-height: 1.55; }

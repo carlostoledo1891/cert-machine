@@ -1,3 +1,9 @@
+/* the grammar's stroke and voice classes are the shared layer's
+   (playground/design/components.js). They were re-declared here — and on
+   census the copy drew a COMPUTED mark at the CHOSEN weight, which is the
+   grammar's own distinction broken by a duplicate nobody re-read. Deleted
+   2026-09-15; the page-local readout underline below is a different device
+   and is left standing. */
 .ec-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s-5); align-items: start; }
 @media (max-width: 860px) { .ec-wrap { grid-template-columns: minmax(0, 1fr); } }
 .ec-fig { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: var(--s-3); }
@@ -26,8 +32,6 @@
 .ec-tbl td:first-child, .ec-tbl th:first-child { text-align: left; }
 .ec-tbl tr.sel td { color: var(--ink); background: var(--surface); }
 .ec-tbl td.dim { color: var(--ink-4); }
-.w-decided { stroke: var(--ink); color: var(--ink); }
-.w-computed { stroke: var(--ink-3); }
 .ec-poly { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
 .ec-on { fill: none; stroke: var(--ink); stroke-width: 1.4; }
 .ec-pick { fill: var(--ink); }
@@ -36,3 +40,16 @@
 .ec-tick { font-family: var(--font-mono); font-size: 10.5px; fill: var(--ink-4); }
 .ec-lab { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-3); }
 .ec-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* ---- THE PROSE RHYTHM (2026-09-15) ---------------------------------------
+   This page writes bare <p> and <h2> inside <section class="wrap">, and until
+   today it took the BROWSER'S paragraph margins and the BODY's leading for its
+   headlines — the only pages on the site doing either, because the house
+   typography reached /instruments through bench.css and these pages do not
+   load it. The shared layer gives them the house h1/h2/h3 and `p{margin:0}`
+   now; the rhythm that has to come with that reset is here, in the section's
+   own spacing scale. Same values bench.css uses for a crossed body. */
+section p + p, section p + ul, section p + ol, section p + figure,
+section ul + p, section ol + p, section figure + p { margin-top: var(--s-4); }
+section h2, section h3 { margin-top: var(--s-7); }
+section h2 + *, section h3 + * { margin-top: var(--s-4); }

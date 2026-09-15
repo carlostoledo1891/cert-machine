@@ -34,6 +34,7 @@ const T = require('./tokens.js');
    too — the legend there was declaring its column count by hand on four pages */
 const { balancedGrid } = require('./grid.js');
 const NAVJS = require('./nav.js');
+const BASE = require('./base.js');
 const FOOT = require('./footer.js');
 
 /* the relative prefix back to the site root, from the page's own path, so the
@@ -72,13 +73,8 @@ function css() {
   /* the :root block is NOT here: render() prepends T.rootCss() to whichever
      sheet a page takes, so the tokens are emitted exactly once per page */
   return `
-*{box-sizing:border-box}
-html{color-scheme:dark;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink-2);
-  font-family:var(--f-sans);font-size:${SCALE.body};line-height:1.65;font-weight:400;
-  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
-::selection{background:var(--ink);color:var(--paper)}
-.page{max-width:${LAYOUT.container};margin:0 auto;padding:calc(${SCALE.pagePadY} + 60px) ${SCALE.pagePadX} 0}
+${BASE.baseCss()}
+.page{max-width:${LAYOUT.container};margin:0 auto;padding:${SCALE.pagePadY} ${SCALE.pagePadX} 0}
 
 ${NAVCSS}
 /* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
@@ -103,10 +99,6 @@ h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
 h1{font-size:${SCALE.h1};line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
 h2{font-size:${SCALE.h2};line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
 h3{font-size:${SCALE.h3};line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
-.eyebrow,.lab{font-family:var(--f-mono);font-size:${SCALE.eyebrow};font-weight:500;
-  letter-spacing:.16em;text-transform:uppercase}
-.eyebrow{color:var(--ink-4)}
-.lab{color:var(--ink-4)}
 .deck{font-size:${SCALE.deck};line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:${LAYOUT.read};text-wrap:pretty}
 p{margin:0 0 18px}
@@ -220,7 +212,6 @@ blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-stro
 blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:${SCALE.eyebrow};
   font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
 
-.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--sunk);margin:0 0 26px}
 table{border-collapse:collapse;width:100%;min-width:560px;
   font-family:var(--f-mono);font-size:${SCALE.small};font-variant-numeric:tabular-nums}
 th{font-family:var(--f-mono);font-size:${SCALE.eyebrow};letter-spacing:.1em;text-transform:uppercase;

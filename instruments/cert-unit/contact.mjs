@@ -63,16 +63,7 @@ export function contactSheet(rows, ports, { title = '', scale = 1, note = '' } =
 <style>${CONTACT_CSS}</style>${parts.join('')}</svg>`;
 }
 
-export const CONTACT_CSS = `
-.cg .cs { fill:var(--ink); fill-opacity:.05; stroke:none; }
-.cg .cs.fired { fill-opacity:.92; }
-/* fill inside a ring is right; a fill with no ring is a wrong answer; a ring
-   with no fill is the answer it missed. */
-.cg .ck { fill:none; stroke:var(--ink); stroke-opacity:.5; stroke-width:1; }
-.cg .cl { fill:var(--ink-3); font-family:var(--f-mono); font-size:9px; }
-.cg .cp { fill:var(--ink-4); font-family:var(--f-mono); font-size:6.5px; }
-.cg .ct { fill:var(--ink); font-family:var(--f-mono); font-size:10px; letter-spacing:.1em; }
-.cg .cn { fill:var(--ink-4); font-family:var(--f-mono); font-size:8px; }
-.cg .cr { stroke:var(--ink); stroke-width:1.6; }
-.cg .cr.solid { stroke-opacity:.55; }
-.cg .cr.dashed { stroke-opacity:.28; stroke-dasharray:1.5 2; }`;
+import ART from './art-css.js';
+/* the vocabulary is ./art-css.js — one source, shared with the page's component
+   layer (2026-09-15). The <style> in the SVG is for the standalone file. */
+export const CONTACT_CSS = ART.CONTACT_CSS;

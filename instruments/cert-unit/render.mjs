@@ -102,27 +102,13 @@ export function toSVG(g, { fired = new Map(), title = g.name, minWidth = 0 } = {
 ${parts.join('\n')}</svg>`;
 }
 
-/* DECLARED PATCH, cert-machine 2026-09-05: the literal hex here was frontier's
-   palette, and three of its values (#111114, #e8e8ee, #83838f) are on no scale
-   this site owns — tools/check-wiring.js caught them on the first build of
-   /instruments/graph. They are house tokens now.
-   SECOND PATCH, 2026-09-15: the literal FALLBACKS went too (a fallback is the
-   second copy that drifts, and every page that inlines this art declares the
-   tokens), the mono face is the token --f-mono, and the ground rect is gone:
-   no art paints its own ground (rule of 2026-09-05) — the plate and the page
-   already are the ground. */
-export const CSS = `
-.ug .nd { fill:var(--bg-raised); stroke:var(--ink); stroke-opacity:.22; }
-.ug .nd.inst { stroke-opacity:.45; }
-.ug .sep { stroke:var(--ink); stroke-opacity:.14; }
-.ug .nt { fill:var(--ink-2); font-family:var(--f-mono); font-size:8px; }
-.ug .pl { fill:var(--ink-3); font-family:var(--f-mono); font-size:6.5px; }
-.ug .pl.fired { fill:var(--ink); }
-.ug .cap { fill:var(--ink-4); font-family:var(--f-mono); font-size:7px; letter-spacing:.12em; }
-.ug .pt { fill:var(--paper); stroke:var(--ink); stroke-opacity:.6; stroke-width:1.2; }
-.ug .pt.dec { fill:var(--ink); fill-opacity:.75; stroke:none; }
-.ug .pt.idle { stroke-opacity:.28; }
-.ug .pt.fired { fill:var(--ink); stroke:var(--ink); }
-.ug .w { fill:none; stroke:var(--ink); stroke-width:1.2; }
-.ug .w.solid { stroke-opacity:.75; }
-.ug .w.dashed { stroke-opacity:.42; stroke-dasharray:5 4; }   /* grammar.js CLAIM */`;
+/* DECLARED PATCH, cert-machine 2026-09-05 and 2026-09-15: the literal hex here was
+   frontier's palette and three of its values are on no scale this site owns; they are
+   house tokens now, the literal fallbacks are gone (a fallback is the second copy that
+   drifts), the mono face is the token, and the art paints no ground of its own. The
+   vocabulary itself moved to ./art-css.js so the page's shared component layer and this
+   renderer read ONE source — four pages inline this art and were getting a second
+   stylesheet each. The <style> below is for the STANDALONE .svg file; a page strips it
+   with components.embedArt() because the page already carries the rules. */
+import ART from './art-css.js';
+export const CSS = ART.GRAPH_CSS;

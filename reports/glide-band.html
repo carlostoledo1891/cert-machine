@@ -138,15 +138,47 @@
   --font-mono:var(--f-mono);
 }
 
-*{box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}
 html{color-scheme:dark;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink-2);
-  font-family:var(--f-sans);font-size:0.9375rem;line-height:1.65;font-weight:400;
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 ::selection{background:var(--ink);color:var(--paper)}
-.page{max-width:1200px;margin:0 auto;padding:calc(clamp(28px,5vw,60px) + 60px) clamp(1.25rem,4vw,3rem) 0}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.                                                                  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
 
 
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
 /* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
    glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
    ground — the blur mixes toward white and reads as frost. This site's ground
@@ -160,7 +192,7 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
    tuned. The hairline border still separates the bar from the page. */
 .topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
   border-bottom:1px solid var(--rule)}
-.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:60px;
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
   display:flex;align-items:center;justify-content:space-between;gap:24px}
 .topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
   text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
@@ -195,7 +227,7 @@ body{margin:0;background:var(--paper);color:var(--ink-2);
 .nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
 @media (max-width:680px){
   .nav-burger{display:flex}
-  .navlinks{display:none;position:absolute;top:60px;left:0;right:0;
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
     flex-direction:column;align-items:stretch;gap:0;
     background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
   .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
@@ -232,10 +264,6 @@ h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
 h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
 h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
-.eyebrow,.lab{font-family:var(--f-mono);font-size:0.6875rem;font-weight:500;
-  letter-spacing:.16em;text-transform:uppercase}
-.eyebrow{color:var(--ink-4)}
-.lab{color:var(--ink-4)}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
 p{margin:0 0 18px}
@@ -376,7 +404,6 @@ blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-stro
 blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
   font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
 
-.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--sunk);margin:0 0 26px}
 table{border-collapse:collapse;width:100%;min-width:560px;
   font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
 th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
@@ -558,6 +585,69 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+.gb{margin:0 0 1rem;}
+.gb-bar{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-end;margin:0 0 .7rem;}
+.gb-ctl{display:flex;flex-direction:column;gap:.34rem;}
+.gb-ctl>span{text-transform:uppercase;letter-spacing:.07em;font-size:.68rem;color:var(--ink-3);}
+.gb-ctl input[type=range]{width:min(320px,60vw);accent-color:var(--sig);}
+.gb-ctl output{font-family:var(--f-mono);font-size:.78rem;color:var(--ink-2);}
+.gb-seg{display:flex;flex-wrap:wrap;border:1px solid var(--rule);border-radius:2px;overflow:hidden;background:var(--surface);}
+.gb-seg button{border:0;background:transparent;padding:.4rem .72rem;font:inherit;font-size:.78rem;
+  color:var(--ink-2);cursor:pointer;border-right:1px solid var(--rule);}
+.gb-seg button:last-child{border-right:0;}
+.gb-seg button:hover{background:var(--sunk);}
+.gb-seg button.on{background:var(--sig);color:var(--surface);}
+.gb-note{font-size:.82rem;color:var(--ink-2);margin:.1rem 0 .8rem;max-width:74ch;}
+.gb-stage{position:relative;}
+.gb-stage svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--rule);}
+.gb-nav{position:absolute;right:.55rem;bottom:.55rem;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);background:var(--surface);padding:.12rem .38rem;}
+.gb-key{display:flex;gap:1.15rem;flex-wrap:wrap;margin:.75rem 0 .3rem;font-size:.78rem;color:var(--ink);}
+.gb-key i{display:inline-block;width:11px;height:11px;margin-right:.4rem;vertical-align:-1px;border-radius:50%;}
+.gb-key em{color:var(--ink-3);font-style:normal;margin-left:.3rem;}
+.k-g{background:var(--c-2);}
+.k-a{background:var(--warn-soft);border:2px solid var(--c-3);}
+.k-r{background:var(--surface);border:2px solid var(--c-1);}
+.k-n{border-radius:0!important;height:0!important;width:17px!important;border-top:2px dashed var(--ink-2);}
+.gb-counts{font-size:.95rem;margin:.55rem 0 1rem;color:var(--ink);}
+.gb-counts .g{color:var(--c-2);}.gb-counts .a{color:var(--c-3);}.gb-counts .r{color:var(--c-1);}
+.gb-tw{overflow-x:auto;}
+.gb-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.gb-table th,.gb-table td{padding:.36rem .6rem;border-bottom:1px solid var(--rule-soft);text-align:left;}
+.gb-table th{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:400;}
+.gb-table td{color:var(--ink-2);} .gb-table .n{text-align:right;}
+.gb-table .mono{font-family:var(--f-mono);color:var(--ink);}
+.v-r{color:var(--c-1);font-weight:600;}.v-a{color:var(--c-3);font-weight:600;}
+.gb-cap{font-size:.78rem;color:var(--ink-3);margin-top:.5rem;}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease;}
+.rv.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}}
+
+<script>
+/* Scroll reveal, built so it CANNOT hide content. Three guards, because a
+   reading page that goes blank when an observer misbehaves is worse than a
+   page with no animation at all:
+     1. nothing is hidden unless IntersectionObserver exists;
+     2. anything already on screen is never hidden in the first place;
+     3. a 1.5 s failsafe reveals everything regardless of what the observer did. */
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var all=document.querySelectorAll('figure, .gb, .stats, .pull'), t=[], i;
+  for(i=0;i<all.length;i++){
+    var r=all[i].getBoundingClientRect();
+    if(r.top < (window.innerHeight||800) * 1.05) continue;   /* already in view */
+    all[i].classList.add('rv'); t.push(all[i]);
+  }
+  var reveal=function(el){ el.classList.add('in'); };
+  var io=new IntersectionObserver(function(es){
+    for(var k=0;k<es.length;k++) if(es[k].isIntersecting){ reveal(es[k].target); io.unobserve(es[k].target); }
+  },{rootMargin:'0px 0px -6% 0px',threshold:0.05});
+  for(i=0;i<t.length;i++) io.observe(t[i]);
+  setTimeout(function(){ for(var k=0;k<t.length;k++) reveal(t[k]); }, 1500);
+})();
+</script>
 </style>
 </head>
 <body>
@@ -1202,73 +1292,10 @@ draw();
   </div>
 <div class="col"><p><strong>Terrain.</strong> H1 is the big one. A certified band with a terrain floor is the same arithmetic over a pinned elevation model — the next build, not a research problem.</p><p><strong>Real performance data.</strong> The envelopes are stated, not measured. Flight-test data would replace H4 with something narrower and the annulus would shrink, which is exactly the point.</p><p><strong>Design assurance.</strong> Nothing here is DO-178C evidence, and the distance between an exact enclosure and certifiable software is the real cost in avionics.</p><p class="pull">“We ran ten thousand sorties and saw no failure” has the same shape. It cannot be refuted by the evidence it rests on.</p><p>Which is the reason this is worth more than a display feature. The defect on this page is not really about glide rings — it is what happens whenever a point estimate is handed over as a decision boundary, and it is the same defect that makes a test campaign an unfalsifiable safety argument. The glide ring is simply the most legible instance of it: one line, one aeroplane, and a field you either reach or you do not.</p></div>
 </section>
-<style>
-.gb{margin:0 0 1rem;}
-.gb-bar{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-end;margin:0 0 .7rem;}
-.gb-ctl{display:flex;flex-direction:column;gap:.34rem;}
-.gb-ctl>span{text-transform:uppercase;letter-spacing:.07em;font-size:.68rem;color:var(--ink-3);}
-.gb-ctl input[type=range]{width:min(320px,60vw);accent-color:var(--sig);}
-.gb-ctl output{font-family:var(--f-mono);font-size:.78rem;color:var(--ink-2);}
-.gb-seg{display:flex;flex-wrap:wrap;border:1px solid var(--rule);border-radius:2px;overflow:hidden;background:var(--surface);}
-.gb-seg button{border:0;background:transparent;padding:.4rem .72rem;font:inherit;font-size:.78rem;
-  color:var(--ink-2);cursor:pointer;border-right:1px solid var(--rule);}
-.gb-seg button:last-child{border-right:0;}
-.gb-seg button:hover{background:var(--sunk);}
-.gb-seg button.on{background:var(--sig);color:var(--surface);}
-.gb-note{font-size:.82rem;color:var(--ink-2);margin:.1rem 0 .8rem;max-width:74ch;}
-.gb-stage{position:relative;}
-.gb-stage svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--rule);}
-.gb-nav{position:absolute;right:.55rem;bottom:.55rem;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-3);background:var(--surface);padding:.12rem .38rem;}
-.gb-key{display:flex;gap:1.15rem;flex-wrap:wrap;margin:.75rem 0 .3rem;font-size:.78rem;color:var(--ink);}
-.gb-key i{display:inline-block;width:11px;height:11px;margin-right:.4rem;vertical-align:-1px;border-radius:50%;}
-.gb-key em{color:var(--ink-3);font-style:normal;margin-left:.3rem;}
-.k-g{background:var(--c-2);}
-.k-a{background:var(--warn-soft);border:2px solid var(--c-3);}
-.k-r{background:var(--surface);border:2px solid var(--c-1);}
-.k-n{border-radius:0!important;height:0!important;width:17px!important;border-top:2px dashed var(--ink-2);}
-.gb-counts{font-size:.95rem;margin:.55rem 0 1rem;color:var(--ink);}
-.gb-counts .g{color:var(--c-2);}.gb-counts .a{color:var(--c-3);}.gb-counts .r{color:var(--c-1);}
-.gb-tw{overflow-x:auto;}
-.gb-table{width:100%;border-collapse:collapse;font-size:.82rem;}
-.gb-table th,.gb-table td{padding:.36rem .6rem;border-bottom:1px solid var(--rule-soft);text-align:left;}
-.gb-table th{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:400;}
-.gb-table td{color:var(--ink-2);} .gb-table .n{text-align:right;}
-.gb-table .mono{font-family:var(--f-mono);color:var(--ink);}
-.v-r{color:var(--c-1);font-weight:600;}.v-a{color:var(--c-3);font-weight:600;}
-.gb-cap{font-size:.78rem;color:var(--ink-3);margin-top:.5rem;}
-.rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease;}
-.rv.in{opacity:1;transform:none;}
-@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}}
-</style>
-<script>
-/* Scroll reveal, built so it CANNOT hide content. Three guards, because a
-   reading page that goes blank when an observer misbehaves is worse than a
-   page with no animation at all:
-     1. nothing is hidden unless IntersectionObserver exists;
-     2. anything already on screen is never hidden in the first place;
-     3. a 1.5 s failsafe reveals everything regardless of what the observer did. */
-(function(){
-  if(!('IntersectionObserver' in window)) return;
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var all=document.querySelectorAll('figure, .gb, .stats, .pull'), t=[], i;
-  for(i=0;i<all.length;i++){
-    var r=all[i].getBoundingClientRect();
-    if(r.top < (window.innerHeight||800) * 1.05) continue;   /* already in view */
-    all[i].classList.add('rv'); t.push(all[i]);
-  }
-  var reveal=function(el){ el.classList.add('in'); };
-  var io=new IntersectionObserver(function(es){
-    for(var k=0;k<es.length;k++) if(es[k].isIntersecting){ reveal(es[k].target); io.unobserve(es[k].target); }
-  },{rootMargin:'0px 0px -6% 0px',threshold:0.05});
-  for(i=0;i<t.length;i++) io.observe(t[i]);
-  setTimeout(function(){ for(var k=0;k<t.length;k++) reveal(t[k]); }, 1500);
-})();
-</script>
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-glide-band.js @ git fa5405e. The app’s battery ran as this page’s gate (20 checks, 4 reds fired), the data pins were re-hashed, and all 480 states — 16 cruise positions × 5 scenarios × 3 winds × 2 forecast modes over 320 airfields — were decided during this build. The build refuses on any deviation, and refuses if either failure scenario stops biting. Flight: N412JS, adsb.lol 2026-08-26, pinned through apps/skyaudit — ADS-B data © adsb.lol, ODbL. Airfields: OurAirports (public domain), sha256 e56b20ecaa18…. Instrument: apps/glide-band/kernel.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-glide-band.js @ git 324faf0. The app’s battery ran as this page’s gate (20 checks, 4 reds fired), the data pins were re-hashed, and all 480 states — 16 cruise positions × 5 scenarios × 3 winds × 2 forecast modes over 320 airfields — were decided during this build. The build refuses on any deviation, and refuses if either failure scenario stops biting. Flight: N412JS, adsb.lol 2026-08-26, pinned through apps/skyaudit — ADS-B data © adsb.lol, ODbL. Airfields: OurAirports (public domain), sha256 e56b20ecaa18…. Instrument: apps/glide-band/kernel.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

@@ -110,6 +110,12 @@ function build(OUTDIR) {
   const dir = path.join(OUTDIR, 'pqc');
   fs.mkdirSync(dir, { recursive: true });
   const html = page({
+    /* A VIEWPORT, NOT A DOCUMENT (2026-09-15): html and body are height:100%
+       with overflow hidden, so a document footer renders in the flow BEHIND the
+       overlays — measured at top=108px on this page, its links showing through
+       the title. The closing line lives inside the viewport (.ov-foot / the
+       panel). Same ruling as /instruments/navier-stokes. */
+    foot: null,
     title: 'Solid where it was proved — cert-machine',
     desc: 'Lattice reduction watched in exact integers, and every published SVP-challenge record near the acceptance wall decided exactly. Solid where certified, dashed where assumed.',
     path: '/instruments/pqc/',
@@ -139,7 +145,6 @@ function cardArt() {
   const rings = open.map(a => `<circle cx="${X(a.n).toFixed(1)}" cy="${Y(a.ratio).toFixed(1)}" r="7" fill="none" stroke="var(--ink)" stroke-width="1.2"/>`).join('');
   const ticks = [40, 80, 120, 160, 200].filter(n => n >= lo && n <= hi).map(n => `<text x="${X(n).toFixed(1)}" y="${B + 18}" class="lb" text-anchor="middle">${n}</text>`).join('');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" class="pqc-card">
-<style>.pqc-card .lb{fill:var(--ink-3);font-family:var(--font-mono);font-size:10px}.pqc-card .ax{stroke:var(--ink);stroke-opacity:.16}</style>
 <line x1="${L}" y1="${B}" x2="${Rr}" y2="${B}" class="ax"/>
 <line x1="${L}" y1="${Y(1.05).toFixed(1)}" x2="${Rr}" y2="${Y(1.05).toFixed(1)}" stroke="var(--ink)" stroke-width="1.4"/>
 <text x="${L}" y="${(Y(1.05) - 7).toFixed(1)}" class="lb">the wall, 1.05 · GH</text>

@@ -168,6 +168,12 @@ const body = `
 
 function build(OUT) {
   const html = page({
+    /* A VIEWPORT, NOT A DOCUMENT (2026-09-15): html and body are height:100%
+       with overflow hidden, so a document footer renders in the flow BEHIND the
+       overlays — measured at top=108px on this page, its links showing through
+       the title. The closing line lives inside the viewport (.ov-foot / the
+       panel). Same ruling as /instruments/navier-stokes. */
+    foot: null,
     title: 'Not the picture — the set of pictures · instruments',
     desc: 'Every sky the Event Horizon Telescope data allow for M87, drawn at once: agreement as ink, disagreement as texture.',
     path: '/instruments/interferometer/', body,

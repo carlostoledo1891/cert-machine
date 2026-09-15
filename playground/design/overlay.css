@@ -7,8 +7,12 @@
    page actually needed are inlined below, from the same tokens; everything
    else went with the file.  What is left above this line is tokens.css. */
 /* box-sizing comes from the shell (2026-09-05); the margin/padding zeroing is this
-   page's own reset and stays. */
+   page's own reset and stays — and on 2026-09-15 it was deleted by a regex aimed at
+   the box-sizing duplicate, which put the UA margin back on every range input and
+   moved the panel's sliders 2px right. The layout ruler caught it as one new left
+   edge on /instruments/navier-stokes. */
 *, *::before, *::after { margin: 0; padding: 0; }
+
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -20,7 +24,6 @@ button, input, select { font: inherit; color: inherit; }
 /* ground, ink, face, size, leading and smoothing come from the shell's body rule;
    only what this page adds on top is declared here. */
 body { font-weight: var(--weight-body); text-rendering: optimizeLegibility; min-height: 100vh; }
-::selection { background: var(--ink); color: var(--bg); }
 
 a { color: var(--ink); text-decoration: none; }
 p a, li a, td a {

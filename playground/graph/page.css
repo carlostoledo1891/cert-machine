@@ -19,3 +19,16 @@
   padding-left: var(--s-3); }
 .ug-say.ok { color: var(--ink-4); }
 .refusal { white-space: pre-wrap; }
+
+/* ---- THE PROSE RHYTHM (2026-09-15) ---------------------------------------
+   This page writes bare <p> and <h2> inside <section class="wrap">, and until
+   today it took the BROWSER'S paragraph margins and the BODY's leading for its
+   headlines — the only pages on the site doing either, because the house
+   typography reached /instruments through bench.css and these pages do not
+   load it. The shared layer gives them the house h1/h2/h3 and `p{margin:0}`
+   now; the rhythm that has to come with that reset is here, in the section's
+   own spacing scale. Same values bench.css uses for a crossed body. */
+section p + p, section p + ul, section p + ol, section p + figure,
+section ul + p, section ol + p, section figure + p { margin-top: var(--s-4); }
+section h2, section h3 { margin-top: var(--s-7); }
+section h2 + *, section h3 + * { margin-top: var(--s-4); }
