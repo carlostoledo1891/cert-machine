@@ -72,3 +72,9 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
 /* a section that holds a component runs the full container; the prose inside it
    keeps the reading measure, so the two never fight over the same width */
 .sec .why, .sec ul.why, .sec p { max-width: var(--read); }
+
+/* the four one-offs this page wrote on its elements (2026-09-15) */
+.cs-abs { position: absolute; }
+.cs-hang { padding-left: 1.1em; }
+.cs-uline { border-bottom: 1px solid var(--border-strong); }
+.cs-uline.pad { padding-top: var(--s-5); }

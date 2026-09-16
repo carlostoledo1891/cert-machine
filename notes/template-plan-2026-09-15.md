@@ -177,7 +177,8 @@ P6 · THE RECORDS
 | P0 | fa5405e | the stylesheet gate + the square corners + the undeclared tokens |
 | P1 | 324faf0 | one shell, one head, one footer, one font path |
 | P2 | a242434 | one stylesheet per page (extra blocks 56 -> 0), the shared foundation |
-| P3 | this one | inline declarations 537 -> 233, and the rule that decides them |
+| P3 | 4ba347a | inline declarations 537 -> 233, and the rule that decides them |
+| P3b + P4 | this one | the measures unified, the app's spacing named: declarations 233 -> **0** |
 
 The numbers, start to close: extra `<style>` blocks **56 -> 0** · unresolved
 `var()` **222 -> 2** · literal fallbacks **30 -> 0** · inline DECLARATIONS
@@ -185,12 +186,16 @@ The numbers, start to close: extra `<style>` blocks **56 -> 0** · unresolved
 exists **16,180 -> 15,297** · footer markups **25 -> 1** (+2 app docks, +4
 viewport pages that carry their own line) · shells **3 -> 1**.
 
-P4 (the app's body), P5 (the visual review as a document) and P6 are open, and
-so is the biggest remaining slice of P3: **66 bespoke reading measures**
-(`max-width:19..84ch`) across twenty pages. Unifying them onto `--read` (82ch)
-and `--title` (28ch) would re-wrap prose on twenty published pages, which is a
-design decision for the operator rather than a template one. That is the next
-question to put to him.
+THE MEASURES WERE UNIFIED on the operator's word: 67 overrides in eleven
+bespoke widths are the two tokens now, and the site carries **zero inline
+design declarations**. The 249 style attributes left are data.
+
+WHAT IS STILL OPEN: the app's BODY (a second layout, not a second stylesheet —
+DEBT.md row 4), the visual review as a document (P5), and the gate that would
+have caught the specificity trap this phase walked into four times: a class
+does not beat what an inline style beat. The probe is written
+(scratchpad util.js pattern) and reports zero; turning it into
+tools/check-cascade.js is the next gate.
 
 ## Effort (sessions, honest)
 

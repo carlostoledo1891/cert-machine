@@ -269,7 +269,7 @@ for (const city of ['nyc', 'sp']) {
     </section>
     <section class="as-card">
       <div class="as-h">The day</div>
-      <svg viewBox="0 0 100 15" preserveAspectRatio="none" style="width:100%;height:38px;display:block;margin-bottom:2px">
+      <svg viewBox="0 0 100 15" preserveAspectRatio="none" class="as-spark">
         ${stories.hourly.map((v, h) => {
           const max = Math.max(...stories.hourly);
           const bh = Math.max(0.6, v / max * 13);
@@ -277,16 +277,16 @@ for (const city of ['nyc', 'sp']) {
             fill="${h === stories.peak_hour_local ? 'var(--sig)' : 'var(--rule)'}"/>`;
         }).join('')}
       </svg>
-      <div class="as-fine" style="margin-bottom:10px">flights in the air by hour · peak at ${stories.peak_hour_local}:00 local</div>
+      <div class="as-fine as-mb10">flights in the air by hour · peak at ${stories.peak_hour_local}:00 local</div>
       <div class="as-frow"><span><span class="name">Hardest-working aircraft</span>
         <span class="sub">${stories.leaderboard.slice(0, 3).map((a, i) => `${['🥇', '🥈', '🥉'][i] || ''} ${a.reg}${a.name ? ' — ' + a.name : ''} (${a.type}) ${a.legs} legs · ${Math.round(a.airborneMin / 60 * 10) / 10} h`).join(' · ')}</span>
-        <span class="sub" style="color:var(--ink-3)">names: FAA registry (registered to — not necessarily who operates) / ANAC RAB (operador); both pinned</span></span></div>
+        <span class="sub as-ink3">names: FAA registry (registered to — not necessarily who operates) / ANAC RAB (operador); both pinned</span></span></div>
       <div class="as-frow"><span><span class="name">Records</span>
         <span class="sub">longest ${stories.records.longest_km.value} (${stories.records.longest_km.reg}${stories.records.longest_km.name ? ', ' + stories.records.longest_km.name : ''}) ·
         ${stories.records.longest_min.value} airborne (${stories.records.longest_min.reg}, ${stories.records.longest_min.ops}) ·
         highest ${stories.records.highest_ft.value} (${stories.records.highest_ft.type}) ·
         fastest ${stories.records.fastest_kt.value} (${stories.records.fastest_kt.type})</span></span></div>
-      <div class="as-frow"><span><span class="name">What was flying <span style="color:var(--ink-3);font-weight:400">(inferred)</span></span>
+      <div class="as-frow"><span><span class="name">What was flying <span class="as-ink3-400">(inferred)</span></span>
         <span class="sub">${Object.entries(stories.ops_mix).sort((a, z) => z[1] - a[1]).map(([k, v]) => `${k} ${v}`).join(' · ')}</span></span></div>
       <div class="as-frow"><span><span class="name">Measured outliers</span>
         <span class="sub">widest orbit: ${stories.outliers.detours[0].reg} (${stories.outliers.detours[0].type}) flew
@@ -294,9 +294,9 @@ for (const city of ['nyc', 'sp']) {
         under 10 kt for ${stories.outliers.dwellers[0].dwellPct}% of a ${stories.outliers.dwellers[0].min}-min flight</span></span></div>
     </section>
     ${city === 'nyc' ? `
-    <section class="as-card" style="border-style:dashed;border-color:var(--ink-3)">
-      <div class="as-h" style="letter-spacing:.12em">SKYFORECAST — FORECASTS, NOT VERDICTS</div>
-      <div class="as-fine" style="margin-bottom:8px">Everything else on this page is DECIDED from a day
+    <section class="as-card as-dash">
+      <div class="as-h as-tracked">SKYFORECAST — FORECASTS, NOT VERDICTS</div>
+      <div class="as-fine as-mb2">Everything else on this page is DECIDED from a day
       that happened. This card is different in kind and drawn differently on purpose: interval
       FORECASTS for days that have not happened, committed to an append-only ledger (sha-pinned,
       timestamped BEFORE the day) and scored in exact arithmetic when the day's data is released.
@@ -311,7 +311,7 @@ for (const city of ['nyc', 'sp']) {
         <span class="sub">committed ${new Date(c2.madeAt * 1000).toISOString().slice(0, 16)}Z · sha ${c2.payloadSha256.slice(0, 10)} · proved coverage ${f2.coverage} (grows with the corpus)${v1note}</span></span>
         <span class="val as-mono-400" >[${f2.lo}, ${f2.hi}]</span></div>`;
       }).join('') || '<div class="as-fine">no open forecasts — the next commit lands with the next calibration day</div>'}
-      <div class="as-fine" style="margin-top:8px">lifetime record, recomputed from the ledger at this build:
+      <div class="as-fine as-mt2">lifetime record, recomputed from the ledger at this build:
       ${fRecord.commits} committed · ${fRecord.scored} scored · ${fRecord.covered} covered${fRecord.scored
         ? ' (' + Math.round(fRecord.covered / fRecord.scored * 100) + '% exact coverage)' : ' — the first outcomes arrive with the next day releases'}.
       Ledger: <a href="/certs/skyaudit-forecast-ledger.jsonl">skyaudit-forecast-ledger.jsonl</a> ·
@@ -323,13 +323,13 @@ for (const city of ['nyc', 'sp']) {
       <div class="as-note">This day's helicopters burned <b>${economics.fuel.liters[0].toLocaleString('en-US')}–${economics.fuel.liters[1].toLocaleString('en-US')} L
       of Jet-A</b> — $${economics.fuel.usd[0].toLocaleString('en-US')}–$${economics.fuel.usd[1].toLocaleString('en-US')},
       ${economics.fuel.co2_tonnes[0]}–${economics.fuel.co2_tonnes[1]} tonnes of CO₂.</div>
-      <div class="as-note" style="margin-top:8px">The ${economics.electric_subset.flights} provably-electric flights:
+      <div class="as-note as-mt2">The ${economics.electric_subset.flights} provably-electric flights:
       <b>$${economics.electric_subset.usd[0]}–$${economics.electric_subset.usd[1]} of electricity</b> vs
       <b>$${economics.electric_subset.same_flights_fuel.usd[0].toLocaleString('en-US')}–$${economics.electric_subset.same_flights_fuel.usd[1].toLocaleString('en-US')}
       of fuel for the same flights</b>${economics.electric_subset.usd[1] < economics.electric_subset.same_flights_fuel.usd[0]
         ? ' — the cost intervals don\'t overlap: the electric worst case beats the fuel best case'
         : ''}. ${economics.electric_subset.same_flights_fuel.co2_tonnes[0]}–${economics.electric_subset.same_flights_fuel.co2_tonnes[1]} t CO₂ avoided.</div>
-      <div class="as-fine" style="margin-top:8px">Fuel from per-type class burn boxes (stated estimates);
+      <div class="as-fine as-mt2">Fuel from per-type class burn boxes (stated estimates);
       electricity from the certified energy enclosures — decided, not projected.</div>
     </section>
     </div>
@@ -340,7 +340,7 @@ for (const city of ['nyc', 'sp']) {
     </section>
     <section class="as-card">
       <div class="as-h">Fleet designer — every position is a proof</div>
-      <div id="dz-gauge-wrap" style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
+      <div id="dz-gauge-wrap" class="as-row-wide">
         <div>
           <svg class="as-gauge" id="dz-gauge" width="110" height="66" viewBox="0 0 110 66">
             <path class="bg" d="M 10 60 A 45 45 0 0 1 100 60"/>
@@ -349,20 +349,20 @@ for (const city of ['nyc', 'sp']) {
           </svg>
           <div class="as-gaugelbl">day provable</div>
         </div>
-        <div style="flex:1">
+        <div class="as-grow">
           <div class="as-batt"><div class="shell"><div class="fill" id="dz-bfill"></div></div>
             <span class="as-encvals" id="dz-b-out"></span></div>
-          <input type="range" class="as-scrub" id="dz-b" min="60" max="700" step="20" value="320" style="width:100%">
+          <input type="range" class="as-scrub as-full" id="dz-b" min="60" max="700" step="20" value="320">
         </div>
       </div>
       <div class="as-h">If the reserve rule were…</div>
-      <input type="range" class="as-scrub" id="dz-r" min="0" max="45" step="3" value="20" style="width:100%">
+      <input type="range" class="as-scrub as-full" id="dz-r" min="0" max="45" step="3" value="20">
       <div class="as-encvals" id="dz-r-out"></div>
-      <div class="as-h" style="margin-top:12px">If charging took… <span id="dz-c-lbl"></span></div>
-      <input type="range" class="as-scrub" id="dz-c" min="0" max="60" step="1" value="45" style="width:100%">
+      <div class="as-h as-mt3">If charging took… <span id="dz-c-lbl"></span></div>
+      <input type="range" class="as-scrub as-full" id="dz-c" min="0" max="60" step="1" value="45">
       <div class="as-fleet" id="dz-fleet"></div>
       <div class="as-encvals" id="dz-c-out"></div>
-      <div class="as-fine" style="margin-top:8px">Battery and reserve apply to the aircraft selected
+      <div class="as-fine as-mt2">Battery and reserve apply to the aircraft selected
       above; charging applies to the Beta ALIA fleet re-flying its provable day. Each slider position
       looks up a precomputed, gate-checked certified point.</div>
     </section>
@@ -372,29 +372,31 @@ for (const city of ['nyc', 'sp']) {
     </section>
     <section class="as-card">
       <div class="as-h">Range claims, audited</div>
-      <div class="as-fine" style="margin-bottom:8px">A range claim is EXISTENTIAL — CONSISTENT means
+      <div class="as-fine as-mb2">A range claim is EXISTENTIAL — CONSISTENT means
       some point of the maker's own public+assumed boxes achieves it. A worst-case guarantee is
       UNIVERSAL and gets the worst corner.</div>
       ${optimize.range_claims.rows.map((r) => {
-        const col = { CONSISTENT: '--v-cert', CERTIFIED: '--v-cert', REFUTED: '--v-refu',
-          REFUSED: '--v-refd', 'NO CLAIM': '--v-refd' }[r.verdict] || '--v-refd';
+        /* the verdict's ink is a CLASS, not a colour written on the element
+           (2026-09-15): the verdict is the datum, the ink is the app's. */
+        const col = { CONSISTENT: 'as-cert', CERTIFIED: 'as-cert', REFUTED: 'as-refu',
+          REFUSED: 'as-refd', 'NO CLAIM': 'as-refd' }[r.verdict] || 'as-refd';
         const label = r.verdict === 'REFUSED' ? 'UNDECIDABLE' : r.verdict;
         return `<div class="as-frow"><span><span class="name">${NAMES[r.spec]}</span>
           <span class="sub">${r.claim || r.note}</span></span>
-          <span class="val" style="color:var(${col})">${label}</span></div>`;
+          <span class="val ${col}">${label}</span></div>`;
       }).join('')}
     </section>
     </div>
     <div class="as-tabbody" data-body="plan">
     <section class="as-card">
       <div class="as-h">Flight planner — a plan that comes with a proof</div>
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
-        <select class="as-sel" id="pl-from" style="flex:1">${Object.entries(planner.heliports).map(([k, h]) => `<option value="${k}">${h.name}</option>`).join('')}</select>
+      <div class="as-row as-mb10">
+        <select class="as-sel as-grow" id="pl-from">${Object.entries(planner.heliports).map(([k, h]) => `<option value="${k}">${h.name}</option>`).join('')}</select>
         <button class="as-btn" id="pl-swap" title="swap">⇄</button>
-        <select class="as-sel" id="pl-to" style="flex:1">${Object.entries(planner.heliports).map(([k, h], i) => `<option value="${k}" ${i === 3 ? 'selected' : ''}>${h.name}</option>`).join('')}</select>
+        <select class="as-sel as-grow" id="pl-to">${Object.entries(planner.heliports).map(([k, h], i) => `<option value="${k}" ${i === 3 ? 'selected' : ''}>${h.name}</option>`).join('')}</select>
       </div>
       <div id="pl-out"></div>
-      <div class="as-fine" style="margin-top:10px">${planner.honesty}</div>
+      <div class="as-fine as-mt10">${planner.honesty}</div>
     </section>
     <section class="as-card" id="mission-card" hidden>
       <div class="as-h">Live mission</div>

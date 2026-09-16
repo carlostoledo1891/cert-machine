@@ -75,6 +75,39 @@ a{color:inherit}
 /* the mono cell, and the mono cell at book weight. Forty elements in the app's
    templates carried these two declarations inline; they are the app's type
    contract and belong where a restyle can reach them (2026-09-15). */
+/* ---- THE APP'S SPACING AND FLOW, NAMED (2026-09-15) ----------------------
+   Fifty elements in the two app pages carried their spacing inline — the
+   product's own rhythm written where no restyle could reach it. Where the
+   value is on design/tokens.js's SPACE scale it takes the token; where it is
+   the app's own mark (2, 6, 10, 14px) it keeps the number, but in ONE place.
+   The app is still a second BODY layout (DEBT.md row 4); it is no longer a
+   second stylesheet. ---- */
+.as-mt1{margin-top:var(--s-1)}
+.as-mt2{margin-top:var(--s-2)}
+.as-mt3{margin-top:var(--s-3)}
+.as-mt4{margin-top:var(--s-4)}
+.as-mt6{margin-top:6px}
+.as-mt10{margin-top:10px}
+.as-mt14{margin-top:14px}
+.as-mb1{margin-bottom:var(--s-1)}
+.as-mb2{margin-bottom:var(--s-2)}
+.as-mb10{margin-bottom:10px}
+.as-ml2{margin-left:var(--s-2)}
+.as-my{margin:6px 0 4px}
+.as-full{width:100%}
+.as-grow{flex:1}
+.as-row{display:flex;align-items:center;gap:var(--s-2)}
+.as-row-wide{display:flex;align-items:center;gap:var(--s-4);margin-bottom:var(--s-2)}
+.as-track{width:100%;height:54px;display:block;background:var(--sunk);
+  border:1px solid var(--rule-soft);border-radius:var(--radius-m);margin:10px 0 2px}
+.as-spark{width:100%;height:38px;display:block;margin-bottom:2px}
+.as-tracked{letter-spacing:.12em}
+.as-cert{color:var(--v-cert)}
+.as-refd{color:var(--v-refd)}
+.as-refu{color:var(--v-refu)}
+.as-ink3{color:var(--ink-3)}
+.as-ink3-400{color:var(--ink-3);font-weight:var(--weight-body)}
+.as-dash{border-style:dashed;border-color:var(--ink-3)}
 .as-mono{font-family:var(--f-mono)}
 .as-mono-400{font-family:var(--f-mono);font-weight:var(--weight-body)}
 .as-top a.navx{color:var(--ink-2);text-decoration:none;font-family:var(--f-mono);font-size:10.5px;

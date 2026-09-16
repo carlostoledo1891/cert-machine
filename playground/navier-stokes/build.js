@@ -194,7 +194,7 @@ const html = page({
 
   <div class="grp">
     <span class="eyebrow">what the pulses are for</span>
-    <div class="note-sm" style="margin-top:0">The core alone does not solve Navier–Stokes. §5 leaves a
+    <div class="note-sm mt0">The core alone does not solve Navier–Stokes. §5 leaves a
     residual equal to −div(annular stress) plus a flat remainder; that stress is what the WAVES must
     produce. It is producible only if it lies in a cone (4.22)/(4.23), and then Proposition 7.5 turns it
     into two <b>positive</b> squared amplitudes whose square roots are the real wave amplitudes. Turn the

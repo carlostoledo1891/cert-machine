@@ -63,12 +63,12 @@ const section = ({ r, v }) => `
   <div class="container">
     <div class="reveal">
       <div class="eyebrow">${r.gate.ok ? r.shape : 'refused'} &middot; ${r.n} items</div>
-      <h2 class="t1" style="margin-top:var(--s-2); max-width:26ch;">${r.title}</h2>
+      <h2 class="t1 mt2 ti">${r.title}</h2>
     </div>
     <div class="exg reveal mt5">
       <div class="art">${plate(r)}</div>
       <div>
-        <p class="lede" style="font-size:var(--text-body); color:var(--ink-3);">${r.why}</p>
+        <p class="lede body-3">${r.why}</p>
         ${r.gate.ok ? `<div class="nums">
           <div><div class="k">effective rank</div><div class="v">${r.spectrum.effRank}</div></div>
           <div><div class="k">negative mass</div><div class="v">${(100 * r.spectrum.negMass).toFixed(2)}%</div></div>
@@ -91,7 +91,7 @@ const body = `
 <header class="hero">
   <div class="container">
     <div class="eyebrow reveal">experiments &middot; geometry that can be checked</div>
-    <h1 class="display reveal" style="margin-top:var(--s-5); max-width:19ch;">Eight tables, eight predictions</h1>
+    <h1 class="display reveal mt5 ti">Eight tables, eight predictions</h1>
     <p class="lede reveal mt6">Interpretability work asks a language model for the distance between every pair of things and decides what shape the answers have. The method is good and the answer is uncheckable: nobody knows what the true geometry of a model&rsquo;s beliefs is, so a circle can only ever be reported, never confirmed. These are the same experiments run on objects whose geometry is a fact — an array of telescopes, a certified band, a proof&rsquo;s own subdivision — with the prediction written down first.</p>
     <div class="hero-meta reveal">
       <span class="item"><span class="k">subjects</span><span class="v">${G.sets.length}</span></span>
@@ -114,7 +114,7 @@ const body = `
       <p><strong>Then the four-point condition</strong>, which separates kinds of structure once the signature has said how much there is, and the minimum spanning tree, so that a set with no canonical order still gets a skeleton — one that came from the numbers rather than from a story.</p>
     </div>
     <div class="scoreline reveal">
-      ${rows.map(({ r, v }) => `<span>${r.id} <b style="color:${v.held ? 'var(--ink)' : 'var(--ink-2)'}">${v.held ? '✓' : '✕'}</b></span>`).join('')}
+      ${rows.map(({ r, v }) => `<span>${r.id} <b class="${v.held ? 'ink' : 'ink-2'}">${v.held ? '✓' : '✕'}</b></span>`).join('')}
     </div>
   </div>
 </section>

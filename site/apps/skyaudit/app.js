@@ -418,10 +418,10 @@ function renderMission(full) {
       <div class="as-db"><span>L/D now</span><b id="ms-ld"></b></div>
       <div class="as-db"><span>PWR kW</span><b id="ms-pwr"></b></div>
     </div>
-    <div class="as-h" style="margin-top:4px">Speed — faster burns more per km (L/D falls)</div>
-    <input type="range" class="as-scrub" id="ms-v" min="${sp.vBox[0]}" max="${sp.vBox[1]}" step="1" value="${m.v}" style="width:100%">
-    <div id="ms-status" style="margin-top:8px"></div>
-    <div class="as-fine" style="margin-top:8px">Simulation from mid-box parameters + the cited
+    <div class="as-h as-mt1">Speed — faster burns more per km (L/D falls)</div>
+    <input type="range" class="as-scrub as-full" id="ms-v" min="${sp.vBox[0]}" max="${sp.vBox[1]}" step="1" value="${m.v}">
+    <div id="ms-status" class="as-mt2"></div>
+    <div class="as-fine as-mt2">Simulation from mid-box parameters + the cited
     L/D–speed line (${SIMP.ld.cite}); reserve held per the selected rule. The certified verdict
     for this route is the annunciator above — this panel is the physics, made flyable.</div>`;
     $('ms-v').oninput = (e) => { S.msn.v = +e.target.value; renderMission(false); };
@@ -438,13 +438,13 @@ function renderMission(full) {
   $('ms-pwr').textContent = Math.round(pCruiseKw(sp, m.v));
   $('ms-status').innerHTML = m.done
     ? `<span class="as-ann go">LANDED</span> <span class="as-encvals">final margin ${(usable - m.used - res).toFixed(1)} kWh (sim)</span>
-       <button class="as-btn" style="margin-left:8px" onclick="window._endMsn()">CLEAR</button>
-       <div class="as-missions" style="margin-top:6px">MISSIONS COMPLETED THIS SESSION: ${S.msnCount || 0}</div>`
+       <button class="as-btn as-ml2" onclick="window._endMsn()">CLEAR</button>
+       <div class="as-missions as-mt6">MISSIONS COMPLETED THIS SESSION: ${S.msnCount || 0}</div>`
     : m.breach
       ? `<span class="as-ann no">RESERVE BREACH PROJECTED</span> <span class="as-encvals">slow down to restore margin</span>
-         <button class="as-btn" style="margin-left:8px" onclick="window._endMsn()">ABORT</button>`
+         <button class="as-btn as-ml2" onclick="window._endMsn()">ABORT</button>`
       : `<span class="as-ann go">EN ROUTE</span>
-         <button class="as-btn" style="margin-left:8px" onclick="window._endMsn()">ABORT</button>`;
+         <button class="as-btn as-ml2" onclick="window._endMsn()">ABORT</button>`;
 }
 window._endMsn = () => { S.msn = null; $('mission-card').style.display = 'none'; };
 
@@ -466,7 +466,7 @@ function renderPlan() {
   const rule = S.key.split('|')[1];
   const rows = S.bundle ? S.bundle.specs : ['joby-s4', 'archer-midnight', 'beta-alia', 'eve-100'];
   host.innerHTML = `
-  <div class="as-kv" style="margin-bottom:10px">
+  <div class="as-kv as-mb10">
     <span>route</span><b>${PL.heliports[a].name} → ${PL.heliports[b].name}</b>
     <span>distance</span><b>${r.km} km along the corridors</b>
     <span>airspace</span><b>${r.bands.map((k) => (PL.bands[k] || k).split(' - ')[0]).join(' · ')}</b>
@@ -481,9 +481,9 @@ function renderPlan() {
     return `<div class="as-frow"><span><span class="name">${NAMES[sp]}</span>
       <span class="sub">${v.t_min[0]}–${v.t_min[1]} min flight · charge after ≈${v.charge_after_min} min${
         typeof v.m === 'number' ? ' · margin ' + v.m + ' kWh proved' : ''}</span></span>
-      <span style="display:flex;gap:6px;align-items:center">${btn}${ann}</span></div>`;
+      <span class="as-row">${btn}${ann}</span></div>`;
   }).join('')}
-  <div class="as-fine" style="margin-top:8px">Energy GO/NO-GO under the ${RULES[rule]} rule (switch
+  <div class="as-fine as-mt2">Energy GO/NO-GO under the ${RULES[rule]} rule (switch
   aircraft·rule in FLEET) — a mathematically certified enclosure per aircraft, precomputed and
   gate-checked. Bands: ${r.bands.map((k) => PL.bands[k] || k).join(' · ')}</div>`;
   pushUrl();
@@ -548,7 +548,7 @@ function altSvg(f) {
     pts.push(((tr[i][0] - t0) / span * 100).toFixed(2) + ',' + (24 - tr[i][3] / maxAlt * 21).toFixed(2));
   }
   return `<svg id="altsvg" viewBox="0 0 100 26" preserveAspectRatio="none"
-    style="width:100%;height:54px;display:block;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:var(--radius-m);margin:10px 0 2px">
+    class="as-track">
     <polyline points="${pts.join(' ')}" fill="none" stroke="var(--sig-2)" stroke-width="1" vector-effect="non-scaling-stroke"/>
     <line id="altcur" x1="0" x2="0" y1="1" y2="25" stroke="var(--sig)" stroke-width="1" vector-effect="non-scaling-stroke"/>
   </svg>
@@ -652,25 +652,25 @@ function renderPanel() {
     <div class="e">${VEXPL[v]}</div>
   </div>
   <details class="as-more"><summary>The certificate — why you can trust this</summary>
-  <div class="as-fine" style="margin:6px 0 4px">Verdict class: <b>${TRUST[v]}</b> — a mathematically
+  <div class="as-fine as-my">Verdict class: <b>${TRUST[v]}</b> — a mathematically
   certified enclosure from interval arithmetic over the published parameter boxes.</div>
   ${encHtml(enc)}
   ${v === 'R' && enc.wit ? `<div class="as-encvals">exact witness margin (rational): ${enc.wit}</div>` : ''}
   ${typeof enc.m === 'number' ? `<div class="as-encvals">interval margin: ${enc.m} kWh</div>`
     : `<div class="as-encvals">margins — worst ${enc.m.w} / best ${enc.m.b} kWh</div>`}
   ${(() => { const ex = exhaustInfo(f, S.key); return ex
-    ? `<div class="as-encvals" style="color:var(--v-refu)">worst-corner budget exhausts at km ${ex.km.toFixed(1)} of ${ex.totalKm.toFixed(1)} — marked ● on the route (preview)</div>` : ''; })()}
+    ? `<div class="as-encvals as-refu">worst-corner budget exhausts at km ${ex.km.toFixed(1)} of ${ex.totalKm.toFixed(1)} — marked ● on the route (preview)</div>` : ''; })()}
   </details>
-  <div class="as-h" style="margin-top:14px">Reserve what-if</div>
-  <input type="range" id="rsv" class="as-scrub" min="5" max="45" step="1" style="width:100%"
+  <div class="as-h as-mt14">Reserve what-if</div>
+  <input type="range" id="rsv" class="as-scrub as-full" min="5" max="45" step="1"
     value="${/faa-sfar-vfr|anac-rbac91-vfr/.test(S.key) ? 20 : 5}" aria-label="reserve minutes">
   <div class="as-encvals" id="rsvout"></div>
-  <div class="as-fine" style="margin-top:2px">Preview: scales this flight's recorded reserve
+  <div class="as-fine as-mt1">Preview: scales this flight's recorded reserve
   enclosure linearly in time. Committed verdicts are gate-checked at the published rules;
   the day-level thresholds above are the certified ones.</div>
-  <div class="as-h" style="margin-top:14px">All eight verdicts</div>
+  <div class="as-h as-mt14">All eight verdicts</div>
   <div class="as-mx" id="mini-mx">${matrixHtml(S.key, true)}</div>
-  <div style="display:flex;gap:8px;margin-top:14px">
+  <div class="as-row as-mt14">
     <button class="as-btn" id="followBtn" data-on="${S.follow ? 1 : 0}">FOLLOW</button>
     <button class="as-btn" id="deselBtn">DESELECT</button>
   </div>`;

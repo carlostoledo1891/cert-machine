@@ -299,24 +299,6 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
-/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
-   135 elements across nineteen builders carried a margin-top style attribute
-   — the spacing token was right, but it was written on the ELEMENT, where no
-   stylesheet can see it and no restyle can reach it. These are the same steps
-   under a name. A class is not a better value than the token it sets; it is a
-   value a stylesheet can find.
-
-   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
-   in a rule for the component that repeats it (see the prose rhythm the four
-   bare-prose pages take). ---- */
-.mt2 { margin-top: var(--s-2); }
-.mt3 { margin-top: var(--s-3); }
-.mt4 { margin-top: var(--s-4); }
-.mt5 { margin-top: var(--s-5); }
-.mt6 { margin-top: var(--s-6); }
-.mt7 { margin-top: var(--s-7); }
-.mt8 { margin-top: var(--s-8); }
-
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -713,6 +695,68 @@ p { margin: 0; }
 .backs .bn { font-size: 11px; color: var(--ink-4); line-height: 1.45; }
 .card:hover .backs { border-left-color: var(--ink-3); }
 
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
 </style>
 </head>
 <body>
@@ -723,7 +767,7 @@ p { margin: 0; }
   <div class="eyebrow">cert-machine &middot; instruments</div>
   <h1>Twenty instruments, and each one says what decides it.</h1>
   <p class="lede">The same arithmetic as the reports, without the gates. One engine feeds both: the reports are where a claim gets a verdict that a build can refuse to ship; these pages are where that arithmetic runs in your tab and every mark says what decided it. Of the twenty, <b>seven run a battery in <code>make test</code></b>, one draws a certificate straight from the shelf the rest of the site gates, sixteen decide their headline number in exact integer or rational arithmetic, and three are floats and say so beside the number. None of them can refuse a deploy, and that is the permission: a fact about ceremony, not about the mathematics.</p>
-  <p class="lede" style="display:none">This page used to open by saying that nothing here was certified. That was the wrong claim and it had stopped being true: two of these pages draw a certificate straight from the shelf the rest of the site gates, and five of them decide their headline number in exact integer or rational arithmetic. <b>What is true is that nothing here is gated</b> &mdash; no number on these pages has a certificate row the build checks, no page here can refuse a deploy, and none of them is covered by <code>make test</code>. That is a fact about ceremony, not about the mathematics, and the two are not the same thing.</p>
+  <p class="lede" hidden>This page used to open by saying that nothing here was certified. That was the wrong claim and it had stopped being true: two of these pages draw a certificate straight from the shelf the rest of the site gates, and five of them decide their headline number in exact integer or rational arithmetic. <b>What is true is that nothing here is gated</b> &mdash; no number on these pages has a certificate row the build checks, no page here can refuse a deploy, and none of them is covered by <code>make test</code>. That is a fact about ceremony, not about the mathematics, and the two are not the same thing.</p>
   <p class="lede mt5">So instead of one disclaimer at the door, <b>every card below says what backs its headline number</b>, in the same words the pages use: exact rationals, exact integers, a record from the certificate shelf, or floats. Where it is floats, the page says so beside the number rather than at the bottom.</p>
 </div></header>
 
@@ -781,7 +825,7 @@ p { margin: 0; }
        its left edge landed at x=216 while every other thing on the site sits
        at x=168. That is the "text block lost on the page". It spans the grid
        now and carries no second container. -->
-  <div style="grid-column:1/-1; margin-top:var(--s-8)">
+  <div class="mt8 span-all">
     <div class="eyebrow">what the marks below mean</div>
     <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
   </div>
@@ -1154,7 +1198,7 @@ p { margin: 0; }
     </div>
   </a>
   </div>
-  <span>built 2026-09-15</span>
+  <span>built 2026-09-16</span>
 </div></section>
 
 

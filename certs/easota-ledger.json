@@ -49,8 +49,8 @@
    "hexagon-packing/verifier.py": "9b6be2f470f859fa0ad14c5d3097565187a901b0c712cca82e40c2aabd7833d5"
   }
  },
- "generated": "2026-09-15T22:38:59.593Z",
- "git": "a242434",
+ "generated": "2026-09-16T00:36:38.039Z",
+ "git": "4ba347a",
  "rows": [
   {
    "id": "circles/alphaevolve_2025",
@@ -389,7 +389,7 @@
    "printed": "1.50529397",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 6
+   "ms": 3
   },
   {
    "id": "autocorr/alphaevolve_v2_2025",
@@ -413,7 +413,7 @@
    "printed": null,
    "printedConvention": "ceiling",
    "printedAgrees": null,
-   "ms": 6
+   "ms": 4
   },
   {
    "id": "autocorr/ttt_discover_2026",
@@ -437,7 +437,7 @@
    "printed": "1.50286290",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 1705
+   "ms": 920
   },
   {
    "id": "autocorr/ours_2026",
@@ -461,7 +461,7 @@
    "printed": "1.50286286",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 1796
+   "ms": 987
   },
   {
    "id": "flat/alphaevolve_2025",
@@ -502,7 +502,7 @@
      "nCandidates": 41,
      "isolation": "grid+sturm-total"
     },
-    "ms": 655,
+    "ms": 368,
     "note": "the platform's score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall"
    },
    "printed": "1.340925",
@@ -548,7 +548,7 @@
      "nCandidates": 44,
      "isolation": "grid+sturm-total"
     },
-    "ms": 733,
+    "ms": 403,
     "note": "the platform's score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall"
    },
    "printed": "1.280932",
@@ -588,7 +588,7 @@
     "outside": [],
     "undecidedPairs": [],
     "undecidedVertices": [],
-    "ms": 14,
+    "ms": 8,
     "note": "every vertex is a cosine and a sine of a published decimal, so the decision runs in outward-rounded interval arithmetic with a certified π and certified sin/cos (instruments/interval): a pair is SEPARATED when some edge normal has certainly disjoint projections, a vertex INSIDE when every edge cross product is certainly non-negative. gapAtLeast and crossAtLeast are certain lower bounds; the platform separates only past 1e-9 and admits a vertex outside by up to 1e-9"
    },
    "printed": "3.9419123",
@@ -629,7 +629,7 @@
     "outside": [],
     "undecidedPairs": [],
     "undecidedVertices": [],
-    "ms": 5,
+    "ms": 3,
     "note": "every vertex is a cosine and a sine of a published decimal, so the decision runs in outward-rounded interval arithmetic with a certified π and certified sin/cos (instruments/interval): a pair is SEPARATED when some edge normal has certainly disjoint projections, a vertex INSIDE when every edge cross product is certainly non-negative. gapAtLeast and crossAtLeast are certain lower bounds; the platform separates only past 1e-9 and admits a vertex outside by up to 1e-9"
    },
    "printed": "3.9416523",

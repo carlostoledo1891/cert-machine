@@ -444,8 +444,8 @@ const CSS = `
 const plate = ({ idx, title, art, what, rule, wide }) => `
 <section class="section plate${wide ? ' wide' : ''}">
   <div class="container">
-    <div class="reveal"><div class="idx">${idx}</div><h3 class="t2" style="margin-top:var(--s-2);">${title}</h3></div>
-    <figure class="reveal" style="margin-top:var(--s-5);">${art}</figure>
+    <div class="reveal"><div class="idx">${idx}</div><h3 class="t2 mt2">${title}</h3></div>
+    <figure class="reveal mt5">${art}</figure>
     <figcaption class="reveal">
       <div class="what">${what}</div>
       <pre class="rule">${rule}</pre>
@@ -457,8 +457,8 @@ const body = `
 <header class="hero">
   <div class="container">
     <div class="eyebrow reveal">plates &middot; geometry, stated rather than found</div>
-    <h1 class="display reveal" style="margin-top:var(--s-5); max-width:17ch;">Manifolds we are handed</h1>
-    <p class="lede reveal" style="margin-top:var(--s-6);">Interpretability research pulls geometry out of a working model and asks what it means &mdash; days of the week on a circle, a number stored across a product of circles, a story meandering along a manifold of emotions. This bench cannot do that: a model call would send prompts off this machine. So the direction is inverted. Their manifolds are found; these are stated, as a rule and its parameters, and then drawn.</p>
+    <h1 class="display reveal mt5 ti">Manifolds we are handed</h1>
+    <p class="lede reveal mt6">Interpretability research pulls geometry out of a working model and asks what it means &mdash; days of the week on a circle, a number stored across a product of circles, a story meandering along a manifold of emotions. This bench cannot do that: a model call would send prompts off this machine. So the direction is inverted. Their manifolds are found; these are stated, as a rule and its parameters, and then drawn.</p>
     <div class="hero-meta reveal">
       <span class="item"><span class="k">plates</span><span class="v">8</span></span>
       <span class="item"><span class="k">interaction</span><span class="v">none</span></span>

@@ -24,6 +24,7 @@ const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
 /* the structural rules the body uses that neither the shell nor bench.css
    declares — frontier base.css's, copied rather than approximated */
 const BASE_EXTRA = `
+.g-lead4w { grid-template-columns: 2fr 1fr 1fr 1.2fr; }
 .section-head { display:flex; justify-content:space-between; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; margin-bottom:var(--s-4); }
 .mono { font-family:var(--font-mono); font-size:0.92em; color:var(--ink-2); }
 .t1 { font-size:clamp(1.5rem,1rem+1.6vw,2.1rem); line-height:1.12; } .t2 { font-size:clamp(1.25rem,1rem+1vw,1.6rem); }
@@ -130,8 +131,8 @@ const body = `
 <section class="hero">
   <div class="container">
     <div class="eyebrow reveal">${esc(D.object)} · ${esc(D.date)} · ${D.nPositive} chords, ${D.nNegative} stations that saw nothing</div>
-    <h1 class="display reveal" style="margin-top:var(--s-3);max-width:20ch;">The occultation, without the ellipse.</h1>
-    <p class="lede reveal" style="margin-top:var(--s-4);max-width:74ch;">
+    <h1 class="display reveal mt3 ti">The occultation, without the ellipse.</h1>
+    <p class="lede reveal mt4 rd">
       A star winks out behind a small body and a handful of telescopes each measure one chord across its silhouette. Every published
       size is then an ellipse fitted to those chords. This asks what the chords force on their own — the silhouette is any convex
       shape at all — and the whole question turns out to be one-dimensional and closed form.
@@ -149,9 +150,9 @@ const body = `
   <div class="container">
     <div class="reveal">
       <div class="eyebrow">why this is one-dimensional</div>
-      <h2 class="t1" style="margin-top:var(--s-2);max-width:30ch;">A convex silhouette has a concave chord.</h2>
+      <h2 class="t1 mt2 ti">A convex silhouette has a concave chord.</h2>
     </div>
-    <div class="prose reveal" style="margin-top:var(--s-4);max-width:74ch;">
+    <div class="prose reveal mt4 rd">
       <p>Occultation chords are parallel: the shadow sweeps one way and every station cuts the silhouette along that direction. Put the
       chord direction along <i>x</i> and let <i>y</i> be the cross-track coordinate. A convex silhouette has slices
       [<i>L</i>(y), <i>R</i>(y)] with <i>R</i> concave and <i>L</i> convex, so the chord length <b>w(y) = R(y) − L(y) is concave</b> on
@@ -195,14 +196,14 @@ const body = `
       inside [${f(R1.DeqLo)}, ${f(R1.DeqHi)}] km. The tension is between two models, not between two measurements.
     </div>
 
-    <div class="grid reveal" style="grid-template-columns:2fr 1fr 1fr 1.2fr;">
+    <div class="grid reveal g-lead4w">
       <div class="h">station</div><div class="h">cross-track, km</div><div class="h">chord, km</div><div class="h">status</div>
       ${D.sites.filter(s => s.status !== 'negative' || Math.abs(+s.y) < 230).map(s => `
         <div class="ml">${esc(s.site)}</div><div>${f(+s.y)}</div>
         <div>${s.len ? f(+s.len) + ' ± ' + f(+s.err) : '—'}</div>
         <div class="${s.status === 'positive' ? 'hit' : ''}">${esc(s.status)}${s.note ? ' — ' + esc(s.note) : ''}</div>`).join('')}
     </div>
-    <p class="small reveal" style="margin-top:var(--s-3);color:var(--ink-5);">${D.nNegative - neg.filter(s => Math.abs(+s.y) < 230).length} further negative stations between 268 and 731 km from the centerline are omitted from this table; they are in the data file and change nothing.</p>
+    <p class="small reveal mt3 ink-5">${D.nNegative - neg.filter(s => Math.abs(+s.y) < 230).length} further negative stations between 268 and 731 km from the centerline are omitted from this table; they are in the data file and change nothing.</p>
 
     <div class="note reveal">
       <b>Every number on this page is exact.</b> The published values are decimals, so they are exact rationals, and the areas are
@@ -213,9 +214,9 @@ const body = `
       land outside the interval — and does.
     </div>
 
-    <p class="small reveal" style="margin-top:var(--s-5);color:var(--ink-5);">
-      Data transcribed from ${esc(D.source)}. Companion to <a href="../transit/index.html" style="color:inherit;">the transit page</a>,
-      which finds the same asymmetry in exoplanet photometry, and to <a href="../curveset/index.html" style="color:inherit;">the calibration envelope</a>,
+    <p class="small reveal mt5 ink-5">
+      Data transcribed from ${esc(D.source)}. Companion to <a href="../transit/index.html">the transit page</a>,
+      which finds the same asymmetry in exoplanet photometry, and to <a href="../curveset/index.html">the calibration envelope</a>,
       whose closed form this is.
     </p>
   </div>

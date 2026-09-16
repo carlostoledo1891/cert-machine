@@ -151,10 +151,10 @@ const subjectSection = (sub, extra = '') => `
     <div class="reveal subhead">
       <div>
         <div class="eyebrow">${sub.n} items · ${sub.n * (sub.n - 1)} calls per model · ${sub.order ? 'ordered' : 'no canonical order'}</div>
-        <h2 class="t1" style="margin-top:var(--s-2); max-width:24ch;">${sub.title}</h2>
+        <h2 class="t1 mt2 ti">${sub.title}</h2>
       </div>
     </div>
-    <p class="lede reveal" style="margin-top:var(--s-4); max-width:70ch; font-size:var(--text-body); color:var(--ink-3);">${sub.note}</p>
+    <p class="lede reveal mt4 rd body-3">${sub.note}</p>
     <div class="reveal mt5">${triptych(sub)}</div>
     ${extra}
     <div class="reveal mt6">
@@ -173,7 +173,7 @@ const overlaySection = (sub, tail = '') => `<div class="reveal ovsec">
   <div class="art">${overlay(MODELS.map(M => sub.byModel[M.id]), sub.items, sub.order, { short: SHORT(sub) })}</div>
   <div>
     <div class="eyebrow">all three on one frame</div>
-    <p style="margin-top:var(--s-3); color:var(--ink-3); font-size:var(--text-body); line-height:1.7;">Each model's picture is its own; a table of distances fixes nothing about rotation, reflection or overall size, so putting three of them in one frame means removing exactly those freedoms and nothing else. What is left is disagreement about shape.${tail}</p>
+    <p class="mt3 body-3 lead">Each model's picture is its own; a table of distances fixes nothing about rotation, reflection or overall size, so putting three of them in one frame means removing exactly those freedoms and nothing else. What is left is disagreement about shape.${tail}</p>
     <div class="mchips">${MODELS.map((M, k) => `<span class="l${k}"><i></i>${M.label}</span>`).join('')}</div>
     ${statTable(sub)}
   </div>
@@ -197,8 +197,8 @@ const body = `
 <header class="hero">
   <div class="container">
     <div class="eyebrow reveal">experiments · three models, one question at a time</div>
-    <h1 class="display reveal" style="margin-top:var(--s-5); max-width:20ch;">The shape of an answer</h1>
-    <p class="lede reveal" style="margin-top:var(--s-6); max-width:64ch;">Ask a model how far apart two things are and you get a number. Ask it about every pair, in separate calls that cannot see one another, and the numbers acquire a shape &mdash; a line, a circle, a tree, or nothing. This asks three models the same ${calls.toLocaleString()} questions about ${G.subjects.length} small worlds and draws what came back, with no fitting anywhere: every mark is a decision about a table of integers, taken in exact arithmetic.</p>
+    <h1 class="display reveal mt5 ti">The shape of an answer</h1>
+    <p class="lede reveal mt6 rd">Ask a model how far apart two things are and you get a number. Ask it about every pair, in separate calls that cannot see one another, and the numbers acquire a shape &mdash; a line, a circle, a tree, or nothing. This asks three models the same ${calls.toLocaleString()} questions about ${G.subjects.length} small worlds and draws what came back, with no fitting anywhere: every mark is a decision about a table of integers, taken in exact arithmetic.</p>
     <div class="hero-meta reveal">
       <span class="item"><span class="k">models</span><span class="v">${MODELS.length}</span></span>
       <span class="item"><span class="k">calls</span><span class="v">${calls.toLocaleString()}</span></span>
@@ -223,12 +223,12 @@ const body = `
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Same numerals, two frames</h2><span class="eyebrow">the experiment this was built for</span></div>
-    <div class="prose reveal" style="max-width:70ch;">
+    <div class="prose reveal rd">
       <p>The twelve hours of a clock and the ten digits are almost the same symbols, and they have opposite geometries. Eleven and one are neighbours; nine and one are eight apart. Nothing in either prompt says which frame is in play &mdash; only the phrase &ldquo;on a clock face&rdquo; or &ldquo;as digits&rdquo;. If a model is carrying the structure rather than a lookup of numeral similarity, the same numerals must come back as a circle in one and a line in the other.</p>
     </div>
     <div class="reveal mt5">${triptych(clock, 300)}</div>
     <div class="reveal mt4">${triptych(digits, 300)}</div>
-    <div class="note reveal" style="max-width:78ch;">
+    <div class="note reveal rd">
 <b>${bestClock.M.label}</b>  holds the twelve hours as a circle to ${pct(bestClock.v)} residual, and the ten digits as a line to ${pct(digits.byModel[bestClock.M.id].fits.line.resid)}.
 <b>the line</b>   ${EL.hit === EL.tot ? `every one of ${bestDigit.M.label}'s ${EL.tot} digit answers is exactly ${EL.k}·|i−j| — 0, ${digits.byModel[bestDigit.M.id].raw[0].slice(1, 5).join(', ')}, … ${digits.byModel[bestDigit.M.id].raw[0][9]} — in ${EL.tot} calls that never saw each other, with not one exception.` : `closest is ${bestDigit.M.label} at ${pct(bestDigit.v)}; ${EL.hit} of ${EL.tot} answers land exactly on ${EL.k}·|i−j|.`}
 <b>and note</b>   ${EL.k}·9 = ${EL.k * 9}, so it did not merely order the digits — it spread them across the whole of the 0–${G.scale} scale in exact proportion, one isolated answer at a time.
@@ -241,7 +241,7 @@ const body = `
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Line, or circle</h2><span class="eyebrow">one free parameter each</span></div>
-    <div class="prose reveal" style="max-width:70ch;">
+    <div class="prose reveal rd">
       <p>For every set with an order, the same table is held against the two shapes it could have: <span class="mono">d&nbsp;&prop;&nbsp;|i&nbsp;&minus;&nbsp;j|</span> and <span class="mono">d&nbsp;&prop;&nbsp;min(|i&nbsp;&minus;&nbsp;j|,&nbsp;n&nbsp;&minus;&nbsp;|i&nbsp;&minus;&nbsp;j|)</span>. Each has exactly one free scale, fixed in closed form, so the residuals are comparable. Shorter is better.</p>
     </div>
     <div class="reveal mt5">${fitBars()}</div>
@@ -251,17 +251,17 @@ const body = `
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Where the triangle inequality fails</h2><span class="eyebrow">the gate, as a measurement</span></div>
-    <div class="prose reveal" style="max-width:70ch;">
+    <div class="prose reveal rd">
       <p>A table of distances must satisfy <span class="mono">d(a,c) &le; d(a,b) + d(b,c)</span> for every triple, or no arrangement of points in any space has those distances. Each cell below is one model on one world: the share of triples that break, and by how much against the largest distance that model was willing to name.</p>
     </div>
     <div class="reveal mt5">${gateGrid()}</div>
-    <div class="note reveal" style="max-width:78ch;">
+    <div class="note reveal rd">
 <b>passes</b>     ${metricPasses.join(', ')} — ${metricPasses.length} of ${G.subjects.length * MODELS.length}
 <b>and yet</b>    the set every model turns into a metric space is the one with no structure in it. Its distances all sit within a factor of ${Math.max(...MODELS.map(M => nons.byModel[M.id].contrast)).toFixed(1)}, and any table whose values lie within a factor of two is a metric for free: two of them can never fall short of the third.
 <b>so</b>         passing this gate is not a compliment. It is what a model produces when it has nothing to say and answers &ldquo;very different&rdquo; ${nons.n * (nons.n - 1)} times.
 <b>the failures</b> are not rounding. The worst triple in ${chrom.title} misses by ${pct(Math.max(...MODELS.map(M => chrom.byModel[M.id].gate.relSlack)))} of the whole scale.
     </div>
-    <div class="prose reveal" style="max-width:70ch; margin-top:var(--s-6);">
+    <div class="prose reveal rd mt6">
       <p>The gate is reported here rather than enforced. Classical scaling is defined on any symmetric table with a zero diagonal, and the negative mass beside each plate already says how far from Euclidean it is; refusing to draw would discard the more interesting fact, which is that <strong>the triangle inequality fails almost exactly where a model knows something</strong>. Structure is what produces the near-zero distances that let a triangle break. Flatness is what protects it.</p>
     </div>
   </div>
@@ -281,7 +281,7 @@ ${subjectSection(S('nonsense'), overlaySection(S('nonsense'), ' Here there is no
       <p>What it can say is sharper than it looks, because the facts on this page live in <em>no single answer</em>. &ldquo;Eleven and one are 22 apart&rdquo; carries no information about a circle. The circle exists only in ${clock.n * (clock.n - 1)} answers at once, and it survived being cut into ${clock.n * (clock.n - 1)} independent questions and reassembled by arithmetic no model saw. A model that produced these numbers one at a time, without memory between calls, and reconstructed a ${pct(bestClock.v)}-residual circle, was consulting something with that shape in it.</p>
       <p>The decisions are exact. Symmetrised tables are integers, the Gram matrix is built in rational arithmetic, the signature comes from symmetric congruence rather than an eigensolver, and the two shape fits have one parameter each. There is no threshold anywhere that was chosen after seeing the results. The float spectrum is printed beside the exact signature for the reason it always must be: an exact signature is infinitely sensitive, and a single unit of quantisation turns a rank-one table full-rank without changing anything anyone would care about.</p>
       <h2 class="t2 mt7">Reproduce</h2>
-      <p class="mono" style="font-size:var(--text-eyebrow); color:var(--ink-4); line-height:2;">node experiments/neural-geometry/probe.js --live<br>node experiments/neural-geometry/decide.js<br>node tools/build-neural-geometry.js</p>
+      <p class="mono ink-4 cmd">node experiments/neural-geometry/probe.js --live<br>node experiments/neural-geometry/decide.js<br>node tools/build-neural-geometry.js</p>
       <p>Without <span class="mono">--live</span> the probe touches no network and prints the prompts it would send. ${G.spend ? `The run behind this page cost $${G.spend.reduce((t, s) => t + s.usd, 0).toFixed(2)}: ${G.spend.map(s => `${s.label} $${s.usd.toFixed(2)}`).join(', ')}.` : ''}</p>
     </div>
   </div>

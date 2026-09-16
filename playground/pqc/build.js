@@ -32,8 +32,8 @@ const body = `
 
 <div class="ov ov-title">
   <div class="eyebrow">post-quantum cryptography · the geometry underneath</div>
-  <h1 style="margin-top:var(--s-3); max-width:13ch;">Proved, or assumed</h1>
-  <p style="max-width:34ch;">Lattice security rests on how short a vector you can find. The searching is heuristic and always will be; the claims about what was found do not have to be. Solid here was decided in exact integers. Dashed was asserted.</p>
+  <h1 class="mt3 ti">Proved, or assumed</h1>
+  <p class="ti">Lattice security rests on how short a vector you can find. The searching is heuristic and always will be; the claims about what was found do not have to be. Solid here was decided in exact integers. Dashed was asserted.</p>
 </div>
 
 <div class="ov ov-foot">

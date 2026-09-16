@@ -43,18 +43,6 @@ const G = require(path.resolve(__dirname, '..', '..', 'design', 'grammar.js'));
 
 function sharedCss() {
   return `
-/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
-   135 elements across nineteen builders carried a margin-top style attribute
-   — the spacing token was right, but it was written on the ELEMENT, where no
-   stylesheet can see it and no restyle can reach it. These are the same steps
-   under a name. A class is not a better value than the token it sets; it is a
-   value a stylesheet can find.
-
-   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
-   in a rule for the component that repeats it (see the prose rhythm the four
-   bare-prose pages take). ---- */
-${[2,3,4,5,6,7,8].map((n) => '.mt' + n + ' { margin-top: var(--s-' + n + '); }').join('\n')}
-
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -229,4 +217,77 @@ function embedArt(svg) {
   return String(svg).replace(/<style[^>]*>[\s\S]*?<\/style>\s*/gi, '');
 }
 
-module.exports = { sharedCss, embedArt };
+/* ---- THE UTILITY LAYER, AND IT IS EMITTED LAST -----------------------------
+   A utility is what a builder writes when it wants THIS element to take THIS
+   step, THIS measure, THIS voice — and until 2026-09-15 it wrote an inline
+   style, which beats every selector there is. A class does not, and the site
+   is full of component rules at the same specificity that come later in the
+   sheet: measured, 80 utilities across sixteen pages were being overridden by
+   the page's own rhythm. So the layer is emitted AFTER the page's stylesheet
+   (design/template.js appends it), and each selector is written THREE times.
+   Both are needed, and three rather than two because the page rhythm rules
+   carry a type selector as well (.section .eyebrow + h2 is two classes and an
+   element, and it was winning): order settles a tie, the repeated class
+   settles the rest. It is the one place on this site where specificity is
+   bought rather than earned, and it is bought in one file, for one layer,
+   with this paragraph attached. ---- */
+function utilCss() {
+  return `
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+${[2,3,4,5,6,7,8].map((n) => '.mt' + n + '.mt' + n + '.mt' + n + ' { margin-top: var(--s-' + n + '); }').join('\n')}
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+`;
+}
+
+module.exports = { sharedCss, utilCss, embedArt };

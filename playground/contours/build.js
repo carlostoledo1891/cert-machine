@@ -126,7 +126,7 @@ const body = `
         <div><div class="k">outside, exact</div><div class="v w-decided" id="r-out"></div><div class="k" id="r-out-note"></div></div>
         <div><div class="k">printed</div><div class="v" id="r-printed"></div><div class="k" id="r-printed-note"></div></div>
         <div><div class="k">outside above threshold</div><div class="v w-decided" id="r-above"></div></div>
-        <div><div class="k">retained / provided</div><div class="v w-decided small" id="r-ret"></div><div class="k" id="r-ret-note"></div></div>
+        <div><div class="k">retained / provided</div><div class="v w-decided ec-sm" id="r-ret"></div><div class="k" id="r-ret-note"></div></div>
         <div><div class="k">polygon</div><div class="v w-decided small" id="r-poly"></div><div class="k" id="r-poly-note"></div></div>
         <div><div class="k">max Hs on the contour</div><div class="v w-decided small" id="r-max"></div><div class="k" id="r-max-note"></div></div>
       </div>
@@ -152,7 +152,7 @@ const body = `
     <h2 class="t2">What decides it, and what it is worth</h2>
     <p>The decider in this tab is <code>instruments/ecbench/geometry.js</code>, inlined byte for byte: the even-odd crossing count of a horizontal ray, every predicate the sign of a 2&times;2 determinant computed first in float64 and trusted only under a proved forward-error bound, otherwise re-decided in BigInt at a fixed decimal scale. A click becomes a literal at the data's own resolution (four decimals) and the verdict is about that literal. A point on an edge or a vertex is ON &mdash; the third answer a float test does not have, and the answer for the two observations the ledger found sitting exactly on a submitted contour.</p>
     <p><strong>It decides geometry, not design.</strong> Which construction an offshore designer should use is a modelling question this page does not touch; a count of exceedances is the benchmark's own metric taken on its own terms; and a self-crossing polygon is a fact about a file, not necessarily about the method that produced the boundary it lists. The datasets are NDBC's and WDCC's and are drawn here only as a density.</p>
-    <p class="mono" style="font-size:var(--text-eyebrow); color:var(--ink-4); line-height:2; margin-top:var(--s-5);">
+    <p class="mono ink-4 mt5 cmd">
     node tools/fetch-ec-benchmark.js<br>
     node tools/run-ecbench-ledger.js<br>
     node instruments/ecbench/battery.js<br>

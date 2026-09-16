@@ -73,7 +73,7 @@ const setBlock = (s) => `
     <p class="why">${s.why}</p>
   </div>
   <div class="plates">${s.models.map((m) => (m.incomplete
-    ? `<div class="pl"><div class="who"><span class="m">${short(m.id)}</span><span class="c">no plate</span></div><p class="cap" style="padding:var(--s-6) 0;color:var(--ink-5)">A row came back unparseable and was not repaired, so this cell has no matrix. It is left here rather than dropped, because a missing tile reads like a finding.</p></div>`
+    ? `<div class="pl"><div class="who"><span class="m">${short(m.id)}</span><span class="c">no plate</span></div><p class="cap ink-5" style="padding:var(--s-6) 0">A row came back unparseable and was not repaired, so this cell has no matrix. It is left here rather than dropped, because a missing tile reads like a finding.</p></div>`
     : plateBlock(s, m))).join('')}</div>
 </div></section>`;
 
@@ -123,7 +123,7 @@ const body = `
   <div class="swatches">
     ${['cycle', 'line', 'tree', 'grid', 'none'].map((k) => `<span><i class="sw k-${k}"></i>${k === 'none' ? 'controls' : k}</span>`).join('')}
   </div>
-  <p class="why" style="margin-top:var(--s-5);max-width:70ch">
+  <p class="why mt5 rd">
     <b>What δ does and does not do.</b> It was brought in to tell a tree from a wheel, and it half works: the cycles average ${n(mean(byShape('cycle').map(meanHyp)), 3)} and the taxonomy ${n(meanHyp(setOf('carnivores')), 3)}. But the controls are <em>lower still</em> at ${n(mean(byShape('none').map(meanHyp)), 3)}, because answers with no structure are near-equilateral and near-equilateral is near-tree by this measure. So δ is not a tree detector. It measures how CLOSED a structure is, and it only means anything once curvature has already said there is one. The prediction was sharper than the result and the result is what is drawn.
   </p>
 </div></section>
@@ -145,20 +145,20 @@ const body = `
       ${plate(m, s.items, { hasOrder: s.order })}
       <p class="fq">${s.frame ? `&ldquo;${s.frame}&rdquo;` : 'no frame — the items alone'}</p>
       <div class="nums">
-        <span><span class="k">predicted</span><span class="v" style="font-size:.78rem">${s.predict}</span></span>
+        <span><span class="k">predicted</span><span class="v small-78">${s.predict}</span></span>
         <span><span class="k">fit</span><span class="v ${good ? 'hit' : 'miss'}">${n(meanFit(s), 3)}</span></span>
         <span><span class="k">shuffled null</span><span class="v">${n(s.fitNull.p95, 3)}</span></span>
         <span><span class="k">verdict</span><span class="v ${good ? 'hit' : 'miss'}">${good ? 'holds' : 'fails'}</span></span>
       </div>
     </div>`;
   }).join('')}</div>
-  <p class="why" style="margin-top:var(--s-6);max-width:74ch">
+  <p class="why mt6 rd">
     <b>Two of these work, one correctly does nothing, and one fails below chance.</b>
     Named as <b>residues modulo ten</b> the line closes into a ring — ${n(mean(closeOf(setOf('mod10'))))}× against ${n(mean(closeOf(setOf('digits'))))}× for the bare digits, and a fit of ${n(meanFit(setOf('mod10')), 3)} to the true circle where shuffling reaches ${n(setOf('mod10').fitNull.p95, 3)}. Nothing in the frame mentions that nine and zero are neighbours; the model brought that.
     Named as <b>floors of a building</b> — as concrete a frame as the others, and one that should change nothing — nothing changes: ${n(mean(closeOf(setOf('floors'))))}× against ${n(mean(closeOf(setOf('digits'))))}×. That is the control inside the experiment and it behaves.
     And named as <b>keys on a telephone keypad</b>, the layout does not appear at all: ${n(meanFit(setOf('keypad')), 3)} against a shuffled null of ${n(setOf('keypad').fitNull.p95, 3)} — <b>worse than permuting the labels</b>. The models have the keypad as a thing; they do not have it as a place.
   </p>
-  <p class="why" style="margin-top:var(--s-4);max-width:74ch">
+  <p class="why mt4 rd">
     So the frame is a real parameter and a bounded one. It moves the geometry along an axis the model already carries — an order can be bent into a cycle — and it cannot conjure one the model does not have. Asking for a grid does not produce a grid.
   </p>
 </div></section>

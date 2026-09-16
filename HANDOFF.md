@@ -28,13 +28,14 @@ THE MENU, as of 2026-09-15 (the fifteenth session). In the order I would take it
      stylesheet, one footer, one font path, and tools/check-style.js ratcheting
      five facts per page. The plan and what shipped against it are in
      notes/template-plan-2026-09-15.md. Nothing is pushed.
-  0a. THE ONE QUESTION THIS PASS LEAVES THE OPERATOR: **sixty-six bespoke
-     reading measures** (`max-width:19ch` … `84ch`) across twenty pages. The
-     tokens are --read (82ch) and --title (28ch). Putting all sixty-six onto
-     the two tokens is the last big slice of "no inline css" — and it RE-WRAPS
-     PROSE on twenty published pages, which is a look decision, not a template
-     one. Say the word and it is an hour; say no and they stay as they are,
-     recorded in design/style-baseline.json and going nowhere.
+  0a. THE MEASURES WERE UNIFIED ON THE OPERATOR'S WORD (2026-09-15). Sixty-seven
+     inline overrides in eleven bespoke widths — 13, 14, 17, 19, 20, 24, 26, 28,
+     30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78, 80, 84ch on prose —
+     are the two tokens now, and text-wrap:balance does the per-string work.
+     THE SITE HAS ZERO INLINE DESIGN DECLARATIONS: the 249 style attributes
+     left are all DATA (a bar's fill, a marker's position, a grid's column
+     count), each consumed by a rule in the one stylesheet. The rule is in
+     design/CONTRACT.md and tools/check-style.js ratchets it at zero.
   0b. WHAT THE PASS FOUND, all fixed, all measured — the list is worth reading
      before trusting any gate: every report shipped SQUARE corners for ten days
      (a token nothing declared, and the radius check read the NAME); three
@@ -43,11 +44,20 @@ THE MENU, as of 2026-09-15 (the fifteenth session). In the order I would take it
      page; four instrument pages had never taken the house heading typography;
      three viewport instruments had a footer painted behind their overlays; and
      /instruments/navier-stokes shipped the site nav with NO NAV CSS.
-  0c. STILL OPEN from the template pass: P4 (the app's BODY is still a second
-     layout — DEBT.md row 4), P5 (a visual-review document; the screenshots and
-     the diffs exist, the write-up does not), and two gate defects now written
-     down in DEBT.md — the render gate keys every figure on a page under one
-     row, and the ruler counts a bordered box as two spines.
+  0c. WHAT A CLASS CANNOT DO THAT AN INLINE STYLE COULD, and it cost four
+     rounds to learn: an inline style beats every selector, a class does not.
+     Converting 537 of them silently lost 80 fights — paragraphs asking for
+     body size rendered at lede size, rhythm steps took the page's default. The
+     utility layer is emitted LAST and its selectors are written three times;
+     tools/ has no gate for this yet, but the probe that found it is worth
+     keeping (it drives every page and compares each utility's COMPUTED value
+     against the token it names). THAT IS THE NEXT GATE TO WRITE.
+  0d. STILL OPEN from the template pass: the app's BODY is still a second
+     layout (DEBT.md row 4; its head, footer, scale and now its spacing are
+     shared), P5 (a visual-review document; ~1,000 screenshots and four diff
+     runs exist, the write-up does not), and two gate defects now written down
+     in DEBT.md — the render gate keys every figure on a page under one row,
+     and the ruler counts a bordered box as two spines.
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-12 (the fourteenth session). In the order I would take it:

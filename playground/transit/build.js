@@ -27,6 +27,8 @@ const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
    declares — frontier base.css's, copied rather than approximated (the same
    block the occultation page carries) */
 const BASE_EXTRA = `
+.g-lead4 { grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+.g-lead4w { grid-template-columns: 2fr 1fr 1fr 1.2fr; }
 .section-head { display:flex; justify-content:space-between; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; margin-bottom:var(--s-4); }
 .mono { font-family:var(--font-mono); font-size:0.92em; color:var(--ink-2); }
 .t1 { font-size:clamp(1.5rem,1rem+1.6vw,2.1rem); line-height:1.12; } .t2 { font-size:clamp(1.25rem,1rem+1vw,1.6rem); }
@@ -191,8 +193,8 @@ function section(t) {
   <div class="container">
     <div class="reveal">
       <div class="eyebrow">${esc(t.name)}${t.also ? ' · ' + esc(t.also) : ''} · ${t.nPoints.toLocaleString()} short-cadence points · ${t.nBins} bins</div>
-      <h2 class="t1" style="margin-top:var(--s-2);max-width:26ch;">${esc(t.note)}</h2>
-      <p class="lede" style="margin-top:var(--s-4);max-width:72ch;font-size:var(--text-body);color:var(--ink-3);">
+      <h2 class="t1 mt2 ti">${esc(t.note)}</h2>
+      <p class="lede mt4 rd body-3">
         ${t.published.length} published values of R<sub>p</sub>/R<sub>*</sub> span ${f(pubW.lo, 5)} to ${f(pubW.hi, 5)} — a spread of ${pct((pubW.hi - pubW.lo) / pubW.lo, 1)} — while a typical one quotes ±${f(pubW.err, 5)}.
         Granting the orbit exactly and assuming only that the star is nowhere negative and does not brighten outward, this light curve forces
         R<sub>p</sub>/R<sub>*</sub> into <b>[${ex && ex.ok ? f(ex.outer[0], 4) + ', ' + (ex.outer[1] >= 0.999 ? '—' : f(ex.outer[1], 4)) : '—'}]</b>.
@@ -225,7 +227,7 @@ function section(t) {
     <figure class="reveal mt6">${figPublished(t)}
       <figcaption class="figcap"><span class="k">the published values, on their own error bars</span><span class="v">shaded: the certified interval</span></figcaption></figure>
 
-    <div class="grid reveal" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
+    <div class="grid reveal g-lead4">
       <div class="h">harness check</div><div class="h">measured</div><div class="h">stated</div><div class="h">verdict</div>
       <div class="ml">out-of-transit scatter, ${t.floor.n} bins</div><div>${ppm(t.floor.measured)} ppm</div><div>${ppm(t.floor.stated)} ppm</div><div class="hit">errors honest (${(t.floor.measured / t.floor.stated).toFixed(2)}×)</div>
       <div class="ml">fold asymmetry, before → after centring</div><div>${ppm(t.centre.asymBefore)} → ${ppm(t.centre.asymAfter)} ppm</div><div>shift ${t.centre.shiftSec.toFixed(0)} s</div><div class="hit">${t.centre.asymBefore / t.centre.asymAfter > 1.5 ? 'the archive ephemeris was out' : 'already centred'}</div>
@@ -240,8 +242,8 @@ const body = `
 <section class="hero">
   <div class="container">
     <div class="eyebrow reveal">Kepler short cadence · a certified enclosure · no limb-darkening law anywhere</div>
-    <h1 class="display reveal" style="margin-top:var(--s-3);max-width:19ch;">The transit, without a law for the star.</h1>
-    <p class="lede reveal" style="margin-top:var(--s-4);max-width:74ch;">
+    <h1 class="display reveal mt3 ti">The transit, without a law for the star.</h1>
+    <p class="lede reveal mt4 rd">
       Every published planet radius is a statement about a star's atmosphere as much as about a planet. The depth of a transit is
       the light blocked, and how much light sits where the planet passes is decided by a limb-darkening law nobody measured for that star.
       This asks what the photometry forces on its own: the star is any nonnegative brightness profile at all, the measurement is a
@@ -261,8 +263,8 @@ ${D.targets.map(section).join('')}
 <section class="section">
   <div class="container">
     <div class="reveal"><div class="eyebrow">how a value is refused</div>
-    <h2 class="t1" style="margin-top:var(--s-2);max-width:28ch;">Nothing here trusts the optimiser.</h2></div>
-    <div class="prose reveal" style="margin-top:var(--s-4);max-width:74ch;">
+    <h2 class="t1 mt2 ti">Nothing here trusts the optimiser.</h2></div>
+    <div class="prose reveal mt4 rd">
       <p>The star is a nonnegative measure μ on [0,1] with ∫dμ = 1 — the normalisation <em>is</em> the statement that the curve is 1 out of transit.
       A planet of radius k at sky-plane distance z covers a fraction w(r; z, k) = arccos(clamp g)/π of the circle of radius r, so every datum is a
       two-sided <b>linear</b> constraint on μ. Because μ is a probability measure, the reachable depths are exactly the convex hull of the kernel's

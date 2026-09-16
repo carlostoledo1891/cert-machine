@@ -810,7 +810,7 @@ B.push(C.section({
     + '<div class="hg">' + gallery.map((c) => '<a class="hg-card" href="' + C.escAttr(c.href) + '"><div class="plate">' + c.art + '</div>'
       + '<div class="hg-body"><div class="hg-k">' + C.esc(backingLabel(c)) + ' · ' + C.esc(c.scale) + '</div><div class="hg-t">' + C.esc(c.title) + '</div><div class="hg-d">' + C.esc(c.blurb) + '</div></div></a>').join('') + '</div>'
     + W.legendHtml({ exclude: [W.DECIDED] })
-    + '<div class="col" style="margin-top:28px">' + C.pRaw('<a href="instruments/">All ' + numword(INSTR.count.all) + ' instruments →</a> — the geometry a model will admit to from the outside, '
+    + '<div class="col after-fig">' + C.pRaw('<a href="instruments/">All ' + numword(INSTR.count.all) + ' instruments →</a> — the geometry a model will admit to from the outside, '
       + 'a grader you can rewire wrong, the SVP records re-decided, a transit without a law for the star, an attention row as a point.') + '</div>'
     + C.note({ lab: 'what is and is not claimed there', bodyRaw: C.pRaw('No number on those pages has a certificate row this build '
       + 'checks, and none of them can refuse a deploy. ' + numword(INSTR.count.battery).charAt(0).toUpperCase() + numword(INSTR.count.battery).slice(1)

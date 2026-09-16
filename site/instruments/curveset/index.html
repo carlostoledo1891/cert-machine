@@ -299,24 +299,6 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
-/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
-   135 elements across nineteen builders carried a margin-top style attribute
-   — the spacing token was right, but it was written on the ELEMENT, where no
-   stylesheet can see it and no restyle can reach it. These are the same steps
-   under a name. A class is not a better value than the token it sets; it is a
-   value a stylesheet can find.
-
-   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
-   in a rule for the component that repeats it (see the prose rhythm the four
-   bare-prose pages take). ---- */
-.mt2 { margin-top: var(--s-2); }
-.mt3 { margin-top: var(--s-3); }
-.mt4 { margin-top: var(--s-4); }
-.mt5 { margin-top: var(--s-5); }
-.mt6 { margin-top: var(--s-6); }
-.mt7 { margin-top: var(--s-7); }
-.mt8 { margin-top: var(--s-8); }
-
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -607,13 +589,81 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
    keeps the reading measure, so the two never fight over the same width */
 .sec .why, .sec ul.why, .sec p { max-width: var(--read); }
 
+/* the four one-offs this page wrote on its elements (2026-09-15) */
+.cs-abs { position: absolute; }
+.cs-hang { padding-left: 1.1em; }
+.cs-uline { border-bottom: 1px solid var(--border-strong); }
+.cs-uline.pad { padding-top: var(--s-5); }
+
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
 </style>
 </head>
 <body>
 <nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<svg width="0" height="0" class="cs-abs" aria-hidden="true"><defs>
   <pattern id="wvoid" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
     <line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/>
   </pattern>
@@ -726,7 +776,7 @@ L(x) = max&#8202;<sub>i</sub> [ lo&#8202;<sub>i</sub> + (x ≥ x&#8202;<sub>i</s
 
   <div class="mt7">
     <div class="eyebrow">what this does not claim</div>
-    <ul class="why" style="padding-left:1.1em">
+    <ul class="why cs-hang">
       <li>It says nothing about whether either <em>report</em> is wrong. Both are competent and both are standard practice.</li>
       <li>The error budget on the assay is <b>asserted</b>, not measured — there are no replicates — so that panel prices an assumption using another assumption, and says so.</li>
       <li>The local bound is outer, so the intervals are conservative. A tighter envelope would only make the argument stronger.</li>
@@ -735,8 +785,8 @@ L(x) = max&#8202;<sub>i</sub> [ lo&#8202;<sub>i</sub> + (x ≥ x&#8202;<sub>i</s
   </div>
 
   <div class="tw"><table><thead><tr><th>assuming</th><th>from</th><th>to</th><th>width</th><th>vs reported ±</th></tr></thead>
-    <tbody><tr><td colspan="5" style="color:var(--ink-4);border-bottom:1px solid var(--border-strong)">a load cell, calibrated at NIST — reading 1.15</td></tr><tr><td>monotone only</td><td class="hit">1,500,000</td><td class="hit">1,650,000</td><td class="dim">150,000 lb</td><td class="hit">132×</td></tr><tr><td>wander ≤ ±200%</td><td class="hit">1,526,759</td><td class="hit">1,627,154</td><td class="dim">100,396 lb</td><td class="hit">88×</td></tr><tr><td>wander ≤ ±100%</td><td class="hit">1,540,138</td><td class="hit">1,615,732</td><td class="dim">75,593 lb</td><td class="hit">67×</td></tr><tr><td>wander ≤ ±50%</td><td class="hit">1,553,517</td><td class="hit">1,604,309</td><td class="dim">50,791 lb</td><td class="hit">45×</td></tr><tr><td>wander ≤ ±25%</td><td class="hit">1,564,221</td><td class="hit">1,595,171</td><td class="dim">30,950 lb</td><td class="hit">27×</td></tr><tr><td>wander ≤ ±10%</td><td class="hit">1,572,978</td><td class="hit">1,587,694</td><td class="dim">14,715 lb</td><td class="hit">13×</td></tr><tr><td>wander ≤ ±5%</td><td class="hit">1,576,607</td><td class="hit">1,584,727</td><td class="dim">8120 lb</td><td class="hit">7.1×</td></tr><tr><td>wander ≤ ±2%</td><td class="hit">1,578,853</td><td class="hit">1,582,807</td><td class="dim">3954 lb</td><td class="hit">3.5×</td></tr><tr><td>join the dots</td><td class="hit">1,580,276</td><td class="hit">1,581,463</td><td class="dim">1187 lb</td><td class="dim">1.0×</td></tr>
-    <tr><td colspan="5" style="color:var(--ink-4);border-bottom:1px solid var(--border-strong);padding-top:var(--s-5)">a rat IL-6 assay, calibrated on a dilution ladder — reading 0.9</td></tr><tr><td>monotone only</td><td class="hit">12.50</td><td class="hit">25.00</td><td class="dim">12.50 pg/mL</td><td class="hit">7.8×</td></tr><tr><td>wander ≤ ±200%</td><td class="hit">13.19</td><td class="hit">24.28</td><td class="dim">11.09 pg/mL</td><td class="hit">7.0×</td></tr><tr><td>wander ≤ ±100%</td><td class="hit">13.55</td><td class="hit">23.93</td><td class="dim">10.37 pg/mL</td><td class="hit">6.5×</td></tr><tr><td>wander ≤ ±50%</td><td class="hit">13.93</td><td class="hit">23.58</td><td class="dim">9.657 pg/mL</td><td class="hit">6.1×</td></tr><tr><td>wander ≤ ±25%</td><td class="hit">14.23</td><td class="hit">23.31</td><td class="dim">9.079 pg/mL</td><td class="hit">5.7×</td></tr><tr><td>wander ≤ ±10%</td><td class="hit">14.48</td><td class="hit">21.66</td><td class="dim">7.175 pg/mL</td><td class="hit">4.5×</td></tr><tr><td>wander ≤ ±5%</td><td class="hit">14.58</td><td class="hit">21.04</td><td class="dim">6.456 pg/mL</td><td class="hit">4.1×</td></tr><tr><td>wander ≤ ±2%</td><td class="hit">14.65</td><td class="hit">20.71</td><td class="dim">6.057 pg/mL</td><td class="hit">3.8×</td></tr><tr><td>join the dots</td><td class="hit">14.70</td><td class="hit">20.50</td><td class="dim">5.802 pg/mL</td><td class="hit">3.6×</td></tr></tbody></table></div>
+    <tbody><tr><td colspan="5" class="ink-4 cs-uline">a load cell, calibrated at NIST — reading 1.15</td></tr><tr><td>monotone only</td><td class="hit">1,500,000</td><td class="hit">1,650,000</td><td class="dim">150,000 lb</td><td class="hit">132×</td></tr><tr><td>wander ≤ ±200%</td><td class="hit">1,526,759</td><td class="hit">1,627,154</td><td class="dim">100,396 lb</td><td class="hit">88×</td></tr><tr><td>wander ≤ ±100%</td><td class="hit">1,540,138</td><td class="hit">1,615,732</td><td class="dim">75,593 lb</td><td class="hit">67×</td></tr><tr><td>wander ≤ ±50%</td><td class="hit">1,553,517</td><td class="hit">1,604,309</td><td class="dim">50,791 lb</td><td class="hit">45×</td></tr><tr><td>wander ≤ ±25%</td><td class="hit">1,564,221</td><td class="hit">1,595,171</td><td class="dim">30,950 lb</td><td class="hit">27×</td></tr><tr><td>wander ≤ ±10%</td><td class="hit">1,572,978</td><td class="hit">1,587,694</td><td class="dim">14,715 lb</td><td class="hit">13×</td></tr><tr><td>wander ≤ ±5%</td><td class="hit">1,576,607</td><td class="hit">1,584,727</td><td class="dim">8120 lb</td><td class="hit">7.1×</td></tr><tr><td>wander ≤ ±2%</td><td class="hit">1,578,853</td><td class="hit">1,582,807</td><td class="dim">3954 lb</td><td class="hit">3.5×</td></tr><tr><td>join the dots</td><td class="hit">1,580,276</td><td class="hit">1,581,463</td><td class="dim">1187 lb</td><td class="dim">1.0×</td></tr>
+    <tr><td colspan="5" class="ink-4 cs-uline pad">a rat IL-6 assay, calibrated on a dilution ladder — reading 0.9</td></tr><tr><td>monotone only</td><td class="hit">12.50</td><td class="hit">25.00</td><td class="dim">12.50 pg/mL</td><td class="hit">7.8×</td></tr><tr><td>wander ≤ ±200%</td><td class="hit">13.19</td><td class="hit">24.28</td><td class="dim">11.09 pg/mL</td><td class="hit">7.0×</td></tr><tr><td>wander ≤ ±100%</td><td class="hit">13.55</td><td class="hit">23.93</td><td class="dim">10.37 pg/mL</td><td class="hit">6.5×</td></tr><tr><td>wander ≤ ±50%</td><td class="hit">13.93</td><td class="hit">23.58</td><td class="dim">9.657 pg/mL</td><td class="hit">6.1×</td></tr><tr><td>wander ≤ ±25%</td><td class="hit">14.23</td><td class="hit">23.31</td><td class="dim">9.079 pg/mL</td><td class="hit">5.7×</td></tr><tr><td>wander ≤ ±10%</td><td class="hit">14.48</td><td class="hit">21.66</td><td class="dim">7.175 pg/mL</td><td class="hit">4.5×</td></tr><tr><td>wander ≤ ±5%</td><td class="hit">14.58</td><td class="hit">21.04</td><td class="dim">6.456 pg/mL</td><td class="hit">4.1×</td></tr><tr><td>wander ≤ ±2%</td><td class="hit">14.65</td><td class="hit">20.71</td><td class="dim">6.057 pg/mL</td><td class="hit">3.8×</td></tr><tr><td>join the dots</td><td class="hit">14.70</td><td class="hit">20.50</td><td class="dim">5.802 pg/mL</td><td class="hit">3.6×</td></tr></tbody></table></div>
 
   <pre>node playground/curveset/envelope.test.js     # the mathematics
 node playground/curveset/make-page-data.js    # the record

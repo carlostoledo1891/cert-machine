@@ -78,7 +78,7 @@ const rows = (s) => s.rungs.map((g, i) => {
 }).join('');
 
 const body = `
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<svg width="0" height="0" class="cs-abs" aria-hidden="true"><defs>
   <pattern id="wvoid" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
     <line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/>
   </pattern>
@@ -131,7 +131,7 @@ L(x) = max&#8202;<sub>i</sub> [ lo&#8202;<sub>i</sub> + (x ≥ x&#8202;<sub>i</s
 
   <div class="mt7">
     <div class="eyebrow">what this does not claim</div>
-    <ul class="why" style="padding-left:1.1em">
+    <ul class="why cs-hang">
       <li>It says nothing about whether either <em>report</em> is wrong. Both are competent and both are standard practice.</li>
       <li>The error budget on the assay is <b>asserted</b>, not measured — there are no replicates — so that panel prices an assumption using another assumption, and says so.</li>
       <li>The local bound is outer, so the intervals are conservative. A tighter envelope would only make the argument stronger.</li>
@@ -140,8 +140,8 @@ L(x) = max&#8202;<sub>i</sub> [ lo&#8202;<sub>i</sub> + (x ≥ x&#8202;<sub>i</s
   </div>
 
   <div class="tw"><table><thead><tr><th>assuming</th><th>from</th><th>to</th><th>width</th><th>vs reported ±</th></tr></thead>
-    <tbody><tr><td colspan="5" style="color:var(--ink-4);border-bottom:1px solid var(--border-strong)">${pontius.title} — reading ${pontius.ask}</td></tr>${rows(pontius)}
-    <tr><td colspan="5" style="color:var(--ink-4);border-bottom:1px solid var(--border-strong);padding-top:var(--s-5)">${il6.title} — reading ${il6.ask}</td></tr>${rows(il6)}</tbody></table></div>
+    <tbody><tr><td colspan="5" class="ink-4 cs-uline">${pontius.title} — reading ${pontius.ask}</td></tr>${rows(pontius)}
+    <tr><td colspan="5" class="ink-4 cs-uline pad">${il6.title} — reading ${il6.ask}</td></tr>${rows(il6)}</tbody></table></div>
 
   <pre>node playground/curveset/envelope.test.js     # the mathematics
 node playground/curveset/make-page-data.js    # the record

@@ -299,24 +299,6 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
-/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
-   135 elements across nineteen builders carried a margin-top style attribute
-   — the spacing token was right, but it was written on the ELEMENT, where no
-   stylesheet can see it and no restyle can reach it. These are the same steps
-   under a name. A class is not a better value than the token it sets; it is a
-   value a stylesheet can find.
-
-   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
-   in a rule for the component that repeats it (see the prose rhythm the four
-   bare-prose pages take). ---- */
-.mt2 { margin-top: var(--s-2); }
-.mt3 { margin-top: var(--s-3); }
-.mt4 { margin-top: var(--s-4); }
-.mt5 { margin-top: var(--s-5); }
-.mt6 { margin-top: var(--s-6); }
-.mt7 { margin-top: var(--s-7); }
-.mt8 { margin-top: var(--s-8); }
-
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -601,6 +583,8 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
 .wide .container { max-width: var(--container); }
 
 
+.g-lead4 { grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+.g-lead4w { grid-template-columns: 2fr 1fr 1fr 1.2fr; }
 .section-head { display:flex; justify-content:space-between; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; margin-bottom:var(--s-4); }
 .mono { font-family:var(--font-mono); font-size:0.92em; color:var(--ink-2); }
 .t1 { font-size:clamp(1.5rem,1rem+1.6vw,2.1rem); line-height:1.12; } .t2 { font-size:clamp(1.25rem,1rem+1vw,1.6rem); }
@@ -677,6 +661,68 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
 .prose p{margin-top:var(--s-4);color:var(--ink-3);line-height:var(--leading-body);}
 .prose b{color:var(--ink-2);font-weight:500;} .prose em{color:var(--ink-4);}
 
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
 </style>
 </head>
 <body>
@@ -686,8 +732,8 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
 <section class="hero">
   <div class="container">
     <div class="eyebrow reveal">Kepler short cadence · a certified enclosure · no limb-darkening law anywhere</div>
-    <h1 class="display reveal" style="margin-top:var(--s-3);max-width:19ch;">The transit, without a law for the star.</h1>
-    <p class="lede reveal" style="margin-top:var(--s-4);max-width:74ch;">
+    <h1 class="display reveal mt3 ti">The transit, without a law for the star.</h1>
+    <p class="lede reveal mt4 rd">
       Every published planet radius is a statement about a star's atmosphere as much as about a planet. The depth of a transit is
       the light blocked, and how much light sits where the planet passes is decided by a limb-darkening law nobody measured for that star.
       This asks what the photometry forces on its own: the star is any nonnegative brightness profile at all, the measurement is a
@@ -707,8 +753,8 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
   <div class="container">
     <div class="reveal">
       <div class="eyebrow">TrES-2 b · Kepler-1 b · 11,920 short-cadence points · 390 bins</div>
-      <h2 class="t1" style="margin-top:var(--s-2);max-width:26ch;">a grazing transit: the planet never comes near the middle of the star</h2>
-      <p class="lede" style="margin-top:var(--s-4);max-width:72ch;font-size:var(--text-body);color:var(--ink-3);">
+      <h2 class="t1 mt2 ti">a grazing transit: the planet never comes near the middle of the star</h2>
+      <p class="lede mt4 rd body-3">
         19 published values of R<sub>p</sub>/R<sub>*</sub> span 0.12385 to 0.12780 — a spread of 3.2% — while a typical one quotes ±0.00008.
         Granting the orbit exactly and assuming only that the star is nowhere negative and does not brighten outward, this light curve forces
         R<sub>p</sub>/R<sub>*</sub> into <b>[0.1095, 0.3260]</b>.
@@ -865,7 +911,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       <text x="678" y="339" class="ax">0.12780 ± 0.00290</text></g></svg>
       <figcaption class="figcap"><span class="k">the published values, on their own error bars</span><span class="v">shaded: the certified interval</span></figcaption></figure>
 
-    <div class="grid reveal" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
+    <div class="grid reveal g-lead4">
       <div class="h">harness check</div><div class="h">measured</div><div class="h">stated</div><div class="h">verdict</div>
       <div class="ml">out-of-transit scatter, 64 bins</div><div>29 ppm</div><div>31 ppm</div><div class="hit">errors honest (0.94×)</div>
       <div class="ml">fold asymmetry, before → after centring</div><div>49 → 45 ppm</div><div>shift -66 s</div><div class="hit">already centred</div>
@@ -878,8 +924,8 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
   <div class="container">
     <div class="reveal">
       <div class="eyebrow">Kepler-7 b · 40,757 short-cadence points · 388 bins</div>
-      <h2 class="t1" style="margin-top:var(--s-2);max-width:26ch;">the planet whose published radius ratio moves 3.7% between papers</h2>
-      <p class="lede" style="margin-top:var(--s-4);max-width:72ch;font-size:var(--text-body);color:var(--ink-3);">
+      <h2 class="t1 mt2 ti">the planet whose published radius ratio moves 3.7% between papers</h2>
+      <p class="lede mt4 rd body-3">
         10 published values of R<sub>p</sub>/R<sub>*</sub> span 0.07990 to 0.08294 — a spread of 3.8% — while a typical one quotes ±0.00005.
         Granting the orbit exactly and assuming only that the star is nowhere negative and does not brighten outward, this light curve forces
         R<sub>p</sub>/R<sub>*</sub> into <b>[0.0719, 0.2424]</b>.
@@ -1009,7 +1055,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       <text x="678" y="186" class="ax">0.08294 ± 0.00011</text></g></svg>
       <figcaption class="figcap"><span class="k">the published values, on their own error bars</span><span class="v">shaded: the certified interval</span></figcaption></figure>
 
-    <div class="grid reveal" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
+    <div class="grid reveal g-lead4">
       <div class="h">harness check</div><div class="h">measured</div><div class="h">stated</div><div class="h">verdict</div>
       <div class="ml">out-of-transit scatter, 196 bins</div><div>72 ppm</div><div>62 ppm</div><div class="hit">errors honest (1.16×)</div>
       <div class="ml">fold asymmetry, before → after centring</div><div>135 → 56 ppm</div><div>shift 248 s</div><div class="hit">the archive ephemeris was out</div>
@@ -1022,8 +1068,8 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
 <section class="section">
   <div class="container">
     <div class="reveal"><div class="eyebrow">how a value is refused</div>
-    <h2 class="t1" style="margin-top:var(--s-2);max-width:28ch;">Nothing here trusts the optimiser.</h2></div>
-    <div class="prose reveal" style="margin-top:var(--s-4);max-width:74ch;">
+    <h2 class="t1 mt2 ti">Nothing here trusts the optimiser.</h2></div>
+    <div class="prose reveal mt4 rd">
       <p>The star is a nonnegative measure μ on [0,1] with ∫dμ = 1 — the normalisation <em>is</em> the statement that the curve is 1 out of transit.
       A planet of radius k at sky-plane distance z covers a fraction w(r; z, k) = arccos(clamp g)/π of the circle of radius r, so every datum is a
       two-sided <b>linear</b> constraint on μ. Because μ is a probability measure, the reachable depths are exactly the convex hull of the kernel's

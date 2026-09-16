@@ -23,6 +23,11 @@ const REPORT = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/report.css')
 const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
 
 const BASE_EXTRA = `
+.g-mut { grid-template-columns: 250px repeat(var(--cols), minmax(0,1fr)) 90px 90px; }
+.g-pair { grid-template-columns: 250px 110px 1fr; }
+.g-six { grid-template-columns: 190px repeat(var(--cols), minmax(0,1fr)); }
+.g-run { grid-template-columns: 150px repeat(var(--cols), minmax(0,1fr)) 80px 80px 90px; }
+.tl { text-align: left; }   /* a left-aligned cell in a numeric grid (2026-09-15) */
 .section-head { display:flex; justify-content:space-between; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; margin-bottom:var(--s-4); }
 .mono { font-family:var(--font-mono); font-size:0.92em; color:var(--ink-2); }
 .t1 { font-size:clamp(1.5rem,1rem+1.6vw,2.1rem); } .t2 { font-size:clamp(1.25rem,1rem+1vw,1.6rem); }
@@ -304,9 +309,9 @@ const SCRIPT = `
 `;
 
 const body = `
-<section class="section" style="border-top:0;">
+<section class="section no-rule">
   <div class="container">
-    <div class="prose reveal" style="max-width:74ch;">
+    <div class="prose reveal rd">
       <div class="eyebrow">environment &middot; mutation blind spots</div>
       <h1 class="t1">Fourteen million certified verdicts could not see this mutant.</h1>
       <p>A hardware comparator decides whether one integer vector is longer than another. A test
@@ -333,7 +338,7 @@ const body = `
       <button id="pick-witness" type="button">load its witness below</button>
     </div>
     <div class="reveal card2" id="card" hidden></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>read the shapes, not the shade</b> a filled dot is a mutation the corpus catches; a ring is one only
 another family catches; a cross is one a proof says changes nothing. The blind spots are not scattered
 &mdash; they sit in the <span class="mono">box check</span>, the part of the design no <em>valid</em> input
@@ -351,7 +356,7 @@ exercises, which is precisely where a corpus of valid inputs cannot go.
       <button id="run" type="button">decide it</button>
     </div>
     <div class="reveal card2" id="spec"></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>this is the specification, not the grader</b> it computes what the UNMUTATED design decides:
 in-box, then <span class="mono">p = u&middot;v</span>, then <span class="mono">4p&sup2;</span> against
 <span class="mono">s&middot;t</span>. <strong>It does not grade a kill.</strong> A kill is a simulation of the
@@ -367,14 +372,14 @@ recorded kill used.
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Knowing the family is not the pair</h2><span class="eyebrow">the reference policies, by class</span></div>
-    <div class="reveal"><div class="gr" style="grid-template-columns:190px repeat(${CLASSES.length},minmax(0,1fr));">
+    <div class="reveal"><div class="gr g-six" style="--cols:${CLASSES.length}">
       <div class="h">eight pairs from &hellip;</div>${CLASSES.map((k) => `<div class="h">${k.toLowerCase().replace(/_/g, ' ')}</div>`).join('')}
       ${['corpus8', 'mint8', 'outbox8', 'aligned8', 'union8', 'sat'].map((p) => {
         const cells = CLASSES.map((k) => { const [a, b] = perClass(p, k); return `<div class="c" style="--f:${(b ? a / b : 0).toFixed(2)}"><b>${a}</b>/${b}</div>`; }).join('');
         return `<div class="ml">${p}</div>${cells}`;
       }).join('')}
     </div></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>the out-of-box family kills 96.8% of these mutants</b> as a family of 4,000 pairs. Eight random members
 of it kill <strong>${perClass('outbox8', 'OUTBOX_ONLY')[0]} of ${perClass('outbox8', 'OUTBOX_ONLY')[1]}</strong> of the mutants only it can see, and every eight-pair
 shotgun kills <strong>0 of ${perClass('corpus8', 'ALIGNED_ONLY')[1]}</strong> of the aligned-only ones. A mutant on the box check of ONE
@@ -389,14 +394,14 @@ what it does with it.
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">The reference table</h2><span class="eyebrow">${P.baseline.n_per_rung} tasks per rung, seed ${P.baseline.seed}, no API key</span></div>
-    <div class="reveal"><div class="gr" style="grid-template-columns:250px repeat(${P.rungs.length + 1},minmax(0,1fr)) 90px 90px;">
+    <div class="reveal"><div class="gr g-mut" style="--cols:${P.rungs.length + 1}">
       <div class="h">policy</div>${P.rungs.map((r) => `<div class="h">${r}</div>`).join('')}<div class="h">all</div><div class="h">solved</div><div class="h">false claims</div>
       ${REF_ROWS.map((r) => `<div class="ml">${r.p} <span class="dim">&middot; ${esc(POLICY_NOTE[r.p] || '')}</span></div>`
         + r.rungs.map((v) => `<div class="c" style="--f:${((v + 1) / 2).toFixed(2)}">${sgn(v)}</div>`).join('')
         + `<div class="c ${r.all >= 1 ? 'win' : ''}" style="--f:${((r.all + 1) / 2).toFixed(2)}"><b>${sgn(r.all)}</b></div>`
         + `<div class="c">${r.solved}/${r.n}</div><div class="c">${r.fc}</div>`).join('')}
     </div></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>+1</b> a pair that flips a pin, or EQUIVALENT on a design the miter proved unchanged. <b>0</b> a miss, an
 UNDECIDED, or a reply that could not be read. <b>&minus;1</b> a false claim either way &mdash; a kill declared on
 a design that cannot change, or a gap declared closed on one that can.
@@ -409,7 +414,7 @@ knows the answer it will not tell you.
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Three models</h2><span class="eyebrow">${RES.length} calls &middot; refusals counted apart, never reworded</span></div>
-    <div class="reveal"><div class="gr" style="grid-template-columns:150px repeat(${P.rungs.length + 1},minmax(0,1fr)) 80px 80px 90px;">
+    <div class="reveal"><div class="gr g-run" style="--cols:${P.rungs.length + 1}">
       <div class="h">model</div>${P.rungs.map((r) => `<div class="h">${r}</div>`).join('')}<div class="h">all</div><div class="h">solved</div><div class="h">wrong</div><div class="h">declined</div>
       ${MODELS.map((m) => {
         const g = gradedRows(m), ref = refusedRows(m);
@@ -424,7 +429,7 @@ knows the answer it will not tell you.
           + `<div class="c ${ref.length ? '' : 'dim'}">${ref.length || 0}</div>`;
       }).join('')}
     </div></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>the profile rung cannot evaluate Opus as written</b> it declined all twelve of them on a content policy,
 plus three <span class="mono">located</span> tasks. That is recorded as a fact and the prompt was not
 reworded to get past the classifier &mdash; a rung that only scores the models willing to answer it is not
@@ -438,16 +443,16 @@ declared input box excludes. The thesis, showing up as a diagnostic rather than 
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">The controls run before any model does</h2><span class="eyebrow">${P.controls.length} planted, ${P.controls_failed.length} misbehaved</span></div>
-    <div class="reveal"><div class="gr" style="grid-template-columns:250px 110px 1fr;">
+    <div class="reveal"><div class="gr g-pair">
       <div class="h">planted submission</div><div class="h">must grade</div><div class="h">why it is there</div>
       ${P.controls.map((c) => `<div class="ml">${esc(c.name)}</div>`
         /* the OBSERVED grade, not the expectation: three of these controls pin only the
            outcome and say nothing about the reward, so reading the reward off `expect`
            printed "-NaN" in three cells. What the row is for is what it actually graded. */
         + `<div class="c ${c.expect.outcome === 'SOLVED' ? 'win' : ''}">${esc(c.outcome)} ${sgn(c.reward)}</div>`
-        + `<div class="ml dim" style="text-align:left;">${esc(c.note)}</div>`).join('')}
+        + `<div class="ml dim tl">${esc(c.note)}</div>`).join('')}
     </div></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>what each one pins</b> the grade shown is what the control actually graded; every one matched, and
 three of the eleven deliberately pin only the outcome and leave the reward to follow from it.
 <b>three of them must SCORE</b> and that is the half people leave out. A simulator that is not live scores
@@ -476,7 +481,7 @@ perfect coverage. Those are the same mistake, and it is the one this environment
       mutants is a bad corpus</strong> &mdash; it says a coverage number computed from valid inputs cannot see a
       defect that only invalid inputs reach, which is a statement about the measurement, not about the
       people who took it.</p>
-      <p class="mono" style="font-size:var(--text-eyebrow); color:var(--ink-4); line-height:2; margin-top:var(--s-5);">
+      <p class="mono ink-4 mt5 cmd">
       cd environments/blind_spot &amp;&amp; python3 -m pytest tests -q<br>
       python3 -m blind_spot gate<br>
       python3 -m blind_spot baseline --n 40<br>

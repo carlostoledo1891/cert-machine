@@ -134,8 +134,8 @@ applySim();
 const body = `
 <div class="ov ov-title">
   <div class="eyebrow">environment &middot; the certifier is a wire</div>
-  <h1 style="margin-top:var(--s-3); max-width:14ch;">Rewire it yourself</h1>
-  <p style="max-width:36ch;">${D.instances.length} lattice claims, each with an exact answer. Three graders are offered and only one may reach the verdict socket. Drag a different one and watch the number move &mdash; or find out why it is refused.</p>
+  <h1 class="mt3 ti">Rewire it yourself</h1>
+  <p class="ti">${D.instances.length} lattice claims, each with an exact answer. Three graders are offered and only one may reach the verdict socket. Drag a different one and watch the number move &mdash; or find out why it is refused.</p>
 </div>
 
 <div id="stage"></div>

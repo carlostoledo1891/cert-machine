@@ -299,24 +299,6 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
-/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
-   135 elements across nineteen builders carried a margin-top style attribute
-   — the spacing token was right, but it was written on the ELEMENT, where no
-   stylesheet can see it and no restyle can reach it. These are the same steps
-   under a name. A class is not a better value than the token it sets; it is a
-   value a stylesheet can find.
-
-   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
-   in a rule for the component that repeats it (see the prose rhythm the four
-   bare-prose pages take). ---- */
-.mt2 { margin-top: var(--s-2); }
-.mt3 { margin-top: var(--s-3); }
-.mt4 { margin-top: var(--s-4); }
-.mt5 { margin-top: var(--s-5); }
-.mt6 { margin-top: var(--s-6); }
-.mt7 { margin-top: var(--s-7); }
-.mt8 { margin-top: var(--s-8); }
-
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -601,6 +583,11 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
 .wide .container { max-width: var(--container); }
 
 
+.g-mut { grid-template-columns: 250px repeat(var(--cols), minmax(0,1fr)) 90px 90px; }
+.g-pair { grid-template-columns: 250px 110px 1fr; }
+.g-six { grid-template-columns: 190px repeat(var(--cols), minmax(0,1fr)); }
+.g-run { grid-template-columns: 150px repeat(var(--cols), minmax(0,1fr)) 80px 80px 90px; }
+.tl { text-align: left; }   /* a left-aligned cell in a numeric grid (2026-09-15) */
 .section-head { display:flex; justify-content:space-between; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; margin-bottom:var(--s-4); }
 .mono { font-family:var(--font-mono); font-size:0.92em; color:var(--ink-2); }
 .t1 { font-size:clamp(1.5rem,1rem+1.6vw,2.1rem); } .t2 { font-size:clamp(1.25rem,1rem+1vw,1.6rem); }
@@ -704,15 +691,77 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
 .fig .ink-chosen-sm { stroke-dasharray: 1 3; stroke-linecap: round; }
 .fig .ink-guide    { stroke-dasharray: 2 3; }
 
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
 </style>
 </head>
 <body>
 <nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <main>
-<section class="section" style="border-top:0;">
+<section class="section no-rule">
   <div class="container">
-    <div class="prose reveal" style="max-width:74ch;">
+    <div class="prose reveal rd">
       <div class="eyebrow">environment &middot; mutation blind spots</div>
       <h1 class="t1">Fourteen million certified verdicts could not see this mutant.</h1>
       <p>A hardware comparator decides whether one integer vector is longer than another. A test
@@ -739,7 +788,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       <button id="pick-witness" type="button">load its witness below</button>
     </div>
     <div class="reveal card2" id="card" hidden></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>read the shapes, not the shade</b> a filled dot is a mutation the corpus catches; a ring is one only
 another family catches; a cross is one a proof says changes nothing. The blind spots are not scattered
 &mdash; they sit in the <span class="mono">box check</span>, the part of the design no <em>valid</em> input
@@ -757,7 +806,7 @@ exercises, which is precisely where a corpus of valid inputs cannot go.
       <button id="run" type="button">decide it</button>
     </div>
     <div class="reveal card2" id="spec"></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>this is the specification, not the grader</b> it computes what the UNMUTATED design decides:
 in-box, then <span class="mono">p = u&middot;v</span>, then <span class="mono">4p&sup2;</span> against
 <span class="mono">s&middot;t</span>. <strong>It does not grade a kill.</strong> A kill is a simulation of the
@@ -773,11 +822,11 @@ recorded kill used.
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Knowing the family is not the pair</h2><span class="eyebrow">the reference policies, by class</span></div>
-    <div class="reveal"><div class="gr" style="grid-template-columns:190px repeat(6,minmax(0,1fr));">
+    <div class="reveal"><div class="gr g-six" style="--cols:6">
       <div class="h">eight pairs from &hellip;</div><div class="h">covered</div><div class="h">mint only</div><div class="h">outbox only</div><div class="h">aligned only</div><div class="h">nochange</div><div class="h">identity</div>
       <div class="ml">corpus8</div><div class="c" style="--f:0.86"><b>31</b>/36</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="c" style="--f:0.00"><b>0</b>/20</div><div class="c" style="--f:0.00"><b>0</b>/8</div><div class="c" style="--f:0.00"><b>0</b>/22</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="ml">mint8</div><div class="c" style="--f:0.94"><b>34</b>/36</div><div class="c" style="--f:0.47"><b>8</b>/17</div><div class="c" style="--f:0.00"><b>0</b>/20</div><div class="c" style="--f:0.00"><b>0</b>/8</div><div class="c" style="--f:0.00"><b>0</b>/22</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="ml">outbox8</div><div class="c" style="--f:0.03"><b>1</b>/36</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="c" style="--f:0.15"><b>3</b>/20</div><div class="c" style="--f:0.00"><b>0</b>/8</div><div class="c" style="--f:0.00"><b>0</b>/22</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="ml">aligned8</div><div class="c" style="--f:0.58"><b>21</b>/36</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="c" style="--f:0.00"><b>0</b>/20</div><div class="c" style="--f:0.00"><b>0</b>/8</div><div class="c" style="--f:0.00"><b>0</b>/22</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="ml">union8</div><div class="c" style="--f:0.83"><b>30</b>/36</div><div class="c" style="--f:0.18"><b>3</b>/17</div><div class="c" style="--f:0.10"><b>2</b>/20</div><div class="c" style="--f:0.00"><b>0</b>/8</div><div class="c" style="--f:0.00"><b>0</b>/22</div><div class="c" style="--f:0.00"><b>0</b>/17</div><div class="ml">sat</div><div class="c" style="--f:1.00"><b>36</b>/36</div><div class="c" style="--f:1.00"><b>17</b>/17</div><div class="c" style="--f:1.00"><b>20</b>/20</div><div class="c" style="--f:1.00"><b>8</b>/8</div><div class="c" style="--f:1.00"><b>22</b>/22</div><div class="c" style="--f:1.00"><b>17</b>/17</div>
     </div></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>the out-of-box family kills 96.8% of these mutants</b> as a family of 4,000 pairs. Eight random members
 of it kill <strong>3 of 20</strong> of the mutants only it can see, and every eight-pair
 shotgun kills <strong>0 of 8</strong> of the aligned-only ones. A mutant on the box check of ONE
@@ -792,11 +841,11 @@ what it does with it.
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">The reference table</h2><span class="eyebrow">40 tasks per rung, seed 2026, no API key</span></div>
-    <div class="reveal"><div class="gr" style="grid-template-columns:250px repeat(4,minmax(0,1fr)) 90px 90px;">
+    <div class="reveal"><div class="gr g-mut" style="--cols:4">
       <div class="h">policy</div><div class="h">located</div><div class="h">profile</div><div class="h">blind</div><div class="h">all</div><div class="h">solved</div><div class="h">false claims</div>
       <div class="ml">abstain <span class="dim">&middot; answers UNDECIDED to everything</span></div><div class="c" style="--f:0.50">+0.000</div><div class="c" style="--f:0.50">+0.000</div><div class="c" style="--f:0.50">+0.000</div><div class="c " style="--f:0.50"><b>+0.000</b></div><div class="c">0/120</div><div class="c">0</div><div class="ml">never <span class="dim">&middot; answers EQUIVALENT to everything</span></div><div class="c" style="--f:0.40">−0.200</div><div class="c" style="--f:0.28">−0.450</div><div class="c" style="--f:0.30">−0.400</div><div class="c " style="--f:0.33"><b>−0.350</b></div><div class="c">39/120</div><div class="c">81</div><div class="ml">random8 <span class="dim">&middot; eight random pairs</span></div><div class="c" style="--f:0.39">−0.225</div><div class="c" style="--f:0.44">−0.125</div><div class="c" style="--f:0.42">−0.150</div><div class="c " style="--f:0.42"><b>−0.167</b></div><div class="c">19/120</div><div class="c">39</div><div class="ml">corpus8 <span class="dim">&middot; eight pairs drawn from the corpus</span></div><div class="c" style="--f:0.44">−0.125</div><div class="c" style="--f:0.50">+0.000</div><div class="c" style="--f:0.46">−0.075</div><div class="c " style="--f:0.47"><b>−0.067</b></div><div class="c">31/120</div><div class="c">39</div><div class="ml">mint8 <span class="dim">&middot; eight from the minted family</span></div><div class="c" style="--f:0.44">−0.125</div><div class="c" style="--f:0.55">+0.100</div><div class="c" style="--f:0.55">+0.100</div><div class="c " style="--f:0.51"><b>+0.025</b></div><div class="c">42/120</div><div class="c">39</div><div class="ml">outbox8 <span class="dim">&middot; eight from the out-of-box family</span></div><div class="c" style="--f:0.33">−0.350</div><div class="c" style="--f:0.38">−0.250</div><div class="c" style="--f:0.36">−0.275</div><div class="c " style="--f:0.35"><b>−0.292</b></div><div class="c">4/120</div><div class="c">39</div><div class="ml">aligned8 <span class="dim">&middot; eight from the aligned family</span></div><div class="c" style="--f:0.39">−0.225</div><div class="c" style="--f:0.42">−0.150</div><div class="c" style="--f:0.46">−0.075</div><div class="c " style="--f:0.42"><b>−0.150</b></div><div class="c">21/120</div><div class="c">39</div><div class="ml">union8 <span class="dim">&middot; eight drawn from all four</span></div><div class="c" style="--f:0.45">−0.100</div><div class="c" style="--f:0.53">+0.050</div><div class="c" style="--f:0.47">−0.050</div><div class="c " style="--f:0.48"><b>−0.033</b></div><div class="c">35/120</div><div class="c">39</div><div class="ml">profile <span class="dim">&middot; reads the profile rung, then eight from the first family that sees it</span></div><div class="c" style="--f:0.45">−0.100</div><div class="c" style="--f:0.81">+0.625</div><div class="c" style="--f:0.47">−0.050</div><div class="c " style="--f:0.58"><b>+0.158</b></div><div class="c">47/120</div><div class="c">28</div><div class="ml">sat <span class="dim">&middot; the SAT witness, or the proof</span></div><div class="c" style="--f:1.00">+1.000</div><div class="c" style="--f:1.00">+1.000</div><div class="c" style="--f:1.00">+1.000</div><div class="c win" style="--f:1.00"><b>+1.000</b></div><div class="c">120/120</div><div class="c">0</div>
     </div></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>+1</b> a pair that flips a pin, or EQUIVALENT on a design the miter proved unchanged. <b>0</b> a miss, an
 UNDECIDED, or a reply that could not be read. <b>&minus;1</b> a false claim either way &mdash; a kill declared on
 a design that cannot change, or a gap declared closed on one that can.
@@ -809,11 +858,11 @@ knows the answer it will not tell you.
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Three models</h2><span class="eyebrow">108 calls &middot; refusals counted apart, never reworded</span></div>
-    <div class="reveal"><div class="gr" style="grid-template-columns:150px repeat(4,minmax(0,1fr)) 80px 80px 90px;">
+    <div class="reveal"><div class="gr g-run" style="--cols:4">
       <div class="h">model</div><div class="h">located</div><div class="h">profile</div><div class="h">blind</div><div class="h">all</div><div class="h">solved</div><div class="h">wrong</div><div class="h">declined</div>
       <div class="ml">Opus 5</div><div class="c" style="--f:1.00">+1.000</div><div class="c dim">&mdash;</div><div class="c" style="--f:0.55">+0.091</div><div class="c" style="--f:0.75"><b>+0.500</b></div><div class="c">13</div><div class="c">3</div><div class="c ">16</div><div class="ml">Sonnet 5</div><div class="c" style="--f:0.88">+0.750</div><div class="c" style="--f:0.58">+0.167</div><div class="c" style="--f:0.50">+0.000</div><div class="c" style="--f:0.65"><b>+0.306</b></div><div class="c">15</div><div class="c">4</div><div class="c dim">0</div><div class="ml">Haiku 4.5</div><div class="c" style="--f:0.71">+0.417</div><div class="c" style="--f:0.29">−0.417</div><div class="c" style="--f:0.50">+0.000</div><div class="c" style="--f:0.50"><b>+0.000</b></div><div class="c">10</div><div class="c">10</div><div class="c dim">0</div>
     </div></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>the profile rung cannot evaluate Opus as written</b> it declined all twelve of them on a content policy,
 plus three <span class="mono">located</span> tasks. That is recorded as a fact and the prompt was not
 reworded to get past the classifier &mdash; a rung that only scores the models willing to answer it is not
@@ -827,11 +876,11 @@ declared input box excludes. The thesis, showing up as a diagnostic rather than 
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">The controls run before any model does</h2><span class="eyebrow">11 planted, 0 misbehaved</span></div>
-    <div class="reveal"><div class="gr" style="grid-template-columns:250px 110px 1fr;">
+    <div class="reveal"><div class="gr g-pair">
       <div class="h">planted submission</div><div class="h">must grade</div><div class="h">why it is there</div>
-      <div class="ml">identity_declared_killed</div><div class="c ">WRONG −1.000</div><div class="ml dim" style="text-align:left;">eight certified pairs against the unmutated design: nothing can flip, and claiming it costs</div><div class="ml">equivalent_declared_killed</div><div class="c ">WRONG −1.000</div><div class="ml dim" style="text-align:left;">the miter proved this mutant changes nothing</div><div class="ml">killable_declared_equivalent</div><div class="c ">WRONG −1.000</div><div class="ml dim" style="text-align:left;">a witness exists and the grader names it</div><div class="ml">miss_is_not_a_kill</div><div class="c ">MISSED +0.000</div><div class="ml dim" style="text-align:left;">the corpus cannot see this mutant; a miss scores zero, not one and not minus one</div><div class="ml">nine_pairs</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim" style="text-align:left;">the budget is eight</div><div class="ml">coordinate_out_of_range</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim" style="text-align:left;">4 is not a 3-bit value; masking it to -4 would test a pair the model did not name</div><div class="ml">wrong_dimension</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim" style="text-align:left;">the design has eleven coordinates</div><div class="ml">flat_pair</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim" style="text-align:left;">a pair is {u, v}, not one list</div><div class="ml">sat_witness_kills</div><div class="c win">SOLVED +1.000</div><div class="ml dim" style="text-align:left;">the SAT counterexample, re-run through the netlist</div><div class="ml">identity_declared_equivalent</div><div class="c win">SOLVED +1.000</div><div class="ml dim" style="text-align:left;">the unmutated design is equivalent to itself</div><div class="ml">outbox_kill_uses_validity</div><div class="c win">SOLVED +1.000</div><div class="ml dim" style="text-align:left;">a mutant only the out-of-box family sees, killed by an invalid input, and the grader says so</div>
+      <div class="ml">identity_declared_killed</div><div class="c ">WRONG −1.000</div><div class="ml dim tl">eight certified pairs against the unmutated design: nothing can flip, and claiming it costs</div><div class="ml">equivalent_declared_killed</div><div class="c ">WRONG −1.000</div><div class="ml dim tl">the miter proved this mutant changes nothing</div><div class="ml">killable_declared_equivalent</div><div class="c ">WRONG −1.000</div><div class="ml dim tl">a witness exists and the grader names it</div><div class="ml">miss_is_not_a_kill</div><div class="c ">MISSED +0.000</div><div class="ml dim tl">the corpus cannot see this mutant; a miss scores zero, not one and not minus one</div><div class="ml">nine_pairs</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim tl">the budget is eight</div><div class="ml">coordinate_out_of_range</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim tl">4 is not a 3-bit value; masking it to -4 would test a pair the model did not name</div><div class="ml">wrong_dimension</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim tl">the design has eleven coordinates</div><div class="ml">flat_pair</div><div class="c ">REFUSED_PARSE +0.000</div><div class="ml dim tl">a pair is {u, v}, not one list</div><div class="ml">sat_witness_kills</div><div class="c win">SOLVED +1.000</div><div class="ml dim tl">the SAT counterexample, re-run through the netlist</div><div class="ml">identity_declared_equivalent</div><div class="c win">SOLVED +1.000</div><div class="ml dim tl">the unmutated design is equivalent to itself</div><div class="ml">outbox_kill_uses_validity</div><div class="c win">SOLVED +1.000</div><div class="ml dim tl">a mutant only the out-of-box family sees, killed by an invalid input, and the grader says so</div>
     </div></div>
-    <div class="note reveal" style="max-width:84ch;">
+    <div class="note reveal rd">
 <b>what each one pins</b> the grade shown is what the control actually graded; every one matched, and
 three of the eleven deliberately pin only the outcome and leave the reward to follow from it.
 <b>three of them must SCORE</b> and that is the half people leave out. A simulator that is not live scores
@@ -860,7 +909,7 @@ perfect coverage. Those are the same mistake, and it is the one this environment
       mutants is a bad corpus</strong> &mdash; it says a coverage number computed from valid inputs cannot see a
       defect that only invalid inputs reach, which is a statement about the measurement, not about the
       people who took it.</p>
-      <p class="mono" style="font-size:var(--text-eyebrow); color:var(--ink-4); line-height:2; margin-top:var(--s-5);">
+      <p class="mono ink-4 mt5 cmd">
       cd environments/blind_spot &amp;&amp; python3 -m pytest tests -q<br>
       python3 -m blind_spot gate<br>
       python3 -m blind_spot baseline --n 40<br>

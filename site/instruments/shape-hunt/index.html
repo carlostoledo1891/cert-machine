@@ -299,24 +299,6 @@ img{max-width:100%}
 .lede, .prose, .prose > p, .why { max-width: var(--read); }
 
 
-/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
-   135 elements across nineteen builders carried a margin-top style attribute
-   — the spacing token was right, but it was written on the ELEMENT, where no
-   stylesheet can see it and no restyle can reach it. These are the same steps
-   under a name. A class is not a better value than the token it sets; it is a
-   value a stylesheet can find.
-
-   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
-   in a rule for the component that repeats it (see the prose rhythm the four
-   bare-prose pages take). ---- */
-.mt2 { margin-top: var(--s-2); }
-.mt3 { margin-top: var(--s-3); }
-.mt4 { margin-top: var(--s-4); }
-.mt5 { margin-top: var(--s-5); }
-.mt6 { margin-top: var(--s-6); }
-.mt7 { margin-top: var(--s-7); }
-.mt8 { margin-top: var(--s-8); }
-
 /* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
    bench.css AND in five page sheets — six copies of three rules, and the
    reason /instruments/graph once shipped in Times was exactly this kind of
@@ -636,6 +618,70 @@ svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s-6); o
 .sec .why, .sec ul.why, .sec p.note { max-width: var(--read); }
 .sec table, .sec pre, .sec .grid3, .sec .two, .sec .three, .sec .words, .sec .cert { max-width: none; }
 
+.rule-5 { border-left-color: var(--ink-5); }   /* one quieter rule on one block (2026-09-15) */
+
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
 </style>
 </head>
 <body>
@@ -700,7 +746,7 @@ svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s-6); o
   </div>
   <p class="why mt6"><b>All three models, the same element, on the same set.</b> Ground floor with the top floor, one with eight, two with seven. Nobody asked whether the building was symmetric — the models were asked, one pair at a time, how far apart two floors are, and the answers came back invariant under turning the building upside down.</p>
   <div class="words">
-    <div class="w"><div class="wk"><b>reflect (2 fixed)</b><br>18 of 54 cases</div><div class="wv">reflect the ring about 2 o’clock and 8 o’clock — 5 swapped pairs, 2 held<br><span style="color:var(--ink-5)">strongest on clockhours · opus 5 at a defect of 0.0900, where the generated label is <em>reflection 2</em></span></div></div><div class="w"><div class="wk"><b>reflect (0 fixed)</b><br>11 of 54 cases</div><div class="wv">reflect the ring between items — 5 swapped pairs, nothing held fixed<br><span style="color:var(--ink-5)">strongest on mod10 · sonnet 5 at a defect of 0.1500, where the generated label is <em>reflection 7</em></span></div></div><div class="w"><div class="wk"><b>reverse</b><br>10 of 54 cases</div><div class="wv">reverse the order — 0↔9, 1↔8, and so on inwards<br><span style="color:var(--ink-5)">strongest on floors · sonnet 5 at a defect of 0.0350, where the generated label is <em>reflection 9</em></span></div></div><div class="w"><div class="wk"><b>reflect (1 fixed)</b><br>9 of 54 cases</div><div class="wv">reflect the ring about themu — 3 swapped pairs, 1 held<br><span style="color:var(--ink-5)">strongest on nonsense · haiku 4.5 at a defect of 0.1176, where the generated label is <em>reflection 5</em></span></div></div><div class="w"><div class="wk"><b>antipodal</b><br>4 of 54 cases</div><div class="wv">the antipodal map — every item swapped for the one opposite it (north↔south)<br><span style="color:var(--ink-5)">strongest on compass · opus 5 at a defect of 0.0500, where the generated label is <em>rotation by 4</em></span></div></div><div class="w"><div class="wk"><b>successor</b><br>1 of 54 cases</div><div class="wv">the successor map — every item sent to the next one (0→1→2…)<br><span style="color:var(--ink-5)">strongest on mod10 · opus 5 at a defect of 0.0250, where the generated label is <em>rotation by 1</em></span></div></div><div class="w"><div class="wk"><b>shift 4/12</b><br>1 of 54 cases</div><div class="wv">shift every item 4 places round the ring (4 cycles of length 3)<br><span style="color:var(--ink-5)">strongest on kinship · haiku 4.5 at a defect of 0.4828, where the generated label is <em>rotation by 4</em></span></div></div>
+    <div class="w"><div class="wk"><b>reflect (2 fixed)</b><br>18 of 54 cases</div><div class="wv">reflect the ring about 2 o’clock and 8 o’clock — 5 swapped pairs, 2 held<br><span class="ink-5">strongest on clockhours · opus 5 at a defect of 0.0900, where the generated label is <em>reflection 2</em></span></div></div><div class="w"><div class="wk"><b>reflect (0 fixed)</b><br>11 of 54 cases</div><div class="wv">reflect the ring between items — 5 swapped pairs, nothing held fixed<br><span class="ink-5">strongest on mod10 · sonnet 5 at a defect of 0.1500, where the generated label is <em>reflection 7</em></span></div></div><div class="w"><div class="wk"><b>reverse</b><br>10 of 54 cases</div><div class="wv">reverse the order — 0↔9, 1↔8, and so on inwards<br><span class="ink-5">strongest on floors · sonnet 5 at a defect of 0.0350, where the generated label is <em>reflection 9</em></span></div></div><div class="w"><div class="wk"><b>reflect (1 fixed)</b><br>9 of 54 cases</div><div class="wv">reflect the ring about themu — 3 swapped pairs, 1 held<br><span class="ink-5">strongest on nonsense · haiku 4.5 at a defect of 0.1176, where the generated label is <em>reflection 5</em></span></div></div><div class="w"><div class="wk"><b>antipodal</b><br>4 of 54 cases</div><div class="wv">the antipodal map — every item swapped for the one opposite it (north↔south)<br><span class="ink-5">strongest on compass · opus 5 at a defect of 0.0500, where the generated label is <em>rotation by 4</em></span></div></div><div class="w"><div class="wk"><b>successor</b><br>1 of 54 cases</div><div class="wv">the successor map — every item sent to the next one (0→1→2…)<br><span class="ink-5">strongest on mod10 · opus 5 at a defect of 0.0250, where the generated label is <em>rotation by 1</em></span></div></div><div class="w"><div class="wk"><b>shift 4/12</b><br>1 of 54 cases</div><div class="wv">shift every item 4 places round the ring (4 cycles of length 3)<br><span class="ink-5">strongest on kinship · haiku 4.5 at a defect of 0.4828, where the generated label is <em>rotation by 4</em></span></div></div>
   </div>
 </div></section>
 
@@ -755,7 +801,7 @@ svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s-6); o
 <g class="cgrid"><line x1="52" y1="332.0" x2="750" y2="332.0" class="cg"/><text x="44" y="335.5" class="cyl">1×</text><line x1="52" y1="253.5" x2="750" y2="253.5" class="cg"/><text x="44" y="257.0" class="cyl">10×</text><line x1="52" y1="175.0" x2="750" y2="175.0" class="cg"/><text x="44" y="178.5" class="cyl">100×</text><line x1="52" y1="96.5" x2="750" y2="96.5" class="cg"/><text x="44" y="100.0" class="cyl">1000×</text><line x1="52" y1="18.0" x2="750" y2="18.0" class="cg"/><text x="44" y="21.5" class="cyl">10000×</text></g><line x1="52" y1="332.0" x2="750" y2="332.0" class="cone"/><text x="60" y="325.0" class="conel">below: the test has lost it</text><path d="M52.0,18.0L83.7,214.4L115.5,227.6L147.2,236.9L178.9,250.2L210.6,251.3L258.2,264.0L305.8,273.8L369.3,277.1L448.6,289.3L527.9,293.4L623.1,294.0L750.0,295.0" class="cl s0"/><circle cx="52.0" cy="18.0" r="2.4" class="cd s0"/><circle cx="83.7" cy="214.4" r="2.4" class="cd s0"/><circle cx="115.5" cy="227.6" r="2.4" class="cd s0"/><circle cx="147.2" cy="236.9" r="2.4" class="cd s0"/><circle cx="178.9" cy="250.2" r="2.4" class="cd s0"/><circle cx="210.6" cy="251.3" r="2.4" class="cd s0"/><circle cx="258.2" cy="264.0" r="2.4" class="cd s0"/><circle cx="305.8" cy="273.8" r="2.4" class="cd s0"/><circle cx="369.3" cy="277.1" r="2.4" class="cd s0"/><circle cx="448.6" cy="289.3" r="2.4" class="cd s0"/><circle cx="527.9" cy="293.4" r="2.4" class="cd s0"/><circle cx="623.1" cy="294.0" r="2.4" class="cd s0"/><circle cx="750.0" cy="295.0" r="2.4" class="cd s0"/><text x="758.0" y="298.5" class="cll s0">symmetry</text><path d="M52.0,200.7L83.7,257.5L115.5,278.1L147.2,290.9L178.9,299.2L210.6,304.1L258.2,312.8L305.8,319.6L369.3,323.9L448.6,328.4L527.9,332.2L623.1,333.7L750.0,334.1" class="cl s1"/><circle cx="52.0" cy="200.7" r="2.4" class="cd s1"/><circle cx="83.7" cy="257.5" r="2.4" class="cd s1"/><circle cx="115.5" cy="278.1" r="2.4" class="cd s1"/><circle cx="147.2" cy="290.9" r="2.4" class="cd s1"/><circle cx="178.9" cy="299.2" r="2.4" class="cd s1"/><circle cx="210.6" cy="304.1" r="2.4" class="cd s1"/><circle cx="258.2" cy="312.8" r="2.4" class="cd s1"/><circle cx="305.8" cy="319.6" r="2.4" class="cd s1"/><circle cx="369.3" cy="323.9" r="2.4" class="cd s1"/><circle cx="448.6" cy="328.4" r="2.4" class="cd s1"/><circle cx="527.9" cy="332.2" r="2.4" class="cd s1"/><circle cx="623.1" cy="333.7" r="2.4" class="cd s1"/><circle cx="750.0" cy="334.1" r="2.4" class="cd s1"/><text x="758.0" y="337.6" class="cll s1">nearest shape</text><path d="M52.0,360.0L83.7,360.0L115.5,357.7L147.2,356.9L178.9,352.5L210.6,354.5L258.2,349.0L305.8,348.7L369.3,345.5L448.6,340.0L527.9,344.9L623.1,343.9L750.0,345.1" class="cl s2"/><circle cx="52.0" cy="360.0" r="2.4" class="cd s2"/><circle cx="83.7" cy="360.0" r="2.4" class="cd s2"/><circle cx="115.5" cy="357.7" r="2.4" class="cd s2"/><circle cx="147.2" cy="356.9" r="2.4" class="cd s2"/><circle cx="178.9" cy="352.5" r="2.4" class="cd s2"/><circle cx="210.6" cy="354.5" r="2.4" class="cd s2"/><circle cx="258.2" cy="349.0" r="2.4" class="cd s2"/><circle cx="305.8" cy="348.7" r="2.4" class="cd s2"/><circle cx="369.3" cy="345.5" r="2.4" class="cd s2"/><circle cx="448.6" cy="340.0" r="2.4" class="cd s2"/><circle cx="527.9" cy="344.9" r="2.4" class="cd s2"/><circle cx="623.1" cy="343.9" r="2.4" class="cd s2"/><circle cx="750.0" cy="345.1" r="2.4" class="cd s2"/><line x1="750.0" y1="345.1" x2="755.0" y2="349.1" class="cl s2" stroke-width="1" opacity="0.5"/><text x="758.0" y="352.6" class="cll s2">pentagon</text>
 <line x1="52" y1="376" x2="750" y2="376" class="cax"/>
 <text x="52.0" y="394" class="cxl">0%</text><text x="115.5" y="394" class="cxl">4%</text><text x="178.9" y="394" class="cxl">8%</text><text x="258.2" y="394" class="cxl">13%</text><text x="369.3" y="394" class="cxl">20%</text><text x="527.9" y="394" class="cxl">30%</text><text x="750.0" y="394" class="cxl">44%</text><text x="401" y="414" class="cxt">noise poured into the shape, as a fraction of its radius</text></svg>
-  <p class="note" style="max-width:70ch;margin-top:var(--s-3);font-size:var(--text-small);color:var(--ink-5)">Median over 12 trials at each level, log scale, clipped at 10,000×. The symmetry line begins <em>above</em> the top of the chart: an unperturbed 12-gon has a defect of exactly zero, so its margin over any null is unbounded, and the first plotted point is where the clip is rather than where the value is.</p>
+  <p class="note rd mt3 ink-5 small">Median over 12 trials at each level, log scale, clipped at 10,000×. The symmetry line begins <em>above</em> the top of the chart: an unperturbed 12-gon has a defect of exactly zero, so its margin over any null is unbounded, and the first plotted point is where the clip is rather than where the value is.</p>
   <div class="grid3 mt6">
     <div><h3><span class="big">> 44%</span>the symmetry test</h3><p>It survives the most damage of anything here — the whole configuration has to be wrecked before a rotation stops beating a matched null. That is what testing one global structure instead of searching hundreds of subsets buys.</p></div>
     <div><h3><span class="big">30%</span>the shape catalogue</h3><p>Sharper than the symmetry test and it fails sooner, which is the trade every instrument on this page makes. The distance spectrum notices a ring being destroyed well before the group does.</p></div>
@@ -784,7 +830,7 @@ svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s-6); o
   <h2>Is anything here the golden ratio? No, and that is a theorem.</h2>
   <p class="why">The question people actually ask of a picture like this is whether the parts are perfectly sized — whether some ratio in it is &phi;, or &radic;2, or &pi;. It is the purest form of the failure mode this page is about, so it belongs here, run properly so that it fails properly.</p>
   <p class="why mt4"><b>One half of the answer needs no search at all.</b> Every distance here is a whole number, or a half, on a 0&ndash;100 grid &mdash; so every ratio of two of them is <em>rational</em>. &phi; is irrational. Therefore no ratio in this data is &phi; — not approximately, not as a matter of measurement, but never: not in any set, from any model, and not in any data of this kind that will ever be collected on a grid of rationals. The only thing a hunt can return is a near-miss, and the size of a near-miss is a fact about how thickly small-denominator rationals lie near the target. It is not a fact about the data.</p>
-  <div class="cert" style="border-left-color:var(--ink-5)">
+  <div class="cert rule-5">
     <div class="ct">the same discovery, twice</div>
     <div class="cw">hues &middot; opus 5 &nbsp;&nbsp; 89&#8202;/&#8202;55 = 1.618182 &nbsp;&nbsp; &phi; to <b>0.0091%</b><br>pure noise &nbsp;&nbsp; 89&#8202;/&#8202;55 = 1.618182 &nbsp;&nbsp; &phi; to <b>0.0091%</b></div>
     <p class="cq">The best golden-ratio hit anywhere in the elicited data is 89/55 — consecutive Fibonacci numbers, which is exactly why it is close. <b>The matrix of random numbers contains the identical ratio to the identical accuracy.</b> Both matrices happen to contain the values 89 and 55, and on a 0&ndash;100 grid most matrices do.</p>

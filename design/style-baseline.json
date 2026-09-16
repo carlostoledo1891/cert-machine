@@ -1,6 +1,6 @@
 {
   "note": "Recorded per built page: style attributes, unresolved var() names, literal fallbacks, extra <style> blocks, and literal values where a token exists — tools/check-style.js refuses any number that grows. Lower these by fixing the page, never by editing this file. The target for every column but the last is ZERO; the last shrinks as the stylesheets move onto the scale.",
-  "recorded": "2026-09-15",
+  "recorded": "2026-09-16",
   "metrics": [
     "attrs",
     "decls",
@@ -10,12 +10,12 @@
     "literals"
   ],
   "totals": {
-    "attrs": 473,
-    "decls": 233,
+    "attrs": 249,
+    "decls": 0,
     "unresolved": 2,
     "fallbacks": 0,
     "blocks": 0,
-    "literals": 15297
+    "literals": 15712
   },
   "pages": {
     "site/about/index.html": {
@@ -24,55 +24,55 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/apps/skyaudit/index.html": {
-      "attrs": 27,
-      "decls": 27,
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 182
+      "literals": 190
     },
     "site/apps/skyaudit/sp/index.html": {
-      "attrs": 23,
-      "decls": 23,
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 182
+      "literals": 190
     },
     "site/index.html": {
-      "attrs": 1,
-      "decls": 1,
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 229
+      "literals": 234
     },
     "site/instruments/affect/index.html": {
-      "attrs": 90,
-      "decls": 20,
+      "attrs": 74,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 86
+      "literals": 89
     },
     "site/instruments/answer-shape/index.html": {
-      "attrs": 73,
-      "decls": 22,
+      "attrs": 51,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 80
+      "literals": 83
     },
     "site/instruments/blind-spot/index.html": {
-      "attrs": 111,
-      "decls": 24,
+      "attrs": 90,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 86
+      "literals": 89
     },
     "site/instruments/census/index.html": {
       "attrs": 0,
@@ -80,31 +80,31 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 56
+      "literals": 59
     },
     "site/instruments/contours/index.html": {
-      "attrs": 1,
-      "decls": 1,
+      "attrs": 0,
+      "decls": 0,
+      "unresolved": 0,
+      "fallbacks": 0,
+      "blocks": 0,
+      "literals": 69
+    },
+    "site/instruments/curveset/index.html": {
+      "attrs": 0,
+      "decls": 0,
+      "unresolved": 0,
+      "fallbacks": 0,
+      "blocks": 0,
+      "literals": 62
+    },
+    "site/instruments/exact-geometry/index.html": {
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
       "literals": 66
-    },
-    "site/instruments/curveset/index.html": {
-      "attrs": 4,
-      "decls": 4,
-      "unresolved": 0,
-      "fallbacks": 0,
-      "blocks": 0,
-      "literals": 58
-    },
-    "site/instruments/exact-geometry/index.html": {
-      "attrs": 24,
-      "decls": 24,
-      "unresolved": 0,
-      "fallbacks": 0,
-      "blocks": 0,
-      "literals": 63
     },
     "site/instruments/graph/index.html": {
       "attrs": 0,
@@ -112,15 +112,15 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 44
+      "literals": 47
     },
     "site/instruments/index.html": {
-      "attrs": 2,
-      "decls": 2,
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 77
+      "literals": 80
     },
     "site/instruments/interferometer/index.html": {
       "attrs": 0,
@@ -128,71 +128,71 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 78
+      "literals": 81
     },
     "site/instruments/lattice-claims/index.html": {
-      "attrs": 50,
-      "decls": 18,
+      "attrs": 34,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 82
+      "literals": 85
     },
     "site/instruments/navier-stokes/index.html": {
-      "attrs": 1,
-      "decls": 1,
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 119
+      "literals": 122
     },
     "site/instruments/neural-geometry/index.html": {
-      "attrs": 7,
-      "decls": 7,
-      "unresolved": 0,
-      "fallbacks": 0,
-      "blocks": 0,
-      "literals": 77
-    },
-    "site/instruments/occultation/index.html": {
-      "attrs": 9,
-      "decls": 9,
-      "unresolved": 1,
-      "fallbacks": 0,
-      "blocks": 0,
-      "literals": 74
-    },
-    "site/instruments/plates/index.html": {
-      "attrs": 18,
-      "decls": 18,
-      "unresolved": 0,
-      "fallbacks": 0,
-      "blocks": 0,
-      "literals": 58
-    },
-    "site/instruments/pqc/index.html": {
-      "attrs": 2,
-      "decls": 2,
-      "unresolved": 0,
-      "fallbacks": 0,
-      "blocks": 0,
-      "literals": 79
-    },
-    "site/instruments/rewire/index.html": {
-      "attrs": 2,
-      "decls": 2,
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
       "literals": 80
     },
-    "site/instruments/shape-hunt/index.html": {
-      "attrs": 9,
-      "decls": 9,
+    "site/instruments/occultation/index.html": {
+      "attrs": 0,
+      "decls": 0,
+      "unresolved": 1,
+      "fallbacks": 0,
+      "blocks": 0,
+      "literals": 77
+    },
+    "site/instruments/plates/index.html": {
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 65
+      "literals": 61
+    },
+    "site/instruments/pqc/index.html": {
+      "attrs": 0,
+      "decls": 0,
+      "unresolved": 0,
+      "fallbacks": 0,
+      "blocks": 0,
+      "literals": 82
+    },
+    "site/instruments/rewire/index.html": {
+      "attrs": 0,
+      "decls": 0,
+      "unresolved": 0,
+      "fallbacks": 0,
+      "blocks": 0,
+      "literals": 83
+    },
+    "site/instruments/shape-hunt/index.html": {
+      "attrs": 0,
+      "decls": 0,
+      "unresolved": 0,
+      "fallbacks": 0,
+      "blocks": 0,
+      "literals": 68
     },
     "site/instruments/simplex/index.html": {
       "attrs": 0,
@@ -200,23 +200,23 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 64
+      "literals": 67
     },
     "site/instruments/stereo-reach/index.html": {
-      "attrs": 1,
-      "decls": 1,
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 70
+      "literals": 73
     },
     "site/instruments/transit/index.html": {
-      "attrs": 10,
-      "decls": 10,
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 1,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 74
+      "literals": 77
     },
     "site/machine/index.html": {
       "attrs": 0,
@@ -224,7 +224,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/oracle/index.html": {
       "attrs": 0,
@@ -232,7 +232,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/aag.html": {
       "attrs": 0,
@@ -240,7 +240,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/afg.html": {
       "attrs": 0,
@@ -248,7 +248,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/agtable.html": {
       "attrs": 0,
@@ -256,7 +256,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/ai-claims-audit.html": {
       "attrs": 0,
@@ -264,7 +264,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/alien-science.html": {
       "attrs": 0,
@@ -272,7 +272,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/alphaevolve.html": {
       "attrs": 0,
@@ -280,7 +280,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/answer-key.html": {
       "attrs": 0,
@@ -288,7 +288,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/breaking-geometry.html": {
       "attrs": 0,
@@ -296,7 +296,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/claim-korenblum.html": {
       "attrs": 0,
@@ -304,7 +304,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/claim-lemniscate.html": {
       "attrs": 0,
@@ -312,7 +312,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/claim-mathieu.html": {
       "attrs": 0,
@@ -320,7 +320,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/claim-maxwell.html": {
       "attrs": 0,
@@ -328,7 +328,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/claim-poisson.html": {
       "attrs": 0,
@@ -336,7 +336,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/claim-ranteng.html": {
       "attrs": 0,
@@ -344,7 +344,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/claims.html": {
       "attrs": 0,
@@ -352,7 +352,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/easota.html": {
       "attrs": 0,
@@ -360,7 +360,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/ec-benchmark.html": {
       "attrs": 0,
@@ -368,7 +368,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/ember.html": {
       "attrs": 0,
@@ -376,7 +376,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/entropy.html": {
       "attrs": 0,
@@ -384,7 +384,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/envs.html": {
       "attrs": 0,
@@ -392,7 +392,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/erdos1038-inf.html": {
       "attrs": 0,
@@ -400,7 +400,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/erdos1038-sup.html": {
       "attrs": 0,
@@ -408,7 +408,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/erdos290.html": {
       "attrs": 0,
@@ -416,7 +416,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/erdos852-h.html": {
       "attrs": 0,
@@ -424,7 +424,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/erdos852.html": {
       "attrs": 0,
@@ -432,7 +432,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/evtol-energy.html": {
       "attrs": 0,
@@ -440,7 +440,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/forecast-gym.html": {
       "attrs": 0,
@@ -448,7 +448,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/frontier.html": {
       "attrs": 0,
@@ -456,7 +456,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/glide-band.html": {
       "attrs": 0,
@@ -464,7 +464,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 233
+      "literals": 238
     },
     "site/reports/gym.html": {
       "attrs": 0,
@@ -472,7 +472,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/harbor-proof.html": {
       "attrs": 0,
@@ -480,7 +480,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/hbar.html": {
       "attrs": 0,
@@ -488,7 +488,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/impostors.html": {
       "attrs": 0,
@@ -496,7 +496,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/index.html": {
       "attrs": 0,
@@ -504,7 +504,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/keller.html": {
       "attrs": 0,
@@ -512,7 +512,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/kissing.html": {
       "attrs": 0,
@@ -520,7 +520,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/lambda4.html": {
       "attrs": 0,
@@ -528,7 +528,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/lambda5.html": {
       "attrs": 0,
@@ -536,7 +536,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/matmul-additions.html": {
       "attrs": 0,
@@ -544,7 +544,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/matmul-eval.html": {
       "attrs": 0,
@@ -552,7 +552,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/maxval.html": {
       "attrs": 0,
@@ -560,7 +560,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/mercer-program.html": {
       "attrs": 0,
@@ -568,7 +568,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/methods-note.html": {
       "attrs": 0,
@@ -576,7 +576,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/mfg-cap.html": {
       "attrs": 0,
@@ -584,7 +584,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/mfg-congest.html": {
       "attrs": 0,
@@ -592,7 +592,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/mfg-lab.html": {
       "attrs": 0,
@@ -600,15 +600,15 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/mfg-observatory.html": {
-      "attrs": 8,
-      "decls": 8,
+      "attrs": 0,
+      "decls": 0,
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/mfg-two-population.html": {
       "attrs": 0,
@@ -616,7 +616,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/monoflow.html": {
       "attrs": 0,
@@ -624,7 +624,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/navier-stokes.html": {
       "attrs": 0,
@@ -632,7 +632,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/polynomial-multiplication.html": {
       "attrs": 0,
@@ -640,7 +640,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/price.html": {
       "attrs": 0,
@@ -648,7 +648,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/refusals.html": {
       "attrs": 0,
@@ -656,7 +656,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/regatlas.html": {
       "attrs": 0,
@@ -664,7 +664,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/rm-audit.html": {
       "attrs": 0,
@@ -672,7 +672,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/skyaudit.html": {
       "attrs": 0,
@@ -680,7 +680,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/tensor-rank-bounds.html": {
       "attrs": 0,
@@ -688,7 +688,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/terra.html": {
       "attrs": 0,
@@ -696,7 +696,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/verifier-loop.html": {
       "attrs": 0,
@@ -704,7 +704,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/verify-lemniscate.html": {
       "attrs": 0,
@@ -712,7 +712,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/wardrop-repro.html": {
       "attrs": 0,
@@ -720,7 +720,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/water-value.html": {
       "attrs": 0,
@@ -728,7 +728,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     },
     "site/reports/zeta3-audit.html": {
       "attrs": 0,
@@ -736,7 +736,7 @@
       "unresolved": 0,
       "fallbacks": 0,
       "blocks": 0,
-      "literals": 199
+      "literals": 204
     }
   }
 }

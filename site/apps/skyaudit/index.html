@@ -157,6 +157,39 @@ a{color:inherit}
 /* the mono cell, and the mono cell at book weight. Forty elements in the app's
    templates carried these two declarations inline; they are the app's type
    contract and belong where a restyle can reach them (2026-09-15). */
+/* ---- THE APP'S SPACING AND FLOW, NAMED (2026-09-15) ----------------------
+   Fifty elements in the two app pages carried their spacing inline — the
+   product's own rhythm written where no restyle could reach it. Where the
+   value is on design/tokens.js's SPACE scale it takes the token; where it is
+   the app's own mark (2, 6, 10, 14px) it keeps the number, but in ONE place.
+   The app is still a second BODY layout (DEBT.md row 4); it is no longer a
+   second stylesheet. ---- */
+.as-mt1{margin-top:var(--s-1)}
+.as-mt2{margin-top:var(--s-2)}
+.as-mt3{margin-top:var(--s-3)}
+.as-mt4{margin-top:var(--s-4)}
+.as-mt6{margin-top:6px}
+.as-mt10{margin-top:10px}
+.as-mt14{margin-top:14px}
+.as-mb1{margin-bottom:var(--s-1)}
+.as-mb2{margin-bottom:var(--s-2)}
+.as-mb10{margin-bottom:10px}
+.as-ml2{margin-left:var(--s-2)}
+.as-my{margin:6px 0 4px}
+.as-full{width:100%}
+.as-grow{flex:1}
+.as-row{display:flex;align-items:center;gap:var(--s-2)}
+.as-row-wide{display:flex;align-items:center;gap:var(--s-4);margin-bottom:var(--s-2)}
+.as-track{width:100%;height:54px;display:block;background:var(--sunk);
+  border:1px solid var(--rule-soft);border-radius:var(--radius-m);margin:10px 0 2px}
+.as-spark{width:100%;height:38px;display:block;margin-bottom:2px}
+.as-tracked{letter-spacing:.12em}
+.as-cert{color:var(--v-cert)}
+.as-refd{color:var(--v-refd)}
+.as-refu{color:var(--v-refu)}
+.as-ink3{color:var(--ink-3)}
+.as-ink3-400{color:var(--ink-3);font-weight:var(--weight-body)}
+.as-dash{border-style:dashed;border-color:var(--ink-3)}
 .as-mono{font-family:var(--f-mono)}
 .as-mono-400{font-family:var(--f-mono);font-weight:var(--weight-body)}
 .as-top a.navx{color:var(--ink-2);text-decoration:none;font-family:var(--f-mono);font-size:10.5px;
@@ -455,7 +488,7 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
     </section>
     <section class="as-card">
       <div class="as-h">The day</div>
-      <svg viewBox="0 0 100 15" preserveAspectRatio="none" style="width:100%;height:38px;display:block;margin-bottom:2px">
+      <svg viewBox="0 0 100 15" preserveAspectRatio="none" class="as-spark">
         <rect x="0.0" y="13.4" width="3.3" height="0.6"
             fill="var(--rule)"/><rect x="4.2" y="13.4" width="3.3" height="0.6"
             fill="var(--rule)"/><rect x="8.3" y="13.4" width="3.3" height="0.6"
@@ -482,16 +515,16 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
             fill="var(--rule)"/><rect x="95.9" y="13.4" width="3.3" height="0.6"
             fill="var(--rule)"/>
       </svg>
-      <div class="as-fine" style="margin-bottom:10px">flights in the air by hour · peak at 17:00 local</div>
+      <div class="as-fine as-mb10">flights in the air by hour · peak at 17:00 local</div>
       <div class="as-frow"><span><span class="name">Hardest-working aircraft</span>
         <span class="sub">🥇 N408GG — HFS HELI III LLC (B407) 18 legs · 6.5 h · 🥈 N62ZA — 62ZA LLC (B407) 13 legs · 5.1 h · 🥉 N777ZA — 777ZA LLC (B407) 13 legs · 4.5 h</span>
-        <span class="sub" style="color:var(--ink-3)">names: FAA registry (registered to — not necessarily who operates) / ANAC RAB (operador); both pinned</span></span></div>
+        <span class="sub as-ink3">names: FAA registry (registered to — not necessarily who operates) / ANAC RAB (operador); both pinned</span></span></div>
       <div class="as-frow"><span><span class="name">Records</span>
         <span class="sub">longest 720 km (N406TD, HFS HELI V LLC) ·
         342 min airborne (N866M, tour loop) ·
         highest 6850 ft (H60) ·
         fastest 160 kt median (S76)</span></span></div>
-      <div class="as-frow"><span><span class="name">What was flying <span style="color:var(--ink-3);font-weight:400">(inferred)</span></span>
+      <div class="as-frow"><span><span class="name">What was flying <span class="as-ink3-400">(inferred)</span></span>
         <span class="sub">charter/other 177 · tour loop 130 · shuttle hop 43 · patrol/military 32</span></span></div>
       <div class="as-frow"><span><span class="name">Measured outliers</span>
         <span class="sub">widest orbit: 18-20990 (H60) flew
@@ -499,9 +532,9 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
         under 10 kt for 46% of a 96-min flight</span></span></div>
     </section>
     
-    <section class="as-card" style="border-style:dashed;border-color:var(--ink-3)">
-      <div class="as-h" style="letter-spacing:.12em">SKYFORECAST — FORECASTS, NOT VERDICTS</div>
-      <div class="as-fine" style="margin-bottom:8px">Everything else on this page is DECIDED from a day
+    <section class="as-card as-dash">
+      <div class="as-h as-tracked">SKYFORECAST — FORECASTS, NOT VERDICTS</div>
+      <div class="as-fine as-mb2">Everything else on this page is DECIDED from a day
       that happened. This card is different in kind and drawn differently on purpose: interval
       FORECASTS for days that have not happened, committed to an append-only ledger (sha-pinned,
       timestamped BEFORE the day) and scored in exact arithmetic when the day's data is released.
@@ -549,7 +582,7 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
         <span class="val as-mono-400" >[191, 397]</span></div><div class="as-frow"><span><span class="name as-mono">2026-09-09 · eflyable</span>
         <span class="sub">committed 2026-08-30T05:49Z · sha 7370a22d78 · proved coverage 4/6 (grows with the corpus)</span></span>
         <span class="val as-mono-400" >[49, 127]</span></div>
-      <div class="as-fine" style="margin-top:8px">lifetime record, recomputed from the ledger at this build:
+      <div class="as-fine as-mt2">lifetime record, recomputed from the ledger at this build:
       22 committed · 2 scored · 0 covered (0% exact coverage).
       Ledger: <a href="/certs/skyaudit-forecast-ledger.jsonl">skyaudit-forecast-ledger.jsonl</a> ·
       instrument: instruments/forecast (conformal coverage proved by exact rank-lemma enumeration;
@@ -560,11 +593,11 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
       <div class="as-note">This day's helicopters burned <b>56,579–78,610 L
       of Jet-A</b> — $73,552–$165,081,
       141.4–200.5 tonnes of CO₂.</div>
-      <div class="as-note" style="margin-top:8px">The 100 provably-electric flights:
+      <div class="as-note as-mt2">The 100 provably-electric flights:
       <b>$290–$2056 of electricity</b> vs
       <b>$3,966–$9,902
       of fuel for the same flights</b> — the cost intervals don't overlap: the electric worst case beats the fuel best case. 7.6–12 t CO₂ avoided.</div>
-      <div class="as-fine" style="margin-top:8px">Fuel from per-type class burn boxes (stated estimates);
+      <div class="as-fine as-mt2">Fuel from per-type class burn boxes (stated estimates);
       electricity from the certified energy enclosures — decided, not projected.</div>
     </section>
     </div>
@@ -575,7 +608,7 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
     </section>
     <section class="as-card">
       <div class="as-h">Fleet designer — every position is a proof</div>
-      <div id="dz-gauge-wrap" style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
+      <div id="dz-gauge-wrap" class="as-row-wide">
         <div>
           <svg class="as-gauge" id="dz-gauge" width="110" height="66" viewBox="0 0 110 66">
             <path class="bg" d="M 10 60 A 45 45 0 0 1 100 60"/>
@@ -584,20 +617,20 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
           </svg>
           <div class="as-gaugelbl">day provable</div>
         </div>
-        <div style="flex:1">
+        <div class="as-grow">
           <div class="as-batt"><div class="shell"><div class="fill" id="dz-bfill"></div></div>
             <span class="as-encvals" id="dz-b-out"></span></div>
-          <input type="range" class="as-scrub" id="dz-b" min="60" max="700" step="20" value="320" style="width:100%">
+          <input type="range" class="as-scrub as-full" id="dz-b" min="60" max="700" step="20" value="320">
         </div>
       </div>
       <div class="as-h">If the reserve rule were…</div>
-      <input type="range" class="as-scrub" id="dz-r" min="0" max="45" step="3" value="20" style="width:100%">
+      <input type="range" class="as-scrub as-full" id="dz-r" min="0" max="45" step="3" value="20">
       <div class="as-encvals" id="dz-r-out"></div>
-      <div class="as-h" style="margin-top:12px">If charging took… <span id="dz-c-lbl"></span></div>
-      <input type="range" class="as-scrub" id="dz-c" min="0" max="60" step="1" value="45" style="width:100%">
+      <div class="as-h as-mt3">If charging took… <span id="dz-c-lbl"></span></div>
+      <input type="range" class="as-scrub as-full" id="dz-c" min="0" max="60" step="1" value="45">
       <div class="as-fleet" id="dz-fleet"></div>
       <div class="as-encvals" id="dz-c-out"></div>
-      <div class="as-fine" style="margin-top:8px">Battery and reserve apply to the aircraft selected
+      <div class="as-fine as-mt2">Battery and reserve apply to the aircraft selected
       above; charging applies to the Beta ALIA fleet re-flying its provable day. Each slider position
       looks up a precomputed, gate-checked certified point.</div>
     </section>
@@ -615,32 +648,32 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
     </section>
     <section class="as-card">
       <div class="as-h">Range claims, audited</div>
-      <div class="as-fine" style="margin-bottom:8px">A range claim is EXISTENTIAL — CONSISTENT means
+      <div class="as-fine as-mb2">A range claim is EXISTENTIAL — CONSISTENT means
       some point of the maker's own public+assumed boxes achieves it. A worst-case guarantee is
       UNIVERSAL and gets the worst corner.</div>
       <div class="as-frow"><span><span class="name">Joby S4</span>
           <span class="sub">100 mi range including energy reserves (evtol.news attributing Joby)</span></span>
-          <span class="val" style="color:var(--v-cert)">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Archer Midnight</span>
+          <span class="val as-cert">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Archer Midnight</span>
           <span class="sub">up to 100 mi (Archer PR)</span></span>
-          <span class="val" style="color:var(--v-cert)">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Archer Midnight</span>
+          <span class="val as-cert">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Archer Midnight</span>
           <span class="sub">guaranteed minimum 60 mi in the worst case condition (evtol.news attributing Archer)</span></span>
-          <span class="val" style="color:var(--v-refd)">UNDECIDABLE</span></div><div class="as-frow"><span><span class="name">Eve EVE-100</span>
+          <span class="val as-refd">UNDECIDABLE</span></div><div class="as-frow"><span><span class="name">Eve EVE-100</span>
           <span class="sub">designed for 100 km range (Eve institutional presentation, May 2026)</span></span>
-          <span class="val" style="color:var(--v-cert)">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Beta ALIA</span>
+          <span class="val as-cert">CONSISTENT</span></div><div class="as-frow"><span><span class="name">Beta ALIA</span>
           <span class="sub">no published VTOL-variant range claim to audit (336 nm demonstrated is the CTOL variant)</span></span>
-          <span class="val" style="color:var(--v-refd)">NO CLAIM</span></div>
+          <span class="val as-refd">NO CLAIM</span></div>
     </section>
     </div>
     <div class="as-tabbody" data-body="plan">
     <section class="as-card">
       <div class="as-h">Flight planner — a plan that comes with a proof</div>
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
-        <select class="as-sel" id="pl-from" style="flex:1"><option value="JRB">Downtown Skyport (Wall St)</option><option value="JRA">West 30th St</option><option value="E34">East 34th St</option><option value="JFK">JFK Airport</option><option value="LGA">LaGuardia Airport</option><option value="EWR">Newark Airport</option><option value="TEB">Teterboro Airport</option></select>
+      <div class="as-row as-mb10">
+        <select class="as-sel as-grow" id="pl-from"><option value="JRB">Downtown Skyport (Wall St)</option><option value="JRA">West 30th St</option><option value="E34">East 34th St</option><option value="JFK">JFK Airport</option><option value="LGA">LaGuardia Airport</option><option value="EWR">Newark Airport</option><option value="TEB">Teterboro Airport</option></select>
         <button class="as-btn" id="pl-swap" title="swap">⇄</button>
-        <select class="as-sel" id="pl-to" style="flex:1"><option value="JRB" >Downtown Skyport (Wall St)</option><option value="JRA" >West 30th St</option><option value="E34" >East 34th St</option><option value="JFK" selected>JFK Airport</option><option value="LGA" >LaGuardia Airport</option><option value="EWR" >Newark Airport</option><option value="TEB" >Teterboro Airport</option></select>
+        <select class="as-sel as-grow" id="pl-to"><option value="JRB" >Downtown Skyport (Wall St)</option><option value="JRA" >West 30th St</option><option value="E34" >East 34th St</option><option value="JFK" selected>JFK Airport</option><option value="LGA" >LaGuardia Airport</option><option value="EWR" >Newark Airport</option><option value="TEB" >Teterboro Airport</option></select>
       </div>
       <div id="pl-out"></div>
-      <div class="as-fine" style="margin-top:10px">the graph is a hand-simplified rendering of the published corridor structure; distances are corridor path lengths over this graph; the energy verdicts on planned routes are the same certified interval decisions as everywhere else in the app - GO/NO-GO here means the ENERGY question only, decided as a mathematically certified enclosure; it is not an operational clearance.</div>
+      <div class="as-fine as-mt10">the graph is a hand-simplified rendering of the published corridor structure; distances are corridor path lengths over this graph; the energy verdicts on planned routes are the same certified interval decisions as everywhere else in the app - GO/NO-GO here means the ENERGY question only, decided as a mathematically certified enclosure; it is not an operational clearance.</div>
     </section>
     <section class="as-card" id="mission-card" hidden>
       <div class="as-h">Live mission</div>

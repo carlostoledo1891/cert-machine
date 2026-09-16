@@ -196,11 +196,10 @@ figcaption{color:var(--ink-4);font-size:${SCALE.small};line-height:1.55;margin-t
 .cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
   background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
   border-radius:var(--radius-s);padding:var(--s-3)}
-.cmw-row{margin:var(--s-2) 0}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
 .cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
   border:1px solid var(--rule);border-radius:var(--radius-s)}
 .cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
-.cmw-btn + .cmw-btn{margin-left:var(--s-2)}
 .cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
   border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
   min-height:1.5em;overflow-x:auto}
@@ -222,6 +221,9 @@ pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(-
   font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
 
 .after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:${LAYOUT.read}}
+.ti{max-width:${LAYOUT.title}}
 
 .note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 24px;margin:24px 0;font-size:${SCALE.body};line-height:1.6;color:var(--ink-3)}
@@ -464,7 +466,13 @@ function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', sc
      overflow:hidden body would be a footer nobody can reach. One page uses
      this (/instruments/navier-stokes). Everything else gets the one footer. */
   const inner = String(footRaw || '').replace(/^\s*<footer[^>]*>/i, '').replace(/<\/footer>\s*$/i, '');
-  const style = T.rootCss() + '\n\n' + (sheet === 'report' ? css() : FOOT.footerCss()) + (cssRaw ? '\n' + cssRaw : '');
+  /* THE UTILITY LAYER IS LAST, on both sheets: a class that says "this element
+     takes this step" has to beat the component rule that would otherwise set
+     it, and order is half of how it does (playground/design/components.js
+     says the other half). 2026-09-15. */
+  const UTIL = require('../playground/design/components.js').utilCss();
+  const style = T.rootCss() + '\n\n' + (sheet === 'report' ? css() : FOOT.footerCss())
+    + (cssRaw ? '\n' + cssRaw : '') + '\n' + UTIL;
   const body = sheet === 'report' ? '<div class="page">\n\n' + bodyRaw + '\n\n</div>' : bodyRaw;
   return `<!doctype html>
 <html lang="en">

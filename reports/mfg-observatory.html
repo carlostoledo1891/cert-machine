@@ -388,11 +388,10 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 .cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
   background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
   border-radius:var(--radius-s);padding:var(--s-3)}
-.cmw-row{margin:var(--s-2) 0}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
 .cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
   border:1px solid var(--rule);border-radius:var(--radius-s)}
 .cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
-.cmw-btn + .cmw-btn{margin-left:var(--s-2)}
 .cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
   border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
   min-height:1.5em;overflow-x:auto}
@@ -414,6 +413,9 @@ pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(-
   font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
 
 .after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
 
 .note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
   padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
@@ -606,6 +608,68 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
 </style>
 </head>
 <body>
@@ -642,7 +706,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§1 · the tool</div>
     <h2>Decide a cell, here, now</h2>
   </div>
-<div class="col"><p>Give it a rectangle of parameters. It solves for both branches, wraps each in a contraction argument over the whole rectangle, and answers. Nothing is uploaded — the certifier below is the repository’s own code, assembled from the same files the map was made with, running in this tab.</p><ul class="plain"><li><b>MULTIPLE.</b> Two exact solutions for every parameter in the cell, in two provably disjoint balls. You get both radii, the separation, and a lower bound on both densities.</li><li><b>UNIQUE.</b> The cell sits in c ≥ 0, where Lasry–Lions gives global uniqueness — <em>cited, not proved here</em>. What is proved here is the enclosure of that solution, uniform over the cell.</li><li><b>UNDECIDED.</b> With the reason, verbatim. Near the bifurcation the argument <em>cannot</em> close, and a certifier that certified there would be broken.</li></ul></div><div class="col"><div class="col"><textarea id="mfg-in" spellcheck="false" rows="6" style="width:100%;font-family:var(--f-mono);font-size:13px;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s);padding:10px" placeholder='{"sigma":0.5,"c":[-16.03,-15.97],"A":[0.288,0.313],"N":16,"nu":1.02}'>{"sigma":0.5,"c":[-16.03125,-15.96875],"A":[0.2875,0.3125],"N":16,"nu":1.02}</textarea><div style="margin:8px 0"><button id="mfg-go" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sig);color:var(--paper);border:none;border-radius:var(--radius-s);margin:0 6px 6px 0">decide this cell</button><button id="mfg-ex1" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s);margin:0 6px 6px 0">a multiplicity cell</button><button id="mfg-ex2" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s);margin:0 6px 6px 0">a monotone cell</button><button id="mfg-ex3" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s);margin:0 6px 6px 0">the bifurcation</button><button id="mfg-ex4" style="font:inherit;padding:6px 14px;cursor:pointer;background:var(--sunk);color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-s);margin:0 6px 6px 0">refute a candidate</button></div><pre id="mfg-out" style="white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-s);padding:10px;font-size:13px;min-height:1.5em;overflow-x:auto"></pre><p class="scope">Runs in this tab. Nothing is uploaded, nothing is logged; the certifier is the repository's own code, assembled from legacy/core/interval/interval.js, legacy/core/mfg/mfg1d.js, labs/mfg/box.js. A cell takes about a tenth of a second.</p></div><script>/* assembled by labs/mfg/widget.js from the repository sources — do not edit here */
+<div class="col"><p>Give it a rectangle of parameters. It solves for both branches, wraps each in a contraction argument over the whole rectangle, and answers. Nothing is uploaded — the certifier below is the repository’s own code, assembled from the same files the map was made with, running in this tab.</p><ul class="plain"><li><b>MULTIPLE.</b> Two exact solutions for every parameter in the cell, in two provably disjoint balls. You get both radii, the separation, and a lower bound on both densities.</li><li><b>UNIQUE.</b> The cell sits in c ≥ 0, where Lasry–Lions gives global uniqueness — <em>cited, not proved here</em>. What is proved here is the enclosure of that solution, uniform over the cell.</li><li><b>UNDECIDED.</b> With the reason, verbatim. Near the bifurcation the argument <em>cannot</em> close, and a certifier that certified there would be broken.</li></ul></div><div class="col"><div class="col"><textarea id="mfg-in" spellcheck="false" rows="6" class="cmw-in" placeholder='{"sigma":0.5,"c":[-16.03,-15.97],"A":[0.288,0.313],"N":16,"nu":1.02}'>{"sigma":0.5,"c":[-16.03125,-15.96875],"A":[0.2875,0.3125],"N":16,"nu":1.02}</textarea><div class="cmw-row"><button id="mfg-go" class="cmw-btn go">decide this cell</button><button id="mfg-ex1" class="cmw-btn">a multiplicity cell</button><button id="mfg-ex2" class="cmw-btn">a monotone cell</button><button id="mfg-ex3" class="cmw-btn">the bifurcation</button><button id="mfg-ex4" class="cmw-btn">refute a candidate</button></div><pre id="mfg-out" class="cmw-out"></pre><p class="scope">Runs in this tab. Nothing is uploaded, nothing is logged; the certifier is the repository's own code, assembled from legacy/core/interval/interval.js, legacy/core/mfg/mfg1d.js, labs/mfg/box.js. A cell takes about a tenth of a second.</p></div><script>/* assembled by labs/mfg/widget.js from the repository sources — do not edit here */
 var EqInterval = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/interval\.js$/.test(p))return EqInterval;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
 /* interval.js — outward-rounded interval arithmetic over IEEE-754 doubles.
 
@@ -2495,7 +2559,7 @@ node labs/mfg/regime.js        # rebuild the whole map</pre>
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-mfg-observatory.js @ git a242434. Gates that ran for this build: labs/mfg/battery.js (9 checks, 6/6 falsifiers red, including the bit-for-bit zero-width equality with the lifted kernel); the browser bundle executed against the Node path and required to agree; the map record re-tallied here from its own 19,800 cells with the area identity checked to 24.000000 = 24.000000; and 8 cells re-decided at build FROM SCRATCH — no warm start — with the same verdicts and independently re-derived witnesses. Map record: <span class="m">certs/mfg-regime-map.json</span>, sha256 ca6b63d34dbd8384…, swept 2026-08-28 in 2037 s. Lab: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/labs/mfg">labs/mfg/</a>. MIT.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-mfg-observatory.js @ git 4ba347a. Gates that ran for this build: labs/mfg/battery.js (9 checks, 6/6 falsifiers red, including the bit-for-bit zero-width equality with the lifted kernel); the browser bundle executed against the Node path and required to agree; the map record re-tallied here from its own 19,800 cells with the area identity checked to 24.000000 = 24.000000; and 8 cells re-decided at build FROM SCRATCH — no warm start — with the same verdicts and independently re-derived witnesses. Map record: <span class="m">certs/mfg-regime-map.json</span>, sha256 ca6b63d34dbd8384…, swept 2026-08-28 in 2037 s. Lab: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/labs/mfg">labs/mfg/</a>. MIT.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>
