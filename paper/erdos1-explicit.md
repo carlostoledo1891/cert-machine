@@ -140,7 +140,7 @@ In the normalisation of Bloom's exposition (after Aliev), $C_d$ is the least con
 | 961 | 30 | 3.129239 |
 | 1331 | 34 | 3.162106 |
 | 2197 | 36 | 3.441898 |
-| 3375 | 36 | 3.652 (ledger, truncated) |
+| 3375 | 36 | 3.653497 |
 
 For comparison, a Bohman-type set gives $C_d \ge 1/0.44004 = 2.2725$ for all large $d$; the Astra construction shows $C_d \to \infty$ along a sequence of $d$, and these are the first explicit values above 2.28.
 
