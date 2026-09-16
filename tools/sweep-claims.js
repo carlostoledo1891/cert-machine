@@ -20,6 +20,8 @@
      3b. erdosproblems #1 thread — the effective-disproof comment was posted
         by the operator 2026-09-16 and sits in moderation; same instruction,
         and Mathstodon is held until it is shown.
+     3c. tadamcz/erdos1 issue #2 — posted 2026-09-16; a new comment there is
+        a finding (gh api, no scraping).
      4. arXiv — recent entries mentioning the Ramanujan Machine (new
         proofs of audited rows, or new sheets' papers).
 
@@ -107,6 +109,19 @@ const finding = (m) => { findings++; console.log('!! ' + m); };
     else if (state.erdos1Posts !== undefined && state.erdos1Posts !== null && n !== state.erdos1Posts) finding('erdos1: post count moved ' + state.erdos1Posts + ' -> ' + n + ' (our text not visible) — read the thread');
     else say('erdos1: comment not visible yet, still in the moderation queue (' + n + ' posts)');
     state.erdos1Visible = visible; state.erdos1Posts = n;
+  }
+}
+
+/* 3c · the tadamcz/erdos1 issue (#2, posted 2026-09-16): a reply there is the other place the Erdős #1 send can move */
+{
+  let out = null;
+  try { out = execFileSync('gh', ['api', 'repos/tadamcz/erdos1/issues/2', '--jq', '.comments|tostring'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
+  if (out === null) say('erdos1-issue: gh api failed (transient)');
+  else {
+    const n = Number(out);
+    if (state.erdos1IssueComments !== undefined && state.erdos1IssueComments !== null && n > state.erdos1IssueComments) finding('erdos1-issue: ' + (n - state.erdos1IssueComments) + ' NEW comment(s) on https://github.com/tadamcz/erdos1/issues/2 — read and answer (the operator sends)');
+    else say('erdos1-issue: ' + n + ' comment(s) on tadamcz/erdos1#2' + (n ? '' : ', no reply yet'));
+    state.erdos1IssueComments = n;
   }
 }
 
