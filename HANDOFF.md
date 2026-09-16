@@ -26,7 +26,8 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
   0. ERDŐS #1 IS PORTED, PUSHED FURTHER, ON THE SHELF, LIVE (main pushed
      2026-09-16 01:49), COMMENTED (in moderation), ISSUED (tadamcz/erdos1#2)
      AND RELEASED (v2026.09.3, DOI pending) — every send on the operator's
-     word, per item. 0b is the one thing left undone.
+     word, per item. The d = 3375 set is ledgered (0b); the DOI stamp is
+     the one thing left undone, and it waits on Zenodo.
      The frontier-apps front (PORT-ERDOS1.md, sessions 27–28 there) is in this
      repository whole: instruments/erdos1 (the lattice, the build, the verifier,
      the gadget decider, the Siegel corollary; 66 files pinned in its
@@ -53,27 +54,21 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
        · every bench certificate re-verified FROM THE FILE here: the six small
          ones and d = 729 in minutes (the frontier logs are kept beside ours,
          and enter nothing).
-  0b. THE d = 3375 STRETCH IS VERIFIED AND NOT YET LEDGERED — THE FIRST THING
-     TO DO. verify.py --k 36 on cert-b15-s3-a3_5 (α = 3/5, b = 15, s = 3;
-     PARI Hermite 20 min at r = 3374, build 00:08) ended green at ~14:20 on
-     2026-09-16: n = 121,500 at N/2^n = 0.136855, 37.8% below Bohman — a
-     new headline, below the bench's 0.145269. Every other certificate is
-     verified here too (the tilted d = 2197 at 01:12). The three-instance
-     file is 164 MB gzipped, over GitHub's 100 MB limit, so it stays out of
-     git as certs/erdos1/wip-cert-b15-s3-a3_5.json.gz (gitignored) and its
-     k = 36 instance alone is certs/erdos1/wip-cert-b15-s3-a3_5-k36.json.gz
-     (58 MB, same H, K, detA; verify-b15-s3-a3_5-k36.log is the log's copy;
-     certs/erdos1/logs/NOTE-b15-s3-a3_5.md says all this). TO LEDGER IT:
-       mv certs/erdos1/wip-cert-b15-s3-a3_5-k36.json.gz certs/erdos1/cert-b15-s3-a3_5-k36.json.gz
-       node tools/run-erdos1-ledger.js && node tools/build-report-erdos1.js
-       python3 instruments/erdos1/certnumbers.py && node tools/build-paper-tex.js erdos1-explicit
-       node tools/check-style.js --accept && node tools/check-measure.js --accept && node tools/check-render.js --accept
-       make control && make site && git add -A && git commit && git push
-     (~15 min; the operator said stop before it could run). The page's
-     "not on this page" paragraph, the paper's theorem and the shelf card
-     all move to 0.136855 by themselves. The outreach texts quote 0.145269;
-     a follow-up comment is NOT owed for 0.137 — the thread will look at
-     the page, which will say it.
+  0b. THE d = 3375 STRETCH IS VERIFIED AND LEDGERED (2026-09-16 14:52, on the
+     operator's "finish zenodo and handoff later again"): α = 3/5, b = 15,
+     s = 3, k = 36 — n = 121,500 at N/2^n = 0.136855, 37.7% below Bohman
+     (exact, floored), THE NEW HEADLINE on the page, the card and the paper;
+     C_3375 ≥ 3.65 in the Siegel table. 41 verified instances from 12
+     certificates, 0 pending; control 88/88; site synced and pushed. Its
+     three-instance certificate is 164 MB gzipped (over GitHub's limit) and
+     stays out of git as certs/erdos1/wip-cert-b15-s3-a3_5.json.gz; the
+     ledgered file is the k = 36 instance alone, cert-b15-s3-a3_5-k36.json.gz
+     (58 MB, same H, K, detA; the log's k = 32/34 blocks read "skipped");
+     certs/erdos1/logs/NOTE-b15-s3-a3_5.md says so. The outreach texts quote
+     0.145269 and stay as sent — the page carries the better number and a
+     follow-up comment is not owed. NEXT STRETCH, if wanted: 3/5 at b = 17,
+     s = 3 (d = 4913, Δ = 0.2572, → ~0.129), about a day of verification and
+     a certificate that must be split the same way.
   0c. THE SENDS, all the operator's. ONE REPOSITORY (operator ruling, the
      same night: "Why a separate repo? Let's use the same") — the bench's
      prepared second repository is not used; every text points at
@@ -406,9 +401,8 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     .venv, gitignored; the battery builds it on first run).
 
   ── 8 · NOT DONE, SAID PLAINLY ── the d = 3375 verification ENDED GREEN at
-    ~14:20 the next day (0.136855 at n = 121,500) and is NOT in the ledger:
-    the operator said stop before the fifteen-minute rebuild; menu 0b is the
-    one command sequence. The Zenodo DOI for v2026.09.3 is unstamped (Zenodo
+    ~14:20 the next day (0.136855 at n = 121,500) and was LEDGERED at 14:52
+    when the operator reopened the session for Zenodo. The Zenodo DOI for v2026.09.3 is unstamped (Zenodo
     504 all afternoon). Sent this session, both on the operator's word: the
     erdosproblems.com/1 comment (in moderation) and tadamcz/erdos1#2. The
     public repository the bench prepared (public/, one commit) is NOT used:

@@ -65,6 +65,6 @@ exact computation, and the Lean lemmas `chainMatrix_saturated`, `exists_binary_b
   2026-09-16), four new certificates built (d = 81 k = 21, d = 441, d = 961 verified; d = 3375
   built at 00:08 and verifying), battery 13 checks and 6 red controls, control page 88/88.
 - 2026-09-16 (here, afternoon): the d = 3375 verification ended green — n = 121,500 at 0.136855, 37.8% below Bohman;
-  parked as a 58 MB k = 36-only certificate until the next rebuild (HANDOFF menu 0b). Release v2026.09.3 cut 13:31;
+  ledgered at 14:52 as a 58 MB k = 36-only certificate; the page, the card and the paper carry it. Release v2026.09.3 cut 13:31;
   the DOI unstamped while Zenodo answered 504. The comment is in moderation; the issue is #2; Mathstodon waits
   on the account.
