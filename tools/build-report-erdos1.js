@@ -214,8 +214,12 @@ O.push(C.section({
         cols: [{ h: 'b' }, { h: 's' }, { h: 'α' }, { h: 'd', cls: 'n' }, { h: 'D', cls: 'n' }, { h: 'Δ_s', cls: 'n' }, { h: 'Δ_s / 2 (the limit)', cls: 'n' }, { h: 'buffer K', cls: 'n' }, { h: 'K / d', cls: 'n' }, { h: 'best verified N/2^n', cls: 'n' }],
         rows
       })
-      + '<div class="col">' + C.pRaw('The buffer is the number the proof never computed, and it is small: about 1.1·d for the two-level Bloom '
-        + 'lattices and 2.1–2.4·d for the three-level ones (scan in the instrument\'s logs). A tilt with denominator q '
+      + '<div class="col">' + C.pRaw('The buffer is the number the proof never computed, and it is small: 1.03–1.13·d for the two-level Bloom '
+        + 'lattices and 1.6–2.35·d for the three-level ones. Measured level by level at fixed b, its operator norm grows by about '
+        + 'b/2 from the first level to the second and by about b from the second to the third — the dimension times a slowly '
+        + 'growing function of the level, polynomial in d, which is what the effective theorem needs and what nothing here '
+        + 'proves (the scan is certs/erdos1/logs/kscan-levels-certmachine.log; in every case the longest row of H⁻¹ is the '
+        + 'first, the dual vector of the last projected coordinate). A tilt with denominator q '
         + 'pays through D = q<sup>s</sup>, which is why 11/20 at d = 2,197 carries K ≈ 22·d while its operator norm '
         + '‖EH<sup>−1</sup>‖ is 3.5; small denominators are the lever. A bound on K as a function of (b, s) is exactly '
         + 'what the effective asymptotic theorem still needs (§7).') + '</div>'

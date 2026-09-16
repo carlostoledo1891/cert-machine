@@ -51,19 +51,32 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
          ones and d = 729 in minutes (the frontier logs are kept beside ours,
          and enter nothing).
   0b. STILL RUNNING AT THE HANDOFF (nohup, survives the harness; the ledger
-     names each as `verifier run not finished`): the tilted d = 2197 run
-     (b13-s3-a11_20, --k 36; D = 8000 makes it the slow one — the bench took
-     110 min alone, here it shares the machine), and the d = 3375 stretch (α = 3/5, b = 15, s = 3,
+     names it as `verifier run not finished`): only the d = 3375 stretch (α = 3/5, b = 15, s = 3,
      Δ_s = 0.2734 so N/2^n → 0.1367: PARI Hermite at r = 3374 first, then the
      build, then verify --k 36, an estimated ten hours; certs/erdos1/logs/
      erdos1-big.sh is the chain). WHEN THEY FINISH: `node tools/run-erdos1-
      ledger.js && node tools/build-report-erdos1.js && python3 instruments/
      erdos1/certnumbers.py && node tools/build-paper-tex.js erdos1-explicit`,
      then the three Chrome gates with --accept for the changed page, then
-     `make site`. d = 1331 (b11-s3) finished at 23:29 and the Bloom-gadget
-     d = 2197 (b13-s3, k = 36) at 23:50, both in the ledger: the headline is
-     0.151520 at n = 79,092 until the tilted d = 2197 log ends green (0.145269
-     at the same n, the bench's headline), and ~0.137 if d = 3375 lands. The outreach texts already quote 79,092 at
+     `make site`. Every bench certificate is now verified here: d = 1331 at
+     23:29, the Bloom-gadget d = 2197 at 23:50, the tilted d = 2197 at 01:12
+     (2 h 28 min of shared CPU). THE HEADLINE IS THE BENCH'S, VERIFIED HERE:
+     0.145269 at n = 79,092, 33.9% below Bohman (the exact figure, floored;
+     the bench rounded to 34.0), C_2197 ≥ 3.4418. The d = 3375 certificate
+     (384 MB raw, three instances k = 32, 34, 36) was built at 00:08 and
+     verify --k 36 started then (verify-b15-s3-a3_5.log; ~0.137 when it
+     lands, ETA ~10:00). IT IS 164 MB GZIPPED, OVER GITHUB'S 100 MB FILE
+     LIMIT, so it sits UNCOMMITTED and outside the ledger as
+     certs/erdos1/wip-cert-b15-s3-a3_5.json.gz (gitignored; the runner scans
+     cert-* names only). WHEN ITS LOG ENDS GREEN: write a one-instance
+     certificate (same H, K, detA and the k = 36 instance only — the fields
+     the verifier's header and that instance's block checked; ~55 MB gzipped)
+     as certs/erdos1/cert-b15-s3-a3_5-k36.json.gz, copy the log to
+     verify-b15-s3-a3_5-k36.log (its k = 32/34 blocks read "skipped" and
+     match no instance, which the runner ignores), say in
+     certs/erdos1/logs/ that the log was produced from the three-instance
+     file, then the rebuild chain above. The gates on the outreach texts are
+     met except the push. The outreach texts already quote 79,092 at
      0.145269 and are GATED on that log (the first line of each says so).
   0c. THE SENDS, all the operator's. ONE REPOSITORY (operator ruling, the
      same night: "Why a separate repo? Let's use the same") — the bench's
@@ -76,11 +89,20 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
      against a 500 limit; the one on disk is 488). No email to Bloom (ruled
      2026-09-15). outreach/erdos1-sharing-plan.md is the checklist; REPO_URL
      is gone from the texts.
-  0d. WHAT IS OPEN ON THE MATHEMATICS, unchanged and stated on the page: the
-     effective rate f(n) ≤ n^{-c/log log n} needs a PROOF that the buffer K
-     is O(d) (measured 1.1–3.6·d across the twelve lattices; a tilt with
-     denominator q pays through D = q^s); an analytic triangular basis of Λ_s
-     with an explicit inverse would settle it. Bigger tilted instances
+  0d. WHAT IS OPEN ON THE MATHEMATICS, stated on the page: the effective
+     rate f(n) ≤ n^{-c/log log n} needs a PROOF that the buffer K is
+     polynomial in d. MEASURED THIS SESSION, level by level at fixed b
+     (certs/erdos1/logs/kscan-levels-certmachine.log): the operator norm
+     ‖EH⁻¹‖ grows by about b/2 from s = 1 to 2 and about b from s = 2 to 3
+     (4.61 and 8.96 at b = 9; 7.14 and 13.6 at b = 13), so K ≈ d × a slowly
+     growing function of s — polynomial, and not proved; the longest row of
+     H⁻¹ is always the first (the last projected coordinate's dual vector),
+     which is where a proof would start. Two facts a proof can use: any
+     LOWER-TRIANGULAR integer perturbation with ±1 diagonal keeps the chain
+     minor unimodular (the shift is one choice among many, so K may be
+     minimised over a coset of the dual lattice per row), and a SUBLATTICE
+     of Λ_s of index C^s costs only the constant c. An analytic triangular
+     basis of Λ_s with an explicit inverse would settle it. Bigger tilted instances
      (α = 0.65, b = 21, s = 3 at d = 9,261: Δ = 0.235) need a Hermite path
      beyond PARI+fmpq at that size. The next affordable stretch after 3375 is
      3/5@17, s = 3 (d = 4,913, Δ = 0.2572), about a day of verification.
@@ -318,8 +340,8 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
   ── 4 · RE-VERIFIED HERE ── every lifted certificate run through verify.py
     from the file alone: the four two-level ones in seconds, d = 729 in 182 s
     (all four instances), d = 1331 in 45 minutes of shared CPU (all four),
-    the Bloom-gadget d = 2197 (--k 36) in 66 minutes, the tilted d = 2197
-    still running at the handoff — see the menu's 0b. The battery (instruments/erdos1/
+    the Bloom-gadget d = 2197 (--k 36) in 66 minutes, the tilted d = 2197 in
+    2 h 28 min — every bench certificate verified here by 01:12. The battery (instruments/erdos1/
     battery.py, 13 checks, 6 reds): pins; Δ_s = |det B_s| exactly on six small
     lattices and three tilts; the cube property of Λ_1 by exhaustive search for
     d ≤ 9; the structured strip decision against the brute-force decision of
@@ -369,8 +391,9 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     Makefile: `make erdos1-venv` (python-flint lives in instruments/erdos1/
     .venv, gitignored; the battery builds it on first run).
 
-  ── 8 · NOT DONE, SAID PLAINLY ── the tilted d = 2197 verification and the
-    d = 3375 chain finish after this handoff (menu 0b says what to run). The
+  ── 8 · NOT DONE, SAID PLAINLY ── the d = 3375 verification finishes after
+    this handoff, and its certificate is too big for GitHub as one file; menu
+    0b says what to do with it. The
     public repository the bench prepared (public/, one commit) is NOT used:
     the operator ruled one repository, and the texts point here. No Lean wrapper. No proof of
     the buffer law. Nothing sent; nothing pushed.

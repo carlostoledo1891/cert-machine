@@ -46,3 +46,6 @@ environments/blind_spot/pool/*
 # and verified by digest (tools/fetch-ec-benchmark.js); the contours are committed.
 corpus/ec-benchmark/datasets/
 corpus/ec-benchmark/datasets-retained/
+
+# erdos1: a certificate whose verifier run has not finished, or whose gzipped size is over the 100 MB GitHub file limit (the d = 3375 one is 164 MB); the ledger runner scans only cert-* names
+certs/erdos1/wip-*

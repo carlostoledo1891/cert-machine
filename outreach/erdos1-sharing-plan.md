@@ -19,8 +19,8 @@ never pushed); it is NOT used. Everything the texts point at lives in cert-machi
 
 ### 0. Gates before anything leaves
 
-1. `node tools/run-erdos1-ledger.js` lists `cert-b13-s3-a11_20.json.gz  verified k: [36]` (about two
-   hours of CPU on the M2; started 2026-09-15 22:44). Every text quotes the 79,092-element set at
+1. `node tools/run-erdos1-ledger.js` lists `cert-b13-s3-a11_20.json.gz  verified k: [36]` — MET
+   2026-09-16 01:12 (2 h 28 min of shared CPU). Every text quotes the 79,092-element set at
    0.145269, and the texts quote nothing this machine has not verified.
 2. Then `node tools/build-report-erdos1.js && python3 instruments/erdos1/certnumbers.py &&
    node tools/build-paper-tex.js erdos1-explicit`, the three Chrome gates with `--accept` for the
@@ -47,6 +47,6 @@ exact computation, and the Lean lemmas `chainMatrix_saturated`, `exists_binary_b
 - 2026-09-15 (bench): the bench's standalone bundle tested in a fresh venv (python-flint 0.9):
   verify.py on two certificates → ALL CHECKS PASSED. That bundle is superseded by this repository.
 - 2026-09-15 (here): all eight bench certificates re-verified from the files alone
-  (`certs/erdos1/verify-*.log`; the two 2,197-dimensional runs were still running at the
-  handoff — the ledger says which), four new certificates built and verified (d = 81 k = 21;
-  d = 441; d = 961; d = 3375 pending), battery 13 checks and 6 red controls, control page 88/88.
+  (`certs/erdos1/verify-*.log`; the last of them, the tilted d = 2197, ended green at 01:12 on
+  2026-09-16), four new certificates built (d = 81 k = 21, d = 441, d = 961 verified; d = 3375
+  built at 00:08 and verifying), battery 13 checks and 6 red controls, control page 88/88.

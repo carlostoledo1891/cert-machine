@@ -1,0 +1,15 @@
+verify /Users/carlostoledo/Projects/cert-machine/instruments/erdos1/../../certs/erdos1/cert-b15-s3-a3_5.json: b=15 s=3 d=3375 r=3374 D=125 alpha=3/5
+  [PASS] V0 D = denominator(α)^s 
+  [PASS] V1a basis lies in the zero-sum hyperplane 
+  [PASS] V1b D·B integral 
+  [PASS] V1c |det A| matches certificate 23501 bits
+  [PASS] V2a H upper triangular, positive diagonal 
+  [PASS] V2b columns of A' lie in col-lattice(H) 
+  [PASS] V2c columns of H lie in col-lattice(A') 
+  [5221.8s] lattice equality done
+  [PASS] V5 certificate K ≥ D·‖E H⁻¹‖∞ K=21039.1
+  [5330.4s] buffer done
+ instance k=32: skipped (not requested)
+ instance k=34: skipped (not requested)
+ instance k=36: n=121500 t=549755983
+  [PASS] V6 D·t − K ≥ 2^k 

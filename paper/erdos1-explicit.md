@@ -110,7 +110,7 @@ $b = 9$, $s = 3$: $d = 729$, $r = 728$, $D = 8$, $\Delta_3 = 0.353867$ ($|\det A
 
 Limit as $k\to\infty$: $\Delta_3/2 = 0.176934$. The base weights differ from each other by less than $10^{-4}$ relatively; the set is 729 integers of about 7,000 digits, each times the first $k$ powers of two. Certificate: `certs/erdos1/cert-b9-s3.json.gz`; summary with the sha256 of the sorted set: `certs/erdos1/RESULTS-b9-s3.md`.
 
-Buffer scan (`kscan.py`): $K \approx 1.1\,d$ at $s=2$ (b = 7..15) and $K \approx 1.6$–$2.1\,d$ at $s=3$ (b = 5, 7, 9); so $k = \lceil\log_2(rK)\rceil + 6$ already puts the ratio within 1% of $\Delta_s/2$.
+Buffer scan (`kscan.py`; extended per level in `certs/erdos1/logs/kscan-levels-certmachine.log`, 2026-09-16): $K \approx 1.03$–$1.13\,d$ at $s=2$ (b = 5..15), $1.6$–$2.35\,d$ at $s=3$ (b = 5..13), and at $b = 3$ the four levels $s = 1..4$ give $K/d = 1.11, 1.21, 1.25, 1.27$. The growth of $\|EH^{-1}\|_\infty$ per level at fixed $b$ is about $b/2$ from $s=1$ to $2$ and about $b$ from $s=2$ to $3$ (ratios 4.61 and 8.96 at $b = 9$; 5.86 and 11.2 at $b = 11$; 7.14 and 13.6 at $b = 13$), i.e. the buffer grows like the dimension times a slowly growing function of $s$. That is polynomial in $d$, which is all the effective theorem needs — and it is measured, not proved. In every case the longest row of $H^{-1}$ is the first one (the dual vector of the last projected coordinate), which is where a proof would start. So $k = \lceil\log_2(rK)\rceil + 6$ already puts the ratio within 1% of $\Delta_s/2$.
 
 ## 5a. The sets built in cert-machine (2026-09-15, night)
 

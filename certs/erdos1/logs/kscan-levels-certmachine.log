@@ -1,0 +1,22 @@
+# instruments/erdos1 — how the buffer's operator norm ||E H^{-1}||_inf (= K/D) grows with the level s at fixed b, alpha = 1/2.
+# Measured 2026-09-16 00:30 on the M2 (cert-machine); the Hermite bases are the cached ones (FLINT hnf for d <= 169, PARI for 343 and 729).
+# The ratio column is ||EH^{-1}||(b, s) / ||EH^{-1}||(b, s-1): the growth per level is about b/2 from s = 1 to 2 and about b from s = 2 to 3,
+# i.e. K grows like d times a slowly growing function of s — polynomial in d, which is what the effective theorem needs, and NOT proved.
+b= 3 s=1 d=    3: ||EH^-1||=     1.667  K=      3.33  K/d= 1.111  max-row-l1     1.000 at row    1 of 2
+b= 3 s=2 d=    9: ||EH^-1||=     2.722  K=     10.89  K/d= 1.210  max-row-l1     0.889 at row    2 of 8   ratio to s-1:   1.63
+b= 3 s=3 d=   27: ||EH^-1||=     4.222  K=     33.78  K/d= 1.251  max-row-l1     1.417 at row    0 of 26  ratio to s-1:   1.55
+b= 3 s=4 d=   81: ||EH^-1||=     6.435  K=    102.96  K/d= 1.271  max-row-l1     3.073 at row   26 of 80  ratio to s-1:   1.52
+b= 5 s=1 d=    5: ||EH^-1||=     2.727  K=      5.45  K/d= 1.091  max-row-l1     1.364 at row    0 of 4
+b= 5 s=2 d=   25: ||EH^-1||=     6.394  K=     25.58  K/d= 1.023  max-row-l1     3.727 at row    0 of 24  ratio to s-1:   2.34
+b= 5 s=3 d=  125: ||EH^-1||=    25.336  K=    202.69  K/d= 1.621  max-row-l1     8.773 at row    0 of 124 ratio to s-1:   3.96
+b= 7 s=1 d=    7: ||EH^-1||=     3.698  K=      7.40  K/d= 1.056  max-row-l1     2.326 at row    0 of 6
+b= 7 s=2 d=   49: ||EH^-1||=    12.597  K=     50.39  K/d= 1.028  max-row-l1     9.174 at row    0 of 48  ratio to s-1:   3.41
+b= 7 s=3 d=  343: ||EH^-1||=    81.808  K=    654.47  K/d= 1.908  max-row-l1    27.948 at row    0 of 342 ratio to s-1:   6.49
+b= 9 s=1 d=    9: ||EH^-1||=     4.678  K=      9.36  K/d= 1.040  max-row-l1     3.327 at row    0 of 8
+b= 9 s=2 d=   81: ||EH^-1||=    21.573  K=     86.29  K/d= 1.065  max-row-l1    16.953 at row    0 of 80  ratio to s-1:   4.61
+b= 9 s=3 d=  729: ||EH^-1||=   193.319  K=   1546.55  K/d= 2.121  max-row-l1    66.345 at row    0 of 728 ratio to s-1:   8.96
+b=11 s=1 d=   11: ||EH^-1||=     5.671  K=     11.34  K/d= 1.031  max-row-l1     4.331 at row    0 of 10
+b=11 s=2 d=  121: ||EH^-1||=    33.242  K=    132.97  K/d= 1.099  max-row-l1    27.037 at row    0 of 120 ratio to s-1:   5.86
+b=13 s=1 d=   13: ||EH^-1||=     6.668  K=     13.34  K/d= 1.026  max-row-l1     5.332 at row    0 of 12
+b=13 s=2 d=  169: ||EH^-1||=    47.580  K=    190.32  K/d= 1.126  max-row-l1    39.438 at row    0 of 168 ratio to s-1:   7.14
+# from the certificates: b=11 s=3 d=1331 K=2984.15 K/d=2.242 ratio to s-1: 11.2 · b=13 s=3 d=2197 K=5158.88 K/d=2.348 ratio to s-1: 13.6
