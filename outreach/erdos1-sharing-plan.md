@@ -38,7 +38,8 @@ never pushed); it is NOT used. Everything the texts point at lives in cert-machi
    the rule-by-rule notes are at the foot of the file. Rule 1's disclosure is in the text; rules 1, 2 and 4 are
    YOURS to satisfy by having read the two half-pages the notes name before you post.
 ### 2. The issue on tadamcz/erdos1 — POSTED 2026-09-16 11:40 -03: https://github.com/tadamcz/erdos1/issues/2 (gh, the operator's account, on the operator's word)
-### 3. Mathstodon — `erdos1-mastodon.md` (under 500 characters; the page carries the link preview) — AFTER the
+### 3. Mathstodon — `erdos1-mastodon.md` — THE OPERATOR'S ACCOUNT IS AWAITING APPROVAL (2026-09-16 14:20); text and
+   instructions given; posts AFTER the
    forum comment is shown and has had a few days: the site's advice page says not to announce on social media
    before community assessment, and the September blog thread says priority from AI-heavy work counts for little.
 
@@ -63,3 +64,7 @@ exact computation, and the Lean lemmas `chainMatrix_saturated`, `exists_binary_b
   (`certs/erdos1/verify-*.log`; the last of them, the tilted d = 2197, ended green at 01:12 on
   2026-09-16), four new certificates built (d = 81 k = 21, d = 441, d = 961 verified; d = 3375
   built at 00:08 and verifying), battery 13 checks and 6 red controls, control page 88/88.
+- 2026-09-16 (here, afternoon): the d = 3375 verification ended green — n = 121,500 at 0.136855, 37.8% below Bohman;
+  parked as a 58 MB k = 36-only certificate until the next rebuild (HANDOFF menu 0b). Release v2026.09.3 cut 13:31;
+  the DOI unstamped while Zenodo answered 504. The comment is in moderation; the issue is #2; Mathstodon waits
+  on the account.

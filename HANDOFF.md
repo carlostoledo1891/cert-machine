@@ -23,8 +23,10 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would take it:
 
-  0. ERDŐS #1 IS PORTED, PUSHED FURTHER, ON THE SHELF, AND LIVE (main pushed
-     2026-09-16 01:49 on the operator's word; every send still per-item).
+  0. ERDŐS #1 IS PORTED, PUSHED FURTHER, ON THE SHELF, LIVE (main pushed
+     2026-09-16 01:49), COMMENTED (in moderation), ISSUED (tadamcz/erdos1#2)
+     AND RELEASED (v2026.09.3, DOI pending) — every send on the operator's
+     word, per item. 0b is the one thing left undone.
      The frontier-apps front (PORT-ERDOS1.md, sessions 27–28 there) is in this
      repository whole: instruments/erdos1 (the lattice, the build, the verifier,
      the gadget decider, the Siegel corollary; 66 files pinned in its
@@ -51,34 +53,27 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
        · every bench certificate re-verified FROM THE FILE here: the six small
          ones and d = 729 in minutes (the frontier logs are kept beside ours,
          and enter nothing).
-  0b. STILL RUNNING AT THE HANDOFF (nohup, survives the harness; the ledger
-     names it as `verifier run not finished`): only the d = 3375 stretch (α = 3/5, b = 15, s = 3,
-     Δ_s = 0.2734 so N/2^n → 0.1367: PARI Hermite at r = 3374 first, then the
-     build, then verify --k 36, an estimated ten hours; certs/erdos1/logs/
-     erdos1-big.sh is the chain). WHEN THEY FINISH: `node tools/run-erdos1-
-     ledger.js && node tools/build-report-erdos1.js && python3 instruments/
-     erdos1/certnumbers.py && node tools/build-paper-tex.js erdos1-explicit`,
-     then the three Chrome gates with --accept for the changed page, then
-     `make site`. Every bench certificate is now verified here: d = 1331 at
-     23:29, the Bloom-gadget d = 2197 at 23:50, the tilted d = 2197 at 01:12
-     (2 h 28 min of shared CPU). THE HEADLINE IS THE BENCH'S, VERIFIED HERE:
-     0.145269 at n = 79,092, 33.9% below Bohman (the exact figure, floored;
-     the bench rounded to 34.0), C_2197 ≥ 3.4418. The d = 3375 certificate
-     (384 MB raw, three instances k = 32, 34, 36) was built at 00:08 and
-     verify --k 36 started then (verify-b15-s3-a3_5.log; ~0.137 when it
-     lands, ETA ~10:00). IT IS 164 MB GZIPPED, OVER GITHUB'S 100 MB FILE
-     LIMIT, so it sits UNCOMMITTED and outside the ledger as
-     certs/erdos1/wip-cert-b15-s3-a3_5.json.gz (gitignored; the runner scans
-     cert-* names only). WHEN ITS LOG ENDS GREEN: write a one-instance
-     certificate (same H, K, detA and the k = 36 instance only — the fields
-     the verifier's header and that instance's block checked; ~55 MB gzipped)
-     as certs/erdos1/cert-b15-s3-a3_5-k36.json.gz, copy the log to
-     verify-b15-s3-a3_5-k36.log (its k = 32/34 blocks read "skipped" and
-     match no instance, which the runner ignores), say in
-     certs/erdos1/logs/ that the log was produced from the three-instance
-     file, then the rebuild chain above. The gates on the outreach texts are
-     met except the push. The outreach texts already quote 79,092 at
-     0.145269 and are GATED on that log (the first line of each says so).
+  0b. THE d = 3375 STRETCH IS VERIFIED AND NOT YET LEDGERED — THE FIRST THING
+     TO DO. verify.py --k 36 on cert-b15-s3-a3_5 (α = 3/5, b = 15, s = 3;
+     PARI Hermite 20 min at r = 3374, build 00:08) ended green at ~14:20 on
+     2026-09-16: n = 121,500 at N/2^n = 0.136855, 37.8% below Bohman — a
+     new headline, below the bench's 0.145269. Every other certificate is
+     verified here too (the tilted d = 2197 at 01:12). The three-instance
+     file is 164 MB gzipped, over GitHub's 100 MB limit, so it stays out of
+     git as certs/erdos1/wip-cert-b15-s3-a3_5.json.gz (gitignored) and its
+     k = 36 instance alone is certs/erdos1/wip-cert-b15-s3-a3_5-k36.json.gz
+     (58 MB, same H, K, detA; verify-b15-s3-a3_5-k36.log is the log's copy;
+     certs/erdos1/logs/NOTE-b15-s3-a3_5.md says all this). TO LEDGER IT:
+       mv certs/erdos1/wip-cert-b15-s3-a3_5-k36.json.gz certs/erdos1/cert-b15-s3-a3_5-k36.json.gz
+       node tools/run-erdos1-ledger.js && node tools/build-report-erdos1.js
+       python3 instruments/erdos1/certnumbers.py && node tools/build-paper-tex.js erdos1-explicit
+       node tools/check-style.js --accept && node tools/check-measure.js --accept && node tools/check-render.js --accept
+       make control && make site && git add -A && git commit && git push
+     (~15 min; the operator said stop before it could run). The page's
+     "not on this page" paragraph, the paper's theorem and the shelf card
+     all move to 0.136855 by themselves. The outreach texts quote 0.145269;
+     a follow-up comment is NOT owed for 0.137 — the thread will look at
+     the page, which will say it.
   0c. THE SENDS, all the operator's. ONE REPOSITORY (operator ruling, the
      same night: "Why a separate repo? Let's use the same") — the bench's
      prepared second repository is not used; every text points at
@@ -98,10 +93,16 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
      11:40 -03 through gh under the operator's account, on the operator's word:
      https://github.com/tadamcz/erdos1/issues/2. RELEASE v2026.09.3 CUT at
      13:31 -03 on the operator's word ("proceed zenodo doi") so the archive
-     carries certs/erdos1; Zenodo's API was 504 for twenty minutes after,
-     so the versioned DOI is NOT YET STAMPED — tools/stamp-release.py does
-     it once the public record shows it. arXiv HELD (operator). Mathstodon:
-     instructions given, the operator posts.
+     carries certs/erdos1; Zenodo's API answered 504 from 13:31 to 14:21,
+     so the versioned DOI is NOT YET STAMPED —
+       python3 tools/stamp-release.py v2026.09.3 <doi> 2026-09-16
+     once https://zenodo.org/doi/10.5281/zenodo.22225860 resolves to
+     v2026.09.3 (check-wiring gates CITATION.cff against corpus/zenodo.json;
+     until then the concept DOI is the one to cite). arXiv HELD (operator).
+     Mathstodon: text and instructions given; THE OPERATOR'S ACCOUNT IS
+     AWAITING APPROVAL by mathstodon.xyz, and the post waits for the forum
+     comment to be shown besides. `node tools/sweep-claims.js` at session
+     start watches the thread, the issue and nothing else needs watching.
   0d. WHAT IS OPEN ON THE MATHEMATICS, stated on the page: the effective
      rate f(n) ≤ n^{-c/log log n} needs a PROOF that the buffer K is
      polynomial in d. MEASURED THIS SESSION, level by level at fixed b
@@ -404,9 +405,12 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     Makefile: `make erdos1-venv` (python-flint lives in instruments/erdos1/
     .venv, gitignored; the battery builds it on first run).
 
-  ── 8 · NOT DONE, SAID PLAINLY ── the d = 3375 verification finishes after
-    this handoff, and its certificate is too big for GitHub as one file; menu
-    0b says what to do with it. The
+  ── 8 · NOT DONE, SAID PLAINLY ── the d = 3375 verification ENDED GREEN at
+    ~14:20 the next day (0.136855 at n = 121,500) and is NOT in the ledger:
+    the operator said stop before the fifteen-minute rebuild; menu 0b is the
+    one command sequence. The Zenodo DOI for v2026.09.3 is unstamped (Zenodo
+    504 all afternoon). Sent this session, both on the operator's word: the
+    erdosproblems.com/1 comment (in moderation) and tadamcz/erdos1#2. The
     public repository the bench prepared (public/, one commit) is NOT used:
     the operator ruled one repository, and the texts point here. No Lean wrapper. No proof of
     the buffer law. Nothing sent; nothing pushed.
