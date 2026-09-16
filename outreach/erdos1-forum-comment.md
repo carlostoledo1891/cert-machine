@@ -1,5 +1,13 @@
 # Erdős #1 — the comment for erdosproblems.com/1 (paste by hand; the site renders $…$ LaTeX)
 
+A COMMENT, NOT A PROOF CLAIM. The site keeps two channels per problem: the discussion thread
+(https://www.erdosproblems.com/forum/thread/1, "add a comment") and the proof-claims register
+(/forum/thread/1/proof-claims, fed by /forum/thread/1/submit-proof, "partial or full" claims of
+solving the problem — problem 1 has two, both GPT-6 Astra's). Nothing here claims to solve or
+partially solve the problem, which is already disproved; it adds explicit objects and their
+certificates to a resolved problem. So it goes in the discussion thread as a comment, and never
+through the submit-proof form.
+
 Status: DRAFT, NOT SENT. Operator-gated like every send. Route ruled 2026-09-15: push cert-machine
 first (one repository, no separate one — the links below resolve only after the push), then this
 comment. No email to Bloom.
