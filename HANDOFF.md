@@ -23,11 +23,27 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-15 (the fifteenth session). In the order I would take it:
 
-  0. THE SITE IS ON ONE TEMPLATE. Four commits today (fa5405e, 324faf0,
-     a242434, and the P3 one): one shell for all 90 pages, one head, one
-     stylesheet, one footer, one font path, and tools/check-style.js ratcheting
-     five facts per page. The plan and what shipped against it are in
-     notes/template-plan-2026-09-15.md. Nothing is pushed.
+  0. THE SITE IS ON ONE TEMPLATE, AND IT IS LIVE. Five commits
+     (fa5405e, 324faf0, a242434, 4ba347a, ddbafb4) PUSHED to main on the
+     operator's word and verified on carlostoledo.co: the radius token resolves,
+     one stylesheet and one footer per page, ZERO inline style attributes on the
+     pages sampled, and the two retired asset paths (the generated instruments
+     stylesheet, the vendored fonts) 404 with nothing referencing them.
+     One shell for all 90 pages, one head, one stylesheet, one footer, one font
+     path; tools/check-style.js ratchets six facts per page. The plan and what
+     shipped against it are in notes/template-plan-2026-09-15.md.
+
+       shells 3 -> 1 · footer markups 25 -> 1 · extra <style> blocks 56 -> 0
+       unresolved var() 222 -> 2 · literal fallbacks 30 -> 0
+       INLINE DESIGN DECLARATIONS 537 -> 0 (249 style attributes remain and
+       every one of them is DATA) · left edges 924 -> 914
+
+  0-. THE ONE THING TO WATCH ON THE LIVE SITE, because no local gate covers it:
+     the twenty /instruments pages now ask Google for their fonts instead of
+     shipping their own, so a slow CDN shows fallback METRICS on first paint.
+     That was the deliberate trade for correct Greek and math glyphs (the
+     vendored subset drew 11 of the 39 the site uses). Vendoring full-coverage
+     subsets is DEBT.md row 4c and is the fix.
   0a. THE MEASURES WERE UNIFIED ON THE OPERATOR'S WORD (2026-09-15). Sixty-seven
      inline overrides in eleven bespoke widths — 13, 14, 17, 19, 20, 24, 26, 28,
      30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78, 80, 84ch on prose —
