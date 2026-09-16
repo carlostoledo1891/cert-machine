@@ -14,3 +14,12 @@ verify ../../certs/erdos1/cert-b13-s3.json.gz: b=13 s=3 d=2197 r=2196 D=8 alpha=
  instance k=34: skipped (not requested)
  instance k=36: n=79092 t=8589935237
   [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.151520
+  [BEATS BOHMAN] N/2^n = 0.151520 vs 0.22002
+  [3865.6s] instance done
+OVERALL: ALL CHECKS PASSED

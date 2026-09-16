@@ -51,27 +51,31 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
          ones and d = 729 in minutes (the frontier logs are kept beside ours,
          and enter nothing).
   0b. STILL RUNNING AT THE HANDOFF (nohup, survives the harness; the ledger
-     names each as `verifier run not finished`): the two d = 2197 runs (--k 36,
-     ~2 h each of CPU, started 22:44 and sharing the machine with everything
-     else), and the d = 3375 stretch (α = 3/5, b = 15, s = 3,
+     names each as `verifier run not finished`): the tilted d = 2197 run
+     (b13-s3-a11_20, --k 36; D = 8000 makes it the slow one — the bench took
+     110 min alone, here it shares the machine), and the d = 3375 stretch (α = 3/5, b = 15, s = 3,
      Δ_s = 0.2734 so N/2^n → 0.1367: PARI Hermite at r = 3374 first, then the
      build, then verify --k 36, an estimated ten hours; certs/erdos1/logs/
      erdos1-big.sh is the chain). WHEN THEY FINISH: `node tools/run-erdos1-
      ledger.js && node tools/build-report-erdos1.js && python3 instruments/
      erdos1/certnumbers.py && node tools/build-paper-tex.js erdos1-explicit`,
      then the three Chrome gates with --accept for the changed page, then
-     `make site`. d = 1331 (b11-s3) finished at 23:29 and is in the ledger:
-     the headline is 0.158122 at n = 45,254 until the d = 2197 log ends green
-     (0.145269 at n = 79,092, the bench's headline), and ~0.137 if d = 3375
-     lands. The outreach texts already quote 79,092 at
+     `make site`. d = 1331 (b11-s3) finished at 23:29 and the Bloom-gadget
+     d = 2197 (b13-s3, k = 36) at 23:50, both in the ledger: the headline is
+     0.151520 at n = 79,092 until the tilted d = 2197 log ends green (0.145269
+     at the same n, the bench's headline), and ~0.137 if d = 3375 lands. The outreach texts already quote 79,092 at
      0.145269 and are GATED on that log (the first line of each says so).
-  0c. THE SENDS, all the operator's: GitHub first (option A: the bench's
-     prepared public repository, REBUILT from here so it carries twelve
-     certificates and the v0.2 paper; option B: point at this repository's
-     certs/erdos1/ and skip a second name — the plan weighs both), then the
-     erdosproblems.com/1 comment (it answers StijnC's 2025 "N < 2^n/5"), then
-     the tadamcz/erdos1 issue (gh can post it), then Mathstodon. No email to
-     Bloom (ruled 2026-09-15). outreach/erdos1-sharing-plan.md is the checklist.
+  0c. THE SENDS, all the operator's. ONE REPOSITORY (operator ruling, the
+     same night: "Why a separate repo? Let's use the same") — the bench's
+     prepared second repository is not used; every text points at
+     carlostoledo.co/reports/erdos1.html and at this repository's
+     certs/erdos1/ + instruments/erdos1/, so the PUSH of main comes first
+     and the links resolve after it. Then the erdosproblems.com/1 comment
+     (it answers StijnC's 2025 "N < 2^n/5"), then the tadamcz/erdos1 issue
+     (gh can post it), then Mathstodon (the bench's draft was 699 characters
+     against a 500 limit; the one on disk is 488). No email to Bloom (ruled
+     2026-09-15). outreach/erdos1-sharing-plan.md is the checklist; REPO_URL
+     is gone from the texts.
   0d. WHAT IS OPEN ON THE MATHEMATICS, unchanged and stated on the page: the
      effective rate f(n) ≤ n^{-c/log log n} needs a PROOF that the buffer K
      is O(d) (measured 1.1–3.6·d across the twelve lattices; a tilt with
@@ -313,8 +317,9 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
   ── 4 · RE-VERIFIED HERE ── every lifted certificate run through verify.py
     from the file alone: the four two-level ones in seconds, d = 729 in 182 s
-    (all four instances), d = 1331 in 45 minutes of shared CPU (all four), the
-    two d = 2197 (--k 36) still running at the handoff — see the menu's 0b. The battery (instruments/erdos1/
+    (all four instances), d = 1331 in 45 minutes of shared CPU (all four),
+    the Bloom-gadget d = 2197 (--k 36) in 66 minutes, the tilted d = 2197
+    still running at the handoff — see the menu's 0b. The battery (instruments/erdos1/
     battery.py, 13 checks, 6 reds): pins; Δ_s = |det B_s| exactly on six small
     lattices and three tilts; the cube property of Λ_1 by exhaustive search for
     d ≤ 9; the structured strip decision against the brute-force decision of
@@ -364,10 +369,10 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     Makefile: `make erdos1-venv` (python-flint lives in instruments/erdos1/
     .venv, gitignored; the battery builds it on first run).
 
-  ── 8 · NOT DONE, SAID PLAINLY ── the two d = 2197 verifications and the
+  ── 8 · NOT DONE, SAID PLAINLY ── the tilted d = 2197 verification and the
     d = 3375 chain finish after this handoff (menu 0b says what to run). The
-    public repository on the bench (public/, one commit) was NOT rebuilt from
-    here; the sharing plan gives the two options. No Lean wrapper. No proof of
+    public repository the bench prepared (public/, one commit) is NOT used:
+    the operator ruled one repository, and the texts point here. No Lean wrapper. No proof of
     the buffer law. Nothing sent; nothing pushed.
 
 ══════════════════════════════════════════════════════════════════════════
