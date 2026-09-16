@@ -25,9 +25,9 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
 
   0. ERDŐS #1 IS PORTED, PUSHED FURTHER, ON THE SHELF, LIVE (main pushed
      2026-09-16 01:49), COMMENTED (in moderation), ISSUED (tadamcz/erdos1#2)
-     AND RELEASED (v2026.09.3, DOI pending) — every send on the operator's
-     word, per item. The d = 3375 set is ledgered (0b); the DOI stamp is
-     the one thing left undone, and it waits on Zenodo.
+     AND ARCHIVED (v2026.09.3, DOI 10.5281/zenodo.22800699) — every send on
+     the operator's word, per item. Nothing on this front is left undone;
+     what waits is the world: moderation, a reply, an account approval.
      The frontier-apps front (PORT-ERDOS1.md, sessions 27–28 there) is in this
      repository whole: instruments/erdos1 (the lattice, the build, the verifier,
      the gadget decider, the Siegel corollary; 66 files pinned in its
@@ -86,18 +86,22 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
      comment; #852 cleared in days, #290 never did); tools/sweep-claims.js
      watches thread 1 for its text. THE ISSUE ON tadamcz/erdos1 WAS POSTED at
      11:40 -03 through gh under the operator's account, on the operator's word:
-     https://github.com/tadamcz/erdos1/issues/2. RELEASE v2026.09.3 CUT at
-     13:31 -03 on the operator's word ("proceed zenodo doi") so the archive
-     carries certs/erdos1; Zenodo's API answered 504 from 13:31 to 14:21,
-     so the versioned DOI is NOT YET STAMPED —
-       python3 tools/stamp-release.py v2026.09.3 <doi> 2026-09-16
-     once https://zenodo.org/doi/10.5281/zenodo.22225860 resolves to
-     v2026.09.3 (check-wiring gates CITATION.cff against corpus/zenodo.json;
-     until then the concept DOI is the one to cite). arXiv HELD (operator).
-     Mathstodon: text and instructions given; THE OPERATOR'S ACCOUNT IS
-     AWAITING APPROVAL by mathstodon.xyz, and the post waits for the forum
-     comment to be shown besides. `node tools/sweep-claims.js` at session
-     start watches the thread, the issue and nothing else needs watching.
+     https://github.com/tadamcz/erdos1/issues/2. RELEASE v2026.09.3 IS
+     ARCHIVED: DOI 10.5281/zenodo.22800699 (minted 2026-09-16 15:23; the
+     concept DOI 10.5281/zenodo.22225860 resolves to it), stamped into
+     corpus/zenodo.json and CITATION.cff by tools/stamp-release.py, on the
+     paper's date line, check-wiring green. HOW IT WENT, for next time: the
+     release cut at 13:31 hit a two-hour Zenodo outage — the hook's three
+     deliveries got 500 and Zenodo does not retry; redelivery needs the
+     admin:repo_hook scope gh does not have; deleting and re-creating the
+     release (same tag, same notes) re-sent the event at 15:17, Zenodo
+     answered 202 to release/created and 409 to the other two, and the
+     record appeared six minutes later. `gh api repos/<owner>/<repo>/hooks/
+     <id>/deliveries` shows the status codes without admin scope. arXiv
+     HELD (operator). Mathstodon: text and instructions given; THE
+     OPERATOR'S ACCOUNT IS AWAITING APPROVAL by mathstodon.xyz, and the post
+     waits for the forum comment to be shown besides. `node tools/
+     sweep-claims.js` at session start watches the thread, the issue and nothing else needs watching.
   0d. WHAT IS OPEN ON THE MATHEMATICS, stated on the page: the effective
      rate f(n) ≤ n^{-c/log log n} needs a PROOF that the buffer K is
      polynomial in d. MEASURED THIS SESSION, level by level at fixed b
@@ -402,8 +406,8 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
   ── 8 · NOT DONE, SAID PLAINLY ── the d = 3375 verification ENDED GREEN at
     ~14:20 the next day (0.136855 at n = 121,500) and was LEDGERED at 14:52
-    when the operator reopened the session for Zenodo. The Zenodo DOI for v2026.09.3 is unstamped (Zenodo
-    504 all afternoon). Sent this session, both on the operator's word: the
+    when the operator reopened the session for Zenodo. The Zenodo DOI for v2026.09.3 was minted at 15:23 on the second
+    delivery and stamped. Sent this session, both on the operator's word: the
     erdosproblems.com/1 comment (in moderation) and tadamcz/erdos1#2. The
     public repository the bench prepared (public/, one commit) is NOT used:
     the operator ruled one repository, and the texts point here. No Lean wrapper. No proof of

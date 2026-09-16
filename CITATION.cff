@@ -5,9 +5,9 @@ authors:
   - family-names: "Toledo"
     given-names: "Carlos"
     email: "carlos@carlostoledo.co"
-date-released: 2026-09-05
-version: v2026.09.2
-doi: "10.5281/zenodo.22382866"
+date-released: 2026-09-16
+version: v2026.09.3
+doi: "10.5281/zenodo.22800699"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.22225860"
@@ -24,6 +24,9 @@ keywords:
   - "hot spots conjecture"
   - "mean-field games"
   - "Chowla cosine problem"
+  - "Erdős problem 1"
+  - "sum-distinct sets"
+  - "Siegel's lemma"
 abstract: >-
   A conjecture engine and verification lab: generate mathematical objects at
   scale, screen in float, certify the survivors exactly (interval enclosures
@@ -34,7 +37,11 @@ abstract: >-
   of a convex trapezoid with no symmetry axis attains its extrema on the
   boundary only, mu_1 simple in [12.020976137, 12.022398349]); and certified
   mean-field-game equilibria with more density peaks than potential wells,
-  with the exact discount-free crossover 1/(8 pi^2). Every page recomputes
+  with the exact discount-free crossover 1/(8 pi^2); and, archived in
+  v2026.09.3, the GPT-6 Astra disproof of Erdős problem 1 made effective —
+  twelve certificates of explicit sum-distinct sets below Bohman's constant,
+  from 1,701 elements at N/2^n = 0.217967 to 121,500 at 0.136855, every one
+  re-decided by an independent verifier in exact arithmetic. Every page recomputes
   its numbers from the certificates at build; planted red controls must
   fire; a build that drifts refuses to ship. Machine-derived with Claude
   (Anthropic) driving certified-arithmetic instruments; not peer-reviewed.

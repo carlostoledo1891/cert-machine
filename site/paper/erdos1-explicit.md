@@ -1,6 +1,6 @@
 # Erdős problem 1, made explicit
 
-**Status (2026-09-15, ported to cert-machine the same night):** BUILT AND VERIFIED. The bench built eight certificates; this repository re-verified every one from the certificate file alone (`certs/erdos1/verify-*.log`; the bench's own logs are kept beside them) and built four more: the smallest set below Bohman is now **n = 1,701 at N/2^n = 0.217967** (tilt 3/5, d = 81, k = 21; k = 20 lands at 0.220057, above by the width of the buffer), and the two-level tilted lattices at d = 441 (α = 3/4, b = 21: 0.172386 at n = 12,348) and d = 961 (α = 4/5, b = 31: 0.159783 at n = 28,830) reach what Bloom's gadget reaches only at d = 729 and 1331. Headline unchanged: tilt 11/20, b = 13, s = 3 (d = 2197) gives N/2^n = 0.145269 at n = 79,092, 34.0% below Bohman, and C_2197 ≥ 3.4419. A d = 3375 instance (α = 3/5, b = 15, s = 3; Δ_s = 0.2734, so N/2^n → 0.1367) was started here and enters the ledger only when its verifier run finishes. Which instances are verified on this machine, and the exact numbers, are in `certs/erdos1-ledger.json`; the page is `reports/erdos1.html`, the paper `paper/erdos1-explicit.pdf`.
+**Status (2026-09-15, ported to cert-machine the same night):** BUILT AND VERIFIED. The bench built eight certificates; this repository re-verified every one from the certificate file alone (`certs/erdos1/verify-*.log`; the bench's own logs are kept beside them) and built four more: the smallest set below Bohman is now **n = 1,701 at N/2^n = 0.217967** (tilt 3/5, d = 81, k = 21; k = 20 lands at 0.220057, above by the width of the buffer), and the two-level tilted lattices at d = 441 (α = 3/4, b = 21: 0.172386 at n = 12,348) and d = 961 (α = 4/5, b = 31: 0.159783 at n = 28,830) reach what Bloom's gadget reaches only at d = 729 and 1331. Headline unchanged: tilt 11/20, b = 13, s = 3 (d = 2197) gives N/2^n = 0.145269 at n = 79,092, 34.0% below Bohman, and C_2197 ≥ 3.4419. A d = 3375 instance (α = 3/5, b = 15, s = 3; Δ_s = 0.2734) was built here and verified on 2026-09-16 (k = 36): **n = 121,500 at N/2^n = 0.136855, 37.7% below Bohman**, the headline now; C_3375 ≥ 3.65. Which instances are verified on this machine, and the exact numbers, are in `certs/erdos1-ledger.json`; the page is `reports/erdos1.html`, the paper `paper/erdos1-explicit.pdf`.
 
 ## 1. The problem and the state of play
 
@@ -121,7 +121,7 @@ All with the same code, the Hermite basis by PARI, and every instance re-verifie
 | 3/5 | 9 | 2 | 81 | 25 | 242.5 | 21 | 1,701 | 0.217967 | the smallest set below Bohman in this family; k = 20 gives 0.220057 |
 | 3/4 | 21 | 2 | 441 | 16 | (ledger) | 28 | 12,348 | 0.172386 | Δ = 0.3440; beats the d = 729 Bloom lattice at 60% of its dimension |
 | 4/5 | 31 | 2 | 961 | 25 | (ledger) | 30 | 28,830 | 0.159783 | Δ = 0.3186; beats the d = 1331 Bloom lattice |
-| 3/5 | 15 | 3 | 3375 | 125 | (ledger) | 36 | 121,500 | → 0.1367 | Δ = 0.2734; verifier run started 2026-09-15, enters the ledger when it finishes |
+| 3/5 | 15 | 3 | 3375 | 125 | 21,039 | 36 | 121,500 | 0.136855 | Δ = 0.2734; verified 2026-09-16 (14 h of shared CPU); the headline |
 
 The strip decision for every tilt used (`gadget.py`, `strip_tilt`): 3/5@9, 13/20@11, 2/3@11, 2/3@13, 11/20@13, 3/4@21, 4/5@31, 3/5@15 all admissible, milliseconds each (M = 4 and 64,794 chains at 4/5@31). The candidates not built: 2/3@17 and 2/3@19 at s = 2 (Δ 0.3666, 0.3633: worse than 3/4@21 at similar d), 7/10@25 (Δ 0.3472, D = 100), 3/5@17 at s = 3 (Δ 0.2572 at d = 4913: the next stretch, ~a day of verification), 5/8@15 (Δ 0.2872, D = 512).
 
@@ -140,6 +140,7 @@ In the normalisation of Bloom's exposition (after Aliev), $C_d$ is the least con
 | 961 | 30 | 3.129239 |
 | 1331 | 34 | 3.162106 |
 | 2197 | 36 | 3.441898 |
+| 3375 | 36 | 3.653497 |
 
 For comparison, a Bohman-type set gives $C_d \ge 1/0.44004 = 2.2725$ for all large $d$; the Astra construction shows $C_d \to \infty$ along a sequence of $d$, and these are the first explicit values above 2.28.
 

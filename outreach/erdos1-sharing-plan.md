@@ -45,7 +45,8 @@ never pushed); it is NOT used. Everything the texts point at lives in cert-machi
 
 ### 4. Later, not now
 
-Zenodo: DONE ON THE OPERATOR'S WORD 2026-09-16 13:31 -03 — release v2026.09.3 cut on GitHub
+Zenodo: DONE — DOI 10.5281/zenodo.22800699 (v2026.09.3, minted 2026-09-16 15:23 on the second
+delivery; the concept DOI 10.5281/zenodo.22225860 resolves to it). Release v2026.09.3 cut on GitHub
 (https://github.com/carlostoledo1891/cert-machine/releases/tag/v2026.09.3) with .zenodo.json at
 v2026.09.3 and the Erdős #1 front in its description. Zenodo's API answered 504 for the twenty minutes
 after, so the versioned DOI was not yet read from the public record; when it is,
