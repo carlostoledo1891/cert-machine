@@ -33,11 +33,11 @@ never pushed); it is NOT used. Everything the texts point at lives in cert-machi
    tadamcz/erdos1: HEAD still 0e395153 (2026-09-06), one issue (a dependabot bump), all eight
    cited lemma names present in the resolution file.
 
-### 1. The forum comment — `erdos1-forum-comment.md` (paste by hand; the site renders $…$)
+### 1. The forum comment — `erdos1-forum-comment.md` — POSTED 2026-09-16 ~11:25 -03, IN MODERATION (sweep watches it)
    Reviewed against the five forum rules on 2026-09-16 (pinned: corpus/sources/erdos1/erdosproblems-forum-rules_2026-09-16.txt);
    the rule-by-rule notes are at the foot of the file. Rule 1's disclosure is in the text; rules 1, 2 and 4 are
    YOURS to satisfy by having read the two half-pages the notes name before you post.
-### 2. The issue on tadamcz/erdos1 — `erdos1-tadamcz-issue.md` (`gh issue create` can post it on request)
+### 2. The issue on tadamcz/erdos1 — `erdos1-tadamcz-issue.md` (`gh issue create` can post it on request) — NEXT, on the operator's go
 ### 3. Mathstodon — `erdos1-mastodon.md` (under 500 characters; the page carries the link preview) — AFTER the
    forum comment is shown and has had a few days: the site's advice page says not to announce on social media
    before community assessment, and the September blog thread says priority from AI-heavy work counts for little.

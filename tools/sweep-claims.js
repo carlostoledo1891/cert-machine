@@ -17,6 +17,9 @@
      3. erdosproblems #510 page — the lambda-table comment was posted by
         the operator 2026-08-26 and sits in moderation; same standing
         instruction (shout + snapshot) when the table appears.
+     3b. erdosproblems #1 thread — the effective-disproof comment was posted
+        by the operator 2026-09-16 and sits in moderation; same instruction,
+        and Mathstodon is held until it is shown.
      4. arXiv — recent entries mentioning the Ramanujan Machine (new
         proofs of audited rows, or new sheets' papers).
 
@@ -88,6 +91,22 @@ const finding = (m) => { findings++; console.log('!! ' + m); };
     if (visible) finding('erdos510: THE LAMBDA TABLE IS PUBLIC — snapshot the page as evidence bytes beside outreach/erdos510-comment.md NOW');
     else say('erdos510: comment not visible yet, still in the moderation queue');
     state.erdos510Visible = visible;
+  }
+}
+
+/* 3b · the #1 moderation queue (comment posted by the operator 2026-09-16 ~11:25 -03; same standing instruction) */
+{
+  const html = fetchText('https://www.erdosproblems.com/forum/thread/1?cb=' + Math.floor(Math.random() * 1e9));
+  if (!html) say('erdos1: fetch failed (transient)');
+  else {
+    /* the signature: the paper's URL, which no other comment on that thread carries */
+    const visible = /carlostoledo\.co\/paper\/erdos1-explicit\.pdf/.test(html);
+    const n = (html.match(/class="post depth-/g) || []).length;
+    if (visible && !state.erdos1Visible) finding('erdos1: THE COMMENT IS PUBLIC — snapshot the thread as evidence bytes beside corpus/sources/erdos1/erdosproblems-1-forum-discuss_2026-09-15.html NOW, then Mathstodon may go (outreach/erdos1-mastodon.md)');
+    else if (visible) say('erdos1: comment public (' + n + ' posts)');
+    else if (state.erdos1Posts !== undefined && state.erdos1Posts !== null && n !== state.erdos1Posts) finding('erdos1: post count moved ' + state.erdos1Posts + ' -> ' + n + ' (our text not visible) — read the thread');
+    else say('erdos1: comment not visible yet, still in the moderation queue (' + n + ' posts)');
+    state.erdos1Visible = visible; state.erdos1Posts = n;
   }
 }
 

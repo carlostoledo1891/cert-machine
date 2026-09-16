@@ -11,6 +11,19 @@ here on request.
 
 ---
 
+## LANE 0 — ERDŐS #1 (2026-09-16): the comment is OUT and in moderation; the issue is next
+
+### 0a. erdosproblems.com/1 comment — POSTED 2026-09-16 ~11:25 -03 by Carlos, awaiting moderator approval
+File: `outreach/erdos1-forum-comment.md` (the site's own format; reviewed against its five rules, rule-1
+disclosure in the text). `node tools/sweep-claims.js` reports when it is shown; then snapshot the thread.
+
+### 0b. Issue on github.com/tadamcz/erdos1 — READY, `gh` posts it on the word
+File: `outreach/erdos1-tadamcz-issue.md`. Every lemma name re-checked against HEAD 0e395153 on 2026-09-16.
+
+### 0c. Mathstodon — READY (495 characters), HELD until the forum comment is shown and the thread has looked
+File: `outreach/erdos1-mastodon.md`. The site's advice page: no social-media announcement before
+community assessment.
+
 ## READY NOW — paste-by-hand
 
 ### 1a. OEIS: the #852 record extension  ← the freshest and the easiest

@@ -1,5 +1,10 @@
 # Erdős #1 — the comment for erdosproblems.com/1 (paste by hand)
 
+STATUS: POSTED BY THE OPERATOR 2026-09-16 ~11:25 -03, in the moderation queue (the site holds new comments for
+moderator approval). Do not cite it as public until a fetch of https://www.erdosproblems.com/forum/thread/1
+shows it; tools/sweep-claims.js watches for the text and says so. When it lands, snapshot the thread as
+evidence bytes beside the 2026-09-15 pin (corpus/sources/erdos1/erdosproblems-1-forum-discuss_<date>.html).
+
 THE SITE'S FORMAT (read off its preview renderer, 2026-09-16): plain text; newlines become line
 breaks; MathJax for $…$ and $$…$$; links ONLY as <a href="URL">text</a> (an anchor with nothing but
 an href); {PROBLEM=n} links a problem. NO MARKDOWN: **bold** and [text](url) and `code` and "- "
