@@ -94,7 +94,10 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
      is gone from the texts. THE COMMENT WAS POSTED by the operator 2026-09-16
      ~11:25 -03 and sits in the moderation queue (the site holds every new
      comment; #852 cleared in days, #290 never did); tools/sweep-claims.js
-     watches thread 1 for its text. The issue on tadamcz/erdos1 is the next send.
+     watches thread 1 for its text. THE ISSUE ON tadamcz/erdos1 WAS POSTED at
+     11:40 -03 through gh under the operator's account, on the operator's word:
+     https://github.com/tadamcz/erdos1/issues/2. Mathstodon is the one send
+     left, held until the forum comment is shown.
   0d. WHAT IS OPEN ON THE MATHEMATICS, stated on the page: the effective
      rate f(n) ≤ n^{-c/log log n} needs a PROOF that the buffer K is
      polynomial in d. MEASURED THIS SESSION, level by level at fixed b

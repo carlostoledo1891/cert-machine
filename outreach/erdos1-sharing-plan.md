@@ -37,7 +37,7 @@ never pushed); it is NOT used. Everything the texts point at lives in cert-machi
    Reviewed against the five forum rules on 2026-09-16 (pinned: corpus/sources/erdos1/erdosproblems-forum-rules_2026-09-16.txt);
    the rule-by-rule notes are at the foot of the file. Rule 1's disclosure is in the text; rules 1, 2 and 4 are
    YOURS to satisfy by having read the two half-pages the notes name before you post.
-### 2. The issue on tadamcz/erdos1 — `erdos1-tadamcz-issue.md` (`gh issue create` can post it on request) — NEXT, on the operator's go
+### 2. The issue on tadamcz/erdos1 — POSTED 2026-09-16 11:40 -03: https://github.com/tadamcz/erdos1/issues/2 (gh, the operator's account, on the operator's word)
 ### 3. Mathstodon — `erdos1-mastodon.md` (under 500 characters; the page carries the link preview) — AFTER the
    forum comment is shown and has had a few days: the site's advice page says not to announce on social media
    before community assessment, and the September blog thread says priority from AI-heavy work counts for little.
