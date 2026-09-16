@@ -4,7 +4,9 @@ Status: DRAFT, NOT SENT. Operator-gated like every send. Route ruled 2026-09-15:
 first (one repository, no separate one — the links below resolve only after the push), then this
 comment. No email to Bloom.
 
-BEFORE SENDING, two gates, both mechanical:
+BEFORE SENDING, two gates, both mechanical — BOTH MET 2026-09-16 01:50 (main pushed at 01:49, the page live
+ten seconds later with all six links resolving; the forum thread re-fetched and byte-identical to the pinned
+copy except the access date; tadamcz/erdos1 HEAD still 0e395153 with every cited lemma name present):
 1. `node tools/run-erdos1-ledger.js` must list `cert-b13-s3-a11_20.json.gz  verified k: [36]` — the
    79,092-element set quoted below is bench-verified and its re-verification on this machine takes
    about two hours; the comment quotes nothing this machine has not verified.
@@ -22,7 +24,7 @@ BEFORE SENDING, two gates, both mechanical:
 - $n = 12{,}348$, $N/2^n = 0.172386$ (dimension $441$);
 - $n = 79{,}092$, $N/2^n = 0.145269$ (dimension $2197$), i.e. $f(n) \le 0.290538$ against Bohman's $0.44004$.
 
-This also answers StijnC's comment above: constructions with $N < 2^n/5$ exist explicitly. Two further points. The base gadget $T = I + \tfrac12 P$ is not special: $T = I + \alpha P$ works for every $0 < \alpha < 1$ (the cube property has a three-line proof for all tilts; the strip property is decided exactly by a finite search that a structure lemma makes small), and the best tilt beats $\tfrac12$ at every dimension budget — the $81$-dimensional set above uses $\alpha = 3/5$, where the original gadget first crosses Bohman at dimension $729$. And, as anticipated in the exposition, the lattices give explicit lower bounds for the constant in Siegel's lemma: $C_{2197} \ge 3.44$ in the exposition's normalisation. Paper, certificates, the independent verifier and every number's provenance: https://carlostoledo.co/reports/erdos1.html (repository: https://github.com/carlostoledo1891/cert-machine, `certs/erdos1/` and `instruments/erdos1/`). The effective rate $f(n) \le n^{-c/\log\log n}$ is not proved here; the missing ingredient is a proof of the buffer law, which is measured (linear in $d$ in every instance computed) but not yet shown.
+This also answers StijnC's comment above: constructions with $N < 2^n/5$ exist explicitly. Two further points. The base gadget $T = I + \tfrac12 P$ is not special: $T = I + \alpha P$ works for every $0 < \alpha < 1$ (the cube property has a three-line proof for all tilts; the strip property is decided exactly by a finite search that a structure lemma makes small), and the best tilt beats $\tfrac12$ at every dimension budget — the $81$-dimensional set above uses $\alpha = 3/5$, where the original gadget first crosses Bohman at dimension $729$. And, as anticipated in the exposition, the lattices give explicit lower bounds for the constant in Siegel's lemma: $C_{2197} \ge 3.44$ in the exposition's normalisation. Paper, certificates, the independent verifier and every number's provenance: https://carlostoledo.co/reports/erdos1.html (repository: https://github.com/carlostoledo1891/cert-machine, `certs/erdos1/` and `instruments/erdos1/`). The effective rate $f(n) \le n^{-c/\log\log n}$ is not proved here; the missing ingredient is a proof of the buffer law, which is measured (the buffer is the dimension times a slowly growing function of the level in every instance computed, so polynomial in $d$) but not yet shown.
 
 ---
 

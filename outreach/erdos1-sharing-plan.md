@@ -25,9 +25,13 @@ never pushed); it is NOT used. Everything the texts point at lives in cert-machi
 2. Then `node tools/build-report-erdos1.js && python3 instruments/erdos1/certnumbers.py &&
    node tools/build-paper-tex.js erdos1-explicit`, the three Chrome gates with `--accept` for the
    changed page, `make control` (88/88) and `make site`.
-3. Push main. The links in the texts resolve only after the push; carlostoledo.co deploys from it.
-4. Re-read the four comments on erdosproblems.com/1 (state of 2026-09-15 pinned in the corpus:
-   no explicit set posted). If one appeared, drop "the first" everywhere.
+3. Push main. DONE 2026-09-16 01:49 (3b182f4..b0c5f04); the page was live ten seconds later and the
+   verifier, the ledger, a certificate, the 16 MB gzipped d = 1331 certificate, the paper PDF and
+   the theorem note all answer 200.
+4. Re-read the four comments on erdosproblems.com/1. DONE 2026-09-16 01:50: the live thread is
+   byte-identical to the pinned 2026-09-15 copy except the access date — no explicit set posted.
+   tadamcz/erdos1: HEAD still 0e395153 (2026-09-06), one issue (a dependabot bump), all eight
+   cited lemma names present in the resolution file.
 
 ### 1. The forum comment — `erdos1-forum-comment.md` (paste by hand; the site renders $…$)
 ### 2. The issue on tadamcz/erdos1 — `erdos1-tadamcz-issue.md` (`gh issue create` can post it on request)

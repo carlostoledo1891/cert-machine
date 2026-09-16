@@ -23,7 +23,8 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would take it:
 
-  0. ERDŐS #1 IS PORTED, PUSHED FURTHER, AND ON THE SHELF — NOT PUSHED, NOT SENT.
+  0. ERDŐS #1 IS PORTED, PUSHED FURTHER, ON THE SHELF, AND LIVE (main pushed
+     2026-09-16 01:49 on the operator's word; every send still per-item).
      The frontier-apps front (PORT-ERDOS1.md, sessions 27–28 there) is in this
      repository whole: instruments/erdos1 (the lattice, the build, the verifier,
      the gadget decider, the Siegel corollary; 66 files pinned in its
@@ -83,7 +84,9 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
      prepared second repository is not used; every text points at
      carlostoledo.co/reports/erdos1.html and at this repository's
      certs/erdos1/ + instruments/erdos1/, so the PUSH of main comes first
-     and the links resolve after it. Then the erdosproblems.com/1 comment
+     and the links resolve after it — PUSHED 01:49, live ten seconds later,
+     six links checked 200, the forum thread and tadamcz/erdos1 re-read and
+     unchanged. Then the erdosproblems.com/1 comment
      (it answers StijnC's 2025 "N < 2^n/5"), then the tadamcz/erdos1 issue
      (gh can post it), then Mathstodon (the bench's draft was 699 characters
      against a 500 limit; the one on disk is 488). No email to Bloom (ruled
