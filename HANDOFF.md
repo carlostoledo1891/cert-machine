@@ -96,8 +96,12 @@ THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would 
      comment; #852 cleared in days, #290 never did); tools/sweep-claims.js
      watches thread 1 for its text. THE ISSUE ON tadamcz/erdos1 WAS POSTED at
      11:40 -03 through gh under the operator's account, on the operator's word:
-     https://github.com/tadamcz/erdos1/issues/2. Mathstodon is the one send
-     left, held until the forum comment is shown.
+     https://github.com/tadamcz/erdos1/issues/2. RELEASE v2026.09.3 CUT at
+     13:31 -03 on the operator's word ("proceed zenodo doi") so the archive
+     carries certs/erdos1; Zenodo's API was 504 for twenty minutes after,
+     so the versioned DOI is NOT YET STAMPED — tools/stamp-release.py does
+     it once the public record shows it. arXiv HELD (operator). Mathstodon:
+     instructions given, the operator posts.
   0d. WHAT IS OPEN ON THE MATHEMATICS, stated on the page: the effective
      rate f(n) ≤ n^{-c/log log n} needs a PROOF that the buffer K is
      polynomial in d. MEASURED THIS SESSION, level by level at fixed b

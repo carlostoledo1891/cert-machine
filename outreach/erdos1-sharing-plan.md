@@ -44,9 +44,13 @@ never pushed); it is NOT used. Everything the texts point at lives in cert-machi
 
 ### 4. Later, not now
 
-Zenodo: this repository already carries a `.zenodo.json` and a DOI-stamped release history
-(outreach/zenodo-plan.md); the next release after the push archives `certs/erdos1/` with the
-rest, and the paper's date line takes the DOI then. arXiv (math.NT, cross-list math.CO) when
+Zenodo: DONE ON THE OPERATOR'S WORD 2026-09-16 13:31 -03 — release v2026.09.3 cut on GitHub
+(https://github.com/carlostoledo1891/cert-machine/releases/tag/v2026.09.3) with .zenodo.json at
+v2026.09.3 and the Erdős #1 front in its description. Zenodo's API answered 504 for the twenty minutes
+after, so the versioned DOI was not yet read from the public record; when it is,
+`python3 tools/stamp-release.py v2026.09.3 <doi> 2026-09-16` writes it into corpus/zenodo.json and
+CITATION.cff (check-wiring gates the pair), then commit and push. Until then cite the concept DOI
+10.5281/zenodo.22225860, which resolves to the latest version. arXiv (math.NT, cross-list math.CO) when
 endorsed. OEIS A276661 comment. Lean Zulip (formalising one certificate: every step is a finite
 exact computation, and the Lean lemmas `chainMatrix_saturated`, `exists_binary_block_set`,
 `composeMatrix_admissible` already exist). Hacker News only after 1–3 exist.
