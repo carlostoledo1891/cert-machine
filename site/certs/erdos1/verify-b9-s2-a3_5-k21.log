@@ -1,0 +1,22 @@
+verify /Users/carlostoledo/Projects/cert-machine/instruments/erdos1/../../certs/erdos1/cert-b9-s2-a3_5-k21.json: b=9 s=2 d=81 r=80 D=25 alpha=3/5
+  [PASS] V0 D = denominator(α)^s 
+  [PASS] V1a basis lies in the zero-sum hyperplane 
+  [PASS] V1b D·B integral 
+  [PASS] V1c |det A| matches certificate 371 bits
+  [PASS] V2a H upper triangular, positive diagonal 
+  [PASS] V2b columns of A' lie in col-lattice(H) 
+  [PASS] V2c columns of H lie in col-lattice(A') 
+  [0.0s] lattice equality done
+  [PASS] V5 certificate K ≥ D·‖E H⁻¹‖∞ K=242.523
+  [0.1s] buffer done
+ instance k=21: n=1701 t=83896
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.217967
+  [BEATS BOHMAN] N/2^n = 0.217967 vs 0.22002
+  [0.1s] instance done
+OVERALL: ALL CHECKS PASSED

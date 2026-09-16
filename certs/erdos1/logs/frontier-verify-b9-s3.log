@@ -1,0 +1,51 @@
+verify cert-b9-s3.json: b=9 s=3 d=729 r=728 D=8
+  [PASS] V1a basis lies in the zero-sum hyperplane 
+  [PASS] V1b D·B integral 
+  [PASS] V1c |det A| matches certificate 2183 bits
+  [PASS] V2a H upper triangular, positive diagonal 
+  [PASS] V2b columns of A' lie in col-lattice(H) 
+  [PASS] V2c columns of H lie in col-lattice(A') 
+  [4.8s] lattice equality done
+  [PASS] V5 certificate K ≥ D·‖E H⁻¹‖∞ K=1546.55
+  [6.3s] buffer done
+ instance k=24: n=17496 t=2097346
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.189259
+  [BEATS BOHMAN] N/2^n = 0.189259 vs 0.22002
+  [25.3s] instance done
+ instance k=26: n=18954 t=8388802
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.179938
+  [BEATS BOHMAN] N/2^n = 0.179938 vs 0.22002
+  [45.6s] instance done
+ instance k=28: n=20412 t=33554626
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.177680
+  [BEATS BOHMAN] N/2^n = 0.177680 vs 0.22002
+  [67.5s] instance done
+ instance k=32: n=23328 t=536871106
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.176980
+  [BEATS BOHMAN] N/2^n = 0.176980 vs 0.22002
+  [92.4s] instance done
+OVERALL: ALL CHECKS PASSED

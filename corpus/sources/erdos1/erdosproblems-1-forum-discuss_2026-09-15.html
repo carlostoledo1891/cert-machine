@@ -1,0 +1,1689 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+
+<title>1 Discussion Thread | Erdős Problems</title>
+<meta property="og:title" content="1 Discussion Thread | Erdős Problems">
+<link rel="icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/static/style.css?v=a13e2aa7">
+
+<script>
+document.addEventListener('click', (e) => {
+  // Toggle reply form
+  const toggle = e.target.closest('.reply-toggle');
+  if (toggle) {
+    const id = toggle.getAttribute('data-target');
+    const form = document.getElementById(id);
+    if (form) form.classList.toggle('hidden');
+  }
+  // Reply with quote
+  const quoteBtn = e.target.closest('.reply-quote');
+  if (quoteBtn) {
+    const id = quoteBtn.getAttribute('data-target');
+    const form = document.getElementById(id);
+    if (!form) return;
+    const ta = form.querySelector('textarea');
+    const raw = quoteBtn.getAttribute('data-raw') || '';
+    const quoted = raw.split('\n').map(l => '> ' + l).join('\n') + '\n\n';
+    ta.value = quoted;
+    form.classList.remove('hidden');
+    ta.focus();
+    const len = ta.value.length;
+    ta.setSelectionRange(len, len);
+  }
+});
+</script>
+
+<!-- This creates the reference in the bibliography box. -->
+
+<script>
+function addNewBox(key, problem_id, shouldScroll = false) {
+  const local_id = 'bib-container' + String(problem_id);
+  const container = document.getElementById(local_id);
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  fetch(`/bibs/${encodeURIComponent(key)}`)
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.text();
+    })
+    .then(html => {
+      container.innerHTML = html;
+
+      if (shouldScroll) {
+        requestAnimationFrame(() => {
+          container.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        });
+      }
+    })
+    .catch(err => {
+      console.error("Failed to load bib:", err);
+      container.textContent = "Unable to load reference.";
+
+      if (shouldScroll) {
+        container.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    });
+}
+</script>
+
+<script>
+const filledSVG = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" class="fav-icon">
+  <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+</svg>
+                `;
+const outlineSVG = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="black" fill="white" class="fav-icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.610l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.840-.610l1.285-5.386a.563.563 0 0 0-.182-.557L3.041 10.385a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+</svg>
+                `;
+
+document.addEventListener("click", async (e) => {
+  const btn = e.target.closest(".fav-btn");
+  if (!btn) return;
+
+  e.preventDefault();
+  const problemId = btn.dataset.problemId;
+
+  try {
+    const res = await fetch(`/forum/toggle_favourite/${problemId}`, { method: "POST" });
+    const data = await res.json();
+
+    btn.dataset.favourited = data.favourited ? "true" : "false";
+    btn.innerHTML = data.favourited ? filledSVG : outlineSVG;
+  } catch (err) {
+    console.error("Toggle failed:", err);
+  }
+});
+</script>
+
+    
+<script>
+function addImageBox(X, problem_id, shouldScroll = true) {
+  const local_id = 'image-container' + String(problem_id);
+  const container = document.getElementById(local_id);
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const newBox = document.createElement("div");
+
+  const img = document.createElement("img");
+  img.src = `/static/${encodeURIComponent(X)}.png`;
+  img.className = "responsive-image";
+  img.alt = String(X);
+
+  newBox.appendChild(img);
+  container.appendChild(newBox);
+
+  if (shouldScroll) {
+    requestAnimationFrame(() => {
+      container.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  }
+}
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('searchForm');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    const input = form.querySelector('.searchTerm');
+    if (!input) return;
+    const value = input.value.trim();
+    if (!value) return;
+    const path = '/search/' + encodeURIComponent(value);
+    const inDual = window.location.pathname.startsWith("/dual");
+    if (inDual) {
+      e.preventDefault(); 
+      const selected = document.querySelector('input[name="targetPanel"]:checked');
+      const panel = selected ? selected.value : "left";
+      const iframe = document.getElementById(`iframe-${panel}`);
+      if (iframe) {
+        const url = path.includes("?") ? path + "&embed=1" : path + "?embed=1";
+        iframe.src = url;
+        const box = document.querySelector(`#panel-${panel} input`);
+        if (box) box.value = path;
+      } else {
+        window.location.href = path;
+      }
+    } else {
+      form.action = path;
+      form.method = "GET";
+    }
+  });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.pathname.startsWith("/dual")) return;
+
+  var form = document.getElementById('idsearchForm');
+  if (!form) return;
+
+  form.onsubmit = function() {
+    var input = document.querySelector('.idsearchTerm').value.trim();
+    var searchUrl;
+
+    if (/^\d+$/.test(input)) {
+        searchUrl = '/' + encodeURIComponent(input);
+    } else if (/^((\d+|end)(-(\d+|end))?\s*)+(open|solved|yes|no)?$/.test(input.toLowerCase())) {
+        let parts = input.split(/\s+/).filter(Boolean);
+        searchUrl = '/range/' + parts.map(encodeURIComponent).join('/');
+    } else {
+        alert("Enter either a single integer or a space-separated list of numbers/ranges...");
+        return false;
+    }
+    window.location.href = searchUrl;
+    return false;
+  };
+});
+</script>
+
+<script>
+  window.CURRENT_USERNAME = "";
+</script>
+
+
+<script>
+document.addEventListener("click", async (ev) => {
+  const btn = ev.target.closest(".reaction-btn");
+  if (!btn) return;
+  const you = window.CURRENT_USERNAME || "";
+  const bar = btn.closest(".reaction-bar");
+  const postId = bar?.dataset.postId;
+  const rtype = btn.dataset.type;
+  const reactUrl = bar?.dataset.reactUrl; 
+  if (!postId || !rtype || !reactUrl) return;
+
+  try {
+    const res = await fetch(reactUrl, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({type: rtype})
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      alert(data.error || "Could not update reaction.");
+      return;
+    }
+    const summary = data.summary;
+    
+    bar.querySelectorAll(".reaction-btn").forEach(b => {
+      const t = b.dataset.type;
+      const countSpan = bar.querySelector(`.reaction-count[data-type="${t}"]`);
+      if (countSpan && summary[t]) {
+        countSpan.textContent = summary[t].count;
+    const desc = b.dataset.desc || "";
+    const usersTitle = summary[t].users_title || "No one yet.";
+    b.title = `${desc}\n\n${usersTitle}`;
+      }
+        const iReacted = you && (summary[t].users_title || "").includes(you);
+  b.classList.toggle("active", !!iReacted);
+  b.setAttribute("aria-pressed", iReacted ? "true" : "false");
+    });
+  } catch (e) {
+    console.error(e);
+    alert("Only registered users with 5+ posts can react.");
+  }
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.addEventListener("click", function (e) {
+    const link = e.target.closest(".problem-reaction-link");
+    if (!link) return;
+
+    e.preventDefault();
+
+    const row = link.closest(".problem-reaction-row");
+    if (!row) return;
+
+    const form = row.querySelector(".problem-reaction-form");
+    if (!form) return;
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        if (!data.ok) {
+          console.error(data.error || "Problem reaction update failed");
+          return;
+        }
+
+        const summary = data.summary;
+
+        // Update users text for each reaction type
+        for (const [type, info] of Object.entries(summary)) {
+          const r = document.querySelector(
+            `.problem-reaction-row[data-reaction-type="${type}"]`
+          );
+          if (!r) continue;
+
+          const usersCell = r.querySelector(".problem-reaction-users");
+          if (usersCell) {
+            usersCell.textContent = info.users_title || "None yet";
+          }
+        }
+        link.classList.toggle("active");
+        if (link.classList.contains("active")) {
+          link.textContent = "(no)";
+        } else {
+          link.textContent = "(yes)";
+        }
+      })
+      .catch(err => {
+        console.error("Problem reaction AJAX error", err);
+      });
+  });
+});
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="topnav">
+
+  <div class="left">
+    <div class="logo">
+      <a class="dual-aware" href="/"><img src="/static/EPLogo.png" alt="Logo" height="50"></a>
+    </div>
+    <div class="links dual-aware desktop-nav">
+      <a href="/forum">Forum</a>
+      <a href="/dm">Inbox</a> 
+      <a href="/favourites">Favourites</a>
+      <a href="/tags">Tags</a> 
+      <div class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">More</a>
+        <div class="dropdown-content">
+          <a href="/faq">FAQ</a>
+          <a href="/prizes">Prizes</a>
+          <a href="/lists">Problem Lists</a>
+          <a href="/definitions">Definitions</a>
+          <a href="/links">Links</a>
+        </div>
+      </div> 
+    </div>
+    <div class="mobile-nav">
+    
+        <a class="forumlink" href="/forum">Forum</a>
+    <div class="dropdown">
+      <button class="dropbtn" id="mobileMenuButton">Menu</button>
+      <div class="dropdown-content">
+        <a href="/dm">Inbox</a> 
+        <a href="/favourites">Favourites</a>
+        <a href="/tags">Tags</a>  
+        <a href="/faq">FAQ</a>
+        <a href="/prizes">Prizes</a>
+        <a href="/lists">Problem Lists</a>
+        <a href="/definitions">Definitions</a>
+        <a href="/links">Links</a>
+      </div>
+     </div>
+    </div>
+  </div>
+
+  <div class = "middle">
+    <div class="button-container" style="max-width: 50%;">
+      <form id="idsearchForm">
+        <input required type="text" name="query" class="idsearchTerm" placeholder="# (or range #-#)" title="Enter either a single integer or a space-separated list of numbers/ranges, optionally ending with 'open' or 'solved'.">
+        <button type="submit" class="searchButton">Go</button>
+      </form>
+    </div>
+    <div class="button-container" style="max-width: 50%;">
+      <form id="searchForm">
+        <input required type="text" name="query" class="searchTerm" placeholder="Search" title="Search all problems.">
+        <button type="submit" class="searchButton">Go</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="right">
+    <a href="#" id="dualViewLink" class="split_all">Dual View</a>
+    <a href="/random_solved" class="split_solved dual-aware">Random Solved</a>
+    <a href="/random_open" class="split_open dual-aware">Random Open</a>
+  </div>
+
+</div>
+
+<div id="notifications-slot"></div>
+
+
+
+
+<div class="container">
+<div class="problem-box">
+
+        
+<div class="problem-text" id="solved"> 
+ 
+    <div id="prize">
+    
+
+<span class="tooltip">
+DISPROVED (LEAN)
+<span class="tooltiptext">
+This has been solved in the negative and the proof verified in Lean.
+</span>
+</span>
+
+ - $500
+
+    </div>
+    
+
+
+
+    <div id="content">
+If $A\subseteq \{1,\ldots,N\}$ with $\lvert A\rvert=n$ is such that the subset sums $\sum_{a\in S}a$ are distinct for all $S\subseteq A$ then\[N \gg 2^{n}.\]
+    </div>
+
+    <div id="problem_id">
+<a href="/1">#1</a>: <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er56', '1', true);return false;">[Er56]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er57', '1', true);return false;">[Er57]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er59', '1', true);return false;">[Er59]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er61', '1', true);return false;">[Er61]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er65b', '1', true);return false;">[Er65b]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er69', '1', true);return false;">[Er69]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er70b', '1', true);return false;">[Er70b]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er70c', '1', true);return false;">[Er70c]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er73', '1', true);return false;">[Er73]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('BeEr74', '1', true);return false;">[BeEr74,p.619]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('ErSp74', '1', true);return false;">[ErSp74]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er75b', '1', true);return false;">[Er75b]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er77c', '1', true);return false;">[Er77c]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er80', '1', true);return false;">[Er80,p.97]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('ErGr80', '1', true);return false;">[ErGr80,p.59]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er81', '1', true);return false;">[Er81]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er82e', '1', true);return false;">[Er82e]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er85c', '1', true);return false;">[Er85c]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er90', '1', true);return false;">[Er90]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er91', '1', true);return false;">[Er91]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er92b', '1', true);return false;">[Er92b]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er95', '1', true);return false;">[Er95,p.165]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er97c', '1', true);return false;">[Er97c]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er98', '1', true);return false;">[Er98]</a><a href="#bib-container1" onclick="event.preventDefault();addNewBox('Va99', '1', true);return false;">[Va99,1.20]</a>
+    </div>
+
+ 
+    <div id="tags">
+
+<a href="/tags/number theory">number theory</a> | 
+
+<a href="/tags/additive combinatorics">additive combinatorics</a>
+
+    </div>
+
+</div>  
+
+<div class="problem-additional-text"> 
+
+Erdős called this 'perhaps my first serious problem' (in <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er98', '1', true);return false;">[Er98]</a> he dates it to 1931). The powers of $2$ show that $2^n$ would be best possible here: this provides an upper bound for the minimal such $N$ of $N\leq 2^{n-1}$. This was improved by Conway and Guy <a href="#bib-container1" onclick="event.preventDefault();addNewBox('CoGu68', '1', true);return false;">[CoGu68]</a> (see also <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Gu82', '1', true);return false;">[Gu82]</a>) to $N\leq 2^{n-2}$ (for all large $n$). The previous best known upper bound of $N\leq 0.22002\cdot 2^n$ was due to Bohman <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Bo98', '1', true);return false;">[Bo98]</a>.<br><br>This was disproved by GPT-6 Astra (see the proof expositions), which proved that, for any $\epsilon&gt;0$, there are arbitrarily large $n$ such that\[N\leq \epsilon 2^n.\]The trivial lower bound is $N \gg 2^{n}/n$, since all $2^n$ distinct subset sums must lie in $[0,Nn)$. Erdős and Moser <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er56', '1', true);return false;">[Er56]</a> proved\[ N\geq (\tfrac{1}{4}-o(1))\frac{2^n}{\sqrt{n}}.\](In <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er85c', '1', true);return false;">[Er85c]</a> Erdős offered \$100 for any improvement of the constant $1/4$ here.)<br><br>A number of improvements of the constant have been given (see <a href="#bib-container1" onclick="event.preventDefault();addNewBox('St23', '1', true);return false;">[St23]</a> for a history), with the current record $\sqrt{2/\pi}$ first proved in unpublished work of Elkies and Gleason. Two proofs achieving this constant are provided by Dubroff, Fox, and Xu <a href="#bib-container1" onclick="event.preventDefault();addNewBox('DFX21', '1', true);return false;">[DFX21]</a>, who in fact prove the exact bound $N\geq \binom{n}{\lfloor n/2\rfloor}$.<br><br>An equivalent formulation is to ask for the maximal size of a set of integers in $[1,x]$ which is dissociated (all subset sums are distinct). If $F(x)$ is the size of such a set then this problem is equivalent to\[F(x) &lt;\log_2x+O(1).\]The GPT construction above proves that in fact, for any constant $C&gt;0$, for infinitely many $x$,\[F(x)&gt;\log_2x+C\]for some absolute constant $c&gt;0$. Conway and Guy (see <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Gu82', '1', true);return false;">[Gu82]</a>) conjectured that $F(2^k)=k+2$ for all large $k$, but Erdős <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er80', '1', true);return false;">[Er80]</a> wrote he had 'no opinion'.<br><br>In <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Er73', '1', true);return false;">[Er73]</a> and <a href="#bib-container1" onclick="event.preventDefault();addNewBox('ErGr80', '1', true);return false;">[ErGr80]</a> the generalisation where $A\subseteq (0,N]$ is a set of real numbers such that the subset sums all differ by at least $1$ is proposed, with the same conjectured bound. (The second proof of <a href="#bib-container1" onclick="event.preventDefault();addNewBox('DFX21', '1', true);return false;">[DFX21]</a> applies also to this generalisation.) This generalisation seems to have first appeared in <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Gr71', '1', true);return false;">[Gr71]</a>.<br><br>This problem appears in Erdős' book with Spencer <a href="#bib-container1" onclick="event.preventDefault();addNewBox('ErSp74', '1', true);return false;">[ErSp74]</a> in the final chapter titled 'The kitchen sink'. As Ruzsa writes in <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Ru99', '1', true);return false;">[Ru99]</a> "it is a rich kitchen where such things go to the sink". <br><br>The sequence of minimal $N$ for a given $n$ is <a href="https://oeis.org/A276661" rel="nofollow noopener noreferrer ugc" target="_blank">A276661</a> in the OEIS.<br><br>See also <a href="/350" rel="nofollow noopener noreferrer ugc" target="_blank">[350]</a>.<br><br>This is discussed in problem C8 of Guy's collection <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Gu04', '1', true);return false;">[Gu04]</a>.
+
+
+    <div id="bib-container1"></div>
+ 
+   
+    <div class="citationbox">
+        <div id="content">
+<b>Additional thanks to</b>: Zach Hunter, Ralf Stephan, and Wouter van Doorn
+
+        </div>
+    </div>
+
+    
+    <div class="image-container" id="image-container1"></div>
+</div>
+
+<div class="problem-info">
+
+
+
+<details class="problem-info-section">
+  <summary class="problem-info-row">
+    <span>Proof expositions (1)</span>
+  </summary>
+
+  <div class="problem-info-content problem-expositions">
+If you would like to contribute an exposition of a proof related to this problem, please message a moderator or leave your exposition as a comment.<p>
+
+
+    
+      
+        <div class="proof-exposition" id="proof-exposition-7">
+
+          <div class="proof-exposition-meta">
+              Written by 
+      <strong><a href="/forum/user/TFBloom">Thomas Bloom</a></strong>
+             (last edited 03 Sep 2026)
+            
+            
+          </div>
+
+          <div class="proof-exposition-content">
+            <b>Disclaimer: This is an exposition written to help mathematicians to quickly understand the main ideas of the proof; it will take time to put it into context, and in particular to properly understand the relation of this proof to existing work in the area, and digest what aspects of this proof are 'new'. I will update this exposition as this becomes clearer (or others may add their own, better informed, expositions).</b><br><br>I will sketch the new construction of GPT, which provides a counterexample. In my efforts to understand this construction it ended up quite far from the original GPT writeup, but is (I believe) essentially the same construction, in slightly different language. This is just a sketch, but hopefully suffices to demonstrate the main ideas at play; I also wanted to highlight the connections with Siegel's lemma and geometry of numbers, which I discovered while writing this exposition and were obscured in the original GPT proof, and which should be fleshed out in the 'final form' of this proof.<br><br>Let\[f(n)=\inf\frac{\max A}{2^{n-1}},\]where the infimum is taken over all dissociated sets of positive integers $A$. This problem then asks whether $f(n)\gg 1$, and the current lower bounds have the shape $f(n)\gg n^{-1/2}$. The upper bound $f(n)\leq 1$ is trivial, and the best upper bound previously was $f(n) \leq 0.44004$ for all large $n$, by Bohman <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Bo98b', '1', true);return false;">[Bo98b]</a>. <br><br>The proof we sketch here provides a much better upper bound: for any $\epsilon&gt;0$, there are infinitely many $n$ such that $f(n)&lt;\epsilon$. The proof is currently non-quantitative, but just due to the non-effectiveness of the part where we approximate an arbitrary lattice by a primitive lattice. It seems likely that using a suitably effective version of this could prove something like, for infinitely many $n$,\[f(n) \leq n^{-\frac{c}{\log\log n}}\]for some constant $c&gt;0$.<br><br>The same construction also likely gives a new lower bound for the strength of Siegel's lemma, so before dissociated sets I'll briefly digress.<br><br><h3>Siegel's lemma and dissociated sets</h3><br><br>(If you only care about the dissociated sets problem, skip this section.) Siegel's lemma, proved by Siegel <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Si29', '1', true);return false;">[Si29]</a> in 1929, proves that, for any $d\geq 2$, for any non-zero integral vector $a\in\mathbb{Z}^d$, there exists a non-zero $x\in\mathbb{Z}^d$ such that $a\cdot x=0$ and\[\| x\|_{\infty}^{d-1}\ll_d \| a\|_\infty.\](This is actually a special case of the more general Siegel's lemma.) Let $C_d$ be the minimal implicit constant on the right-hand side. Bombieri and Vaaler <a href="#bib-container1" onclick="event.preventDefault();addNewBox('BoVa83', '1', true);return false;">[BoVa83]</a> proved that $C_d\ll \sqrt{d}$, while Schinzel <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Sc02', '1', true);return false;">[Sc02]</a> proved that $C_d\geq 1$. It may have been Schinzel who first observed (as recorded by Aliev <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Al08', '1', true);return false;">[Al08]</a>) that $C_d$ has a close relationship to dissociated sets.<br><br>One direction, that $f(d)\geq C_d^{-1}$, is easy to prove: if $a=(a_1,\ldots,a_d)$ is a vector of a dissociated set of integers, then whenever $a\cdot x=0$ we have $\| x\|_\infty \geq 2$, whence\[2^{d-1}\leq C_d\| a\|_\infty\]and so $f(d)\geq C_d^{-1}$.<br><br>The GPT construction goes in the opposite direction (at least for infinitely many $d$): essentially it constructs a sequences of lattices which prove that $C_d$ can get arbitrarily large, and constructs corresponding dissociated sets which show $f(d)$ can get arbitrarily small.<br><br>Note that this requires the converse of the simple inequality above; it would be desirable to make this connection more explicit, and prove that $f(d) \asymp C_d^{-1}$ for all $d$. (Some form of the argument below may work.) Those interested in this connection should start with <a href="#bib-container1" onclick="event.preventDefault();addNewBox('Al08', '1', true);return false;">[Al08]</a> or Section 6 of <a href="#bib-container1" onclick="event.preventDefault();addNewBox('AlHe23', '1', true);return false;">[AlHe23]</a>. For now though, we put Siegel's lemma to one side and return to dissociated sets.<br><br><h3>From $Q$-dissociated to dissociated</h3><br><br>The first observation is that it suffices to find a large set which is $Q$-dissociated, which means that if $\sum c_iu_i=0$ and $\lvert c_i\rvert&lt;Q$ for all $i$ then $c_i\equiv 0$. If $U$ is such a set in $[1,Y]$ of size $m+1$, and $Q=2^l$, then we can create a genuinely dissociated set $A\subset [1,X]$ with $X\ll QY$ and $\lvert A\rvert=l(m+1)$ by setting $A=\{1,2,4,\ldots,2^{l-1}\}\cdot U$, so that\[\frac{X}{2^{\lvert A\rvert}}\leq \frac{QY}{2^{lm+l}}= \frac{Y}{Q^{m}}.\]In other words, if we define $f_Q(n)$ to be the minimum of $\frac{\max a_n}{Q^{n-1}}$ over all $Q$-dissociated sequences of positive integers $a_1&lt;\cdots&lt;a_n$, then (whenever $Q=2^l$)\[f(l(n+1))\leq f_Q(n).\]So it suffices to make $f_Q(n)$ arbitrarily small.<br><br><h3>$Q$-dissociated sets from lattices</h3><br>A codimension $1$ primitive lattice is one of the shape $L=u^\perp\cap \mathbb{Z}^d$, where $u$ is a primitive integer vector. The connection to dissociativity is the observation that if $u$ generates such a lattice with $L\cap (-Q,Q)^d=\{0\}$ then the coordinates of $u$ form a $Q$-dissociated set: indeed, if\[\sum c_iu_i=0\]then this means precisely that $c\cdot u=0$ so $c\in L$, whence either $c=0$ or there is some coordinate of $c$ outside $(-Q,Q)$. <br><br>So the task is now to find a primitive lattice with a 'small' primitive vector. The study of primitive lattices has a long history (in particular heavily investigated by Cassels and Schmidt). The key fact that we need (see e.g. the results of Horesh and Karasik <a href="#bib-container1" onclick="event.preventDefault();addNewBox('HoKa23', '1', true);return false;">[HoKa23]</a>, who actually prove a stronger equidistribution theorem) is that codimension $1$ primitive lattices, after rescaling, are dense in the space of all codimension $1$ lattices. (In other words, the 'distance' of a primitive lattice from a given lattice can be made arbitrarily small after a suitably large dilation.)<br><br>(This is a little vague and perhaps overkill as a result, but suffices for this heuristic sketch; the original GPT argument proved directly what was required going via Smith normal form, but I suspect this is all well-trodden ground in the lattice literature, and I leave further discussion to those with a better understand of lattices.)<br><br>Let $V_d\subseteq \mathbb{R}^{d}$ be the hyperplane given by the equation $\sum x_i=0$, and let $\Lambda\subset V_d$ be a lattice of full rank, such that $\Lambda\cap (-1,1)^d=\{0\}$. Note that, for large integer $Q$, the lattice $Q\cdot \Lambda\subset V_d$ is a lattice of full rank such that $\Lambda\cap (-Q,Q)^d=\{0\}$. We therefore choose $L_Q$ some primitive lattice arbitrarily 'close' to $Q\cdot \Lambda$. This has the property (perhaps after replacing $Q$ by $(1+o(1))Q$) that $L_Q\cap (-Q,Q)^d=\{0\}$, and so it remains to show that, if $u$ is a primitive integer vector with $L_Q=u^\perp cap \mathbb{Z}^d$, then $u$ has small entries.<br><br>Since $Q\cdot \Lambda\subset V_d$, the unit normal of $L_Q$ converges to the unit normal of $V_d$, that is,\[\frac{u}{\| u\|_2}\to \frac{1}{\sqrt{d}}(1,\ldots,1).\]On the other hand, the covolume of $L_Q$ is equal to $\| u\|_2$, and converges to $Q^{d-1}\mathrm{covol}(\Lambda)$. Therefore, if $\Delta=d^{-1/2}\mathrm{covol}(\Lambda)$, every coordinate of $u$ is equal to $(\Delta+o(1))Q^{d-1}$, where the $o(1)$ term $\to 0$ as $Q\to \infty$. <br><br>Combined with the earlier observation, this implies that\[f_Q(d)\leq \Delta+o_{Q\to \infty}(1),\]and so $f(d) \leq \Delta$. <br><br>In summary, if there is a lattice $\Lambda\subset V_d$ with covolume $\sqrt{d}\Delta$, such that $\Lambda \cap (-1,1)^d=\{0\}$, then\[f(d)\leq \Delta.\]It remains to construct such lattices with arbitrarily small $\Delta$.<br><br><h3>Constructing the lattices</h3><br><br>We construct lattices via an inductive procedure, for which it is useful to actually construct something slightly stronger. Call a pair $(\Lambda,v)$ admissible if $\Lambda$ is a lattice in $V_d$ of full rank, such that $\Lambda \cap (-1,1)^d=\{0\}$, and $v\in \mathbb{R}^d\backslash V_d$ is such that whenever $tv\in \Lambda+(-1,1)^d$ we have $\lvert t\rvert&lt;1$. We write $h=\sum_i v_i$ for the 'height' of $v$. <br><br>We then set $\Gamma=\Lambda+v\cdot \mathbb{Z}$, which is a lattice of rank $d$, and satisfies\[\mathrm{covol}(\Gamma)=\frac{h}{\sqrt{d}}\mathrm{covol}(\Lambda)=h\Delta.\]The goal is now to construct admissible pairs $(\Lambda,v)$ with $\frac{\mathrm{covol}(\Gamma)}{h}\to 0$.<br><br>There are two parts to this: constructing an initial admissible pair, and then iterating this. Both parts are elementary, and where the real novelty of the proof lies, so I'll try to spell this out carefully.<br><br>Let $b\geq 3$ be an odd integer. We start by constructing an admissible pair $(\Lambda_1,v_1)$ in $\mathbb{R}^b$. Consider the cyclic shift linear transformation given by $(Tz)_i=z_i+\frac{1}{2}z_{i-1}$ (with the indices interpreted cyclically). Note that this maps $V_b\to V_b$. Let $\Lambda_0=\mathbb{Z}^b\cap V_b$, and $\Lambda_1=T(\Lambda_0)\subset V_b$. Let\[v_1=T(1,0,\ldots,0)=(1,0,\ldots,0,1/2),\]so that $h_1=3/2$.<br><br>We claim that $(\Lambda_1,v_1)$ is admissible. Let's first show that $\Lambda\cap (-1,1)^d=\{0\}$. Suppose that $T(z)\in (-1,1)^d$ for some $z\in \Lambda_0$. This means that\[\lvert z_i+\tfrac{1}{2}z_{i-1}\rvert &lt;1\]for all $0\leq i&lt;b$, which implies that $\lvert z_i\rvert &lt;2$ for all $0\leq i&lt;b$. Since all $z_i$ are integers, they must all be in $\{-1,0,1\}$. Now if $z_i=1$ this further implies that $z_{i-1}=-1$, and then $z_{i-2}=1$, and so on. But since this goes round all coordinates cyclically, and there are an odd number of coordinates, we get $z_i=-1$, a contradiction. Therefore $z_i=0$ for all $z$, so $T(z)=0$ as required.<br><br>We also need to show that if $tv\in \Lambda+(-1,1)^d$ then $\lvert t\rvert&lt;1$. This is shown by a similar argument: suppose there exists $z'\in \Lambda_0$ such that if $z=z'+t(1,0,\ldots,0)$ then $T(z)\in (-1,1)^b$. All coordinates of $z$, except possibly the first, are integral, so by the argument in the preceding paragraph, coupled with the fact that $z=z'+t(1,0,\ldots,0)$ for some $z'\in V_b$,\[z=(z_0,z_1,\ldots,z_{b-1})=\left(t-\sum_{i\geq 1}z_i, 1,-1,1,-1,\ldots,0,0,\ldots,0\right)\](or the same with the signs flipped). <br><br>There are now a number of cases. If $z_i=0$ for $i\geq 1$ then this implies $z_0=t$ and $\lvert t\rvert=\lvert z_0+z_{b-1}/2\rvert&lt;1$ and we are done. <br><br>Otherwise, if $z_{b-1}=0$ then $\lvert z_0\rvert=\lvert z_0+\frac{1}{2}z_{b-1}\rvert &lt;1$, but also $\lvert z_1+\frac{1}{2}z_0\rvert&lt;1$ and $z_1=1$ so $z_0&lt;0$, and hence\[z_0=t-\sum_{i\geq 1}z_i\in (-1,0).\]The sum here is a (possibly empty) alternating sum of $\pm 1$, beginning with $+1$, so is either $0$ or $1$, and thus we again have $\lvert t\rvert &lt;1$. <br><br>Finally, if $z_{b-1}=-1$ (the only other possibility, since $b$ is odd) then $\sum_{i\geq 1}z_i=0$ and so $z_0=t$. Using the cyclic inequality twice we have $\lvert 1+t/2\rvert&lt;1$, so and so $t&lt;0$, and\[\lvert t-1/2\rvert=\lvert z_0+\tfrac{1}{2}z_{b-1}\rvert &lt;1,\]whence $t&gt;-1/2$ and again $\lvert t\rvert&lt;1$.<br><br>This constructs an admissible pair $(\Lambda,v)$ in $\mathbb{R}^b$, with $h=3/2$, and if $\Gamma_1=\Lambda_1+v_1\cdot \mathbb{Z}=M\mathbb{Z}^b$, where $M=I+\frac{1}{2}P$ where $P$ is the cyclic shift $z_i\mapsto z_{i-1}$, and hence\[\mathrm{covol}(\Gamma_1)=\lvert \det M\rvert=1+2^{-b}.\]By itself, this has\[\Delta=\frac{1+2^{-b}}{3/2}.\]Taking $b\to \infty$ yields $f(b)\leq (1+o(1))\frac{2}{3}$, which does not even beat Bohman's bound. But this admissible definition is ripe for iteration.<br><br><h3>The iteration</h3><br><br>Given an admissible pair $(\Lambda_s,v_s)$ in $\mathbb{R}^d$, define the admissible pair $(\Lambda_{s+1},v_{s+1})$ in $\mathbb{R}^{db}$ by\[\Lambda_{s+1}=\{(\lambda_0+\beta_0v_s,\ldots,\lambda_{b-1}+\beta_{b-1}v_s) : \lambda_j \in \Lambda_s\textrm{ and }\beta\in \Lambda_1\}\]and\[v_{s+1}=(v_s,0,\ldots,0,v_s/2).\]It is easy to check that $\Lambda_{s+1}$ is a lattice of rank $bd-1$ in $V_{bd}$ (note that the parameterisation is injective, since summing the coordinates in the $j$th block gives $\beta_jh_s$, whence $\beta$ can be recovered as $h_s\neq 0$).<br><br>Furthermore, this pair is indeed admissible. Firstly, suppose $y\in \Lambda_{s+1}\cap (-1,1)^{bd}$. Each 'block' of $y$ is in $(\Lambda_s+\beta_iv_s)\cap (-1,1)^{d}$, so by admissibility of $(\Lambda_s,v_s)$ we have $\lvert \beta_i\rvert &lt;1$ for all $i$. Therefore, since $\beta\in \Lambda_1 \cap (-1,1)^b$, by admissibility of $(\Lambda_1,v_1)$ we have $\beta=0$. Now each block is in $\Lambda_s\cap (-1,1)^d$, and so by admissibility again vanishes everywhere, so $y=0$.<br><br>Similarly, if\[y\in (\Lambda_{s+1}+tv_{s+1})\cap (-1,1)^{bd}\]then the $j$th block looks like $\lambda_j+\gamma_j v_s$ for some $\lambda_j\in \Lambda_s$, where $\gamma=\beta+tv_1$ for some $\beta\in \Lambda_1$. By admissibility of $(\Lambda_s,v_s)$ we have $\lvert \gamma_j\rvert &lt;1$, and so\[\gamma=\beta+tv_1\in (\Lambda_1+tv_1)\cap (-1,1)^b,\]so by admissibility of $(\Lambda_1,v_1)$ we have $\lvert t\rvert&lt;1$ as required. <br><br><br>The heights multiply as $h_{s+1}=h_1h_s$, and so $h_s=(3/2)^s$. Finally, since elements of $\Gamma_{s+1}=\Lambda_{s+1}+v_{s+1}\cdot \mathbb{Z}$ have the shape\[(\lambda_0+\beta_0v_s,\ldots,\lambda_{b-1}+\beta_{b-1}v_s)\]where $\lambda_j\in \Lambda_s$ and $\beta\in \Gamma_1$,<br>the covolumes similarly scale as\[\mathrm{covol}(\Gamma_{s+1})=\mathrm{covol}(\Gamma_{1})\left(\frac{h_s}{\sqrt{d}}\mathrm{covol}(\Lambda_s)\right)^b=\mathrm{covol}(\Gamma_{1})\mathrm{covol}(\Gamma_{s})^b.\](To see this, note that in each block of the shape $(\lambda_j+\beta_jv_s)$, one unit in the \(\beta\)-direction contributes perpendicular length \(h_s/\sqrt d\), so the corresponding covolume factor is $(h_s/\sqrt d)\operatorname{covol}(\Lambda_s)$.)<br><br>Putting all this together, after $s$ iterations, we have (in $d=b^s$ dimensions)\[\Delta\leq \frac{\mathrm{covol}(\Gamma_s)}{h_s}= \frac{(1+2^{-b})^{1+b+\cdots+b^{s-1}}}{(3/2)^s}.\]For fixed $s$ the numerator $\to 1$ as $b\to \infty$, and so $\Delta$ can be made arbitrarily small by first choosing $s$ very large and then $b$ very large.
+          </div>
+
+        </div>
+      
+    
+
+  </div>
+</details>
+
+<a class="problem-info-row problem-info-link" href="/forum/discuss/1">
+    <span>Comments (4)</span>
+  </a>
+
+  <a class="problem-info-row problem-info-link"
+     href="/forum/thread/1/proof-claims">
+    <span>Proof claims (2)</span>
+  </a>
+
+
+  <details class="problem-info-section">
+    <summary class="problem-info-row">
+      <span>More information and links</span>
+    </summary>
+
+    <div class="problem-info-content">
+
+      <div class="problem-info-small">
+
+This page was last edited 03 September 2026.
+ (<a href="/history/1">View history</a>) (<a href="/latex/1">View the LaTeX source</a>)<p>
+
+When referring to this problem, please use the original sources of Erd&#337;s. If you wish to acknowledge this website, the recommended citation format is:
+<p>
+T. F. Bloom, Erd&#337;s Problem #1, https://www.erdosproblems.com/1, accessed 2026-09-15
+</div>
+      <div class="problem-info-small">
+From the <a href="https://github.com/teorth/erdosproblems">external database</a>. (You can
+        <a href="https://github.com/teorth/erdosproblems">
+          help update
+        </a> this.)
+      </div>
+
+      
+
+        <div class="problem-info-data-row">
+          <span class="problem-info-label">Formalised statement?</span>
+          <span>
+            
+              <a href="https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/1.lean">
+                Yes
+              </a>
+            
+          </span>
+        </div>
+
+        
+          <div class="problem-info-data-row">
+            <span class="problem-info-label">OEIS</span>
+
+            <span>
+              
+                
+                  
+                    <a href="https://oeis.org/A276661"
+                       target="_blank"
+                       rel="noopener noreferrer">A276661</a>
+                  
+                
+              
+            </span>
+          </div>
+        
+
+        
+
+        
+
+      
+
+    </div>
+  </details>
+
+
+  
+  
+
+  <details class="problem-info-section">
+    <summary class="problem-info-row">
+      <span>Reactions</span>
+    </summary>
+
+    <div class="problem-info-content">
+
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="like">
+
+          <span class="problem-info-label">
+            Likes
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                
+                  <a href="/forum/user/old-bielefelder">old-bielefelder</a>, 
+                
+                  <a href="/forum/user/Sayan_Dutta">Sayan_Dutta</a>, 
+                
+                  <a href="/forum/user/Dogmachine">Dogmachine</a>, 
+                
+                  <a href="/forum/user/holyterror">holyterror</a>, 
+                
+                  <a href="/forum/user/zbrek">zbrek</a>, 
+                
+                  <a href="/forum/user/JMullings">JMullings</a>, 
+                
+                  <a href="/forum/user/lbattu">lbattu</a>
+                
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="collab">
+
+          <span class="problem-info-label">
+            Open to collaboration
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="working_on">
+
+          <span class="problem-info-label">
+            Currently working on
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                
+                  <a href="/forum/user/lbattu">lbattu</a>
+                
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="hard">
+
+          <span class="problem-info-label">
+            Looks difficult
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                
+                  <a href="/forum/user/Vjeko_Kovac">Vjeko_Kovac</a>
+                
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="easy">
+
+          <span class="problem-info-label">
+            Looks tractable
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="formalisable">
+
+          <span class="problem-info-label">
+            Could be formalisable
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="working_form">
+
+          <span class="problem-info-label">
+            Working on formalising
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+
+    </div>
+  </details>
+
+</div>
+               
+
+
+<div class="problem-additional-text"> 
+
+
+<div class="thread-sort">
+Order by
+  <a href="/forum/thread/1?order=oldest"
+     class="order ">oldest first</a> or
+  <a href="/forum/thread/1?order=newest"
+     class="order active">newest first</a>. (The most recent comments are highlighted in a red border.)
+</div>
+
+
+
+
+<ul class="post-list">
+  
+    
+    
+
+
+
+
+
+
+<li id="post-8725"
+    class="post depth-0
+           recent recent-1
+           even">
+    <div class="post-body" id="post-8725">
+    
+
+
+
+      
+      <p>Iteration is a good thing, but finding the right iteration mechanism always seems to require luck and deep observation.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/hxypqr">hxypqr</a></strong>
+      
+      — <a href="/forum/thread/1#post-8725">08:30 on 04 Sep 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="8725" data-react-url="/forum/post/8725/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-471"
+    class="post depth-0
+           recent recent-2
+           odd">
+    <div class="post-body" id="post-471">
+    
+
+
+
+      
+      <p>The trivial construction was with $S$ being set of powers of $2$ up to $N=2^{n-1}$.<br>The best construction (by Bohman, ElJC'98) so far, has<br>$N=(0.22002+o(1))\cdot 2^n$.<br><br>So a construction with $N&#60;2^n/5$ would be interesting, while not being a counterexample.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/StijnC">StijnC</a></strong>
+      
+      — <a href="/forum/thread/1#post-471">13:53 on 12 Sep 2025</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="471" data-react-url="/forum/post/471/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-462"
+    class="post depth-0
+           
+           even">
+    <div class="post-body" id="post-462">
+    
+
+
+
+      
+      <p>A={2，3，4}⊆{1，2，3，4}，2+3≠2+4≠3+4≠2+3+4≠2≠3≠4≠0，4≫2^|A|?</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/33">33</a></strong>
+      
+      — <a href="/forum/thread/1#post-462">03:37 on 12 Sep 2025</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="462" data-react-url="/forum/post/462/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    
+
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-464"
+    class="post depth-1
+           recent recent-3
+           odd">
+    <div class="post-body" id="post-464">
+    
+
+
+
+      
+      <p>Yes. Here $\gg$ is the Vinogradov notation, which means 'up to an absolute constant'. In particular this problem cannot be disproved by any fixed finite example.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/TFBloom">Thomas Bloom</a></strong>
+      
+      — <a href="/forum/thread/1#post-464">09:09 on 12 Sep 2025</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="464" data-react-url="/forum/post/464/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+
+    
+  
+
+
+  </li>
+
+  
+</ul>
+
+
+
+
+
+<p>
+                        <div style="text-align:center;">
+<strong>All comments are the responsibility of the user. Comments appearing on this page are not verified for correctness. Please keep posts mathematical and on topic.</strong>
+</div>
+<p>
+
+
+<div style="text-align:center; margin: 1em">
+
+
+  <p><a href="/forum/login?next=%2Fforum%2Fthread%2F1">Log in</a> to add a comment.</p>
+
+
+    </div>
+<p><div style="text-align: center; margin: 1em 0;">
+<a href="/forum/">Back to the forum</a>
+</div>
+                </div>
+            </div>
+            
+
+<script>
+document.addEventListener("submit", (e) => {
+  const form = e.target.closest(".reply-form");
+  if (!form) return;
+  const btn = form.querySelector('button[type="submit"]');
+  if (btn?.dataset.submitting === "1") {
+    e.preventDefault(); // already submitted
+    return;
+  }
+  if (btn) {
+    btn.dataset.submitting = "1";
+    btn.disabled = true;
+    btn.textContent = "Posting…";
+  }
+});
+</script>
+
+<script>
+document.addEventListener("click", (ev) => {
+  const a = ev.target.closest(".thread-sort .order");
+  if (!a) return;
+});
+</script>
+
+<script>
+document.addEventListener("submit", (e) => {
+  const form = e.target.closest(".comment-form");
+  if (!form) return;
+
+  const btn = form.querySelector('button[type="submit"]');
+  if (!btn) return;
+
+  // Already submitting? Block.
+  if (btn.dataset.submitting === "1") {
+    e.preventDefault();
+    return;
+  }
+
+  // First submit: lock UI
+  btn.dataset.submitting = "1";
+  btn.disabled = true;
+  const original = btn.textContent;
+  btn.dataset.originalText = original;
+  btn.textContent = "Posting…";
+});
+</script>
+           
+
+
+
+
+<script>
+window.MathJax = {
+  output: {
+    font: 'mathjax-tex'
+  },
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+};
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml-nofont.js"></script>
+
+
+<!-- Previewing forum posts -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, m => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[m]);
+  }
+
+  function normalizeHref(href) {
+    href = href.trim();
+    if (!/^https?:\/\//i.test(href) && !href.startsWith("/")) {
+      href = "https://" + href;
+    }
+
+    return href;
+  }
+
+  let mathJaxQueue = Promise.resolve();
+
+  function clearMathJax(element) {
+    if (window.MathJax && MathJax.typesetClear) {
+      MathJax.typesetClear([element]);
+    }
+  }
+
+  function typesetMath(element) {
+    if (!window.MathJax) return;
+
+    if (MathJax.typesetPromise) {
+      mathJaxQueue = mathJaxQueue
+        .then(() => {
+          if (MathJax.startup && MathJax.startup.promise) {
+            return MathJax.startup.promise;
+          }
+        })
+        .then(() => MathJax.typesetPromise([element]))
+        .catch(err => {
+          console.error("MathJax typeset failed:", err);
+        });
+
+      return;
+    }
+
+    if (MathJax.Hub) {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
+    }
+  }
+
+  function renderPreview(textarea, preview, label) {
+    let raw = textarea.value;
+    const anchors = [];
+    let idx = 0;
+
+    raw = raw.replace(
+      /<a\s+href=("(?:[^"]*)"|'(?:[^']*)')\s*>([\s\S]*?)<\/a>/gi,
+      (match, qHref, labelText) => {
+        const href = qHref.slice(1, -1);
+        const token = `__A_TAG_${idx++}__`;
+
+        anchors.push({
+          token,
+          href: normalizeHref(href),
+          label: labelText
+        });
+
+        return token;
+      }
+    );
+
+    let safe = escapeHtml(raw);
+
+    anchors.forEach(a => {
+      const html = `<a href="${escapeHtml(a.href)}">${escapeHtml(a.label)}</a>`;
+      safe = safe.replace(a.token, html);
+    });
+
+    safe = safe.replace(/\{PROBLEM=(.+?)\}/g, (_, p1) =>
+      `<a href="/${escapeHtml(p1)}">[${escapeHtml(p1)}]</a>`
+    );
+
+    safe = safe.replace(/\n/g, "<br>");
+    clearMathJax(preview);
+
+    if (!safe.trim()) {
+      preview.innerHTML = "";
+      preview.classList.add("hidden");
+      label.classList.add("hidden");
+      return;
+    }
+
+    preview.innerHTML = safe;
+    preview.classList.remove("hidden");
+    label.classList.remove("hidden");
+
+    typesetMath(preview);
+  }
+
+function initialisePreview(textarea) {
+  const form = textarea.closest("form");
+  const preview = form && form.querySelector(".post-preview");
+  const label = form && form.querySelector(".preview-label");
+
+  if (!preview || !label) {
+    return;
+  }
+
+  renderPreview(textarea, preview, label);
+}
+
+document.addEventListener("input", function (event) {
+  if (!event.target.matches("form textarea")) {
+    return;
+  }
+
+  initialisePreview(event.target);
+});
+
+document.querySelectorAll("form textarea").forEach(function (textarea) {
+  initialisePreview(textarea);
+});
+});
+</script>
+
+<!-- To handle the search bar -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function setFilterLink(linkId, newFilter) {
+        const link = document.getElementById(linkId);
+        if (!link) return;
+        const pathParts = window.location.pathname.split("/");
+        // Expect: /<section>/<entry> or /<section>/<entry>/<filter>
+        if (pathParts.length >= 3) {
+            const section = pathParts[1];
+            const entry = pathParts[2];
+            // Construct base: /tags/additive, /sources_bib/BL09, etc.
+            const baseUrl = "/" + section + "/" + entry;
+            link.href = baseUrl + "/" + newFilter;
+        }
+    }
+    setFilterLink("solvedLink", "solved");
+    setFilterLink("openLink", "open");
+    setFilterLink("yesLink", "yes");
+    setFilterLink("noLink", "no");
+});
+</script>
+
+<!-- Handle the dual view link -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const dualLink = document.getElementById("dualViewLink");
+  if (!dualLink) return;
+
+  const isInDualView = window.location.pathname.startsWith("/dual");
+  dualLink.textContent = isInDualView ? "Exit Dual View" : "Dual View";
+  dualLink.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (isInDualView) {
+      try {
+        const leftIframe = document.getElementById("iframe-left");
+        const src = leftIframe?.src || "/";
+        let clean = src.replace(window.location.origin, "");
+        clean = clean.replace(/[?&]embed=1/, "");
+
+        window.location.href = clean;
+      } catch (err) {
+        window.location.href = "/";
+      }
+    } else {
+      const currentPath = window.location.pathname + window.location.search;
+      const rightPanelDefault = "/";
+      const hash = `#left:${encodeURIComponent(currentPath)}&right:${encodeURIComponent(rightPanelDefault)}`;
+      window.location.href = `/dual${hash}`;
+    }
+  });
+});
+</script>
+
+<!-- Redirect links and searches when in dual view mode -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (!window.location.pathname.startsWith("/dual")) return;
+
+  function getTargetPanel() {
+    const selected = document.querySelector('input[name="targetPanel"]:checked');
+    return selected ? selected.value : "left";
+  }
+
+  function loadInPanel(panel, path) {
+    if (!path) return;
+    const iframe = document.getElementById(`iframe-${panel}`);
+    if (!iframe) return;
+    const url = path.includes("?") ? path + "&embed=1" : path + "?embed=1";
+    iframe.src = url;
+    const inputBox = document.querySelector(`#panel-${panel} input`);
+    if (inputBox) inputBox.value = path;
+    console.log(`Loaded "${url}" into panel "${panel}"`);
+  }
+  
+  document.querySelectorAll(".dual-aware a[href^='/'], a.dual-aware[href^='/']").forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const path = this.getAttribute("href");
+      loadInPanel(getTargetPanel(), path);
+    });
+  });
+
+  const idForm = document.getElementById("idsearchForm");
+  if (idForm) {
+    idForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const input = idForm.querySelector(".idsearchTerm").value.trim();
+      if (!input) return;
+
+      let path = null;
+
+      if (/^\d+$/.test(input)) {
+        path = "/go_to/" + encodeURIComponent(input);
+      } else if (/^((\d+|end)(-(\d+|end))?\s*)+(open|solved|yes|no)?$/i.test(input)) {
+        const parts = input.split(/\s+/).filter(Boolean);
+        path = "/range/" + parts.map(encodeURIComponent).join("/");
+      } else {
+        alert("Invalid input format.");
+        return;
+      }
+
+      loadInPanel(getTargetPanel(), path);
+    });
+  }
+
+  const searchForm = document.getElementById("searchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const input = searchForm.querySelector(".searchTerm").value.trim();
+      if (!input) return;
+
+      const path = "/search/" + encodeURIComponent(input);
+      loadInPanel(getTargetPanel(), path);
+    });
+  }
+});
+</script>
+
+<!-- Different menu on mobile -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.getElementById("mobileMenuButton");
+  const dropdown = document.getElementById("mobileDropdown");
+
+  if (button && dropdown) {
+    button.addEventListener("click", function () {
+      dropdown.classList.toggle("show");
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove("show");
+      }
+    });
+  }
+});
+</script>
+
+<!-- For expanding threads -->
+
+<script>
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('#toggle-posts');
+  if (!link) return;
+  e.preventDefault(); 
+
+  const box = document.getElementById('more-posts');
+  const isHidden = box.classList.toggle('hidden');
+  const expanded = !isHidden;
+
+  link.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  box.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+
+  link.textContent = expanded
+    ? 'Show only the top five comments'
+    : `Show ${link.dataset.remaining} more comments`;
+});
+</script>
+
+
+<script>
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('.toggle-replies');
+  if (!link) return;
+  e.preventDefault();
+
+  const pid = link.dataset.postId;
+  const box = document.getElementById(`more-replies-${pid}`);
+  if (!box) return;
+
+  const isHidden = box.classList.toggle('hidden');
+  const expanded = !isHidden;
+
+  link.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  box.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+
+  link.textContent = expanded
+    ? 'Hide replies'
+    : `Show ${link.dataset.remaining} more replies`;
+});
+</script>
+
+
+<script>
+document.addEventListener("click", async function (event) {
+    const button = event.target.closest(".problem-status-option");
+    if (!button) return;
+
+    const widget = button.closest(".problem-status-widget");
+    if (!widget) return;
+
+    if (widget.dataset.canEdit !== "1") return;
+
+    const status = button.dataset.status;
+    const url = widget.dataset.setUrl;
+
+    widget.classList.add("is-saving");
+
+    const buttons = widget.querySelectorAll(".problem-status-option");
+    buttons.forEach(btn => btn.disabled = true);
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Requested-With": "fetch"
+            },
+            body: JSON.stringify({ status: status })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || !data.ok) {
+            throw new Error(data.error || "Could not update problem status.");
+        }
+
+        widget.dataset.currentStatus = data.status;
+
+        buttons.forEach(btn => {
+            const active = btn.dataset.status === data.status;
+            btn.classList.toggle("is-active", active);
+            btn.setAttribute("aria-checked", active ? "true" : "false");
+        });
+
+        const label = widget.querySelector(".js-problem-status-label");
+        const description = widget.querySelector(".js-problem-status-description");
+
+        if (label) label.textContent = data.label || button.dataset.label;
+        if (description) description.textContent = data.description || button.dataset.description;
+          widget.style.setProperty("--status-progress", button.dataset.progress);
+
+    } catch (err) {
+        alert(err.message || "Could not update problem status.");
+    } finally {
+        widget.classList.remove("is-saving");
+
+        if (widget.dataset.canEdit === "1") {
+            buttons.forEach(btn => btn.disabled = false);
+        }
+    }
+});
+</script>
+  
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3bb82463aa5e716',t:'MTc4OTUxNTk2Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

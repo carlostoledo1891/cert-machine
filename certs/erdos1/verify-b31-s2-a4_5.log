@@ -1,0 +1,62 @@
+verify /Users/carlostoledo/Projects/cert-machine/instruments/erdos1/../../certs/erdos1/cert-b31-s2-a4_5.json: b=31 s=2 d=961 r=960 D=25 alpha=4/5
+  [PASS] V0 D = denominator(α)^s 
+  [PASS] V1a basis lies in the zero-sum hyperplane 
+  [PASS] V1b D·B integral 
+  [PASS] V1c |det A| matches certificate 4457 bits
+  [PASS] V2a H upper triangular, positive diagonal 
+  [PASS] V2b columns of A' lie in col-lattice(H) 
+  [PASS] V2c columns of H lie in col-lattice(A') 
+  [52.7s] lattice equality done
+  [PASS] V5 certificate K ≥ D·‖E H⁻¹‖∞ K=3460.78
+  [67.5s] buffer done
+ instance k=22: n=21142 t=167911
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.352433
+  [above Bohman (informational)] N/2^n = 0.352433 vs 0.22002
+  [185.6s] instance done
+ instance k=24: n=23064 t=671228
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.194426
+  [BEATS BOHMAN] N/2^n = 0.194426 vs 0.22002
+  [303.6s] instance done
+ instance k=26: n=24986 t=2684493
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.167372
+  [BEATS BOHMAN] N/2^n = 0.167372 vs 0.22002
+  [429.3s] instance done
+ instance k=28: n=26908 t=10737557
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.161276
+  [BEATS BOHMAN] N/2^n = 0.161276 vs 0.22002
+  [572.0s] instance done
+ instance k=30: n=28830 t=42949812
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.159783
+  [BEATS BOHMAN] N/2^n = 0.159783 vs 0.22002
+  [728.0s] instance done
+OVERALL: ALL CHECKS PASSED

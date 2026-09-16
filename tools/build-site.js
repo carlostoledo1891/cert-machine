@@ -188,6 +188,12 @@ const terraBT = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'terra-brack
 if (terraBT.verdict !== 'VERIFIED') fail('the terra bracket table is not VERIFIED — the card claims theorems');
 if (!kellerNew) fail('the keller certificate holds no counterexample generated here — the landing card claims some');
 
+/* the Erdős #1 ledger: the card quotes it, so it is gated here — every quoted
+   number is a verified-on-this-machine instance below Bohman, exactly decided */
+const erdos1 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erdos1-ledger.json'), 'utf8'));
+if (!(Number(erdos1.best.ratio6) < 0.22002) || !(Number(erdos1.smallest.ratio6) < 0.22002)) fail('the erdos1 headline is not below Bohman');
+if (!erdos1.counts.verifiedBelowBohman || erdos1.best.n < erdos1.smallest.n) fail('the erdos1 ledger is shapeless');
+
 /* ---- the report shelf, ordered by weight ---------------------------------
    The order IS the ranking — the landing shows the head of this list, the
    /reports/ index shows all of it. Annotations stay qualitative or gated:
@@ -210,6 +216,10 @@ const REPORTS = [
     title: 'The AI-discovered algorithms, certified',
     desc: 'AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.',
     n: strassenN + ' algorithms re-decided each build' },
+  { g: 'erdos', f: 'erdos1.html', k: 'erdős #1 · the disproof made effective',
+    title: 'The swarm proved the set exists. Here is the set.',
+    desc: 'GPT-6 Astra disproved Erdős’s first problem in Lean — for every ε there are sum-distinct sets with N ≤ ε·2^n — but the proof is ineffective at one step and no set below Bohman’s 1998 record was known. That step made explicit (a Hermite basis, a chain perturbation, one computed buffer), the sets shipped with certificates, every one re-decided here in exact arithmetic; the base gadget shown not special, and the first explicit Siegel-lemma bounds above Bohman’s.',
+    n: fmt(erdos1.smallest.n) + ' integers at N/2^n = ' + erdos1.smallest.ratio6 + ' · ' + fmt(erdos1.best.n) + ' at ' + erdos1.best.ratio6 + ', ' + erdos1.best.percentBelowBohman + '% below Bohman' },
   { g: 'erdos', f: 'erdos1038-inf.html', k: 'erdős #1038 · the infimum, bracketed',
     title: 'A certified bracket for the Erdős–Herzog–Piranian infimum',
     desc: 'How small can the set where a monic polynomial stays below 1 be? The infimum is bracketed here in certified interval arithmetic, both ends unconditional — the lower end by a forcing argument needing no tail estimate and no assumed minimizer — and Tao’s model Problem 4.1 is answered affirmatively for every ε. Three AI-assisted proofs of the exact value are currently claimed and none independently examined, so nothing here assumes any of them.',
@@ -1598,6 +1608,14 @@ for (const f of fs.readdirSync(path.join(ROOT, 'certs'))) {
 for (const f of fs.readdirSync(path.join(ROOT, 'tools'))) {
   if (/^verify_.*\.py$/.test(f)) put('verify/' + f, fs.readFileSync(path.join(ROOT, 'tools', f)));
 }
+/* the Erdős #1 certificates: every file under 20 MB (the two 2,197-dimensional
+   ones are 46 MB gzipped and stay in the repository; the page says so) */
+for (const f of fs.readdirSync(path.join(ROOT, 'certs', 'erdos1'))) {
+  const abs = path.join(ROOT, 'certs', 'erdos1', f);
+  if (!fs.statSync(abs).isFile() || fs.statSync(abs).size > 20 * 1024 * 1024) continue;
+  put('certs/erdos1/' + f, fs.readFileSync(abs));
+}
+
 put('LICENSE', fs.readFileSync(path.join(ROOT, 'LICENSE')));
 const ALIEN = path.join(ROOT, 'legacy', 'research', 'alien-science', 'alien-science');
 for (const e of fs.readdirSync(ALIEN, { recursive: true })) {

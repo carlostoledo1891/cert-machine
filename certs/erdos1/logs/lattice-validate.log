@@ -1,0 +1,14 @@
+b=3 s=1 d=3: |det B|=0.750000  formula=0.750000  h_s=3/2  match=True
+b=3 s=2 d=9: |det B|=0.711914  formula=0.711914  h_s=9/4  match=True
+b=5 s=1 d=5: |det B|=0.687500  formula=0.687500  h_s=3/2  match=True
+b=5 s=2 d=25: |det B|=0.534566  formula=0.534566  h_s=9/4  match=True
+b=3 s=3 d=27: |det B|=1.369964  formula=1.369964  h_s=27/8  match=True
+b=7 s=1 d=7: |det B|=0.671875  formula=0.671875  h_s=3/2  match=True
+b=9 s=1 d=9: |det B|=0.667969  formula=0.667969  h_s=3/2  match=True
+b=7 s=2 d=49: |det B|=0.472994  formula=0.472994  h_s=9/4  match=True
+b=9 s=2 d=81: |det B|=0.453202  formula=0.453202  h_s=9/4  match=True
+cube-admissibility DFS b=3 s=1 d=3: |z|_inf<=2, violations=0 []  (0.0s)
+cube-admissibility DFS b=5 s=1 d=5: |z|_inf<=4, violations=0 []  (0.0s)
+cube-admissibility DFS b=7 s=1 d=7: |z|_inf<=6, violations=0 []  (0.1s)
+cube-admissibility DFS b=3 s=2 d=9: |z|_inf<=7, violations=0 []  (17.8s)
+cube-admissibility DFS b=9 s=1 d=9: |z|_inf<=8, violations=0 []  (0.3s)

@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help engine control test drift lift clean reports site papers playground materialize
+.PHONY: help engine control test drift lift clean reports site papers playground materialize erdos1-venv
 
 help:
 	@echo "cert-machine — the conjecture engine"
@@ -32,6 +32,11 @@ site: playground control
 
 playground:
 	@$(NODE) playground/build.js
+
+# instruments/erdos1 needs python-flint (FLINT: exact determinants, rational solves, integer nullspace),
+# which lives in its own venv; the battery builds it on first run, and this target does it explicitly.
+erdos1-venv:
+	@/opt/homebrew/bin/python3.12 -m venv instruments/erdos1/.venv && instruments/erdos1/.venv/bin/pip install -q python-flint==0.9.0 && echo "instruments/erdos1/.venv ready"
 
 # ~/Documents is iCloud Drive and "Optimize Mac Storage" evicts files: the entry
 # stays, stat reports the size, git sees nothing, and a READ RETURNS EMPTY.
@@ -64,6 +69,7 @@ test:
 	@printf "%-30s " "lattice-claims (pins+gate+regrade)"; $(PY) instruments/wiring/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "blind-spot (chip mutants)"; $(PY) environments/blind_spot/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "navier-stokes probes"; $(PY) instruments/navierstokes/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "erdos1 (the explicit sets)"; $(PY) instruments/erdos1/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "pqc geometry (SVP audit)"; $(NODE) instruments/pqc/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "occultation (convex bracket)"; $(NODE) instruments/occultation/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "transit (one-sided enclosure)"; $(NODE) instruments/transit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -198,6 +204,7 @@ reports:
 	@$(NODE) tools/build-report-ai-claims.js
 	@$(NODE) tools/build-report-claim.js
 	@$(NODE) tools/build-report-erdos852h.js
+	@$(NODE) tools/build-report-erdos1.js
 
 papers:
 	@$(NODE) tools/build-kissing-paper.js

@@ -1,0 +1,207 @@
+#!/usr/bin/env python3
+"""battery.py — the gate on instruments/erdos1 (Erdős problem #1 made effective, ported from
+frontier-apps 2026-09-15). cert-machine's own file, not a port. Every build:
+
+  1. the pins       every ported file hashes to instruments/erdos1/PROVENANCE.json (a gzipped copy's
+                    CONTENT must hash to the source's sha256, and the .gz file itself to its pin)
+  2. the lattice    Δ_s = |det B_s| exactly on small (b, s), and cube admissibility of Λ_s by exhaustive
+                    search for d ≤ 9 (Lemma 1, the input the verifier does not recompute at full size)
+  3. the tilts      Lemma 1′/1″: the structured STRIP decision agrees with the brute-force decision of
+                    BOTH properties for b ≤ 7 and four tilts, and every (α, b) used by a certificate in
+                    the ledger passes it
+  4. the verifier   verify.py (V0–V7) on the two smallest certificates, and its verdicts must agree
+                    with what the ledger says about them
+  5. the ledger     for every verified instance of those certificates: N/2^n recomputed from the base
+                    weights equals the ledger's rational, the Bohman comparison is the same exact sign,
+                    the Siegel bound re-derived; the ledger's verified set equals this file's own reading
+                    of the verifier logs (a shared-nothing second reading of the one rule); siegel.json
+                    (instruments/erdos1/siegel.py) agrees with the ledger's Siegel section
+  6. the detached verifier   tools/verify_erdos1.py is byte-for-byte the concatenation this file
+                    generates from lattice.py + verify.py (--write-verifier writes it)
+  RED controls, each must fire: a forged base weight, a forged buffer K, a forged Hermite entry, a
+                    forged pin, a gadget that violates the cube condition, and a forged verifier log.
+
+Needs python-flint (FLINT). The battery runs under instruments/erdos1/.venv (created on first run from
+python3.12 if absent: `make erdos1-venv`); no model is ever called, nothing is fetched.
+Prints: "erdos1 battery: N pass, 0 fail, R/R red controls fired"."""
+import sys, os, io, json, gzip, hashlib, subprocess, contextlib, copy
+getattr(sys, 'set_int_max_str_digits', lambda n: None)(0)   # absent before Python 3.11
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
+VENV_PY = os.path.join(HERE, '.venv', 'bin', 'python')
+
+# ---- run under the venv that has FLINT ----------------------------------------------------------------
+try:
+    import flint  # noqa
+except ImportError:
+    if os.path.exists(VENV_PY) and os.path.abspath(sys.executable) != os.path.abspath(VENV_PY):
+        os.execv(VENV_PY, [VENV_PY] + sys.argv)
+    py312 = next((p for p in ('/opt/homebrew/bin/python3.12', '/usr/local/bin/python3.12', 'python3.12') if
+                  subprocess.run(['which', p], capture_output=True).returncode == 0 or os.path.exists(p)), None)
+    if py312 is None:
+        print('erdos1 battery: python-flint is not importable and no python3.12 is available to build the venv'); sys.exit(2)
+    print('erdos1 battery: creating instruments/erdos1/.venv with python-flint==0.9.0 (one-time)', flush=True)
+    r = subprocess.run([py312, '-m', 'venv', os.path.join(HERE, '.venv')])
+    r2 = subprocess.run([VENV_PY, '-m', 'pip', 'install', '-q', 'python-flint==0.9.0'])
+    if r.returncode or r2.returncode or not os.path.exists(VENV_PY):
+        print('erdos1 battery: could not build the venv'); sys.exit(2)
+    os.execv(VENV_PY, [VENV_PY] + sys.argv)
+
+sys.path.insert(0, HERE)
+os.chdir(HERE)
+from fractions import Fraction as Fr
+from lattice import lambda_s_basis, B_matrix, det_fraction, delta_formula, inverse_fraction, cube_violations
+from gadget import cyc, check_gadget, strip_tilt
+import verify as V
+
+CERTS = os.path.join(ROOT, 'certs', 'erdos1')
+LEDGER = os.path.join(ROOT, 'certs', 'erdos1-ledger.json')
+BOHMAN = Fr(22002, 100000)
+npass = nfail = 0; reds = []
+def check(name, ok, detail=''):
+    global npass, nfail
+    npass += bool(ok); nfail += (not ok)
+    print(f"  {'ok  ' if ok else 'FAIL'}  {name}" + (f"   [{detail}]" if detail else ''), flush=True)
+def red(name, fired, detail=''):
+    reds.append(bool(fired))
+    print(f"  {'RED ' if fired else 'DEAD'}  {name}" + (f"   [{detail}]" if detail else ''), flush=True)
+sha = lambda b: hashlib.sha256(b).hexdigest()
+
+# ---- 6 (first, because --write-verifier is a mode): the detached verifier ---------------------------------
+def detached_verifier_text():
+    lat = open(os.path.join(HERE, 'lattice.py')).read().split('if __name__ == "__main__":')[0].rstrip() + '\n'
+    ver = open(os.path.join(HERE, 'verify.py')).read().replace('from lattice import lambda_s_basis, B_matrix\n', '')
+    head = ('#!/usr/bin/env python3\n'
+            '"""verify_erdos1.py — the detached verifier for the Erdős #1 certificates (certs/erdos1/cert-*.json[.gz]).\n\n'
+            'GENERATED by instruments/erdos1/battery.py --write-verifier as the concatenation of instruments/erdos1/lattice.py\n'
+            'and instruments/erdos1/verify.py, and the battery refuses a build in which this file differs from that\n'
+            'concatenation. Needs python-flint (pip install python-flint==0.9.0): FLINT does the exact determinant, the\n'
+            'rational solves and the integer nullspace. Rebuilds the lattice from (b, s, alpha) and checks V0-V7; see the\n'
+            'docstring of verify() below and paper/erdos1-explicit.md for the logical chain.\n\n'
+            '    python3 verify_erdos1.py cert-b9-s2-a3_5-k21.json          seconds\n'
+            '    python3 verify_erdos1.py --k 36 cert-b13-s3-a11_20.json.gz  about two hours\n"""\n')
+    return head + '\n# ==== instruments/erdos1/lattice.py ====\n' + lat + '\n# ==== instruments/erdos1/verify.py ====\n' + ver
+VERIFIER = os.path.join(ROOT, 'tools', 'verify_erdos1.py')
+if '--write-verifier' in sys.argv:
+    open(VERIFIER, 'w').write(detached_verifier_text()); print('wrote tools/verify_erdos1.py'); sys.exit(0)
+
+print('erdos1 battery')
+# ---- 1. the pins -------------------------------------------------------------------------------------
+prov = json.load(open(os.path.join(HERE, 'PROVENANCE.json')))
+bad = []
+for f in prov['files']:
+    p = os.path.join(ROOT, f['file'])
+    if not os.path.exists(p): bad.append(f['file'] + ' (missing)'); continue
+    raw = open(p, 'rb').read()
+    if sha(raw) != f['sha256']: bad.append(f['file']); continue
+    if f['bytes'] > 0 and sha(raw) == 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855': bad.append(f['file'] + ' (empty read)'); continue
+    if f.get('gzipped') and not f.get('patched') and sha(gzip.decompress(raw)) != f['sourceSha256']: bad.append(f['file'] + ' (gz content)')
+check('every ported file hashes to its pin', not bad, f"{len(prov['files'])} files" if not bad else 'moved: ' + ', '.join(bad))
+forged = dict(prov['files'][0]); forged['sha256'] = '0' * 64
+red('a forged pin is caught', sha(open(os.path.join(ROOT, forged['file']), 'rb').read()) != forged['sha256'])
+
+# ---- 2. the lattice ----------------------------------------------------------------------------------
+ok = True
+for b, s in [(3, 1), (5, 1), (3, 2), (7, 1), (9, 1), (5, 2)]:
+    basis, v = lambda_s_basis(b, s)
+    ok = ok and all(sum(w) == 0 for w in basis) and abs(det_fraction(B_matrix(basis))) == delta_formula(b, s)
+check('Δ_s = |det B_s| exactly on six small (b, s), α = 1/2', ok)
+ok = True
+for b, s, a in [(5, 1, Fr(3, 5)), (7, 1, Fr(2, 3)), (3, 2, Fr(3, 4))]:
+    basis, v = lambda_s_basis(b, s, a)
+    ok = ok and abs(det_fraction(B_matrix(basis))) == delta_formula(b, s, a)
+check('Δ_s(α, b) formula holds exactly for three tilted lattices', ok)
+viol = 0
+for b, s in [(3, 1), (5, 1), (7, 1), (9, 1)]:
+    basis, v = lambda_s_basis(b, s); B = B_matrix(basis)
+    zb = int(max(sum(abs(x) for x in row) for row in inverse_fraction(B)))
+    viol += len(cube_violations(B, zb))
+check('cube admissibility of Λ_1 by exhaustive search, d ≤ 9: no lattice vector in the open cube', viol == 0, f'violations={viol}')
+
+# ---- 3. the tilts ------------------------------------------------------------------------------------
+ok = True; n = 0
+for b in [3, 5, 7]:
+    for a in [Fr(1, 2), Fr(3, 5), Fr(2, 3), Fr(3, 4)]:
+        R1 = check_gadget(cyc(b, [1, a])); R2 = strip_tilt(a, b); n += 1
+        ok = ok and R1['ok'] and R2['ok']
+check('brute-force CUBE+STRIP and the structured strip decision agree and admit, b ≤ 7, four tilts', ok, f'{n} pairs')
+bad_g = check_gadget(cyc(9, [1, Fr(3, 4), Fr(1, 4)]))
+red('a two-parameter gadget that violates the cube condition is refused', not bad_g['ok'], bad_g.get('why', ''))
+L = json.load(open(LEDGER))
+pairs = sorted({(c['alpha'], c['b']) for c in L['certificates']})
+ok = all(strip_tilt(Fr(a), b)['ok'] for a, b in pairs)
+check('every (α, b) a certificate uses passes the exact strip decision', ok, ' '.join(f'{a}@{b}' for a, b in pairs))
+
+# ---- 4. the verifier, on the two smallest certificates -----------------------------------------------
+def run_verify(path, only_k=None):
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf): ok = V.verify(path, only_k=only_k)
+    return ok, buf.getvalue()
+SMALL = ['cert-b9-s2-a3_5-k21.json', 'cert-b13-s2-a2_3.json']
+logs = {}
+for f in SMALL:
+    ok, out = run_verify(os.path.join(CERTS, f)); logs[f] = out
+    check(f'verify.py passes {f}', ok, f"{out.count('[PASS]')} PASS")
+# reds on the verifier
+def forged_cert(f, mutate):
+    C = V.load_cert(os.path.join(CERTS, f)); mutate(C)
+    p = os.path.join(HERE, '.forged.json'); json.dump(C, open(p, 'w')); return p
+def m_weight(C): C['instances'][0]['a'][3] = str(int(C['instances'][0]['a'][3]) + 1)
+def m_K(C): C['K'] = str(Fr(C['K']) / 2)
+def m_H(C): C['H_upper_triangular_rows'][0][1] += 1
+for name, m, expect in [('a forged base weight', m_weight, ('V4b', 'V7c')), ('a forged (smaller) buffer K', m_K, ('V5',)), ('a forged Hermite entry', m_H, ('V2',))]:
+    p = forged_cert(SMALL[0], m); ok, out = run_verify(p)
+    fired = (not ok) and any(f'[FAIL] {v}' in out for v in expect)
+    red(f'{name} is refused', fired, ' '.join(v for v in expect if f'[FAIL] {v}' in out))
+if os.path.exists(os.path.join(HERE, '.forged.json')): os.remove(os.path.join(HERE, '.forged.json'))
+
+# ---- 5. the ledger -----------------------------------------------------------------------------------
+def verified_ks(log):
+    """this file's OWN reading of the one rule (tools/run-erdos1-ledger.js), shared-nothing"""
+    if not os.path.exists(log): return set()
+    txt = open(log).read()
+    if 'OVERALL: ALL CHECKS PASSED' not in txt or '[FAIL]' in txt.split(' instance k=')[0]: return set()
+    ok = set()
+    for block in txt.split(' instance k=')[1:]:
+        k = int(block.split(':')[0])
+        if 'skipped' in block.split('\n')[0]: continue
+        if '[FAIL]' not in block and '[PASS]' in block and 'instance done' in block: ok.add(k)
+    return ok
+agree = True
+for c in L['certificates']:
+    stem = c['file'][:-3] if c['file'].endswith('.gz') else c['file']
+    mine = verified_ks(os.path.join(CERTS, stem.replace('cert-', 'verify-').replace('.json', '.log')))
+    agree = agree and mine == set(c['verifier']['verified'])
+check("the ledger's verified set equals this file's own reading of every verifier log", agree, f"{len(L['certificates'])} certificates, {L['counts']['verified']} verified instances")
+forged_log = os.path.join(HERE, '.forged.log'); open(forged_log, 'w').write(open(os.path.join(CERTS, 'verify-b13-s2-a2_3.log')).read().replace('OVERALL: ALL CHECKS PASSED', 'OVERALL: SOME CHECKS FAILED'))
+red('a verifier log that did not end green admits no instance', verified_ks(forged_log) == set()); os.remove(forged_log)
+ok = True; n = 0
+for f in SMALL:
+    C = V.load_cert(os.path.join(CERTS, f)); r = C['r']
+    for I in C['instances']:
+        row = next((x for x in L['instances'] if x['file'] == f and x['k'] == I['k']), None)
+        if row is None: ok = False; continue
+        a = [int(x) for x in I['a']]; ratio = Fr(max(a), 2 ** (I['k'] * r + 1)); n += 1
+        ok = ok and Fr(row['ratio']) == ratio and row['belowBohman'] == (ratio < BOHMAN) and row['n'] == C['d'] * I['k']
+        bound = Fr(2 ** (I['k'] * r), max(a))
+        ok = ok and Fr(row['siegel']) == Fr(int(bound * 10 ** 6), 10 ** 6)            # printed truncated
+        ok = ok and Fr(row['ratio6']) == Fr(round(ratio * 10 ** 6), 10 ** 6)
+check('N/2^n, the Bohman sign and the Siegel bound re-derived from the base weights for every instance of the two', ok, f'{n} instances')
+sj = os.path.join(CERTS, 'siegel.json')
+if os.path.exists(sj):
+    S = json.load(open(sj)); ok = True
+    for d, row in L['siegel'].items():
+        if d not in S: ok = False; continue
+        ok = ok and Fr(row['bound']) == Fr(int(Fr(S[d]['bound']) * 10 ** 6), 10 ** 6) and S[d]['k'] == row['k']
+    check("siegel.json (instruments/erdos1/siegel.py) agrees with the ledger's Siegel section", ok, f"{len(L['siegel'])} dimensions")
+else:
+    check('siegel.json exists beside the certificates', False)
+best = L['best']; small = L['smallest']
+check('the headline and the smallest set are below Bohman and verified', Fr(best['ratio6']) < BOHMAN and Fr(small['ratio6']) < BOHMAN and best['n'] >= small['n'])
+
+# ---- 6. the detached verifier ------------------------------------------------------------------------
+check('tools/verify_erdos1.py is the generated concatenation of lattice.py + verify.py',
+      os.path.exists(VERIFIER) and open(VERIFIER).read() == detached_verifier_text(), 'run battery.py --write-verifier to regenerate')
+
+print(f"erdos1 battery: {npass} pass, {nfail} fail, {sum(reds)}/{len(reds)} red controls fired")
+sys.exit(0 if nfail == 0 and all(reds) else 1)

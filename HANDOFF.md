@@ -15,10 +15,77 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-15, THE TEMPLATE IS ONE)
+## TASKS BACKLOG — the standing menu (updated 2026-09-15 night, ERDŐS #1 IS ON THE SHELF)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would take it:
+
+  0. ERDŐS #1 IS PORTED, PUSHED FURTHER, AND ON THE SHELF — NOT PUSHED, NOT SENT.
+     The frontier-apps front (PORT-ERDOS1.md, sessions 27–28 there) is in this
+     repository whole: instruments/erdos1 (the lattice, the build, the verifier,
+     the gadget decider, the Siegel corollary; 66 files pinned in its
+     PROVENANCE.json, 8 patches declared), certs/erdos1/ (twelve certificates,
+     the eight from the bench plus four built here), certs/erdos1-ledger.json
+     (THE record every page and macro reads; ONE verified-instance rule, in
+     tools/run-erdos1-ledger.js), reports/erdos1.html (+ the shelf card, head of
+     the erdős lane), paper/erdos1-explicit.pdf (v0.2, house preamble, macros
+     from the ledger) and .md (the theorem note), outreach/erdos1-*.md (four
+     drafts, every one gated on the ledger), corpus/sources/erdos1/ (seven
+     pinned sources), the targets row `erdos1-explicit`, the battery (13 checks,
+     6 reds) on `make test` and the control page, the detached verifier
+     tools/verify_erdos1.py (needs python-flint — NOT a stdlib verifier, and
+     the page says so).
+  0a. WHAT WAS PUSHED FURTHER, all verified here, all in the ledger:
+       · the SMALLEST set below Bohman is n = 1,701 at N/2^n = 0.217967 (tilt
+         3/5, d = 81, k = 21); k = 20 misses at 0.220057, and the other small-
+         denominator tilts at d = 81 (4/7, 7/12, 5/9) miss at k = 20 too.
+       · two-level tilted lattices at d = 441 (α = 3/4, b = 21: 0.172386 at
+         n = 12,348) and d = 961 (α = 4/5, b = 31: 0.159783 at n = 28,830) —
+         each beats the Bloom-gadget lattice of the next size up (729, 1331) at
+         well under its dimension. Their strip decisions: milliseconds; 64,794
+         chains at 4/5@31.
+       · every bench certificate re-verified FROM THE FILE here: the six small
+         ones and d = 729 in minutes (the frontier logs are kept beside ours,
+         and enter nothing).
+  0b. STILL RUNNING AT THE HANDOFF (nohup, survives the harness; the ledger
+     names each as `verifier run not finished`): the two d = 2197 runs (--k 36,
+     ~2 h each of CPU, started 22:44 and sharing the machine with everything
+     else), and the d = 3375 stretch (α = 3/5, b = 15, s = 3,
+     Δ_s = 0.2734 so N/2^n → 0.1367: PARI Hermite at r = 3374 first, then the
+     build, then verify --k 36, an estimated ten hours; certs/erdos1/logs/
+     erdos1-big.sh is the chain). WHEN THEY FINISH: `node tools/run-erdos1-
+     ledger.js && node tools/build-report-erdos1.js && python3 instruments/
+     erdos1/certnumbers.py && node tools/build-paper-tex.js erdos1-explicit`,
+     then the three Chrome gates with --accept for the changed page, then
+     `make site`. d = 1331 (b11-s3) finished at 23:29 and is in the ledger:
+     the headline is 0.158122 at n = 45,254 until the d = 2197 log ends green
+     (0.145269 at n = 79,092, the bench's headline), and ~0.137 if d = 3375
+     lands. The outreach texts already quote 79,092 at
+     0.145269 and are GATED on that log (the first line of each says so).
+  0c. THE SENDS, all the operator's: GitHub first (option A: the bench's
+     prepared public repository, REBUILT from here so it carries twelve
+     certificates and the v0.2 paper; option B: point at this repository's
+     certs/erdos1/ and skip a second name — the plan weighs both), then the
+     erdosproblems.com/1 comment (it answers StijnC's 2025 "N < 2^n/5"), then
+     the tadamcz/erdos1 issue (gh can post it), then Mathstodon. No email to
+     Bloom (ruled 2026-09-15). outreach/erdos1-sharing-plan.md is the checklist.
+  0d. WHAT IS OPEN ON THE MATHEMATICS, unchanged and stated on the page: the
+     effective rate f(n) ≤ n^{-c/log log n} needs a PROOF that the buffer K
+     is O(d) (measured 1.1–3.6·d across the twelve lattices; a tilt with
+     denominator q pays through D = q^s); an analytic triangular basis of Λ_s
+     with an explicit inverse would settle it. Bigger tilted instances
+     (α = 0.65, b = 21, s = 3 at d = 9,261: Δ = 0.235) need a Hermite path
+     beyond PARI+fmpq at that size. The next affordable stretch after 3375 is
+     3/5@17, s = 3 (d = 4,913, Δ = 0.2572), about a day of verification.
+  0e. TWO THINGS TO KNOW ABOUT THE WIRING: the ledger runner reads 200 MB of
+     gzipped JSON and takes ~30 s, and the report builder runs it (--check)
+     plus the battery at every `make reports`; and a verifier still WRITING a
+     log changes the ledger between two derivations, which is why timings are
+     recorded only for finished runs — while the background runs are alive,
+     `node tools/run-erdos1-ledger.js` before any build that reads it.
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-15 (the fifteenth session). In the order I would take it:
@@ -179,6 +246,129 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  SIXTEENTH SESSION, 2026-09-15 (night) — ERDŐS #1 PORTED FROM FRONTIER-APPS AND
+  PUSHED FURTHER: THE DISPROOF'S ONE INEFFECTIVE STEP MADE EXPLICIT, TWELVE
+  CERTIFICATES (EIGHT LIFTED, FOUR BUILT HERE), EVERY ONE RE-VERIFIED FROM THE FILE,
+  THE SMALLEST SET BELOW BOHMAN AT n = 1,701, ONE LEDGER RULE, A PAGE, A PAPER, FOUR
+  GATED OUTREACH DRAFTS. COMMITTED, NOT PUSHED, NOTHING SENT.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "We need to port Erdos#1 from frontier-apps.
+    /Users/carlostoledo/Projects/frontier-apps/PORT-ERDOS1.md. Review and push
+    more on the findings. Prepare page, paper and outreaches."
+
+  ── 1 · THE REVIEW ── THEOREM.md read whole against the pinned exposition and
+    the Lean statement. The chain holds: Lemma 1′ (cube for every tilt) is a
+    correct three-line maximum argument and is in fact stronger than stated
+    (it needs no zero-sum hypothesis); Lemma 1″ (the strip structure) is
+    correct and the structured search it licenses is complete (every one of
+    the b cyclic constraints is enforced, the real coordinate's interval is
+    intersected from both sides, and a violation is an open-interval test);
+    Lemma 2 (saturation) and the weight recurrence check by hand; Lemma 3's
+    inequality chain is right and the buffer is exactly the ∞→∞ operator norm
+    the code computes (rows 0..r−2 of H⁻¹ and one signed row sum); the Siegel
+    corollary is the exposition's own inequality run backwards. Two errors
+    found, both in the prose: the paper's abstract said Bohman's record stood
+    "sixty years" (twenty-eight), and THEOREM.md cited Bohman as Proc. AMS 126
+    (1998) — the 0.22002 bound is EJC 5 (1998) R3; the Proc. AMS paper is 1996
+    and is the Conway–Guy analysis. One structural defect in the paper: its
+    Theorem 1 quoted the α = 11/20 instance (D = 8000) while §2 defined the
+    lattice for α = 1/2 only and the tilt arrived in §6; and §4 still said "no
+    s = 2 instance can beat Bohman", true for α = 1/2 and false for the paper's
+    own d = 81 set. The paper is rewritten with the tilt in §2.
+
+  ── 2 · THE PORT ── 66 files copied byte-for-byte from experiments/erdos1 and
+    pinned (instruments/erdos1/PROVENANCE.json; pin.py rewrites it; the
+    battery re-hashes every file and, for the gzipped copies, the content
+    against the source's hash). The four three-level certificates are gzipped
+    (46 MB each for d = 2197; 16 MB for d = 1331; 4 MB for d = 729), the four
+    two-level ones raw; the Hermite caches gzipped beside the instrument (their
+    total 256 KB, against 36 MB raw). Eight patches declared: cache directory
+    and --out in build.py; the closed-form modulus in hnf_pari.py (|det A| =
+    D^r Δ_s is exact and instant; the FLINT determinant it replaces costs an
+    hour at r = 3374, and verify.py V1c recomputes it anyway); RESULTS named
+    after the certificate FILE in report.py (the k = 21 summary overwrote the
+    bench's d = 81 summary once, in the first minute); siegel.py's directory;
+    certnumbers.py rewritten to read the ledger; the theorem note, the paper
+    source and the sharing plan edited. The int→str limit call is guarded so
+    the ledger runner can spawn siegel.py under the system python3 (3.9).
+
+  ── 3 · ONE RULE ── the bench applied "an instance is verified iff its
+    block in the verifier's log is complete inside a run that ended green"
+    in three files (siegel.py, certnumbers.py, build-page.js). Here it lives
+    once, in tools/run-erdos1-ledger.js, which writes certs/erdos1-ledger.json
+    from the certificates and THIS machine's verify-*.log files (the bench's
+    logs are kept as certs/erdos1/logs/frontier-verify-*.log and enter
+    nothing): the ratio recomputed from the base weights in BigInt and
+    required to equal the recorded rational, "below Bohman" as an exact
+    integer comparison, the Siegel bound as the exact rational printed
+    TRUNCATED (a printed lower bound may only be rounded down; the bench
+    printed 2.825178 at d = 729 where the truncated value is 2.825177). The
+    page, the shelf card and the paper macros read only the ledger; the battery
+    re-reads every log with its own copy of the rule and requires agreement.
+    A verifier still writing its log changed the ledger between two
+    derivations (timings), so timings are recorded only for finished runs.
+
+  ── 4 · RE-VERIFIED HERE ── every lifted certificate run through verify.py
+    from the file alone: the four two-level ones in seconds, d = 729 in 182 s
+    (all four instances), d = 1331 in 45 minutes of shared CPU (all four), the
+    two d = 2197 (--k 36) still running at the handoff — see the menu's 0b. The battery (instruments/erdos1/
+    battery.py, 13 checks, 6 reds): pins; Δ_s = |det B_s| exactly on six small
+    lattices and three tilts; the cube property of Λ_1 by exhaustive search for
+    d ≤ 9; the structured strip decision against the brute-force decision of
+    BOTH gadget properties for b ≤ 7 × four tilts, and every (α, b) in the
+    ledger; verify.py on the two smallest certificates; the ledger's verified
+    set re-read shared-nothing; N/2^n, the Bohman sign and the Siegel bound
+    re-derived from the weights; siegel.json against the ledger; the detached
+    verifier byte-identical to its generator. Reds: a forged pin, a base weight
+    off by one (V4b fires), a halved buffer (V5), a Hermite entry off by one
+    (V2), a two-parameter gadget that violates the cube condition, a verifier
+    log that did not end green.
+
+  ── 5 · PUSHED FURTHER ── (a) the smallest set: at d = 81, tilt 3/5, k = 21
+    gives n = 1,701 at 0.217967; k = 20 lands at 0.220057, above by 0.00004
+    — the excess factor (Dt/2^k)^r reproduces the certificate to five places,
+    and no smaller K at d = 81 among 4/7, 7/12, 5/9 (K = 347, 600, 421 against
+    3/5's 242) crosses at k = 20. (b) The two-level tilts the gadget table
+    pointed at: 3/4 at b = 21 (d = 441, Δ = 0.3440) and 4/5 at b = 31 (d = 961,
+    Δ = 0.3186), both STRIP-admissible in milliseconds (the 4/5@31 search walks
+    64,794 chains with M = 4), PARI Hermite in 17 s and 80 s, built and verified
+    here: 0.172386 at n = 12,348 and 0.159783 at n = 28,830, each beating the
+    Bloom-gadget lattice of the next size up. K/d is 2.9 and 3.6 for them (the
+    denominators 4 and 5 pay through D = 16, 25). (c) The stretch: 3/5 at
+    b = 15, s = 3 (d = 3375, D = 125, Δ = 0.2734, so N/2^n → 0.1367, 38% below
+    Bohman): STRIP-admissible, PARI running at the handoff, then build, then
+    verify --k 36 (~10 h). (d) Not attempted: 3/5@17 s = 3 (d = 4913, Δ =
+    0.2572, a day of verification) and anything at d = 9261.
+
+  ── 6 · THE PAGE, THE PAPER, THE SHELF ── reports/erdos1.html
+    (tools/build-report-erdos1.js: ledger --check + battery before a byte is
+    written; seven sections; one scatter of every verified instance against
+    n with Bohman as a solid reference line, two token colours with a legend;
+    the pending instances named in §4 rather than omitted silently); the card
+    at the head of the erdős lane with the ledger's numbers on it (build-site
+    gates the ledger); certs/erdos1-ledger.json described on the shelf
+    (battery-gated, no stdlib verifier: the verifier needs FLINT and the page
+    says so; tools/verify_erdos1.py is served at /verify/ all the same); the
+    certificates under 20 MB published under /certs/erdos1/. paper/tex/
+    erdos1-explicit.tex in the house preamble (the shared author block and
+    disclosure; \cmrepro names the paths), tilt in §2, the theorem stated with
+    α, three tables interpolated from paper/tex/erdos1-numbers.tex, which
+    certnumbers.py writes from the ledger; tectonic clean.
+
+  ── 7 · GATES ── check-style, check-measure and check-render accepted for
+    the one new page (bytes-keyed); grammar 7 patterns, 0 drift; wiring 11
+    checks; stale-claims; `make test` and the control page carry the battery.
+    Makefile: `make erdos1-venv` (python-flint lives in instruments/erdos1/
+    .venv, gitignored; the battery builds it on first run).
+
+  ── 8 · NOT DONE, SAID PLAINLY ── the two d = 2197 verifications and the
+    d = 3375 chain finish after this handoff (menu 0b says what to run). The
+    public repository on the bench (public/, one commit) was NOT rebuilt from
+    here; the sharing plan gives the two options. No Lean wrapper. No proof of
+    the buffer law. Nothing sent; nothing pushed.
 
 ══════════════════════════════════════════════════════════════════════════
   FOURTEENTH SESSION, 2026-09-12 — THE UFSC LINE OPENED: A MENU FOR PEDRO VERAS

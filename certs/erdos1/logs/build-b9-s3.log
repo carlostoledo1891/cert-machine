@@ -1,0 +1,21 @@
+[   0.7s] b=9 s=3 d=729 r=728 D=8; Λ_s basis built, Δ_s = 0.353867
+[   3.4s] |det A| = 996209156909081494249388342898335514920137173824151830024630649033934736108233572040433720828732379423946287976545935354833660665429396104697131361775700111675807692440787567175601335728208731085948857450674849465290212980857086472972041205469250694926823220399603262951663441678208424587395105500817369599022735716811027753031418480907402572285064608999720643852414068498179400989503910285751362122444483734432414562469894039145372984597986240821790171510563063556923998996491075586515430695233759444989295761745585164102886436577995650439699968957612986905265280782143845609873834017754804525689383117524616742828253058583281902352090624992134604926222336 (bits 2183); |det A|/D^r = 0.353867
+[3170.5s] Hermite form H: upper triangular, diag product = |det A|, max |entry| = 3078, nonzeros = 5957
+[3172.0s] buffer K = 1546.55 (exact 793382/513); max row l1 of H^-1 = 66.345
+[3172.3s] k=18: n=13122, t=32962, N has 13126 bits, N/2^n = 13.005614  (Bohman 0.22002; Bloom-normalized f = 26.011228)
+[3172.5s] k=20: n=14580, t=131266, N has 14580 bits, N/2^n = 0.519307  (Bohman 0.22002; Bloom-normalized f = 1.038614)
+[3172.8s] k=22: n=16038, t=524482, N has 16036 bits, N/2^n = 0.231621  (Bohman 0.22002; Bloom-normalized f = 0.463242)
+[3173.1s] k=24: n=17496, t=2097346, N has 17494 bits, N/2^n = 0.189259  (Bohman 0.22002; Bloom-normalized f = 0.378518)
+[3173.4s] k=26: n=18954, t=8388802, N has 18952 bits, N/2^n = 0.179938  (Bohman 0.22002; Bloom-normalized f = 0.359875)
+[3173.7s] k=28: n=20412, t=33554626, N has 20410 bits, N/2^n = 0.177680  (Bohman 0.22002; Bloom-normalized f = 0.355360)
+[3174.1s] k=32: n=23328, t=536871106, N has 23326 bits, N/2^n = 0.176980  (Bohman 0.22002; Bloom-normalized f = 0.353960)
+Traceback (most recent call last):
+  File "/Users/carlostoledo/Projects/frontier-apps/experiments/erdos1/build.py", line 108, in <module>
+    build(b, s, ks, out=out)
+  File "/Users/carlostoledo/Projects/frontier-apps/experiments/erdos1/build.py", line 96, in build
+    instances=[dict(k=R['k'], n=R['n'], t=R['t'], ratio=str(R['ratio']), ratio_float=float(R['ratio']),
+                                                        ^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/fractions.py", line 415, in __str__
+    return '%s/%s' % (self._numerator, self._denominator)
+                      ^^^^^^^^^^^^^^^
+ValueError: Exceeds the limit (4300 digits) for integer string conversion; use sys.set_int_max_str_digits() to increase the limit

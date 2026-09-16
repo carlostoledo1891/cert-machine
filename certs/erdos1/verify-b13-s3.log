@@ -1,0 +1,16 @@
+verify ../../certs/erdos1/cert-b13-s3.json.gz: b=13 s=3 d=2197 r=2196 D=8 alpha=1/2
+  [PASS] V0 D = denominator(α)^s 
+  [PASS] V1a basis lies in the zero-sum hyperplane 
+  [PASS] V1b D·B integral 
+  [PASS] V1c |det A| matches certificate 6587 bits
+  [PASS] V2a H upper triangular, positive diagonal 
+  [PASS] V2b columns of A' lie in col-lattice(H) 
+  [PASS] V2c columns of H lie in col-lattice(A') 
+  [375.2s] lattice equality done
+  [PASS] V5 certificate K ≥ D·‖E H⁻¹‖∞ K=5158.88
+  [429.0s] buffer done
+ instance k=30: skipped (not requested)
+ instance k=32: skipped (not requested)
+ instance k=34: skipped (not requested)
+ instance k=36: n=79092 t=8589935237
+  [PASS] V6 D·t − K ≥ 2^k 

@@ -1,0 +1,25 @@
+verify cert-b13-s3-a11_20.json: b=13 s=3 d=2197 r=2196 D=8000 alpha=11/20
+  [PASS] V0 D = denominator(α)^s 
+  [PASS] V1a basis lies in the zero-sum hyperplane 
+  [PASS] V1b D·B integral 
+  [PASS] V1c |det A| matches certificate 28472 bits
+  [PASS] V2a H upper triangular, positive diagonal 
+  [PASS] V2b columns of A' lie in col-lattice(H) 
+  [PASS] V2c columns of H lie in col-lattice(A') 
+  [2986.8s] lattice equality done
+  [PASS] V5 certificate K ≥ D·‖E H⁻¹‖∞ K=48362.5
+  [3066.2s] buffer done
+ instance k=30: skipped (not requested)
+ instance k=32: skipped (not requested)
+ instance k=34: skipped (not requested)
+ instance k=36: n=79092 t=8589941
+  [PASS] V6 D·t − K ≥ 2^k 
+  [PASS] V3 minor (rows 1..r) of C = S⁻¹M has det ±1 ⇒ col-lattice(M) saturated det=1
+  [PASS] V4a nullity of Mᵀ is 1 nullity=1
+  [PASS] V4b primitive kernel generator equals a 
+  [PASS] V7a all a_i > 0 and distinct 
+  [PASS] V7b n = (r+1)k 
+  [PASS] V7c ratio matches certificate N/2^n = 0.145269
+  [BEATS BOHMAN] N/2^n = 0.145269 vs 0.22002
+  [6630.9s] instance done
+OVERALL: ALL CHECKS PASSED

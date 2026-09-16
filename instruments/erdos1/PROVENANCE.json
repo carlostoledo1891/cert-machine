@@ -1,0 +1,611 @@
+{
+ "what": "Erd\u0151s problem #1 made effective \u2014 the instrument (lattice, build, verify, gadget, siegel \u2026), the Hermite caches, the eight bench certificates with their summaries and the bench's own verifier logs, the seven pinned sources, the theorem note, the paper source and the sharing plan, ported whole from frontier-apps/experiments/erdos1 on 2026-09-15.",
+ "liftedFrom": "/Users/carlostoledo/Projects/frontier-apps/experiments/erdos1",
+ "liftedOn": "2026-09-15",
+ "rule": "Copied byte-for-byte and pinned by sha256 (a gzipped copy pins both the .gz and, through sourceSha256, its content); frontier-apps has no git, so the hash is the only pin, and the source tree is read-only from this side. Records copied; everything with proof force was RE-RUN here: certs/erdos1/verify-*.log are this machine's verifier logs, the bench's are kept as certs/erdos1/logs/frontier-verify-*.log and enter nothing. Patches are declared here so they can never be read as drift.",
+ "notPorted": "cert-b3-s2, cert-b3-s3, cert-b5-s2, cert-b5-s2-a3_5 and their caches (smoke tests above Bohman); page-*.log; deposit.zip and public/ (the bench-side sharing bundle, rebuilt from here when the operator sends); build-page.js and the bench template (the page is tools/build-report-erdos1.js in this design system); paper/numbers.tex and the PDF (regenerated).",
+ "files": [
+  {
+   "source": "experiments/erdos1/lattice.py",
+   "file": "instruments/erdos1/lattice.py",
+   "sourceSha256": "b0307b3f4b83f6069a1046c6381bc3e4a74219aa18a3cb4a5db18ac334b0639d",
+   "sha256": "b0307b3f4b83f6069a1046c6381bc3e4a74219aa18a3cb4a5db18ac334b0639d",
+   "bytes": 5825,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/build.py",
+   "file": "instruments/erdos1/build.py",
+   "sourceSha256": "ffaf3355da0315905f7dd1f032740a3af12e5cfc11b92160cc289f4c34351c60",
+   "sha256": "373b0cf30609639f070aaeb2e943daa8626609583e2f89192f7c1d6c980a4226",
+   "bytes": 6681,
+   "gzipped": false,
+   "patched": true,
+   "patch": "the Hermite cache is read and written gzipped in instruments/erdos1/cache/ beside the instrument instead of the working directory (cache_path/load_cache/save_cache), and --out names the certificate file so it can be written into certs/erdos1/. The mathematics is untouched."
+  },
+  {
+   "source": "experiments/erdos1/verify.py",
+   "file": "instruments/erdos1/verify.py",
+   "sourceSha256": "bc64908abddacd5503c6a8d428762e43f765ba88cb145ab2ebe85dc67cb124f4",
+   "sha256": "bc64908abddacd5503c6a8d428762e43f765ba88cb145ab2ebe85dc67cb124f4",
+   "bytes": 7223,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/hnf_pari.py",
+   "file": "instruments/erdos1/hnf_pari.py",
+   "sourceSha256": "8fce19b18ce16322e9514dbe9329adcdf34f8f2f226801a0481693e778e6fb34",
+   "sha256": "919193b8e4a3fbaf58c7edaf6d7654acba84935b0c0246a6ca5cc7cebd6fec29",
+   "bytes": 2818,
+   "gzipped": false,
+   "patched": true,
+   "patch": "cache path as build.py; the modulus handed to PARI mathnfmod is |det A| = D^r \u0394_s from the closed form (lattice.delta_formula) instead of a FLINT determinant that costs an hour at r = 3374 \u2014 it is only a modulus: the diagonal product of the returned H is asserted equal to it, and verify.py V1c recomputes det A with FLINT. ERDOS1_DET=flint restores the bench behaviour."
+  },
+  {
+   "source": "experiments/erdos1/probe.py",
+   "file": "instruments/erdos1/probe.py",
+   "sourceSha256": "0d5a4d5fa3a8480e2f35ba8693e14fc4ab7e31af5edbab771dd67bee8f106319",
+   "sha256": "0d5a4d5fa3a8480e2f35ba8693e14fc4ab7e31af5edbab771dd67bee8f106319",
+   "bytes": 1794,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/gadget.py",
+   "file": "instruments/erdos1/gadget.py",
+   "sourceSha256": "78f432391988ce469de80ae0b113a0310fb18f2dfe73cd1e53f69d97adfe8dac",
+   "sha256": "78f432391988ce469de80ae0b113a0310fb18f2dfe73cd1e53f69d97adfe8dac",
+   "bytes": 9638,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/gadget-table.py",
+   "file": "instruments/erdos1/gadget-table.py",
+   "sourceSha256": "831fb13d754901d9ae34a19056cc78839fcbd211d1b735b20685697cbc262a6f",
+   "sha256": "831fb13d754901d9ae34a19056cc78839fcbd211d1b735b20685697cbc262a6f",
+   "bytes": 1750,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/siegel.py",
+   "file": "instruments/erdos1/siegel.py",
+   "sourceSha256": "b6fe95d3702d7ab5f5620da8a3293494bb6d650ea28c8b9731d79f871d2686e8",
+   "sha256": "26628be347903cfa7bf3a390709d0193e95b8a45425f7fe30d9ffd93637427d5",
+   "bytes": 3077,
+   "gzipped": false,
+   "patched": true,
+   "patch": "takes the certificate directory as its argument (default certs/erdos1/) and writes siegel.json beside the certificates instead of in the working directory; the int\u2192str limit call is guarded so the script runs under any python3 (it needs no FLINT)."
+  },
+  {
+   "source": "experiments/erdos1/report.py",
+   "file": "instruments/erdos1/report.py",
+   "sourceSha256": "3aac3d4a9da51e9c9b5c063d8632c3452c7a9ba079e9897a0347c05f51f3dd5d",
+   "sha256": "355627b1f3fe3a6d8f8012f7a79962a2922f75ee44860e47a2c305c37f322952",
+   "bytes": 3134,
+   "gzipped": false,
+   "patched": true,
+   "patch": "the summary RESULTS-*.md is named after the certificate FILE (cert-X.json[.gz] \u2192 RESULTS-X.md), so a second certificate for the same lattice (cert-b9-s2-a3_5-k21.json) cannot overwrite the first one's summary, which it did once on 2026-09-15; the int\u2192str limit call is guarded for older python3."
+  },
+  {
+   "source": "experiments/erdos1/kscan.py",
+   "file": "instruments/erdos1/kscan.py",
+   "sourceSha256": "d9d66e2b4086239cd9b4abea5c37c73b763bca8c27da833bc13aff986398a418",
+   "sha256": "d9d66e2b4086239cd9b4abea5c37c73b763bca8c27da833bc13aff986398a418",
+   "bytes": 726,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/paper/certnumbers.py",
+   "file": "instruments/erdos1/certnumbers.py",
+   "sourceSha256": "0ad87552f57d72748af1df7bcc73b08271541edaa75c1468437b5d072ea66139",
+   "sha256": "96d1fa57cfdd68c55bb04838056ae06b6d3cbf9ee3e51e5e7fe31d0e2eb300fe",
+   "bytes": 3860,
+   "gzipped": false,
+   "patched": true,
+   "patch": "rewritten: reads certs/erdos1-ledger.json (tools/run-erdos1-ledger.js applies the verified-instance rule ONCE) instead of re-reading the certificates and re-applying the rule itself; writes paper/tex/erdos1-numbers.tex; adds the tilt, lattice and Siegel table macros."
+  },
+  {
+   "source": "experiments/erdos1/H-b9-s3.json",
+   "file": "instruments/erdos1/cache/H-b9-s3.json.gz",
+   "sourceSha256": "7950fae63a22b9adff4231eb0e39dd2c2f616e1a0720ebd54e12f6e2164b5da4",
+   "sha256": "0d64c5a414a1952a0e27fad822222dce6324637a4a639dddc649305cac0079d3",
+   "bytes": 1601749,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/cert-b9-s3.json",
+   "file": "certs/erdos1/cert-b9-s3.json.gz",
+   "sourceSha256": "24ea4d12a57d462d690e9f541c8e3ada36bd781c2ac16cd53c00208b95e49fc2",
+   "sha256": "33c6efe6727105d0a0a50a03bfcc9da953fcc4e48a2daeed61fd352cd3c53f4e",
+   "bytes": 19237605,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/RESULTS-b9-s3.md",
+   "file": "certs/erdos1/RESULTS-b9-s3.md",
+   "sourceSha256": "237431bdbc307297e76f34b54d740a082739c7132c975c9af4b4a893aa33e18d",
+   "sha256": "237431bdbc307297e76f34b54d740a082739c7132c975c9af4b4a893aa33e18d",
+   "bytes": 15538,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/verify-b9-s3.log",
+   "file": "certs/erdos1/logs/frontier-verify-b9-s3.log",
+   "sourceSha256": "3f52396218e4dafa6de6308827a7597a4ada331ab303766ea10f56c3f815b85e",
+   "sha256": "3f52396218e4dafa6de6308827a7597a4ada331ab303766ea10f56c3f815b85e",
+   "bytes": 2238,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/H-b11-s3.json",
+   "file": "instruments/erdos1/cache/H-b11-s3.json.gz",
+   "sourceSha256": "bdb360d6c350bf8cfcc4f64e3ef207c4419e978193e728f121487bd1a904422d",
+   "sha256": "5a5fb04cd52e500ba90f6a4b429082a17af8d545bb6199973690ad461ee3b460",
+   "bytes": 5335599,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/cert-b11-s3.json",
+   "file": "certs/erdos1/cert-b11-s3.json.gz",
+   "sourceSha256": "b830b97418704482e4fb40ac7fa63e4162c1492985eaf66c6566e8f022e25f18",
+   "sha256": "1e592015091a999e0dd2ceaae44fdb3fa18aac2b4f903571d5d46d2d0e6af1a5",
+   "bytes": 71537932,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/RESULTS-b11-s3.md",
+   "file": "certs/erdos1/RESULTS-b11-s3.md",
+   "sourceSha256": "7c9d4e1e9bd455b79e5adcbf9b732c281de6e6da803f7ced12e4135ee75344b2",
+   "sha256": "7c9d4e1e9bd455b79e5adcbf9b732c281de6e6da803f7ced12e4135ee75344b2",
+   "bytes": 29137,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/verify-b11-s3.log",
+   "file": "certs/erdos1/logs/frontier-verify-b11-s3.log",
+   "sourceSha256": "8ed0d40ba6203d01bb3c63d6a4a72980823afec153cdf9bbb01177e2790e811f",
+   "sha256": "8ed0d40ba6203d01bb3c63d6a4a72980823afec153cdf9bbb01177e2790e811f",
+   "bytes": 2254,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/H-b13-s3.json",
+   "file": "instruments/erdos1/cache/H-b13-s3.json.gz",
+   "sourceSha256": "6681b242fc76d5e158180405b80df3a9e9289b9b11061b1fcba2e6527a1750e9",
+   "sha256": "4fcd93d662e4790fa709e9da54bf180581a27c184a5d1cbcbb3675b8c3818bc8",
+   "bytes": 14526189,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/cert-b13-s3.json",
+   "file": "certs/erdos1/cert-b13-s3.json.gz",
+   "sourceSha256": "1311534920e5d0ddd8a84567bfe4c973338a0f6e89d43b9c5faeef4a67a71805",
+   "sha256": "1e9ef9b3e450ea70ce49fb7648602a9a5f2b06b45ac7e353db46a6de19fe930f",
+   "bytes": 206450341,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/RESULTS-b13-s3.md",
+   "file": "certs/erdos1/RESULTS-b13-s3.md",
+   "sourceSha256": "2c6594d0f0b6f49681f1678964958a05bae73e880eaf9e73b9f3780c004e7840",
+   "sha256": "2c6594d0f0b6f49681f1678964958a05bae73e880eaf9e73b9f3780c004e7840",
+   "bytes": 50060,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/verify-b13-s3.log",
+   "file": "certs/erdos1/logs/frontier-verify-b13-s3.log",
+   "sourceSha256": "a9ba3e505c9ae58950af4e526a31b312b160864a4500ea0b959e5bc693ea29fd",
+   "sha256": "a9ba3e505c9ae58950af4e526a31b312b160864a4500ea0b959e5bc693ea29fd",
+   "bytes": 1045,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/H-b13-s3-a11_20.json",
+   "file": "instruments/erdos1/cache/H-b13-s3-a11_20.json.gz",
+   "sourceSha256": "7e723e7d5c6c5a292ed27f509c9b5a5e8407c5dbfa97abace10ca88a88da7fa2",
+   "sha256": "d7344d4c9fba04684761ebe55c75f3a8f403dbb407edaf522c25f6c7b3297471",
+   "bytes": 14781881,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/cert-b13-s3-a11_20.json",
+   "file": "certs/erdos1/cert-b13-s3-a11_20.json.gz",
+   "sourceSha256": "51773fa58d858050f069f65c0abd4b1b529724936f738d52ced1fe1ace14f482",
+   "sha256": "95a5c4b775f2fa347754e68d79e51babec5d319031e7789cb1cb7705dd86900d",
+   "bytes": 206717430,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/RESULTS-b13-s3-a11_20.md",
+   "file": "certs/erdos1/RESULTS-b13-s3-a11_20.md",
+   "sourceSha256": "0072c385b48606945cb4b8c2e2030193771214aa8453a651a44b22ad03b3685b",
+   "sha256": "0072c385b48606945cb4b8c2e2030193771214aa8453a651a44b22ad03b3685b",
+   "bytes": 54813,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/verify-b13-s3-a11_20.log",
+   "file": "certs/erdos1/logs/frontier-verify-b13-s3-a11_20.log",
+   "sourceSha256": "f85b5ee65941ae3fd42d4097e448231d962cc063aedb67bbb1a7440bc47108d3",
+   "sha256": "f85b5ee65941ae3fd42d4097e448231d962cc063aedb67bbb1a7440bc47108d3",
+   "bytes": 1102,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/H-b9-s2-a3_5.json",
+   "file": "instruments/erdos1/cache/H-b9-s2-a3_5.json.gz",
+   "sourceSha256": "ada36659e902473e8dad3b88ee6da3f20dc5083a50fb74618b476d1095e460aa",
+   "sha256": "e0fe924cc9e396739891f447444bc2c467965a3910b13dd670528c34646ada08",
+   "bytes": 20689,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/cert-b9-s2-a3_5.json",
+   "file": "certs/erdos1/cert-b9-s2-a3_5.json",
+   "sourceSha256": "1ad54e4cfe18abed2bf8f1ddae00a21d98986a8ed19c73201d0cbce586703ddc",
+   "sha256": "1ad54e4cfe18abed2bf8f1ddae00a21d98986a8ed19c73201d0cbce586703ddc",
+   "bytes": 279918,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/RESULTS-b9-s2-a3_5.md",
+   "file": "certs/erdos1/RESULTS-b9-s2-a3_5.md",
+   "sourceSha256": "fe1c2e90fb856e8fdd636a02d658a5d16d3902d1dd47890c8fa03b86a6705626",
+   "sha256": "fe1c2e90fb856e8fdd636a02d658a5d16d3902d1dd47890c8fa03b86a6705626",
+   "bytes": 2594,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/verify-b9-s2-a3_5.log",
+   "file": "certs/erdos1/logs/frontier-verify-b9-s2-a3_5.log",
+   "sourceSha256": "54b2e887ab44ba8d4bea8745ffd4bd0dce2572ec1ad0e0f516f91ad6621fbaae",
+   "sha256": "54b2e887ab44ba8d4bea8745ffd4bd0dce2572ec1ad0e0f516f91ad6621fbaae",
+   "bytes": 3193,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/H-b11-s2-a2_3.json",
+   "file": "instruments/erdos1/cache/H-b11-s2-a2_3.json.gz",
+   "sourceSha256": "af53c517f3a8616e017f27527ffb4d9b7ad3e66699e8ebe21dd1d5d1343df070",
+   "sha256": "1335be3646e50252140b08141a517e9ef345361fac2c8821fd06f4b63780df94",
+   "bytes": 45091,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/cert-b11-s2-a2_3.json",
+   "file": "certs/erdos1/cert-b11-s2-a2_3.json",
+   "sourceSha256": "192e9e3b32e0f42cbfbee521b2a32ee3bb7810097d88e4bd2cb5bca423640755",
+   "sha256": "192e9e3b32e0f42cbfbee521b2a32ee3bb7810097d88e4bd2cb5bca423640755",
+   "bytes": 546507,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/RESULTS-b11-s2-a2_3.md",
+   "file": "certs/erdos1/RESULTS-b11-s2-a2_3.md",
+   "sourceSha256": "d59b309d9a9b7f72925989e5d4acd0cd3a9a36178fd80ee0333c49db471f1dbe",
+   "sha256": "d59b309d9a9b7f72925989e5d4acd0cd3a9a36178fd80ee0333c49db471f1dbe",
+   "bytes": 3220,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/verify-b11-s2-a2_3.log",
+   "file": "certs/erdos1/logs/frontier-verify-b11-s2-a2_3.log",
+   "sourceSha256": "3a3c9987010cd60f0ade2966f970bd4cc5b967f9619755b8b7c9c8912dbffa4a",
+   "sha256": "3a3c9987010cd60f0ade2966f970bd4cc5b967f9619755b8b7c9c8912dbffa4a",
+   "bytes": 2730,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/H-b11-s2-a13_20.json",
+   "file": "instruments/erdos1/cache/H-b11-s2-a13_20.json.gz",
+   "sourceSha256": "bdfa4b1b0132c66dbff680cce5707ee8a0a67dbf1f299cc949e00a4b0adc14a8",
+   "sha256": "7dd35872f1539743127da4dc4ea1274a92de35f9092aefdc5391e1b7bcf8a8e9",
+   "bytes": 48773,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/cert-b11-s2-a13_20.json",
+   "file": "certs/erdos1/cert-b11-s2-a13_20.json",
+   "sourceSha256": "b55a5070c0405ae5291868ebb84c7895862fcd466ea76d27936157b0f0778ccc",
+   "sha256": "b55a5070c0405ae5291868ebb84c7895862fcd466ea76d27936157b0f0778ccc",
+   "bytes": 470072,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/RESULTS-b11-s2-a13_20.md",
+   "file": "certs/erdos1/RESULTS-b11-s2-a13_20.md",
+   "sourceSha256": "df015cf036548505d95dad0fc324ca7d104fc9dcc1b717b91e548cbf77630722",
+   "sha256": "df015cf036548505d95dad0fc324ca7d104fc9dcc1b717b91e548cbf77630722",
+   "bytes": 3375,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/verify-b11-s2-a13_20.log",
+   "file": "certs/erdos1/logs/frontier-verify-b11-s2-a13_20.log",
+   "sourceSha256": "605d0f121edfe920d5e2ebe941e941d92225c1cef10268b5ad7e6b30301df7c8",
+   "sha256": "605d0f121edfe920d5e2ebe941e941d92225c1cef10268b5ad7e6b30301df7c8",
+   "bytes": 2293,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/H-b13-s2-a2_3.json",
+   "file": "instruments/erdos1/cache/H-b13-s2-a2_3.json.gz",
+   "sourceSha256": "887c61e2c60966374304f9ba1f6bfb22335f584307fc0125fb5f987dcf1c51a5",
+   "sha256": "d03df272ded98d954e99342f97bb9f6eee8565b835caf7063587aa5bfe319548",
+   "bytes": 87904,
+   "gzipped": true,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/cert-b13-s2-a2_3.json",
+   "file": "certs/erdos1/cert-b13-s2-a2_3.json",
+   "sourceSha256": "b0f4aea99a7909542ecd785ba88c2d7c962f4992521e143c7225e3b451da6144",
+   "sha256": "b0f4aea99a7909542ecd785ba88c2d7c962f4992521e143c7225e3b451da6144",
+   "bytes": 904920,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/RESULTS-b13-s2-a2_3.md",
+   "file": "certs/erdos1/RESULTS-b13-s2-a2_3.md",
+   "sourceSha256": "ff781b2f07661320083e448b99bb21aaa8403d13aa705d0c2f391f00bcc1a9e9",
+   "sha256": "ff781b2f07661320083e448b99bb21aaa8403d13aa705d0c2f391f00bcc1a9e9",
+   "bytes": 4016,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/verify-b13-s2-a2_3.log",
+   "file": "certs/erdos1/logs/frontier-verify-b13-s2-a2_3.log",
+   "sourceSha256": "eb4b1dd2c65243c95c8f911fad6ce1619cb1bd486e00522f3d381fb8b512db02",
+   "sha256": "eb4b1dd2c65243c95c8f911fad6ce1619cb1bd486e00522f3d381fb8b512db02",
+   "bytes": 2277,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/gadget.log",
+   "file": "certs/erdos1/logs/gadget.log",
+   "sourceSha256": "ab622059a866885f853e2cbe04f736f4bc88c77391d7d5f2c66825257cd34df5",
+   "sha256": "ab622059a866885f853e2cbe04f736f4bc88c77391d7d5f2c66825257cd34df5",
+   "bytes": 12883,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/kscan.log",
+   "file": "certs/erdos1/logs/kscan.log",
+   "sourceSha256": "58d5e53265c61ac2208bc370c31432021901b6ff434484526d22e758129d5cfa",
+   "sha256": "58d5e53265c61ac2208bc370c31432021901b6ff434484526d22e758129d5cfa",
+   "bytes": 615,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/lattice-validate.log",
+   "file": "certs/erdos1/logs/lattice-validate.log",
+   "sourceSha256": "f31d52fba595a848282856674ed3a28cff8650c129d5609b961b763842ee7cc4",
+   "sha256": "f31d52fba595a848282856674ed3a28cff8650c129d5609b961b763842ee7cc4",
+   "bytes": 987,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/siegel.log",
+   "file": "certs/erdos1/logs/siegel.log",
+   "sourceSha256": "53d33b0f06653e8e24c31d5618bf9e74ca54e30c54625e15e28257357d6b2858",
+   "sha256": "53d33b0f06653e8e24c31d5618bf9e74ca54e30c54625e15e28257357d6b2858",
+   "bytes": 3960,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/build-b9-s3.log",
+   "file": "certs/erdos1/logs/build-b9-s3.log",
+   "sourceSha256": "afdb5dd8ee0b0c0f5f17ff8b6339f83154eb82d0ea7907f68f144c458854d367",
+   "sha256": "afdb5dd8ee0b0c0f5f17ff8b6339f83154eb82d0ea7907f68f144c458854d367",
+   "bytes": 2617,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/build-b11-s3.log",
+   "file": "certs/erdos1/logs/build-b11-s3.log",
+   "sourceSha256": "0061e738db1c93002a75b0c696775c7ba05f613f1a05b993e5054baa853d8c2c",
+   "sha256": "0061e738db1c93002a75b0c696775c7ba05f613f1a05b993e5054baa853d8c2c",
+   "bytes": 875,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/build-b13-s3.log",
+   "file": "certs/erdos1/logs/build-b13-s3.log",
+   "sourceSha256": "33657a85ad27f4824a84accfa28e6dccb659252180cc3c073177bc1db21927af",
+   "sha256": "33657a85ad27f4824a84accfa28e6dccb659252180cc3c073177bc1db21927af",
+   "bytes": 882,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/build-b13-s3-a11_20.log",
+   "file": "certs/erdos1/logs/build-b13-s3-a11_20.log",
+   "sourceSha256": "21ba8acd9e9f7378f8cc4034447428c1abf4841b272c71994a3b2e0292871785",
+   "sha256": "21ba8acd9e9f7378f8cc4034447428c1abf4841b272c71994a3b2e0292871785",
+   "bytes": 941,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/hnf-b11-s3.log",
+   "file": "certs/erdos1/logs/hnf-b11-s3.log",
+   "sourceSha256": "2fa3c68eea76c66c63bc76b7e841e939cdaa8380c076bbb43e3b2e3b96687dc5",
+   "sha256": "2fa3c68eea76c66c63bc76b7e841e939cdaa8380c076bbb43e3b2e3b96687dc5",
+   "bytes": 159,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/hnf-b13-s3.log",
+   "file": "certs/erdos1/logs/hnf-b13-s3.log",
+   "sourceSha256": "6fccc6f85f6710cacf63fa41ed31a645a2e26339dba82f40161bfc2122533864",
+   "sha256": "6fccc6f85f6710cacf63fa41ed31a645a2e26339dba82f40161bfc2122533864",
+   "bytes": 163,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/hnf-b13-s3-a11_20.log",
+   "file": "certs/erdos1/logs/hnf-b13-s3-a11_20.log",
+   "sourceSha256": "3e4fb32cf0564747efce1b5d062b3d7e1ceadec507ca6145983e01065c4ab5b3",
+   "sha256": "3e4fb32cf0564747efce1b5d062b3d7e1ceadec507ca6145983e01065c4ab5b3",
+   "bytes": 189,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/hnf-b13-s2-a2_3.log",
+   "file": "certs/erdos1/logs/hnf-b13-s2-a2_3.log",
+   "sourceSha256": "0ba6d94fd0da71f9eefca18cee201782ac06465ff857c00156aff813dd3d6027",
+   "sha256": "0ba6d94fd0da71f9eefca18cee201782ac06465ff857c00156aff813dd3d6027",
+   "bytes": 158,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/siegel.json",
+   "file": "certs/erdos1/logs/frontier-siegel.json",
+   "sourceSha256": "6ce420977dddc67e882a5cd3db9252b1d53bedffd87de8e5c79c8871e14babb0",
+   "sha256": "6ce420977dddc67e882a5cd3db9252b1d53bedffd87de8e5c79c8871e14babb0",
+   "bytes": 95503,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/THEOREM.md",
+   "file": "paper/erdos1-explicit.md",
+   "sourceSha256": "3a9ff8d38051534817aa569922511cd4849fdc8e82f0d9bd8e30f46f9b2f8378",
+   "sha256": "d5665dea5e79797c9eacf24cb1dc14ed573666a4bb28781c26699bd6db38410c",
+   "bytes": 16406,
+   "gzipped": false,
+   "patched": true,
+   "patch": "THEOREM.md as ported: the status paragraph carries the sets built here (k = 21 at d = 81; the s = 2 tilts at d = 441 and 961; d = 3375), Bohman's Proc. AMS citation corrected to the EJC 1998 paper that holds 0.22002, and the file names point at certs/erdos1/."
+  },
+  {
+   "source": "experiments/erdos1/paper/erdos1-paper.tex",
+   "file": "paper/tex/erdos1-explicit.tex",
+   "sourceSha256": "e238bc1bd5c4edb889ea40fdcb6cbbb730ae8368b281f4e0b951c477fbf34cff",
+   "sha256": "6787af5b4cacfe9d468663fead176a901a637bbc69c79c346c2d23aedb017d65",
+   "bytes": 17530,
+   "gzipped": false,
+   "patched": true,
+   "patch": "rewritten in the house preamble (certmachine.sty, the shared author block and disclosure); the tilt \u03b1 enters in \u00a72 so the theorem can state its instance; \"sixty years\" corrected to twenty-eight; the stale \"no s = 2 instance beats Bohman\" removed; the new instances and tables; numbers from paper/tex/erdos1-numbers.tex."
+  },
+  {
+   "source": "experiments/erdos1/SHARE.md",
+   "file": "outreach/erdos1-sharing-plan.md",
+   "sourceSha256": "e9683179bf8ac0aeddfa20e01731fc6614b716dd58bba5256b4606df2633e003",
+   "sha256": "66a4156370158b7ad37b6c0fb3ff17399f8303774e64ae1fbb7e57d15ad03f08",
+   "bytes": 8838,
+   "gzipped": false,
+   "patched": true,
+   "patch": "SHARE.md as ported: paths point at this repository, the numbers are the ledger's, and the texts moved to their own files (erdos1-forum-comment.md, erdos1-tadamcz-issue.md, erdos1-mastodon.md)."
+  },
+  {
+   "source": "experiments/erdos1/sources/tadamcz-erdos1-pin.txt",
+   "file": "corpus/sources/erdos1/tadamcz-erdos1-pin.txt",
+   "sourceSha256": "465b4429f13d5ca58422196901fe85a7bf4a6cbcdb53ccb71f95a9402a48929c",
+   "sha256": "465b4429f13d5ca58422196901fe85a7bf4a6cbcdb53ccb71f95a9402a48929c",
+   "bytes": 194,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/sources/erdosproblems-1-forum-discuss_2026-09-15.html",
+   "file": "corpus/sources/erdos1/erdosproblems-1-forum-discuss_2026-09-15.html",
+   "sourceSha256": "3cb098290a2d3f3a42a3d42d62d0fe74f1afca7b0f14deae4a6e24fe013051aa",
+   "sha256": "3cb098290a2d3f3a42a3d42d62d0fe74f1afca7b0f14deae4a6e24fe013051aa",
+   "bytes": 63347,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/sources/bloom-exposition_2026-09-03.txt",
+   "file": "corpus/sources/erdos1/bloom-exposition_2026-09-03.txt",
+   "sourceSha256": "badd3f1109075ddb9148a2dfd6964719faa3fc7f6148713eb8cbfef0b859ba62",
+   "sha256": "badd3f1109075ddb9148a2dfd6964719faa3fc7f6148713eb8cbfef0b859ba62",
+   "bytes": 13939,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/sources/tadamcz-erdos1-Challenge.lean",
+   "file": "corpus/sources/erdos1/tadamcz-erdos1-Challenge.lean",
+   "sourceSha256": "695bafa031033ead9a616fe1eeb2ed7c2f3d5dcfebefa59c0a179fe1fc8a3a12",
+   "sha256": "695bafa031033ead9a616fe1eeb2ed7c2f3d5dcfebefa59c0a179fe1fc8a3a12",
+   "bytes": 3033,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/sources/tadamcz-erdos1-Erdos1_219usd_38h.lean",
+   "file": "corpus/sources/erdos1/tadamcz-erdos1-Erdos1_219usd_38h.lean",
+   "sourceSha256": "b99ae0ce768fd02ee21c05f1392e9f6ab01988fbca9d2d359a4c51fd5e345107",
+   "sha256": "b99ae0ce768fd02ee21c05f1392e9f6ab01988fbca9d2d359a4c51fd5e345107",
+   "bytes": 105618,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/sources/epoch-frontiermath-erdos_extract.txt",
+   "file": "corpus/sources/erdos1/epoch-frontiermath-erdos_extract.txt",
+   "sourceSha256": "b600d179b280dc0d122dd5f21149e7ce099639a23265e45b89b4b2131f4b8324",
+   "sha256": "b600d179b280dc0d122dd5f21149e7ce099639a23265e45b89b4b2131f4b8324",
+   "bytes": 57509,
+   "gzipped": false,
+   "patched": false
+  },
+  {
+   "source": "experiments/erdos1/sources/erdosproblems-1_2026-09-15.html",
+   "file": "corpus/sources/erdos1/erdosproblems-1_2026-09-15.html",
+   "sourceSha256": "b40e47dcbf18eaac76f1fa6ed6c566bae749881043a68859e0d69ca994240ee1",
+   "sha256": "b40e47dcbf18eaac76f1fa6ed6c566bae749881043a68859e0d69ca994240ee1",
+   "bytes": 54288,
+   "gzipped": false,
+   "patched": false
+  }
+ ]
+}

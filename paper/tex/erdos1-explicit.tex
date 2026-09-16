@@ -1,0 +1,281 @@
+\documentclass[11pt]{article}
+\usepackage{certmachine}
+\input{erdos1-numbers.tex}
+
+\newcommand{\lift}{\operatorname{lift}}
+
+\title{Explicit sum-distinct sets below Bohman's constant:\\
+the Erd\H{o}s problem \#1 disproof made effective}
+\author{\cmauthor}
+\date{September 2026 --- v0.2, numbers interpolated from the certificate ledger}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Erd\H{o}s asked (1931) whether a set $A\subseteq\{1,\dots,N\}$ whose $2^{|A|}$ subset sums are
+distinct must satisfy $N\gg 2^{|A|}$. The best construction for twenty-eight years was
+$N\le 0.22002\cdot 2^{|A|}$ (Bohman, 1998). On 28 August 2026 a pre-release GPT-6 Astra,
+run autonomously by Epoch AI, produced a Lean-verified disproof: for every
+$\varepsilon>0$ there are such sets with $N\le\varepsilon 2^{|A|}$. The argument is
+ineffective at exactly one step, the approximation of a rational lattice by a primitive
+one, and no explicit set below Bohman's constant was known. We make that step effective
+by replacing the Smith normal form in the formal proof with a Hermite basis and a chain
+perturbation, and we compute the one quantity the proof never computed, the buffer
+$K$ that controls the perturbation. The result is a family of explicit dissociated sets
+with certificates that an independent program checks in exact arithmetic: the smallest
+has $\SmallN$ elements with $N/2^{|A|}=\SmallRatio$, and the best has $\Nn$ elements
+with $N/2^{|A|}=\Ratio$, that is \Gain\% below Bohman's constant. Two further results
+ride along. The base gadget $T=I+\tfrac12P$ of the construction is not special: $T=I+\alpha P$
+works for every $0<\alpha<1$ (the cube property has a three-line proof for all tilts, and the
+strip property is decided exactly per $(\alpha,b)$ by a finite structured search), and the
+best tilt beats $\tfrac12$ at every dimension budget. And the base weights give the first
+explicit lower bounds for the constant in Siegel's lemma above Bohman's,
+$C_{\SiegelBestD}\ge\SiegelBest$ in the normalisation of Bloom's exposition.
+\end{abstract}
+
+\section{Introduction}
+
+Write $f(n)=\inf\max A/2^{n-1}$ over dissociated sets $A\subset\Z_{>0}$ with $|A|=n$
+(Bloom's normalisation) and $\rho(A)=\max A/2^{|A|}=f/2$ for a particular set. Powers of two
+give $\rho=1/2$; Conway and Guy give $\rho\le 1/4$ for large $n$; Bohman \cite{Bo98}
+gives $\rho\le 0.22002$ for all large $n$. From below, $N\ge\binom{n}{\lfloor n/2\rfloor}$
+\cite{DFX21}. Erd\H{o}s's question, whether $\rho$ is bounded below by a positive constant,
+was answered in the negative by a machine \cite{Epoch26,Erdos1repo}: a Lean 4 proof, checked
+against the Formal Conjectures statement with the three standard axioms,
+that for every $\varepsilon>0$ there are arbitrarily large $n$ with $f(n)<\varepsilon$.
+
+Bloom's exposition \cite{Bloom26} reads the proof as a statement about lattices and
+isolates its single non-effective step. The present note is the effective version of that
+step, and the objects it produces. Everything quantitative in it is interpolated from a
+ledger of certificates that an independent verifier re-derived; no number is typed.
+
+\section{The lattice, with a tilt}
+
+Fix odd $b\ge3$ and a rational $0<\alpha<1$, and let $V_m=\{x\in\R^m:\sum x_i=0\}$. Let
+$T_\alpha:\R^b\to\R^b$, $(T_\alpha z)_i=z_i+\alpha z_{i+1}$ (indices mod $b$), and
+\[
+\Lambda_1=T_\alpha(\Z^b\cap V_b),\qquad v_1=T_\alpha(e_0)=(1,0,\dots,0,\alpha),\qquad h_1=\textstyle\sum v_1=1+\alpha .
+\]
+Bloom's gadget is $\alpha=\tfrac12$. For $s\ge1$ define, in $\R^{b^{s+1}}$ written as $b$ blocks of size $d=b^s$,
+\[
+\Lambda_{s+1}=\{(\lambda_0+\beta_0v_s,\dots,\lambda_{b-1}+\beta_{b-1}v_s):\lambda_j\in\Lambda_s,\ \beta\in\Lambda_1\},
+\qquad v_{s+1}=(v_s,0,\dots,0,\alpha v_s).
+\]
+Call a pair $(\Lambda,v)$, $\Lambda\subset V_d$ of full rank and $v\notin V_d$, \emph{admissible} if
+$\Lambda\cap(-1,1)^d=\{0\}$ and $tv\in\Lambda+(-1,1)^d$ implies $|t|<1$.
+
+\begin{lemma}[cube, all tilts]\label{lem:cubealpha}
+For every $0<\alpha<1$ and odd $b$, $T_\alpha(\Z^b)\cap(-1,1)^b=\{0\}$; in particular $\Lambda_1\cap(-1,1)^b=\{0\}$.
+\end{lemma}
+\begin{proof}
+Let $z\in\Z^b\setminus\{0\}$ with $|z_i+\alpha z_{i+1}|<1$ for all $i$ (indices mod $b$), and let $m=\max_i|z_i|\ge1$ be attained at $i$. Then $\alpha|z_{i+1}|>|z_i|-1=m-1$, so $|z_{i+1}|>(m-1)/\alpha\ge m-1$, hence $|z_{i+1}|=m$, with the opposite sign (if $z_i=m$ then $\alpha z_{i+1}<1-m\le0$). Around the odd cycle this gives $z_i=-z_i$, a contradiction. The same inequality at the maximum gives $(1-\alpha)m<1$.
+\end{proof}
+
+\begin{lemma}[strip, structure]\label{lem:stripalpha}
+Let $x_0\in\R$ and $x_1,\dots,x_{b-1}\in\Z$, not all zero, satisfy $|x_i+\alpha x_{i+1}|<1$ for all $i$ (cyclic, $x_b=x_0$), and let $m=\max_{1\le i\le b-1}|x_i|$. Then $m<1/(1-\alpha)$ and $|x_{b-1}|=m$.
+\end{lemma}
+\begin{proof}
+If the largest index attaining $m$ were $i^*\le b-2$, the argument of Lemma~\ref{lem:cubealpha} would give $|x_{i^*+1}|=m$ with $i^*+1\le b-1$. If $m\ge1/(1-\alpha)$, then either some $i\le b-2$ attains $m$, contradicting $(1-\alpha)m<1$, or only $x_{b-1}$ does, and then $|x_0|>(m-1)/\alpha$ and $|x_1|>(|x_0|-1)/\alpha>(m-1-\alpha)/\alpha^2$, which with $|x_1|\le m$ forces $m(1-\alpha^2)<1+\alpha$.
+\end{proof}
+
+The strip property of $(\Lambda_1,v_1)$, $|\sum_ix_i|<1$ for every such configuration, is then decided exactly for each $(\alpha,b)$ by a finite search that Lemma~\ref{lem:stripalpha} makes small: for each $m<1/(1-\alpha)$ and each sign of $x_{b-1}$, enumerate the integer chains $x_{b-2},\dots,x_1$ backwards under $|x_j|\le m$ and $|x_j+\alpha x_{j+1}|<1$, intersect the two constraints on $x_0$, and test whether the open interval for $t=\sum_ix_i$ leaves $(-1,1)$. The search agrees with a brute-force decision of both properties for $b\le9$ (and is re-run against it for $b\le7$ at every build of the repository), and it admits every $(\alpha,b)$ used below. For $\alpha=\tfrac12$ this is Bloom's case analysis, formalised in Lean as \texttt{composeMatrix\_admissible} \cite{Erdos1repo}.
+
+\begin{lemma}[Bloom \cite{Bloom26}]\label{lem:cube}
+If $(\Lambda_1,v_1)$ is admissible then $(\Lambda_s,v_s)$ is admissible for every $s\ge1$. In particular $\Lambda_s\cap(-1,1)^{b^s}=\{0\}$.
+\end{lemma}
+
+\begin{proof}
+Let $y\in\Lambda_{s+1}\cap(-1,1)^{bd}$. Block $j$ of $y$ lies in
+$(\Lambda_s+\beta_jv_s)\cap(-1,1)^d$, so $|\beta_j|<1$ by admissibility of $(\Lambda_s,v_s)$;
+hence $\beta\in\Lambda_1\cap(-1,1)^b=\{0\}$, hence every block lies in
+$\Lambda_s\cap(-1,1)^d=\{0\}$. The strip property for $(\Lambda_{s+1},v_{s+1})$ follows in the
+same way with $\gamma=\beta+tv_1$ in place of $\beta$, since $v_{s+1}$ is $v_1\otimes v_s$.
+\end{proof}
+
+Let $r=d-1$ and let $B_s\in\Q^{r\times r}$ hold the first $r$ coordinates of a basis of
+$\Lambda_s$ as columns; then $\Lambda_s=\lift(B_s)\Z^r$ with
+$\lift(B)=\binom{B}{-\mathbf 1^{\mathsf T}B}$, and, with $h=1+\alpha$ and $c=|\det T_\alpha|=1+\alpha^b$,
+\begin{equation}\label{eq:delta}
+\Delta_s(\alpha,b):=|\det B_s|=\frac{(1+\alpha^b)^{(b^s-1)/(b-1)}}{(1+\alpha)^s},
+\end{equation}
+which is verified exactly against a determinant for small $(b,s)$ at every build and for every instance below. Bloom shows
+$f(n)\le\Delta_s(1+o(1))$ along a sequence of $n$; the $o(1)$ is where effectiveness is lost.
+
+\section{The effective transfer}
+
+Let $D=q^s$ for $\alpha=p/q$, a common denominator of $B_s$, and $A=DB_s\in\Z^{r\times r}$.
+
+\paragraph{Hermite basis.} Let $H\in\Z^{r\times r}$ be upper triangular with positive diagonal
+and $H\Z^r=A'\Z^r$, where $A'$ is $A$ with its rows reversed. (PARI's \texttt{mathnfmod} applied to $A'$
+with $|\det A|=D^r\Delta_s$ as modulus takes 19 seconds at $r=728$ and 328 seconds at $r=2196$; FLINT's generic
+routine takes 53 minutes at $r=728$, and the two agree.) Reversing coordinates $0,\dots,r-1$ and
+changing basis do not affect Lemma~\ref{lem:cube}, so with $F=H/D$:
+\begin{equation}\label{eq:CA}
+\norm{\lift(F)z}_\infty\ge1\qquad\text{for every }z\in\Z^r\setminus\{0\}.
+\end{equation}
+
+\paragraph{Chain perturbation.} Let $\operatorname{top}(X)$ append a zero row to $X$ and let
+$\mathrm{sh}\in\Z^{(r+1)\times r}$ have ones at positions $(i+1,i)$. For an integer $t\ge1$ set
+\[
+C=\operatorname{top}(tH)-\mathrm{sh},\qquad
+S=\begin{pmatrix}I_r&0\\-\mathbf 1^{\mathsf T}&1\end{pmatrix},\qquad
+M=SC=t\,\lift(H)-E,\quad E:=S\,\mathrm{sh}.
+\]
+
+\begin{lemma}[saturation]\label{lem:sat}
+$M\Z^r$ is a saturated sublattice of $\Z^{r+1}$. Consequently, if $a\in\Z^{r+1}$ is primitive
+with $a^{\mathsf T}M=0$, then $\{c\in\Z^{r+1}:a\cdot c=0\}=M\Z^r$.
+\end{lemma}
+
+\begin{proof}
+Delete row $0$ of $C$. Entry $(i',j)$ of the remaining $r\times r$ matrix is
+$tH_{i'+1,j}-[j=i']$; since $H$ is upper triangular this vanishes for $j<i'$ and equals $-1$
+for $j=i'$. The minor is unimodular, so the gcd of the maximal minors of $C$ is $1$ and
+$C\Z^r$ is saturated. $S\in GL_{r+1}(\Z)$ maps saturated lattices to saturated lattices.
+\end{proof}
+
+The primitive normal is explicit: $w_0=1$, $w_{j+1}=t\sum_{i\le j}w_iH_{ij}$ for
+$j=0,\dots,r-1$ gives $w^{\mathsf T}C=0$, and $a=S^{-\mathsf T}w$, i.e.\ $a_i=w_i+w_r$ for
+$i<r$ and $a_r=w_r$. Since $a_0-a_r=w_0=1$ the vector is primitive. This is \texttt{transferWeights} of the Lean proof with the Smith
+normal form replaced by the Hermite form; the leading term is $a_r=t^r\det H+\dots$.
+
+\paragraph{The buffer.} $E$ is fixed and small: its rows are $0$, $e_0^{\mathsf T},\dots,e_{r-2}^{\mathsf T}$
+and $(-1,\dots,-1,+1)$. Put
+\[
+K:=D\cdot\norm{EH^{-1}}_{\infty\to\infty},
+\]
+so that for every real $z$,
+$\norm{Ez}_\infty\le\norm{EH^{-1}}\,\norm{Hz}_\infty=K\norm{Fz}_\infty\le K\norm{\lift(F)z}_\infty$.
+This is the one quantity the ineffective proof leaves existential (\texttt{exists\_perturbation\_buffer} in the Lean); it is an exact rational, one per lattice.
+
+\begin{lemma}[relation gap]\label{lem:gap}
+Let $Q=2^k$ and $t=\lceil(Q+K)/D\rceil$. If $c\in\Z^{r+1}$, $\norm c_\infty<Q$ and $a\cdot c=0$, then $c=0$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:sat}, $c=Mz$ with $z\in\Z^r$. If $z\ne0$ then by \eqref{eq:CA} and the buffer
+inequality
+$\norm c_\infty\ge Dt\norm{\lift(F)z}_\infty-K\norm{\lift(F)z}_\infty\ge Dt-K\ge Q$.
+\end{proof}
+
+\begin{lemma}[binary blocks; Lean \texttt{exists\_binary\_block\_set}]\label{lem:bin}
+If $a\in\Z_{>0}^{r+1}$ satisfies the conclusion of Lemma~\ref{lem:gap} for $Q=2^k$, then
+$\mathcal A=\{a_i2^j:0\le i\le r,\ 0\le j<k\}$ has $(r+1)k$ distinct elements and distinct subset sums.
+\end{lemma}
+
+\begin{proof}
+Two subsets with equal sums give $\sum_ia_ic_i=0$ with
+$c_i=\sum_{j\in S_i}2^j-\sum_{j\in S_i'}2^j\in(-2^k,2^k)$, hence $c=0$, hence $S_i=S_i'$ by
+uniqueness of binary expansions. Distinctness of elements is the case of two coefficients $\pm2^j$.
+\end{proof}
+
+\begin{theorem}\label{thm:main}
+For $b=\Bval$, $s=\Sval$, $\alpha=\AlphaVal$ ($d=\Dim$, $r=\Rval$, $D=\Dval$, $\Delta_s=\DeltaVal$) and
+$k=\Kk$ (so $t=\Tval$, $K=\Kval$), the set $\mathcal A$ of Lemma~\ref{lem:bin} is a
+dissociated set of $n=\Nn$ positive integers, $\mathcal A\subseteq\{1,\dots,N\}$ with
+$N=2^{k-1}\max_ia_i$ of $\Ndigits$ decimal digits, and
+\[
+\frac{N}{2^{n}}=\Ratio<0.22002,\qquad\text{equivalently}\qquad f(\NnRaw)\le\RatioF<0.44004 .
+\]
+For $b=\SmallB$, $s=\SmallS$, $\alpha=\SmallAlpha$ ($d=\SmallD$, $K=\SmallKval$) and $k=\SmallK$ the same construction gives a dissociated set of
+$n=\SmallN$ integers with $N/2^n=\SmallRatio$, the smallest set below Bohman's constant in this family.
+\end{theorem}
+
+\begin{proof}
+Lemmas~\ref{lem:cubealpha}--\ref{lem:bin} with the exact values recorded in the certificates; the strip property of
+$(\Lambda_1,v_1)$ for these $(\alpha,b)$ is decided by the structured search. The ratio is $\max_ia_i/2^{kr+1}$, computed exactly.
+\end{proof}
+
+\section{Instances and verification}
+
+Table~\ref{tab:inst} lists every instance the independent verifier has passed on the machine that
+built this document ($\NumInstances$ instances from $\NumCerts$ certificates, $\NumBelow$ of them below Bohman's constant);
+Table~\ref{tab:lat} lists the lattices with their buffers. For fixed $(b,s,\alpha)$ the ratio decreases to
+$\Delta_s/2$ as $k$ grows: at finite $k$ it exceeds the limit by at most the factor
+$(1+(K+D)/2^k)^r$ from the rounding of $t$ together with the lower-order terms of the
+recurrence, which are below $\Spread\%$ in the instance of Theorem~\ref{thm:main}.
+The buffer grows only linearly with the dimension in every instance computed ($K\approx1.1\,d$
+for $s=2$ and $\alpha=\tfrac12$, $b=7,\dots,15$; $K\approx1.6$--$2.4\,d$ for $s=3$, $b=5,\dots,13$), so $k=\lceil\log_2(rK)\rceil+6$
+already brings the ratio within one percent of $\Delta_s/2$. A tilt with denominator $q$ pays through $D=q^s$: at $d=2197$
+the tilt $\tfrac{11}{20}$ carries $K\approx22\,d$ while $\norm{EH^{-1}}$ itself is $3.5$, so small denominators are the lever.
+With Bloom's gadget no $s=2$ instance can beat Bohman ($\Delta_2\to4/9>0.44004$) and $b=9$, $s=3$ ($d=729$) is the
+smallest that does; with a tilt the two-level lattices cross at $d=81$.
+
+\begin{table}[h]\centering\small
+\begin{tabular}{rrlrrrrrrl}\toprule
+$b$&$s$&$\alpha$&$d$&$k$&$n=|\mathcal A|$&digits of $N$&$N/2^n$&$f=N/2^{n-1}$&vs $0.22002$\\\midrule
+\InstanceRows
+\bottomrule\end{tabular}
+\caption{Every verified instance, ordered by dimension and tilt. Ratios are exact rationals rounded to six places.}\label{tab:inst}
+\end{table}
+
+\begin{table}[h]\centering\small
+\begin{tabular}{rrlrrrrr}\toprule
+$b$&$s$&$\alpha$&$d$&$D$&$\Delta_s$&$K$&$K/d$\\\midrule
+\LatticeRows
+\bottomrule\end{tabular}
+\caption{The lattices: covolume constant and the computed buffer.}\label{tab:lat}
+\end{table}
+
+Two programs are provided. \texttt{build.py} constructs; \texttt{verify.py} rebuilds
+$\Lambda_s$ from $(b,s,\alpha)$ and checks, independently of the construction's intermediate objects:
+that $H\Z^r=A'\Z^r$ (exact rational solves, integrality both ways); that the minor of
+$C=S^{-1}M$ has determinant $\pm1$ (a FLINT determinant, not the triangular argument);
+that the FLINT nullspace of $M^{\mathsf T}$ is one-dimensional with primitive generator $a$;
+that the recorded $K$ is at least the recomputed operator norm; that $Dt-K\ge2^k$;
+positivity, distinctness, $n$, $N$ and the ratio. The inputs not recomputed at full
+size are Lemma~\ref{lem:cubealpha} and the strip decision, which are elementary, and the iteration Lemma~\ref{lem:cube}, formalised in Lean for
+$\alpha=\tfrac12$; all are checked exhaustively for $d\le9$, and at $d=729$ a falsification probe tested
+18,612 lattice vectors (every basis vector, sums and differences of neighbouring pairs, and random
+small integer combinations) and found none inside the open cube. Everything is exact: no floating
+point enters any certificate. Every certificate was verified twice, once on the bench that built it and
+once, from the certificate file alone, on the machine that built this document; only the second run admits
+an instance into the tables above.
+
+\section{The tilt as a lever}
+
+Larger tilts pay in covolume and gain in height, so the best tilt depends on the dimension budget, and it beats $\alpha=\tfrac12$ at every budget: under $d\le100$ the tilt $0.58$ at $b=9$, $s=2$ gives $\Delta=0.4313$ in dimension $81$, where Bloom's gadget cannot beat Bohman below dimension $729$; under $d\le500$, $\alpha=\tfrac34$, $b=21$, $s=2$ gives $0.3440$ in dimension $441$; under $d\le1000$, $\alpha=\tfrac45$, $b=31$, $s=2$ gives $0.3186$ against $0.3539$; under $d\le10^4$, $\alpha=0.65$, $b=21$, $s=3$ gives $0.2351$ against $0.2964$; under $d\le10^6$, $\alpha=0.65$, $b=31$, $s=4$ gives $0.1417$ against $0.1975$ (a float scan; the certificates are exact). Two-parameter cyclic gadgets $I+aP+bP^2$ fail the cube condition from $b=7$ on, through period-three patterns, so within cyclic gadgets the one-parameter tilt is the lever.
+
+\section{A corollary: explicit lower bounds in Siegel's lemma}
+
+In the normalisation of Bloom's exposition (after Aliev \cite{Al08}), let $C_d$ be the least constant such that every nonzero $a\in\Z^d$ admits a nonzero $x\in\Z^d$ with $a\cdot x=0$ and $\norm{x}_\infty^{d-1}\le C_d\norm{a}_\infty$. Bombieri and Vaaler give $C_d\ll\sqrt d$; the recorded lower bound is Schinzel's $C_d\ge1$, and Bloom remarks that the Astra construction should yield explicit lower bounds. It does, with no further work: the base weights $a\in\Z^d$ of Lemma~\ref{lem:gap} are $2^k$-relation-free, so every admissible $x$ has $\norm{x}_\infty\ge2^k$, whence $2^{k(d-1)}\le C_d\max a$, that is
+\[
+C_d\;\ge\;\frac{2^{kr}}{\max_i a_i}\;=\;\frac1f ,
+\]
+with $f$ the Bloom-normalised ratio of the instance, an exact rational, printed truncated in Table~\ref{tab:siegel}. A Bohman-type set gives $C_d\ge1/0.44004=2.2725$ for all large $d$; these are the first explicit values above that, and they grow with the instance as the construction predicts.
+
+\begin{table}[h]\centering\small
+\begin{tabular}{rlrrr}\toprule
+$d$&$\alpha$&$k$&$f$&$C_d\ge$\\\midrule
+\SiegelRows
+\bottomrule\end{tabular}
+\caption{The best verified Siegel bound per dimension.}\label{tab:siegel}
+\end{table}
+
+\section{Limits and what would come next}
+
+Bohman's bound is for all large $n$; Theorem~\ref{thm:main} is for specific $n$. An effective
+asymptotic statement $f(n)\le n^{-c/\log\log n}$, the form Bloom expects, would follow from a
+structural bound on $K$ as a function of $(b,s)$, because $k$ must only exceed
+$\log_2(rK)$ by a constant. The buffer is measured here and not proved: the Hermite basis is
+computed, not analytic, and an analytic triangular basis of $\Lambda_s$ with an explicit inverse
+would settle it. Bigger tilted instances ($\alpha=0.65$, $b=21$, $s=3$ at $d=9261$) need a Hermite
+path beyond PARI at that size. Nothing here concerns the lower bound
+$N\ge\binom{n}{\lfloor n/2\rfloor}$ or the true order of $f$.
+
+\cmrepro{The certificates (\texttt{certs/erdos1/}), the ledger they enter through (\texttt{certs/erdos1-ledger.json}), the instrument
+(\texttt{instruments/erdos1/}: \texttt{lattice.py}, \texttt{build.py}, \texttt{verify.py}, \texttt{gadget.py}, \texttt{siegel.py}) and the detached
+verifier (\texttt{tools/verify\_erdos1.py}, needs python-flint) are in the repository; \texttt{python3 tools/verify\_erdos1.py certs/erdos1/cert-b9-s2-a3\_5-k21.json}
+re-derives the smallest set in seconds. The macros of this document are written by \texttt{instruments/erdos1/certnumbers.py} from the ledger. Sources pinned in \texttt{corpus/sources/erdos1/}: the problem page and Bloom's exposition (2026-09-15 fetch), the forum thread, the Lean resolution (\texttt{tadamcz/erdos1} at commit \texttt{0e395153}), Epoch's paper extract.}
+
+\begin{thebibliography}{9}
+\bibitem{Bo98} T.~Bohman, A construction for sets of integers with distinct subset sums, Electron.\ J.\ Combin.\ 5 (1998), R3.
+\bibitem{DFX21} Q.~Dubroff, J.~Fox, M.~W.~Xu, A note on the Erd\H{o}s distinct subset sums problem, SIAM J.\ Discrete Math.\ 35 (2021).
+\bibitem{Epoch26} T.~Adamczewski, T.~F.~Bloom, FrontierMath Erd\H{o}s, Epoch AI, 1 September 2026.
+\bibitem{Erdos1repo} GPT-6 Astra (OpenAI), Lean disproof of Erd\H{o}s problem \#1, packaged by T.~Adamczewski, \url{https://github.com/tadamcz/erdos1}, 2026.
+\bibitem{Bloom26} T.~F.~Bloom, exposition of the disproof, \url{https://www.erdosproblems.com/1}, 3 September 2026.
+\bibitem{Al08} I. Aliev, Siegel's lemma and sum-distinct sets, Discrete Comput. Geom. 39 (2008), 59--66.
+\end{thebibliography}
+
+\end{document}
