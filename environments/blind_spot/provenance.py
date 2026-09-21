@@ -61,7 +61,8 @@ PATCHES = {
         "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the "
         "Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and "
         "a requires-python floor of 3.11 — which is the floor of the WHEEL (verifiers needs it), not "
-        "of the grader, which is stdlib and runs on 3.9 in this repository's battery.",
+        "of the grader, which is stdlib and runs on 3.9 in this repository's battery. 2026-09-21: an "
+        "`inspect` optional-dependency group for the Inspect binding.",
     "environments/blind_spot/eval/page.json":
         "REGENERATED on this machine by `PYTHONPATH=. python3 eval/page_data.py`, so the instrument "
         "page reports this machine's run rather than the source lab's. Diffed leaf by leaf against "
@@ -90,7 +91,7 @@ PATCHES = {
         "reproduce block invoked tools/build-blind-spot.js, which does not exist in this repository; and "
         "'The page' promised click-through and name-a-pair interactivity that the page built here did "
         "not have until it was added. Sections added: the verified binding with its four defects, and "
-        "the live run through verifiers.",
+        "the live run through verifiers. 2026-09-21: a section pointing at inspect/, the same task under inspect_ai.",
     "environments/blind_spot/blind_spot/design.py":
         "MUT repointed from experiments/certifier-core/mut (not in this repository) to "
         "corpus/blindspot/mut, and the docstring rewritten to say that the seven files are "

@@ -1,0 +1,140 @@
+{
+ "what": "Human baselines for blind-spot: timed attempts by people with a digital-design background, on the SAME tasks the Inspect variants serve (task_id = seed-index, the verifiers taskset at seed 2027), graded by the SAME scorer (blind_spot.adapters_v0._decide: a KILL is simulated on the netlist, EQUIVALENT is checked against the SAT proof). Without this file's attempts there is no time horizon; with them, deliverable 2 of notes/metr-plan-2026-09-21.md can be fit.",
+ "status": "NO DATA. The operator recruits (the request is drafted in outreach/blind-spot-baselines-request-2026-09-21.md and is a SEND); nothing in `attempts` is a measurement until a row is there. The ledger (certs/blind-spot-inspect-ledger.json) pins this file by sha256 and the battery refuses if it moves without the ledger being re-run — `python3 environments/blind_spot/inspect/ledger.py` after every edit.",
+ "protocol": {
+  "who": "5-10 people per rung with digital-design background (RTL, verification, or formal); a baseliner may attempt more than one rung, never the same task twice.",
+  "what_they_see": "The task prompt, verbatim (Sample.input: the design in words, the rung's information, the answer format). The netlist listing corpus/blindspot/mut/core_euclid_strict.v is available on request. NO simulator, NO SAT solver, no model: pen, paper, a calculator, and a plain-text editor for the answer.",
+  "time": "Wall clock from the moment the prompt is shown to the moment the answer file is saved; the baseliner reports it; the recruiter records it. A baseliner may stop with UNDECIDED at any moment and that is a valid, scored outcome (reward 0).",
+  "answer": "The JSON object the prompt asks for, saved to a file named <task_id>.json. It is graded afterwards by `python3 environments/blind_spot/inspect/ledger.py --grade-baselines`, which runs the exact verifier and refuses the file if a stored outcome disagrees with the scorer.",
+  "solved": "reward +1 from the scorer: a submitted pair flips a pin in simulation, or EQUIVALENT on a mutant the miter proved equivalent. Nothing else counts, including a correct diagnosis with no killing pair.",
+  "tasks_per_rung": "the first six sample ids of each Inspect variant at seed 2027 (num_tasks=6, start=0), listed under `tasks`; a baseliner draws tasks in the order listed and attempts as many as their time allows.",
+  "consent": "Each attempt row carries `consent`: the baseliner's pseudonym, the date, and the line they agreed to (`consent_line`). Names are never stored; the pseudonym is chosen by the baseliner."
+ },
+ "consent_line": "I agree that my timed attempt (the time I took, my answer and its scored outcome) is recorded under a pseudonym I chose and may be published as part of a human-baseline table for the blind-spot task; no name, e-mail or employer is recorded.",
+ "tasks": [
+  {
+   "task_id": "2027-0",
+   "rung": "located",
+   "index": 0,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-3",
+   "rung": "located",
+   "index": 3,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-6",
+   "rung": "located",
+   "index": 6,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-9",
+   "rung": "located",
+   "index": 9,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-12",
+   "rung": "located",
+   "index": 12,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-15",
+   "rung": "located",
+   "index": 15,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-1",
+   "rung": "profile",
+   "index": 1,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-4",
+   "rung": "profile",
+   "index": 4,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-7",
+   "rung": "profile",
+   "index": 7,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-10",
+   "rung": "profile",
+   "index": 10,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-13",
+   "rung": "profile",
+   "index": 13,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-16",
+   "rung": "profile",
+   "index": 16,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-2",
+   "rung": "blind",
+   "index": 2,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-5",
+   "rung": "blind",
+   "index": 5,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-8",
+   "rung": "blind",
+   "index": 8,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-11",
+   "rung": "blind",
+   "index": 11,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-14",
+   "rung": "blind",
+   "index": 14,
+   "seed": 2027
+  },
+  {
+   "task_id": "2027-17",
+   "rung": "blind",
+   "index": 17,
+   "seed": 2027
+  }
+ ],
+ "attempts": [],
+ "attempt_schema": {
+  "baseliner": "pseudonym",
+  "consent": {
+   "date": "YYYY-MM-DD",
+   "line": "consent_line verbatim"
+  },
+  "background": "one line: e.g. 'RTL design, 6 years' — free text, no employer",
+  "task_id": "seed-index, one of `tasks`",
+  "rung": "located | profile | blind",
+  "started": "ISO 8601 with offset",
+  "seconds": "wall clock, integer",
+  "reply": "the JSON object as saved",
+  "outcome": "filled by ledger.py --grade-baselines: SOLVED | MISSED | WRONG | UNDECIDED | REFUSED_PARSE",
+  "reward": "filled by ledger.py --grade-baselines: -1 | 0 | 1"
+ }
+}

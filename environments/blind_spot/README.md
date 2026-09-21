@@ -394,6 +394,18 @@ nothing, the memory stayed X and every verdict came back `xxx` with nothing
 raised. `tests/test_long_path.py` holds the fix and was checked to fail against
 the old call.
 
+## The same task under Inspect
+
+`inspect/` carries the identical task as an [`inspect_ai`](https://inspect.aisi.org.uk)
+`Task` — three rung variants and the mixed task over the SAME taskset (sample
+id `2027-4` is `Taskset(2027).sample(4)` in both frameworks) — whose scorer
+calls `adapters_v0._decide`, the function this rubric calls, on Inspect's own
+messages. Its battery scores every one of the 400 pooled mutants three ways
+(the Inspect scorer, `api.score`, `taskset.grade`) and requires agreement;
+every `inspect eval` log is re-scored offline into
+`certs/blind-spot-inspect-ledger.json`. Human baselines, sha-pinned, go in
+`baselines.json`. See [inspect/README.md](inspect/README.md).
+
 ## Run against live models
 
 `eval/run_verifiers.py` runs the real path — dataset, prompt, live model,

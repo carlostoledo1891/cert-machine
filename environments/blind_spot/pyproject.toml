@@ -31,6 +31,8 @@ dependencies = ["verifiers>=0.2.0"]
 
 [project.optional-dependencies]
 dev = ["pytest>=7"]
+# the Inspect binding (inspect/task.py) — the grader itself needs neither framework
+inspect = ["inspect_ai>=0.3.266"]
 
 [project.urls]
 Homepage = "https://carlostoledo.co/"

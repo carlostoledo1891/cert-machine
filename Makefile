@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help engine control test drift lift clean reports site papers playground materialize erdos1-venv
+.PHONY: help engine control test drift lift clean reports site papers playground materialize erdos1-venv blind-spot-venv
 
 help:
 	@echo "cert-machine — the conjecture engine"
@@ -35,6 +35,11 @@ playground:
 
 # instruments/erdos1 needs python-flint (FLINT: exact determinants, rational solves, integer nullspace),
 # which lives in its own venv; the battery builds it on first run, and this target does it explicitly.
+# the Inspect binding of blind-spot (environments/blind_spot/inspect) needs inspect_ai and the Anthropic SDK;
+# the grader itself stays stdlib. The battery builds this on first run; this target does it explicitly.
+blind-spot-venv:
+	@/opt/homebrew/bin/python3.12 -m venv environments/blind_spot/.venv && environments/blind_spot/.venv/bin/pip install -q inspect_ai anthropic pytest && echo "environments/blind_spot/.venv ready"
+
 erdos1-venv:
 	@/opt/homebrew/bin/python3.12 -m venv instruments/erdos1/.venv && instruments/erdos1/.venv/bin/pip install -q python-flint==0.9.0 && echo "instruments/erdos1/.venv ready"
 
@@ -69,6 +74,7 @@ test:
 	@printf "%-30s " "lattice-claims forgeries"; cd instruments/wiring && python3 -m pytest tests/test_forgeries.py -q >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lattice-claims (pins+gate+regrade)"; $(PY) instruments/wiring/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "blind-spot (chip mutants)"; $(PY) environments/blind_spot/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "blind-spot inspect (one scorer)"; $(PY) environments/blind_spot/inspect/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "navier-stokes probes"; $(PY) instruments/navierstokes/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos1 (the explicit sets)"; $(PY) instruments/erdos1/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "pqc geometry (SVP audit)"; $(NODE) instruments/pqc/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL

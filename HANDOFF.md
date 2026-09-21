@@ -15,10 +15,74 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-21, THE METR PLAN IS WRITTEN; the UFSC line is at the outreach phase)
+## TASKS BACKLOG — the standing menu (updated 2026-09-21 evening, METR DELIVERABLE 1 IS BUILT; the frontier run waits on Console credit)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I would take it:
+
+  0. METR DELIVERABLE 1 IS BUILT, GATED AND COMMITTED: blind-spot as an
+     inspect_ai Task (environments/blind_spot/inspect/task.py — four tasks:
+     blind_spot_located / _profile / _blind and the mixed blind_spot, ONE
+     taskset at seed 2027, sample id = taskset.Task.id), whose scorer is
+     blind_spot.adapters_v0._decide — THE function the verifiers rubric calls —
+     applied to Inspect's own messages (text parts only). The battery
+     (inspect/battery.py; on make test and the control page; runs under
+     environments/blind_spot/.venv, `make blind-spot-venv`) scores every one of
+     the 400 pooled mutants three ways (Inspect scorer, api.score,
+     taskset.grade: 892 submissions, 0 disagreements) and has 4 red controls.
+     The ledger certs/blind-spot-inspect-ledger.json (inspect/ledger.py) re-
+     scores every log sample by sample; the README quotes only ledger strings
+     and the battery checks it. Human baselines: environments/blind_spot/
+     baselines.json, NO DATA, 18 task ids fixed (six per rung), sha-pinned in
+     the ledger; the recruiting message is DRAFTED in outreach/blind-spot-
+     baselines-request-2026-09-21.md and is a SEND.
+  0a. THE ONE LINE OF DELIVERABLE 1 NOT DONE, and why: `inspect eval
+     …@blind_spot_located --model anthropic/claude-sonnet-5` reached the API
+     and was refused before any generation — "Your credit balance is too low"
+     (the same 400 as 2026-09-10; nothing billed; the attempt is kept as
+     inspect/logs/blocked/…json and listed under `blocked` in the ledger). The
+     pipeline was proved end to end instead with the three reference policies
+     (sat / abstain / never) as Inspect SOLVERS on the 36-task mixed draw: sat
+     +1.000 on every rung, abstain 0, never −0.556 — marked control: true in
+     the ledger, never a model result. WHEN THE ACCOUNT IS TOPPED UP, the run
+     is one command per rung (inspect/README.md, first block; the OAuth
+     profile works under Inspect as ANTHROPIC_AUTH_TOKEN=$(ant auth print-
+     credentials --access-token)), then `python3 environments/blind_spot/
+     inspect/ledger.py`, then the README's results table takes the numbers.
+  0b. THE SENDS, all the operator's, listed in outreach/SEND-QUEUE.md LANE M:
+     M1 the baseline recruiting message (per person); M2 the hub push of the
+     Inspect variant as blind-spot v0.1.1 (NOT READY: the wheel does not yet
+     force-include inspect/task.py, the version is unbumped — prep, build,
+     verify from the registry in a clean venv, then push); M3 the applications
+     (after deliverables 2–5). M0 is the credit top-up, a prerequisite.
+  0c. NEXT: deliverable 2 (the certified time-horizon curve) needs BOTH the
+     frontier runs (credit) and human baseline rows; deliverable 3 (a task-QA
+     audit of a public eval) needs neither and can be taken first if the
+     credit waits. Deliverables 4 and 5 follow 2.
+  0d. TWO THINGS LEARNED THAT ARE WORTH KNOWING: (i) on the blind rung every
+     task has the SAME prompt (that is what the rung withholds), so a mock
+     model that reads only the message list cannot tell tasks apart — the
+     first control run scored the sat policy 23/36 that way; a reference
+     policy under Inspect must be a SOLVER reading sample metadata. (ii) "a
+     witness with one coordinate changed stops killing" is true of the mutant
+     whose defect that coordinate touches and false of the others (16 of 25
+     tried still die to the spoiled pair); the red control now asserts what is
+     invariant — wherever it stops, both scorers say MISSED and never SOLVED;
+     wherever it still kills, both say SOLVED; the two never split.
+  0e. THE 17TH SESSION'S WORK IS COMMITTED (e3fb985, the boundary commit
+     before any of this was written; make test 89/89 at that point).
+  0f. OPEN ROLES SCOUTED on the operator's mid-session word ("find more open
+     roles that will fit my portfolio, any company, any field, remote from
+     Brazil as well"): notes/open-roles-2026-09-21.md — ~65 roles verified on
+     the employers' own ATS pages, a ranked top 15 (Epoch AI Benchmarking SWE
+     first, fully remote; Mercor APEX fellowship; Prime Intellect Evals; the
+     UK AISI Inspect team), the Brazil-remote-verified set, the closed/no-role
+     list so the search is not repeated, and the portfolio gaps it names.
+     Two dates this week: Mercor APEX (reported 26 Sept), AISI Control Red
+     Team (30 Sept). Every application is a send.
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-21 (planning only; nothing built since 09-17):
@@ -31,6 +95,7 @@ THE MENU, as of 2026-09-21 (planning only; nothing built since 09-17):
      three audiences, (5) Python-first + the application packet. Applications
      and hub pushes are SENDS, the operator's. Start at deliverable 1; the
      seventeenth session's work below is still UNCOMMITTED (item 0a there).
+     [SUPERSEDED the same evening: committed as e3fb985; deliverable 1 built — see the menu above.]
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-17 (the seventeenth session). In the order I would take it:
@@ -327,6 +392,125 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  EIGHTEENTH SESSION, 2026-09-21 (evening) — METR DELIVERABLE 1: BLIND-SPOT AS AN
+  INSPECT TASK WHOSE SCORER IS THE EXISTING VERIFIER; THE TWO FRAMEWORKS PROVED TO
+  AGREE ON EVERY POOLED MUTANT; THE PIPELINE RUN END TO END ON THE REFERENCE
+  POLICIES; THE FRONTIER RUN REFUSED BY THE API ON CREDIT; BASELINES SCAFFOLDED.
+  COMMITTED · make test 90/90 · control 90/90 · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "execute the METR plan … Start with deliverable 1 …
+    Run `inspect eval` end to end on one frontier model and record it … Before
+    writing code, commit the seventeenth session's uncommitted work … Stop after
+    deliverable 1 with a handoff and the drafts."
+
+  ── 0 · THE BOUNDARY ── make test 89/89, then e3fb985: the whole seventeenth
+    session as one commit. Nothing below is in it.
+
+  ── 1 · THE VENV ── Inspect was not installed for this repository (a venv from
+    another project had 0.3.258 and no Anthropic SDK). environments/blind_spot/
+    .venv, python3.12, inspect_ai 0.3.266 + anthropic 1.7.0 + pytest; `make
+    blind-spot-venv`; the battery and the ledger re-exec into it the way the
+    erdos1 battery does. The grader itself stays stdlib and 3.9-clean.
+
+  ── 2 · THE TASK ── environments/blind_spot/inspect/task.py. The one fact it is
+    built on: adapters_v0._decide is the function every verifiers reward
+    function calls, and adapters_v0 imports `verifiers` only inside
+    load_environment — so the Inspect scorer calls _decide on Inspect's own
+    assistant messages with NO framework present and nothing re-implemented.
+    Three rung variants + the mixed task over ONE taskset: the verifiers dataset
+    cycles the rung with the index, so a rung variant is the indices congruent
+    to its offset mod 3 at the same seed (2027, the verifiers adapter's eval
+    taskset for its default 2026); Sample.id is taskset.Task.id; the prompt is
+    byte-identical to the verifiers `question`; target is "" — no answer key.
+    Score.value is the rubric's five numbers (reward, solved, well_formed,
+    false_claim, out_of_box_kill), mean and stderr on the first two. Text parts
+    only: Inspect renders a reasoning part's .text as <think>…</think>, and
+    _reply_text would read it.
+
+  ── 3 · THE BATTERY ── inspect/battery.py, 92 s: a (seed, index) that draws
+    each of the 400 pooled mutants found by scanning seed 2027 (6,194 indices);
+    truthful + UNDECIDED on all 400 and the false claim on the 52 proved-
+    equivalent + 40 killable, each scored by the Inspect scorer on a TaskState,
+    by api.score and by taskset.grade — 892 submissions, agreement field for
+    field, the truthful answer SOLVED 400/400, the false claim WRONG 92/92;
+    every recorded log re-scored offline (108 rollouts, 0 disagreements); the
+    ledger's 6 pins re-hashed and its counts re-derived; 12 ledger strings
+    found in the README; the baselines file's attempts re-graded. Four reds:
+    the spoiled witness (below), the buried verdict both ways round (the raw
+    rendering WOULD score a KILL placed after the text as SOLVED; the Inspect
+    scorer reads UNDECIDED — the filter is load-bearing), a coordinate of 4
+    refused rather than masked.
+
+  ── 4 · WHAT THE FIRST RUN OF THE RED CONTROL FOUND ── the sibling battery's
+    control (killable[0], u[0] changed, stops killing) generalised to 25 mutants
+    FAILED: on 16 of them the spoiled witness still kills. True, and obvious in
+    hindsight — a mutant on the box check of u4 is indifferent to u0. The
+    control now asserts the invariant: wherever the spoiled pair stops (9 of 25,
+    the first killable among them) both scorers say MISSED, reward 0, never
+    SOLVED; wherever it still kills both say SOLVED; no split. The README and
+    the control-page note say the same.
+
+  ── 5 · THE LEDGER ── certs/blind-spot-inspect-ledger.json by inspect/
+    ledger.py: every inspect/logs/*.json re-scored sample by sample with
+    api.score (the counts are this package's reading of the log, never
+    Inspect's metrics), per rung and per class, tokens, the concord count; the
+    blocked attempt under `blocked`; the baselines summary; pins on task.py,
+    baselines.json and every log; `readme_must_quote`. `--grade-baselines`
+    grades every attempt with the verifier and refuses a stored outcome that
+    disagrees; `--check` refuses drift. A shelf row reads the policy numbers
+    from the ledger (tools/certs-shelf.js), never a literal.
+
+  ── 6 · THE FRONTIER RUN, REFUSED ── inspect eval …@blind_spot_located --model
+    anthropic/claude-sonnet-5 --effort low --max-tokens 12000, one sample: the
+    request was built right (oauth-2025-04-20 + effort-2025-11-24 betas, the
+    effort in output_config) and the API answered 400 "Your credit balance is
+    too low" before any generation. Nothing billed. Inspect refuses to start
+    without ANTHROPIC_API_KEY unless ANTHROPIC_AUTH_TOKEN is set, in which case
+    it sends the Bearer with the oauth beta itself — the house pattern of eval/
+    run_models.py, so `ANTHROPIC_AUTH_TOKEN=$(ant auth print-credentials
+    --access-token)` is the whole of the setup. No Ollama on this machine, so
+    no open model either.
+
+  ── 7 · THE PIPELINE PROVED WITHOUT A MODEL ── inspect/run_control.py runs the
+    three reference policies (sat / abstain / never) through inspect_ai.eval on
+    the 36-task mixed draw and writes real logs (mockllm/model the model of
+    record, never asked; the policy a SOLVER reading sample metadata). sat
+    +1.000 on every rung (36/36, 9 kills through an out-of-box coordinate),
+    abstain 0, never −0.556 (28 killable × −1, 8 equivalent-or-identity × +1).
+    The verifiers README's own table has abstain 0.000 and sat +1.000 on its
+    draw. The first version used a mock-model callable keyed on the prompt
+    text and scored sat 23/36: blind-rung prompts are identical, which is the
+    rung's definition. Kept in the file's docstring.
+
+  ── 8 · BASELINES ── environments/blind_spot/baselines.json: protocol (who,
+    what they see, how time is measured, what solved means, tools allowed),
+    the consent line, 18 task ids (six per rung at seed 2027, the ids a model
+    run scores), attempt schema, attempts []. NO DATA. The recruiting message
+    for the operator to send is outreach/blind-spot-baselines-request-
+    2026-09-21.md (written for the recipient; pseudonyms only).
+
+  ── 9 · THE HUB FRONT PAGE ── environments/blind_spot/README.md gained a
+    section pointing at inspect/, pyproject an `inspect` optional-dependency
+    group; both declared in provenance.py's PATCHES and PROVENANCE.json
+    re-pinned (36 files, 9 patches, --check clean). The wheel does NOT yet carry
+    inspect/task.py and the version is unbumped: the push is a send (LANE M2).
+
+  ── 10 · GATES, AND WHAT TWO OF THEM CAUGHT ── Makefile row "blind-spot
+    inspect (one scorer)" + the control-page row; check-wiring: the two
+    registries agree at 90. The shelf row for the new ledger (tools/certs-
+    shelf.js, its policy numbers READ from the ledger, never typed) tripped
+    two gates on /machine: the render gate found four literal backticks (the
+    2026-09-12 defect again — markdown quoting in a description leaks onto the
+    page as characters), and the layout ruler found a NEW spine at 390px
+    (5 → 6): a 41-character unbreakable path token in the description raised
+    the "what it holds" column's min-content width past the 280px floor, so
+    the column started counting. Both fixed by rewording; the control page's
+    own battery count reflects the site as it stood when its gates ran, so
+    the site was built twice. Final: control 90/90 · make test
+    90/90. NOTHING SENT.
 
 ══════════════════════════════════════════════════════════════════════════
   SEVENTEENTH SESSION, 2026-09-17 — THE UFSC LINE TAKEN TO THE OUTREACH PHASE:

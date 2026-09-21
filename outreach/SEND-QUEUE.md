@@ -11,6 +11,30 @@ here on request.
 
 ---
 
+## LANE M — THE METR PLAN (2026-09-21): deliverable 1 is built; three sends wait, none executed
+
+### M1. The baseline recruiting message — DRAFTED, HELD (the operator sends, one per person)
+File: `outreach/blind-spot-baselines-request-2026-09-21.md`. Five to ten people with a
+digital-design background; the task list is `tasks` in environments/blind_spot/baselines.json
+(18 ids, six per rung, seed 2027); returned attempts go in `attempts` and are graded by
+`python3 environments/blind_spot/inspect/ledger.py --grade-baselines`. Without these rows
+there is no time horizon (deliverable 2).
+
+### M2. The hub push of the Inspect variant (blind-spot v0.1.1) — NOT READY, a SEND
+The README and pyproject point at inspect/ and carry an `inspect` optional-dependency group;
+the wheel does not yet force-include inspect/task.py and the version is unbumped. Prep before
+the push: include the task in the wheel, bump, `python -m build`, verify from the registry in
+a clean venv (the step that caught three defects last time). `prime env push` is the operator's.
+
+### M3. The applications (Task Development Engineer, then MTS Evaluation Execution) — NOT STAGED
+Deliverables 2–5 first. Each application is a send, per role.
+
+### M0. Not a send but a prerequisite of deliverable 1's last line: the Anthropic Console credit
+balance. `inspect eval …@blind_spot_located --model anthropic/claude-sonnet-5` reached the API
+on 2026-09-21 and was refused before generation ("credit balance is too low"; nothing billed;
+the attempt is in environments/blind_spot/inspect/logs/blocked/). The OAuth profile path works
+under Inspect as `ANTHROPIC_AUTH_TOKEN=$(ant auth print-credentials --access-token)`.
+
 ## LANE 0 — ERDŐS #1 (2026-09-16): the comment is OUT and in moderation; the issue is next
 
 ### 0a. erdosproblems.com/1 comment — POSTED 2026-09-16 ~11:25 -03 by Carlos, awaiting moderator approval

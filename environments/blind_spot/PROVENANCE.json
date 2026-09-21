@@ -197,19 +197,19 @@
   },
   {
    "file": "environments/blind_spot/README.md",
-   "sha256": "2cb6adab729faac11bac31ffda6a5be750e181e9d8ae6c206e693bdc1a598f0d",
+   "sha256": "df98459e3357e56b9284ade08201aeebf579b5705cb368b445bfa492ad577782",
    "sourceSha256": "c89fe18bee03f460631d646f0404acc2a36fdeff35191ed5c968e28fc859929e",
-   "bytes": 23953,
+   "bytes": 24649,
    "patched": true,
-   "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all (no pip line, no load_environment, nothing about the binding being verified); Layout described frontier's tree (design.py pointing into experiments/certifier-core, 7 tests, pool/ 'not committed'); the reproduce block invoked tools/build-blind-spot.js, which does not exist in this repository; and 'The page' promised click-through and name-a-pair interactivity that the page built here did not have until it was added. Sections added: the verified binding with its four defects, and the live run through verifiers."
+   "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all (no pip line, no load_environment, nothing about the binding being verified); Layout described frontier's tree (design.py pointing into experiments/certifier-core, 7 tests, pool/ 'not committed'); the reproduce block invoked tools/build-blind-spot.js, which does not exist in this repository; and 'The page' promised click-through and name-a-pair interactivity that the page built here did not have until it was added. Sections added: the verified binding with its four defects, and the live run through verifiers. 2026-09-21: a section pointing at inspect/, the same task under inspect_ai."
   },
   {
    "file": "environments/blind_spot/pyproject.toml",
-   "sha256": "929dd8f490e570fe0e35742512a6a3623b4417c06842680d275454c8d8801544",
+   "sha256": "278a0442ba0337b51d9624cd42b9a59c6539f41d96115984b6b428e0da6493c1",
    "sourceSha256": "a815f89f27fc302dfbb5889faf98b69a2855e76d300f2dfc9fc8e10321384659",
-   "bytes": 2418,
+   "bytes": 2538,
    "patched": true,
-   "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — which is the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery."
+   "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — which is the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 2026-09-21: an `inspect` optional-dependency group for the Inspect binding."
   },
   {
    "file": "corpus/blindspot/mut/corpus.hex",
