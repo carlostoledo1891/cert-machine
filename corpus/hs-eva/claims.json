@@ -1,0 +1,33 @@
+{
+ "what": "The Ocean Engineering 2026 paper of Reis, Guimarães, Farina, Paul, de Paula and Ribeiro — Global assessment of extreme value analysis for significant wave height — and its corrigendum, read 2026-09-17. Its numbers are map-scale on a reanalysis grid and are not held here; what is transcribed is the method the ledger repeats on public buoys, and the qualitative findings the ledger decides against.",
+ "paper": {
+  "citation": "Reis, R. A. N., Guimarães, P. V., Farina, L., Paul, S., de Paula, T. P., Ribeiro, E. O. (2026). Global assessment of extreme value analysis for significant wave height. Ocean Engineering 359 (Part 2), 125841. https://doi.org/10.1016/j.oceaneng.2026.125841",
+  "doi": "10.1016/j.oceaneng.2026.125841",
+  "published": "2026-05-12",
+  "license": "CC-BY-4.0",
+  "abstract": "Extreme value analysis is frequently employed to estimate environmental loading on offshore structures. However, there are many possible approaches to applying this method. This study adopts a non-asymptotic framework to investigate the statistical behavior of significant wave height (Hs) extremes across multiple temporal aggregation scales. Six parametric probability distributions were evaluated using four goodness-of-fit criteria, together with different block maxima definitions. The results show that the Anderson–Darling test provides the most robust model selection, due to its higher sensitivity to tail behavior and its ability to produce spatially coherent patterns. The Exponentiated Weibull distribution performs best for high-frequency data, while the traditional Weibull becomes more appropriate as the block size increases, reflecting the smoothing of extremes. The analysis demonstrates that both the choice of goodness-of-fit test and the temporal aggregation significantly influence the selected distribution and the resulting return-level estimates for long return periods. Spatial patterns reveal strong regional variability, indicating that the use of a single distribution or aggregation scale may lead to substantial biases. Therefore, regional heterogeneity and the specific objectives of the analysis must be carefully considered in the statistical modeling of extremes.",
+  "method": {
+   "families": "Weibull, Lognormal, Normal, Exponentiated Weibull, Generalized Gamma, and a sixth (per the menu note of 2026-09-12)",
+   "selection": "four goodness-of-fit criteria; Anderson–Darling found the most robust",
+   "aggregation": "block maxima at several block sizes, from the native frequency of the reanalysis upward",
+   "output": "return levels at long return periods, map-scale"
+  },
+  "qualitativeClaims": {
+   "ewHighFrequency": "the Exponentiated Weibull distribution performs best for high-frequency data",
+   "weibullLargeBlocks": "the traditional Weibull becomes more appropriate as the block size increases",
+   "aggregationMatters": "both the choice of goodness-of-fit test and the temporal aggregation significantly influence the selected distribution and the resulting return-level estimates for long return periods"
+  }
+ },
+ "corrigendum": {
+  "doi": "10.1016/j.oceaneng.2026.126267",
+  "published": "2026-07-15 (Ocean Engineering 361, 126267)",
+  "text": "The authors regret an error in the affiliation of the authors marked with superscript “a”. The affiliation was incorrectly given as “Universidade Federal de Florianópolis”. The correct affiliation is “Universidade Federal de Santa Catarina”. The authors would like to apologise for any inconvenience caused.",
+  "whatItCorrects": "an author affiliation only — no number in the paper changes"
+ },
+ "dataHere": "NDBC buoys A, B, C of the environmental-contour benchmark (corpus/ec-benchmark): hourly Hs, provided and retained years together, 175,320 hours each",
+ "notHere": [
+  "the paper's reanalysis grid and its printed return levels",
+  "the generalized gamma family (needs a certified digamma)",
+  "the paper's other three goodness-of-fit criteria"
+ ]
+}

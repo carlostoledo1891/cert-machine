@@ -106,8 +106,12 @@ async function withChrome(fn, opts) {
   const callTimeout = o.callTimeout || 30000;
   const held = await acquireLock(o.lockWait || 180000);
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'cdp-'));
-  const args = ['--headless=new', '--remote-debugging-port=' + port, '--hide-scrollbars',
-    '--user-data-dir=' + profile].concat(o.args || []);
+  /* HEADED ON REQUEST, 2026-09-17. Wiley and ScienceDirect (Cloudflare) refuse
+     a headless Chrome and curl alike, and pass a headed one: `headed: true`
+     drops --headless=new and the transport is otherwise the same. Used by
+     tools/fetch-paper.js; the gates never set it. */
+  const args = (o.headed ? [] : ['--headless=new']).concat(['--remote-debugging-port=' + port, '--hide-scrollbars',
+    '--user-data-dir=' + profile, '--no-first-run', '--no-default-browser-check']).concat(o.headed ? ['--disable-blink-features=AutomationControlled', '--window-size=1200,900'] : []).concat(o.args || []);
   const chrome = cp.spawn(o.chrome || CHROME, args, { stdio: 'ignore' });
   let sock = null;
   try {

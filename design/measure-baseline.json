@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-09-16",
+  "recorded": "2026-09-17",
   "browser": "Chrome/152.0.7977.83",
   "viewports": [
     1440,
@@ -96,7 +96,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "49be197e0a114b9b71367867af6a1e5a4fee5a28468c590b1c84eaf42e738efa"
+      "sha": "fae7e704a800591166bdd180ca8d41f085741983125ceb3a1fa9f1d161a8c98a"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -285,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b3ff81e7763637a91dd00d75cb11c9527d7b12fc0bf62f690d09cab83f5f19a3"
+      "sha": "c1b07b74c5010e4488780c7b4e9b0d78d802250b3004a176348548e6b01e9be3"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -516,7 +516,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "64a10d55921ac5a35723fb95b5abb367f6b19dcc8a4685b1884ae6d678fc02ee"
+      "sha": "ab62158c3d8ee503fcbe53548f10c81a295f7b2acd3d010b22df9fa2b9ed13a4"
     },
     "site/instruments/transit/index.html": {
       "390": {
@@ -558,7 +558,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "87a4928003fbbc47302a7a45699a76ba12a5faf488b526cf59be597c6bfad809"
+      "sha": "a21735d6be07b7e8dba0458d10b261efbb65d62d1cf2d308face11c79d2e3b4c"
     },
     "site/oracle/index.html": {
       "390": {
@@ -579,7 +579,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "784e9ae7a8c93dcd2afaf3da43b19ed3aea0681afdac3edba28c690f0d37100f"
+      "sha": "26544e01dac18857b1db697c94caead5b2aa938903816e925ed2daa2982ce2dd"
     },
     "site/reports/aag.html": {
       "390": {
@@ -733,7 +733,7 @@
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2
+        "clipped": 3
       },
       "768": {
         "spines": 6,
@@ -742,12 +742,12 @@
         "clipped": 0
       },
       "1440": {
-        "spines": 8,
+        "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "10ed0feb43db968cea64c449ab60efed146d3a25fe0311ef938df6361f48233a"
+      "sha": "48efd42d21640248250792777f98fd95fa26d55eddf421239c77d42caf1268c8"
     },
     "site/reports/claim-korenblum.html": {
       "390": {
@@ -1020,7 +1020,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a1a6ea9584083d1f45f259d5f095c7bbff85adc55dda9d734cc6f438f3a9fc6b"
+      "sha": "168725370ecca147985a3d42fc65b42c26917ec160a5f29719458e08005b0eff"
     },
     "site/reports/erdos1038-inf.html": {
       "390": {
@@ -1314,7 +1314,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "9563c5cfffb598b63801607f81526d281bfc12bf5ded5b92b8d8ed531e4b0387"
+      "sha": "018fd5a6d0976abdb869108cb07b2408f9874d1f9c186704c93463bb002a365a"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1735,6 +1735,27 @@
         "clipped": 0
       },
       "sha": "79ad1f7dbc5d5a31479874aced12f2f99e082d7d8e8433c7e1b92328011e31e4"
+    },
+    "site/reports/return-levels.html": {
+      "390": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 3
+      },
+      "768": {
+        "spines": 5,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 3
+      },
+      "1440": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "sha": "34be771ca77efbe164514d38292c249e9daefd6962c5feb19fca16371615fb30"
     },
     "site/reports/rm-audit.html": {
       "390": {

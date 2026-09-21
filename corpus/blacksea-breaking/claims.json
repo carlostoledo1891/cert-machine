@@ -1,5 +1,5 @@
 {
- "what": "What the dataset asserts and what its own scripts compare it against. The record (Zenodo 10.5281/zenodo.18408002, 2026-01-29) has no paper beside it — the scripts cite 'Waves breaking similarity at natural sea?, submitted to Geophysical Research Letters, 2021' with no DOI — so the claims are the record's description and the reference lines the scripts draw. Nothing in this file is computed here.",
+ "what": "What the dataset asserts, what its own scripts compare it against, and — since 2026-09-16 — what the paper beside it prints. The record (Zenodo 10.5281/zenodo.18408002, 2026-01-29) shipped with no paper (the scripts cite 'Waves breaking similarity at natural sea?, submitted to GRL, 2021' with no DOI); the paper appeared in Geophysical Research Letters on 2026-09-16 and its printed numbers are transcribed under `paper`. Nothing in this file is computed here.",
  "description": "Breaking wave geometry has historically been investigated through laboratory studies, with very limited open ocean observations. Understanding wave geometry is key for modeling air-sea gas exchange, energy dissipation, and satellite measurements. We measured the geometry—including area, length, height, duration, and speed—of over 16000 breaking waves in the Black Sea. Our analysis reveals that real-world breaking waves do not conform to a self-similar geometry, nor are there predictable relationships between a wave's breaking speed and its geometric properties. The results indicate that wave breaking geometry is complex and sea-state dependent.",
  "sentences": {
   "selfSimilar": "real-world breaking waves do not conform to a self-similar geometry",
@@ -24,7 +24,15 @@
    "theta": "arctan(Dz / LD81) at that frame, degrees: the scripts' Duncan (1981) inclination",
    "sv_fp": "peak frequency of the wave spectrum of the record, Hz (constant within a record)",
    "wnd": "wind speed of the record, m/s (constant within a record)",
-   "Hs": "significant wave height of the record, m (constant within a record)"
+   "Hs": "a column NAMED Hs, constant within a record, 0.20–0.75, every value a multiple of 1/256 — it is NOT the Hs the paper prints for the record (see paper.table1 and the ledger's columnIdentity)",
+   "sv_fp2": "constant within a record, 0.35–1.88: to two decimals it is the Hs column of the paper's Table 1 in every one of the 20 records (decided in the ledger); the name is the pickle's",
+   "svA": "reconstructed area of the record, m² (Table 1's area column)",
+   "svT": "duration of the record, s (Table 1's duration in minutes)",
+   "LA_max": "largest major axis of the enclosing ellipse, m — the paper's e_A (across-wave)",
+   "LB_max": "largest minor axis of the enclosing ellipse, m — the paper's e_B (along-wave)",
+   "Ae_max": "largest area of the enclosing ellipse, m²",
+   "cA": "mean speed component along the major axis, m/s",
+   "cB": "mean speed component along the minor axis, m/s — the paper's c_e"
   }
  },
  "references": {
@@ -102,5 +110,364 @@
    "definition": "cm / cp with cp = g / (2π · sv_fp)",
    "note": "plot_histograms.py, panel (f): the breaking speed as a fraction of the peak phase speed; needs π, so it is enclosed"
   }
+ },
+ "paper": {
+  "citation": "Guimarães, P. V., Stringari, C. E., Filipot, J.-F., Leckler, F., Benetazzo, A., Chapron, B. (2026). Geometry of Breaking Waves Under Natural Sea Conditions. Geophysical Research Letters. https://doi.org/10.1029/2026GL122293",
+  "doi": "10.1029/2026GL122293",
+  "published": "2026-09-16",
+  "license": "CC-BY-NC-4.0",
+  "pinned": "paper/grl.xml — the publisher's full-text XML (Wiley), fetched 2026-09-17; its MathML carries the numbers the HTML rendering drops",
+  "authorsDiffer": "the Zenodo record lists Guimarães, Stringari, Leckler, Ardhuin; the paper lists Guimarães, Stringari, Filipot, Leckler, Benetazzo, Chapron",
+  "availability": "'The code and supplementary files necessary to reproduce the results in this publication are available at Guimarães et al. (2026)' — the Zenodo record this corpus pins",
+  "table1": {
+   "columns": [
+    "record time (UTC)",
+    "frame rate, Hz",
+    "duration, min",
+    "reconstructed area, m²",
+    "active breaking events N_b",
+    "Hs, m",
+    "Tp, s",
+    "U10, m/s"
+   ],
+   "rows": [
+    [
+     "2013/09/22 12:00:01.324",
+     12,
+     30,
+     335,
+     127,
+     "0.54",
+     "4.7",
+     "6.1"
+    ],
+    [
+     "2013/09/22 13:00:01.256",
+     10,
+     30,
+     372,
+     175,
+     "0.41",
+     "4.1",
+     "6.1"
+    ],
+    [
+     "2013/09/23 10:40:01.967",
+     12,
+     30,
+     372,
+     1074,
+     "0.46",
+     "4.0",
+     "9.6"
+    ],
+    [
+     "2013/09/23 13:18:00.820",
+     12,
+     22,
+     353,
+     368,
+     "0.35",
+     "4.3",
+     "9.3"
+    ],
+    [
+     "2013/09/23 13:55:01.294",
+     12,
+     30,
+     354,
+     438,
+     "0.40",
+     "4.5",
+     "9.9"
+    ],
+    [
+     "2013/09/24 09:45:01.598",
+     10,
+     30,
+     344,
+     1055,
+     "0.76",
+     "6.9",
+     "11.6"
+    ],
+    [
+     "2013/09/25 10:00:15.443",
+     12,
+     25,
+     299,
+     1882,
+     "0.91",
+     "4.5",
+     "14.9"
+    ],
+    [
+     "2013/09/25 11:10:01.187",
+     12,
+     30,
+     354,
+     1557,
+     "0.67",
+     "4.8",
+     "16.6"
+    ],
+    [
+     "2013/09/25 12:15:01.076",
+     12,
+     30,
+     372,
+     3320,
+     "0.65",
+     "5.7",
+     "15.2"
+    ],
+    [
+     "2013/09/26 12:32:07.750",
+     15,
+     13,
+     382,
+     129,
+     "0.49",
+     "5.7",
+     "7.4"
+    ],
+    [
+     "2013/09/27 07:35:01.705",
+     12,
+     30,
+     316,
+     461,
+     "1.16",
+     "7.6",
+     "14.0"
+    ],
+    [
+     "2013/09/30 08:00:01.229",
+     12,
+     30,
+     344,
+     40,
+     "0.65",
+     "3.9",
+     "8.8"
+    ],
+    [
+     "2013/09/30 10:20:01.522",
+     12,
+     30,
+     299,
+     386,
+     "0.66",
+     "4.2",
+     "8.7"
+    ],
+    [
+     "2013/09/30 13:22:01.190",
+     12,
+     30,
+     299,
+     169,
+     "0.66",
+     "4.2",
+     "8.2"
+    ],
+    [
+     "2013/10/01 06:00:01.476",
+     12,
+     30,
+     299,
+     1161,
+     "1.57",
+     "7.0",
+     "15.7"
+    ],
+    [
+     "2013/10/01 08:05:01.385",
+     12,
+     30,
+     299,
+     1146,
+     "1.88",
+     "6.5",
+     "17.6"
+    ],
+    [
+     "2013/10/01 08:50:48.362",
+     12,
+     30,
+     299,
+     1188,
+     "1.72",
+     "7.1",
+     "18.0"
+    ],
+    [
+     "2013/10/01 11:45:02.004",
+     12,
+     30,
+     325,
+     1225,
+     "1.85",
+     "6.7",
+     "16.6"
+    ],
+    [
+     "2013/10/02 05:45:42.621",
+     12,
+     30,
+     299,
+     195,
+     "0.97",
+     "6.1",
+     "7.6"
+    ],
+    [
+     "2013/10/02 06:30:01.943",
+     12,
+     30,
+     354,
+     273,
+     "0.90",
+     "6.1",
+     "9.5"
+    ]
+   ],
+   "note": "transcribed from the XML; the event counts sum to 16,369"
+  },
+  "printed": {
+   "N": {
+    "value": 16369,
+    "where": "abstract, conclusions"
+   },
+   "initiallyDetected": {
+    "value": 22116,
+    "where": "§2.2 — before manual inspection; not in the table, not decidable"
+   },
+   "thetaRange": {
+    "lo": "3",
+    "hi": "71",
+    "unit": "degrees",
+    "where": "§3: 'The range of θ observed here (3° to 71°)'"
+   },
+   "aspectPeak": {
+    "value": "0.46",
+    "where": "§3: 'peaked at 0.46' — the mode of a Freedman–Diaconis histogram (Figure 2d)"
+   },
+   "aspectMeanSd": {
+    "mean": "0.56",
+    "sd": "0.26",
+    "cv": "46",
+    "where": "§3, §4, §5: Ab/L²_D81 = 0.56 ± 0.26, coefficient of variation ≈ 46 %"
+   },
+   "duncanAspect": {
+    "mean": "0.11",
+    "sd": "0.01",
+    "cv": "9",
+    "where": "Duncan (1981) as the paper states it"
+   },
+   "fitLb": {
+    "value": "0.83",
+    "pm": "0.04",
+    "form": "Lb = a · cb²/g, g = 9.81, least squares through the origin (curve_fit on objective a·x²/9.81, plot_linear_relation.py)",
+    "where": "§3 and conclusions ('g·Lb/cb² = 0.83 ± 0.04 for r = 0.4')"
+   },
+   "fitLD81": {
+    "value": "0.66",
+    "pm": "0.04",
+    "form": "L_D81 = a · cb²/g",
+    "where": "§3"
+   },
+   "fitDz": {
+    "value": "0.20",
+    "pm": "0.02",
+    "form": "Δzb = a · cb²/g",
+    "where": "§3"
+   },
+   "pearsonSpeedMax": {
+    "value": "0.45",
+    "form": "Pearson r < 0.45 for every speed–geometry pair, for cm, c0 and the e_B component",
+    "where": "§3"
+   },
+   "rAbLb": {
+    "value": "0.9",
+    "where": "§3: r(Ab, Lb) = 0.9"
+   },
+   "rAbLD81": {
+    "value": "0.8",
+    "where": "§3: r(Ab, L_D81) = 0.8"
+   },
+   "rDzEB": {
+    "value": "0.7",
+    "where": "§3: r(Δzb_max, eB_max) = 0.7 — eB the minor ellipse axis (LB_max)"
+   },
+   "fitAbLD81": {
+    "value": "0.22",
+    "form": "Ab = k · L_D81², through the origin",
+    "where": "§3: 'From our data set Ab/L²_D81 = 0.22'"
+   },
+   "fitAbLb": {
+    "value": "0.27",
+    "form": "Ab = k · Lb², through the origin",
+    "where": "§3: 'and Ab/Lb² = 0.27, with r around 0.8 to 0.9'"
+   },
+   "fitEAEB": {
+    "value": "2.37",
+    "r": "0.8",
+    "form": "eA = k · eB through the origin; r Pearson",
+    "where": "§3, Figure 3e: eA/eB = 2.37 for r = 0.8"
+   },
+   "fitAeAb": {
+    "value": "2.5",
+    "r": "0.9",
+    "form": "Ae = k · Ab through the origin",
+    "where": "§3: Ae = 2.5 Ab, r = 0.9"
+   },
+   "rAbDt": {
+    "value": "0.6",
+    "where": "§3: r(Ab, Δtb) = 0.6"
+   },
+   "rLbDt": {
+    "value": "0.5",
+    "where": "§3: r(Lb, Δtb) = 0.5"
+   },
+   "rDzDt": {
+    "value": "0.4",
+    "where": "§3: r(Δzb, Δtb) = 0.4"
+   },
+   "selfSimilarFraction": {
+    "value": "4",
+    "pm": "2",
+    "unit": "%",
+    "form": "events with a ratio ≥ mean + 2·sd (sample sd, test_self_similarity.py: STD = 2, pandas .std()), per ratio; the ± is the spread across the three ratios and the sea states",
+    "where": "abstract, §4, conclusions"
+   },
+   "fitLbTail": {
+    "value": "0.30",
+    "r": "0.9",
+    "form": "on the self-similar subset: Lb = a·cb², a·g printed; r = Pearson(cb², Lb) (stats.linregress(x_sim**2, y_sim))",
+    "where": "conclusions, Figure 4d"
+   },
+   "fitLbRest": {
+    "value": "0.83",
+    "r": "0.4",
+    "form": "on the remaining events: the same fit and r",
+    "where": "conclusions: 'g·Lb/cb² = 0.83 ± 0.04 for r = 0.4', Figure 4d"
+   },
+   "seaStateDependence": {
+    "claim": "geometric scaling is not constant but varies with the sea state",
+    "where": "abstract; §5 acknowledges that 'a demonstration of explicit sea-state dependence would require a dedicated stratified analysis by Hs, Tp, or wave age, which is beyond the scope of this study'"
+   },
+   "bannerCbCp": {
+    "value": "0.8",
+    "where": "§3 quotes Banner et al. 2014's cb ≈ 0.8 c — not a claim about this table"
+   }
+  },
+  "notDecidable": [
+   "22,116 initially detected events (the table holds the 16,369 kept)",
+   "the Kolmogorov–Smirnov p-values and the AIC ranking of scipy's distributions",
+   "the Pareto and lognormal fits and the kernel density",
+   "the bootstrap confidence intervals on the fitted coefficients",
+   "Duncan's own numbers (the 1981 paper is not held)"
+  ]
  }
 }

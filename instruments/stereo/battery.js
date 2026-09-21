@@ -96,5 +96,21 @@ red(throws(() => Bd.cell(thin, IV.iv(0))), 'a zero range is refused');
   red(!(facts.bestAtNear > 0.1), 'and the best-case near cell is not tens of centimetres either — the claim is bounded on both sides');
 }
 
+/* ---- the Caparica 2021 rig, as the page states it ---- */
+{
+  const P = PRESETS.caparica2021;
+  const F = PRESETS.caparicaFacts(Bd, TR.PI, IV);
+  ok(F.bestAtGauge > 0.04 && F.bestAtGauge < 0.09, 'best-case certified bound at 30 m is a few centimetres (' + F.bestAtGauge.toFixed(4) + ' m)');
+  ok(F.worstAtGauge > 0.3 && F.worstAtGauge < 0.6, 'worst-corner bound at 30 m is tens of centimetres (' + F.worstAtGauge.toFixed(4) + ' m)');
+  ok(F.bestCellNear < F.bestCellFar && F.worstNear < F.worstFar, 'the cell grows from 20 to 40 m at both corners');
+  ok(F.bestCellNear > P.quoted.zQuantization, 'the paper\'s quoted z-quantisation (' + P.quoted.zQuantization + ' m) is below the best-case cell even at 20 m (' + F.bestCellNear.toFixed(4) + ' m)');
+  /* Table 2: the implied noise, by hand for CC I-1: √(0.38² − 0.30²)/4 = √0.0544/4 = 0.05831 */
+  ok(within(F.noise[0].noise, Math.sqrt(0.38 * 0.38 - 0.30 * 0.30) / 4), 'CC I-1: the noise that would carry Hs from 0.30 to 0.38 m is enclosed around √(0.38² − 0.30²)/4 = 5.83 cm');
+  ok(F.noise.every((r) => r.noise[0] > 0.05 && r.noise[1] < 0.11), 'every record\'s implied per-point noise is between 5 and 11 cm');
+  ok(F.noiseMax < F.worstStdFar && F.noiseMin > F.bestCellStdFar, 'the implied noise lies between the best-corner (' + F.bestCellStdFar.toFixed(4) + ' m) and the worst-corner (' + F.worstStdFar.toFixed(4) + ' m) cell standard deviations at 40 m');
+  red((() => { const a = Bd.lit('0.30'), q = Bd.lit('0.30'); const d = IV.sub(IV.sqr(a), IV.sqr(q)); return d[0] <= 0 && d[1] >= 0; })(), 'an area Hs equal to the point Hs implies a noise whose square is enclosed around zero — the square root would refuse a negative lower end');
+  red(!(F.noiseMax < F.bestCellStdFar), 'and the implied noise is NOT below the best corner: the claim is bounded on both sides');
+}
+
 console.log('stereo battery: ' + pass + ' pass, ' + fail + ' fail, ' + redsFired + '/' + reds + ' red controls fired');
 process.exit(fail ? 1 : 0);

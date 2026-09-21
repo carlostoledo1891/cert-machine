@@ -1,5 +1,5 @@
 {
- "what": "The aggregated breaking-wave statistics and the analysis scripts of Guimar\u00e3es, Stringari, Leckler, Ardhuin \u2014 Geometry of breaking waves at natural sea (Zenodo, 2026-01-29, CC-BY-4.0): the seven files under codes/ of an 8.9 GB archive whose remaining 145,050 entries are per-event .mat files and .png frames. Extracted here WITHOUT downloading the archive: its ZIP64 central directory (28.6 MB at offset 8,883,533,609) was read by HTTP range request and each entry fetched by its own range and inflated. Every extracted file hashes below; the archive itself is pinned by the md5 Zenodo publishes.",
+ "what": "The aggregated breaking-wave statistics and the analysis scripts of Guimarães, Stringari, Leckler, Ardhuin — Geometry of breaking waves at natural sea (Zenodo, 2026-01-29, CC-BY-4.0): the seven files under codes/ of an 8.9 GB archive whose remaining 145,050 entries are per-event .mat files and .png frames. Extracted here WITHOUT downloading the archive: its ZIP64 central directory (28.6 MB at offset 8,883,533,609) was read by HTTP range request and each entry fetched by its own range and inflated. Every extracted file hashes below; the archive itself is pinned by the md5 Zenodo publishes.",
  "record": {
   "doi": "10.5281/zenodo.18408002",
   "url": "https://zenodo.org/records/18408002",
@@ -75,10 +75,22 @@
    "how": "written from blacksea_data.pkl by pandas 3.0.5 in a scratch venv: every double as its shortest round-tripping decimal (Python repr), verified column by column against the pickle with float_precision=round_trip; the pickle is the archive's bytes, the CSV is THE RECORD the instrument reads"
   },
   "claims.json": {
-   "bytes": 4983,
-   "sha256": "7ea7b7655318eb344dc9ccfac00619b1820b0491b98876678f8556ed0cafccf0",
+   "bytes": 13661,
+   "sha256": "83973d6b5286e74849f2f32c39a90fa6a9c2250b513f9eba42f1e9c83e6c8431",
    "derived": true,
    "how": "the claims the ledger reads: the record's description and the reference lines the scripts draw; transcribed by hand"
+  }
+ },
+ "paper": {
+  "doi": "10.1029/2026GL122293",
+  "published": "2026-09-16",
+  "fetched": "2026-09-17",
+  "how": "the publisher's full-text XML (doi/full-xml), fetched in a headed Chrome because the host refuses headless and curl; pinned as the text the numbers are read from",
+  "files": {
+   "paper/grl.xml": {
+    "bytes": 186505,
+    "sha256": "baaa1076186d449bb8cc95a1025f961fe7ccf74c0369d26371211ba382dbdca9"
+   }
   }
  }
 }

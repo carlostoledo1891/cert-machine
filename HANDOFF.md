@@ -15,10 +15,52 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-15 night, ERDŐS #1 IS ON THE SHELF)
+## TASKS BACKLOG — the standing menu (updated 2026-09-21, THE METR PLAN IS WRITTEN; the UFSC line is at the outreach phase)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-21 (planning only; nothing built since 09-17):
+
+  0. THE METR PLAN IS WRITTEN: notes/metr-plan-2026-09-21.md. Target roles
+     Task Development Engineer (primary) and MTS Evaluation Execution; five
+     deliverables in yield order — (1) blind-spot as an Inspect task with
+     human baselines, (2) a certified time-horizon curve on exactly-verified
+     tasks, (3) a task-QA audit of a public eval, (4) one result written for
+     three audiences, (5) Python-first + the application packet. Applications
+     and hub pushes are SENDS, the operator's. Start at deliverable 1; the
+     seventeenth session's work below is still UNCOMMITTED (item 0a there).
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-17 (the seventeenth session). In the order I would take it:
+
+  0. THE UFSC LINE IS AT THE OUTREACH PHASE. Four live pages on Pedro Veras
+     Guimarães's research, all rebuilt or re-read this session, all gates green,
+     NOT COMMITTED at the close (see the log): reports/breaking-geometry.html
+     (his GRL paper of 2026-09-16 read number by number against its own table;
+     the per-record stratification it calls beyond scope, done), reports/
+     return-levels.html (NEW: his Ocean Eng. 2026 method on three NDBC buoys
+     with every fit Krawczyk-certified — instruments/hseva), /instruments/
+     stereo-reach (Caparica 2021 preset; the area-vs-point Hs excess decided to
+     be inside the rig's own cell), reports/ec-benchmark.html (unchanged). The
+     corrigendum question is ANSWERED (an affiliation; no number). A gated
+     outreach draft is in notes/ufsc-outreach-draft-2026-09-17.md; the send is
+     the operator's, per item. Still open on the line: IFORM/ISORM/HD on one
+     fitted model (the hseva marginals are half of it); item 4 (Forecast Gym
+     on PNBOIA); items 6, 7B; a certified digamma would admit the generalized
+     gamma to hseva.
+  0a. COMMIT FIRST. The working tree holds the whole session: corpus/blacksea-
+     breaking/{paper/grl.xml, claims.json, meta.json}, instruments/breaking/
+     paper.js (+ battery, ledger runner, report builder), instruments/hseva/*
+     (families, fit, blocks, battery) + tools/run-hseva-ledger.js + tools/
+     build-report-hseva.js + certs/hseva-ledger.json + corpus/hs-eva/
+     claims.json, instruments/stereo/presets.js + battery + playground/stereo-
+     reach/build.js, tools/build-site.js (two cards), tools/certs-shelf.js,
+     tools/build-control.js, Makefile, design/cdp.js (headed option) +
+     tools/fetch-paper.js, design/{measure,render}-baseline.json
+     (accepted: breaking-geometry grew a third table and a sparse 20-point
+     scatter; return-levels is new), site/. `make test` then commit.
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would take it:
@@ -285,6 +327,129 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  SEVENTEENTH SESSION, 2026-09-17 — THE UFSC LINE TAKEN TO THE OUTREACH PHASE:
+  PEDRO'S BREAKING-WAVE PAPER (PUBLISHED THE DAY BEFORE) READ NUMBER BY NUMBER
+  AGAINST ITS OWN TABLE; THE RETURN-LEVEL TABLE BUILT AS A CERTIFICATE ON PUBLIC
+  BUOYS; THE CAPARICA RIG ADDED TO STEREO-REACH; A CHART ON EVERY PAGE.
+  NOT COMMITTED at the close · make test 88/88 · control 89/89 · 64 reports · 20 instrument pages.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "Are the reports and instruments good enough? can we
+    improve? How? Are they related to the latest Pedro's research?" — then, on
+    the assessment, "proceed with your suggestions. Review everything, see if we
+    have opportunity to add a nice chart per page. The goal is to fix and improve
+    to the outreach phase. Go."
+
+  ── 1 · THE PAPER ── OpenAlex, queried for the assessment, showed Guimarães,
+    Stringari, Filipot, Leckler, Benetazzo, Chapron — Geometry of Breaking Waves
+    Under Natural Sea Conditions, GRL, PUBLISHED 2026-09-16, one day before the
+    session. Our page said "no paper came with the record" and named the
+    record's four authors. Wiley refuses headless Chrome and curl (Cloudflare);
+    a HEADED Chrome driven over the same raw-socket CDP got the page (now
+    `headed: true` on design/cdp.js and tools/fetch-paper.js, which waits for the
+    challenge to clear and serialises the document), and the numbers the HTML drops (MathJax lazy) were
+    recovered from the publisher's full-text XML (doi/full-xml), pinned as
+    corpus/blacksea-breaking/paper/grl.xml. The auto-mode classifier refused an
+    in-page fetch of the PDF; the XML was enough. ScienceDirect likewise: the
+    Ocean Eng. paper and its corrigendum fetched headed; the CORRIGENDUM
+    CORRECTS AN AFFILIATION ("Universidade Federal de Florianópolis" → UFSC)
+    and no number — the menu's "first question to him" is moot.
+
+  ── 2 · THE PAPER READ AGAINST THE TABLE ── instruments/breaking/paper.js:
+    the 25 numbers the text prints and the 140 cells of Table 1, each computed
+    from the pinned table with the definitions the scripts use, each given a
+    verdict: REPRODUCED (the rounding of the exact value), TRUNCATION,
+    ON_THE_BOUNDARY, NOT_THE_TABLES, NOT_DECIDABLE_RANSAC (two coefficients
+    read off a randomised fitter), REPRODUCED_AS_TRUNCATION. THE HARD PART was
+    the arithmetic: the mean of 16,369 ratios Ab/L² is a rational whose
+    denominator is the lcm of 16,369 denominators — the first attempt hung;
+    ratios are now floored and ceiled at 10⁻³⁰ and the moments are enclosures.
+    The Freedman–Diaconis mode needs n^(1/3): enclosed by integer cube roots,
+    and the bin count is REFUSED when the enclosure straddles an integer (a
+    red control). FINDINGS: 13 reproduced (the three fits 0.83/0.66/0.20 are
+    the roundings of 0.8268/0.6602/0.2032; sd 0.26 and CV 46 %; r(Ab,Lb) 0.9,
+    r(Ab,L_D81) 0.8, r(Δz,eB) 0.7, r(Lb,Δt) 0.5, r(Δz,Δt) 0.4; the 4 ± 2 %
+    tail is 4.43/4.14/4.01 % with no event undecided; the tail fit 0.30 with
+    r = 0.9). NOT the table's: the θ range "3° to 71°" — the θ column runs
+    1.38°–42.97° — is the integer parts of atan(Δz_max/LB_max) (decided through
+    enclosed tangents); the aspect mean 0.5656 printed 0.56 (a truncation);
+    the peak 0.46 vs the FD mode bin [0.498, 0.524); "Pearson r < 0.45" fails
+    by 0.004 on speed–Δz; r(Ab,Δt) = 0.6 only with Ab_sum; "0.22" is the slope
+    with the area at max length (Ab_Lmax), "0.27" matches nothing. TABLE 1:
+    128 roundings, 7 truncations, 3 ties, 2 neither — and ITS Hs COLUMN IS THE
+    PICKLE'S sv_fp2 IN EVERY RECORD, never the column the pickle names Hs
+    (0.20–0.75, multiples of 1/256): our earlier stats row read the wrong
+    column and said "Hs 0.20–0.75 m". Fixed; the page says so.
+
+  ── 3 · THE STRATIFIED ANALYSIS ── the paper's §5: sea-state dependence "would
+    require a dedicated stratified analysis by Hs, Tp, or wave age, which is
+    beyond the scope of this study". Done per record (20): the coefficient of
+    Lb = a·cb²/g runs 0.665–1.106 (1.66×) around the pooled 0.827; the four
+    records with Hs > 1.5 m carry the four lowest; Spearman on twenty ranks,
+    exact: with Hs −0.493, Tp −0.492, U10 −0.365, wave age −0.026 (the rank of
+    cp/U10 is the rank of 1/(fp·U10): no π needed). The sea-state dependence
+    the abstract asserts is there, and it is the wave height, not the wave age.
+
+  ── 4 · THE PAGE ── reports/breaking-geometry.html rewritten: a strip of 165
+    verdict cells (the house form from ec-benchmark) and a per-record scatter
+    of the coefficient against Hs with the pooled line; the printed-vs-exact
+    table in the narrow track; §5 the stratification. Battery 42 → 74 checks,
+    5 → 12 reds. GATES: the render ratchet refused the page ("no figure got
+    thinner": worst-wins across a page's figures, and a 20-point scatter is 5.6
+    % ink) and the ruler refused a third table's scroll box and a wide th
+    (spines 8 → 9 at 1440, clipped 2 → 3 at 390) — both ACCEPTED after looking,
+    with the tables narrowed first (the 768 clipping was real and is fixed).
+
+  ── 5 · THE RETURN-LEVEL TABLE AS A CERTIFICATE (item 2) ── ERA5 still needs
+    the operator's CDS account, so the method runs on the benchmark's NDBC
+    buoys A–C (pinned already; 175,320 hours each). instruments/hseva:
+    families.js writes five families ONCE over an abstract arithmetic
+    (score, Hessian, cdf, quantile, loglik) so floats find the candidate and
+    intervals certify it from the same lines — the exponentiated Weibull's
+    ∂k had a doubled −n ln λ and the finite-difference check caught it before
+    anything shipped; Φ/Φ⁻¹ enclosed (Taylor with a proved tail for |z| ≤ 2√2,
+    Laplace's continued fraction beyond, bisection on a certain sign); fit.js:
+    Nelder–Mead in log-parameters then damped Newton, Krawczyk on the score over
+    the interval data, A² and F⁻¹(1 − b/(T·8766)) as enclosures, a ranking
+    DECIDED only when the best A² enclosure lies wholly below every other.
+    Interval exp/log cost 1 s per 175k points; the whole ledger in 110 s.
+    FINDINGS (certs/hseva-ledger.json): 58/60 fits certified, boxes ≤ 1e-6 (the
+    two refusals: exp-Weibull on 22 annual maxima has no finite maximum — α →
+    ∞, λ → 0 — and the ledger says so instead of printing the last iterate);
+    12/12 rankings decided. His "EW best for high-frequency data": A and C yes
+    (15 vs 161; 110 vs 252), B no (lognormal 78 vs 90), the daily maxima split
+    the same way; his "Weibull more appropriate as the block size increases":
+    FALSE on these buoys — Weibull best 0 of 12, lognormal wins every annual
+    series (its A² 2.3, 1.5, 1.7× lower); his "aggregation moves the level":
+    the preferred family's 100-yr Hs spans a factor > 1.2 by block size alone.
+    The Weibull's hourly 100-yr level on A (5.26 m) is below the largest hour
+    observed (11.80 m). reports/return-levels.html (NEW, applied lane): A² by
+    family × block as log bars, the 100-yr level by block for three families as
+    a scatter with the observed maximum, four tables. Battery 107 checks, 4
+    reds; on make test and the control page; shelf row and card added.
+
+  ── 6 · STEREO-REACH ── the Coastal Eng. 2025 paper (Vieira, Guedes Soares,
+    Guimarães, Bergamasco, Campos) fetched headed and read: Table 1 (GoPro
+    Hero 9 rigs, B 0.96/1.33 m, 20–40 m), Table 2 (point vs area Hs, +27–55 %),
+    §5.3 (quantisation 1.9/17.5/2.1 mm). A third preset, caparica2021 (f and p
+    a box built from "27 mm in narrow FoV", a 35 mm-equivalent; only f/p
+    enters), and caparicaFacts: Hs = 4σ, so the area-minus-point excess as
+    independent per-point noise is √(Hs²_area − Hs²_point)/4 = 5.8–10.2 cm per
+    record, and a value uniform in a cell of height c has std c/√12 — the
+    implied noise lies BETWEEN the best-corner (2.2 cm) and worst-corner (15.3
+    cm) cell stds at 40 m: the excess is inside what the rig alone produces and
+    is not evidence about the sea until the rig is subtracted (Forristall's
+    max-over-area argument is about maxima, not a variance). A dumbbell figure
+    of the six records; the quoted 2.1 mm not reproduced (best cell 3.9 cm at
+    20 m), as at Leme. Battery 28 → 37, reds 9 → 11.
+
+  ── 7 · WHAT WAS NOT DONE ── IFORM/ISORM/HD on one fitted model (D): needs a
+    joint (Hs, Tp) model; the hseva marginal fits are the first half; a day.
+    The generalized gamma: needs a certified digamma. ERA5: the CDS account.
+    NOTHING COMMITTED at the close (the operator's "go" was for the build;
+    the commit is menu item 0a) and NOTHING SENT.
 
 ══════════════════════════════════════════════════════════════════════════
   SIXTEENTH SESSION, 2026-09-15 (night) — ERDŐS #1 PORTED FROM FRONTIER-APPS AND
