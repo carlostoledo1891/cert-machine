@@ -1620,7 +1620,7 @@
   "dead": 0
  },
  "verdict": "PASS",
- "seconds": 91.3,
+ "seconds": 94.1,
  "output": [
   "PASS inspect_ai 0.3.266 under /Users/carlostoledo/Projects/cert-machine/environments/blind_spot/.venv/bin/python",
   "PASS yosys, iverilog and vvp are on PATH",
@@ -1629,7 +1629,7 @@
   "PASS no answer key: target is empty, the prompt names neither the class nor the label",
   "PASS the Inspect prompt is byte-identical to the verifiers `question` for the same (seed, index)",
   "PASS a (seed, index) that draws each of the 400 pooled mutants exists in the seed-2027 taskset  scanned 6194 indices; deepest 6193",
-  "PASS the Inspect scorer, api.score and taskset.grade agree field for field on all 400 pooled mutants × truthful/UNDECIDED/false-claim = 892 submissions  76.3 s",
+  "PASS the Inspect scorer, api.score and taskset.grade agree field for field on all 400 pooled mutants × truthful/UNDECIDED/false-claim = 892 submissions  78.7 s",
   "PASS and the truthful answer scores SOLVED +1 on every one of them (the positive control, 400 times)",
   "PASS the false claim scores WRONG −1 on all 92 mutants it was tried on (52 proved-equivalent + 40 killable)",
   "PASS RED CONTROL: a witness with one coordinate changed stops killing under BOTH scorers — MISSED, reward 0, never SOLVED — on 9 of 25 killable mutants (the first killable among them); on the other 16 the spoiled pair still kills and both say SOLVED; the two scorers never split  stopped: [2, 266, 17, 215, 236, 71, 249, 297, 289]",

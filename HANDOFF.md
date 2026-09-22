@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-22, METR DELIVERABLES 1 AND 3 BUILT, THE TIME-HORIZON INSTRUMENT BUILT AND CALIBRATED ON METR'S DATA; 2's own runs wait on Console credit and baseline rows)
+## TASKS BACKLOG — the standing menu (updated 2026-09-22, METR DELIVERABLES 1, 3, 4 (on the calibration) AND 5 (the packet, drafted) DONE; 2's own runs wait on Console credit and baseline rows; every send held)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -61,10 +61,13 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
   0c. NEXT: deliverable 2 (the certified time-horizon curve) needs BOTH the
      frontier runs (credit) and human baseline rows — nothing else is in the
      way; deliverable 3 is DONE (0g below); deliverables 4 and 5 follow 2.
-     The fit is DONE (0h below, Python-first, calibrated on METR's data); what
-     remains for 2 is our own runs and the baseline rows. Until they arrive:
-     the packet's resume and cover-note drafts (deliverable 5), and the
-     three-audience write-up (4) can be drafted on the METR calibration.
+     The fit is DONE (0h), the three-audience write-up is on the calibration
+     page (0i) and the packet is drafted (0i). WHAT IS LEFT ON THE PLAN is
+     exactly what needs the world: the credit top-up (then the three
+     environments' frontier runs, ~an hour of machine time), the baseline
+     rows (the recruiting send), and the sends themselves. When the credit
+     lands: inspect eval per rung per model → ledger → the horizon fit on
+     our own runs against the baseline times → §5 rewritten on our number.
   0d. TWO THINGS LEARNED THAT ARE WORTH KNOWING: (i) on the blind rung every
      task has the SAME prompt (that is what the rung withholds), so a mock
      model that reads only the message list cannot tell tasks apart — the
@@ -143,6 +146,26 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
      The Krawczyk step is PORTED to Python (not called from Node) — stated,
      as the plan asks. What the bootstrap is NOT: re-decided (a random draw
      is not a theorem); the certified box is the optimiser's uncertainty.
+  0i. DELIVERABLE 4 WRITTEN ON THE CALIBRATION, AND THE PACKET DRAFTED
+     (2026-09-22, on "continue"): reports/time-horizon.html §5 "for three
+     audiences" — a system-card paragraph, a regulator paragraph and a post,
+     each figure a ledger field, to be rewritten on this machine's own number
+     when its runs exist. The packet, all SENDS, held: outreach/metr/
+     resume.md (one page; the thesis sentence and the three hub links first;
+     every figure from a ledger; education and prior employment are
+     [OPERATOR FILLS] — nothing was invented), outreach/metr/cover-task-
+     development-engineer.md (deliverables 1, 3 and the fit, in the posting's
+     own words: novel tasks, misspecification, baselining, Inspect),
+     outreach/metr/cover-mts-evaluation-execution.md (the calibration, the
+     three audiences, the graphs, the reported false start; the relocation
+     line is [OPERATOR FILLS]). /portfolio/ is a new site page built by
+     tools/build-site.js and GATED on three ledgers (horizon, gsm8k, blind-
+     spot inspect) plus batteries.json — the checkable half of a CV, linked
+     from /about's contact line; the ratchets accepted it after looking. The
+     postings re-read 2026-09-22: Task Dev $260,937–385,490, on-site
+     Berkeley, contractor discussable; Eval Execution $328,380–578,583, 3–5
+     days on-site, cap-exempt H-1B. SEND ORDER when the operator says so:
+     push main (links resolve) → Task Dev → Eval Execution, same week.
   0f. OPEN ROLES SCOUTED on the operator's mid-session word ("find more open
      roles that will fit my portfolio, any company, any field, remote from
      Brazil as well"): notes/open-roles-2026-09-21.md — ~65 roles verified on
@@ -538,6 +561,21 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     rounded reference has to do. Battery on make test and the control page;
     shelf row; site card; targets row; the ratchets accept the new page.
     NOTHING SENT.
+
+  ── 5 · DELIVERABLES 4 AND 5, THE PARTS THAT NEED NO CREDIT (later the same
+    night) ── reports/time-horizon.html §5 "for three audiences": the
+    calibration written as a system-card paragraph, a regulator paragraph
+    and a post, every figure a ledger field. The packet in outreach/metr/:
+    resume.md, cover-task-development-engineer.md, cover-mts-evaluation-
+    execution.md — the two postings re-read (Task Dev $260,937–385,490
+    on-site, contractor discussable; Eval Execution $328,380–578,583, 3–5
+    days on-site, cap-exempt H-1B); education, employment and the relocation
+    line are [OPERATOR FILLS], nothing invented. /portfolio/ added to tools/
+    build-site.js, gated on the horizon, gsm8k and blind-spot-inspect ledgers
+    and batteries.json (a moved number refuses the site), linked from /about's
+    contact line; the three ratchets accepted it after looking. LANE M3 in
+    the send queue now names the files. Final: control 92/92 · make test
+    92/92. NOTHING SENT.
 
 ══════════════════════════════════════════════════════════════════════════
   EIGHTEENTH SESSION, continued (2026-09-21, night) — METR DELIVERABLE 3: GSM8K'S

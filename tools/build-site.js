@@ -1564,9 +1564,52 @@ const aboutBody = [
     lab: 'contact', title: 'One address, for everything',
     bodyRaw: C.pRaw('<a href="mailto:carlos@carlostoledo.co"><span class="m">carlos@carlostoledo.co</span></a> — '
       + 'corrections, questions about a step, collaboration. A message that names the page and the one step it '
-      + 'doubts can be answered properly; a general introduction usually cannot.')
+      + 'doubts can be answered properly; a general introduction usually cannot. For a hiring process, <a href="/portfolio/">the portfolio</a> is the checkable half of a CV.')
   })
 ].join('\n\n');
+/* ---- /portfolio/ — the four artifacts a hiring process reads, every number
+   from a ledger (the METR plan's deliverable 5, 2026-09-22). The about page
+   refuses employment history on principle; this page is the checkable half
+   of a CV, and it says so. */
+const rj = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
+const HZ = rj('certs/horizon-ledger.json'), GK = rj('certs/gsm8k-ledger.json'), BSI = rj('certs/blind-spot-inspect-ledger.json');
+const bsiRec = rj('corpus/blindspot/inspect-record.json'), batteriesRec = rj('batteries.json');
+if (HZ.counts.certified !== HZ.counts.fits) fail('/portfolio/ would state every horizon fit is certified while the ledger says otherwise');
+const hzLive = Object.values(HZ.agents).filter((a) => a.live && a.live.certified && a.site);
+const hzRepro = hzLive.filter((a) => a.live.coefficientsVerdict === 'REPRODUCED').length;
+const hzDbl = HZ.trend.certified.from_2023_on.doublingDays[0], hzPrinted = HZ.trend.printed.from_2023_on.point_estimate;
+if (!(Math.abs(hzDbl - hzPrinted) / hzPrinted < 1e-4)) fail('/portfolio/ would state the doubling time re-derives to the printed digit');
+if (GK.test.annotations.EXACT !== GK.test.annotationsTotal) fail('/portfolio/ would state every GSM8K test annotation is exact');
+if (bsiRec.disagreements !== 0 || bsiRec.verdict !== 'PASS') fail('/portfolio/ would state the two blind-spot scorers agree');
+const portfolioBody = [
+  C.header({
+    eyebrow: 'Carlos Toledo · portfolio',
+    title: 'Every task graded by an exact verifier. Every number an enclosure.',
+    deck: 'Four artifacts a hiring process can re-run rather than take on trust. Each line below is read from the ledger the page cites at build time; a number that stops holding refuses this page. The about page explains why there is no employment history here — a checkable claim beside an uncheckable one devalues the first — and the conventional CV is available on request.'
+  }),
+  C.section({
+    lab: '1 · the fit', title: 'METR’s time horizon, certified',
+    bodyRaw: C.pRaw('METR’s Time Horizon 1.1 estimator re-implemented in standard-library Python with the optimum proved unique by the Krawczyk operator in outward-rounded interval arithmetic: ' + HZ.counts.certified + ' of ' + HZ.counts.fits + ' fits certified with boxes below 10⁻¹⁰ on METR’s own raw runs and site files; METR’s printed coefficients are the rounding of the box for ' + hzRepro + ' of ' + hzLive.length + ' models; the post-2023 doubling time re-derives as ' + hzDbl.toFixed(2) + ' days against the printed ' + hzPrinted + '. The instrument built to put a time-horizon number on judge-free tasks, calibrated on the one that exists. <a href="/reports/time-horizon.html">The page</a>, with the result written for a system card, a regulator and a post.')
+  }),
+  C.section({
+    lab: '2 · the task', title: 'blind-spot, under Inspect and verifiers',
+    bodyRaw: C.pRaw('An RTL mutation task: a model is handed a mutated netlist (yosys mutants of a comparator, SAT-labelled: ' + BSI.ladder.killable + ' killable with a verified witness, ' + BSI.ladder.equivalent + ' proved equivalent) and must name input pairs that kill the mutant or prove it equivalent; a kill is verified by simulating the netlist, equivalence against the SAT proof. Published on the Prime Intellect hub through verifiers and ported to an inspect_ai Task whose scorer is the rubric’s own function; a battery scores every one of the ' + BSI.ladder.mutations + ' pooled mutants three ways and requires agreement (' + bsiRec.submissionsScoredThreeWays + ' submissions, ' + bsiRec.disagreements + ' disagreements). Three rungs — the defect named, its testbench profile, nothing — make a ladder; human baselines follow the protocol in the repository. <a href="/instruments/blind-spot">The instrument</a> · <a href="' + GITHUB + '/tree/main/environments/blind_spot/inspect">the Inspect task</a>.')
+  }),
+  C.section({
+    lab: '3 · the audit', title: 'GSM8K’s answer key, re-decided to the last step',
+    bodyRaw: C.pRaw('Every calculator annotation of the test (' + fmt(GK.test.annotationsTotal) + ', all exact) and train (' + fmt(GK.train.annotationsTotal) + ') keys evaluated from the expression it prints, every readable prose step read as a chain: ' + GK.findings.printedStepWrongTest + ' test and ' + GK.findings.printedStepWrongTrain + ' train keys print a step that does not hold as printed, both test slips in items GSM8K-Platinum never inspected because every model got them right; Platinum’s ' + GK.findings.revisedByPlatinum.length + ' relabelled answers all have arithmetic that holds — readings, not sums. The mechanical half of a task-QA audit, three seconds a run. <a href="/reports/gsm8k-audit.html">The page</a>.')
+  }),
+  C.section({
+    lab: '4 · the environments', title: 'Three verifier-graded environments on the hub',
+    bodyRaw: C.pRaw('<span class="m">carlos-toledo/blind-spot</span>, <span class="m">carlos-toledo/break-the-grader</span> and <span class="m">carlos-toledo/lattice-claims</span> on the Prime Intellect Environments Hub, each verified from the registry in a clean install and run against live models with every rollout re-scored offline against the framework’s reward. No answer key in any of them: a kill is simulated, a lattice claim is decided in exact arithmetic, a grader is broken or is not. <a href="/instruments/">The instruments</a> · <a href="/reports/">the reports</a> · <a href="' + GITHUB + '">the repository</a>, with its ' + fmt(batteriesRec.ran) + ' batteries run at every control build.')
+  }),
+  C.section({
+    lab: 'contact', title: 'One address',
+    bodyRaw: C.pRaw('<a href="mailto:carlos@carlostoledo.co"><span class="m">carlos@carlostoledo.co</span></a> — the conventional CV, references, and the take-home of your choice.')
+  })
+].join('\n\n');
+const portfolioFoot = '<p>Carlos Toledo · every number on this page is read from a ledger in the repository at build time. <a href="' + GITHUB + '">Source</a>.</p>';
+
 const aboutFoot = '<p>Carlos Toledo · computer-assisted proof and validated numerics. '
   + 'These notes are self-published and not peer-reviewed. <a href="' + GITHUB + '">Source</a>.</p>';
 
@@ -1594,6 +1637,8 @@ put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports · cert-machi
   desc: 'The reports shelf: certified audits of AI-generated mathematics, evals whose ground truth is a proof, a verified reward channel — and the instruments, proven on hard classical ground. Every page recomputes its numbers at build.' })));
 put('about/index.html', Buffer.from(TPL.render({ title: 'About · Carlos Toledo', bodyRaw: aboutBody, footRaw: aboutFoot, path: '/about/',
   desc: 'Not correct — checkable. Computer-assisted proof and validated numerics: what every page here owes you, the record of what has left the building, and how these pages are made.' })));
+put('portfolio/index.html', Buffer.from(TPL.render({ title: 'Portfolio · Carlos Toledo', bodyRaw: portfolioBody, footRaw: portfolioFoot, path: '/portfolio/',
+  desc: 'Four artifacts a hiring process can re-run: METR\u2019s time horizon certified, an RTL mutation task under Inspect and verifiers, GSM8K\u2019s answer key re-decided, three verifier-graded environments on the hub. Every number read from a ledger at build.' })));
 put('oracle/index.html', Buffer.from(TPL.render({ title: 'certify() — the reward oracle · cert-machine', bodyRaw: oracleBody.join('\n\n'), footRaw: oracleFoot, path: '/oracle/',
   desc: 'certify() — a reward oracle for AI mathematical search: CERTIFIED, REFUTED with the exact violated equation, or REFUSED — never a guess. No float participates in any decision; red controls run at import; the ladder, the evidence, and exactly where the guarantee ends.' })));
 /* discoverability assets + crawl surface — generated, like everything else */

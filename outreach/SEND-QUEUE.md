@@ -26,8 +26,14 @@ the wheel does not yet force-include inspect/task.py and the version is unbumped
 the push: include the task in the wheel, bump, `python -m build`, verify from the registry in
 a clean venv (the step that caught three defects last time). `prime env push` is the operator's.
 
-### M3. The applications (Task Development Engineer, then MTS Evaluation Execution) — NOT STAGED
-Deliverables 2–5 first. Each application is a send, per role.
+### M3. The applications (Task Development Engineer, then MTS Evaluation Execution) — DRAFTED 2026-09-22, HELD
+Files: `outreach/metr/resume.md` (one page; leads with the thesis and the three hub links; education and
+prior employment are [OPERATOR FILLS] — nothing was invented), `outreach/metr/cover-task-development-
+engineer.md` (deliverables 1, 3 and the time-horizon instrument, in the posting's own words),
+`outreach/metr/cover-mts-evaluation-execution.md` (the calibration and the three-audience write-up; the
+relocation/visa line is [OPERATOR FILLS]). The portfolio page /portfolio/ (built, gated on three ledgers)
+goes live with the push of main. Every figure in the three files is a ledger field. Each application is a
+send, per role; the site push comes first so the links resolve.
 
 ### M0. Not a send but a prerequisite of deliverable 1's last line: the Anthropic Console credit
 balance. `inspect eval …@blind_spot_located --model anthropic/claude-sonnet-5` reached the API
