@@ -34,8 +34,9 @@ prior employment are [OPERATOR FILLS] — nothing was invented), `outreach/metr/
 engineer.md` (deliverables 1, 3 and the time-horizon instrument, in the posting's own words),
 `outreach/metr/cover-mts-evaluation-execution.md` (the calibration and the three-audience write-up; the
 relocation/visa line is [OPERATOR FILLS]). The portfolio page /portfolio/ (built, gated on three ledgers)
-goes live with the push of main. Every figure in the three files is a ledger field. Each application is a
-send, per role; the site push comes first so the links resolve.
+is live. MAIN WAS PUSHED 2026-09-22 (72d2fd6..ff37f4e) on the operator's "fix now" when the return-levels
+link 404ed for Pedro's message; every link in the three files now resolves (checked 200). Every figure in
+the three files is a ledger field. Each application is a send, per role.
 
 ### M0. Not a send but a prerequisite of deliverable 1's last line: the Anthropic Console credit
 balance. `inspect eval …@blind_spot_located --model anthropic/claude-sonnet-5` reached the API

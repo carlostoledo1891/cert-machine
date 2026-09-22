@@ -165,7 +165,10 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
      postings re-read 2026-09-22: Task Dev $260,937–385,490, on-site
      Berkeley, contractor discussable; Eval Execution $328,380–578,583, 3–5
      days on-site, cap-exempt H-1B. SEND ORDER when the operator says so:
-     push main (links resolve) → Task Dev → Eval Execution, same week.
+     Task Dev → Eval Execution, same week. MAIN PUSHED 2026-09-22 ~08:30 -03
+     (72d2fd6..ff37f4e, six commits) on the operator's "fix now" — the
+     return-levels link in the Pedro message 404ed because nothing since the
+     seventeenth session had been deployed; seven pages checked 200 after.
   0j. THE HUB PUSH IS READY AND THE OWN-RUNS PIPELINE IS WIRED (2026-09-22,
      morning, on "continue"; credit re-probed: still refused). blind-spot
      0.1.1: the wheel now carries blind_spot/inspect/task.py and its README
