@@ -1,6 +1,6 @@
 {
  "what": "METR's Time Horizon 1.1 re-decided as certificates: for every agent, in the raw runs of the analysis repository and in the per-task file behind the live chart, the penalised logistic fit proved to hold exactly one zero of its score in a box (Krawczyk, outward-rounded interval arithmetic, certified exp), the 50 % and 80 % horizons as enclosures over the box, the printed coefficients and horizons read against them, and the doubling time as an exact least-squares line through the certified horizons.",
- "generated": "2026-09-21",
+ "generated": "2026-09-22",
  "pins": {
   "corpus/metr-horizon/runs-1-1.jsonl": "609f904f4b6ae32129388da89d036e00bac511ad94223d2be1e58fc2b45b55cd",
   "corpus/metr-horizon/release_dates.yaml": "317b92915df5bf935908567a857116bcf6f0c7686ef8b0840897ed04a29232bc",
@@ -2916,6 +2916,22 @@
    }
   }
  },
+ "own": {
+  "missing": {
+   "baselineFiles": 1,
+   "baselineAttempts": 0,
+   "attemptsSolved": 0,
+   "tasksWithoutHumanTime": 18,
+   "frontierLogs": 0,
+   "frontierRollouts": 0,
+   "rolloutsOnTasksWithoutHumanTime": 0
+  },
+  "tasksListed": 18,
+  "tasksWithHumanTime": 0,
+  "models": {},
+  "verdict": "NO DATA",
+  "rule": "a task's human time is the median wall-clock minutes over the baseline attempts that SOLVED it; a model's outcome is successes/runs over its non-control Inspect logs; equal task weights; λ = 1e-5; the same certified fit as above"
+ },
  "counts": {
   "runsFileAgents": 21,
   "liveAgents": 23,
@@ -2923,5 +2939,5 @@
   "certified": 44,
   "fits": 44
  },
- "seconds": 116.5
+ "seconds": 119.3
 }

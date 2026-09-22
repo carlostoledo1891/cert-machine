@@ -20,11 +20,13 @@ digital-design background; the task list is `tasks` in environments/blind_spot/b
 `python3 environments/blind_spot/inspect/ledger.py --grade-baselines`. Without these rows
 there is no time horizon (deliverable 2).
 
-### M2. The hub push of the Inspect variant (blind-spot v0.1.1) — NOT READY, a SEND
-The README and pyproject point at inspect/ and carry an `inspect` optional-dependency group;
-the wheel does not yet force-include inspect/task.py and the version is unbumped. Prep before
-the push: include the task in the wheel, bump, `python -m build`, verify from the registry in
-a clean venv (the step that caught three defects last time). `prime env push` is the operator's.
+### M2. The hub push of the Inspect variant (blind-spot v0.1.1) — READY 2026-09-22, a SEND
+The wheel carries the Inspect task and its README beside the package (pyproject force-include),
+version 0.1.1, built with hatchling (dist/blind_spot-0.1.1-py3-none-any.whl, sha256 624c9d48…),
+installed into a fresh python3.12 venv with inspect_ai and run end to end from site-packages
+(preflight's 11 controls; `inspect eval …/blind_spot/inspect/task.py@blind_spot_located`). After
+the push: verify FROM THE REGISTRY in a clean venv (the step that caught three defects last time)
+and record the pushed sha in .prime/.env-metadata.json. `prime env push` is the operator's.
 
 ### M3. The applications (Task Development Engineer, then MTS Evaluation Execution) — DRAFTED 2026-09-22, HELD
 Files: `outreach/metr/resume.md` (one page; leads with the thesis and the three hub links; education and

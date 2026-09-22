@@ -169,6 +169,19 @@ ok(abs(printed - T["doublingDays"][0]) / printed < 0.05, f"…within 5 % of the 
 # red: an agent whose printed p50 is moved by 1 % must read DIFFERS-style: the gap is not below 1e-4
 red(abs(60.9 - row["horizons"]["0.5"]["minutes"][0]) / row["horizons"]["0.5"]["minutes"][0] > 1e-4, "a printed horizon 1 % off its certified value is not within the solver-tolerance band")
 
+# ---- this machine's own pipeline: refuses with counts, never with silence ----
+from horizon import own as OWN  # noqa: E402
+own_rows = OWN.collect(ROOT)
+own_fits = OWN.fit_all(own_rows)
+ok("own" in L and L["own"]["verdict"] in ("NO DATA", "PARTIAL", "ENCLOSED"), "the ledger carries the machine's own section with a three-valued verdict")
+ok(L["own"]["missing"] == own_rows["missing"] and set(L["own"]["models"]) == set(own_fits), "the own section re-derives: the same missing counts and the same model set")
+red(OWN.fit_all({"models": {"m": {"t1": {"minutes": Fraction(5), "runs": 1, "successes": 1}}}, "tasks": {}, "missing": {}})["m"]["verdict"] == "NO DATA",
+    "a model with fewer than three timed tasks is NO DATA, not a horizon")
+# a synthetic own-run set with a known law certifies through the same path
+syn = {"models": {"m": {f"t{i}": {"minutes": Fraction(2 ** i), "runs": 4, "successes": (4 if i < 4 else 2 if i == 4 else 0)} for i in range(9)}}, "tasks": {}, "missing": {}}
+sf = OWN.fit_all(syn)["m"]
+ok(sf["verdict"] == "ENCLOSED" and 12 < sf["fit"]["horizons"]["0.5"]["minutes"][0] < 20, "a synthetic own-run set (all solved below 16 min, half at 16, none above) certifies a horizon near 16 minutes")
+
 REC = os.path.join(ROOT, "corpus", "metr-horizon", "record.json")
 rec = {"what": "The horizon battery: the interval library proved to contain, the certified fit calibrated, the red controls fired, the ledger walked.",
        "pass": npass, "fail": nfail, "reds": reds, "fired": fired, "verdict": "PASS" if nfail == 0 and fired == reds else "FAIL"}

@@ -29,7 +29,7 @@ from multiprocessing import Pool
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(ROOT, "instruments"))
-from horizon import data as D, fit as F, interval as I  # noqa: E402
+from horizon import data as D, fit as F, interval as I, own as OWN  # noqa: E402
 
 CORPUS = os.path.join(ROOT, "corpus", "metr-horizon")
 OUT = os.path.join(ROOT, "certs", "horizon-ledger.json")
@@ -190,6 +190,15 @@ def main():
     trends = {"from_2023_on": trend("2023-01-01"), "from_2024_on": trend("2024-01-01")}
     printed_dbl = {k: {kk: float(vv) for kk, vv in v.items()} for k, v in bench["doubling"].items()}
 
+    # ---- this machine's own runs and baselines, through the same fit ----
+    own_rows = OWN.collect(ROOT)
+    own_fits = OWN.fit_all(own_rows)
+    own = {"missing": own_rows["missing"], "tasksListed": len(own_rows["tasks"]),
+           "tasksWithHumanTime": sum(1 for t in own_rows["tasks"].values() if t["humanMinutes"] is not None),
+           "models": own_fits,
+           "verdict": ("NO DATA" if not own_fits else "ENCLOSED" if all(v["verdict"] == "ENCLOSED" for v in own_fits.values()) else "PARTIAL"),
+           "rule": "a task's human time is the median wall-clock minutes over the baseline attempts that SOLVED it; a model's outcome is successes/runs over its non-control Inspect logs; equal task weights; λ = 1e-5; the same certified fit as above"}
+
     ledger = {
         "what": "METR's Time Horizon 1.1 re-decided as certificates: for every agent, in the raw runs of the analysis "
                 "repository and in the per-task file behind the live chart, the penalised logistic fit proved to hold "
@@ -205,6 +214,7 @@ def main():
                       "weightsNote": "1/√k for a family of k tasks is the correctly rounded double, taken as a rational; the file's own weights agree to " + f"{max(wdiff.values()):.1e}"},
         "agents": agents,
         "trend": {"certified": trends, "printed": printed_dbl, "post": claims["post"]["doublingTimeDays"]},
+        "own": own,
         "counts": {"runsFileAgents": len(runs), "liveAgents": len(live["agents"]), "siteResults": len(bench["results"]),
                    "certified": sum(1 for f in fits.values() if f["certified"]), "fits": len(fits)},
         "seconds": round(time.time() - t0, 1),

@@ -62,7 +62,8 @@ PATCHES = {
         "Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and "
         "a requires-python floor of 3.11 — which is the floor of the WHEEL (verifiers needs it), not "
         "of the grader, which is stdlib and runs on 3.9 in this repository's battery. 2026-09-21: an "
-        "`inspect` optional-dependency group for the Inspect binding.",
+        "`inspect` optional-dependency group for the Inspect binding; 2026-09-22: version 0.1.1 and the Inspect "
+        "task and its README force-included into the wheel (blind_spot/inspect/), so an installed copy carries both bindings.",
     "environments/blind_spot/eval/page.json":
         "REGENERATED on this machine by `PYTHONPATH=. python3 eval/page_data.py`, so the instrument "
         "page reports this machine's run rather than the source lab's. Diffed leaf by leaf against "

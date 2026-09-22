@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-22, METR DELIVERABLES 1, 3, 4 (on the calibration) AND 5 (the packet, drafted) DONE; 2's own runs wait on Console credit and baseline rows; every send held)
+## TASKS BACKLOG — the standing menu (updated 2026-09-22 morning, THE METR PLAN IS BUILT AS FAR AS THE WORLD ALLOWS: 1, 3, 4, 5 done, 2's fit calibrated and its own-runs pipeline wired, the hub push READY; what remains needs credit, baseline rows, or a send)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -166,6 +166,27 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
      Berkeley, contractor discussable; Eval Execution $328,380–578,583, 3–5
      days on-site, cap-exempt H-1B. SEND ORDER when the operator says so:
      push main (links resolve) → Task Dev → Eval Execution, same week.
+  0j. THE HUB PUSH IS READY AND THE OWN-RUNS PIPELINE IS WIRED (2026-09-22,
+     morning, on "continue"; credit re-probed: still refused). blind-spot
+     0.1.1: the wheel now carries blind_spot/inspect/task.py and its README
+     (pyproject force-include, version bumped, the patch declared in
+     provenance.py and PROVENANCE re-pinned); built with hatchling, installed
+     into a fresh python3.12 venv with inspect_ai and run end to end from
+     site-packages (preflight's 11 controls, `inspect eval …@blind_spot_
+     located` on the mock model); recorded under `publishing.v0.1.1` in
+     PROVENANCE.json with pushed: false; LANE M2 is READY. instruments/
+     horizon/own.py: the pipeline from this machine's Inspect logs (non-
+     control, status success) and environments/*/baselines.json to the same
+     certified fit — a task's human time is the median minutes over the
+     attempts that SOLVED it; a model's outcome is successes/runs; equal
+     task weights — wired into the ledger as `own`, which today reads
+     NO DATA with the counts (1 baseline file, 0 attempts, 18 tasks listed,
+     0 with a human time, 0 frontier logs); the page §4 states those counts
+     from the ledger; the battery re-derives the section, refuses a model
+     with fewer than three timed tasks (a red), and certifies a synthetic
+     own-run set near its known horizon. WHEN THE DATA LANDS nothing new is
+     written: `python3 tools/run-horizon-ledger.py` then `node tools/build-
+     report-horizon.js`.
   0f. OPEN ROLES SCOUTED on the operator's mid-session word ("find more open
      roles that will fit my portfolio, any company, any field, remote from
      Brazil as well"): notes/open-roles-2026-09-21.md — ~65 roles verified on
@@ -576,6 +597,14 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     contact line; the three ratchets accepted it after looking. LANE M3 in
     the send queue now names the files. Final: control 92/92 · make test
     92/92. NOTHING SENT.
+
+  ── 6 · THE HUB PUSH MADE READY, THE OWN-RUNS PIPELINE WIRED (morning) ──
+    credit re-probed at 07:45: refused. blind-spot 0.1.1 built with the
+    Inspect task in the wheel and verified from a fresh venv end to end
+    (PROVENANCE.publishing.v0.1.1; LANE M2 READY; not pushed). instruments/
+    horizon/own.py + the ledger's `own` section (NO DATA with counts) + the
+    page's §4 + four battery checks (33 checks, 7 reds now). Control 92/92 ·
+    make test 92/92. NOTHING SENT.
 
 ══════════════════════════════════════════════════════════════════════════
   EIGHTEENTH SESSION, continued (2026-09-21, night) — METR DELIVERABLE 3: GSM8K'S

@@ -42,6 +42,8 @@ const fmt = (x) => Number(x).toLocaleString('en-US');
 const A = Object.values(L.agents);
 const live = A.filter((a) => a.live && a.live.certified && a.site).sort((a, b) => (a.site.release_date < b.site.release_date ? -1 : 1));
 const T = L.trend.certified;
+const O = L.own;
+if (!O || !['NO DATA', 'PARTIAL', 'ENCLOSED'].includes(O.verdict)) die('the ledger carries no own-runs verdict');
 
 /* ---- gates on the facts the prose states ---- */
 if (L.counts.certified !== L.counts.fits || L.counts.fits !== 44) die('not all 44 fits are certified');
@@ -178,7 +180,7 @@ B.push(C.section({
 
 B.push(C.section({
   lab: '§4 · why this instrument exists', title: 'The number this machine will decide on its own tasks',
-  bodyRaw: '<div class="col">' + C.pRaw('This page is a calibration. The same instrument is built to fit a time-horizon curve on tasks graded by an exact verifier — no answer key, no judge, no tolerance (the blind-spot, break-the-grader and lattice-claims environments) — against timed human baselines, and to state the 50 % horizon as an enclosure with its human-baseline provenance pinned. Those runs and baselines do not exist yet; when they do, the fit will be the one proved here on METR’s data, and nothing on this page will need to change for it to be trusted.') + '</div>',
+  bodyRaw: '<div class="col">' + C.pRaw('This page is a calibration. The same instrument is built to fit a time-horizon curve on tasks graded by an exact verifier — no answer key, no judge, no tolerance (the blind-spot, break-the-grader and lattice-claims environments) — against timed human baselines, and to state the 50 % horizon as an enclosure with its human-baseline provenance pinned. The pipeline from this machine’s own Inspect logs and baseline file to that fit is wired and runs at every build of the ledger; today it reports <strong>' + O.verdict + '</strong>: ' + O.missing.baselineFiles + ' baseline file(s) with ' + O.missing.baselineAttempts + ' attempts, ' + O.tasksListed + ' tasks listed of which ' + O.tasksWithHumanTime + ' have a human time, ' + O.missing.frontierLogs + ' frontier log(s) with ' + O.missing.frontierRollouts + ' rollouts. When those counts are non-zero the fit is the one proved here on METR’s data, and nothing on this page will need to change for it to be trusted.') + '</div>',
 }));
 
 /* ---- §5: the same result for three audiences (the METR plan's deliverable 4,

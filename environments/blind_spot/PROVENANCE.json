@@ -205,11 +205,11 @@
   },
   {
    "file": "environments/blind_spot/pyproject.toml",
-   "sha256": "278a0442ba0337b51d9624cd42b9a59c6539f41d96115984b6b428e0da6493c1",
+   "sha256": "825437fad1b62cbbef2e2635b0802877f7027dbb412542c1fbab510ef6b8b35e",
    "sourceSha256": "a815f89f27fc302dfbb5889faf98b69a2855e76d300f2dfc9fc8e10321384659",
-   "bytes": 2538,
+   "bytes": 2994,
    "patched": true,
-   "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — which is the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 2026-09-21: an `inspect` optional-dependency group for the Inspect binding."
+   "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — which is the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 2026-09-21: an `inspect` optional-dependency group for the Inspect binding; 2026-09-22: version 0.1.1 and the Inspect task and its README force-included into the wheel (blind_spot/inspect/), so an installed copy carries both bindings."
   },
   {
    "file": "corpus/blindspot/mut/corpus.hex",
@@ -374,6 +374,15 @@
    "url": "https://app.primeintellect.ai/dashboard/environments/carlos-toledo/blind-spot",
    "verifiedFromTheHub": "pip install from the hub index into a clean 3.12 venv, then loaded from /tmp with no source tree present: load_environment IS exported (the defect that would have made the Hub's own command raise on arrival), SingleTurnEnv with 6 train / 6 eval across all three rungs, no answer column, no task column, disjoint seeds, a truthful reply scoring +1.0 through the actual netlist and an unreadable one 0.0 with well_formed 0.0."
   },
-  "remaining": "Nothing. It is live and verified from the registry."
+  "remaining": "Nothing. It is live and verified from the registry.",
+  "v0.1.1": {
+   "built": "2026-09-22",
+   "wheel": "dist/blind_spot-0.1.1-py3-none-any.whl",
+   "sha256": "624c9d4879ec6512f8b152e18a0fe10030c63dd2bdf9bb96e8fb69a9f18052a6",
+   "carries": "the package, the design (blind_spot/mut), the SAT record (pool/pool.json), and — new — blind_spot/inspect/task.py with its README",
+   "verified": "installed into a fresh python3.12 venv with inspect_ai 0.3.266: __version__ 0.1.1; api.preflight() ran the 11 controls (3 positive) from the installed copy, building the simulator in the cache directory; `inspect eval <site-packages>/blind_spot/inspect/task.py@blind_spot_located --model mockllm/model --limit 2` ran end to end (the mock's text is REFUSED_PARSE, reward 0, well_formed 0 — the scorer executed from site-packages)",
+   "pushed": false,
+   "note": "the hub push (`prime env push` from environments/blind_spot) is a SEND and is the operator's; .prime/.env-metadata.json still records 0.1.0 until then"
+  }
  }
 }
