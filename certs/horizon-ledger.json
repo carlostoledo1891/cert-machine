@@ -1,0 +1,2927 @@
+{
+ "what": "METR's Time Horizon 1.1 re-decided as certificates: for every agent, in the raw runs of the analysis repository and in the per-task file behind the live chart, the penalised logistic fit proved to hold exactly one zero of its score in a box (Krawczyk, outward-rounded interval arithmetic, certified exp), the 50 % and 80 % horizons as enclosures over the box, the printed coefficients and horizons read against them, and the doubling time as an exact least-squares line through the certified horizons.",
+ "generated": "2026-09-21",
+ "pins": {
+  "corpus/metr-horizon/runs-1-1.jsonl": "609f904f4b6ae32129388da89d036e00bac511ad94223d2be1e58fc2b45b55cd",
+  "corpus/metr-horizon/release_dates.yaml": "317b92915df5bf935908567a857116bcf6f0c7686ef8b0840897ed04a29232bc",
+  "corpus/metr-horizon/figs-1-1.yaml": "6830ffd2b5dc9922313c2c0120b113cdf31b2334058f0b79bf6d7eebf85de8d1",
+  "corpus/metr-horizon/params-1-1.yaml": "2ad30555e1b329ae01897e9f16fab09ecbd2d2f31a320711677860e2cc1656af",
+  "corpus/metr-horizon/blog-time-horizon-1-1.html": "a039669837a3bf2c7e39110fbfc795a0b47d5b87154aa6cdd367da6c2630ad2c",
+  "corpus/metr-horizon/benchmark_results_1_1.yaml": "aae31902b0519a4da73e16643915e5e8aca13cd3315c3aac893ce3d6dfe92ad9",
+  "corpus/metr-horizon/task_results_1_1.yaml": "4f85fbf03cbf8b43af102ff17db6bbb4963b3c98784e90f81fb71a146cf26b07"
+ },
+ "estimator": {
+  "weighting": "invsqrt_task_weight (re-derived per agent from the task families, normalised to 1)",
+  "regularization": "1/100000",
+  "x": "log2(human minutes), the literal read as the rational it denotes and enclosed",
+  "y": "successes / runs per task, exact — the same score as METR's per-run form",
+  "aggregation": "per task, exact: Σ_runs (w/n)(y_r − p) = w(ȳ − p)",
+  "weightsNote": "1/√k for a family of k tasks is the correctly rounded double, taken as a rational; the file's own weights agree to 2.9e-09"
+ },
+ "agents": {
+  "Claude 3 Opus (Inspect)": {
+   "alias": "Claude 3 Opus (Inspect)",
+   "key": "claude_3_opus_inspect",
+   "release_date": "2024-03-04",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5273557319006651,
+     "intercept": 1.0455911105331506,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.527355731901674,
+      -0.5273557318996562
+     ],
+     "intercept": [
+      1.045591110532066,
+      1.045591110534235
+     ],
+     "maxRad": 1.9872992140790302e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       3.9523357283233,
+       3.9523357283553597
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       0.6390232674029156,
+       0.6390232674058335
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1038
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5273463928274337,
+     "intercept": 1.0455560398714971,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5273463928284428,
+      -0.5273463928264246
+     ],
+     "intercept": [
+      1.045556039870412,
+      1.0455560398725823
+     ],
+     "maxRad": 2.0095036745715333e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       3.952249731518153,
+       3.952249731550223
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       0.6389887433913306,
+       0.6389887433942498
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1038,
+    "printed": {
+     "coefficient": -0.527,
+     "intercept": 1.046
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.527,
+     "intercept": 1.046
+    }
+   },
+   "site": {
+    "is_sota": false,
+    "release_date": "2024-03-04",
+    "p50": {
+     "estimate": 3.952262,
+     "ci": [
+      1.706313,
+      8.76484
+     ],
+     "certified": [
+      3.952249731518153,
+      3.952249731550223
+     ],
+     "inside": false,
+     "relativeGap": 3.1041767805014565e-06,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 0.638973,
+     "ci": [
+      0.190491,
+      2.118276
+     ],
+     "certified": [
+      0.6389887433913306,
+      0.6389887433942498
+     ],
+     "inside": false,
+     "relativeGap": 2.463798370884661e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "Claude 3.5 Sonnet (New) (Inspect)": {
+   "alias": "Claude 3.5 Sonnet (New) (Inspect)",
+   "key": "claude_3_5_sonnet_20241022_inspect",
+   "release_date": "2024-10-22",
+   "runsFile": {
+    "n_tasks": 226,
+    "candidate": {
+     "slope": -0.4647122507110154,
+     "intercept": 2.0257644463651605,
+     "newtonIterations": 7
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.46471225071202454,
+      -0.46471225071000627
+     ],
+     "intercept": [
+      2.0257644463630817,
+      2.0257644463672393
+     ],
+     "maxRad": 2.731148640577885e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       20.523149064049587,
+       20.52314906444628
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       2.5955782994650187,
+       2.5955782994918732
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1016
+   },
+   "live": {
+    "n_tasks": 226,
+    "candidate": {
+     "slope": -0.46470671630945665,
+     "intercept": 2.0257353064751067,
+     "newtonIterations": 7
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.46470671631046584,
+      -0.46470671630844745
+     ],
+     "intercept": [
+      2.025735306473028,
+      2.0257353064771855
+     ],
+     "maxRad": 2.731148640577885e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       20.522995563121167,
+       20.522995563517878
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       2.595494969428549,
+       2.595494969455404
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1016,
+    "printed": {
+     "coefficient": -0.465,
+     "intercept": 2.026
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.465,
+     "intercept": 2.026
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2024-10-22",
+    "p50": {
+     "estimate": 20.522872,
+     "ci": [
+      10.144026,
+      40.82028
+     ],
+     "certified": [
+      20.522995563121167,
+      20.522995563517878
+     ],
+     "inside": false,
+     "relativeGap": 6.0207350090768005e-06,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 2.595677,
+     "ci": [
+      0.89379,
+      7.363864
+     ],
+     "certified": [
+      2.595494969428549,
+      2.595494969455404
+     ],
+     "inside": false,
+     "relativeGap": 7.013327846707733e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "Claude 3.5 Sonnet (Old) (Inspect)": {
+   "alias": "Claude 3.5 Sonnet (Old) (Inspect)",
+   "key": "claude_3_5_sonnet_20240620_inspect",
+   "release_date": "2024-06-20",
+   "runsFile": {
+    "n_tasks": 223,
+    "candidate": {
+     "slope": -0.5006564120427703,
+     "intercept": 1.7574199152617256,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5006564120437816,
+      -0.500656412041759
+     ],
+     "intercept": [
+      1.7574199152599104,
+      1.7574199152635408
+     ],
+     "maxRad": 2.942091015256665e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       11.394229887754372,
+       11.39422988792369
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       1.6716559377640443,
+       1.67165593777592
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1005
+   },
+   "live": {
+    "n_tasks": 223,
+    "candidate": {
+     "slope": -0.5006548734127971,
+     "intercept": 1.7574113357009682,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5006548734138084,
+      -0.5006548734117858
+     ],
+     "intercept": [
+      1.7574113356991523,
+      1.757411335702784
+     ],
+     "maxRad": 2.9531932455029164e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       11.394179744936505,
+       11.394179745105841
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       1.6716387211907742,
+       1.6716387212026524
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1005,
+    "printed": {
+     "coefficient": -0.501,
+     "intercept": 1.757
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.501,
+     "intercept": 1.757
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2024-06-20",
+    "p50": {
+     "estimate": 11.395377,
+     "ci": [
+      5.489734,
+      22.384214
+     ],
+     "certified": [
+      11.394179744936505,
+      11.394179745105841
+     ],
+     "inside": false,
+     "relativeGap": 0.00010507602041534917,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 1.671757,
+     "ci": [
+      0.57927,
+      4.573519
+     ],
+     "certified": [
+      1.6716387211907742,
+      1.6716387212026524
+     ],
+     "inside": false,
+     "relativeGap": 7.075620331498095e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "Claude 3.7 Sonnet (Inspect)": {
+   "alias": "Claude 3.7 Sonnet (Inspect)",
+   "key": "claude_3_7_sonnet_inspect",
+   "release_date": "2025-02-24",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5974673077547866,
+     "intercept": 3.534725851326118,
+     "newtonIterations": 7
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5974673077558059,
+      -0.5974673077537673
+     ],
+     "intercept": [
+      3.534725851322458,
+      3.5347258513297777
+     ],
+     "maxRad": 6.328271240363392e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       60.38770205065293,
+       60.387702052011086
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       12.091304433142042,
+       12.091304433347599
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1043
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5974549266690904,
+     "intercept": 3.5346505939822412,
+     "newtonIterations": 7
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5974549266701099,
+      -0.5974549266680709
+     ],
+     "intercept": [
+      3.5346505939785797,
+      3.5346505939859028
+     ],
+     "maxRad": 6.417089082333405e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       60.387561330354124,
+       60.387561331712654
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       12.090873275367516,
+       12.09087327557314
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1043,
+    "printed": {
+     "coefficient": -0.597,
+     "intercept": 3.535
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.597,
+     "intercept": 3.535
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2025-02-24",
+    "p50": {
+     "estimate": 60.388937,
+     "ci": [
+      33.006168,
+      104.226017
+     ],
+     "certified": [
+      60.387561330354124,
+      60.387561331712654
+     ],
+     "inside": false,
+     "relativeGap": 2.27806789273791e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 12.09179,
+     "ci": [
+      4.575608,
+      28.889879
+     ],
+     "certified": [
+      12.090873275367516,
+      12.09087327557314
+     ],
+     "inside": false,
+     "relativeGap": 7.58195550979397e-05,
+     "insideBootstrapCI": true
+    }
+   },
+   "post": {
+    "th11": [
+     60,
+     32,
+     106
+    ],
+    "certifiedRounded": 60.0,
+    "verdict": "REPRODUCED",
+    "relativeGap": 0.0064179000193243406
+   }
+  },
+  "Claude 4 Opus (Inspect)": {
+   "alias": "Claude 4 Opus (Inspect)",
+   "key": "claude_4_opus_inspect",
+   "release_date": "2025-05-22",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6036223028133756,
+     "intercept": 4.013617494723423,
+     "newtonIterations": 7
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6036223028144106,
+      -0.6036223028123405
+     ],
+     "intercept": [
+      4.013617494719158,
+      4.013617494727688
+     ],
+     "maxRad": 8.615330671091215e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       100.37248373111936,
+       100.3724837336897
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       20.42967757569275,
+       20.42967757610434
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1368
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6036241351955829,
+     "intercept": 4.013629387286679,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.603624135196607,
+      -0.6036241351945588
+     ],
+     "intercept": [
+      4.013629387282496,
+      4.013629387290862
+     ],
+     "maxRad": 8.615330671091215e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       100.37245015062868,
+       100.37245015316327
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       20.429769465852456,
+       20.429769466257977
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1368,
+    "printed": {
+     "coefficient": -0.604,
+     "intercept": 4.014
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.604,
+     "intercept": 4.014
+    }
+   },
+   "site": {
+    "is_sota": false,
+    "release_date": "2025-05-22",
+    "p50": {
+     "estimate": 100.366123,
+     "ci": [
+      59.994073,
+      163.454074
+     ],
+     "certified": [
+      100.37245015062868,
+      100.37245015316327
+     ],
+     "inside": false,
+     "relativeGap": 6.303675115805413e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 20.429752,
+     "ci": [
+      8.483125,
+      41.937268
+     ],
+     "certified": [
+      20.429769465852456,
+      20.429769466257977
+     ],
+     "inside": false,
+     "relativeGap": 8.549415109717258e-07,
+     "insideBootstrapCI": true
+    }
+   },
+   "post": {
+    "th11": [
+     101,
+     58,
+     170
+    ],
+    "certifiedRounded": 100.0,
+    "verdict": "DIFFERS",
+    "relativeGap": 0.006252212107548821
+   }
+  },
+  "Claude 4.1 Opus (Inspect)": {
+   "alias": "Claude 4.1 Opus (Inspect)",
+   "key": "claude_4_1_opus_inspect",
+   "release_date": "2025-08-05",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6605183465544667,
+     "intercept": 4.392874287481577,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6605183465554946,
+      -0.6605183465534389
+     ],
+     "intercept": [
+      4.392874287476989,
+      4.3928742874861655
+     ],
+     "maxRad": 9.992007221626409e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       100.47180500067253,
+       100.47180500308221
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       23.45541673984003,
+       23.45541674029634
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1043
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6605181419595312,
+     "intercept": 4.3928727769629585,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.660518141960559,
+      -0.6605181419585033
+     ],
+     "intercept": [
+      4.39287277695837,
+      4.392872776967547
+     ],
+     "maxRad": 9.947598300641403e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       100.47178920334922,
+       100.4717892057589
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       23.4554024825407,
+       23.45540248299701
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1043,
+    "printed": {
+     "coefficient": -0.661,
+     "intercept": 4.393
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.661,
+     "intercept": 4.393
+    }
+   },
+   "site": {
+    "is_sota": false,
+    "release_date": "2025-08-05",
+    "p50": {
+     "estimate": 100.472004,
+     "ci": [
+      59.272391,
+      159.451918
+     ],
+     "certified": [
+      100.47178920334922,
+      100.4717892057589
+     ],
+     "inside": false,
+     "relativeGap": 2.137880219748818e-06,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 23.455761,
+     "ci": [
+      10.538456,
+      47.785951
+     ],
+     "certified": [
+      23.4554024825407,
+      23.45540248299701
+     ],
+     "inside": false,
+     "relativeGap": 1.528506959398658e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "Claude Mythos Preview (early)": {
+   "alias": "Claude Mythos Preview (early)",
+   "key": "claude_mythos_preview_early_inspect",
+   "release_date": null,
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5566660462156086,
+     "intercept": 5.582691030259519,
+     "newtonIterations": 11
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5566660462166951,
+      -0.556666046214522
+     ],
+     "intercept": [
+      5.582691030253215,
+      5.582691030265823
+     ],
+     "maxRad": 3.5926817076870066e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       1044.645302842901,
+       1044.6453028876606
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       185.90806300191488,
+       185.90806300862752
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1149,
+    "printed": {
+     "coefficient": -0.557,
+     "intercept": 5.582
+    },
+    "coefficientsVerdict": "DIFFERS",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.557,
+     "intercept": 5.583
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2026-04-07",
+    "p50": {
+     "estimate": 1044.780145,
+     "ci": [
+      508.876789,
+      3304.261235
+     ],
+     "certified": [
+      1044.645302842901,
+      1044.6453028876606
+     ],
+     "inside": false,
+     "relativeGap": 0.0001290793695544712,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 185.911829,
+     "ci": [
+      97.30292,
+      398.514614
+     ],
+     "certified": [
+      185.90806300191488,
+      185.90806300862752
+     ],
+     "inside": false,
+     "relativeGap": 2.0257314418310062e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "Claude Opus 4.5 (Inspect)": {
+   "alias": "Claude Opus 4.5 (Inspect)",
+   "key": "claude_opus_4_5_inspect",
+   "release_date": "2025-11-24",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5399734495013105,
+     "intercept": 4.4249567953850875,
+     "newtonIterations": 9
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5399734495023518,
+      -0.5399734495002693
+     ],
+     "intercept": [
+      4.424956795380344,
+      4.424956795389831
+     ],
+     "maxRad": 1.603162047558726e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       293.0021321529904,
+       293.00213216298016
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       49.433917764373064,
+       49.43391776571908
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1044
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5399699968540652,
+     "intercept": 4.424931108657104,
+     "newtonIterations": 9
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.539969996855107,
+      -0.5399699968530234
+     ],
+     "intercept": [
+      4.424931108652357,
+      4.42493110866185
+     ],
+     "maxRad": 1.6298074001497298e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       293.00311266714255,
+       293.0031126771379
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       49.43352070164215,
+       49.43352070298888
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1044,
+    "printed": {
+     "coefficient": -0.54,
+     "intercept": 4.425
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.54,
+     "intercept": 4.425
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2025-11-24",
+    "p50": {
+     "estimate": 292.994594,
+     "ci": [
+      161.717714,
+      623.704698
+     ],
+     "certified": [
+      293.00311266714255,
+      293.0031126771379
+     ],
+     "inside": false,
+     "relativeGap": 2.90736745433936e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 49.430584,
+     "ci": [
+      20.660485,
+      104.641318
+     ],
+     "certified": [
+      49.43352070164215,
+      49.43352070298888
+     ],
+     "inside": false,
+     "relativeGap": 5.9407117825991594e-05,
+     "insideBootstrapCI": true
+    }
+   },
+   "post": {
+    "th11": [
+     320,
+     170,
+     729
+    ],
+    "certifiedRounded": 293.0,
+    "verdict": "DIFFERS",
+    "relativeGap": 0.09213856836418087
+   }
+  },
+  "Claude Opus 4.6 (Inspect)": {
+   "alias": "Claude Opus 4.6 (Inspect)",
+   "key": "claude_opus_4_6_inspect",
+   "release_date": "2026-02-05",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.4122131948469003,
+     "intercept": 3.9117777822693185,
+     "newtonIterations": 10
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.4122131948479397,
+      -0.41221319484586083
+     ],
+     "intercept": [
+      3.9117777822650996,
+      3.9117777822735373
+     ],
+     "maxRad": 1.5409895581797173e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       718.9241210959478,
+       718.9241211300028
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       69.87206223551986,
+       69.8720622380082
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1391
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.4122079302734472,
+     "intercept": 3.9117384898730125,
+     "newtonIterations": 10
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.41220793027448627,
+      -0.41220793027240815
+     ],
+     "intercept": [
+      3.9117384898687972,
+      3.911738489877228
+     ],
+     "maxRad": 1.5276668818842154e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       718.9370163639824,
+       718.9370163980213
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       69.87123529635896,
+       69.87123529884589
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1391,
+    "printed": {
+     "coefficient": -0.412,
+     "intercept": 3.912
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.412,
+     "intercept": 3.912
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2026-02-05",
+    "p50": {
+     "estimate": 718.80683,
+     "ci": [
+      316.685725,
+      3633.786163
+     ],
+     "certified": [
+      718.9370163639824,
+      718.9370163980213
+     ],
+     "inside": false,
+     "relativeGap": 0.00018108178471567326,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 69.874587,
+     "ci": [
+      27.026521,
+      170.437873
+     ],
+     "certified": [
+      69.87123529635896,
+      69.87123529884589
+     ],
+     "inside": false,
+     "relativeGap": 4.796972068445859e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "GPT-4 0314": {
+   "alias": "GPT-4 0314",
+   "key": "gpt_4",
+   "release_date": "2023-03-14",
+   "runsFile": {
+    "n_tasks": 213,
+    "candidate": {
+     "slope": -0.6405311544122474,
+     "intercept": 1.2780931404970903,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6405311544132594,
+      -0.6405311544112354
+     ],
+     "intercept": [
+      1.2780931404957652,
+      1.2780931404984155
+     ],
+     "maxRad": 2.3425705819590803e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       3.987168350391902,
+       3.987168350420771
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       0.8895057199373386,
+       0.8895057199402199
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1401
+   },
+   "live": {
+    "n_tasks": 213,
+    "candidate": {
+     "slope": -0.6405172006053937,
+     "intercept": 1.278045901117951,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6405172006064055,
+      -0.640517200604382
+     ],
+     "intercept": [
+      1.2780459011166267,
+      1.2780459011192753
+     ],
+     "maxRad": 2.3647750424515834e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       3.987084659752489,
+       3.987084659781346
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       0.8894579798822982,
+       0.8894579798851778
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1401,
+    "printed": {
+     "coefficient": -0.641,
+     "intercept": 1.278
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.641,
+     "intercept": 1.278
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2023-03-14",
+    "p50": {
+     "estimate": 3.987428,
+     "ci": [
+      1.93292,
+      7.995283
+     ],
+     "certified": [
+      3.987084659752489,
+      3.987084659781346
+     ],
+     "inside": false,
+     "relativeGap": 8.611310689659419e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 0.889561,
+     "ci": [
+      0.342984,
+      2.523746
+     ],
+     "certified": [
+      0.8894579798822982,
+      0.8894579798851778
+     ],
+     "inside": false,
+     "relativeGap": 0.00011582347905342824,
+     "insideBootstrapCI": true
+    }
+   },
+   "post": {
+    "th11": [
+     3.5,
+     1.6,
+     6.9
+    ],
+    "certifiedRounded": 4.0,
+    "verdict": "DIFFERS",
+    "relativeGap": 0.12216561757065678
+   }
+  },
+  "GPT-4 1106 (Inspect)": {
+   "alias": "GPT-4 1106 (Inspect)",
+   "key": "gpt_4_1106_inspect",
+   "release_date": "2023-11-06",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5851899175106726,
+     "intercept": 1.1797933324211511,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5851899175116843,
+      -0.585189917509661
+     ],
+     "intercept": [
+      1.179793332419924,
+      1.1797933324223784
+     ],
+     "maxRad": 2.3869795029440866e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       4.044850066609324,
+       4.044850066640637
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       0.7830201554114583,
+       0.7830201554143982
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1029
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5851825772024222,
+     "intercept": 1.1797659740439024,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5851825772034338,
+      -0.5851825772014105
+     ],
+     "intercept": [
+      1.1797659740426756,
+      1.1797659740451292
+     ],
+     "maxRad": 2.375877272697835e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       4.044789892184809,
+       4.044789892216119
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       0.7829923790049514,
+       0.7829923790078904
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1029,
+    "printed": {
+     "coefficient": -0.585,
+     "intercept": 1.18
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.585,
+     "intercept": 1.18
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2023-11-06",
+    "p50": {
+     "estimate": 4.044959,
+     "ci": [
+      1.866859,
+      8.443226
+     ],
+     "certified": [
+      4.044789892184809,
+      4.044789892216119
+     ],
+     "inside": false,
+     "relativeGap": 4.180880087685809e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 0.783032,
+     "ci": [
+      0.276599,
+      2.358414
+     ],
+     "certified": [
+      0.7829923790049514,
+      0.7829923790078904
+     ],
+     "inside": false,
+     "relativeGap": 5.0602018756373456e-05,
+     "insideBootstrapCI": true
+    }
+   },
+   "post": {
+    "th11": [
+     3.6,
+     1.6,
+     7.5
+    ],
+    "certifiedRounded": 4.0,
+    "verdict": "DIFFERS",
+    "relativeGap": 0.10996613026999227
+   }
+  },
+  "GPT-4 Turbo (Inspect)": {
+   "alias": "GPT-4 Turbo (Inspect)",
+   "key": "gpt_4_turbo_inspect",
+   "release_date": "2024-04-09",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6903304254564744,
+     "intercept": 1.3117902820505152,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6903304254574885,
+      -0.6903304254554603
+     ],
+     "intercept": [
+      1.3117902820491516,
+      1.3117902820518788
+     ],
+     "maxRad": 2.609024107869118e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       3.732740863211591,
+       3.732740863236265
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       0.9279215577544574,
+       0.9279215577572033
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1032
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6903239774027946,
+     "intercept": 1.3117673325913817,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6903239774038085,
+      -0.6903239774017808
+     ],
+     "intercept": [
+      1.3117673325900185,
+      1.3117673325927448
+     ],
+     "maxRad": 2.6201263381153694e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       3.732700772351538,
+       3.732700772376206
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       0.927899527238477,
+       0.927899527241222
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1032,
+    "printed": {
+     "coefficient": -0.69,
+     "intercept": 1.312
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.69,
+     "intercept": 1.312
+    }
+   },
+   "site": {
+    "is_sota": false,
+    "release_date": "2024-04-09",
+    "p50": {
+     "estimate": 3.732787,
+     "ci": [
+      1.980046,
+      6.736613
+     ],
+     "certified": [
+      3.732700772351538,
+      3.732700772376206
+     ],
+     "inside": false,
+     "relativeGap": 2.3100605625981537e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 0.927933,
+     "ci": [
+      0.428277,
+      2.196806
+     ],
+     "certified": [
+      0.927899527238477,
+      0.927899527241222
+     ],
+     "inside": false,
+     "relativeGap": 3.6073691752606557e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "GPT-4o (Inspect)": {
+   "alias": "GPT-4o (Inspect)",
+   "key": "gpt_4o_inspect",
+   "release_date": "2024-05-13",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5625928568729721,
+     "intercept": 1.5783152365583941,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.562592856873984,
+      -0.5625928568719603
+     ],
+     "intercept": [
+      1.5783152365567625,
+      1.5783152365600257
+     ],
+     "maxRad": 2.708944180085382e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       6.990669532226873,
+       6.990669532303899
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       1.2669100535156914,
+       1.266910053521865
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1044
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5625882694741298,
+     "intercept": 1.5782952845034333,
+     "newtonIterations": 6
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5625882694751418,
+      -0.5625882694731177
+     ],
+     "intercept": [
+      1.5782952845018006,
+      1.578295284505066
+     ],
+     "maxRad": 2.7200464103316335e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       6.990608531684881,
+       6.990608531761936
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       1.2668813542850172,
+       1.2668813542911945
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1044,
+    "printed": {
+     "coefficient": -0.563,
+     "intercept": 1.578
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.563,
+     "intercept": 1.578
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2024-05-13",
+    "p50": {
+     "estimate": 6.991195,
+     "ci": [
+      4.001482,
+      12.905741
+     ],
+     "certified": [
+      6.990608531684881,
+      6.990608531761936
+     ],
+     "inside": false,
+     "relativeGap": 8.389374293542012e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 1.267009,
+     "ci": [
+      0.562997,
+      3.01517
+     ],
+     "certified": [
+      1.2668813542850172,
+      1.2668813542911945
+     ],
+     "inside": false,
+     "relativeGap": 0.00010075585574849939,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "GPT-5 (Inspect)": {
+   "alias": "GPT-5 (Inspect)",
+   "key": "gpt_5_2025_08_07_inspect",
+   "release_date": "2025-08-07",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5762752008794506,
+     "intercept": 4.417325437800079,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5762752008804888,
+      -0.5762752008784124
+     ],
+     "intercept": [
+      4.417325437795374,
+      4.4173254378047835
+     ],
+     "maxRad": 1.4432899320127035e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       202.99571298966111,
+       202.99571299584602
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       38.31118532629268,
+       38.31118532722973
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1056
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5762749706471274,
+     "intercept": 4.417323640519252,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5762749706481657,
+      -0.5762749706460891
+     ],
+     "intercept": [
+      4.417323640514546,
+      4.417323640523959
+     ],
+     "maxRad": 1.4521717162097048e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       202.99570505925905,
+       202.9957050654454
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       38.311158307698484,
+       38.311158308635754
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1056,
+    "printed": {
+     "coefficient": -0.576,
+     "intercept": 4.417
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.576,
+     "intercept": 4.417
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2025-08-07",
+    "p50": {
+     "estimate": 203.012577,
+     "ci": [
+      112.641357,
+      405.551565
+     ],
+     "certified": [
+      202.99570505925905,
+      202.9957050654454
+     ],
+     "inside": false,
+     "relativeGap": 8.311476706374613e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 38.312431,
+     "ci": [
+      19.184874,
+      70.093125
+     ],
+     "certified": [
+      38.311158307698484,
+      38.311158308635754
+     ],
+     "inside": false,
+     "relativeGap": 3.3219885739046854e-05,
+     "insideBootstrapCI": true
+    }
+   },
+   "post": {
+    "th11": [
+     214,
+     117,
+     480
+    ],
+    "certifiedRounded": 203.0,
+    "verdict": "DIFFERS",
+    "relativeGap": 0.05420949637465336
+   }
+  },
+  "GPT-5.1-Codex-Max (Inspect)": {
+   "alias": "GPT-5.1-Codex-Max (Inspect)",
+   "key": "gpt_5_1_codex_max_inspect",
+   "release_date": "2025-11-19",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6467002577105011,
+     "intercept": 5.047879894838223,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6467002577115397,
+      -0.6467002577094625
+     ],
+     "intercept": [
+      5.047879894832875,
+      5.047879894843571
+     ],
+     "maxRad": 1.5010215292932116e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       223.7268156592879,
+       223.726815665742
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       50.631087294010165,
+       50.631087295229115
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1369
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.646700112023795,
+     "intercept": 5.047878733855931,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6467001120248339,
+      -0.646700112022756
+     ],
+     "intercept": [
+      5.047878733850583,
+      5.04787873386128
+     ],
+     "maxRad": 1.5143442055887135e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       223.72680994953257,
+       223.72680995598867
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       50.63106905409927,
+       50.631069055318534
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1369,
+    "printed": {
+     "coefficient": -0.647,
+     "intercept": 5.048
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.647,
+     "intercept": 5.048
+    }
+   },
+   "site": {
+    "is_sota": false,
+    "release_date": "2025-11-19",
+    "p50": {
+     "estimate": 223.714694,
+     "ci": [
+      134.31077,
+      396.206723
+     ],
+     "certified": [
+      223.72680994953257,
+      223.72680995598867
+     ],
+     "inside": false,
+     "relativeGap": 5.415513675538117e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 50.632499,
+     "ci": [
+      27.30204,
+      88.365435
+     ],
+     "certified": [
+      50.63106905409927,
+      50.631069055318534
+     ],
+     "inside": false,
+     "relativeGap": 2.8242459174701003e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "GPT-5.2": {
+   "alias": "GPT-5.2",
+   "key": "gpt_5_2",
+   "release_date": "2025-12-11",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5738142494250806,
+     "intercept": 4.85472175420836,
+     "newtonIterations": 9
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5738142494261493,
+      -0.5738142494240119
+     ],
+     "intercept": [
+      4.854721754202964,
+      4.854721754213757
+     ],
+     "maxRad": 2.686739719592879e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       352.24642758450796,
+       352.2464275967983
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       66.00541504855258,
+       66.0054150504437
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 961
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5738182717487014,
+     "intercept": 4.854752293515392,
+     "newtonIterations": 9
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5738182717497707,
+      -0.573818271747632
+     ],
+     "intercept": [
+      4.85475229350999,
+      4.854752293520794
+     ],
+     "maxRad": 2.7000623958883807e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       352.2449420349746,
+       352.2449420472737
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       66.00591148520977,
+       66.00591148710244
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 961,
+    "printed": {
+     "coefficient": -0.574,
+     "intercept": 4.855
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.574,
+     "intercept": 4.855
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2025-12-11",
+    "p50": {
+     "estimate": 352.249302,
+     "ci": [
+      198.067494,
+      815.177445
+     ],
+     "certified": [
+      352.2449420349746,
+      352.2449420472737
+     ],
+     "inside": false,
+     "relativeGap": 1.2377651188439268e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 66.002649,
+     "ci": [
+      31.665111,
+      131.730719
+     ],
+     "certified": [
+      66.00591148520977,
+      66.00591148710244
+     ],
+     "inside": false,
+     "relativeGap": 4.942719567115632e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "GPT-5.3-Codex": {
+   "alias": "GPT-5.3-Codex",
+   "key": "gpt_5_3_codex",
+   "release_date": "2026-02-05",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5182779332585183,
+     "intercept": 4.378998759747057,
+     "newtonIterations": 9
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5182779332595832,
+      -0.5182779332574535
+     ],
+     "intercept": [
+      4.378998759742176,
+      4.378998759751939
+     ],
+     "maxRad": 2.4646951146678475e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       349.49600917317747,
+       349.49600918615477
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       54.732407100019316,
+       54.73240710163451
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1602
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5182783877646185,
+     "intercept": 4.379001997858679,
+     "newtonIterations": 9
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5182783877656831,
+      -0.518278387763554
+     ],
+     "intercept": [
+      4.379001997853798,
+      4.3790019978635595
+     ],
+     "maxRad": 2.5135449277513544e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       349.49572775525786,
+       349.4957277682323
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       54.73245201852386,
+       54.73245202013871
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1602,
+    "printed": {
+     "coefficient": -0.518,
+     "intercept": 4.379
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.518,
+     "intercept": 4.379
+    }
+   },
+   "site": {
+    "is_sota": false,
+    "release_date": "2026-02-05",
+    "p50": {
+     "estimate": 349.530732,
+     "ci": [
+      194.913134,
+      816.351994
+     ],
+     "certified": [
+      349.49572775525786,
+      349.4957277682323
+     ],
+     "inside": false,
+     "relativeGap": 0.00010015643100121854,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 54.739407,
+     "ci": [
+      22.361504,
+      122.058963
+     ],
+     "certified": [
+      54.73245201852386,
+      54.73245202013871
+     ],
+     "inside": false,
+     "relativeGap": 0.00012707235323182171,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "GPT-5.4": {
+   "alias": "GPT-5.4",
+   "key": "gpt_5_4",
+   "release_date": null,
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5201552033103755,
+     "intercept": 4.378021334776262,
+     "newtonIterations": 9
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5201552033114364,
+      -0.5201552033093145
+     ],
+     "intercept": [
+      4.378021334771412,
+      4.3780213347811126
+     ],
+     "maxRad": 2.375877272697835e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       341.74103110805237,
+       341.741031120606
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       53.877254639911506,
+       53.8772546414845
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1371,
+    "printed": {
+     "coefficient": -0.52,
+     "intercept": 4.378
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.52,
+     "intercept": 4.378
+    }
+   },
+   "site": {
+    "is_sota": false,
+    "release_date": "2026-03-05",
+    "p50": {
+     "estimate": 341.735276,
+     "ci": [
+      186.581591,
+      768.779526
+     ],
+     "certified": [
+      341.74103110805237,
+      341.741031120606
+     ],
+     "inside": false,
+     "relativeGap": 1.684059004372661e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 53.877851,
+     "ci": [
+      23.957027,
+      108.679232
+     ],
+     "certified": [
+      53.877254639911506,
+      53.8772546414845
+     ],
+     "inside": false,
+     "relativeGap": 1.106886556265206e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "Gemini 3 Pro": {
+   "alias": "Gemini 3 Pro",
+   "key": "gemini_3_pro",
+   "release_date": "2025-11-18",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6759398974248514,
+     "intercept": 5.278803081526174,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6759398974258977,
+      -0.6759398974238051
+     ],
+     "intercept": [
+      5.278803081520536,
+      5.278803081531812
+     ],
+     "maxRad": 1.816324868286756e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       224.3449098021705,
+       224.34490980852567
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       54.141426411849004,
+       54.14142641314438
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1044
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6759461562004612,
+     "intercept": 5.2788499398302005,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6759461562015069,
+      -0.6759461561994154
+     ],
+     "intercept": [
+      5.278849939824567,
+      5.278849939835834
+     ],
+     "maxRad": 1.7896795156957523e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       224.34444507740588,
+       224.34444508375705
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       54.142026918252185,
+       54.142026919546716
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1044,
+    "printed": {
+     "coefficient": -0.676,
+     "intercept": 5.279
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.676,
+     "intercept": 5.279
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2025-11-18",
+    "p50": {
+     "estimate": 224.325884,
+     "ci": [
+      139.565157,
+      379.235434
+     ],
+     "certified": [
+      224.34444507740588,
+      224.34444508375705
+     ],
+     "inside": false,
+     "relativeGap": 8.273475971578075e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 54.142849,
+     "ci": [
+      25.650451,
+      103.295501
+     ],
+     "certified": [
+      54.142026918252185,
+      54.142026919546716
+     ],
+     "inside": false,
+     "relativeGap": 1.5183800729413554e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "Gemini 3.1 Pro": {
+   "alias": "Gemini 3.1 Pro",
+   "key": "gemini_3_1_pro",
+   "release_date": null,
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6610787099245459,
+     "intercept": 5.675804895515881,
+     "newtonIterations": 10
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6610787099256115,
+      -0.6610787099234803
+     ],
+     "intercept": [
+      5.675804895509674,
+      5.675804895522089
+     ],
+     "maxRad": 2.504663143554353e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       384.1888629675755,
+       384.1888629799502
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       89.80060579283716,
+       89.80060579530898
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1364,
+    "printed": {
+     "coefficient": -0.661,
+     "intercept": 5.676
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.661,
+     "intercept": 5.676
+    }
+   },
+   "site": {
+    "is_sota": false,
+    "release_date": "2026-02-19",
+    "p50": {
+     "estimate": 384.147435,
+     "ci": [
+      233.50073,
+      694.750898
+     ],
+     "certified": [
+      384.1888629675755,
+      384.1888629799502
+     ],
+     "inside": false,
+     "relativeGap": 0.00010783232920975847,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 89.801503,
+     "ci": [
+      52.025934,
+      158.618017
+     ],
+     "certified": [
+      89.80060579283716,
+      89.80060579530898
+     ],
+     "inside": false,
+     "relativeGap": 9.991103678143908e-06,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "human": {
+   "alias": "human",
+   "key": "human",
+   "release_date": null,
+   "runsFile": {
+    "n_tasks": 188,
+    "candidate": {
+     "slope": -0.4447876644177658,
+     "intercept": 2.9950704535487374,
+     "newtonIterations": 7
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.4447876644187848,
+      -0.4447876644167468
+     ],
+     "intercept": [
+      2.995070453545617,
+      2.9950704535518575
+     ],
+     "maxRad": 6.328271240363392e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       106.42611894327051,
+       106.42611894658222
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       12.269061861846065,
+       12.269061862106373
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 773
+   }
+  },
+  "o1 (Inspect)": {
+   "alias": "o1 (Inspect)",
+   "key": "o1_inspect",
+   "release_date": "2024-12-05",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5650541474364478,
+     "intercept": 2.982994429800361,
+     "newtonIterations": 7
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5650541474374621,
+      -0.5650541474354335
+     ],
+     "intercept": [
+      2.982994429797291,
+      2.9829944298034308
+     ],
+     "maxRad": 4.440892098500626e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       38.83081889904477,
+       38.830818899847536
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       7.0898102296367425,
+       7.089810229740019
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1044
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.5650534120497429,
+     "intercept": 2.982989777180757,
+     "newtonIterations": 7
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.5650534120507575,
+      -0.5650534120487283
+     ],
+     "intercept": [
+      2.982989777177685,
+      2.9829897771838287
+     ],
+     "maxRad": 4.529709940470639e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       38.8307822013824,
+       38.830782202185524
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       7.089787838294639,
+       7.089787838397964
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1044,
+    "printed": {
+     "coefficient": -0.565,
+     "intercept": 2.983
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.565,
+     "intercept": 2.983
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2024-12-05",
+    "p50": {
+     "estimate": 38.831588,
+     "ci": [
+      21.164512,
+      64.95249
+     ],
+     "certified": [
+      38.8307822013824,
+      38.830782202185524
+     ],
+     "inside": false,
+     "relativeGap": 2.0751542253940472e-05,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 7.090121,
+     "ci": [
+      3.036033,
+      16.640636
+     ],
+     "certified": [
+      7.089787838294639,
+      7.089787838397964
+     ],
+     "inside": false,
+     "relativeGap": 4.699177365520601e-05,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "o1-preview": {
+   "alias": "o1-preview",
+   "key": "o1_preview",
+   "release_date": "2024-09-12",
+   "runsFile": {
+    "n_tasks": 213,
+    "candidate": {
+     "slope": -0.629820941380409,
+     "intercept": 2.7368846740899686,
+     "newtonIterations": 7
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6298209413814263,
+      -0.6298209413793917
+     ],
+     "intercept": [
+      2.7368846740871398,
+      2.7368846740927975
+     ],
+     "maxRad": 4.6629367034256575e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       20.329410335109635,
+       20.329410335434115
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       4.4210946780272495,
+       4.421094678076019
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1661
+   },
+   "live": {
+    "n_tasks": 213,
+    "candidate": {
+     "slope": -0.6298201729754966,
+     "intercept": 2.736880161863878,
+     "newtonIterations": 7
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6298201729765143,
+      -0.629820172974479
+     ],
+     "intercept": [
+      2.736880161861048,
+      2.7368801618667082
+     ],
+     "maxRad": 4.75175454539567e-14
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       20.32938408822374,
+       20.32938408854835
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       4.421080740679002,
+       4.421080740727794
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1661,
+    "printed": {
+     "coefficient": -0.63,
+     "intercept": 2.737
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.63,
+     "intercept": 2.737
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2024-09-12",
+    "p50": {
+     "estimate": 20.326586,
+     "ci": [
+      11.716193,
+      33.379877
+     ],
+     "certified": [
+      20.32938408822374,
+      20.32938408854835
+     ],
+     "inside": false,
+     "relativeGap": 0.0001376376449087926,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 4.420545,
+     "ci": [
+      2.012646,
+      8.912444
+     ],
+     "certified": [
+      4.421080740679002,
+      4.421080740727794
+     ],
+     "inside": false,
+     "relativeGap": 0.00012117867987899774,
+     "insideBootstrapCI": true
+    }
+   }
+  },
+  "o3 (Inspect)": {
+   "alias": "o3 (Inspect)",
+   "key": "o3_inspect",
+   "release_date": "2025-04-16",
+   "runsFile": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6939566785705277,
+     "intercept": 4.790848845494354,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6939566785715627,
+      -0.6939566785694926
+     ],
+     "intercept": [
+      4.790848845489311,
+      4.790848845499397
+     ],
+     "maxRad": 1.2745360322696797e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       119.73252986457136,
+       119.73252986748754
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       29.98157671748073,
+       29.981576718087062
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1044
+   },
+   "live": {
+    "n_tasks": 228,
+    "candidate": {
+     "slope": -0.6939559701183827,
+     "intercept": 4.790843862642025,
+     "newtonIterations": 8
+    },
+    "certified": true,
+    "rounds": 1,
+    "box": {
+     "slope": [
+      -0.6939559701194178,
+      -0.6939559701173477
+     ],
+     "intercept": [
+      4.790843862636982,
+      4.790843862647068
+     ],
+     "maxRad": 1.2789769243681803e-13
+    },
+    "horizons": {
+     "0.5": {
+      "minutes": [
+       119.73251887020378,
+       119.73251887311996
+      ],
+      "verdict": "ENCLOSED"
+     },
+     "0.8": {
+      "minutes": [
+       29.981531582456494,
+       29.98153158306284
+      ],
+      "verdict": "ENCLOSED"
+     }
+    },
+    "runs": 1044,
+    "printed": {
+     "coefficient": -0.694,
+     "intercept": 4.791
+    },
+    "coefficientsVerdict": "REPRODUCED",
+    "coefficientsCertifiedRounded": {
+     "coefficient": -0.694,
+     "intercept": 4.791
+    }
+   },
+   "site": {
+    "is_sota": true,
+    "release_date": "2025-04-16",
+    "p50": {
+     "estimate": 119.732634,
+     "ci": [
+      74.615398,
+      190.943818
+     ],
+     "certified": [
+      119.73251887020378,
+      119.73251887311996
+     ],
+     "inside": false,
+     "relativeGap": 9.61558291051086e-07,
+     "insideBootstrapCI": true
+    },
+    "p80": {
+     "estimate": 29.981603,
+     "ci": [
+      15.127348,
+      57.823511
+     ],
+     "certified": [
+      29.981531582456494,
+      29.98153158306284
+     ],
+     "inside": false,
+     "relativeGap": 2.3820512074003744e-06,
+     "insideBootstrapCI": true
+    }
+   },
+   "post": {
+    "th11": [
+     121,
+     74,
+     201
+    ],
+    "certifiedRounded": 120.0,
+    "verdict": "DIFFERS",
+    "relativeGap": 0.010585938893482336
+   }
+  }
+ },
+ "trend": {
+  "certified": {
+   "from_2023_on": {
+    "agents": [
+     "Claude 3.5 Sonnet (New) (Inspect)",
+     "Claude 3.5 Sonnet (Old) (Inspect)",
+     "Claude 3.7 Sonnet (Inspect)",
+     "Claude Opus 4.5 (Inspect)",
+     "Claude Opus 4.6 (Inspect)",
+     "GPT-4 0314",
+     "GPT-4 1106 (Inspect)",
+     "GPT-4o (Inspect)",
+     "GPT-5 (Inspect)",
+     "GPT-5.2",
+     "Gemini 3 Pro",
+     "o1 (Inspect)",
+     "o1-preview",
+     "o3 (Inspect)"
+    ],
+    "n": 14,
+    "verdict": "ENCLOSED",
+    "slopeBitsPerDay": [
+     0.007767572975212326,
+     0.007767572975301208
+    ],
+    "doublingDays": [
+     128.74034182617024,
+     128.74034182764345
+    ],
+    "since": "2023-01-01",
+    "excludedOverMinutes": 960
+   },
+   "from_2024_on": {
+    "agents": [
+     "Claude 3.5 Sonnet (New) (Inspect)",
+     "Claude 3.5 Sonnet (Old) (Inspect)",
+     "Claude 3.7 Sonnet (Inspect)",
+     "Claude Opus 4.5 (Inspect)",
+     "Claude Opus 4.6 (Inspect)",
+     "GPT-4o (Inspect)",
+     "GPT-5 (Inspect)",
+     "GPT-5.2",
+     "Gemini 3 Pro",
+     "o1 (Inspect)",
+     "o1-preview",
+     "o3 (Inspect)"
+    ],
+    "n": 12,
+    "verdict": "ENCLOSED",
+    "slopeBitsPerDay": [
+     0.009550767524028347,
+     0.009550767524183181
+    ],
+    "doublingDays": [
+     104.70362695646534,
+     104.7036269581628
+    ],
+    "since": "2024-01-01",
+    "excludedOverMinutes": 960
+   }
+  },
+  "printed": {
+   "all_time_stitched": {
+    "point_estimate": 187.778
+   },
+   "from_2023_on": {
+    "ci_high": 158.012,
+    "ci_low": 104.428,
+    "point_estimate": 128.744
+   }
+  },
+  "post": {
+   "all": {
+    "th1": "195.8 [162, 223]",
+    "th11": "196.5",
+    "th11Note": "the stitched trend, TH1.0 estimates for pre-2023 models"
+   },
+   "from2023": {
+    "th1": "165.3 [129, 211]",
+    "th11": 130.8,
+    "th11ci": [
+     107,
+     161
+    ]
+   },
+   "from2024": {
+    "th1": 108.9,
+    "th11": 88.6
+   }
+  }
+ },
+ "counts": {
+  "runsFileAgents": 21,
+  "liveAgents": 23,
+  "siteResults": 26,
+  "certified": 44,
+  "fits": 44
+ },
+ "seconds": 116.5
+}

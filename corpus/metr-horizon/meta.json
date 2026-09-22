@@ -1,0 +1,26 @@
+{
+ "what": "METR's Time Horizon 1.1 evidence, held at one commit of their public analysis repository and one fetch of their site: the raw runs the headline fit is made from, the release dates, the pipeline parameters, the Time Horizon 1.1 post as published, and the two data files behind the live metr.org/time-horizons chart. Re-hashed by the ledger runner at every run.",
+ "repository": {
+  "repo": "github.com/METR/eval-analysis-public",
+  "commit": "52cb829c7a2efb2d659285c4b1768d191d97f8d2",
+  "committed": "2026-03-06T00:59:28Z",
+  "license": "see the repository",
+  "fetched": "2026-09-22",
+  "files": {
+   "runs-1-1.jsonl": {"path": "reports/time-horizon-1-1/data/raw/runs.jsonl", "sha256": "609f904f4b6ae32129388da89d036e00bac511ad94223d2be1e58fc2b45b55cd", "bytes": 15008064, "rows": 24008},
+   "release_dates.yaml": {"path": "data/external/release_dates.yaml", "sha256": "317b92915df5bf935908567a857116bcf6f0c7686ef8b0840897ed04a29232bc"},
+   "figs-1-1.yaml": {"path": "reports/time-horizon-1-1/fig_params/figs.yaml", "sha256": "6830ffd2b5dc9922313c2c0120b113cdf31b2334058f0b79bf6d7eebf85de8d1"},
+   "params-1-1.yaml": {"path": "reports/time-horizon-1-1/params.yaml", "sha256": "2ad30555e1b329ae01897e9f16fab09ecbd2d2f31a320711677860e2cc1656af"}
+  },
+  "estimatorFiles": "src/horizon/utils/logistic.py, src/horizon/wrangle/logistic.py, src/horizon/compute_task_weights.py at the same commit, read (not held): sklearn LogisticRegression(C = 1/regularization) on x = log2(human_minutes) with per-run sample weights; the horizon is 2^((logit p − intercept)/coef)"
+ },
+ "site": {
+  "fetched": "2026-09-22",
+  "files": {
+   "blog-time-horizon-1-1.html": {"url": "https://metr.org/blog/2026-1-29-time-horizon-1-1/", "sha256": "a039669837a3bf2c7e39110fbfc795a0b47d5b87154aa6cdd367da6c2630ad2c", "published": "2026-01-29"},
+   "benchmark_results_1_1.yaml": {"url": "https://metr.org/assets/benchmark_results_1_1.yaml", "sha256": "aae31902b0519a4da73e16643915e5e8aca13cd3315c3aac893ce3d6dfe92ad9", "note": "the per-model p50/p80 estimates and bootstrap intervals, is_sota flags, release dates and the doubling times the live chart draws; the page says 'updated May 8, 2026'"},
+   "task_results_1_1.yaml": {"url": "https://metr.org/assets/task_results_1_1.yaml", "sha256": "4f85fbf03cbf8b43af102ff17db6bbb4963b3c98784e90f81fb71a146cf26b07", "note": "per agent: the fitted coefficient and intercept to three decimals, the release date, and every task with its human minutes, successes, runs and task weight — the aggregated form of the runs the live fits were made from"}
+  }
+ },
+ "note": "The runs file predates the site files by two months and holds 21 aliases; the site files hold the agents of the May chart. Where an agent is in both, the two fits are made and compared; nothing is read from the pipeline's DVC cache, which is not public."
+}

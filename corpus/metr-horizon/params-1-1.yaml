@@ -1,0 +1,254 @@
+log_level: INFO
+n_bootstrap: 1_000
+plot_format: png
+
+benchmark:
+  name: METR-Horizon-v1.1
+  # mp4-tasks commit
+  long_tasks_version: 799cc9c4b4483a93fc3445623a49ea1bd74fdeb2
+  # inspect-tasks commit
+  swaa_version: f6cc84052e2a79dd540766c8a1b15ff399696371
+
+weighting:
+  - weight_col: equal_task_weight
+    graph_snippet: Equally weighted tasks
+  - weight_col: invsqrt_task_weight
+    graph_snippet: Tasks diversity-weighted
+  - weight_col: null
+    graph_snippet: "None"
+
+agent_summary:
+  agents:
+    - GPT-5.2
+    - Gemini 3 Pro
+    - Claude 3 Opus (Inspect)
+    - Claude 3.5 Sonnet (Old) (Inspect)
+    - Claude 3.5 Sonnet (New) (Inspect)
+    - Claude 3.7 Sonnet (Inspect)
+    - Claude 4 Opus (Inspect)
+    - Claude 4.1 Opus (Inspect)
+    - Claude Opus 4.5 (Inspect)
+    - Claude Opus 4.6 (Inspect)
+    - GPT-4 1106 (Inspect)
+    - GPT-4o (Inspect)
+    - GPT-4 Turbo (Inspect)
+    - o3 (Inspect)
+    - o1 (Inspect)
+    - GPT-5 (Inspect)
+    - GPT-5.1-Codex-Max (Inspect)
+    - GPT-5.3-Codex
+    - o1-preview
+    - GPT-4 0314
+
+plots:
+  suptitle_fontsize: 13
+  xlabelpad: 10
+  ylabelpad: 10
+  ax_label_fontsize: 14
+  title_fontsize: 16
+  annotation_fontsize: 14
+  xtick_labelsize: 14
+  ytick_labelsize: 14
+  legend_fontsize: 14
+
+  task_distribution_styling:
+    hist:
+      edgecolor: "#a6a6a6"
+      color: "#d4d4d4"
+      alpha: 1
+      linewidth: 1
+      zorder: 50
+    grid: &grid_styling
+      which: "major"
+      linestyle: "-"
+      alpha: 0.2
+      color: "grey"
+
+  scatter_styling:
+    error_bar:
+      color: "grey"
+      fmt: "none"
+      capsize: 2
+      alpha: 1
+      zorder: 9
+      linewidth: 1.5
+      capthick: 1.5
+    grid: *grid_styling
+    scatter:
+      s: 150
+      edgecolor: "black"
+      linewidth: 0.5
+      zorder: 10
+
+  agent_styling:
+    "Gemini 3 Pro":
+      lab_color: "#4285F4"
+      marker: "p"
+      unique_color: "#4285F4"
+    "Claude 4 Opus (Inspect)":
+      lab_color: &anthropic_color "#d97757"
+      marker: "*"
+      unique_color: "#9C5EDA"
+    "Claude 4.1 Opus (Inspect)":
+      lab_color: *anthropic_color
+      marker: "h"
+      unique_color: "#A86ED9"
+    "Claude Opus 4.5 (Inspect)":
+      lab_color: *anthropic_color
+      marker: ">"
+      unique_color: "#9C5EDA"
+    "Claude Opus 4.6 (Inspect)":
+      lab_color: *anthropic_color
+      marker: "<"
+      unique_color: "#8A4ED0"
+    "Claude 3.7 Sonnet (Inspect)":
+      lab_color: *anthropic_color
+      marker: "D"
+      unique_color: "#9C5EDA"
+    "Claude 3.5 Sonnet (New) (Inspect)":
+      lab_color: *anthropic_color
+      marker: "s"
+      unique_color: "#8B4DC9"
+    "Claude 3.5 Sonnet (Old) (Inspect)":
+      lab_color: *anthropic_color
+      marker: "^"
+      unique_color: "#9B6BE0"
+    "Claude 3 Opus (Inspect)":
+      lab_color: *anthropic_color
+      marker: "o"
+      unique_color: "#B594E8"
+    "o3 (Inspect)":
+      lab_color: &openai_color "#18a683"
+      marker: "*"
+      unique_color: "#42AB42"
+    "GPT-5 (Inspect)":
+      lab_color: *openai_color
+      marker: "p"
+      unique_color: "#5AB2FA"
+    "GPT-5.1-Codex-Max (Inspect)":
+      lab_color: *openai_color
+      marker: ">"
+      unique_color: "#5AB2FA"
+    "GPT-5.2":
+      lab_color: *openai_color
+      marker: "o"
+      unique_color: "#4AA0E8"
+    "GPT-5.3-Codex":
+      lab_color: *openai_color
+      marker: "H"
+      unique_color: "#3A90D8"
+    "o1 (Inspect)":
+      lab_color: *openai_color
+      marker: "P"
+      unique_color: "#228B22"
+    "o1-preview (Inspect)":
+      lab_color: *openai_color
+      marker: "X"
+      unique_color: "#3CB371"
+    "GPT-4o (Inspect)":
+      lab_color: *openai_color
+      marker: "d"
+      unique_color: "#2B8FB0"
+    "GPT-4 Turbo (Inspect)":
+      lab_color: *openai_color
+      marker: "v"
+      unique_color: "#4A9CBD"
+    "GPT-4 1106 (Inspect)":
+      lab_color: *openai_color
+      marker: "D"
+      unique_color: "#87CEEB"
+    "gpt-3.5-turbo-instruct (Inspect)":
+      lab_color: *openai_color
+      marker: "^"
+      unique_color: "#CCE6FF"
+    "davinci-002 (GPT-3) (Inspect)":
+      lab_color: *openai_color
+      marker: "o"
+      unique_color: "#B3E0FF"
+    "GPT-2 (Inspect)":
+      lab_color: *openai_color
+      marker: "*"
+      unique_color: "#CCE6FF"
+    "GPT-2":
+      lab_color: *openai_color
+      marker: "*"
+      unique_color: "#CCE6FF"
+    "o1-preview":
+      lab_color: *openai_color
+      marker: "D"
+      unique_color: "#42AB42"
+    "GPT-4 0314":
+      lab_color: *openai_color
+      marker: "*"
+      unique_color: "#2B8FB0"
+    "human":
+      lab_color: "grey"
+      marker: "o"
+      unique_color: "#858585"
+    "best human for each task":
+      lab_color: "gold"
+      marker: "o"
+      unique_color: "#FFD700"
+    "default":
+      lab_color: "black"
+      marker: "o"
+      unique_color: "black"
+
+  # TODO: this is actually something only the logistic plots depend on
+  performance_over_time_trendline_styling:
+    "exponential":
+      line:
+        color: "blue"
+        alpha: 0.5
+        linewidth: 2
+
+  legend_order:
+    - Claude Opus 4.6 (Inspect)
+    - Claude Opus 4.5 (Inspect)
+    - Claude 4 Opus (Inspect)
+    - Claude 4.1 Opus (Inspect)
+    - Gemini 3 Pro
+    - Claude 3.7 Sonnet (Inspect)
+    - Claude 3.5 Sonnet (New) (Inspect)
+    - Claude 3.5 Sonnet (Old) (Inspect)
+    - Claude 3 Opus (Inspect)
+    - GPT-4 1106 (Inspect)
+    - GPT-4o (Inspect)
+    - o1-preview
+    - GPT-4 0314
+    - GPT-4 Turbo (Inspect)
+    - GPT-2
+    - o3 (Inspect)
+    - o1 (Inspect)
+    - GPT-5 (Inspect)
+    - GPT-5.1-Codex-Max (Inspect)
+    - GPT-5.2
+    - GPT-5.3-Codex
+
+  score_over_resource_line:
+    y_params:
+      equal_task_weight:
+        y_col_lims: [0, 1]
+        y_label: "Weighted Success Rate"
+        subtitle: "Weighting Tasks Equally"
+      invsqrt_task_weight:
+        y_col_lims: [0, 1]
+        y_label: "Weighted Success Rate"
+        subtitle: "Weighted by Task Diversity"
+      p50:
+        y_col_lims: [0.5, 1920]
+        y_label: "50% Time Horizon"
+        subtitle: "50% Time Horizon"
+    x_params:
+      generation_cost:
+        by_title: "by Cost"
+        x_label: "Max Cost per Run ($)"
+        x_col_lims: [0.001, 10000]
+      action_count:
+        by_title: "by Actions"
+        x_label: "Max Actions per Run"
+        x_col_lims: [0.001, 10000]
+      tokens_count:
+        by_title: "by Token Count"
+        x_label: "Allowed Tokens per Run"
+        x_col_lims: [1000, 100000000]

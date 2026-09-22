@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-21 night, METR DELIVERABLES 1 AND 3 ARE BUILT; 2 waits on Console credit and baseline rows)
+## TASKS BACKLOG — the standing menu (updated 2026-09-22, METR DELIVERABLES 1 AND 3 BUILT, THE TIME-HORIZON INSTRUMENT BUILT AND CALIBRATED ON METR'S DATA; 2's own runs wait on Console credit and baseline rows)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -61,9 +61,10 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
   0c. NEXT: deliverable 2 (the certified time-horizon curve) needs BOTH the
      frontier runs (credit) and human baseline rows — nothing else is in the
      way; deliverable 3 is DONE (0g below); deliverables 4 and 5 follow 2.
-     Until the credit and the rows arrive, the useful work is deliverable 5's
-     Python-first half (port the Krawczyk step, or the plan to call the Node
-     instrument and pin its output) and the packet's resume draft.
+     The fit is DONE (0h below, Python-first, calibrated on METR's data); what
+     remains for 2 is our own runs and the baseline rows. Until they arrive:
+     the packet's resume and cover-note drafts (deliverable 5), and the
+     three-audience write-up (4) can be drafted on the METR calibration.
   0d. TWO THINGS LEARNED THAT ARE WORTH KNOWING: (i) on the blind rung every
      task has the SAME prompt (that is what the rung withholds), so a mock
      model that reads only the message list cannot tell tasks apart — the
@@ -108,6 +109,40 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
      fragments and algebra — 318 test / 1,711 train equations UNREAD, counted,
      never guessed. Two train witnesses are notation read as arithmetic ("day
      1 * 2", "Weeks 1-2"); listed, not excused, and the page says so.
+  0h. THE TIME-HORIZON INSTRUMENT IS BUILT AND CALIBRATED ON METR'S OWN DATA
+     (deliverable 2's fit, done Python-first as deliverable 5 asks, while 2's
+     runs wait on credit): instruments/horizon — interval.py (a stdlib
+     interval library: outward rounding by math.nextafter, exp/log/2^x from
+     rational series with proved tails, no code shared with instruments/
+     interval in JS), fit.py (METR's penalised logistic estimator as the
+     unique zero of its score; float Newton for the candidate; Krawczyk in
+     intervals for the box; the horizon 2^((logit q − b)/w) as an enclosure),
+     data.py (the raw runs aggregated per task EXACTLY — Σ(w/n)(y_r − p) =
+     w(ȳ − p) — and the site's two yaml files parsed without a library).
+     corpus/metr-horizon pins the repository's runs (commit 52cb829, 24,008
+     runs, 21 aliases), release dates, figs/params, the 29 Jan post and the two
+     files behind the live chart (fetched 2026-09-22; the page says updated
+     8 May). tools/run-horizon-ledger.py → certs/horizon-ledger.json (44
+     fits in 2 min on 8 cores). THE FINDING: 44/44 certified, boxes < 1e-10;
+     the site's printed coefficients are the rounding of the box for 22 of
+     23 models (Mythos Preview's intercept prints 5.582, the box rounds to
+     5.583); the site's p50 estimates lie 1e-6 … 2e-4 relative from the
+     enclosure and NEVER inside it (L-BFGS at a tolerance next to a proof);
+     every enclosure inside METR's bootstrap CI; the post-2023 doubling time
+     re-derives from the 14 SOTA models as 128.740 days (site prints 128.744,
+     the CI [104.4, 158.0]); from 2024, 104.7 over 12 (the post's 88.6 was
+     January's set); the January post's seven TH1.1 horizons match the May
+     file for one model (Claude 3.7 Sonnet, 60) and moved 3–12 % for six —
+     METR's own numbers moved as runs were added; the March runs and the May
+     file agree to 2e-4 on the 20 shared models. reports/time-horizon.html
+     (tools/build-report-horizon.js; every sentence gated): the 23 enclosures
+     as capsules with the site's dots on them, the trend scatter with the
+     certified line, three tables. instruments/horizon/battery.py (29 checks,
+     6 reds; re-certifies one agent live, 15 s) on make test and the control
+     page; shelf row; site card; targets row metr-time-horizon-certified.
+     The Krawczyk step is PORTED to Python (not called from Node) — stated,
+     as the plan asks. What the bootstrap is NOT: re-decided (a random draw
+     is not a theorem); the certified box is the optimiser's uncertainty.
   0f. OPEN ROLES SCOUTED on the operator's mid-session word ("find more open
      roles that will fit my portfolio, any company, any field, remote from
      Brazil as well"): notes/open-roles-2026-09-21.md — ~65 roles verified on
@@ -426,6 +461,83 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  EIGHTEENTH SESSION, continued (2026-09-22, small hours) — THE TIME-HORIZON
+  INSTRUMENT BUILT PYTHON-FIRST AND CALIBRATED ON METR'S OWN TIME HORIZON 1.1
+  EVIDENCE: 44 OF 44 FITS CERTIFIED, THE PRINTED NUMBERS READ AGAINST THE
+  ENCLOSURES, THE DOUBLING TIME RE-DERIVED TO THE PRINTED DIGIT.
+  COMMITTED · make test 92/92 · control 92/92 · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "Continue". Deliverable 2 still waits on credit and
+    baseline rows; its FIT is the part that needs neither, and deliverable 5
+    asks for it in Python with the Krawczyk step ported or called — so the
+    instrument was built now and proved on the one time-horizon dataset that
+    exists, METR's.
+
+  ── 1 · THE EVIDENCE ── METR/eval-analysis-public at commit 52cb829 (pushed
+    2026-03-06): reports/time-horizon-1-1/data/raw/runs.jsonl (24,008 runs,
+    21 aliases incl. `human`, HCAST/SWAA/RE-Bench, human_minutes 0.02–1800,
+    the two weight columns precomputed), release_dates.yaml, params and
+    figs.yaml (weighting invsqrt_task_weight, regularization 1e-5). The
+    pipeline's fitted metrics are DVC-cached, NOT in git. The live page
+    metr.org/time-horizons loads /assets/benchmark_results_1_1.yaml (26
+    models: p50/p80 estimate, bootstrap CI, is_sota, the doubling time
+    128.744 [104.4, 158.0] "excluding p50 > 16 hrs") and /assets/
+    task_results_1_1.yaml (23 agents: coefficient and intercept to three
+    decimals; every task's minutes, successes, runs, weight) — found by
+    reading time-horizon-chart.js. The 29 Jan post's tables transcribed into
+    corpus/metr-horizon/claims.json. All seven files sha-pinned in meta.json.
+
+  ── 2 · THE INSTRUMENT ── instruments/horizon, standard library only:
+    interval.py (float intervals with outward rounding by math.nextafter;
+    exp by Taylor with Lagrange remainder after reduction x = k·ln2 + r, ln2
+    from its own series with a geometric tail; log by 2·atanh with a tail;
+    2^x = exp(x ln2); every enclosure rational until the last rounding);
+    fit.py (the estimator as METR's: scikit-learn's penalised logistic
+    regression is the unique zero of F(w,b) = (λw − Σ s(y−p)x, −Σ s(y−p));
+    damped float Newton for the candidate; Krawczyk K(X) = x0 − A F(x0) +
+    (I − A J(X))(X − x0) in intervals, the radius doubling until K(X) ⊂ int X
+    or the exp range is left, which refuses; the horizon 2^((logit q − b)/w)
+    over the box); data.py (runs aggregated per task exactly — the score of
+    a task's runs is w(ȳ − p) — so 228 rows stand for a thousand and a fit
+    takes 13 s; the two yaml files parsed by their fixed shape). The float
+    logistic overflowed on Opus 4.5 during a Newton backtrack; σ(z) is now
+    the stable two-branch form.
+
+  ── 3 · THE FINDING ── certs/horizon-ledger.json (tools/run-horizon-ledger.
+    py, 44 fits in parallel, 2 min): every fit certified with box radius
+    below 1e-10 (typically 1e-13). Live file vs the site: the printed
+    coefficients are the rounding of the box for 22 of 23 (Mythos Preview:
+    intercept printed 5.582, box 5.58269 → 5.583); the p50 estimates lie
+    1e-6 … 1.8e-4 relative from the enclosure and never inside it — L-BFGS
+    stopped at its tolerance — and every enclosure sits inside the site's
+    bootstrap CI. Trend: over the site's is_sota models with p50 ≤ 960 min
+    from 2023 (14 models) the exact least-squares line gives 128.7403 days
+    per doubling as an enclosure 1.5e-9 wide; the site prints 128.744. From
+    2024 (12 models): 104.70; the post's 88.6 was January's set. The post's
+    Table 1 (seven TH1.1 horizons): Claude 3.7 Sonnet 60 REPRODUCED; the
+    other six DIFFER by 3–12 % from the May file — and the site's own May
+    estimates moved the same way (Opus 4.5: 320 → 293). Runs were added
+    between the post and the chart; the March runs file already gives the
+    May numbers to 2e-4 on the 20 shared aliases. The `human` alias fits to
+    a 106-minute horizon — reported as a curiosity.
+
+  ── 4 · THE PAGE AND THE GATES ── reports/time-horizon.html (tools/build-
+    report-horizon.js): CH.intervals with 23 capsules (the enclosures; hair-
+    line, end caps) and the site's dots on them; CH.scatter of the trend with
+    the certified line; the fits table, the post-vs-chart table, the trend
+    table; §4 says what the instrument is for. Gates: 44 certified, 22/23
+    coefficients, the gap band, no estimate inside, every enclosure inside
+    the CI, 128.74 to 1e-4, the post 1/7, the human alias certified, the
+    16-hour rule leaving Opus 4.6 in and Mythos out. instruments/horizon/
+    battery.py: 29 checks, 6 reds — the first version compared 1e-48-wide
+    enclosures with 20-digit literals and "failed"; the literal's own error
+    (5e-21) is now allowed, which is what a containment test against a
+    rounded reference has to do. Battery on make test and the control page;
+    shelf row; site card; targets row; the ratchets accept the new page.
+    NOTHING SENT.
 
 ══════════════════════════════════════════════════════════════════════════
   EIGHTEENTH SESSION, continued (2026-09-21, night) — METR DELIVERABLE 3: GSM8K'S

@@ -1,0 +1,301 @@
+{
+ "what": "What METR prints about the 50 % time horizon on its Time Horizon 1.1 task suite, transcribed from the pinned post (metr.org/blog/2026-1-29-time-horizon-1-1, sha256 in meta.json) — nothing in this file is computed here. The ledger (certs/horizon-ledger.json) decides against it.",
+ "post": {
+  "title": "Time Horizon 1.1",
+  "url": "https://metr.org/blog/2026-1-29-time-horizon-1-1/",
+  "date": "2026-01-29",
+  "method": "for each model, a logistic regression of run success on log2(human minutes), runs weighted by task and by the inverse square root of the task family's size (figs.yaml: weighting invsqrt_task_weight, regularization 0.00001), the 50 % horizon read off the fitted curve; confidence intervals by bootstrapping over task families, tasks and runs; the doubling time from a trend of log2 horizon against release date over the models that were state of the art at release",
+  "suite": {
+   "tasks": 228,
+   "tasks8hPlus": 31,
+   "tasks8hPlusHumanBaselined": 5,
+   "tasksNew": 73,
+   "tasksRemoved": 15,
+   "models": 14,
+   "sotaModels": 11
+  },
+  "doublingTimeDays": {
+   "all": {
+    "th1": "195.8 [162, 223]",
+    "th11": "196.5",
+    "th11Note": "the stitched trend, TH1.0 estimates for pre-2023 models"
+   },
+   "from2023": {
+    "th1": "165.3 [129, 211]",
+    "th11": 130.8,
+    "th11ci": [
+     107,
+     161
+    ]
+   },
+   "from2024": {
+    "th1": 108.9,
+    "th11": 88.6
+   }
+  },
+  "table1": {
+   "what": "Table 'TH1 / TH1.1 / Change': the 50 % time horizon in minutes with the 95 % bootstrap interval, per model, on the two suites",
+   "rows": [
+    {
+     "model": "Claude Opus 4.5",
+     "alias": "Claude Opus 4.5 (Inspect)",
+     "th1": [
+      289,
+      110,
+      1268
+     ],
+     "th11": [
+      320,
+      170,
+      729
+     ],
+     "change": "+11%"
+    },
+    {
+     "model": "GPT-5.1-codex-max",
+     "alias": "GPT-5.1-Codex-Max (Inspect)",
+     "th1": [
+      173,
+      81,
+      411
+     ],
+     "th11": null
+    },
+    {
+     "model": "Claude Sonnet 4.5",
+     "alias": null,
+     "th1": [
+      122,
+      59,
+      252
+     ],
+     "th11": null
+    },
+    {
+     "model": "GPT-5",
+     "alias": "GPT-5 (Inspect)",
+     "th1": [
+      138,
+      68,
+      281
+     ],
+     "th11": [
+      214,
+      117,
+      480
+     ],
+     "change": "+55%"
+    },
+    {
+     "model": "Claude Opus 4.1",
+     "alias": "Claude 4.1 Opus (Inspect)",
+     "th1": [
+      114,
+      56,
+      215
+     ],
+     "th11": null
+    },
+    {
+     "model": "Claude Opus 4",
+     "alias": "Claude 4 Opus (Inspect)",
+     "th1": [
+      86,
+      44,
+      144
+     ],
+     "th11": [
+      101,
+      58,
+      170
+     ],
+     "change": "+18%"
+    },
+    {
+     "model": "Grok 4",
+     "alias": null,
+     "th1": [
+      109,
+      48,
+      235
+     ],
+     "th11": null
+    },
+    {
+     "model": "Claude Sonnet 4",
+     "alias": null,
+     "th1": [
+      75,
+      38,
+      132
+     ],
+     "th11": null
+    },
+    {
+     "model": "o3",
+     "alias": "o3 (Inspect)",
+     "th1": [
+      94,
+      48,
+      165
+     ],
+     "th11": [
+      121,
+      74,
+      201
+     ],
+     "change": "+29%"
+    },
+    {
+     "model": "Claude Sonnet 3.7",
+     "alias": "Claude 3.7 Sonnet (Inspect)",
+     "th1": [
+      56,
+      28,
+      94
+     ],
+     "th11": [
+      60,
+      32,
+      106
+     ],
+     "change": "+7%"
+    },
+    {
+     "model": "GPT-4 1106",
+     "alias": "GPT-4 1106 (Inspect)",
+     "th1": [
+      8.5,
+      4.0,
+      16.1
+     ],
+     "th11": [
+      3.6,
+      1.6,
+      7.5
+     ],
+     "change": "-57%"
+    },
+    {
+     "model": "GPT-4 0314",
+     "alias": "GPT-4 0314",
+     "th1": [
+      5.4,
+      2.5,
+      10.3
+     ],
+     "th11": [
+      3.5,
+      1.6,
+      6.9
+     ],
+     "change": "-35%"
+    }
+   ]
+  },
+  "table2": {
+   "what": "Table 'Vivaria / Inspect': five models run on the TH1 tasks on both infrastructures, minutes [95 % CI]",
+   "rows": [
+    {
+     "model": "GPT-4o",
+     "vivaria": [
+      9.2,
+      4.2,
+      18.1
+     ],
+     "inspect": [
+      6.0,
+      2.8,
+      12.4
+     ]
+    },
+    {
+     "model": "Claude 3.7 Sonnet",
+     "vivaria": [
+      56,
+      29,
+      94
+     ],
+     "inspect": [
+      59,
+      27,
+      114
+     ]
+    },
+    {
+     "model": "o3",
+     "vivaria": [
+      94,
+      49,
+      171
+     ],
+     "inspect": [
+      78,
+      39,
+      150
+     ]
+    },
+    {
+     "model": "Claude Sonnet 4.5",
+     "vivaria": [
+      122,
+      56,
+      247
+     ],
+     "inspect": [
+      164,
+      71,
+      437
+     ]
+    },
+    {
+     "model": "Claude Opus 4.5",
+     "vivaria": [
+      289,
+      104,
+      1285
+     ],
+     "inspect": [
+      270,
+      106,
+      1258
+     ]
+    }
+   ]
+  },
+  "sentences": {
+   "tighter": "We increased the tasks in our suite by 34% (228/170) and doubled the number of tasks that are 8 hours or longer (31/14).",
+   "post2023": "The post-2023 doubling-time is 131 days under TH1.1, compared to 165 days under TH1, meaning progress is estimated to be 20% more rapid under TH1.1.",
+   "post2024": "We also report below the doubling time since 2024: this was at 109 days under TH1, and falls to 89 days under TH1.1.",
+   "shifts": "estimates of recent models shifting up (GPT-5 and Opus 4.5 rise by 55% and 11% respectively)"
+  }
+ },
+ "repository": {
+  "what": "METR/eval-analysis-public at commit 52cb829 (2026-03-06): reports/time-horizon-1-1/data/raw/runs.jsonl (24,008 runs over 21 aliases, HCAST 15,176 · SWAA 8,287 · RE-Bench 545; score_binarized in {0, 1}; human_minutes 0.0199 to 1800; equal_task_weight and invsqrt_task_weight precomputed per alias), data/external/release_dates.yaml, reports/time-horizon-1-1/{params,fig_params/figs}.yaml. The pipeline's metrics outputs (logistic_fits/headline.yaml, agent_summary.csv) are DVC-tracked and NOT in git — the printed numbers above are the post's, and the post predates the repository's push by five weeks.",
+  "estimator": "src/horizon/utils/logistic.py: sklearn LogisticRegression(C = 1/regularization) with sample_weight (the chosen weight column, summing to 1 per agent), x = log2(human_minutes), y = score_binarized; horizon_p = 2^((logit p − intercept)/coef); src/horizon/compute_task_weights.py: equal_task_weight = 1/n_runs_in_task, invsqrt_task_weight = equal_task_weight / sqrt(n_tasks_in_family), each normalised to sum to 1 per agent"
+ },
+ "site": {
+  "what": "the live metr.org/time-horizons page (updated 2026-05-08): benchmark_results_1_1.yaml prints per model the p50/p80 estimate with a bootstrap interval and an is_sota flag; task_results_1_1.yaml prints per agent the fitted coefficient and intercept to three decimals and every task's minutes, successes, runs and weight",
+  "aliasToKey": {
+   "GPT-4 0314": "gpt_4",
+   "Claude 3.5 Sonnet (Old) (Inspect)": "claude_3_5_sonnet_20240620_inspect",
+   "Claude 3.5 Sonnet (New) (Inspect)": "claude_3_5_sonnet_20241022_inspect",
+   "GPT-5 (Inspect)": "gpt_5_2025_08_07_inspect",
+   "Claude Mythos Preview (early)": "claude_mythos_preview_early_inspect"
+  },
+  "aliasToKeyNote": "every other alias maps to its key by lowercasing and replacing non-alphanumerics with underscores; these five are the site's own renamings, transcribed",
+  "doublingTimeDays": {
+   "from_2023_on": {
+    "point_estimate": 128.744,
+    "ci": [
+     104.428,
+     158.012
+    ],
+    "note": "excludes points with central estimate p50 > 16 hrs (the file's own comment)"
+   },
+   "all_time_stitched": {
+    "point_estimate": 187.778
+   }
+  }
+ }
+}

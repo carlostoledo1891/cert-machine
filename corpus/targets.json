@@ -531,6 +531,16 @@
    "page": "reports/gsm8k-audit.html",
    "record": "certs/gsm8k-ledger.json",
    "note": "The framing rule: re-decided, never caught. A printed step that does not hold is a provenance finding about the key text; the answer is usually right. The Inspect-evals and lm-eval scoring rules are pinned by commit in corpus/gsm8k/claims.json. A first draft of this row claimed a fraction-form key ('3/4'); that was an ANNOTATION's right-hand side, not an answer line, and the report builder's gate refused the page — the survey that found it had listed annotations and finals in one list."
+  },
+  {
+   "id": "metr-time-horizon-certified",
+   "name": "METR's time horizon (Kwa, West et al. 2025; Time Horizon 1.1, 2026) re-decided as certificates — the instrument for deliverable 2 of the METR plan, calibrated on their evidence",
+   "verdict": "BUILT 2026-09-22 — instruments/horizon (a stdlib interval library with certified exp/log/2^x; the penalised logistic fit proved unique in a box by Krawczyk; horizons as enclosures) run on METR's raw runs (21 aliases, March 2026) and on the per-task file behind the live chart (23 agents, May 2026): 44 of 44 fits certified, boxes below 1e-10; the site's printed coefficients are the rounding of the box for 22 of 23 (Mythos Preview differs in the third decimal), its p50 estimates lie 1e-6 to 2e-4 relative from the enclosure and never inside it (L-BFGS tolerance), the post-2023 doubling time re-derives as an enclosure at 128.740 days against the printed 128.744; the January post's seven TH1.1 numbers match the May data for one model (Claude 3.7 Sonnet, 60) and differ for six — METR's own numbers moved between the post and the site. OPEN: our own runs (credit) and human baselines for the number this instrument exists to decide",
+   "scouted": "2026-09-22",
+   "finding": "Prior art: METR's paper (arXiv 2503.14499) and the TH1.1 post (2026-01-29) publish point estimates from sklearn's L-BFGS with bootstrap intervals over families, tasks and runs; the public repository holds the raw runs and the estimator but its fitted metrics are DVC-cached (not public); the live page ships benchmark_results_1_1.yaml and task_results_1_1.yaml. Nobody had certified the fit or stated how far a solver's point sits from the true minimiser. The bootstrap intervals are sampling uncertainty and are not re-decided here (a bootstrap is a random draw, not a theorem); the certified box is the optimiser's uncertainty, ten orders of magnitude smaller.",
+   "class": "audit",
+   "page": "reports/time-horizon.html",
+   "record": "certs/horizon-ledger.json"
   }
  ]
 }
