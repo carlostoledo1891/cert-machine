@@ -1,0 +1,27 @@
+{
+ "what": "GSM8K (Cobbe et al. 2021, OpenAI), the grade-school math word-problem set every harness scores by its `#### N` answer line, held at one commit of the authors' repository; and GSM8K-Platinum (Vendrow, Vendrow, Beery, Madry 2025), the human-revised test set, held at one revision of its Hugging Face dataset. Both re-hashed by the ledger runner at every run.",
+ "gsm8k": {
+  "repo": "github.com/openai/grade-school-math",
+  "commit": "3101c7d5072418e28b9008a6636bde82a006892c",
+  "committed": "2021-11-19T21:32:22Z",
+  "license": "MIT",
+  "paper": "Cobbe, Kosaraju, Bavarian, Chen, Jun, Kaiser, Plappert, Tworek, Hilton, Nakano, Hesse, Schulman — Training Verifiers to Solve Math Word Problems, arXiv:2110.14168 (2021)",
+  "fetched": "2026-09-21",
+  "files": {
+   "test.jsonl": {"path": "grade_school_math/data/test.jsonl", "sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14", "bytes": 749738, "rows": 1319},
+   "train.jsonl": {"path": "grade_school_math/data/train.jsonl", "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465", "bytes": 4166206, "rows": 7473}
+  }
+ },
+ "platinum": {
+  "dataset": "huggingface.co/datasets/madrylab/gsm8k-platinum",
+  "revision": "e762492455a1cf7967de89f05b6bef72fc713b66",
+  "lastModified": "2025-03-11T14:48:29Z",
+  "license": "MIT",
+  "paper": "Vendrow, Vendrow, Beery, Madry — Do Large Language Model Benchmarks Test Reliability?, arXiv:2502.03461 (2025); gradientscience.org/gsm8k-platinum",
+  "fetched": "2026-09-21",
+  "how": "the 1,209 rows of config `main`, split `test`, read through the Hugging Face datasets-server rows API in pages of 100 and written one JSON object per line with the three columns the dataset ships (question, answer, cleaning_status); the parquet at the revision above is the dataset's own file and was not parsed here (it needs pyarrow)",
+  "files": {
+   "gsm8k-platinum.jsonl": {"sha256": "a55ad619d3189656a8da0672f92e43f4cf8c115deb51f25de6e258068a2c555c", "rows": 1209}
+  }
+ }
+}

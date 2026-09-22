@@ -11,7 +11,7 @@ here on request.
 
 ---
 
-## LANE M — THE METR PLAN (2026-09-21): deliverable 1 is built; three sends wait, none executed
+## LANE M — THE METR PLAN (2026-09-21): deliverables 1 and 3 are built; three sends wait, none executed
 
 ### M1. The baseline recruiting message — DRAFTED, HELD (the operator sends, one per person)
 File: `outreach/blind-spot-baselines-request-2026-09-21.md`. Five to ten people with a

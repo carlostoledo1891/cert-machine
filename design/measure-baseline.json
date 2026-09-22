@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-09-17",
-  "browser": "Chrome/152.0.7977.83",
+  "recorded": "2026-09-22",
+  "browser": "Chrome/153.0.8010.53",
   "viewports": [
     1440,
     768,
@@ -96,7 +96,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "fae7e704a800591166bdd180ca8d41f085741983125ceb3a1fa9f1d161a8c98a"
+      "sha": "bef44c2ee08c6c0f4957daf725ccda88697bcba50f93474e1ed58ef05ef654d7"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -285,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "c1b07b74c5010e4488780c7b4e9b0d78d802250b3004a176348548e6b01e9be3"
+      "sha": "b5ceff325b2671b7c6fb11c7dc2ed326427798afd801f3c3e1913e278756abd4"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -558,7 +558,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a21735d6be07b7e8dba0458d10b261efbb65d62d1cf2d308face11c79d2e3b4c"
+      "sha": "a14dfb58dfbbeeaa820772839781f7f4d6ae560ac867539540cc5b506afb278a"
     },
     "site/oracle/index.html": {
       "390": {
@@ -579,7 +579,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "26544e01dac18857b1db697c94caead5b2aa938903816e925ed2daa2982ce2dd"
+      "sha": "e444bc558b73dea64bca3837dda0dd6a7c1021563a0214e4a05fb67d8507328d"
     },
     "site/reports/aag.html": {
       "390": {
@@ -1211,6 +1211,27 @@
       },
       "sha": "56dd33d13c34bd447079c78e30a54c5d481027622db4274a9fd36351de6edb44"
     },
+    "site/reports/gsm8k-audit.html": {
+      "390": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 3
+      },
+      "768": {
+        "spines": 6,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "1440": {
+        "spines": 11,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "edd80589187ecf775d980f9cb44bfe72996d053cb826ff0bd1984ea0f57852e0"
+    },
     "site/reports/gym.html": {
       "390": {
         "spines": 5,
@@ -1314,7 +1335,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "018fd5a6d0976abdb869108cb07b2408f9874d1f9c186704c93463bb002a365a"
+      "sha": "f829d0fcba71252ad0ce2cd375cfadaf46e6b275b9c03aa4b60be4ba869014a9"
     },
     "site/reports/keller.html": {
       "390": {

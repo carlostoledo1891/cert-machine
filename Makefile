@@ -75,6 +75,7 @@ test:
 	@printf "%-30s " "lattice-claims (pins+gate+regrade)"; $(PY) instruments/wiring/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "blind-spot (chip mutants)"; $(PY) environments/blind_spot/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "blind-spot inspect (one scorer)"; $(PY) environments/blind_spot/inspect/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "gsm8k (the answer key)"; $(PY) instruments/gsm8k/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "navier-stokes probes"; $(PY) instruments/navierstokes/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos1 (the explicit sets)"; $(PY) instruments/erdos1/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "pqc geometry (SVP audit)"; $(NODE) instruments/pqc/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -185,6 +186,7 @@ reports:
 	@$(NODE) tools/build-report-ecbench.js
 	@$(NODE) tools/build-report-breaking.js
 	@$(NODE) tools/build-report-hseva.js
+	@$(NODE) tools/build-report-gsm8k.js
 	@$(NODE) tools/build-report-navierstokes.js
 	@$(NODE) tools/build-report-lemniscate-inf.js
 	@$(NODE) tools/build-report-answer-key.js

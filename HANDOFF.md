@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-21 evening, METR DELIVERABLE 1 IS BUILT; the frontier run waits on Console credit)
+## TASKS BACKLOG — the standing menu (updated 2026-09-21 night, METR DELIVERABLES 1 AND 3 ARE BUILT; 2 waits on Console credit and baseline rows)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -59,9 +59,11 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
      verify from the registry in a clean venv, then push); M3 the applications
      (after deliverables 2–5). M0 is the credit top-up, a prerequisite.
   0c. NEXT: deliverable 2 (the certified time-horizon curve) needs BOTH the
-     frontier runs (credit) and human baseline rows; deliverable 3 (a task-QA
-     audit of a public eval) needs neither and can be taken first if the
-     credit waits. Deliverables 4 and 5 follow 2.
+     frontier runs (credit) and human baseline rows — nothing else is in the
+     way; deliverable 3 is DONE (0g below); deliverables 4 and 5 follow 2.
+     Until the credit and the rows arrive, the useful work is deliverable 5's
+     Python-first half (port the Krawczyk step, or the plan to call the Node
+     instrument and pin its output) and the packet's resume draft.
   0d. TWO THINGS LEARNED THAT ARE WORTH KNOWING: (i) on the blind rung every
      task has the SAME prompt (that is what the rung withholds), so a mock
      model that reads only the message list cannot tell tasks apart — the
@@ -74,6 +76,38 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
      wherever it still kills, both say SOLVED; the two never split.
   0e. THE 17TH SESSION'S WORK IS COMMITTED (e3fb985, the boundary commit
      before any of this was written; make test 89/89 at that point).
+  0g. METR DELIVERABLE 3 IS BUILT (taken before 2, on "proceed", because 2
+     waits on credit and baseline rows): GSM8K's answer key re-decided exactly.
+     instruments/gsm8k/audit.py (stdlib fractions, a hand-written parser,
+     nothing eval-ed) evaluates every calculator annotation and every readable
+     prose equation of the 1,319 test and 7,473 train keys; tools/run-gsm8k-
+     ledger.py writes certs/gsm8k-ledger.json (pins on the three corpus files;
+     GSM8K at commit 3101c7d, GSM8K-Platinum at HF revision e762492) and joins
+     Platinum by question text; instruments/gsm8k/battery.py (51 checks, 12
+     reds) is on make test and the control page; reports/gsm8k-audit.html
+     (tools/build-report-gsm8k.js, every sentence gated) with two aligned
+     1,319-cell strips (this page's verdict; Platinum's) and a train bar chart;
+     the shelf row and the site card; the targets row `gsm8k-answer-key`.
+     THE FINDING: all 4,282 test annotations exact (23,714 of 23,716 train; the
+     two refused use `//`); 2 test and 24 train keys print a prose step that
+     does not hold as printed (364 / 4 = 273; $32 − $20 = $300), and BOTH test
+     slips are Platinum "consensus" items — no model disagreed, so no human
+     read them; conversely all 10 Platinum relabellings have arithmetic that
+     holds and 103 of its 110 removed items are REPRODUCED: readings, not sums.
+     Grader forms: every key is an integer as printed (14 with thousands
+     separators, 2 negative) and both pinned harnesses (inspect_evals'
+     match(numeric=True), lm-eval's strict regex + comma stripping) read those
+     forms — no grader misspecification. A FALSE START worth recording: the
+     first survey listed annotations and answer lines in one list, so "3/4"
+     (an annotation's right-hand side, item 319) was written up as a fraction
+     KEY, an outreach issue was drafted on it, and the report builder's gate
+     (fraction rows = 0 ≠ the claimed 1) refused the page; the draft is
+     deleted and claims.json says what the forms are. The gate earned its place.
+     What the reader is: a chain reader with unit labels (%, cents), mixed
+     numbers, spaceless fractions as literals, running chains, and UNREAD for
+     fragments and algebra — 318 test / 1,711 train equations UNREAD, counted,
+     never guessed. Two train witnesses are notation read as arithmetic ("day
+     1 * 2", "Weeks 1-2"); listed, not excused, and the page says so.
   0f. OPEN ROLES SCOUTED on the operator's mid-session word ("find more open
      roles that will fit my portfolio, any company, any field, remote from
      Brazil as well"): notes/open-roles-2026-09-21.md — ~65 roles verified on
@@ -392,6 +426,78 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  EIGHTEENTH SESSION, continued (2026-09-21, night) — METR DELIVERABLE 3: GSM8K'S
+  ANSWER KEY RE-DECIDED TO THE LAST STEP AND READ AGAINST GSM8K-PLATINUM; A FALSE
+  START ON THE GRADER FORMS CAUGHT BY THE PAGE'S OWN GATE; THE SITE REBUILT.
+  COMMITTED · make test 91/91 · control 91/91 · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "proceed". Deliverable 2 waits on credit (re-probed:
+    still "credit balance is too low") and on baseline rows, so 3 was taken.
+
+  ── 1 · THE TARGET ── scouted first (targets row gsm8k-answer-key): GSM8K-
+    Platinum (Vendrow et al. 2025) is the neighbour — frontier models over the
+    test set, the 219 items some model missed inspected by hand, 110 removed,
+    10 relabelled, 99 verified. Nobody had re-decided the key's OWN printed
+    arithmetic mechanically. GSM8K pinned at github.com/openai/grade-school-
+    math commit 3101c7d (test.jsonl, train.jsonl; sha256 in corpus/gsm8k/
+    meta.json); Platinum's 1,209 rows read through the HF datasets-server at
+    revision e762492 (the parquet needs pyarrow); the HF mirror openai/gsm8k
+    that inspect_evals and lm-eval read checked identical to GitHub on all
+    1,319 test rows; both harnesses' scoring rules pinned by commit.
+
+  ── 2 · THE READER ── instruments/gsm8k/audit.py: a hand-written parser for
+    + − × ÷ and parentheses over stdlib fractions (nothing eval-ed; a Python
+    name and a power are red controls). Annotations <<lhs=rhs>>: EXACT /
+    ROUNDED (within half a unit of the last printed place, said so) / WRONG /
+    REFUSED. Prose equations: runs of arithmetic characters around "=", read
+    as chains pair by pair, with the notations the writers use — a spaced x,
+    $, % or "cents" as a unit label (the equality tried at the scale), "5 and
+    2/3" as a mixed number, "25 / 1/3" as 25 ÷ (1/3), "10 + 5 = 15 + 3 = 18"
+    as a running chain asserting its leading number — and UNREAD for anything
+    cut off by a word, glued to a variable or a clock, or algebra. The prose
+    reader went through five rounds against the train set's false positives
+    (a leading ".25" stripped as a period; runs crossing line breaks; the en
+    dash; "w-10=60"; "1.2Y"; "6:00+48"), each round shrinking WRONG from 52 →
+    39 → 30 → 29 → 27 → 24 on train while the annotations stayed 23,714 exact.
+
+  ── 3 · THE FINDING ── test: 4,282 annotations, all EXACT; 1,207 REPRODUCED,
+    50 ANSWER_IN_PROSE, 47 ANSWER_UNDERIVED (a unit change, a rounding up to
+    whole packs, algebra — a reader decides), 13 NO_STEPS, 2 PRINTED_STEP_WRONG
+    (#501 "364 / 4 = 273", the annotation beside it right; #1024 "$32 − $20 =
+    $300", the answer resting on it). Train: 23,714 of 23,716 exact, the two
+    refused for "//"; 24 keys print a wrong step (typos beside a correct
+    annotation in 18; unit slips; "500/ 2/5 = 200"), 2 ROUNDED. Against
+    Platinum: both test slips are CONSENSUS items — no model disagreed, so no
+    human read them; all 10 relabellings have arithmetic that holds; 103 of
+    110 removed are REPRODUCED. Readings, not sums: the two halves of a task-
+    QA audit find different things, and the mechanical half costs three
+    seconds. Grader forms: every key is an integer as printed; both harnesses
+    read commas; nothing misread.
+
+  ── 4 · THE FALSE START ── the first survey printed annotations and answer
+    lines in ONE list, so "<<3/4=3/4>>" (item 319's annotation) was read as a
+    fraction-form KEY; claims.json said so, an inspect_evals issue was drafted
+    on it (0.75 vs "3/4" is indeed graded I under match(numeric=True) — true
+    and irrelevant), and the report builder's gate (fraction rows = 0 ≠ the
+    claimed 1) refused the page. The draft is deleted, claims.json states the
+    forms, the row and the page say no form is misread. Two populations in
+    one list is how a false finding is minted; the gate is why it did not ship.
+
+  ── 5 · THE PAGE AND THE GATES ── reports/gsm8k-audit.html (tools/build-
+    report-gsm8k.js: battery + ledger --check before a byte; every sentence
+    gated): two aligned 1,319-cell strips (this page's verdict; Platinum's),
+    the cross-tab, the witness table (26 rows), the relabelled ten, a train
+    bar chart, the graders. THE THREE RATCHETS (style, render, measure) had
+    no row for the new page and refused the second site build; accepted after
+    looking at the page at 1440 and 390 (the render accept also re-recorded
+    ±0.01–0.02 ink on nine old figures: Chrome 152 → 153 rounding, both
+    directions, no page changed). instruments/gsm8k/battery.py: 51 checks, 12 reds,
+    on make test and the control page; the ledger certs/gsm8k-ledger.json
+    (1.0 MB, every item's row) on the shelf; the site card under "ai"; `make
+    reports` runs the builder. NOTHING SENT; LANE M unchanged (three sends).
 
 ══════════════════════════════════════════════════════════════════════════
   EIGHTEENTH SESSION, 2026-09-21 (evening) — METR DELIVERABLE 1: BLIND-SPOT AS AN

@@ -1,6 +1,6 @@
 {
   "note": "Recorded per built page: style attributes, unresolved var() names, literal fallbacks, extra <style> blocks, and literal values where a token exists — tools/check-style.js refuses any number that grows. Lower these by fixing the page, never by editing this file. The target for every column but the last is ZERO; the last shrinks as the stylesheets move onto the scale.",
-  "recorded": "2026-09-17",
+  "recorded": "2026-09-22",
   "metrics": [
     "attrs",
     "decls",
@@ -15,7 +15,7 @@
     "unresolved": 2,
     "fallbacks": 0,
     "blocks": 0,
-    "literals": 16120
+    "literals": 16324
   },
   "pages": {
     "site/about/index.html": {
@@ -473,6 +473,14 @@
       "fallbacks": 0,
       "blocks": 0,
       "literals": 238
+    },
+    "site/reports/gsm8k-audit.html": {
+      "attrs": 0,
+      "decls": 0,
+      "unresolved": 0,
+      "fallbacks": 0,
+      "blocks": 0,
+      "literals": 204
     },
     "site/reports/gym.html": {
       "attrs": 0,
